@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.full_level_quotient-a1.full_level_pullback-a1.nsmul_precomposition-a1",
+  "parent_id": "root.full_level_quotient-a1.full_level_pullback-a1",
+  "depth": 3,
+  "title": "Repeated addition is natural under compatible precomposition",
+  "statement": "Let R be a universe-zero commutative ring, A,W,W' universe-zero schemes, f : A → Spec R, and L : RelativeGroupLaw R f. Let t : W → Spec R, t' : W' → Spec R, and ψ : W' → W satisfy hψ : ψ ≫ t = t'. Then for every k ∈ ℕ and P : SchemeHomOver t f, schemeHomOverComp ψ hψ (nsmulPt L t k P) = nsmulPt L t' k (schemeHomOverComp ψ hψ P).",
+  "lean_statement": "∀ (R : Type) [CommRing R] (A W W' : AlgebraicGeometry.Scheme.{0}) (f : Quiver.Hom A (AlgebraicGeometry.Spec (CommRingCat.of R))) (L : GoodReductionJacobian.RelativeGroupLaw R f) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of R))) (t' : Quiver.Hom W' (AlgebraicGeometry.Spec (CommRingCat.of R))) (ψ : Quiver.Hom W' W) (hψ : CategoryTheory.CategoryStruct.comp ψ t = t') (k : ℕ) (P : NeronModelInfra.SchemeHomOver t f), GoodReductionJacobian.schemeHomOverComp ψ hψ (CerednikDrinfeld.QM.nsmulPt L t k P) = CerednikDrinfeld.QM.nsmulPt L t' k (GoodReductionJacobian.schemeHomOverComp ψ hψ P)",
+  "lean_name": "p07_flp_nsmul_precomp_857cd4d38c",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p07/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-full-level-pullback-a1-nsmul-precomposition-a1-a1"
+}

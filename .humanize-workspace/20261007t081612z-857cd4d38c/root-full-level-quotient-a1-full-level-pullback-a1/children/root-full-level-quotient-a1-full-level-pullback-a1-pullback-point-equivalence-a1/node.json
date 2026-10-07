@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.full_level_quotient-a1.full_level_pullback-a1.pullback_point_equivalence-a1",
+  "parent_id": "root.full_level_quotient-a1.full_level_pullback-a1",
+  "depth": 3,
+  "title": "Pullback equivalence on points preserves group operations and the order action",
+  "statement": "Let a,b ∈ ℚ, let Λ be a ℤ-submodule of QuaternionAlgebra ℚ a 0 b, and let N ∈ ℕ. Let S,T be universe-zero commutative rings, φ : S →+* T, E : FakeEllipticCurve Λ N S, ET : FakeEllipticCurve Λ N T, and g : ET.A → E.A. Assume FakeEllipticCurve.IsPullbackVia φ E ET g. For every universe-zero scheme W and t : W → Spec T, put β = Spec(φ) and tS = t ≫ β. There exists an equivalence B : SchemeHomOver t ET.f ≃ SchemeHomOver tS E.f satisfying: (i) (B P).1 = P.1 ≫ g for every P; (ii) B(ET.L.mul t P Q) = E.L.mul tS (B P) (B Q) for every P,Q; (iii) B(ET.L.one t) = E.L.one tS; (iv) B(nsmulPt ET.L t k P) = nsmulPt E.L tS k (B P) for every k ∈ ℕ and P; and (v) B(pushPt (ET.act x) (ET.act_over x) P) = pushPt (E.act x) (E.act_over x) (B P) for every x ∈ Λ and P.",
+  "lean_statement": "∀ {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N : ℕ) (S T : Type) [CommRing S] [CommRing T] (φ : S →+* T) (E : CerednikDrinfeld.QM.FakeEllipticCurve Λ N S) (ET : CerednikDrinfeld.QM.FakeEllipticCurve Λ N T) (g : Quiver.Hom ET.A E.A), CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia φ E ET g → ∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))), let tS := CategoryTheory.CategoryStruct.comp t (AlgebraicGeometry.Spec.map (CommRingCat.ofHom φ)); ∃ B : NeronModelInfra.SchemeHomOver t ET.f ≃ NeronModelInfra.SchemeHomOver tS E.f, (∀ P : NeronModelInfra.SchemeHomOver t ET.f, (B P).1 = CategoryTheory.CategoryStruct.comp P.1 g) ∧ (∀ P Q : NeronModelInfra.SchemeHomOver t ET.f, B (ET.L.mul t P Q) = E.L.mul tS (B P) (B Q)) ∧ B (ET.L.one t) = E.L.one tS ∧ (∀ (k : ℕ) (P : NeronModelInfra.SchemeHomOver t ET.f), B (CerednikDrinfeld.QM.nsmulPt ET.L t k P) = CerednikDrinfeld.QM.nsmulPt E.L tS k (B P)) ∧ (∀ (x : ↥Λ) (P : NeronModelInfra.SchemeHomOver t ET.f), B (CerednikDrinfeld.QM.pushPt (ET.act x) (ET.act_over x) P) = CerednikDrinfeld.QM.pushPt (E.act x) (E.act_over x) (B P))",
+  "lean_name": "p07_flp_point_equiv_857cd4d38c",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p07/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-full-level-pullback-a1-pullback-point-equivalence-a1-a1"
+}

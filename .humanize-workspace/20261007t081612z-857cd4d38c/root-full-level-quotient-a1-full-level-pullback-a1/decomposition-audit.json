@@ -1,0 +1,48 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "IsPullbackVia|nsmulPt|structure FullLevel|def sectionAt|mul_natural|def SchemeHomOver|def schemeHomOverComp|one_natural|def pushPt",
+        "noncomputable def lift|theorem lift_fst|theorem lift_snd|hom_ext|def lift",
+        "nsmulPt.*natural|nsmulPt.*comp|theorem.*nsmulPt|lemma.*nsmulPt|pullback_point_equiv|p07_flp_",
+        "p07_flp_point_equiv_857cd4d38c|p07_flp_nsmul_precomp_857cd4d38c",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean -DautoImplicit=false -DmaxHeartbeats=4000000 -DsynthInstance.maxHeartbeats=400000 -Dbackward.isDefEq.respectTransparency.types=false Contracts.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFormalModuleOf.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFineModuli.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMModuli.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_AlgebraicGeometry_RelativeGroupLaw.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_AlgebraicGeometry_NeronModelPropertyBundleCarrier.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/CategoryTheory/Limits/Shapes/Pullback/IsPullback/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Submission.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/dag.json",
+        "/tmp/p07-flp-independent-audit-y5na3cum/Contracts.lean",
+        "/tmp/p07-flp-independent-audit-y5na3cum/environment.json",
+        "/tmp/p07-flp-independent-audit-y5na3cum/contracts.log",
+        "/tmp/p07-flp-independent-audit-y5na3cum/submission.log",
+        "/tmp/p07-flp-independent-audit-y5na3cum/literal-import.log"
+      ],
+      "conclusion": "Independently confirmed clean snapshot revisions 73257f1e32d99b75813b037f28a5cf45a2db886d and db584cd6d46c92f209a44c0f1c829460d327499d, clean pinned installed dependencies, and agreement of all 47 imported project definition modules with the snapshot. The definitions and pullback API support every child proof step. No matching nsmulPt naturality theorem, pullback-point helper, or proposed-name reservation was found. Both exact expressions independently elaborate as Prop under Lean 4.33.1 without either child declaration. Queried infrastructure has only propext, Classical.choice, and Quot.sound as transitive axioms. The split separates two reusable, non-circular obligations; the augmented DAG is acyclic. Operations explicitly use the stated relative group laws, with no ambiguous inline algebraic instance. Independently reproduced the inherited Submission errors at opensMapFinal, baseChangePointToBase_ofBase, and dualNumberFst_apply. Thus this approves the decomposition and supplied proofs, not a Lean solution or passage of the blocked literal-import/comparator gate."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "pullback_point_equivalence",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose, including universe restrictions, IsPullbackVia, and all five compatibility properties. The forward map is well-defined by square commutativity; the inverse and both inverse identities follow from the verified lift projections and hom_ext. Multiplication compatibility follows by subtype extensionality. The idempotence calculation correctly proves identity preservation using only the target group-law fields. The induction matches the actual nsmulPt recursion, and action compatibility follows from the supplied action equation and associativity. No parent or sibling theorem is assumed. The bare identifier is unreserved, and the contract does not depend on its implementation."
+    },
+    {
+      "key": "nsmul_precomposition",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly includes the stated ring, schemes, group law, compatible morphism equation, natural number, and point. Precomposition has the asserted underlying morphism and codomain. L.mul_natural supplies multiplication preservation; the complete idempotence calculation proves identity preservation and agrees with existing one_natural. The zero and successor cases follow exactly from the pinned nsmulPt definition. The proof is complete and independent of the parent and sibling. Its bare identifier is unreserved, and its frozen type elaborates without an implemented child."
+    }
+  ],
+  "required_changes": []
+}

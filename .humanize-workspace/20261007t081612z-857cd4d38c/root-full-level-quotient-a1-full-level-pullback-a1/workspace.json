@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081612Z-857cd4d38c",
+  "parent_id": "root.full_level_quotient-a1.full_level_pullback-a1",
+  "dispatch_branch": "proof-workspace/fermat-p07/20261007t081612z-857cd4d38c/dispatch/root-full-level-quotient-a1-full-level-pullback-a1",
+  "source_commit": "73257f1e32d99b75813b037f28a5cf45a2db886d",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.full_level_quotient-a1.full_level_pullback-a1.nsmul_precomposition-a1",
+      "key": "nsmul_precomposition",
+      "result_branch": "humanize-recursive/fermat-p07/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-full-level-pullback-a1-nsmul-precomposition-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-full-level-pullback-a1/children/root-full-level-quotient-a1-full-level-pullback-a1-nsmul-precomposition-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "IsPullbackVia|nsmulPt|structure FullLevel|def sectionAt|mul_natural",
+              "def SchemeHomOver|def schemeHomOverComp|schemeHomOverComp_coe|theorem.*nsmulPt|lemma.*nsmulPt|nsmulPt.*natural|point.*[Ee]quiv|[Pp]ullback.*[Ee]quiv",
+              "noncomputable def lift|theorem lift_fst|theorem lift_snd|hom_ext|def lift",
+              "p07_flp_|nsmul_precomp|pullback_point_equiv",
+              "opensMapFinal|baseChangePointToBase_ofBase|dualNumberFst_apply"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFormalModuleOf.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFineModuli.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMModuli.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_AlgebraicGeometry_RelativeGroupLaw.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/CategoryTheory/Limits/Shapes/Pullback/IsPullback/Defs.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Submission.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/dag.json",
+              "/tmp/p07-flp-types-1n_g3clh/CheckDefinitions.lean",
+              "/tmp/p07-flp-types-1n_g3clh/diagnostic-typecheck.log"
+            ],
+            "conclusion": "Both snapshots are clean at the manifest revisions: project 73257f1e32d99b75813b037f28a5cf45a2db886d and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Installed dependencies also match their pinned revisions and are clean. IsPullbackVia supplies precisely the pullback, multiplication, and action compatibilities used below. RelativeGroupLaw.one_natural already proves identity preservation under precomposition. No existing nsmulPt naturality theorem or matching fake-curve pullback point-equivalence theorem was found. IsPullback.lift, lift_fst, lift_snd, and hom_ext supply the required universal-property infrastructure. Neither proposed identifier is reserved in the inspected DAG. Both exact child types pass the controller lexical validator and elaborate as Prop against Submission's unchanged definition imports with Lean 4.33.1 and the pinned options. Operations are explicitly tied to the specified relative group laws; no inline algebraic instance is constructed. Transitive axiom checks of the cited infrastructure returned only propext, Classical.choice, and Quot.sound. However, unchanged Submission.lean fails at its attribute commands on AlgebraicGeometry.Scheme.Hom.opensMapFinal, GoodReductionJacobian.RelativeGroupLaw.baseChangePointToBase_ofBase, and RegularLocalRingQuotientAscent.dualNumberFst_apply. Therefore literal import Submission validation remains blocked; diagnostic elaboration is not comparator acceptance."
+          }
+        ],
+        "parent_id": "root.full_level_quotient-a1.full_level_pullback-a1",
+        "child_id": "root.full_level_quotient-a1.full_level_pullback-a1.nsmul_precomposition-a1",
+        "subproblem": {
+          "key": "nsmul_precomposition",
+          "title": "Repeated addition is natural under compatible precomposition",
+          "statement": "Let R be a universe-zero commutative ring, A,W,W' universe-zero schemes, f : A → Spec R, and L : RelativeGroupLaw R f. Let t : W → Spec R, t' : W' → Spec R, and ψ : W' → W satisfy hψ : ψ ≫ t = t'. Then for every k ∈ ℕ and P : SchemeHomOver t f, schemeHomOverComp ψ hψ (nsmulPt L t k P) = nsmulPt L t' k (schemeHomOverComp ψ hψ P).",
+          "lean_statement": "∀ (R : Type) [CommRing R] (A W W' : AlgebraicGeometry.Scheme.{0}) (f : Quiver.Hom A (AlgebraicGeometry.Spec (CommRingCat.of R))) (L : GoodReductionJacobian.RelativeGroupLaw R f) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of R))) (t' : Quiver.Hom W' (AlgebraicGeometry.Spec (CommRingCat.of R))) (ψ : Quiver.Hom W' W) (hψ : CategoryTheory.CategoryStruct.comp ψ t = t') (k : ℕ) (P : NeronModelInfra.SchemeHomOver t f), GoodReductionJacobian.schemeHomOverComp ψ hψ (CerednikDrinfeld.QM.nsmulPt L t k P) = CerednikDrinfeld.QM.nsmulPt L t' k (GoodReductionJacobian.schemeHomOverComp ψ hψ P)",
+          "lean_name": "p07_flp_nsmul_precomp_857cd4d38c",
+          "depends_on": [],
+          "natural_proof": "1. Fix the stated ring, schemes, group law and compatible morphisms. Write C(Q) = schemeHomOverComp ψ hψ Q. Its underlying morphism is ψ ≫ Q.1. Since (ψ ≫ Q.1) ≫ f = ψ ≫ t = t', this is a point over t'. The field L.mul_natural gives C(L.mul t Q Q') = L.mul t' (C(Q)) (C(Q')) for every Q,Q' over t.\n2. Put H = C(L.one t), and write multiplication, inverse and identity using L at t'. Step 1 and L.one_mul imply H·H = H. Therefore H = 1·H = (H⁻¹·H)·H = H⁻¹·(H·H) = H⁻¹·H = 1, by the identity, inverse and associativity laws of L. Thus C(L.one t) = L.one t'. This equality is also the existing library theorem RelativeGroupLaw.one_natural.\n3. Fix P and induct on k. For k = 0, nsmulPt L t 0 P is L.one t, and nsmulPt L t' 0 (C(P)) is L.one t'. Their required equality follows from step 2.\n4. Suppose the equality holds for k. By the successor equation defining nsmulPt, C(nsmulPt L t (k+1) P) = C(L.mul t (nsmulPt L t k P) P). Step 1 rewrites this as L.mul t' (C(nsmulPt L t k P)) (C(P)). The induction hypothesis rewrites it as L.mul t' (nsmulPt L t' k (C(P))) (C(P)), which equals nsmulPt L t' (k+1) (C(P)) by the same successor equation. This completes the induction and proves the statement for every k and P.",
+          "proof_key_steps": [
+            "Express compatible precomposition as the map C and apply multiplication naturality.",
+            "Show C preserves identity by the idempotence and inverse argument.",
+            "Prove the zero case using identity preservation.",
+            "Prove the successor case using multiplication naturality and the induction hypothesis."
+          ]
+        },
+        "audit": {
+          "key": "nsmul_precomposition",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly includes the stated ring, schemes, group law, compatible morphism equation, natural number, and point. Precomposition has the asserted underlying morphism and codomain. L.mul_natural supplies multiplication preservation; the complete idempotence calculation proves identity preservation and agrees with existing one_natural. The zero and successor cases follow exactly from the pinned nsmulPt definition. The proof is complete and independent of the parent and sibling. Its bare identifier is unreserved, and its frozen type elaborates without an implemented child."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-full-level-quotient-a1-full-level-pullback-a1-nsmul-precomposition-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-full-level-quotient-a1-full-level-pullback-a1-nsmul-precomposition-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-full-level-quotient-a1-full-level-pullback-a1-nsmul-precomposition-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.full_level_quotient-a1.full_level_pullback-a1.pullback_point_equivalence-a1",
+      "key": "pullback_point_equivalence",
+      "result_branch": "humanize-recursive/fermat-p07/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-full-level-pullback-a1-pullback-point-equivalence-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-full-level-pullback-a1/children/root-full-level-quotient-a1-full-level-pullback-a1-pullback-point-equivalence-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "IsPullbackVia|nsmulPt|structure FullLevel|def sectionAt|mul_natural",
+              "def SchemeHomOver|def schemeHomOverComp|schemeHomOverComp_coe|theorem.*nsmulPt|lemma.*nsmulPt|nsmulPt.*natural|point.*[Ee]quiv|[Pp]ullback.*[Ee]quiv",
+              "noncomputable def lift|theorem lift_fst|theorem lift_snd|hom_ext|def lift",
+              "p07_flp_|nsmul_precomp|pullback_point_equiv",
+              "opensMapFinal|baseChangePointToBase_ofBase|dualNumberFst_apply"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFormalModuleOf.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFineModuli.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMModuli.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_AlgebraicGeometry_RelativeGroupLaw.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/CategoryTheory/Limits/Shapes/Pullback/IsPullback/Defs.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Submission.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/dag.json",
+              "/tmp/p07-flp-types-1n_g3clh/CheckDefinitions.lean",
+              "/tmp/p07-flp-types-1n_g3clh/diagnostic-typecheck.log"
+            ],
+            "conclusion": "Both snapshots are clean at the manifest revisions: project 73257f1e32d99b75813b037f28a5cf45a2db886d and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Installed dependencies also match their pinned revisions and are clean. IsPullbackVia supplies precisely the pullback, multiplication, and action compatibilities used below. RelativeGroupLaw.one_natural already proves identity preservation under precomposition. No existing nsmulPt naturality theorem or matching fake-curve pullback point-equivalence theorem was found. IsPullback.lift, lift_fst, lift_snd, and hom_ext supply the required universal-property infrastructure. Neither proposed identifier is reserved in the inspected DAG. Both exact child types pass the controller lexical validator and elaborate as Prop against Submission's unchanged definition imports with Lean 4.33.1 and the pinned options. Operations are explicitly tied to the specified relative group laws; no inline algebraic instance is constructed. Transitive axiom checks of the cited infrastructure returned only propext, Classical.choice, and Quot.sound. However, unchanged Submission.lean fails at its attribute commands on AlgebraicGeometry.Scheme.Hom.opensMapFinal, GoodReductionJacobian.RelativeGroupLaw.baseChangePointToBase_ofBase, and RegularLocalRingQuotientAscent.dualNumberFst_apply. Therefore literal import Submission validation remains blocked; diagnostic elaboration is not comparator acceptance."
+          }
+        ],
+        "parent_id": "root.full_level_quotient-a1.full_level_pullback-a1",
+        "child_id": "root.full_level_quotient-a1.full_level_pullback-a1.pullback_point_equivalence-a1",
+        "subproblem": {
+          "key": "pullback_point_equivalence",
+          "title": "Pullback equivalence on points preserves group operations and the order action",
+          "statement": "Let a,b ∈ ℚ, let Λ be a ℤ-submodule of QuaternionAlgebra ℚ a 0 b, and let N ∈ ℕ. Let S,T be universe-zero commutative rings, φ : S →+* T, E : FakeEllipticCurve Λ N S, ET : FakeEllipticCurve Λ N T, and g : ET.A → E.A. Assume FakeEllipticCurve.IsPullbackVia φ E ET g. For every universe-zero scheme W and t : W → Spec T, put β = Spec(φ) and tS = t ≫ β. There exists an equivalence B : SchemeHomOver t ET.f ≃ SchemeHomOver tS E.f satisfying: (i) (B P).1 = P.1 ≫ g for every P; (ii) B(ET.L.mul t P Q) = E.L.mul tS (B P) (B Q) for every P,Q; (iii) B(ET.L.one t) = E.L.one tS; (iv) B(nsmulPt ET.L t k P) = nsmulPt E.L tS k (B P) for every k ∈ ℕ and P; and (v) B(pushPt (ET.act x) (ET.act_over x) P) = pushPt (E.act x) (E.act_over x) (B P) for every x ∈ Λ and P.",
+          "lean_statement": "∀ {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N : ℕ) (S T : Type) [CommRing S] [CommRing T] (φ : S →+* T) (E : CerednikDrinfeld.QM.FakeEllipticCurve Λ N S) (ET : CerednikDrinfeld.QM.FakeEllipticCurve Λ N T) (g : Quiver.Hom ET.A E.A), CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia φ E ET g → ∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))), let tS := CategoryTheory.CategoryStruct.comp t (AlgebraicGeometry.Spec.map (CommRingCat.ofHom φ)); ∃ B : NeronModelInfra.SchemeHomOver t ET.f ≃ NeronModelInfra.SchemeHomOver tS E.f, (∀ P : NeronModelInfra.SchemeHomOver t ET.f, (B P).1 = CategoryTheory.CategoryStruct.comp P.1 g) ∧ (∀ P Q : NeronModelInfra.SchemeHomOver t ET.f, B (ET.L.mul t P Q) = E.L.mul tS (B P) (B Q)) ∧ B (ET.L.one t) = E.L.one tS ∧ (∀ (k : ℕ) (P : NeronModelInfra.SchemeHomOver t ET.f), B (CerednikDrinfeld.QM.nsmulPt ET.L t k P) = CerednikDrinfeld.QM.nsmulPt E.L tS k (B P)) ∧ (∀ (x : ↥Λ) (P : NeronModelInfra.SchemeHomOver t ET.f), B (CerednikDrinfeld.QM.pushPt (ET.act x) (ET.act_over x) P) = CerednikDrinfeld.QM.pushPt (E.act x) (E.act_over x) (B P))",
+          "lean_name": "p07_flp_point_equiv_857cd4d38c",
+          "depends_on": [],
+          "natural_proof": "1. Fix all the stated data, W and t. Write β = Spec(φ) and tS = t ≫ β. Unpack IsPullbackVia to obtain a pullback square h with g ≫ E.f = ET.f ≫ β, together with multiplication and action compatibility. For P : SchemeHomOver t ET.f, associativity gives (P.1 ≫ g) ≫ E.f = P.1 ≫ (ET.f ≫ β) = t ≫ β = tS. Define F(P) to be the E-point whose underlying morphism is P.1 ≫ g.\n2. For R : SchemeHomOver tS E.f, its defining equation is R.1 ≫ E.f = t ≫ β. The pullback universal property therefore gives a morphism h.lift R.1 t R.2 : W → ET.A whose compositions with g and ET.f are respectively R.1 and t. Define I(R) to be this morphism with its second projection equation. Its first projection equation implies F(I(R)) = R by subtype extensionality.\n3. The underlying morphism of I(F(P)) has compositions P.1 ≫ g and t with g and ET.f. These are also the compositions of P.1, since P.1 ≫ ET.f = t. Pullback uniqueness gives equality of the underlying morphisms, and subtype extensionality gives I(F(P)) = P. Thus F and I define an equivalence B. Its underlying-morphism formula is true by the definition of F.\n4. The multiplication clause of IsPullbackVia identifies the underlying morphism of B(ET.L.mul t P Q) with that of E.L.mul tS (B P) (B Q). The points appearing in that clause have exactly the underlying morphisms defining B P and B Q; their membership proofs are irrelevant. Subtype extensionality gives the asserted multiplication equality.\n5. Put H = B(ET.L.one t). Use multiplication, inverse and identity from E.L at tS in this step. Step 4 and the source identity law give H·H = H. The target group-law identities then give H = 1·H = (H⁻¹·H)·H = H⁻¹·(H·H) = H⁻¹·H = 1. Consequently B(ET.L.one t) = E.L.one tS.\n6. Fix P and induct on k. For k = 0, the defining zero equation of nsmulPt reduces the claim to step 5. For k+1, the recursive equation and step 4 give B(nsmulPt ET.L t (k+1) P) = E.L.mul tS (B(nsmulPt ET.L t k P)) (B P). The induction hypothesis rewrites this to E.L.mul tS (nsmulPt E.L tS k (B P)) (B P), which is nsmulPt E.L tS (k+1) (B P) by the recursive equation. This proves preservation of every repeated sum.\n7. Fix x ∈ Λ and P. By the definitions of pushPt and B, the underlying morphism of B(pushPt (ET.act x) (ET.act_over x) P) is (P.1 ≫ ET.act x) ≫ g. Associativity and the action clause ET.act x ≫ g = g ≫ E.act x rewrite this as (P.1 ≫ g) ≫ E.act x. This is the underlying morphism of pushPt (E.act x) (E.act_over x) (B P). Subtype extensionality proves action compatibility. Combining steps 3–7 supplies the equivalence and all five required properties.",
+          "proof_key_steps": [
+            "Define the forward map by composition with g, using commutativity of the pullback square.",
+            "Define its inverse by the pullback lift and verify both inverse identities using projection equations and uniqueness.",
+            "Convert the given multiplication compatibility into equality of points.",
+            "Prove identity preservation by cancelling the idempotent image of identity.",
+            "Prove nsmulPt preservation by induction.",
+            "Prove action compatibility by associativity and the action equation in IsPullbackVia."
+          ]
+        },
+        "audit": {
+          "key": "pullback_point_equivalence",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly matches the prose, including universe restrictions, IsPullbackVia, and all five compatibility properties. The forward map is well-defined by square commutativity; the inverse and both inverse identities follow from the verified lift projections and hom_ext. Multiplication compatibility follows by subtype extensionality. The idempotence calculation correctly proves identity preservation using only the target group-law fields. The induction matches the actual nsmulPt recursion, and action compatibility follows from the supplied action equation and associativity. No parent or sibling theorem is assumed. The bare identifier is unreserved, and the contract does not depend on its implementation."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-full-level-quotient-a1-full-level-pullback-a1-pullback-point-equivalence-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-full-level-quotient-a1-full-level-pullback-a1-pullback-point-equivalence-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-full-level-quotient-a1-full-level-pullback-a1-pullback-point-equivalence-a1/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-full-level-pullback-a1/task.md": "fd5d24e5d133be82c50f361fb46820fe9b4ead548bfb61f4cd1eaf5c920989b9",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-full-level-pullback-a1/problem.md": "5f0871c2e93d5288092a1f00902e3f8add02d0e21d6e142ac2ea7d6dfbe7d1ce",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-full-level-pullback-a1/problem.json": "7418cb1df4807b9c729e4ba13bf2cda4d547b983e49ef2dc558e550828439c26",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-full-level-pullback-a1/reference-manifest.json": "7a693667f3887c9ad53914a2f2caec85a3d20f69d227f2adb18f4be2c4924603",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-full-level-pullback-a1/decomposition.json": "b8598b613b44b6494ef4dd2c4e15382628e1f046d3835edc70f5d6f16c7fac4f",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-full-level-pullback-a1/decomposition-audit.json": "42dd49f900f20bbef0c37a3fcd938b9a68a46c2b9411a9dde90720dcbf3b3d08",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-full-level-pullback-a1/controller-contract.json": "f8efa232ebddac99c94269f22aef65fa0ee43088676bfb82e47f25434ef50ee9",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-full-level-pullback-a1/children/root-full-level-quotient-a1-full-level-pullback-a1-nsmul-precomposition-a1/parent-child-handoff.json": "0b5f00ee27051cc381443a3e1ee2a21bb84ab145006f0cce9f691a62a12ed8d4",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-full-level-pullback-a1/children/root-full-level-quotient-a1-full-level-pullback-a1-nsmul-precomposition-a1/parent-supplied-plan.md": "0e43754ae1bb2c7be832594143333856253ed0f83df75597d052772f9eeb71be",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-full-level-pullback-a1/children/root-full-level-quotient-a1-full-level-pullback-a1-nsmul-precomposition-a1/parent-supplied-natural-proof.md": "0dcb770789dd40a089eb65d5c04c7db7118842f3ab73a46552818d0404b0182d",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-full-level-pullback-a1/children/root-full-level-quotient-a1-full-level-pullback-a1-nsmul-precomposition-a1/parent-supplied-natural-proof.json": "661b67bc4db429f8626b9756efc81131a12f829ef30daf7188c8410eeb52cd71",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-full-level-pullback-a1/children/root-full-level-quotient-a1-full-level-pullback-a1-nsmul-precomposition-a1/node.json": "ecb5fdda3789fb219011e6aa4ed8d1cedaa519982abb193842d4f00d45ccea41",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-full-level-pullback-a1/children/root-full-level-quotient-a1-full-level-pullback-a1-pullback-point-equivalence-a1/parent-child-handoff.json": "0ad051e95a96f24bbd48e6bd87c108ccf67845828362814f4388705cbcebfc29",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-full-level-pullback-a1/children/root-full-level-quotient-a1-full-level-pullback-a1-pullback-point-equivalence-a1/parent-supplied-plan.md": "525f4a2888bf88bf8c166a50f50b2123b9d629051f48ef8435029f33efb359c9",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-full-level-pullback-a1/children/root-full-level-quotient-a1-full-level-pullback-a1-pullback-point-equivalence-a1/parent-supplied-natural-proof.md": "55a9a4c9a4c55b0a8e44bd3dd6094d0753cd57fd71f430b00de51f979d63ec4d",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-full-level-pullback-a1/children/root-full-level-quotient-a1-full-level-pullback-a1-pullback-point-equivalence-a1/parent-supplied-natural-proof.json": "0c2f0f6fc100388e2da6322aa3381c3f1b2d2f4e2f8accfef5453716f95d31c5",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-full-level-pullback-a1/children/root-full-level-quotient-a1-full-level-pullback-a1-pullback-point-equivalence-a1/node.json": "4c4ced56ce368beedea35f19d214047f6b1f8b4e8158e186c2653f3d32542c05"
+  }
+}
