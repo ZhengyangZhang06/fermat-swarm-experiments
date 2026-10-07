@@ -3799,5 +3799,32 @@ theorem p06_9e0f5043ff_dmd_finite_family_dividing_member
     exact dvd_zero _
   · rw [he i, he ⟨j, hj⟩, Units.mul_left_dvd, Units.dvd_mul_left]
     exact pow_dvd_pow π (hmin ⟨j, hj⟩ (Finset.mem_univ _))
+theorem p06_9e0f5043ff_sdp_clear_first_column
+    (R : Type*) [CommRing R] (m : ℕ)
+    (B : Matrix (Fin (m + 1)) (Fin (m + 1)) R)
+    (h : ∀ i : Fin m, B 0 0 ∣ B i.succ 0) :
+    ∃ U : Matrix (Fin (m + 1)) (Fin (m + 1)) R,
+      IsUnit U ∧ (∀ j : Fin (m + 1), (U * B) 0 j = B 0 j) ∧
+        (∀ i : Fin m, (U * B) i.succ 0 = 0) := by
+  classical
+  choose a ha using h
+  let c : Fin (m + 1) → R := Fin.cases 0 a
+  let N : Matrix (Fin (m + 1)) (Fin (m + 1)) R :=
+    Matrix.of fun i j => if j = 0 then c i else 0
+  have hmul (M : Matrix (Fin (m + 1)) (Fin (m + 1)) R)
+      (i j : Fin (m + 1)) : (N * M) i j = c i * M 0 j := by
+    simp [Matrix.mul_apply, N]
+  have hsq : N * N = 0 := by
+    ext i j
+    rw [hmul]
+    simp [N, c]
+  refine ⟨1 - N, ?_, ?_, ?_⟩
+  · refine ⟨⟨1 - N, 1 + N, ?_, ?_⟩, rfl⟩
+    · simp [sub_mul, mul_add, hsq]
+    · simp [mul_sub, add_mul, hsq]
+  · intro j
+    simp [sub_mul, hmul, c]
+  · intro i
+    simp [sub_mul, hmul, c, ha i, mul_comm]
 
 end Submission
