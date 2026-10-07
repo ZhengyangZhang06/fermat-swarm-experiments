@@ -1,0 +1,79 @@
+{
+  "source_repository": "https://github.com/anthropics/fermats-last-theorem",
+  "source_commit": "6e837e75355538c7f80bab5b956861e86c4eacc2",
+  "leaf_definition": "Distinct reachable theorem nodes with no outgoing theorem-import edges in the upstream proof-import graph; excludes Mathlib and definition modules.",
+  "format": "Lean theorem statements with sorry proof placeholders. Declaration context and non-P2M imports are preserved.",
+  "dependencies": "These are statement extracts, not a standalone Lean project. They require the source repository Definitions modules and dependencies at the pinned commit.",
+  "problems": [
+    {
+      "theorem": "CuspForm.span_heckeTLin_eigen_eq_top",
+      "file": "Thm_CuspForm_span_heckeTLin_eigen_eq_top.lean",
+      "source_path": "Theorems/Thm_CuspForm_span_heckeTLin_eigen_eq_top.lean",
+      "distinct_leaf_count": 15,
+      "transitive_theorem_dependencies": 21
+    },
+    {
+      "theorem": "HeckeEis.eichlerShimuraMap_injective",
+      "file": "Thm_HeckeEis_eichlerShimuraMap_injective.lean",
+      "source_path": "Theorems/Thm_HeckeEis_eichlerShimuraMap_injective.lean",
+      "distinct_leaf_count": 15,
+      "transitive_theorem_dependencies": 26
+    },
+    {
+      "theorem": "WeierstrassCurve.galoisRep_ordinaryLineAt",
+      "file": "Thm_WeierstrassCurve_galoisRep_ordinaryLineAt.lean",
+      "source_path": "Theorems/Thm_WeierstrassCurve_galoisRep_ordinaryLineAt.lean",
+      "distinct_leaf_count": 15,
+      "transitive_theorem_dependencies": 22
+    },
+    {
+      "theorem": "Rep.isZero_tateCohomology_of_forall_sylow",
+      "file": "Thm_Rep_isZero_tateCohomology_of_forall_sylow.lean",
+      "source_path": "Theorems/Thm_Rep_isZero_tateCohomology_of_forall_sylow.lean",
+      "distinct_leaf_count": 15,
+      "transitive_theorem_dependencies": 25
+    },
+    {
+      "theorem": "HopfAlgebra.hopfKer_eq_of_surjective_of_ker_eq_span",
+      "file": "Thm_HopfAlgebra_hopfKer_eq_of_surjective_of_ker_eq_span.lean",
+      "source_path": "Theorems/Thm_HopfAlgebra_hopfKer_eq_of_surjective_of_ker_eq_span.lean",
+      "distinct_leaf_count": 15,
+      "transitive_theorem_dependencies": 27
+    },
+    {
+      "theorem": "AlgebraicCurve.hasPrincipalDivisors_of_transcendental",
+      "file": "Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean",
+      "source_path": "Theorems/Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean",
+      "distinct_leaf_count": 15,
+      "transitive_theorem_dependencies": 24
+    },
+    {
+      "theorem": "CerednikDrinfeld.QM.RigidifiedPairClass.exists_ptR_eq",
+      "file": "Thm_CerednikDrinfeld_QM_RigidifiedPairClass_exists_ptR_eq.lean",
+      "source_path": "Theorems/Thm_CerednikDrinfeld_QM_RigidifiedPairClass_exists_ptR_eq.lean",
+      "distinct_leaf_count": 15,
+      "transitive_theorem_dependencies": 27
+    },
+    {
+      "theorem": "groupCohomology.bijective_theta_dualTwist_of_res_of_isOpen",
+      "file": "Thm_groupCohomology_bijective_theta_dualTwist_of_res_of_isOpen.lean",
+      "source_path": "Theorems/Thm_groupCohomology_bijective_theta_dualTwist_of_res_of_isOpen.lean",
+      "distinct_leaf_count": 15,
+      "transitive_theorem_dependencies": 20
+    },
+    {
+      "theorem": "GaloisRepAdic.exists_quadraticRelation_forall_of_frobenius",
+      "file": "Thm_GaloisRepAdic_exists_quadraticRelation_forall_of_frobenius.lean",
+      "source_path": "Theorems/Thm_GaloisRepAdic_exists_quadraticRelation_forall_of_frobenius.lean",
+      "distinct_leaf_count": 15,
+      "transitive_theorem_dependencies": 26
+    },
+    {
+      "theorem": "CuspForm.gamma0_weight_two_eq_zero_of_genusFormula_eq_zero",
+      "file": "Thm_CuspForm_gamma0_weight_two_eq_zero_of_genusFormula_eq_zero.lean",
+      "source_path": "Theorems/Thm_CuspForm_gamma0_weight_two_eq_zero_of_genusFormula_eq_zero.lean",
+      "distinct_leaf_count": 15,
+      "transitive_theorem_dependencies": 37
+    }
+  ]
+}
