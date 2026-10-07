@@ -767,3 +767,57 @@ state, not simply deleting the project lock.
   adapterPID3387184 and the same hoa1 task/service. No solution PR yet.
 - The missing-header repair decision remains unanswered. No header changes,
   issue closures, proof acceptance bypasses, or worker restarts occurred.
+
+## Follow-up checkpoint, 12:55 UTC — FIRST VERIFIED SUBTHEOREM MERGED
+
+- P02 child#45, `Submission.p02_es_177ebb5a_sm_holomorphic`, completed the
+  full lifecycle. Final-reviewer request4edce24fdb124c73b1b49469f0fac33a
+  finished0, then integration request3c70ec41b066403494eb473b014ec4df
+  finished0 for integrated revision0f5a9b05fb9673e5a60fa917656db526e75c7db1.
+  The accepted candidate remains2ced4d3abd9f318f5490841e5e6ce28d9dfb7944.
+  Comparator, kernel replay and axiom evidence pass; the final Lean audit has
+  no issues and retains the finite-sum differentiability proof.
+- PR65 is remotely MERGED at12:43:30 UTC:
+  https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/65
+  Published head e774d44770a46ade3fb35a3021b2880da359cf78; merge commit
+  b052f9ef5e0aa9c778243c4f198d6c0570a9ab3d. Both tree hashes are exactly
+  c9f363cd0af6b79f5ba9a620bd8108f3a8bed66d. Direct Git comparison found no
+  Lean/toolchain/manifest changes between the accepted candidate and published
+  solution. The proof, exact contract, review and verification artifacts are
+  committed under `proofs/github/20261007t081612z-177ebb5a0d/`.
+- Issue45 is remotely CLOSED at12:43:40, AFTER merge. Its body contains the
+  complete four-step natural-language proof (including n=0), the exact Lean
+  contract and solution PR link. The DAG records proved/merged/closed and the
+  integrated revision. This is ONE child theorem, not a solved root problem.
+- Confirmed public status-live feed at12:48:40 includes PR65 and marks the node
+  proved, lean_verified=true, integrated=true, pr_state=merged. Observer active.
+- A DIFFERENT autonomous poller on hoa36 claimed issue37 at12:44:08 and started
+  its proof process. Task0lq6n6znk4g1985um555pua3p is Running. The selected node
+  is `root.primitive_exists-a1.scalar_primitive-a1`, holomorphic scalar primitives
+  on the upper half-plane; it is decomposing. No worker-to-worker start notice,
+  takeover, or manual issue closure was used.
+- Transient `integration worktree is not clean` retries resolved inside the
+  existing workflow. Both inspected worktrees were clean when diagnosed, and
+  the integration check was already running. The controller made no worktree edit.
+- Pending source-only cache implementation is UNCOMMITTED and NOT deployed:
+  `scripts/verify-frozen-node.py`, new `tests/test_reference_cache.py`, expanded
+  packet tests and `docs/verifier-reference-cache.md`. It binds optional cache
+  path/digest to prepared evidence and inventories bytes/modes before and after
+  verification. Default remains uncached. The initial full suite ran237 tests,
+  OK with1 optional browser skip, and its real opt-in CLI10-fixture test passed.
+- The validated mirror is sealed with digest
+  d27914ad50fe438f1ed6f8b512f5ae0dc19950e5527c6afdefba6b9f6a85f5a6.
+  Private fixed Mathlib packet diagnostic is still running under PID3587586,
+  tool session31465, at
+  `/var/tmp/fermat-verifier-reference.Z0kXAn/cached-mathlib-packet-afbpjjgm`.
+  Comparator/kernel passed; final axiom/inventory checks remain. It is NOT a
+  registered campaign request. Preserve its checker file until terminal.
+- A subsequent regression test found an unfixed cache edge case: a symlink
+  inside an inventoried tree can currently target an UNINVENTORIED file at the
+  cache root. The new test is intentionally RED. After the current diagnostic
+  terminates, tighten `reference_inventory` to allow resolved symlink targets
+  only inside `packages/` or `lean-4.33.1-linux/`, not arbitrary cache-root files;
+  rerun tests and real mirror validation before committing/enabling the feature.
+- P01 remote recheckcd203… remains live on the original hoa1 task. A further
+  p06 recheck20b9a7aff88245fb8e71a1c3f8fdcc42 runs under PID3621068 for unchanged
+  candidateb83e6c8a62b94181c67314fb3cfb085202f0681b. No header repair approved.
