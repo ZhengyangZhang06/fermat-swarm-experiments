@@ -25,6 +25,10 @@ class StatusBrowserTests(unittest.TestCase):
         self.mode = "previous-minute"
         self.requests = []
         self.errors = []
+        self.problems = [dict(id="fermat-p01", nodes=[
+            dict(id="fermat-p01/root", problem="fermat-p01", local_id="root",
+                 title="Theorem", requires=[], status="decomposing", prose_status="reviewed",
+                 observed_running=True, worker_node="hoa3")])]
         self.page.on("pageerror", lambda error: self.errors.append(str(error)))
         self.page.route("**/*", self.route)
 
@@ -42,10 +46,7 @@ class StatusBrowserTests(unittest.TestCase):
             observed = datetime.fromtimestamp((minute-1)*60, timezone.utc)
             snapshot = dict(observed_at=observed.isoformat(), message="Live proof work",
                             readiness_passed=128, running_resolvers=128,
-                            verified_integrated_roots=0, problems=[dict(id="fermat-p01", nodes=[
-                                dict(id="fermat-p01/root", problem="fermat-p01", local_id="root",
-                                     title="Theorem", requires=[], status="decomposing", prose_status="reviewed",
-                                     observed_running=True, worker_node="hoa3")])])
+                            verified_integrated_roots=0, problems=self.problems)
             if self.mode == "older":
                 snapshot.update(observed_at="2026-01-01T00:00:00Z", running_resolvers=0, problems=[])
             return route.fulfill(content_type="application/json", body=json.dumps(snapshot))
@@ -54,16 +55,16 @@ class StatusBrowserTests(unittest.TestCase):
     def test_previous_minute_is_used_and_failures_preserve_progress(self):
         self.page.goto("https://status.test/index.html")
         self.page.wait_for_function("document.querySelector('#resolvers').textContent === '128'")
-        self.assertIn("decomposing", self.page.locator("#dag").text_content())
-        self.assertIn("worker hoa3", self.page.locator("#dag").text_content())
+        self.assertIn("decomposing", self.page.locator("#graph-fermat-p01 .problem-dag").text_content())
+        self.assertIn("worker hoa3", self.page.locator("#graph-fermat-p01 .problem-dag").text_content())
         self.mode = "older"
         self.page.evaluate("window.testRefresh()")
         self.assertEqual(self.page.locator("#resolvers").inner_text(), "128")
-        self.assertIn("decomposing", self.page.locator("#dag").text_content())
+        self.assertIn("decomposing", self.page.locator("#graph-fermat-p01 .problem-dag").text_content())
         self.mode = "offline"
         self.page.evaluate("window.testRefresh()")
         self.assertIn("refresh incomplete", self.page.locator("#notice").inner_text())
-        self.assertIn("decomposing", self.page.locator("#dag").text_content())
+        self.assertIn("decomposing", self.page.locator("#graph-fermat-p01 .problem-dag").text_content())
         self.assertNotIn("https://status.test/status.json", self.requests)
         self.assertFalse(self.page.evaluate("document.documentElement.scrollWidth > innerWidth"))
         self.assertEqual(self.errors, [])
@@ -73,8 +74,83 @@ class StatusBrowserTests(unittest.TestCase):
         self.page.goto("https://status.test/index.html")
         self.page.wait_for_function("document.querySelector('#notice').textContent.includes('refresh incomplete')")
         self.page.set_viewport_size({"width": 420, "height": 844})
-        self.assertEqual(self.page.locator("#dag a").count(), 0)
+        self.assertEqual(self.page.locator(".problem-dag a").count(), 0)
         self.assertEqual(self.page.locator("#resolvers").inner_text(), "—")
+        self.assertEqual(self.errors, [])
+
+    def add_graphs(self):
+        def node(problem, local, requires=()):
+            return dict(id=f'{problem}/{local}', problem=problem, local_id=local,
+                        title=f'{problem}.{local}_descriptive_theorem_name', requires=list(requires),
+                        status='waiting-children' if requires else 'decomposing', prose_status='reviewed',
+                        issue_url='https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/23',
+                        observed_running=local=='child-a', worker_node='hoa6' if local=='child-a' else '')
+        self.problems = [dict(id='fermat-p01', nodes=[
+            node('fermat-p01', 'root', ['fermat-p01/child-a', 'fermat-p01/child-b']),
+            node('fermat-p01', 'child-a'), node('fermat-p01', 'child-b')]),
+            dict(id='fermat-p02', nodes=[node('fermat-p02', 'root', ['fermat-p02/child-c']),
+                                      node('fermat-p02', 'child-c')])]
+
+    def open_graphs(self):
+        self.page.goto('https://status.test/index.html')
+        self.page.wait_for_function("document.querySelectorAll('.problem-panel').length === 10")
+
+    def test_each_problem_has_an_independent_graph_and_arrow_markers(self):
+        self.add_graphs()
+        self.open_graphs()
+        self.assertEqual(self.page.locator('.problem-dag').count(), 10)
+        self.assertEqual(self.page.locator('#problem-nav a').count(), 10)
+        for problem, nodes, edges in [('fermat-p01', 3, 2), ('fermat-p02', 2, 1)]:
+            graph = self.page.locator(f'#graph-{problem} .problem-dag')
+            self.assertEqual(graph.locator('a').count(), nodes)
+            self.assertEqual(graph.locator('.dependency-edge').count(), edges)
+            ids = graph.locator('a').evaluate_all('(elements) => elements.map(el => el.dataset.nodeId)')
+            self.assertTrue(all(value.startswith(problem + '/') for value in ids))
+        self.assertTrue(self.page.evaluate("""[...document.querySelectorAll('.dependency-edge')].every(edge => {
+          const id = edge.getAttribute('marker-end').slice(5, -1);
+          return document.getElementById(id)?.ownerSVGElement === edge.ownerSVGElement;
+        })"""))
+        self.assertIn('Awaiting a live observation', self.page.locator('#graph-fermat-p03').inner_text())
+        self.assertNotIn('queued', self.page.locator('#problem-graphs').inner_text())
+        self.page.locator('#problem-nav a').nth(1).click()
+        self.assertTrue(self.page.url.endswith('#graph-fermat-p02'))
+        self.assertFalse(self.page.evaluate('document.documentElement.scrollWidth > innerWidth'))
+        self.assertEqual(self.errors, [])
+
+    def test_wide_graph_scroll_is_local_and_survives_refresh_and_resize(self):
+        self.add_graphs()
+        self.open_graphs()
+        scroll = self.page.locator('#graph-fermat-p01 .graph-scroll')
+        self.assertTrue(scroll.evaluate('(el) => el.scrollWidth > el.clientWidth'))
+        self.assertTrue(scroll.evaluate("""(el) => {
+          const root=el.querySelector('a[data-node-id="fermat-p01/root"]').getBoundingClientRect();
+          const viewport=el.getBoundingClientRect();
+          return root.left >= viewport.left && root.right <= viewport.right;
+        }"""))
+        scroll.evaluate('(el) => el.scrollLeft = 110')
+        self.page.evaluate('window.testRefresh()')
+        self.assertEqual(scroll.evaluate('(el) => el.scrollLeft'), 110)
+        self.page.set_viewport_size({'width': 1440, 'height': 1000})
+        self.assertEqual(self.page.locator('.problem-dag').count(), 10)
+        self.assertFalse(self.page.evaluate('document.documentElement.scrollWidth > innerWidth'))
+        self.assertEqual(self.errors, [])
+
+    def test_cycle_in_one_graph_does_not_hide_other_problems(self):
+        self.add_graphs()
+        self.problems[0]['nodes'][1]['requires'] = ['fermat-p01/root']
+        self.open_graphs()
+        self.assertIn('Cyclic theorem dependencies', self.page.locator('#graph-fermat-p01 .graph-message').inner_text())
+        self.assertEqual(self.page.locator('#graph-fermat-p02 .problem-dag a').count(), 2)
+        self.assertEqual(self.errors, [])
+
+    def test_shared_prerequisite_is_explicitly_labeled_not_merged_into_global_graph(self):
+        self.add_graphs()
+        self.problems[0]['nodes'][0]['requires'].append('fermat-p02/child-c')
+        self.open_graphs()
+        shared = self.page.locator('#graph-fermat-p01 a[data-external="true"]')
+        self.assertEqual(shared.count(), 1)
+        self.assertIn('P02 · shared', shared.text_content())
+        self.assertEqual(self.page.locator('#graph-fermat-p02 .problem-dag a').count(), 2)
         self.assertEqual(self.errors, [])
 
 
