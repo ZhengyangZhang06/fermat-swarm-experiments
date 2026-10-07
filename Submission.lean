@@ -993,15 +993,32 @@ theorem p04_eq_zero_of_prime_avoiding_annihilators :
     ∀ {V : Type*} [AddCommGroup V],
       (∀ p : ℕ, p.Prime → ∃ m : ℕ, 0 < m ∧ ¬ p ∣ m ∧ ∀ v : V, m • v = 0) →
       ∀ v : V, v = 0 := by
+  classical
   intro V _ h v
   obtain ⟨m₂, hm₂, _, h₂⟩ := h 2 Nat.prime_two
-  have hn : 0 < addOrderOf v :=
-    (isOfFinAddOrder_iff_nsmul_eq_zero.mpr ⟨m₂, hm₂, h₂ v⟩).addOrderOf_pos
-  have hn_le : addOrderOf v ≤ 1 := by
-    by_contra hn_le
-    obtain ⟨p, hp, hpn⟩ := Nat.exists_prime_and_dvd (Nat.ne_of_gt (Nat.lt_of_not_ge hn_le))
+  have hex : ∃ n : ℕ, 0 < n ∧ n • v = 0 := ⟨m₂, hm₂, h₂ v⟩
+  let n := Nat.find hex
+  have hn_pos : 0 < n := (Nat.find_spec hex).1
+  have hn_zero : n • v = 0 := (Nat.find_spec hex).2
+  have hn_dvd : ∀ m : ℕ, m • v = 0 → n ∣ m := by
+    intro m hm
+    apply Nat.dvd_of_mod_eq_zero
+    have hrem : (m % n) • v = 0 := by
+      calc
+        (m % n) • v = (m % n) • v + (m / n) • (n • v) := by
+          rw [hn_zero, nsmul_zero, add_zero]
+        _ = (m % n + n * (m / n)) • v := by
+          rw [add_nsmul, mul_nsmul]
+        _ = m • v := by rw [Nat.mod_add_div]
+        _ = 0 := hm
+    by_contra hrem_ne
+    have hn_le : n ≤ m % n := Nat.find_min' hex ⟨Nat.pos_of_ne_zero hrem_ne, hrem⟩
+    exact (Nat.not_le_of_gt (Nat.mod_lt m hn_pos)) hn_le
+  have hn_one : n = 1 := by
+    by_contra hn_ne
+    obtain ⟨p, hp, hpn⟩ := Nat.exists_prime_and_dvd hn_ne
     obtain ⟨m, _, hpm, hm⟩ := h p hp
-    exact hpm (hpn.trans (addOrderOf_dvd_iff_nsmul_eq_zero.mpr (hm v)))
-  exact AddMonoid.addOrderOf_eq_one_iff.mp (Nat.le_antisymm hn_le hn)
+    exact hpm (hpn.trans (hn_dvd m (hm v)))
+  simpa only [hn_one, one_smul] using hn_zero
 
 end Submission
