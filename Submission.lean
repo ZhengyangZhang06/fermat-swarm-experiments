@@ -1,8 +1,7 @@
 /-
-Copyright 2026 Anthropic, PBC. Licensed under Apache-2.0; see LICENSE.
-Source: https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean
-Modified: replaced the proof with sorry and removed P2M proof imports.
-Requires the upstream Definitions modules and their dependencies.
+Selected atomic node for the frozen fermat-p06 problem.
+The root contract remains in
+Fermat/Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean.
 -/
 
 import Definitions.Def_AlgebraicCurve_PlacesOverDVR
@@ -1078,18 +1077,26 @@ and is the zero module at every distinct height-one prime.
 At its own prime, the localization equivalence over `B` transfers simplicity of
 the residue field. Every nonzero element then also generates the module over the
 localized ring, since the original scalars act through its canonical algebra map. -/
+import Mathlib.RingTheory.DedekindDomain.Ideal.Lemmas
+import Mathlib.RingTheory.SimpleModule.Basic
+import Mathlib.RingTheory.Localization.Module
+
+namespace Submission
+
 theorem p06_9e0f5043ff_llm_localized_residue_factors
     (B : Type*) [CommRing B] [IsDedekindDomain B]
     (p q : IsDedekindDomain.HeightOneSpectrum B) :
     (p = q → IsSimpleModule (Localization.AtPrime q.asIdeal)
       (LocalizedModule q.asIdeal.primeCompl (B ⧸ p.asIdeal))) ∧
     (p ≠ q → Subsingleton (LocalizedModule q.asIdeal.primeCompl (B ⧸ p.asIdeal))) := by
+  classical
   constructor
   · rintro rfl
     -- At the same prime, every denominator acts invertibly on the residue field.
     let k := B ⧸ p.asIdeal
     let : Field k := Ideal.Quotient.field p.asIdeal
     let T := p.asIdeal.primeCompl
+    let f := LocalizedModule.mkLinearMap T k
     have : IsLocalizedModule T (LinearMap.id : k →ₗ[B] k) := by
       refine ⟨?_, fun m ↦ ⟨(m, 1), by simp⟩, fun h ↦ ⟨1, by simpa using h⟩⟩
       intro s
@@ -1097,6 +1104,8 @@ theorem p06_9e0f5043ff_llm_localized_residue_factors
       change Function.Bijective (fun m : k ↦ (s : B) • m)
       have hs : (Ideal.Quotient.mk p.asIdeal (s : B) : k) ≠ 0 :=
         fun h ↦ s.property ((Ideal.Quotient.eq_zero_iff_mem).mp h)
+      have hs : (Ideal.Quotient.mk p.asIdeal (s : B) : k) ≠ 0 := by
+        exact fun h ↦ s.property ((Ideal.Quotient.eq_zero_iff_mem).mp h)
       simpa only [Algebra.smul_def, k, Ideal.Quotient.algebraMap_eq] using
         mulLeft_bijective₀ (Ideal.Quotient.mk p.asIdeal (s : B)) hs
     have : IsSimpleModule B k :=
@@ -1106,6 +1115,7 @@ theorem p06_9e0f5043ff_llm_localized_residue_factors
     have : IsSimpleModule B (LocalizedModule T k) :=
       IsSimpleModule.congr
         (IsLocalizedModule.linearEquiv T (LocalizedModule.mkLinearMap T k) LinearMap.id)
+      IsSimpleModule.congr (IsLocalizedModule.linearEquiv T f LinearMap.id)
     refine isSimpleModule_iff_toSpanSingleton_surjective.mpr
       ⟨IsSimpleModule.nontrivial B _, ?_⟩
     intro x hx y
