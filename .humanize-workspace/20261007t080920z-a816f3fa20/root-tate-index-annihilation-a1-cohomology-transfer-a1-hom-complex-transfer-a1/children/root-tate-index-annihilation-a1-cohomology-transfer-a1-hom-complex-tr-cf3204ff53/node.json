@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1.hom_coset_average_laws-a1",
+  "parent_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1",
+  "depth": 4,
+  "title": "Coset averaging is natural under precomposition and multiplies restricted maps by the index",
+  "statement": "Let k be a commutative ring, G a group with Fintype G, A a k-linear G-representation, and H ≤ G with Fintype H and Fintype(G/H). All representations below lie in the same representation universe as A. Suppose a family of k-linear maps C_B : Hom_H(Res_H B, Res_H A) → Hom_G(B,A), indexed by all such G-representations B, satisfies (C_B F)(x) = Σ_{q∈G/H} ρ_A(t_q)(F(ρ_B(t_q⁻¹)x)), where t_q = Quotient.out q. Then, for every G-equivariant k-linear map f : D → B and H-equivariant k-linear map F : Res_H B → Res_H A, C_D(F ∘ Res_H f) = (C_B F) ∘ f. Moreover, for every G-equivariant k-linear map E : B → A, C_B(Res_H E) = H.index • E, where • is repeated addition of equivariant maps. No normality or finiteness or projectivity of the representations is assumed.",
+  "lean_statement": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H] [Fintype (G ⧸ H)] (C : ∀ B : Rep k G, (Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) →ₗ[k] (Quiver.Hom B A)), (∀ (B : Rep k G) (F : Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) (x : B), (C B F).hom x = ∑ q : G ⧸ H, A.ρ q.out (F.hom (B.ρ q.out⁻¹ x))) → (∀ (B D : Rep k G) (f : Quiver.Hom D B) (F : Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)), C D (CategoryTheory.CategoryStruct.comp ((Rep.resFunctor H.subtype).map f) F) = CategoryTheory.CategoryStruct.comp f (C B F)) ∧ (∀ (B : Rep k G) (F : Quiver.Hom B A), C B ((Rep.resFunctor H.subtype).map F) = H.index • F)",
+  "lean_name": "p04_hct139_coset_average_laws",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p04/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-hom-complex-tr-cf3204ff53-a1"
+}

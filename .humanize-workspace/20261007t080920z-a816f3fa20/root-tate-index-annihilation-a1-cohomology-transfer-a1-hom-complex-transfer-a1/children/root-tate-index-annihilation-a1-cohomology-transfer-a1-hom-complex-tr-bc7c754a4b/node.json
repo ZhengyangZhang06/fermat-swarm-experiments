@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1.hom_coset_average_exists-a1",
+  "parent_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1",
+  "depth": 4,
+  "title": "Coset averaging gives a linear map between equivariant Hom spaces",
+  "statement": "Let k be a commutative ring, G a group equipped with Fintype G, and A and B k-linear G-representations in the same representation universe. Let H ≤ G have Fintype H, and equip the set Q = G/H of left cosets with a Fintype structure. For q ∈ Q, write t_q = Quotient.out q. There exists a k-linear map C : Hom_H(Res_H B, Res_H A) → Hom_G(B,A) such that, for every H-equivariant k-linear map F and every x ∈ B, (C F)(x) = Σ_{q∈Q} ρ_A(t_q)(F(ρ_B(t_q⁻¹)(x))). No normality of H or finiteness or projectivity of A or B is assumed.",
+  "lean_statement": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A B : Rep k G) (H : Subgroup G) [Fintype H] [Fintype (G ⧸ H)], ∃ C : (Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) →ₗ[k] (Quiver.Hom B A), ∀ (F : Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) (x : B), (C F).hom x = ∑ q : G ⧸ H, A.ρ q.out (F.hom (B.ρ q.out⁻¹ x))",
+  "lean_name": "p04_hct139_coset_average_exists",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p04/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-hom-complex-tr-bc7c754a4b-a1"
+}

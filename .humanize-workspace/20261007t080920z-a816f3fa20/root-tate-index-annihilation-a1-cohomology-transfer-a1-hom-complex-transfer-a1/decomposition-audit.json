@@ -1,0 +1,46 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "linearYonedaObj|coset.*[Aa]verag|[Aa]verag.*coset|[Hh]om.*[Tt]ransfer|[Tt]ransfer.*[Hh]om|p04_hct139_coset_average_exists|p04_hct139_coset_average_laws",
+        "leftRel|leftCoset_eq|eq_iff|out|quotient.*[Ff]intype|[Ff]intype.*quotient|index_eq_card|def index",
+        "Module |SMul k|smul_hom|linearYoneda",
+        "p04_hct139_coset_average_exists|p04_hct139_coset_average_laws",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/p04_independent_decomposition_audit_4k0_6unu/Check.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/Coset/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/Coset/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/Coset/Card.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/GroupAction/Quotient.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/Index.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/CategoryTheory/Abelian/Ext.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/dag.json",
+        "/tmp/p04_independent_decomposition_audit_4k0_6unu/Check.lean",
+        "/tmp/p04_independent_decomposition_audit_4k0_6unu/check.log"
+      ],
+      "conclusion": "Manifest pins project 2475a3790d7ba0c3b10be8086001b154a45be597 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Inspected mathlib sources match the installed revision; all recorded dependencies have matching HEADs and clean tracked files. Sources confirm left-coset semantics without normality, quotient finiteness, restriction preserving underlying maps, pointwise Hom operations, index cardinality, and Yoneda differentials. Targeted averaging/transfer searches in RepresentationTheory and project Definitions found no relevant match. Both exact child propositions independently elaborate with import Mathlib alone. Anonymous checks verify restriction, composition, scalar multiplication, and differential semantics. Checked library declarations have only propext, Classical.choice, and Quot.sound as transitive axioms. The existing DAG is acyclic; neither identifier conflicts with its nodes or other decomposition proposals. The split appropriately separates construction from conditional laws and suffices for degreewise cochain-map assembly. This approves the decomposition, not any Lean implementation."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "hom_coset_average_exists",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition exactly matches the prose hypotheses, shared representation universe, linear-map conclusion, and Quotient.out formula. The bare identifier is unreserved. Steps 1–2 establish the finite linear sum; step 3 correctly proves invariance under right multiplication by H; steps 4–5 reindex left cosets to prove G-equivariance; steps 6–7 establish linearity in F and the required formula. No normality, finite-dimensionality, circular appeal, or deferred mathematical construction is used. This is a genuine obligation independent of chain complexes."
+    },
+    {
+      "key": "hom_coset_average_laws",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition matches the complete prose statement, including the assumed averaging family and formula. Composition has the correct direction, and H.index acts by pointwise natural-number multiplication. Steps 1–3 prove naturality using equivariance of f; steps 4–6 prove the index identity by cancellation, quotient cardinality, and extensionality. The proof is complete and non-circular. No sibling dependency is needed because existence is not asserted here: the parent chooses the family using the first child and applies these conditional laws. The bare identifier is unreserved."
+    }
+  ],
+  "required_changes": []
+}
