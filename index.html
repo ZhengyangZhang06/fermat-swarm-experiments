@@ -34,7 +34,7 @@
 <div class="notice" id="notice" role="status">Loading the latest published observation…</div>
 <section class="panel"><h2>Dependency graph</h2><p id="graph-note">Loading the published theorem graph.</p>
 <div class="graph-scroll"><svg id="dag" role="img" aria-label="Published theorem dependency graph"></svg></div>
-<div class="legend"><span><i class="dot"></i>Queued</span><span>Gold: working · Green: verified and merged · Red: failed</span><span>Arrows: prerequisite → dependent</span></div></section>
+<div class="legend"><span><i class="dot"></i>No active worker observed</span><span>Gold: active worker · Green: verified and merged · Red: failed</span><span>Arrows: prerequisite → dependent</span></div></section>
 <section class="panel"><h2>Theorem ledger</h2><p>Issue state is read from GitHub. A closed issue alone is not evidence of a verified proof.</p><div id="problems" class="list"></div></section>
 <footer><span id="observed">No observation loaded.</span><br>GitHub state refreshes every two minutes. Observation failures remain visible; they never imply completion.</footer>
 </main>
@@ -66,12 +66,14 @@ function drawGraph(){
  svgEl('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'#7b929d'},marker);
  for(const [dependency,parent] of edges){const [dx,dy]=positions.get(dependency),[px,py]=positions.get(parent);svgEl('path',{d:`M ${dx+92} ${dy} L ${px+92} ${py+76}`,fill:'none',stroke:'#9bafb8','stroke-width':1.8,'marker-end':'url(#arrow)'},svg)}
  for(const n of nodes){const [x,y]=positions.get(n.id),issue=n.issue_url?.split('/').pop();
-  const tone=n.integrated?'#278369':n.status==='failed'?'#bc4d4d':/^(queued|waiting)/.test(n.status)?'#829bb0':'#bd8c30';
-  const a=svgEl('a',{href:n.issue_url||'#problems','aria-label':`${n.title}: ${n.status}`},svg);svgEl('title',{},a,n.title);
+  const tone=n.integrated?'#278369':n.status==='failed'?'#bc4d4d':n.observed_running?'#bd8c30':'#829bb0';
+  const activity=n.observed_running?`worker ${n.worker_node}`:'no active worker observed';
+  const a=svgEl('a',{href:n.issue_url||'#problems','aria-label':`${n.title}: ${n.status}; ${activity}`},svg);svgEl('title',{},a,`${n.title}\n${n.status}; ${activity}`);
   svgEl('rect',{x,y,width:185,height:76,rx:10,fill:n.integrated?'#edf8f2':'#f6f9fa',stroke:'#aebfcb','stroke-width':1},a);
   svgEl('rect',{x:x+12,y:y+15,width:5,height:43,rx:2,fill:tone,stroke:'none'},a);
   svgEl('text',{x:x+28,y:y+30,fill:'#192c42','font-size':13,'font-family':'system-ui'},a,`${n.problem.replace('fermat-','')} · ${n.local_id==='root'?'root':'#'+issue}`);
   svgEl('text',{x:x+28,y:y+53,fill:'#56667b','font-size':11,'font-family':'system-ui'},a,n.status.replaceAll('-',' '));
+  svgEl('text',{x:x+28,y:y+67,fill:'#63798b','font-size':9,'font-family':'system-ui'},a,n.observed_running?activity:'not executing');
  }
  put('graph-note',`${nodes.length} published theorem nodes · ${edges.length} dependencies. ${edges.length?'Scroll to explore the full DAG.':'No decomposition edges have been recorded yet.'}`);
 }
