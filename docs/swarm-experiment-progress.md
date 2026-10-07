@@ -913,3 +913,25 @@ state, not simply deleting the project lock.
   restarted nor adopted these. The original broker and runtime remain unchanged.
 - Frozen-header repair still awaits approval; no directives were changed.
   Goal remains active: one merged child theorem, no completed root problems.
+
+## Follow-up checkpoint, 13:26 UTC — first real cached verification is P02 issue51
+
+- P02 author committed411a83a0012e48b9eeb0fda2e05618e82190ff02, based on
+  20b5b9f05bee3544cb2969604440dacd016baff4. Worker log reports warning-as-error
+  build success; the real exact-contract check is still mandatory and pending.
+- Pilot autonomously claimed queued request190da91e9f554b0d9ec6ece90fa5ad0d
+  at13:21:47. CheckerPID3735063, dispatcherPID3735018, service
+  `fermat-cached-verifier-pilot-20261007.service`. No duplicate request or claim
+  was created. The timer alone was then stopped to limit evaluation to this
+  first real request; the service/checker continue running. Ordinary broker
+  scheduling, worker ownership and existing verifiers remain unchanged.
+- Prepared snapshot at
+  `/var/tmp/fermat-swarm-20261007/verification/190da91e9f554b0d9ec6ece90fa5ad0d/root-primitive_exists-a1-constant_defect-a1-modular_pullback_derivative-a1-ugbs35a9`
+  binds the exact candidate/base, checker17360b2a... and cache d27914ad... .
+  Evidence is `checking`, NOT verified. The first full inventory finished;
+  revalidation before compilation is ongoing. Retain process identity and
+  immutable deployed code until terminal. Do not reuse diagnostic receipts.
+- No additional proof PR, issue closure, header repair, or root acceptance.
+  Cache pilot performance is not established. Next action is to collect this
+  exact request's terminal result, then continue the existing reviewer and
+  integration gates if it passes. Header-repair approval remains unanswered.

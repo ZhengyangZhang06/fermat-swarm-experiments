@@ -77,3 +77,9 @@ Stopping the timer prevents future pilot polls without interrupting an active
 check. Do not stop its service while it owns a live verification: wait for the
 specific request's terminal result. A successful idle poll is not verification
 evidence, and no performance improvement is claimed until actually measured.
+
+At 13:21:47 UTC the pilot claimed its first real request,
+`190da91e9f554b0d9ec6ece90fa5ad0d`, for P02 issue51 candidate `411a83a`.
+The timer was then stopped to bound evaluation to this one request; its service
+and checker remain running. Assess that exact receipt before enabling further
+pilot polls. The ordinary broker continues serving other requests unchanged.
