@@ -989,6 +989,7 @@ theorem p04_prism_a8325b9888_boundary_identity :
     rw [cancel, zero_add]
 namespace Submission
 
+/-- An additive group is trivial if every prime is avoided by a positive global annihilator. -/
 theorem p04_eq_zero_of_prime_avoiding_annihilators :
     ∀ {V : Type*} [AddCommGroup V],
       (∀ p : ℕ, p.Prime → ∃ m : ℕ, 0 < m ∧ ¬ p ∣ m ∧ ∀ v : V, m • v = 0) →
