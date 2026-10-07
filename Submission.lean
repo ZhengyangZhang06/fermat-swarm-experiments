@@ -53,5 +53,54 @@ theorem p02_es_177ebb5a_sm_holomorphic
   · intro z hz
     exact (hE d ⟨z, hz⟩).differentiableAt.differentiableWithinAt
   · exact (differentiable_id.neg.pow (d 1)).differentiableOn
+theorem p02_es_177ebb5a_sm_slash :
+    ∀ (n : ℕ) (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n))
+      (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (τ : UpperHalfPlane),
+      (SlashAction.map (-(n : ℤ)) σ (fun z : UpperHalfPlane =>
+        MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -(z : ℂ)) (E z).val)) τ =
+      MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -(τ : ℂ))
+        (((HeckeEis.binaryFormRepSL ℂ n) σ⁻¹) (E (σ • τ))).val := by
+  intro n E σ τ
+  let R := HeckeEis.binaryFormRepSL ℂ n σ⁻¹ (E (σ • τ))
+  let j : ℂ := UpperHalfPlane.denom σ τ
+  have hj : j ≠ 0 := UpperHalfPlane.denom_ne_zero σ τ
+  have hR : HeckeEis.binaryFormRepSL ℂ n σ R = E (σ • τ) := by
+    change ((HeckeEis.binaryFormRepSL ℂ n σ) *
+      (HeckeEis.binaryFormRepSL ℂ n σ⁻¹)) (E (σ • τ)) = _
+    rw [← map_mul, mul_inv_cancel, map_one]
+    rfl
+  have hdet : (σ 0 0 : ℂ) * (σ 1 1 : ℂ) - (σ 0 1 : ℂ) * (σ 1 0 : ℂ) = 1 := by
+    exact_mod_cast (show σ 0 0 * σ 1 1 - σ 0 1 * σ 1 0 = 1 by
+      simpa only [Matrix.det_fin_two] using σ.property)
+  have hjdef : j = (σ 1 0 : ℂ) * (τ : ℂ) + (σ 1 1 : ℂ) := by
+    simp [j, UpperHalfPlane.denom]
+  have hw : ((σ • τ : UpperHalfPlane) : ℂ) =
+      ((σ 0 0 : ℂ) * (τ : ℂ) + (σ 0 1 : ℂ)) / j := by
+    simpa [hjdef] using UpperHalfPlane.coe_specialLinearGroup_apply σ τ
+  have hcoords : (fun k : Fin 2 =>
+      MvPolynomial.eval (fun i : Fin 2 => if i = 0 then 1 else -((σ • τ : UpperHalfPlane) : ℂ))
+        (∑ i : Fin 2, MvPolynomial.C (σ i k : ℂ) * MvPolynomial.X i)) =
+      j⁻¹ • (fun k : Fin 2 => if k = 0 then (1 : ℂ) else -(τ : ℂ)) := by
+    rw [hw]
+    funext k
+    fin_cases k <;>
+      simp [Fin.sum_univ_two, Pi.smul_apply, smul_eq_mul] <;>
+      field_simp [hj] <;> rw [hjdef]
+    · linear_combination hdet
+    · linear_combination -(τ : ℂ) * hdet
+  have heval : MvPolynomial.eval
+      (fun k : Fin 2 => if k = 0 then 1 else -((σ • τ : UpperHalfPlane) : ℂ))
+      (E (σ • τ)).val = j⁻¹ ^ n *
+      MvPolynomial.eval (fun k : Fin 2 => if k = 0 then 1 else -(τ : ℂ)) R.val := by
+    rw [← hR, HeckeEis.binaryFormRepSL_apply_coe]
+    change MvPolynomial.aeval _ (MvPolynomial.aeval _ R.val) = _
+    rw [MvPolynomial.comp_aeval_apply]
+    simp only [MvPolynomial.aeval_eq_eval]
+    rw [hcoords, HeckeEis.eval_smul_of_isHomogeneous
+      ((MvPolynomial.mem_homogeneousSubmodule _ _).mp R.property)]
+  rw [ModularForm.SL_slash_apply, heval]
+  simp only [neg_neg, zpow_natCast]
+  change (j⁻¹ ^ n * _) * j ^ n = _
+  rw [mul_right_comm, ← mul_pow, inv_mul_cancel₀ hj, one_pow, one_mul]
 
 end Submission
