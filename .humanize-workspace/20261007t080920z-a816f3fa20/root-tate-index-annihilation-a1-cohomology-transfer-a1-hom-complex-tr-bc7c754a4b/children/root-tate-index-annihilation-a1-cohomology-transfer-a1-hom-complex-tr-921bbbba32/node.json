@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "node_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1.hom_coset_average_exists-a1.coset_sum_equivariance-a1",
+  "parent_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1.hom_coset_average_exists-a1",
+  "depth": 5,
+  "title": "The finite coset sum intertwines the G-actions",
+  "statement": "Let k be a commutative ring, G a group, A and B k-linear G-representations in the same representation universe, and H ≤ G. Equip Q = G/H with a Fintype structure and write t_q = Quotient.out q. For every H-equivariant k-linear map F : Res_H B → Res_H A, every g ∈ G, and every x ∈ B, Σ_{q∈Q} ρ_A(t_q)F(ρ_B(t_q⁻¹)(ρ_B(g)x)) = ρ_A(g)(Σ_{q∈Q} ρ_A(t_q)F(ρ_B(t_q⁻¹)x)). No normality of H or finiteness of G, H, A, or B is required beyond the supplied finiteness of Q.",
+  "lean_statement": "∀ {k G : Type _} [CommRing k] [Group G] (A B : Rep k G) (H : Subgroup G) [Fintype (G ⧸ H)] (F : Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) (g : G) (x : B), (∑ q : G ⧸ H, A.ρ q.out (F.hom (B.ρ q.out⁻¹ (B.ρ g x)))) = A.ρ g (∑ q : G ⧸ H, A.ρ q.out (F.hom (B.ρ q.out⁻¹ x)))",
+  "lean_name": "p04_hca_bc7c754a4b_sum_equivariant",
+  "depends_on": [
+    "root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1.hom_coset_average_exists-a1.coset_summand_independence-a1"
+  ],
+  "dependency_workspaces": [
+    {
+      "node_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1.hom_coset_average_exists-a1.coset_summand_independence-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    }
+  ],
+  "result_branch": "humanize-recursive/fermat-p04/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-hom-complex-tr-921bbbba32-a1"
+}

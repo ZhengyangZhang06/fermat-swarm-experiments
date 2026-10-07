@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1.hom_coset_average_exists-a1.coset_summand_independence-a1",
+  "parent_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1.hom_coset_average_exists-a1",
+  "depth": 5,
+  "title": "Conjugated restricted morphisms depend only on the left coset",
+  "statement": "Let k be a commutative ring, G a group, A and B k-linear G-representations in the same representation universe, and H ≤ G. Let F : Res_H B → Res_H A be an H-equivariant k-linear map. If s,t ∈ G have the same left coset in G/H, then for every x ∈ B, ρ_A(s)(F(ρ_B(s⁻¹)x)) = ρ_A(t)(F(ρ_B(t⁻¹)x)). No finiteness or normality assumption is required.",
+  "lean_statement": "∀ {k G : Type _} [CommRing k] [Group G] (A B : Rep k G) (H : Subgroup G) (F : Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) (s t : G), (QuotientGroup.mk s : G ⧸ H) = QuotientGroup.mk t → ∀ x : B, A.ρ s (F.hom (B.ρ s⁻¹ x)) = A.ρ t (F.hom (B.ρ t⁻¹ x))",
+  "lean_name": "p04_hca_bc7c754a4b_summand_eq_of_coset_eq",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p04/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-hom-complex-tr-8e23b7c585-a1"
+}

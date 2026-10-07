@@ -1,0 +1,45 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "def res|res_ρ|res_hom|resFunctor|def ρ|abbrev ρ|structure Hom|def mkHom|hom_comm_apply|hom_apply|def hom|universe|abbrev Rep",
+        "leftRel_apply|theorem eq |smul_mk|smul_out|smul.*out|mul_left|MulAction|theorem sum_comp|lemma sum_comp|sum_equiv|sum_bijective",
+        "rg -n -i 'coset.*averag|averag.*coset|hom.*transfer|transfer.*hom'",
+        "p04_hca_bc7c754a4b_summand_eq_of_coset_eq|p04_hca_bc7c754a4b_sum_equivariant",
+        "git -C .lake/packages/mathlib rev-parse HEAD",
+        "git -C .lake/packages/mathlib status --porcelain --untracked-files=no"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/Coset/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/GroupAction/Quotient.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/BigOperators/Group/Finset/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/nodes/root-tate-index-annihilation-a1-cohomology-transfer-a1-hom-complex-tr-bc7c754a4b/parent-child-handoff.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/Submission.lean"
+      ],
+      "conclusion": "The manifest pins project 2475a3790d7ba0c3b10be8086001b154a45be597 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Installed mathlib matches that revision with no tracked modifications; all five inspected API files match the snapshot byte for byte. Rep.Hom and hom_comm_apply encode equivariant linear maps; restriction preserves the underlying modules definitionally. QuotientGroup.eq gives precisely s⁻¹t ∈ H, and the left quotient action requires no normality. Fintype.sum_equiv supports the stated reindexing. The targeted averaging search found no match in Rep or project/Definitions. Neither proposed name is reserved in the DAG or another inspected node contract; occurrences are confined to this proposal. The frozen root and parent handoff are consistent with this descendant audit. No existing solution is being reused. No Lean compiler was available, so this source-level decomposition approval does not claim elaboration, comparator, or transitive axiom acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "coset_summand_independence",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition matches all prose hypotheses and the conclusion. Its bare identifier is unreserved, and its type uses no candidate-dependent declaration. Step 1 correctly obtains h = s⁻¹t ∈ H and t = sh. Step 2 expands the inverse and representation products in the correct order. Step 3 applies restricted equivariance at h⁻¹. Step 4 cancels inverse actions and reverses the equality to obtain the exact target. No finiteness, normality, circular reliance, or deferred proof construction is hidden. This is a genuine prerequisite with no dependencies."
+    },
+    {
+      "key": "coset_sum_equivariance",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition exactly expresses the stated finite-sum identity, with only Fintype (G ⧸ H) required. Restriction coercions and the additive structure of A have the intended meanings. The bare identifier is unreserved. Steps 1–2 define the summand and prove that left multiplication permutes cosets. Step 3 correctly applies the first child to representatives of the same coset at ρ_B(g)x. Step 4 cancels ρ_B(g⁻¹)ρ_B(g). Steps 5–6 reindex and use additivity to obtain the exact conclusion. The sole dependency points correctly to coset_summand_independence and is acyclic. Together these children isolate genuine obligations while leaving linearity and packaging to the parent, so the split is appropriate."
+    }
+  ],
+  "required_changes": []
+}
