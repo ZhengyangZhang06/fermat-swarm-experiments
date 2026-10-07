@@ -637,3 +637,29 @@ state, not simply deleting the project lock.
   Asked again for the narrow missing-name-only derived-copy repair; no user
   approval has arrived, and originals/derived headers remain unchanged.
   GitHub still has no solution PR; no theorem issue was closed as proved.
+
+## Follow-up checkpoint, 11:41 UTC — queued recheck offloaded; storage diagnosis
+
+- Both manager requests8eed… (p07#60, PID3347466) and9c015… (p02#45,
+  PID3360163) remain Running. Their challenge builds are run-u447.service
+  and run-u448.service, with Lean processes3349095/3349098 and3362466/3362539.
+  Targeted kernel-stack inspection found `ceph_filemap_fault`/`filemap_fault`
+  waits in the compiler threads, not a terminal process failure. CPU time and
+  memory use continue changing. Host load was27 on8 CPUs with about12GiB
+  available memory; no OOM result was observed. Preserve these jobs.
+- Read-only sizing found14GiB of pinned packages and2.9GiB of Lean toolchain
+  on shared Ceph. No artifact-cache copy, runtime change or live-process restart
+  was made. A future local cache is only a performance possibility, not deployed.
+- New real requestcd203d12717944b78318395950a03bfc arrived queued for p01#41,
+  the SAME candidate15db3ef9f625c734560304ce3e21a07b20056041 previously rejected
+  on header references. Checked its current HEAD, verified hoa1 Ready/Active
+  with no active proof claim or other running verifier, and dispatched exactly
+  this registered request through the existing immutable one-shot adapter.
+  No issue ownership or worker start notification changed.
+- Unit `fermat-swarm-verify-p01-20261007-1139.service`, dispatcherPID3387156,
+  verifierPID3387184. Remote servicevnqf6z1ztqels8ju82rvp8ig7, task
+  kchqtd21zojkdwgy4e2dc9w73 on hoa1 are Running. Private receipt is
+  `fermat-verifier-dispatch.ZfocBD/jobs/cd203d12717944b78318395950a03bfc/operation.json`.
+  Packet digestdd3297d24a578c356ffdf44a099f2201e336dd30b98d7dc43a0a9fd073e571cc.
+  This is a recheck, not a new proof; no successful result or PR yet. Header
+  repair remains unapproved and disabled. Collect these exact handles next.
