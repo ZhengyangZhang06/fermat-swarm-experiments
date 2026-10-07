@@ -47,6 +47,114 @@ class ClaimLedger:
                     ON claims(owner) WHERE state = 'owned';
             """)
             self._migrate_scope(db)
+            self._migrate_node_reservations(db)
+
+    @staticmethod
+    def _migrate_node_reservations(db):
+        """Operator node roles also exclude old proof-claim SQL writers."""
+        db.execute('BEGIN IMMEDIATE')
+        try:
+            db.execute('''CREATE TABLE IF NOT EXISTS node_reservation_history (
+                reservation_id TEXT PRIMARY KEY, node TEXT NOT NULL,
+                owner TEXT NOT NULL, purpose TEXT NOT NULL,
+                state TEXT NOT NULL CHECK(state IN ('reserved','released')),
+                created REAL NOT NULL, released REAL
+            )''')
+            db.execute('''CREATE TABLE IF NOT EXISTS node_reservations (
+                node TEXT PRIMARY KEY, reservation_id TEXT NOT NULL UNIQUE,
+                owner TEXT NOT NULL, purpose TEXT NOT NULL, created REAL NOT NULL
+            )''')
+            for operation in ('INSERT', 'UPDATE'):
+                db.execute(f'''CREATE TRIGGER IF NOT EXISTS claims_node_role_{operation.lower()}
+                    BEFORE {operation} ON claims
+                    WHEN NEW.state='owned' AND EXISTS (
+                        SELECT 1 FROM node_reservations reserved WHERE reserved.node =
+                        CASE WHEN instr(NEW.owner,'/')>0
+                            THEN substr(NEW.owner,1,instr(NEW.owner,'/')-1) ELSE NEW.owner END
+                    )
+                    BEGIN SELECT RAISE(ABORT, 'physical node reserved by operator'); END''')
+            db.commit()
+        except Exception:
+            db.rollback()
+            raise
+
+    @staticmethod
+    def _validate_node_reservation(node, reservation_id, owner, purpose=None):
+        if (not isinstance(node, str) or not re.fullmatch(r'hoa(?:0|[1-9][0-9]{0,2})', node)
+                or int(node[3:]) > 127):
+            raise ValueError('invalid authorized physical node')
+        for value in (reservation_id, owner):
+            if not isinstance(value, str) or not re.fullmatch(r'[A-Za-z0-9_.:/-]{1,240}', value):
+                raise ValueError('invalid operator reservation identity')
+        if purpose is not None and (not isinstance(purpose, str)
+                or not re.fullmatch(r'[A-Za-z0-9_.:/-]{1,240}', purpose)):
+            raise ValueError('invalid operator reservation purpose')
+
+    def reserve_node(self, *, node: str, reservation_id: str, owner: str,
+                     purpose: str) -> dict | None:
+        """Operator-only, non-expiring role grant; never exposed to worker HTTP.
+
+        None means unavailable (including an already released reservation ID).
+        The caller must retain identity durably before starting a verifier.
+        """
+        self._validate_node_reservation(node, reservation_id, owner, purpose)
+        if purpose is None:
+            raise ValueError('operator reservation purpose is required')
+        with self._db() as db:
+            db.execute('BEGIN IMMEDIATE')
+            previous = db.execute('SELECT * FROM node_reservation_history WHERE reservation_id=?',
+                                  (reservation_id,)).fetchone()
+            if previous:
+                if (previous['node'], previous['owner'], previous['purpose']) != (node, owner, purpose):
+                    raise OwnershipError('reservation identity changed')
+                return dict(previous) if previous['state'] == 'reserved' else None
+            if db.execute('SELECT 1 FROM node_reservations WHERE node=?', (node,)).fetchone():
+                return None
+            if db.execute("SELECT 1 FROM claims WHERE state='owned' AND "
+                          "(owner=? OR substr(owner,1,instr(owner,'/')-1)=?)", (node, node)).fetchone():
+                return None
+            stamp = time.time()
+            db.execute('INSERT INTO node_reservations(node,reservation_id,owner,purpose,created) '
+                       'VALUES(?,?,?,?,?)', (node, reservation_id, owner, purpose, stamp))
+            db.execute('INSERT INTO node_reservation_history '
+                       '(reservation_id,node,owner,purpose,state,created) VALUES(?,?,?,?,?,?)',
+                       (reservation_id, node, owner, purpose, 'reserved', stamp))
+            row = dict(db.execute('SELECT * FROM node_reservation_history WHERE reservation_id=?',
+                                  (reservation_id,)).fetchone())
+            db.commit()
+            return row
+
+    def release_node(self, *, node: str, reservation_id: str, owner: str) -> dict:
+        """Operator MUST first establish all owned verifier processes terminal.
+
+        No timeout, automatic release, claim mutation or worker HTTP is provided.
+        An idempotent historical release cannot affect a newer reservation.
+        """
+        self._validate_node_reservation(node, reservation_id, owner)
+        with self._db() as db:
+            db.execute('BEGIN IMMEDIATE')
+            row = db.execute('SELECT * FROM node_reservation_history WHERE reservation_id=?',
+                             (reservation_id,)).fetchone()
+            if not row or (row['node'], row['owner']) != (node, owner):
+                raise OwnershipError('node reservation ownership does not match')
+            if row['state'] == 'released':
+                return dict(row)
+            removed = db.execute('DELETE FROM node_reservations WHERE node=? AND reservation_id=? AND owner=?',
+                                 (node, reservation_id, owner)).rowcount
+            if removed != 1:
+                raise OwnershipError('active node reservation identity does not match')
+            db.execute("UPDATE node_reservation_history SET state='released',released=? WHERE reservation_id=?",
+                       (time.time(), reservation_id))
+            result = dict(db.execute('SELECT * FROM node_reservation_history WHERE reservation_id=?',
+                                     (reservation_id,)).fetchone())
+            db.commit()
+            return result
+
+    def active_node_reservations(self) -> list[dict]:
+        """Private operator inventory; never a timeout-based recovery signal."""
+        with self._db() as db:
+            return [dict(row) for row in db.execute(
+                "SELECT * FROM node_reservation_history WHERE state='reserved' ORDER BY node")]
 
     @staticmethod
     def _migrate_scope(db):
@@ -125,6 +233,9 @@ class ClaimLedger:
                 if held['scope'] != scope:
                     raise OwnershipError('attempt claim scope changed')
                 return dict(held) if held['state'] == 'owned' else None
+            if db.execute('SELECT 1 FROM node_reservations WHERE node=?',
+                          (owner.split('/', 1)[0],)).fetchone():
+                return None
             stamp = time.time()
             try:
                 db.execute(

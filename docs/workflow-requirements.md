@@ -47,6 +47,12 @@ Implementation and deployment status are tracked separately in
 - One authoritative durable claim per repository/issue and one job per worker
   prevent duplicate launches. Idle pollers are not reported as active proof jobs.
   A stale heartbeat never grants permission to take over live or uncertain work.
+- Verification capacity must scale into available authorized fleet nodes while
+  requests are queued. Use durable per-node dispatcher slots and atomic node-role
+  reservations, not a fixed controller-only bottleneck. Release known-idle verifier
+  roles when the queue empties so autonomous proof workers can reclaim capacity.
+  Cache preparation is not a running proof check; validate every added node before
+  admitting it. Never preempt an owned proof job or recycle an uncertain verifier.
 - Proof work uses isolated branches/worktrees. Shared DAG/name allocation,
   publication, bootstrap and Git integration require process/shared-filesystem
   coordination, not just Python thread locks or atomic whole-file replacement.
@@ -72,6 +78,11 @@ Implementation and deployment status are tracked separately in
 - Update from current durable DAG state and observed worker/claim/verification
   evidence. Show observation time and stale/unavailable data explicitly. Keep
   the last successful observation during outages; do not reset progress to queued.
+- A saved `comparing` stage is not a running checker. Publish separate verification
+  queue, starting, PID/start-identity-confirmed job, reconciliation and unavailable
+  observations. Retain counts for multiple candidate requests; finished requests
+  never imply theorem acceptance. Expire live verification labels when evidence is
+  stale, including during refresh failures. See [verification activity status](verification-activity-status.md).
 - During additive worker-generation rollouts, observe every configured generation
   with a present catalog, validate current tasks and fresh heartbeats, and count
   each physical node once. Unpublished child contracts must be labeled pending

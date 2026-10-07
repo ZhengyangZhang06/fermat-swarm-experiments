@@ -178,6 +178,34 @@ class RemoteVerificationTests(unittest.TestCase):
             self.service.execute('f' * 32)
             spawn.assert_not_called()
 
+    def test_capacity_intent_only_actual_claim_winner_before_spawn(self):
+        self.service.submit('worker', self.body, ready=False)
+        events = []
+        def reserve(row):
+            self.assertEqual(row['id'], self.body['request_id'])
+            self.assertEqual(row['state'], 'queued')
+            events.append('intent')
+        process = Mock(pid=os.getpid())
+        process.wait.return_value = 0
+        def spawn(*args, **kwargs):
+            events.append('spawn')
+            return process
+        with patch('_recursive_lean.remote_verification.subprocess.Popen', side_effect=spawn):
+            self.service.execute(self.body['request_id'], before_spawn=reserve)
+            self.service.execute(self.body['request_id'], before_spawn=reserve)
+        self.assertEqual(events, ['intent', 'spawn'])
+
+    def test_failed_capacity_intent_never_spawns_or_commits_claim(self):
+        self.service.submit('worker', self.body, ready=False)
+        def reserve(row):
+            raise RuntimeError('durable intent unavailable')
+        with patch('_recursive_lean.remote_verification.subprocess.Popen') as spawn:
+            with self.assertRaisesRegex(RuntimeError, 'durable intent'):
+                self.service.execute(self.body['request_id'], before_spawn=reserve)
+            spawn.assert_not_called()
+        with self.ledger._db() as db:
+            self.assertEqual(db.execute('SELECT state FROM verifications').fetchone()['state'], 'queued')
+
 
 if __name__ == '__main__':
     unittest.main()

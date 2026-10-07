@@ -110,7 +110,7 @@ class VerificationService:
                     self.futures[request_id] = self.pool.submit(self.execute, request_id)
         return self.result(request_id, revision)
 
-    def execute(self, request_id):
+    def execute(self, request_id, *, before_spawn=None):
         with self.ledger._db() as db:
             db.execute('BEGIN IMMEDIATE')
             row = db.execute('SELECT * FROM verifications WHERE id=?', (request_id,)).fetchone()
@@ -119,6 +119,12 @@ class VerificationService:
             claim = db.execute('SELECT state,job FROM claims WHERE attempt=?', (row['attempt'],)).fetchone()
             if not claim or claim['state'] != 'owned' or not self._matching_job(claim['job']):
                 return
+            # Optional controller-only capacity intent is persisted only by the
+            # winner of this atomic queued-row claim, before any process spawn.
+            # A failure rolls back SQLite but retains the external durable intent
+            # for fail-closed operator reconciliation.
+            if before_spawn is not None:
+                before_spawn(row)
             db.execute("UPDATE verifications SET state='spawning' WHERE id=?", (request_id,))
             db.commit()
         request = json.loads(row['request'])

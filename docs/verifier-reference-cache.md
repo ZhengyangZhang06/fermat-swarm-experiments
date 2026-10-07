@@ -136,6 +136,47 @@ Service/task identity and specification remain bound throughout observation;
 exit75 still requires reconciliation, not timeout-based takeover. Remote success
 also requires exact returned evidence matching the controller's original packet.
 
+### Durable remote dispatch capacity
+
+The controller dispatcher must be invoked with both `--remote-node hoa127` and
+`--remote-directory /operator/private/packets` for a remote adapter. The ordinary
+local dispatcher defaults remain unchanged; remote environment variables without
+these flags are rejected. The packet directory must be private, operator-owned,
+outside worker projects and free of symlink ancestors. Environment coordinates
+must match the flags exactly.
+
+The authoritative ledger's parent contains `remote-verifier-slots/<hostname>.lock`
+and a durable JSON slot. Every controller for that node and ledger uses this fixed
+location even when supplied another packet directory. A process lock prevents two
+dispatchers from operating the same physical node concurrently. Before launching
+the exact queued request, the dispatcher fsyncs its request identity, ledger request
+hash, packet directory and Docker NodeID. The slot persists across controller loss;
+it must not be deleted or relocated to bypass an uncertain remote job.
+
+The remote path runs one verification synchronously and only advances after the
+ledger is finished and the adapter has a matching verified/terminal receipt, with
+a fresh inspection of the exact service specification, sole task and physical node
+confirming terminal container exit. An explicit pre-submit preparation failure may
+also free the slot, but only with no submission identifiers in its receipt. Exit75,
+a live task, missing receipts, changed identities, lost observations and controller
+loss retain the slot and stop that dispatcher; they never start the next request.
+An idle record preserves the last completed identity instead of deleting history.
+
+Before execution, the dispatcher also obtains an operator-only ledger node-role
+reservation, atomic with proof claims. A node already owned by a proof job is not
+preempted. The stable owner and fresh per-cycle reservation ID are persisted before
+reservation; no worker supplies them. The role remains reserved across controller
+loss and uncertainty, and across consecutive queued checks. Only a known-idle slot
+plus an empty eligible verification queue releases its exact role reservation.
+The next cycle uses a new reservation ID, allowing the node to return to proof work
+between verification batches without permanent static reservation of the fleet.
+
+Before **first** activation on a node, operators still must reconcile any earlier
+manual or legacy remote work and establish the capacity reservation described above.
+The slot only reconciles its own known request; it does not adopt historical jobs,
+cancel tasks, release proof claims, or infer inactivity from age. All cooperating
+dispatchers must use the same authoritative ledger and immutable deployment.
+
 For a package-backed transport canary, invoke the standalone
 `scripts/test-swarm-verifier-roundtrip.py` with both `--mathlib-fixture` and
 `--dependency-manifest /operator/trusted/lake-manifest.json`, in addition to its
