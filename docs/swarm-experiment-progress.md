@@ -308,3 +308,35 @@ state, not simply deleting the project lock.
 - Manager memory/I/O pressure is high (not solely this experiment). Baseline
   PID2780465 and probe session70821 / lean PID2949737 remain live; do not restart
   them merely for elapsed time. Preserve unrelated workloads.
+
+## Follow-up checkpoint, 09:17 UTC — first Lean candidate at real comparator
+
+- First child#22 reached `rlcr-lean` on hoa43. Its isolated worker worktree is
+  `.swarm-worktrees/79e26a5fbde03f2e3c2f/fermat-p04`; RLCR receipt records container
+  `396e3b581ef9`, PID731, start_ticks60395481 and round
+  `.humanize/rlcr/2026-10-07_09-07-35`. Actual Swarm task remains Running.
+- Candidate **3e7de243c3b4f85adaaa4b648f1c938fdc2ab6fb** appends a19-line proof of
+  `Submission.p04_eq_zero_of_prime_avoiding_annihilators`, retaining the inherited
+  parent source byte-for-byte. Worker logs report isolated Lean compilation with
+  warnings-as-errors and only standard axioms. This is NOT comparator acceptance.
+- The real private verifier now has two running requests (actual PIDs checked):
+  `2702e791219d48f4a4f4d867d5bbc8c0`, PID3008683, the#22 candidate above;
+  `5fdcbbd61fac4022ab7ab2b275855246`, PID3007503, a p05 root/context probe at
+  2fdd42759f4ab17640ac773289b521dd69d4b26e. Inspect SQLite `verifications` and its
+  private logs for completion; do not restart them on observation timeouts.
+- p01 published three children (#23–#25); one is independently claimed. p09
+  passed prose review. p03 was sent back to natural proof because decomposition
+  review exposed real unproved torsion/uniformization obligations, not just the
+  import packaging error. Do not freeze that rejected argument as accepted.
+- Campaign75a6368 pushed and status observer restarted (only the publisher,
+  not proof workers). Seven feed tests pass. Current prose count now excludes
+  roots in natural-proof/natural-review even if an old passing artifact remains;
+  dashboard labels them revising/under review instead of treating historical
+  approval as current acceptance. Earlier counts of7 included p03's old record.
+- No user response yet to the build-directive repair question. No directives
+  removed. The pure diagnostic Lean `autoImplicit false`/undeclared universe
+  probe is live as session97093; collect before deciding whether child challenge
+  generation also needs explicit universe declarations. Original full-Mathlib
+  probe session70821 remains live. Manager memory/I/O contention is confirmed;
+  large unrelated Codex/Lean/search processes are NOT this experiment and must
+  not be killed or modified.
