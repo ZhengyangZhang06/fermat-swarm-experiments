@@ -1,5 +1,7 @@
 import Definitions.Def_AlgebraicCurve_PlacesOverDVR
 
+set_option warningAsError true
+
 namespace Submission
 
 /-- A place containing the polynomial coordinate is the localization at a monic
