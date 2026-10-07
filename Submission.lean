@@ -7,7 +7,6 @@ Requires the upstream Definitions modules and their dependencies.
 
 import Mathlib
 import Definitions.Def_GroupCohomology_TateCohomology
-attribute [-simp] Representation.TateResCor.cosetDecomp_apply Rep.coe_tateHneg1Res_apply Representation.TateResCor.coe_tateHneg1Cores_apply Representation.TateResCor.tateH0Res_mk Rep.coe_tateHneg1Cores_apply Rep.tateH0Res_mk Representation.TateResCor.coe_cosetNormInvariants_apply Rep.tateH0Cores_mk Representation.TateResCor.coinvariantsCores_mk Representation.TateResCor.coinvariantsTransfer_mk Representation.TateResCor.tateH0Cores_mk Representation.TateResCor.coe_tateHneg1Res_apply Rep.coe_tateδneg2_apply
 
 set_option autoImplicit false
 universe u
@@ -561,5 +560,20 @@ theorem p04_tia_coh_restricted_standard_homotopy_equiv
            inv := q
            homotopyHomInvId := hp
            homotopyInvHomId := Homotopy.ofEq hpq }⟩
+namespace Submission
+
+theorem p04_hca_bc7c754a4b_summand_eq_of_coset_eq
+    {k G : Type _} [CommRing k] [Group G] (A B : Rep k G) (H : Subgroup G)
+    (F : Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) (s t : G)
+    (hst : (QuotientGroup.mk s : G ⧸ H) = QuotientGroup.mk t) (x : B) :
+    A.ρ s (F.hom (B.ρ s⁻¹ x)) = A.ρ t (F.hom (B.ρ t⁻¹ x)) := by
+  let h : H := ⟨s⁻¹ * t, QuotientGroup.eq.mp hst⟩
+  have ht : t = s * (h : G) := by simp [h]
+  have hF : F.hom (B.ρ (h : G)⁻¹ (B.ρ s⁻¹ x)) =
+      A.ρ (h : G)⁻¹ (F.hom (B.ρ s⁻¹ x)) :=
+    Rep.hom_comm_apply F h⁻¹ (B.ρ s⁻¹ x)
+  rw [ht]
+  simp only [mul_inv_rev, map_mul, Module.End.mul_apply]
+  rw [hF, Representation.self_inv_apply]
 
 end Submission
