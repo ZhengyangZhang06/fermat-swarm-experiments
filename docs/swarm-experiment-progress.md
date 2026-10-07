@@ -692,3 +692,42 @@ state, not simply deleting the project lock.
   needs explicit identity binding/tests. No such integration has been implemented.
 - GitHub PR list remains empty. P01 remote taskkchqtd21zojkdwgy4e2dc9w73 is
   confirmed Running; no new claim, check restart or header normalization occurred.
+
+## Follow-up checkpoint, 12:04 UTC — outer check passed; remaining review and header failures
+
+- P02#45 outer request9c015b0258d7494c8ab41762d51682c8 is now terminal
+  finished0, with private evidence `verified`, kernel acceptance and permitted
+  axioms for unchanged candidate2ced4d3abd9f318f5490841e5e6ce28d9dfb7944.
+  Its PID3360163 is gone. The workflow advanced to `lean-review` at11:54:14.
+  The final reviewer's OWN comparator request4edce24fdb124c73b1b49469f0fac33a
+  is Running under PID3435979. Preserve it; no final review verdict or PR yet.
+- P07#60 request8eed87142d7c425cae62a455a6d5e861 is terminal failed1, not
+  still compiling. After building its dependency closure, frozen Submission
+  failed on absent header constants `AlgebraicGeometry.Scheme.Hom.opensMapFinal`,
+  `GoodReductionJacobian.RelativeGroupLaw.baseChangePointToBase_ofBase`, and
+  `RegularLocalRingQuotientAscent.dualNumberFst_apply`. This is a context failure,
+  not evidence that the candidate theorem is false. PID3347466 is gone.
+- P04 same-candidate recheck56f8cd9699284a04b0fd7cc6947db2cd was started
+  by the broker in the freed slot, then finished1 with the same missing
+  `Representation.TateResCor.cosetDecomp_apply` header reference. PID3433786 gone.
+- P06 request0030da9d7cfe41b8802bedc2a94eeb81, candidate
+  61cc48830412d5ca1b81a5dba52212816ebd51a5, subsequently ran under PID3449796
+  and finished1 on the same three missing constants recorded at11:10. The new
+  candidate only adds the injected-runtime ignore rule; no header repair was
+  made. PID3449796 gone. No repeated failing check was promoted to acceptance.
+- P01 remote requestcd203… and taskkchqtd21zojkdwgy4e2dc9w73 are still Running.
+  The adapter PID3387184 retains the same service/task identities on hoa1.
+- Local mirror copy session22163 finished0. Its Lean executable reports4.33.1,
+  commit819816b2e0a3bf405af45ae5c7af2491d8f5bee6. Read-only Git checks confirmed
+  all nine copied dependencies clean at their pins (`--no-optional-locks`).
+  Full byte comparison against the original packages and toolchain is still
+  running: tool session16862, shellPID3447598, package diffPID3447603. No
+  differences have been reported, but that is NOT yet a completed validation.
+  Mirror remains `/var/tmp/fermat-verifier-reference.Z0kXAn`, unused by verifiers.
+- Added private `ImportProbe.lean` in that mirror for a future timing diagnostic
+  (`import Mathlib`, an existing-theorem check, one trivial anonymous example).
+  It has NOT run. Wait for the existing byte comparison to finish before using
+  it. Neither a benchmark nor a copied cache is campaign proof evidence.
+- No production verifier code was changed, no worker was restarted or notified
+  to start an issue, no solved issue was closed, and no solution PR exists yet.
+  Missing-name-only derived-header repair still awaits explicit user approval.
