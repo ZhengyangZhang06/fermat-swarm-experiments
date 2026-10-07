@@ -1,7 +1,7 @@
 /-
 Copyright 2026 Anthropic, PBC. Licensed under Apache-2.0; see LICENSE.
 Source: https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean
-Modified: replaced the proof with sorry and removed P2M proof imports.
+Modified: implements the selected fraction-unit criterion in namespace Submission.
 Requires the upstream Definitions modules and their dependencies.
 -/
 
@@ -530,6 +530,8 @@ set_option warningAsError true
 
 /-- In the given polynomial-fraction model of a place, a fraction is a unit exactly when
 its numerator is not divisible by the defining irreducible polynomial. -/
+namespace Submission
+
 theorem p06_9e0f5043ff_fno_fraction_isunit
     (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F)
     (hx : Transcendental K x) (q : Polynomial K) (_hqmonic : q.Monic)
