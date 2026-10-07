@@ -647,6 +647,7 @@ theorem p02_es_177ebb5a_tb_eval_bound
     _ = ((n + 1 : ℕ) : ℝ) * (max 1 ‖z‖) ^ n * b := by ring
 
 /-- A uniform coefficient bound for the homogeneous power `(z * X₀ + X₁) ^ n`. -/
+
 theorem p02_es_177ebb5a_scl_linepow_coeff_bound :
     ∀ (n : ℕ) (z : ℂ) (d : Fin 2 →₀ ℕ),
       ‖MvPolynomial.coeff d (HeckeEis.linePow n z).val‖ ≤
