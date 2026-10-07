@@ -1296,11 +1296,8 @@ theorem p06_9e0f5043ff_pae_compatible_order_invariance
       e ((u : v.toValuationSubring) : E) := hcompat (u : v.toValuationSubring)
   have hfactor : e f = ((u' : w.toValuationSubring) : L) *
       ((r π : L) ^ v.ord f) := by
-    calc
-      e f = e ((u : v.toValuationSubring) : E) * (e (π : E)) ^ v.ord f := by
-        conv_lhs => rw [hu, map_mul, map_zpow₀]
-      _ = ((u' : w.toValuationSubring) : L) * ((r π : L) ^ v.ord f) := by
-        rw [hcoeu, hcompat π]
+    rw [hcoeu, hcompat π]
+    conv_lhs => rw [hu, map_mul, map_zpow₀]
   rw [hfactor, w.ord_unit_smul_zpow u' hπ' (v.ord f)]
 
 end Submission
