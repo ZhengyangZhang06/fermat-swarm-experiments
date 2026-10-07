@@ -5,6 +5,7 @@ open P2MW.S_ModularForm_mdifferentiable_heckeT.M4cP1W2
 
 namespace Submission
 
+/-- Good-prime weight-two Hecke operators commute on cusp forms of level `M`. -/
 theorem f036cc6b1f_hecke_commute :
     ∀ (M : ℕ) [NeZero M] (p r : ℕ) (hp : p.Prime) (hr : r.Prime)
       (hpM : ¬ p ∣ M) (hrM : ¬ r ∣ M),
@@ -20,6 +21,7 @@ theorem f036cc6b1f_hecke_commute :
   have hΓ : (1 : ℝ) ∈
       (CongruenceSubgroup.Gamma0 M : Subgroup (GL (Fin 2) ℝ)).strictPeriods := by
     simp
+  -- The imported, pinned coefficient formula uses the exact bundled Hecke normalization.
   have hcoeff (s : ℕ) (hs : s.Prime) (hsM : ¬ s ∣ M)
       (g : CuspForm (CongruenceSubgroup.Gamma0 M) 2) :
       qCoeff (CuspForm.heckeTLin 2 hs hsM g) = coeffHeckeT 2 s (qCoeff g) := by
@@ -34,6 +36,7 @@ theorem f036cc6b1f_hecke_commute :
   rw [hcoeff p hp hpM, hcoeff r hr hrM, hcoeff r hr hrM, hcoeff p hp hpM]
   simp only [coeffHeckeT_apply, show (2 : ℤ) - 1 = 1 from rfl, zpow_one,
     hp.dvd_mul, hr.dvd_mul, hpr', hrp', or_false]
+  -- These four divisibility cases also include the constant coefficient `n = 0`.
   by_cases hpn : p ∣ n <;> by_cases hrn : r ∣ n
   · have hrnp : r ∣ n / p :=
       (Nat.dvd_div_iff_mul_dvd hpn).mpr (hcop.mul_dvd_of_dvd_of_dvd hpn hrn)
