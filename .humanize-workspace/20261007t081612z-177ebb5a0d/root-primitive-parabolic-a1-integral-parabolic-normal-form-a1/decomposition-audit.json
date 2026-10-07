@@ -1,0 +1,48 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "parabolic.*conjug|conjug.*parabolic|trace.*(sq|\\^ 2)|primitive.*(ker|eigen)|exists.*(ker|coprime)",
+        "gcd_eq_gcd_ab|exists_gcd_one|gcd_pos_iff|gcd_dvd|isCoprime_iff_gcd_eq_one",
+        "def IsCoprime|def SpecialLinearGroup|coe_mul|coe_inv|coe_neg|det_coe|coe_T_zpow|def T|instance.*Group|Matrix.of|mulVec_smul|mulVec_mulVec|det_fin_two|mulVec_fin_two",
+        "p02_es_177ebb5a_pnf_(primitive_kernel|primitive_eigenvector_triangular)",
+        "git -C .lake/packages/mathlib rev-parse HEAD",
+        "git -C .lake/packages/mathlib status --short",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_177ebb5a_pnf_independent_audit_20261007.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_Gamma0CoeffCohomology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Data/Int/GCD.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/Coprime/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/Coprime/Lemmas.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/LinearAlgebra/Matrix/GeneralLinearGroup/FinTwo.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Data/Matrix/Mul.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/Submission.lean",
+        "/tmp/p02_177ebb5a_pnf_independent_audit_20261007.lean"
+      ],
+      "conclusion": "The DAG identifies this parent as the existing depth-two integral-parabolic-normal-form helper beneath the unchanged frozen injectivity theorem. The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. All nine installed dependencies match their manifest revisions and have clean Git status; seven inspected mathlib files and the project definition match the snapshot byte-for-byte. References establish the exact Bézout definition of IsCoprime, gcd normalization, determinant and matrix-vector identities, ordinary special-linear operations, and ModularGroup.coe_T_zpow. No matching integral conjugacy theorem was found in the searched project, matrix, and modular-form sources. Neither proposed name occurs in Submission.lean or the current DAG. Both exact child propositions elaborate with import Mathlib alone, independently of any child implementation. Additional anonymous examples verify matrix multiplication, inversion, negation, and the inline Matrix.of construction. Transitive axiom checks on eleven supporting declarations report only propext, Classical.choice, and Quot.sound. These checks support decomposition approval, not comparator acceptance of future Lean proofs."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "primitive_kernel",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line Lean proposition exactly matches the prose, including M=0. Step 1 supplies a valid primitive vector for zero. Step 2 constructs a nonzero kernel vector in both row cases with correct determinant signs. Steps 3–4 use the positive gcd and integer Bézout identity, cancelling a nonzero factor to obtain precisely IsCoprime p q. Step 5 correctly cancels that factor in both kernel equations. The proof is complete and non-circular. The bare name is unreserved. This is a genuine reusable obligation, and its empty dependency list is correct."
+    },
+    {
+      "key": "primitive_eigenvector_triangular",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The independently elaborated one-line type includes all three hypotheses and exactly the stated conjugacy conclusion. Special-linear operations use ordinary matrix multiplication, and Matrix.of correctly represents the displayed matrix. Bézout coefficients produce determinant one; conjugation transports the eigenvector to the first basis vector; determinant one gives εd=1; and ε²=1 gives d=ε. Every step is justified without either child or the parent theorem. The bare name is unreserved. No sibling dependency is needed because the primitive eigenvector is an explicit hypothesis. Together the children give an appropriate acyclic split: the parent applies kernel existence, then triangularization, and finishes using integer powers of T, retaining γ=±I."
+    }
+  ],
+  "required_changes": []
+}

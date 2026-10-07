@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.primitive_parabolic-a1.integral_parabolic_normal_form-a1.primitive_eigenvector_triangular-a1",
+  "parent_id": "root.primitive_parabolic-a1.integral_parabolic_normal_form-a1",
+  "depth": 3,
+  "title": "Integral triangularization from a primitive eigenvector",
+  "statement": "Let γ∈SL₂(ℤ) and ε,p,q∈ℤ. Assume ε²=1, IsCoprime p q, and γ(p,q)ᵀ=(εp,εq)ᵀ. Then there exist σ∈SL₂(ℤ) and b∈ℤ such that the underlying matrix of σ⁻¹γσ is (ε b;0 ε).",
+  "lean_statement": "∀ (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (ε p q : ℤ), ε ^ 2 = 1 → IsCoprime p q → (γ : Matrix (Fin 2) (Fin 2) ℤ).mulVec ![p, q] = ![ε * p, ε * q] → ∃ (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (b : ℤ), (σ⁻¹ * γ * σ : Matrix.SpecialLinearGroup (Fin 2) ℤ).val = Matrix.of ![![ε, b], ![0, ε]]",
+  "lean_name": "p02_es_177ebb5a_pnf_primitive_eigenvector_triangular",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-parabolic-a1-integral-parabolic-normal-form-a1-primiti-8f116ad520-a1"
+}

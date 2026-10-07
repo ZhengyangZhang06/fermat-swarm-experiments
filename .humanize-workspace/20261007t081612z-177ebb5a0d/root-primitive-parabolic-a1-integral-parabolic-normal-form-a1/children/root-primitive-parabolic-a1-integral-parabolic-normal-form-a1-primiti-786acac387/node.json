@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.primitive_parabolic-a1.integral_parabolic_normal_form-a1.primitive_kernel-a1",
+  "parent_id": "root.primitive_parabolic-a1.integral_parabolic_normal_form-a1",
+  "depth": 3,
+  "title": "A singular integral two-by-two matrix has a primitive kernel vector",
+  "statement": "For every matrix M∈Mat₂(ℤ) with det M=0, there exist integers p,q such that IsCoprime p q and M(p,q)ᵀ=0. Here IsCoprime p q means that some integers α,β satisfy αp+βq=1; in particular, the vector is nonzero. The statement includes M=0.",
+  "lean_statement": "∀ M : Matrix (Fin 2) (Fin 2) ℤ, M.det = 0 → ∃ p q : ℤ, IsCoprime p q ∧ M.mulVec ![p, q] = 0",
+  "lean_name": "p02_es_177ebb5a_pnf_primitive_kernel",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-parabolic-a1-integral-parabolic-normal-form-a1-primiti-786acac387-a1"
+}
