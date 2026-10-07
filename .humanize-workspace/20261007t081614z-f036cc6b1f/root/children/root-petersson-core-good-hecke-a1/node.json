@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.petersson_core_good_hecke-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "A positive-definite Hermitian form making all good-prime Hecke operators symmetric",
+  "statement": "For every natural number M with M ≠ 0, let V = CuspForm (CongruenceSubgroup.Gamma0 M) 2 with its existing complex vector space structure. There exists an InnerProductSpace.Core ℂ V, namely a positive-definite Hermitian form B conjugate-linear in its first variable, such that for every natural prime p not dividing M, every corresponding proof witnesses hp and hpM, and every f,g ∈ V, B(CuspForm.heckeTLin 2 hp hpM f,g) = B(f,CuspForm.heckeTLin 2 hp hpM g). The same B works for all such primes.",
+  "lean_statement": "∀ (M : ℕ) [NeZero M], ∃ B : InnerProductSpace.Core ℂ (CuspForm (CongruenceSubgroup.Gamma0 M) 2), ∀ (p : ℕ) (hp : p.Prime) (hpM : ¬ p ∣ M) (f g : CuspForm (CongruenceSubgroup.Gamma0 M) 2), B.inner (CuspForm.heckeTLin 2 hp hpM f) g = B.inner f (CuspForm.heckeTLin 2 hp hpM g)",
+  "lean_name": "f036cc6b1f_petersson_core",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-a1"
+}

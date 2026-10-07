@@ -1,0 +1,60 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'heckeTLin|InnerProductSpace.Core|iSup_iInf_eq_top_of_commute|sturm_bound_levelOne_nat' .humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb",
+        "grep -RnE 'heckeTLin|InnerProductSpace.Core|iSup_iInf_eq_top_of_commute|sturm_bound_levelOne_nat' .humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb",
+        "finiteDimensional|FiniteDimensional|heckeTLin.*commut|heckeTLin.*[Ss]ymmet",
+        "instFiniteIndexGamma0|Gamma_normal|Gamma_le_Gamma0|def Gamma|Normal|mem_Gamma0|isCusp",
+        "qExpansion_coeff_unique",
+        "theorem eq_one_or_neg_one_of_mem_fdo_mem_fd",
+        "base.glob('fermat-p*/.humanize/github-theorem-prover/runs/*/dag.json')",
+        "git rev-parse HEAD; git status --porcelain, independently executed for the project snapshot, mathlib snapshot, and installed mathlib",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/fermat_p01_independent_audit_ra6c6asj/IndependentTypes.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean Submission.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperator.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/QExpansion.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/LevelOne/DimensionFormula.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/Modular.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Petersson.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/InnerProductSpace/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/InnerProductSpace/JointEigenspace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects",
+        "/tmp/fermat_p01_independent_audit_ra6c6asj/IndependentTypes.lean",
+        "/tmp/fermat_p01_independent_audit_ra6c6asj/IndependentTypes.log",
+        "/tmp/fermat_p01_independent_audit_ra6c6asj/Submission.log"
+      ],
+      "conclusion": "rg was unavailable; grep supplied the snapshot searches. Verified clean snapshot revisions project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; installed mathlib matches and is clean. All 20 checked project dependency sources match the snapshot. Sources confirm the exact Hecke normalization, Fourier results, Sturm bound, Petersson covariance, invariant measure, Core fields, and arbitrary-family spectral theorem. No matching general Gamma0 finite-dimensionality or bundled Hecke symmetry/commutation result was found in the searched Definitions and mathlib modular-form directories. All three exact propositions elaborate without child implementations; the induced inner product is definitionally B.inner. Eleven independently checked declarations have only propext, Classical.choice, and Quot.sound as transitive axioms. No proposed identifier is reserved in the ten locally recorded DAGs. The split is appropriate: the parent depends on three independent, acyclic obligations, and the pinned spectral theorem supplies assembly. Unchanged Submission.lean still fails on the two reported unknown attribute constants. This approves the decomposition only; it does not establish implementation readiness or comparator acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "gamma0_finite_dimensional",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose, including M ≠ 0 through NeZero. The bare identifier is unreserved. Independently checking steps 1–9 confirms finite index, common-period expansions, the weight-2d coset product, nonvanishing via its leading coefficient, transfer of vanishing order, the precise Sturm hypothesis, and the injective finite coefficient map. No parent or sibling result is assumed."
+    },
+    {
+      "key": "petersson_core_good_hecke",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The type correctly asserts one Core before quantifying all good primes and proof witnesses, and B.inner refers to that Core. The bare identifier is unreserved. Steps 1–15 supply cusp decay, measurable domains modulo ±I, absolute convergence, domain independence, definiteness, rational slash preservation, explicit double-coset representatives, and unfolding. Weight two makes the positive scalar action trivial, so both trace sums equal the exact Hecke operator without an index factor. The proof is complete and independent of the other children."
+    },
+    {
+      "key": "good_hecke_commute",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition states composition equality for precisely the operators and hypotheses in the prose; its bare identifier is unreserved. Steps 1–7 independently establish the normalized pointwise formula, justify the absolutely convergent Fourier rearrangement, evaluate the roots-of-unity sum, and derive identical four-term coefficients using coprimality. Equal primes, arbitrary proof witnesses, and n = 0 are handled. Fourier uniqueness and extensionality finish the exact statement without circular reliance."
+    }
+  ],
+  "required_changes": []
+}

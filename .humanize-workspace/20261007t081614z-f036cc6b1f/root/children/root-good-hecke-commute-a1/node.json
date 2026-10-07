@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.good_hecke_commute-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "Pairwise commutation of the exact good-prime Hecke operators",
+  "statement": "For every natural number M with M ≠ 0, every pair of natural primes p and r with p ∤ M and r ∤ M, and every corresponding proof witnesses, the complex-linear endomorphisms CuspForm.heckeTLin 2 hp hpM and CuspForm.heckeTLin 2 hr hrM of CuspForm (CongruenceSubgroup.Gamma0 M) 2 commute under composition.",
+  "lean_statement": "∀ (M : ℕ) [NeZero M] (p r : ℕ) (hp : p.Prime) (hr : r.Prime) (hpM : ¬ p ∣ M) (hrM : ¬ r ∣ M), (CuspForm.heckeTLin 2 hp hpM).comp (CuspForm.heckeTLin 2 hr hrM) = (CuspForm.heckeTLin 2 hr hrM).comp (CuspForm.heckeTLin 2 hp hpM)",
+  "lean_name": "f036cc6b1f_hecke_commute",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-good-hecke-commute-a1-a1"
+}
