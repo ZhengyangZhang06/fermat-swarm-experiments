@@ -2416,9 +2416,6 @@ theorem p06_9e0f5043ff_io_polynomial_exponent :
     exact multiplicity_eq_zero
   · intro a ha
     obtain ⟨a₀, hfactor, hfree⟩ := (hfin a ha).exists_eq_pow_mul_and_not_dvd
-    refine ⟨a₀, ?_, hfree, hfactor⟩
-    intro hzero
-    apply ha
-    simpa [hzero] using hfactor
+    exact ⟨a₀, right_ne_zero_of_mul (hfactor ▸ ha), hfree, hfactor⟩
 
 end Submission
