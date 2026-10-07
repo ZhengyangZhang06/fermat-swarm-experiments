@@ -1083,6 +1083,8 @@ import Mathlib.RingTheory.Localization.Module
 
 namespace Submission
 
+/-- A residue module localized at a height-one prime is simple at its own prime
+and is the zero module at every distinct height-one prime. -/
 theorem p06_9e0f5043ff_llm_localized_residue_factors
     (B : Type*) [CommRing B] [IsDedekindDomain B]
     (p q : IsDedekindDomain.HeightOneSpectrum B) :
