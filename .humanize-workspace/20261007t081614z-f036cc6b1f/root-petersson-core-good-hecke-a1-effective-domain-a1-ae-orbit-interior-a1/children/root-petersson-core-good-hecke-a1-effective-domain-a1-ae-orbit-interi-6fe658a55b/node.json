@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.petersson_core_good_hecke-a1.effective_domain-a1.ae_orbit_interior-a1.standard_boundary_null-a1",
+  "parent_id": "root.petersson_core_good_hecke-a1.effective_domain-a1.ae_orbit_interior-a1",
+  "depth": 4,
+  "title": "The standard modular-domain boundary is measurable and hyperbolically null",
+  "statement": "Let ℍ = {x + iy ∈ ℂ : y > 0} carry its Borel measurable structure and hyperbolic measure μ = dx dy/y². Define F₀ = {z ∈ ℍ : 1 ≤ |z|² and |Re z| ≤ 1/2} and F₀° = {z ∈ ℍ : 1 < |z|² and |Re z| < 1/2}. Then E = F₀ \\ F₀° is measurable and μ(E) = 0.",
+  "lean_statement": "MeasurableSet (ModularGroup.fd \\ ModularGroup.fdo) ∧ (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) (ModularGroup.fd \\ ModularGroup.fdo) = 0",
+  "lean_name": "f036cc6b1f_pc_ed_aoi_boundary_null",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interi-6fe658a55b-a1"
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.petersson_core_good_hecke-a1.effective_domain-a1.ae_orbit_interior-a1.measurable_null_orbit_avoidance-a1",
+  "parent_id": "root.petersson_core_good_hecke-a1.effective_domain-a1.ae_orbit_interior-a1",
+  "depth": 4,
+  "title": "Almost every modular orbit avoids a prescribed measurable null set",
+  "statement": "Let G = SL₂(ℤ) act on ℍ by Möbius transformations, and equip ℍ with its Borel measurable structure and hyperbolic measure μ = dx dy/y². For every measurable set S ⊆ ℍ satisfying μ(S) = 0, for μ-almost every z ∈ ℍ and every a ∈ G, one has a • z ∉ S.",
+  "lean_statement": "∀ s : Set UpperHalfPlane, MeasurableSet s → (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) s = 0 → ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∀ a : Matrix.SpecialLinearGroup (Fin 2) ℤ, a • z ∉ s",
+  "lean_name": "f036cc6b1f_pc_ed_aoi_null_orbit",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interi-9760a4d8a3-a1"
+}

@@ -1,0 +1,195 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081614Z-f036cc6b1f",
+  "parent_id": "root.petersson_core_good_hecke-a1.effective_domain-a1.ae_orbit_interior-a1",
+  "dispatch_branch": "proof-workspace/fermat-p01/20261007t081614z-f036cc6b1f/dispatch/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1",
+  "source_commit": "61b5f85556ac71631ccad822e0694511234f7132",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.petersson_core_good_hecke-a1.effective_domain-a1.ae_orbit_interior-a1.measurable_null_orbit_avoidance-a1",
+      "key": "measurable_null_orbit_avoidance",
+      "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interi-9760a4d8a3-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/children/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interi-9760a4d8a3",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "isClosed_fd|isOpen_fdo|def fd|def fdo|volume|measure|ae_|boundary",
+              "SLAction|mapGL|instContinuousGLSMul|continuous.*smul|smul_eq",
+              "fd.*fdo|fdo.*fd|boundary.*(null|zero)|volume.*fd|fd.*volume",
+              "measure_prod_null_of_ae_null|volume_preserving_equiv_real_prod|measure_preimage_fst|measure_sphere|sphere.*zero",
+              "measure_preimage_smul|measurePreserving_smul|ae_smul|quasiMeasurePreserving_smul",
+              "ae_all_iff|ae_iff|theorem ae_notMem",
+              "structure SpecialLinearGroup|def SpecialLinearGroup|val_injective|coe_injective|theorem ext|lemma ext|Countable",
+              "f036cc6b1f_pc_ed_aoi_boundary_null|f036cc6b1f_pc_ed_aoi_null_orbit",
+              "git -C .lake/packages/mathlib rev-parse HEAD",
+              "git -C .lake/packages/mathlib status --porcelain",
+              "#synth MeasureTheory.MeasureSpace UpperHalfPlane",
+              "#synth SMul (Matrix.SpecialLinearGroup (Fin 2) ℤ) UpperHalfPlane",
+              "#check (inferInstanceAs (Countable { A : Fin 2 → Fin 2 → ℤ // Matrix.det A = 1 }) : Countable (Matrix.SpecialLinearGroup (Fin 2) ℤ))",
+              "#print axioms UpperHalfPlane.volume_eq_lintegral",
+              "#print axioms UpperHalfPlane.instSMulInvariantMeasureGeneralLinearGroupFinOfNatNatRealVolume",
+              "#print axioms MeasureTheory.Measure.measure_prod_null_of_ae_null",
+              "#print axioms Complex.volume_preserving_equiv_real_prod",
+              "#print axioms MeasureTheory.ae_all_iff"
+            ],
+            "files": [
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/dag.json",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/Modular.lean",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Measure/Prod.lean",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Measure/Lebesgue/Complex.lean",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Group/Action.lean",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/OuterMeasure/AE.lean",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Data/Countable/Defs.lean",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/P2M",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/decomposition-checks-v1/FrozenTypesFinal.lean",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/decomposition-checks-v1/FrozenTypesFinal.log",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/decomposition-checks-v1/CompatibilityFinal.json"
+            ],
+            "conclusion": "The snapshot pins project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Modular.lean supplies the exact domain definitions and their closed/open properties. Measure.lean supplies the hyperbolic density formula and GL₂(ℝ) invariance; MoebiusAction.lean and Topology.lean identify the restricted SL₂(ℤ) action and its continuity. Prod.lean and Lebesgue/Complex.lean justify planar nullness through null sections and the measure-preserving real-coordinate identification. Group/Action.lean and OuterMeasure/AE.lean supply invariant preimages and countable almost-everywhere quantification. The targeted search in project/Definitions and project/P2M found no boundary-null helper. Neither proposed identifier occurs in the active DAG or searched declarations. Both frozen child expressions elaborate through literal import Submission; the final check exits 0. Instance inspection confirms the hyperbolic MeasureSpace and UpperHalfPlane.SLAction. Countability requires explicitly unfolding both SpecialLinearGroup and Matrix; its witness also checks. All nine installed dependencies are clean and pinned; twenty project sources and eight mathlib sources were checked against the recorded snapshot. The thirteen audited infrastructure declarations use only propext, Classical.choice, Quot.sound, or no axioms. These are compatibility checks, not comparator acceptance of either proposed theorem."
+          }
+        ],
+        "parent_id": "root.petersson_core_good_hecke-a1.effective_domain-a1.ae_orbit_interior-a1",
+        "child_id": "root.petersson_core_good_hecke-a1.effective_domain-a1.ae_orbit_interior-a1.measurable_null_orbit_avoidance-a1",
+        "subproblem": {
+          "key": "measurable_null_orbit_avoidance",
+          "title": "Almost every modular orbit avoids a prescribed measurable null set",
+          "statement": "Let G = SL₂(ℤ) act on ℍ by Möbius transformations, and equip ℍ with its Borel measurable structure and hyperbolic measure μ = dx dy/y². For every measurable set S ⊆ ℍ satisfying μ(S) = 0, for μ-almost every z ∈ ℍ and every a ∈ G, one has a • z ∉ S.",
+          "lean_statement": "∀ s : Set UpperHalfPlane, MeasurableSet s → (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) s = 0 → ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∀ a : Matrix.SpecialLinearGroup (Fin 2) ℤ, a • z ∉ s",
+          "lean_name": "f036cc6b1f_pc_ed_aoi_null_orbit",
+          "depends_on": [],
+          "natural_proof": "1. Fix a measurable set S ⊆ ℍ with μ(S) = 0. For each a ∈ G, define Tₐ(z) = a • z and Bₐ = Tₐ⁻¹(S).\n2. Let g be the image of a under Matrix.SpecialLinearGroup.mapGL ℝ. By the definition UpperHalfPlane.SLAction in the pinned MoebiusAction.lean, Tₐ(z) = g • z. The GL₂(ℝ) action maps are continuous by UpperHalfPlane.instContinuousGLSMul, so Tₐ is measurable and Bₐ is measurable. The invariant-measure instance in UpperHalfPlane/Measure.lean states that the GL₂(ℝ) action preserves hyperbolic measure. Applying its measurable-preimage identity to g and S gives μ(Bₐ) = μ(S) = 0.\n3. The map sending a ∈ SL₂(ℤ) to its four integer matrix entries is injective, since equality of all entries implies equality of matrices and hence equality in the determinant-one subtype. A finite product of countable sets is countable, so ℤ⁴ is countable and therefore G is countable. In the pinned definitions, this is precisely the determinant-one subtype of the function space Fin 2 → Fin 2 → ℤ.\n4. Define N = ⋃ₐ∈G Bₐ. This is a countable union of measurable sets, so it is measurable. Countable subadditivity and step 2 give μ(N) ≤ Σₐ∈G μ(Bₐ) = 0. Nonnegativity then yields μ(N) = 0.\n5. If z ∉ N, then z ∉ Bₐ for every a ∈ G. By the definition of Bₐ, this means a • z ∉ S for every a. Since N has measure zero, its complement has full μ-measure, proving the required simultaneous almost-everywhere assertion.",
+          "proof_key_steps": [
+            "Form the preimage of the prescribed null set under each modular action map.",
+            "Restrict GL₂(ℝ) continuity and measure invariance to show every preimage is measurable and null.",
+            "Prove SL₂(ℤ) countable through its four integer entries.",
+            "Remove the countable union of all preimages.",
+            "Read nonmembership in that union as avoidance by every modular translate."
+          ]
+        },
+        "audit": {
+          "key": "measurable_null_orbit_avoidance",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The independently elaborated single-line proposition exactly quantifies over measurable hyperbolically null sets and places every group element inside the simultaneous almost-everywhere conclusion. The bare identifier is unreserved. Steps 1–2 correctly use the restricted GL action, continuity, and invariant preimages; step 3 establishes countability through the determinant-one subtype of four integer entries; steps 4–5 remove the countable union of null preimages and derive the exact conclusion. Both hypotheses are used correctly. No boundary theorem or parent conclusion is assumed, so the empty dependency list is correct and the split is acyclic. The proof requires no further planning or prose generation."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interi-9760a4d8a3/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interi-9760a4d8a3/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interi-9760a4d8a3/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.petersson_core_good_hecke-a1.effective_domain-a1.ae_orbit_interior-a1.standard_boundary_null-a1",
+      "key": "standard_boundary_null",
+      "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interi-6fe658a55b-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/children/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interi-6fe658a55b",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "isClosed_fd|isOpen_fdo|def fd|def fdo|volume|measure|ae_|boundary",
+              "SLAction|mapGL|instContinuousGLSMul|continuous.*smul|smul_eq",
+              "fd.*fdo|fdo.*fd|boundary.*(null|zero)|volume.*fd|fd.*volume",
+              "measure_prod_null_of_ae_null|volume_preserving_equiv_real_prod|measure_preimage_fst|measure_sphere|sphere.*zero",
+              "measure_preimage_smul|measurePreserving_smul|ae_smul|quasiMeasurePreserving_smul",
+              "ae_all_iff|ae_iff|theorem ae_notMem",
+              "structure SpecialLinearGroup|def SpecialLinearGroup|val_injective|coe_injective|theorem ext|lemma ext|Countable",
+              "f036cc6b1f_pc_ed_aoi_boundary_null|f036cc6b1f_pc_ed_aoi_null_orbit",
+              "git -C .lake/packages/mathlib rev-parse HEAD",
+              "git -C .lake/packages/mathlib status --porcelain",
+              "#synth MeasureTheory.MeasureSpace UpperHalfPlane",
+              "#synth SMul (Matrix.SpecialLinearGroup (Fin 2) ℤ) UpperHalfPlane",
+              "#check (inferInstanceAs (Countable { A : Fin 2 → Fin 2 → ℤ // Matrix.det A = 1 }) : Countable (Matrix.SpecialLinearGroup (Fin 2) ℤ))",
+              "#print axioms UpperHalfPlane.volume_eq_lintegral",
+              "#print axioms UpperHalfPlane.instSMulInvariantMeasureGeneralLinearGroupFinOfNatNatRealVolume",
+              "#print axioms MeasureTheory.Measure.measure_prod_null_of_ae_null",
+              "#print axioms Complex.volume_preserving_equiv_real_prod",
+              "#print axioms MeasureTheory.ae_all_iff"
+            ],
+            "files": [
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/dag.json",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/Modular.lean",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Measure/Prod.lean",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Measure/Lebesgue/Complex.lean",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Group/Action.lean",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/OuterMeasure/AE.lean",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Data/Countable/Defs.lean",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/P2M",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/decomposition-checks-v1/FrozenTypesFinal.lean",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/decomposition-checks-v1/FrozenTypesFinal.log",
+              ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/decomposition-checks-v1/CompatibilityFinal.json"
+            ],
+            "conclusion": "The snapshot pins project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Modular.lean supplies the exact domain definitions and their closed/open properties. Measure.lean supplies the hyperbolic density formula and GL₂(ℝ) invariance; MoebiusAction.lean and Topology.lean identify the restricted SL₂(ℤ) action and its continuity. Prod.lean and Lebesgue/Complex.lean justify planar nullness through null sections and the measure-preserving real-coordinate identification. Group/Action.lean and OuterMeasure/AE.lean supply invariant preimages and countable almost-everywhere quantification. The targeted search in project/Definitions and project/P2M found no boundary-null helper. Neither proposed identifier occurs in the active DAG or searched declarations. Both frozen child expressions elaborate through literal import Submission; the final check exits 0. Instance inspection confirms the hyperbolic MeasureSpace and UpperHalfPlane.SLAction. Countability requires explicitly unfolding both SpecialLinearGroup and Matrix; its witness also checks. All nine installed dependencies are clean and pinned; twenty project sources and eight mathlib sources were checked against the recorded snapshot. The thirteen audited infrastructure declarations use only propext, Classical.choice, Quot.sound, or no axioms. These are compatibility checks, not comparator acceptance of either proposed theorem."
+          }
+        ],
+        "parent_id": "root.petersson_core_good_hecke-a1.effective_domain-a1.ae_orbit_interior-a1",
+        "child_id": "root.petersson_core_good_hecke-a1.effective_domain-a1.ae_orbit_interior-a1.standard_boundary_null-a1",
+        "subproblem": {
+          "key": "standard_boundary_null",
+          "title": "The standard modular-domain boundary is measurable and hyperbolically null",
+          "statement": "Let ℍ = {x + iy ∈ ℂ : y > 0} carry its Borel measurable structure and hyperbolic measure μ = dx dy/y². Define F₀ = {z ∈ ℍ : 1 ≤ |z|² and |Re z| ≤ 1/2} and F₀° = {z ∈ ℍ : 1 < |z|² and |Re z| < 1/2}. Then E = F₀ \\ F₀° is measurable and μ(E) = 0.",
+          "lean_statement": "MeasurableSet (ModularGroup.fd \\ ModularGroup.fdo) ∧ (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) (ModularGroup.fd \\ ModularGroup.fdo) = 0",
+          "lean_name": "f036cc6b1f_pc_ed_aoi_boundary_null",
+          "depends_on": [],
+          "natural_proof": "1. Put E = F₀ \\ F₀°. The functions z ↦ |z|² and z ↦ |Re z| are continuous on ℍ. Their non-strict inequalities define a closed set F₀, and their strict inequalities define an open set F₀°. Thus E is Borel measurable. These facts are ModularGroup.isClosed_fd and ModularGroup.isOpen_fdo in the pinned Modular.lean.\n2. Let z = x + iy belong to E. Then 1 ≤ x² + y² and |x| ≤ 1/2. If both inequalities were strict, z would belong to F₀°, contradicting z ∈ E. Hence x² + y² = 1 or |x| = 1/2. In the latter case x = 1/2 when x ≥ 0, and x = -1/2 when x < 0. Consequently the image of E in ℂ is contained in the union of C = {x + iy : x² + y² = 1}, L₊ = {x + iy : x = 1/2}, and L₋ = {x + iy : x = -1/2}.\n3. Identify ℂ with ℝ × ℝ by z ↦ (Re z, Im z). This identification preserves Lebesgue measure, as established by Complex.volume_preserving_equiv_real_prod. For any real c, the vertical line x = c corresponds to {c} × ℝ. The product-measure formula gives its measure as λ({c})λ(ℝ) = 0, since real Lebesgue measure λ assigns zero to singletons and 0 times infinity is zero in the nonnegative extended reals. Thus both L₊ and L₋ have planar measure zero.\n4. The real-coordinate image C′ = {(x,y) : x² + y² = 1} of C is closed, hence measurable. Fix x. Its vertical section is Sₓ = {y : x² + y² = 1}. If Sₓ is empty, its measure is zero. Otherwise choose y₀ ∈ Sₓ. For every y ∈ Sₓ, subtraction of the two defining equations yields y² - y₀² = 0, so (y - y₀)(y + y₀) = 0. Therefore y = y₀ or y = -y₀. Thus Sₓ is contained in a two-element set and has real Lebesgue measure zero. Tonelli's null-section consequence, MeasureTheory.Measure.measure_prod_null_of_ae_null, now gives product measure zero for C′. The measure-preserving identification gives planar measure zero for C.\n5. By finite subadditivity, C ∪ L₊ ∪ L₋ has planar measure zero. The containment in step 2 and monotonicity therefore show that the image of E in ℂ has planar measure zero.\n6. UpperHalfPlane.volume_eq_lintegral expresses μ(E) as the nonnegative integral over that image of the density (1/|Im z|)². The restriction of planar measure to a null set is the zero measure, so this integral is zero. Hence μ(E) = 0. Together with step 1 this proves both asserted conclusions.",
+          "proof_key_steps": [
+            "Use continuity to prove measurability of F₀ \\ F₀°.",
+            "Contain its complex image in the unit circle and two vertical lines.",
+            "Prove vertical-line nullness by the product-measure formula.",
+            "Prove circle nullness from finite vertical sections and Tonelli.",
+            "Transfer planar nullness to hyperbolic nullness using the density formula."
+          ]
+        },
+        "audit": {
+          "key": "standard_boundary_null",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The single-line proposition exactly states measurability and hyperbolic nullness of the specified domain difference, with no missing hypotheses, aliases, placeholders, or dependence on the child implementation. The bare identifier is unreserved. Step 1 establishes Borel measurability; step 2 correctly reduces boundary membership to the circle or two vertical lines; steps 3–4 prove planar nullness using product measure and finite sections of a closed set; steps 5–6 correctly apply monotonicity and the hyperbolic density formula. The proof is complete, non-circular, and sufficient for formalization. Its empty dependency list is correct."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interi-6fe658a55b/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interi-6fe658a55b/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interi-6fe658a55b/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/task.md": "05006e5102d8511e94dc61fded268fcca7b1594ae676beaa70ca219b913620d8",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/problem.md": "0929eb9ca2ad7ea30f1aafc2c1446aaf06dcdc301374ffe2ca7f4b56816d2cc8",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/problem.json": "c64a078a3af06a0ca64b6d4803eb85ec446543f75da9e877043ae15bfce62d9d",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/reference-manifest.json": "509f4932b6d1c571a2a1434f97319ae47791212dabf986cc6faad0e84a6d9346",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/decomposition.json": "a2bfd380432d655e6011e06e5cf0a75d7b1bd5163dd1f9690181599bb99f0c87",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/decomposition-audit.json": "3ad72b8ab2b02b7753444674e36b5191f11a992a0f3cd48c1dccc21e707dd23c",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/controller-contract.json": "bff7bdd835120310c8d06285451ab49cb58d39fdb94d2ad676fc3fff3afc415d",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/children/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interi-9760a4d8a3/parent-child-handoff.json": "a97abdbbf17729c2472707aaca4215d6372ab1602a6570a07c17dcf9e8585365",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/children/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interi-9760a4d8a3/parent-supplied-plan.md": "55b59a8d5816eec5b0f398f54def45d95755fe4429cb33c0c48bd2e898271c65",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/children/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interi-9760a4d8a3/parent-supplied-natural-proof.md": "e6456d94cbcdb626993ffb2a8df13f6d1e51a31428a6fe3cede6e6394012c9fd",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/children/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interi-9760a4d8a3/parent-supplied-natural-proof.json": "c59c102a5c42d9dd356741b39bb73bbd41e760e075a64ad1c69b73979d19a0b0",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/children/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interi-9760a4d8a3/node.json": "b00d8bfa1ba94c765b6525fb1244f94c2d850c6ecbc8f4e6b565037dda5816e6",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/children/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interi-6fe658a55b/parent-child-handoff.json": "cc8a317ccd7bb4ec2635d4dcf2bb30dc8b8ccd4e63123b9e6679bc1bf1c4b41a",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/children/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interi-6fe658a55b/parent-supplied-plan.md": "fa0de7bb6035b9c5db3a3bb00fd9389f9394dd4574e45f717023327ceb5ffbf6",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/children/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interi-6fe658a55b/parent-supplied-natural-proof.md": "58d4ccdbc561f14c86ca0400adb3b55dd2797b990ee18bf1cf30f69cdf850146",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/children/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interi-6fe658a55b/parent-supplied-natural-proof.json": "bce787410d6d7be7535d44ef2a4d8ca7c9b6b2dfb41189f5402b522edf6974be",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/children/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interi-6fe658a55b/node.json": "f3aa3025f9f43b9960d6855e9bac9645ead4a7ed73845c2884875def3df0ef08"
+  }
+}

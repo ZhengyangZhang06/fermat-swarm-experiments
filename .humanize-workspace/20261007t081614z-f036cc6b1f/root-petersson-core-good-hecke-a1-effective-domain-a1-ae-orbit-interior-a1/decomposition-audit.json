@@ -1,0 +1,66 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "def fd|def fdo|isClosed_fd|isOpen_fdo|fd.*fdo|fdo.*fd|volume|measure|boundary",
+        "volume_eq_lintegral|SMulInvariantMeasure|volume|SLAction|mapGL|instContinuousGLSMul",
+        "fd.*fdo|fdo.*fd|boundary.*(null|zero)|volume.*fd|fd.*volume|f036cc6b1f_pc_ed_aoi_boundary_null|f036cc6b1f_pc_ed_aoi_null_orbit",
+        "measure_prod_null_of_ae_null|volume_preserving_equiv_real_prod|measure_preimage_smul|ae_all_iff|def SpecialLinearGroup|def mapGL|instance.*[Cc]ountable",
+        "f036cc6b1f_pc_ed_aoi_boundary_null|f036cc6b1f_pc_ed_aoi_null_orbit",
+        "#synth MeasurableSpace UpperHalfPlane",
+        "#synth MeasureTheory.MeasureSpace UpperHalfPlane",
+        "#synth BorelSpace UpperHalfPlane",
+        "#synth SMul (Matrix.SpecialLinearGroup (Fin 2) ℤ) UpperHalfPlane",
+        "#synth MeasureTheory.SMulInvariantMeasure (Matrix.GeneralLinearGroup (Fin 2) ℝ) UpperHalfPlane MeasureTheory.volume",
+        "#check (inferInstanceAs (Countable { A : Fin 2 → Fin 2 → ℤ // Matrix.det A = 1 }) : Countable (Matrix.SpecialLinearGroup (Fin 2) ℤ))",
+        "#print axioms UpperHalfPlane.volume_eq_lintegral",
+        "#print axioms UpperHalfPlane.instSMulInvariantMeasureGeneralLinearGroupFinOfNatNatRealVolume",
+        "#print axioms MeasureTheory.Measure.measure_prod_null_of_ae_null",
+        "#print axioms Complex.volume_preserving_equiv_real_prod",
+        "#print axioms MeasureTheory.measure_preimage_smul",
+        "#print axioms MeasureTheory.ae_all_iff"
+      ],
+      "files": [
+        ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md",
+        ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/dag.json",
+        ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/Modular.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Measure/Prod.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Measure/Lebesgue/Complex.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Group/Action.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/OuterMeasure/AE.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Data/Countable/Defs.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Data/Countable/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions",
+        ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/P2M",
+        ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/independent-audit-vmjegcxo/IndependentTypes.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/independent-audit-vmjegcxo/IndependentTypes.log",
+        ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/independent-audit-vmjegcxo/SubmissionTypes.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/independent-audit-vmjegcxo/SubmissionTypes.log",
+        ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1/independent-audit-vmjegcxo/Verification.json"
+      ],
+      "conclusion": "Independently confirmed project revision 61b5f85556ac71631ccad822e0694511234f7132 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d. Nine installed dependencies are clean and pinned; twenty imported project sources and eleven inspected mathlib sources match their frozen revisions. Modular.lean supplies the exact domains and topology; Measure.lean supplies hyperbolic volume and GL invariance; the action, product-measure, coordinate-equivalence, and countability sources support the supplied arguments. Targeted searches found no boundary-null helper in project/Definitions or project/P2M and no proposed-name collision in the active DAG or pinned declarations. Both exact propositions independently elaborate using only the frozen Definitions import and also through import Submission. Instance checks confirm the Borel structure, hyperbolic measure, and SLAction. Fifteen audited infrastructure declarations transitively use only propext, Classical.choice, Quot.sound, or no axioms. The DAG confirms this is a nested obligation under the unchanged frozen cusp-form theorem. The split appropriately separates boundary geometry from countable orbit avoidance; applying the second child to the first child's boundary proves the parent. This accepts the decomposition, not any unimplemented Lean proof."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "standard_boundary_null",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The single-line proposition exactly states measurability and hyperbolic nullness of the specified domain difference, with no missing hypotheses, aliases, placeholders, or dependence on the child implementation. The bare identifier is unreserved. Step 1 establishes Borel measurability; step 2 correctly reduces boundary membership to the circle or two vertical lines; steps 3–4 prove planar nullness using product measure and finite sections of a closed set; steps 5–6 correctly apply monotonicity and the hyperbolic density formula. The proof is complete, non-circular, and sufficient for formalization. Its empty dependency list is correct."
+    },
+    {
+      "key": "measurable_null_orbit_avoidance",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The independently elaborated single-line proposition exactly quantifies over measurable hyperbolically null sets and places every group element inside the simultaneous almost-everywhere conclusion. The bare identifier is unreserved. Steps 1–2 correctly use the restricted GL action, continuity, and invariant preimages; step 3 establishes countability through the determinant-one subtype of four integer entries; steps 4–5 remove the countable union of null preimages and derive the exact conclusion. Both hypotheses are used correctly. No boundary theorem or parent conclusion is assumed, so the empty dependency list is correct and the split is acyclic. The proof requires no further planning or prose generation."
+    }
+  ],
+  "required_changes": []
+}
