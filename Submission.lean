@@ -1,13 +1,4 @@
-/-
-Copyright 2026 Anthropic, PBC. Licensed under Apache-2.0; see LICENSE.
-Source: https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_Rep_isZero_tateCohomology_of_forall_sylow.lean
-Modified: replaced the proof with sorry and removed P2M proof imports.
-Requires the upstream Definitions modules and their dependencies.
--/
-
 import Mathlib
-import Definitions.Def_GroupCohomology_TateCohomology
-attribute [-simp] Representation.TateResCor.cosetDecomp_apply Rep.coe_tateHneg1Res_apply Representation.TateResCor.coe_tateHneg1Cores_apply Representation.TateResCor.tateH0Res_mk Rep.coe_tateHneg1Cores_apply Rep.tateH0Res_mk Representation.TateResCor.coe_cosetNormInvariants_apply Rep.tateH0Cores_mk Representation.TateResCor.coinvariantsCores_mk Representation.TateResCor.coinvariantsTransfer_mk Representation.TateResCor.tateH0Cores_mk Representation.TateResCor.coe_tateHneg1Res_apply Rep.coe_tateδneg2_apply
 
 set_option autoImplicit false
 universe u
@@ -241,5 +232,18 @@ theorem p04_hct139_coset_average_laws :
     rw [hC]
     change (∑ q : G ⧸ H, A.ρ q.out (F.hom (B.ρ q.out⁻¹ x))) = H.index • F.hom x
     simp [Rep.hom_comm_apply, Subgroup.index_eq_card, Nat.card_eq_fintype_card]
+
+namespace Submission
+
+theorem p04_rsh_82a013d1d0_equivariant_retraction {G : Type*} [Group G] (H : Subgroup G) :
+    ∃ r : G → H, (∀ (h : H) (g : G), r ((h : G) * g) = h * r g) ∧
+      ∀ h : H, r (h : G) = h := by
+  classical
+  obtain ⟨T, hT, h1⟩ := H.exists_isComplement_right (1 : G)
+  refine ⟨fun g => (hT.equiv g).1, ?_, ?_⟩
+  · intro h g
+    exact congrArg Prod.fst (hT.equiv_mul_left h g)
+  · intro h
+    exact hT.equiv_fst_eq_self_of_mem_of_one_mem h1 h.property
 
 end Submission
