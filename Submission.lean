@@ -807,9 +807,6 @@ theorem p07_cq_level_geometry_pullback_857cd4d38c :
   dsimp only
   let β := AlgebraicGeometry.Spec.map (CommRingCat.ofHom φ)
   let c := ℓ ≫ f
-  have : AlgebraicGeometry.IsFinite c := hfinite
-  have : AlgebraicGeometry.Flat c := hflat
-  have : AlgebraicGeometry.LocallyOfFinitePresentation c := hfp
   let ℓT : pullback c β ⟶ pullback f β :=
     pullback.lift (pullback.fst c β ≫ ℓ) (pullback.snd c β) (by
       rw [Category.assoc]
