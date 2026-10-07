@@ -811,7 +811,11 @@ open CategoryTheory Rep Representation MonoidalCategory
 
 namespace Submission
 
-/-- Transfer and projection on tensor coinvariant homology have composite the subgroup index. -/
+/-- Transfer and projection on tensor coinvariant homology have composite the subgroup index.
+
+Transfer is the sum over right cosets, with each summand descended through representative
+independence. Naturality gives chain maps, and the additive homology functor preserves their
+index composite. -/
 theorem p04_ht_coinvariant_complex_transfer
     {k G : Type _} [CommRing k] [Group G] [Fintype G]
     (A : Rep k G) (H : Subgroup G) [Fintype H]
@@ -903,6 +907,7 @@ theorem p04_ht_coinvariant_complex_transfer
         projection V ∘ₗ Coinvariants.map _ _ (Rep.resMap H.subtype f).hom := by
     apply Coinvariants.hom_ext
     rfl
+  -- Restriction preserves the underlying tensor modules and their differentials definitionally.
   let D := C.coinvariantsTensorObj A
   let E := (((Rep.resFunctor (k := k) H.subtype).mapHomologicalComplex
     (ComplexShape.down ℕ)).obj C).coinvariantsTensorObj (Rep.res H.subtype A)
@@ -921,6 +926,7 @@ theorem p04_ht_coinvariant_complex_transfer
   have composite : τ ≫ π = H.index • 𝟙 D := by
     ext i x
     exact projection_transfer (A ⊗ C.X i) x
+  -- Functoriality and additivity pass the degreewise identity to every homology degree.
   let F := HomologicalComplex.homologyFunctor (ModuleCat k) (ComplexShape.down ℕ) n
   refine ⟨(F.map τ).hom, (F.map π).hom, ?_⟩
   intro x
