@@ -893,5 +893,32 @@ theorem p06_9e0f5043ff_io_fraction_extension :
       hμ _ _ (hb f) (ha g hg)]
     simp only [ν, if_neg hf, if_neg hg, Nat.cast_add]
     ring
+theorem p06_9e0f5043ff_fosa_coefficients_integral_off_finite
+    (K E : Type*) [Field K] [Field E] [Algebra K E]
+    (hfinite : ∀ a : E, a ≠ 0 → {v : AlgebraicCurve.Place K E | v.ord a ≠ 0}.Finite)
+    (P : Polynomial E) :
+    ∃ T : Set (AlgebraicCurve.Place K E), T.Finite ∧
+      ∀ v : AlgebraicCurve.Place K E, v ∉ T → ∀ i : ℕ,
+        P.coeff i ∈ v.toValuationSubring := by
+  classical
+  let T : Set (AlgebraicCurve.Place K E) :=
+    ⋃ i ∈ P.support, {v | v.ord (P.coeff i) ≠ 0}
+  refine ⟨T, ?_, ?_⟩
+  · exact P.support.finite_toSet.biUnion fun i hi =>
+      hfinite (P.coeff i) (Polynomial.mem_support_iff.mp hi)
+  · intro v hv i
+    by_cases hi : P.coeff i = 0
+    · rw [hi]
+      exact v.toValuationSubring.zero_mem
+    · have hord : v.ord (P.coeff i) = 0 := by
+        by_contra h
+        apply hv
+        exact Set.mem_iUnion.mpr ⟨i, Set.mem_iUnion.mpr
+          ⟨Polynomial.mem_support_iff.mpr hi, h⟩⟩
+      obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible v.toValuationSubring
+      obtain ⟨u, hu⟩ := v.exists_unit_mul_zpow hi hπ
+      rw [hord, zpow_zero, mul_one] at hu
+      rw [hu]
+      exact (u : v.toValuationSubring).property
 
 end Submission
