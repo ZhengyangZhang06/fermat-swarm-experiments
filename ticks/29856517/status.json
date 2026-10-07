@@ -1,11 +1,11 @@
 {
-  "observed_at": "2026-10-07T16:36:40.223153+00:00",
+  "observed_at": "2026-10-07T16:37:47.490657+00:00",
   "phase": "proving",
   "readiness_passed": 128,
   "running_resolvers": 128,
   "working_resolvers": 72,
   "verified_integrated_roots": 0,
-  "reviewed_natural_proofs": 6,
+  "reviewed_natural_proofs": 7,
   "proof_feed_active": true,
   "enabled_projects": 10,
   "problems": [
@@ -3186,7 +3186,7 @@
           "problem": "fermat-p10",
           "local_id": "root",
           "title": "CuspForm.gamma0_weight_two_eq_zero_of_genusFormula_eq_zero",
-          "status": "natural-review",
+          "status": "decomposing",
           "requires": [],
           "active": true,
           "issue_url": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/10",
@@ -3195,7 +3195,7 @@
           "merge_commit": "",
           "lean_verified": false,
           "integrated": false,
-          "prose_status": "under review",
+          "prose_status": "reviewed",
           "publication_pending": false,
           "worker_node": "hoa65",
           "observed_running": true,
@@ -3204,906 +3204,906 @@
       ],
       "graph_ok": true,
       "root_integrated": false,
-      "natural_proof_reviewed": false
+      "natural_proof_reviewed": true
     }
   ],
   "workers": [
     {
       "node": "hoa0",
       "phase": "idle",
-      "polls": 464,
+      "polls": 261,
       "issue": null,
-      "observed_at": 1791390986.794217
+      "observed_at": 1791391048.7084553
     },
     {
       "node": "hoa1",
       "phase": "working",
       "polls": 78,
       "issue": 130,
-      "observed_at": 1791390985.7648585
+      "observed_at": 1791391049.032073
     },
     {
       "node": "hoa2",
       "phase": "idle",
-      "polls": 188,
+      "polls": 193,
       "issue": null,
-      "observed_at": 1791390982.0495918
+      "observed_at": 1791391057.19004
     },
     {
       "node": "hoa3",
       "phase": "idle",
-      "polls": 256,
+      "polls": 260,
       "issue": null,
-      "observed_at": 1791390986.0178468
+      "observed_at": 1791391049.7663734
     },
     {
       "node": "hoa4",
       "phase": "working",
       "polls": 68,
       "issue": 62,
-      "observed_at": 1791390976.3017106
+      "observed_at": 1791391051.4237514
     },
     {
       "node": "hoa5",
       "phase": "working",
       "polls": 166,
       "issue": 151,
-      "observed_at": 1791390978.6767318
+      "observed_at": 1791391053.8303952
     },
     {
       "node": "hoa6",
       "phase": "idle",
-      "polls": 258,
+      "polls": 262,
       "issue": null,
-      "observed_at": 1791390985.8047934
+      "observed_at": 1791391049.172015
     },
     {
       "node": "hoa7",
       "phase": "working",
       "polls": 142,
       "issue": 146,
-      "observed_at": 1791390985.6772017
+      "observed_at": 1791391048.6294363
     },
     {
       "node": "hoa8",
       "phase": "idle",
-      "polls": 462,
+      "polls": 219,
       "issue": null,
-      "observed_at": 1791390978.819615
+      "observed_at": 1791391053.818828
     },
     {
       "node": "hoa9",
       "phase": "working",
       "polls": 76,
       "issue": 123,
-      "observed_at": 1791390985.686985
+      "observed_at": 1791391048.6456466
     },
     {
       "node": "hoa10",
       "phase": "idle",
-      "polls": 259,
+      "polls": 263,
       "issue": null,
-      "observed_at": 1791390985.7051492
+      "observed_at": 1791391048.7324605
     },
     {
       "node": "hoa11",
       "phase": "idle",
-      "polls": 164,
+      "polls": 168,
       "issue": null,
-      "observed_at": 1791390985.9115965
+      "observed_at": 1791391049.6085253
     },
     {
       "node": "hoa12",
       "phase": "working",
       "polls": 254,
       "issue": 155,
-      "observed_at": 1791390986.0936272
+      "observed_at": 1791391049.9664745
     },
     {
       "node": "hoa13",
       "phase": "idle",
-      "polls": 255,
+      "polls": 260,
       "issue": null,
-      "observed_at": 1791390978.7114997
+      "observed_at": 1791391053.869833
     },
     {
       "node": "hoa14",
       "phase": "working",
       "polls": 4,
       "issue": 90,
-      "observed_at": 1791390985.8144875
+      "observed_at": 1791391049.1809864
     },
     {
       "node": "hoa15",
       "phase": "working",
       "polls": 4,
       "issue": 83,
-      "observed_at": 1791390985.7190816
+      "observed_at": 1791391048.820317
     },
     {
       "node": "hoa16",
       "phase": "idle",
-      "polls": 256,
+      "polls": 260,
       "issue": null,
-      "observed_at": 1791390986.166425
+      "observed_at": 1791391050.3498902
     },
     {
       "node": "hoa17",
-      "phase": "idle",
-      "polls": 464,
+      "phase": "polling",
+      "polls": 260,
       "issue": null,
-      "observed_at": 1791390986.9250994
+      "observed_at": 1791391049.9112709
     },
     {
       "node": "hoa18",
       "phase": "idle",
-      "polls": 258,
+      "polls": 262,
       "issue": null,
-      "observed_at": 1791390986.139337
+      "observed_at": 1791391050.2642136
     },
     {
       "node": "hoa19",
       "phase": "idle",
-      "polls": 135,
+      "polls": 139,
       "issue": null,
-      "observed_at": 1791390985.9229958
+      "observed_at": 1791391049.550164
     },
     {
       "node": "hoa20",
       "phase": "working",
       "polls": 10,
       "issue": 109,
-      "observed_at": 1791390982.1313748
+      "observed_at": 1791391057.338137
     },
     {
       "node": "hoa21",
       "phase": "working",
       "polls": 90,
       "issue": 137,
-      "observed_at": 1791390985.6725903
+      "observed_at": 1791391048.5831153
     },
     {
       "node": "hoa22",
       "phase": "working",
       "polls": 9,
       "issue": 107,
-      "observed_at": 1791390982.0685077
+      "observed_at": 1791391057.2028546
     },
     {
       "node": "hoa23",
       "phase": "idle",
-      "polls": 462,
+      "polls": 194,
       "issue": null,
-      "observed_at": 1791390986.7448668
+      "observed_at": 1791391049.1718225
     },
     {
       "node": "hoa24",
       "phase": "idle",
-      "polls": 260,
+      "polls": 263,
       "issue": null,
-      "observed_at": 1791390985.8099825
+      "observed_at": 1791391049.174532
     },
     {
       "node": "hoa25",
       "phase": "working",
       "polls": 100,
       "issue": 9,
-      "observed_at": 1791390985.0833426
+      "observed_at": 1791391047.2708418
     },
     {
       "node": "hoa26",
       "phase": "working",
       "polls": 82,
       "issue": 132,
-      "observed_at": 1791390982.035394
+      "observed_at": 1791391057.143415
     },
     {
       "node": "hoa27",
       "phase": "working",
       "polls": 4,
       "issue": 84,
-      "observed_at": 1791390985.6316428
+      "observed_at": 1791391048.4740682
     },
     {
       "node": "hoa28",
       "phase": "idle",
-      "polls": 134,
+      "polls": 463,
       "issue": null,
-      "observed_at": 1791390985.9427092
+      "observed_at": 1791391051.3360305
     },
     {
       "node": "hoa29",
       "phase": "idle",
-      "polls": 250,
+      "polls": 255,
       "issue": null,
-      "observed_at": 1791390985.9829383
+      "observed_at": 1791391049.7126741
     },
     {
       "node": "hoa30",
       "phase": "idle",
-      "polls": 255,
+      "polls": 258,
       "issue": null,
-      "observed_at": 1791390986.0642505
+      "observed_at": 1791391049.8766298
     },
     {
       "node": "hoa31",
       "phase": "working",
       "polls": 4,
       "issue": 87,
-      "observed_at": 1791390985.844202
+      "observed_at": 1791391049.3524034
     },
     {
       "node": "hoa32",
       "phase": "working",
       "polls": 6,
       "issue": 101,
-      "observed_at": 1791390978.681918
+      "observed_at": 1791391053.8382137
     },
     {
       "node": "hoa33",
       "phase": "working",
       "polls": 77,
       "issue": 127,
-      "observed_at": 1791390986.1792908
+      "observed_at": 1791391050.4131398
     },
     {
       "node": "hoa34",
       "phase": "working",
       "polls": 68,
       "issue": 113,
-      "observed_at": 1791390985.6677253
+      "observed_at": 1791391048.562834
     },
     {
       "node": "hoa35",
       "phase": "idle",
-      "polls": 174,
+      "polls": 178,
       "issue": null,
-      "observed_at": 1791390985.8280146
+      "observed_at": 1791391049.2818403
     },
     {
       "node": "hoa36",
       "phase": "working",
       "polls": 149,
       "issue": 69,
-      "observed_at": 1791390985.1657848
+      "observed_at": 1791391047.3808382
     },
     {
       "node": "hoa37",
       "phase": "working",
       "polls": 80,
       "issue": 129,
-      "observed_at": 1791390982.1153817
+      "observed_at": 1791391057.2957325
     },
     {
       "node": "hoa38",
       "phase": "idle",
-      "polls": 461,
+      "polls": 252,
       "issue": null,
-      "observed_at": 1791390985.1711185
+      "observed_at": 1791391057.3431048
     },
     {
       "node": "hoa39",
       "phase": "working",
       "polls": 66,
       "issue": 40,
-      "observed_at": 1791390986.787216
+      "observed_at": 1791391047.7431417
     },
     {
       "node": "hoa40",
       "phase": "idle",
-      "polls": 461,
+      "polls": 266,
       "issue": null,
-      "observed_at": 1791390986.8497102
+      "observed_at": 1791391053.807291
     },
     {
       "node": "hoa41",
       "phase": "idle",
-      "polls": 254,
+      "polls": 259,
       "issue": null,
-      "observed_at": 1791390986.001885
+      "observed_at": 1791391049.661023
     },
     {
       "node": "hoa42",
       "phase": "idle",
-      "polls": 259,
+      "polls": 389,
       "issue": null,
-      "observed_at": 1791390986.0319347
+      "observed_at": 1791391051.6633124
     },
     {
       "node": "hoa43",
       "phase": "working",
       "polls": 117,
       "issue": 140,
-      "observed_at": 1791390978.729839
+      "observed_at": 1791391053.887579
     },
     {
       "node": "hoa44",
       "phase": "working",
       "polls": 7,
       "issue": 103,
-      "observed_at": 1791390985.8488424
+      "observed_at": 1791391049.3758025
     },
     {
       "node": "hoa45",
       "phase": "working",
       "polls": 73,
       "issue": 3,
-      "observed_at": 1791390985.1960037
+      "observed_at": 1791391047.4205403
     },
     {
       "node": "hoa46",
       "phase": "working",
       "polls": 75,
       "issue": 121,
-      "observed_at": 1791390985.8990467
+      "observed_at": 1791391049.4711583
     },
     {
       "node": "hoa47",
       "phase": "working",
       "polls": 158,
       "issue": 148,
-      "observed_at": 1791390982.143392
+      "observed_at": 1791391057.3477557
     },
     {
       "node": "hoa48",
       "phase": "working",
       "polls": 66,
       "issue": 67,
-      "observed_at": 1791390976.5207696
+      "observed_at": 1791391051.6577544
     },
     {
       "node": "hoa49",
       "phase": "working",
       "polls": 252,
       "issue": 154,
-      "observed_at": 1791390978.6938603
+      "observed_at": 1791391053.8516605
     },
     {
       "node": "hoa50",
       "phase": "idle",
-      "polls": 464,
+      "polls": 259,
       "issue": null,
-      "observed_at": 1791390986.8048477
+      "observed_at": 1791391049.0186594
     },
     {
       "node": "hoa51",
       "phase": "working",
       "polls": 72,
       "issue": 116,
-      "observed_at": 1791390985.782908
+      "observed_at": 1791391049.0815058
     },
     {
       "node": "hoa52",
       "phase": "working",
       "polls": 74,
       "issue": 8,
-      "observed_at": 1791390976.3256583
+      "observed_at": 1791391051.450565
     },
     {
       "node": "hoa53",
-      "phase": "idle",
-      "polls": 257,
+      "phase": "polling",
+      "polls": 261,
       "issue": null,
-      "observed_at": 1791390986.144187
+      "observed_at": 1791391050.2757154
     },
     {
       "node": "hoa54",
       "phase": "working",
       "polls": 206,
       "issue": 82,
-      "observed_at": 1791390986.9108396
+      "observed_at": 1791391047.9325469
     },
     {
       "node": "hoa55",
       "phase": "idle",
-      "polls": 258,
+      "polls": 263,
       "issue": null,
-      "observed_at": 1791390982.0796583
+      "observed_at": 1791391057.2530239
     },
     {
       "node": "hoa56",
       "phase": "working",
       "polls": 137,
       "issue": 143,
-      "observed_at": 1791390985.7737849
+      "observed_at": 1791391049.0614917
     },
     {
       "node": "hoa57",
       "phase": "working",
       "polls": 204,
       "issue": 77,
-      "observed_at": 1791390985.2554445
+      "observed_at": 1791391047.473183
     },
     {
       "node": "hoa58",
       "phase": "working",
       "polls": 180,
       "issue": 78,
-      "observed_at": 1791390985.3196158
+      "observed_at": 1791391047.5609267
     },
     {
       "node": "hoa59",
       "phase": "idle",
-      "polls": 256,
+      "polls": 260,
       "issue": null,
-      "observed_at": 1791390985.7437344
+      "observed_at": 1791391048.9433181
     },
     {
       "node": "hoa60",
       "phase": "working",
       "polls": 68,
       "issue": 52,
-      "observed_at": 1791390985.293793
+      "observed_at": 1791391047.5144086
     },
     {
       "node": "hoa61",
       "phase": "idle",
-      "polls": 462,
+      "polls": 263,
       "issue": null,
-      "observed_at": 1791390986.7593312
+      "observed_at": 1791391048.4930153
     },
     {
       "node": "hoa62",
       "phase": "working",
       "polls": 140,
       "issue": 145,
-      "observed_at": 1791390985.644703
+      "observed_at": 1791391048.4843655
     },
     {
       "node": "hoa63",
       "phase": "working",
       "polls": 67,
       "issue": 53,
-      "observed_at": 1791390985.1160989
+      "observed_at": 1791391047.2979383
     },
     {
       "node": "hoa64",
       "phase": "idle",
-      "polls": 459,
+      "polls": 174,
       "issue": null,
-      "observed_at": 1791390985.2273219
+      "observed_at": 1791391057.3040333
     },
     {
       "node": "hoa65",
       "phase": "working",
       "polls": 74,
       "issue": 10,
-      "observed_at": 1791390976.5034957
+      "observed_at": 1791391051.6434176
     },
     {
       "node": "hoa66",
       "phase": "working",
       "polls": 1,
       "issue": 81,
-      "observed_at": 1791390986.083543
+      "observed_at": 1791391049.8921778
     },
     {
       "node": "hoa67",
       "phase": "idle",
-      "polls": 255,
+      "polls": 260,
       "issue": null,
-      "observed_at": 1791390985.6169043
+      "observed_at": 1791391063.4366894
     },
     {
       "node": "hoa68",
       "phase": "working",
       "polls": 87,
       "issue": 135,
-      "observed_at": 1791390985.833427
+      "observed_at": 1791391049.2991178
     },
     {
       "node": "hoa69",
       "phase": "idle",
-      "polls": 253,
+      "polls": 460,
       "issue": null,
-      "observed_at": 1791390986.0991597
+      "observed_at": 1791391051.5859177
     },
     {
       "node": "hoa70",
       "phase": "working",
       "polls": 136,
       "issue": 142,
-      "observed_at": 1791390986.1288254
+      "observed_at": 1791391050.1052017
     },
     {
       "node": "hoa71",
       "phase": "working",
       "polls": 91,
       "issue": 136,
-      "observed_at": 1791390985.8233426
+      "observed_at": 1791391049.275777
     },
     {
       "node": "hoa72",
       "phase": "working",
       "polls": 67,
       "issue": 60,
-      "observed_at": 1791390985.3145049
+      "observed_at": 1791391047.5419223
     },
     {
       "node": "hoa73",
       "phase": "idle",
-      "polls": 408,
+      "polls": 259,
       "issue": null,
-      "observed_at": 1791390986.8861058
+      "observed_at": 1791391049.818197
     },
     {
       "node": "hoa74",
       "phase": "working",
       "polls": 4,
       "issue": 95,
-      "observed_at": 1791390982.045229
+      "observed_at": 1791391057.1604173
     },
     {
       "node": "hoa75",
       "phase": "working",
       "polls": 6,
       "issue": 99,
-      "observed_at": 1791390978.704131
+      "observed_at": 1791391053.859754
     },
     {
       "node": "hoa76",
       "phase": "working",
       "polls": 73,
       "issue": 5,
-      "observed_at": 1791390976.2173717
+      "observed_at": 1791391051.3433573
     },
     {
       "node": "hoa77",
       "phase": "working",
       "polls": 179,
       "issue": 80,
-      "observed_at": 1791390976.5501373
+      "observed_at": 1791391051.6760745
     },
     {
       "node": "hoa78",
       "phase": "idle",
-      "polls": 255,
+      "polls": 472,
       "issue": null,
-      "observed_at": 1791390985.728113
+      "observed_at": 1791391051.5438135
     },
     {
       "node": "hoa79",
       "phase": "working",
       "polls": 63,
       "issue": 112,
-      "observed_at": 1791390982.1263793
+      "observed_at": 1791391057.310275
     },
     {
       "node": "hoa80",
       "phase": "idle",
-      "polls": 159,
+      "polls": 468,
       "issue": null,
-      "observed_at": 1791390985.8544176
+      "observed_at": 1791391051.3126078
     },
     {
       "node": "hoa81",
       "phase": "working",
       "polls": 65,
       "issue": 41,
-      "observed_at": 1791390978.7733877
+      "observed_at": 1791391038.8158994
     },
     {
       "node": "hoa82",
       "phase": "working",
       "polls": 7,
       "issue": 100,
-      "observed_at": 1791390986.1731849
+      "observed_at": 1791391050.3694487
     },
     {
       "node": "hoa83",
       "phase": "working",
       "polls": 15,
       "issue": 22,
-      "observed_at": 1791390985.3403132
+      "observed_at": 1791391047.61661
     },
     {
       "node": "hoa84",
       "phase": "idle",
-      "polls": 461,
+      "polls": 260,
       "issue": null,
-      "observed_at": 1791390985.2661872
+      "observed_at": 1791391053.8461473
     },
     {
       "node": "hoa85",
       "phase": "idle",
-      "polls": 405,
+      "polls": 257,
       "issue": null,
-      "observed_at": 1791390986.8596723
+      "observed_at": 1791391057.1901686
     },
     {
       "node": "hoa86",
       "phase": "working",
       "polls": 72,
       "issue": 117,
-      "observed_at": 1791390985.63414
+      "observed_at": 1791391048.4632215
     },
     {
       "node": "hoa87",
       "phase": "working",
       "polls": 4,
       "issue": 93,
-      "observed_at": 1791390985.714263
+      "observed_at": 1791391048.759364
     },
     {
       "node": "hoa88",
       "phase": "idle",
-      "polls": 462,
+      "polls": 184,
       "issue": null,
-      "observed_at": 1791390985.2715836
+      "observed_at": 1791391057.3734581
     },
     {
       "node": "hoa89",
       "phase": "idle",
-      "polls": 192,
+      "polls": 465,
       "issue": null,
-      "observed_at": 1791390986.149714
+      "observed_at": 1791391051.4423082
     },
     {
       "node": "hoa90",
       "phase": "working",
       "polls": 8,
       "issue": 126,
-      "observed_at": 1791390982.0860555
+      "observed_at": 1791391057.2702806
     },
     {
       "node": "hoa91",
       "phase": "working",
       "polls": 68,
       "issue": 125,
-      "observed_at": 1791390985.7691026
+      "observed_at": 1791391049.0397723
     },
     {
       "node": "hoa92",
       "phase": "idle",
-      "polls": 179,
+      "polls": 184,
       "issue": null,
-      "observed_at": 1791390978.672212
+      "observed_at": 1791391053.823374
     },
     {
       "node": "hoa93",
       "phase": "idle",
-      "polls": 259,
+      "polls": 264,
       "issue": null,
-      "observed_at": 1791390985.6614335
+      "observed_at": 1791391048.600849
     },
     {
       "node": "hoa94",
       "phase": "working",
       "polls": 149,
       "issue": 70,
-      "observed_at": 1791390976.156658
+      "observed_at": 1791391051.3012068
     },
     {
       "node": "hoa95",
       "phase": "idle",
-      "polls": 254,
+      "polls": 258,
       "issue": null,
-      "observed_at": 1791390986.1553895
+      "observed_at": 1791391050.3316798
     },
     {
       "node": "hoa96",
       "phase": "idle",
-      "polls": 461,
+      "polls": 264,
       "issue": null,
-      "observed_at": 1791390985.1606789
+      "observed_at": 1791391057.3686934
     },
     {
       "node": "hoa97",
       "phase": "idle",
-      "polls": 462,
+      "polls": 261,
       "issue": null,
-      "observed_at": 1791390986.7776613
+      "observed_at": 1791391057.3636668
     },
     {
       "node": "hoa98",
       "phase": "working",
       "polls": 70,
       "issue": 114,
-      "observed_at": 1791390978.7183154
+      "observed_at": 1791391053.876495
     },
     {
       "node": "hoa99",
       "phase": "idle",
-      "polls": 255,
+      "polls": 260,
       "issue": null,
-      "observed_at": 1791390985.794497
+      "observed_at": 1791391049.0661883
     },
     {
       "node": "hoa100",
       "phase": "idle",
-      "polls": 460,
+      "polls": 259,
       "issue": null,
-      "observed_at": 1791390985.3290265
+      "observed_at": 1791391057.1198916
     },
     {
       "node": "hoa101",
       "phase": "working",
       "polls": 63,
       "issue": 111,
-      "observed_at": 1791390985.7881548
+      "observed_at": 1791391049.1774907
     },
     {
       "node": "hoa102",
       "phase": "working",
       "polls": 142,
       "issue": 144,
-      "observed_at": 1791390985.655618
+      "observed_at": 1791391048.539533
     },
     {
       "node": "hoa103",
       "phase": "idle",
-      "polls": 199,
+      "polls": 464,
       "issue": null,
-      "observed_at": 1791390985.838814
+      "observed_at": 1791391051.5688062
     },
     {
       "node": "hoa104",
       "phase": "working",
       "polls": 150,
       "issue": 147,
-      "observed_at": 1791390981.999574
+      "observed_at": 1791391057.0533729
     },
     {
       "node": "hoa105",
       "phase": "idle",
-      "polls": 460,
+      "polls": 262,
       "issue": null,
-      "observed_at": 1791390986.8725398
+      "observed_at": 1791391049.6827722
     },
     {
       "node": "hoa106",
       "phase": "working",
       "polls": 4,
       "issue": 88,
-      "observed_at": 1791390985.7783215
+      "observed_at": 1791391049.051478
     },
     {
       "node": "hoa107",
       "phase": "idle",
-      "polls": 256,
+      "polls": 260,
       "issue": null,
-      "observed_at": 1791390985.9333417
+      "observed_at": 1791391049.4957063
     },
     {
       "node": "hoa108",
       "phase": "idle",
-      "polls": 254,
+      "polls": 258,
       "issue": null,
-      "observed_at": 1791390985.6503325
+      "observed_at": 1791391048.499667
     },
     {
       "node": "hoa109",
       "phase": "working",
       "polls": 72,
       "issue": 118,
-      "observed_at": 1791390985.7336674
+      "observed_at": 1791391048.8583465
     },
     {
       "node": "hoa110",
       "phase": "working",
       "polls": 205,
       "issue": 152,
-      "observed_at": 1791390985.8622446
+      "observed_at": 1791391049.4010937
     },
     {
       "node": "hoa111",
       "phase": "working",
       "polls": 69,
       "issue": 74,
-      "observed_at": 1791390985.077393
+      "observed_at": 1791391047.262947
     },
     {
       "node": "hoa112",
       "phase": "working",
       "polls": 90,
       "issue": 134,
-      "observed_at": 1791390982.1011403
+      "observed_at": 1791391057.2811372
     },
     {
       "node": "hoa113",
       "phase": "idle",
-      "polls": 463,
+      "polls": 192,
       "issue": null,
-      "observed_at": 1791390986.737331
+      "observed_at": 1791391057.101074
     },
     {
       "node": "hoa114",
       "phase": "working",
       "polls": 64,
       "issue": 25,
-      "observed_at": 1791390986.828096
+      "observed_at": 1791391047.8121672
     },
     {
       "node": "hoa115",
       "phase": "idle",
-      "polls": 456,
+      "polls": 262,
       "issue": null,
-      "observed_at": 1791390985.2161846
+      "observed_at": 1791391057.154597
     },
     {
       "node": "hoa116",
       "phase": "working",
       "polls": 66,
       "issue": 51,
-      "observed_at": 1791390976.3080316
+      "observed_at": 1791391051.4351766
     },
     {
       "node": "hoa117",
       "phase": "working",
       "polls": 67,
       "issue": 66,
-      "observed_at": 1791390985.1273909
+      "observed_at": 1791391047.3157063
     },
     {
       "node": "hoa118",
       "phase": "working",
       "polls": 66,
       "issue": 46,
-      "observed_at": 1791390978.8144305
+      "observed_at": 1791391038.846273
     },
     {
       "node": "hoa119",
       "phase": "idle",
-      "polls": 405,
+      "polls": 259,
       "issue": null,
-      "observed_at": 1791390986.9049377
+      "observed_at": 1791391048.977773
     },
     {
       "node": "hoa120",
       "phase": "working",
       "polls": 18,
       "issue": 119,
-      "observed_at": 1791390982.0313733
+      "observed_at": 1791391057.0961626
     },
     {
       "node": "hoa121",
       "phase": "working",
       "polls": 209,
       "issue": 92,
-      "observed_at": 1791390986.7703576
+      "observed_at": 1791391047.7218971
     },
     {
       "node": "hoa122",
       "phase": "idle",
-      "polls": 197,
+      "polls": 202,
       "issue": null,
-      "observed_at": 1791390982.0338955
+      "observed_at": 1791391057.1060185
     },
     {
       "node": "hoa123",
       "phase": "idle",
-      "polls": 457,
+      "polls": 257,
       "issue": null,
-      "observed_at": 1791390985.2767212
+      "observed_at": 1791391057.2916195
     },
     {
       "node": "hoa124",
       "phase": "idle",
-      "polls": 257,
+      "polls": 467,
       "issue": null,
-      "observed_at": 1791390986.0445583
+      "observed_at": 1791391051.3287284
     },
     {
       "node": "hoa125",
       "phase": "working",
       "polls": 75,
       "issue": 120,
-      "observed_at": 1791390982.0750782
+      "observed_at": 1791391057.2474458
     },
     {
       "node": "hoa126",
       "phase": "idle",
-      "polls": 460,
+      "polls": 256,
       "issue": null,
-      "observed_at": 1791390986.8910189
+      "observed_at": 1791391048.6126132
     },
     {
       "node": "hoa127",
       "phase": "idle",
-      "polls": 255,
+      "polls": 259,
       "issue": null,
-      "observed_at": 1791390985.9767578
+      "observed_at": 1791391049.6176262
     }
   ],
-  "message": "128/128 node workers are running and heartbeating. 72 are executing issue jobs; 10/10 projects are enabled. 6/10 current root prose proofs have passed review; 0/10 roots have workflow verification and merge evidence. Model activity, prose review, Lean verification and integration are distinct stages."
+  "message": "128/128 node workers are running and heartbeating. 72 are executing issue jobs; 10/10 projects are enabled. 7/10 current root prose proofs have passed review; 0/10 roots have workflow verification and merge evidence. Model activity, prose review, Lean verification and integration are distinct stages."
 }
