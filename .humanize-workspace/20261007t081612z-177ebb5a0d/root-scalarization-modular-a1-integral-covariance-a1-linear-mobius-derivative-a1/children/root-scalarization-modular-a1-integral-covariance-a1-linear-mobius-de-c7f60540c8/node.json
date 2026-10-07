@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.scalarization_modular-a1.integral_covariance-a1.linear_mobius_derivative-a1.scalar_mobius_pullback-a1",
+  "parent_id": "root.scalarization_modular-a1.integral_covariance-a1.linear_mobius_derivative-a1",
+  "depth": 4,
+  "title": "Scalar derivatives under integral Möbius substitution",
+  "statement": "Let h : ℍ → ℂ, v ∈ ℂ, σ ∈ SL₂(ℤ), and τ ∈ ℍ. Suppose z ↦ h(ofComplex z) has complex derivative v at the complex coordinate of σ • τ. Then z ↦ h(σ • ofComplex z) has complex derivative v / jFactor(σ,τ)² at the complex coordinate of τ.",
+  "lean_statement": "∀ (h : UpperHalfPlane → ℂ) (v : ℂ) (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (τ : UpperHalfPlane), HasDerivAt (fun z : ℂ => h (UpperHalfPlane.ofComplex z)) v ((σ • τ : UpperHalfPlane) : ℂ) → HasDerivAt (fun z : ℂ => h (σ • UpperHalfPlane.ofComplex z)) (v / (HeckeEis.jFactor σ τ) ^ 2) (τ : ℂ)",
+  "lean_name": "p02_es_177ebb5a_ic_lmd_scalar_pullback",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-c7f60540c8-a1"
+}

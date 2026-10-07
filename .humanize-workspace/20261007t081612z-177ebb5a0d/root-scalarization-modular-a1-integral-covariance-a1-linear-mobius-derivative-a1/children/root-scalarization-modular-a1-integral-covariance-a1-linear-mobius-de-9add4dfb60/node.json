@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.scalarization_modular-a1.integral_covariance-a1.linear_mobius_derivative-a1.linear_coefficient_transport-a1",
+  "parent_id": "root.scalarization_modular-a1.integral_covariance-a1.linear_mobius_derivative-a1",
+  "depth": 4,
+  "title": "Linear images preserve coefficient derivatives on the upper half-plane",
+  "statement": "Let n be a natural number, V = HeckeEis.BinaryForm ℂ n, A : V → V a complex-linear map, F : ℍ → V, P ∈ V, and τ ∈ ℍ. Suppose that for every exponent index d : Fin 2 →₀ ℕ, the complex-valued function z ↦ coeff d(F(ofComplex z)) has complex derivative coeff d(P) at (τ : ℂ). Then for every exponent index e, z ↦ coeff e(A(F(ofComplex z))) has complex derivative coeff e(A(P)) at (τ : ℂ).",
+  "lean_statement": "∀ (n : ℕ) (A : ↥(HeckeEis.BinaryForm ℂ n) →ₗ[ℂ] ↥(HeckeEis.BinaryForm ℂ n)) (F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)) (P : ↥(HeckeEis.BinaryForm ℂ n)) (τ : UpperHalfPlane), (∀ d : Fin 2 →₀ ℕ, HasDerivAt (fun z : ℂ => MvPolynomial.coeff d (F (UpperHalfPlane.ofComplex z)).val) (MvPolynomial.coeff d P.val) (τ : ℂ)) → ∀ e : Fin 2 →₀ ℕ, HasDerivAt (fun z : ℂ => MvPolynomial.coeff e (A (F (UpperHalfPlane.ofComplex z))).val) (MvPolynomial.coeff e (A P).val) (τ : ℂ)",
+  "lean_name": "p02_es_177ebb5a_ic_lmd_linear_coeff",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-9add4dfb60-a1"
+}

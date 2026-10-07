@@ -1,0 +1,52 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "BinaryForm|jFactor_eq_denom|jFactor_ne_zero|def jFactor",
+        "eventuallyEq_coe_comp_ofComplex|hasStrictDerivAt_smul|ofComplex_apply|coe_smul|monomial_mem|coeff_eq_zero",
+        "isHomogeneous_monomial|coeff_monomial|coeff_smul|coeff_sum",
+        "theorem HasDerivAt\\.(sum|fun_sum|const_mul|comp|div)|lemma HasDerivAt\\.(sum|fun_sum|const_mul|comp|div)",
+        "linear_coeff_derivative|linear_mobius_derivative|scalar_pullback|p02_es_177ebb5a_ic_lmd",
+        "git -C .lake/packages/mathlib rev-parse HEAD",
+        "git -C .lake/packages/mathlib status --porcelain --untracked-files=normal",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_177ebb5a_decomposition_independent_audit.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Manifold.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Add.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Mul.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Comp.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Inv.lean",
+        "/tmp/p02_177ebb5a_decomposition_independent_audit.lean"
+      ],
+      "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Inspected definitions confirm BinaryForm is the homogeneous submodule, jFactor is the Möbius denominator, and the inferred SL₂(ℤ) action is the ordinary Möbius action. The polynomial, locality, and scalar derivative lemmas support the supplied proofs. The existing-helper search returned no matches in the snapshot project or Submission.lean; neither proposed name occurs among DAG reservations. Relevant installed sources match the snapshot byte-for-byte; installed mathlib has the pinned revision and clean Git status. Both exact proposition strings independently elaborated using only Mathlib and project definitions, without importing Submission or declaring either child. Lean also checked that the two contracts, supplied as hypotheses, imply the exact frozen parent type. Transitive axiom queries for sixteen supporting declarations returned only propext, Classical.choice, and Quot.sound. This establishes decomposition suitability, not comparator acceptance of child implementations."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "linear_coefficient_transport",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches every prose parameter, hypothesis, derivative value, and evaluation point. Its bare identifier is unreserved, and its type uses no proposed declaration. Steps 1–2 construct homogeneous monomials and prove the expansion by exhaustive coefficient cases and uniqueness, including n = 0. Step 3 correctly uses complex linearity; steps 4–5 differentiate the finite scalar combination and identify its derivative by evaluating the same identity at P. No continuity assumption on A or additional regularity of F is needed. The proof is complete, non-circular, and independent of the sibling. Applying this child at σ • τ supplies precisely the scalar child's hypothesis."
+    },
+    {
+      "key": "scalar_mobius_pullback",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose, including SL₂(ℤ), the evaluation point σ • τ, and the squared jFactor denominator. Its bare identifier is unreserved, and its type independently elaborates. Steps 1–3 correctly use determinant one and positive imaginary part to establish denominator nonvanishing and compute the quotient derivative. Step 4 transfers that derivative through neighborhood equality and identifies W(τ). Steps 5–6 apply the complex chain rule and the globally valid ofComplex_apply identity. No global differentiability of h is assumed or needed. The action instance was independently checked; no ambiguous matrix-unit construction occurs. Empty sibling dependency lists are appropriate and acyclic: the parent depends on both children, and neither child relies on the parent."
+    }
+  ],
+  "required_changes": []
+}

@@ -1,0 +1,62 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "BinaryForm|eventuallyEq_coe_comp_ofComplex|hasStrictDerivAt_smul",
+        "basis|monomial|finite|coeff",
+        "linear_coeff_derivative|linear_mobius_derivative|scalar_pullback",
+        "theorem HasDerivAt.(sum|fun_sum|const_mul|comp)|lemma HasDerivAt.(sum|fun_sum|const_mul|comp)"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Manifold.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Add.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Mul.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Comp.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project"
+      ],
+      "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. BinaryForm is the homogeneous polynomial submodule. The inspected sources supply homogeneous monomials, vanishing coefficients outside the specified degree, jFactor_eq_denom, jFactor_ne_zero, hasStrictDerivAt_smul, ofComplex_apply, and scalar sum, multiplication, and chain rules. The project search for linear_coeff_derivative|linear_mobius_derivative|scalar_pullback returned no matches. The two inspected project definitions and three inspected homogeneous/upper-half-plane mathlib files match the installed sources byte-for-byte; installed mathlib has the pinned revision and clean Git status. Axiom queries for the six cited homogeneous, jFactor, and upper-half-plane lemmas returned only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "should_split": true,
+  "rationale": "Separate coefficient transport by a linear map from scalar Möbius pullback. These are independent reusable obligations. Apply the first at σ • τ, then apply the second to h(u) = coeff e(A(F(u))) with v = coeff e(A(P)). Both exact types successfully elaborated after import Submission using the pinned toolchain. The proposed names are absent from Submission and the active DAG; no unaccepted result from the related active linear-map branch is assumed. This is a decomposition, not comparator acceptance.",
+  "subproblems": [
+    {
+      "key": "linear_coefficient_transport",
+      "title": "Linear images preserve coefficient derivatives on the upper half-plane",
+      "statement": "Let n be a natural number, V = HeckeEis.BinaryForm ℂ n, A : V → V a complex-linear map, F : ℍ → V, P ∈ V, and τ ∈ ℍ. Suppose that for every exponent index d : Fin 2 →₀ ℕ, the complex-valued function z ↦ coeff d(F(ofComplex z)) has complex derivative coeff d(P) at (τ : ℂ). Then for every exponent index e, z ↦ coeff e(A(F(ofComplex z))) has complex derivative coeff e(A(P)) at (τ : ℂ).",
+      "lean_statement": "∀ (n : ℕ) (A : ↥(HeckeEis.BinaryForm ℂ n) →ₗ[ℂ] ↥(HeckeEis.BinaryForm ℂ n)) (F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)) (P : ↥(HeckeEis.BinaryForm ℂ n)) (τ : UpperHalfPlane), (∀ d : Fin 2 →₀ ℕ, HasDerivAt (fun z : ℂ => MvPolynomial.coeff d (F (UpperHalfPlane.ofComplex z)).val) (MvPolynomial.coeff d P.val) (τ : ℂ)) → ∀ e : Fin 2 →₀ ℕ, HasDerivAt (fun z : ℂ => MvPolynomial.coeff e (A (F (UpperHalfPlane.ofComplex z))).val) (MvPolynomial.coeff e (A P).val) (τ : ℂ)",
+      "lean_name": "p02_es_177ebb5a_ic_lmd_linear_coeff",
+      "depends_on": [],
+      "natural_proof": "1. Fix n, A, F, P, τ and the assumed derivatives. Set t = (τ : ℂ). For each r ∈ {0,…,n}, define d_r = Finsupp.single 0 r + Finsupp.single 1 (n−r). Its values at 0 and 1 are r and n−r, respectively, so its total degree is r+(n−r)=n. Hence the monomial with exponent d_r and coefficient 1 is homogeneous of degree n. Let b_r ∈ V denote this monomial viewed in the homogeneous submodule.\n2. For every Q ∈ V, prove Q = Σ_{r=0}^n coeff d_r(Q) • b_r by comparing polynomial coefficients. Fix any exponent index d. Its degree is d(0)+d(1). If this is not n, homogeneity gives coeff d(Q)=0. Every d_r has degree n, so d differs from every d_r and every summand also has coefficient zero at d. If d(0)+d(1)=n, set r=d(0). Then r≤n and d(1)=n−r. Since Fin 2 consists of 0 and 1, equality at these coordinates gives d=d_r. Moreover, d=d_s implies s=d(0)=r. The monomial coefficient formula therefore reduces the coefficient of the sum to the unique term coeff d_r(Q), which equals coeff d(Q). Polynomial coefficient extensionality gives equality of the underlying polynomials, and subtype extensionality gives equality in V.\n3. Fix an arbitrary output exponent e and define λ_r = coeff e(A(b_r)). Applying A to the expansion in step 2, using its preservation of finite sums and complex scalar multiplication, and then taking coefficient e gives coeff e(A(Q)) = Σ_{r=0}^n coeff d_r(Q) · λ_r = Σ_{r=0}^n λ_r · coeff d_r(Q) for every Q ∈ V. The final equality uses commutativity of multiplication in ℂ.\n4. Apply this identity to Q=F(ofComplex z) for each complex z. Thus the function whose derivative is sought equals Σ_{r=0}^n λ_r · coeff d_r(F(ofComplex z)). The hypothesis at d_r gives derivative coeff d_r(P) at t for its input coefficient function. Multiplication by the fixed scalar λ_r gives derivative λ_r · coeff d_r(P). The finite-sum derivative rule gives derivative Σ_{r=0}^n λ_r · coeff d_r(P) for the displayed sum at t.\n5. Apply the identity in step 3 to Q=P. It identifies that derivative with coeff e(A(P)). Substitute the function identity from step 4 and this derivative identity to obtain the asserted HasDerivAt statement. Since e was arbitrary, the conclusion holds for every exponent index, without any restriction on its degree.",
+      "proof_key_steps": [
+        "Construct the n+1 degree-n monomials as elements of the homogeneous submodule.",
+        "Prove the finite coefficient expansion by coefficient extensionality and uniqueness of the degree-n exponent pair.",
+        "Express each output coefficient of A as a fixed finite linear combination of input coefficients.",
+        "Differentiate that finite linear combination using the hypotheses.",
+        "Evaluate the same coefficient identity at P to identify the derivative."
+      ]
+    },
+    {
+      "key": "scalar_mobius_pullback",
+      "title": "Scalar derivatives under integral Möbius substitution",
+      "statement": "Let h : ℍ → ℂ, v ∈ ℂ, σ ∈ SL₂(ℤ), and τ ∈ ℍ. Suppose z ↦ h(ofComplex z) has complex derivative v at the complex coordinate of σ • τ. Then z ↦ h(σ • ofComplex z) has complex derivative v / jFactor(σ,τ)² at the complex coordinate of τ.",
+      "lean_statement": "∀ (h : UpperHalfPlane → ℂ) (v : ℂ) (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (τ : UpperHalfPlane), HasDerivAt (fun z : ℂ => h (UpperHalfPlane.ofComplex z)) v ((σ • τ : UpperHalfPlane) : ℂ) → HasDerivAt (fun z : ℂ => h (σ • UpperHalfPlane.ofComplex z)) (v / (HeckeEis.jFactor σ τ) ^ 2) (τ : ℂ)",
+      "lean_name": "p02_es_177ebb5a_ic_lmd_scalar_pullback",
+      "depends_on": [],
+      "natural_proof": "1. Fix h, v, σ, τ and the derivative hypothesis. Write the integer entries of σ as a,b,c,d, and use their complex casts in complex expressions. Its determinant equation gives ad−bc=1. Set t=(τ : ℂ), w₀=((σ • τ : ℍ) : ℂ), and j=ct+d=HeckeEis.jFactor σ τ.\n2. For any complex u with positive imaginary part, cu+d is nonzero. If c=0, the determinant equation gives ad=1, hence d≠0. If c≠0, the imaginary part of cu+d is the nonzero real number c·Im(u), since c and d are real and Im(u)>0. In particular j≠0. The complex-coordinate formula for the action is T(u)=(au+b)/(cu+d). To verify its upper-half-plane value directly, expand (au+b)·conj(cu+d): its imaginary part is (ad−bc)·Im(u)=Im(u). Dividing by |cu+d|² therefore gives Im(T(u))=Im(u)/|cu+d|²>0.\n3. The affine numerator and denominator of T have derivatives a and c at t. Since j≠0, the complex quotient rule gives T′(t)=[a(ct+d)−(at+b)c]/j²=(ad−bc)/j²=1/j².\n4. Define W(z)=((σ • UpperHalfPlane.ofComplex z : ℍ) : ℂ). The open set U={z : ℂ | 0<Im(z)} contains t. For z∈U, the complex coordinate of ofComplex z is z, and the action formula therefore gives W(z)=T(z). Equality on this neighborhood transfers the derivative in step 3 to W at t. Also ofComplex t=τ, so W(t)=w₀. These locality and action-derivative facts agree with UpperHalfPlane.eventuallyEq_coe_comp_ofComplex and UpperHalfPlane.hasStrictDerivAt_smul, specialized to the real general-linear image of σ, whose determinant is 1 and whose denominator is j by HeckeEis.jFactor_eq_denom.\n5. Put H(z)=h(UpperHalfPlane.ofComplex z). The hypothesis gives H derivative v at w₀=W(t). The scalar complex chain rule applied to H and W therefore gives H∘W derivative v·(1/j²) at t.\n6. For every complex z, the point σ • ofComplex z belongs to ℍ. Consequently UpperHalfPlane.ofComplex_apply gives ofComplex(W(z))=σ • ofComplex z. Thus H(W(z))=h(σ • ofComplex z) for every z. Substitute this function equality into step 5 and simplify v·(1/j²)=v/j². This is exactly the required derivative statement.",
+      "proof_key_steps": [
+        "Use determinant one and positive imaginary part to show the Möbius denominator is nonzero.",
+        "Compute the quotient derivative as 1/jFactor(σ,τ)².",
+        "Transfer the derivative to the actual action-coordinate function using local equality on the upper half-plane.",
+        "Apply the scalar chain rule at the coordinate of σ • τ.",
+        "Use ofComplex_apply to identify the composite globally and simplify its derivative."
+      ]
+    }
+  ]
+}
