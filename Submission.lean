@@ -3699,6 +3699,7 @@ theorem p06_9e0f5043ff_ifl_residue_length_inertia
   let A := (w.restrict E).toValuationSubring
   let B := integralClosureAt L (w.restrict E)
   let q := (fiberCenter L (w.restrict E) rfl).asIdeal
+  -- The fiber center is the inverse image of the maximal ideal of O_w.
   let f : B →+* w.toValuationSubring :=
     (algebraMap B L).codRestrict w.toValuationSubring.toSubring
       (forall_mem_of_restrict_eq rfl)
@@ -3709,6 +3710,7 @@ theorem p06_9e0f5043ff_ifl_residue_length_inertia
   have : q.IsMaximal := (fiberCenter L (w.restrict E) rfl).isMaximal
   let : Field (B ⧸ q) := Ideal.Quotient.field q
   have hg : Function.Surjective g := by
+    -- Every element of O_w is a fraction with denominator outside the fiber center.
     intro y
     obtain ⟨x, rfl⟩ := residue_surjective (R := w.toValuationSubring) y
     have hx := x.property
@@ -3735,6 +3737,7 @@ theorem p06_9e0f5043ff_ifl_residue_length_inertia
       rw [this, map_zero]
     simpa only [div_eq_mul_inv] using (div_mul_cancel₀ (algebraMap B L a) hs0).symm
   let e := RingEquiv.ofBijective g ⟨g.injective, hg⟩
+  -- Use exactly the residue-field scalar action defining the inertia degree.
   let : Algebra A w.ResidueField :=
     ((restrictResidueMap E w).comp (residue A)).toAlgebra
   have : IsScalarTower A (w.restrict E).ResidueField w.ResidueField :=
@@ -3752,6 +3755,7 @@ theorem p06_9e0f5043ff_ifl_residue_length_inertia
     Module.Finite.of_surjective eA.toLinearMap eA.surjective
   have : FiniteDimensional (w.restrict E).ResidueField w.ResidueField :=
     Module.Finite.of_restrictScalars_finite A (w.restrict E).ResidueField w.ResidueField
+  -- Surjectivity of the residue map identifies the two submodule lattices.
   calc
     Module.length A (B ⧸ q) = Module.length A w.ResidueField := eA.toLinearEquiv.length_eq
     _ = Module.length (w.restrict E).ResidueField w.ResidueField :=
