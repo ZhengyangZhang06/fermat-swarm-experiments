@@ -2863,6 +2863,8 @@ theorem p06_9e0f5043ff_dmd_finite_family_dividing_member
   -- Minimize the uniformizer exponent among the nonzero entries.
   obtain ⟨i, _, hmin⟩ := Finset.exists_min_image Finset.univ e hS
   refine ⟨i.val, i.property, ?_⟩
+  obtain ⟨i, _, hmin⟩ := Finset.exists_min_image Finset.univ e hS
+  refine ⟨i, i.property, ?_⟩
   intro j
   by_cases hj : a j = 0
   · rw [hj]
@@ -3216,5 +3218,9 @@ theorem p06_9e0f5043ff_lno_dvr_determinant_length
       v.ord_mul (hcoe _ hPdet.ne_zero) (hcoe _ hD),
       hunit _ hPdet, hunit _ hQdet, zero_add, add_zero, hprod] at horder
     simpa only [D, LinearMap.det_toMatrix, Nat.cast_sum] using horder
+  · let k : S := ⟨j, hj⟩
+    change a (i : ι) ∣ a (k : ι)
+    rw [he i, he k, Units.mul_left_dvd, Units.dvd_mul_left]
+    exact pow_dvd_pow π (hmin k (Finset.mem_univ k))
 
 end Submission
