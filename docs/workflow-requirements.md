@@ -64,6 +64,10 @@ Implementation and deployment status are tracked separately in
 - Update from current durable DAG state and observed worker/claim/verification
   evidence. Show observation time and stale/unavailable data explicitly. Keep
   the last successful observation during outages; do not reset progress to queued.
+- During additive worker-generation rollouts, observe every configured generation
+  with a present catalog, validate current tasks and fresh heartbeats, and count
+  each physical node once. Unpublished child contracts must be labeled pending
+  issue publication, never presented as ordinary ready work or running jobs.
 - Publish source changes and confirm deployment separately. Local HTML, a Git
   push and an actually deployed website are different completion claims.
 

@@ -2,6 +2,55 @@
 
 import json
 import subprocess
+from pathlib import Path
+
+
+def fleet_generations(directory, generations):
+    """Read a required first generation and optional later deployment inputs.
+
+    Catalogs must identify the same repository and projects. Optional snapshots
+    cannot invent a generation without its catalog; actual task and heartbeat
+    validation still happens separately in ``observed_workers``.
+    """
+    directory = Path(directory)
+    config, snapshots, services = None, [], []
+    for catalog_name, snapshot_name, service in generations:
+        catalog_path = directory / catalog_name
+        if config is not None and not catalog_path.exists():
+            continue
+        current = json.loads(catalog_path.read_text())
+        if config is None:
+            config = current
+        else:
+            registered = {project['id']: project for project in current['projects']}
+            if (current['repository'] != config['repository'] or
+                    set(registered) != {project['id'] for project in config['projects']}):
+                raise ValueError('fleet generation repository or project identities differ')
+            for project in config['projects']:
+                project['enabled'] = bool(project.get('enabled') or registered[project['id']].get('enabled'))
+        snapshot_path = directory / snapshot_name
+        if snapshot_path.exists():
+            snapshots.append(json.loads(snapshot_path.read_text()))
+        services.append(service)
+    if config is None:
+        raise ValueError('at least one fleet generation is required')
+    return config, snapshots, services
+
+
+def attach_worker_activity(proofs, workers):
+    """Attach validated activity without treating unpublished children as ready."""
+    executing = {str(worker['issue']): worker['node'] for worker in workers
+                 if worker['phase'] == 'working' and worker['issue'] is not None}
+    for problem in proofs:
+        for node in problem['nodes']:
+            issue_url = node.get('issue_url', '')
+            pending = not issue_url and node.get('local_id') != 'root'
+            node['publication_pending'] = pending
+            node['worker_node'] = executing.get(issue_url.rsplit('/', 1)[-1], '') if issue_url else ''
+            node['observed_running'] = bool(node['worker_node'])
+            node['activity_reason'] = ('pending issue publication' if pending else
+                                       'worker ' + node['worker_node'] if node['observed_running'] else
+                                       'no active worker observed')
 
 
 def running_service_tasks(services, *, docker=('sudo', '-n', 'docker')):
