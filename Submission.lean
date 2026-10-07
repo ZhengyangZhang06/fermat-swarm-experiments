@@ -668,6 +668,7 @@ theorem p02_es_177ebb5a_primitive_exists_scalar_primitive :
   simp only [φ, ψ, hφψ z hz, mul_assoc, hprod z hz, mul_one]
 
 /-- Expand a homogeneous binary form in the monomials with exponents `(r, n - r)`. -/
+
 theorem p02_es_177ebb5a_ic_lct_monomial_expansion
     (n : ℕ) (Q : ↥(HeckeEis.BinaryForm ℂ n)) :
     Q.val = ∑ r : Fin (n + 1),
@@ -2029,3 +2030,4 @@ theorem Submission.p02_es_177ebb5a_scl_scalar_strip_limit :
   have hz := hbx_bound z.im hy
   rw [heq, Complex.re_add_im] at hz
   simpa only [w, J, mul_assoc] using hz
+end Submission
