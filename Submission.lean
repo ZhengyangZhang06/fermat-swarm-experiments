@@ -804,6 +804,62 @@ theorem p07_cq_abelian_surface_quotient_857cd4d38c
   refine ⟨⟨?_, ?_, fun t => (hfibres t).1, ⟨H⟩⟩, fun t => (hfibres t).2⟩
   · exact MorphismProperty.pullback_snd _ _ h.smooth
   · infer_instance
+open CategoryTheory.Limits
+
+/-- The level immersion and its finite flat structure morphism commute with base change. -/
+theorem p07_cq_level_geometry_pullback_857cd4d38c :
+    ∀ (S T : Type) [CommRing S] [CommRing T] (φ : S →+* T)
+      (A C : AlgebraicGeometry.Scheme.{0})
+      (f : A ⟶ AlgebraicGeometry.Spec (CommRingCat.of S)) (ℓ : C ⟶ A),
+      AlgebraicGeometry.IsClosedImmersion ℓ →
+      AlgebraicGeometry.IsFinite (ℓ ≫ f) →
+      AlgebraicGeometry.Flat (ℓ ≫ f) →
+      AlgebraicGeometry.LocallyOfFinitePresentation (ℓ ≫ f) →
+      let β := AlgebraicGeometry.Spec.map (CommRingCat.ofHom φ)
+      let c := ℓ ≫ f
+      let p := pullback.snd f β
+      let g := pullback.fst f β
+      let r := pullback.fst c β
+      let d := pullback.snd c β
+      ∃ ℓT : pullback c β ⟶ pullback f β,
+        CategoryTheory.IsPullback r ℓT ℓ g ∧ ℓT ≫ p = d ∧
+        AlgebraicGeometry.IsClosedImmersion ℓT ∧ AlgebraicGeometry.IsFinite d ∧
+        AlgebraicGeometry.Flat d ∧ AlgebraicGeometry.LocallyOfFinitePresentation d ∧
+        (∀ t : AlgebraicGeometry.Spec (CommRingCat.of T),
+          AlgebraicGeometry.Scheme.Hom.finrank d t =
+            AlgebraicGeometry.Scheme.Hom.finrank c (β t)) ∧
+        (∀ (W : AlgebraicGeometry.Scheme.{0}) (Q : W ⟶ pullback f β),
+          (∃ R : W ⟶ pullback c β, R ≫ ℓT = Q) ↔
+            (∃ R : W ⟶ C, R ≫ ℓ = Q ≫ g)) := by
+  intro S T _ _ φ A C f ℓ hℓ hfinite hflat hfp
+  dsimp only
+  let β := AlgebraicGeometry.Spec.map (CommRingCat.ofHom φ)
+  let c := ℓ ≫ f
+  have : AlgebraicGeometry.IsFinite c := hfinite
+  have : AlgebraicGeometry.Flat c := hflat
+  have : AlgebraicGeometry.LocallyOfFinitePresentation c := hfp
+  let ℓT : pullback c β ⟶ pullback f β :=
+    pullback.lift (pullback.fst c β ≫ ℓ) (pullback.snd c β) (by
+      rw [Category.assoc]
+      exact pullback.condition)
+  have hfst : ℓT ≫ pullback.fst f β = pullback.fst c β ≫ ℓ :=
+    pullback.lift_fst _ _ _
+  have hsnd : ℓT ≫ pullback.snd f β = pullback.snd c β :=
+    pullback.lift_snd _ _ _
+  have hpb : IsPullback (pullback.fst c β) ℓT ℓ (pullback.fst f β) := by
+    apply IsPullback.of_bot (s := ?_) hfst.symm (IsPullback.of_hasPullback f β)
+    rw [hsnd]
+    exact IsPullback.of_hasPullback c β
+  refine ⟨ℓT, hpb, hsnd, ?_, inferInstance, inferInstance, inferInstance, ?_, ?_⟩
+  · exact MorphismProperty.of_isPullback hpb hℓ
+  · exact Scheme.Hom.finrank_pullback_snd c β
+  · intro W Q
+    constructor
+    · rintro ⟨U, hU⟩
+      refine ⟨U ≫ pullback.fst c β, ?_⟩
+      rw [Category.assoc, hpb.w, ← Category.assoc, hU]
+    · rintro ⟨R, hR⟩
+      exact ⟨hpb.lift R Q hR, hpb.lift_snd R Q hR⟩
 
 end Submission
 
