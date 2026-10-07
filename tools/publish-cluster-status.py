@@ -84,6 +84,13 @@ def proof_records(config):
                     audit = json.loads(audit_path.read_text())
                     if audit.get('acceptable') and not audit.get('first_invalid_step') and not audit.get('required_changes'):
                         prose = 'reviewed'
+            # A later decomposition audit can expose a mathematical gap and
+            # send the root back to revision. Its old passing artifact remains
+            # useful history, but is not acceptance of the current argument.
+            if node.get('status') == 'natural-proof':
+                prose = 'revising' if node.get('natural_proof') else 'drafting'
+            elif node.get('status') == 'natural-review':
+                prose = 'under review'
             public.append(dict(id=problem['id'] + '/' + key, problem=problem['id'], local_id=key,
                 title=node.get('lean_name') or node.get('title') or key, status=node.get('status', 'queued'),
                 requires=[problem['id'] + '/' + d for d in dict.fromkeys(node.get('children', []) + node.get('depends_on', []))],
@@ -130,7 +137,7 @@ def collect():
         'workers': sorted(workers, key=lambda worker: int(worker['node'][3:])),
         'message': f"{len(workers)}/128 node workers are running and heartbeating. "
                    f"{working} are executing issue jobs; {enabled}/10 projects are enabled. "
-                   f"{reviewed}/10 root prose proofs have passing review records; "
+                   f"{reviewed}/10 current root prose proofs have passed review; "
                    f"{integrated}/10 roots have workflow verification and merge evidence. "
                    + ("Proof execution remains disabled during project/verifier preparation." if not enabled else
                       "Model activity, prose review, Lean verification and integration are distinct stages."),

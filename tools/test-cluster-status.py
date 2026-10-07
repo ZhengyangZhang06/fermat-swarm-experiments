@@ -81,6 +81,19 @@ class ProofFeedTests(unittest.TestCase):
         for forbidden in ('/private/path', 'secret-canary', 'javascript:'):
             self.assertNotIn(forbidden, output)
 
+    def test_previous_passing_review_does_not_approve_a_revision(self):
+        proof = self.run / 'nodes/root/natural-proof-v1.md'
+        proof.parent.mkdir(parents=True)
+        proof.write_text('Previously reviewed proof')
+        proof.with_name('natural-audit-v1.json').write_text(json.dumps(
+            dict(acceptable=True, first_invalid_step='', required_changes=[])))
+        for stage, expected in [('natural-proof', 'revising'), ('natural-review', 'under review')]:
+            with self.subTest(stage=stage):
+                self.dag([dict(id='root', status=stage, natural_proof=str(proof.relative_to(self.project)))])
+                report = self.report()
+                self.assertFalse(report['natural_proof_reviewed'])
+                self.assertEqual(report['nodes'][0]['prose_status'], expected)
+
 
 if __name__ == '__main__':
     unittest.main()
