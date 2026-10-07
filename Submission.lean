@@ -3750,7 +3750,7 @@ theorem p06_9e0f5043ff_ifl_residue_length_inertia
           restrictResidueMap E w (residue A a)
         rw [restrictResidueMap_residue]
         apply congrArg (residue _)
-        exact Subtype.ext (by rfl) }
+        exact Subtype.ext rfl }
   have : Module.Finite A w.ResidueField :=
     Module.Finite.of_surjective eA.toLinearMap eA.surjective
   have : FiniteDimensional (w.restrict E).ResidueField w.ResidueField :=
