@@ -3231,5 +3231,56 @@ theorem p02_es_177ebb5a_tff_periodic_polynomial_constant
   have hcast : ((d + 1 : ℕ) : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (Nat.succ_ne_zero d)
   exact (mul_ne_zero (mul_ne_zero hcast hlead) hc)
     (add_right_cancel (hcoeff.trans (zero_add _).symm))
+theorem p02_es_177ebb5a_tff_constant_dehomogenization
+    (n : ℕ) (A : ↥(HeckeEis.BinaryForm ℂ n)) (α : ℂ)
+    (hA : MvPolynomial.eval₂ Polynomial.C
+      (fun j : Fin 2 => if j = 0 then 1 else Polynomial.X) A.val = Polynomial.C α) :
+    A.val = MvPolynomial.C α * MvPolynomial.X (0 : Fin 2) ^ n := by
+  classical
+  have hdegree (d : Fin 2 →₀ ℕ) (hd : d ∈ A.val.support) : d 0 + d 1 = n := by
+    have h := A.property (MvPolynomial.mem_support_iff.mp hd)
+    have hdeg : d.degree = n := by
+      simpa only [Finsupp.degree_eq_weight_one, Pi.one_def] using h
+    simpa only [Finsupp.degree_eq_sum, Fin.sum_univ_two] using hdeg
+  have hcoeff (d : Fin 2 →₀ ℕ) (hd : d 0 + d 1 = n) :
+      (MvPolynomial.eval₂ Polynomial.C
+        (fun j : Fin 2 => if j = 0 then 1 else Polynomial.X) A.val).coeff (d 1) =
+        MvPolynomial.coeff d A.val := by
+    rw [MvPolynomial.eval₂_eq']
+    simp only [Fin.prod_univ_two, Fin.isValue, ite_true, one_pow, one_ne_zero,
+      ite_false, one_mul, Polynomial.finsetSum_coeff, Polynomial.coeff_C_mul_X_pow]
+    rw [Finset.sum_eq_single d]
+    · simp
+    · intro e he hne
+      have hedeg := hdegree e he
+      have hne1 : d 1 ≠ e 1 := by
+        intro he1
+        apply hne
+        have he0 : e 0 = d 0 := by omega
+        ext j
+        fin_cases j
+        · exact he0
+        · exact he1.symm
+      simp [hne1]
+    · intro hnot
+      simp [MvPolynomial.notMem_support_iff.mp hnot]
+  apply MvPolynomial.ext
+  intro d
+  by_cases hd : d 0 + d 1 = n
+  · have hc := hcoeff d hd
+    rw [hA, Polynomial.coeff_C] at hc
+    rw [← hc, MvPolynomial.C_mul_X_pow_eq_monomial, MvPolynomial.coeff_monomial]
+    have heq : Finsupp.single (0 : Fin 2) n = d ↔ d 1 = 0 := by
+      constructor
+      · intro h
+        rw [← h]
+        simp
+      · intro h
+        ext j
+        fin_cases j <;> simp at * <;> omega
+    simp only [heq]
+  · rw [A.property.coeff_eq_zero, (MvPolynomial.isHomogeneous_C_mul_X_pow α
+      (0 : Fin 2) n).coeff_eq_zero]
+    all_goals simpa [Finsupp.degree_eq_sum, Fin.sum_univ_two] using hd
 
 end Submission
