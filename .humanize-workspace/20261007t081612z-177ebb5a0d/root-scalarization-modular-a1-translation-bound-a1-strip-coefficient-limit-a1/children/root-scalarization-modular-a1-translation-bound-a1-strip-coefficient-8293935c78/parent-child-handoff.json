@@ -1,0 +1,62 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "IsEichlerIntegral|def linePow|abbrev BinaryForm|strip.*limit|coefficient.*limit",
+        "integrable.*exp|tendsto.*exp|norm_sub_le_integral|finite_of_degree_eq|coeff.*pow",
+        "tendsto_pow_mul_exp_neg_atTop_nhds_zero|tendsto_pow_mul_exp|finite_of_degree_eq|continuous.*coeff|ofComplex.*continuous|continuous.*ofComplex",
+        "coeff_eq_zero|mem_homogeneousSubmodule|isHomogeneous_monomial|degree",
+        "strip.*limit|limit.*strip|linePow.*(bound|norm)|norm.*linePow",
+        "rg -n --hidden -g 'dag.json' -g 'decomposition-v*.json' -g '*handoff*.json' -g '*.lean' 'p02_es_177ebb5a_scl_(linepow_coeff_bound|polynomial_exp_tail|scalar_strip_limit)' .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json Submission.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_scl_decomposition_types.lean",
+        "git -C .lake/packages/mathlib rev-parse HEAD",
+        "git -C .lake/packages/mathlib status --short"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Coeff.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/MeasureTheory/Integral/ExpDecay.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/DistLEIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/SpecialFunctions/Exp.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Data/Finsupp/Weight.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis",
+        "/tmp/p02_scl_decomposition_types.lean"
+      ],
+      "conclusion": "Both reference snapshots are clean and match project revision 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d. Installed mathlib is clean at that revision, and the two relevant project definition files match the snapshot byte-for-byte. IsEichlerIntegral specifies coefficientwise complex derivatives; BinaryForm is the homogeneous polynomial submodule. Mathlib supplies multinomial coefficient formulas, exponential integrability and decay, segment norm estimates, finite degree-coordinate sets, and off-degree coefficient vanishing. The strip-limit/linePow-bound search returned no matches. All three proposed names were absent from the DAG and recorded handoffs/decompositions. All three exact types elaborate after import Submission. Transitive axiom checks for the seven inspected supporting declarations report only propext, Classical.choice, and Quot.sound. These are interface and reference checks, not comparator acceptance of any proposed child proof."
+    }
+  ],
+  "parent_id": "root.scalarization_modular-a1.translation_bound-a1.strip_coefficient_limit-a1",
+  "child_id": "root.scalarization_modular-a1.translation_bound-a1.strip_coefficient_limit-a1.polynomial_exponential_tail-a1",
+  "subproblem": {
+    "key": "polynomial_exponential_tail",
+    "title": "Integrability, tail bound, and decay of the polynomial–exponential weight",
+    "statement": "Let n∈ℕ and a∈ℝ with a>0. Define w(s)=(1+s)^n exp(−as) and J=∫_(0,∞) w(s) ds, using real Lebesgue measure. Then w is integrable on (0,∞), J≥0, and for all real 0≤y≤t one has ∫_y^t w(s) ds≤J(1+y)^n exp(−ay). Moreover w(y)→0 as y→+∞.",
+    "lean_statement": "∀ (n : ℕ) (a : ℝ), 0 < a → MeasureTheory.IntegrableOn (fun s : ℝ => (1 + s) ^ n * Real.exp (-a * s)) (Set.Ioi 0) ∧ 0 ≤ (∫ s in Set.Ioi (0 : ℝ), (1 + s) ^ n * Real.exp (-a * s)) ∧ (∀ (y t : ℝ), 0 ≤ y → y ≤ t → (∫ s in y..t, (1 + s) ^ n * Real.exp (-a * s)) ≤ (∫ s in Set.Ioi (0 : ℝ), (1 + s) ^ n * Real.exp (-a * s)) * (1 + y) ^ n * Real.exp (-a * y)) ∧ Filter.Tendsto (fun y : ℝ => (1 + y) ^ n * Real.exp (-a * y)) Filter.atTop (nhds 0)",
+    "lean_name": "p02_es_177ebb5a_scl_polynomial_exp_tail",
+    "depends_on": [],
+    "natural_proof": "1. Set w(s)=(1+s)^n exp(−as). This is continuous on ℝ and nonnegative for s≥0. For 0≤s≤1, (1+s)^n≤2^n≤2^n(1+s^n); for s≥1, (1+s)^n≤(2s)^n≤2^n(1+s^n). Thus this bound holds for every s≥0, also when n=0.\n2. Since as/2≥0, the exponential series has nonnegative terms and gives exp(as/2)≥(as/2)^n/n!. Because a>0, multiplication by n!(2/a)^n yields s^n≤n!(2/a)^n exp(as/2). Therefore 0≤w(s)≤B exp(−as/2) for s≥0, where B=2^n(1+n!(2/a)^n). Here the constant term is bounded using exp(−as)≤exp(−as/2).\n3. The function B exp(−as/2) has finite integral 2B/a on (0,∞), by its elementary antiderivative and exponential decay. Continuity makes w measurable, so comparison proves that w is integrable on (0,∞). Its integral J is nonnegative because w is nonnegative there.\n4. Fix 0≤y≤t. The substitution s=y+v gives ∫_y^t w(s) ds=∫_0^(t−y) w(y+v) dv. For v≥0, 1+y+v≤(1+y)(1+v) and exp(−a(y+v))=exp(−ay)exp(−av), so w(y+v)≤w(y)w(v). Consequently the last integral is at most w(y)∫_0^(t−y)w(v)dv≤w(y)J. The final inequality uses nonnegativity and integrability on (0,∞); endpoints have Lebesgue measure zero. This is the stated tail estimate, including t=y.\n5. For y≥1, (1+y)^n≤2^n y^n. The (n+1)-st term in the exponential series gives exp(ay)≥(ay)^(n+1)/(n+1)!. Since a,y>0, it follows that 0≤w(y)≤2^n(n+1)!/(a^(n+1)y). The last expression tends to zero, so the squeeze theorem proves w(y)→0. This argument includes n=0.",
+    "proof_key_steps": [
+      "Dominate the polynomial factor using a term of the exponential series.",
+      "Compare with an integrable exponential to obtain a finite nonnegative J.",
+      "Translate a finite interval and use w(y+v)≤w(y)w(v) to bound its integral.",
+      "Use the (n+1)-st exponential term to bound w(y) by a constant divided by y."
+    ]
+  },
+  "audit": {
+    "key": "polynomial_exponential_tail",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "The proposition includes exactly a>0 and all four stated conclusions with real Lebesgue measure. Exponential-series domination proves integrability and nonnegativity; translation and w(y+v)≤w(y)w(v) prove the finite-interval estimate, with endpoints handled correctly. The explicit constant-over-y bound proves decay. All steps cover n=0 and y=t without circular reliance."
+  },
+  "resolved_dependencies": [],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-modular-a1-translation-bound-a1-strip-coefficient-8293935c78/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-modular-a1-translation-bound-a1-strip-coefficient-8293935c78/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-modular-a1-translation-bound-a1-strip-coefficient-8293935c78/parent-supplied-natural-proof.json"
+}

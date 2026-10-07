@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.scalarization_modular-a1.translation_bound-a1.strip_coefficient_limit-a1.polynomial_exponential_tail-a1",
+  "parent_id": "root.scalarization_modular-a1.translation_bound-a1.strip_coefficient_limit-a1",
+  "depth": 4,
+  "title": "Integrability, tail bound, and decay of the polynomial–exponential weight",
+  "statement": "Let n∈ℕ and a∈ℝ with a>0. Define w(s)=(1+s)^n exp(−as) and J=∫_(0,∞) w(s) ds, using real Lebesgue measure. Then w is integrable on (0,∞), J≥0, and for all real 0≤y≤t one has ∫_y^t w(s) ds≤J(1+y)^n exp(−ay). Moreover w(y)→0 as y→+∞.",
+  "lean_statement": "∀ (n : ℕ) (a : ℝ), 0 < a → MeasureTheory.IntegrableOn (fun s : ℝ => (1 + s) ^ n * Real.exp (-a * s)) (Set.Ioi 0) ∧ 0 ≤ (∫ s in Set.Ioi (0 : ℝ), (1 + s) ^ n * Real.exp (-a * s)) ∧ (∀ (y t : ℝ), 0 ≤ y → y ≤ t → (∫ s in y..t, (1 + s) ^ n * Real.exp (-a * s)) ≤ (∫ s in Set.Ioi (0 : ℝ), (1 + s) ^ n * Real.exp (-a * s)) * (1 + y) ^ n * Real.exp (-a * y)) ∧ Filter.Tendsto (fun y : ℝ => (1 + y) ^ n * Real.exp (-a * y)) Filter.atTop (nhds 0)",
+  "lean_name": "p02_es_177ebb5a_scl_polynomial_exp_tail",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1-strip-coefficient-8293935c78-a1"
+}
