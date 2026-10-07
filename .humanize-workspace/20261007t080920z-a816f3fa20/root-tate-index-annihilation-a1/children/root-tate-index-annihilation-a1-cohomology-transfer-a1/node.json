@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1",
+  "parent_id": "root.tate_index_annihilation-a1",
+  "depth": 2,
+  "title": "Subgroup transfer factors the index action on group cohomology",
+  "statement": "Let k be a commutative ring, G a group with a finite-type structure, A a k-linear G-representation, H a subgroup equipped with a finite-type structure, and n a natural number. Use the common universe required by groupCohomology. There exist k-linear maps R : Hⁿ(G,A) → Hⁿ(H,Res_H A) and C : Hⁿ(H,Res_H A) → Hⁿ(G,A) such that C(R(x)) = [G:H] • x for every x, where • is repeated addition. No normality of H or finiteness of A is assumed.",
+  "lean_statement": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H] (n : ℕ), ∃ R : groupCohomology A n →ₗ[k] groupCohomology (Rep.res H.subtype A) n, ∃ C : groupCohomology (Rep.res H.subtype A) n →ₗ[k] groupCohomology A n, ∀ x : groupCohomology A n, C (R x) = H.index • x",
+  "lean_name": "p04_tia_cohomology_transfer",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p04/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-a1"
+}

@@ -1,0 +1,69 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "tateCohomology|tateH0|tateHneg1|normBar",
+        "transfer|corestriction|cores|index.*smul|smul.*index|restriction|res_comp",
+        "p04_tia_(cohomology_transfer|homology_transfer|tate_zero_transfer|tate_neg_one_transfer)",
+        "standardComplex|homogeneous|def index|isZero_iff_subsingleton|subsingleton_of_isZero",
+        "TateResCor|tateH0Cores|tateHneg1Cores",
+        "rg --files --hidden --no-ignore /mnt/data/zhengyang-workspace/fermat-swarm-projects -g dag.json -g '!**/.git/**' -g '!**/.lake/**' -g '!**/local-references/**'",
+        "#print axioms Rep.tateCohomology",
+        "#print axioms Representation.normBar",
+        "#print axioms groupCohomology",
+        "#print axioms groupHomology"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Functoriality.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/Resolution.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Coinvariants.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/Index.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/Category/ModuleCat/Basic.lean",
+        "/tmp/p04-independent-decomposition-audit-15eyudwm/TypeAudit.lean",
+        "/tmp/p04-independent-decomposition-audit-15eyudwm/TypeAudit.log",
+        "/tmp/p04-independent-decomposition-audit-15eyudwm/InstanceAudit.log",
+        "/tmp/p04-independent-decomposition-audit-15eyudwm/AssemblyAudit.lean",
+        "/tmp/p04-independent-decomposition-audit-15eyudwm/AssemblyAudit.log",
+        "/tmp/p04-independent-decomposition-audit-15eyudwm/NameAudit.json",
+        "/tmp/p04-independent-decomposition-audit-15eyudwm/Submission.log"
+      ],
+      "conclusion": "Independently verified clean snapshot revisions 2475a3790d7ba0c3b10be8086001b154a45be597 and db584cd6d46c92f209a44c0f1c829460d327499d, and all nine installed dependency pins. Sources confirm the four Tate branches, norm quotient/kernel, and both differential conventions. Existing homology corestriction was found, but no matching index-factorization theorem in the searched infrastructure. Fresh compilation of unchanged definitions and independent reruns validated all four exact propositions, repeated-addition instances, and conditional parent assembly. Audited infrastructure has only propext, Classical.choice, and Quot.sound as transitive axioms. All proposed names are bare, distinct, and unreserved across ten local DAGs. The split appropriately decomposes the existing index-annihilation helper without changing the frozen Sylow root; its four independent children give an acyclic parent-to-child dependency structure. The proposal's activation hold remains necessary: Submission.lean still fails on Representation.TateResCor.cosetDecomp_apply and contains the inherited sorry. This is decomposition approval only, not comparator acceptance or authorization to bypass that gate."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "cohomology_transfer",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition matches every stated hypothesis, the common universe, map directions, and index action. Independently checked all nine proof steps: the cochain identification matches the pinned differential; the equivariant retraction and signed prism homotopy establish the comparison, including degree zero; representative-independent corestriction commutes with the differential and composes with restriction to the index action. Transport through the stated inverse linear isomorphisms is correctly directed. No hidden hypothesis, circular reliance, or deferred proof search occurs."
+    },
+    {
+      "key": "homology_transfer",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition exactly matches the prose, including arbitrary natural degree and the common universe. Independently checked all nine steps. The tensor-coinvariant identification gives the required inverse action in the first boundary term. The explicit equivariant homotopy survives tensoring and passage to coinvariants without a flatness assumption. Right-coset transfer descends, projection after transfer is the index action, and the final transport preserves this identity, including degree zero. The proof is complete and independent of the parent and siblings."
+    },
+    {
+      "key": "tate_zero_transfer",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition matches the invariant quotient and all hypotheses in the prose. Each of the six proof steps is justified: surjectivity of the coinvariant quotient identifies normBar's image with norm values; the right-coset norm identity makes restriction descend; the left-coset sum is invariant and sends subgroup norms to ambient norms. Computing on invariant representatives proves the exact repeated-addition identity. Neither normality nor finiteness of A is used, and there is no circular dependency."
+    },
+    {
+      "key": "tate_neg_one_transfer",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition exactly states the two linear maps between the frozen normBar kernels. Independently checked all seven steps: projection and right-coset transfer descend through the specified relation spans; their composite is the index action; the two norm identities separately establish preservation of the required kernels. Injectivity of invariant and kernel inclusions justifies the final equalities. The inferred natural-number action is the inherited additive action. The proof needs no unstated hypothesis or further mathematical construction."
+    }
+  ],
+  "required_changes": []
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.tate_index_annihilation-a1.tate_neg_one_transfer-a1",
+  "parent_id": "root.tate_index_annihilation-a1",
+  "depth": 2,
+  "title": "Transfer and projection on the degree-minus-one Tate kernel",
+  "statement": "Let k be a commutative ring, G a group with a finite-type structure, A a k-linear G-representation, and H a subgroup equipped with a finite-type structure. For L = G or H, let ν_L : A_L → A^L be the map from coinvariants to invariants induced by the norm Σ_{l∈L} l. Define Tate degree −1 as ker(ν_L), as in Rep.tateHneg1. There exist k-linear maps T : ker(ν_G) → ker(ν_H) and P : ker(ν_H) → ker(ν_G) such that P(T(x)) = [G:H] • x for every x. No normality or finiteness assumption on A is required.",
+  "lean_statement": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H], ∃ T : A.tateHneg1 →ₗ[k] (Rep.res H.subtype A).tateHneg1, ∃ P : (Rep.res H.subtype A).tateHneg1 →ₗ[k] A.tateHneg1, ∀ x : A.tateHneg1, P (T x) = H.index • x",
+  "lean_name": "p04_tia_tate_neg_one_transfer",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p04/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-tate-neg-one-transfer-a1-a1"
+}

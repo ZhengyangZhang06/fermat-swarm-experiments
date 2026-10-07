@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.tate_index_annihilation-a1.tate_zero_transfer-a1",
+  "parent_id": "root.tate_index_annihilation-a1",
+  "depth": 2,
+  "title": "Restriction and transfer on the degree-zero Tate quotient",
+  "statement": "Let k be a commutative ring, G a group with a finite-type structure, A a k-linear G-representation, and H a subgroup equipped with a finite-type structure. For L = G or H, write A^L for the invariant submodule, A_L for the coinvariants, and ν_L : A_L → A^L for the map induced by the norm Σ_{l∈L} l. Define Tate degree zero as A^L/im(ν_L), as in Rep.tateH0. There exist k-linear maps R from the G quotient to the H quotient and C back such that C(R(x)) = [G:H] • x for every x. No normality or finiteness assumption on A is required.",
+  "lean_statement": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H], ∃ R : A.tateH0 →ₗ[k] (Rep.res H.subtype A).tateH0, ∃ C : (Rep.res H.subtype A).tateH0 →ₗ[k] A.tateH0, ∀ x : A.tateH0, C (R x) = H.index • x",
+  "lean_name": "p04_tia_tate_zero_transfer",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p04/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-tate-zero-transfer-a1-a1"
+}
