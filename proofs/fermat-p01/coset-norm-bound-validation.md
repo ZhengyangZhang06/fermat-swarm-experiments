@@ -109,6 +109,7 @@ The exact type remains:
 
 - Lean 4.33.1 (commit `819816b2e0a3bf405af45ae5c7af2491d8f5bee6`), `-DwarningAsError=true` and the project Lean options: the unchanged selected theorem in a fresh diagnostic importing
 - Lean 4.33.1, `-DwarningAsError=true`: the selected theorem in a diagnostic importing
+- Lean 4.33.1, `-DwarningAsError=true`: the unchanged selected theorem in a fresh diagnostic importing
   `Definitions.Def_ModularForm_HeckeOperatorForms` passes, including an anonymous check
   against the literal frozen type.
 - Transitive axiom reports for the selected theorem, `ModularForm.norm`,
@@ -210,15 +211,22 @@ The inherited implementation and historical comparator reports were not treated 
 proof acceptance. All diagnostics above were rerun in this round. No prior process,
 request, or controller state was restarted, canceled, or modified.
 
-**Required validation remains blocked.** The diagnostic retaining the frozen imports
-and attribute commands, while excluding the unrelated root theorem, exits 1. A separate
-check confirms all seven instance targets and all eight simp targets in those commands
-are unavailable in the imported environment. The first errors name
+**Required validation remains blocked.** The fresh diagnostic retaining the frozen imports
+and attribute commands, while excluding the unrelated root theorem, exits 1. The two
+grouped commands fail before this node's proof. A fresh exact-name provider search across
+snapshot `project/Definitions` and `mathlib/Mathlib` returns no matches for their 15 targets;
+the earlier individual-target diagnostic remains available in the previous round's evidence.
+The first errors name
 `FLT.HyperbolicMeasure.instSMulInvariantMeasureSpecialLinearGroupFinOfNatNatIntUpperHalfPlaneVolume_definitions`
 and `FreyPackage.ModMCarrier.coe_rescaleLin_apply`. Thus the passing diagnostic without
 the attribute commands is not full-context acceptance. The unchanged whole source also
 reports the inherited root placeholder under warning-fatal checking; no root proof or
 root comparator is part of this node's task.
+
+The latest prior controller artifact, `comparator-v4.log`, records exit 1 for request
+`6622e79c98cb49149b166263fbe5e470`, with the same missing constants in the frozen challenge.
+The earlier local polling process (PID 4568) was observed as a zombie and was not restarted
+or canceled. No controller state or previous request was modified.
 
 The current plan requires a fresh exact-node comparator run on a clean committed
 candidate. Its result belongs to that exact SHA and is recorded in the local round
@@ -290,9 +298,11 @@ the scoped diagnostic sources, completed body/context build logs, `build-results
 `complete-source.diff`. The freshly requested simplifier agent independently reviewed the selected
 proof and found no defect or worthwhile simplification. The round tracker,
 
-Local evidence is in `.humanize/rlcr/2026-10-07_18-00-47/validation/`, including
-the three diagnostic sources, their complete build logs, `build-results.json`,
-`source-dependency-audit.json`, and `complete-source.diff`. The round tracker,
+Fresh local evidence is in `.humanize/rlcr/2026-10-07_20-19-24/validation/`, including
+the scoped diagnostic sources, completed body/context/full-source build logs, `build-results.json`,
+`source-dependency-audit.json`, protected-artifact digests, the provider search log, and
+`complete-source.diff`. The requested simplifier agent independently reviewed the selected
+proof and found no defect or worthwhile simplification. The round tracker,
 contract, summary, and raw logs remain ignored runtime metadata; this report provides
 the durable committed validation handoff.
 
