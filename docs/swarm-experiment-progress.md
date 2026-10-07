@@ -580,3 +580,32 @@ state, not simply deleting the project lock.
   missing-name-only policy; do not enable it as-is on mixed valid/invalid names.
 - At11:05:128 pollers,10 active issue jobs,52 nodes,7 current reviewed root
   arguments,0 verified/integrated roots. GitHub PR list remains empty.
+
+## Follow-up checkpoint, 11:21 UTC — first actual candidate passes verification
+
+- The real manager request739e7f62cd194f3888ebf43c1aab0ed0 is terminal
+  `finished`, returncode0. Its original PID3255572 and final axiom-report
+  process are gone. The private evidence is `verified` for p02 child issue#45,
+  node `root.scalarization_modular-a1.holomorphic_scalarization-a1`, theorem
+  `Submission.p02_es_177ebb5a_sm_holomorphic`, exact candidate
+  `2ced4d3abd9f318f5490841e5e6ce28d9dfb7944` and base
+  `f433f505e209a0721abf52e908d34801732a2e70`. Comparator and Lean kernel replay
+  succeeded; the axiom report contains only propext, Classical.choice and
+  Quot.sound. Frozen root remains1f74c284b125d4c45f527f2d621597fcf1e103a9.
+- Evidence lives under the original private verification directory recorded
+  above, in `root-scalarization_modular-a1-holomorphic_scalarization-a1-_i554f3s`.
+  This is an author candidate check, NOT final outer acceptance or integration.
+  The root's inherited scaffold warning does not describe the selected child's
+  transitive axioms. No header repair, theorem weakening or gate bypass occurred.
+- The owner independently collected the result and recorded its Round1 receipt
+  at11:16:45. Its isolated worktree remains clean at the exact checked commit.
+  Humanize's independent Round1 reviewer has started, as shown in the active
+  `rlcr-process-v1.log`; fresh outer review/comparison and PR integration remain.
+  The original worker taskr3ssmou3jiwm6qisb2x56m80s on hoa76 is still Running.
+  No replacement, ownership takeover or worker-to-worker notification was used.
+- At11:20 the fleet is128/128 Running, ten claims remain active and the ten
+  current DAGs contain54 nodes. GitHub still has no solution PR. Keep issue#45
+  open until the verified merge gate finishes; do not mark the experiment done.
+- Reconfirmed that the canonical Pages URL serves separate per-problem graphs.
+  Source5b9961b and Pagesac5ab90 remain deployed. Header-repair permission is
+  still unanswered, and no normalization has been enabled.
