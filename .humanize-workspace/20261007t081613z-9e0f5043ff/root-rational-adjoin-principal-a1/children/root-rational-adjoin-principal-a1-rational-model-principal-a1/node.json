@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1",
+  "parent_id": "root.rational_adjoin_principal-a1",
+  "depth": 2,
+  "title": "Principal divisors in the canonical rational-function field",
+  "statement": "Let K be any field and let M = FractionRing (Polynomial K), with its canonical K-algebra structure through the constant-polynomial map. For every nonzero g in M there exists a finitely supported integer-valued divisor D on AlgebraicCurve.Place K M such that D(v) = v.ord g for every place v and AlgebraicCurve.Divisor.degree D = 0. Equivalently, AlgebraicCurve.HasPrincipalDivisors K M holds.",
+  "lean_statement": "∀ (K : Type*) [Field K], AlgebraicCurve.HasPrincipalDivisors K (FractionRing (Polynomial K))",
+  "lean_name": "p06_9e0f5043ff_rational_model_principal",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-a1"
+}

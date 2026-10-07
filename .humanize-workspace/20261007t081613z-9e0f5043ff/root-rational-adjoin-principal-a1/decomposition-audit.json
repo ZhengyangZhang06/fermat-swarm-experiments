@@ -1,0 +1,48 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'HasPrincipalDivisors|exists_unit_mul_zpow|ord_unit_smul_zpow|algEquivOfTranscendental|congrEquiv' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f",
+        "HasPrincipalDivisors|hasPrincipalDivisors|congrEquiv|congrRingEquiv",
+        "HasPrincipalDivisors|hasPrincipalDivisors|algEquivOfTranscendental",
+        "instance.*Algebra|def.*algebra|algebraMap_def",
+        "theorem (LinearEquiv\\.)?finrank_eq|lemma (LinearEquiv\\.)?finrank_eq",
+        "p06_9e0f5043ff_rational_model_principal|p06_9e0f5043ff_principal_alg_equiv",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean Audit.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1/parent-child-handoff.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/OreLocalization/Ring.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Localization/FractionRing.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Algebraic/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/FieldTheory/IntermediateField/Adjoin/Algebra.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Dimension/Finrank.lean",
+        "/tmp/p06-decomposition-independent-audit-n3yt5oj7/Audit.lean",
+        "/tmp/p06-decomposition-independent-audit-n3yt5oj7/Audit.log",
+        "/tmp/p06-decomposition-independent-audit-n3yt5oj7/ActualSubmission.log"
+      ],
+      "conclusion": "rg was unavailable; fallback grep searches found the exact project definitions and supporting library infrastructure, but no general principal-divisor transport theorem in project/Definitions or principal-divisor theorem in mathlib's RatFunc directory. The handoff confirms that this decomposition concerns the rational-adjoin child, preserving the original root contract. Independently verified both snapshot revisions, all nine pinned dependencies, tracked cleanliness, and imported-source byte identity. Freshly rebuilt the three definition modules with Lean 4.33.1. Both exact child propositions, the canonical algebra-map identity, and conditional parent assembly passed independent checks. Supporting declarations' transitive axioms were only propext, Classical.choice and Quot.sound. The split appropriately separates the product formula from transport; neither child depends on the other, and the parent uses both. No competing name reservations were found. This approves the decomposition only: independently reproduced the three pre-existing unknown-attribute errors in actual Submission, so its stated activation blocker remains; no comparator or theorem acceptance is claimed."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "rational_model_principal",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition exactly matches the prose, including the canonical K-algebra structure, independently verified through Polynomial.C. All twelve proof steps are sound: multiplicities define the finite DVRs; the overring argument and inverse variable classify every place; residue bases give the weights; factorization gives finite support and degree cancellation. Zero and nonzero cases are handled correctly. The proof requires neither the parent nor the transport child and supplies a complete formalization argument. The bare identifier is unreserved, and the empty prerequisite list is correct."
+    },
+    {
+      "key": "principal_alg_equiv",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition includes exactly the fields, algebra structures, isomorphism, and source principal-divisor hypothesis stated in prose. Independently checked all six steps: transport preserves every Place field, residue-field equivalence preserves finrank without finiteness assumptions, transported irreducible uniformizers preserve normalized orders, and divisor reindexing preserves support, coefficients, and degree. No circular reliance or missing mathematical obligation occurs. The bare identifier is unreserved. Its empty prerequisite list correctly makes it independent of the rational-model child."
+    }
+  ],
+  "required_changes": []
+}
