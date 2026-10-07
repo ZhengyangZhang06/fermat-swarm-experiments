@@ -10,6 +10,7 @@ import re
 import shlex
 import shutil
 import signal
+import socket
 import subprocess
 import tempfile
 import threading
@@ -3590,6 +3591,7 @@ Use the independently reviewed proof at `{handoff.natural_proof_path}` directly.
             receipt = node_dir / "rlcr-process.json"
             record = {
                 "node_id": node.id,
+                "execution_host": socket.gethostname(),
                 "pid": None,
                 "start_ticks": None,
                 "worktree": str(worktree),

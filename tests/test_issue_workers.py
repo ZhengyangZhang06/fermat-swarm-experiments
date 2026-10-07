@@ -12,6 +12,7 @@ from types import SimpleNamespace
 from unittest.mock import Mock, patch
 
 from _recursive_lean.github_runtime import GitHubTheoremRuntime
+from _recursive_lean.github import PublicationError
 from _recursive_lean.issue_workers import ChildrenQueued, IssueClaims, IssueWorkerPool
 from _recursive_lean.models import NodeRecord, SolveResult
 
@@ -69,6 +70,61 @@ class ClaimTests(unittest.TestCase):
             with claims.claim(1, "second") as claim:
                 self.assertIsNotNone(claim)
                 self.assertEqual((Path(directory) / "1.lock").stat().st_ino, inode)
+
+
+class PrepublishedRootTests(unittest.TestCase):
+    def setUp(self):
+        self.runtime = GitHubTheoremRuntime.__new__(GitHubTheoremRuntime)
+        self.runtime.config = SimpleNamespace(github_root_issue_number=42, problem_id='fermat-p01')
+        self.runtime.publication_context = {'contract': 'theorem Root : True := by sorry'}
+        self.runtime.github = Mock()
+        self.runtime.store = Mock()
+        self.runtime._marker = Mock(return_value='<!-- exact-run-root-issue -->')
+        self.issue = {
+            'html_url': 'https://github.com/owner/repo/issues/42', 'state': 'open',
+            'body': '<!-- theorem-id: fermat-p01/root -->\n```lean\ntheorem Root : True := by sorry\n```',
+        }
+        self.runtime.github.request.return_value = self.issue
+        self.root = NodeRecord(id='root', parent=None, depth=0, title='Root', statement='True')
+
+    def test_adopts_exact_contract_without_creating_duplicate_issue(self):
+        self.runtime._ensure_polling_issue(self.root)
+        self.assertEqual(self.root.github_issue_url, self.issue['html_url'])
+        self.runtime.github.issue.assert_not_called()
+        calls = self.runtime.github.request.call_args_list
+        self.assertEqual(calls[0].args, ('GET', 'issues/42'))
+        self.assertEqual(calls[1].args[0], 'PATCH')
+        self.assertIn('<!-- exact-run-root-issue -->', calls[1].args[2]['body'])
+
+    def test_wrong_marker_or_contract_or_closed_issue_is_rejected(self):
+        original = self.issue.copy()
+        for changes in (
+            {'body': original['body'].replace('fermat-p01', 'fermat-p02')},
+            {'body': original['body'].replace('True', 'False')},
+            {'state': 'closed'}, {'pull_request': {'url': 'some-pr'}},
+        ):
+            self.runtime.github.request.return_value = {**original, **changes}
+            with self.assertRaises(PublicationError):
+                self.runtime._ensure_polling_issue(self.root)
+            self.assertFalse(self.root.github_issue_url)
+
+    def test_lost_patch_response_reuses_marker_without_patch(self):
+        self.issue['body'] += '\n<!-- exact-run-root-issue -->'
+        self.runtime._ensure_polling_issue(self.root)
+        self.runtime.github.request.assert_called_once_with('GET', 'issues/42')
+
+    def test_foreign_host_unfinished_receipt_fails_closed_before_pid_lookup(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            directory = Path(temporary)
+            (directory / 'rlcr-process.json').write_text(json.dumps({
+                'execution_host': 'different-swarm-task', 'returncode': None,
+                'pid': 42, 'start_ticks': '123', 'consumed': False,
+            }))
+            self.runtime._node_dir = Mock(return_value=directory)
+            with patch('_recursive_lean.github_runtime.process_identity') as identity:
+                with self.assertRaisesRegex(RuntimeError, 'another host'):
+                    self.runtime._adopt_issue_work(self.root)
+                identity.assert_not_called()
 
 
 class PollingTests(unittest.TestCase):
@@ -160,6 +216,26 @@ class PollingTests(unittest.TestCase):
         self.assertEqual(self.pool.records["worker-01"]["state"], "children-published")
         with self.pool.claims.claim(1, "another-worker") as claim:
             self.assertIsNotNone(claim)
+
+    def test_self_selected_issue_does_not_execute_another_issue(self):
+        self.runtime.config.github_selected_issue = 2
+        self.assertFalse(self.pool.poll_once("worker-01"))
+        self.assertEqual(self.solves, [])
+        self.runtime.config.github_selected_issue = 1
+        self.assertTrue(self.pool.poll_once("worker-01"))
+        self.assertEqual(self.solves, ["root"])
+
+    def test_single_step_spawns_no_pool_and_waits_for_integrations(self):
+        self.runtime.config.github_poll_once = True
+        self.runtime.config.github_selected_issue = 1
+        self.runtime._ensure_polling_issue = Mock()
+        self.runtime._wait_for_integrations = Mock()
+        self.runtime._checkpoint_theorems = Mock(return_value=[])
+        self.pool.run(self.root)
+        self.assertEqual(self.solves, ["root"])
+        self.assertEqual(self.pool.threads, [])
+        self.runtime._wait_for_integrations.assert_called_once()
+        self.assertTrue(self.pool.stop.is_set())
 
     def test_existing_rlcr_is_adopted_instead_of_starting_another(self):
         self.runtime._adopt_issue_work.return_value = SolveResult(

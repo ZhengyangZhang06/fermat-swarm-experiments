@@ -151,6 +151,10 @@ class IssueWorkerPool:
         for issue in issues:
             if (
                 self.stop.is_set()
+                or (
+                    getattr(runtime.config, "github_selected_issue", 0)
+                    and int(issue["number"]) != runtime.config.github_selected_issue
+                )
                 or issue.get("pull_request")
                 or issue.get("state", "open") != "open"
             ):
@@ -252,6 +256,25 @@ class IssueWorkerPool:
         for node in list(self.runtime.store.nodes.values()):
             if node.status == "integrating" and node.candidate_commit:
                 self.runtime._submit_resumed_integration(node)
+        if getattr(self.runtime.config, "github_poll_once", False):
+            # The external poller must hold exclusive project ownership throughout
+            # this invocation. All integrations finish before that owner releases it.
+            # No local worker threads are spawned in the single-step bridge.
+            worker = next(iter(self.records))
+            try:
+                self.poll_once(worker)
+                self.runtime._wait_for_integrations()
+                return SolveResult(
+                    ok=root.status == "proved",
+                    node_id=root.id,
+                    theorems=self.runtime._checkpoint_theorems(root)
+                    if root.status == "proved" else [],
+                    feedback="single issue step yielded; root remains unfinished"
+                    if root.status != "proved" else "",
+                )
+            finally:
+                self.stop.set()
+                self.save()
         self.threads = [
             threading.Thread(target=self.loop, args=(worker,), name=worker, daemon=True)
             for worker in self.records

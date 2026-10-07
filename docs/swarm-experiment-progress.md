@@ -82,3 +82,32 @@ alone is not acceptance evidence.
 - The campaign's setup dashboard source shows ten frozen root nodes and no invented
   dependency edges; GitHub issue states refresh independently of proof acceptance.
   Its observation explicitly reports zero running resolvers and zero verified roots.
+
+## Follow-up checkpoint, 07:17 UTC
+
+- Public dashboard is deployed at
+  https://zhengyangzhang06.github.io/fermat-swarm-experiments/ . GitHub Pages build
+  `dc9add28cbcacf4b37af657d1d008d23a1e7892b` is built; HTTP returns 200.
+  Real Chromium inspection found ten SVG theorem links, no JavaScript errors,
+  zero running resolvers displayed, explicit non-black fills, and no horizontal
+  overflow at 390px. Screenshot: `/tmp/fermat-swarm-setup-mobile.png`.
+- Campaign main: `4ff5278`; Pages: `dc9add2`. Root issues remain #1–#10.
+- Added `github_poll_once`, `github_selected_issue`, `github_root_issue_number`.
+  Single-step mode requires poll mode, one local worker, and the issue that the
+  external worker itself selected. It does not spawn a local pool and waits for
+  integrations before returning. Its caller MUST retain the broker's exclusive
+  project claim for the complete invocation; no broker/client is deployed yet.
+- The existing root issue is adopted only with its stable problem marker and
+  exact contract. A closed issue, a PR, wrong marker or changed contract is rejected.
+- RLCR receipts now record execution host; an unfinished receipt on another host
+  fails closed before looking up its PID. Do not mistake cross-node PID collisions
+  for the original process. Terminal cross-host receipts remain eligible for the
+  normal fresh comparator/review gates.
+- Existing-plus-claim suite: 148 tests passed, one optional browser test skipped.
+  Four additional issue/adoption tests then passed (18 issue-worker tests total).
+  The public browser check above was run separately and passed.
+
+Next: implement the authenticated durable broker/client and immutable comparator
+request service, package the standalone Codex runtime using Docker secrets, then
+freeze ten executable projects and enable one real worker smoke test before the
+128-node resolver service. Root issue numbers must be reused, not recreated.

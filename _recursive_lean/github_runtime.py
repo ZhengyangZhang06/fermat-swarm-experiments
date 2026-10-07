@@ -6,6 +6,7 @@ import fcntl
 import hashlib
 import json
 import os
+import socket
 import subprocess
 import tempfile
 import threading
@@ -72,6 +73,14 @@ class GitHubTheoremRuntime(Runtime):
         record = json.loads(receipt.read_text())
         if record.get("consumed"):
             return None
+        if (
+            record.get("execution_host")
+            and record["execution_host"] != socket.gethostname()
+            and record.get("returncode") is None
+        ):
+            raise RuntimeError(
+                "RLCR belongs to another host without terminal evidence; reconcile its Swarm task before adoption"
+            )
         if not record.get("pid") or not record.get("start_ticks"):
             raise RuntimeError(
                 "RLCR launch identity is incomplete; reconcile the process before retrying"
@@ -83,12 +92,13 @@ class GitHubTheoremRuntime(Runtime):
             raise RuntimeError("RLCR adoption identity does not match the frozen node")
         worktree = Path(node.worktree)
         pid, identity = int(record["pid"]), record["start_ticks"]
-        if identity and process_identity(pid) == identity:
+        local_host = not record.get("execution_host") or record["execution_host"] == socket.gethostname()
+        if local_host and identity and process_identity(pid) == identity:
             self.store.update(
                 node.id, "rlcr-lean",
                 "adopted the existing live proof process; no duplicate launch",
             )
-        while identity and process_identity(pid) == identity:
+        while local_host and identity and process_identity(pid) == identity:
             self._check_workflow_health()
             time.sleep(5)
         # An orphan's exit code is unavailable. Require its own complete marker,
@@ -116,6 +126,26 @@ class GitHubTheoremRuntime(Runtime):
         return result
 
     def _ensure_polling_issue(self, root):
+        prepublished = getattr(self.config, "github_root_issue_number", 0)
+        if prepublished and not root.github_issue_url:
+            issue = self.github.request("GET", f"issues/{prepublished}")
+            body = issue.get("body") or ""
+            stable_marker = f"<!-- theorem-id: {self.config.problem_id}/root -->"
+            if (
+                issue.get("pull_request")
+                or issue.get("state") != "open"
+                or stable_marker not in body
+                or self.publication_context["contract"].strip() not in body
+            ):
+                raise PublicationError("prepublished root issue does not match the frozen contract")
+            marker = self._marker(root, "issue")
+            if marker not in body:
+                self.github.request("PATCH", f"issues/{prepublished}", {"body": body + "\n\n" + marker + "\n"})
+            root.github_issue_url = issue["html_url"]
+            self.store.render()
+            # Preserve the richer campaign contract until a reviewed proof exists.
+            if not root.natural_proof:
+                return
         if root.natural_proof:
             self._sync_issues([root])
             return
@@ -289,6 +319,8 @@ class GitHubTheoremRuntime(Runtime):
             "comparator_success": self.config.comparator_success,
             "lean_target": self.config.lean_target,
         }
+        if getattr(self.config, "github_root_issue_number", 0):
+            identity["root_issue_number"] = self.config.github_root_issue_number
         if context_path.exists():
             held = json.loads(context_path.read_text(encoding="utf-8"))
             if any(held.get(key) != value for key, value in identity.items()):
