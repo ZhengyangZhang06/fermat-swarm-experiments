@@ -98,7 +98,7 @@ function drawProblemGraph(svg,owned,allNodes,problemId,availableWidth){
  for(const n of nodes){
   const [x,y]=positions.get(n.id),issue=n.issue_url?.split('/').pop(),stage=(n.status||'unknown').replaceAll('-',' ');
   const tone=n.integrated?'#278369':n.status==='failed'?'#bc4d4d':n.observed_running?'#bd8c30':'#829bb0';
-  const activity=n.observed_running?`worker ${n.worker_node}`:'no active worker observed';
+  const activity=n.publication_pending?'pending issue publication':n.observed_running?`worker ${n.worker_node}`:'no active worker observed';
   const a=svgEl('a',{href:n.issue_url||'#problems','data-node-id':n.id,'data-external':Boolean(n.external),'aria-label':`${n.title}: ${stage}; ${activity}`},svg);
   svgEl('title',{},a,`${n.title}\n${stage}; ${activity}${n.external?'\nShared prerequisite from another problem':''}`);
   svgEl('rect',{x,y,width:nodeWidth,height:nodeHeight,rx:10,fill:n.integrated?'#edf8f2':n.external?'#f3f0f9':'#f6f9fa',stroke:'#aebfcb','stroke-width':1},a);
@@ -108,7 +108,7 @@ function drawProblemGraph(svg,owned,allNodes,problemId,availableWidth){
   const lines=nodeTitleLines(n.title||n.local_id);
   lines.forEach((line,i)=>svgEl('text',{x:x+27,y:y+44+i*15,fill:'#385970','font-size':10,'font-family':'ui-monospace,monospace'},a,line));
   svgEl('text',{x:x+27,y:y+81,fill:'#56667b','font-size':11,'font-family':'system-ui'},a,stage);
-  svgEl('text',{x:x+27,y:y+100,fill:'#63798b','font-size':10,'font-family':'system-ui'},a,n.observed_running?activity:'not executing');
+  svgEl('text',{x:x+27,y:y+100,fill:'#63798b','font-size':10,'font-family':'system-ui'},a,n.publication_pending||n.observed_running?activity:'not executing');
  }
  return edges.length;
 }

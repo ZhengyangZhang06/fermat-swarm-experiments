@@ -117,6 +117,17 @@ class StatusBrowserTests(unittest.TestCase):
         self.assertFalse(self.page.evaluate('document.documentElement.scrollWidth > innerWidth'))
         self.assertEqual(self.errors, [])
 
+    def test_unpublished_child_has_explicit_pending_publication_label(self):
+        self.add_graphs()
+        child = self.problems[0]['nodes'][1]
+        child.update(issue_url='', publication_pending=True, observed_running=False,
+                     worker_node='', status='planning')
+        self.open_graphs()
+        node = self.page.locator('a[data-node-id="fermat-p01/child-a"]')
+        self.assertIn('pending issue publication', node.text_content())
+        self.assertNotIn('worker hoa6', node.text_content())
+        self.assertEqual(self.errors, [])
+
     def test_wide_graph_scroll_is_local_and_survives_refresh_and_resize(self):
         self.add_graphs()
         self.open_graphs()

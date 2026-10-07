@@ -22,7 +22,10 @@ SSH = 'ssh -F /dev/null -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyC
 CAMPAIGN = Path(__file__).resolve().parents[1]
 if os.environ.get('THEOREM_WORKFLOW_ROOT'):
     sys.path.insert(0, os.environ['THEOREM_WORKFLOW_ROOT'])
-    from _recursive_lean.fleet_status import observed_workers, running_service_tasks
+    from _recursive_lean.fleet_status import (
+        observed_workers, running_service_tasks, fleet_generations,
+        attach_worker_activity as shared_attach_worker_activity,
+    )
 
 
 def proof_records(config):
@@ -116,6 +119,8 @@ def attach_worker_activity(proofs, workers):
     Call only with workers already validated against live Swarm tasks and fresh
     heartbeats. An absent match reports lack of observation, not eligibility.
     """
+    if os.environ.get('THEOREM_WORKFLOW_ROOT'):
+        return shared_attach_worker_activity(proofs, workers)
     executing = {str(w['issue']): w['node'] for w in workers
                  if w['phase'] == 'working' and w['issue'] is not None}
     for problem in proofs:
@@ -130,14 +135,12 @@ def collect():
     config = json.loads((PRIVATE / 'catalog.json').read_text())
     snapshots = [snapshot]
     services = [SERVICE]
-    if os.environ.get('THEOREM_WORKFLOW_ROOT') and (PRIVATE / 'parallel-catalog.json').exists():
-        parallel = json.loads((PRIVATE / 'parallel-catalog.json').read_text())
-        by_id = {p['id']: p for p in parallel['projects']}
-        for project in config['projects']:
-            project['enabled'] = bool(project.get('enabled') or by_id[project['id']].get('enabled'))
-        if (PRIVATE / 'parallel-snapshot.json').exists():
-            snapshots.append(json.loads((PRIVATE / 'parallel-snapshot.json').read_text()))
-        services.append('fermat-parallel-resolvers-20261007')
+    if os.environ.get('THEOREM_WORKFLOW_ROOT'):
+        config, snapshots, services = fleet_generations(PRIVATE, [
+            ('catalog.json', 'snapshot.json', SERVICE),
+            ('parallel-catalog.json', 'parallel-snapshot.json', 'fermat-parallel-resolvers-20261007'),
+            ('recovery-catalog.json', 'recovery-snapshot.json', 'fermat-recovery-resolvers-20261007'),
+        ])
     proofs = proof_records(config)
     if os.environ.get('THEOREM_WORKFLOW_ROOT'):
         running = running_service_tasks(services)
