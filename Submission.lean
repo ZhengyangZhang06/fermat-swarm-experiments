@@ -243,6 +243,8 @@ theorem p06_9e0f5043ff_dmd_finite_family_dividing_member
   -- Minimize the uniformizer exponent among the nonzero entries.
   obtain ⟨i, _, hmin⟩ := Finset.exists_min_image Finset.univ e hS
   refine ⟨i.val, i.property, ?_⟩
+  obtain ⟨i, _, hmin⟩ := Finset.exists_min_image Finset.univ e hS
+  refine ⟨i, i.property, ?_⟩
   intro j
   by_cases hj : a j = 0
   · rw [hj]
@@ -1122,5 +1124,9 @@ theorem p06_9e0f5043ff_llm_localized_residue_factors
     refine ⟨t, htq, ?_⟩
     rw [Algebra.smul_def, Ideal.Quotient.algebraMap_eq,
       Ideal.Quotient.eq_zero_iff_mem.mpr htp, zero_mul]
+  · let k : S := ⟨j, hj⟩
+    change a (i : ι) ∣ a (k : ι)
+    rw [he i, he k, Units.mul_left_dvd, Units.dvd_mul_left]
+    exact pow_dvd_pow π (hmin k (Finset.mem_univ k))
 
 end Submission
