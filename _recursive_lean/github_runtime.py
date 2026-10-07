@@ -24,7 +24,8 @@ from .runtime import Runtime
 from .status_publisher import StatusPublisher
 from .status_site import StatusWebsite
 from .store import atomic_text, now, slug
-from .parallel import RefreshLock, enabled as parallel_enabled, selected as selected_issue
+from .parallel import (RefreshLock, enabled as parallel_enabled, selected as selected_issue,
+                       child_publication_pending, child_publication_checkpoint)
 from .shared_lock import SharedLock
 
 
@@ -183,6 +184,85 @@ class GitHubTheoremRuntime(Runtime):
             "child issues published; autonomous workers will discover them by polling",
         )
         self._sync_issues([parent])
+        raise ChildrenQueued(parent.id)
+
+    def _recover_decomposition_publication(self, parent):
+        """Resume only publication of an already frozen and reviewed child split.
+
+        No model stage, child handoff installation, proof worktree reset or parent
+        formalization is permitted here. Existing workspace coordinates are immutable;
+        an already running sibling's proof branch/base and status remain untouched.
+        """
+        if (not parallel_enabled(self.config) or not selected_issue(self.config, parent)
+                or self.config.github_worker_mode != 'poll'):
+            raise RuntimeError('decomposition publication recovery requires the selected issue grant')
+        with self._publication_guard(), self._publication_lock:
+            with self._graph_lock:
+                decomposition, audit, ids = child_publication_checkpoint(
+                    self.project, self.run_root, parent, self.store.nodes)
+                made = {key: self.store.nodes[node_id] for key, node_id in ids.items()}
+                for child in made.values():
+                    if child.parent != parent.id:
+                        if not self._accepted_checkpoint(child):
+                            raise RuntimeError('reused child lacks accepted checkpoint')
+                    elif self._parent_supplied_child_checkpoint(child) is None:
+                        raise RuntimeError('child proof files disagree with reviewed handoff')
+            # Update only missing identities. Published/active children's issue bodies
+            # belong to their own workers; the parent may only establish a missing one.
+            missing_issues = [child for child in made.values()
+                              if child.parent == parent.id and not child.github_issue_url]
+            if missing_issues:
+                self._sync_issues(missing_issues)
+            if any(child.parent == parent.id and not child.workspace_handoff_commit
+                   for child in made.values()):
+                remote = self._github_workspace_remote()
+                if not remote:
+                    raise RuntimeError('publication recovery requires immutable GitHub workspaces')
+                branch = self._workspace_dispatch_branch(parent)
+                root, manifest, files, entries = self._workspace_payload(parent, decomposition, audit, made)
+                # Existing remote/local branches are checked against the complete exact
+                # payload, including audit and file hashes, before they can be reused.
+                commit, dispatch = self._publish_workspace_branch(
+                    remote, branch, root=root, manifest_path=manifest, files=files,
+                    entries=entries, parent=parent)
+                with self._graph_lock:
+                    by_id = {entry.node_id: entry for entry in dispatch.children}
+                    updates = []
+                    for child in made.values():
+                        if child.parent != parent.id:
+                            continue
+                        if child.id not in by_id:
+                            raise RuntimeError('immutable workspace omits a reviewed child')
+                        entry = by_id[child.id]
+                        coordinates = dict(workspace_remote=remote, workspace_manifest_path=manifest.as_posix(),
+                            workspace_bundle_path=entry.bundle_path, workspace_handoff_branch=branch,
+                            workspace_handoff_commit=commit, workspace_result_branch=entry.result_branch)
+                        if child.workspace_handoff_commit:
+                            if any(getattr(child, key) != value for key, value in coordinates.items()):
+                                raise RuntimeError('published child immutable workspace differs')
+                            continue
+                        if child.worktree or child.candidate_commit:
+                            raise RuntimeError('unpublished child already has proof execution state')
+                        updates.append((child, coordinates, entry.result_branch))
+                    # Validate every existing child before changing any coordinates.
+                    if (parent.workspace_dispatch_commit and
+                            (parent.workspace_dispatch_commit != commit or parent.workspace_dispatch_branch != branch)):
+                        raise RuntimeError('parent immutable dispatch differs')
+                    for child, coordinates, result_branch in updates:
+                        for key, value in coordinates.items():
+                            setattr(child, key, value)
+                        child.proof_branch = result_branch
+                        child.proof_base_commit = commit
+                    parent.workspace_dispatch_branch = branch
+                    parent.workspace_dispatch_commit = commit
+                    self.store.render()
+            if child_publication_pending(parent, self.store.nodes):
+                raise RuntimeError('child publication remains incomplete after recovery')
+            self.store.update(parent.id, 'waiting-children',
+                              'reviewed child publication recovered; autonomous workers may poll child issues')
+            self._sync_issues([parent])
+        # Even if all children happened to finish meanwhile, formalization waits for
+        # the next ordinary eligibility/acceptance check under the selected grant.
         raise ChildrenQueued(parent.id)
 
     def _speculation_enabled(self):

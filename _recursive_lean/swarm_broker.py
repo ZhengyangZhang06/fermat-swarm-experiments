@@ -21,7 +21,7 @@ import time
 from .distributed_claims import ClaimLedger, OwnershipError
 from .store import atomic_text
 from .remote_verification import VerificationService
-from .parallel import PROTOCOL
+from .parallel import PROTOCOL, child_publication_pending, child_publication_checkpoint
 
 
 class Broker:
@@ -138,7 +138,13 @@ class Broker:
                     ('workspace_handoff_commit', 'workspace_bundle_path', 'parent_handoff')):
                 continue
             dependencies = node.get('children', []) + node.get('depends_on', [])
-            if any(nodes[d].get('status') != 'proved' for d in dependencies):
+            recovery = Broker.parallel(project) and child_publication_pending(node, nodes)
+            if recovery:
+                try:
+                    child_publication_checkpoint(root, run, node, nodes)
+                except (OSError, ValueError, KeyError):
+                    continue
+            if not recovery and any(nodes[d].get('status') != 'proved' for d in dependencies):
                 continue
             match = re.fullmatch(r'https://github\.com/' + re.escape(repository) + r'/issues/([1-9][0-9]*)',
                                  node.get('github_issue_url', ''))

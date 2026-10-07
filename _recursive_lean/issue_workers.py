@@ -20,7 +20,8 @@ from typing import Any
 
 from .models import SolveResult
 from .store import atomic_text, now
-from .parallel import enabled as parallel_enabled, selected as selected_issue
+from .parallel import (enabled as parallel_enabled, selected as selected_issue,
+                       child_publication_pending, child_publication_checkpoint)
 from .shared_dag import validate_nodes
 from .shared_lock import SharedLock
 
@@ -141,6 +142,14 @@ class IssueWorkerPool:
             pending.extend(record.children + record.depends_on)
         if node.id not in active:
             return False
+        if parallel_enabled(runtime.config) and child_publication_pending(node, runtime.store.nodes):
+            if not selected_issue(runtime.config, node):
+                return False
+            try:
+                child_publication_checkpoint(runtime.project, runtime.run_root, node, runtime.store.nodes)
+            except (OSError, ValueError, KeyError):
+                return False
+            return True
         return all(
             dependency in runtime.store.nodes
             and runtime._accepted_checkpoint(runtime.store.nodes[dependency])
@@ -220,6 +229,11 @@ class IssueWorkerPool:
                     flush=True,
                 )
                 try:
+                    if (parallel_enabled(runtime.config)
+                            and child_publication_pending(node, runtime.store.nodes)):
+                        # This path always yields, never formalizes an unsolved parent.
+                        runtime._recover_decomposition_publication(node)
+                        raise RuntimeError('publication recovery must yield its parent slot')
                     result = runtime._adopt_issue_work(node)
                     if result is None:
                         result = (

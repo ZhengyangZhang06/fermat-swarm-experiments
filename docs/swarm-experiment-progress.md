@@ -962,3 +962,36 @@ state, not simply deleting the project lock.
   at `comparing`, 128 resolver pollers, 10 working resolvers and zero completed roots.
 - No verifier hot-edit/restart, new proof acceptance, live parallel rollout or
   frozen-header repair. Header-repair permission is still unanswered.
+
+## Follow-up checkpoint, 15:18 UTC — parallel rollout and publication recovery
+
+- The immutable parallel runtime was deployed to 128 autonomous node pollers.
+  Legacy project-wide grants were reconciled only after exact container/checker
+  termination; original proof files and receipts were retained. Thirty independent
+  issue jobs briefly ran across all ten problems, including nine concurrent P02
+  leaves. The retired legacy polling service no longer runs.
+- GitHub reads still succeed and repository push permissions remain present, but
+  pushes and issue updates started returning server errors. No evidence establishes
+  a global GitHub outage. The public dashboard's last confirmed observation is
+  15:02:14 UTC; its live local observer retains progress and retries publication
+  every minute. As completed model stages reach publication, affected workers
+  release their terminal claims and are quarantined rather than retried blindly.
+- At 15:16, 75 DAG nodes existed, including 19 new children with frozen reviewed
+  handoffs but no published issue yet. A reusable publication-only recovery path
+  now reloads the exact accepted decomposition/audit, validates frozen child
+  contracts and proof files, publishes missing identities/workspaces, then yields
+  for autonomous polling. It never formalizes the parent prematurely. The actual
+  P04 issue21 checkpoint validates. Source tests passed (314 tests, no failures or
+  errors, one optional browser skip); deployment is still pending. Existing
+  immutable dispatches whose mutable sibling metadata has advanced fail closed;
+  the tested live recovery case is failure before dispatch publication, not a
+  blanket claim of recovery for every partially published historical dispatch.
+- Two additional immutable cached verification dispatchers started the exact
+  queued P06 request15e8d2f77963430691dbf5ec380a844d and P02 request
+  cf365329e6384d03a561ffb24afa35fc. Atomic request ownership and PID/start-tick
+  checks confirmed no duplicate execution. Campaign checker concurrency is four;
+  other queued checks were left pending under controller resource pressure.
+- P01 request651de54b4e4b4e739e83e4cd79b900b3 finished with failure on two
+  nonexistent frozen-header attribute names. No theorem or header was changed.
+  Narrow missing-name-only derived-copy repair approval was requested again and
+  remains unanswered. One child PR is merged; no complete root proof is accepted.
