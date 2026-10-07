@@ -1541,11 +1541,14 @@ theorem p07_cre_abelian_surface_857cd4d38c
   let : IsIso ε := ⟨⟨κ, hεκ, hκε⟩⟩
   have hpb : IsPullback (𝟙 C) (q ≫ κ) q ε :=
     IsPullback.of_horiz_isIso ⟨by simp [Category.assoc, hκε]⟩
+  let e := Scheme.Spec.mapIso k.symm.toCommRingCatIso.op
+  have hpb : IsPullback (𝟙 C) (q ≫ e.inv) q e.hom :=
+    IsPullback.of_horiz_isIso ⟨by simp⟩
   let : IsFinite q := hfinite
   let : Flat q := hflat
   exact ⟨MorphismProperty.of_isPullback hpb hfinite,
     MorphismProperty.of_isPullback hpb hflat,
     MorphismProperty.of_isPullback hpb hpresentation,
-    fun s => Scheme.Hom.finrank_of_isPullback (𝟙 C) (q ≫ κ) q ε hpb s⟩
+    fun s => Scheme.Hom.finrank_of_isPullback (𝟙 C) (q ≫ e.inv) q e.hom hpb s⟩
 
 end Submission
