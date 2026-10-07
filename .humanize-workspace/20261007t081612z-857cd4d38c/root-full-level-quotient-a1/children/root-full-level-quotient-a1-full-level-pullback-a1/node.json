@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.full_level_quotient-a1.full_level_pullback-a1",
+  "parent_id": "root.full_level_quotient-a1",
+  "depth": 2,
+  "title": "Transport full level along a specified curve pullback",
+  "statement": "Let a,b ∈ ℚ, let Λ be a ℤ-submodule of QuaternionAlgebra ℚ a 0 b, and let N,n ∈ ℕ. Let S,T be universe-zero commutative rings and φ : S →+* T any ring homomorphism. Let E : FakeEllipticCurve Λ N S, ET : FakeEllipticCurve Λ N T, and g : ET.A → E.A satisfy FakeEllipticCurve.IsPullbackVia φ E ET g. For every full-level structure L : E.FullLevel n, there exists LT : ET.FullLevel n such that LT.P.1 ≫ g = Spec(φ) ≫ L.P.1.",
+  "lean_statement": "∀ {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N n : ℕ) (S T : Type) [CommRing S] [CommRing T] (φ : S →+* T) (E : CerednikDrinfeld.QM.FakeEllipticCurve Λ N S) (ET : CerednikDrinfeld.QM.FakeEllipticCurve Λ N T) (g : Quiver.Hom ET.A E.A), CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia φ E ET g → ∀ (L : CerednikDrinfeld.QM.FakeEllipticCurve.FullLevel E n), ∃ LT : CerednikDrinfeld.QM.FakeEllipticCurve.FullLevel ET n, CategoryTheory.CategoryStruct.comp LT.P.1 g = CategoryTheory.CategoryStruct.comp (AlgebraicGeometry.Spec.map (CommRingCat.ofHom φ)) L.P.1",
+  "lean_name": "p07_flq_full_level_pullback_857cd4d38c",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p07/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-full-level-pullback-a1-a1"
+}

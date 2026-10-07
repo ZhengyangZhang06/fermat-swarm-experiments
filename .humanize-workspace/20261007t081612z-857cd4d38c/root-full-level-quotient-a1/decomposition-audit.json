@@ -1,0 +1,60 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "baseChange|pullback|structure RelativeGroupLaw|structure AbelianSchemePropertyBundle",
+        "structure FakeEllipticCurve|structure FullLevel|WithFullLevel|def IsPullbackVia|act_trace|act_mul|lev_fibre|connectedFibres",
+        "FakeEllipticCurve|FullLevel|IsPullbackVia|baseChange",
+        "isStableUnderBaseChange|finrank_pullback_snd|spec_of_quotient_mk|lemma range_fst",
+        "Homeomorph|homeomorph|OrderIso|topologicalKrullDim",
+        "\\b(sorry|admit|axiom)\\b",
+        "p07_flq_curve_quotient_857cd4d38c|p07_flq_full_level_pullback_857cd4d38c",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean -DautoImplicit=false -DmaxHeartbeats=4000000 -DsynthInstance.maxHeartbeats=400000 -Dbackward.isDefEq.respectTransparency.types=false /tmp/p07-flq-independent-audit-0zyvqwo1/Contracts.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean -DautoImplicit=false -DmaxHeartbeats=4000000 -DsynthInstance.maxHeartbeats=400000 -Dbackward.isDefEq.respectTransparency.types=false Submission.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMModuli.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFineModuli.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFormalModuleOf.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_AlgebraicGeometry_RelativeGroupLaw.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_JacJ1Iface.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/P2M",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Smooth.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Proper.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/ClosedImmersion.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/FlatRank.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Finite.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Flat.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/FinitePresentation.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/PullbackCarrier.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/Topology/KrullDimension.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/Submission.lean",
+        "/tmp/p07-flq-independent-audit-0zyvqwo1/Contracts.lean",
+        "/tmp/p07-flq-independent-audit-0zyvqwo1/Contracts.log",
+        "/tmp/p07-flq-independent-types.log",
+        "/tmp/p07-flq-independent-submission.log"
+      ],
+      "conclusion": "Used /runtime/bin/rg. Both snapshots are clean at the manifest revisions: project 73257f1e32d99b75813b037f28a5cf45a2db886d and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The definitions confirm all required structure fields. Verified the cited base-change results, quotient closed immersion, pullback image formula, and homeomorphism invariance of topological Krull dimension. FlatRank:157 requires exactly flatness and finiteness. P2M returned no relevant helper matches; the relevant definition files contained no explicit sorry/admit/axiom matches; neither proposed identifier occurs in existing DAG reservations or handoffs. Both exact expressions independently elaborate as Prop without either child declaration, and conditional Lean assembly proves the exact depth-one parent contract from them. Quotient instance synthesis returns Ideal.Quotient.commRing J. Independent transitive axiom checks returned only propext, Classical.choice, and Quot.sound. This approves the decomposition and supplied prose proofs only. The proposal's activation hold remains: Submission.lean still fails at lines 13–15 on opensMapFinal, baseChangePointToBase_ofBase, and dualNumberFst_apply. No comparator or Lean-solution acceptance is claimed."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "curve_quotient",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose, including universe-zero rings and unrestricted Λ, N, and J. The bare identifier is unreserved. All twelve proof steps check: natural point bijections transport the group law and correctly ordered action; quotient closed immersions identify entire topological fibres; tangent parametrizations preserve every trace hypothesis; and the level construction verifies factorization, subgroup, torsion, finiteness, flatness, presentation, rank, and geometric parametrization fields. Assembly supplies precisely IsPullbackVia. No parent or sibling theorem is used, and no further proof-discovery pass is needed."
+    },
+    {
+      "key": "full_level_pullback",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches transport along an arbitrary ring homomorphism with a specified IsPullbackVia witness. Its bare identifier is unreserved. All eight steps check: the pullback gives natural point bijections; multiplication preservation implies identity and repeated-addition preservation; the distinguished section lifts with the asserted projection; and injectivity transfers torsion, generation, and the exact annihilator equivalence. No surjectivity or quotient hypothesis is silently assumed. The proof does not require curve_quotient, so empty sibling dependencies are correct. Applying both independent children reconstructs the parent, making the split complete and acyclic."
+    }
+  ],
+  "required_changes": []
+}

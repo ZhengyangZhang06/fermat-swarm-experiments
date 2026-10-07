@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.full_level_quotient-a1.curve_quotient-a1",
+  "parent_id": "root.full_level_quotient-a1",
+  "depth": 2,
+  "title": "Construct a fake elliptic curve over a quotient ring",
+  "statement": "Let a,b ∈ ℚ, let Λ be a ℤ-submodule of QuaternionAlgebra ℚ a 0 b, let N ∈ ℕ, let S be a universe-zero commutative ring, and let J be an ideal of S. For every E : CerednikDrinfeld.QM.FakeEllipticCurve Λ N S, there exist EJ : CerednikDrinfeld.QM.FakeEllipticCurve Λ N (S/J) and a scheme morphism g : EJ.A → E.A such that FakeEllipticCurve.IsPullbackVia (Ideal.Quotient.mk J) E EJ g. No additional hypotheses on S, J, Λ, or N are imposed.",
+  "lean_statement": "∀ {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N : ℕ) (S : Type) [CommRing S] (J : Ideal S) (E : CerednikDrinfeld.QM.FakeEllipticCurve Λ N S), ∃ (EJ : CerednikDrinfeld.QM.FakeEllipticCurve Λ N (S ⧸ J)) (g : Quiver.Hom EJ.A E.A), CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia (Ideal.Quotient.mk J) E EJ g",
+  "lean_name": "p07_flq_curve_quotient_857cd4d38c",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p07/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-curve-quotient-a1-a1"
+}
