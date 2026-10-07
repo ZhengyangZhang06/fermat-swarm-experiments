@@ -2495,6 +2495,8 @@ theorem Submission.p02_es_177ebb5a_sm_all_cusps :
         MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -(τ : ℂ)) (G τ).val) :=
     funext (Submission.p02_es_177ebb5a_sm_slash n E σ)
   rwa [hscalar]
+  simpa [Function.comp_def, UpperHalfPlane.ofComplex_apply, div_eq_mul_inv] using
+    hh.comp_of_eq (τ : ℂ) hσ (by simp)
 
 end Submission
 
