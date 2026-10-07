@@ -300,4 +300,52 @@ theorem p02_es_177ebb5a_lcd_monomial_expansion
     have hne : e r ≠ d := fun h => hd (h ▸ he r)
     simp [hne]
 
+theorem p02_es_177ebb5a_crl_imaginary_ray_limit :
+    ∀ (n : ℕ) (a : ℝ) (H G : ℂ → ℂ), 0 < a →
+      ContinuousOn G {z : ℂ | 0 < z.im} →
+      (∀ z : ℂ, 0 < z.im → HasDerivAt H (G z) z) →
+      (∃ C Y : ℝ, 0 ≤ C ∧ 1 ≤ Y ∧ ∀ t : ℝ, Y ≤ t →
+        ‖G ((t : ℂ) * Complex.I)‖ ≤ C * (1 + t) ^ n * Real.exp (-a * t)) →
+      ∃ A : ℂ, Filter.Tendsto (fun y : ℝ => H ((y : ℂ) * Complex.I))
+        Filter.atTop (nhds A) := by
+  intro n a H G ha hG hH hbound
+  obtain ⟨C, Y, hC, hY, hbound⟩ := hbound
+  have hpos (t : ℝ) (ht : t ∈ Set.Ioi Y) : 0 < t := by
+    have := ht.out
+    linarith
+  have hderiv (t : ℝ) (ht : t ∈ Set.Ioi Y) :
+      HasDerivAt (fun y : ℝ => H ((y : ℂ) * Complex.I))
+        (G ((t : ℂ) * Complex.I) * Complex.I) t := by
+    have hz : 0 < ((t : ℂ) * Complex.I).im := by simpa using hpos t ht
+    simpa using ((hH _ hz).comp (t : ℂ)
+      ((hasDerivAt_id (t : ℂ)).mul_const Complex.I)).comp_ofReal
+  have hcont : ContinuousOn (fun t : ℝ => G ((t : ℂ) * Complex.I) * Complex.I)
+      (Set.Ioi Y) := by
+    apply ContinuousOn.mul_const _ Complex.I
+    apply hG.comp (Complex.continuous_ofReal.mul_const Complex.I).continuousOn
+    intro t ht
+    simpa using hpos t ht
+  have hmoment : MeasureTheory.IntegrableOn
+      (fun t : ℝ => t ^ n * Real.exp (-a * t)) (Set.Ioi (0 : ℝ)) := by
+    simpa using integrableOn_rpow_mul_exp_neg_mul_rpow
+      (s := (n : ℝ)) (p := (1 : ℝ)) (by linarith [Nat.cast_nonneg (α := ℝ) n])
+      zero_lt_one ha
+  have hmajorant : MeasureTheory.IntegrableOn
+      (fun t : ℝ => (C * 2 ^ n) * (t ^ n * Real.exp (-a * t))) (Set.Ioi Y) :=
+    (hmoment.mono_set (Set.Ioi_subset_Ioi (by linarith))).const_mul _
+  have hint : MeasureTheory.IntegrableOn
+      (fun t : ℝ => G ((t : ℂ) * Complex.I) * Complex.I) (Set.Ioi Y) := by
+    apply hmajorant.mono' (hcont.aestronglyMeasurable measurableSet_Ioi)
+    filter_upwards [MeasureTheory.ae_restrict_mem measurableSet_Ioi] with t ht
+    have hpow : (1 + t) ^ n ≤ (2 * t) ^ n :=
+      pow_le_pow_left₀ (by linarith [hpos t ht]) (by linarith [ht.out]) n
+    calc
+      ‖G ((t : ℂ) * Complex.I) * Complex.I‖ = ‖G ((t : ℂ) * Complex.I)‖ := by
+        rw [norm_mul, Complex.norm_I, mul_one]
+      _ ≤ C * (1 + t) ^ n * Real.exp (-a * t) := hbound t ht.out.le
+      _ ≤ C * (2 * t) ^ n * Real.exp (-a * t) :=
+        mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_left hpow hC) (Real.exp_pos _).le
+      _ = (C * 2 ^ n) * (t ^ n * Real.exp (-a * t)) := by rw [mul_pow]; ring
+  exact ⟨_, MeasureTheory.tendsto_limUnder_of_hasDerivAt_of_integrableOn_Ioi hderiv hint⟩
+
 end Submission
