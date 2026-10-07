@@ -805,3 +805,5 @@ theorem Submission.p02_es_177ebb5a_hi_linepow_coefficients :
   split_ifs with hd
   · rw [hd]
   · rfl
+
+end Submission
