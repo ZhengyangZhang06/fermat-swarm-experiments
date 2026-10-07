@@ -1814,14 +1814,16 @@ theorem Submission.p07_rr_isogeny_transport_857cd4d38c :
     simpa only [mapPt_coe, P', Category.assoc] using hP₀
 namespace Submission
 
+/-- Transport a relative group law along a ring equivalence. The equivalences of
+relative points preserve their underlying scheme morphisms and all group operations. -/
 theorem p07_cre_group_law_857cd4d38c :
     ∀ (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U)
       (A : AlgebraicGeometry.Scheme.{0})
       (f : Quiver.Hom A (AlgebraicGeometry.Spec (CommRingCat.of U)))
       (G : GoodReductionJacobian.RelativeGroupLaw U f),
-    let κ := AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.toRingHom)
-    let ε := AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.symm.toRingHom)
-    let fT := CategoryTheory.CategoryStruct.comp f κ
+    let κ := AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.toRingHom);
+    let ε := AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.symm.toRingHom);
+    let fT := CategoryTheory.CategoryStruct.comp f κ;
     ∃ (H : GoodReductionJacobian.RelativeGroupLaw T fT)
       (B : ∀ (W : AlgebraicGeometry.Scheme.{0})
         (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))),
@@ -1873,6 +1875,7 @@ theorem p07_cre_group_law_857cd4d38c :
         rw [← Category.assoc, P.2, Category.assoc, hεκ, Category.comp_id]⟩
       left_inv := fun _ => Subtype.ext rfl
       right_inv := fun _ => Subtype.ext rfl }
+  -- Both routes leave the underlying map equal to ψ ≫ P.1.
   have hBcomp (W W' : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of T))
       (t' : W' ⟶ Spec (CommRingCat.of T)) (ψ : W' ⟶ W) (hψ : ψ ≫ t = t')
       (P : SchemeHomOver t (f ≫ κ)) :
