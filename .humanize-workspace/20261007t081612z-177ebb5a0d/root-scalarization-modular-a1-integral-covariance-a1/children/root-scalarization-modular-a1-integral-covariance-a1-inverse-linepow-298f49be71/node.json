@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.scalarization_modular-a1.integral_covariance-a1.inverse_linepow_transport-a1",
+  "parent_id": "root.scalarization_modular-a1.integral_covariance-a1",
+  "depth": 3,
+  "title": "Inverse representation transport of a line power",
+  "statement": "For every n∈ℕ, σ∈SL₂(ℤ), and τ∈ℍ, let ρ=binaryFormRepSL ℂ n and L(z)=linePow n (z:ℂ). Then ρ(σ⁻¹)(L(στ))=(jFactor(σ,τ)^n)⁻¹ • L(τ), as an equality in BinaryForm ℂ n.",
+  "lean_statement": "∀ (n : ℕ) (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (τ : UpperHalfPlane), (HeckeEis.binaryFormRepSL ℂ n) σ⁻¹ (HeckeEis.linePow n ((σ • τ : UpperHalfPlane) : ℂ)) = ((HeckeEis.jFactor σ τ) ^ n)⁻¹ • HeckeEis.linePow n (τ : ℂ)",
+  "lean_name": "p02_es_177ebb5a_ic_inverse_linepow",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-integral-covariance-a1-inverse-linepow-298f49be71-a1"
+}

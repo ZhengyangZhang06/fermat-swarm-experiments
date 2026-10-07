@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.scalarization_modular-a1.integral_covariance-a1.linear_mobius_derivative-a1",
+  "parent_id": "root.scalarization_modular-a1.integral_covariance-a1",
+  "depth": 3,
+  "title": "Coefficientwise chain rule for linear images under Möbius substitution",
+  "statement": "Let n∈ℕ and V=BinaryForm ℂ n. Let A:V→V be complex linear, F:ℍ→V, P∈V, σ∈SL₂(ℤ), and τ∈ℍ. Suppose that for every exponent index d:Fin 2→₀ℕ, the function z↦coeff d(F(ofComplex z)) has complex derivative coeff d(P) at the complex coordinate of στ. Then, for every exponent index e, the function z↦coeff e(A(F(σ·ofComplex z))) has complex derivative coeff e(A(P))/jFactor(σ,τ)² at the complex coordinate of τ.",
+  "lean_statement": "∀ (n : ℕ) (A : ↥(HeckeEis.BinaryForm ℂ n) →ₗ[ℂ] ↥(HeckeEis.BinaryForm ℂ n)) (F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)) (P : ↥(HeckeEis.BinaryForm ℂ n)) (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (τ : UpperHalfPlane), (∀ d : Fin 2 →₀ ℕ, HasDerivAt (fun z : ℂ => MvPolynomial.coeff d (F (UpperHalfPlane.ofComplex z)).val) (MvPolynomial.coeff d P.val) ((σ • τ : UpperHalfPlane) : ℂ)) → ∀ e : Fin 2 →₀ ℕ, HasDerivAt (fun z : ℂ => MvPolynomial.coeff e (A (F (σ • UpperHalfPlane.ofComplex z))).val) (MvPolynomial.coeff e (A P).val / (HeckeEis.jFactor σ τ) ^ 2) (τ : ℂ)",
+  "lean_name": "p02_es_177ebb5a_ic_linear_mobius_derivative",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-derivative-a1-a1"
+}

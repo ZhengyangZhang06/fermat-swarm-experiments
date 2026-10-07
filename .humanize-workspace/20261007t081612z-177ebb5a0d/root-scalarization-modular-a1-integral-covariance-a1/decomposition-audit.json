@@ -1,0 +1,48 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "IsEichlerIntegral|binaryFormRepSL_linePow|eichlerShimuraMap_injective|hasStrictDerivAt_smul|SL_slash_apply|p02_es_177ebb5a_ic_(linear_mobius_derivative|inverse_linepow)",
+        "ofComplex|eventuallyEq_coe_comp|hasStrictDerivAt_smul|SL_slash_apply|HasDerivAt\\.(sum|fun_sum)",
+        "IsHomogeneous|mem_homogeneousSubmodule|coeff.*eq_zero|degree.*eq",
+        "coeff.*HasDerivAt|HasDerivAt.*coeff|inverse.*linePow|linePow.*inv|pullback.*deriv",
+        "instance SLAction|coe_specialLinearGroup_apply|SLAction|smul_def",
+        "p02_es_177ebb5a_ic_(linear_mobius_derivative|inverse_linepow)",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_ic_independent_decomposition_audit.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-modular-a1-integral-covariance-a1/decomposition-v1.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Manifold.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Add.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/SlashActions.lean",
+        "/tmp/p02_ic_independent_decomposition_audit.lean"
+      ],
+      "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The inspected definitions support the finite homogeneous expansion, representation inverse law, nonzero jFactor, and forward line-power identity; mathlib supplies the precise ofComplex identities, Möbius derivative, finite-sum differentiation, and slash formula. No matching transport helper or proposed declaration name was found in the snapshot. Run metadata contains the names only in this proposal, with no active DAG reservation conflicts. The augmented dependency graph is acyclic. The parent is the existing integral-covariance subproblem beneath the unchanged frozen injectivity theorem. Separating the analytic chain rule and algebraic transport is appropriate, and together they discharge that parent. Independent Lean checks importing only Definitions.Def_HeckeEis_EichlerIntegral successfully elaborated both exact types as Prop without child implementations. Lean selected UpperHalfPlane.SLAction.toSMul and the binary-form submodule action; agreement with mapGL was checked by rfl. Compared sources match the snapshot, all nine installed dependencies match their pins with clean tracked sources, and checked infrastructure has only propext, Classical.choice, and Quot.sound as transitive axioms. These checks approve the decomposition, not child implementation acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "linear_mobius_derivative",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose includes every binder and derivative hypothesis and exactly matches the independently elaborated one-line proposition. The bare name is unreserved. Steps 1–2 establish the finite monomial expansion, including n=0 and coefficients outside degree n. Step 3 correctly differentiates fixed finite linear combinations using only the supplied coefficient derivatives. Step 4 establishes the nonzero denominator and Möbius derivative at τ. Step 5 gives the exact global composition identity through ofComplex_apply; step 6 applies the scalar chain rule at the correct point. No continuity assumption on A or additional regularity of F is needed. The proof is complete, non-circular, and independent of the other child."
+    },
+    {
+      "key": "inverse_linepow_transport",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and independently elaborated one-line proposition agree exactly, with the intended representation and complex scalar action. The bare name is unreserved. Step 1 establishes that jFactor^n is nonzero, including n=0. Step 2 applies the inverse representation to the pinned forward identity and correctly moves the scalar through its linear map. Step 3 cancels in the correct order using σ⁻¹σ=1. Step 4 multiplies by the reciprocal and reverses the equality to obtain precisely the claimed conclusion. This is a complete independent algebraic obligation; neither child nor parent is assumed."
+    }
+  ],
+  "required_changes": []
+}
