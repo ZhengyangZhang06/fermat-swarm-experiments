@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.primitive_exists-a1.constant_defect-a1.modular_pullback_derivative-a1",
+  "parent_id": "root.primitive_exists-a1.constant_defect-a1",
+  "depth": 3,
+  "title": "Derivative of an Eichler integral after a modular substitution",
+  "statement": "Let N,n∈ℕ with N≠0, Γ=Γ₀(N), and ρ=(binaryFormRepSL ℂ n).comp Γ.subtype. Let f be a cusp form of weight (n:ℤ)+2 on Γ.map(Matrix.SpecialLinearGroup.mapGL ℝ), and let F:ℍ→BinaryForm ℂ n satisfy IsEichlerIntegral n f F. Write L(τ)=linePow n (τ:ℂ). For every γ∈Γ, exponent index e:Fin 2→₀ℕ, and τ∈ℍ, the complex function z↦coeff e(F((γ:SL₂(ℤ))·ofComplex z)) has derivative f(τ)·coeff e(ρ(γ)L(τ)) at (τ:ℂ).",
+  "lean_statement": "∀ (N : ℕ) [NeZero N] (n : ℕ) (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2)) (F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.IsEichlerIntegral n (fun τ => f τ) F → ∀ (γ : CongruenceSubgroup.Gamma0 N) (e : Fin 2 →₀ ℕ) (τ : UpperHalfPlane), HasDerivAt (fun z : ℂ => MvPolynomial.coeff e (F ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • UpperHalfPlane.ofComplex z)).val) (f τ * MvPolynomial.coeff e ((((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype) γ) (HeckeEis.linePow n (τ : ℂ))).val) (τ : ℂ)",
+  "lean_name": "p02_es_177ebb5a_cd_modular_pullback_derivative",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1-modular-pullback-derivative-a1-a1"
+}

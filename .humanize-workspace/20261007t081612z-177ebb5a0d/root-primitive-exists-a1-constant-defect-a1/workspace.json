@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081612Z-177ebb5a0d",
+  "parent_id": "root.primitive_exists-a1.constant_defect-a1",
+  "dispatch_branch": "proof-workspace/fermat-p02/20261007t081612z-177ebb5a0d/dispatch/root-primitive-exists-a1-constant-defect-a1",
+  "source_commit": "1f74c284b125d4c45f527f2d621597fcf1e103a9",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.primitive_exists-a1.constant_defect-a1.linear_coeff_derivative-a1",
+      "key": "linear_coeff_derivative",
+      "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1/children/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg -n 'IsEichlerIntegral|binaryFormRepSL_linePow|hasStrictDerivAt_smul' .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b",
+              "grep -R -n -E 'IsEichlerIntegral|IsEquivariantPrimitiveWith|binaryFormRepSL_linePow' .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project --include='*.lean'",
+              "hasDerivAt|ofComplex|convex",
+              "slash_action_eqn_SL|slash_action_eqn",
+              "coeff_eq_zero|mem_homogeneousSubmodule|IsHomogeneous|sum_monomial",
+              "eq_of_hasDerivAt|eqOn_of_deriv|is_const|eq_of_deriv",
+              "coeff.*HasDerivAt|HasDerivAt.*coeff|binaryForm.*[Dd]eriv|[Dd]eriv.*binaryForm",
+              "p02_es_177ebb5a_cd_linear_coeff_derivative",
+              "p02_es_177ebb5a_cd_modular_pullback_derivative",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_constant_defect_interfaces.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-constant-defect-a1/parent-child-handoff.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Manifold.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/SlashInvariantForms.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/MeanValue.lean",
+              "/tmp/p02_constant_defect_interfaces.lean"
+            ],
+            "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. rg was unavailable; searches continued with grep and Python. The definitions provide coefficientwise IsEichlerIntegral, jFactor_ne_zero, and binaryFormRepSL_linePow. Mathlib supplies homogeneous coefficient vanishing, the Möbius derivative, the determinant-one slash transformation law, and zero-derivative constancy. The project derivative-helper search found only the defining IsEichlerIntegral occurrence, with no matching helper. Neither proposed identifier occurred in the searched project declarations or run metadata. Both exact proposed types elaborated after import Submission under Lean 4.33.1. Explicit elaboration confirmed the mapGL image in the cusp-form type, matrix algebra instances, and UpperHalfPlane.SLAction. All installed dependencies matched their pinned revisions with clean tracked sources; the six transitive project definition files and inspected mathlib files matched the snapshot. Transitive axiom checks of the cited infrastructure returned only propext, Classical.choice, and Quot.sound. These checks validate interfaces and reusable infrastructure, not acceptance of new child proofs."
+          }
+        ],
+        "parent_id": "root.primitive_exists-a1.constant_defect-a1",
+        "child_id": "root.primitive_exists-a1.constant_defect-a1.linear_coeff_derivative-a1",
+        "subproblem": {
+          "key": "linear_coeff_derivative",
+          "title": "Linear endomorphisms preserve coefficientwise derivatives of binary forms",
+          "statement": "Let n∈ℕ and V=BinaryForm ℂ n, the complex vector space of homogeneous binary polynomials of degree n. Let A:V→V be complex linear, F:ℂ→V, P∈V, and z∈ℂ. Suppose that for every exponent index d:Fin 2→₀ℕ, the scalar function w↦coeff d(F(w)) has complex derivative coeff d(P) at z. Then, for every exponent index e, the scalar function w↦coeff e(A(F(w))) has complex derivative coeff e(A(P)) at z.",
+          "lean_statement": "∀ (n : ℕ) (A : ↥(HeckeEis.BinaryForm ℂ n) →ₗ[ℂ] ↥(HeckeEis.BinaryForm ℂ n)) (F : ℂ → ↥(HeckeEis.BinaryForm ℂ n)) (P : ↥(HeckeEis.BinaryForm ℂ n)) (z : ℂ), (∀ e : Fin 2 →₀ ℕ, HasDerivAt (fun w : ℂ => MvPolynomial.coeff e (F w).val) (MvPolynomial.coeff e P.val) z) → ∀ e : Fin 2 →₀ ℕ, HasDerivAt (fun w : ℂ => MvPolynomial.coeff e (A (F w)).val) (MvPolynomial.coeff e (A P).val) z",
+          "lean_name": "p02_es_177ebb5a_cd_linear_coeff_derivative",
+          "depends_on": [],
+          "natural_proof": "1. Fix n,A,F,P,z and the assumed derivatives. For each integer r with 0≤r≤n, define the exponent index d_r by d_r(0)=r and d_r(1)=n−r. Its total degree is n. Let b_r be the monomial with exponent d_r and coefficient 1, regarded as an element of V; it belongs to V because that monomial is homogeneous of degree n.\n2. Every Q∈V satisfies Q=Σ_{r=0}^n coeff d_r(Q) • b_r. To prove this, compare coefficients at an arbitrary exponent index d. Its total degree is d(0)+d(1). If this degree differs from n, homogeneity makes coeff d(Q)=0, and every b_r also has coefficient zero at d. If the degree equals n, let r=d(0). Then r≤n and d(1)=n−r, so d=d_r. No other d_s equals d, since equality at coordinate 0 would force s=r. Thus the coefficient of the displayed sum at d is exactly coeff d(Q). Polynomial coefficient extensionality, followed by subtype extensionality, proves the expansion.\n3. Fix an output exponent index e and put λ_r=coeff e(A(b_r)). Apply A to the expansion of Q, use its additivity and complex linearity, and then take coefficient e. Linearity of polynomial coefficients and commutativity of complex multiplication give coeff e(A(Q))=Σ_{r=0}^n λ_r·coeff d_r(Q).\n4. Apply this identity to Q=F(w) for every w∈ℂ. By hypothesis, each function w↦coeff d_r(F(w)) has derivative coeff d_r(P) at z. Multiplication by the constant λ_r and the finite-sum derivative rule therefore give derivative Σ_{r=0}^n λ_r·coeff d_r(P) for w↦coeff e(A(F(w))) at z. No topology on V is used: all differentiated functions are complex-valued.\n5. Apply the identity from step 3 to Q=P. It identifies the derivative in step 4 with coeff e(A(P)). Since e was arbitrary, this is the asserted coefficientwise derivative statement.",
+          "proof_key_steps": [
+            "Construct the degree-n monomials indexed by r=0,…,n.",
+            "Prove the finite monomial expansion by homogeneity and coefficient extensionality.",
+            "Express each output coefficient of A as a fixed finite linear combination of input coefficients.",
+            "Differentiate that finite scalar sum at z.",
+            "Identify the resulting sum with the corresponding coefficient of A(P)."
+          ]
+        },
+        "audit": {
+          "key": "linear_coeff_derivative",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly matches all prose hypotheses and the conclusion, and is independently usable as a comparator challenge. The bare identifier is unreserved. Steps 1–2 establish the finite monomial expansion, including off-degree coefficients and uniqueness of the degree-n index. Steps 3–5 use linearity to obtain a fixed finite scalar sum, differentiate using precisely the supplied hypotheses, and identify the derivative with the coefficient of A(P). No topology on binary forms or circular theorem use is assumed. This is a genuine independent obligation; empty dependencies are correct."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.primitive_exists-a1.constant_defect-a1.modular_pullback_derivative-a1",
+      "key": "modular_pullback_derivative",
+      "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1-modular-pullback-derivative-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1/children/root-primitive-exists-a1-constant-defect-a1-modular-pullback-derivative-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg -n 'IsEichlerIntegral|binaryFormRepSL_linePow|hasStrictDerivAt_smul' .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b",
+              "grep -R -n -E 'IsEichlerIntegral|IsEquivariantPrimitiveWith|binaryFormRepSL_linePow' .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project --include='*.lean'",
+              "hasDerivAt|ofComplex|convex",
+              "slash_action_eqn_SL|slash_action_eqn",
+              "coeff_eq_zero|mem_homogeneousSubmodule|IsHomogeneous|sum_monomial",
+              "eq_of_hasDerivAt|eqOn_of_deriv|is_const|eq_of_deriv",
+              "coeff.*HasDerivAt|HasDerivAt.*coeff|binaryForm.*[Dd]eriv|[Dd]eriv.*binaryForm",
+              "p02_es_177ebb5a_cd_linear_coeff_derivative",
+              "p02_es_177ebb5a_cd_modular_pullback_derivative",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_constant_defect_interfaces.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-constant-defect-a1/parent-child-handoff.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Manifold.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/SlashInvariantForms.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/MeanValue.lean",
+              "/tmp/p02_constant_defect_interfaces.lean"
+            ],
+            "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. rg was unavailable; searches continued with grep and Python. The definitions provide coefficientwise IsEichlerIntegral, jFactor_ne_zero, and binaryFormRepSL_linePow. Mathlib supplies homogeneous coefficient vanishing, the Möbius derivative, the determinant-one slash transformation law, and zero-derivative constancy. The project derivative-helper search found only the defining IsEichlerIntegral occurrence, with no matching helper. Neither proposed identifier occurred in the searched project declarations or run metadata. Both exact proposed types elaborated after import Submission under Lean 4.33.1. Explicit elaboration confirmed the mapGL image in the cusp-form type, matrix algebra instances, and UpperHalfPlane.SLAction. All installed dependencies matched their pinned revisions with clean tracked sources; the six transitive project definition files and inspected mathlib files matched the snapshot. Transitive axiom checks of the cited infrastructure returned only propext, Classical.choice, and Quot.sound. These checks validate interfaces and reusable infrastructure, not acceptance of new child proofs."
+          }
+        ],
+        "parent_id": "root.primitive_exists-a1.constant_defect-a1",
+        "child_id": "root.primitive_exists-a1.constant_defect-a1.modular_pullback_derivative-a1",
+        "subproblem": {
+          "key": "modular_pullback_derivative",
+          "title": "Derivative of an Eichler integral after a modular substitution",
+          "statement": "Let N,n∈ℕ with N≠0, Γ=Γ₀(N), and ρ=(binaryFormRepSL ℂ n).comp Γ.subtype. Let f be a cusp form of weight (n:ℤ)+2 on Γ.map(Matrix.SpecialLinearGroup.mapGL ℝ), and let F:ℍ→BinaryForm ℂ n satisfy IsEichlerIntegral n f F. Write L(τ)=linePow n (τ:ℂ). For every γ∈Γ, exponent index e:Fin 2→₀ℕ, and τ∈ℍ, the complex function z↦coeff e(F((γ:SL₂(ℤ))·ofComplex z)) has derivative f(τ)·coeff e(ρ(γ)L(τ)) at (τ:ℂ).",
+          "lean_statement": "∀ (N : ℕ) [NeZero N] (n : ℕ) (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2)) (F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.IsEichlerIntegral n (fun τ => f τ) F → ∀ (γ : CongruenceSubgroup.Gamma0 N) (e : Fin 2 →₀ ℕ) (τ : UpperHalfPlane), HasDerivAt (fun z : ℂ => MvPolynomial.coeff e (F ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • UpperHalfPlane.ofComplex z)).val) (f τ * MvPolynomial.coeff e ((((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype) γ) (HeckeEis.linePow n (τ : ℂ))).val) (τ : ℂ)",
+          "lean_name": "p02_es_177ebb5a_cd_modular_pullback_derivative",
+          "depends_on": [],
+          "natural_proof": "1. Fix all the stated data, γ,e,τ. Let g be the determinant-one integer matrix underlying γ, with entries a,b,c,d, and regard these entries as complex numbers when used in formulas. Put j(w)=cw+d. For w in the upper half-plane, j(w)≠0: if c≠0, its imaginary part c·Im(w) is nonzero; if c=0, the determinant equation ad−bc=1 gives ad=1 and hence d≠0. In particular j(τ)=HeckeEis.jFactor g τ is nonzero.\n2. Set T(w)=(aw+b)/(cw+d). Multiplying numerator and denominator by the conjugate of cw+d shows Im(T(w))=(ad−bc)Im(w)/|cw+d|²=Im(w)/|cw+d|². Thus T sends the upper half-plane into itself and is the complex coordinate of the action of g. The quotient derivative at τ is [a(cτ+d)−c(aτ+b)]/(cτ+d)²=(ad−bc)/j(τ)²=1/j(τ)². Since the upper half-plane is open, ofComplex agrees with the usual coordinate inclusion throughout a neighborhood of τ. Consequently G(w)=((g·ofComplex w):ℂ) has derivative 1/j(τ)² at τ, and G(τ)=((g·τ):ℂ). This is also the determinant-one specialization of UpperHalfPlane.hasStrictDerivAt_smul.\n3. Define H_e(w)=coeff e(F(ofComplex w)). The IsEichlerIntegral hypothesis at g·τ gives HasDerivAt H_e [f(g·τ)·coeff e(L(g·τ))] ((g·τ):ℂ). For every w, ofComplex(G(w))=g·ofComplex w because the latter is already an upper-half-plane point. Hence H_e∘G is exactly w↦coeff e(F(g·ofComplex w)). The complex chain rule and step 2 give its derivative at τ as f(g·τ)·coeff e(L(g·τ))/j(τ)².\n4. Since γ belongs to Γ, slash invariance of f gives f(g·τ)=j(τ)^((n:ℤ)+2)f(τ). This is SlashInvariantForm.slash_action_eqn_SL'' for the prescribed real matrix image, with the denominator identified with jFactor. The integer exponent is the cast of the natural number n+2, so its power equals the natural power j(τ)^(n+2). Since j(τ)≠0 and j(τ)^(n+2)=j(τ)^n·j(τ)², the derivative from step 3 simplifies to f(τ)·j(τ)^n·coeff e(L(g·τ)).\n5. The pinned identity HeckeEis.binaryFormRepSL_linePow gives ρ(γ)L(τ)=j(τ)^n • L(g·τ). Taking coefficient e yields coeff e(ρ(γ)L(τ))=j(τ)^n·coeff e(L(g·τ)). Substitute this into step 4 and associate the complex products. The derivative is precisely f(τ)·coeff e(ρ(γ)L(τ)), proving the required HasDerivAt statement for the arbitrary γ,e,τ.",
+          "proof_key_steps": [
+            "Prove the automorphy factor is nonzero on the upper half-plane.",
+            "Compute the modular action's complex derivative as the inverse square of that factor.",
+            "Apply the coefficientwise Eichler derivative and the complex chain rule.",
+            "Use slash invariance and cancel the square from the weight n+2 factor.",
+            "Use binaryFormRepSL_linePow to identify the resulting coefficient with that of ρ(γ)L(τ)."
+          ]
+        },
+        "audit": {
+          "key": "modular_pullback_derivative",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition preserves N≠0, the weight, the prescribed mapGL image, the coefficientwise Eichler hypothesis, and all quantified action data. Its bare identifier is unreserved, and it requires no implemented child declaration. Steps 1–3 justify denominator nonvanishing, the local Möbius derivative, and the exact global composition identity involving ofComplex. Steps 4–5 correctly apply slash invariance, convert the nonnegative integer exponent, cancel the nonzero square, and use pinned representation covariance. The proof is complete and independent of its sibling and parent. Empty dependencies are correct. Together the children leave only derivative subtraction, standard constancy, and coefficient extensionality, so the split is appropriate."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-constant-defect-a1-modular-pullback-derivative-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-constant-defect-a1-modular-pullback-derivative-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-constant-defect-a1-modular-pullback-derivative-a1/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1/task.md": "fbef05e2a6cfc7a6d66c1b237f25981ac872a7f88acb97b5772f4a049cee216a",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1/problem.md": "bc292ceabaa59d4166815e39f5e6a0c5ec4e11e33604270753833466755074b0",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1/problem.json": "bf0e4090d7154b9d64a24b6ca1b3b7a3bc13849e2326306634e0842533303df7",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1/reference-manifest.json": "a8f9271939f028889a1e9bac59a7290448f8c694baf434f537bdc05b0f75f2a6",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1/decomposition.json": "a733c29bd1f684392a7c018228ddec4f47986f606b6b087e8837f3088680a6db",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1/decomposition-audit.json": "d687e3f192731634546c1b13cc7e7c1bc2744265c043824f293ed3116c335b6e",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1/controller-contract.json": "7b7a516f9fce5467b2a4e92be9eb01a7eee74fb69c1477cc06212956b9e78e13",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1/children/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/parent-child-handoff.json": "d6f3c78c868c918be3af3ef1a8aebc7c073f994df73459468dc831f2c24c3eef",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1/children/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/parent-supplied-plan.md": "af7ef004f8172bf68d4a06d21118baae9c695c07d26f1d3b2821f20223529b4b",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1/children/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/parent-supplied-natural-proof.md": "e4fda3e34c70e54bdb10b4bf0abcab7303722e23a3a799d4482b8cbc1f7bdf26",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1/children/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/parent-supplied-natural-proof.json": "009ad50451451da6787e07b222355e17643a568f20437c8259c8ed78eaa7a3e5",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1/children/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/node.json": "bd42fbcd26e0c89dc2e08e15ce4ee31e0ed037f040b8882391273f2de42f8c3a",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1/children/root-primitive-exists-a1-constant-defect-a1-modular-pullback-derivative-a1/parent-child-handoff.json": "b8247ba9d4513126e58bff9345c8c412c12c6c5af1ea0f81d701cabe72ade923",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1/children/root-primitive-exists-a1-constant-defect-a1-modular-pullback-derivative-a1/parent-supplied-plan.md": "8632224b06ba69ff375769cd353a1db967477c67d50bb50a6e1f6d5730c3d797",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1/children/root-primitive-exists-a1-constant-defect-a1-modular-pullback-derivative-a1/parent-supplied-natural-proof.md": "62411cea15ce720bee7f41cd84f36fa1860675b5ed095dd3f37ac45b2696a0f0",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1/children/root-primitive-exists-a1-constant-defect-a1-modular-pullback-derivative-a1/parent-supplied-natural-proof.json": "1836b723f691749c47ffda88f4e9d4f825cf2d9f06337df3bc53b067e28e3700",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1/children/root-primitive-exists-a1-constant-defect-a1-modular-pullback-derivative-a1/node.json": "fc3d1a09856a714273ca3683c7e2907d5ea67c1bc9a8d5534318ca3ebf2b766a"
+  }
+}

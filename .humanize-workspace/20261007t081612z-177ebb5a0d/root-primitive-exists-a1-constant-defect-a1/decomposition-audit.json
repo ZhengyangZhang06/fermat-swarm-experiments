@@ -1,0 +1,48 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'IsEichlerIntegral|IsEquivariantPrimitiveWith|binaryFormRepSL_linePow|hasStrictDerivAt_smul' .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b",
+        "grep -R -n -E 'IsEichlerIntegral|binaryFormRepSL_linePow|coeff.*HasDerivAt|HasDerivAt.*coeff|binaryForm.*[Dd]eriv|[Dd]eriv.*binaryForm' .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project --include='*.lean'",
+        "hasStrictDerivAt_smul|ofComplex|convex",
+        "slash_action_eqn_SL|slash_action_eqn",
+        "coeff_eq_zero|mem_homogeneousSubmodule|isHomogeneous_monomial|eq_of_hasDerivAt|is_const|eqOn_of_deriv",
+        "p02_es_177ebb5a_cd_linear_coeff_derivative",
+        "p02_es_177ebb5a_cd_modular_pullback_derivative",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_cd_independent_audit.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-constant-defect-a1/parent-child-handoff.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-constant-defect-a1/decomposition-v1.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Manifold.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/SlashInvariantForms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/MeanValue.lean",
+        "/tmp/p02_cd_independent_audit.lean"
+      ],
+      "conclusion": "Independently confirmed project revision 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d. rg was unavailable; grep and Python supplied the local searches. The project defines the exact coefficientwise Eichler predicate and representation covariance. The inspected mathlib files supply monomial homogeneity, coefficient vanishing, the positive-determinant action derivative, determinant-one slash invariance, and zero-derivative constancy. No existing project derivative helper matched beyond the defining predicate. Neither proposed name is reserved in the active DAG; metadata occurrences were confined to this proposal. The existing 14-node DAG is acyclic. Both exact one-line propositions independently elaborated using only library imports, without importing Submission or implementing either child. Additional checks confirmed the mapGL subgroup coercion, UpperHalfPlane.SLAction, and restricted representation. All nine installed dependencies matched their pins with clean tracked sources; six transitive project modules matched the snapshot and frozen commit, and inspected mathlib files matched the snapshot. Transitive axiom checks of the cited infrastructure reported only propext, Classical.choice, and Quot.sound. These checks establish interface compatibility, not comparator acceptance of future child implementations."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "linear_coeff_derivative",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches all prose hypotheses and the conclusion, and is independently usable as a comparator challenge. The bare identifier is unreserved. Steps 1–2 establish the finite monomial expansion, including off-degree coefficients and uniqueness of the degree-n index. Steps 3–5 use linearity to obtain a fixed finite scalar sum, differentiate using precisely the supplied hypotheses, and identify the derivative with the coefficient of A(P). No topology on binary forms or circular theorem use is assumed. This is a genuine independent obligation; empty dependencies are correct."
+    },
+    {
+      "key": "modular_pullback_derivative",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition preserves N≠0, the weight, the prescribed mapGL image, the coefficientwise Eichler hypothesis, and all quantified action data. Its bare identifier is unreserved, and it requires no implemented child declaration. Steps 1–3 justify denominator nonvanishing, the local Möbius derivative, and the exact global composition identity involving ofComplex. Steps 4–5 correctly apply slash invariance, convert the nonnegative integer exponent, cancel the nonzero square, and use pinned representation covariance. The proof is complete and independent of its sibling and parent. Empty dependencies are correct. Together the children leave only derivative subtraction, standard constancy, and coefficient extensionality, so the split is appropriate."
+    }
+  ],
+  "required_changes": []
+}
