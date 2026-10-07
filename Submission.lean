@@ -2587,5 +2587,60 @@ theorem p02_es_177ebb5a_primitive_exists_holomorphic_integral :
     simpa only [UpperHalfPlane.ofComplex_apply, mul_left_comm, mul_assoc] using hderiv
   · simp only [if_neg hd, mul_zero]
     exact hasDerivAt_const (τ : ℂ) (0 : ℂ)
+theorem p02_es_177ebb5a_lcd_coeff_linear_combination
+    (n : ℕ)
+    (A : ↥(HeckeEis.BinaryForm ℂ n) →ₗ[ℂ] ↥(HeckeEis.BinaryForm ℂ n))
+    (e : Fin 2 →₀ ℕ) :
+    ∃ c : Fin (n + 1) → ℂ, ∀ Q : ↥(HeckeEis.BinaryForm ℂ n),
+      MvPolynomial.coeff e (A Q).val = ∑ r : Fin (n + 1),
+        c r * MvPolynomial.coeff
+          (Finsupp.single (0 : Fin 2) r.val + Finsupp.single (1 : Fin 2) (n - r.val))
+          Q.val := by
+  classical
+  let d (r : Fin (n + 1)) : Fin 2 →₀ ℕ :=
+    Finsupp.single 0 r.val + Finsupp.single 1 (n - r.val)
+  have hd (r : Fin (n + 1)) : (d r).degree = n := by
+    simp [d, Finsupp.degree_eq_sum, Fin.sum_univ_two,
+      Nat.add_sub_of_le (Nat.le_of_lt_succ r.isLt)]
+  let b (r : Fin (n + 1)) : ↥(HeckeEis.BinaryForm ℂ n) :=
+    ⟨MvPolynomial.monomial (d r) 1, MvPolynomial.isHomogeneous_monomial 1 (hd r)⟩
+  refine ⟨fun r => MvPolynomial.coeff e (A (b r)).val, ?_⟩
+  intro Q
+  have hexpand : Q = ∑ r, MvPolynomial.coeff (d r) Q.val • b r := by
+    apply Subtype.ext
+    simp only [Submodule.coe_sum, Submodule.coe_smul]
+    apply MvPolynomial.ext
+    intro t
+    simp only [b, MvPolynomial.coeff_sum, MvPolynomial.coeff_smul,
+      MvPolynomial.coeff_monomial]
+    by_cases ht : t.degree = n
+    · have hsum : t 0 + t 1 = n := by
+        simpa [Finsupp.degree_eq_sum, Fin.sum_univ_two] using ht
+      let r : Fin (n + 1) := ⟨t 0, by omega⟩
+      have hr : d r = t := by
+        ext i
+        fin_cases i <;> simp [d, r, ← hsum]
+      have huniq (s : Fin (n + 1)) (hs : d s = t) : s = r := by
+        apply Fin.ext
+        have hzero := congrArg (fun u : Fin 2 →₀ ℕ => u 0) hs
+        simpa [d, r] using hzero
+      rw [Finset.sum_eq_single r]
+      · simp [hr]
+      · intro s _ hs
+        have hne : d s ≠ t := fun h => hs (huniq s h)
+        simp [hne]
+      · simp
+    · rw [MvPolynomial.IsHomogeneous.coeff_eq_zero Q.property ht]
+      symm
+      apply Finset.sum_eq_zero
+      intro r _
+      have hne : d r ≠ t := fun h => ht (h ▸ hd r)
+      simp [hne]
+  calc
+    MvPolynomial.coeff e (A Q).val =
+        MvPolynomial.coeff e (A (∑ r, MvPolynomial.coeff (d r) Q.val • b r)).val :=
+      congrArg (fun P => MvPolynomial.coeff e (A P).val) hexpand
+    _ = ∑ r, MvPolynomial.coeff e (A (b r)).val * MvPolynomial.coeff (d r) Q.val := by
+      simp [map_sum, MvPolynomial.coeff_sum, mul_comm]
 
 end Submission
