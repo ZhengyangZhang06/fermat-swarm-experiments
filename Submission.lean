@@ -2326,5 +2326,64 @@ theorem p04_tz91_invariant_restriction_norm_range
   simp only [← Module.End.mul_apply, ← map_mul]
   rw [← Fintype.sum_prod_type (fun p : H × S.1 => A.ρ ((p.1 : G) * (p.2 : G)) v)]
   exact Fintype.sum_equiv S.2.equiv.symm _ _ fun _ => rfl
+theorem p04_tz91_invariant_transfer_norm_index
+    {k G : Type _} [CommRing k] [Group G] [Fintype G]
+    (A : Rep k G) (H : Subgroup G) [Fintype H] :
+    ∃ c : (Rep.res H.subtype A).ρ.invariants →ₗ[k] A.ρ.invariants,
+      (∀ v : A, c ((Rep.res H.subtype A).ρ.normToInvariants v) =
+        A.ρ.normToInvariants v) ∧
+      ∀ (a : A.ρ.invariants) (b : (Rep.res H.subtype A).ρ.invariants),
+        (b : A) = (a : A) → c b = H.index • a := by
+  classical
+  let : Fintype (G ⧸ H) := Fintype.ofFinite _
+  -- An H-invariant vector has the same translate for any representative of a coset.
+  have hrep (b : (Rep.res H.subtype A).ρ.invariants) (g : G) :
+      A.ρ (QuotientGroup.mk g : G ⧸ H).out (b : A) = A.ρ g (b : A) := by
+    obtain ⟨h, hh⟩ := QuotientGroup.mk_out_eq_mul H g
+    rw [hh, map_mul, Module.End.mul_apply]
+    exact congrArg (A.ρ g) (b.property h)
+  let t : (Rep.res H.subtype A).ρ.invariants →ₗ[k] A :=
+    ∑ q : G ⧸ H, (A.ρ q.out).comp (Rep.res H.subtype A).ρ.invariants.subtype
+  have ht (b : (Rep.res H.subtype A).ρ.invariants) : t b ∈ A.ρ.invariants := by
+    intro g
+    simp only [t, LinearMap.sum_apply, LinearMap.comp_apply, Submodule.subtype_apply, map_sum]
+    refine Fintype.sum_equiv (MulAction.toPerm g) _ _ fun q => ?_
+    change A.ρ g (A.ρ q.out (b : A)) = A.ρ (g • q).out (b : A)
+    rw [← Module.End.mul_apply, ← map_mul]
+    simpa only [← smul_eq_mul, MulAction.Quotient.mk_smul_out] using
+      (hrep b (g * q.out)).symm
+  let c := t.codRestrict A.ρ.invariants ht
+  refine ⟨c, ?_, ?_⟩
+  · intro v
+    apply Subtype.ext
+    -- Multiplication identifies a coset representative and an H-coordinate with G.
+    let e : (G ⧸ H) × H ≃ G := Equiv.ofBijective
+      (fun p => p.1.out * (p.2 : G)) (by
+        constructor
+        · rintro ⟨q, h⟩ ⟨q', h'⟩ heq
+          have hq : q = q' := by
+            have := congrArg (fun g : G => (QuotientGroup.mk g : G ⧸ H)) heq
+            simpa only [QuotientGroup.mk_mul_of_mem _ h.property,
+              QuotientGroup.mk_mul_of_mem _ h'.property, QuotientGroup.out_eq'] using this
+          subst q'
+          exact Prod.ext rfl (Subtype.ext (mul_left_cancel heq))
+        · intro g
+          refine ⟨⟨QuotientGroup.mk g, ⟨(QuotientGroup.mk g : G ⧸ H).out⁻¹ * g,
+            QuotientGroup.eq.mp (QuotientGroup.out_eq' _)⟩⟩, ?_⟩
+          exact mul_inv_cancel_left _ _)
+    change t ((Rep.res H.subtype A).ρ.normToInvariants v) = A.ρ.norm v
+    simp only [t, LinearMap.sum_apply, LinearMap.comp_apply, Submodule.subtype_apply,
+      Representation.coe_normToInvariants_apply, Representation.norm, map_sum]
+    rw [← Fintype.sum_prod_type']
+    refine Fintype.sum_equiv e _ _ fun p => ?_
+    change A.ρ p.1.out (A.ρ (p.2 : G) v) = A.ρ (p.1.out * (p.2 : G)) v
+    rw [map_mul, Module.End.mul_apply]
+  · intro a b hab
+    apply Subtype.ext
+    change t b = H.index • (a : A)
+    have ha : ∀ g : G, A.ρ g (a : A) = a := a.property
+    simp only [t, LinearMap.sum_apply, LinearMap.comp_apply, Submodule.subtype_apply,
+      hab, ha, Finset.sum_const, Finset.card_univ]
+    rw [Subgroup.index_eq_card, Nat.card_eq_fintype_card]
 
 end Submission
