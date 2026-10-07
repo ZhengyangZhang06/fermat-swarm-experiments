@@ -1,9 +1,4 @@
-/-
-Copyright 2026 Anthropic, PBC. Licensed under Apache-2.0; see LICENSE.
-Source: https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean
-Modified: replaced the proof with sorry and removed P2M proof imports.
-Requires the upstream Definitions modules and their dependencies.
--/
+import Mathlib.RingTheory.Algebraic.Basic
 
 import Definitions.Def_AlgebraicCurve_PlacesOverDVR
 attribute [-instance] AlgebraicCurve.IsCurveOver.instNontrivialKaehler AlgebraicCurve.IsCurveOver.instFreeKaehler AlgebraicCurve.IsCurveOver.toHasPrincipalDivisors AlgebraicCurve.IsCurveOver.instFiniteResidue AlgebraicCurve.Place.instIsRankOneDiscreteWithZeroMultiplicativeIntAdicValuation AlgebraicCurve.Place.instIsTrivialOnWithZeroMultiplicativeIntAdicValuation AlgebraicCurve.SemilinearAut.instDistribMulActionSubtypeProdRingAutMemSubgroupPic0 AlgebraicCurve.SemilinearAut.instDistribMulActionSubtypeProdRingAutMemSubgroupDivisor AlgebraicCurve.Pic0.instModuleZModTorsion AlgebraicCurve.SemilinearAut.instSMulSubtypeProdRingAutMemSubgroupPlace AlgebraicCurve.SemilinearAut.instDistribMulActionTorsion AlgebraicCurve.SemilinearAut.instSMulSubtypeProdRingAutMemSubgroupPic0 AlgebraicCurve.SemilinearAut.instSMulTorsion AlgebraicCurve.SemilinearAut.instMulActionSubtypeProdRingAutMemSubgroupPlace AlgebraicCurve.SemilinearAut.instSMulCommClassZModTorsion AlgebraicCurve.SemilinearAut.instMulSemiringActionSubtypeProdRingAutMemSubgroup instDecEqAlgebraicClosureRat WeierstrassCurve.Affine.Point.instDistribMulActionAlgEquiv WeierstrassCurve.Affine.Point.instModuleZModTorsionBy WeierstrassCurve.Affine.Point.instSMulTorsionBy WeierstrassCurve.Affine.Point.instDistribMulActionTorsionBy WeierstrassCurve.Affine.Point.instSMulAlgEquiv WeierstrassCurve.Affine.Point.instSMulCommClassAlgEquivZModTorsionBy
@@ -720,6 +715,8 @@ theorem Submission.p06_9e0f5043ff_inf_reciprocal_polynomial_order :
 
 namespace Submission
 
+namespace Submission
+
 /-- Fractions with denominators not divisible by an irreducible polynomial form a subalgebra. -/
 theorem p06_9e0f5043ff_elp_fraction_subalgebra
     (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F)
@@ -736,6 +733,10 @@ theorem p06_9e0f5043ff_elp_fraction_subalgebra
     have hb0 : b = 0 := transcendental_iff.mp hx b heval
     exact hb (hb0 ▸ dvd_zero q)
   -- Subalgebra obtains negation closure by multiplying by the included constant -1.
+  have hprime : Prime q := hq.prime
+  have hden : ∀ b : Polynomial K, ¬ q ∣ b → Polynomial.aeval x b ≠ 0 := by
+    intro b hb heval
+    exact hb (transcendental_iff.mp hx b heval ▸ dvd_zero q)
   refine ⟨{
     carrier := {f | ∃ a b : Polynomial K, ¬ q ∣ b ∧
       f = Polynomial.aeval x a / Polynomial.aeval x b}
@@ -744,6 +745,8 @@ theorem p06_9e0f5043ff_elp_fraction_subalgebra
       intro c
       exact ⟨Polynomial.C c, 1, hprime.not_dvd_one, by
         simp only [Polynomial.aeval_C, map_one, div_one]⟩
+      intro c
+      exact ⟨Polynomial.C c, 1, hprime.not_dvd_one, by simp⟩
     add_mem' := by
       rintro _ _ ⟨a, b, hb, rfl⟩ ⟨c, d, hd, rfl⟩
       refine ⟨a * d + b * c, b * d, hprime.not_dvd_mul hb hd, ?_⟩
