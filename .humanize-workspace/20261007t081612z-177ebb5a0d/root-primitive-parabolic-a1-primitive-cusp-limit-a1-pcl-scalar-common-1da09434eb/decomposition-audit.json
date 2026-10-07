@@ -1,0 +1,46 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "eichlerShimuraMap_injective|primitive.*limit|common_ray_limit|integrable.*exp|tendsto.*exp",
+        "integrableOn.*exp|integrable.*mul_exp|tendsto.*pow.*exp|integral_eq_sub_of_hasDerivAt|norm_sub_le_integral|tendsto.*integrableOn_Ioi",
+        "p02_es_177ebb5a_crl_imaginary_ray_limit|p02_es_177ebb5a_crl_horizontal_difference_limit",
+        "git -C .lake/packages/mathlib rev-parse HEAD",
+        "git -C .lake/packages/mathlib status --porcelain --untracked-files=no",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_crl_independent_audit_ueng2vfw/Types.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-parabolic-a1-primitive-cusp-limit-a1-pcl-scalar-common-1da09434eb/decomposition-v1.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Fermat/Thm_HeckeEis_eichlerShimuraMap_injective.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/SpecialFunctions/Pow/Asymptotics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/MeasureTheory/Integral/ExpDecay.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/MeasureTheory/Integral/IntegralEqImproper.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/FundThmCalculus.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/Basic.lean",
+        "/tmp/p02_crl_independent_audit_ueng2vfw/Types.lean"
+      ],
+      "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The frozen injectivity contract is preserved; the supplied parent is its existing depth-3 common-ray-limit helper. Project searches found no matching primitive-limit or exponential-integrability result, and neither proposed name occurs in the active DAG or frozen project. Pinned mathlib provides polynomial-exponential decay, exponential integrability, convergence from an integrable derivative, FTC, and integral norm bounds. The installed mathlib HEAD matches the manifest, has no tracked modifications, and all five inspected mathlib files match the snapshot byte-for-byte. Both exact child propositions independently elaborated with import Mathlib alone. Transitive axiom checks of seven relevant library declarations returned only propext, Classical.choice, and Quot.sound. These checks support decomposition acceptance, not acceptance of any child Lean implementation."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "crl_imaginary_ray_limit",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose includes every hypothesis and exactly matches the standalone one-line Lean proposition. The bare identifier is unreserved and intended for Submission; the type contains no implementation-dependent reference. Steps 1–3 correctly establish decay and integrability, including the zero-degree case and the vanishing lower boundary term. Step 4 correctly bounds tails using nonnegativity. Step 5 justifies real differentiation and FTC entirely above height Y≥1. Steps 6–7 establish a Cauchy sequence and explicitly extend its limit to all real heights. No circular appeal or deferred proof search occurs. This is a genuine independent obligation, with correctly empty dependencies; the parent's B=1 strip estimate supplies its ray hypothesis."
+    },
+    {
+      "key": "crl_horizontal_difference_limit",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and independently elaborated one-line Lean proposition agree in all hypotheses, quantifiers, and conclusions. The bare identifier is unreserved; the type is independently usable and has no ambiguous matrix construction. Step 1 proves the required decay. Steps 2–4 correctly fix strip constants for each x, keep the entire segment in the upper half-plane, justify differentiation and FTC, and obtain the bound |x|C p(y), including negative and zero x. Step 5 correctly applies the norm criterion for convergence. The proof requires neither the parent nor the imaginary-ray child, so empty dependencies are correct and acyclic. The split is appropriate: adding this vanishing difference to the first child's limit recovers the parent with the same A for every x."
+    }
+  ],
+  "required_changes": []
+}

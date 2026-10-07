@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.primitive_parabolic-a1.primitive_cusp_limit-a1.pcl_scalar_common_ray_limit-a1.crl_horizontal_difference_limit-a1",
+  "parent_id": "root.primitive_parabolic-a1.primitive_cusp_limit-a1.pcl_scalar_common_ray_limit-a1",
+  "depth": 4,
+  "title": "Horizontal differences vanish under stripwise derivative decay",
+  "statement": "Let n∈ℕ, a∈ℝ with a>0, and H,G:ℂ→ℂ. Suppose G is continuous on {z∈ℂ : Im z>0}, and H has complex derivative G(z) at every point of that set. Suppose that for every real B>0 there exist real C≥0 and Y≥1 such that ‖G(z)‖≤C(1+Im z)^n exp(−a Im z) whenever |Re z|≤B and Im z≥Y. Then, for every real x, H(x+iy)−H(iy)→0 in ℂ as the real variable y→+∞.",
+  "lean_statement": "∀ (n : ℕ) (a : ℝ) (H G : ℂ → ℂ), 0 < a → ContinuousOn G {z : ℂ | 0 < z.im} → (∀ z : ℂ, 0 < z.im → HasDerivAt H (G z) z) → (∀ B : ℝ, 0 < B → ∃ C Y : ℝ, 0 ≤ C ∧ 1 ≤ Y ∧ ∀ z : ℂ, |z.re| ≤ B → Y ≤ z.im → ‖G z‖ ≤ C * (1 + z.im) ^ n * Real.exp (-a * z.im)) → ∀ x : ℝ, Filter.Tendsto (fun y : ℝ => H ((x : ℂ) + (y : ℂ) * Complex.I) - H ((y : ℂ) * Complex.I)) Filter.atTop (nhds (0 : ℂ))",
+  "lean_name": "p02_es_177ebb5a_crl_horizontal_difference_limit",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-parabolic-a1-primitive-cusp-limit-a1-pcl-scalar-common-b7a8bb61cc-a1"
+}
