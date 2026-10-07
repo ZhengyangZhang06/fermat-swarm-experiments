@@ -1,10 +1,3 @@
-/-
-Copyright 2026 Anthropic, PBC. Licensed under Apache-2.0; see LICENSE.
-Source: https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean
-Modified: replaced the proof with sorry and removed P2M proof imports.
-Requires the upstream Definitions modules and their dependencies.
--/
-
 import Definitions.Def_AlgebraicCurve_PlacesOverDVR
 attribute [-instance] AlgebraicCurve.IsCurveOver.instNontrivialKaehler AlgebraicCurve.IsCurveOver.instFreeKaehler AlgebraicCurve.IsCurveOver.toHasPrincipalDivisors AlgebraicCurve.IsCurveOver.instFiniteResidue AlgebraicCurve.Place.instIsRankOneDiscreteWithZeroMultiplicativeIntAdicValuation AlgebraicCurve.Place.instIsTrivialOnWithZeroMultiplicativeIntAdicValuation AlgebraicCurve.SemilinearAut.instDistribMulActionSubtypeProdRingAutMemSubgroupPic0 AlgebraicCurve.SemilinearAut.instDistribMulActionSubtypeProdRingAutMemSubgroupDivisor AlgebraicCurve.Pic0.instModuleZModTorsion AlgebraicCurve.SemilinearAut.instSMulSubtypeProdRingAutMemSubgroupPlace AlgebraicCurve.SemilinearAut.instDistribMulActionTorsion AlgebraicCurve.SemilinearAut.instSMulSubtypeProdRingAutMemSubgroupPic0 AlgebraicCurve.SemilinearAut.instSMulTorsion AlgebraicCurve.SemilinearAut.instMulActionSubtypeProdRingAutMemSubgroupPlace AlgebraicCurve.SemilinearAut.instSMulCommClassZModTorsion AlgebraicCurve.SemilinearAut.instMulSemiringActionSubtypeProdRingAutMemSubgroup instDecEqAlgebraicClosureRat WeierstrassCurve.Affine.Point.instDistribMulActionAlgEquiv WeierstrassCurve.Affine.Point.instModuleZModTorsionBy WeierstrassCurve.Affine.Point.instSMulTorsionBy WeierstrassCurve.Affine.Point.instDistribMulActionTorsionBy WeierstrassCurve.Affine.Point.instSMulAlgEquiv WeierstrassCurve.Affine.Point.instSMulCommClassAlgEquivZModTorsionBy
 attribute [-simp] AlgebraicCurve.IsFrobeniusEndo.frobNormRingHom_apply ModularCurve.frobeniusPushforwardGeomLevelPic0_mk ModularCurve.coe_frobeniusGeomLevelEquiv_apply ModularCurve.coe_frobeniusPushforwardGeomLevelDegZero ModularCurve.heckeFibreGeomLevelPic0OfIsCurveOver_mk ModularCurve.frobeniusGeomLevel_apply_coe ModularCurve.frobeniusPullbackGeomLevelPic0OfIsCurveOver_mk ModularCurve.coe_heckeFibreGeomLevelDegZero ModularCurve.coe_frobeniusPullbackGeomLevelDegZero ModularCurve.frobeniusPullbackGeomLevelPic0_mk ModularCurve.frobeniusPullbackGeomLevel_single ModularCurve.heckeFibreGeomLevelPic0_mk ModularCurve.frobeniusPushforwardGeomLevelPic0OfIsCurveOver_mk ModularCurve.frobeniusPushforwardGeomLevel_single ModularCurve.qExpandAlgC_apply AlgebraicCurve.Place.congrEquiv_symm_apply AlgebraicCurve.RationalFunctionField.heightOneSpectrumOfIrreducible_asIdeal AlgebraicCurve.Place.congrRingEquiv_toValuationSubring AlgebraicCurve.Place.congrEquiv_apply AlgebraicCurve.Place.coe_comapSymmRingEquiv_apply AlgebraicCurve.RationalFunctionField.deg_placeOfPoint AlgebraicCurve.Divisor.degree_pushforwardAlong AlgebraicCurve.Pic0.coe_degZeroCorrespondence AlgebraicCurve.Place.mem_fiberAlong AlgebraicCurve.SemilinearAut.toRingAut_inv AlgebraicCurve.SemilinearAut.smul_def AlgebraicCurve.SemilinearAut.smul_single AlgebraicCurve.SemilinearAut.smul_toValuationSubring AlgebraicCurve.SemilinearAut.baseAut_inv AlgebraicCurve.SemilinearAut.baseAut_ofAlgAut AlgebraicCurve.SemilinearAut.toRingAut_ofAlgAut AlgebraicCurve.SemilinearAut.torsionRep_apply AlgebraicCurve.SemilinearAut.toRingAut_one AlgebraicCurve.SemilinearAut.deg_smul AlgebraicCurve.SemilinearAut.degree_smul AlgebraicCurve.SemilinearAut.coe_degZeroSMulHom AlgebraicCurve.SemilinearAut.baseAut_mul AlgebraicCurve.SemilinearAut.coe_smulValuationSubringEquiv_apply AlgebraicCurve.SemilinearAut.baseAut_one AlgebraicCurve.SemilinearAut.ofAlgAut_smul
@@ -80,6 +73,10 @@ theorem p06_9e0f5043ff_wll_residue_composition_series :
 The sum is in `ℕ∞`, so the factors need not have finite length over `A`.
 Apply `Module.length_eq_add_of_exact` after restricting scalars, then induct on the
 number of factors using `Fin.sum_univ_castSucc`, including the empty series. -/
+import Mathlib.RingTheory.Length
+
+namespace Submission
+
 theorem p06_9e0f5043ff_wll_length_sum_factors
     (A B M : Type*) [CommRing A] [CommRing B] [IsDedekindDomain B] [Algebra A B]
     [AddCommGroup M] [Module A M] [Module B M] [IsScalarTower A B M]
@@ -96,6 +93,10 @@ theorem p06_9e0f5043ff_wll_length_sum_factors
       Module.length A (s i.succ) =
         Module.length A (s i.castSucc) + Module.length A (B ⧸ (p i).asIdeal) := by
     obtain ⟨e⟩ := hfactors i
+  classical
+  have hstep (i : Fin s.length) :
+      Module.length A (s i.succ) =
+        Module.length A (s i.castSucc) + Module.length A (B ⧸ (p i).asIdeal) := by
     let N := (s i.castSucc).comap (s i.succ).subtype
     have h := Module.length_eq_add_of_exact
       (N.subtype.restrictScalars A) (N.mkQ.restrictScalars A)
@@ -104,6 +105,8 @@ theorem p06_9e0f5043ff_wll_length_sum_factors
       (e.restrictScalars A).length_eq] at h
     exact h
   -- Sum by induction in ℕ∞; cancellation would require extra finiteness.
+      ((hfactors i).some.restrictScalars A).length_eq] at h
+    exact h
   have hsum : ∀ (n : ℕ) (f : Fin (n + 1) → ℕ∞) (g : Fin n → ℕ∞),
       (∀ i, f i.succ = f i.castSucc + g i) →
       f (Fin.last n) = f 0 + ∑ i, g i := by
@@ -112,6 +115,7 @@ theorem p06_9e0f5043ff_wll_length_sum_factors
     | zero =>
       intro f g h
       simp
+    | zero => intro f g h; simp
     | succ n ih =>
       intro f g h
       change f (Fin.last n).succ = _
