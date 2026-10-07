@@ -2248,5 +2248,35 @@ theorem p04_tia_homology_transfer {k G : Type _} [CommRing k] [Group G] [Fintype
   intro x
   change γ.symm (P (α.symm (α (T (γ x))))) = H.index • x
   rw [α.symm_apply_apply, hPT, map_nsmul, γ.symm_apply_apply]
+theorem p04_tz91_invariant_restriction_norm_range
+    {k G : Type _} [CommRing k] [Group G] [Fintype G]
+    (A : Rep k G) (H : Subgroup G) [Fintype H] :
+    ∃ j : A.ρ.invariants →ₗ[k] (Rep.res H.subtype A).ρ.invariants,
+      (∀ a : A.ρ.invariants, (j a : A) = (a : A)) ∧
+      LinearMap.range A.ρ.normBar ≤
+        (LinearMap.range (Rep.res H.subtype A).ρ.normBar).comap j := by
+  classical
+  let j : A.ρ.invariants →ₗ[k] (Rep.res H.subtype A).ρ.invariants :=
+    { toFun := fun a => ⟨(a : A),
+        (Representation.mem_invariants _ _).2 fun h =>
+          (Representation.mem_invariants _ _).1 a.property (h : G)⟩
+      map_add' := fun _ _ => rfl
+      map_smul' := fun _ _ => rfl }
+  refine ⟨j, fun _ => rfl, ?_⟩
+  intro y hy
+  obtain ⟨x, rfl⟩ := hy
+  obtain ⟨v, rfl⟩ := Representation.Coinvariants.mk_surjective A.ρ x
+  let S : H.RightTransversal := default
+  let : Fintype S.1 := Fintype.ofFinite _
+  refine ⟨Representation.Coinvariants.mk (Rep.res H.subtype A).ρ
+    (∑ s : S.1, A.ρ (s : G) v), ?_⟩
+  apply Subtype.ext
+  change (Rep.res H.subtype A).ρ.norm (∑ s : S.1, A.ρ (s : G) v) = A.ρ.norm v
+  simp only [Representation.norm, LinearMap.sum_apply]
+  simp only [map_sum]
+  change (∑ h : H, ∑ s : S.1, A.ρ (h : G) (A.ρ (s : G) v)) = ∑ g : G, A.ρ g v
+  simp only [← Module.End.mul_apply, ← map_mul]
+  rw [← Fintype.sum_prod_type (fun p : H × S.1 => A.ρ ((p.1 : G) * (p.2 : G)) v)]
+  exact Fintype.sum_equiv S.2.equiv.symm _ _ fun _ => rfl
 
 end Submission
