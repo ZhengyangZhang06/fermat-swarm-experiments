@@ -161,3 +161,14 @@ runner and review policy. This avoids editing a live catalog concurrently with
 quarantine updates. Never restart a broker with owned live checkers or remove
 `--preserve-existing-verifications` during an additive handover. Deployment
 confirmation must be recorded separately from source/test completion.
+
+Deployment confirmed 2026-10-07 16:10 UTC: immutable `math-lean-flow-integrity-v4`
+contains workflow commit `86a7786`, pushed to the authorized workflow branch.
+The final suite passed 369 tests (one optional skip); a completed hoa0 preflight
+matched the archived Python source hashes. Only the recovery broker was restarted,
+after verifying it had no owned live checker. Its authenticated health check
+passed; all 69 existing job commands and all four live checker PID/start identities
+were preserved. The broker now selects v4 for new claims without rewriting the
+catalog. At this checkpoint no new claim had yet arrived, so this confirms routing
+and deployment, not an observed v4 proof completion. Natural/decomposition reviews,
+the immutable verifier and the decomposition depth limit are unchanged.
