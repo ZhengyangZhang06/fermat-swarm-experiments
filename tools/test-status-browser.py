@@ -44,7 +44,8 @@ class StatusBrowserTests(unittest.TestCase):
                             readiness_passed=128, running_resolvers=128,
                             verified_integrated_roots=0, problems=[dict(id="fermat-p01", nodes=[
                                 dict(id="fermat-p01/root", problem="fermat-p01", local_id="root",
-                                     title="Theorem", requires=[], status="decomposing", prose_status="reviewed")])])
+                                     title="Theorem", requires=[], status="decomposing", prose_status="reviewed",
+                                     observed_running=True, worker_node="hoa3")])])
             if self.mode == "older":
                 snapshot.update(observed_at="2026-01-01T00:00:00Z", running_resolvers=0, problems=[])
             return route.fulfill(content_type="application/json", body=json.dumps(snapshot))
@@ -54,6 +55,7 @@ class StatusBrowserTests(unittest.TestCase):
         self.page.goto("https://status.test/index.html")
         self.page.wait_for_function("document.querySelector('#resolvers').textContent === '128'")
         self.assertIn("decomposing", self.page.locator("#dag").text_content())
+        self.assertIn("worker hoa3", self.page.locator("#dag").text_content())
         self.mode = "older"
         self.page.evaluate("window.testRefresh()")
         self.assertEqual(self.page.locator("#resolvers").inner_text(), "128")

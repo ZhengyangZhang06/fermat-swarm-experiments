@@ -94,6 +94,21 @@ class ProofFeedTests(unittest.TestCase):
                 self.assertFalse(report['natural_proof_reviewed'])
                 self.assertEqual(report['nodes'][0]['prose_status'], expected)
 
+    def test_root_link_retains_canonical_campaign_identity(self):
+        self.dag([dict(id='root', status='decomposing', github_issue_url='https://github.com/o/r/issues/99')])
+        self.assertEqual(self.report()['nodes'][0]['issue_url'], 'https://github.com/o/r/issues/1')
+
+    def test_activity_requires_working_observation_not_prepared_stage(self):
+        reports = [dict(nodes=[dict(issue_url='https://github.com/o/r/issues/1', status='decomposing'),
+                              dict(issue_url='https://github.com/o/r/issues/2', status='decomposing')])]
+        publisher.attach_worker_activity(reports, [dict(node='hoa3', phase='working', issue=1),
+                                                  dict(node='hoa4', phase='idle', issue=2)])
+        first, second = reports[0]['nodes']
+        self.assertTrue(first['observed_running'])
+        self.assertEqual(first['worker_node'], 'hoa3')
+        self.assertFalse(second['observed_running'])
+        self.assertEqual(second['worker_node'], '')
+
 
 if __name__ == '__main__':
     unittest.main()

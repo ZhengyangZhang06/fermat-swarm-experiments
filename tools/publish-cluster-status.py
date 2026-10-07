@@ -94,7 +94,8 @@ def proof_records(config):
             public.append(dict(id=problem['id'] + '/' + key, problem=problem['id'], local_id=key,
                 title=node.get('lean_name') or node.get('title') or key, status=node.get('status', 'queued'),
                 requires=[problem['id'] + '/' + d for d in dict.fromkeys(node.get('children', []) + node.get('depends_on', []))],
-                active=True, issue_url=link('github_issue_url', 'issues'), pr_url=link('github_pr_url', 'pull'),
+                active=True, issue_url=problem['issue_url'] if key == 'root' else link('github_issue_url', 'issues'),
+                pr_url=link('github_pr_url', 'pull'),
                 pr_state=node.get('github_pr_state', ''), merge_commit=node.get('github_merge_commit', ''),
                 lean_verified=verified, integrated=integrated, prose_status=prose))
         root = next(n for n in public if n['local_id'] == 'root')
@@ -102,6 +103,21 @@ def proof_records(config):
                       natural_proof_reviewed=root['prose_status'] == 'reviewed')
         reports.append(report)
     return reports
+
+
+def attach_worker_activity(proofs, workers):
+    """A prepared/decomposing DAG node is not necessarily executing on a worker.
+
+    Call only with workers already validated against live Swarm tasks and fresh
+    heartbeats. An absent match reports lack of observation, not eligibility.
+    """
+    executing = {str(w['issue']): w['node'] for w in workers
+                 if w['phase'] == 'working' and w['issue'] is not None}
+    for problem in proofs:
+        for node in problem['nodes']:
+            issue = node['issue_url'].rsplit('/', 1)[-1]
+            node['worker_node'] = executing.get(issue, '')
+            node['observed_running'] = bool(node['worker_node'])
 
 
 def collect():
@@ -124,6 +140,7 @@ def collect():
     nodes = {worker['node'] for worker in workers}
     if len(nodes) != len(workers):
         raise RuntimeError('duplicate live workers on one node')
+    attach_worker_activity(proofs, workers)
     enabled = sum(bool(p.get('enabled')) for p in config['projects'])
     working = sum(worker['phase'] == 'working' for worker in workers)
     integrated = sum(p['root_integrated'] for p in proofs)
