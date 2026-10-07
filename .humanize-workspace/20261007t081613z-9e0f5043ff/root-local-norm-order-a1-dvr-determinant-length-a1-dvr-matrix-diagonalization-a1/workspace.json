@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081613Z-9e0f5043ff",
+  "parent_id": "root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1",
+  "dispatch_branch": "proof-workspace/fermat-p06/20261007t081613z-9e0f5043ff/dispatch/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagonalization-a1",
+  "source_commit": "956e8c600d8b95b46948ae5e37b13930b5f3d06b",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1.finite_family_dividing_member-a1",
+      "key": "finite_family_dividing_member",
+      "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagona-c588ebcc13-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagonalization-a1/children/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagona-c588ebcc13",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "exists_irreducible|eq_unit_mul_pow_irreducible|exists.*pow.*[Ii]rreducible|eq_unit_mul_pow",
+              "transvection_mul|mul_transvection|isUnit_transvection|det_fromBlocks|det_fin_succ|fromBlocks.*mul|mul_fromBlocks",
+              "smithNormalForm|smith_normal_form|matrix_diagonalization|dividing_pivot|pivot_block",
+              "def of|abbrev of|instance.*[Mm]onoid|instance.*[Rr]ing|instMul|protected def mul",
+              "p06_9e0f5043ff_dmd_finite_family_dividing_member|p06_9e0f5043ff_dmd_split_divisible_pivot"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DiscreteValuationRing/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Matrix/Transvection.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/FreeModule/PID.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Data/Matrix/Mul.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root/decomposition-typecheck/README.txt",
+              "/tmp/p06-dmd-decomposition-9e0f5043ff/CheckTypes.interface-check.log",
+              "/tmp/p06-dmd-decomposition-9e0f5043ff/AuditReferences.log"
+            ],
+            "conclusion": "The snapshot pins project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. DVR Basic supplies exists_irreducible and eq_unit_mul_pow_irreducible; PlacesOverDVR uses both. Matrix sources provide elementary-operation identities, block determinants, and the matrix multiplication instances. FreeModule/PID contains an abstract basis Smith-normal-form theorem. The project search found no matches for smithNormalForm, smith_normal_form, matrix_diagonalization, dividing_pivot, or pivot_block. Installed dependency revisions match their pins and have clean tracked trees; the four directly checked mathlib source files match the snapshot byte-for-byte. Axiom audits of the referenced DVR and matrix lemmas report only propext, Classical.choice, and Quot.sound. Both proposed names are absent from the searched DAG metadata and imported environment. Both exact type expressions pass the available import Submission interface check, and explicit instance output confirms matrix multiplication and the monoid from Matrix.semiring. Limitation: that existing Submission cache is an import-only shim; its README records pre-existing unknown attribute targets blocking the complete frozen Submission build. These checks therefore do not establish exact-source build or comparator acceptance."
+          }
+        ],
+        "parent_id": "root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1",
+        "child_id": "root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1.finite_family_dividing_member-a1",
+        "subproblem": {
+          "key": "finite_family_dividing_member",
+          "title": "A finite nonzero DVR family has a nonzero member dividing every member",
+          "statement": "Let A be a commutative integral domain that is a discrete valuation ring, let ι be a finite type equipped with a Fintype structure, and let a : ι → A. If some a(i) is nonzero, then there exists i₀ : ι such that a(i₀) is nonzero and a(i₀) divides a(j) for every j : ι.",
+          "lean_statement": "∀ (A : Type*) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A] (ι : Type*) [Fintype ι] (a : ι → A), (∃ i, a i ≠ 0) → ∃ i, a i ≠ 0 ∧ ∀ j, a i ∣ a j",
+          "lean_name": "p06_9e0f5043ff_dmd_finite_family_dividing_member",
+          "depends_on": [],
+          "natural_proof": "1. Fix A, ι, and a satisfying the hypotheses. By IsDiscreteValuationRing.exists_irreducible, choose an irreducible element π of A.\n2. Let S consist of the indices i for which a(i) ≠ 0. This is a finite nonempty set: finiteness follows from Fintype ι, and nonemptiness is the hypothesis. For each i in S, apply IsDiscreteValuationRing.eq_unit_mul_pow_irreducible to choose e(i) ∈ ℕ and u(i) ∈ Aˣ such that a(i) = u(i)π^e(i), where units are coerced into A.\n3. The finite nonempty set of chosen exponents has a minimum attained at an index i₀ in S. Put p = a(i₀), e₀ = e(i₀), and u₀ = u(i₀). Then p ≠ 0, p = u₀π^e₀, and e₀ ≤ e(j) for every j in S.\n4. Fix any j : ι. If a(j) = 0, then p divides a(j), with quotient zero. Otherwise j belongs to S. Write e = e(j) and u = u(j), and define q = (u₀⁻¹ : A) · (u : A) · π^(e - e₀), taking u₀⁻¹ in the unit group. Commutativity, the unit inverse identity, and e₀ + (e - e₀) = e give p q = (u₀π^e₀)((u₀⁻¹ : A)uπ^(e - e₀)) = uπ^e = a(j). Thus p divides a(j) in this case as well.\n5. Consequently i₀ satisfies both required conclusions: a(i₀) ≠ 0 and a(i₀) divides every a(j).",
+          "proof_key_steps": [
+            "Choose an irreducible uniformizer.",
+            "Factor each nonzero family member as a unit times a natural power of the uniformizer.",
+            "Choose a member attaining the minimum exponent on the finite nonempty support.",
+            "Construct a divisibility quotient using the inverse unit and the exponent difference; handle zero members separately."
+          ]
+        },
+        "audit": {
+          "key": "finite_family_dividing_member",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The standalone one-line proposition exactly matches every prose hypothesis and conclusion. The proof correctly chooses factorizations on the finite nonempty support, attains a minimum exponent, and constructs the quotient using the inverse unit and natural-number exponent subtraction; zero members are handled separately. No cancellation, additional hypothesis, or circular theorem use is hidden. The bare identifier is unreserved. This is a genuine finite-selection obligation with no child dependencies."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagona-c588ebcc13/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagona-c588ebcc13/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagona-c588ebcc13/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1.split_divisible_pivot-a1",
+      "key": "split_divisible_pivot",
+      "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagona-dfff0f7a7a-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagonalization-a1/children/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagona-dfff0f7a7a",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "exists_irreducible|eq_unit_mul_pow_irreducible|exists.*pow.*[Ii]rreducible|eq_unit_mul_pow",
+              "transvection_mul|mul_transvection|isUnit_transvection|det_fromBlocks|det_fin_succ|fromBlocks.*mul|mul_fromBlocks",
+              "smithNormalForm|smith_normal_form|matrix_diagonalization|dividing_pivot|pivot_block",
+              "def of|abbrev of|instance.*[Mm]onoid|instance.*[Rr]ing|instMul|protected def mul",
+              "p06_9e0f5043ff_dmd_finite_family_dividing_member|p06_9e0f5043ff_dmd_split_divisible_pivot"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DiscreteValuationRing/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Matrix/Transvection.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/FreeModule/PID.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Data/Matrix/Mul.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root/decomposition-typecheck/README.txt",
+              "/tmp/p06-dmd-decomposition-9e0f5043ff/CheckTypes.interface-check.log",
+              "/tmp/p06-dmd-decomposition-9e0f5043ff/AuditReferences.log"
+            ],
+            "conclusion": "The snapshot pins project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. DVR Basic supplies exists_irreducible and eq_unit_mul_pow_irreducible; PlacesOverDVR uses both. Matrix sources provide elementary-operation identities, block determinants, and the matrix multiplication instances. FreeModule/PID contains an abstract basis Smith-normal-form theorem. The project search found no matches for smithNormalForm, smith_normal_form, matrix_diagonalization, dividing_pivot, or pivot_block. Installed dependency revisions match their pins and have clean tracked trees; the four directly checked mathlib source files match the snapshot byte-for-byte. Axiom audits of the referenced DVR and matrix lemmas report only propext, Classical.choice, and Quot.sound. Both proposed names are absent from the searched DAG metadata and imported environment. Both exact type expressions pass the available import Submission interface check, and explicit instance output confirms matrix multiplication and the monoid from Matrix.semiring. Limitation: that existing Submission cache is an import-only shim; its README records pre-existing unknown attribute targets blocking the complete frozen Submission build. These checks therefore do not establish exact-source build or comparator acceptance."
+          }
+        ],
+        "parent_id": "root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1",
+        "child_id": "root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1.split_divisible_pivot-a1",
+        "subproblem": {
+          "key": "split_divisible_pivot",
+          "title": "Isolate a divisible pivot by invertible matrix operations",
+          "statement": "Let R be a commutative ring, m ∈ ℕ, D a square matrix indexed by Fin (m + 1) over R, and r,c : Fin (m + 1). Assume that p = D(r,c) divides every entry of D. Then there exist square matrices P,Q indexed by Fin (m + 1), invertible under matrix multiplication, and a square matrix C indexed by Fin m, such that P D Q has entry p at (0,0), zero at every (0,j.succ) and (i.succ,0), and entry C(i,j) at every (i.succ,j.succ). No nonvanishing or determinant hypothesis is required.",
+          "lean_statement": "∀ (R : Type*) [CommRing R] (m : ℕ) (D : Matrix (Fin (m + 1)) (Fin (m + 1)) R) (r c : Fin (m + 1)), (∀ i j, D r c ∣ D i j) → ∃ (P Q : Matrix (Fin (m + 1)) (Fin (m + 1)) R) (C : Matrix (Fin m) (Fin m) R), IsUnit P ∧ IsUnit Q ∧ P * D * Q = Matrix.of (fun i j => Fin.cases (Fin.cases (D r c) (fun _ => 0) j) (fun i' => Fin.cases 0 (fun j' => C i' j') j) i)",
+          "lean_name": "p06_9e0f5043ff_dmd_split_divisible_pivot",
+          "depends_on": [],
+          "natural_proof": "1. Fix the stated data and put p = D(r,c). Let σ swap 0 and r, and let τ swap 0 and c, on Fin (m + 1). Define permutation matrices S and T by S(i,j) = 1 when j = σ(i), and zero otherwise, and T(i,j) = 1 when i = τ(j), and zero otherwise. The matrix multiplication formula and σ² = τ² = identity give S² = T² = I. Thus S and T are invertible, each with itself as inverse. Set B = S D T. Multiplication gives B(i,j) = D(σ(i),τ(j)); hence B(0,0) = p and p divides every entry of B.\n2. For each i : Fin m, choose α(i) with B(i.succ,0) = α(i)p. Such a choice follows from divisibility and commutativity. For each j : Fin m, choose β(j) with B(0,j.succ) = pβ(j). These choices also make sense when m = 0, since the indexing types are then empty.\n3. Define N by N(i.succ,0) = α(i), with all its other entries zero. Define M by M(0,j.succ) = β(j), with all its other entries zero. Both satisfy N² = 0 and M² = 0. Indeed, in each summand N(i,k)N(k,j), the first factor is zero unless k = 0, and when k = 0 the second factor is zero. In each summand M(i,k)M(k,j), the second factor is zero unless k = 0, and when k = 0 the first factor is zero. Set U = I - N and V = I - M. Distributivity now gives U(I + N) = (I + N)U = I and V(I + M) = (I + M)V = I. These are two-sided matrix inverses.\n4. Set H = U B. Its entries satisfy H(0,j) = B(0,j) and H(i.succ,j) = B(i.succ,j) - α(i)B(0,j). Therefore H(0,0) = p and H(i.succ,0) = α(i)p - α(i)p = 0. Define C(i,j) = H(i.succ,j.succ).\n5. Set Z = H V. Because column zero of M is zero, Z(i,0) = H(i,0). For each j : Fin m, multiplication gives Z(i,j.succ) = H(i,j.succ) - H(i,0)β(j). Thus Z(0,j.succ) = pβ(j) - pβ(j) = 0, while Z(i.succ,j.succ) = H(i.succ,j.succ) = C(i,j). Also Z(0,0) = p and Z(i.succ,0) = 0. These four entry formulas identify Z with the matrix expressed by the nested Fin.cases in the conclusion.\n6. Take P = U S and Q = T V. Their two-sided inverses are S(I + N) and (I + M)T, respectively, by the inverse identities from steps 1 and 3. Hence IsUnit P and IsUnit Q hold for matrix multiplication. Finally, associativity gives P D Q = U(S D T)V = U B V = H V = Z. Together with the entry formulas and the chosen C, this proves the exact conclusion.",
+          "proof_key_steps": [
+            "Move the specified pivot to (0,0) using self-inverse permutation matrices.",
+            "Choose coefficients expressing the first-column and first-row entries as multiples of the pivot.",
+            "Construct square-zero matrices N and M, giving explicit inverse pairs I − N, I + N and I − M, I + M.",
+            "Left multiplication clears the first column below the pivot.",
+            "Right multiplication clears the first row and preserves the lower-right block.",
+            "Compose the operations, exhibit two-sided inverses, and verify the four cases of the resulting block matrix."
+          ]
+        },
+        "audit": {
+          "key": "split_divisible_pivot",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The standalone proposition exactly expresses the four required block entries and matrix invertibility. Independent elaboration confirms the correct matrix instances. The permutation orientations, square-zero calculations, explicit two-sided inverses, row clearing, column clearing, and final composition are all correct, including m = 0 and a zero pivot over a ring with zero divisors. The proof requires neither nonvanishing nor cancellation and contains no circular reliance. The bare identifier is unreserved. Its empty dependency list is correct because divisibility is assumed. Together the children form an appropriate acyclic split: the parent retains dimension induction, determinant nonvanishing, and block lifting."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagona-dfff0f7a7a/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagona-dfff0f7a7a/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagona-dfff0f7a7a/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagonalization-a1/task.md": "c9a88d64f41b8c1fb3a94db18cc20ec89daa48cacf177d4c3796aa3e3c023052",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagonalization-a1/problem.md": "789e1ee8f9e22e1ad8bb71a38c175e66a6bcc4caaf162eedaa432c1a5a5a4aa8",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagonalization-a1/problem.json": "4501669342296827730e039055e10d19d4ab8cfca16727da7844902ff2c862c5",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagonalization-a1/reference-manifest.json": "d193b7c9f4eb7ba36653e983d90fe6ed3e815fbf158e54214ade05340be153d1",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagonalization-a1/decomposition.json": "1ddb97fbc6bb47c95aff583eab4b19807e241e94f78ec040dffd5087ace22230",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagonalization-a1/decomposition-audit.json": "12d17b21ab0afc58cec0979f9e2eef09b8eaa081801f70148f03487f0b66037e",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagonalization-a1/controller-contract.json": "730a41ee712e50cb88de514fa8f7f25ad53ed095f40e5642c7e761e89a033aa2",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagonalization-a1/children/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagona-c588ebcc13/parent-child-handoff.json": "7fbbc3f2bfc893ae5c15837ccb3dd3d0be2b9e8663666cfab83a06bc9b63b607",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagonalization-a1/children/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagona-c588ebcc13/parent-supplied-plan.md": "70e63b2452430ecf28936958a055e18582d65440898dc3b064bc4e20d16cb997",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagonalization-a1/children/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagona-c588ebcc13/parent-supplied-natural-proof.md": "7df1554d64c79fb21877c190095522d3ec990c1fe657b36f05d97dd3a6b4f7e1",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagonalization-a1/children/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagona-c588ebcc13/parent-supplied-natural-proof.json": "099d7d6b28740cf18305671d33022f262cc8a65425c2279d7ab2b18ae6ab28b5",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagonalization-a1/children/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagona-c588ebcc13/node.json": "ab283963e1dff333e21e67b787efdccb2bcbcee47ba99a6d916a76413418e357",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagonalization-a1/children/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagona-dfff0f7a7a/parent-child-handoff.json": "a989bcab5b47d1a7b2f115f27812edd47185980eeef963fa9a00cb763de4ed43",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagonalization-a1/children/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagona-dfff0f7a7a/parent-supplied-plan.md": "26cc821dd69d1a5f072105d3c860113be5991ad4e866cbf3764586b21c3d1bbd",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagonalization-a1/children/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagona-dfff0f7a7a/parent-supplied-natural-proof.md": "becad19ed810087aeb4ffcd3e4a3405ff3fb2d5169a37c9c1f23fe9a663a4e9f",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagonalization-a1/children/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagona-dfff0f7a7a/parent-supplied-natural-proof.json": "23e2ec5d51d428154ffa6b99280ab34e96775bed047593f6788c25b07cff17cc",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagonalization-a1/children/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagona-dfff0f7a7a/node.json": "46e78a5a91fa8e89e8f0b438115a8a05209739823d5d3977c874a26a4827a848"
+  }
+}

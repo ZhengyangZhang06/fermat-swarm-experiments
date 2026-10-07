@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1.finite_family_dividing_member-a1",
+  "parent_id": "root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1",
+  "depth": 4,
+  "title": "A finite nonzero DVR family has a nonzero member dividing every member",
+  "statement": "Let A be a commutative integral domain that is a discrete valuation ring, let ι be a finite type equipped with a Fintype structure, and let a : ι → A. If some a(i) is nonzero, then there exists i₀ : ι such that a(i₀) is nonzero and a(i₀) divides a(j) for every j : ι.",
+  "lean_statement": "∀ (A : Type*) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A] (ι : Type*) [Fintype ι] (a : ι → A), (∃ i, a i ≠ 0) → ∃ i, a i ≠ 0 ∧ ∀ j, a i ∣ a j",
+  "lean_name": "p06_9e0f5043ff_dmd_finite_family_dividing_member",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagona-c588ebcc13-a1"
+}

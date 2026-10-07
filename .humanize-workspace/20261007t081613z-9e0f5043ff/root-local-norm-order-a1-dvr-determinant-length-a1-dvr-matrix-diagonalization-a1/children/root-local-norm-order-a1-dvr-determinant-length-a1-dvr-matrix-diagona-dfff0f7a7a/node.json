@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1.split_divisible_pivot-a1",
+  "parent_id": "root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1",
+  "depth": 4,
+  "title": "Isolate a divisible pivot by invertible matrix operations",
+  "statement": "Let R be a commutative ring, m ∈ ℕ, D a square matrix indexed by Fin (m + 1) over R, and r,c : Fin (m + 1). Assume that p = D(r,c) divides every entry of D. Then there exist square matrices P,Q indexed by Fin (m + 1), invertible under matrix multiplication, and a square matrix C indexed by Fin m, such that P D Q has entry p at (0,0), zero at every (0,j.succ) and (i.succ,0), and entry C(i,j) at every (i.succ,j.succ). No nonvanishing or determinant hypothesis is required.",
+  "lean_statement": "∀ (R : Type*) [CommRing R] (m : ℕ) (D : Matrix (Fin (m + 1)) (Fin (m + 1)) R) (r c : Fin (m + 1)), (∀ i j, D r c ∣ D i j) → ∃ (P Q : Matrix (Fin (m + 1)) (Fin (m + 1)) R) (C : Matrix (Fin m) (Fin m) R), IsUnit P ∧ IsUnit Q ∧ P * D * Q = Matrix.of (fun i j => Fin.cases (Fin.cases (D r c) (fun _ => 0) j) (fun i' => Fin.cases 0 (fun j' => C i' j') j) i)",
+  "lean_name": "p06_9e0f5043ff_dmd_split_divisible_pivot",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagona-dfff0f7a7a-a1"
+}

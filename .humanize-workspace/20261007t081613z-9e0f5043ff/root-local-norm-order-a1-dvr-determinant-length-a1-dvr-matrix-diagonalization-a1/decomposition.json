@@ -1,0 +1,64 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "exists_irreducible|eq_unit_mul_pow_irreducible|exists.*pow.*[Ii]rreducible|eq_unit_mul_pow",
+        "transvection_mul|mul_transvection|isUnit_transvection|det_fromBlocks|det_fin_succ|fromBlocks.*mul|mul_fromBlocks",
+        "smithNormalForm|smith_normal_form|matrix_diagonalization|dividing_pivot|pivot_block",
+        "def of|abbrev of|instance.*[Mm]onoid|instance.*[Rr]ing|instMul|protected def mul",
+        "p06_9e0f5043ff_dmd_finite_family_dividing_member|p06_9e0f5043ff_dmd_split_divisible_pivot"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DiscreteValuationRing/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Matrix/Transvection.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/FreeModule/PID.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Data/Matrix/Mul.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root/decomposition-typecheck/README.txt",
+        "/tmp/p06-dmd-decomposition-9e0f5043ff/CheckTypes.interface-check.log",
+        "/tmp/p06-dmd-decomposition-9e0f5043ff/AuditReferences.log"
+      ],
+      "conclusion": "The snapshot pins project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. DVR Basic supplies exists_irreducible and eq_unit_mul_pow_irreducible; PlacesOverDVR uses both. Matrix sources provide elementary-operation identities, block determinants, and the matrix multiplication instances. FreeModule/PID contains an abstract basis Smith-normal-form theorem. The project search found no matches for smithNormalForm, smith_normal_form, matrix_diagonalization, dividing_pivot, or pivot_block. Installed dependency revisions match their pins and have clean tracked trees; the four directly checked mathlib source files match the snapshot byte-for-byte. Axiom audits of the referenced DVR and matrix lemmas report only propext, Classical.choice, and Quot.sound. Both proposed names are absent from the searched DAG metadata and imported environment. Both exact type expressions pass the available import Submission interface check, and explicit instance output confirms matrix multiplication and the monoid from Matrix.semiring. Limitation: that existing Submission cache is an import-only shim; its README records pre-existing unknown attribute targets blocking the complete frozen Submission build. These checks therefore do not establish exact-source build or comparator acceptance."
+    }
+  ],
+  "should_split": true,
+  "rationale": "At depth 3 of the limit 6, two strictly smaller reusable obligations merit separation: selecting a dividing member of a finite DVR family, and isolating an already supplied divisible matrix pivot. They are independent because the second assumes divisibility explicitly and works over any commutative ring. The parent retains the dimension induction, determinant nonvanishing argument, and block lifting; neither child restates diagonalization.",
+  "subproblems": [
+    {
+      "key": "finite_family_dividing_member",
+      "title": "A finite nonzero DVR family has a nonzero member dividing every member",
+      "statement": "Let A be a commutative integral domain that is a discrete valuation ring, let ι be a finite type equipped with a Fintype structure, and let a : ι → A. If some a(i) is nonzero, then there exists i₀ : ι such that a(i₀) is nonzero and a(i₀) divides a(j) for every j : ι.",
+      "lean_statement": "∀ (A : Type*) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A] (ι : Type*) [Fintype ι] (a : ι → A), (∃ i, a i ≠ 0) → ∃ i, a i ≠ 0 ∧ ∀ j, a i ∣ a j",
+      "lean_name": "p06_9e0f5043ff_dmd_finite_family_dividing_member",
+      "depends_on": [],
+      "natural_proof": "1. Fix A, ι, and a satisfying the hypotheses. By IsDiscreteValuationRing.exists_irreducible, choose an irreducible element π of A.\n2. Let S consist of the indices i for which a(i) ≠ 0. This is a finite nonempty set: finiteness follows from Fintype ι, and nonemptiness is the hypothesis. For each i in S, apply IsDiscreteValuationRing.eq_unit_mul_pow_irreducible to choose e(i) ∈ ℕ and u(i) ∈ Aˣ such that a(i) = u(i)π^e(i), where units are coerced into A.\n3. The finite nonempty set of chosen exponents has a minimum attained at an index i₀ in S. Put p = a(i₀), e₀ = e(i₀), and u₀ = u(i₀). Then p ≠ 0, p = u₀π^e₀, and e₀ ≤ e(j) for every j in S.\n4. Fix any j : ι. If a(j) = 0, then p divides a(j), with quotient zero. Otherwise j belongs to S. Write e = e(j) and u = u(j), and define q = (u₀⁻¹ : A) · (u : A) · π^(e - e₀), taking u₀⁻¹ in the unit group. Commutativity, the unit inverse identity, and e₀ + (e - e₀) = e give p q = (u₀π^e₀)((u₀⁻¹ : A)uπ^(e - e₀)) = uπ^e = a(j). Thus p divides a(j) in this case as well.\n5. Consequently i₀ satisfies both required conclusions: a(i₀) ≠ 0 and a(i₀) divides every a(j).",
+      "proof_key_steps": [
+        "Choose an irreducible uniformizer.",
+        "Factor each nonzero family member as a unit times a natural power of the uniformizer.",
+        "Choose a member attaining the minimum exponent on the finite nonempty support.",
+        "Construct a divisibility quotient using the inverse unit and the exponent difference; handle zero members separately."
+      ]
+    },
+    {
+      "key": "split_divisible_pivot",
+      "title": "Isolate a divisible pivot by invertible matrix operations",
+      "statement": "Let R be a commutative ring, m ∈ ℕ, D a square matrix indexed by Fin (m + 1) over R, and r,c : Fin (m + 1). Assume that p = D(r,c) divides every entry of D. Then there exist square matrices P,Q indexed by Fin (m + 1), invertible under matrix multiplication, and a square matrix C indexed by Fin m, such that P D Q has entry p at (0,0), zero at every (0,j.succ) and (i.succ,0), and entry C(i,j) at every (i.succ,j.succ). No nonvanishing or determinant hypothesis is required.",
+      "lean_statement": "∀ (R : Type*) [CommRing R] (m : ℕ) (D : Matrix (Fin (m + 1)) (Fin (m + 1)) R) (r c : Fin (m + 1)), (∀ i j, D r c ∣ D i j) → ∃ (P Q : Matrix (Fin (m + 1)) (Fin (m + 1)) R) (C : Matrix (Fin m) (Fin m) R), IsUnit P ∧ IsUnit Q ∧ P * D * Q = Matrix.of (fun i j => Fin.cases (Fin.cases (D r c) (fun _ => 0) j) (fun i' => Fin.cases 0 (fun j' => C i' j') j) i)",
+      "lean_name": "p06_9e0f5043ff_dmd_split_divisible_pivot",
+      "depends_on": [],
+      "natural_proof": "1. Fix the stated data and put p = D(r,c). Let σ swap 0 and r, and let τ swap 0 and c, on Fin (m + 1). Define permutation matrices S and T by S(i,j) = 1 when j = σ(i), and zero otherwise, and T(i,j) = 1 when i = τ(j), and zero otherwise. The matrix multiplication formula and σ² = τ² = identity give S² = T² = I. Thus S and T are invertible, each with itself as inverse. Set B = S D T. Multiplication gives B(i,j) = D(σ(i),τ(j)); hence B(0,0) = p and p divides every entry of B.\n2. For each i : Fin m, choose α(i) with B(i.succ,0) = α(i)p. Such a choice follows from divisibility and commutativity. For each j : Fin m, choose β(j) with B(0,j.succ) = pβ(j). These choices also make sense when m = 0, since the indexing types are then empty.\n3. Define N by N(i.succ,0) = α(i), with all its other entries zero. Define M by M(0,j.succ) = β(j), with all its other entries zero. Both satisfy N² = 0 and M² = 0. Indeed, in each summand N(i,k)N(k,j), the first factor is zero unless k = 0, and when k = 0 the second factor is zero. In each summand M(i,k)M(k,j), the second factor is zero unless k = 0, and when k = 0 the first factor is zero. Set U = I - N and V = I - M. Distributivity now gives U(I + N) = (I + N)U = I and V(I + M) = (I + M)V = I. These are two-sided matrix inverses.\n4. Set H = U B. Its entries satisfy H(0,j) = B(0,j) and H(i.succ,j) = B(i.succ,j) - α(i)B(0,j). Therefore H(0,0) = p and H(i.succ,0) = α(i)p - α(i)p = 0. Define C(i,j) = H(i.succ,j.succ).\n5. Set Z = H V. Because column zero of M is zero, Z(i,0) = H(i,0). For each j : Fin m, multiplication gives Z(i,j.succ) = H(i,j.succ) - H(i,0)β(j). Thus Z(0,j.succ) = pβ(j) - pβ(j) = 0, while Z(i.succ,j.succ) = H(i.succ,j.succ) = C(i,j). Also Z(0,0) = p and Z(i.succ,0) = 0. These four entry formulas identify Z with the matrix expressed by the nested Fin.cases in the conclusion.\n6. Take P = U S and Q = T V. Their two-sided inverses are S(I + N) and (I + M)T, respectively, by the inverse identities from steps 1 and 3. Hence IsUnit P and IsUnit Q hold for matrix multiplication. Finally, associativity gives P D Q = U(S D T)V = U B V = H V = Z. Together with the entry formulas and the chosen C, this proves the exact conclusion.",
+      "proof_key_steps": [
+        "Move the specified pivot to (0,0) using self-inverse permutation matrices.",
+        "Choose coefficients expressing the first-column and first-row entries as multiples of the pivot.",
+        "Construct square-zero matrices N and M, giving explicit inverse pairs I − N, I + N and I − M, I + M.",
+        "Left multiplication clears the first column below the pivot.",
+        "Right multiplication clears the first row and preserves the lower-right block.",
+        "Compose the operations, exhibit two-sided inverses, and verify the four cases of the resulting block matrix."
+      ]
+    }
+  ]
+}
