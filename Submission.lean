@@ -630,5 +630,36 @@ theorem p02_es_177ebb5a_scl_linepow_coeff_bound :
     exact mul_le_mul hchoose hpow (pow_nonneg (norm_nonneg z) _) (by positivity)
   · rw [if_neg hd, norm_zero]
     positivity
+theorem p02_es_177ebb5a_primitive_exists_scalar_primitive :
+    ∀ (a : ℂ → ℂ), DifferentiableOn ℂ a {z : ℂ | 0 < z.im} →
+      ∃ A : ℂ → ℂ, ∀ z : ℂ, 0 < z.im → HasDerivAt A (a z) z := by
+  intro a ha
+  let φ := fun w : ℂ => Complex.I * (1 + w) / (1 - w)
+  let ψ := fun z : ℂ => (z - Complex.I) / (z + Complex.I)
+  obtain ⟨hφ, hψ, hφψ, _⟩ := p02_es_177ebb5a_sp_cayley_equivalence
+  obtain ⟨hdφ, hdψ, hprod⟩ := p02_es_177ebb5a_sp_cayley_derivatives
+  have hopen : IsOpen {z : ℂ | 0 < z.im} :=
+    isOpen_lt continuous_const Complex.continuous_im
+  have hb : DifferentiableOn ℂ
+      (fun w => a (φ w) * (2 * Complex.I / (1 - w) ^ 2))
+      (Metric.ball (0 : ℂ) 1) := by
+    intro w hw
+    have hw' : ‖w‖ < 1 := by simpa only [Metric.mem_ball, dist_zero_right] using hw
+    have hden : 1 - w ≠ 0 := by
+      intro h
+      have hw1 : w = 1 := (sub_eq_zero.mp h).symm
+      simp [hw1] at hw'
+    exact (((ha.differentiableAt (hopen.mem_nhds (hφ w hw'))).comp w
+      (hdφ w hw').differentiableAt).mul
+        ((differentiableAt_const (2 * Complex.I)).div
+          ((differentiableAt_id.const_sub 1).pow 2)
+          (pow_ne_zero 2 hden))).differentiableWithinAt
+  obtain ⟨B, hB⟩ := hb.isExactOn_ball
+  refine ⟨fun z => B (ψ z), ?_⟩
+  intro z hz
+  have hw : ψ z ∈ Metric.ball (0 : ℂ) 1 := by
+    simpa only [Metric.mem_ball, dist_zero_right] using hψ z hz
+  convert! (hB (ψ z) hw).comp z (hdψ z hz) using 1
+  simp only [φ, ψ, hφψ z hz, mul_assoc, hprod z hz, mul_one]
 
 end Submission
