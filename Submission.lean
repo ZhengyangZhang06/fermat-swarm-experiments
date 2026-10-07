@@ -3917,5 +3917,32 @@ theorem p02_es_177ebb5a_sd_jet_recurrence :
   · subst r
     simpa [p02_es_177ebb5a_sd_jr_homogeneous_nilpotence, mul_comm] using hderiv
   · simpa only [if_neg htop, mul_zero, zero_sub] using hderiv
+theorem p02_es_177ebb5a_sd_open_ladder :
+    ∀ (U : Set ℂ) (n : ℕ) (Q : ℕ → ℂ → ℂ) (g : ℂ → ℂ), IsOpen U →
+      (∀ (r : ℕ), r < n → ∀ z ∈ U, HasDerivAt (Q r) (-Q (r + 1) z) z) →
+      (∀ z ∈ U, HasDerivAt (Q n) (g z) z) →
+      ∀ z ∈ U, iteratedDeriv (n + 1) (Q 0) z = (-1 : ℂ) ^ n * g z := by
+  intro U n Q g hU hQ hg
+  have hiter : ∀ r ≤ n, ∀ z ∈ U,
+      iteratedDeriv r (Q 0) z = (-1 : ℂ) ^ r * Q r z := by
+    intro r
+    induction r with
+    | zero => intro _ z _; simp
+    | succ r ih =>
+      intro hr z hz
+      have hrn : r < n := Nat.lt_of_succ_le hr
+      have heq : iteratedDeriv r (Q 0) =ᶠ[nhds z]
+          (fun w => (-1 : ℂ) ^ r * Q r w) :=
+        Filter.eventually_of_mem (hU.mem_nhds hz)
+          (fun w hw => ih (Nat.le_of_lt hrn) w hw)
+      have hd := (hQ r hrn z hz).const_mul ((-1 : ℂ) ^ r)
+      rw [iteratedDeriv_succ, (hd.congr_of_eventuallyEq heq).deriv]
+      simp only [pow_succ, mul_neg, mul_one, neg_mul]
+  intro z hz
+  have heq : iteratedDeriv n (Q 0) =ᶠ[nhds z]
+      (fun w => (-1 : ℂ) ^ n * Q n w) :=
+    Filter.eventually_of_mem (hU.mem_nhds hz) (fun w hw => hiter n le_rfl w hw)
+  rw [iteratedDeriv_succ]
+  exact (((hg z hz).const_mul ((-1 : ℂ) ^ n)).congr_of_eventuallyEq heq).deriv
 
 end Submission
