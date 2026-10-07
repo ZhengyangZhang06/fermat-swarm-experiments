@@ -41,13 +41,47 @@ class ClaimLedger:
                     job TEXT NOT NULL DEFAULT '{}',
                     outcome TEXT NOT NULL DEFAULT ''
                 );
-                CREATE UNIQUE INDEX IF NOT EXISTS one_project
-                    ON claims(project) WHERE state = 'owned';
                 CREATE UNIQUE INDEX IF NOT EXISTS one_issue
                     ON claims(repository, issue) WHERE state = 'owned';
                 CREATE UNIQUE INDEX IF NOT EXISTS one_owner
                     ON claims(owner) WHERE state = 'owned';
             """)
+            self._migrate_scope(db)
+
+    @staticmethod
+    def _migrate_scope(db):
+        """Retain live legacy grants and make opt-in issue grants coexist safely.
+
+        Keep the old index NAME so an older ledger opener's IF NOT EXISTS cannot
+        silently reinstall project-wide serialization. Old INSERTs receive the
+        exclusive default; SQL triggers also protect against those old writers.
+        This migration does not enable parallel runtime execution by itself.
+        """
+        db.execute('BEGIN IMMEDIATE')
+        try:
+            columns = {row['name'] for row in db.execute('PRAGMA table_info(claims)')}
+            if 'scope' not in columns:
+                db.execute("ALTER TABLE claims ADD COLUMN scope TEXT NOT NULL DEFAULT 'project' "
+                           "CHECK(scope IN ('project','issue'))")
+            index = db.execute("SELECT sql FROM sqlite_master WHERE type='index' AND name='one_project'").fetchone()
+            if index is not None and "scope = 'project'" not in index['sql']:
+                db.execute('DROP INDEX one_project')
+            db.execute("CREATE UNIQUE INDEX IF NOT EXISTS one_project ON claims(project) "
+                       "WHERE state = 'owned' AND scope = 'project'")
+            for operation in ('INSERT', 'UPDATE'):
+                db.execute(f'''CREATE TRIGGER IF NOT EXISTS claims_scope_{operation.lower()}
+                    BEFORE {operation} ON claims
+                    WHEN NEW.state='owned' AND EXISTS (
+                        SELECT 1 FROM claims held
+                        WHERE held.project=NEW.project AND held.state='owned'
+                          AND held.attempt!=NEW.attempt
+                          AND (NEW.scope='project' OR held.scope='project')
+                    )
+                    BEGIN SELECT RAISE(ABORT, 'project-exclusive claim exists'); END''')
+            db.commit()
+        except Exception:
+            db.rollback()
+            raise
 
     @contextmanager
     def _db(self):
@@ -70,8 +104,12 @@ class ClaimLedger:
             raise ValueError("invalid issue")
 
     def claim(self, *, project: str, repository: str, issue: int,
-              owner: str, attempt: str, job: dict | None = None) -> dict | None:
+              owner: str, attempt: str, job: dict | None = None,
+              parallel: bool = False) -> dict | None:
         self._validate(project, repository, issue, owner, attempt)
+        if type(parallel) is not bool:
+            raise ValueError('parallel claim policy must be a boolean')
+        scope = 'issue' if parallel else 'project'
         repository = repository.casefold()
         with self._db() as db:
             db.execute("BEGIN IMMEDIATE")
@@ -81,14 +119,16 @@ class ClaimLedger:
                     project, repository, issue, owner
                 ):
                     raise OwnershipError("attempt identity changed")
+                if held['scope'] != scope:
+                    raise OwnershipError('attempt claim scope changed')
                 return dict(held) if held['state'] == 'owned' else None
             stamp = time.time()
             try:
                 db.execute(
-                    "INSERT INTO claims(attempt,project,repository,issue,owner,token,state,created,observed,job) "
-                    "VALUES(?,?,?,?,?,?,'owned',?,?,?)",
+                    "INSERT INTO claims(attempt,project,repository,issue,owner,token,state,created,observed,job,scope) "
+                    "VALUES(?,?,?,?,?,?,'owned',?,?,?,?)",
                     (attempt, project, repository, issue, owner, secrets.token_hex(32), stamp, stamp,
-                     json.dumps(job or {}, sort_keys=True)),
+                     json.dumps(job or {}, sort_keys=True), scope),
                 )
             except sqlite3.IntegrityError:
                 db.rollback()

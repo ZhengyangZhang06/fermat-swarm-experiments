@@ -12,6 +12,14 @@ links, published to GitHub Pages. The original default workflow remains availabl
 See [the GitHub theorem workflow guide](docs/github-theorem-workflow.md) and
 [its example configuration](config.github-theorems.example.yaml).
 
+The [persistent workflow requirements](docs/workflow-requirements.md) carry the
+session's issue/PR lifecycle, autonomous scheduling, merge/close and live per-problem
+DAG requirements into future runs. The [authorized configuration](config.github-theorems.authorized.example.yaml)
+retains merge-and-close behavior for an explicitly authorized repository. The
+[parallelism implementation plan](docs/parallel-theorem-workflow-plan.md) distinguishes
+tested source changes from deployed multi-host behavior; do not infer fleet
+readiness from the requirements document alone.
+
 The GitHub theorem workflow now defaults to **eight autonomous issue-polling
 workers**, with no per-job notifications from a parent or another worker. See
 [polling, ownership and restart safety](docs/issue-polling-workers.md). The

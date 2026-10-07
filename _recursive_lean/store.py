@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import datetime as dt
+from copy import deepcopy
 import hashlib
 import json
 import os
@@ -12,6 +13,8 @@ import threading
 from typing import TYPE_CHECKING, Any
 
 from .models import NodeRecord, NodeStatus, ProvedTheorem
+from .shared_dag import StateConflict, merge_nodes, validate_nodes
+from .shared_lock import SharedLock
 
 if TYPE_CHECKING:
     from collections.abc import Callable
@@ -57,7 +60,7 @@ def atomic_text(path: Path, content: str) -> None:
 class Store:
     """The single writer of node state, rendered DAGs, and theorem wiki pages."""
 
-    def __init__(self, root: Path, wiki: Path, task: str) -> None:
+    def __init__(self, root: Path, wiki: Path, task: str, *, shared: bool = False) -> None:
         self.root = root
         self.wiki = wiki
         self.task = task
@@ -66,10 +69,77 @@ class Store:
         self.required_references = ["TauCeti", "lean-pool", "mathlib-internal"]
         self.nodes: dict[str, NodeRecord] = {}
         self.on_render: Callable[[dict[str, Any]], None] | None = None
-        self._lock = threading.RLock()
+        self.shared = shared
+        self._lock = SharedLock(root / "dag-state.lock") if shared else threading.RLock()
+        self._baseline: dict[str, dict] = {}
+        self._metadata_baseline: dict[str, Any] = {}
         self.root.mkdir(parents=True, exist_ok=True)
         self.wiki.mkdir(parents=True, exist_ok=True)
-        self._load()
+        with self._lock:
+            self._load()
+            self._checkpoint()
+
+    def _metadata(self):
+        return {key: deepcopy(getattr(self, key)) for key in (
+            'task', 'problem_artifact', 'reference_manifest', 'required_references')}
+
+    @staticmethod
+    def _validate_metadata(payload):
+        if not isinstance(payload, dict) or not isinstance(payload.get('nodes'), list):
+            raise ValueError('invalid DAG document')
+        if not all(isinstance(payload.get(key), str) for key in (
+                'task', 'problem_artifact', 'reference_manifest')):
+            raise ValueError('invalid DAG metadata')
+        references = payload.get('required_references')
+        if not isinstance(references, list) or not all(isinstance(r, str) for r in references):
+            raise ValueError('invalid DAG reference metadata')
+
+    def _checkpoint(self):
+        self._baseline = {key: node.model_dump(mode='json') for key, node in self.nodes.items()}
+        self._metadata_baseline = self._metadata()
+
+    def refresh(self) -> None:
+        """Merge the latest disk observation without invalidating node aliases."""
+        if not self.shared:
+            return
+        with self._lock:
+            path = self.root / 'dag.json'
+            if not path.exists():
+                if self._baseline:
+                    raise StateConflict('persisted DAG disappeared')
+                return
+            try:
+                payload = json.loads(path.read_text(encoding='utf-8'))
+                self._validate_metadata(payload)
+                records = payload['nodes']
+                remote = {raw['id']: NodeRecord.model_validate(raw).model_dump(mode='json')
+                          for raw in records}
+                if len(remote) != len(records):
+                    raise ValueError('duplicate node identities')
+                merged = merge_nodes(self._baseline,
+                                     {key: n.model_dump(mode='json') for key, n in self.nodes.items()},
+                                     remote)
+                metadata = {}
+                for key, ours in self._metadata().items():
+                    before, theirs = self._metadata_baseline[key], payload[key]
+                    if ours != theirs and ours != before and theirs != before:
+                        raise StateConflict(f'conflicting DAG metadata: {key}')
+                    metadata[key] = theirs if ours == before else ours
+            except (OSError, ValueError, TypeError, KeyError) as error:
+                raise StateConflict('cannot read the shared DAG; refusing to overwrite it') from error
+            # Validate/merge everything before mutating any live object.
+            for key, raw in merged.items():
+                made = NodeRecord.model_validate(raw)
+                if key in self.nodes:
+                    for field in type(made).model_fields:
+                        setattr(self.nodes[key], field, deepcopy(getattr(made, field)))
+                else:
+                    self.nodes[key] = made
+            for key, value in metadata.items():
+                setattr(self, key, deepcopy(value))
+            # The baseline is what DISK contains, not our merged unsaved changes.
+            self._baseline = deepcopy(remote)
+            self._metadata_baseline = {key: deepcopy(payload[key]) for key in metadata}
 
     def _load(self) -> None:
         path = self.root / "dag.json"
@@ -77,13 +147,24 @@ class Store:
             return
         try:
             held = json.loads(path.read_text(encoding="utf-8"))
+            if self.shared:
+                self._validate_metadata(held)
             records = held.get("nodes", [])
             self.nodes = {
                 record.id: record
                 for one in records
                 for record in [NodeRecord.model_validate(one)]
             }
-        except (OSError, ValueError, TypeError, json.JSONDecodeError):
+            if self.shared:
+                if len(self.nodes) != len(records):
+                    raise ValueError('duplicate node identities')
+                self._validate_metadata(held)
+                validate_nodes({key: n.model_dump(mode='json') for key, n in self.nodes.items()})
+                for key in self._metadata():
+                    setattr(self, key, held[key])
+        except (OSError, ValueError, TypeError, KeyError):
+            if self.shared:
+                raise StateConflict('cannot load the shared DAG; refusing to replace it')
             self.nodes = {}
 
     def ensure(
@@ -100,6 +181,7 @@ class Store:
     ) -> NodeRecord:
         """Return an existing node or durably add it to the graph."""
         with self._lock:
+            self.refresh()
             found = self.nodes.get(node_id)
             if found is not None:
                 return found
@@ -127,6 +209,7 @@ class Store:
     ) -> None:
         """Persist one status transition and immediately redraw the live DAG."""
         with self._lock:
+            self.refresh()
             record = self.nodes[node_id]
             # Comparator + independent reviewer approval is a permanent checkpoint.
             # A later integration conflict is about composing Git histories; it must
@@ -159,6 +242,9 @@ class Store:
     def render(self) -> None:
         """Write machine-readable state, Mermaid, and a compact Markdown status view."""
         with self._lock:
+            self.refresh()
+            if self.shared:
+                validate_nodes({key: n.model_dump(mode='json') for key, n in self.nodes.items()})
             ordered = sorted(self.nodes.values(), key=lambda one: (one.depth, one.id))
             payload = {
                 "updated_at": now(),
@@ -172,6 +258,7 @@ class Store:
                 self.root / "dag.json",
                 json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
             )
+            self._checkpoint()
             mermaid = [
                 "flowchart TD",
                 (
@@ -325,8 +412,11 @@ class Store:
 {comparator_log.rstrip()}
 ```
 """
-        atomic_text(page, content)
-        self._wiki_index()
+        # The wiki directory can be shared by different runs as well as workers.
+        # Use its own stable lock; do not call back into DAG/publication locks.
+        with SharedLock(self.wiki / '.wiki-index.lock'):
+            atomic_text(page, content)
+            self._wiki_index()
         return page
 
     def _wiki_index(self) -> None:

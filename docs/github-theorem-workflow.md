@@ -1,5 +1,10 @@
 # GitHub theorem issues and solution PRs
 
+The [persistent requirements](workflow-requirements.md) apply to future uses of
+this workflow as well as the current experiment. Use the
+[authorized lifecycle configuration](../config.github-theorems.authorized.example.yaml)
+to retain verified merge-and-close behavior after repository-scoped authorization.
+
 The named flow `github-theorem-prover` extends the reference branch's reviewed
 parent-to-child handoffs, isolated Lean worktrees, recursive scheduler, machine
 comparator, independent reviewer comparator, and integration checks. Each theorem

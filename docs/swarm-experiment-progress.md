@@ -935,3 +935,30 @@ state, not simply deleting the project lock.
   Cache pilot performance is not established. Next action is to collect this
   exact request's terminal result, then continue the existing reviewer and
   integration gates if it passes. Header-repair approval remains unanswered.
+
+## Follow-up checkpoint, 14:12 UTC — reusable policy and concurrency foundations
+
+- The user's requirements now belong to reusable `docs/workflow-requirements.md`,
+  linked from README, workflow guide and scoped AGENTS instructions. The authorized
+  example configuration retains autonomous polling, Pages, verified auto-merge and
+  issue closure; generic configuration still requires explicit merge authority.
+  Local git-theorem-workflow skill instructions and issue/index templates were
+  also updated to carry these requirements into subsequent invocations.
+- Implemented opt-in per-issue durable ledger ownership with atomic migration,
+  old-client exclusion barriers and 128-way contention tests. No production ledger
+  or broker configuration was changed.
+- Implemented opt-in shared Store foundations: stable process locks, stale-snapshot
+  three-way merge, in-place node refresh, fail-closed corruption/conflict handling,
+  accepted proof-bundle protection, graph validation and serialized wiki indexing.
+  Independent review found and regression tests fixed an unverified accepted
+  contract hybrid and a lost wiki-index update. Re-review found no remaining
+  foundation blocker; this is not runtime or deployment approval.
+- Full reusable suite: 267 tests, zero failures/errors, one optional browser skip.
+  See the parallelism plan for remaining selected-issue scoping, shared Git and
+  publication coordination, status aggregation, broker/runner wiring and rollout.
+- Cached P02 request190da91e9f554b0d9ec6ece90fa5ad0d finished0 at13:52:29,
+  passing its comparator, kernel/axiom and final cache-inventory checks. This is
+  not the final theorem acceptance gate. At14:10:48 the live feed reports issue51
+  at `comparing`, 128 resolver pollers, 10 working resolvers and zero completed roots.
+- No verifier hot-edit/restart, new proof acceptance, live parallel rollout or
+  frozen-header repair. Header-repair permission is still unanswered.
