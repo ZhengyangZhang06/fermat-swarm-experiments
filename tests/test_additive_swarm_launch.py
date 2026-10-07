@@ -78,7 +78,8 @@ class AdditiveLaunchTests(unittest.TestCase):
         source_bytes = source.read_bytes()
         source_spec = {'Spec': {'TaskTemplate': {'ContainerSpec': {'Image': 'ubuntu:test',
             'Env': ['HUMANIZE_SWARM_ENDPOINT=https://old:8848'], 'Mounts': [], 'Secrets': [
-                {'SecretName': 'old-token', 'File': {'Name': 'broker_token', 'UID': '1000', 'GID': '1000', 'Mode': 0o400}}]},
+                {'SecretName': 'old-token', 'File': {'Name': 'broker_token', 'UID': '1000', 'GID': '1000', 'Mode': 0o400}}],
+            'Configs': [{'ConfigName': 'broker-ca', 'File': {'Name': '/broker.crt', 'UID': '0', 'GID': '0', 'Mode': 0o444}}]},
             'Placement': {'Constraints': ['node.labels.authorized==true']}}}}
         commands = []
         def command(*args, **kwargs):
@@ -103,6 +104,8 @@ class AdditiveLaunchTests(unittest.TestCase):
         create = next(args for args in commands if 'service' in args and 'create' in args)
         self.assertIn('HUMANIZE_SWARM_ENDPOINT=https://10.44.0.210:8849', create)
         self.assertNotIn('HUMANIZE_SWARM_ENDPOINT=https://old:8848', create)
+        self.assertIn('source=new-workers-broker-token,target=broker_token,uid=1000,gid=1000,mode=0400', create)
+        self.assertIn('source=broker-ca,target=/broker.crt,uid=0,gid=0,mode=0444', create)
 
 
 if __name__ == '__main__':

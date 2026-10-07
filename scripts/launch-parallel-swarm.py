@@ -185,10 +185,10 @@ def main():
     for ref in container.get('Secrets', []):
         file = ref['File']
         source = secret if file['Name'] == 'broker_token' else ref['SecretName']
-        create += ['--secret', f"source={source},target={file['Name']},uid={file['UID']},gid={file['GID']},mode={file['Mode']:o}"]
+        create += ['--secret', f"source={source},target={file['Name']},uid={file['UID']},gid={file['GID']},mode=0{file['Mode']:o}"]
     for ref in container.get('Configs', []):
         file = ref['File']
-        create += ['--config', f"source={ref['ConfigName']},target={file['Name']},uid={file['UID']},gid={file['GID']},mode={file['Mode']:o}"]
+        create += ['--config', f"source={ref['ConfigName']},target={file['Name']},uid={file['UID']},gid={file['GID']},mode=0{file['Mode']:o}"]
     for network in spec['TaskTemplate'].get('Networks', []):
         create += ['--network', network['Target']]
     limits = spec['TaskTemplate'].get('Resources', {}).get('Limits', {})
