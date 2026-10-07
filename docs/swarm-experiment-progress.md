@@ -68,3 +68,17 @@ alone is not acceptance evidence.
 - Live campaign/DAG website reporting queued, working, blocked, verified, merged.
 - Ten verified root solutions and every introduced helper's issue/PR, followed by
   actual authorized integration and issue closure. No theorem is yet claimed proved.
+
+## Follow-up checkpoint, 07:12 UTC
+
+- Created `ZhengyangZhang06/fermat-swarm-experiments` and pushed frozen contract
+  commit `cc45347`. All ten root issues (#1–#10) now exist. The idempotent publisher
+  was rerun and reused those records, without creating duplicates.
+- Added a durable SQLite claim ledger for a single authoritative broker, requiring
+  broker-local storage (not CephFS). Eight tests pass, including 128 competing
+  connections, restart/lost-response idempotency, project/issue/owner exclusivity,
+  stale-token rejection, and no takeover based on elapsed time. This is a unit
+  test of the claim component, not an end-to-end deployed broker.
+- The campaign's setup dashboard source shows ten frozen root nodes and no invented
+  dependency edges; GitHub issue states refresh independently of proof acceptance.
+  Its observation explicitly reports zero running resolvers and zero verified roots.
