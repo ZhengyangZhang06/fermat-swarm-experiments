@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.local_norm_order-a1.integral_fiber_length-a1.weighted_local_lengths-a1",
+  "parent_id": "root.local_norm_order-a1.integral_fiber_length-a1",
+  "depth": 3,
+  "title": "Finite quotient length decomposes into weighted local lengths",
+  "statement": "Let A be a commutative ring and B a commutative Dedekind domain with an A-algebra structure. Suppose HeightOneSpectrum B is equipped with a Fintype structure. For each height-one prime q, write R_q = Localization.AtPrime q.asIdeal. Let b ∈ B be nonzero and n ∈ ℕ. If length_A(B/bB) = n in ℕ∞, then the finite sum over all q of length_A(B/q) · length_{R_q}(R_q/(image(b))) equals n in ℕ∞. Quotients have their canonical scalar actions.",
+  "lean_statement": "∀ (A B : Type*) [CommRing A] [CommRing B] [IsDedekindDomain B] [Algebra A B] [Fintype (IsDedekindDomain.HeightOneSpectrum B)] (b : B), b ≠ 0 → ∀ n : ℕ, Module.length A (B ⧸ Ideal.span ({b} : Set B)) = (n : ℕ∞) → Finset.sum Finset.univ (fun q : IsDedekindDomain.HeightOneSpectrum B => Module.length A (B ⧸ q.asIdeal) * Module.length (Localization.AtPrime q.asIdeal) (Localization.AtPrime q.asIdeal ⧸ Ideal.span ({algebraMap B (Localization.AtPrime q.asIdeal) b} : Set (Localization.AtPrime q.asIdeal)))) = (n : ℕ∞)",
+  "lean_name": "p06_9e0f5043ff_ifl_weighted_local_lengths",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-integral-fiber-length-a1-weighted-local-lengths-a1-a1"
+}

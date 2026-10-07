@@ -1,0 +1,57 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "integralClosureAt|fiberEquiv|fiberCenter_liesOver|placeOfPrime_toValuationSubring|toValuationSubring_eq_of_restrict_eq|finite_setOf_restrict_eq",
+        "restrictResidueMap|algebraMap_residueField_eq|inertiaDeg|ord_coe_unit|ord_coe_irreducible|ord_unit_smul_zpow",
+        "length_compositionSeries|length_eq_add_of_exact|length.*(sum|localiz)|sum.*length|length.*finrank|isDiscreteValuationRing_of_dedekind_domain|eq_unit_mul_pow_irreducible",
+        "length.*(sum|localiz)|sum.*length|length.*finrank",
+        "p06_9e0f5043ff_ifl_weighted_local_lengths|p06_9e0f5043ff_ifl_residue_length_inertia|p06_9e0f5043ff_ifl_local_length_order",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/p06-decomposition-audit-duesf283/CheckTypes.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorPushPull.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Length.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/LocalRing/Length.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DedekindDomain/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DedekindDomain/IntegralClosure.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DedekindDomain/Dvr.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DedekindDomain/AdicValuation.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DiscreteValuationRing/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Localization/Basic.lean",
+        "/tmp/p06-decomposition-audit-duesf283/CheckTypes.lean",
+        "/tmp/p06-decomposition-audit-duesf283/CheckTypes.log",
+        "/tmp/p06-decomposition-audit-duesf283/Submission.log"
+      ],
+      "conclusion": "Independently confirmed the finite Dedekind normalization, fiber correspondence, canonical restriction residue algebra, localization equivalence, length additivity, and normalized uniformizer formulas. The targeted weighted-localization-length search in Localization, DedekindDomain, and LocalRing/Length.lean returned no matches. No proposed-name collisions were found in the active DAG or project declarations. Project revision 956e8c600d8b95b46948ae5e37b13930b5f3d06b and all nine clean dependencies match their pins, including mathlib db584cd6d46c92f209a44c0f1c829460d327499d; checked sources match the snapshot. Independent Lean execution with a direct library import elaborated all three exact propositions without child declarations and verified quotient actions, canonical inertia scalars, and localization instances. Checked library declarations use only propext, Classical.choice, and Quot.sound. The split is appropriate: the parent combines these independent obligations through fiberEquiv, substitution, and casts. The inherited authoritative Submission still fails on three unknown attribute targets; resolving that remains an implementation prerequisite, not a decomposition correction. No comparator acceptance is claimed."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "weighted_local_lengths",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition matches every prose hypothesis and conclusion; IsDedekindDomain supplies the domain assumption and quotient actions are canonical. Steps 1–3 construct a composition series and use b ≠ 0 to place every factor annihilator in the height-one spectrum. Steps 4–8 correctly combine length additivity, exact localization, and factor multiplicities, including zero multiplicities with infinite residue lengths and the zero quotient. The proof is complete and non-circular. The bare name is unreserved; no sibling dependency is needed."
+    },
+    {
+      "key": "residue_length_inertia",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The independently elaborated proposition exactly matches the field, tower, finiteness, separability, and restriction hypotheses. Steps 1–3 establish finite residue dimension and the localization residue isomorphism. Steps 4–5 track representatives through the embedded localization and explicitly verify compatibility with the canonical restrictResidueMap, so the inertia identification uses the correct scalar action. Step 6 correctly computes length via the submodule lattice. No principal-divisor assumption, circular reliance, or missing sibling dependency occurs; the bare name is unreserved."
+    },
+    {
+      "key": "local_length_order",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line type matches the arbitrary localization domain R and both equalities for the same natural exponent. Steps 1–2 justify the DVR structure, canonical localization equivalence, and nonvanishing. Steps 3–4 obtain the uniformizer exponent and compute the project's normalized order. Steps 5–7 correctly identify filtration factors by cancellation and compute quotient length, including m = 0. The proof is complete without parent or sibling reliance. The type specializes to the localization used by weighted_local_lengths; its bare name is unreserved."
+    }
+  ],
+  "required_changes": []
+}

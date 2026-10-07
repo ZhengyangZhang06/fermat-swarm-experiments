@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.local_norm_order-a1.integral_fiber_length-a1.residue_length_inertia-a1",
+  "parent_id": "root.local_norm_order-a1.integral_fiber_length-a1",
+  "depth": 3,
+  "title": "A normalization residue quotient has length equal to canonical inertia degree",
+  "statement": "Let K, E and L be fields with compatible algebra structures K → E → L, with L/E finite-dimensional and separable. Let v be a project place of E over K and w a project place of L over K satisfying hw : w.restrict E = v. Put A = v.toValuationSubring, B = Place.integralClosureAt L v and q = (Place.fiberCenter L v hw).asIdeal. Then length_A(B/q) = (w.inertiaDeg E : ℕ∞), where the quotient has its canonical A-action and inertia degree uses the project's canonical restriction residue algebra. No principal-divisor hypothesis is assumed.",
+  "lean_statement": "∀ (K E L : Type*) [Field K] [Field E] [Field L] [Algebra K E] [Algebra K L] [Algebra E L] [IsScalarTower K E L] [FiniteDimensional E L] [Algebra.IsSeparable E L] (v : AlgebraicCurve.Place K E) (w : AlgebraicCurve.Place K L) (hw : w.restrict E = v), Module.length v.toValuationSubring (AlgebraicCurve.Place.integralClosureAt L v ⧸ (AlgebraicCurve.Place.fiberCenter L v hw).asIdeal) = (w.inertiaDeg E : ℕ∞)",
+  "lean_name": "p06_9e0f5043ff_ifl_residue_length_inertia",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-integral-fiber-length-a1-residue-length-inertia-a1-a1"
+}

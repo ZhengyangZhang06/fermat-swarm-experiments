@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.local_norm_order-a1.integral_fiber_length-a1.local_length_order-a1",
+  "parent_id": "root.local_norm_order-a1.integral_fiber_length-a1",
+  "depth": 3,
+  "title": "A localized principal quotient has length equal to its corresponding place order",
+  "statement": "Let K, E and L be fields with compatible algebra structures K → E → L, with L/E finite-dimensional and separable. Let v be a project place of E over K, put B = Place.integralClosureAt L v, and let q ∈ HeightOneSpectrum B. Let R be a commutative domain with a B-algebra structure satisfying IsLocalization.AtPrime R q.asIdeal. For every nonzero b ∈ B, there exists m ∈ ℕ such that length_R(R/(algebraMap B R b)) = m in ℕ∞ and (Place.placeOfPrime q).ord (algebraMap B L b) = m in ℤ. No principal-divisor hypothesis is assumed.",
+  "lean_statement": "∀ (K E L : Type*) [Field K] [Field E] [Field L] [Algebra K E] [Algebra K L] [Algebra E L] [IsScalarTower K E L] [FiniteDimensional E L] [Algebra.IsSeparable E L] (v : AlgebraicCurve.Place K E) (q : IsDedekindDomain.HeightOneSpectrum (AlgebraicCurve.Place.integralClosureAt L v)) (R : Type*) [CommRing R] [IsDomain R] [Algebra (AlgebraicCurve.Place.integralClosureAt L v) R] [IsLocalization.AtPrime R q.asIdeal] (b : AlgebraicCurve.Place.integralClosureAt L v), b ≠ 0 → ∃ m : ℕ, Module.length R (R ⧸ Ideal.span ({algebraMap (AlgebraicCurve.Place.integralClosureAt L v) R b} : Set R)) = (m : ℕ∞) ∧ (AlgebraicCurve.Place.placeOfPrime q).ord (algebraMap (AlgebraicCurve.Place.integralClosureAt L v) L b) = (m : ℤ)",
+  "lean_name": "p06_9e0f5043ff_ifl_local_length_order",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-integral-fiber-length-a1-local-length-order-a1-a1"
+}
