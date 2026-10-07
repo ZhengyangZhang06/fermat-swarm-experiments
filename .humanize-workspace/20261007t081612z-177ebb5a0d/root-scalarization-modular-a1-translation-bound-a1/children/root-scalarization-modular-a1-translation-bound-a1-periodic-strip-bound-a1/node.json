@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.scalarization_modular-a1.translation_bound-a1.periodic_strip_bound-a1",
+  "parent_id": "root.scalarization_modular-a1.translation_bound-a1",
+  "depth": 3,
+  "title": "Extend an eventual strip bound using translation periodicity",
+  "statement": "Let N∈ℕ with N≠0 and q:ℍ→ℂ. Assume q(T^Nτ)=q(τ) for every τ∈ℍ, where T=(1 1;0 1). Suppose there exist M,Y∈ℝ such that |q(τ)|≤M whenever 0≤Re τ≤N and Im τ≥Y. Then q is bounded at imaginary infinity in the sense of UpperHalfPlane.IsBoundedAtImInfty.",
+  "lean_statement": "∀ (N : ℕ) [NeZero N] (q : UpperHalfPlane → ℂ), (∀ τ : UpperHalfPlane, q ((ModularGroup.T ^ N) • τ) = q τ) → (∃ M Y : ℝ, ∀ τ : UpperHalfPlane, 0 ≤ τ.re → τ.re ≤ (N : ℝ) → Y ≤ τ.im → ‖q τ‖ ≤ M) → UpperHalfPlane.IsBoundedAtImInfty q",
+  "lean_name": "p02_es_177ebb5a_tb_periodic_strip_bound",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1-periodic-strip-bound-a1-a1"
+}

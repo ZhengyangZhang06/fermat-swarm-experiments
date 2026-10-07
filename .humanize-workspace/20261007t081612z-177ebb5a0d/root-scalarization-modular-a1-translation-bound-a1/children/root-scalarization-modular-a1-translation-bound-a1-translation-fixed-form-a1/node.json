@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.scalarization_modular-a1.translation_bound-a1.translation_fixed_form-a1",
+  "parent_id": "root.scalarization_modular-a1.translation_bound-a1",
+  "depth": 3,
+  "title": "Classification of binary forms fixed by a nonzero translation",
+  "statement": "Let N,n∈ℕ with N≠0, let T=(1 1;0 1)∈SL₂(ℤ), and let A∈BinaryForm ℂ n satisfy binaryFormRepSL ℂ n (T^N) A=A. Then there exists α∈ℂ such that A=αX^n as a multivariate polynomial.",
+  "lean_statement": "∀ (N : ℕ) [NeZero N] (n : ℕ) (A : ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.binaryFormRepSL ℂ n (ModularGroup.T ^ N) A = A → ∃ α : ℂ, A.val = MvPolynomial.C α * MvPolynomial.X (0 : Fin 2) ^ n",
+  "lean_name": "p02_es_177ebb5a_tb_fixed_form",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1-translation-fixed-form-a1-a1"
+}

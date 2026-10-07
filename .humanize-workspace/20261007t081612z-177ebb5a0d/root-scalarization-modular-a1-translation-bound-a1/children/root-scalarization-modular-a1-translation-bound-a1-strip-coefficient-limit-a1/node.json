@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.scalarization_modular-a1.translation_bound-a1.strip_coefficient_limit-a1",
+  "parent_id": "root.scalarization_modular-a1.translation_bound-a1",
+  "depth": 3,
+  "title": "Uniform coefficient stabilization of an exponentially decaying Eichler integral",
+  "statement": "Let n∈ℕ, let u:ℍ→ℂ be continuous, and let G:ℍ→BinaryForm ℂ n satisfy IsEichlerIntegral n u G. Let a,C,Y,L∈ℝ satisfy a>0, C≥0, and L≥0. Assume |u(τ)|≤C exp(−a Im τ) whenever Im τ≥Y. Then there exist A∈BinaryForm ℂ n and K≥0 such that, for every τ with 0≤Re τ≤L and Im τ≥max(1,Y), every monomial coefficient of G(τ)−A has absolute value at most K(1+Im τ)^n exp(−a Im τ).",
+  "lean_statement": "∀ (n : ℕ) (u : UpperHalfPlane → ℂ) (G : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)) (a C Y L : ℝ), 0 < a → 0 ≤ C → 0 ≤ L → Continuous u → HeckeEis.IsEichlerIntegral n u G → (∀ τ : UpperHalfPlane, Y ≤ τ.im → ‖u τ‖ ≤ C * Real.exp (-a * τ.im)) → ∃ (A : ↥(HeckeEis.BinaryForm ℂ n)) (K : ℝ), 0 ≤ K ∧ ∀ τ : UpperHalfPlane, 0 ≤ τ.re → τ.re ≤ L → max 1 Y ≤ τ.im → ∀ d : Fin 2 →₀ ℕ, ‖MvPolynomial.coeff d ((G τ).val - A.val)‖ ≤ K * (1 + τ.im) ^ n * Real.exp (-a * τ.im)",
+  "lean_name": "p02_es_177ebb5a_tb_strip_coefficient_limit",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1-strip-coefficient-limit-a1-a1"
+}

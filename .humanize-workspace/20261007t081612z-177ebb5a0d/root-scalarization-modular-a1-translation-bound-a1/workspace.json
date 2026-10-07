@@ -1,0 +1,315 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081612Z-177ebb5a0d",
+  "parent_id": "root.scalarization_modular-a1.translation_bound-a1",
+  "dispatch_branch": "proof-workspace/fermat-p02/20261007t081612z-177ebb5a0d/dispatch/root-scalarization-modular-a1-translation-bound-a1",
+  "source_commit": "0f5a9b05fb9673e5a60fa917656db526e75c7db1",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.scalarization_modular-a1.translation_bound-a1.homogeneous_evaluation_bound-a1",
+      "key": "homogeneous_evaluation_bound",
+      "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1-homogeneous-evalua-8706006944-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/children/root-scalarization-modular-a1-translation-bound-a1-homogeneous-evalua-8706006944",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "IsEichlerIntegral|isBoundedAtImInfty_iff|binaryFormRepSL|eichlerShimuraMap_injective",
+              "theorem.*(T_pow|T_zpow)|def T|lemma.*(T_pow|T_zpow)|coe_T|T_smul",
+              "integrable.*exp|exp.*integrable",
+              "eq_C_of.*comp|comp.*eq_C|periodic|Periodic",
+              "norm_eval|eval.*norm|norm.*eval",
+              "rg -n --hidden -g 'dag.json' -g 'decomposition-v*.json' -g '*.lean' 'p02_es_177ebb5a_tb_(strip_coefficient_limit|fixed_form|eval_bound|periodic_strip_bound)' .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json Submission.lean",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_tb_decomposition_types.lean",
+              "git -C .lake/packages/mathlib rev-parse HEAD",
+              "git -C .lake/packages/mathlib status --short"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/FunctionsBoundedAtInfty.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/SpecialFunctions/Exp.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/SpecialFunctions/ImproperIntegrals.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Eval.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/Polynomial",
+              "/tmp/p02_tb_decomposition_types.lean"
+            ],
+            "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The inspected project definitions match the local elaboration environment; local mathlib has the pinned revision and clean Git status. IsEichlerIntegral is coefficientwise differentiation, and binaryFormRepSL uses column substitution, so T^N substitutes (X,Y) ↦ (X,NX+Y). Mathlib supplies homogeneous support and evaluation formulas, exponential decay and integrability, translation action formulas, and the exact eventual-bound criterion. The polynomial searches found no relevant translation-fixed classification; the evaluation searches found no matching homogeneous coefficient-bound estimate. All four proposed types elaborate after import Submission. The proposed names have no match in the current DAG or recorded decompositions. Transitive axiom checks for binaryFormRepSL_apply_coe, modular_T_zpow_smul, isBoundedAtImInfty_iff, and tendsto_pow_mul_exp_neg_atTop_nhds_zero report only propext, Classical.choice, and Quot.sound. These checks validate interfaces and library evidence, not acceptance of the proposed child proofs."
+          }
+        ],
+        "parent_id": "root.scalarization_modular-a1.translation_bound-a1",
+        "child_id": "root.scalarization_modular-a1.translation_bound-a1.homogeneous_evaluation_bound-a1",
+        "subproblem": {
+          "key": "homogeneous_evaluation_bound",
+          "title": "Bound scalar evaluation by homogeneous coefficients",
+          "statement": "Let n∈ℕ, R∈BinaryForm ℂ n, z∈ℂ, and b∈ℝ with b≥0. Suppose every monomial coefficient of R has absolute value at most b. Then |R(1,−z)|≤(n+1)max(1,|z|)^n b.",
+          "lean_statement": "∀ (n : ℕ) (R : ↥(HeckeEis.BinaryForm ℂ n)) (z : ℂ) (b : ℝ), 0 ≤ b → (∀ d : Fin 2 →₀ ℕ, ‖MvPolynomial.coeff d R.val‖ ≤ b) → ‖MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z) R.val‖ ≤ ((n + 1 : ℕ) : ℝ) * (max 1 ‖z‖) ^ n * b",
+          "lean_name": "p02_es_177ebb5a_tb_eval_bound",
+          "depends_on": [],
+          "natural_proof": "1. Homogeneity means that a nonzero coefficient can occur only at an exponent pair whose sum is n. Such pairs are exactly (r,n−r), with 0≤r≤n. Hence R(X,Y)=Σ_{r=0}^n c_r X^rY^(n−r), where each c_r is a monomial coefficient of R and satisfies |c_r|≤b.\n2. Evaluate at X=1 and Y=−z to obtain R(1,−z)=Σ_{r=0}^n c_r(−z)^(n−r). The triangle inequality and multiplicativity of the complex norm give |R(1,−z)|≤Σ_{r=0}^n |c_r||z|^(n−r).\n3. Set M=max(1,|z|). Then M≥1 and |z|≤M. Since 0≤n−r≤n, one has |z|^(n−r)≤M^(n−r)≤M^n. Each summand in step 2 is therefore at most bM^n, using b≥0.\n4. There are exactly n+1 summands. Their sum is at most (n+1)bM^n=(n+1)M^n b, which is the claimed bound. For n=0 this argument has one summand and M^0=1, so it covers that case as well.",
+          "proof_key_steps": [
+            "Enumerate the n+1 possible degree-n monomials.",
+            "Expand evaluation at (1,−z) and apply the triangle inequality.",
+            "Bound every monomial evaluation by max(1,|z|)^n.",
+            "Sum the uniform bounds."
+          ]
+        },
+        "audit": {
+          "key": "homogeneous_evaluation_bound",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The exact proposition evaluates the Fin 2 variables at (1,−z), includes b≥0 and every coefficient bound, and uses the correct real-valued factor n+1. The proof enumerates the n+1 homogeneous monomials, applies the triangle inequality, bounds each power by max(1,‖z‖)^n, and sums. It covers n=0 without additional assumptions. The obligation is non-circular and its bare identifier is unreserved."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-modular-a1-translation-bound-a1-homogeneous-evalua-8706006944/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-modular-a1-translation-bound-a1-homogeneous-evalua-8706006944/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-modular-a1-translation-bound-a1-homogeneous-evalua-8706006944/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.scalarization_modular-a1.translation_bound-a1.periodic_strip_bound-a1",
+      "key": "periodic_strip_bound",
+      "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1-periodic-strip-bound-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/children/root-scalarization-modular-a1-translation-bound-a1-periodic-strip-bound-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "IsEichlerIntegral|isBoundedAtImInfty_iff|binaryFormRepSL|eichlerShimuraMap_injective",
+              "theorem.*(T_pow|T_zpow)|def T|lemma.*(T_pow|T_zpow)|coe_T|T_smul",
+              "integrable.*exp|exp.*integrable",
+              "eq_C_of.*comp|comp.*eq_C|periodic|Periodic",
+              "norm_eval|eval.*norm|norm.*eval",
+              "rg -n --hidden -g 'dag.json' -g 'decomposition-v*.json' -g '*.lean' 'p02_es_177ebb5a_tb_(strip_coefficient_limit|fixed_form|eval_bound|periodic_strip_bound)' .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json Submission.lean",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_tb_decomposition_types.lean",
+              "git -C .lake/packages/mathlib rev-parse HEAD",
+              "git -C .lake/packages/mathlib status --short"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/FunctionsBoundedAtInfty.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/SpecialFunctions/Exp.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/SpecialFunctions/ImproperIntegrals.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Eval.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/Polynomial",
+              "/tmp/p02_tb_decomposition_types.lean"
+            ],
+            "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The inspected project definitions match the local elaboration environment; local mathlib has the pinned revision and clean Git status. IsEichlerIntegral is coefficientwise differentiation, and binaryFormRepSL uses column substitution, so T^N substitutes (X,Y) ↦ (X,NX+Y). Mathlib supplies homogeneous support and evaluation formulas, exponential decay and integrability, translation action formulas, and the exact eventual-bound criterion. The polynomial searches found no relevant translation-fixed classification; the evaluation searches found no matching homogeneous coefficient-bound estimate. All four proposed types elaborate after import Submission. The proposed names have no match in the current DAG or recorded decompositions. Transitive axiom checks for binaryFormRepSL_apply_coe, modular_T_zpow_smul, isBoundedAtImInfty_iff, and tendsto_pow_mul_exp_neg_atTop_nhds_zero report only propext, Classical.choice, and Quot.sound. These checks validate interfaces and library evidence, not acceptance of the proposed child proofs."
+          }
+        ],
+        "parent_id": "root.scalarization_modular-a1.translation_bound-a1",
+        "child_id": "root.scalarization_modular-a1.translation_bound-a1.periodic_strip_bound-a1",
+        "subproblem": {
+          "key": "periodic_strip_bound",
+          "title": "Extend an eventual strip bound using translation periodicity",
+          "statement": "Let N∈ℕ with N≠0 and q:ℍ→ℂ. Assume q(T^Nτ)=q(τ) for every τ∈ℍ, where T=(1 1;0 1). Suppose there exist M,Y∈ℝ such that |q(τ)|≤M whenever 0≤Re τ≤N and Im τ≥Y. Then q is bounded at imaginary infinity in the sense of UpperHalfPlane.IsBoundedAtImInfty.",
+          "lean_statement": "∀ (N : ℕ) [NeZero N] (q : UpperHalfPlane → ℂ), (∀ τ : UpperHalfPlane, q ((ModularGroup.T ^ N) • τ) = q τ) → (∃ M Y : ℝ, ∀ τ : UpperHalfPlane, 0 ≤ τ.re → τ.re ≤ (N : ℝ) → Y ≤ τ.im → ‖q τ‖ ≤ M) → UpperHalfPlane.IsBoundedAtImInfty q",
+          "lean_name": "p02_es_177ebb5a_tb_periodic_strip_bound",
+          "depends_on": [],
+          "natural_proof": "1. Fix witnesses M and Y for the strip bound. Since N is a nonzero natural number, its real value is positive. Put g=T^N. The modular translation formula says that g acts by τ↦τ+N, preserving the imaginary part.\n2. The assumed identity q(gτ)=q(τ) implies invariance under every nonnegative power of g by induction. Apply the same identity at g⁻¹τ to obtain q(τ)=q(g⁻¹τ), hence also invariance under g⁻¹. Induction using this inverse identity proves q(g^kτ)=q(τ) for every integer k.\n3. Let τ=x+iy be any point of ℍ with y≥Y, and set m=floor(x/N)∈ℤ. Define τ′=g^(−m)τ. Repeated translation, or the integer-power translation formula, gives Re τ′=x−mN and Im τ′=y.\n4. The defining inequalities m≤x/N<m+1, multiplied by the positive real number N, yield 0≤x−mN<N. Thus τ′ satisfies 0≤Re τ′≤N and Im τ′≥Y. The assumed strip bound gives |q(τ′)|≤M.\n5. Integer-power invariance from step 2 gives q(τ′)=q(τ), so |q(τ)|≤M. This holds for every τ whose imaginary part is at least Y, with no restriction on its real part. The criterion UpperHalfPlane.isBoundedAtImInfty_iff, using the same witnesses M and Y, now proves the required conclusion.",
+          "proof_key_steps": [
+            "Extend invariance under T^N to all its integer powers.",
+            "Reduce an arbitrary real part into [0,N) using floor(x/N).",
+            "Preserve imaginary height and apply the strip bound.",
+            "Apply the exact uniform eventual-bound criterion."
+          ]
+        },
+        "audit": {
+          "key": "periodic_strip_bound",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The independently elaborated proposition matches the stated periodicity, strip hypothesis, and exact boundedness predicate. Invariance extends to inverse and integer powers; floor(x/N) reduces the real part into [0,N) because N>0 while preserving height. Applying the strip bound gives precisely the witnesses required by isBoundedAtImInfty_iff. Neither continuity nor an extra sign assumption on M is needed. The proof is independent and the bare identifier is unreserved."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-modular-a1-translation-bound-a1-periodic-strip-bound-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-modular-a1-translation-bound-a1-periodic-strip-bound-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-modular-a1-translation-bound-a1-periodic-strip-bound-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.scalarization_modular-a1.translation_bound-a1.strip_coefficient_limit-a1",
+      "key": "strip_coefficient_limit",
+      "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1-strip-coefficient-limit-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/children/root-scalarization-modular-a1-translation-bound-a1-strip-coefficient-limit-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "IsEichlerIntegral|isBoundedAtImInfty_iff|binaryFormRepSL|eichlerShimuraMap_injective",
+              "theorem.*(T_pow|T_zpow)|def T|lemma.*(T_pow|T_zpow)|coe_T|T_smul",
+              "integrable.*exp|exp.*integrable",
+              "eq_C_of.*comp|comp.*eq_C|periodic|Periodic",
+              "norm_eval|eval.*norm|norm.*eval",
+              "rg -n --hidden -g 'dag.json' -g 'decomposition-v*.json' -g '*.lean' 'p02_es_177ebb5a_tb_(strip_coefficient_limit|fixed_form|eval_bound|periodic_strip_bound)' .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json Submission.lean",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_tb_decomposition_types.lean",
+              "git -C .lake/packages/mathlib rev-parse HEAD",
+              "git -C .lake/packages/mathlib status --short"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/FunctionsBoundedAtInfty.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/SpecialFunctions/Exp.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/SpecialFunctions/ImproperIntegrals.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Eval.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/Polynomial",
+              "/tmp/p02_tb_decomposition_types.lean"
+            ],
+            "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The inspected project definitions match the local elaboration environment; local mathlib has the pinned revision and clean Git status. IsEichlerIntegral is coefficientwise differentiation, and binaryFormRepSL uses column substitution, so T^N substitutes (X,Y) ↦ (X,NX+Y). Mathlib supplies homogeneous support and evaluation formulas, exponential decay and integrability, translation action formulas, and the exact eventual-bound criterion. The polynomial searches found no relevant translation-fixed classification; the evaluation searches found no matching homogeneous coefficient-bound estimate. All four proposed types elaborate after import Submission. The proposed names have no match in the current DAG or recorded decompositions. Transitive axiom checks for binaryFormRepSL_apply_coe, modular_T_zpow_smul, isBoundedAtImInfty_iff, and tendsto_pow_mul_exp_neg_atTop_nhds_zero report only propext, Classical.choice, and Quot.sound. These checks validate interfaces and library evidence, not acceptance of the proposed child proofs."
+          }
+        ],
+        "parent_id": "root.scalarization_modular-a1.translation_bound-a1",
+        "child_id": "root.scalarization_modular-a1.translation_bound-a1.strip_coefficient_limit-a1",
+        "subproblem": {
+          "key": "strip_coefficient_limit",
+          "title": "Uniform coefficient stabilization of an exponentially decaying Eichler integral",
+          "statement": "Let n∈ℕ, let u:ℍ→ℂ be continuous, and let G:ℍ→BinaryForm ℂ n satisfy IsEichlerIntegral n u G. Let a,C,Y,L∈ℝ satisfy a>0, C≥0, and L≥0. Assume |u(τ)|≤C exp(−a Im τ) whenever Im τ≥Y. Then there exist A∈BinaryForm ℂ n and K≥0 such that, for every τ with 0≤Re τ≤L and Im τ≥max(1,Y), every monomial coefficient of G(τ)−A has absolute value at most K(1+Im τ)^n exp(−a Im τ).",
+          "lean_statement": "∀ (n : ℕ) (u : UpperHalfPlane → ℂ) (G : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)) (a C Y L : ℝ), 0 < a → 0 ≤ C → 0 ≤ L → Continuous u → HeckeEis.IsEichlerIntegral n u G → (∀ τ : UpperHalfPlane, Y ≤ τ.im → ‖u τ‖ ≤ C * Real.exp (-a * τ.im)) → ∃ (A : ↥(HeckeEis.BinaryForm ℂ n)) (K : ℝ), 0 ≤ K ∧ ∀ τ : UpperHalfPlane, 0 ≤ τ.re → τ.re ≤ L → max 1 Y ≤ τ.im → ∀ d : Fin 2 →₀ ℕ, ‖MvPolynomial.coeff d ((G τ).val - A.val)‖ ≤ K * (1 + τ.im) ^ n * Real.exp (-a * τ.im)",
+          "lean_name": "p02_es_177ebb5a_tb_strip_coefficient_limit",
+          "depends_on": [],
+          "natural_proof": "1. Put y₀=max(1,Y). Every homogeneous binary form R of degree n has a unique expansion R=Σ_{r=0}^n R_r X^rY^(n−r). Indeed, every exponent pair in its support has sum n, and therefore is uniquely (r,n−r). Define ‖R‖c=max_{0≤r≤n}|R_r|. The coordinate map identifies this space isometrically with the finite product ℂ^(n+1) equipped with its maximum norm, which is complete. Coefficients of monomials whose total degree differs from n vanish.\n2. On the open upper half-plane, the defining derivative condition says that the derivative of the r-th coefficient of G is u(z) binom(n,r) z^r. These derivatives are continuous because u is continuous and z↦z^r is continuous. Restricting to horizontal or vertical segments contained in ℍ therefore permits the real fundamental theorem of calculus, with the vertical derivative multiplied by i.\n3. For 0≤x≤L and t≥y₀, |x+it|≤L+t≤(L+1)(1+t). The last quantity is at least 1. Since r≤n and binom(n,r)≤2^n, every derivative coefficient has absolute value at most D(1+t)^n exp(−at), where D=C·2^n·(L+1)^n≥0. Thus the same bound holds for the maximum coefficient norm of the derivative.\n4. Define J=∫₀^∞(1+s)^n exp(−as) ds. This is finite and nonnegative. For s≥0, (1+s)^n≤2^n(1+s^n). The nonnegative terms of the exponential series imply s^n≤n!(2/a)^n exp(as/2). Consequently the integrand is at most 2^n(1+n!(2/a)^n)exp(−as/2), an integrable function with integral 2^(n+1)(1+n!(2/a)^n)/a. These inequalities also hold for n=0.\n5. Fix x∈[0,L] and t≥y≥y₀. Integrate each coefficient along the vertical segment and use the derivative bound and |i|=1. Taking the maximum over the finitely many coefficients gives ‖G(x+it)−G(x+iy)‖c≤D∫_y^t(1+s)^n exp(−as) ds. Substitute s=y+v. Since y,v≥0, 1+y+v≤(1+y)(1+v), so this is at most DJ(1+y)^n exp(−ay).\n6. The factor (1+y)^n exp(−ay) tends to zero. For y≥1, it is at most 2^n y^n exp(−ay), while the exponential series gives exp(ay)≥(ay)^(n+1)/(n+1)!. Thus it is at most 2^n(n+1)!/(a^(n+1)y), which tends to zero. For any two sufficiently large heights, order them and apply step 5; its right side is then arbitrarily small. Hence G(x+iy) is Cauchy as y→∞. Completeness supplies a limit A_x in the homogeneous binary-form space. Passing t→∞ in step 5, using continuity of the norm, yields ‖G(x+iy)−A_x‖c≤DJ(1+y)^n exp(−ay).\n7. Horizontal integration at height y≥y₀ gives ‖G(x+iy)−G(iy)‖c≤xD(1+y)^n exp(−ay). The bound tends to zero by step 6. Taking limits of both terms shows ‖A_x−A_0‖c=0, hence A_x=A_0, for every x∈[0,L]. This includes the case L=0.\n8. Set A=A_0 and K=DJ. Both D and J are nonnegative, so K≥0. For any τ in the stated strip, write τ=x+iy and apply step 6 with A_x=A. Every degree-n coefficient of G(τ)−A is bounded by its maximum coefficient norm, giving the required estimate. Every other coefficient is zero by homogeneity, and the right side is nonnegative. This proves the estimate for every exponent d and completes the statement.",
+          "proof_key_steps": [
+            "Identify homogeneous binary forms with the complete finite space of degree-n coefficients.",
+            "Bound all coefficient derivatives uniformly by a polynomial times an exponential on the strip.",
+            "Prove integrability of the polynomial-exponential majorant.",
+            "Integrate vertically to obtain a uniform tail estimate and coefficient limits.",
+            "Integrate horizontally to show that all vertical limits coincide.",
+            "Use the common limit and vanishing off-degree coefficients to obtain the stated bound."
+          ]
+        },
+        "audit": {
+          "key": "strip_coefficient_limit",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The independently elaborated one-line proposition matches every prose hypothesis and the bound for all monomial coefficients. Steps 1–8 establish complete finite coefficient coordinates, continuous segment derivatives, an integrable majorant, vertical Cauchy limits, their equality by horizontal integration, and the uniform estimate with K=DJ. Off-degree coefficients vanish. The cases n=0, L=0, and C=0 are covered. No parent or sibling theorem is assumed; the bare identifier is unreserved."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-modular-a1-translation-bound-a1-strip-coefficient-limit-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-modular-a1-translation-bound-a1-strip-coefficient-limit-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-modular-a1-translation-bound-a1-strip-coefficient-limit-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.scalarization_modular-a1.translation_bound-a1.translation_fixed_form-a1",
+      "key": "translation_fixed_form",
+      "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1-translation-fixed-form-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/children/root-scalarization-modular-a1-translation-bound-a1-translation-fixed-form-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "IsEichlerIntegral|isBoundedAtImInfty_iff|binaryFormRepSL|eichlerShimuraMap_injective",
+              "theorem.*(T_pow|T_zpow)|def T|lemma.*(T_pow|T_zpow)|coe_T|T_smul",
+              "integrable.*exp|exp.*integrable",
+              "eq_C_of.*comp|comp.*eq_C|periodic|Periodic",
+              "norm_eval|eval.*norm|norm.*eval",
+              "rg -n --hidden -g 'dag.json' -g 'decomposition-v*.json' -g '*.lean' 'p02_es_177ebb5a_tb_(strip_coefficient_limit|fixed_form|eval_bound|periodic_strip_bound)' .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json Submission.lean",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_tb_decomposition_types.lean",
+              "git -C .lake/packages/mathlib rev-parse HEAD",
+              "git -C .lake/packages/mathlib status --short"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/FunctionsBoundedAtInfty.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/SpecialFunctions/Exp.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/SpecialFunctions/ImproperIntegrals.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Eval.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/Polynomial",
+              "/tmp/p02_tb_decomposition_types.lean"
+            ],
+            "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The inspected project definitions match the local elaboration environment; local mathlib has the pinned revision and clean Git status. IsEichlerIntegral is coefficientwise differentiation, and binaryFormRepSL uses column substitution, so T^N substitutes (X,Y) ↦ (X,NX+Y). Mathlib supplies homogeneous support and evaluation formulas, exponential decay and integrability, translation action formulas, and the exact eventual-bound criterion. The polynomial searches found no relevant translation-fixed classification; the evaluation searches found no matching homogeneous coefficient-bound estimate. All four proposed types elaborate after import Submission. The proposed names have no match in the current DAG or recorded decompositions. Transitive axiom checks for binaryFormRepSL_apply_coe, modular_T_zpow_smul, isBoundedAtImInfty_iff, and tendsto_pow_mul_exp_neg_atTop_nhds_zero report only propext, Classical.choice, and Quot.sound. These checks validate interfaces and library evidence, not acceptance of the proposed child proofs."
+          }
+        ],
+        "parent_id": "root.scalarization_modular-a1.translation_bound-a1",
+        "child_id": "root.scalarization_modular-a1.translation_bound-a1.translation_fixed_form-a1",
+        "subproblem": {
+          "key": "translation_fixed_form",
+          "title": "Classification of binary forms fixed by a nonzero translation",
+          "statement": "Let N,n∈ℕ with N≠0, let T=(1 1;0 1)∈SL₂(ℤ), and let A∈BinaryForm ℂ n satisfy binaryFormRepSL ℂ n (T^N) A=A. Then there exists α∈ℂ such that A=αX^n as a multivariate polynomial.",
+          "lean_statement": "∀ (N : ℕ) [NeZero N] (n : ℕ) (A : ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.binaryFormRepSL ℂ n (ModularGroup.T ^ N) A = A → ∃ α : ℂ, A.val = MvPolynomial.C α * MvPolynomial.X (0 : Fin 2) ^ n",
+          "lean_name": "p02_es_177ebb5a_tb_fixed_form",
+          "depends_on": [],
+          "natural_proof": "1. Since N is a nonzero natural number, N>0, and its image in ℂ is nonzero. The matrix T^N is (1 N;0 1). By the definition of binaryFormRepSL, its action substitutes X↦X and Y↦NX+Y. The fixed-point assumption is therefore the polynomial identity A(X,NX+Y)=A(X,Y).\n2. Write the homogeneous expansion A(X,Y)=Σ_{r=0}^n a_r X^rY^(n−r), and form the univariate polynomial p(t)=Σ_{r=0}^n a_r t^(n−r) by substituting X=1 and Y=t. Applying this substitution to the identity from step 1 gives p(t+N)=p(t) as an identity in ℂ[t].\n3. Suppose p has positive degree d and leading coefficient b≠0. In b((t+N)^d−t^d), the coefficient of t^(d−1) is bdN, by the binomial theorem. A term of p of degree k<d contributes zero to that coefficient: for k=d−1 its leading terms cancel under translation subtraction, and for k<d−1 both terms have smaller degree. Thus the coefficient of t^(d−1) in p(t+N)−p(t) is bdN. It is nonzero because b≠0, d>0, N>0, and ℂ has characteristic zero. This contradicts step 2.\n4. Consequently p is constant, including the possibility that it is zero. Let its constant value be α. The exponents n−r in its displayed expansion are distinct; comparison with the constant polynomial shows a_r=0 for every r<n and a_n=α. Substituting these coefficients into the homogeneous expansion gives A(X,Y)=αX^n. When n=0 the same expansion consists of its single constant coefficient, so the conclusion still holds.",
+          "proof_key_steps": [
+            "Rewrite the representation of T^N as substitution Y↦NX+Y.",
+            "Dehomogenize at X=1 to obtain a translation-invariant univariate polynomial.",
+            "Exclude positive degree using the nonzero leading coefficient of the translation difference.",
+            "Recover A=αX^n from its homogeneous coefficients."
+          ]
+        },
+        "audit": {
+          "key": "translation_fixed_form",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The proposition exactly expresses the fixed-form classification, with NeZero N matching N≠0. The pinned representation substitutes Y↦NX+Y. Dehomogenization gives a polynomial identity; its positive-degree translation difference has nonzero coefficient bdN, excluding positive degree. Distinct homogeneous exponents then recover A=αX^n, including zero and n=0. The proof is complete and independent, and the bare identifier is unreserved."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-modular-a1-translation-bound-a1-translation-fixed-form-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-modular-a1-translation-bound-a1-translation-fixed-form-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-modular-a1-translation-bound-a1-translation-fixed-form-a1/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/task.md": "fbef05e2a6cfc7a6d66c1b237f25981ac872a7f88acb97b5772f4a049cee216a",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/problem.md": "bc292ceabaa59d4166815e39f5e6a0c5ec4e11e33604270753833466755074b0",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/problem.json": "bf0e4090d7154b9d64a24b6ca1b3b7a3bc13849e2326306634e0842533303df7",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/reference-manifest.json": "a8f9271939f028889a1e9bac59a7290448f8c694baf434f537bdc05b0f75f2a6",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/decomposition.json": "b517c97ea0477fc802470b88cc3829814cd6f070ad5f81fa8f7b93af345b20e8",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/decomposition-audit.json": "922f45784075b23fa5ea7215731db368dfed5de970bad757e1e02f887ed3941d",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/controller-contract.json": "7b7a516f9fce5467b2a4e92be9eb01a7eee74fb69c1477cc06212956b9e78e13",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/children/root-scalarization-modular-a1-translation-bound-a1-homogeneous-evalua-8706006944/parent-child-handoff.json": "36d515158c792d84a8295cc0a02d1d78cd7a965b122e4fc72c5d46092d92832d",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/children/root-scalarization-modular-a1-translation-bound-a1-homogeneous-evalua-8706006944/parent-supplied-plan.md": "a1bf4f3d494855e0b6aa66ce2ee21e640bb92891485b186c6329eca76d85f4d0",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/children/root-scalarization-modular-a1-translation-bound-a1-homogeneous-evalua-8706006944/parent-supplied-natural-proof.md": "138b8a626a6ace821de38f8882cbad527862b304eac3a3d06cd0da7a9494f6b0",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/children/root-scalarization-modular-a1-translation-bound-a1-homogeneous-evalua-8706006944/parent-supplied-natural-proof.json": "33aa27aadc1d34df85e5f710a86d685f9821a39bf097baf39784cd2f9868cd92",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/children/root-scalarization-modular-a1-translation-bound-a1-homogeneous-evalua-8706006944/node.json": "769f5d33209ee2971e4f5fd5260a3fd5603b2825046671d14aa8f360d4eef653",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/children/root-scalarization-modular-a1-translation-bound-a1-periodic-strip-bound-a1/parent-child-handoff.json": "6db39ebe342d82b0b623812876692283197c664aa9632e0e9370a3521e228e90",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/children/root-scalarization-modular-a1-translation-bound-a1-periodic-strip-bound-a1/parent-supplied-plan.md": "384654468400c36bcc44763de938a46bc6e4a6edfdfbe40c6c306e075844f416",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/children/root-scalarization-modular-a1-translation-bound-a1-periodic-strip-bound-a1/parent-supplied-natural-proof.md": "4f5511422e8af47caab4da672b0fddabbe139dc6f1b7a3c17c73e98d00f3c0ed",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/children/root-scalarization-modular-a1-translation-bound-a1-periodic-strip-bound-a1/parent-supplied-natural-proof.json": "3bfcfee81230af631e2676ce50e7c7b6aa3686c1a31c6141dca85d28f454a984",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/children/root-scalarization-modular-a1-translation-bound-a1-periodic-strip-bound-a1/node.json": "8bba11c84ef3516b6c7dd9be62225b2c4a5420080f0980ed293b0d11a95ca299",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/children/root-scalarization-modular-a1-translation-bound-a1-strip-coefficient-limit-a1/parent-child-handoff.json": "3494c9efc590a29b713eb3487ef6a2b4dab8ff808a43537469891910db9f19ab",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/children/root-scalarization-modular-a1-translation-bound-a1-strip-coefficient-limit-a1/parent-supplied-plan.md": "d05c95baef2a5b48dc403fd0c85c3da469ffa2d9a8a6c0d6e611a8d7e5965d49",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/children/root-scalarization-modular-a1-translation-bound-a1-strip-coefficient-limit-a1/parent-supplied-natural-proof.md": "cacf03ecdcc52f6ef6627339de34935408304330cd78ae2c0c398e63a6660b0e",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/children/root-scalarization-modular-a1-translation-bound-a1-strip-coefficient-limit-a1/parent-supplied-natural-proof.json": "f055df44720367e174b810fc4bb2a0039f9f4a0debafb52dad0cd1c159362ace",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/children/root-scalarization-modular-a1-translation-bound-a1-strip-coefficient-limit-a1/node.json": "7a86662d2a670383f13651aa48e60c7ba472014805e28a58f18058ed0919024c",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/children/root-scalarization-modular-a1-translation-bound-a1-translation-fixed-form-a1/parent-child-handoff.json": "bb6b258c784dd8808b4078fa566374d02c8c58ad13ec316e6a557c6843d33334",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/children/root-scalarization-modular-a1-translation-bound-a1-translation-fixed-form-a1/parent-supplied-plan.md": "5f67aac07fce94df0d0c624f70796d34452b5b526cf11176a87f19f1da159a33",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/children/root-scalarization-modular-a1-translation-bound-a1-translation-fixed-form-a1/parent-supplied-natural-proof.md": "bee0d0d75a124274c2f1d89268e341f051514d896c68ab96b9d6f2dd2c7229ed",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/children/root-scalarization-modular-a1-translation-bound-a1-translation-fixed-form-a1/parent-supplied-natural-proof.json": "d50d353306374320d90c610d1d7dfec080d0526ddc383aaef9518955628a6179",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1/children/root-scalarization-modular-a1-translation-bound-a1-translation-fixed-form-a1/node.json": "515cc4a8500ecdcc88ab011131bcba0786fc907e00560bb6759348a854819e28"
+  }
+}
