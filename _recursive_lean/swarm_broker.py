@@ -24,6 +24,13 @@ from .remote_verification import VerificationService
 from .parallel import PROTOCOL, child_publication_pending, child_publication_checkpoint
 
 
+def authorized_node_name(value: str) -> str:
+    if not isinstance(value, str) or not re.fullmatch(
+            r'hoa(?:[0-9]|[1-9][0-9]|1[01][0-9]|12[0-7])', value):
+        raise ValueError('worker node outside the authorized fleet')
+    return value
+
+
 def runner_runtime_path(value: str | Path) -> str:
     """Accept exactly one operator-selected archive in the worker runtime mount.
 
@@ -41,16 +48,22 @@ def runner_runtime_path(value: str | Path) -> str:
 
 class Broker:
     def __init__(self, catalog: Path, ledger: ClaimLedger, token: str, snapshot: Path, gh: str,
-                 *, runner_runtime: str | Path | None = None):
+                 *, runner_runtime: str | Path | None = None, reserved_nodes=()):
         if len(token) < 32:
             raise ValueError('broker token too short')
         self.catalog, self.ledger, self.token, self.snapshot, self.gh = catalog, ledger, token, snapshot, gh
         self.runner_runtime = runner_runtime_path(runner_runtime) if runner_runtime is not None else None
+        # Startup-only operator policy, never read from a worker or mutable catalog.
+        self._reserved_nodes = frozenset(authorized_node_name(node) for node in reserved_nodes)
         self.lock = threading.RLock()
         self.workers = {}
         self.cache = {}
         self.last_saved = 0.0
         self.verifier = None
+
+    @property
+    def reserved_nodes(self):
+        return self._reserved_nodes
 
     def configuration(self):
         config = json.loads(self.catalog.read_text())
@@ -174,8 +187,7 @@ class Broker:
     @staticmethod
     def identity(body):
         node, task, boot = (body.get(key, '') for key in ('node', 'task', 'boot'))
-        if not re.fullmatch(r'hoa(?:[0-9]|[1-9][0-9]|1[01][0-9]|12[0-7])', node):
-            raise ValueError('worker node outside the authorized fleet')
+        authorized_node_name(node)
         if not all(re.fullmatch(r'[A-Za-z0-9_-]{8,80}', x) for x in (task, boot)):
             raise ValueError('invalid worker process identity')
         return f'{node}/{task}/{boot}'
@@ -211,6 +223,10 @@ class Broker:
             if held['project'] != body.get('project') or held['issue'] != body.get('issue'):
                 raise OwnershipError('attempt identity changed')
             return {'claim': held, 'job': json.loads(held['job'])} if held['state'] == 'owned' else {'claim': None}
+        if body['node'] in self.reserved_nodes:
+            # A reservation is not a claim or cancellation. Held jobs above keep
+            # their immutable grant, and observe/release remain available.
+            return {'claim': None}
         config = self.configuration()
         project = next((p for p in config['projects'] if p['id'] == body.get('project')), None)
         if not project or not project.get('enabled'):
@@ -360,12 +376,14 @@ def main():
     parser.add_argument('--verifier', type=Path)
     parser.add_argument('--runner-runtime', type=runner_runtime_path,
                         help='Operator-selected /runtime/flows/<archive> for new grants only')
+    parser.add_argument('--reserve-node', action='append', default=[], type=authorized_node_name,
+                        help='Reserve an authorized physical node from new proof claims (repeatable)')
     parser.add_argument('--preserve-existing-verifications', action='store_true',
                         help='Additive broker: leave other live controllers and their receipts unchanged')
     args = parser.parse_args()
     os.umask(0o077)
     broker = Broker(args.catalog, ClaimLedger(args.database), args.token_file.read_text().strip(), args.snapshot, args.gh,
-                    runner_runtime=args.runner_runtime)
+                    runner_runtime=args.runner_runtime, reserved_nodes=args.reserve_node)
     if args.verifier:
         import sys
         broker.verifier = VerificationService(broker.ledger, args.database.parent / 'verification', args.verifier, sys.executable,

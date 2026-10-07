@@ -172,3 +172,20 @@ were preserved. The broker now selects v4 for new claims without rewriting the
 catalog. At this checkpoint no new claim had yet arrived, so this confirms routing
 and deployment, not an observed v4 proof completion. Natural/decomposition reviews,
 the immutable verifier and the decomposition depth limit are unchanged.
+
+### Dedicated verifier capacity: source support, not deployment
+
+The broker supports repeatable `--reserve-node hoaN` startup reservations for
+dedicated verification capacity. A frozen, validated set rejects fresh proof
+grants only; held claims, their immutable jobs, observation, release and all proof
+acceptance gates remain unchanged. The shared catalog is not rewritten. Tests
+cover physical-node exclusion, sibling grants, held-job recovery, terminal
+safety, immutable configuration and CLI wiring. Before production use, configure
+every intake-enabled broker and independently verify that each selected node has
+no active or uncertain proof owner; reservations do not evict existing jobs.
+See [the reference-cache deployment gates](verifier-reference-cache.md).
+
+Source validation on 2026-10-07: all 395 tests passed (one optional skip),
+including nine new reservation tests and existing broker/claim/verifier coverage.
+Independent review confirmed held-claim recovery precedes reservation rejection.
+No reservation deployment or campaign proof acceptance is implied by these tests.

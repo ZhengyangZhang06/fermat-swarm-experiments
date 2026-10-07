@@ -53,6 +53,27 @@ candidate. A mirror or successful diagnostic is not a solved campaign theorem.
 
 ## Optional node-local remote verification (source support; not deployed)
 
+### Reserve capacity before production dispatch
+
+New broker processes accept repeatable startup arguments such as
+`--reserve-node hoa126 --reserve-node hoa127`. Reservations are validated against
+the authorized `hoa0` through `hoa127` fleet and frozen for that process; the
+default is empty. They deny only **new proof claims** on those physical nodes,
+without editing the shared catalog or manufacturing ownership records. Existing
+owners still recover their original jobs and can observe and release normally.
+Reservations neither cancel work nor establish that a node is already idle.
+
+Before enabling remote production verification, reserve its selected nodes in
+**every broker generation that can grant new work**, and verify from the shared
+ledger plus live task/process evidence that no active or uncertain proof claim
+remains there. A `24G` proof job and a `12G` verifier exceed a `32G` node's budget;
+do not rely on idle polls or stale heartbeats to establish spare capacity. Preserve
+held jobs until authoritative terminal evidence permits their ordinary release.
+Deploy a new immutable broker only after reconciling its owned live verification
+processes; never restart a checker-owning broker merely to add a reservation.
+The source option and unit tests are not a deployed capacity reservation or a
+successful remote verification. Record those operational gates separately.
+
 The remote packet adapter now supports an explicitly seeded **named Docker
 volume** on the selected authorized node. The volume must contain the identical
 `packages/`, `lean-4.33.1-linux/` and `reference.json` trees described above, with
