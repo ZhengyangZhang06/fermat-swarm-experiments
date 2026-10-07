@@ -79,7 +79,7 @@ through its own verified solution PR; a completed child is not a completed root.
 
 ## Current state
 
-Reusable source foundations implemented, not deployed:
+Reusable source and parallel runtime deployed (2026-10-07):
 
 - Opt-in per-issue ledger claims, preserving legacy exclusive grants and old-client
   INSERT/UPDATE barriers. Contention tests include 128 issue owners and duplicate
@@ -96,8 +96,32 @@ both were fixed with negative regression tests. Independent re-review passed the
 test covers accepted integration through PR merge and issue closure, and two
 configuration tests cover authorization persistence. The complete suite passed
 267 tests with one optional browser test skipped, no failures/errors (2026-10-07).
-The Store is deliberately not wired into the production runtime yet. Selected-issue
-scope, shared bootstrap/Git/publication locks, multi-worker activity reporting,
-failure isolation, broker/runner wiring, cross-node tests and safe rollout remain.
-Production still enforces one active claim per problem. No live claim policy has
-been changed and no active proof worker/verifier has been restarted.
+The shared Store is now wired into the opt-in runtime. Selected-issue ownership,
+shared bootstrap/Git/publication locks, exact integration-SHA receipts, per-issue
+failure isolation, broker/runner generation checks and physical-node exclusion
+are implemented. The complete suite subsequently passed 279 tests, with one
+optional browser skip. A real cross-node flock test on hoa0 and hoa3 confirmed
+shared inode identity and exclusion; actual P04 sibling jobs then ran together.
+
+Immutable runtime `math-lean-flow-parallel-v1` was archived from `dabeb2c`.
+The new 128-node fleet polls through a separate TLS broker, sharing the durable
+claim ledger but filtering verification requests by protocol generation. Legacy
+project intake was disabled, exact legacy containers and their exact checker
+sandboxes were stopped, and only authoritative terminal evidence permitted claim
+release. Original worktrees and RLCR receipts were preserved; cancellation did
+not count as proof acceptance. No legacy project-wide grant remains as of 14:59
+UTC. At that observation 29 issue jobs ran on 29 distinct machines, across nine
+problems; all 128 pollers had fresh heartbeats. P09 remained disabled because its
+complete theorem issue exceeded GitHub's body-size limit; that publication repair
+is separate from scheduling readiness.
+
+The live observer now merges both fleet snapshots, validates actual Swarm task
+identity and freshness, and deduplicates idle daemons by physical node. The public
+feed confirmed all 25 ready leaves of P01/P02/P04/P06/P07 executing concurrently
+at 14:57:58 UTC; the four remaining root jobs resumed afterward. Available pollers
+are not reported as running proofs. The status URL is
+https://zhengyangzhang06.github.io/fermat-swarm-experiments/ .
+
+Mathematical completion remains outstanding: child issue45/PR65 was verified,
+merged and closed, but no original root was complete at rollout. Continue all
+ordinary review, comparator, axiom, integration and merge/close gates.
