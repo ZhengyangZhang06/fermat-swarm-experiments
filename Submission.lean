@@ -2618,17 +2618,13 @@ theorem p06_9e0f5043ff_pae_place_equivalence_degree :
           ne_top' := by
             intro h
             apply v.ne_top'
-            apply SetLike.ext
-            intro x
-            constructor
-            · intro _
-              exact ValuationSubring.mem_top x
-            · intro _
-              have hx : f x ∈ A := by
-                rw [h]
-                exact ValuationSubring.mem_top _
-              change f.symm (f x) ∈ v.toValuationSubring at hx
-              simpa using hx
+            apply eq_top_iff.mpr
+            intro x _
+            have hx : f x ∈ A := by
+              rw [h]
+              exact ValuationSubring.mem_top _
+            change f.symm (f x) ∈ v.toValuationSubring at hx
+            simpa using hx
           isPrincipalIdealRing' := IsPrincipalIdealRing.of_surjective r₀ r₀.surjective }
       let := AlgebraicCurve.Place.instAlgebraSubtypeMemValuationSubringToValuationSubring w
       let r : v.toValuationSubring ≃ₐ[K] w.toValuationSubring :=
