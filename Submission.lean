@@ -1,10 +1,3 @@
-/-
-Copyright 2026 Anthropic, PBC. Licensed under Apache-2.0; see LICENSE.
-Source: https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean
-Modified: replaced the proof with sorry and removed P2M proof imports.
-Requires the upstream Definitions modules and their dependencies.
--/
-
 import Definitions.Def_AlgebraicCurve_PlacesOverDVR
 attribute [-instance] AlgebraicCurve.IsCurveOver.instNontrivialKaehler AlgebraicCurve.IsCurveOver.instFreeKaehler AlgebraicCurve.IsCurveOver.toHasPrincipalDivisors AlgebraicCurve.IsCurveOver.instFiniteResidue AlgebraicCurve.Place.instIsRankOneDiscreteWithZeroMultiplicativeIntAdicValuation AlgebraicCurve.Place.instIsTrivialOnWithZeroMultiplicativeIntAdicValuation AlgebraicCurve.SemilinearAut.instDistribMulActionSubtypeProdRingAutMemSubgroupPic0 AlgebraicCurve.SemilinearAut.instDistribMulActionSubtypeProdRingAutMemSubgroupDivisor AlgebraicCurve.Pic0.instModuleZModTorsion AlgebraicCurve.SemilinearAut.instSMulSubtypeProdRingAutMemSubgroupPlace AlgebraicCurve.SemilinearAut.instDistribMulActionTorsion AlgebraicCurve.SemilinearAut.instSMulSubtypeProdRingAutMemSubgroupPic0 AlgebraicCurve.SemilinearAut.instSMulTorsion AlgebraicCurve.SemilinearAut.instMulActionSubtypeProdRingAutMemSubgroupPlace AlgebraicCurve.SemilinearAut.instSMulCommClassZModTorsion AlgebraicCurve.SemilinearAut.instMulSemiringActionSubtypeProdRingAutMemSubgroup instDecEqAlgebraicClosureRat WeierstrassCurve.Affine.Point.instDistribMulActionAlgEquiv WeierstrassCurve.Affine.Point.instModuleZModTorsionBy WeierstrassCurve.Affine.Point.instSMulTorsionBy WeierstrassCurve.Affine.Point.instDistribMulActionTorsionBy WeierstrassCurve.Affine.Point.instSMulAlgEquiv WeierstrassCurve.Affine.Point.instSMulCommClassAlgEquivZModTorsionBy
 attribute [-simp] AlgebraicCurve.IsFrobeniusEndo.frobNormRingHom_apply ModularCurve.frobeniusPushforwardGeomLevelPic0_mk ModularCurve.coe_frobeniusGeomLevelEquiv_apply ModularCurve.coe_frobeniusPushforwardGeomLevelDegZero ModularCurve.heckeFibreGeomLevelPic0OfIsCurveOver_mk ModularCurve.frobeniusGeomLevel_apply_coe ModularCurve.frobeniusPullbackGeomLevelPic0OfIsCurveOver_mk ModularCurve.coe_heckeFibreGeomLevelDegZero ModularCurve.coe_frobeniusPullbackGeomLevelDegZero ModularCurve.frobeniusPullbackGeomLevelPic0_mk ModularCurve.frobeniusPullbackGeomLevel_single ModularCurve.heckeFibreGeomLevelPic0_mk ModularCurve.frobeniusPushforwardGeomLevelPic0OfIsCurveOver_mk ModularCurve.frobeniusPushforwardGeomLevel_single ModularCurve.qExpandAlgC_apply AlgebraicCurve.Place.congrEquiv_symm_apply AlgebraicCurve.RationalFunctionField.heightOneSpectrumOfIrreducible_asIdeal AlgebraicCurve.Place.congrRingEquiv_toValuationSubring AlgebraicCurve.Place.congrEquiv_apply AlgebraicCurve.Place.coe_comapSymmRingEquiv_apply AlgebraicCurve.RationalFunctionField.deg_placeOfPoint AlgebraicCurve.Divisor.degree_pushforwardAlong AlgebraicCurve.Pic0.coe_degZeroCorrespondence AlgebraicCurve.Place.mem_fiberAlong AlgebraicCurve.SemilinearAut.toRingAut_inv AlgebraicCurve.SemilinearAut.smul_def AlgebraicCurve.SemilinearAut.smul_single AlgebraicCurve.SemilinearAut.smul_toValuationSubring AlgebraicCurve.SemilinearAut.baseAut_inv AlgebraicCurve.SemilinearAut.baseAut_ofAlgAut AlgebraicCurve.SemilinearAut.toRingAut_ofAlgAut AlgebraicCurve.SemilinearAut.torsionRep_apply AlgebraicCurve.SemilinearAut.toRingAut_one AlgebraicCurve.SemilinearAut.deg_smul AlgebraicCurve.SemilinearAut.degree_smul AlgebraicCurve.SemilinearAut.coe_degZeroSMulHom AlgebraicCurve.SemilinearAut.baseAut_mul AlgebraicCurve.SemilinearAut.coe_smulValuationSubringEquiv_apply AlgebraicCurve.SemilinearAut.baseAut_one AlgebraicCurve.SemilinearAut.ofAlgAut_smul
@@ -1763,5 +1756,54 @@ theorem p06_9e0f5043ff_pae_compatible_order_invariance
       ((r π : L) ^ v.ord f) := by
     simpa only [map_mul, map_zpow₀, hcoeu, hcompat π] using congrArg e hu
   rw [hfactor, w.ord_unit_smul_zpow u' hπ' (v.ord f)]
+
+import Mathlib.RingTheory.Length
+
+namespace Submission
+
+theorem p06_9e0f5043ff_wll_residue_composition_series :
+    ∀ (A B : Type*) [CommRing A] [CommRing B] [IsDedekindDomain B] [Algebra A B]
+      (b : B), b ≠ 0 → ∀ n : ℕ,
+      Module.length A (B ⧸ Ideal.span ({b} : Set B)) = (n : ℕ∞) →
+      ∃ s : CompositionSeries (Submodule B (B ⧸ Ideal.span ({b} : Set B))),
+        s.head = ⊥ ∧ s.last = ⊤ ∧
+        ∃ p : Fin s.length → IsDedekindDomain.HeightOneSpectrum B,
+          ∀ i : Fin s.length,
+            Nonempty ((↥(s i.succ) ⧸ (s i.castSucc).comap (s i.succ).subtype) ≃ₗ[B]
+              (B ⧸ (p i).asIdeal)) := by
+  intro A B _ _ _ _ b hb n hn
+  classical
+  let C := B ⧸ Ideal.span ({b} : Set B)
+  have hfinite : IsFiniteLength A C := Module.length_ne_top_iff.mp (by
+    rw [hn]
+    exact ENat.natCast_ne_top n)
+  obtain ⟨hnoeth, hart⟩ := isFiniteLength_iff_isNoetherian_isArtinian.mp hfinite
+  have : IsNoetherian B C := isNoetherian_of_tower A hnoeth
+  have : IsArtinian B C := isArtinian_of_tower A hart
+  obtain ⟨s, hs_head, hs_last⟩ := exists_compositionSeries_of_isNoetherian_isArtinian B C
+  refine ⟨s, hs_head, hs_last, ?_⟩
+  have hbC : b ∈ Module.annihilator B C := by
+    rw [Ideal.annihilator_quotient]
+    exact Ideal.subset_span (Set.mem_singleton b)
+  have factors : ∀ i : Fin s.length, ∃ p : IsDedekindDomain.HeightOneSpectrum B,
+      Nonempty ((↥(s i.succ) ⧸ (s i.castSucc).comap (s i.succ).subtype) ≃ₗ[B]
+        (B ⧸ p.asIdeal)) := by
+    intro i
+    let N := (s i.castSucc).comap (s i.succ).subtype
+    have hsimple : IsSimpleModule B (↥(s i.succ) ⧸ N) :=
+      (covBy_iff_quot_is_simple (s.step i).le).mp (s.step i)
+    obtain ⟨m, hm, ⟨e⟩⟩ := isSimpleModule_iff_quot_maximal.mp hsimple
+    have hbN : b ∈ Module.annihilator B (s i.succ) :=
+      (s i.succ).subtype.annihilator_le_of_injective (Submodule.injective_subtype _) hbC
+    have hbS : b ∈ Module.annihilator B (↥(s i.succ) ⧸ N) :=
+      N.mkQ.annihilator_le_of_surjective N.mkQ_surjective hbN
+    have hbm : b ∈ m := by
+      rwa [e.annihilator_eq, Ideal.annihilator_quotient] at hbS
+    have hm_ne : m ≠ ⊥ := by
+      intro hm_bot
+      exact hb (by simpa [hm_bot] using hbm)
+    exact ⟨⟨m, hm.isPrime, hm_ne⟩, ⟨e⟩⟩
+  choose p hp using factors
+  exact ⟨p, hp⟩
 
 end Submission
