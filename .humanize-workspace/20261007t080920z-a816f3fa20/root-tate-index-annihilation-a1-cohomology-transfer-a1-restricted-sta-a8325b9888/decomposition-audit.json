@@ -1,0 +1,48 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "standardComplex|prism|Homotopy",
+        "prism|homotopy.*equivariant|equivariant.*homotopy|p04_prism_a8325b9888_(equivariant_components|boundary_identity)",
+        "def insertNth|insertNth_apply|def succAbove|def predAbove|succAbove",
+        "p04_prism_a8325b9888_(equivariant_components|boundary_identity)",
+        "git rev-parse HEAD",
+        "git status --porcelain --untracked-files=no",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/p04-prism-independent-audit-ytzdblpm/ContractTypes.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/Resolution.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/MonoidAlgebra/Module.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Data/Fin/Tuple/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/Homology/Homotopy.lean",
+        "/tmp/p04-prism-independent-audit-ytzdblpm/ContractTypes.lean",
+        "/tmp/p04-prism-independent-audit-ytzdblpm/ContractTypes.log"
+      ],
+      "conclusion": "Verified clean snapshot revisions: project 2475a3790d7ba0c3b10be8086001b154a45be597 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; compiled-library source revisions also match the pinned dependency manifests. Resolution.lean confirms the free tuple modules and alternating differential; Res.lean preserves underlying linear maps; the action, insertion, and Homotopy APIs match the supplied proofs. No existing prism theorem matched the searches in project/Definitions or mathlib/Mathlib/RepresentationTheory. Both exact propositions independently elaborated with Lean 4.33.1 using library imports only, without Submission. The scalar-single identity passed, and inspected library declarations have only propext, Classical.choice, and Quot.sound as axioms. Both names are unreserved. Adding the parent-to-child edges preserves acyclicity; children have depth 5. The split isolates two genuine independent obligations whose conclusions suffice for the parent homotopy assembly. These checks approve the decomposition, not future Lean implementations."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "equivariant_prism_components",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose, including common universes, both equivariance hypotheses, and the generator formula. Its inline definitions require no candidate declaration. The bare name is unused. Independently checking steps 1–6 confirms the insertion formula, coefficientwise linear extension, diagonal-action equivariance, and resulting family of Rep morphisms, including over the zero ring. No finiteness, normality, sibling result, or parent theorem is used. The proof is complete and ready for formalization."
+    },
+    {
+      "key": "prism_boundary_identity",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly expresses both boundary formulas for arbitrary X, u, and v, with the intended coefficient scalar action and no hidden group instance. Its bare name is unused. Steps 1–8 correctly expand the differential, establish the zero-degree sign, pair every noncentral term bijectively with opposite coefficient, and telescope the central terms. Bounds and the substitution N=n+1 are correct; repeated tuples cause no problem. The proof is complete, independent of the other child and parent, and ready for formalization."
+    }
+  ],
+  "required_changes": []
+}
