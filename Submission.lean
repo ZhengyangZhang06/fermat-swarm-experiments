@@ -178,6 +178,8 @@ namespace Submission
 
 /-- A pullback of fake elliptic curves induces an equivalence on points that
 preserves multiplication, identity, repeated sums, and the order action. -/
+namespace Submission
+
 theorem p07_flp_point_equiv_857cd4d38c
     {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N : ℕ)
     (S T : Type) [CommRing S] [CommRing T] (φ : S →+* T)
