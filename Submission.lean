@@ -1389,4 +1389,6 @@ theorem p02_es_177ebb5a_cd_linear_coeff_derivative
   intro r _
   exact (hF _).const_mul (c r)
 
+  exact ⟨_, MeasureTheory.tendsto_limUnder_of_hasDerivAt_of_integrableOn_Ioi hderiv hint⟩
+
 end Submission
