@@ -1764,4 +1764,5 @@ theorem Submission.p02_es_177ebb5a_sd_jr_moving_eval_derivative :
   exact Submission.p02_es_177ebb5a_med_sum_derivative n r _ _ c t
     (fun k => hcoeff
       (Finsupp.single (0 : Fin 2) (n - k.val) + Finsupp.single (1 : Fin 2) k.val))
+
 end Submission
