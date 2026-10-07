@@ -3683,5 +3683,79 @@ theorem p06_9e0f5043ff_ifl_weighted_local_lengths
         Module.length A (B ⧸ (p i).asIdeal)) :=
       Fintype.sum_fiberwise' p (fun q => Module.length A (B ⧸ q.asIdeal))
     _ = (n : ℕ∞) := hsum.symm.trans hn
+open IsDedekindDomain IsLocalRing AlgebraicCurve.Place
+
+theorem p06_9e0f5043ff_ifl_residue_length_inertia
+    (K E L : Type*) [Field K] [Field E] [Field L]
+    [Algebra K E] [Algebra K L] [Algebra E L] [IsScalarTower K E L]
+    [FiniteDimensional E L] [Algebra.IsSeparable E L]
+    (v : AlgebraicCurve.Place K E) (w : AlgebraicCurve.Place K L)
+    (hw : w.restrict E = v) :
+    Module.length v.toValuationSubring
+      (integralClosureAt L v ⧸ (fiberCenter L v hw).asIdeal) =
+        (w.inertiaDeg E : ℕ∞) := by
+  classical
+  subst v
+  let A := (w.restrict E).toValuationSubring
+  let B := integralClosureAt L (w.restrict E)
+  let q := (fiberCenter L (w.restrict E) rfl).asIdeal
+  let f : B →+* w.toValuationSubring :=
+    (algebraMap B L).codRestrict w.toValuationSubring.toSubring
+      (forall_mem_of_restrict_eq rfl)
+  let g : B ⧸ q →+* w.ResidueField :=
+    Ideal.Quotient.lift q ((residue _).comp f) (by
+      intro b hb
+      exact (Ideal.Quotient.eq_zero_iff_mem).mpr hb)
+  have : q.IsMaximal := (fiberCenter L (w.restrict E) rfl).isMaximal
+  let : Field (B ⧸ q) := Ideal.Quotient.field q
+  have hg : Function.Surjective g := by
+    intro y
+    obtain ⟨x, rfl⟩ := residue_surjective (R := w.toValuationSubring) y
+    have hx := x.property
+    simp only [toValuationSubring_eq_of_restrict_eq (w := w) (v := w.restrict E) rfl] at hx
+    obtain ⟨a, s, hs, hxs⟩ := hx
+    have hs' : g (Ideal.Quotient.mk q s) ≠ 0 := by
+      intro h
+      have hmem : f s ∈ maximalIdeal w.toValuationSubring :=
+        (Ideal.Quotient.eq_zero_iff_mem).mp h
+      exact hs hmem
+    refine ⟨Ideal.Quotient.mk q a / Ideal.Quotient.mk q s, ?_⟩
+    rw [map_div₀, div_eq_iff hs']
+    change residue _ (f a) = residue _ x * residue _ (f s)
+    rw [← map_mul]
+    apply congrArg (residue _)
+    apply Subtype.ext
+    change algebraMap B L a = (x : L) * algebraMap B L s
+    rw [hxs]
+    have hs0 : algebraMap B L s ≠ 0 := by
+      intro h
+      apply hs'
+      change residue _ (f s) = 0
+      have : f s = 0 := Subtype.ext h
+      rw [this, map_zero]
+    simpa only [div_eq_mul_inv] using (div_mul_cancel₀ (algebraMap B L a) hs0).symm
+  let e := RingEquiv.ofBijective g ⟨g.injective, hg⟩
+  let : Algebra A w.ResidueField :=
+    ((restrictResidueMap E w).comp (residue A)).toAlgebra
+  have : IsScalarTower A (w.restrict E).ResidueField w.ResidueField :=
+    IsScalarTower.of_algebraMap_eq (fun _ => rfl)
+  let eA : (B ⧸ q) ≃ₐ[A] w.ResidueField :=
+    { e with
+      commutes' := by
+        intro a
+        change residue _ (f (algebraMap A B a)) =
+          restrictResidueMap E w (residue A a)
+        rw [restrictResidueMap_residue]
+        apply congrArg (residue _)
+        exact Subtype.ext (by rfl) }
+  have : Module.Finite A w.ResidueField :=
+    Module.Finite.of_surjective eA.toLinearMap eA.surjective
+  have : FiniteDimensional (w.restrict E).ResidueField w.ResidueField :=
+    Module.Finite.of_restrictScalars_finite A (w.restrict E).ResidueField w.ResidueField
+  calc
+    Module.length A (B ⧸ q) = Module.length A w.ResidueField := eA.toLinearEquiv.length_eq
+    _ = Module.length (w.restrict E).ResidueField w.ResidueField :=
+      Module.length_eq_of_surjective (residue_surjective (R := A))
+    _ = (w.inertiaDeg E : ℕ∞) := Module.length_eq_finrank _ _
 
 end Submission
