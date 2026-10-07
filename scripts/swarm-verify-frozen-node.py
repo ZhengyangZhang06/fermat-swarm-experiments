@@ -33,7 +33,7 @@ def docker(*args, timeout=30):
 
 
 def inspect(kind, identity):
-    values = json.loads(docker(kind, 'inspect', identity) if kind == 'service' else docker('inspect', identity))
+    values = json.loads(docker(kind, 'inspect', identity) if kind in {'service', 'node'} else docker('inspect', identity))
     if len(values) != 1:
         raise RuntimeError('ambiguous Docker identity')
     return values[0]
@@ -53,17 +53,71 @@ def record(path, value):
         os.close(fd)
 
 
-def create_command(name, node, request_id, packet_digest, root, packet_root):
+def reference_volume_settings(environment):
+    """Cache coordinates come only from controller configuration, never a job.
+
+    The controller's private cache prepares the packet; a separately operator-
+    seeded node-local named volume must contain that exact same inventory. The
+    receiver runs the unchanged checker's full inventory gates before and after
+    compilation, so volume existence or an operator seed receipt is not a pass.
+    """
+    root = environment.get('FERMAT_VERIFIER_REFERENCE_CACHE', '')
+    digest = environment.get('FERMAT_VERIFIER_REFERENCE_DIGEST', '')
+    volume = environment.get('FERMAT_SWARM_VERIFIER_REFERENCE_VOLUME', '')
+    if not (root or digest or volume):
+        return None, None
+    if not (root and digest and volume):
+        raise RuntimeError('remote cached verification requires controller cache, digest and seeded volume')
+    if not Path(root).is_absolute() or not re.fullmatch(r'[a-f0-9]{64}', digest):
+        raise ValueError('invalid controller reference cache binding')
+    if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]{0,127}', volume):
+        raise ValueError('invalid operator reference volume name')
+    return volume, digest
+
+
+def registered_node(record, name):
+    """Bind the requested hostname to the actual authorized active Docker node."""
+    identity = record.get('ID', '')
+    if (not re.fullmatch(r'[a-z0-9]{25}', identity)
+            or record.get('Description', {}).get('Hostname') != name
+            or record.get('Status', {}).get('State') != 'ready'
+            or record.get('Spec', {}).get('Availability') != 'active'
+            or record.get('Spec', {}).get('Labels', {}).get('fermat-swarm-20261007') != 'true'):
+        raise RuntimeError('verifier node identity is not an authorized ready active node')
+    return identity
+
+
+def bound_task(task, expected_node_id):
+    if not task.get('NodeID') and task.get('Status', {}).get('State') in {'new', 'allocated', 'pending'}:
+        return  # Scheduler has not assigned a node yet; this is not terminal evidence.
+    if task.get('NodeID') != expected_node_id:
+        raise RuntimeError('verification task moved from its registered node/cache identity')
+
+
+def create_command(name, node, request_id, packet_digest, root, packet_root, *,
+                   reference_volume=None, reference_digest=None):
+    if bool(reference_volume) != bool(reference_digest):
+        raise ValueError('remote reference volume and digest must be configured together')
+    if reference_volume and (not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]{0,127}', reference_volume)
+                             or not re.fullmatch(r'[a-f0-9]{64}', reference_digest)):
+        raise ValueError('invalid remote reference volume binding')
     command = ['service', 'create', '--detach', '--no-resolve-image', '--name', name,
                '--label', 'experiment=fermat-swarm-20261007',
                '--label', f'fermat.request={request_id}', '--label', f'fermat.packet={packet_digest}',
                '--constraint', f'node.hostname=={node}', '--replicas', '1',
                '--restart-condition', 'none', '--user', '1000:1000', '--cap-drop', 'ALL',
-               '--read-only', '--limit-cpu', '2', '--limit-memory', '6G', '--limit-pids', '256',
+               '--read-only', '--limit-cpu', '2', '--limit-memory', '12G' if reference_volume else '6G', '--limit-pids', '256',
                '--mount', 'type=tmpfs,destination=/tmp,tmpfs-size=536870912,tmpfs-mode=1777']
     mounts = [(root / 'code', '/verifier', True), (packet_root, '/input', True),
               (root / 'output', '/output', False)]
-    for path in (BASE / '.humanize/verifier', BASE / '.humanize/toolchains/lean-4.33.1-linux', BASE / '.lake/packages'):
+    trusted_paths = [BASE / '.humanize/verifier']
+    if reference_volume:
+        command.extend(['--mount', f'type=volume,source={reference_volume},destination=/reference,readonly,volume-nocopy',
+                        '--env', 'FERMAT_VERIFIER_REFERENCE_CACHE=/reference',
+                        '--env', f'FERMAT_VERIFIER_REFERENCE_DIGEST={reference_digest}'])
+    else:
+        trusted_paths.extend([BASE / '.humanize/toolchains/lean-4.33.1-linux', BASE / '.lake/packages'])
+    for path in trusted_paths:
         mounts.append((path, str(path), True))
     for source, target, readonly in mounts:
         if any(character in str(source) + str(target) for character in (',', '\n', '\r')):
@@ -80,6 +134,8 @@ def execute():
     node = os.environ['FERMAT_SWARM_VERIFIER_NODE']
     if not re.fullmatch(r'[a-f0-9]{32}', request_id) or not re.fullmatch(r'hoa(?:[0-9]|[1-9][0-9]|1[01][0-9]|12[0-7])', node):
         raise ValueError('invalid registered request or verifier node')
+    reference_volume, reference_digest = reference_volume_settings(os.environ)
+    node_id = registered_node(inspect('node', node), node)
     shared = Path(os.environ['FERMAT_SWARM_VERIFIER_DIRECTORY']).resolve(strict=True)
     project = Path(os.environ['FERMAT_VERIFIER_PROJECT']).resolve()
     if shared.is_relative_to(project.parent) or shared.stat().st_mode & 0o077:
@@ -89,7 +145,8 @@ def execute():
     # authorize recovery; a timestamp or missing local PID is insufficient.
     root.mkdir(mode=0o700, exist_ok=False)
     receipt_path = root / 'operation.json'
-    receipt = dict(request_id=request_id, node=node, state='preparing')
+    receipt = dict(request_id=request_id, node=node, node_id=node_id, state='preparing',
+                   reference_volume=reference_volume, reference_cache_digest=reference_digest)
     record(receipt_path, receipt)
     (root / 'code').mkdir()
     (root / 'output').mkdir()
@@ -116,7 +173,9 @@ def execute():
     receipt.update(state='submitting')
     record(receipt_path, receipt)
     try:
-        service_id = docker(*create_command(name, node, request_id, packet_digest, root, packet_root)).strip()
+        service_id = docker(*create_command(name, node, request_id, packet_digest, root, packet_root,
+                                           reference_volume=reference_volume,
+                                           reference_digest=reference_digest)).strip()
         if not re.fullmatch(r'[a-z0-9]{25}', service_id):
             raise RuntimeError('Docker did not return one service identity')
         receipt.update(service_id=service_id, state='submitted')
@@ -143,6 +202,7 @@ def execute():
                 if tasks != [task_id]:
                     raise RuntimeError('verification task was replaced')
                 task = inspect('task', task_id)
+                bound_task(task, node_id)
                 code = terminal_result(task, service_id, task_id=task_id)
                 if code is not None:
                     break

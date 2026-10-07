@@ -20,11 +20,23 @@ import tempfile
 PACKAGES = Path("/mnt/data/zhengyang-workspace/fermat-example/.lake/packages")
 
 
+def reference_packages(environment):
+    """Use only the fixed read-only cache mount configured by the controller."""
+    root = environment.get('FERMAT_VERIFIER_REFERENCE_CACHE', '')
+    digest = environment.get('FERMAT_VERIFIER_REFERENCE_DIGEST', '')
+    if not root and not digest:
+        return PACKAGES
+    if root != '/reference' or not re.fullmatch(r'[a-f0-9]{64}', digest):
+        raise RuntimeError('remote reference cache requires the fixed mount and controller digest')
+    return Path(root) / 'packages'
+
+
 def execute(packet_root, expected_digest, output):
     if os.geteuid() == 0:
         raise RuntimeError("packet verification requires an unprivileged user")
     if not re.fullmatch(r"[a-f0-9]{64}", expected_digest):
         raise ValueError("invalid controller packet digest")
+    packages = reference_packages(os.environ)
     source = Path(__file__).with_name("swarm-verifier-selftest.py")
     spec = importlib.util.spec_from_file_location("container_verifier_launcher", source)
     launcher = importlib.util.module_from_spec(spec)
@@ -32,7 +44,7 @@ def execute(packet_root, expected_digest, output):
     with tempfile.TemporaryDirectory(prefix="registered-verifier-project-") as tmp:
         project = Path(tmp)
         (project / ".lake").mkdir()
-        (project / ".lake/packages").symlink_to(PACKAGES)
+        (project / ".lake/packages").symlink_to(packages)
         os.environ["FERMAT_VERIFIER_PROJECT"] = str(project)
         verifier = launcher.load_verifier(source.with_name("verify-frozen-node.py"))
         verifier.sandbox = lambda directory, args, **kw: launcher.isolated_command(
