@@ -493,6 +493,7 @@ theorem p07_cq_group_law_pullback_857cd4d38c :
           (P : SchemeHomOver t p),
           B W t (H.inv t P) = G.inv (t ≫ β) (B W t P)) := by
   intro S T _ _ φ A f G β p g
+  -- The projection and universal lift identify points over the two bases.
   let B : ∀ (W : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of T)),
       SchemeHomOver t p ≃ SchemeHomOver (t ≫ β) f := fun W t =>
     { toFun := fun P => ⟨P.1 ≫ g, by
@@ -510,8 +511,8 @@ theorem p07_cq_group_law_pullback_857cd4d38c :
       B W' t' (GoodReductionJacobian.schemeHomOverComp h hh P) =
         GoodReductionJacobian.schemeHomOverComp h
           (by rw [← Category.assoc, hh]) (B W t P) := by
-    apply Subtype.ext
-    exact Category.assoc h P.1 g
+    exact Subtype.ext (Category.assoc h P.1 g)
+  -- Transport the operations; injectivity reduces their laws to those of G.
   let H : RelativeGroupLaw T p :=
     { mul := fun {W} t P Q =>
         (B W t).symm (G.mul (t ≫ β) (B W t P) (B W t Q))
