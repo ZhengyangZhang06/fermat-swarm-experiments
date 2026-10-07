@@ -860,3 +860,29 @@ state, not simply deleting the project lock.
   dependencies progressed. P07 request85a91b21a7b24b0ea5fe5f0cfaa1f846 was
   confirmed live under PID3643212 for candidated97a7d4ebe920342702a0e4abe5d28df8db52f08.
   Neither process was restarted. Goal remains active and incomplete.
+
+## Follow-up checkpoint, 13:11 UTC — P02 formalization; P07 terminal header failure
+
+- Prior goal turn was progress (tested and pushed optional cache c7dcd21).
+  This turn is a verified wait: Docker confirms task sravatesx52sikokio10ieyj4
+  on hoa16 running, with its log recording autonomous ownership of issue51.
+  P02 node `root.primitive_exists-a1.constant_defect-a1.modular_pullback_derivative-a1`
+  entered `rlcr-lean` at13:07:33, using isolated worktree7e0847f6372034fb8e40.
+  Its RLCR round0 started13:08:22. The summary is still a template and there is
+  no candidate commit yet: do not infer proof acceptance from loop startup.
+- Inspected remote issue51: exact Lean contract and complete five-step prose
+  argument are present, with the parent's decomposition-review handoff. The
+  argument combines the modular-action derivative, coefficientwise Eichler
+  derivative, slash invariance and binaryFormRepSL_linePow. No PR yet.
+- P07 request85a91b21a7b24b0ea5fe5f0cfaa1f846 is now terminal, finished1.
+  Exact errors again name absent opensMapFinal, baseChangePointToBase_ofBase,
+  and dualNumberFst_apply in the frozen header. P04 request
+  a03c2314ed2e41df953564f103f5b1d9 also finished1, with the absent
+  Representation.TateResCor.cosetDecomp_apply header reference. Neither is
+  accepted; neither was manually restarted.
+- P01 requestcd203d12717944b78318395950a03bfc remains the only nonterminal
+  verification in the ledger at13:11:30. AdapterPID3387184 and Docker task
+  kchqtd21zojkdwgy4e2dc9w73 remain running. No timeout takeover.
+- Header-repair approval still absent; optional cache not deployed. Broker and
+  status observer active,128/128 resolver tasks running. All10 root proofs
+  remain incomplete. Live P02 work prevents treating the campaign as an impasse.
