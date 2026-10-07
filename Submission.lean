@@ -2151,5 +2151,28 @@ theorem p06_9e0f5043ff_rmp_finite_place_model
   exact ⟨v, hv,
     Submission.p06_9e0f5043ff_fpm_residue_degree K F x hx q hq hirr v hv,
     Submission.p06_9e0f5043ff_fpm_normalized_orders K F x hx q hq hirr v hv⟩
+theorem p06_9e0f5043ff_dmd_finite_family_dividing_member
+    (A : Type*) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A]
+    (ι : Type*) [Fintype ι] (a : ι → A) (ha : ∃ i, a i ≠ 0) :
+    ∃ i, a i ≠ 0 ∧ ∀ j, a i ∣ a j := by
+  classical
+  obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible A
+  let S := {i : ι // a i ≠ 0}
+  have hfactor : ∀ i : S, ∃ (n : ℕ) (u : Aˣ), a i = u * π ^ n :=
+    fun i => IsDiscreteValuationRing.eq_unit_mul_pow_irreducible i.property hπ
+  choose e u he using hfactor
+  have hS : (Finset.univ : Finset S).Nonempty := by
+    obtain ⟨i, hi⟩ := ha
+    exact ⟨⟨i, hi⟩, Finset.mem_univ _⟩
+  obtain ⟨i, _, hmin⟩ := Finset.exists_min_image Finset.univ e hS
+  refine ⟨i, i.property, ?_⟩
+  intro j
+  by_cases hj : a j = 0
+  · rw [hj]
+    exact dvd_zero _
+  · let k : S := ⟨j, hj⟩
+    change a (i : ι) ∣ a (k : ι)
+    rw [he i, he k, Units.mul_left_dvd, Units.dvd_mul_left]
+    exact pow_dvd_pow π (hmin k (Finset.mem_univ k))
 
 end Submission
