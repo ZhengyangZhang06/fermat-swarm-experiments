@@ -1930,5 +1930,35 @@ theorem p06_9e0f5043ff_dmc_cokernel_units :
     LinearMap.range (P * D * Q).mulVecLin
   rw [← LinearMap.range_comp, ← Matrix.mulVecLin_mul, Matrix.mulVecLin_mul (P * D) Q]
   exact (eQ.range_comp _).symm
+theorem p06_9e0f5043ff_dmc_diagonal_quotient
+    (R : Type*) [CommRing R] (m : ℕ) (d : Fin m → R) :
+    Nonempty (((Fin m → R) ⧸ LinearMap.range (Matrix.mulVecLin (Matrix.diagonal d)))
+      ≃ₗ[R] ((i : Fin m) → R ⧸ Ideal.span ({d i} : Set R))) := by
+  classical
+  let C : (Fin m → R) →ₗ[R] ((i : Fin m) → R ⧸ Ideal.span ({d i} : Set R)) :=
+    LinearMap.pi fun i => (Ideal.span ({d i} : Set R)).mkQ.comp (LinearMap.proj i)
+  have hker : LinearMap.ker C = LinearMap.range (Matrix.mulVecLin (Matrix.diagonal d)) := by
+    ext y
+    constructor
+    · intro hy
+      have hmem : ∀ i, y i ∈ Ideal.span ({d i} : Set R) := by
+        intro i
+        exact (Submodule.Quotient.mk_eq_zero _).mp (congrFun (LinearMap.mem_ker.mp hy) i)
+      have hdiv : ∀ i, ∃ z, y i = d i * z := fun i => Ideal.mem_span_singleton.mp (hmem i)
+      choose z hz using hdiv
+      refine ⟨z, ?_⟩
+      ext i
+      simpa only [Matrix.mulVecLin_apply, Matrix.mulVec_diagonal] using (hz i).symm
+    · rintro ⟨z, rfl⟩
+      apply LinearMap.mem_ker.mpr
+      ext i
+      change (Submodule.Quotient.mk _ : R ⧸ Ideal.span ({d i} : Set R)) = 0
+      rw [Submodule.Quotient.mk_eq_zero, Ideal.mem_span_singleton]
+      exact ⟨z i, Matrix.mulVec_diagonal d z i⟩
+  have hsurj : Function.Surjective C := by
+    intro w
+    choose y hy using fun i => (Ideal.span ({d i} : Set R)).mkQ_surjective (w i)
+    exact ⟨y, funext hy⟩
+  exact ⟨(Submodule.quotEquivOfEq _ _ hker.symm).trans (C.quotKerEquivOfSurjective hsurj)⟩
 
 end Submission
