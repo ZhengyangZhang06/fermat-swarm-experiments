@@ -1983,6 +1983,8 @@ theorem p06_9e0f5043ff_rmp_finite_place_model
   exact ⟨v, hv,
     Submission.p06_9e0f5043ff_fpm_residue_degree K F x hx q hq hirr v hv,
     Submission.p06_9e0f5043ff_fpm_normalized_orders K F x hx q hq hirr v hv⟩
+set_option warningAsError true
+
 namespace Submission
 
 /-- A place containing the polynomial coordinate is the localization at a monic
