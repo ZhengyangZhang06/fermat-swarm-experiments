@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.scalarization_modular-a1.translation_bound-a1.translation_fixed_form-a1.periodic_polynomial_constant-a1",
+  "parent_id": "root.scalarization_modular-a1.translation_bound-a1.translation_fixed_form-a1",
+  "depth": 4,
+  "title": "A polynomial invariant under nonzero translation is constant",
+  "statement": "For every polynomial p∈ℂ[t] and c∈ℂ with c≠0, if p(t+c)=p(t) as a polynomial identity, then p is the constant polynomial whose value is its coefficient at degree zero.",
+  "lean_statement": "∀ (p : Polynomial ℂ) (c : ℂ), c ≠ 0 → p.comp (Polynomial.X + Polynomial.C c) = p → p = Polynomial.C (p.coeff 0)",
+  "lean_name": "p02_es_177ebb5a_tff_periodic_polynomial_constant",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1-translation-fixed-840d4395e0-a1"
+}

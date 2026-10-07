@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.scalarization_modular-a1.translation_bound-a1.translation_fixed_form-a1.constant_dehomogenization-a1",
+  "parent_id": "root.scalarization_modular-a1.translation_bound-a1.translation_fixed_form-a1",
+  "depth": 4,
+  "title": "Constant dehomogenization determines a pure power binary form",
+  "statement": "Let n∈ℕ, let A∈HeckeEis.BinaryForm ℂ n, and let α∈ℂ. If substituting X₀=1 and X₁=t in A gives the constant polynomial α in ℂ[t], then A=C(α)X₀^n in MvPolynomial (Fin 2) ℂ.",
+  "lean_statement": "∀ (n : ℕ) (A : ↥(HeckeEis.BinaryForm ℂ n)) (α : ℂ), MvPolynomial.eval₂ Polynomial.C (fun j : Fin 2 => if j = 0 then 1 else Polynomial.X) A.val = Polynomial.C α → A.val = MvPolynomial.C α * MvPolynomial.X (0 : Fin 2) ^ n",
+  "lean_name": "p02_es_177ebb5a_tff_constant_dehomogenization",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1-translation-fixed-9c3c4bf1bb-a1"
+}
