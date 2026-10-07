@@ -787,5 +787,67 @@ theorem p02_es_177ebb5a_lcd_coeff_linear_combination
       congrArg (fun P => MvPolynomial.coeff e (A P).val) hexpand
     _ = ∑ r, MvPolynomial.coeff e (A (b r)).val * MvPolynomial.coeff (d r) Q.val := by
       simp [map_sum, MvPolynomial.coeff_sum, mul_comm]
+theorem p02_es_177ebb5a_pcl_linear_linepow_growth :
+    ∀ (n : ℕ) (T : ↥(HeckeEis.BinaryForm ℂ n) →ₗ[ℂ] ↥(HeckeEis.BinaryForm ℂ n)),
+      ∃ K : ℝ, 0 ≤ K ∧ ∀ (z : ℂ) (d : Fin 2 →₀ ℕ),
+        ‖MvPolynomial.coeff d (T (HeckeEis.linePow n z)).val‖ ≤ K * (1 + ‖z‖) ^ n := by
+  classical
+  intro n T
+  let b : Fin (n + 1) → ↥(HeckeEis.BinaryForm ℂ n) := fun r =>
+    ⟨MvPolynomial.X 0 ^ (r : ℕ) * MvPolynomial.X 1 ^ (n - r), by
+      apply (MvPolynomial.mem_homogeneousSubmodule n _).mpr
+      simpa only [Nat.add_sub_of_le (Nat.le_of_lt_succ r.isLt)] using
+        (MvPolynomial.isHomogeneous_X_pow (R := ℂ) (0 : Fin 2) (r : ℕ)).mul
+          (MvPolynomial.isHomogeneous_X_pow (R := ℂ) (1 : Fin 2) (n - r))⟩
+  let k : Fin (n + 1) → ℝ := fun r =>
+    ∑ d ∈ (T (b r)).val.support, ‖MvPolynomial.coeff d (T (b r)).val‖
+  have hk (r : Fin (n + 1)) : 0 ≤ k r :=
+    Finset.sum_nonneg fun _ _ => norm_nonneg _
+  have hcoeff (r : Fin (n + 1)) (d : Fin 2 →₀ ℕ) :
+      ‖MvPolynomial.coeff d (T (b r)).val‖ ≤ k r := by
+    by_cases hd : d ∈ (T (b r)).val.support
+    · exact Finset.single_le_sum (fun e _ => norm_nonneg
+        (MvPolynomial.coeff e (T (b r)).val)) hd
+    · rw [MvPolynomial.notMem_support_iff.mp hd, norm_zero]
+      exact hk r
+  have hexpand (z : ℂ) : HeckeEis.linePow n z =
+      ∑ r : Fin (n + 1), ((n.choose r : ℂ) * z ^ (r : ℕ)) • b r := by
+    apply Subtype.ext
+    simp only [Submodule.coe_sum, Submodule.coe_smul, HeckeEis.coe_linePow]
+    change (MvPolynomial.C z * MvPolynomial.X 0 + MvPolynomial.X 1) ^ n =
+      ∑ r : Fin (n + 1), ((n.choose r : ℂ) * z ^ (r : ℕ)) •
+        (MvPolynomial.X 0 ^ (r : ℕ) * MvPolynomial.X 1 ^ (n - r))
+    rw [add_pow, ← Fin.sum_univ_eq_sum_range]
+    apply Finset.sum_congr rfl
+    intro r _
+    simp only [mul_pow, MvPolynomial.smul_eq_C_mul, map_mul, map_pow, map_natCast]
+    ring
+  refine ⟨∑ r : Fin (n + 1), (n.choose r : ℝ) * k r,
+    Finset.sum_nonneg (fun r _ => mul_nonneg (Nat.cast_nonneg _) (hk r)), ?_⟩
+  intro z d
+  have hpower (r : Fin (n + 1)) : ‖z‖ ^ (r : ℕ) ≤ (1 + ‖z‖) ^ n :=
+    (pow_le_pow_left₀ (norm_nonneg z) (by linarith) _).trans
+      (pow_le_pow_right₀ (by linarith [norm_nonneg z]) (Nat.le_of_lt_succ r.isLt))
+  rw [hexpand, map_sum]
+  simp only [map_smul, Submodule.coe_sum, Submodule.coe_smul, MvPolynomial.coeff_sum,
+    MvPolynomial.coeff_smul, smul_eq_mul]
+  calc
+    ‖∑ r : Fin (n + 1), ((n.choose r : ℂ) * z ^ (r : ℕ)) *
+        MvPolynomial.coeff d (T (b r)).val‖ ≤
+        ∑ r : Fin (n + 1), ‖((n.choose r : ℂ) * z ^ (r : ℕ)) *
+          MvPolynomial.coeff d (T (b r)).val‖ := norm_sum_le _ _
+    _ = ∑ r : Fin (n + 1), (n.choose r : ℝ) * ‖z‖ ^ (r : ℕ) *
+        ‖MvPolynomial.coeff d (T (b r)).val‖ := by
+      simp only [norm_mul, norm_pow, Complex.norm_natCast]
+    _ ≤ ∑ r : Fin (n + 1), (n.choose r : ℝ) * (1 + ‖z‖) ^ n * k r := by
+      apply Finset.sum_le_sum
+      intro r _
+      exact mul_le_mul (mul_le_mul_of_nonneg_left (hpower r) (Nat.cast_nonneg _))
+        (hcoeff r d) (norm_nonneg _) (mul_nonneg (Nat.cast_nonneg _) (by positivity))
+    _ = (∑ r : Fin (n + 1), (n.choose r : ℝ) * k r) * (1 + ‖z‖) ^ n := by
+      rw [Finset.sum_mul]
+      apply Finset.sum_congr rfl
+      intro r _
+      ring
 
 end Submission
