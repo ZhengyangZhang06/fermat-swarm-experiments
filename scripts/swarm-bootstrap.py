@@ -14,6 +14,9 @@ from urllib.parse import urlsplit
 
 def main():
     os.umask(0o077)
+    for name in ('codex', 'codex-code-mode-host', 'gh', 'hmz', 'rg'):
+        if not os.access('/runtime/bin/' + name, os.X_OK):
+            raise RuntimeError('Required runtime executable is missing: ' + name)
     if os.geteuid() == 0:
         try:
             account = pwd.getpwuid(1000)
@@ -23,6 +26,12 @@ def main():
             account = pwd.getpwuid(1000)
         if account.pw_dir != '/home/ubuntu':
             raise RuntimeError('Unexpected container worker account')
+        # Login shells may reset PATH. Keep the standard tool names available
+        # there as well as in the worker supervisor's explicit environment.
+        for name in ('codex', 'codex-code-mode-host', 'gh', 'hmz', 'rg'):
+            link = Path('/usr/local/bin') / name
+            if not link.exists():
+                link.symlink_to('/runtime/bin/' + name)
     home = Path('/home/ubuntu')
     codex = home / '.codex'
     ssh = home / '.ssh'
