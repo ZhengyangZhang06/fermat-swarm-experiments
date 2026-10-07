@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.scalarization_modular-a1.scalar_slash_covariance-a1",
+  "parent_id": "root.scalarization_modular-a1",
+  "depth": 2,
+  "title": "Scalarization intertwines inverse representation transport and weight minus n slash",
+  "statement": "Let n∈ℕ, E:ℍ→BinaryForm ℂ n, σ∈SL₂(ℤ), and τ∈ℍ. Put p(z)=E(z)(1,−z) and G(z)=binaryFormRepSL ℂ n (σ⁻¹)(E(σz)). Then (p|_{−n}σ)(τ)=G(τ)(1,−τ). No differentiability or equivariance hypothesis is needed.",
+  "lean_statement": "∀ (n : ℕ) (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)) (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (τ : UpperHalfPlane), (SlashAction.map (-(n : ℤ)) σ (fun z : UpperHalfPlane => MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -(z : ℂ)) (E z).val)) τ = MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -(τ : ℂ)) (((HeckeEis.binaryFormRepSL ℂ n) σ⁻¹) (E (σ • τ))).val",
+  "lean_name": "p02_es_177ebb5a_sm_slash",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-scalar-slash-covariance-a1-a1"
+}

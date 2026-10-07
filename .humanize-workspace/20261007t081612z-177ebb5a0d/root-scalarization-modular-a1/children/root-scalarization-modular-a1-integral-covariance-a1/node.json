@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.scalarization_modular-a1.integral_covariance-a1",
+  "parent_id": "root.scalarization_modular-a1",
+  "depth": 2,
+  "title": "Transporting an Eichler integral transports its scalar derivative by slash",
+  "statement": "Let n∈ℕ, h:ℍ→ℂ, E:ℍ→BinaryForm ℂ n, and σ∈SL₂(ℤ). If IsEichlerIntegral n h E holds, then G(z)=binaryFormRepSL ℂ n (σ⁻¹)(E(σz)) satisfies IsEichlerIntegral n (h|_{n+2}σ) G.",
+  "lean_statement": "∀ (n : ℕ) (h : UpperHalfPlane → ℂ) (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)) (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ), HeckeEis.IsEichlerIntegral n h E → HeckeEis.IsEichlerIntegral n (SlashAction.map ((n : ℤ) + 2) σ h) (fun τ : UpperHalfPlane => ((HeckeEis.binaryFormRepSL ℂ n) σ⁻¹) (E (σ • τ)))",
+  "lean_name": "p02_es_177ebb5a_sm_transformed_integral",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-integral-covariance-a1-a1"
+}

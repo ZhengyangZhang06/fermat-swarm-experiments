@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "node_id": "root.scalarization_modular-a1.all_cusps-a1",
+  "parent_id": "root.scalarization_modular-a1",
+  "depth": 2,
+  "title": "An equivariant cusp-form Eichler integral has scalarization bounded at every cusp",
+  "statement": "Let N,n∈ℕ with N≠0, Γ=Γ₀(N), and ΓR=Γ.map(mapGL ℝ). Let f be a weight n+2 cusp form on ΓR, and let E:ℍ→BinaryForm ℂ n satisfy IsEichlerIntegral n f E and E(γz)=binaryFormRepSL ℂ n (γ)(E(z)) for every γ∈Γ and z∈ℍ. Then, for every c∈OnePoint ℝ with IsCusp c ΓR, the scalar function p(z)=E(z)(1,−z) satisfies OnePoint.IsBoundedAt c p (−n), including every real scaling matrix sending infinity to c.",
+  "lean_statement": "∀ (N : ℕ) [NeZero N] (n : ℕ) (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2)) (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.IsEichlerIntegral n (fun τ => f τ) E → (∀ (γ : CongruenceSubgroup.Gamma0 N) (τ : UpperHalfPlane), E ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • τ) = ((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype) γ (E τ)) → ∀ c : OnePoint ℝ, IsCusp c ((CongruenceSubgroup.Gamma0 N).map (Matrix.SpecialLinearGroup.mapGL ℝ)) → OnePoint.IsBoundedAt c (fun τ : UpperHalfPlane => MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -(τ : ℂ)) (E τ).val) (-(n : ℤ))",
+  "lean_name": "p02_es_177ebb5a_sm_all_cusps",
+  "depends_on": [
+    "root.scalarization_modular-a1.scalar_slash_covariance-a1",
+    "root.scalarization_modular-a1.integral_covariance-a1",
+    "root.scalarization_modular-a1.translation_bound-a1"
+  ],
+  "dependency_workspaces": [
+    {
+      "node_id": "root.scalarization_modular-a1.scalar_slash_covariance-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    },
+    {
+      "node_id": "root.scalarization_modular-a1.integral_covariance-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    },
+    {
+      "node_id": "root.scalarization_modular-a1.translation_bound-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    }
+  ],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-all-cusps-a1-a1"
+}

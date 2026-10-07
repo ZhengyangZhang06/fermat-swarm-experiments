@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.scalarization_modular-a1.translation_bound-a1",
+  "parent_id": "root.scalarization_modular-a1",
+  "depth": 2,
+  "title": "Exponential derivative decay and translation equivariance bound scalarization",
+  "statement": "Let N,n∈ℕ with N≠0, let u:ℍ→ℂ be continuous, and let G:ℍ→BinaryForm ℂ n satisfy IsEichlerIntegral n u G. Write T=(1 1;0 1)∈SL₂(ℤ), and assume G(T^N z)=binaryFormRepSL ℂ n (T^N)(G(z)) for every z∈ℍ. Suppose there exist real a,C,Y with a>0 and C≥0 such that |u(z)|≤C exp(−a Im z) whenever Im z≥Y. Then z↦G(z)(1,−z) is bounded at imaginary infinity, uniformly over all real parts.",
+  "lean_statement": "∀ (N : ℕ) [NeZero N] (n : ℕ) (u : UpperHalfPlane → ℂ) (G : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), Continuous u → HeckeEis.IsEichlerIntegral n u G → (∀ τ : UpperHalfPlane, G ((ModularGroup.T ^ N) • τ) = ((HeckeEis.binaryFormRepSL ℂ n) (ModularGroup.T ^ N)) (G τ)) → (∃ (a C Y : ℝ), 0 < a ∧ 0 ≤ C ∧ ∀ τ : UpperHalfPlane, Y ≤ τ.im → ‖u τ‖ ≤ C * Real.exp (-a * τ.im)) → UpperHalfPlane.IsBoundedAtImInfty (fun τ : UpperHalfPlane => MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -(τ : ℂ)) (G τ).val)",
+  "lean_name": "p02_es_177ebb5a_sm_translation_bound",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1-a1"
+}

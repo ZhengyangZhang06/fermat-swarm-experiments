@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.scalarization_modular-a1.holomorphic_scalarization-a1",
+  "parent_id": "root.scalarization_modular-a1",
+  "depth": 2,
+  "title": "Scalarization of an Eichler integral is holomorphic",
+  "statement": "Let n∈ℕ, h:ℍ→ℂ, and E:ℍ→BinaryForm ℂ n satisfy IsEichlerIntegral n h E. Define P:ℂ→ℂ by P(z)=E(ofComplex z)(1,−z). Then P is complex differentiable on {z∈ℂ | Im z>0}. No regularity assumption on h is required.",
+  "lean_statement": "∀ (n : ℕ) (h : UpperHalfPlane → ℂ) (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.IsEichlerIntegral n h E → DifferentiableOn ℂ (fun z : ℂ => MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z) (E (UpperHalfPlane.ofComplex z)).val) {z : ℂ | 0 < z.im}",
+  "lean_name": "p02_es_177ebb5a_sm_holomorphic",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-holomorphic-scalarization-a1-a1"
+}

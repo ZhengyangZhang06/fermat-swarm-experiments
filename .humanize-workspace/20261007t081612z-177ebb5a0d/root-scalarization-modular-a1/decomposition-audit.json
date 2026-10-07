@@ -1,0 +1,71 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "IsEichlerIntegral|binaryFormRepSL_linePow|eval_smul_of_isHomogeneous|binaryFormRepSL_apply_coe|def BinaryForm|def binaryFormRepSL",
+        "exp_decay_atImInfty|isBoundedAt_iff|isCusp_SL2Z_iff|isCusp_iff_isCusp_SL2Z|isArithmetic_iff_finiteIndex|instFiniteIndexGamma0|Gamma_normal|ModularGroup_T_pow_mem_Gamma|Gamma_le_Gamma0",
+        "p02_es_177ebb5a_sm_|scalarization|equivariant.*bounded",
+        "SL_slash|SLAction|structure CuspForm|structure ModularForm|MDifferentiable.slash|zero_at_cusps|slash_action",
+        "ofComplex_apply_eq_of_im_nonpos|mdifferentiable_iff|hasStrictDerivAt_smul|isBoundedAtImInfty_iff|ofComplex.*[Aa]pply",
+        "/runtime/bin/rg -n --glob 'dag.json' --hidden 'p02_es_177ebb5a_sm_' .humanize/github-theorem-prover/runs",
+        "/runtime/bin/rg -n --glob 'parent-child-handoff.json' --hidden 'p02_es_177ebb5a_sm_' .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_decomposition_independent_audit.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-modular-a1/decomposition-v1.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Manifold.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/FunctionsBoundedAtInfty.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/SlashActions.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/QExpansion.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/BoundedAtCusp.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/Cusps.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/ArithmeticSubgroups.lean",
+        "/tmp/p02_decomposition_independent_audit.lean"
+      ],
+      "conclusion": "The DAG identifies the proposed parent as the scalarization_modular child of the unchanged frozen injectivity theorem. The five-way split is appropriate: four independent obligations feed the cusp argument and parent assembly without cycles. The snapshot confirms coefficientwise differentiation, the substitution convention, slash formulas, exponential-decay hypotheses, arithmetic cusp classification, and the full single-scaling-matrix criterion. Searches found no matching existing scalarization helper in the searched project sources and no reservation of the proposed names in local DAGs or child handoffs. All names are bare identifiers. All five exact single-line types independently elaborated as Prop using Mathlib and frozen definition imports, without importing Submission or implementing any child. Lean confirmed ModularForm.SLAction, Matrix.semiring, and definitional agreement of the cusp-form subgroup coercion with the explicit real matrix image. No problematic inline matrix-unit construction occurs. Project definition sources match revision 1f74c284b125d4c45f527f2d621597fcf1e103a9; inspected mathlib sources match the snapshot and installed revision db584cd6d46c92f209a44c0f1c829460d327499d. All nine installed dependencies are clean and match their manifest pins. Transitive axiom queries for the reused interfaces returned only propext, Classical.choice, and Quot.sound. This accepts the decomposition and supplied prose proofs, not any unsubmitted Lean implementation."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "holomorphic_scalarization",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and independently elaborated type agree, including the precise ofComplex extension and absence of regularity assumptions on h. The homogeneous expansion is finite, IsEichlerIntegral supplies each coefficient derivative, and products and finite sums establish the exact DifferentiableOn conclusion. The n=0 case is covered. No circular dependence or missing hypothesis."
+    },
+    {
+      "key": "scalar_slash_covariance",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact type uses the intended SL₂ slash action and inverse representation transport. The proof correctly establishes the nonzero denominator, substituted coordinates, homogeneous scaling, and cancellation at weight −n. It needs neither differentiability nor equivariance and has no dependencies."
+    },
+    {
+      "key": "integral_covariance",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose matches the exact coefficientwise predicate. Locality of ofComplex justifies the chain rule; fixed substitution acts through finite linear combinations of coefficients. Combining the Möbius derivative j^−2 with inverse line-power transport j^−n gives precisely the weight n+2 slash factor. All coefficient indices are addressed without requiring regularity of h or invoking another child."
+    },
+    {
+      "key": "translation_bound",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "All hypotheses, including continuity, N≠0, exact translation equivariance, and uniform exponential decay, occur in both prose and Lean. The proof supplies integrable derivative bounds, Cauchy convergence on vertical rays, a common limit through horizontal integration, and the polynomial argument forcing that limit to be αX^n. Evaluation estimates then bound a full translation strip, and integer periodicity covers every real part. Constants, positivity, and n=0 are handled; no deferred proof search or circular step remains."
+    },
+    {
+      "key": "all_cusps",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The cusp-form subgroup coercion is definitionally the explicit real matrix image in the conclusion. Finite index supplies arithmetic cusp representatives; normality of Γ(N) supplies the conjugated translation. The proof checks every exponential-decay hypothesis, including periodicity of the ofComplex extension outside the upper half-plane. It uses exactly its three declared prerequisites to obtain boundedness after the selected integral scaling matrix, then applies OnePoint.isBoundedAt_iff to obtain the full predicate over all real scaling matrices. Dependencies are correctly directed and acyclic."
+    }
+  ],
+  "required_changes": []
+}
