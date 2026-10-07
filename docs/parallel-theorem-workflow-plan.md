@@ -125,3 +125,16 @@ https://zhengyangzhang06.github.io/fermat-swarm-experiments/ .
 Mathematical completion remains outstanding: child issue45/PR65 was verified,
 merged and closed, but no original root was complete at rollout. Continue all
 ordinary review, comparator, axiom, integration and merge/close gates.
+
+The oversized-record publication fix was subsequently deployed from immutable
+`math-lean-flow-parallel-v2` (`9d2ec18`). Full records use exact UTF-8 continuation
+comments with digest-addressed identities; the current manifest switches only
+after complete publication. Durable pending-create intents prevent duplicate
+comments after an uncertain response and stale listing. P09 issue9 independently
+claimed a worker on hoa25 and resumed real agent execution, bringing the active
+ready-job count to 30 across all ten problems. Future claims use v2; existing jobs
+keep their original immutable version. The old idle polling service was retired
+only after no legacy grant or checker remained; proof files remain intact.
+The final combined regression suite passed 299 tests with zero failures/errors
+and one optional browser skip. This validates workflow behavior, not theorem
+acceptance or completion of the ten original mathematical problems.
