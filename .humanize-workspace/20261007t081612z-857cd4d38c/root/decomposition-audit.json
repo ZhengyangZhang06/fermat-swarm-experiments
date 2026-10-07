@@ -1,0 +1,63 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg --files -g AGENTS.md -g Submission.lean -g lakefile.lean -g lakefile.toml -g lean-toolchain -g '*decompos*' -g '*reserv*' -g '*dag*' .humanize .",
+        "FakeEllipticCurve.*(baseChange|quotient|rebase)|exists.*(quotient|rebase)|exists.*[Pp]ullback|[Rr]igidification.*[Ll]ift",
+        "qmap_comp_mk|quotEquiv_comp_mk|Pt.ext|def qmap|def quotEquiv|def ptX",
+        "structure AbelianSchemePropertyBundle\\|structure RelativeGroupLaw",
+        "p07_full_level_quotient_857cd4d38c|p07_curve_ring_equiv_857cd4d38c|p07_rigidification_reduction_857cd4d38c",
+        "fermat-p*/.humanize/github-theorem-prover/runs/*/dag.json",
+        "python3 /tmp/p07_fresh_decomposition_review_e3iy6udq/run.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root/decomposition-v2.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMModuli.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFormalModuleOf.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFineModuli.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMRigidification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMIsogeny.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_RigidifiedPairClassModel.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_JacJ1Iface.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_AlgebraicGeometry_RelativeGroupLaw.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/P2M",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Smooth.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Proper.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/ClosedImmersion.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/FlatRank.lean",
+        "/tmp/p07_fresh_decomposition_review_e3iy6udq/Contracts.lean",
+        "/tmp/p07_fresh_decomposition_review_e3iy6udq/build.log",
+        "/tmp/p07_fresh_decomposition_review_e3iy6udq/contracts.log",
+        "/tmp/p07_fresh_decomposition_review_e3iy6udq/unchanged_submission.log",
+        "/tmp/p07_fresh_decomposition_review_e3iy6udq/literal_import.log"
+      ],
+      "conclusion": "rg was unavailable; searches continued with grep and local filesystem scans. The quotient/rebase searches found no matching reusable construction in Definitions or P2M. The model supplies qmap_comp_mk, quotEquiv_comp_mk, and Pt.ext'; the four geometric citations have the stated hypotheses. Both snapshots are clean at manifest revisions 73257f1e32d99b75813b037f28a5cf45a2db886d and db584cd6d46c92f209a44c0f1c829460d327499d, and all nine package checkouts match their pins and are clean. I freshly rebuilt the 47 unchanged project definition modules in /tmp, with inherited linter/deprecation warnings. All three exact propositions independently elaborate as Prop without child implementations or the upstream target solution. Reflexivity checks confirm the induced quotient algebra map and mkₐ.toRingHom = mk. Transitive axiom checks of the relevant definitions and cited lemmas report only propext, Classical.choice, and Quot.sound. No proposed name was found as a declaration or reserved in the ten local DAGs; all are bare identifiers. The split is appropriate and acyclic, with only rigidification_reduction depending on curve_ring_equiv. Separately, I reproduced the inherited Submission.lean failures at the three attribute references identified by the proposal; literal import Submission therefore remains unavailable. This approves the decomposition and supplied prose, not activation or Lean-solution/comparator acceptance; the proposal already retains that separate gate."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "full_level_quotient",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact one-line proposition matches every stated parameter, hypothesis, and conclusion. Steps 1–10 construct the pullback curve and verify all group, action, tangent-trace, geometric, level, and FullLevel fields. The quotient-fibre homeomorphism justifies connectedness and dimension without additional assumptions. The final witnesses give precisely IsPullbackVia and the section equation. This is a narrower, non-circular obligation with no sibling dependency; its bare name is unreserved."
+    },
+    {
+      "key": "curve_ring_equiv",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact one-line proposition matches the prose, including both directions of IsPullbackVia and the orientation of i.hom and i.inv. Steps 1–8 construct the transported curve, verify every field, and prove both pullback predicates. Choosing the identity on the common total scheme proves the stated existential isomorphism contract. No parent or sibling theorem is assumed; the bare name is unreserved."
+    },
+    {
+      "key": "rigidification_reduction",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact one-line proposition includes all rings, algebra structures, maps, and pullback witnesses. Independent Lean checks confirm that mk and mkₐ.toRingHom coincide and that the inferred quotient algebra structure is the intended one. Steps 1–11 identify the second quotient, use precisely the declared curve_ring_equiv dependency, conjugate the isogenies through its returned isomorphisms, verify every rigidification field, and supply all conjuncts of the final pullback relation. The proof does not require a stronger sibling conclusion or invoke the parent. Its dependency direction is correct and its bare name is unreserved."
+    }
+  ],
+  "required_changes": []
+}

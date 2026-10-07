@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.full_level_quotient-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "Reduction of a full-level fake elliptic curve modulo an ideal",
+  "statement": "Let a,b be rational numbers, Λ a Z-submodule of QuaternionAlgebra Q a 0 b, N,n natural numbers, S a commutative ring of universe zero, and J an ideal of S. For every u : FakeEllipticCurve.WithFullLevel Λ N n S, put T = S/J and q = Ideal.Quotient.mk J. There exist v : FakeEllipticCurve.WithFullLevel Λ N n T and a scheme morphism g : v.1.A → u.1.A such that FakeEllipticCurve.IsPullbackVia q u.1 v.1 g and v.2.P.1 ≫ g = Spec(q) ≫ u.2.P.1. No Noetherian, nilpotence, primality, or nonzero-level assumption is required.",
+  "lean_statement": "∀ {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N n : ℕ) (S : Type) [CommRing S] (J : Ideal S) (u : CerednikDrinfeld.QM.FakeEllipticCurve.WithFullLevel Λ N n S), ∃ (v : CerednikDrinfeld.QM.FakeEllipticCurve.WithFullLevel Λ N n (S ⧸ J)) (g : Quiver.Hom v.1.A u.1.A), CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia (Ideal.Quotient.mk J) u.1 v.1 g ∧ CategoryTheory.CategoryStruct.comp v.2.P.1 g = CategoryTheory.CategoryStruct.comp (AlgebraicGeometry.Spec.map (CommRingCat.ofHom (Ideal.Quotient.mk J))) u.2.P.1",
+  "lean_name": "p07_full_level_quotient_857cd4d38c",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p07/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-a1"
+}

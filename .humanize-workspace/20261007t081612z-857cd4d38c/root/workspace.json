@@ -1,0 +1,262 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081612Z-857cd4d38c",
+  "parent_id": "root",
+  "dispatch_branch": "proof-workspace/fermat-p07/20261007t081612z-857cd4d38c/dispatch/root",
+  "source_commit": "73257f1e32d99b75813b037f28a5cf45a2db886d",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.curve_ring_equiv-a1",
+      "key": "curve_ring_equiv",
+      "result_branch": "humanize-recursive/fermat-p07/20261007t081612z-857cd4d38c/root-curve-ring-equiv-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-857cd4d38c/root/children/root-curve-ring-equiv-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg --files -g AGENTS.md -g Submission.lean -g lakefile.lean -g lakefile.toml -g lean-toolchain -g '*decompos*' -g '*reserv*' -g '*dag*' -g '*state*' .humanize .",
+              "qmap_comp_mk|quotEquiv_comp_mk|Pt.ext|def qmap|def quotEquiv|def ptX",
+              "exists.*[Pp]ullback|[Pp]ullback.*exists|def.*baseChange|theorem.*baseChange|quotient.*[Ff]ullLevel|[Rr]igidification.*[Ll]ift",
+              "FakeEllipticCurve.*(baseChange|quotient|rebase)|exists.*(quotient|rebase)",
+              "isStableUnderBaseChange|finrank_pullback_snd|mkₐ",
+              "structure AbelianSchemePropertyBundle",
+              "p07_full_level_quotient_857cd4d38c|p07_curve_ring_equiv_857cd4d38c|p07_rigidification_reduction_857cd4d38c"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root/decomposition-v2.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMModuli.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFormalModuleOf.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFineModuli.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMRigidification.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMIsogeny.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_RigidifiedPairClassModel.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_JacJ1Iface.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_AlgebraicGeometry_RelativeGroupLaw.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Smooth.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Proper.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/ClosedImmersion.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/FlatRank.lean",
+              "/tmp/p07_decomposition_current_check.lean",
+              "/tmp/p07_decomposition_current_type_and_axiom_check.log",
+              "/tmp/p07_decomposition_current_unchanged_submission.log"
+            ],
+            "conclusion": "The project and mathlib snapshots are clean at the manifest revisions 73257f1e32d99b75813b037f28a5cf45a2db886d and db584cd6d46c92f209a44c0f1c829460d327499d. Ripgrep is unavailable; the recorded search expressions were searched with grep after the failed rg attempt. No reusable fake-elliptic-curve quotient or rebase construction matched the searches in Definitions and P2M. The model file already supplies qmap_comp_mk, quotEquiv_comp_mk, and Pt.ext'. The inspected definitions specify all curve, full-level, isogeny, and rigidification fields used below. The DAG contains only the root; the three identifiers and exact types below agree with the existing proposals, and no corresponding Lean declaration was found. All three types elaborate against Submission's pinned definition imports. Reflexivity checks verify that the inferred quotient O-algebra map is q composed with the original algebra map and that mkₐ has underlying ring homomorphism mk. The audited structures, quotient identities, extensionality lemma, and four cited geometric library results depend only on propext, Classical.choice, and Quot.sound. However, unchanged Submission.lean fails on unknown attribute references AlgebraicGeometry.Scheme.Hom.opensMapFinal, GoodReductionJacobian.RelativeGroupLaw.baseChangePointToBase_ofBase, and RegularLocalRingQuotientAscent.dualNumberFst_apply. Thus the literal import Submission gate has not passed; these diagnostic checks are not comparator acceptance."
+          }
+        ],
+        "parent_id": "root",
+        "child_id": "root.curve_ring_equiv-a1",
+        "subproblem": {
+          "key": "curve_ring_equiv",
+          "title": "Transport of fake elliptic curves across a ring isomorphism",
+          "statement": "Let a,b be rational numbers, Λ a Z-submodule of QuaternionAlgebra Q a 0 b, and N a natural number. Let T,U be commutative rings of universe zero and k : T ≃+* U a ring isomorphism. For every D : FakeEllipticCurve Λ N U there exist E : FakeEllipticCurve Λ N T and an isomorphism i : D.A ≅ E.A such that FakeEllipticCurve.IsPullbackVia k.toRingHom E D i.hom and FakeEllipticCurve.IsPullbackVia k.symm.toRingHom D E i.inv.",
+          "lean_statement": "∀ {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N : ℕ) (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U) (D : CerednikDrinfeld.QM.FakeEllipticCurve Λ N U), ∃ (E : CerednikDrinfeld.QM.FakeEllipticCurve Λ N T) (i : CategoryTheory.Iso D.A E.A), CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia k.toRingHom E D i.hom ∧ CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia k.symm.toRingHom D E i.inv",
+          "lean_name": "p07_curve_ring_equiv_857cd4d38c",
+          "depends_on": [],
+          "natural_proof": "1. Put e = k.symm, k* = Spec(k), and e* = Spec(e). Then e* ≫ k* and k* ≫ e* are identities. Define E.A = D.A and E.f = D.f ≫ k*. Keep D.C, D.lev, and all action morphisms unchanged. For every scheme W and t : W → Spec T, the condition Q ≫ E.f = t is equivalent to Q ≫ D.f = t ≫ e*: compose either equation with the inverse base isomorphism. This gives a bijection B_t on relative points which leaves their underlying morphisms unchanged and commutes with precomposition.\n2. Transport D.L's multiplication, identity, and inverse through B_t. Injectivity of B_t proves associativity, both identity laws, inverse cancellation, and commutativity. Its precomposition compatibility proves multiplication naturality. The unchanged action maps are over Spec T after composing their original over-base equations with k*. Their identity and composition equations are unchanged. Their pointwise multiplication and addition equations follow by applying B_t and using the corresponding equations for D. This verifies every algebraic group and action field except act_trace.\n3. The square with identity on the total scheme, structure maps E.f and D.f, and base map e* is a pullback. Indeed, a compatible pair R : W → D.A and t : W → Spec T satisfies R ≫ D.f = t ≫ e*; composing with k* gives R ≫ E.f = t. Its unique lift is R. Conversely, the latter equation implies the former by composing with e*. Thus E.f is a base change of D.f. Smoothness and properness follow from AlgebraicGeometry.smooth_isStableUnderBaseChange and AlgebraicGeometry.IsProper.isStableUnderBaseChange, respectively Mathlib/AlgebraicGeometry/Morphisms/Smooth.lean:117 and Morphisms/Proper.lean:72 at revision db584cd6d46c92f209a44c0f1c829460d327499d. The base homeomorphism identifies the fibre of E.f over t with the fibre of D.f over e*(t), without changing its total-space points or topology. Connectedness and topological Krull dimension two follow. The transported group law supplies the remaining bundle field.\n4. For act_trace, fix an algebraically closed K, α : T → K, a finite K-module V₀, and a tangent parametrization τ satisfying its hypotheses. Put α_U = α ∘ e. The bijections B for Spec K and Spec(DualNumber K) commute with tangentZero and tangentScale and preserve group operations. Consequently the tangent restriction equation holds for a point if and only if it holds for its image. The parametrization B ∘ τ is injective and has exactly D's tangent vectors as range; its addition and scalar equations follow from those of τ. Since actions are intertwined, every linear map Φ representing an action through τ represents the same action through B ∘ τ. D.act_trace gives trace_K(Φ) = j for each integer j with m + star(m) = j. This is the desired equation for E.\n5. The level immersion is unchanged, so it remains a closed immersion. A point and its image under B have the same underlying morphism; therefore their level-factorization conditions are equivalent. Under B, D.lev_sub, D.lev_one, and D.lev_stable give the corresponding fields for E. B preserves repeated addition by induction on the number of additions, proving lev_torsion from D.lev_torsion.\n6. The same pullback argument as in step 3, with D.C and structure map D.lev ≫ D.f, shows that E.lev ≫ E.f is its base change along e*. Finiteness, flatness, and local finite presentation can also be seen directly: transport scalar coefficients across k and e in a finite generating family, in an exact tensor sequence, and in a finite algebra presentation. These operations preserve the corresponding properties on affine charts. The rank is N² by AlgebraicGeometry.Scheme.Hom.finrank_pullback_snd, Morphisms/FlatRank.lean:157 at the pinned revision, applied to this finite flat base change. For every algebraically closed K and α : T → K with (N : K) ≠ 0, B gives a bijection of the level-subgroup points with those of D at α_U. Composing the parametrization supplied by D.lev_fibre with B's inverse gives the required parametrization for E. Preservation of multiplication proves its addition equation. All fake elliptic curve fields are now verified.\n7. Let i : D.A ≅ E.A be the identity isomorphism of their common total scheme. The square with i.inv and base e* is the pullback proved in step 3. The square with i.hom and base k* is also a pullback: a compatible pair R : W → E.A and t : W → Spec U satisfies R ≫ D.f ≫ k* = t ≫ k*, so cancellation of k* gives R ≫ D.f = t, and R is its unique lift.\n8. For the square over e*, multiplication compatibility is the defining transport equation for B. For the square over k*, use the same equation at the base map t ≫ k* and cancel k* ≫ e*; it gives multiplication compatibility in the reverse direction. The unchanged actions commute with both identity morphisms. Level-factorization witnesses are unchanged in both directions. These are exactly the remaining fields of the two asserted IsPullbackVia predicates. Thus E and i satisfy the conclusion.",
+          "proof_key_steps": [
+            "Relabel the base using k and identify relative points using its inverse.",
+            "Transport the group law and verify the unchanged action maps.",
+            "Prove the identity-total-space square is a pullback and verify geometric fields.",
+            "Transport tangent parametrizations to verify act_trace.",
+            "Verify all level fields, including finite flat rank and geometric parametrization.",
+            "Use the identity scheme isomorphism to establish both IsPullbackVia predicates."
+          ]
+        },
+        "audit": {
+          "key": "curve_ring_equiv",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The exact one-line proposition matches the prose, including both directions of IsPullbackVia and the orientation of i.hom and i.inv. Steps 1–8 construct the transported curve, verify every field, and prove both pullback predicates. Choosing the identity on the common total scheme proves the stated existential isomorphism contract. No parent or sibling theorem is assumed; the bare name is unreserved."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-curve-ring-equiv-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-curve-ring-equiv-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-curve-ring-equiv-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.full_level_quotient-a1",
+      "key": "full_level_quotient",
+      "result_branch": "humanize-recursive/fermat-p07/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-857cd4d38c/root/children/root-full-level-quotient-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg --files -g AGENTS.md -g Submission.lean -g lakefile.lean -g lakefile.toml -g lean-toolchain -g '*decompos*' -g '*reserv*' -g '*dag*' -g '*state*' .humanize .",
+              "qmap_comp_mk|quotEquiv_comp_mk|Pt.ext|def qmap|def quotEquiv|def ptX",
+              "exists.*[Pp]ullback|[Pp]ullback.*exists|def.*baseChange|theorem.*baseChange|quotient.*[Ff]ullLevel|[Rr]igidification.*[Ll]ift",
+              "FakeEllipticCurve.*(baseChange|quotient|rebase)|exists.*(quotient|rebase)",
+              "isStableUnderBaseChange|finrank_pullback_snd|mkₐ",
+              "structure AbelianSchemePropertyBundle",
+              "p07_full_level_quotient_857cd4d38c|p07_curve_ring_equiv_857cd4d38c|p07_rigidification_reduction_857cd4d38c"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root/decomposition-v2.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMModuli.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFormalModuleOf.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFineModuli.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMRigidification.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMIsogeny.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_RigidifiedPairClassModel.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_JacJ1Iface.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_AlgebraicGeometry_RelativeGroupLaw.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Smooth.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Proper.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/ClosedImmersion.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/FlatRank.lean",
+              "/tmp/p07_decomposition_current_check.lean",
+              "/tmp/p07_decomposition_current_type_and_axiom_check.log",
+              "/tmp/p07_decomposition_current_unchanged_submission.log"
+            ],
+            "conclusion": "The project and mathlib snapshots are clean at the manifest revisions 73257f1e32d99b75813b037f28a5cf45a2db886d and db584cd6d46c92f209a44c0f1c829460d327499d. Ripgrep is unavailable; the recorded search expressions were searched with grep after the failed rg attempt. No reusable fake-elliptic-curve quotient or rebase construction matched the searches in Definitions and P2M. The model file already supplies qmap_comp_mk, quotEquiv_comp_mk, and Pt.ext'. The inspected definitions specify all curve, full-level, isogeny, and rigidification fields used below. The DAG contains only the root; the three identifiers and exact types below agree with the existing proposals, and no corresponding Lean declaration was found. All three types elaborate against Submission's pinned definition imports. Reflexivity checks verify that the inferred quotient O-algebra map is q composed with the original algebra map and that mkₐ has underlying ring homomorphism mk. The audited structures, quotient identities, extensionality lemma, and four cited geometric library results depend only on propext, Classical.choice, and Quot.sound. However, unchanged Submission.lean fails on unknown attribute references AlgebraicGeometry.Scheme.Hom.opensMapFinal, GoodReductionJacobian.RelativeGroupLaw.baseChangePointToBase_ofBase, and RegularLocalRingQuotientAscent.dualNumberFst_apply. Thus the literal import Submission gate has not passed; these diagnostic checks are not comparator acceptance."
+          }
+        ],
+        "parent_id": "root",
+        "child_id": "root.full_level_quotient-a1",
+        "subproblem": {
+          "key": "full_level_quotient",
+          "title": "Reduction of a full-level fake elliptic curve modulo an ideal",
+          "statement": "Let a,b be rational numbers, Λ a Z-submodule of QuaternionAlgebra Q a 0 b, N,n natural numbers, S a commutative ring of universe zero, and J an ideal of S. For every u : FakeEllipticCurve.WithFullLevel Λ N n S, put T = S/J and q = Ideal.Quotient.mk J. There exist v : FakeEllipticCurve.WithFullLevel Λ N n T and a scheme morphism g : v.1.A → u.1.A such that FakeEllipticCurve.IsPullbackVia q u.1 v.1 g and v.2.P.1 ≫ g = Spec(q) ≫ u.2.P.1. No Noetherian, nilpotence, primality, or nonzero-level assumption is required.",
+          "lean_statement": "∀ {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N n : ℕ) (S : Type) [CommRing S] (J : Ideal S) (u : CerednikDrinfeld.QM.FakeEllipticCurve.WithFullLevel Λ N n S), ∃ (v : CerednikDrinfeld.QM.FakeEllipticCurve.WithFullLevel Λ N n (S ⧸ J)) (g : Quiver.Hom v.1.A u.1.A), CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia (Ideal.Quotient.mk J) u.1 v.1 g ∧ CategoryTheory.CategoryStruct.comp v.2.P.1 g = CategoryTheory.CategoryStruct.comp (AlgebraicGeometry.Spec.map (CommRingCat.ofHom (Ideal.Quotient.mk J))) u.2.P.1",
+          "lean_name": "p07_full_level_quotient_857cd4d38c",
+          "depends_on": [],
+          "natural_proof": "1. Write E = u.1, P = u.2.P, T = S/J, q : S → T for the quotient, and q* = Spec(q). Form A_T = E.A ×_{Spec S} Spec T with projections g : A_T → E.A and f_T : A_T → Spec T. Scheme pullbacks exist. For every scheme W and t : W → Spec T, composition with g gives a bijection B_t from morphisms Q : W → A_T satisfying Q ≫ f_T = t to morphisms R : W → E.A satisfying R ≫ E.f = t ≫ q*. Its inverse sends R to the unique pullback lift of R and t. The two projection equations prove both inverse identities. These bijections commute with precomposition, since precomposing a lift gives the lift with the precomposed projections.\n2. Define multiplication, identity, and inverse on points of A_T by transporting E.L through B_t. Applying the injective B_t proves associativity, both identity laws, inverse cancellation, and commutativity from their counterparts for E. Compatibility of B with precomposition and E.L.mul_natural proves multiplication naturality. This constructs the required RelativeGroupLaw L_T and its commutativity witness. For m in Λ, define act_T(m) as the pullback lift of g ≫ E.act(m) and f_T. The action is over Spec T. Comparing both projections proves act_one and act_mul whenever the membership hypotheses in those fields hold. Applying B_t proves act_hom and act_add, using the corresponding equations for E. In particular, B intertwines the actions and preserves all group operations.\n3. The morphism f_T is smooth and proper by base change. The precise pinned results are AlgebraicGeometry.smooth_isStableUnderBaseChange in Mathlib/AlgebraicGeometry/Morphisms/Smooth.lean:117 and AlgebraicGeometry.IsProper.isStableUnderBaseChange in Morphisms/Proper.lean:72, at revision db584cd6d46c92f209a44c0f1c829460d327499d. To check the topological fibre requirements, Spec T is the closed subspace V(J) of Spec S. On an affine chart Spec D of E.A, its inverse image in A_T is Spec(D ⊗_S T) = Spec(D/JD); thus g is a homeomorphism onto the subspace of E.A mapping into V(J). For t in Spec T and s = q*(t), every point over s belongs to this subspace. Its unique preimage lies over t because q* is injective. Therefore g induces a homeomorphism of the entire fibres over t and s. It preserves nonemptiness, connectedness, and topological Krull dimension: irreducible closed subsets and their strict inclusion chains correspond under a homeomorphism. The new fibre is consequently connected and has dimension two. Together with the group law, this verifies the AbelianSchemePropertyBundle and dim_fibre fields.\n4. To prove act_trace, fix an algebraically closed field K, α : T → K, a finite K-module V₀, and a parametrization τ of tangent vectors satisfying every hypothesis in that field. Set α_S = α ∘ q. Apply B to points over Spec K and Spec(DualNumber K). These bijections commute with tangentZero and tangentScale because those operations are precomposition. They preserve identity and multiplication by construction. A dual-number point is tangent precisely when its image is tangent: the restriction equation can be checked after applying the injective B over Spec K. Hence τ_S = B ∘ τ is injective, has range exactly the tangent vectors of E, and satisfies the required addition and scalar equations. If a K-linear map Φ obeys the action equation for τ, action compatibility gives that equation for τ_S. For every m in Λ and integer j with m + star(m) = j, E.act_trace now gives trace_K(Φ) = j. The vector space and linear map are unchanged, proving act_trace for A_T.\n5. Form C_T = E.C ×_{Spec S} Spec T using E.lev ≫ E.f. The projections define lev_T : C_T → A_T. This is the base change of E.lev: both C_T and E.C ×_{E.A} A_T represent pairs with the same compatibility equation. Hence lev_T is a closed immersion by AlgebraicGeometry.IsClosedImmersion.isStableUnderBaseChange, Morphisms/ClosedImmersion.lean:382 at the pinned revision. For a point Q over t, Q factors through lev_T if and only if B_t(Q) factors through E.lev. Forward composition gives one implication. Conversely, a factorization R ≫ E.lev = Q ≫ g implies R ≫ E.lev ≫ E.f = t ≫ q*, so R and t lift to C_T. The resulting map to A_T equals Q by its two projections.\n6. Through this factorization equivalence and B_t, E.lev_sub gives closure under multiplication and inverse, E.lev_one gives the identity, and E.lev_stable gives action stability. Preservation of repeated addition follows by induction: the zero case is preservation of identity, and the successor case follows from preservation of multiplication. Applying this for N proves lev_torsion.\n7. The structure map C_T → Spec T is the base change of E.C → Spec S. On affine charts, a finite S-module D becomes the finite T-module D ⊗_S T, generated by tensors of a finite generating family. For a T-module L, L ⊗_T (D ⊗_S T) identifies with L ⊗_S D; restriction of scalars is exact, so flatness of D over S proves flatness after base change. Finite presentations base change by sending their finitely many coefficients to T, proving local finite presentation. The rank is N² by AlgebraicGeometry.Scheme.Hom.finrank_pullback_snd, Morphisms/FlatRank.lean:157 at the pinned revision; its hypotheses are precisely finiteness and flatness, already verified. For an algebraically closed K and α : T → K with (N : K) ≠ 0, B restricts to a multiplication-preserving bijection on the level-subgroup points by step 5. Compose E.lev_fibre's parametrization by ZMod N × ZMod N with its inverse. The resulting bijection satisfies the required addition equation. These verifications complete the fake elliptic curve E_T over T.\n8. Define P_T as the unique lift of q* ≫ P.1 and the identity of Spec T. Compatibility follows from P.1 ≫ E.f = id. Thus P_T.1 ≫ g = q* ≫ P.1. Precomposition of points preserves multiplication by RelativeGroupLaw.mul_natural. It also preserves identity: if H is the image of identity, then H·H = H, and group cancellation gives H = 1. It therefore preserves repeated addition by induction. Applying precomposition to u.2.torsion and then using the injectivity of B proves that P_T is n-torsion.\n9. Fix an algebraically closed K, α : T → K, and an n-torsion point Q of E_T. B(Q) is n-torsion on E. The original full-level generation property supplies m in Λ whose action on P specialized at α ∘ q is B(Q). Naturality of B and its action compatibility identify this with the image of the corresponding equation for P_T; injectivity proves that equation. Similarly, m kills the specialization of P_T if and only if it kills the specialization of P. The original annihilator property identifies this with existence of y in Λ such that m = (n : Q) • y. This proves both remaining FullLevel fields.\n10. Set v = (E_T,P_T). The pullback square from step 1, multiplication compatibility from step 2, action compatibility from step 2, and the forward factorization implication from step 5 are exactly the fields of FakeEllipticCurve.IsPullbackVia q E E_T g. Step 8 gives the required equation for distinguished sections. These witnesses prove the stated existential conclusion.",
+          "proof_key_steps": [
+            "Construct the scheme pullback and its natural bijections on relative points.",
+            "Transport the group law and lift the quaternion action.",
+            "Verify smoothness, properness, connected fibres, and fibre dimension using quotient-fibre homeomorphisms.",
+            "Transport tangent parametrizations to prove act_trace.",
+            "Base change the level immersion and prove the factorization equivalence.",
+            "Verify the subgroup, finiteness, flatness, presentation, rank, and geometric-level fields.",
+            "Lift the full-level section and verify torsion, generation, and annihilator.",
+            "Package the curve pullback witness and section equation."
+          ]
+        },
+        "audit": {
+          "key": "full_level_quotient",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The exact one-line proposition matches every stated parameter, hypothesis, and conclusion. Steps 1–10 construct the pullback curve and verify all group, action, tangent-trace, geometric, level, and FullLevel fields. The quotient-fibre homeomorphism justifies connectedness and dimension without additional assumptions. The final witnesses give precisely IsPullbackVia and the section equation. This is a narrower, non-circular obligation with no sibling dependency; its bare name is unreserved."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-full-level-quotient-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-full-level-quotient-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-full-level-quotient-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.rigidification_reduction-a1",
+      "key": "rigidification_reduction",
+      "result_branch": "humanize-recursive/fermat-p07/20261007t081612z-857cd4d38c/root-rigidification-reduction-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-857cd4d38c/root/children/root-rigidification-reduction-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg --files -g AGENTS.md -g Submission.lean -g lakefile.lean -g lakefile.toml -g lean-toolchain -g '*decompos*' -g '*reserv*' -g '*dag*' -g '*state*' .humanize .",
+              "qmap_comp_mk|quotEquiv_comp_mk|Pt.ext|def qmap|def quotEquiv|def ptX",
+              "exists.*[Pp]ullback|[Pp]ullback.*exists|def.*baseChange|theorem.*baseChange|quotient.*[Ff]ullLevel|[Rr]igidification.*[Ll]ift",
+              "FakeEllipticCurve.*(baseChange|quotient|rebase)|exists.*(quotient|rebase)",
+              "isStableUnderBaseChange|finrank_pullback_snd|mkₐ",
+              "structure AbelianSchemePropertyBundle",
+              "p07_full_level_quotient_857cd4d38c|p07_curve_ring_equiv_857cd4d38c|p07_rigidification_reduction_857cd4d38c"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root/decomposition-v2.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMModuli.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFormalModuleOf.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFineModuli.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMRigidification.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMIsogeny.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_RigidifiedPairClassModel.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_JacJ1Iface.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_AlgebraicGeometry_RelativeGroupLaw.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Smooth.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Proper.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/ClosedImmersion.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/FlatRank.lean",
+              "/tmp/p07_decomposition_current_check.lean",
+              "/tmp/p07_decomposition_current_type_and_axiom_check.log",
+              "/tmp/p07_decomposition_current_unchanged_submission.log"
+            ],
+            "conclusion": "The project and mathlib snapshots are clean at the manifest revisions 73257f1e32d99b75813b037f28a5cf45a2db886d and db584cd6d46c92f209a44c0f1c829460d327499d. Ripgrep is unavailable; the recorded search expressions were searched with grep after the failed rg attempt. No reusable fake-elliptic-curve quotient or rebase construction matched the searches in Definitions and P2M. The model file already supplies qmap_comp_mk, quotEquiv_comp_mk, and Pt.ext'. The inspected definitions specify all curve, full-level, isogeny, and rigidification fields used below. The DAG contains only the root; the three identifiers and exact types below agree with the existing proposals, and no corresponding Lean declaration was found. All three types elaborate against Submission's pinned definition imports. Reflexivity checks verify that the inferred quotient O-algebra map is q composed with the original algebra map and that mkₐ has underlying ring homomorphism mk. The audited structures, quotient identities, extensionality lemma, and four cited geometric library results depend only on propext, Classical.choice, and Quot.sound. However, unchanged Submission.lean fails on unknown attribute references AlgebraicGeometry.Scheme.Hom.opensMapFinal, GoodReductionJacobian.RelativeGroupLaw.baseChangePointToBase_ofBase, and RegularLocalRingQuotientAscent.dualNumberFst_apply. Thus the literal import Submission gate has not passed; these diagnostic checks are not comparator acceptance."
+          }
+        ],
+        "parent_id": "root",
+        "child_id": "root.rigidification_reduction-a1",
+        "subproblem": {
+          "key": "rigidification_reduction",
+          "title": "Lift a rigidification of the reduction along its given curve pullback",
+          "statement": "Let a,b be rational numbers, Λ a Z-submodule of QuaternionAlgebra Q a 0 b, and r,N natural numbers. Let O,Onr,S be commutative rings of universe zero with O-algebra structures on Onr and S. Fix π : O, A₀ : FakeEllipticCurve Λ N (Onr/(algebraMap O Onr π)), ψ : Onr →ₐ[O] S, and E : FakeEllipticCurve Λ N S. Put J = Ideal.span {algebraMap O S π}, T = S/J with its induced O-algebra structure, and qₐ = Ideal.Quotient.mkₐ O J. Let V : FakeEllipticCurve Λ N T, g : V.A → E.A, and hg : FakeEllipticCurve.IsPullbackVia qₐ.toRingHom E V g. For every σ : Rigidification r π A₀ (qₐ.comp ψ) V, there exists ρ : Rigidification r π A₀ ψ E such that ρ.d = σ.d and Rigidification.IsPullbackVia qₐ g hg ρ σ.",
+          "lean_statement": "∀ {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (r N : ℕ) (𝒪 : Type) [CommRing 𝒪] (π : 𝒪) (Onr : Type) [CommRing Onr] [Algebra 𝒪 Onr] (A₀ : CerednikDrinfeld.QM.FakeEllipticCurve Λ N (Onr ⧸ Ideal.span {algebraMap 𝒪 Onr π})) (S : Type) [CommRing S] [Algebra 𝒪 S] (ψ : Onr →ₐ[𝒪] S) (E : CerednikDrinfeld.QM.FakeEllipticCurve Λ N S) (V : CerednikDrinfeld.QM.FakeEllipticCurve Λ N (S ⧸ Ideal.span {algebraMap 𝒪 S π})) (g : Quiver.Hom V.A E.A) (hg : CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia (Ideal.Quotient.mk (Ideal.span {algebraMap 𝒪 S π})) E V g) (σ : CerednikDrinfeld.QM.FakeEllipticCurve.Rigidification r π A₀ ((Ideal.Quotient.mkₐ 𝒪 (Ideal.span {algebraMap 𝒪 S π})).comp ψ) V), ∃ ρ : CerednikDrinfeld.QM.FakeEllipticCurve.Rigidification r π A₀ ψ E, ρ.d = σ.d ∧ CerednikDrinfeld.QM.FakeEllipticCurve.Rigidification.IsPullbackVia (Ideal.Quotient.mkₐ 𝒪 (Ideal.span {algebraMap 𝒪 S π})) g hg ρ σ",
+          "lean_name": "p07_rigidification_reduction_857cd4d38c",
+          "depends_on": [
+            "curve_ring_equiv"
+          ],
+          "natural_proof": "1. Put s = algebraMap O S π, J = (s), T = S/J, and q : S → T for the quotient. Its induced O-algebra map sends a to q(algebraMap O S a). Therefore π_T = algebraMap O T π = q(s) = 0, since s lies in J. Set U = T/(π_T), and let k₀ : T → U be the quotient. The map e : U → T sending [t] to t is well-defined because (π_T) is the zero ideal. It preserves all ring operations, and e ∘ k₀ = id_T and k₀ ∘ e = id_U. Thus k₀ is the underlying map of a ring isomorphism k : T ≃+* U with inverse e. Write k* and e* for the associated scheme morphisms.\n2. Let λ : Onr/(π_Onr) → T be the residue map induced by ψ, and let λ' : Onr/(π_Onr) → U be induced by qₐ.comp ψ. On the class of a in Onr, λ' gives k₀(q(ψ(a))); therefore λ' = k₀ ∘ λ by surjectivity of the quotient map. The residue map q̄ : T → U induced by q likewise sends q(s₀) to k₀(q(s₀)) for every s₀ in S. Since q is surjective, q̄ = k₀. These are equalities of ring homomorphisms; proof fields in their quotient-map definitions do not affect them.\n3. Apply the sibling theorem curve_ring_equiv to k and σ.Eb, and separately to k and σ.Ab. Obtain curves B,A over T and scheme isomorphisms i_b : σ.Eb.A ≅ B.A and i_A : σ.Ab.A ≅ A.A. Their forward maps satisfy IsPullbackVia over k₀, and their inverse maps satisfy IsPullbackVia over e. The inverse squares identify B-points over t with σ.Eb-points over t ≫ e*, by composition with i_b.inv; similarly for A. These are bijections, preserve multiplication and actions, and preserve level membership in both directions: the inverse pullback predicates give one implication and the forward predicates give the other after cancelling the isomorphisms and the inverse base maps.\n4. Define the prospective rigidification by ρ.Eb = B, ρ.Ab = A, ρ.gb = i_b.inv ≫ σ.gb ≫ g, ρ.gA = i_A.inv ≫ σ.gA, ρ.d = σ.d, ρ.φ = i_b.inv ≫ σ.φ ≫ i_A.hom, and ρ.φ' = i_A.inv ≫ σ.φ' ≫ i_b.hom. These expressions have exactly the required sources and targets. The remaining steps verify each proof field of Rigidification.\n5. Pullback squares compose: to lift a compatible pair into a composite square, first use the lower square's unique lift and then the upper square's unique lift; the two uniqueness statements also prove uniqueness for the composite. Apply this to the inverse square for i_b, σ.isPullback_Eb, and hg. Their base morphisms compose as e* ≫ k* ≫ q* = q*. Thus the composite is the required pullback square for ρ.gb. Multiplication compatibility follows by applying the three compatibility equations successively. The three action equations compose by associativity. For level factorization, take the witness through σ.Eb.lev supplied by the first predicate, then through V.lev supplied by the second, and finally through E.lev supplied by hg. This verifies all components of FakeEllipticCurve.IsPullbackVia q E B ρ.gb.\n6. Compose the inverse square for i_A with σ.isPullback_Ab. Its base morphism is e* ≫ (λ')* = e* ≫ k* ≫ λ* = λ*, by step 2. Consequently this is the required pullback square for ρ.gA. Applying the two multiplication equations, composing the two action equations, and composing their level-factorization witnesses proves all remaining components of FakeEllipticCurve.IsPullbackVia λ A₀ A ρ.gA.\n7. The inverse pullback equation gives i_b.inv ≫ σ.Eb.f = B.f ≫ e*, and the forward equation gives i_A.hom ≫ A.f = σ.Ab.f ≫ k*. Using σ.φ_over and e* ≫ k* = id yields ρ.φ ≫ A.f = B.f. Using the over-base equation for σ.φ' gives ρ.φ' ≫ B.f = A.f in the same way. Thus both isogeny maps are over Spec T, and the first equality supplies ρ.φ_over.\n8. For a point Q of B over t, the image of ρ.φ(Q) under the point bijection for A is σ.φ applied to the image of Q under the point bijection for B. On underlying morphisms this is the cancellation i_A.hom ≫ i_A.inv = id. The corresponding statement for ρ.φ' follows by cancelling i_b.hom ≫ i_b.inv. Since the two point bijections preserve multiplication and are injective, σ's two multiplication-preservation equations imply those for ρ.φ and ρ.φ'. For action equivariance, substitute their definitions and use the action equations for i_b.inv, i_A.hom, i_A.inv, i_b.hom, and the two action equations for σ. Associativity gives precisely B.act(m) ≫ ρ.φ = ρ.φ ≫ A.act(m) and its reverse-map analogue.\n9. Fix any membership witness for the scalar r^σ.d in Λ. Cancellation of i_A.hom ≫ i_A.inv gives ρ.φ ≫ ρ.φ' = i_b.inv ≫ (σ.φ ≫ σ.φ') ≫ i_b.hom. The old isogeny-pair equation replaces the middle composite by σ.Eb's action of that scalar. Action compatibility and i_b.inv ≫ i_b.hom = id turn the result into B's action of the same scalar. Cancelling i_b.hom ≫ i_b.inv in the other order proves ρ.φ' ≫ ρ.φ equals A's scalar action. Since ρ.d = σ.d by definition, these are the exact degree conditions in IsIsogenyPair. Together with steps 7 and 8, they establish ρ.isIsogenyPair.\n10. Suppose a B-point factors through B.lev. The level equivalence of step 3 sends it to a point factoring through σ.Eb.lev. Apply σ.preservesLevel to obtain a factorization through σ.Ab.lev, then send it forward through i_A.hom to obtain a factorization through A.lev. The resulting point is its image under ρ.φ by definition. Hence ρ.preservesLevel holds. Steps 5–10 verify every proof field, so ρ is a rigidification with ρ.d = σ.d.\n11. To prove the asserted rigidification pullback relation, take ub = i_b.hom and uA = i_A.hom. Its residue map is k₀ by step 2, so the two curve IsPullbackVia conditions are exactly the forward conditions supplied in step 3. The equation ub ≫ ρ.gb = σ.gb ≫ g follows by cancelling i_b.hom ≫ i_b.inv. Similarly uA ≫ ρ.gA = σ.gA. The degree equation σ.d = ρ.d is reflexive. Finally, ub ≫ ρ.φ = σ.φ ≫ i_A.hom = σ.φ ≫ uA, again by cancellation. These are all conjuncts in Rigidification.IsPullbackVia qₐ g hg ρ σ. Thus ρ is the required witness.",
+          "proof_key_steps": [
+            "Show the second quotient is quotient by zero and construct its canonical ring isomorphism.",
+            "Identify both induced residue maps by evaluation on quotient representatives.",
+            "Transport the two special-fibre curves using curve_ring_equiv.",
+            "Define the lifted rigidification by conjugating its isogeny maps.",
+            "Compose pullback squares and their multiplication, action, and level compatibilities.",
+            "Verify the over-base, isogeny-pair, and level-preservation fields.",
+            "Use the forward transport isomorphisms as witnesses of the exact rigidification pullback relation."
+          ]
+        },
+        "audit": {
+          "key": "rigidification_reduction",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The exact one-line proposition includes all rings, algebra structures, maps, and pullback witnesses. Independent Lean checks confirm that mk and mkₐ.toRingHom coincide and that the inferred quotient algebra structure is the intended one. Steps 1–11 identify the second quotient, use precisely the declared curve_ring_equiv dependency, conjugate the isogenies through its returned isomorphisms, verify every rigidification field, and supply all conjuncts of the final pullback relation. The proof does not require a stronger sibling conclusion or invoke the parent. Its dependency direction is correct and its bare name is unreserved."
+        },
+        "resolved_dependencies": [
+          "root.curve_ring_equiv-a1"
+        ],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-rigidification-reduction-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-rigidification-reduction-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-rigidification-reduction-a1/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root/task.md": "fd5d24e5d133be82c50f361fb46820fe9b4ead548bfb61f4cd1eaf5c920989b9",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root/problem.md": "5f0871c2e93d5288092a1f00902e3f8add02d0e21d6e142ac2ea7d6dfbe7d1ce",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root/problem.json": "7418cb1df4807b9c729e4ba13bf2cda4d547b983e49ef2dc558e550828439c26",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root/reference-manifest.json": "7a693667f3887c9ad53914a2f2caec85a3d20f69d227f2adb18f4be2c4924603",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root/decomposition.json": "3b68d49dd92b8ae09ca022dcd3be145df6c8fa9737e5adecb620c1dd7b6ab680",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root/decomposition-audit.json": "84d22d3d9dfbd2a787dc06edf5bccccc0cef59d2267e2b36f9bcde91d072846a",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root/controller-contract.json": "f8efa232ebddac99c94269f22aef65fa0ee43088676bfb82e47f25434ef50ee9",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root/children/root-curve-ring-equiv-a1/parent-child-handoff.json": "48ba3f0bff0294145601a3dc78ee499642c231a1458c255c1fe36d1ba3a83e4e",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root/children/root-curve-ring-equiv-a1/parent-supplied-plan.md": "02c33de5d6d32395eadf828ff33b1bd5a9063235cc8467deab254e89a4510400",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root/children/root-curve-ring-equiv-a1/parent-supplied-natural-proof.md": "a6f459cd72c571bbc88030d358c847e6f537c22d4beae4fda795e769e6b690a6",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root/children/root-curve-ring-equiv-a1/parent-supplied-natural-proof.json": "47a76431fb2656391dbc44ad3aa27a19dd70f3e7ee92998b6e6112e7ca23365a",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root/children/root-curve-ring-equiv-a1/node.json": "56b8c5f2ce272a491aa13f7c125a28a679067c665ac55abb13b614ebd1312bc5",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root/children/root-full-level-quotient-a1/parent-child-handoff.json": "a4652c606c70743be1b28a137e30dd7b335f3f996f2b1a0ea36cfa9ff71d19e0",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root/children/root-full-level-quotient-a1/parent-supplied-plan.md": "9e2a013b9c6bcf2d8f965e8a8350da520970bea629da0c5702d8b783930f8969",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root/children/root-full-level-quotient-a1/parent-supplied-natural-proof.md": "3b1e23c17eb406ed8c5f5a57ae00fa8ee491ca05ff82edffc11abfcfa7a96c81",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root/children/root-full-level-quotient-a1/parent-supplied-natural-proof.json": "b04b342e8edf1fe33898737b980b209051ba9f58f2006d9649f4143c6825d89c",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root/children/root-full-level-quotient-a1/node.json": "ec6121f0be1149ac38925e85ae3eddb463626ab2f21468ed8d89d095bd9bdfd9",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root/children/root-rigidification-reduction-a1/parent-child-handoff.json": "996493ce5433de4c17a86e139e57e85a2398b35ff31d74726328624e91c29e87",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root/children/root-rigidification-reduction-a1/parent-supplied-plan.md": "41bbea4f38aeaf867fa133a2959fb9cd23100aa734856939f2b5bc0cfc17704b",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root/children/root-rigidification-reduction-a1/parent-supplied-natural-proof.md": "15ba498113c098d62d6c265c673d3340297bf820b3c63f0003584cc53fac36d2",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root/children/root-rigidification-reduction-a1/parent-supplied-natural-proof.json": "8b4cabd10acd3dc93d772eb9a34a81094d8a78debe91fe944cc3a58d8f4f5e52",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root/children/root-rigidification-reduction-a1/node.json": "95b939507d50659053e461b0dbd04627bcc85e2c4d3ab7ca9d57148b1c6d8ff2"
+  }
+}

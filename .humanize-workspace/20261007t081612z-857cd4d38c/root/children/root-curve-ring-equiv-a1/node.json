@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.curve_ring_equiv-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "Transport of fake elliptic curves across a ring isomorphism",
+  "statement": "Let a,b be rational numbers, Λ a Z-submodule of QuaternionAlgebra Q a 0 b, and N a natural number. Let T,U be commutative rings of universe zero and k : T ≃+* U a ring isomorphism. For every D : FakeEllipticCurve Λ N U there exist E : FakeEllipticCurve Λ N T and an isomorphism i : D.A ≅ E.A such that FakeEllipticCurve.IsPullbackVia k.toRingHom E D i.hom and FakeEllipticCurve.IsPullbackVia k.symm.toRingHom D E i.inv.",
+  "lean_statement": "∀ {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N : ℕ) (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U) (D : CerednikDrinfeld.QM.FakeEllipticCurve Λ N U), ∃ (E : CerednikDrinfeld.QM.FakeEllipticCurve Λ N T) (i : CategoryTheory.Iso D.A E.A), CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia k.toRingHom E D i.hom ∧ CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia k.symm.toRingHom D E i.inv",
+  "lean_name": "p07_curve_ring_equiv_857cd4d38c",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p07/20261007t081612z-857cd4d38c/root-curve-ring-equiv-a1-a1"
+}

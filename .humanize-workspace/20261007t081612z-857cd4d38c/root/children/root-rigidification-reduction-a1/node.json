@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "node_id": "root.rigidification_reduction-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "Lift a rigidification of the reduction along its given curve pullback",
+  "statement": "Let a,b be rational numbers, Λ a Z-submodule of QuaternionAlgebra Q a 0 b, and r,N natural numbers. Let O,Onr,S be commutative rings of universe zero with O-algebra structures on Onr and S. Fix π : O, A₀ : FakeEllipticCurve Λ N (Onr/(algebraMap O Onr π)), ψ : Onr →ₐ[O] S, and E : FakeEllipticCurve Λ N S. Put J = Ideal.span {algebraMap O S π}, T = S/J with its induced O-algebra structure, and qₐ = Ideal.Quotient.mkₐ O J. Let V : FakeEllipticCurve Λ N T, g : V.A → E.A, and hg : FakeEllipticCurve.IsPullbackVia qₐ.toRingHom E V g. For every σ : Rigidification r π A₀ (qₐ.comp ψ) V, there exists ρ : Rigidification r π A₀ ψ E such that ρ.d = σ.d and Rigidification.IsPullbackVia qₐ g hg ρ σ.",
+  "lean_statement": "∀ {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (r N : ℕ) (𝒪 : Type) [CommRing 𝒪] (π : 𝒪) (Onr : Type) [CommRing Onr] [Algebra 𝒪 Onr] (A₀ : CerednikDrinfeld.QM.FakeEllipticCurve Λ N (Onr ⧸ Ideal.span {algebraMap 𝒪 Onr π})) (S : Type) [CommRing S] [Algebra 𝒪 S] (ψ : Onr →ₐ[𝒪] S) (E : CerednikDrinfeld.QM.FakeEllipticCurve Λ N S) (V : CerednikDrinfeld.QM.FakeEllipticCurve Λ N (S ⧸ Ideal.span {algebraMap 𝒪 S π})) (g : Quiver.Hom V.A E.A) (hg : CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia (Ideal.Quotient.mk (Ideal.span {algebraMap 𝒪 S π})) E V g) (σ : CerednikDrinfeld.QM.FakeEllipticCurve.Rigidification r π A₀ ((Ideal.Quotient.mkₐ 𝒪 (Ideal.span {algebraMap 𝒪 S π})).comp ψ) V), ∃ ρ : CerednikDrinfeld.QM.FakeEllipticCurve.Rigidification r π A₀ ψ E, ρ.d = σ.d ∧ CerednikDrinfeld.QM.FakeEllipticCurve.Rigidification.IsPullbackVia (Ideal.Quotient.mkₐ 𝒪 (Ideal.span {algebraMap 𝒪 S π})) g hg ρ σ",
+  "lean_name": "p07_rigidification_reduction_857cd4d38c",
+  "depends_on": [
+    "root.curve_ring_equiv-a1"
+  ],
+  "dependency_workspaces": [
+    {
+      "node_id": "root.curve_ring_equiv-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    }
+  ],
+  "result_branch": "humanize-recursive/fermat-p07/20261007t081612z-857cd4d38c/root-rigidification-reduction-a1-a1"
+}
