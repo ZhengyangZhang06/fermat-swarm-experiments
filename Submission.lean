@@ -2706,14 +2706,9 @@ theorem p02_es_177ebb5a_cd_modular_pullback_derivative
       (HeckeEis.linePow n (τ : ℂ))).val = _
     rw [HeckeEis.binaryFormRepSL_linePow]
     simp only [Submodule.coe_smul, MvPolynomial.coeff_smul, smul_eq_mul]
-  have hscalar : (f (g • τ) *
-      MvPolynomial.coeff e (HeckeEis.linePow n ((g • τ : UpperHalfPlane) : ℂ)).val) *
-        (1 / HeckeEis.jFactor g τ ^ 2) =
-      f τ * MvPolynomial.coeff e
-        ((((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype) γ)
-          (HeckeEis.linePow n (τ : ℂ))).val := by
-    rw [hslash, hrep, pow_add]
-    field_simp [hj]
-  simpa only [Function.comp_def, UpperHalfPlane.ofComplex_apply, hscalar] using hcomp
+  simp only [Function.comp_def, UpperHalfPlane.ofComplex_apply] at hcomp
+  convert! hcomp using 1
+  rw [hslash, hrep, pow_add]
+  field_simp [hj]
 
 end Submission
