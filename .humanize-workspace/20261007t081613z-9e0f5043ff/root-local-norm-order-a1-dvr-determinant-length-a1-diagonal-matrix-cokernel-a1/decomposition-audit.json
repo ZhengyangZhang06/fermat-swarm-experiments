@@ -1,0 +1,45 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "cokernel.*(isUnit|IsUnit|diagonal)|[Dd]iagonal.*[Cc]okernel|[Cc]okernel.*[Dd]iagonal|range_mulVecLin.*pi|mulVecLin.*quot",
+        "mulVecLin_mul|toLinearEquiv.|quotientPi|quotKerEquivOfSurjective|def equiv|def mapQ|mem_span_singleton|mk_surjective|eq_zero_iff_mem",
+        "def Matrix|def of|instance.*(Mul|Semiring)|semiring|diagonal_mulVec",
+        "p06_9e0f5043ff_dmc_cokernel_units|p06_9e0f5043ff_dmc_diagonal_quotient|diagonal-matrix-cokernel|diagonal_matrix_cokernel|\"lean_name\"|\"status\"|\"dependencies\"|\"depth\""
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Data/Matrix/Mul.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Matrix/ToLin.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Quotient/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Quotient/Pi.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Isomorphisms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Ideal/Span.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Ideal/Quotient/Defs.lean",
+        "/tmp/p06_dmc_independent_audit_a5zgvpe0/Check.lean",
+        "/tmp/p06_dmc_independent_audit_a5zgvpe0/Check.log"
+      ],
+      "conclusion": "The targeted snapshot search found no exact matrix-cokernel theorem. Inspected sources support matrix-action composition, quotient descent, finite products of quotients, principal-ideal membership, and quotient surjectivity. The manifest pins project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. All nine installed dependencies matched their pins with clean tracked files; inspected mathlib sources matched the snapshot. Independent Lean 4.33.1 checks passed for both exact propositions, ordinary matrix multiplication and unit instances, and composition of the two child assumptions into the frozen parent type. Seven supporting library declarations had only propext, Classical.choice, and Quot.sound as transitive axioms. These checks used imported Definitions whose sources matched the snapshot; they do not constitute full frozen Submission validation or comparator acceptance. The DAG confirms this parent is a depth-three helper beneath the unchanged algebraic-curve root. Adding parent-to-child edges preserves acyclicity, and neither proposed name is reserved elsewhere."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "cokernel_invariant_under_units",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose includes every hypothesis and matches the independently elaborated one-line proposition. IsUnit P and IsUnit Q use the ordinary matrix monoid, not pointwise multiplication. The bare identifier is unreserved. Steps 1–3 correctly obtain inverse linear actions and both required image containments; steps 4–6 establish well-defined linear quotient maps and their inverse identities on representatives. No cancellation requiring a domain or nontriviality is used. The proof covers m = 0 and invokes neither child nor parent. This independent invariance obligation combines with the diagonal computation by rewriting the supplied matrix equality and composing equivalences; the split is appropriate."
+    },
+    {
+      "key": "diagonal_cokernel_product",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and independently elaborated one-line proposition agree exactly, including the dependent product of principal-ideal quotients and absence of nonvanishing assumptions. The bare identifier is unreserved, and the type does not depend on its implementation. Steps 1–4 correctly identify the coordinate quotient map's kernel using principal-ideal witnesses and commutativity. Step 5 proves surjectivity by choosing representatives. Steps 6–8 rigorously descend the map, prove bijectivity, and establish linearity of its inverse. Empty indexing, zero entries, and zero divisors cause no gap. The proof is complete and non-circular, so its empty dependency list is correct."
+    }
+  ],
+  "required_changes": []
+}

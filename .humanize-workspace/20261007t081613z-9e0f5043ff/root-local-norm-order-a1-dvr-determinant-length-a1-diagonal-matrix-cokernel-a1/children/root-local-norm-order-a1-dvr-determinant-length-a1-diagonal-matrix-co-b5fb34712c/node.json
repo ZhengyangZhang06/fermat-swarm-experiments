@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.local_norm_order-a1.dvr_determinant_length-a1.diagonal_matrix_cokernel-a1.cokernel_invariant_under_units-a1",
+  "parent_id": "root.local_norm_order-a1.dvr_determinant_length-a1.diagonal_matrix_cokernel-a1",
+  "depth": 4,
+  "title": "Invertible matrix transformations preserve the cokernel",
+  "statement": "Let R be a commutative ring, m a natural number, and D, P, Q square matrices indexed by Fin m over R. If P and Q are units for matrix multiplication, then (Fin m → R)/image(D) is R-linearly isomorphic to (Fin m → R)/image(P D Q), where each image is the image of multiplication on column vectors.",
+  "lean_statement": "∀ (R : Type*) [CommRing R] (m : ℕ) (D P Q : Matrix (Fin m) (Fin m) R), IsUnit P → IsUnit Q → Nonempty (((Fin m → R) ⧸ LinearMap.range (Matrix.mulVecLin D)) ≃ₗ[R] ((Fin m → R) ⧸ LinearMap.range (Matrix.mulVecLin (P * D * Q))))",
+  "lean_name": "p06_9e0f5043ff_dmc_cokernel_units",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-diagonal-matrix-co-b5fb34712c-a1"
+}

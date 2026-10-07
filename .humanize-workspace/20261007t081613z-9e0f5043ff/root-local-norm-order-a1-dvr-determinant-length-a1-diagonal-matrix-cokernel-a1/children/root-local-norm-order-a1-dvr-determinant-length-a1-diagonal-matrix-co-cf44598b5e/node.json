@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.local_norm_order-a1.dvr_determinant_length-a1.diagonal_matrix_cokernel-a1.diagonal_cokernel_product-a1",
+  "parent_id": "root.local_norm_order-a1.dvr_determinant_length-a1.diagonal_matrix_cokernel-a1",
+  "depth": 4,
+  "title": "The cokernel of a diagonal matrix is a product of principal quotients",
+  "statement": "Let R be a commutative ring, m a natural number, and d : Fin m → R. The quotient of Fin m → R by the image of column multiplication by diagonal(d) is R-linearly isomorphic to the product, over i : Fin m, of R/Ideal.span({d(i)}). No entry of d is required to be nonzero.",
+  "lean_statement": "∀ (R : Type*) [CommRing R] (m : ℕ) (d : Fin m → R), Nonempty (((Fin m → R) ⧸ LinearMap.range (Matrix.mulVecLin (Matrix.diagonal d))) ≃ₗ[R] ((i : Fin m) → R ⧸ Ideal.span ({d i} : Set R)))",
+  "lean_name": "p06_9e0f5043ff_dmc_diagonal_quotient",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-diagonal-matrix-co-cf44598b5e-a1"
+}

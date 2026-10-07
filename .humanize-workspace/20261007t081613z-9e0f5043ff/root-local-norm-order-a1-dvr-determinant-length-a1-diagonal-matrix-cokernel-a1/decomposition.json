@@ -1,0 +1,60 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n --glob '*.lean' 'cokernel.*(isUnit|IsUnit|diagonal)|[Dd]iagonal.*[Cc]okernel|[Cc]okernel.*[Dd]iagonal|range_mulVecLin.*pi|mulVecLin.*quot' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f",
+        "rg -n 'quotientEquiv|quotEquivOfEq|mapQ' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Quotient/Basic.lean",
+        "rg -n 'span_singleton|mk_surjective|eq_zero_iff_mem' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Ideal/Quotient/Defs.lean .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Ideal/Span.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Matrix/ToLin.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Matrix/ToLinearEquiv.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Quotient/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Quotient/Pi.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Isomorphisms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Ideal/Span.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Ideal/Quotient/Defs.lean"
+      ],
+      "conclusion": "No exact matrix-cokernel theorem matched the targeted search. Relevant infrastructure includes Matrix.mulVecLin_mul, Matrix.toLinearEquiv', Submodule.Quotient.equiv, Submodule.quotientPi, LinearMap.quotKerEquivOfSurjective, and principal-ideal membership and quotient-surjectivity lemmas. Inspected sources match installed mathlib db584cd6d46c92f209a44c0f1c829460d327499d; all installed dependencies matched their pins and had clean tracked files. Transitive axiom checks of these library declarations reported only propext, Classical.choice, and Quot.sound. Both proposed types elaborated with Lean 4.33.1 through the existing import-only Submission interface; matrix instances synthesized as Matrix.semiring.toMonoid and Matrix.instMulOfFintypeOfAddCommMonoid. The full frozen Submission has pre-existing unknown attribute targets, so this interface check is not full-contract or comparator acceptance."
+    }
+  ],
+  "should_split": true,
+  "rationale": "Separate cokernel invariance under invertible matrix transformations from the coordinatewise computation for a diagonal matrix. Both are reusable, independent obligations. The parent follows by composing their equivalences and rewriting with P * D * Q = Matrix.diagonal d. The current depth is 3, below the limit 6, and neither proposed identifier occurs in the inspected DAG or node contracts.",
+  "subproblems": [
+    {
+      "key": "cokernel_invariant_under_units",
+      "title": "Invertible matrix transformations preserve the cokernel",
+      "statement": "Let R be a commutative ring, m a natural number, and D, P, Q square matrices indexed by Fin m over R. If P and Q are units for matrix multiplication, then (Fin m → R)/image(D) is R-linearly isomorphic to (Fin m → R)/image(P D Q), where each image is the image of multiplication on column vectors.",
+      "lean_statement": "∀ (R : Type*) [CommRing R] (m : ℕ) (D P Q : Matrix (Fin m) (Fin m) R), IsUnit P → IsUnit Q → Nonempty (((Fin m → R) ⧸ LinearMap.range (Matrix.mulVecLin D)) ≃ₗ[R] ((Fin m → R) ⧸ LinearMap.range (Matrix.mulVecLin (P * D * Q))))",
+      "lean_name": "p06_9e0f5043ff_dmc_cokernel_units",
+      "depends_on": [],
+      "natural_proof": "1. Fix R, m, D, P and Q with the stated hypotheses. Put V = R^(Fin m), A = P D Q, N = image(D), and N' = image(A). Matrix multiplication on column vectors defines R-linear maps because R is commutative.\n2. Choose inverse matrices U and T for P and Q respectively. Thus UP = PU = 1 and TQ = QT = 1. Associativity of the matrix action shows that x ↦ Px and x ↦ Ux are mutually inverse linear maps on V; likewise x ↦ Qx and x ↦ Tx are mutually inverse.\n3. Multiplication by P sends N into N'. Indeed, if n = Dy, then Pn = PDy = PDQ(Ty) = A(Ty), using QT = 1. Multiplication by U sends N' into N: if n' = Az, then Un' = UPDQz = D(Qz).\n4. Define f : V/N → V/N' by f([x]) = [Px]. This is well-defined: if [x] = [y] modulo N, then x − y ∈ N, so P(x − y) ∈ N' by step 3, and therefore [Px] = [Py] modulo N'. The identities P(x + y) = Px + Py and P(rx) = r(Px) show that f preserves addition and scalar multiplication.\n5. Define g : V/N' → V/N by g([x]) = [Ux]. The second containment in step 3 proves well-definedness by the same subtraction criterion. Linearity follows from U(x + y) = Ux + Uy and U(rx) = r(Ux).\n6. For every x ∈ V, g(f([x])) = [UPx] = [x] and f(g([x])) = [PUx] = [x]. Every quotient element has a representative, so these identities hold on both entire quotients. Thus f and g are mutually inverse R-linear maps, providing the required linear equivalence and hence its Nonempty witness. All arguments remain valid when m = 0.",
+      "proof_key_steps": [
+        "Choose two-sided matrix inverses for P and Q.",
+        "Show P sends image(D) into image(P D Q), using the inverse of Q.",
+        "Show the inverse of P sends image(P D Q) into image(D).",
+        "Descend P and its inverse to well-defined linear maps between the quotients.",
+        "Check the descended maps are mutually inverse on quotient representatives."
+      ]
+    },
+    {
+      "key": "diagonal_cokernel_product",
+      "title": "The cokernel of a diagonal matrix is a product of principal quotients",
+      "statement": "Let R be a commutative ring, m a natural number, and d : Fin m → R. The quotient of Fin m → R by the image of column multiplication by diagonal(d) is R-linearly isomorphic to the product, over i : Fin m, of R/Ideal.span({d(i)}). No entry of d is required to be nonzero.",
+      "lean_statement": "∀ (R : Type*) [CommRing R] (m : ℕ) (d : Fin m → R), Nonempty (((Fin m → R) ⧸ LinearMap.range (Matrix.mulVecLin (Matrix.diagonal d))) ≃ₗ[R] ((i : Fin m) → R ⧸ Ideal.span ({d i} : Set R)))",
+      "lean_name": "p06_9e0f5043ff_dmc_diagonal_quotient",
+      "depends_on": [],
+      "natural_proof": "1. Fix R, m and d. Write V = R^(Fin m), I_i = Ideal.span({d(i)}), W = ∏_i R/I_i, and N = image(diagonal(d)). Multiplication by diagonal(d) sends z ∈ V to the vector whose i-th coordinate is d(i)z(i).\n2. Define C : V → W by C(y)(i) = [y(i)] modulo I_i. Each coordinate quotient map preserves addition and scalar multiplication, so C is R-linear.\n3. If y ∈ N, choose z with y = diagonal(d)z. Then y(i) = d(i)z(i) belongs to I_i for every i. Hence every coordinate of C(y) is zero, proving N ⊆ ker(C).\n4. Conversely, if C(y) = 0, then y(i) ∈ I_i for every i. The principal ideal I_i consists exactly of the multiples of d(i): these multiples form an ideal containing d(i), and every ideal containing d(i) contains all its multiples. Consequently, choose z(i) with y(i) = d(i)z(i) for each i, using commutativity if the multiple is initially written in the opposite order. Assemble these witnesses into z ∈ V. The coordinate formula in step 1 gives y = diagonal(d)z, so y ∈ N. Therefore ker(C) = N.\n5. The map C is surjective. Given w ∈ W, choose a representative y(i) ∈ R for each quotient class w(i), and assemble them into y ∈ V. Then C(y) = w by equality of all coordinates.\n6. Define the induced map C̄ : V/N → W by C̄([y]) = C(y). If two representatives differ by an element of N, their C-images differ by zero by step 3; thus C̄ is well-defined. The addition and scalar identities for C descend to C̄, so C̄ is linear.\n7. If C̄([y]) = C̄([z]), linearity gives C(y − z) = 0. Step 4 yields y − z ∈ N, hence [y] = [z]. Thus C̄ is injective. Step 5 gives surjectivity by taking the class of a representative preimage.\n8. Let G assign to each element of W its unique preimage under C̄. For w and w' in W, linearity gives C̄(G(w) + G(w')) = w + w', so uniqueness implies G(w + w') = G(w) + G(w'). Similarly C̄(rG(w)) = rw implies G(rw) = rG(w). Thus G is linear and is inverse to C̄, providing the required linear equivalence and Nonempty witness. When m = 0, all coordinate choices and coordinate equalities are empty and the same construction applies.",
+      "proof_key_steps": [
+        "Construct the coordinatewise quotient linear map.",
+        "Show the diagonal image lies in its kernel.",
+        "Use principal-ideal membership witnesses to prove the reverse kernel inclusion.",
+        "Choose coordinate representatives to prove surjectivity.",
+        "Descend to the quotient by the diagonal image.",
+        "Prove the induced map is bijective and its inverse is linear."
+      ]
+    }
+  ]
+}
