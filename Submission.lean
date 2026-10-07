@@ -1,9 +1,5 @@
-/-
-Copyright 2026 Anthropic, PBC. Licensed under Apache-2.0; see LICENSE.
-Source: https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean
-Modified: replaced the proof with sorry and removed P2M proof imports.
-Requires the upstream Definitions modules and their dependencies.
--/
+import Mathlib.RingTheory.Polynomial.UniqueFactorization
+import Mathlib.RingTheory.UniqueFactorizationDomain.Multiplicity
 
 import Definitions.Def_AlgebraicCurve_PlacesOverDVR
 attribute [-instance] AlgebraicCurve.IsCurveOver.instNontrivialKaehler AlgebraicCurve.IsCurveOver.instFreeKaehler AlgebraicCurve.IsCurveOver.toHasPrincipalDivisors AlgebraicCurve.IsCurveOver.instFiniteResidue AlgebraicCurve.Place.instIsRankOneDiscreteWithZeroMultiplicativeIntAdicValuation AlgebraicCurve.Place.instIsTrivialOnWithZeroMultiplicativeIntAdicValuation AlgebraicCurve.SemilinearAut.instDistribMulActionSubtypeProdRingAutMemSubgroupPic0 AlgebraicCurve.SemilinearAut.instDistribMulActionSubtypeProdRingAutMemSubgroupDivisor AlgebraicCurve.Pic0.instModuleZModTorsion AlgebraicCurve.SemilinearAut.instSMulSubtypeProdRingAutMemSubgroupPlace AlgebraicCurve.SemilinearAut.instDistribMulActionTorsion AlgebraicCurve.SemilinearAut.instSMulSubtypeProdRingAutMemSubgroupPic0 AlgebraicCurve.SemilinearAut.instSMulTorsion AlgebraicCurve.SemilinearAut.instMulActionSubtypeProdRingAutMemSubgroupPlace AlgebraicCurve.SemilinearAut.instSMulCommClassZModTorsion AlgebraicCurve.SemilinearAut.instMulSemiringActionSubtypeProdRingAutMemSubgroup instDecEqAlgebraicClosureRat WeierstrassCurve.Affine.Point.instDistribMulActionAlgEquiv WeierstrassCurve.Affine.Point.instModuleZModTorsionBy WeierstrassCurve.Affine.Point.instSMulTorsionBy WeierstrassCurve.Affine.Point.instDistribMulActionTorsionBy WeierstrassCurve.Affine.Point.instSMulAlgEquiv WeierstrassCurve.Affine.Point.instSMulCommClassAlgEquivZModTorsionBy
@@ -1466,6 +1462,8 @@ namespace Submission
 
 /-- The exponent of an irreducible polynomial, realized by the pinned library's `multiplicity`.
 The monicity hypothesis is retained from the frozen contract; irreducibility suffices for the proof. -/
+namespace Submission
+
 theorem p06_9e0f5043ff_io_polynomial_exponent :
     ∀ (K : Type*) [Field K] (q : Polynomial K), q.Monic → Irreducible q →
       ∃ μ : Polynomial K → ℕ, μ 1 = 0 ∧ μ q = 1 ∧
@@ -1478,6 +1476,8 @@ theorem p06_9e0f5043ff_io_polynomial_exponent :
   have hfin (a : Polynomial K) (ha : a ≠ 0) : FiniteMultiplicity q a :=
     FiniteMultiplicity.of_not_isUnit hq.not_isUnit ha
   -- The frozen contract leaves μ 0 unconstrained, so the library's default value is admissible.
+  have hfin (a : Polynomial K) (ha : a ≠ 0) : FiniteMultiplicity q a :=
+    FiniteMultiplicity.of_not_isUnit hq.not_isUnit ha
   refine ⟨multiplicity q, multiplicity_of_one_right hq.not_isUnit,
     multiplicity_self, ?_, ?_, ?_⟩
   · intro a b ha hb
@@ -1602,5 +1602,9 @@ theorem p06_9e0f5043ff_ifl_weighted_local_lengths
         Module.length A (B ⧸ (p i).asIdeal)) :=
       Fintype.sum_fiberwise' p (fun q => Module.length A (B ⧸ q.asIdeal))
     _ = (n : ℕ∞) := hsum.symm.trans hn
+    refine ⟨a₀, ?_, hfree, hfactor⟩
+    intro hzero
+    apply ha
+    simpa [hzero] using hfactor
 
 end Submission
