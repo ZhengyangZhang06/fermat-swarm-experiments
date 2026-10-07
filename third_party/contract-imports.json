@@ -1,0 +1,594 @@
+{
+  "source_repository": "https://github.com/anthropics/fermats-last-theorem",
+  "source_commit": "6e837e75355538c7f80bab5b956861e86c4eacc2",
+  "modules": [
+    {
+      "module": "Definitions.Def_AlgebraicCurve_BaseChangeGalois",
+      "path": "Definitions/Def_AlgebraicCurve_BaseChangeGalois.lean",
+      "git_blob": "756894228a1e1b66c51fa0ed44410fa9fd7eb05e",
+      "sha256": "e76a128259e1eb661772bc484bed89ba8ae7a325293eb56accf0a73826a8be66"
+    },
+    {
+      "module": "Definitions.Def_AlgebraicCurve_DivisorClassGroup",
+      "path": "Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+      "git_blob": "94fb1357421ece64a6c7bb883b4db66e68091b19",
+      "sha256": "0dc870b7f0be4e97313d3333986ba5e61f6916ab6f7e16ab5058bb9eb2f1f1fe"
+    },
+    {
+      "module": "Definitions.Def_AlgebraicCurve_DivisorPushPull",
+      "path": "Definitions/Def_AlgebraicCurve_DivisorPushPull.lean",
+      "git_blob": "efd373936c019d3881ec1724570731ba0fc70302",
+      "sha256": "ca80a6139646c59cd06c3ba8f3f6368fd53a9d72aadd763458b3efb66e36240b"
+    },
+    {
+      "module": "Definitions.Def_AlgebraicCurve_IsCurveOver",
+      "path": "Definitions/Def_AlgebraicCurve_IsCurveOver.lean",
+      "git_blob": "a974a75e5aa11c6a8cc45ab891ddb20b763e7bff",
+      "sha256": "ddc4f1ffdde98e5a811bb6f1749ff1084d23ba0ed260ebc639f755147ec5354e"
+    },
+    {
+      "module": "Definitions.Def_AlgebraicCurve_PlacesOverDVR",
+      "path": "Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+      "git_blob": "b0251edf014a772d3ef937acc4f3b14278aedc65",
+      "sha256": "4786895eaa0b7f27ba9fec56a58a787f1d1d3ec8be0e893436e6b1f8293ac7b7"
+    },
+    {
+      "module": "Definitions.Def_AlgebraicGeometry_FormalGroupAlongSection",
+      "path": "Definitions/Def_AlgebraicGeometry_FormalGroupAlongSection.lean",
+      "git_blob": "4ec92649c18e13b00016859c257a6fa6b6ca6c9e",
+      "sha256": "e73a31ef7b2a3eeed02eec4fdffc8d22f23f8ffde17d471bd7057dfcb663fc97"
+    },
+    {
+      "module": "Definitions.Def_AlgebraicGeometry_NeronModelPropertyBundleCarrier",
+      "path": "Definitions/Def_AlgebraicGeometry_NeronModelPropertyBundleCarrier.lean",
+      "git_blob": "8a39cd935292a2ca54018723f3fea73e6905c6bc",
+      "sha256": "b1b2fd03512dfa6958117a5978d3838b2c443c5cc34e252600c7d13191528810"
+    },
+    {
+      "module": "Definitions.Def_AlgebraicGeometry_RelativeGroupLaw",
+      "path": "Definitions/Def_AlgebraicGeometry_RelativeGroupLaw.lean",
+      "git_blob": "acadc284590404a1a7e2af0425d66136928072de",
+      "sha256": "983cdb408d5599de74629f79292e5e046be3d6aea1f1e55b6b1a8fc1d7234d1b"
+    },
+    {
+      "module": "Definitions.Def_CerednikDrinfeld_BruhatTitsTree",
+      "path": "Definitions/Def_CerednikDrinfeld_BruhatTitsTree.lean",
+      "git_blob": "63bcac60387a26c6b1e0d5086f172692d92faeb4",
+      "sha256": "6c871edff0691a0f23fcd0cbe4a1596d5e7e824c2003a8031bef050c8a9e83a8"
+    },
+    {
+      "module": "Definitions.Def_CerednikDrinfeld_FormalUpperHalfPlaneCharts",
+      "path": "Definitions/Def_CerednikDrinfeld_FormalUpperHalfPlaneCharts.lean",
+      "git_blob": "134ff34b09cc2571dcf2457df3c612e2b2c4d7fb",
+      "sha256": "987174aa4490c83f8f8a06fad963f5464a0ca52981e58c2c6892784a1e6d462c"
+    },
+    {
+      "module": "Definitions.Def_CerednikDrinfeld_JPrimeTorsionDatum",
+      "path": "Definitions/Def_CerednikDrinfeld_JPrimeTorsionDatum.lean",
+      "git_blob": "6c9e2a939035a695c10236a651c80c8949d758ee",
+      "sha256": "cb1121bb6c32a30eed8da3f4d9d15aed910c22d373ffd4bd8e92e6ae87bbc179"
+    },
+    {
+      "module": "Definitions.Def_CerednikDrinfeld_MumfordPeriod",
+      "path": "Definitions/Def_CerednikDrinfeld_MumfordPeriod.lean",
+      "git_blob": "9b2672b5fe5257b4626cd0c065cdc544af26bc07",
+      "sha256": "12138a4c9d5a10d83580779658f5f09e56e3f6fc349aa920de205df7831a9025"
+    },
+    {
+      "module": "Definitions.Def_CerednikDrinfeld_QMCoarseModuli",
+      "path": "Definitions/Def_CerednikDrinfeld_QMCoarseModuli.lean",
+      "git_blob": "0c8d602aad04811bddf96e4bd359fc660a9395aa",
+      "sha256": "2ff29871332ee83d879bba9addcf8cfe0f6d8f72f47c444125fb6e1cc3effddf"
+    },
+    {
+      "module": "Definitions.Def_CerednikDrinfeld_QMFineModuli",
+      "path": "Definitions/Def_CerednikDrinfeld_QMFineModuli.lean",
+      "git_blob": "2410bafc6a2aa7d7943d0e8da242e50dfa3ac21a",
+      "sha256": "87a421fa4476bf2c092bf414a9160502894bad1cb2f26283cf9ba0e5113a554c"
+    },
+    {
+      "module": "Definitions.Def_CerednikDrinfeld_QMFineModuliT",
+      "path": "Definitions/Def_CerednikDrinfeld_QMFineModuliT.lean",
+      "git_blob": "0c7c3a67ca71b4daf0a043fe254c2eb0d1239a89",
+      "sha256": "5917a0f326323f3ee0818aff7ac8468ae5698a4605c226e40b98b257841cfc3f"
+    },
+    {
+      "module": "Definitions.Def_CerednikDrinfeld_QMFormalModuleOf",
+      "path": "Definitions/Def_CerednikDrinfeld_QMFormalModuleOf.lean",
+      "git_blob": "a3dc63d3ee0396faa442ad35a4e710d50142d8f3",
+      "sha256": "2db5a4245b7b896e8344133ca16a1c1fd7e71bf1f724bad786c485b887357262"
+    },
+    {
+      "module": "Definitions.Def_CerednikDrinfeld_QMIsogeny",
+      "path": "Definitions/Def_CerednikDrinfeld_QMIsogeny.lean",
+      "git_blob": "9b64db6b99bca61492e8ce13c9659e9126fad395",
+      "sha256": "05c5d09375f5bb69c7a41df7f47d80714190a8021ce72ccb6181c33b1d54fe7d"
+    },
+    {
+      "module": "Definitions.Def_CerednikDrinfeld_QMModuli",
+      "path": "Definitions/Def_CerednikDrinfeld_QMModuli.lean",
+      "git_blob": "ceb479c5f5b68e2542e7ebd12e9dc893eb8e03cc",
+      "sha256": "d10edd01c08e31bc4fdc4c1bc41995328f57fd74ffabe5f2e09cbab897e5c6cb"
+    },
+    {
+      "module": "Definitions.Def_CerednikDrinfeld_QMModuliProps",
+      "path": "Definitions/Def_CerednikDrinfeld_QMModuliProps.lean",
+      "git_blob": "c55bc010b4d322c5e111da8c0d24026f98c8c121",
+      "sha256": "17f176591612701b9e8445cb4b24a13683eb38b22381086d95e0fcb516cc81c7"
+    },
+    {
+      "module": "Definitions.Def_CerednikDrinfeld_QMRigidification",
+      "path": "Definitions/Def_CerednikDrinfeld_QMRigidification.lean",
+      "git_blob": "74f7a16db606c31671293e4956399c9a66966654",
+      "sha256": "433829ee14f980e0db7c999cdfbd0198582c9cba147d1b2a61c6764906532817"
+    },
+    {
+      "module": "Definitions.Def_CerednikDrinfeld_Ribbon",
+      "path": "Definitions/Def_CerednikDrinfeld_Ribbon.lean",
+      "git_blob": "43d8c2f8a3d170d29c4f35e0f595274ad2050362",
+      "sha256": "b752737dccbb7365a86f210a840df5e22d82b9d264e1d195198198bf44e0dc9c"
+    },
+    {
+      "module": "Definitions.Def_CerednikDrinfeld_RigidifiedPairClassModel",
+      "path": "Definitions/Def_CerednikDrinfeld_RigidifiedPairClassModel.lean",
+      "git_blob": "ae75aead8ce48875fc744778f4931a8a1fcfa6d9",
+      "sha256": "0ca182abebe79b79b0d24720c5a0a354d422eaac16208fdd2cbaddc2d138e355"
+    },
+    {
+      "module": "Definitions.Def_CerednikDrinfeld_SchemeNilpPoints",
+      "path": "Definitions/Def_CerednikDrinfeld_SchemeNilpPoints.lean",
+      "git_blob": "6a84135d2d680bf2e770c33dd5241e5fbd4e5653",
+      "sha256": "228c2ca05cb69582d803bf5a598d741d3d0dbe5f12ddb27ad0902ea00a33a249"
+    },
+    {
+      "module": "Definitions.Def_CerednikDrinfeld_ShimuraCurve",
+      "path": "Definitions/Def_CerednikDrinfeld_ShimuraCurve.lean",
+      "git_blob": "140fce35d13d352475b449c13cd961634638699a",
+      "sha256": "aff2aaa9d5a00b421616275de8d599053e9cd2b7ab90601780016e79a6118f25"
+    },
+    {
+      "module": "Definitions.Def_CerednikDrinfeld_SpecialFormalModule",
+      "path": "Definitions/Def_CerednikDrinfeld_SpecialFormalModule.lean",
+      "git_blob": "eab20dac86fb46592d87c25075aca6df346982dd",
+      "sha256": "2d37a938716f54cab959a87a68bdb5c86c60a3aeaf6b4e84783816af85334bba"
+    },
+    {
+      "module": "Definitions.Def_CerednikDrinfeld_TwoPlaceTorsionDatum",
+      "path": "Definitions/Def_CerednikDrinfeld_TwoPlaceTorsionDatum.lean",
+      "git_blob": "c163f9c6dbac848fa3824adf90d3e9cffb018263",
+      "sha256": "f452168326b04e2bf650ca49f0eabfd80a668810f5d44cf4bb3110c014ebd9bd"
+    },
+    {
+      "module": "Definitions.Def_ClassGroup_GaloisAction",
+      "path": "Definitions/Def_ClassGroup_GaloisAction.lean",
+      "git_blob": "32330736168c20fce89c5d1bc00fdad68515ab66",
+      "sha256": "db5a2251c50f2f326b8f525aa12efc705e868268e969c73b22285c61cdfa38eb"
+    },
+    {
+      "module": "Definitions.Def_ClassGroup_ModP",
+      "path": "Definitions/Def_ClassGroup_ModP.lean",
+      "git_blob": "032e29cbde67d41a24e05f1938f0c553fe8452ac",
+      "sha256": "cbe16fc0268599e4c1088705aaafa550d887b57e3f53104d47f966e168872c51"
+    },
+    {
+      "module": "Definitions.Def_Compat_Mathlib430",
+      "path": "Definitions/Def_Compat_Mathlib430.lean",
+      "git_blob": "223d485d38257f10578cc48c37a733df666c1e08",
+      "sha256": "0d80c765130229fcd9bbeb5b234bfc4af5afaff2354b56ae0acc90e04b8b8e54"
+    },
+    {
+      "module": "Definitions.Def_DualSelmer_ExtConditions",
+      "path": "Definitions/Def_DualSelmer_ExtConditions.lean",
+      "git_blob": "f7a5b308e73cd99082de453333b9c7ff29c43150",
+      "sha256": "007355ed7fbb6d276aa0ef3a69e5bca07452ed47086aa2c85be6200d55def93c"
+    },
+    {
+      "module": "Definitions.Def_EllipticCurve_FrobeniusTrace",
+      "path": "Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+      "git_blob": "03840706ee7d86b860918ebc71218deb9100404d",
+      "sha256": "1cc42c05b68c6513dbf53f6ece3dbaed0794191525ecb74caa60f90cb84c8be4"
+    },
+    {
+      "module": "Definitions.Def_ExtCitation_AdmissibleExtension",
+      "path": "Definitions/Def_ExtCitation_AdmissibleExtension.lean",
+      "git_blob": "d92a1c6416aeba8e9ccec45db1a634295d1a78bb",
+      "sha256": "af9a2183d09bc746a93f8ee63a7a832155061436fa1eb848b88500974c89c868"
+    },
+    {
+      "module": "Definitions.Def_ExtCitation_KummerBridge",
+      "path": "Definitions/Def_ExtCitation_KummerBridge.lean",
+      "git_blob": "2c10aef9f251ea2f310868fb04fd806e40a96d6c",
+      "sha256": "1ce316cdaffad2b46fb8abf9db5bad11ef379bec0ccaa2e99c3201d3edaf44bd"
+    },
+    {
+      "module": "Definitions.Def_ExtEndgame_ChainAdm",
+      "path": "Definitions/Def_ExtEndgame_ChainAdm.lean",
+      "git_blob": "30ac7c5c451a39f9d865fa505716090358811780",
+      "sha256": "c8b7ef007a77e28451106b293db7df82cda14d098b1c09706c8a9e0848bd7b5f"
+    },
+    {
+      "module": "Definitions.Def_ExtEndgame_ProductionDatum",
+      "path": "Definitions/Def_ExtEndgame_ProductionDatum.lean",
+      "git_blob": "5d8002da17ee9dfc8e399e00151a3c0d1fd44ec7",
+      "sha256": "66f0c8065da098e6827d7976bf423295c2fa61a377c0939f9d1d77c4bc385bdd"
+    },
+    {
+      "module": "Definitions.Def_FLTPrelim_FreyPackage",
+      "path": "Definitions/Def_FLTPrelim_FreyPackage.lean",
+      "git_blob": "db1cdbbec434a118a917b33580fc8c81c4fff221",
+      "sha256": "db451a2116b5dde045bc9ca63ca3106f1edbfe44c96929c8437436d139ce116f"
+    },
+    {
+      "module": "Definitions.Def_FLTPrelim_GaloisRep",
+      "path": "Definitions/Def_FLTPrelim_GaloisRep.lean",
+      "git_blob": "998083d1f0de2d0271a04e7e099cb0e3092d0b3e",
+      "sha256": "c6d8d02063a6f3c3543574e285f4b55b162ace12040404a9a27b03b928c2778d"
+    },
+    {
+      "module": "Definitions.Def_FLTPrelim_Modularity",
+      "path": "Definitions/Def_FLTPrelim_Modularity.lean",
+      "git_blob": "9f2ad60d351dbc01aba577f418e2642524c7b997",
+      "sha256": "5a68b3d1fd8bcb1fcd56c254cb84983ace76ba53a9c437a208350ce3e8cabe02"
+    },
+    {
+      "module": "Definitions.Def_FLTPrelim_Ramification",
+      "path": "Definitions/Def_FLTPrelim_Ramification.lean",
+      "git_blob": "718a9af252c4f10631ff70d4152977f046dccd0b",
+      "sha256": "2316e21cc68b2b5737dc40bc99aef5bcc03cb7d0a971b1f017235debb28fb1da"
+    },
+    {
+      "module": "Definitions.Def_GaloisRep_Adic",
+      "path": "Definitions/Def_GaloisRep_Adic.lean",
+      "git_blob": "04a2edd4d23c749b02162be1265770ade332b39f",
+      "sha256": "7aafea250f807eafc26c3c64e7c61ae3b53ee5a213520ed9010bc62c97845898"
+    },
+    {
+      "module": "Definitions.Def_GaloisRep_CompletionBridge",
+      "path": "Definitions/Def_GaloisRep_CompletionBridge.lean",
+      "git_blob": "63ed2c006f2bfbd32117fcac2454cf99549c1582",
+      "sha256": "e530d7b3800be6f07e26a0f7c81f8b3d71caf98a8b4d068851b2e0945ec506d6"
+    },
+    {
+      "module": "Definitions.Def_GaloisRep_ComplexConjugation",
+      "path": "Definitions/Def_GaloisRep_ComplexConjugation.lean",
+      "git_blob": "dd49c4198b0a59f535e48e1aaa15505b2b2d5771",
+      "sha256": "ba2fe1792ce8ef766c7bb9cb950092c68c9b2eb658427a0a0c5479e048cc7bd5"
+    },
+    {
+      "module": "Definitions.Def_GaloisRep_Residual",
+      "path": "Definitions/Def_GaloisRep_Residual.lean",
+      "git_blob": "9cdbdf68671901e15cedaf03663683d056992b91",
+      "sha256": "cd335782f0b607066bf114f70f892db500c06d52dffd2b19827490c513e02537"
+    },
+    {
+      "module": "Definitions.Def_GaloisRep_ResidualEquiv",
+      "path": "Definitions/Def_GaloisRep_ResidualEquiv.lean",
+      "git_blob": "2d2423093199ebdc84f73674b396d00984f89b4c",
+      "sha256": "af92fde8af42e9f71257b28bf620b8e152bf2527b01a45cd028ccda762a0fd99"
+    },
+    {
+      "module": "Definitions.Def_Gamma0CoeffCohomology",
+      "path": "Definitions/Def_Gamma0CoeffCohomology.lean",
+      "git_blob": "375186a06f33fb6d0ef6c9eec7f3aa9913edc31c",
+      "sha256": "83461a231b326e2a6390273b95fb1b3108cdcc602c42161e6db02d516c286ada"
+    },
+    {
+      "module": "Definitions.Def_Gamma0HeckeOperatorHom",
+      "path": "Definitions/Def_Gamma0HeckeOperatorHom.lean",
+      "git_blob": "a622b1a229b4dcbbe40119db5a9f06d90655edda",
+      "sha256": "c39cd1d8d1b32dfc5da69d697d87904182e97cf69273b8b61a2cfa43d1baeb47"
+    },
+    {
+      "module": "Definitions.Def_GroupCohomology_ContinuousDuality",
+      "path": "Definitions/Def_GroupCohomology_ContinuousDuality.lean",
+      "git_blob": "47549358387131e6d0c11cf4e195a8016ad9667a",
+      "sha256": "b56bbeeb2e57924046b8b745a370ea2fc59784215d8a9b21f343bf1e65675c8f"
+    },
+    {
+      "module": "Definitions.Def_GroupCohomology_ContinuousH1",
+      "path": "Definitions/Def_GroupCohomology_ContinuousH1.lean",
+      "git_blob": "3597e0f770d81695d46543d7f6461e47f96c84bb",
+      "sha256": "2cf133c25276a76ea76a562b4a5f116ef0aa7988c75fcfb971b0e178ef62a92d"
+    },
+    {
+      "module": "Definitions.Def_GroupCohomology_ContinuousH2",
+      "path": "Definitions/Def_GroupCohomology_ContinuousH2.lean",
+      "git_blob": "1c1879a8af2ff6f63f364b41a7f9fb7c1674900e",
+      "sha256": "522689bc7d26629bd8cf9b9d568116d8e5f8e5d02f5d597d7072f46325e1e55a"
+    },
+    {
+      "module": "Definitions.Def_GroupCohomology_ContinuousH2Map",
+      "path": "Definitions/Def_GroupCohomology_ContinuousH2Map.lean",
+      "git_blob": "26001943c35b7ed8c026b842e1b9e24ced8f4aaa",
+      "sha256": "d9154a427d200b1f39c1ef1a6ab92d3a5a21b244fc4fa43428457e6218e8a033"
+    },
+    {
+      "module": "Definitions.Def_GroupCohomology_CupProduct",
+      "path": "Definitions/Def_GroupCohomology_CupProduct.lean",
+      "git_blob": "512ff6b14a33098f6f938cf30c5a5abe17d8fc7c",
+      "sha256": "e814ac1a27e7861bcc7822678da04feec312c8201a0b82a886584b239e8b173f"
+    },
+    {
+      "module": "Definitions.Def_GroupCohomology_Selmer",
+      "path": "Definitions/Def_GroupCohomology_Selmer.lean",
+      "git_blob": "70988b97f7a969918de112ec1f4005ef192b9594",
+      "sha256": "94c46e668d5eba4e5cde8f32e2c4f61c911f59befb20ee7517f6ec15591d07b9"
+    },
+    {
+      "module": "Definitions.Def_GroupCohomology_SelmerAdm",
+      "path": "Definitions/Def_GroupCohomology_SelmerAdm.lean",
+      "git_blob": "723ae75d5849d4c069092b26d2d2bd17c4633ff4",
+      "sha256": "788609b666fb61ab5baa2f8e50d01c023540fedc88a42622a3a41f0e02556f4c"
+    },
+    {
+      "module": "Definitions.Def_GroupCohomology_SelmerLe",
+      "path": "Definitions/Def_GroupCohomology_SelmerLe.lean",
+      "git_blob": "00de82bbf6048766bbfac680b76bc78a0d921152",
+      "sha256": "21a15ca88ec8419d8681bd51114ef3a73031352deb1d448ea187ddafb96e640c"
+    },
+    {
+      "module": "Definitions.Def_GroupCohomology_TateCohomology",
+      "path": "Definitions/Def_GroupCohomology_TateCohomology.lean",
+      "git_blob": "e0457cf19a2b77899b68ce81144756a348154548",
+      "sha256": "e9fe2119399354d446f25bad2407a330ae5c5eee0cd6ef3d1a2c131364724b24"
+    },
+    {
+      "module": "Definitions.Def_HeckeEis_BinaryFormRep",
+      "path": "Definitions/Def_HeckeEis_BinaryFormRep.lean",
+      "git_blob": "50db018439254220c9a018b3702a58e59f72178e",
+      "sha256": "5fbc92223180c7c5fb3621cc785df32916c77b093dff73c5c94822fd7b9ca353"
+    },
+    {
+      "module": "Definitions.Def_HeckeEis_EichlerIntegral",
+      "path": "Definitions/Def_HeckeEis_EichlerIntegral.lean",
+      "git_blob": "8e72cec89deba6f40250ba81b1a5c8c54c9e88fc",
+      "sha256": "eed0c3dbe54108f481b5d38e777d1f4e7d3a185e68dec18b8174f94579d29f42"
+    },
+    {
+      "module": "Definitions.Def_HeckeGalois_EichlerShimura",
+      "path": "Definitions/Def_HeckeGalois_EichlerShimura.lean",
+      "git_blob": "fd4787e3f8f4b817dcea45a1ea3c5a6381d52d4f",
+      "sha256": "0235053a0daba3c2763fc42dbba23f6eadfaa66e50325176a43461aac9d4606b"
+    },
+    {
+      "module": "Definitions.Def_HopfAlgebra_HopfKer",
+      "path": "Definitions/Def_HopfAlgebra_HopfKer.lean",
+      "git_blob": "59074fa6829492e2536459143c32751cebff4bfc",
+      "sha256": "97ebc95aa2b649956109cf34f165825d0c4613522c8c88a365f13b914727121d"
+    },
+    {
+      "module": "Definitions.Def_JacJ1Iface",
+      "path": "Definitions/Def_JacJ1Iface.lean",
+      "git_blob": "062bda411013b840d15bf937a0765776ded8439a",
+      "sha256": "b4368a5b601c1141befb3e95d257a5050bc3042ce2e173cdc6f79296cb253d8f"
+    },
+    {
+      "module": "Definitions.Def_LatticeTreeOrbital",
+      "path": "Definitions/Def_LatticeTreeOrbital.lean",
+      "git_blob": "33f77bc50cc4e59c6cda460769316059349506f0",
+      "sha256": "310dc65e30f88313fa8ce2186670b94edcca034d3158e6d423ecc4e366db2ce7"
+    },
+    {
+      "module": "Definitions.Def_ModularCurve_ComplexPlaceDictionary",
+      "path": "Definitions/Def_ModularCurve_ComplexPlaceDictionary.lean",
+      "git_blob": "79c16cf65a07a165a79940f9c7a88edf4fa5fc96",
+      "sha256": "0e3a31ab5dd3bd209f94420406bebef13a763d5f4237707935f82f8b567e877b"
+    },
+    {
+      "module": "Definitions.Def_ModularCurve_ComponentGroup",
+      "path": "Definitions/Def_ModularCurve_ComponentGroup.lean",
+      "git_blob": "4a933a9c2b6c54766462a15749db3293d0473ffa",
+      "sha256": "e496b03ac438f2670128d9f085d88020293140f731605942f7526f4a6883db26"
+    },
+    {
+      "module": "Definitions.Def_ModularCurve_GenusNumerics",
+      "path": "Definitions/Def_ModularCurve_GenusNumerics.lean",
+      "git_blob": "291075cb73c278a0035d8efd977d7c4a2fe6900a",
+      "sha256": "806dda2a417468a138c15488c60506fbf25a2a9c8daace299a540b09204e8720"
+    },
+    {
+      "module": "Definitions.Def_ModularCurve_LaurentCoeff",
+      "path": "Definitions/Def_ModularCurve_LaurentCoeff.lean",
+      "git_blob": "d0cb3020c9515898b1d8f110543fb7e62211585e",
+      "sha256": "0269c83ea3710a03380a261af6c158dd3764a56f6fb5a02686f3bf0032130f26"
+    },
+    {
+      "module": "Definitions.Def_ModularCurve_ProjectiveLine",
+      "path": "Definitions/Def_ModularCurve_ProjectiveLine.lean",
+      "git_blob": "a7ac6cedc0990ba09b32f4a3883cf2015f17fcc2",
+      "sha256": "aabe4813c8fcabc7e1e3d3817764d0d232f713eb05acf89244774108067edeaa"
+    },
+    {
+      "module": "Definitions.Def_ModularCurve_UniformizedHeckeCurve",
+      "path": "Definitions/Def_ModularCurve_UniformizedHeckeCurve.lean",
+      "git_blob": "04f634187af7a457de6ecf5a556e9e94fb621187",
+      "sha256": "9eef961b0526a1c627ec55672dadf05d66dfe4df7c0b9a9a66fffee8c6f710e9"
+    },
+    {
+      "module": "Definitions.Def_ModularCurve_X0",
+      "path": "Definitions/Def_ModularCurve_X0.lean",
+      "git_blob": "0a566a0aea32800c11840ca4808ae38c1059a3d9",
+      "sha256": "7563047a0e7ddf99fcf3e52e65bb60634e25daf2d7ddb41cf3e5e3aa06160a23"
+    },
+    {
+      "module": "Definitions.Def_ModularForm_HeckeOperator",
+      "path": "Definitions/Def_ModularForm_HeckeOperator.lean",
+      "git_blob": "3f852a83541ad60554122d0fd7c511046a4a5394",
+      "sha256": "ac6a30184b33dd69229db91dfe206bc269ebca76463c25b970dbba7d37abe86e"
+    },
+    {
+      "module": "Definitions.Def_ModularForm_HeckeOperatorForms",
+      "path": "Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+      "git_blob": "e20de34b180eaa7ad7c40eb62c8a8311cd5ed7ec",
+      "sha256": "82c7706e587a9fabaa704406ae22fae1a347d3fd4c36c3a96775540cc8eb6683"
+    },
+    {
+      "module": "Definitions.Def_MvFormalGroup_BasicV2",
+      "path": "Definitions/Def_MvFormalGroup_BasicV2.lean",
+      "git_blob": "5f183387d6578e2f6e2b3121a1241351339a9e77",
+      "sha256": "c23d9c838446f150259465e88eb879cb0aee9fa3588e1b458cd6fb035b5633fd"
+    },
+    {
+      "module": "Definitions.Def_MvFormalGroup_EndRingV2",
+      "path": "Definitions/Def_MvFormalGroup_EndRingV2.lean",
+      "git_blob": "a5e012c17fe016b944a2480bfceaaf4fb0d05226",
+      "sha256": "8b280cc73e555743331daf9dd9ef667076d7e0f4f1fe6962a87c70cd87ac59f9"
+    },
+    {
+      "module": "Definitions.Def_MvFormalGroup_NegV2",
+      "path": "Definitions/Def_MvFormalGroup_NegV2.lean",
+      "git_blob": "b76c132da3fb23c31fc99464d64679a1a4c906f5",
+      "sha256": "9ac6129abcc74ea9820a6fdc6f7299e811446912a0e81aceedf9d271969ba683"
+    },
+    {
+      "module": "Definitions.Def_ProjectiveLineMatrixAction",
+      "path": "Definitions/Def_ProjectiveLineMatrixAction.lean",
+      "git_blob": "8a8c351d38f340036892657bfbd46b5f9f5abc3f",
+      "sha256": "1c33d27a915bb017d320266bf207f5e9a2fd423e3ae496c92a92a2d23bae1122"
+    },
+    {
+      "module": "Definitions.Def_QuaternionAlgebra_EichlerOrder",
+      "path": "Definitions/Def_QuaternionAlgebra_EichlerOrder.lean",
+      "git_blob": "797c862f06ba64259393d33fd758be5bd317c785",
+      "sha256": "6da872eec7bc51c1482426073820a03ce47ddda7e5c0ba94910699d1693d7926"
+    },
+    {
+      "module": "Definitions.Def_QuaternionAlgebra_Order",
+      "path": "Definitions/Def_QuaternionAlgebra_Order.lean",
+      "git_blob": "ec95ca689b29fe53f1c3764ff350991da0e25f39",
+      "sha256": "faccac85465d034680318fbad412d3fa8dd1d2c7a97464fe5b937ca956ddf921"
+    },
+    {
+      "module": "Definitions.Def_QuaternionAlgebra_Order_FiniteIdele",
+      "path": "Definitions/Def_QuaternionAlgebra_Order_FiniteIdele.lean",
+      "git_blob": "ff053b7ed629fbaa0bb711dc57b5141da1c028a7",
+      "sha256": "6e868bfe3fd2a6eb6072f54eafed8a01f6551f286b05ebfe92b7a7b1d8c84e53"
+    },
+    {
+      "module": "Definitions.Def_QuaternionAlgebra_ReducedNorm",
+      "path": "Definitions/Def_QuaternionAlgebra_ReducedNorm.lean",
+      "git_blob": "8135f20fd9b8709b0c919519cc54d76a29d59f8b",
+      "sha256": "358779c1f6c238c8673c5dff83c2e45e55ee638a1bf116d73c0aed67954d86c1"
+    },
+    {
+      "module": "Definitions.Def_Stickelberger_Basic",
+      "path": "Definitions/Def_Stickelberger_Basic.lean",
+      "git_blob": "e6ec6feb14ee21b21e30d74a5f62c15b79f9882e",
+      "sha256": "a8782baddff68427c25ec0285d066c5b41cfb2cbc2d02ed251fdca0d449a87f5"
+    },
+    {
+      "module": "Definitions.Def_Submodule_FiniteAdeleBox",
+      "path": "Definitions/Def_Submodule_FiniteAdeleBox.lean",
+      "git_blob": "f266b98a211105fb86233a4a5149c485e96fc9f5",
+      "sha256": "598bdda75aa88d57ba6bfb02bcab270b8b3d9b9025363d6e8a99a286c16ace41"
+    },
+    {
+      "module": "Definitions.Def_Submodule_LocalBox",
+      "path": "Definitions/Def_Submodule_LocalBox.lean",
+      "git_blob": "3f186fd8de0c8ed6b74ef9f8020229e624efb0e6",
+      "sha256": "2b6e53ebd3616a6fa313522cbeda930c8fac127f0ed414d8840dc4c7dbfd590c"
+    },
+    {
+      "module": "P2M.Sol.S_CuspFormClass_isZeroAt_heckeT",
+      "path": "P2M/Sol/S_CuspFormClass_isZeroAt_heckeT.lean",
+      "git_blob": "5e28ee0cda3132b574222cf163ec15990068b8f6",
+      "sha256": "8ac6d4112b2373997e96d61c5b94ef4f0a7dbb2a91f2f920875f27ce64797328"
+    },
+    {
+      "module": "P2M.Sol.S_CuspFormClass_isZeroAt_heckeU",
+      "path": "P2M/Sol/S_CuspFormClass_isZeroAt_heckeU.lean",
+      "git_blob": "c79c42e6b1cdc8aa9ef386444cdb8bf7807434b2",
+      "sha256": "836670ca08d4813383dcb8578a1f52e3d454b90de34ddaab29bf2967f03af5fa"
+    },
+    {
+      "module": "P2M.Sol.S_ModularFormClass_isBoundedAt_heckeT",
+      "path": "P2M/Sol/S_ModularFormClass_isBoundedAt_heckeT.lean",
+      "git_blob": "ddfc9d0fc083a189bf859a5279d2a45913a29c03",
+      "sha256": "75a45d26fb68945a84b28adeadb12345f484362a1e7f2365ed90f591e7a0bdac"
+    },
+    {
+      "module": "P2M.Sol.S_ModularFormClass_isBoundedAt_heckeU",
+      "path": "P2M/Sol/S_ModularFormClass_isBoundedAt_heckeU.lean",
+      "git_blob": "acafb6801d5154fcd95030349143b54c304778c1",
+      "sha256": "c2e8bd8e2f3bd513ca0f4592ec7325e64ff1b088b7a41eb9f1d647bf2711a24e"
+    },
+    {
+      "module": "P2M.Sol.S_ModularForm_heckeT_slash_eq_self_of_mem_Gamma0",
+      "path": "P2M/Sol/S_ModularForm_heckeT_slash_eq_self_of_mem_Gamma0.lean",
+      "git_blob": "98468e6c4f14282554315eeafd5ea282c15afd59",
+      "sha256": "05c74054c63e9ee76f78cad16ef821687454f5bef0930ea75d3b791eaa858fe3"
+    },
+    {
+      "module": "P2M.Sol.S_ModularForm_heckeU_slash_eq_self_of_mem_Gamma0",
+      "path": "P2M/Sol/S_ModularForm_heckeU_slash_eq_self_of_mem_Gamma0.lean",
+      "git_blob": "b38ee2e03324819492bf9ca3d23b848193886e7a",
+      "sha256": "d9552b8a10de605ca5083ccd07320a5e5411baec4184c73cda798c9cb75ade88"
+    },
+    {
+      "module": "P2M.Sol.S_ModularForm_mdifferentiable_heckeT",
+      "path": "P2M/Sol/S_ModularForm_mdifferentiable_heckeT.lean",
+      "git_blob": "d4cf24ca04a3b58d40337436527540fd2b8bef9c",
+      "sha256": "d3f0e518ecb957435aae7bdf826c88ba9edf1385d9caa765ffb2778b72d7d72e"
+    },
+    {
+      "module": "P2M.Sol.S_ModularForm_mdifferentiable_heckeU",
+      "path": "P2M/Sol/S_ModularForm_mdifferentiable_heckeU.lean",
+      "git_blob": "cb1c5273a7c59d31e9505f2872c183cdca3b1d11",
+      "sha256": "6097d53e80b3b0635003480d375368570b44f08783d6be9bc345dab0ed1a72ea"
+    },
+    {
+      "module": "P2M.Util",
+      "path": "P2M/Util.lean",
+      "git_blob": "0a73367f78bc165bb5d35e42ca14f5055252e7f6",
+      "sha256": "66f62069b83c0cf97531f88e5bd2c249e471df011ad873b0bd034eb959b1d8da"
+    },
+    {
+      "module": "Theorems.Thm_CuspFormClass_isZeroAt_heckeT",
+      "path": "Theorems/Thm_CuspFormClass_isZeroAt_heckeT.lean",
+      "git_blob": "8a3ee1856032fc0dee8cf266004f38ea8499c2d8",
+      "sha256": "85989ea7d2c92766256b04692d3e51d889db9b3ed598873775730a9fc11d482f"
+    },
+    {
+      "module": "Theorems.Thm_CuspFormClass_isZeroAt_heckeU",
+      "path": "Theorems/Thm_CuspFormClass_isZeroAt_heckeU.lean",
+      "git_blob": "1bbfc7ecf247231964cacd308252da07e03280b7",
+      "sha256": "e14012a8771b8288966e6d918959b310ae9060728035a4ce08eabd403049fcc3"
+    },
+    {
+      "module": "Theorems.Thm_ModularFormClass_isBoundedAt_heckeT",
+      "path": "Theorems/Thm_ModularFormClass_isBoundedAt_heckeT.lean",
+      "git_blob": "66a5f9f13878f3c47be62939d6e497d349e6a476",
+      "sha256": "5b56966f2bc88a1c36d35fdf7e52bff9b0164dabfaee0087b75a8c0463d833e4"
+    },
+    {
+      "module": "Theorems.Thm_ModularFormClass_isBoundedAt_heckeU",
+      "path": "Theorems/Thm_ModularFormClass_isBoundedAt_heckeU.lean",
+      "git_blob": "8b240723c228fee79b5a152587d346c8efd745c3",
+      "sha256": "74b47b0039377c3478ff210c1864ec778a2716e5f25ebe79dffff7c3bfb38aea"
+    },
+    {
+      "module": "Theorems.Thm_ModularForm_heckeT_slash_eq_self_of_mem_Gamma0",
+      "path": "Theorems/Thm_ModularForm_heckeT_slash_eq_self_of_mem_Gamma0.lean",
+      "git_blob": "9cce52894285819715d83d24fbc770b4128f6779",
+      "sha256": "806a2b79579696ba4878889e02180aae4f3a8c979d78dcf0ad67ec716ca6539f"
+    },
+    {
+      "module": "Theorems.Thm_ModularForm_heckeU_slash_eq_self_of_mem_Gamma0",
+      "path": "Theorems/Thm_ModularForm_heckeU_slash_eq_self_of_mem_Gamma0.lean",
+      "git_blob": "19195db44258979f8842bf78eccb0f489f1ee225",
+      "sha256": "8130fbfb76a8356f5ebc36b0808137180106cc2d8c8a5a715393d0ca372e45bd"
+    },
+    {
+      "module": "Theorems.Thm_ModularForm_mdifferentiable_heckeT",
+      "path": "Theorems/Thm_ModularForm_mdifferentiable_heckeT.lean",
+      "git_blob": "6fb839358ac03a9d5b9e2ed64f86ad5ac163478f",
+      "sha256": "f33b74df88abccceab3217482cb3ad0aa51e27a5781a3c36634c026c8114d400"
+    },
+    {
+      "module": "Theorems.Thm_ModularForm_mdifferentiable_heckeU",
+      "path": "Theorems/Thm_ModularForm_mdifferentiable_heckeU.lean",
+      "git_blob": "b7b94999c9084c9e987ff9e56c276200f9698465",
+      "sha256": "4fcd86317224a5315172d30c8a8d67154ec5ed3e68815d3f34f8d704c3db8e4b"
+    }
+  ]
+}
