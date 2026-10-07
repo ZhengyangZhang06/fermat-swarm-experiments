@@ -16,7 +16,7 @@ def main():
         try:
             account = pwd.getpwuid(1000)
         except KeyError:
-            subprocess.run(['useradd', '--uid', '1000', '--user-group', '--home-dir', '/home/ubuntu',
+            subprocess.run(['/usr/sbin/useradd', '--uid', '1000', '--user-group', '--home-dir', '/home/ubuntu',
                             '--no-create-home', 'ubuntu'], check=True)
             account = pwd.getpwuid(1000)
         if account.pw_dir != '/home/ubuntu':
@@ -53,6 +53,11 @@ def main():
         os.setgroups([])
         os.setgid(1000)
         os.setuid(1000)
+    if '--check' in sys.argv:
+        subprocess.run(['git', 'ls-remote', '--heads', 'git@github.com:ZhengyangZhang06/fermat-swarm-experiments.git',
+                        'experiments/fermat-p04'], check=True, timeout=60)
+        print('Worker uid, SSH transport and authorized home check passed', flush=True)
+        return
     os.execv(sys.executable, [sys.executable, '/runtime/flows/math-lean-flow/scripts/swarm-worker.py',
         '--endpoint', 'https://10.44.0.210:8847', '--certificate', '/broker.crt',
         '--token-file', '/run/secrets/broker_token'])
