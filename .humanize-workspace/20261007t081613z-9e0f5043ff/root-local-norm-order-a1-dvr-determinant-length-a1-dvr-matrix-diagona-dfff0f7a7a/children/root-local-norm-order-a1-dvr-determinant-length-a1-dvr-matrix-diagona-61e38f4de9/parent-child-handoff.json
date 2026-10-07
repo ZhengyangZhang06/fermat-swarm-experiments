@@ -1,0 +1,58 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'pivot|transvection|hasPrincipalDivisors_of_transcendental' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project --glob '*.lean'",
+        "rg -n 'divisible.*pivot|pivot.*divisible|clear_first_column|clear_first_row' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib --glob '*.lean'",
+        "sed -n '1,140p' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Matrix/Transvection.lean",
+        "sed -n '310,350p' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Matrix/Transvection.lean",
+        "sed -n '1180,1236p' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Data/Matrix/Mul.lean",
+        "rg -n 'p06_9e0f5043ff_sdp_clear_first_(column|row)' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json Submission.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/p06-sdp-decomposition-219xgs5a/CheckTypes.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Fermat/Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Matrix/Transvection.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Data/Matrix/Mul.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Matrix/Permutation.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root/decomposition-typecheck/README.txt",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root/decomposition-typecheck/Submission.build.log",
+        "/tmp/p06-sdp-decomposition-219xgs5a/CheckTypes.lean",
+        "/tmp/p06-sdp-decomposition-219xgs5a/CheckTypes.log"
+      ],
+      "conclusion": "The manifest pins project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; the installed mathlib matches and has clean Git status. Transvection.lean supplies single-entry row/column operations, but its packaged pivot reduction uses a field and division. The targeted search for divisible-pivot and first-row/column clearing lemmas returned no matches. Mul.lean and Permutation.lean supply permutation multiplication infrastructure. Neither proposed identifier occurs in the inspected DAG or Submission. Both proposed types passed Lean 4.33.1 elaboration after import Submission in the run's existing import-only interface environment; expanded instance output confirms Matrix.semiring supplies the unit monoid, including for Matrix.of. This is an interface check: the complete frozen Submission has pre-existing unresolved attribute targets, so full-module validation remains outstanding. Axiom checks of Matrix.mul_apply, Matrix.one_submatrix_mul and Matrix.mul_submatrix_one reported only propext, Classical.choice and Quot.sound. No candidate theorem or comparator acceptance is claimed."
+    }
+  ],
+  "parent_id": "root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1.split_divisible_pivot-a1",
+  "child_id": "root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1.split_divisible_pivot-a1.clear_first_column-a1",
+  "subproblem": {
+    "key": "clear_first_column",
+    "title": "Clear a divisible first column while preserving the first row",
+    "statement": "Let R be a commutative ring, m a natural number, and B a matrix indexed by Fin (m + 1) in both directions over R. Suppose B(0,0) divides B(i.succ,0) for every i : Fin m. There exists a matrix U of the same size, invertible under matrix multiplication, such that (UB)(0,j) = B(0,j) for every j : Fin (m + 1) and (UB)(i.succ,0) = 0 for every i : Fin m.",
+    "lean_statement": "∀ (R : Type*) [CommRing R] (m : ℕ) (B : Matrix (Fin (m + 1)) (Fin (m + 1)) R), (∀ i : Fin m, B 0 0 ∣ B i.succ 0) → ∃ U : Matrix (Fin (m + 1)) (Fin (m + 1)) R, IsUnit U ∧ (∀ j : Fin (m + 1), (U * B) 0 j = B 0 j) ∧ (∀ i : Fin m, (U * B) i.succ 0 = 0)",
+    "lean_name": "p06_9e0f5043ff_sdp_clear_first_column",
+    "depends_on": [],
+    "natural_proof": "1. Put p = B(0,0). For each i : Fin m, divisibility supplies a coefficient a(i) with B(i.succ,0) = p a(i). Since R is commutative, B(i.succ,0) = a(i)p as well. Choose these coefficients simultaneously.\n2. Define a square matrix N using Matrix.of: its zeroth row is zero, and N(i.succ,j) equals a(i) if j = 0 and zero otherwise. Thus every column of N except column zero is zero, and N(0,j) = 0 for every j.\n3. For arbitrary row s and column t, expand (N N)(s,t) as the sum over k of N(s,k)N(k,t). When k = 0 the second factor is zero; when k ≠ 0 the first factor is zero. Every summand vanishes, so N N = 0.\n4. Set U = I - N and W = I + N, with I the matrix identity. Distributing matrix multiplication gives U W = I + N - N - N N = I and W U = I - N + N - N N = I. Consequently U, with inverse W, defines a unit of the matrix ring, so IsUnit U holds for matrix multiplication.\n5. The multiplication formula gives (N B)(0,j) = 0 and (N B)(i.succ,j) = a(i)B(0,j), because only the summand with intermediate index zero can remain. Therefore (U B)(0,j) = B(0,j) and (U B)(i.succ,j) = B(i.succ,j) - a(i)B(0,j). Taking j = 0 yields (U B)(i.succ,0) = a(i)p - a(i)p = 0.\n6. These identities and the unit from step 4 give every required conclusion. If m = 0, the coefficient family is empty, N is zero and U is the identity, so the same construction and all the assertions remain valid.",
+    "proof_key_steps": [
+      "Choose coefficients expressing the lower entries of column zero as multiples of B(0,0).",
+      "Put these coefficients in column zero of a matrix N whose zeroth row vanishes.",
+      "Show N squared is zero by inspecting each multiplication summand.",
+      "Exhibit I + N as a two-sided inverse to U = I - N.",
+      "Compute UB to prove preservation of the first row and vanishing below the pivot."
+    ]
+  },
+  "audit": {
+    "key": "clear_first_column",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "The prose includes every binder and hypothesis of the independently elaborated one-line proposition. The bare identifier is unreserved and intended for Submission. The proof correctly chooses divisibility witnesses, uses commutativity to orient them, proves N² = 0 summand by summand, exhibits both inverse identities, and computes UB to establish both conclusions. It covers m = 0 and zero pivots without cancellation or nonvanishing assumptions. This is a genuine narrower obligation with no dependencies or circular reliance. Its preservation of the first row supplies exactly the data the parent needs for subsequent row clearing."
+  },
+  "resolved_dependencies": [],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagona-61e38f4de9/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagona-61e38f4de9/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagona-61e38f4de9/parent-supplied-natural-proof.json"
+}

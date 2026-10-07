@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1.split_divisible_pivot-a1.clear_first_row-a1",
+  "parent_id": "root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1.split_divisible_pivot-a1",
+  "depth": 5,
+  "title": "Clear a divisible first row without changing the trailing block",
+  "statement": "Let R be a commutative ring, m a natural number, and H a matrix indexed by Fin (m + 1) in both directions over R. Suppose H(i.succ,0) = 0 for every i : Fin m and H(0,0) divides H(0,j.succ) for every j : Fin m. There exists a matrix V of the same size, invertible under matrix multiplication, such that HV has entry H(0,0) at (0,0), zero at (0,j.succ) and (i.succ,0), and entry H(i.succ,j.succ) at (i.succ,j.succ).",
+  "lean_statement": "∀ (R : Type*) [CommRing R] (m : ℕ) (H : Matrix (Fin (m + 1)) (Fin (m + 1)) R), (∀ i : Fin m, H i.succ 0 = 0) → (∀ j : Fin m, H 0 0 ∣ H 0 j.succ) → ∃ V : Matrix (Fin (m + 1)) (Fin (m + 1)) R, IsUnit V ∧ H * V = Matrix.of (fun i j => Fin.cases (Fin.cases (H 0 0) (fun _ => 0) j) (fun i' => Fin.cases 0 (fun j' => H i'.succ j'.succ) j) i)",
+  "lean_name": "p06_9e0f5043ff_sdp_clear_first_row",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagona-d052464e1d-a1"
+}

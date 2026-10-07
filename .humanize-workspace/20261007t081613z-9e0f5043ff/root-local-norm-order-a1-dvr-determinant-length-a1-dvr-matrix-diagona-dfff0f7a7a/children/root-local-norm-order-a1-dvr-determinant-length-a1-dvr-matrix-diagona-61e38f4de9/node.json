@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1.split_divisible_pivot-a1.clear_first_column-a1",
+  "parent_id": "root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1.split_divisible_pivot-a1",
+  "depth": 5,
+  "title": "Clear a divisible first column while preserving the first row",
+  "statement": "Let R be a commutative ring, m a natural number, and B a matrix indexed by Fin (m + 1) in both directions over R. Suppose B(0,0) divides B(i.succ,0) for every i : Fin m. There exists a matrix U of the same size, invertible under matrix multiplication, such that (UB)(0,j) = B(0,j) for every j : Fin (m + 1) and (UB)(i.succ,0) = 0 for every i : Fin m.",
+  "lean_statement": "∀ (R : Type*) [CommRing R] (m : ℕ) (B : Matrix (Fin (m + 1)) (Fin (m + 1)) R), (∀ i : Fin m, B 0 0 ∣ B i.succ 0) → ∃ U : Matrix (Fin (m + 1)) (Fin (m + 1)) R, IsUnit U ∧ (∀ j : Fin (m + 1), (U * B) 0 j = B 0 j) ∧ (∀ i : Fin m, (U * B) i.succ 0 = 0)",
+  "lean_name": "p06_9e0f5043ff_sdp_clear_first_column",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagona-61e38f4de9-a1"
+}

@@ -1,0 +1,48 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'pivot|transvection|hasPrincipalDivisors_of_transcendental' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project --glob '*.lean'",
+        "rg -n 'divisible.*pivot|pivot.*divisible|clear_first_column|clear_first_row' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib --glob '*.lean'",
+        "sed -n '1,145p;305,355p' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Matrix/Transvection.lean",
+        "sed -n '268,310p;447,505p;1185,1234p' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Data/Matrix/Mul.lean",
+        "rg -n 'p06_9e0f5043ff_sdp_clear_first_(column|row)' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json Submission.lean",
+        "git -C .lake/packages/mathlib rev-parse HEAD",
+        "git -C .lake/packages/mathlib status --porcelain",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/p06-independent-sdp-audit-20j_mk_f/CheckContracts.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Fermat/Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Matrix/Transvection.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Data/Matrix/Mul.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Matrix/Permutation.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root/decomposition-typecheck/README.txt",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root/decomposition-typecheck/Submission.build.log",
+        "/tmp/p06-independent-sdp-audit-20j_mk_f/CheckContracts.lean",
+        "/tmp/p06-independent-sdp-audit-20j_mk_f/CheckContracts.log",
+        "/tmp/p06-independent-sdp-audit-20j_mk_f/command.json"
+      ],
+      "conclusion": "The manifest pins project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Installed mathlib matches that revision, has clean Git status, and the inspected matrix sources match the snapshot byte-for-byte. The targeted divisible-pivot/clearing search returned no matches; packaged transvection pivot reduction requires a field and division. Matrix multiplication and permutation infrastructure support the supplied elementary argument. The DAG identifies this parent as the depth-4 split_divisible_pivot helper beneath the unchanged frozen AlgebraicCurve theorem. Both proposed names are unreserved, and the existing DAG is acyclic. Independent elaboration of both literal propositions succeeded with autoImplicit disabled; expanded output confirms Matrix.semiring for IsUnit and ordinary matrix multiplication for the products, including the Matrix.of safeguard. Checked matrix infrastructure has only propext, Classical.choice and Quot.sound as transitive axioms. Elaboration used the documented import-only Submission interface, whose Definitions sources match the snapshot; the full frozen module has pre-existing attribute errors. This audit accepts the decomposition, not an implementation or comparator result."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "clear_first_column",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose includes every binder and hypothesis of the independently elaborated one-line proposition. The bare identifier is unreserved and intended for Submission. The proof correctly chooses divisibility witnesses, uses commutativity to orient them, proves N² = 0 summand by summand, exhibits both inverse identities, and computes UB to establish both conclusions. It covers m = 0 and zero pivots without cancellation or nonvanishing assumptions. This is a genuine narrower obligation with no dependencies or circular reliance. Its preservation of the first row supplies exactly the data the parent needs for subsequent row clearing."
+    },
+    {
+      "key": "clear_first_row",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and independently elaborated one-line proposition agree, including both hypotheses and all four entries encoded by Matrix.of and Fin.cases. The bare identifier is unreserved. The proof constructs M, proves M² = 0, supplies a two-sided inverse for V, and computes HV. Divisibility clears the top row; the zero-column hypothesis preserves the lower first column and trailing block. The four index cases establish the exact matrix equality, also when m = 0 or the pivot is zero. No child or parent result is assumed. Empty dependencies are correct: the parent applies column clearing first, but this child's proof independently assumes the necessary zero-column condition."
+    }
+  ],
+  "required_changes": []
+}
