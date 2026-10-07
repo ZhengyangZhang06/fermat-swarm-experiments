@@ -1,13 +1,11 @@
 /-
 Copyright 2026 Anthropic, PBC. Licensed under Apache-2.0; see LICENSE.
 Source: https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_Rep_isZero_tateCohomology_of_forall_sylow.lean
-Modified: replaced the proof with sorry and removed P2M proof imports.
-Requires the upstream Definitions modules and their dependencies.
+Selected child: equivariant components of the prism homotopy.
 -/
 
 import Mathlib
 import Definitions.Def_GroupCohomology_TateCohomology
-attribute [-simp] Representation.TateResCor.cosetDecomp_apply Rep.coe_tateHneg1Res_apply Representation.TateResCor.coe_tateHneg1Cores_apply Representation.TateResCor.tateH0Res_mk Rep.coe_tateHneg1Cores_apply Rep.tateH0Res_mk Representation.TateResCor.coe_cosetNormInvariants_apply Rep.tateH0Cores_mk Representation.TateResCor.coinvariantsCores_mk Representation.TateResCor.coinvariantsTransfer_mk Representation.TateResCor.tateH0Cores_mk Representation.TateResCor.coe_tateHneg1Res_apply Rep.coe_tateδneg2_apply
 
 set_option autoImplicit false
 universe u
@@ -38,5 +36,57 @@ theorem p04_rsh_82a013d1d0_equivariant_retraction {G : Type*} [Group G] (H : Sub
     exact congrArg Prod.fst (hT.equiv_mul_left h g)
   · intro h
     exact hT.equiv_fst_eq_self_of_mem_of_one_mem h1 h.property
+
+namespace Submission
+
+theorem p04_prism_a8325b9888_equivariant_components :
+    ∀ {k G : Type u} [CommRing k] [Group G] (H : Subgroup G) (u v : G → G),
+      (∀ (h : H) (g : G), u ((h : G) * g) = (h : G) * u g) →
+      (∀ (h : H) (g : G), v ((h : G) * g) = (h : G) * v g) →
+      let P : ∀ n : ℕ, (Fin (n + 1) → G) → MonoidAlgebra k (Fin (n + 2) → G) :=
+        fun n c => ∑ j : Fin (n + 1),
+          MonoidAlgebra.single (Fin.insertNth j.castSucc (u (c j))
+            (fun i : Fin (n + 1) => if i < j then u (c i) else v (c i)))
+            ((-1 : k) ^ j.val)
+      let C := ((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj
+        (Rep.standardComplex k G)
+      ∃ D : ∀ n : ℕ, C.X n ⟶ C.X (n + 1), ∀ (n : ℕ) (c : Fin (n + 1) → G),
+        (D n).hom (MonoidAlgebra.single c (1 : k)) = P n c := by
+  classical
+  intro k G _ _ H u v hu hv P C
+  let L (n : ℕ) : MonoidAlgebra k (Fin (n + 1) → G) →ₗ[k]
+      MonoidAlgebra k (Fin (n + 2) → G) :=
+    (Finsupp.lift _ k _ (P n)) ∘ₗ (MonoidAlgebra.coeffLinearEquiv k).toLinearMap
+  have hL (n : ℕ) (c : Fin (n + 1) → G) :
+      L n (MonoidAlgebra.single c 1) = P n c := by
+    simp [L]
+  have hP (n : ℕ) (h : H) (c : Fin (n + 1) → G) :
+      P n ((h : G) • c) =
+        Representation.ofMulAction k G (Fin (n + 2) → G) (h : G) (P n c) := by
+    simp only [P, map_sum, Representation.ofMulAction_single]
+    apply Finset.sum_congr rfl
+    intro j _
+    congr 1
+    apply Fin.insertNth_eq_iff.mpr
+    constructor
+    · simpa using hu h (c j)
+    · funext i
+      simp only [Fin.removeNth, Pi.smul_apply, smul_eq_mul, Fin.insertNth_apply_succAbove]
+      split_ifs with hij
+      · exact hu h (c i)
+      · exact hv h (c i)
+  let D (n : ℕ) : C.X n ⟶ C.X (n + 1) := Rep.ofHom
+    { toLinearMap := L n
+      isIntertwining' := fun h => by
+        apply MonoidAlgebra.lhom_ext'
+        intro c
+        apply LinearMap.ext_ring
+        change L n (Representation.ofMulAction k G (Fin (n + 1) → G) (h : G)
+          (MonoidAlgebra.single c 1)) =
+            Representation.ofMulAction k G (Fin (n + 2) → G) (h : G)
+              (L n (MonoidAlgebra.single c 1))
+        rw [Representation.ofMulAction_single, hL, hL]
+        exact hP n h c }
+  exact ⟨D, hL⟩
 
 end Submission
