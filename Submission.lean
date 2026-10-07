@@ -2026,16 +2026,10 @@ theorem p06_9e0f5043ff_rmp_finite_place_classification
     ((Ideal.span_singleton_prime hq0).mp hprime).irreducible, ?_⟩
   intro f
   rw [v.toValuationSubring_eq_of_forall_mem hpoly]
-  constructor
-  · rintro ⟨a, b, hb, hab⟩
-    refine ⟨a, b, ?_, ?_⟩
-    · change b ∉ AlgebraicCurve.Place.center (Polynomial K) v hpoly at hb
-      rwa [hspan, Ideal.mem_span_singleton] at hb
-    · simpa only [div_eq_mul_inv] using hab
-  · rintro ⟨a, b, hb, hab⟩
-    refine ⟨a, b, ?_, ?_⟩
-    · change b ∉ AlgebraicCurve.Place.center (Polynomial K) v hpoly
-      rwa [hspan, Ideal.mem_span_singleton]
-    · simpa only [div_eq_mul_inv] using hab
+  change (∃ (a b : Polynomial K)
+    (_ : b ∉ AlgebraicCurve.Place.center (Polynomial K) v hpoly),
+      f = algebraMap (Polynomial K) (FractionRing (Polynomial K)) a *
+        (algebraMap (Polynomial K) (FractionRing (Polynomial K)) b)⁻¹) ↔ _
+  simp only [hspan, Ideal.mem_span_singleton, exists_prop, div_eq_mul_inv]
 
 end Submission
