@@ -2682,8 +2682,7 @@ theorem p06_9e0f5043ff_pae_compatible_order_invariance
   have hfactor : e f = ((u' : w.toValuationSubring) : L) *
       ((r π : L) ^ v.ord f) := by
     rw [hcoeu, hcompat π]
-    -- Keep the exponent `v.ord f` fixed while transporting the factorization.
-    conv_lhs => rw [hu, map_mul, map_zpow₀]
+    simpa only [map_mul, map_zpow₀] using congrArg e hu
   rw [hfactor, w.ord_unit_smul_zpow u' hπ' (v.ord f)]
 
 end Submission
