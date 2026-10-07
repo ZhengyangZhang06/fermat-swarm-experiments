@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.full_level_quotient-a1.curve_quotient-a1.group_law_pullback-a1",
+  "parent_id": "root.full_level_quotient-a1.curve_quotient-a1",
+  "depth": 3,
+  "title": "Transport a relative group law and its points through a scheme pullback",
+  "statement": "Let S and T be universe-zero commutative rings, φ : S →+* T, A a universe-zero scheme, f : A → Spec S, and G : RelativeGroupLaw S f. Put β = Spec φ, A_T = A ×_{Spec S} Spec T, p = pullback.snd f β, and g = pullback.fst f β. There exist H : RelativeGroupLaw T p and, for every universe-zero scheme W and t : W → Spec T, an equivalence B(W,t) : SchemeHomOver t p ≃ SchemeHomOver (t ≫ β) f. The underlying morphism of B(W,t)(P) is P.1 ≫ g; B preserves multiplication, identity, and inverse for H and G; and if G is commutative, H is commutative.",
+  "lean_statement": "∀ (S T : Type) [CommRing S] [CommRing T] (φ : S →+* T) (A : AlgebraicGeometry.Scheme.{0}) (f : Quiver.Hom A (AlgebraicGeometry.Spec (CommRingCat.of S))) (G : GoodReductionJacobian.RelativeGroupLaw S f), let β := AlgebraicGeometry.Spec.map (CommRingCat.ofHom φ); let p := CategoryTheory.Limits.pullback.snd f β; let g := CategoryTheory.Limits.pullback.fst f β; ∃ (H : GoodReductionJacobian.RelativeGroupLaw T p) (B : ∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))), NeronModelInfra.SchemeHomOver t p ≃ NeronModelInfra.SchemeHomOver (CategoryTheory.CategoryStruct.comp t β) f), (G.IsCommutative → H.IsCommutative) ∧ (∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))) (P : NeronModelInfra.SchemeHomOver t p), (B W t P).1 = CategoryTheory.CategoryStruct.comp P.1 g) ∧ (∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))) (P Q : NeronModelInfra.SchemeHomOver t p), B W t (H.mul t P Q) = G.mul (CategoryTheory.CategoryStruct.comp t β) (B W t P) (B W t Q)) ∧ (∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))), B W t (H.one t) = G.one (CategoryTheory.CategoryStruct.comp t β)) ∧ (∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))) (P : NeronModelInfra.SchemeHomOver t p), B W t (H.inv t P) = G.inv (CategoryTheory.CategoryStruct.comp t β) (B W t P))",
+  "lean_name": "p07_cq_group_law_pullback_857cd4d38c",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p07/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-curve-quotient-a1-group-law-pullback-a1-a1"
+}

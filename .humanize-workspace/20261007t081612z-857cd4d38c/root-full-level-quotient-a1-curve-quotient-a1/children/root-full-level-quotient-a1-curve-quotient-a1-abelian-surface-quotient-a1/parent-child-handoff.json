@@ -1,0 +1,77 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "structure FakeEllipticCurve|structure RelativeGroupLaw|def tangentZero|def IsTangentVector|structure AbelianSchemePropertyBundle",
+        "baseChangePointToBase|baseChangePointOfBase|baseChange_mul|RelativeGroupLaw.baseChange",
+        "baseChange|pullback|tangent",
+        "homeomorph|Homeomorph|isConnected",
+        "p07_cq_group_law_pullback_857cd4d38c|p07_cq_abelian_surface_quotient_857cd4d38c|p07_cq_level_geometry_pullback_857cd4d38c",
+        "\\b(sorry|admit|axiom)\\b",
+        "git -C .lake/packages/mathlib rev-parse HEAD",
+        "git -C .lake/packages/mathlib status --porcelain",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/p07-cq-decomposition-857cd4d38c/TypesAgainstPrerequisites.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean -o /tmp/p07-cq-decomposition-857cd4d38c/Submission.olean Submission.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/p07-cq-decomposition-857cd4d38c/AxiomsVerified.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMModuli.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_AlgebraicGeometry_RelativeGroupLaw.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_JacJ1Iface.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/P2M",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/PullbackCarrier.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Smooth.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Proper.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/ClosedImmersion.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Finite.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Flat.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/FinitePresentation.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/FlatRank.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/Topology/KrullDimension.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/Submission.lean",
+        "/tmp/p07-cq-decomposition-857cd4d38c/TypesAgainstPrerequisites.lean",
+        "/tmp/p07-cq-decomposition-857cd4d38c/TypesAgainstPrerequisites.log",
+        "/tmp/p07-cq-decomposition-857cd4d38c/Submission.log",
+        "/tmp/p07-cq-decomposition-857cd4d38c/AxiomsVerified.lean",
+        "/tmp/p07-cq-decomposition-857cd4d38c/AxiomsVerified.log"
+      ],
+      "conclusion": "The snapshot pins project 73257f1e32d99b75813b037f28a5cf45a2db886d and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The definitions confirm the exact group-law, bundle, curve, and level obligations. PullbackCarrier:328 supplies range_fst; ClosedImmersion:115 and :382 supply quotient closed immersions and base-change stability; Smooth:117 and Proper:72 supply the other bundle properties. Finite:60, Flat:81, FinitePresentation:85, and FlatRank:157 support the level-geometry statement. KrullDimension:53 supplies homeomorphism invariance. No relevant P2M helper or existing relative-group-law base-change construction was found. None of the proposed names occurs in the inspected DAG or handoffs. All nine dependency checkouts are clean and match their pinned revisions. The 47 prerequisite source modules match the snapshot and cached-build sources byte-for-byte. All three proposed types elaborate without warnings against Submission's unchanged five imports. Symbolic quotient-ring instance synthesis returns Ideal.Quotient.commRing J. The completed transitive axiom audit reports only propext, Classical.choice, and Quot.sound. Literal import Submission validation remains blocked: compiling the unchanged module fails on the pre-existing attribute references AlgebraicGeometry.Scheme.Hom.opensMapFinal, GoodReductionJacobian.RelativeGroupLaw.baseChangePointToBase_ofBase, and RegularLocalRingQuotientAscent.dualNumberFst_apply. No source repair or proof acceptance is claimed."
+    }
+  ],
+  "parent_id": "root.full_level_quotient-a1.curve_quotient-a1",
+  "child_id": "root.full_level_quotient-a1.curve_quotient-a1.abelian_surface_quotient-a1",
+  "subproblem": {
+    "key": "abelian_surface_quotient",
+    "title": "Preserve the abelian-scheme bundle and fibre dimension under a quotient",
+    "statement": "Let S be a universe-zero commutative ring, J an ideal of S, A a universe-zero scheme, and f : A → Spec S. Assume AbelianSchemePropertyBundle S f and that topologicalKrullDim of the topological fibre f⁻¹({s}) is 2 for every s ∈ Spec S. Put β = Spec(Ideal.Quotient.mk J) and p = pullback.snd f β. Then AbelianSchemePropertyBundle (S/J) p holds, and every topological fibre of p has topological Krull dimension 2. There are no Noetherian, nontriviality, or nilpotence assumptions.",
+    "lean_statement": "∀ (S : Type) [CommRing S] (J : Ideal S) (A : AlgebraicGeometry.Scheme.{0}) (f : Quiver.Hom A (AlgebraicGeometry.Spec (CommRingCat.of S))), GoodReductionJacobian.AbelianSchemePropertyBundle S f → (∀ s : ↥(AlgebraicGeometry.Spec (CommRingCat.of S)), topologicalKrullDim ↥(f.base ⁻¹' {s}) = 2) → let β := AlgebraicGeometry.Spec.map (CommRingCat.ofHom (Ideal.Quotient.mk J)); let p := CategoryTheory.Limits.pullback.snd f β; GoodReductionJacobian.AbelianSchemePropertyBundle (S ⧸ J) p ∧ (∀ t : ↥(AlgebraicGeometry.Spec (CommRingCat.of (S ⧸ J))), topologicalKrullDim ↥(p.base ⁻¹' {t}) = 2)",
+    "lean_name": "p07_cq_abelian_surface_quotient_857cd4d38c",
+    "depends_on": [
+      "group_law_pullback"
+    ],
+    "natural_proof": "1. Let h be the assumed bundle and let T = S/J, β = Spec(Ideal.Quotient.mk J), A_T = A ×_{Spec S} Spec T, g = pullback.fst f β, and p = pullback.snd f β. The quotient map is surjective. Consequently β is a closed immersion by AlgebraicGeometry.IsClosedImmersion.spec_of_quotient_mk in Mathlib/AlgebraicGeometry/Morphisms/ClosedImmersion.lean:115, at the pinned mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d. Its underlying map is therefore injective.\n2. The morphism p is the base change of f. The fields h.smooth and h.proper, together with AlgebraicGeometry.smooth_isStableUnderBaseChange in Morphisms/Smooth.lean:117 and AlgebraicGeometry.IsProper.isStableUnderBaseChange in Morphisms/Proper.lean:72 at that same revision, imply Smooth p and IsProper p.\n3. The morphism g is the base change of the closed immersion β. By IsClosedImmersion.isStableUnderBaseChange in Morphisms/ClosedImmersion.lean:382, it is a closed immersion, hence a topological embedding. The pinned theorem AlgebraicGeometry.Scheme.Pullback.range_fst in Mathlib/AlgebraicGeometry/PullbackCarrier.lean:328 gives range(g) = f⁻¹(range(β)).\n4. Fix t ∈ Spec T and put s = β(t). The equation g ≫ f = p ≫ β shows that g restricts to a map F_t : p⁻¹({t}) → f⁻¹({s}). This map is injective because g is. For x in f⁻¹({s}), f(x) = β(t) belongs to range(β), so step 3 supplies y ∈ A_T with g(y) = x. Commutativity gives β(p(y)) = f(g(y)) = β(t); injectivity of β gives p(y) = t. Thus y is in the required fibre and F_t is surjective.\n5. Restricting a topological embedding to subspaces yields an embedding into the target subspace. Hence the bijection F_t is a homeomorphism: its inducing property identifies the source topology with the topology transported from the target, making the inverse continuous. The old fibre is nonempty and connected by h.connectedFibres s. Its homeomorphic new fibre is likewise nonempty and connected. Interpreted as a subset of A_T, this is precisely IsConnected (p.base ⁻¹' {t}).\n6. A homeomorphism sends irreducible closed subsets bijectively to irreducible closed subsets, preserves inclusion in both directions, and therefore preserves the lengths of all strict chains. Thus it preserves topological Krull dimension; the pinned formal result is IsHomeomorph.topologicalKrullDim_eq in Mathlib/Topology/KrullDimension.lean:53. Applied to F_t and the assumed dimension equation for s, it gives topologicalKrullDim ↥(p.base ⁻¹' {t}) = 2. Since t was arbitrary, both the connectedness and dimension conclusions hold for every fibre.\n7. Extract G : RelativeGroupLaw S f from h.hasGroupLaw. Apply the sibling theorem group_law_pullback to S, T, Ideal.Quotient.mk J, A, f, and G. Its witness H : RelativeGroupLaw T p supplies Nonempty (RelativeGroupLaw T p).\n8. Assemble Smooth p, IsProper p, the connected-fibre assertions from step 5, and the group-law witness from step 7 into AbelianSchemePropertyBundle T p. Pair this bundle with the dimension assertions from step 6. This proves the exact conclusion, including when Spec T is empty, in which case the universally quantified fibre assertions are vacuous.",
+    "proof_key_steps": [
+      "Recognize the quotient spectrum map and its pullback as closed immersions.",
+      "Transfer smoothness and properness by base change.",
+      "Use the pullback image formula and injectivity to identify each entire topological fibre.",
+      "Transfer nonempty connectedness and topological Krull dimension through the resulting homeomorphism.",
+      "Obtain a group-law witness from group_law_pullback and assemble the bundle."
+    ]
+  },
+  "audit": {
+    "key": "abelian_surface_quotient",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "The exact proposition matches the bundle and topological-fibre dimension statement without extra assumptions. The quotient closed immersion and pullback image formula justify the entire fibre bijection; restriction of the embedding makes it a homeomorphism, preserving nonempty connectedness and Krull dimension. Smoothness and properness follow from the cited base-change results. The sole declared dependency, group_law_pullback, supplies precisely the remaining group-law witness, so the dependency direction is correct and non-circular. The bare identifier is unreserved."
+  },
+  "resolved_dependencies": [
+    "root.full_level_quotient-a1.curve_quotient-a1.group_law_pullback-a1"
+  ],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-full-level-quotient-a1-curve-quotient-a1-abelian-surface-quotient-a1/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-full-level-quotient-a1-curve-quotient-a1-abelian-surface-quotient-a1/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-full-level-quotient-a1-curve-quotient-a1-abelian-surface-quotient-a1/parent-supplied-natural-proof.json"
+}

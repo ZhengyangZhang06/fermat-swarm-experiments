@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "node_id": "root.full_level_quotient-a1.curve_quotient-a1.abelian_surface_quotient-a1",
+  "parent_id": "root.full_level_quotient-a1.curve_quotient-a1",
+  "depth": 3,
+  "title": "Preserve the abelian-scheme bundle and fibre dimension under a quotient",
+  "statement": "Let S be a universe-zero commutative ring, J an ideal of S, A a universe-zero scheme, and f : A → Spec S. Assume AbelianSchemePropertyBundle S f and that topologicalKrullDim of the topological fibre f⁻¹({s}) is 2 for every s ∈ Spec S. Put β = Spec(Ideal.Quotient.mk J) and p = pullback.snd f β. Then AbelianSchemePropertyBundle (S/J) p holds, and every topological fibre of p has topological Krull dimension 2. There are no Noetherian, nontriviality, or nilpotence assumptions.",
+  "lean_statement": "∀ (S : Type) [CommRing S] (J : Ideal S) (A : AlgebraicGeometry.Scheme.{0}) (f : Quiver.Hom A (AlgebraicGeometry.Spec (CommRingCat.of S))), GoodReductionJacobian.AbelianSchemePropertyBundle S f → (∀ s : ↥(AlgebraicGeometry.Spec (CommRingCat.of S)), topologicalKrullDim ↥(f.base ⁻¹' {s}) = 2) → let β := AlgebraicGeometry.Spec.map (CommRingCat.ofHom (Ideal.Quotient.mk J)); let p := CategoryTheory.Limits.pullback.snd f β; GoodReductionJacobian.AbelianSchemePropertyBundle (S ⧸ J) p ∧ (∀ t : ↥(AlgebraicGeometry.Spec (CommRingCat.of (S ⧸ J))), topologicalKrullDim ↥(p.base ⁻¹' {t}) = 2)",
+  "lean_name": "p07_cq_abelian_surface_quotient_857cd4d38c",
+  "depends_on": [
+    "root.full_level_quotient-a1.curve_quotient-a1.group_law_pullback-a1"
+  ],
+  "dependency_workspaces": [
+    {
+      "node_id": "root.full_level_quotient-a1.curve_quotient-a1.group_law_pullback-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    }
+  ],
+  "result_branch": "humanize-recursive/fermat-p07/20261007t081612z-857cd4d38c/root-full-level-quotient-a1-curve-quotient-a1-abelian-surface-quotient-a1-a1"
+}

@@ -1,0 +1,73 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "structure FakeEllipticCurve|structure RelativeGroupLaw|def tangentZero|def IsTangentVector|structure AbelianSchemePropertyBundle",
+        "baseChangePointToBase|baseChangePointOfBase|baseChange_mul|RelativeGroupLaw.baseChange",
+        "baseChange|pullback|tangent",
+        "homeomorph|Homeomorph|isConnected",
+        "p07_cq_group_law_pullback_857cd4d38c|p07_cq_abelian_surface_quotient_857cd4d38c|p07_cq_level_geometry_pullback_857cd4d38c",
+        "\\b(sorry|admit|axiom)\\b",
+        "git -C .lake/packages/mathlib rev-parse HEAD",
+        "git -C .lake/packages/mathlib status --porcelain",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/p07-cq-decomposition-857cd4d38c/TypesAgainstPrerequisites.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean -o /tmp/p07-cq-decomposition-857cd4d38c/Submission.olean Submission.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/p07-cq-decomposition-857cd4d38c/AxiomsVerified.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMModuli.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_AlgebraicGeometry_RelativeGroupLaw.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_JacJ1Iface.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/P2M",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/PullbackCarrier.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Smooth.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Proper.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/ClosedImmersion.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Finite.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Flat.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/FinitePresentation.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/FlatRank.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/Topology/KrullDimension.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/Submission.lean",
+        "/tmp/p07-cq-decomposition-857cd4d38c/TypesAgainstPrerequisites.lean",
+        "/tmp/p07-cq-decomposition-857cd4d38c/TypesAgainstPrerequisites.log",
+        "/tmp/p07-cq-decomposition-857cd4d38c/Submission.log",
+        "/tmp/p07-cq-decomposition-857cd4d38c/AxiomsVerified.lean",
+        "/tmp/p07-cq-decomposition-857cd4d38c/AxiomsVerified.log"
+      ],
+      "conclusion": "The snapshot pins project 73257f1e32d99b75813b037f28a5cf45a2db886d and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The definitions confirm the exact group-law, bundle, curve, and level obligations. PullbackCarrier:328 supplies range_fst; ClosedImmersion:115 and :382 supply quotient closed immersions and base-change stability; Smooth:117 and Proper:72 supply the other bundle properties. Finite:60, Flat:81, FinitePresentation:85, and FlatRank:157 support the level-geometry statement. KrullDimension:53 supplies homeomorphism invariance. No relevant P2M helper or existing relative-group-law base-change construction was found. None of the proposed names occurs in the inspected DAG or handoffs. All nine dependency checkouts are clean and match their pinned revisions. The 47 prerequisite source modules match the snapshot and cached-build sources byte-for-byte. All three proposed types elaborate without warnings against Submission's unchanged five imports. Symbolic quotient-ring instance synthesis returns Ideal.Quotient.commRing J. The completed transitive axiom audit reports only propext, Classical.choice, and Quot.sound. Literal import Submission validation remains blocked: compiling the unchanged module fails on the pre-existing attribute references AlgebraicGeometry.Scheme.Hom.opensMapFinal, GoodReductionJacobian.RelativeGroupLaw.baseChangePointToBase_ofBase, and RegularLocalRingQuotientAscent.dualNumberFst_apply. No source repair or proof acceptance is claimed."
+    }
+  ],
+  "parent_id": "root.full_level_quotient-a1.curve_quotient-a1",
+  "child_id": "root.full_level_quotient-a1.curve_quotient-a1.group_law_pullback-a1",
+  "subproblem": {
+    "key": "group_law_pullback",
+    "title": "Transport a relative group law and its points through a scheme pullback",
+    "statement": "Let S and T be universe-zero commutative rings, φ : S →+* T, A a universe-zero scheme, f : A → Spec S, and G : RelativeGroupLaw S f. Put β = Spec φ, A_T = A ×_{Spec S} Spec T, p = pullback.snd f β, and g = pullback.fst f β. There exist H : RelativeGroupLaw T p and, for every universe-zero scheme W and t : W → Spec T, an equivalence B(W,t) : SchemeHomOver t p ≃ SchemeHomOver (t ≫ β) f. The underlying morphism of B(W,t)(P) is P.1 ≫ g; B preserves multiplication, identity, and inverse for H and G; and if G is commutative, H is commutative.",
+    "lean_statement": "∀ (S T : Type) [CommRing S] [CommRing T] (φ : S →+* T) (A : AlgebraicGeometry.Scheme.{0}) (f : Quiver.Hom A (AlgebraicGeometry.Spec (CommRingCat.of S))) (G : GoodReductionJacobian.RelativeGroupLaw S f), let β := AlgebraicGeometry.Spec.map (CommRingCat.ofHom φ); let p := CategoryTheory.Limits.pullback.snd f β; let g := CategoryTheory.Limits.pullback.fst f β; ∃ (H : GoodReductionJacobian.RelativeGroupLaw T p) (B : ∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))), NeronModelInfra.SchemeHomOver t p ≃ NeronModelInfra.SchemeHomOver (CategoryTheory.CategoryStruct.comp t β) f), (G.IsCommutative → H.IsCommutative) ∧ (∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))) (P : NeronModelInfra.SchemeHomOver t p), (B W t P).1 = CategoryTheory.CategoryStruct.comp P.1 g) ∧ (∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))) (P Q : NeronModelInfra.SchemeHomOver t p), B W t (H.mul t P Q) = G.mul (CategoryTheory.CategoryStruct.comp t β) (B W t P) (B W t Q)) ∧ (∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))), B W t (H.one t) = G.one (CategoryTheory.CategoryStruct.comp t β)) ∧ (∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))) (P : NeronModelInfra.SchemeHomOver t p), B W t (H.inv t P) = G.inv (CategoryTheory.CategoryStruct.comp t β) (B W t P))",
+    "lean_name": "p07_cq_group_law_pullback_857cd4d38c",
+    "depends_on": [],
+    "natural_proof": "1. Fix S, T, φ, A, f, and G as in the statement, and write β, A_T, p, and g for the specified base map, pullback, and projections. Their commutativity relation is g ≫ f = p ≫ β. For P : SchemeHomOver t p define B(W,t)(P) to have underlying morphism P.1 ≫ g. It lies over t ≫ β because (P.1 ≫ g) ≫ f = P.1 ≫ p ≫ β = t ≫ β.\n2. For R : SchemeHomOver (t ≫ β) f, its defining equation R.1 ≫ f = t ≫ β permits the pullback lift of R.1 and t. Its second projection is t, so it defines a point over t. Its first projection is R.1, showing that B sends this lift to R. Conversely, the lift associated to B(P) has projections P.1 ≫ g and t, which are also the projections of P.1. Pullback uniqueness therefore identifies that lift with P. Thus these maps are inverse equivalences, and the required underlying-morphism formula holds.\n3. These equivalences commute with precomposition. Indeed, for h : W' → W and h ≫ t = t', the underlying morphisms of B(W',t')(h*P) and h*(B(W,t)(P)) are respectively (h ≫ P.1) ≫ g and h ≫ (P.1 ≫ g). Associativity identifies them; their base equations agree by h ≫ t = t' and associativity. Equality of underlying morphisms is equality of these subtype points.\n4. Define H.mul t P Q = B(W,t)⁻¹(G.mul (t ≫ β) (B(W,t) P) (B(W,t) Q)), H.one t = B(W,t)⁻¹(G.one (t ≫ β)), and H.inv t P = B(W,t)⁻¹(G.inv (t ≫ β) (B(W,t) P)). The inverse identities from step 2 immediately give all three required preservation equations.\n5. For each fixed W,t, apply the injective B(W,t) to the proposed group-law identities. The images of the two associativity sides are G.mul (G.mul (BP) (BQ)) (BR) and G.mul (BP) (G.mul (BQ) (BR)), equal by G.mul_assoc at t ≫ β. The image of H.mul t (H.one t) P is G.mul (t ≫ β) (G.one (t ≫ β)) (BP) = BP by G.one_mul. Similarly G.mul_one proves the right identity law. The image of H.mul t (H.inv t P) P is G.mul (t ≫ β) (G.inv (t ≫ β) (BP)) (BP) = G.one (t ≫ β), which is the image of H.one t, by G.inv_mul_cancel. Injectivity proves each required law for H.\n6. To prove H.mul_natural, take h : W' → W with h ≫ t = t'. Apply B(W',t') to its two sides. By steps 3 and 4, the left side becomes the precomposition by h of G.mul (t ≫ β) (BP) (BQ). The right side becomes the product, over t' ≫ β, of the precompositions of BP and BQ. These are equal by G.mul_natural, since h ≫ (t ≫ β) = t' ≫ β. Injectivity gives H.mul_natural. Thus the operations and laws define H : RelativeGroupLaw T p.\n7. If G.IsCommutative, the B-images of H.mul t P Q and H.mul t Q P are equal by commutativity of G at t ≫ β. Injectivity proves H.IsCommutative. The constructed H and family B satisfy every asserted property.",
+    "proof_key_steps": [
+      "Use pullback lift and projection uniqueness to construct the point equivalences.",
+      "Prove that the equivalences commute with precomposition by associativity.",
+      "Transport multiplication, identity, and inverse through the equivalences.",
+      "Verify the group laws and multiplication naturality by injectivity.",
+      "Transfer commutativity and return the preservation equations."
+    ]
+  },
+  "audit": {
+    "key": "group_law_pullback",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "The independently elaborated one-line proposition matches every prose hypothesis and conclusion. The proof constructs inverse point maps by pullback lifting and uniqueness, establishes precomposition compatibility, and transports every required group-law field, including multiplication naturality and conditional commutativity. It uses neither the parent nor the child theorem. The bare identifier is unreserved, and no prerequisites are missing."
+  },
+  "resolved_dependencies": [],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-full-level-quotient-a1-curve-quotient-a1-group-law-pullback-a1/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-full-level-quotient-a1-curve-quotient-a1-group-law-pullback-a1/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-full-level-quotient-a1-curve-quotient-a1-group-law-pullback-a1/parent-supplied-natural-proof.json"
+}

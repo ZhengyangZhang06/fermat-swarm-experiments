@@ -1,0 +1,66 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "structure FakeEllipticCurve|structure RelativeGroupLaw|structure AbelianSchemePropertyBundle|def SchemeHomOver|def IsPullbackVia|exists_ptR_eq|baseChangePointToBase|baseChangePointOfBase|baseChange_mul|RelativeGroupLaw.baseChange|p07_cq_",
+        "range_fst|spec_of_quotient_mk|isStableUnderBaseChange|respectsIso|finrank_pullback_snd|topologicalKrullDim_eq",
+        "baseChangePointToBase|baseChangePointOfBase|RelativeGroupLaw.baseChange|baseChange_mul|homeomorph|Homeomorph|isConnected",
+        "p07_cq_group_law_pullback_857cd4d38c|p07_cq_abelian_surface_quotient_857cd4d38c|p07_cq_level_geometry_pullback_857cd4d38c",
+        "\\b(sorry|admit|axiom)\\b",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean -DautoImplicit=false -DmaxHeartbeats=4000000 -DsynthInstance.maxHeartbeats=400000 -Dbackward.isDefEq.respectTransparency.types=false /tmp/p07-cq-audit-independent-857cd4d38c/ExactTypes.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean -DautoImplicit=false -DmaxHeartbeats=4000000 -DsynthInstance.maxHeartbeats=400000 -Dbackward.isDefEq.respectTransparency.types=false /tmp/p07-cq-audit-independent-857cd4d38c/Axioms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean -DautoImplicit=false -DmaxHeartbeats=4000000 -DsynthInstance.maxHeartbeats=400000 -Dbackward.isDefEq.respectTransparency.types=false -o /tmp/p07-cq-audit-independent-857cd4d38c/Submission.olean Submission.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-full-level-quotient-a1-curve-quotient-a1/decomposition-v1.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_AlgebraicGeometry_RelativeGroupLaw.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_JacJ1Iface.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMModuli.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFormalModuleOf.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/P2M",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/PullbackCarrier.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Smooth.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Proper.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/ClosedImmersion.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Finite.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Flat.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/FinitePresentation.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/FlatRank.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/Topology/KrullDimension.lean",
+        "/tmp/p07-cq-audit-independent-857cd4d38c/prerequisite-sources.txt",
+        "/tmp/p07-cq-audit-independent-857cd4d38c/ExactTypes.lean",
+        "/tmp/p07-cq-audit-independent-857cd4d38c/ExactTypes.log",
+        "/tmp/p07-cq-audit-independent-857cd4d38c/Axioms.lean",
+        "/tmp/p07-cq-audit-independent-857cd4d38c/Axioms.log",
+        "/tmp/p07-cq-audit-independent-857cd4d38c/Submission.log"
+      ],
+      "conclusion": "Independently confirmed project pin 73257f1e32d99b75813b037f28a5cf45a2db886d and mathlib pin db584cd6d46c92f209a44c0f1c829460d327499d. All nine dependency checkouts are clean and match their pins; 47 prerequisite sources match the snapshot and cached-build source tree. The relevant definitions match the proposed obligations. PullbackCarrier:328, ClosedImmersion:91,115,382, Smooth:117, Proper:72, Finite:60, Flat:81, FinitePresentation:85, FlatRank:157, and KrullDimension:53 support the cited proof steps with the stated hypotheses. The P2M search found no relevant transport helper; proposed names have no DAG or handoff collisions; the prerequisite placeholder/axiom scan found no matches. All three exact expressions independently elaborate as propositions without child implementations or warnings. Quotient-ring synthesis returns Ideal.Quotient.commRing J; no matrix-unit construction occurs. Transitive axiom checks on the contracts and cited infrastructure report only propext, Classical.choice, and Quot.sound. The split is appropriate and acyclic. Independently reproduced the existing Submission.lean errors for opensMapFinal, baseChangePointToBase_ofBase, and dualNumberFst_apply. This approves the decomposition and supplied prose only; the proposal's activation hold remains, and no comparator acceptance of an implementation is claimed."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "group_law_pullback",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The independently elaborated one-line proposition matches every prose hypothesis and conclusion. The proof constructs inverse point maps by pullback lifting and uniqueness, establishes precomposition compatibility, and transports every required group-law field, including multiplication naturality and conditional commutativity. It uses neither the parent nor the child theorem. The bare identifier is unreserved, and no prerequisites are missing."
+    },
+    {
+      "key": "abelian_surface_quotient",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact proposition matches the bundle and topological-fibre dimension statement without extra assumptions. The quotient closed immersion and pullback image formula justify the entire fibre bijection; restriction of the embedding makes it a homeomorphism, preserving nonempty connectedness and Krull dimension. Smoothness and properness follow from the cited base-change results. The sole declared dependency, group_law_pullback, supplies precisely the remaining group-law witness, so the dependency direction is correct and non-circular. The bare identifier is unreserved."
+    },
+    {
+      "key": "level_geometry_pullback",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition independently elaborates and matches all hypotheses, projection equations, property conclusions, rank equality, and unrestricted factorization equivalence. The proof explicitly constructs the level map and verifies existence and uniqueness for the correctly oriented pullback square. This also proves both factorization directions. Closed immersion and the three structure-morphism properties transfer by the cited results; the rank formula requires exactly the supplied finiteness and flatness. No parent or sibling theorem is assumed, and the bare identifier is unreserved."
+    }
+  ],
+  "required_changes": []
+}
