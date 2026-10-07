@@ -3804,5 +3804,43 @@ theorem p06_9e0f5043ff_fpm_rd_eval_kernel
     exact ((IsLocalRing.residue_ne_zero_iff_isUnit _).mpr (hunit a hqa)) ha
   · rintro ⟨b, rfl⟩
     rw [map_mul, map_mul, hq_zero, zero_mul]
+theorem p06_9e0f5043ff_fpm_rd_residue_surjective
+    (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F)
+    (hx : Transcendental K x) (q : Polynomial K) (hq : Irreducible q)
+    (v : AlgebraicCurve.Place K F)
+    (hrep : ∀ h : v.toValuationSubring, ∃ a b : Polynomial K,
+      ¬ q ∣ b ∧ (h : F) = Polynomial.aeval x a / Polynomial.aeval x b)
+    (e : Polynomial K →ₐ[K] v.toValuationSubring)
+    (he : ∀ a : Polynomial K, (e a : F) = Polynomial.aeval x a)
+    (heq : IsLocalRing.residue v.toValuationSubring (e q) = 0) :
+    Function.Surjective ((IsLocalRing.residue v.toValuationSubring).comp e.toRingHom) := by
+  let ρ := IsLocalRing.residue v.toValuationSubring
+  let φ := ρ.comp e.toRingHom
+  intro r
+  obtain ⟨h, rfl⟩ := IsLocalRing.residue_surjective (R := v.toValuationSubring) r
+  obtain ⟨a, b, hb, hab⟩ := hrep h
+  have hb0 : b ≠ 0 := fun hb0 => hb (hb0 ▸ dvd_zero q)
+  have heb0 : Polynomial.aeval x b ≠ 0 := by
+    intro heb0
+    apply hb0
+    exact (transcendental_iff_injective.mp hx) (by simpa using heb0)
+  obtain ⟨u, t, hut⟩ := hq.coprime_iff_not_dvd.mpr hb
+  have htb : φ t * φ b = 1 := by
+    have hφq : φ q = 0 := heq
+    simpa only [map_add, map_mul, map_one, hφq, mul_zero, zero_add]
+      using congrArg φ hut
+  have hmul : h * e b = e a := by
+    apply Subtype.ext
+    change (h : F) * (e b : F) = (e a : F)
+    rw [he, he, hab, div_mul_cancel₀ _ heb0]
+  have hres : ρ h * φ b = φ a := by
+    change ρ h * ρ (e b) = ρ (e a)
+    simpa only [map_mul] using congrArg ρ hmul
+  refine ⟨a * t, ?_⟩
+  change φ (a * t) = ρ h
+  calc
+    φ (a * t) = φ a * φ t := map_mul φ a t
+    _ = (ρ h * φ b) * φ t := by rw [hres]
+    _ = ρ h := by rw [mul_assoc, mul_comm (φ b) (φ t), htb, mul_one]
 
 end Submission
