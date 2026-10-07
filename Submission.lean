@@ -1005,6 +1005,8 @@ theorem p07_flq_curve_quotient_857cd4d38c
     rw [← hcoe W t, hmul, hP, hQ]
   · intro W t P hP
     exact (hfactor W P.1).mp hP
+/-- A pullback of fake elliptic curves induces an equivalence on points that
+preserves multiplication, identity, repeated sums, and the order action. -/
 theorem p07_flp_point_equiv_857cd4d38c
     {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N : ℕ)
     (S T : Type) [CommRing S] [CommRing T] (φ : S →+* T)
