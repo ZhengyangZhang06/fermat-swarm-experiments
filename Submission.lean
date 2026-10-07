@@ -1,13 +1,11 @@
 /-
 Copyright 2026 Anthropic, PBC. Licensed under Apache-2.0; see LICENSE.
 Source: https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_Rep_isZero_tateCohomology_of_forall_sylow.lean
-Modified: replaced the proof with sorry and removed P2M proof imports.
-Requires the upstream Definitions modules and their dependencies.
+Selected child: equivariant components of the prism homotopy.
 -/
 
 import Mathlib
 import Definitions.Def_GroupCohomology_TateCohomology
-attribute [-simp] Representation.TateResCor.cosetDecomp_apply Rep.coe_tateHneg1Res_apply Representation.TateResCor.coe_tateHneg1Cores_apply Representation.TateResCor.tateH0Res_mk Rep.coe_tateHneg1Cores_apply Rep.tateH0Res_mk Representation.TateResCor.coe_cosetNormInvariants_apply Rep.tateH0Cores_mk Representation.TateResCor.coinvariantsCores_mk Representation.TateResCor.coinvariantsTransfer_mk Representation.TateResCor.tateH0Cores_mk Representation.TateResCor.coe_tateHneg1Res_apply Rep.coe_tateδneg2_apply
 
 set_option autoImplicit false
 universe u
@@ -391,6 +389,11 @@ The free-module extension uses `Finsupp.lift` and `MonoidAlgebra.coeffLinearEqui
 `Representation.ofMulAction_single` and `Fin.insertNth_eq_iff`. -/
 theorem p04_prism_a8325b9888_equivariant_components :
     ∀ {k G : Type _} [CommRing k] [Group G] (H : Subgroup G) (u v : G → G),
+
+namespace Submission
+
+theorem p04_prism_a8325b9888_equivariant_components :
+    ∀ {k G : Type u} [CommRing k] [Group G] (H : Subgroup G) (u v : G → G),
       (∀ (h : H) (g : G), u ((h : G) * g) = (h : G) * u g) →
       (∀ (h : H) (g : G), v ((h : G) * g) = (h : G) * v g) →
       let P : ∀ n : ℕ, (Fin (n + 1) → G) → MonoidAlgebra k (Fin (n + 2) → G) :=
@@ -429,6 +432,9 @@ theorem p04_prism_a8325b9888_equivariant_components :
     { toLinearMap := L n
       isIntertwining' := fun h => by
         refine MonoidAlgebra.lhom_ext' fun (c : Fin (n + 1) → G) => LinearMap.ext_ring ?_
+        apply MonoidAlgebra.lhom_ext'
+        intro c
+        apply LinearMap.ext_ring
         change L n (Representation.ofMulAction k G (Fin (n + 1) → G) (h : G)
           (MonoidAlgebra.single c 1)) =
             Representation.ofMulAction k G (Fin (n + 2) → G) (h : G)
