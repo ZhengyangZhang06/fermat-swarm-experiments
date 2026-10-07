@@ -336,10 +336,12 @@ candidate, and the author's comparator run. Return successfully as soon as those
 Do not wait for, simulate, or mark complete the outer controller's fresh-reviewer comparator
 rerun, wiki publication, or DAG `proved` transition: those gates run only after this nested
 stage returns. Treating those later gates as unfinished RLCR work creates a circular wait.
-An implementation review may request changes only for an error in this exact node, a mismatch
-with its frozen statement, a source-safety violation, a dirty/uncommitted candidate, or a failed
-configured comparator. Architectural preferences copied from an older scaffold are not defects
-after the current decomposition and its child gates have been accepted.
+The nested reviewer is a Git-diff and comparator-input integrity auditor, not a mathematical
+proof or code-quality reviewer. It checks the frozen issue contract, unchanged context, exact
+candidate files supplied to the comparator, clean committed state, and comparator evidence.
+It must not independently re-prove the theorem, critique tactics, or reopen the accepted
+natural-language proof or decomposition. Mathematical correctness remains the Lean kernel and
+exact comparator's responsibility. A proof body may change; its statement and context may not.
 """
 
 SPECULATIVE_PARENT_TASK = """Draft the Lean proof of decomposed DAG node `{node_id}` now,
@@ -377,11 +379,21 @@ temporary assumption and preserve only safe participant-source changes as a spec
 """
 
 
-LEAN_AUDIT = """Review the Lean proof for this DAG node. You did not write it, and approval is
-forbidden unless you personally rerun the exact comparator command shown below. Inspect the git
-diff and the named Lean files. Check for weakened statements, changed challenge files/imports,
-extra axioms, `sorry`/`admit`, declaration shadowing, or any mismatch with the mathematical
-statement. List every new or completed theorem belonging to this node for the wiki.
+LEAN_AUDIT = """Audit Git-diff and comparator-input integrity for this DAG node. You did not
+write it. This is NOT a mathematical proof review or a code-quality review. Do not re-prove the
+theorem, critique proof tactics, or repeat natural-language/decomposition review. Approval is
+forbidden unless you personally rerun the exact comparator command shown below.
+
+Inspect `git diff --no-ext-diff --no-textconv <frozen-base> <candidate> --` and the actual
+comparator input files. Verify that the issue's original Lean statement, quantifiers, hypotheses,
+definitions, imports, and frozen context are unchanged. Only the selected proof implementation
+and accepted prerequisite overlays may differ. Check that the comparator actually consumes the
+same committed candidate you inspected, not another file, revision, theorem, or weakened goal.
+Inspect comparator invocation and its exact-input evidence; a success marker alone is not
+evidence of input identity. Reject unapproved axioms, placeholders, shadowing, or checker changes
+visible in the diff; rely on the kernel, exact-type comparator and transitive-axiom checks for
+proof validity. Do not edit source, commits, issue contracts, or comparator configuration.
+List the tracked theorem belonging to this node for publication.
 
 {problem_context}
 

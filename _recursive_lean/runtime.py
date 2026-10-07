@@ -3323,6 +3323,10 @@ Use the independently reviewed proof at `{handoff.natural_proof_path}` directly.
                 node_id=node.id,
                 feedback="RLCR completed without an identifiable Lean target",
             )
+        try:
+            identity = self._capture_comparison_identity(node, worktree, before, lean_files)
+        except (ValueError, RuntimeError, OSError) as error:
+            return self._reject_lean_audit(node, None, f"comparison identity failed: {error}")
         self.store.update(
             node.id,
             "comparing",
@@ -3330,6 +3334,9 @@ Use the independently reviewed proof at `{handoff.natural_proof_path}` directly.
             lean_files=lean_files,
         )
         passed, log_path, log = self._compare(node, lean_files, worktree)
+        problem = self._comparison_identity_problem(node, worktree, after, identity)
+        if problem:
+            return self._reject_lean_audit(node, None, problem)
         if not passed:
             self.store.update(
                 node.id,
@@ -3344,7 +3351,7 @@ Use the independently reviewed proof at `{handoff.natural_proof_path}` directly.
         self.store.update(
             node.id,
             "lean-review",
-            f"fresh reviewer reruns comparator in {worktree}",
+            f"fresh Git-diff/input-integrity reviewer reruns comparator in {worktree}",
         )
         audit = _structured_turn(
             _WorkspaceAgent(self.agents.reviewer.clone(), worktree),
@@ -3361,6 +3368,7 @@ Use the independently reviewed proof at `{handoff.natural_proof_path}` directly.
                 comparator_success=self.config.comparator_success,
                 comparator_log=log[-12000:],
             )
+            + self._comparison_identity_instructions(identity)
             + self._theorem_publication_instructions(node),
             LeanAudit,
         )
@@ -3372,9 +3380,10 @@ Use the independently reviewed proof at `{handoff.natural_proof_path}` directly.
             )
         reference_problem = self._reference_use_problem(audit)
         contract_problem = self._theorem_publication_problem(node, audit)
-        if audit is None or not audit.passed or reference_problem or contract_problem:
+        identity_problem = self._comparison_identity_problem(node, worktree, after, identity, audit)
+        if audit is None or not audit.passed or reference_problem or contract_problem or identity_problem:
             return self._reject_lean_audit(
-                node, audit, reference_problem or contract_problem
+                node, audit, identity_problem or reference_problem or contract_problem
             )
         pushed, push_feedback = self._push_child_workspace_result(node, worktree, after)
         if not pushed:
@@ -3418,6 +3427,49 @@ Use the independently reviewed proof at `{handoff.natural_proof_path}` directly.
 
     def _check_workflow_health(self) -> None:
         """Optional stop signal for infrastructure failures in derived workflows."""
+
+    def _capture_comparison_identity(self, node, worktree, before, lean_files):
+        """GitHub workflows additionally bind the frozen issue and input blobs."""
+        return {}
+
+    def _comparison_identity_problem(self, node, worktree, candidate, identity, audit=None):
+        if self._git_head(worktree) != candidate or not self._git_clean(worktree):
+            return "comparator/reviewer changed the committed candidate or left source edits"
+        return ""
+
+    @staticmethod
+    def _comparison_identity_instructions(identity):
+        if not identity:
+            return ""
+        return (
+            "\n\nController-owned comparison identity (do not modify):\n```json\n"
+            + json.dumps(identity, sort_keys=True, indent=2)
+            + "\n```\nInspect the exact diff and input blobs above. After confirming the issue "
+            "contract and the comparator's actual inputs match, return the packet's digest "
+            "in `comparison_identity`. Do not echo it as a substitute for checking.\n"
+        )
+
+    def _integrity_review_instructions(self, node, review_base):
+        return (
+            "This selected-node RLCR reviewer performs ONLY Git-diff and comparator-input "
+            "integrity review, never a mathematical proof/code-quality review. Keep the "
+            "official response schema and COMPLETE/feedback protocol. Initial setup may "
+            "check plan relevance and branch safety only. Do not re-review natural-language "
+            "proofs or decomposition; those separate reviews remain required upstream. "
+            "Do not edit files or commits. Check exact issue statement/context preservation "
+            "against the frozen base, clean candidate HEAD, actual comparator source inputs, "
+            "and author comparator evidence. A proof body changes; the goal must not. "
+            "Use git diff --no-ext-diff --no-textconv and git show to inspect the base and "
+            "candidate. Reject input substitution, changed assumptions/imports/definitions, "
+            "new axioms/placeholders, dirty source, or failed comparator. Do not judge tactics "
+            "or re-prove the theorem. The outer independent comparator rerun is later, not "
+            "a blocker for this nested stage.\n"
+            f"Node: {node.id}\nDeclaration: {node.lean_name}\n"
+            f"Frozen type: {node.lean_statement or 'original root Challenge contract'}\n"
+            f"Frozen post-overlay base: {review_base}\n"
+            f"Exact comparator: {self._review_command(node, [])}\n"
+            f"Required marker: {self.config.comparator_success}\n"
+        )
 
     def _theorem_publication_instructions(self, node: NodeRecord) -> str:
         """Optional extra contract for workflows publishing one theorem per PR."""
@@ -3581,6 +3633,7 @@ Use the independently reviewed proof at `{handoff.natural_proof_path}` directly.
                     "privacy": True,
                     "agent_teams": False,
                     "claude_answer_codex": True,
+                    "integrity_review_instructions": self._integrity_review_instructions(node, review_base),
                 },
                 indent=2,
             )
@@ -5565,11 +5618,13 @@ Latest outer-review feedback (repair this without reopening decomposition):
    whole-benchmark comparator and do not validate unrelated parent or sibling theorems.
 6. Return control to the recursive controller immediately.
 
-The implementation reviewer may request another round only for a defect in this exact selected
-node: a frozen-statement mismatch, invalid Lean proof, source-safety or protected-file violation,
+The implementation reviewer performs only Git-diff and comparator-input integrity auditing,
+not mathematical proof review or code-quality review. It may request another round only for
+a frozen-statement/input mismatch, source-safety or protected-file violation,
 unclean/uncommitted candidate, or failed configured comparator. It must not request a different
 DAG shape, extra certification interface, source-layout refactor, or plan revision solely because
-an older scaffold proposed one.
+an older scaffold proposed one. Do not re-prove the theorem or critique tactics; retain the
+separate natural-language and decomposition reviews and the exact kernel/comparator gates.
 
 ## Completion boundary
 

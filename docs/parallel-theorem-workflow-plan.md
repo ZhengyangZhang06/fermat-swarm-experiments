@@ -138,3 +138,26 @@ only after no legacy grant or checker remained; proof files remain intact.
 The final combined regression suite passed 299 tests with zero failures/errors
 and one optional browser skip. This validates workflow behavior, not theorem
 acceptance or completion of the ten original mathematical problems.
+
+## Leaf review policy: Git diff and comparator-input integrity
+
+The user's replacement policy keeps natural-language and decomposition reviews,
+but removes mathematical/code-quality review from the nested Lean RLCR reviewer.
+The reviewer adapter replaces official regular/full-alignment review prompts with
+the scoped integrity audit and preserves Humanize's setup schema and completion
+protocol. Generic final code review stays disabled. Outer review independently
+reruns the exact comparator and attests a controller-pinned issue/candidate/input
+identity. The controller rejects modified source, history, frozen contracts,
+selected issue identity, or retained root dependency interfaces before acceptance.
+
+Unit/integration regressions exercise the real Humanize bridge and reviewer
+protocol as well as wrong-candidate, changed-contract, child-handoff, Git mutation,
+and matching-attestation cases. A read-only canary accepted P02 issue51's actual
+immutable child handoff. These are workflow checks, not new theorem acceptances.
+
+Deployment uses a new immutable archive and the broker's `--runner-runtime`
+startup override for future claims only. Old proof jobs retain their recorded
+runner and review policy. This avoids editing a live catalog concurrently with
+quarantine updates. Never restart a broker with owned live checkers or remove
+`--preserve-existing-verifications` during an additive handover. Deployment
+confirmation must be recorded separately from source/test completion.

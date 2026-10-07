@@ -477,6 +477,10 @@ class LeanAudit(ReferenceAware):
 
     model_config = {"extra": "forbid"}
 
+    comparison_identity: str = Field(
+        description="Controller-provided comparison identity SHA-256, echoed only after inspecting the frozen issue contract, Git diff and exact comparator inputs; empty for legacy/integration gates without a packet",
+    )
+
     publication_proof_reviewed: bool = Field(
         description="For the GitHub root: independently checked the complete committed final prose against the Lean proof, including all assumptions, dependencies and provenance",
     )
@@ -491,6 +495,7 @@ class LeanAudit(ReferenceAware):
         # readable, but cannot satisfy the new root publication gate by default.
         if isinstance(value, dict):
             return {
+                "comparison_identity": "",
                 "publication_proof_reviewed": False,
                 "publication_proof_blob": "",
                 **value,

@@ -14,6 +14,7 @@ from pydantic import BaseModel, Field, field_validator, model_validator
 from _recursive_lean.github_runtime import GitHubTheoremRuntime
 from _recursive_lean.lean_contract import validate_lean_statement
 from _recursive_lean.runtime import Runtime
+from _recursive_lean.integrity_review import IntegrityReviewAgent
 
 MIN_RECURSIVE_NODES = 3
 
@@ -386,6 +387,10 @@ class WorktreeRlcrConfig(BaseModel):
     privacy: bool = True
     agent_teams: bool = False
     claude_answer_codex: bool = True
+    integrity_review_instructions: str = Field(
+        default="",
+        description="Controller-frozen selected issue and comparator-input audit instructions; never a generic proof review",
+    )
 
 
 def _nested_rlcr_config(config: WorktreeRlcrConfig) -> dict[str, Any]:
@@ -400,6 +405,7 @@ def _nested_rlcr_config(config: WorktreeRlcrConfig) -> dict[str, Any]:
     returns immediately after its implementation reviewer accepts the candidate.
     """
     forwarded = config.model_dump()
+    forwarded.pop("integrity_review_instructions")
     # An empty base_branch is not itself a no-review setting: official Humanize
     # resolves it to origin/HEAD, main, or master.  Use the explicit setup-only
     # switch so the implementation loop finalizes as soon as its ordinary RLCR
@@ -494,8 +500,19 @@ def worktree_rlcr(
             shutil.copy2(source, manifest)
     _require_explicit_rlcr_review_skip()
     forwarded = _nested_rlcr_config(config)
+    if not config.integrity_review_instructions.strip():
+        raise RuntimeError("nested RLCR requires frozen comparator-input integrity instructions")
+    scoped_agents = Agents(
+        agents.worker,
+        IntegrityReviewAgent(
+            agents.reviewer,
+            config.integrity_review_instructions
+            + f"\nImmutable implementation plan: {config.plan_file}\n"
+            + f"Frozen Git diff base: {config.base_branch}\n",
+        ),
+    )
     load("official/humanize1:rlcr", inherit_skills=True)(
-        agents,
+        scoped_agents,
         task,
         forwarded,
     )

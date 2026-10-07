@@ -24,11 +24,28 @@ from .remote_verification import VerificationService
 from .parallel import PROTOCOL, child_publication_pending, child_publication_checkpoint
 
 
+def runner_runtime_path(value: str | Path) -> str:
+    """Accept exactly one operator-selected archive in the worker runtime mount.
+
+    This path is interpreted inside the worker container, not on the broker.
+    Deployment must mount the selected immutable archive; issue bodies and worker
+    requests cannot choose it.
+    """
+    if not isinstance(value, (str, Path)):
+        raise ValueError('runner runtime must be an absolute archive path')
+    value = str(value)
+    if not re.fullmatch(r'/runtime/flows/[A-Za-z0-9][A-Za-z0-9_.-]{0,127}', value):
+        raise ValueError('runner runtime must name one archive under /runtime/flows')
+    return value
+
+
 class Broker:
-    def __init__(self, catalog: Path, ledger: ClaimLedger, token: str, snapshot: Path, gh: str):
+    def __init__(self, catalog: Path, ledger: ClaimLedger, token: str, snapshot: Path, gh: str,
+                 *, runner_runtime: str | Path | None = None):
         if len(token) < 32:
             raise ValueError('broker token too short')
         self.catalog, self.ledger, self.token, self.snapshot, self.gh = catalog, ledger, token, snapshot, gh
+        self.runner_runtime = runner_runtime_path(runner_runtime) if runner_runtime is not None else None
         self.lock = threading.RLock()
         self.workers = {}
         self.cache = {}
@@ -207,6 +224,11 @@ class Broker:
         command = project.get('command')
         if not isinstance(command, list) or not command or not all(isinstance(a, str) for a in command):
             raise ValueError('registered runner is missing')
+        if self.runner_runtime is not None:
+            # Only fresh grants use the operator override. The held-claim path
+            # above returns its immutable ledger job, even after broker restart.
+            # Never rewrite the shared catalogue or its quarantine state.
+            command = ['python3', self.runner_runtime + '/scripts/swarm-run-issue.py']
         current = self.github(config['repository'], f'issues/{issue}')
         if current.get('state') != 'open' or current.get('pull_request'):
             return {'claim': None}
@@ -336,11 +358,14 @@ def main():
     parser.add_argument('--port', type=int, default=8847)
     parser.add_argument('--gh', default='gh')
     parser.add_argument('--verifier', type=Path)
+    parser.add_argument('--runner-runtime', type=runner_runtime_path,
+                        help='Operator-selected /runtime/flows/<archive> for new grants only')
     parser.add_argument('--preserve-existing-verifications', action='store_true',
                         help='Additive broker: leave other live controllers and their receipts unchanged')
     args = parser.parse_args()
     os.umask(0o077)
-    broker = Broker(args.catalog, ClaimLedger(args.database), args.token_file.read_text().strip(), args.snapshot, args.gh)
+    broker = Broker(args.catalog, ClaimLedger(args.database), args.token_file.read_text().strip(), args.snapshot, args.gh,
+                    runner_runtime=args.runner_runtime)
     if args.verifier:
         import sys
         broker.verifier = VerificationService(broker.ledger, args.database.parent / 'verification', args.verifier, sys.executable,

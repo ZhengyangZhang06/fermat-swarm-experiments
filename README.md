@@ -154,11 +154,16 @@ offline-reproducible and prevents Lake from trying to update shared read-only Gi
    parent's isolated worktree. In the diagram, `A --> B` always means that A depends on B.
 8. **Formalize in isolation.** Each ready Lean node gets a named Git branch and a short independent
    worktree. The official `humanize1:rlcr` worker/reviewer loop builds the Lean proof without sharing
-   source files or build scratch state with sibling workers. Its implementation reviewer checks the
-   worker against the selected node contract and author comparator, then returns control; it does not
-   start a second repository-wide code-review phase.
+   source files or build scratch state with sibling workers. Its reviewer performs only a Git-diff
+   and comparator-input integrity audit against the selected issue's frozen Lean contract and author
+   comparator evidence. It does not re-prove the theorem, critique tactics, repeat natural-language
+   or decomposition review, or start a repository-wide code-review phase.
 9. **Apply the acceptance gates.** The controller runs the project comparator, then a fresh Codex
-   reviewer inspects the exact candidate and reruns that comparator itself. That creates an
+   reviewer audits the exact diff/input identity and reruns that comparator itself. The GitHub
+   workflow pins candidate commit/tree, input blobs, original contract, issue identity and immutable
+   child handoff in a comparison-identity packet. It rechecks these after comparison and review,
+   rejects any changed candidate or issue contract, and requires the reviewer's matching packet
+   digest. Proof bodies may change; the original statement and context must not. That creates an
    immutable accepted checkpoint and immediately unlocks dependants while canonical integration
    continues in the background. If concurrent proofs touched the same file, a separate integration
    worktree preserves both histories and the comparator checks the combined result.
@@ -342,15 +347,23 @@ blocking prerequisite.
 - A decomposition reviewer checks every proposed child statement, exact frozen Lean type,
   dependency edge, complete supplied proof, and proof key steps after the current node's prose
   proof passes. A child is not activated unless both its contract and supplied proof pass.
-- The official RLCR implementation loop reviews every Lean worker round against the current audited
-  DAG node, frozen type, accepted dependency list, and author comparator. Once that implementation
-  reviewer accepts the candidate, RLCR returns control immediately. The bridge explicitly sets
+- The official RLCR implementation loop uses a scoped Git-diff/input-integrity reviewer, not a
+  mathematical proof or code-quality reviewer. It checks the current frozen issue contract,
+  candidate input identity and author comparator evidence. Natural-language and decomposition
+  review remain unchanged. Once the integrity reviewer accepts the candidate, RLCR returns
+  control immediately. The bridge explicitly sets
   Humanize's setup-only `skip_code_review` switch; merely leaving the base blank is insufficient
   because Humanize normally auto-detects `main`. Enabling that second repository-wide review would
   duplicate the controller review, would not enforce the exact comparator, and could reopen accepted
   child histories. The exact post-overlay base remains recorded in the node configuration for audit.
 - The controller runs the comparator with a default six-hour timeout. Only after that passes does
   a fresh Lean reviewer inspect the exact candidate and personally rerun the same comparator.
+- For an existing Swarm deployment, the broker's operator-only startup option
+  `--runner-runtime /runtime/flows/<immutable-archive>` selects this policy for **new claims**.
+  Existing ledger jobs retain their original runner; never rewrite active RLCR plans or verifier
+  code. Do not externally patch a live catalog to change runners: quarantine writes could race.
+  A broker handover must preserve the ledger and existing verifications and must not terminate
+  any broker-owned live checker. Verify the archive is mounted on workers before switching.
 - If independently accepted histories must be combined, integration runs the comparator again on
   the merged candidate before advancing the problem branch. A failed combined check retains the
   accepted proof and runs integration-only repair followed by another machine comparator and a

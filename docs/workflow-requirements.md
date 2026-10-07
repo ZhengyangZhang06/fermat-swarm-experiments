@@ -22,6 +22,14 @@ Implementation and deployment status are tracked separately in
 - Keep independent natural-language and Lean review, exact statement comparison,
   pinned builds, kernel/transitive-axiom checks and integrated-tree verification.
   `sorry`, extra axioms, weakened statements or missing checks cannot be accepted.
+- Lean-stage RLCR review is a Git-diff and comparator-input integrity audit, not
+  another mathematical proof or code-quality review. Compare the original issue's
+  Lean contract/context to the exact committed candidate consumed by the comparator.
+  Bind candidate commit/tree/input blobs and immutable root/child contract identity,
+  reject changes during comparison/review, and require the reviewer's matching
+  identity receipt. Proof implementation changes are expected; changed hypotheses,
+  statements, definitions or imports are not. Keep natural-language proof and
+  decomposition reviews, exact Lean/kernel/axiom verification, and merged-tree gates.
 - Once authorized for the configured repository, merge each exact verified PR
   through normal repository rules, verify the remote merge tree, then close its
   theorem issue. Preserve idempotent reconciliation after an uncertain API result.

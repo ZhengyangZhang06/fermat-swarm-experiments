@@ -502,6 +502,9 @@ class WorktreeTests(unittest.TestCase):
                     artifact_dir=".humanize/recursive-lean-prover",
                     wiki_dir=".humanize/math-wiki",
                     rlcr_rounds=20,
+                    comparator_command="true",
+                    comparator_success="checked",
+                    lean_target="Submission.lean",
                 )
                 agents = SimpleNamespace(worker=FakeAgent(), reviewer=FakeAgent())
                 runtime = Runtime(agents, "process fixture", config, {})
@@ -544,6 +547,7 @@ class WorktreeTests(unittest.TestCase):
                     ).read_text()
                 )
                 self.assertEqual(rlcr_config["base_branch"], "frozen-post-overlay-base")
+                self.assertIn("ONLY Git-diff", rlcr_config["integrity_review_instructions"])
             finally:
                 os.chdir(original)
 

@@ -27,6 +27,7 @@ from .store import atomic_text, now, slug
 from .parallel import (RefreshLock, enabled as parallel_enabled, selected as selected_issue,
                        child_publication_pending, child_publication_checkpoint)
 from .shared_lock import SharedLock
+from .comparison_identity import capture as capture_identity, verify as verify_identity
 
 
 class GitHubTheoremRuntime(Runtime):
@@ -450,6 +451,120 @@ class GitHubTheoremRuntime(Runtime):
 
     def _root_lean_name(self) -> str:
         return self.config.github_root_lean_name
+
+    def _integrity_review_instructions(self, node, review_base):
+        return super()._integrity_review_instructions(node, review_base) + (
+            f"Issue: {node.github_issue_url}\n"
+            f"Original frozen source: {self.publication_context['source_commit']}\n"
+            f"Original Lean context: {self.config.github_contract_file}\n"
+            f"Immutable child dispatch: {node.workspace_handoff_commit}\n"
+            f"Child manifest: {node.workspace_manifest_path}\n"
+            "Compare the original contract blob with the candidate's contract byte-for-byte. "
+            "For children, compare the selected exact type with the immutable dispatch, "
+            "not a regenerated issue or a replacement goal.\n"
+        )
+
+    def _comparison_contract_metadata(self, node):
+        """Bind mutable scheduling records to the contract actually published in Git."""
+        context = json.loads((self.run_root / 'github-workflow.json').read_text())
+        for key in ('source_commit', 'contract', 'root_lean_name', 'root_lean_statement',
+                    'contract_file', 'repository', 'comparator_command', 'comparator_success'):
+            if context.get(key) != self.publication_context.get(key):
+                raise ValueError(f'frozen workflow context changed: {key}')
+        original = self._git_blob(context['source_commit'], self.config.github_contract_file)
+        if original.strip() != context['contract'].strip():
+            raise ValueError('original issue context differs from frozen Git source')
+        selected = getattr(self.config, 'github_selected_issue', 0)
+        if selected and node.github_issue_url != f'https://github.com/{self.config.github_repository}/issues/{selected}':
+            raise ValueError('comparison node is not the claimed selected issue')
+        if node.parent is None and (node.lean_name != self.config.github_root_lean_name
+                                   or node.lean_statement != self.config.github_root_lean_statement):
+            raise ValueError('root node differs from the original frozen Lean contract')
+        metadata = {
+            'repository': self.config.github_repository,
+            'issue_url': node.github_issue_url,
+            'node_id': node.id,
+            'declaration': self._declaration_name(node),
+            'lean_statement': node.lean_statement or self.config.github_root_lean_statement,
+            'source_commit': context['source_commit'],
+            'proof_base': node.proof_base_commit,
+            'original_contract_sha256': hashlib.sha256(original.encode()).hexdigest(),
+        }
+        if node.parent is not None:
+            if self._parent_supplied_child_checkpoint(node) is None:
+                raise ValueError('child no longer matches its reviewed proof handoff')
+            dispatch = self._load_workspace_dispatch(node.workspace_handoff_commit,
+                                                     node.workspace_manifest_path)
+            entries = [one for one in dispatch.children if one.node_id == node.id]
+            if len(entries) != 1:
+                raise ValueError('immutable issue dispatch does not select this child')
+            handoff = entries[0].handoff
+            if (handoff.child_id != node.id or handoff.parent_id != node.parent
+                    or handoff.subproblem.lean_statement != node.lean_statement
+                    or handoff.subproblem.lean_name != node.lean_name
+                    or handoff.resolved_dependencies != node.depends_on):
+                raise ValueError('issue Lean statement differs from immutable child dispatch')
+            metadata['handoff_commit'] = node.workspace_handoff_commit
+            metadata['handoff_sha256'] = hashlib.sha256(
+                handoff.model_dump_json().encode()).hexdigest()
+        # The comparator reads this durable DAG, not the in-memory node. Ignore
+        # sibling/activity updates, but never allow its selected contract to drift.
+        dag = json.loads((self.run_root / 'dag.json').read_text())
+        records = [one for one in dag['nodes'] if one['id'] == node.id]
+        fields = ('lean_name', 'lean_statement', 'parent', 'depends_on', 'children',
+                  'github_issue_url', 'proof_base_commit')
+        if len(records) != 1 or any(records[0].get(key) != getattr(node, key) for key in fields):
+            raise ValueError('comparator DAG input differs from the frozen selected issue')
+        if node.parent is None:
+            nodes = {one['id']: one for one in dag['nodes']}
+            pending, projection = [node.id], {}
+            while pending:
+                key = pending.pop()
+                if key in projection:
+                    continue
+                record = nodes[key]
+                projection[key] = {field: record.get(field) for field in fields}
+                pending.extend(record.get('children', []))
+                pending.extend(record.get('depends_on', []))
+            # The root comparator checks all retained prerequisite interfaces.
+            # Activity/status changes are harmless; removing or weakening an
+            # interface is not, even when the selected root type stays fixed.
+            metadata['dependency_contracts'] = projection
+        return metadata
+
+    def _capture_comparison_identity(self, node, worktree, before, lean_files):
+        metadata = self._comparison_contract_metadata(node)
+        if metadata['proof_base'] != before:
+            raise ValueError('comparison base differs from the selected issue proof base')
+        metadata.update(comparator_command=self._review_command(node, lean_files),
+                        comparator_success=self.config.comparator_success)
+        packet = capture_identity(worktree, lean_files, metadata=metadata,
+                                  frozen_contract_path=self.config.github_contract_file,
+                                  source_commit=self.publication_context['source_commit'])
+        digest = hashlib.sha256(json.dumps(packet, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+        identity = {'digest': digest, 'packet': packet}
+        version = self._next_json_version(node, 'comparison-identity')
+        atomic_text(self._node_dir(node) / f'comparison-identity-v{version}.json',
+                    json.dumps(identity, sort_keys=True, indent=2) + '\n')
+        return identity
+
+    def _comparison_identity_problem(self, node, worktree, candidate, identity, audit=None):
+        problem = super()._comparison_identity_problem(node, worktree, candidate, identity, audit)
+        if problem:
+            return problem
+        try:
+            verify_identity(worktree, identity['packet'])
+            current = self._comparison_contract_metadata(node)
+            current.update(comparator_command=self._review_command(node, sorted(identity['packet']['inputs'])),
+                           comparator_success=self.config.comparator_success)
+            pinned = identity['packet']['metadata']
+            if any(pinned.get(key) != value for key, value in current.items()):
+                raise ValueError('issue contract changed during comparator/reviewer execution')
+            if audit is not None and audit.comparison_identity != identity['digest']:
+                raise ValueError('reviewer did not attest this exact comparison identity')
+        except (ValueError, RuntimeError, OSError, KeyError) as error:
+            return f'comparison input integrity rejected: {error}'
+        return ''
 
     @staticmethod
     def _declaration_name(node: NodeRecord) -> str:
