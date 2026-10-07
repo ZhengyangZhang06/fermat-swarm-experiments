@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.primitive_exists-a1.scalar_primitive-a1",
+  "parent_id": "root.primitive_exists-a1",
+  "depth": 2,
+  "title": "Holomorphic scalar functions on the upper half-plane admit primitives",
+  "statement": "Let H = {z ∈ ℂ | 0 < Im z}. For every function a : ℂ → ℂ that is complex differentiable on H, there exists A : ℂ → ℂ such that HasDerivAt A (a z) z for every z ∈ H. No regularity is required outside H.",
+  "lean_statement": "∀ (a : ℂ → ℂ), DifferentiableOn ℂ a {z : ℂ | 0 < z.im} → ∃ A : ℂ → ℂ, ∀ z : ℂ, 0 < z.im → HasDerivAt A (a z) z",
+  "lean_name": "p02_es_177ebb5a_primitive_exists_scalar_primitive",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-scalar-primitive-a1-a1"
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "node_id": "root.primitive_exists-a1.holomorphic_integral-a1",
+  "parent_id": "root.primitive_exists-a1",
+  "depth": 2,
+  "title": "Every holomorphic function admits a coefficientwise Eichler integral",
+  "statement": "Let n∈ℕ and h : ℍ → ℂ. Assume z↦h(ofComplex z) is complex differentiable on {z∈ℂ | Im z>0}. Then there exists F : ℍ → BinaryForm ℂ n satisfying IsEichlerIntegral n h F: for every exponent index d : Fin 2 →₀ ℕ and every τ∈ℍ, the derivative at τ of z↦coeff d (F(ofComplex z)) is h(τ) times coeff d ((τX+Y)^n).",
+  "lean_statement": "∀ (n : ℕ) (h : UpperHalfPlane → ℂ), DifferentiableOn ℂ (fun z : ℂ => h (UpperHalfPlane.ofComplex z)) {z : ℂ | 0 < z.im} → ∃ F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n), HeckeEis.IsEichlerIntegral n h F",
+  "lean_name": "p02_es_177ebb5a_primitive_exists_holomorphic_integral",
+  "depends_on": [
+    "root.primitive_exists-a1.scalar_primitive-a1"
+  ],
+  "dependency_workspaces": [
+    {
+      "node_id": "root.primitive_exists-a1.scalar_primitive-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    }
+  ],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-holomorphic-integral-a1-a1"
+}

@@ -1,0 +1,87 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'IsEichlerIntegral|IsEquivariantPrimitiveWith|binaryFormRepSL_linePow|eichlerShimuraMap_injective|isExactOn_ball' .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b",
+        "grep -R -n -E 'IsEichlerIntegral|IsEquivariantPrimitiveWith|binaryFormRepSL_linePow|eichlerShimuraMap_injective|isExactOn_ball' .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b --include='*.lean'",
+        "upperHalfPlane.*(primitive|Primitive)|primitive.*upperHalfPlane|isExactOn_upperHalfPlane|p02_es_177ebb5a_primitive_exists_(scalar_primitive|holomorphic_integral|constant_defect)",
+        "coeff_eq_zero|mem_homogeneousSubmodule|IsHomogeneous",
+        "eqOn_of_deriv|eq_of_hasDerivAt|is_const|eq_of_deriv",
+        "slash_action_eqn|slash_action_eq",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_primitive_exists_interfaces.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1/parent-child-handoff.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/P2M",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/HasPrimitives.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Manifold.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/MeanValue.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/SlashInvariantForms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+        "/tmp/p02_primitive_exists_interfaces.lean"
+      ],
+      "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. rg was unavailable, so searches used grep. The definitions confirm the coefficientwise IsEichlerIntegral predicate, constant-defect conclusion, and binaryFormRepSL_linePow identity. HasPrimitives supplies DifferentiableOn.isExactOn_ball; Manifold supplies the ofComplex holomorphy equivalence and Möbius derivative; SlashInvariantForms supplies the determinant-one transformation law; Homogeneous supplies coefficient vanishing outside the prescribed degree; MeanValue supplies zero-derivative constancy. The searched project Definitions/P2M and mathlib Analysis sources contained no upper-half-plane primitive theorem matching the stated search patterns. The proposed identifiers had no matches in the current declarations or node metadata. All three exact proposed types elaborated with only import Submission under Lean 4.33.1; explicit elaboration confirmed the prescribed mapGL image of Gamma0 and matrix algebra instances. All installed dependencies matched their recorded revisions with clean tracked sources; the six transitive project definition files and consulted mathlib files matched the snapshot. Axiom checks of the cited primitive, representation, transformation, derivative, constancy, and predicate declarations returned only propext, Classical.choice, and Quot.sound. These are interface and infrastructure checks, not comparator acceptance of new proofs."
+    }
+  ],
+  "should_split": true,
+  "rationale": "At depth 1, below the limit 6, the proof has three reusable mathematical obligations: scalar primitive existence, construction of homogeneous polynomial primitives, and constancy of modular defects for any Eichler integral. Only the second depends on the first. The parent follows by converting cusp-form holomorphy to DifferentiableOn, obtaining F from holomorphic_integral, and applying constant_defect to that same F. None of the children restates the parent's combined conclusion.",
+  "subproblems": [
+    {
+      "key": "scalar_primitive",
+      "title": "Holomorphic scalar functions on the upper half-plane admit primitives",
+      "statement": "Let H = {z ∈ ℂ | 0 < Im z}. For every function a : ℂ → ℂ that is complex differentiable on H, there exists A : ℂ → ℂ such that HasDerivAt A (a z) z for every z ∈ H. No regularity is required outside H.",
+      "lean_statement": "∀ (a : ℂ → ℂ), DifferentiableOn ℂ a {z : ℂ | 0 < z.im} → ∃ A : ℂ → ℂ, ∀ z : ℂ, 0 < z.im → HasDerivAt A (a z) z",
+      "lean_name": "p02_es_177ebb5a_primitive_exists_scalar_primitive",
+      "depends_on": [],
+      "natural_proof": "1. Fix a with the stated differentiability hypothesis. Put H={z∈ℂ : Im z>0} and D={w∈ℂ : |w|<1}. Both sets are open, so differentiability within either set at one of its points gives ordinary complex differentiability there. Define φ(w)=i(1+w)/(1−w) and ψ(z)=(z−i)/(z+i), using the total complex division operation to define these functions on all of ℂ.\n2. For w∈D, 1−w is nonzero, and direct expansion gives Im φ(w)=(1−|w|²)/|1−w|²>0. For z∈H, z+i is nonzero since its imaginary part is Im z+1>0. Expanding squared norms gives |z+i|²−|z−i|²=4 Im z>0, hence |ψ(z)|<1. Thus φ maps D into H and ψ maps H into D.\n3. For z∈H, the identities 1+ψ(z)=2z/(z+i) and 1−ψ(z)=2i/(z+i) imply φ(ψ(z))=z. For w∈D, the identities φ(w)−i=2iw/(1−w) and φ(w)+i=2i/(1−w) imply ψ(φ(w))=w. The quotient rule, with the nonzero denominators established above, gives φ′(w)=2i/(1−w)² on D and ψ′(z)=2i/(z+i)² on H. In particular φ′(ψ(z))ψ′(z)=1, by substituting 1−ψ(z)=2i/(z+i).\n4. Define b(w)=a(φ(w))·2i/(1−w)². Since φ maps D into H, the composition a∘φ is holomorphic on D. The other factor is a rational function whose denominator does not vanish on D, so b is holomorphic on D. Apply DifferentiableOn.isExactOn_ball from the pinned Mathlib/Analysis/Complex/HasPrimitives.lean with center 0 and radius 1. Unfolding Complex.IsExactOn yields B : ℂ → ℂ with HasDerivAt B (b w) w for every w∈D.\n5. Set A(z)=B(ψ(z)). For z∈H, ψ(z)∈D, so the complex chain rule gives A′(z)=b(ψ(z))ψ′(z)=a(φ(ψ(z)))φ′(ψ(z))ψ′(z)=a(z). Each derivative used here is an ordinary derivative at the indicated point, so this establishes HasDerivAt A (a z) z, exactly as required.",
+      "proof_key_steps": [
+        "Verify the Cayley maps send the disk and upper half-plane into one another.",
+        "Compute their inverse identities and derivatives, including the derivative product equal to one.",
+        "Apply the pinned disk-primitive theorem to the pulled-back differential.",
+        "Compose its primitive with the inverse Cayley map and apply the chain rule."
+      ]
+    },
+    {
+      "key": "holomorphic_integral",
+      "title": "Every holomorphic function admits a coefficientwise Eichler integral",
+      "statement": "Let n∈ℕ and h : ℍ → ℂ. Assume z↦h(ofComplex z) is complex differentiable on {z∈ℂ | Im z>0}. Then there exists F : ℍ → BinaryForm ℂ n satisfying IsEichlerIntegral n h F: for every exponent index d : Fin 2 →₀ ℕ and every τ∈ℍ, the derivative at τ of z↦coeff d (F(ofComplex z)) is h(τ) times coeff d ((τX+Y)^n).",
+      "lean_statement": "∀ (n : ℕ) (h : UpperHalfPlane → ℂ), DifferentiableOn ℂ (fun z : ℂ => h (UpperHalfPlane.ofComplex z)) {z : ℂ | 0 < z.im} → ∃ F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n), HeckeEis.IsEichlerIntegral n h F",
+      "lean_name": "p02_es_177ebb5a_primitive_exists_holomorphic_integral",
+      "depends_on": [
+        "scalar_primitive"
+      ],
+      "natural_proof": "1. Fix n and h satisfying the hypothesis, and write H={z∈ℂ : Im z>0} and h̃(z)=h(ofComplex z). For each integer r with 0≤r≤n, define a_r(z)=(binom(n,r):ℂ)h̃(z)z^r. Constants and powers are holomorphic, so the hypothesis and the product rule make each a_r complex differentiable on H.\n2. Apply scalar_primitive to each of these finitely many functions. Choose A_r : ℂ → ℂ such that HasDerivAt A_r (a_r(z)) z holds for every z∈H and every 0≤r≤n.\n3. Write X=X₀ and Y=X₁ in MvPolynomial (Fin 2) ℂ. For τ∈ℍ, define the underlying polynomial of F(τ) to be Σ_{r=0}^n C(A_r(τ))X^rY^(n−r), where τ is coerced to ℂ. Each summand is homogeneous of degree r+(n−r)=n, since r≤n. Their sum therefore belongs to BinaryForm ℂ n, defining F with the required codomain.\n4. For 0≤r≤n, let e_r be the exponent index with e_r(0)=r and e_r(1)=n−r. These indices are distinct. Since Fin 2 has precisely the two elements 0 and 1, any exponent index d has total degree d(0)+d(1). If this degree equals n, then r=d(0) satisfies r≤n and d=e_r. Consequently coeff e_r (F(τ))=A_r(τ), while every coefficient whose index has degree different from n is zero. The binomial expansion gives (τX+Y)^n=Σ_{r=0}^n C((binom(n,r):ℂ)τ^r)X^rY^(n−r), so its e_r coefficient is (binom(n,r):ℂ)τ^r and its coefficients outside degree n are zero.\n5. Fix τ∈ℍ. The set H is an open neighborhood of its complex coordinate. On this neighborhood the complex coordinate of ofComplex z equals z. Hence, for d=e_r, the function z↦coeff d (F(ofComplex z)) agrees near τ with A_r(z). Its derivative at τ is therefore a_r(τ)=(binom(n,r):ℂ)h(τ)τ^r, using ofComplex τ=τ. By commutativity this equals h(τ)·coeff d ((τX+Y)^n).\n6. If d has degree different from n, the function z↦coeff d (F(ofComplex z)) is identically zero because every value of F is homogeneous of degree n. Its derivative is zero, and the required derivative value is also zero by the binomial coefficient computation. These two cases cover every d, establishing exactly IsEichlerIntegral n h F.",
+      "proof_key_steps": [
+        "Form the finitely many holomorphic coefficient functions binom(n,r)h(z)z^r.",
+        "Apply scalar_primitive to obtain their primitives.",
+        "Assemble the primitives into a homogeneous polynomial of degree n.",
+        "Identify every degree-n coefficient and every vanishing off-degree coefficient.",
+        "Use local agreement of ofComplex with the identity to verify the frozen derivative predicate."
+      ]
+    },
+    {
+      "key": "constant_defect",
+      "title": "Every Eichler integral of a cusp form has constant modular defects",
+      "statement": "Let N,n∈ℕ with N≠0, let Γ=Γ₀(N), and let ρ be the restriction of binaryFormRepSL ℂ n to Γ. Let f be a cusp form of weight n+2 on the prescribed real matrix image of Γ, and let F : ℍ → BinaryForm ℂ n satisfy IsEichlerIntegral n f F. Then IsEquivariantPrimitiveWith ρ F holds: for every γ∈Γ there is c∈BinaryForm ℂ n such that F(γτ)−ρ(γ)F(τ)=c for every τ∈ℍ.",
+      "lean_statement": "∀ (N : ℕ) [NeZero N] (n : ℕ) (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2)) (F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.IsEichlerIntegral n (fun τ => f τ) F → HeckeEis.IsEquivariantPrimitiveWith ((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype) F",
+      "lean_name": "p02_es_177ebb5a_primitive_exists_constant_defect",
+      "depends_on": [],
+      "natural_proof": "1. Fix N,n,f,F and the stated IsEichlerIntegral hypothesis. Put V=BinaryForm ℂ n, L(τ)=linePow n τ, and ρ=(binaryFormRepSL ℂ n).comp Γ.subtype. Fix γ∈Γ and write its underlying determinant-one integer matrix as g=(a b; c d). For τ∈ℍ write j(τ)=cτ+d. If c≠0, the imaginary part of j(τ) is c Im τ≠0. If c=0, the determinant relation ad−bc=1 forces d≠0. Thus j(τ) is always nonzero.\n2. The Möbius transformation T(z)=(az+b)/(cz+d) satisfies Im T(z)=Im z/|cz+d|² on the upper half-plane, so it maps that domain into itself and represents the action of g there. Its complex derivative is (ad−bc)/(cz+d)²=1/(cz+d)². Around any τ∈ℍ, both the input and its image remain in the upper half-plane, where ofComplex has its usual complex coordinate. Consequently the coefficientwise chain rule applies to F(g·τ) using T′(τ)=j(τ)⁻².\n3. Slash invariance of f on the prescribed mapGL image of Γ, specialized to g whose determinant is one, gives f(g·τ)=j(τ)^(n+2)f(τ). This is the transformation law supplied by SlashInvariantForm.slash_action_eqn_SL'', with the nonnegative integer exponent converted to a natural power. The pinned identity HeckeEis.binaryFormRepSL_linePow gives ρ(γ)L(τ)=j(τ)^n·L(g·τ).\n4. We justify differentiating the representation coefficientwise without assigning a topology to V. For 0≤r≤n let e_r have entries r and n−r, and let m_r=X^rY^(n−r), regarded as an element of V. Every P∈V equals Σ_{r=0}^n coeff e_r(P)·m_r: homogeneity makes all coefficients outside total degree n vanish, and every degree-n exponent index on Fin 2 is uniquely e_r. Since ρ(γ) is complex linear, for every output exponent index e there are fixed scalars λ_{e,r}=coeff e(ρ(γ)m_r) such that coeff e(ρ(γ)P)=Σ_{r=0}^n λ_{e,r}coeff e_r(P). Applying IsEichlerIntegral to the finitely many input coefficients and differentiating this finite sum shows that the derivative at τ of coeff e(ρ(γ)F(ofComplex z)) is f(τ)coeff e(ρ(γ)L(τ)).\n5. Apply IsEichlerIntegral at g·τ and the chain rule from step 2. The derivative at τ of z↦coeff e(F(g·ofComplex z)) is f(g·τ)coeff e(L(g·τ))j(τ)⁻². By step 3 and j(τ)≠0 this equals f(τ)j(τ)^n coeff e(L(g·τ))=f(τ)coeff e(ρ(γ)L(τ)). Thus it equals the derivative computed in step 4.\n6. Define D(τ)=F(g·τ)−ρ(γ)F(τ). For every exponent index e, define the globally defined scalar function q_e(z)=coeff e(D(ofComplex z)). Subtracting the derivatives in steps 4 and 5 proves HasDerivAt q_e 0 τ for every τ∈ℍ. In particular q_e is complex differentiable, and hence continuous, on the upper half-plane.\n7. Given τ,υ∈ℍ, set s(t)=(1−t)υ+tτ for real t∈[0,1]. Its imaginary part is (1−t)Im υ+t Im τ>0, so the whole segment lies in the upper half-plane. The composite q_e∘s is continuous on [0,1]. On (0,1), the real chain rule, obtained by restricting the zero complex derivative of q_e to real scalars, gives derivative zero. Its real and imaginary parts are therefore continuous on [0,1] with real derivative zero on (0,1). The real mean-value theorem makes their endpoint values equal. Hence coeff e(D(τ))=coeff e(D(υ)) for every e. Polynomial coefficient extensionality, followed by subtype extensionality, gives D(τ)=D(υ).\n8. Take υ to be the upper-half-plane point i and choose c_γ=D(i)∈V. Step 7 yields F(g·τ)−ρ(γ)F(τ)=c_γ for every τ. Since γ was arbitrary, this is exactly IsEquivariantPrimitiveWith ρ F.",
+      "proof_key_steps": [
+        "Establish the nonvanishing automorphy factor and the Möbius derivative.",
+        "Use slash invariance and binaryFormRepSL_linePow to identify the transformed differential.",
+        "Express each representation coefficient as a fixed finite linear combination of input coefficients.",
+        "Differentiate both terms of each modular defect and cancel their derivatives.",
+        "Apply the real mean-value theorem along upper-half-plane segments to every coefficient.",
+        "Use coefficient extensionality and the value at i to obtain the required constant."
+      ]
+    }
+  ]
+}

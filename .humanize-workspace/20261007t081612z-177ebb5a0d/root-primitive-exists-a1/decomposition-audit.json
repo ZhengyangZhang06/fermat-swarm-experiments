@@ -1,0 +1,58 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg --version",
+        "IsEichlerIntegral|IsEquivariantPrimitiveWith|binaryFormRepSL_linePow|eichlerShimuraMap_injective|isExactOn_ball",
+        "upperHalfPlane.*(primitive|Primitive)|primitive.*upperHalfPlane|isExactOn_upperHalfPlane",
+        "p02_es_177ebb5a_primitive_exists_(scalar_primitive|holomorphic_integral|constant_defect)",
+        "coeff_eq_zero|mem_homogeneousSubmodule|IsHomogeneous|isHomogeneous_monomial",
+        "mdifferentiable_iff|hasStrictDerivAt_smul|ofComplex|hasDerivAt",
+        "slash_action_eqn_SL|CuspForm|mdifferentiable",
+        "is_const_of_deriv_eq_zero|eq_of_hasDerivAt|eqOn_of_deriv|eq_of_deriv",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_primitive_decomposition_independent_audit.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1/parent-child-handoff.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1/decomposition-v1.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/P2M",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/HasPrimitives.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Manifold.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/MeanValue.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/SlashInvariantForms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+        "/tmp/p02_primitive_decomposition_independent_audit.lean"
+      ],
+      "conclusion": "rg was unavailable; local grep searches verified the cited definitions and lemmas. No upper-half-plane primitive matched the stated patterns in project Definitions/P2M or mathlib Analysis. The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Independently checked dependency revisions and tracked cleanliness; six transitive project definition files and all six inspected mathlib files matched the snapshot. All three exact propositions elaborated using library imports without importing Submission or implementing any child. Explicit elaboration confirmed the prescribed mapGL image and ordinary Matrix.semiring. Reused infrastructure had only propext, Classical.choice and Quot.sound as transitive axioms. All proposed names are bare identifiers, absent from existing declarations and unreserved by other current DAG branches. The split appropriately decomposes the existing primitive-existence helper; it does not replace the frozen injectivity goal. These checks accept the decomposition, not any future Lean implementation."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "scalar_primitive",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose, including unrestricted behavior outside H. The proof verifies nonvanishing denominators, domain mappings, inverse identities and derivatives, then applies the pinned disk theorem and chain rule to obtain ordinary HasDerivAt at every point of H. It is complete and independent of the parent and siblings."
+    },
+    {
+      "key": "holomorphic_integral",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The proposition preserves the exact holomorphy hypothesis and frozen coefficientwise predicate. The proof constructs finitely many primitives, establishes homogeneity, covers every exponent index, and handles local agreement with ofComplex. Its sole dependency, scalar_primitive, is correctly directed and non-circular. Together with cusp-form holomorphy and constant_defect, it supplies the parent's conclusion."
+    },
+    {
+      "key": "constant_defect",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The proposition matches every stated hypothesis and the exact restricted-representation conclusion. The proof verifies the Möbius derivative and weight transformation, justifies representation differentiation through finite coefficient expansions, cancels derivatives using the nonzero automorphy factor, and proves constancy along segments before applying coefficient extensionality. It assumes an arbitrary supplied Eichler integral and needs neither its existence theorem nor another child."
+    }
+  ],
+  "required_changes": []
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.primitive_exists-a1.constant_defect-a1",
+  "parent_id": "root.primitive_exists-a1",
+  "depth": 2,
+  "title": "Every Eichler integral of a cusp form has constant modular defects",
+  "statement": "Let N,n∈ℕ with N≠0, let Γ=Γ₀(N), and let ρ be the restriction of binaryFormRepSL ℂ n to Γ. Let f be a cusp form of weight n+2 on the prescribed real matrix image of Γ, and let F : ℍ → BinaryForm ℂ n satisfy IsEichlerIntegral n f F. Then IsEquivariantPrimitiveWith ρ F holds: for every γ∈Γ there is c∈BinaryForm ℂ n such that F(γτ)−ρ(γ)F(τ)=c for every τ∈ℍ.",
+  "lean_statement": "∀ (N : ℕ) [NeZero N] (n : ℕ) (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2)) (F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.IsEichlerIntegral n (fun τ => f τ) F → HeckeEis.IsEquivariantPrimitiveWith ((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype) F",
+  "lean_name": "p02_es_177ebb5a_primitive_exists_constant_defect",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1-a1"
+}
