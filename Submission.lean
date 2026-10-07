@@ -386,6 +386,8 @@ theorem p07_cq_group_law_pullback_857cd4d38c :
           (by rw [← Category.assoc, hh]) (B W t P) := by
     exact Subtype.ext (Category.assoc h P.1 g)
   -- Transport the operations; injectivity reduces their laws to those of G.
+    apply Subtype.ext
+    exact Category.assoc h P.1 g
   let H : RelativeGroupLaw T p :=
     { mul := fun {W} t P Q =>
         (B W t).symm (G.mul (t ≫ β) (B W t P) (B W t Q))
