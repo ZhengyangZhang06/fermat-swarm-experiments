@@ -609,3 +609,31 @@ state, not simply deleting the project lock.
 - Reconfirmed that the canonical Pages URL serves separate per-problem graphs.
   Source5b9961b and Pagesac5ab90 remain deployed. Header-repair permission is
   still unanswered, and no normalization has been enabled.
+
+## Follow-up checkpoint, 11:32 UTC — independent verification advancing
+
+- P02#45's Round1 independent implementation review passed at11:23 with no
+  remaining findings. It corroborated the original tool response and exact
+  candidate receipt, inspected the finite-sum argument including n=0, and
+  checked the pinned dependencies. Finalization then passed a fresh warning-fatal
+  exact-type Lean check with permitted axioms, without changing the candidate.
+  The nested RLCR loop has a `complete-state.md` and `finalize-summary.md`.
+- The outer workflow itself advanced the node to `comparing` at11:30:05.
+  Its fresh manager request9c015b0258d7494c8ab41762d51682c8 runs under
+  PID3360163 for the same candidate2ced4d3abd9f318f5490841e5e6ce28d9dfb7944.
+  This process is confirmed alive; the outer comparator has NOT finished.
+  Do not confuse nested implementation completion with final proof acceptance.
+- P07 child issue#60 (`root.curve_ring_equiv-a1.group_law_rebase-a1`, transport
+  of a relative group law across a ring isomorphism) submitted real request
+  8eed87142d7c425cae62a455a6d5e861 for candidate
+  be37a2bac41bbeb5a672319ca281dbf3c367ce34. VerifierPID3347466 and challenge
+  build supervisorPID3348079 are confirmed alive. Its challenge preserves the
+  exact universe-zero child contract. No terminal result yet.
+- Both current requests use the unchanged production checker. No controller
+  restart, checker hot-deploy, duplicate verification or ownership transfer
+  occurred. Preserve these exact running handles on the next turn.
+- Read-only diagnosis confirms P03 feedbackv7 and P10 feedbackv12 repeat the
+  missing-header-constant/context-repair blocker, not new mathematical gaps.
+  Asked again for the narrow missing-name-only derived-copy repair; no user
+  approval has arrived, and originals/derived headers remain unchanged.
+  GitHub still has no solution PR; no theorem issue was closed as proved.
