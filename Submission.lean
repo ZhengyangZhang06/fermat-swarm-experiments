@@ -226,4 +226,34 @@ theorem p02_es_177ebb5a_sd_open_ladder :
   rw [iteratedDeriv_succ]
   exact (((hg z hz).const_mul ((-1 : ℂ) ^ n)).congr_of_eventuallyEq heq).deriv
 
+open scoped Pointwise in
+theorem p02_es_177ebb5a_pp_scaled_cusp_decay
+    (N : ℕ) [NeZero N] (n : ℕ)
+    (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2))
+    (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) :
+    ∃ (a C Y : ℝ), 0 < a ∧ 0 ≤ C ∧ ∀ τ : UpperHalfPlane, Y ≤ τ.im →
+      ‖(HeckeEis.jFactor σ τ) ^ (-((n : ℤ) + 2)) * f (σ • τ)‖ ≤
+        C * Real.exp (-a * τ.im) := by
+  let Γ : Subgroup (Matrix.GeneralLinearGroup (Fin 2) ℝ) := CongruenceSubgroup.Gamma0 N
+  let g : Matrix.GeneralLinearGroup (Fin 2) ℝ := σ
+  have hg : (Matrix.SpecialLinearGroup.mapGL ℚ σ⁻¹).map (Rat.castHom ℝ) = g⁻¹ := by
+    change (Matrix.SpecialLinearGroup.mapGL ℚ σ⁻¹).map (algebraMap ℚ ℝ) = g⁻¹
+    rw [Matrix.SpecialLinearGroup.map_mapGL, map_inv]
+    rfl
+  have : (ConjAct.toConjAct g⁻¹ • Γ).IsArithmetic := by
+    rw [← hg]
+    exact Subgroup.IsArithmetic.conj Γ (Matrix.SpecialLinearGroup.mapGL ℚ σ⁻¹)
+  let u := CuspForm.translate f g
+  obtain ⟨a, ha, hdecay⟩ := CuspFormClass.exp_decay_atImInfty' u
+  obtain ⟨C, hC, hbound⟩ := hdecay.exists_nonneg
+  obtain ⟨Y, hY⟩ := (UpperHalfPlane.atImInfty_mem _).mp hbound.bound
+  refine ⟨a, C, Y, ha, hC, ?_⟩
+  intro τ hτ
+  have h := hY τ hτ
+  change ‖((f : UpperHalfPlane → ℂ) ∣[(n : ℤ) + 2] σ) τ‖ ≤
+    C * ‖Real.exp (-a * τ.im)‖ at h
+  rw [HeckeEis.jFactor_eq_denom, mul_comm]
+  simpa only [ModularForm.SL_slash_apply, Real.norm_eq_abs,
+    abs_of_pos (Real.exp_pos _)] using! h
+
 end Submission
