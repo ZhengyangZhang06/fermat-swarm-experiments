@@ -12,6 +12,7 @@ import hashlib
 import json
 import os
 import re
+import stat
 import subprocess
 import tempfile
 from pathlib import Path
@@ -20,7 +21,12 @@ PROJECT = Path(os.environ["FERMAT_VERIFIER_PROJECT"]).resolve()
 # These are controller-owned pinned binaries, never candidate-provided paths.
 VERIFIER_BASE = Path("/mnt/data/zhengyang-workspace/fermat-example/.humanize")
 TOOLS = VERIFIER_BASE / "verifier"
-LEAN = VERIFIER_BASE / "toolchains/lean-4.33.1-linux/bin"
+CACHE_ROOT = os.environ.get("FERMAT_VERIFIER_REFERENCE_CACHE", "")
+CACHE_DIGEST = os.environ.get("FERMAT_VERIFIER_REFERENCE_DIGEST", "")
+if bool(CACHE_ROOT) != bool(CACHE_DIGEST):
+    raise RuntimeError("reference cache requires both operator path and digest")
+LEAN = (Path(CACHE_ROOT) / "lean-4.33.1-linux/bin" if CACHE_ROOT else
+        VERIFIER_BASE / "toolchains/lean-4.33.1-linux/bin")
 AXIOMS = ["propext", "Quot.sound", "Classical.choice"]
 PRIMITIVES = [
     "Nat.add",
@@ -57,7 +63,90 @@ def run(args, cwd, *, capture=False):
 
 
 def git(repo, *args):
-    return run(["git", "-C", repo, *args], repo, capture=True).stdout
+    return run(["git", "--no-optional-locks", "-C", repo, *args], repo, capture=True).stdout
+
+
+def reference_inventory(root):
+    """Hash the complete trusted mirror, never just its Git source revisions."""
+    root = Path(root)
+    result = {}
+    inventoried_roots = tuple(root.resolve() / name for name in ("packages", "lean-4.33.1-linux"))
+    for name in ("packages", "lean-4.33.1-linux"):
+        directory = root / name
+        if directory.is_symlink() or not directory.is_dir():
+            raise RuntimeError("reference cache tree is missing or a symlink")
+        for path in sorted(directory.rglob("*")):
+            relative = path.relative_to(root).as_posix()
+            info = path.lstat()
+            if stat.S_ISLNK(info.st_mode):
+                target = path.resolve(strict=True)
+                if not target.is_relative_to(root.resolve()):
+                    raise RuntimeError("reference cache symlink escapes the mirror")
+                if not any(target.is_relative_to(tree) for tree in inventoried_roots):
+                    raise RuntimeError("reference cache symlink targets an uninventoried path")
+                result[relative] = {"link": os.readlink(path)}
+            elif stat.S_ISREG(info.st_mode):
+                digest = hashlib.sha256()
+                with path.open("rb") as handle:
+                    for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+                        digest.update(chunk)
+                result[relative] = {"sha256": digest.hexdigest(),
+                                    "mode": stat.S_IMODE(info.st_mode)}
+            elif not stat.S_ISDIR(info.st_mode):
+                raise RuntimeError("reference cache contains a special file")
+    return result
+
+
+def private_reference_root(value):
+    root = Path(value)
+    if (not root.is_absolute() or root.is_symlink() or root.resolve() != root
+            or root.is_relative_to(PROJECT.parent)):
+        raise RuntimeError("reference cache must be private and outside worker projects")
+    info = root.stat()
+    if (not stat.S_ISDIR(info.st_mode) or info.st_uid != os.geteuid()
+            or stat.S_IMODE(info.st_mode) != 0o700):
+        raise RuntimeError("reference cache must be operator-owned and mode 0700")
+    return root
+
+
+def seal_reference_cache(value):
+    """Operator attestation AFTER byte-comparing a mirror with trusted originals.
+
+    This does not establish provenance by itself. Only the controller may supply
+    the printed digest to future jobs; never accept a worker's self-signed cache.
+    """
+    root = private_reference_root(value)
+    record = {"schema": 1, "toolchain": "v4.33.1", "files": reference_inventory(root)}
+    encoded = json.dumps(record, sort_keys=True, separators=(",", ":")).encode()
+    with (root / "reference.json").open("xb") as handle:
+        handle.write(encoded)
+    print(f"Reference cache digest: {hashlib.sha256(encoded).hexdigest()}")
+
+
+def validate_reference_cache(*, contents=False):
+    if not CACHE_ROOT:
+        if CACHE_DIGEST:
+            raise RuntimeError("reference cache digest has no operator path")
+        return None
+    if not re.fullmatch(r"[a-f0-9]{64}", CACHE_DIGEST):
+        raise RuntimeError("invalid operator reference cache digest")
+    root = private_reference_root(CACHE_ROOT)
+    path = root / "reference.json"
+    if path.is_symlink():
+        raise RuntimeError("reference cache manifest is a symlink")
+    encoded = path.read_bytes()
+    if hashlib.sha256(encoded).hexdigest() != CACHE_DIGEST:
+        raise RuntimeError("reference cache differs from operator digest")
+    record = json.loads(encoded)
+    if record.get("schema") != 1 or record.get("toolchain") != "v4.33.1":
+        raise RuntimeError("unsupported reference cache manifest")
+    if contents and reference_inventory(root) != record.get("files"):
+        raise RuntimeError("reference cache artifacts changed")
+    return CACHE_DIGEST
+
+
+def compiled_packages():
+    return Path(CACHE_ROOT) / "packages" if CACHE_ROOT else PROJECT / ".lake/packages"
 
 
 def write(path, value):
@@ -125,9 +214,9 @@ def configure(directory, *, mathlib=True):
     lib = directory / ".lake/build/lib/lean"
     lib.mkdir(parents=True, exist_ok=True)
     if mathlib:
-        build_roots = [PROJECT / ".lake/packages/mathlib/.lake/build/lib/lean"]
+        build_roots = [compiled_packages() / "mathlib/.lake/build/lib/lean"]
         build_roots += sorted(
-            (PROJECT / ".lake/packages").glob("*/.lake/build/lib/lean")
+            compiled_packages().glob("*/.lake/build/lib/lean")
         )
         for root in build_roots:
             for child in root.iterdir():
@@ -163,7 +252,7 @@ def sandbox(directory, args, *, lean_path="", capture=False):
         "--rox",
         str(TOOLS),
         "--rox",
-        str((PROJECT / ".lake/packages").resolve()),
+        str(compiled_packages().resolve()),
         "--rw",
         "/dev",
         "-ldd",
@@ -408,6 +497,8 @@ def validate_prepared(root, expected_digest):
         raise RuntimeError("prepared verifier identity changed")
     if packet["evidence"]["status"] != "checking":
         raise RuntimeError("prepared packet is not an unverified input")
+    if packet["evidence"].get("reference_cache_digest") != validate_reference_cache():
+        raise RuntimeError("prepared reference cache binding changed")
     evidence_path = root / "evidence.json"
     if evidence_path.is_symlink() or json.loads(evidence_path.read_text()) != packet["evidence"]:
         raise RuntimeError("prepared evidence differs from controller snapshot")
@@ -439,6 +530,9 @@ def prepare_verification():
         git(PROJECT, "show", f"{context['source_commit']}:lake-manifest.json")
     )
     dependencies = check_dependency_sources(PROJECT / ".lake/packages", manifest)
+    reference_digest = validate_reference_cache(contents=True)
+    if CACHE_ROOT and check_dependency_sources(compiled_packages(), manifest) != dependencies:
+        raise RuntimeError("cached dependency revisions differ from frozen manifest")
     verifier_digest = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
     dag = json.loads((run_root / "dag.json").read_text())
     node = next(n for n in dag["nodes"] if n["id"] == node_id)
@@ -493,6 +587,7 @@ def prepare_verification():
                 "permitted_axioms": AXIOMS,
                 "dependency_revisions": dependencies,
                 "verifier_sha256": verifier_digest,
+                "reference_cache_digest": reference_digest,
                 "status": "checking",
             },
             indent=2,
@@ -517,6 +612,9 @@ def verify_prepared(root, digest):
     packet = validate_prepared(root, digest)
     evidence = packet["evidence"]
     manifest, dependencies = packet["dependency_manifest"], evidence["dependency_revisions"]
+    validate_reference_cache(contents=True)
+    if CACHE_ROOT and check_dependency_sources(compiled_packages(), manifest) != dependencies:
+        raise RuntimeError("cached dependency revisions changed")
     if check_dependency_sources(PROJECT / ".lake/packages", manifest) != dependencies:
         raise RuntimeError("prepared dependency revisions changed")
     names = evidence["checked_theorems"]
@@ -533,6 +631,7 @@ def verify_prepared(root, digest):
         raise RuntimeError("dependency revisions changed during verification")
     if hashlib.sha256(Path(__file__).read_bytes()).hexdigest() != evidence["verifier_sha256"]:
         raise RuntimeError("verifier source changed during verification")
+    validate_reference_cache(contents=True)
     evidence = json.loads((root / "evidence.json").read_text())
     evidence["status"] = "verified"
     write(root / "evidence.json", json.dumps(evidence, indent=2))
@@ -548,10 +647,16 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--self-test", action="store_true")
     parser.add_argument("--sandbox-self-test", action="store_true")
+    parser.add_argument("--seal-verified-reference-cache", type=Path,
+                        help="operator only: attest a mirror already byte-compared with trusted originals")
     args = parser.parse_args()
-    if args.sandbox_self_test:
+    if args.seal_verified_reference_cache:
+        seal_reference_cache(args.seal_verified_reference_cache)
+    elif args.sandbox_self_test:
+        validate_reference_cache(contents=True)
         sandbox_self_test()
     elif args.self_test:
+        validate_reference_cache(contents=True)
         self_test()
     else:
         verify()

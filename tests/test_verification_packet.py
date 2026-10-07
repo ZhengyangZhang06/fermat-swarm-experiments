@@ -148,6 +148,27 @@ class VerificationPacketTests(unittest.TestCase):
                 self.checker.verify_prepared(self.packet_root, self.digest)
         self.assertEqual(json.loads((self.packet_root / 'evidence.json').read_text())['status'], 'checking')
 
+    def test_packet_cannot_be_rebound_to_another_reference_cache(self):
+        with patch.object(self.checker, 'validate_reference_cache', return_value='a' * 64):
+            with self.assertRaisesRegex(RuntimeError, 'reference cache binding'):
+                self.validate()
+
+    def test_late_reference_corruption_does_not_mark_verified(self):
+        count = 0
+        def validate(*, contents=False):
+            nonlocal count
+            if contents:
+                count += 1
+                if count == 2:
+                    raise RuntimeError('reference cache artifacts changed')
+            return None
+        with patch.object(self.checker, 'validate_reference_cache', side_effect=validate), \
+                patch.object(self.checker, 'check_dependency_sources', return_value={}), \
+                patch.object(self.checker, 'compare'), patch.object(self.checker, 'sandbox'):
+            with self.assertRaisesRegex(RuntimeError, 'artifacts changed'):
+                self.checker.verify_prepared(self.packet_root, self.digest)
+        self.assertEqual(json.loads((self.packet_root / 'evidence.json').read_text())['status'], 'checking')
+
 
 if __name__ == '__main__':
     unittest.main()

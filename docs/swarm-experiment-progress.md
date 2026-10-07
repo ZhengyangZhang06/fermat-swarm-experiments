@@ -821,3 +821,42 @@ state, not simply deleting the project lock.
 - P01 remote recheckcd203… remains live on the original hoa1 task. A further
   p06 recheck20b9a7aff88245fb8e71a1c3f8fdcc42 runs under PID3621068 for unchanged
   candidateb83e6c8a62b94181c67314fb3cfb085202f0681b. No header repair approved.
+
+## Follow-up checkpoint, 13:07 UTC — optional cache validated; production unchanged
+
+- Previous dashboard-only turn revalidated the already deployed page but did not
+  advance theorem acceptance. This turn repaired and tested the outstanding
+  source-only cache validator; it does not count that infrastructure as a proof.
+- Collected terminal session31465: the fixed Mathlib packet diagnostic passed
+  comparator, kernel, axiom report and final inventory, exit0, elapsed1145.84s.
+  Receipt at `cached-mathlib-packet-afbpjjgm` belongs to checker SHA
+  730b7770dcdf3955c3782a5cff23f4639bca2b9d1e372f35c63f873dce7a4074.
+  It remains explicitly `campaign_acceptance=false`, not a theorem request.
+- Only after that process terminated, repaired the cache-root symlink gap.
+  Resolved symlink targets must belong to `packages/` or `lean-4.33.1-linux/`.
+  Uninventoried root files/directories are rejected; links between the two
+  inventoried trees remain allowed. The cache remains disabled by default.
+- Current checker SHA is
+  17360b2ac18e997034d13017a50a6bfe476c7100a5d8ef0569dbc3ac8fb87197.
+  Full suite:240 tests, OK,1 optional browser skip (session2492, exit0).
+  Real opt-in `--self-test` against sealed mirror Z0kXAn and retained digest
+  d27914ad50fe438f1ed6f8b512f5ae0dc19950e5527c6afdefba6b9f6a85f5a6
+  passed all10 positive/negative fixtures (session21527, exit0), after full
+  inventory validation. Actual cached sandbox private-file check passed0.
+  The older Mathlib packet receipt is not relabeled as this newer checker.
+- No production hot-deployment, library repointing, ownership changes, or header
+  normalization. Runtime remains2e30c71. An immutable deployment/review and a
+  new real campaign receipt are still required before claiming a cached proof.
+- GitHub read-only reconciliation confirms PR65 MERGED12:43:30 and issue45
+  CLOSED12:43:40. Status at13:05:56:128 pollers,10 active issue jobs,0 verified
+  roots. P02 now works on issue51; its scalar primitive child37 decomposed into
+  Cayley equivalence and derivative children. Only child45 is completed.
+- P06 request20b9a7aff88245fb8e71a1c3f8fdcc42 finished1. A subsequent request
+  fe94dff0975c49859d42a1a5c31829d6 also terminated; its log repeats the three
+  absent frozen-header names (instNontrivialKaehler, frobNormRingHom_apply,
+  coe_torsion_smul). No repair approval has arrived.
+- P01 remote requestcd203d12717944b78318395950a03bfc remains live under
+  adapterPID3387184 and taskkchqtd21zojkdwgy4e2dc9w73 on hoa1; later P2M
+  dependencies progressed. P07 request85a91b21a7b24b0ea5fe5f0cfaa1f846 was
+  confirmed live under PID3643212 for candidated97a7d4ebe920342702a0e4abe5d28df8db52f08.
+  Neither process was restarted. Goal remains active and incomplete.
