@@ -9,15 +9,20 @@ import argparse
 import datetime
 import fcntl
 import json
+import os
 from pathlib import Path
 import re
 import subprocess
+import sys
 import time
 
 SERVICE = 'fermat-issue-resolvers-20261007'
 PRIVATE = Path('/var/tmp/fermat-swarm-20261007')
 SSH = 'ssh -F /dev/null -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -i /mnt/data/zhengyang-workspace/.ssh/fermat-example.aeaAzs/id_ed25519'
 CAMPAIGN = Path(__file__).resolve().parents[1]
+if os.environ.get('THEOREM_WORKFLOW_ROOT'):
+    sys.path.insert(0, os.environ['THEOREM_WORKFLOW_ROOT'])
+    from _recursive_lean.fleet_status import observed_workers
 
 
 def proof_records(config):
@@ -123,14 +128,28 @@ def attach_worker_activity(proofs, workers):
 def collect():
     snapshot = json.loads((PRIVATE / 'snapshot.json').read_text())
     config = json.loads((PRIVATE / 'catalog.json').read_text())
+    snapshots = [snapshot]
+    services = [SERVICE]
+    if os.environ.get('THEOREM_WORKFLOW_ROOT') and (PRIVATE / 'parallel-catalog.json').exists():
+        parallel = json.loads((PRIVATE / 'parallel-catalog.json').read_text())
+        by_id = {p['id']: p for p in parallel['projects']}
+        for project in config['projects']:
+            project['enabled'] = bool(project.get('enabled') or by_id[project['id']].get('enabled'))
+        if (PRIVATE / 'parallel-snapshot.json').exists():
+            snapshots.append(json.loads((PRIVATE / 'parallel-snapshot.json').read_text()))
+        services.append('fermat-parallel-resolvers-20261007')
     proofs = proof_records(config)
     tasks = [json.loads(line) for line in subprocess.check_output(
-        ['sudo', '-n', 'docker', 'service', 'ps', '--no-trunc', SERVICE, '--format', '{{json .}}'],
+        ['sudo', '-n', 'docker', 'service', 'ps', '--no-trunc', *services, '--format', '{{json .}}'],
         text=True, timeout=30,
     ).splitlines()]
     running = {task['ID']: task for task in tasks
                if task['DesiredState'] == 'Running' and task['CurrentState'].startswith('Running ')}
     stamp = time.time()
+    if os.environ.get('THEOREM_WORKFLOW_ROOT'):
+        selected_workers = observed_workers(snapshots, running, stamp=stamp)
+    else:
+        selected_workers = None
     workers = []
     for worker in snapshot['workers']:
         task = running.get(worker['task'])
@@ -140,6 +159,8 @@ def collect():
     nodes = {worker['node'] for worker in workers}
     if len(nodes) != len(workers):
         raise RuntimeError('duplicate live workers on one node')
+    if selected_workers is not None:
+        workers = selected_workers
     attach_worker_activity(proofs, workers)
     enabled = sum(bool(p.get('enabled')) for p in config['projects'])
     working = sum(worker['phase'] == 'working' for worker in workers)
