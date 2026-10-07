@@ -81,6 +81,7 @@ class VerificationService:
             FERMAT_ROOT_NAME=request['root_name'],
             FERMAT_CONTRACT_FILE=request['contract_file'],
             FERMAT_CANDIDATE_REVISION=request['revision'],
+            FERMAT_VERIFIER_OUTPUT=str(self.directory / request_id),
             HUMANIZE_RUN_DIR=request['run_directory'], HUMANIZE_NODE_ID=request['node_id'],
         )
         try:

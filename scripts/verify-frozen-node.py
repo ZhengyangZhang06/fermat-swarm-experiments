@@ -360,8 +360,12 @@ def verify():
     )
     if not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_'.]*", name):
         raise RuntimeError("invalid frozen Lean name")
-    output = run_root / "verification"
-    output.mkdir(exist_ok=True)
+    # Candidates may write their own project worktree, never the verifier's
+    # challenge/candidate snapshots or controller evidence while checking.
+    output = Path(os.environ["FERMAT_VERIFIER_OUTPUT"]).resolve()
+    if output.is_relative_to(PROJECT.parent):
+        raise RuntimeError("verifier output must be outside worker-writable projects")
+    output.mkdir(parents=True, exist_ok=True)
     root = Path(tempfile.mkdtemp(prefix=f"{node_id.replace('.', '-')}-", dir=output))
     copy_revision(PROJECT, base, root / "challenge")
     copy_revision(candidate, revision, root / "solution")
