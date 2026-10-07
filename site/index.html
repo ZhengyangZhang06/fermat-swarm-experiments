@@ -47,7 +47,7 @@ const ns='http://www.w3.org/2000/svg';
 function svgEl(name,attrs,parent,text){const el=document.createElementNS(ns,name);for(const [k,v] of Object.entries(attrs))el.setAttribute(k,v);if(text)el.textContent=text;parent.append(el);return el}
 function drawGraph(){
  const svg=document.getElementById('dag');svg.replaceChildren();
- const nodes=status.problems?.flatMap(p=>p.nodes) || campaign.problems.map(p=>({id:p.id+'/root',problem:p.id,local_id:'root',title:p.theorem,requires:[],status:'queued',issue_url:p.issue_url}));
+ const nodes=status.problems?.flatMap(p=>p.nodes) || campaign.problems.map(p=>({id:p.id+'/root',problem:p.id,local_id:'root',title:p.theorem,requires:[],status:'unknown',issue_url:p.issue_url}));
  const edges=nodes.flatMap(n=>(n.requires||[]).map(d=>[d,n.id]));
  const positions=new Map(), narrow=window.innerWidth<650;
  let w,h;
@@ -91,9 +91,15 @@ async function refresh(){
  try{
   campaign=await get('campaign.json');
   const minute=Math.floor(Date.now()/60000);
-  const observations=await Promise.allSettled([minute,minute+1].map(t=>get(`https://raw.githubusercontent.com/${repo}/status-live/ticks/${t}/status.json`)));
+  // Publishing straddles minute boundaries and CDN objects may appear late.
+  // Include recent ticks and the live pointer, never the bundled setup snapshot.
+  const urls=[minute-2,minute-1,minute,minute+1].map(t=>`https://raw.githubusercontent.com/${repo}/status-live/ticks/${t}/status.json`);
+  urls.push(`https://raw.githubusercontent.com/${repo}/status-live/status.json?minute=${minute}`);
+  const observations=await Promise.allSettled(urls.map(get));
   const fresh=observations.filter(r=>r.status==='fulfilled').map(r=>r.value).filter(r=>Number.isFinite(Date.parse(r.observed_at)));
-  status=fresh.sort((a,b)=>Date.parse(b.observed_at)-Date.parse(a.observed_at))[0] || await get('status.json');
+  if(!fresh.length)throw Error('Live observations unavailable');
+  if(status)fresh.push(status); // A delayed response must not roll back the display.
+  status=fresh.sort((a,b)=>Date.parse(b.observed_at)-Date.parse(a.observed_at))[0];
   put('roots',campaign.problems.length);put('ready',`${status.readiness_passed}/128`);
   put('resolvers',status.running_resolvers);put('verified',status.verified_integrated_roots);
   const age=Date.now()-Date.parse(status.observed_at);
@@ -106,6 +112,6 @@ async function refresh(){
   ledger(issues);
  }catch(error){put('notice',`Status refresh incomplete: ${error.message}. Last displayed data may be stale; no completion is inferred.`)}
 }
-window.addEventListener('resize',()=>{if(campaign)drawGraph()});refresh();setInterval(refresh,120000);
+window.addEventListener('resize',()=>{if(campaign&&status)drawGraph()});refresh();setInterval(refresh,120000);
 </script>
 </html>
