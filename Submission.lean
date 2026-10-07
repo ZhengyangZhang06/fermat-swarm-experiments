@@ -1500,10 +1500,11 @@ theorem f036cc6b1f_pc_ed_transversal_unique :
   have hwz : (r⁻¹ * γ) • z = w := by
     rw [mul_smul, ← hrw, inv_smul_smul]
   have hwo : w ∈ ModularGroup.fdo := by
-    have h := hz (r⁻¹ * γ) (by simpa only [hwz] using hw)
-    simpa only [hwz] using h
+    rw [← hwz] at hw ⊢
+    exact hz _ hw
   have haw : (s⁻¹ * (δ * γ⁻¹) * r) • w = v := by
     simp only [mul_smul, hrw, inv_smul_smul, ← hsv]
+  -- Interior uniqueness reduces the transition matrix to the two central signs.
   have ha := ModularGroup.eq_one_or_neg_one_of_mem_fdo_mem_fd hwo
     (show (s⁻¹ * (δ * γ⁻¹) * r) • w ∈ ModularGroup.fd by
       simpa only [haw] using hv)
@@ -1519,6 +1520,7 @@ theorem f036cc6b1f_pc_ed_transversal_unique :
     exact mul_inv_eq_one.mp hcancel
   · have heq : δ * γ⁻¹ = -(s * r⁻¹) := by
       simpa only [ha, mul_neg, mul_one, neg_mul] using hqeq
+    -- The negative sign can be removed because -1 belongs to the subgroup.
     have hsrmem : s * r⁻¹ ∈ Δ := by
       have h := Δ.mul_mem hneg hq
       simpa only [heq, neg_mul, one_mul, neg_neg] using h
