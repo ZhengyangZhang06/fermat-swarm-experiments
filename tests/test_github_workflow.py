@@ -160,10 +160,11 @@ class GitHubTransportTests(unittest.TestCase):
                 api.issue(marker, "Theorem", "Changed", known_url=url)
         self.assertEqual(api.issues[0]["body"], "<!-- stable -->\n\nProof")
 
-    def test_oversized_issue_is_rejected_before_any_remote_write(self):
+    def test_oversized_issue_uses_continuation_publication(self):
         api = MemoryGitHub(Path.cwd())
-        with self.assertRaises(PublicationError):
-            api.issue("<!-- stable -->", "Theorem", "x" * 65536)
+        with patch.object(api, "_multipart_issue", return_value={"number": 1}) as publish:
+            self.assertEqual(api.issue("<!-- stable -->", "Theorem", "x" * 65536), {"number": 1})
+        publish.assert_called_once_with("<!-- stable -->", "Theorem", "x" * 65536, known_url="")
         self.assertEqual(api.issues, [])
 
     def test_pr_resume_checks_exact_head_base_and_closed_state(self):

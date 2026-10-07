@@ -102,9 +102,22 @@ class OperatorCutoverSafeguards(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, 'HTTPS|TLS|endpoint'):
             self.reconcile('http://example.invalid', self.container[:12])
 
+    def test_reconcile_rejects_credentials_paths_and_queries_in_endpoint(self):
+        for endpoint in ('https://user@example.invalid', 'https://example.invalid/path',
+                         'https://example.invalid?token=value', 'https://example.invalid#fragment'):
+            with self.subTest(endpoint=endpoint), self.assertRaisesRegex(RuntimeError, 'origin'):
+                self.reconcile(endpoint, self.container[:12])
+
     def test_reconcile_rejects_empty_execution_host(self):
         with self.assertRaisesRegex(RuntimeError, 'host|container'):
             self.reconcile('https://example.invalid', '')
+
+    def test_reconcile_preserves_claim_with_pending_verifier(self):
+        self.check('live', 'running', 123, '456')
+        with self.assertRaisesRegex(RuntimeError, 'verification is not terminal'):
+            self.reconcile('https://example.invalid', self.container[:12])
+        with sqlite3.connect(self.database) as db:
+            self.assertEqual(db.execute('SELECT state FROM claims').fetchone()[0], 'owned')
 
 
 if __name__ == '__main__':
