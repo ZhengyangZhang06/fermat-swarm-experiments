@@ -995,3 +995,37 @@ state, not simply deleting the project lock.
   nonexistent frozen-header attribute names. No theorem or header was changed.
   Narrow missing-name-only derived-copy repair approval was requested again and
   remains unanswered. One child PR is merged; no complete root proof is accepted.
+
+## Follow-up checkpoint, 15:37 UTC — recovered children executing
+
+- GitHub write operations recovered. Workflow changes and the campaign dashboard
+  changes were pushed; the public minute feed at15:34:22 reported128 physical-node
+  workers,50 active issue jobs, all ten projects, and zero unpublished children.
+  The live ledger at15:37:28 held52 issue grants on52 different physical nodes.
+  These counts are time-stamped observations, not fixed worker-allocation targets.
+- Deployed immutable `math-lean-flow-recovery-v3` from58c107c through an additive
+  TLS broker on8849, with a128-node autonomous polling fleet and the same durable
+  ledger. Corrected octal mode serialization in reusable launcher commit0f8c12c;
+  only the unused new service was repaired before it claimed work. Existing proof
+  jobs/checkers were never restarted. Old intake is drained while live old owners
+  retain their original broker. New claims use the recovered-publication runtime.
+- All eight audited terminal publication failures were offered again after exact
+  no-live-owner/no-pending-check validation. P04 parent21 published its four
+  children and yielded; issues86,89,91,93 were independently claimed and appeared
+  executing in the public feed. Other saved decompositions similarly resumed.
+- P02 modular-pullback requestcf365329e6384d03a561ffb24afa35fc finished0 on exact
+  candidate7f2ec05e7aa522b5867ae1059113bf7bdee1fa29, with comparator/default-kernel
+  success, only propext/Classical.choice/Quot.sound, and final cache integrity
+  evidence. This remains one check inside the full review/integration lifecycle,
+  not another merged theorem. P06 and P07 requests ended with frozen-header
+  unknown-name failures; no repair was silently applied.
+- The new broker queues verification requests to avoid starting another unchecked
+  controller pool. A continuous immutable dispatcher in
+  `fermat-cached-queue-20261007.service` now serves that shared queue, one request
+  at a time with atomic ownership. Combined with the old two-slot pool and the
+  outstanding explicit P02 check, four checks were running at15:37. New-worker
+  checks therefore have an active execution path, not an indefinitely paused queue.
+  Rebalance concurrency as old pools drain; do not exceed observed resource capacity.
+- Collector tests9/9, campaign tests9/9, browser tests7/7 passed. The website
+  distinguishes unpublished handoffs from queued or executing jobs, includes both
+  active fleet generations, and deduplicates idle pollers by physical node.
