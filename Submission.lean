@@ -778,6 +778,7 @@ and `IsClosedImmersion.isStableUnderBaseChange`
 instances are in `Mathlib/AlgebraicGeometry/Morphisms/{Finite,Flat,FinitePresentation}.lean`.
 All these results are from the pinned mathlib revision
 `db584cd6d46c92f209a44c0f1c829460d327499d`. -/
+/-- The level immersion and its finite flat structure morphism commute with base change. -/
 theorem p07_cq_level_geometry_pullback_857cd4d38c :
     ∀ (S T : Type) [CommRing S] [CommRing T] (φ : S →+* T)
       (A C : AlgebraicGeometry.Scheme.{0})
@@ -806,6 +807,9 @@ theorem p07_cq_level_geometry_pullback_857cd4d38c :
   dsimp only
   let β := AlgebraicGeometry.Spec.map (CommRingCat.ofHom φ)
   let c := ℓ ≫ f
+  have : AlgebraicGeometry.IsFinite c := hfinite
+  have : AlgebraicGeometry.Flat c := hflat
+  have : AlgebraicGeometry.LocallyOfFinitePresentation c := hfp
   let ℓT : pullback c β ⟶ pullback f β :=
     pullback.lift (pullback.fst c β ≫ ℓ) (pullback.snd c β) (by
       rw [Category.assoc]
@@ -825,6 +829,8 @@ theorem p07_cq_level_geometry_pullback_857cd4d38c :
   · exact MorphismProperty.pullback_snd c β hfinite
   · exact MorphismProperty.pullback_snd c β hflat
   · exact MorphismProperty.pullback_snd c β hfp
+  refine ⟨ℓT, hpb, hsnd, ?_, inferInstance, inferInstance, inferInstance, ?_, ?_⟩
+  · exact MorphismProperty.of_isPullback hpb hℓ
   · exact Scheme.Hom.finrank_pullback_snd c β
   · intro W Q
     constructor
@@ -1355,5 +1361,6 @@ theorem p07_rigidification_reduction_857cd4d38c
     simp only [Iso.hom_inv_id_assoc]
   · change ib.hom ≫ ib.inv ≫ σ.φ ≫ iA.hom = σ.φ ≫ iA.hom
     simp only [Iso.hom_inv_id_assoc]
+      exact ⟨hpb.lift R Q hR, hpb.lift_snd R Q hR⟩
 
 end Submission
