@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.local_norm_order-a1.integral_fiber_length-a1.weighted_local_lengths-a1.local_length_multiplicity-a1.localized_residue_factors-a1",
+  "parent_id": "root.local_norm_order-a1.integral_fiber_length-a1.weighted_local_lengths-a1.local_length_multiplicity-a1",
+  "depth": 5,
+  "title": "Localization of height-one residue factors",
+  "statement": "Let B be a commutative Dedekind domain and let p and q belong to HeightOneSpectrum B. Put T = B \\ q.asIdeal, R = Localization.AtPrime q.asIdeal, and L = LocalizedModule T (B/p.asIdeal), with its canonical R-module structure. If p = q, then L is a nonzero simple R-module. If p ≠ q, then L is a subsingleton.",
+  "lean_statement": "∀ (B : Type*) [CommRing B] [IsDedekindDomain B] (p q : IsDedekindDomain.HeightOneSpectrum B), (p = q → IsSimpleModule (Localization.AtPrime q.asIdeal) (LocalizedModule q.asIdeal.primeCompl (B ⧸ p.asIdeal))) ∧ (p ≠ q → Subsingleton (LocalizedModule q.asIdeal.primeCompl (B ⧸ p.asIdeal)))",
+  "lean_name": "p06_9e0f5043ff_llm_localized_residue_factors",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-integral-fiber-length-a1-weighted-local-leng-d6bfe2e051-a1"
+}

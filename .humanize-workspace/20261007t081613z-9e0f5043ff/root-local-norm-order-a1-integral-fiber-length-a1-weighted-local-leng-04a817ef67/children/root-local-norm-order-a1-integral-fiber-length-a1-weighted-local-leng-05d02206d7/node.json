@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.local_norm_order-a1.integral_fiber_length-a1.weighted_local_lengths-a1.local_length_multiplicity-a1.localized_series_sum-a1",
+  "parent_id": "root.local_norm_order-a1.integral_fiber_length-a1.weighted_local_lengths-a1.local_length_multiplicity-a1",
+  "depth": 5,
+  "title": "Localized length is the sum of localized factor lengths",
+  "statement": "Let B be a commutative ring, M an additive commutative group and B-module, T a submonoid of B, and s a B-composition series of M with first term zero and last term M. For i ∈ Fin(s.length), let Q_i be the quotient of s(i+1) by the preimage of s(i) under the subtype map s(i+1) → M. With all localization actions canonical, length over Localization T of LocalizedModule T M equals the finite sum over i of the lengths over Localization T of LocalizedModule T Q_i. The equality is in ℕ∞ and requires no additional finiteness assumptions.",
+  "lean_statement": "∀ (B M : Type*) [CommRing B] [AddCommGroup M] [Module B M] (T : Submonoid B) (s : CompositionSeries (Submodule B M)), s.head = ⊥ → s.last = ⊤ → Module.length (Localization T) (LocalizedModule T M) = Finset.sum Finset.univ (fun i : Fin s.length => Module.length (Localization T) (LocalizedModule T (↥(s i.succ) ⧸ (s i.castSucc).comap (s i.succ).subtype)))",
+  "lean_name": "p06_9e0f5043ff_llm_localized_series_sum",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-integral-fiber-length-a1-weighted-local-leng-05d02206d7-a1"
+}
