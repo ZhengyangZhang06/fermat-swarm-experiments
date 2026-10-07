@@ -421,6 +421,8 @@ theorem p06_9e0f5043ff_llm_localized_series_sum
       (LocalizedModule T (↥(s i.succ) ⧸ (s i.castSucc).comap (s i.succ).subtype))) hstep
   simpa only [htop, hzero, zero_add] using h
 /-- The uniformizer exponent of a nonzero scalar is both its quotient length and its place order. -/
+namespace Submission
+
 theorem p06_9e0f5043ff_dlen_scalar_quotient
     (K E : Type*) [Field K] [Field E] [Algebra K E]
     (v : AlgebraicCurve.Place K E) (a : v.toValuationSubring) (ha : a ≠ 0) :
