@@ -1720,7 +1720,8 @@ theorem p07_cre_abelian_surface_857cd4d38c
   let e := Scheme.Spec.mapIso k.symm.toCommRingCatIso.op
   -- The identity on C identifies qT with the base change of q along e.hom.
   have hpb : IsPullback (𝟙 C) (q ≫ e.inv) q e.hom :=
-    IsPullback.of_horiz_isIso ⟨by simp⟩
+    IsPullback.of_horiz_isIso
+      ⟨by simp only [Category.id_comp, Category.assoc, Iso.inv_hom_id, Category.comp_id]⟩
   let : IsFinite q := hfinite
   let : Flat q := hflat
   exact ⟨MorphismProperty.of_isPullback hpb hfinite,
