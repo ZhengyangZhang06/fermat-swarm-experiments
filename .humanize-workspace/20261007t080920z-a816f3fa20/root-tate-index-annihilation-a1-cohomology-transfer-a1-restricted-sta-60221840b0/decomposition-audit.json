@@ -1,0 +1,45 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "namespace standardComplex|standardComplex.d|prism|prism_boundary|prismBoundary|cosetDecomp_apply",
+        "removeNth_insertNth|insertNth_apply_same|insertNth_apply_succAbove|insertNth_apply_below|insertNth_apply_above|insertNth_comp_succAbove|def insertNth|def succAbove",
+        "def single|single_add|single_zero|def MonoidAlgebra|def cosetDecomp|namespace TateResCor",
+        "rg -n -i 'prism'",
+        "p04_pb_60221840b0_(noncentral_cancellation|central_telescoping)",
+        "git rev-parse HEAD",
+        "git status --porcelain --untracked-files=no",
+        "Independent Lean 4.33.1 elaboration of both exact lean_statement strings; #print axioms for differential, insertion, coefficient-additivity, and finite-sum reindexing lemmas"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Submission.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/Resolution.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Data/Fin/Tuple/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Data/Fin/SuccPred.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/MonoidAlgebra/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/dag.json"
+      ],
+      "conclusion": "Confirmed project revision 2475a3790d7ba0c3b10be8086001b154a45be597 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d with clean tracked snapshot sources; all nine installed dependencies also match their pins with clean tracked sources. Resolution.lean supplies the differential for arbitrary types and its d_of/d_single formulas. Tuple and MonoidAlgebra files support the stated coordinate evaluations and additive cancellation without a group structure on X. No prism match was found in project/Definitions or mathlib's RepresentationTheory and AlgebraicTopology directories. Both exact propositions independently elaborate under the frozen imports, with separate universes for k and X and without either child declaration. Checked supporting lemmas use only propext, Classical.choice, and Quot.sound. DAG inspection confirms this parent is a descendant of the frozen Tate-cohomology root; neither child name is reserved, and adding the proposed edges preserves acyclicity. The split appropriately isolates noncentral cancellation and central telescoping; differential expansion and central-sign simplification recover the parent. Independently reproduced the unchanged Submission.lean failure at line 10: missing Representation.TateResCor.cosetDecomp_apply. This audit approves only the decomposition; that inherited failure still blocks activation and comparator execution."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "noncentral_cancellation",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose, including independent universes, index bounds, filter, coefficients, and ambient additive MonoidAlgebra. The proof correctly evaluates both deletion cases, verifies bounds, supplies mutually inverse exhaustive index pairings, and proves j+a=b+t+1 before cancelling coefficients. It covers n=0 and repeated tuples. It is complete and non-circular, with no dependency on the parent or sibling. The bare identifier is unreserved."
+    },
+    {
+      "key": "central_telescoping",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the hypotheses, two deletion maps, and endpoint difference in the prose. Coordinatewise evaluation identifies the faces with T_j and T_(j+1); finite telescoping and the verified endpoint identities prove the equality, including m=0. No injectivity, equivariance, or group hypothesis is needed. The proof is complete and independent of the parent and sibling. The bare identifier is unreserved."
+    }
+  ],
+  "required_changes": []
+}

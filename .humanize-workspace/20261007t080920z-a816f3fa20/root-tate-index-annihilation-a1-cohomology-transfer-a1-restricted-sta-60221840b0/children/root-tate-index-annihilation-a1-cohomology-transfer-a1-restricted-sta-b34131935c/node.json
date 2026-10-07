@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1.prism_boundary_identity-a1.central_telescoping-a1",
+  "parent_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1.prism_boundary_identity-a1",
+  "depth": 6,
+  "title": "Central prism faces telescope to the endpoint tuples",
+  "statement": "Let k be a commutative ring, X any type, u,v : X → X, m ≥ 0, and c : Fin(m+1) → X; the universes of k and X may differ. Define Q_j = Fin.insertNth j.castSucc (u(c j)) (fun i : Fin(m+1) => if i < j then u(c i) else v(c i)) and [d]=MonoidAlgebra.single d (1 : k). Then Σ_{j∈Fin(m+1)} ([Q_j ∘ j.castSucc.succAbove] − [Q_j ∘ j.succ.succAbove]) = [v ∘ c] − [u ∘ c] in MonoidAlgebra k (Fin(m+1) → X). No group structure or equivariance is assumed.",
+  "lean_statement": "∀ {k X : Type _} [CommRing k] (u v : X → X) (m : ℕ) (c : Fin (m + 1) → X), let Q : Fin (m + 1) → (Fin (m + 2) → X) := fun j => Fin.insertNth j.castSucc (u (c j)) (fun i : Fin (m + 1) => if i < j then u (c i) else v (c i)); (∑ j : Fin (m + 1), (MonoidAlgebra.single (Q j ∘ j.castSucc.succAbove) (1 : k) - MonoidAlgebra.single (Q j ∘ j.succ.succAbove) (1 : k))) = MonoidAlgebra.single (v ∘ c) (1 : k) - MonoidAlgebra.single (u ∘ c) (1 : k)",
+  "lean_name": "p04_pb_60221840b0_central_telescoping",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p04/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-b34131935c-a1"
+}

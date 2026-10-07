@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1.prism_boundary_identity-a1.noncentral_cancellation-a1",
+  "parent_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1.prism_boundary_identity-a1",
+  "depth": 6,
+  "title": "Noncentral prism faces cancel the prisms on boundary faces",
+  "statement": "Let k be a commutative ring, X any type, and u,v : X → X; their universes may differ. For m ≥ 0, d : Fin(m+1) → X and j : Fin(m+1), define Q_m(d,j) = Fin.insertNth j.castSucc (u(d j)) (fun i => if i < j then u(d i) else v(d i)). Write S(d,r)=MonoidAlgebra.single d r. For every n ≥ 0 and c : Fin(n+2) → X, the following equality holds in MonoidAlgebra k (Fin(n+2) → X): Σ_{j∈Fin(n+2)} Σ_{a∈Fin(n+3), a.val<j.val or j.val+1<a.val} S(Q_{n+1}(c,j) ∘ a.succAbove, (−1)^(j.val+a.val)) + Σ_{b∈Fin(n+2)} Σ_{t∈Fin(n+1)} S(Q_n(c ∘ b.succAbove,t), (−1)^(b.val+t.val)) = 0. No group structure or equivariance is assumed.",
+  "lean_statement": "∀ {k X : Type _} [CommRing k] (u v : X → X) (n : ℕ) (c : Fin (n + 2) → X), let Q : ∀ m : ℕ, (Fin (m + 1) → X) → Fin (m + 1) → (Fin (m + 2) → X) := fun m d j => Fin.insertNth j.castSucc (u (d j)) (fun i : Fin (m + 1) => if i < j then u (d i) else v (d i)); (∑ j : Fin (n + 2), ∑ a : Fin (n + 3) with a.val < j.val ∨ j.val + 1 < a.val, MonoidAlgebra.single (Q (n + 1) c j ∘ a.succAbove) ((-1 : k) ^ (j.val + a.val))) + (∑ b : Fin (n + 2), ∑ t : Fin (n + 1), MonoidAlgebra.single (Q n (c ∘ b.succAbove) t) ((-1 : k) ^ (b.val + t.val))) = 0",
+  "lean_name": "p04_pb_60221840b0_noncentral_cancellation",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p04/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-606bdf62ce-a1"
+}
