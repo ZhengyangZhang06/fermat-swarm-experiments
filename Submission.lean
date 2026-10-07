@@ -399,7 +399,8 @@ open CategoryTheory AlgebraicGeometry
 
 namespace Submission
 
-/-- Transport finite flat rank along an isomorphism of the base rings. -/
+/-- Transport finiteness, flatness, local finite presentation, and fibre rank along
+an isomorphism of the base rings. -/
 theorem p07_cre_finite_flat_rank_857cd4d38c
     (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U)
     (C : Scheme.{0}) (q : C ⟶ Spec (CommRingCat.of U)) :
@@ -649,7 +650,9 @@ theorem p07_cre_abelian_surface_857cd4d38c
   let : IsIso ε := ⟨⟨κ, hεκ, hκε⟩⟩
   have hpb : IsPullback (𝟙 C) (q ≫ κ) q ε :=
     IsPullback.of_horiz_isIso ⟨by simp [Category.assoc, hκε]⟩
+  -- Contravariance gives `e.hom = Spec(k⁻¹)` and `e.inv = Spec(k)`.
   let e := Scheme.Spec.mapIso k.symm.toCommRingCatIso.op
+  -- The identity on C identifies qT with the base change of q along e.hom.
   have hpb : IsPullback (𝟙 C) (q ≫ e.inv) q e.hom :=
     IsPullback.of_horiz_isIso ⟨by simp⟩
   let : IsFinite q := hfinite
