@@ -1,13 +1,4 @@
-/-
-Copyright 2026 Anthropic, PBC. Licensed under Apache-2.0; see LICENSE.
-Source: https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_Rep_isZero_tateCohomology_of_forall_sylow.lean
-Modified: replaced the proof with sorry and removed P2M proof imports.
-Requires the upstream Definitions modules and their dependencies.
--/
-
 import Mathlib
-import Definitions.Def_GroupCohomology_TateCohomology
-attribute [-simp] Representation.TateResCor.cosetDecomp_apply Rep.coe_tateHneg1Res_apply Representation.TateResCor.coe_tateHneg1Cores_apply Representation.TateResCor.tateH0Res_mk Rep.coe_tateHneg1Cores_apply Rep.tateH0Res_mk Representation.TateResCor.coe_cosetNormInvariants_apply Rep.tateH0Cores_mk Representation.TateResCor.coinvariantsCores_mk Representation.TateResCor.coinvariantsTransfer_mk Representation.TateResCor.tateH0Cores_mk Representation.TateResCor.coe_tateHneg1Res_apply Rep.coe_tateδneg2_apply
 
 set_option autoImplicit false
 universe u
@@ -2104,5 +2095,126 @@ theorem p04_tia_cohomology_transfer :
           Iso.hom_inv_id]
   refine ⟨R.hom, C.hom, fun x => ?_⟩
   exact congrArg (fun f : groupCohomology A n ⟶ groupCohomology A n => f.hom x) hRC
+
+open CategoryTheory Rep Representation MonoidalCategory
+
+namespace Submission
+
+/-- Transfer and projection on tensor coinvariant homology have composite the subgroup index. -/
+theorem p04_ht_coinvariant_complex_transfer
+    {k G : Type _} [CommRing k] [Group G] [Fintype G]
+    (A : Rep k G) (H : Subgroup G) [Fintype H]
+    (C : ChainComplex (Rep k G) ℕ) (n : ℕ) :
+    ∃ T : (C.coinvariantsTensorObj A).homology n →ₗ[k]
+      ((((Rep.resFunctor (k := k) H.subtype).mapHomologicalComplex
+        (ComplexShape.down ℕ)).obj C).coinvariantsTensorObj
+          (Rep.res H.subtype A)).homology n,
+    ∃ P : ((((Rep.resFunctor (k := k) H.subtype).mapHomologicalComplex
+        (ComplexShape.down ℕ)).obj C).coinvariantsTensorObj
+          (Rep.res H.subtype A)).homology n →ₗ[k]
+      (C.coinvariantsTensorObj A).homology n,
+    ∀ x : (C.coinvariantsTensorObj A).homology n, P (T x) = H.index • x := by
+  classical
+  let Q := Quotient (QuotientGroup.rightRel H)
+  let : Fintype Q := Fintype.ofFinite Q
+  have cardQ : Fintype.card Q = H.index := by
+    rw [H.index_eq_card, Nat.card_eq_fintype_card]
+    exact Fintype.card_congr (QuotientGroup.quotientRightRelEquivQuotientLeftRel H)
+  -- The summand depends only on the right coset of the representative.
+  have representative_independent (W : Rep k G) (s t : G)
+      (h : QuotientGroup.rightRel H s t) :
+      Coinvariants.mk (W.ρ.comp H.subtype) ∘ₗ W.ρ s =
+        Coinvariants.mk (W.ρ.comp H.subtype) ∘ₗ W.ρ t := by
+    ext v
+    have e := Coinvariants.mk_self_apply (W.ρ.comp H.subtype)
+      (⟨t * s⁻¹, QuotientGroup.rightRel_apply.mp h⟩ : H) (W.ρ s v)
+    simpa [← Module.End.mul_apply, ← map_mul] using e.symm
+  let summand (W : Rep k G) : Q → (W →ₗ[k] Coinvariants (W.ρ.comp H.subtype)) :=
+    Quotient.lift (fun s => Coinvariants.mk (W.ρ.comp H.subtype) ∘ₗ W.ρ s)
+      (representative_independent W)
+  let rightMul (g : G) : Q ≃ Q :=
+    { toFun := Quotient.map (fun s => s * g) (by
+        intro s t h
+        apply QuotientGroup.rightRel_apply.mpr
+        simpa using QuotientGroup.rightRel_apply.mp h)
+      invFun := Quotient.map (fun s => s * g⁻¹) (by
+        intro s t h
+        apply QuotientGroup.rightRel_apply.mpr
+        simpa using QuotientGroup.rightRel_apply.mp h)
+      left_inv := by intro q; induction q using Quotient.inductionOn; simp
+      right_inv := by intro q; induction q using Quotient.inductionOn; simp }
+  have summand_mul (W : Rep k G) (g : G) (q : Q) :
+      summand W q ∘ₗ W.ρ g = summand W (rightMul g q) := by
+    induction q using Quotient.inductionOn with | h s =>
+      dsimp [summand, rightMul]
+      rw [map_mul]
+      rfl
+  let transfer (W : Rep k G) : W.ρ.Coinvariants →ₗ[k]
+      Coinvariants (W.ρ.comp H.subtype) :=
+    Coinvariants.lift W.ρ (∑ q : Q, summand W q) (by
+      intro g
+      ext v
+      simp only [LinearMap.comp_apply, LinearMap.sum_apply]
+      have term (q : Q) : summand W q (W.ρ g v) = summand W (rightMul g q) v :=
+        congrArg (fun f => f v) (summand_mul W g q)
+      simp_rw [term]
+      exact (rightMul g).sum_comp (fun q => summand W q v))
+  let projection (W : Rep k G) : Coinvariants (W.ρ.comp H.subtype) →ₗ[k]
+      W.ρ.Coinvariants := Coinvariants.lift _ (Coinvariants.mk W.ρ) (by
+        intro h
+        ext v
+        exact Coinvariants.mk_self_apply W.ρ (h : G) v)
+  have projection_transfer (W : Rep k G) (x : W.ρ.Coinvariants) :
+      projection W (transfer W x) = H.index • x := by
+    induction x using Coinvariants.induction_on with | h v =>
+      change projection W ((∑ q : Q, summand W q) v) = _
+      simp only [LinearMap.sum_apply, map_sum]
+      have term (q : Q) : projection W (summand W q v) = Coinvariants.mk W.ρ v := by
+        induction q using Quotient.inductionOn with | h s =>
+          exact Coinvariants.mk_self_apply W.ρ s v
+      simp_rw [term]
+      simp [cardQ]
+  have transfer_natural {W V : Rep k G} (f : W ⟶ V) :
+      Coinvariants.map _ _ (Rep.resMap H.subtype f).hom ∘ₗ transfer W =
+        transfer V ∘ₗ Coinvariants.map _ _ f.hom := by
+    apply Coinvariants.hom_ext
+    ext v
+    change Coinvariants.map _ _ (Rep.resMap H.subtype f).hom
+      ((∑ q : Q, summand W q) v) = (∑ q : Q, summand V q) (f.hom v)
+    simp only [LinearMap.sum_apply, map_sum]
+    apply Finset.sum_congr rfl
+    intro q _
+    induction q using Quotient.inductionOn with | h s =>
+      change Coinvariants.mk _ (f.hom (W.ρ s v)) = Coinvariants.mk _ (V.ρ s (f.hom v))
+      rw [Rep.hom_comm_apply]
+  have projection_natural {W V : Rep k G} (f : W ⟶ V) :
+      Coinvariants.map _ _ f.hom ∘ₗ projection W =
+        projection V ∘ₗ Coinvariants.map _ _ (Rep.resMap H.subtype f).hom := by
+    apply Coinvariants.hom_ext
+    rfl
+  let D := C.coinvariantsTensorObj A
+  let E := (((Rep.resFunctor (k := k) H.subtype).mapHomologicalComplex
+    (ComplexShape.down ℕ)).obj C).coinvariantsTensorObj (Rep.res H.subtype A)
+  let τ : D ⟶ E :=
+    { f := fun i => ModuleCat.ofHom (transfer (A ⊗ C.X i))
+      comm' := by
+        intro i j _
+        apply ModuleCat.hom_ext
+        exact transfer_natural (A ◁ C.d i j) }
+  let π : E ⟶ D :=
+    { f := fun i => ModuleCat.ofHom (projection (A ⊗ C.X i))
+      comm' := by
+        intro i j _
+        apply ModuleCat.hom_ext
+        exact projection_natural (A ◁ C.d i j) }
+  have composite : τ ≫ π = H.index • 𝟙 D := by
+    ext i x
+    exact projection_transfer (A ⊗ C.X i) x
+  let F := HomologicalComplex.homologyFunctor (ModuleCat k) (ComplexShape.down ℕ) n
+  refine ⟨(F.map τ).hom, (F.map π).hom, ?_⟩
+  intro x
+  have e : F.map τ ≫ F.map π = H.index • 𝟙 (F.obj D) := by
+    rw [← F.map_comp, composite, F.map_nsmul, F.map_id]
+  exact congrArg (fun f => f.hom x) e
 
 end Submission
