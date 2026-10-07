@@ -1,0 +1,62 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'norm_eq_zero_iff|sturm_bound_levelOne_nat|hasSum_qExpansion|instFiniteIndexGamma0|finiteDimensional|FiniteDimensional|isCusp_of_mem_strictPeriods' .humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb",
+        "grep -RnE 'norm_eq_zero_iff|sturm_bound_levelOne_nat|hasSum_qExpansion|instFiniteIndexGamma0|finiteDimensional|FiniteDimensional|isCusp_of_mem_strictPeriods|analyticAt_cuspFunction_zero' .humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms .humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions",
+        "grep -RnE 'isBigO.*norm|norm.*isBigO|coeff.*exp|exp.*coeff|order.*isBigO|isBigO.*order' .humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms",
+        "git -C .lake/packages/mathlib rev-parse HEAD",
+        "git -C .lake/packages/mathlib status --porcelain",
+        "f036cc6b1f_fd_coeff_decay",
+        "f036cc6b1f_fd_norm_bound",
+        "f036cc6b1f_fd_sturm",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/fermat_p01_fd_audit_jsnh_oac/CheckContracts.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/fermat_p01_fd_audit_jsnh_oac/CheckNorm.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/fermat_p01_fd_audit_jsnh_oac/Submission.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/parent-child-handoff.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/decomposition-v1.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/NormTrace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/QExpansion.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/LevelOne/DimensionFormula.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/ArithmeticSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Cusps.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Basic.lean",
+        "/tmp/fermat_p01_fd_audit_jsnh_oac/CheckContracts.lean",
+        "/tmp/fermat_p01_fd_audit_jsnh_oac/CheckContracts.lean.log",
+        "/tmp/fermat_p01_fd_audit_jsnh_oac/CheckNorm.lean",
+        "/tmp/fermat_p01_fd_audit_jsnh_oac/CheckNorm.lean.log",
+        "/tmp/fermat_p01_fd_audit_jsnh_oac/Submission.lean.log"
+      ],
+      "conclusion": "The handoff confirms that this finite-dimensionality theorem is an existing child of the frozen root, not a replacement for it. The three-way split isolates genuine analytic and norm estimates and their Sturm consequence; the parent retains the finite coefficient-map argument. rg was unavailable, so grep and Python supplied searches. NormTrace provides the norm and its zero criterion; QExpansion supplies the disk-function analyticity, Taylor coefficients, and linearity; DimensionFormula supplies exactly the stated natural-weight Sturm bound. No matching Gamma0 finite-dimensionality or norm-domination theorem was found in the searched directories. The manifest pins project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Installed mathlib has that revision and clean status; seven inspected mathlib sources and all 20 project dependency sources match the snapshot. Independent Lean 4.33.1 runs elaborate all three frozen expressions as Prop without child declarations and verify the norm's instances, weight, product formula, and preservation of q-expansions under modular-form coercion. All ten audited library declarations have only propext, Classical.choice, and Quot.sound as transitive axioms. DAG and node-JSON scans found the three bare identifiers only in this proposal, with no competing reservations. The unchanged Submission still fails at its two reported unknown attribute targets; that existing import blocker remains separate from this decomposition approval. No child Lean proof or comparator acceptance is claimed."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "coeff_vanishing_iff_decay",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches all prose hypotheses and quantifiers, including strict period 1, C ≥ 0, and uniformity over every point above Y. Steps 1–2 legitimately obtain cusp boundedness and the holomorphic disk function for an arbitrary stated subgroup. Steps 3–4 factor the Taylor series and use compactness to obtain the uniform exponential estimate. Steps 5–6 choose a least nonzero coefficient and contradict its nonzero limiting value along positive real q. Both implications are complete and non-circular. The bare name is unreserved, and the type independently elaborates without its implementation."
+    },
+    {
+      "key": "coset_norm_bound",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "NeZero M exactly expresses the prose's nonzero-level assumption. Independent instance and definitional checks confirm that ModularForm.norm denotes the intended finite coset product. Steps 1–2 establish finiteness and isolate the identity factor f, using the correct inverse-representative slash convention. Steps 3–4 correctly use normal principal-congruence containment to identify each translated cusp and obtain a bound uniform in the real part. Steps 5–6 combine finitely many thresholds and prove the claimed inequality with C = 1, including the empty remaining-product case. No other proposed child or parent theorem is assumed. The bare name is unreserved and the frozen type is standalone."
+    },
+    {
+      "key": "gamma0_sturm_vanishing",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and Lean type agree on the integral subgroup index, natural-number division, all degrees n ≤ floor(2d/12), and the conclusion f = 0. Steps 1–2 establish strict period 1 and correctly apply the first child after function-preserving coercion. Step 3 supplies the coset bijection needed to identify the norm weight with 2d. Steps 4–5 use nonnegative constants and a common height to apply norm domination and the reverse decay implication. Steps 6–7 handle both zero and nonzero power series, satisfy the exact Sturm order inequality, and conclude through norm_eq_zero_iff and extensionality. Its dependencies point precisely to the two independent preceding children, forming an acyclic graph. The bare name is unreserved and the proposition elaborates independently."
+    }
+  ],
+  "required_changes": []
+}

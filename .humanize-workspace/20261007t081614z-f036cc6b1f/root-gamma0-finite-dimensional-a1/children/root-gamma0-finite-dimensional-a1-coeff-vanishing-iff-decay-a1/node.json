@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.gamma0_finite_dimensional-a1.coeff_vanishing_iff_decay-a1",
+  "parent_id": "root.gamma0_finite_dimensional-a1",
+  "depth": 2,
+  "title": "Coefficient vanishing is equivalent to uniform exponential decay",
+  "statement": "Let Γ be a subgroup of GL₂(ℝ), let k be an integer, and let f be a modular form of weight k for Γ. Assume 1 belongs to Γ.strictPeriods. For every natural number b, the period-one q-expansion coefficients of f vanish at every degree n ≤ b if and only if there exist real numbers C ≥ 0 and Y such that, for every z in the upper half-plane with Y ≤ Im z, ‖f(z)‖ ≤ C exp(−2π(b+1) Im z).",
+  "lean_statement": "∀ (Γ : Subgroup (Matrix.GeneralLinearGroup (Fin 2) ℝ)) (k : ℤ) (f : ModularForm Γ k), (1 : ℝ) ∈ Γ.strictPeriods → ∀ b : ℕ, (∀ n : ℕ, n ≤ b → (UpperHalfPlane.qExpansion 1 f).coeff n = 0) ↔ ∃ C Y : ℝ, 0 ≤ C ∧ ∀ z : UpperHalfPlane, Y ≤ z.im → ‖f z‖ ≤ C * Real.exp (-2 * Real.pi * ((b + 1 : ℕ) : ℝ) * z.im)",
+  "lean_name": "f036cc6b1f_fd_coeff_decay",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-gamma0-finite-dimensional-a1-coeff-vanishing-iff-decay-a1-a1"
+}

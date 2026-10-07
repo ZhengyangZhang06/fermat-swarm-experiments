@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.gamma0_finite_dimensional-a1.coset_norm_bound-a1",
+  "parent_id": "root.gamma0_finite_dimensional-a1",
+  "depth": 2,
+  "title": "The level-one coset norm is bounded by the original cusp form near infinity",
+  "statement": "For every natural number M ≠ 0 and every weight-two cusp form f for Γ₀(M), let H be the image of SL₂(ℤ) in GL₂(ℝ), and let N(f) = ModularForm.norm H f be the existing finite coset norm. There exist real numbers C ≥ 0 and Y such that ‖N(f)(z)‖ ≤ C‖f(z)‖ for every upper-half-plane point z with Y ≤ Im z.",
+  "lean_statement": "∀ (M : ℕ) [NeZero M] (f : CuspForm (CongruenceSubgroup.Gamma0 M) 2), ∃ C Y : ℝ, 0 ≤ C ∧ ∀ z : UpperHalfPlane, Y ≤ z.im → ‖ModularForm.norm (MonoidHom.range (Matrix.SpecialLinearGroup.mapGL ℝ : Matrix.SpecialLinearGroup (Fin 2) ℤ →* Matrix.GeneralLinearGroup (Fin 2) ℝ)) f z‖ ≤ C * ‖f z‖",
+  "lean_name": "f036cc6b1f_fd_norm_bound",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-gamma0-finite-dimensional-a1-coset-norm-bound-a1-a1"
+}
