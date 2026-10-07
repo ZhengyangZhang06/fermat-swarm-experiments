@@ -7,6 +7,8 @@ open scoped Topology
 
 namespace Submission
 
+/-- Vanishing through degree `b` is equivalent to decay of order `b + 1` at infinity.
+The proof uses the analytic order of the cusp function and the inverse q-parameter. -/
 theorem f036cc6b1f_fd_coeff_decay :
     ∀ (Γ : Subgroup (Matrix.GeneralLinearGroup (Fin 2) ℝ)) (k : ℤ)
       (f : ModularForm Γ k), (1 : ℝ) ∈ Γ.strictPeriods → ∀ b : ℕ,
