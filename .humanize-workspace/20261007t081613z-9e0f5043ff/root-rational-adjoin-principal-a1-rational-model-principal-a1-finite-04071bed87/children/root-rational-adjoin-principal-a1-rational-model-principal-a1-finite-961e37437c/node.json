@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1.principal_ideals_from_integer_order-a1",
+  "parent_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1",
+  "depth": 5,
+  "title": "Integer order makes every subring ideal principal",
+  "statement": "Let F be a field, let A be a subring of F with its inherited ring operations, and let ν : F → ℤ. Assume ν(f/g)=ν(f)-ν(g) whenever f and g are nonzero, and assume that for every nonzero f in F, f belongs to A if and only if ν(f) is nonnegative. Then every ideal of A is principal, so IsPrincipalIdealRing A holds.",
+  "lean_statement": "∀ (F : Type*) [Field F] (A : Subring F) (ν : F → ℤ), (∀ f g : F, f ≠ 0 → g ≠ 0 → ν (f / g) = ν f - ν g) → (∀ f : F, f ≠ 0 → (f ∈ A ↔ 0 ≤ ν f)) → IsPrincipalIdealRing A",
+  "lean_name": "p06_9e0f5043ff_elp_principal_ideals_of_order",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-961e37437c-a1"
+}

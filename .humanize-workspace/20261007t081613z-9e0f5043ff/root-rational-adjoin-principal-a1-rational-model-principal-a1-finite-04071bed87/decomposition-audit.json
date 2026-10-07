@@ -1,0 +1,52 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "structure Place|class Place|extends ValuationSubring|def Place|hasPrincipalDivisors_of_transcendental|p06_9e0f5043ff_elp_(fraction_subalgebra|integer_order|principal_ideals_of_order)",
+        "finiteMultiplicity|multiplicity_eq_zero|theorem multiplicity_mul|aeval_injective|transcendental_iff|class IsPrincipalIdealRing|structure IsPrincipal|class IsPrincipal",
+        "exists_eq_pow_mul_and_not_dvd|theorem multiplicity_mul",
+        "principal.*valuation|valuation.*principal|IsPrincipalIdealRing.*ValuationSubring|exists.*ValuationSubring|p06_9e0f5043ff_elp_(fraction_subalgebra|integer_order|principal_ideals_of_order)",
+        "p06_9e0f5043ff_elp_(fraction_subalgebra|integer_order|principal_ideals_of_order)",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/p06-elp-independent-audit-o2lsdfld/Audit.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Algebraic/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Multiplicity.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Ideal/Span.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Valuation/Discrete/IsDiscreteValuationRing.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/decomposition-typecheck/Submission.frozen-source-check.log",
+        "/tmp/p06-elp-independent-audit-o2lsdfld/Audit.lean",
+        "/tmp/p06-elp-independent-audit-o2lsdfld/Audit.log"
+      ],
+      "conclusion": "Confirmed project revision 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d. Place has exactly the four stated fields. The library supplies evaluation injectivity, multiplicity factorization/additivity, and the stated principal-ideal-ring definition. The discrete-valuation constructor search returned no match; exact-name searches across the snapshot and active DAG found no collisions. Independently checked all nine dependency pins and clean tracked files, and byte equality of relevant imported sources with the snapshot. All three explicit propositions elaborate using the frozen Definitions import without child implementations. Inherited multiplication and transfer from a valuation subring's underlying subring were checked; inspected declarations use only propext, Classical.choice, and Quot.sound. The depth-4 split is appropriate: its three independent obligations have acyclic dependencies and jointly supply every Place field. The frozen root contract remains unchanged. The saved authoritative Submission log reports three pre-existing unknown attribute targets; this decomposition approval is not activation clearance or comparator acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "fraction_subalgebra",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose, including all field, algebra, transcendence, monicity, and irreducibility hypotheses. The proof establishes evaluation injectivity, denominator nonvanishing, the denominator product property via Bezout, constants, and closure under negation, addition, and multiplication. Bundling therefore gives precisely the asserted subalgebra and membership equivalence. Rational generation is correctly unnecessary. The bare identifier is unreserved; neither the type nor proof depends on a child or parent implementation."
+    },
+    {
+      "key": "integer_order",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The explicit proposition matches every hypothesis and conclusion in the prose. Positive degree makes factor removal terminate; cancellation proves exponent uniqueness; primality gives additivity. Cross multiplication and injective evaluation prove representation independence with all nonzero conditions justified. Products and inversion establish the quotient law and normalization. The two membership directions correctly use zero denominator exponent and cancellation of common powers. Setting ν(0)=0 causes no conflict because the other laws are restricted to nonzero arguments. This complete proof is independent of the other children, and its bare identifier is unreserved."
+    },
+    {
+      "key": "principal_ideals_from_integer_order",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The proposition exactly expresses the stated criterion and quotient law for the inherited ring on a subring. The proof handles the zero ideal, justifies conversion of nonnegative integer values to natural numbers, chooses an attained minimum, and proves every nonzero ideal element is a multiple of the minimizer inside A. Both ideal containments follow. No normalization or additional valuation axiom is needed. Independent Lean checks confirm the inherited operations and applicability to a valuation subring. The proof requires no sibling theorem, and its bare identifier is unreserved."
+    }
+  ],
+  "required_changes": []
+}

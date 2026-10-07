@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1.integer_order-a1",
+  "parent_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1",
+  "depth": 5,
+  "title": "Integer order of rational functions at an irreducible polynomial",
+  "statement": "Let K and F be fields with a K-algebra structure on F. Let x in F be transcendental over K, and assume every f in F is a(x)/b(x) for polynomials a,b in K[T] with b nonzero. For every monic irreducible q in K[T], there is a function ν : F → ℤ with ν(0)=0, ν(q(x))=1, and ν(f/g)=ν(f)-ν(g) for all nonzero f,g. For every nonzero f, ν(f) is nonnegative if and only if f=a(x)/b(x) for some polynomials a,b with q not dividing b.",
+  "lean_statement": "∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F), Transcendental K x → (∀ f : F, ∃ a b : Polynomial K, b ≠ 0 ∧ f = Polynomial.aeval x a / Polynomial.aeval x b) → ∀ q : Polynomial K, q.Monic → Irreducible q → ∃ ν : F → ℤ, ν 0 = 0 ∧ ν (Polynomial.aeval x q) = 1 ∧ (∀ f g : F, f ≠ 0 → g ≠ 0 → ν (f / g) = ν f - ν g) ∧ (∀ f : F, f ≠ 0 → (0 ≤ ν f ↔ ∃ a b : Polynomial K, ¬ q ∣ b ∧ f = Polynomial.aeval x a / Polynomial.aeval x b))",
+  "lean_name": "p06_9e0f5043ff_elp_integer_order",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751-a1"
+}

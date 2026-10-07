@@ -1,0 +1,221 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081613Z-9e0f5043ff",
+  "parent_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1",
+  "dispatch_branch": "proof-workspace/fermat-p06/20261007t081613z-9e0f5043ff/dispatch/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87",
+  "source_commit": "956e8c600d8b95b46948ae5e37b13930b5f3d06b",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1.fraction_subalgebra-a1",
+      "key": "fraction_subalgebra",
+      "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-5953b81014-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-5953b81014",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "structure Place|class Place|extends ValuationSubring|def Place",
+              "exists.*[Pp]ow.*[Nn]ot|finiteMultiplicity|multiplicity_eq_zero|theorem multiplicity_mul",
+              "aeval_injective|transcendental_iff",
+              "class IsPrincipalIdealRing|structure IsPrincipal|class IsPrincipal",
+              "principal.*valuation|valuation.*principal|IsPrincipalIdealRing.*ValuationSubring|exists.*ValuationSubring",
+              "p06_9e0f5043ff_elp_(fraction_subalgebra|integer_order|principal_ideals_of_order)"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Multiplicity.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Algebraic/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Ideal/Span.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Valuation/Discrete/IsDiscreteValuationRing.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/decomposition-typecheck/CheckTypes.interface-check.log",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/decomposition-typecheck/Submission.frozen-source-check.log"
+            ],
+            "conclusion": "The snapshot records project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Place requires precisely a valuation subring, containment of constants, properness, and IsPrincipalIdealRing. The inspected library supplies evaluation injectivity from transcendence, finite-multiplicity factorization, multiplicity additivity, and the relevant ring structures. The constructor search in Valuation/Discrete/IsDiscreteValuationRing.lean returned no match; proposed-name searches also returned no collisions. All nine dependency revisions match their pins with clean tracked files, and inspected compiled-context sources match the snapshot. Library axiom checks report only propext, Classical.choice, and Quot.sound. All three proposed types elaborate after import Submission in the existing isolated import-only interface, and inherited multiplication checks pass by definitional equality. The unchanged authoritative Submission still fails on three pre-existing unknown attribute targets; successful authoritative import validation remains required before child activation. These checks are not comparator acceptance."
+          }
+        ],
+        "parent_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1",
+        "child_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1.fraction_subalgebra-a1",
+        "subproblem": {
+          "key": "fraction_subalgebra",
+          "title": "Allowed polynomial fractions form a K-subalgebra",
+          "statement": "Let K and F be fields with a K-algebra structure on F. Let x in F be transcendental over K and let q in K[T] be monic and irreducible. There is a K-subalgebra A of F whose elements are exactly the fractions a(x)/b(x) with a,b in K[T] and q not dividing b. No rational-generation hypothesis on F is required.",
+          "lean_statement": "∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F), Transcendental K x → ∀ q : Polynomial K, q.Monic → Irreducible q → ∃ A : Subalgebra K F, ∀ f : F, f ∈ A ↔ ∃ a b : Polynomial K, ¬ q ∣ b ∧ f = Polynomial.aeval x a / Polynomial.aeval x b",
+          "lean_name": "p06_9e0f5043ff_elp_fraction_subalgebra",
+          "depends_on": [],
+          "natural_proof": "1. Put R = K[T] and e(a) = a(x). Transcendence makes e injective, hence e(b) is nonzero for nonzero b. Irreducibility makes q a nonzero nonunit, so q does not divide 1.\n2. If q does not divide b, a greatest common divisor of q and b is a unit: otherwise, as a nonunit divisor of the irreducible q, it is associated to q and forces q to divide b. The Euclidean algorithm in R therefore gives u q + v b = 1. If q divides bt, multiplying this identity by t shows q divides t. Consequently if q divides neither b nor t, it does not divide bt.\n3. Let S consist exactly of e(a)/e(b) with q not dividing b. Such b is nonzero, since q divides zero, so e(b) is nonzero. Denominator 1 shows that 0, 1, and each algebraMap K F c = e(C c) belong to S. Negating e(a)/e(b) gives e(-a)/e(b), still in S.\n4. For permitted denominators b and t, their product is permitted by step 2, and field arithmetic gives e(a)/e(b) + e(c)/e(t) = e(at+cb)/e(bt) and (e(a)/e(b))(e(c)/e(t)) = e(ac)/e(bt). Thus S is closed under addition and multiplication.\n5. These operations make S a subring of F containing the image of K, hence a K-subalgebra A. Its membership characterization is precisely the defining condition for S, as required.",
+          "proof_key_steps": [
+            "Use transcendence to make evaluation injective and irreducibility to obtain the denominator product property.",
+            "Define the set of fractions with denominator not divisible by q.",
+            "Verify constants, negation, addition, and multiplication preserve this set.",
+            "Bundle it as a K-subalgebra with the defining membership equivalence."
+          ]
+        },
+        "audit": {
+          "key": "fraction_subalgebra",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly matches the prose, including all field, algebra, transcendence, monicity, and irreducibility hypotheses. The proof establishes evaluation injectivity, denominator nonvanishing, the denominator product property via Bezout, constants, and closure under negation, addition, and multiplication. Bundling therefore gives precisely the asserted subalgebra and membership equivalence. Rational generation is correctly unnecessary. The bare identifier is unreserved; neither the type nor proof depends on a child or parent implementation."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-5953b81014/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-5953b81014/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-5953b81014/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1.integer_order-a1",
+      "key": "integer_order",
+      "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "structure Place|class Place|extends ValuationSubring|def Place",
+              "exists.*[Pp]ow.*[Nn]ot|finiteMultiplicity|multiplicity_eq_zero|theorem multiplicity_mul",
+              "aeval_injective|transcendental_iff",
+              "class IsPrincipalIdealRing|structure IsPrincipal|class IsPrincipal",
+              "principal.*valuation|valuation.*principal|IsPrincipalIdealRing.*ValuationSubring|exists.*ValuationSubring",
+              "p06_9e0f5043ff_elp_(fraction_subalgebra|integer_order|principal_ideals_of_order)"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Multiplicity.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Algebraic/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Ideal/Span.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Valuation/Discrete/IsDiscreteValuationRing.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/decomposition-typecheck/CheckTypes.interface-check.log",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/decomposition-typecheck/Submission.frozen-source-check.log"
+            ],
+            "conclusion": "The snapshot records project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Place requires precisely a valuation subring, containment of constants, properness, and IsPrincipalIdealRing. The inspected library supplies evaluation injectivity from transcendence, finite-multiplicity factorization, multiplicity additivity, and the relevant ring structures. The constructor search in Valuation/Discrete/IsDiscreteValuationRing.lean returned no match; proposed-name searches also returned no collisions. All nine dependency revisions match their pins with clean tracked files, and inspected compiled-context sources match the snapshot. Library axiom checks report only propext, Classical.choice, and Quot.sound. All three proposed types elaborate after import Submission in the existing isolated import-only interface, and inherited multiplication checks pass by definitional equality. The unchanged authoritative Submission still fails on three pre-existing unknown attribute targets; successful authoritative import validation remains required before child activation. These checks are not comparator acceptance."
+          }
+        ],
+        "parent_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1",
+        "child_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1.integer_order-a1",
+        "subproblem": {
+          "key": "integer_order",
+          "title": "Integer order of rational functions at an irreducible polynomial",
+          "statement": "Let K and F be fields with a K-algebra structure on F. Let x in F be transcendental over K, and assume every f in F is a(x)/b(x) for polynomials a,b in K[T] with b nonzero. For every monic irreducible q in K[T], there is a function ν : F → ℤ with ν(0)=0, ν(q(x))=1, and ν(f/g)=ν(f)-ν(g) for all nonzero f,g. For every nonzero f, ν(f) is nonnegative if and only if f=a(x)/b(x) for some polynomials a,b with q not dividing b.",
+          "lean_statement": "∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F), Transcendental K x → (∀ f : F, ∃ a b : Polynomial K, b ≠ 0 ∧ f = Polynomial.aeval x a / Polynomial.aeval x b) → ∀ q : Polynomial K, q.Monic → Irreducible q → ∃ ν : F → ℤ, ν 0 = 0 ∧ ν (Polynomial.aeval x q) = 1 ∧ (∀ f g : F, f ≠ 0 → g ≠ 0 → ν (f / g) = ν f - ν g) ∧ (∀ f : F, f ≠ 0 → (0 ≤ ν f ↔ ∃ a b : Polynomial K, ¬ q ∣ b ∧ f = Polynomial.aeval x a / Polynomial.aeval x b))",
+          "lean_name": "p06_9e0f5043ff_elp_integer_order",
+          "depends_on": [],
+          "natural_proof": "1. Put R = K[T] and e(a) = a(x). Transcendence makes e injective. Irreducibility gives q nonzero and not a unit. Its natural degree d is positive: otherwise q is a nonzero constant and therefore a unit. Also q does not divide 1. If q does not divide a, gcd(q,a) is a unit, since a nonunit divisor of the irreducible q is associated to q and would force q to divide a. Bezout in the Euclidean ring R gives u q + v a = 1. Multiplying this equality by b proves that q dividing ab and not dividing a implies q divides b. Thus q is prime.\n2. For each nonzero a, induction on its natural degree gives a = q^m a0 with q not dividing a0. If q does not divide a, take m = 0 and a0 = a. Otherwise write a = q c. Both c and q are nonzero, so natDegree a = d + natDegree c; since d is positive, induction applies to c and yields the desired factorization with exponent increased by one. All remaining factors are nonzero. If q^m a0 = q^n b0 with both remaining factors not divisible by q and m < n, cancel the nonzero q^m to obtain a0 = q^(n-m) b0, contradicting q not dividing a0. The case n < m is symmetric. Hence the exponent is unique; denote it by μ(a).\n3. If neither a0 nor b0 is divisible by q, primality shows their product is not divisible by q. Multiplying the factorizations of nonzero a and b and using uniqueness therefore gives μ(ab) = μ(a) + μ(b). The factorizations 1 = q^0 * 1 and q = q^1 * 1 give μ(1) = 0 and μ(q) = 1. For any nonzero a, μ(a) = 0 if and only if q does not divide a: a positive exponent supplies a factor q, while exponent zero has a = a0.\n4. For each nonzero f choose the assumed representation f = e(a)/e(b) with b nonzero. Injectivity gives e(b) nonzero and the nonzero f forces a nonzero. Set ν(f) = μ(a) - μ(b) as an integer, and set ν(0) = 0. For a second representation e(c)/e(t) of the same nonzero f, both c and t are nonzero. Cross multiplication gives e(at) = e(cb), and injectivity gives at = cb. Applying step 3 gives μ(a) + μ(t) = μ(c) + μ(b), so the two integer differences agree. Thus the chosen definition has the asserted formula for every such representation.\n5. Multiplying representations and applying step 3 gives ν(fg) = ν(f) + ν(g) for nonzero f,g. Inverting a nonzero fraction exchanges its nonzero numerator and denominator, giving ν(f⁻¹) = -ν(f). Since f/g = f g⁻¹, these equalities give ν(f/g) = ν(f) - ν(g). The representations e(q) = e(q)/e(1) and 1 = e(1)/e(1) give ν(e(q)) = 1 and ν(1) = 0; e(q) is nonzero by injectivity.\n6. Suppose nonzero f has a representation e(a)/e(b) with q not dividing b. Then b and a are nonzero and μ(b) = 0, hence ν(f) = μ(a) is nonnegative.\n7. Conversely suppose f is nonzero and ν(f) is nonnegative. Choose a nonzero-denominator representation and factor a = q^m a0 and b = q^n b0 using step 2. The numerator is nonzero, and ν(f) = m - n implies n ≤ m. Since e(q) and e(b0) are nonzero, cancellation of e(q)^n gives f = e(q^(m-n) a0)/e(b0). The denominator b0 is not divisible by q. This is the required representation. Steps 6 and 7 prove the equivalence, and together with steps 4 and 5 establish every asserted property of ν.",
+          "proof_key_steps": [
+            "Prove q is prime and has positive degree.",
+            "Factor each nonzero polynomial uniquely as q^m times a factor not divisible by q.",
+            "Prove additivity of the exponents and compute the exponents of 1 and q.",
+            "Define the integer difference on nonzero fractions and prove representation independence by cross multiplication.",
+            "Derive the quotient law and the value at q(x).",
+            "Characterize nonnegative order by cancelling common powers of q."
+          ]
+        },
+        "audit": {
+          "key": "integer_order",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The explicit proposition matches every hypothesis and conclusion in the prose. Positive degree makes factor removal terminate; cancellation proves exponent uniqueness; primality gives additivity. Cross multiplication and injective evaluation prove representation independence with all nonzero conditions justified. Products and inversion establish the quotient law and normalization. The two membership directions correctly use zero denominator exponent and cancellation of common powers. Setting ν(0)=0 causes no conflict because the other laws are restricted to nonzero arguments. This complete proof is independent of the other children, and its bare identifier is unreserved."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1.principal_ideals_from_integer_order-a1",
+      "key": "principal_ideals_from_integer_order",
+      "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-961e37437c-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-961e37437c",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "structure Place|class Place|extends ValuationSubring|def Place",
+              "exists.*[Pp]ow.*[Nn]ot|finiteMultiplicity|multiplicity_eq_zero|theorem multiplicity_mul",
+              "aeval_injective|transcendental_iff",
+              "class IsPrincipalIdealRing|structure IsPrincipal|class IsPrincipal",
+              "principal.*valuation|valuation.*principal|IsPrincipalIdealRing.*ValuationSubring|exists.*ValuationSubring",
+              "p06_9e0f5043ff_elp_(fraction_subalgebra|integer_order|principal_ideals_of_order)"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Multiplicity.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Algebraic/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Ideal/Span.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Valuation/Discrete/IsDiscreteValuationRing.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/decomposition-typecheck/CheckTypes.interface-check.log",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/decomposition-typecheck/Submission.frozen-source-check.log"
+            ],
+            "conclusion": "The snapshot records project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Place requires precisely a valuation subring, containment of constants, properness, and IsPrincipalIdealRing. The inspected library supplies evaluation injectivity from transcendence, finite-multiplicity factorization, multiplicity additivity, and the relevant ring structures. The constructor search in Valuation/Discrete/IsDiscreteValuationRing.lean returned no match; proposed-name searches also returned no collisions. All nine dependency revisions match their pins with clean tracked files, and inspected compiled-context sources match the snapshot. Library axiom checks report only propext, Classical.choice, and Quot.sound. All three proposed types elaborate after import Submission in the existing isolated import-only interface, and inherited multiplication checks pass by definitional equality. The unchanged authoritative Submission still fails on three pre-existing unknown attribute targets; successful authoritative import validation remains required before child activation. These checks are not comparator acceptance."
+          }
+        ],
+        "parent_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1",
+        "child_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1.principal_ideals_from_integer_order-a1",
+        "subproblem": {
+          "key": "principal_ideals_from_integer_order",
+          "title": "Integer order makes every subring ideal principal",
+          "statement": "Let F be a field, let A be a subring of F with its inherited ring operations, and let ν : F → ℤ. Assume ν(f/g)=ν(f)-ν(g) whenever f and g are nonzero, and assume that for every nonzero f in F, f belongs to A if and only if ν(f) is nonnegative. Then every ideal of A is principal, so IsPrincipalIdealRing A holds.",
+          "lean_statement": "∀ (F : Type*) [Field F] (A : Subring F) (ν : F → ℤ), (∀ f g : F, f ≠ 0 → g ≠ 0 → ν (f / g) = ν f - ν g) → (∀ f : F, f ≠ 0 → (f ∈ A ↔ 0 ≤ ν f)) → IsPrincipalIdealRing A",
+          "lean_name": "p06_9e0f5043ff_elp_principal_ideals_of_order",
+          "depends_on": [],
+          "natural_proof": "1. Let I be an ideal of A. Regard each element of A as an element of F via the injective inclusion. If I has no nonzero element, every element of I is zero, so I is the zero ideal and is generated by zero.\n2. Otherwise consider S = {ν(z).toNat : z belongs to I and z is nonzero}. Membership of every such z in A and the assumed criterion imply ν(z) ≥ 0, so coercing ν(z).toNat back to an integer recovers ν(z). The set S is nonempty. By well-ordering of the natural numbers, choose its least member and choose a nonzero h in I realizing that member.\n3. For nonzero z in I, leastness and the nonnegative values imply ν(h) ≤ ν(z). Since both z and h are nonzero in F, the quotient z/h is nonzero and the quotient law gives ν(z/h) = ν(z) - ν(h) ≥ 0. The membership criterion therefore puts z/h in A.\n4. Regard z/h as an element c of A. In F the equality h c = z follows from h nonzero; injectivity of A into F gives the same equality in A. Thus each nonzero z in I belongs to the ideal generated by h. Zero also belongs to that ideal, so I is contained in it.\n5. Conversely, h belongs to I, so the ideal generated by h is contained in I. Therefore I is principal. Since this holds for every ideal I, the inherited ring on A satisfies IsPrincipalIdealRing A.",
+          "proof_key_steps": [
+            "Separate the zero ideal case.",
+            "Choose a nonzero ideal element of least nonnegative integer order.",
+            "Use the quotient law and membership criterion to divide every nonzero ideal element by the chosen element inside A.",
+            "Prove both containments between the ideal and the principal ideal of that element."
+          ]
+        },
+        "audit": {
+          "key": "principal_ideals_from_integer_order",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The proposition exactly expresses the stated criterion and quotient law for the inherited ring on a subring. The proof handles the zero ideal, justifies conversion of nonnegative integer values to natural numbers, chooses an attained minimum, and proves every nonzero ideal element is a multiple of the minimizer inside A. Both ideal containments follow. No normalization or additional valuation axiom is needed. Independent Lean checks confirm the inherited operations and applicability to a valuation subring. The proof requires no sibling theorem, and its bare identifier is unreserved."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-961e37437c/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-961e37437c/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-961e37437c/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/task.md": "c9a88d64f41b8c1fb3a94db18cc20ec89daa48cacf177d4c3796aa3e3c023052",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/problem.md": "789e1ee8f9e22e1ad8bb71a38c175e66a6bcc4caaf162eedaa432c1a5a5a4aa8",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/problem.json": "4501669342296827730e039055e10d19d4ab8cfca16727da7844902ff2c862c5",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/reference-manifest.json": "d193b7c9f4eb7ba36653e983d90fe6ed3e815fbf158e54214ade05340be153d1",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/decomposition.json": "f5b08b398a9f0c5d370e5817790c2c0c23084f1d553369b5a971717bbf72b196",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/decomposition-audit.json": "7941da003320a926cf6d7c6d55cfb76f3dd274949572175bfd885a0a07659cde",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/controller-contract.json": "730a41ee712e50cb88de514fa8f7f25ad53ed095f40e5642c7e761e89a033aa2",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-5953b81014/parent-child-handoff.json": "5254cccfb84b35e7c21a9fbe7a12662333254da2c7035b51ca848cac497400c4",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-5953b81014/parent-supplied-plan.md": "073219a970577b3dcafffc7607973a6711020f136d2642085fea8805c36e0cd7",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-5953b81014/parent-supplied-natural-proof.md": "510b2ade4243d7e9610087479edbe76a59f009788d8f3f9b43fe3166392a4bd0",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-5953b81014/parent-supplied-natural-proof.json": "f5d5ebc71a3dbde90bc95d0d4a944746a982f104c97760c171b9f52597b5d884",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-5953b81014/node.json": "f488c68b24bc655819535cf17ac1dca68e4c0ea590c1daf09ea29a33e346504c",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751/parent-child-handoff.json": "093daf28b3ba1bd4ab757e606441510d1fa32e5874c120425dee2173dc62058c",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751/parent-supplied-plan.md": "b59e54e73f458acf4dafc211b4b9707b49be82839757c06246838730b91a594c",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751/parent-supplied-natural-proof.md": "37f0058084f47ea85d01456dfbc242168a57edd255818da8c839d3ae3c57aede",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751/parent-supplied-natural-proof.json": "9b96f8da8661b87f75202ad40d5b4f37ae08c19030a913d8b5e5d01ebd8e6e5e",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751/node.json": "d294d11458d98897498be142b0b9f9f5c0a8ade875079cfd657119ba2baf4df1",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-961e37437c/parent-child-handoff.json": "8a2a1a545ad1d970ab8e93379a8b0b1b6eb2df54b2bae3c220feb29f2913d2ce",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-961e37437c/parent-supplied-plan.md": "f34333d2c96ae8552ee864ccdc081e068c9b21ccb1f229e539b14afc0fdc00cf",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-961e37437c/parent-supplied-natural-proof.md": "408e22ab6051b0e70974fe3b8857f98abc9abf8f9fd8e2de9e09e7c068c90b6b",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-961e37437c/parent-supplied-natural-proof.json": "22749fdc8a5322b4c8f2d7796fba8b1c9abf8186399b5f94029ccfce409233fe",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-04071bed87/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-961e37437c/node.json": "60093b5ba0a385ff2f870aebdbbba246ee2751238fee4202708894aef0e9daa5"
+  }
+}
