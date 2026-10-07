@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_classification-a1",
+  "parent_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1",
+  "depth": 3,
+  "title": "Classify rational-function places containing the polynomial variable",
+  "statement": "Let K be any field, M = FractionRing (Polynomial K) with its canonical K-algebra, and t the image of Polynomial.X in M. If v is a project place of M over K and t belongs to its valuation subring, then there exists a monic irreducible polynomial q ∈ K[T] such that, for every f ∈ M, f belongs to that valuation subring exactly when f = a(t)/b(t) for polynomials a,b with q not dividing b.",
+  "lean_statement": "∀ (K : Type*) [Field K] (v : AlgebraicCurve.Place K (FractionRing (Polynomial K))), algebraMap (Polynomial K) (FractionRing (Polynomial K)) Polynomial.X ∈ v.toValuationSubring → ∃ q : Polynomial K, q.Monic ∧ Irreducible q ∧ (∀ f : FractionRing (Polynomial K), f ∈ v.toValuationSubring ↔ ∃ a b : Polynomial K, ¬ q ∣ b ∧ f = algebraMap (Polynomial K) (FractionRing (Polynomial K)) a / algebraMap (Polynomial K) (FractionRing (Polynomial K)) b)",
+  "lean_name": "p06_9e0f5043ff_rmp_finite_place_classification",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-5677d1c395-a1"
+}

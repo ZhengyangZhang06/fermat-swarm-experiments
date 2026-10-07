@@ -1,0 +1,52 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "structure Place|def ord|def deg|ord_unit_smul_zpow|ord_coe_unit|ord_mul|ord_zpow|ord_irreducible|HasPrincipalDivisors|theorem ext|lemma ext|degree_single|instIsDiscreteValuationRing",
+        "namespace RationalFunctionField|heightOneSpectrumOfIrreducible|deg_placeOfPoint|eq_of_le_of_ne_top",
+        "p06_9e0f5043ff_rmp_finite_place_model|p06_9e0f5043ff_rmp_finite_place_classification|p06_9e0f5043ff_rmp_infinity_place",
+        "transcendental_iff_injective|injective.*aeval|aeval.*injective|theorem.*reverse.*eval|eval.*reverse|coeff_zero_reverse|constantCoeff_reverse|basis.*fin|finrank",
+        "irreducible_iff|natDegree.*factor|sum.*natDegree|natDegree.*sum|factor.*natDegree"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Polynomial/UniqueFactorization.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Algebraic/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Polynomial/Reverse.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/AdjoinRoot.lean",
+        "/tmp/p06-decomposition-audit-o1fmfgmd/Check.lean",
+        "/tmp/p06-decomposition-audit-o1fmfgmd/FreshCheck.log",
+        "/tmp/p06-decomposition-audit-o1fmfgmd/ActualSubmission.log"
+      ],
+      "conclusion": "The DAG confirms that this is the depth-2 rational_model_principal obligation, preserving the frozen root. The split separates genuine construction, classification, and infinity obligations while leaving factorization and divisor assembly to the parent. Searches found no proposed-name collisions in the active DAG or snapshot sources; RationalFunctionField construction names appeared only in attribute references. The inspected definitions confirm the required Place fields, normalized orders, residue-field degree, and principal-divisor contract. Supporting polynomial references validate evaluation injectivity, reversal, factorization, and quotient dimension. Project revision 956e8c600d8b95b46948ae5e37b13930b5f3d06b, mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d, and all nine dependencies independently matched their pins with clean tracked files. After freshly rebuilding the three pinned Definitions modules in a temporary directory, all exact child propositions elaborated without warnings or child declarations. Canonical scalar and residue-degree instances were checked by definitional equality; supporting transitive axiom checks contained only propext, Classical.choice, and Quot.sound. Inherited modules emitted style/deprecation warnings. Actual Submission.lean independently reproduced the three reported unknown attribute targets. Those remain the separately acknowledged activation/comparator blocker; this audit accepts the decomposition and prose, not any Lean solution."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "finite_place_model",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition exactly matches all prose hypotheses and conclusions. Transcendence supplies injective evaluation, and the fraction-generation hypothesis covers every field element. The eight proof steps correctly establish multiplicities, representation independence, localization membership and units, properness, principality, uniformizer normalization, and the residue-field basis. In particular, ¬q ∣ b ensures a nonzero denominator. No circular reliance or deferred proof search occurs. The bare identifier is unreserved, and no child dependency is needed."
+    },
+    {
+      "key": "finite_place_classification",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact proposition includes the canonical fraction field, place, and variable-membership hypothesis. All seven proof steps are sound: properness forces a nonzero contracted prime ideal; least-degree division yields a monic irreducible generator; permitted denominators become units; and the negative-exponent contradiction proves the reverse membership implication. Zero is handled separately. This argument does not require finite_place_model or the parent, so the empty dependency list is correct. The bare identifier is unreserved."
+    },
+    {
+      "key": "infinity_place",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone proposition exactly states exclusion of t, degree one, the nonzero-polynomial order formula with integer negation, and uniqueness. All eight proof steps are complete: reversal proves transcendence and fraction generation for t⁻¹; finite_place_model applies at Polynomial.X; injectivity excludes t; normalized order gives minus degree; and maximal-ideal contraction plus exponent cancellation proves uniqueness. Its sole dependency on finite_place_model is correctly directed and creates no cycle. The bare identifier is unreserved."
+    }
+  ],
+  "required_changes": []
+}

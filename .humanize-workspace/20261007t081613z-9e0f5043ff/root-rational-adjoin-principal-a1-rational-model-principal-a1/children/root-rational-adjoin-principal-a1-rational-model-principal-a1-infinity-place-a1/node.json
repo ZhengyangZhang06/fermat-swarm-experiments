@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "node_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1",
+  "parent_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1",
+  "depth": 3,
+  "title": "Construct and characterize the rational-function place at infinity",
+  "statement": "Let K be any field, M = FractionRing (Polynomial K) with its canonical K-algebra, and t the image of Polynomial.X. There exists a project place v∞ of M over K such that t does not belong to its valuation subring, v∞.deg = 1, and v∞.ord(a(t)) = −a.natDegree for every nonzero polynomial a ∈ K[T]. Moreover, every project place w whose valuation subring does not contain t equals v∞.",
+  "lean_statement": "∀ (K : Type*) [Field K], ∃ v : AlgebraicCurve.Place K (FractionRing (Polynomial K)), algebraMap (Polynomial K) (FractionRing (Polynomial K)) Polynomial.X ∉ v.toValuationSubring ∧ v.deg = 1 ∧ (∀ a : Polynomial K, a ≠ 0 → v.ord (algebraMap (Polynomial K) (FractionRing (Polynomial K)) a) = -(a.natDegree : ℤ)) ∧ (∀ w : AlgebraicCurve.Place K (FractionRing (Polynomial K)), algebraMap (Polynomial K) (FractionRing (Polynomial K)) Polynomial.X ∉ w.toValuationSubring → w = v)",
+  "lean_name": "p06_9e0f5043ff_rmp_infinity_place",
+  "depends_on": [
+    "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1"
+  ],
+  "dependency_workspaces": [
+    {
+      "node_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    }
+  ],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinity-place-a1-a1"
+}
