@@ -25,6 +25,13 @@ def main():
         raise RuntimeError('Forbidden provider configuration')
     project = Path.cwd()
     config = json.loads((project / 'swarm-project.json').read_text())
+    access = subprocess.run(['git', 'ls-remote', '--heads', 'origin', config['github_base_branch']],
+                            capture_output=True, text=True, timeout=60)
+    if access.returncode:
+        # Git remotes have already been restricted to token-free GitHub URLs.
+        # Keep the actual SSH failure visible instead of repeatedly starting HMZ.
+        print(access.stderr, file=sys.stderr, flush=True)
+        raise RuntimeError('Worker cannot read the registered GitHub branch')
     config.update(github_poll_once=True, github_issue_workers=1,
                   github_selected_issue=int(os.environ['HUMANIZE_SELECTED_ISSUE']))
     destination = project / '.humanize/swarm-configs' / (os.environ['HUMANIZE_SWARM_ATTEMPT'] + '.json')
