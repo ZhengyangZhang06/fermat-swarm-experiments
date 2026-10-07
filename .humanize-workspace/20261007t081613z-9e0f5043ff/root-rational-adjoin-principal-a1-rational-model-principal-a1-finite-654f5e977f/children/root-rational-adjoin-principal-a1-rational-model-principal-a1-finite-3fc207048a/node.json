@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.normalized_orders-a1.fraction_unit_criterion-a1",
+  "parent_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.normalized_orders-a1",
+  "depth": 5,
+  "title": "Units of the polynomial-local valuation ring",
+  "statement": "Let K and F be fields with a K-algebra structure on F, let x in F be transcendental over K, and let q in K[T] be monic and irreducible. Let v : AlgebraicCurve.Place K F satisfy, for every f in F, f belongs to A = v.toValuationSubring if and only if f = a(x)/b(x) for some polynomials a,b with q not dividing b. For all a,b in K[T] and z in A, if q does not divide b and the image of z in F equals a(x)/b(x), then z is a unit of A if and only if q does not divide a. No fraction-generation hypothesis on F is assumed.",
+  "lean_statement": "∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F), Transcendental K x → ∀ q : Polynomial K, q.Monic → Irreducible q → ∀ v : AlgebraicCurve.Place K F, (∀ f : F, f ∈ v.toValuationSubring ↔ ∃ a b : Polynomial K, ¬ q ∣ b ∧ f = Polynomial.aeval x a / Polynomial.aeval x b) → ∀ (a b : Polynomial K) (z : v.toValuationSubring), ¬ q ∣ b → (z : F) = Polynomial.aeval x a / Polynomial.aeval x b → (IsUnit z ↔ ¬ q ∣ a)",
+  "lean_name": "p06_9e0f5043ff_fno_fraction_isunit",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-3fc207048a-a1"
+}

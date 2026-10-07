@@ -1,0 +1,47 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "ord_coe_irreducible|ord_coe_unit|structure Place|def ord",
+        "transcendental_iff_injective|aeval_injective|theorem Irreducible.prime|lemma Irreducible.prime|isUnit_iff.*inv|inv_mem.*isUnit",
+        "p06_9e0f5043ff_fno_fraction_isunit|p06_9e0f5043ff_fno_irreducible_aeval|ord.*aeval|aeval.*ord|Irreducible.*aeval|aeval.*Irreducible",
+        "p06_9e0f5043ff_fno_fraction_isunit|p06_9e0f5043ff_fno_irreducible_aeval",
+        "structure Irreducible|class Irreducible|def Irreducible|instance.*CommRing|coe_mul|coe_one|toSubring",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/p06-independent-decomposition-audit-jz2r660d/CheckContracts.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Algebraic/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Prime/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Group/Units/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Group/Irreducible/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        "/tmp/p06-independent-decomposition-audit-jz2r660d/CheckContracts.lean",
+        "/tmp/p06-independent-decomposition-audit-jz2r660d/direct-import-contracts.log",
+        "/tmp/p06-independent-decomposition-audit-jz2r660d/unchanged-Submission.log",
+        "/tmp/p06-independent-decomposition-audit-jz2r660d/provenance.json"
+      ],
+      "conclusion": "The DAG confirms this parent is an internal obligation under the frozen root. The snapshot supplies the evaluation-injectivity, primality, unit, and order lemmas. Searches found no matching evaluation-order theorem in project Definitions and no proposed-name collision in the snapshot or among 25 DAG declarations. Independent direct-import checks elaborated both exact propositions without warnings or child implementations and confirmed canonical valuation-subring multiplication and one. Supporting declarations have no axioms beyond propext, Classical.choice, and Quot.sound. Snapshot revisions and all nine dependency revisions match their pins with clean tracked files. The split is appropriate: the unit criterion supports irreducibility, and the existing order lemmas finish the parent. This approves the decomposition only. Independently checking unchanged Submission.lean reproduced the three reported unknown attribute-target errors; the proposal's restriction against activation before successful actual-module validation remains necessary."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "fraction_unit_criterion",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition matches every prose hypothesis and conclusion, is independently elaboratable, and uses a valid unreserved bare identifier. The proof establishes evaluation injectivity and polynomial primality, proves permitted denominators nonzero, constructs the reverse fraction as an inverse, and proves the converse by representing a unit inverse and deriving ac = bd. Primality then excludes q dividing a. Zero numerators are correctly covered by the converse. Monicity is a harmless retained hypothesis. No parent, sibling, or fraction-generation assumption is used."
+    },
+    {
+      "key": "irreducible_evaluation",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact one-line existential proposition matches the prose and uses a valid unreserved bare identifier. Denominator 1 constructs the required element; the unit criterion proves it is a nonunit. For every factorization, nonzero denominator evaluations justify cross multiplication and injectivity gives ac = qbt. Divisibility of both numerators would allow cancellation of nonzero q and contradict primality and the denominator conditions. The declared sibling criterion then supplies a unit factor, exactly proving Irreducible. The sole dependency points to fraction_unit_criterion and is acyclic. Both children supply genuine obligations and suffice for the parent's two order conclusions."
+    }
+  ],
+  "required_changes": []
+}

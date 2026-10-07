@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081613Z-9e0f5043ff",
+  "parent_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.normalized_orders-a1",
+  "dispatch_branch": "proof-workspace/fermat-p06/20261007t081613z-9e0f5043ff/dispatch/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f",
+  "source_commit": "956e8c600d8b95b46948ae5e37b13930b5f3d06b",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.normalized_orders-a1.fraction_unit_criterion-a1",
+      "key": "fraction_unit_criterion",
+      "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-3fc207048a-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-3fc207048a",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "ord_coe_irreducible|ord_coe_unit|structure Place|def ord|isUnit_iff|theorem ord",
+              "aeval_injective|transcendental_iff_injective|theorem.*isUnit.*inv|isUnit_iff.*inv|inv_mem.*isUnit",
+              "theorem Irreducible.prime|lemma Irreducible.prime",
+              "p06_9e0f5043ff_fno_fraction_isunit|p06_9e0f5043ff_fno_irreducible_aeval|ord.*aeval|aeval.*ord|Irreducible.*aeval|aeval.*Irreducible",
+              "p06_9e0f5043ff_fno_fraction_isunit|p06_9e0f5043ff_fno_irreducible_aeval"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Algebraic/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Prime/Defs.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f/decomposition-typecheck/CheckTypes.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f/decomposition-typecheck/CheckTypes.interface-check.log",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f/decomposition-typecheck/Submission.frozen-source-check.log",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f/decomposition-typecheck/provenance-check.json"
+            ],
+            "conclusion": "The snapshot supplies Place.ord_coe_unit, Place.ord_coe_irreducible, transcendental_iff_injective, and Irreducible.prime. The searched snapshot sources contained no matching evaluation-order theorem or proposed-name collision; neither proposed identifier is reserved in the inspected DAG. Both snapshot revisions and all nine dependencies match their manifests and have clean tracked files. Both proposed types elaborate without warnings against the existing isolated import-only Submission interface; definitional checks confirm canonical valuation-subring multiplication. Audited supporting declarations use only propext, Classical.choice, and Quot.sound. However, actual Submission.lean still fails on three pre-existing unknown attribute targets: AlgebraicCurve.IsCurveOver.instNontrivialKaehler, AlgebraicCurve.IsFrobeniusEndo.frobNormRingHom_apply, and AlgebraicCurve.SemilinearAut.coe_torsion_smul. Actual import validation remains required before activation; interface checks are not comparator acceptance."
+          }
+        ],
+        "parent_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.normalized_orders-a1",
+        "child_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.normalized_orders-a1.fraction_unit_criterion-a1",
+        "subproblem": {
+          "key": "fraction_unit_criterion",
+          "title": "Units of the polynomial-local valuation ring",
+          "statement": "Let K and F be fields with a K-algebra structure on F, let x in F be transcendental over K, and let q in K[T] be monic and irreducible. Let v : AlgebraicCurve.Place K F satisfy, for every f in F, f belongs to A = v.toValuationSubring if and only if f = a(x)/b(x) for some polynomials a,b with q not dividing b. For all a,b in K[T] and z in A, if q does not divide b and the image of z in F equals a(x)/b(x), then z is a unit of A if and only if q does not divide a. No fraction-generation hypothesis on F is assumed.",
+          "lean_statement": "∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F), Transcendental K x → ∀ q : Polynomial K, q.Monic → Irreducible q → ∀ v : AlgebraicCurve.Place K F, (∀ f : F, f ∈ v.toValuationSubring ↔ ∃ a b : Polynomial K, ¬ q ∣ b ∧ f = Polynomial.aeval x a / Polynomial.aeval x b) → ∀ (a b : Polynomial K) (z : v.toValuationSubring), ¬ q ∣ b → (z : F) = Polynomial.aeval x a / Polynomial.aeval x b → (IsUnit z ↔ ¬ q ∣ a)",
+          "lean_name": "p06_9e0f5043ff_fno_fraction_isunit",
+          "depends_on": [],
+          "natural_proof": "1. Fix all the stated data, write R = K[T], A = v.toValuationSubring, and e(r) = r(x), and identify elements of A with their images in F when computing. Transcendence makes the ring homomorphism e injective: e(r) = 0 forces r = 0, and applying this to a difference proves injectivity. In particular, nonzero polynomials have nonzero evaluations. The irreducible polynomial q is nonzero and not a unit.\n2. The polynomial q is prime. Indeed, if q does not divide r, put d = gcd(q,r). Since d divides q and q is irreducible, either d is a unit or d is associated to q. The latter case would imply q divides r, since d divides r. Thus d is a unit. The Euclidean algorithm, followed by multiplication by the inverse of d, gives u q + t r = 1 for some u,t in R. If q divides r s, multiplying this identity by s expresses s as a sum of two multiples of q, so q divides s. Applying this when q does not divide r proves that q dividing r s always forces q to divide r or s.\n3. Fix a,b,z satisfying the two final hypotheses. Since q does not divide b and every polynomial divides zero, b is nonzero, hence e(b) is nonzero. First assume q does not divide a. The same reasoning makes e(a) nonzero. By the membership criterion the fraction e(b)/e(a) belongs to A; call the resulting element w. In F the given representation of z yields z w = (e(a)/e(b))(e(b)/e(a)) = 1 and w z = 1. The inclusion A into F is injective and preserves multiplication and one, so both identities hold in A. The pair z,w therefore defines a unit of A with value z.\n4. Conversely, assume z is a unit of A and choose its inverse w in A. Applying the membership criterion to the image of w gives c,d in R with q not dividing d and w = e(c)/e(d). Thus d and e(d) are nonzero. The equality z w = 1 in F, together with the representations of z and w, gives e(a)e(c) = e(b)e(d) after multiplication by the nonzero denominator e(b)e(d). Since e is a ring homomorphism and is injective, a c = b d.\n5. If q divided a, it would divide a c, hence b d. Primality from step 2 would force q to divide b or d, contradicting the two denominator conditions. Therefore q does not divide a. This proves the reverse implication and hence the stated equivalence.",
+          "proof_key_steps": [
+            "Use transcendence to obtain injectivity of evaluation and nonvanishing of evaluated denominators.",
+            "Prove primality of q using the polynomial gcd and Bezout identity.",
+            "For a numerator not divisible by q, use the reversed fraction as an inverse in the valuation ring.",
+            "For a unit, represent its inverse with a permitted denominator and derive ac = bd by cross multiplication and injectivity.",
+            "Use primality and the two denominator conditions to exclude q dividing the numerator."
+          ]
+        },
+        "audit": {
+          "key": "fraction_unit_criterion",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition matches every prose hypothesis and conclusion, is independently elaboratable, and uses a valid unreserved bare identifier. The proof establishes evaluation injectivity and polynomial primality, proves permitted denominators nonzero, constructs the reverse fraction as an inverse, and proves the converse by representing a unit inverse and deriving ac = bd. Primality then excludes q dividing a. Zero numerators are correctly covered by the converse. Monicity is a harmless retained hypothesis. No parent, sibling, or fraction-generation assumption is used."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-3fc207048a/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-3fc207048a/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-3fc207048a/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.normalized_orders-a1.irreducible_evaluation-a1",
+      "key": "irreducible_evaluation",
+      "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-0927c73906-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-0927c73906",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "ord_coe_irreducible|ord_coe_unit|structure Place|def ord|isUnit_iff|theorem ord",
+              "aeval_injective|transcendental_iff_injective|theorem.*isUnit.*inv|isUnit_iff.*inv|inv_mem.*isUnit",
+              "theorem Irreducible.prime|lemma Irreducible.prime",
+              "p06_9e0f5043ff_fno_fraction_isunit|p06_9e0f5043ff_fno_irreducible_aeval|ord.*aeval|aeval.*ord|Irreducible.*aeval|aeval.*Irreducible",
+              "p06_9e0f5043ff_fno_fraction_isunit|p06_9e0f5043ff_fno_irreducible_aeval"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Algebraic/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Prime/Defs.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f/decomposition-typecheck/CheckTypes.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f/decomposition-typecheck/CheckTypes.interface-check.log",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f/decomposition-typecheck/Submission.frozen-source-check.log",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f/decomposition-typecheck/provenance-check.json"
+            ],
+            "conclusion": "The snapshot supplies Place.ord_coe_unit, Place.ord_coe_irreducible, transcendental_iff_injective, and Irreducible.prime. The searched snapshot sources contained no matching evaluation-order theorem or proposed-name collision; neither proposed identifier is reserved in the inspected DAG. Both snapshot revisions and all nine dependencies match their manifests and have clean tracked files. Both proposed types elaborate without warnings against the existing isolated import-only Submission interface; definitional checks confirm canonical valuation-subring multiplication. Audited supporting declarations use only propext, Classical.choice, and Quot.sound. However, actual Submission.lean still fails on three pre-existing unknown attribute targets: AlgebraicCurve.IsCurveOver.instNontrivialKaehler, AlgebraicCurve.IsFrobeniusEndo.frobNormRingHom_apply, and AlgebraicCurve.SemilinearAut.coe_torsion_smul. Actual import validation remains required before activation; interface checks are not comparator acceptance."
+          }
+        ],
+        "parent_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.normalized_orders-a1",
+        "child_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.normalized_orders-a1.irreducible_evaluation-a1",
+        "subproblem": {
+          "key": "irreducible_evaluation",
+          "title": "The defining polynomial evaluates to an irreducible element",
+          "statement": "Let K and F be fields with a K-algebra structure on F, let x in F be transcendental over K, and let q in K[T] be monic and irreducible. Let v : AlgebraicCurve.Place K F satisfy, for every f in F, f belongs to A = v.toValuationSubring if and only if f = a(x)/b(x) for some polynomials a,b with q not dividing b. Then there exists pi in A whose image in F is q(x) and which is irreducible in A. No fraction-generation hypothesis on F is assumed.",
+          "lean_statement": "∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F), Transcendental K x → ∀ q : Polynomial K, q.Monic → Irreducible q → ∀ v : AlgebraicCurve.Place K F, (∀ f : F, f ∈ v.toValuationSubring ↔ ∃ a b : Polynomial K, ¬ q ∣ b ∧ f = Polynomial.aeval x a / Polynomial.aeval x b) → ∃ π : v.toValuationSubring, (π : F) = Polynomial.aeval x q ∧ Irreducible π",
+          "lean_name": "p06_9e0f5043ff_fno_irreducible_aeval",
+          "depends_on": [
+            "fraction_unit_criterion"
+          ],
+          "natural_proof": "1. Fix all the stated data, write R = K[T], A = v.toValuationSubring and e(r) = r(x). Transcendence makes e injective. The irreducible polynomial q is nonzero and not a unit. Hence q does not divide 1: a factorization 1 = q r would make q a unit. The membership criterion applied to e(r) = e(r)/e(1) shows that e(r) belongs to A for every polynomial r. In particular let pi be e(q) with this membership proof. Its image is e(q), and pi is nonzero because q is nonzero and e is injective.\n2. Apply the sibling fraction_unit_criterion to pi, numerator q and denominator 1. The required fraction identity follows from e(1) = 1 and the denominator condition was proved in step 1. It gives IsUnit(pi) if and only if q does not divide q. Since q divides itself, pi is not a unit.\n3. The polynomial q is prime. To verify this directly, if q does not divide r, the gcd of q and r divides q and r. Irreducibility of q forces that gcd to be a unit, since otherwise it is associated to q and q would divide r. Bezout's identity then gives u q + t r = 1. Multiplying by s shows that q dividing r s forces q to divide s. This proves the prime-divisor property for all products.\n4. Consider any factorization pi = y z in A. Apply the membership criterion to the images of y and z to choose a,b,c,t in R with q dividing neither b nor t, y = e(a)/e(b), and z = e(c)/e(t). Both b and t are nonzero because q divides zero, so both denominator evaluations are nonzero by injectivity of e.\n5. The factorization in F reads e(q) = (e(a)/e(b))(e(c)/e(t)). Multiplying by e(b)e(t) gives e(a c) = e(q b t). Injectivity of e yields a c = q b t.\n6. Suppose q divided both a and c. Write a = q a1 and c = q c1. The identity in step 5 becomes q(q a1 c1) = q(b t). Since R is a domain and q is nonzero, cancellation gives q a1 c1 = b t. Thus q divides b t. Primality from step 3 forces q to divide b or t, contradicting the chosen representations. Consequently q does not divide a or q does not divide c.\n7. In the first case, apply fraction_unit_criterion to y with its representation a/b and denominator condition to obtain that y is a unit. In the second case, apply that criterion to z with its representation c/t to obtain that z is a unit. Every factorization of pi therefore has a unit factor. Together with step 2 this proves Irreducible(pi). The element pi constructed in step 1, its stated image, and this irreducibility give the required existential conclusion.",
+          "proof_key_steps": [
+            "Use denominator 1 to place every polynomial evaluation in A and construct pi mapping to q(x).",
+            "Apply the sibling unit criterion to q/1 to prove that pi is a nonunit.",
+            "Establish the prime-divisor property of q by the gcd and Bezout argument.",
+            "Represent both factors of pi by permitted fractions and derive ac = qbt.",
+            "Exclude q dividing both numerators by cancellation and primality.",
+            "Apply the sibling unit criterion to obtain a unit factor, proving irreducibility."
+          ]
+        },
+        "audit": {
+          "key": "irreducible_evaluation",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The exact one-line existential proposition matches the prose and uses a valid unreserved bare identifier. Denominator 1 constructs the required element; the unit criterion proves it is a nonunit. For every factorization, nonzero denominator evaluations justify cross multiplication and injectivity gives ac = qbt. Divisibility of both numerators would allow cancellation of nonzero q and contradict primality and the denominator conditions. The declared sibling criterion then supplies a unit factor, exactly proving Irreducible. The sole dependency points to fraction_unit_criterion and is acyclic. Both children supply genuine obligations and suffice for the parent's two order conclusions."
+        },
+        "resolved_dependencies": [
+          "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.normalized_orders-a1.fraction_unit_criterion-a1"
+        ],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-0927c73906/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-0927c73906/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-0927c73906/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f/task.md": "c9a88d64f41b8c1fb3a94db18cc20ec89daa48cacf177d4c3796aa3e3c023052",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f/problem.md": "789e1ee8f9e22e1ad8bb71a38c175e66a6bcc4caaf162eedaa432c1a5a5a4aa8",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f/problem.json": "4501669342296827730e039055e10d19d4ab8cfca16727da7844902ff2c862c5",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f/reference-manifest.json": "d193b7c9f4eb7ba36653e983d90fe6ed3e815fbf158e54214ade05340be153d1",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f/decomposition.json": "34311736764a541ae6f9d940caa6e6684562faf8cf2750b9f9d7244710071ed7",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f/decomposition-audit.json": "2274e22b4d2d91e8920cbc02a245d84693abba5a9374f44129bb2f8d33e08db0",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f/controller-contract.json": "730a41ee712e50cb88de514fa8f7f25ad53ed095f40e5642c7e761e89a033aa2",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-3fc207048a/parent-child-handoff.json": "0249af7ee080d176e45422dd638feb41bd925c1a18a1f63a63feddf57698b60e",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-3fc207048a/parent-supplied-plan.md": "e3f6e9a96b5d8d2d67590a14325c31cbad1df05e35645356548b9adf693c5ac5",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-3fc207048a/parent-supplied-natural-proof.md": "676f1cfa280656ddefca0d1d1b54ea89a17a89521c10dfac3466b4c0912eb0e9",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-3fc207048a/parent-supplied-natural-proof.json": "af437f11dca9fa46028ab2ec044985e47b9c479123a6998c96c7e68319a0a6f6",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-3fc207048a/node.json": "45043d73e60a3cdd635e5292f0beced601ec8e8f178456adc30639565e67094a",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-0927c73906/parent-child-handoff.json": "c2ce16cde208eac027c1cd6b3bc43b447cba9b4f9be1e210227ad89c43666742",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-0927c73906/parent-supplied-plan.md": "fec36f89826337968e62bcb709acc45de352cf444c3c3ec07ce8df5583a0a25e",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-0927c73906/parent-supplied-natural-proof.md": "6ac9417bdb1d50f167295e5424ef08210291a53ab2a3d396fa6067a37f895794",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-0927c73906/parent-supplied-natural-proof.json": "95f408069a6d8d33e985d7ea8df1a529e32b491f3b626dabde5978ba6f70ba00",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-0927c73906/node.json": "08eb401d1d6b376e839dc812c62ff518d80b6197cb2b9f9b7e3745cf388f02fb"
+  }
+}
