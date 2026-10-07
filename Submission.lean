@@ -446,6 +446,7 @@ and `RepresentationTheory/Rep/Res.lean`; the complex and additive homology APIs 
 `GroupTheory/Coset/Defs.lean` and `GroupTheory/Index.lean`; preservation of repeated addition
 uses `CategoryTheory/Preadditive/AdditiveFunctor.lean` at the same revision. -/
 /-- Transfer and projection on tensor coinvariant homology have composite the subgroup index. -/
+index composite. -/
 theorem p04_ht_coinvariant_complex_transfer
     {k G : Type _} [CommRing k] [Group G] [Fintype G]
     (A : Rep k G) (H : Subgroup G) [Fintype H]
