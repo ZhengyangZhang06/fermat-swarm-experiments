@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "node_id": "root.curve_ring_equiv-a1.abelian_surface_rebase-a1",
+  "parent_id": "root.curve_ring_equiv-a1",
+  "depth": 2,
+  "title": "Preserve the abelian-scheme bundle and fibre dimension",
+  "statement": "Let T and U be commutative rings in universe zero, k : T ≃+* U, A a scheme in universe zero, and f : A → Spec U. Assume AbelianSchemePropertyBundle U f: f is smooth and proper, all its topological fibres are connected, and RelativeGroupLaw U f is nonempty. Assume also that every topological fibre of f has topological Krull dimension two. Set fT = f ≫ Spec(k). Then AbelianSchemePropertyBundle T fT holds, and every topological fibre of fT has topological Krull dimension two.",
+  "lean_statement": "∀ (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U) (A : AlgebraicGeometry.Scheme.{0}) (f : Quiver.Hom A (AlgebraicGeometry.Spec (CommRingCat.of U))), GoodReductionJacobian.AbelianSchemePropertyBundle U f → (∀ s : ↥(AlgebraicGeometry.Spec (CommRingCat.of U)), topologicalKrullDim ↥(f.base ⁻¹' {s}) = 2) → let fT := CategoryTheory.CategoryStruct.comp f (AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.toRingHom)); GoodReductionJacobian.AbelianSchemePropertyBundle T fT ∧ (∀ s : ↥(AlgebraicGeometry.Spec (CommRingCat.of T)), topologicalKrullDim ↥(fT.base ⁻¹' {s}) = 2)",
+  "lean_name": "p07_cre_abelian_surface_857cd4d38c",
+  "depends_on": [
+    "root.curve_ring_equiv-a1.group_law_rebase-a1"
+  ],
+  "dependency_workspaces": [
+    {
+      "node_id": "root.curve_ring_equiv-a1.group_law_rebase-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    }
+  ],
+  "result_branch": "humanize-recursive/fermat-p07/20261007t081612z-857cd4d38c/root-curve-ring-equiv-a1-abelian-surface-rebase-a1-a1"
+}

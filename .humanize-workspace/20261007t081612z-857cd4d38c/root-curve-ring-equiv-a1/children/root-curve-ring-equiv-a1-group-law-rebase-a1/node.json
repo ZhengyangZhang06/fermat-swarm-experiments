@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.curve_ring_equiv-a1.group_law_rebase-a1",
+  "parent_id": "root.curve_ring_equiv-a1",
+  "depth": 2,
+  "title": "Transport a relative group law across a ring isomorphism",
+  "statement": "Let T and U be commutative rings in universe zero, k : T ≃+* U, A a scheme in universe zero, f : A → Spec U, and G a RelativeGroupLaw U f. Write κ = Spec(k), ε = Spec(k⁻¹), and fT = f ≫ κ. There exist H : RelativeGroupLaw T fT and, for every scheme W and t : W → Spec T, an equivalence B(W,t) : SchemeHomOver t fT ≃ SchemeHomOver (t ≫ ε) f. Each B leaves the underlying scheme morphism unchanged and satisfies B(H.mul t P Q) = G.mul (t ≫ ε) (B P) (B Q), B(H.one t) = G.one (t ≫ ε), and B(H.inv t P) = G.inv (t ≫ ε) (B P). Moreover, if G is commutative, H is commutative.",
+  "lean_statement": "∀ (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U) (A : AlgebraicGeometry.Scheme.{0}) (f : Quiver.Hom A (AlgebraicGeometry.Spec (CommRingCat.of U))) (G : GoodReductionJacobian.RelativeGroupLaw U f), let κ := AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.toRingHom); let ε := AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.symm.toRingHom); let fT := CategoryTheory.CategoryStruct.comp f κ; ∃ (H : GoodReductionJacobian.RelativeGroupLaw T fT) (B : ∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))), NeronModelInfra.SchemeHomOver t fT ≃ NeronModelInfra.SchemeHomOver (CategoryTheory.CategoryStruct.comp t ε) f), (G.IsCommutative → H.IsCommutative) ∧ (∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))) (P : NeronModelInfra.SchemeHomOver t fT), (B W t P).1 = P.1) ∧ (∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))) (P Q : NeronModelInfra.SchemeHomOver t fT), B W t (H.mul t P Q) = G.mul (CategoryTheory.CategoryStruct.comp t ε) (B W t P) (B W t Q)) ∧ (∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))), B W t (H.one t) = G.one (CategoryTheory.CategoryStruct.comp t ε)) ∧ (∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))) (P : NeronModelInfra.SchemeHomOver t fT), B W t (H.inv t P) = G.inv (CategoryTheory.CategoryStruct.comp t ε) (B W t P))",
+  "lean_name": "p07_cre_group_law_857cd4d38c",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p07/20261007t081612z-857cd4d38c/root-curve-ring-equiv-a1-group-law-rebase-a1-a1"
+}

@@ -1,0 +1,60 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "structure RelativeGroupLaw|def IsCommutative|mul_natural|structure AbelianSchemePropertyBundle|def SchemeHomOver|structure FakeEllipticCurve|def IsPullbackVia|structure IsPullbackVia",
+        "isStableUnderBaseChange|finrank_of_isPullback|finrank_pullback_snd",
+        "SchemeHomOver|subsingleton_schemeHomOver_of_isIso",
+        "rebase|ringEquiv|RingEquiv|transport",
+        "p07_cre_group_law_857cd4d38c|p07_cre_abelian_surface_857cd4d38c|p07_cre_finite_flat_rank_857cd4d38c",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean -DautoImplicit=false -DmaxHeartbeats=4000000 -DsynthInstance.maxHeartbeats=400000 -Dbackward.isDefEq.respectTransparency.types=false AuditTypes.lean",
+        "#print axioms AlgebraicGeometry.IsFinite.instIsStableUnderBaseChangeScheme",
+        "#print axioms AlgebraicGeometry.Scheme.Hom.finrank_of_isPullback"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/lake-manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_AlgebraicGeometry_NeronModelPropertyBundleCarrier.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_AlgebraicGeometry_RelativeGroupLaw.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_JacJ1Iface.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMModuli.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFormalModuleOf.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Smooth.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Proper.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Finite.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Flat.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/FinitePresentation.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/FlatRank.lean",
+        "/tmp/p07_cre_independent_audit_9i5hl4at/AuditTypes.lean",
+        "/tmp/p07_cre_independent_audit_9i5hl4at/AuditTypes.log",
+        "/tmp/p07_cre_independent_audit_9i5hl4at/SubmissionBaseline.log"
+      ],
+      "conclusion": "Independently confirmed clean snapshots at project 73257f1e32d99b75813b037f28a5cf45a2db886d and mathlib db584cd6d46c92f209a44c0f1c829460d327499d, with installed dependency revisions matching the manifest. The definitions confirm the stated group-law and bundle fields; the cited base-change instances and FlatRank.lean:165 have the required hypotheses and orientation. No rebase/ringEquiv/transport match occurred in the three searched group-law, bundle, and QMModuli definition files. Proposed names occur only in this proposal, with no existing declaration or DAG reservation found. After freshly rebuilding the three necessary definition modules, all exact child expressions independently elaborated as Prop without child declarations. Audited library axioms were limited to propext, Classical.choice, and Quot.sound. The split appropriately concerns the existing root.curve_ring_equiv-a1 helper and preserves the frozen root contract. Independently reproduced the three reported unknown-constant errors in unchanged Submission.lean; the proposal's activation hold therefore remains necessary. This approval covers decomposition and supplied prose proofs only, not Lean proof acceptance or a successful comparator run."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "group_law_rebase",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose, including universe restrictions, underlying-morphism preservation, all three operation equations, and conditional commutativity. Steps 1–3 construct inverse relative-point equivalences and establish precomposition compatibility; steps 4–7 verify every actual RelativeGroupLaw field and conclusion. The proof is complete and non-circular. The bare identifier is unreserved, and the type independently elaborates without its implementation."
+    },
+    {
+      "key": "abelian_surface_rebase",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and independently elaborated type have identical bundle and dimension hypotheses and conclusions. The identity-total-space pullback argument is valid; the cited stability instances give smoothness and properness. Equality of fibre subsets transfers connectedness and their subtype Krull dimensions. The sole dependency, abelian_surface_rebase → group_law_rebase, correctly supplies the nonempty group-law field and creates no cycle. The proof requires no further mathematical planning, and the bare name is unreserved."
+    },
+    {
+      "key": "finite_flat_rank_rebase",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact one-line type includes all three stated hypotheses and conclusions. The pullback square is correctly oriented and its universal property fully proved. The cited instances transfer finiteness, flatness, and local finite presentation. finrank_of_isPullback applies with fst = id_C, snd = qT, f = q, and g = ε, requiring precisely the available flatness and finiteness. The proof is complete, independent, and non-circular; its bare name is unreserved."
+    }
+  ],
+  "required_changes": []
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.curve_ring_equiv-a1.finite_flat_rank_rebase-a1",
+  "parent_id": "root.curve_ring_equiv-a1",
+  "depth": 2,
+  "title": "Transport a finite flat morphism and its rank function",
+  "statement": "Let T and U be commutative rings in universe zero, k : T ≃+* U, C a scheme in universe zero, and q : C → Spec U. Assume q is finite, flat, and locally of finite presentation. Put ε = Spec(k⁻¹) and qT = q ≫ Spec(k). Then qT is finite, flat, and locally of finite presentation, and for every point s of Spec T one has qT.finrank(s) = q.finrank(ε(s)).",
+  "lean_statement": "∀ (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U) (C : AlgebraicGeometry.Scheme.{0}) (q : Quiver.Hom C (AlgebraicGeometry.Spec (CommRingCat.of U))), AlgebraicGeometry.IsFinite q → AlgebraicGeometry.Flat q → AlgebraicGeometry.LocallyOfFinitePresentation q → let ε := AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.symm.toRingHom); let qT := CategoryTheory.CategoryStruct.comp q (AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.toRingHom)); AlgebraicGeometry.IsFinite qT ∧ AlgebraicGeometry.Flat qT ∧ AlgebraicGeometry.LocallyOfFinitePresentation qT ∧ (∀ s : ↥(AlgebraicGeometry.Spec (CommRingCat.of T)), AlgebraicGeometry.Scheme.Hom.finrank qT s = AlgebraicGeometry.Scheme.Hom.finrank q (ε s))",
+  "lean_name": "p07_cre_finite_flat_rank_857cd4d38c",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p07/20261007t081612z-857cd4d38c/root-curve-ring-equiv-a1-finite-flat-rank-rebase-a1-a1"
+}
