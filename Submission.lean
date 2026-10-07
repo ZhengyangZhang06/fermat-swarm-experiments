@@ -111,6 +111,8 @@ open scoped ModularForm
 
 namespace Submission
 
+/-- Above a common height, every coset factor other than the identity has norm at most one,
+so the modular-form norm is bounded by the identity factor with constant `C = 1`. -/
 theorem f036cc6b1f_fd_norm_bound :
     ∀ (M : ℕ) [NeZero M] (f : CuspForm (CongruenceSubgroup.Gamma0 M) 2),
       ∃ C Y : ℝ, 0 ≤ C ∧ ∀ z : UpperHalfPlane, Y ≤ z.im →
@@ -124,6 +126,7 @@ theorem f036cc6b1f_fd_norm_bound :
   let Γ : Subgroup (Matrix.GeneralLinearGroup (Fin 2) ℝ) := CongruenceSubgroup.Gamma0 M
   let Q := H ⧸ Γ.subgroupOf H
   let : Fintype Q := Fintype.ofFinite Q
+  -- Arithmeticity packages the cusp condition for every integral slash translate.
   have hzero (q : Q) : UpperHalfPlane.IsZeroAtImInfty (SlashInvariantForm.quotientFunc f q) := by
     induction q using Quotient.inductionOn with
     | h r =>
@@ -137,6 +140,7 @@ theorem f036cc6b1f_fd_norm_bound :
       ‖SlashInvariantForm.quotientFunc f q z‖ ≤ 1 := by
     obtain ⟨Y, hY⟩ := UpperHalfPlane.isZeroAtImInfty_iff.mp (hzero q) 1 zero_lt_one
     exact (UpperHalfPlane.atImInfty_mem _).mpr ⟨Y, hY⟩
+  -- Finiteness of Q makes the eventual bounds hold at one common height.
   obtain ⟨Y, hY⟩ := (UpperHalfPlane.atImInfty_mem _).mp (Filter.eventually_all.mpr hbound)
   refine ⟨1, Y, zero_le_one, ?_⟩
   intro z hz
