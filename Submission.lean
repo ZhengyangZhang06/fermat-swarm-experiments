@@ -718,6 +718,23 @@ theorem p02_es_177ebb5a_ic_lct_monomial_expansion
       intro h
       exact hd (h ▸ hdegree r)
     simp [hrd]
+theorem p02_es_177ebb5a_ic_lmd_scalar_pullback
+    (h : UpperHalfPlane → ℂ) (v : ℂ)
+    (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (τ : UpperHalfPlane)
+    (hh : HasDerivAt (fun z : ℂ => h (UpperHalfPlane.ofComplex z)) v
+      ((σ • τ : UpperHalfPlane) : ℂ)) :
+    HasDerivAt (fun z : ℂ => h (σ • UpperHalfPlane.ofComplex z))
+      (v / (HeckeEis.jFactor σ τ) ^ 2) (τ : ℂ) := by
+  have hdet : (Matrix.SpecialLinearGroup.mapGL ℝ σ).val.det = 1 :=
+    (Matrix.SpecialLinearGroup.map (algebraMap ℤ ℝ) σ).property
+  have hσ : HasDerivAt
+      (fun z : ℂ => ((σ • UpperHalfPlane.ofComplex z : UpperHalfPlane) : ℂ))
+      (1 / (HeckeEis.jFactor σ τ) ^ 2) (τ : ℂ) := by
+    simpa only [hdet, Complex.ofReal_one, ← HeckeEis.jFactor_eq_denom] using!
+      (UpperHalfPlane.hasStrictDerivAt_smul
+        (g := Matrix.SpecialLinearGroup.mapGL ℝ σ) (by rw [hdet]; exact zero_lt_one) τ).hasDerivAt
+  simpa [Function.comp_def, UpperHalfPlane.ofComplex_apply, div_eq_mul_inv] using
+    hh.comp_of_eq (τ : ℂ) hσ (by simp)
 
 theorem p02_es_177ebb5a_ic_lmd_scalar_pullback
     (h : UpperHalfPlane → ℂ) (v : ℂ)
