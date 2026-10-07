@@ -21,6 +21,7 @@ theorem Rep.isZero_tateCohomology_of_forall_sylow {k G : Type u} [CommRing k] [G
 
 namespace Submission
 
+/-- An additive group is trivial if every prime is avoided by a positive global annihilator. -/
 theorem p04_eq_zero_of_prime_avoiding_annihilators :
     ∀ {V : Type*} [AddCommGroup V],
       (∀ p : ℕ, p.Prime → ∃ m : ℕ, 0 < m ∧ ¬ p ∣ m ∧ ∀ v : V, m • v = 0) →
