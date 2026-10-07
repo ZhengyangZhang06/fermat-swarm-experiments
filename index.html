@@ -70,7 +70,11 @@ function ledger(issues){
 }
 async function refresh(){
  try{
-  [campaign,status]=await Promise.all([get('campaign.json'),get('status.json')]);
+  campaign=await get('campaign.json');
+  const minute=Math.floor(Date.now()/60000);
+  const observations=await Promise.allSettled([minute,minute+1].map(t=>get(`https://raw.githubusercontent.com/${repo}/status-live/ticks/${t}/status.json`)));
+  const fresh=observations.filter(r=>r.status==='fulfilled').map(r=>r.value).filter(r=>Number.isFinite(Date.parse(r.observed_at)));
+  status=fresh.sort((a,b)=>Date.parse(b.observed_at)-Date.parse(a.observed_at))[0] || await get('status.json');
   put('roots',campaign.problems.length);put('ready',`${status.readiness_passed}/128`);
   put('resolvers',status.running_resolvers);put('verified',status.verified_integrated_roots);
   const age=Date.now()-Date.parse(status.observed_at);
