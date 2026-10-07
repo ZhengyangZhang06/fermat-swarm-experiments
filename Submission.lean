@@ -1995,6 +1995,7 @@ theorem p06_9e0f5043ff_pae_place_equivalence_degree :
               exact ValuationSubring.mem_top _
             change f.symm (f x) ∈ v.toValuationSubring at hx
             simpa using hx
+          -- The pinned library transports generators through this surjective ring map.
           isPrincipalIdealRing' := IsPrincipalIdealRing.of_surjective r₀ r₀.surjective }
       let := AlgebraicCurve.Place.instAlgebraSubtypeMemValuationSubringToValuationSubring w
       let r : v.toValuationSubring ≃ₐ[K] w.toValuationSubring :=
@@ -2022,6 +2023,7 @@ theorem p06_9e0f5043ff_pae_place_equivalence_degree :
   refine ⟨θ, ?_, fun v => (hT v).2⟩
   intro v
   obtain ⟨r, _⟩ := (hT v).2
+  -- The residue equivalence descends through the maximal ideals; finrank needs no finiteness.
   exact (IsLocalRing.ResidueField.mapAlgEquiv r).toLinearEquiv.finrank_eq.symm
 
 end Submission
