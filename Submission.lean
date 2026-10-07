@@ -1953,7 +1953,9 @@ The valuation rings are pulled back along the inverse equivalence; their induced
 algebra equivalences preserve `finrank` without a finite-dimensionality assumption. -/
 namespace Submission
 
-/-- An algebra equivalence transports places and preserves their residue degrees. -/
+/-- An algebra equivalence transports places and preserves their residue degrees.
+The valuation rings are pulled back along the inverse equivalence; their induced residue
+algebra equivalences preserve `finrank` without a finite-dimensionality assumption. -/
 theorem p06_9e0f5043ff_pae_place_equivalence_degree :
     ∀ (K E L : Type*) [Field K] [Field E] [Field L] [Algebra K E] [Algebra K L]
       (e : E ≃ₐ[K] L),
