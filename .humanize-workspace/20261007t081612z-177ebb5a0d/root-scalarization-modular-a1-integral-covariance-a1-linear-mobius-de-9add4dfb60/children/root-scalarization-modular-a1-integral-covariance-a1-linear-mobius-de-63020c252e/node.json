@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "node_id": "root.scalarization_modular-a1.integral_covariance-a1.linear_mobius_derivative-a1.linear_coefficient_transport-a1.lct_coefficient_expansion-a1",
+  "parent_id": "root.scalarization_modular-a1.integral_covariance-a1.linear_mobius_derivative-a1.linear_coefficient_transport-a1",
+  "depth": 5,
+  "title": "Coefficients of a linear image are fixed finite linear combinations",
+  "statement": "Let n be a natural number, V = HeckeEis.BinaryForm ℂ n, A : V →ₗ[ℂ] V, and e : Fin 2 →₀ ℕ. For r ∈ Fin(n+1), put d_r = Finsupp.single 0 r.val + Finsupp.single 1 (n−r.val). There exists c : Fin(n+1) → ℂ, independent of Q, such that every Q ∈ V satisfies coeff e((A Q).val) = Σ_{r∈Fin(n+1)} c(r)·coeff d_r(Q.val).",
+  "lean_statement": "∀ (n : ℕ) (A : ↥(HeckeEis.BinaryForm ℂ n) →ₗ[ℂ] ↥(HeckeEis.BinaryForm ℂ n)) (e : Fin 2 →₀ ℕ), ∃ c : Fin (n + 1) → ℂ, ∀ Q : ↥(HeckeEis.BinaryForm ℂ n), MvPolynomial.coeff e (A Q).val = ∑ r : Fin (n + 1), c r * MvPolynomial.coeff (Finsupp.single (0 : Fin 2) r.val + Finsupp.single (1 : Fin 2) (n - r.val)) Q.val",
+  "lean_name": "p02_es_177ebb5a_ic_lct_coeff_linear_combination",
+  "depends_on": [
+    "root.scalarization_modular-a1.integral_covariance-a1.linear_mobius_derivative-a1.linear_coefficient_transport-a1.lct_monomial_expansion-a1"
+  ],
+  "dependency_workspaces": [
+    {
+      "node_id": "root.scalarization_modular-a1.integral_covariance-a1.linear_mobius_derivative-a1.linear_coefficient_transport-a1.lct_monomial_expansion-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    }
+  ],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-63020c252e-a1"
+}

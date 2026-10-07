@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081612Z-177ebb5a0d",
+  "parent_id": "root.scalarization_modular-a1.integral_covariance-a1.linear_mobius_derivative-a1.linear_coefficient_transport-a1",
+  "dispatch_branch": "proof-workspace/fermat-p02/20261007t081612z-177ebb5a0d/dispatch/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-9add4dfb60",
+  "source_commit": "0f5a9b05fb9673e5a60fa917656db526e75c7db1",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.scalarization_modular-a1.integral_covariance-a1.linear_mobius_derivative-a1.linear_coefficient_transport-a1.lct_monomial_expansion-a1",
+      "key": "lct_monomial_expansion",
+      "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-4cb14214f2-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-9add4dfb60/children/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-4cb14214f2",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "binaryForm.*(basis|[Ee]xpan|[Cc]oeff)|BinaryForm.*(basis|[Ee]xpan)|coeff.*HasDerivAt|HasDerivAt.*coeff",
+              "BinaryForm.*(expand|expansion|sum)|((expand|expansion|sum).*[Bb]inary[Ff]orm)",
+              "basis|monomial|coeff.*zero|sum|mem_homogeneousSubmodule",
+              "theorem (coeff_monomial|coeff_smul|coeff_sum|ext)|lemma (coeff_monomial|coeff_smul|coeff_sum)|finsetSum_coeff|support_sum_monomial_coeff",
+              "degree_eq_sum|degree_single|degree_add|degree_eq_weight_one",
+              "theorem HasDerivAt\\.(sum|fun_sum|const_mul)|lemma HasDerivAt\\.(sum|fun_sum|const_mul)",
+              "p02_es_177ebb5a_ic_lct_monomial_expansion|p02_es_177ebb5a_ic_lct_coeff_linear_combination",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_ic_lct_decomposition_types.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Data/Finsupp/Weight.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Add.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Mul.lean",
+              "/tmp/p02_ic_lct_decomposition_types.lean"
+            ],
+            "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. BinaryForm is the homogeneous polynomial submodule. The project search found the coefficientwise Eichler-integral derivative condition; the specialized binary-form expansion search returned no matches in project/Definitions or mathlib/Mathlib/RingTheory/MvPolynomial. Inspected mathlib sources supply monomial homogeneity, off-degree coefficient vanishing, coefficient extensionality and linearity, exponent degree identities, and finite-sum and constant-multiple derivative rules. Both proposed types elaborated after import Submission. Instance synthesis returned AddMonoidAlgebra.algebra.toSMul for polynomial scalar multiplication and the submodule scalar action for BinaryForm; coefficient compatibility with complex multiplication also checked. All nine installed dependencies matched their pins with clean tracked sources. Six transitive project definition files matched the frozen project revision and snapshot, and the five inspected mathlib files matched the snapshot. Transitive axiom checks of the cited infrastructure returned only propext, Classical.choice, and Quot.sound. Equivalent algebraic obligations remain pending under other names in another DAG branch; neither proposed identifier is reserved. These are interface and infrastructure checks, not comparator acceptance of child proofs."
+          }
+        ],
+        "parent_id": "root.scalarization_modular-a1.integral_covariance-a1.linear_mobius_derivative-a1.linear_coefficient_transport-a1",
+        "child_id": "root.scalarization_modular-a1.integral_covariance-a1.linear_mobius_derivative-a1.linear_coefficient_transport-a1.lct_monomial_expansion-a1",
+        "subproblem": {
+          "key": "lct_monomial_expansion",
+          "title": "Finite monomial expansion of a homogeneous binary form",
+          "statement": "Let n be a natural number and Q an element of HeckeEis.BinaryForm ℂ n. For r ∈ Fin(n+1), define d_r : Fin 2 →₀ ℕ by d_r = Finsupp.single 0 r.val + Finsupp.single 1 (n−r.val). Then, in MvPolynomial (Fin 2) ℂ, Q.val = Σ_{r∈Fin(n+1)} coeff d_r(Q.val) • monomial d_r 1.",
+          "lean_statement": "∀ (n : ℕ) (Q : ↥(HeckeEis.BinaryForm ℂ n)), Q.val = ∑ r : Fin (n + 1), MvPolynomial.coeff (Finsupp.single (0 : Fin 2) r.val + Finsupp.single (1 : Fin 2) (n - r.val)) Q.val • MvPolynomial.monomial (Finsupp.single (0 : Fin 2) r.val + Finsupp.single (1 : Fin 2) (n - r.val)) (1 : ℂ)",
+          "lean_name": "p02_es_177ebb5a_ic_lct_monomial_expansion",
+          "depends_on": [],
+          "natural_proof": "1. Fix n and Q. For r ∈ Fin(n+1), put d_r = single 0 r.val + single 1 (n−r.val), and put m_r = monomial d_r 1. Since r.val < n+1, we have r.val ≤ n. Evaluating the single functions gives d_r(0)=r.val and d_r(1)=n−r.val. The degree of a finitely supported exponent on Fin 2 is the sum of its values at 0 and 1, so degree(d_r)=r.val+(n−r.val)=n.\n2. Let S = Σ_r coeff d_r(Q.val) • m_r. Fix any exponent d : Fin 2 →₀ ℕ. Coefficients preserve finite sums and scalar multiplication, and the monomial coefficient formula gives coeff d(m_r)=1 if d_r=d and 0 otherwise. Consequently coeff d(S)=Σ_r coeff d_r(Q.val)·(if d_r=d then 1 else 0).\n3. Suppose degree(d)≠n. Since Q belongs to the degree-n homogeneous submodule, coeff d(Q.val)=0. Step 1 shows d_r≠d for every r, so every summand in step 2 is zero. Thus coeff d(S)=0=coeff d(Q.val).\n4. Suppose degree(d)=n. This means d(0)+d(1)=n. Hence d(0)≤n and n−d(0)=d(1). Let r₀ ∈ Fin(n+1) have value d(0); its required bound follows from d(0)≤n. The exponents d_{r₀} and d agree at 0 and at 1. These are all elements of Fin 2, so finitely supported function extensionality gives d_{r₀}=d.\n5. If d_r=d, evaluation at 0 gives r.val=d(0)=r₀.val. Extensionality of Fin yields r=r₀. Therefore the finite sum in step 2 reduces to its term at r₀ and equals coeff d_{r₀}(Q.val)=coeff d(Q.val).\n6. The two cases prove coeff d(Q.val)=coeff d(S) for every exponent d. Polynomial coefficient extensionality gives Q.val=S, which is the asserted equality.",
+          "proof_key_steps": [
+            "Compute the coordinates and degree of every exponent d_r.",
+            "Compute coefficients of the proposed sum using coefficient linearity and the monomial formula.",
+            "Use homogeneity to handle exponents of degree different from n.",
+            "Represent each degree-n exponent uniquely as d_r.",
+            "Reduce the coefficient sum to one term and apply polynomial extensionality."
+          ]
+        },
+        "audit": {
+          "key": "lct_monomial_expansion",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly matches the prose, including n, homogeneous-submodule membership, the Fin(n+1) index set, and polynomial equality. Its bare Lean name is unreserved, and the type is independently usable without the child declaration. Every proof step is valid: r.val≤n gives the stated degree; coefficient linearity computes the sum; homogeneity handles off-degree exponents; each degree-n exponent has the unique index r=d(0); coefficient extensionality concludes equality. This includes n=0. The obligation is genuinely algebraic and has no circular dependency."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-4cb14214f2/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-4cb14214f2/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-4cb14214f2/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.scalarization_modular-a1.integral_covariance-a1.linear_mobius_derivative-a1.linear_coefficient_transport-a1.lct_coefficient_expansion-a1",
+      "key": "lct_coefficient_expansion",
+      "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-63020c252e-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-9add4dfb60/children/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-63020c252e",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "binaryForm.*(basis|[Ee]xpan|[Cc]oeff)|BinaryForm.*(basis|[Ee]xpan)|coeff.*HasDerivAt|HasDerivAt.*coeff",
+              "BinaryForm.*(expand|expansion|sum)|((expand|expansion|sum).*[Bb]inary[Ff]orm)",
+              "basis|monomial|coeff.*zero|sum|mem_homogeneousSubmodule",
+              "theorem (coeff_monomial|coeff_smul|coeff_sum|ext)|lemma (coeff_monomial|coeff_smul|coeff_sum)|finsetSum_coeff|support_sum_monomial_coeff",
+              "degree_eq_sum|degree_single|degree_add|degree_eq_weight_one",
+              "theorem HasDerivAt\\.(sum|fun_sum|const_mul)|lemma HasDerivAt\\.(sum|fun_sum|const_mul)",
+              "p02_es_177ebb5a_ic_lct_monomial_expansion|p02_es_177ebb5a_ic_lct_coeff_linear_combination",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_ic_lct_decomposition_types.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Data/Finsupp/Weight.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Add.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Mul.lean",
+              "/tmp/p02_ic_lct_decomposition_types.lean"
+            ],
+            "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. BinaryForm is the homogeneous polynomial submodule. The project search found the coefficientwise Eichler-integral derivative condition; the specialized binary-form expansion search returned no matches in project/Definitions or mathlib/Mathlib/RingTheory/MvPolynomial. Inspected mathlib sources supply monomial homogeneity, off-degree coefficient vanishing, coefficient extensionality and linearity, exponent degree identities, and finite-sum and constant-multiple derivative rules. Both proposed types elaborated after import Submission. Instance synthesis returned AddMonoidAlgebra.algebra.toSMul for polynomial scalar multiplication and the submodule scalar action for BinaryForm; coefficient compatibility with complex multiplication also checked. All nine installed dependencies matched their pins with clean tracked sources. Six transitive project definition files matched the frozen project revision and snapshot, and the five inspected mathlib files matched the snapshot. Transitive axiom checks of the cited infrastructure returned only propext, Classical.choice, and Quot.sound. Equivalent algebraic obligations remain pending under other names in another DAG branch; neither proposed identifier is reserved. These are interface and infrastructure checks, not comparator acceptance of child proofs."
+          }
+        ],
+        "parent_id": "root.scalarization_modular-a1.integral_covariance-a1.linear_mobius_derivative-a1.linear_coefficient_transport-a1",
+        "child_id": "root.scalarization_modular-a1.integral_covariance-a1.linear_mobius_derivative-a1.linear_coefficient_transport-a1.lct_coefficient_expansion-a1",
+        "subproblem": {
+          "key": "lct_coefficient_expansion",
+          "title": "Coefficients of a linear image are fixed finite linear combinations",
+          "statement": "Let n be a natural number, V = HeckeEis.BinaryForm ℂ n, A : V →ₗ[ℂ] V, and e : Fin 2 →₀ ℕ. For r ∈ Fin(n+1), put d_r = Finsupp.single 0 r.val + Finsupp.single 1 (n−r.val). There exists c : Fin(n+1) → ℂ, independent of Q, such that every Q ∈ V satisfies coeff e((A Q).val) = Σ_{r∈Fin(n+1)} c(r)·coeff d_r(Q.val).",
+          "lean_statement": "∀ (n : ℕ) (A : ↥(HeckeEis.BinaryForm ℂ n) →ₗ[ℂ] ↥(HeckeEis.BinaryForm ℂ n)) (e : Fin 2 →₀ ℕ), ∃ c : Fin (n + 1) → ℂ, ∀ Q : ↥(HeckeEis.BinaryForm ℂ n), MvPolynomial.coeff e (A Q).val = ∑ r : Fin (n + 1), c r * MvPolynomial.coeff (Finsupp.single (0 : Fin 2) r.val + Finsupp.single (1 : Fin 2) (n - r.val)) Q.val",
+          "lean_name": "p02_es_177ebb5a_ic_lct_coeff_linear_combination",
+          "depends_on": [
+            "lct_monomial_expansion"
+          ],
+          "natural_proof": "1. Fix n, A, and e, and write V=HeckeEis.BinaryForm ℂ n. For each r ∈ Fin(n+1), define d_r=single 0 r.val+single 1 (n−r.val) and m_r=monomial d_r 1. We have r.val≤n, d_r(0)=r.val, and d_r(1)=n−r.val, so degree(d_r)=n. The monomial coefficient formula shows that every nonzero coefficient of m_r has exponent d_r and therefore degree n. Thus m_r is homogeneous of degree n. Let b_r ∈ V be m_r regarded as an element of this homogeneous submodule.\n2. Define c(r)=coeff e((A b_r).val). This defines c : Fin(n+1) → ℂ using only n, A, and e, before any choice of Q.\n3. Fix Q ∈ V and set a_r=coeff d_r(Q.val). Apply lct_monomial_expansion to obtain Q.val=Σ_r a_r • m_r. The inclusion of V into MvPolynomial (Fin 2) ℂ preserves finite sums and scalar multiplication. Therefore this sum is the underlying polynomial of Σ_r a_r • b_r. Subtype extensionality now gives Q=Σ_r a_r • b_r in V.\n4. Apply A to the equality in step 3. Since A is complex linear, it preserves the finite sum and each scalar multiple, giving A Q=Σ_r a_r • A b_r. Taking underlying polynomials and then coefficient e, using coefficient additivity and scalar compatibility, gives coeff e((A Q).val)=Σ_r a_r·coeff e((A b_r).val).\n5. Substitute a_r=coeff d_r(Q.val) and the definition of c(r). Commutativity of complex multiplication changes each summand to c(r)·coeff d_r(Q.val). This proves the required identity for the arbitrary Q. Hence the function c defined in step 2 satisfies the universal identity and witnesses the existential conclusion.",
+          "proof_key_steps": [
+            "Construct the degree-n monomials as elements b_r of the homogeneous submodule.",
+            "Define c(r) as the output coefficient of A(b_r), independently of Q.",
+            "Use the sibling expansion and subtype extensionality to expand Q inside V.",
+            "Apply linearity of A and of the coefficient functional.",
+            "Commute the complex factors and conclude the identity for every Q."
+          ]
+        },
+        "audit": {
+          "key": "lct_coefficient_expansion",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly matches all prose hypotheses and places the existential c before the universal Q, correctly expressing independence from Q. Its bare Lean name is unreserved, and the type requires neither proposed declaration. The proof establishes monomial membership, defines c using only n, A, and e, lifts the first child's polynomial expansion through subtype extensionality, and applies linearity and complex commutativity. It covers arbitrary output e without a degree restriction. Its sole dependency correctly points to lct_monomial_expansion. These two narrower obligations form an appropriate split: the parent follows using the verified finite-sum and constant-multiple derivative rules, with no further mathematical gap."
+        },
+        "resolved_dependencies": [
+          "root.scalarization_modular-a1.integral_covariance-a1.linear_mobius_derivative-a1.linear_coefficient_transport-a1.lct_monomial_expansion-a1"
+        ],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-63020c252e/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-63020c252e/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-63020c252e/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-9add4dfb60/task.md": "fbef05e2a6cfc7a6d66c1b237f25981ac872a7f88acb97b5772f4a049cee216a",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-9add4dfb60/problem.md": "bc292ceabaa59d4166815e39f5e6a0c5ec4e11e33604270753833466755074b0",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-9add4dfb60/problem.json": "bf0e4090d7154b9d64a24b6ca1b3b7a3bc13849e2326306634e0842533303df7",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-9add4dfb60/reference-manifest.json": "a8f9271939f028889a1e9bac59a7290448f8c694baf434f537bdc05b0f75f2a6",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-9add4dfb60/decomposition.json": "3dfa5dbc2a5411d1f70a035ea5a9a8e0b1de47cb03d015d0b5ce092a0ccefc59",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-9add4dfb60/decomposition-audit.json": "ccc3d42cf6ff20c7f7857d347dd257e3319821d508b4a7623709bf70a1912f5e",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-9add4dfb60/controller-contract.json": "7b7a516f9fce5467b2a4e92be9eb01a7eee74fb69c1477cc06212956b9e78e13",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-9add4dfb60/children/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-4cb14214f2/parent-child-handoff.json": "00f8aadc52e5b3522e011ccc4ea61ef0d04c246b2f1c23d7e83703398369ad30",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-9add4dfb60/children/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-4cb14214f2/parent-supplied-plan.md": "208c6fc56ec3a1193929228e71fd41c1f20bb7c628e8e160854ce45674f59bf5",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-9add4dfb60/children/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-4cb14214f2/parent-supplied-natural-proof.md": "da4c6b5f5b2dcc67b5cd875e5a14a0fca096fae572050d429c4f00784dce3556",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-9add4dfb60/children/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-4cb14214f2/parent-supplied-natural-proof.json": "2160c0e4f59bbbed31f42f954314efa3825f29f461577aa4609e28c44ddddfb4",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-9add4dfb60/children/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-4cb14214f2/node.json": "a839a3cecf86886daf783e86311943c0ab64cacabed956f0e109028729d784d3",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-9add4dfb60/children/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-63020c252e/parent-child-handoff.json": "6165584fbdf04ee6fbef28ccaba1f5907e51304fbdf2169ae1d340a843bb11de",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-9add4dfb60/children/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-63020c252e/parent-supplied-plan.md": "3f4fd78574c4ca4196690407670b806b0919584c94f88d7cec1cb357f7738d12",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-9add4dfb60/children/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-63020c252e/parent-supplied-natural-proof.md": "980e7626b04ec714af983867fadb38510e5ca76f5f1b9dc6b7a0f31fb3e9434d",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-9add4dfb60/children/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-63020c252e/parent-supplied-natural-proof.json": "c7bdf3d8e26552cf35f347cb154d653a94294cfdf9daf9aade4b28ce8f46129f",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-9add4dfb60/children/root-scalarization-modular-a1-integral-covariance-a1-linear-mobius-de-63020c252e/node.json": "85bffff786367933a2a1db5f0ce559fd893be2ccabd931705719017af38d252f"
+  }
+}
