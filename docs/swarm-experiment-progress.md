@@ -191,3 +191,34 @@ helper and all ten root PRs. Do not confuse worker deployment with experiment
 completion. The current scheduler remains one active issue per problem; independent
 child parallelism within a problem would require isolating shared DAG/integration
 state, not simply deleting the project lock.
+
+## Follow-up checkpoint, 08:27 UTC — tools and verification ready
+
+- A stronger runtime check exposed a missing companion binary: the model could
+  answer, but `/runtime/bin/codex-code-mode-host` was absent, preventing filesystem
+  tools. Workers correctly refused to invent reference evidence. Copied the exact
+  authorized standalone0.159.0 companion atomically into the shared read-only
+  runtime; no active worker or claim was restarted. SHA256:
+  `160c7ea08738447582821fbb2611ee016d6dd628853401bbc441767cb4e95ef8`.
+  Also staged the installed static `rg` binary for local searches.
+- Bootstrap smoke job `i1dhkr3ax0awwd4c6kaqcudbq` on hoa0 completed exit0. It asks
+  the configured model to read a random local file whose value is not in the
+  prompt. The exact answer matched, proving actual tool execution, not merely
+  authentication. p04 logs independently confirm restored file reads and research
+  into restriction/transfer for the four Tate-cohomology degree cases.
+- All ten jobs reached natural-proof drafting; none has a passing prose review
+  yet. Earlier unreviewed drafts retain their reported missing-tool gaps.
+- The additional sandbox canary test passed: code inside the verification sandbox
+  cannot read a private file outside the allowlisted roots. All55 worktree tests
+  pass, including long Swarm paths staying on shared storage.
+- The controller catalogue now sets `verifier_ready:true`. The ten-case comparator
+  self-test, seven remote-service tests and sandbox canary are complete. The
+  background whole-project baseline build is still live; it is no longer a global
+  hold on individual candidate checking because every real verification independently
+  compiles its frozen challenge and candidate and runs all acceptance checks.
+  This does not mark any theorem or baseline build successful.
+- Actual Chromium mobile check of the public site:128 pollers,10 active jobs,
+  zero reviewed/verified roots, ten DAG links, no JavaScript errors, no overflow.
+  Screenshot `/tmp/fermat-swarm-live-mobile.png`. Browser environment:
+  `/tmp/math-lean-flow-status-browser/bin/python` with
+  `LD_LIBRARY_PATH=/tmp/proof-status-libs.cEVZPT/extracted/usr/lib/x86_64-linux-gnu`.
