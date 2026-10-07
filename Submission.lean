@@ -4573,5 +4573,35 @@ theorem p02_es_177ebb5a_tb_eval_bound
       mul_le_mul_of_nonneg_right (by exact_mod_cast hcard)
         (mul_nonneg hb (pow_nonneg (le_trans (norm_nonneg _) (le_max_right _ _)) _))
     _ = ((n + 1 : ℕ) : ℝ) * (max 1 ‖z‖) ^ n * b := by ring
+theorem p02_es_177ebb5a_tb_periodic_strip_bound
+    (N : ℕ) [NeZero N] (q : UpperHalfPlane → ℂ)
+    (hperiod : ∀ τ : UpperHalfPlane, q ((ModularGroup.T ^ N) • τ) = q τ)
+    (hstrip : ∃ M Y : ℝ, ∀ τ : UpperHalfPlane,
+      0 ≤ τ.re → τ.re ≤ (N : ℝ) → Y ≤ τ.im → ‖q τ‖ ≤ M) :
+    UpperHalfPlane.IsBoundedAtImInfty q := by
+  obtain ⟨M, Y, hstrip⟩ := hstrip
+  have hN : (0 : ℝ) < N := by exact_mod_cast NeZero.pos N
+  have htranslate (τ : UpperHalfPlane) : q ((N : ℝ) +ᵥ τ) = q τ := by
+    simpa only [← zpow_natCast, UpperHalfPlane.modular_T_zpow_smul,
+      Int.cast_natCast] using hperiod τ
+  apply UpperHalfPlane.isBoundedAtImInfty_iff.mpr
+  refine ⟨M, Y, ?_⟩
+  intro τ hτ
+  have hper : Function.Periodic (fun x : ℝ => q (x +ᵥ τ)) (N : ℝ) := by
+    intro x
+    simpa only [← add_vadd, add_comm] using htranslate (x +ᵥ τ)
+  let m : ℤ := ⌊τ.re / (N : ℝ)⌋
+  let τ' : UpperHalfPlane := (-(m : ℝ) * (N : ℝ)) +ᵥ τ
+  have hre : τ'.re = τ.re - (m : ℝ) * N := by
+    simp [τ', sub_eq_add_neg, add_comm]
+  have hq : q τ' = q τ := by
+    simpa only [τ', Int.cast_neg, zero_vadd] using hper.int_mul_eq (-m)
+  rw [← hq]
+  apply hstrip τ'
+  · rw [hre]
+    exact Int.sub_floor_div_mul_nonneg τ.re hN
+  · rw [hre]
+    exact (Int.sub_floor_div_mul_lt τ.re hN).le
+  · simpa only [τ', UpperHalfPlane.vadd_im] using hτ
 
 end Submission
