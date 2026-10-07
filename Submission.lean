@@ -510,8 +510,8 @@ theorem p07_cq_group_law_pullback_857cd4d38c :
       (h : W' ⟶ W) (hh : h ≫ t = t') (P : SchemeHomOver t p) :
       B W' t' (GoodReductionJacobian.schemeHomOverComp h hh P) =
         GoodReductionJacobian.schemeHomOverComp h
-          (by rw [← Category.assoc, hh]) (B W t P) := by
-    exact Subtype.ext (Category.assoc h P.1 g)
+          (by rw [← Category.assoc, hh]) (B W t P) :=
+    Subtype.ext (Category.assoc h P.1 g)
   -- Transport the operations; injectivity reduces their laws to those of G.
   let H : RelativeGroupLaw T p :=
     { mul := fun {W} t P Q =>
