@@ -4022,10 +4022,10 @@ theorem p06_9e0f5043ff_dmc_cokernel_units :
         Nonempty (((Fin m → R) ⧸ LinearMap.range (Matrix.mulVecLin D)) ≃ₗ[R]
           ((Fin m → R) ⧸ LinearMap.range (Matrix.mulVecLin (P * D * Q)))) := by
   intro R _ m D P Q hP hQ
-  classical
   let eP := Matrix.toLinearEquiv' P hP.invertible
   let eQ := Matrix.toLinearEquiv' Q hQ.invertible
   refine ⟨Submodule.Quotient.equiv _ _ eP ?_⟩
+  -- The image under P is unchanged by precomposing with the automorphism Q.
   change (LinearMap.range D.mulVecLin).map P.mulVecLin =
     LinearMap.range (P * D * Q).mulVecLin
   rw [← LinearMap.range_comp, ← Matrix.mulVecLin_mul, Matrix.mulVecLin_mul (P * D) Q]
