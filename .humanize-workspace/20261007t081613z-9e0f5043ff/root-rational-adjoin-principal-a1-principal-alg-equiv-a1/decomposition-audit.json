@@ -1,0 +1,51 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'HasPrincipalDivisors|exists_unit_mul_zpow|ord_unit_smul_zpow|mapAlgEquiv' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f",
+        "grep fallback: structure Place|theorem ext|def deg|IsDiscreteValuationRing|exists_unit_mul_zpow|ord_unit_smul_zpow|HasPrincipalDivisors|degree_single|congrEquiv|smulValuationSubringEquiv|deg_smul",
+        "grep fallback: def comap|theorem mem_comap|def mapAlgEquiv|def mapEquiv|finrank_eq|exists_irreducible|of_surjective|irreducible_iff",
+        "grep fallback: def congrEquiv|def congrRingEquiv|hasPrincipalDivisors.*[Ee]quiv|[Ee]quiv.*[Hh]asPrincipalDivisors",
+        "grep fallback: p06_9e0f5043ff_pae_place_equivalence_degree|p06_9e0f5043ff_pae_compatible_order_invariance",
+        "command -v lean lake python3"
+      ],
+      "files": [
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/problem.md",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/LocalRing/ResidueField/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Dimension/Finrank.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DiscreteValuationRing/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/PrincipalIdealDomain.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Group/Irreducible/Lemmas.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-principal-alg-equiv-a1/decomposition-v1.json",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-principal-alg-equiv-a1/decomposition-typecheck/CheckTypes.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-principal-alg-equiv-a1/decomposition-typecheck/CheckTypes.interface-check.log",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-principal-alg-equiv-a1/decomposition-typecheck/Submission.frozen-source-check.log",
+        "Submission.lean",
+        "lake-manifest.json",
+        "lean-toolchain"
+      ],
+      "conclusion": "rg was unavailable; grep searches and direct source inspection supplied the evidence. Place includes properness, principality and containment of K, and provides the required DVR instance and normalized-order lemmas. Mathlib supplies correctly directed valuation-subring comap, residue algebra equivalences, unrestricted finrank invariance and irreducible elements in DVRs. No existing cross-field principal-divisor transport declaration or proposed child-name collision was found. Independently verified snapshot revisions against the manifest, clean tracked dependency trees, source identity for the three project import modules, acyclic DAG metadata, and exact agreement between proposed types and recorded checks. Recorded axiom checks contain only propext, Classical.choice and Quot.sound; Lean was unavailable here, so these checks were inspected, not rerun. This approves decomposition contracts and prose only: the recorded authoritative Submission import failure remains an activation prerequisite, and no comparator or Lean-proof acceptance is claimed."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "place_equivalence_degree",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches every prose hypothesis and conclusion and uses existing definitions independently of either child implementation. The proof correctly constructs the comap valuation subring, establishes containment of K and properness, transports principal ideals and the K-algebra structure, proves inverse place maps, and descends to residue fields. Unrestricted finrank invariance gives the stated degree equality. No circular reliance or missing mathematical step was found. The bare identifier is unreserved. This is a genuine independent obligation; the parent retains divisor reindexing and degree bookkeeping."
+    },
+    {
+      "key": "compatible_order_invariance",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly includes the fields, algebra structures, places, compatible ring isomorphism and nonzero-element hypothesis. The proof obtains an irreducible from the existing DVR instance, proves its image irreducible, factors f using the exact normalized-order lemma, transports the unit and integer power through compatibility, and evaluates the resulting order. All invoked lemma hypotheses are satisfied. It needs neither the parent nor the first child, so the empty dependency list is correct. The bare identifier is unreserved, and the frozen type has no implementation-dependent aliases or placeholders."
+    }
+  ],
+  "required_changes": []
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.rational_adjoin_principal-a1.principal_alg_equiv-a1.compatible_order_invariance-a1",
+  "parent_id": "root.rational_adjoin_principal-a1.principal_alg_equiv-a1",
+  "depth": 3,
+  "title": "Compatible valuation-ring isomorphisms preserve normalized orders",
+  "statement": "Let K, E and L be fields with K-algebra structures on E and L. Let e : E ≃ₐ[K] L, let v : AlgebraicCurve.Place K E and w : AlgebraicCurve.Place K L, and let r : v.toValuationSubring ≃ₐ[K] w.toValuationSubring. Suppose that (r a : L) = e (a : E) for every a in v.toValuationSubring. Then for every nonzero f ∈ E, w.ord (e f) = v.ord f. No characteristic, principal-divisor, finite-dimensionality, or finite-residue hypothesis is assumed.",
+  "lean_statement": "∀ (K E L : Type*) [Field K] [Field E] [Field L] [Algebra K E] [Algebra K L] (e : E ≃ₐ[K] L) (v : AlgebraicCurve.Place K E) (w : AlgebraicCurve.Place K L) (r : v.toValuationSubring ≃ₐ[K] w.toValuationSubring), (∀ a : v.toValuationSubring, (r a : L) = e (a : E)) → ∀ f : E, f ≠ 0 → w.ord (e f) = v.ord f",
+  "lean_name": "p06_9e0f5043ff_pae_compatible_order_invariance",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-principal-alg-equiv-a1-compatible-o-1b4131b110-a1"
+}

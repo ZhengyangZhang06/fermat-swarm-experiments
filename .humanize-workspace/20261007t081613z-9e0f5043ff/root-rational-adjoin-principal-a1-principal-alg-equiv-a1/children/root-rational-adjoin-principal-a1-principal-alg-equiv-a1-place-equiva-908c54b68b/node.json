@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.rational_adjoin_principal-a1.principal_alg_equiv-a1.place_equivalence_degree-a1",
+  "parent_id": "root.rational_adjoin_principal-a1.principal_alg_equiv-a1",
+  "depth": 3,
+  "title": "A field algebra isomorphism induces a degree-preserving equivalence of places",
+  "statement": "Let K, E and L be fields with K-algebra structures on E and L, and let e : E ≃ₐ[K] L. There exists an equivalence θ : AlgebraicCurve.Place K E ≃ AlgebraicCurve.Place K L such that, for every place v, (θ v).deg = v.deg and there exists a K-algebra isomorphism r from v.toValuationSubring to (θ v).toValuationSubring satisfying (r a : L) = e (a : E) for every a in v.toValuationSubring. No characteristic, principal-divisor, finite-dimensionality, or finite-residue hypothesis is assumed.",
+  "lean_statement": "∀ (K E L : Type*) [Field K] [Field E] [Field L] [Algebra K E] [Algebra K L] (e : E ≃ₐ[K] L), ∃ θ : AlgebraicCurve.Place K E ≃ AlgebraicCurve.Place K L, (∀ v : AlgebraicCurve.Place K E, (θ v).deg = v.deg) ∧ (∀ v : AlgebraicCurve.Place K E, ∃ r : v.toValuationSubring ≃ₐ[K] (θ v).toValuationSubring, ∀ a : v.toValuationSubring, (r a : L) = e (a : E))",
+  "lean_name": "p06_9e0f5043ff_pae_place_equivalence_degree",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-principal-alg-equiv-a1-place-equiva-908c54b68b-a1"
+}
