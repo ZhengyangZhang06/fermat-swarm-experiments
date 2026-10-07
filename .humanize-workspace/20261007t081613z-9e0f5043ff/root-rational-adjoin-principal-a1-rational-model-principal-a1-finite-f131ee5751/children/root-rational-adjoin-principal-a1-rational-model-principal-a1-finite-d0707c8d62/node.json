@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1.integer_order-a1.polynomial_exponent-a1",
+  "parent_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1.integer_order-a1",
+  "depth": 6,
+  "title": "Multiplicative exponent and factor extraction at an irreducible polynomial",
+  "statement": "Let K be a field and q ∈ K[T] be monic and irreducible. There exists μ : K[T] → ℕ such that μ(1)=0, μ(q)=1, and μ(ab)=μ(a)+μ(b) whenever a and b are nonzero. For every nonzero a, μ(a)=0 if and only if q does not divide a, and there exists a nonzero polynomial a₀ with q not dividing a₀ and a=q^{μ(a)}a₀. No condition on μ(0) is required.",
+  "lean_statement": "∀ (K : Type*) [Field K] (q : Polynomial K), q.Monic → Irreducible q → ∃ μ : Polynomial K → ℕ, μ 1 = 0 ∧ μ q = 1 ∧ (∀ a b : Polynomial K, a ≠ 0 → b ≠ 0 → μ (a * b) = μ a + μ b) ∧ (∀ a : Polynomial K, a ≠ 0 → (μ a = 0 ↔ ¬ q ∣ a)) ∧ (∀ a : Polynomial K, a ≠ 0 → ∃ a₀ : Polynomial K, a₀ ≠ 0 ∧ ¬ q ∣ a₀ ∧ a = q ^ μ a * a₀)",
+  "lean_name": "p06_9e0f5043ff_io_polynomial_exponent",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-d0707c8d62-a1"
+}

@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081613Z-9e0f5043ff",
+  "parent_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1.integer_order-a1",
+  "dispatch_branch": "proof-workspace/fermat-p06/20261007t081613z-9e0f5043ff/dispatch/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751",
+  "source_commit": "956e8c600d8b95b46948ae5e37b13930b5f3d06b",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1.integer_order-a1.fraction_extension-a1",
+      "key": "fraction_extension",
+      "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-aeae47f775-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-aeae47f775",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg -n 'theorem.*(multiplicity_eq_zero|multiplicity_eq_iff|finiteMultiplicity|exists_eq_pow|multiplicity_one|multiplicity_self|multiplicity_mul)|def multiplicity'",
+              "rg -n 'transcendental_iff_injective|theorem.*aeval_injective|finiteMultiplicity_iff|finiteMultiplicity.*not_isUnit|Irreducible.prime'",
+              "rg -n 'namespace RationalFunctionField|def heightOneSpectrumOfIrreducible|class HasPrincipalDivisors'",
+              "rg -n 'p06_9e0f5043ff_elp_integer_order|p06_9e0f5043ff_io_polynomial_exponent|p06_9e0f5043ff_io_fraction_extension'"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Multiplicity.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Algebraic/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project"
+            ],
+            "conclusion": "The snapshot pins project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Multiplicity.lean provides multiplicity_eq_zero, FiniteMultiplicity.exists_eq_pow_mul_and_not_dvd, multiplicity_mul, and multiplicity_self; Algebraic/Basic.lean provides transcendental_iff_injective. These five declarations were checked transitively and use only propext, Classical.choice, and Quot.sound. Installed dependencies matched their pins and were clean. DivisorClassGroup.lean confirms the unchanged root definition of HasPrincipalDivisors. The helper-name search found no matches in the pinned project; proposed names also had no DAG collisions. Both proposed types elaborated after import Submission using the existing import-only interface. The full frozen Submission still fails on three pre-existing unknown attribute targets, so exact-source validation remains blocked; interface elaboration is not comparator acceptance."
+          }
+        ],
+        "parent_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1.integer_order-a1",
+        "child_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1.integer_order-a1.fraction_extension-a1",
+        "subproblem": {
+          "key": "fraction_extension",
+          "title": "Extend an additive polynomial exponent to integer orders on fractions",
+          "statement": "Let K and F be fields with a K-algebra structure on F. Let x ∈ F be transcendental over K, and assume every f ∈ F equals a(x)/b(x) for polynomials a,b ∈ K[T] with b ≠ 0. Let μ : K[T] → ℕ satisfy μ(ab)=μ(a)+μ(b) for all nonzero a,b. Then there exists ν : F → ℤ such that ν(0)=0, ν(a(x)/b(x))=(μ(a):ℤ)−(μ(b):ℤ) for every nonzero a,b, and ν(f/g)=ν(f)−ν(g) for every nonzero f,g.",
+          "lean_statement": "∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F), Transcendental K x → (∀ f : F, ∃ a b : Polynomial K, b ≠ 0 ∧ f = Polynomial.aeval x a / Polynomial.aeval x b) → ∀ μ : Polynomial K → ℕ, (∀ a b : Polynomial K, a ≠ 0 → b ≠ 0 → μ (a * b) = μ a + μ b) → ∃ ν : F → ℤ, ν 0 = 0 ∧ (∀ a b : Polynomial K, a ≠ 0 → b ≠ 0 → ν (Polynomial.aeval x a / Polynomial.aeval x b) = (μ a : ℤ) - (μ b : ℤ)) ∧ (∀ f g : F, f ≠ 0 → g ≠ 0 → ν (f / g) = ν f - ν g)",
+          "lean_name": "p06_9e0f5043ff_io_fraction_extension",
+          "depends_on": [],
+          "natural_proof": "1. Set e = Polynomial.aeval x. Transcendence means that e is injective, so e(a) ≠ 0 exactly when a ≠ 0. For any nonzero f choose a representation f = e(a)/e(b) with b ≠ 0. Its numerator a is nonzero, because a = 0 would give f = 0.\n2. Suppose e(a)/e(b) = e(c)/e(t), where all four polynomials are nonzero. The denominators evaluate to nonzero elements, so cross multiplication gives e(a t) = e(c b). Injectivity gives a t = c b. The assumed product rule yields μ(a) + μ(t) = μ(c) + μ(b). Casting this equality into the integers and rearranging proves μ(a) - μ(b) = μ(c) - μ(t), with all differences taken in the integers.\n3. Define ν(0) = 0. For each nonzero f use a chosen representation from step 1 and define ν(f) = (μ(a) : ℤ) - (μ(b) : ℤ). Step 2 makes this independent of the choice. In particular, for every nonzero a,b, their evaluated quotient is nonzero, and comparison with its chosen representation proves the required formula for ν(e(a)/e(b)).\n4. Let f,g be nonzero, and choose f = e(a)/e(b) and g = e(c)/e(t) with all four polynomials nonzero as in step 1. Field arithmetic and the fact that e respects multiplication give f/g = e(a t)/e(b c). The polynomials a t and b c are nonzero because K[T] is a domain.\n5. Apply the formula from step 3 and the product rule for μ to obtain ν(f/g) = (μ(a) : ℤ) + (μ(t) : ℤ) - ((μ(b) : ℤ) + (μ(c) : ℤ)) = ((μ(a) : ℤ) - (μ(b) : ℤ)) - ((μ(c) : ℤ) - (μ(t) : ℤ)) = ν(f) - ν(g). Along with the definition at zero and step 3, this proves the whole conclusion.",
+          "proof_key_steps": [
+            "Use transcendence to obtain injective evaluation and nonzero numerators and denominators.",
+            "Cross-multiply equal fractions and apply additivity of μ to prove independence of the integer difference.",
+            "Define ν by chosen representations, with ν(0)=0, and establish its formula for every nonzero polynomial fraction.",
+            "Represent division using the polynomial products a t and b c.",
+            "Apply additivity and integer arithmetic to prove the division law."
+          ]
+        },
+        "audit": {
+          "key": "fraction_extension",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The single-line proposition exactly matches every stated field, algebra, transcendence, representation, and additivity hypothesis and all three conclusions. Step 1 establishes all required nonvanishing. Step 2 correctly cross-multiplies, uses injectivity, and casts natural-number additivity into integer differences. Step 3 defines ν and proves its formula for arbitrary nonzero polynomial fractions. Steps 4–5 use the correct quotient numerator a*t and denominator b*c, establish their nonvanishing, and derive the division law. No normalization assumption on μ is missing. The proof is complete and non-circular. Because μ and its product rule are hypotheses, no sibling dependency is needed. The bare identifier is unreserved, and the type elaborates independently of either implementation."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-aeae47f775/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-aeae47f775/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-aeae47f775/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1.integer_order-a1.polynomial_exponent-a1",
+      "key": "polynomial_exponent",
+      "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-d0707c8d62-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-d0707c8d62",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg -n 'theorem.*(multiplicity_eq_zero|multiplicity_eq_iff|finiteMultiplicity|exists_eq_pow|multiplicity_one|multiplicity_self|multiplicity_mul)|def multiplicity'",
+              "rg -n 'transcendental_iff_injective|theorem.*aeval_injective|finiteMultiplicity_iff|finiteMultiplicity.*not_isUnit|Irreducible.prime'",
+              "rg -n 'namespace RationalFunctionField|def heightOneSpectrumOfIrreducible|class HasPrincipalDivisors'",
+              "rg -n 'p06_9e0f5043ff_elp_integer_order|p06_9e0f5043ff_io_polynomial_exponent|p06_9e0f5043ff_io_fraction_extension'"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Multiplicity.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Algebraic/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project"
+            ],
+            "conclusion": "The snapshot pins project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Multiplicity.lean provides multiplicity_eq_zero, FiniteMultiplicity.exists_eq_pow_mul_and_not_dvd, multiplicity_mul, and multiplicity_self; Algebraic/Basic.lean provides transcendental_iff_injective. These five declarations were checked transitively and use only propext, Classical.choice, and Quot.sound. Installed dependencies matched their pins and were clean. DivisorClassGroup.lean confirms the unchanged root definition of HasPrincipalDivisors. The helper-name search found no matches in the pinned project; proposed names also had no DAG collisions. Both proposed types elaborated after import Submission using the existing import-only interface. The full frozen Submission still fails on three pre-existing unknown attribute targets, so exact-source validation remains blocked; interface elaboration is not comparator acceptance."
+          }
+        ],
+        "parent_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1.integer_order-a1",
+        "child_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1.integer_order-a1.polynomial_exponent-a1",
+        "subproblem": {
+          "key": "polynomial_exponent",
+          "title": "Multiplicative exponent and factor extraction at an irreducible polynomial",
+          "statement": "Let K be a field and q ∈ K[T] be monic and irreducible. There exists μ : K[T] → ℕ such that μ(1)=0, μ(q)=1, and μ(ab)=μ(a)+μ(b) whenever a and b are nonzero. For every nonzero a, μ(a)=0 if and only if q does not divide a, and there exists a nonzero polynomial a₀ with q not dividing a₀ and a=q^{μ(a)}a₀. No condition on μ(0) is required.",
+          "lean_statement": "∀ (K : Type*) [Field K] (q : Polynomial K), q.Monic → Irreducible q → ∃ μ : Polynomial K → ℕ, μ 1 = 0 ∧ μ q = 1 ∧ (∀ a b : Polynomial K, a ≠ 0 → b ≠ 0 → μ (a * b) = μ a + μ b) ∧ (∀ a : Polynomial K, a ≠ 0 → (μ a = 0 ↔ ¬ q ∣ a)) ∧ (∀ a : Polynomial K, a ≠ 0 → ∃ a₀ : Polynomial K, a₀ ≠ 0 ∧ ¬ q ∣ a₀ ∧ a = q ^ μ a * a₀)",
+          "lean_name": "p06_9e0f5043ff_io_polynomial_exponent",
+          "depends_on": [],
+          "natural_proof": "1. Write R = Polynomial K. Irreducibility implies q ≠ 0 and q is not a unit. A nonzero polynomial of natural degree zero is a nonzero constant and is a unit over K, so d = natDegree q > 0. Also q does not divide 1, since a divisor of 1 is a unit.\n2. If q does not divide a, the gcd g of q and a is a unit: write q = g h, and use irreducibility to conclude that g or h is a unit. If g were not a unit, h would be a unit, making q associated to g; then g dividing a would force q to divide a. A Bezout identity for g, multiplied by its inverse, therefore gives u q + v a = 1. If q divides a b, multiplying this identity by b shows q divides b. Consequently q divides a product only if it divides one of the factors.\n3. Prove by strong induction on natDegree a that every nonzero a has a factorization a = q^m a0 with a0 ≠ 0 and q not dividing a0. If q does not divide a take m = 0 and a0 = a. Otherwise write a = q c. Nonvanishing of a gives c ≠ 0, and natDegree a = d + natDegree c gives natDegree c < natDegree a. Apply induction to c and multiply its factorization by q. The cofactor remains nonzero and not divisible by q.\n4. The exponent is unique. Given q^m a0 = q^n b0 with both cofactors not divisible by q, suppose m < n. Write n = m + k with k > 0, cancel the nonzero factor q^m, and obtain a0 = q^k b0. Since k > 0, this makes q divide a0, a contradiction. The case n < m gives the same contradiction for b0. Thus m = n. Define μ(a) for nonzero a to be this unique exponent, and put μ(0) = 0.\n5. The factorizations 1 = q^0 · 1 and q = q^1 · 1 give μ(1) = 0 and μ(q) = 1 by uniqueness. For nonzero a,b, multiply their factorizations. Their cofactors have nonzero product, and step 2 shows q does not divide that product. Uniqueness gives μ(ab) = μ(a) + μ(b).\n6. If μ(a) = 0 for nonzero a, its factorization identifies a with its q-free cofactor, so q does not divide a. Conversely, if q does not divide a, the factorization a = q^0 a and uniqueness give μ(a) = 0. Step 3 with the unique exponent supplies the asserted nonzero cofactor for every nonzero a. These statements are precisely all the required properties.",
+          "proof_key_steps": [
+            "Irreducibility gives nonvanishing, positive degree, and noninvertibility of q.",
+            "Use a gcd and Bezout identity to prove that q divides a product only if it divides a factor.",
+            "Extract powers of q by strong induction on polynomial degree.",
+            "Cancel powers of q to establish uniqueness of the exponent and define μ.",
+            "Multiply factorizations to prove additivity and compute μ(1) and μ(q).",
+            "Characterize exponent zero and retain the nonzero cofactor factorization."
+          ]
+        },
+        "audit": {
+          "key": "polynomial_exponent",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The single-line proposition exactly includes the field, monicity, irreducibility, nonzero restrictions, normalization, additivity, zero-exponent criterion, and nonzero cofactor conclusion. Monicity is redundant but harmless. Steps 1–2 correctly obtain positive degree and primality through unit gcd and Bezout. Step 3 decreases degree strictly and preserves nonzero cofactors. Step 4 cancels nonzero powers to establish uniqueness before defining μ. Steps 5–6 derive every requested property from those factorizations; setting μ(0)=0 is permitted. The argument is complete and non-circular. The bare identifier is unreserved, and the independently elaborated type contains no implementation-dependent reference."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-d0707c8d62/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-d0707c8d62/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-d0707c8d62/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751/task.md": "c9a88d64f41b8c1fb3a94db18cc20ec89daa48cacf177d4c3796aa3e3c023052",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751/problem.md": "789e1ee8f9e22e1ad8bb71a38c175e66a6bcc4caaf162eedaa432c1a5a5a4aa8",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751/problem.json": "4501669342296827730e039055e10d19d4ab8cfca16727da7844902ff2c862c5",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751/reference-manifest.json": "d193b7c9f4eb7ba36653e983d90fe6ed3e815fbf158e54214ade05340be153d1",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751/decomposition.json": "4edbdb1735b3574a3bdeadb1d5f0cfb4609ec99b4c1e19ae418d1ed8b6fc9145",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751/decomposition-audit.json": "087d2ab20401ec269582086f9327cc30a444e259e9231dcf73ebe3c73c32e171",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751/controller-contract.json": "730a41ee712e50cb88de514fa8f7f25ad53ed095f40e5642c7e761e89a033aa2",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-aeae47f775/parent-child-handoff.json": "0339c177a4be02661bb789061958518c728cf6ce933628629687a3ed585eb373",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-aeae47f775/parent-supplied-plan.md": "875111c8317ecb8ffc5e1e00dd4a6fe625a60efd2283fecac4f8d986f3ece80e",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-aeae47f775/parent-supplied-natural-proof.md": "c330997c7e667844feb6ae1e8832e49bc5b7b450fc64b444b21e98e83b7cc20d",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-aeae47f775/parent-supplied-natural-proof.json": "c1152554bcf97f21c4d028134aeb417ef492bdef1bbc732a7ee63c1acd403baa",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-aeae47f775/node.json": "8c8fa32fcf15f638616af90574f7abe60af4d01f927e88e9b4a622c48c9158f6",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-d0707c8d62/parent-child-handoff.json": "0a42d82050a3b863f15f7567b54ee5ce82c35d3bf8d8ffbb22052d980e60488f",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-d0707c8d62/parent-supplied-plan.md": "f0faf6f94393c77d48d2ecaf4de29a812bb72102f8c77123fd4af425ef63cc9c",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-d0707c8d62/parent-supplied-natural-proof.md": "980d30434cdaf69ffbbc719400dc87ec7e8bc0589538da4dcffc3bc0a86e2e56",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-d0707c8d62/parent-supplied-natural-proof.json": "2ad6993b607357c4754ae5a78b5a718563640d7172dd318868b3623e5190a8e5",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-f131ee5751/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-d0707c8d62/node.json": "9399259b9af243c32f1f2de36fa4ec4ad241df7127aee6fe3e199a79481c10df"
+  }
+}

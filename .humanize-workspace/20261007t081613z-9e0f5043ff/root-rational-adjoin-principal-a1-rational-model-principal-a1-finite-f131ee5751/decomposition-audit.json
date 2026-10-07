@@ -1,0 +1,48 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'transcendental_iff_injective|theorem multiplicity_eq_zero|exists_eq_pow_mul_and_not_dvd|theorem multiplicity_mul|theorem multiplicity_self|class HasPrincipalDivisors|def heightOneSpectrumOfIrreducible' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f",
+        "rg -n 'p06_9e0f5043ff_io_polynomial_exponent|p06_9e0f5043ff_io_fraction_extension|p06_9e0f5043ff_elp_integer_order' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project",
+        "gcd_eq_gcd_ab",
+        "natDegree_mul",
+        "isUnit_iff_degree_eq_zero",
+        "git rev-parse HEAD",
+        "git status --porcelain",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/p06-independent-decomposition-3u9ho83c/IndependentTypes.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Multiplicity.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Algebraic/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/EuclideanDomain/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Polynomial/Degree/Domain.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Polynomial/FieldDivision.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/tmp/p06-independent-decomposition-3u9ho83c/IndependentTypes.lean",
+        "/tmp/p06-independent-decomposition-3u9ho83c/IndependentTypes.log",
+        "/tmp/p06-independent-decomposition-3u9ho83c/FrozenSubmission.log"
+      ],
+      "conclusion": "Independently confirmed project revision 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d. All nine installed dependencies match their pins and are clean. Inspected multiplicity, injective evaluation, Bezout, degree multiplication, and polynomial-unit lemmas; eight relevant declarations transitively use only propext, Classical.choice, and Quot.sound. Both exact child strings independently elaborate as Prop with library-only imports under Lean 4.33.1, without Submission or child implementations. The snapshot name search returned no matches; neither proposed name is reserved in the 39-node acyclic DAG. The supplied parent is the recorded depth-five integer-order helper, not a replacement for the frozen root. The two independent obligations appropriately support its normalization and denominator-cancellation argument. Approval concerns decomposition only: independently reproduced the three pre-existing unknown attribute targets in unchanged Submission.lean. That source-import blocker remains subject to the stated pre-activation requirement; these checks do not constitute comparator or theorem acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "polynomial_exponent",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The single-line proposition exactly includes the field, monicity, irreducibility, nonzero restrictions, normalization, additivity, zero-exponent criterion, and nonzero cofactor conclusion. Monicity is redundant but harmless. Steps 1–2 correctly obtain positive degree and primality through unit gcd and Bezout. Step 3 decreases degree strictly and preserves nonzero cofactors. Step 4 cancels nonzero powers to establish uniqueness before defining μ. Steps 5–6 derive every requested property from those factorizations; setting μ(0)=0 is permitted. The argument is complete and non-circular. The bare identifier is unreserved, and the independently elaborated type contains no implementation-dependent reference."
+    },
+    {
+      "key": "fraction_extension",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The single-line proposition exactly matches every stated field, algebra, transcendence, representation, and additivity hypothesis and all three conclusions. Step 1 establishes all required nonvanishing. Step 2 correctly cross-multiplies, uses injectivity, and casts natural-number additivity into integer differences. Step 3 defines ν and proves its formula for arbitrary nonzero polynomial fractions. Steps 4–5 use the correct quotient numerator a*t and denominator b*c, establish their nonvanishing, and derive the division law. No normalization assumption on μ is missing. The proof is complete and non-circular. Because μ and its product rule are hypotheses, no sibling dependency is needed. The bare identifier is unreserved, and the type elaborates independently of either implementation."
+    }
+  ],
+  "required_changes": []
+}

@@ -1,0 +1,58 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'theorem.*(multiplicity_eq_zero|multiplicity_eq_iff|finiteMultiplicity|exists_eq_pow|multiplicity_one|multiplicity_self|multiplicity_mul)|def multiplicity'",
+        "rg -n 'transcendental_iff_injective|theorem.*aeval_injective|finiteMultiplicity_iff|finiteMultiplicity.*not_isUnit|Irreducible.prime'",
+        "rg -n 'namespace RationalFunctionField|def heightOneSpectrumOfIrreducible|class HasPrincipalDivisors'",
+        "rg -n 'p06_9e0f5043ff_elp_integer_order|p06_9e0f5043ff_io_polynomial_exponent|p06_9e0f5043ff_io_fraction_extension'"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Multiplicity.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Algebraic/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project"
+      ],
+      "conclusion": "The snapshot pins project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Multiplicity.lean provides multiplicity_eq_zero, FiniteMultiplicity.exists_eq_pow_mul_and_not_dvd, multiplicity_mul, and multiplicity_self; Algebraic/Basic.lean provides transcendental_iff_injective. These five declarations were checked transitively and use only propext, Classical.choice, and Quot.sound. Installed dependencies matched their pins and were clean. DivisorClassGroup.lean confirms the unchanged root definition of HasPrincipalDivisors. The helper-name search found no matches in the pinned project; proposed names also had no DAG collisions. Both proposed types elaborated after import Submission using the existing import-only interface. The full frozen Submission still fails on three pre-existing unknown attribute targets, so exact-source validation remains blocked; interface elaboration is not comparator acceptance."
+    }
+  ],
+  "should_split": true,
+  "rationale": "At depth 5, two independent children can occupy the final permitted depth 6. Polynomial exponent construction and representation-independent extension to fractions are reusable mathematical obligations. The second child takes an arbitrary additive exponent as a hypothesis, so neither child depends on its sibling. The parent combines them, obtains normalization from q/1, and proves the nonnegative-order criterion by cancelling common powers of q. Neither child restates the parent. Exact frozen-source import validation must succeed before activation; the successful interface checks do not resolve the recorded source-import blocker.",
+  "subproblems": [
+    {
+      "key": "polynomial_exponent",
+      "title": "Multiplicative exponent and factor extraction at an irreducible polynomial",
+      "statement": "Let K be a field and q ∈ K[T] be monic and irreducible. There exists μ : K[T] → ℕ such that μ(1)=0, μ(q)=1, and μ(ab)=μ(a)+μ(b) whenever a and b are nonzero. For every nonzero a, μ(a)=0 if and only if q does not divide a, and there exists a nonzero polynomial a₀ with q not dividing a₀ and a=q^{μ(a)}a₀. No condition on μ(0) is required.",
+      "lean_statement": "∀ (K : Type*) [Field K] (q : Polynomial K), q.Monic → Irreducible q → ∃ μ : Polynomial K → ℕ, μ 1 = 0 ∧ μ q = 1 ∧ (∀ a b : Polynomial K, a ≠ 0 → b ≠ 0 → μ (a * b) = μ a + μ b) ∧ (∀ a : Polynomial K, a ≠ 0 → (μ a = 0 ↔ ¬ q ∣ a)) ∧ (∀ a : Polynomial K, a ≠ 0 → ∃ a₀ : Polynomial K, a₀ ≠ 0 ∧ ¬ q ∣ a₀ ∧ a = q ^ μ a * a₀)",
+      "lean_name": "p06_9e0f5043ff_io_polynomial_exponent",
+      "depends_on": [],
+      "natural_proof": "1. Write R = Polynomial K. Irreducibility implies q ≠ 0 and q is not a unit. A nonzero polynomial of natural degree zero is a nonzero constant and is a unit over K, so d = natDegree q > 0. Also q does not divide 1, since a divisor of 1 is a unit.\n2. If q does not divide a, the gcd g of q and a is a unit: write q = g h, and use irreducibility to conclude that g or h is a unit. If g were not a unit, h would be a unit, making q associated to g; then g dividing a would force q to divide a. A Bezout identity for g, multiplied by its inverse, therefore gives u q + v a = 1. If q divides a b, multiplying this identity by b shows q divides b. Consequently q divides a product only if it divides one of the factors.\n3. Prove by strong induction on natDegree a that every nonzero a has a factorization a = q^m a0 with a0 ≠ 0 and q not dividing a0. If q does not divide a take m = 0 and a0 = a. Otherwise write a = q c. Nonvanishing of a gives c ≠ 0, and natDegree a = d + natDegree c gives natDegree c < natDegree a. Apply induction to c and multiply its factorization by q. The cofactor remains nonzero and not divisible by q.\n4. The exponent is unique. Given q^m a0 = q^n b0 with both cofactors not divisible by q, suppose m < n. Write n = m + k with k > 0, cancel the nonzero factor q^m, and obtain a0 = q^k b0. Since k > 0, this makes q divide a0, a contradiction. The case n < m gives the same contradiction for b0. Thus m = n. Define μ(a) for nonzero a to be this unique exponent, and put μ(0) = 0.\n5. The factorizations 1 = q^0 · 1 and q = q^1 · 1 give μ(1) = 0 and μ(q) = 1 by uniqueness. For nonzero a,b, multiply their factorizations. Their cofactors have nonzero product, and step 2 shows q does not divide that product. Uniqueness gives μ(ab) = μ(a) + μ(b).\n6. If μ(a) = 0 for nonzero a, its factorization identifies a with its q-free cofactor, so q does not divide a. Conversely, if q does not divide a, the factorization a = q^0 a and uniqueness give μ(a) = 0. Step 3 with the unique exponent supplies the asserted nonzero cofactor for every nonzero a. These statements are precisely all the required properties.",
+      "proof_key_steps": [
+        "Irreducibility gives nonvanishing, positive degree, and noninvertibility of q.",
+        "Use a gcd and Bezout identity to prove that q divides a product only if it divides a factor.",
+        "Extract powers of q by strong induction on polynomial degree.",
+        "Cancel powers of q to establish uniqueness of the exponent and define μ.",
+        "Multiply factorizations to prove additivity and compute μ(1) and μ(q).",
+        "Characterize exponent zero and retain the nonzero cofactor factorization."
+      ]
+    },
+    {
+      "key": "fraction_extension",
+      "title": "Extend an additive polynomial exponent to integer orders on fractions",
+      "statement": "Let K and F be fields with a K-algebra structure on F. Let x ∈ F be transcendental over K, and assume every f ∈ F equals a(x)/b(x) for polynomials a,b ∈ K[T] with b ≠ 0. Let μ : K[T] → ℕ satisfy μ(ab)=μ(a)+μ(b) for all nonzero a,b. Then there exists ν : F → ℤ such that ν(0)=0, ν(a(x)/b(x))=(μ(a):ℤ)−(μ(b):ℤ) for every nonzero a,b, and ν(f/g)=ν(f)−ν(g) for every nonzero f,g.",
+      "lean_statement": "∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F), Transcendental K x → (∀ f : F, ∃ a b : Polynomial K, b ≠ 0 ∧ f = Polynomial.aeval x a / Polynomial.aeval x b) → ∀ μ : Polynomial K → ℕ, (∀ a b : Polynomial K, a ≠ 0 → b ≠ 0 → μ (a * b) = μ a + μ b) → ∃ ν : F → ℤ, ν 0 = 0 ∧ (∀ a b : Polynomial K, a ≠ 0 → b ≠ 0 → ν (Polynomial.aeval x a / Polynomial.aeval x b) = (μ a : ℤ) - (μ b : ℤ)) ∧ (∀ f g : F, f ≠ 0 → g ≠ 0 → ν (f / g) = ν f - ν g)",
+      "lean_name": "p06_9e0f5043ff_io_fraction_extension",
+      "depends_on": [],
+      "natural_proof": "1. Set e = Polynomial.aeval x. Transcendence means that e is injective, so e(a) ≠ 0 exactly when a ≠ 0. For any nonzero f choose a representation f = e(a)/e(b) with b ≠ 0. Its numerator a is nonzero, because a = 0 would give f = 0.\n2. Suppose e(a)/e(b) = e(c)/e(t), where all four polynomials are nonzero. The denominators evaluate to nonzero elements, so cross multiplication gives e(a t) = e(c b). Injectivity gives a t = c b. The assumed product rule yields μ(a) + μ(t) = μ(c) + μ(b). Casting this equality into the integers and rearranging proves μ(a) - μ(b) = μ(c) - μ(t), with all differences taken in the integers.\n3. Define ν(0) = 0. For each nonzero f use a chosen representation from step 1 and define ν(f) = (μ(a) : ℤ) - (μ(b) : ℤ). Step 2 makes this independent of the choice. In particular, for every nonzero a,b, their evaluated quotient is nonzero, and comparison with its chosen representation proves the required formula for ν(e(a)/e(b)).\n4. Let f,g be nonzero, and choose f = e(a)/e(b) and g = e(c)/e(t) with all four polynomials nonzero as in step 1. Field arithmetic and the fact that e respects multiplication give f/g = e(a t)/e(b c). The polynomials a t and b c are nonzero because K[T] is a domain.\n5. Apply the formula from step 3 and the product rule for μ to obtain ν(f/g) = (μ(a) : ℤ) + (μ(t) : ℤ) - ((μ(b) : ℤ) + (μ(c) : ℤ)) = ((μ(a) : ℤ) - (μ(b) : ℤ)) - ((μ(c) : ℤ) - (μ(t) : ℤ)) = ν(f) - ν(g). Along with the definition at zero and step 3, this proves the whole conclusion.",
+      "proof_key_steps": [
+        "Use transcendence to obtain injective evaluation and nonzero numerators and denominators.",
+        "Cross-multiply equal fractions and apply additivity of μ to prove independence of the integer difference.",
+        "Define ν by chosen representations, with ν(0)=0, and establish its formula for every nonzero polynomial fraction.",
+        "Represent division using the polynomial products a t and b c.",
+        "Apply additivity and integer arithmetic to prove the division law."
+      ]
+    }
+  ]
+}
