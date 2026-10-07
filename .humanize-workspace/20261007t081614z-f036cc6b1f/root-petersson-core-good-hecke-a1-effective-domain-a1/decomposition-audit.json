@@ -1,0 +1,57 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "exists_smul_mem_fd|eq_one_or_neg_one_of_mem_fdo_mem_fd|def fdo|def fd|isClosed_fd|isOpen_fdo",
+        "volume_eq_lintegral|instMeasureSpace|SMulInvariantMeasure|SLAction|mapGL|instContinuousGLSMul|smul_eq",
+        "(volume|measure).*\\b(fd|fdo)\\b|\\b(fd|fdo)\\b.*(volume|measure)",
+        "measure_prod_null_of_ae_null|theorem lintegral_prod|volume_preserving_equiv_real_prod",
+        "f036cc6b1f_pc_ed_ae_orbit_interior|f036cc6b1f_pc_ed_transversal_unique",
+        "instance.*Neg|neg_mul|mul_neg|coe_neg|neg_one_mul|instance.*Group",
+        "#synth MeasureTheory.MeasureSpace UpperHalfPlane",
+        "#synth SMul (Matrix.SpecialLinearGroup (Fin 2) ℤ) UpperHalfPlane",
+        "#synth Mul (Matrix.SpecialLinearGroup (Fin 2) ℤ)",
+        "#synth Neg (Matrix.SpecialLinearGroup (Fin 2) ℤ)",
+        "#print axioms ModularGroup.eq_one_or_neg_one_of_mem_fdo_mem_fd",
+        "#print axioms UpperHalfPlane.volume_eq_lintegral",
+        "#print axioms UpperHalfPlane.instSMulInvariantMeasureGeneralLinearGroupFinOfNatNatRealVolume",
+        "#print axioms MeasureTheory.Measure.measure_prod_null_of_ae_null"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/Modular.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Measure/Prod.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Measure/Lebesgue/Complex.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/Submission.lean",
+        "/tmp/fermat-decomposition-independent-audit-21jhf7a1/IndependentCheck.lean",
+        "/tmp/fermat-decomposition-independent-audit-21jhf7a1/IndependentCheck.log",
+        "/tmp/fermat-decomposition-independent-audit-21jhf7a1/AttributeTargets.log"
+      ],
+      "conclusion": "The manifest pins project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Independently verified all nine dependency revisions and clean states, six relevant mathlib source matches, and the 20-file project import closure against the snapshot and prebuilt source tree. Modular.lean supplies the exact domain definitions, covering, topology, and interior uniqueness modulo sign. Measure.lean supplies hyperbolic volume and GL invariance; the action files justify restriction to SL₂(ℤ). Product-measure results justify the boundary-nullness argument. The targeted boundary-measure search found no relevant existing fd/fdo result. Neither helper name occurs in the active DAG, other branches' decomposition metadata, Submission, or reference project. Both literal types independently elaborated as Prop after freshly compiling Submission into /tmp; inferred measure, action, matrix multiplication, and negation match the prose. Thirteen checked infrastructure declarations use only propext, Classical.choice, and Quot.sound. The root declaration remains unchanged, and all 15 commented cleanup-attribute targets are absent. The split appropriately separates analytic nullness from algebraic uniqueness; adding both children leaves the DAG acyclic. This accepts the decomposition, not any Lean solution."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "ae_orbit_interior",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the simultaneous almost-everywhere assertion and independently elaborates without either child declaration. The bare identifier is unreserved. Steps 1–4 correctly establish measurable boundary containment in two lines and a circle, planar nullness by product measure, and hyperbolic nullness by the density formula. Steps 5–7 correctly use the restricted invariant action and countability of SL₂(ℤ) to remove all boundary preimages simultaneously. The proof is complete, non-circular, and sufficiently explicit for formalization; no dependency is missing."
+    },
+    {
+      "key": "transversal_unique_mod_sign",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition includes every stated hypothesis, the exact translated union, and the required sign disjunction. Its local let is a genuine set definition, not a candidate-dependent alias. The bare identifier is unreserved. Steps 1–3 correctly recover w=(r⁻¹γ)z, apply the explicit orbit hypothesis, and invoke interior uniqueness on s⁻¹δγ⁻¹r. Steps 4–6 correctly use subgroup closure, centrality and involutivity of −I, representative separation, and cancellation to conclude δ=γ or δ=−γ. Matrix multiplication and negation have the intended instances. No finite-index or coverage assumption is needed. The empty dependency list is correct because the orbit property is an explicit premise, supplied by the parent when assembling the two children."
+    }
+  ],
+  "required_changes": []
+}

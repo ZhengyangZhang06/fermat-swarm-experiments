@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.petersson_core_good_hecke-a1.effective_domain-a1.ae_orbit_interior-a1",
+  "parent_id": "root.petersson_core_good_hecke-a1.effective_domain-a1",
+  "depth": 3,
+  "title": "Almost every modular orbit avoids the standard-domain boundary",
+  "statement": "Let G = SL₂(ℤ) act on the upper half-plane ℍ by Möbius transformations, and let μ = dx dy/y². Put F₀ = {z ∈ ℍ : 1 ≤ |z|² and |Re z| ≤ 1/2} and F₀° = {z ∈ ℍ : 1 < |z|² and |Re z| < 1/2}. For μ-almost every z ∈ ℍ, every a ∈ G satisfies: if az ∈ F₀, then az ∈ F₀°.",
+  "lean_statement": "∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∀ a : Matrix.SpecialLinearGroup (Fin 2) ℤ, a • z ∈ ModularGroup.fd → a • z ∈ ModularGroup.fdo",
+  "lean_name": "f036cc6b1f_pc_ed_ae_orbit_interior",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1-a1"
+}

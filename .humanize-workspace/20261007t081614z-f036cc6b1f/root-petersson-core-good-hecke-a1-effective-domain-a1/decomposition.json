@@ -1,0 +1,80 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "exists_smul_mem_fd|eq_one_or_neg_one_of_mem_fdo_mem_fd|def fdo|def fd|isClosed_fd|isOpen_fdo",
+        "volume.*(ModularGroup\\.)?(fd|fdo)|(fd|fdo).*volume|measure.*(fd|fdo)|(fd|fdo).*measure",
+        "volume_eq_lintegral|instMeasureSpace|SMulInvariantMeasure|volume_aux|SLAction|mapGL|instContinuousGLSMul|smul_eq",
+        "measure_prod_null_of_ae_null|theorem lintegral_prod|volume_preserving_equiv_real_prod",
+        "f036cc6b1f_pc_ed_ae_orbit_interior|f036cc6b1f_pc_ed_transversal_unique",
+        "instSMulInvariantMeasureSpecialLinearGroupFinOfNatNatIntUpperHalfPlaneVolume_definitions|coe_rescaleLin_apply|instIsOpenPosMeasureUpperHalfPlaneVolume_definitions|nontrivial_gamma0L2|unipotentDiagonalSum_zero",
+        "git -C .lake/packages/mathlib status --porcelain",
+        "#synth MeasureTheory.MeasureSpace UpperHalfPlane",
+        "#synth SMul (Matrix.SpecialLinearGroup (Fin 2) ℤ) UpperHalfPlane",
+        "#synth Neg (Matrix.SpecialLinearGroup (Fin 2) ℤ)",
+        "#print axioms ModularGroup.eq_one_or_neg_one_of_mem_fdo_mem_fd",
+        "#print axioms UpperHalfPlane.instSMulInvariantMeasureGeneralLinearGroupFinOfNatNatRealVolume",
+        "#print axioms CuspForm.heckeTLin"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/Modular.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Measure/Prod.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Measure/Lebesgue/Complex.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/Submission.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1/decomposition-v1.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1/compatibility-v2/Compatibility.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1/compatibility-v2/AttributeTargets.log",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1/compatibility-v2/SubmissionBuild.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1/compatibility-v2/SubmissionBuild.log",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1/compatibility-v2/ImportSubmissionCheck.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1/compatibility-v2/ImportSubmissionCheck.log",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1/compatibility-v2/Summary.json"
+      ],
+      "conclusion": "The snapshot pins project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. All nine installed dependencies match their pinned revisions and are clean; all 20 reused project dependency sources and six inspected mathlib sources match the snapshot. Modular.lean supplies covering, interior uniqueness modulo sign, and domain topology. Measure.lean supplies hyperbolic volume and GL invariance; Topology.lean and MoebiusAction.lean justify the continuous restricted SL action. The targeted boundary-measure search found no relevant fd/fdo nullness lemma. Neither proposed identifier is reserved in the DAG or declared in Submission or the reference project. Lean confirmed that all 15 targets of the failing attribute-removal commands are absent. Those commands were retained as comments in Submission.lean, preserving its imports and theorem declaration and leaving the frozen problem and dependencies unchanged. The repaired Submission build exited 0, and both unchanged frozen expressions successfully elaborated as Prop through literal import Submission. Instance checks confirmed UpperHalfPlane.instMeasureSpace, UpperHalfPlane.SLAction.toSMul, and Matrix.SpecialLinearGroup.instNeg. Thirteen audited infrastructure declarations use only propext, Classical.choice, and Quot.sound. The build retains the pre-existing unfinished-root warning; these checks establish compatibility, not theorem acceptance. No children were activated."
+    }
+  ],
+  "should_split": true,
+  "rationale": "Retain the two previously reviewed, unchanged contracts: simultaneous almost-everywhere avoidance of the modular boundary, and algebraic uniqueness modulo sign for separated right-coset representatives. They are independent reusable obligations; the second explicitly assumes the orbit property. The parent retains transversal selection, measurability, covering, and assembly. Depth 2 is below limit 6. The import prerequisite now passes. Include the recorded Submission compatibility repair in the reviewed dispatch tree before child activation.",
+  "subproblems": [
+    {
+      "key": "ae_orbit_interior",
+      "title": "Almost every modular orbit avoids the standard-domain boundary",
+      "statement": "Let G = SL₂(ℤ) act on the upper half-plane ℍ by Möbius transformations, and let μ = dx dy/y². Put F₀ = {z ∈ ℍ : 1 ≤ |z|² and |Re z| ≤ 1/2} and F₀° = {z ∈ ℍ : 1 < |z|² and |Re z| < 1/2}. For μ-almost every z ∈ ℍ, every a ∈ G satisfies: if az ∈ F₀, then az ∈ F₀°.",
+      "lean_statement": "∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∀ a : Matrix.SpecialLinearGroup (Fin 2) ℤ, a • z ∈ ModularGroup.fd → a • z ∈ ModularGroup.fdo",
+      "lean_name": "f036cc6b1f_pc_ed_ae_orbit_interior",
+      "depends_on": [],
+      "natural_proof": "1. Define E = F₀ \\ F₀°. The defining functions z ↦ |z|² and z ↦ |Re z| are continuous. Thus F₀ is closed and F₀° is open in ℍ, so E is Borel measurable. These domain facts are also ModularGroup.isClosed_fd and ModularGroup.isOpen_fdo in the pinned Mathlib/NumberTheory/Modular.lean.\n2. If z = x + iy belongs to E, then x² + y² ≥ 1 and |x| ≤ 1/2, but the two corresponding strict inequalities do not both hold. Consequently either x² + y² = 1 or |x| = 1/2. Therefore the image of E in ℂ lies in the union of the circle x² + y² = 1 and the two lines x = 1/2 and x = -1/2.\n3. Each of these three sets has planar Lebesgue measure zero. Under ℂ ≅ ℝ × ℝ, a vertical line is {c} × ℝ, whose product measure is zero since a singleton has one-dimensional Lebesgue measure zero. The circle is closed, and its section at each fixed real coordinate x contains at most two imaginary coordinates y. Every such section has one-dimensional measure zero, so Tonelli's theorem applied to the circle's indicator gives planar measure zero. Their finite union is null, and hence the image of E is null.\n4. The hyperbolic measure of a set is the integral of the density y⁻² over its image in ℂ. This is precisely UpperHalfPlane.volume_eq_lintegral in the pinned Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean. An integral over a planar null set is zero, so μ(E) = 0.\n5. Fix a ∈ G. Its action is the restriction of the GL₂(ℝ) action through SpecialLinearGroup.mapGL, as defined by UpperHalfPlane.SLAction in the pinned Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean. The GL action preserves hyperbolic measure by the invariant-measure instance proved in Measure.lean. Each action map and its inverse are continuous by UpperHalfPlane.instContinuousGLSMul in Topology.lean. Thus Bₐ = {z ∈ ℍ : az ∈ E} is measurable and μ(Bₐ) = μ(E) = 0.\n6. The group G is countable: its underlying matrices form a subset of the finite product of four copies of ℤ. Therefore N = ⋃ₐ∈G Bₐ is a countable union of measurable null sets and is itself measurable and null.\n7. For z outside N and any a ∈ G, one has az ∉ E. If also az ∈ F₀, the identity E = F₀ \\ F₀° implies az ∈ F₀°. The complement of N has full μ-measure, which proves the stated almost-everywhere assertion.",
+      "proof_key_steps": [
+        "Express the closed-minus-open domain as a measurable subset of two vertical lines and a circle.",
+        "Prove planar nullness using product measure and Tonelli's theorem.",
+        "Transfer nullness to hyperbolic measure using its density formula.",
+        "Use invariant measure to show every modular preimage of the boundary is null.",
+        "Remove the countable union of those preimages to obtain the simultaneous assertion for every modular translate."
+      ]
+    },
+    {
+      "key": "transversal_unique_mod_sign",
+      "title": "Distinct right-coset representatives give uniqueness modulo sign",
+      "statement": "Let G = SL₂(ℤ), and define F₀ = {z ∈ ℍ : 1 ≤ |z|² and |Re z| ≤ 1/2} and F₀° = {z ∈ ℍ : 1 < |z|² and |Re z| < 1/2}. Let Δ ≤ G and let R ⊂ G be finite. Assume -I ∈ Δ and that, for every r,s ∈ R, membership sr⁻¹ ∈ Δ implies s = r. Let z ∈ ℍ satisfy az ∈ F₀ ⇒ az ∈ F₀° for every a ∈ G, and put F = ⋃ᵣ∈R rF₀. For every γ,δ ∈ Δ such that γz ∈ F and δz ∈ F, one has δ = γ or δ = -γ. Neither finite index nor coverage by R is assumed.",
+      "lean_statement": "∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (R : Finset (Matrix.SpecialLinearGroup (Fin 2) ℤ)), (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ → (∀ r ∈ R, ∀ s ∈ R, s * r⁻¹ ∈ Δ → s = r) → ∀ z : UpperHalfPlane, (∀ a : Matrix.SpecialLinearGroup (Fin 2) ℤ, a • z ∈ ModularGroup.fd → a • z ∈ ModularGroup.fdo) → let F : Set UpperHalfPlane := ⋃ r ∈ R, (fun w : UpperHalfPlane => r • w) '' ModularGroup.fd; ∀ γ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ → δ ∈ Δ → γ • z ∈ F → δ • z ∈ F → δ = γ ∨ δ = -γ",
+      "lean_name": "f036cc6b1f_pc_ed_transversal_unique",
+      "depends_on": [],
+      "natural_proof": "1. Fix Δ, R, z, γ, and δ satisfying all the hypotheses. From membership in F, choose r,s ∈ R and w,v ∈ F₀ such that γz = rw and δz = sv.\n2. The action law gives (r⁻¹γ)z = w. Apply the assumed property of z to a = r⁻¹γ. Since w ∈ F₀, this gives w ∈ F₀°.\n3. Define a = s⁻¹δγ⁻¹r ∈ G. The action law and the chosen identities give aw = s⁻¹δγ⁻¹(rw) = s⁻¹δγ⁻¹(γz) = s⁻¹δz = v. Hence w ∈ F₀° and aw ∈ F₀. By ModularGroup.eq_one_or_neg_one_of_mem_fdo_mem_fd in the pinned Mathlib/NumberTheory/Modular.lean, a = I or a = -I.\n4. Put q = δγ⁻¹. Since γ,δ ∈ Δ and Δ is a subgroup, q ∈ Δ. Rearranging the definition of a yields q = sar⁻¹. If a = I, then q = sr⁻¹, so sr⁻¹ ∈ Δ. If a = -I, the centrality of -I gives q = (-I)sr⁻¹. Multiplying by -I on the left and using (-I)² = I gives sr⁻¹ = (-I)q ∈ Δ, because both -I and q belong to Δ.\n5. In either case, r,s ∈ R and sr⁻¹ ∈ Δ. The separation hypothesis on R therefore gives s = r. Substituting into q = sar⁻¹, and using a = I or a = -I together with centrality of -I, gives q = I or q = -I.\n6. Multiply q = δγ⁻¹ on the right by γ. If q = I this yields δ = γ; if q = -I this yields δ = (-I)γ = -γ. This proves the required disjunction.",
+      "proof_key_steps": [
+        "Choose standard-domain points witnessing the two translated-domain memberships.",
+        "Use the orbit hypothesis to put the first witness in the open standard domain.",
+        "Apply modular interior uniqueness to s⁻¹δγ⁻¹r.",
+        "Use containment of -I in Δ to deduce sr⁻¹ ∈ Δ in both sign cases.",
+        "Apply separation of right-coset representatives and cancel γ to obtain uniqueness modulo sign."
+      ]
+    }
+  ]
+}

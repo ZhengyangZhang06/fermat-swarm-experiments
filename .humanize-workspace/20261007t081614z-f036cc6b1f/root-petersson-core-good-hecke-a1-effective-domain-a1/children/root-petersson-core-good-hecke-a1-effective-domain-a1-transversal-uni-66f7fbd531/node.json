@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.petersson_core_good_hecke-a1.effective_domain-a1.transversal_unique_mod_sign-a1",
+  "parent_id": "root.petersson_core_good_hecke-a1.effective_domain-a1",
+  "depth": 3,
+  "title": "Distinct right-coset representatives give uniqueness modulo sign",
+  "statement": "Let G = SL₂(ℤ), and define F₀ = {z ∈ ℍ : 1 ≤ |z|² and |Re z| ≤ 1/2} and F₀° = {z ∈ ℍ : 1 < |z|² and |Re z| < 1/2}. Let Δ ≤ G and let R ⊂ G be finite. Assume -I ∈ Δ and that, for every r,s ∈ R, membership sr⁻¹ ∈ Δ implies s = r. Let z ∈ ℍ satisfy az ∈ F₀ ⇒ az ∈ F₀° for every a ∈ G, and put F = ⋃ᵣ∈R rF₀. For every γ,δ ∈ Δ such that γz ∈ F and δz ∈ F, one has δ = γ or δ = -γ. Neither finite index nor coverage by R is assumed.",
+  "lean_statement": "∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (R : Finset (Matrix.SpecialLinearGroup (Fin 2) ℤ)), (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ → (∀ r ∈ R, ∀ s ∈ R, s * r⁻¹ ∈ Δ → s = r) → ∀ z : UpperHalfPlane, (∀ a : Matrix.SpecialLinearGroup (Fin 2) ℤ, a • z ∈ ModularGroup.fd → a • z ∈ ModularGroup.fdo) → let F : Set UpperHalfPlane := ⋃ r ∈ R, (fun w : UpperHalfPlane => r • w) '' ModularGroup.fd; ∀ γ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ → δ ∈ Δ → γ • z ∈ F → δ • z ∈ F → δ = γ ∨ δ = -γ",
+  "lean_name": "f036cc6b1f_pc_ed_transversal_unique",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-effective-domain-a1-transversal-uni-66f7fbd531-a1"
+}
