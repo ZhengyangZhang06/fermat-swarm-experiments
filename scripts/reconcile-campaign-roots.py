@@ -42,7 +42,13 @@ def main():
         body = original.get("body") or ""
         stable = f"<!-- theorem-id: {problem['id']}/root -->"
         contract = (args.campaign.parent / problem["contract"]).read_text().strip()
-        if stable not in body or contract not in body or original["state"] != "open" or "pull_request" in original:
+        # Legacy live publishers may already have replaced the campaign body
+        # without retaining its stable marker. The manifest's exact issue number,
+        # complete contract and explicit root/theorem identity still bind it.
+        root_identity = stable in body or (
+            "Node: `root`" in body and f"## Theorem `{problem['theorem']}`" in body
+        )
+        if not root_identity or contract not in body or original["state"] != "open" or "pull_request" in original:
             raise RuntimeError(f"Original issue #{number} does not match its open frozen contract")
         markers = set(MARKER.findall(body))
         if len(markers) != 1:

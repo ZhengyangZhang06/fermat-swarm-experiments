@@ -278,3 +278,33 @@ state, not simply deleting the project lock.
   import gate. This packaging defect must be resolved without changing theorem
   statements/assumptions or importing upstream target proofs. No normalization
   has been implemented/authorized as acceptance evidence yet.
+
+## Follow-up checkpoint, 09:05 UTC — first autonomous child claimed
+
+- Workflow2e30c71 pushed and staged by fast-forward in the shared runtime. Existing
+  model/controller processes retain their imported code; new issue invocations use
+  the fixed publisher/citation validator. No worker service restart performed.
+- p04's original owner on hoa35 completed the root decomposition and released its
+  claim. Issues#21 (Tate index annihilation) and#22 (prime-avoiding annihilators)
+  were published with exact types and reviewed natural-language arguments.
+  A different poller on **hoa43**, actual task `o5ckrgt1sathaf13z2pxgbz8b` verified
+  Running, independently claimed#22. Its attempt is
+  `89ca235862414f08a959e07f39579754`; the log contains a real author no-split proposal
+  and an active independent reviewer. No parent notification/dispatch was used.
+  Root4 is waiting-children; both dependency edges appear in the live feed.
+- p08 also passed prose review and is decomposing. Other original jobs remain live.
+  No formal acceptance or solution PR yet. Duplicate roots#11–#20 remain explicitly
+  closed as not planned, never counted as proved.
+- p02's old in-memory validator rejected another otherwise passing review because
+  its citations were project-relative. A compatibility symlink was added only at
+  the reference bundle root (not either Git snapshot): bundle/.humanize points to
+  that project's .humanize. The old strict-realpath check now resolves20 cited
+  paths into the correct frozen bundle. Both project/mathlib snapshot Git trees
+  remain clean. No proof/audit status was changed and no job was restarted.
+- An asynchronous user question requests permission to omit only stale
+  `attribute [-simp]` directives in derived build files, preserving original
+  benchmark files and every logical contract/gate. **No answer yet; no such
+  normalization has been made.** Continue unaffected proof jobs meanwhile.
+- Manager memory/I/O pressure is high (not solely this experiment). Baseline
+  PID2780465 and probe session70821 / lean PID2949737 remain live; do not restart
+  them merely for elapsed time. Preserve unrelated workloads.
