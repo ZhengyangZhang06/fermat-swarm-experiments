@@ -355,3 +355,25 @@ state, not simply deleting the project lock.
   `z51i7ikksog42ron5peo4lysu`. Both verifier requests had reached their real
   sandboxed `lake --no-cache build Challenge` subprocesses; they are not stalled
   in a broker queue. All proof acceptance/merge counts remain zero.
+
+## Follow-up checkpoint, 09:26 UTC — comparator resource contention
+
+- Original baseline `fermat-contract-build.service` was deliberately stopped at
+  09:24, after confirming it was this campaign's `lake build Fermat`. Its frozen
+  unsolved scaffolds are already known to have stale-attribute errors, and every
+  real candidate independently builds its own challenge. Stopping the redundant
+  baseline released about4GiB; retained build outputs and logs remain available.
+  `inactive`, MainPID0, Resultsuccess means an orderly operator stop, NOT a
+  successful baseline build. Do not silently restart this redundant job.
+- Proof workers and both actual comparator jobs were left running. At09:26
+  request2702… was compiling Def_GroupCohomology_TateCohomology with Lean
+  PID3022273; request5fdc… was compiling Def_HopfAlgebra_HopfKer with PID3022279.
+  Parent verifier PIDs3008683/3007503 remain live. Manager memory/I/O contention
+  persists from unrelated jobs, which remain untouched.
+- Positive universe syntax probe session23527 completed exit0 (only an unused
+  variable warning); negative probe97093 failed with unknown universe level as
+  expected. The corresponding source fix0e31559 is pushed but intentionally NOT
+  staged over the active checker file. Runtime is still2e30c71.
+- At09:26 the current feed reported9 reviewed root prose proofs,10 active issue
+  jobs,128 pollers, and0 formally verified/integrated roots. Build-directive
+  permission remains unanswered; original and derived directives remain intact.
