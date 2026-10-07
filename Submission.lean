@@ -2028,6 +2028,8 @@ theorem p06_9e0f5043ff_pae_place_equivalence_degree :
   -- The residue equivalence descends through the maximal ideals; finrank needs no finiteness.
   exact (IsLocalRing.ResidueField.mapAlgEquiv r).toLinearEquiv.finrank_eq.symm
 
+set_option warningAsError true
+
 namespace Submission
 
 /-- A place containing the polynomial coordinate is the localization at a monic
