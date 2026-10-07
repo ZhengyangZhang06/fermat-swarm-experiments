@@ -1,9 +1,5 @@
-/-
-Copyright 2026 Anthropic, PBC. Licensed under Apache-2.0; see LICENSE.
-Source: https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean
-Modified: replaced the proof with sorry and removed P2M proof imports.
-Requires the upstream Definitions modules and their dependencies.
--/
+import Mathlib.RingTheory.Polynomial.UniqueFactorization
+import Mathlib.RingTheory.UniqueFactorizationDomain.Multiplicity
 
 import Definitions.Def_AlgebraicCurve_PlacesOverDVR
 attribute [-instance] AlgebraicCurve.IsCurveOver.instNontrivialKaehler AlgebraicCurve.IsCurveOver.instFreeKaehler AlgebraicCurve.IsCurveOver.toHasPrincipalDivisors AlgebraicCurve.IsCurveOver.instFiniteResidue AlgebraicCurve.Place.instIsRankOneDiscreteWithZeroMultiplicativeIntAdicValuation AlgebraicCurve.Place.instIsTrivialOnWithZeroMultiplicativeIntAdicValuation AlgebraicCurve.SemilinearAut.instDistribMulActionSubtypeProdRingAutMemSubgroupPic0 AlgebraicCurve.SemilinearAut.instDistribMulActionSubtypeProdRingAutMemSubgroupDivisor AlgebraicCurve.Pic0.instModuleZModTorsion AlgebraicCurve.SemilinearAut.instSMulSubtypeProdRingAutMemSubgroupPlace AlgebraicCurve.SemilinearAut.instDistribMulActionTorsion AlgebraicCurve.SemilinearAut.instSMulSubtypeProdRingAutMemSubgroupPic0 AlgebraicCurve.SemilinearAut.instSMulTorsion AlgebraicCurve.SemilinearAut.instMulActionSubtypeProdRingAutMemSubgroupPlace AlgebraicCurve.SemilinearAut.instSMulCommClassZModTorsion AlgebraicCurve.SemilinearAut.instMulSemiringActionSubtypeProdRingAutMemSubgroup instDecEqAlgebraicClosureRat WeierstrassCurve.Affine.Point.instDistribMulActionAlgEquiv WeierstrassCurve.Affine.Point.instModuleZModTorsionBy WeierstrassCurve.Affine.Point.instSMulTorsionBy WeierstrassCurve.Affine.Point.instDistribMulActionTorsionBy WeierstrassCurve.Affine.Point.instSMulAlgEquiv WeierstrassCurve.Affine.Point.instSMulCommClassAlgEquivZModTorsionBy
@@ -1421,5 +1417,29 @@ theorem p06_9e0f5043ff_dlen_diagonal_cokernel
   rw [hdiag] at eUnits
   obtain ⟨eDiagonal⟩ := Submission.p06_9e0f5043ff_dmc_diagonal_quotient R m d
   exact ⟨eUnits.trans eDiagonal⟩
+namespace Submission
+
+theorem p06_9e0f5043ff_io_polynomial_exponent :
+    ∀ (K : Type*) [Field K] (q : Polynomial K), q.Monic → Irreducible q →
+      ∃ μ : Polynomial K → ℕ, μ 1 = 0 ∧ μ q = 1 ∧
+        (∀ a b : Polynomial K, a ≠ 0 → b ≠ 0 → μ (a * b) = μ a + μ b) ∧
+        (∀ a : Polynomial K, a ≠ 0 → (μ a = 0 ↔ ¬ q ∣ a)) ∧
+        (∀ a : Polynomial K, a ≠ 0 → ∃ a₀ : Polynomial K,
+          a₀ ≠ 0 ∧ ¬ q ∣ a₀ ∧ a = q ^ μ a * a₀) := by
+  intro K _ q _ hq
+  have hfin (a : Polynomial K) (ha : a ≠ 0) : FiniteMultiplicity q a :=
+    FiniteMultiplicity.of_not_isUnit hq.not_isUnit ha
+  refine ⟨multiplicity q, multiplicity_of_one_right hq.not_isUnit,
+    multiplicity_self, ?_, ?_, ?_⟩
+  · intro a b ha hb
+    exact multiplicity_mul hq.prime (hfin (a * b) (mul_ne_zero ha hb))
+  · intro a _
+    exact multiplicity_eq_zero
+  · intro a ha
+    obtain ⟨a₀, hfactor, hfree⟩ := (hfin a ha).exists_eq_pow_mul_and_not_dvd
+    refine ⟨a₀, ?_, hfree, hfactor⟩
+    intro hzero
+    apply ha
+    simpa [hzero] using hfactor
 
 end Submission
