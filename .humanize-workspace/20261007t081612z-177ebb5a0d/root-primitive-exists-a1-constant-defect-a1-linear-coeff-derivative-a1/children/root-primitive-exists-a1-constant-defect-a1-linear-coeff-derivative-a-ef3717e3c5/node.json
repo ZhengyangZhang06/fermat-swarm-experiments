@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.primitive_exists-a1.constant_defect-a1.linear_coeff_derivative-a1.binary_form_monomial_expansion-a1",
+  "parent_id": "root.primitive_exists-a1.constant_defect-a1.linear_coeff_derivative-a1",
+  "depth": 4,
+  "title": "Finite monomial expansion of a binary form",
+  "statement": "Let n∈ℕ and let Q∈BinaryForm ℂ n. For r∈Fin(n+1), define d_r:Fin 2→₀ℕ by d_r=single 0 r.val+single 1 (n−r.val), so d_r(0)=r.val and d_r(1)=n−r.val. Then, as an equality in MvPolynomial (Fin 2) ℂ, Q.val=Σ_{r∈Fin(n+1)} coeff d_r(Q.val) • monomial d_r 1.",
+  "lean_statement": "∀ (n : ℕ) (Q : ↥(HeckeEis.BinaryForm ℂ n)), Q.val = ∑ r : Fin (n + 1), MvPolynomial.coeff (Finsupp.single (0 : Fin 2) r.val + Finsupp.single (1 : Fin 2) (n - r.val)) Q.val • MvPolynomial.monomial (Finsupp.single (0 : Fin 2) r.val + Finsupp.single (1 : Fin 2) (n - r.val)) (1 : ℂ)",
+  "lean_name": "p02_es_177ebb5a_lcd_monomial_expansion",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a-ef3717e3c5-a1"
+}

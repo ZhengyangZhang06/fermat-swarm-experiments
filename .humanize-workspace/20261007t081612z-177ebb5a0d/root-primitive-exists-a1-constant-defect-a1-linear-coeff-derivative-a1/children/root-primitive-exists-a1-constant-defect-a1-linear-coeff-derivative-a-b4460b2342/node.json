@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "node_id": "root.primitive_exists-a1.constant_defect-a1.linear_coeff_derivative-a1.linear_map_coefficient_expansion-a1",
+  "parent_id": "root.primitive_exists-a1.constant_defect-a1.linear_coeff_derivative-a1",
+  "depth": 4,
+  "title": "Coefficients of a linear endomorphism are fixed finite linear combinations",
+  "statement": "Let n∈ℕ, let V=BinaryForm ℂ n, let A:V→V be complex linear, and let e:Fin 2→₀ℕ be any exponent index. For r∈Fin(n+1), put d_r=single 0 r.val+single 1 (n−r.val). There exists a function c:Fin(n+1)→ℂ, depending only on n, A, and e, such that for every Q∈V, coeff e((A Q).val)=Σ_{r∈Fin(n+1)} c(r)·coeff d_r(Q.val).",
+  "lean_statement": "∀ (n : ℕ) (A : ↥(HeckeEis.BinaryForm ℂ n) →ₗ[ℂ] ↥(HeckeEis.BinaryForm ℂ n)) (e : Fin 2 →₀ ℕ), ∃ c : Fin (n + 1) → ℂ, ∀ Q : ↥(HeckeEis.BinaryForm ℂ n), MvPolynomial.coeff e (A Q).val = ∑ r : Fin (n + 1), c r * MvPolynomial.coeff (Finsupp.single (0 : Fin 2) r.val + Finsupp.single (1 : Fin 2) (n - r.val)) Q.val",
+  "lean_name": "p02_es_177ebb5a_lcd_coeff_linear_combination",
+  "depends_on": [
+    "root.primitive_exists-a1.constant_defect-a1.linear_coeff_derivative-a1.binary_form_monomial_expansion-a1"
+  ],
+  "dependency_workspaces": [
+    {
+      "node_id": "root.primitive_exists-a1.constant_defect-a1.linear_coeff_derivative-a1.binary_form_monomial_expansion-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    }
+  ],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a-b4460b2342-a1"
+}

@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081612Z-177ebb5a0d",
+  "parent_id": "root.primitive_exists-a1.constant_defect-a1.linear_coeff_derivative-a1",
+  "dispatch_branch": "proof-workspace/fermat-p02/20261007t081612z-177ebb5a0d/dispatch/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1",
+  "source_commit": "0f5a9b05fb9673e5a60fa917656db526e75c7db1",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.primitive_exists-a1.constant_defect-a1.linear_coeff_derivative-a1.binary_form_monomial_expansion-a1",
+      "key": "binary_form_monomial_expansion",
+      "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a-ef3717e3c5-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/children/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a-ef3717e3c5",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "binaryForm.*(basis|[Ee]xpan|[Cc]oeff)|BinaryForm.*(basis|[Ee]xpan)|coeff.*HasDerivAt|HasDerivAt.*coeff",
+              "basis|coeff_eq_zero|isHomogeneous_monomial|homogeneousSubmodule|sum_monomial|def IsHomogeneous",
+              "theorem (coeff_monomial|coeff_smul|coeff_sum|ext)|lemma (coeff_monomial|coeff_smul|coeff_sum)|finsetSum_coeff|degree_eq_sum|degree_single|degree_add|degree_eq_weight_one",
+              "theorem HasDerivAt.(sum|const_mul)|lemma HasDerivAt.(sum|const_mul)",
+              "p02_es_177ebb5a_lcd_monomial_expansion|p02_es_177ebb5a_lcd_coeff_linear_combination",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_lcd_decomposition_types.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Data/Finsupp/Weight.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Add.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Mul.lean",
+              "/tmp/p02_lcd_decomposition_types.lean"
+            ],
+            "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. BinaryForm is the homogeneous polynomial submodule. The project search found the defining coefficientwise IsEichlerIntegral condition but no matching binary-form expansion or derivative helper. Mathlib supplies monomial homogeneity, off-degree coefficient vanishing, coefficient extensionality and linearity, exponent degree identities, HasDerivAt.fun_sum, and HasDerivAt.const_mul. Neither proposed identifier occurred in the searched project or run metadata. Both exact proposed types elaborated after import Submission under Lean 4.33.1. Instance synthesis confirmed the polynomial scalar action is AddMonoidAlgebra.algebra.toSMul. All installed dependencies matched their pinned revisions with clean tracked sources; the six transitive project definition files and five inspected mathlib files matched the snapshot byte-for-byte. Transitive axiom checks of the cited infrastructure returned only propext, Classical.choice, and Quot.sound. These checks validate the interfaces and infrastructure, not comparator acceptance of the proposed children."
+          }
+        ],
+        "parent_id": "root.primitive_exists-a1.constant_defect-a1.linear_coeff_derivative-a1",
+        "child_id": "root.primitive_exists-a1.constant_defect-a1.linear_coeff_derivative-a1.binary_form_monomial_expansion-a1",
+        "subproblem": {
+          "key": "binary_form_monomial_expansion",
+          "title": "Finite monomial expansion of a binary form",
+          "statement": "Let n∈ℕ and let Q∈BinaryForm ℂ n. For r∈Fin(n+1), define d_r:Fin 2→₀ℕ by d_r=single 0 r.val+single 1 (n−r.val), so d_r(0)=r.val and d_r(1)=n−r.val. Then, as an equality in MvPolynomial (Fin 2) ℂ, Q.val=Σ_{r∈Fin(n+1)} coeff d_r(Q.val) • monomial d_r 1.",
+          "lean_statement": "∀ (n : ℕ) (Q : ↥(HeckeEis.BinaryForm ℂ n)), Q.val = ∑ r : Fin (n + 1), MvPolynomial.coeff (Finsupp.single (0 : Fin 2) r.val + Finsupp.single (1 : Fin 2) (n - r.val)) Q.val • MvPolynomial.monomial (Finsupp.single (0 : Fin 2) r.val + Finsupp.single (1 : Fin 2) (n - r.val)) (1 : ℂ)",
+          "lean_name": "p02_es_177ebb5a_lcd_monomial_expansion",
+          "depends_on": [],
+          "natural_proof": "1. Fix n and Q as stated. Write d_r=single 0 r.val+single 1 (n−r.val) and m_r=monomial d_r 1. Since r.val<n+1, we have r.val≤n. Evaluating the two single functions gives d_r(0)=r.val and d_r(1)=n−r.val. Hence degree(d_r)=r.val+(n−r.val)=n.\n2. Let S=Σ_{r∈Fin(n+1)} coeff d_r(Q.val) • m_r. Fix an arbitrary exponent d:Fin 2→₀ℕ. Coefficients commute with finite sums and scalar multiplication, and coeff d(m_r) equals 1 when d_r=d and 0 otherwise. Thus coeff d(S)=Σ_r coeff d_r(Q.val)·(if d_r=d then 1 else 0).\n3. Suppose degree(d)≠n. Because Q.val is homogeneous of degree n, coeff d(Q.val)=0. Every d_r has degree n by step 1, so d_r≠d for every r. Every summand in step 2 is therefore zero, giving coeff d(S)=0=coeff d(Q.val).\n4. Suppose instead degree(d)=n. Since Fin 2 consists of 0 and 1, this says d(0)+d(1)=n. Consequently d(0)≤n and n−d(0)=d(1). Let r₀∈Fin(n+1) have value d(0), which is permitted by d(0)<n+1. The equalities at coordinates 0 and 1 show d_{r₀}=d by extensionality of finitely supported functions.\n5. If d_r=d, evaluation at coordinate 0 gives r.val=d(0)=r₀.val, hence r=r₀ by extensionality of Fin. The sum in step 2 therefore has exactly one potentially nonzero term, at r₀, and equals coeff d_{r₀}(Q.val)=coeff d(Q.val).\n6. Steps 3 and 5 establish equality of the coefficients of Q.val and S at every exponent d. Polynomial coefficient extensionality gives Q.val=S, which is the asserted expansion.",
+          "proof_key_steps": [
+            "Define the degree-n exponent d_r and compute its two coordinates and total degree.",
+            "Compute each coefficient of the proposed finite sum using the monomial coefficient formula.",
+            "Use homogeneity to handle exponent indices of degree different from n.",
+            "Represent every degree-n exponent uniquely as d_r.",
+            "Evaluate the resulting single nonzero summand and apply polynomial coefficient extensionality."
+          ]
+        },
+        "audit": {
+          "key": "binary_form_monomial_expansion",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly matches the prose, including arbitrary n and homogeneous Q. All six proof steps are valid: the exponents have degree n; coefficient linearity reduces the claim to monomial coefficients; homogeneity handles other degrees; every degree-n exponent has a unique index r. This also covers n=0. Coefficient extensionality concludes the precise polynomial equality. The proof is complete, independent of the parent and sibling, and ready for formalization. Its bare identifier is unreserved, and its type requires no child implementation."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a-ef3717e3c5/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a-ef3717e3c5/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a-ef3717e3c5/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.primitive_exists-a1.constant_defect-a1.linear_coeff_derivative-a1.linear_map_coefficient_expansion-a1",
+      "key": "linear_map_coefficient_expansion",
+      "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a-b4460b2342-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/children/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a-b4460b2342",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "binaryForm.*(basis|[Ee]xpan|[Cc]oeff)|BinaryForm.*(basis|[Ee]xpan)|coeff.*HasDerivAt|HasDerivAt.*coeff",
+              "basis|coeff_eq_zero|isHomogeneous_monomial|homogeneousSubmodule|sum_monomial|def IsHomogeneous",
+              "theorem (coeff_monomial|coeff_smul|coeff_sum|ext)|lemma (coeff_monomial|coeff_smul|coeff_sum)|finsetSum_coeff|degree_eq_sum|degree_single|degree_add|degree_eq_weight_one",
+              "theorem HasDerivAt.(sum|const_mul)|lemma HasDerivAt.(sum|const_mul)",
+              "p02_es_177ebb5a_lcd_monomial_expansion|p02_es_177ebb5a_lcd_coeff_linear_combination",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_lcd_decomposition_types.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Data/Finsupp/Weight.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Add.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Mul.lean",
+              "/tmp/p02_lcd_decomposition_types.lean"
+            ],
+            "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. BinaryForm is the homogeneous polynomial submodule. The project search found the defining coefficientwise IsEichlerIntegral condition but no matching binary-form expansion or derivative helper. Mathlib supplies monomial homogeneity, off-degree coefficient vanishing, coefficient extensionality and linearity, exponent degree identities, HasDerivAt.fun_sum, and HasDerivAt.const_mul. Neither proposed identifier occurred in the searched project or run metadata. Both exact proposed types elaborated after import Submission under Lean 4.33.1. Instance synthesis confirmed the polynomial scalar action is AddMonoidAlgebra.algebra.toSMul. All installed dependencies matched their pinned revisions with clean tracked sources; the six transitive project definition files and five inspected mathlib files matched the snapshot byte-for-byte. Transitive axiom checks of the cited infrastructure returned only propext, Classical.choice, and Quot.sound. These checks validate the interfaces and infrastructure, not comparator acceptance of the proposed children."
+          }
+        ],
+        "parent_id": "root.primitive_exists-a1.constant_defect-a1.linear_coeff_derivative-a1",
+        "child_id": "root.primitive_exists-a1.constant_defect-a1.linear_coeff_derivative-a1.linear_map_coefficient_expansion-a1",
+        "subproblem": {
+          "key": "linear_map_coefficient_expansion",
+          "title": "Coefficients of a linear endomorphism are fixed finite linear combinations",
+          "statement": "Let n∈ℕ, let V=BinaryForm ℂ n, let A:V→V be complex linear, and let e:Fin 2→₀ℕ be any exponent index. For r∈Fin(n+1), put d_r=single 0 r.val+single 1 (n−r.val). There exists a function c:Fin(n+1)→ℂ, depending only on n, A, and e, such that for every Q∈V, coeff e((A Q).val)=Σ_{r∈Fin(n+1)} c(r)·coeff d_r(Q.val).",
+          "lean_statement": "∀ (n : ℕ) (A : ↥(HeckeEis.BinaryForm ℂ n) →ₗ[ℂ] ↥(HeckeEis.BinaryForm ℂ n)) (e : Fin 2 →₀ ℕ), ∃ c : Fin (n + 1) → ℂ, ∀ Q : ↥(HeckeEis.BinaryForm ℂ n), MvPolynomial.coeff e (A Q).val = ∑ r : Fin (n + 1), c r * MvPolynomial.coeff (Finsupp.single (0 : Fin 2) r.val + Finsupp.single (1 : Fin 2) (n - r.val)) Q.val",
+          "lean_name": "p02_es_177ebb5a_lcd_coeff_linear_combination",
+          "depends_on": [
+            "binary_form_monomial_expansion"
+          ],
+          "natural_proof": "1. Fix n, A, and e. For each r∈Fin(n+1), define d_r=single 0 r.val+single 1 (n−r.val). Since r.val≤n, its degree is r.val+(n−r.val)=n. The monomial m_r=monomial d_r 1 is therefore homogeneous of degree n, by monomial homogeneity. Thus b_r=⟨m_r, its membership proof⟩ is an element of V=BinaryForm ℂ n.\n2. Define c(r)=coeff e((A b_r).val). This defines a function Fin(n+1)→ℂ before choosing Q, so it is independent of Q.\n3. Fix any Q∈V and write a_r=coeff d_r(Q.val). Apply binary_form_monomial_expansion to obtain Q.val=Σ_r a_r • m_r. The inclusion of the submodule V into the polynomial space preserves finite sums and scalar multiplication, so the right side is the underlying polynomial of Σ_r a_r • b_r. Injectivity of this inclusion, or subtype extensionality, gives Q=Σ_r a_r • b_r in V.\n4. Apply A to this equality. Additivity and complex linearity give A Q=Σ_r a_r • A b_r. Taking underlying polynomials and then coefficient e, and using coefficient additivity and compatibility with scalar multiplication, gives coeff e((A Q).val)=Σ_r a_r·coeff e((A b_r).val).\n5. Substitute the definitions of a_r and c(r), and commute the two complex factors in each summand. The result is coeff e((A Q).val)=Σ_r c(r)·coeff d_r(Q.val). Since Q was arbitrary, the function c from step 2 satisfies the required universal identity, proving the existential conclusion.",
+          "proof_key_steps": [
+            "Construct the degree-n monomials as elements of the homogeneous submodule.",
+            "Define the fixed output coefficients c(r) by applying A to those monomials.",
+            "Lift the sibling's polynomial expansion to an equality inside BinaryForm.",
+            "Apply the linear map and then the coefficient functional.",
+            "Commute complex scalar factors and conclude the uniform identity for every Q."
+          ]
+        },
+        "audit": {
+          "key": "linear_map_coefficient_expansion",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly captures complex linearity and the quantifier order ensuring c is independent of Q. Each proof step is justified: degree-n monomials belong to BinaryForm; c is defined before Q; subtype extensionality lifts the prerequisite expansion; linearity of A and coefficients gives the sum; complex commutativity puts its factors in the required order. The sole dependency correctly points to binary_form_monomial_expansion, with no cycle or parent reliance. Its bare identifier is unreserved, and the type elaborates independently of both child implementations."
+        },
+        "resolved_dependencies": [
+          "root.primitive_exists-a1.constant_defect-a1.linear_coeff_derivative-a1.binary_form_monomial_expansion-a1"
+        ],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a-b4460b2342/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a-b4460b2342/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a-b4460b2342/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/task.md": "fbef05e2a6cfc7a6d66c1b237f25981ac872a7f88acb97b5772f4a049cee216a",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/problem.md": "bc292ceabaa59d4166815e39f5e6a0c5ec4e11e33604270753833466755074b0",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/problem.json": "bf0e4090d7154b9d64a24b6ca1b3b7a3bc13849e2326306634e0842533303df7",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/reference-manifest.json": "a8f9271939f028889a1e9bac59a7290448f8c694baf434f537bdc05b0f75f2a6",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/decomposition.json": "4eefeec34c82e90b16617dd6b1336172dc7dbebaf1f17399275edb86f9826c33",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/decomposition-audit.json": "743a71a8f16f43f8472e5afbaaf6afb60c12acf2d416589ba7d8c1e47aa93cf3",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/controller-contract.json": "7b7a516f9fce5467b2a4e92be9eb01a7eee74fb69c1477cc06212956b9e78e13",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/children/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a-ef3717e3c5/parent-child-handoff.json": "3494f19f59d0b2a7f7fd8142d9b312c538d21cd3b54efdd0966d5a8ca4fa96cf",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/children/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a-ef3717e3c5/parent-supplied-plan.md": "a9e712afa89ece353cbe6e2fba46df24dc4eedd2bc18960360edfd4ecb38ec64",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/children/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a-ef3717e3c5/parent-supplied-natural-proof.md": "5ed5b3af7ed0ed4e6a6daa0e72fe152a3c00e221690bb72fea7006139685d622",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/children/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a-ef3717e3c5/parent-supplied-natural-proof.json": "9edd9fdc6a8e6a4ee2864726dee167d1358baa7b8750a85ff3bdb488872ab5b3",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/children/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a-ef3717e3c5/node.json": "0ca64bd091cdeb92c67a404ee8c7e9377fb1d408c843e4879038094f3023a716",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/children/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a-b4460b2342/parent-child-handoff.json": "493214f8fd4df98d56de2762ccf629c7d98dd3b159927f6070a19b631dd925a8",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/children/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a-b4460b2342/parent-supplied-plan.md": "7f6ea6e349917828c2bef334bd64a3c448492de393c59eb1e881ff95869a97d4",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/children/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a-b4460b2342/parent-supplied-natural-proof.md": "6cdbd7a7002ebb75a92d0280485213e4fb3bfed13bbfed42efc66ca4642fe68b",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/children/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a-b4460b2342/parent-supplied-natural-proof.json": "860350e4d051aaf97f93da74679f40441bc81ca530ada1958a4738ea091e4b2a",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/children/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a-b4460b2342/node.json": "d470851efceb2e34935bdcfbba714b6e961b918116a91acffbba9d050131eec6"
+  }
+}

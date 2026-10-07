@@ -1,0 +1,46 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "binaryForm.*(basis|[Ee]xpan|[Cc]oeff)|BinaryForm.*(basis|[Ee]xpan)|coeff.*HasDerivAt|HasDerivAt.*coeff",
+        "coeff_eq_zero|isHomogeneous_monomial|homogeneousSubmodule|def IsHomogeneous",
+        "(coeff_monomial|coeff_smul|coeff_sum|finsetSum_coeff|theorem ext|lemma ext)",
+        "degree_eq_sum|degree_single|degree_add|degree_eq_weight_one|HasDerivAt.(sum|fun_sum|const_mul)",
+        "p02_es_177ebb5a_lcd_monomial_expansion|p02_es_177ebb5a_lcd_coeff_linear_combination",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02-lcd-independent-audit-7uz5y1xu/Audit.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a1/decomposition-v1.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Data/Finsupp/Weight.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Add.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Mul.lean",
+        "/tmp/p02-lcd-independent-audit-7uz5y1xu/Audit.lean"
+      ],
+      "conclusion": "Independently confirmed project pin 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib pin db584cd6d46c92f209a44c0f1c829460d327499d. BinaryForm is precisely the homogeneous polynomial submodule. The project search found the defining coefficientwise derivative condition but no matching expansion or derivative helper. Inspected mathlib lemmas justify monomial homogeneity, off-degree coefficient vanishing, coefficient extensionality and linearity, degree computations, and scalar finite-sum differentiation. Both exact proposed expressions independently elaborated as Prop without importing Submission or implementing either child. Scalar-action synthesis returned AddMonoidAlgebra.algebra.toSMul; coefficient compatibility with ordinary complex multiplication also checked. All nine installed dependencies matched their pins with clean tracked sources; six transitive project files matched the frozen project and snapshot, and five inspected mathlib files matched the snapshot. Transitive axiom checks of the relevant infrastructure returned only propext, Classical.choice, and Quot.sound. Neither identifier is reserved in the active DAG; metadata occurrences belonged only to this proposal. The split isolates two genuine algebraic obligations and leaves the parent a direct application of existing derivative rules. This is decomposition approval, not comparator acceptance of child implementations."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "binary_form_monomial_expansion",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose, including arbitrary n and homogeneous Q. All six proof steps are valid: the exponents have degree n; coefficient linearity reduces the claim to monomial coefficients; homogeneity handles other degrees; every degree-n exponent has a unique index r. This also covers n=0. Coefficient extensionality concludes the precise polynomial equality. The proof is complete, independent of the parent and sibling, and ready for formalization. Its bare identifier is unreserved, and its type requires no child implementation."
+    },
+    {
+      "key": "linear_map_coefficient_expansion",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly captures complex linearity and the quantifier order ensuring c is independent of Q. Each proof step is justified: degree-n monomials belong to BinaryForm; c is defined before Q; subtype extensionality lifts the prerequisite expansion; linearity of A and coefficients gives the sum; complex commutativity puts its factors in the required order. The sole dependency correctly points to binary_form_monomial_expansion, with no cycle or parent reliance. Its bare identifier is unreserved, and the type elaborates independently of both child implementations."
+    }
+  ],
+  "required_changes": []
+}
