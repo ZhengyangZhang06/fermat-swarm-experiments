@@ -173,7 +173,7 @@ catalog. At this checkpoint no new claim had yet arrived, so this confirms routi
 and deployment, not an observed v4 proof completion. Natural/decomposition reviews,
 the immutable verifier and the decomposition depth limit are unchanged.
 
-### Dedicated verifier capacity: source support, not deployment
+### Dedicated verifier capacity
 
 The broker supports repeatable `--reserve-node hoaN` startup reservations for
 dedicated verification capacity. A frozen, validated set rejects fresh proof
@@ -189,3 +189,11 @@ Source validation on 2026-10-07: all 395 tests passed (one optional skip),
 including nine new reservation tests and existing broker/claim/verifier coverage.
 Independent review confirmed held-claim recovery precedes reservation rejection.
 No reservation deployment or campaign proof acceptance is implied by these tests.
+
+Deployment confirmed at the 2026-10-07 17:03 UTC checkpoint: the sole intake-enabled
+recovery broker uses immutable `eb552d2` and reserves `hoa127`; other generations
+retain disabled intake. Authenticated health passed, with all 71 prior job commands
+and four existing live checker identities unchanged. `hoa127` had no active proof
+claim. The cached verifier isolation/ten-fixture diagnostic passed there; the
+package-backed packet roundtrip is still running, so remote production dispatch
+has not been enabled. See the reference-cache guide for the remaining gates.

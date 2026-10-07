@@ -51,7 +51,7 @@ deployment, in addition to unit tests. Do not overwrite a running checker's code
 repoint its libraries, alter issue ownership, or reuse a proof receipt for another
 candidate. A mirror or successful diagnostic is not a solved campaign theorem.
 
-## Optional node-local remote verification (source support; not deployed)
+## Optional node-local remote verification
 
 ### Reserve capacity before production dispatch
 
@@ -156,6 +156,34 @@ real positive/negative comparator fixtures, private-file/socket denial and exact
 task/packet/cache evidence is still required before production activation. Deploy
 additively only after those checks, retaining old jobs and their immutable code.
 
+### Pilot validation checkpoint: 2026-10-07 17:03 UTC
+
+The authorized `hoa127` pilot now has a separately seeded named reference volume.
+The seed task completed with exit zero and verified all 173,439 inventory entries
+against the original operator-retained digest. The unchanged checker then passed
+all ten real comparator fixtures, private-file/socket denial, UID/GID 1000 and
+mode-0700 checks, a read-only-volume check, and full inventory checks before and
+after execution. The diagnostic task completed with exit zero. These fixtures
+are infrastructure evidence, not campaign theorem solutions.
+
+The recovery broker now runs immutable reservation source `eb552d2`, reserves
+`hoa127` from new proof claims, and still routes new proof jobs through the
+integrity-review archive. Other broker generations have intake disabled. Its
+authenticated health check passed; all 71 prior job definitions and all four
+running checker process identities were preserved. The reserved node had no
+active proof claim. The full reservation suite passed 395 tests (one optional
+skip), and the package-backed roundtrip additions passed eight targeted tests.
+The workflow branch contains both changes through `044c2ae` after a transient
+GitHub push failure recovered.
+
+The package-backed exact-packet roundtrip is currently running under the durable
+`fermat-cache-roundtrip-20261007.service` controller. It must accept the original
+positive fixture, reject the changed statement with the actual comparator
+diagnostic, and return matching packet/task/cache evidence. Production dispatch
+is still disabled pending those terminal results. Do not infer completion or
+start another canary from elapsed time; reconcile this exact controller and its
+recorded task identities first.
+
 ## Controller pilot (2026-10-07)
 
 An additive pilot uses a private Git archive of workflow revision `7c0cdf0` at
@@ -180,5 +208,6 @@ evidence, and no performance improvement is claimed until actually measured.
 At 13:21:47 UTC the pilot claimed its first real request,
 `190da91e9f554b0d9ec6ece90fa5ad0d`, for P02 issue51 candidate `411a83a`.
 The timer was then stopped to bound evaluation to this one request; its service
-and checker remain running. Assess that exact receipt before enabling further
-pilot polls. The ordinary broker continues serving other requests unchanged.
+and checker were running at that historical checkpoint. Reconcile the current
+receipt before enabling further pilot polls; the observation above does not
+establish their present liveness. Ordinary broker work was not interrupted.
