@@ -17,9 +17,11 @@ theorem p04_eq_zero_of_prime_avoiding_annihilators :
       (∀ p : ℕ, p.Prime → ∃ m : ℕ, 0 < m ∧ ¬ p ∣ m ∧ ∀ v : V, m • v = 0) →
       ∀ v : V, v = 0 := by
   intro V _ h v
+  -- The prime 2 supplies a positive annihilator, so the least additive order is positive.
   obtain ⟨m₂, hm₂, _, h₂⟩ := h 2 Nat.prime_two
   have hv : IsOfFinAddOrder v :=
     isOfFinAddOrder_iff_nsmul_eq_zero.mpr ⟨m₂, hm₂, h₂ v⟩
+  -- The additive order divides every annihilator, so it cannot have a prime divisor.
   have hn_le : addOrderOf v ≤ 1 := by
     by_contra! hn
     obtain ⟨p, hp, hpn⟩ := Nat.exists_prime_and_dvd (Nat.ne_of_gt hn)
