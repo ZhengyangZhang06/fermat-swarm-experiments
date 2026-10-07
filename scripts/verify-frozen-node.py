@@ -296,6 +296,25 @@ def self_test():
             print(f"SELF-TEST {title}: {'accepted' if result else 'rejected'}", flush=True)
 
 
+def sandbox_self_test():
+    """Prove the checker cannot read a file outside its explicit sandbox roots."""
+    with tempfile.TemporaryDirectory(prefix="fermat-sandbox-test-") as tmp:
+        root = Path(tmp)
+        outside = root / "private-canary"
+        write(outside, "must not be visible to candidate code")
+        candidate = root / "candidate"
+        configure(candidate, mathlib=False)
+        command = ["/usr/bin/python3", "-c",
+                   "import pathlib,sys\n"
+                   "try: pathlib.Path(sys.argv[1]).read_text()\n"
+                   "except PermissionError: print('SANDBOX_CANARY_DENIED'); sys.exit(0)\n"
+                   "raise SystemExit('sandbox exposed private canary')\n", str(outside)]
+        result = sandbox(candidate, command, capture=True)
+        if "SANDBOX_CANARY_DENIED" not in result.stdout:
+            raise RuntimeError("sandbox canary check did not produce rejection evidence")
+        print("SELF-TEST private-files: denied", flush=True)
+
+
 def root_child_contracts(dag, root_id):
     """Collect the frozen interfaces of every retained prerequisite in the DAG."""
     nodes = {one["id"]: one for one in dag["nodes"]}
@@ -423,8 +442,11 @@ def verify():
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--self-test", action="store_true")
+    parser.add_argument("--sandbox-self-test", action="store_true")
     args = parser.parse_args()
-    if args.self_test:
+    if args.sandbox_self_test:
+        sandbox_self_test()
+    elif args.self_test:
         self_test()
     else:
         verify()

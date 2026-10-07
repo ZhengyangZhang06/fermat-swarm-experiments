@@ -145,3 +145,49 @@ Next: finish the live build/self-test, stage the worker runtime and secrets, val
 the ten configs without model calls, update the live proof-aware status publisher,
 then enable real proof jobs and observe actual ownership/model processes. All ten
 root proofs and every newly introduced helper remain outstanding.
+
+## Follow-up checkpoint, 08:20 UTC — real proof jobs launched
+
+- All ten executable project branches `experiments/fermat-p01` through `p10` are
+  pushed. Source registrations are in the broker-local catalogue. All ten configs
+  passed Humanize schema validation; `hmz check` reports zero errors (seven config
+  description warnings). The runtime is staged under `fermat-swarm-runtime/flows/`.
+- The 128-worker service now has the full runtime, pinned toolchain/packages,
+  shared project mounts, and scoped Docker secrets. Bootstrap creates a real
+  container account, copies authorized credentials into a container-local Ubuntu
+  home, then drops to uid/gid 1000 before polling. Never publish those secrets.
+- Two pilot attempts failed safely before model work because SSH requires a passwd
+  entry for uid1000. Both receipts were terminal/released and the project disabled.
+  The corrected bootstrap passed a real remote Git transport check on hoa0.
+- **All ten root issues are now claimed and working on distinct nodes**:
+  p01 hoa82, p02 hoa32, p03 hoa97, p04 hoa35, p05 hoa108, p06 hoa49,
+  p07 hoa91, p08 hoa24, p09 hoa71, p10 hoa52. Real model responses are present
+  in every job's logs. p04 reached natural-proof drafting; the others are planning.
+  There are no accepted natural proofs or verified theorem solutions yet.
+- All 128 Swarm tasks are Running with current heartbeat observations. The other
+  118 workers poll independently. **Do not roll/restart this service with active
+  claims.** Non-expiring claims must be reconciled against actual task/process state.
+- Comparator self-test session14133 finished exit0: all ten positive/negative
+  cases passed, including combined retained child interfaces. No longer live.
+  Baseline `fermat-contract-build.service` PID2780465 remains live and advancing.
+  The private catalogue still has `verifier_ready:false` until remaining checks
+  and baseline validation complete; proof drafting may proceed but cannot pass
+  the formal acceptance gate while this flag is false.
+- Broker PID2856288 now includes the immutable revision verifier. Verification
+  snapshots/evidence are stored under its private /var/tmp directory, outside
+  worker-writable shared projects. Worker worktrees remain on shared storage even
+  for long child node names, so the host verifier and later pollers can access them.
+- Main campaign commit3dc6f4b includes a proof-aware live observer and six passing
+  feed tests. Pages commit65bcbab is built. The page shows the real dynamic DAG,
+  distinct prose/Lean/merge states and counts; 08:18 feed reported128 pollers,
+  ten active issue jobs and zero accepted proofs. Producer cadence60s, UI120s.
+- Workflow deployed commit79d862d, branch `workflow/swarm-issue-resolvers` in the
+  campaign repository. Subsequent controller checks must be tested/pushed without
+  interrupting the ten live proof jobs. Original benchmark contracts remain intact.
+
+Next: complete baseline/compiler and sandbox checks; enable real verification,
+monitor drafts/reviews and issue decompositions, then verify/merge every resulting
+helper and all ten root PRs. Do not confuse worker deployment with experiment
+completion. The current scheduler remains one active issue per problem; independent
+child parallelism within a problem would require isolating shared DAG/integration
+state, not simply deleting the project lock.

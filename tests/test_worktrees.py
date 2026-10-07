@@ -1308,6 +1308,15 @@ class WorktreeTests(unittest.TestCase):
             finally:
                 os.chdir(original)
 
+    def test_swarm_worktrees_never_fall_back_to_container_tmp(self) -> None:
+        runtime = SimpleNamespace(project=Path('/mnt/shared/projects/problem'), run_root=Path('/run/a-long-run'))
+        node = NodeRecord(id='root.' + 'nested_' * 40, title='Deep node', statement='True', attempts=1)
+        with patch.dict(os.environ, {'HUMANIZE_SWARM_OWNER': 'hoa0/task/boot'}):
+            path = Runtime._node_worktree_path(runtime, node)
+            self.assertTrue(path.is_relative_to(runtime.project.parent / '.swarm-worktrees'))
+            self.assertLessEqual(len(str(path)), 180)
+            self.assertEqual(path, Runtime._node_worktree_path(runtime, node))
+
     def test_overlong_recorded_worktree_is_moved_to_short_path(self) -> None:
         original = Path.cwd()
         with tempfile.TemporaryDirectory() as temporary:
