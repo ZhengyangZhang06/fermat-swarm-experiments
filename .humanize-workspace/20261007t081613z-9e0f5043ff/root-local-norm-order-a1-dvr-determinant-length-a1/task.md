@@ -1,0 +1,3 @@
+# Recursive Lean task
+
+Prove `AlgebraicCurve.hasPrincipalDivisors_of_transcendental` for `fermat-p06` using the exact frozen contract in `Fermat/Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean`. Write the Lean solution in Submission.lean. Use the issue/PR workflow: complete and independently review the natural-language proof, publish every new named helper as an issue, and require the controller comparator and independent review before a solution PR is merged and its issue closed. Workers independently poll issues; do not dispatch or notify other workers. No web search. Do not import the original upstream solution of this target. Pinned unchanged libraries may be reused with exact provenance and axiom checks.

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1",
+  "parent_id": "root.local_norm_order-a1.dvr_determinant_length-a1",
+  "depth": 3,
+  "title": "A nonsingular square matrix over a DVR is equivalent to a nonzero diagonal matrix",
+  "statement": "Let A be a commutative integral domain that is a discrete valuation ring. For every m ∈ ℕ and square matrix D indexed by Fin m over A with det(D) ≠ 0, there exist square matrices P and Q invertible under matrix multiplication and a function d : Fin m → A such that every d(i) is nonzero and P D Q = diagonal(d). No ordering or divisibility condition on consecutive diagonal entries is asserted.",
+  "lean_statement": "∀ (A : Type*) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A] (m : ℕ) (D : Matrix (Fin m) (Fin m) A), D.det ≠ 0 → ∃ (P Q : Matrix (Fin m) (Fin m) A) (d : Fin m → A), IsUnit P ∧ IsUnit Q ∧ (∀ i, d i ≠ 0) ∧ P * D * Q = Matrix.diagonal d",
+  "lean_name": "p06_9e0f5043ff_dlen_matrix_diagonalization",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-dvr-matrix-diagonalization-a1-a1"
+}

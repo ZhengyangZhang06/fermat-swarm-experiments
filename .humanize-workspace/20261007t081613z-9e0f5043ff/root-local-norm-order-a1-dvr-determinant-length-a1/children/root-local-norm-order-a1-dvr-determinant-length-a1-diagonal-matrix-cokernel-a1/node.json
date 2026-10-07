@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.local_norm_order-a1.dvr_determinant_length-a1.diagonal_matrix_cokernel-a1",
+  "parent_id": "root.local_norm_order-a1.dvr_determinant_length-a1",
+  "depth": 3,
+  "title": "The cokernel of a matrix equivalent to a diagonal matrix",
+  "statement": "Let R be a commutative ring, let m ∈ ℕ, let D, P and Q be square matrices indexed by Fin m over R, and let d : Fin m → R. Assume P and Q are invertible under matrix multiplication and P D Q = diagonal(d). Then the cokernel of the linear map x ↦ D x is R-linearly isomorphic to the finite product of the modules R/(d(i)). No domain assumption, determinant condition, or nonvanishing condition on d is required.",
+  "lean_statement": "∀ (R : Type*) [CommRing R] (m : ℕ) (D P Q : Matrix (Fin m) (Fin m) R) (d : Fin m → R), IsUnit P → IsUnit Q → P * D * Q = Matrix.diagonal d → Nonempty (((Fin m → R) ⧸ LinearMap.range (Matrix.mulVecLin D)) ≃ₗ[R] ((i : Fin m) → R ⧸ Ideal.span ({d i} : Set R)))",
+  "lean_name": "p06_9e0f5043ff_dlen_diagonal_cokernel",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-diagonal-matrix-cokernel-a1-a1"
+}

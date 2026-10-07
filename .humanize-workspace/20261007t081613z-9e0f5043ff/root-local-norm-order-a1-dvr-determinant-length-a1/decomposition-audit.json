@@ -1,0 +1,56 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "structure Place|def ord|ord_coe_unit|ord_coe_irreducible|exists_unit_mul_zpow|ord_coe_nonneg|IsDiscreteValuationRing|ord_mul|ord_one",
+        "class IsDiscreteValuationRing|exists_irreducible|eq_unit_mul_pow_irreducible|length_quotient_pow_maximalIdeal|length_eq_add_of_exact|length_pi_of_fintype|length_eq_one|length_eq_zero",
+        "def Matrix|def of|abbrev Matrix|reducible|pointwise|typeclass",
+        "def Matrix|def of|instance.*[Mm]ul|instance.*[Ss]emiring|instance.*[Mm]onoid|def mulVecLin|mulVecLin_mul|isUnit_iff_isUnit_det",
+        "length.*det|det.*length|ord.*length|length.*ord|cokernel.*diagonal|diagonal.*cokernel",
+        "p06_9e0f5043ff_dlen_(scalar_quotient|matrix_diagonalization|diagonal_cokernel)",
+        "^axiom |sorry|admit|unsafe"
+      ],
+      "files": [
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/problem.md",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DiscreteValuationRing/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Length.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Matrix/Defs.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Data/Matrix/Mul.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Matrix/ToLin.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Quotient/Pi.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/OrderOfVanishing/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-local-norm-order-a1/decomposition-typecheck/CheckTypes.interface-check.log",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-local-norm-order-a1/decomposition-typecheck/Submission.frozen-source-check.log"
+      ],
+      "conclusion": "The split is appropriate: scalar length/order, matrix diagonalization, and cokernel identification are distinct obligations whose conclusions assemble the parent. The snapshot supplies the claimed DVR factorization, normalized order laws, length additivity, and matrix interfaces. No relevant determinant-length or diagonal-cokernel theorem matched the search; Ring.ord is a different ENat-valued definition. Matrix-bound P and Q use ordinary matrix multiplication, as confirmed by the pinned instance definitions. The DAG is acyclic, and all three bare names are unreserved. Project and mathlib HEADs match the manifest and have clean tracked trees. This approves the decomposition and prose proofs only: no fresh Lean elaboration or comparator was run. Existing logs check selected library axioms but record authoritative Submission import failures; compatibility, complete transitive axiom checks, and exact-contract comparator acceptance remain separate gates."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "scalar_quotient_length_order",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition matches all prose hypotheses and both conclusions with the same natural-number witness. The proof correctly factors a nonzero scalar, establishes simplicity of the uniformizer quotient, verifies the short exact sequence by cancellation, computes lengths inductively, removes the unit from the ideal, and computes normalized order using nonzero images. It covers units through n = 0 and contains no circular dependency."
+    },
+    {
+      "key": "dvr_matrix_diagonalization",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The proposition exactly states matrix equivalence to a nonzero diagonal over a DVR. Explicit Matrix-typed variables give IsUnit P and IsUnit Q the ordinary matrix monoid instance. The proof handles size zero, obtains divisibility from minimal chosen exponents, clears the first column and row by invertible operations, proves the remaining determinant nonzero, and composes the inductive block transformations correctly. No scalar-length or parent theorem is assumed."
+    },
+    {
+      "key": "diagonal_matrix_cokernel",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition precisely expresses the stated R-linear equivalence, with ordinary matrix units and no extra domain or nonvanishing assumptions. The proof explicitly constructs F, proves both kernel inclusions using Q inverse and injectivity of P, proves surjectivity using quotient representatives and P inverse, and descends to a bijective linear map. It includes the empty-index case and uses the diagonal equation as a hypothesis, so no dependency on the diagonalization child is needed."
+    }
+  ],
+  "required_changes": []
+}

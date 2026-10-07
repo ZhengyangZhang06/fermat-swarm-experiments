@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.local_norm_order-a1.dvr_determinant_length-a1.scalar_quotient_length_order-a1",
+  "parent_id": "root.local_norm_order-a1.dvr_determinant_length-a1",
+  "depth": 3,
+  "title": "A principal scalar quotient has length equal to normalized order",
+  "statement": "Let K and E be fields with an algebra structure K → E, let v : AlgebraicCurve.Place K E, and write A = v.toValuationSubring. For every nonzero a ∈ A, there exists n ∈ ℕ such that length_A(A/(a)) = n in ℕ∞ and v.ord(algebraMap A E a) = n in ℤ.",
+  "lean_statement": "∀ (K E : Type*) [Field K] [Field E] [Algebra K E] (v : AlgebraicCurve.Place K E) (a : v.toValuationSubring), a ≠ 0 → ∃ n : ℕ, Module.length v.toValuationSubring (v.toValuationSubring ⧸ Ideal.span ({a} : Set v.toValuationSubring)) = (n : ℕ∞) ∧ v.ord (algebraMap v.toValuationSubring E a) = (n : ℤ)",
+  "lean_name": "p06_9e0f5043ff_dlen_scalar_quotient",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-scalar-quotient-le-9dc69f4859-a1"
+}
