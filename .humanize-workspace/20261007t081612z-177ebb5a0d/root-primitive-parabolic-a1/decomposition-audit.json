@@ -1,0 +1,59 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "IsEichlerIntegral|IsEquivariantPrimitiveWith|sub_eq_cocycle|IsParabolicCocycle|binaryFormRepSL_linePow|jFactor_ne_zero",
+        "exp_decay_atImInfty|Gamma_normal|ModularGroup_T_pow_mem_Gamma|isCusp|isZeroAt|zero_at|slash",
+        "trace.*(sq|\\^ 2)|parabolic.*conjug|conjug.*parabolic|exists.*(T \\^|T\\^)",
+        "coe_T_zpow|T_zpow|neg.*smul|smul.*neg|def ofComplex|ofComplex_apply|def IsCusp|def IsParabolic|def atImInfty|def IsZeroAtImInfty|SL_slash_def|coe_mul|coe_neg",
+        "rg -l 'p02_es_177ebb5a_pp_(scaled_cusp_decay|primitive_cusp_limit|integral_parabolic_normal_form)' Submission.lean .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes",
+        "git -C .lake/packages/mathlib rev-parse HEAD",
+        "git -C .lake/packages/mathlib status --short",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_177ebb5a_pp_independent_audit.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_Gamma0CoeffCohomology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/QExpansion.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/BoundedAtCusp.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/Cusps.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/SlashActions.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/FunctionsBoundedAtInfty.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+        "/tmp/p02_177ebb5a_pp_independent_audit.lean"
+      ],
+      "conclusion": "The split appropriately decomposes root.primitive_parabolic-a1 and preserves the frozen injectivity root. The sole child dependency is primitive_cusp_limit → scaled_cusp_decay; the existing DAG is also acyclic. All proposed names are bare, distinct, and unreserved; the name search matched only this proposal. The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Installed mathlib has that HEAD and clean status; all 81 snapshot definition files and 8311 mathlib Lean files match installed sources byte-for-byte. Inspected sources establish the exact coefficient derivatives, constant-defect identity, line-power covariance, uniform cusp vanishing, exponential decay, and actions of ±T^m. No matching integral conjugacy theorem was found in the searched matrix, modular-form, and project-definition sources. All three exact one-line propositions independently elaborate with library imports alone, without importing Submission or implementing any child. Matrix multiplication, negation, integer powers, and negative complex powers passed explicit checks. Transitive axiom checks for eleven relevant reusable lemmas report only propext, Classical.choice, and Quot.sound. The children suffice for the parent: limits give c(γ)=A−ρ(γ)A, with range witness −A. This approves the decomposition and interfaces, not unimplemented Lean proofs."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "scaled_cusp_decay",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and exact Lean proposition agree on every hypothesis, quantifier, exponent, and uniform height bound. Steps 1–4 establish holomorphy, positive period N, and uniform cusp vanishing. Steps 5–7 correctly descend to the punctured disk, remove the singularity, factor out q, and choose valid constants. The supplied proof is complete and independent of the parent and other children."
+    },
+    {
+      "key": "primitive_cusp_limit",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The type exactly expresses one A working for every real x and every coefficient. The proof uses only its declared decay prerequisite and correctly derives H′=uρ(σ)L. The finite coefficient space, operator bound, integrable exponential tail, vertical Cauchy estimate, and horizontal comparison establish the common limit. Off-degree coefficients vanish, and eventual positivity justifies ofComplex. No equivariance hypothesis or circular appeal is needed."
+    },
+    {
+      "key": "integral_parabolic_normal_form",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact type matches integral conjugacy to T^m or −T^m. The proof correctly handles central matrices, constructs a nonzero integral kernel vector, divides by its positive gcd, and uses Bézout to produce a determinant-one conjugator. The resulting diagonal entries are ε, and m=εb₀ gives the required sign and power. Ordinary matrix multiplication and entrywise negation were independently verified. The obligation has no dependencies or circular reliance."
+    }
+  ],
+  "required_changes": []
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.primitive_parabolic-a1.integral_parabolic_normal_form-a1",
+  "parent_id": "root.primitive_parabolic-a1",
+  "depth": 2,
+  "title": "Integral conjugacy normal form for trace-squared-four matrices",
+  "statement": "For every γ∈SL₂(ℤ) whose matrix trace satisfies tr(γ)^2=4, there exist σ∈SL₂(ℤ) and m∈ℤ such that σ⁻¹γσ=T^m or σ⁻¹γσ=−T^m, where T=(1 1;0 1). This includes γ=I and γ=−I.",
+  "lean_statement": "∀ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, (γ : Matrix (Fin 2) (Fin 2) ℤ).trace ^ 2 = 4 → ∃ (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (m : ℤ), σ⁻¹ * γ * σ = ModularGroup.T ^ m ∨ σ⁻¹ * γ * σ = -(ModularGroup.T ^ m)",
+  "lean_name": "p02_es_177ebb5a_pp_integral_parabolic_normal_form",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-parabolic-a1-integral-parabolic-normal-form-a1-a1"
+}

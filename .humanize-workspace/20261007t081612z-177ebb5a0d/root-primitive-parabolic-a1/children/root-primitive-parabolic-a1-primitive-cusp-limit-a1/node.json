@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "node_id": "root.primitive_parabolic-a1.primitive_cusp_limit-a1",
+  "parent_id": "root.primitive_parabolic-a1",
+  "depth": 2,
+  "title": "A common coefficientwise limit of an Eichler primitive at a scaled cusp",
+  "statement": "Let N,n be natural numbers with N≠0, let f be a weight n+2 cusp form for Γ₀(N), and let F:ℍ→BinaryForm ℂ n satisfy IsEichlerIntegral n f F. For every σ∈SL₂(ℤ), there is A∈BinaryForm ℂ n such that, for every real x and every monomial exponent d:Fin 2→₀ℕ, the coefficient of d in F(σ(x+iy)) tends to the coefficient of d in A as y→+∞. The same A works for every x. In the total Lean expression, x+iy is mapped to ℍ using UpperHalfPlane.ofComplex; this agrees with x+iy for every y>0.",
+  "lean_statement": "∀ (N : ℕ) [NeZero N] (n : ℕ) (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2)) (F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.IsEichlerIntegral n (fun τ => f τ) F → ∀ σ : Matrix.SpecialLinearGroup (Fin 2) ℤ, ∃ A : ↥(HeckeEis.BinaryForm ℂ n), ∀ (x : ℝ) (d : Fin 2 →₀ ℕ), Filter.Tendsto (fun y : ℝ => MvPolynomial.coeff d (F (σ • UpperHalfPlane.ofComplex ((x : ℂ) + (y : ℂ) * Complex.I))).val) Filter.atTop (nhds (MvPolynomial.coeff d A.val))",
+  "lean_name": "p02_es_177ebb5a_pp_primitive_cusp_limit",
+  "depends_on": [
+    "root.primitive_parabolic-a1.scaled_cusp_decay-a1"
+  ],
+  "dependency_workspaces": [
+    {
+      "node_id": "root.primitive_parabolic-a1.scaled_cusp_decay-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    }
+  ],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-parabolic-a1-primitive-cusp-limit-a1-a1"
+}

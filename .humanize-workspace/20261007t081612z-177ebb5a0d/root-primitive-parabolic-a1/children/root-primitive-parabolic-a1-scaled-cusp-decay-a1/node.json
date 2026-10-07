@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.primitive_parabolic-a1.scaled_cusp_decay-a1",
+  "parent_id": "root.primitive_parabolic-a1",
+  "depth": 2,
+  "title": "Exponential decay of a cusp form after integral scaling",
+  "statement": "Let N,n be natural numbers with N≠0, let f be a cusp form for Γ₀(N) of weight n+2, and let σ∈SL₂(ℤ). Define j(σ,τ)=σ₂₁τ+σ₂₂ and u(τ)=j(σ,τ)^{−(n+2)}f(στ). There exist real numbers a,C,Y with a>0 and C≥0 such that ‖u(τ)‖≤C exp(−a Im τ) whenever τ∈ℍ and Y≤Im τ.",
+  "lean_statement": "∀ (N : ℕ) [NeZero N] (n : ℕ) (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2)) (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ), ∃ (a C Y : ℝ), 0 < a ∧ 0 ≤ C ∧ ∀ τ : UpperHalfPlane, Y ≤ τ.im → ‖(HeckeEis.jFactor σ τ) ^ (-((n : ℤ) + 2)) * f (σ • τ)‖ ≤ C * Real.exp (-a * τ.im)",
+  "lean_name": "p02_es_177ebb5a_pp_scaled_cusp_decay",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-parabolic-a1-scaled-cusp-decay-a1-a1"
+}
