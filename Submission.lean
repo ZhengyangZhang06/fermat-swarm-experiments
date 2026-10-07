@@ -1192,7 +1192,8 @@ theorem p07_flp_point_equiv_857cd4d38c
     rw [Category.assoc, hact, Category.assoc]
 namespace Submission
 
-/-- Repeated addition commutes with compatible precomposition of points. -/
+/-- Repeated addition commutes with compatible precomposition of points.
+The induction uses identity and multiplication naturality for the specified relative group law. -/
 theorem p07_flp_nsmul_precomp_857cd4d38c :
     ∀ (R : Type) [CommRing R] (A W W' : AlgebraicGeometry.Scheme.{0})
       (f : Quiver.Hom A (AlgebraicGeometry.Spec (CommRingCat.of R)))
@@ -1205,8 +1206,10 @@ theorem p07_flp_nsmul_precomp_857cd4d38c :
         CerednikDrinfeld.QM.nsmulPt L t' k (GoodReductionJacobian.schemeHomOverComp ψ hψ P) := by
   intro R _ A W W' f L t t' ψ hψ k P
   induction k with
+  -- At zero, precomposition preserves the identity point.
   | zero => exact L.one_natural t t' ψ hψ
   | succ k ih =>
+      -- The recursive step commutes with precomposition by multiplication naturality.
       simp only [CerednikDrinfeld.QM.nsmulPt, L.mul_natural, ih]
 
 end Submission
