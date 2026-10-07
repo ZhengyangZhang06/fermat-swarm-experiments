@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.primitive_parabolic-a1.primitive_cusp_limit-a1.pcl_scalar_common_ray_limit-a1",
+  "parent_id": "root.primitive_parabolic-a1.primitive_cusp_limit-a1",
+  "depth": 3,
+  "title": "A common ray limit from stripwise derivative decay",
+  "statement": "Let n∈ℕ, a>0, and H,G:ℂ→ℂ. Assume G is continuous on the open upper half-plane and H has complex derivative G(z) at every z with Im z>0. Assume that for every B>0 there exist real C≥0 and Y≥1 such that |G(z)|≤C(1+Im z)^n exp(−a Im z) whenever |Re z|≤B and Im z≥Y. Then there exists A∈ℂ such that, for every real x, H(x+iy) tends to A as the real variable y tends to +∞.",
+  "lean_statement": "∀ (n : ℕ) (a : ℝ) (H G : ℂ → ℂ), 0 < a → ContinuousOn G {z : ℂ | 0 < z.im} → (∀ z : ℂ, 0 < z.im → HasDerivAt H (G z) z) → (∀ B : ℝ, 0 < B → ∃ C Y : ℝ, 0 ≤ C ∧ 1 ≤ Y ∧ ∀ z : ℂ, |z.re| ≤ B → Y ≤ z.im → ‖G z‖ ≤ C * (1 + z.im) ^ n * Real.exp (-a * z.im)) → ∃ A : ℂ, ∀ x : ℝ, Filter.Tendsto (fun y : ℝ => H ((x : ℂ) + (y : ℂ) * Complex.I)) Filter.atTop (nhds A)",
+  "lean_name": "p02_es_177ebb5a_pcl_scalar_common_ray_limit",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-parabolic-a1-primitive-cusp-limit-a1-pcl-scalar-common-1da09434eb-a1"
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.primitive_parabolic-a1.primitive_cusp_limit-a1.pcl_linear_linepow_growth-a1",
+  "parent_id": "root.primitive_parabolic-a1.primitive_cusp_limit-a1",
+  "depth": 3,
+  "title": "Polynomial coefficient growth after a fixed linear map",
+  "statement": "For every natural number n and every complex-linear map T:BinaryForm ℂ n→BinaryForm ℂ n, there exists a real K≥0 such that, for every z∈ℂ and every monomial exponent d, |coeff_d(T((zX+Y)^n))|≤K(1+|z|)^n. The same K works for all z and all d.",
+  "lean_statement": "∀ (n : ℕ) (T : ↥(HeckeEis.BinaryForm ℂ n) →ₗ[ℂ] ↥(HeckeEis.BinaryForm ℂ n)), ∃ K : ℝ, 0 ≤ K ∧ ∀ (z : ℂ) (d : Fin 2 →₀ ℕ), ‖MvPolynomial.coeff d (T (HeckeEis.linePow n z)).val‖ ≤ K * (1 + ‖z‖) ^ n",
+  "lean_name": "p02_es_177ebb5a_pcl_linear_linepow_growth",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-parabolic-a1-primitive-cusp-limit-a1-pcl-linear-linepow-growth-a1-a1"
+}

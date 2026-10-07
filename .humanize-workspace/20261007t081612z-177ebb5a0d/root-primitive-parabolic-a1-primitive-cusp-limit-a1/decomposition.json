@@ -1,0 +1,81 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "scaled_cusp_decay|IsEichlerIntegral|binaryFormRepSL|eichlerShimuraMap_injective",
+        "hasDerivAt|ofComplex|coe_specialLinearGroup_apply",
+        "integrableOn.*exp|integrableOn.*rpow|tendsto.*exp.*atTop",
+        "sum_monomial_eq|coeff_sum|coeff_smul|coeff_monomial|coeff_mul_X|coeff_add",
+        "scaled_cusp_decay|common_ray_limit|linear_linepow_growth",
+        "sed -n '35,135p' .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_pcl_decomposition_checks/Check.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Manifold.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/SpecialFunctions/ImproperIntegrals.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/SpecialFunctions/Pow/Asymptotics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/FundThmCalculus.lean"
+      ],
+      "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The installed mathlib HEAD matches and has no tracked modifications; both inspected HeckeEis definition files match the snapshot byte-for-byte. The snapshot supplies coefficientwise IsEichlerIntegral, binaryFormRepSL_linePow, jFactor_ne_zero, the local ofComplex identities, the Möbius derivative, coefficient linearity, homogeneous support, exponential asymptotics, and the fundamental theorem of calculus. Searching the snapshot for scaled_cusp_decay|common_ray_limit|linear_linepow_growth returned no matches; scaled_cusp_decay is an existing parent DAG dependency. All three proposed types elaborated after import Submission. Transitive axiom checks of binaryFormRepSL_linePow, jFactor_ne_zero, hasStrictDerivAt_smul, integral_eq_sub_of_hasDerivAt, and tendsto_rpow_mul_exp_neg_mul_atTop_nhds_zero returned only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "should_split": true,
+  "rationale": "At depth 2, below the limit 6, three reusable obligations separate naturally: transformed differentiation, polynomial coefficient growth under a linear map, and scalar convergence from stripwise derivative decay. They are independent. The parent retains its existing scaled_cusp_decay dependency, applies these results to each coefficient, and constructs A from the limits of the n+1 degree-n monomials; every other coefficient vanishes by homogeneity. This avoids introducing a norm instance on BinaryForm. The proposed names were checked against the current DAG and are unreserved. The exact types passed an isolated elaboration check; this is not comparator acceptance of their future proofs.",
+  "subproblems": [
+    {
+      "key": "pcl_scaled_pullback_derivative",
+      "title": "Scaled derivative of an Eichler integral after Möbius substitution",
+      "statement": "Let n be a natural number, f:ℍ→ℂ, and F:ℍ→BinaryForm ℂ n. Assume IsEichlerIntegral n f F: for every monomial exponent e and τ∈ℍ, the function z↦coeff_e(F(ofComplex z)) has complex derivative f(τ)coeff_e((τX+Y)^n) at τ. For every σ∈SL₂(ℤ), exponent d, and τ∈ℍ, the function z↦coeff_d(F(σ·ofComplex z)) has complex derivative j(σ,τ)^{−(n+2)}f(σ·τ)coeff_d(binaryFormRepSL ℂ n σ ((τX+Y)^n)) at τ, where j(σ,τ)=σ₁₀τ+σ₁₁.",
+      "lean_statement": "∀ (n : ℕ) (f : UpperHalfPlane → ℂ) (F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.IsEichlerIntegral n f F → ∀ (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (d : Fin 2 →₀ ℕ) (τ : UpperHalfPlane), HasDerivAt (fun z : ℂ => MvPolynomial.coeff d (F (σ • UpperHalfPlane.ofComplex z)).val) ((HeckeEis.jFactor σ τ) ^ (-((n : ℤ) + 2)) * f (σ • τ) * MvPolynomial.coeff d ((HeckeEis.binaryFormRepSL ℂ n σ) (HeckeEis.linePow n (τ : ℂ))).val) (τ : ℂ)",
+      "lean_name": "p02_es_177ebb5a_pcl_scaled_pullback_derivative",
+      "depends_on": [],
+      "natural_proof": "1. Fix n, f, F, the Eichler-integral hypothesis, σ, d, and τ. Write the entries of σ as α, β, γ, δ, so αδ−βγ=1, and put j=γτ+δ. The denominator j is nonzero on the upper half-plane. Define m(z)=(αz+β)/(γz+δ), L(z)=(zX+Y)^n, and R=binaryFormRepSL ℂ n σ.\n2. On the open upper half-plane, m(z) is the complex coordinate of σ·ofComplex z. Its image also lies in the upper half-plane. Thus, in a neighborhood of τ, ofComplex(m(z))=σ·ofComplex z. In particular, for φ(w)=coeff_d(F(ofComplex w)), the function in the conclusion agrees locally with φ∘m. The Eichler-integral hypothesis at σ·τ gives φ'(m(τ))=f(σ·τ)coeff_d(L(m(τ))).\n3. The quotient rule applies at τ because j≠0. It gives m'(τ)=(α(γτ+δ)−γ(ατ+β))/j²=(αδ−βγ)/j²=j^(−2). The complex chain rule therefore gives the derivative of the required coefficient function as f(σ·τ)coeff_d(L(m(τ)))j^(−2).\n4. The identity binaryFormRepSL_linePow gives R(L(τ))=j^n L(m(τ)). Taking the d-coefficient, using its complex linearity, gives coeff_d(R(L(τ)))=j^n coeff_d(L(m(τ))).\n5. Since j≠0, multiplication of integer powers gives j^{−(n+2)}j^n=j^(−2). Consequently j^{−(n+2)}f(σ·τ)coeff_d(R(L(τ))) equals the derivative obtained in step 3. Local equality preserves HasDerivAt, so this proves exactly the asserted derivative for the total function using ofComplex.",
+      "proof_key_steps": [
+        "Identify the pullback locally with composition by the Möbius rational function.",
+        "Differentiate the Möbius function using determinant one and its nonzero denominator.",
+        "Apply the coefficientwise Eichler-integral hypothesis and chain rule.",
+        "Take coefficients in binaryFormRepSL_linePow.",
+        "Combine the integer powers of the nonzero automorphy factor."
+      ]
+    },
+    {
+      "key": "pcl_linear_linepow_growth",
+      "title": "Polynomial coefficient growth after a fixed linear map",
+      "statement": "For every natural number n and every complex-linear map T:BinaryForm ℂ n→BinaryForm ℂ n, there exists a real K≥0 such that, for every z∈ℂ and every monomial exponent d, |coeff_d(T((zX+Y)^n))|≤K(1+|z|)^n. The same K works for all z and all d.",
+      "lean_statement": "∀ (n : ℕ) (T : ↥(HeckeEis.BinaryForm ℂ n) →ₗ[ℂ] ↥(HeckeEis.BinaryForm ℂ n)), ∃ K : ℝ, 0 ≤ K ∧ ∀ (z : ℂ) (d : Fin 2 →₀ ℕ), ‖MvPolynomial.coeff d (T (HeckeEis.linePow n z)).val‖ ≤ K * (1 + ‖z‖) ^ n",
+      "lean_name": "p02_es_177ebb5a_pcl_linear_linepow_growth",
+      "depends_on": [],
+      "natural_proof": "1. Fix n and T. For each integer r with 0≤r≤n, let b_r=X^rY^(n−r), regarded as a binary form of degree n. This membership holds because its only monomial has total degree r+(n−r)=n. Write Q_r=T(b_r).\n2. Define k_r to be the sum of |coeff_e(Q_r)| over the finite support of Q_r. Then k_r≥0. For every exponent d, |coeff_d(Q_r)|≤k_r: if d belongs to the support, its nonnegative summand is bounded by the whole sum; otherwise its coefficient is zero.\n3. Define K=Σ_{r=0}^n binomial(n,r)k_r, with the binomial coefficients viewed as nonnegative real numbers. This is a finite nonnegative real number depending only on n and T.\n4. The binomial theorem gives (zX+Y)^n=Σ_{r=0}^n (binomial(n,r)z^r)·b_r. Applying T and then the d-coefficient, both complex-linear, gives coeff_d(T((zX+Y)^n))=Σ_{r=0}^n binomial(n,r)z^r coeff_d(Q_r).\n5. Put q=1+|z|. We have q≥1 and |z|≤q. Therefore, for every r≤n, |z|^r≤q^r≤q^n. The triangle inequality and step 2 now give |coeff_d(T((zX+Y)^n))|≤Σ_{r=0}^n binomial(n,r)|z|^r k_r≤Σ_{r=0}^n binomial(n,r)q^n k_r=Kq^n.\n6. This proves the required estimate for arbitrary z and d with the single constant K. The argument includes n=0: the sum then has only r=0 and all zeroth powers equal one.",
+      "proof_key_steps": [
+        "Expand the line power in the degree-n monomials.",
+        "Bound every coefficient of each fixed image T(b_r) by its finite sum of coefficient norms.",
+        "Form a nonnegative constant from these bounds and binomial coefficients.",
+        "Apply linearity and the triangle inequality.",
+        "Bound every power |z|^r by (1+|z|)^n."
+      ]
+    },
+    {
+      "key": "pcl_scalar_common_ray_limit",
+      "title": "A common ray limit from stripwise derivative decay",
+      "statement": "Let n∈ℕ, a>0, and H,G:ℂ→ℂ. Assume G is continuous on the open upper half-plane and H has complex derivative G(z) at every z with Im z>0. Assume that for every B>0 there exist real C≥0 and Y≥1 such that |G(z)|≤C(1+Im z)^n exp(−a Im z) whenever |Re z|≤B and Im z≥Y. Then there exists A∈ℂ such that, for every real x, H(x+iy) tends to A as the real variable y tends to +∞.",
+      "lean_statement": "∀ (n : ℕ) (a : ℝ) (H G : ℂ → ℂ), 0 < a → ContinuousOn G {z : ℂ | 0 < z.im} → (∀ z : ℂ, 0 < z.im → HasDerivAt H (G z) z) → (∀ B : ℝ, 0 < B → ∃ C Y : ℝ, 0 ≤ C ∧ 1 ≤ Y ∧ ∀ z : ℂ, |z.re| ≤ B → Y ≤ z.im → ‖G z‖ ≤ C * (1 + z.im) ^ n * Real.exp (-a * z.im)) → ∃ A : ℂ, ∀ x : ℝ, Filter.Tendsto (fun y : ℝ => H ((x : ℂ) + (y : ℂ) * Complex.I)) Filter.atTop (nhds A)",
+      "lean_name": "p02_es_177ebb5a_pcl_scalar_common_ray_limit",
+      "depends_on": [],
+      "natural_proof": "1. Fix all the hypotheses and write p(t)=(1+t)^n exp(−at) for t≥0. For every integer r≥0 and t>0, the exponential series gives exp(at)≥(at)^(r+1)/(r+1)!. Hence 0≤t^r exp(−at)≤(r+1)!/(a^(r+1)t), which tends to zero. Expanding (1+t)^n by the binomial theorem therefore proves p(t)→0 as t→+∞.\n2. The function p is integrable on [0,∞). To establish this explicitly, set I_r(T)=∫₀ᵀ t^r exp(−at) dt for T≥0. Direct integration gives I_0(T)=(1−exp(−aT))/a. Integration by parts gives I_{r+1}(T)=−T^(r+1)exp(−aT)/a+((r+1)/a)I_r(T); the lower boundary term vanishes because r+1>0. The boundary limits from step 1 and induction imply I_r(T)→r!/a^(r+1). Each integrand is continuous and nonnegative, so monotone convergence on expanding finite intervals identifies this finite limit with its integral on [0,∞), proving integrability. A finite binomial expansion now gives J=∫₀∞p(t)dt=Σ_{r=0}^n binomial(n,r)r!/a^(r+1), and in particular 0≤J<∞.\n3. If v≥y≥0, substitute t=y+s. Since 1+y+s≤(1+y)(1+s), nonnegativity and the exponential addition formula give ∫ᵧᵛp(t)dt≤p(y)∫₀^{v−y}p(s)ds≤Jp(y).\n4. Apply the strip hypothesis with B=1, obtaining C₁≥0 and Y₁≥1. On the imaginary ray, the real-variable function h(t)=H(it) has derivative iG(it) for t>0, by the chain rule and restriction of the complex derivative to real parameters. This derivative is continuous on every compact interval in (0,∞), by continuity of G. Thus for v≥y≥Y₁, the fundamental theorem of calculus and |i|=1 give |H(iv)−H(iy)|≤∫ᵧᵛ|G(it)|dt≤C₁∫ᵧᵛp(t)dt≤C₁Jp(y).\n5. Given ε>0, step 1 supplies T≥Y₁ such that C₁Jp(t)<ε for every t≥T. For arbitrary u,v≥T, apply step 4 with the smaller argument first and use symmetry of distance. It follows that |H(iu)−H(iv)|<ε. This is the Cauchy criterion at infinity, so completeness of ℂ supplies A∈ℂ with H(iy)→A as y→+∞.\n6. Fix any real x and choose B=|x|+1. Obtain C_B≥0 and Y_B≥1 from the corresponding strip hypothesis. For y≥Y_B, parameterize the horizontal segment by z(s)=sx+iy, 0≤s≤1. Its points satisfy |Re z(s)|≤|x|<B and Im z(s)=y>0. The real derivative of s↦H(z(s)) is xG(z(s)), and it is continuous. The fundamental theorem of calculus therefore gives |H(x+iy)−H(iy)|≤∫₀¹|x||G(sx+iy)|ds≤|x|C_Bp(y). This also holds for negative x and for x=0.\n7. By step 1 the last bound tends to zero. Combining it with H(iy)→A gives H(x+iy)→A. The number A was fixed using only the imaginary ray before x was chosen, so it works for every real x. All estimates hold eventually as y→+∞; no assumption on H or G in the lower half-plane is needed.",
+      "proof_key_steps": [
+        "Prove decay of the polynomial–exponential weight using the exponential series.",
+        "Establish its finite integral through integration by parts and moment induction.",
+        "Bound every finite tail integral by J times the weight at its starting point.",
+        "Use vertical integration to prove the Cauchy criterion and obtain a complex limit.",
+        "Use horizontal integration to show every fixed vertical ray has that same limit."
+      ]
+    }
+  ]
+}

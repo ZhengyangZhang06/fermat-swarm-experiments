@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.primitive_parabolic-a1.primitive_cusp_limit-a1.pcl_scaled_pullback_derivative-a1",
+  "parent_id": "root.primitive_parabolic-a1.primitive_cusp_limit-a1",
+  "depth": 3,
+  "title": "Scaled derivative of an Eichler integral after Möbius substitution",
+  "statement": "Let n be a natural number, f:ℍ→ℂ, and F:ℍ→BinaryForm ℂ n. Assume IsEichlerIntegral n f F: for every monomial exponent e and τ∈ℍ, the function z↦coeff_e(F(ofComplex z)) has complex derivative f(τ)coeff_e((τX+Y)^n) at τ. For every σ∈SL₂(ℤ), exponent d, and τ∈ℍ, the function z↦coeff_d(F(σ·ofComplex z)) has complex derivative j(σ,τ)^{−(n+2)}f(σ·τ)coeff_d(binaryFormRepSL ℂ n σ ((τX+Y)^n)) at τ, where j(σ,τ)=σ₁₀τ+σ₁₁.",
+  "lean_statement": "∀ (n : ℕ) (f : UpperHalfPlane → ℂ) (F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.IsEichlerIntegral n f F → ∀ (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (d : Fin 2 →₀ ℕ) (τ : UpperHalfPlane), HasDerivAt (fun z : ℂ => MvPolynomial.coeff d (F (σ • UpperHalfPlane.ofComplex z)).val) ((HeckeEis.jFactor σ τ) ^ (-((n : ℤ) + 2)) * f (σ • τ) * MvPolynomial.coeff d ((HeckeEis.binaryFormRepSL ℂ n σ) (HeckeEis.linePow n (τ : ℂ))).val) (τ : ℂ)",
+  "lean_name": "p02_es_177ebb5a_pcl_scaled_pullback_derivative",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-parabolic-a1-primitive-cusp-limit-a1-pcl-scaled-pullba-58ee9bb0b0-a1"
+}

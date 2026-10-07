@@ -1,0 +1,56 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "scaled_cusp_decay|common_ray_limit|linear_linepow_growth",
+        "scaled_cusp_decay|common_ray_limit|linear_linepow_growth|IsEichlerIntegral|binaryFormRepSL_linePow|jFactor_ne_zero|eichlerShimuraMap_injective",
+        "ofComplex|isOpen_upperHalfPlaneSet|hasStrictDerivAt_smul|coe_specialLinearGroup_apply",
+        "sum_monomial_eq|coeff_sum|coeff_smul|coeff_monomial|coeff_add|mem_homogeneousSubmodule|coeff_eq_zero|isHomogeneous_monomial",
+        "integrableOn.*exp|integrableOn.*rpow|tendsto_rpow_mul_exp_neg_mul_atTop_nhds_zero|integral_eq_sub_of_hasDerivAt",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_pcl_independent_audit_dxrs7gj3/Check.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Manifold.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/SpecialFunctions/ImproperIntegrals.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/SpecialFunctions/Pow/Asymptotics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/FundThmCalculus.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-parabolic-a1-scaled-cusp-decay-a1/comparator-v1-integration.log",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-parabolic-a1-scaled-cusp-decay-a1/lean-audit-v1.json",
+        "/tmp/p02_pcl_independent_audit_dxrs7gj3/Check.lean"
+      ],
+      "conclusion": "Verified project pin 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib pin db584cd6d46c92f209a44c0f1c829460d327499d. The six transitive project definition sources match the snapshot and pinned commit; installed dependencies match their recorded revisions and have no tracked modifications. The snapshot supplies the coefficientwise derivative definition, representation identity, local ofComplex identities, Möbius derivative, coefficient linearity, homogeneous support, exponential asymptotics, and FTC. Searching the entire snapshot for scaled_cusp_decay|common_ray_limit|linear_linepow_growth returned no matches. The existing scaled-cusp-decay dependency has matching frozen-type comparator and independent-review evidence. All three exact propositions independently elaborate using only Mathlib and the pinned EichlerIntegral definitions, without importing Submission. Twelve supporting declarations have only propext, Classical.choice, and Quot.sound as transitive axioms. All proposed names are bare, unreserved identifiers; adding the children preserves acyclicity and the parent's existing dependency. The split appropriately separates three genuine obligations, and coefficientwise application followed by finite homogeneous reconstruction proves the parent. This accepts the decomposition, not future Lean implementations."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "pcl_scaled_pullback_derivative",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose, including arbitrary f and F, every exponent, and the total ofComplex function. Steps 1–3 correctly justify local composition and the determinant-one derivative using the nonzero denominator. Steps 4–5 apply the pinned representation identity and coefficient linearity, then correctly combine integer powers. No cusp-form assumption or circular dependency is needed; the proof is complete."
+    },
+    {
+      "key": "pcl_linear_linepow_growth",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact proposition preserves complex linearity and a single nonnegative constant uniform in z and d. The proof constructs homogeneous monomials and bounds every coefficient of each fixed image by its finite support sum. Binomial expansion, linearity, and the power inequalities yield the stated K, including n=0 and exponents outside the supports. This is a complete independent obligation."
+    },
+    {
+      "key": "pcl_scalar_common_ray_limit",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "All hypotheses and quantifier dependencies match the exact proposition. The exponential-series estimate proves boundary decay; integration by parts and monotone convergence establish finite moments and integrability. The tail bound and vertical FTC give a Cauchy limit in ℂ. Horizontal FTC then proves the same limit for every real x, including negative x. Positivity and continuity assumptions justify all integrations, with no lower-half-plane assumption or circular reliance."
+    }
+  ],
+  "required_changes": []
+}
