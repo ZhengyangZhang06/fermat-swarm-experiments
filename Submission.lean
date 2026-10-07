@@ -392,3 +392,24 @@ theorem Submission.f036cc6b1f_tdi_planar_exp_integrable_fd :
     (Set.image_subset_range UpperHalfPlane.coe ModularGroup.fd)).mp hi
   simpa only [Set.preimage_image_eq _ UpperHalfPlane.coe_injective, Function.comp_def,
     UpperHalfPlane.coe_im] using ht
+namespace Submission
+
+theorem f036cc6b1f_pc_ed_aoi_null_orbit :
+    ∀ s : Set UpperHalfPlane, MeasurableSet s →
+      (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) s = 0 →
+      ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
+        ∀ a : Matrix.SpecialLinearGroup (Fin 2) ℤ, a • z ∉ s := by
+  intro s hs hnull
+  let : Countable (Matrix.SpecialLinearGroup (Fin 2) ℤ) := by
+    unfold Matrix.SpecialLinearGroup Matrix
+    infer_instance
+  apply MeasureTheory.ae_all_iff.mpr
+  intro a
+  change ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
+    z ∉ (fun z : UpperHalfPlane => Matrix.SpecialLinearGroup.mapGL ℝ a • z) ⁻¹' s
+  apply MeasureTheory.measure_eq_zero_iff_ae_notMem.mp
+  exact (MeasureTheory.SMulInvariantMeasure.measure_preimage_smul
+    (μ := (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane))
+    (Matrix.SpecialLinearGroup.mapGL ℝ a) hs).trans hnull
+
+end Submission
