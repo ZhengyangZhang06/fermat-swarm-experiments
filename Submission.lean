@@ -3653,5 +3653,38 @@ theorem p02_es_177ebb5a_sd_jr_homogeneous_nilpotence
     simpa only [Finsupp.degree_eq_weight_one, Pi.one_def] using
       P.property (MvPolynomial.mem_support_iff.mp hd)
   exact lt_of_le_of_lt ((Finsupp.le_degree 1 d).trans_eq hdegree) (Nat.lt_succ_self n)
+theorem p02_es_177ebb5a_sd_jr_linepow_eval :
+    ∀ (n r : ℕ), r ≤ n → ∀ t : ℂ,
+      MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -t)
+        ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r]
+          (HeckeEis.linePow n t).val) =
+        (if r = n then (Nat.factorial n : ℂ) else 0) := by
+  intro n r hr t
+  let L : MvPolynomial (Fin 2) ℂ := MvPolynomial.C t * MvPolynomial.X 0 +
+    MvPolynomial.X 1
+  have hD : MvPolynomial.pderiv (1 : Fin 2) L = 1 := by
+    simp [L]
+  have hiter (s : ℕ) (hs : s ≤ n) :
+      (fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[s]
+        (L ^ n) = MvPolynomial.C (n.descFactorial s : ℂ) * L ^ (n - s) := by
+    induction s with
+    | zero => simp
+    | succ s ih =>
+      rw [Function.iterate_succ_apply', ih (by omega), MvPolynomial.pderiv_C_mul,
+        MvPolynomial.pderiv_pow, hD, mul_one]
+      simp only [Nat.descFactorial_succ, Nat.cast_mul, map_mul, map_natCast,
+        Nat.sub_sub]
+      ring
+  have hEval : MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -t) L = 0 := by
+    simp [L]
+  change MvPolynomial.eval _
+    ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r]
+      (L ^ n)) = _
+  rw [hiter r hr, map_mul, MvPolynomial.eval_C, map_pow, hEval]
+  by_cases h : r = n
+  · subst r
+    simp [Nat.descFactorial_self]
+  · have hnr : n - r ≠ 0 := by omega
+    simp [h, zero_pow hnr]
 
 end Submission
