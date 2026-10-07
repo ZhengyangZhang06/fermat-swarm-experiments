@@ -6,7 +6,9 @@ import pwd
 import shutil
 import subprocess
 import sys
+import tempfile
 import tomllib
+import uuid
 from urllib.parse import urlsplit
 
 
@@ -57,6 +59,26 @@ def main():
         subprocess.run(['git', 'ls-remote', '--heads', 'git@github.com:ZhengyangZhang06/fermat-swarm-experiments.git',
                         'experiments/fermat-p04'], check=True, timeout=60)
         print('Worker uid, SSH transport and authorized home check passed', flush=True)
+        return
+    if '--tool-check' in sys.argv:
+        # The random challenge is never included in the prompt: a matching
+        # answer requires a successful tool read, not just model authentication.
+        with tempfile.TemporaryDirectory(prefix='swarm-tool-check-') as temporary:
+            root = Path(temporary)
+            challenge = uuid.uuid4().hex
+            (root / 'challenge.txt').write_text(challenge)
+            result_path = root / 'answer.txt'
+            result = subprocess.run(['/runtime/bin/codex', 'exec', '--skip-git-repo-check',
+                '--dangerously-bypass-approvals-and-sandbox', '-m', config['model'],
+                '-c', 'web_search="disabled"', '--output-last-message', str(result_path),
+                'Runtime tool test only. Use the shell tool to read challenge.txt in the current '
+                'directory, then reply with exactly its contents. Do not read any other file, '
+                'access credentials, use network/search, or change files.'], cwd=root,
+                capture_output=True, text=True, timeout=300)
+            answer = result_path.read_text().strip() if result_path.exists() else ''
+            if result.returncode or answer != challenge:
+                raise RuntimeError('Worker real tool-execution smoke test failed')
+        print('Authenticated model and real local tool-execution check passed', flush=True)
         return
     os.execv(sys.executable, [sys.executable, '/runtime/flows/math-lean-flow/scripts/swarm-worker.py',
         '--endpoint', 'https://10.44.0.210:8847', '--certificate', '/broker.crt',
