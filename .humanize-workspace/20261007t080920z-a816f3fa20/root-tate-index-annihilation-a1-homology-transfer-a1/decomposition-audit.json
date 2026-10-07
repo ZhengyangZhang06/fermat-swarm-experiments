@@ -1,0 +1,58 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "coinvariantsTensorObj|standardComplex|groupHomologyIso|d_single|corestriction|transfer",
+        "p04_ht_coinvariant_complex_transfer|p04_ht_restricted_standard_comparison",
+        "coinvariantsTransfer|coinvariantsCores|cosetDecomp_apply",
+        "transfer|corestriction",
+        "tensorObj|tensor.*ρ|tprod|curriedTensor",
+        "moduleCatHomologyIso|homologyπ|surjective|def homology",
+        "python3 /tmp/p04-ht-independent-audit/run.py Contracts",
+        "python3 /tmp/p04-ht-independent-audit/run.py Instances",
+        "python3 /tmp/p04-ht-independent-audit/run.py Assembly",
+        "python3 /tmp/p04-ht-independent-audit/run.py Submission"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/Resolution.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Functoriality.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Coinvariants.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/Homology/ShortComplex/ModuleCat.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/Submission.lean",
+        "/tmp/p04-ht-independent-audit/dependencies.json",
+        "/tmp/p04-ht-independent-audit/Contracts.lean",
+        "/tmp/p04-ht-independent-audit/Contracts.log",
+        "/tmp/p04-ht-independent-audit/Instances.lean",
+        "/tmp/p04-ht-independent-audit/Instances.log",
+        "/tmp/p04-ht-independent-audit/Assembly.lean",
+        "/tmp/p04-ht-independent-audit/Assembly.log",
+        "/tmp/p04-ht-independent-audit/Submission.log"
+      ],
+      "conclusion": "The parent is the existing depth-2 homology-transfer node beneath the frozen Tate theorem. Independently verified clean snapshot revisions and all nine installed dependency pins. Resolution.lean supplies the stated homogeneous complex; GroupHomology/Basic.lean confirms tensor order, the inverse-action differential, and groupHomologyIso. Coinvariants and ModuleCat sources justify the quotient constructions. No transfer/corestriction matches occur in Coinvariants.lean or Resolution.lean; Functoriality.lean supplies corestriction but not the proposed index factorization. Neither proposed name conflicts with pinned declarations, active DAG reservations, or another pending decomposition. Both exact propositions elaborate independently with import Mathlib, with the required common universe. Instance checks and conditional parent assembly pass. Checked library declarations have only propext, Classical.choice, and Quot.sound among their transitive axioms. Independently reproduced the separate Submission import failure at line 10: unknown Representation.TateResCor.cosetDecomp_apply. This approval concerns the decomposition only; the proposal correctly retains its activation block pending that import gate. No child implementation or comparator acceptance is claimed."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "coinvariant_complex_transfer",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the hypotheses, tensor-coinvariant complexes, map directions, and additive index identity. Tensor action, restriction compatibility, differential, and natural-number scalar action were independently checked. Steps 2–5 correctly descend the right-transversal sum without normality; steps 6–8 establish chain compatibility and the identity on homology, including degree zero. The proof is complete and non-circular. The bare identifier is unreserved, the type uses only existing library infrastructure, and the empty dependency list is correct."
+    },
+    {
+      "key": "restricted_standard_comparison",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line Nonempty linear-equivalence proposition matches the prose and all hypotheses. The normalized transversal yields the stated equivariant retraction. Every prism cancellation and both endpoints are correct, including degree zero. Tensoring and taking coinvariants preserve this explicit homotopy without flatness. The homogeneous-to-inhomogeneous maps are mutually inverse and reproduce the pinned inverse-action differential. Their composition proves the exact equivalence. The proof is complete and independent of the other child and parent. The bare identifier is unreserved, and both dependency-free children combine through the existing groupHomologyIso to prove the parent."
+    }
+  ],
+  "required_changes": []
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.tate_index_annihilation-a1.homology_transfer-a1.restricted_standard_comparison-a1",
+  "parent_id": "root.tate_index_annihilation-a1.homology_transfer-a1",
+  "depth": 3,
+  "title": "The restricted standard complex computes subgroup homology",
+  "statement": "Let k and G belong to a common universe, with k a commutative ring and G a group equipped with a finite-type structure. Let A be a k-linear G-representation in that universe, H a subgroup of G equipped with a finite-type structure, and n a natural number. Let B(G)=Rep.standardComplex k G: its degree-m module is free on G^(m+1), with diagonal left G-action and alternating vertex-deletion differential. Restrict this complex to H, tensor it over k with Res_H A using the diagonal H-action, and take H-coinvariants degreewise. The nth homology of the resulting complex is k-linearly equivalent to groupHomology (Rep.res H.subtype A) n. No normality of H or finiteness, flatness, or projectivity of A is assumed.",
+  "lean_statement": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H] (n : ℕ), Nonempty (((((Rep.resFunctor (k := k) H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj (Rep.standardComplex k G)).coinvariantsTensorObj (Rep.res H.subtype A)).homology n ≃ₗ[k] groupHomology (Rep.res H.subtype A) n)",
+  "lean_name": "p04_ht_restricted_standard_comparison",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p04/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-homology-transfer-a1-restricted-stand-10ae8ce812-a1"
+}
