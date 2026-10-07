@@ -2772,8 +2772,9 @@ theorem p06_9e0f5043ff_rmp_finite_place_model
 namespace Submission
 
 /-- A place containing the polynomial coordinate is the localization at a monic
-irreducible polynomial. The center and localization lemmas are inherited from
-`Definitions.Def_AlgebraicCurve_PlacesOverDVR` in the frozen proof base. -/
+irreducible polynomial. The frozen proof base supplies `Place.center_ne_bot`
+for the nonzero prime center and `Place.toValuationSubring_eq_of_forall_mem`
+for its localization in `Definitions.Def_AlgebraicCurve_PlacesOverDVR`. -/
 theorem p06_9e0f5043ff_rmp_finite_place_classification
     (K : Type*) [Field K]
     (v : AlgebraicCurve.Place K (FractionRing (Polynomial K)))
@@ -2811,6 +2812,8 @@ theorem p06_9e0f5043ff_rmp_finite_place_classification
   refine ⟨q, (Polynomial.normalize_eq_self_iff_monic hq0).mp hnorm,
     ((Ideal.span_singleton_prime hq0).mp hprime).irreducible, ?_⟩
   intro f
+  -- The inherited localization theorem supplies both membership directions.
+  -- Since the center is (q), its complement consists of denominators not divisible by q.
   rw [v.toValuationSubring_eq_of_forall_mem hpoly]
   change (∃ (a b : Polynomial K)
     (_ : b ∉ AlgebraicCurve.Place.center (Polynomial K) v hpoly),
