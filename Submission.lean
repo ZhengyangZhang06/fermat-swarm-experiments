@@ -18,3 +18,100 @@ theorem HeckeEis.eichlerShimuraMap_injective (N : ℕ) [NeZero N] (n : ℕ) :
     Function.Injective
       (fun f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2) ↦ HeckeEis.eichlerShimuraMap n N f) := by
   sorry
+
+namespace Submission
+
+theorem p02_es_177ebb5a_sm_holomorphic
+    (n : ℕ) (h : UpperHalfPlane → ℂ)
+    (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n))
+    (hE : HeckeEis.IsEichlerIntegral n h E) :
+    DifferentiableOn ℂ
+      (fun z : ℂ => MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z)
+        (E (UpperHalfPlane.ofComplex z)).val)
+      {z : ℂ | 0 < z.im} := by
+  classical
+  let s := (Finsupp.finite_of_degree_eq (σ := Fin 2) n).toFinset
+  have hexpand (z : ℂ) :
+      MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z)
+          (E (UpperHalfPlane.ofComplex z)).val =
+        ∑ d ∈ s, MvPolynomial.coeff d (E (UpperHalfPlane.ofComplex z)).val *
+          (-z) ^ d 1 := by
+    rw [MvPolynomial.eval_eq']
+    simp only [Fin.prod_univ_two, Fin.isValue, ite_true, one_pow, one_ne_zero,
+      ite_false, one_mul]
+    apply Finset.sum_subset
+    · intro d hd
+      have hdeg := (E (UpperHalfPlane.ofComplex z)).property
+        (MvPolynomial.mem_support_iff.mp hd)
+      simpa [s, Finsupp.degree_eq_weight_one, Pi.one_def] using hdeg
+    · intro d _ hd
+      simp [MvPolynomial.notMem_support_iff.mp hd]
+  simp_rw [hexpand]
+  apply DifferentiableOn.fun_sum
+  intro d _
+  apply DifferentiableOn.mul
+  · intro z hz
+    exact (hE d ⟨z, hz⟩).differentiableAt.differentiableWithinAt
+  · exact (differentiable_id.neg.pow (d 1)).differentiableOn
+
+theorem p02_es_177ebb5a_sp_cayley_equivalence :
+    (∀ w : ℂ, ‖w‖ < 1 → 0 < (Complex.I * (1 + w) / (1 - w)).im) ∧
+    (∀ z : ℂ, 0 < z.im → ‖(z - Complex.I) / (z + Complex.I)‖ < 1) ∧
+    (∀ z : ℂ, 0 < z.im →
+      Complex.I * (1 + (z - Complex.I) / (z + Complex.I)) /
+        (1 - (z - Complex.I) / (z + Complex.I)) = z) ∧
+    (∀ w : ℂ, ‖w‖ < 1 →
+      (Complex.I * (1 + w) / (1 - w) - Complex.I) /
+        (Complex.I * (1 + w) / (1 - w) + Complex.I) = w) := by
+  have disk_den (w : ℂ) (hw : ‖w‖ < 1) : 1 - w ≠ 0 := by
+    intro h
+    have : w = 1 := (sub_eq_zero.mp h).symm
+    simp [this] at hw
+  have half_plane_den (z : ℂ) (hz : 0 < z.im) : z + Complex.I ≠ 0 := by
+    intro h
+    have := congrArg Complex.im h
+    simp only [Complex.add_im, Complex.I_im, Complex.zero_im] at this
+    linarith
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · intro w hw
+    have hsq : Complex.normSq w < 1 := by
+      rw [Complex.normSq_eq_norm_sq, sq_lt_one_iff₀ (norm_nonneg w)]
+      exact hw
+    have hden := Complex.normSq_pos.mpr (disk_den w hw)
+    rw [Complex.div_im, ← sub_div]
+    apply div_pos _ hden
+    simp only [Complex.mul_im, Complex.mul_re, Complex.add_re, Complex.add_im,
+      Complex.sub_re, Complex.sub_im, Complex.I_re, Complex.I_im,
+      Complex.one_re, Complex.one_im, zero_mul, one_mul, zero_add, zero_sub]
+    rw [Complex.normSq_apply] at hsq
+    nlinarith
+  · intro z hz
+    rw [norm_div, div_lt_one (norm_pos_iff.mpr (half_plane_den z hz))]
+    have hsq : Complex.normSq (z - Complex.I) < Complex.normSq (z + Complex.I) := by
+      simp only [Complex.normSq_apply, Complex.sub_re, Complex.sub_im,
+        Complex.add_re, Complex.add_im, Complex.I_re, Complex.I_im, sub_zero, add_zero]
+      nlinarith
+    rw [Complex.normSq_eq_norm_sq, Complex.normSq_eq_norm_sq] at hsq
+    nlinarith [norm_nonneg (z - Complex.I), norm_nonneg (z + Complex.I)]
+  · intro z hz
+    have hs := half_plane_den z hz
+    have hd : 1 - (z - Complex.I) / (z + Complex.I) ≠ 0 := by
+      rw [sub_div' hs, div_ne_zero_iff]
+      constructor
+      · convert mul_ne_zero (two_ne_zero : (2 : ℂ) ≠ 0) Complex.I_ne_zero using 1
+        ring
+      · exact hs
+    field_simp [hs, hd]
+    ring
+  · intro w hw
+    have ht := disk_den w hw
+    have hd : Complex.I * (1 + w) / (1 - w) + Complex.I ≠ 0 := by
+      rw [div_add' _ _ _ ht, div_ne_zero_iff]
+      constructor
+      · convert mul_ne_zero (two_ne_zero : (2 : ℂ) ≠ 0) Complex.I_ne_zero using 1
+        ring
+      · exact ht
+    field_simp [ht, hd]
+    ring
+
+end Submission
