@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "node_id": "root.scalarization_derivative-a1.jet_recurrence-a1.moving_eval_derivative-a1",
+  "parent_id": "root.scalarization_derivative-a1.jet_recurrence-a1",
+  "depth": 3,
+  "title": "Differentiate evaluated jets of a coefficientwise differentiable homogeneous family",
+  "statement": "Let n∈ℕ, F : ℂ → BinaryForm ℂ n, G : BinaryForm ℂ n, and c,t∈ℂ. Assume that for every exponent vector d : Fin 2 →₀ ℕ, the function z↦coeff d (F z) has complex derivative c·coeff d G at t. Write D_Y for formal differentiation in variable 1. For every r≤n, the function z↦(D_Y^r(F z))(1,−z) has complex derivative c·(D_Y^r G)(1,−t)−(D_Y^(r+1)(F t))(1,−t) at t.",
+  "lean_statement": "∀ (n : ℕ) (F : ℂ → ↥(HeckeEis.BinaryForm ℂ n)) (G : ↥(HeckeEis.BinaryForm ℂ n)) (c t : ℂ), (∀ d : Fin 2 →₀ ℕ, HasDerivAt (fun z : ℂ => MvPolynomial.coeff d (F z).val) (c * MvPolynomial.coeff d G.val) t) → ∀ r : ℕ, r ≤ n → HasDerivAt (fun z : ℂ => MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z) ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r] (F z).val)) (c * MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -t) ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r] G.val) - MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -t) ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r + 1] (F t).val)) t",
+  "lean_name": "p02_es_177ebb5a_sd_jr_moving_eval_derivative",
+  "depends_on": [
+    "root.scalarization_derivative-a1.jet_recurrence-a1.homogeneous_nilpotence-a1"
+  ],
+  "dependency_workspaces": [
+    {
+      "node_id": "root.scalarization_derivative-a1.jet_recurrence-a1.homogeneous_nilpotence-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    }
+  ],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1-moving-eval-derivative-a1-a1"
+}

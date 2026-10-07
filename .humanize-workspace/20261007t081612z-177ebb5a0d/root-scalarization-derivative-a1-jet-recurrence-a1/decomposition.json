@@ -1,0 +1,91 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "IsEichlerIntegral|linePow|jet_recurrence|iterate.*pderiv|pderiv.*iterate",
+        "pderiv|iterate|eval.*deriv|deriv.*eval",
+        "jet|pderiv|falling|descFactorial|linepow.*eval|linePow.*eval",
+        "isHomogeneous_iff|def IsHomogeneous|homogeneousSubmodule|coeff.*degree",
+        "hasDerivAt_sum|HasDerivAt.sum|HasDerivAt.mul|HasDerivAt.pow|HasDerivAt.neg",
+        "ofComplex_apply",
+        "p02_es_177ebb5a_sd_jr_",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_es_177ebb5a_sd_jr_child_types.lean",
+        "python3 /tmp/p02_es_177ebb5a_sd_jr_reference_check.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/P2M",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/PDeriv.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Add.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Mul.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Pow.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+        "/tmp/p02_es_177ebb5a_sd_jr_child_types.lean",
+        "/tmp/p02_es_177ebb5a_sd_jr_reference_check.py"
+      ],
+      "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. BinaryForm is the homogeneous polynomial submodule; IsEichlerIntegral supplies coefficientwise HasDerivAt hypotheses; linePow has underlying polynomial (C t * X 0 + X 1)^n. The inspected mathlib files supply coefficient vanishing by homogeneity, formal monomial and power differentiation, finite-sum/product/power differentiation, and UpperHalfPlane.ofComplex_apply. No matching jet recurrence or iterated-partial evaluation result was found in the searched P2M directory. All three proposed types elaborated after import Submission under Lean 4.33.1. Their polynomial carriers are explicitly MvPolynomial (Fin 2) ℂ; no constructed matrix or ambiguous function multiplication occurs. The proposed identifiers were absent from the searched declarations and DAG metadata. Installed dependencies matched their pinned revisions with clean tracked sources, and the inspected definition and mathematical source files matched the snapshot. Transitive axiom checks of the cited library lemmas returned only propext, Classical.choice, and Quot.sound. These are interface and reference checks, not comparator acceptance of the proposed children."
+    }
+  ],
+  "should_split": true,
+  "rationale": "At depth 2, below the limit 6, three reusable obligations separate naturally: homogeneous-polynomial nilpotence, line-power jet evaluation, and differentiation of a moving evaluation. The parent follows by applying the third lemma with F(z)=E(ofComplex z), G=linePow n τ, c=h(τ), and t=τ; then the first two lemmas and ofComplex_apply give the two stated derivative cases.",
+  "subproblems": [
+    {
+      "key": "homogeneous_nilpotence",
+      "title": "The Y-partial derivative annihilates a degree-n binary form after n+1 iterations",
+      "statement": "For every natural number n and every P : BinaryForm ℂ n, let D_Y denote formal polynomial differentiation in variable 1. Then D_Y^(n+1) applied to the underlying polynomial of P is zero.",
+      "lean_statement": "∀ (n : ℕ) (P : ↥(HeckeEis.BinaryForm ℂ n)), ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[n + 1] P.val) = 0",
+      "lean_name": "p02_es_177ebb5a_sd_jr_homogeneous_nilpotence",
+      "depends_on": [],
+      "natural_proof": "1. Fix n and P. Write X=X_0, Y=X_1, and D=D_Y. Membership in BinaryForm ℂ n says that every exponent vector d with nonzero coefficient in P has total degree n. Since there are exactly two variables, this means d(0)+d(1)=n.\n2. For each k with 0≤k≤n, let d_k have coordinates d_k(0)=n−k and d_k(1)=k, and let a_k=coeff d_k P. Every exponent vector from step 1 is uniquely d_k with k=d(1). The finite monomial expansion of P therefore gives P=Σ_{k=0}^n C(a_k)X^(n−k)Y^k.\n3. Formal differentiation is ℂ-linear, kills constants and X, and sends Y to 1. Consequently, for any a∈ℂ and natural u,v, D(C(a)X^uY^v)=v C(a)X^uY^(v−1) when v>0, and it is zero when v=0. This follows directly from the product rule and the power rule.\n4. Fix k≤n. Induction on s≤k using step 3 gives D^s(C(a_k)X^(n−k)Y^k)=[k(k−1)⋯(k−s+1)] C(a_k)X^(n−k)Y^(k−s), where the product for s=0 is 1. At s=k this polynomial contains no Y, so its next derivative is zero. Every subsequent derivative remains zero. Since n+1≥k+1, the (n+1)-st derivative of this summand is zero.\n5. Iterating a linear map preserves additivity, so D^(n+1) distributes over the finite sum in step 2. Every summand vanishes by step 4; hence D^(n+1)P=0. This also covers n=0, when P is constant.",
+      "proof_key_steps": [
+        "Use homogeneity to restrict exponents to d(0)+d(1)=n.",
+        "Expand P on the finite monomial family X^(n−k)Y^k.",
+        "Compute repeated Y-partials of each monomial by induction.",
+        "Each summand vanishes after at most n+1 derivatives.",
+        "Distribute the iterated linear operator over the finite sum."
+      ]
+    },
+    {
+      "key": "linepow_jet_evaluation",
+      "title": "Evaluate the Y-jets of a line power on its vanishing line",
+      "statement": "For natural numbers n,r with r≤n and any t∈ℂ, let D_Y denote formal differentiation in variable 1. The evaluation of D_Y^r(linePow n t) at (1,−t) equals n! when r=n and equals zero otherwise.",
+      "lean_statement": "∀ (n r : ℕ), r ≤ n → ∀ t : ℂ, MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -t) ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r] (HeckeEis.linePow n t).val) = (if r = n then (Nat.factorial n : ℂ) else 0)",
+      "lean_name": "p02_es_177ebb5a_sd_jr_linepow_eval",
+      "depends_on": [],
+      "natural_proof": "1. Fix n,r with r≤n and t∈ℂ. Write X=X_0, Y=X_1, D=D_Y, and L=C(t)X+Y. By the definition of linePow, its underlying polynomial is L^n.\n2. Formal differentiation kills C(t) and X and sends Y to 1. The product and sum rules therefore give D(L)=1.\n3. For 0≤s≤n, define A(n,s) to be the complex number obtained from the integer product n(n−1)⋯(n−s+1), with A(n,0)=1. We prove D^s(L^n)=C(A(n,s))L^(n−s) by induction on s up to n. At s=0 this is the identity L^n=L^n. If s<n and the formula holds at s, linearity over constants and the power rule give D^(s+1)(L^n)=C(A(n,s))·(n−s)L^(n−s−1)D(L). By step 2, D(L)=1; the coefficient is A(n,s+1)=A(n,s)(n−s), and n−s−1=n−(s+1). This proves the induction step.\n4. Evaluation at X=1 and Y=−t sends L to t−t=0. Applying this ring homomorphism to the formula at s=r gives A(n,r)·0^(n−r).\n5. If r≠n, then r≤n implies r<n, so n−r>0. Thus the value in step 4 is zero.\n6. If r=n, the exponent in step 4 is zero and its power is 1. The descending product A(n,n) equals (n!:ℂ): for n=0 both are 1, and for n+1 the descending product is (n+1) times the product for n, exactly the factorial recursion. Hence the value is n!, proving the stated conditional formula, including n=r=0.",
+      "proof_key_steps": [
+        "Identify linePow n t with (C(t)X+Y)^n.",
+        "Compute D_Y(C(t)X+Y)=1.",
+        "Inductively obtain the falling-factorial formula for each partial derivative.",
+        "Evaluate the linear factor to zero at (1,−t).",
+        "Separate r<n from r=n and identify the endpoint product with n!."
+      ]
+    },
+    {
+      "key": "moving_eval_derivative",
+      "title": "Differentiate evaluated jets of a coefficientwise differentiable homogeneous family",
+      "statement": "Let n∈ℕ, F : ℂ → BinaryForm ℂ n, G : BinaryForm ℂ n, and c,t∈ℂ. Assume that for every exponent vector d : Fin 2 →₀ ℕ, the function z↦coeff d (F z) has complex derivative c·coeff d G at t. Write D_Y for formal differentiation in variable 1. For every r≤n, the function z↦(D_Y^r(F z))(1,−z) has complex derivative c·(D_Y^r G)(1,−t)−(D_Y^(r+1)(F t))(1,−t) at t.",
+      "lean_statement": "∀ (n : ℕ) (F : ℂ → ↥(HeckeEis.BinaryForm ℂ n)) (G : ↥(HeckeEis.BinaryForm ℂ n)) (c t : ℂ), (∀ d : Fin 2 →₀ ℕ, HasDerivAt (fun z : ℂ => MvPolynomial.coeff d (F z).val) (c * MvPolynomial.coeff d G.val) t) → ∀ r : ℕ, r ≤ n → HasDerivAt (fun z : ℂ => MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z) ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r] (F z).val)) (c * MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -t) ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r] G.val) - MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -t) ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r + 1] (F t).val)) t",
+      "lean_name": "p02_es_177ebb5a_sd_jr_moving_eval_derivative",
+      "depends_on": [
+        "homogeneous_nilpotence"
+      ],
+      "natural_proof": "1. Fix n,F,G,c,t and the stated coefficient derivative hypothesis. Write X=X_0, Y=X_1, and D=D_Y. For 0≤k≤n define d_k by d_k(0)=n−k and d_k(1)=k, and put a_k(z)=coeff d_k(F z) and b_k=coeff d_k G. Homogeneity implies that every nonzero coefficient of F z or G has an exponent vector d with d(0)+d(1)=n. Such a vector is uniquely d_k for k=d(1). Thus, for every z, F z=Σ_{k=0}^n C(a_k(z))X^(n−k)Y^k, and G=Σ_{k=0}^n C(b_k)X^(n−k)Y^k. The index set is independent of z.\n2. For 0≤s≤k let A(k,s)=k(k−1)⋯(k−s+1), interpreted in ℂ, with A(k,0)=1. Induction gives D^s(X^(n−k)Y^k)=C(A(k,s))X^(n−k)Y^(k−s). Indeed, s=0 is immediate, and when s<k differentiation multiplies by k−s and lowers the Y-exponent by one. At s=k the result has no Y, so its next derivative is zero, and all later derivatives remain zero. Linearity gives the corresponding formulas with the constant coefficients a_k(z) or b_k included.\n3. Fix r≤n and define Q_r(z)=(D^r(F z))(1,−z). Applying step 2 to the expansions in step 1 and evaluating X=1,Y=−z gives Q_r(z)=Σ_{k=r}^n a_k(z)A(k,r)(−z)^(k−r). Applying the same calculation to G at (1,−t) gives (D^r G)(1,−t)=Σ_{k=r}^n b_k A(k,r)(−t)^(k−r). Here each sum is over the finite set of natural k satisfying the displayed bounds.\n4. The hypothesis applied to d_k gives HasDerivAt a_k (c b_k) t. The function z↦(−z)^(k−r) is complex differentiable. If k=r, it is the constant 1 and its derivative is zero. If k>r, the derivative at t is −(k−r)(−t)^(k−r−1), by the power rule and the derivative −1 of z↦−z.\n5. Apply the product rule to each summand of Q_r and then the finite-sum derivative rule. The coefficient derivatives contribute c Σ_{k=r}^n b_k A(k,r)(−t)^(k−r)=c(D^r G)(1,−t). The derivatives of the powers contribute −Σ_{k=r+1}^n a_k(t)A(k,r)(k−r)(−t)^(k−r−1).\n6. If r<n, then A(k,r)(k−r)=A(k,r+1) for every index in the latter sum. Also k−r−1=k−(r+1). The monomial calculation of step 2 therefore identifies that sum with (D^(r+1)(F t))(1,−t). If r=n, the sum is empty and equals zero; homogeneous_nilpotence applied to the degree-n form F t gives D^(n+1)(F t)=0, so its evaluation is also zero. Thus in both cases the power-derivative contribution is −(D^(r+1)(F t))(1,−t).\n7. Combining steps 5 and 6 yields HasDerivAt Q_r [c(D^r G)(1,−t)−(D^(r+1)(F t))(1,−t)] t, exactly the claimed derivative. No differentiability away from t was used; when n=0 the same argument uses only the constant-power and nilpotence cases.",
+      "proof_key_steps": [
+        "Expand F z and G on one fixed finite homogeneous monomial family.",
+        "Compute iterated Y-partials of the monomials using falling factorials.",
+        "Express the evaluated jets as finite sums.",
+        "Use the coefficient hypotheses and differentiate the moving powers.",
+        "Identify coefficient contributions with c times the evaluated jet of G.",
+        "Identify substitution contributions with the negative next jet, using nilpotence at r=n.",
+        "Combine the two contributions into the stated HasDerivAt conclusion."
+      ]
+    }
+  ]
+}

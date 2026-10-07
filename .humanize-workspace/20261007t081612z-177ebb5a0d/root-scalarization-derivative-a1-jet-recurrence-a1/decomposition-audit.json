@@ -1,0 +1,54 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "IsEichlerIntegral|linePow|jet_recurrence|iterate.*pderiv|pderiv.*iterate|p02_es_177ebb5a_sd_jr_",
+        "jet|pderiv|falling|descFactorial|linepow.*eval|linePow.*eval",
+        "def pderiv|pderiv_monomial|pderiv_C|pderiv_X|pderiv_mul|pderiv_pow|isHomogeneous_iff|def IsHomogeneous|coeff_eq_zero|mem_homogeneousSubmodule|hasDerivAt_sum|HasDerivAt.*sum|theorem HasDerivAt.mul|theorem HasDerivAt.pow|theorem HasDerivAt.neg|ofComplex_apply",
+        "rg -n --hidden 'p02_es_177ebb5a_sd_jr_' .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json Submission.lean Definitions P2M",
+        "python3 /tmp/p02_es_177ebb5a_sd_jr_reference_check.py",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_es_177ebb5a_sd_jr_independent_audit.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/P2M",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/PDeriv.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Add.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Mul.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Pow.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+        "/tmp/p02_es_177ebb5a_sd_jr_reference_check.py",
+        "/tmp/p02_es_177ebb5a_sd_jr_independent_audit.lean"
+      ],
+      "conclusion": "The snapshot pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Inspected definitions confirm homogeneity, the line-power polynomial, and coefficientwise complex derivatives. Library sources support the stated algebraic and analytic rules. The P2M search found no matching jet result. Independently rerun checks confirmed pinned package revisions, clean tracked dependencies, and matching inspected sources. All three exact types elaborated using library imports without Submission or child declarations. An anonymous Lean proof verified that the three contracts as explicit hypotheses imply the exact DAG parent type. Checked library declarations use only propext, Classical.choice, and Quot.sound. All proposed names are bare and unreserved; the combined dependency graph is acyclic. Polynomial carriers and scalar operations are unambiguous; no matrix-unit construction occurs. The split appropriately separates three reusable obligations. This accepts the decomposition and supplied prose proofs, not future Lean implementations or the frozen root theorem."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "homogeneous_nilpotence",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the universally quantified homogeneous-form statement and is independently elaboratable. Homogeneity supplies the fixed finite monomial expansion; repeated differentiation annihilates each Y-degree-k summand after k+1 steps, hence after n+1 steps. Iterated additivity proves the conclusion, including n=0. The proof is complete and non-circular, with no dependencies."
+    },
+    {
+      "key": "linepow_jet_evaluation",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The type includes precisely n, r, r≤n, and arbitrary complex t, matching the prose. The proof establishes D(L)=1, derives the falling-factorial formula by bounded induction, and evaluates L at (1,−t). It correctly separates positive exponents from exponent zero and proves the factorial endpoint, including n=r=0. No parent or child result is assumed."
+    },
+    {
+      "key": "moving_eval_derivative",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact type includes both homogeneous carriers, every coefficient derivative hypothesis, and r≤n. The fixed finite expansion justifies termwise differentiation without neighborhood-wide differentiability assumptions. Product-rule contributions give the stated coefficient term and negative next jet, with correct signs and exponent arithmetic. The r=n case uses precisely the declared homogeneous_nilpotence dependency. This dependency is correctly directed and acyclic; the supplied proof is complete and sufficient for formalization."
+    }
+  ],
+  "required_changes": []
+}

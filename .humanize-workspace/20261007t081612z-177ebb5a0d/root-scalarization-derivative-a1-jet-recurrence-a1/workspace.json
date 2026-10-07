@@ -1,0 +1,249 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081612Z-177ebb5a0d",
+  "parent_id": "root.scalarization_derivative-a1.jet_recurrence-a1",
+  "dispatch_branch": "proof-workspace/fermat-p02/20261007t081612z-177ebb5a0d/dispatch/root-scalarization-derivative-a1-jet-recurrence-a1",
+  "source_commit": "0f5a9b05fb9673e5a60fa917656db526e75c7db1",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.scalarization_derivative-a1.jet_recurrence-a1.homogeneous_nilpotence-a1",
+      "key": "homogeneous_nilpotence",
+      "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1-homogeneous-nilpotence-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1/children/root-scalarization-derivative-a1-jet-recurrence-a1-homogeneous-nilpotence-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "IsEichlerIntegral|linePow|jet_recurrence|iterate.*pderiv|pderiv.*iterate",
+              "pderiv|iterate|eval.*deriv|deriv.*eval",
+              "jet|pderiv|falling|descFactorial|linepow.*eval|linePow.*eval",
+              "isHomogeneous_iff|def IsHomogeneous|homogeneousSubmodule|coeff.*degree",
+              "hasDerivAt_sum|HasDerivAt.sum|HasDerivAt.mul|HasDerivAt.pow|HasDerivAt.neg",
+              "ofComplex_apply",
+              "p02_es_177ebb5a_sd_jr_",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_es_177ebb5a_sd_jr_child_types.lean",
+              "python3 /tmp/p02_es_177ebb5a_sd_jr_reference_check.py"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/P2M",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/PDeriv.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Add.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Mul.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Pow.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+              "/tmp/p02_es_177ebb5a_sd_jr_child_types.lean",
+              "/tmp/p02_es_177ebb5a_sd_jr_reference_check.py"
+            ],
+            "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. BinaryForm is the homogeneous polynomial submodule; IsEichlerIntegral supplies coefficientwise HasDerivAt hypotheses; linePow has underlying polynomial (C t * X 0 + X 1)^n. The inspected mathlib files supply coefficient vanishing by homogeneity, formal monomial and power differentiation, finite-sum/product/power differentiation, and UpperHalfPlane.ofComplex_apply. No matching jet recurrence or iterated-partial evaluation result was found in the searched P2M directory. All three proposed types elaborated after import Submission under Lean 4.33.1. Their polynomial carriers are explicitly MvPolynomial (Fin 2) ℂ; no constructed matrix or ambiguous function multiplication occurs. The proposed identifiers were absent from the searched declarations and DAG metadata. Installed dependencies matched their pinned revisions with clean tracked sources, and the inspected definition and mathematical source files matched the snapshot. Transitive axiom checks of the cited library lemmas returned only propext, Classical.choice, and Quot.sound. These are interface and reference checks, not comparator acceptance of the proposed children."
+          }
+        ],
+        "parent_id": "root.scalarization_derivative-a1.jet_recurrence-a1",
+        "child_id": "root.scalarization_derivative-a1.jet_recurrence-a1.homogeneous_nilpotence-a1",
+        "subproblem": {
+          "key": "homogeneous_nilpotence",
+          "title": "The Y-partial derivative annihilates a degree-n binary form after n+1 iterations",
+          "statement": "For every natural number n and every P : BinaryForm ℂ n, let D_Y denote formal polynomial differentiation in variable 1. Then D_Y^(n+1) applied to the underlying polynomial of P is zero.",
+          "lean_statement": "∀ (n : ℕ) (P : ↥(HeckeEis.BinaryForm ℂ n)), ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[n + 1] P.val) = 0",
+          "lean_name": "p02_es_177ebb5a_sd_jr_homogeneous_nilpotence",
+          "depends_on": [],
+          "natural_proof": "1. Fix n and P. Write X=X_0, Y=X_1, and D=D_Y. Membership in BinaryForm ℂ n says that every exponent vector d with nonzero coefficient in P has total degree n. Since there are exactly two variables, this means d(0)+d(1)=n.\n2. For each k with 0≤k≤n, let d_k have coordinates d_k(0)=n−k and d_k(1)=k, and let a_k=coeff d_k P. Every exponent vector from step 1 is uniquely d_k with k=d(1). The finite monomial expansion of P therefore gives P=Σ_{k=0}^n C(a_k)X^(n−k)Y^k.\n3. Formal differentiation is ℂ-linear, kills constants and X, and sends Y to 1. Consequently, for any a∈ℂ and natural u,v, D(C(a)X^uY^v)=v C(a)X^uY^(v−1) when v>0, and it is zero when v=0. This follows directly from the product rule and the power rule.\n4. Fix k≤n. Induction on s≤k using step 3 gives D^s(C(a_k)X^(n−k)Y^k)=[k(k−1)⋯(k−s+1)] C(a_k)X^(n−k)Y^(k−s), where the product for s=0 is 1. At s=k this polynomial contains no Y, so its next derivative is zero. Every subsequent derivative remains zero. Since n+1≥k+1, the (n+1)-st derivative of this summand is zero.\n5. Iterating a linear map preserves additivity, so D^(n+1) distributes over the finite sum in step 2. Every summand vanishes by step 4; hence D^(n+1)P=0. This also covers n=0, when P is constant.",
+          "proof_key_steps": [
+            "Use homogeneity to restrict exponents to d(0)+d(1)=n.",
+            "Expand P on the finite monomial family X^(n−k)Y^k.",
+            "Compute repeated Y-partials of each monomial by induction.",
+            "Each summand vanishes after at most n+1 derivatives.",
+            "Distribute the iterated linear operator over the finite sum."
+          ]
+        },
+        "audit": {
+          "key": "homogeneous_nilpotence",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly matches the universally quantified homogeneous-form statement and is independently elaboratable. Homogeneity supplies the fixed finite monomial expansion; repeated differentiation annihilates each Y-degree-k summand after k+1 steps, hence after n+1 steps. Iterated additivity proves the conclusion, including n=0. The proof is complete and non-circular, with no dependencies."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-derivative-a1-jet-recurrence-a1-homogeneous-nilpotence-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-derivative-a1-jet-recurrence-a1-homogeneous-nilpotence-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-derivative-a1-jet-recurrence-a1-homogeneous-nilpotence-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.scalarization_derivative-a1.jet_recurrence-a1.linepow_jet_evaluation-a1",
+      "key": "linepow_jet_evaluation",
+      "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1-linepow-jet-evaluation-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1/children/root-scalarization-derivative-a1-jet-recurrence-a1-linepow-jet-evaluation-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "IsEichlerIntegral|linePow|jet_recurrence|iterate.*pderiv|pderiv.*iterate",
+              "pderiv|iterate|eval.*deriv|deriv.*eval",
+              "jet|pderiv|falling|descFactorial|linepow.*eval|linePow.*eval",
+              "isHomogeneous_iff|def IsHomogeneous|homogeneousSubmodule|coeff.*degree",
+              "hasDerivAt_sum|HasDerivAt.sum|HasDerivAt.mul|HasDerivAt.pow|HasDerivAt.neg",
+              "ofComplex_apply",
+              "p02_es_177ebb5a_sd_jr_",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_es_177ebb5a_sd_jr_child_types.lean",
+              "python3 /tmp/p02_es_177ebb5a_sd_jr_reference_check.py"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/P2M",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/PDeriv.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Add.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Mul.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Pow.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+              "/tmp/p02_es_177ebb5a_sd_jr_child_types.lean",
+              "/tmp/p02_es_177ebb5a_sd_jr_reference_check.py"
+            ],
+            "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. BinaryForm is the homogeneous polynomial submodule; IsEichlerIntegral supplies coefficientwise HasDerivAt hypotheses; linePow has underlying polynomial (C t * X 0 + X 1)^n. The inspected mathlib files supply coefficient vanishing by homogeneity, formal monomial and power differentiation, finite-sum/product/power differentiation, and UpperHalfPlane.ofComplex_apply. No matching jet recurrence or iterated-partial evaluation result was found in the searched P2M directory. All three proposed types elaborated after import Submission under Lean 4.33.1. Their polynomial carriers are explicitly MvPolynomial (Fin 2) ℂ; no constructed matrix or ambiguous function multiplication occurs. The proposed identifiers were absent from the searched declarations and DAG metadata. Installed dependencies matched their pinned revisions with clean tracked sources, and the inspected definition and mathematical source files matched the snapshot. Transitive axiom checks of the cited library lemmas returned only propext, Classical.choice, and Quot.sound. These are interface and reference checks, not comparator acceptance of the proposed children."
+          }
+        ],
+        "parent_id": "root.scalarization_derivative-a1.jet_recurrence-a1",
+        "child_id": "root.scalarization_derivative-a1.jet_recurrence-a1.linepow_jet_evaluation-a1",
+        "subproblem": {
+          "key": "linepow_jet_evaluation",
+          "title": "Evaluate the Y-jets of a line power on its vanishing line",
+          "statement": "For natural numbers n,r with r≤n and any t∈ℂ, let D_Y denote formal differentiation in variable 1. The evaluation of D_Y^r(linePow n t) at (1,−t) equals n! when r=n and equals zero otherwise.",
+          "lean_statement": "∀ (n r : ℕ), r ≤ n → ∀ t : ℂ, MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -t) ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r] (HeckeEis.linePow n t).val) = (if r = n then (Nat.factorial n : ℂ) else 0)",
+          "lean_name": "p02_es_177ebb5a_sd_jr_linepow_eval",
+          "depends_on": [],
+          "natural_proof": "1. Fix n,r with r≤n and t∈ℂ. Write X=X_0, Y=X_1, D=D_Y, and L=C(t)X+Y. By the definition of linePow, its underlying polynomial is L^n.\n2. Formal differentiation kills C(t) and X and sends Y to 1. The product and sum rules therefore give D(L)=1.\n3. For 0≤s≤n, define A(n,s) to be the complex number obtained from the integer product n(n−1)⋯(n−s+1), with A(n,0)=1. We prove D^s(L^n)=C(A(n,s))L^(n−s) by induction on s up to n. At s=0 this is the identity L^n=L^n. If s<n and the formula holds at s, linearity over constants and the power rule give D^(s+1)(L^n)=C(A(n,s))·(n−s)L^(n−s−1)D(L). By step 2, D(L)=1; the coefficient is A(n,s+1)=A(n,s)(n−s), and n−s−1=n−(s+1). This proves the induction step.\n4. Evaluation at X=1 and Y=−t sends L to t−t=0. Applying this ring homomorphism to the formula at s=r gives A(n,r)·0^(n−r).\n5. If r≠n, then r≤n implies r<n, so n−r>0. Thus the value in step 4 is zero.\n6. If r=n, the exponent in step 4 is zero and its power is 1. The descending product A(n,n) equals (n!:ℂ): for n=0 both are 1, and for n+1 the descending product is (n+1) times the product for n, exactly the factorial recursion. Hence the value is n!, proving the stated conditional formula, including n=r=0.",
+          "proof_key_steps": [
+            "Identify linePow n t with (C(t)X+Y)^n.",
+            "Compute D_Y(C(t)X+Y)=1.",
+            "Inductively obtain the falling-factorial formula for each partial derivative.",
+            "Evaluate the linear factor to zero at (1,−t).",
+            "Separate r<n from r=n and identify the endpoint product with n!."
+          ]
+        },
+        "audit": {
+          "key": "linepow_jet_evaluation",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The type includes precisely n, r, r≤n, and arbitrary complex t, matching the prose. The proof establishes D(L)=1, derives the falling-factorial formula by bounded induction, and evaluates L at (1,−t). It correctly separates positive exponents from exponent zero and proves the factorial endpoint, including n=r=0. No parent or child result is assumed."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-derivative-a1-jet-recurrence-a1-linepow-jet-evaluation-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-derivative-a1-jet-recurrence-a1-linepow-jet-evaluation-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-derivative-a1-jet-recurrence-a1-linepow-jet-evaluation-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.scalarization_derivative-a1.jet_recurrence-a1.moving_eval_derivative-a1",
+      "key": "moving_eval_derivative",
+      "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1-moving-eval-derivative-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1/children/root-scalarization-derivative-a1-jet-recurrence-a1-moving-eval-derivative-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "IsEichlerIntegral|linePow|jet_recurrence|iterate.*pderiv|pderiv.*iterate",
+              "pderiv|iterate|eval.*deriv|deriv.*eval",
+              "jet|pderiv|falling|descFactorial|linepow.*eval|linePow.*eval",
+              "isHomogeneous_iff|def IsHomogeneous|homogeneousSubmodule|coeff.*degree",
+              "hasDerivAt_sum|HasDerivAt.sum|HasDerivAt.mul|HasDerivAt.pow|HasDerivAt.neg",
+              "ofComplex_apply",
+              "p02_es_177ebb5a_sd_jr_",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_es_177ebb5a_sd_jr_child_types.lean",
+              "python3 /tmp/p02_es_177ebb5a_sd_jr_reference_check.py"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/P2M",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/PDeriv.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Add.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Mul.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Pow.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+              "/tmp/p02_es_177ebb5a_sd_jr_child_types.lean",
+              "/tmp/p02_es_177ebb5a_sd_jr_reference_check.py"
+            ],
+            "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. BinaryForm is the homogeneous polynomial submodule; IsEichlerIntegral supplies coefficientwise HasDerivAt hypotheses; linePow has underlying polynomial (C t * X 0 + X 1)^n. The inspected mathlib files supply coefficient vanishing by homogeneity, formal monomial and power differentiation, finite-sum/product/power differentiation, and UpperHalfPlane.ofComplex_apply. No matching jet recurrence or iterated-partial evaluation result was found in the searched P2M directory. All three proposed types elaborated after import Submission under Lean 4.33.1. Their polynomial carriers are explicitly MvPolynomial (Fin 2) ℂ; no constructed matrix or ambiguous function multiplication occurs. The proposed identifiers were absent from the searched declarations and DAG metadata. Installed dependencies matched their pinned revisions with clean tracked sources, and the inspected definition and mathematical source files matched the snapshot. Transitive axiom checks of the cited library lemmas returned only propext, Classical.choice, and Quot.sound. These are interface and reference checks, not comparator acceptance of the proposed children."
+          }
+        ],
+        "parent_id": "root.scalarization_derivative-a1.jet_recurrence-a1",
+        "child_id": "root.scalarization_derivative-a1.jet_recurrence-a1.moving_eval_derivative-a1",
+        "subproblem": {
+          "key": "moving_eval_derivative",
+          "title": "Differentiate evaluated jets of a coefficientwise differentiable homogeneous family",
+          "statement": "Let n∈ℕ, F : ℂ → BinaryForm ℂ n, G : BinaryForm ℂ n, and c,t∈ℂ. Assume that for every exponent vector d : Fin 2 →₀ ℕ, the function z↦coeff d (F z) has complex derivative c·coeff d G at t. Write D_Y for formal differentiation in variable 1. For every r≤n, the function z↦(D_Y^r(F z))(1,−z) has complex derivative c·(D_Y^r G)(1,−t)−(D_Y^(r+1)(F t))(1,−t) at t.",
+          "lean_statement": "∀ (n : ℕ) (F : ℂ → ↥(HeckeEis.BinaryForm ℂ n)) (G : ↥(HeckeEis.BinaryForm ℂ n)) (c t : ℂ), (∀ d : Fin 2 →₀ ℕ, HasDerivAt (fun z : ℂ => MvPolynomial.coeff d (F z).val) (c * MvPolynomial.coeff d G.val) t) → ∀ r : ℕ, r ≤ n → HasDerivAt (fun z : ℂ => MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z) ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r] (F z).val)) (c * MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -t) ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r] G.val) - MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -t) ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r + 1] (F t).val)) t",
+          "lean_name": "p02_es_177ebb5a_sd_jr_moving_eval_derivative",
+          "depends_on": [
+            "homogeneous_nilpotence"
+          ],
+          "natural_proof": "1. Fix n,F,G,c,t and the stated coefficient derivative hypothesis. Write X=X_0, Y=X_1, and D=D_Y. For 0≤k≤n define d_k by d_k(0)=n−k and d_k(1)=k, and put a_k(z)=coeff d_k(F z) and b_k=coeff d_k G. Homogeneity implies that every nonzero coefficient of F z or G has an exponent vector d with d(0)+d(1)=n. Such a vector is uniquely d_k for k=d(1). Thus, for every z, F z=Σ_{k=0}^n C(a_k(z))X^(n−k)Y^k, and G=Σ_{k=0}^n C(b_k)X^(n−k)Y^k. The index set is independent of z.\n2. For 0≤s≤k let A(k,s)=k(k−1)⋯(k−s+1), interpreted in ℂ, with A(k,0)=1. Induction gives D^s(X^(n−k)Y^k)=C(A(k,s))X^(n−k)Y^(k−s). Indeed, s=0 is immediate, and when s<k differentiation multiplies by k−s and lowers the Y-exponent by one. At s=k the result has no Y, so its next derivative is zero, and all later derivatives remain zero. Linearity gives the corresponding formulas with the constant coefficients a_k(z) or b_k included.\n3. Fix r≤n and define Q_r(z)=(D^r(F z))(1,−z). Applying step 2 to the expansions in step 1 and evaluating X=1,Y=−z gives Q_r(z)=Σ_{k=r}^n a_k(z)A(k,r)(−z)^(k−r). Applying the same calculation to G at (1,−t) gives (D^r G)(1,−t)=Σ_{k=r}^n b_k A(k,r)(−t)^(k−r). Here each sum is over the finite set of natural k satisfying the displayed bounds.\n4. The hypothesis applied to d_k gives HasDerivAt a_k (c b_k) t. The function z↦(−z)^(k−r) is complex differentiable. If k=r, it is the constant 1 and its derivative is zero. If k>r, the derivative at t is −(k−r)(−t)^(k−r−1), by the power rule and the derivative −1 of z↦−z.\n5. Apply the product rule to each summand of Q_r and then the finite-sum derivative rule. The coefficient derivatives contribute c Σ_{k=r}^n b_k A(k,r)(−t)^(k−r)=c(D^r G)(1,−t). The derivatives of the powers contribute −Σ_{k=r+1}^n a_k(t)A(k,r)(k−r)(−t)^(k−r−1).\n6. If r<n, then A(k,r)(k−r)=A(k,r+1) for every index in the latter sum. Also k−r−1=k−(r+1). The monomial calculation of step 2 therefore identifies that sum with (D^(r+1)(F t))(1,−t). If r=n, the sum is empty and equals zero; homogeneous_nilpotence applied to the degree-n form F t gives D^(n+1)(F t)=0, so its evaluation is also zero. Thus in both cases the power-derivative contribution is −(D^(r+1)(F t))(1,−t).\n7. Combining steps 5 and 6 yields HasDerivAt Q_r [c(D^r G)(1,−t)−(D^(r+1)(F t))(1,−t)] t, exactly the claimed derivative. No differentiability away from t was used; when n=0 the same argument uses only the constant-power and nilpotence cases.",
+          "proof_key_steps": [
+            "Expand F z and G on one fixed finite homogeneous monomial family.",
+            "Compute iterated Y-partials of the monomials using falling factorials.",
+            "Express the evaluated jets as finite sums.",
+            "Use the coefficient hypotheses and differentiate the moving powers.",
+            "Identify coefficient contributions with c times the evaluated jet of G.",
+            "Identify substitution contributions with the negative next jet, using nilpotence at r=n.",
+            "Combine the two contributions into the stated HasDerivAt conclusion."
+          ]
+        },
+        "audit": {
+          "key": "moving_eval_derivative",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The exact type includes both homogeneous carriers, every coefficient derivative hypothesis, and r≤n. The fixed finite expansion justifies termwise differentiation without neighborhood-wide differentiability assumptions. Product-rule contributions give the stated coefficient term and negative next jet, with correct signs and exponent arithmetic. The r=n case uses precisely the declared homogeneous_nilpotence dependency. This dependency is correctly directed and acyclic; the supplied proof is complete and sufficient for formalization."
+        },
+        "resolved_dependencies": [
+          "root.scalarization_derivative-a1.jet_recurrence-a1.homogeneous_nilpotence-a1"
+        ],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-derivative-a1-jet-recurrence-a1-moving-eval-derivative-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-derivative-a1-jet-recurrence-a1-moving-eval-derivative-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-derivative-a1-jet-recurrence-a1-moving-eval-derivative-a1/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1/task.md": "fbef05e2a6cfc7a6d66c1b237f25981ac872a7f88acb97b5772f4a049cee216a",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1/problem.md": "bc292ceabaa59d4166815e39f5e6a0c5ec4e11e33604270753833466755074b0",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1/problem.json": "bf0e4090d7154b9d64a24b6ca1b3b7a3bc13849e2326306634e0842533303df7",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1/reference-manifest.json": "a8f9271939f028889a1e9bac59a7290448f8c694baf434f537bdc05b0f75f2a6",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1/decomposition.json": "956fdf439bae41152ac389eebd0335cd5a3cce43633ec275e03389131547a65b",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1/decomposition-audit.json": "c1879b7058be1b24bc701d57eace2d93b0291d75823a7fcea287ac934c3570cf",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1/controller-contract.json": "7b7a516f9fce5467b2a4e92be9eb01a7eee74fb69c1477cc06212956b9e78e13",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1/children/root-scalarization-derivative-a1-jet-recurrence-a1-homogeneous-nilpotence-a1/parent-child-handoff.json": "5495f47ae55d38afe4499e4ce6c12cc3d3b57abb95ed74d44ec5c149c132be8d",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1/children/root-scalarization-derivative-a1-jet-recurrence-a1-homogeneous-nilpotence-a1/parent-supplied-plan.md": "a6b74f74de5d94ec8fb71f1dfc258d235868bddd484392a041082b3c3d9cb58e",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1/children/root-scalarization-derivative-a1-jet-recurrence-a1-homogeneous-nilpotence-a1/parent-supplied-natural-proof.md": "b903450102e33e64c111e7ec28ea431e7bca72f699976020925328c569e4cb6e",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1/children/root-scalarization-derivative-a1-jet-recurrence-a1-homogeneous-nilpotence-a1/parent-supplied-natural-proof.json": "25bef37fd323e4e505e2537d12e6a9edb8e13f7c6bf28cc2f14c3d4e2a2b6744",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1/children/root-scalarization-derivative-a1-jet-recurrence-a1-homogeneous-nilpotence-a1/node.json": "e7fed0f350219b21e3319c8fc98797e7f6604230d7a540cbc548d2784188d978",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1/children/root-scalarization-derivative-a1-jet-recurrence-a1-linepow-jet-evaluation-a1/parent-child-handoff.json": "e39bddd332b4f7bf7c8df797aeb7fba9b0ce79550ab73624cb8383f9ab923109",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1/children/root-scalarization-derivative-a1-jet-recurrence-a1-linepow-jet-evaluation-a1/parent-supplied-plan.md": "945e401c68a89ba1ab972c8688141478fb2af78acf8c39e6a5f5c7777a664af3",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1/children/root-scalarization-derivative-a1-jet-recurrence-a1-linepow-jet-evaluation-a1/parent-supplied-natural-proof.md": "0fadc2fda84aef50bfca6c3d50959b7680bfe351391b59f03a99df9645961eb3",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1/children/root-scalarization-derivative-a1-jet-recurrence-a1-linepow-jet-evaluation-a1/parent-supplied-natural-proof.json": "1adbd177279942d249533d7308f0c376bc606fec4ac2f483559d8025e7e30b11",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1/children/root-scalarization-derivative-a1-jet-recurrence-a1-linepow-jet-evaluation-a1/node.json": "f76335652c8fcfad273412a4a6f8843c257180e2748963e17726040517ae5adf",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1/children/root-scalarization-derivative-a1-jet-recurrence-a1-moving-eval-derivative-a1/parent-child-handoff.json": "a1f7c8ee08126a08f93b064bb57bdc99027eb16ac7263ea637aa0c210b1d87d6",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1/children/root-scalarization-derivative-a1-jet-recurrence-a1-moving-eval-derivative-a1/parent-supplied-plan.md": "f925e047ecb92c4a5750e4974c23ffb292b6e3bfecdfdc1ec19f75d10c663c82",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1/children/root-scalarization-derivative-a1-jet-recurrence-a1-moving-eval-derivative-a1/parent-supplied-natural-proof.md": "6a9e5f4ed67959a0337e27b4bb8d018a33de5b77072d06b0226e6d2e75c9a767",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1/children/root-scalarization-derivative-a1-jet-recurrence-a1-moving-eval-derivative-a1/parent-supplied-natural-proof.json": "4880dd6699435b7e196c7e9646ae2f052218fbddf6c2439e1e161b926c3d4b16",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1/children/root-scalarization-derivative-a1-jet-recurrence-a1-moving-eval-derivative-a1/node.json": "6f3e3ef4e7ebb1da6eb0ffe0ab4d0344b507fe2c2a40c1019f76866cb2d78056"
+  }
+}

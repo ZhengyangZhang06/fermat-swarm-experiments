@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.scalarization_derivative-a1.jet_recurrence-a1.homogeneous_nilpotence-a1",
+  "parent_id": "root.scalarization_derivative-a1.jet_recurrence-a1",
+  "depth": 3,
+  "title": "The Y-partial derivative annihilates a degree-n binary form after n+1 iterations",
+  "statement": "For every natural number n and every P : BinaryForm ℂ n, let D_Y denote formal polynomial differentiation in variable 1. Then D_Y^(n+1) applied to the underlying polynomial of P is zero.",
+  "lean_statement": "∀ (n : ℕ) (P : ↥(HeckeEis.BinaryForm ℂ n)), ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[n + 1] P.val) = 0",
+  "lean_name": "p02_es_177ebb5a_sd_jr_homogeneous_nilpotence",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1-homogeneous-nilpotence-a1-a1"
+}

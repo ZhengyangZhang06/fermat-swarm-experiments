@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.scalarization_derivative-a1.jet_recurrence-a1.linepow_jet_evaluation-a1",
+  "parent_id": "root.scalarization_derivative-a1.jet_recurrence-a1",
+  "depth": 3,
+  "title": "Evaluate the Y-jets of a line power on its vanishing line",
+  "statement": "For natural numbers n,r with r≤n and any t∈ℂ, let D_Y denote formal differentiation in variable 1. The evaluation of D_Y^r(linePow n t) at (1,−t) equals n! when r=n and equals zero otherwise.",
+  "lean_statement": "∀ (n r : ℕ), r ≤ n → ∀ t : ℂ, MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -t) ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r] (HeckeEis.linePow n t).val) = (if r = n then (Nat.factorial n : ℂ) else 0)",
+  "lean_name": "p02_es_177ebb5a_sd_jr_linepow_eval",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1-linepow-jet-evaluation-a1-a1"
+}
