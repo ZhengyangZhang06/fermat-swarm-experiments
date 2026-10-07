@@ -1,0 +1,57 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'length_compositionSeries|length_eq_add_of_exact|hasPrincipalDivisors_of_transcendental|length.*localiz|localiz.*length' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f",
+        "rg -n 'length.*(sum|localiz)|sum.*length|localiz.*length' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Localization .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DedekindDomain",
+        "rg -n 'isFiniteLength_iff_exists_compositionSeries|isFiniteLength_of_exists_compositionSeries' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/FiniteLength.lean",
+        "rg -n 'p06_9e0f5043ff_wll_residue_composition_series|p06_9e0f5043ff_wll_length_sum_factors|p06_9e0f5043ff_wll_local_length_multiplicity' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json Submission.lean Definitions Fermat"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Length.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/FiniteLength.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/SimpleModule/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/LocalRing/Length.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Module/LocalizedModule/Exact.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DedekindDomain/Ideal/Lemmas.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-local-norm-order-a1-integral-fiber-length-a1-weighted-local-lengths-a1/decomposition-typecheck/CheckTypes.interface-check.log",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-local-norm-order-a1-integral-fiber-length-a1-weighted-local-lengths-a1/decomposition-typecheck/LocalizationAxioms.log",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-local-norm-order-a1-integral-fiber-length-a1-weighted-local-lengths-a1/decomposition-typecheck/Submission.frozen-source-check.log",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-local-norm-order-a1-integral-fiber-length-a1-weighted-local-lengths-a1/decomposition-typecheck/provenance-check.json"
+      ],
+      "conclusion": "The snapshot supplies composition-series existence, classification of simple modules by maximal-ideal quotients, length additivity, exact localization, and maximality of height-one primes. The focused weighted-localization-length search returned no matches. Project revision 956e8c600d8b95b46948ae5e37b13930b5f3d06b and all nine clean pinned dependencies match their recorded revisions, including mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Inspected library sources match the snapshot. Audited declarations have only propext, Classical.choice, and Quot.sound as transitive axioms. No proposed-name collisions were found. All three types and canonical quotient scalar-action checks pass after import Submission in the existing import-only interface. However, the unchanged authoritative Submission still fails on three inherited unknown attribute targets; authoritative import validation remains required before child proof work begins. No comparator acceptance is claimed."
+    }
+  ],
+  "parent_id": "root.local_norm_order-a1.integral_fiber_length-a1.weighted_local_lengths-a1",
+  "child_id": "root.local_norm_order-a1.integral_fiber_length-a1.weighted_local_lengths-a1.length_sum_factors-a1",
+  "subproblem": {
+    "key": "length_sum_factors",
+    "title": "Restricted length is the sum of residue-factor lengths",
+    "statement": "Let A and B be commutative rings, with B a Dedekind domain and an A-algebra. Let M be an additive commutative group with A-module and B-module structures satisfying IsScalarTower A B M. Let s be a B-composition series of M with first term zero and last term M, and let p : Fin(s.length) → HeightOneSpectrum B. Suppose each successive quotient s(i+1)/s(i), formed using the canonical inclusion, is B-linearly isomorphic to B/p(i).asIdeal. Then length_A(M) equals the finite sum over i of length_A(B/p(i).asIdeal), in ℕ∞. Residue quotients use their canonical A-module structures; no finiteness assumption on these lengths is required.",
+    "lean_statement": "∀ (A B M : Type*) [CommRing A] [CommRing B] [IsDedekindDomain B] [Algebra A B] [AddCommGroup M] [Module A M] [Module B M] [IsScalarTower A B M] (s : CompositionSeries (Submodule B M)) (p : Fin s.length → IsDedekindDomain.HeightOneSpectrum B), s.head = ⊥ → s.last = ⊤ → (∀ i : Fin s.length, Nonempty ((↥(s i.succ) ⧸ (s i.castSucc).comap (s i.succ).subtype) ≃ₗ[B] (B ⧸ (p i).asIdeal))) → Module.length A M = Finset.sum Finset.univ (fun i : Fin s.length => Module.length A (B ⧸ (p i).asIdeal))",
+    "lean_name": "p06_9e0f5043ff_wll_length_sum_factors",
+    "depends_on": [],
+    "natural_proof": "1. Write m = s.length and N_j = s(j) for 0 ≤ j ≤ m. For each i < m, put Q_i = N_{i+1}/N_i, using the inclusion N_i → N_{i+1}. Its denominator is the preimage of N_i under the subtype map N_{i+1} → M, exactly the comap appearing in the statement. Choose a B-linear isomorphism e_i : Q_i ≃ B/p(i).asIdeal from the given nonempty type.\n\n2. The inclusion N_i → N_{i+1} is injective. The quotient map N_{i+1} → Q_i is surjective and has kernel the image of that inclusion. These maps therefore form a short exact sequence. Restricting scalars to A changes neither their underlying functions nor their kernels and images, so the sequence remains exact over A.\n\n3. The scalar-tower hypothesis identifies multiplication by a ∈ A with multiplication by algebraMap A B a on M, its submodules, and these quotients. The same identity holds for the canonical A-action on B/p(i).asIdeal. Consequently each B-linear e_i is also A-linear. Length invariance under this isomorphism and Module.length_eq_add_of_exact applied to step 2 give length_A(N_{i+1}) = length_A(N_i) + length_A(B/p(i).asIdeal).\n\n4. Since N_0 = 0, its A-length is zero. Induction on j using the identity in step 3 gives length_A(N_j) = Σ_{i<j} length_A(B/p(i).asIdeal) for every j ≤ m. This induction uses only addition and finite sums in ℕ∞, without cancellation or any assumption that the summands are finite.\n\n5. At j = m, the endpoint hypothesis N_m = M identifies the top submodule with M by its canonical A-linear equivalence. The induction formula is therefore exactly the asserted sum indexed by Fin m. When m = 0, both endpoints coincide, M is zero, and the same formula is the empty-sum equality.",
+    "proof_key_steps": [
+      "Form the short exact sequence for each successive quotient.",
+      "Restrict its maps and factor isomorphisms to A using the scalar tower.",
+      "Apply length additivity to every step.",
+      "Inductively sum the identities from the zero endpoint.",
+      "Identify the final endpoint with M, including the empty-series case."
+    ]
+  },
+  "audit": {
+    "key": "length_sum_factors",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "The exact proposition includes the required module structures and scalar tower. These make the factor equivalences and short exact sequences A-linear with the stated canonical actions. Length additivity and induction prove the finite sum without cancellation or finiteness of individual lengths, including the zero-length case. The series is an input, so no sibling dependency is needed. The bare identifier is unreserved."
+  },
+  "resolved_dependencies": [],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-local-norm-order-a1-integral-fiber-length-a1-weighted-local-leng-1913b0c97f/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-local-norm-order-a1-integral-fiber-length-a1-weighted-local-leng-1913b0c97f/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-local-norm-order-a1-integral-fiber-length-a1-weighted-local-leng-1913b0c97f/parent-supplied-natural-proof.json"
+}

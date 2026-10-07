@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.local_norm_order-a1.integral_fiber_length-a1.weighted_local_lengths-a1.length_sum_factors-a1",
+  "parent_id": "root.local_norm_order-a1.integral_fiber_length-a1.weighted_local_lengths-a1",
+  "depth": 4,
+  "title": "Restricted length is the sum of residue-factor lengths",
+  "statement": "Let A and B be commutative rings, with B a Dedekind domain and an A-algebra. Let M be an additive commutative group with A-module and B-module structures satisfying IsScalarTower A B M. Let s be a B-composition series of M with first term zero and last term M, and let p : Fin(s.length) → HeightOneSpectrum B. Suppose each successive quotient s(i+1)/s(i), formed using the canonical inclusion, is B-linearly isomorphic to B/p(i).asIdeal. Then length_A(M) equals the finite sum over i of length_A(B/p(i).asIdeal), in ℕ∞. Residue quotients use their canonical A-module structures; no finiteness assumption on these lengths is required.",
+  "lean_statement": "∀ (A B M : Type*) [CommRing A] [CommRing B] [IsDedekindDomain B] [Algebra A B] [AddCommGroup M] [Module A M] [Module B M] [IsScalarTower A B M] (s : CompositionSeries (Submodule B M)) (p : Fin s.length → IsDedekindDomain.HeightOneSpectrum B), s.head = ⊥ → s.last = ⊤ → (∀ i : Fin s.length, Nonempty ((↥(s i.succ) ⧸ (s i.castSucc).comap (s i.succ).subtype) ≃ₗ[B] (B ⧸ (p i).asIdeal))) → Module.length A M = Finset.sum Finset.univ (fun i : Fin s.length => Module.length A (B ⧸ (p i).asIdeal))",
+  "lean_name": "p06_9e0f5043ff_wll_length_sum_factors",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-integral-fiber-length-a1-weighted-local-leng-1913b0c97f-a1"
+}

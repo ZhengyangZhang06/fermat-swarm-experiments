@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.local_norm_order-a1.integral_fiber_length-a1.weighted_local_lengths-a1.residue_composition_series-a1",
+  "parent_id": "root.local_norm_order-a1.integral_fiber_length-a1.weighted_local_lengths-a1",
+  "depth": 4,
+  "title": "A finite-length principal quotient has height-one residue factors",
+  "statement": "Let A and B be commutative rings, with B a Dedekind domain and an A-algebra. Let b ∈ B be nonzero and n ∈ ℕ, and suppose length_A(C) = n in ℕ∞, where C = B/bB has its canonical scalar actions. There exist a B-composition series s of C from zero to C and a function p : Fin(s.length) → HeightOneSpectrum B such that, for every i, the successive quotient s(i+1)/s(i) is B-linearly isomorphic to B/p(i).asIdeal. Here s(i) is regarded as a submodule of s(i+1) through the canonical inclusion.",
+  "lean_statement": "∀ (A B : Type*) [CommRing A] [CommRing B] [IsDedekindDomain B] [Algebra A B] (b : B), b ≠ 0 → ∀ n : ℕ, Module.length A (B ⧸ Ideal.span ({b} : Set B)) = (n : ℕ∞) → ∃ s : CompositionSeries (Submodule B (B ⧸ Ideal.span ({b} : Set B))), s.head = ⊥ ∧ s.last = ⊤ ∧ ∃ p : Fin s.length → IsDedekindDomain.HeightOneSpectrum B, ∀ i : Fin s.length, Nonempty ((↥(s i.succ) ⧸ (s i.castSucc).comap (s i.succ).subtype) ≃ₗ[B] (B ⧸ (p i).asIdeal))",
+  "lean_name": "p06_9e0f5043ff_wll_residue_composition_series",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-integral-fiber-length-a1-weighted-local-leng-a3d54691b0-a1"
+}

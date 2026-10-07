@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.local_norm_order-a1.integral_fiber_length-a1.weighted_local_lengths-a1.local_length_multiplicity-a1",
+  "parent_id": "root.local_norm_order-a1.integral_fiber_length-a1.weighted_local_lengths-a1",
+  "depth": 4,
+  "title": "Local quotient length counts the factors at one prime",
+  "statement": "Let B be a commutative Dedekind domain and b ∈ B. Set C = B/bB. Let s be a B-composition series of C from zero to C and let p : Fin(s.length) → HeightOneSpectrum B. Suppose each successive quotient s(i+1)/s(i), formed using the canonical inclusion, is B-linearly isomorphic to B/p(i).asIdeal. For every q ∈ HeightOneSpectrum B, put R_q = Localization.AtPrime q.asIdeal. Then length_{R_q}(R_q/(image(b))) equals, in ℕ∞, the natural-number cardinality of {i : Fin(s.length) | p(i) = q}. All quotient and localization actions are canonical. No additional assumption b ≠ 0 is needed once the specified series and factors are supplied.",
+  "lean_statement": "∀ (B : Type*) [CommRing B] [IsDedekindDomain B] (b : B) (s : CompositionSeries (Submodule B (B ⧸ Ideal.span ({b} : Set B)))) (p : Fin s.length → IsDedekindDomain.HeightOneSpectrum B), s.head = ⊥ → s.last = ⊤ → (∀ i : Fin s.length, Nonempty ((↥(s i.succ) ⧸ (s i.castSucc).comap (s i.succ).subtype) ≃ₗ[B] (B ⧸ (p i).asIdeal))) → ∀ q : IsDedekindDomain.HeightOneSpectrum B, Module.length (Localization.AtPrime q.asIdeal) (Localization.AtPrime q.asIdeal ⧸ Ideal.span ({algebraMap B (Localization.AtPrime q.asIdeal) b} : Set (Localization.AtPrime q.asIdeal))) = (Nat.card {i : Fin s.length // p i = q} : ℕ∞)",
+  "lean_name": "p06_9e0f5043ff_wll_local_length_multiplicity",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-integral-fiber-length-a1-weighted-local-leng-04a817ef67-a1"
+}

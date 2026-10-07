@@ -1,0 +1,56 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'length_compositionSeries|length_eq_add_of_exact|hasPrincipalDivisors_of_transcendental|length.*localiz|localiz.*length' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f",
+        "rg -n 'length.*(sum|localiz)|sum.*length|localiz.*length' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Localization .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DedekindDomain",
+        "rg -n 'p06_9e0f5043ff_wll_residue_composition_series|p06_9e0f5043ff_wll_length_sum_factors|p06_9e0f5043ff_wll_local_length_multiplicity' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json Submission.lean Definitions Fermat",
+        "isFiniteLength_iff_exists_compositionSeries|isFiniteLength_of_exists_compositionSeries",
+        "covBy_iff_quot_is_simple|isSimpleModule_iff_quot_maximal",
+        "structure HeightOneSpectrum|instance isMaximal|theorem ext|asIdeal_inj",
+        "length_le_length_restrictScalars"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Length.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/FiniteLength.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/SimpleModule/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/LocalRing/Length.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Module/LocalizedModule/Exact.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DedekindDomain/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DedekindDomain/Ideal/Lemmas.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json",
+        "/tmp/p06-independent-decomposition-audit-s0p4s_ly/AuditTypes.lean",
+        "/tmp/p06-independent-decomposition-audit-s0p4s_ly/AuditTypes.log",
+        "/tmp/p06-independent-decomposition-audit-s0p4s_ly/command.json",
+        "/tmp/p06-independent-decomposition-audit-s0p4s_ly/AuthoritativeSubmission.log"
+      ],
+      "conclusion": "The snapshot supports composition-series existence, simple-factor classification, unrestricted length additivity, exact localization, and maximality of height-one primes. The focused weighted-localization-length search returned no matches. Independently confirmed project revision 956e8c600d8b95b46948ae5e37b13930b5f3d06b, mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d, all nine clean pinned dependencies, and inspected source compatibility. All three literal propositions independently elaborate as Prop using only pinned mathlib imports, without Submission or child declarations. Canonical quotient actions and scalar towers pass; audited library declarations use only propext, Classical.choice, and Quot.sound. No proposed-name reservations were found. The split separates genuine obligations; empty sibling dependency lists are correct, and finite regrouping completes the parent. Authoritative Submission still exhibits the three inherited unknown-attribute errors, independently reproduced. This accepts the decomposition only; authoritative build and comparator acceptance remain separate gates."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "residue_composition_series",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition matches all prose hypotheses, endpoints, labels, and quotient conventions. The proof bounds chains, constructs a maximal chain, classifies its simple factors, and correctly uses b ≠ 0 to obtain nonzero prime ideals. Choices and the empty-series case are covered. The proof is complete and non-circular; the bare identifier is unreserved."
+    },
+    {
+      "key": "length_sum_factors",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact proposition includes the required module structures and scalar tower. These make the factor equivalences and short exact sequences A-linear with the stated canonical actions. Length additivity and induction prove the finite sum without cancellation or finiteness of individual lengths, including the zero-length case. The series is an input, so no sibling dependency is needed. The bare identifier is unreserved."
+    },
+    {
+      "key": "local_length_multiplicity",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone proposition exactly matches the localized principal quotient and Nat.card multiplicity. The proof establishes localization exactness, computes the quotient kernel, kills other-prime factors, proves simplicity of surviving factors, and counts strict transitions after removing repetitions. The zero-count case is covered; b ≠ 0 is unnecessary under the supplied series hypotheses. No circular dependence or matrix-instance issue occurs. The bare identifier is unreserved."
+    }
+  ],
+  "required_changes": []
+}
