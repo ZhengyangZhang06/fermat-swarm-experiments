@@ -38,8 +38,9 @@
 <div class="metric"><strong id="verified">—</strong><span>verified & integrated roots</span></div>
 </section>
 <div class="notice" id="notice" role="status">Loading the latest published observation…</div>
+<p id="verification-summary">Verification activity has not been observed.</p>
 <section class="panel"><h2>One problem, one dependency graph</h2><p id="graph-note">Loading the published theorem graphs.</p>
-<div class="legend"><span><i class="dot"></i>No active worker observed</span><span>Gold: active worker · Green: verified and merged · Red: failed</span><span>Arrows: prerequisite → dependent</span></div>
+<div class="legend"><span><i class="dot"></i>No active worker observed</span><span>Gold: active worker · Blue: verification job · Purple: queued check · Green: verified and merged · Red: failed or reconciliation needed</span><span>Arrows: prerequisite → dependent. Saved stage is not current execution.</span></div>
 <nav id="problem-nav" class="problem-nav" aria-label="Jump to a problem graph"></nav></section>
 <div id="problem-graphs" class="problem-graphs"></div>
 <section class="panel"><h2>Theorem ledger</h2><p>Issue state is read from GitHub. A closed issue alone is not evidence of a verified proof.</p><div id="problems" class="list"></div></section>
@@ -53,6 +54,26 @@ const put=(id,text)=>document.getElementById(id).textContent=text;
 const ns='http://www.w3.org/2000/svg';
 function svgEl(name,attrs,parent,text){const el=document.createElementNS(ns,name);for(const [k,v] of Object.entries(attrs))el.setAttribute(k,v);if(text)el.textContent=text;parent.append(el);return el}
 function element(tag,className,parent,text){const el=document.createElement(tag);if(className)el.className=className;if(text!==undefined)el.textContent=text;parent.append(el);return el}
+function verificationState(n){
+ const activity=n.verification_activity,age=Date.now()/1000-activity?.observed_at;
+ return activity&&Number.isFinite(age)&&age>=0&&age<=180?activity.state:'unavailable';
+}
+function verificationLabel(n){
+ const state=verificationState(n),labels={
+  'waiting-verification':'waiting for verification',
+  'verification-running':'verification job running',
+  'starting':'verification starting',
+  'needs-reconciliation':'check needs reconciliation',
+  'no-active-check':'no active check observed',
+  'unavailable':'check activity unavailable',
+ };
+ return labels[state]||labels.unavailable;
+}
+function showVerificationSummary(){
+ const verification=status?.verification_activity,checkAge=Date.now()/1000-verification?.observed_at;
+ const counts=verification?.available&&checkAge>=0&&checkAge<=180?verification.counts:null;
+ put('verification-summary',counts?`Verification requests: ${counts.queued} queued · ${counts.running} running · ${counts.starting} starting · ${counts.needs_reconciliation} need reconciliation. ${counts.unowned_pending} unfinished requests belong to non-owned claims. Running includes remote preparation; it does not mean Lean is currently compiling. Finished checks do not imply merged proofs.`:'Verification activity unavailable or stale. Saved comparing stages do not confirm running checks.');
+}
 function nodeTitleLines(title){
  const words=title.split('.').pop().replace(/(?:^|_)[a-f0-9]{8,}(?=_|$)/g,'').replaceAll('_',' ').trim().split(/\s+/),lines=[''];
  for(const word of words){
@@ -82,7 +103,7 @@ function drawProblemGraph(svg,owned,allNodes,problemId,availableWidth){
  }
  if(changed)throw Error('Cyclic theorem dependencies');
  const layers=[];for(const n of nodes){const level=levels.get(n.id);(layers[level]||=[]).push(n)}
- const nodeWidth=236,nodeHeight=112,gap=28,rowHeight=164;
+ const nodeWidth=236,nodeHeight=132,gap=28,rowHeight=184;
  const width=Math.max(272,Math.min(availableWidth,950),...layers.map(a=>a.length*(nodeWidth+gap)+8));
  const height=Math.max(144,layers.length*rowHeight-20),positions=new Map();
  layers.forEach((layer,j)=>layer.forEach((n,i)=>positions.set(n.id,[(width-layer.length*(nodeWidth+gap)+gap)/2+i*(nodeWidth+gap),j*rowHeight+12])));
@@ -96,19 +117,21 @@ function drawProblemGraph(svg,owned,allNodes,problemId,availableWidth){
   svgEl('path',{class:'dependency-edge','data-from':dependency,'data-to':parent,d:`M ${dx+nodeWidth/2} ${dy} C ${dx+nodeWidth/2} ${middle}, ${px+nodeWidth/2} ${middle}, ${px+nodeWidth/2} ${py+nodeHeight}`,fill:'none',stroke:'#9bafb8','stroke-width':1.8,'marker-end':`url(#${markerId})`},svg);
  }
  for(const n of nodes){
-  const [x,y]=positions.get(n.id),issue=n.issue_url?.split('/').pop(),stage=(n.status||'unknown').replaceAll('-',' ');
-  const tone=n.integrated?'#278369':n.status==='failed'?'#bc4d4d':n.observed_running?'#bd8c30':'#829bb0';
+  const [x,y]=positions.get(n.id),issue=n.issue_url?.split('/').pop(),stage=(n.saved_status||n.status||'unknown').replaceAll('-',' '),checkState=verificationState(n),checkLabel=verificationLabel(n);
+  const tone=n.integrated?'#278369':n.status==='failed'||checkState==='needs-reconciliation'?'#bc4d4d':checkState==='verification-running'?'#297caa':checkState==='waiting-verification'?'#8061aa':n.observed_running?'#bd8c30':'#829bb0';
   const activity=n.publication_pending?'pending issue publication':n.observed_running?`worker ${n.worker_node}`:'no active worker observed';
-  const a=svgEl('a',{href:n.issue_url||'#problems','data-node-id':n.id,'data-external':Boolean(n.external),'aria-label':`${n.title}: ${stage}; ${activity}`},svg);
-  svgEl('title',{},a,`${n.title}\n${stage}; ${activity}${n.external?'\nShared prerequisite from another problem':''}`);
+  const a=svgEl('a',{href:n.issue_url||'#problems','data-node-id':n.id,'data-external':Boolean(n.external),'aria-label':`${n.title}: saved ${stage}; ${activity}; ${checkLabel}`},svg);
+  const checks=n.verification_activity?.counts,detail=checks?`\nLast recorded request counts: ${checks.queued} queued, ${checks.running} running, ${checks.starting} starting, ${checks.needs_reconciliation} need reconciliation. Pending candidate revisions: ${n.verification_activity.pending_revisions}. Finished checks do not imply proof acceptance.`:'';
+  svgEl('title',{},a,`${n.title}\nSaved stage: ${stage}; ${activity}\n${checkLabel}${detail}${n.external?'\nShared prerequisite from another problem':''}`);
   svgEl('rect',{x,y,width:nodeWidth,height:nodeHeight,rx:10,fill:n.integrated?'#edf8f2':n.external?'#f3f0f9':'#f6f9fa',stroke:'#aebfcb','stroke-width':1},a);
   svgEl('rect',{x:x+12,y:y+16,width:5,height:80,rx:2,fill:tone,stroke:'none'},a);
   const label=n.external?`${n.problem.replace('fermat-','').toUpperCase()} · shared #${issue||'?'}`:n.local_id==='root'?`Root theorem${issue?' · #'+issue:''}`:`Subtheorem${issue?' · #'+issue:''}`;
   svgEl('text',{x:x+27,y:y+25,fill:'#192c42','font-size':12,'font-weight':600,'font-family':'system-ui'},a,label);
   const lines=nodeTitleLines(n.title||n.local_id);
   lines.forEach((line,i)=>svgEl('text',{x:x+27,y:y+44+i*15,fill:'#385970','font-size':10,'font-family':'ui-monospace,monospace'},a,line));
-  svgEl('text',{x:x+27,y:y+81,fill:'#56667b','font-size':11,'font-family':'system-ui'},a,stage);
-  svgEl('text',{x:x+27,y:y+100,fill:'#63798b','font-size':10,'font-family':'system-ui'},a,n.publication_pending||n.observed_running?activity:'not executing');
+  svgEl('text',{x:x+27,y:y+81,fill:'#56667b','font-size':11,'font-family':'system-ui'},a,`Saved: ${stage}`);
+  svgEl('text',{x:x+27,y:y+100,fill:'#63798b','font-size':10,'font-family':'system-ui'},a,n.publication_pending||n.observed_running?activity:'no worker observed');
+  svgEl('text',{x:x+27,y:y+118,fill:'#385970','font-size':10,'font-family':'system-ui'},a,checkLabel);
  }
  return edges.length;
 }
@@ -126,7 +149,7 @@ function drawGraph(){
   const card=element('section','problem-panel',container);card.id=cardId;card.dataset.problem=p.id;
   const heading=element('div','problem-heading',card),top=element('div','problem-heading-top',heading);
   const title=element('h3','',top,`Problem ${short.slice(1)}`);title.id=`title-${p.id}`;card.setAttribute('aria-labelledby',title.id);
-  element('span','state',top,(root?.status||'unknown').replaceAll('-',' '));
+  element('span','state',top,`Saved: ${(root?.saved_status||root?.status||'unknown').replaceAll('-',' ')}`);
   const theorem=element('a','theorem-name',heading,p.theorem);theorem.href=p.issue_url;
   const running=nodes.filter(n=>n.observed_running).length,integrated=nodes.filter(n=>n.integrated).length;
   element('p','problem-summary',heading,observedNodes.length?`${nodes.length} theorem nodes · ${running} active issue ${running===1?'job':'jobs'} · ${integrated} verified & merged`:'Awaiting a live observation for this problem.');
@@ -153,7 +176,7 @@ function ledger(issues){
   const id=document.createElement('span');id.className='id';id.textContent=p.id.replace('fermat-','');
   const link=document.createElement('a');link.href=p.issue_url;link.textContent=p.theorem;
   const proof=status.problems?.find(r=>r.id===p.id)?.nodes.find(n=>n.local_id==='root');
-  const state=document.createElement('span');state.className='state';state.textContent=proof?`${proof.status.replaceAll('-',' ')} · prose ${proof.prose_status}`:(issue?`Issue ${issue.state}`:'Issue state unavailable');
+  const state=document.createElement('span');state.className='state';state.textContent=proof?`Saved: ${proof.status.replaceAll('-',' ')} · prose ${proof.prose_status}`:(issue?`Issue ${issue.state}`:'Issue state unavailable');
   state.title=issue?`GitHub issue ${issue.state}; PR ${proof?.pr_state||'not opened'}`:'GitHub issue state unavailable';
   row.append(id,link,state);list.append(row);
  }
@@ -173,6 +196,7 @@ async function refresh(){
   status=fresh.sort((a,b)=>Date.parse(b.observed_at)-Date.parse(a.observed_at))[0];
   put('roots',campaign.problems.length);put('ready',`${status.readiness_passed}/128`);
   put('resolvers',status.running_resolvers);put('verified',status.verified_integrated_roots);
+  showVerificationSummary();
   const age=Date.now()-Date.parse(status.observed_at);
   put('notice',status.message+(age>300000?' The deployment observation is older than five minutes.':''));
   put('observed',`Deployment observation: ${status.observed_at}. Readiness is not proof work.`);
@@ -181,7 +205,7 @@ async function refresh(){
   for(let page=1;page<=10;page++){const batch=await get(`https://api.github.com/repos/${repo}/issues?state=all&per_page=100&page=${page}`);issues.push(...batch);if(batch.length<100){complete=true;break}}
   if(!complete)throw Error('Issue listing exceeded the page limit; refusing a partial status');
   ledger(issues);
- }catch(error){put('notice',`Status refresh incomplete: ${error.message}. Last displayed data may be stale; no completion is inferred.`)}
+ }catch(error){put('notice',`Status refresh incomplete: ${error.message}. Last displayed data may be stale; no completion is inferred.`);showVerificationSummary();if(campaign&&status)drawGraph()}
 }
 window.addEventListener('resize',()=>{if(campaign&&status)drawGraph()});refresh();setInterval(refresh,120000);
 </script>

@@ -25,6 +25,7 @@ class StatusBrowserTests(unittest.TestCase):
         self.mode = "previous-minute"
         self.requests = []
         self.errors = []
+        self.verification = None
         self.problems = [dict(id="fermat-p01", nodes=[
             dict(id="fermat-p01/root", problem="fermat-p01", local_id="root",
                  title="Theorem", requires=[], status="decomposing", prose_status="reviewed",
@@ -47,6 +48,8 @@ class StatusBrowserTests(unittest.TestCase):
             snapshot = dict(observed_at=observed.isoformat(), message="Live proof work",
                             readiness_passed=128, running_resolvers=128,
                             verified_integrated_roots=0, problems=self.problems)
+            if self.verification is not None:
+                snapshot['verification_activity'] = self.verification
             if self.mode == "older":
                 snapshot.update(observed_at="2026-01-01T00:00:00Z", running_resolvers=0, problems=[])
             return route.fulfill(content_type="application/json", body=json.dumps(snapshot))
@@ -126,6 +129,44 @@ class StatusBrowserTests(unittest.TestCase):
         node = self.page.locator('a[data-node-id="fermat-p01/child-a"]')
         self.assertIn('pending issue publication', node.text_content())
         self.assertNotIn('worker hoa6', node.text_content())
+        self.assertEqual(self.errors, [])
+
+    def test_comparing_distinguishes_queued_running_and_unobserved_checks(self):
+        self.add_graphs()
+        observed = datetime.now(timezone.utc).timestamp()
+        self.verification = dict(available=True, observed_at=observed,
+            counts=dict(queued=2, running=1, starting=0, needs_reconciliation=0, unowned_pending=0))
+        states = ['waiting-verification', 'verification-running', 'no-active-check']
+        for node, state in zip(self.problems[0]['nodes'], states):
+            node.update(status='comparing', saved_status='comparing',
+                        verification_activity=dict(state=state, observed_at=observed))
+        self.open_graphs()
+        graph = self.page.locator('#graph-fermat-p01 .problem-dag')
+        self.assertIn('waiting for verification', graph.text_content())
+        self.assertIn('verification job running', graph.text_content())
+        self.assertIn('no active check observed', graph.text_content())
+        self.assertEqual(graph.text_content().count('Saved: comparing'), 3)
+        self.assertIn('2 queued · 1 running', self.page.locator('#verification-summary').inner_text())
+        self.assertIn('remote preparation', self.page.locator('#verification-summary').inner_text())
+        self.assertEqual(self.errors, [])
+
+    def test_stale_verification_labels_expire_even_after_refresh_failure(self):
+        self.add_graphs()
+        observed = datetime.now(timezone.utc).timestamp()
+        self.verification = dict(available=True, observed_at=observed,
+            counts=dict(queued=0, running=1, starting=0, needs_reconciliation=0, unowned_pending=0))
+        self.problems[0]['nodes'][0].update(status='comparing',
+            verification_activity=dict(state='verification-running', observed_at=observed))
+        self.open_graphs()
+        self.assertIn('verification job running', self.page.locator('#graph-fermat-p01 .problem-dag').text_content())
+        self.mode = 'offline'
+        self.page.evaluate('Date.now = () => ' + str(int((observed + 181) * 1000)))
+        self.page.evaluate('window.testRefresh()')
+        graph = self.page.locator('#graph-fermat-p01 .problem-dag')
+        self.assertNotIn('verification job running', graph.text_content())
+        self.assertIn('check activity unavailable', graph.text_content())
+        self.assertIn('Saved: comparing', graph.text_content())
+        self.assertIn('unavailable or stale', self.page.locator('#verification-summary').inner_text())
         self.assertEqual(self.errors, [])
 
     def test_wide_graph_scroll_is_local_and_survives_refresh_and_resize(self):

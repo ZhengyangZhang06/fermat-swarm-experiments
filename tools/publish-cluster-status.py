@@ -26,6 +26,7 @@ if os.environ.get('THEOREM_WORKFLOW_ROOT'):
         observed_workers, running_service_tasks, fleet_generations,
         attach_worker_activity as shared_attach_worker_activity,
     )
+    from _recursive_lean.verification_status import observe_verifications, attach_verification_activity
 
 
 def proof_records(config):
@@ -168,6 +169,10 @@ def collect():
     if selected_workers is not None:
         workers = selected_workers
     attach_worker_activity(proofs, workers)
+    verification_activity = dict(available=False, observed_at=stamp, counts=None, nodes=[])
+    if os.environ.get('THEOREM_WORKFLOW_ROOT'):
+        verification_activity = observe_verifications(PRIVATE / 'claims.sqlite', config['repository'], stamp=stamp)
+        attach_verification_activity(proofs, verification_activity, config['repository'], stamp=stamp)
     enabled = sum(bool(p.get('enabled')) for p in config['projects'])
     working = sum(worker['phase'] == 'working' for worker in workers)
     integrated = sum(p['root_integrated'] for p in proofs)
@@ -179,6 +184,7 @@ def collect():
         'verified_integrated_roots': integrated, 'reviewed_natural_proofs': reviewed,
         'proof_feed_active': True, 'enabled_projects': enabled, 'problems': proofs,
         'workers': sorted(workers, key=lambda worker: int(worker['node'][3:])),
+        'verification_activity': {key: verification_activity[key] for key in ('available', 'observed_at', 'counts')},
         'message': f"{len(workers)}/128 node workers are running and heartbeating. "
                    f"{working} are executing issue jobs; {enabled}/10 projects are enabled. "
                    f"{reviewed}/10 current root prose proofs have passed review; "
