@@ -22,7 +22,7 @@ SSH = 'ssh -F /dev/null -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyC
 CAMPAIGN = Path(__file__).resolve().parents[1]
 if os.environ.get('THEOREM_WORKFLOW_ROOT'):
     sys.path.insert(0, os.environ['THEOREM_WORKFLOW_ROOT'])
-    from _recursive_lean.fleet_status import observed_workers
+    from _recursive_lean.fleet_status import observed_workers, running_service_tasks
 
 
 def proof_records(config):
@@ -139,12 +139,15 @@ def collect():
             snapshots.append(json.loads((PRIVATE / 'parallel-snapshot.json').read_text()))
         services.append('fermat-parallel-resolvers-20261007')
     proofs = proof_records(config)
-    tasks = [json.loads(line) for line in subprocess.check_output(
-        ['sudo', '-n', 'docker', 'service', 'ps', '--no-trunc', *services, '--format', '{{json .}}'],
-        text=True, timeout=30,
-    ).splitlines()]
-    running = {task['ID']: task for task in tasks
-               if task['DesiredState'] == 'Running' and task['CurrentState'].startswith('Running ')}
+    if os.environ.get('THEOREM_WORKFLOW_ROOT'):
+        running = running_service_tasks(services)
+    else:
+        tasks = [json.loads(line) for line in subprocess.check_output(
+            ['sudo', '-n', 'docker', 'service', 'ps', '--no-trunc', *services, '--format', '{{json .}}'],
+            text=True, timeout=30,
+        ).splitlines()]
+        running = {task['ID']: task for task in tasks
+                   if task['DesiredState'] == 'Running' and task['CurrentState'].startswith('Running ')}
     stamp = time.time()
     if os.environ.get('THEOREM_WORKFLOW_ROOT'):
         selected_workers = observed_workers(snapshots, running, stamp=stamp)
