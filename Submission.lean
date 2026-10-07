@@ -1736,6 +1736,7 @@ theorem p06_9e0f5043ff_lno_dvr_determinant_length
 
 namespace Submission
 
+/-- A compatible equivalence of valuation rings preserves normalized orders. -/
 theorem p06_9e0f5043ff_pae_compatible_order_invariance
     (K E L : Type*) [Field K] [Field E] [Field L] [Algebra K E] [Algebra K L]
     (e : E ≃ₐ[K] L) (v : AlgebraicCurve.Place K E) (w : AlgebraicCurve.Place K L)
@@ -1751,6 +1752,7 @@ theorem p06_9e0f5043ff_pae_compatible_order_invariance
   have hfactor : e f = ((u' : w.toValuationSubring) : L) *
       ((r π : L) ^ v.ord f) := by
     rw [hcoeu, hcompat π]
+    -- Keep the exponent `v.ord f` fixed while transporting the factorization.
     conv_lhs => rw [hu, map_mul, map_zpow₀]
   rw [hfactor, w.ord_unit_smul_zpow u' hπ' (v.ord f)]
 
