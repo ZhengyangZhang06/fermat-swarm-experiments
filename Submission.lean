@@ -15,3 +15,23 @@ theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field
     [Algebra K F] (x : F) (hx : Transcendental K x)
     [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
   sorry
+
+namespace Submission
+
+theorem p06_9e0f5043ff_dlen_scalar_quotient
+    (K E : Type*) [Field K] [Field E] [Algebra K E]
+    (v : AlgebraicCurve.Place K E) (a : v.toValuationSubring) (ha : a ≠ 0) :
+    ∃ n : ℕ,
+      Module.length v.toValuationSubring
+        (v.toValuationSubring ⧸ Ideal.span ({a} : Set v.toValuationSubring)) = (n : ℕ∞) ∧
+      v.ord (algebraMap v.toValuationSubring E a) = (n : ℤ) := by
+  obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible v.toValuationSubring
+  obtain ⟨n, u, rfl⟩ := IsDiscreteValuationRing.eq_unit_mul_pow_irreducible ha hπ
+  refine ⟨n, ?_, ?_⟩
+  · rw [Ideal.span_singleton_mul_left_unit u.isUnit, ← Ideal.span_singleton_pow,
+      ← hπ.maximalIdeal_eq]
+    exact IsDiscreteValuationRing.length_quotient_pow_maximalIdeal v.toValuationSubring n
+  · change v.ord (((u : v.toValuationSubring) : E) * (π : E) ^ n) = (n : ℤ)
+    simpa only [zpow_natCast] using v.ord_unit_smul_zpow u hπ (n : ℤ)
+
+end Submission
