@@ -104,6 +104,8 @@ The exact type remains:
 ## Fresh author checks, 2026-10-08, round started 15:32:30 UTC
 
 - Lean 4.33.1 (commit `819816b2e0a3bf405af45ae5c7af2491d8f5bee6`), `-DwarningAsError=true` and the project Lean options: the unchanged selected theorem in a fresh diagnostic importing
+
+- Lean 4.33.1, `-DwarningAsError=true`: the selected theorem in a diagnostic importing
   `Definitions.Def_ModularForm_HeckeOperatorForms` passes, including an anonymous check
   against the literal frozen type.
 - Transitive axiom reports for the selected theorem, `ModularForm.norm`,
@@ -160,6 +162,18 @@ unrelated root theorem; no root or sibling theorem was validated and no root com
 The inherited implementation and historical comparator reports were not treated as
 proof acceptance. All diagnostics above were rerun in this round. No prior process,
 request, or controller state was restarted, canceled, or modified.
+  unsafe mechanisms, or weakened statement. The other inherited change is a runtime
+  skill ignore rule in `.gitignore`.
+
+**Required validation remains blocked.** The diagnostic retaining the frozen imports
+and attribute commands, while excluding the unrelated root theorem, exits 1. A separate
+check confirms all seven instance targets and all eight simp targets in those commands
+are unavailable in the imported environment. The first errors name
+`FLT.HyperbolicMeasure.instSMulInvariantMeasureSpecialLinearGroupFinOfNatNatIntUpperHalfPlaneVolume_definitions`
+and `FreyPackage.ModMCarrier.coe_rescaleLin_apply`. Thus the passing diagnostic without
+the attribute commands is not full-context acceptance. The unchanged whole source also
+reports the inherited root placeholder under warning-fatal checking; no root proof or
+root comparator is part of this node's task.
 
 The current plan requires a fresh exact-node comparator run on a clean committed
 candidate. Its result belongs to that exact SHA and is recorded in the local round
@@ -206,6 +220,12 @@ the scoped diagnostic sources, completed body/context build logs, `build-results
 `source-dependency-audit.json`, protected-artifact digests, `reference-use.json`, and
 `complete-source.diff`. The freshly requested simplifier agent independently reviewed the selected
 proof and found no defect or worthwhile simplification. The round tracker,
+turn filter bounds into a common height. Searches for the exact selected name and
+norm-bound variants in `project/Definitions` returned no matches.
+
+Local evidence is in `.humanize/rlcr/2026-10-07_18-00-47/validation/`, including
+the three diagnostic sources, their complete build logs, `build-results.json`,
+`source-dependency-audit.json`, and `complete-source.diff`. The round tracker,
 contract, summary, and raw logs remain ignored runtime metadata; this report provides
 the durable committed validation handoff.
 
