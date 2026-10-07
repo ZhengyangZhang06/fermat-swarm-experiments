@@ -318,7 +318,6 @@ theorem p07_cre_group_law_857cd4d38c :
       mul_natural := by
         intro W W' t t' ψ hψ P Q
         apply (B W' t').injective
-        rw [hBcomp]
         simp only [Equiv.apply_symm_apply, hBcomp]
         exact G.mul_natural _ _ ψ _ _ _ }
   refine ⟨H, B, ?_, ?_, ?_, ?_, ?_⟩
