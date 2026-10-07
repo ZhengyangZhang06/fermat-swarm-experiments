@@ -37,6 +37,7 @@ class ClaimLedger:
                     created REAL NOT NULL,
                     observed REAL NOT NULL,
                     receipt TEXT NOT NULL DEFAULT '{}',
+                    job TEXT NOT NULL DEFAULT '{}',
                     outcome TEXT NOT NULL DEFAULT ''
                 );
                 CREATE UNIQUE INDEX IF NOT EXISTS one_project
@@ -68,7 +69,7 @@ class ClaimLedger:
             raise ValueError("invalid issue")
 
     def claim(self, *, project: str, repository: str, issue: int,
-              owner: str, attempt: str) -> dict | None:
+              owner: str, attempt: str, job: dict | None = None) -> dict | None:
         self._validate(project, repository, issue, owner, attempt)
         repository = repository.casefold()
         with self._db() as db:
@@ -83,9 +84,10 @@ class ClaimLedger:
             stamp = time.time()
             try:
                 db.execute(
-                    "INSERT INTO claims(attempt,project,repository,issue,owner,token,state,created,observed) "
-                    "VALUES(?,?,?,?,?,?,'owned',?,?)",
-                    (attempt, project, repository, issue, owner, secrets.token_hex(32), stamp, stamp),
+                    "INSERT INTO claims(attempt,project,repository,issue,owner,token,state,created,observed,job) "
+                    "VALUES(?,?,?,?,?,?,'owned',?,?,?)",
+                    (attempt, project, repository, issue, owner, secrets.token_hex(32), stamp, stamp,
+                     json.dumps(job or {}, sort_keys=True)),
                 )
             except sqlite3.IntegrityError:
                 db.rollback()
@@ -93,6 +95,14 @@ class ClaimLedger:
             row = dict(db.execute("SELECT * FROM claims WHERE attempt=?", (attempt,)).fetchone())
             db.commit()
             return row
+
+    def lookup(self, attempt: str, owner: str) -> dict | None:
+        """Recover the immutable grant after an uncertain API response."""
+        with self._db() as db:
+            row = db.execute('SELECT * FROM claims WHERE attempt=?', (attempt,)).fetchone()
+            if row and row['owner'] != owner:
+                raise OwnershipError('attempt belongs to another worker')
+            return dict(row) if row else None
 
     @staticmethod
     def _owned(db, attempt, owner, token):

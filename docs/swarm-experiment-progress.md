@@ -111,3 +111,37 @@ Next: implement the authenticated durable broker/client and immutable comparator
 request service, package the standalone Codex runtime using Docker secrets, then
 freeze ten executable projects and enable one real worker smoke test before the
 128-node resolver service. Root issue numbers must be reused, not recreated.
+
+## Follow-up checkpoint, 08:03 UTC
+
+- The user reconfirmed **Use Ubuntu** after a fresh workspace instruction again
+  named the absent zhengyang home. `/home/ubuntu/.codex` is authorized.
+- The TLS broker is deployed with broker-local durable ownership. Global service
+  `fermat-issue-resolvers-20261007` has 128 live node workers independently polling;
+  no theorem job has been enabled, claimed, or proved yet. The earlier pilot is
+  scaled to zero. No timestamp-based ownership transfer is implemented.
+- The real model runtime smoke job completed with the configured gpt-6-astra
+  and the authorized authentication. It used no tools/search and proved no theorem.
+- The public site uses minute-addressed snapshots from `status-live`; its observer
+  checks both current Swarm task IDs and fresh heartbeats. It still requires the
+  full proof/DAG feed before any job is enabled.
+- Added immutable remote verification requests, pending-verification release
+  protection, and automatic discovery of published dependency-ready child issues.
+  Seven verifier-service tests and thirteen broker tests pass. Full workflow suite
+  also returned exit zero with one optional browser skip before the last two DAG tests.
+- The real comparator self-test is still live (PID 2801298, exec session 14133).
+  It has accepted the valid cases and rejected changed type, sorryAx and a new
+  axiom so far. Do not equate that partial result with full verifier readiness.
+- Baseline commit `647767b` stages the exact 98-module import closure, manifest and
+  source hashes; all ten frozen Fermat contracts are unchanged. Its `lake build
+  Fermat` remains live under `fermat-contract-build.service` (PID 2780465).
+- Ten isolated projects are being prepared/pushed to `experiments/fermat-pNN` in
+  the campaign repository. Their Submission.lean starts as the exact unsolved
+  contract; main retains the benchmark originals. Each target branch receives
+  that problem's verified root solution; the campaign index must link integration
+  evidence. These branches are setup, not solutions or accepted proof PRs.
+
+Next: finish the live build/self-test, stage the worker runtime and secrets, validate
+the ten configs without model calls, update the live proof-aware status publisher,
+then enable real proof jobs and observe actual ownership/model processes. All ten
+root proofs and every newly introduced helper remain outstanding.
