@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.tate_index_annihilation-a1.tate_zero_transfer-a1.invariant_restriction_norm_range-a1",
+  "parent_id": "root.tate_index_annihilation-a1.tate_zero_transfer-a1",
+  "depth": 3,
+  "title": "Invariant inclusion preserves norm images",
+  "statement": "Let k be a commutative ring, G a group with Fintype G, A a k-linear G-representation, and H a subgroup with Fintype H. Put B = Rep.res H.subtype A. For L = G or H, let ν_L be normBar, the map from coinvariants to invariants induced by N_L(v) = Σ_{l∈L} l v. There exists a k-linear map j : A^G → A^H whose underlying vector equals its input and such that j(im ν_G) ⊆ im ν_H. No normality of H or finiteness of A is assumed.",
+  "lean_statement": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H], ∃ j : A.ρ.invariants →ₗ[k] (Rep.res H.subtype A).ρ.invariants, (∀ a : A.ρ.invariants, (j a : A) = (a : A)) ∧ LinearMap.range A.ρ.normBar ≤ (LinearMap.range (Rep.res H.subtype A).ρ.normBar).comap j",
+  "lean_name": "p04_tz91_invariant_restriction_norm_range",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p04/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-tate-zero-transfer-a1-invariant-restr-4fa1637a00-a1"
+}

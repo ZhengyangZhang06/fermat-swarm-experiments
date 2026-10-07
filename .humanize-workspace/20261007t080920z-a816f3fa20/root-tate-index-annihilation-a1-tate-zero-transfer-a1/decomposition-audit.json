@@ -1,0 +1,54 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "tateH0|normBar|cosetNormInvariants|tateH0Res|tateH0Cores|TateResCor",
+        "normToInvariants|normBar|mk_surjective|def norm|norm_apply|def res|res_ρ|invariants",
+        "quotientEquivProdOfFinite|groupEquivQuotientProdSubgroup|quotientEquiv|leftRel|rightRel|Quotient.out",
+        "def index|index_eq_card",
+        "def mapQ|mapQ_apply|mapQ_mkQ|mkQ_surjective|mkQ_apply",
+        "p04_tz91_invariant_restriction_norm_range|p04_tz91_invariant_transfer_norm_index|TateResCor|tateH0Res|tateH0Cores",
+        "git rev-parse HEAD",
+        "git status --porcelain --untracked-files=all",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean TypeCheck.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean AssemblyCheck.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Coinvariants.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Invariants.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/Coset/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/Index.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/LinearAlgebra/Quotient/Basic.lean",
+        "/tmp/p04-tz91-independent-review-aeyg8378/TypeCheck.lean",
+        "/tmp/p04-tz91-independent-review-aeyg8378/TypeCheck.log",
+        "/tmp/p04-tz91-independent-review-aeyg8378/AssemblyCheck.lean",
+        "/tmp/p04-tz91-independent-review-aeyg8378/AssemblyCheck.log",
+        "/tmp/p04-tz91-independent-review-aeyg8378/SubmissionBuild.log",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/Submission.lean"
+      ],
+      "conclusion": "The frozen definitions confirm the normBar quotient, coinvariant representatives, unchanged underlying module under restriction, coset counting, and quotient-map construction. Searches found no proposed-name reservation in the local DAGs and no TateResCor/tateH0Res/tateH0Cores implementation in the searched snapshot definitions and representation library. Both snapshots match the manifest; all nine installed dependencies are clean and pinned. Fresh Lean 4.33.1 checks elaborate both literal child types without child implementations, verify inherited natural-number scalar multiplication, and prove the exact parent conditionally from the two contracts at matching universe instantiations. Checked infrastructure has only propext, Classical.choice, and Quot.sound as transitive axioms. The split is mathematically appropriate and sufficient. The independent Submission build reproduces the existing unknown-constant error at line 10; this remains a separate activation/comparator blocker. This audit accepts the decomposition, not either child's Lean solution or completion of that import gate."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "invariant_restriction_norm_range",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "All hypotheses and both conclusions match the independently elaborated one-line proposition. Step 1 correctly identifies normBar's image using coinvariant surjectivity; step 2 constructs the underlying-vector-preserving linear inclusion; step 3 correctly uses right cosets Hs and the bijection H × S → G to obtain N_H(Σ_s sv) = N_G(v); step 4 proves exactly the stated range/comap inclusion. No normality, finite-dimensionality, or parent theorem is used. This is a genuine independent obligation with correctly empty dependencies. The lean_name is a bare, unreserved identifier, and its type contains no candidate-dependent alias or declaration."
+    },
+    {
+      "key": "invariant_transfer_norm_index",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and independently elaborated one-line type agree, including use of the same transfer map for both identities. Steps 1–2 establish the left-coset bijection and representative independence using H-invariance. Step 3 reindexes by the G-action on left cosets without assuming normality; step 4 proves linearity; step 5 computes transfer of the subgroup norm; step 6 proves the index identity for arbitrary equal underlying vectors. Lean confirms that H.index • a is inherited repeated addition. The proof is complete, non-circular, and ready for formalization. Empty dependencies are correct; the bare lean_name is unreserved, and the contract is independently usable without its implementation."
+    }
+  ],
+  "required_changes": []
+}

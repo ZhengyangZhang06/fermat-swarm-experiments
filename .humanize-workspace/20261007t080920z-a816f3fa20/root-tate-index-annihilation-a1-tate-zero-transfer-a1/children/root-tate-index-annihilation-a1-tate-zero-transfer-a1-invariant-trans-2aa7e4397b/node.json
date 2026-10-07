@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.tate_index_annihilation-a1.tate_zero_transfer-a1.invariant_transfer_norm_index-a1",
+  "parent_id": "root.tate_index_annihilation-a1.tate_zero_transfer-a1",
+  "depth": 3,
+  "title": "Invariant transfer preserves norms and realizes the index action",
+  "statement": "Let k be a commutative ring, G a group with Fintype G, A a k-linear G-representation, and H a subgroup with Fintype H. Put B = Rep.res H.subtype A. Let N_G^inv : A → A^G and N_H^inv : A → A^H be the normToInvariants maps, whose underlying vectors are the respective group-action sums. There exists a k-linear map c : A^H → A^G such that c(N_H^inv(v)) = N_G^inv(v) for every v ∈ A. The same map satisfies c(b) = H.index • a whenever a ∈ A^G and b ∈ A^H have equal underlying vectors, where • denotes repeated addition. No normality of H or finiteness of A is assumed.",
+  "lean_statement": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H], ∃ c : (Rep.res H.subtype A).ρ.invariants →ₗ[k] A.ρ.invariants, (∀ v : A, c ((Rep.res H.subtype A).ρ.normToInvariants v) = A.ρ.normToInvariants v) ∧ ∀ (a : A.ρ.invariants) (b : (Rep.res H.subtype A).ρ.invariants), (b : A) = (a : A) → c b = H.index • a",
+  "lean_name": "p04_tz91_invariant_transfer_norm_index",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p04/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-tate-zero-transfer-a1-invariant-trans-2aa7e4397b-a1"
+}

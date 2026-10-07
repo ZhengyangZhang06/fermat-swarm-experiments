@@ -1,0 +1,62 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "tateH0|normBar|cosetNormInvariants|tateH0Res|tateH0Cores",
+        "norm|invariants|res|mk_surjective",
+        "p04_tz91_|TateResCor|tateH0Res|tateH0Cores",
+        "lean_name|depth|candidate_commit|proof_base_commit",
+        "def mapQ|theorem mapQ_apply|lemma mapQ_apply|mapQ_mkQ|mapQ_comp|mkQ_apply|mkQ_surjective"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Coinvariants.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/Coset/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/Index.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/LinearAlgebra/Quotient/Basic.lean",
+        "/tmp/p04-tz91-dependency-audit.json",
+        "/tmp/p04-tz91-decomposition-6yojlzlg/contracts.json",
+        "/tmp/p04-tz91-decomposition-6yojlzlg/TypeAudit.lean",
+        "/tmp/p04-tz91-decomposition-6yojlzlg/TypeAudit.log",
+        "/tmp/p04-tz91-decomposition-6yojlzlg/AssemblyAudit.lean",
+        "/tmp/p04-tz91-decomposition-6yojlzlg/AssemblyAudit.log",
+        "/tmp/p04-tz91-decomposition-6yojlzlg/Submission.log"
+      ],
+      "conclusion": "The snapshot confirms the normBar quotient definition, surjectivity of the coinvariant projection, the unchanged underlying module under restriction, coset decomposition, and Submodule.mapQ. No degree-zero subgroup transfer implementation or proposed-name collision was found in the searched definitions and DAG. Snapshot revisions match the manifest; all nine installed dependencies match their pinned revisions and have clean source trees. Both proposed types elaborate against unchanged frozen definitions with Lean 4.33.1. Instance checks confirm inherited repeated addition, and a warning-free conditional assembly proves the parent from the two contracts. Audited infrastructure has only propext, Classical.choice, and Quot.sound as transitive axioms. However, the required import Submission gate remains blocked: unchanged Submission.lean fails at line 10 on the unknown constant Representation.TateResCor.cosetDecomp_apply. These checks do not establish comparator acceptance or authorize child activation."
+    }
+  ],
+  "parent_id": "root.tate_index_annihilation-a1.tate_zero_transfer-a1",
+  "child_id": "root.tate_index_annihilation-a1.tate_zero_transfer-a1.invariant_transfer_norm_index-a1",
+  "subproblem": {
+    "key": "invariant_transfer_norm_index",
+    "title": "Invariant transfer preserves norms and realizes the index action",
+    "statement": "Let k be a commutative ring, G a group with Fintype G, A a k-linear G-representation, and H a subgroup with Fintype H. Put B = Rep.res H.subtype A. Let N_G^inv : A → A^G and N_H^inv : A → A^H be the normToInvariants maps, whose underlying vectors are the respective group-action sums. There exists a k-linear map c : A^H → A^G such that c(N_H^inv(v)) = N_G^inv(v) for every v ∈ A. The same map satisfies c(b) = H.index • a whenever a ∈ A^G and b ∈ A^H have equal underlying vectors, where • denotes repeated addition. No normality of H or finiteness of A is assumed.",
+    "lean_statement": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H], ∃ c : (Rep.res H.subtype A).ρ.invariants →ₗ[k] A.ρ.invariants, (∀ v : A, c ((Rep.res H.subtype A).ρ.normToInvariants v) = A.ρ.normToInvariants v) ∧ ∀ (a : A.ρ.invariants) (b : (Rep.res H.subtype A).ρ.invariants), (b : A) = (a : A) → c b = H.index • a",
+    "lean_name": "p04_tz91_invariant_transfer_norm_index",
+    "depends_on": [],
+    "natural_proof": "1. Let Q be the finite set of left cosets G/H. Choose t(q) ∈ G representing each q ∈ Q. Its cardinality is d = H.index by the definition of index. The map Q × H → G, (q,h) ↦ t(q)h, is surjective because t(q) represents q. Equality t(q)h = t(q′)h′ first implies q = q′ by taking left cosets, and then h = h′ by cancellation; hence it is bijective.\n2. For b ∈ A^H define c₀(b) = Σ(q ∈ Q) t(q)b in A. If t′(q) is another representative, t′(q) = t(q)h for an h ∈ H, and t′(q)b = t(q)b because b is H-invariant. Thus each summand depends only on its coset.\n3. For g ∈ G, q ↦ gq is a permutation of Q with inverse q ↦ g⁻¹q. The element gt(q) represents gq, so step 2 gives gt(q)b = t(gq)b. Therefore g c₀(b) = Σ(q ∈ Q) gt(q)b = Σ(q ∈ Q) t(gq)b = c₀(b). Thus c₀(b) is G-invariant. Let c(b) be this vector equipped with that invariance proof.\n4. Every action map t(q) is k-linear. Finite summation gives c₀(b+b′) = c₀(b)+c₀(b′) and c₀(r b) = r c₀(b). Equality in the invariant subtype is equality of underlying vectors, so c is a k-linear map A^H → A^G.\n5. For L = H or G and v ∈ A, N_L(v) = Σ(l ∈ L) l v is invariant because left multiplication permutes L, and normToInvariants(v) is exactly this invariant element. Applying step 1 and the action law gives c₀(N_H(v)) = Σ(q ∈ Q)Σ(h ∈ H) t(q)h v = Σ(g ∈ G) g v = N_G(v). Equality of underlying vectors proves c(normToInvariants_H(v)) = normToInvariants_G(v).\n6. Let a ∈ A^G and b ∈ A^H have equal underlying vectors. Every t(q) fixes a, so c₀(b) = Σ(q ∈ Q) a = |Q| • a = H.index • a in A, where • is repeated addition. The natural-number action on A^G is inherited from A. Equality of underlying vectors therefore yields c(b) = H.index • a in A^G. This establishes the second property of the same map c.",
+    "proof_key_steps": [
+      "Choose left-coset representatives and prove the multiplication bijection.",
+      "Define the coset sum and establish independence of representatives.",
+      "Reindex by left multiplication to prove ambient invariance.",
+      "Establish linearity of the invariant-valued transfer.",
+      "Compute transfer of a subgroup norm as the ambient norm.",
+      "Evaluate on ambient invariant vectors to obtain repeated addition by the index."
+    ]
+  },
+  "audit": {
+    "key": "invariant_transfer_norm_index",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "The prose and independently elaborated one-line type agree, including use of the same transfer map for both identities. Steps 1–2 establish the left-coset bijection and representative independence using H-invariance. Step 3 reindexes by the G-action on left cosets without assuming normality; step 4 proves linearity; step 5 computes transfer of the subgroup norm; step 6 proves the index identity for arbitrary equal underlying vectors. Lean confirms that H.index • a is inherited repeated addition. The proof is complete, non-circular, and ready for formalization. Empty dependencies are correct; the bare lean_name is unreserved, and the contract is independently usable without its implementation."
+  },
+  "resolved_dependencies": [],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/nodes/root-tate-index-annihilation-a1-tate-zero-transfer-a1-invariant-trans-2aa7e4397b/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/nodes/root-tate-index-annihilation-a1-tate-zero-transfer-a1-invariant-trans-2aa7e4397b/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/nodes/root-tate-index-annihilation-a1-tate-zero-transfer-a1-invariant-trans-2aa7e4397b/parent-supplied-natural-proof.json"
+}
