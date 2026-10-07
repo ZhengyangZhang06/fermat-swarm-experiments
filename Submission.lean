@@ -389,6 +389,7 @@ theorem p06_9e0f5043ff_dlen_scalar_quotient
     exact IsDiscreteValuationRing.length_quotient_pow_maximalIdeal v.toValuationSubring n
   · change v.ord (((u : v.toValuationSubring) : E) * (π : E) ^ n) = (n : ℤ)
     simpa only [zpow_natCast] using v.ord_unit_smul_zpow u hπ (n : ℤ)
+/-- The cokernel of a diagonal matrix is the product of its coordinate principal quotients. -/
 theorem p06_9e0f5043ff_dmc_diagonal_quotient
     (R : Type*) [CommRing R] (m : ℕ) (d : Fin m → R) :
     Nonempty (((Fin m → R) ⧸ LinearMap.range (Matrix.mulVecLin (Matrix.diagonal d)))
@@ -400,10 +401,10 @@ theorem p06_9e0f5043ff_dmc_diagonal_quotient
     ext y
     constructor
     · intro hy
-      have hmem : ∀ i, y i ∈ Ideal.span ({d i} : Set R) := by
+      have hdiv : ∀ i, ∃ z, y i = d i * z := by
         intro i
-        exact (Submodule.Quotient.mk_eq_zero _).mp (congrFun (LinearMap.mem_ker.mp hy) i)
-      have hdiv : ∀ i, ∃ z, y i = d i * z := fun i => Ideal.mem_span_singleton.mp (hmem i)
+        exact Ideal.mem_span_singleton.mp
+          ((Submodule.Quotient.mk_eq_zero _).mp (congrFun (LinearMap.mem_ker.mp hy) i))
       choose z hz using hdiv
       refine ⟨z, ?_⟩
       ext i
