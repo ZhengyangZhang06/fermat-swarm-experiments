@@ -377,3 +377,27 @@ state, not simply deleting the project lock.
 - At09:26 the current feed reported9 reviewed root prose proofs,10 active issue
   jobs,128 pollers, and0 formally verified/integrated roots. Build-directive
   permission remains unanswered; original and derived directives remain intact.
+
+## Follow-up checkpoint, 09:43 UTC — worker activity versus prepared DAG state
+
+- Stopped only the redundant standalone Mathlib import diagnostic PID2949737
+  after confirming its exact command/parent/cwd and the same scaffold error in
+  independent worker evidence. Session70821 is terminal exit143; it did NOT pass.
+  The actual comparator PIDs3007503/3008683 were left running and remained live.
+- p02 published child issues and a new poller on hoa67 claimed#26 (primitive
+  existence), task `gdxb5z9up8cca2etiic34ampz` confirmed Running. p01's worker
+  published further descendants, released#24, and hoa6 independently claimed#23
+  (finite-dimensionality), task `vl9ziscv6pzenltsyja6sbotv` confirmed Running.
+- Campaign0449e32 and Pages30a0121 pushed; Pages reports built. Observer restarted
+  without restarting proof jobs. Nodes now expose only the observed worker name
+  and an executing boolean, derived from Running Swarm tasks and fresh working
+  heartbeats. Prepared nodes no longer automatically look like active workers.
+  Root links use canonical original campaign issue IDs, not repaired duplicates.
+  Nine feed tests and two real-browser regression tests pass.
+- Current09:43 feed:26 theorem nodes,10 observed executing nodes,128 pollers,
+  5 current reviewed root prose proofs,0 verified/integrated roots. Root review
+  counts can legitimately fall when later decomposition audits require revision.
+  Both private verification requests remain running, not successful or terminal.
+- Local benchmark inspection found no supplied directive-repair procedure; the
+  manifest calls these statement extracts requiring pinned source dependencies.
+  User permission for the proposed narrow build repair remains unanswered.
