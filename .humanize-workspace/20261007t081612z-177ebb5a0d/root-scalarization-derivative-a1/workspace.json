@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081612Z-177ebb5a0d",
+  "parent_id": "root.scalarization_derivative-a1",
+  "dispatch_branch": "proof-workspace/fermat-p02/20261007t081612z-177ebb5a0d/dispatch/root-scalarization-derivative-a1",
+  "source_commit": "0f5a9b05fb9673e5a60fa917656db526e75c7db1",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.scalarization_derivative-a1.jet_recurrence-a1",
+      "key": "jet_recurrence",
+      "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1/children/root-scalarization-derivative-a1-jet-recurrence-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg -n 'IsEichlerIntegral|iteratedDeriv_succ|eichler.*[Dd]eriv|partial.*[Yy]|pderiv' project/Definitions/Def_HeckeEis_EichlerIntegral.lean project/Definitions/Def_HeckeEis_BinaryFormRep.lean project/P2M mathlib/Mathlib/Analysis/Calculus/IteratedDeriv/Defs.lean",
+              "rg -n 'scalarization|iteratedDeriv.*Eichler|Eichler.*iteratedDeriv|Q_r|pderiv' project/P2M project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+              "rg -n 'def pderiv|pderiv_pow|pderiv_monomial|pderiv_C|pderiv_X|iterate.*pderiv|pderiv.*iterate|pderiv_eq_zero' mathlib/Mathlib/Algebra/MvPolynomial mathlib/Mathlib/Analysis/Calculus",
+              "rg -n 'ofComplex|coe_mk|coe_ofComplex' mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Basic.lean mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+              "rg -n 'theorem HasDerivAt.congr_of_eventuallyEq|theorem HasDerivAt.const_mul|theorem HasDerivAt.sum|hasDerivAt_sum|EventuallyEq.deriv_eq' mathlib/Mathlib/Analysis/Calculus/Deriv",
+              "rg -n 'p02_es_177ebb5a_sd_jet_recurrence|p02_es_177ebb5a_sd_open_ladder' Submission.lean Definitions .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes -g '*.json' -g '*.lean'",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_es_177ebb5a_sd_child_types.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/P2M",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/PDeriv.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Logic/Function/Iterate.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/IteratedDeriv/Defs.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Add.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Mul.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+              "/tmp/p02_es_177ebb5a_sd_child_types.lean"
+            ],
+            "conclusion": "The snapshot pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. BinaryForm is the homogeneous polynomial submodule, and IsEichlerIntegral supplies precisely the required coefficientwise HasDerivAt hypotheses. PDeriv supplies monomial, power, and coefficient differentiation identities; the calculus files supply finite-sum differentiation, constant multiplication, derivative locality, and iteratedDeriv_succ. UpperHalfPlane.ofComplex_apply identifies the extension at upper-half-plane points. No matching scalarization recurrence was found in the searched P2M directory or EichlerIntegral definition file. Neither proposed identifier matched the current declarations or DAG metadata. Both final Lean types elaborated successfully after only import Submission under Lean 4.33.1. All installed dependencies matched their pinned revisions with clean tracked sources, and the checked definition and calculus files matched the snapshot. Axiom checks of the cited polynomial and calculus lemmas returned only propext, Classical.choice, and Quot.sound. These checks establish interface compatibility, not comparator acceptance of the proposed children."
+          }
+        ],
+        "parent_id": "root.scalarization_derivative-a1",
+        "child_id": "root.scalarization_derivative-a1.jet_recurrence-a1",
+        "subproblem": {
+          "key": "jet_recurrence",
+          "title": "Derivative recurrence for evaluated Y-partial derivatives of an Eichler integral",
+          "statement": "Let n be a natural number, h : ℍ → ℂ, and E : ℍ → BinaryForm ℂ n satisfy HeckeEis.IsEichlerIntegral n h E. Write D_Y for formal polynomial differentiation in variable 1, and define Q_r(z)=(D_Y^r(E(ofComplex z)))(1,−z) for every natural r and complex z. For every r≤n and τ∈ℍ, Q_r has complex derivative at τ equal to n!h(τ) if r=n, and equal to −Q_{r+1}(τ) otherwise.",
+          "lean_statement": "∀ (n : ℕ) (h : UpperHalfPlane → ℂ) (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.IsEichlerIntegral n h E → ∀ (r : ℕ), r ≤ n → ∀ τ : UpperHalfPlane, HasDerivAt (fun z : ℂ => MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z) ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r] (E (UpperHalfPlane.ofComplex z)).val)) (if r = n then (Nat.factorial n : ℂ) * h τ else -MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -(τ : ℂ)) ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r + 1] (E τ).val)) (τ : ℂ)",
+          "lean_name": "p02_es_177ebb5a_sd_jet_recurrence",
+          "depends_on": [],
+          "natural_proof": "1. Fix n, h, E, and the hypothesis IsEichlerIntegral n h E. Write X=X_0 and Y=X_1. For 0≤k≤n, let d_k be the exponent vector with d_k(0)=n−k and d_k(1)=k, and define a_k(z)=coeff d_k (E(ofComplex z)). Every nonzero coefficient of this homogeneous polynomial has total degree n. An exponent vector in two variables of total degree n is uniquely d_k for k equal to its exponent of Y. Consequently, for every complex z, E(ofComplex z)=Σ_{k=0}^n a_k(z)X^{n−k}Y^k. This identity uses the same finite index set for every z.\n2. For 0≤r≤k define c(k,r)=k(k−1)⋯(k−r+1), with c(k,0)=1, regarding these integers as complex numbers. Repeated formal differentiation gives D_Y^r(X^{n−k}Y^k)=c(k,r)X^{n−k}Y^{k−r} when r≤k, and gives zero when r>k. Indeed, the r=0 identity is immediate; differentiating a term with r<k multiplies its coefficient by k−r and lowers its Y-exponent by one, whereas differentiating at r=k gives zero. Subsequent derivatives of zero remain zero. By linearity and evaluation at (1,−z), it follows that Q_r(z)=Σ_{k=r}^n a_k(z)c(k,r)(−z)^{k−r} for r≤n, and Q_{n+1}(z)=0 for every z.\n3. Fix r≤n and τ∈ℍ, and put t=(τ:ℂ). Let L=tX+Y and b_k=coeff d_k (L^n). The defining IsEichlerIntegral hypothesis, applied to d_k and τ, says that a_k has complex derivative h(τ)b_k at t. Also ofComplex t=τ. Since linePow n t has underlying polynomial L^n, and L^n is homogeneous of degree n, its expansion on the same index set is Σ_{k=0}^n b_k X^{n−k}Y^k.\n4. Differentiate the finite expression for Q_r at t using these coefficient derivatives and the product rule. Differentiating the coefficients contributes h(τ)Σ_{k=r}^n b_k c(k,r)(−t)^{k−r}=h(τ)(D_Y^r L^n)(1,−t), by the expansion in step 3 and the monomial formula in step 2. The term k=r has a constant power of −z, so its substitution derivative is zero. For each k>r, differentiating that power contributes −a_k(t)c(k,r)(k−r)(−t)^{k−r−1}. Since c(k,r)(k−r)=c(k,r+1), the sum of these contributions is −Q_{r+1}(t). This also holds when r=n: the sum is empty and Q_{n+1}=0. We have thus proved HasDerivAt Q_r [h(τ)(D_Y^r L^n)(1,−t)−Q_{r+1}(t)] t.\n5. The polynomial L satisfies D_Y L=1. The formal power rule and induction on r≤n therefore give D_Y^r L^n=c(n,r)L^{n−r}. The induction starts with r=0; when r<n, the next derivative multiplies by n−r, which changes c(n,r) into c(n,r+1). Since L(1,−t)=0, its evaluated r-th partial derivative is zero for r<n. For r=n the remaining power is L^0=1 and c(n,n)=n(n−1)⋯1=n!, including the empty product 0!=1.\n6. If r=n, steps 4 and 5 and Q_{n+1}=0 give derivative n!h(τ). If r≠n, the assumption r≤n implies r<n, so those steps give derivative −Q_{r+1}(t). Finally, ofComplex t=τ identifies Q_{r+1}(t) with the evaluation of D_Y^{r+1}(E τ) appearing in the Lean statement. When n=0 only the first case occurs and yields derivative h(τ), as required.",
+          "proof_key_steps": [
+            "Expand every homogeneous binary form on the fixed monomial set X^{n−k}Y^k.",
+            "Compute repeated Y-partial derivatives using falling factorials and deduce Q_{n+1}=0.",
+            "Extract each coefficient derivative directly from IsEichlerIntegral.",
+            "Differentiate the finite evaluated sum to obtain the coefficient contribution minus Q_{r+1}.",
+            "Evaluate D_Y^r(tX+Y)^n at (1,−t), obtaining zero below n and n! at n.",
+            "Separate the endpoint and lower-order cases and identify ofComplex(τ) with τ."
+          ]
+        },
+        "audit": {
+          "key": "jet_recurrence",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The standalone one-line proposition exactly matches the prose, including r ≤ n, the endpoint case, polynomial variable 1, and evaluation at (1,−z). Independently checked all six proof steps: homogeneity gives a fixed finite expansion; repeated partial differentiation gives the falling factorials and Q_{n+1}=0; IsEichlerIntegral supplies the coefficient derivatives; the product rule gives the coefficient contribution minus Q_{r+1}; evaluation gives zero below n and n! at n; ofComplex identifies the stated endpoint values. The proof includes n=0 and requires no holomorphy assumption on h beyond the stated predicate. It is complete, non-circular, and a genuine first-derivative obligation. The bare identifier is unreserved, and empty dependencies are justified."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-derivative-a1-jet-recurrence-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-derivative-a1-jet-recurrence-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-derivative-a1-jet-recurrence-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.scalarization_derivative-a1.open_derivative_ladder-a1",
+      "key": "open_derivative_ladder",
+      "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-open-derivative-ladder-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1/children/root-scalarization-derivative-a1-open-derivative-ladder-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg -n 'IsEichlerIntegral|iteratedDeriv_succ|eichler.*[Dd]eriv|partial.*[Yy]|pderiv' project/Definitions/Def_HeckeEis_EichlerIntegral.lean project/Definitions/Def_HeckeEis_BinaryFormRep.lean project/P2M mathlib/Mathlib/Analysis/Calculus/IteratedDeriv/Defs.lean",
+              "rg -n 'scalarization|iteratedDeriv.*Eichler|Eichler.*iteratedDeriv|Q_r|pderiv' project/P2M project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+              "rg -n 'def pderiv|pderiv_pow|pderiv_monomial|pderiv_C|pderiv_X|iterate.*pderiv|pderiv.*iterate|pderiv_eq_zero' mathlib/Mathlib/Algebra/MvPolynomial mathlib/Mathlib/Analysis/Calculus",
+              "rg -n 'ofComplex|coe_mk|coe_ofComplex' mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Basic.lean mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+              "rg -n 'theorem HasDerivAt.congr_of_eventuallyEq|theorem HasDerivAt.const_mul|theorem HasDerivAt.sum|hasDerivAt_sum|EventuallyEq.deriv_eq' mathlib/Mathlib/Analysis/Calculus/Deriv",
+              "rg -n 'p02_es_177ebb5a_sd_jet_recurrence|p02_es_177ebb5a_sd_open_ladder' Submission.lean Definitions .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes -g '*.json' -g '*.lean'",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_es_177ebb5a_sd_child_types.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/P2M",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/PDeriv.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Logic/Function/Iterate.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/IteratedDeriv/Defs.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Add.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Mul.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+              "/tmp/p02_es_177ebb5a_sd_child_types.lean"
+            ],
+            "conclusion": "The snapshot pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. BinaryForm is the homogeneous polynomial submodule, and IsEichlerIntegral supplies precisely the required coefficientwise HasDerivAt hypotheses. PDeriv supplies monomial, power, and coefficient differentiation identities; the calculus files supply finite-sum differentiation, constant multiplication, derivative locality, and iteratedDeriv_succ. UpperHalfPlane.ofComplex_apply identifies the extension at upper-half-plane points. No matching scalarization recurrence was found in the searched P2M directory or EichlerIntegral definition file. Neither proposed identifier matched the current declarations or DAG metadata. Both final Lean types elaborated successfully after only import Submission under Lean 4.33.1. All installed dependencies matched their pinned revisions with clean tracked sources, and the checked definition and calculus files matched the snapshot. Axiom checks of the cited polynomial and calculus lemmas returned only propext, Classical.choice, and Quot.sound. These checks establish interface compatibility, not comparator acceptance of the proposed children."
+          }
+        ],
+        "parent_id": "root.scalarization_derivative-a1",
+        "child_id": "root.scalarization_derivative-a1.open_derivative_ladder-a1",
+        "subproblem": {
+          "key": "open_derivative_ladder",
+          "title": "Iterated derivatives from a derivative recurrence on an open set",
+          "statement": "Let U⊆ℂ be open, n∈ℕ, Q : ℕ → ℂ → ℂ, and g : ℂ → ℂ. Suppose that for every r<n and z∈U, Q_r has complex derivative −Q_{r+1}(z) at z, and that for every z∈U, Q_n has complex derivative g(z) at z. Then for every z∈U, iteratedDeriv (n+1) Q_0 z = (−1)^n g(z). No assumptions are imposed outside U.",
+          "lean_statement": "∀ (U : Set ℂ) (n : ℕ) (Q : ℕ → ℂ → ℂ) (g : ℂ → ℂ), IsOpen U → (∀ (r : ℕ), r < n → ∀ z ∈ U, HasDerivAt (Q r) (-Q (r + 1) z) z) → (∀ z ∈ U, HasDerivAt (Q n) (g z) z) → ∀ z ∈ U, iteratedDeriv (n + 1) (Q 0) z = (-1 : ℂ) ^ n * g z",
+          "lean_name": "p02_es_177ebb5a_sd_open_ladder",
+          "depends_on": [],
+          "natural_proof": "1. Fix U, n, Q, g, and the stated hypotheses. We prove by induction on r≤n that iteratedDeriv r (Q 0) z=(−1)^r Q_r(z) for every z∈U. At r=0, the zeroth iterated derivative is Q_0 and (−1)^0=1, so the identity holds.\n2. Suppose the identity holds at r and r+1≤n. Fix z∈U. Because U is open, it is a neighborhood of z, and the induction hypothesis shows that the functions iteratedDeriv r (Q 0) and w↦(−1)^r Q_r(w) agree on this neighborhood. The recurrence hypothesis applies because r<n. Multiplying its derivative by the constant (−1)^r shows that the second function has derivative (−1)^r(−Q_{r+1}(z)) at z. Neighborhood equality transfers this HasDerivAt statement to the first function. Therefore, using iteratedDeriv_succ, iteratedDeriv (r+1) (Q 0) z=(−1)^r(−Q_{r+1}(z))=(−1)^{r+1}Q_{r+1}(z). This proves the induction step simultaneously at every point of U.\n3. The induction gives iteratedDeriv n (Q 0)=(w↦(−1)^n Q_n(w)) on U. Fix z∈U once more. Openness turns this equality into neighborhood equality at z. The terminal derivative hypothesis and constant multiplication give derivative (−1)^n g(z) for the right-hand function. Transfer this derivative through neighborhood equality and apply iteratedDeriv_succ to obtain iteratedDeriv (n+1) (Q 0) z=(−1)^n g(z).\n4. The point z was arbitrary in U, proving the conclusion. For n=0 the induction uses only its base case and the terminal derivative hypothesis, so the argument includes that case. Every transfer of derivatives used a neighborhood contained in U; hence no behavior outside U was assumed.",
+          "proof_key_steps": [
+            "Inductively identify the r-th iterated derivative with (−1)^r Q_r on U for r≤n.",
+            "Use openness to transfer derivatives across the neighborhood equality at each induction step.",
+            "Apply the terminal derivative of Q_n to the identity at r=n.",
+            "Use iteratedDeriv_succ to obtain the required derivative of order n+1, including n=0."
+          ]
+        },
+        "audit": {
+          "key": "open_derivative_ladder",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The standalone one-line proposition includes exactly the prose hypotheses and conclusion. The bounded induction is valid: openness supplies neighborhood equality, the recurrence supplies each derivative, constant multiplication supplies the sign, and iteratedDeriv_succ advances the order. The terminal derivative completes the argument, including n=0, without assumptions outside U or on derivatives of g. No circular reliance or deferred proof search occurs. The bare identifier is unreserved, and this generic calculus obligation needs no sibling dependency. Applying it to the first child's Q, U={z | 0<z.im}, and g(z)=n!h(ofComplex z) proves the exact parent conclusion, so the two-part split is appropriate."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-derivative-a1-open-derivative-ladder-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-derivative-a1-open-derivative-ladder-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-derivative-a1-open-derivative-ladder-a1/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1/task.md": "fbef05e2a6cfc7a6d66c1b237f25981ac872a7f88acb97b5772f4a049cee216a",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1/problem.md": "bc292ceabaa59d4166815e39f5e6a0c5ec4e11e33604270753833466755074b0",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1/problem.json": "bf0e4090d7154b9d64a24b6ca1b3b7a3bc13849e2326306634e0842533303df7",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1/reference-manifest.json": "a8f9271939f028889a1e9bac59a7290448f8c694baf434f537bdc05b0f75f2a6",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1/decomposition.json": "54224e581e3cc7797467c095231747889279f75961586079e2ade453fea9876d",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1/decomposition-audit.json": "2a0a128adc5c20ccf9d68fce293fe5ddbaf64edb335dcd9226a7d9fddf850f8f",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1/controller-contract.json": "7b7a516f9fce5467b2a4e92be9eb01a7eee74fb69c1477cc06212956b9e78e13",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1/children/root-scalarization-derivative-a1-jet-recurrence-a1/parent-child-handoff.json": "1eb747159df001611fdff3f238312bc2f65f349060c641f58f6947efb0285d12",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1/children/root-scalarization-derivative-a1-jet-recurrence-a1/parent-supplied-plan.md": "0a6e032dcd0e1b55710f482bbf2abdd3bb083e166cb5c0fd5beccf284bd96816",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1/children/root-scalarization-derivative-a1-jet-recurrence-a1/parent-supplied-natural-proof.md": "e7ba099f277e1d2b43222c414ee219238739722582ee5cac0d5f041b4adba2c9",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1/children/root-scalarization-derivative-a1-jet-recurrence-a1/parent-supplied-natural-proof.json": "e4f3edd3ae0e6ab97e840c1a7f35102bdfa5952c4a23a5d4c846ba82a194194c",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1/children/root-scalarization-derivative-a1-jet-recurrence-a1/node.json": "31b43f130675cea31d950046edf73e8affec5e5314b319025809d6ef41846a82",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1/children/root-scalarization-derivative-a1-open-derivative-ladder-a1/parent-child-handoff.json": "a5b129ffed8ef669b4354751e4f18597cb7789d7173ad23ae1357cd41e12b19d",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1/children/root-scalarization-derivative-a1-open-derivative-ladder-a1/parent-supplied-plan.md": "6afd7ef1fb945283613f61c8cca416311db35a05ba05fcf885d85e296cfe65ec",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1/children/root-scalarization-derivative-a1-open-derivative-ladder-a1/parent-supplied-natural-proof.md": "ae82441988e66ac59f6f63fa34c64a965027d2f816d593f9b23c07946d40f557",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1/children/root-scalarization-derivative-a1-open-derivative-ladder-a1/parent-supplied-natural-proof.json": "53f625347832f04c747be905259025fe76dda080ba12f5c8a71af8eeebe7d73f",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1/children/root-scalarization-derivative-a1-open-derivative-ladder-a1/node.json": "3df5c1077190f3e5956a63e5e6376c7300495c894cd09410a2c0260db3a107ea"
+  }
+}

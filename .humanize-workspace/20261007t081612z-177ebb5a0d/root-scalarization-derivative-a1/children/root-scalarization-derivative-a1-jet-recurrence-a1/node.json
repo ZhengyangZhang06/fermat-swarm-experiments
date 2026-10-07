@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.scalarization_derivative-a1.jet_recurrence-a1",
+  "parent_id": "root.scalarization_derivative-a1",
+  "depth": 2,
+  "title": "Derivative recurrence for evaluated Y-partial derivatives of an Eichler integral",
+  "statement": "Let n be a natural number, h : ℍ → ℂ, and E : ℍ → BinaryForm ℂ n satisfy HeckeEis.IsEichlerIntegral n h E. Write D_Y for formal polynomial differentiation in variable 1, and define Q_r(z)=(D_Y^r(E(ofComplex z)))(1,−z) for every natural r and complex z. For every r≤n and τ∈ℍ, Q_r has complex derivative at τ equal to n!h(τ) if r=n, and equal to −Q_{r+1}(τ) otherwise.",
+  "lean_statement": "∀ (n : ℕ) (h : UpperHalfPlane → ℂ) (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.IsEichlerIntegral n h E → ∀ (r : ℕ), r ≤ n → ∀ τ : UpperHalfPlane, HasDerivAt (fun z : ℂ => MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z) ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r] (E (UpperHalfPlane.ofComplex z)).val)) (if r = n then (Nat.factorial n : ℂ) * h τ else -MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -(τ : ℂ)) ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r + 1] (E τ).val)) (τ : ℂ)",
+  "lean_name": "p02_es_177ebb5a_sd_jet_recurrence",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1-a1"
+}

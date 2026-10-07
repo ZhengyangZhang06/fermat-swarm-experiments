@@ -1,0 +1,55 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'IsEichlerIntegral|iteratedDeriv_succ|eichler.*[Dd]eriv|partial.*[Yy]|pderiv|linePow|def BinaryForm' project/Definitions/Def_HeckeEis_EichlerIntegral.lean project/Definitions/Def_HeckeEis_BinaryFormRep.lean project/P2M mathlib/Mathlib/Analysis/Calculus/IteratedDeriv/Defs.lean",
+        "rg -n 'scalarization|iteratedDeriv.*Eichler|Eichler.*iteratedDeriv|Q_r|pderiv' project/P2M project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "rg -n 'def pderiv|pderiv_pow|pderiv_monomial|pderiv_C|pderiv_X|coeff_pderiv|pderiv_eq_zero|pderiv_add|pderiv_mul|iterate.*pderiv|pderiv.*iterate' mathlib/Mathlib/Algebra/MvPolynomial/PDeriv.lean",
+        "rg -n 'def IsHomogeneous|IsHomogeneous.*coeff|mem_homogeneousSubmodule|support|homogeneousSubmodule' mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+        "rg -n 'ofComplex|coe_mk|isOpen|im_pos' mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Basic.lean mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+        "rg -n 'theorem HasDerivAt.congr_of_eventuallyEq|theorem HasDerivAt.const_mul|theorem HasDerivAt.sum|hasDerivAt_sum|EventuallyEq.deriv_eq|theorem HasDerivAt.fun_sum' mathlib/Mathlib/Analysis/Calculus/Deriv",
+        "rg -n --hidden 'p02_es_177ebb5a_sd_jet_recurrence|p02_es_177ebb5a_sd_open_ladder' Submission.lean Definitions .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes -g '*.json' -g '*.lean' --max-columns 350 --max-columns-preview",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_es_177ebb5a_independent_decomposition_audit.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/P2M",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/PDeriv.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Eval.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Logic/Function/Iterate.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/IteratedDeriv/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Add.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Mul.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-derivative-a1/parent-child-handoff.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-derivative-a1/decomposition-v1.json",
+        "/tmp/p02_es_177ebb5a_independent_decomposition_audit.lean"
+      ],
+      "conclusion": "Independently confirmed project revision 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d. BinaryForm is the homogeneous polynomial submodule; IsEichlerIntegral supplies exactly the coefficient derivatives used. The inspected polynomial and calculus lemmas support the finite expansion, partial differentiation, derivative locality, and iteration arguments. No scalarization recurrence matched the searched P2M directory or EichlerIntegral definition file. Both exact propositions elaborated successfully using only Mathlib and the frozen definition imports, without Submission or either child implementation. Supporting declarations' transitive axiom checks found only propext, Classical.choice, and Quot.sound. All nine installed dependencies matched their manifest revisions with clean tracked sources; inspected reference sources matched installed sources. Neither proposed identifier is reserved in the DAG or another local decomposition. Adding the proposed parent-to-child edges preserves acyclicity. The frozen injectivity theorem remains unchanged; this audit accepts the decomposition and supplied prose, not future Lean implementations."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "jet_recurrence",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition exactly matches the prose, including r ≤ n, the endpoint case, polynomial variable 1, and evaluation at (1,−z). Independently checked all six proof steps: homogeneity gives a fixed finite expansion; repeated partial differentiation gives the falling factorials and Q_{n+1}=0; IsEichlerIntegral supplies the coefficient derivatives; the product rule gives the coefficient contribution minus Q_{r+1}; evaluation gives zero below n and n! at n; ofComplex identifies the stated endpoint values. The proof includes n=0 and requires no holomorphy assumption on h beyond the stated predicate. It is complete, non-circular, and a genuine first-derivative obligation. The bare identifier is unreserved, and empty dependencies are justified."
+    },
+    {
+      "key": "open_derivative_ladder",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition includes exactly the prose hypotheses and conclusion. The bounded induction is valid: openness supplies neighborhood equality, the recurrence supplies each derivative, constant multiplication supplies the sign, and iteratedDeriv_succ advances the order. The terminal derivative completes the argument, including n=0, without assumptions outside U or on derivatives of g. No circular reliance or deferred proof search occurs. The bare identifier is unreserved, and this generic calculus obligation needs no sibling dependency. Applying it to the first child's Q, U={z | 0<z.im}, and g(z)=n!h(ofComplex z) proves the exact parent conclusion, so the two-part split is appropriate."
+    }
+  ],
+  "required_changes": []
+}
