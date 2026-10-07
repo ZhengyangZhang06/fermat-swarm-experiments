@@ -2896,5 +2896,38 @@ theorem p06_9e0f5043ff_sdp_clear_first_column
     simp [sub_mul, hmul, c]
   · intro i
     simp [sub_mul, hmul, c, ha i, mul_comm]
+/-- Clear the first row by an invertible column operation, preserving the trailing block. -/
+theorem p06_9e0f5043ff_sdp_clear_first_row :
+    ∀ (R : Type*) [CommRing R] (m : ℕ)
+      (H : Matrix (Fin (m + 1)) (Fin (m + 1)) R),
+      (∀ i : Fin m, H i.succ 0 = 0) →
+      (∀ j : Fin m, H 0 0 ∣ H 0 j.succ) →
+      ∃ V : Matrix (Fin (m + 1)) (Fin (m + 1)) R,
+        IsUnit V ∧ H * V = Matrix.of (fun i j =>
+          Fin.cases (Fin.cases (H 0 0) (fun _ => 0) j)
+            (fun i' => Fin.cases 0 (fun j' => H i'.succ j'.succ) j) i) := by
+  classical
+  intro R _ m H hcol hdiv
+  choose b hb using hdiv
+  let M : Matrix (Fin (m + 1)) (Fin (m + 1)) R :=
+    Matrix.of (fun i j => Fin.cases (Fin.cases 0 b j) (fun _ => 0) i)
+  have hM0 (i : Fin (m + 1)) : M i 0 = 0 := by
+    refine Fin.cases ?_ (fun _ => ?_) i <;> rfl
+  have hMs (i : Fin m) (j : Fin (m + 1)) : M i.succ j = 0 := rfl
+  have hMM : M * M = 0 := by
+    ext i j
+    simp [Matrix.mul_apply, Fin.sum_univ_succ, hM0, hMs]
+  have hHM (i j : Fin (m + 1)) :
+      (H * M) i j = H i 0 * Fin.cases 0 b j := by
+    simp [Matrix.mul_apply, Fin.sum_univ_succ, M]
+  refine ⟨1 - M, ?_, ?_⟩
+  · refine ⟨⟨1 - M, 1 + M, ?_, ?_⟩, rfl⟩
+    · simp [sub_mul, mul_add, hMM]
+    · simp [mul_sub, add_mul, hMM]
+  · rw [mul_sub, mul_one]
+    ext i j
+    refine Fin.cases ?_ (fun i' => ?_) i <;>
+      refine Fin.cases ?_ (fun j' => ?_) j <;>
+      simp [Matrix.sub_apply, hHM, hcol, hb]
 
 end Submission
