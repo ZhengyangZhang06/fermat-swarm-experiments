@@ -2598,5 +2598,43 @@ theorem p02_es_177ebb5a_sm_transformed_integral
   rw [show (n : ℤ) + 2 = ((n + 2 : ℕ) : ℤ) by norm_cast,
     zpow_neg, zpow_natCast, pow_add, mul_inv_rev, div_eq_mul_inv]
   ring
+theorem p02_es_177ebb5a_scl_linepow_coeff_bound :
+    ∀ (n : ℕ) (z : ℂ) (d : Fin 2 →₀ ℕ),
+      ‖MvPolynomial.coeff d (HeckeEis.linePow n z).val‖ ≤
+        (2 : ℝ) ^ n * (max 1 ‖z‖) ^ n := by
+  classical
+  intro n z d
+  have hsum : d.sum (fun _ m ↦ m) = d 0 + d 1 := by
+    simp [Finsupp.sum_of_support_subset d (Finset.subset_univ d.support)]
+  have hprod : d.prod (fun j m ↦ (if j = 0 then z else (1 : ℂ)) ^ m) =
+      z ^ d 0 := by
+    rw [d.prod_fintype _ (by simp)]
+    simp
+  have hmulti : d.multinomial = (d 0 + d 1).choose (d 0) := by
+    rw [Finsupp.multinomial_eq_of_support_subset (Finset.subset_univ d.support),
+      Finset.univ_fin2, Nat.binomial_eq_choose Fin.zero_ne_one]
+  have hcoeff : MvPolynomial.coeff d (HeckeEis.linePow n z).val =
+      if d 0 + d 1 = n then (n.choose (d 0) : ℂ) * z ^ d 0 else 0 := by
+    have h := MvPolynomial.coeff_linearCombination_X_pow_of_fintype
+      (fun j : Fin 2 ↦ if j = 0 then z else (1 : ℂ)) d n
+    simp only [Fin.sum_univ_two, Fin.isValue, ite_true, one_ne_zero, ite_false,
+      MvPolynomial.smul_eq_C_mul, map_one, one_mul] at h
+    change MvPolynomial.coeff d
+      ((MvPolynomial.C z * MvPolynomial.X 0 + MvPolynomial.X 1) ^ n) = _
+    rw [h, hsum, hprod, hmulti]
+    split_ifs with hd
+    · rw [hd]
+    · rfl
+  rw [hcoeff]
+  by_cases hd : d 0 + d 1 = n
+  · rw [if_pos hd, norm_mul, Complex.norm_natCast, norm_pow]
+    have hchoose : (n.choose (d 0) : ℝ) ≤ (2 : ℝ) ^ n := by
+      exact_mod_cast Nat.choose_le_two_pow n (d 0)
+    have hpow : ‖z‖ ^ d 0 ≤ (max 1 ‖z‖) ^ n := by
+      exact (pow_le_pow_left₀ (norm_nonneg z) (le_max_right 1 ‖z‖) (d 0)).trans
+        (pow_le_pow_right₀ (le_max_left 1 ‖z‖) (by omega))
+    exact mul_le_mul hchoose hpow (pow_nonneg (norm_nonneg z) _) (by positivity)
+  · rw [if_neg hd, norm_zero]
+    positivity
 
 end Submission
