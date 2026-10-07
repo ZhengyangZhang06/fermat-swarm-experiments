@@ -17,6 +17,8 @@ lean_lib Theorems
 
 lean_lib P2M
 
-@[default_target]
 lean_lib Fermat where
   globs := #[.submodules `Fermat]
+
+@[default_target]
+lean_lib Submission
