@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Credential-free, fixed-fixture verifier feasibility test for an idle node.
 
-This is NOT a proof worker or an acceptance endpoint. It accepts no candidate
-input and has no broker/runtime callers. Run in a disposable unprivileged
+Its main entrypoint is NOT a proof worker or an acceptance endpoint. It accepts
+no candidate input. The packet diagnostic also reuses its isolated launcher;
+neither diagnostic has broker/runtime callers. Run in a disposable unprivileged
 container with only the pinned tools and these two scripts mounted read-only.
 The ten existing comparator fixtures are reused without changing their gates.
 """
@@ -77,6 +78,9 @@ def isolated_command(verifier, directory, args, *, lean_path="", capture=False):
         "--rox", str(verifier.TOOLS), "--rw", "/dev", "-ldd", "-add-exec",
         "--rwx", str(directory / ".lake"), "--rox", str(verifier.LEAN.parent),
     ]
+    packages = verifier.PROJECT / ".lake/packages"
+    if packages.exists():
+        command.extend(["--rox", str(packages.resolve())])
     for key in ("PATH", "HOME", "LEAN_PATH", "LEAN_ABORT_ON_PANIC", "LEAN_NUM_THREADS"):
         command.extend(["--env", key])
     command.extend(["--", *map(str, args)])

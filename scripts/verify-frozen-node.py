@@ -360,7 +360,67 @@ def child_challenge(contract, name, statement):
     return prefix + f"theorem {name} : {statement} := by\n  sorry"
 
 
-def verify():
+def source_hashes(root):
+    """Hash the complete prepared Lean source trees, before generated build files.
+
+    Preparation writes regular files only. Refuse links instead of following
+    them across the controller's input boundary. Build outputs are deliberately
+    not an input to this digest and must not be accepted as source evidence.
+    """
+    result = {}
+    for side in ("challenge", "solution"):
+        directory = root / side
+        if directory.is_symlink() or not directory.is_dir():
+            raise RuntimeError("prepared source directory is missing or a link")
+        for path in sorted(directory.rglob("*")):
+            relative = path.relative_to(directory)
+            if ".lake" in relative.parts:
+                continue
+            if path.is_symlink():
+                raise RuntimeError("prepared source contains a symlink")
+            if path.is_file() and path.suffix == ".lean" and relative != Path("lakefile.lean"):
+                result[path.relative_to(root).as_posix()] = hashlib.sha256(path.read_bytes()).hexdigest()
+    if "challenge/Challenge.lean" not in result or "solution/Solution.lean" not in result:
+        raise RuntimeError("prepared theorem entrypoints are missing")
+    return result
+
+
+def prepared_digest(packet):
+    return hashlib.sha256(json.dumps(packet, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+
+
+def validate_prepared(root, expected_digest):
+    """Validate a controller-pinned packet; a digest supplied by a worker is not trust.
+
+    This checks transport integrity only, not proof correctness. The caller must
+    still run compare(), axiom reporting, and dependency/tool integrity checks.
+    """
+    root = Path(root)
+    packet_path = root / "prepared.json"
+    if packet_path.is_symlink():
+        raise RuntimeError("prepared packet is a symlink")
+    packet = json.loads(packet_path.read_text())
+    if packet.get("schema") != 1 or prepared_digest(packet) != expected_digest:
+        raise RuntimeError("prepared packet differs from controller digest")
+    if source_hashes(root) != packet["source_sha256"]:
+        raise RuntimeError("prepared sources differ from controller snapshot")
+    if hashlib.sha256(Path(__file__).read_bytes()).hexdigest() != packet["evidence"]["verifier_sha256"]:
+        raise RuntimeError("prepared verifier identity changed")
+    if packet["evidence"]["status"] != "checking":
+        raise RuntimeError("prepared packet is not an unverified input")
+    evidence_path = root / "evidence.json"
+    if evidence_path.is_symlink() or json.loads(evidence_path.read_text()) != packet["evidence"]:
+        raise RuntimeError("prepared evidence differs from controller snapshot")
+    return packet
+
+
+def prepare_verification():
+    """Freeze controller-validated inputs without compiling or accepting a proof.
+
+    The existing local entrypoint immediately verifies this packet. A future
+    dispatcher may transport it with its controller-retained digest; nothing
+    calls that remote path yet. Original contract text is never normalized here.
+    """
     run_root = Path(os.environ["HUMANIZE_RUN_DIR"]).resolve()
     if not run_root.is_relative_to(PROJECT / ".humanize"):
         raise RuntimeError("run directory is outside the registered project")
@@ -438,7 +498,32 @@ def verify():
             indent=2,
         ),
     )
+    evidence = json.loads((root / "evidence.json").read_text())
+    packet = {"schema": 1, "evidence": evidence, "dependency_manifest": manifest,
+              "source_sha256": source_hashes(root)}
+    write(root / "prepared.json", json.dumps(packet, sort_keys=True, indent=2))
+    # Detect dependency/checker changes during snapshot creation as well as
+    # during the later compiler/comparator run.
+    if check_dependency_sources(PROJECT / ".lake/packages", manifest) != dependencies:
+        raise RuntimeError("dependency revisions changed during preparation")
+    digest = prepared_digest(packet)
+    validate_prepared(root, digest)
+    return root, digest
+
+
+def verify_prepared(root, digest):
+    """Run the original proof gates on the exact controller-prepared input."""
+    root = Path(root)
+    packet = validate_prepared(root, digest)
+    evidence = packet["evidence"]
+    manifest, dependencies = packet["dependency_manifest"], evidence["dependency_revisions"]
+    if check_dependency_sources(PROJECT / ".lake/packages", manifest) != dependencies:
+        raise RuntimeError("prepared dependency revisions changed")
+    names = evidence["checked_theorems"]
     compare(root, names)
+    # configure() generates only lakefile.lean and .lake content, excluded from
+    # source_hashes. Original Lean inputs must still be byte-exact afterward.
+    validate_prepared(root, digest)
     write(
         root / "solution/AxiomReport.lean",
         "import Solution\n" + "".join(f"#print axioms {one}\n" for one in names),
@@ -446,12 +531,17 @@ def verify():
     sandbox(root / "solution", ["lake", "env", "lean", "AxiomReport.lean"])
     if check_dependency_sources(PROJECT / ".lake/packages", manifest) != dependencies:
         raise RuntimeError("dependency revisions changed during verification")
-    if hashlib.sha256(Path(__file__).read_bytes()).hexdigest() != verifier_digest:
+    if hashlib.sha256(Path(__file__).read_bytes()).hexdigest() != evidence["verifier_sha256"]:
         raise RuntimeError("verifier source changed during verification")
     evidence = json.loads((root / "evidence.json").read_text())
     evidence["status"] = "verified"
     write(root / "evidence.json", json.dumps(evidence, indent=2))
     print(f"Verification evidence: {root}")
+
+
+def verify():
+    root, digest = prepare_verification()
+    verify_prepared(root, digest)
 
 
 if __name__ == "__main__":

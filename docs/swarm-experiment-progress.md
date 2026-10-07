@@ -460,3 +460,50 @@ state, not simply deleting the project lock.
   (coset norm bound) is now in real RLCR Lean formalization on hoa38; p04#22
   remains in real verification. `gh pr list --state all` returned no PRs.
   No scaffold directives were removed; the pending user decision is unchanged.
+
+## Follow-up checkpoint, 10:28 UTC — immutable candidate packet diagnostic
+
+- Split the source verifier into `prepare_verification()` and
+  `verify_prepared()`, while preserving the default `verify()` entrypoint and
+  all comparator, axiom-report, dependency and checker-identity checks. A
+  preparation is explicitly `checking`, never proof acceptance. The packet
+  binds both complete Lean source trees, candidate/base/frozen revisions,
+  checked theorem names, dependency manifest/revisions and verifier SHA256 to
+  a controller-retained digest. Links, source mutations, metadata substitution,
+  and mismatched evidence are rejected. No contract normalization was added.
+- Added a credential-free packet receiver, not connected to broker acceptance.
+  It uses the already-tested Landlock/socket-denial launcher and only copies
+  the validated source allowlist, not candidate build/config artifacts. All
+  project packages and binaries are mounted read-only. Fifteen packet tests,
+  two receiver guard tests, four launcher tests, eight frozen-build/challenge
+  tests and seven remote-verification tests pass (36 focused tests total).
+- Prepared an actual p01#41 candidate from registered request
+  `6729df4ab16941009fb752bfccc3d3d8`, exact revision
+  `b181a13231ad4b2da1be9936fbc21c719b41d12e`, in private directory
+  `/mnt/data/zhengyang-workspace/fermat-verifier-packet.fWWQ5B`.
+  `receipt.json` records its root and controller digest
+  `764ee50c17abce618a30011ed31588a69c2a370c5b45f55befaa6413ab4a347c`.
+  The scripts were copied into that private directory BEFORE preparation;
+  source edits must not change the active diagnostic's immutable code copy.
+- Diagnostic service `fermat-verifier-packet-p01-20261007`, task
+  `p3lna6h8mgwz8o3go77evjnap`, is confirmed Running on hoa0 at10:28. It has no
+  secrets or host control sockets, UID1000, no capabilities, read-only root,
+  private tmpfs, CPU2/memory6GiB limits and restart disabled. It validated the
+  packet and compiled twelve dependency build steps, then remained compiling.
+  Output is retained under the private directory's `output/result`.
+  **No terminal verification result yet.** Do not promote this diagnostic to
+  an accepted broker result, close its issue, or restart it on polling timeout.
+- The broker remains untouched: two original manager checks are running under
+  PIDs3007503/3008683, with live Lean PIDs3100384/3100390. Request6729… remains
+  queued. A fourth request980abb29cd8f4974be5179e6a0251ac4 is also queued for
+  the SAME p01#41 theorem, at new revision15db3ef9f625c734560304ce3e21a07b20056041.
+  The new commit changes only .gitignore, not Submission.lean. Nevertheless,
+  evidence for the old exact revision must not be relabeled as the new one.
+- At10:26 the public observation contains46 nodes,128 live pollers,10 active
+  jobs,8 currently reviewed root arguments and0 verified/integrated roots.
+  Production runtime stays2e30c71. No verifier hot-deploy, issue takeover,
+  acceptance bypass, scaffold directive repair or worker restart occurred.
+- Next: collect this exact diagnostic task's result, then implement and test
+  durable queued-request dispatch/evidence correlation before enabling remote
+  production acceptance. Preserve both existing running requests. Pending
+  permission for derived-copy obsolete simp directives remains unanswered.
