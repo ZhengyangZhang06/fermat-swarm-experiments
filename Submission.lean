@@ -2531,6 +2531,8 @@ theorem p02_es_177ebb5a_scalarization_modular
     apply (p02_es_177ebb5a_sm_holomorphic n (fun τ => f τ) E hE).congr
     intro z hz
     simp [UpperHalfPlane.ofComplex_apply_of_im_pos hz]
+  simpa [Function.comp_def, UpperHalfPlane.ofComplex_apply, div_eq_mul_inv] using
+    hh.comp_of_eq (τ : ℂ) hσ (by simp)
 
 end Submission
 
