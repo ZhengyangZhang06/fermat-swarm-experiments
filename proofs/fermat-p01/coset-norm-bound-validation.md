@@ -105,7 +105,7 @@ The exact type remains:
 
 - Lean 4.33.1 (commit `819816b2e0a3bf405af45ae5c7af2491d8f5bee6`), `-DwarningAsError=true` and the project Lean options: the unchanged selected theorem in a fresh diagnostic importing
 
-- Lean 4.33.1, `-DwarningAsError=true`: the unchanged selected theorem in a fresh diagnostic importing
+- Lean 4.33.1, `-DwarningAsError=true` and the project Lean options: the unchanged selected theorem in a fresh diagnostic importing
   `Definitions.Def_ModularForm_HeckeOperatorForms` passes, including an anonymous check
   against the literal frozen type.
 - Transitive axiom reports for the selected theorem, `ModularForm.norm`,
@@ -164,6 +164,9 @@ proof acceptance. All diagnostics above were rerun in this round. No prior proce
 request, or controller state was restarted, canceled, or modified.
   unsafe mechanisms, or weakened statement. The other inherited change is a runtime
   skill ignore rule in `.gitignore`.
+  unsafe mechanisms, or weakened statement. Other inherited changes include the controller's
+  `.humanize-workspace` dispatch bundle, a runtime skill ignore rule in `.gitignore`, and this
+  validation report. This round changes only the report; local round records remain ignored.
 
 **Required validation remains blocked.** The fresh diagnostic retaining the frozen imports
 and attribute commands, while excluding the unrelated root theorem, exits 1. The two
@@ -173,14 +176,13 @@ the earlier individual-target diagnostic remains available in the previous round
 The first errors name
 `FLT.HyperbolicMeasure.instSMulInvariantMeasureSpecialLinearGroupFinOfNatNatIntUpperHalfPlaneVolume_definitions`
 and `FreyPackage.ModMCarrier.coe_rescaleLin_apply`. Thus the passing diagnostic without
-the attribute commands is not full-context acceptance. The unchanged whole source also
-reports the inherited root placeholder under warning-fatal checking; no root proof or
-root comparator is part of this node's task.
+the attribute commands is not full-context acceptance. Both fresh diagnostics exclude the
+unrelated root theorem; no root or sibling theorem was validated and no root comparator was run.
 
-The latest prior controller artifact, `comparator-v4.log`, records exit 1 for request
-`6622e79c98cb49149b166263fbe5e470`, with the same missing constants in the frozen challenge.
-The earlier local polling process (PID 4568) was observed as a zombie and was not restarted
-or canceled. No controller state or previous request was modified.
+The latest prior controller artifact, `comparator-v5.log`, records exit 1 for request
+`a663782847714a49bb9dec7c2835c9b8`, with the same missing constants in the frozen challenge.
+The previous round's local polling process (PID 7776) was observed as a zombie and was not
+restarted or canceled. No controller state or previous request was modified.
 
 The current plan requires a fresh exact-node comparator run on a clean committed
 candidate. Its result belongs to that exact SHA and is recorded in the local round
@@ -230,8 +232,8 @@ proof and found no defect or worthwhile simplification. The round tracker,
 turn filter bounds into a common height. Searches for the exact selected name and
 norm-bound variants in `project/Definitions` returned no matches.
 
-Fresh local evidence is in `.humanize/rlcr/2026-10-07_20-19-24/validation/`, including
-the scoped diagnostic sources, completed body/context/full-source build logs, `build-results.json`,
+Fresh local evidence is in `.humanize/rlcr/2026-10-07_21-39-42/validation/`, including
+the scoped diagnostic sources, completed body/context build logs, `build-results.json`,
 `source-dependency-audit.json`, protected-artifact digests, the provider search log, and
 `complete-source.diff`. The requested simplifier agent independently reviewed the selected
 proof and found no defect or worthwhile simplification. The round tracker,
