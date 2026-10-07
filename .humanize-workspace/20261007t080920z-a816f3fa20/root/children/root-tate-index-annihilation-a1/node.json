@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.tate_index_annihilation-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "A subgroup with vanishing Tate cohomology has index annihilating ambient Tate cohomology",
+  "statement": "Let k be a commutative ring, G a finite group, A a k-linear representation of G, H a subgroup of G equipped with a finite-type structure, and q an integer. Use the common universe required by Rep.tateCohomology. If the degree-q Tate cohomology of A restricted to H is a zero object in ModuleCat k, then for every x in A.tateCohomology q, [G:H] • x = 0, where • denotes repeated addition. No normality assumption on H or finiteness assumption on A is imposed.",
+  "lean_statement": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H] (q : ℤ), CategoryTheory.Limits.IsZero ((Rep.res H.subtype A).tateCohomology q) → ∀ x : A.tateCohomology q, H.index • x = 0",
+  "lean_name": "p04_index_nsmul_zero_of_restriction_isZero",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p04/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-a1"
+}

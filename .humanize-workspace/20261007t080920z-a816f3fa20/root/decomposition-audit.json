@@ -1,0 +1,49 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "TateResCor|tateCohomology.*index|index.*tateCohomology|p04_index_nsmul_zero_of_restriction_isZero|p04_eq_zero_of_prime_avoiding_annihilators",
+        "inhomogeneousCochainsIso|inhomogeneousChainsIso|def d|corestriction|transfer|restriction",
+        "isZero_iff_subsingleton|theorem not_dvd_index|instance nonempty|index_pos|index_mul_card|card_mul_index|addOrderOf_dvd_iff_nsmul_eq_zero",
+        "annihilat|forall.*Prime.*nsmul|nsmul.*prime|prime.*nsmul|p04_index_nsmul_zero_of_restriction_isZero|p04_eq_zero_of_prime_avoiding_annihilators",
+        "/runtime/bin/rg --files --hidden .humanize -g dag.json -g '*comparator*' -g '*contract*'"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/lake-manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/Category/ModuleCat/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/Sylow.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/Index.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/OrderOfElement.lean",
+        "/tmp/p04-independent-decomposition-audit-76lkjdgr/TypeAudit.lean",
+        "/tmp/p04-independent-decomposition-audit-76lkjdgr/TypeAudit.log",
+        "/tmp/p04-independent-decomposition-audit-76lkjdgr/AssemblyAudit.lean",
+        "/tmp/p04-independent-decomposition-audit-76lkjdgr/AssemblyAudit.log",
+        "/tmp/p04-independent-decomposition-audit-76lkjdgr/SubmissionImportAudit.log"
+      ],
+      "conclusion": "Independently verified clean snapshot revisions: project 2475a3790d7ba0c3b10be8086001b154a45be597 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. All nine installed dependencies match the frozen Lake manifest and have clean source trees. The inspected definitions confirm all four Tate branches, the norm kernel/quotient, and both differential conventions, including the inverse action in homology. Searches found no existing Tate index-annihilation declaration or proposed helper identifiers; TateResCor matches occur only in unresolved attribute lists. The active DAG contains only the root. Fresh isolated elaboration accepted both exact propositions without declaring either child; the first has one shared universe and uses NSMul.toSMul. Transitive axiom checks on the relevant definitions and library facts returned only propext, Classical.choice and Quot.sound. A warning-free conditional Lean check derives the exact parent conclusion from the two child contracts, confirming the split's sufficiency and dependency direction. The inherited Submission error at line 10 was independently reproduced: unknown constant Representation.TateResCor.cosetDecomp_apply. This decomposition approval does not clear that separate activation blocker or constitute comparator acceptance of a solution."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "tate_index_annihilation",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition matches every prose hypothesis, including the shared universe, both finite-type structures and natural-number scalar multiplication. Its bare identifier is unreserved. Independently checked all 18 proof steps: the homogeneous identifications match the pinned differentials; the equivariant retraction and prism homotopy justify the common complex without projectivity assumptions; both transfer composites equal the index; and the norm quotient and kernel arguments cover degrees zero and minus one. The four degree cases exhaust the frozen definition. The proof is complete and constructive enough for formalization, introduces no normality or coefficient-finiteness assumption, and uses neither the parent nor the sibling theorem. Its empty dependency list is correct."
+    },
+    {
+      "key": "prime_avoiding_annihilators",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the additive-group statement and all quantifiers; its bare identifier is unreserved. Independently checked all six proof steps: prime 2 supplies a positive annihilator, well-ordering supplies the least one, Euclidean division proves it divides every annihilator, and a prime divisor contradicts the prime-avoiding hypothesis unless that least annihilator is 1. The argument handles zero-valued candidate annihilators in the divisibility step and requires no finiteness of V. It is complete, non-circular and independent of the other child, so its empty dependency list is correct."
+    }
+  ],
+  "required_changes": []
+}

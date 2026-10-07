@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.prime_avoiding_annihilators-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "Prime-avoiding positive annihilators force an additive group to vanish",
+  "statement": "Let V be an additive abelian group. Suppose that for every prime natural number p there exists a natural number m such that m > 0, p does not divide m, and m • v = 0 for every v in V. Then every element of V equals zero. No finiteness assumption on V is required.",
+  "lean_statement": "∀ {V : Type*} [AddCommGroup V], (∀ p : ℕ, p.Prime → ∃ m : ℕ, 0 < m ∧ ¬ p ∣ m ∧ ∀ v : V, m • v = 0) → ∀ v : V, v = 0",
+  "lean_name": "p04_eq_zero_of_prime_avoiding_annihilators",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p04/20261007t080920z-a816f3fa20/root-prime-avoiding-annihilators-a1-a1"
+}
