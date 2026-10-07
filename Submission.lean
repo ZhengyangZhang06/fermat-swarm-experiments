@@ -1050,6 +1050,9 @@ theorem p06_9e0f5043ff_fosa_coefficients_integral_off_finite
         P.coeff i ∈ v.toValuationSubring := by
   classical
   refine ⟨⋃ i ∈ P.support, {v | v.ord (P.coeff i) ≠ 0}, ?_, ?_⟩
+  let T : Set (AlgebraicCurve.Place K E) :=
+    ⋃ i ∈ P.support, {v | v.ord (P.coeff i) ≠ 0}
+  refine ⟨T, ?_, ?_⟩
   · exact P.support.finite_toSet.biUnion fun i hi =>
       hfinite (P.coeff i) (Polynomial.mem_support_iff.mp hi)
   · intro v hv i
@@ -3674,5 +3677,15 @@ theorem p06_9e0f5043ff_rational_adjoin_principal
   exact Submission.p06_9e0f5043ff_principal_alg_equiv K (FractionRing (Polynomial K))
     (IntermediateField.adjoin K ({x} : Set F)) e
     (Submission.p06_9e0f5043ff_rational_model_principal K)
+
+end Submission
+        apply hv
+        exact Set.mem_iUnion.mpr ⟨i, Set.mem_iUnion.mpr
+          ⟨Polynomial.mem_support_iff.mpr hi, h⟩⟩
+      obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible v.toValuationSubring
+      obtain ⟨u, hu⟩ := v.exists_unit_mul_zpow hi hπ
+      rw [hord, zpow_zero, mul_one] at hu
+      rw [hu]
+      exact (u : v.toValuationSubring).property
 
 end Submission
