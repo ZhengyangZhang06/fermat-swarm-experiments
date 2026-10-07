@@ -386,4 +386,16 @@ theorem p02_es_177ebb5a_cd_modular_pullback_derivative
   rw [hslash, hrep, pow_add]
   field_simp [hj]
 
+theorem p02_es_177ebb5a_ic_inverse_linepow
+    (n : ℕ) (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (τ : UpperHalfPlane) :
+    (HeckeEis.binaryFormRepSL ℂ n) σ⁻¹
+        (HeckeEis.linePow n ((σ • τ : UpperHalfPlane) : ℂ)) =
+      ((HeckeEis.jFactor σ τ) ^ n)⁻¹ • HeckeEis.linePow n (τ : ℂ) := by
+  have h := congrArg ((HeckeEis.binaryFormRepSL ℂ n) σ⁻¹)
+    (HeckeEis.binaryFormRepSL_linePow n σ τ)
+  rw [Representation.inv_self_apply, map_smul] at h
+  have hj := pow_ne_zero n (HeckeEis.jFactor_ne_zero σ τ)
+  simpa only [smul_smul, inv_mul_cancel₀ hj, one_smul] using
+    congrArg (fun v => ((HeckeEis.jFactor σ τ) ^ n)⁻¹ • v) h.symm
+
 end Submission
