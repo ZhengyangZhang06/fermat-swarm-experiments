@@ -18,3 +18,22 @@ theorem Rep.isZero_tateCohomology_of_forall_sylow {k G : Type u} [CommRing k] [G
       CategoryTheory.Limits.IsZero ((Rep.res (P : Subgroup G).subtype A).tateCohomology q)) :
     CategoryTheory.Limits.IsZero (A.tateCohomology q) := by
   sorry
+
+namespace Submission
+
+theorem p04_eq_zero_of_prime_avoiding_annihilators :
+    ∀ {V : Type*} [AddCommGroup V],
+      (∀ p : ℕ, p.Prime → ∃ m : ℕ, 0 < m ∧ ¬ p ∣ m ∧ ∀ v : V, m • v = 0) →
+      ∀ v : V, v = 0 := by
+  intro V _ h v
+  obtain ⟨m₂, hm₂, _, h₂⟩ := h 2 Nat.prime_two
+  have hn : 0 < addOrderOf v :=
+    (isOfFinAddOrder_iff_nsmul_eq_zero.mpr ⟨m₂, hm₂, h₂ v⟩).addOrderOf_pos
+  have hn_le : addOrderOf v ≤ 1 := by
+    by_contra hn_le
+    obtain ⟨p, hp, hpn⟩ := Nat.exists_prime_and_dvd (Nat.ne_of_gt (Nat.lt_of_not_ge hn_le))
+    obtain ⟨m, _, hpm, hm⟩ := h p hp
+    exact hpm (hpn.trans (addOrderOf_dvd_iff_nsmul_eq_zero.mpr (hm v)))
+  exact AddMonoid.addOrderOf_eq_one_iff.mp (Nat.le_antisymm hn_le hn)
+
+end Submission
