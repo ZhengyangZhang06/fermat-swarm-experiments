@@ -14,3 +14,25 @@ theorem CuspForm.span_heckeTLin_eigen_eq_top (M : ℕ) [NeZero M] :
       ∀ (ℓ : ℕ) (hℓ : ℓ.Prime) (hℓM : ¬ ℓ ∣ M), ∃ c : ℂ,
         CuspForm.heckeTLin 2 hℓ hℓM v = c • v} = ⊤ := by
   sorry
+
+namespace Submission
+
+theorem f036cc6b1f_pc_ed_aoi_null_orbit :
+    ∀ s : Set UpperHalfPlane, MeasurableSet s →
+      (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) s = 0 →
+      ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
+        ∀ a : Matrix.SpecialLinearGroup (Fin 2) ℤ, a • z ∉ s := by
+  intro s hs hnull
+  let : Countable (Matrix.SpecialLinearGroup (Fin 2) ℤ) := by
+    unfold Matrix.SpecialLinearGroup Matrix
+    infer_instance
+  apply MeasureTheory.ae_all_iff.mpr
+  intro a
+  change ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
+    z ∉ (fun z : UpperHalfPlane => Matrix.SpecialLinearGroup.mapGL ℝ a • z) ⁻¹' s
+  apply MeasureTheory.measure_eq_zero_iff_ae_notMem.mp
+  exact (MeasureTheory.SMulInvariantMeasure.measure_preimage_smul
+    (μ := (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane))
+    (Matrix.SpecialLinearGroup.mapGL ℝ a) hs).trans hnull
+
+end Submission
