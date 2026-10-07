@@ -1,8 +1,36 @@
 import unittest
-from _recursive_lean.fleet_status import observed_workers
+import json
+import subprocess
+from unittest.mock import patch
+from _recursive_lean.fleet_status import observed_workers, running_service_tasks
 
 
 class FleetStatusTests(unittest.TestCase):
+    def test_retired_service_is_omitted_but_unrelated_services_are_not_observed(self):
+        task = {'ID': 'newtask', 'Node': 'hoa1', 'DesiredState': 'Running', 'CurrentState': 'Running 1 minute ago'}
+        with patch('_recursive_lean.fleet_status.subprocess.check_output',
+                   side_effect=['new\nunrelated\n', json.dumps(task) + '\n']) as call:
+            self.assertEqual(running_service_tasks(['old', 'new']), {'newtask': task})
+        self.assertEqual(call.call_args.args[0], ['sudo', '-n', 'docker', 'service', 'ps',
+                                                '--no-trunc', 'new', '--format', '{{json .}}'])
+
+    def test_missing_fleet_or_failed_inventory_is_not_an_empty_successful_observation(self):
+        with patch('_recursive_lean.fleet_status.subprocess.check_output', return_value='unrelated\n') as call:
+            with self.assertRaisesRegex(RuntimeError, 'no authorized'):
+                running_service_tasks(['old', 'new'])
+            self.assertEqual(call.call_count, 1)
+        with patch('_recursive_lean.fleet_status.subprocess.check_output',
+                   side_effect=subprocess.CalledProcessError(1, ['docker'])):
+            with self.assertRaises(subprocess.CalledProcessError):
+                running_service_tasks(['new'])
+
+    def test_terminal_or_replaced_tasks_do_not_count_as_running(self):
+        tasks = [dict(ID='ended', DesiredState='Running', CurrentState='Failed 1 minute ago'),
+                 dict(ID='replaced', DesiredState='Shutdown', CurrentState='Running 1 minute ago')]
+        with patch('_recursive_lean.fleet_status.subprocess.check_output',
+                   side_effect=['new\n', '\n'.join(json.dumps(t) for t in tasks)]):
+            self.assertEqual(running_service_tasks(['new']), {})
+
     def test_new_and_legacy_pollers_do_not_hide_active_jobs(self):
         old = dict(node='hoa1', task='old', phase='working', issue=21, polls=3, observed_at=100)
         new = dict(node='hoa1', task='new', phase='idle', issue=None, polls=5, observed_at=101)
