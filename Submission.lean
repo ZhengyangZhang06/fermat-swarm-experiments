@@ -1303,6 +1303,9 @@ theorem p06_9e0f5043ff_inf_valuation_fraction_characterization :
     rw [div_eq_mul_inv]
     exact W.mul_mem (heval_mem a) hinv
 end Submission
+import Mathlib.LinearAlgebra.Matrix.ToLinearEquiv
+import Mathlib.LinearAlgebra.Quotient.Basic
+
 namespace Submission
 
 /-- Left and right multiplication by unit matrices preserve the cokernel up to linear equivalence. -/
@@ -1404,5 +1407,13 @@ theorem p06_9e0f5043ff_fpm_normalized_orders
       (Submission.p06_9e0f5043ff_fno_fraction_isunit K F x hx q hq hqirr v hv
         a 1 z hqone (by simp [z])).mpr ha
     simpa only [IsUnit.unit_spec] using v.ord_coe_unit hz.unit
+  classical
+  let eP := Matrix.toLinearEquiv' P hP.invertible
+  let eQ := Matrix.toLinearEquiv' Q hQ.invertible
+  refine ⟨Submodule.Quotient.equiv _ _ eP ?_⟩
+  change (LinearMap.range D.mulVecLin).map P.mulVecLin =
+    LinearMap.range (P * D * Q).mulVecLin
+  rw [← LinearMap.range_comp, ← Matrix.mulVecLin_mul, Matrix.mulVecLin_mul (P * D) Q]
+  exact (LinearMap.range_comp_of_range_eq_top _ eQ.range).symm
 
 end Submission
