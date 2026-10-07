@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_order_support_ascent-a1.polynomial_coefficients_integral_off_fa-a1",
+  "parent_id": "root.finite_order_support_ascent-a1",
+  "depth": 2,
+  "title": "Polynomial coefficients are integral outside finitely many places",
+  "statement": "Let K and E be fields with a K-algebra structure on E. Assume that for every nonzero a in E, the set {v : AlgebraicCurve.Place K E | v.ord a ≠ 0} is finite. Then for every polynomial P over E there exists a finite set T of project places of E over K such that, for every v outside T and every natural number i, P.coeff i belongs to v.toValuationSubring.",
+  "lean_statement": "∀ (K E : Type*) [Field K] [Field E] [Algebra K E], (∀ a : E, a ≠ 0 → {v : AlgebraicCurve.Place K E | v.ord a ≠ 0}.Finite) → ∀ P : Polynomial E, ∃ T : Set (AlgebraicCurve.Place K E), T.Finite ∧ ∀ v : AlgebraicCurve.Place K E, v ∉ T → ∀ i : ℕ, P.coeff i ∈ v.toValuationSubring",
+  "lean_name": "p06_9e0f5043ff_fosa_coefficients_integral_off_finite",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-finite-order-support-ascent-a1-polynomial-coefficients-integral-off-fa-a1-a1"
+}

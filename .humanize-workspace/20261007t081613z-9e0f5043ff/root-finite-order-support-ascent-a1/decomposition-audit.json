@@ -1,0 +1,44 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'finite_setOf_restrict_eq|mem_of_eval_monic_eq_zero|exists_unit_mul_zpow|ord_coe_unit|def restrict|HasPrincipalDivisors|hasPrincipalDivisors_of_transcendental' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f --glob '*.lean'",
+        "rg -n 'finite.*coeff|coeff.*finite|coeff.*ord|ord.*coeff|mem_of_ord_nonneg|ord_eq_zero_of' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions --glob 'Def_AlgebraicCurve_*.lean'",
+        "rg -n 'exists_irreducible|theorem isIntegral|isIntegral_of_finite' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DiscreteValuationRing/Basic.lean .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/IntegralClosure/Algebra/Basic.lean",
+        "rg -n 'p06_9e0f5043ff_fosa_coefficients_integral_off_finite|p06_9e0f5043ff_fosa_ord_zero_of_monic_pair' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json Submission.lean Definitions Fermat"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorPushPull.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DiscreteValuationRing/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/IntegralClosure/Algebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-finite-order-support-ascent-a1/parent-child-handoff.json",
+        "/tmp/fermat-p06-decomposition-audit-om50nva7/Audit.lean",
+        "/tmp/fermat-p06-decomposition-audit-om50nva7/Audit.log",
+        "/tmp/fermat-p06-decomposition-audit-om50nva7/Submission.log"
+      ],
+      "conclusion": "The snapshot supplies the DVR instance, uniformizer factorization, restriction as comap, monic-root membership, and unit-order identity. The finite-fiber theorem requires finite-dimensionality and separability but no principal-divisor hypothesis. Targeted searches found no public theorem matching either proposed child and no identifier collision. The existing 11-node DAG is acyclic. Project HEAD matches 956e8c600d8b95b46948ae5e37b13930b5f3d06b; all nine dependencies are clean at their pins, including mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Independently rebuilding the three unchanged project modules with Lean 4.33.1 succeeded. Both exact propositions elaborate without either child declaration; restriction-comap and finite-dimensional integrality checks pass. The seven checked supporting declarations have only propext, Classical.choice, and Quot.sound as transitive axioms. This approves the decomposition only: unchanged Submission still fails on three pre-existing unknown attribute targets, so its validation and subsequent exact-contract comparator acceptance remain outstanding."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "polynomial_coefficients_integral_off_fa",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The single-line proposition exactly matches the prose and includes all hypotheses. Steps 1–2 legitimately apply finite support only to nonzero coefficients and form a finite union. Step 3 handles zero separately and obtains order zero otherwise. Step 4 uses the available DVR uniformizer and exact unit–uniformizer factorization to prove membership. Step 5 establishes the full quantified conclusion. This is a genuine independent obligation, with no circular reliance or missing proof step. Its bare identifier is unreserved."
+    },
+    {
+      "key": "order_zero_from_monic_pair",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The single-line proposition exactly includes the field structures, scalar tower, integrality, nonzero element, monicity, root equations, and coefficient hypotheses. Step 1 correctly uses integrality for restriction and identifies membership through comap. Steps 2–3 preserve monicity and coefficients under polynomial mapping, translate evaluation, and apply the existing monic-root lemma. Step 4 uses f ≠ 0 to construct a valuation-ring unit with inverse f⁻¹; step 5 correctly applies ord_coe_unit. No sibling or parent theorem is assumed. The bare identifier is unreserved. The split is appropriate: the parent uses the first child twice, this child outside the resulting union, and the independently verified finite-fiber theorem. Empty sibling dependencies are correct."
+    }
+  ],
+  "required_changes": []
+}
