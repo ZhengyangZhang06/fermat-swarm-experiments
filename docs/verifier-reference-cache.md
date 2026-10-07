@@ -136,6 +136,20 @@ Service/task identity and specification remain bound throughout observation;
 exit75 still requires reconciliation, not timeout-based takeover. Remote success
 also requires exact returned evidence matching the controller's original packet.
 
+For a package-backed transport canary, invoke the standalone
+`scripts/test-swarm-verifier-roundtrip.py` with both `--mathlib-fixture` and
+`--dependency-manifest /operator/trusted/lake-manifest.json`, in addition to its
+ordinary adapter/directory/node arguments. Select the original trusted pinned
+manifest, never one supplied by a proof worker. The script validates it before
+creating fixture directories and freezes its exact bytes into both disposable
+projects. Both challenge and candidate import `Mathlib.Data.Nat.Basic`, exercising
+cached compiled imports and the unchanged verifier's pinned dependency-source
+checks. The original positive `True` and negative `False → False` cases remain;
+the negative case additionally requires the comparator's explicit statement-
+mismatch diagnostic for `toy`, not merely an exit code from an unrelated failure.
+The default without either option retains the cheap no-package fixtures. Neither
+fixture creates campaign claims or counts as a proved campaign theorem.
+
 This source support does **not** seed any node, enable extra dispatchers, restart
 existing checkers or attest a campaign proof. A cache-enabled remote canary with
 real positive/negative comparator fixtures, private-file/socket denial and exact
