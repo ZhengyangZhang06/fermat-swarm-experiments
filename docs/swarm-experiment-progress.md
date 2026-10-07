@@ -663,3 +663,32 @@ state, not simply deleting the project lock.
   Packet digestdd3297d24a578c356ffdf44a099f2201e336dd30b98d7dc43a0a9fd073e571cc.
   This is a recheck, not a new proof; no successful result or PR yet. Header
   repair remains unapproved and disabled. Collect these exact handles next.
+
+## Follow-up checkpoint, 11:51 UTC — builds advance; artifact mirror in progress
+
+- All three registered verification requests above are still live, not terminal.
+  The earlier manager compiler PIDs3349095/3349098/3362466/3362539 finished their
+  modules normally. P02's coefficient-cohomology/matrix-action builds took
+  721/723s; its binary-form module subsequently built. P07's finite-adele module
+  took991s and its two quaternion modules subsequently built in298s each.
+  The enclosing verifier PIDs3347466/3360163 retain their request identities.
+- Attempted one bounded low-priority sequential read of the already mapped,
+  pinned `.olean` artifacts to warm the controller page cache. The first attempt
+  did no reads because its compiler had already exited normally. The second,
+  using live compiler3396694's maps, finished exit0 (tool session60279 closed).
+  No file was changed. Do not attribute the earlier module completions to this
+  read; they occurred first. Shared-filesystem delays persisted afterward.
+- Started a private, LOW-PRIORITY artifact mirror copy for future diagnostics:
+  `/var/tmp/fermat-verifier-reference.Z0kXAn` (0700). It copies the existing
+  pinned `fermat-example/.lake/packages` then the4.33.1 toolchain, preserving
+  contents/metadata. Original files, running verifier code and paths are unchanged.
+  Tool exec session22163 is still running; shellPID3414512, copyPID3414513.
+  At11:50 about3.5GiB was copied. **The mirror is incomplete and unvalidated;
+  no verifier uses it.** Resume this exact copy handle, never consume a partial
+  mirror or promote a diagnostic result to campaign proof acceptance.
+- After copying completes, compare it byte-for-byte against the pinned source
+  before any diagnostic. A local import benchmark may establish whether a future
+  immutable verifier deployment benefits; any production cache integration still
+  needs explicit identity binding/tests. No such integration has been implemented.
+- GitHub PR list remains empty. P01 remote taskkchqtd21zojkdwgy4e2dc9w73 is
+  confirmed Running; no new claim, check restart or header normalization occurred.
