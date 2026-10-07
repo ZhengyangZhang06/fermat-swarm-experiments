@@ -731,3 +731,39 @@ state, not simply deleting the project lock.
 - No production verifier code was changed, no worker was restarted or notified
   to start an issue, no solved issue was closed, and no solution PR exists yet.
   Missing-name-only derived-header repair still awaits explicit user approval.
+
+## Follow-up checkpoint, 12:17 UTC — local mirror validated and diagnostics passed
+
+- Byte comparison session16862 finished0: all copied packages and the complete
+  Lean4.33.1 toolchain match the original trees byte-for-byte, including symlink
+  contents. Both the copy and comparison handles are now closed. Earlier
+  read-only checks also confirmed all nine source revisions clean at their pins.
+  Private mirror remains `/var/tmp/fermat-verifier-reference.Z0kXAn` (0700).
+- The local `ImportProbe.lean` diagnostic passed0 in76.66s, peak RSS6386092KiB.
+  Its31494 mapped `.olean` entries were under the local mirror; no mapped Lean
+  artifact/shared library was found under `/mnt/data`. Its tool session54129
+  is closed. This is an import benchmark, NOT a campaign theorem check or a
+  matched whole-verifier speed comparison. Do not claim a measured speedup.
+- Added private `verify_cached_fixtures.py`, reusing the existing fixed
+  self-test/isolation helper with only the diagnostic's Lean toolchain path
+  switched to the byte-validated mirror. It takes no campaign inputs, changes
+  no claims, and reports `production_acceptance_enabled:false`.
+  An initial invocation using the uv Python interpreter failed because its
+  home-directory standard library was outside the sandbox. The sandbox was
+  NOT broadened. Running with `/usr/bin/python3` resolved that harness issue.
+- All10 comparator fixtures then passed their expected acceptance/rejection
+  results, with kernel replay on positive cases, in96.88s. Private-file and
+  Unix/Internet/socketpair access-denial checks passed. The missing-Child export
+  panic is the EXPECTED rejection of the renamed-theorem negative fixture,
+  not a failed campaign candidate. Diagnostic session79977 finished0 and closed.
+- No production verifier consumes the mirror yet. Any future opt-in deployment
+  must be immutable, explicitly bind the trusted mirror/pins, preserve all
+  comparator/axiom/isolation gates, and avoid changing the currently running
+  checker's file. Do not silently repoint live sandbox library paths. The
+  current production checker is still the unchanged2e30c71 runtime version.
+- At12:16, p02 final-reviewer request4edce24fdb124c73b1b49469f0fac33a remains
+  live under PID3435979. Its frozen challenge built successfully; its solution
+  build has reached Submission. P01 remote recheckcd203… remains live under
+  adapterPID3387184 and the same hoa1 task/service. No solution PR yet.
+- The missing-header repair decision remains unanswered. No header changes,
+  issue closures, proof acceptance bypasses, or worker restarts occurred.
