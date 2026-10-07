@@ -401,3 +401,25 @@ state, not simply deleting the project lock.
 - Local benchmark inspection found no supplied directive-repair procedure; the
   manifest calls these statement extracts requiring pinned source dependencies.
   User permission for the proposed narrow build repair remains unanswered.
+
+## Follow-up checkpoint, 09:54 UTC — repair proposal prepared but disabled
+
+- Added pure `_recursive_lean/frozen_build.py` and five regression tests. It
+  validates the entire input against a controller-supplied SHA256, defaults to
+  returning unchanged source, and optionally prepares an in-memory copy omitting
+  only standalone header `attribute [-simp]` commands. It records every omitted
+  line and both source hashes. Comments, strings, declarations, assumptions,
+  imports, options and proof text are preserved; there are **no runtime callers**.
+- Fifteen focused frozen-build/frozen-challenge/remote-verifier tests pass. A
+  read-only, in-memory preview across the ten campaign contracts found11 such
+  directives in8 files; p02 andp08 have none. All other bytes were checked equal.
+  No original, candidate, or derived build file was rewritten, and no repair was
+  enabled. User permission is still pending. Do not describe this proposal as a
+  tested full-project compile fix or as proof acceptance.
+- At09:54 both existing verifier requests are still running. The unchanged
+  checker file in staged runtime2e30c71 must remain intact until those checks
+  finish. The campaign feed reports29 nodes,128 pollers,10 active jobs,5 currently
+  reviewed root arguments and0 verified/integrated roots. No proof PR is accepted.
+- Pages30a0121 was independently checked in a real public mobile browser at09:44:
+  26 nodes,20 edges,10 active-node indicators,16 inactive indicators, no script
+  errors and no document overflow. Screenshot `/tmp/fermat-swarm-observed-workers.png`.
