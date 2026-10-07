@@ -1357,3 +1357,117 @@ theorem Submission.p07_rr_isogeny_transport_857cd4d38c :
     obtain ⟨P₀, hP₀⟩ := hj_level _ (mapPt φ hφ P') (hlevel _ P' hP')
     refine ⟨P₀, ?_⟩
     simpa only [mapPt_coe, P', Category.assoc] using hP₀
+namespace Submission
+
+theorem p07_cre_group_law_857cd4d38c :
+    ∀ (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U)
+      (A : AlgebraicGeometry.Scheme.{0})
+      (f : Quiver.Hom A (AlgebraicGeometry.Spec (CommRingCat.of U)))
+      (G : GoodReductionJacobian.RelativeGroupLaw U f),
+    let κ := AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.toRingHom)
+    let ε := AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.symm.toRingHom)
+    let fT := CategoryTheory.CategoryStruct.comp f κ
+    ∃ (H : GoodReductionJacobian.RelativeGroupLaw T fT)
+      (B : ∀ (W : AlgebraicGeometry.Scheme.{0})
+        (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))),
+        NeronModelInfra.SchemeHomOver t fT ≃
+          NeronModelInfra.SchemeHomOver (CategoryTheory.CategoryStruct.comp t ε) f),
+      (G.IsCommutative → H.IsCommutative) ∧
+      (∀ (W : AlgebraicGeometry.Scheme.{0})
+        (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T)))
+        (P : NeronModelInfra.SchemeHomOver t fT), (B W t P).1 = P.1) ∧
+      (∀ (W : AlgebraicGeometry.Scheme.{0})
+        (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T)))
+        (P Q : NeronModelInfra.SchemeHomOver t fT),
+        B W t (H.mul t P Q) =
+          G.mul (CategoryTheory.CategoryStruct.comp t ε) (B W t P) (B W t Q)) ∧
+      (∀ (W : AlgebraicGeometry.Scheme.{0})
+        (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))),
+        B W t (H.one t) = G.one (CategoryTheory.CategoryStruct.comp t ε)) ∧
+      (∀ (W : AlgebraicGeometry.Scheme.{0})
+        (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T)))
+        (P : NeronModelInfra.SchemeHomOver t fT),
+        B W t (H.inv t P) = G.inv (CategoryTheory.CategoryStruct.comp t ε) (B W t P)) := by
+  intro T U _ _ k A f G
+  let κ := Spec.map (CommRingCat.ofHom k.toRingHom)
+  let ε := Spec.map (CommRingCat.ofHom k.symm.toRingHom)
+  have hκε : κ ≫ ε = 𝟙 _ := by
+    dsimp [κ, ε]
+    rw [← Spec.map_comp]
+    have h : CommRingCat.ofHom k.symm.toRingHom ≫ CommRingCat.ofHom k.toRingHom =
+        𝟙 (CommRingCat.of U) := by
+      ext x
+      exact k.apply_symm_apply x
+    exact (congrArg Spec.map h).trans (Spec.map_id _)
+  have hεκ : ε ≫ κ = 𝟙 _ := by
+    dsimp [κ, ε]
+    rw [← Spec.map_comp]
+    have h : CommRingCat.ofHom k.toRingHom ≫ CommRingCat.ofHom k.symm.toRingHom =
+        𝟙 (CommRingCat.of T) := by
+      ext x
+      exact k.symm_apply_apply x
+    exact (congrArg Spec.map h).trans (Spec.map_id _)
+  let B : ∀ (W : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of T)),
+      SchemeHomOver t (f ≫ κ) ≃ SchemeHomOver (t ≫ ε) f := fun W t =>
+    { toFun := fun P => ⟨P.1, by
+        calc
+          P.1 ≫ f = (P.1 ≫ (f ≫ κ)) ≫ ε := by
+            rw [Category.assoc, Category.assoc, hκε, Category.comp_id]
+          _ = t ≫ ε := by rw [P.2]⟩
+      invFun := fun P => ⟨P.1, by
+        rw [← Category.assoc, P.2, Category.assoc, hεκ, Category.comp_id]⟩
+      left_inv := fun _ => Subtype.ext rfl
+      right_inv := fun _ => Subtype.ext rfl }
+  have hBcomp (W W' : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of T))
+      (t' : W' ⟶ Spec (CommRingCat.of T)) (ψ : W' ⟶ W) (hψ : ψ ≫ t = t')
+      (P : SchemeHomOver t (f ≫ κ)) :
+      B W' t' (GoodReductionJacobian.schemeHomOverComp ψ hψ P) =
+        GoodReductionJacobian.schemeHomOverComp ψ
+          (by rw [← Category.assoc, hψ]) (B W t P) :=
+    Subtype.ext rfl
+  let H : RelativeGroupLaw T (f ≫ κ) :=
+    { mul := fun {W} t P Q => (B W t).symm (G.mul (t ≫ ε) (B W t P) (B W t Q))
+      one := fun {W} t => (B W t).symm (G.one (t ≫ ε))
+      inv := fun {W} t P => (B W t).symm (G.inv (t ≫ ε) (B W t P))
+      mul_assoc := by
+        intro W t P Q R
+        apply (B W t).injective
+        simp only [Equiv.apply_symm_apply]
+        exact G.mul_assoc _ _ _ _
+      one_mul := by
+        intro W t P
+        apply (B W t).injective
+        simp only [Equiv.apply_symm_apply]
+        exact G.one_mul _ _
+      mul_one := by
+        intro W t P
+        apply (B W t).injective
+        simp only [Equiv.apply_symm_apply]
+        exact G.mul_one _ _
+      inv_mul_cancel := by
+        intro W t P
+        apply (B W t).injective
+        simp only [Equiv.apply_symm_apply]
+        exact G.inv_mul_cancel _ _
+      mul_natural := by
+        intro W W' t t' ψ hψ P Q
+        apply (B W' t').injective
+        rw [hBcomp]
+        simp only [Equiv.apply_symm_apply, hBcomp]
+        exact G.mul_natural _ _ ψ _ _ _ }
+  refine ⟨H, B, ?_, ?_, ?_, ?_, ?_⟩
+  · intro hG W t P Q
+    apply (B W t).injective
+    change B W t ((B W t).symm _) = B W t ((B W t).symm _)
+    simp only [Equiv.apply_symm_apply]
+    exact hG _ _ _
+  · intro W t P
+    rfl
+  · intro W t P Q
+    exact (B W t).apply_symm_apply _
+  · intro W t
+    exact (B W t).apply_symm_apply _
+  · intro W t P
+    exact (B W t).apply_symm_apply _
+
+end Submission
