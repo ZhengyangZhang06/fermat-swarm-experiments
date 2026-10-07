@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-10-07T23:50:54.772631+00:00",
+  "observed_at": "2026-10-07T23:51:29.887715+00:00",
   "phase": "proving",
   "readiness_passed": 128,
   "running_resolvers": 128,
@@ -35,7 +35,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p01/root.gamma0_finite_dimensional-a1",
@@ -59,7 +66,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p01/root.gamma0_finite_dimensional-a1.coeff_vanishing_iff_decay-a1",
@@ -79,7 +93,20 @@
           "publication_pending": false,
           "worker_node": "hoa39",
           "observed_running": true,
-          "activity_reason": "worker hoa39"
+          "activity_reason": "worker hoa39",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 5
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p01/root.gamma0_finite_dimensional-a1.coset_norm_bound-a1",
@@ -99,7 +126,20 @@
           "publication_pending": false,
           "worker_node": "hoa81",
           "observed_running": true,
-          "activity_reason": "worker hoa81"
+          "activity_reason": "worker hoa81",
+          "saved_status": "rlcr-lean",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": {
+              "queued": 0,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 9
+            },
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p01/root.gamma0_finite_dimensional-a1.gamma0_sturm_vanishing-a1",
@@ -122,7 +162,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "decomposing",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p01/root.good_hecke_commute-a1",
@@ -142,7 +189,20 @@
           "publication_pending": false,
           "worker_node": "hoa114",
           "observed_running": true,
-          "activity_reason": "worker hoa114"
+          "activity_reason": "worker hoa114",
+          "saved_status": "rlcr-lean",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": {
+              "queued": 0,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 7
+            },
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p01/root.petersson_core_good_hecke-a1",
@@ -166,7 +226,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p01/root.petersson_core_good_hecke-a1.effective_domain-a1",
@@ -189,7 +256,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p01/root.petersson_core_good_hecke-a1.effective_domain-a1.ae_orbit_interior-a1",
@@ -212,7 +286,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p01/root.petersson_core_good_hecke-a1.effective_domain-a1.ae_orbit_interior-a1.measurable_null_orbit_avoidance-a1",
@@ -232,7 +313,20 @@
           "publication_pending": false,
           "worker_node": "hoa98",
           "observed_running": true,
-          "activity_reason": "worker hoa98"
+          "activity_reason": "worker hoa98",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p01/root.petersson_core_good_hecke-a1.effective_domain-a1.ae_orbit_interior-a1.standard_boundary_null-a1",
@@ -252,7 +346,20 @@
           "publication_pending": false,
           "worker_node": "hoa34",
           "observed_running": true,
-          "activity_reason": "worker hoa34"
+          "activity_reason": "worker hoa34",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p01/root.petersson_core_good_hecke-a1.effective_domain-a1.transversal_unique_mod_sign-a1",
@@ -272,7 +379,20 @@
           "publication_pending": false,
           "worker_node": "hoa44",
           "observed_running": true,
-          "activity_reason": "worker hoa44"
+          "activity_reason": "worker hoa44",
+          "saved_status": "rlcr-lean",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 2
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p01/root.petersson_core_good_hecke-a1.hecke_integral_adjointness-a1",
@@ -294,7 +414,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "decomposing",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p01/root.petersson_core_good_hecke-a1.petersson_integral_core-a1",
@@ -316,7 +443,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "decomposing",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         }
       ],
       "graph_ok": true,
@@ -351,7 +485,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.equivariant_primitive_vanishing-a1",
@@ -374,7 +515,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "decomposing",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.primitive_exists-a1",
@@ -398,7 +546,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.primitive_exists-a1.constant_defect-a1",
@@ -421,7 +576,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.primitive_exists-a1.constant_defect-a1.linear_coeff_derivative-a1",
@@ -444,7 +606,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.primitive_exists-a1.constant_defect-a1.linear_coeff_derivative-a1.binary_form_monomial_expansion-a1",
@@ -464,7 +633,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "proved",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.primitive_exists-a1.constant_defect-a1.linear_coeff_derivative-a1.linear_map_coefficient_expansion-a1",
@@ -486,7 +662,20 @@
           "publication_pending": false,
           "worker_node": "hoa59",
           "observed_running": true,
-          "activity_reason": "worker hoa59"
+          "activity_reason": "worker hoa59",
+          "saved_status": "rlcr-lean",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 0
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.primitive_exists-a1.constant_defect-a1.modular_pullback_derivative-a1",
@@ -506,7 +695,20 @@
           "publication_pending": false,
           "worker_node": "hoa116",
           "observed_running": true,
-          "activity_reason": "worker hoa116"
+          "activity_reason": "worker hoa116",
+          "saved_status": "integrating",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 8
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.primitive_exists-a1.holomorphic_integral-a1",
@@ -528,7 +730,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "decomposing",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.primitive_exists-a1.scalar_primitive-a1",
@@ -551,7 +760,20 @@
           "publication_pending": false,
           "worker_node": "hoa61",
           "observed_running": true,
-          "activity_reason": "worker hoa61"
+          "activity_reason": "worker hoa61",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 2,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 0
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.primitive_exists-a1.scalar_primitive-a1.cayley_derivatives-a1",
@@ -571,7 +793,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "proved",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.primitive_exists-a1.scalar_primitive-a1.cayley_equivalence-a1",
@@ -591,7 +820,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "proved",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.primitive_parabolic-a1",
@@ -615,7 +851,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.primitive_parabolic-a1.integral_parabolic_normal_form-a1",
@@ -638,7 +881,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.primitive_parabolic-a1.integral_parabolic_normal_form-a1.primitive_eigenvector_triangular-a1",
@@ -658,7 +908,20 @@
           "publication_pending": false,
           "worker_node": "hoa54",
           "observed_running": true,
-          "activity_reason": "worker hoa54"
+          "activity_reason": "worker hoa54",
+          "saved_status": "integrating",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": {
+              "queued": 0,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 6
+            },
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.primitive_parabolic-a1.integral_parabolic_normal_form-a1.primitive_kernel-a1",
@@ -678,7 +941,20 @@
           "publication_pending": false,
           "worker_node": "hoa66",
           "observed_running": true,
-          "activity_reason": "worker hoa66"
+          "activity_reason": "worker hoa66",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.primitive_parabolic-a1.primitive_cusp_limit-a1",
@@ -703,7 +979,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.primitive_parabolic-a1.primitive_cusp_limit-a1.pcl_linear_linepow_growth-a1",
@@ -723,7 +1006,20 @@
           "publication_pending": false,
           "worker_node": "hoa67",
           "observed_running": true,
-          "activity_reason": "worker hoa67"
+          "activity_reason": "worker hoa67",
+          "saved_status": "rlcr-lean",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 0
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.primitive_parabolic-a1.primitive_cusp_limit-a1.pcl_scalar_common_ray_limit-a1",
@@ -746,7 +1042,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.primitive_parabolic-a1.primitive_cusp_limit-a1.pcl_scalar_common_ray_limit-a1.crl_horizontal_difference_limit-a1",
@@ -766,7 +1069,20 @@
           "publication_pending": false,
           "worker_node": "hoa121",
           "observed_running": true,
-          "activity_reason": "worker hoa121"
+          "activity_reason": "worker hoa121",
+          "saved_status": "rlcr-lean",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 0
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.primitive_parabolic-a1.primitive_cusp_limit-a1.pcl_scalar_common_ray_limit-a1.crl_imaginary_ray_limit-a1",
@@ -786,7 +1102,20 @@
           "publication_pending": false,
           "worker_node": "hoa69",
           "observed_running": true,
-          "activity_reason": "worker hoa69"
+          "activity_reason": "worker hoa69",
+          "saved_status": "rlcr-lean",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 0
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.primitive_parabolic-a1.primitive_cusp_limit-a1.pcl_scaled_pullback_derivative-a1",
@@ -806,7 +1135,20 @@
           "publication_pending": false,
           "worker_node": "hoa92",
           "observed_running": true,
-          "activity_reason": "worker hoa92"
+          "activity_reason": "worker hoa92",
+          "saved_status": "rlcr-lean",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 0
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.primitive_parabolic-a1.scaled_cusp_decay-a1",
@@ -826,7 +1168,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "proved",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.scalarization_derivative-a1",
@@ -849,7 +1198,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.scalarization_derivative-a1.jet_recurrence-a1",
@@ -873,7 +1229,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.scalarization_derivative-a1.jet_recurrence-a1.homogeneous_nilpotence-a1",
@@ -893,7 +1256,20 @@
           "publication_pending": false,
           "worker_node": "hoa15",
           "observed_running": true,
-          "activity_reason": "worker hoa15"
+          "activity_reason": "worker hoa15",
+          "saved_status": "lean-review",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 2
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.scalarization_derivative-a1.jet_recurrence-a1.linepow_jet_evaluation-a1",
@@ -913,7 +1289,20 @@
           "publication_pending": false,
           "worker_node": "hoa27",
           "observed_running": true,
-          "activity_reason": "worker hoa27"
+          "activity_reason": "worker hoa27",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.scalarization_derivative-a1.jet_recurrence-a1.moving_eval_derivative-a1",
@@ -935,7 +1324,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "decomposing",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.scalarization_derivative-a1.open_derivative_ladder-a1",
@@ -955,7 +1351,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "proved",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.scalarization_modular-a1",
@@ -981,7 +1384,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.scalarization_modular-a1.all_cusps-a1",
@@ -1005,7 +1415,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "decomposing",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.scalarization_modular-a1.holomorphic_scalarization-a1",
@@ -1025,7 +1442,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "proved",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.scalarization_modular-a1.integral_covariance-a1",
@@ -1048,7 +1472,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.scalarization_modular-a1.integral_covariance-a1.inverse_linepow_transport-a1",
@@ -1068,7 +1499,20 @@
           "publication_pending": false,
           "worker_node": "hoa75",
           "observed_running": true,
-          "activity_reason": "worker hoa75"
+          "activity_reason": "worker hoa75",
+          "saved_status": "lean-review",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 2
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.scalarization_modular-a1.integral_covariance-a1.linear_mobius_derivative-a1",
@@ -1091,7 +1535,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.scalarization_modular-a1.integral_covariance-a1.linear_mobius_derivative-a1.linear_coefficient_transport-a1",
@@ -1114,7 +1565,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.scalarization_modular-a1.integral_covariance-a1.linear_mobius_derivative-a1.linear_coefficient_transport-a1.lct_coefficient_expansion-a1",
@@ -1136,7 +1594,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "decomposing",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.scalarization_modular-a1.integral_covariance-a1.linear_mobius_derivative-a1.linear_coefficient_transport-a1.lct_monomial_expansion-a1",
@@ -1156,7 +1621,20 @@
           "publication_pending": false,
           "worker_node": "hoa43",
           "observed_running": true,
-          "activity_reason": "worker hoa43"
+          "activity_reason": "worker hoa43",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.scalarization_modular-a1.integral_covariance-a1.linear_mobius_derivative-a1.scalar_mobius_pullback-a1",
@@ -1176,7 +1654,20 @@
           "publication_pending": false,
           "worker_node": "hoa51",
           "observed_running": true,
-          "activity_reason": "worker hoa51"
+          "activity_reason": "worker hoa51",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.scalarization_modular-a1.scalar_slash_covariance-a1",
@@ -1196,7 +1687,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "proved",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.scalarization_modular-a1.translation_bound-a1",
@@ -1221,7 +1719,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.scalarization_modular-a1.translation_bound-a1.homogeneous_evaluation_bound-a1",
@@ -1241,7 +1746,20 @@
           "publication_pending": false,
           "worker_node": "hoa22",
           "observed_running": true,
-          "activity_reason": "worker hoa22"
+          "activity_reason": "worker hoa22",
+          "saved_status": "lean-review",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 2
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.scalarization_modular-a1.translation_bound-a1.periodic_strip_bound-a1",
@@ -1261,7 +1779,20 @@
           "publication_pending": false,
           "worker_node": "hoa20",
           "observed_running": true,
-          "activity_reason": "worker hoa20"
+          "activity_reason": "worker hoa20",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.scalarization_modular-a1.translation_bound-a1.strip_coefficient_limit-a1",
@@ -1285,7 +1816,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.scalarization_modular-a1.translation_bound-a1.strip_coefficient_limit-a1.linepow_coefficient_bound-a1",
@@ -1305,7 +1843,20 @@
           "publication_pending": false,
           "worker_node": "hoa90",
           "observed_running": true,
-          "activity_reason": "worker hoa90"
+          "activity_reason": "worker hoa90",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.scalarization_modular-a1.translation_bound-a1.strip_coefficient_limit-a1.polynomial_exponential_tail-a1",
@@ -1325,7 +1876,20 @@
           "publication_pending": false,
           "worker_node": "hoa33",
           "observed_running": true,
-          "activity_reason": "worker hoa33"
+          "activity_reason": "worker hoa33",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.scalarization_modular-a1.translation_bound-a1.strip_coefficient_limit-a1.scalar_strip_limit-a1",
@@ -1347,7 +1911,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "decomposing",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.scalarization_modular-a1.translation_bound-a1.translation_fixed_form-a1",
@@ -1370,7 +1941,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.scalarization_modular-a1.translation_bound-a1.translation_fixed_form-a1.constant_dehomogenization-a1",
@@ -1390,7 +1968,20 @@
           "publication_pending": false,
           "worker_node": "hoa79",
           "observed_running": true,
-          "activity_reason": "worker hoa79"
+          "activity_reason": "worker hoa79",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p02/root.scalarization_modular-a1.translation_bound-a1.translation_fixed_form-a1.periodic_polynomial_constant-a1",
@@ -1410,7 +2001,20 @@
           "publication_pending": false,
           "worker_node": "hoa101",
           "observed_running": true,
-          "activity_reason": "worker hoa101"
+          "activity_reason": "worker hoa101",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         }
       ],
       "graph_ok": true,
@@ -1439,7 +2043,14 @@
           "publication_pending": false,
           "worker_node": "hoa45",
           "observed_running": true,
-          "activity_reason": "worker hoa45"
+          "activity_reason": "worker hoa45",
+          "saved_status": "natural-proof",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         }
       ],
       "graph_ok": true,
@@ -1471,7 +2082,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p04/root.prime_avoiding_annihilators-a1",
@@ -1491,7 +2109,20 @@
           "publication_pending": false,
           "worker_node": "hoa83",
           "observed_running": true,
-          "activity_reason": "worker hoa83"
+          "activity_reason": "worker hoa83",
+          "saved_status": "rlcr-lean",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 8
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p04/root.tate_index_annihilation-a1",
@@ -1516,7 +2147,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p04/root.tate_index_annihilation-a1.cohomology_transfer-a1",
@@ -1539,7 +2177,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p04/root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1",
@@ -1562,7 +2207,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p04/root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1.hom_coset_average_exists-a1",
@@ -1585,7 +2237,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p04/root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1.hom_coset_average_exists-a1.coset_sum_equivariance-a1",
@@ -1607,7 +2266,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "decomposing",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p04/root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1.hom_coset_average_exists-a1.coset_summand_independence-a1",
@@ -1627,7 +2293,20 @@
           "publication_pending": false,
           "worker_node": "hoa110",
           "observed_running": true,
-          "activity_reason": "worker hoa110"
+          "activity_reason": "worker hoa110",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "verification-running",
+            "counts": {
+              "queued": 0,
+              "running": 1,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p04/root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1.hom_coset_average_laws-a1",
@@ -1647,7 +2326,20 @@
           "publication_pending": false,
           "worker_node": "hoa5",
           "observed_running": true,
-          "activity_reason": "worker hoa5"
+          "activity_reason": "worker hoa5",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p04/root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1",
@@ -1670,7 +2362,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p04/root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1",
@@ -1693,7 +2392,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p04/root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1.equivariant_prism_components-a1",
@@ -1713,7 +2419,20 @@
           "publication_pending": false,
           "worker_node": "hoa49",
           "observed_running": true,
-          "activity_reason": "worker hoa49"
+          "activity_reason": "worker hoa49",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p04/root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1.prism_boundary_identity-a1",
@@ -1736,7 +2455,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p04/root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1.prism_boundary_identity-a1.central_telescoping-a1",
@@ -1756,7 +2482,20 @@
           "publication_pending": false,
           "worker_node": "hoa117",
           "observed_running": true,
-          "activity_reason": "worker hoa117"
+          "activity_reason": "worker hoa117",
+          "saved_status": "rlcr-lean",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 0
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p04/root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1.prism_boundary_identity-a1.noncentral_cancellation-a1",
@@ -1776,7 +2515,20 @@
           "publication_pending": false,
           "worker_node": "hoa100",
           "observed_running": true,
-          "activity_reason": "worker hoa100"
+          "activity_reason": "worker hoa100",
+          "saved_status": "rlcr-lean",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 0
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p04/root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.normalized_equivariant_retraction-a1",
@@ -1796,7 +2548,20 @@
           "publication_pending": false,
           "worker_node": "hoa47",
           "observed_running": true,
-          "activity_reason": "worker hoa47"
+          "activity_reason": "worker hoa47",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p04/root.tate_index_annihilation-a1.homology_transfer-a1",
@@ -1819,7 +2584,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p04/root.tate_index_annihilation-a1.homology_transfer-a1.coinvariant_complex_transfer-a1",
@@ -1839,7 +2611,20 @@
           "publication_pending": false,
           "worker_node": "hoa71",
           "observed_running": true,
-          "activity_reason": "worker hoa71"
+          "activity_reason": "worker hoa71",
+          "saved_status": "rlcr-lean",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 2
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p04/root.tate_index_annihilation-a1.homology_transfer-a1.restricted_standard_comparison-a1",
@@ -1859,7 +2644,20 @@
           "publication_pending": false,
           "worker_node": "hoa21",
           "observed_running": true,
-          "activity_reason": "worker hoa21"
+          "activity_reason": "worker hoa21",
+          "saved_status": "rlcr-lean",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 2
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p04/root.tate_index_annihilation-a1.tate_neg_one_transfer-a1",
@@ -1879,7 +2677,20 @@
           "publication_pending": false,
           "worker_node": "hoa87",
           "observed_running": true,
-          "activity_reason": "worker hoa87"
+          "activity_reason": "worker hoa87",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p04/root.tate_index_annihilation-a1.tate_zero_transfer-a1",
@@ -1902,7 +2713,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p04/root.tate_index_annihilation-a1.tate_zero_transfer-a1.invariant_restriction_norm_range-a1",
@@ -1922,7 +2740,20 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": {
+              "queued": 0,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 2
+            },
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p04/root.tate_index_annihilation-a1.tate_zero_transfer-a1.invariant_transfer_norm_index-a1",
@@ -1942,7 +2773,20 @@
           "publication_pending": false,
           "worker_node": "hoa68",
           "observed_running": true,
-          "activity_reason": "worker hoa68"
+          "activity_reason": "worker hoa68",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 2,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 2
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         }
       ],
       "graph_ok": true,
@@ -1971,7 +2815,14 @@
           "publication_pending": false,
           "worker_node": "hoa76",
           "observed_running": true,
-          "activity_reason": "worker hoa76"
+          "activity_reason": "worker hoa76",
+          "saved_status": "natural-proof",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         }
       ],
       "graph_ok": true,
@@ -2004,7 +2855,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.finite_order_support_ascent-a1",
@@ -2027,7 +2885,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.finite_order_support_ascent-a1.order_zero_from_monic_pair-a1",
@@ -2047,7 +2912,20 @@
           "publication_pending": false,
           "worker_node": "hoa32",
           "observed_running": true,
-          "activity_reason": "worker hoa32"
+          "activity_reason": "worker hoa32",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.finite_order_support_ascent-a1.polynomial_coefficients_integral_off_fa-a1",
@@ -2067,7 +2945,20 @@
           "publication_pending": false,
           "worker_node": "hoa82",
           "observed_running": true,
-          "activity_reason": "worker hoa82"
+          "activity_reason": "worker hoa82",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.local_norm_order-a1",
@@ -2091,7 +2982,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.local_norm_order-a1.dvr_determinant_length-a1",
@@ -2115,7 +3013,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.local_norm_order-a1.dvr_determinant_length-a1.diagonal_matrix_cokernel-a1",
@@ -2138,7 +3043,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.local_norm_order-a1.dvr_determinant_length-a1.diagonal_matrix_cokernel-a1.cokernel_invariant_under_units-a1",
@@ -2158,7 +3070,20 @@
           "publication_pending": false,
           "worker_node": "hoa120",
           "observed_running": true,
-          "activity_reason": "worker hoa120"
+          "activity_reason": "worker hoa120",
+          "saved_status": "rlcr-lean",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 2
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.local_norm_order-a1.dvr_determinant_length-a1.diagonal_matrix_cokernel-a1.diagonal_cokernel_product-a1",
@@ -2178,7 +3103,20 @@
           "publication_pending": false,
           "worker_node": "hoa125",
           "observed_running": true,
-          "activity_reason": "worker hoa125"
+          "activity_reason": "worker hoa125",
+          "saved_status": "rlcr-lean",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 2
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1",
@@ -2201,7 +3139,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1.finite_family_dividing_member-a1",
@@ -2221,7 +3166,20 @@
           "publication_pending": false,
           "worker_node": "hoa26",
           "observed_running": true,
-          "activity_reason": "worker hoa26"
+          "activity_reason": "worker hoa26",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 2,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 2
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1.split_divisible_pivot-a1",
@@ -2244,7 +3202,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1.split_divisible_pivot-a1.clear_first_column-a1",
@@ -2264,7 +3229,20 @@
           "publication_pending": false,
           "worker_node": "hoa102",
           "observed_running": true,
-          "activity_reason": "worker hoa102"
+          "activity_reason": "worker hoa102",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1.split_divisible_pivot-a1.clear_first_row-a1",
@@ -2284,7 +3262,20 @@
           "publication_pending": false,
           "worker_node": "hoa62",
           "observed_running": true,
-          "activity_reason": "worker hoa62"
+          "activity_reason": "worker hoa62",
+          "saved_status": "rlcr-lean",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 2
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.local_norm_order-a1.dvr_determinant_length-a1.scalar_quotient_length_order-a1",
@@ -2304,7 +3295,20 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": {
+              "queued": 0,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 2
+            },
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.local_norm_order-a1.integral_fiber_length-a1",
@@ -2328,7 +3332,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.local_norm_order-a1.integral_fiber_length-a1.local_length_order-a1",
@@ -2348,7 +3359,20 @@
           "publication_pending": false,
           "worker_node": "hoa31",
           "observed_running": true,
-          "activity_reason": "worker hoa31"
+          "activity_reason": "worker hoa31",
+          "saved_status": "rlcr-lean",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 2
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.local_norm_order-a1.integral_fiber_length-a1.residue_length_inertia-a1",
@@ -2368,7 +3392,20 @@
           "publication_pending": false,
           "worker_node": "hoa57",
           "observed_running": true,
-          "activity_reason": "worker hoa57"
+          "activity_reason": "worker hoa57",
+          "saved_status": "rlcr-lean",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": {
+              "queued": 0,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 9
+            },
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.local_norm_order-a1.integral_fiber_length-a1.weighted_local_lengths-a1",
@@ -2392,7 +3429,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.local_norm_order-a1.integral_fiber_length-a1.weighted_local_lengths-a1.length_sum_factors-a1",
@@ -2412,7 +3456,20 @@
           "publication_pending": false,
           "worker_node": "hoa1",
           "observed_running": true,
-          "activity_reason": "worker hoa1"
+          "activity_reason": "worker hoa1",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "verification-running",
+            "counts": {
+              "queued": 0,
+              "running": 1,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.local_norm_order-a1.integral_fiber_length-a1.weighted_local_lengths-a1.local_length_multiplicity-a1",
@@ -2435,7 +3492,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.local_norm_order-a1.integral_fiber_length-a1.weighted_local_lengths-a1.local_length_multiplicity-a1.localized_residue_factors-a1",
@@ -2455,7 +3519,20 @@
           "publication_pending": false,
           "worker_node": "hoa7",
           "observed_running": true,
-          "activity_reason": "worker hoa7"
+          "activity_reason": "worker hoa7",
+          "saved_status": "rlcr-lean",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": {
+              "queued": 0,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 2
+            },
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.local_norm_order-a1.integral_fiber_length-a1.weighted_local_lengths-a1.local_length_multiplicity-a1.localized_series_sum-a1",
@@ -2475,7 +3552,20 @@
           "publication_pending": false,
           "worker_node": "hoa104",
           "observed_running": true,
-          "activity_reason": "worker hoa104"
+          "activity_reason": "worker hoa104",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.local_norm_order-a1.integral_fiber_length-a1.weighted_local_lengths-a1.residue_composition_series-a1",
@@ -2495,7 +3585,20 @@
           "publication_pending": false,
           "worker_node": "hoa37",
           "observed_running": true,
-          "activity_reason": "worker hoa37"
+          "activity_reason": "worker hoa37",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.local_norm_order-a1.integral_norm_length-a1",
@@ -2517,7 +3620,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "decomposing",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.rational_adjoin_principal-a1",
@@ -2540,7 +3650,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.rational_adjoin_principal-a1.principal_alg_equiv-a1",
@@ -2563,7 +3680,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.rational_adjoin_principal-a1.principal_alg_equiv-a1.compatible_order_invariance-a1",
@@ -2583,7 +3707,20 @@
           "publication_pending": false,
           "worker_node": "hoa63",
           "observed_running": true,
-          "activity_reason": "worker hoa63"
+          "activity_reason": "worker hoa63",
+          "saved_status": "rlcr-lean",
+          "verification_activity": {
+            "state": "verification-running",
+            "counts": {
+              "queued": 0,
+              "running": 1,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 7
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.rational_adjoin_principal-a1.principal_alg_equiv-a1.place_equivalence_degree-a1",
@@ -2603,7 +3740,20 @@
           "publication_pending": false,
           "worker_node": "hoa60",
           "observed_running": true,
-          "activity_reason": "worker hoa60"
+          "activity_reason": "worker hoa60",
+          "saved_status": "rlcr-lean",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": {
+              "queued": 0,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 8
+            },
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.rational_adjoin_principal-a1.rational_model_principal-a1",
@@ -2627,7 +3777,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_classification-a1",
@@ -2647,7 +3804,20 @@
           "publication_pending": false,
           "worker_node": "hoa111",
           "observed_running": true,
-          "activity_reason": "worker hoa111"
+          "activity_reason": "worker hoa111",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 7
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1",
@@ -2671,7 +3841,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1",
@@ -2695,7 +3872,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1.fraction_subalgebra-a1",
@@ -2715,7 +3899,20 @@
           "publication_pending": false,
           "worker_node": "hoa9",
           "observed_running": true,
-          "activity_reason": "worker hoa9"
+          "activity_reason": "worker hoa9",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1.integer_order-a1",
@@ -2738,7 +3935,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1.integer_order-a1.fraction_extension-a1",
@@ -2758,7 +3962,20 @@
           "publication_pending": false,
           "worker_node": "hoa56",
           "observed_running": true,
-          "activity_reason": "worker hoa56"
+          "activity_reason": "worker hoa56",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1.integer_order-a1.polynomial_exponent-a1",
@@ -2778,7 +3995,20 @@
           "publication_pending": false,
           "worker_node": "hoa70",
           "observed_running": true,
-          "activity_reason": "worker hoa70"
+          "activity_reason": "worker hoa70",
+          "saved_status": "rlcr-lean",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 2
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1.principal_ideals_from_integer_order-a1",
@@ -2798,7 +4028,20 @@
           "publication_pending": false,
           "worker_node": "hoa91",
           "observed_running": true,
-          "activity_reason": "worker hoa91"
+          "activity_reason": "worker hoa91",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.normalized_orders-a1",
@@ -2821,7 +4064,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.normalized_orders-a1.fraction_unit_criterion-a1",
@@ -2841,7 +4091,20 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.normalized_orders-a1.irreducible_evaluation-a1",
@@ -2863,7 +4126,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "decomposing",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.residue_degree-a1",
@@ -2886,7 +4156,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.residue_degree-a1.residue_evaluation_kernel-a1",
@@ -2906,7 +4183,20 @@
           "publication_pending": false,
           "worker_node": "hoa86",
           "observed_running": true,
-          "activity_reason": "worker hoa86"
+          "activity_reason": "worker hoa86",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.residue_degree-a1.residue_evaluation_surjective-a1",
@@ -2926,7 +4216,20 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": {
+              "queued": 0,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 2
+            },
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p06/root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1",
@@ -2948,7 +4251,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "decomposing",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         }
       ],
       "graph_ok": true,
@@ -2981,7 +4291,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p07/root.curve_ring_equiv-a1",
@@ -3005,7 +4322,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p07/root.curve_ring_equiv-a1.abelian_surface_rebase-a1",
@@ -3027,7 +4351,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "decomposing",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p07/root.curve_ring_equiv-a1.finite_flat_rank_rebase-a1",
@@ -3047,7 +4378,20 @@
           "publication_pending": false,
           "worker_node": "hoa4",
           "observed_running": true,
-          "activity_reason": "worker hoa4"
+          "activity_reason": "worker hoa4",
+          "saved_status": "rlcr-lean",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": {
+              "queued": 0,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 7
+            },
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p07/root.curve_ring_equiv-a1.group_law_rebase-a1",
@@ -3067,7 +4411,20 @@
           "publication_pending": false,
           "worker_node": "hoa72",
           "observed_running": true,
-          "activity_reason": "worker hoa72"
+          "activity_reason": "worker hoa72",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 9
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p07/root.full_level_quotient-a1",
@@ -3090,7 +4447,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p07/root.full_level_quotient-a1.curve_quotient-a1",
@@ -3114,7 +4478,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p07/root.full_level_quotient-a1.curve_quotient-a1.abelian_surface_quotient-a1",
@@ -3136,7 +4507,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "decomposing",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p07/root.full_level_quotient-a1.curve_quotient-a1.group_law_pullback-a1",
@@ -3156,7 +4534,20 @@
           "publication_pending": false,
           "worker_node": "hoa58",
           "observed_running": true,
-          "activity_reason": "worker hoa58"
+          "activity_reason": "worker hoa58",
+          "saved_status": "rlcr-lean",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": {
+              "queued": 0,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 7
+            },
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p07/root.full_level_quotient-a1.curve_quotient-a1.level_geometry_pullback-a1",
@@ -3176,7 +4567,20 @@
           "publication_pending": false,
           "worker_node": "hoa77",
           "observed_running": true,
-          "activity_reason": "worker hoa77"
+          "activity_reason": "worker hoa77",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "verification-running",
+            "counts": {
+              "queued": 0,
+              "running": 1,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 7
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p07/root.full_level_quotient-a1.full_level_pullback-a1",
@@ -3199,7 +4603,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "waiting-children",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p07/root.full_level_quotient-a1.full_level_pullback-a1.nsmul_precomposition-a1",
@@ -3219,7 +4630,20 @@
           "publication_pending": false,
           "worker_node": "hoa14",
           "observed_running": true,
-          "activity_reason": "worker hoa14"
+          "activity_reason": "worker hoa14",
+          "saved_status": "rlcr-lean",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 1,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 2
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p07/root.full_level_quotient-a1.full_level_pullback-a1.pullback_point_equivalence-a1",
@@ -3239,7 +4663,20 @@
           "publication_pending": false,
           "worker_node": "hoa106",
           "observed_running": true,
-          "activity_reason": "worker hoa106"
+          "activity_reason": "worker hoa106",
+          "saved_status": "comparing",
+          "verification_activity": {
+            "state": "waiting-verification",
+            "counts": {
+              "queued": 2,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 2
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791417089.872886
+          }
         },
         {
           "id": "fermat-p07/root.rigidification_reduction-a1",
@@ -3261,7 +4698,14 @@
           "publication_pending": false,
           "worker_node": "",
           "observed_running": false,
-          "activity_reason": "no active worker observed"
+          "activity_reason": "no active worker observed",
+          "saved_status": "decomposing",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         }
       ],
       "graph_ok": true,
@@ -3290,7 +4734,14 @@
           "publication_pending": false,
           "worker_node": "hoa52",
           "observed_running": true,
-          "activity_reason": "worker hoa52"
+          "activity_reason": "worker hoa52",
+          "saved_status": "natural-proof",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         }
       ],
       "graph_ok": true,
@@ -3319,7 +4770,20 @@
           "publication_pending": false,
           "worker_node": "hoa25",
           "observed_running": true,
-          "activity_reason": "worker hoa25"
+          "activity_reason": "worker hoa25",
+          "saved_status": "natural-proof",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": {
+              "queued": 0,
+              "running": 0,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 1
+            },
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         }
       ],
       "graph_ok": true,
@@ -3348,7 +4812,14 @@
           "publication_pending": false,
           "worker_node": "hoa65",
           "observed_running": true,
-          "activity_reason": "worker hoa65"
+          "activity_reason": "worker hoa65",
+          "saved_status": "decomposing",
+          "verification_activity": {
+            "state": "no-active-check",
+            "counts": null,
+            "pending_revisions": 0,
+            "observed_at": 1791417089.872886
+          }
         }
       ],
       "graph_ok": true,
@@ -3360,899 +4831,911 @@
     {
       "node": "hoa0",
       "phase": "idle",
-      "polls": 1982,
+      "polls": 2194,
       "issue": null,
-      "observed_at": 1791417044.1919093
+      "observed_at": 1791417081.9643748
     },
     {
       "node": "hoa1",
       "phase": "working",
       "polls": 78,
       "issue": 130,
-      "observed_at": 1791417036.3436368
+      "observed_at": 1791417081.3673677
     },
     {
       "node": "hoa2",
       "phase": "idle",
-      "polls": 74,
+      "polls": 77,
       "issue": null,
-      "observed_at": 1791417036.6357656
+      "observed_at": 1791417081.6576447
     },
     {
       "node": "hoa3",
       "phase": "idle",
-      "polls": 1981,
+      "polls": 1984,
       "issue": null,
-      "observed_at": 1791417044.1921628
+      "observed_at": 1791417074.4050605
     },
     {
       "node": "hoa4",
       "phase": "working",
       "polls": 68,
       "issue": 62,
-      "observed_at": 1791417033.8130634
+      "observed_at": 1791417078.8681524
     },
     {
       "node": "hoa5",
       "phase": "working",
       "polls": 166,
       "issue": 151,
-      "observed_at": 1791417044.1299007
+      "observed_at": 1791417074.2059968
     },
     {
       "node": "hoa6",
       "phase": "idle",
-      "polls": 1978,
+      "polls": 1980,
       "issue": null,
-      "observed_at": 1791417044.122904
+      "observed_at": 1791417074.1403685
     },
     {
       "node": "hoa7",
       "phase": "working",
       "polls": 142,
       "issue": 146,
-      "observed_at": 1791417044.131065
+      "observed_at": 1791417074.2180736
     },
     {
       "node": "hoa8",
       "phase": "idle",
-      "polls": 1935,
+      "polls": 1937,
       "issue": null,
-      "observed_at": 1791417044.1271574
+      "observed_at": 1791417074.1749742
     },
     {
       "node": "hoa9",
       "phase": "working",
       "polls": 76,
       "issue": 123,
-      "observed_at": 1791417041.1172273
+      "observed_at": 1791417071.1582773
     },
     {
       "node": "hoa10",
       "phase": "idle",
-      "polls": 1978,
+      "polls": 1980,
       "issue": null,
-      "observed_at": 1791417046.8048592
+      "observed_at": 1791417076.8498983
     },
     {
       "node": "hoa11",
       "phase": "idle",
-      "polls": 2179,
+      "polls": 1885,
       "issue": null,
-      "observed_at": 1791417037.321096
+      "observed_at": 1791417081.434006
     },
     {
       "node": "hoa12",
       "phase": "idle",
-      "polls": 1897,
+      "polls": 1900,
       "issue": null,
-      "observed_at": 1791417044.1652157
+      "observed_at": 1791417074.3582566
     },
     {
       "node": "hoa13",
       "phase": "idle",
-      "polls": 1975,
+      "polls": 1977,
       "issue": null,
-      "observed_at": 1791417041.0879135
+      "observed_at": 1791417071.1226573
     },
     {
       "node": "hoa14",
       "phase": "working",
       "polls": 4,
       "issue": 90,
-      "observed_at": 1791417041.0761743
+      "observed_at": 1791417071.0953662
     },
     {
       "node": "hoa15",
       "phase": "working",
       "polls": 4,
       "issue": 83,
-      "observed_at": 1791417036.3969018
+      "observed_at": 1791417081.4253411
     },
     {
       "node": "hoa16",
       "phase": "idle",
-      "polls": 1973,
+      "polls": 2192,
       "issue": null,
-      "observed_at": 1791417044.461721
+      "observed_at": 1791417081.9148395
     },
     {
       "node": "hoa17",
       "phase": "idle",
-      "polls": 1974,
+      "polls": 1977,
       "issue": null,
-      "observed_at": 1791417044.4559007
+      "observed_at": 1791417074.5150368
     },
     {
       "node": "hoa18",
       "phase": "idle",
-      "polls": 2194,
+      "polls": 1985,
       "issue": null,
-      "observed_at": 1791417037.0554833
+      "observed_at": 1791417081.593505
     },
     {
       "node": "hoa19",
       "phase": "idle",
-      "polls": 2107,
+      "polls": 1859,
       "issue": null,
-      "observed_at": 1791417041.4215808
+      "observed_at": 1791417081.1400638
     },
     {
       "node": "hoa20",
       "phase": "working",
       "polls": 10,
       "issue": 109,
-      "observed_at": 1791417044.1689005
+      "observed_at": 1791417074.3790033
     },
     {
       "node": "hoa21",
       "phase": "working",
       "polls": 90,
       "issue": 137,
-      "observed_at": 1791417036.2944822
+      "observed_at": 1791417081.3185132
     },
     {
       "node": "hoa22",
       "phase": "working",
       "polls": 9,
       "issue": 107,
-      "observed_at": 1791417044.128939
+      "observed_at": 1791417074.1899147
     },
     {
       "node": "hoa23",
       "phase": "idle",
-      "polls": 2184,
+      "polls": 2188,
       "issue": null,
-      "observed_at": 1791417036.894245
+      "observed_at": 1791417081.9537551
     },
     {
       "node": "hoa24",
       "phase": "idle",
-      "polls": 2188,
+      "polls": 1985,
       "issue": null,
-      "observed_at": 1791417037.3683038
+      "observed_at": 1791417081.200769
     },
     {
       "node": "hoa25",
       "phase": "working",
       "polls": 100,
       "issue": 9,
-      "observed_at": 1791417041.5663426
+      "observed_at": 1791417071.5798237
     },
     {
       "node": "hoa26",
       "phase": "working",
       "polls": 82,
       "issue": 132,
-      "observed_at": 1791417044.4586418
+      "observed_at": 1791417074.5461733
     },
     {
       "node": "hoa27",
       "phase": "working",
       "polls": 4,
       "issue": 84,
-      "observed_at": 1791417041.1704879
+      "observed_at": 1791417071.188753
     },
     {
       "node": "hoa28",
       "phase": "idle",
-      "polls": 2184,
+      "polls": 1849,
       "issue": null,
-      "observed_at": 1791417037.0000033
+      "observed_at": 1791417081.1909993
     },
     {
       "node": "hoa29",
       "phase": "idle",
-      "polls": 1967,
+      "polls": 1969,
       "issue": null,
-      "observed_at": 1791417044.1406996
+      "observed_at": 1791417074.3063834
     },
     {
       "node": "hoa30",
       "phase": "idle",
-      "polls": 1973,
+      "polls": 2193,
       "issue": null,
-      "observed_at": 1791417041.1062474
+      "observed_at": 1791417081.8979287
     },
     {
       "node": "hoa31",
       "phase": "working",
       "polls": 4,
       "issue": 87,
-      "observed_at": 1791417036.6550653
+      "observed_at": 1791417081.6782012
     },
     {
       "node": "hoa32",
       "phase": "working",
       "polls": 6,
       "issue": 101,
-      "observed_at": 1791417033.862686
+      "observed_at": 1791417078.9022763
     },
     {
       "node": "hoa33",
       "phase": "working",
       "polls": 77,
       "issue": 127,
-      "observed_at": 1791417041.0295932
+      "observed_at": 1791417071.0667062
     },
     {
       "node": "hoa34",
       "phase": "working",
       "polls": 68,
       "issue": 113,
-      "observed_at": 1791417044.1699066
+      "observed_at": 1791417074.3842375
     },
     {
       "node": "hoa35",
       "phase": "idle",
-      "polls": 1892,
+      "polls": 1894,
       "issue": null,
-      "observed_at": 1791417044.4604576
+      "observed_at": 1791417074.5831475
     },
     {
       "node": "hoa36",
       "phase": "idle",
-      "polls": 450,
+      "polls": 452,
       "issue": null,
-      "observed_at": 1791417041.514621
+      "observed_at": 1791417071.5301065
     },
     {
       "node": "hoa37",
       "phase": "working",
       "polls": 80,
       "issue": 129,
-      "observed_at": 1791417044.4618206
+      "observed_at": 1791417074.6078534
     },
     {
       "node": "hoa38",
       "phase": "idle",
-      "polls": 1965,
+      "polls": 1968,
       "issue": null,
-      "observed_at": 1791417036.6184924
+      "observed_at": 1791417081.6403844
     },
     {
       "node": "hoa39",
       "phase": "working",
       "polls": 66,
       "issue": 40,
-      "observed_at": 1791417037.0348885
+      "observed_at": 1791417068.9460273
     },
     {
       "node": "hoa40",
       "phase": "idle",
-      "polls": 1928,
+      "polls": 2200,
       "issue": null,
-      "observed_at": 1791417044.1419225
+      "observed_at": 1791417078.809202
     },
     {
       "node": "hoa41",
       "phase": "idle",
-      "polls": 2196,
+      "polls": 2198,
       "issue": null,
-      "observed_at": 1791417041.3961806
+      "observed_at": 1791417071.4140418
     },
     {
       "node": "hoa42",
       "phase": "idle",
-      "polls": 2118,
+      "polls": 1987,
       "issue": null,
-      "observed_at": 1791417039.175749
+      "observed_at": 1791417081.6692982
     },
     {
       "node": "hoa43",
       "phase": "working",
       "polls": 117,
       "issue": 140,
-      "observed_at": 1791417044.129314
+      "observed_at": 1791417074.199135
     },
     {
       "node": "hoa44",
       "phase": "working",
       "polls": 7,
       "issue": 103,
-      "observed_at": 1791417044.1239016
+      "observed_at": 1791417074.1562521
     },
     {
       "node": "hoa45",
       "phase": "working",
       "polls": 73,
       "issue": 3,
-      "observed_at": 1791417036.9824681
+      "observed_at": 1791417068.9389694
     },
     {
       "node": "hoa46",
       "phase": "idle",
-      "polls": 416,
+      "polls": 418,
       "issue": null,
-      "observed_at": 1791417044.164922
+      "observed_at": 1791417074.351646
     },
     {
       "node": "hoa47",
       "phase": "working",
       "polls": 158,
       "issue": 148,
-      "observed_at": 1791417031.7975862
+      "observed_at": 1791417076.8406093
     },
     {
       "node": "hoa48",
       "phase": "idle",
-      "polls": 444,
+      "polls": 1978,
       "issue": null,
-      "observed_at": 1791417037.2770116
+      "observed_at": 1791417081.2436597
     },
     {
       "node": "hoa49",
       "phase": "working",
       "polls": 252,
       "issue": 154,
-      "observed_at": 1791417031.8460255
+      "observed_at": 1791417076.9020445
     },
     {
       "node": "hoa50",
       "phase": "idle",
-      "polls": 2185,
+      "polls": 2188,
       "issue": null,
-      "observed_at": 1791417036.8330038
+      "observed_at": 1791417081.8654935
     },
     {
       "node": "hoa51",
       "phase": "working",
       "polls": 72,
       "issue": 116,
-      "observed_at": 1791417036.2348487
+      "observed_at": 1791417081.2596326
     },
     {
       "node": "hoa52",
       "phase": "working",
       "polls": 74,
       "issue": 8,
-      "observed_at": 1791417036.986866
+      "observed_at": 1791417068.9393077
     },
     {
       "node": "hoa53",
       "phase": "idle",
-      "polls": 2185,
+      "polls": 2188,
       "issue": null,
-      "observed_at": 1791417036.8128283
+      "observed_at": 1791417081.8386688
     },
     {
       "node": "hoa54",
       "phase": "working",
       "polls": 206,
       "issue": 82,
-      "observed_at": 1791417037.5405529
+      "observed_at": 1791417068.9855902
     },
     {
       "node": "hoa55",
       "phase": "idle",
-      "polls": 2191,
+      "polls": 2193,
       "issue": null,
-      "observed_at": 1791417048.7730322
+      "observed_at": 1791417078.8208947
     },
     {
       "node": "hoa56",
       "phase": "working",
       "polls": 137,
       "issue": 143,
-      "observed_at": 1791417036.5881765
+      "observed_at": 1791417081.625292
     },
     {
       "node": "hoa57",
       "phase": "working",
       "polls": 204,
       "issue": 77,
-      "observed_at": 1791417033.8471704
+      "observed_at": 1791417078.9085386
     },
     {
       "node": "hoa58",
       "phase": "working",
       "polls": 180,
       "issue": 78,
-      "observed_at": 1791417036.9628947
+      "observed_at": 1791417068.9370112
     },
     {
       "node": "hoa59",
       "phase": "working",
       "polls": 1874,
       "issue": 94,
-      "observed_at": 1791417031.8502803
+      "observed_at": 1791417076.9050524
     },
     {
       "node": "hoa60",
       "phase": "working",
       "polls": 68,
       "issue": 52,
-      "observed_at": 1791417037.2870123
+      "observed_at": 1791417068.948431
     },
     {
       "node": "hoa61",
       "phase": "working",
       "polls": 1601,
       "issue": 37,
-      "observed_at": 1791417044.166943
+      "observed_at": 1791417074.3640647
     },
     {
       "node": "hoa62",
       "phase": "working",
       "polls": 140,
       "issue": 145,
-      "observed_at": 1791417033.840292
+      "observed_at": 1791417078.8918986
     },
     {
       "node": "hoa63",
       "phase": "working",
       "polls": 67,
       "issue": 53,
-      "observed_at": 1791417041.4050317
+      "observed_at": 1791417071.4213114
     },
     {
       "node": "hoa64",
       "phase": "idle",
-      "polls": 2186,
+      "polls": 1895,
       "issue": null,
-      "observed_at": 1791417041.4161906
+      "observed_at": 1791417076.890372
     },
     {
       "node": "hoa65",
       "phase": "working",
       "polls": 74,
       "issue": 10,
-      "observed_at": 1791417036.858141
+      "observed_at": 1791417081.8825145
     },
     {
       "node": "hoa66",
       "phase": "working",
       "polls": 1,
       "issue": 81,
-      "observed_at": 1791417041.053492
+      "observed_at": 1791417071.068683
     },
     {
       "node": "hoa67",
       "phase": "working",
       "polls": 1814,
       "issue": 162,
-      "observed_at": 1791417036.4480753
+      "observed_at": 1791417081.4729807
     },
     {
       "node": "hoa68",
       "phase": "working",
       "polls": 87,
       "issue": 135,
-      "observed_at": 1791417044.132811
+      "observed_at": 1791417074.281839
     },
     {
       "node": "hoa69",
       "phase": "working",
       "polls": 871,
       "issue": 165,
-      "observed_at": 1791417044.1322515
+      "observed_at": 1791417074.232131
     },
     {
       "node": "hoa70",
       "phase": "working",
       "polls": 136,
       "issue": 142,
-      "observed_at": 1791417044.1678982
+      "observed_at": 1791417074.3737838
     },
     {
       "node": "hoa71",
       "phase": "working",
       "polls": 91,
       "issue": 136,
-      "observed_at": 1791417044.1324775
+      "observed_at": 1791417074.2899983
     },
     {
       "node": "hoa72",
       "phase": "working",
       "polls": 67,
       "issue": 60,
-      "observed_at": 1791417037.020058
+      "observed_at": 1791417068.9434128
     },
     {
       "node": "hoa73",
       "phase": "idle",
-      "polls": 1966,
+      "polls": 1968,
       "issue": null,
-      "observed_at": 1791417044.4565368
+      "observed_at": 1791417074.5245678
     },
     {
       "node": "hoa74",
       "phase": "idle",
-      "polls": 872,
+      "polls": 874,
       "issue": null,
-      "observed_at": 1791417044.1884356
+      "observed_at": 1791417074.3895307
     },
     {
       "node": "hoa75",
       "phase": "working",
       "polls": 6,
       "issue": 99,
-      "observed_at": 1791417044.458257
+      "observed_at": 1791417074.5342824
     },
     {
       "node": "hoa76",
       "phase": "working",
       "polls": 73,
       "issue": 5,
-      "observed_at": 1791417037.52465
+      "observed_at": 1791417068.9844537
     },
     {
       "node": "hoa77",
       "phase": "working",
       "polls": 179,
       "issue": 80,
-      "observed_at": 1791417037.2721958
+      "observed_at": 1791417068.9477603
     },
     {
       "node": "hoa78",
       "phase": "idle",
-      "polls": 2185,
+      "polls": 1981,
       "issue": null,
-      "observed_at": 1791417036.9731445
+      "observed_at": 1791417081.1741018
     },
     {
       "node": "hoa79",
       "phase": "working",
       "polls": 63,
       "issue": 112,
-      "observed_at": 1791417041.1006672
+      "observed_at": 1791417071.1342223
     },
     {
       "node": "hoa80",
       "phase": "idle",
-      "polls": 1884,
+      "polls": 1886,
       "issue": null,
-      "observed_at": 1791417041.0671208
+      "observed_at": 1791417071.087119
     },
     {
       "node": "hoa81",
       "phase": "working",
       "polls": 65,
       "issue": 41,
-      "observed_at": 1791417041.3907104
+      "observed_at": 1791417071.4078236
     },
     {
       "node": "hoa82",
       "phase": "working",
       "polls": 7,
       "issue": 100,
-      "observed_at": 1791417031.8613925
+      "observed_at": 1791417076.9205885
     },
     {
       "node": "hoa83",
       "phase": "working",
       "polls": 15,
       "issue": 22,
-      "observed_at": 1791417033.8379054
+      "observed_at": 1791417078.894013
     },
     {
       "node": "hoa84",
       "phase": "idle",
-      "polls": 2188,
+      "polls": 1983,
       "issue": null,
-      "observed_at": 1791417037.5310194
+      "observed_at": 1791417081.3472717
     },
     {
       "node": "hoa85",
       "phase": "idle",
-      "polls": 1981,
+      "polls": 2125,
       "issue": null,
-      "observed_at": 1791417044.4607651
+      "observed_at": 1791417078.8997245
     },
     {
       "node": "hoa86",
       "phase": "working",
       "polls": 72,
       "issue": 117,
-      "observed_at": 1791417036.512591
+      "observed_at": 1791417081.5492027
     },
     {
       "node": "hoa87",
       "phase": "working",
       "polls": 4,
       "issue": 93,
-      "observed_at": 1791417044.4615867
+      "observed_at": 1791417074.6127264
     },
     {
       "node": "hoa88",
       "phase": "idle",
-      "polls": 2189,
+      "polls": 1906,
       "issue": null,
-      "observed_at": 1791417039.1912932
+      "observed_at": 1791417078.9810865
     },
     {
       "node": "hoa89",
       "phase": "idle",
-      "polls": 1910,
+      "polls": 1912,
       "issue": null,
-      "observed_at": 1791417044.1259217
+      "observed_at": 1791417074.168453
     },
     {
       "node": "hoa90",
       "phase": "working",
       "polls": 8,
       "issue": 126,
-      "observed_at": 1791417041.071417
+      "observed_at": 1791417071.0908368
     },
     {
       "node": "hoa91",
       "phase": "working",
       "polls": 68,
       "issue": 125,
-      "observed_at": 1791417036.6613004
+      "observed_at": 1791417081.684123
     },
     {
       "node": "hoa92",
       "phase": "working",
       "polls": 1746,
       "issue": 161,
-      "observed_at": 1791417041.1124
+      "observed_at": 1791417071.152682
     },
     {
       "node": "hoa93",
       "phase": "idle",
-      "polls": 2131,
+      "polls": 1987,
       "issue": null,
-      "observed_at": 1791417041.5817635
+      "observed_at": 1791417081.664763
     },
     {
       "node": "hoa94",
       "phase": "idle",
-      "polls": 1979,
+      "polls": 1981,
       "issue": null,
-      "observed_at": 1791417044.456738
+      "observed_at": 1791417074.529203
     },
     {
       "node": "hoa95",
       "phase": "idle",
-      "polls": 1967,
+      "polls": 2186,
       "issue": null,
-      "observed_at": 1791417044.458523
+      "observed_at": 1791417081.8710766
     },
     {
       "node": "hoa96",
       "phase": "idle",
-      "polls": 2187,
+      "polls": 1931,
       "issue": null,
-      "observed_at": 1791417037.4325998
+      "observed_at": 1791417081.3778062
     },
     {
       "node": "hoa97",
       "phase": "idle",
-      "polls": 2186,
+      "polls": 1985,
       "issue": null,
-      "observed_at": 1791417037.0453706
+      "observed_at": 1791417081.5159822
     },
     {
       "node": "hoa98",
       "phase": "working",
       "polls": 70,
       "issue": 114,
-      "observed_at": 1791417041.1590762
+      "observed_at": 1791417071.1839216
     },
     {
       "node": "hoa99",
       "phase": "idle",
-      "polls": 2194,
+      "polls": 1975,
       "issue": null,
-      "observed_at": 1791417039.1473587
+      "observed_at": 1791417078.9086277
     },
     {
       "node": "hoa100",
       "phase": "working",
       "polls": 1918,
       "issue": 167,
-      "observed_at": 1791417041.0230272
+      "observed_at": 1791417086.0732288
     },
     {
       "node": "hoa101",
       "phase": "working",
       "polls": 63,
       "issue": 111,
-      "observed_at": 1791417044.4581552
+      "observed_at": 1791417074.5856378
     },
     {
       "node": "hoa102",
       "phase": "working",
       "polls": 142,
       "issue": 144,
-      "observed_at": 1791417036.2276413
+      "observed_at": 1791417081.2504632
     },
     {
       "node": "hoa103",
       "phase": "idle",
-      "polls": 2190,
+      "polls": 1917,
       "issue": null,
-      "observed_at": 1791417037.0394044
+      "observed_at": 1791417081.7079554
     },
     {
       "node": "hoa104",
       "phase": "working",
       "polls": 150,
       "issue": 147,
-      "observed_at": 1791417036.6041944
+      "observed_at": 1791417081.630126
     },
     {
       "node": "hoa105",
       "phase": "idle",
-      "polls": 2188,
+      "polls": 1983,
       "issue": null,
-      "observed_at": 1791417039.1866028
+      "observed_at": 1791417081.2350771
     },
     {
       "node": "hoa106",
       "phase": "working",
       "polls": 4,
       "issue": 88,
-      "observed_at": 1791417036.4947479
+      "observed_at": 1791417081.5223336
     },
     {
       "node": "hoa107",
       "phase": "idle",
-      "polls": 2177,
+      "polls": 1972,
       "issue": null,
-      "observed_at": 1791417037.030048
+      "observed_at": 1791417076.9141543
     },
     {
       "node": "hoa108",
       "phase": "idle",
-      "polls": 1972,
+      "polls": 2193,
       "issue": null,
-      "observed_at": 1791417044.5041
+      "observed_at": 1791417078.8290882
     },
     {
       "node": "hoa109",
       "phase": "idle",
-      "polls": 664,
+      "polls": 666,
       "issue": null,
-      "observed_at": 1791417039.1553533
+      "observed_at": 1791417081.5701118
     },
     {
       "node": "hoa110",
       "phase": "working",
       "polls": 205,
       "issue": 152,
-      "observed_at": 1791417036.5389228
+      "observed_at": 1791417081.5740166
     },
     {
       "node": "hoa111",
       "phase": "working",
       "polls": 69,
       "issue": 74,
-      "observed_at": 1791417041.3267264
+      "observed_at": 1791417071.3434725
     },
     {
       "node": "hoa112",
       "phase": "idle",
-      "polls": 672,
+      "polls": 675,
       "issue": null,
-      "observed_at": 1791417033.8686655
+      "observed_at": 1791417078.9238153
     },
     {
       "node": "hoa113",
       "phase": "idle",
-      "polls": 1899,
+      "polls": 2196,
       "issue": null,
-      "observed_at": 1791417044.1949024
+      "observed_at": 1791417081.876394
     },
     {
       "node": "hoa114",
       "phase": "working",
       "polls": 64,
       "issue": 25,
-      "observed_at": 1791417033.7954988
+      "observed_at": 1791417078.8540828
     },
     {
       "node": "hoa115",
       "phase": "idle",
-      "polls": 2167,
+      "polls": 1983,
       "issue": null,
-      "observed_at": 1791417037.5459208
+      "observed_at": 1791417078.8869739
     },
     {
       "node": "hoa116",
       "phase": "working",
       "polls": 66,
       "issue": 51,
-      "observed_at": 1791417041.440069
+      "observed_at": 1791417071.4549737
     },
     {
       "node": "hoa117",
       "phase": "working",
       "polls": 1911,
       "issue": 168,
-      "observed_at": 1791417036.2998962
+      "observed_at": 1791417081.3233914
     },
     {
       "node": "hoa118",
       "phase": "idle",
-      "polls": 1976,
+      "polls": 1978,
       "issue": null,
-      "observed_at": 1791417044.12575
+      "observed_at": 1791417074.1835432
     },
     {
       "node": "hoa119",
       "phase": "idle",
-      "polls": 1976,
+      "polls": 1979,
       "issue": null,
-      "observed_at": 1791417036.1085818
+      "observed_at": 1791417081.137966
     },
     {
       "node": "hoa120",
       "phase": "working",
       "polls": 18,
       "issue": 119,
-      "observed_at": 1791417036.6241148
+      "observed_at": 1791417081.6470287
     },
     {
       "node": "hoa121",
       "phase": "working",
       "polls": 1871,
       "issue": 166,
-      "observed_at": 1791417044.1303496
+      "observed_at": 1791417074.2893114
     },
     {
       "node": "hoa122",
       "phase": "idle",
-      "polls": 1923,
+      "polls": 1925,
       "issue": null,
-      "observed_at": 1791417044.1889265
+      "observed_at": 1791417074.3946705
     },
     {
       "node": "hoa123",
       "phase": "idle",
-      "polls": 1969,
+      "polls": 1972,
       "issue": null,
-      "observed_at": 1791417033.8401835
+      "observed_at": 1791417078.89747
     },
     {
       "node": "hoa124",
       "phase": "idle",
-      "polls": 1978,
+      "polls": 1981,
       "issue": null,
-      "observed_at": 1791417036.6137185
+      "observed_at": 1791417081.6346488
     },
     {
       "node": "hoa125",
       "phase": "working",
       "polls": 75,
       "issue": 120,
-      "observed_at": 1791417036.3060534
+      "observed_at": 1791417081.3293586
     },
     {
       "node": "hoa126",
       "phase": "idle",
-      "polls": 2184,
+      "polls": 1975,
       "issue": null,
-      "observed_at": 1791417036.9260933
+      "observed_at": 1791417076.859022
     },
     {
       "node": "hoa127",
       "phase": "idle",
-      "polls": 1979,
+      "polls": 1981,
       "issue": null,
-      "observed_at": 1791417041.1496587
+      "observed_at": 1791417071.1765163
     }
   ],
+  "verification_activity": {
+    "available": true,
+    "observed_at": 1791417089.872886,
+    "counts": {
+      "queued": 57,
+      "running": 4,
+      "starting": 0,
+      "needs_reconciliation": 0,
+      "finished": 222,
+      "unowned_pending": 0
+    }
+  },
   "message": "128/128 node workers are running and heartbeating. 69 are executing issue jobs; 10/10 projects are enabled. 6/10 current root prose proofs have passed review; 0/10 roots have workflow verification and merge evidence. Model activity, prose review, Lean verification and integration are distinct stages."
 }
