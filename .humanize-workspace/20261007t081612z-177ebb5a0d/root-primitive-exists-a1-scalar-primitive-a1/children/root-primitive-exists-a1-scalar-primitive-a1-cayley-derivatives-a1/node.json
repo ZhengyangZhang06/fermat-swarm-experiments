@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.primitive_exists-a1.scalar_primitive-a1.cayley_derivatives-a1",
+  "parent_id": "root.primitive_exists-a1.scalar_primitive-a1",
+  "depth": 3,
+  "title": "Cayley derivative formulas and their reciprocal product",
+  "statement": "Define φ(u)=i(1+u)/(1−u) and ψ(u)=(u−i)/(u+i) on ℂ using total complex division. For every w∈ℂ with |w|<1, HasDerivAt φ (2i/(1−w)²) w. For every z∈ℂ with Im z>0, HasDerivAt ψ (2i/(z+i)²) z, and [2i/(1−ψ(z))²]·[2i/(z+i)²]=1.",
+  "lean_statement": "(∀ w : ℂ, ‖w‖ < 1 → HasDerivAt (fun u : ℂ => Complex.I * (1 + u) / (1 - u)) (2 * Complex.I / (1 - w) ^ 2) w) ∧ (∀ z : ℂ, 0 < z.im → HasDerivAt (fun u : ℂ => (u - Complex.I) / (u + Complex.I)) (2 * Complex.I / (z + Complex.I) ^ 2) z) ∧ (∀ z : ℂ, 0 < z.im → (2 * Complex.I / (1 - (z - Complex.I) / (z + Complex.I)) ^ 2) * (2 * Complex.I / (z + Complex.I) ^ 2) = 1)",
+  "lean_name": "p02_es_177ebb5a_sp_cayley_derivatives",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-scalar-primitive-a1-cayley-derivatives-a1-a1"
+}

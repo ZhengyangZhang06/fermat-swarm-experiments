@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081612Z-177ebb5a0d",
+  "parent_id": "root.primitive_exists-a1.scalar_primitive-a1",
+  "dispatch_branch": "proof-workspace/fermat-p02/20261007t081612z-177ebb5a0d/dispatch/root-primitive-exists-a1-scalar-primitive-a1",
+  "source_commit": "0f5a9b05fb9673e5a60fa917656db526e75c7db1",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.primitive_exists-a1.scalar_primitive-a1.cayley_derivatives-a1",
+      "key": "cayley_derivatives",
+      "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-scalar-primitive-a1-cayley-derivatives-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-scalar-primitive-a1/children/root-primitive-exists-a1-scalar-primitive-a1-cayley-derivatives-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg -n 'isExactOn_ball|cayley|Cayley|isExactOn_upperHalfPlane' .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b",
+              "grep -R -n -E 'isExactOn_ball|def IsExactOn|cayley|Cayley|isExactOn_upperHalfPlane|upperHalfPlane.*[Pp]rimitive' .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex --include='*.lean'",
+              "HasDerivAt.div|DifferentiableAt.div",
+              "HasDerivAt.comp",
+              "HasDerivAt.const_mul",
+              "def IsEichlerIntegral|def eichlerShimuraMap|def IsEquivariantPrimitiveWith",
+              "p02_es_177ebb5a_sp_cayley_equivalence",
+              "p02_es_177ebb5a_sp_cayley_derivatives",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_sp_cayley_interfaces.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-scalar-primitive-a1/parent-child-handoff.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/HasPrimitives.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Inv.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Comp.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Mul.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/Submission.lean",
+              "/tmp/p02_sp_cayley_interfaces.lean"
+            ],
+            "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The requested rg search could not run because rg is unavailable; grep and Python supplied the local searches. HasPrimitives.lean defines Complex.IsExactOn using ordinary HasDerivAt and provides DifferentiableOn.isExactOn_ball. The searched complex-analysis directory contained no Cayley-transform or upper-half-plane primitive result matching the queries. The derivative files provide the required quotient and chain rules. The project definition confirms the coefficientwise ordinary-derivative context. Neither proposed identifier occurred in Submission, the snapshot, or the current DAG/node metadata. Both exact proposed types elaborated after import Submission under Lean 4.33.1. All installed dependency revisions matched the manifest with clean tracked sources; the four consulted mathlib files and three directly imported project definition files matched the snapshot. Transitive axiom checks for the disk-primitive theorem, IsExactOn, quotient rule, chain rule, constant multiplication rule, and differentiability quotient rule returned only propext, Classical.choice, and Quot.sound. These checks validate interfaces and library infrastructure, not comparator acceptance of new proofs."
+          }
+        ],
+        "parent_id": "root.primitive_exists-a1.scalar_primitive-a1",
+        "child_id": "root.primitive_exists-a1.scalar_primitive-a1.cayley_derivatives-a1",
+        "subproblem": {
+          "key": "cayley_derivatives",
+          "title": "Cayley derivative formulas and their reciprocal product",
+          "statement": "Define φ(u)=i(1+u)/(1−u) and ψ(u)=(u−i)/(u+i) on ℂ using total complex division. For every w∈ℂ with |w|<1, HasDerivAt φ (2i/(1−w)²) w. For every z∈ℂ with Im z>0, HasDerivAt ψ (2i/(z+i)²) z, and [2i/(1−ψ(z))²]·[2i/(z+i)²]=1.",
+          "lean_statement": "(∀ w : ℂ, ‖w‖ < 1 → HasDerivAt (fun u : ℂ => Complex.I * (1 + u) / (1 - u)) (2 * Complex.I / (1 - w) ^ 2) w) ∧ (∀ z : ℂ, 0 < z.im → HasDerivAt (fun u : ℂ => (u - Complex.I) / (u + Complex.I)) (2 * Complex.I / (z + Complex.I) ^ 2) z) ∧ (∀ z : ℂ, 0 < z.im → (2 * Complex.I / (1 - (z - Complex.I) / (z + Complex.I)) ^ 2) * (2 * Complex.I / (z + Complex.I) ^ 2) = 1)",
+          "lean_name": "p02_es_177ebb5a_sp_cayley_derivatives",
+          "depends_on": [],
+          "natural_proof": "1. Define φ(u)=i(1+u)/(1−u) and ψ(u)=(u−i)/(u+i). If |w|<1, then 1−w≠0, since equality would force w=1 of norm 1.\n2. The functions u↦i(1+u) and u↦1−u have ordinary complex derivatives i and −1. The complex quotient rule at w gives HasDerivAt φ [(i(1−w)−i(1+w)(−1))/(1−w)²] w. The numerator equals i[(1−w)+(1+w)]=2i, yielding the first asserted derivative.\n3. If Im z>0, then z+i≠0 since its imaginary part is Im z+1>0. Both affine functions u↦u−i and u↦u+i have ordinary complex derivative 1. Their quotient therefore has derivative [(z+i)−(z−i)]/(z+i)²=2i/(z+i)² at z, yielding the second asserted derivative.\n4. For this z, let s=z+i and t=1−ψ(z). Calculation over s≠0 gives t=[(z+i)−(z−i)]/s=2i/s. Thus t≠0 and ts=2i. Consequently t²s²=(2i)²≠0, and [2i/t²]·[2i/s²]=(2i)²/(t²s²)=(2i)²/(2i)²=1. This is exactly the asserted derivative-factor identity and completes all three conclusions.",
+          "proof_key_steps": [
+            "Establish the nonzero denominator on the disk and apply the quotient rule to φ.",
+            "Simplify the forward derivative numerator to 2i.",
+            "Establish z+i≠0 on the upper half-plane and apply the quotient rule to ψ.",
+            "Use 1−ψ(z)=2i/(z+i) to prove the derivative-factor product equals one."
+          ]
+        },
+        "audit": {
+          "key": "cayley_derivatives",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The standalone one-line proposition exactly matches both ordinary complex derivative formulas and the reciprocal-product identity. Steps 1–3 independently justify denominator nonvanishing, apply the quotient rule with the correct affine derivatives, and simplify both numerators to 2i. Step 4 proves t=2i/s, establishes the required nonzero factors, and derives the product identity by valid field cancellation. Powers apply to the intended denominators. No equivalence-child or parent result is assumed; the empty dependency list is correct. The unreserved bare identifier is valid, and no further proof-discovery pass is needed."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-scalar-primitive-a1-cayley-derivatives-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-scalar-primitive-a1-cayley-derivatives-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-scalar-primitive-a1-cayley-derivatives-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.primitive_exists-a1.scalar_primitive-a1.cayley_equivalence-a1",
+      "key": "cayley_equivalence",
+      "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-scalar-primitive-a1-cayley-equivalence-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-scalar-primitive-a1/children/root-primitive-exists-a1-scalar-primitive-a1-cayley-equivalence-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg -n 'isExactOn_ball|cayley|Cayley|isExactOn_upperHalfPlane' .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b",
+              "grep -R -n -E 'isExactOn_ball|def IsExactOn|cayley|Cayley|isExactOn_upperHalfPlane|upperHalfPlane.*[Pp]rimitive' .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex --include='*.lean'",
+              "HasDerivAt.div|DifferentiableAt.div",
+              "HasDerivAt.comp",
+              "HasDerivAt.const_mul",
+              "def IsEichlerIntegral|def eichlerShimuraMap|def IsEquivariantPrimitiveWith",
+              "p02_es_177ebb5a_sp_cayley_equivalence",
+              "p02_es_177ebb5a_sp_cayley_derivatives",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_sp_cayley_interfaces.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-scalar-primitive-a1/parent-child-handoff.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/HasPrimitives.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Inv.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Comp.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Mul.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/Submission.lean",
+              "/tmp/p02_sp_cayley_interfaces.lean"
+            ],
+            "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The requested rg search could not run because rg is unavailable; grep and Python supplied the local searches. HasPrimitives.lean defines Complex.IsExactOn using ordinary HasDerivAt and provides DifferentiableOn.isExactOn_ball. The searched complex-analysis directory contained no Cayley-transform or upper-half-plane primitive result matching the queries. The derivative files provide the required quotient and chain rules. The project definition confirms the coefficientwise ordinary-derivative context. Neither proposed identifier occurred in Submission, the snapshot, or the current DAG/node metadata. Both exact proposed types elaborated after import Submission under Lean 4.33.1. All installed dependency revisions matched the manifest with clean tracked sources; the four consulted mathlib files and three directly imported project definition files matched the snapshot. Transitive axiom checks for the disk-primitive theorem, IsExactOn, quotient rule, chain rule, constant multiplication rule, and differentiability quotient rule returned only propext, Classical.choice, and Quot.sound. These checks validate interfaces and library infrastructure, not comparator acceptance of new proofs."
+          }
+        ],
+        "parent_id": "root.primitive_exists-a1.scalar_primitive-a1",
+        "child_id": "root.primitive_exists-a1.scalar_primitive-a1.cayley_equivalence-a1",
+        "subproblem": {
+          "key": "cayley_equivalence",
+          "title": "The Cayley maps identify the unit disk and upper half-plane",
+          "statement": "Define φ(w)=i(1+w)/(1−w) and ψ(z)=(z−i)/(z+i) for all complex arguments using total complex division. Let D={w∈ℂ : |w|<1} and H={z∈ℂ : Im z>0}. Then φ maps D into H, ψ maps H into D, φ(ψ(z))=z for every z∈H, and ψ(φ(w))=w for every w∈D.",
+          "lean_statement": "(∀ w : ℂ, ‖w‖ < 1 → 0 < (Complex.I * (1 + w) / (1 - w)).im) ∧ (∀ z : ℂ, 0 < z.im → ‖(z - Complex.I) / (z + Complex.I)‖ < 1) ∧ (∀ z : ℂ, 0 < z.im → Complex.I * (1 + (z - Complex.I) / (z + Complex.I)) / (1 - (z - Complex.I) / (z + Complex.I)) = z) ∧ (∀ w : ℂ, ‖w‖ < 1 → (Complex.I * (1 + w) / (1 - w) - Complex.I) / (Complex.I * (1 + w) / (1 - w) + Complex.I) = w)",
+          "lean_name": "p02_es_177ebb5a_sp_cayley_equivalence",
+          "depends_on": [],
+          "natural_proof": "1. Define φ(w)=i(1+w)/(1−w) and ψ(z)=(z−i)/(z+i) on all of ℂ using total complex division. Fix w with |w|<1. Then 1−w≠0, since otherwise w=1, contradicting |w|<1.\n2. Write w=x+iy, and put q=(1−x)²+y²=|1−w|²>0. Multiplying numerator and denominator of φ(w) by (1−x)+iy gives φ(w)=[−2y+i(1−x²−y²)]/q. Since x²+y²=|w|²<1, its imaginary part (1−x²−y²)/q is positive. This proves φ(D)⊆H.\n3. Fix z=x+iy with y>0. Its denominator s=z+i is nonzero because Im s=y+1>0. Put p=x²+(y+1)²>0 and r=x²+(y−1)². Then p−r=4y>0. Multiplicativity of the complex norm gives |ψ(z)|²=r/p<1. Since |ψ(z)|≥0, this implies |ψ(z)|<1, proving ψ(H)⊆D.\n4. For this z, computation over the nonzero denominator s gives 1+ψ(z)=2z/s and 1−ψ(z)=2i/s. The latter is nonzero because 2i and s are nonzero. Consequently φ(ψ(z))=i(2z/s)/(2i/s)=z by field cancellation.\n5. For w with |w|<1, put t=1−w≠0. Subtraction and addition over this denominator give φ(w)−i=2iw/t and φ(w)+i=2i/t≠0. Hence ψ(φ(w))=(2iw/t)/(2i/t)=w. Together, these prove all four conclusions.",
+          "proof_key_steps": [
+            "Show 1−w is nonzero on the unit disk.",
+            "Expand the imaginary part of φ(w) and prove it positive.",
+            "Compare squared norms of z−i and z+i to show ψ(z) lies in the disk.",
+            "Compute 1±ψ(z) and cancel nonzero factors to obtain φ(ψ(z))=z.",
+            "Compute φ(w)±i and cancel nonzero factors to obtain ψ(φ(w))=w."
+          ]
+        },
+        "audit": {
+          "key": "cayley_equivalence",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The standalone one-line proposition exactly states all four prose conclusions with their hypotheses. Steps 1–2 establish the disk denominator's nonvanishing and the correct positive imaginary-part formula. Step 3 correctly compares squared norms using a positive denominator. Steps 4–5 establish every additional nonzero factor before cancellation and prove both inverse identities. The proof is complete, non-circular, and independent of the derivative child, so the empty dependency list is correct. The proposed name is an unreserved bare identifier suitable for Submission."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-scalar-primitive-a1-cayley-equivalence-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-scalar-primitive-a1-cayley-equivalence-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-scalar-primitive-a1-cayley-equivalence-a1/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-scalar-primitive-a1/task.md": "fbef05e2a6cfc7a6d66c1b237f25981ac872a7f88acb97b5772f4a049cee216a",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-scalar-primitive-a1/problem.md": "bc292ceabaa59d4166815e39f5e6a0c5ec4e11e33604270753833466755074b0",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-scalar-primitive-a1/problem.json": "bf0e4090d7154b9d64a24b6ca1b3b7a3bc13849e2326306634e0842533303df7",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-scalar-primitive-a1/reference-manifest.json": "a8f9271939f028889a1e9bac59a7290448f8c694baf434f537bdc05b0f75f2a6",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-scalar-primitive-a1/decomposition.json": "2b4acb4a572a28b88f5d4982bb9f893cf158500a72797017497c4f239c23ac87",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-scalar-primitive-a1/decomposition-audit.json": "5441f4774328220b27c0d334b1a58b504f665149ad0a198e9aa8c5eb3ba53697",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-scalar-primitive-a1/controller-contract.json": "7b7a516f9fce5467b2a4e92be9eb01a7eee74fb69c1477cc06212956b9e78e13",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-scalar-primitive-a1/children/root-primitive-exists-a1-scalar-primitive-a1-cayley-derivatives-a1/parent-child-handoff.json": "dd6019376a1592ba96ed6f0ff2d16c29df2d835a34aa520d1197762d79fa9490",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-scalar-primitive-a1/children/root-primitive-exists-a1-scalar-primitive-a1-cayley-derivatives-a1/parent-supplied-plan.md": "3a4d86a085418cdccf093775b1f3d5dd7003c859efbbeff3442640c37ea7eacc",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-scalar-primitive-a1/children/root-primitive-exists-a1-scalar-primitive-a1-cayley-derivatives-a1/parent-supplied-natural-proof.md": "1b94c65211dca9832f13571b687f4d01876fd52b4e13603248800ea089a2ee34",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-scalar-primitive-a1/children/root-primitive-exists-a1-scalar-primitive-a1-cayley-derivatives-a1/parent-supplied-natural-proof.json": "992e0e7a6706d92f29f23a0c24e15c0bd8a155c2753da8eb0729f0e391ddebd5",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-scalar-primitive-a1/children/root-primitive-exists-a1-scalar-primitive-a1-cayley-derivatives-a1/node.json": "f75d09345b6aeac28432d6f501b37abecfee1155e380a9da66455cc24d307b07",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-scalar-primitive-a1/children/root-primitive-exists-a1-scalar-primitive-a1-cayley-equivalence-a1/parent-child-handoff.json": "f272ea7f7d77ccacb8a34ccf127b77630c2c45244100d623698361e0d0be5019",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-scalar-primitive-a1/children/root-primitive-exists-a1-scalar-primitive-a1-cayley-equivalence-a1/parent-supplied-plan.md": "4b700bdbad8d5ab0a32b69761f245fc42c6ac24014b710f77111f339fea20fe8",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-scalar-primitive-a1/children/root-primitive-exists-a1-scalar-primitive-a1-cayley-equivalence-a1/parent-supplied-natural-proof.md": "d6cac7ca133f5498524bfd4968c268680aff6145cc061565852a966708cea97d",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-scalar-primitive-a1/children/root-primitive-exists-a1-scalar-primitive-a1-cayley-equivalence-a1/parent-supplied-natural-proof.json": "327f75eae5189be10bcf3ae6881044e9c3cb2162489a32a1238ac2355b22074e",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-scalar-primitive-a1/children/root-primitive-exists-a1-scalar-primitive-a1-cayley-equivalence-a1/node.json": "c52a2fe3b7c9ebafcc8f72e63efafccaf97c211e2e855b72747dc9297a126ec7"
+  }
+}

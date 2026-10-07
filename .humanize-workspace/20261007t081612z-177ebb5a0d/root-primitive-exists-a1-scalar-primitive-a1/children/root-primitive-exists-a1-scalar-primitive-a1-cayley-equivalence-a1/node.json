@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.primitive_exists-a1.scalar_primitive-a1.cayley_equivalence-a1",
+  "parent_id": "root.primitive_exists-a1.scalar_primitive-a1",
+  "depth": 3,
+  "title": "The Cayley maps identify the unit disk and upper half-plane",
+  "statement": "Define φ(w)=i(1+w)/(1−w) and ψ(z)=(z−i)/(z+i) for all complex arguments using total complex division. Let D={w∈ℂ : |w|<1} and H={z∈ℂ : Im z>0}. Then φ maps D into H, ψ maps H into D, φ(ψ(z))=z for every z∈H, and ψ(φ(w))=w for every w∈D.",
+  "lean_statement": "(∀ w : ℂ, ‖w‖ < 1 → 0 < (Complex.I * (1 + w) / (1 - w)).im) ∧ (∀ z : ℂ, 0 < z.im → ‖(z - Complex.I) / (z + Complex.I)‖ < 1) ∧ (∀ z : ℂ, 0 < z.im → Complex.I * (1 + (z - Complex.I) / (z + Complex.I)) / (1 - (z - Complex.I) / (z + Complex.I)) = z) ∧ (∀ w : ℂ, ‖w‖ < 1 → (Complex.I * (1 + w) / (1 - w) - Complex.I) / (Complex.I * (1 + w) / (1 - w) + Complex.I) = w)",
+  "lean_name": "p02_es_177ebb5a_sp_cayley_equivalence",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-scalar-primitive-a1-cayley-equivalence-a1-a1"
+}
