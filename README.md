@@ -28,8 +28,9 @@ pinned by `Fermat/manifest.json`; the extracts are not standalone Lean projects.
    acceptance checks the combined solution and every retained child interface.
 
 The campaign is complete only when all ten roots and all introduced prerequisites
-are verified and integrated. A website with the live dependency DAG is required;
-no website is claimed deployed at this initial checkpoint.
+are verified and integrated. [Root issues](https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues)
+are recorded in `campaign.json` and `proofs/`. The setup dashboard source is in
+`site/`; its deployment observation must not be confused with live proof progress.
 
 ## Provenance
 
