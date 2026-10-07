@@ -271,6 +271,10 @@ theorem p06_9e0f5043ff_fpm_rd_eval_kernel
     exact isUnit_iff_exists_inv.mpr
       ⟨⟨(Polynomial.aeval x a)⁻¹, hi⟩, Subtype.ext (mul_inv_cancel₀ ha0)⟩
   -- An inverse of q(x) would force q to divide an allowed denominator.
+    apply isUnit_iff_exists_inv.mpr
+    refine ⟨⟨(Polynomial.aeval x a)⁻¹, hi⟩, ?_⟩
+    apply Subtype.ext
+    exact mul_inv_cancel₀ ha0
   have hq_nonunit : ¬ IsUnit (e q) := by
     intro hu
     obtain ⟨z, hz⟩ := isUnit_iff_exists_inv.mp hu
