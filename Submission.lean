@@ -1272,5 +1272,54 @@ theorem f036cc6b1f_pc_ed_ae_orbit_interior :
   exact (f036cc6b1f_pc_ed_aoi_null_orbit (ModularGroup.fd \ ModularGroup.fdo)
     f036cc6b1f_pc_ed_aoi_boundary_null.1 f036cc6b1f_pc_ed_aoi_boundary_null.2).mono
     fun _ hz a hfd => Classical.byContradiction fun hfdo => hz a ⟨hfd, hfdo⟩
+namespace Submission
+
+theorem f036cc6b1f_pc_ed_transversal_unique :
+    ∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ))
+      (R : Finset (Matrix.SpecialLinearGroup (Fin 2) ℤ)),
+      (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ →
+      (∀ r ∈ R, ∀ s ∈ R, s * r⁻¹ ∈ Δ → s = r) →
+      ∀ z : UpperHalfPlane,
+      (∀ a : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+        a • z ∈ ModularGroup.fd → a • z ∈ ModularGroup.fdo) →
+      let F : Set UpperHalfPlane :=
+        ⋃ r ∈ R, (fun w : UpperHalfPlane => r • w) '' ModularGroup.fd
+      ∀ γ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+        γ ∈ Δ → δ ∈ Δ → γ • z ∈ F → δ • z ∈ F → δ = γ ∨ δ = -γ := by
+  intro Δ R hneg hR z hz F γ δ hγ hδ hγF hδF
+  simp only [F, Set.mem_iUnion, Set.mem_image] at hγF hδF
+  rcases hγF with ⟨r, hr, w, hw, hrw⟩
+  rcases hδF with ⟨s, hs, v, hv, hsv⟩
+  have hwz : (r⁻¹ * γ) • z = w := by
+    rw [mul_smul, ← hrw, inv_smul_smul]
+  have hwo : w ∈ ModularGroup.fdo := by
+    have h := hz (r⁻¹ * γ) (by simpa only [hwz] using hw)
+    simpa only [hwz] using h
+  have haw : (s⁻¹ * (δ * γ⁻¹) * r) • w = v := by
+    simp only [mul_smul, hrw, inv_smul_smul, ← hsv]
+  have ha := ModularGroup.eq_one_or_neg_one_of_mem_fdo_mem_fd hwo
+    (show (s⁻¹ * (δ * γ⁻¹) * r) • w ∈ ModularGroup.fd by
+      simpa only [haw] using hv)
+  have hq : δ * γ⁻¹ ∈ Δ := Δ.mul_mem hδ (Δ.inv_mem hγ)
+  have hqeq : δ * γ⁻¹ = s * (s⁻¹ * (δ * γ⁻¹) * r) * r⁻¹ := by
+    simp [mul_assoc]
+  rcases ha with ha | ha
+  · have heq : δ * γ⁻¹ = s * r⁻¹ := by
+      simpa only [ha, mul_one] using hqeq
+    have hsr : s = r := hR r hr s hs (heq ▸ hq)
+    left
+    have hcancel : δ * γ⁻¹ = 1 := by simpa only [hsr, mul_inv_cancel] using heq
+    exact mul_inv_eq_one.mp hcancel
+  · have heq : δ * γ⁻¹ = -(s * r⁻¹) := by
+      simpa only [ha, mul_neg, mul_one, neg_mul] using hqeq
+    have hsrmem : s * r⁻¹ ∈ Δ := by
+      have h := Δ.mul_mem hneg hq
+      simpa only [heq, neg_mul, one_mul, neg_neg] using h
+    have hsr : s = r := hR r hr s hs hsrmem
+    right
+    have hcancel : δ * γ⁻¹ = -1 := by
+      simpa only [hsr, mul_inv_cancel] using heq
+    have h := congrArg (fun a => a * γ) hcancel
+    simpa only [inv_mul_cancel_right, neg_mul, one_mul] using h
 
 end Submission
