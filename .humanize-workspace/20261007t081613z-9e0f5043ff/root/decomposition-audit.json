@@ -1,0 +1,52 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "HasPrincipalDivisors|finite_setOf_restrict_eq|fiberOver|inertiaDeg|degree_pushforward",
+        "RatFunc|congrEquiv|congrRingEquiv|hasPrincipalDivisors_of_transcendental|p06_9e0f5043ff_",
+        "norm.*(valuation|intValuation)|valuation.*norm",
+        "fermat-p*/.humanize/github-theorem-prover/runs/*/dag.json"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorPushPull.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DedekindDomain/IntegralClosure.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DedekindDomain/Dvr.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Norm/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DedekindDomain",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/NumberTheory/RamificationInertia",
+        "/tmp/p06-independent-decomposition-audit-8e78snzi/CheckContracts.lean",
+        "/tmp/p06-independent-decomposition-audit-8e78snzi/CheckContracts.log",
+        "/tmp/p06-independent-decomposition-audit-8e78snzi/FrozenSubmission.log"
+      ],
+      "conclusion": "Attempted rg against the snapshot; rg is unavailable, so searches used grep. DivisorClassGroup supplies the exact conclusion and normalized orders. PlacesOverDVR:438–458 supplies finite fibers and fiberOver without HasPrincipalDivisors; the differently named restrict_fiber_finite in DivisorPushPull requires that hypothesis and is correctly avoided. DivisorPushPull:398–430 defines the canonical residue algebra and inertiaDeg; :459 supplies degree_pushforward. Normalization and localization theorem hypotheses match the local norm proof. The transport/name/target search returned no matches in project/Definitions; the norm-valuation search returned no matches in the two specified mathlib directories. Independently verified project revision 956e8c600d8b95b46948ae5e37b13930b5f3d06b, all nine clean pinned dependencies including mathlib db584cd6d46c92f209a44c0f1c829460d327499d, and source compatibility. Freshly compiled snapshot imports; all three exact propositions elaborate without child declarations, and canonical residue-algebra identities pass by rfl. Audited reused declarations have only propext, Classical.choice and Quot.sound as transitive axioms. No proposed-name reservation occurs in the ten local DAGs. The baseline Submission attribute errors were independently reproduced: activation and comparator acceptance remain blocked as already disclosed. This is decomposition approval, not solution or comparator acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "rational_adjoin_principal",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the stated fields, algebra structure, transcendence assumption and conclusion; characteristic zero and finite-dimensionality are unnecessary here. Independently checked all twelve steps: evaluation identifies the generated field, transport preserves the project's places and orders, classification covers precisely the finite places and infinity, and residue degrees and polynomial factorization establish finite support and degree zero. No parent theorem is used. The bare name is unreserved. This is a genuine special-case obligation; together with the other two children it supports the proposed parent assembly."
+    },
+    {
+      "key": "finite_order_support_ascent",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact proposition includes every field, algebra, scalar-tower, finite-dimensionality, separability and downstairs-support hypothesis. All eight proof steps are sound: monic equations for f and its inverse yield finitely many exceptional downstairs places; outside them both elements belong to the upstairs valuation ring, making f a unit. The independently inspected finite_setOf_restrict_eq then proves finite support without circularity. The bare name is unreserved. Empty sibling dependencies are correct because downstairs finite support is an explicit assumption."
+    },
+    {
+      "key": "local_norm_order",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line type matches the full tower hypotheses and the finite residue-degree-weighted norm identity. Canonical residue-algebra inference was independently verified; fiberOver introduces no principal-divisor assumption. All sixteen proof steps are complete: finite free normalization, maximal-ideal/fiber identification, determinant–cokernel length, localized composition factors, and passage to fractions give exactly the asserted formula, with no extra ramification factor. No global product formula or sibling result is assumed. The bare name is unreserved. Thus the three independent child obligations form an acyclic split, and the parent's use of degree_pushforward is justified."
+    }
+  ],
+  "required_changes": []
+}

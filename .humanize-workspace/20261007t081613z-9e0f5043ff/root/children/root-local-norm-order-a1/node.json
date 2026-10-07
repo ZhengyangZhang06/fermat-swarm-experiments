@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.local_norm_order-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "The norm order is the residue-degree-weighted sum over a place fiber",
+  "statement": "Let K, E and L be fields with compatible algebra structures forming a scalar tower K → E → L, and suppose L/E is finite-dimensional and separable. For every project place v of E over K and every nonzero f in L, ord_v(Norm_{L/E}(f)) equals the sum over the finite set v.fiberOver L of inertiaDeg_E(w) times ord_w(f). Here inertiaDeg_E(w) is the natural-number finrank of κ(w) over κ(w.restrict E), using the project's canonical residue-field algebra, and it is cast to an integer in the sum. No principal-divisor hypothesis is assumed.",
+  "lean_statement": "∀ (K E L : Type*) [Field K] [Field E] [Field L] [Algebra K E] [Algebra K L] [Algebra E L] [IsScalarTower K E L] [FiniteDimensional E L] [Algebra.IsSeparable E L] (v : AlgebraicCurve.Place K E) (f : L), f ≠ 0 → v.ord (Algebra.norm E f) = Finset.sum (v.fiberOver L) (fun w => (w.inertiaDeg E : ℤ) * w.ord f)",
+  "lean_name": "p06_9e0f5043ff_local_norm_order",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-a1"
+}

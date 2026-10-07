@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.rational_adjoin_principal-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "Principal divisors in a transcendental simple subfield",
+  "statement": "Let K and F be fields with a K-algebra structure on F, and let x in F be transcendental over K. For E = IntermediateField.adjoin K {x}, every nonzero g in E has a finitely supported integer-valued divisor D on the project's places of E over K such that D(v) = ord_v(g) for every v and Divisor.degree D = 0. Equivalently, HasPrincipalDivisors K E holds. No characteristic assumption or finiteness assumption on F/E is required.",
+  "lean_statement": "∀ (K : Type*) [Field K] {F : Type*} [Field F] [Algebra K F] (x : F), Transcendental K x → AlgebraicCurve.HasPrincipalDivisors K (IntermediateField.adjoin K ({x} : Set F))",
+  "lean_name": "p06_9e0f5043ff_rational_adjoin_principal",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-a1"
+}

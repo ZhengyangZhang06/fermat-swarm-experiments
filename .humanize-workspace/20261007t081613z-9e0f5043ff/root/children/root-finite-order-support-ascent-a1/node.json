@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_order_support_ascent-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "Finite order support ascends through finite separable extensions",
+  "statement": "Let K, E and L be fields with compatible K-algebra structures on E and L and an E-algebra structure on L, forming a scalar tower K → E → L. Suppose L/E is finite-dimensional and separable. Assume that for every nonzero a in E, the set of project places v of E over K with ord_v(a) ≠ 0 is finite. Then for every nonzero f in L, the set of project places w of L over K with ord_w(f) ≠ 0 is finite.",
+  "lean_statement": "∀ (K E L : Type*) [Field K] [Field E] [Field L] [Algebra K E] [Algebra K L] [Algebra E L] [IsScalarTower K E L] [FiniteDimensional E L] [Algebra.IsSeparable E L], (∀ a : E, a ≠ 0 → {v : AlgebraicCurve.Place K E | v.ord a ≠ 0}.Finite) → ∀ f : L, f ≠ 0 → {w : AlgebraicCurve.Place K L | w.ord f ≠ 0}.Finite",
+  "lean_name": "p06_9e0f5043ff_finite_order_support_ascent",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-finite-order-support-ascent-a1-a1"
+}
