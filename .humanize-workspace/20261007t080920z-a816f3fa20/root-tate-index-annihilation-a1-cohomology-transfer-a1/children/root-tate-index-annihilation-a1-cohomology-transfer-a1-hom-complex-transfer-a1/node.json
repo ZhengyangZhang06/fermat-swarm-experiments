@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1",
+  "parent_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1",
+  "depth": 3,
+  "title": "Coset averaging factors the index action on equivariant Hom complexes",
+  "statement": "Let k be a commutative ring, G a group with a Fintype structure, H a subgroup with a Fintype structure, A a k-linear G-representation, and X any chain complex of k-linear G-representations indexed by the natural numbers. The representations A and the terms of X lie in the same representation universe. Form the cochain complexes U = Hom_G(X,A) and V = Hom_H(Res_H X,Res_H A), with differential given by precomposition with the differential of X. There exist k-linear cochain maps R : U → V and C : V → U such that C ∘ R = [G:H] • id_U, where • denotes repeated addition of cochain maps. Neither normality of H nor finiteness or projectivity of A or the terms of X is assumed.",
+  "lean_statement": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H] (X : ChainComplex (Rep k G) ℕ), ∃ R : Quiver.Hom (X.linearYonedaObj k A) (ChainComplex.linearYonedaObj (((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj X) k (Rep.res H.subtype A)), ∃ C : Quiver.Hom (ChainComplex.linearYonedaObj (((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj X) k (Rep.res H.subtype A)) (X.linearYonedaObj k A), CategoryTheory.CategoryStruct.comp R C = H.index • CategoryTheory.CategoryStruct.id (X.linearYonedaObj k A)",
+  "lean_name": "p04_tia_coh_hom_complex_transfer",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p04/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-hom-complex-transfer-a1-a1"
+}

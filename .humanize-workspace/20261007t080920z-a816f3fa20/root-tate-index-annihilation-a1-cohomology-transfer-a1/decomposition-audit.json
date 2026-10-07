@@ -1,0 +1,49 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "transfer|cores",
+        "linearYonedaObj|def resFunctor|abbrev resFunctor|def res |hasNatScalar|structure Homotopy|structure HomotopyEquiv|homologyIso",
+        "p04_tia_coh_restricted_standard_homotopy_equiv|p04_tia_coh_hom_complex_transfer",
+        "index_eq_card|def index|nat_card|Fintype.card",
+        "cosetDecomp_apply",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/p04-independent-coh-audit-bsx2phvj/Contracts.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Submission.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/Resolution.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Shapiro.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/CategoryTheory/Abelian/Ext.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/Homology/Homotopy.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/Homology/Additive.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/Index.lean",
+        "/tmp/p04-independent-coh-audit-bsx2phvj/contracts.log",
+        "/tmp/p04-independent-coh-audit-bsx2phvj/submission.log"
+      ],
+      "conclusion": "Independently confirmed project revision 2475a3790d7ba0c3b10be8086001b154a45be597 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d. Both snapshots and all nine pinned dependencies are clean; inspected installed sources match the snapshot. Resolution supplies the stated homogeneous differential and standard resolution; Basic supplies groupCohomologyIso; Ext confirms the precomposition differential; Homotopy confirms the prism sign convention; Additive confirms degreewise repeated addition. The transfer/cores search in Basic and Shapiro returned no matches. Neither proposed name occurs in snapshot Lean sources or is reserved in the active DAG. Both exact propositions independently elaborate using Mathlib and the unchanged Tate definition import. Checked library declarations transitively use only propext, Classical.choice, and Quot.sound. The split is appropriate: its independent obligations combine through existing cohomology comparison infrastructure. This approves decomposition only. Independently reproduced the pre-existing Submission.lean:10 missing-constant error for Representation.TateResCor.cosetDecomp_apply; activation and comparator execution remain blocked as the proposal states."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "restricted_standard_homotopy",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly expresses the stated homotopy equivalence, including the common universe and absence of finiteness assumptions. The normalized right transversal gives the claimed equivariant retraction. Coordinatewise maps commute with deletion. The two cancellation pairings exhaust the off-seam terms, the seam terms telescope to qp−id, and degree zero is checked explicitly. This matches Lean's Homotopy convention and supplies both required composite homotopies. The proof is complete and non-circular. The bare identifier is unreserved, and no child dependency is needed."
+    },
+    {
+      "key": "hom_complex_transfer",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The independently elaborated proposition matches the hypotheses and conclusion: Quiver.Hom denotes k-linear cochain maps, comp R C means C after R, and the inferred natural-number scalar action is degreewise repeated addition. The proof establishes transversal cardinality, representative independence, linearity, G-equivariance, differential compatibility, and the index identity without normality or projectivity assumptions. Its universe generality matches the prose. It neither relies on the parent nor on the other child; empty dependencies are correct and acyclic. The bare identifier is unreserved, and the frozen type contains no implementation-dependent reference."
+    }
+  ],
+  "required_changes": []
+}
