@@ -342,6 +342,24 @@ def root_child_contracts(dag, root_id):
     return dict(sorted(found.items()))
 
 
+def child_challenge(contract, name, statement):
+    """Restore declared universe names, which do not cross Lean import boundaries.
+
+    Use only declarations from the controller-validated frozen source, never
+    candidate options or assumptions. This does not normalize build directives.
+    """
+    universes = []
+    for line in contract.splitlines():
+        if line.startswith("universe "):
+            if not re.fullmatch(r"universe(?: [A-Za-z_][A-Za-z0-9_']*)+\s*", line):
+                raise RuntimeError("unsupported frozen universe declaration")
+            universes.append(line.strip())
+    prefix = "import Submission\n"
+    if universes:
+        prefix += "\n".join(universes) + "\n"
+    return prefix + f"theorem {name} : {statement} := by\n  sorry"
+
+
 def verify():
     run_root = Path(os.environ["HUMANIZE_RUN_DIR"]).resolve()
     if not run_root.is_relative_to(PROJECT / ".humanize"):
@@ -397,10 +415,7 @@ def verify():
         for child_name, child_statement in children.items():
             contract += f"\n\ntheorem {child_name} : {child_statement} := by\n  sorry"
     else:
-        contract = (
-            "import Submission\n"
-            + f"theorem {name} : {node['lean_statement']} := by\n  sorry"
-        )
+        contract = child_challenge(context["contract"], name, node['lean_statement'])
     names = [name, *children] if node_id == "root" else [name]
     write(root / "challenge/Challenge.lean", contract + "\n")
     write(root / "solution/Solution.lean", "import Submission\n")

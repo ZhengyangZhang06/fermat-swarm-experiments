@@ -340,3 +340,18 @@ state, not simply deleting the project lock.
   probe session70821 remains live. Manager memory/I/O contention is confirmed;
   large unrelated Codex/Lean/search processes are NOT this experiment and must
   not be killed or modified.
+
+- At09:20 the undeclared-universe probe97093 finished with the expected compiler
+  error `unknown universe level u`. Added child-challenge construction that
+  carries only the frozen source's explicit universe declarations across the
+  Submission import boundary. This adds no hypotheses and changes no simp
+  directives. Ten focused challenge/remote-verifier tests pass. The matching
+  positive Lean syntax probe (with `universe u`) remains live in session23527.
+  **Do not stage this verifier-file change while existing checks are running**:
+  active verifications pin the checker file digest. Local source differs from
+  staged runtime2e30c71 intentionally until those requests finish.
+- At09:18 the live feed showed8 current reviewed root proofs,10 active jobs,
+  and128 running pollers. p01 child#24 owner is hoa123, Swarm task
+  `z51i7ikksog42ron5peo4lysu`. Both verifier requests had reached their real
+  sandboxed `lake --no-cache build Challenge` subprocesses; they are not stalled
+  in a broker queue. All proof acceptance/merge counts remain zero.
