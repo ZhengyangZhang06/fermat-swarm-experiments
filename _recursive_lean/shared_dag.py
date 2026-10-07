@@ -89,7 +89,8 @@ def validate_nodes(nodes: dict, *, complete: bool = False):
             raise StateConflict(f'missing dependency for {node.id}')
         edges[node_id] = dependencies & nodes.keys()
         for child in node.children:
-            if child in nodes and nodes[child]['parent'] != node_id:
+            if (child in nodes and nodes[child]['parent'] != node_id
+                    and nodes[child]['status'] not in {'integrating', 'proved'}):
                 raise StateConflict(f'inconsistent child ownership: {child}')
         if complete and node.parent and node.parent not in nodes:
             raise StateConflict(f'missing parent for {node.id}')

@@ -13,12 +13,13 @@ from .distributed_claims import OwnershipError
 
 class VerificationService:
     def __init__(self, ledger, directory, program, python, *, recover_existing=True,
-                 max_workers=2, uncertain_exit_codes=()):
+                 max_workers=2, uncertain_exit_codes=(), claim_protocol=None):
         if type(max_workers) is not int or max_workers < 1:
             raise ValueError('max_workers must be a positive integer')
         self.ledger, self.directory, self.program, self.python = ledger, Path(directory), str(program), str(python)
         self.directory.mkdir(parents=True, exist_ok=True)
         self.max_workers = max_workers
+        self.claim_protocol = claim_protocol
         self.uncertain_exit_codes = frozenset(uncertain_exit_codes)
         if 0 in self.uncertain_exit_codes:
             raise ValueError('success cannot be an uncertain exit code')
@@ -33,7 +34,17 @@ class VerificationService:
             # Never restart an ambiguous process after losing its controller.
             # Its actual PID/start identity is retained for operator reconciliation.
             if recover_existing:
-                db.execute("UPDATE verifications SET state='uncertain' WHERE state IN ('spawning','running')")
+                if claim_protocol:
+                    rows = db.execute("SELECT v.id,c.job FROM verifications v JOIN claims c ON c.attempt=v.attempt "
+                                      "WHERE v.state IN ('spawning','running')").fetchall()
+                    for row in rows:
+                        if self._matching_job(row['job']):
+                            db.execute("UPDATE verifications SET state='uncertain' WHERE id=?", (row['id'],))
+                else:
+                    db.execute("UPDATE verifications SET state='uncertain' WHERE state IN ('spawning','running')")
+
+    def _matching_job(self, job):
+        return not self.claim_protocol or json.loads(job).get('environment', {}).get('HUMANIZE_SWARM_PROTOCOL') == self.claim_protocol
 
     def dispatch_queued(self, *, ready):
         """Schedule existing requests on this controller without creating any.
@@ -51,10 +62,10 @@ class VerificationService:
             if capacity <= 0:
                 return []
             with self.ledger._db() as db:
-                rows = db.execute("SELECT v.id FROM verifications v JOIN claims c "
+                rows = db.execute("SELECT v.id,c.job FROM verifications v JOIN claims c "
                                   "ON c.attempt=v.attempt WHERE v.state='queued' AND c.state='owned' "
                                   "ORDER BY v.rowid").fetchall()
-            selected = [row['id'] for row in rows if row['id'] not in self.futures][:capacity]
+            selected = [row['id'] for row in rows if row['id'] not in self.futures and self._matching_job(row['job'])][:capacity]
             for request_id in selected:
                 self.futures[request_id] = self.pool.submit(self.execute, request_id)
             return selected
@@ -63,6 +74,8 @@ class VerificationService:
         claim = self.ledger.lookup(body['attempt'], owner)
         if not claim or claim['state'] != 'owned' or not secrets.compare_digest(claim['token'], body['claim_token']):
             raise OwnershipError('verification requires the live issue claim')
+        if not self._matching_job(claim['job']):
+            raise OwnershipError('verification belongs to another broker generation')
         registration = json.loads(claim['job']).get('verification')
         if not registration:
             raise ValueError('no registered verifier project')
@@ -103,8 +116,8 @@ class VerificationService:
             row = db.execute('SELECT * FROM verifications WHERE id=?', (request_id,)).fetchone()
             if not row or row['state'] != 'queued':
                 return
-            claim = db.execute('SELECT state FROM claims WHERE attempt=?', (row['attempt'],)).fetchone()
-            if not claim or claim['state'] != 'owned':
+            claim = db.execute('SELECT state,job FROM claims WHERE attempt=?', (row['attempt'],)).fetchone()
+            if not claim or claim['state'] != 'owned' or not self._matching_job(claim['job']):
                 return
             db.execute("UPDATE verifications SET state='spawning' WHERE id=?", (request_id,))
             db.commit()

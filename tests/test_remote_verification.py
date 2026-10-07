@@ -38,6 +38,21 @@ class RemoteVerificationTests(unittest.TestCase):
         self.assertFalse(self.service.futures)
         self.assertNotIn('returncode', result)
 
+    def test_new_generation_cannot_dispatch_or_adopt_legacy_verifications(self):
+        self.service.submit('worker', self.body, ready=False)
+        green = self.additional_dispatcher(claim_protocol='shared-theorem-issues-v1')
+        self.assertEqual(green.dispatch_queued(ready=True), [])
+        green.execute(self.body['request_id'])
+        self.assertEqual(self.service.result(self.body['request_id'], self.body['revision'])['state'], 'queued')
+        with self.assertRaises(OwnershipError):
+            green.submit('worker', self.body, ready=True)
+        with self.ledger._db() as db:
+            db.execute("UPDATE verifications SET state='running',pid=123,start_ticks='456'")
+        restarted = VerificationService(self.ledger, self.root / 'logs', self.program, sys.executable,
+                                        claim_protocol='shared-theorem-issues-v1')
+        self.addCleanup(restarted.pool.shutdown)
+        self.assertEqual(self.service.result(self.body['request_id'], self.body['revision'])['state'], 'running')
+
     def test_same_request_retries_one_process_and_returns_exact_identity(self):
         self.service.submit('worker', self.body, ready=True)
         self.service.futures[self.body['request_id']].result(timeout=10)

@@ -275,6 +275,7 @@ class GitHubTheoremConfig(Config):
     github_issue_poll_interval: float = Field(default=30, ge=5)
     github_poll_once: bool = Field(default=False, description="Resolve at most one self-selected issue, then yield to an external poller; requires external exclusive project ownership")
     github_selected_issue: int = Field(default=0, ge=0, description="Issue selected by this worker's own poll, never a parent dispatch")
+    github_shared_issue_runtime: bool = Field(default=False, description="Use the durable broker per-issue protocol and process-safe shared state")
     github_root_issue_number: int = Field(default=0, ge=0, description="Adopt a prepublished root only after checking its stable problem marker and exact frozen contract")
 
     @model_validator(mode="after")
@@ -287,6 +288,10 @@ class GitHubTheoremConfig(Config):
             raise ValueError("single-step polling requires poll mode, one local worker, and an explicit self-selected issue")
         if self.github_selected_issue and not self.github_poll_once:
             raise ValueError("a selected issue is only valid in single-step polling")
+        if self.github_shared_issue_runtime and not self.github_poll_once:
+            raise ValueError("shared issue execution requires broker-owned single-step polling")
+        if self.github_shared_issue_runtime and self.github_root_issue_number < 1:
+            raise ValueError("shared issue execution requires a registered root issue")
         return self
     github_auto_merge: bool = Field(default=False, description="Explicitly authorize merging exact verified theorem PR heads")
     github_close_proved_issues: bool = Field(default=False, description="Close proved theorem issues after solution publication (and merge when enabled)")

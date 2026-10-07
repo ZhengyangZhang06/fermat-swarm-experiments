@@ -11,6 +11,7 @@ from urllib.error import HTTPError
 
 from _recursive_lean.distributed_claims import ClaimLedger, OwnershipError
 from _recursive_lean.swarm_broker import Broker, handler
+from _recursive_lean.parallel import PROTOCOL
 
 
 class BrokerTests(unittest.TestCase):
@@ -47,6 +48,65 @@ class BrokerTests(unittest.TestCase):
         self.save()
         self.assertEqual(self.broker.issues()['issues'], [])
         self.assertIsNone(self.broker.claim(self.body)['claim'])
+
+    def parallel_project(self):
+        self.config['projects'][0].update(issue_runtime_protocol=PROTOCOL, issue_numbers=[1, 2])
+        self.save()
+        self.broker.github = Mock(side_effect=lambda repository, resource:
+            [{'number': i, 'title': f'Leaf {i}', 'state': 'open'} for i in (1, 2)]
+            if resource.startswith('issues?') else {'state': 'open'})
+
+    def test_parallel_siblings_remain_available_and_claimable(self):
+        self.parallel_project()
+        first = self.broker.claim(self.body)
+        self.assertEqual(first['claim']['scope'], 'issue')
+        self.assertEqual(first['job']['environment']['HUMANIZE_SWARM_PROTOCOL'], PROTOCOL)
+        self.assertEqual([j['issue'] for j in self.broker.issues()['issues']], [2])
+        second = self.broker.claim({**self.body, 'node': 'hoa1', 'issue': 2, 'attempt': 'second'})
+        self.assertIsNotNone(second['claim'])
+        self.assertEqual(len(self.broker.ledger.active()), 2)
+
+    def test_live_legacy_owner_excludes_new_parallel_grants(self):
+        first = self.broker.claim(self.body)
+        self.parallel_project()
+        self.assertEqual(self.broker.issues()['issues'], [])
+        self.assertIsNone(self.broker.claim({**self.body, 'node': 'hoa1', 'issue': 2, 'attempt': 'second'})['claim'])
+        self.assertEqual(self.broker.claim(self.body), first)
+
+    def test_new_broker_cannot_recover_or_release_legacy_grant(self):
+        first = self.broker.claim(self.body)
+        self.config['broker_protocol'] = PROTOCOL
+        self.save()
+        with self.assertRaises(OwnershipError):
+            self.broker.claim(self.body)
+        with self.assertRaises(OwnershipError):
+            self.broker.release({**self.body, 'claim_token': first['claim']['token'],
+                'outcome': 'stopped', 'processes_remaining': 0, 'returncode': 0})
+
+    def test_parallel_failed_issue_is_quarantined_without_stopping_sibling(self):
+        self.parallel_project()
+        first = self.broker.claim(self.body)
+        self.broker.release({**self.body, 'claim_token': first['claim']['token'],
+            'outcome': 'stopped', 'processes_remaining': 0, 'returncode': 1})
+        project = json.loads(self.catalog.read_text())['projects'][0]
+        self.assertTrue(project['enabled'])
+        self.assertEqual(project['quarantined_issues'], [1])
+        self.assertEqual([j['issue'] for j in self.broker.issues()['issues']], [2])
+        self.assertIsNone(self.broker.claim({**self.body, 'attempt': 'retry'})['claim'])
+
+    def test_proved_open_issue_remains_available_for_publication_only_recovery(self):
+        self.parallel_project()
+        project = self.config['projects'][0]
+        project['verification'] = {'project': str(self.root / 'project')}
+        artifacts = self.root / 'project/.humanize/github-theorem-prover'
+        run = artifacts / 'runs/one'
+        run.mkdir(parents=True)
+        (artifacts / 'LATEST').write_text('.humanize/github-theorem-prover/runs/one')
+        for pr_state in ('', 'open', 'merged'):
+            (run / 'dag.json').write_text(json.dumps({'nodes': [dict(id='root', children=[],
+                status='proved', github_pr_state=pr_state,
+                github_issue_url='https://github.com/owner/repo/issues/1')]}))
+            self.assertEqual(self.broker.project_issues(project, 'owner/repo'), [1])
 
     def test_128_remote_identities_get_only_one_grant(self):
         def request(i):

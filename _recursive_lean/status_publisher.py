@@ -12,6 +12,7 @@ from typing import Any
 from .github import PublicationError
 from .status_site import render_catalog, safe_url
 from .store import atomic_text, now
+from .parallel import enabled as parallel_enabled
 
 SITE_MARKER = '{"generator":"math-lean-flow-status","version":1}\n'
 
@@ -24,7 +25,7 @@ class StatusPublisher:
         self.website = runtime.website
         self._stop = threading.Event()
         self._thread: threading.Thread | None = None
-        self._lock = threading.Lock()
+        self._lock = runtime._publication_lock if parallel_enabled(runtime.config) else threading.Lock()
         self._last_error = ""
 
     def start(self) -> None:

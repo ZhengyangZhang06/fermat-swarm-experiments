@@ -21,6 +21,7 @@ import time
 from .distributed_claims import ClaimLedger, OwnershipError
 from .store import atomic_text
 from .remote_verification import VerificationService
+from .parallel import PROTOCOL
 
 
 class Broker:
@@ -39,6 +40,18 @@ class Broker:
         if not isinstance(config.get('projects'), list):
             raise ValueError('invalid operator catalogue')
         return config
+
+    @staticmethod
+    def parallel(project):
+        protocol = project.get('issue_runtime_protocol', '')
+        if protocol not in ('', PROTOCOL):
+            raise ValueError('unsupported registered issue runtime protocol')
+        return protocol == PROTOCOL
+
+    def check_generation(self, held):
+        protocol = self.configuration().get('broker_protocol')
+        if protocol and (not held or json.loads(held['job']).get('environment', {}).get('HUMANIZE_SWARM_PROTOCOL') != protocol):
+            raise OwnershipError('claim belongs to another broker generation')
 
     def github(self, repository, resource):
         if not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+', repository):
@@ -63,15 +76,21 @@ class Broker:
             else:
                 rows = cached[1]
             open_issues = {int(row['number']): row for row in rows if not row.get('pull_request')}
-            owned = {one['project'] for one in self.ledger.active()}
+            claims = self.ledger.active()
+            owned = {one['project'] for one in claims}
+            exclusive = {one['project'] for one in claims if one.get('scope', 'project') == 'project'}
+            issues_owned = {(one['repository'], one['issue']) for one in claims}
             jobs = []
             for project in config['projects']:
-                if not project.get('enabled') or project['id'] in owned:
+                parallel = self.parallel(project)
+                if not project.get('enabled') or project['id'] in (exclusive if parallel else owned):
                     continue
                 # The runtime rechecks the actual DAG after the claim. This list
                 # is an availability hint, never an acceptance/eligibility gate.
                 for issue in self.project_issues(project, repository):
-                    if issue in open_issues:
+                    if (issue in open_issues
+                            and (repository.casefold(), issue) not in issues_owned
+                            and issue not in project.get('quarantined_issues', [])):
                         jobs.append({'project': project['id'], 'issue': issue,
                                      'title': open_issues[issue]['title']})
             return {'issues': jobs, 'open_issues': len(open_issues),
@@ -113,7 +132,7 @@ class Broker:
         available = []
         for key in active:
             node = nodes[key]
-            if node.get('status') == 'proved':
+            if node.get('status') == 'proved' and not Broker.parallel(project):
                 continue
             if key != 'root' and not all(node.get(field) for field in
                     ('workspace_handoff_commit', 'workspace_bundle_path', 'parent_handoff')):
@@ -165,6 +184,7 @@ class Broker:
         owner = self.identity(body)
         held = self.ledger.lookup(body['attempt'], owner)
         if held:
+            self.check_generation(held)
             if held['project'] != body.get('project') or held['issue'] != body.get('issue'):
                 raise OwnershipError('attempt identity changed')
             return {'claim': held, 'job': json.loads(held['job'])} if held['state'] == 'owned' else {'claim': None}
@@ -173,6 +193,8 @@ class Broker:
         if not project or not project.get('enabled'):
             return {'claim': None}
         issue = body.get('issue')
+        if issue in project.get('quarantined_issues', []):
+            return {'claim': None}
         if type(issue) is not int or issue not in self.project_issues(project, config['repository']):
             raise ValueError('issue is outside the registered project')
         # Ownership never follows an arbitrary issue-body shell command.
@@ -182,20 +204,27 @@ class Broker:
         current = self.github(config['repository'], f'issues/{issue}')
         if current.get('state') != 'open' or current.get('pull_request'):
             return {'claim': None}
+        parallel = self.parallel(project)
+        environment = dict(project.get('environment', {}))
+        if parallel:
+            environment['HUMANIZE_SWARM_PROTOCOL'] = PROTOCOL
+        else:
+            environment.pop('HUMANIZE_SWARM_PROTOCOL', None)
         job = {
             'cwd': project['cwd'], 'command': command,
-            'environment': project.get('environment', {}),
+            'environment': environment,
             'log_directory': project['log_directory'],
             'verification': project.get('verification'),
         }
         claim = self.ledger.claim(project=project['id'], repository=config['repository'],
-                                  issue=issue, owner=owner, attempt=body['attempt'], job=job)
+                                  issue=issue, owner=owner, attempt=body['attempt'], job=job, parallel=parallel)
         if not claim:
             return {'claim': None}
         return {'claim': claim, 'job': json.loads(claim['job'])}
 
     def observe(self, body):
         owner = self.identity(body)
+        self.check_generation(self.ledger.lookup(body['attempt'], owner))
         self.ledger.observe(body['attempt'], owner, body['claim_token'], body['receipt'])
         return {'ok': True}
 
@@ -207,6 +236,7 @@ class Broker:
 
     def _release(self, body):
         owner = self.identity(body)
+        self.check_generation(self.ledger.lookup(body['attempt'], owner))
         if self.verifier and self.verifier.pending(body['attempt']):
             raise OwnershipError('verification processes are not yet terminal')
         if body.get('processes_remaining') != 0 or type(body.get('returncode')) is not int:
@@ -220,12 +250,16 @@ class Broker:
                 config = self.configuration()
                 for project in config['projects']:
                     if project['id'] == held['project']:
-                        project.update(enabled=False, disabled_reason='nonzero runner exit; inspect before retry')
+                        if held.get('scope') == 'issue':
+                            project['quarantined_issues'] = sorted(set(project.get('quarantined_issues', [])) | {held['issue']})
+                        else:
+                            project.update(enabled=False, disabled_reason='nonzero runner exit; inspect before retry')
                 atomic_text(self.catalog, json.dumps(config, indent=2) + '\n')
         return {'ok': True}
 
     def verify(self, body):
         with self.lock:
+            self.check_generation(self.ledger.lookup(body['attempt'], self.identity(body)))
             if not self.verifier:
                 raise ValueError('verifier service not configured')
             return self.verifier.submit(self.identity(body), body, ready=bool(self.configuration().get('verifier_ready')))
@@ -296,12 +330,16 @@ def main():
     parser.add_argument('--port', type=int, default=8847)
     parser.add_argument('--gh', default='gh')
     parser.add_argument('--verifier', type=Path)
+    parser.add_argument('--preserve-existing-verifications', action='store_true',
+                        help='Additive broker: leave other live controllers and their receipts unchanged')
     args = parser.parse_args()
     os.umask(0o077)
     broker = Broker(args.catalog, ClaimLedger(args.database), args.token_file.read_text().strip(), args.snapshot, args.gh)
     if args.verifier:
         import sys
-        broker.verifier = VerificationService(broker.ledger, args.database.parent / 'verification', args.verifier, sys.executable)
+        broker.verifier = VerificationService(broker.ledger, args.database.parent / 'verification', args.verifier, sys.executable,
+                                             recover_existing=not args.preserve_existing_verifications,
+                                             claim_protocol=broker.configuration().get('broker_protocol'))
     class FleetServer(ThreadingHTTPServer):
         request_queue_size = 256
     server = FleetServer((args.bind, args.port), handler(broker))

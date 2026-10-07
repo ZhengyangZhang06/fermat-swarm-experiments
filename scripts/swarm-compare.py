@@ -22,8 +22,11 @@ body = {
 }
 token = Path('/run/secrets/broker_token').read_text().strip()
 context = ssl.create_default_context(cafile='/broker.crt')
+endpoint = os.environ.get('HUMANIZE_SWARM_ENDPOINT', 'https://10.44.0.210:8847').rstrip('/')
+if not endpoint.startswith('https://'):
+    raise SystemExit('TLS verification broker URL required')
 while True:
-    request = Request('https://10.44.0.210:8847/verify', data=json.dumps(body).encode(),
+    request = Request(endpoint + '/verify', data=json.dumps(body).encode(),
                       headers={'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'})
     try:
         with urlopen(request, context=context, timeout=90) as response:

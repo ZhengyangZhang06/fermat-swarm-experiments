@@ -20,6 +20,9 @@ from typing import Any
 
 from .models import SolveResult
 from .store import atomic_text, now
+from .parallel import enabled as parallel_enabled, selected as selected_issue
+from .shared_dag import validate_nodes
+from .shared_lock import SharedLock
 
 
 class ChildrenQueued(Exception):
@@ -77,6 +80,8 @@ class IssueWorkerPool:
             f"worker-{i + 1:02}": {"state": "starting", "polls": 0}
             for i in range(self.count)
         }
+        if parallel_enabled(runtime.config):
+            self.records = {os.environ['HUMANIZE_SWARM_ATTEMPT']: {'state': 'starting', 'polls': 0}}
         self.threads: list[threading.Thread] = []
 
     def record(self, worker: str, **fields: Any) -> None:
@@ -86,6 +91,18 @@ class IssueWorkerPool:
 
     def save(self) -> None:
         with self.lock:
+            if parallel_enabled(self.runtime.config):
+                path = self.runtime.run_root / 'issue-workers.json'
+                with SharedLock(self.runtime.run_root / 'issue-workers.lock'):
+                    held = json.loads(path.read_text()) if path.exists() else {}
+                    records = held.get('workers', {})
+                    records.update(self.records)
+                    atomic_text(path, json.dumps({
+                        'mode': 'broker-owned-issue-polling', 'workers': records,
+                        'worker_count': len(records), 'updated_at': now(),
+                        'ownership': 'durable broker per-issue grant; no timeout takeover',
+                    }, indent=2) + '\n')
+                return
             atomic_text(
                 self.runtime.run_root / "issue-workers.json",
                 json.dumps(
@@ -160,6 +177,9 @@ class IssueWorkerPool:
             ):
                 continue
             with runtime.store._lock:
+                if parallel_enabled(runtime.config):
+                    runtime.store.refresh()
+                    validate_nodes({k: n.model_dump(mode='json') for k, n in runtime.store.nodes.items()}, complete=True)
                 node = next(
                     (
                         n
@@ -176,6 +196,8 @@ class IssueWorkerPool:
                     continue
                 # A competing worker may have completed it after this poll.
                 with runtime.store._lock:
+                    if parallel_enabled(runtime.config):
+                        runtime.store.refresh()
                     if not self.eligible(node):
                         continue
                 # Confirm the issue is still open after obtaining exclusive ownership.
@@ -243,7 +265,8 @@ class IssueWorkerPool:
 
     def run(self, root: Any) -> SolveResult:
         if (
-            root.children
+            selected_issue(self.runtime.config, root)
+            and root.children
             and not self.eligible(root)
             and not self.runtime._accepted_checkpoint(root)
         ):
@@ -252,13 +275,15 @@ class IssueWorkerPool:
                 "waiting-children",
                 "autonomous workers are polling prerequisite issues",
             )
-        self.runtime._ensure_polling_issue(root)
+        if selected_issue(self.runtime.config, root):
+            with self.runtime._publication_lock if parallel_enabled(self.runtime.config) else self.lock:
+                self.runtime._ensure_polling_issue(root)
         for node in list(self.runtime.store.nodes.values()):
-            if node.status == "integrating" and node.candidate_commit:
+            if node.status == "integrating" and node.candidate_commit and selected_issue(self.runtime.config, node):
                 self.runtime._submit_resumed_integration(node)
         if getattr(self.runtime.config, "github_poll_once", False):
-            # The external poller must hold exclusive project ownership throughout
-            # this invocation. All integrations finish before that owner releases it.
+            # The external poller retains its grant until its own integrations end.
+            # Legacy invocations remain project-exclusive; shared mode is issue-owned.
             # No local worker threads are spawned in the single-step bridge.
             worker = next(iter(self.records))
             try:
@@ -274,6 +299,8 @@ class IssueWorkerPool:
                 )
             finally:
                 self.stop.set()
+                if parallel_enabled(self.runtime.config):
+                    self.record(worker, state='yielded', completed_at=now())
                 self.save()
         self.threads = [
             threading.Thread(target=self.loop, args=(worker,), name=worker, daemon=True)

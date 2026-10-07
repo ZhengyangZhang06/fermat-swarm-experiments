@@ -24,6 +24,8 @@ from .runtime import Runtime
 from .status_publisher import StatusPublisher
 from .status_site import StatusWebsite
 from .store import atomic_text, now, slug
+from .parallel import RefreshLock, enabled as parallel_enabled, selected as selected_issue
+from .shared_lock import SharedLock
 
 
 class GitHubTheoremRuntime(Runtime):
@@ -37,6 +39,8 @@ class GitHubTheoremRuntime(Runtime):
             config.github_repository, self.project, self._github_workspace_timeout()
         )
         self._publication_lock = threading.RLock()
+        if parallel_enabled(config):
+            self._publication_lock = RefreshLock(SharedLock(self.run_root / 'publication-operation.lock'), self.store)
         self._publication_abort: PublicationError | None = None
         self.publication_context: dict[str, str] = {}
         self.website = StatusWebsite(
@@ -48,6 +52,8 @@ class GitHubTheoremRuntime(Runtime):
             refresh_interval=config.github_status_interval,
         )
         self.store.on_render = self.website.render
+        if parallel_enabled(config):
+            self.website.lifecycle = 'running'
         self.store.render()
 
     def _check_workflow_health(self) -> None:
@@ -57,7 +63,8 @@ class GitHubTheoremRuntime(Runtime):
     def _bootstrap(self):
         if not self.config.local_problem:
             return super()._bootstrap()
-        return prepare_local_problem(self)
+        with SharedLock(self.run_root / 'bootstrap.lock'):
+            return prepare_local_problem(self)
 
     def _execute_graph(self, root):
         if self.config.github_worker_mode != "poll":
@@ -223,7 +230,11 @@ class GitHubTheoremRuntime(Runtime):
             self._publication_abort = failure
             raise failure
 
-    def execute(self) -> None:
+    @contextmanager
+    def _execution_guard(self):
+        if parallel_enabled(self.config):
+            yield
+            return
         # The same run cannot race two issue/PR creators. Distinct runs retain their
         # own identities and branches and can still run concurrently.
         with (self.run_root / "github-publication.lock").open("a") as lock:
@@ -233,8 +244,13 @@ class GitHubTheoremRuntime(Runtime):
                 raise PublicationError(
                     "this GitHub proof run already has a publisher"
                 ) from error
+            yield
+
+    def execute(self) -> None:
+        with self._execution_guard():
             try:
-                self._prepare_publication()
+                with self._publication_lock:
+                    self._prepare_publication()
                 publisher = StatusPublisher(self)
                 self._status_publisher = publisher
                 self.website.lifecycle = "running"
@@ -265,7 +281,7 @@ class GitHubTheoremRuntime(Runtime):
                     if root
                     and root.status == "proved"
                     and not self.state.get("last_failure")
-                    else "paused"
+                    else "running" if parallel_enabled(self.config) else "paused"
                 )
                 self.store.render()
                 publisher = getattr(self, "_status_publisher", None)
@@ -530,10 +546,11 @@ class GitHubTheoremRuntime(Runtime):
         return result
 
     def _reconcile_publications(self) -> None:
+        self.store.refresh()
         for node in sorted(
             self.store.nodes.values(), key=lambda one: (-one.depth, one.id)
         ):
-            if node.status == "proved":
+            if node.status == "proved" and selected_issue(self.config, node):
                 self._publish_solution(node)
 
     def _problem_nodes(self) -> list[NodeRecord]:

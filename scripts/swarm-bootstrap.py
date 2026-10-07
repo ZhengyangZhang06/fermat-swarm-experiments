@@ -89,8 +89,8 @@ def main():
                 raise RuntimeError('Worker real tool-execution smoke test failed')
         print('Authenticated model and real local tool-execution check passed', flush=True)
         return
-    os.execv(sys.executable, [sys.executable, '/runtime/flows/math-lean-flow/scripts/swarm-worker.py',
-        '--endpoint', 'https://10.44.0.210:8847', '--certificate', '/broker.crt',
+    os.execv(sys.executable, [sys.executable, str(Path(__file__).with_name('swarm-worker.py')),
+        '--endpoint', os.environ.get('HUMANIZE_SWARM_ENDPOINT', 'https://10.44.0.210:8847'), '--certificate', '/broker.crt',
         '--token-file', '/run/secrets/broker_token'])
 
 

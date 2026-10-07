@@ -70,6 +70,14 @@ class DistributedClaimsTests(unittest.TestCase):
         with self.assertRaises(OwnershipError):
             self.claim(parallel=False)
 
+    def test_blue_green_generations_cannot_double_book_one_node(self):
+        first = self.claim()
+        self.assertIsNone(self.claim(project='p02', issue=2, owner='hoa0/new-task/new-boot',
+                                     attempt='green', parallel=True))
+        self.ledger.release(first['attempt'], first['owner'], first['token'], 'yielded')
+        self.assertIsNotNone(self.claim(project='p02', issue=2, owner='hoa0/new-task/new-boot',
+                                        attempt='green', parallel=True))
+
     def test_128_parallel_contenders_for_same_issue_have_one_owner(self):
         with ThreadPoolExecutor(max_workers=128) as pool:
             results = list(pool.map(lambda i: self.claim(parallel=True,

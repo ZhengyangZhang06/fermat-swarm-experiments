@@ -8,6 +8,9 @@ import sys
 import tomllib
 from urllib.parse import urlsplit
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from _recursive_lean.parallel import PROTOCOL
+
 
 def main():
     for key in ('HUMANIZE_SWARM_ATTEMPT', 'HUMANIZE_SWARM_CLAIM_TOKEN', 'HUMANIZE_SWARM_BOOT'):
@@ -33,14 +36,17 @@ def main():
         print(access.stderr, file=sys.stderr, flush=True)
         raise RuntimeError('Worker cannot read the registered GitHub branch')
     config.update(github_poll_once=True, github_issue_workers=1,
-                  github_selected_issue=int(os.environ['HUMANIZE_SELECTED_ISSUE']))
+                  github_selected_issue=int(os.environ['HUMANIZE_SELECTED_ISSUE']),
+                  github_shared_issue_runtime=os.environ.get('HUMANIZE_SWARM_PROTOCOL') == PROTOCOL)
+    if os.environ.get('HUMANIZE_SWARM_PROTOCOL', '') not in ('', PROTOCOL):
+        raise RuntimeError('Unsupported durable issue ownership protocol')
     destination = project / '.humanize/swarm-configs' / (os.environ['HUMANIZE_SWARM_ATTEMPT'] + '.json')
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(json.dumps(config, ensure_ascii=False, indent=2) + '\n')
     agent = ('cli=codex,permission=auto,web_search=off,model=' + model_config['model']
              + ',effort=' + model_config.get('model_reasoning_effort', 'high'))
     command = [sys.executable, '-m', 'hmz', 'exec', '-f',
-               '/runtime/flows/math-lean-flow:github-theorem-prover', '-c', str(destination),
+               str(Path(__file__).resolve().parents[1]) + ':github-theorem-prover', '-c', str(destination),
                '-a', agent, '-a', agent, (project / 'PROBLEM.md').read_text().strip()]
     print(json.dumps({'stage': 'issue-runtime', 'issue': config['github_selected_issue'],
                       'project': config['problem_id'], 'web_search': 'off'}), flush=True)

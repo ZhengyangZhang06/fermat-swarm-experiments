@@ -68,6 +68,9 @@ class ClaimLedger:
                 db.execute('DROP INDEX one_project')
             db.execute("CREATE UNIQUE INDEX IF NOT EXISTS one_project ON claims(project) "
                        "WHERE state = 'owned' AND scope = 'project'")
+            db.execute("CREATE UNIQUE INDEX IF NOT EXISTS one_node ON claims("
+                       "substr(owner,1,instr(owner,'/')-1)) "
+                       "WHERE state='owned' AND instr(owner,'/')>0")
             for operation in ('INSERT', 'UPDATE'):
                 db.execute(f'''CREATE TRIGGER IF NOT EXISTS claims_scope_{operation.lower()}
                     BEFORE {operation} ON claims

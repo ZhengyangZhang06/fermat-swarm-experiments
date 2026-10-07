@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import multiprocessing
+import os
 import tempfile
 import threading
 import time
@@ -252,6 +253,33 @@ class PollingTests(unittest.TestCase):
         self.assertTrue(self.pool.poll_once("worker-01"))
         self.assertEqual(self.solves, [])
         self.runtime._adopt_issue_work.assert_called_once_with(self.root)
+
+    def test_shared_selected_child_does_not_resume_sibling_or_mutate_root(self):
+        self.runtime.config.github_shared_issue_runtime = True
+        self.runtime.config.github_poll_once = True
+        self.runtime.config.github_selected_issue = 2
+        self.runtime.config.github_root_issue_number = 1
+        self.runtime.config.github_issue_workers = 1
+        self.runtime._publication_lock = threading.RLock()
+        child = NodeRecord(id='child', parent='root', title='Child', statement='True',
+            github_issue_url='https://github.com/example/proofs/issues/2',
+            status='integrating', candidate_commit='checked-child')
+        sibling = NodeRecord(id='sibling', parent='root', title='Sibling', statement='True',
+            github_issue_url='https://github.com/example/proofs/issues/3',
+            status='integrating', candidate_commit='checked-sibling')
+        self.root.children = [child.id, sibling.id]
+        self.runtime.store.nodes.update(child=child, sibling=sibling)
+        self.runtime.store.update = Mock()
+        self.runtime._wait_for_integrations = Mock()
+        with patch.dict(os.environ, HUMANIZE_SWARM_ATTEMPT='one-attempt'):
+            pool = IssueWorkerPool(self.runtime)
+        pool.poll_once = Mock(return_value=False)
+        pool.run(self.root)
+        self.runtime._ensure_polling_issue.assert_not_called()
+        self.runtime.store.update.assert_not_called()
+        self.runtime._submit_resumed_integration.assert_called_once_with(child)
+        records = json.loads((self.runtime.run_root / 'issue-workers.json').read_text())['workers']
+        self.assertEqual(records['one-attempt']['state'], 'yielded')
 
     def test_existing_candidate_retries_formalization_without_decomposition(self):
         self.root.worktree = str(self.project)

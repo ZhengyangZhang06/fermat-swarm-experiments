@@ -68,6 +68,8 @@ from .prompts import (
     SPECULATIVE_PARENT_TASK,
 )
 from .store import Store, atomic_text, now, slug
+from .parallel import PROTOCOL, RefreshLock, enabled as parallel_enabled, selected as selected_issue
+from .shared_lock import SharedLock
 
 if TYPE_CHECKING:
     from collections.abc import Iterable
@@ -268,6 +270,11 @@ class Runtime:
         self.config = config
         self.state = state if state is not None else {}
         self.project = Path.cwd().resolve()
+        if parallel_enabled(config):
+            if os.environ.get('HUMANIZE_SWARM_PROTOCOL') != PROTOCOL or not all(
+                os.environ.get(key) for key in ('HUMANIZE_SWARM_ATTEMPT', 'HUMANIZE_SWARM_CLAIM_TOKEN')
+            ):
+                raise RuntimeError('shared issue runtime requires a matching durable broker grant')
         # Canonical-branch promotion and short Git-worktree metadata operations use
         # separate locks.  Long integration comparators/repairs must not prevent a ready
         # leaf or speculative parent from obtaining its isolated proof worktree.
@@ -294,7 +301,20 @@ class Runtime:
             self.run_root,
             self.project / self.config.wiki_dir,
             self.task,
+            shared=parallel_enabled(config),
         )
+        self._promoted_commits: dict[str, str] = {}
+        if parallel_enabled(config):
+            common = subprocess.run(
+                ['git', 'rev-parse', '--path-format=absolute', '--git-common-dir'],
+                cwd=self.project, capture_output=True, text=True, check=True,
+            )
+            locks = Path(common.stdout.strip()) / 'theorem-operation-locks'
+            self._graph_lock = RefreshLock(SharedLock(self.run_root / 'graph-operation.lock'), self.store)
+            self._revision_lock = self._graph_lock
+            self._integration_lock = SharedLock(locks / 'integration.lock')
+            self._worktree_lock = SharedLock(locks / 'worktrees.lock')
+            self._workspace_remote_lock = SharedLock(locks / 'remote.lock')
         self.problem_id = ""
         self.problem_path = self.run_root / "problem.md"
         self.reference_bundle: ReferenceBundle | None = None
@@ -353,7 +373,7 @@ class Runtime:
             statement=self.task,
             lean_name=self._root_lean_name(),
         )
-        if root.status not in {"queued", "proved", "failed"}:
+        if selected_issue(self.config, root) and root.status not in {"queued", "proved", "failed"}:
             self.store.update(
                 "root", "interrupted", "resuming an interrupted root node"
             )
@@ -2350,7 +2370,11 @@ Use the independently reviewed proof at `{handoff.natural_proof_path}` directly.
         )
         if not integrated:  # pragma: no cover - integration retries until success
             return SolveResult(ok=False, node_id=node.id, feedback=feedback)
-        integrated_head = self._git_head(self.project)
+        integrated_head = (
+            self._promoted_commits.pop(node.id)
+            if parallel_enabled(self.config)
+            else self._git_head(self.project)
+        )
         self.store.update(
             node.id,
             "integrating",
@@ -3412,6 +3436,13 @@ Use the independently reviewed proof at `{handoff.natural_proof_path}` directly.
         # Several siblings may fail in one parallel wave. Preserve concrete feedback while
         # leaving the accepted scaffold plan immutable.
         with self._revision_lock:
+            if parallel_enabled(self.config):
+                # This is retained evidence, not a notification or permission to
+                # mutate/launch the parent owned by another worker.
+                detail = f'{child.id}: {failure}'
+                key = hashlib.sha256(detail.encode()).hexdigest()
+                atomic_text(self._node_dir(self.store.nodes[child.parent]) / 'child-feedback' / f'{key}.txt', detail + '\n')
+                return
             parent = self.store.nodes[child.parent]
             status = (
                 "speculative-lean"
@@ -4806,7 +4837,17 @@ Use the independently reviewed proof at `{handoff.natural_proof_path}` directly.
         if not after:
             return False, f"isolated worktree has no Git HEAD: {worktree}"
         if before == after:
-            return True, "the reviewed theorem was already present at the worktree base"
+            with self._integration_lock:
+                canonical = self._git_head(self.project)
+                ancestor = subprocess.run(
+                    ['git', 'merge-base', '--is-ancestor', after, canonical],
+                    cwd=self.project, capture_output=True, check=False,
+                )
+                if ancestor.returncode:
+                    return False, 'unchanged candidate is not integrated into canonical history'
+                if parallel_enabled(self.config) and node is not None:
+                    self._promoted_commits[node.id] = canonical
+                return True, "the reviewed theorem was already present in canonical history"
         listed = subprocess.run(
             ["git", "rev-list", "--reverse", f"{before}..{after}"],
             cwd=worktree,
@@ -4838,6 +4879,8 @@ Use the independently reviewed proof at `{handoff.natural_proof_path}` directly.
                 != 0
             ]
             if not commits:
+                if parallel_enabled(self.config) and node is not None:
+                    self._promoted_commits[node.id] = canonical
                 return (
                     True,
                     "all reviewed commits were already present in the problem branch",
@@ -4856,6 +4899,8 @@ Use the independently reviewed proof at `{handoff.natural_proof_path}` directly.
                         False,
                         f"could not fast-forward reviewed node history: {detail}",
                     )
+                if parallel_enabled(self.config) and node is not None:
+                    self._promoted_commits[node.id] = after
                 return True, f"fast-forwarded {len(commits)} reviewed commit(s)"
 
             scratch_parent = (
@@ -4946,6 +4991,8 @@ Use the independently reviewed proof at `{handoff.natural_proof_path}` directly.
                     if unioned
                     else "rebased"
                 )
+                if parallel_enabled(self.config) and node is not None:
+                    self._promoted_commits[node.id] = integration_head
                 return (
                     True,
                     f"{method} and integrated {len(commits)} reviewed commit(s)",
