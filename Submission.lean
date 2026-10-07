@@ -1005,5 +1005,70 @@ theorem p07_flq_curve_quotient_857cd4d38c
     rw [← hcoe W t, hmul, hP, hQ]
   · intro W t P hP
     exact (hfactor W P.1).mp hP
+theorem p07_flp_point_equiv_857cd4d38c
+    {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N : ℕ)
+    (S T : Type) [CommRing S] [CommRing T] (φ : S →+* T)
+    (E : FakeEllipticCurve Λ N S) (ET : FakeEllipticCurve Λ N T)
+    (g : ET.A ⟶ E.A) (hg : FakeEllipticCurve.IsPullbackVia φ E ET g)
+    (W : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of T)) :
+    let tS := t ≫ Spec.map (CommRingCat.ofHom φ)
+    ∃ B : SchemeHomOver t ET.f ≃ SchemeHomOver tS E.f,
+      (∀ P : SchemeHomOver t ET.f, (B P).1 = P.1 ≫ g) ∧
+      (∀ P Q : SchemeHomOver t ET.f,
+        B (ET.L.mul t P Q) = E.L.mul tS (B P) (B Q)) ∧
+      B (ET.L.one t) = E.L.one tS ∧
+      (∀ (k : ℕ) (P : SchemeHomOver t ET.f),
+        B (nsmulPt ET.L t k P) = nsmulPt E.L tS k (B P)) ∧
+      (∀ (x : ↥Λ) (P : SchemeHomOver t ET.f),
+        B (pushPt (ET.act x) (ET.act_over x) P) =
+          pushPt (E.act x) (E.act_over x) (B P)) := by
+  classical
+  dsimp only
+  rcases hg with ⟨h, hmul, hact, _⟩
+  let tS := t ≫ Spec.map (CommRingCat.ofHom φ)
+  let F : SchemeHomOver t ET.f → SchemeHomOver tS E.f := fun P =>
+    ⟨P.1 ≫ g, by rw [Category.assoc, h.w, ← Category.assoc, P.2]⟩
+  let I : SchemeHomOver tS E.f → SchemeHomOver t ET.f := fun R =>
+    ⟨h.lift R.1 t R.2, h.lift_snd R.1 t R.2⟩
+  let B : SchemeHomOver t ET.f ≃ SchemeHomOver tS E.f :=
+    { toFun := F
+      invFun := I
+      left_inv := by
+        intro P
+        apply Subtype.ext
+        apply h.hom_ext
+        · exact h.lift_fst (F P).1 t (F P).2
+        · exact (h.lift_snd (F P).1 t (F P).2).trans P.2.symm
+      right_inv := by
+        intro R
+        apply Subtype.ext
+        exact h.lift_fst R.1 t R.2 }
+  have map_mul (P Q : SchemeHomOver t ET.f) :
+      B (ET.L.mul t P Q) = E.L.mul tS (B P) (B Q) :=
+    Subtype.ext (hmul t P Q)
+  have map_one : B (ET.L.one t) = E.L.one tS := by
+    let H := B (ET.L.one t)
+    have hH : E.L.mul tS H H = H := by
+      rw [← map_mul, ET.L.one_mul]
+    calc
+      H = E.L.mul tS (E.L.one tS) H := (E.L.one_mul tS H).symm
+      _ = E.L.mul tS (E.L.mul tS (E.L.inv tS H) H) H := by
+        rw [E.L.inv_mul_cancel]
+      _ = E.L.mul tS (E.L.inv tS H) (E.L.mul tS H H) :=
+        E.L.mul_assoc tS _ _ _
+      _ = E.L.mul tS (E.L.inv tS H) H := by rw [hH]
+      _ = E.L.one tS := E.L.inv_mul_cancel tS H
+  refine ⟨B, fun _ => rfl, map_mul, map_one, ?_, ?_⟩
+  · intro k P
+    induction k with
+    | zero => exact map_one
+    | succ k ih =>
+      change B (ET.L.mul t (nsmulPt ET.L t k P) P) =
+        E.L.mul tS (nsmulPt E.L tS k (B P)) (B P)
+      rw [map_mul, ih]
+  · intro x P
+    apply Subtype.ext
+    change (P.1 ≫ ET.act x) ≫ g = (P.1 ≫ g) ≫ E.act x
+    rw [Category.assoc, hact, Category.assoc]
 
 end Submission
