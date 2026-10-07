@@ -1367,4 +1367,5 @@ theorem Submission.p02_es_177ebb5a_hi_prescribed_coefficients :
       have hdegree : d.degree = n := h ▸ he r
       simpa only [Finsupp.degree_eq_sum, Fin.sum_univ_two] using hdegree
     simp [hrd]
+
 end Submission
