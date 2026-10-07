@@ -15,6 +15,8 @@ import Mathlib.RingTheory.DedekindDomain.Ideal.Lemmas
 import Mathlib.RingTheory.SimpleModule.Basic
 import Mathlib.RingTheory.Localization.Module
 import Mathlib.RingTheory.Length
+import Mathlib.LinearAlgebra.Matrix.ToLinearEquiv
+import Mathlib.LinearAlgebra.Quotient.Basic
 
 open AlgebraicCurve
 theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
@@ -2134,5 +2136,22 @@ theorem p06_9e0f5043ff_dlen_matrix_diagonalization
           _ = block 1 P' * block (D r c) C * block 1 Q' := by rw [hsplit]
           _ = block (D r c) (P' * C * Q') := by rw [hmul, hmul, one_mul, mul_one]
           _ = Matrix.diagonal (Fin.cases (D r c) d') := by rw [heq, hdiag]
+namespace Submission
+
+/-- Left and right multiplication by unit matrices preserve the cokernel up to linear equivalence. -/
+theorem p06_9e0f5043ff_dmc_cokernel_units :
+    ∀ (R : Type*) [CommRing R] (m : ℕ) (D P Q : Matrix (Fin m) (Fin m) R),
+      IsUnit P → IsUnit Q →
+        Nonempty (((Fin m → R) ⧸ LinearMap.range (Matrix.mulVecLin D)) ≃ₗ[R]
+          ((Fin m → R) ⧸ LinearMap.range (Matrix.mulVecLin (P * D * Q)))) := by
+  intro R _ m D P Q hP hQ
+  classical
+  let eP := Matrix.toLinearEquiv' P hP.invertible
+  let eQ := Matrix.toLinearEquiv' Q hQ.invertible
+  refine ⟨Submodule.Quotient.equiv _ _ eP ?_⟩
+  change (LinearMap.range D.mulVecLin).map P.mulVecLin =
+    LinearMap.range (P * D * Q).mulVecLin
+  rw [← LinearMap.range_comp, ← Matrix.mulVecLin_mul, Matrix.mulVecLin_mul (P * D) Q]
+  exact (LinearMap.range_comp_of_range_eq_top _ eQ.range).symm
 
 end Submission
