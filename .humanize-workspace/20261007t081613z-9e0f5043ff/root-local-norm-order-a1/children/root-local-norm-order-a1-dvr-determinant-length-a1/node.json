@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.local_norm_order-a1.dvr_determinant_length-a1",
+  "parent_id": "root.local_norm_order-a1",
+  "depth": 2,
+  "title": "Determinant order equals cokernel length over a place DVR",
+  "statement": "Let K and E be fields with an algebra structure K → E, let v be a project place of E over K, and put A = v.toValuationSubring. Let M be a finite free A-module and T an A-linear endomorphism with nonzero determinant. There exists n ∈ ℕ such that the A-module length of M/T(M) is n, regarded in ℕ∞, and v.ord of the image of det(T) in E is n, regarded in ℤ.",
+  "lean_statement": "∀ (K E : Type*) [Field K] [Field E] [Algebra K E] (v : AlgebraicCurve.Place K E) (M : Type*) [AddCommGroup M] [Module v.toValuationSubring M] [Module.Free v.toValuationSubring M] [Module.Finite v.toValuationSubring M] (T : M →ₗ[v.toValuationSubring] M), LinearMap.det T ≠ 0 → ∃ n : ℕ, Module.length v.toValuationSubring (M ⧸ LinearMap.range T) = (n : ℕ∞) ∧ v.ord (algebraMap v.toValuationSubring E (LinearMap.det T)) = (n : ℤ)",
+  "lean_name": "p06_9e0f5043ff_lno_dvr_determinant_length",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-dvr-determinant-length-a1-a1"
+}

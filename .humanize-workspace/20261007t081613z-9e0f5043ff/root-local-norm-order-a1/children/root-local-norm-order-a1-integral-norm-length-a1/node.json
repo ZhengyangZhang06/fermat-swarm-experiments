@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "node_id": "root.local_norm_order-a1.integral_norm_length-a1",
+  "parent_id": "root.local_norm_order-a1",
+  "depth": 2,
+  "title": "Norm order of an integral element equals its quotient length",
+  "statement": "Let K, E, and L be fields with compatible algebra structures K → E → L, and suppose L/E is finite-dimensional and separable. Let v be a project place of E over K, A = O_v, and B = Place.integralClosureAt L v, with its canonical maps. For every nonzero b ∈ B, there exists n ∈ ℕ such that length_A(B/bB) = n in ℕ∞ and v.ord(Norm_{L/E}(b)) = n in ℤ, where b is mapped into L before taking its norm. No principal-divisor hypothesis is assumed.",
+  "lean_statement": "∀ (K E L : Type*) [Field K] [Field E] [Field L] [Algebra K E] [Algebra K L] [Algebra E L] [IsScalarTower K E L] [FiniteDimensional E L] [Algebra.IsSeparable E L] (v : AlgebraicCurve.Place K E) (b : AlgebraicCurve.Place.integralClosureAt L v), b ≠ 0 → ∃ n : ℕ, Module.length v.toValuationSubring (AlgebraicCurve.Place.integralClosureAt L v ⧸ Ideal.span ({b} : Set (AlgebraicCurve.Place.integralClosureAt L v))) = (n : ℕ∞) ∧ v.ord (Algebra.norm E (algebraMap (AlgebraicCurve.Place.integralClosureAt L v) L b)) = (n : ℤ)",
+  "lean_name": "p06_9e0f5043ff_lno_integral_norm_length",
+  "depends_on": [
+    "root.local_norm_order-a1.dvr_determinant_length-a1"
+  ],
+  "dependency_workspaces": [
+    {
+      "node_id": "root.local_norm_order-a1.dvr_determinant_length-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    }
+  ],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-local-norm-order-a1-integral-norm-length-a1-a1"
+}

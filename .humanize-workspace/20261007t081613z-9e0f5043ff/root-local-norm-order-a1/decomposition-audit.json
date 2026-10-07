@@ -1,0 +1,52 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "/runtime/bin/rg -n 'fiberEquiv|finite_setOf_restrict_eq|toValuationSubring_eq_of_restrict_eq|integralClosureAt|inertiaDeg|restrictResidueMap'",
+        "/runtime/bin/rg -n 'ord_coe_unit|ord_coe_irreducible|exists_unit_mul_zpow|isDiscreteValuationRing'",
+        "/runtime/bin/rg -n 'norm.*length|length.*norm|det.*length|length.*det'",
+        "/runtime/bin/rg -n -A 9 -B 5 'length_eq_add_of_exact|length_compositionSeries|length_eq_top|length_eq_finrank|def length'",
+        "/runtime/bin/rg -n 'p06_9e0f5043ff_lno_(dvr_determinant_length|integral_norm_length|integral_fiber_length)'"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorPushPull.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DedekindDomain/IntegralClosure.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DedekindDomain/Dvr.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Length.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Norm/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json",
+        "/tmp/p06-local-norm-decomposition-audit/CheckTypes.lean",
+        "/tmp/p06-local-norm-decomposition-audit/CheckTypes.log",
+        "/tmp/p06-local-norm-decomposition-audit/FrozenSubmission.log"
+      ],
+      "conclusion": "The split is appropriate: determinant length, norm comparison, and fiber length are distinct obligations; integral_norm_length depends only on dvr_determinant_length. The pinned sources provide normalized orders, finite fibers without principal divisors, the fiber correspondence, canonical residue algebra, finite free normalization, localization DVRs, and length additivity. No determinant-length or norm-length result matched the RingTheory search. Independently rebuilt the three unchanged project modules and checked all proposed expressions as Prop without child implementations; quotient actions, tower maps, and residue-algebra checks passed. Project revision 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d match the manifest; all nine dependencies are clean and pinned. Audited reused declarations have only propext, Classical.choice, and Quot.sound as transitive axioms. All proposed names are unreserved bare identifiers. Independently confirmed the three pre-existing unavailable attribute targets in authoritative Submission: this decomposition approval does not clear its stated activation gate or constitute comparator acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "dvr_determinant_length",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly captures the finite free module, nonzero determinant, and common natural-number witness. The proof handles rank zero, establishes divisibility from normalized order, diagonalizes using invertible operations, identifies cokernels, and computes quotient lengths by uniformizer filtrations. It is complete and independent of the parent and siblings."
+    },
+    {
+      "key": "integral_norm_length",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "All field, tower, finiteness, separability, and nonzero hypotheses match the standalone Lean expression. Denominator clearing proves both basis independence and spanning; multiplication matrices identify the determinant with the field norm and establish nonvanishing. The quotient identification respects the checked canonical A-action. Its sole declared dependency is necessary and correctly directed."
+    },
+    {
+      "key": "integral_fiber_length",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact proposition includes the finite-length hypothesis and canonical inertia degrees. The proof establishes maximal-ideal contraction, finite fiber correspondence, residue-action compatibility, composition-series length, localization multiplicities, and uniformizer quotient lengths before reindexing and casting. It uses no norm-order or principal-divisor theorem and needs no sibling dependency. No typeclass-sensitive matrix-unit construction occurs."
+    }
+  ],
+  "required_changes": []
+}
