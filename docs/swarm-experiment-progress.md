@@ -886,3 +886,30 @@ state, not simply deleting the project lock.
 - Header-repair approval still absent; optional cache not deployed. Broker and
   status observer active,128/128 resolver tasks running. All10 root proofs
   remain incomplete. Live P02 work prevents treating the campaign as an impasse.
+
+## Follow-up checkpoint, 13:20 UTC — additive cached-checker pilot
+
+- Previous turn was a verified wait: P02's live issue51 worker produced an
+  actual Submission.lean draft, with no accepted candidate yet. Current log
+  reports derivative/chain-rule elaboration and slash-law normalization fixes.
+  Controller did not edit that worktree or notify another worker to start.
+- Prepared a private, fixed Git archive of7c0cdf0 at
+  `/var/tmp/fermat-cached-verifier-pilot.EcQSVm`. Checker SHA matches the tested
+  17360b2ac18e997034d13017a50a6bfe476c7100a5d8ef0569dbc3ac8fb87197 version.
+  Its actual sandbox denied both a private file and Unix-socket creation.
+- Started additive user timer `fermat-cached-verifier-pilot-20261007.timer`,
+  invoking the existing queued-only dispatcher with `--once`, every30s after
+  its previous invocation completes. Max one pilot verification at a time;
+  existing atomic ledger claims arbitrate against the broker. It uses the
+  sealed Z0kXAn cache and retained d27914ad... manifest digest. No source or
+  libraries used by already running checks were modified.
+- First pilot poll at13:19:12 exited0 without finding queued work. This is
+  not a proof result. The timer remains active for future queued requests;
+  record the first actual request before claiming any cache-backed campaign
+  verification. No measured whole-check performance gain yet.
+- At13:19, original requestcd203d12717944b78318395950a03bfc still runs under
+  PID3387184, alongside existing local checks b8a4bcc29a5d4a1ab7e5037dfad8a645
+  (PID3716107) and27b95ededc9742799c0dbda1a6d7ae0b (PID3717555). Pilot neither
+  restarted nor adopted these. The original broker and runtime remain unchanged.
+- Frozen-header repair still awaits approval; no directives were changed.
+  Goal remains active: one merged child theorem, no completed root problems.
