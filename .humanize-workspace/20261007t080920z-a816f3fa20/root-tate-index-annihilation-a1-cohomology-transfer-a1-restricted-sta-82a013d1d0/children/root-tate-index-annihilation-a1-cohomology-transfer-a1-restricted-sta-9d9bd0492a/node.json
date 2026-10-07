@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.normalized_equivariant_retraction-a1",
+  "parent_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1",
+  "depth": 4,
+  "title": "A subgroup inclusion admits an equivariant set retraction",
+  "statement": "Let G be any group and H any subgroup. There exists a function r : G → H such that r(hg) = h r(g) for every h ∈ H and g ∈ G, and r(h) = h for every h ∈ H, where elements of H are included in G when necessary. No finiteness or normality assumption is imposed, and r is not required to be a group homomorphism.",
+  "lean_statement": "∀ {G : Type _} [Group G] (H : Subgroup G), ∃ r : G → H, (∀ (h : H) (g : G), r ((h : G) * g) = h * r g) ∧ ∀ h : H, r (h : G) = h",
+  "lean_name": "p04_rsh_82a013d1d0_equivariant_retraction",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p04/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-9d9bd0492a-a1"
+}
