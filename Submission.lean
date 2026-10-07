@@ -3598,7 +3598,10 @@ theorem p06_9e0f5043ff_pae_place_equivalence_degree :
   exact (IsLocalRing.ResidueField.mapAlgEquiv r).toLinearEquiv.finrank_eq.symm
 namespace Submission
 
-/-- A compatible equivalence of valuation rings preserves normalized orders. -/
+/-- A compatible equivalence of valuation rings preserves normalized orders.
+
+Transport a unit-times-uniformizer factorization through the two compatible equivalences,
+then evaluate its normalized order in the target valuation ring. -/
 theorem p06_9e0f5043ff_pae_compatible_order_invariance
     (K E L : Type*) [Field K] [Field E] [Field L] [Algebra K E] [Algebra K L]
     (e : E ≃ₐ[K] L) (v : AlgebraicCurve.Place K E) (w : AlgebraicCurve.Place K L)
