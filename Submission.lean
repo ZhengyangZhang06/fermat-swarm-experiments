@@ -17,16 +17,26 @@ theorem p04_eq_zero_of_prime_avoiding_annihilators :
       (∀ p : ℕ, p.Prime → ∃ m : ℕ, 0 < m ∧ ¬ p ∣ m ∧ ∀ v : V, m • v = 0) →
       ∀ v : V, v = 0 := by
   intro V _ h v
-  -- The prime 2 supplies a positive annihilator, so the least additive order is positive.
+  classical
+  -- Choose the least positive annihilator of this element.
   obtain ⟨m₂, hm₂, _, h₂⟩ := h 2 Nat.prime_two
-  have hv : IsOfFinAddOrder v :=
-    isOfFinAddOrder_iff_nsmul_eq_zero.mpr ⟨m₂, hm₂, h₂ v⟩
-  -- The additive order divides every annihilator, so it cannot have a prime divisor.
-  have hn_le : addOrderOf v ≤ 1 := by
-    by_contra! hn
-    obtain ⟨p, hp, hpn⟩ := Nat.exists_prime_and_dvd (Nat.ne_of_gt hn)
+  have hex : ∃ n : ℕ, 0 < n ∧ n • v = 0 := ⟨m₂, hm₂, h₂ v⟩
+  let n := Nat.find hex
+  have hn_pos : 0 < n := (Nat.find_spec hex).1
+  have hn_zero : n • v = 0 := (Nat.find_spec hex).2
+  -- A nonzero remainder would be a smaller positive annihilator.
+  have hn_dvd : ∀ m : ℕ, m • v = 0 → n ∣ m := by
+    intro m hm
+    apply Nat.dvd_of_mod_eq_zero
+    by_contra hr
+    have hr_zero : (m % n) • v = 0 := (nsmul_eq_mod_nsmul m hn_zero).symm.trans hm
+    exact Nat.find_min hex (Nat.mod_lt m hn_pos) ⟨Nat.pos_of_ne_zero hr, hr_zero⟩
+  -- Any prime divisor of n would divide its prime-avoiding annihilator.
+  have hn_one : n = 1 := by
+    by_contra hn
+    obtain ⟨p, hp, hpn⟩ := Nat.exists_prime_and_dvd hn
     obtain ⟨m, _, hpm, hm⟩ := h p hp
-    exact hpm (hpn.trans (addOrderOf_dvd_of_nsmul_eq_zero (hm v)))
-  exact AddMonoid.addOrderOf_eq_one_iff.mp (Nat.le_antisymm hn_le hv.addOrderOf_pos)
+    exact hpm (hpn.trans (hn_dvd m (hm v)))
+  simpa only [hn_one, one_nsmul] using hn_zero
 
 end Submission
