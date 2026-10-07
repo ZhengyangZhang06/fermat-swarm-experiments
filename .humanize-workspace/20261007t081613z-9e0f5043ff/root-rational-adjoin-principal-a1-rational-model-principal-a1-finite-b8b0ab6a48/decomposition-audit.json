@@ -1,0 +1,47 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'def deg|def ResidueField|abbrev ResidueField|namespace Place|instance.*Algebra|instAlgebra|toSubalgebra' project/Definitions/Def_AlgebraicCurve*.lean",
+        "rg -n 'residue_(surjective|eq_zero_iff|ne_zero_iff_isUnit)|def residue|instance.*Algebra|def.*[Aa]lg' mathlib/Mathlib/RingTheory/LocalRing/ResidueField/Basic.lean",
+        "rg -n 'transcendental_iff_injective|coprime_iff_not_dvd|quotientKerAlgEquivOfSurjective|finrank_quotient_span_eq_natDegree' mathlib/Mathlib/RingTheory/Algebraic/Basic.lean mathlib/Mathlib/RingTheory/PrincipalIdealDomain.lean mathlib/Mathlib/RingTheory/Ideal/Quotient/Operations.lean mathlib/Mathlib/RingTheory/AdjoinRoot.lean",
+        "rg -n 'residue.*(natDegree|aeval)|natDegree.*[Rr]esidue|fpm.*(kernel|surject)' project/Definitions project/Submission.lean",
+        "p06_9e0f5043ff_fpm_rd_eval_kernel|p06_9e0f5043ff_fpm_rd_residue_surjective"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/LocalRing/ResidueField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Algebraic/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/PrincipalIdealDomain.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Ideal/Quotient/Operations.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/AdjoinRoot.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Submission.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-b8b0ab6a48/decomposition-v1.json",
+        "/tmp/p06-residue-degree-independent-audit-9e0f5043ff/CheckTypes.lean",
+        "/tmp/p06-residue-degree-independent-audit-9e0f5043ff/CheckTypes.log"
+      ],
+      "conclusion": "Independently confirmed clean snapshot revisions project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; all nine installed dependencies match their pins and are clean. Sources confirm the canonical valuation-ring algebra, residue field, degree definition, injective transcendental evaluation, residue properties, Bezout coprimality, quotient algebra equivalence, and quotient finrank formula. The targeted project search found no matching polynomial-local residue theorem. Name matches occur only in this proposal, with no existing DAG reservations; the existing 25-node DAG is acyclic. Independently rebuilt the three unchanged Definitions modules in /tmp and checked both exact propositions using Lean 4.33.1. Definitional-equality checks verified the canonical residue algebra composite and degree interpretation. Relevant declarations have only propext, Classical.choice, and Quot.sound as transitive axioms. These are decomposition/interface checks under the frozen Definitions import, not implementation comparator acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "residue_evaluation_kernel",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the fully quantified prose, uses only existing infrastructure, and has a fresh bare identifier. All six proof steps are sound: denominator 1 constructs the compatible algebra map; permitted inverse fractions establish units; injectivity and justified cross multiplication exclude invertibility of e(q); local-ring residue properties then identify the kernel with (q). Neither monicity nor a global rational-expression hypothesis is needed. This is a genuine, independently provable obligation with correctly empty dependencies."
+    },
+    {
+      "key": "residue_evaluation_surjective",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly includes the representation, evaluation-compatibility, transcendence, irreducibility, and zero-residue hypotheses stated in prose; its bare identifier is unreserved. Each proof step is complete: lift a residue, establish a nonzero evaluated denominator, obtain the Bezout identity, clear the denominator inside the valuation ring, and exhibit a*t as a preimage. It assumes q has zero residue rather than invoking the sibling or parent theorem, so empty dependencies are correct. The split is appropriate: the parent supplies this hypothesis from the kernel child and finishes using the verified quotient-equivalence and finrank infrastructure."
+    }
+  ],
+  "required_changes": []
+}
