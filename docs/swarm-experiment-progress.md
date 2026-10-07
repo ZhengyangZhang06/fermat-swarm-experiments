@@ -507,3 +507,76 @@ state, not simply deleting the project lock.
   durable queued-request dispatch/evidence correlation before enabling remote
   production acceptance. Preserve both existing running requests. Pending
   permission for derived-copy obsolete simp directives remains unanswered.
+
+## Follow-up checkpoint, 11:10 UTC — first real remote request completed
+
+- User requested one website graph per problem. Delivered campaign main5b9961b
+  and Pagesac5ab90; Pages reports built. Ten independent graph panels have
+  status/prose/Lean/integration summaries, P01–P10 jump links, local scrolling,
+  unique arrow markers, explicit shared prerequisites and isolated error
+  handling. Mobile views initially center the root and preserve scroll on
+  refresh. Six real-browser tests and nine feed tests pass. Public mobile
+  check at10:44 saw10 graphs,52 nodes, no graph/script errors or page overflow.
+  Screenshot `/tmp/fermat-separate-graphs-public-mobile.png`.
+- Added opt-in additional verification dispatch using the EXISTING local
+  SQLite ledger. `recover_existing=False` preserves all running identities;
+  an atomic queued-to-spawning transaction permits only one controller to
+  launch a request. Released claims, missing requests, closed readiness and
+  capacity exhaustion do not spawn. Reserved exit75 retains uncertain ownership.
+  No issue ownership/worker scheduling behavior was changed.
+- New controller adapter `scripts/swarm-verify-frozen-node.py` freezes a
+  registered request, deploys read-only code/input with no secrets/control
+  sockets, and retains the exact service/task/specification/packet/candidate
+  identities in a private fsynced operation receipt. Remote exit alone is not
+  success: the controller also checks immutable input/code and exact verified
+  evidence. Observation failures retry the same handle, never recreate a job.
+  `scripts/swarm-dispatch-verification.py` supports an explicit queued-request
+  one-shot and a polling mode. **Only the one-shot mode has been deployed**;
+  no fleet-wide verifier migration or continuously polling extra daemon yet.
+- Immutable deployed bundle:
+  `/mnt/data/zhengyang-workspace/fermat-verifier-dispatch.ZfocBD/deployment`.
+  Do not change its files in place. Real end-to-end fixtures on hoa1 passed:
+  valid request03b3ebdee98540eea1653c7742beff97, servicepqvwitzb5sxqdpp0lj9rpjvdc,
+  taskq5927612qc3xscnooghkukn35 accepted with kernel replay/axiom evidence;
+  changed-statement requestdf48089c5b9a4e679114304aa1ae70ba,
+  servicexxb9h4cx24nr5pg8pmi7d88zf, taskwil085jyhgj883odmxlryh14o rejected.
+  Fixtures/receipts/logs are under that bundle parent's `roundtrip/`; no campaign
+  claims, issues or PRs were involved. Full source suite:224 tests pass with
+  one optional Playwright test skipped (campaign browser tests ran separately).
+- Original requests5fdc… (p05) and2702… (p04#22) are now terminal exit1, not
+  still running. Actual errors reference absent header constants:
+  `HopfAlgebra.HopfKerHopf.instHopfAlgebra`, `HopfAlgebra.HopfKerHopf.ι₂_comulK`,
+  `Representation.TateResCor.cosetDecomp_apply`. Both failed before candidate
+  acceptance. PIDs3007503/3008683/3100384/3100390 are gone.
+- P01 old-revision request6729… and p02 old-revision requestd56e… were rejected
+  by the manager for candidate HEAD mismatch. The worker had committed further
+  changes and registered new exact revisions. The attempted p02 one-shot saw
+  the old request already finished and made no state change. Its transient
+  unit `fermat-swarm-verify-p02-20261007` exited/was collected. Never equate the
+  unit's orderly exit with proof success.
+- Real p06 child#52 request47d8781c81b34609bc160667cf21954f, candidate
+  b3769c61fd862a46417a0c4f57c5a335c3a9e3ad, was atomically claimed and checked
+  on hoa1 through the real broker ledger. Serviceu7ndex9cnxwzyqw6r2w1i2ha6,
+  taskn8bzekhojlkeqo4buq3usnt58 completed **failed, exit1**; the controller
+  receipt is `terminal`, not uncertain or verified. Its log and failure result
+  are available to the owning issue worker normally. Missing header constants:
+  `AlgebraicCurve.IsCurveOver.instNontrivialKaehler`,
+  `AlgebraicCurve.IsFrobeniusEndo.frobNormRingHom_apply`,
+  `AlgebraicCurve.SemilinearAut.coe_torsion_smul`.
+  Receipt: `.../fermat-verifier-dispatch.ZfocBD/jobs/47d8781c81b34609bc160667cf21954f/operation.json`.
+- P01 diagnostic taskp3lna6h8mgwz8o3go77evjnap also terminal failed1. It built
+  the full pinned dependency closure, then rejected absent `[-instance]` and
+  `[-simp]` targets in Submission.lean. Its old-revision diagnostic is NOT a
+  broker acceptance result. Real newer p01 request980a… subsequently failed1.
+- Last live manager request:739e7f62cd194f3888ebf43c1aab0ed0 for p02#45,
+  candidate2ced4d3abd9f318f5490841e5e6ce28d9dfb7944, verifierPID3255572.
+  Confirm it on the next turn. Production manager runtime stays2e30c71 while
+  that checker runs; do not hot-deploy over its pinned checker file.
+- User decision is still pending. Asked again via async input to omit only
+  references to MISSING constants in obsolete `[-simp]` AND `[-instance]`
+  header directives in derived copies, preserving valid directives, original
+  files, statements, assumptions and all gates. No repair is enabled. The old
+  disabled whole-simp-command helper is NOT sufficient for this narrower
+  missing-name-only policy; do not enable it as-is on mixed valid/invalid names.
+- At11:05:128 pollers,10 active issue jobs,52 nodes,7 current reviewed root
+  arguments,0 verified/integrated roots. GitHub PR list remains empty.

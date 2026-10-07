@@ -12,10 +12,17 @@ from .distributed_claims import OwnershipError
 
 
 class VerificationService:
-    def __init__(self, ledger, directory, program, python):
+    def __init__(self, ledger, directory, program, python, *, recover_existing=True,
+                 max_workers=2, uncertain_exit_codes=()):
+        if type(max_workers) is not int or max_workers < 1:
+            raise ValueError('max_workers must be a positive integer')
         self.ledger, self.directory, self.program, self.python = ledger, Path(directory), str(program), str(python)
         self.directory.mkdir(parents=True, exist_ok=True)
-        self.pool = ThreadPoolExecutor(max_workers=2, thread_name_prefix='frozen-verifier')
+        self.max_workers = max_workers
+        self.uncertain_exit_codes = frozenset(uncertain_exit_codes)
+        if 0 in self.uncertain_exit_codes:
+            raise ValueError('success cannot be an uncertain exit code')
+        self.pool = ThreadPoolExecutor(max_workers=max_workers, thread_name_prefix='frozen-verifier')
         self.lock, self.futures = threading.Lock(), {}
         with ledger._db() as db:
             db.execute('''CREATE TABLE IF NOT EXISTS verifications (
@@ -25,7 +32,32 @@ class VerificationService:
             )''')
             # Never restart an ambiguous process after losing its controller.
             # Its actual PID/start identity is retained for operator reconciliation.
-            db.execute("UPDATE verifications SET state='uncertain' WHERE state IN ('spawning','running')")
+            if recover_existing:
+                db.execute("UPDATE verifications SET state='uncertain' WHERE state IN ('spawning','running')")
+
+    def dispatch_queued(self, *, ready):
+        """Schedule existing requests on this controller without creating any.
+
+        An additional controller-local dispatcher must be constructed with
+        recover_existing=False. Database ownership remains authoritative:
+        execute() atomically takes a queued row, so another dispatcher or the
+        original broker may win without starting duplicate work. Running and
+        uncertain requests are never adopted or restarted here.
+        """
+        if not ready:
+            return []
+        with self.lock:
+            capacity = self.max_workers - sum(not future.done() for future in self.futures.values())
+            if capacity <= 0:
+                return []
+            with self.ledger._db() as db:
+                rows = db.execute("SELECT v.id FROM verifications v JOIN claims c "
+                                  "ON c.attempt=v.attempt WHERE v.state='queued' AND c.state='owned' "
+                                  "ORDER BY v.rowid").fetchall()
+            selected = [row['id'] for row in rows if row['id'] not in self.futures][:capacity]
+            for request_id in selected:
+                self.futures[request_id] = self.pool.submit(self.execute, request_id)
+            return selected
 
     def submit(self, owner, body, *, ready):
         claim = self.ledger.lookup(body['attempt'], owner)
@@ -69,13 +101,17 @@ class VerificationService:
         with self.ledger._db() as db:
             db.execute('BEGIN IMMEDIATE')
             row = db.execute('SELECT * FROM verifications WHERE id=?', (request_id,)).fetchone()
-            if row['state'] != 'queued':
+            if not row or row['state'] != 'queued':
+                return
+            claim = db.execute('SELECT state FROM claims WHERE attempt=?', (row['attempt'],)).fetchone()
+            if not claim or claim['state'] != 'owned':
                 return
             db.execute("UPDATE verifications SET state='spawning' WHERE id=?", (request_id,))
             db.commit()
         request = json.loads(row['request'])
         environment = dict(os.environ)
         environment.update(
+            FERMAT_VERIFICATION_REQUEST_ID=request_id,
             FERMAT_VERIFIER_PROJECT=request['project'],
             FERMAT_FROZEN_SOURCE=request['source_commit'],
             FERMAT_ROOT_NAME=request['root_name'],
@@ -95,7 +131,8 @@ class VerificationService:
                                (process.pid, stat[19], request_id))
                 code = process.wait()
             with self.ledger._db() as db:
-                db.execute("UPDATE verifications SET state='finished',returncode=? WHERE id=?", (code, request_id))
+                state = 'uncertain' if code in self.uncertain_exit_codes else 'finished'
+                db.execute("UPDATE verifications SET state=?,returncode=? WHERE id=?", (state, code, request_id))
         except Exception:
             with self.ledger._db() as db:
                 db.execute("UPDATE verifications SET state='uncertain' WHERE id=?", (request_id,))

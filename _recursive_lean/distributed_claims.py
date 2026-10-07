@@ -1,7 +1,8 @@
 """Durable, non-expiring ownership for a single authoritative Swarm broker.
 
-Only the broker opens this SQLite database, on its LOCAL filesystem. Workers use
-the broker API, never SQLite on shared Ceph/NFS. A claim is not proof acceptance.
+Only controller-local broker/verification services open this SQLite database,
+on its LOCAL filesystem. Workers use the broker API, never SQLite on shared
+Ceph/NFS. A claim is not proof acceptance.
 No timestamp is used for takeover: uncertain/crashed owners remain reserved.
 """
 from __future__ import annotations
