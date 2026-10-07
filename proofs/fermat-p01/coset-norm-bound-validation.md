@@ -179,10 +179,11 @@ and `FreyPackage.ModMCarrier.coe_rescaleLin_apply`. Thus the passing diagnostic 
 the attribute commands is not full-context acceptance. Both fresh diagnostics exclude the
 unrelated root theorem; no root or sibling theorem was validated and no root comparator was run.
 
-The latest prior controller artifact, `comparator-v5.log`, records exit 1 for request
-`a663782847714a49bb9dec7c2835c9b8`, with the same missing constants in the frozen challenge.
-The previous round's local polling process (PID 7776) was observed as a zombie and was not
-restarted or canceled. No controller state or previous request was modified.
+The latest prior controller artifact, `comparator-v6.log`, records exit 1 for request
+`6109ce8ce6de464d9b03237af736e581`, with the same missing constants in the frozen challenge.
+The previous local request `d393ece7fc36406ba8e83ed8d6b3a540` also has terminal failure
+output, and its poller PID 10949 is absent. The older PID 7776 remains a zombie.
+No prior process, request, or controller state was restarted, canceled, or modified.
 
 The current plan requires a fresh exact-node comparator run on a clean committed
 candidate. Its result belongs to that exact SHA and is recorded in the local round
@@ -232,10 +233,10 @@ proof and found no defect or worthwhile simplification. The round tracker,
 turn filter bounds into a common height. Searches for the exact selected name and
 norm-bound variants in `project/Definitions` returned no matches.
 
-Fresh local evidence is in `.humanize/rlcr/2026-10-07_21-39-42/validation/`, including
+Fresh local evidence is in `.humanize/rlcr/2026-10-07_23-12-00/validation/`, including
 the scoped diagnostic sources, completed body/context build logs, `build-results.json`,
 `source-dependency-audit.json`, protected-artifact digests, the provider search log, and
-`complete-source.diff`. The requested simplifier agent independently reviewed the selected
+`complete-source.diff`. The freshly requested simplifier agent independently reviewed the selected
 proof and found no defect or worthwhile simplification. The round tracker,
 contract, summary, and raw logs remain ignored runtime metadata; this report provides
 the durable committed validation handoff.
