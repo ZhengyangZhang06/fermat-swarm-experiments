@@ -176,6 +176,8 @@ theorem Submission.p07_rr_isogeny_transport_857cd4d38c :
     simpa only [mapPt_coe, P', Category.assoc] using hP₀
 namespace Submission
 
+/-- A pullback of fake elliptic curves induces an equivalence on points that
+preserves multiplication, identity, repeated sums, and the order action. -/
 theorem p07_flp_point_equiv_857cd4d38c
     {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N : ℕ)
     (S T : Type) [CommRing S] [CommRing T] (φ : S →+* T)
