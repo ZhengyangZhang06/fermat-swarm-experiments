@@ -3765,6 +3765,8 @@ namespace Submission
 
 open AlgebraicCurve IsDedekindDomain
 
+/-- The localized principal quotient and its corresponding place have the same
+nonnegative order, witnessed by the exponent of a uniformizer. -/
 theorem p06_9e0f5043ff_ifl_local_length_order
     (K E L : Type*) [Field K] [Field E] [Field L]
     [Algebra K E] [Algebra K L] [Algebra E L] [IsScalarTower K E L]
@@ -3790,11 +3792,13 @@ theorem p06_9e0f5043ff_ifl_local_length_order
   obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible R
   obtain ⟨m, u, hu⟩ := IsDiscreteValuationRing.eq_unit_mul_pow_irreducible hbR hπ
   refine ⟨m, ?_, ?_⟩
+  -- The pinned DVR length formula computes the uniformizer filtration length.
   · rw [hu, Ideal.span_singleton_mul_left_unit u.isUnit,
       ← Ideal.span_singleton_pow, ← hπ.maximalIdeal_eq]
     exact IsDiscreteValuationRing.length_quotient_pow_maximalIdeal R m
   · let u' : w.toValuationSubringˣ := Units.map e.toMonoidHom u
     have hπ' : Irreducible (e π : w.toValuationSubring) := hπ.map e.toMulEquiv
+    -- The localization equivalence preserves the image of the original element.
     have he : ((e (algebraMap B R b) : O) : L) = algebraMap B L b := by
       change algebraMap O L (e (algebraMap B R b)) = _
       rw [e.commutes, ← IsScalarTower.algebraMap_apply B O L]
