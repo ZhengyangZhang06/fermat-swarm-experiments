@@ -226,6 +226,8 @@ namespace Submission
 relative points preserve their underlying scheme morphisms and all group operations. -/
 namespace Submission
 
+/-- Transport a relative group law along a ring equivalence. The equivalences of
+relative points preserve their underlying scheme morphisms and all group operations. -/
 theorem p07_cre_group_law_857cd4d38c :
     ∀ (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U)
       (A : AlgebraicGeometry.Scheme.{0})
