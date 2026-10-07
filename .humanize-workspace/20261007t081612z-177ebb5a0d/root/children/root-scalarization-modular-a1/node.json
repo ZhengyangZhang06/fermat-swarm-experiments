@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.scalarization_modular-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "An equivariant Eichler primitive scalarizes to a modular form",
+  "statement": "Let N,n∈ℕ with N≠0, Γ=Γ₀(N), V=BinaryForm ℂ n, and ρ the restricted binary-form representation. Let f be a weight n+2 cusp form and E : ℍ → V satisfy IsEichlerIntegral n f E and E(γz)=ρ(γ)E(z) for every γ∈Γ and z∈ℍ. Then there exists a bundled modular form p of weight −n on the prescribed real matrix image of Γ such that p(z)=E(z)(1,−z) for every z. In particular, the assertion includes holomorphy, slash invariance, and the full bounded-at-cusps condition.",
+  "lean_statement": "∀ (N : ℕ) [NeZero N] (n : ℕ) (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2)) (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.IsEichlerIntegral n (fun τ => f τ) E → (∀ (γ : CongruenceSubgroup.Gamma0 N) (τ : UpperHalfPlane), E ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • τ) = ((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype) γ (E τ)) → ∃ p : ModularForm (CongruenceSubgroup.Gamma0 N) (-(n : ℤ)), ∀ τ : UpperHalfPlane, p τ = MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -(τ : ℂ)) (E τ).val",
+  "lean_name": "p02_es_177ebb5a_scalarization_modular",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-a1"
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "node_id": "root.equivariant_primitive_vanishing-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "A cusp form with an exactly equivariant Eichler primitive vanishes",
+  "statement": "Let N,n∈ℕ with N≠0, Γ=Γ₀(N), and ρ the restricted degree-n binary-form representation. If f is a weight n+2 cusp form and E : ℍ → BinaryForm ℂ n satisfies IsEichlerIntegral n f E and E(γz)=ρ(γ)E(z) for every γ∈Γ and z∈ℍ, then f=0 as a bundled cusp form.",
+  "lean_statement": "∀ (N : ℕ) [NeZero N] (n : ℕ) (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2)) (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.IsEichlerIntegral n (fun τ => f τ) E → (∀ (γ : CongruenceSubgroup.Gamma0 N) (τ : UpperHalfPlane), E ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • τ) = ((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype) γ (E τ)) → f = 0",
+  "lean_name": "p02_es_177ebb5a_equivariant_primitive_vanishes",
+  "depends_on": [
+    "root.scalarization_modular-a1",
+    "root.scalarization_derivative-a1"
+  ],
+  "dependency_workspaces": [
+    {
+      "node_id": "root.scalarization_modular-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    },
+    {
+      "node_id": "root.scalarization_derivative-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    }
+  ],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-equivariant-primitive-vanishing-a1-a1"
+}

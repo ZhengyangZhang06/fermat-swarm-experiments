@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.primitive_parabolic-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "Constant defects of a cusp-form primitive are parabolic",
+  "statement": "Let N,n∈ℕ with N≠0, Γ=Γ₀(N), V=BinaryForm ℂ n, and ρ the restricted binary-form representation. Let f be a weight n+2 cusp form, F : ℍ → V satisfy IsEichlerIntegral n f F, and hF certify IsEquivariantPrimitiveWith ρ F. Then hF.cocycle is parabolic in the exact frozen sense: whenever γ∈Γ has trace squared equal to 4, its defect F(γi)−ρ(γ)F(i) belongs to the range of ρ(γ)−1.",
+  "lean_statement": "∀ (N : ℕ) [NeZero N] (n : ℕ) (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2)) (F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.IsEichlerIntegral n (fun τ => f τ) F → ∀ hF : HeckeEis.IsEquivariantPrimitiveWith ((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype) F, HeckeEis.IsParabolicCocycle ((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype) hF.cocycle",
+  "lean_name": "p02_es_177ebb5a_primitive_parabolic",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-parabolic-a1-a1"
+}

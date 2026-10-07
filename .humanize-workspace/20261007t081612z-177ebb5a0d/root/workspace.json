@@ -1,0 +1,406 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081612Z-177ebb5a0d",
+  "parent_id": "root",
+  "dispatch_branch": "proof-workspace/fermat-p02/20261007t081612z-177ebb5a0d/dispatch/root",
+  "source_commit": "1f74c284b125d4c45f527f2d621597fcf1e103a9",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.primitive_exists-a1",
+      "key": "primitive_exists",
+      "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-primitive-exists-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg --files --hidden -g AGENTS.md -g Submission.lean -g lakefile.lean -g lake-manifest.json -g lean-toolchain -g '*dag*' -g '*decomposition*' -g '*state*' -g '!**/.git/**' -g '!**/node_modules/**' .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d .",
+              "IsEichlerIntegral|IsEquivariantPrimitiveWith|coeffH1parMk_eq_zero_iff|p02_es_177ebb5a_",
+              "p02_es_177ebb5a_|scalarization",
+              "isZero_of_neg_weight|eq_const_of_weight_zero|exp_decay_atImInfty|isBoundedAt_iff|isCusp_SL2Z|isArithmetic_iff_finiteIndex",
+              "Gamma0|FiniteIndex",
+              "iteratedDeriv|def ",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_es_177ebb5a_typecheck.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_Gamma0CoeffCohomology.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/P2M",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/HasPrimitives.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/RemovableSingularity.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Manifold.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/IteratedDeriv/Defs.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/QExpansion.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/BoundedAtCusp.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/ArithmeticSubgroups.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/Cusps.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/NormTrace.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json"
+            ],
+            "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. rg was unavailable, so searches used grep. The defining files confirm the coefficientwise derivative predicate, constant-defect cocycle, existence branch, trace-squared parabolic test, and quotient by coboundaries. HasPrimitives supplies disk primitives; QExpansion supplies exponential decay; BoundedAtCusp supplies the full scaling-matrix criterion; NormTrace supplies negative-weight vanishing and weight-zero constancy. No scalarization helper matched in the searched P2M directory, and no proposed identifier matched the searched declarations or current DAG, which contains only the root. The six transitive project definition files matched the snapshot; all installed dependencies matched their pinned revisions with clean tracked sources. All five proposed types elaborated under Lean 4.33.1 with only import Submission. Their elaborated modular-form groups use the prescribed mapGL image of Gamma0. Axiom checks of the reused primitive, representation, quotient, decay, cusp, and weight theorems returned only propext, Classical.choice, and Quot.sound. These are interface and library checks, not comparator acceptance of any new proof."
+          }
+        ],
+        "parent_id": "root",
+        "child_id": "root.primitive_exists-a1",
+        "subproblem": {
+          "key": "primitive_exists",
+          "title": "A cusp form admits an Eichler primitive with constant defects",
+          "statement": "Let N,n be natural numbers with N ≠ 0, Γ = Γ₀(N), V = BinaryForm ℂ n, and ρ the restriction of binaryFormRepSL ℂ n to Γ. For every cusp form f of weight n+2 on the prescribed real matrix image of Γ, there exists F : ℍ → V satisfying IsEichlerIntegral n f F and IsEquivariantPrimitiveWith ρ F. Thus its coefficientwise derivative is f(z)(zX+Y)^n, and for every γ ∈ Γ the expression F(γz)−ρ(γ)F(z) is independent of z.",
+          "lean_statement": "∀ (N : ℕ) [NeZero N] (n : ℕ) (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2)), ∃ F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n), HeckeEis.IsEichlerIntegral n (fun τ => f τ) F ∧ HeckeEis.IsEquivariantPrimitiveWith ((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype) F",
+          "lean_name": "p02_es_177ebb5a_primitive_exists",
+          "depends_on": [],
+          "natural_proof": "1. Put Γ=Γ₀(N), V=BinaryForm ℂ n, L(z)=(zX+Y)^n, and let ρ denote the binary-form representation restricted to Γ. The cusp-form hypothesis implies that f is holomorphic. Every element of V has a unique expansion Σ_{r=0}^n a_r X^rY^{n-r}, because its nonzero monomials have total degree n.\n2. Every holomorphic scalar function a on ℍ has a primitive. To prove this using the pinned disk-primitive theorem, let φ(w)=i(1+w)/(1−w) on |w|<1 and ψ(z)=(z−i)/(z+i) on ℍ. The identities Im φ(w)=(1−|w|²)/|1−w|² and |z+i|²−|z−i|²=4 Im z show that these maps take their respective domains into ℍ and the unit disk. Their denominators do not vanish there, and direct substitution proves that they are inverse holomorphic maps. The function b(w)=a(φ(w))φ′(w) is holomorphic on the unit disk. Apply DifferentiableOn.isExactOn_ball from Mathlib/Analysis/Complex/HasPrimitives.lean to obtain B with B′=b on that disk. Then A=B∘ψ satisfies A′(z)=a(φ(ψ(z)))φ′(ψ(z))ψ′(z)=a(z), since differentiating φ∘ψ=id gives φ′(ψ(z))ψ′(z)=1.\n3. Apply step 2 to each a_r(z)=binom(n,r)f(z)z^r, for 0≤r≤n, and choose primitives A_r. Define F(z)=Σ_{r=0}^n A_r(z)X^rY^{n-r}. This polynomial is homogeneous of degree n. The binomial theorem and coefficientwise differentiation give F′(z)=f(z)L(z). For coefficient indices of total degree different from n, both sides have coefficient zero; every index of total degree n is one of the displayed monomials. Thus the derivative assertion holds for every index quantified by IsEichlerIntegral. Around each τ∈ℍ, positivity of imaginary part persists, so composing F with ofComplex gives the same local coefficient functions. Consequently this is precisely the frozen IsEichlerIntegral predicate.\n4. Fix γ=(a b; c d)∈Γ and write j=cz+d. This denominator is nonzero on ℍ: when c≠0 its possible zero is real, while c=0 forces d≠0. The determinant-one identity gives (γz)′=j⁻². Substitution in the binary form gives ρ(γ)L(z)=j^nL(γz), also recorded as HeckeEis.binaryFormRepSL_linePow. The cusp form's slash-invariance, with determinant one, gives f(γz)=j^(n+2)f(z).\n5. Differentiate D_γ(z)=F(γz)−ρ(γ)F(z) coefficientwise. The representation is a fixed linear substitution, hence each output coefficient is a finite linear combination of input coefficients. The derivative of the first term is f(γz)L(γz)j⁻²=f(z)ρ(γ)L(z), which equals the derivative of the second term. Therefore every coefficient of D_γ has derivative zero.\n6. Given z,w∈ℍ, their straight segment lies in ℍ. The restriction of each coefficient of D_γ to this segment has real derivative zero by the chain rule. Applying the real mean-value theorem to its real and imaginary parts makes its endpoint values equal. Polynomial coefficient uniqueness gives D_γ(z)=D_γ(w). Choosing w=i and c=D_γ(i) proves the existential constant required by IsEquivariantPrimitiveWith for every γ. Together with step 3 this proves the claimed pair of properties.",
+          "proof_key_steps": [
+            "Transfer disk primitive existence to the upper half-plane using the explicit Cayley biholomorphism.",
+            "Integrate the finitely many coefficients of f(z)(zX+Y)^n.",
+            "Check every coefficient index and the local ofComplex convention.",
+            "Differentiate equivariance defects using modularity and binaryFormRepSL_linePow.",
+            "Use convexity and zero derivative to make each defect constant."
+          ]
+        },
+        "audit": {
+          "key": "primitive_exists",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The prose includes every hypothesis and matches the independently elaborated proposition. The Cayley transfer supplies scalar primitives; finite homogeneous expansion checks every coefficient, including the ofComplex extension. Modularity and the representation identity make every defect derivative zero, and convexity proves constancy. No sibling or parent result is assumed."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.primitive_parabolic-a1",
+      "key": "primitive_parabolic",
+      "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-parabolic-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-primitive-parabolic-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg --files --hidden -g AGENTS.md -g Submission.lean -g lakefile.lean -g lake-manifest.json -g lean-toolchain -g '*dag*' -g '*decomposition*' -g '*state*' -g '!**/.git/**' -g '!**/node_modules/**' .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d .",
+              "IsEichlerIntegral|IsEquivariantPrimitiveWith|coeffH1parMk_eq_zero_iff|p02_es_177ebb5a_",
+              "p02_es_177ebb5a_|scalarization",
+              "isZero_of_neg_weight|eq_const_of_weight_zero|exp_decay_atImInfty|isBoundedAt_iff|isCusp_SL2Z|isArithmetic_iff_finiteIndex",
+              "Gamma0|FiniteIndex",
+              "iteratedDeriv|def ",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_es_177ebb5a_typecheck.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_Gamma0CoeffCohomology.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/P2M",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/HasPrimitives.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/RemovableSingularity.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Manifold.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/IteratedDeriv/Defs.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/QExpansion.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/BoundedAtCusp.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/ArithmeticSubgroups.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/Cusps.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/NormTrace.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json"
+            ],
+            "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. rg was unavailable, so searches used grep. The defining files confirm the coefficientwise derivative predicate, constant-defect cocycle, existence branch, trace-squared parabolic test, and quotient by coboundaries. HasPrimitives supplies disk primitives; QExpansion supplies exponential decay; BoundedAtCusp supplies the full scaling-matrix criterion; NormTrace supplies negative-weight vanishing and weight-zero constancy. No scalarization helper matched in the searched P2M directory, and no proposed identifier matched the searched declarations or current DAG, which contains only the root. The six transitive project definition files matched the snapshot; all installed dependencies matched their pinned revisions with clean tracked sources. All five proposed types elaborated under Lean 4.33.1 with only import Submission. Their elaborated modular-form groups use the prescribed mapGL image of Gamma0. Axiom checks of the reused primitive, representation, quotient, decay, cusp, and weight theorems returned only propext, Classical.choice, and Quot.sound. These are interface and library checks, not comparator acceptance of any new proof."
+          }
+        ],
+        "parent_id": "root",
+        "child_id": "root.primitive_parabolic-a1",
+        "subproblem": {
+          "key": "primitive_parabolic",
+          "title": "Constant defects of a cusp-form primitive are parabolic",
+          "statement": "Let N,n∈ℕ with N≠0, Γ=Γ₀(N), V=BinaryForm ℂ n, and ρ the restricted binary-form representation. Let f be a weight n+2 cusp form, F : ℍ → V satisfy IsEichlerIntegral n f F, and hF certify IsEquivariantPrimitiveWith ρ F. Then hF.cocycle is parabolic in the exact frozen sense: whenever γ∈Γ has trace squared equal to 4, its defect F(γi)−ρ(γ)F(i) belongs to the range of ρ(γ)−1.",
+          "lean_statement": "∀ (N : ℕ) [NeZero N] (n : ℕ) (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2)) (F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.IsEichlerIntegral n (fun τ => f τ) F → ∀ hF : HeckeEis.IsEquivariantPrimitiveWith ((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype) F, HeckeEis.IsParabolicCocycle ((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype) hF.cocycle",
+          "lean_name": "p02_es_177ebb5a_primitive_parabolic",
+          "depends_on": [],
+          "natural_proof": "1. Write ρ also for the representation of SL₂(ℤ) on V, and put L(z)=(zX+Y)^n. The coefficient derivatives asserted by IsEichlerIntegral imply coefficientwise holomorphy of F on ℍ. For c(γ)=hF.cocycle γ, the constant-defect hypothesis gives F(γz)−ρ(γ)F(z)=c(γ) for every z: evaluate its constant at i to identify it with the frozen cocycle definition.\n2. Fix σ∈SL₂(ℤ). Put u(z)=j(σ,z)^(-(n+2))f(σz). The denominator is nonzero on ℍ, so u is holomorphic. Let T=(1 1;0 1). Reduction modulo N has normal kernel Γ(N), which contains T^N and is contained in Γ₀(N). Hence σT^Nσ⁻¹∈Γ. The slash composition identity, obtained from j(αβ,z)=j(α,βz)j(β,z), shows u(z+N)=u(z). Since N>0, the conjugate σT^Nσ⁻¹ is noncentral parabolic and fixes σ∞. Thus σ∞ is a cusp of Γ, and the cusp-form condition says u tends to zero at imaginary infinity uniformly in the real part.\n3. This implies an exponential bound |u(x+iy)|≤C exp(−ay), for all x and all sufficiently large y, with C>0 and a=2π/N>0. Indeed, q=exp(2πiz/N) identifies points differing by integer multiples of N and maps ℍ onto the punctured unit disk. Local logarithms and periodicity descend u to a holomorphic function U(q). Uniform vanishing gives U(q)→0 at zero. The removable-singularity theorem extends U holomorphically with U(0)=0. Its local power series therefore gives U(q)=qV(q), where V is holomorphic near zero and bounded on a sufficiently small closed disk. This proves the bound. The same conclusion with these hypotheses is UpperHalfPlane.IsZeroAtImInfty.exp_decay_atImInfty in Mathlib/NumberTheory/ModularForms/QExpansion.lean.\n4. Define G(z)=ρ(σ⁻¹)F(σz). The identity ρ(σ)L(z)=j(σ,z)^nL(σz), the derivative (σz)′=j(σ,z)⁻², and the coefficientwise chain rule give G′(z)=u(z)L(z). Give V the maximum norm of its coefficients in X^rY^{n-r}. It is complete, being a finite product of copies of ℂ. For each B>0, the binomial expansion bounds the coefficients of L(x+it) by D_B(1+t)^n when |x|≤B and t≥1. Thus, above some Y≥1, ‖G′(x+it)‖≤C_B(1+t)^n exp(−at).\n5. Integrating this bound on vertical segments shows that G(x+iy) has a limit on each vertical ray. More explicitly, with J=∫₀^∞(1+s)^n exp(−as) ds, the tail integral is at most J(1+y)^n exp(−ay), because 1+y+s≤(1+y)(1+s). The integral J is finite: expand the polynomial and integrate each s^r exp(−as) by parts, obtaining r!/a^(r+1). The needed boundary limits follow from exp(as)≥(as)^(r+1)/(r+1)!, which implies s^r exp(−as)→0. Completeness now supplies each ray limit and the uniform tail bound. For two fixed real parts x,x′, horizontal integration gives ‖G(x+iy)−G(x′+iy)‖≤|x−x′|C_B(1+y)^n exp(−ay) for a B containing both. This tends to zero by the same exponential estimate. Hence all ray limits coincide in a single polynomial A∈V.\n6. Now fix γ∈Γ with tr(γ)^2=4. Its integer trace is 2ε for ε∈{1,−1}. The determinant-one characteristic polynomial is (t−ε)^2, so γ−εI has a nonzero rational kernel vector. Clear denominators and divide by the greatest common divisor to obtain a primitive integral eigenvector (p,q). Bézout supplies r,s with ps−qr=1. The matrix σ with columns (p,q),(r,s) belongs to SL₂(ℤ), and σ⁻¹γσ has first column (ε,0). Its determinant forces its lower-right entry to be ε, so it equals εT^m for some integer m. This also covers γ=±I, for which σ=I and m=0 may be chosen.\n7. Apply steps 2–5 to this σ and write δ=εT^m. Its action on ℍ is z↦z+m. Applying ρ(σ⁻¹) to the constant-defect formula for γ at σz gives ρ(σ⁻¹)c(γ)=G(z+m)−ρ(δ)G(z). Set z=iy and let y tend to infinity. Both G-values tend to A. Every linear operator on the finite-dimensional coefficient space is continuous, so ρ(σ⁻¹)c(γ)=A−ρ(δ)A. Multiplying by ρ(σ) and using γ=σδσ⁻¹ yields c(γ)=ρ(σ)A−ρ(γ)ρ(σ)A=(ρ(γ)−1)(−ρ(σ)A).\n8. The explicit vector −ρ(σ)A witnesses membership in the required linear-map range. The argument applies to every γ tested by the trace-squared predicate, including trace −2 and the central cases. Therefore hF.cocycle satisfies the exact IsParabolicCocycle predicate.",
+          "proof_key_steps": [
+            "Identify the frozen cocycle with the constant defect at every point.",
+            "Obtain positive-period cusp coordinates and exponential decay after any integral scaling matrix.",
+            "Transform the primitive and prove its derivative is the slashed cusp form times linePow.",
+            "Use integrable exponential tails and horizontal comparison to obtain a common limiting polynomial.",
+            "Conjugate every trace-squared-four matrix to εT^m.",
+            "Take limits in the defect identity and exhibit the required range witness."
+          ]
+        },
+        "audit": {
+          "key": "primitive_parabolic",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The contract correctly quantifies over any primitive and its constant-defect certificate. The proof establishes exponential decay, common vertical-ray limits, and the integral conjugacy normal form, then exhibits the range witness with the correct sign. Trace −2 and central matrices are covered. It independently proves all required intermediate facts and needs no primitive-existence dependency."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-parabolic-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-parabolic-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-parabolic-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.scalarization_derivative-a1",
+      "key": "scalarization_derivative",
+      "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-scalarization-derivative-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg --files --hidden -g AGENTS.md -g Submission.lean -g lakefile.lean -g lake-manifest.json -g lean-toolchain -g '*dag*' -g '*decomposition*' -g '*state*' -g '!**/.git/**' -g '!**/node_modules/**' .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d .",
+              "IsEichlerIntegral|IsEquivariantPrimitiveWith|coeffH1parMk_eq_zero_iff|p02_es_177ebb5a_",
+              "p02_es_177ebb5a_|scalarization",
+              "isZero_of_neg_weight|eq_const_of_weight_zero|exp_decay_atImInfty|isBoundedAt_iff|isCusp_SL2Z|isArithmetic_iff_finiteIndex",
+              "Gamma0|FiniteIndex",
+              "iteratedDeriv|def ",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_es_177ebb5a_typecheck.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_Gamma0CoeffCohomology.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/P2M",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/HasPrimitives.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/RemovableSingularity.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Manifold.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/IteratedDeriv/Defs.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/QExpansion.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/BoundedAtCusp.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/ArithmeticSubgroups.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/Cusps.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/NormTrace.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json"
+            ],
+            "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. rg was unavailable, so searches used grep. The defining files confirm the coefficientwise derivative predicate, constant-defect cocycle, existence branch, trace-squared parabolic test, and quotient by coboundaries. HasPrimitives supplies disk primitives; QExpansion supplies exponential decay; BoundedAtCusp supplies the full scaling-matrix criterion; NormTrace supplies negative-weight vanishing and weight-zero constancy. No scalarization helper matched in the searched P2M directory, and no proposed identifier matched the searched declarations or current DAG, which contains only the root. The six transitive project definition files matched the snapshot; all installed dependencies matched their pinned revisions with clean tracked sources. All five proposed types elaborated under Lean 4.33.1 with only import Submission. Their elaborated modular-form groups use the prescribed mapGL image of Gamma0. Axiom checks of the reused primitive, representation, quotient, decay, cusp, and weight theorems returned only propext, Classical.choice, and Quot.sound. These are interface and library checks, not comparator acceptance of any new proof."
+          }
+        ],
+        "parent_id": "root",
+        "child_id": "root.scalarization_derivative-a1",
+        "subproblem": {
+          "key": "scalarization_derivative",
+          "title": "The scalarization recovers the original function after n+1 derivatives",
+          "statement": "Let n∈ℕ, let h : ℍ → ℂ be holomorphic, expressed exactly by DifferentiableOn ℂ (h ∘ ofComplex) on {z : ℂ | 0 < z.im}, and let E : ℍ → BinaryForm ℂ n satisfy IsEichlerIntegral n h E. Define P(z)=E(ofComplex z)(1,−z) for z∈ℂ. Then, for every τ∈ℍ, its complex derivative of order n+1 satisfies P⁽ⁿ⁺¹⁾(τ)=(-1)^n n! h(τ).",
+          "lean_statement": "∀ (n : ℕ) (h : UpperHalfPlane → ℂ) (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), DifferentiableOn ℂ (fun z : ℂ => h (UpperHalfPlane.ofComplex z)) {z : ℂ | 0 < z.im} → HeckeEis.IsEichlerIntegral n h E → ∀ τ : UpperHalfPlane, iteratedDeriv (n + 1) (fun z : ℂ => MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z) (E (UpperHalfPlane.ofComplex z)).val) (τ : ℂ) = ((-1 : ℂ) ^ n * (Nat.factorial n : ℂ)) * h τ",
+          "lean_name": "p02_es_177ebb5a_scalarization_derivative",
+          "depends_on": [],
+          "natural_proof": "1. Work on the open set U={z∈ℂ : Im z>0}. On U, ofComplex is the usual upper-half-plane identification. Write E(z)=Σ_{j=0}^n a_j(z)X^jY^{n-j}. The frozen IsEichlerIntegral predicate gives a complex derivative for every coefficient at every point of U and says coefficientwise that E′(z)=h(z)(zX+Y)^n. Thus all a_j are holomorphic on U. In particular all finite expressions below are holomorphic there.\n2. For 0≤r≤n+1 define Q_r(z)=(∂_Y^r E(z))(1,−z), differentiating only the polynomial variable Y inside ∂_Y. Every term of E has Y-degree at most n, so Q_{n+1}=0. Differentiating the finite coefficient expression for Q_r, and separately differentiating the substituted value −z, gives for 0≤r≤n the identity Q_r′(z)=h(z)(∂_Y^r(zX+Y)^n)(1,−z)−Q_{r+1}(z). Coefficient differentiation commutes with ∂_Y because both operations act termwise on a fixed finite sum.\n3. Repeated polynomial differentiation gives ∂_Y^r(zX+Y)^n=n!/(n−r)!·(zX+Y)^(n−r) for r≤n. When r<n the remaining exponent is positive, so evaluation at (1,−z) is zero. Therefore Q_r′=−Q_{r+1} for r<n. At r=n the evaluated polynomial is n!, and Q_{n+1}=0, so Q_n′=n!h. If n=0 this last identity already says Q_0′=h.\n4. On U the scalar function P in the statement equals Q_0. Induction on r, using the recurrence in step 3, gives iteratedDeriv r P=(-1)^r Q_r on U for 0≤r≤n. In the induction step these functions agree on an open neighborhood of every point of U, so their derivatives agree there. The identity iteratedDeriv (r+1) P=deriv (iteratedDeriv r P) is iteratedDeriv_succ from Mathlib/Analysis/Calculus/IteratedDeriv/Defs.lean.\n5. Differentiate the r=n identity once more and use Q_n′=n!h. This gives iteratedDeriv (n+1) P(z)=(-1)^n n!h(z) throughout U. Every τ∈ℍ lies in U, and all derivatives are local, so the definition of ofComplex outside U has no effect. Evaluating at τ proves exactly the displayed Lean conclusion, including n=0.",
+          "proof_key_steps": [
+            "Interpret IsEichlerIntegral as coefficientwise differentiation on the open upper half-plane.",
+            "Define evaluated Y-partial derivatives Q_r.",
+            "Prove Q_r′=−Q_{r+1} below degree n and Q_n′=n!h.",
+            "Identify successive complex derivatives of the scalarization by induction.",
+            "Differentiate once more and use locality to match the exact ofComplex extension."
+          ]
+        },
+        "audit": {
+          "key": "scalarization_derivative",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The proposition precisely matches the stated global extension and local complex derivatives. Termwise differentiation gives the Q_r recurrence, and neighborhood equality justifies induction using iteratedDeriv_succ. The factorial and sign are correct, including n=0. No equivariance or cusp assumption is silently required."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-derivative-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-derivative-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-derivative-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.scalarization_modular-a1",
+      "key": "scalarization_modular",
+      "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-scalarization-modular-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg --files --hidden -g AGENTS.md -g Submission.lean -g lakefile.lean -g lake-manifest.json -g lean-toolchain -g '*dag*' -g '*decomposition*' -g '*state*' -g '!**/.git/**' -g '!**/node_modules/**' .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d .",
+              "IsEichlerIntegral|IsEquivariantPrimitiveWith|coeffH1parMk_eq_zero_iff|p02_es_177ebb5a_",
+              "p02_es_177ebb5a_|scalarization",
+              "isZero_of_neg_weight|eq_const_of_weight_zero|exp_decay_atImInfty|isBoundedAt_iff|isCusp_SL2Z|isArithmetic_iff_finiteIndex",
+              "Gamma0|FiniteIndex",
+              "iteratedDeriv|def ",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_es_177ebb5a_typecheck.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_Gamma0CoeffCohomology.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/P2M",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/HasPrimitives.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/RemovableSingularity.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Manifold.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/IteratedDeriv/Defs.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/QExpansion.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/BoundedAtCusp.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/ArithmeticSubgroups.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/Cusps.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/NormTrace.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json"
+            ],
+            "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. rg was unavailable, so searches used grep. The defining files confirm the coefficientwise derivative predicate, constant-defect cocycle, existence branch, trace-squared parabolic test, and quotient by coboundaries. HasPrimitives supplies disk primitives; QExpansion supplies exponential decay; BoundedAtCusp supplies the full scaling-matrix criterion; NormTrace supplies negative-weight vanishing and weight-zero constancy. No scalarization helper matched in the searched P2M directory, and no proposed identifier matched the searched declarations or current DAG, which contains only the root. The six transitive project definition files matched the snapshot; all installed dependencies matched their pinned revisions with clean tracked sources. All five proposed types elaborated under Lean 4.33.1 with only import Submission. Their elaborated modular-form groups use the prescribed mapGL image of Gamma0. Axiom checks of the reused primitive, representation, quotient, decay, cusp, and weight theorems returned only propext, Classical.choice, and Quot.sound. These are interface and library checks, not comparator acceptance of any new proof."
+          }
+        ],
+        "parent_id": "root",
+        "child_id": "root.scalarization_modular-a1",
+        "subproblem": {
+          "key": "scalarization_modular",
+          "title": "An equivariant Eichler primitive scalarizes to a modular form",
+          "statement": "Let N,n∈ℕ with N≠0, Γ=Γ₀(N), V=BinaryForm ℂ n, and ρ the restricted binary-form representation. Let f be a weight n+2 cusp form and E : ℍ → V satisfy IsEichlerIntegral n f E and E(γz)=ρ(γ)E(z) for every γ∈Γ and z∈ℍ. Then there exists a bundled modular form p of weight −n on the prescribed real matrix image of Γ such that p(z)=E(z)(1,−z) for every z. In particular, the assertion includes holomorphy, slash invariance, and the full bounded-at-cusps condition.",
+          "lean_statement": "∀ (N : ℕ) [NeZero N] (n : ℕ) (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2)) (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.IsEichlerIntegral n (fun τ => f τ) E → (∀ (γ : CongruenceSubgroup.Gamma0 N) (τ : UpperHalfPlane), E ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • τ) = ((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype) γ (E τ)) → ∃ p : ModularForm (CongruenceSubgroup.Gamma0 N) (-(n : ℤ)), ∀ τ : UpperHalfPlane, p τ = MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -(τ : ℂ)) (E τ).val",
+          "lean_name": "p02_es_177ebb5a_scalarization_modular",
+          "depends_on": [],
+          "natural_proof": "1. Put V=BinaryForm ℂ n and let ρ denote its full SL₂(ℤ) representation. Define p(z)=E(z)(1,−z). The predicate IsEichlerIntegral supplies a complex derivative for every coefficient of E at every point of ℍ. Since ofComplex agrees locally with the upper-half-plane coordinate, these coefficient functions are holomorphic. The finite homogeneous expansion of E expresses p as a finite sum of holomorphic functions times powers of −z. Hence p is holomorphic, with the manifold interpretation justified by UpperHalfPlane.mdifferentiable_iff in Mathlib/Analysis/Complex/UpperHalfPlane/Manifold.lean.\n2. For γ=(a b;c d)∈Γ, let j=cz+d. It is nonzero on ℍ. Determinant one gives a−cγz=1/j and b−dγz=−z/j. Equivariance, the defining substitution for ρ, and degree-n homogeneity imply p(γz)=E(z)(a−cγz,b−dγz)=j^(−n)p(z). This proves the required slash invariance for every element in the real matrix image of Γ, since each such element has a representative γ∈Γ.\n3. Fix σ∈SL₂(ℤ), set u=f|_{n+2}σ, and define G(z)=ρ(σ⁻¹)E(σz). The identity ρ(σ)(zX+Y)^n=j(σ,z)^n((σz)X+Y)^n and (σz)′=j(σ,z)⁻² give G′(z)=u(z)(zX+Y)^n coefficientwise. Repeating the evaluation calculation in step 2 with E(σz)=ρ(σ)G(z) gives (p|_{−n}σ)(z)=G(z)(1,−z).\n4. The principal congruence subgroup Γ(N), the kernel of reduction modulo N, is normal and contained in Γ. It contains T^N, where T=(1 1;0 1). Thus σT^Nσ⁻¹∈Γ, so u has period N and σ∞ is a cusp, witnessed by this noncentral parabolic matrix. The cusp-form condition says u tends uniformly to zero as imaginary height tends to infinity. It is holomorphic because its slash denominator is nonzero. For q=exp(2πiz/N), periodicity descends u to a holomorphic U on the punctured unit disk. Uniform vanishing extends U continuously by U(0)=0; the removable-singularity theorem makes the extension holomorphic. Its power series gives U(q)=qV(q), with V bounded near zero. Therefore |u(x+iy)|≤C exp(−ay) for all real x and sufficiently large y, where a=2π/N>0. These are also the exact hypotheses of UpperHalfPlane.IsZeroAtImInfty.exp_decay_atImInfty in Mathlib/NumberTheory/ModularForms/QExpansion.lean.\n5. Equip V with the maximum norm of coefficients in X^rY^{n-r}. For |x|≤B and t≥1, the coefficients of (x+it)X+Y raised to degree n are bounded by a constant times (1+t)^n. Consequently ‖G′(x+it)‖≤C_B(1+t)^n exp(−at). Vertical integration bounds tails by C_B J(1+y)^n exp(−ay), where J=∫₀^∞(1+s)^n exp(−as) ds<∞. The inequality follows from 1+y+s≤(1+y)(1+s); finiteness follows by expanding the polynomial and using ∫₀^∞s^r exp(−as) ds=r!/a^(r+1), proved by integration by parts. Boundary terms vanish since exp(as)≥(as)^(r+1)/(r+1)!. Completeness of the finite coefficient space gives a limit on each vertical ray. Horizontal integration bounds the difference between rays at height y by |x−x′|C_B(1+y)^n exp(−ay), which tends to zero. Thus the limits agree in one A∈V, and ‖G(x+iy)−A‖≤K_B(1+y)^n exp(−ay) uniformly for |x|≤B and sufficiently large y.\n6. Exact equivariance under σT^Nσ⁻¹ gives G(z+N)=ρ(T^N)G(z). Taking the common ray limits at real parts 0 and N gives A=ρ(T^N)A, since linear substitution is continuous on V. Write r(t)=A(1,t). The substitution ρ(T^N) sends (X,Y) to (X,NX+Y), so r(t+N)=r(t). If r had positive degree d with leading coefficient b≠0, the coefficient of t^(d−1) in r(t+N)−r(t) would be dbN≠0, a contradiction. Thus r is constant. The unique homogeneous expansion then implies A=αX^n for some α∈ℂ. This includes n=0 and A=0.\n7. For any R∈V, its homogeneous expansion gives |R(1,−z)|≤(n+1)max(1,|z|)^n‖R‖. On 0≤x≤N and y≥1, max(1,|x+iy|)≤(N+2)(1+y). Apply this to R=G(x+iy)−A and step 5. Since A(1,−z)=α, one obtains |G(x+iy)(1,−x−iy)−α|≤K(1+y)^(2n)exp(−ay) on that strip for large y. The right side tends to zero: for y≥1 use (1+y)^(2n)≤2^(2n)y^(2n) and exp(ay)≥(ay)^(2n+1)/(2n+1)!. Thus the scalarization is eventually uniformly bounded on the strip.\n8. It is N-periodic, because G(z+N)=ρ(T^N)G(z) implies G(z+N)(1,−z−N)=G(z)(1,−z). For every real x, taking m=floor(x/N) gives x−mN∈[0,N). Periodicity, also for negative integer translates, reduces every real part to this strip without changing its imaginary part. Step 7 therefore proves boundedness at imaginary infinity for G(z)(1,−z), hence for p|_{−n}σ by step 3.\n9. It remains to check every cusp in the bundled definition. Reduction modulo the positive integer N has finite image, so Γ(N) has finite index, and its inclusion in Γ implies that Γ has finite index. The prescribed real matrix image is therefore arithmetic, as in Subgroup.isArithmetic_iff_finiteIndex. The pinned results Subgroup.IsArithmetic.isCusp_iff_isCusp_SL2Z and isCusp_SL2Z_iff′ in Mathlib/NumberTheory/ModularForms/Cusps.lean imply that every cusp is σ∞ for some σ∈SL₂(ℤ). For that σ, step 8 gives boundedness of the required slash translate. OnePoint.isBoundedAt_iff in Mathlib/NumberTheory/ModularForms/BoundedAtCusp.lean converts boundedness after this single scaling matrix into the full cusp predicate, including all other real scaling matrices. Its hypothesis is precisely that the selected matrix sends infinity to this cusp, which is how σ was chosen.\n10. Package the scalar function from step 1 with its holomorphy, the slash invariance from step 2, and the cusp boundedness from step 9 into ModularForm Γ (−n). Its underlying function is exactly the stated evaluation of E, proving the existential conclusion.",
+          "proof_key_steps": [
+            "Use coefficientwise differentiability to obtain holomorphic scalarization.",
+            "Calculate its weight −n transformation law by determinant one and homogeneity.",
+            "Express every slash translate through the corresponding transformed primitive.",
+            "Prove exponential cusp decay and a uniform polynomial-times-exponential primitive tail.",
+            "Use translation equivariance to force the limiting polynomial to be αX^n.",
+            "Bound evaluation on one strip and extend the bound by periodicity.",
+            "Apply arithmetic cusp classification and the full scaling-matrix criterion, then bundle the modular form."
+          ]
+        },
+        "audit": {
+          "key": "scalarization_modular",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The exact type includes both required hypotheses and the full bundled modular-form conclusion. The proof establishes holomorphy, weight −n, uniform primitive tails, the translation-invariant limiting polynomial, and boundedness for all real parts. Arithmetic cusp classification and the inspected scaling-matrix criterion supply the full cusp condition. No undeclared sibling dependency occurs."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-modular-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-modular-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-modular-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.equivariant_primitive_vanishing-a1",
+      "key": "equivariant_primitive_vanishing",
+      "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-equivariant-primitive-vanishing-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-equivariant-primitive-vanishing-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg --files --hidden -g AGENTS.md -g Submission.lean -g lakefile.lean -g lake-manifest.json -g lean-toolchain -g '*dag*' -g '*decomposition*' -g '*state*' -g '!**/.git/**' -g '!**/node_modules/**' .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d .",
+              "IsEichlerIntegral|IsEquivariantPrimitiveWith|coeffH1parMk_eq_zero_iff|p02_es_177ebb5a_",
+              "p02_es_177ebb5a_|scalarization",
+              "isZero_of_neg_weight|eq_const_of_weight_zero|exp_decay_atImInfty|isBoundedAt_iff|isCusp_SL2Z|isArithmetic_iff_finiteIndex",
+              "Gamma0|FiniteIndex",
+              "iteratedDeriv|def ",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_es_177ebb5a_typecheck.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_Gamma0CoeffCohomology.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/P2M",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/HasPrimitives.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/RemovableSingularity.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Manifold.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/IteratedDeriv/Defs.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/QExpansion.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/BoundedAtCusp.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/ArithmeticSubgroups.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/Cusps.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/NormTrace.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json"
+            ],
+            "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. rg was unavailable, so searches used grep. The defining files confirm the coefficientwise derivative predicate, constant-defect cocycle, existence branch, trace-squared parabolic test, and quotient by coboundaries. HasPrimitives supplies disk primitives; QExpansion supplies exponential decay; BoundedAtCusp supplies the full scaling-matrix criterion; NormTrace supplies negative-weight vanishing and weight-zero constancy. No scalarization helper matched in the searched P2M directory, and no proposed identifier matched the searched declarations or current DAG, which contains only the root. The six transitive project definition files matched the snapshot; all installed dependencies matched their pinned revisions with clean tracked sources. All five proposed types elaborated under Lean 4.33.1 with only import Submission. Their elaborated modular-form groups use the prescribed mapGL image of Gamma0. Axiom checks of the reused primitive, representation, quotient, decay, cusp, and weight theorems returned only propext, Classical.choice, and Quot.sound. These are interface and library checks, not comparator acceptance of any new proof."
+          }
+        ],
+        "parent_id": "root",
+        "child_id": "root.equivariant_primitive_vanishing-a1",
+        "subproblem": {
+          "key": "equivariant_primitive_vanishing",
+          "title": "A cusp form with an exactly equivariant Eichler primitive vanishes",
+          "statement": "Let N,n∈ℕ with N≠0, Γ=Γ₀(N), and ρ the restricted degree-n binary-form representation. If f is a weight n+2 cusp form and E : ℍ → BinaryForm ℂ n satisfies IsEichlerIntegral n f E and E(γz)=ρ(γ)E(z) for every γ∈Γ and z∈ℍ, then f=0 as a bundled cusp form.",
+          "lean_statement": "∀ (N : ℕ) [NeZero N] (n : ℕ) (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2)) (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.IsEichlerIntegral n (fun τ => f τ) E → (∀ (γ : CongruenceSubgroup.Gamma0 N) (τ : UpperHalfPlane), E ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • τ) = ((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype) γ (E τ)) → f = 0",
+          "lean_name": "p02_es_177ebb5a_equivariant_primitive_vanishes",
+          "depends_on": [
+            "scalarization_modular",
+            "scalarization_derivative"
+          ],
+          "natural_proof": "1. Apply the sibling theorem p02_es_177ebb5a_scalarization_modular with the given N,n,f,E, derivative predicate, and exact equivariance. It supplies a bundled modular form p of weight −n with p(τ)=E(τ)(1,−τ) for every τ∈ℍ.\n2. The hypothesis N≠0 gives the finite-index instance CongruenceSubgroup.instFiniteIndexGamma0 from Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean. Equivalently, the kernel of reduction modulo N has finite index and lies in Γ₀(N). Subgroup.isArithmetic_iff_finiteIndex from ArithmeticSubgroups.lean therefore makes the prescribed real matrix image of Γ₀(N) arithmetic. This checks the group hypothesis of the weight theorems used next.\n3. If n>0, then −(n:ℤ)<0. Apply ModularForm.isZero_of_neg_weight from Mathlib/NumberTheory/ModularForms/NormTrace.lean to p; it gives p=0. If n=0, its weight is zero, and ModularForm.eq_const_of_weight_zero from the same file gives a scalar c with p constantly equal to c. Thus in either case p is constant on ℍ.\n4. Define P(z)=E(ofComplex z)(1,−z). At any τ∈ℍ choose an open neighborhood contained in the upper half-plane. On that neighborhood, step 1 identifies P with the constant function from step 3. Hence its complex derivative of the positive order n+1 is zero at τ. This follows either by successive differentiation of a constant or by iteratedDeriv_const and locality of derivatives.\n5. The cusp-form holomorphy hypothesis, converted through UpperHalfPlane.mdifferentiable_iff, supplies DifferentiableOn ℂ (fun z => f (ofComplex z)) on {z | 0<z.im}. Apply the sibling theorem p02_es_177ebb5a_scalarization_derivative with h=f and the given IsEichlerIntegral proof. Together with step 4 it gives ((-1:ℂ)^n·(n!:ℂ))f(τ)=0 for every τ∈ℍ.\n6. The scalar (-1:ℂ)^n is nonzero. The positive natural number n! has nonzero image in the characteristic-zero field ℂ, so their product is nonzero. Cancellation gives f(τ)=0 for every τ. Extensionality of bundled cusp forms now gives f=0, as asserted.",
+          "proof_key_steps": [
+            "Use scalarization_modular to obtain a modular form of weight −n.",
+            "Verify arithmeticity from the finite index of Γ₀(N).",
+            "Apply pinned negative-weight vanishing or weight-zero constancy.",
+            "Conclude that the scalarization's derivative of order n+1 vanishes locally.",
+            "Apply scalarization_derivative and cancel the nonzero factorial factor.",
+            "Use cusp-form extensionality."
+          ]
+        },
+        "audit": {
+          "key": "equivariant_primitive_vanishing",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The prose and exact type agree. Its only sibling uses are the two declared dependencies, directed correctly and acyclically. Finite index supplies arithmeticity for the pinned weight theorems; local constancy annihilates the positive-order derivative. Cusp-form holomorphy supplies the derivative theorem's hypothesis, and nonzero-factor cancellation followed by extensionality proves f=0."
+        },
+        "resolved_dependencies": [
+          "root.scalarization_modular-a1",
+          "root.scalarization_derivative-a1"
+        ],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-equivariant-primitive-vanishing-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-equivariant-primitive-vanishing-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-equivariant-primitive-vanishing-a1/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/task.md": "fbef05e2a6cfc7a6d66c1b237f25981ac872a7f88acb97b5772f4a049cee216a",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/problem.md": "bc292ceabaa59d4166815e39f5e6a0c5ec4e11e33604270753833466755074b0",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/problem.json": "bf0e4090d7154b9d64a24b6ca1b3b7a3bc13849e2326306634e0842533303df7",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/reference-manifest.json": "a8f9271939f028889a1e9bac59a7290448f8c694baf434f537bdc05b0f75f2a6",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/decomposition.json": "fd8cbf70b0c9c70c73f380ca0255e88306143a8c5b9cc96dafab85a2ece20ef6",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/decomposition-audit.json": "b26485422c829246b2ff087bfef6b2a8e437b2e427ed83c4cce4fd395ff07ae4",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/controller-contract.json": "7b7a516f9fce5467b2a4e92be9eb01a7eee74fb69c1477cc06212956b9e78e13",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-primitive-exists-a1/parent-child-handoff.json": "178aab9603cc1f7af2aa838a8478b23c632e7b5b188db1c8468c5a9576496d0d",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-primitive-exists-a1/parent-supplied-plan.md": "2bb9cce82202f5eda68ed0a0b9c0ed1814305f802a6a60f1d5f2454e45fa6b62",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-primitive-exists-a1/parent-supplied-natural-proof.md": "1e097d8cb3df2736ced64359586004118672177f3ce68cf5153c80a202a959ee",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-primitive-exists-a1/parent-supplied-natural-proof.json": "545ff20c34e01167d2ab3df1673cde2736df9a17e77fe510621e57cd4020789f",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-primitive-exists-a1/node.json": "7ae11813a2fc4066ecb79faa265a0ca128dd8b08e6a57b1d515b53ee54837d74",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-primitive-parabolic-a1/parent-child-handoff.json": "567626d759022b5a5272392a401c11fbba57263dba8c10177ee2eadad9b5ea13",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-primitive-parabolic-a1/parent-supplied-plan.md": "3b35ed0db96acc0c2c2f10b28e8d840ead15186181d73376696b6669a9301186",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-primitive-parabolic-a1/parent-supplied-natural-proof.md": "ffd71f42363b64a054d427c852e80a161997ede0382a8ef7150d9ed14bd09a58",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-primitive-parabolic-a1/parent-supplied-natural-proof.json": "9c2656c256146d62c60ae59804b5a6b4494fd79c9499561aa663524e6892d3a4",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-primitive-parabolic-a1/node.json": "a876d25cbac2256d97111e8b40b040634af9b3ba6e467791d8296efe88fab710",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-scalarization-derivative-a1/parent-child-handoff.json": "5a4df6155629aa90eeb5b88ee2895dfd3426b3808d5fd73ae1c8d28991b375be",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-scalarization-derivative-a1/parent-supplied-plan.md": "b1df5f20694410209e85408bbd1252afa4b09c3b033b2f595f4d52f1f2ef4305",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-scalarization-derivative-a1/parent-supplied-natural-proof.md": "19af871c42a82ffcd97ce16b2b2d1d71fcada53f2ea71327fcc02d22c7233ec6",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-scalarization-derivative-a1/parent-supplied-natural-proof.json": "ec3f3181b0c5fbd57b689ddc5b3a188685fd8b3f98c280d59a9d8af3dde7f9dd",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-scalarization-derivative-a1/node.json": "a62a83f94fbff8f7ac3f2b5288a25c49fb6c4cb395263f9c36a5e964e44fa8e7",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-scalarization-modular-a1/parent-child-handoff.json": "21ca2cda05f9a1f32b3df3e9a4959fd0d6737108b060dcfd53181f3f7c1caed4",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-scalarization-modular-a1/parent-supplied-plan.md": "fa19b551f59829fd3fed658300c24f4123507827421a02cf95fd74929b0630d1",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-scalarization-modular-a1/parent-supplied-natural-proof.md": "e182289542ece97299b9fba695503ee09bf156e1104a9fd15bb43956552cc03c",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-scalarization-modular-a1/parent-supplied-natural-proof.json": "c7060a57f58c4ca586d0c789186dc831012a6257121ef442f9f63af7ef75ad54",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-scalarization-modular-a1/node.json": "7c5ca7a28fb685b726f4e617fdd3294ae670085145e763c47ba740ac6381ca7a",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-equivariant-primitive-vanishing-a1/parent-child-handoff.json": "395d7a6ffb24e723118c6c2bed70c129db17a06f8575f5931a263422261eac09",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-equivariant-primitive-vanishing-a1/parent-supplied-plan.md": "4e820b166eaf86f9e233dc2747f7786982138fd0b6e46d41491269e603255ca2",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-equivariant-primitive-vanishing-a1/parent-supplied-natural-proof.md": "96d4f0e4a1f4741b425c76b3158588b93e204fa18a6119415bff016a842576a1",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-equivariant-primitive-vanishing-a1/parent-supplied-natural-proof.json": "bb0ee30f0fa3a54cbb3a53d5f19dbe9aa9267541b4344eb582c85bd33f439291",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root/children/root-equivariant-primitive-vanishing-a1/node.json": "e2816163027c617cc560637979f825a44be4b95e2783093710def795007ee5dc"
+  }
+}

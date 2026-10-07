@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.scalarization_derivative-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "The scalarization recovers the original function after n+1 derivatives",
+  "statement": "Let n∈ℕ, let h : ℍ → ℂ be holomorphic, expressed exactly by DifferentiableOn ℂ (h ∘ ofComplex) on {z : ℂ | 0 < z.im}, and let E : ℍ → BinaryForm ℂ n satisfy IsEichlerIntegral n h E. Define P(z)=E(ofComplex z)(1,−z) for z∈ℂ. Then, for every τ∈ℍ, its complex derivative of order n+1 satisfies P⁽ⁿ⁺¹⁾(τ)=(-1)^n n! h(τ).",
+  "lean_statement": "∀ (n : ℕ) (h : UpperHalfPlane → ℂ) (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), DifferentiableOn ℂ (fun z : ℂ => h (UpperHalfPlane.ofComplex z)) {z : ℂ | 0 < z.im} → HeckeEis.IsEichlerIntegral n h E → ∀ τ : UpperHalfPlane, iteratedDeriv (n + 1) (fun z : ℂ => MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z) (E (UpperHalfPlane.ofComplex z)).val) (τ : ℂ) = ((-1 : ℂ) ^ n * (Nat.factorial n : ℂ)) * h τ",
+  "lean_name": "p02_es_177ebb5a_scalarization_derivative",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-a1"
+}

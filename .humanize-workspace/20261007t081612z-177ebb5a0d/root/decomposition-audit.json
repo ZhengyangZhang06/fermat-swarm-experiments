@@ -1,0 +1,76 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "IsEichlerIntegral|IsEquivariantPrimitiveWith|IsParabolicCocycle|binaryFormRepSL_linePow|p02_es_177ebb5a_",
+        "isExactOn_ball|exp_decay_atImInfty|isBoundedAt_iff|isCusp_SL2Z_iff|isCusp_iff_isCusp_SL2Z|isArithmetic_iff_finiteIndex|instFiniteIndexGamma0|isZero_of_neg_weight|eq_const_of_weight_zero|mdifferentiable_iff|iteratedDeriv_succ",
+        "p02_es_177ebb5a_|scalarization",
+        "(^|[[:space:]])(theorem|lemma|def|abbrev|axiom|opaque)[[:space:]]+(Submission[._]?)?p02_es_177ebb5a_",
+        "structure (CuspForm|ModularForm)|class CuspFormClass|zero_at_cusps|bdd_at_cusps|slash_def|def atImInfty|periodic_comp_ofComplex|def ofComplex|IsExactOn",
+        "git for-each-ref --format='%(refname)' refs/heads refs/remotes",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_es_177ebb5a_independent_audit.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root/decomposition-v1.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_Gamma0CoeffCohomology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/P2M",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/HasPrimitives.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/RemovableSingularity.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Manifold.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/FunctionsBoundedAtInfty.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/IteratedDeriv/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/SlashActions.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/QExpansion.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/BoundedAtCusp.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/Cusps.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/ArithmeticSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/NormTrace.lean",
+        "/tmp/p02_es_177ebb5a_independent_audit.lean"
+      ],
+      "conclusion": "The split appropriately separates genuine mathematical obligations and leaves a valid quotient-and-correction argument for the parent. Independently checked all five proofs and elaborated every exact one-line proposition using only Mathlib and the defining modules, without importing Submission or declaring any child. Group coercions select the prescribed mapGL image; no problematic matrix-unit construction occurs. All names are bare, distinct identifiers, with no matching declarations or active local DAG reservations; the DAG contains only the root. No scalarization helper matched the searched P2M directory. rg was attempted but unavailable; searches therefore used grep. Project HEAD matches 1f74c284b125d4c45f527f2d621597fcf1e103a9, and mathlib matches db584cd6d46c92f209a44c0f1c829460d327499d. All installed dependencies have pinned revisions and clean tracked sources. Six transitive project definition files and all fourteen inspected mathlib files match the snapshot. Transitive axiom checks of the cited primitive, analytic, cusp, weight, derivative, representation, and quotient lemmas returned only propext, Classical.choice, and Quot.sound. This approves the decomposition and supplied prose proofs, not future Lean implementations or comparator acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "primitive_exists",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose includes every hypothesis and matches the independently elaborated proposition. The Cayley transfer supplies scalar primitives; finite homogeneous expansion checks every coefficient, including the ofComplex extension. Modularity and the representation identity make every defect derivative zero, and convexity proves constancy. No sibling or parent result is assumed."
+    },
+    {
+      "key": "primitive_parabolic",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The contract correctly quantifies over any primitive and its constant-defect certificate. The proof establishes exponential decay, common vertical-ray limits, and the integral conjugacy normal form, then exhibits the range witness with the correct sign. Trace −2 and central matrices are covered. It independently proves all required intermediate facts and needs no primitive-existence dependency."
+    },
+    {
+      "key": "scalarization_modular",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact type includes both required hypotheses and the full bundled modular-form conclusion. The proof establishes holomorphy, weight −n, uniform primitive tails, the translation-invariant limiting polynomial, and boundedness for all real parts. Arithmetic cusp classification and the inspected scaling-matrix criterion supply the full cusp condition. No undeclared sibling dependency occurs."
+    },
+    {
+      "key": "scalarization_derivative",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The proposition precisely matches the stated global extension and local complex derivatives. Termwise differentiation gives the Q_r recurrence, and neighborhood equality justifies induction using iteratedDeriv_succ. The factorial and sign are correct, including n=0. No equivariance or cusp assumption is silently required."
+    },
+    {
+      "key": "equivariant_primitive_vanishing",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and exact type agree. Its only sibling uses are the two declared dependencies, directed correctly and acyclically. Finite index supplies arithmeticity for the pinned weight theorems; local constancy annihilates the positive-order derivative. Cusp-form holomorphy supplies the derivative theorem's hypothesis, and nonzero-factor cancellation followed by extensionality proves f=0."
+    }
+  ],
+  "required_changes": []
+}
