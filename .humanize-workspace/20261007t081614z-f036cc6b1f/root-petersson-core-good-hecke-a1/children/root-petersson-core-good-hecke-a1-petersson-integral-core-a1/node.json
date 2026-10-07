@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1",
+  "parent_id": "root.petersson_core_good_hecke-a1",
+  "depth": 2,
+  "title": "A domain-independent Petersson core for finite-index subgroups",
+  "statement": "Let Δ be a finite-index subgroup of SL₂(ℤ) containing −I, regarded in GL₂(ℝ) by the canonical embedding. Put V=CuspForm Δ 2, μ=dx dy/y², and P(f,g)(z)=conjugate(f(z))g(z)(Im z)². There exists B : InnerProductSpace.Core ℂ V such that the following holds for every measurable F⊂ℍ: if for μ-almost every z there is γ∈Δ with γz∈F and every δ∈Δ with δz∈F satisfies δ=γ or δ=−γ, then, for every f,g∈V, P(f,g) is integrable on F and B.inner f g=∫_F P(f,g)dμ. The same B works for every such F.",
+  "lean_statement": "∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) [Δ.FiniteIndex], (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ → ∃ B : InnerProductSpace.Core ℂ (CuspForm Δ 2), ∀ (F : Set UpperHalfPlane), MeasurableSet F → (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ F ∧ ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ, δ ∈ Δ → δ • z ∈ F → δ = γ ∨ δ = -γ) → ∀ f g : CuspForm Δ 2, MeasureTheory.IntegrableOn (UpperHalfPlane.petersson 2 f g) F (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) ∧ B.inner f g = MeasureTheory.integral ((MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane).restrict F) (UpperHalfPlane.petersson 2 f g)",
+  "lean_name": "f036cc6b1f_pc_integral_core",
+  "depends_on": [
+    "root.petersson_core_good_hecke-a1.effective_domain-a1"
+  ],
+  "dependency_workspaces": [
+    {
+      "node_id": "root.petersson_core_good_hecke-a1.effective_domain-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    }
+  ],
+  "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-a1"
+}

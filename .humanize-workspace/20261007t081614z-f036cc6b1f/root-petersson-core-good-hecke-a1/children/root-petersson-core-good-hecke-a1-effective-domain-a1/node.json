@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.petersson_core_good_hecke-a1.effective_domain-a1",
+  "parent_id": "root.petersson_core_good_hecke-a1",
+  "depth": 2,
+  "title": "Finite unions of modular domains give fundamental domains modulo ±I",
+  "statement": "Let Δ be a finite-index subgroup of SL₂(ℤ) containing −I, and let μ be hyperbolic measure dx dy/y² on the upper half-plane. There exists a finite set R ⊂ SL₂(ℤ) such that, with F₀ = {x+iy : y>0, |x|≤1/2, x²+y²≥1} and F = ⋃_{r∈R} rF₀, the set F is measurable and, for μ-almost every z, there exists γ∈Δ with γz∈F such that every δ∈Δ satisfying δz∈F obeys δ=γ or δ=−γ.",
+  "lean_statement": "∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) [Δ.FiniteIndex], (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ → ∃ R : Finset (Matrix.SpecialLinearGroup (Fin 2) ℤ), let F : Set UpperHalfPlane := ⋃ r ∈ R, (fun z : UpperHalfPlane => r • z) '' ModularGroup.fd; MeasurableSet F ∧ (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ F ∧ ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ, δ ∈ Δ → δ • z ∈ F → δ = γ ∨ δ = -γ)",
+  "lean_name": "f036cc6b1f_pc_effective_domain",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-effective-domain-a1-a1"
+}

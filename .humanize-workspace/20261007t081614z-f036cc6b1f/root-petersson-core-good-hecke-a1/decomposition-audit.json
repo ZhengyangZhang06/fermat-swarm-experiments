@@ -1,0 +1,61 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg --files .humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f -g '*.json' -g '*.lean'",
+        "grep -R -n -E 'petersson|Petersson|InnerProductSpace.Core|IsFundamentalDomain' .humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions",
+        "grep -R -n -E 'IsFundamentalDomain|integrable.*petersson|petersson.*integrable|heckeTLin.*[Ss]ymmet|[Ss]ymmet.*heckeTLin' .humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms .humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions",
+        "grep -R -n -E 'f036cc6b1f_pc_effective_domain|f036cc6b1f_pc_integral_core|f036cc6b1f_pc_hecke_integral' .humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes .humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/dag.json Submission.lean",
+        "git -C .lake/packages/mathlib rev-parse HEAD",
+        "git -C .lake/packages/mathlib status --porcelain",
+        "python3 /tmp/f036cc6b1f_independent_decomposition_audit/run_checks.py",
+        "grep -n -E ' B\\)| B |toCore|toInner' /tmp/f036cc6b1f_independent_decomposition_audit/Instances.log"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperator.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/Modular.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Petersson.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/QExpansion.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/BoundedAtCusp.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Cusps.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/InnerProductSpace/Defs.lean",
+        "/tmp/f036cc6b1f_independent_decomposition_audit/Contracts.lean",
+        "/tmp/f036cc6b1f_independent_decomposition_audit/Contracts.log",
+        "/tmp/f036cc6b1f_independent_decomposition_audit/Instances.lean",
+        "/tmp/f036cc6b1f_independent_decomposition_audit/Instances.log",
+        "/tmp/f036cc6b1f_independent_decomposition_audit/Submission.log",
+        "/tmp/f036cc6b1f_independent_decomposition_audit/ImportSubmission.log"
+      ],
+      "conclusion": "rg was unavailable, so searches used grep. No integrated fundamental-domain/Petersson-integrability/Hecke-symmetry result matched the stated searches. The inspected sources establish the domain inequalities, covering and interior uniqueness, cusp decay and cusp criterion, hyperbolic volume, Petersson covariance, Core fields, and exact Hecke normalization. Snapshot revisions match the manifest: project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; both snapshots and installed mathlib have clean Git status. Independently rebuilt local dependencies match the snapshot. All three exact types elaborate as Prop without any child implementation. Instance checks confirm canonical hyperbolic volume, the SL action, ordinary matrix algebra, and projection from the quantified B. Nine supporting declarations have only propext, Classical.choice, and Quot.sound as transitive axioms. All proposed names are bare identifiers with no competing DAG reservation. The split is appropriate and acyclic, and its children yield one prime-independent Core for the parent. Separately, unchanged Submission still fails on the two reported missing attribute targets; full import/integration remains blocked. This approval concerns decomposition validity, not comparator acceptance or theorem completion."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "effective_domain",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly includes finite index, containment of −I, the finite union, measurability, and almost-everywhere uniqueness modulo sign. The proof correctly chooses cosets Δr, removes the countable null boundary saturation, establishes coverage using g⁻¹=ηr, and derives uniqueness from interior uniqueness and distinct coset representatives. It has no child or parent reliance."
+    },
+    {
+      "key": "petersson_integral_core",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The type matches the prose, including the canonical GL embedding and one Core valid for every admissible domain. The proof supplies positive cusp widths, uniform exponential decay, absolute integrability, domain transfer through the quotient by ±I, all sesquilinear identities, and definiteness through continuity and positive measure of disks. Its sole child dependency, effective_domain, is correctly directed; no circular construction occurs."
+    },
+    {
+      "key": "hecke_integral_adjointness",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact type retains M≠0, measurability, the effective-domain hypothesis, every prime/proof witness, and the frozen heckeTLin operator. The proof correctly computes H and K, proves cusp preservation, enumerates the double coset, identifies its inverse using trivial scalar slash action at weight two, and handles exceptional sets and integrability before unfolding and refolding. Domain independence uses only petersson_integral_core. No normalization factor, unsupported search obligation, or circular appeal remains."
+    }
+  ],
+  "required_changes": []
+}
