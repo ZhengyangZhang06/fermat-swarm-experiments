@@ -4646,6 +4646,13 @@ Use the independently reviewed proof at `{handoff.natural_proof_path}` directly.
 
     def _node_worktree_path(self, node: NodeRecord) -> Path:
         """Choose a stable checkout path short enough for Humanize's epic key."""
+        if os.environ.get("HUMANIZE_SWARM_OWNER"):
+            # /tmp is container-local: another poller and the controller verifier
+            # cannot resume or inspect it. Short Swarm paths stay on shared storage.
+            material = "\0".join((str(self.project), self.run_root.name, node.id,
+                                   str(max(node.attempts, 1))))
+            digest = hashlib.sha256(material.encode()).hexdigest()[:20]
+            return self.project.parent / ".swarm-worktrees" / digest / self.project.name
         descriptive = (
             self.project.parent
             / ".recursive-lean-node-worktrees"
