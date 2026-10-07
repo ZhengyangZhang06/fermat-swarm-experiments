@@ -128,6 +128,43 @@ class LocalProblemTests(unittest.TestCase):
             "configured sources", Runtime._reference_use_problem(self.runtime, proof)
         )
 
+    def test_ledger_accepts_project_and_snapshot_relative_paths(self):
+        prepare_local_problem(self.runtime)
+        snapshot = self.runtime.reference_bundle.root
+        target = snapshot / "project/Challenge.lean"
+        proof = SimpleNamespace(reference_use=[SimpleNamespace(
+            source="local-project", files=[]
+        )])
+        for spelling in (
+            str(target),
+            "project/Challenge.lean",
+            str(target.relative_to(self.project)),
+        ):
+            with self.subTest(spelling=spelling):
+                proof.reference_use[0].files = [spelling]
+                self.assertEqual(Runtime._reference_use_problem(self.runtime, proof), "")
+
+    def test_ledger_relative_paths_cannot_escape_snapshot(self):
+        prepare_local_problem(self.runtime)
+        snapshot = self.runtime.reference_bundle.root
+        outside = self.project / "Challenge.lean"
+        link = snapshot / "escape.lean"
+        link.symlink_to(outside)
+        proof = SimpleNamespace(reference_use=[SimpleNamespace(
+            source="local-project", files=[]
+        )])
+        for spelling in (
+            str(outside),
+            "Challenge.lean",
+            "project/../../../../../../Challenge.lean",
+            "escape.lean",
+            str(link.relative_to(self.project)),
+            str((snapshot / "missing.lean").relative_to(self.project)),
+        ):
+            with self.subTest(spelling=spelling):
+                proof.reference_use[0].files = [spelling]
+                self.assertIn("existing path inside", Runtime._reference_use_problem(self.runtime, proof))
+
 
 if __name__ == "__main__":
     unittest.main()

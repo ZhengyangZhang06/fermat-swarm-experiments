@@ -139,8 +139,9 @@ class GitHubTheoremRuntime(Runtime):
             ):
                 raise PublicationError("prepublished root issue does not match the frozen contract")
             marker = self._marker(root, "issue")
-            if marker not in body:
-                self.github.request("PATCH", f"issues/{prepublished}", {"body": body + "\n\n" + marker + "\n"})
+            if body.splitlines()[:1] != [marker]:
+                retained = "\n".join(line for line in body.splitlines() if line != marker)
+                self.github.request("PATCH", f"issues/{prepublished}", {"body": marker + "\n\n" + retained + "\n"})
             root.github_issue_url = issue["html_url"]
             self.store.render()
             # Preserve the richer campaign contract until a reviewed proof exists.
@@ -399,6 +400,7 @@ class GitHubTheoremRuntime(Runtime):
     def _issue_body(self, node: NodeRecord) -> str:
         statement = node.lean_statement or self.config.github_root_lean_statement
         return (
+            f"<!-- theorem-id: {self.config.problem_id}/{node.id} -->\n\n"
             f"## Theorem `{self._declaration_name(node)}`\n\n{node.statement}\n\n"
             f"Node: `{node.id}`\n\n"
             f"Root: {self._node_links(['root'])}\n\n"
@@ -440,6 +442,7 @@ class GitHubTheoremRuntime(Runtime):
                         self._marker(node, "issue"),
                         f"[Theorem {node.id}] {node.title}"[:240],
                         self._issue_body(node),
+                        known_url=node.github_issue_url,
                     )
                     node.github_issue_url = result["html_url"]
                     node.github_issue_state = result.get("state", "")

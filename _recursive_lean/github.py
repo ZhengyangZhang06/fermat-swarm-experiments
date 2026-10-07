@@ -55,6 +55,7 @@ class GitHubClient:
         self.repository = repository
         self.cwd = cwd
         self.timeout = timeout
+        self._issue_urls: dict[str, str] = {}
 
     def request(
         self,
@@ -118,23 +119,43 @@ class GitHubClient:
             )
         return matches[0] if matches else None
 
-    def issue(self, marker: str, title: str, body: str) -> dict[str, Any]:
+    def issue(
+        self, marker: str, title: str, body: str, *, known_url: str = ""
+    ) -> dict[str, Any]:
         if len(marker + "\n\n" + body) > 65536:
             raise PublicationError(
                 "complete theorem issue exceeds GitHub's body limit; shorten the proof "
                 "or split the theorem before publishing (proof text is never truncated)"
             )
-        items = self.request("GET", "issues?state=all&per_page=100", paginate=True)
-        found = self._marked(
-            [one for one in items if "pull_request" not in one], marker
-        )
+        known_url = known_url or self._issue_urls.get(marker, "")
+        if known_url:
+            match = re.fullmatch(
+                rf"https://github\.com/{re.escape(self.repository)}/issues/([1-9][0-9]*)",
+                known_url,
+            )
+            if not match:
+                raise PublicationError("known theorem issue belongs to a different repository")
+            found = self.request("GET", f"issues/{match.group(1)}")
+            if "pull_request" in found or (found.get("body") or "").splitlines()[:1] != [marker]:
+                raise PublicationError("known theorem issue has a different identity")
+        else:
+            items = self.request("GET", "issues?state=all&per_page=100", paginate=True)
+            found = self._marked(
+                [one for one in items if "pull_request" not in one], marker
+            )
         payload = {"title": title, "body": marker + "\n\n" + body}
         if found:
             if found["title"] == title and found.get("body") == payload["body"]:
-                return found
-            return self.request("PATCH", f"issues/{found['number']}", payload)
-        # A failed/uncertain POST escapes. Resume will list server state before any retry.
-        return self.request("POST", "issues", payload)
+                result = found
+            else:
+                result = self.request("PATCH", f"issues/{found['number']}", payload)
+        else:
+            # A failed/uncertain POST escapes. Resume reconciles before retrying.
+            result = self.request("POST", "issues", payload)
+        # List endpoints can lag a successful mutation. Never create again merely
+        # because the next list omits an identity already returned by GitHub.
+        self._issue_urls[marker] = result["html_url"]
+        return result
 
     def find_pull_request(self, marker: str) -> dict[str, Any] | None:
         return self._marked(self.request("GET", "pulls?state=all&per_page=100", paginate=True), marker)

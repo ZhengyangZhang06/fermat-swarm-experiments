@@ -222,3 +222,59 @@ state, not simply deleting the project lock.
   Screenshot `/tmp/fermat-swarm-live-mobile.png`. Browser environment:
   `/tmp/math-lean-flow-status-browser/bin/python` with
   `LD_LIBRARY_PATH=/tmp/proof-status-libs.cEVZPT/extracted/usr/lib/x86_64-linux-gnu`.
+
+## Follow-up checkpoint, 08:52 UTC — reviews and dashboard regression
+
+- All128 resolver tasks remain Running; all10 issue jobs remain active. Roots
+  p01,p03,p04,p05,p07 have accepted prose and are decomposing. No child handoff,
+  verified Lean solution or solution PR is yet recorded. Other roots are revising.
+- A dashboard regression explained the user's apparent return to "queued": it
+  fetched only current/next minute ticks, then fell back to the old bundled setup
+  snapshot when publication crossed a minute boundary. Main92c1166 and
+  Pages39a1e16 now try recent ticks plus the live pointer, preserve the newest
+  displayed observation, and show fetch failure instead of inventing queued jobs.
+  Two real-browser regression tests and six proof-feed tests pass. Both branches
+  pushed; Pages39a1e16 was building at08:52 (verify before claiming deployed).
+- Citation-validation defect: p02 auditv3 approved the mathematics, but all paths
+  were project-relative; the validator treated them only as snapshot-relative and
+  restarted prose revision. A local fix accepts either spelling only after strict
+  realpath containment inside the correct frozen snapshot.23 local/preflight tests
+  pass. This change is NOT committed/deployed yet; do not restart live workers.
+- URGENT publication defect: adopted root markers were appended, but ordinary
+  issue discovery matches only the first line. Publication created duplicate roots:
+  p04 #11/#12; p07 #13/#14; p01 #15/#16; p03 #17/#18; p05 #19/#20.
+  Original roots#1–#10 remain open. Both passes of `_sync_issues` created records,
+  so also investigate list read-after-write visibility. No duplicates reconciled
+  yet. Fix identity reuse with tests; preserve original root numbers and do not
+  close anything as proved. Live DAGs currently point at the later duplicates.
+  A safe repair must not overwrite active DAG files or interrupt healthy jobs.
+- Baselinebuild PID2780465 remains live with eight Lean children. Some frozen
+  inputs retain `attribute [-simp]` names from removed proof imports; p04 worker
+  flagged this during decomposition. A read-only stdin probe of
+  `import Mathlib; attribute [-simp] Representation.TateResCor.cosetDecomp_apply`
+  is still live as exec session70821; collect its real result, not a guessed error.
+  Do not silently alter frozen benchmark contracts or import their target proofs.
+- Workflow33689db is confirmed pushed. Broker/status services remain healthy.
+
+## Follow-up checkpoint, 08:59 UTC — canonical issue repair
+
+- Pages39a1e16 is built. A real public-browser check observed128 pollers,10
+  activejobs,5 reviewed root proofs, correct stages, and no JavaScript errors.
+- Repaired original root issues#1–#10: runtime identity is now first-line, and
+  the full reviewed argument from duplicate publications is retained on the
+  original issue where available. Issues#11–#20 were closed **not planned** as
+  duplicates, not as accepted proofs; each retains its complete original proof
+  text and links the canonical issue. No live DAG file/process was modified.
+  Old live publishers should rediscover original identities on their next sync.
+- Publisher now updates known issue URLs directly, verifies their marker/repo,
+  caches successful identities against lagging list endpoints, preserves the
+  stable problem marker, and promotes legacy appended markers during adoption.
+  Reference-path spelling fix is included. Full178-test suite passes with one
+  optional browser skip; website browser tests were separately run and passed.
+- Existing root author/reviewer logs now independently confirm actual compile
+  failures from leftover `attribute [-simp]` references in benchmark scaffolds
+  p01,p04,p05,p07. Workers retained frozen files and checked proposed child types
+  against the exact imports instead; that does NOT pass the literal Submission
+  import gate. This packaging defect must be resolved without changing theorem
+  statements/assumptions or importing upstream target proofs. No normalization
+  has been implemented/authorized as acceptance evidence yet.

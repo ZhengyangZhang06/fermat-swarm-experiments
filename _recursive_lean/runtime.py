@@ -868,14 +868,24 @@ class Runtime:
             valid_path = False
             for reported in record.files:
                 candidate = Path(reported)
-                if not candidate.is_absolute():
-                    candidate = root / candidate
-                try:
-                    resolved = candidate.resolve(strict=True)
-                except (OSError, RuntimeError):
-                    continue
-                if resolved == root or resolved.is_relative_to(root):
-                    valid_path = True
+                # Tools run from the project, while reference instructions also
+                # permit paths relative to the source snapshot. Accept either
+                # spelling only when the real target is inside this source's
+                # snapshot; never interpret paths against the controller's cwd.
+                candidates = (
+                    [candidate]
+                    if candidate.is_absolute()
+                    else [root / candidate, self.project / candidate]
+                )
+                for path in candidates:
+                    try:
+                        resolved = path.resolve(strict=True)
+                    except (OSError, RuntimeError):
+                        continue
+                    if resolved == root or resolved.is_relative_to(root):
+                        valid_path = True
+                        break
+                if valid_path:
                     break
             if not valid_path:
                 return (

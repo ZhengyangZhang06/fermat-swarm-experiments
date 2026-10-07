@@ -94,7 +94,7 @@ class PrepublishedRootTests(unittest.TestCase):
         calls = self.runtime.github.request.call_args_list
         self.assertEqual(calls[0].args, ('GET', 'issues/42'))
         self.assertEqual(calls[1].args[0], 'PATCH')
-        self.assertIn('<!-- exact-run-root-issue -->', calls[1].args[2]['body'])
+        self.assertEqual(calls[1].args[2]['body'].splitlines()[0], '<!-- exact-run-root-issue -->')
 
     def test_wrong_marker_or_contract_or_closed_issue_is_rejected(self):
         original = self.issue.copy()
@@ -109,9 +109,17 @@ class PrepublishedRootTests(unittest.TestCase):
             self.assertFalse(self.root.github_issue_url)
 
     def test_lost_patch_response_reuses_marker_without_patch(self):
-        self.issue['body'] += '\n<!-- exact-run-root-issue -->'
+        self.issue['body'] = '<!-- exact-run-root-issue -->\n\n' + self.issue['body']
         self.runtime._ensure_polling_issue(self.root)
         self.runtime.github.request.assert_called_once_with('GET', 'issues/42')
+
+    def test_legacy_appended_marker_is_promoted_without_duplication(self):
+        self.issue['body'] += '\n<!-- exact-run-root-issue -->'
+        self.runtime._ensure_polling_issue(self.root)
+        body = self.runtime.github.request.call_args_list[-1].args[2]['body']
+        self.assertTrue(body.startswith('<!-- exact-run-root-issue -->\n'))
+        self.assertEqual(body.count('<!-- exact-run-root-issue -->'), 1)
+        self.assertIn('<!-- theorem-id: fermat-p01/root -->', body)
 
     def test_foreign_host_unfinished_receipt_fails_closed_before_pid_lookup(self):
         with tempfile.TemporaryDirectory() as temporary:

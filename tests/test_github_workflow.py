@@ -132,9 +132,33 @@ class GitHubTransportTests(unittest.TestCase):
         api = MemoryGitHub(Path.cwd())
         api.issue("<!-- stable -->", "Theorem", "Proof")
         api.issues.append(dict(api.issues[0], number=2))
+        api._issue_urls.clear()  # Fresh discovery still rejects ambiguous identities.
         with self.assertRaises(PublicationError):
             api.issue("<!-- stable -->", "Theorem", "Proof")
         self.assertEqual(len(api.issues), 2)
+
+    def test_known_issue_survives_stale_list_after_create(self):
+        api = MemoryGitHub(Path.cwd())
+        first = api.issue("<!-- stable -->", "Theorem", "Proof")
+        original = api.request
+        def stale(method, resource, payload=None, *, paginate=False):
+            if method == "GET" and resource.startswith("issues?"):
+                return []
+            return original(method, resource, payload, paginate=paginate)
+        with patch.object(api, "request", side_effect=stale):
+            self.assertEqual(api.issue("<!-- stable -->", "Theorem", "Updated")["number"], first["number"])
+            api._issue_urls.clear()
+            self.assertEqual(api.issue("<!-- stable -->", "Theorem", "Resumed", known_url=first["html_url"])["number"], first["number"])
+        self.assertEqual(len(api.issues), 1)
+
+    def test_known_issue_rejects_wrong_identity_and_repository(self):
+        api = MemoryGitHub(Path.cwd())
+        first = api.issue("<!-- stable -->", "Theorem", "Proof")
+        for marker, url in (("<!-- wrong -->", first["html_url"]),
+                            ("<!-- stable -->", "https://github.com/other/repo/issues/1")):
+            with self.subTest(marker=marker, url=url), self.assertRaises(PublicationError):
+                api.issue(marker, "Theorem", "Changed", known_url=url)
+        self.assertEqual(api.issues[0]["body"], "<!-- stable -->\n\nProof")
 
     def test_oversized_issue_is_rejected_before_any_remote_write(self):
         api = MemoryGitHub(Path.cwd())
