@@ -423,3 +423,40 @@ state, not simply deleting the project lock.
 - Pages30a0121 was independently checked in a real public mobile browser at09:44:
   26 nodes,20 edges,10 active-node indicators,16 inactive indicators, no script
   errors and no document overflow. Screenshot `/tmp/fermat-swarm-observed-workers.png`.
+
+## Follow-up checkpoint, 10:10 UTC — idle-node verifier feasibility established
+
+- Previous goal turn was a verified wait: actual verifier/Lean PIDs were alive
+  and public deployed feed was checked directly (no queued nodes). This turn
+  adds executable diagnostic coverage; it does not count as a theorem solution.
+- Added `scripts/swarm-verifier-selftest.py`, a fixed-fixture-only diagnostic
+  with no broker/runtime callers and no candidate arguments. It imports the
+  existing verifier, reuses all ten comparator fixtures unchanged, and replaces
+  only the manager-specific systemd launcher with Landlock plus an inherited
+  libseccomp filter denying all socket creation. Missing filter support fails
+  closed. The diagnostic requires a non-root process. Four regression tests
+  pass, including real socket-denial checks and refusal of candidate arguments.
+- Launched credential-free service `fermat-verifier-probe-20261007` on idle
+  hoa0, task `l9l350r9p7x4vuq9cyo4wjdra`. It has read-only root/tool/source
+  mounts, UID1000, no capabilities, no host control sockets, no credentials,
+  private tmpfs, CPU2/memory4GiB limits, and restart disabled. Swarm reports
+  terminal **complete, ExitCode0** at10:09:35. All ten comparator cases passed
+  their expected acceptance/rejection outcomes in103.49seconds. Private-file,
+  AF_UNIX, AF_INET and socketpair denial probes passed. The expected renamed
+  child export panic was correctly rejected, not accepted as a proof.
+- This proves the pinned binaries and fixed-fixture sandbox can run on an idle
+  node. It does NOT deploy remote acceptance, test a full Mathlib candidate, or
+  solve ownership/evidence transport. Before production use, preserve immutable
+  checker/input hashes, controller-owned challenge/evidence, exact registered
+  candidate identity, dependency integrity, and durable job ownership/recovery.
+  No Docker socket may be exposed to candidate code. Existing in-flight checks
+  must finish under their original immutable checker, not be moved/restarted.
+- Both actual verifier requests5fdc…/2702… remain running under original
+  PIDs3007503/3008683; Lean PIDs3100384/3100390 have increasing CPU time. Manager
+  memory and I/O pressure is independently confirmed. Runtime remains2e30c71;
+  neither the universe fix nor disabled scaffold adapter was hot-deployed.
+- At10:09 the observed feed has39 theorem nodes,128 pollers,10 active jobs,
+  7 currently reviewed root arguments and0 verified/integrated roots. p01#41
+  (coset norm bound) is now in real RLCR Lean formalization on hoa38; p04#22
+  remains in real verification. `gh pr list --state all` returned no PRs.
+  No scaffold directives were removed; the pending user decision is unchanged.
