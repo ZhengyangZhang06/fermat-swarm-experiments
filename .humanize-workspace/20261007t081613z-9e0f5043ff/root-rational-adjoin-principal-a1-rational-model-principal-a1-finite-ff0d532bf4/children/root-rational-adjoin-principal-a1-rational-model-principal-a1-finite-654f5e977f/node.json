@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.normalized_orders-a1",
+  "parent_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1",
+  "depth": 4,
+  "title": "Normalize orders from the polynomial-local membership criterion",
+  "statement": "Let K and F be fields with a K-algebra structure on F, let x ∈ F be transcendental over K, and let q ∈ K[T] be monic and irreducible. Let v : AlgebraicCurve.Place K F satisfy: for every f ∈ F, f belongs to v.toValuationSubring exactly when f = a(x)/b(x) for polynomials a,b with q not dividing b. Then v.ord(q(x)) = 1, and v.ord(a(x)) = 0 for every polynomial a not divisible by q. No assumption that all elements of F are rational expressions in x is required.",
+  "lean_statement": "∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F), Transcendental K x → ∀ q : Polynomial K, q.Monic → Irreducible q → ∀ v : AlgebraicCurve.Place K F, (∀ f : F, f ∈ v.toValuationSubring ↔ ∃ a b : Polynomial K, ¬ q ∣ b ∧ f = Polynomial.aeval x a / Polynomial.aeval x b) → v.ord (Polynomial.aeval x q) = 1 ∧ (∀ a : Polynomial K, ¬ q ∣ a → v.ord (Polynomial.aeval x a) = 0)",
+  "lean_name": "p06_9e0f5043ff_fpm_normalized_orders",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-654f5e977f-a1"
+}

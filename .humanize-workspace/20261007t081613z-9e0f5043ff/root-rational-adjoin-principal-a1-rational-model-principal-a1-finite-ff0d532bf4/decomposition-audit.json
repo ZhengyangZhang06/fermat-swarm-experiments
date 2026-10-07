@@ -1,0 +1,50 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "structure Place|def deg|def ord|ord_coe_unit|ord_coe_irreducible|ResidueField|hasPrincipalDivisors_of_transcendental|placeOfIrreducible|heightOneSpectrumOfIrreducible",
+        "exists.*pow.*dvd|pow.*not_dvd|FiniteMultiplicity|multiplicity_mul|finrank_quotient_span_eq_natDegree|residue_eq_zero_iff|residue_surjective|mem_maximalIdeal|irreducible_iff_prime",
+        "p06_9e0f5043ff_fpm_(exists_local_place|normalized_orders|residue_degree)",
+        "placeOfIrreducible|heightOneSpectrumOfIrreducible|finite.*[Pp]lace",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean Audit.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/P2M",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Multiplicity.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/AdjoinRoot.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/LocalRing/ResidueField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json",
+        "/tmp/p06-fpm-decomposition-audit-_47d7adk/Audit.lean",
+        "/tmp/p06-fpm-decomposition-audit-_47d7adk/Audit.log",
+        "/tmp/p06-fpm-decomposition-audit-_47d7adk/ActualSubmission.log"
+      ],
+      "conclusion": "The split is appropriate for the DAG's finite_place_model descendant and preserves its contract and the frozen root. Independently recompiling unchanged pinned definitions verified all three propositions without child implementations, their assembly into the exact parent, and the canonical subring and residue-field algebra instances. Place has exactly the four fields supplied by the construction; its order lemmas provide the claimed normalization. Mathlib supplies the stated multiplicity, quotient-finrank, and residue-map results. Targeted P2M searches found no matching finite-place construction; proposed identifiers have no DAG or searched-source collisions. Project definitions match revision 956e8c600d8b95b46948ae5e37b13930b5f3d06b; all nine dependencies match their pins and have clean tracked files, including mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Independently checked supporting axioms are only propext, Classical.choice, and Quot.sound. The actual Submission still has three pre-existing unknown attribute targets; this decomposition approval does not establish implementation/comparator acceptance or remove that activation prerequisite."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "exists_local_place",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches every prose hypothesis and conclusion; its name is a bare, unreserved identifier. The proof establishes primality, terminating and unique q-power factorization, representation-independent exponents, subring closure, the nonnegative-exponent membership criterion, valuation and properness, and principality through a least exponent. Zero and denominator nonvanishing are handled correctly. These supply precisely the Place fields, without relying on the parent or siblings."
+    },
+    {
+      "key": "normalized_orders",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The independent one-line contract matches the prose and uses a bare, unreserved name. Permitted inverse fractions prove unit membership; cross multiplication excludes an inverse for q(x). The factorization argument correctly rules out both numerators being q-divisible, proving irreducibility in the subring. The checked project lemmas then give both exact order conclusions. Only subring-element representations are needed, so omission of the ambient fraction-representation hypothesis is justified."
+    },
+    {
+      "key": "residue_degree",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The independent one-line contract matches the prose and uses a bare, unreserved name. The proof correctly identifies units and the zero residue of q(x), constructs the canonical K-algebra map, computes its kernel as (q), and proves surjectivity using Bézout inverses. The quotient isomorphism and degree-bounded monomial basis establish the exact finrank conclusion. No ambient fraction-representation assumption or sibling theorem is used. Empty sibling dependency lists are therefore correct, and parent-to-child dependencies are acyclic."
+    }
+  ],
+  "required_changes": []
+}
