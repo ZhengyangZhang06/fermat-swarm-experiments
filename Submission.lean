@@ -216,6 +216,8 @@ theorem p06_9e0f5043ff_sdp_clear_first_column
     ext i j
     simp [hmul, N, c]
   -- Since N² = 0, the clearing matrix 1 - N has two-sided inverse 1 + N.
+    rw [hmul]
+    simp [N, c]
   refine ⟨1 - N, ?_, ?_, ?_⟩
   · refine ⟨⟨1 - N, 1 + N, ?_, ?_⟩, rfl⟩
     · simp [sub_mul, mul_add, hsq]
@@ -1001,3 +1003,5 @@ theorem Submission.p06_9e0f5043ff_vfc_unit_power_quotient_exponents :
       _ = s⁻¹ := by
         rw [pow_succ, div_mul_eq_div_div, div_self (pow_ne_zero _ hs0), one_div]
   exact hsinv (heq ▸ hprod)
+
+end Submission
