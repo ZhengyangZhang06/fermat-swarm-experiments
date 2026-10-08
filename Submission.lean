@@ -3000,7 +3000,7 @@ theorem Submission.p10_17ae7b7d_norm_local_multiplier_order :
     ∀ (g ψ J : ℂ → ℂ) (v : ℂ), AnalyticAt ℂ g v → analyticOrderAt g v ≠ ⊤ →
       AnalyticAt ℂ ψ v → ψ v = v → deriv ψ v ≠ 0 → AnalyticAt ℂ J v →
       (∃ r : ℝ, 0 < r ∧ ∀ z : ℂ, ‖z - v‖ < r → g (ψ z) = J z * g z) →
-      (deriv ψ v) ^ analyticOrderNatAt g v = J v := by
+      (deriv ψ v) ^ analyticOrderNatAt g v = J v := open Filter in open scoped Topology in by
   intro g ψ J v hg hgfin hψ hfix _hderiv hJ hequiv
   let m := analyticOrderNatAt g v
   obtain ⟨b, hb, hbne, hfactor⟩ := (hg.analyticOrderNatAt_eq_iff hgfin).mp rfl
