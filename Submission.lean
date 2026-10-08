@@ -3101,3 +3101,30 @@ theorem Submission.p06_9e0f5043ff_inf_reciprocal_presentation :
     rw [map_mul, map_pow, Polynomial.aeval_X,
       pow_sub₀ _ (inv_ne_zero ht) (Nat.le_of_lt (Nat.lt_of_not_ge hdeg))]
     field_simp
+/-- Reciprocal evaluation has order minus the degree at the place above the origin. -/
+theorem Submission.p06_9e0f5043ff_inf_reciprocal_polynomial_order :
+    ∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (s : F),
+      Transcendental K s → ∀ v : AlgebraicCurve.Place K F, v.ord s = 1 →
+      (∀ c : Polynomial K, ¬ (Polynomial.X : Polynomial K) ∣ c →
+        v.ord (Polynomial.aeval s c) = 0) →
+      ∀ a : Polynomial K, a ≠ 0 →
+        v.ord (Polynomial.aeval s⁻¹ a) = -(a.natDegree : ℤ) := by
+  intro K F _ _ _ s hs v hv hzero a ha
+  have hs0 : s ≠ 0 := by
+    intro h
+    exact hs ⟨Polynomial.X, Polynomial.X_ne_zero, by simpa using h⟩
+  have hrev : a.reverse ≠ 0 := fun h => ha (Polynomial.reverse_eq_zero.mp h)
+  have heval : Polynomial.aeval s a.reverse ≠ 0 := fun h => hs ⟨a.reverse, hrev, h⟩
+  have hnot : ¬ (Polynomial.X : Polynomial K) ∣ a.reverse := by
+    simpa only [Polynomial.X_dvd_iff, Polynomial.coeff_zero_reverse,
+      Polynomial.leadingCoeff_eq_zero] using ha
+  have horder : v.ord (Polynomial.aeval s a.reverse) = 0 := hzero _ hnot
+  -- Reversal writes reciprocal evaluation as a negative power times a unit at v.
+  have hidentity : Polynomial.aeval s⁻¹ a =
+      s ^ (-(a.natDegree : ℤ)) * Polynomial.aeval s a.reverse := by
+    let : Invertible s⁻¹ := invertibleOfNonzero (inv_ne_zero hs0)
+    simpa only [invOf_eq_inv, inv_inv, ← Polynomial.aeval_def, zpow_neg,
+      zpow_natCast, inv_pow, mul_comm] using
+      (Polynomial.eval₂_reverse_mul_pow (algebraMap K F) s⁻¹ a).symm
+  rw [hidentity, v.ord_mul (zpow_ne_zero _ hs0) heval, v.ord_zpow, hv,
+    horder, mul_one, add_zero]
