@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T080920Z-a816f3fa20",
+  "parent_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1",
+  "dispatch_branch": "proof-workspace/fermat-p04/20261007t080920z-a816f3fa20/dispatch/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888",
+  "source_commit": "2475a3790d7ba0c3b10be8086001b154a45be597",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1.equivariant_prism_components-a1",
+      "key": "equivariant_prism_components",
+      "result_branch": "humanize-recursive/fermat-p04/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-69b9372d13-a1",
+      "bundle_path": ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-69b9372d13",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "standardComplex|prism|Homotopy",
+              "prism|homotopy.*equivariant|equivariant.*homotopy",
+              "def insertNth|theorem insertNth|predAbove",
+              "def res|abbrev res|def ofMulAction|ofMulAction.*single|def of|structure Hom|def lift",
+              "lhom_ext|lift.*single",
+              "linearizeMap_single|def linearize|ofMulAction.*single|def ofMulAction",
+              "p04_prism_a8325b9888_(equivariant_components|boundary_identity)"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/Resolution.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/MonoidAlgebra/Module.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Data/Fin/Tuple/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/Homology/Homotopy.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/dag.json",
+              "/tmp/p04-prism-a8325b9888-contracts/ContractTypes.lean",
+              "/tmp/p04-prism-a8325b9888-contracts/ContractTypes.log"
+            ],
+            "conclusion": "The manifest pins project 2475a3790d7ba0c3b10be8086001b154a45be597 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Resolution.lean supplies the free tuple modules and alternating differential through d_of and d_apply; restriction preserves underlying linear maps; ofMulAction_single describes the diagonal action. Fin.insertNth expresses the prism tuple without index-bound proof terms. Homotopy supplies the required degree-zero and successor component identities. No existing prism theorem was found in the searched project Definitions and mathlib RepresentationTheory directories. Both proposed names are absent from the active DAG. Both exact propositions elaborated after import Submission using the existing cached Submission module, and the coefficient scalar action was checked by proving a • single x 1 = single x a. Checked library declarations depend only on propext, Classical.choice, and Quot.sound; local dependency revisions match their pins and have no tracked modifications. Validation limitation: rebuilding the unchanged frozen Submission itself fails on its existing attribute reference to the missing constant Representation.TateResCor.cosetDecomp_apply. The frozen source was not changed, and these checks do not constitute comparator acceptance."
+          }
+        ],
+        "parent_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1",
+        "child_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1.equivariant_prism_components-a1",
+        "subproblem": {
+          "key": "equivariant_prism_components",
+          "title": "Equivariant prism sums extend to representation morphisms",
+          "statement": "Let k be a commutative ring and G a group in the same universe, H ≤ G, and u,v : G → G satisfy u(hg)=h u(g) and v(hg)=h v(g) for all h ∈ H and g ∈ G. Let C be Rep.standardComplex k G restricted to H. For n ≥ 0 and c=(g₀,…,gₙ), define Pₙ(c)=Σⱼ₌₀ⁿ (−1)ʲ[ug₀,…,ugⱼ,vgⱼ,…,vgₙ] in the free k-module on (n+2)-tuples, where [t]=MonoidAlgebra.single t 1. Precisely, the j-th tuple is Fin.insertNth j.castSucc (u(c j)) (fun i => if i < j then u(c i) else v(c i)). There exists a family of morphisms Dₙ : Cₙ → Cₙ₊₁ in Rep k H such that Dₙ([c])=Pₙ(c) for every n and c. No finiteness or normality assumption is imposed.",
+          "lean_statement": "∀ {k G : Type _} [CommRing k] [Group G] (H : Subgroup G) (u v : G → G), (∀ (h : H) (g : G), u ((h : G) * g) = (h : G) * u g) → (∀ (h : H) (g : G), v ((h : G) * g) = (h : G) * v g) → let P : ∀ n : ℕ, (Fin (n + 1) → G) → MonoidAlgebra k (Fin (n + 2) → G) := fun n c => ∑ j : Fin (n + 1), MonoidAlgebra.single (Fin.insertNth j.castSucc (u (c j)) (fun i : Fin (n + 1) => if i < j then u (c i) else v (c i))) ((-1 : k) ^ j.val); let C := ((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj (Rep.standardComplex k G); ∃ D : ∀ n : ℕ, C.X n ⟶ C.X (n + 1), ∀ (n : ℕ) (c : Fin (n + 1) → G), (D n).hom (MonoidAlgebra.single c (1 : k)) = P n c",
+          "lean_name": "p04_prism_a8325b9888_equivariant_components",
+          "depends_on": [],
+          "natural_proof": "1. Fix k, G, H, u, v and the two equivariance hypotheses. The underlying module of Cₙ is MonoidAlgebra k (Fin(n+1) → G), the free k-module on these tuples. Write e_c=single c 1. Restriction changes only the acting group, and its action satisfies h·e_c=e_{hc}, where (hc)(i)=(h:G)c(i).\n2. For j ∈ Fin(n+1), let Qₙ,ⱼ(c)=Fin.insertNth j.castSucc (u(c j)) (fun i => if i<j then u(c i) else v(c i)). Before position j this tuple has entries u(c i); position j is the inserted u(c j); after position j its entry at position a is v(c(a−1)). Hence Qₙ,ⱼ(c) is exactly (ug₀,…,ugⱼ,vgⱼ,…,vgₙ). Define Pₙ(c)=Σⱼ single Qₙ,ⱼ(c) ((−1:k)ʲ). Since a·single t 1=single t a, this is the prism sum in the statement.\n3. The universal property of the free k-module gives a k-linear map Dₙ with Dₙ(e_c)=Pₙ(c). Explicitly, if x=Σ_c a_c e_c is its finite coefficient expansion, set Dₙ(x)=Σ_c a_c Pₙ(c). The uniquely determined coefficients make this well-defined; coefficientwise addition and scalar multiplication show it is k-linear, including when k is the zero ring.\n4. For h ∈ H, Qₙ,ⱼ(hc)=hQₙ,ⱼ(c). Indeed, before and at the inserted position this follows from u((h:G)g)=(h:G)u(g); after that position it follows from the corresponding identity for v. The comparison i<j depends only on indices and is unchanged by h.\n5. The action on the target free module sends single t a to single (ht) a and is k-linear. Applying step 4 termwise therefore gives Pₙ(hc)=h·Pₙ(c). On each generator, Dₙ(h·e_c)=Dₙ(e_{hc})=Pₙ(hc)=h·Dₙ(e_c). Both sides are k-linear functions of the input, so this identity holds on every finite coefficient expansion and thus on every element of Cₙ.\n6. Consequently Dₙ is H-equivariant and defines a morphism Cₙ → Cₙ₊₁ in Rep k H. Carrying out this construction for each natural number n gives the required family, with its generator formula supplied by step 3.",
+          "proof_key_steps": [
+            "Identify the restricted complex objects as free modules with diagonal H-action.",
+            "Express each prism tuple using Fin.insertNth and form its signed sum.",
+            "Extend the generator assignment k-linearly.",
+            "Use equivariance of u and v to prove equivariance of every prism tuple.",
+            "Extend equivariance from generators to all elements and obtain the family of Rep morphisms."
+          ]
+        },
+        "audit": {
+          "key": "equivariant_prism_components",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly matches the prose, including common universes, both equivariance hypotheses, and the generator formula. Its inline definitions require no candidate declaration. The bare name is unused. Independently checking steps 1–6 confirms the insertion formula, coefficientwise linear extension, diagonal-action equivariance, and resulting family of Rep morphisms, including over the zero ring. No finiteness, normality, sibling result, or parent theorem is used. The proof is complete and ready for formalization."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/nodes/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-69b9372d13/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/nodes/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-69b9372d13/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/nodes/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-69b9372d13/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1.prism_boundary_identity-a1",
+      "key": "prism_boundary_identity",
+      "result_branch": "humanize-recursive/fermat-p04/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-60221840b0-a1",
+      "bundle_path": ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-60221840b0",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "standardComplex|prism|Homotopy",
+              "prism|homotopy.*equivariant|equivariant.*homotopy",
+              "def insertNth|theorem insertNth|predAbove",
+              "def res|abbrev res|def ofMulAction|ofMulAction.*single|def of|structure Hom|def lift",
+              "lhom_ext|lift.*single",
+              "linearizeMap_single|def linearize|ofMulAction.*single|def ofMulAction",
+              "p04_prism_a8325b9888_(equivariant_components|boundary_identity)"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/Resolution.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/MonoidAlgebra/Module.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Data/Fin/Tuple/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/Homology/Homotopy.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/dag.json",
+              "/tmp/p04-prism-a8325b9888-contracts/ContractTypes.lean",
+              "/tmp/p04-prism-a8325b9888-contracts/ContractTypes.log"
+            ],
+            "conclusion": "The manifest pins project 2475a3790d7ba0c3b10be8086001b154a45be597 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Resolution.lean supplies the free tuple modules and alternating differential through d_of and d_apply; restriction preserves underlying linear maps; ofMulAction_single describes the diagonal action. Fin.insertNth expresses the prism tuple without index-bound proof terms. Homotopy supplies the required degree-zero and successor component identities. No existing prism theorem was found in the searched project Definitions and mathlib RepresentationTheory directories. Both proposed names are absent from the active DAG. Both exact propositions elaborated after import Submission using the existing cached Submission module, and the coefficient scalar action was checked by proving a • single x 1 = single x a. Checked library declarations depend only on propext, Classical.choice, and Quot.sound; local dependency revisions match their pins and have no tracked modifications. Validation limitation: rebuilding the unchanged frozen Submission itself fails on its existing attribute reference to the missing constant Representation.TateResCor.cosetDecomp_apply. The frozen source was not changed, and these checks do not constitute comparator acceptance."
+          }
+        ],
+        "parent_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1",
+        "child_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1.prism_boundary_identity-a1",
+        "subproblem": {
+          "key": "prism_boundary_identity",
+          "title": "The prism boundary identity on free tuple modules",
+          "statement": "Let k be a commutative ring and X a type in the same universe, and let u,v : X → X be arbitrary functions. Write [c]=MonoidAlgebra.single c 1. Define Pₘ(c)=Σⱼ₌₀ᵐ (−1)ʲ[uc₀,…,ucⱼ,vcⱼ,…,vcₘ], with the j-th tuple precisely Fin.insertNth j.castSucc (u(c j)) (fun i => if i<j then u(c i) else v(c i)). For r≥1, let ∂ᵣ=Rep.standardComplex.d k X r, the k-linear alternating-deletion map on (r+1)-tuples, and let δ_b c=c ∘ b.succAbove. Then ∂₁P₀(c)=[v∘c]−[u∘c] for every one-entry tuple c. Moreover, for every n≥0 and c : Fin(n+2) → X, ∂ₙ₊₂Pₙ₊₁(c)+Σ_b∈Fin(n+2) (−1)ᵇPₙ(δ_b c)=[v∘c]−[u∘c]. No group structure or equivariance hypothesis on X, u, or v is required.",
+          "lean_statement": "∀ {k X : Type _} [CommRing k] (u v : X → X), let P : ∀ n : ℕ, (Fin (n + 1) → X) → MonoidAlgebra k (Fin (n + 2) → X) := fun n c => ∑ j : Fin (n + 1), MonoidAlgebra.single (Fin.insertNth j.castSucc (u (c j)) (fun i : Fin (n + 1) => if i < j then u (c i) else v (c i))) ((-1 : k) ^ j.val); (∀ c : Fin 1 → X, Rep.standardComplex.d k X 1 (P 0 c) = MonoidAlgebra.single (v ∘ c) (1 : k) - MonoidAlgebra.single (u ∘ c) (1 : k)) ∧ ∀ (n : ℕ) (c : Fin (n + 2) → X), Rep.standardComplex.d k X (n + 2) (P (n + 1) c) + ∑ b : Fin (n + 2), ((-1 : k) ^ b.val) • P n (c ∘ b.succAbove) = MonoidAlgebra.single (v ∘ c) (1 : k) - MonoidAlgebra.single (u ∘ c) (1 : k)",
+          "lean_name": "p04_prism_a8325b9888_boundary_identity",
+          "depends_on": [],
+          "natural_proof": "1. Fix k, X, u and v. Denote the j-th prism tuple of a degree-m tuple c by Qₘ,ⱼ(c). Inserting u(c j) at position j into the tuple whose entries are u(c i) for i<j and v(c i) for i≥j gives exactly (uc₀,…,ucⱼ,vcⱼ,…,vcₘ). Thus the Lean definition of P is Σⱼ(−1)ʲ[Qₘ,ⱼ(c)]. The map ∂ᵣ is k-linear and satisfies ∂ᵣ[t]=Σₐ₌₀ʳ(−1)ᵃ[δₐt], by its defining alternating-deletion formula.\n2. If c has one entry x, then P₀(c)=[ux,vx]. Its boundary is [vx]−[ux], proving the degree-zero assertion, including its stated sign.\n3. For the positive-degree assertion, first fix any N≥1 and c=(x₀,…,x_N). Expand ∂ₙ with N as the degree: specifically, ∂_{N+1}P_N(c) is the sum indexed by 0≤j≤N and 0≤a≤N+1 whose term is (−1)^{j+a}[δₐQ_{N,j}(c)]. The second expression Σ_b(−1)ᵇP_{N−1}(δ_b c) is the sum indexed by 0≤b≤N and 0≤t≤N−1 whose term is (−1)^{b+t}[Q_{N−1,t}(δ_b c)]. These expansions follow from linearity and multiplication of powers of −1.\n4. Suppose a<j in the first sum. Deleting position a removes u(x_a) before the transition. The resulting tuple is Q_{N−1,j−1}(δ_a c): deleting original vertex a shifts the transition vertex x_j to position j−1 and preserves every other entry in order. The matching term in the second sum has b=a and t=j−1, with coefficient (−1)^{a+j−1}. This coefficient is the additive inverse of (−1)^{j+a}, so the paired terms sum to zero.\n5. Suppose a>j+1 in the first sum. Deleting position a removes v(x_{a−1}) after the transition. The resulting tuple is Q_{N−1,j}(δ_{a−1}c): deletion occurs after x_j and leaves its transition position unchanged. Here j≤N−1 follows from a≤N+1 and a>j+1. The matching second-sum term has b=a−1 and t=j, with coefficient (−1)^{a−1+j}, again the additive inverse of (−1)^{j+a}.\n6. Every second-sum term has exactly one of these pairings. If b≤t, take j=t+1 and a=b; these satisfy a<j and recover step 4. If b>t, take j=t and a=b+1; these satisfy a>j+1 and recover step 5. These cases are disjoint and exhaustive, and their formulas invert the pairings in steps 4 and 5. Thus all second-sum terms cancel with exactly the noncentral first-sum terms. This is cancellation of indexed terms, so it does not require distinct tuples or injectivity of either function.\n7. The remaining first-sum terms have a=j or a=j+1. For a=j the coefficient is (−1)^{2j}=1 and the tuple is A_j=(ux₀,…,ux_{j−1},vx_j,…,vx_N). For a=j+1 the coefficient is (−1)^{2j+1}=−1 and the tuple is B_j=(ux₀,…,ux_j,vx_{j+1},…,vx_N). For j<N, B_j=A_{j+1}; hence Σ_{j=0}^N([A_j]−[B_j])=[A₀]−[B_N]=[v∘c]−[u∘c]. Combined with step 6, this proves ∂_{N+1}P_N(c)+Σ_b(−1)ᵇP_{N−1}(δ_b c)=[v∘c]−[u∘c].\n8. Given n in the stated positive-degree formula, put N=n+1. Then c has N+1=n+2 entries, ∂_{N+1}=∂_{n+2}, and P_{N−1}=P_n. Step 7 is exactly the required formula. Together with step 2, it proves both conjuncts.",
+          "proof_key_steps": [
+            "Identify the inserted tuples and expand the alternating differential.",
+            "Compute the degree-zero boundary directly.",
+            "Cancel deletions before the transition against the preceding prism position.",
+            "Cancel deletions after the transition against the unchanged prism position.",
+            "Prove the two pairings exhaust the lower-degree prism sum.",
+            "Telescope the two central deletions to the v-endpoint minus the u-endpoint.",
+            "Substitute N=n+1 to obtain the exact positive-degree formula."
+          ]
+        },
+        "audit": {
+          "key": "prism_boundary_identity",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly expresses both boundary formulas for arbitrary X, u, and v, with the intended coefficient scalar action and no hidden group instance. Its bare name is unused. Steps 1–8 correctly expand the differential, establish the zero-degree sign, pair every noncentral term bijectively with opposite coefficient, and telescope the central terms. Bounds and the substitution N=n+1 are correct; repeated tuples cause no problem. The proof is complete, independent of the other child and parent, and ready for formalization."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/nodes/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-60221840b0/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/nodes/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-60221840b0/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/nodes/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-60221840b0/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/task.md": "c526f0b7615b60eae279b5561607c97de6dde7eaed997c0d86efcc0ba18988c1",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/problem.md": "e8a185db32b7970bfb531df6ac346f5d6e87d21826d4795296f450038092455d",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/problem.json": "60048ff4c739e0e2fe19753d722fc5764e6acae8c538554e765b06ebba561f43",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/reference-manifest.json": "5719e035ae23f5683c154f28ac6798802cfe5b0a4e0c2aff8128dcaa150abc38",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/decomposition.json": "938ad527857282c36b108e6321d72b9c6d56396b69a110fc7c629c3d967ab7db",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/decomposition-audit.json": "0d6759660594011787bef80db0c750d94d4eeeaed68c068ae6f9ca10f20b68cc",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/controller-contract.json": "a92e29980ddf5ae5530cacc63198932d50a8eb62c3eacb3758c5613724605b7e",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-69b9372d13/parent-child-handoff.json": "ce4cc6dd8042f07c4109b8b9b887b2edf9425c808524509ce7e88944ebbb0594",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-69b9372d13/parent-supplied-plan.md": "9122b3f6b7e982fb88efa4c7c059dd1d4a61bd96f7fd1b0bf5689e9d760f5a59",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-69b9372d13/parent-supplied-natural-proof.md": "177337a1cae6949785b5b05dcb5429b15e2d9e712a78eef475534a43e08a488e",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-69b9372d13/parent-supplied-natural-proof.json": "732ffdb1539cece804b013b528aa354e684f21dc14321cb50cb68136af15233b",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-69b9372d13/node.json": "3af85c3c03e4d24b4a9bced3e1114bd3cead9a9f78fc96cb38e84d158299126d",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-60221840b0/parent-child-handoff.json": "2c249089557dd427d5bf4002930a9eb0ec8077ef40613f73d02a0587196002aa",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-60221840b0/parent-supplied-plan.md": "44a5df052e3f7a097d3c2ab083d5f6131e1cc5e9681261bce9ae9abd080b3b84",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-60221840b0/parent-supplied-natural-proof.md": "6a6c84646802ad8d6e98091904dd8927364cc6ad27b766ff9107402534c6b942",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-60221840b0/parent-supplied-natural-proof.json": "693d14d6d5b9ab64d0ebd0b25df4b44a36e6a09cb767e8b4f4afb38e4b85a9d4",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-60221840b0/node.json": "9bb45b321ae6db593d8427703b65f23d2a4fd6cd849b4e6b19a7ba59f1c4def8"
+  }
+}
