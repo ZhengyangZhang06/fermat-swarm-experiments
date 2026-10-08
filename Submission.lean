@@ -9,6 +9,74 @@ import Definitions.Def_ModularForm_HeckeOperatorForms
 attribute [-instance] FLT.HyperbolicMeasure.instSMulInvariantMeasureSpecialLinearGroupFinOfNatNatIntUpperHalfPlaneVolume_definitions FLT.HyperbolicMeasure.instIsOpenPosMeasureUpperHalfPlaneVolume_definitions FLT.Gamma0FundamentalSet.instContinuousConstSMulSpecialLinearGroupFinOfNatNatIntUpperHalfPlane_definitions FLT.L2ProductionInstance.isFiniteMeasure_gamma0 FLT.L2ProductionInstance.countable_SL2Z FLT.L2ProductionInstance.countable_quotient FLT.L2ProductionInstance.nontrivial_gamma0L2
 attribute [-simp] FreyPackage.ModMCarrier.coe_rescaleLin_apply ModularForm.AtkinLehnerDatum.mk.injEq ModularForm.AtkinLehnerDatum.alGL_coe ModularForm.AtkinLehnerDatum.mk.sizeOf_spec ModularForm.AtkinLehnerDatum.sqUnitSL_coe ModularForm.AtkinLehnerDatum.det_sqUnit ModularForm.AtkinLehnerDatum.det_mat FLT.TruncatedDomainPartition.unipotentDiagonalSum_zero
 
+namespace Submission
+
+open MeasureTheory
+open scoped ComplexConjugate
+
+theorem f036cc6b1f_tdi_petersson_integrable_of_exp_product_bound
+    (u v : UpperHalfPlane → ℂ) (a C Y : ℝ)
+    (hu : Continuous u) (hv : Continuous v) (ha : 0 < a) (_hC : 0 ≤ C)
+    (hbound : ∀ z : UpperHalfPlane, Y ≤ z.im →
+      ‖u z * v z‖ ≤ C * Real.exp (-a * z.im)) :
+    IntegrableOn (UpperHalfPlane.petersson 2 u v) ModularGroup.fd
+      (volume : Measure UpperHalfPlane) := by
+  let ν : Measure UpperHalfPlane := (volume : Measure ℂ).comap UpperHalfPlane.coe
+  let W : UpperHalfPlane → ℂ := fun z ↦ conj (u z) * v z
+  let L : ℝ := max 1 Y
+  let D := ModularGroup.truncatedFundamentalDomain L
+  let E := ModularGroup.fd ∩ {z : UpperHalfPlane | L < z.im}
+  have hW : Continuous W := (Complex.continuous_conj.comp hu).mul hv
+  -- The lower truncation is compact and planar measure is finite on compact sets.
+  have hD : IntegrableOn W D ν :=
+    hW.continuousOn.integrableOn_compact
+      (ModularGroup.isCompact_truncatedFundamentalDomain L)
+  have hEmeas : MeasurableSet E :=
+    ModularGroup.isClosed_fd.measurableSet.inter
+      (isOpen_lt continuous_const UpperHalfPlane.continuous_im).measurableSet
+  -- On the tail, use precisely the supplied planar exponential-integrability interface.
+  have hmajor : IntegrableOn (fun z : UpperHalfPlane ↦ C * Real.exp (-a * z.im)) E ν :=
+    ((Submission.f036cc6b1f_tdi_planar_exp_integrable_fd a ha).mono_set
+      Set.inter_subset_left).const_mul C
+  have hE : IntegrableOn W E ν := by
+    refine hmajor.mono' hW.aestronglyMeasurable ?_
+    filter_upwards [ae_restrict_mem hEmeas] with z hz
+    have hY : Y ≤ z.im := (le_max_right 1 Y).trans hz.2.le
+    simpa only [W, norm_mul, Complex.norm_conj] using hbound z hY
+  have hpartition : D ∪ E = ModularGroup.fd := by
+    ext z
+    change (z ∈ ModularGroup.fd ∧ z.im ≤ L) ∨
+      (z ∈ ModularGroup.fd ∧ L < z.im) ↔ z ∈ ModularGroup.fd
+    constructor
+    · rintro (hz | hz) <;> exact hz.1
+    · intro hz
+      rcases le_or_gt z.im L with h | h
+      · exact Or.inl ⟨hz, h⟩
+      · exact Or.inr ⟨hz, h⟩
+  have hplanar : IntegrableOn W ModularGroup.fd ν := by
+    rw [← hpartition]
+    exact hD.union hE
+  -- Multiplication by the hyperbolic density cancels the weight-two factor.
+  rw [IntegrableOn, UpperHalfPlane.volume_def,
+    restrict_withDensity ModularGroup.isClosed_fd.measurableSet]
+  have hdensity : Measurable (fun z : UpperHalfPlane ↦
+      (1 / NNReal.mk z.im z.im_pos.le : NNReal) ^ 2) := by
+    fun_prop
+  rw [integrable_withDensity_iff_integrable_coe_smul hdensity]
+  have hcancel : (fun z : UpperHalfPlane ↦
+      (((1 / NNReal.mk z.im z.im_pos.le : NNReal) ^ 2 : NNReal) : ℝ) •
+        UpperHalfPlane.petersson 2 u v z) = W := by
+    funext z
+    simp only [UpperHalfPlane.petersson, zpow_ofNat, NNReal.coe_pow,
+      NNReal.coe_div, NNReal.coe_one, NNReal.coe_mk, Complex.real_smul,
+      Complex.ofReal_pow, Complex.ofReal_div, Complex.ofReal_one, W]
+    have hz : (z.im : ℂ) ≠ 0 := by exact_mod_cast z.im_ne_zero
+    field_simp
+  rw [hcancel]
+  exact hplanar
+
+end Submission
+
 theorem CuspForm.span_heckeTLin_eigen_eq_top (M : ℕ) [NeZero M] :
     Submodule.span ℂ {v : CuspForm (CongruenceSubgroup.Gamma0 M) 2 |
       ∀ (ℓ : ℕ) (hℓ : ℓ.Prime) (hℓM : ¬ ℓ ∣ M), ∃ c : ℂ,
