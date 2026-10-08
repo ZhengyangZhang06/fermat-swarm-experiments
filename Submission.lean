@@ -629,6 +629,7 @@ theorem p02_es_177ebb5a_primitive_exists_scalar_primitive :
   convert! (hB (ψ z) hw).comp z (hdψ z hz) using 1
   simp only [φ, ψ, hφψ z hz, mul_assoc, hprod z hz, mul_one]
 
+/-- Expand a homogeneous binary form in the monomials with exponents `(r, n - r)`. -/
 theorem p02_es_177ebb5a_ic_lct_monomial_expansion
     (n : ℕ) (Q : ↥(HeckeEis.BinaryForm ℂ n)) :
     Q.val = ∑ r : Fin (n + 1),
