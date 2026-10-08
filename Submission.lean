@@ -187,3 +187,84 @@ theorem Submission.p08_7d1ff633a4_ck_cyclotomic_kernel :
     IntermediateField.subset_adjoin ℚ R ⟨⟨t, ht⟩, rfl⟩
   simpa only [ZMod.val_one'' (Fact.out : p.Prime).ne_one, pow_one] using
     ((IntermediateField.mem_fixingSubgroup_iff _ σ).mp hσ) (t : AlgebraicClosure ℚ) htF
+theorem Submission.p08_7d1ff633a4_ck_uniform_stabilizer :
+    ∀ {k G : Type} [Field k] [Group G]
+      (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ))
+      (M : Rep.{0} k G) [FiniteDimensional k M],
+      (∀ m : M, ∃ F : IntermediateField ℚ (AlgebraicClosure ℚ),
+        FiniteDimensional ℚ F ∧
+        ∀ g : G, r g ∈ F.fixingSubgroup → M.ρ g m = m) →
+      ∃ F : IntermediateField ℚ (AlgebraicClosure ℚ), FiniteDimensional ℚ F ∧
+        ∀ g : G, r g ∈ F.fixingSubgroup → ∀ m : M, M.ρ g m = m := by
+  classical
+  intro k G _ _ r M _ h
+  let b : Basis (Fin (finrank k M)) k M := Module.finBasis k M
+  choose F hF hfix using fun i => h (b i)
+  let : ∀ i, FiniteDimensional ℚ (F i) := hF
+  refine ⟨⨆ i, F i, inferInstance, ?_⟩
+  intro g hg m
+  have hρ : M.ρ g = LinearMap.id := b.ext fun i =>
+    hfix i g (IntermediateField.fixingSubgroup_le (le_iSup F i) hg)
+  exact LinearMap.congr_fun hρ m
+
+
+theorem Submission.p08_7d1ff633a4_tt26_normal_kernel :
+    ∀ {G : Type} [Group G]
+      (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ))
+      (E : IntermediateField ℚ (AlgebraicClosure ℚ)),
+      FiniteDimensional ℚ E → Normal ℚ E →
+        (E.fixingSubgroup.comap r).Normal ∧ (E.fixingSubgroup.comap r).FiniteIndex := by
+  intro G _ r E hE hN
+  have : FiniteDimensional ℚ E := hE
+  have hker := @IntermediateField.restrictNormalHom_ker ℚ (AlgebraicClosure ℚ) _ _ _ E hN
+  rw [← hker, MonoidHom.comap_ker]
+  exact ⟨inferInstance, inferInstance⟩
+
+theorem Submission.p08_7d1ff633a4_tp26_normal_level_retraction :
+    ∀ {G : Type} [Group G] (H : Subgroup G), ∃ a : G → H,
+      (∀ h : H, a (h : G) = h) ∧
+      (∀ (h : H) (g : G), a ((h : G) * g) = h * a g) ∧
+      (∀ K : Subgroup G, K.Normal → K ≤ H → ∀ g u : G, u ∈ K →
+        (a g : G)⁻¹ * (a (g * u) : G) ∈ K) := by
+  classical
+  intro G _ H
+  let q : G → Quotient (QuotientGroup.rightRel H) := Quotient.mk _
+  let t : Quotient (QuotientGroup.rightRel H) → G :=
+    fun c => if c = q 1 then 1 else c.out
+  have ht (c : Quotient (QuotientGroup.rightRel H)) : q (t c) = c := by
+    by_cases hc : c = q 1
+    · change q (if c = q 1 then 1 else c.out) = c
+      rw [if_pos hc]
+      exact hc.symm
+    · simpa only [t, if_neg hc] using c.out_eq
+  let a : G → H := fun g =>
+    ⟨g * (t (q g))⁻¹, QuotientGroup.rightRel_apply.mp (Quotient.exact (ht (q g)))⟩
+  have hq (h : H) (g : G) : q ((h : G) * g) = q g := by
+    symm
+    apply Quotient.sound
+    apply QuotientGroup.rightRel_apply.mpr
+    simpa only [mul_inv_cancel_right] using h.property
+  have ha (h : H) (g : G) : a ((h : G) * g) = h * a g := by
+    apply Subtype.ext
+    change ((h : G) * g) * (t (q ((h : G) * g)))⁻¹ =
+      (h : G) * (g * (t (q g))⁻¹)
+    rw [hq, mul_assoc]
+  have ha1 : a 1 = 1 := by
+    apply Subtype.ext
+    simp [a, t]
+  refine ⟨a, ?_, ha, ?_⟩
+  · intro h
+    simpa only [mul_one, ha1] using ha h 1
+  · intro K hK hKH g u hu
+    have hqu : q (g * u) = q g := by
+      symm
+      apply Quotient.sound
+      apply QuotientGroup.rightRel_apply.mpr
+      exact hKH (hK.conj_mem u hu g)
+    have heq : (a g : G)⁻¹ * (a (g * u) : G) =
+        t (q g) * u * (t (q g))⁻¹ := by
+      change (g * (t (q g))⁻¹)⁻¹ * ((g * u) * (t (q (g * u)))⁻¹) = _
+      rw [hqu]
+      group
+    rw [heq]
+    exact hK.conj_mem u hu (t (q g))
