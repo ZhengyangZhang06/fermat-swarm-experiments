@@ -552,3 +552,93 @@ theorem Submission.p10_17ae7b7d_cld_qexp_finite_order :
     exact hhigh z hz
   exact hFz₁ (hAn.eqOn_zero_of_preconnected_of_eventuallyEq_zero
     (convex_halfSpace_im_gt 0).isPreconnected hvU hzero hz₁)
+
+
+theorem Submission.p10_17ae7b7d_ccm_coset_crt_equivariant :
+    ∀ (m n : ℕ) [NeZero m] [NeZero n], Nat.Coprime m n →
+      let G := Matrix.SpecialLinearGroup (Fin 2) ℤ
+      let Q := fun k : ℕ => G ⧸ CongruenceSubgroup.Gamma0 k
+      ∃ e : Q (m * n) ≃ (Q m × Q n),
+        ∀ (g : G) (q : Q (m * n)), e (g • q) = g • e q := by
+  intro m n _ _ hmn
+  classical
+  let G := Matrix.SpecialLinearGroup (Fin 2) ℤ
+  let Q := fun k : ℕ => G ⧸ CongruenceSubgroup.Gamma0 k
+  let E := ZMod.chineseRemainder hmn
+  have hcast (z : ℤ) : E (z : ZMod (m * n)) = ((z : ZMod m), (z : ZMod n)) := by
+    exact map_intCast E z
+  have hmem (C : G) : C ∈ CongruenceSubgroup.Gamma0 (m * n) ↔
+      C ∈ CongruenceSubgroup.Gamma0 m ∧ C ∈ CongruenceSubgroup.Gamma0 n := by
+    change (C 1 0 : ZMod (m * n)) = 0 ↔
+      (C 1 0 : ZMod m) = 0 ∧ (C 1 0 : ZMod n) = 0
+    rw [← E.injective.eq_iff, hcast, map_zero]
+    exact Prod.ext_iff
+  let F : Q (m * n) → Q m × Q n := Quotient.lift
+    (fun A : G => (QuotientGroup.mk A, QuotientGroup.mk A)) (by
+      intro A B hAB
+      have h := (hmem (A⁻¹ * B)).mp
+        (QuotientGroup.eq.mp (Quotient.sound hAB))
+      exact Prod.ext (QuotientGroup.eq.mpr h.1) (QuotientGroup.eq.mpr h.2))
+  have hF (A : G) : F (QuotientGroup.mk A) =
+      (QuotientGroup.mk A, QuotientGroup.mk A) := rfl
+  have hinj : Function.Injective F := by
+    intro a b hab
+    induction a using QuotientGroup.induction_on with | H A =>
+      induction b using QuotientGroup.induction_on with | H B =>
+        apply QuotientGroup.eq.mpr
+        apply (hmem (A⁻¹ * B)).mpr
+        exact ⟨QuotientGroup.eq.mp (congrArg Prod.fst hab),
+          QuotientGroup.eq.mp (congrArg Prod.snd hab)⟩
+  have hdet (L : ℕ) (C : G) :
+      -(C 0 1 : ZMod L) * (C 1 0 : ZMod L) +
+        (C 0 0 : ZMod L) * (C 1 1 : ZMod L) = 1 := by
+    have h := C.det_coe
+    rw [Matrix.det_fin_two] at h
+    have h' := congrArg (fun z : ℤ => (z : ZMod L)) h
+    push_cast at h'
+    linear_combination h'
+  have hsurj : Function.Surjective F := by
+    rintro ⟨a, b⟩
+    induction a using QuotientGroup.induction_on with | H A =>
+      induction b using QuotientGroup.induction_on with | H B =>
+        let r := E.symm ((A⁻¹ 1 0 : ZMod m), (B⁻¹ 1 0 : ZMod n))
+        let s := E.symm ((A⁻¹ 1 1 : ZMod m), (B⁻¹ 1 1 : ZMod n))
+        let x := E.symm (-(A⁻¹ 0 1 : ZMod m), -(B⁻¹ 0 1 : ZMod n))
+        let y := E.symm ((A⁻¹ 0 0 : ZMod m), (B⁻¹ 0 0 : ZMod n))
+        have hrow : x * r + y * s = 1 := by
+          apply E.injective
+          dsimp only [x, r, y, s]
+          simp only [map_add, map_mul, map_one, RingEquiv.apply_symm_apply]
+          exact Prod.ext (hdet m A⁻¹) (hdet n B⁻¹)
+        obtain ⟨M, hMr, hMs⟩ :=
+          Submission.p10_17ae7b7d_cc_lift_unimodular_row (m * n) r s ⟨x, y, hrow⟩
+        have hr : ((M 1 0 : ZMod m), (M 1 0 : ZMod n)) =
+            ((A⁻¹ 1 0 : ZMod m), (B⁻¹ 1 0 : ZMod n)) := by
+          rw [← hcast, hMr]
+          exact E.apply_symm_apply _
+        have hs : ((M 1 1 : ZMod m), (M 1 1 : ZMod n)) =
+            ((A⁻¹ 1 1 : ZMod m), (B⁻¹ 1 1 : ZMod n)) := by
+          rw [← hcast, hMs]
+          exact E.apply_symm_apply _
+        have hcoset (L : ℕ) (C : G)
+            (hc : (M 1 0 : ZMod L) = (C⁻¹ 1 0 : ZMod L))
+            (hd : (M 1 1 : ZMod L) = (C⁻¹ 1 1 : ZMod L)) :
+            (QuotientGroup.mk M⁻¹ : Q L) = QuotientGroup.mk C := by
+          apply QuotientGroup.eq.mpr
+          rw [inv_inv]
+          apply CongruenceSubgroup.Gamma0_mem.mpr
+          have heq : ((M * C) 1 0 : ZMod L) = ((C⁻¹ * C) 1 0 : ZMod L) := by
+            change (((M.1 * C.1) 1 0 : ℤ) : ZMod L) =
+              ((((C⁻¹).1 * C.1) 1 0 : ℤ) : ZMod L)
+            simp only [Matrix.mul_apply, Fin.sum_univ_two, Int.cast_add, Int.cast_mul]
+            rw [hc, hd]
+          rw [heq, inv_mul_cancel]
+          simp
+        refine ⟨QuotientGroup.mk M⁻¹, ?_⟩
+        rw [hF]
+        exact Prod.ext (hcoset m A (congrArg Prod.fst hr) (congrArg Prod.fst hs))
+          (hcoset n B (congrArg Prod.snd hr) (congrArg Prod.snd hs))
+  refine ⟨Equiv.ofBijective F ⟨hinj, hsurj⟩, ?_⟩
+  intro g q
+  induction q using QuotientGroup.induction_on with | H A =>
+    rfl
