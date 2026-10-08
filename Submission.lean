@@ -6264,3 +6264,46 @@ theorem p05_ptm_split_of_unit_minor_a5b449214a
     congrArg (fun A : Matrix (Fin n) (Fin p) R => A.mulVecLin) hQ
 
 end Submission
+theorem Submission.p05_pcs_clear_away_section_a5b449214a
+    {R : Type*} [CommRing R] {M : Type*} [AddCommGroup M] [Module R M]
+    (n p : ℕ) (P : Matrix (Fin n) (Fin p) R) (π : (Fin n → R) →ₗ[R] M)
+    (_hπ : Function.Surjective π)
+    (_hker : LinearMap.ker π = LinearMap.range P.mulVecLin) (f : R)
+    (_hlocal : ∃ σ : LocalizedModule (Submonoid.powers f) M →ₗ[Localization.Away f]
+      LocalizedModule (Submonoid.powers f) (Fin n → R),
+      (LocalizedModule.map (Submonoid.powers f) π).comp σ = LinearMap.id) :
+    ∃ N : ℕ, 0 < N ∧ ∃ t : M →ₗ[R] (Fin n → R),
+      π.comp t = f ^ N • (LinearMap.id : M →ₗ[R] M) := by
+  have : Module.FinitePresentation R M :=
+    Module.finitePresentation_of_free_of_surjective π _hπ
+      (_hker.symm ▸ Submodule.fg_range P.mulVecLin)
+  obtain ⟨σ, hσ⟩ := _hlocal
+  let S := Submonoid.powers f
+  let iM := LocalizedModule.mkLinearMap S M
+  let iF := LocalizedModule.mkLinearMap S (Fin n → R)
+  obtain ⟨u, s, hu⟩ := Module.FinitePresentation.exists_lift_of_isLocalizedModule
+    S iF ((σ.restrictScalars R).comp iM)
+  have hcomp : iM.comp (π.comp u) = iM.comp ((s : R) • LinearMap.id) := by
+    ext x
+    have hx := LinearMap.congr_fun hu x
+    have hσx := LinearMap.congr_fun hσ (iM x)
+    change iF (u x) = (s : R) • σ (iM x) at hx
+    change (LocalizedModule.map S π) (σ (iM x)) = iM x at hσx
+    change iM (π (u x)) = iM ((s : R) • x)
+    calc
+      iM (π (u x)) = (LocalizedModule.map S π) (iF (u x)) := by
+        simp [iM, iF]
+      _ = (s : R) • iM x := by
+        rw [hx, LinearMap.map_smul_of_tower, hσx]
+      _ = iM ((s : R) • x) := (map_smul iM _ _).symm
+  obtain ⟨c, hc⟩ := Module.Finite.exists_smul_of_comp_eq_of_isLocalizedModule
+    S iM _ _ hcomp
+  obtain ⟨a, ha⟩ := s.property
+  obtain ⟨b, hb⟩ := c.property
+  have heq : f ^ b • π.comp u = f ^ b • (f ^ a • (LinearMap.id : M →ₗ[R] M)) := by
+    simpa only [Submonoid.smul_def, ← ha, ← hb] using hc
+  refine ⟨b + a + 1, by omega, f • (f ^ b • u), ?_⟩
+  rw [LinearMap.comp_smul, LinearMap.comp_smul, heq]
+  simp only [smul_smul, ← pow_add]
+  congr 1
+  rw [pow_succ, mul_comm]
