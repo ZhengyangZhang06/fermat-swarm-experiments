@@ -575,3 +575,267 @@ theorem Submission.p10_17ae7b7d_phdisk_euclidean :
       have hlower := (abs_le.mp him).1
       linarith
     exact ⟨hz, (hratio hz).mpr (hshape.mp hball)⟩
+namespace Submission
+
+theorem p10_17ae7b7d_periodic_disk_extension :
+    ∀ (w : ℝ) (g : ℂ → ℂ), 0 < w →
+      DifferentiableOn ℂ g {z : ℂ | 0 < z.im} →
+      (∃ z : ℂ, 0 < z.im ∧ g z ≠ 0) →
+      (∀ z : ℂ, 0 < z.im → g (z + (w : ℂ)) = g z) →
+      (∃ C Y : ℝ, ∀ z : ℂ, 0 < z.im → Y ≤ z.im → ‖g z‖ ≤ C) →
+      ∃ A : ℂ → ℂ, DifferentiableOn ℂ A (Metric.ball (0 : ℂ) 1) ∧
+        (∀ z : ℂ, 0 < z.im →
+          g z = A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z / (w : ℂ)))) ∧
+        analyticOrderAt A 0 ≠ ⊤ ∧
+        ((∀ ε : ℝ, 0 < ε → ∃ Y : ℝ, ∀ z : ℂ,
+          0 < z.im → Y ≤ z.im → ‖g z‖ ≤ ε) → 1 ≤ analyticOrderNatAt A 0) := by
+  intro w g hw hg hnonzero hperiodic hbounded
+  obtain ⟨A, hA, hAg⟩ :=
+    p10_17ae7b7d_pde_holomorphic_extension w g hw hg hperiodic hbounded
+  obtain ⟨z, hz, hgz⟩ := hnonzero
+  have hq : Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z / (w : ℂ)) ∈
+      Metric.ball (0 : ℂ) 1 := by
+    rw [Metric.mem_ball, dist_zero_right, Complex.norm_exp, Real.exp_lt_one_iff]
+    have hheight : 0 < 2 * Real.pi * z.im :=
+      mul_pos (mul_pos (by norm_num) Real.pi_pos) hz
+    simpa [Complex.mul_re, Complex.mul_im] using
+      div_neg_of_neg_of_pos (neg_neg_of_pos hheight) hw
+  obtain ⟨hfinite, hpositive⟩ := p10_17ae7b7d_pde_finite_order A hA
+    ⟨_, hq, by simpa only [← hAg z hz] using hgz⟩
+  refine ⟨A, hA, hAg, hfinite, ?_⟩
+  intro hdecay
+  apply hpositive
+  exact p10_17ae7b7d_pde_decay_zero w g A hw
+    (hA.differentiableAt (Metric.ball_mem_nhds _ (by norm_num))).continuousAt
+    hAg hdecay
+
+end Submission
+theorem Submission.p10_17ae7b7d_valence_modular_log_derivative :
+    ∀ (k : ℕ) (F : ℂ → ℂ),
+      DifferentiableOn ℂ F {z : ℂ | 0 < z.im} →
+      (∀ z : ℂ, 0 < z.im → F (z + 1) = F z) →
+      (∀ z : ℂ, 0 < z.im → F (-1 / z) = z ^ k * F z) →
+      ∀ z : ℂ, 0 < z.im →
+        analyticOrderNatAt F (z + 1) = analyticOrderNatAt F z ∧
+        analyticOrderNatAt F (-1 / z) = analyticOrderNatAt F z ∧
+        (F z ≠ 0 →
+          deriv F (z + 1) / F (z + 1) = deriv F z / F z ∧
+          (deriv F (-1 / z) / F (-1 / z)) / z ^ 2 =
+            (k : ℂ) / z + deriv F z / F z) := by
+  intro k F hF hT hS z hz
+  have hU : IsOpen {w : ℂ | 0 < w.im} :=
+    isOpen_lt continuous_const Complex.continuous_im
+  have hA (w : ℂ) (hw : 0 < w.im) : AnalyticAt ℂ F w :=
+    hF.analyticAt (hU.mem_nhds hw)
+  have hz0 : z ≠ 0 := by
+    intro h
+    simp [h] at hz
+  have hzT : 0 < (z + 1).im := by simpa using hz
+  have hzS : 0 < (-1 / z).im := by
+    simpa [Complex.div_im, neg_div] using div_pos hz (Complex.normSq_pos.mpr hz0)
+  have aT : AnalyticAt ℂ (fun w : ℂ => w + 1) z := by fun_prop
+  have aS : AnalyticAt ℂ (fun w : ℂ => -1 / w) z := by fun_prop
+  have dT : deriv (fun w : ℂ => w + 1) z = 1 := by simp
+  have dS : deriv (fun w : ℂ => -1 / w) z = 1 / z ^ 2 := by simp
+  have eT : Filter.EventuallyEq (nhds z) (F ∘ fun w : ℂ => w + 1) F :=
+    Filter.eventually_of_mem (hU.mem_nhds hz) fun w hw => hT w hw
+  have eS : Filter.EventuallyEq (nhds z) (F ∘ fun w : ℂ => -1 / w)
+      (fun w => w ^ k * F w) :=
+    Filter.eventually_of_mem (hU.mem_nhds hz) fun w hw => hS w hw
+  have oT : analyticOrderAt F (z + 1) = analyticOrderAt F z := by
+    calc
+      analyticOrderAt F (z + 1) =
+          analyticOrderAt (F ∘ fun w : ℂ => w + 1) z :=
+        (analyticOrderAt_comp_of_deriv_ne_zero aT (by simp [dT])).symm
+      _ = analyticOrderAt F z := analyticOrderAt_congr eT
+  have aP : AnalyticAt ℂ (fun w : ℂ => w ^ k) z := by fun_prop
+  have oS : analyticOrderAt F (-1 / z) = analyticOrderAt F z := by
+    calc
+      analyticOrderAt F (-1 / z) =
+          analyticOrderAt (F ∘ fun w : ℂ => -1 / w) z :=
+        (analyticOrderAt_comp_of_deriv_ne_zero aS (by simp [dS, hz0])).symm
+      _ = analyticOrderAt (fun w => w ^ k * F w) z := analyticOrderAt_congr eS
+      _ = analyticOrderAt (fun w : ℂ => w ^ k) z + analyticOrderAt F z :=
+        analyticOrderAt_mul aP (hA z hz)
+      _ = analyticOrderAt F z := by
+        rw [aP.analyticOrderAt_eq_zero.mpr (pow_ne_zero k hz0), zero_add]
+  refine ⟨congrArg ENat.toNat oT, congrArg ENat.toNat oS, ?_⟩
+  intro hFz
+  constructor
+  · have h := (logDeriv_congr_nhds eT).self_of_nhds
+    rw [logDeriv_comp (g := fun w : ℂ => w + 1) (hA (z + 1) hzT).differentiableAt aT.differentiableAt,
+      dT, mul_one] at h
+    exact h
+  · have h := (logDeriv_congr_nhds eS).self_of_nhds
+    rw [logDeriv_comp (g := fun w : ℂ => -1 / w) (hA (-1 / z) hzS).differentiableAt aS.differentiableAt,
+      dS, logDeriv_mul (f := fun w : ℂ => w ^ k) (g := F) z (pow_ne_zero k hz0) hFz aP.differentiableAt
+        (hA z hz).differentiableAt, logDeriv_pow] at h
+    simpa only [logDeriv_apply, mul_one_div] using h
+
+
+theorem Submission.p10_17ae7b7d_efp_inverse_coset_eq_iff :
+    ∀ (N : ℕ) [NeZero N] (A B : Matrix.SpecialLinearGroup (Fin 2) ℤ),
+      (QuotientGroup.mk (A⁻¹) :
+        (Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 N) =
+          QuotientGroup.mk (B⁻¹) ↔
+        ∃ u : (ZMod N)ˣ,
+          (B 1 0 : ZMod N) = (u : ZMod N) * (A 1 0 : ZMod N) ∧
+          (B 1 1 : ZMod N) = (u : ZMod N) * (A 1 1 : ZMod N) := by
+  intro N _ A B
+  constructor
+  · intro h
+    let E := B * A⁻¹
+    have hE : E ∈ CongruenceSubgroup.Gamma0 N := by
+      simpa only [inv_inv] using (QuotientGroup.eq.mp h.symm)
+    have hzero : (E 1 0 : ZMod N) = 0 := CongruenceSubgroup.Gamma0_mem.mp hE
+    have hdet : (E 0 0 : ZMod N) * (E 1 1 : ZMod N) -
+        (E 0 1 : ZMod N) * (E 1 0 : ZMod N) = 1 := by
+      have h := E.det_coe
+      rw [Matrix.det_fin_two] at h
+      simpa only [Int.cast_sub, Int.cast_mul, Int.cast_one] using
+        congrArg (fun z : ℤ => (z : ZMod N)) h
+    have hunit : (E 1 1 : ZMod N) * (E 0 0 : ZMod N) = 1 := by
+      rw [hzero, mul_zero, sub_zero] at hdet
+      simpa only [mul_comm] using hdet
+    let u : (ZMod N)ˣ := Units.mkOfMulEqOne (E 1 1 : ZMod N) (E 0 0 : ZMod N) hunit
+    have hBA : E * A = B := by
+      dsimp [E]
+      rw [mul_assoc, inv_mul_cancel, mul_one]
+    have hrow (j : Fin 2) : (B 1 j : ZMod N) = (E 1 1 : ZMod N) * (A 1 j : ZMod N) := by
+      have h := congrArg (fun C : Matrix.SpecialLinearGroup (Fin 2) ℤ =>
+        (C 1 j : ZMod N)) hBA
+      change (((E.1 * A.1) 1 j : ℤ) : ZMod N) = (B 1 j : ZMod N) at h
+      simp only [Matrix.mul_apply, Fin.sum_univ_two, Int.cast_add, Int.cast_mul] at h
+      change (E 1 0 : ZMod N) * (A 0 j : ZMod N) +
+        (E 1 1 : ZMod N) * (A 1 j : ZMod N) = (B 1 j : ZMod N) at h
+      simpa only [hzero, zero_mul, zero_add] using h.symm
+    exact ⟨u, hrow 0, hrow 1⟩
+  · rintro ⟨u, hc, hd⟩
+    apply Eq.symm
+    apply QuotientGroup.eq.mpr
+    rw [inv_inv]
+    apply CongruenceSubgroup.Gamma0_mem.mpr
+    change (((B.1 * (A⁻¹).1) 1 0 : ℤ) : ZMod N) = 0
+    rw [Matrix.SpecialLinearGroup.SL2_inv_expl]
+    simp only [Matrix.mul_apply, Fin.sum_univ_two]
+    change ((B 1 0 * A 1 1 + B 1 1 * -(A 1 0) : ℤ) : ZMod N) = 0
+    push_cast
+    rw [hc, hd]
+    ring
+
+
+theorem Submission.p10_17ae7b7d_cpo_analytic_order_nonzero :
+    ∀ (w : ℕ) (ζ : ℂ) (A : ℂ → ℂ), ζ ≠ 0 → AnalyticAt ℂ A 0 →
+      analyticOrderAt A 0 ≠ ⊤ →
+      let P : ℂ → ℂ := fun t => ∏ j ∈ Finset.range w, A (ζ ^ j * t)
+      AnalyticAt ℂ P 0 ∧ analyticOrderAt P 0 ≠ ⊤ ∧
+        analyticOrderNatAt P 0 = w * analyticOrderNatAt A 0 := by
+  intro w ζ A hζ hA hfinite
+  let m := analyticOrderNatAt A 0
+  obtain ⟨b, hb, hb0, hAb⟩ := (hA.analyticOrderNatAt_eq_iff hfinite).mp (rfl :
+    analyticOrderNatAt A 0 = m)
+  simp only [sub_zero, smul_eq_mul] at hAb
+  have hL (j : ℕ) : AnalyticAt ℂ (fun t : ℂ => ζ ^ j * t) 0 :=
+    analyticAt_const.mul analyticAt_id
+  have hP : AnalyticAt ℂ (fun t => ∏ j ∈ Finset.range w, A (ζ ^ j * t)) 0 := by
+    apply Finset.analyticAt_fun_prod
+    intro j _
+    exact (by simpa only [mul_zero] using hA : AnalyticAt ℂ A (ζ ^ j * 0)).comp (hL j)
+  let D : ℂ → ℂ := fun t => ∏ j ∈ Finset.range w, ζ ^ (j * m) * b (ζ ^ j * t)
+  have hD : AnalyticAt ℂ D 0 := by
+    apply Finset.analyticAt_fun_prod
+    intro j _
+    exact analyticAt_const.mul
+      ((by simpa only [mul_zero] using hb : AnalyticAt ℂ b (ζ ^ j * 0)).comp (hL j))
+  have hD0 : D 0 ≠ 0 := by
+    apply Finset.prod_ne_zero_iff.mpr
+    intro j _
+    simpa only [mul_zero] using mul_ne_zero (pow_ne_zero (j * m) hζ) hb0
+  have hlocal : ∀ᶠ t in nhds (0 : ℂ), ∀ j ∈ Finset.range w,
+      A (ζ ^ j * t) = (ζ ^ j * t) ^ m * b (ζ ^ j * t) := by
+    apply (Filter.eventually_all_finset (Finset.range w)).mpr
+    intro j _
+    have ht : Filter.Tendsto (fun t : ℂ => ζ ^ j * t) (nhds 0) (nhds 0) := by
+      simpa only [ContinuousAt, mul_zero] using (hL j).continuousAt
+    exact ht.eventually hAb
+  have horder : analyticOrderAt (fun t => ∏ j ∈ Finset.range w, A (ζ ^ j * t)) 0 =
+      (w * m : ℕ) := by
+    apply hP.analyticOrderAt_eq_natCast.mpr
+    refine ⟨D, hD, hD0, ?_⟩
+    filter_upwards [hlocal] with t ht
+    simp only [sub_zero, smul_eq_mul]
+    calc
+      (∏ j ∈ Finset.range w, A (ζ ^ j * t)) =
+          ∏ j ∈ Finset.range w, t ^ m * (ζ ^ (j * m) * b (ζ ^ j * t)) := by
+        apply Finset.prod_congr rfl
+        intro j hj
+        rw [ht j hj, mul_pow, ← pow_mul]
+        rw [mul_comm (ζ ^ (j * m)) (t ^ m), mul_assoc]
+      _ = t ^ (w * m) * D t := by
+        simp only [Finset.prod_mul_distrib, Finset.prod_const, Finset.card_range,
+          ← pow_mul, Nat.mul_comm, D]
+  refine ⟨hP, ?_, ?_⟩
+  · rw [horder]
+    exact ENat.natCast_ne_top _
+  · simp only [analyticOrderNatAt, horder, ENat.toNat_natCast]
+    rfl
+
+
+theorem Submission.p10_17ae7b7d_phdisk_mobius_bijon :
+    ∀ (a b c d : ℝ), a * d - b * c = 1 →
+      Set.BijOn (fun z : ℂ => ((a : ℂ) * z + (b : ℂ)) / ((c : ℂ) * z + (d : ℂ)))
+        {z : ℂ | 0 < z.im} {z : ℂ | 0 < z.im} := by
+  have hden (a b c d : ℝ) (hdet : a * d - b * c = 1)
+      (z : ℂ) (hz : 0 < z.im) : (c : ℂ) * z + (d : ℂ) ≠ 0 := by
+    intro hzero
+    have him : c * z.im = 0 := by
+      simpa only [Complex.add_im, Complex.mul_im, Complex.ofReal_re,
+        Complex.ofReal_im, zero_mul, add_zero, Complex.zero_im] using
+        congrArg Complex.im hzero
+    have hc : c = 0 := (mul_eq_zero.mp him).resolve_right (ne_of_gt hz)
+    have hd : d = 0 := by simpa [hc] using hzero
+    simp [hc, hd] at hdet
+  have hpos (a b c d : ℝ) (hdet : a * d - b * c = 1)
+      (z : ℂ) (hz : 0 < z.im) :
+      0 < (((a : ℂ) * z + (b : ℂ)) / ((c : ℂ) * z + (d : ℂ))).im := by
+    have him : (((a : ℂ) * z + (b : ℂ)) / ((c : ℂ) * z + (d : ℂ))).im =
+        z.im / Complex.normSq ((c : ℂ) * z + (d : ℂ)) := by
+      simp only [Complex.div_im, Complex.add_im, Complex.mul_im, Complex.ofReal_re,
+        Complex.ofReal_im, zero_mul, add_zero, Complex.add_re, Complex.mul_re,
+        sub_zero, ← sub_div]
+      congr 1
+      calc
+        a * z.im * (c * z.re + d) - (a * z.re + b) * (c * z.im) =
+            (a * d - b * c) * z.im := by ring
+        _ = z.im := by rw [hdet, one_mul]
+    rw [him]
+    exact div_pos hz (Complex.normSq_pos.mpr (hden a b c d hdet z hz))
+  have hleft (a b c d : ℝ) (hdet : a * d - b * c = 1)
+      (z : ℂ) (hz : 0 < z.im) :
+      ((d : ℂ) * (((a : ℂ) * z + (b : ℂ)) / ((c : ℂ) * z + (d : ℂ))) - (b : ℂ)) /
+        (-(c : ℂ) * (((a : ℂ) * z + (b : ℂ)) / ((c : ℂ) * z + (d : ℂ))) + (a : ℂ)) = z := by
+    have hdetC : (a : ℂ) * (d : ℂ) - (b : ℂ) * (c : ℂ) = 1 := by
+      exact_mod_cast hdet
+    have hq := hden a b c d hdet z hz
+    have hnum : (d : ℂ) * (((a : ℂ) * z + (b : ℂ)) / ((c : ℂ) * z + (d : ℂ))) -
+        (b : ℂ) = z / ((c : ℂ) * z + (d : ℂ)) := by
+      apply (eq_div_iff hq).2
+      rw [sub_mul, mul_assoc, div_mul_cancel₀ _ hq]
+      linear_combination z * hdetC
+    have hinv : -(c : ℂ) * (((a : ℂ) * z + (b : ℂ)) / ((c : ℂ) * z + (d : ℂ))) +
+        (a : ℂ) = 1 / ((c : ℂ) * z + (d : ℂ)) := by
+      apply (eq_div_iff hq).2
+      rw [add_mul, mul_assoc, div_mul_cancel₀ _ hq]
+      linear_combination hdetC
+    rw [hnum, hinv, div_div_div_cancel_right₀ hq, div_one]
+  intro a b c d hdet
+  have hinvdet : d * a - (-b) * (-c) = 1 := by nlinarith [hdet]
+  refine ⟨fun z hz => hpos a b c d hdet z hz, ?_, ?_⟩
+  · intro z hz w hw heq
+    have h := congrArg (fun u : ℂ => ((d : ℂ) * u - (b : ℂ)) / (-(c : ℂ) * u + (a : ℂ))) heq
+    simpa only [hleft a b c d hdet z hz, hleft a b c d hdet w hw] using h
+  · intro w hw
+    refine ⟨((d : ℂ) * w + ((-b : ℝ) : ℂ)) / (((-c : ℝ) : ℂ) * w + (a : ℂ)),
+      hpos d (-b) (-c) a hinvdet w hw, ?_⟩
+    simpa only [Complex.ofReal_neg, neg_neg, sub_neg_eq_add] using
+      hleft d (-b) (-c) a hinvdet w hw
