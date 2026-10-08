@@ -996,9 +996,9 @@ theorem p06_9e0f5043ff_finite_order_support_ascent
   obtain ⟨P, hP, hPf⟩ := IsIntegral.of_finite E f
   obtain ⟨Q, hQ, hQf⟩ := IsIntegral.of_finite E (f⁻¹)
   obtain ⟨TP, hTP, hPcoeff⟩ :=
-    Submission.p06_9e0f5043ff_fosa_coefficients_integral_off_finite K E hE P
+    p06_9e0f5043ff_fosa_coefficients_integral_off_finite K E hE P
   obtain ⟨TQ, hTQ, hQcoeff⟩ :=
-    Submission.p06_9e0f5043ff_fosa_coefficients_integral_off_finite K E hE Q
+    p06_9e0f5043ff_fosa_coefficients_integral_off_finite K E hE Q
   have hfinite :
       ((fun w : AlgebraicCurve.Place K L => w.restrict E) ⁻¹' (TP ∪ TQ)).Finite :=
     (hTP.union hTQ).preimage' fun v _ =>
@@ -1008,7 +1008,7 @@ theorem p06_9e0f5043ff_finite_order_support_ascent
   change w.restrict E ∈ TP ∪ TQ
   by_contra hout
   apply hw
-  exact Submission.p06_9e0f5043ff_fosa_ord_zero_of_monic_pair K E L w f P Q
+  exact p06_9e0f5043ff_fosa_ord_zero_of_monic_pair K E L w f P Q
     hf hP hQ hPf hQf
     (hPcoeff (w.restrict E) (fun hv => hout (Or.inl hv)))
     (hQcoeff (w.restrict E) (fun hv => hout (Or.inr hv)))
