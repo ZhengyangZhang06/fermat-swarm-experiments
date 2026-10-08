@@ -1,0 +1,33 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'eichlerShimuraMap_injective|coe_T_zpow|exists_SL2_col|p02_es_177ebb5a_pp_integral_parabolic_normal_form' <snapshot>/project <snapshot>/mathlib --glob '*.lean'",
+        "rg -n 'p02_es_177ebb5a_pp_integral_parabolic_normal_form' <snapshot>/project <snapshot>/mathlib --glob '*.lean'"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Fermat/Thm_HeckeEis_eichlerShimuraMap_injective.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean"
+      ],
+      "conclusion": "Snapshot project and mathlib revisions match the manifest and have clean tracked sources. The frozen root contract is unchanged. IsCoprime.exists_SL2_col and ModularGroup.coe_T_zpow are pinned upstream infrastructure; the tracked theorem has no snapshot match. The exact comparator rerun passed with only propext, Classical.choice, and Quot.sound; its 220 Lean input hashes match the audited committed inputs."
+    }
+  ],
+  "comparison_identity": "db1f367dbb0dc3a4abb860718d72ae4030547c655f8a569bce7c6e4e2f557358",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_pp_integral_parabolic_normal_form",
+      "statement": "∀ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, (γ : Matrix (Fin 2) (Fin 2) ℤ).trace ^ 2 = 4 → ∃ (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (m : ℤ), σ⁻¹ * γ * σ = ModularGroup.T ^ m ∨ σ⁻¹ * γ * σ = -(ModularGroup.T ^ m)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Uses the accepted primitive-kernel and triangularization dependencies, then identifies the conjugate using the pinned formula for integer powers of T."
+    }
+  ]
+}
