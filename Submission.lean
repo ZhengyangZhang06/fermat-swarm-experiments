@@ -1750,3 +1750,31 @@ theorem Submission.p05_pcs_clear_away_section_a5b449214a
   simp only [smul_smul, ← pow_add]
   congr 1
   rw [pow_succ, mul_comm]
+
+theorem Submission.p05_pcs_patch_power_sections_a5b449214a
+    {R : Type*} [CommRing R] {M : Type*} [AddCommGroup M] [Module R M]
+    {F : Type*} [AddCommGroup F] [Module R F]
+    (π : F →ₗ[R] M) (q : ℕ) (f : Fin q → R)
+    (_hcover : Ideal.span (Set.range f) = ⊤) (N : Fin q → ℕ)
+    (_hN : ∀ i, 0 < N i) (t : Fin q → M →ₗ[R] F)
+    (_ht : ∀ i, π.comp (t i) = (f i) ^ (N i) • (LinearMap.id : M →ₗ[R] M)) :
+    ∃ s : M →ₗ[R] F, π.comp s = LinearMap.id := by
+  classical
+  let j : Set.range f → Fin q := fun x => Classical.choose x.property
+  have hj (x : Set.range f) : f (j x) = x := Classical.choose_spec x.property
+  have hpow : Ideal.span (Set.range fun i => f i ^ N i) = ⊤ := by
+    have htop := Ideal.span_range_pow_eq_top (Set.range f) _hcover (fun x => N (j x))
+    apply top_unique
+    rw [← htop]
+    apply Ideal.span_mono
+    rintro _ ⟨x, rfl⟩
+    exact ⟨j x, congrArg (fun r : R => r ^ N (j x)) (hj x)⟩
+  obtain ⟨b, hb⟩ := Ideal.mem_span_range_iff_exists_fun.mp
+    ((Ideal.eq_top_iff_one _).mp hpow)
+  refine ⟨∑ i, b i • t i, ?_⟩
+  ext m
+  simp only [LinearMap.comp_apply, LinearMap.sum_apply, LinearMap.smul_apply,
+    map_sum, map_smul]
+  have ht (i : Fin q) : π (t i m) = f i ^ N i • m :=
+    LinearMap.congr_fun (_ht i) m
+  simp only [ht, smul_smul, ← Finset.sum_smul, hb, one_smul, LinearMap.id_apply]
