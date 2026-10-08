@@ -19,205 +19,6 @@ set_option autoImplicit false
 open scoped TensorProduct Quaternion NumberField
 open CategoryTheory AlgebraicGeometry QuaternionAlgebra CerednikDrinfeld CerednikDrinfeld.QM NeronModelInfra GoodReductionJacobian
 
-namespace Submission
-
-theorem p07_curve_ring_equiv_857cd4d38c
-    {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N : ℕ)
-    (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U)
-    (D : FakeEllipticCurve Λ N U) :
-    ∃ (E : FakeEllipticCurve Λ N T) (i : CategoryTheory.Iso D.A E.A),
-      FakeEllipticCurve.IsPullbackVia k.toRingHom E D i.hom ∧
-      FakeEllipticCurve.IsPullbackVia k.symm.toRingHom D E i.inv := by
-  classical
-  let κ := Spec.map (CommRingCat.ofHom k.toRingHom)
-  let ε := Spec.map (CommRingCat.ofHom k.symm.toRingHom)
-  let fT := D.f ≫ κ
-  have hκε : κ ≫ ε = 𝟙 _ := by
-    simp only [κ, ε, ← Spec.map_comp, ← CommRingCat.ofHom_comp,
-      k.toRingHom_comp_symm_toRingHom, CommRingCat.ofHom_id, Spec.map_id]
-  have hεκ : ε ≫ κ = 𝟙 _ := by
-    simp only [κ, ε, ← Spec.map_comp, ← CommRingCat.ofHom_comp,
-      k.symm_toRingHom_comp_toRingHom, CommRingCat.ofHom_id, Spec.map_id]
-  let : IsIso κ := ⟨⟨ε, hκε, hεκ⟩⟩
-  let : IsIso ε := ⟨⟨κ, hεκ, hκε⟩⟩
-  obtain ⟨H, B, hcomm, hB, hmul, hone, hinv⟩ :=
-    p07_cre_group_law_857cd4d38c T U k D.A D.f D.L
-  obtain ⟨hbundle, hdim⟩ :=
-    p07_cre_abelian_surface_857cd4d38c T U k D.A D.f D.bundle D.dim_fibre
-  obtain ⟨hfinite, hflat, hfp, hrank⟩ :=
-    p07_cre_finite_flat_rank_857cd4d38c T U k D.C (D.lev ≫ D.f)
-      D.lev_finite D.lev_flat D.lev_finitePresentation
-  -- The supplied point equivalence also applies after identifying its base map.
-  have transport (W : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of T))
-      (u : W ⟶ Spec (CommRingCat.of U)) (hu : t ≫ ε = u) :
-      ∃ J : SchemeHomOver t fT ≃ SchemeHomOver u D.f,
-        (∀ P, (J P).1 = P.1) ∧
-        (∀ P Q, J (H.mul t P Q) = D.L.mul u (J P) (J Q)) ∧
-        J (H.one t) = D.L.one u := by
-    subst u
-    exact ⟨B W t, hB W t, hmul W t, hone W t⟩
-  have hact (x : ↥Λ) : D.act x ≫ fT = fT := by
-    dsimp [fT]
-    rw [← Category.assoc, D.act_over]
-  have hpush (W : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of T))
-      (x : ↥Λ) (P : SchemeHomOver t fT) :
-      B W t (pushPt (D.act x) (hact x) P) =
-        pushPt (D.act x) (D.act_over x) (B W t P) := by
-    apply Subtype.ext
-    simp only [hB, pushPt, mapPt_coe]
-  have hfactor (W : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of T))
-      (P : SchemeHomOver t fT) :
-      FactorsThrough D.lev (B W t P) ↔ FactorsThrough D.lev P := by
-    unfold FactorsThrough
-    rw [hB]
-  have hnsmul (W : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of T))
-      (n : ℕ) (P : SchemeHomOver t fT) :
-      B W t (nsmulPt H t n P) = nsmulPt D.L (t ≫ ε) n (B W t P) := by
-    induction n with
-    | zero => exact hone W t
-    | succ n ih => simp only [nsmulPt, hmul, ih, ε]
-  let E : FakeEllipticCurve Λ N T := {
-    A := D.A
-    f := fT
-    L := H
-    comm := hcomm D.comm
-    bundle := hbundle
-    dim_fibre := hdim
-    act := D.act
-    act_over := hact
-    act_hom := by
-      intro x W t P Q
-      apply (B W t).injective
-      rw [hpush, hmul, hmul, hpush, hpush]
-      exact D.act_hom x (t ≫ ε) _ _
-    act_one := D.act_one
-    act_mul := D.act_mul
-    act_add := by
-      intro x y W t P
-      apply (B W t).injective
-      rw [hpush, hmul, hpush, hpush]
-      exact D.act_add x y (t ≫ ε) _
-    act_trace := by
-      intro K _ _ α V _ _ _ τ hτ hrτ hτadd hτscale m Φ hΦ n hn
-      let αU := α.comp k.symm.toRingHom
-      have hgeom : geomPoint K α ≫ ε = geomPoint K αU := by
-        simp only [geomPoint, αU, ε, CommRingCat.ofHom_comp, Spec.map_comp]
-      have htan : tangentBase K α ≫ ε = tangentBase K αU := by
-        simp only [tangentBase, αU, ε, ← RingHom.comp_assoc,
-          CommRingCat.ofHom_comp, Spec.map_comp, Category.assoc]
-      obtain ⟨J, hJ, hJmul, _⟩ := transport _ _ _ htan
-      obtain ⟨J₀, hJ₀, _, hJone⟩ := transport _ _ _ hgeom
-      have hOne : (H.one (geomPoint K α)).1 = (D.L.one (geomPoint K αU)).1 :=
-        (hJ₀ _).symm.trans (congrArg Subtype.val hJone)
-      let τU : V → SchemeHomOver (tangentBase K αU) D.f := fun v => J (τ v)
-      apply D.act_trace K αU V τU (J.injective.comp hτ) ?_ ?_ ?_ m Φ ?_ n hn
-      · intro P
-        obtain ⟨Q, rfl⟩ := J.surjective P
-        have hrange : J Q ∈ Set.range τU ↔ Q ∈ Set.range τ := by
-          constructor
-          · rintro ⟨v, hv⟩
-            exact ⟨v, J.injective hv⟩
-          · rintro ⟨v, rfl⟩
-            exact ⟨v, rfl⟩
-        rw [hrange, hrτ]
-        simp only [IsTangentVector, hJ, hOne]
-      · intro v w
-        exact (congrArg J (hτadd v w)).trans (hJmul _ _)
-      · intro c v
-        simpa only [τU, hJ] using hτscale c v
-      · intro v
-        apply Subtype.ext
-        simpa only [τU, hJ, pushPt, mapPt_coe] using
-          congrArg Subtype.val (hΦ v)
-    C := D.C
-    lev := D.lev
-    lev_closed := D.lev_closed
-    lev_sub := by
-      intro W t P Q hP hQ
-      obtain ⟨hPQ, hPi⟩ := D.lev_sub (t ≫ ε) (B W t P) (B W t Q)
-        ((hfactor W t P).mpr hP) ((hfactor W t Q).mpr hQ)
-      constructor
-      · apply (hfactor W t _).mp
-        rwa [hmul]
-      · apply (hfactor W t _).mp
-        rwa [hinv]
-    lev_one := by
-      intro W t
-      apply (hfactor W t _).mp
-      rw [hone]
-      exact D.lev_one _
-    lev_torsion := by
-      intro W t P hP
-      apply (B W t).injective
-      rw [hnsmul, hone]
-      exact D.lev_torsion _ _ ((hfactor W t P).mpr hP)
-    lev_stable := by
-      intro x W t P hP
-      apply (hfactor W t _).mp
-      rw [hpush]
-      exact D.lev_stable x _ _ ((hfactor W t P).mpr hP)
-    lev_finite := by simpa only [fT, Category.assoc] using hfinite
-    lev_flat := by simpa only [fT, Category.assoc] using hflat
-    lev_finitePresentation := by simpa only [fT, Category.assoc] using hfp
-    lev_rank := by
-      intro s
-      simpa only [fT, Category.assoc] using (hrank s).trans (D.lev_rank _)
-    lev_fibre := by
-      intro K _ _ α hN
-      let αU := α.comp k.symm.toRingHom
-      have hgeom : geomPoint K α ≫ ε = geomPoint K αU := by
-        simp only [geomPoint, αU, ε, CommRingCat.ofHom_comp, Spec.map_comp]
-      obtain ⟨J, hJ, hJmul, _⟩ := transport _ _ _ hgeom
-      have hlevel (P : SchemeHomOver (geomPoint K α) fT) :
-          FactorsThrough D.lev P ↔ FactorsThrough D.lev (J P) := by
-        unfold FactorsThrough
-        rw [hJ]
-      let Jlev := J.subtypeEquiv hlevel
-      obtain ⟨eD, heD⟩ := D.lev_fibre K αU hN
-      let e := eD.trans Jlev.symm
-      refine ⟨e, ?_⟩
-      have he (x : ZMod N × ZMod N) : J (e x).1 = (eD x).1 := by
-        exact congrArg Subtype.val (Jlev.apply_symm_apply (eD x))
-      intro x y
-      apply J.injective
-      rw [hJmul, he, he, he]
-      exact heD x y }
-  refine ⟨E, CategoryTheory.Iso.refl D.A, ?_, ?_⟩
-  · have hs : CategoryTheory.IsPullback (𝟙 D.A) D.f fT κ :=
-      CategoryTheory.IsPullback.of_horiz_isIso ⟨by simp only [Category.id_comp, fT]⟩
-    refine ⟨hs, ?_, ?_, ?_⟩
-    · intro W t P Q
-      obtain ⟨J, hJ, hJmul, _⟩ := transport W (t ≫ κ) t
-        (by rw [Category.assoc, hκε, Category.comp_id])
-      dsimp only [E, CategoryTheory.Iso.refl_hom]
-      simp only [Category.comp_id]
-      have hJP (R : SchemeHomOver t D.f)
-          (R' : SchemeHomOver (t ≫ κ) fT) (hR : R'.1 = R.1) : J R' = R :=
-        Subtype.ext ((hJ R').trans hR)
-      exact ((hJ _).symm.trans (congrArg Subtype.val
-        ((hJmul _ _).trans (by rw [hJP P _ rfl, hJP Q _ rfl])))).symm
-    · intro x
-      simp only [E, CategoryTheory.Iso.refl_hom, Category.comp_id, Category.id_comp]
-    · intro W t P hP
-      simpa only [E, CategoryTheory.Iso.refl_hom, Category.comp_id, FactorsThrough] using hP
-  · have hs : CategoryTheory.IsPullback (𝟙 D.A) fT D.f ε :=
-      CategoryTheory.IsPullback.of_horiz_isIso ⟨by
-        simp only [Category.id_comp, fT, Category.assoc, hκε, Category.comp_id]⟩
-    refine ⟨hs, ?_, ?_, ?_⟩
-    · intro W t P Q
-      dsimp only [E, CategoryTheory.Iso.refl_inv]
-      simp only [Category.comp_id]
-      apply Eq.trans ((hB W t _).symm.trans (congrArg Subtype.val (hmul W t P Q)))
-      apply congrArg Subtype.val
-      exact congrArg₂ (D.L.mul (t ≫ ε))
-        (Subtype.ext (hB W t P)) (Subtype.ext (hB W t Q))
-    · intro x
-      simp only [E, CategoryTheory.Iso.refl_inv, Category.comp_id, Category.id_comp]
-    · intro W t P hP
-      simpa only [E, CategoryTheory.Iso.refl_inv, Category.comp_id, FactorsThrough] using hP
-
-end Submission
-
 theorem CerednikDrinfeld.QM.RigidifiedPairClass.exists_ptR_eq
     {r N : ℕ} [Fact r.Prime] [NeZero N] (hrN : ¬ r ∣ N) {rbar : ℕ} [Fact rbar.Prime] (hrr : rbar ≠ r)
 
@@ -572,8 +373,6 @@ namespace Submission
 relative points preserve their underlying scheme morphisms and all group operations. -/
 namespace Submission
 
-/-- Transport a relative group law along a ring equivalence. The equivalences of
-relative points preserve their underlying scheme morphisms and all group operations. -/
 theorem p07_cre_group_law_857cd4d38c :
     ∀ (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U)
       (A : AlgebraicGeometry.Scheme.{0})
@@ -582,9 +381,6 @@ theorem p07_cre_group_law_857cd4d38c :
     let κ := AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.toRingHom);
     let ε := AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.symm.toRingHom);
     let fT := CategoryTheory.CategoryStruct.comp f κ;
-    let κ := AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.toRingHom)
-    let ε := AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.symm.toRingHom)
-    let fT := CategoryTheory.CategoryStruct.comp f κ
     ∃ (H : GoodReductionJacobian.RelativeGroupLaw T fT)
       (B : ∀ (W : AlgebraicGeometry.Scheme.{0})
         (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))),
@@ -607,21 +403,6 @@ theorem p07_cre_group_law_857cd4d38c :
         (P : NeronModelInfra.SchemeHomOver t fT),
         B W t (H.inv t P) = G.inv (CategoryTheory.CategoryStruct.comp t ε) (B W t P)) := by
   intro T U _ _ k A f G
-open CategoryTheory AlgebraicGeometry
-
-namespace Submission
-
-/-- Transport finiteness, flatness, local finite presentation, and fibre rank along
-an isomorphism of the base rings. -/
-theorem p07_cre_finite_flat_rank_857cd4d38c
-    (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U)
-    (C : Scheme.{0}) (q : C ⟶ Spec (CommRingCat.of U)) :
-    IsFinite q → Flat q → LocallyOfFinitePresentation q →
-    let ε := Spec.map (CommRingCat.ofHom k.symm.toRingHom)
-    let qT := q ≫ Spec.map (CommRingCat.ofHom k.toRingHom)
-    IsFinite qT ∧ Flat qT ∧ LocallyOfFinitePresentation qT ∧
-      (∀ s : Spec (CommRingCat.of T), qT.finrank s = q.finrank (ε s)) := by
-  intro hfinite hflat hpresentation
   let κ := Spec.map (CommRingCat.ofHom k.toRingHom)
   let ε := Spec.map (CommRingCat.ofHom k.symm.toRingHom)
   have hκε : κ ≫ ε = 𝟙 _ := by
@@ -851,17 +632,16 @@ theorem p07_cre_abelian_surface_857cd4d38c
   · intro s
     rw [hfibre s]
     exact hdim (ε.base s)
-    rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
-    change Spec.map (CommRingCat.ofHom (k.toRingHom.comp k.symm.toRingHom)) = _
-    rw [k.toRingHom_comp_symm_toRingHom, CommRingCat.ofHom_id, Spec.map_id]
-  have hεκ : ε ≫ κ = 𝟙 _ := by
-    dsimp [κ, ε]
-    rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
-    change Spec.map (CommRingCat.ofHom (k.symm.toRingHom.comp k.toRingHom)) = _
-    rw [k.symm_toRingHom_comp_toRingHom, CommRingCat.ofHom_id, Spec.map_id]
-  let : IsIso ε := ⟨⟨κ, hεκ, hκε⟩⟩
-  have hpb : IsPullback (𝟙 C) (q ≫ κ) q ε :=
-    IsPullback.of_horiz_isIso ⟨by simp [Category.assoc, hκε]⟩
+
+theorem p07_cre_finite_flat_rank_857cd4d38c
+    (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U)
+    (C : Scheme.{0}) (q : C ⟶ Spec (CommRingCat.of U)) :
+    IsFinite q → Flat q → LocallyOfFinitePresentation q →
+    let ε := Spec.map (CommRingCat.ofHom k.symm.toRingHom)
+    let qT := q ≫ Spec.map (CommRingCat.ofHom k.toRingHom)
+    IsFinite qT ∧ Flat qT ∧ LocallyOfFinitePresentation qT ∧
+      (∀ s : Spec (CommRingCat.of T), qT.finrank s = q.finrank (ε s)) := by
+  intro hfinite hflat hpresentation
   -- Contravariance gives `e.hom = Spec(k⁻¹)` and `e.inv = Spec(k)`.
   let e := Scheme.Spec.mapIso k.symm.toCommRingCatIso.op
   -- The identity on C identifies qT with the base change of q along e.hom.
@@ -874,6 +654,202 @@ theorem p07_cre_abelian_surface_857cd4d38c
     MorphismProperty.of_isPullback hpb hflat,
     MorphismProperty.of_isPullback hpb hpresentation,
     fun s => Scheme.Hom.finrank_of_isPullback (𝟙 C) (q ≫ e.inv) q e.hom hpb s⟩
+
+theorem p07_curve_ring_equiv_857cd4d38c
+    {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N : ℕ)
+    (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U)
+    (D : FakeEllipticCurve Λ N U) :
+    ∃ (E : FakeEllipticCurve Λ N T) (i : CategoryTheory.Iso D.A E.A),
+      FakeEllipticCurve.IsPullbackVia k.toRingHom E D i.hom ∧
+      FakeEllipticCurve.IsPullbackVia k.symm.toRingHom D E i.inv := by
+  classical
+  let κ := Spec.map (CommRingCat.ofHom k.toRingHom)
+  let ε := Spec.map (CommRingCat.ofHom k.symm.toRingHom)
+  let fT := D.f ≫ κ
+  have hκε : κ ≫ ε = 𝟙 _ := by
+    simp only [κ, ε, ← Spec.map_comp, ← CommRingCat.ofHom_comp,
+      k.toRingHom_comp_symm_toRingHom, CommRingCat.ofHom_id, Spec.map_id]
+  have hεκ : ε ≫ κ = 𝟙 _ := by
+    simp only [κ, ε, ← Spec.map_comp, ← CommRingCat.ofHom_comp,
+      k.symm_toRingHom_comp_toRingHom, CommRingCat.ofHom_id, Spec.map_id]
+  let : IsIso κ := ⟨⟨ε, hκε, hεκ⟩⟩
+  let : IsIso ε := ⟨⟨κ, hεκ, hκε⟩⟩
+  obtain ⟨H, B, hcomm, hB, hmul, hone, hinv⟩ :=
+    p07_cre_group_law_857cd4d38c T U k D.A D.f D.L
+  obtain ⟨hbundle, hdim⟩ :=
+    p07_cre_abelian_surface_857cd4d38c T U k D.A D.f D.bundle D.dim_fibre
+  obtain ⟨hfinite, hflat, hfp, hrank⟩ :=
+    p07_cre_finite_flat_rank_857cd4d38c T U k D.C (D.lev ≫ D.f)
+      D.lev_finite D.lev_flat D.lev_finitePresentation
+  -- The supplied point equivalence also applies after identifying its base map.
+  have transport (W : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of T))
+      (u : W ⟶ Spec (CommRingCat.of U)) (hu : t ≫ ε = u) :
+      ∃ J : SchemeHomOver t fT ≃ SchemeHomOver u D.f,
+        (∀ P, (J P).1 = P.1) ∧
+        (∀ P Q, J (H.mul t P Q) = D.L.mul u (J P) (J Q)) ∧
+        J (H.one t) = D.L.one u := by
+    subst u
+    exact ⟨B W t, hB W t, hmul W t, hone W t⟩
+  have hact (x : ↥Λ) : D.act x ≫ fT = fT := by
+    dsimp [fT]
+    rw [← Category.assoc, D.act_over]
+  have hpush (W : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of T))
+      (x : ↥Λ) (P : SchemeHomOver t fT) :
+      B W t (pushPt (D.act x) (hact x) P) =
+        pushPt (D.act x) (D.act_over x) (B W t P) := by
+    apply Subtype.ext
+    simp only [hB, pushPt, mapPt_coe]
+  have hfactor (W : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of T))
+      (P : SchemeHomOver t fT) :
+      FactorsThrough D.lev (B W t P) ↔ FactorsThrough D.lev P := by
+    unfold FactorsThrough
+    rw [hB]
+  have hnsmul (W : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of T))
+      (n : ℕ) (P : SchemeHomOver t fT) :
+      B W t (nsmulPt H t n P) = nsmulPt D.L (t ≫ ε) n (B W t P) := by
+    induction n with
+    | zero => exact hone W t
+    | succ n ih => simp only [nsmulPt, hmul, ih, ε]
+  let E : FakeEllipticCurve Λ N T := {
+    A := D.A
+    f := fT
+    L := H
+    comm := hcomm D.comm
+    bundle := hbundle
+    dim_fibre := hdim
+    act := D.act
+    act_over := hact
+    act_hom := by
+      intro x W t P Q
+      apply (B W t).injective
+      rw [hpush, hmul, hmul, hpush, hpush]
+      exact D.act_hom x (t ≫ ε) _ _
+    act_one := D.act_one
+    act_mul := D.act_mul
+    act_add := by
+      intro x y W t P
+      apply (B W t).injective
+      rw [hpush, hmul, hpush, hpush]
+      exact D.act_add x y (t ≫ ε) _
+    act_trace := by
+      intro K _ _ α V _ _ _ τ hτ hrτ hτadd hτscale m Φ hΦ n hn
+      let αU := α.comp k.symm.toRingHom
+      have hgeom : geomPoint K α ≫ ε = geomPoint K αU := by
+        simp only [geomPoint, αU, ε, CommRingCat.ofHom_comp, Spec.map_comp]
+      have htan : tangentBase K α ≫ ε = tangentBase K αU := by
+        simp only [tangentBase, αU, ε, ← RingHom.comp_assoc,
+          CommRingCat.ofHom_comp, Spec.map_comp, Category.assoc]
+      obtain ⟨J, hJ, hJmul, _⟩ := transport _ _ _ htan
+      obtain ⟨J₀, hJ₀, _, hJone⟩ := transport _ _ _ hgeom
+      have hOne : (H.one (geomPoint K α)).1 = (D.L.one (geomPoint K αU)).1 :=
+        (hJ₀ _).symm.trans (congrArg Subtype.val hJone)
+      let τU : V → SchemeHomOver (tangentBase K αU) D.f := fun v => J (τ v)
+      apply D.act_trace K αU V τU (J.injective.comp hτ) ?_ ?_ ?_ m Φ ?_ n hn
+      · intro P
+        obtain ⟨Q, rfl⟩ := J.surjective P
+        have hrange : J Q ∈ Set.range τU ↔ Q ∈ Set.range τ := by
+          constructor
+          · rintro ⟨v, hv⟩
+            exact ⟨v, J.injective hv⟩
+          · rintro ⟨v, rfl⟩
+            exact ⟨v, rfl⟩
+        rw [hrange, hrτ]
+        simp only [IsTangentVector, hJ, hOne]
+      · intro v w
+        exact (congrArg J (hτadd v w)).trans (hJmul _ _)
+      · intro c v
+        simpa only [τU, hJ] using hτscale c v
+      · intro v
+        apply Subtype.ext
+        simpa only [τU, hJ, pushPt, mapPt_coe] using
+          congrArg Subtype.val (hΦ v)
+    C := D.C
+    lev := D.lev
+    lev_closed := D.lev_closed
+    lev_sub := by
+      intro W t P Q hP hQ
+      obtain ⟨hPQ, hPi⟩ := D.lev_sub (t ≫ ε) (B W t P) (B W t Q)
+        ((hfactor W t P).mpr hP) ((hfactor W t Q).mpr hQ)
+      constructor
+      · apply (hfactor W t _).mp
+        rwa [hmul]
+      · apply (hfactor W t _).mp
+        rwa [hinv]
+    lev_one := by
+      intro W t
+      apply (hfactor W t _).mp
+      rw [hone]
+      exact D.lev_one _
+    lev_torsion := by
+      intro W t P hP
+      apply (B W t).injective
+      rw [hnsmul, hone]
+      exact D.lev_torsion _ _ ((hfactor W t P).mpr hP)
+    lev_stable := by
+      intro x W t P hP
+      apply (hfactor W t _).mp
+      rw [hpush]
+      exact D.lev_stable x _ _ ((hfactor W t P).mpr hP)
+    lev_finite := by simpa only [fT, Category.assoc] using hfinite
+    lev_flat := by simpa only [fT, Category.assoc] using hflat
+    lev_finitePresentation := by simpa only [fT, Category.assoc] using hfp
+    lev_rank := by
+      intro s
+      simpa only [fT, Category.assoc] using (hrank s).trans (D.lev_rank _)
+    lev_fibre := by
+      intro K _ _ α hN
+      let αU := α.comp k.symm.toRingHom
+      have hgeom : geomPoint K α ≫ ε = geomPoint K αU := by
+        simp only [geomPoint, αU, ε, CommRingCat.ofHom_comp, Spec.map_comp]
+      obtain ⟨J, hJ, hJmul, _⟩ := transport _ _ _ hgeom
+      have hlevel (P : SchemeHomOver (geomPoint K α) fT) :
+          FactorsThrough D.lev P ↔ FactorsThrough D.lev (J P) := by
+        unfold FactorsThrough
+        rw [hJ]
+      let Jlev := J.subtypeEquiv hlevel
+      obtain ⟨eD, heD⟩ := D.lev_fibre K αU hN
+      let e := eD.trans Jlev.symm
+      refine ⟨e, ?_⟩
+      have he (x : ZMod N × ZMod N) : J (e x).1 = (eD x).1 := by
+        exact congrArg Subtype.val (Jlev.apply_symm_apply (eD x))
+      intro x y
+      apply J.injective
+      rw [hJmul, he, he, he]
+      exact heD x y }
+  refine ⟨E, CategoryTheory.Iso.refl D.A, ?_, ?_⟩
+  · have hs : CategoryTheory.IsPullback (𝟙 D.A) D.f fT κ :=
+      CategoryTheory.IsPullback.of_horiz_isIso ⟨by simp only [Category.id_comp, fT]⟩
+    refine ⟨hs, ?_, ?_, ?_⟩
+    · intro W t P Q
+      obtain ⟨J, hJ, hJmul, _⟩ := transport W (t ≫ κ) t
+        (by rw [Category.assoc, hκε, Category.comp_id])
+      dsimp only [E, CategoryTheory.Iso.refl_hom]
+      simp only [Category.comp_id]
+      have hJP (R : SchemeHomOver t D.f)
+          (R' : SchemeHomOver (t ≫ κ) fT) (hR : R'.1 = R.1) : J R' = R :=
+        Subtype.ext ((hJ R').trans hR)
+      exact ((hJ _).symm.trans (congrArg Subtype.val
+        ((hJmul _ _).trans (by rw [hJP P _ rfl, hJP Q _ rfl])))).symm
+    · intro x
+      simp only [E, CategoryTheory.Iso.refl_hom, Category.comp_id, Category.id_comp]
+    · intro W t P hP
+      simpa only [E, CategoryTheory.Iso.refl_hom, Category.comp_id, FactorsThrough] using hP
+  · have hs : CategoryTheory.IsPullback (𝟙 D.A) fT D.f ε :=
+      CategoryTheory.IsPullback.of_horiz_isIso ⟨by
+        simp only [Category.id_comp, fT, Category.assoc, hκε, Category.comp_id]⟩
+    refine ⟨hs, ?_, ?_, ?_⟩
+    · intro W t P Q
+      dsimp only [E, CategoryTheory.Iso.refl_inv]
+      simp only [Category.comp_id]
+      apply Eq.trans ((hB W t _).symm.trans (congrArg Subtype.val (hmul W t P Q)))
+      apply congrArg Subtype.val
+      exact congrArg₂ (D.L.mul (t ≫ ε))
+        (Subtype.ext (hB W t P)) (Subtype.ext (hB W t Q))
+    · intro x
+      simp only [E, CategoryTheory.Iso.refl_inv, Category.comp_id, Category.id_comp]
+    · intro W t P hP
+      simpa only [E, CategoryTheory.Iso.refl_inv, Category.comp_id, FactorsThrough] using hP
+
 
 end Submission
 
