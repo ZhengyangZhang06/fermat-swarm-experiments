@@ -734,6 +734,7 @@ theorem p06_9e0f5043ff_elp_fraction_subalgebra
     exact hb (hb0 ▸ dvd_zero q)
   -- Subalgebra obtains negation closure by multiplying by the included constant -1.
   have hprime : Prime q := hq.prime
+  -- A permitted denominator cannot evaluate to zero at a transcendental element.
   have hden : ∀ b : Polynomial K, ¬ q ∣ b → Polynomial.aeval x b ≠ 0 := by
     intro b hb heval
     exact hb (transcendental_iff.mp hx b heval ▸ dvd_zero q)
