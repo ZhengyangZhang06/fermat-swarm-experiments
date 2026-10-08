@@ -1688,7 +1688,9 @@ theorem p06_9e0f5043ff_elp_principal_ideals_of_order :
   have hmin : (ν (h : F)).toNat ≤ (ν (z : F)).toNat := by
     rw [hν]
     exact Nat.find_min' hex ⟨z, hzI, hz, rfl⟩
-  have horder : ν (h : F) ≤ ν (z : F) := by omega
+  have horder : ν (h : F) ≤ ν (z : F) := by
+    simpa only [Int.toNat_of_nonneg hh_nonneg, Int.toNat_of_nonneg hz_nonneg] using
+      (Int.ofNat_le.mpr hmin)
   -- Leastness makes the quotient an element of A, giving the required multiple of h.
   have hquot : (z : F) / (h : F) ∈ A := by
     apply (hmem _ (div_ne_zero hz hh)).mpr
