@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.coprime_count_mul-a1.coprime_orbit_product-a1",
+  "parent_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.coprime_count_mul-a1",
+  "depth": 4,
+  "title": "Orbit-count multiplicativity for actions with coprime periods",
+  "statement": "Let G be a group acting on sets X and Y, let g∈G, and let m,n be nonzero coprime natural numbers. Assume g^m·x=x for every x∈X and g^n·y=y for every y∈Y. Let H={g^z : z∈ℤ}, acting on X and Y by restriction and on X×Y diagonally. Then Nat.card((X×Y)/H)=Nat.card(X/H)·Nat.card(Y/H). No finiteness or nonemptiness assumption on X or Y is required.",
+  "lean_statement": "∀ (G X Y : Type) [Group G] [MulAction G X] [MulAction G Y] (g : G) (m n : ℕ) [NeZero m] [NeZero n], Nat.Coprime m n → (∀ x : X, (g ^ m) • x = x) → (∀ y : Y, (g ^ n) • y = y) → Nat.card (Quotient (MulAction.orbitRel (Subgroup.zpowers g) (X × Y))) = Nat.card (Quotient (MulAction.orbitRel (Subgroup.zpowers g) X)) * Nat.card (Quotient (MulAction.orbitRel (Subgroup.zpowers g) Y))",
+  "lean_name": "p10_17ae7b7d_ccm_coprime_orbit_product",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-coprime-count-mul-a-af6066755c-a1"
+}

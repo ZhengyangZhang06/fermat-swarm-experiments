@@ -1,0 +1,61 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "ProjectiveLine|Unimodular|unimodular|cuspCount|orbit",
+        "def Gamma0|Gamma0_mem|T_zpow|T_pow|chineseRemainder|theorem card_prod|def orbitRel|orbitRel_apply|QuotientGroup.*[Mm]ulAction|smul_mk",
+        "orbit.*[Cc]oprime|[Cc]oprime.*orbit|Gamma0.*[Cc][Rr][Tt]|Gamma0.*(equivProd|prodEquiv)|cuspCount.*mul",
+        "^(def T |theorem coe_T_zpow|lemma coe_T_zpow)",
+        "p10_17ae7b7d_ccm_coset_crt_equivariant",
+        "p10_17ae7b7d_ccm_translation_period",
+        "p10_17ae7b7d_ccm_coprime_orbit_product",
+        "python3 /tmp/p10_ccm_independent_audit.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/GroupAction/Quotient.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/GroupAction/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Algebra/Group/Subgroup/ZPowers/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/SetTheory/Cardinal/Finite.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/runtime/review-evidence/0574a4cf635d4d5badd53a2f7e457560/evidence.json",
+        "/runtime/review-evidence/0574a4cf635d4d5badd53a2f7e457560/challenge/Challenge.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/ccm-independent-audit-lvon6tmj/IndependentTypes.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/ccm-independent-audit-lvon6tmj/IndependentAssembly.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/ccm-independent-audit-lvon6tmj/report.json"
+      ],
+      "conclusion": "Confirmed clean snapshots at project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d, with all nine compiler dependencies matching their pins. Sources confirm the stated Gamma0 subgroup, translation matrix, left-coset action, integer-power subgroup, CRT isomorphism, and unrestricted Nat.card_prod. The targeted search found no matching Gamma0 CRT equivalence or coprime orbit-product result. Independently elaborated all three exact propositions without importing Submission; matrix multiplication, quotient action, diagonal action, and subgroup restriction probes passed. Conditional assembly proved the exact DAG parent type. The inherited lifting theorem matches its frozen type and has only permitted transitive axioms. Reviewed its retained comparator evidence. Independently verified policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, omission of precisely lines 10–12, reversible original/build hashes, and Lean absence checks for all 56 targets. Original contract, problem record, and Submission header were preserved. The split appropriately separates three genuine obligations; their empty dependency lists are justified and acyclic. This accepts the decomposition, not the unimplemented children's eventual comparator results."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "coset_crt_equiv",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition exactly matches the fully quantified prose and inferred left and diagonal actions. Its bare identifier is unreserved. Steps 1–2 correctly establish CRT, subgroup intersection, and injectivity. Steps 3–4 construct primitive lifts, including modulus 1, with valid prime-divisor and determinant arguments. Steps 5–7 assemble inverse bottom rows and correctly obtain C⁻¹A∈H_m and C⁻¹B∈H_n. Step 8 proves full G-equivariance. The proof is complete, non-circular, and requires no undeclared sibling dependency."
+    },
+    {
+      "key": "translation_period",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line type exactly states the nonzero-level left-coset period claim, and its bare identifier is unreserved. The power formula and inverse matrix are correct. The bottom-left entry of A⁻¹T^NA is −Nc², so subgroup membership and the resulting coset equality follow. Matrix and quotient-action instances were independently checked. The proof is complete and independent of the parent and other children."
+    },
+    {
+      "key": "coprime_orbit_product",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line type includes all group, action, nonzero-period, coprimality, and periodicity hypotheses and matches the prose. Its bare identifier is unreserved. Step 1 correctly extends periodicity to integer exponents using invertibility. The explicit Bézout exponent in step 3 combines coordinate orbit witnesses, proving the quotient equivalence in step 4. Step 5 correctly applies unrestricted Nat.card_prod, including empty and infinite cases. The restricted diagonal action was independently verified. No circular reliance, missing dependency, or deferred proof search occurs."
+    }
+  ],
+  "required_changes": []
+}
