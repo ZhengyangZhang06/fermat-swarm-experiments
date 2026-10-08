@@ -1,0 +1,44 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'continuous.*[Cc]up|[Cc]up.*continuous|normal_comap_fixingSubgroup|finiteIndex_comap_fixingSubgroup' .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory",
+        "rg -n 'H1π_eq_iff|d₀₁_hom_apply|d₁₂_hom_apply|mem_cocycles₂_iff|d₂₃_hom_apply|mem_coboundaries₁_iff' .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/LowDegree.lean",
+        "rg -n 'finiteDimensional.*[Ss]up|[Ss]up.*finiteDimensional' .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/FieldTheory/IntermediateField"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH1.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH2.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH2Map.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_CupProduct.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/LowDegree.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/FieldTheory/IntermediateField/Adjoin/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/dag.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p08-cup-split-blxj0siv/evidence.json",
+        "/tmp/p08-independent-split-audit-evihdw6k/AuditTypes.lean",
+        "/tmp/p08-independent-split-audit-evihdw6k/AuditTypes.log"
+      ],
+      "conclusion": "The snapshot pins project 9db4b2bea94e42612c675170cfe30ec626166658 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The four project definitions match the frozen Git source; the local mathlib checkout is clean at the pinned revision. Inspected definitions confirm the continuousH1 image, exact continuousH2 denominator, equivariant postcomposition, cup formula, coboundary signs, H1π_eq_iff and finiteDimensional_sup. The continuous-cup/policy-name search returned no matches. Independently compiled both exact child propositions under frozen imports without Submission or either child declaration; type and library axiom probes report only propext, Classical.choice and Quot.sound. Verified the policy digest, contract hash, original/build diagnostic hashes and reversible omission of precisely line 18; Lean independently confirmed both omitted targets absent. The split appropriately separates independent endpoint quotient descent and middle-degree image descent; flipping the endpoint pairing supplies degree (2,0), leaving Fin 3 packaging. These diagnostics approve interfaces and decomposition, not implemented proofs or comparator acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "cup_zero_two",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose includes every hypothesis and matches the independently elaborated one-line proposition. The bare identifier is unreserved in the inspected DAG. Steps 1–4 correctly identify the denominator, derive equivariant postcomposition, preserve levels and send level boundaries to level boundaries. Steps 5–6 establish representative independence, all four bilinearity identities and the exact representative equality. No trivial-action assumption is needed. This genuine endpoint obligation has no child or parent reliance; its empty dependency list is correct."
+    },
+    {
+      "key": "cup_one_one",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and independently elaborated one-line proposition agree, including E₀, its finite dimensionality, trivial action on all of B and the exact continuousH1 subtype representatives. The bare identifier is unreserved. The differential expansion cancels correctly; the common finite compositum establishes the two-variable level condition. The left primitive has differential e, while the right primitive has differential −e, so its negative gives the required level boundary. E₀ supplies exactly the right primitive's level condition. H1π_eq_iff, closure under differences and image surjectivity then justify representative independence, bilinearity and the final equality. The supplied proof is complete, non-circular and independent of the endpoint child."
+    }
+  ],
+  "required_changes": []
+}

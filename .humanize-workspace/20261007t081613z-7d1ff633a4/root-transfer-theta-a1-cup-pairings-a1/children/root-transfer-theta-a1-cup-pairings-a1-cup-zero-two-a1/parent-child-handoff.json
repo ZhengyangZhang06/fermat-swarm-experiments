@@ -1,0 +1,50 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'continuous.*[Cc]up|[Cc]up.*continuous|normal_comap_fixingSubgroup|finiteIndex_comap_fixingSubgroup' .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory",
+        "rg -n 'H1π_eq_iff|d₁₂_hom_apply|mem_cocycles₂_iff|d₂₃_hom_apply' .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/LowDegree.lean",
+        "rg -n 'finiteDimensional.*[Ss]up|[Ss]up.*finiteDimensional' .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/FieldTheory/IntermediateField"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH1.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH2.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH2Map.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_CupProduct.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/LowDegree.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/FieldTheory/IntermediateField/Adjoin/Basic.lean"
+      ],
+      "conclusion": "The manifest pins project 9db4b2bea94e42612c675170cfe30ec626166658 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. continuousH1 is the image of level one-cocycles under ordinary H1π; continuousH2 is the quotient of level two-cocycles by the pulled-back image of level one-cochains. ContinuousH2Map supplies equivariant postcomposition and preservation of this exact denominator. CupProduct supplies the ordinary cup cocycle and the two boundary-primitive calculations, but the focused search found no continuous cup-pairing descent. H1π_eq_iff identifies equal H¹ classes by coboundary differences; finiteDimensional_sup supplies the common finite levels. The focused search also found neither policy-listed instance. The four project definition files match the snapshot byte-for-byte; the local mathlib checkout is clean at the pinned revision. Diagnostic Lean axiom checks of continuousH2Map, H1π_eq_iff, cup, and continuousH2π_eq_zero_iff found only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "parent_id": "root.transfer_theta-a1.cup_pairings-a1",
+  "child_id": "root.transfer_theta-a1.cup_pairings-a1.cup_zero_two-a1",
+  "subproblem": {
+    "key": "cup_zero_two",
+    "title": "Continuous degree-(0,2) pairing from an equivariant bilinear map",
+    "statement": "Let k be a field, G a group, Ω=AlgebraicClosure ℚ, r:G→Autℚ(Ω) a group homomorphism, and A,B,N k-representations of G. Suppose φ:A→ₗ[k]B→ₗ[k]N satisfies φ(s·a,s·b)=s·φ(a,b) for every s∈G, a∈A, b∈B. Write Vᴳ for the invariant subspace, Z²lev(V)=levelCocycles₂ r V, H²(V)=continuousH2 r V, and πV=continuousH2π r V. There exists a bilinear map P:Aᴳ×H²(B)→H²(N) such that for every m∈Aᴳ and z∈Z²lev(B), there is e∈Z²lev(N) satisfying e(s,t)=φ(m,z(s,t)) for every s,t∈G and P(m,πB(z))=πN(e). No trivial-action, normality, or finite-index assumption is required.",
+    "lean_statement": "∀ {k G : Type} [Field k] [Group G] (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)) (A B N : Rep.{0} k G) (φ : A →ₗ[k] B →ₗ[k] N), (∀ (s : G) (a : A) (b : B), φ (A.ρ s a) (B.ρ s b) = N.ρ s (φ a b)) → ∃ P : A.ρ.invariants →ₗ[k] groupCohomology.continuousH2 r B →ₗ[k] groupCohomology.continuousH2 r N, ∀ (m : A.ρ.invariants) (z : groupCohomology.levelCocycles₂ r B), ∃ e : groupCohomology.levelCocycles₂ r N, (∀ st : G × G, (e : G × G → N) st = φ (m : A) ((z : G × G → B) st)) ∧ P m (groupCohomology.continuousH2π r B z) = groupCohomology.continuousH2π r N e",
+    "lean_name": "p08_7d1ff633a4_tt26_cp_zero_two",
+    "depends_on": [],
+    "natural_proof": "1. For a representation V, write d₁u(s,t)=s·u(t)−u(st)+u(s) and d₂z(s,t,u)=s·z(t,u)−z(st,u)+z(s,tu)−z(s,t). Write Z²lev(V)=levelCocycles₂ r V and D(V)=(levelCoboundaries₂ r V).comap (levelCocycles₂ r V).subtype. By definition, H²(V)=Z²lev(V)/D(V), with quotient map πV=continuousH2π r V. An element z of Z²lev(V) belongs to D(V) exactly when its underlying function equals d₁u for a level one-cochain u.\n2. Fix m∈Aᴳ. The linear map Lm:B→N given by Lm(b)=φ(m,b) is equivariant: s·Lm(b)=φ(s·m,s·b)=φ(m,s·b)=Lm(s·b). Thus applying linearity to the displayed differential formulas gives d₁(Lm∘u)=Lm∘d₁u and d₂(Lm∘z)=Lm∘d₂z. In particular e(m,z)(s,t)=φ(m,z(s,t)) is a two-cocycle whenever z is.\n3. If F is a finite-dimensional intermediate field witnessing the level condition of z, and r(h),r(l) fix F, then e(m,z)(sh,tl)=φ(m,z(sh,tl))=φ(m,z(s,t))=e(m,z)(s,t). Hence e(m,z) belongs to Z²lev(N). The same argument in one variable shows that Lm∘u is level whenever u is level.\n4. Let z∈D(B), and choose a level u with z=d₁u. Step 2 gives e(m,z)=d₁(Lm∘u), whose primitive is level by Step 3. Therefore e(m,z) belongs to D(N) and πN(e(m,z))=0. More generally, if πB(z)=πB(z′), then z−z′∈D(B); linearity and this conclusion give πN(e(m,z))=πN(e(m,z′)).\n5. Every element y of H²(B) has a representative z. Define P(m,y)=πN(e(m,z)); Step 4 proves independence of that representative. Pointwise bilinearity gives e(m+m′,z)=e(m,z)+e(m′,z), e(c·m,z)=c·e(m,z), e(m,z+z′)=e(m,z)+e(m,z′), and e(m,c·z)=c·e(m,z). These are identities of level cocycles: invariants are a submodule; sums of level functions use the finite compositum of their witness fields; scalar multiples keep the same witness. Applying πN and using the linearity and surjectivity of πB proves all four bilinearity identities for P on Aᴳ×H²(B). Curry P to obtain the asserted linear-map type.\n6. For each specified m and z, use the actual level cocycle e(m,z) from Steps 2–3. Its underlying function is the required pointwise product, and the definition of P gives P(m,πB(z))=πN(e(m,z)). This proves the full representative assertion without any finite-index, normality, or trivial-action hypothesis.",
+    "proof_key_steps": [
+      "For invariant m, show that b↦φ(m,b) is equivariant and commutes with both relevant differentials.",
+      "Postcompose a level two-cocycle to obtain an actual level two-cocycle with the same finite witness.",
+      "Send each level boundary primitive through that equivariant linear map, annihilating the exact continuous H² denominator.",
+      "Define the pairing on quotient classes and prove its four bilinearity identities from representatives.",
+      "Return the constructed level cocycle and its defining quotient equality."
+    ]
+  },
+  "audit": {
+    "key": "cup_zero_two",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "The prose includes every hypothesis and matches the independently elaborated one-line proposition. The bare identifier is unreserved in the inspected DAG. Steps 1–4 correctly identify the denominator, derive equivariant postcomposition, preserve levels and send level boundaries to level boundaries. Steps 5–6 establish representative independence, all four bilinearity identities and the exact representative equality. No trivial-action assumption is needed. This genuine endpoint obligation has no child or parent reliance; its empty dependency list is correct."
+  },
+  "resolved_dependencies": [],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-transfer-theta-a1-cup-pairings-a1-cup-zero-two-a1/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-transfer-theta-a1-cup-pairings-a1-cup-zero-two-a1/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-transfer-theta-a1-cup-pairings-a1-cup-zero-two-a1/parent-supplied-natural-proof.json"
+}

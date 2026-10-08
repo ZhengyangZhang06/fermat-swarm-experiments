@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.transfer_theta-a1.cup_pairings-a1.cup_one_one-a1",
+  "parent_id": "root.transfer_theta-a1.cup_pairings-a1",
+  "depth": 3,
+  "title": "Continuous degree-(1,1) cup pairing with level representatives",
+  "statement": "Let k be a field, G a group, Ω=AlgebraicClosure ℚ, r:G→Autℚ(Ω) a group homomorphism, and A,B,N k-representations of G. Let E₀ be a rational intermediate field in Ω, finite-dimensional over ℚ, such that r(s)∈Fix(E₀) implies s·b=b for every b∈B. Suppose φ:A→ₗ[k]B→ₗ[k]N is equivariant: φ(s·a,s·b)=s·φ(a,b). Write H¹(V)=continuousH1 r V, H²(V)=continuousH2 r V, Z²lev(V)=levelCocycles₂ r V, and πV=continuousH2π r V. A one-cocycle f is level when some finite-dimensional rational intermediate field F satisfies f(sh)=f(s) whenever r(h) fixes F; write [f]₁ for its ordinary H¹ class regarded as an element of the frozen image H¹(V). There exists a bilinear map P:H¹(A)×H¹(B)→H²(N) such that for every pair of level one-cocycles f of A and g of B, there is e∈Z²lev(N) satisfying e(s,t)=φ(f(s),s·g(t)) for all s,t∈G and P([f]₁,[g]₁)=πN(e). Neither normality nor finite index is assumed.",
+  "lean_statement": "∀ {k G : Type} [Field k] [Group G] (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)) (A B N : Rep.{0} k G) (E₀ : IntermediateField ℚ (AlgebraicClosure ℚ)), FiniteDimensional ℚ E₀ → (∀ s : G, r s ∈ E₀.fixingSubgroup → ∀ b : B, B.ρ s b = b) → ∀ φ : A →ₗ[k] B →ₗ[k] N, (∀ (s : G) (a : A) (b : B), φ (A.ρ s a) (B.ρ s b) = N.ρ s (φ a b)) → ∃ P : groupCohomology.continuousH1 r A →ₗ[k] groupCohomology.continuousH1 r B →ₗ[k] groupCohomology.continuousH2 r N, ∀ (f : groupCohomology.cocycles₁ A) (hf : groupCohomology.IsLevelConstant₁ r (⇑f)) (g : groupCohomology.cocycles₁ B) (hg : groupCohomology.IsLevelConstant₁ r (⇑g)), ∃ e : groupCohomology.levelCocycles₂ r N, (∀ st : G × G, (e : G × G → N) st = groupCohomology.cupCochain φ (⇑f) (⇑g) st) ∧ P ⟨(groupCohomology.H1π A).hom f, groupCohomology.H1π_mem_continuousH1 r A hf⟩ ⟨(groupCohomology.H1π B).hom g, groupCohomology.H1π_mem_continuousH1 r B hg⟩ = groupCohomology.continuousH2π r N e",
+  "lean_name": "p08_7d1ff633a4_tt26_cp_one_one",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p08/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-cup-pairings-a1-cup-one-one-a1-a1"
+}

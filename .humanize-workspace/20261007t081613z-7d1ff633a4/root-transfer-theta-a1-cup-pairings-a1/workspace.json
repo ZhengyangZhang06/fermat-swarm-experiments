@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081613Z-7d1ff633a4",
+  "parent_id": "root.transfer_theta-a1.cup_pairings-a1",
+  "dispatch_branch": "proof-workspace/fermat-p08/20261007t081613z-7d1ff633a4/dispatch/root-transfer-theta-a1-cup-pairings-a1",
+  "source_commit": "05cef8bea699d95234ad34e7dbfb6ac16f17cfb4",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.transfer_theta-a1.cup_pairings-a1.cup_one_one-a1",
+      "key": "cup_one_one",
+      "result_branch": "humanize-recursive/fermat-p08/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-cup-pairings-a1-cup-one-one-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-cup-pairings-a1/children/root-transfer-theta-a1-cup-pairings-a1-cup-one-one-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg -n 'continuous.*[Cc]up|[Cc]up.*continuous|normal_comap_fixingSubgroup|finiteIndex_comap_fixingSubgroup' .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory",
+              "rg -n 'H1π_eq_iff|d₁₂_hom_apply|mem_cocycles₂_iff|d₂₃_hom_apply' .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/LowDegree.lean",
+              "rg -n 'finiteDimensional.*[Ss]up|[Ss]up.*finiteDimensional' .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/FieldTheory/IntermediateField"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH1.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH2.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH2Map.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_CupProduct.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/LowDegree.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/FieldTheory/IntermediateField/Adjoin/Basic.lean"
+            ],
+            "conclusion": "The manifest pins project 9db4b2bea94e42612c675170cfe30ec626166658 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. continuousH1 is the image of level one-cocycles under ordinary H1π; continuousH2 is the quotient of level two-cocycles by the pulled-back image of level one-cochains. ContinuousH2Map supplies equivariant postcomposition and preservation of this exact denominator. CupProduct supplies the ordinary cup cocycle and the two boundary-primitive calculations, but the focused search found no continuous cup-pairing descent. H1π_eq_iff identifies equal H¹ classes by coboundary differences; finiteDimensional_sup supplies the common finite levels. The focused search also found neither policy-listed instance. The four project definition files match the snapshot byte-for-byte; the local mathlib checkout is clean at the pinned revision. Diagnostic Lean axiom checks of continuousH2Map, H1π_eq_iff, cup, and continuousH2π_eq_zero_iff found only propext, Classical.choice, and Quot.sound."
+          }
+        ],
+        "parent_id": "root.transfer_theta-a1.cup_pairings-a1",
+        "child_id": "root.transfer_theta-a1.cup_pairings-a1.cup_one_one-a1",
+        "subproblem": {
+          "key": "cup_one_one",
+          "title": "Continuous degree-(1,1) cup pairing with level representatives",
+          "statement": "Let k be a field, G a group, Ω=AlgebraicClosure ℚ, r:G→Autℚ(Ω) a group homomorphism, and A,B,N k-representations of G. Let E₀ be a rational intermediate field in Ω, finite-dimensional over ℚ, such that r(s)∈Fix(E₀) implies s·b=b for every b∈B. Suppose φ:A→ₗ[k]B→ₗ[k]N is equivariant: φ(s·a,s·b)=s·φ(a,b). Write H¹(V)=continuousH1 r V, H²(V)=continuousH2 r V, Z²lev(V)=levelCocycles₂ r V, and πV=continuousH2π r V. A one-cocycle f is level when some finite-dimensional rational intermediate field F satisfies f(sh)=f(s) whenever r(h) fixes F; write [f]₁ for its ordinary H¹ class regarded as an element of the frozen image H¹(V). There exists a bilinear map P:H¹(A)×H¹(B)→H²(N) such that for every pair of level one-cocycles f of A and g of B, there is e∈Z²lev(N) satisfying e(s,t)=φ(f(s),s·g(t)) for all s,t∈G and P([f]₁,[g]₁)=πN(e). Neither normality nor finite index is assumed.",
+          "lean_statement": "∀ {k G : Type} [Field k] [Group G] (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)) (A B N : Rep.{0} k G) (E₀ : IntermediateField ℚ (AlgebraicClosure ℚ)), FiniteDimensional ℚ E₀ → (∀ s : G, r s ∈ E₀.fixingSubgroup → ∀ b : B, B.ρ s b = b) → ∀ φ : A →ₗ[k] B →ₗ[k] N, (∀ (s : G) (a : A) (b : B), φ (A.ρ s a) (B.ρ s b) = N.ρ s (φ a b)) → ∃ P : groupCohomology.continuousH1 r A →ₗ[k] groupCohomology.continuousH1 r B →ₗ[k] groupCohomology.continuousH2 r N, ∀ (f : groupCohomology.cocycles₁ A) (hf : groupCohomology.IsLevelConstant₁ r (⇑f)) (g : groupCohomology.cocycles₁ B) (hg : groupCohomology.IsLevelConstant₁ r (⇑g)), ∃ e : groupCohomology.levelCocycles₂ r N, (∀ st : G × G, (e : G × G → N) st = groupCohomology.cupCochain φ (⇑f) (⇑g) st) ∧ P ⟨(groupCohomology.H1π A).hom f, groupCohomology.H1π_mem_continuousH1 r A hf⟩ ⟨(groupCohomology.H1π B).hom g, groupCohomology.H1π_mem_continuousH1 r B hg⟩ = groupCohomology.continuousH2π r N e",
+          "lean_name": "p08_7d1ff633a4_tt26_cp_one_one",
+          "depends_on": [],
+          "natural_proof": "1. Write d₀a(s)=s·a−a, d₁v(s,t)=s·v(t)−v(st)+v(s), and d₂z(s,t,u)=s·z(t,u)−z(st,u)+z(s,tu)−z(s,t). For level one-cocycles f of A and g of B, define e(f,g)(s,t)=φ(f(s),s·g(t)), the frozen cupCochain formula.\n2. The one-cocycle identities are f(st)=s·f(t)+f(s) and g(tu)=t·g(u)+g(t). Equivariance and the representation law expand d₂e(f,g)(s,t,u) as φ(s·f(t),st·g(u))−φ(s·f(t)+f(s),st·g(u))+φ(f(s),st·g(u)+s·g(t))−φ(f(s),s·g(t)). Expanding both sums by bilinearity cancels every term. Thus e(f,g) is a two-cocycle.\n3. Choose finite-dimensional witness fields Ff and Fg for f and g, and put F=(E₀⊔Ff)⊔Fg. Finite composita of finite-dimensional intermediate fields are finite-dimensional. If r(h) and r(l) fix F, they fix its three constituent fields. Consequently f(sh)=f(s), g(tl)=g(t), and h acts trivially on every vector of B. The representation law now gives e(f,g)(sh,tl)=φ(f(s),s·(h·g(t)))=φ(f(s),s·g(t)). Hence e(f,g) is an actual member of levelCocycles₂ r N. Denote its continuous H² class by Q(f,g).\n4. The underlying functions satisfy e(f+f′,g)=e(f,g)+e(f′,g), e(c·f,g)=c·e(f,g), e(f,g+g′)=e(f,g)+e(f,g′), and e(f,c·g)=c·e(f,g), by linearity of φ and each representation operator. Sums of level one-cocycles are level using the finite compositum of their witness fields, and scalar multiples preserve their witness. Equality of the underlying functions is equality of the level-cocycle subtypes. Since continuousH2π is linear, Q satisfies these four bilinearity identities on level one-cocycles.\n5. Suppose f=d₀a as functions for some a∈A. Define v(t)=φ(a,g(t)); it is level with the same witness as g. Equivariance and g(st)=s·g(t)+g(s) give d₁v(s,t)=φ(s·a,s·g(t))−φ(a,s·g(t)+g(s))+φ(a,g(s))=φ(s·a−a,s·g(t))=e(f,g)(s,t). Thus e(f,g) is the differential of a level one-cochain. By the defining denominator of continuousH2, Q(f,g)=0.\n6. Suppose instead g=d₀b as functions for some b∈B. Put u(s)=φ(f(s),s·b). Equivariance and the cocycle identity for f give d₁u(s,t)=φ(s·f(t),st·b)−φ(s·f(t)+f(s),st·b)+φ(f(s),s·b)=−φ(f(s),s·(t·b−b))=−e(f,g)(s,t). The field E₀⊔Ff witnesses that u is level: if r(h) fixes this field, then f(sh)=f(s) and h·b=b, so u(sh)=φ(f(s),s·(h·b))=u(s). Its negative is also level, and d₁(−u)=e(f,g). Therefore Q(f,g)=0 in this case as well.\n7. If level one-cocycles f,f′ have the same ordinary H¹ class, the pinned H1π_eq_iff says f−f′ is a one-coboundary, so f−f′=d₀a for some a. Their difference is a level one-cocycle, since levels are closed under subtraction using a common finite compositum. By Step 4 and Step 5, Q(f,g)−Q(f′,g)=Q(f−f′,g)=0. Similarly, if level g,g′ have the same ordinary H¹ class, Step 6 gives Q(f,g)−Q(f,g′)=Q(f,g−g′)=0. Changing the two representatives successively proves independence in both variables.\n8. By its frozen definition as the image of levelCocycles₁ under (H1π).hom, every x∈continuousH1 r A is represented by some level f, and every y∈continuousH1 r B by some level g. Define P(x,y)=Q(f,g); Step 7 proves that this is well-defined on the stated image subtypes. To verify additivity in the first variable, choose level representatives f,f′ of x,x′ and g of y. Then f+f′ represents x+x′, and Step 4 gives P(x+x′,y)=P(x,y)+P(x′,y). The representative c·f similarly gives P(c·x,y)=c·P(x,y). Using g+g′ and c·g proves the corresponding two identities in the second variable. Curry this bilinear function to obtain the asserted linear map continuousH1 r A →ₗ[k] continuousH1 r B →ₗ[k] continuousH2 r N.\n9. For any specified f,hf,g,hg, the subtype elements displayed in the statement are precisely their ordinary H¹ classes equipped with their image-membership proofs. Use e(f,g) from Steps 1–3 as the required level two-cocycle. Its pointwise formula is cupCochain φ f g, and Steps 7–8 ensure that P evaluated at those exact subtype classes equals continuousH2π r N e(f,g), independently of any chosen representatives or membership proofs. This gives both required conclusions.",
+          "proof_key_steps": [
+            "Expand the cup cochain differential and cancel its terms using equivariance and the two one-cocycle identities.",
+            "Use the finite compositum of E₀ and the two level witness fields to obtain an actual level two-cocycle.",
+            "Prove bilinearity on level one-cocycles by pointwise calculation.",
+            "For a left coboundary d₀a, use the level primitive t↦φ(a,g(t)).",
+            "For a right coboundary d₀b, use the level primitive s↦−φ(f(s),s·b), refining the level field by E₀.",
+            "Apply H1π_eq_iff to show independence of each level representative.",
+            "Use the continuous H¹ image formula to define the pairing, prove bilinearity, and obtain the required representative equality."
+          ]
+        },
+        "audit": {
+          "key": "cup_one_one",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The prose and independently elaborated one-line proposition agree, including E₀, its finite dimensionality, trivial action on all of B and the exact continuousH1 subtype representatives. The bare identifier is unreserved. The differential expansion cancels correctly; the common finite compositum establishes the two-variable level condition. The left primitive has differential e, while the right primitive has differential −e, so its negative gives the required level boundary. E₀ supplies exactly the right primitive's level condition. H1π_eq_iff, closure under differences and image surjectivity then justify representative independence, bilinearity and the final equality. The supplied proof is complete, non-circular and independent of the endpoint child."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-transfer-theta-a1-cup-pairings-a1-cup-one-one-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-transfer-theta-a1-cup-pairings-a1-cup-one-one-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-transfer-theta-a1-cup-pairings-a1-cup-one-one-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.transfer_theta-a1.cup_pairings-a1.cup_zero_two-a1",
+      "key": "cup_zero_two",
+      "result_branch": "humanize-recursive/fermat-p08/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-cup-pairings-a1-cup-zero-two-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-cup-pairings-a1/children/root-transfer-theta-a1-cup-pairings-a1-cup-zero-two-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg -n 'continuous.*[Cc]up|[Cc]up.*continuous|normal_comap_fixingSubgroup|finiteIndex_comap_fixingSubgroup' .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory",
+              "rg -n 'H1π_eq_iff|d₁₂_hom_apply|mem_cocycles₂_iff|d₂₃_hom_apply' .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/LowDegree.lean",
+              "rg -n 'finiteDimensional.*[Ss]up|[Ss]up.*finiteDimensional' .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/FieldTheory/IntermediateField"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH1.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH2.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH2Map.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_CupProduct.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/LowDegree.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/FieldTheory/IntermediateField/Adjoin/Basic.lean"
+            ],
+            "conclusion": "The manifest pins project 9db4b2bea94e42612c675170cfe30ec626166658 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. continuousH1 is the image of level one-cocycles under ordinary H1π; continuousH2 is the quotient of level two-cocycles by the pulled-back image of level one-cochains. ContinuousH2Map supplies equivariant postcomposition and preservation of this exact denominator. CupProduct supplies the ordinary cup cocycle and the two boundary-primitive calculations, but the focused search found no continuous cup-pairing descent. H1π_eq_iff identifies equal H¹ classes by coboundary differences; finiteDimensional_sup supplies the common finite levels. The focused search also found neither policy-listed instance. The four project definition files match the snapshot byte-for-byte; the local mathlib checkout is clean at the pinned revision. Diagnostic Lean axiom checks of continuousH2Map, H1π_eq_iff, cup, and continuousH2π_eq_zero_iff found only propext, Classical.choice, and Quot.sound."
+          }
+        ],
+        "parent_id": "root.transfer_theta-a1.cup_pairings-a1",
+        "child_id": "root.transfer_theta-a1.cup_pairings-a1.cup_zero_two-a1",
+        "subproblem": {
+          "key": "cup_zero_two",
+          "title": "Continuous degree-(0,2) pairing from an equivariant bilinear map",
+          "statement": "Let k be a field, G a group, Ω=AlgebraicClosure ℚ, r:G→Autℚ(Ω) a group homomorphism, and A,B,N k-representations of G. Suppose φ:A→ₗ[k]B→ₗ[k]N satisfies φ(s·a,s·b)=s·φ(a,b) for every s∈G, a∈A, b∈B. Write Vᴳ for the invariant subspace, Z²lev(V)=levelCocycles₂ r V, H²(V)=continuousH2 r V, and πV=continuousH2π r V. There exists a bilinear map P:Aᴳ×H²(B)→H²(N) such that for every m∈Aᴳ and z∈Z²lev(B), there is e∈Z²lev(N) satisfying e(s,t)=φ(m,z(s,t)) for every s,t∈G and P(m,πB(z))=πN(e). No trivial-action, normality, or finite-index assumption is required.",
+          "lean_statement": "∀ {k G : Type} [Field k] [Group G] (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)) (A B N : Rep.{0} k G) (φ : A →ₗ[k] B →ₗ[k] N), (∀ (s : G) (a : A) (b : B), φ (A.ρ s a) (B.ρ s b) = N.ρ s (φ a b)) → ∃ P : A.ρ.invariants →ₗ[k] groupCohomology.continuousH2 r B →ₗ[k] groupCohomology.continuousH2 r N, ∀ (m : A.ρ.invariants) (z : groupCohomology.levelCocycles₂ r B), ∃ e : groupCohomology.levelCocycles₂ r N, (∀ st : G × G, (e : G × G → N) st = φ (m : A) ((z : G × G → B) st)) ∧ P m (groupCohomology.continuousH2π r B z) = groupCohomology.continuousH2π r N e",
+          "lean_name": "p08_7d1ff633a4_tt26_cp_zero_two",
+          "depends_on": [],
+          "natural_proof": "1. For a representation V, write d₁u(s,t)=s·u(t)−u(st)+u(s) and d₂z(s,t,u)=s·z(t,u)−z(st,u)+z(s,tu)−z(s,t). Write Z²lev(V)=levelCocycles₂ r V and D(V)=(levelCoboundaries₂ r V).comap (levelCocycles₂ r V).subtype. By definition, H²(V)=Z²lev(V)/D(V), with quotient map πV=continuousH2π r V. An element z of Z²lev(V) belongs to D(V) exactly when its underlying function equals d₁u for a level one-cochain u.\n2. Fix m∈Aᴳ. The linear map Lm:B→N given by Lm(b)=φ(m,b) is equivariant: s·Lm(b)=φ(s·m,s·b)=φ(m,s·b)=Lm(s·b). Thus applying linearity to the displayed differential formulas gives d₁(Lm∘u)=Lm∘d₁u and d₂(Lm∘z)=Lm∘d₂z. In particular e(m,z)(s,t)=φ(m,z(s,t)) is a two-cocycle whenever z is.\n3. If F is a finite-dimensional intermediate field witnessing the level condition of z, and r(h),r(l) fix F, then e(m,z)(sh,tl)=φ(m,z(sh,tl))=φ(m,z(s,t))=e(m,z)(s,t). Hence e(m,z) belongs to Z²lev(N). The same argument in one variable shows that Lm∘u is level whenever u is level.\n4. Let z∈D(B), and choose a level u with z=d₁u. Step 2 gives e(m,z)=d₁(Lm∘u), whose primitive is level by Step 3. Therefore e(m,z) belongs to D(N) and πN(e(m,z))=0. More generally, if πB(z)=πB(z′), then z−z′∈D(B); linearity and this conclusion give πN(e(m,z))=πN(e(m,z′)).\n5. Every element y of H²(B) has a representative z. Define P(m,y)=πN(e(m,z)); Step 4 proves independence of that representative. Pointwise bilinearity gives e(m+m′,z)=e(m,z)+e(m′,z), e(c·m,z)=c·e(m,z), e(m,z+z′)=e(m,z)+e(m,z′), and e(m,c·z)=c·e(m,z). These are identities of level cocycles: invariants are a submodule; sums of level functions use the finite compositum of their witness fields; scalar multiples keep the same witness. Applying πN and using the linearity and surjectivity of πB proves all four bilinearity identities for P on Aᴳ×H²(B). Curry P to obtain the asserted linear-map type.\n6. For each specified m and z, use the actual level cocycle e(m,z) from Steps 2–3. Its underlying function is the required pointwise product, and the definition of P gives P(m,πB(z))=πN(e(m,z)). This proves the full representative assertion without any finite-index, normality, or trivial-action hypothesis.",
+          "proof_key_steps": [
+            "For invariant m, show that b↦φ(m,b) is equivariant and commutes with both relevant differentials.",
+            "Postcompose a level two-cocycle to obtain an actual level two-cocycle with the same finite witness.",
+            "Send each level boundary primitive through that equivariant linear map, annihilating the exact continuous H² denominator.",
+            "Define the pairing on quotient classes and prove its four bilinearity identities from representatives.",
+            "Return the constructed level cocycle and its defining quotient equality."
+          ]
+        },
+        "audit": {
+          "key": "cup_zero_two",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The prose includes every hypothesis and matches the independently elaborated one-line proposition. The bare identifier is unreserved in the inspected DAG. Steps 1–4 correctly identify the denominator, derive equivariant postcomposition, preserve levels and send level boundaries to level boundaries. Steps 5–6 establish representative independence, all four bilinearity identities and the exact representative equality. No trivial-action assumption is needed. This genuine endpoint obligation has no child or parent reliance; its empty dependency list is correct."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-transfer-theta-a1-cup-pairings-a1-cup-zero-two-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-transfer-theta-a1-cup-pairings-a1-cup-zero-two-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-transfer-theta-a1-cup-pairings-a1-cup-zero-two-a1/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-cup-pairings-a1/task.md": "01ec13e95c2472232632eac0186c7c10b8f9372ef5cbbf3fdfe9b2a3841739b7",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-cup-pairings-a1/problem.md": "a2dd591da1584bfdab6b5bbb23ad6ae751d55e6d1537f69d92f449b80f09ecf7",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-cup-pairings-a1/problem.json": "db4b4bd5614e93f35774b6b3812612e4ca99a47a13cd4db807fc9ddd9d46783d",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-cup-pairings-a1/reference-manifest.json": "300231130a8a6defc08cc15b3903805efad5299c1c1c3e93d64a57d7af967440",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-cup-pairings-a1/decomposition.json": "36a4edff1cbe84030d764f55d5dacab9b593630739a607ab2ad9b8b70a816461",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-cup-pairings-a1/decomposition-audit.json": "a153587a22f24af250e39ef3160b31d28bdb782c1f8f2f1129eae48c57331662",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-cup-pairings-a1/controller-contract.json": "b02cf6ae2d43312a16185ec6fd6bbd4e56b2ba58995df942cd0a2f1383916eb6",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-cup-pairings-a1/children/root-transfer-theta-a1-cup-pairings-a1-cup-one-one-a1/parent-child-handoff.json": "b4024f3393ca361f17b3dffaded372e4895f5c7aaf779158b7abc769f8dce89c",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-cup-pairings-a1/children/root-transfer-theta-a1-cup-pairings-a1-cup-one-one-a1/parent-supplied-plan.md": "8d7c54a45653ee83dc78243339b8b5841cbffaf8c68ea9d06d6bea79242ed6e1",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-cup-pairings-a1/children/root-transfer-theta-a1-cup-pairings-a1-cup-one-one-a1/parent-supplied-natural-proof.md": "46f7a17846117b78ce7da2d026be046d976120539801d388bedd662fe14cb1a4",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-cup-pairings-a1/children/root-transfer-theta-a1-cup-pairings-a1-cup-one-one-a1/parent-supplied-natural-proof.json": "5221460c280ce06774b322d9f24f995ec818b6c87ae90f43ab5b454970c37148",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-cup-pairings-a1/children/root-transfer-theta-a1-cup-pairings-a1-cup-one-one-a1/node.json": "49588d6c1024d62ceb9c05d2752cf2e232bf4ec82f08f8acfa2cceb0d02c33c2",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-cup-pairings-a1/children/root-transfer-theta-a1-cup-pairings-a1-cup-zero-two-a1/parent-child-handoff.json": "34e303b571ab64f9e5790af00fe73cb7e86c79526d2f7b711c9f1a30a20bae99",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-cup-pairings-a1/children/root-transfer-theta-a1-cup-pairings-a1-cup-zero-two-a1/parent-supplied-plan.md": "3ba711c7bf6a5e4758b932fcdc5cee1b724269b9270c8db109852640ec83de38",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-cup-pairings-a1/children/root-transfer-theta-a1-cup-pairings-a1-cup-zero-two-a1/parent-supplied-natural-proof.md": "fb09e107f2c2915f576c7f260c7183fdd58a3e5d9b2e1fec37a27e409ba1b003",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-cup-pairings-a1/children/root-transfer-theta-a1-cup-pairings-a1-cup-zero-two-a1/parent-supplied-natural-proof.json": "35f9ee2c065c69ddb4ce75f652047be6683eed0e20fb3c37ff79d8880f1a647b",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-cup-pairings-a1/children/root-transfer-theta-a1-cup-pairings-a1-cup-zero-two-a1/node.json": "49a6ae4b49f390958d2241f4927aeda88c2bb677f27fb6f772f01f3579217446"
+  }
+}
