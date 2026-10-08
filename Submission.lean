@@ -959,3 +959,43 @@ theorem Submission.p05_fr_rhm_bcsi_twisted_presentation_a5b449214a
         exact LinearMap.mem_range.mpr ⟨_, rfl⟩
       change T (q (fun i => θ.symm ((P.map θ.toRingHom).mulVecLin d i))) = 0
       rw [hA, hzero, map_zero]
+
+
+theorem Submission.p05_ibsrm_mismatched_support_zero_a5b449214a
+    {R : Type*} [CommRing R] (n p t d : ℕ)
+    (P : Matrix (Fin n) (Fin p) R)
+    (rows : Fin d ↪ (Fin n ⊕ Fin t)) (cols : Fin d ↪ (Fin p ⊕ Fin t))
+    (_h : ¬ (∀ a : Fin t, (∃ i : Fin d, rows i = Sum.inr a) ↔
+      (∃ j : Fin d, cols j = Sum.inr a))) :
+    Matrix.det ((Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R)).submatrix
+      rows cols) = 0 := by
+  classical
+  obtain ⟨a, ha⟩ := not_forall.mp _h
+  by_cases hr : ∃ i : Fin d, rows i = Sum.inr a
+  · have hc : ¬ ∃ j : Fin d, cols j = Sum.inr a :=
+      fun hc => ha ⟨fun _ => hc, fun _ => hr⟩
+    obtain ⟨i, hi⟩ := hr
+    apply Matrix.det_eq_zero_of_row_eq_zero i
+    intro j
+    rw [Matrix.submatrix_apply, hi]
+    cases hj : cols j with
+    | inl b => rfl
+    | inr b =>
+        have hab : a ≠ b := by
+          intro hab
+          exact hc ⟨j, hj.trans (congrArg Sum.inr hab.symm)⟩
+        simp only [Matrix.fromBlocks_apply₂₂, Matrix.one_apply, if_neg hab]
+  · have hc : ∃ j : Fin d, cols j = Sum.inr a := by
+      by_contra hc
+      exact ha ⟨fun h => (hr h).elim, fun h => (hc h).elim⟩
+    obtain ⟨j, hj⟩ := hc
+    apply Matrix.det_eq_zero_of_column_eq_zero j
+    intro i
+    rw [Matrix.submatrix_apply, hj]
+    cases hi : rows i with
+    | inl b => rfl
+    | inr b =>
+        have hba : b ≠ a := by
+          intro hba
+          exact hr ⟨i, hi.trans (congrArg Sum.inr hba)⟩
+        simp only [Matrix.fromBlocks_apply₂₂, Matrix.one_apply, if_neg hba]
