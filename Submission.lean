@@ -3625,10 +3625,8 @@ theorem p06_9e0f5043ff_fpm_rd_eval_kernel
     have ha0 : Polynomial.aeval x a ≠ 0 := hne a (fun h => ha (h ▸ dvd_zero q))
     have hi : (Polynomial.aeval x a)⁻¹ ∈ v.toValuationSubring :=
       (hv _).mpr ⟨1, a, ha, by rw [map_one, one_div]⟩
-    apply isUnit_iff_exists_inv.mpr
-    refine ⟨⟨(Polynomial.aeval x a)⁻¹, hi⟩, ?_⟩
-    apply Subtype.ext
-    exact mul_inv_cancel₀ ha0
+    exact isUnit_iff_exists_inv.mpr
+      ⟨⟨(Polynomial.aeval x a)⁻¹, hi⟩, Subtype.ext (mul_inv_cancel₀ ha0)⟩
   -- An inverse of q(x) would force q to divide an allowed denominator.
   have hq_nonunit : ¬ IsUnit (e q) := by
     intro hu
