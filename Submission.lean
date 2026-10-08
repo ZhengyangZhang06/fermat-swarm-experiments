@@ -630,6 +630,8 @@ theorem p02_es_177ebb5a_scl_linepow_coeff_bound :
     exact mul_le_mul hchoose hpow (pow_nonneg (norm_nonneg z) _) (by positivity)
   · rw [if_neg hd, norm_zero]
     positivity
+/-- Pull back to the unit disk, apply `DifferentiableOn.isExactOn_ball` from
+`Mathlib.Analysis.Complex.HasPrimitives`, and transport the primitive back by the Cayley map. -/
 theorem p02_es_177ebb5a_primitive_exists_scalar_primitive :
     ∀ (a : ℂ → ℂ), DifferentiableOn ℂ a {z : ℂ | 0 < z.im} →
       ∃ A : ℂ → ℂ, ∀ z : ℂ, 0 < z.im → HasDerivAt A (a z) z := by
