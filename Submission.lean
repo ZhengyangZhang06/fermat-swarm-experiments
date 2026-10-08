@@ -1749,3 +1749,22 @@ theorem Submission.p10_17ae7b7d_uce_normalized_quot_eq_iff :
     · simpa only [hu, one_mul] using h₁
     · simpa only [hu, one_mul] using h₂
   · exact congrArg (Quot.mk rel)
+theorem Submission.p10_17ae7b7d_fi_unit_mul_dvd_val :
+    ∀ (M d : ℕ), 0 < M → d ∣ M → ∀ (x u : ZMod M), IsUnit u →
+      (d ∣ (x * u).val ↔ d ∣ x.val) := by
+  intro M d hM hd x u hu
+  letI : NeZero M := ⟨Nat.ne_of_gt hM⟩
+  let ρ : ZMod M →+* ZMod d := ZMod.castHom hd (ZMod d)
+  have hval (y : ZMod M) : ρ y = 0 ↔ d ∣ y.val := by
+    change (ZMod.cast y : ZMod d) = 0 ↔ d ∣ y.val
+    rw [ZMod.cast_eq_val, ZMod.natCast_eq_zero_iff]
+  have hinv : ρ u * ρ (u⁻¹) = 1 := by
+    rw [← map_mul, ZMod.mul_inv_of_unit u hu, map_one]
+  rw [← hval (x * u), ← hval x, map_mul]
+  constructor
+  · intro h
+    calc
+      ρ x = (ρ x * ρ u) * ρ (u⁻¹) := by rw [mul_assoc, hinv, mul_one]
+      _ = 0 := by rw [h, zero_mul]
+  · intro h
+    rw [h, zero_mul]
