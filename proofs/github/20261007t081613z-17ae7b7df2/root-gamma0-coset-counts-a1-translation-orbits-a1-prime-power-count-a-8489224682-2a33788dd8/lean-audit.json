@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "2d3eb329862a8e763e636420e3e54f475bf7f5b3cea11358b3ea98c6ef2fbd46",
+  "git_delta": {
+    "base_commit": "81e439ead62e72b45d1f96dd998a9b47a5b90960",
+    "candidate_commit": "a48f42b184b6f7fe6eebb4577b510249209654b9",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_pp_stratum_card",
+    "diff_sha256": "312638ec8f10b42dcec8bbaf14c6cb7bcf2e700134bda3b7f7e65e4aed43db0c",
+    "source_sha256": "6d607f03e12ce388f0a4c1d1c1961d87bfb59c9557033a8a92943a75a8a5777f",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_pp_stratum_card",
+      "statement": "∀ (p a j : ℕ), Nat.Prime p → 1 ≤ j → j < a → Nat.card {z : ZMod (p ^ a) // p ^ j ∣ z.val ∧ ¬ p ^ (j + 1) ∣ z.val} = Nat.totient (p ^ min j (a - j)) * p ^ (a - 2 * j)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
