@@ -65,3 +65,57 @@ theorem Submission.f036cc6b1f_pc_hi_rational_slash
     apply CuspFormClass.zero_at_cusps f
     rw [Subgroup.IsArithmetic.isCusp_iff_isCusp_SL2Z, isCusp_SL2Z_iff] at hc ⊢
     exact rational_cusp c hc
+
+theorem Submission.f036cc6b1f_pc_hi_gpt_unique_projective_index :
+    ∀ (p : ℕ), p.Prime → ∀ (a b v : ℤ),
+      (¬ (p : ℤ) ∣ a ∨ ¬ (p : ℤ) ∣ b) → ¬ (p : ℤ) ∣ v →
+      ∃! i : Fin (p + 1), (p : ℤ) ∣
+        (if i.val < p then b - a * (i.val : ℤ) else a * v + b * (p : ℤ)) := by
+  intro p hp a b v hab hv
+  let : Fact p.Prime := ⟨hp⟩
+  have hv' : (v : ZMod p) ≠ 0 := by
+    exact fun h => hv ((ZMod.intCast_zmod_eq_zero_iff_dvd v p).mp h)
+  by_cases ha : (a : ZMod p) = 0
+  · have hb : (b : ZMod p) ≠ 0 := by
+      rcases hab with ha' | hb'
+      · exact (ha' ((ZMod.intCast_zmod_eq_zero_iff_dvd a p).mp ha)).elim
+      · exact fun h => hb' ((ZMod.intCast_zmod_eq_zero_iff_dvd b p).mp h)
+    refine ⟨Fin.last p, ?_, ?_⟩
+    · apply (ZMod.intCast_zmod_eq_zero_iff_dvd _ p).mp
+      simp [ha]
+    · intro i hi
+      by_cases hip : i.val < p
+      · have hz := (ZMod.intCast_zmod_eq_zero_iff_dvd _ p).mpr hi
+        simp [hip, ha] at hz
+        exact (hb hz).elim
+      · apply Fin.ext
+        have hil := i.isLt
+        simp only [Fin.val_last]
+        omega
+  · let x : ZMod p := (b : ZMod p) / (a : ZMod p)
+    have hxlt : x.val < p := ZMod.val_lt x
+    let j : Fin (p + 1) := ⟨x.val, Nat.lt_succ_of_lt hxlt⟩
+    have hjlt : j.val < p := hxlt
+    have hj : (a : ZMod p) * (j.val : ZMod p) = (b : ZMod p) := by
+      change (a : ZMod p) * (x.val : ZMod p) = (b : ZMod p)
+      rw [ZMod.natCast_zmod_val]
+      exact mul_div_cancel₀ _ ha
+    refine ⟨j, ?_, ?_⟩
+    · apply (ZMod.intCast_zmod_eq_zero_iff_dvd _ p).mp
+      simp only [if_pos hjlt, Int.cast_sub, Int.cast_mul, Int.cast_natCast, hj,
+        sub_self]
+    · intro i hi
+      have hz := (ZMod.intCast_zmod_eq_zero_iff_dvd _ p).mpr hi
+      by_cases hip : i.val < p
+      · have hi' : (a : ZMod p) * (i.val : ZMod p) = (b : ZMod p) := by
+          symm
+          simpa only [if_pos hip, Int.cast_sub, Int.cast_mul, Int.cast_natCast,
+            sub_eq_zero] using hz
+        have hij : (i.val : ZMod p) = (j.val : ZMod p) :=
+          mul_left_cancel₀ ha (hi'.trans hj.symm)
+        apply Fin.ext
+        have hval := congrArg ZMod.val hij
+        simpa only [ZMod.val_natCast_of_lt hip, ZMod.val_natCast_of_lt hjlt] using hval
+      · have hzero : (a : ZMod p) * (v : ZMod p) = 0 := by
+          simpa [hip] using hz
+        exact (mul_ne_zero ha hv' hzero).elim
