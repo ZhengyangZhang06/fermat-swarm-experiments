@@ -2767,3 +2767,22 @@ theorem p05_fr_finite_relative_hopf_module_projective_a5b449214a
     rw [hempty, Ideal.span_empty]
 
 end Submission
+theorem Submission.p05_umgi_inner_inverse_of_reconstruction_a5b449214a :
+    ∀ {R : Type*} [CommRing R] (n p d : ℕ) (P : Matrix (Fin n) (Fin p) R)
+      (rows : Fin d ↪ Fin n) (cols : Fin d ↪ Fin p)
+      (T : Matrix (Fin d) (Fin d) R)
+      (_hfactor : P = (P.submatrix id cols) * T * (P.submatrix rows id)),
+      ∃ Q : Matrix (Fin p) (Fin n) R, P * Q * P = P := by
+  intro R _ n p d P rows cols T hfactor
+  let U : Matrix (Fin p) (Fin d) R := (1 : Matrix (Fin p) (Fin p) R).submatrix id cols
+  let V : Matrix (Fin d) (Fin n) R := (1 : Matrix (Fin n) (Fin n) R).submatrix rows id
+  have hU : P * U = P.submatrix id cols :=
+    Matrix.mul_submatrix_one (Equiv.refl (Fin p)) cols P
+  have hV : V * P = P.submatrix rows id :=
+    Matrix.one_submatrix_mul rows (Equiv.refl (Fin n)) P
+  refine ⟨U * T * V, ?_⟩
+  calc
+    P * (U * T * V) * P = (P * U) * T * (V * P) := by
+      simp only [Matrix.mul_assoc]
+    _ = (P.submatrix id cols) * T * (P.submatrix rows id) := by rw [hU, hV]
+    _ = P := hfactor.symm
