@@ -4375,3 +4375,77 @@ theorem f036cc6b1f_pic_mec_pointwise_sign_partition
       exact ⟨hy.1, ⟨hy.2.2, (hinv γ y).2 hy.2.1.2⟩, hy.2.1.1⟩
 
 end Submission
+
+
+namespace Submission
+
+/-- Measurable equidecomposition of two domains with representatives unique up to sign. -/
+theorem f036cc6b1f_pic_dt_measurable_equidecomposition
+    (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (E F : Set UpperHalfPlane)
+    (hneg : (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ)
+    (hE : MeasurableSet E) (hF : MeasurableSet F)
+    (hEae : ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
+      ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+        γ ∈ Δ ∧ γ • z ∈ E ∧ ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+          δ ∈ Δ → δ • z ∈ E → δ = γ ∨ δ = -γ)
+    (hFae : ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
+      ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+        γ ∈ Δ ∧ γ • z ∈ F ∧ ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+          δ ∈ Δ → δ • z ∈ F → δ = γ ∨ δ = -γ) :
+    ∃ A B : Δ → Set UpperHalfPlane,
+      (∀ γ, MeasurableSet (A γ)) ∧ (∀ γ, MeasurableSet (B γ)) ∧
+      Pairwise (fun γ δ => Disjoint (A γ) (A δ)) ∧
+      Pairwise (fun γ δ => Disjoint (B γ) (B δ)) ∧
+      (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
+        z ∈ E ↔ z ∈ ⋃ γ, A γ) ∧
+      (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
+        z ∈ F ↔ z ∈ ⋃ γ, B γ) ∧
+      (∀ γ : Δ,
+        (fun z : UpperHalfPlane => (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ)⁻¹ • z) ''
+          A γ = B γ) := by
+  classical
+  -- The representative predicates are measurable by countability of the matrix group.
+  have : Countable (Matrix.SpecialLinearGroup (Fin 2) ℤ) := by
+    change Countable {g : Fin 2 → Fin 2 → ℤ // Matrix.det g = 1}
+    infer_instance
+  have hsmul (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) :
+      Measurable (fun z : UpperHalfPlane => γ • z) :=
+    (continuous_const_smul (Matrix.SpecialLinearGroup.mapGL ℝ γ)).measurable
+  let R : Set UpperHalfPlane → Set UpperHalfPlane := fun S =>
+    {z | ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+      γ ∈ Δ ∧ γ • z ∈ S ∧ ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+        δ ∈ Δ → δ • z ∈ S → δ = γ ∨ δ = -γ}
+  have hR (S : Set UpperHalfPlane) (hS : MeasurableSet S) : MeasurableSet (R S) := by
+    dsimp only [R]
+    rw [Set.ofPred_exists]
+    refine MeasurableSet.iUnion fun γ => ?_
+    refine (MeasurableSet.const (γ ∈ Δ)).inter ((hS.preimage (hsmul γ)).inter ?_)
+    change MeasurableSet {z : UpperHalfPlane |
+      ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+        δ ∈ Δ → δ • z ∈ S → δ = γ ∨ δ = -γ}
+    rw [Set.ofPred_forall]
+    refine MeasurableSet.iInter fun δ => ?_
+    exact (MeasurableSet.const (δ ∈ Δ)).imp
+      ((hS.preimage (hsmul δ)).imp (MeasurableSet.const (δ = γ ∨ δ = -γ)))
+  have hRae : ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
+      z ∈ R E ∩ R F := hEae.and hFae
+  -- Restrict to the invariant conull core where both predicates hold pointwise.
+  obtain ⟨X, hX, hXae, hXR, hXinv⟩ :=
+    Submission.f036cc6b1f_pic_mec_invariant_conull_core Δ (R E ∩ R F)
+      ((hR E hE).inter (hR F hF)) hRae
+  obtain ⟨A, B, hA, hB, hAdisj, hBdisj, hAunion, hBunion, hAB⟩ :=
+    Submission.f036cc6b1f_pic_mec_pointwise_sign_partition Δ E F X
+      hneg hE hF hX hXinv (by
+        rintro S (rfl | rfl) z hz
+        · exact (hXR hz).1
+        · exact (hXR hz).2)
+  -- Conullness upgrades the exact covers of the intersections to almost-everywhere covers.
+  refine ⟨A, B, hA, hB, hAdisj, hBdisj, ?_, ?_, hAB⟩
+  · filter_upwards [hXae] with z hz
+    rw [hAunion]
+    exact ⟨fun h => ⟨h, hz⟩, fun h => h.1⟩
+  · filter_upwards [hXae] with z hz
+    rw [hBunion]
+    exact ⟨fun h => ⟨h, hz⟩, fun h => h.1⟩
+
+end Submission
