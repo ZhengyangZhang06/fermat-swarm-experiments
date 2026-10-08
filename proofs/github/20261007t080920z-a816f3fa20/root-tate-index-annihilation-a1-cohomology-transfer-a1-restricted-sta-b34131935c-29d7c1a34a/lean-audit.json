@@ -1,0 +1,37 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "central_telescoping|insertNth_comp_succAbove|sum_range_sub|isZero_tateCohomology_of_forall_sylow",
+        "sum_range_sub|prod_range_div",
+        "central_telescoping"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Fermat/Thm_Rep_isZero_tateCohomology_of_forall_sylow.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Data/Fin/Tuple/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8"
+      ],
+      "conclusion": "Inspected reference files match project revision 2475a3790d7ba0c3b10be8086001b154a45be597 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d. The root contract is preserved. Mathlib supplies insertNth_comp_succAbove and the to_additive-generated sum_range_sub'; no central_telescoping declaration was found in the snapshot. The exact comparator rerun exited zero with the required marker. Its fresh exported inputs match the inspected commits under the recorded absent-target header normalization; transitive axioms are only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "22b5e79e37bac7166c29c7e35501eb91c4f1d2080adba63ac884378aba80b214",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p04_pb_60221840b0_central_telescoping",
+      "statement": "∀ {k X : Type _} [CommRing k] (u v : X → X) (m : ℕ) (c : Fin (m + 1) → X), let Q : Fin (m + 1) → (Fin (m + 2) → X) := fun j => Fin.insertNth j.castSucc (u (c j)) (fun i : Fin (m + 1) => if i < j then u (c i) else v (c i)); (∑ j : Fin (m + 1), (MonoidAlgebra.single (Q j ∘ j.castSucc.succAbove) (1 : k) - MonoidAlgebra.single (Q j ∘ j.succ.succAbove) (1 : k))) = MonoidAlgebra.single (v ∘ c) (1 : k) - MonoidAlgebra.single (u ∘ c) (1 : k)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "The central faces are consecutive transition tuples, so their differences telescope to the endpoint difference."
+    }
+  ]
+}
