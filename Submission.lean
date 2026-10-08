@@ -1423,6 +1423,11 @@ theorem p06_9e0f5043ff_dlen_diagonal_cokernel
   exact ⟨eUnits.trans eDiagonal⟩
 
 open AlgebraicCurve
+theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
+    [Algebra K F] (x : F) (hx : Transcendental K x)
+    [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
+  sorry
+
 namespace Submission
 
 /-- The exponent of an irreducible polynomial, realized by the pinned library's `multiplicity`.
