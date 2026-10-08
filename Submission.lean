@@ -2514,3 +2514,47 @@ theorem Submission.p10_17ae7b7d_cc_index :
   have hpPrime := Nat.prime_of_mem_primeFactors hp
   exact Submission.p10_17ae7b7d_idx_prime_power_row_card p (N.factorization p) hpPrime
     (hpPrime.factorization_pos_of_dvd (NeZero.ne N) (Nat.dvd_of_mem_primeFactors hp))
+theorem Submission.p10_17ae7b7d_rd_sparse_series_descent :
+    ∀ (w : ℕ) (P : ℂ → ℂ) (p : FormalMultilinearSeries ℂ ℂ ℂ),
+      0 < w → HasFPowerSeriesAt P p 0 →
+      (∀ n : ℕ, ¬ w ∣ n → p.coeff n = 0) →
+      ∃ C : ℂ → ℂ, AnalyticAt ℂ C 0 ∧
+        ∃ r : ℝ, 0 < r ∧ ∀ t : ℂ, ‖t‖ < r → P t = C (t ^ w) := by
+  intro w P p hw ⟨R, hR⟩ hsparse
+  obtain ⟨r, hr, hrR⟩ := ENNReal.lt_iff_exists_nnreal_btwn.mp hR.r_pos
+  have hrpos : 0 < r := by exact_mod_cast hr
+  have hinj : Function.Injective (fun n : ℕ => w * n) := mul_right_injective₀ hw.ne'
+  let B : FormalMultilinearSeries ℂ ℂ ℂ :=
+    FormalMultilinearSeries.ofScalars ℂ (fun n => p.coeff (w * n))
+  have hsub := (p.summable_norm_mul_pow (hrR.trans_le hR.r_le)).comp_injective hinj
+  have hBrad : ((r ^ w : NNReal) : ENNReal) ≤ B.radius := by
+    apply B.le_radius_of_summable
+    simpa only [B, FormalMultilinearSeries.norm_apply_eq_norm_coef,
+      FormalMultilinearSeries.coeff_ofScalars, Function.comp_def,
+      NNReal.coe_pow, pow_mul] using hsub
+  have hBpos : 0 < B.radius :=
+    lt_of_lt_of_le (by exact_mod_cast pow_pos hrpos w) hBrad
+  refine ⟨B.sum, (B.hasFPowerSeriesOnBall hBpos).analyticAt, (r : ℝ), ?_, ?_⟩
+  · exact_mod_cast hrpos
+  · intro t ht
+    have htR : t ∈ Metric.eball (0 : ℂ) R := by
+      apply mem_eball_zero_iff.mpr
+      exact lt_trans (by exact_mod_cast ht) hrR
+    have hsupport : Function.support (fun n : ℕ => p n (fun _ => t)) ⊆
+        Set.range (fun n : ℕ => w * n) := by
+      intro n hn
+      by_contra hnot
+      have hnd : ¬ w ∣ n := by
+        rintro ⟨k, hk⟩
+        exact hnot ⟨k, hk.symm⟩
+      apply hn
+      change p n (fun _ => t) = 0
+      rw [FormalMultilinearSeries.apply_eq_pow_smul_coeff, hsparse n hnd, smul_zero]
+    calc
+      P t = p.sum t := by simpa only [zero_add] using hR.sum htR
+      _ = ∑' n : ℕ, p (w * n) (fun _ => t) := (hinj.tsum_eq hsupport).symm
+      _ = B.sum (t ^ w) := by
+        apply tsum_congr
+        intro n
+        simp only [B, FormalMultilinearSeries.apply_eq_pow_smul_coeff,
+          FormalMultilinearSeries.coeff_ofScalars, pow_mul]
