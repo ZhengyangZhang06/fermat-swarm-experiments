@@ -263,6 +263,9 @@ theorem p04_rsh_82a013d1d0_equivariant_retraction {G : Type*} [Group G] (H : Sub
     exact congrArg Prod.fst (hT.equiv_mul_left h g)
   · intro h
     exact hT.equiv_fst_eq_self_of_mem_of_one_mem h1 h.property
+
+end Submission
+
 set_option maxHeartbeats 4000000
 
 namespace Submission
