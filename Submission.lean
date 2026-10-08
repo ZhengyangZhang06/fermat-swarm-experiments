@@ -25,3 +25,97 @@ theorem HopfAlgebra.hopfKer_eq_of_surjective_of_ker_eq_span
       Ideal.span {x : H | x ∈ K ∧ Coalgebra.counit (R := k) x = 0}) :
     HopfAlgebra.hopfKer q = K := by
   sorry
+
+
+theorem Submission.p05_di_antipode_adjugate_a5b449214a
+    {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
+    (n : ℕ) (c : Matrix (Fin n) (Fin n) H)
+    (hΔ : ∀ i j : Fin n, Coalgebra.comul (R := k) (c i j) =
+      ∑ l : Fin n, TensorProduct.tmul k (c i l) (c l j))
+    (hε : ∀ i j : Fin n, Coalgebra.counit (R := k) (c i j) =
+      if i = j then (1 : k) else 0) :
+    ∃ u : H, Matrix.det c * u = 1 ∧ ∀ i j : Fin n,
+      HopfAlgebra.antipode k (c i j) = u * Matrix.adjugate c i j := by
+  classical
+  let Q : Matrix (Fin n) (Fin n) H :=
+    Matrix.of fun i j => HopfAlgebra.antipode k (c i j)
+  have hQc : Q * c = 1 := by
+    ext i j
+    simpa [Q, Matrix.mul_apply, Matrix.one_apply, hΔ, hε, map_sum] using
+      (HopfAlgebra.mul_antipode_rTensor_comul_apply (R := k) (c i j))
+  have hcQ : c * Q = 1 := by
+    ext i j
+    simpa [Q, Matrix.mul_apply, Matrix.one_apply, hΔ, hε, map_sum] using
+      (HopfAlgebra.mul_antipode_lTensor_comul_apply (R := k) (c i j))
+  have hdet : Matrix.det c * Matrix.det Q = 1 := by
+    rw [← Matrix.det_mul, hcQ, Matrix.det_one]
+  have hdet' : Matrix.det Q * Matrix.det c = 1 := by
+    rw [mul_comm, hdet]
+  have hcT : c * (Matrix.det Q • Matrix.adjugate c) = 1 := by
+    rw [Matrix.mul_smul, Matrix.mul_adjugate, smul_smul, hdet', one_smul]
+  have hQT : Q = Matrix.det Q • Matrix.adjugate c := by
+    calc
+      Q = Q * 1 := (Matrix.mul_one Q).symm
+      _ = Q * (c * (Matrix.det Q • Matrix.adjugate c)) := by rw [hcT]
+      _ = (Q * c) * (Matrix.det Q • Matrix.adjugate c) :=
+        (Matrix.mul_assoc _ _ _).symm
+      _ = Matrix.det Q • Matrix.adjugate c := by rw [hQc, Matrix.one_mul]
+  refine ⟨Matrix.det Q, hdet, ?_⟩
+  intro i j
+  exact congrArg (fun M : Matrix (Fin n) (Fin n) H => M i j) hQT
+
+theorem Submission.p05_di_determinant_grouplike_a5b449214a
+    {k : Type*} [Field k] {H : Type*} [CommRing H] [Bialgebra k H]
+    (n : ℕ) (c : Matrix (Fin n) (Fin n) H)
+    (hΔ : ∀ i j : Fin n, Coalgebra.comul (R := k) (c i j) =
+      ∑ l : Fin n, TensorProduct.tmul k (c i l) (c l j))
+    (hε : ∀ i j : Fin n, Coalgebra.counit (R := k) (c i j) =
+      if i = j then (1 : k) else 0) :
+    Coalgebra.comul (R := k) (Matrix.det c) =
+      TensorProduct.tmul k (Matrix.det c) (Matrix.det c) ∧
+    Coalgebra.counit (R := k) (Matrix.det c) = 1 := by
+  classical
+  let L : H →ₐ[k] H ⊗[k] H := Algebra.TensorProduct.includeLeft
+  let R : H →ₐ[k] H ⊗[k] H := Algebra.TensorProduct.includeRight
+  have hcomul : (Bialgebra.comulAlgHom k H).mapMatrix c =
+      L.mapMatrix c * R.mapMatrix c := by
+    ext i j
+    change Coalgebra.comul (R := k) (c i j) =
+      ∑ l : Fin n, L (c i l) * R (c l j)
+    rw [hΔ]
+    apply Finset.sum_congr rfl
+    intro l _
+    simp [L, R, Algebra.TensorProduct.tmul_mul_tmul]
+  constructor
+  · change (Bialgebra.comulAlgHom k H) (Matrix.det c) = _
+    rw [AlgHom.map_det, hcomul, Matrix.det_mul, ← L.map_det, ← R.map_det]
+    simp [L, R, Algebra.TensorProduct.tmul_mul_tmul]
+  · have hcounit : (Bialgebra.counitAlgHom k H).mapMatrix c =
+        (1 : Matrix (Fin n) (Fin n) k) := by
+      ext i j
+      change Coalgebra.counit (R := k) (c i j) = if i = j then 1 else 0
+      exact hε i j
+    change (Bialgebra.counitAlgHom k H) (Matrix.det c) = 1
+    rw [AlgHom.map_det, hcounit, Matrix.det_one]
+
+theorem Submission.p05_fhe_determinant_inverse_a5b449214a
+    {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
+    (n : ℕ) (c : Matrix (Fin n) (Fin n) H)
+    (hΔ : ∀ i j : Fin n, Coalgebra.comul (R := k) (c i j) =
+      ∑ l : Fin n, TensorProduct.tmul k (c i l) (c l j))
+    (hε : ∀ i j : Fin n, Coalgebra.counit (R := k) (c i j) =
+      if i = j then (1 : k) else 0) :
+    ∃ u : H, Matrix.det c * u = 1 ∧
+      Coalgebra.comul (R := k) u = TensorProduct.tmul k u u ∧
+      HopfAlgebra.antipode k u = Matrix.det c ∧
+      (∀ i j : Fin n, HopfAlgebra.antipode k (c i j) = u * Matrix.adjugate c i j) := by
+  obtain ⟨u, hdu, hadj⟩ := Submission.p05_di_antipode_adjugate_a5b449214a n c hΔ hε
+  obtain ⟨hdΔ, hdε⟩ := Submission.p05_di_determinant_grouplike_a5b449214a n c hΔ hε
+  have hd : IsGroupLikeElem k (Matrix.det c) := ⟨hdε, hdΔ⟩
+  have hSu : HopfAlgebra.antipode k (Matrix.det c) = u :=
+    left_inv_eq_right_inv hd.antipode_mul_cancel hdu
+  refine ⟨u, hdu, ?_, ?_, hadj⟩
+  · rw [← hSu]
+    exact hd.antipode.comul_eq_tmul_self
+  · rw [← hSu]
+    exact hd.antipode_antipode
