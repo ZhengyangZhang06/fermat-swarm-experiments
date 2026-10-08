@@ -148,6 +148,8 @@ theorem p02_es_177ebb5a_sp_cayley_derivatives :
     rw [hchange]
     field_simp [hden]
 
+/-- Pull back to the unit disk, apply `DifferentiableOn.isExactOn_ball` from
+`Mathlib.Analysis.Complex.HasPrimitives`, and transport the primitive back by the Cayley map. -/
 theorem p02_es_177ebb5a_primitive_exists_scalar_primitive :
     ∀ (a : ℂ → ℂ), DifferentiableOn ℂ a {z : ℂ | 0 < z.im} →
       ∃ A : ℂ → ℂ, ∀ z : ℂ, 0 < z.im → HasDerivAt A (a z) z := by
