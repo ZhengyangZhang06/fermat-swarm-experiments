@@ -822,3 +822,28 @@ theorem Submission.p03_tkc_two_torsion_card_68cf3476_d5
   by_cases he : Even r <;>
     simp only [hsub₁, hsub₂, hadd₂, Nat.even_add_one, he, not_true_eq_false,
       not_false_eq_true, ite_true, ite_false, mul_one] <;> ring
+
+
+theorem Submission.p03_eds_canonical_recurrences_68cf3476_d3 :
+    ∀ (k : Type) [Field k] [CharZero k] [DecidableEq k] (W : WeierstrassCurve k),
+      let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine
+      let h := q W.ψ₂
+      let F : ℕ → W.toAffine.CoordinateRing :=
+        fun n => q (Polynomial.C (W.preΨ' n)) * (if Even n then h else 1)
+      F 0 = 0 ∧ F 1 = 1 ∧ F 2 = h ∧ F 3 = q (Polynomial.C W.Ψ₃) ∧
+        F 4 = h * q (Polynomial.C W.preΨ₄) ∧
+        (∀ r : ℕ, 2 ≤ r →
+          F (2 * r + 1) = F (r + 2) * F r ^ 3 - F (r - 1) * F (r + 1) ^ 3) ∧
+        (∀ r : ℕ, 3 ≤ r →
+          h * F (2 * r) =
+            F r * (F (r + 2) * F (r - 1) ^ 2 - F (r - 2) * F (r + 1) ^ 2)) := by
+  intro k _ _ _ W
+  dsimp only
+  refine ⟨?_, ?_, ?_, ?_, ?_,
+    Submission.p03_eds_canonical_odd_recurrence_68cf3476_d4 k W,
+    Submission.p03_eds_canonical_even_recurrence_68cf3476_d4 k W⟩
+  · simp only [preΨ'_zero, _root_.map_zero, zero_mul]
+  · simp only [preΨ'_one, map_one, Nat.not_even_one, if_false, one_mul]
+  · simp only [preΨ'_two, map_one, even_two, if_true, one_mul]
+  · simp only [preΨ'_three, show ¬ Even (3 : ℕ) by decide, if_false, mul_one]
+  · simp only [preΨ'_four, show Even (4 : ℕ) by decide, if_true, mul_comm]
