@@ -3811,5 +3811,69 @@ theorem p06_9e0f5043ff_ifl_local_length_order
       simpa [u', zpow_natCast] using h
     rw [hcoe]
     exact w.ord_unit_smul_zpow u' hπ' (m : ℤ)
+theorem p06_9e0f5043ff_lno_integral_fiber_length
+    (K E L : Type*) [Field K] [Field E] [Field L]
+    [Algebra K E] [Algebra K L] [Algebra E L] [IsScalarTower K E L]
+    [FiniteDimensional E L] [Algebra.IsSeparable E L]
+    (v : AlgebraicCurve.Place K E) (b : AlgebraicCurve.Place.integralClosureAt L v)
+    (hb : b ≠ 0) (n : ℕ)
+    (hn : Module.length v.toValuationSubring
+      (AlgebraicCurve.Place.integralClosureAt L v ⧸
+        Ideal.span ({b} : Set (AlgebraicCurve.Place.integralClosureAt L v))) = (n : ℕ∞)) :
+    Finset.sum (v.fiberOver L) (fun w => (w.inertiaDeg E : ℤ) *
+      w.ord (algebraMap (AlgebraicCurve.Place.integralClosureAt L v) L b)) = (n : ℤ) := by
+  classical
+  let B := Place.integralClosureAt L v
+  let Q := IsDedekindDomain.HeightOneSpectrum B
+  let : Fintype {w : Place K L // w.restrict E = v} :=
+    (Place.finite_setOf_restrict_eq (F' := L) v).fintype
+  let : Fintype Q := Fintype.ofEquiv _ (Place.fiberEquiv L v)
+  -- Choose the finite local lengths supplied by the local order formula.
+  choose m hm_length hm_order using fun q : Q =>
+    p06_9e0f5043ff_ifl_local_length_order K E L v q
+      (Localization.AtPrime q.asIdeal) b hb
+  have hresidue (q : Q) : Module.length v.toValuationSubring (B ⧸ q.asIdeal) =
+      ((Place.placeOfPrime q).inertiaDeg E : ℕ∞) := by
+    have h :=
+      p06_9e0f5043ff_ifl_residue_length_inertia K E L v
+        (Place.placeOfPrime q) (Place.restrict_placeOfPrime q)
+    rw [Place.fiberCenter_placeOfPrime] at h
+    exact h
+  -- All summands are finite, so the weighted length identity descends to ℕ.
+  have hsum_nat : Finset.sum Finset.univ
+      (fun q : Q => (Place.placeOfPrime q).inertiaDeg E * m q) = n := by
+    have hweighted :=
+      p06_9e0f5043ff_ifl_weighted_local_lengths v.toValuationSubring B b hb n hn
+    apply ENat.natCast_inj.mp
+    rw [← hweighted, Nat.cast_sum]
+    apply Finset.sum_congr rfl
+    intro q _
+    rw [Nat.cast_mul, hresidue q, hm_length q]
+  have hsum_int : Finset.sum Finset.univ (fun q : Q =>
+      ((Place.placeOfPrime q).inertiaDeg E : ℤ) * (m q : ℤ)) = (n : ℤ) := by
+    exact_mod_cast hsum_nat
+  -- Reindex by the canonical correspondence between places and prime ideals.
+  calc
+    Finset.sum (v.fiberOver L) (fun w => (w.inertiaDeg E : ℤ) *
+        w.ord (algebraMap B L b)) =
+        Finset.sum Finset.univ (fun q : Q =>
+          ((Place.placeOfPrime q).inertiaDeg E : ℤ) * (m q : ℤ)) := by
+      refine Finset.sum_bij
+        (fun w hw => Place.fiberCenter L v ((Place.mem_fiberOver v).mp hw))
+        (fun _ _ => Finset.mem_univ _) ?_ ?_ ?_
+      · intro w hw w' hw' h
+        exact Place.eq_of_fiberCenter_eq
+          ((Place.mem_fiberOver v).mp hw) ((Place.mem_fiberOver v).mp hw') h
+      · intro q _
+        exact ⟨Place.placeOfPrime q,
+          (Place.mem_fiberOver v).mpr (Place.restrict_placeOfPrime q),
+          Place.fiberCenter_placeOfPrime q⟩
+      · intro w hw
+        have hplace : Place.placeOfPrime
+            (Place.fiberCenter L v ((Place.mem_fiberOver v).mp hw)) = w :=
+          congrArg Subtype.val ((Place.fiberEquiv L v).symm_apply_apply
+            ⟨w, (Place.mem_fiberOver v).mp hw⟩)
+        rw [← hm_order _, hplace]
+    _ = (n : ℤ) := hsum_int
 
 end Submission
