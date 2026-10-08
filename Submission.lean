@@ -2435,6 +2435,8 @@ namespace Submission
 
 set_option warningAsError true
 
+/-- In the given polynomial-fraction model of a place, a fraction is a unit exactly when
+its numerator is not divisible by the defining irreducible polynomial. -/
 theorem p06_9e0f5043ff_fno_fraction_isunit
     (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F)
     (hx : Transcendental K x) (q : Polynomial K) (_hqmonic : q.Monic)
@@ -2445,6 +2447,7 @@ theorem p06_9e0f5043ff_fno_fraction_isunit
     (a b : Polynomial K) (z : v.toValuationSubring) (hb : ¬ q ∣ b)
     (hz : (z : F) = Polynomial.aeval x a / Polynomial.aeval x b) :
     IsUnit z ↔ ¬ q ∣ a := by
+  -- Transcendence lets us recover polynomial identities from identities in F.
   have hinj : Function.Injective (Polynomial.aeval x : Polynomial K →ₐ[K] F) :=
     transcendental_iff_injective.mp hx
   have hnonzero : ∀ p : Polynomial K, ¬ q ∣ p → Polynomial.aeval x p ≠ 0 := by
@@ -2454,6 +2457,7 @@ theorem p06_9e0f5043ff_fno_fraction_isunit
   have hbzero := hnonzero b hb
   constructor
   · intro hu hqa
+    -- Represent a unit's inverse, clear denominators, and use primality of q.
     obtain ⟨w, hw⟩ := isUnit_iff_exists_inv.mp hu
     obtain ⟨c, d, hd, hwd⟩ := (hmem (w : F)).mp w.property
     have hprod : Polynomial.aeval x a * Polynomial.aeval x c =
@@ -2466,6 +2470,7 @@ theorem p06_9e0f5043ff_fno_fraction_isunit
     have hdiv : q ∣ b * d := hpoly ▸ dvd_mul_of_dvd_left hqa c
     exact (hq.prime.dvd_or_dvd hdiv).elim hb hd
   · intro ha
+    -- The reversed fraction belongs to the valuation subring and is an inverse.
     have hwmem : Polynomial.aeval x b / Polynomial.aeval x a ∈ v.toValuationSubring :=
       (hmem _).mpr ⟨b, a, ha, rfl⟩
     apply isUnit_iff_exists_inv.mpr
