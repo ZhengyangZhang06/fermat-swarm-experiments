@@ -36,8 +36,9 @@ theorem f036cc6b1f_hecke_commute :
   have hΓ : (1 : ℝ) ∈
       (CongruenceSubgroup.Gamma0 M : Subgroup (GL (Fin 2) ℝ)).strictPeriods := by
     simp
-  -- The frozen P2M/Sol/S_ModularForm_mdifferentiable_heckeT.lean proves this
-  -- coefficient formula for the exact bundled Hecke normalization.
+  -- P2M/Sol/S_ModularForm_mdifferentiable_heckeT.lean, already present at
+  -- proof base 674e47109a2c121849b48a3754cad6d3c648d80e, proves this coefficient
+  -- formula for the exact bundled Hecke normalization and qCoeff uniqueness below.
   have hcoeff (s : ℕ) (hs : s.Prime) (hsM : ¬ s ∣ M)
       (g : CuspForm (CongruenceSubgroup.Gamma0 M) 2) :
       qCoeff (CuspForm.heckeTLin 2 hs hsM g) = coeffHeckeT 2 s (qCoeff g) := by
