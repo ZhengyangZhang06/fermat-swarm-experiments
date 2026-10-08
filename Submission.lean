@@ -904,3 +904,52 @@ theorem Submission.p03_eds_recurrence_unique_68cf3476_d3 :
         rw [hfodd r hr, hgodd r hr,
           ih (r + 2) (by omega), ih r (by omega),
           ih (r - 1) (by omega), ih (r + 1) (by omega)]
+
+
+namespace Submission
+
+theorem p03_torsion_eds_identification_68cf3476_d2 :
+    ∀ (k : Type) [Field k] [CharZero k] [DecidableEq k] (W : WeierstrassCurve k),
+      let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine
+      let h := q W.ψ₂
+      ∀ f : ℕ → W.toAffine.CoordinateRing,
+        (f 0 = 0 ∧ f 1 = 1 ∧ f 2 = h ∧ f 3 = q (Polynomial.C W.Ψ₃) ∧
+          f 4 = h * q (Polynomial.C W.preΨ₄) ∧
+          (∀ r : ℕ, 2 ≤ r →
+            f (2 * r + 1) = f (r + 2) * f r ^ 3 - f (r - 1) * f (r + 1) ^ 3) ∧
+          (∀ r : ℕ, 3 ≤ r →
+            h * f (2 * r) =
+              f r * (f (r + 2) * f (r - 1) ^ 2 - f (r - 2) * f (r + 1) ^ 2))) →
+        ∀ n : ℕ, f n = q (Polynomial.C (W.preΨ' n)) * (if Even n then h else 1) := by
+  intro k _ _ _ W q h f hf
+  let F : ℕ → W.toAffine.CoordinateRing :=
+    fun n => q (Polynomial.C (W.preΨ' n)) * (if Even n then h else 1)
+  -- In the free basis {1, Y}, the Y coefficient of h is 2.
+  have hh : h ≠ 0 := by
+    intro hh
+    have hb :
+        (Polynomial.C W.a₁ * Polynomial.X + Polynomial.C W.a₃) •
+            (1 : W.toAffine.CoordinateRing) +
+          Polynomial.C (2 : k) • q Polynomial.X = 0 := by
+      simpa only [h, q, WeierstrassCurve.ψ₂, WeierstrassCurve.Affine.polynomialY,
+        map_add, map_mul, WeierstrassCurve.Affine.CoordinateRing.smul, mul_one,
+        add_comm] using hh
+    have htwo : Polynomial.C (2 : k) = 0 :=
+      (WeierstrassCurve.Affine.CoordinateRing.smul_basis_eq_zero hb).2
+    exact (two_ne_zero : (2 : k) ≠ 0) (Polynomial.C_eq_zero.mp htwo)
+  obtain ⟨hf0, hf1, hf2, hf3, hf4, hfodd, hfeven⟩ := hf
+  obtain ⟨hF0, hF1, hF2, hF3, hF4, hFodd, hFeven⟩ :=
+    Submission.p03_eds_canonical_recurrences_68cf3476_d3 k W
+  have hinitial : ∀ n : ℕ, n ≤ 4 → f n = F n := by
+    intro n hn
+    interval_cases n
+    · exact hf0.trans hF0.symm
+    · exact hf1.trans hF1.symm
+    · exact hf2.trans hF2.symm
+    · exact hf3.trans hF3.symm
+    · exact hf4.trans hF4.symm
+  -- The coordinate ring is a domain even for singular Weierstrass equations.
+  exact Submission.p03_eds_recurrence_unique_68cf3476_d3
+    W.toAffine.CoordinateRing h hh f F hinitial hfodd hfeven hFodd hFeven
+
+end Submission
