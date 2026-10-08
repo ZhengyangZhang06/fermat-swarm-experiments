@@ -198,3 +198,137 @@ theorem Submission.p10_17ae7b7d_pde_holomorphic_extension :
   · intro z hz
     simpa [Function.Periodic.qParam, f, hz] using
       (Function.Periodic.eq_cuspFunction hw.ne' hf z).symm
+theorem Submission.p10_17ae7b7d_norm_local_multiplier_order :
+    ∀ (g ψ J : ℂ → ℂ) (v : ℂ), AnalyticAt ℂ g v → analyticOrderAt g v ≠ ⊤ →
+      AnalyticAt ℂ ψ v → ψ v = v → deriv ψ v ≠ 0 → AnalyticAt ℂ J v →
+      (∃ r : ℝ, 0 < r ∧ ∀ z : ℂ, ‖z - v‖ < r → g (ψ z) = J z * g z) →
+      (deriv ψ v) ^ analyticOrderNatAt g v = J v := by
+  intro g ψ J v hg hgfin hψ hfix _hderiv hJ hequiv
+  let m := analyticOrderNatAt g v
+  obtain ⟨b, hb, hbne, hfactor⟩ := (hg.analyticOrderNatAt_eq_iff hgfin).mp rfl
+  have hfactor' : ∀ᶠ z in nhds v, g z = (z - v) ^ m * b z := by
+    simpa only [smul_eq_mul] using hfactor
+  have hψt : Filter.Tendsto ψ (nhds v) (nhds v) := by
+    simpa only [hfix] using hψ.continuousAt.tendsto
+  have hfactorψ : ∀ᶠ z in nhds v, g (ψ z) = (ψ z - v) ^ m * b (ψ z) :=
+    hψt.eventually hfactor'
+  obtain ⟨r, hr, hequiv⟩ := hequiv
+  have hequiv' : ∀ᶠ z in nhds v, g (ψ z) = J z * g z := by
+    apply Metric.eventually_nhds_iff.mpr
+    exact ⟨r, hr, fun z hz => hequiv z (by simpa only [dist_eq_norm] using hz)⟩
+  have hcancel : (fun z => dslope ψ v z ^ m * b (ψ z)) =ᶠ[nhdsWithin v {v}ᶜ]
+      (fun z => J z * b z) := by
+    filter_upwards [hfactor'.filter_mono nhdsWithin_le_nhds,
+      hfactorψ.filter_mono nhdsWithin_le_nhds,
+      hequiv'.filter_mono nhdsWithin_le_nhds, self_mem_nhdsWithin] with z hz hzψ heq hzne
+    apply mul_left_cancel₀ (pow_ne_zero m (sub_ne_zero.mpr hzne))
+    calc
+      (z - v) ^ m * (dslope ψ v z ^ m * b (ψ z)) =
+          ((z - v) * dslope ψ v z) ^ m * b (ψ z) := by rw [mul_pow, mul_assoc]
+      _ = (ψ z - v) ^ m * b (ψ z) := by
+        rw [show (z - v) * dslope ψ v z = ψ z - v from by
+          simpa only [smul_eq_mul, hfix] using sub_smul_dslope ψ v z]
+      _ = g (ψ z) := hzψ.symm
+      _ = J z * g z := heq
+      _ = (z - v) ^ m * (J z * b z) := by rw [hz]; ring
+  have hd : Filter.Tendsto (fun z => dslope ψ v z ^ m) (nhds v) (nhds (deriv ψ v ^ m)) := by
+    simpa only [dslope_same] using
+      (continuousAt_dslope_same.mpr hψ.differentiableAt).tendsto.pow m
+  have hleft : Filter.Tendsto (fun z => dslope ψ v z ^ m * b (ψ z))
+      (nhds v) (nhds (deriv ψ v ^ m * b v)) :=
+    hd.mul (hb.continuousAt.tendsto.comp hψt)
+  have hright : Filter.Tendsto (fun z => J z * b z) (nhds v) (nhds (J v * b v)) :=
+    hJ.continuousAt.tendsto.mul hb.continuousAt.tendsto
+  exact mul_right_cancel₀ hbne (tendsto_nhds_unique_of_eventuallyEq
+    (hleft.mono_left nhdsWithin_le_nhds) (hright.mono_left nhdsWithin_le_nhds) hcancel)
+
+
+theorem Submission.p10_17ae7b7d_efp_unimodular_eigenrow_iff :
+    ∀ (R : Type) [CommRing R] (k r s : R),
+      (∃ x y : R, x * r + y * s = 1) →
+      ((∃ u : Rˣ, s = (u : R) * r ∧ k * s - r = (u : R) * s) ↔
+        IsUnit r ∧ ∃! t : R, s = r * t ∧ t ^ 2 - k * t + 1 = 0) := by
+  intro R _ k r s ⟨x, y, hxy⟩
+  constructor
+  · rintro ⟨u, hs, heigen⟩
+    have hinv : (x + y * (u : R)) * r = 1 := by
+      calc
+        (x + y * (u : R)) * r = x * r + y * s := by rw [hs]; ring
+        _ = 1 := hxy
+    have hr : IsUnit r := isUnit_iff_exists.mpr
+      ⟨x + y * (u : R), by rw [mul_comm]; exact hinv, hinv⟩
+    refine ⟨hr, (u : R), ⟨?_, ?_⟩, ?_⟩
+    · exact hs.trans (mul_comm _ _)
+    · apply hr.mul_left_cancel
+      calc
+        r * ((u : R) ^ 2 - k * (u : R) + 1) =
+            (u : R) * s - (k * s - r) := by rw [hs]; ring
+        _ = r * 0 := by rw [heigen, sub_self, mul_zero]
+    · intro t ht
+      apply hr.mul_left_cancel
+      calc
+        r * t = s := ht.1.symm
+        _ = r * (u : R) := hs.trans (mul_comm _ _)
+  · rintro ⟨_, t, ⟨hs, hpoly⟩, _⟩
+    have hinv : t * (k - t) = 1 := by
+      calc
+        t * (k - t) = 1 - (t ^ 2 - k * t + 1) := by ring
+        _ = 1 := by rw [hpoly, sub_zero]
+    let u : Rˣ := ⟨t, k - t, hinv, by rw [mul_comm]; exact hinv⟩
+    refine ⟨u, ?_, ?_⟩
+    · change s = t * r
+      exact hs.trans (mul_comm _ _)
+    · change k * s - r = t * s
+      calc
+        k * s - r = t * s - r * (t ^ 2 - k * t + 1) := by rw [hs]; ring
+        _ = t * s := by rw [hpoly, mul_zero, sub_zero]
+
+
+theorem Submission.p10_17ae7b7d_efp_inverse_coset_eq_iff :
+    ∀ (N : ℕ) [NeZero N] (A B : Matrix.SpecialLinearGroup (Fin 2) ℤ),
+      (QuotientGroup.mk (A⁻¹) :
+        (Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 N) =
+          QuotientGroup.mk (B⁻¹) ↔
+        ∃ u : (ZMod N)ˣ,
+          (B 1 0 : ZMod N) = (u : ZMod N) * (A 1 0 : ZMod N) ∧
+          (B 1 1 : ZMod N) = (u : ZMod N) * (A 1 1 : ZMod N) := by
+  intro N _ A B
+  constructor
+  · intro h
+    let E := B * A⁻¹
+    have hE : E ∈ CongruenceSubgroup.Gamma0 N := by
+      simpa only [inv_inv] using (QuotientGroup.eq.mp h.symm)
+    have hzero : (E 1 0 : ZMod N) = 0 := CongruenceSubgroup.Gamma0_mem.mp hE
+    have hdet : (E 0 0 : ZMod N) * (E 1 1 : ZMod N) -
+        (E 0 1 : ZMod N) * (E 1 0 : ZMod N) = 1 := by
+      have h := E.det_coe
+      rw [Matrix.det_fin_two] at h
+      exact_mod_cast h
+    have hunit : (E 1 1 : ZMod N) * (E 0 0 : ZMod N) = 1 := by
+      rw [hzero, mul_zero, sub_zero] at hdet
+      simpa only [mul_comm] using hdet
+    let u : (ZMod N)ˣ := Units.mkOfMulEqOne (E 1 1 : ZMod N) (E 0 0 : ZMod N) hunit
+    have hBA : E * A = B := by
+      dsimp [E]
+      rw [mul_assoc, inv_mul_cancel, mul_one]
+    have hrow (j : Fin 2) : (B 1 j : ZMod N) = (E 1 1 : ZMod N) * (A 1 j : ZMod N) := by
+      have h := congrArg (fun C : Matrix.SpecialLinearGroup (Fin 2) ℤ =>
+        (C 1 j : ZMod N)) hBA
+      change (((E.1 * A.1) 1 j : ℤ) : ZMod N) = (B 1 j : ZMod N) at h
+      simp only [Matrix.mul_apply, Fin.sum_univ_two, Int.cast_add, Int.cast_mul] at h
+      change (E 1 0 : ZMod N) * (A 0 j : ZMod N) +
+        (E 1 1 : ZMod N) * (A 1 j : ZMod N) = (B 1 j : ZMod N) at h
+      simpa only [hzero, zero_mul, zero_add] using h.symm
+    exact ⟨u, hrow 0, hrow 1⟩
+  · rintro ⟨u, hc, hd⟩
+    apply Eq.symm
+    apply QuotientGroup.eq.mpr
+    rw [inv_inv]
+    apply CongruenceSubgroup.Gamma0_mem.mpr
+    change (((B.1 * (A⁻¹).1) 1 0 : ℤ) : ZMod N) = 0
+    rw [Matrix.SpecialLinearGroup.SL2_inv_expl]
+    simp only [Matrix.mul_apply, Fin.sum_univ_two]
+    change ((B 1 0 * A 1 1 + B 1 1 * -(A 1 0) : ℤ) : ZMod N) = 0
+    push_cast
+    rw [hc, hd]
+    ring
