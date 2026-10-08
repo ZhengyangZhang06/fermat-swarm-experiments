@@ -87,6 +87,12 @@ import Mathlib.RingTheory.DedekindDomain.Ideal.Lemmas
 import Mathlib.RingTheory.SimpleModule.Basic
 import Mathlib.RingTheory.Localization.Module
 
+open AlgebraicCurve
+theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
+    [Algebra K F] (x : F) (hx : Transcendental K x)
+    [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
+  sorry
+
 namespace Submission
 
 /-- Compute the length over `A` by summing the residue factors of a composition series over `B`.
