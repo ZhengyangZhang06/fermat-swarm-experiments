@@ -1,0 +1,63 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "determinantal|fittingIdeal|fitting ideal|minor.*ideal|ideal.*minor",
+        "determinantal|fitting.?ideal|ideal.*minor|minor.*ideal",
+        "det_sum|det_succ|det_fromBlocks|det_submatrix|det_eq_zero_of|det_mul",
+        "fromBlocks_mulVec|mulVec_fromBlocks|mulVecLin|range_mulVecLin|mulVec_mulVec",
+        "git show ca1bb49d173a82f6c760dd27fdde39c92765501e:Submission.lean",
+        "python3 /tmp/p05-pie-independent-audit-20261008/audit.py",
+        "python3 /tmp/p05-pie-independent-audit-20261008/rerun_types.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-7ae2a75e0f/parent-child-handoff.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/ToLin.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Data/Matrix/Block.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Data/Matrix/Diagonal.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Data/Matrix/Mul.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p05-pie-independent-audit-20261008/ChildTypes.lean",
+        "/tmp/p05-pie-independent-audit-20261008/ChildTypes.lean.log",
+        "/tmp/p05-pie-independent-audit-20261008/HeaderAbsence.lean",
+        "/tmp/p05-pie-independent-audit-20261008/binding.json"
+      ],
+      "conclusion": "The four-way split is appropriate for the frozen depth-3 presentation-independence node: the children supply determinant containment, descending sizes, stabilization, and enlarged-kernel exactness, sufficient for the stated parent assembly without circularity. Searches found no relevant existing presentation-independence theorem; inspected sources provide the required determinant and matrix-map infrastructure. Independently verified clean project/mathlib revisions against the manifest and all nine installed dependency pins. All four literal one-line propositions elaborate without their child declarations present. Anonymous Lean checks confirm ordinary matrix multiplication, diagonal identity entries, and T(u,v)=(Pu−Av,v). Twelve inspected infrastructure axiom closures contain only propext, Classical.choice, and Quot.sound. Names are valid bare identifiers and remain unreserved in the final 46-node DAG; adding the proposed dependency edges passed an acyclicity check. Independently reproduced policy-compliant diagnostics: matching policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, exactly omitted lines 10–11, reversible original/build hashes, and successful Lean absence checks for all 13 targets. Protected artifacts remain unchanged. This approves decomposition only; future implementations still require the configured comparator and independent proof-acceptance gates."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "minor_product_containment",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone Lean proposition exactly matches the prose hypotheses and intersection containment. Independently checked column and row expansions prove the two factor containments; repeated selections vanish by alternation, and injective selections give generators. Ideal closure completes the argument. Empty selections and empty index sets are covered. No circular reliance or missing dependency."
+    },
+    {
+      "key": "successive_minor_containment",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line type exactly states the claimed containment with all hypotheses. Expansion along row zero produces precisely the d-minors described by the composed injective selections. Ideal closure proves containment, including d=0 and unavailable sizes. The proof is complete and independent of the parent and other children."
+    },
+    {
+      "key": "identity_block_stabilization",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The type exactly matches the block matrix, shifted sizes, and truncated subtraction; Lean confirms that its annotated identity is the ordinary matrix identity. For n≤r, an identity-block minor generates the whole ring. For r<n, extending old minors gives one inclusion; mismatched identity indices vanish, while matching indices reduce to an old minor of size at least n−r. The sole dependency on successive_minor_containment supplies the correctly directed remaining containment. All boundary cases are covered without circularity."
+    },
+    {
+      "key": "redundant_generator_relations",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone proposition, including its local let-bound matrix, exactly matches the prose and assumes no surjectivity. Lean independently verifies the block action. The forward proof uses π(Ay)=ψ(y) and ker π=im P to construct (u,y); the converse uses the same hypotheses to cancel π(Pu−Av)+ψ(v). Empty dimensions require no additional assumptions. The proof is complete and non-circular."
+    }
+  ],
+  "required_changes": []
+}

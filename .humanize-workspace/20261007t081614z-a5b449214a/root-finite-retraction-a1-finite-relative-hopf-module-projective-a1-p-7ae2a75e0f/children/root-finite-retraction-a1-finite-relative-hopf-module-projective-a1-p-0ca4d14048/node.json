@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.presentation_ideals_eq-a1.redundant_generator_relations-a1",
+  "parent_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.presentation_ideals_eq-a1",
+  "depth": 4,
+  "title": "Kernel relations after adjoining redundant generators",
+  "statement": "Let R be a commutative ring and M an R-module with commutative additive group. Let n,p,t be natural numbers, P an n-by-p matrix, A an n-by-t matrix, and π:R^n→M and ψ:R^t→M R-linear maps. Assume ker(π)=im(P) and π(Ay)=ψ(y) for every y∈R^t. Set T=[[P,−A],[0,I_t]], with row set Fin n ⊕ Fin t and column set Fin p ⊕ Fin t. For every z on the row set, write x(i)=z(inl i) and y(j)=z(inr j). Then π(x)+ψ(y)=0 if and only if there exists w on the column set with T w=z. No surjectivity is assumed.",
+  "lean_statement": "∀ {R : Type*} [CommRing R] {M : Type*} [AddCommGroup M] [Module R M] (n p t : ℕ) (P : Matrix (Fin n) (Fin p) R) (A : Matrix (Fin n) (Fin t) R) (π : (Fin n → R) →ₗ[R] M) (ψ : (Fin t → R) →ₗ[R] M) (_hker : LinearMap.ker π = LinearMap.range P.mulVecLin) (_hA : ∀ y : Fin t → R, π (A.mulVecLin y) = ψ y), let T : Matrix (Fin n ⊕ Fin t) (Fin p ⊕ Fin t) R := Matrix.fromBlocks P (-A) 0 (1 : Matrix (Fin t) (Fin t) R); ∀ z : (Fin n ⊕ Fin t) → R, (π (fun i => z (Sum.inl i)) + ψ (fun j => z (Sum.inr j)) = 0) ↔ ∃ w : (Fin p ⊕ Fin t) → R, T.mulVecLin w = z",
+  "lean_name": "p05_pie_redundant_generator_relations_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-0ca4d14048-a1"
+}
