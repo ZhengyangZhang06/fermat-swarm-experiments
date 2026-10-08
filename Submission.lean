@@ -54,6 +54,26 @@ theorem p02_es_177ebb5a_sm_holomorphic
     exact (hE d ⟨z, hz⟩).differentiableAt.differentiableWithinAt
   · exact (differentiable_id.neg.pow (d 1)).differentiableOn
 
+/-- Differentiate a finite jet sum using the descending-factorial recurrence. -/
+theorem p02_es_177ebb5a_med_sum_derivative :
+    ∀ (n r : ℕ) (a : Fin (n + 1) → ℂ → ℂ) (b : Fin (n + 1) → ℂ) (c t : ℂ),
+      (∀ k : Fin (n + 1), HasDerivAt (a k) (c * b k) t) →
+      HasDerivAt
+        (fun z : ℂ => ∑ k : Fin (n + 1),
+          a k z * (Nat.descFactorial k.val r : ℂ) * (-z) ^ (k.val - r))
+        (c * (∑ k : Fin (n + 1),
+          b k * (Nat.descFactorial k.val r : ℂ) * (-t) ^ (k.val - r)) -
+          (∑ k : Fin (n + 1), a k t * (Nat.descFactorial k.val (r + 1) : ℂ) *
+            (-t) ^ (k.val - (r + 1)))) t := by
+  intro n r a b c t ha
+  rw [Finset.mul_sum, ← Finset.sum_sub_distrib]
+  apply HasDerivAt.fun_sum
+  intro k _
+  convert! (((ha k).mul_const (Nat.descFactorial k.val r : ℂ)).mul
+    ((hasDerivAt_id' t).neg.pow (k.val - r))) using 1
+  simp only [Nat.descFactorial_succ, Nat.cast_mul, Nat.sub_sub, Pi.pow_apply, Pi.neg_apply]
+  ring
+
 end Submission
 
 theorem Submission.p02_es_177ebb5a_med_js_iterated_monomial :
