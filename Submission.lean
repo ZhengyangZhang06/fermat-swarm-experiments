@@ -1034,3 +1034,93 @@ theorem Submission.p05_ftzw_supported_relations_vanish_a5b449214a :
     (AddSubgroup.mem_map_iff_mem hJ).mp hmem
   change E (bN m p) = 0 at hNm
   simpa only [E, bN, FreeAbelianGroup.lift_apply_of] using hNm
+
+
+namespace Submission
+
+theorem p05_hte_finite_tensor_zero_witness_a5b449214a
+    {k : Type*} [CommRing k] {D : Type*} [CommRing D] [Algebra k D]
+    {M : Type*} [AddCommGroup M] [Module D M]
+    {P : Type*} [AddCommGroup P] [Module D P] (m : M) (p : P)
+    (hmp : (TensorProduct.tmul D m p : TensorProduct D M P) = 0) :
+    ∃ S : Finset D, ∃ F : Finset M, m ∈ F ∧
+      ∀ (A : Subalgebra k D), (∀ d ∈ S, d ∈ A) →
+      ∀ (N : Submodule A M), (∀ y ∈ F, y ∈ N) →
+      ∀ hm : m ∈ N,
+        (TensorProduct.tmul A (⟨m, hm⟩ : N) p : TensorProduct A N P) = 0 := by
+  classical
+  let b : M → P → FreeAbelianGroup (M × P) := fun u z => FreeAbelianGroup.of (u, z)
+  let R : Set (FreeAbelianGroup (M × P)) :=
+    {r | (∃ z : P, r = b 0 z) ∨
+      (∃ u : M, r = b u 0) ∨
+      (∃ (u v : M) (z : P), r = b (u + v) z - b u z - b v z) ∨
+      (∃ (u : M) (z w : P), r = b u (z + w) - b u z - b u w) ∨
+      (∃ (d : D) (u : M) (z : P), r = b (d • u) z - b u (d • z))}
+  let supported (A : Subalgebra k D) (N : Submodule A M) :
+      Set (FreeAbelianGroup (M × P)) :=
+    {r | (∃ z : P, r = b 0 z) ∨
+      (∃ u : M, u ∈ N ∧ r = b u 0) ∨
+      (∃ (u v : M) (z : P), u ∈ N ∧ v ∈ N ∧
+        r = b (u + v) z - b u z - b v z) ∨
+      (∃ (u : M) (z w : P), u ∈ N ∧
+        r = b u (z + w) - b u z - b u w) ∨
+      (∃ (d : D) (u : M) (z : P), d ∈ A ∧ u ∈ N ∧
+        r = b (d • u) z - b u (d • z))}
+  have hrel : b m p ∈ AddSubgroup.closure R := by
+    rw [← p05_ftzw_tensor_relation_kernel_a5b449214a (D := D) (M := M) (P := P)]
+    change FreeAbelianGroup.lift (fun x : M × P => TensorProduct.tmul D x.1 x.2)
+      (FreeAbelianGroup.of (m, p)) = 0
+    simpa only [FreeAbelianGroup.lift_apply_of] using hmp
+  -- Closure induction collects finite supports for the formal relation identity.
+  have finite_support : ∀ r ∈ AddSubgroup.closure R,
+      ∃ S : Finset D, ∃ F : Finset M,
+        ∀ (A : Subalgebra k D), (∀ d ∈ S, d ∈ A) →
+        ∀ (N : Submodule A M), (∀ y ∈ F, y ∈ N) →
+          r ∈ AddSubgroup.closure (supported A N) := by
+    intro r hr
+    induction hr using AddSubgroup.closure_induction with
+    | mem r hr =>
+      rcases hr with ⟨z, rfl⟩ | ⟨u, rfl⟩ | ⟨u, v, z, rfl⟩ |
+        ⟨u, z, w, rfl⟩ | ⟨d, u, z, rfl⟩
+      · refine ⟨∅, {0}, ?_⟩
+        intro A _ N _
+        exact AddSubgroup.subset_closure (Or.inl ⟨z, rfl⟩)
+      · refine ⟨∅, {u}, ?_⟩
+        intro A _ N hN
+        exact AddSubgroup.subset_closure (Or.inr (Or.inl ⟨u, hN u (by simp), rfl⟩))
+      · refine ⟨∅, {u, v, u + v}, ?_⟩
+        intro A _ N hN
+        exact AddSubgroup.subset_closure
+          (Or.inr (Or.inr (Or.inl ⟨u, v, z, hN u (by simp), hN v (by simp), rfl⟩)))
+      · refine ⟨∅, {u}, ?_⟩
+        intro A _ N hN
+        exact AddSubgroup.subset_closure
+          (Or.inr (Or.inr (Or.inr (Or.inl ⟨u, z, w, hN u (by simp), rfl⟩))))
+      · refine ⟨{d}, {u, d • u}, ?_⟩
+        intro A hA N hN
+        exact AddSubgroup.subset_closure
+          (Or.inr (Or.inr (Or.inr (Or.inr
+            ⟨d, u, z, hA d (by simp), hN u (by simp), rfl⟩))))
+    | zero =>
+      exact ⟨∅, ∅, fun A _ N _ => (AddSubgroup.closure (supported A N)).zero_mem⟩
+    | add r s _ _ ihr ihs =>
+      obtain ⟨Sr, Fr, hr⟩ := ihr
+      obtain ⟨Ss, Fs, hs⟩ := ihs
+      refine ⟨Sr ∪ Ss, Fr ∪ Fs, ?_⟩
+      intro A hA N hN
+      exact (AddSubgroup.closure (supported A N)).add_mem
+        (hr A (fun d hd => hA d (Finset.mem_union_left Ss hd))
+          N (fun y hy => hN y (Finset.mem_union_left Fs hy)))
+        (hs A (fun d hd => hA d (Finset.mem_union_right Sr hd))
+          N (fun y hy => hN y (Finset.mem_union_right Fr hy)))
+    | neg r _ ihr =>
+      obtain ⟨S, F, h⟩ := ihr
+      exact ⟨S, F, fun A hA N hN =>
+        (AddSubgroup.closure (supported A N)).neg_mem (h A hA N hN)⟩
+  obtain ⟨S, F, hSF⟩ := finite_support (b m p) hrel
+  refine ⟨S, insert m F, Finset.mem_insert_self m F, ?_⟩
+  intro A hA N hN hm
+  apply p05_ftzw_supported_relations_vanish_a5b449214a A N ⟨m, hm⟩ p
+  exact hSF A hA N (fun y hy => hN y (Finset.mem_insert_of_mem hy))
+
+end Submission
