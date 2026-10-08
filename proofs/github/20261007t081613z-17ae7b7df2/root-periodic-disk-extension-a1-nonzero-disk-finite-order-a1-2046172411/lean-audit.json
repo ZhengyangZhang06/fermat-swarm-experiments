@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "4017b0b240599d17b3c722a365a54801379eafa4affc5f44237b70947214ae91",
+  "git_delta": {
+    "base_commit": "a724b18dce8f521191a7005ed4b43c4ee33d144c",
+    "candidate_commit": "983a394d9f8e8c70deee60b57fbc5302d3ae16a9",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_pde_finite_order",
+    "diff_sha256": "1e15a6ec40d722330c665cf0805002cab16fdde649c2ac8b9d018798f69dda80",
+    "source_sha256": "50ebc4f23b50ac4fdb0580acf2bf61650faaa35112445f6807ec0ac37588f343",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_pde_finite_order",
+      "statement": "∀ A : ℂ → ℂ, DifferentiableOn ℂ A (Metric.ball (0 : ℂ) 1) → (∃ q : ℂ, q ∈ Metric.ball (0 : ℂ) 1 ∧ A q ≠ 0) → analyticOrderAt A 0 ≠ ⊤ ∧ (A 0 = 0 → 1 ≤ analyticOrderNatAt A 0)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
