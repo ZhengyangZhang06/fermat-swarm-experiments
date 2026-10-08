@@ -3808,6 +3808,7 @@ theorem p02_es_177ebb5a_sm_transformed_integral
   rw [show (n : ℤ) + 2 = ((n + 2 : ℕ) : ℤ) by norm_cast,
     zpow_neg, zpow_natCast, pow_add, mul_inv_rev, div_eq_mul_inv]
   ring
+/-- A uniform coefficient bound for the homogeneous power `(z * X₀ + X₁) ^ n`. -/
 theorem p02_es_177ebb5a_scl_linepow_coeff_bound :
     ∀ (n : ℕ) (z : ℂ) (d : Fin 2 →₀ ℕ),
       ‖MvPolynomial.coeff d (HeckeEis.linePow n z).val‖ ≤
