@@ -18,7 +18,8 @@ theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field
 
 namespace Submission
 
-/-- Clear the first row by an invertible column operation, preserving the trailing block. -/
+/-- Clear the first row by an invertible column operation, preserving the trailing block.
+The correction matrix squares to zero, so `1 - M` has the explicit inverse `1 + M`. -/
 theorem p06_9e0f5043ff_sdp_clear_first_row :
     ∀ (R : Type*) [CommRing R] (m : ℕ)
       (H : Matrix (Fin (m + 1)) (Fin (m + 1)) R),
