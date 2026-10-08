@@ -1876,6 +1876,7 @@ theorem p04_hct139_coset_average_laws :
   classical
   intro k G _ _ _ A H _ _ C hC
   constructor
+  -- Naturality follows by commuting the source map through each averaging summand.
   · intro B D f F
     ext x
     change (C D _).hom x = (C B F).hom (f.hom x)
@@ -1883,6 +1884,7 @@ theorem p04_hct139_coset_average_laws :
     change (∑ q : G ⧸ H, A.ρ q.out (F.hom (f.hom (D.ρ q.out⁻¹ x)))) =
       ∑ q : G ⧸ H, A.ρ q.out (F.hom (B.ρ q.out⁻¹ (f.hom x)))
     simp only [Rep.hom_comm_apply]
+  -- For a restricted equivariant map, each coset contributes the same value.
   · intro B F
     ext x
     change (C B _).hom x = H.index • F.hom x
