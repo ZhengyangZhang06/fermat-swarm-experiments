@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.gamma0_norm_vanishing-a1.cyclic_product_descent-a1",
+  "parent_id": "root.gamma0_norm_vanishing-a1",
+  "depth": 2,
+  "title": "Cyclic analytic product descends with unchanged order",
+  "statement": "Let w be a positive natural number and A:ℂ→ℂ be analytic at zero with analyticOrderAt A 0 ≠ ⊤. Set ζ=exp(2πi/w). There exist C:ℂ→ℂ and a real r>0 such that C is analytic at zero, analyticOrderAt C 0 ≠ ⊤, analyticOrderNatAt C 0 = analyticOrderNatAt A 0, and ∏_{j=0}^{w−1} A(ζ^j t)=C(t^w) for every t∈ℂ with ‖t‖<r.",
+  "lean_statement": "∀ (w : ℕ) (A : ℂ → ℂ), 0 < w → AnalyticAt ℂ A 0 → analyticOrderAt A 0 ≠ ⊤ → ∃ C : ℂ → ℂ, AnalyticAt ℂ C 0 ∧ analyticOrderAt C 0 ≠ ⊤ ∧ analyticOrderNatAt C 0 = analyticOrderNatAt A 0 ∧ ∃ r : ℝ, 0 < r ∧ ∀ t : ℂ, ‖t‖ < r → (∏ j ∈ Finset.range w, A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I / (w : ℂ)) ^ j * t)) = C (t ^ w)",
+  "lean_name": "p10_17ae7b7d_norm_cyclic_product_descent",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-a1"
+}

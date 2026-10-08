@@ -1,0 +1,44 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "analyticOrderNatAt_eq_iff|analyticOrderNatAt_mul|analyticOrderNatAt_comp|analyticOrderAt_comp|analyticOrderAt_ne_top|analyticOrderAt_eq_top",
+        "cyclic.*(prod|norm)|prod.*(descent|rotation)|local_multiplier_order|p10_17ae7b7d_norm_cyclic_product_descent|p10_17ae7b7d_norm_local_multiplier_order",
+        "HasFPowerSeriesAt.*eq|HasFPowerSeries.*unique|le_radius_of_summable_norm|summable_norm_mul_pow|hasFPowerSeriesOnBall",
+        "eqOn_zero_of_preconnected_of_eventuallyEq_zero|isolated|unique_eventuallyEq_pow|exists_eventuallyEq_pow",
+        "git worktree list --porcelain"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Order.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/OfScalars.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Uniqueness.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/ConvergenceRadius.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/IsolatedZeros.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/SpecialFunctions/Complex/Log.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+        "/runtime/operator-header-policy-v1/policy.json"
+      ],
+      "conclusion": "Verified the pinned project and mathlib revisions and clean dependency checkouts. The inspected library supports local order factorization, coefficient uniqueness, absolute convergence, and the required exponential divisibility criterion; searches found no relevant existing cyclic-descent or multiplier-order theorem. Both proposed names are bare, unreserved identifiers. Adding the two independent children preserves acyclicity and correct dependency direction. Both exact propositions independently elaborated after import Submission; scalar-product and complex-order instances passed definitional-equality checks. Type and cited-library axiom checks reported only propext, Classical.choice, and Quot.sound. Independently verified policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, exact omissions of lines 10–12, reversible original/build hashes, and Lean absence checks for all 56 targets. Diagnostic evidence is recorded in /tmp/p10-norm-audit-g4wrfzvc/audit-receipt.json. This approves the decomposition, not a Lean implementation; configured comparator acceptance remains required."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "cyclic_product_descent",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "Appropriately isolates steps 9–10. The standalone one-line proposition exactly matches every prose hypothesis and conclusion. The proof establishes order wm, rotation invariance, coefficient support on multiples of w, convergence of the descended series, and its first nonzero coefficient at m. It covers w=1 and m=0, requires only local analyticity, and contains no circular dependence or deferred proof construction."
+    },
+    {
+      "key": "local_multiplier_order",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "Appropriately extracts the shared argument of steps 12–13. The standalone one-line proposition exactly matches the prose. The supplied proof constructs both local factorizations, chooses a valid common neighborhood using continuity and the fixed-point hypothesis, cancels away from v, and passes to the punctured limit before cancelling b(v). It also handles m=0. The nonzero-derivative assumption is redundant but harmless; no additional hypothesis or circular dependency is needed."
+    }
+  ],
+  "required_changes": []
+}

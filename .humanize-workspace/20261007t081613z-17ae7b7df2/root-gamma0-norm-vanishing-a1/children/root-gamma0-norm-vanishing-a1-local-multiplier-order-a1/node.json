@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.gamma0_norm_vanishing-a1.local_multiplier_order-a1",
+  "parent_id": "root.gamma0_norm_vanishing-a1",
+  "depth": 2,
+  "title": "Leading-order identity for local analytic equivariance",
+  "statement": "Let g, ψ, J:ℂ→ℂ and v∈ℂ. Assume all three functions are analytic at v, analyticOrderAt g v ≠ ⊤, ψ(v)=v, and ψ′(v)≠0. Suppose there exists a real r>0 such that g(ψ(z))=J(z)g(z) whenever ‖z−v‖<r. Then ψ′(v) raised to analyticOrderNatAt g v equals J(v).",
+  "lean_statement": "∀ (g ψ J : ℂ → ℂ) (v : ℂ), AnalyticAt ℂ g v → analyticOrderAt g v ≠ ⊤ → AnalyticAt ℂ ψ v → ψ v = v → deriv ψ v ≠ 0 → AnalyticAt ℂ J v → (∃ r : ℝ, 0 < r ∧ ∀ z : ℂ, ‖z - v‖ < r → g (ψ z) = J z * g z) → (deriv ψ v) ^ analyticOrderNatAt g v = J v",
+  "lean_name": "p10_17ae7b7d_norm_local_multiplier_order",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-gamma0-norm-vanishing-a1-local-multiplier-order-a1-a1"
+}

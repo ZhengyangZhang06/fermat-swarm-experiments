@@ -1,0 +1,62 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "analyticOrder.*(prod|mul|comp)|eqOn_zero|frequently_eq|isolated",
+        "gamma0_norm|cyclic.*norm|elliptic.*order|valence",
+        "norm.*prod|prod.*norm|rotation|root.*unity|IsPrimitiveRoot",
+        "deriv.*analyticOrderNatAt|analyticOrderNatAt.*deriv|analyticOrder.*multiplier",
+        "p10_17ae7b7d_norm_cyclic_product_descent|p10_17ae7b7d_norm_local_multiplier_order"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Order.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/IsolatedZeros.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/OfScalars.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/SpecialFunctions/Complex/Log.lean"
+      ],
+      "conclusion": "The manifest pins project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Order.lean supplies local factorization, analyticOrderNatAt_mul, and preservation of order under composition with nonzero derivative; IsolatedZeros.lean supplies the identity principle and nonvanishing-product infrastructure. OfScalars.lean supports convergent scalar power series. Log.lean:160 supplies exp_two_pi_mul_I_mul_div_eq_one_iff. The targeted searches found no matching cyclic-product descent or local multiplier-order theorem. No proposed-name collision was found in the local DAG or searched worktrees. All pinned dependency checkouts were clean. The exact proposed types and cited order, identity, and exponential lemmas had only propext, Classical.choice, and Quot.sound in their transitive axiom lists."
+    }
+  ],
+  "should_split": true,
+  "rationale": "At depth 1, extract two independent reusable obligations: the cyclic descent in steps 9–10 and the common leading-coefficient argument in steps 12–13. Existing library results cover step 5; the parent retains the slash construction, coset assembly, and application of its existing dependencies. Neither child restates the parent. Both exact types elaborated after literal import Submission in a disposable compiler copy under the matching approved policy. Only lines 10–12 were omitted, all 56 targets passed Lean absence checks, and reversibility and unchanged Git sources were checked. Scalar product interpretation was checked by definitional equality. Diagnostic evidence is in /tmp/p10-norm-decomposition-fa5ldoib/receipt.json; this is not comparator acceptance or authorization to activate children.",
+  "subproblems": [
+    {
+      "key": "cyclic_product_descent",
+      "title": "Cyclic analytic product descends with unchanged order",
+      "statement": "Let w be a positive natural number and A:ℂ→ℂ be analytic at zero with analyticOrderAt A 0 ≠ ⊤. Set ζ=exp(2πi/w). There exist C:ℂ→ℂ and a real r>0 such that C is analytic at zero, analyticOrderAt C 0 ≠ ⊤, analyticOrderNatAt C 0 = analyticOrderNatAt A 0, and ∏_{j=0}^{w−1} A(ζ^j t)=C(t^w) for every t∈ℂ with ‖t‖<r.",
+      "lean_statement": "∀ (w : ℕ) (A : ℂ → ℂ), 0 < w → AnalyticAt ℂ A 0 → analyticOrderAt A 0 ≠ ⊤ → ∃ C : ℂ → ℂ, AnalyticAt ℂ C 0 ∧ analyticOrderAt C 0 ≠ ⊤ ∧ analyticOrderNatAt C 0 = analyticOrderNatAt A 0 ∧ ∃ r : ℝ, 0 < r ∧ ∀ t : ℂ, ‖t‖ < r → (∏ j ∈ Finset.range w, A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I / (w : ℂ)) ^ j * t)) = C (t ^ w)",
+      "lean_name": "p10_17ae7b7d_norm_cyclic_product_descent",
+      "depends_on": [],
+      "natural_proof": "1. Fix w and A satisfying the hypotheses, and put ζ=exp(2πi/w). Since w>0, its complex cast is nonzero. The exponential power identity gives ζ^n=exp(2πin/w) for every natural n. Complex.exp_two_pi_mul_I_mul_div_eq_one_iff therefore gives ζ^n=1 exactly when w divides n. In particular ζ^w=1. The exponent defining ζ has real part zero, so ‖ζ‖=1 and ζ≠0.\n2. Put m=analyticOrderNatAt A 0. The analyticity and finite-order hypotheses, using AnalyticAt.analyticOrderNatAt_eq_iff, give an analytic function b near zero with b(0)≠0 and A(t)=t^m b(t) on a neighborhood of zero. Define P(t)=∏_{j=0}^{w−1}A(ζ^j t). Each factor is analytic near zero. On a sufficiently small disk the factorization of A applies simultaneously to every ζ^j t, because ‖ζ^j t‖=‖t‖. Consequently P(t)=t^{wm}D(t), where D(t)=∏_{j=0}^{w−1}(ζ^{jm}b(ζ^j t)). The function D is analytic near zero and D(0)≠0, since every factor in D(0) is nonzero. Thus P has finite order wm.\n3. Choose R>0 such that P has a convergent Taylor expansion P(t)=∑_{n≥0}a_n t^n for ‖t‖<R. Shrink R if necessary so that the preceding factorization also holds there. Comparing this factorization with the Taylor series shows that a_n=0 for n<wm and a_{wm}=D(0)≠0: multiplication of the Taylor series of D by t^{wm} shifts its coefficients by wm.\n4. For every t, the product P(ζt) has factors A(ζ^{j+1}t). The final factor is A(ζ^w t)=A(t), and the other factors are precisely the remaining factors of P(t). Commutativity of complex multiplication therefore gives P(ζt)=P(t).\n5. Since ‖ζ‖=1, both Taylor expansions in this equality converge for ‖t‖<R. Uniqueness of coefficients gives a_n ζ^n=a_n for every n. To see the uniqueness directly, a first nonzero coefficient of the difference of two such series would, after division by its power of t, have a nonzero limit at zero; the higher terms tend to zero by absolute convergence on a smaller disk, contradicting that the difference vanishes. Hence a_n(ζ^n−1)=0. By step 1, a_n=0 whenever w does not divide n.\n6. Choose 0<r<R. The series ∑_{n≥0}|a_n|r^n converges. For |u|<r^w, the series ∑_{ℓ≥0}a_{wℓ}u^ℓ converges absolutely, since its absolute terms are bounded by the corresponding terms of ∑_{ℓ≥0}|a_{wℓ}|r^{wℓ}, which is a subseries of the preceding convergent nonnegative series. Define C(u) by this power series when |u|<r^w and define C(u)=0 outside that disk. This power series has positive convergence radius, so C is analytic at zero.\n7. If ‖t‖<r, then |t^w|<r^w because w>0. Absolute convergence permits reindexing the Taylor series of P by its nonzero coefficients. Step 5 gives P(t)=∑_{ℓ≥0}a_{wℓ}t^{wℓ}=∑_{ℓ≥0}a_{wℓ}(t^w)^ℓ=C(t^w). This also holds at t=0 by evaluation of the convergent series.\n8. For ℓ<m, positivity of w gives wℓ<wm, so the coefficient a_{wℓ} of C is zero. Its coefficient at index m is a_{wm}≠0. Factoring its convergent series therefore gives C(u)=u^m E(u) near zero, where E is analytic and E(0)=a_{wm}≠0. The local order characterization now gives analyticOrderAt C 0 ≠ ⊤ and analyticOrderNatAt C 0=m=analyticOrderNatAt A 0. Together with steps 6–7, this proves every asserted property.",
+      "proof_key_steps": [
+        "Establish that ζ is a primitive w-th root of unity of norm one.",
+        "Factor A at zero and show the cyclic product has finite order w times the order of A.",
+        "Use cyclic permutation to prove rotation invariance of the product.",
+        "Use uniqueness of Taylor coefficients to eliminate indices not divisible by w.",
+        "Construct the descended convergent power series from coefficients a_{wℓ}.",
+        "Reindex the series to obtain P(t)=C(t^w) near zero.",
+        "Identify the first nonzero coefficient of C and recover the order of A."
+      ]
+    },
+    {
+      "key": "local_multiplier_order",
+      "title": "Leading-order identity for local analytic equivariance",
+      "statement": "Let g, ψ, J:ℂ→ℂ and v∈ℂ. Assume all three functions are analytic at v, analyticOrderAt g v ≠ ⊤, ψ(v)=v, and ψ′(v)≠0. Suppose there exists a real r>0 such that g(ψ(z))=J(z)g(z) whenever ‖z−v‖<r. Then ψ′(v) raised to analyticOrderNatAt g v equals J(v).",
+      "lean_statement": "∀ (g ψ J : ℂ → ℂ) (v : ℂ), AnalyticAt ℂ g v → analyticOrderAt g v ≠ ⊤ → AnalyticAt ℂ ψ v → ψ v = v → deriv ψ v ≠ 0 → AnalyticAt ℂ J v → (∃ r : ℝ, 0 < r ∧ ∀ z : ℂ, ‖z - v‖ < r → g (ψ z) = J z * g z) → (deriv ψ v) ^ analyticOrderNatAt g v = J v",
+      "lean_name": "p10_17ae7b7d_norm_local_multiplier_order",
+      "depends_on": [],
+      "natural_proof": "1. Fix g, ψ, J and v satisfying the hypotheses, and put m=analyticOrderNatAt g v and λ=ψ′(v). AnalyticAt.analyticOrderNatAt_eq_iff, applied to the analyticity and finite-order hypotheses for g, gives a function b analytic near v with b(v)≠0 and g(z)=(z−v)^m b(z) throughout a neighborhood of v.\n2. Expand ψ in a convergent Taylor series at v. Its constant coefficient is ψ(v)=v and its linear coefficient is λ. Removing the constant term and dividing the series by z−v produces an analytic function d near v such that ψ(z)−v=(z−v)d(z) and d(v)=λ. Explicitly, if ψ(v+h)=v+∑_{n≥1}c_n h^n, then d(v+h)=∑_{n≥0}c_{n+1}h^n. The shifted series converges on every smaller disk, including at h=0, and c_1=λ.\n3. Choose a sufficiently small disk centered at v on which the factorization of g, the factorization of ψ−v, and the assumed equivariance identity all hold. Continuity of ψ and ψ(v)=v allow this disk to be shrunk further so that ψ(z) lies in the neighborhood where the factorization of g is valid. On this disk, substitution into equivariance gives (z−v)^m d(z)^m b(ψ(z))=J(z)(z−v)^m b(z).\n4. For z≠v in this disk, the complex number (z−v)^m is nonzero, including when m=0. Cancel it to obtain d(z)^m b(ψ(z))=J(z)b(z).\n5. Each side of this last identity is continuous at v. Taking z→v through the punctured disk gives λ^m b(v)=J(v)b(v), because d(v)=λ and ψ(v)=v. Such a punctured limit exists since every complex disk of positive radius contains points distinct from its center approaching the center. Finally b(v)≠0 permits cancellation, giving λ^m=J(v), exactly the asserted identity.",
+      "proof_key_steps": [
+        "Factor the finite-order germ of g into a power times a nonvanishing analytic factor.",
+        "Factor ψ(z)−v as (z−v)d(z), with d(v)=ψ′(v).",
+        "Choose a common neighborhood supporting both factorizations and equivariance.",
+        "Substitute and cancel the power away from v.",
+        "Pass to the limit at v and cancel the nonzero leading coefficient."
+      ]
+    }
+  ]
+}

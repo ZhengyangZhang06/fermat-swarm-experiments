@@ -1,0 +1,52 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "analyticOrder.*(prod|mul|comp)|eqOn_zero|frequently_eq|isolated",
+        "gamma0_norm|cyclic.*norm|elliptic.*order|valence",
+        "norm.*prod|prod.*norm|rotation|root.*unity|IsPrimitiveRoot",
+        "deriv.*analyticOrderNatAt|analyticOrderNatAt.*deriv|analyticOrder.*multiplier",
+        "p10_17ae7b7d_norm_cyclic_product_descent|p10_17ae7b7d_norm_local_multiplier_order"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Order.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/IsolatedZeros.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/OfScalars.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/SpecialFunctions/Complex/Log.lean"
+      ],
+      "conclusion": "The manifest pins project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Order.lean supplies local factorization, analyticOrderNatAt_mul, and preservation of order under composition with nonzero derivative; IsolatedZeros.lean supplies the identity principle and nonvanishing-product infrastructure. OfScalars.lean supports convergent scalar power series. Log.lean:160 supplies exp_two_pi_mul_I_mul_div_eq_one_iff. The targeted searches found no matching cyclic-product descent or local multiplier-order theorem. No proposed-name collision was found in the local DAG or searched worktrees. All pinned dependency checkouts were clean. The exact proposed types and cited order, identity, and exponential lemmas had only propext, Classical.choice, and Quot.sound in their transitive axiom lists."
+    }
+  ],
+  "parent_id": "root.gamma0_norm_vanishing-a1",
+  "child_id": "root.gamma0_norm_vanishing-a1.local_multiplier_order-a1",
+  "subproblem": {
+    "key": "local_multiplier_order",
+    "title": "Leading-order identity for local analytic equivariance",
+    "statement": "Let g, ψ, J:ℂ→ℂ and v∈ℂ. Assume all three functions are analytic at v, analyticOrderAt g v ≠ ⊤, ψ(v)=v, and ψ′(v)≠0. Suppose there exists a real r>0 such that g(ψ(z))=J(z)g(z) whenever ‖z−v‖<r. Then ψ′(v) raised to analyticOrderNatAt g v equals J(v).",
+    "lean_statement": "∀ (g ψ J : ℂ → ℂ) (v : ℂ), AnalyticAt ℂ g v → analyticOrderAt g v ≠ ⊤ → AnalyticAt ℂ ψ v → ψ v = v → deriv ψ v ≠ 0 → AnalyticAt ℂ J v → (∃ r : ℝ, 0 < r ∧ ∀ z : ℂ, ‖z - v‖ < r → g (ψ z) = J z * g z) → (deriv ψ v) ^ analyticOrderNatAt g v = J v",
+    "lean_name": "p10_17ae7b7d_norm_local_multiplier_order",
+    "depends_on": [],
+    "natural_proof": "1. Fix g, ψ, J and v satisfying the hypotheses, and put m=analyticOrderNatAt g v and λ=ψ′(v). AnalyticAt.analyticOrderNatAt_eq_iff, applied to the analyticity and finite-order hypotheses for g, gives a function b analytic near v with b(v)≠0 and g(z)=(z−v)^m b(z) throughout a neighborhood of v.\n2. Expand ψ in a convergent Taylor series at v. Its constant coefficient is ψ(v)=v and its linear coefficient is λ. Removing the constant term and dividing the series by z−v produces an analytic function d near v such that ψ(z)−v=(z−v)d(z) and d(v)=λ. Explicitly, if ψ(v+h)=v+∑_{n≥1}c_n h^n, then d(v+h)=∑_{n≥0}c_{n+1}h^n. The shifted series converges on every smaller disk, including at h=0, and c_1=λ.\n3. Choose a sufficiently small disk centered at v on which the factorization of g, the factorization of ψ−v, and the assumed equivariance identity all hold. Continuity of ψ and ψ(v)=v allow this disk to be shrunk further so that ψ(z) lies in the neighborhood where the factorization of g is valid. On this disk, substitution into equivariance gives (z−v)^m d(z)^m b(ψ(z))=J(z)(z−v)^m b(z).\n4. For z≠v in this disk, the complex number (z−v)^m is nonzero, including when m=0. Cancel it to obtain d(z)^m b(ψ(z))=J(z)b(z).\n5. Each side of this last identity is continuous at v. Taking z→v through the punctured disk gives λ^m b(v)=J(v)b(v), because d(v)=λ and ψ(v)=v. Such a punctured limit exists since every complex disk of positive radius contains points distinct from its center approaching the center. Finally b(v)≠0 permits cancellation, giving λ^m=J(v), exactly the asserted identity.",
+    "proof_key_steps": [
+      "Factor the finite-order germ of g into a power times a nonvanishing analytic factor.",
+      "Factor ψ(z)−v as (z−v)d(z), with d(v)=ψ′(v).",
+      "Choose a common neighborhood supporting both factorizations and equivariance.",
+      "Substitute and cancel the power away from v.",
+      "Pass to the limit at v and cancel the nonzero leading coefficient."
+    ]
+  },
+  "audit": {
+    "key": "local_multiplier_order",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "Appropriately extracts the shared argument of steps 12–13. The standalone one-line proposition exactly matches the prose. The supplied proof constructs both local factorizations, chooses a valid common neighborhood using continuity and the fixed-point hypothesis, cancels away from v, and passes to the punctured limit before cancelling b(v). It also handles m=0. The nonzero-derivative assumption is redundant but harmless; no additional hypothesis or circular dependency is needed."
+  },
+  "resolved_dependencies": [],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-norm-vanishing-a1-local-multiplier-order-a1/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-norm-vanishing-a1-local-multiplier-order-a1/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-norm-vanishing-a1-local-multiplier-order-a1/parent-supplied-natural-proof.json"
+}
