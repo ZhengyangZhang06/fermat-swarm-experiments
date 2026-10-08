@@ -9,6 +9,25 @@ import Definitions.Def_ModularForm_HeckeOperatorForms
 attribute [-instance] FLT.HyperbolicMeasure.instSMulInvariantMeasureSpecialLinearGroupFinOfNatNatIntUpperHalfPlaneVolume_definitions FLT.HyperbolicMeasure.instIsOpenPosMeasureUpperHalfPlaneVolume_definitions FLT.Gamma0FundamentalSet.instContinuousConstSMulSpecialLinearGroupFinOfNatNatIntUpperHalfPlane_definitions FLT.L2ProductionInstance.isFiniteMeasure_gamma0 FLT.L2ProductionInstance.countable_SL2Z FLT.L2ProductionInstance.countable_quotient FLT.L2ProductionInstance.nontrivial_gamma0L2
 attribute [-simp] FreyPackage.ModMCarrier.coe_rescaleLin_apply ModularForm.AtkinLehnerDatum.mk.injEq ModularForm.AtkinLehnerDatum.alGL_coe ModularForm.AtkinLehnerDatum.mk.sizeOf_spec ModularForm.AtkinLehnerDatum.sqUnitSL_coe ModularForm.AtkinLehnerDatum.det_sqUnit ModularForm.AtkinLehnerDatum.det_mat FLT.TruncatedDomainPartition.unipotentDiagonalSum_zero
 
+theorem Submission.f036cc6b1f_petersson_core (M : ℕ) [NeZero M] :
+    ∃ B : InnerProductSpace.Core ℂ (CuspForm (CongruenceSubgroup.Gamma0 M) 2),
+      ∀ (p : ℕ) (hp : p.Prime) (hpM : ¬ p ∣ M)
+        (f g : CuspForm (CongruenceSubgroup.Gamma0 M) 2),
+        B.inner (CuspForm.heckeTLin 2 hp hpM f) g =
+          B.inner f (CuspForm.heckeTLin 2 hp hpM g) := by
+  have hneg : (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈
+      CongruenceSubgroup.Gamma0 M := by
+    simp [CongruenceSubgroup.Gamma0_mem]
+  obtain ⟨R, hF_meas, hF_unique⟩ :=
+    Submission.f036cc6b1f_pc_effective_domain (CongruenceSubgroup.Gamma0 M) hneg
+  obtain ⟨B, hB⟩ :=
+    Submission.f036cc6b1f_pc_integral_core (CongruenceSubgroup.Gamma0 M) hneg
+  refine ⟨B, ?_⟩
+  intro p hp hpM f g
+  rw [(hB _ hF_meas hF_unique (CuspForm.heckeTLin 2 hp hpM f) g).2,
+    (hB _ hF_meas hF_unique f (CuspForm.heckeTLin 2 hp hpM g)).2]
+  exact Submission.f036cc6b1f_pc_hecke_integral M _ hF_meas hF_unique p hp hpM f g
+
 theorem CuspForm.span_heckeTLin_eigen_eq_top (M : ℕ) [NeZero M] :
     Submodule.span ℂ {v : CuspForm (CongruenceSubgroup.Gamma0 M) 2 |
       ∀ (ℓ : ℕ) (hℓ : ℓ.Prime) (hℓM : ¬ ℓ ∣ M), ∃ c : ℂ,
