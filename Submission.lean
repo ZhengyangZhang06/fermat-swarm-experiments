@@ -3097,3 +3097,45 @@ theorem Submission.p10_17ae7b7d_crcard_quot_eq_unit :
       exact ⟨t * u, by rw [Units.val_mul, mul_assoc, h1, h1'],
         by rw [Units.val_mul, mul_assoc, h2, h2']⟩
   exact hequiv.quot_mk_eq_iff v w
+theorem Submission.p10_17ae7b7d_crcard_gamma0_row_criterion :
+    ∀ (N : ℕ) [NeZero N] (A B : Matrix.SpecialLinearGroup (Fin 2) ℤ),
+      B * A⁻¹ ∈ CongruenceSubgroup.Gamma0 N ↔
+        ∃ u : (ZMod N)ˣ,
+          (u : ZMod N) * (A 1 0 : ZMod N) = (B 1 0 : ZMod N) ∧
+          (u : ZMod N) * (A 1 1 : ZMod N) = (B 1 1 : ZMod N) := by
+  intro N _ A B
+  constructor
+  · intro h
+    let C := B * A⁻¹
+    have hzero : (C 1 0 : ZMod N) = 0 := CongruenceSubgroup.Gamma0_mem.mp h
+    have hdet : (C 0 0 : ZMod N) * (C 1 1 : ZMod N) -
+        (C 0 1 : ZMod N) * (C 1 0 : ZMod N) = 1 := by
+      have hc := C.det_coe
+      rw [Matrix.det_fin_two] at hc
+      simpa only [Int.cast_sub, Int.cast_mul, Int.cast_one] using
+        congrArg (fun z : ℤ => (z : ZMod N)) hc
+    rw [hzero, mul_zero, sub_zero] at hdet
+    let u : (ZMod N)ˣ := ⟨(C 1 1 : ZMod N), (C 0 0 : ZMod N),
+      by rw [mul_comm]; exact hdet, hdet⟩
+    have hCA : C * A = B := by
+      dsimp [C]
+      rw [mul_assoc, inv_mul_cancel, mul_one]
+    have hrow (j : Fin 2) :
+        (C 1 1 : ZMod N) * (A 1 j : ZMod N) = (B 1 j : ZMod N) := by
+      have hc := congrArg (fun D : Matrix.SpecialLinearGroup (Fin 2) ℤ =>
+        (D 1 j : ZMod N)) hCA
+      change (((C.1 * A.1) 1 j : ℤ) : ZMod N) = (B 1 j : ZMod N) at hc
+      simp only [Matrix.mul_apply, Fin.sum_univ_two, Int.cast_add, Int.cast_mul] at hc
+      change (C 1 0 : ZMod N) * (A 0 j : ZMod N) +
+        (C 1 1 : ZMod N) * (A 1 j : ZMod N) = (B 1 j : ZMod N) at hc
+      simpa only [hzero, zero_mul, zero_add] using hc
+    exact ⟨u, hrow 0, hrow 1⟩
+  · rintro ⟨u, hc, hd⟩
+    apply CongruenceSubgroup.Gamma0_mem.mpr
+    change (((B.1 * (A⁻¹).1) 1 0 : ℤ) : ZMod N) = 0
+    rw [Matrix.SpecialLinearGroup.SL2_inv_expl]
+    simp only [Matrix.mul_apply, Fin.sum_univ_two]
+    change ((B 1 0 * A 1 1 + B 1 1 * -(A 1 0) : ℤ) : ZMod N) = 0
+    push_cast
+    rw [← hc, ← hd]
+    ring
