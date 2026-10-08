@@ -1714,8 +1714,7 @@ theorem p06_9e0f5043ff_sdp_clear_first_column
     simp [Matrix.mul_apply, N]
   have hsq : N * N = 0 := by
     ext i j
-    rw [hmul]
-    simp [N, c]
+    simp [hmul, N, c]
   -- Since N² = 0, the clearing matrix 1 - N has two-sided inverse 1 + N.
   refine ⟨1 - N, ?_, ?_, ?_⟩
   · refine ⟨⟨1 - N, 1 + N, ?_, ?_⟩, rfl⟩
