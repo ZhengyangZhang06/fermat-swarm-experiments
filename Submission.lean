@@ -2270,9 +2270,9 @@ theorem Submission.p02_es_177ebb5a_med_jet_sum :
     conv_lhs => rw [Submission.p02_es_177ebb5a_lcd_monomial_expansion n P]
     refine Fintype.sum_equiv Fin.revPerm _ _ ?_
     intro k
-    simp [d, Fin.revPerm_apply, Fin.val_rev,
+    simp only [d, Fin.revPerm_apply, Fin.val_rev, Nat.add_sub_cancel,
       Nat.sub_sub_self (Nat.le_of_lt_succ k.isLt),
-      MvPolynomial.smul_monomial, smul_eq_mul]
+      MvPolynomial.smul_monomial, smul_eq_mul, mul_one]
   let D : Module.End ℂ (MvPolynomial (Fin 2) ℂ) :=
     (MvPolynomial.pderiv (1 : Fin 2)).toLinearMap
   change MvPolynomial.eval _ ((D : MvPolynomial (Fin 2) ℂ →
