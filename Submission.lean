@@ -1678,6 +1678,9 @@ theorem Submission.p10_17ae7b7d_phdisk_mobius_ratio_norm :
     simp [Q]
   have hMconj : M (star v) = star (M v) := by
     simp [M, Q]
+    simp [Q, Complex.star_def]
+  have hMconj : M (star v) = star (M v) := by
+    simp [M, Q, Complex.star_def]
   have hQstar : star (Q v) ≠ 0 := star_ne_zero.mpr hQv
   have hQsv : Q (star v) ≠ 0 := by
     rw [hQconj]
@@ -1692,6 +1695,7 @@ theorem Submission.p10_17ae7b7d_phdisk_mobius_ratio_norm :
     calc
       ((a : ℂ) * x + (b : ℂ)) * Q y -
           Q x * ((a : ℂ) * y + (b : ℂ)) =
+          ((a : ℂ) * y + (b : ℂ)) * Q x =
           ((a : ℂ) * (d : ℂ) - (b : ℂ) * (c : ℂ)) * (x - y) := by
         dsimp only [Q]
         ring
@@ -1706,6 +1710,7 @@ theorem Submission.p10_17ae7b7d_phdisk_mobius_ratio_norm :
       ((z - v) / (z - star v)) * (star (Q v) / Q v) := by
     rw [hdiff z v hQz hQv, ← hMconj, hdiff z (star v) hQz hQsv, hQconj]
     field_simp [hQz, hQv, hQstar, hzsv]
+    field_simp [hQz, hQv, hQstar, hzsv] <;> ring
   have hunit : ‖star (Q v) / Q v‖ = 1 := by
     rw [norm_div, Complex.star_def, Complex.norm_conj,
       div_self (norm_ne_zero_iff.mpr hQv)]
