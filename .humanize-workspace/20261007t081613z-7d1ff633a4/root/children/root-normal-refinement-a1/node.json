@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.normal_refinement-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "Common finite normal refinement of rational field levels",
+  "statement": "Let ι be a finite type and F : ι → IntermediateField ℚ (AlgebraicClosure ℚ). Suppose every F i is finite-dimensional over ℚ. There exists an intermediate field E, finite-dimensional and normal over ℚ, containing every F i, whose pointwise fixing subgroup in Aut(AlgebraicClosure ℚ/ℚ) is normal and has finite index. The family may be empty.",
+  "lean_statement": "∀ {ι : Type} [Finite ι] (F : ι → IntermediateField ℚ (AlgebraicClosure ℚ)), (∀ i, FiniteDimensional ℚ (F i)) → ∃ E : IntermediateField ℚ (AlgebraicClosure ℚ), FiniteDimensional ℚ E ∧ Normal ℚ E ∧ (∀ i, F i ≤ E) ∧ E.fixingSubgroup.Normal ∧ E.fixingSubgroup.FiniteIndex",
+  "lean_name": "p08_7d1ff633a4_normal_refinement",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p08/20261007t081613z-7d1ff633a4/root-normal-refinement-a1-a1"
+}

@@ -1,0 +1,74 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'normal_comap_fixingSubgroup|finiteIndex_comap_fixingSubgroup|corestriction|projection_formula|IsTheta.*exists|exists.*IsTheta|p08_7d1ff633a4_' project/Definitions mathlib/Mathlib",
+        "rg -n 'normalClosure|finiteDimensional|Normal' mathlib/Mathlib/FieldTheory/Normal/Closure.lean",
+        "sed -n '1,145p' mathlib/Mathlib/Algebra/Category/ModuleCat/Basic.lean",
+        "sed -n '200,236p' mathlib/Mathlib/NumberTheory/Cyclotomic/CyclotomicCharacter.lean",
+        "sed -n '960,999p' mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/LowDegree.lean",
+        "rg -n 'p08_7d1ff633a4_(normal_refinement|common_kernel|transfer_theta|rank_one_transfer|linear_descent)' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p*/.humanize/github-theorem-prover/runs/*/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean -j2 Combined.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH1.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH2.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH2Map.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousDuality.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_CupProduct.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_Selmer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_DualSelmer_ExtConditions.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_ExtCitation_KummerBridge.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_ExtCitation_AdmissibleExtension.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/LowDegree.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/NumberTheory/Cyclotomic/CyclotomicCharacter.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/FieldTheory/Normal/Closure.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/Algebra/Category/ModuleCat/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.agents/skills/frozen-header-policy-evidence/evidence.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.agents/skills/frozen-header-policy-evidence/policy.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/decomposition-type-check-20261008/Combined.lean",
+        "/tmp/p08-independent-decomposition-audit-9sfq9o5z/Combined-j2.log",
+        "/tmp/p08-independent-decomposition-audit-9sfq9o5z/result-j2.json"
+      ],
+      "conclusion": "Verified clean snapshot revisions 9db4b2bea94e42612c675170cfe30ec626166658 and db584cd6d46c92f209a44c0f1c829460d327499d, clean installed dependency pins, and matching definition sources. The inspected definitions confirm the H1 image, H2 quotient, theta predicates, coefficient actions, and restriction carriers used by the proofs. Searches found no proposed declarations, fixing-subgroup instances, or theta-existence theorem; corestriction matches did not supply the required continuous transfer package. No proposed name occurs in the ten local DAGs. A fresh literal-import run passed all five unchanged explicit propositions, 24 indexed additive/module instance equalities, and generic/global/restricted pairing checks. Inspected transitive axioms are confined to propext, Classical.choice, and Quot.sound. The disposable context matches the frozen source with only the policy-authorized negative-attribute omission. This accepts the decomposition, not any child implementation or solution PR."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "normal_refinement",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the finite-family statement, including the empty case and both fixing-subgroup conclusions. The proof establishes finite generation, finite-dimensionality, embedding extension, normality, and finite index without circular reliance. This is an independent field-theory obligation; its bare identifier is unreserved."
+    },
+    {
+      "key": "common_kernel",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and Lean type agree on every hypothesis and on the exact restricted character and twisted-dual coefficients. The proof correctly combines basis stabilizers, the cyclotomic root field, character uniqueness, and inverse closure to trivialize all three actions, including when M is zero. Its sole child dependency is normal_refinement, correctly directed; the bare identifier is unreserved."
+    },
+    {
+      "key": "transfer_theta",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The explicit proposition matches the prose, including choosing transfer maps before the functional, global theta uniqueness, and both compatibility identities. The complete proof checks common levels, both frozen cohomology identifications, the prism homotopy, transfer, cup-product descent, projection formulas, and actual theta witnesses. Fresh elaboration verifies the indexed module structures and restricted pairing. It assumes neither duality nor invertible index and depends only on normal_refinement; its bare identifier is unreserved."
+    },
+    {
+      "key": "rank_one_transfer",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and one-line type match exactly, with finite-dimensionality required only for W. The normalized vector has functional value one, and the dimension-one argument proves both injectivity and surjectivity. The proof is complete, independent of the cohomological children, and non-circular; its bare identifier is unreserved."
+    },
+    {
+      "key": "linear_descent",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The proposition exactly records the two scalar-composite identities, both compatibilities, full algebraic duals, and subgroup-map bijectivity. The kernel argument proves injectivity, and lifting the functional composed with C_Y then scaling by n⁻¹ proves surjectivity without dimension assumptions. This independent obligation completes the parent deduction without circularity; its bare identifier is unreserved."
+    }
+  ],
+  "required_changes": []
+}

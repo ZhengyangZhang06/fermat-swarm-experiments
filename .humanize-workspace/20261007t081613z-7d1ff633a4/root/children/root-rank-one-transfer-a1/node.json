@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.rank_one_transfer-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "Bijectivity of the transferred rank-one functional",
+  "statement": "Let k be a field, V and W k-vector spaces, and W finite-dimensional with finrank k W = 1. Let n ∈ k be nonzero and R : V →ₗ[k] W, C : W →ₗ[k] V satisfy C(Rv) = n·v for every v. If ℓ : V →ₗ[k] k is surjective, then ℓ ∘ C : W →ₗ[k] k is bijective. No finite-dimensionality assumption on V is required.",
+  "lean_statement": "∀ {k V W : Type} [Field k] [AddCommGroup V] [Module k V] [AddCommGroup W] [Module k W] [FiniteDimensional k W] (n : k) (hn : n ≠ 0) (R : V →ₗ[k] W) (C : W →ₗ[k] V), (∀ v : V, C (R v) = n • v) → Module.finrank k W = 1 → ∀ ℓ : V →ₗ[k] k, Function.Surjective ℓ → Function.Bijective (ℓ.comp C)",
+  "lean_name": "p08_7d1ff633a4_rank_one_transfer",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p08/20261007t081613z-7d1ff633a4/root-rank-one-transfer-a1-a1"
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.linear_descent-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "Linear duality descent through restriction and transfer",
+  "statement": "Let k be a field and X, Y, X′, Y′ arbitrary k-vector spaces. Let n ∈ k be nonzero. Suppose linear maps R_X : X → X′, C_X : X′ → X, R_Y : Y → Y′, C_Y : Y′ → Y satisfy C_X(R_Xx) = n·x and C_Y(R_Yy) = n·y. Let Θ : X →ₗ[k] Y* and Θ′ : X′ →ₗ[k] (Y′)* satisfy Θ′(R_Xx)(y′) = Θ(x)(C_Yy′) and Θ′(x′)(R_Yy) = Θ(C_Xx′)(y) for all arguments. If Θ′ is bijective, then Θ is bijective. The duals are full algebraic duals, and no finite-dimensionality assumption is made.",
+  "lean_statement": "∀ {k X Y X' Y' : Type} [Field k] [AddCommGroup X] [Module k X] [AddCommGroup Y] [Module k Y] [AddCommGroup X'] [Module k X'] [AddCommGroup Y'] [Module k Y'] (n : k) (hn : n ≠ 0) (R_X : X →ₗ[k] X') (C_X : X' →ₗ[k] X) (R_Y : Y →ₗ[k] Y') (C_Y : Y' →ₗ[k] Y) (Θ : X →ₗ[k] Module.Dual k Y) (Θ' : X' →ₗ[k] Module.Dual k Y'), (∀ x : X, C_X (R_X x) = n • x) → (∀ y : Y, C_Y (R_Y y) = n • y) → (∀ (x : X) (y' : Y'), Θ' (R_X x) y' = Θ x (C_Y y')) → (∀ (x' : X') (y : Y), Θ' x' (R_Y y) = Θ (C_X x') y) → Function.Bijective Θ' → Function.Bijective Θ",
+  "lean_name": "p08_7d1ff633a4_linear_descent",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p08/20261007t081613z-7d1ff633a4/root-linear-descent-a1-a1"
+}
