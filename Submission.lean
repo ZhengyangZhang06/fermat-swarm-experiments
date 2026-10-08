@@ -283,6 +283,103 @@ theorem Submission.p10_17ae7b7d_efp_unimodular_eigenrow_iff :
         k * s - r = t * s - r * (t ^ 2 - k * t + 1) := by rw [hs]; ring
         _ = t * s := by rw [hpoly, mul_zero, sub_zero]
 
+namespace Submission
+
+theorem p10_17ae7b7d_periodic_disk_extension :
+    ∀ (w : ℝ) (g : ℂ → ℂ), 0 < w →
+      DifferentiableOn ℂ g {z : ℂ | 0 < z.im} →
+      (∃ z : ℂ, 0 < z.im ∧ g z ≠ 0) →
+      (∀ z : ℂ, 0 < z.im → g (z + (w : ℂ)) = g z) →
+      (∃ C Y : ℝ, ∀ z : ℂ, 0 < z.im → Y ≤ z.im → ‖g z‖ ≤ C) →
+      ∃ A : ℂ → ℂ, DifferentiableOn ℂ A (Metric.ball (0 : ℂ) 1) ∧
+        (∀ z : ℂ, 0 < z.im →
+          g z = A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z / (w : ℂ)))) ∧
+        analyticOrderAt A 0 ≠ ⊤ ∧
+        ((∀ ε : ℝ, 0 < ε → ∃ Y : ℝ, ∀ z : ℂ,
+          0 < z.im → Y ≤ z.im → ‖g z‖ ≤ ε) → 1 ≤ analyticOrderNatAt A 0) := by
+  intro w g hw hg hnonzero hperiodic hbounded
+  obtain ⟨A, hA, hAg⟩ :=
+    p10_17ae7b7d_pde_holomorphic_extension w g hw hg hperiodic hbounded
+  obtain ⟨z, hz, hgz⟩ := hnonzero
+  have hq : Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z / (w : ℂ)) ∈
+      Metric.ball (0 : ℂ) 1 := by
+    rw [Metric.mem_ball, dist_zero_right, Complex.norm_exp, Real.exp_lt_one_iff]
+    have hheight : 0 < 2 * Real.pi * z.im :=
+      mul_pos (mul_pos (by norm_num) Real.pi_pos) hz
+    simpa [Complex.mul_re, Complex.mul_im] using
+      div_neg_of_neg_of_pos (neg_neg_of_pos hheight) hw
+  obtain ⟨hfinite, hpositive⟩ := p10_17ae7b7d_pde_finite_order A hA
+    ⟨_, hq, by simpa only [← hAg z hz] using hgz⟩
+  refine ⟨A, hA, hAg, hfinite, ?_⟩
+  intro hdecay
+  apply hpositive
+  exact p10_17ae7b7d_pde_decay_zero w g A hw
+    (hA.differentiableAt (Metric.ball_mem_nhds _ (by norm_num))).continuousAt
+    hAg hdecay
+
+end Submission
+theorem Submission.p10_17ae7b7d_valence_modular_log_derivative :
+    ∀ (k : ℕ) (F : ℂ → ℂ),
+      DifferentiableOn ℂ F {z : ℂ | 0 < z.im} →
+      (∀ z : ℂ, 0 < z.im → F (z + 1) = F z) →
+      (∀ z : ℂ, 0 < z.im → F (-1 / z) = z ^ k * F z) →
+      ∀ z : ℂ, 0 < z.im →
+        analyticOrderNatAt F (z + 1) = analyticOrderNatAt F z ∧
+        analyticOrderNatAt F (-1 / z) = analyticOrderNatAt F z ∧
+        (F z ≠ 0 →
+          deriv F (z + 1) / F (z + 1) = deriv F z / F z ∧
+          (deriv F (-1 / z) / F (-1 / z)) / z ^ 2 =
+            (k : ℂ) / z + deriv F z / F z) := by
+  intro k F hF hT hS z hz
+  have hU : IsOpen {w : ℂ | 0 < w.im} :=
+    isOpen_lt continuous_const Complex.continuous_im
+  have hA (w : ℂ) (hw : 0 < w.im) : AnalyticAt ℂ F w :=
+    hF.analyticAt (hU.mem_nhds hw)
+  have hz0 : z ≠ 0 := by
+    intro h
+    simp [h] at hz
+  have hzT : 0 < (z + 1).im := by simpa using hz
+  have hzS : 0 < (-1 / z).im := by
+    simpa [Complex.div_im, neg_div] using div_pos hz (Complex.normSq_pos.mpr hz0)
+  have aT : AnalyticAt ℂ (fun w : ℂ => w + 1) z := by fun_prop
+  have aS : AnalyticAt ℂ (fun w : ℂ => -1 / w) z := by fun_prop
+  have dT : deriv (fun w : ℂ => w + 1) z = 1 := by simp
+  have dS : deriv (fun w : ℂ => -1 / w) z = 1 / z ^ 2 := by simp
+  have eT : Filter.EventuallyEq (nhds z) (F ∘ fun w : ℂ => w + 1) F :=
+    Filter.eventually_of_mem (hU.mem_nhds hz) fun w hw => hT w hw
+  have eS : Filter.EventuallyEq (nhds z) (F ∘ fun w : ℂ => -1 / w)
+      (fun w => w ^ k * F w) :=
+    Filter.eventually_of_mem (hU.mem_nhds hz) fun w hw => hS w hw
+  have oT : analyticOrderAt F (z + 1) = analyticOrderAt F z := by
+    calc
+      analyticOrderAt F (z + 1) =
+          analyticOrderAt (F ∘ fun w : ℂ => w + 1) z :=
+        (analyticOrderAt_comp_of_deriv_ne_zero aT (by simp [dT])).symm
+      _ = analyticOrderAt F z := analyticOrderAt_congr eT
+  have aP : AnalyticAt ℂ (fun w : ℂ => w ^ k) z := by fun_prop
+  have oS : analyticOrderAt F (-1 / z) = analyticOrderAt F z := by
+    calc
+      analyticOrderAt F (-1 / z) =
+          analyticOrderAt (F ∘ fun w : ℂ => -1 / w) z :=
+        (analyticOrderAt_comp_of_deriv_ne_zero aS (by simp [dS, hz0])).symm
+      _ = analyticOrderAt (fun w => w ^ k * F w) z := analyticOrderAt_congr eS
+      _ = analyticOrderAt (fun w : ℂ => w ^ k) z + analyticOrderAt F z :=
+        analyticOrderAt_mul aP (hA z hz)
+      _ = analyticOrderAt F z := by
+        rw [aP.analyticOrderAt_eq_zero.mpr (pow_ne_zero k hz0), zero_add]
+  refine ⟨congrArg ENat.toNat oT, congrArg ENat.toNat oS, ?_⟩
+  intro hFz
+  constructor
+  · have h := (logDeriv_congr_nhds eT).self_of_nhds
+    rw [logDeriv_comp (g := fun w : ℂ => w + 1) (hA (z + 1) hzT).differentiableAt aT.differentiableAt,
+      dT, mul_one] at h
+    exact h
+  · have h := (logDeriv_congr_nhds eS).self_of_nhds
+    rw [logDeriv_comp (g := fun w : ℂ => -1 / w) (hA (-1 / z) hzS).differentiableAt aS.differentiableAt,
+      dS, logDeriv_mul (f := fun w : ℂ => w ^ k) (g := F) z (pow_ne_zero k hz0) hFz aP.differentiableAt
+        (hA z hz).differentiableAt, logDeriv_pow] at h
+    simpa only [logDeriv_apply, mul_one_div] using h
+
 
 theorem Submission.p10_17ae7b7d_efp_inverse_coset_eq_iff :
     ∀ (N : ℕ) [NeZero N] (A B : Matrix.SpecialLinearGroup (Fin 2) ℤ),
@@ -1433,3 +1530,91 @@ theorem Submission.p10_17ae7b7d_to_prime_power_count :
   change Nat.card O = _
   rw [hsumN]
   exact_mod_cast htotal
+theorem Submission.p10_17ae7b7d_ccm_coset_crt_equivariant :
+    ∀ (m n : ℕ) [NeZero m] [NeZero n], Nat.Coprime m n →
+      let G := Matrix.SpecialLinearGroup (Fin 2) ℤ
+      let Q := fun k : ℕ => G ⧸ CongruenceSubgroup.Gamma0 k
+      ∃ e : Q (m * n) ≃ (Q m × Q n),
+        ∀ (g : G) (q : Q (m * n)), e (g • q) = g • e q := by
+  intro m n _ _ hmn
+  classical
+  let G := Matrix.SpecialLinearGroup (Fin 2) ℤ
+  let Q := fun k : ℕ => G ⧸ CongruenceSubgroup.Gamma0 k
+  let E := ZMod.chineseRemainder hmn
+  have hcast (z : ℤ) : E (z : ZMod (m * n)) = ((z : ZMod m), (z : ZMod n)) := by
+    exact map_intCast E z
+  have hmem (C : G) : C ∈ CongruenceSubgroup.Gamma0 (m * n) ↔
+      C ∈ CongruenceSubgroup.Gamma0 m ∧ C ∈ CongruenceSubgroup.Gamma0 n := by
+    change (C 1 0 : ZMod (m * n)) = 0 ↔
+      (C 1 0 : ZMod m) = 0 ∧ (C 1 0 : ZMod n) = 0
+    rw [← E.injective.eq_iff, hcast, map_zero]
+    exact Prod.ext_iff
+  let F : Q (m * n) → Q m × Q n := Quotient.lift
+    (fun A : G => (QuotientGroup.mk A, QuotientGroup.mk A)) (by
+      intro A B hAB
+      have h := (hmem (A⁻¹ * B)).mp
+        (QuotientGroup.eq.mp (Quotient.sound hAB))
+      exact Prod.ext (QuotientGroup.eq.mpr h.1) (QuotientGroup.eq.mpr h.2))
+  have hF (A : G) : F (QuotientGroup.mk A) =
+      (QuotientGroup.mk A, QuotientGroup.mk A) := rfl
+  have hinj : Function.Injective F := by
+    intro a b hab
+    induction a using QuotientGroup.induction_on with | H A =>
+      induction b using QuotientGroup.induction_on with | H B =>
+        apply QuotientGroup.eq.mpr
+        apply (hmem (A⁻¹ * B)).mpr
+        exact ⟨QuotientGroup.eq.mp (congrArg Prod.fst hab),
+          QuotientGroup.eq.mp (congrArg Prod.snd hab)⟩
+  have hdet (L : ℕ) (C : G) :
+      -(C 0 1 : ZMod L) * (C 1 0 : ZMod L) +
+        (C 0 0 : ZMod L) * (C 1 1 : ZMod L) = 1 := by
+    have h := C.det_coe
+    rw [Matrix.det_fin_two] at h
+    have h' := congrArg (fun z : ℤ => (z : ZMod L)) h
+    push_cast at h'
+    linear_combination h'
+  have hsurj : Function.Surjective F := by
+    rintro ⟨a, b⟩
+    induction a using QuotientGroup.induction_on with | H A =>
+      induction b using QuotientGroup.induction_on with | H B =>
+        let r := E.symm ((A⁻¹ 1 0 : ZMod m), (B⁻¹ 1 0 : ZMod n))
+        let s := E.symm ((A⁻¹ 1 1 : ZMod m), (B⁻¹ 1 1 : ZMod n))
+        let x := E.symm (-(A⁻¹ 0 1 : ZMod m), -(B⁻¹ 0 1 : ZMod n))
+        let y := E.symm ((A⁻¹ 0 0 : ZMod m), (B⁻¹ 0 0 : ZMod n))
+        have hrow : x * r + y * s = 1 := by
+          apply E.injective
+          dsimp only [x, r, y, s]
+          simp only [map_add, map_mul, map_one, RingEquiv.apply_symm_apply]
+          exact Prod.ext (hdet m A⁻¹) (hdet n B⁻¹)
+        obtain ⟨M, hMr, hMs⟩ :=
+          Submission.p10_17ae7b7d_cc_lift_unimodular_row (m * n) r s ⟨x, y, hrow⟩
+        have hr : ((M 1 0 : ZMod m), (M 1 0 : ZMod n)) =
+            ((A⁻¹ 1 0 : ZMod m), (B⁻¹ 1 0 : ZMod n)) := by
+          rw [← hcast, hMr]
+          exact E.apply_symm_apply _
+        have hs : ((M 1 1 : ZMod m), (M 1 1 : ZMod n)) =
+            ((A⁻¹ 1 1 : ZMod m), (B⁻¹ 1 1 : ZMod n)) := by
+          rw [← hcast, hMs]
+          exact E.apply_symm_apply _
+        have hcoset (L : ℕ) (C : G)
+            (hc : (M 1 0 : ZMod L) = (C⁻¹ 1 0 : ZMod L))
+            (hd : (M 1 1 : ZMod L) = (C⁻¹ 1 1 : ZMod L)) :
+            (QuotientGroup.mk M⁻¹ : Q L) = QuotientGroup.mk C := by
+          apply QuotientGroup.eq.mpr
+          rw [inv_inv]
+          apply CongruenceSubgroup.Gamma0_mem.mpr
+          have heq : ((M * C) 1 0 : ZMod L) = ((C⁻¹ * C) 1 0 : ZMod L) := by
+            change (((M.1 * C.1) 1 0 : ℤ) : ZMod L) =
+              ((((C⁻¹).1 * C.1) 1 0 : ℤ) : ZMod L)
+            simp only [Matrix.mul_apply, Fin.sum_univ_two, Int.cast_add, Int.cast_mul]
+            rw [hc, hd]
+          rw [heq, inv_mul_cancel]
+          simp
+        refine ⟨QuotientGroup.mk M⁻¹, ?_⟩
+        rw [hF]
+        exact Prod.ext (hcoset m A (congrArg Prod.fst hr) (congrArg Prod.fst hs))
+          (hcoset n B (congrArg Prod.snd hr) (congrArg Prod.snd hs))
+  refine ⟨Equiv.ofBijective F ⟨hinj, hsurj⟩, ?_⟩
+  intro g q
+  induction q using QuotientGroup.induction_on with | H A =>
+    rfl
