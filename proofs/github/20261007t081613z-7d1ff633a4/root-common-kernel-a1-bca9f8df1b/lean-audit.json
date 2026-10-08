@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'p08_7d1ff633a4_common_kernel|dualTwist_ρ_apply|def cycloChar|normal_comap_fixingSubgroup|finiteIndex_comap_fixingSubgroup' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36 --glob '*.lean'",
+        "rg -n 'p08_7d1ff633a4_common_kernel' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36 --glob '*.lean'"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_Selmer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_ExtCitation_KummerBridge.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/FieldTheory/Normal/Closure.lean"
+      ],
+      "conclusion": "Clean snapshot revisions match project 9db4b2bea94e42612c675170cfe30ec626166658 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Inspected existing twisted-dual, cyclotomic-character, and normal-closure infrastructure; project definitions match frozen Git bytes. No declaration matching this node's theorem was found in the snapshot."
+    }
+  ],
+  "comparison_identity": "a5b3c1aa10a499db8c9bcad777e66eae5e33416ac50bbebbaff577687167b890",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p08_7d1ff633a4_common_kernel",
+      "statement": "∀ {p : ℕ} [Fact p.Prime] (q : Nat.Primes) (S : Subgroup (ExtCitation.primeLocalGaloisGroup q)) (U : Subgroup S) (M : Rep.{0} (ZMod p) S) [FiniteDimensional (ZMod p) M], (∃ F₀ : IntermediateField ℚ (AlgebraicClosure ℚ), FiniteDimensional ℚ F₀ ∧ F₀.fixingSubgroup.comap ((ExtCitation.primeLocalToGlobal q).comp S.subtype) ≤ U) → (∀ m : M, ∃ F : IntermediateField ℚ (AlgebraicClosure ℚ), FiniteDimensional ℚ F ∧ ∀ s : S, ((ExtCitation.primeLocalToGlobal q).comp S.subtype) s ∈ F.fixingSubgroup → M.ρ s m = m) → ∃ E : IntermediateField ℚ (AlgebraicClosure ℚ), FiniteDimensional ℚ E ∧ Normal ℚ E ∧ E.fixingSubgroup.comap ((ExtCitation.primeLocalToGlobal q).comp S.subtype) ≤ U ∧ (∀ s : S, ((ExtCitation.primeLocalToGlobal q).comp S.subtype) s ∈ E.fixingSubgroup → (∀ m : M, M.ρ s m = m) ∧ (∀ d : M.dualTwist (((ExtCitation.cycloChar p).comp (ExtCitation.primeLocalToGlobal q)).comp S.subtype), (M.dualTwist (((ExtCitation.cycloChar p).comp (ExtCitation.primeLocalToGlobal q)).comp S.subtype)).ρ s d = d) ∧ (∀ a : Rep.res S.subtype (groupCohomology.ofChar (k := ZMod p) ((ExtCitation.cycloChar p).comp (ExtCitation.primeLocalToGlobal q))), (Rep.res S.subtype (groupCohomology.ofChar (k := ZMod p) ((ExtCitation.cycloChar p).comp (ExtCitation.primeLocalToGlobal q)))).ρ s a = a))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines the accepted uniform-stabilizer, cyclotomic-kernel, and normal-refinement prerequisites, then uses the coefficient-action formulas to obtain all three trivial actions."
+    }
+  ]
+}
