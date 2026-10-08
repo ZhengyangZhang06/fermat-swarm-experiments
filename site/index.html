@@ -80,14 +80,14 @@ function workflowActivity(n,allNodes){
  const check=verificationState(n);
  if(['verification-running','waiting-verification','starting','needs-reconciliation'].includes(check))return verificationLabel(n);
  if(n.observed_running){
-  const stages={'decomposing':'Decomposing','rlcr-lean':'Writing Lean proof','natural-proof':'Writing prose proof','natural-review':'Reviewing prose','lean-review':'Checking proof integrity','integrating':'Integrating proof'};
+  const stages={'decomposing':'Decomposing','rlcr-lean':'Writing Lean proof','speculative-lean':'Writing provisional proof','speculative-ready':'Provisional draft ready','natural-proof':'Writing prose proof','natural-review':'Reviewing prose','lean-review':'Checking proof integrity','integrating':'Integrating proof'};
   return stages[n.saved_status||n.status]||'Worker active';
  }
  if(n.activity_state==='waiting-dependencies'){
   const waiting=n.waiting_on||[],labels=waiting.slice(0,2).map(id=>{
    const issue=allNodes.get(id)?.issue_url?.split('/').pop();return issue?'#'+issue:'prerequisite';
   });
-  return 'Waiting on '+labels.join(', ')+(waiting.length>2?` (+${waiting.length-2})`:'');
+  return ((n.saved_status||n.status)==='speculative-ready'?'Draft ready; waiting on ':'Waiting on ')+labels.join(', ')+(waiting.length>2?` (+${waiting.length-2})`:'');
  }
  if(n.activity_state==='integration-pending')return 'Awaiting integration';
  if(n.status==='failed')return 'Needs attention';

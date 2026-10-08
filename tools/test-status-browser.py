@@ -141,6 +141,7 @@ class StatusBrowserTests(unittest.TestCase):
         node = self.page.locator('a[data-node-id="fermat-p01/child-b"]')
         self.assertEqual(node.locator('.node-activity').text_content(), 'Waiting on #140')
         self.assertEqual(node.locator('.node-saved').text_content(), 'Saved: decomposing')
+
         second.update(activity_state='executing', observed_running=True, worker_node='hoa54', waiting_on=[])
         self.page.evaluate('window.testRefresh()')
         self.assertEqual(node.locator('.node-activity').text_content(), 'Decomposing')
@@ -150,6 +151,18 @@ class StatusBrowserTests(unittest.TestCase):
         self.page.evaluate('window.testRefresh()')
         self.assertEqual(node.locator('.node-activity').text_content(), 'Activity observation stale')
         self.assertNotIn('worker hoa54', node.text_content())
+        self.assertEqual(self.errors, [])
+
+    def test_provisional_work_and_waiting_draft_are_distinguished(self):
+        self.add_graphs()
+        root = self.problems[0]['nodes'][0]
+        root.update(status='speculative-lean', observed_running=True, worker_node='hoa2')
+        self.open_graphs()
+        self.assertIn('Writing provisional proof', self.page.locator('#graph-fermat-p01').text_content())
+        root.update(status='speculative-ready', observed_running=False,
+                    activity_state='waiting-dependencies', waiting_on=root['requires'])
+        self.page.evaluate('window.testRefresh()')
+        self.page.wait_for_function("document.querySelector('#graph-fermat-p01').textContent.includes('Draft ready; waiting on')")
         self.assertEqual(self.errors, [])
 
     def test_comparing_distinguishes_queued_running_and_unobserved_checks(self):
