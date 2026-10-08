@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.gamma0_norm_vanishing-a1.cyclic_product_descent-a1.rotation_descent-a1.sparse_series_descent-a1",
+  "parent_id": "root.gamma0_norm_vanishing-a1.cyclic_product_descent-a1.rotation_descent-a1",
+  "depth": 4,
+  "title": "A sparse convergent analytic expansion descends through a power",
+  "statement": "Let w be a positive natural number, P : ℂ → ℂ, and p : FormalMultilinearSeries ℂ ℂ ℂ. Suppose HasFPowerSeriesAt P p 0, meaning that p is a convergent power-series expansion of P at zero. Assume p.coeff n = 0 for every natural n not divisible by w. Then there exist C : ℂ → ℂ analytic at zero and a real r > 0 such that P(t) = C(t^w) whenever ‖t‖ < r.",
+  "lean_statement": "∀ (w : ℕ) (P : ℂ → ℂ) (p : FormalMultilinearSeries ℂ ℂ ℂ), 0 < w → HasFPowerSeriesAt P p 0 → (∀ n : ℕ, ¬ w ∣ n → p.coeff n = 0) → ∃ C : ℂ → ℂ, AnalyticAt ℂ C 0 ∧ ∃ r : ℝ, 0 < r ∧ ∀ t : ℂ, ‖t‖ < r → P t = C (t ^ w)",
+  "lean_name": "p10_17ae7b7d_rd_sparse_series_descent",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-rotation-desc-2d3cfdc37d-a1"
+}

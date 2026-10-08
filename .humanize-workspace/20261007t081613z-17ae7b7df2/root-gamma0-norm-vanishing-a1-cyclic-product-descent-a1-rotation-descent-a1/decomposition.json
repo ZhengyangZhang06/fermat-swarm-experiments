@@ -1,0 +1,64 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "exp_two_pi_mul_I_mul_div_eq_one_iff|ofScalars|HasFPowerSeriesAt|analytic.*pow|pow.*analytic",
+        "rotation|ofScalars|HasFPowerSeriesAt|exp_two_pi_mul_I_mul_div_eq_one_iff",
+        "ofScalars|coeff|hasFPowerSeriesAt_iff|summable|radius",
+        "coeff|unique|eq_formal|hasFPowerSeriesAt",
+        "coeff|le_radius_of_summable|summable_norm_mul_pow|hasFPowerSeries|analyticAt",
+        "def coeff|norm_coeff|apply_eq_prod_smul_coeff|apply_eq_pow_smul_coeff"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Calculus/FormalMultilinearSeries.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/OfScalars.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Uniqueness.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/ConvergenceRadius.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/SpecialFunctions/Complex/Log.lean"
+      ],
+      "conclusion": "The manifest pins project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The targeted project search returned no matches. FormalMultilinearSeries.lean provides scalar coefficients, diagonal evaluation, and equality of coefficient norm with multilinear operator norm. Basic.lean provides local scalar-sum characterizations and analyticity of convergent series sums. OfScalars.lean supplies scalar-series construction and its norm identity; ConvergenceRadius.lean supplies absolute convergence inside the radius and a radius bound from summability. Uniqueness.lean supplies one-variable coefficient uniqueness. Log.lean:160 supplies the exponential divisibility criterion. The six inspected mathlib files match the pinned build sources byte-for-byte; all nine dependency checkouts match their pins and are clean. The checked library declarations have only propext, Classical.choice, and Quot.sound as transitive axioms."
+    }
+  ],
+  "should_split": true,
+  "rationale": "At depth 3, below the limit of 6, two reusable obligations remain: coefficient support from rotation invariance, and analytic descent from sparse coefficients. They can be proved independently because sparsity is an explicit hypothesis of the second. The parent unpacks AnalyticAt to obtain p, applies the first child, then passes its conclusion to the second. Both proposed names are absent from the current DAG and imported environment. Both exact types elaborate after import Submission in the disposable policy-compliant diagnostic /tmp/p10_rotation_split_bmu0nn_q; report.json records pinned dependencies, reversible header hashes, the exact omitted lines, and successful Lean absence checks for all 56 targets. Only permitted lines 10–12 were omitted, and originals remained unchanged. Type definitions have only the allowed standard axioms. These are interface diagnostics, not comparator acceptance or independent proof approval.",
+  "subproblems": [
+    {
+      "key": "rotation_coefficient_support",
+      "title": "Rotation invariance forces coefficients onto divisible indices",
+      "statement": "Let w be a positive natural number, P : ℂ → ℂ, and p : FormalMultilinearSeries ℂ ℂ ℂ. Suppose HasFPowerSeriesAt P p 0, meaning that p is a convergent power-series expansion of P at zero. Write a_n = p.coeff n = p_n(1,…,1). Put ζ = exp(2πi/w). If there exists a real s > 0 such that P(ζt) = P(t) whenever ‖t‖ < s, then a_n = 0 for every natural n not divisible by w.",
+      "lean_statement": "∀ (w : ℕ) (P : ℂ → ℂ) (p : FormalMultilinearSeries ℂ ℂ ℂ), 0 < w → HasFPowerSeriesAt P p 0 → (∃ s : ℝ, 0 < s ∧ ∀ t : ℂ, ‖t‖ < s → P (Complex.exp (2 * (Real.pi : ℂ) * Complex.I / (w : ℂ)) * t) = P t) → ∀ n : ℕ, ¬ w ∣ n → p.coeff n = 0",
+      "lean_name": "p10_17ae7b7d_rd_coeff_support",
+      "depends_on": [],
+      "natural_proof": "1. Fix w, P, p and the stated hypotheses. Choose s > 0 witnessing rotation invariance, and set ζ = exp(2πi/w). Since w > 0, its complex cast is nonzero and the exponent has real part zero. Thus ‖ζ‖ = 1. For every natural n, the exponential power identity gives ζ^n = exp(2πi n/w). The criterion Complex.exp_two_pi_mul_I_mul_div_eq_one_iff therefore gives ζ^n = 1 if and only if w divides n.\n2. Set a_n = p.coeff n. One-dimensional multilinearity gives p_n(t,…,t) = t^n a_n, and ‖p_n‖ = ‖a_n‖. The hypothesis HasFPowerSeriesAt P p 0 supplies a positive convergence ball on which its sum is P. Choose a positive finite real R smaller than both that ball's radius and s. Consequently, P(t) = ∑_{n≥0} a_n t^n for ‖t‖ < R, and ∑_{n≥0} ‖a_n‖ρ^n converges for every real ρ with 0 < ρ < R.\n3. Define d_n = a_n(ζ^n − 1). Since ‖ζ^n‖ = 1, the triangle inequality gives ‖d_n‖ ≤ 2‖a_n‖. Therefore ∑ ‖d_n‖ρ^n converges whenever 0 < ρ < R. For ‖t‖ < R, also ‖ζt‖ < R. Subtracting the two absolutely convergent expansions, using (ζt)^n = ζ^n t^n and rotation invariance, gives ∑_{n≥0} d_n t^n = P(ζt) − P(t) = 0.\n4. Suppose some d_n is nonzero, and choose the least such index k. Fix ρ with 0 < ρ < R, and let S = ∑_{n>k} ‖d_n‖ρ^n. This is a finite nonnegative real number by step 3. For any complex t with 0 < ‖t‖ < ρ, all terms below k vanish. Dividing the absolutely convergent zero sum by the nonzero number t^k gives 0 = d_k + ∑_{n>k} d_n t^(n−k). The divided tail is absolutely convergent, since it is obtained by multiplying a subseries of an absolutely convergent series by the fixed scalar (t^k)⁻¹.\n5. For n > k, one has n−k ≥ 1 and ‖t‖^(n−k) ≤ ‖t‖ρ^(n−k−1). Hence the tail estimate gives ‖d_k‖ ≤ ∑_{n>k} ‖d_n‖‖t‖^(n−k) ≤ ‖t‖ρ^(−k−1)S. Apply this to the positive real numbers t_m = ρ/(m+2), regarded as complex numbers. Each satisfies 0 < ‖t_m‖ < ρ, and their norms tend to zero. The right-hand side therefore tends to zero, forcing ‖d_k‖ = 0 and thus d_k = 0. This contradicts the choice of k. Consequently d_n = 0 for every n.\n6. Let n be a natural number with w not dividing n. By step 1, ζ^n − 1 is nonzero. Step 5 gives a_n(ζ^n − 1) = 0, so cancellation in ℂ yields a_n = 0. Since a_n = p.coeff n, this is the required conclusion.",
+      "proof_key_steps": [
+        "Show that ζ has norm one and ζ^n = 1 exactly when w divides n.",
+        "Express the given multilinear expansion as a scalar power series on a disk inside the invariance disk.",
+        "Subtract the rotated and original expansions to obtain a locally zero series with coefficients d_n = a_n(ζ^n − 1).",
+        "Assume a least nonzero coefficient and divide by the corresponding power of a nonzero input.",
+        "Bound the remaining tail by ‖t‖ρ^(−k−1)S and let positive real inputs tend to zero.",
+        "Cancel ζ^n − 1 when w does not divide n."
+      ]
+    },
+    {
+      "key": "sparse_series_descent",
+      "title": "A sparse convergent analytic expansion descends through a power",
+      "statement": "Let w be a positive natural number, P : ℂ → ℂ, and p : FormalMultilinearSeries ℂ ℂ ℂ. Suppose HasFPowerSeriesAt P p 0, meaning that p is a convergent power-series expansion of P at zero. Assume p.coeff n = 0 for every natural n not divisible by w. Then there exist C : ℂ → ℂ analytic at zero and a real r > 0 such that P(t) = C(t^w) whenever ‖t‖ < r.",
+      "lean_statement": "∀ (w : ℕ) (P : ℂ → ℂ) (p : FormalMultilinearSeries ℂ ℂ ℂ), 0 < w → HasFPowerSeriesAt P p 0 → (∀ n : ℕ, ¬ w ∣ n → p.coeff n = 0) → ∃ C : ℂ → ℂ, AnalyticAt ℂ C 0 ∧ ∃ r : ℝ, 0 < r ∧ ∀ t : ℂ, ‖t‖ < r → P t = C (t ^ w)",
+      "lean_name": "p10_17ae7b7d_rd_sparse_series_descent",
+      "depends_on": [],
+      "natural_proof": "1. Fix w, P, p and the stated hypotheses, and write a_n = p.coeff n. One-dimensional multilinearity gives p_n(t,…,t) = t^n a_n and ‖p_n‖ = ‖a_n‖. Choose a positive finite real R strictly smaller than a convergence-ball radius supplied by HasFPowerSeriesAt P p 0. Then P(t) = ∑_{n≥0} a_n t^n for ‖t‖ < R, and ∑_{n≥0} ‖a_n‖ρ^n converges for every 0 < ρ < R.\n2. Choose r with 0 < r < R, set q = r^w, and define b_ℓ = a_(wℓ). Then q > 0. Since w > 0, the map ℓ ↦ wℓ is injective. The nonnegative summable series ∑_{n≥0} ‖a_n‖r^n therefore has a summable subseries indexed by wℓ. Using (r^w)^ℓ = r^(wℓ), this says that ∑_{ℓ≥0} ‖b_ℓ‖q^ℓ converges.\n3. If ‖u‖ < q, then for each ℓ, ‖b_ℓ u^ℓ‖ = ‖b_ℓ‖‖u‖^ℓ ≤ ‖b_ℓ‖q^ℓ. Comparison with step 2 proves absolute convergence of ∑ b_ℓ u^ℓ. More explicitly, form the scalar formal multilinear series B = FormalMultilinearSeries.ofScalars ℂ b. Its ℓth operator norm equals ‖b_ℓ‖. The summability established in step 2 and the convergence-radius bound from summability imply that B.radius is at least q, viewed as a nonnegative extended real number. In particular, B.radius is positive.\n4. Define C(u) = ∑_{ℓ≥0} b_ℓ u^ℓ when ‖u‖ < q, and C(u) = 0 otherwise. Because ℂ is complete and B.radius > 0, the sum of B has B as a convergent power-series expansion at zero and is analytic there. Scalar-series evaluation identifies this sum with ∑ b_ℓ u^ℓ wherever ‖u‖ < q. Thus C agrees with that analytic sum on the open disk of radius q around zero. Analyticity at a point is preserved by agreement on a neighborhood, so C is analytic at zero.\n5. Let t satisfy ‖t‖ < r. Since w > 0 and 0 ≤ ‖t‖ < r, strict monotonicity of the positive integer power gives ‖t^w‖ = ‖t‖^w < r^w = q. Hence C(t^w) is given by its series. The series ∑ a_n t^n is absolutely convergent by step 1. If n is outside the image of ℓ ↦ wℓ, then w does not divide n, so the support hypothesis gives a_n = 0. Removing these zero terms and reindexing along the injective map ℓ ↦ wℓ therefore gives P(t) = ∑_{ℓ≥0} a_(wℓ)t^(wℓ).\n6. For each ℓ, the natural-power identity t^(wℓ) = (t^w)^ℓ converts the last sum into ∑_{ℓ≥0} b_ℓ(t^w)^ℓ = C(t^w). This calculation also holds at t = 0: w > 0 ensures that only ℓ = 0 contributes, and both sides equal a_0. The function C from step 4 and the positive radius r from step 2 satisfy precisely the required conclusion.",
+      "proof_key_steps": [
+        "Convert the given one-variable multilinear expansion into scalar coefficients with absolute convergence on a positive disk.",
+        "Extract the coefficients indexed by wℓ and prove weighted summability at q = r^w using injectivity.",
+        "Construct their scalar formal power series and bound its convergence radius below by q > 0.",
+        "Define C by the compressed series near zero and prove its analyticity by local agreement with the series sum.",
+        "Use the support hypothesis to restrict and reindex the absolutely convergent expansion of P.",
+        "Apply t^(wℓ) = (t^w)^ℓ and verify the constant-term identity at zero."
+      ]
+    }
+  ]
+}

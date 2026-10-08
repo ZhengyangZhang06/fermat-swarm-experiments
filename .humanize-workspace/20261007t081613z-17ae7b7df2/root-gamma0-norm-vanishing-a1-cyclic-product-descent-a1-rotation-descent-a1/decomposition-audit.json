@@ -1,0 +1,45 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rotation|HasFPowerSeriesAt|ofScalars|exp_two_pi_mul_I_mul_div_eq_one_iff",
+        "def coeff|norm_coeff|apply_eq.*coeff|hasFPowerSeriesAt_iff|def HasFPowerSeriesAt|def AnalyticAt|hasFPowerSeriesAt|le_radius_of_summable|summable_norm_mul_pow|ofScalars|exp_two_pi_mul_I_mul_div_eq_one_iff",
+        "hasFPowerSeriesOnBall|AnalyticAt.congr",
+        "rg -n 'p10_17ae7b7d_rd_coeff_support|p10_17ae7b7d_rd_sparse_series_descent' .humanize/github-theorem-prover/runs --glob dag.json"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Calculus/FormalMultilinearSeries.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/OfScalars.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/ConvergenceRadius.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Uniqueness.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/SpecialFunctions/Complex/Log.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p10_rotation_audit_eyoce19o/Interfaces.lean",
+        "/tmp/p10_rotation_audit_eyoce19o/report.json",
+        "/tmp/p10_rotation_audit_eyoce19o/provenance.json"
+      ],
+      "conclusion": "Independently verified clean project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d snapshots, all nine clean dependency pins, and agreement of the six inspected mathlib sources with build sources. The targeted project search returned no matches. The library supplies precisely the coefficient identities, absolute-convergence bounds, scalar-series construction, positive-radius analyticity, neighborhood congruence, uniqueness, and exponential divisibility criterion used here. Fresh Lean checks passed for both literal propositions, scalar construction, and parent assembly from hypothetical child proofs; checked declarations use only propext, Classical.choice, and Quot.sound. Both bare names are unreserved and absent from the imported environment. The matching header policy digest was verified; only lines 10–12 were omitted in disposable copies, all 56 targets were independently confirmed absent, and original/build hashes are reversible. The frozen contract and live Submission header were preserved. This approves decomposition only, not child implementations or comparator acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "rotation_coefficient_support",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line Lean proposition matches every prose hypothesis and conclusion. Positivity of w justifies the primitive-root divisibility criterion. The fixed expansion supplies the required convergence disk and coefficient norm identities. The difference coefficients satisfy the stated summability bound; division at nonzero inputs and the fixed finite tail estimate force the least allegedly nonzero coefficient to vanish. Cancellation then proves precisely the requested support condition. The proof is complete and non-circular, and its bare name is unreserved."
+    },
+    {
+      "key": "sparse_series_descent",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line Lean proposition exactly matches the prose. Injectivity of ℓ ↦ wℓ yields weighted summability at q = r^w > 0. The scalar-series construction has the stated complex norm and positive convergence radius, giving analyticity of C by neighborhood agreement. Sparsity and absolute convergence justify reindexing, including the constant term at zero. The proof is complete and non-circular. Its bare name is unreserved. Empty sibling dependencies are correct because sparsity is an explicit hypothesis; the parent combines both children, as independently checked in Lean. The split separates two genuine obligations and introduces no cycle."
+    }
+  ],
+  "required_changes": []
+}
