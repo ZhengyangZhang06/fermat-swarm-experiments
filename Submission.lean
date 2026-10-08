@@ -3351,6 +3351,7 @@ theorem p06_9e0f5043ff_wll_residue_composition_series :
   intro A B _ _ _ _ b hb n hn
   classical
   let C := B ⧸ Ideal.span ({b} : Set B)
+  -- Restricting scalars embeds the B-submodule lattice into the A-submodule lattice.
   have hfinite : IsFiniteLength A C := Module.length_ne_top_iff.mp (by
     rw [hn]
     exact ENat.natCast_ne_top n)
@@ -3359,6 +3360,7 @@ theorem p06_9e0f5043ff_wll_residue_composition_series :
   have : IsArtinian B C := isArtinian_of_tower A hart
   obtain ⟨s, hs_head, hs_last⟩ := exists_compositionSeries_of_isNoetherian_isArtinian B C
   refine ⟨s, hs_head, hs_last, ?_⟩
+  -- The same nonzero element annihilates C and every subquotient of C.
   have hbC : b ∈ Module.annihilator B C := by
     rw [Ideal.annihilator_quotient]
     exact Ideal.subset_span (Set.mem_singleton b)
@@ -3367,6 +3369,7 @@ theorem p06_9e0f5043ff_wll_residue_composition_series :
         (B ⧸ p.asIdeal)) := by
     intro i
     let N := (s i.castSucc).comap (s i.succ).subtype
+    -- A covering step has a simple quotient, hence is a maximal-ideal quotient.
     have hsimple : IsSimpleModule B (↥(s i.succ) ⧸ N) :=
       (covBy_iff_quot_is_simple (s.step i).le).mp (s.step i)
     obtain ⟨m, hm, ⟨e⟩⟩ := isSimpleModule_iff_quot_maximal.mp hsimple
@@ -3376,6 +3379,7 @@ theorem p06_9e0f5043ff_wll_residue_composition_series :
       N.mkQ.annihilator_le_of_surjective N.mkQ_surjective hbN
     have hbm : b ∈ m := by
       rwa [e.annihilator_eq, Ideal.annihilator_quotient] at hbS
+    -- Containing b excludes the zero ideal, giving a height-one prime.
     have hm_ne : m ≠ ⊥ := by
       intro hm_bot
       exact hb (by simpa [hm_bot] using hbm)
