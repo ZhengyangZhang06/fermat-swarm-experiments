@@ -2737,6 +2737,8 @@ theorem p02_es_177ebb5a_scl_linepow_coeff_bound :
 open Filter MeasureTheory Set
 open scoped Topology
 
+/-- The polynomial-exponential weight has a finite nonnegative integral, controls its
+translated interval integrals, and tends to zero at infinity. -/
 theorem p02_es_177ebb5a_scl_polynomial_exp_tail :
     ∀ (n : ℕ) (a : ℝ), 0 < a →
       IntegrableOn (fun s : ℝ => (1 + s) ^ n * Real.exp (-a * s)) (Ioi 0) ∧
@@ -2750,6 +2752,7 @@ theorem p02_es_177ebb5a_scl_polynomial_exp_tail :
   -- Polynomial growth is dominated by every positive exponential rate.
   have hdecay (b : ℝ) (hb : 0 < b) :
       Tendsto (fun y : ℝ => (1 + y) ^ n * Real.exp (-b * y)) atTop (𝓝 0) := by
+    -- Shift the library's polynomial/exponential ratio by 1 and cancel the shift by exp b.
     have h := ((isLittleO_pow_exp_pos_mul_atTop n hb).tendsto_div_nhds_zero.comp
       (tendsto_atTop_add_const_left atTop 1 tendsto_id)).mul_const (Real.exp b)
     simp only [zero_mul] at h
@@ -2767,6 +2770,7 @@ theorem p02_es_177ebb5a_scl_polynomial_exp_tail :
   -- Comparison with the exponential of half the rate gives integrability.
   have hint : IntegrableOn w (Ioi 0) := by
     apply integrable_of_isBigO_exp_neg (half_pos ha) hw.continuousOn
+    -- Dividing w by exp (-(a / 2) * s) leaves the same weight at the positive half-rate.
     apply Asymptotics.IsLittleO.isBigO
     apply Asymptotics.isLittleO_of_tendsto (fun x hx => (Real.exp_ne_zero _ hx).elim)
     convert hdecay (a / 2) (half_pos ha) using 1
