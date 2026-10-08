@@ -1239,6 +1239,9 @@ theorem p02_es_177ebb5a_med_sum_derivative :
   simp only [Nat.descFactorial_succ, Nat.cast_mul, Nat.sub_sub, Pi.pow_apply, Pi.neg_apply]
   ring
 
+/-- A complex polynomial fixed by a nonzero translation is constant.
+For positive degree `d + 1`, its `d`th Hasse derivative is linear; the Taylor
+coefficient identity makes translation invariance contradict its nonzero slope. -/
 theorem p02_es_177ebb5a_tff_periodic_polynomial_constant
     (p : Polynomial ℂ) (c : ℂ) (hc : c ≠ 0)
     (hperiod : p.comp (Polynomial.X + Polynomial.C c) = p) :
