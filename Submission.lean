@@ -834,6 +834,9 @@ theorem p07_cq_level_geometry_pullback_857cd4d38c :
   · exact MorphismProperty.pullback_snd c β hfp
   refine ⟨ℓT, hpb, hsnd, ?_, inferInstance, inferInstance, inferInstance, ?_, ?_⟩
   · exact MorphismProperty.of_isPullback hpb hℓ
+  · exact MorphismProperty.pullback_snd c β hfinite
+  · exact MorphismProperty.pullback_snd c β hflat
+  · exact MorphismProperty.pullback_snd c β hfp
   · exact Scheme.Hom.finrank_pullback_snd c β
   · intro W Q
     constructor
