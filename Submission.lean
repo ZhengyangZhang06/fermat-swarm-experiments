@@ -971,3 +971,115 @@ theorem Submission.p10_17ae7b7d_cc_lift_unimodular_row :
   refine ⟨A, ?_, ?_⟩
   · simpa only [hAC, Int.cast_natCast] using hCr
   · simpa only [hAD, Int.cast_natCast] using hDs
+
+
+/-- Count elliptic fixed cosets by their unique normalized bottom rows. -/
+theorem Submission.p10_17ae7b7d_cc_elliptic_fixed_points :
+    ∀ (N : ℕ) [NeZero N],
+      let Q := (Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 N
+      Nat.card {q : Q // ModularGroup.S • q = q} = ModularCurve.nuTwo N ∧
+        Nat.card {q : Q // (ModularGroup.S * ModularGroup.T) • q = q} =
+          ModularCurve.nuThree N := by
+  intro N _
+  classical
+  let G := Matrix.SpecialLinearGroup (Fin 2) ℤ
+  let Q := G ⧸ CongruenceSubgroup.Gamma0 N
+  let R := ZMod N
+  -- Choose integral lifts of the normalized unimodular rows (1,t).
+  have hlift (t : R) : ∃ A : G, (A 1 0 : R) = 1 ∧ (A 1 1 : R) = t :=
+    Submission.p10_17ae7b7d_cc_lift_unimodular_row N 1 t ⟨1, 0, by simp⟩
+  choose L hL₀ hL₁ using hlift
+  let f (t : R) : Q := QuotientGroup.mk (L t)⁻¹
+  have hf_inj : Function.Injective f := by
+    intro t t' h
+    obtain ⟨u, hu, ht⟩ :=
+      (Submission.p10_17ae7b7d_efp_inverse_coset_eq_iff N (L t) (L t')).mp h
+    rw [hL₀, hL₀, mul_one] at hu
+    rw [hL₁, hL₁, ← hu, one_mul] at ht
+    exact ht.symm
+  -- Inversion turns right multiplication on rows into inverse left action.
+  have hcount (B : G) (k : R)
+      (hB : ∀ A : G, ((A * B) 1 0 : R) = (A 1 1 : R) ∧
+        ((A * B) 1 1 : R) = k * (A 1 1 : R) - (A 1 0 : R)) :
+      Nat.card {q : Q // B • q = q} = Nat.card {t : R // t ^ 2 - k * t + 1 = 0} := by
+    have hnorm (A : G) :
+        B • (QuotientGroup.mk A⁻¹ : Q) = QuotientGroup.mk A⁻¹ ↔
+          IsUnit (A 1 0 : R) ∧
+            ∃! t : R, (A 1 1 : R) = (A 1 0 : R) * t ∧ t ^ 2 - k * t + 1 = 0 := by
+      have hrow : ∃ x y : R, x * (A 1 0 : R) + y * (A 1 1 : R) = 1 := by
+        obtain ⟨x, y, hxy⟩ := A.isCoprime_row 1
+        refine ⟨(x : R), (y : R), ?_⟩
+        have h := congrArg (Int.castRingHom R) hxy
+        simpa only [map_add, map_mul, map_one, Int.coe_castRingHom] using h
+      rw [smul_eq_iff_eq_inv_smul]
+      change (QuotientGroup.mk A⁻¹ : Q) = QuotientGroup.mk (B⁻¹ * A⁻¹) ↔ _
+      rw [← mul_inv_rev, Submission.p10_17ae7b7d_efp_inverse_coset_eq_iff N A (A * B)]
+      simp only [(hB A).1, (hB A).2]
+      exact Submission.p10_17ae7b7d_efp_unimodular_eigenrow_iff R k _ _ hrow
+    have hf_fixed (t : R) (ht : t ^ 2 - k * t + 1 = 0) : B • f t = f t := by
+      apply (hnorm (L t)).mpr
+      rw [hL₀, hL₁]
+      refine ⟨isUnit_one, t, ⟨by simp, ht⟩, ?_⟩
+      intro y hy
+      simpa only [one_mul] using hy.1.symm
+    let g : {t : R // t ^ 2 - k * t + 1 = 0} → {q : Q // B • q = q} :=
+      fun t => ⟨f t, hf_fixed t t.property⟩
+    apply (Nat.card_eq_of_bijective g ?_).symm
+    constructor
+    · intro t t' h
+      exact Subtype.ext (hf_inj (congrArg Subtype.val h))
+    · intro q
+      obtain ⟨a, ha⟩ := QuotientGroup.mk_surjective q.val
+      let A : G := a⁻¹
+      have hA : (QuotientGroup.mk A⁻¹ : Q) = q.val := by
+        change (QuotientGroup.mk (a⁻¹)⁻¹ : Q) = q.val
+        rw [inv_inv]
+        exact ha
+      have hfixed : B • (QuotientGroup.mk A⁻¹ : Q) = QuotientGroup.mk A⁻¹ := by
+        rw [hA]
+        exact q.property
+      obtain ⟨⟨u, hu⟩, t, ⟨hst, ht⟩, _⟩ := (hnorm A).mp hfixed
+      refine ⟨⟨t, ht⟩, Subtype.ext ?_⟩
+      change f t = q.val
+      rw [← hA]
+      apply (Submission.p10_17ae7b7d_efp_inverse_coset_eq_iff N (L t) A).mpr
+      refine ⟨u, ?_, ?_⟩
+      · rw [hL₀, mul_one]
+        exact hu.symm
+      · rw [hL₁, hu]
+        exact hst
+  constructor
+  · have h := hcount ModularGroup.S 0 (by
+      intro A
+      change ((A.1 * ModularGroup.S.1) 1 0 : R) = (A 1 1 : R) ∧
+        ((A.1 * ModularGroup.S.1) 1 1 : R) = 0 * (A 1 1 : R) - (A 1 0 : R)
+      simp [Matrix.mul_apply, Fin.sum_univ_two, ModularGroup.S, R])
+    simpa only [zero_mul, sub_zero, ModularCurve.nuTwo] using h
+  · have h := hcount (ModularGroup.S * ModularGroup.T) 1 (by
+      intro A
+      change ((A.1 * (ModularGroup.S.1 * ModularGroup.T.1)) 1 0 : R) = (A 1 1 : R) ∧
+        ((A.1 * (ModularGroup.S.1 * ModularGroup.T.1)) 1 1 : R) =
+          1 * (A 1 1 : R) - (A 1 0 : R)
+      simp [Matrix.mul_apply, Fin.sum_univ_two, ModularGroup.S, ModularGroup.T,
+        R, sub_eq_add_neg, add_comm])
+    apply h.trans
+    unfold ModularCurve.nuThree
+    -- Negation changes t² - t + 1 into the defining polynomial for nuThree.
+    apply Nat.card_congr
+    refine
+      { toFun := fun t => ⟨-t.val, ?_⟩
+        invFun := fun x => ⟨-x.val, ?_⟩
+        left_inv := ?_
+        right_inv := ?_ }
+    · calc
+        (-t.val) ^ 2 + -t.val + 1 = t.val ^ 2 - 1 * t.val + 1 := by ring
+        _ = 0 := t.property
+    · calc
+        (-x.val) ^ 2 - 1 * -x.val + 1 = x.val ^ 2 + x.val + 1 := by ring
+        _ = 0 := x.property
+    · intro t
+      apply Subtype.ext
+      exact neg_neg t.val
+    · intro x
+      apply Subtype.ext
+      exact neg_neg x.val
