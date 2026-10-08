@@ -10650,3 +10650,32 @@ theorem Submission.p10_17ae7b7d_indent_mobius_arc_estimates :
         ring
       rw [heq, norm_div, norm_mul, Complex.norm_I, one_mul, hwnorm]
       exact div_le_div_of_nonneg_left hε.le hpos (hbound t)
+theorem Submission.p10_17ae7b7d_indent_moving_interval_limit :
+    ∀ (F : ℝ → ℝ → ℂ) (α β δ : ℝ → ℝ) (c : ℂ) (a b : ℝ),
+      Filter.Tendsto α (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds a) →
+      Filter.Tendsto β (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds b) →
+      Filter.Tendsto δ (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds (0 : ℝ)) →
+      Filter.Eventually (fun ε : ℝ =>
+        IntervalIntegrable (F ε) MeasureTheory.volume (α ε) (β ε) ∧
+        ∀ t : ℝ, ‖F ε t - c‖ ≤ δ ε) (nhdsWithin (0 : ℝ) (Set.Ioi 0)) →
+      Filter.Tendsto (fun ε : ℝ =>
+        intervalIntegral (F ε) (α ε) (β ε) MeasureTheory.volume)
+        (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds (c * ((b - a : ℝ) : ℂ))) := by
+  intro F α β δ c a b hα hβ hδ hF
+  have herr : Filter.Tendsto (fun ε : ℝ =>
+      intervalIntegral (fun t => F ε t - c) (α ε) (β ε) MeasureTheory.volume)
+      (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds (0 : ℂ)) := by
+    apply squeeze_zero_norm'
+    · filter_upwards [hF] with ε hε
+      exact intervalIntegral.norm_integral_le_of_norm_le_const (fun t _ => hε.2 t)
+    · simpa only [zero_mul] using hδ.mul (hβ.sub hα).abs
+  have hc : Filter.Tendsto (fun ε : ℝ => c * ((β ε - α ε : ℝ) : ℂ))
+      (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds (c * ((b - a : ℝ) : ℂ))) :=
+    (hβ.sub hα).ofReal.const_mul c
+  have hsum := herr.add hc
+  rw [zero_add] at hsum
+  apply hsum.congr'
+  filter_upwards [hF] with ε hε
+  rw [intervalIntegral.integral_sub hε.1 intervalIntegrable_const,
+    intervalIntegral.integral_const]
+  simp only [Complex.real_smul, mul_comm (↑(β ε - α ε) : ℂ) c, sub_add_cancel]
