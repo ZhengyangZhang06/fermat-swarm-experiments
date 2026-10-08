@@ -1193,7 +1193,9 @@ theorem p07_flp_point_equiv_857cd4d38c
 namespace Submission
 
 /-- Repeated addition commutes with compatible precomposition of points.
-The induction uses identity and multiplication naturality for the specified relative group law. -/
+The induction uses the existing `RelativeGroupLaw.one_natural` theorem and `mul_natural`
+field from `Definitions.Def_AlgebraicGeometry_RelativeGroupLaw`, with the recursion in
+`Definitions.Def_CerednikDrinfeld_QMModuli`. -/
 theorem p07_flp_nsmul_precomp_857cd4d38c :
     ∀ (R : Type) [CommRing R] (A W W' : AlgebraicGeometry.Scheme.{0})
       (f : Quiver.Hom A (AlgebraicGeometry.Spec (CommRingCat.of R)))
