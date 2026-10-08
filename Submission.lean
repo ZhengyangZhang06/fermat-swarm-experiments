@@ -3687,6 +3687,50 @@ theorem p02_es_177ebb5a_sd_jr_linepow_eval :
     simp [Nat.descFactorial_self]
   · have hnr : n - r ≠ 0 := by omega
     simp [h, zero_pow hnr]
+theorem p02_es_177ebb5a_lcd_monomial_expansion
+    (n : ℕ) (Q : ↥(HeckeEis.BinaryForm ℂ n)) :
+    Q.val = ∑ r : Fin (n + 1),
+      MvPolynomial.coeff
+          (Finsupp.single (0 : Fin 2) r.val + Finsupp.single (1 : Fin 2) (n - r.val))
+          Q.val •
+        MvPolynomial.monomial
+          (Finsupp.single (0 : Fin 2) r.val + Finsupp.single (1 : Fin 2) (n - r.val))
+          (1 : ℂ) := by
+  classical
+  let e (r : Fin (n + 1)) : Fin 2 →₀ ℕ :=
+    Finsupp.single 0 r.val + Finsupp.single 1 (n - r.val)
+  have he (r : Fin (n + 1)) : (e r).degree = n := by
+    simp [e, Finsupp.degree_eq_sum, Fin.sum_univ_two,
+      Nat.add_sub_of_le (Nat.le_of_lt_succ r.isLt)]
+  change Q.val = ∑ r, MvPolynomial.coeff (e r) Q.val •
+    MvPolynomial.monomial (e r) (1 : ℂ)
+  apply MvPolynomial.ext
+  intro d
+  simp only [MvPolynomial.coeff_sum, MvPolynomial.coeff_smul, MvPolynomial.coeff_monomial]
+  by_cases hd : d.degree = n
+  · have hsum : d 0 + d 1 = n := by
+      simpa [Finsupp.degree_eq_sum, Fin.sum_univ_two] using hd
+    let r : Fin (n + 1) := ⟨d 0, by omega⟩
+    have hr : e r = d := by
+      ext i
+      fin_cases i <;> simp [e, r, ← hsum]
+    have huniq (s : Fin (n + 1)) (hs : e s = d) : s = r := by
+      apply Fin.ext
+      have hzero := congrArg (fun t : Fin 2 →₀ ℕ => t 0) hs
+      simpa [e, r] using hzero
+    rw [Finset.sum_eq_single r]
+    · simp [hr]
+    · intro s _ hs
+      have hne : e s ≠ d := fun h => hs (huniq s h)
+      simp [hne]
+    · simp
+  · rw [MvPolynomial.IsHomogeneous.coeff_eq_zero Q.property hd]
+    symm
+    apply Finset.sum_eq_zero
+    intro r _
+    have hne : e r ≠ d := fun h => hd (h ▸ he r)
+    simp [hne]
+
 /-- Differentiate a finite jet sum using the descending-factorial recurrence. -/
 theorem p02_es_177ebb5a_med_sum_derivative :
     ∀ (n r : ℕ) (a : Fin (n + 1) → ℂ → ℂ) (b : Fin (n + 1) → ℂ) (c t : ℂ),
@@ -3801,3 +3845,27 @@ theorem Submission.p02_es_177ebb5a_med_jet_sum :
   rw [Submission.p02_es_177ebb5a_med_js_iterated_monomial, MvPolynomial.eval_monomial,
     Finsupp.prod_fintype _ _ (by intro j; simp)]
   simp [d, Fin.prod_univ_two, Finsupp.tsub_apply]
+
+/-- Differentiate an iterated partial evaluated at the moving point `(1, -z)`. -/
+theorem Submission.p02_es_177ebb5a_sd_jr_moving_eval_derivative :
+    ∀ (n : ℕ) (F : ℂ → ↥(HeckeEis.BinaryForm ℂ n))
+      (G : ↥(HeckeEis.BinaryForm ℂ n)) (c t : ℂ),
+      (∀ d : Fin 2 →₀ ℕ,
+        HasDerivAt (fun z : ℂ => MvPolynomial.coeff d (F z).val)
+          (c * MvPolynomial.coeff d G.val) t) →
+      ∀ r : ℕ, r ≤ n →
+        HasDerivAt
+          (fun z : ℂ => MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z)
+            ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r]
+              (F z).val))
+          (c * MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -t)
+              ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r]
+                G.val) -
+            MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -t)
+              ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r + 1]
+                (F t).val)) t := by
+  intro n F G c t hcoeff r _hr
+  simp_rw [Submission.p02_es_177ebb5a_med_jet_sum]
+  exact Submission.p02_es_177ebb5a_med_sum_derivative n r _ _ c t
+    (fun k => hcoeff
+      (Finsupp.single (0 : Fin 2) (n - k.val) + Finsupp.single (1 : Fin 2) k.val))
