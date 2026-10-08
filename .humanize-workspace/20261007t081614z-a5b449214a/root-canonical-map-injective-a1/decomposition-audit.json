@@ -1,0 +1,50 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "antipodeAlgHom|coaction|hopfKer|mapOfCompatibleSMul|def lift|lift_tmul|includeLeft",
+        "algebraMap_def|one_def|includeLeft|instCommRing|commRing|tmul_mul_tmul",
+        "p05_canonical_balanced_lift_a5b449214a|p05_translation_descends_a5b449214a|p05_translation_left_inverse_a5b449214a",
+        "rg --files -uu -g dag.json /mnt/data/zhengyang-workspace/fermat-swarm-projects",
+        "python3 /tmp/p05-decomposition-review-a5b449214a.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Convolution.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/TensorProduct/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/TensorProduct/Maps.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-canonical-map-injective-a1/split-validation/header-input-binding.json",
+        "/tmp/p05-decomposition-review-l_5c1pl7/report.json"
+      ],
+      "conclusion": "Confirmed coaction, antipodeAlgHom, tensor multiplication, lifting, and the correctly directed mapOfCompatibleSMul. Project revision 2fdd42759f4ab17640ac773289b521dd69d4b26e, mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d, and all nine dependency checkouts matched clean pinned sources. No proposed-name matches occurred in pinned Lean sources or reservations in the ten run DAGs. Fresh Lean checks elaborated all three literal propositions, also without importing Submission, and verified the intended inclusion actions, tensor operations, scalar maps, and antipode tensor map. Eight infrastructure axiom closures used only propext, Classical.choice, and Quot.sound. Independently validated policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, exact omission of lines 10–11, reversible original/build hashes, and Lean-confirmed absence of all 13 targets. Frozen originals and reviewed handoffs remained byte-exact. These checks establish decomposition readiness; theorem acceptance still requires the configured exact-contract comparator and independent implementation review."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "canonical_balanced_lift",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose and includes coinvariance explicitly. Steps 1–4 correctly establish K-bilinearity and restriction to the intended k-action. Steps 5–6 prove multiplicativity, unit preservation, and scalar preservation. The proof is complete and independent of the parent or siblings. The bare identifier is unreserved."
+    },
+    {
+      "key": "translation_descends",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "All closure, surjectivity, and kernel hypotheses match the Lean proposition. The inline scalar-changing map is exactly C:H⊗_k H→H⊗_K H. The convolution argument proves antipode multiplicativity without circularity; span membership and antipode closure justify balancing; the generator calculation yields ker(q)⊆ker(τ) in the required direction. Independence of lifts and all algebra-homomorphism laws are proved explicitly. The bare identifier is unreserved."
+    },
+    {
+      "key": "translation_left_inverse",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The proposition includes both supplied homomorphisms and their exact formulas, and Function.LeftInverse γ β has the correct orientation. The proof constructs γ as an algebra homomorphism, derives cancellation from coassociativity, the antipode identity, and the left counit law, then proves γβ=id by additive generation. No surjectivity or unstated closure assumption is needed. Empty sibling dependencies are correct because β and σ are explicit hypotheses. The bare identifier is unreserved."
+    }
+  ],
+  "required_changes": []
+}

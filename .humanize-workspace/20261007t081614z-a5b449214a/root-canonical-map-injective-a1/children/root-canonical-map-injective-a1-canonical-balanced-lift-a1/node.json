@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.canonical_map_injective-a1.canonical_balanced_lift-a1",
+  "parent_id": "root.canonical_map_injective-a1",
+  "depth": 2,
+  "title": "Canonical map over a coinvariant subalgebra",
+  "statement": "Let k be a field, H a commutative Hopf k-algebra, K a k-subalgebra of H, B a commutative k-bialgebra, and q:H→B a bialgebra homomorphism. Give H its K-algebra structure by inclusion and put ρ=(id_H⊗q)Δ_H. Assume ρ(t)=t⊗1_B for every t∈K. There exists a k-algebra homomorphism β:H⊗_K H→H⊗_k B satisfying β(a⊗_K b)=(a⊗_k1_B)ρ(b) for every a,b∈H.",
+  "lean_statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (K : Subalgebra k H) {B : Type*} [CommRing B] [Bialgebra k B] (q : BialgHom k H B) (hcoinv : ∀ t ∈ K, HopfAlgebra.coaction q t = TensorProduct.tmul k t (1 : B)), ∃ β : (TensorProduct K H H) →ₐ[k] (TensorProduct k H B), ∀ a b : H, β (TensorProduct.tmul K a b) = (TensorProduct.tmul k a (1 : B)) * HopfAlgebra.coaction q b",
+  "lean_name": "p05_canonical_balanced_lift_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-canonical-map-injective-a1-canonical-balanced-lift-a1-a1"
+}

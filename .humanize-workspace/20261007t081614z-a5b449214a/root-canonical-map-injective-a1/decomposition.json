@@ -1,0 +1,85 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "antipode|coaction|hopfKer|TensorProduct",
+        "antipode.*(mul|AlgHom)|baseChange|lift.*[Aa]lgHom|liftOf|ofSurjective|ker_le",
+        "def (lift|map|includeLeft|includeRight)|lift_tmul|map_tmul|ofTower|tensor.*[Tt]ower|algebraMap_def",
+        "p05_canonical_balanced_lift_a5b449214a|p05_translation_descends_a5b449214a|p05_translation_left_inverse_a5b449214a",
+        "rg --files -uu -g dag.json /mnt/data/zhengyang-workspace/fermat-swarm-projects",
+        "python3 .humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-canonical-map-injective-a1/split-validation/validate.py",
+        "python3 .humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-canonical-map-injective-a1/split-validation/rerun_instances.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Convolution.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/TensorProduct/Maps.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-canonical-map-injective-a1/split-validation/CheckTypes.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-canonical-map-injective-a1/split-validation/CheckInstances.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-canonical-map-injective-a1/split-validation/header-input-binding.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-canonical-map-injective-a1/split-validation/report.json"
+      ],
+      "conclusion": "The snapshot provides coaction, antipodeAlgHom, tensor-algebra lifting, and mapOfCompatibleSMul; these require no new helper declarations. Project revision 2fdd42759f4ab17640ac773289b521dd69d4b26e, mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d, and all nine dependency checkouts passed cleanliness and identity checks. Searches found no proposed-name collisions in the pinned Lean sources or local DAGs. All three literal child types elaborate after import Submission. Separate Lean probes verified inclusion actions, tensor multiplication, units, scalars, and the scalar-changing map. Eight infrastructure axiom closures contain only propext, Classical.choice, and Quot.sound. Disposable compiler copies followed the matching policy entry with digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96: only lines 10–11 were omitted, reversible hashes were checked, and Lean confirmed all 13 targets absent. Frozen originals and the reviewed handoff remained unchanged. These are decomposition diagnostics; theorem acceptance still requires the configured comparator and independent review."
+    }
+  ],
+  "should_split": true,
+  "rationale": "At depth 1, three reusable obligations remain: constructing the balanced canonical map from coinvariance, descending the antipode translation map, and proving the conditional left-inverse identity. Tensor-algebra infrastructure and antipode multiplicativity already exist in the pinned library. The children are independent because coinvariance and the required map formulas are explicit hypotheses. The parent obtains coinvariance from its existing dependency, obtains β and σ from the first two children, applies the third, and concludes injectivity from the left inverse. No child restates the parent’s existence-and-injectivity conclusion.",
+  "subproblems": [
+    {
+      "key": "canonical_balanced_lift",
+      "title": "Canonical map over a coinvariant subalgebra",
+      "statement": "Let k be a field, H a commutative Hopf k-algebra, K a k-subalgebra of H, B a commutative k-bialgebra, and q:H→B a bialgebra homomorphism. Give H its K-algebra structure by inclusion and put ρ=(id_H⊗q)Δ_H. Assume ρ(t)=t⊗1_B for every t∈K. There exists a k-algebra homomorphism β:H⊗_K H→H⊗_k B satisfying β(a⊗_K b)=(a⊗_k1_B)ρ(b) for every a,b∈H.",
+      "lean_statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (K : Subalgebra k H) {B : Type*} [CommRing B] [Bialgebra k B] (q : BialgHom k H B) (hcoinv : ∀ t ∈ K, HopfAlgebra.coaction q t = TensorProduct.tmul k t (1 : B)), ∃ β : (TensorProduct K H H) →ₐ[k] (TensorProduct k H B), ∀ a b : H, β (TensorProduct.tmul K a b) = (TensorProduct.tmul k a (1 : B)) * HopfAlgebra.coaction q b",
+      "lean_name": "p05_canonical_balanced_lift_a5b449214a",
+      "depends_on": [],
+      "natural_proof": "1. Write T=H⊗_K H and U=H⊗_k B, with their usual commutative tensor-algebra structures. Give U the K-action t•u=(t⊗_k1_B)u. Its restriction to k is the usual k-action, since the inclusion K→H is a k-algebra homomorphism.\n2. The map ρ=(id_H⊗q)Δ_H is a k-algebra homomorphism: both Δ_H and the tensor product of id_H with q are k-algebra homomorphisms. Define F(a,b)=(a⊗_k1_B)ρ(b). Additivity of both factors and distributivity make F additive in each variable.\n3. For t∈K, multiplicativity and the coinvariance hypothesis give ρ(tb)=(t⊗_k1_B)ρ(b). Therefore F(ta,b)=(t⊗_k1_B)F(a,b)=F(a,tb). These identities also show K-linearity separately in both variables for the K-action on U. Thus F is K-bilinear.\n4. The tensor-product universal property gives a K-linear map β:T→U with β(a⊗_K b)=F(a,b). Restricting scalars along k→K makes β k-linear, with the k-actions specified above.\n5. For a,b,a′,b′∈H, the multiplication formula for T and multiplicativity of ρ give β((a⊗_K b)(a′⊗_K b′))=(aa′⊗_k1_B)ρ(bb′). Commutativity of U identifies this with ((a⊗_k1_B)ρ(b))((a′⊗_k1_B)ρ(b′)). Every tensor is a finite sum of pure tensors, so additivity and distributivity extend this equality to all pairs of elements of T.\n6. The unit of T is 1_H⊗_K1_H. Its image is (1_H⊗_k1_B)ρ(1_H)=1_U. Since β is k-linear and preserves the unit, it preserves every k-scalar image. Together with additivity and step 5, this makes β a k-algebra homomorphism. Its defining pure-tensor formula is exactly the required formula.",
+      "proof_key_steps": [
+        "Equip the target with the K-action through its first H-factor.",
+        "Use coinvariance to prove K-bilinearity of the canonical formula.",
+        "Apply the balanced tensor-product universal property and restrict scalars to k.",
+        "Check multiplicativity on pure tensors and extend by additivity.",
+        "Check the unit and scalar images to obtain the required algebra homomorphism."
+      ]
+    },
+    {
+      "key": "translation_descends",
+      "title": "Descent of the antipode translation map",
+      "statement": "Let k be a field, H a commutative Hopf k-algebra, and K a k-subalgebra satisfying Δ_H(t)∈span_k{a⊗_k b:a,b∈K} and S_H(t)∈K for every t∈K. Let B be a commutative k-bialgebra and q:H→B a surjective bialgebra homomorphism with ker(q)=Ideal.span{x∈H:x∈K and ε_H(x)=0}. Give H its K-algebra structure by inclusion. Put T=H⊗_K H and let C:H⊗_k H→T be the canonical k-algebra homomorphism sending a⊗_k b to a⊗_K b. There exists a k-algebra homomorphism σ:B→T such that σ(q(b))=C((S_H⊗id_H)Δ_H(b)) for every b∈H.",
+      "lean_statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (K : Subalgebra k H) (hΔ : ∀ x ∈ K, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ K, ∃ b ∈ K, t = TensorProduct.tmul k a b}) (hS : ∀ x ∈ K, HopfAlgebra.antipode k x ∈ K) {B : Type*} [CommRing B] [Bialgebra k B] (q : BialgHom k H B) (hq : Function.Surjective q) (hker : RingHom.ker (q : H →+* B) = Ideal.span {x : H | x ∈ K ∧ Coalgebra.counit (R := k) x = 0}), ∃ σ : B →ₐ[k] (TensorProduct K H H), ∀ b : H, σ (q b) = Algebra.TensorProduct.mapOfCompatibleSMul K k k H H (TensorProduct.map (HopfAlgebra.antipode k) (LinearMap.id : H →ₗ[k] H) (Coalgebra.comul (R := k) b))",
+      "lean_name": "p05_translation_descends_a5b449214a",
+      "depends_on": [],
+      "natural_proof": "1. Put T=H⊗_K H and write S and ε for the antipode and counit of H. The formula C(a⊗_k b)=a⊗_K b defines a k-linear map because the K-balancing relations include the k-balancing relations. The tensor multiplication formula shows that C preserves products on pure tensors, hence on all tensors by additivity. It preserves 1⊗1 and therefore k-scalars, so C is a k-algebra homomorphism.\n2. The antipode S is a k-algebra homomorphism. Here is the convolution argument establishing the needed multiplicativity. For k-linear maps u,v:H⊗_k H→H define (u*v)(a⊗b)=Σu(a₁⊗b₁)v(a₂⊗b₂). All Sweedler sums denote finite tensor representations. Coassociativity identifies both parenthesizations of a triple convolution with Σu(a₁⊗b₁)v(a₂⊗b₂)w(a₃⊗b₃). Thus convolution is associative; the counit identities show its unit is e(a⊗b)=ε(a)ε(b)1_H. Define f(a⊗b)=ab, g(a⊗b)=S(ab), and h(a⊗b)=S(a)S(b). These formulas are bilinear and therefore define linear maps. Multiplicativity of Δ and the antipode identity applied to ab give (g*f)(a⊗b)=ΣS(a₁b₁)a₂b₂=ε(ab)1_H=e(a⊗b). Commutativity of H and the antipode identities give (f*h)(a⊗b)=Σa₁b₁S(a₂)S(b₂)=(Σa₁S(a₂))(Σb₁S(b₂))=e(a⊗b). Equality on pure tensors gives g*f=e and f*h=e as linear maps. Consequently g=g*(f*h)=(g*f)*h=h. This proves S(ab)=S(a)S(b). The antipode identity at 1 gives S(1)=1. Since S is k-linear, it also preserves k-scalars.\n3. Define τ=C∘(S⊗id_H)∘Δ_H. Each factor is a k-algebra homomorphism by step 2 and the tensor-algebra multiplication formula. Hence τ:H→T is a k-algebra homomorphism, and its value on b is precisely C((S⊗id_H)Δ_H(b)).\n4. Fix t∈K. By hΔ, write Δ_H(t)=Σ_i a_i⊗_k b_i with a_i,b_i∈K. This follows from the definition of linear span, absorbing each scalar coefficient into a_i, which remains in K. By hS, S(a_i)∈K. Balancing therefore gives S(a_i)⊗_K b_i=1_H⊗_K S(a_i)b_i. Summing and applying the antipode identity yields τ(t)=1_H⊗_K algebraMap(k,H)(ε(t)). This is the k-scalar image of ε(t) in T.\n5. If t∈K and ε(t)=0, step 4 gives τ(t)=0. The ring kernel of τ is an ideal containing every generator in the stated ideal span. Thus it contains that ideal span. By hker, ker(q)⊆ker(τ).\n6. For c∈B, surjectivity supplies b∈H with q(b)=c. Define σ(c)=τ(b). If b′ is another such lift, then q(b−b′)=0. Step 5 implies τ(b−b′)=0, hence τ(b)=τ(b′). Thus the definition is independent of the chosen lift.\n7. For c,d∈B choose lifts b,b′. Then b+b′ and bb′ lift c+d and cd, so σ(c+d)=τ(b+b′)=σ(c)+σ(d) and σ(cd)=τ(bb′)=σ(c)σ(d). The elements 0_H and 1_H lift 0_B and 1_B, giving σ(0)=0 and σ(1)=1. For λ∈k, algebraMap(k,H)(λ) lifts algebraMap(k,B)(λ); preservation of scalars by τ gives preservation of scalars by σ. Consequently σ is a k-algebra homomorphism.\n8. For any b∈H, b itself is a lift of q(b). Independence of lifts gives σ(q(b))=τ(b). Substituting the definition in step 3 proves the required formula.",
+      "proof_key_steps": [
+        "Construct the canonical k-algebra map from the tensor product over k to the tensor product over K.",
+        "Establish antipode multiplicativity by uniqueness of convolution inverses.",
+        "Construct the translation algebra homomorphism τ.",
+        "Use comultiplication closure, antipode closure, and balancing to compute τ on K.",
+        "Show τ kills the augmentation generators and hence ker(q).",
+        "Descend τ through the surjection q using independence of lifts.",
+        "Verify the descended algebra homomorphism and its prescribed values on q(H)."
+      ]
+    },
+    {
+      "key": "translation_left_inverse",
+      "title": "Translation gives a left inverse to the canonical map",
+      "statement": "Let k be a field, H a commutative Hopf k-algebra, K a k-subalgebra of H, B a commutative k-bialgebra, and q:H→B a bialgebra homomorphism. Give H its K-algebra structure by inclusion. Put T=H⊗_K H, U=H⊗_k B, ρ=(id_H⊗q)Δ_H, and let C:H⊗_k H→T send a⊗_k b to a⊗_K b. Suppose β:T→U and σ:B→T are k-algebra homomorphisms satisfying β(a⊗_K b)=(a⊗_k1_B)ρ(b) for all a,b∈H and σ(q(b))=C((S_H⊗id_H)Δ_H(b)) for every b∈H. There exists a k-algebra homomorphism γ:U→T such that γ(a⊗_k c)=(a⊗_K1_H)σ(c) for every a∈H,c∈B and γ(β(z))=z for every z∈T.",
+      "lean_statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (K : Subalgebra k H) {B : Type*} [CommRing B] [Bialgebra k B] (q : BialgHom k H B) (β : (TensorProduct K H H) →ₐ[k] (TensorProduct k H B)) (hβ : ∀ a b : H, β (TensorProduct.tmul K a b) = (TensorProduct.tmul k a (1 : B)) * HopfAlgebra.coaction q b) (σ : B →ₐ[k] (TensorProduct K H H)) (hσ : ∀ b : H, σ (q b) = Algebra.TensorProduct.mapOfCompatibleSMul K k k H H (TensorProduct.map (HopfAlgebra.antipode k) (LinearMap.id : H →ₗ[k] H) (Coalgebra.comul (R := k) b))), ∃ γ : (TensorProduct k H B) →ₐ[k] (TensorProduct K H H), (∀ (a : H) (c : B), γ (TensorProduct.tmul k a c) = (TensorProduct.tmul K a (1 : H)) * σ c) ∧ Function.LeftInverse γ β",
+      "lean_name": "p05_translation_left_inverse_a5b449214a",
+      "depends_on": [],
+      "natural_proof": "1. Write S and ε for the antipode and counit. The map i:H→T given by i(a)=a⊗_K1_H is a k-algebra homomorphism, by the tensor multiplication and scalar formulas. Since σ is also a k-algebra homomorphism, the formula G(a,c)=i(a)σ(c) is k-bilinear. The tensor-product universal property gives a k-linear map γ:U→T satisfying γ(a⊗_k c)=(a⊗_K1_H)σ(c).\n2. For pure tensors, multiplicativity of i and σ and commutativity of T give γ((a⊗c)(a′⊗c′))=i(aa′)σ(cc′)=i(a)σ(c)i(a′)σ(c′). Additivity and distributivity extend this equality to arbitrary tensors. Also γ(1_H⊗1_B)=i(1_H)σ(1_B)=1_T. The k-linearity of γ then implies preservation of k-scalars. Thus γ is a k-algebra homomorphism with the required formula.\n3. Establish the cancellation identity Σb₁S(b₂)⊗_k b₃=1_H⊗_k b. Apply the linear map that multiplies the first factor by the antipode of the second factor and retains the third factor to (Δ_H⊗id_H)Δ_H(b). The antipode identity turns the result into ΣalgebraMap(k,H)(ε(b₁))⊗_k b₂. Moving each k-scalar to the second factor and using the left counit identity turns this into 1_H⊗_k b. Coassociativity permits the same identity to be read using (id_H⊗Δ_H)Δ_H(b). All displayed sums are finite tensor representations of these linear-map identities.\n4. Fix a,b∈H. The hypothesis on β and the definition of ρ give β(a⊗_K b)=Σab₁⊗_k q(b₂). Apply γ, then its pure-tensor formula and the hypothesis on σ. This gives γβ(a⊗_K b)=Σ(ab₁⊗_K1_H)C((S⊗id_H)Δ_H(b₂))=Σab₁S(b₂)⊗_K b₃, where coassociativity identifies the nested comultiplications. Map the identity from step 3 through C and multiply by a⊗_K1_H. The resulting equality is exactly γβ(a⊗_K b)=a⊗_K b.\n5. Both γβ and the identity on T are additive. Every element of T is a finite sum of pure tensors, so step 4 implies γ(β(z))=z for every z∈T. Thus γ is a left inverse of β. Together with its formula from step 1, it satisfies both required conjuncts.",
+      "proof_key_steps": [
+        "Construct γ from the bilinear formula using the supplied translation homomorphism.",
+        "Verify that γ is an algebra homomorphism.",
+        "Derive the three-factor antipode cancellation identity from coassociativity and the counit law.",
+        "Expand γβ on pure tensors using the two supplied formulas.",
+        "Apply cancellation and extend by additivity to obtain the left-inverse identity."
+      ]
+    }
+  ]
+}

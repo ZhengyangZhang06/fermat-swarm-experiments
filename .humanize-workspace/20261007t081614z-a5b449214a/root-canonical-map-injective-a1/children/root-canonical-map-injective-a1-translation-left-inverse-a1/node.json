@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.canonical_map_injective-a1.translation_left_inverse-a1",
+  "parent_id": "root.canonical_map_injective-a1",
+  "depth": 2,
+  "title": "Translation gives a left inverse to the canonical map",
+  "statement": "Let k be a field, H a commutative Hopf k-algebra, K a k-subalgebra of H, B a commutative k-bialgebra, and q:H→B a bialgebra homomorphism. Give H its K-algebra structure by inclusion. Put T=H⊗_K H, U=H⊗_k B, ρ=(id_H⊗q)Δ_H, and let C:H⊗_k H→T send a⊗_k b to a⊗_K b. Suppose β:T→U and σ:B→T are k-algebra homomorphisms satisfying β(a⊗_K b)=(a⊗_k1_B)ρ(b) for all a,b∈H and σ(q(b))=C((S_H⊗id_H)Δ_H(b)) for every b∈H. There exists a k-algebra homomorphism γ:U→T such that γ(a⊗_k c)=(a⊗_K1_H)σ(c) for every a∈H,c∈B and γ(β(z))=z for every z∈T.",
+  "lean_statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (K : Subalgebra k H) {B : Type*} [CommRing B] [Bialgebra k B] (q : BialgHom k H B) (β : (TensorProduct K H H) →ₐ[k] (TensorProduct k H B)) (hβ : ∀ a b : H, β (TensorProduct.tmul K a b) = (TensorProduct.tmul k a (1 : B)) * HopfAlgebra.coaction q b) (σ : B →ₐ[k] (TensorProduct K H H)) (hσ : ∀ b : H, σ (q b) = Algebra.TensorProduct.mapOfCompatibleSMul K k k H H (TensorProduct.map (HopfAlgebra.antipode k) (LinearMap.id : H →ₗ[k] H) (Coalgebra.comul (R := k) b))), ∃ γ : (TensorProduct k H B) →ₐ[k] (TensorProduct K H H), (∀ (a : H) (c : B), γ (TensorProduct.tmul k a c) = (TensorProduct.tmul K a (1 : H)) * σ c) ∧ Function.LeftInverse γ β",
+  "lean_name": "p05_translation_left_inverse_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-canonical-map-injective-a1-translation-left-inverse-a1-a1"
+}
