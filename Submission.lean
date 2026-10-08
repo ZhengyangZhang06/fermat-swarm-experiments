@@ -10,6 +10,41 @@ attribute [-instance] AlgebraicCurve.IsCurveOver.instNontrivialKaehler Algebraic
 attribute [-simp] AlgebraicCurve.IsFrobeniusEndo.frobNormRingHom_apply ModularCurve.frobeniusPushforwardGeomLevelPic0_mk ModularCurve.coe_frobeniusGeomLevelEquiv_apply ModularCurve.coe_frobeniusPushforwardGeomLevelDegZero ModularCurve.heckeFibreGeomLevelPic0OfIsCurveOver_mk ModularCurve.frobeniusGeomLevel_apply_coe ModularCurve.frobeniusPullbackGeomLevelPic0OfIsCurveOver_mk ModularCurve.coe_heckeFibreGeomLevelDegZero ModularCurve.coe_frobeniusPullbackGeomLevelDegZero ModularCurve.frobeniusPullbackGeomLevelPic0_mk ModularCurve.frobeniusPullbackGeomLevel_single ModularCurve.heckeFibreGeomLevelPic0_mk ModularCurve.frobeniusPushforwardGeomLevelPic0OfIsCurveOver_mk ModularCurve.frobeniusPushforwardGeomLevel_single ModularCurve.qExpandAlgC_apply AlgebraicCurve.Place.congrEquiv_symm_apply AlgebraicCurve.RationalFunctionField.heightOneSpectrumOfIrreducible_asIdeal AlgebraicCurve.Place.congrRingEquiv_toValuationSubring AlgebraicCurve.Place.congrEquiv_apply AlgebraicCurve.Place.coe_comapSymmRingEquiv_apply AlgebraicCurve.RationalFunctionField.deg_placeOfPoint AlgebraicCurve.Divisor.degree_pushforwardAlong AlgebraicCurve.Pic0.coe_degZeroCorrespondence AlgebraicCurve.Place.mem_fiberAlong AlgebraicCurve.SemilinearAut.toRingAut_inv AlgebraicCurve.SemilinearAut.smul_def AlgebraicCurve.SemilinearAut.smul_single AlgebraicCurve.SemilinearAut.smul_toValuationSubring AlgebraicCurve.SemilinearAut.baseAut_inv AlgebraicCurve.SemilinearAut.baseAut_ofAlgAut AlgebraicCurve.SemilinearAut.toRingAut_ofAlgAut AlgebraicCurve.SemilinearAut.torsionRep_apply AlgebraicCurve.SemilinearAut.toRingAut_one AlgebraicCurve.SemilinearAut.deg_smul AlgebraicCurve.SemilinearAut.degree_smul AlgebraicCurve.SemilinearAut.coe_degZeroSMulHom AlgebraicCurve.SemilinearAut.baseAut_mul AlgebraicCurve.SemilinearAut.coe_smulValuationSubringEquiv_apply AlgebraicCurve.SemilinearAut.baseAut_one AlgebraicCurve.SemilinearAut.ofAlgAut_smul
 attribute [-simp] AlgebraicCurve.SemilinearAut.coe_torsion_smul AlgebraicCurve.SemilinearAut.toRingAut_mul AlgebraicCurve.coe_frobeniusPushforwardDegZero AlgebraicCurve.IsFrobeniusEndo.coe_frobeniusPullbackDegZero ModularCurve.jqNModC_one ModularCurve.qExpand_coeff_mul ModularCurve.qExpandₐ_apply ModularCurve.jqN_one ModularCurve.qExpand_single ModularCurve.dedekindPsi_one ModularCurve.ModularPolynomialData.mk.sizeOf_spec ModularCurve.evalAtJ_X ModularCurve.ModularPolynomialData.mk.injEq ModularCurve.constantCoeff_jNum ModularCurve.constantCoeff_eisenstein4 ModularCurve.qExpand_C ModularCurve.coeff_jq_neg_one ModularCurve.constantCoeff_jNumQ ModularCurve.reduceModBivar_C_X ModularCurve.laurentMap_coeff ModularCurve.reduceModBivar_X ModularCurve.laurentMap_single ModularCurve.evalAtJInt_X ModularCurve.evalAtJMod_X ModularCurve.jqNMod_one ModularCurve.aeval_heckeGen ModularCurve.coe_mTorsionGaloisRep_apply ModularCurve.eisensteinSystem_of_dvd ModularCurve.eisensteinSystem_of_not_dvd FreyPackage.mk.sizeOf_spec FreyPackage.mk.injEq WeierstrassCurve.Affine.Point.galoisRepModuleEnd_apply
 
+namespace Submission
+
+theorem p06_9e0f5043ff_ifl_weighted_local_lengths
+    (A B : Type*) [CommRing A] [CommRing B] [IsDedekindDomain B] [Algebra A B]
+    [Fintype (IsDedekindDomain.HeightOneSpectrum B)] (b : B) (hb : b ≠ 0)
+    (n : ℕ) (hn : Module.length A (B ⧸ Ideal.span ({b} : Set B)) = (n : ℕ∞)) :
+    Finset.sum Finset.univ (fun q : IsDedekindDomain.HeightOneSpectrum B =>
+      Module.length A (B ⧸ q.asIdeal) *
+        Module.length (Localization.AtPrime q.asIdeal)
+          (Localization.AtPrime q.asIdeal ⧸
+            Ideal.span ({algebraMap B (Localization.AtPrime q.asIdeal) b} :
+              Set (Localization.AtPrime q.asIdeal)))) = (n : ℕ∞) := by
+  classical
+  obtain ⟨s, hs₀, hs₁, p, hp⟩ :=
+    Submission.p06_9e0f5043ff_wll_residue_composition_series A B b hb n hn
+  have hsum := Submission.p06_9e0f5043ff_wll_length_sum_factors
+    A B (B ⧸ Ideal.span ({b} : Set B)) s p hs₀ hs₁ hp
+  have hlocal := Submission.p06_9e0f5043ff_wll_local_length_multiplicity
+    B b s p hs₀ hs₁ hp
+  simp_rw [hlocal]
+  calc
+    _ = Finset.sum Finset.univ (fun q : IsDedekindDomain.HeightOneSpectrum B =>
+        Finset.sum Finset.univ (fun _i : {i : Fin s.length // p i = q} =>
+          Module.length A (B ⧸ q.asIdeal))) := by
+      apply Finset.sum_congr rfl
+      intro q _
+      simp only [Finset.sum_const, Finset.card_univ, Nat.card_eq_fintype_card,
+        nsmul_eq_mul, mul_comm]
+    _ = Finset.sum Finset.univ (fun i : Fin s.length =>
+        Module.length A (B ⧸ (p i).asIdeal)) :=
+      Fintype.sum_fiberwise' p (fun q => Module.length A (B ⧸ q.asIdeal))
+    _ = (n : ℕ∞) := hsum.symm.trans hn
+
+end Submission
+
 open AlgebraicCurve
 theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
     [Algebra K F] (x : F) (hx : Transcendental K x)
