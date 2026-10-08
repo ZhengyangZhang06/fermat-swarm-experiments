@@ -733,6 +733,8 @@ theorem f036cc6b1f_pc_hi_good_prime_transversal
   · refine ⟨β, hβ, ?_⟩
     simpa [r] using hσβ
 
+end Submission
+
 theorem Submission.f036cc6b1f_pc_hi_finite_trace_unfolding
     (Γ Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ))
     (R : Finset (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (F : Set UpperHalfPlane)
