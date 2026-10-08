@@ -18,6 +18,7 @@ theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field
 
 namespace Submission
 
+/-- Clear the first column below a divisible pivot by a unit that preserves the first row. -/
 theorem p06_9e0f5043ff_sdp_clear_first_column
     (R : Type*) [CommRing R] (m : ℕ)
     (B : Matrix (Fin (m + 1)) (Fin (m + 1)) R)
@@ -27,6 +28,7 @@ theorem p06_9e0f5043ff_sdp_clear_first_column
         (∀ i : Fin m, (U * B) i.succ 0 = 0) := by
   classical
   choose a ha using h
+  -- Extend the chosen coefficients by zero so the first row is unchanged.
   let c : Fin (m + 1) → R := Fin.cases 0 a
   let N : Matrix (Fin (m + 1)) (Fin (m + 1)) R :=
     Matrix.of fun i j => if j = 0 then c i else 0
@@ -37,6 +39,7 @@ theorem p06_9e0f5043ff_sdp_clear_first_column
     ext i j
     rw [hmul]
     simp [N, c]
+  -- Since N² = 0, the clearing matrix 1 - N has two-sided inverse 1 + N.
   refine ⟨1 - N, ?_, ?_, ?_⟩
   · refine ⟨⟨1 - N, 1 + N, ?_, ?_⟩, rfl⟩
     · simp [sub_mul, mul_add, hsq]
