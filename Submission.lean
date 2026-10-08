@@ -900,80 +900,6 @@ theorem p02_es_177ebb5a_crl_imaginary_ray_limit :
   -- Pinned mathlib: MeasureTheory/Integral/IntegralEqImproper.lean packages the
   -- FTC tail estimate and completeness argument for an integrable derivative.
   exact ⟨_, MeasureTheory.tendsto_limUnder_of_hasDerivAt_of_integrableOn_Ioi hderiv hint⟩
-theorem p02_es_177ebb5a_crl_horizontal_difference_limit :
-    ∀ (n : ℕ) (a : ℝ) (H G : ℂ → ℂ), 0 < a →
-      ContinuousOn G {z : ℂ | 0 < z.im} →
-      (∀ z : ℂ, 0 < z.im → HasDerivAt H (G z) z) →
-      (∀ B : ℝ, 0 < B → ∃ C Y : ℝ, 0 ≤ C ∧ 1 ≤ Y ∧
-        ∀ z : ℂ, |z.re| ≤ B → Y ≤ z.im →
-          ‖G z‖ ≤ C * (1 + z.im) ^ n * Real.exp (-a * z.im)) →
-      ∀ x : ℝ, Filter.Tendsto
-        (fun y : ℝ => H ((x : ℂ) + (y : ℂ) * Complex.I) -
-          H ((y : ℂ) * Complex.I)) Filter.atTop (nhds (0 : ℂ)) := by
-  intro n a H G ha hG hH hstrip x
-  have hdecay : Filter.Tendsto (fun t : ℝ => t ^ n * Real.exp (-a * t))
-      Filter.atTop (nhds 0) := by
-    simpa only [Real.rpow_natCast] using
-      tendsto_rpow_mul_exp_neg_mul_atTop_nhds_zero (n : ℝ) a ha
-  have hweight : Filter.Tendsto (fun y : ℝ => (1 + y) ^ n * Real.exp (-a * y))
-      Filter.atTop (nhds 0) := by
-    convert (hdecay.comp (Filter.tendsto_atTop_add_const_left _ (1 : ℝ) Filter.tendsto_id)).mul_const
-      (Real.exp a) using 1
-    · ext y
-      simp only [Function.comp_apply, id_eq, mul_assoc, ← Real.exp_add]
-      congr 2
-      ring
-    · simp
-  obtain ⟨C, Y, hC, hY, hbound⟩ := hstrip (|x| + 1) (by positivity)
-  have hhorizontal (y : ℝ) (hy : Y ≤ y) :
-      ‖H ((x : ℂ) + (y : ℂ) * Complex.I) - H ((y : ℂ) * Complex.I)‖ ≤
-        |x| * C * ((1 + y) ^ n * Real.exp (-a * y)) := by
-    have hypos : 0 < y := lt_of_lt_of_le (by linarith : 0 < Y) hy
-    let z : ℝ → ℂ := fun s => (s : ℂ) * (x : ℂ) + (y : ℂ) * Complex.I
-    have hzim (s : ℝ) : (z s).im = y := by simp [z]
-    have hzcont : Continuous z :=
-      (Complex.continuous_ofReal.mul continuous_const).add continuous_const
-    have hderiv (s : ℝ) : HasDerivAt (fun t : ℝ => H (z t))
-        (G (z s) * (x : ℂ)) s := by
-      have hd := ((hasDerivAt_id (s : ℂ)).mul_const (x : ℂ)).add_const
-        ((y : ℂ) * Complex.I)
-      simpa only [Function.comp_apply, one_mul] using!
-        ((hH (z s) (by rw [hzim]; exact hypos)).comp (s : ℂ) hd).comp_ofReal
-    have hcont : ContinuousOn (fun s : ℝ => G (z s) * (x : ℂ)) (Set.uIcc 0 1) :=
-      (hG.comp hzcont.continuousOn (by
-        intro s _
-        change 0 < (z s).im
-        rw [hzim]
-        exact hypos)).mul continuousOn_const
-    have hFTC := intervalIntegral.integral_eq_sub_of_hasDerivAt
-      (fun s (_ : s ∈ Set.uIcc (0 : ℝ) 1) => hderiv s) hcont.intervalIntegrable
-    have hnorm : ‖∫ s in (0 : ℝ)..1, G (z s) * (x : ℂ)‖ ≤
-        |x| * C * ((1 + y) ^ n * Real.exp (-a * y)) := by
-      have hb (s : ℝ) (hs : s ∈ Set.uIoc (0 : ℝ) 1) :
-          ‖G (z s) * (x : ℂ)‖ ≤
-            |x| * C * ((1 + y) ^ n * Real.exp (-a * y)) := by
-        have hsIoc : 0 < s ∧ s ≤ 1 := by
-          simpa only [Set.uIoc_of_le zero_le_one, Set.mem_Ioc] using hs
-        have hs' : 0 ≤ s ∧ s ≤ 1 := ⟨hsIoc.1.le, hsIoc.2⟩
-        have hzre : |(z s).re| ≤ |x| + 1 := by
-          simp only [z, Complex.add_re, Complex.mul_re, Complex.ofReal_re,
-            Complex.ofReal_im, Complex.I_re, Complex.I_im, mul_zero, zero_mul,
-            sub_zero, add_zero, abs_mul, abs_of_nonneg hs'.1]
-          nlinarith [abs_nonneg x]
-        have hb := hbound (z s) hzre (by rwa [hzim])
-        rw [hzim] at hb
-        calc
-          ‖G (z s) * (x : ℂ)‖ = ‖G (z s)‖ * |x| := by
-            rw [norm_mul, Complex.norm_real, Real.norm_eq_abs]
-          _ ≤ (C * (1 + y) ^ n * Real.exp (-a * y)) * |x| :=
-            mul_le_mul_of_nonneg_right hb (abs_nonneg x)
-          _ = |x| * C * ((1 + y) ^ n * Real.exp (-a * y)) := by ring
-      simpa using intervalIntegral.norm_integral_le_of_norm_le_const hb
-    rw [hFTC] at hnorm
-    simpa only [z, Complex.ofReal_one, Complex.ofReal_zero, one_mul, zero_mul,
-      zero_add] using hnorm
-  apply squeeze_zero_norm' (Filter.eventually_atTop.2 ⟨Y, hhorizontal⟩)
-  simpa only [mul_zero] using hweight.const_mul (|x| * C)
 
 theorem p02_es_177ebb5a_tff_constant_dehomogenization
     (n : ℕ) (A : ↥(HeckeEis.BinaryForm ℂ n)) (α : ℂ)
@@ -1140,7 +1066,6 @@ theorem p02_es_177ebb5a_tff_periodic_polynomial_constant
   exact (mul_ne_zero (mul_ne_zero hcast hlead) hc)
     (add_right_cancel (hcoeff.trans (zero_add _).symm))
 theorem p02_es_177ebb5a_crl_horizontal_difference_limit :
-theorem p02_es_177ebb5a_pcl_scalar_common_ray_limit :
     ∀ (n : ℕ) (a : ℝ) (H G : ℂ → ℂ), 0 < a →
       ContinuousOn G {z : ℂ | 0 < z.im} →
       (∀ z : ℂ, 0 < z.im → HasDerivAt H (G z) z) →
@@ -1464,7 +1389,13 @@ theorem p02_es_177ebb5a_cd_linear_coeff_derivative
   intro r _
   exact (hF _).const_mul (c r)
 
-  exact ⟨_, MeasureTheory.tendsto_limUnder_of_hasDerivAt_of_integrableOn_Ioi hderiv hint⟩
+theorem p02_es_177ebb5a_pcl_scalar_common_ray_limit :
+    ∀ (n : ℕ) (a : ℝ) (H G : ℂ → ℂ), 0 < a →
+      ContinuousOn G {z : ℂ | 0 < z.im} →
+      (∀ z : ℂ, 0 < z.im → HasDerivAt H (G z) z) →
+      (∀ B : ℝ, 0 < B → ∃ C Y : ℝ, 0 ≤ C ∧ 1 ≤ Y ∧
+        ∀ z : ℂ, |z.re| ≤ B → Y ≤ z.im →
+          ‖G z‖ ≤ C * (1 + z.im) ^ n * Real.exp (-a * z.im)) →
       ∃ A : ℂ, ∀ x : ℝ, Filter.Tendsto
         (fun y : ℝ => H ((x : ℂ) + (y : ℂ) * Complex.I))
         Filter.atTop (nhds A) := by
