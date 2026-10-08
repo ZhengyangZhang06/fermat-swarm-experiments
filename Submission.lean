@@ -1673,6 +1673,9 @@ theorem Submission.p08_7d1ff633a4_cp11_level_cocycle :
     let := hE₀
     let := hFf
     let := hFg
+    letI := hE₀
+    letI := hFf
+    letI := hFg
     refine ⟨(E₀ ⊔ Ff) ⊔ Fg, inferInstance, ?_⟩
     intro s t h l hh hl
     have hh₀ : r h ∈ E₀.fixingSubgroup :=
