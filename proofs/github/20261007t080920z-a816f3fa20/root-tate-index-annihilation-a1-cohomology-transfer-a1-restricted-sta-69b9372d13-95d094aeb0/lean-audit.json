@@ -1,0 +1,39 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'p04_prism_a8325b9888_equivariant_components|equivariant_prism_components' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8 -g '*.lean'",
+        "namespace standardComplex|ofMulAction_single|def resFunctor",
+        "def standardComplex|namespace Rep.standardComplex|def standardComplex.d",
+        "def d |Finsupp.lift|coeffLinearEquiv|ofMulAction_single|insertNth_eq_iff"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Fermat/Thm_Rep_isZero_tateCohomology_of_forall_sylow.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/Resolution.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Data/Fin/Tuple/Basic.lean"
+      ],
+      "conclusion": "Verified clean snapshots at project 2475a3790d7ba0c3b10be8086001b154a45be597 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The frozen root contract matches byte-for-byte. Located existing standard-complex, restriction, generator-action, and tuple-insertion infrastructure; no prior declaration matching this node was found. The exact comparator rerun verified compatibility and permitted transitive axioms."
+    }
+  ],
+  "comparison_identity": "f7c5741696b47fb7ed0750164a9588bbb170ce788dc47181393b86b7d8db1409",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p04_prism_a8325b9888_equivariant_components",
+      "statement": "∀ {k G : Type _} [CommRing k] [Group G] (H : Subgroup G) (u v : G → G), (∀ (h : H) (g : G), u ((h : G) * g) = (h : G) * u g) → (∀ (h : H) (g : G), v ((h : G) * g) = (h : G) * v g) → let P : ∀ n : ℕ, (Fin (n + 1) → G) → MonoidAlgebra k (Fin (n + 2) → G) := fun n c => ∑ j : Fin (n + 1), MonoidAlgebra.single (Fin.insertNth j.castSucc (u (c j)) (fun i : Fin (n + 1) => if i < j then u (c i) else v (c i))) ((-1 : k) ^ j.val); let C := ((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj (Rep.standardComplex k G); ∃ D : ∀ n : ℕ, C.X n ⟶ C.X (n + 1), ∀ (n : ℕ) (c : Fin (n + 1) → G), (D n).hom (MonoidAlgebra.single c (1 : k)) = P n c",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Extends the signed prism assignment linearly and establishes subgroup equivariance on generators, yielding the required representation morphisms."
+    }
+  ]
+}
