@@ -35,6 +35,10 @@ theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field
     [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
   sorry
 
+end Submission
+
+set_option warningAsError true
+
 namespace Submission
 
 /-- A principal quotient of finite `A`-length has a `B`-composition series whose factors
@@ -2375,6 +2379,7 @@ theorem p06_9e0f5043ff_elp_principal_ideals_of_order :
   apply Subtype.ext
   exact div_mul_cancel₀ _ hh
 
+
 end Submission
 
 namespace Submission
@@ -2737,6 +2742,8 @@ theorem p06_9e0f5043ff_rmp_finite_place_model
   exact ⟨v, hv,
     Submission.p06_9e0f5043ff_fpm_residue_degree K F x hx q hq hirr v hv,
     Submission.p06_9e0f5043ff_fpm_normalized_orders K F x hx q hq hirr v hv⟩
+
+/-- The unique place at infinity, obtained from the finite place of the reciprocal variable. -/
 theorem p06_9e0f5043ff_rmp_infinity_place :
     ∀ (K : Type*) [Field K],
       ∃ v : AlgebraicCurve.Place K (FractionRing (Polynomial K)),
