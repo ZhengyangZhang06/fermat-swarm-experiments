@@ -1,0 +1,36 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'linearYonedaObj|linearYoneda' mathlib/Mathlib/CategoryTheory/Abelian/Ext.lean",
+        "rg -n 'def resFunctor|mapLinearMap|Linear|def res ' mathlib/Mathlib/RepresentationTheory/Rep/Res.lean",
+        "rg -n 'p04_tia_coh_hom_complex_transfer' project mathlib/Mathlib -g '*.lean'"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/CategoryTheory/Abelian/Ext.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Fermat/Thm_Rep_isZero_tateCohomology_of_forall_sylow.lean"
+      ],
+      "conclusion": "The snapshot pins project 2475a3790d7ba0c3b10be8086001b154a45be597 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Inspected Hom-complex and linear-restriction definitions match installed sources byte-for-byte; all nine dependencies are clean at their pins. No prior declaration of this node was found. The exact comparator rerun checked the transitive axioms and reported only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "4df901c2506aa83faa2373377d8a458834f39faa949be18ac6769f4b8fb4cc6a",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p04_tia_coh_hom_complex_transfer",
+      "statement": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H] (X : ChainComplex (Rep k G) ℕ), ∃ R : Quiver.Hom (X.linearYonedaObj k A) (ChainComplex.linearYonedaObj (((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj X) k (Rep.res H.subtype A)), ∃ C : Quiver.Hom (ChainComplex.linearYonedaObj (((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj X) k (Rep.res H.subtype A)) (X.linearYonedaObj k A), CategoryTheory.CategoryStruct.comp R C = H.index • CategoryTheory.CategoryStruct.id (X.linearYonedaObj k A)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Uses accepted coset-averaging dependencies to assemble restriction and transfer degreewise; their index identity gives the cochain-map identity."
+    }
+  ]
+}
