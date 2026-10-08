@@ -595,6 +595,7 @@ theorem Submission.p03_eds_canonical_even_recurrence_68cf3476_d4 :
       not_false_eq_true, ite_true, ite_false, mul_one] <;> ring
 
 theorem Submission.p03_eds_canonical_odd_recurrence_68cf3476_d4 :
+theorem Submission.p03_eds_canonical_even_recurrence_68cf3476_d4 :
     ∀ (k : Type) [Field k] [CharZero k] [DecidableEq k] (W : WeierstrassCurve k),
       let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine
       let h := q W.ψ₂
@@ -811,3 +812,37 @@ theorem Submission.p03_eds_canonical_recurrences_68cf3476_d3 :
   · simp only [preΨ'_two, map_one, even_two, if_true, one_mul]
   · simp only [preΨ'_three, show ¬ Even (3 : ℕ) by decide, if_false, mul_one]
   · simp only [preΨ'_four, show Even (4 : ℕ) by decide, if_true, mul_comm]
+      ∀ r : ℕ, 3 ≤ r →
+        h * F (2 * r) =
+          F r * (F (r + 2) * F (r - 1) ^ 2 - F (r - 2) * F (r + 1) ^ 2) := by
+  intro k _ _ _ W q h F r hr
+  let a : ℕ → W.toAffine.CoordinateRing := fun n => q (Polynomial.C (W.preΨ' n))
+  have hi₁ : r - 3 + 1 = r - 2 := by omega
+  have hi₂ : r - 3 + 2 = r - 1 := by omega
+  have hi₃ : r - 3 + 3 = r := by omega
+  have hi₄ : r - 3 + 4 = r + 1 := by omega
+  have hi₅ : r - 3 + 5 = r + 2 := by omega
+  -- Pinned mathlib DivisionPolynomial/Basic.lean, revision
+  -- db584cd6d46c92f209a44c0f1c829460d327499d, supplies preΨ'_even.
+  have hrec := congrArg (fun p : Polynomial k => q (Polynomial.C p))
+    (W.preΨ'_even (r - 3))
+  simp only [hi₁, hi₂, hi₃, hi₄, hi₅, map_sub, map_mul, map_pow] at hrec
+  change a (2 * r) =
+    a (r - 1) ^ 2 * a r * a (r + 2) - a (r - 2) * a r * a (r + 1) ^ 2 at hrec
+  have hsub₁ : Even (r - 1) ↔ ¬Even r := by
+    rw [Nat.even_sub (by omega : 1 ≤ r)]
+    simp
+  have hsub₂ : Even (r - 2) ↔ Even r := by
+    rw [Nat.even_sub (by omega : 2 ≤ r)]
+    simp
+  have hadd₂ : Even (r + 2) ↔ Even r := by simp [Nat.even_add]
+  change h * (a (2 * r) * (if Even (2 * r) then h else 1)) =
+    (a r * (if Even r then h else 1)) *
+      ((a (r + 2) * (if Even (r + 2) then h else 1)) *
+          (a (r - 1) * (if Even (r - 1) then h else 1)) ^ 2 -
+        (a (r - 2) * (if Even (r - 2) then h else 1)) *
+          (a (r + 1) * (if Even (r + 1) then h else 1)) ^ 2)
+  rw [if_pos (even_two_mul r), hrec]
+  by_cases he : Even r <;>
+    simp only [hsub₁, hsub₂, hadd₂, Nat.even_add_one, he, not_true_eq_false,
+      not_false_eq_true, ite_true, ite_false, mul_one] <;> ring
