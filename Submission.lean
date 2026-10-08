@@ -2478,8 +2478,7 @@ theorem p06_9e0f5043ff_io_fraction_extension :
         f / g = (e (a f) / e (b f)) / (e (a g) / e (b g)) :=
           congrArg₂ (fun u v : F => u / v) (hab f) (hab g)
         _ = e (a f * b g) / e (b f * a g) := by
-          simp only [map_mul]
-          rw [div_div_eq_mul_div, div_mul_eq_mul_div, div_div]
+          simp only [map_mul, div_div_div_eq]
     rw [hquot, hformula _ _ (mul_ne_zero (ha f hf) (hb g))
       (mul_ne_zero (hb f) (ha g hg)), hμ _ _ (ha f hf) (hb g),
       hμ _ _ (hb f) (ha g hg)]
