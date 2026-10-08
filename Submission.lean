@@ -1680,7 +1680,7 @@ theorem Submission.p10_17ae7b7d_phdisk_mobius_ratio_norm :
     simp [M, Q]
     simp [Q, Complex.star_def]
   have hMconj : M (star v) = star (M v) := by
-    simp [M, Q, Complex.star_def]
+    simp [M, Q]
   have hQstar : star (Q v) ≠ 0 := star_ne_zero.mpr hQv
   have hQsv : Q (star v) ≠ 0 := by
     rw [hQconj]
