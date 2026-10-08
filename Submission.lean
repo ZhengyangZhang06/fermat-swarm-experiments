@@ -733,8 +733,8 @@ theorem p02_es_177ebb5a_ic_lmd_scalar_pullback
     simpa only [hdet, Complex.ofReal_one, ← HeckeEis.jFactor_eq_denom] using!
       (UpperHalfPlane.hasStrictDerivAt_smul
         (g := Matrix.SpecialLinearGroup.mapGL ℝ σ) (by rw [hdet]; exact zero_lt_one) τ).hasDerivAt
-  simpa [Function.comp_def, UpperHalfPlane.ofComplex_apply, div_eq_mul_inv] using
-    hh.comp_of_eq (τ : ℂ) hσ (by simp)
+  simpa only [Function.comp_def, UpperHalfPlane.ofComplex_apply, div_eq_mul_inv,
+    one_mul] using hh.comp_of_eq (τ : ℂ) hσ (by simp only [UpperHalfPlane.ofComplex_apply])
 
 theorem p02_es_177ebb5a_ic_lmd_scalar_pullback
     (h : UpperHalfPlane → ℂ) (v : ℂ)
