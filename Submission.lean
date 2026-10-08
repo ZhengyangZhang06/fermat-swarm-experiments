@@ -2715,3 +2715,71 @@ theorem p06_9e0f5043ff_fno_fraction_isunit
     exact div_self (mul_ne_zero (hnonzero a ha) hbzero)
 
 end Submission
+
+
+namespace Submission
+
+theorem p06_9e0f5043ff_fno_irreducible_aeval
+    (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F)
+    (hx : Transcendental K x) (q : Polynomial K) (hq : q.Monic)
+    (hqi : Irreducible q) (v : AlgebraicCurve.Place K F)
+    (hv : ∀ f : F, f ∈ v.toValuationSubring ↔
+      ∃ a b : Polynomial K, ¬ q ∣ b ∧
+        f = Polynomial.aeval x a / Polynomial.aeval x b) :
+    ∃ π : v.toValuationSubring, (π : F) = Polynomial.aeval x q ∧ Irreducible π := by
+  classical
+  have hinj : Function.Injective (Polynomial.aeval x : Polynomial K →ₐ[K] F) :=
+    transcendental_iff_injective.mp hx
+  have hq1 : ¬ q ∣ (1 : Polynomial K) := hqi.not_dvd_one
+  let π : v.toValuationSubring :=
+    ⟨Polynomial.aeval x q, (hv _).mpr ⟨q, 1, hq1, by simp⟩⟩
+  refine ⟨π, rfl, ?_⟩
+  constructor
+  · intro hunit
+    have hnot :=
+      (Submission.p06_9e0f5043ff_fno_fraction_isunit K F x hx q hq hqi v hv
+        q 1 π hq1 (by simp [π])).mp hunit
+    exact hnot (dvd_refl q)
+  · intro y z hyz
+    obtain ⟨a, b, hb, hy⟩ := (hv (y : F)).mp y.property
+    obtain ⟨c, t, ht, hz⟩ := (hv (z : F)).mp z.property
+    have hb0 : Polynomial.aeval x b ≠ 0 := by
+      intro h
+      have : b = 0 := hinj (by simpa only [map_zero] using h)
+      exact hb (this.symm ▸ dvd_zero q)
+    have ht0 : Polynomial.aeval x t ≠ 0 := by
+      intro h
+      have : t = 0 := hinj (by simpa only [map_zero] using h)
+      exact ht (this.symm ▸ dvd_zero q)
+    have hprod : Polynomial.aeval x q =
+        (Polynomial.aeval x a / Polynomial.aeval x b) *
+          (Polynomial.aeval x c / Polynomial.aeval x t) := by
+      calc
+        Polynomial.aeval x q = (π : F) := rfl
+        _ = (y : F) * (z : F) :=
+          congrArg (fun w : v.toValuationSubring => (w : F)) hyz
+        _ = _ := by rw [hy, hz]
+    have hac : a * c = q * (b * t) := by
+      apply hinj
+      rw [div_mul_div_comm, eq_div_iff (mul_ne_zero hb0 ht0)] at hprod
+      simpa only [map_mul] using hprod.symm
+    by_cases ha : q ∣ a
+    · right
+      apply (Submission.p06_9e0f5043ff_fno_fraction_isunit K F x hx q hq hqi v hv
+        c t z ht hz).mpr
+      intro hc
+      obtain ⟨a₁, ha₁⟩ := ha
+      obtain ⟨c₁, hc₁⟩ := hc
+      have hcancel : q * (q * (a₁ * c₁)) = q * (b * t) := by
+        calc
+          q * (q * (a₁ * c₁)) = (q * a₁) * (q * c₁) := by ring
+          _ = a * c := by rw [← ha₁, ← hc₁]
+          _ = q * (b * t) := hac
+      have hbt : q ∣ b * t :=
+        ⟨a₁ * c₁, (mul_left_cancel₀ hqi.ne_zero hcancel).symm⟩
+      exact (hqi.prime.dvd_or_dvd hbt).elim hb ht
+    · left
+      exact (Submission.p06_9e0f5043ff_fno_fraction_isunit K F x hx q hq hqi v hv
+        a b y hb hy).mpr ha
+
+end Submission
