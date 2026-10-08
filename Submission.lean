@@ -6,7 +6,6 @@ Requires the upstream Definitions modules and their dependencies.
 -/
 
 import Definitions.Def_AlgebraicCurve_PlacesOverDVR
-import Mathlib.RingTheory.Localization.NormTrace
 attribute [-instance] AlgebraicCurve.IsCurveOver.instNontrivialKaehler AlgebraicCurve.IsCurveOver.instFreeKaehler AlgebraicCurve.IsCurveOver.toHasPrincipalDivisors AlgebraicCurve.IsCurveOver.instFiniteResidue AlgebraicCurve.Place.instIsRankOneDiscreteWithZeroMultiplicativeIntAdicValuation AlgebraicCurve.Place.instIsTrivialOnWithZeroMultiplicativeIntAdicValuation AlgebraicCurve.SemilinearAut.instDistribMulActionSubtypeProdRingAutMemSubgroupPic0 AlgebraicCurve.SemilinearAut.instDistribMulActionSubtypeProdRingAutMemSubgroupDivisor AlgebraicCurve.Pic0.instModuleZModTorsion AlgebraicCurve.SemilinearAut.instSMulSubtypeProdRingAutMemSubgroupPlace AlgebraicCurve.SemilinearAut.instDistribMulActionTorsion AlgebraicCurve.SemilinearAut.instSMulSubtypeProdRingAutMemSubgroupPic0 AlgebraicCurve.SemilinearAut.instSMulTorsion AlgebraicCurve.SemilinearAut.instMulActionSubtypeProdRingAutMemSubgroupPlace AlgebraicCurve.SemilinearAut.instSMulCommClassZModTorsion AlgebraicCurve.SemilinearAut.instMulSemiringActionSubtypeProdRingAutMemSubgroup instDecEqAlgebraicClosureRat WeierstrassCurve.Affine.Point.instDistribMulActionAlgEquiv WeierstrassCurve.Affine.Point.instModuleZModTorsionBy WeierstrassCurve.Affine.Point.instSMulTorsionBy WeierstrassCurve.Affine.Point.instDistribMulActionTorsionBy WeierstrassCurve.Affine.Point.instSMulAlgEquiv WeierstrassCurve.Affine.Point.instSMulCommClassAlgEquivZModTorsionBy
 attribute [-simp] AlgebraicCurve.IsFrobeniusEndo.frobNormRingHom_apply ModularCurve.frobeniusPushforwardGeomLevelPic0_mk ModularCurve.coe_frobeniusGeomLevelEquiv_apply ModularCurve.coe_frobeniusPushforwardGeomLevelDegZero ModularCurve.heckeFibreGeomLevelPic0OfIsCurveOver_mk ModularCurve.frobeniusGeomLevel_apply_coe ModularCurve.frobeniusPullbackGeomLevelPic0OfIsCurveOver_mk ModularCurve.coe_heckeFibreGeomLevelDegZero ModularCurve.coe_frobeniusPullbackGeomLevelDegZero ModularCurve.frobeniusPullbackGeomLevelPic0_mk ModularCurve.frobeniusPullbackGeomLevel_single ModularCurve.heckeFibreGeomLevelPic0_mk ModularCurve.frobeniusPushforwardGeomLevelPic0OfIsCurveOver_mk ModularCurve.frobeniusPushforwardGeomLevel_single ModularCurve.qExpandAlgC_apply AlgebraicCurve.Place.congrEquiv_symm_apply AlgebraicCurve.RationalFunctionField.heightOneSpectrumOfIrreducible_asIdeal AlgebraicCurve.Place.congrRingEquiv_toValuationSubring AlgebraicCurve.Place.congrEquiv_apply AlgebraicCurve.Place.coe_comapSymmRingEquiv_apply AlgebraicCurve.RationalFunctionField.deg_placeOfPoint AlgebraicCurve.Divisor.degree_pushforwardAlong AlgebraicCurve.Pic0.coe_degZeroCorrespondence AlgebraicCurve.Place.mem_fiberAlong AlgebraicCurve.SemilinearAut.toRingAut_inv AlgebraicCurve.SemilinearAut.smul_def AlgebraicCurve.SemilinearAut.smul_single AlgebraicCurve.SemilinearAut.smul_toValuationSubring AlgebraicCurve.SemilinearAut.baseAut_inv AlgebraicCurve.SemilinearAut.baseAut_ofAlgAut AlgebraicCurve.SemilinearAut.toRingAut_ofAlgAut AlgebraicCurve.SemilinearAut.torsionRep_apply AlgebraicCurve.SemilinearAut.toRingAut_one AlgebraicCurve.SemilinearAut.deg_smul AlgebraicCurve.SemilinearAut.degree_smul AlgebraicCurve.SemilinearAut.coe_degZeroSMulHom AlgebraicCurve.SemilinearAut.baseAut_mul AlgebraicCurve.SemilinearAut.coe_smulValuationSubringEquiv_apply AlgebraicCurve.SemilinearAut.baseAut_one AlgebraicCurve.SemilinearAut.ofAlgAut_smul
 attribute [-simp] AlgebraicCurve.SemilinearAut.coe_torsion_smul AlgebraicCurve.SemilinearAut.toRingAut_mul AlgebraicCurve.coe_frobeniusPushforwardDegZero AlgebraicCurve.IsFrobeniusEndo.coe_frobeniusPullbackDegZero ModularCurve.jqNModC_one ModularCurve.qExpand_coeff_mul ModularCurve.qExpandₐ_apply ModularCurve.jqN_one ModularCurve.qExpand_single ModularCurve.dedekindPsi_one ModularCurve.ModularPolynomialData.mk.sizeOf_spec ModularCurve.evalAtJ_X ModularCurve.ModularPolynomialData.mk.injEq ModularCurve.constantCoeff_jNum ModularCurve.constantCoeff_eisenstein4 ModularCurve.qExpand_C ModularCurve.coeff_jq_neg_one ModularCurve.constantCoeff_jNumQ ModularCurve.reduceModBivar_C_X ModularCurve.laurentMap_coeff ModularCurve.reduceModBivar_X ModularCurve.laurentMap_single ModularCurve.evalAtJInt_X ModularCurve.evalAtJMod_X ModularCurve.jqNMod_one ModularCurve.aeval_heckeGen ModularCurve.coe_mTorsionGaloisRep_apply ModularCurve.eisensteinSystem_of_dvd ModularCurve.eisensteinSystem_of_not_dvd FreyPackage.mk.sizeOf_spec FreyPackage.mk.injEq WeierstrassCurve.Affine.Point.galoisRepModuleEnd_apply
@@ -20,50 +19,6 @@ import Mathlib.LinearAlgebra.Matrix.ToLinearEquiv
 import Mathlib.LinearAlgebra.Quotient.Basic
 
 open AlgebraicCurve
-
-namespace Submission
-
-theorem p06_9e0f5043ff_lno_integral_norm_length
-    (K E L : Type*) [Field K] [Field E] [Field L]
-    [Algebra K E] [Algebra K L] [Algebra E L] [IsScalarTower K E L]
-    [FiniteDimensional E L] [Algebra.IsSeparable E L]
-    (v : AlgebraicCurve.Place K E) (b : AlgebraicCurve.Place.integralClosureAt L v)
-    (hb : b ≠ 0) :
-    ∃ n : ℕ,
-      Module.length v.toValuationSubring
-        (AlgebraicCurve.Place.integralClosureAt L v ⧸
-          Ideal.span ({b} : Set (AlgebraicCurve.Place.integralClosureAt L v))) = (n : ℕ∞) ∧
-      v.ord (Algebra.norm E
-        (algebraMap (AlgebraicCurve.Place.integralClosureAt L v) L b)) = (n : ℤ) := by
-  classical
-  let A := v.toValuationSubring
-  let B := AlgebraicCurve.Place.integralClosureAt L v
-  have : Module.Free A B := inferInstance
-  have : IsLocalization (Algebra.algebraMapSubmonoid B (nonZeroDivisors A)) L :=
-    IsIntegralClosure.isLocalization A E L B
-  -- Extending an integral basis to the fraction field identifies the two norms.
-  have hnorm : Algebra.norm E (algebraMap B L b) =
-      algebraMap A E (LinearMap.det (LinearMap.mul A B b)) := by
-    exact Algebra.norm_localization A (nonZeroDivisors A) b
-  have hbL : algebraMap B L b ≠ 0 :=
-    (map_ne_zero_iff _ (IsFractionRing.injective B L)).mpr hb
-  have hdet : LinearMap.det (LinearMap.mul A B b) ≠ 0 := by
-    intro hzero
-    have hnorm0 : Algebra.norm E (algebraMap B L b) = 0 := by
-      rw [hnorm, hzero, map_zero]
-    exact hbL (Algebra.norm_eq_zero_iff.mp hnorm0)
-  obtain ⟨n, hlength, hord⟩ :=
-    Submission.p06_9e0f5043ff_lno_dvr_determinant_length K E v B
-      (LinearMap.mul A B b) hdet
-  refine ⟨n, ?_, ?_⟩
-  · rw [Ideal.range_mul] at hlength
-    exact (Submodule.Quotient.restrictScalarsEquiv A (Ideal.span {b})).length_eq.symm.trans
-      hlength
-  · rw [hnorm]
-    exact hord
-
-end Submission
-
 theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
     [Algebra K F] (x : F) (hx : Transcendental K x)
     [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
@@ -2313,5 +2268,60 @@ theorem p06_9e0f5043ff_lno_dvr_determinant_length
       v.ord_mul (hcoe _ hPdet.ne_zero) (hcoe _ hD),
       hunit _ hPdet, hunit _ hQdet, zero_add, add_zero, hprod] at horder
     simpa only [D, LinearMap.det_toMatrix, Nat.cast_sum] using horder
+
+end Submission
+
+
+namespace Submission
+
+theorem p06_9e0f5043ff_lno_integral_norm_length
+    (K E L : Type*) [Field K] [Field E] [Field L]
+    [Algebra K E] [Algebra K L] [Algebra E L] [IsScalarTower K E L]
+    [FiniteDimensional E L] [Algebra.IsSeparable E L]
+    (v : AlgebraicCurve.Place K E) (b : AlgebraicCurve.Place.integralClosureAt L v)
+    (hb : b ≠ 0) :
+    ∃ n : ℕ,
+      Module.length v.toValuationSubring
+        (AlgebraicCurve.Place.integralClosureAt L v ⧸
+          Ideal.span ({b} : Set (AlgebraicCurve.Place.integralClosureAt L v))) = (n : ℕ∞) ∧
+      v.ord (Algebra.norm E
+        (algebraMap (AlgebraicCurve.Place.integralClosureAt L v) L b)) = (n : ℤ) := by
+  classical
+  let A := v.toValuationSubring
+  let B := AlgebraicCurve.Place.integralClosureAt L v
+  have : Module.Free A B := inferInstance
+  have : IsLocalization (Algebra.algebraMapSubmonoid B (nonZeroDivisors A)) L :=
+    IsIntegralClosure.isLocalization A E L B
+  -- Extending an integral basis to the fraction field identifies the two norms.
+  have hnorm : Algebra.norm E (algebraMap B L b) =
+      algebraMap A E (LinearMap.det (LinearMap.mul A B b)) := by
+    let e := Module.finBasis A B
+    have hmatrix : (algebraMap A E).mapMatrix (Algebra.leftMulMatrix e b) =
+        Algebra.leftMulMatrix (e.localizationLocalization E (nonZeroDivisors A) L)
+          (algebraMap B L b) := by
+      ext i j
+      simp only [Matrix.map_apply, RingHom.mapMatrix_apply,
+        Algebra.leftMulMatrix_eq_repr_mul, ← map_mul,
+        Module.Basis.localizationLocalization_apply,
+        Module.Basis.localizationLocalization_repr_algebraMap]
+    change Algebra.norm E (algebraMap B L b) = algebraMap A E (Algebra.norm A b)
+    rw [Algebra.norm_eq_matrix_det (e.localizationLocalization E (nonZeroDivisors A) L),
+      Algebra.norm_eq_matrix_det e, RingHom.map_det, hmatrix]
+  have hbL : algebraMap B L b ≠ 0 :=
+    (map_ne_zero_iff _ (IsFractionRing.injective B L)).mpr hb
+  have hdet : LinearMap.det (LinearMap.mul A B b) ≠ 0 := by
+    intro hzero
+    have hnorm0 : Algebra.norm E (algebraMap B L b) = 0 := by
+      rw [hnorm, hzero, map_zero]
+    exact hbL (Algebra.norm_eq_zero_iff.mp hnorm0)
+  obtain ⟨n, hlength, hord⟩ :=
+    Submission.p06_9e0f5043ff_lno_dvr_determinant_length K E v B
+      (LinearMap.mul A B b) hdet
+  refine ⟨n, ?_, ?_⟩
+  · rw [Ideal.range_mul] at hlength
+    exact (Submodule.Quotient.restrictScalarsEquiv A (Ideal.span {b})).length_eq.symm.trans
+      hlength
+  · rw [hnorm]
+    exact hord
 
 end Submission
