@@ -1155,11 +1155,13 @@ theorem f036cc6b1f_pc_ed_aoi_null_orbit :
       ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
         ∀ a : Matrix.SpecialLinearGroup (Fin 2) ℤ, a • z ∉ s := by
   intro s hs hnull
+  -- The determinant-one subtype of four integer entries is countable.
   let : Countable (Matrix.SpecialLinearGroup (Fin 2) ℤ) := by
     unfold Matrix.SpecialLinearGroup Matrix
     infer_instance
   apply MeasureTheory.ae_all_iff.mpr
   intro a
+  -- The modular action is the restriction of the measure-invariant real GL action.
   change ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
     z ∉ (fun z : UpperHalfPlane => Matrix.SpecialLinearGroup.mapGL ℝ a • z) ⁻¹' s
   apply MeasureTheory.measure_eq_zero_iff_ae_notMem.mp
