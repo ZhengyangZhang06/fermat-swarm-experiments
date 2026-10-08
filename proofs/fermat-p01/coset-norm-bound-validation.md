@@ -14,7 +14,7 @@ The exact type remains:
 ∀ (M : ℕ) [NeZero M] (f : CuspForm (CongruenceSubgroup.Gamma0 M) 2), ∃ C Y : ℝ, 0 ≤ C ∧ ∀ z : UpperHalfPlane, Y ≤ z.im → ‖ModularForm.norm (MonoidHom.range (Matrix.SpecialLinearGroup.mapGL ℝ : Matrix.SpecialLinearGroup (Fin 2) ℤ →* Matrix.GeneralLinearGroup (Fin 2) ℝ)) f z‖ ≤ C * ‖f z‖
 ```
 
-## Fresh author checks, 2026-10-08, round started 12:54:01 UTC
+## Fresh author checks, 2026-10-08, round started 14:05:24 UTC
 
 - Lean 4.33.1 (commit `819816b2e0a3bf405af45ae5c7af2491d8f5bee6`), `-DwarningAsError=true` and the project Lean options: the unchanged selected theorem in a fresh diagnostic importing
   `Definitions.Def_ModularForm_HeckeOperatorForms` passes, including an anonymous check
@@ -34,8 +34,10 @@ The exact type remains:
 
 **Required validation remains blocked.** The fresh diagnostic retaining the frozen imports
 and attribute commands, while excluding the unrelated root theorem, exits 1. The two
-grouped commands fail before this node's proof. A fresh exact-name provider search across
+grouped commands fail before this node's proof. A fresh exact-name source search across
 snapshot `project/Definitions` and `mathlib/Mathlib` returns no matches for their 15 targets.
+That textual search alone does not rule out generated declarations; the Lean errors
+establish the missing targets in the actual imported environment.
 The first errors name
 `FLT.HyperbolicMeasure.instSMulInvariantMeasureSpecialLinearGroupFinOfNatNatIntUpperHalfPlaneVolume_definitions`
 and `FreyPackage.ModMCarrier.coe_rescaleLin_apply`. The fresh selected-body diagnostic exits zero;
@@ -67,11 +69,10 @@ defines the quotient factors, and lines 64–65 and 108–110 define the norm pr
 index and arithmeticity. `mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/FunctionsBoundedAtInfty.lean:42,70`
 turn filter bounds into a common height. An exact-word rg search for
 `f036cc6b1f_fd_norm_bound|norm_domination|norm_bound` across `project/Definitions`
-and mathlib's modular-form directory returned no matches. A broader substring
-search returned unrelated norm and asymptotic bounds. The structured research
+and mathlib's modular-form directory returned no matches. The structured research
 record has exactly one `reference_use` entry with source `local-project`.
 
-Fresh local evidence is in `.humanize/rlcr/2026-10-08_12-54-01/validation/`, including
+Fresh local evidence is in `.humanize/rlcr/2026-10-08_14-05-24/validation/`, including
 the scoped diagnostic sources, completed body/context build logs, `build-results.json`,
 `source-dependency-audit.json`, protected-artifact digests, `reference-use.json`, and
 `complete-source.diff`. The freshly requested simplifier agent independently reviewed the selected
