@@ -2292,3 +2292,161 @@ theorem p07_rigidification_reduction_857cd4d38c
     simp only [Iso.hom_inv_id_assoc]
 
 end Submission
+  classical
+  clear hrN hrr hunr hBq hΛ hcoord hn hrn hC
+  intro S _ _ _ _ ψS hψS z
+  induction z using Quot.ind with
+  | mk p =>
+    -- Work with an actual representative and its residue ring (proof steps 20–21).
+    let J : Ideal S := Ideal.span {algebraMap C S (algebraMap 𝒪 C π)}
+    let T := S ⧸ J
+    let q : S →ₐ[C] T := Ideal.Quotient.mkₐ C J
+    let ψT : Onr →ₐ[𝒪] T := (q.restrictScalars 𝒪).comp ψS
+    have hψT : ψT = (IsScalarTower.toAlgHom 𝒪 C T).comp ψ := by
+      rw [show ψT = (q.restrictScalars 𝒪).comp ψS from rfl, hψS]
+      ext x
+      exact q.commutes (ψ x)
+    have h0 : algebraMap C T (algebraMap 𝒪 C π) = 0 := by
+      change Ideal.Quotient.mk J (algebraMap C S (algebraMap 𝒪 C π)) = 0
+      exact Ideal.Quotient.eq_zero_iff_mem.mpr (Ideal.subset_span rfl)
+    -- Fine-moduli surjectivity recovers the prescribed moduli morphism (22–23).
+    have hbase : Spec.map (CommRingCat.ofHom (algebraMap C S)) ≫
+        Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)) =
+        Spec.map (CommRingCat.ofHom (algebraMap 𝒪 S)) := by
+      rw [← Spec.map_comp, ← CommRingCat.ofHom_comp, IsScalarTower.algebraMap_eq 𝒪 C S]
+    have ht : (p.t ≫ Limits.pullback.fst fM
+        (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))) ≫ fM =
+        Spec.map (CommRingCat.ofHom (algebraMap 𝒪 S)) := by
+      rw [Category.assoc, Limits.pullback.condition, ← Category.assoc, p.ht]
+      exact hbase
+    obtain ⟨u, hu⟩ := hM.ptF_surjective S
+      (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 S))) ⟨_, ht⟩
+    have huval := congrArg Subtype.val hu
+    have htu : (tM S u).1 = p.t := by
+      apply Limits.pullback.hom_ext
+      · exact (htM S u).trans huval
+      · exact (tM S u).2.trans p.ht.symm
+    -- Apply chart surjectivity on the special fibre, accounting for its second quotient (24–26).
+    have hxbase : p.x ≫ (ξ p.d ≫ Limits.pullback.snd fM
+        (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))) =
+        Spec.map (CommRingCat.ofHom (algebraMap C T)) := by
+      rw [← Category.assoc, p.hx, Category.assoc, p.ht,
+        ← Spec.map_comp, ← CommRingCat.ofHom_comp]
+    obtain ⟨v, σ, hd, hσ⟩ := hx3 p.d T ψT hψT h0 ⟨p.x, hxbase⟩
+    let e : (T ⧸ Ideal.span {algebraMap C T (algebraMap 𝒪 C π)}) ≃+* T :=
+      (Ideal.quotEquivOfEq (Ideal.span_singleton_eq_bot.mpr h0)).trans
+        (RingEquiv.quotientBot T)
+    have he : Spec.map (CommRingCat.ofHom e.toRingHom) ≫
+        Spec.map (CommRingCat.ofHom (Ideal.Quotient.mk
+          (Ideal.span {algebraMap C T (algebraMap 𝒪 C π)}))) = 𝟙 _ := by
+      rw [← Spec.map_comp, ← CommRingCat.ofHom_comp,
+        RigidifiedPairClass.quotEquiv_comp_mk (algebraMap 𝒪 C π) T h0, CommRingCat.ofHom_id]
+      exact Spec.map_id _
+    have hσval : Spec.map (CommRingCat.ofHom e.toRingHom) ≫
+        (xOf T ψT hψT v σ).1 ≫ eqToHom (congrArg X hd) = p.x :=
+      congrArg Subtype.val hσ
+    have hξ : ∀ {i j : ℕ} (h : i = j), eqToHom (congrArg X h) ≫ ξ j = ξ i := by
+      intro i j h
+      subst j
+      simp only [eqToHom_refl, Category.id_comp]
+    have htv : (tM T v).1 = Spec.map (CommRingCat.ofHom (q : S →+* T)) ≫ p.t := by
+      calc
+        (tM T v).1 = (Spec.map (CommRingCat.ofHom e.toRingHom) ≫
+            Spec.map (CommRingCat.ofHom (Ideal.Quotient.mk
+              (Ideal.span {algebraMap C T (algebraMap 𝒪 C π)})))) ≫ (tM T v).1 := by
+                rw [he, Category.id_comp]
+        _ = (Spec.map (CommRingCat.ofHom e.toRingHom) ≫
+            (xOf T ψT hψT v σ).1 ≫ eqToHom (congrArg X hd)) ≫ ξ p.d := by
+              simpa only [Category.assoc, hξ hd] using
+                congrArg (fun f => Spec.map (CommRingCat.ofHom e.toRingHom) ≫ f)
+                  (xOf T ψT hψT v σ).2.symm
+        _ = Spec.map (CommRingCat.ofHom (q : S →+* T)) ≫ p.t := by
+          rw [hσval]
+          exact p.hx
+    -- Compare the chart curve with the full-level reduction of u (27–29).
+    obtain ⟨v₀, g₀, hg₀, hP₀⟩ :=
+      Submission.p07_full_level_quotient_857cd4d38c Λ N n S J u
+    have hpb : FakeEllipticCurve.WithFullLevel.IsPullback (q : S →+* T) u v₀ := by
+      obtain ⟨hsq, hmul, hact, hlev⟩ := hg₀
+      exact ⟨g₀, hsq, hmul, hact, hlev, hP₀⟩
+    have hqbase : Spec.map (CommRingCat.ofHom (q : S →+* T)) ≫
+        Spec.map (CommRingCat.ofHom (algebraMap 𝒪 S)) =
+        Spec.map (CommRingCat.ofHom (algebraMap 𝒪 T)) := by
+      rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
+      rfl
+    have hv₀ := hM.ptF_pullback S T (q : S →+* T)
+      (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 S)))
+      (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 T))) hqbase u v₀ hpb
+    have hv : ptF T (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 T))) v =
+        ptF T (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 T))) v₀ := by
+      apply Subtype.ext
+      rw [← htM T v, htv, hv₀, huval, Category.assoc]
+    obtain ⟨i, hi, himul, hiact, hilev, hiP⟩ := hM.ptF_injective T
+      (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 T))) v v₀ hv
+    let g : v.1.A ⟶ u.1.A := i.hom ≫ g₀
+    have hg : FakeEllipticCurve.IsPullbackVia (q : S →+* T) u.1 v.1 g := by
+      obtain ⟨hsq₀, hmul₀, hact₀, hlev₀⟩ := hg₀
+      have hsq : CategoryTheory.IsPullback g v.1.f u.1.f
+          (Spec.map (CommRingCat.ofHom (q : S →+* T))) := by
+        exact hsq₀.of_iso' i (Iso.refl _) (Iso.refl _) (Iso.refl _)
+          (by simp only [g, Iso.refl_hom, Category.comp_id])
+          (by simpa only [Iso.refl_hom, Category.comp_id] using hi)
+          (by simp only [Iso.refl_hom, Category.id_comp, Category.comp_id])
+          (by simp only [Iso.refl_hom, Category.id_comp, Category.comp_id]; rfl)
+      refine ⟨hsq, ?_, ?_, ?_⟩
+      · intro W t P Q
+        have hm := congrArg Subtype.val (himul t P Q)
+        change (v.1.L.mul t P Q).1 ≫ i.hom =
+          (v₀.1.L.mul t (mapPt i.hom hi P) (mapPt i.hom hi Q)).1 at hm
+        change (v.1.L.mul t P Q).1 ≫ (i.hom ≫ g₀) = _
+        rw [← Category.assoc, hm, hmul₀]
+        congr 2
+      · intro x
+        dsimp only [g]
+        rw [← Category.assoc, hiact, Category.assoc, hact₀, Category.assoc]
+      · intro W t P hP
+        obtain ⟨P₀, hP₀'⟩ := hlev₀ t (mapPt i.hom hi P) ((hilev t P).mp hP)
+        exact ⟨P₀, hP₀'.trans (Category.assoc _ _ _)⟩
+    have hP : v.2.P.1 ≫ g = Spec.map (CommRingCat.ofHom (q : S →+* T)) ≫ u.2.P.1 := by
+      have hiPval := congrArg Subtype.val hiP
+      change v.2.P.1 ≫ i.hom = v₀.2.P.1 at hiPval
+      dsimp only [g]
+      rw [← Category.assoc, hiPval]
+      exact hP₀
+    -- Lift the rigidification through the approved child interface (30).
+    have hJ : Ideal.span {algebraMap 𝒪 S π} = J := by
+      dsimp only [J]
+      rw [IsScalarTower.algebraMap_apply 𝒪 C S]
+    have hlift := Submission.p07_rigidification_reduction_857cd4d38c
+      Λ r N 𝒪 π Onr A₀ S ψS u.1
+    rw [hJ] at hlift
+    obtain ⟨ρ, _, hρ⟩ := hlift v.1 g hg σ
+    obtain ⟨hnat, hxnat⟩ := hxOf S T q ψS hψS hψT u v ρ σ g hg hP hρ
+    -- Naturality and quotient idempotence recover the original x-component (31–32).
+    have hqmap : RigidifiedPairClass.qmap (algebraMap 𝒪 C π) q =
+        Ideal.Quotient.mk (Ideal.span {algebraMap C T (algebraMap 𝒪 C π)}) := by
+      apply Ideal.Quotient.ringHom_ext
+      ext x
+      rfl
+    have hcancel : Spec.map (CommRingCat.ofHom e.toRingHom) ≫
+        Spec.map (CommRingCat.ofHom (RigidifiedPairClass.qmap (algebraMap 𝒪 C π) q)) = 𝟙 _ := by
+      rw [hqmap]
+      exact he
+    have hρd : ρ.d = p.d := hnat.symm.trans hd
+    have hx : (xOf S ψS hψS u ρ).1 ≫ eqToHom (congrArg X hρd) = p.x := by
+      calc
+        (xOf S ψS hψS u ρ).1 ≫ eqToHom (congrArg X hρd) =
+            (Spec.map (CommRingCat.ofHom e.toRingHom) ≫
+              Spec.map (CommRingCat.ofHom (RigidifiedPairClass.qmap (algebraMap 𝒪 C π) q))) ≫
+              (xOf S ψS hψS u ρ).1 ≫ eqToHom (congrArg X hρd) := by
+                rw [hcancel, Category.id_comp]
+        _ = Spec.map (CommRingCat.ofHom e.toRingHom) ≫
+            (xOf T ψT hψT v σ).1 ≫ eqToHom (congrArg X hd) := by
+              rw [Category.assoc, ← reassoc_of% hxnat]
+              simp only [eqToHom_trans]
+              rfl
+        _ = p.x := hσval
+    -- Equality of representatives implies equality of their quotient classes (33–34).
+    refine ⟨u, ρ, ?_⟩
+    apply congrArg (Quot.mk _)
+    exact RigidifiedPairClass.Pt.ext' _ p htu hρd hx
