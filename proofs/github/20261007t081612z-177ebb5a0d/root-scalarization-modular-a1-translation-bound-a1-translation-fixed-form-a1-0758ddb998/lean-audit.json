@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "binarySubst|binaryFormRepSL|def BinaryForm",
+        "coe_T_zpow",
+        "p02_es_177ebb5a_tb_fixed_form|p02_es_177ebb5a_tff_"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project"
+      ],
+      "conclusion": "Confirmed pinned project and mathlib revisions and Lean v4.33.1; mathlib is clean. Binary-form definitions match the candidate byte-for-byte; coe_T_zpow is pinned upstream infrastructure. No tracked theorem/helper names occur in the project snapshot. The exact comparator rerun passed with only propext, Classical.choice, and Quot.sound; all 220 exported Lean inputs match the inspected committed inputs."
+    }
+  ],
+  "comparison_identity": "1d4d96d1c6741fadacba2470cdde2617adf4f4354034a0ab54fb17eb436278d6",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_tb_fixed_form",
+      "statement": "∀ (N : ℕ) [NeZero N] (n : ℕ) (A : ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.binaryFormRepSL ℂ n (ModularGroup.T ^ N) A = A → ∃ α : ℂ, A.val = MvPolynomial.C α * MvPolynomial.X (0 : Fin 2) ^ n",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Dehomogenization converts invariance into polynomial periodicity; the two accepted prerequisites yield constancy and recover the pure power."
+    }
+  ]
+}

@@ -54,4 +54,119 @@ theorem p02_es_177ebb5a_sm_holomorphic
     exact (hE d ⟨z, hz⟩).differentiableAt.differentiableWithinAt
   · exact (differentiable_id.neg.pow (d 1)).differentiableOn
 
+/-- A complex polynomial fixed by a nonzero translation is constant.
+For positive degree `d + 1`, its `d`th Hasse derivative is linear; the Taylor
+coefficient identity makes translation invariance contradict its nonzero slope. -/
+theorem p02_es_177ebb5a_tff_periodic_polynomial_constant
+    (p : Polynomial ℂ) (c : ℂ) (hc : c ≠ 0)
+    (hperiod : p.comp (Polynomial.X + Polynomial.C c) = p) :
+    p = Polynomial.C (p.coeff 0) := by
+  apply Polynomial.eq_C_of_natDegree_eq_zero
+  by_contra hdegree
+  obtain ⟨d, hd⟩ := Nat.exists_eq_succ_of_ne_zero hdegree
+  have hp : p ≠ 0 := Polynomial.ne_zero_of_natDegree_gt (Nat.pos_of_ne_zero hdegree)
+  have hlinear : (Polynomial.hasseDeriv d p).natDegree ≤ 1 := by
+    simpa [hd] using Polynomial.natDegree_hasseDeriv_le p d
+  -- The degree-d coefficient of the translate is (d + 1) * p.coeff (d + 1) * c
+  -- plus p.coeff d; invariance forces the first summand to vanish.
+  have hcoeff := congrArg (fun q : Polynomial ℂ => q.coeff d) hperiod
+  rw [← Polynomial.taylor_apply, Polynomial.taylor_coeff,
+    Polynomial.eq_X_add_C_of_natDegree_le_one hlinear] at hcoeff
+  simp only [Polynomial.eval_add, Polynomial.eval_mul, Polynomial.eval_C,
+    Polynomial.eval_X, Polynomial.hasseDeriv_coeff, Nat.zero_add, Nat.choose_self,
+    Nat.cast_one, one_mul, Nat.add_comm 1 d, Nat.choose_succ_self_right] at hcoeff
+  have hlead : p.coeff (d + 1) ≠ 0 := by
+    simpa only [Polynomial.leadingCoeff, hd, Nat.succ_eq_add_one] using
+      Polynomial.leadingCoeff_ne_zero.mpr hp
+  have hcast : ((d + 1 : ℕ) : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (Nat.succ_ne_zero d)
+  exact (mul_ne_zero (mul_ne_zero hcast hlead) hc)
+    (add_right_cancel (hcoeff.trans (zero_add _).symm))
+theorem p02_es_177ebb5a_tff_constant_dehomogenization
+    (n : ℕ) (A : ↥(HeckeEis.BinaryForm ℂ n)) (α : ℂ)
+    (hA : MvPolynomial.eval₂ Polynomial.C
+      (fun j : Fin 2 => if j = 0 then 1 else Polynomial.X) A.val = Polynomial.C α) :
+    A.val = MvPolynomial.C α * MvPolynomial.X (0 : Fin 2) ^ n := by
+  classical
+  have hdegree (d : Fin 2 →₀ ℕ) (hd : d ∈ A.val.support) : d 0 + d 1 = n := by
+    simpa only [← Finsupp.degree_apply, Finsupp.degree_eq_sum, Fin.sum_univ_two] using
+      (A.property.degree_eq_sum_deg_support hd).symm
+  -- At fixed total degree, the exponent of X₁ uniquely determines the monomial.
+  have hcoeff (d : Fin 2 →₀ ℕ) (hd : d 0 + d 1 = n) :
+      (MvPolynomial.eval₂ Polynomial.C
+        (fun j : Fin 2 => if j = 0 then 1 else Polynomial.X) A.val).coeff (d 1) =
+        MvPolynomial.coeff d A.val := by
+    rw [MvPolynomial.eval₂_eq']
+    simp only [Fin.prod_univ_two, Fin.isValue, ite_true, one_pow, one_ne_zero,
+      ite_false, one_mul, Polynomial.finsetSum_coeff, Polynomial.coeff_C_mul_X_pow]
+    rw [Finset.sum_eq_single d]
+    · simp
+    · intro e he hne
+      have hedeg := hdegree e he
+      have hne1 : d 1 ≠ e 1 := by
+        intro he1
+        apply hne
+        have he0 : e 0 = d 0 := by omega
+        ext j
+        fin_cases j
+        · exact he0
+        · exact he1.symm
+      simp [hne1]
+    · intro hnot
+      simp [MvPolynomial.notMem_support_iff.mp hnot]
+  apply MvPolynomial.ext
+  intro d
+  by_cases hd : d 0 + d 1 = n
+  · have hc := hcoeff d hd
+    rw [hA, Polynomial.coeff_C] at hc
+    rw [← hc, MvPolynomial.C_mul_X_pow_eq_monomial, MvPolynomial.coeff_monomial]
+    have heq : Finsupp.single (0 : Fin 2) n = d ↔ d 1 = 0 := by
+      constructor
+      · intro h
+        rw [← h]
+        simp
+      · intro h
+        ext j
+        fin_cases j <;> simp at * <;> omega
+    simp only [heq]
+  · rw [A.property.coeff_eq_zero, (MvPolynomial.isHomogeneous_C_mul_X_pow α
+      (0 : Fin 2) n).coeff_eq_zero]
+    all_goals simpa [Finsupp.degree_eq_sum, Fin.sum_univ_two] using hd
+
+/-- A homogeneous binary form fixed by a nonzero integral translation is a power of X₀. -/
+theorem p02_es_177ebb5a_tb_fixed_form
+    (N : ℕ) [NeZero N] (n : ℕ) (A : ↥(HeckeEis.BinaryForm ℂ n))
+    (hA : HeckeEis.binaryFormRepSL ℂ n (ModularGroup.T ^ N) A = A) :
+    ∃ α : ℂ, A.val = MvPolynomial.C α * MvPolynomial.X (0 : Fin 2) ^ n := by
+  classical
+  let d : MvPolynomial (Fin 2) ℂ →+* Polynomial ℂ :=
+    MvPolynomial.eval₂Hom Polynomial.C (fun j => if j = 0 then 1 else Polynomial.X)
+  let t := Polynomial.compRingHom (Polynomial.X + Polynomial.C (N : ℂ))
+  have hmatrix : ((ModularGroup.T ^ N : SL(2, ℤ)) : Matrix (Fin 2) (Fin 2) ℤ) =
+      !![1, (N : ℤ); 0, 1] := by
+    simpa only [zpow_natCast] using ModularGroup.coe_T_zpow (N : ℤ)
+  -- Dehomogenizing the column substitution is translation of the univariate polynomial.
+  have hcomm : d.comp (HeckeEis.binarySubst ℂ (ModularGroup.T ^ N : SL(2, ℤ))).toRingHom =
+      t.comp d := by
+    apply MvPolynomial.ringHom_ext
+    · intro a
+      change d (HeckeEis.binarySubst ℂ (ModularGroup.T ^ N : SL(2, ℤ)) (MvPolynomial.C a)) =
+        t (d (MvPolynomial.C a))
+      rw [HeckeEis.binarySubst_C]
+      simp [d, t]
+    · intro a
+      change d (HeckeEis.binarySubst ℂ (ModularGroup.T ^ N : SL(2, ℤ)) (MvPolynomial.X a)) =
+        t (d (MvPolynomial.X a))
+      rw [HeckeEis.binarySubst_X, hmatrix]
+      fin_cases a <;> simp [d, t, Fin.sum_univ_two, add_comm]
+  have hfixed : HeckeEis.binarySubst ℂ (ModularGroup.T ^ N : SL(2, ℤ)) A.val = A.val :=
+    congrArg Subtype.val hA
+  have hperiod : (d A.val).comp (Polynomial.X + Polynomial.C (N : ℂ)) = d A.val := by
+    calc
+      _ = d (HeckeEis.binarySubst ℂ (ModularGroup.T ^ N : SL(2, ℤ)) A.val) :=
+        (congrArg (fun f : MvPolynomial (Fin 2) ℂ →+* Polynomial ℂ => f A.val) hcomm).symm
+      _ = d A.val := congrArg d hfixed
+  refine ⟨(d A.val).coeff 0, p02_es_177ebb5a_tff_constant_dehomogenization n A _ ?_⟩
+  exact p02_es_177ebb5a_tff_periodic_polynomial_constant (d A.val) (N : ℂ)
+    (Nat.cast_ne_zero.mpr (NeZero.ne N)) hperiod
+
 end Submission
