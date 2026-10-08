@@ -1372,6 +1372,7 @@ theorem p06_9e0f5043ff_elp_fraction_subalgebra
       ∃ a b : Polynomial K, ¬ q ∣ b ∧
         f = Polynomial.aeval x a / Polynomial.aeval x b := by
   have hprime : Prime q := hq.prime
+  -- A permitted denominator cannot evaluate to zero at a transcendental element.
   have hden : ∀ b : Polynomial K, ¬ q ∣ b → Polynomial.aeval x b ≠ 0 := by
     intro b hb heval
     exact hb (transcendental_iff.mp hx b heval ▸ dvd_zero q)
@@ -1379,6 +1380,7 @@ theorem p06_9e0f5043ff_elp_fraction_subalgebra
     carrier := {f | ∃ a b : Polynomial K, ¬ q ∣ b ∧
       f = Polynomial.aeval x a / Polynomial.aeval x b}
     algebraMap_mem' := by
+      -- Constants use denominator one; Subalgebra derives zero and one membership.
       intro c
       exact ⟨Polynomial.C c, 1, hprime.not_dvd_one, by simp⟩
     add_mem' := by
