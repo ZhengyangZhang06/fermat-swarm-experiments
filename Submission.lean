@@ -321,7 +321,8 @@ theorem Submission.p10_17ae7b7d_rd_coeff_support :
     have hexp : Complex.exp (2 * (Real.pi : ℂ) * Complex.I * (n : ℂ) / (w : ℂ)) = 1 := by
       calc
         _ = Complex.exp ((n : ℂ) * (2 * (Real.pi : ℂ) * Complex.I / (w : ℂ))) := by
-          congr 1 <;> ring
+          congr 1
+          ring
         _ = ζ ^ n := Complex.exp_nat_mul _ _
         _ = 1 := h
     exact hn ((Complex.exp_two_pi_mul_I_mul_div_eq_one_iff (Nat.ne_of_gt hw)).mp hexp)
