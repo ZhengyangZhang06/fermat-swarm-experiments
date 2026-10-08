@@ -2147,7 +2147,7 @@ theorem p06_9e0f5043ff_dmc_cokernel_units :
   intro R _ m D P Q hP hQ
   let eP := Matrix.toLinearEquiv' P hP.invertible
   let eQ := Matrix.toLinearEquiv' Q hQ.invertible
-  -- Descend P and its inverse to the quotients once P maps the two ranges onto each other.
+  -- Descend P and its inverse once P maps range(D) onto range(P * D * Q).
   refine ⟨Submodule.Quotient.equiv _ _ eP ?_⟩
   -- P(range D) = range (P * D), and surjectivity of Q gives range (P * D * Q).
   change (LinearMap.range D.mulVecLin).map P.mulVecLin =
