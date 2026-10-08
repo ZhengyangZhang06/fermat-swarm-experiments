@@ -187,3 +187,16 @@ theorem Submission.p08_7d1ff633a4_ck_cyclotomic_kernel :
     IntermediateField.subset_adjoin ℚ R ⟨⟨t, ht⟩, rfl⟩
   simpa only [ZMod.val_one'' (Fact.out : p.Prime).ne_one, pow_one] using
     ((IntermediateField.mem_fixingSubgroup_iff _ σ).mp hσ) (t : AlgebraicClosure ℚ) htF
+
+
+theorem Submission.p08_7d1ff633a4_tt26_normal_kernel :
+    ∀ {G : Type} [Group G]
+      (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ))
+      (E : IntermediateField ℚ (AlgebraicClosure ℚ)),
+      FiniteDimensional ℚ E → Normal ℚ E →
+        (E.fixingSubgroup.comap r).Normal ∧ (E.fixingSubgroup.comap r).FiniteIndex := by
+  intro G _ r E hE hN
+  have : FiniteDimensional ℚ E := hE
+  have hker := @IntermediateField.restrictNormalHom_ker ℚ (AlgebraicClosure ℚ) _ _ _ E hN
+  rw [← hker, MonoidHom.comap_ker]
+  exact ⟨inferInstance, inferInstance⟩

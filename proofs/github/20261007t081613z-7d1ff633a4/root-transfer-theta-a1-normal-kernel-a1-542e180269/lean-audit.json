@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "7181a58c1992e7ab70daea5cf946ca58593a702a9f0053b062b1fa10a3e01e37",
+  "git_delta": {
+    "base_commit": "d62e9e225d519c1ecfd07dd7c399af490117a3f9",
+    "candidate_commit": "adf540c0913b9cc8105f16949dcce700a3ae5473",
+    "target": "Submission.lean",
+    "declaration": "p08_7d1ff633a4_tt26_normal_kernel",
+    "diff_sha256": "4bc96e1fbfbfdb1a1fb17b1edd18410429848a8ce1d7154f3c0a7e736c3b028b",
+    "source_sha256": "635a3681c2ac88fa4fcc9d9ff0dc666abc460c4df527d94ba63e088990770d89",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p08_7d1ff633a4_tt26_normal_kernel",
+      "statement": "∀ {G : Type} [Group G] (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)) (E : IntermediateField ℚ (AlgebraicClosure ℚ)), FiniteDimensional ℚ E → Normal ℚ E → (E.fixingSubgroup.comap r).Normal ∧ (E.fixingSubgroup.comap r).FiniteIndex",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
