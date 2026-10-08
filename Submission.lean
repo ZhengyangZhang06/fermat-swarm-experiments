@@ -3630,3 +3630,55 @@ theorem Submission.p08_7d1ff633a4_transfer_theta :
       ΘH i x (RY i y) = ℓ (CN (PH i x (RY i y))) := hΘHeval i x (RY i y)
       _ = ℓ (P i (CX i x) y) := congrArg ℓ (hright i x y)
       _ = Θ i (CX i x) y := (hΘeval i (CX i x) y).symm
+  classical
+  let r := (primeLocalToGlobal q).comp S.subtype
+  let χ := ((cycloChar p).comp (primeLocalToGlobal q)).comp S.subtype
+  let D := M.dualTwist χ
+  let T := Rep.res S.subtype
+    (ofChar (k := ZMod p) ((cycloChar p).comp (primeLocalToGlobal q)))
+  have hn : (U.index : ZMod p) ≠ 0 := hUp.ne_zero
+  obtain ⟨E, hEfin, hEnormal, hEU, hEacts⟩ :=
+    Submission.p08_7d1ff633a4_common_kernel q S U M hU hsm
+  have hφ : ∀ (s : S) (m : M) (d : D),
+      (Module.Dual.eval (ZMod p) M : M →ₗ[ZMod p] D →ₗ[ZMod p] T)
+          (M.ρ s m) (D.ρ s d) =
+        T.ρ s ((Module.Dual.eval (ZMod p) M) m d) := by
+    intro s m d
+    change (χ s : ZMod p) * d (M.ρ s⁻¹ (M.ρ s m)) = (χ s : ZMod p) * d m
+    rw [← Module.End.mul_apply, ← map_mul, inv_mul_cancel, map_one]
+    rfl
+  obtain ⟨RX, CX, RY, CY, RN, CN, hX, hY, hN, hTheta⟩ :=
+    Submission.p08_7d1ff633a4_transfer_theta r U M D T E hEfin hEnormal hEU
+      (fun s hs => (hEacts s hs).1)
+      (fun s hs => (hEacts s hs).2.1)
+      (fun s hs => (hEacts s hs).2.2)
+      (Module.Dual.eval (ZMod p) M) hφ
+  let := hTU.1
+  have hinvU : Function.Bijective (inv.comp CN) :=
+    Submission.p08_7d1ff633a4_rank_one_transfer (U.index : ZMod p) hn RN CN hN
+      hTU.2 inv hinv.2
+  obtain ⟨Θ, ΘU, _, hΘU, huniq, hproj₁, hproj₂⟩ := hTheta inv
+  have hbijU := hres (inv.comp CN) hinvU
+    (ΘU 0) hΘU.1 (ΘU 1) hΘU.2.1 (ΘU 2) hΘU.2.2
+  let X : Fin 3 → ModuleCat (ZMod p) :=
+    ![ModuleCat.of (ZMod p) M.ρ.invariants,
+      ModuleCat.of (ZMod p) (continuousH1 r M), ModuleCat.of (ZMod p) (continuousH2 r M)]
+  let Y : Fin 3 → ModuleCat (ZMod p) :=
+    ![ModuleCat.of (ZMod p) (continuousH2 r D),
+      ModuleCat.of (ZMod p) (continuousH1 r D), ModuleCat.of (ZMod p) D.ρ.invariants]
+  let Ψ : ∀ i : Fin 3, X i →ₗ[ZMod p] Module.Dual (ZMod p) (Y i) :=
+    Fin.cases θ₀ (Fin.cases θ₁ (Fin.cases θ₂ (fun j => Fin.elim0 j)))
+  have heq := huniq Ψ ⟨hθ₀, hθ₁, hθ₂⟩
+  have heq₀ : θ₀ = Θ 0 := heq 0
+  have heq₁ : θ₁ = Θ 1 := heq 1
+  have heq₂ : θ₂ = Θ 2 := heq 2
+  rw [heq₀, heq₁, heq₂]
+  exact ⟨Submission.p08_7d1ff633a4_linear_descent (U.index : ZMod p) hn
+      (RX 0) (CX 0) (RY 0) (CY 0) (Θ 0) (ΘU 0)
+      (hX 0) (hY 0) (hproj₁ 0) (hproj₂ 0) hbijU.1,
+    Submission.p08_7d1ff633a4_linear_descent (U.index : ZMod p) hn
+      (RX 1) (CX 1) (RY 1) (CY 1) (Θ 1) (ΘU 1)
+      (hX 1) (hY 1) (hproj₁ 1) (hproj₂ 1) hbijU.2.1,
+    Submission.p08_7d1ff633a4_linear_descent (U.index : ZMod p) hn
+      (RX 2) (CX 2) (RY 2) (CY 2) (Θ 2) (ΘU 2)
+      (hX 2) (hY 2) (hproj₁ 2) (hproj₂ 2) hbijU.2.2⟩
