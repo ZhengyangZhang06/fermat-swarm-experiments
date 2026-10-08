@@ -1559,6 +1559,8 @@ theorem Submission.p10_17ae7b7d_rd_coeff_support :
       (fun q : FormalMultilinearSeries ℂ ℂ ℂ => q n (fun _ => (1 : ℂ))) heq
     rw [FormalMultilinearSeries.compContinuousLinearMap_apply] at h
     simpa [Function.comp_def, L, smul_eq_mul] using h
+    simpa [FormalMultilinearSeries.compContinuousLinearMap_apply, Function.comp_def,
+      L, FormalMultilinearSeries.apply_eq_pow_smul_coeff, smul_eq_mul] using h
   have hroot : ζ ^ n ≠ 1 := by
     intro h
     have hexp : Complex.exp (2 * (Real.pi : ℂ) * Complex.I * (n : ℂ) / (w : ℂ)) = 1 := by
@@ -1566,6 +1568,7 @@ theorem Submission.p10_17ae7b7d_rd_coeff_support :
         _ = Complex.exp ((n : ℂ) * (2 * (Real.pi : ℂ) * Complex.I / (w : ℂ))) := by
           congr 1
           ring
+          congr 1 <;> ring
         _ = ζ ^ n := Complex.exp_nat_mul _ _
         _ = 1 := h
     exact hn ((Complex.exp_two_pi_mul_I_mul_div_eq_one_iff (Nat.ne_of_gt hw)).mp hexp)
