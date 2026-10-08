@@ -110,8 +110,6 @@ The coset representatives use `QuotientGroup.mk_out_eq_mul` from Mathlib's
 `MulAction.Quotient.mk_smul_out` from `GroupTheory.GroupAction.Quotient`, and
 `Subgroup.index_eq_card` from `GroupTheory.Index` identifies the number of summands.
 The multiplication bijection is proved locally so its formula remains explicit in the norm sum. -/
-It takes the subgroup norm to the ambient norm and acts on ambient invariants by the index. -/
-`Definitions.Def_GroupCohomology_TateCohomology`. -/
 theorem p04_tz91_invariant_transfer_norm_index
     {k G : Type _} [CommRing k] [Group G] [Fintype G]
     (A : Rep k G) (H : Subgroup G) [Fintype H] :
@@ -573,6 +571,8 @@ theorem p04_ht_coinvariant_complex_transfer
   have e : F.map τ ≫ F.map π = H.index • 𝟙 (F.obj D) := by
     rw [← F.map_comp, composite, F.map_nsmul, F.map_id]
   exact congrArg (fun f => f.hom x) e
+
+end Submission
 
 namespace Submission
 
