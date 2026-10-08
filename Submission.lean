@@ -94,3 +94,70 @@ theorem Submission.p05_translation_descends_a5b449214a
   refine ⟨AlgHom.liftOfSurjective q.toAlgHom hq τ hτker, ?_⟩
   intro b
   exact AlgHom.liftOfSurjective_apply q.toAlgHom hq τ hτker b
+theorem Submission.p05_translation_left_inverse_a5b449214a
+    {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
+    (K : Subalgebra k H) {B : Type*} [CommRing B] [Bialgebra k B]
+    (q : BialgHom k H B)
+    (β : (TensorProduct K H H) →ₐ[k] (TensorProduct k H B))
+    (hβ : ∀ a b : H, β (TensorProduct.tmul K a b) =
+      (TensorProduct.tmul k a (1 : B)) * HopfAlgebra.coaction q b)
+    (σ : B →ₐ[k] (TensorProduct K H H))
+    (hσ : ∀ b : H, σ (q b) =
+      Algebra.TensorProduct.mapOfCompatibleSMul K k k H H
+        (TensorProduct.map (HopfAlgebra.antipode k) (LinearMap.id : H →ₗ[k] H)
+          (Coalgebra.comul (R := k) b))) :
+    ∃ γ : (TensorProduct k H B) →ₐ[k] (TensorProduct K H H),
+      (∀ (a : H) (c : B), γ (TensorProduct.tmul k a c) =
+        (TensorProduct.tmul K a (1 : H)) * σ c) ∧ Function.LeftInverse γ β := by
+  let C := Algebra.TensorProduct.mapOfCompatibleSMul K k k H H
+  let γ : H ⊗[k] B →ₐ[k] H ⊗[K] H :=
+    Algebra.TensorProduct.lift
+      (Algebra.TensorProduct.includeLeft : H →ₐ[k] H ⊗[K] H) σ
+      (fun _ _ => Commute.all _ _)
+  have hγ (a : H) (c : B) : γ (a ⊗ₜ[k] c) = (a ⊗ₜ[K] (1 : H)) * σ c := rfl
+  let mS : H ⊗[k] H →ₗ[k] H :=
+    (LinearMap.mul' k H).comp ((HopfAlgebra.antipode k).lTensor H)
+  let F : H ⊗[k] (H ⊗[k] H) →ₗ[k] H ⊗[k] H :=
+    (mS.rTensor H).comp (TensorProduct.assoc k H H H).symm.toLinearMap
+  have hF (a b c : H) :
+      F (a ⊗ₜ[k] (b ⊗ₜ[k] c)) = (a * HopfAlgebra.antipode k b) ⊗ₜ[k] c := rfl
+  have hmS : mS.comp (Coalgebra.comul (R := k)) =
+      (Algebra.linearMap k H).comp (Coalgebra.counit (R := k)) :=
+    HopfAlgebra.mul_antipode_lTensor_comul
+  have hcancel (b : H) :
+      F ((Coalgebra.comul (R := k)).lTensor H (Coalgebra.comul b)) =
+        (1 : H) ⊗ₜ[k] b := by
+    change mS.rTensor H ((TensorProduct.assoc k H H H).symm
+      ((Coalgebra.comul (R := k)).lTensor H (Coalgebra.comul b))) = _
+    rw [Coalgebra.coassoc_symm_apply, ← LinearMap.rTensor_comp_apply, hmS,
+      LinearMap.rTensor_comp_apply, Coalgebra.rTensor_counit_comul]
+    simp
+  have htranslate (a : H) (t : H ⊗[k] H) :
+      (a ⊗ₜ[K] (1 : H)) * C
+          (TensorProduct.map (HopfAlgebra.antipode k) (LinearMap.id : H →ₗ[k] H) t) =
+        C (F (a ⊗ₜ[k] t)) := by
+    induction t using TensorProduct.induction_on with
+    | zero => simp
+    | tmul b c => simp [C, hF, Algebra.TensorProduct.tmul_mul_tmul]
+    | add x y hx hy => simp [TensorProduct.tmul_add, mul_add, hx, hy]
+  have hcomp (t : H ⊗[k] H) :
+      γ (Algebra.TensorProduct.map (AlgHom.id k H) (q : H →ₐ[k] B) t) =
+        C (F ((Coalgebra.comul (R := k)).lTensor H t)) := by
+    induction t using TensorProduct.induction_on with
+    | zero => simp
+    | tmul a b =>
+      simp only [Algebra.TensorProduct.map_tmul, AlgHom.id_apply,
+        BialgHom.coe_toAlgHom, LinearMap.lTensor_tmul, hγ, hσ]
+      exact htranslate a (Coalgebra.comul b)
+    | add x y hx hy => simp [hx, hy]
+  have hcoaction (b : H) : γ (HopfAlgebra.coaction q b) = (1 : H) ⊗ₜ[K] b := by
+    rw [HopfAlgebra.coaction_apply, hcomp, hcancel]
+    rfl
+  refine ⟨γ, hγ, ?_⟩
+  intro t
+  induction t using TensorProduct.induction_on with
+  | zero => simp
+  | tmul a b =>
+    rw [hβ, map_mul, hγ, map_one, mul_one, hcoaction]
+    simp only [Algebra.TensorProduct.tmul_mul_tmul, mul_one, one_mul]
+  | add x y hx hy => simp [hx, hy]
