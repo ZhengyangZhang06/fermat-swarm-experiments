@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081612Z-177ebb5a0d",
+  "parent_id": "root.primitive_exists-a1.holomorphic_integral-a1",
+  "dispatch_branch": "proof-workspace/fermat-p02/20261007t081612z-177ebb5a0d/dispatch/root-primitive-exists-a1-holomorphic-integral-a1",
+  "source_commit": "6d40e5df0f3d2229c3c446d4f06f853825c10df9",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.primitive_exists-a1.holomorphic_integral-a1.linepow_coefficient_formula-a1",
+      "key": "linepow_coefficient_formula",
+      "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-holomorphic-integral-a1-linepow-coefficient-formula-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-holomorphic-integral-a1/children/root-primitive-exists-a1-holomorphic-integral-a1-linepow-coefficient-formula-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "def (BinaryForm|linePow|IsEichlerIntegral)|theorem.*(linePow|coeff)|IsHomogeneous",
+              "coeff.*(add.*pow|X.*pow)|IsHomogeneous.coeff_eq_zero|isHomogeneous_monomial|coe_ofComplex|ofComplex_coe",
+              "^((noncomputable )?(def|abbrev|theorem|lemma)) .*linePow.*coeff|^((noncomputable )?(def|abbrev|theorem|lemma)) .*coeff.*linePow",
+              "p02_es_177ebb5a_hi_(prescribed_coefficients|linepow_coefficients)",
+              "git -C .lake/packages/mathlib rev-parse HEAD",
+              "git -C .lake/packages/mathlib status --porcelain",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_177ebb5a_hi_decomposition_types.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Coeff.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-scalar-primitive-a1/comparator-v2-integration-repair-1.log",
+              "/tmp/p02_177ebb5a_hi_decomposition_types.lean"
+            ],
+            "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. BinaryForm is the homogeneous submodule; linePow has underlying polynomial (C z * X 0 + X 1)^n; IsEichlerIntegral is exactly the coefficientwise derivative predicate. Homogeneous.lean supplies homogeneous monomials and finite sums. Coeff.lean supplies coeff_linearCombination_X_pow_of_fintype; no named specialized linePow coefficient theorem was found in the pinned project. Topology.lean supplies eventuallyEq_coe_comp_ofComplex. The inspected dependency files match the snapshot, and mathlib is clean at its pinned revision. Both proposed types elaborate after import Submission, with the final check exiting successfully. Audited library declarations use only propext, Classical.choice, and Quot.sound. Neither proposed name occurs in the inspected DAG. The inherited scalar-primitive node is marked proved and its recorded comparator reports acceptance with only those standard axioms."
+          }
+        ],
+        "parent_id": "root.primitive_exists-a1.holomorphic_integral-a1",
+        "child_id": "root.primitive_exists-a1.holomorphic_integral-a1.linepow_coefficient_formula-a1",
+        "subproblem": {
+          "key": "linepow_coefficient_formula",
+          "title": "Complete coefficient formula for a power of a binary linear form",
+          "statement": "For every natural number n, every z∈ℂ, and every exponent index d : Fin 2 →₀ ℕ, the d coefficient of linePow n z, whose underlying polynomial is (zX₀+X₁)^n, equals (binom(n,d(0)):ℂ)·z^(d(0)) when d(0)+d(1)=n, and equals zero otherwise.",
+          "lean_statement": "∀ (n : ℕ) (z : ℂ) (d : Fin 2 →₀ ℕ), MvPolynomial.coeff d (HeckeEis.linePow n z).val = if d 0 + d 1 = n then (Nat.choose n (d 0) : ℂ) * z ^ (d 0) else 0",
+          "lean_name": "p02_es_177ebb5a_hi_linepow_coefficients",
+          "depends_on": [],
+          "natural_proof": "1. Fix n, z, and d. Write X=X₀ and Y=X₁. By definition, the underlying polynomial of linePow n z is (C(z)X+Y)^n. The binomial theorem in the commutative polynomial ring gives the finite expansion Σ_{r=0}^n C((binom(n,r):ℂ)z^r)X^rY^(n−r): indeed, (C(z)X)^r=C(z^r)X^r, and the natural binomial coefficient multiplies the scalar coefficient.\n2. For 0≤r≤n define e_r=Finsupp.single 0 r+Finsupp.single 1 (n−r). Multiplication of monomials identifies the r-th summand of this expansion with monomial e_r ((binom(n,r):ℂ)z^r). Its coefficient at d is therefore (binom(n,r):ℂ)z^r if e_r=d and zero otherwise. Also e_r(0)=r and e_r(1)=n−r.\n3. If d(0)+d(1)=n, let r=d(0). Then r≤n and n−r=d(1), so e_r=d by equality at the two elements of Fin 2. Any other equality e_s=d forces s=d(0) by evaluation at 0. Thus exactly one term contributes to the d coefficient of the expansion, giving (binom(n,d(0)):ℂ)z^(d(0)).\n4. If d(0)+d(1)≠n, equality e_r=d would imply d(0)+d(1)=r+(n−r)=n for some r≤n, which is impossible. Every summand has zero coefficient at d, so the coefficient of the whole expansion is zero. These cases give the stated conditional formula. They also cover n=0, for which the binomial sum has only r=0.",
+          "proof_key_steps": [
+            "Expand the underlying linePow polynomial by the binomial theorem.",
+            "Rewrite each summand as a monomial with exponent index e_r and scalar coefficient binom(n,r)z^r.",
+            "For degree-n indices, isolate the unique term r=d(0).",
+            "For all other indices, show every summand has zero coefficient."
+          ]
+        },
+        "audit": {
+          "key": "linepow_coefficient_formula",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly matches the prose and pinned linePow definition, with the intended complex scalar operations. The fresh bare identifier is unreserved. The binomial expansion and monomial multiplication yield the stated exponents and coefficients; evaluation at 0 proves uniqueness, and the degree condition excludes every term in the remaining case. The proof explicitly covers n=0, requires no sibling dependency, and contains no circular appeal or deferred proof search."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-holomorphic-integral-a1-linepow-coefficient-formula-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-holomorphic-integral-a1-linepow-coefficient-formula-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-holomorphic-integral-a1-linepow-coefficient-formula-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.primitive_exists-a1.holomorphic_integral-a1.prescribed_binary_coefficients-a1",
+      "key": "prescribed_binary_coefficients",
+      "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-holomorphic-integral-a1-prescribed-binary-co-739e69d70f-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-holomorphic-integral-a1/children/root-primitive-exists-a1-holomorphic-integral-a1-prescribed-binary-co-739e69d70f",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "def (BinaryForm|linePow|IsEichlerIntegral)|theorem.*(linePow|coeff)|IsHomogeneous",
+              "coeff.*(add.*pow|X.*pow)|IsHomogeneous.coeff_eq_zero|isHomogeneous_monomial|coe_ofComplex|ofComplex_coe",
+              "^((noncomputable )?(def|abbrev|theorem|lemma)) .*linePow.*coeff|^((noncomputable )?(def|abbrev|theorem|lemma)) .*coeff.*linePow",
+              "p02_es_177ebb5a_hi_(prescribed_coefficients|linepow_coefficients)",
+              "git -C .lake/packages/mathlib rev-parse HEAD",
+              "git -C .lake/packages/mathlib status --porcelain",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_177ebb5a_hi_decomposition_types.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Coeff.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-scalar-primitive-a1/comparator-v2-integration-repair-1.log",
+              "/tmp/p02_177ebb5a_hi_decomposition_types.lean"
+            ],
+            "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. BinaryForm is the homogeneous submodule; linePow has underlying polynomial (C z * X 0 + X 1)^n; IsEichlerIntegral is exactly the coefficientwise derivative predicate. Homogeneous.lean supplies homogeneous monomials and finite sums. Coeff.lean supplies coeff_linearCombination_X_pow_of_fintype; no named specialized linePow coefficient theorem was found in the pinned project. Topology.lean supplies eventuallyEq_coe_comp_ofComplex. The inspected dependency files match the snapshot, and mathlib is clean at its pinned revision. Both proposed types elaborate after import Submission, with the final check exiting successfully. Audited library declarations use only propext, Classical.choice, and Quot.sound. Neither proposed name occurs in the inspected DAG. The inherited scalar-primitive node is marked proved and its recorded comparator reports acceptance with only those standard axioms."
+          }
+        ],
+        "parent_id": "root.primitive_exists-a1.holomorphic_integral-a1",
+        "child_id": "root.primitive_exists-a1.holomorphic_integral-a1.prescribed_binary_coefficients-a1",
+        "subproblem": {
+          "key": "prescribed_binary_coefficients",
+          "title": "Realizing prescribed coefficients as a homogeneous binary form",
+          "statement": "For every natural number n and every function a : ℕ → ℂ, there exists P ∈ BinaryForm ℂ n such that, for every exponent index d : Fin 2 →₀ ℕ, coeff d P equals a(d(0)) when d(0)+d(1)=n, and equals zero otherwise.",
+          "lean_statement": "∀ (n : ℕ) (a : ℕ → ℂ), ∃ P : ↥(HeckeEis.BinaryForm ℂ n), ∀ d : Fin 2 →₀ ℕ, MvPolynomial.coeff d P.val = if d 0 + d 1 = n then a (d 0) else 0",
+          "lean_name": "p02_es_177ebb5a_hi_prescribed_coefficients",
+          "depends_on": [],
+          "natural_proof": "1. Fix n and a. For every integer r with 0≤r≤n, define e_r=Finsupp.single 0 r+Finsupp.single 1 (n−r). Since 0 and 1 are distinct and exhaust Fin 2, e_r(0)=r, e_r(1)=n−r, and the total degree of e_r is r+(n−r)=n.\n2. Define the polynomial P₀=Σ_{r=0}^n monomial e_r (a(r)) in MvPolynomial (Fin 2) ℂ. Each summand is homogeneous of degree n because its exponent index has degree n; this remains true when its scalar coefficient vanishes. A finite sum of homogeneous polynomials of the same degree is homogeneous of that degree. Thus P₀ determines an element P of BinaryForm ℂ n.\n3. Fix an arbitrary exponent index d. Coefficients commute with finite sums, and the d coefficient of monomial e_r (a(r)) is a(r) if d=e_r and zero otherwise. Consequently coeff d P is the sum of a(r) over precisely those r∈{0,…,n} for which d=e_r.\n4. Suppose d(0)+d(1)=n. Set r=d(0). Nonnegativity of d(1) gives r≤n, and the equality gives n−r=d(1). Therefore e_r and d agree at both elements of Fin 2, so e_r=d. If e_s=d for another s∈{0,…,n}, evaluation at 0 gives s=d(0)=r. There is exactly one contributing term in the coefficient sum, and its value is a(d(0)).\n5. Suppose instead d(0)+d(1)≠n. Equality d=e_r for any r∈{0,…,n} would imply d(0)+d(1)=r+(n−r)=n, a contradiction. Every term in the coefficient sum is therefore zero. The two cases establish the required formula for every d and complete the construction of P.",
+          "proof_key_steps": [
+            "Construct exponent indices e_r with entries r and n−r and verify their degree is n.",
+            "Sum monomials with coefficients a(r) and use homogeneity to obtain a binary form.",
+            "Express each coefficient as a finite sum of matching monomial coefficients.",
+            "Identify the unique matching index r=d(0) when d(0)+d(1)=n.",
+            "Show no index matches when d(0)+d(1)≠n."
+          ]
+        },
+        "audit": {
+          "key": "prescribed_binary_coefficients",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly matches the fully quantified prose and elaborates independently. The fresh bare identifier is unreserved. Steps 1–2 construct a finite sum homogeneous of degree n, including zero coefficients; steps 3–5 establish the unique matching exponent when d(0)+d(1)=n and exclude all matches otherwise. This also covers n=0. No hypothesis, dependency, or construction step is missing, and neither parent nor child theorem is assumed."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-holomorphic-integral-a1-prescribed-binary-co-739e69d70f/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-holomorphic-integral-a1-prescribed-binary-co-739e69d70f/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-holomorphic-integral-a1-prescribed-binary-co-739e69d70f/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-holomorphic-integral-a1/task.md": "fbef05e2a6cfc7a6d66c1b237f25981ac872a7f88acb97b5772f4a049cee216a",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-holomorphic-integral-a1/problem.md": "bc292ceabaa59d4166815e39f5e6a0c5ec4e11e33604270753833466755074b0",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-holomorphic-integral-a1/problem.json": "bf0e4090d7154b9d64a24b6ca1b3b7a3bc13849e2326306634e0842533303df7",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-holomorphic-integral-a1/reference-manifest.json": "a8f9271939f028889a1e9bac59a7290448f8c694baf434f537bdc05b0f75f2a6",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-holomorphic-integral-a1/decomposition.json": "bd8e6db88ecf3cedbd8f9f0fa65b65cff2befe9dc76d7fd362a130ae77c2802a",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-holomorphic-integral-a1/decomposition-audit.json": "f3c981cc8492378e920b1d20fd0da7aa81711232a4c3704a8bcbea8c8b38692a",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-holomorphic-integral-a1/controller-contract.json": "7b7a516f9fce5467b2a4e92be9eb01a7eee74fb69c1477cc06212956b9e78e13",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-holomorphic-integral-a1/children/root-primitive-exists-a1-holomorphic-integral-a1-linepow-coefficient-formula-a1/parent-child-handoff.json": "50cbf76913285fa82a8dc160eac46487d06d56797e16f9e6d4de7d36e311c801",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-holomorphic-integral-a1/children/root-primitive-exists-a1-holomorphic-integral-a1-linepow-coefficient-formula-a1/parent-supplied-plan.md": "5f011c8b6bc47f61d9808caa7d3445825da8382c2e2335df00151eff7af0ad18",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-holomorphic-integral-a1/children/root-primitive-exists-a1-holomorphic-integral-a1-linepow-coefficient-formula-a1/parent-supplied-natural-proof.md": "5fdf93dd74482b303831db69362da417426ae548d0ab51c5cca34e13c872cef0",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-holomorphic-integral-a1/children/root-primitive-exists-a1-holomorphic-integral-a1-linepow-coefficient-formula-a1/parent-supplied-natural-proof.json": "c85a78a12c3fe07ab7ff96b59f8d53245f4f74c0ae3fd3f67fdae14289d5b5be",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-holomorphic-integral-a1/children/root-primitive-exists-a1-holomorphic-integral-a1-linepow-coefficient-formula-a1/node.json": "4dfa7ea4de6ee36293429b6fa6b296112a543bc581cae7df1551d7ada7b4187d",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-holomorphic-integral-a1/children/root-primitive-exists-a1-holomorphic-integral-a1-prescribed-binary-co-739e69d70f/parent-child-handoff.json": "f6021bb9e8f8f6d34e1cb689271f203d96efb478689705d2e3dcf19a68aa45d0",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-holomorphic-integral-a1/children/root-primitive-exists-a1-holomorphic-integral-a1-prescribed-binary-co-739e69d70f/parent-supplied-plan.md": "648c05dbb3755a47aafc2e97e2e6e82fb69d9874a08b03ee6750ef7d2660c118",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-holomorphic-integral-a1/children/root-primitive-exists-a1-holomorphic-integral-a1-prescribed-binary-co-739e69d70f/parent-supplied-natural-proof.md": "624dc2ac75bca284071a8e0724dcf9206f9e832a677d22f49c750ccc158a55aa",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-holomorphic-integral-a1/children/root-primitive-exists-a1-holomorphic-integral-a1-prescribed-binary-co-739e69d70f/parent-supplied-natural-proof.json": "6561545fdfaafa255c8ef1dbd56fa5e49b0a5a4fc02a1768d3daf6b361c6fd4b",
+    ".humanize-workspace/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-holomorphic-integral-a1/children/root-primitive-exists-a1-holomorphic-integral-a1-prescribed-binary-co-739e69d70f/node.json": "6ccde8f552f559ba1db695819fcec11a8c00360e8d755b7a4cf72ee68e20b484"
+  }
+}

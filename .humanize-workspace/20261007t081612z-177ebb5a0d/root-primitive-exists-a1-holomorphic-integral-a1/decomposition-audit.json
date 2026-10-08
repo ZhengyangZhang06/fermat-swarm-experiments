@@ -1,0 +1,44 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "BinaryForm|linePow|IsEichlerIntegral|scalar_primitive|eichlerShimuraMap_injective|p02_es_177ebb5a_hi_(prescribed_coefficients|linepow_coefficients)",
+        "isHomogeneous_monomial|theorem.*sum|coeff_eq_zero|coeff_linearCombination_X_pow_of_fintype|coe_ofComplex|ofComplex_coe|eventuallyEq_coe_comp_ofComplex",
+        "^((noncomputable )?(def|abbrev|theorem|lemma)) .*linePow.*coeff|^((noncomputable )?(def|abbrev|theorem|lemma)) .*coeff.*linePow|p02_es_177ebb5a_hi_(prescribed_coefficients|linepow_coefficients)",
+        "git -C .lake/packages/mathlib rev-parse HEAD",
+        "git -C .lake/packages/mathlib status --porcelain",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_177ebb5a_hi_independent_decomposition_audit.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Coeff.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-scalar-primitive-a1/comparator-v2-integration-repair-1.log",
+        "/tmp/p02_177ebb5a_hi_independent_decomposition_audit.lean"
+      ],
+      "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Checked definitions match the snapshot; installed mathlib is clean at that revision. BinaryForm is the homogeneous submodule, and linePow has exactly the stated polynomial. The inspected mathlib lemmas support homogeneous monomial sums, coefficient extraction, binomial coefficients, and local coordinate transfer. No specialized linePow coefficient declaration or proposed-name collision matched the searches. Both exact propositions independently elaborate using definition imports without Submission; checked supporting declarations have only propext, Classical.choice, and Quot.sound as axioms. The DAG identifies this parent as an intermediate obligation beneath the unchanged frozen injectivity theorem and retains its scalar-primitive dependency, whose recorded comparator accepts the exact contract with standard axioms. Adding the proposed parent-to-child edges preserves acyclicity. The split appropriately isolates two algebraic obligations while retaining analytic construction in the parent. This approves decomposition, not subsequent Lean implementations."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "prescribed_binary_coefficients",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the fully quantified prose and elaborates independently. The fresh bare identifier is unreserved. Steps 1–2 construct a finite sum homogeneous of degree n, including zero coefficients; steps 3–5 establish the unique matching exponent when d(0)+d(1)=n and exclude all matches otherwise. This also covers n=0. No hypothesis, dependency, or construction step is missing, and neither parent nor child theorem is assumed."
+    },
+    {
+      "key": "linepow_coefficient_formula",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose and pinned linePow definition, with the intended complex scalar operations. The fresh bare identifier is unreserved. The binomial expansion and monomial multiplication yield the stated exponents and coefficients; evaluation at 0 proves uniqueness, and the degree condition excludes every term in the remaining case. The proof explicitly covers n=0, requires no sibling dependency, and contains no circular appeal or deferred proof search."
+    }
+  ],
+  "required_changes": []
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.primitive_exists-a1.holomorphic_integral-a1.linepow_coefficient_formula-a1",
+  "parent_id": "root.primitive_exists-a1.holomorphic_integral-a1",
+  "depth": 3,
+  "title": "Complete coefficient formula for a power of a binary linear form",
+  "statement": "For every natural number n, every z∈ℂ, and every exponent index d : Fin 2 →₀ ℕ, the d coefficient of linePow n z, whose underlying polynomial is (zX₀+X₁)^n, equals (binom(n,d(0)):ℂ)·z^(d(0)) when d(0)+d(1)=n, and equals zero otherwise.",
+  "lean_statement": "∀ (n : ℕ) (z : ℂ) (d : Fin 2 →₀ ℕ), MvPolynomial.coeff d (HeckeEis.linePow n z).val = if d 0 + d 1 = n then (Nat.choose n (d 0) : ℂ) * z ^ (d 0) else 0",
+  "lean_name": "p02_es_177ebb5a_hi_linepow_coefficients",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-holomorphic-integral-a1-linepow-coefficient-formula-a1-a1"
+}

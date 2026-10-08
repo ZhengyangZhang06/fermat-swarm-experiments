@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.primitive_exists-a1.holomorphic_integral-a1.prescribed_binary_coefficients-a1",
+  "parent_id": "root.primitive_exists-a1.holomorphic_integral-a1",
+  "depth": 3,
+  "title": "Realizing prescribed coefficients as a homogeneous binary form",
+  "statement": "For every natural number n and every function a : ℕ → ℂ, there exists P ∈ BinaryForm ℂ n such that, for every exponent index d : Fin 2 →₀ ℕ, coeff d P equals a(d(0)) when d(0)+d(1)=n, and equals zero otherwise.",
+  "lean_statement": "∀ (n : ℕ) (a : ℕ → ℂ), ∃ P : ↥(HeckeEis.BinaryForm ℂ n), ∀ d : Fin 2 →₀ ℕ, MvPolynomial.coeff d P.val = if d 0 + d 1 = n then a (d 0) else 0",
+  "lean_name": "p02_es_177ebb5a_hi_prescribed_coefficients",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-primitive-exists-a1-holomorphic-integral-a1-prescribed-binary-co-739e69d70f-a1"
+}
