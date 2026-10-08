@@ -219,3 +219,77 @@ theorem Submission.p08_7d1ff633a4_tt26_normal_kernel :
   have hker := @IntermediateField.restrictNormalHom_ker ℚ (AlgebraicClosure ℚ) _ _ _ E hN
   rw [← hker, MonoidHom.comap_ker]
   exact ⟨inferInstance, inferInstance⟩
+
+theorem Submission.p08_7d1ff633a4_tt26_theta_from_pairings :
+    ∀ {k G : Type} [Field k] [Group G] (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)) (A B N : Rep.{0} k G) (φ : A →ₗ[k] B →ₗ[k] N), let X : Fin 3 → ModuleCat k := ![ModuleCat.of k A.ρ.invariants, ModuleCat.of k (groupCohomology.continuousH1 r A), ModuleCat.of k (groupCohomology.continuousH2 r A)]; let Y : Fin 3 → ModuleCat k := ![ModuleCat.of k (groupCohomology.continuousH2 r B), ModuleCat.of k (groupCohomology.continuousH1 r B), ModuleCat.of k B.ρ.invariants]; ∀ (P : ∀ i : Fin 3, X i →ₗ[k] Y i →ₗ[k] groupCohomology.continuousH2 r N), ((∀ (m : A.ρ.invariants) (z : groupCohomology.levelCocycles₂ r B), ∃ e : groupCohomology.levelCocycles₂ r N, (∀ st : G × G, (e : G × G → N) st = φ (m : A) ((z : G × G → B) st)) ∧ P 0 m (groupCohomology.continuousH2π r B z) = groupCohomology.continuousH2π r N e) ∧ (∀ (f : groupCohomology.cocycles₁ A) (hf : groupCohomology.IsLevelConstant₁ r (⇑f)) (g : groupCohomology.cocycles₁ B) (hg : groupCohomology.IsLevelConstant₁ r (⇑g)), ∃ e : groupCohomology.levelCocycles₂ r N, (∀ st : G × G, (e : G × G → N) st = groupCohomology.cupCochain φ (⇑f) (⇑g) st) ∧ P 1 ⟨(groupCohomology.H1π A).hom f, groupCohomology.H1π_mem_continuousH1 r A hf⟩ ⟨(groupCohomology.H1π B).hom g, groupCohomology.H1π_mem_continuousH1 r B hg⟩ = groupCohomology.continuousH2π r N e) ∧ (∀ (z : groupCohomology.levelCocycles₂ r A) (d : B.ρ.invariants), ∃ e : groupCohomology.levelCocycles₂ r N, (∀ st : G × G, (e : G × G → N) st = φ ((z : G × G → A) st) (d : B)) ∧ P 2 (groupCohomology.continuousH2π r A z) d = groupCohomology.continuousH2π r N e)) → ∀ ℓ : groupCohomology.continuousH2 r N →ₗ[k] k, ∃ Θ : ∀ i : Fin 3, X i →ₗ[k] Module.Dual k (Y i), (groupCohomology.IsTheta0 r φ ℓ (Θ 0) ∧ groupCohomology.IsTheta1 r φ ℓ (Θ 1) ∧ groupCohomology.IsTheta2 r φ ℓ (Θ 2)) ∧ (∀ (i : Fin 3) (x : X i) (y : Y i), Θ i x y = ℓ (P i x y)) ∧ (∀ Ψ : ∀ i : Fin 3, X i →ₗ[k] Module.Dual k (Y i), (groupCohomology.IsTheta0 r φ ℓ (Ψ 0) ∧ groupCohomology.IsTheta1 r φ ℓ (Ψ 1) ∧ groupCohomology.IsTheta2 r φ ℓ (Ψ 2)) → ∀ i : Fin 3, Ψ i = Θ i) := by
+  intro k G _ _ r A B N φ X Y P hP ℓ
+  rcases hP with ⟨hP0, hP1, hP2⟩
+  let Θ : ∀ i : Fin 3, X i →ₗ[k] Module.Dual k (Y i) := fun i =>
+    { toFun := fun x => ℓ.comp (P i x)
+      map_add' := by
+        intro x x'
+        ext y
+        change ℓ (P i (x + x') y) = ℓ (P i x y) + ℓ (P i x' y)
+        rw [map_add, LinearMap.add_apply, map_add]
+      map_smul' := by
+        intro c x
+        ext y
+        change ℓ (P i (c • x) y) = c • ℓ (P i x y)
+        rw [map_smul, LinearMap.smul_apply, map_smul] }
+  refine ⟨Θ, ⟨?_, ?_, ?_⟩, ?_, ?_⟩
+  · intro m z e he
+    obtain ⟨e', he', hP⟩ := hP0 m z
+    have heq : e' = e := Subtype.ext (funext fun st => (he' st).trans (he st).symm)
+    subst e'
+    change ℓ (P 0 m (continuousH2π r B z)) = ℓ (continuousH2π r N e)
+    exact congrArg ℓ hP
+  · intro f hf g hg e he
+    obtain ⟨e', he', hP⟩ := hP1 f hf g hg
+    have heq : e' = e := Subtype.ext (funext fun st => (he' st).trans (he st).symm)
+    subst e'
+    change ℓ (P 1 ⟨(H1π A).hom f, H1π_mem_continuousH1 r A hf⟩
+      ⟨(H1π B).hom g, H1π_mem_continuousH1 r B hg⟩) = ℓ (continuousH2π r N e)
+    exact congrArg ℓ hP
+  · intro z d e he
+    obtain ⟨e', he', hP⟩ := hP2 z d
+    have heq : e' = e := Subtype.ext (funext fun st => (he' st).trans (he st).symm)
+    subst e'
+    change ℓ (P 2 (continuousH2π r A z) d) = ℓ (continuousH2π r N e)
+    exact congrArg ℓ hP
+  · intro i x y
+    rfl
+  · intro Ψ hΨ i
+    rcases hΨ with ⟨hΨ0, hΨ1, hΨ2⟩
+    fin_cases i
+    · apply LinearMap.ext
+      intro x
+      apply LinearMap.ext
+      intro y
+      change Ψ 0 x y = ℓ (P 0 x y)
+      obtain ⟨z, rfl⟩ :=
+        (show Function.Surjective (continuousH2π r B) from Submodule.mkQ_surjective _) y
+      obtain ⟨e, he, hP⟩ := hP0 x z
+      exact (hΨ0 x z e he).trans (congrArg ℓ hP).symm
+    · apply LinearMap.ext
+      intro x
+      apply LinearMap.ext
+      intro y
+      change Ψ 1 x y = ℓ (P 1 x y)
+      obtain ⟨f, hf, hfx⟩ := (mem_continuousH1_iff r A x.val).mp x.property
+      obtain ⟨g, hg, hgy⟩ := (mem_continuousH1_iff r B y.val).mp y.property
+      have hx : (⟨(H1π A).hom f, H1π_mem_continuousH1 r A hf⟩ : continuousH1 r A) = x :=
+        Subtype.ext hfx
+      have hy : (⟨(H1π B).hom g, H1π_mem_continuousH1 r B hg⟩ : continuousH1 r B) = y :=
+        Subtype.ext hgy
+      rw [← hx, ← hy]
+      obtain ⟨e, he, hP⟩ := hP1 f hf g hg
+      exact (hΨ1 f hf g hg e he).trans (congrArg ℓ hP).symm
+    · apply LinearMap.ext
+      intro x
+      apply LinearMap.ext
+      intro y
+      change Ψ 2 x y = ℓ (P 2 x y)
+      obtain ⟨z, rfl⟩ :=
+        (show Function.Surjective (continuousH2π r A) from Submodule.mkQ_surjective _) x
+      obtain ⟨e, he, hP⟩ := hP2 z y
+      exact (hΨ2 z y e he).trans (congrArg ℓ hP).symm
