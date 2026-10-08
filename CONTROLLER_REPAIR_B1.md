@@ -1,5 +1,39 @@
 # B1 controller repair handoff: residue quotient length
 
+## Round 1 recovery prerequisite for plan v9
+
+The latest independently reviewed failed candidate is
+`b2c8efb66670005f0832a1bb70724d512bb5d9f0`; its terminal author request is
+`8568a9e4cd9841b7a387eb0bba6040bc` (exit 1, no success marker). The challenge
+export failed before candidate export or selected-theorem comparison.
+
+The 2026-10-08 13:40 review confirms both B1 conditions: all 95 frozen attribute
+target occurrences are unavailable, and the inherited root placeholder also
+fails the required warning-fatal candidate command. The review requires retaining
+the proof and prohibits another comparator against unchanged broken context.
+
+The existing recovery request remains on issue #77:
+https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/77#issuecomment-6060492684
+Read-only discovery at 2026-10-08 14:01 UTC found five request comments but no
+repair response. Exposed runtime/selected-node filenames and exact-node runtime
+JSON/Markdown metadata supplied no receipt. The deployed cached verifier source
+named in the failure is not accessible here. These observations cover only the
+searched locations. The user has been asked for the controller receipt path.
+
+Evidence directory: `.humanize/rlcr/2026-10-08_13-40-27/`.
+
+- Review SHA-256: `501972e35e3879a3800cb7f248252a959faeb332d514f3808477cbccddca0c5a`.
+- Comparator log SHA-256: `b4b03892580a3e8b278be526c52ec672004445a6642aa427897db2a01cf35ada`.
+- Comparator result SHA-256: `f0eee13a3cc7a1553f00a8ca1c0b21015435724bebd2423200bb20df2b6ff89e`.
+- `round-1-recovery-evidence.json` binds the full review, inventory, compiler,
+  source audit, candidate, request, and receipt-discovery evidence.
+
+No new validation run was made in this recovery round. T3 stays blocked until
+the controller supplies the deployed preparation identity, all 95 dispositions,
+successful challenge/candidate preflights, and selected-warning/placeholder/axiom
+rejection evidence specified below. This records the missing prerequisite; it
+does not complete AC2 or claim an accepted proof.
+
 ## 2026-10-08 13:40 selected-node audit
 
 This implementation round starts from `8fdbf66ad7c3111d6ae8ed4233fae6733a202e2a`.
