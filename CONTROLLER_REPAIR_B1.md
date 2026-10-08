@@ -1,5 +1,29 @@
 # B1 controller repair handoff: residue quotient length
 
+## Round 1 recovery handoff for the 2026-10-08 12:42 review
+
+The review's recovery request was delivered through the existing issue:
+https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/77#issuecomment-6060492684
+
+It identifies terminal author request `fa15284694b2487683c67d4b439e0bf5`,
+failed candidate `2d62c8ad65f6032fbc812841638e0ced776a55a9`, and hashes of
+the independent review and complete retained evidence. It requests a
+controller-owned receipt covering the deployed verifier/context identities,
+all 95 unavailable attribute targets, successful challenge and candidate
+preflights, and the child warning policy with rejection tests.
+
+Receipt discovery found only the four prior handoff comments on issue #77,
+the unchanged parent-to-child proof handoff in the selected-node directory,
+and no repair/preflight receipt among exposed runtime evidence filenames.
+The controller receipt location has also been requested from the user.
+These observations do not establish that no receipt exists elsewhere.
+
+T3/T4 remain blocked pending that receipt. No new build or comparator was
+run in this recovery round, and no proof, frozen context, verifier, pin,
+DAG, or loop state was changed. Publishing the request does not satisfy
+AC1 or AC2. The mutable tracker and `round-1-summary.md` retain the required
+resume conditions; this commit records delivery, not a repaired context.
+
 ## 2026-10-08 12:42 selected-node revalidation
 
 The new invocation at `.humanize/rlcr/2026-10-08_12-42-42` starts from
