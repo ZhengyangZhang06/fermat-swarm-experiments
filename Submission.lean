@@ -872,3 +872,35 @@ theorem Submission.p03_eds_canonical_recurrences_68cf3476_d3 :
   · simp only [preΨ'_two, map_one, even_two, if_true, one_mul]
   · simp only [preΨ'_three, show ¬ Even (3 : ℕ) by decide, if_false, mul_one]
   · simp only [preΨ'_four, show Even (4 : ℕ) by decide, if_true, mul_comm]
+
+
+theorem Submission.p03_eds_recurrence_unique_68cf3476_d3 :
+    ∀ (R : Type) [CommRing R] [IsDomain R] (h : R), h ≠ 0 →
+      ∀ f g : ℕ → R,
+        (∀ n : ℕ, n ≤ 4 → f n = g n) →
+        (∀ r : ℕ, 2 ≤ r →
+          f (2 * r + 1) = f (r + 2) * f r ^ 3 - f (r - 1) * f (r + 1) ^ 3) →
+        (∀ r : ℕ, 3 ≤ r →
+          h * f (2 * r) =
+            f r * (f (r + 2) * f (r - 1) ^ 2 - f (r - 2) * f (r + 1) ^ 2)) →
+        (∀ r : ℕ, 2 ≤ r →
+          g (2 * r + 1) = g (r + 2) * g r ^ 3 - g (r - 1) * g (r + 1) ^ 3) →
+        (∀ r : ℕ, 3 ≤ r →
+          h * g (2 * r) =
+            g r * (g (r + 2) * g (r - 1) ^ 2 - g (r - 2) * g (r + 1) ^ 2)) →
+        ∀ n : ℕ, f n = g n := by
+  intro R _ _ h hh f g hinit hfodd hfeven hgodd hgeven n
+  induction n using Nat.strong_induction_on with
+  | h n ih =>
+    by_cases hn : n ≤ 4
+    · exact hinit n hn
+    · rcases n.even_or_odd' with ⟨r, rfl | rfl⟩
+      · have hr : 3 ≤ r := by omega
+        apply mul_left_cancel₀ hh
+        rw [hfeven r hr, hgeven r hr,
+          ih r (by omega), ih (r + 2) (by omega), ih (r - 1) (by omega),
+          ih (r - 2) (by omega), ih (r + 1) (by omega)]
+      · have hr : 2 ≤ r := by omega
+        rw [hfodd r hr, hgodd r hr,
+          ih (r + 2) (by omega), ih r (by omega),
+          ih (r - 1) (by omega), ih (r + 1) (by omega)]
