@@ -54,6 +54,7 @@ theorem p02_es_177ebb5a_sm_holomorphic
     exact (hE d ⟨z, hz⟩).differentiableAt.differentiableWithinAt
   · exact (differentiable_id.neg.pow (d 1)).differentiableOn
 
+/-- A bound on one period strip gives a uniform bound for sufficiently large imaginary part. -/
 theorem p02_es_177ebb5a_tb_periodic_strip_bound
     (N : ℕ) [NeZero N] (q : UpperHalfPlane → ℂ)
     (hperiod : ∀ τ : UpperHalfPlane, q ((ModularGroup.T ^ N) • τ) = q τ)
