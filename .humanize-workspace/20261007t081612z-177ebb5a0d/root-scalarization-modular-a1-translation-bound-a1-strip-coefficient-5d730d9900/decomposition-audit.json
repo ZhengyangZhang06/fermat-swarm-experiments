@@ -1,0 +1,51 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "cat .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "rg -n 'scalar_strip_limit|strip_segment_bounds|tail_modulus_limit|polynomial_exp_tail' project",
+        "rg -n 'integral_eq_sub_of_hasDerivAt|norm_integral_le_of_norm_le|complexToReal_fderiv|cauchySeq_iff|cauchySeq_tendsto_of_complete' mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/FundThmCalculus.lean mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/Basic.lean mathlib/Mathlib/Analysis/Complex/RealDeriv.lean mathlib/Mathlib/Topology/MetricSpace/Cauchy.lean mathlib/Mathlib/Topology/UniformSpace/Cauchy.lean",
+        "rg -n 'theorem le_of_tendsto|lemma le_of_tendsto|theorem HasFDerivAt.comp_hasDerivAt|theorem ContinuousOn.intervalIntegrable' mathlib/Mathlib/Topology mathlib/Mathlib/Analysis/Calculus mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral",
+        "rg -n 'p02_es_177ebb5a_ssl_segment_estimates|p02_es_177ebb5a_ssl_tail_limit' .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json Submission.lean .humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes -g '*.json' -g '*.lean'",
+        "git -C project rev-parse HEAD; git -C project status --porcelain; git -C mathlib rev-parse HEAD; git -C mathlib status --porcelain",
+        "git -C .lake/packages/mathlib rev-parse HEAD; git -C .lake/packages/mathlib status --porcelain",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_ssl_independent_audit_20261008.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Fermat/Thm_HeckeEis_eichlerShimuraMap_injective.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/RealDeriv.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Comp.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/FundThmCalculus.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Topology/MetricSpace/Cauchy.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Topology/UniformSpace/Cauchy.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Topology/Order/OrderClosed.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-modular-a1-translation-bound-a1-strip-coefficient-5d730d9900/decomposition-v1.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/Submission.lean",
+        "/tmp/p02_ssl_independent_audit_20261008.lean"
+      ],
+      "conclusion": "Snapshot-relative searches ran from the specified snapshot root. The project identifier search returned no matches. Inspected mathlib sources support scalar restriction, the real chain rule, vector-valued FTC, integral norm bounds, real-indexed Cauchy convergence, and preservation of eventual inequalities under limits. Both snapshot repositories are clean at the manifest revisions: project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Installed mathlib is clean at that revision; the seven inspected library files match the snapshot byte-for-byte. Both exact propositions independently elaborated with only import Mathlib and autoImplicit disabled. Completeness of ℂ and nontriviality of real atTop synthesized successfully. All nine queried supporting declarations have only propext, Classical.choice, and Quot.sound in their transitive axiom closures. Proposed names occur only in this proposal, with no active reservation or existing declaration. Adding the two leaves preserves acyclicity across all 57 nodes. The split appropriately separates segment integration from quantitative convergence, retaining the parent's polynomial-exponential prerequisite. These results approve decomposition and prose, not unimplemented Lean solutions."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "ssl_segment_estimates",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches all prose hypotheses and both conclusions, including real Lebesgue interval integrals. The bare identifier is unreserved, and the type elaborates without either child or the parent implementation. Every proof step is justified: L≥0 permits deriving weight nonnegativity at iu; y₀>0 keeps both segments inside the differentiation domain; scalar restriction and chain rules give the stated derivatives; continuity supplies integrability; FTC and norm bounds give both estimates. Zero-length segments are covered. This is a complete independent obligation with correctly empty dependencies."
+    },
+    {
+      "key": "ssl_tail_limit",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose without adding continuity, monotonicity, or a separate positivity assumption. Its bare identifier is unreserved and its type independently elaborates. The proof derives nonnegativity from t=y, chooses a common tail using convergence of e, and orders arbitrary tail parameters to establish the real-indexed Cauchy criterion. Completeness then yields b. For each fixed y, the bound holds eventually in t and passes to the limit through the norm into a closed real half-line; norm symmetry gives the exact conclusion. No circular reliance or missing dependency occurs."
+    }
+  ],
+  "required_changes": []
+}

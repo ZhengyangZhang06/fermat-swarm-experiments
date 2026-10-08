@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.scalarization_modular-a1.translation_bound-a1.strip_coefficient_limit-a1.scalar_strip_limit-a1.ssl_segment_estimates-a1",
+  "parent_id": "root.scalarization_modular-a1.translation_bound-a1.strip_coefficient_limit-a1.scalar_strip_limit-a1",
+  "depth": 5,
+  "title": "Vertical and horizontal segment estimates for a complex primitive",
+  "statement": "Let L,y₀∈ℝ satisfy L≥0 and y₀>0. Let F,H:ℂ→ℂ and w:ℝ→ℝ. Suppose H is continuous on {z:Im z>0}, F has complex derivative H(z) at every point of that half-plane, w is continuous on [y₀,∞), and ‖H(z)‖≤w(Im z) whenever 0≤Re z≤L and Im z≥y₀. Then: (i) for every x,y,t∈ℝ with 0≤x≤L and y₀≤y≤t, ‖F(x+it)−F(x+iy)‖≤∫_y^t w(s)ds; and (ii) for every x,y∈ℝ with 0≤x≤L and y≥y₀, ‖F(x+iy)−F(iy)‖≤xw(y). All integrals use real Lebesgue measure.",
+  "lean_statement": "∀ (F H : ℂ → ℂ) (w : ℝ → ℝ) (L y₀ : ℝ), 0 ≤ L → 0 < y₀ → ContinuousOn H {z : ℂ | 0 < z.im} → (∀ z : ℂ, 0 < z.im → HasDerivAt F (H z) z) → ContinuousOn w (Set.Ici y₀) → (∀ z : ℂ, 0 ≤ z.re → z.re ≤ L → y₀ ≤ z.im → ‖H z‖ ≤ w z.im) → (∀ (x y t : ℝ), 0 ≤ x → x ≤ L → y₀ ≤ y → y ≤ t → ‖F ((x : ℂ) + (t : ℂ) * Complex.I) - F ((x : ℂ) + (y : ℂ) * Complex.I)‖ ≤ ∫ s in y..t, w s) ∧ (∀ (x y : ℝ), 0 ≤ x → x ≤ L → y₀ ≤ y → ‖F ((x : ℂ) + (y : ℂ) * Complex.I) - F ((y : ℂ) * Complex.I)‖ ≤ x * w y)",
+  "lean_name": "p02_es_177ebb5a_ssl_segment_estimates",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1-strip-coefficient-2f3e9dad2b-a1"
+}

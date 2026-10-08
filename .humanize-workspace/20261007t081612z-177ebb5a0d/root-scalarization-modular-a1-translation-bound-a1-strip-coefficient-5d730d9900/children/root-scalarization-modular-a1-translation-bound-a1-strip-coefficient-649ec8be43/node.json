@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.scalarization_modular-a1.translation_bound-a1.strip_coefficient_limit-a1.scalar_strip_limit-a1.ssl_tail_limit-a1",
+  "parent_id": "root.scalarization_modular-a1.translation_bound-a1.strip_coefficient_limit-a1.scalar_strip_limit-a1",
+  "depth": 5,
+  "title": "Convergence with a preserved vanishing tail bound",
+  "statement": "Let f:ℝ→ℂ, e:ℝ→ℝ, and y₀∈ℝ. Suppose e(y)→0 as y→+∞ and, for every y,t∈ℝ with y₀≤y≤t, ‖f(t)−f(y)‖≤e(y). Then there exists b∈ℂ such that f(y)→b as y→+∞ and ‖f(y)−b‖≤e(y) for every y≥y₀. No continuity or monotonicity of f or e is assumed.",
+  "lean_statement": "∀ (f : ℝ → ℂ) (e : ℝ → ℝ) (y₀ : ℝ), Filter.Tendsto e Filter.atTop (nhds (0 : ℝ)) → (∀ (y t : ℝ), y₀ ≤ y → y ≤ t → ‖f t - f y‖ ≤ e y) → ∃ b : ℂ, Filter.Tendsto f Filter.atTop (nhds b) ∧ ∀ y : ℝ, y₀ ≤ y → ‖f y - b‖ ≤ e y",
+  "lean_name": "p02_es_177ebb5a_ssl_tail_limit",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-modular-a1-translation-bound-a1-strip-coefficient-649ec8be43-a1"
+}
