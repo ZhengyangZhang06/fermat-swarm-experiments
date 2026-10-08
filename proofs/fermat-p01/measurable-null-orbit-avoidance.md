@@ -13,6 +13,66 @@ Tracked declaration: `Submission.f036cc6b1f_pc_ed_aoi_null_orbit` in
 This atomic node has no approved child dependencies. The existing proof is retained;
 the Round 0 advisory code-simplifier review found no changes warranted.
 
+## Controller prerequisite: complete blocker inventory
+
+The Round 0 independent review expands the earlier two-error diagnosis: each
+attribute command stops at its first missing name, while individual probes fail
+for **all 15 names** below under the frozen import. This is the complete inventory
+for those two commands, not a proposed set of replacement declarations.
+
+```text
+FLT.HyperbolicMeasure.instSMulInvariantMeasureSpecialLinearGroupFinOfNatNatIntUpperHalfPlaneVolume_definitions
+FLT.HyperbolicMeasure.instIsOpenPosMeasureUpperHalfPlaneVolume_definitions
+FLT.Gamma0FundamentalSet.instContinuousConstSMulSpecialLinearGroupFinOfNatNatIntUpperHalfPlane_definitions
+FLT.L2ProductionInstance.isFiniteMeasure_gamma0
+FLT.L2ProductionInstance.countable_SL2Z
+FLT.L2ProductionInstance.countable_quotient
+FLT.L2ProductionInstance.nontrivial_gamma0L2
+FreyPackage.ModMCarrier.coe_rescaleLin_apply
+ModularForm.AtkinLehnerDatum.mk.injEq
+ModularForm.AtkinLehnerDatum.alGL_coe
+ModularForm.AtkinLehnerDatum.mk.sizeOf_spec
+ModularForm.AtkinLehnerDatum.sqUnitSL_coe
+ModularForm.AtkinLehnerDatum.det_sqUnit
+ModularForm.AtkinLehnerDatum.det_mat
+FLT.TruncatedDomainPartition.unipotentDiagonalSum_zero
+```
+
+Separately, warning-fatal checking fails on the deprecated import in
+`Definitions/Def_FLTPrelim_Modularity.lean` (source line 6, diagnostic line 1),
+deprecated coercion lemmas in `Definitions/Def_ModularForm_HeckeOperatorForms.lean`
+at lines 30, 32, 43, 45, 79, 81, 92, and 94, and `haveI` style warnings in these
+`P2M/Sol` files:
+
+- `S_ModularForm_heckeT_slash_eq_self_of_mem_Gamma0.lean`: 327, 341.
+- `S_ModularForm_heckeU_slash_eq_self_of_mem_Gamma0.lean`: 327, 341.
+- `S_ModularForm_mdifferentiable_heckeT.lean`: 168.
+- `S_ModularForm_mdifferentiable_heckeU.lean`: 168.
+
+The relevant reviewed candidate is `14c02f3a42820f2331007ed9d89959cd41bd0607`,
+dispatch is `eae1c3e7aa1a3c40f973844f73289a6f5bc76fc4`, and failed exact-node
+comparator request is `e0912ff685de424682d5fe08ed7c70b8`. The reference manifest is
+the `local-references/7c4c5c8bc05269bb/manifest.json` under the frozen run named
+below; it pins project `61b5f85556ac71631ccad822e0694511234f7132` and mathlib
+`db584cd6d46c92f209a44c0f1c829460d327499d`.
+
+Evidence is in `.humanize/rlcr/2026-10-08_15-15-08/`:
+`ReviewerHeaderNames.lean`, `reviewer-header-names.log`,
+`reviewer-dependency-build.log`, `reviewer-local-validation.json`,
+`comparator-result.json`, and `round-0-review-result.md`. The Round 1 handoff
+cross-checks the exact 15 names against both frozen directives and all probe
+diagnostics; it does not rerun the unchanged failing context.
+
+T3 and AC2 remain blocked. Before reactivation, the recursive controller must
+supply a provenance-recorded, independently checked context preserving the
+contract and permitted dependency closure, with every header name and the full
+header checked, and the independent warning failure resolved under the existing
+policy. The builder can then verify that context, rerun warning-fatal checks,
+inspect the complete diff and transitive axioms, commit a clean candidate, and
+run only the configured exact-node comparator. No documentation correction,
+theorem rewrite, fabricated declaration, deleted directive, or relaxed check
+establishes acceptance.
+
 ## Correspondence with the accepted proof
 
 The accepted handoff is
