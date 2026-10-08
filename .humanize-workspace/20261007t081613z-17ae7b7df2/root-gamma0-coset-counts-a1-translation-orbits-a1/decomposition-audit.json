@@ -1,0 +1,62 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "cuspCount|genusFormula|def Gamma0|def T|orbitRel|smul_mk",
+        "totient_mul|totient_prime_pow|chineseRemainder|isUnit_iff_coprime|isUnit_iff_not_dvd|multiplicative_factorization|prod_factorization_pow_eq_self|divisors_eq_map_attach|def T |def T :",
+        "cuspCount.*(mul|prod|pow)|translation_orbits|orbit.*Gamma0|Gamma0.*orbit|p10_17ae7b7d_to_(prime_power_count|coprime_count_mul|cusp_count_factorization)",
+        "def T|coe_T|def orbitRel|orbitRel_apply",
+        "rg --files --hidden -g dag.json .humanize",
+        "python3 /tmp/p10-translation-audit-fqgapb4e/run.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1/parent-child-handoff.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1/decomposition-v1.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/lake-manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/Totient.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/Factorization/Divisors.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/Factorization/Induction.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/Coset/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/GroupAction/Quotient.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p10-translation-split-nhp6svxx/report.json",
+        "/tmp/p10-translation-audit-fqgapb4e/TargetAbsence.lean",
+        "/tmp/p10-translation-audit-fqgapb4e/ChildTypes.lean",
+        "/tmp/p10-translation-audit-fqgapb4e/ChildTypes.log",
+        "/tmp/p10-translation-audit-fqgapb4e/report.json"
+      ],
+      "conclusion": "Independently verified project a97febc53b1c4d489edc54ca44132af7a21279b3, mathlib db584cd6d46c92f209a44c0f1c829460d327499d, and all nine clean pinned dependency checkouts. Sources confirm the divisor-sum definition, CRT, prime-power unit criterion, totient formulas, divisor parametrization, translation matrix, and left-coset action. The snapshot search found no matching translation-orbit or cuspCount product theorem. All three literal propositions independently elaborated without their proposed declarations existing; reflexivity probes verified subgroup restriction, left multiplication, and ordinary matrix multiplication. Interface types and checked library declarations have only propext, Classical.choice, and Quot.sound as transitive axioms. All proposed names are fresh bare identifiers, and the extended DAG is acyclic. The split is appropriate: positive prime-power factorization, coprime multiplicativity, and the arithmetic product identity reconstruct the parent, with level 1 handled separately. Header-policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96 matched; only lines 10–12 were omitted in the disposable copy. Lean independently confirmed all 56 targets absent. Reversible reconstruction verified original hash 96e3f06b92cb64921c5c4745f0115bb7ca89de8412a80d1d3a1599b7693a0d8a and build hash fb90bb88b6fa024189bde0f814c11f19649668a957e83b1a7c298dea579e3539. Original contract, Submission header, problem record, and handoff remain unchanged. These results approve decomposition and supplied prose only, not theorem implementation or comparator acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "prime_power_count",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose, including primality, positive exponent, subgroup action, and inclusive summation range. Steps 1–4 establish the finite two-chart model and the correct inversion transfer between right and left cosets; explicit determinant-one representatives establish surjectivity without a dependency. Steps 5–9 correctly derive nz²=0, valuation-stratum periods and sizes, division into cycles, and both endpoint contributions. This proves the exact count without circular reliance or deferred mathematical work."
+    },
+    {
+      "key": "coprime_count_mul",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition matches the nonzero and coprimality hypotheses and all three orbit counts. The proof handles level 1, supplies a complete CRT primitive-lifting argument, and establishes the equivariant product bijection. Every cycle length divides its level, so the two lengths are coprime; CRT on iteration numbers makes each product of cycles one cycle. The resulting finite partition proves the Nat.card product. No prime-power enumeration, parent theorem, or unlisted child is used, so the empty dependency list is justified."
+    },
+    {
+      "key": "cusp_count_factorization",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly expresses the stated product over prime divisors with factorization exponents and includes the nonzero hypothesis. The proof handles N=1, bijectively parametrizes divisors by bounded exponents, computes complementary exponents and their gcd minima, proves totient multiplicativity through CRT on units, and applies finite distributivity. These steps establish the precise formula independently of either orbit-count child, with no gap or circular dependency."
+    }
+  ],
+  "required_changes": []
+}

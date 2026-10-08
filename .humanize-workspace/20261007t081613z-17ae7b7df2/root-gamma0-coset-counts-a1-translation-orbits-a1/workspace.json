@@ -1,0 +1,256 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081613Z-17ae7b7df2",
+  "parent_id": "root.gamma0_coset_counts-a1.translation_orbits-a1",
+  "dispatch_branch": "proof-workspace/fermat-p10/20261007t081613z-17ae7b7df2/dispatch/root-gamma0-coset-counts-a1-translation-orbits-a1",
+  "source_commit": "533432b476bec95a4485a6d93169f00b86c0b466",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.coprime_count_mul-a1",
+      "key": "coprime_count_mul",
+      "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-coprime-count-mul-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1/children/root-gamma0-coset-counts-a1-translation-orbits-a1-coprime-count-mul-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "cuspCount|genusFormula",
+              "totient_mul|totient_prime_pow|chineseRemainder|prime_pow|isUnit_iff_coprime",
+              "cuspCount.*(mul|prod|pow)|translation_orbits|orbit.*Gamma0|Gamma0.*orbit",
+              "multiplicative_factorization|prod_pow_factorization|divisors.*prod|divisors_prime_pow",
+              "def orbitRel|orbitRel_apply|orbitRel_iff|instance.*Quotient|smul_mk",
+              "p10_17ae7b7d_to_(prime_power_count|coprime_count_mul|cusp_count_factorization)",
+              "python3 /tmp/p10-translation-split-nhp6svxx/run.py"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1/parent-child-handoff.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/Totient.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/Factorization/Divisors.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/Factorization/Induction.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/GroupAction/Quotient.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/Coset/Defs.lean",
+              "/runtime/operator-header-policy-v1/policy.json",
+              "/tmp/p10-translation-split-nhp6svxx/TargetAbsence.lean",
+              "/tmp/p10-translation-split-nhp6svxx/ChildTypes.lean",
+              "/tmp/p10-translation-split-nhp6svxx/ChildTypes.log",
+              "/tmp/p10-translation-split-nhp6svxx/statements.json",
+              "/tmp/p10-translation-split-nhp6svxx/report.json"
+            ],
+            "conclusion": "The clean reference snapshots match project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; all nine dependency checkouts matched their pins and had clean tracked files. Relevant infrastructure includes ZMod.chineseRemainder, the prime-power unit criterion, totient formulas, divisor parametrization by factorization, and left coset actions. No matching orbit-count or cuspCount product formula was found. The separate projective-line module is outside the frozen imports, so no child type references its declarations. All three exact child types elaborated after import Submission in the disposable compiler context. Reflexivity probes verified left coset multiplication, subgroup restriction, and matrix multiplication. Proposed names had no matches in the local records or imported environment. Interface definitions and audited library declarations use only propext, Classical.choice, and Quot.sound. The matching header-policy digest was 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96; only lines 10–12 were omitted, and Lean verified all 56 targets absent. The report records exact omissions, reversible reconstruction, original hash 96e3f06b92cb64921c5c4745f0115bb7ca89de8412a80d1d3a1599b7693a0d8a and build hash fb90bb88b6fa024189bde0f814c11f19649668a957e83b1a7c298dea579e3539. The frozen contract and original Submission header remain unchanged. These checks establish interface compatibility, not comparator acceptance of theorem proofs."
+          }
+        ],
+        "parent_id": "root.gamma0_coset_counts-a1.translation_orbits-a1",
+        "child_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.coprime_count_mul-a1",
+        "subproblem": {
+          "key": "coprime_count_mul",
+          "title": "Multiplicativity of translation orbit counts at coprime levels",
+          "statement": "Let m and n be nonzero natural numbers with gcd(m,n) = 1. For each positive k, let Γ₀(k) be the subgroup of SL₂(ℤ) whose bottom-left entry is divisible by k, and let C(k) be the number of orbits of {Tᶻ : z ∈ ℤ}, where T = ((1,1),(0,1)), acting by left multiplication on SL₂(ℤ)/Γ₀(k). Then C(mn) = C(m)C(n).",
+          "lean_statement": "∀ (m n : ℕ) [NeZero m] [NeZero n], Nat.Coprime m n → Nat.card (Quotient (MulAction.orbitRel (Subgroup.zpowers ModularGroup.T) ((Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 (m * n)))) = Nat.card (Quotient (MulAction.orbitRel (Subgroup.zpowers ModularGroup.T) ((Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 m))) * Nat.card (Quotient (MulAction.orbitRel (Subgroup.zpowers ModularGroup.T) ((Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 n)))",
+          "lean_name": "p10_17ae7b7d_to_coprime_count_mul",
+          "depends_on": [],
+          "natural_proof": "1. Fix nonzero coprime m,n. Write C(k) for the orbit count in the statement. Since every integer is zero modulo 1, Γ₀(1) = SL₂(ℤ); its coset space and orbit space are singletons, so C(1) = 1. If m = 1 or n = 1, the claimed identity follows immediately. Assume henceforth m,n > 1.\n2. We use the elementary Chinese remainder construction. For coprime positive A,B, choose integers u,v with uA + vB = 1. Given residues x modulo A and y modulo B, the integer xvB + yuA realizes both residues. If a difference is divisible by A and B, write it as At. The same Bézout identity shows B divides t, so AB divides the difference. This proves the bijection ℤ/ABℤ ≃ ℤ/Aℤ × ℤ/Bℤ. Reduction preserves addition and multiplication, making it a ring isomorphism. Iteration gives the corresponding assertion for finitely many pairwise coprime moduli.\n3. For any K > 1, put R_K = ℤ/Kℤ and let P_K be the quotient of unimodular rows (r,s) by common unit scaling. Here unimodularity means xr + ys = 1 for some x,y ∈ R_K. Scaling preserves this condition using inverse-scaled witnesses, and the unit laws prove the equivalence relation. The set P_K is finite because R_K² is finite. Every unimodular row has a primitive integer lift, as follows. Choose a positive integer c representing r, using c = K when the least nonnegative representative is zero, and choose an integer s₀ representing s. For every prime q dividing c but not K, require d ≡ 1 modulo q, and also require d ≡ s₀ modulo K. These moduli are pairwise coprime, so step 2 supplies d. If a prime q divided both c and d, then either q does not divide K, contradicting d ≡ 1 modulo q, or q divides K. In the latter case, reducing a unimodularity identity modulo q contradicts both coordinates being zero. Thus gcd(c,d) = 1. Bézout supplies integers a,b with ad−bc = 1, and ((a,b),(c,d)) is a determinant-one integer matrix with the prescribed bottom row modulo K.\n4. Let H_K = Γ₀(K). The bottom row gives a bijection from right cosets H_Kα to P_K. A determinant-one matrix has unimodular bottom row. Left multiplication by η ∈ H_K scales that row by the lower-right entry of η, which is a unit because the determinant is 1 and the lower-left entry vanishes modulo K. Conversely, if the rows of β and α satisfy (r′,s′) = u(r,s), then the lower-left entry of βα⁻¹ is r′s−s′r = 0 modulo K, so H_Kβ = H_Kα. Surjectivity follows from the primitive lift in step 3.\n5. Define τ_K[r:s] = [r:r+s]. It respects scaling, preserves unimodularity by the identity (x−y)r+y(r+s) = xr+ys, and has inverse [r:s] ↦ [r:s−r]. It corresponds to right multiplication by T on right cosets. Inversion H_Kα ↦ α⁻¹H_K intertwines that operation with left multiplication by T⁻¹ on SL₂(ℤ)/H_K. Since T and T⁻¹ generate the same subgroup, C(K) is the number of cycles of τ_K.\n6. Apply step 2 to m,n. Under R_{mn} ≃ R_m × R_n, unimodularity is componentwise: witnesses project, and witnesses in the two factors assemble through the ring isomorphism. Units are also componentwise, because inverses project and assemble. Thus reduction induces a bijection P_{mn} ≃ P_m × P_n. Surjectivity follows by assembling representatives and their unimodularity witnesses. For injectivity, units witnessing equivalence in the two components assemble to one unit witnessing equivalence modulo mn. Addition is componentwise, so this bijection takes τ_{mn} to the componentwise permutation (τ_m,τ_n).\n7. For every positive K and every row class, τ_K^K[r:s] = [r:s+Kr] = [r:s]. Thus every cycle has a positive length ℓ dividing K. Indeed, choose its least positive return time ℓ, which exists because K is a return time; division K = qℓ+r with 0 ≤ r < ℓ makes r a return time, so minimality forces r = 0. In particular, any cycle length ℓ_m of τ_m and any cycle length ℓ_n of τ_n are coprime, because they divide the coprime numbers m,n.\n8. Choose a cycle A of τ_m and a cycle B of τ_n, with basepoints x,y and lengths ℓ_m,ℓ_n. Every point of A × B has the form (τ_m^i x,τ_n^j y). By step 2 there is a nonnegative integer t congruent to i modulo ℓ_m and to j modulo ℓ_n. The t-th componentwise iterate of (x,y) is that point. Therefore A × B is one cycle. Conversely, componentwise iteration cannot change either component's cycle, so every product cycle lies in exactly one such A × B. The products A × B partition P_m × P_n, proving that its cycle count is the product of the two cycle counts.\n9. Combining the equivariant bijection of step 6, the count in step 8, and the identifications of step 5 gives C(mn) = C(m)C(n), which is the required equality of Nat.card values.",
+          "proof_key_steps": [
+            "Handle level 1 and establish the elementary CRT bijection.",
+            "Lift unimodular residue rows to primitive integer rows using CRT and Bézout.",
+            "Identify cosets with finite row classes and translation with a row permutation.",
+            "Use CRT to identify the level-mn row permutation with the product permutation.",
+            "Show every local cycle length divides its level.",
+            "Use coprimality and CRT on iteration numbers to make each product of cycles one cycle.",
+            "Count the resulting partition into product cycles."
+          ]
+        },
+        "audit": {
+          "key": "coprime_count_mul",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition matches the nonzero and coprimality hypotheses and all three orbit counts. The proof handles level 1, supplies a complete CRT primitive-lifting argument, and establishes the equivariant product bijection. Every cycle length divides its level, so the two lengths are coprime; CRT on iteration numbers makes each product of cycles one cycle. The resulting finite partition proves the Nat.card product. No prime-power enumeration, parent theorem, or unlisted child is used, so the empty dependency list is justified."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1-coprime-count-mul-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1-coprime-count-mul-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1-coprime-count-mul-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.cusp_count_factorization-a1",
+      "key": "cusp_count_factorization",
+      "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-cusp-count-factorization-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1/children/root-gamma0-coset-counts-a1-translation-orbits-a1-cusp-count-factorization-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "cuspCount|genusFormula",
+              "totient_mul|totient_prime_pow|chineseRemainder|prime_pow|isUnit_iff_coprime",
+              "cuspCount.*(mul|prod|pow)|translation_orbits|orbit.*Gamma0|Gamma0.*orbit",
+              "multiplicative_factorization|prod_pow_factorization|divisors.*prod|divisors_prime_pow",
+              "def orbitRel|orbitRel_apply|orbitRel_iff|instance.*Quotient|smul_mk",
+              "p10_17ae7b7d_to_(prime_power_count|coprime_count_mul|cusp_count_factorization)",
+              "python3 /tmp/p10-translation-split-nhp6svxx/run.py"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1/parent-child-handoff.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/Totient.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/Factorization/Divisors.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/Factorization/Induction.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/GroupAction/Quotient.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/Coset/Defs.lean",
+              "/runtime/operator-header-policy-v1/policy.json",
+              "/tmp/p10-translation-split-nhp6svxx/TargetAbsence.lean",
+              "/tmp/p10-translation-split-nhp6svxx/ChildTypes.lean",
+              "/tmp/p10-translation-split-nhp6svxx/ChildTypes.log",
+              "/tmp/p10-translation-split-nhp6svxx/statements.json",
+              "/tmp/p10-translation-split-nhp6svxx/report.json"
+            ],
+            "conclusion": "The clean reference snapshots match project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; all nine dependency checkouts matched their pins and had clean tracked files. Relevant infrastructure includes ZMod.chineseRemainder, the prime-power unit criterion, totient formulas, divisor parametrization by factorization, and left coset actions. No matching orbit-count or cuspCount product formula was found. The separate projective-line module is outside the frozen imports, so no child type references its declarations. All three exact child types elaborated after import Submission in the disposable compiler context. Reflexivity probes verified left coset multiplication, subgroup restriction, and matrix multiplication. Proposed names had no matches in the local records or imported environment. Interface definitions and audited library declarations use only propext, Classical.choice, and Quot.sound. The matching header-policy digest was 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96; only lines 10–12 were omitted, and Lean verified all 56 targets absent. The report records exact omissions, reversible reconstruction, original hash 96e3f06b92cb64921c5c4745f0115bb7ca89de8412a80d1d3a1599b7693a0d8a and build hash fb90bb88b6fa024189bde0f814c11f19649668a957e83b1a7c298dea579e3539. The frozen contract and original Submission header remain unchanged. These checks establish interface compatibility, not comparator acceptance of theorem proofs."
+          }
+        ],
+        "parent_id": "root.gamma0_coset_counts-a1.translation_orbits-a1",
+        "child_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.cusp_count_factorization-a1",
+        "subproblem": {
+          "key": "cusp_count_factorization",
+          "title": "Prime-factor expansion of the totient divisor sum",
+          "statement": "For every nonzero natural number N, let P be its finite set of prime divisors and let a_p be the exponent of p in N. Then ModularCurve.cuspCount N, defined as ∑_{d∣N} φ(gcd(d,N/d)), equals ∏_{p∈P} ∑_{j=0}^{a_p} φ(p^{min(j,a_p−j)}). The empty product for N = 1 is 1.",
+          "lean_statement": "∀ (N : ℕ) [NeZero N], ModularCurve.cuspCount N = N.primeFactors.prod (fun p => (Finset.range (N.factorization p + 1)).sum (fun j => Nat.totient (p ^ min j (N.factorization p - j))))",
+          "lean_name": "p10_17ae7b7d_to_cusp_count_factorization",
+          "depends_on": [],
+          "natural_proof": "1. Fix N ≠ 0. If N = 1, its only positive divisor is 1, so cuspCount 1 = φ(gcd(1,1)) = φ(1) = 1. Its set of prime factors is empty, and the proposed product is also 1. Assume N > 1.\n2. Write N = ∏_{p∈P} p^{a_p}, where P is the finite set of distinct prime divisors and a_p = N.factorization p > 0. Existence of such a factorization follows by strong induction: a number greater than 1 is either prime or is a product of two smaller positive numbers. For uniqueness, a prime dividing a product divides one factor: if it does not divide the first factor, a Bézout identity for that factor and the prime, multiplied by the second factor, proves divisibility of the second. Applying this repeatedly and cancelling primes proves uniqueness of the exponents.\n3. Consequently the positive divisors d of N are in bijection with exponent tuples (j_p)_{p∈P} satisfying 0 ≤ j_p ≤ a_p, by d = ∏_{p∈P} p^{j_p}. Every such product divides N. Conversely, factoring d and N/d and comparing their product with N shows that d has no other prime factors and has exactly such exponents. Uniqueness of factorization makes this parametrization injective. For the corresponding divisor, N/d = ∏_{p∈P} p^{a_p−j_p}; these subtractions are nonnegative because j_p ≤ a_p.\n4. For this divisor, gcd(d,N/d) = ∏_{p∈P} p^{min(j_p,a_p−j_p)}. The product on the right divides both d and N/d. Every common divisor has, at each prime p, exponent at most both j_p and a_p−j_p, and no prime factor outside P; hence it divides that product. This proves the gcd identity.\n5. Totient is multiplicative on coprime positive integers. To see this, a residue modulo a positive integer A is invertible exactly when its representative is coprime to A: Bézout gives an inverse in one direction, and an inverse congruence gives a Bézout identity in the other. For coprime A,B, choose uA+vB = 1. The integer xvB+yuA realizes any specified residues x modulo A and y modulo B. A number divisible by both A and B is divisible by AB, since Bézout allows cancellation of A modulo B. Thus reduction is a ring bijection modulo AB with the product of the residue rings modulo A and B. Inverses project and assemble, so this bijection restricts to a bijection on units. Counting units yields φ(AB) = φ(A)φ(B), including factors equal to 1.\n6. The prime powers in the gcd product of step 4 have distinct prime bases, so they are pairwise coprime. Repeatedly applying step 5 gives φ(gcd(d,N/d)) = ∏_{p∈P} φ(p^{min(j_p,a_p−j_p)}).\n7. Reindex the defining sum cuspCount N = ∑_{d∣N} φ(gcd(d,N/d)) using the bijection in step 3 and substitute step 6. The result is the sum, over all independent choices 0 ≤ j_p ≤ a_p, of ∏_{p∈P} φ(p^{min(j_p,a_p−j_p)}). Finite distributivity identifies this with ∏_{p∈P} ∑_{j=0}^{a_p} φ(p^{min(j,a_p−j)}): inductively, removing one prime separates its index choice from the remaining tuple, and distributing its finite sum gives precisely that factor times the remaining product. Replacing P and a_p by N.primeFactors and N.factorization p gives the stated Lean expression.",
+          "proof_key_steps": [
+            "Handle N = 1 using the empty product.",
+            "Factor N uniquely into powers of its distinct prime divisors.",
+            "Parametrize divisors by bounded exponent tuples.",
+            "Compute gcd(d,N/d) by taking the minimum of the complementary exponents.",
+            "Prove totient multiplicativity by CRT on units.",
+            "Reindex the divisor sum and distribute it into the product of local sums."
+          ]
+        },
+        "audit": {
+          "key": "cusp_count_factorization",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly expresses the stated product over prime divisors with factorization exponents and includes the nonzero hypothesis. The proof handles N=1, bijectively parametrizes divisors by bounded exponents, computes complementary exponents and their gcd minima, proves totient multiplicativity through CRT on units, and applies finite distributivity. These steps establish the precise formula independently of either orbit-count child, with no gap or circular dependency."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1-cusp-count-factorization-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1-cusp-count-factorization-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1-cusp-count-factorization-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1",
+      "key": "prime_power_count",
+      "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "cuspCount|genusFormula",
+              "totient_mul|totient_prime_pow|chineseRemainder|prime_pow|isUnit_iff_coprime",
+              "cuspCount.*(mul|prod|pow)|translation_orbits|orbit.*Gamma0|Gamma0.*orbit",
+              "multiplicative_factorization|prod_pow_factorization|divisors.*prod|divisors_prime_pow",
+              "def orbitRel|orbitRel_apply|orbitRel_iff|instance.*Quotient|smul_mk",
+              "p10_17ae7b7d_to_(prime_power_count|coprime_count_mul|cusp_count_factorization)",
+              "python3 /tmp/p10-translation-split-nhp6svxx/run.py"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1/parent-child-handoff.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/Totient.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/Factorization/Divisors.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/Factorization/Induction.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/GroupAction/Quotient.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/Coset/Defs.lean",
+              "/runtime/operator-header-policy-v1/policy.json",
+              "/tmp/p10-translation-split-nhp6svxx/TargetAbsence.lean",
+              "/tmp/p10-translation-split-nhp6svxx/ChildTypes.lean",
+              "/tmp/p10-translation-split-nhp6svxx/ChildTypes.log",
+              "/tmp/p10-translation-split-nhp6svxx/statements.json",
+              "/tmp/p10-translation-split-nhp6svxx/report.json"
+            ],
+            "conclusion": "The clean reference snapshots match project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; all nine dependency checkouts matched their pins and had clean tracked files. Relevant infrastructure includes ZMod.chineseRemainder, the prime-power unit criterion, totient formulas, divisor parametrization by factorization, and left coset actions. No matching orbit-count or cuspCount product formula was found. The separate projective-line module is outside the frozen imports, so no child type references its declarations. All three exact child types elaborated after import Submission in the disposable compiler context. Reflexivity probes verified left coset multiplication, subgroup restriction, and matrix multiplication. Proposed names had no matches in the local records or imported environment. Interface definitions and audited library declarations use only propext, Classical.choice, and Quot.sound. The matching header-policy digest was 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96; only lines 10–12 were omitted, and Lean verified all 56 targets absent. The report records exact omissions, reversible reconstruction, original hash 96e3f06b92cb64921c5c4745f0115bb7ca89de8412a80d1d3a1599b7693a0d8a and build hash fb90bb88b6fa024189bde0f814c11f19649668a957e83b1a7c298dea579e3539. The frozen contract and original Submission header remain unchanged. These checks establish interface compatibility, not comparator acceptance of theorem proofs."
+          }
+        ],
+        "parent_id": "root.gamma0_coset_counts-a1.translation_orbits-a1",
+        "child_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1",
+        "subproblem": {
+          "key": "prime_power_count",
+          "title": "Translation orbit count at a prime-power level",
+          "statement": "Let p be a prime natural number and let a be a natural number with 1 ≤ a. Let Γ₀(pᵃ) consist of the matrices in SL₂(ℤ) whose bottom-left entry is divisible by pᵃ. On Q = SL₂(ℤ)/Γ₀(pᵃ), use left multiplication and put T = ((1,1),(0,1)). The number of orbits of the subgroup {Tⁿ : n ∈ ℤ} on Q is the sum, for 0 ≤ j ≤ a, of φ(p^{min(j,a−j)}), where φ is Euler's totient.",
+          "lean_statement": "∀ (p a : ℕ), Nat.Prime p → 1 ≤ a → Nat.card (Quotient (MulAction.orbitRel (Subgroup.zpowers ModularGroup.T) ((Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 (p ^ a)))) = (Finset.range (a + 1)).sum (fun j => Nat.totient (p ^ min j (a - j)))",
+          "lean_name": "p10_17ae7b7d_to_prime_power_count",
+          "depends_on": [],
+          "natural_proof": "1. Fix a prime p and a ≥ 1, and put M = pᵃ, R = ℤ/Mℤ and H = Γ₀(M). Then M > 1. A residue is a unit precisely when its integer representative is not divisible by p: in that case its representative is coprime to pᵃ, so a Bézout identity gives an inverse modulo M; if it is divisible by p, reduction modulo p rules out an inverse.\n2. Let P be the set of unimodular rows (r,s) over R modulo common unit scaling. Unimodular means xr + ys = 1 for some x,y ∈ R. Multiplication of both coordinates by a unit preserves this property by multiplying the witnesses by its inverse. Identity, inverse and multiplication of units prove that scaling is an equivalence relation. Thus P is a finite quotient of a subset of R². At least one coordinate of a unimodular row is a unit, since otherwise reduction modulo p would make every linear combination zero. If r is a unit, normalize to [1:t]. Otherwise s is a unit, and normalization gives [z:1] with p dividing z. These charts are disjoint because their first coordinates are respectively units and nonunits. Within either chart, the coordinate equal to 1 forces the scaling unit to be 1, proving uniqueness of its parameter.\n3. The bottom row modulo M identifies right cosets Hα with P. For α = ((A,B),(C,D)), the determinant identity gives (−B)C + AD = 1, so its bottom row is unimodular. If η ∈ H, its lower-left entry is zero modulo M and its determinant shows its lower-right entry is a unit. Hence left multiplication by η scales the bottom row by that unit. Conversely, if the bottom rows of β and α are (r′,s′) = u(r,s), then the bottom-left entry of βα⁻¹ is r′s − s′r = 0 modulo M. Therefore βα⁻¹ ∈ H and Hβ = Hα. Surjectivity follows directly from the charts: choosing integer representatives t and z, the determinant-one matrices ((0,−1),(1,t)) and ((1,0),(z,1)) realize [1:t] and [z:1]. This proves the asserted bijection without an additional lifting hypothesis.\n4. Right multiplication by T induces τ[r:s] = [r:r+s]. Scaling compatibility is immediate, and unimodularity is preserved because (x−y)r + y(r+s) = 1 whenever xr + ys = 1. The inverse is [r:s] ↦ [r:s−r], so τ is a permutation. Inversion Hα ↦ α⁻¹H identifies this permutation with left multiplication by T⁻¹ on Q. The subgroups generated by T and T⁻¹ coincide. Consequently the required orbit count is the number of cycles of τ, including singleton cycles.\n5. On the first chart, τ[1:t] = [1:t+1]. The M residues t form exactly one cycle: integer translation reaches every residue, and a nonnegative iteration number n returns to t exactly when M divides n. This contributes one cycle of length pᵃ.\n6. On the second chart, p divides z, so 1+nz is a unit for every nonnegative integer n. Iterating addition in the unnormalized row gives τⁿ[z:1] = [z:1+nz] = [z/(1+nz):1], where division means multiplication by the unit inverse. These points remain in the second chart. By uniqueness of its normalized parameter, return to [z:1] occurs exactly when z/(1+nz) = z. Multiplication by 1+nz shows this is equivalent to nz² = 0 in R. Multiplication by a unit preserves divisibility by every p-power, in both directions, so each exact-valuation stratum is invariant.\n7. The parameter z = 0 is fixed. Every other parameter divisible by p has a unique exact valuation j with 1 ≤ j < a: its representative between 1 and M−1 is pʲv with p not dividing v. Such v is a unit modulo M. The return condition becomes pᵃ dividing np^{2j}v², equivalently pᵃ dividing np^{2j}. If 2j < a this is equivalent to p^{a−2j} dividing n; if 2j ≥ a it holds for every n. Thus the least positive return time throughout this stratum is L_j = p^{max(a−2j,0)}.\n8. Multiples of pʲ modulo pᵃ are uniquely pʲt with 0 ≤ t < p^{a−j}, so there are p^{a−j} of them. Removing the p^{a−j−1} multiples of p^{j+1} leaves p^{a−j}−p^{a−j−1} parameters of exact valuation j. Every cycle in this invariant stratum has L_j elements: the first L_j iterates are distinct by minimality of the return time, and all later iterates reduce to them by division with remainder. Therefore the stratum contains (p^{a−j}−p^{a−j−1})/L_j cycles. If 2j < a this equals pʲ−p^{j−1}; if 2j ≥ a it equals p^{a−j}−p^{a−j−1}.\n9. For every b ≥ 1, the residues coprime to pᵇ are precisely the residues not divisible by p. Counting them gives φ(pᵇ) = pᵇ−p^{b−1}. Hence the contribution in step 8 is φ(p^{min(j,a−j)}). The first-chart cycle supplies the j = 0 term φ(1) = 1, and z = 0 supplies the j = a term φ(1) = 1. The charts and valuation strata partition P, so summing gives exactly the stated sum over 0 ≤ j ≤ a. Step 4 transfers this count to the orbit quotient in the conclusion.",
+          "proof_key_steps": [
+            "Classify unimodular residue rows into the two unique prime-power charts.",
+            "Identify right cosets with row classes using explicit determinant-one chart representatives.",
+            "Transfer left translation orbits to cycles of [r:s] ↦ [r:r+s].",
+            "Compute the first-chart cycle and the second-chart return condition nz² = 0.",
+            "Determine exact-valuation periods and stratum cardinalities.",
+            "Divide by the common periods and identify the totient terms, including both endpoints."
+          ]
+        },
+        "audit": {
+          "key": "prime_power_count",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly matches the prose, including primality, positive exponent, subgroup action, and inclusive summation range. Steps 1–4 establish the finite two-chart model and the correct inversion transfer between right and left cosets; explicit determinant-one representatives establish surjectivity without a dependency. Steps 5–9 correctly derive nz²=0, valuation-stratum periods and sizes, division into cycles, and both endpoint contributions. This proves the exact count without circular reliance or deferred mathematical work."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a1/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1/task.md": "88b1002f931f9db565a73aca07e087230eaf4513e50f89dde142b288f4f74309",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1/problem.md": "c0d696de12207f8a138e01c1056e5c32494f559ac76a7f989b86196fbe3ec896",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1/problem.json": "09bfb3e94e9c52916c6ee18b497e1146a074f98a2710e85c5c5460cb0b09f76a",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1/reference-manifest.json": "57bc5044097a9c3cadb6a565fb02bfe2c5c9db06690993e4e6916463cba75efa",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1/decomposition.json": "77276b5e970122c69fa068d72f8417ba56c70568c1e4624391dda2d749a499c6",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1/decomposition-audit.json": "b9a21259a1c1c22d77406cc8a2656fba10f4504eee7c8f694883b941851bc9dc",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1/controller-contract.json": "d1b66564f94c24ea9aabf052e7675de958b8785c03d14b64249e21e1e9480907",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1/children/root-gamma0-coset-counts-a1-translation-orbits-a1-coprime-count-mul-a1/parent-child-handoff.json": "cbd7898169da51479c9ef8a97f8bd7be32809bb566c908ddec8be2d66f0d079d",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1/children/root-gamma0-coset-counts-a1-translation-orbits-a1-coprime-count-mul-a1/parent-supplied-plan.md": "bac1595af8979ed2cb5e6849c0feb751a6fd2ce8d02697839a36b3327d9cdc18",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1/children/root-gamma0-coset-counts-a1-translation-orbits-a1-coprime-count-mul-a1/parent-supplied-natural-proof.md": "6891e53de9c51013babc36072412980143e3c8f65c49aefd254eb40ed5878703",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1/children/root-gamma0-coset-counts-a1-translation-orbits-a1-coprime-count-mul-a1/parent-supplied-natural-proof.json": "800ebc79130ac3454860c76b4974c2d9851b48fe6abc409d34a9a574c87fee68",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1/children/root-gamma0-coset-counts-a1-translation-orbits-a1-coprime-count-mul-a1/node.json": "4a18664d963c9ad1eba42ed3f95a76c3d6008589ccfb6369b97d53ba09aaab87",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1/children/root-gamma0-coset-counts-a1-translation-orbits-a1-cusp-count-factorization-a1/parent-child-handoff.json": "ad03a91f4bf8641c67803890dfaaf0d4cd8b4a110ec860462eb484562a9a8069",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1/children/root-gamma0-coset-counts-a1-translation-orbits-a1-cusp-count-factorization-a1/parent-supplied-plan.md": "af8e42cfdd5697ca4406be5c38933d3c7f1337a8ef4bc2a01ffe39619b3a0de1",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1/children/root-gamma0-coset-counts-a1-translation-orbits-a1-cusp-count-factorization-a1/parent-supplied-natural-proof.md": "7143abdbfbdc89e79936437bd00bdedce1b44208bbe903291e3701a3dea07939",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1/children/root-gamma0-coset-counts-a1-translation-orbits-a1-cusp-count-factorization-a1/parent-supplied-natural-proof.json": "5c8639142a3c6c616b6716a707f1e3ef47bfb118823211e1cd4692e43050bd5f",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1/children/root-gamma0-coset-counts-a1-translation-orbits-a1-cusp-count-factorization-a1/node.json": "6821b74ab336943153e0e94ae103da0972de93ab77e091ac370c003cb8e5626d",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a1/parent-child-handoff.json": "76ee144377a30caac9c2b3766806a1ecc484cd2f7ce1a91c723127d2a1ced79d",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a1/parent-supplied-plan.md": "7ada105a6839454774ba0a97a8cb004b6d09ba5ac836656a749183346fe0543e",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a1/parent-supplied-natural-proof.md": "6375269934a1d6b13d1c0fd6420534d65a4175e949e6fd88435ef55fa2f798ec",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a1/parent-supplied-natural-proof.json": "87222e520ebfc0721d105f92a8f7d0e958e784f5a5e3e30a7cdd49ac84c1a056",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a1/node.json": "c3f6c5f3e44b6daba1af6e4bb016d308fe8c8a7f5109e3d3d08c7f5e3c013b32"
+  }
+}
