@@ -1799,6 +1799,7 @@ theorem p02_es_177ebb5a_primitive_exists_constant_defect
     (fun z hz => (hq ⟨z, hz⟩).deriv) τ.im_pos UpperHalfPlane.I.im_pos
   simpa only [q, UpperHalfPlane.ofComplex_apply] using hconstant
 
+/-- Expand a homogeneous binary form in the monomials with exponents `(r, n - r)`. -/
 theorem p02_es_177ebb5a_ic_lct_monomial_expansion
     (n : ℕ) (Q : ↥(HeckeEis.BinaryForm ℂ n)) :
     Q.val = ∑ r : Fin (n + 1),
