@@ -1,0 +1,44 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "unimodularRow|UnimodularRow|ProjectiveLine|normalized_quot|unit_chart",
+        "prime_power|primePower|normalized_quot|unit_chart|isUnit_or",
+        "theorem Quot.eq|Quot.eq|theorem exact|EqvGen",
+        "p10_17ae7b7d_uce_unimodular_iff_unit_coord|p10_17ae7b7d_uce_normalized_quot_eq_iff",
+        "python3 .humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/unit-charts-independent-audit-vb16uy4q/audit.py",
+        "python3 .humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/unit-charts-independent-audit-vb16uy4q/finalize_report.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Quot.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Logic/Relation.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/unit-charts-independent-audit-vb16uy4q/report.json"
+      ],
+      "conclusion": "The pinned project supplies unimodular-row and scaling-setoid infrastructure; searches found no matching chart lemma. Pinned mathlib supplies ZMod.isUnit_natCast_iff_not_dvd_pow, Quot.eq and Equivalence.eqvGen_iff, whose independently checked transitive axioms are limited to propext, Classical.choice and Quot.sound. Both exact propositions independently elaborated against proof-base 6134a09ac36170885efc4ca0bfae953f03a4e698 without either proposed declaration. Both bare names are absent from the imported environment and active DAG. Snapshot revisions and nine clean pinned dependencies matched. The compiler-copy checks verified the specified policy digest, reversible omission of exactly lines 10–12, original/build hashes, and Lean-confirmed absence of all 56 targets. A concurrent committed update of the live Submission body triggered the wrapper's initial immutability assertion; follow-up verified that the frozen inputs, contract, problem record and Submission header remained intact. These are decomposition/interface diagnostics, not comparator acceptance of implemented proofs."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "unimodular_iff_unit_coordinate",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and standalone one-line Lean proposition agree on every hypothesis and conclusion. Primality and positive exponent justify reduction modulo p and its nontrivial target. The gcd/Bezout argument establishes the unit criterion; natural representatives then reduce two nonunit coordinates to the contradiction 0 = 1. Inverses establish the converse. The proof is complete and non-circular. This is a genuine arithmetic obligation, independent of quotient rigidity; its empty dependency list and unreserved bare name are valid."
+    },
+    {
+      "key": "normalized_quotient_rigidity",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and standalone one-line Lean proposition match, including both normalization hypotheses and the explicit quotient relation. Scalar multiplication and IsUnit use the supplied ring structure; there is no matrix-instance ambiguity. The proof establishes equivalence of the relation, correctly applies Quot exactness and equivalence-closure induction, and exhausts all four normalization cases. Same-chart cases force the scaling unit's value to 1; mixed cases contradict nonunit status. Pair/subtype extensionality and congruence finish both directions, including for trivial rings. No parent or sibling theorem is assumed. The unreserved bare name and empty dependencies are valid. The split appropriately leaves chart construction, normalization, surjectivity and equivalence assembly with the parent."
+    }
+  ],
+  "required_changes": []
+}

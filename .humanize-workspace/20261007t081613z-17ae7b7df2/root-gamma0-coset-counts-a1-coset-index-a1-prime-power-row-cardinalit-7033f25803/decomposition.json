@@ -1,0 +1,60 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "unimodularRow|UnimodularRow|ProjectiveLine",
+        "unimodularRow|UnimodularRow|ProjectiveLine|prime_pow|isUnit_iff",
+        "prime_power|primePower|chart|nonunit|isUnit_or|IsLocalRing",
+        "Quot.eq|eqvGen|EqvGen|exact",
+        "eqvGen_iff|EqvGen.*iff|eqvGen_eq|Equivalence.*eqvGen",
+        "python3 .humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/unit-charts-split-ky342xt0/run.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Quot.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Logic/Relation.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/unit-charts-split-ky342xt0/report.json"
+      ],
+      "conclusion": "The pinned mathlib supplies ZMod.isUnit_natCast_iff_not_dvd_pow, Quot.eq, and Equivalence.eqvGen_iff. Their transitive axiom checks contain only propext, Classical.choice, and Quot.sound, or no axioms. The inspected project ProjectiveLine file defines unimodular rows and the unit-scaling setoid, but contains no matching prime-power chart theorem; its setoid is absent under the frozen imports, so the proposed types spell out their subtypes and relation. Both exact child types elaborated after import Submission using a disposable copy of proof-base commit 6134a09ac36170885efc4ca0bfae953f03a4e698. The diagnostic verified nine clean pinned dependencies, the required policy digest, reversible omission of precisely lines 10–12, and absence of all 56 omitted targets. Proposed names were absent from the imported environment and active DAG. These are interface diagnostics, not comparator acceptance of any proof."
+    }
+  ],
+  "should_split": true,
+  "rationale": "At depth 4, below limit 6, two independent reusable obligations merit separate theorems: the prime-power unit-coordinate criterion and uniqueness of normalized quotient representatives over a general commutative ring. Neither restates the parent equivalence. The parent retains construction of the two-chart map, normalization and surjectivity using the first child, injectivity using the second, and conversion of the bijection into an equivalence. Existing library results handle the residue-unit criterion and equivalence closure without additional nodes.",
+  "subproblems": [
+    {
+      "key": "unimodular_iff_unit_coordinate",
+      "title": "A prime-power unimodular row has a unit coordinate",
+      "statement": "For natural numbers p and a with p prime and 0 < a, put R = ℤ/p^aℤ. For every r,s ∈ R, there exist x,y ∈ R with xr + ys = 1 if and only if r is a unit or s is a unit.",
+      "lean_statement": "∀ (p a : ℕ), p.Prime → 0 < a → ∀ r s : ZMod (p ^ a), (∃ x y : ZMod (p ^ a), x * r + y * s = 1) ↔ IsUnit r ∨ IsUnit s",
+      "lean_name": "p10_17ae7b7d_uce_unimodular_iff_unit_coord",
+      "depends_on": [],
+      "natural_proof": "1. Fix a prime p, a positive natural number a, and r,s in R = ℤ/qℤ, where q = p^a. Since p ≥ 2 and a ≥ 1, q ≥ 2 and p divides q. Reduction of integer representatives modulo p therefore gives a well-defined unital ring homomorphism ρ : R → ℤ/pℤ. The target is nontrivial because p ≥ 2.\n2. For any natural number k not divisible by p, gcd(k,q) = 1. The gcd is positive because q > 0. If it exceeded 1, it would have a prime divisor ℓ. Then ℓ would divide k and p^a. Repeated application of the prime-divides-product property implies ℓ divides p; since p is prime, ℓ = p, contradicting p not dividing k. Bézout's identity now supplies integers b,c with bk + cq = 1. Reducing this identity modulo q gives b̄k̄ = 1. Commutativity also gives k̄b̄ = 1, so k̄ is a unit in R.\n3. If p divides k, then ρ(k̄) = 0. A unital ring homomorphism sends a unit to a unit, while zero is not a unit in the nontrivial ring ℤ/pℤ: an inverse of zero would imply 0 = 1. Consequently k̄ is not a unit. Together with step 2 this proves that k̄ is a unit exactly when p does not divide k.\n4. Suppose x r + y s = 1 for some x,y in R. If neither r nor s were a unit, choose their natural representatives k,l between 0 and q−1. Step 3 together with step 2 implies p divides k and p divides l. Thus ρ(r) = ρ(s) = 0. Applying ρ to the displayed equation gives ρ(x)·0 + ρ(y)·0 = 1, hence 0 = 1, a contradiction. Therefore r is a unit or s is a unit.\n5. Conversely, if r is a unit, let b be its inverse and take x = b and y = 0; then x r + y s = 1. If s is a unit, let c be its inverse and take x = 0 and y = c; the same equation follows. These two cases prove the reverse implication and hence the asserted equivalence.",
+      "proof_key_steps": [
+        "Construct reduction modulo p using p ∣ p^a and note its nontrivial target.",
+        "Prove the residue-unit criterion using coprimality and Bézout in one direction and reduction modulo p in the other.",
+        "Reduce a putative unimodular equation with two nonunit coordinates to 0 = 1.",
+        "Use the inverse of a unit coordinate to construct Bézout coefficients."
+      ]
+    },
+    {
+      "key": "normalized_quotient_rigidity",
+      "title": "Normalized unimodular rows are unique in their quotient classes",
+      "statement": "Let R be any commutative ring with identity, and let U = {(r,s) ∈ R² | ∃ x,y ∈ R, xr + ys = 1}. For v,w ∈ U define rel(v,w) to mean ∃ u ∈ Rˣ, u v₁ = w₁ and u v₂ = w₂. Call v normalized when v₁ = 1 or when v₁ is not a unit and v₂ = 1. For any normalized v,w ∈ U, their images under Quot.mk rel are equal if and only if v = w. No nontriviality or local-ring hypothesis is required.",
+      "lean_statement": "∀ (R : Type) [CommRing R], let U := {v : R × R // ∃ x y : R, x * v.1 + y * v.2 = 1}; let rel : U → U → Prop := fun v w => ∃ u : Rˣ, (u : R) * v.1.1 = w.1.1 ∧ (u : R) * v.1.2 = w.1.2; ∀ v w : U, (v.1.1 = 1 ∨ (¬ IsUnit v.1.1 ∧ v.1.2 = 1)) → (w.1.1 = 1 ∨ (¬ IsUnit w.1.1 ∧ w.1.2 = 1)) → (Quot.mk rel v = Quot.mk rel w ↔ v = w)",
+      "lean_name": "p10_17ae7b7d_uce_normalized_quot_eq_iff",
+      "depends_on": [],
+      "natural_proof": "1. Fix a commutative ring R and define U and rel as in the statement. The relation rel is reflexive because the unit 1 fixes both coordinates. If u witnesses rel(v,w), multiplying the coordinate equalities by u⁻¹ shows that u⁻¹ witnesses rel(w,v). If u witnesses rel(v,w) and t witnesses rel(w,z), then t u witnesses rel(v,z), since (t u)vᵢ = t(u vᵢ) = t wᵢ = zᵢ for each coordinate i. Hence rel is an equivalence relation on U.\n2. Equality Quot.mk rel v = Quot.mk rel w implies that v and w belong to the equivalence closure of rel, by the exactness property of Quot. Every pair in that closure already belongs to rel: a generating pair does by definition, reflexive pairs do by step 1, and the symmetry and transitivity closure operations preserve rel by step 1. Formally this is induction on the four constructors of the equivalence closure. Consequently equality of these quotient representatives supplies a unit u with u v₁ = w₁ and u v₂ = w₂.\n3. Assume v and w are normalized and their quotient representatives are equal, and choose u as in step 2. If v₁ = 1 and w₁ = 1, the first scaling equation gives u = 1 as an element of R. The scaling equations then give v₁ = w₁ and v₂ = w₂.\n4. If v₁ and w₁ are nonunits and v₂ = w₂ = 1, the second scaling equation gives u = 1 as an element of R. Again both coordinates of v and w are equal.\n5. If v₁ = 1 whereas w₁ is a nonunit and w₂ = 1, then u v₁ = w₁ says w₁ = u. This makes w₁ a unit, a contradiction. In the other mixed case, v₁ is a nonunit and v₂ = 1 whereas w₁ = 1. The first scaling equation is u v₁ = 1; multiplying by u⁻¹ gives v₁ = u⁻¹. This makes v₁ a unit, again a contradiction. Thus neither mixed case occurs.\n6. The normalization hypotheses give precisely the four cases in steps 3–5. In each possible case the two coordinates agree, so the underlying pairs agree. Subtype extensionality then gives v = w; the proofs of unimodularity do not affect subtype equality. Conversely, if v = w, applying Quot.mk rel to that equality gives equality of their quotient representatives. This proves both directions.",
+      "proof_key_steps": [
+        "Prove that unit scaling is reflexive, symmetric, and transitive.",
+        "Use Quot exactness and equivalence-closure induction to obtain a single scaling unit from quotient equality.",
+        "For representatives in the same chart, the coordinate equal to 1 forces the scaling unit to equal 1.",
+        "Exclude both mixed-chart cases because they would turn a nonunit coordinate into a unit.",
+        "Apply pair and subtype extensionality, and prove the converse by congruence."
+      ]
+    }
+  ]
+}
