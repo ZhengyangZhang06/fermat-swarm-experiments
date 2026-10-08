@@ -2197,3 +2197,25 @@ theorem Submission.p10_17ae7b7d_idx_coset_row_card :
     (QuotientGroup.quotientRightRelEquivQuotientLeftRel H).symm.trans
       (Equiv.ofBijective f ⟨hinj, hsurj⟩)
   exact ⟨Finite.of_equiv P e.symm, Nat.card_congr e⟩
+theorem Submission.p10_17ae7b7d_phdisk_mobius_image :
+    let D : ℂ → ℝ → Set ℂ := fun v ε =>
+      {z : ℂ | 0 < z.im ∧ ‖(z - v) / (z - star v)‖ ≤ ε}
+    ∀ (v : ℂ) (ε : ℝ), 0 < v.im → 0 < ε → ε < 1 →
+      ∀ a b c d : ℝ, a * d - b * c = 1 →
+        let M : ℂ → ℂ := fun z =>
+          ((a : ℂ) * z + (b : ℂ)) / ((c : ℂ) * z + (d : ℂ))
+        M '' (D v ε) = D (M v) ε := by
+  dsimp only
+  intro v ε hv _hεpos _hεlt a b c d hdet
+  have hbij := Submission.p10_17ae7b7d_phdisk_mobius_bijon a b c d hdet
+  apply Set.Subset.antisymm
+  · rintro w ⟨z, ⟨hz, hbound⟩, rfl⟩
+    refine ⟨hbij.mapsTo hz, ?_⟩
+    rw [Submission.p10_17ae7b7d_phdisk_mobius_ratio_norm a b c d z v hdet hz hv]
+    exact hbound
+  · rintro w ⟨hw, hbound⟩
+    obtain ⟨z, hz, rfl⟩ := hbij.surjOn hw
+    refine ⟨z, ⟨hz, ?_⟩, rfl⟩
+    rw [Submission.p10_17ae7b7d_phdisk_mobius_ratio_norm a b c d z v hdet hz hv]
+      at hbound
+    exact hbound
