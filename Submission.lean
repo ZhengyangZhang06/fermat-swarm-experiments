@@ -12,62 +12,6 @@ attribute [-simp] Representation.TateResCor.cosetDecomp_apply Rep.coe_tateHneg1R
 set_option autoImplicit false
 universe u
 open CategoryTheory Rep
-/-- Restriction and coset averaging on the equivariant Hom cochain complex. -/
-theorem Submission.p04_tia_coh_hom_complex_transfer :
-    ∀ {k G : Type _} [CommRing k] [Group G] [Fintype G]
-      (A : Rep k G) (H : Subgroup G) [Fintype H]
-      (X : ChainComplex (Rep k G) ℕ),
-      ∃ R : Quiver.Hom (X.linearYonedaObj k A)
-        (ChainComplex.linearYonedaObj
-          (((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj X)
-          k (Rep.res H.subtype A)),
-      ∃ C : Quiver.Hom
-        (ChainComplex.linearYonedaObj
-          (((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj X)
-          k (Rep.res H.subtype A))
-        (X.linearYonedaObj k A),
-      CategoryTheory.CategoryStruct.comp R C =
-        H.index • CategoryTheory.CategoryStruct.id (X.linearYonedaObj k A) := by
-  intro k G _ _ _ A H _ X
-  classical
-  let : Fintype (G ⧸ H) := Fintype.ofFinite _
-  choose C hC using fun (B : Rep k G) =>
-    Submission.p04_hct139_coset_average_exists A B H
-  obtain ⟨hC_natural, hC_index⟩ :=
-    Submission.p04_hct139_coset_average_laws A H C hC
-  let U := X.linearYonedaObj k A
-  let V := ChainComplex.linearYonedaObj
-    (((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj X)
-    k (Rep.res H.subtype A)
-  let R : U ⟶ V :=
-    { f := fun _ => ModuleCat.ofHom ((Rep.resFunctor H.subtype).mapLinearMap k)
-      comm' := by
-        intro i j _
-        apply ModuleCat.hom_ext
-        apply LinearMap.ext
-        intro F
-        change (Rep.resFunctor H.subtype).map (X.d j i) ≫
-            (Rep.resFunctor H.subtype).map F =
-          (Rep.resFunctor H.subtype).map (X.d j i ≫ F)
-        exact ((Rep.resFunctor H.subtype).map_comp _ _).symm }
-  let T : V ⟶ U :=
-    { f := fun i => ModuleCat.ofHom (C (X.X i))
-      comm' := by
-        intro i j _
-        apply ModuleCat.hom_ext
-        apply LinearMap.ext
-        intro F
-        change X.d j i ≫ C (X.X i) F =
-          C (X.X j) ((Rep.resFunctor H.subtype).map (X.d j i) ≫ F)
-        exact (hC_natural (X.X i) (X.X j) (X.d j i) F).symm }
-  refine ⟨R, T, ?_⟩
-  apply HomologicalComplex.hom_ext
-  intro i
-  apply ModuleCat.hom_ext
-  apply LinearMap.ext
-  intro F
-  change C (X.X i) ((Rep.resFunctor H.subtype).map F) = H.index • F
-  exact hC_index (X.X i) F
 
 theorem Rep.isZero_tateCohomology_of_forall_sylow {k G : Type u} [CommRing k] [Group G] [Fintype G]
     (A : Rep.{u} k G) (q : ℤ)
@@ -1913,6 +1857,8 @@ theorem p04_hct139_coset_average_exists
     rfl
 
 
+end Submission
+
 namespace Submission
 
 /-- Coset averaging is natural in its source and acts by the subgroup index on restricted
@@ -1951,3 +1897,61 @@ theorem p04_hct139_coset_average_laws :
     simp [Rep.hom_comm_apply, Subgroup.index_eq_card, Nat.card_eq_fintype_card]
 
 end Submission
+
+set_option warningAsError true in
+/-- Restriction and coset averaging on the equivariant Hom cochain complex. -/
+theorem Submission.p04_tia_coh_hom_complex_transfer :
+    ∀ {k G : Type _} [CommRing k] [Group G] [Fintype G]
+      (A : Rep k G) (H : Subgroup G) [Fintype H]
+      (X : ChainComplex (Rep k G) ℕ),
+      ∃ R : Quiver.Hom (X.linearYonedaObj k A)
+        (ChainComplex.linearYonedaObj
+          (((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj X)
+          k (Rep.res H.subtype A)),
+      ∃ C : Quiver.Hom
+        (ChainComplex.linearYonedaObj
+          (((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj X)
+          k (Rep.res H.subtype A))
+        (X.linearYonedaObj k A),
+      CategoryTheory.CategoryStruct.comp R C =
+        H.index • CategoryTheory.CategoryStruct.id (X.linearYonedaObj k A) := by
+  intro k G _ _ _ A H _ X
+  classical
+  let : Fintype (G ⧸ H) := Fintype.ofFinite _
+  choose C hC using fun (B : Rep k G) =>
+    Submission.p04_hct139_coset_average_exists A B H
+  obtain ⟨hC_natural, hC_index⟩ :=
+    Submission.p04_hct139_coset_average_laws A H C hC
+  let U := X.linearYonedaObj k A
+  let V := ChainComplex.linearYonedaObj
+    (((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj X)
+    k (Rep.res H.subtype A)
+  let R : U ⟶ V :=
+    { f := fun _ => ModuleCat.ofHom ((Rep.resFunctor H.subtype).mapLinearMap k)
+      comm' := by
+        intro i j _
+        apply ModuleCat.hom_ext
+        apply LinearMap.ext
+        intro F
+        change (Rep.resFunctor H.subtype).map (X.d j i) ≫
+            (Rep.resFunctor H.subtype).map F =
+          (Rep.resFunctor H.subtype).map (X.d j i ≫ F)
+        exact ((Rep.resFunctor H.subtype).map_comp _ _).symm }
+  let T : V ⟶ U :=
+    { f := fun i => ModuleCat.ofHom (C (X.X i))
+      comm' := by
+        intro i j _
+        apply ModuleCat.hom_ext
+        apply LinearMap.ext
+        intro F
+        change X.d j i ≫ C (X.X i) F =
+          C (X.X j) ((Rep.resFunctor H.subtype).map (X.d j i) ≫ F)
+        exact (hC_natural (X.X i) (X.X j) (X.d j i) F).symm }
+  refine ⟨R, T, ?_⟩
+  apply HomologicalComplex.hom_ext
+  intro i
+  apply ModuleCat.hom_ext
+  apply LinearMap.ext
+  intro F
+  change C (X.X i) ((Rep.resFunctor H.subtype).map F) = H.index • F
+  exact hC_index (X.X i) F
