@@ -2615,3 +2615,19 @@ theorem Submission.p02_es_177ebb5a_ic_lct_coeff_linear_combination
       congrArg L hQ
     _ = ∑ r : Fin (n + 1), L (b r) * MvPolynomial.coeff (exponent r) Q.val := by
       simp only [map_sum, map_smul, smul_eq_mul, mul_comm]
+
+/-- A linear map of binary forms preserves coefficientwise derivatives. -/
+theorem Submission.p02_es_177ebb5a_ic_lmd_linear_coeff
+    (n : ℕ) (A : ↥(HeckeEis.BinaryForm ℂ n) →ₗ[ℂ] ↥(HeckeEis.BinaryForm ℂ n))
+    (F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n))
+    (P : ↥(HeckeEis.BinaryForm ℂ n)) (τ : UpperHalfPlane) :
+    (∀ d : Fin 2 →₀ ℕ,
+      HasDerivAt (fun z : ℂ => MvPolynomial.coeff d (F (UpperHalfPlane.ofComplex z)).val)
+        (MvPolynomial.coeff d P.val) (τ : ℂ)) →
+    ∀ e : Fin 2 →₀ ℕ,
+      HasDerivAt (fun z : ℂ => MvPolynomial.coeff e (A (F (UpperHalfPlane.ofComplex z))).val)
+        (MvPolynomial.coeff e (A P).val) (τ : ℂ) := by
+  intro h e
+  obtain ⟨c, hc⟩ := Submission.p02_es_177ebb5a_ic_lct_coeff_linear_combination n A e
+  simp_rw [hc]
+  exact HasDerivAt.fun_sum fun r _ => (h _).const_mul (c r)
