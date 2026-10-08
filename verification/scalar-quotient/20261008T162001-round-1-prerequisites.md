@@ -72,3 +72,13 @@ These inputs were requested from the user; the questions remain `analyze -> code
 The next proof action depends on those inputs. Repeating the same failing gate,
 activating a worker-selected checker, editing the frozen header, or fabricating a
 successful export is not an authorized repair. AC2 remains unmet.
+
+## Round 2 drift-recovery disposition
+
+One availability check found the exact export still absent among 199 mounted
+receipts, the recorded wrapper/verifier/exporter/policy hashes unchanged, and no
+reconciliation authority in the selected node's handoff. The prior request for
+controller inputs remains unanswered. There is no credible worker-only route to
+ADVANCED under these inputs. No source change, build, comparator retry, or new
+audit bundle was made; this disposition is not proof progress. Resume only after
+the controller supplies the authorized reconciliation and request-bound evidence.
