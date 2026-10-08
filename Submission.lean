@@ -1734,6 +1734,12 @@ theorem p06_9e0f5043ff_lno_dvr_determinant_length
       hunit _ hPdet, hunit _ hQdet, zero_add, add_zero, hprod] at horder
     simpa only [D, LinearMap.det_toMatrix, Nat.cast_sum] using horder
 
+open AlgebraicCurve
+theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
+    [Algebra K F] (x : F) (hx : Transcendental K x)
+    [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
+  sorry
+
 namespace Submission
 
 set_option warningAsError true in
