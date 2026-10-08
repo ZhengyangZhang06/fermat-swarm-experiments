@@ -264,7 +264,7 @@ theorem p07_flp_nsmul_precomp_857cd4d38c :
   | zero => exact L.one_natural t t' ψ hψ
   | succ k ih =>
       -- The recursive step commutes with precomposition by multiplication naturality.
-      simp only [CerednikDrinfeld.QM.nsmulPt, L.mul_natural, ih]
+      rw [CerednikDrinfeld.QM.nsmulPt, CerednikDrinfeld.QM.nsmulPt, L.mul_natural, ih]
 
 end Submission
 theorem Submission.p07_rr_pullback_comp_857cd4d38c
