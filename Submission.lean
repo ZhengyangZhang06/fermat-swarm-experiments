@@ -2497,6 +2497,8 @@ theorem Submission.p02_es_177ebb5a_sm_all_cusps :
   rwa [hscalar]
   simpa [Function.comp_def, UpperHalfPlane.ofComplex_apply, div_eq_mul_inv] using
     hh.comp_of_eq (τ : ℂ) hσ (by simp)
+  simpa only [Function.comp_def, UpperHalfPlane.ofComplex_apply, div_eq_mul_inv,
+    one_mul] using hh.comp_of_eq (τ : ℂ) hσ (by simp only [UpperHalfPlane.ofComplex_apply])
 
 end Submission
 
