@@ -1568,3 +1568,19 @@ theorem Submission.p02_es_177ebb5a_med_jet_sum :
   rw [Submission.p02_es_177ebb5a_med_js_iterated_monomial, MvPolynomial.eval_monomial,
     Finsupp.prod_fintype _ _ (by intro j; simp)]
   simp [d, Fin.prod_univ_two, Finsupp.tsub_apply]
+
+/-- A linear map of binary forms preserves coefficientwise derivatives. -/
+theorem Submission.p02_es_177ebb5a_ic_lmd_linear_coeff
+    (n : ℕ) (A : ↥(HeckeEis.BinaryForm ℂ n) →ₗ[ℂ] ↥(HeckeEis.BinaryForm ℂ n))
+    (F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n))
+    (P : ↥(HeckeEis.BinaryForm ℂ n)) (τ : UpperHalfPlane) :
+    (∀ d : Fin 2 →₀ ℕ,
+      HasDerivAt (fun z : ℂ => MvPolynomial.coeff d (F (UpperHalfPlane.ofComplex z)).val)
+        (MvPolynomial.coeff d P.val) (τ : ℂ)) →
+    ∀ e : Fin 2 →₀ ℕ,
+      HasDerivAt (fun z : ℂ => MvPolynomial.coeff e (A (F (UpperHalfPlane.ofComplex z))).val)
+        (MvPolynomial.coeff e (A P).val) (τ : ℂ) := by
+  intro h e
+  obtain ⟨c, hc⟩ := Submission.p02_es_177ebb5a_ic_lct_coeff_linear_combination n A e
+  simp_rw [hc]
+  exact HasDerivAt.fun_sum fun r _ => (h _).const_mul (c r)
