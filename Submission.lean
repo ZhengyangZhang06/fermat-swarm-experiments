@@ -624,3 +624,58 @@ theorem p06_9e0f5043ff_fno_irreducible_aeval
         a b y hb hy).mpr ha
 
 end Submission
+
+/-- The reciprocal of the fraction-ring variable is transcendental and presents every fraction. -/
+theorem Submission.p06_9e0f5043ff_inf_reciprocal_presentation :
+    ∀ (K : Type*) [Field K],
+      Transcendental K
+        ((algebraMap (Polynomial K) (FractionRing (Polynomial K)) Polynomial.X)⁻¹) ∧
+      (∀ f : FractionRing (Polynomial K), ∃ a b : Polynomial K, b ≠ 0 ∧
+        f = Polynomial.aeval
+          ((algebraMap (Polynomial K) (FractionRing (Polynomial K)) Polynomial.X)⁻¹) a /
+          Polynomial.aeval
+          ((algebraMap (Polynomial K) (FractionRing (Polynomial K)) Polynomial.X)⁻¹) b) := by
+  intro K _
+  let t : FractionRing (Polynomial K) :=
+    algebraMap (Polynomial K) (FractionRing (Polynomial K)) Polynomial.X
+  have hinj := IsFractionRing.injective (Polynomial K) (FractionRing (Polynomial K))
+  have ht : t ≠ 0 := by
+    exact fun h => Polynomial.X_ne_zero (hinj (h.trans (map_zero _).symm))
+  have heval (p : Polynomial K) :
+      Polynomial.aeval t p = algebraMap (Polynomial K) (FractionRing (Polynomial K)) p := by
+    simp [t, Polynomial.aeval_algebraMap_apply]
+  have htrans : Transcendental K t :=
+    (transcendental_algebraMap_iff hinj).mpr (Polynomial.transcendental_X K)
+  have hs : Transcendental K t⁻¹ := by
+    intro h
+    exact htrans (IsAlgebraic.inv_iff.mp h)
+  refine ⟨hs, ?_⟩
+  intro f
+  change ∃ a b : Polynomial K, b ≠ 0 ∧
+    f = Polynomial.aeval t⁻¹ a / Polynomial.aeval t⁻¹ b
+  by_cases hf : f = 0
+  · exact ⟨0, 1, one_ne_zero, by simp [hf]⟩
+  obtain ⟨a, b, hb, hab⟩ := IsFractionRing.div_surjective (Polynomial K) f
+  have hb0 : b ≠ 0 := mem_nonZeroDivisors_iff_ne_zero.mp hb
+  have hbr : b.reverse ≠ 0 := by simpa using hb0
+  have hbev : Polynomial.aeval t⁻¹ b.reverse ≠ 0 := by
+    exact fun h => hbr ((transcendental_iff_injective.mp hs) (by simpa using h))
+  let : Invertible t := invertibleOfNonzero ht
+  have hreverse (p : Polynomial K) :
+      algebraMap (Polynomial K) (FractionRing (Polynomial K)) p =
+        Polynomial.aeval t⁻¹ p.reverse / (t⁻¹) ^ p.natDegree := by
+    have h := Polynomial.eval₂_reverse_mul_pow
+      (algebraMap K (FractionRing (Polynomial K))) t p
+    simpa only [invOf_eq_inv, ← Polynomial.aeval_def, heval, inv_pow,
+      div_inv_eq_mul] using h.symm
+  rw [← hab, hreverse a, hreverse b]
+  by_cases hdeg : a.natDegree ≤ b.natDegree
+  · refine ⟨Polynomial.X ^ (b.natDegree - a.natDegree) * a.reverse,
+      b.reverse, hbr, ?_⟩
+    rw [map_mul, map_pow, Polynomial.aeval_X, pow_sub₀ _ (inv_ne_zero ht) hdeg]
+    field_simp
+  · refine ⟨a.reverse, Polynomial.X ^ (a.natDegree - b.natDegree) * b.reverse,
+      mul_ne_zero (pow_ne_zero _ Polynomial.X_ne_zero) hbr, ?_⟩
+    rw [map_mul, map_pow, Polynomial.aeval_X,
+      pow_sub₀ _ (inv_ne_zero ht) (Nat.le_of_lt (Nat.lt_of_not_ge hdeg))]
+    field_simp
