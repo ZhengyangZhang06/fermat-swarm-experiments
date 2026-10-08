@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.rigidification_reduction-a1.curve_pullback_composition-a1",
+  "parent_id": "root.rigidification_reduction-a1",
+  "depth": 2,
+  "title": "Composition of fake elliptic curve pullback predicates",
+  "statement": "Let a,b ∈ ℚ, let Λ be a ℤ-submodule of QuaternionAlgebra ℚ a 0 b, and let N ∈ ℕ. Let S₀,S₁,S₂ be commutative rings of universe zero, with ring homomorphisms f : S₀ → S₁ and h : S₁ → S₂. For j = 0,1,2 let Eⱼ be a FakeEllipticCurve Λ N over Sⱼ. Let g₀₁ : E₁.A → E₀.A and g₁₂ : E₂.A → E₁.A be scheme morphisms. If FakeEllipticCurve.IsPullbackVia f E₀ E₁ g₀₁ and FakeEllipticCurve.IsPullbackVia h E₁ E₂ g₁₂, then FakeEllipticCurve.IsPullbackVia (h.comp f) E₀ E₂ (g₁₂ ≫ g₀₁).",
+  "lean_statement": "∀ {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N : ℕ) (S₀ S₁ S₂ : Type) [CommRing S₀] [CommRing S₁] [CommRing S₂] (f : S₀ →+* S₁) (h : S₁ →+* S₂) (E₀ : CerednikDrinfeld.QM.FakeEllipticCurve Λ N S₀) (E₁ : CerednikDrinfeld.QM.FakeEllipticCurve Λ N S₁) (E₂ : CerednikDrinfeld.QM.FakeEllipticCurve Λ N S₂) (g₀₁ : Quiver.Hom E₁.A E₀.A) (g₁₂ : Quiver.Hom E₂.A E₁.A), CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia f E₀ E₁ g₀₁ → CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia h E₁ E₂ g₁₂ → CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia (h.comp f) E₀ E₂ (CategoryTheory.CategoryStruct.comp g₁₂ g₀₁)",
+  "lean_name": "p07_rr_pullback_comp_857cd4d38c",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p07/20261007t081612z-857cd4d38c/root-rigidification-reduction-a1-curve-pullback-composition-a1-a1"
+}

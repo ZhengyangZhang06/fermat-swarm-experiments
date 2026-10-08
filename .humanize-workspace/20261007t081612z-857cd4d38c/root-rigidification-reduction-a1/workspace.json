@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081612Z-857cd4d38c",
+  "parent_id": "root.rigidification_reduction-a1",
+  "dispatch_branch": "proof-workspace/fermat-p07/20261007t081612z-857cd4d38c/dispatch/root-rigidification-reduction-a1",
+  "source_commit": "73257f1e32d99b75813b037f28a5cf45a2db886d",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.rigidification_reduction-a1.curve_pullback_composition-a1",
+      "key": "curve_pullback_composition",
+      "result_branch": "humanize-recursive/fermat-p07/20261007t081612z-857cd4d38c/root-rigidification-reduction-a1-curve-pullback-composition-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-857cd4d38c/root-rigidification-reduction-a1/children/root-rigidification-reduction-a1-curve-pullback-composition-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg -n 'structure Rigidification|def IsPullbackVia|structure IsPullbackVia|def IsIsogenyPair|structure IsIsogenyPair|preservesLevel|namespace Rigidification' .humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions",
+              "rg -n 'IsPullbackVia|IsIsogenyPair' .humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Theorems --glob '*.lean'",
+              "rg -n 'paste_horiz|paste_vert|theorem.*comp|def mapPt|def FactorsThrough' .humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/CategoryTheory/Limits/Shapes/Pullback/IsPullback .humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMModuli.lean",
+              "rg -n --hidden --no-ignore 'p07_rr_pullback_comp_857cd4d38c|p07_rr_isogeny_transport_857cd4d38c' /mnt/data/zhengyang-workspace/fermat-swarm-projects --glob 'dag.json' --glob '*handoff*.json' --glob '*.lean'",
+              "#print axioms CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia",
+              "#print axioms CerednikDrinfeld.QM.FakeEllipticCurve.IsIsogenyPair",
+              "#print axioms CerednikDrinfeld.QM.FakeEllipticCurve.PreservesLevel",
+              "#print axioms CerednikDrinfeld.QM.mapPt",
+              "#print axioms CerednikDrinfeld.QM.FactorsThrough",
+              "#print axioms CategoryTheory.IsPullback.paste_horiz"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFormalModuleOf.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMIsogeny.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMRigidification.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMModuli.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Theorems",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/CategoryTheory/Limits/Shapes/Pullback/IsPullback/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/dag.json",
+              "/tmp/p07-rr-decomposition-857cd4d38c/TypesAgainstImports.lean",
+              "/tmp/p07-rr-decomposition-857cd4d38c/types-and-axioms.log",
+              "/tmp/p07-rr-decomposition-857cd4d38c/literal-submission.log",
+              "/tmp/p07-rr-decomposition-857cd4d38c/literal-import.log"
+            ],
+            "conclusion": "The manifest pins project 73257f1e32d99b75813b037f28a5cf45a2db886d and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; the checked revisions match and their checked tracked sources are clean. All 47 project modules in the import closure match the snapshot and the cached source modules used for diagnostics. IsPullbackVia contains a pullback square, multiplication compatibility, action compatibility, and directional level preservation. IsIsogenyPair and PreservesLevel have exactly the conditions addressed below. Mathlib supplies IsPullback.paste_horiz. The searched project Theorems directory contains no IsPullbackVia or IsIsogenyPair matches, and the proposed-name search found no collisions. Both proposed types elaborate against Submission's five imports under Lean 4.33.1. The six audited declarations depend only on propext, Classical.choice and Quot.sound. Literal import Submission remains blocked: unchanged Submission.lean reports unknown attribute targets AlgebraicGeometry.Scheme.Hom.opensMapFinal, GoodReductionJacobian.RelativeGroupLaw.baseChangePointToBase_ofBase and RegularLocalRingQuotientAscent.dualNumberFst_apply, so no importable Submission object is produced. These diagnostic checks are not comparator acceptance."
+          }
+        ],
+        "parent_id": "root.rigidification_reduction-a1",
+        "child_id": "root.rigidification_reduction-a1.curve_pullback_composition-a1",
+        "subproblem": {
+          "key": "curve_pullback_composition",
+          "title": "Composition of fake elliptic curve pullback predicates",
+          "statement": "Let a,b ∈ ℚ, let Λ be a ℤ-submodule of QuaternionAlgebra ℚ a 0 b, and let N ∈ ℕ. Let S₀,S₁,S₂ be commutative rings of universe zero, with ring homomorphisms f : S₀ → S₁ and h : S₁ → S₂. For j = 0,1,2 let Eⱼ be a FakeEllipticCurve Λ N over Sⱼ. Let g₀₁ : E₁.A → E₀.A and g₁₂ : E₂.A → E₁.A be scheme morphisms. If FakeEllipticCurve.IsPullbackVia f E₀ E₁ g₀₁ and FakeEllipticCurve.IsPullbackVia h E₁ E₂ g₁₂, then FakeEllipticCurve.IsPullbackVia (h.comp f) E₀ E₂ (g₁₂ ≫ g₀₁).",
+          "lean_statement": "∀ {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N : ℕ) (S₀ S₁ S₂ : Type) [CommRing S₀] [CommRing S₁] [CommRing S₂] (f : S₀ →+* S₁) (h : S₁ →+* S₂) (E₀ : CerednikDrinfeld.QM.FakeEllipticCurve Λ N S₀) (E₁ : CerednikDrinfeld.QM.FakeEllipticCurve Λ N S₁) (E₂ : CerednikDrinfeld.QM.FakeEllipticCurve Λ N S₂) (g₀₁ : Quiver.Hom E₁.A E₀.A) (g₁₂ : Quiver.Hom E₂.A E₁.A), CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia f E₀ E₁ g₀₁ → CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia h E₁ E₂ g₁₂ → CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia (h.comp f) E₀ E₂ (CategoryTheory.CategoryStruct.comp g₁₂ g₀₁)",
+          "lean_name": "p07_rr_pullback_comp_857cd4d38c",
+          "depends_on": [],
+          "natural_proof": "1. Write α = Spec(f) and β = Spec(h). Unpack the two IsPullbackVia hypotheses into their pullback squares and their multiplication, action, and level conditions. Their commuting equations are g₀₁ ≫ E₀.f = E₁.f ≫ α and g₁₂ ≫ E₁.f = E₂.f ≫ β. Hence (g₁₂ ≫ g₀₁) ≫ E₀.f = E₂.f ≫ (β ≫ α). Contravariance of Spec identifies β ≫ α with Spec(h.comp f).\n2. Verify the universal property of this composite square. Given any scheme X, maps a : X → E₀.A and t : X → Spec S₂ satisfying a ≫ E₀.f = t ≫ β ≫ α, the first pullback square gives a unique b : X → E₁.A with b ≫ g₀₁ = a and b ≫ E₁.f = t ≫ β. The second gives a unique c : X → E₂.A with c ≫ g₁₂ = b and c ≫ E₂.f = t. Then c ≫ g₁₂ ≫ g₀₁ = a. If c' satisfies the same outer equations, c' ≫ g₁₂ has the two defining equations of b and therefore equals b; uniqueness in the second square now gives c' = c. Thus the composite square is a pullback.\n3. Fix X, t : X → Spec S₂, and E₂-points P,Q over t. Let P₁,Q₁ be their composites with g₁₂, regarded as E₁-points over t ≫ β using the second square's commuting equation. Let P₀,Q₀ be their further composites with g₀₁, now over t ≫ β ≫ α. The second multiplication condition gives (E₂.L.mul t P Q).1 ≫ g₁₂ = (E₁.L.mul (t ≫ β) P₁ Q₁).1. Composing this equality with g₀₁ and applying the first multiplication condition gives (E₂.L.mul t P Q).1 ≫ (g₁₂ ≫ g₀₁) = (E₀.L.mul (t ≫ Spec(h.comp f)) P₀ Q₀).1. Associativity and Spec's composition identity identify the displayed bases and the point morphisms with those required by the composite predicate; proof irrelevance identifies their over-base proofs.\n4. For each x ∈ Λ, the two action conditions give E₂.act(x) ≫ g₁₂ ≫ g₀₁ = g₁₂ ≫ E₁.act(x) ≫ g₀₁ = g₁₂ ≫ g₀₁ ≫ E₀.act(x). This is the composite action condition.\n5. Suppose a point P of E₂ over t factors through E₂.lev. The second level condition supplies w₁ : X → E₁.C with w₁ ≫ E₁.lev = P.1 ≫ g₁₂. Thus P₁ factors through E₁.lev. Applying the first level condition to P₁ supplies w₀ : X → E₀.C with w₀ ≫ E₀.lev = P₁.1 ≫ g₀₁ = P.1 ≫ (g₁₂ ≫ g₀₁). This is exactly the required final level witness.\n6. The pullback square from step 2 together with steps 3–5 supplies every conjunct of IsPullbackVia (h.comp f) E₀ E₂ (g₁₂ ≫ g₀₁).",
+          "proof_key_steps": [
+            "Identify the composite base morphism using contravariance of Spec.",
+            "Construct and prove uniqueness of the outer lift by two successive pullback lifts.",
+            "Compose multiplication compatibility on test-scheme points.",
+            "Compose action compatibility by associativity.",
+            "Pass level-factorization witnesses through both morphisms.",
+            "Assemble the composite IsPullbackVia predicate."
+          ]
+        },
+        "audit": {
+          "key": "curve_pullback_composition",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The prose and standalone Lean proposition agree on every hypothesis, universe, morphism direction and conclusion. Steps 1–2 correctly establish the composite pullback by successive unique lifts; steps 3–5 compose multiplication, action and level witnesses; step 6 assembles exactly IsPullbackVia. Base identifications and proof-field irrelevance are addressed. This genuine reusable obligation discharges parent steps 5–6 without circularity or additional dependencies. The bare identifier is unreserved."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-rigidification-reduction-a1-curve-pullback-composition-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-rigidification-reduction-a1-curve-pullback-composition-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-rigidification-reduction-a1-curve-pullback-composition-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.rigidification_reduction-a1.isogeny_level_transport-a1",
+      "key": "isogeny_level_transport",
+      "result_branch": "humanize-recursive/fermat-p07/20261007t081612z-857cd4d38c/root-rigidification-reduction-a1-isogeny-level-transport-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081612z-857cd4d38c/root-rigidification-reduction-a1/children/root-rigidification-reduction-a1-isogeny-level-transport-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg -n 'structure Rigidification|def IsPullbackVia|structure IsPullbackVia|def IsIsogenyPair|structure IsIsogenyPair|preservesLevel|namespace Rigidification' .humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions",
+              "rg -n 'IsPullbackVia|IsIsogenyPair' .humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Theorems --glob '*.lean'",
+              "rg -n 'paste_horiz|paste_vert|theorem.*comp|def mapPt|def FactorsThrough' .humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/CategoryTheory/Limits/Shapes/Pullback/IsPullback .humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMModuli.lean",
+              "rg -n --hidden --no-ignore 'p07_rr_pullback_comp_857cd4d38c|p07_rr_isogeny_transport_857cd4d38c' /mnt/data/zhengyang-workspace/fermat-swarm-projects --glob 'dag.json' --glob '*handoff*.json' --glob '*.lean'",
+              "#print axioms CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia",
+              "#print axioms CerednikDrinfeld.QM.FakeEllipticCurve.IsIsogenyPair",
+              "#print axioms CerednikDrinfeld.QM.FakeEllipticCurve.PreservesLevel",
+              "#print axioms CerednikDrinfeld.QM.mapPt",
+              "#print axioms CerednikDrinfeld.QM.FactorsThrough",
+              "#print axioms CategoryTheory.IsPullback.paste_horiz"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFormalModuleOf.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMIsogeny.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMRigidification.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMModuli.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Theorems",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/CategoryTheory/Limits/Shapes/Pullback/IsPullback/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/dag.json",
+              "/tmp/p07-rr-decomposition-857cd4d38c/TypesAgainstImports.lean",
+              "/tmp/p07-rr-decomposition-857cd4d38c/types-and-axioms.log",
+              "/tmp/p07-rr-decomposition-857cd4d38c/literal-submission.log",
+              "/tmp/p07-rr-decomposition-857cd4d38c/literal-import.log"
+            ],
+            "conclusion": "The manifest pins project 73257f1e32d99b75813b037f28a5cf45a2db886d and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; the checked revisions match and their checked tracked sources are clean. All 47 project modules in the import closure match the snapshot and the cached source modules used for diagnostics. IsPullbackVia contains a pullback square, multiplication compatibility, action compatibility, and directional level preservation. IsIsogenyPair and PreservesLevel have exactly the conditions addressed below. Mathlib supplies IsPullback.paste_horiz. The searched project Theorems directory contains no IsPullbackVia or IsIsogenyPair matches, and the proposed-name search found no collisions. Both proposed types elaborate against Submission's five imports under Lean 4.33.1. The six audited declarations depend only on propext, Classical.choice and Quot.sound. Literal import Submission remains blocked: unchanged Submission.lean reports unknown attribute targets AlgebraicGeometry.Scheme.Hom.opensMapFinal, GoodReductionJacobian.RelativeGroupLaw.baseChangePointToBase_ofBase and RegularLocalRingQuotientAscent.dualNumberFst_apply, so no importable Submission object is produced. These diagnostic checks are not comparator acceptance."
+          }
+        ],
+        "parent_id": "root.rigidification_reduction-a1",
+        "child_id": "root.rigidification_reduction-a1.isogeny_level_transport-a1",
+        "subproblem": {
+          "key": "isogeny_level_transport",
+          "title": "Transport of an isogeny pair and level preservation across ring and curve isomorphisms",
+          "statement": "Let a,b ∈ ℚ, let Λ be a ℤ-submodule of QuaternionAlgebra ℚ a 0 b, and let N,d ∈ ℕ. Let T,U be commutative rings of universe zero and k : T ≃+* U a ring isomorphism. Let E,F be FakeEllipticCurve Λ N over T and D,H be FakeEllipticCurve Λ N over U. Suppose i : D.A ≅ E.A and j : H.A ≅ F.A are scheme isomorphisms satisfying IsPullbackVia k.toRingHom E D i.hom, IsPullbackVia k.symm.toRingHom D E i.inv, IsPullbackVia k.toRingHom F H j.hom, and IsPullbackVia k.symm.toRingHom H F j.inv. Let φ : D.A → H.A and ψ : H.A → D.A be scheme morphisms, with hφ : φ ≫ H.f = D.f. Assume IsIsogenyPair d D H φ ψ and PreservesLevel D H φ hφ. Put Φ = i.inv ≫ φ ≫ j.hom and Ψ = j.inv ≫ ψ ≫ i.hom. Then IsIsogenyPair d E F Φ Ψ, and there exists hΦ : Φ ≫ F.f = E.f such that PreservesLevel E F Φ hΦ.",
+          "lean_statement": "∀ {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N d : ℕ) (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U) (E F : CerednikDrinfeld.QM.FakeEllipticCurve Λ N T) (D H : CerednikDrinfeld.QM.FakeEllipticCurve Λ N U) (i : CategoryTheory.Iso D.A E.A) (j : CategoryTheory.Iso H.A F.A), CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia k.toRingHom E D i.hom → CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia k.symm.toRingHom D E i.inv → CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia k.toRingHom F H j.hom → CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia k.symm.toRingHom H F j.inv → ∀ (φ : Quiver.Hom D.A H.A) (ψ : Quiver.Hom H.A D.A) (hφ : CategoryTheory.CategoryStruct.comp φ H.f = D.f), CerednikDrinfeld.QM.FakeEllipticCurve.IsIsogenyPair d D H φ ψ → CerednikDrinfeld.QM.FakeEllipticCurve.PreservesLevel D H φ hφ → CerednikDrinfeld.QM.FakeEllipticCurve.IsIsogenyPair d E F (CategoryTheory.CategoryStruct.comp i.inv (CategoryTheory.CategoryStruct.comp φ j.hom)) (CategoryTheory.CategoryStruct.comp j.inv (CategoryTheory.CategoryStruct.comp ψ i.hom)) ∧ ∃ hΦ : CategoryTheory.CategoryStruct.comp (CategoryTheory.CategoryStruct.comp i.inv (CategoryTheory.CategoryStruct.comp φ j.hom)) F.f = E.f, CerednikDrinfeld.QM.FakeEllipticCurve.PreservesLevel E F (CategoryTheory.CategoryStruct.comp i.inv (CategoryTheory.CategoryStruct.comp φ j.hom)) hΦ",
+          "lean_name": "p07_rr_isogeny_transport_857cd4d38c",
+          "depends_on": [],
+          "natural_proof": "1. Put u = i.hom, v = i.inv, z = j.hom and w = j.inv. Write κ = Spec(k.toRingHom) : Spec U → Spec T and ε = Spec(k.symm.toRingHom) : Spec T → Spec U. The ring-isomorphism identities and contravariance of Spec give ε ≫ κ = id and κ ≫ ε = id. The scheme-isomorphism identities give u ≫ v = id, v ≫ u = id, z ≫ w = id and w ≫ z = id. Define Φ = v ≫ φ ≫ z and Ψ = w ≫ ψ ≫ u, the exact morphisms in the conclusion.\n2. The commuting equations contained in the four pullback hypotheses are u ≫ E.f = D.f ≫ κ, v ≫ D.f = E.f ≫ ε, z ≫ F.f = H.f ≫ κ and w ≫ H.f = F.f ≫ ε. The old isogeny-pair hypothesis supplies ψ ≫ D.f = H.f as well as φ's over-base equation. Therefore Φ ≫ F.f = v ≫ φ ≫ H.f ≫ κ = v ≫ D.f ≫ κ = E.f ≫ ε ≫ κ = E.f. Likewise Ψ ≫ E.f = w ≫ ψ ≫ D.f ≫ κ = w ≫ H.f ≫ κ = F.f. Denote these proofs by hΦ and hΨ. Any alternative proof of φ's over-base equality appearing in the isogeny-pair hypothesis agrees with the given hφ by proof irrelevance.\n3. For any scheme X and t : X → Spec T, composition with v sends E-points over t to D-points over t ≫ ε; composition with w sends F-points over t to H-points over t ≫ ε. For any s : X → Spec U, composition with u sends D-points over s to E-points over s ≫ κ, and composition with z sends H-points to F-points over s ≫ κ. The equations in step 2 show that all four point maps are well-defined. Each preserves multiplication: its defining IsPullbackVia multiplication equality is the equality of underlying point morphisms, and subtype extensionality makes it the corresponding equality of points. Each also carries a level factorization to a level factorization, since its IsPullbackVia level condition supplies precisely a witness through the target level immersion.\n4. Let P,Q be E-points over t. Their images under mapPt Φ hΦ are obtained successively by composition with v, application of mapPt φ hφ, and composition with z. The last base is (t ≫ ε) ≫ κ = t; after this identification the underlying composite morphism is P.1 ≫ Φ, respectively Q.1 ≫ Φ. The first and third point maps preserve multiplication by step 3, and the middle map preserves multiplication by the old isogeny-pair hypothesis. Applying these three multiplication equalities in order proves mapPt Φ hΦ (E.L.mul t P Q) = F.L.mul t (mapPt Φ hΦ P) (mapPt Φ hΦ Q). For F-points P,Q, use composition with w, the old multiplication-preserving map ψ, and composition with u. The same base identity and the three corresponding equalities give the multiplication condition for Ψ. All equalities of over-base points follow from equality of underlying morphisms and proof irrelevance.\n5. Fix x ∈ Λ. The action equations for v, φ and z give E.act(x) ≫ Φ = v ≫ D.act(x) ≫ φ ≫ z = v ≫ φ ≫ H.act(x) ≫ z = Φ ≫ F.act(x). The action equations for w, ψ and u give F.act(x) ≫ Ψ = w ≫ H.act(x) ≫ ψ ≫ u = w ≫ ψ ≫ D.act(x) ≫ u = Ψ ≫ E.act(x).\n6. Fix any membership witness hd for the quaternion scalar obtained from d in Λ, and let x_d be that element of Λ. Cancelling z ≫ w gives Φ ≫ Ψ = v ≫ (φ ≫ ψ) ≫ u. The old scalar equation changes this to v ≫ D.act(x_d) ≫ u. The action equation E.act(x_d) ≫ v = v ≫ D.act(x_d), followed by v ≫ u = id, makes it E.act(x_d). Cancelling u ≫ v in the other product similarly gives Ψ ≫ Φ = w ≫ (ψ ≫ φ) ≫ z = w ≫ H.act(x_d) ≫ z = F.act(x_d). This works for every hd; no hypothesis asserting that such a witness exists is needed. Steps 2, 4, 5 and 6 are exactly all fields of IsIsogenyPair d E F Φ Ψ.\n7. Fix any E-point P over t that factors through E.lev. The level condition for v sends P to a D-point factoring through D.lev. The assumed PreservesLevel D H φ hφ sends that point under φ to an H-point factoring through H.lev. The level condition for z supplies a factorization of its image through F.lev. After (t ≫ ε) ≫ κ = t, the underlying image is P.1 ≫ v ≫ φ ≫ z = (mapPt Φ hΦ P).1. Thus this factorization proves PreservesLevel E F Φ hΦ.\n8. Return the isogeny-pair assertion from step 6 and hΦ with the level assertion from step 7.",
+          "proof_key_steps": [
+            "Define the conjugated morphisms and record the ring and scheme inverse identities.",
+            "Prove both conjugated morphisms lie over Spec T.",
+            "Extract multiplication and level preservation for the four transport maps on points.",
+            "Compose point-map multiplication identities to prove both isogeny multiplication conditions.",
+            "Compose the action equations to obtain equivariance.",
+            "Cancel inverse isomorphisms and transport both scalar-action equations.",
+            "Transport a level-factorization witness through the inverse isomorphism, old isogeny, and forward isomorphism.",
+            "Return the isogeny pair and its forward over-base proof with level preservation."
+          ]
+        },
+        "audit": {
+          "key": "isogeny_level_transport",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The prose and standalone Lean proposition match, including all four transport hypotheses and the existential over-base proof for level preservation. Steps 1–2 establish the inverse identities and both over-base equations; steps 3–5 prove both multiplication and action conditions; step 6 proves both scalar equations for every membership witness without assuming one exists; steps 7–8 transport level preservation and assemble the conclusion. The argument is complete and non-circular. Specializing d to r^σ.d supplies parent steps 7–10. Empty child dependencies are correct, and the bare identifier is unreserved."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-rigidification-reduction-a1-isogeny-level-transport-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-rigidification-reduction-a1-isogeny-level-transport-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-rigidification-reduction-a1-isogeny-level-transport-a1/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-rigidification-reduction-a1/task.md": "fd5d24e5d133be82c50f361fb46820fe9b4ead548bfb61f4cd1eaf5c920989b9",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-rigidification-reduction-a1/problem.md": "5f0871c2e93d5288092a1f00902e3f8add02d0e21d6e142ac2ea7d6dfbe7d1ce",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-rigidification-reduction-a1/problem.json": "7418cb1df4807b9c729e4ba13bf2cda4d547b983e49ef2dc558e550828439c26",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-rigidification-reduction-a1/reference-manifest.json": "7a693667f3887c9ad53914a2f2caec85a3d20f69d227f2adb18f4be2c4924603",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-rigidification-reduction-a1/decomposition.json": "00de28cf002f6dba1e0625a15aa23d6e9d1af91414846779b00ab6e115448d82",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-rigidification-reduction-a1/decomposition-audit.json": "1dfe631467f1c3b62a4406d5c3aa74d6eb8d7cd73607940b7b92fb38b0420dde",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-rigidification-reduction-a1/controller-contract.json": "f8efa232ebddac99c94269f22aef65fa0ee43088676bfb82e47f25434ef50ee9",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-rigidification-reduction-a1/children/root-rigidification-reduction-a1-curve-pullback-composition-a1/parent-child-handoff.json": "c0568d382e4f39ded931d4384c438e2a9ad2dfeb168bc29c66dfe287274120d7",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-rigidification-reduction-a1/children/root-rigidification-reduction-a1-curve-pullback-composition-a1/parent-supplied-plan.md": "0c5a521bc73ef2d2b062fdef98c63f92eec0befbe562752752afa7e65df9275d",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-rigidification-reduction-a1/children/root-rigidification-reduction-a1-curve-pullback-composition-a1/parent-supplied-natural-proof.md": "74521dd347c2673ac25f9e6423c42887bbe115b4761b92188b096beacfc8143b",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-rigidification-reduction-a1/children/root-rigidification-reduction-a1-curve-pullback-composition-a1/parent-supplied-natural-proof.json": "bbc6005e677ae3ec7beff5ccc3e03a69663dad3ba76712d074c0c9d7b15ab5e8",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-rigidification-reduction-a1/children/root-rigidification-reduction-a1-curve-pullback-composition-a1/node.json": "e2351762dc2745852f2323c3039d09071834899172c443885cf58d16e393f3a9",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-rigidification-reduction-a1/children/root-rigidification-reduction-a1-isogeny-level-transport-a1/parent-child-handoff.json": "940baf801c57eeb621a20158545c246e7129df446a91b7943e0b038690fbd042",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-rigidification-reduction-a1/children/root-rigidification-reduction-a1-isogeny-level-transport-a1/parent-supplied-plan.md": "e04ecf6093e58a6e05057c4ee9cfddb26dce238d53bb5e058ba6f98a4c073556",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-rigidification-reduction-a1/children/root-rigidification-reduction-a1-isogeny-level-transport-a1/parent-supplied-natural-proof.md": "83450996a0ed8d33e154b6ee9a2dfeea292df8fc1e10b775606bd88c407b6a1d",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-rigidification-reduction-a1/children/root-rigidification-reduction-a1-isogeny-level-transport-a1/parent-supplied-natural-proof.json": "ba82e4e74046b1fa84cc17e25da1df709efd660511633735458b3d6904b53e71",
+    ".humanize-workspace/20261007t081612z-857cd4d38c/root-rigidification-reduction-a1/children/root-rigidification-reduction-a1-isogeny-level-transport-a1/node.json": "e4196066e4b45c532be3265b99505381dd8f7bcc55e54059041bbbcfcd6b3013"
+  }
+}

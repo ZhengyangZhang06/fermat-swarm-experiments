@@ -1,0 +1,52 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "structure Rigidification|def IsPullbackVia|structure IsPullbackVia|def IsIsogenyPair|structure IsIsogenyPair|def PreservesLevel|def mapPt|def FactorsThrough",
+        "IsPullbackVia|IsIsogenyPair",
+        "paste_horiz|paste_vert",
+        "rg -n --hidden --no-ignore 'p07_rr_pullback_comp_857cd4d38c|p07_rr_isogeny_transport_857cd4d38c' /mnt/data/zhengyang-workspace/fermat-swarm-projects --glob dag.json --glob '*handoff*.json' --glob '*.lean'",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/p07-rr-independent-audit-857cd4d38c/FrozenTypes.lean",
+        "#print axioms CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia",
+        "#print axioms CerednikDrinfeld.QM.FakeEllipticCurve.IsIsogenyPair",
+        "#print axioms CerednikDrinfeld.QM.FakeEllipticCurve.PreservesLevel",
+        "#print axioms CerednikDrinfeld.QM.mapPt",
+        "#print axioms CerednikDrinfeld.QM.FactorsThrough",
+        "#print axioms CategoryTheory.IsPullback.paste_horiz"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFormalModuleOf.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMIsogeny.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMRigidification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMModuli.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Theorems",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/CategoryTheory/Limits/Shapes/Pullback/IsPullback/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/dag.json",
+        "/tmp/p07-rr-independent-audit-857cd4d38c/FrozenTypes.lean",
+        "/tmp/p07-rr-independent-audit-857cd4d38c/source-checks.json",
+        "/tmp/p07-rr-independent-audit-857cd4d38c/types-and-axioms.log",
+        "/tmp/p07-rr-independent-audit-857cd4d38c/literal-submission.log"
+      ],
+      "conclusion": "Independently confirmed clean tracked snapshot sources at project 73257f1e32d99b75813b037f28a5cf45a2db886d and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. All 47 project modules in the import closure match the snapshot and diagnostic-cache sources. The definitions have precisely the pullback, multiplication, action, directional level, and universally quantified scalar conditions addressed by the proofs. Mathlib supplies pullback pasting; the project Theorems search found no IsPullbackVia or IsIsogenyPair matches. No proposed-name collisions were found. Adding both children preserves acyclicity and the parent's existing curve_ring_equiv dependency. Both exact one-line types independently elaborate as Prop under the five pinned imports using Lean 4.33.1, without either child declaration. All six axiom checks report only propext, Classical.choice and Quot.sound. The unchanged Submission compilation still fails on the three reported unknown attribute targets, confirming the proposal's activation hold. This approves the decomposition and supplied prose proofs, not Lean solutions or comparator acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "curve_pullback_composition",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and standalone Lean proposition agree on every hypothesis, universe, morphism direction and conclusion. Steps 1–2 correctly establish the composite pullback by successive unique lifts; steps 3–5 compose multiplication, action and level witnesses; step 6 assembles exactly IsPullbackVia. Base identifications and proof-field irrelevance are addressed. This genuine reusable obligation discharges parent steps 5–6 without circularity or additional dependencies. The bare identifier is unreserved."
+    },
+    {
+      "key": "isogeny_level_transport",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and standalone Lean proposition match, including all four transport hypotheses and the existential over-base proof for level preservation. Steps 1–2 establish the inverse identities and both over-base equations; steps 3–5 prove both multiplication and action conditions; step 6 proves both scalar equations for every membership witness without assuming one exists; steps 7–8 transport level preservation and assemble the conclusion. The argument is complete and non-circular. Specializing d to r^σ.d supplies parent steps 7–10. Empty child dependencies are correct, and the bare identifier is unreserved."
+    }
+  ],
+  "required_changes": []
+}

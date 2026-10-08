@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.rigidification_reduction-a1.isogeny_level_transport-a1",
+  "parent_id": "root.rigidification_reduction-a1",
+  "depth": 2,
+  "title": "Transport of an isogeny pair and level preservation across ring and curve isomorphisms",
+  "statement": "Let a,b ∈ ℚ, let Λ be a ℤ-submodule of QuaternionAlgebra ℚ a 0 b, and let N,d ∈ ℕ. Let T,U be commutative rings of universe zero and k : T ≃+* U a ring isomorphism. Let E,F be FakeEllipticCurve Λ N over T and D,H be FakeEllipticCurve Λ N over U. Suppose i : D.A ≅ E.A and j : H.A ≅ F.A are scheme isomorphisms satisfying IsPullbackVia k.toRingHom E D i.hom, IsPullbackVia k.symm.toRingHom D E i.inv, IsPullbackVia k.toRingHom F H j.hom, and IsPullbackVia k.symm.toRingHom H F j.inv. Let φ : D.A → H.A and ψ : H.A → D.A be scheme morphisms, with hφ : φ ≫ H.f = D.f. Assume IsIsogenyPair d D H φ ψ and PreservesLevel D H φ hφ. Put Φ = i.inv ≫ φ ≫ j.hom and Ψ = j.inv ≫ ψ ≫ i.hom. Then IsIsogenyPair d E F Φ Ψ, and there exists hΦ : Φ ≫ F.f = E.f such that PreservesLevel E F Φ hΦ.",
+  "lean_statement": "∀ {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N d : ℕ) (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U) (E F : CerednikDrinfeld.QM.FakeEllipticCurve Λ N T) (D H : CerednikDrinfeld.QM.FakeEllipticCurve Λ N U) (i : CategoryTheory.Iso D.A E.A) (j : CategoryTheory.Iso H.A F.A), CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia k.toRingHom E D i.hom → CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia k.symm.toRingHom D E i.inv → CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia k.toRingHom F H j.hom → CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia k.symm.toRingHom H F j.inv → ∀ (φ : Quiver.Hom D.A H.A) (ψ : Quiver.Hom H.A D.A) (hφ : CategoryTheory.CategoryStruct.comp φ H.f = D.f), CerednikDrinfeld.QM.FakeEllipticCurve.IsIsogenyPair d D H φ ψ → CerednikDrinfeld.QM.FakeEllipticCurve.PreservesLevel D H φ hφ → CerednikDrinfeld.QM.FakeEllipticCurve.IsIsogenyPair d E F (CategoryTheory.CategoryStruct.comp i.inv (CategoryTheory.CategoryStruct.comp φ j.hom)) (CategoryTheory.CategoryStruct.comp j.inv (CategoryTheory.CategoryStruct.comp ψ i.hom)) ∧ ∃ hΦ : CategoryTheory.CategoryStruct.comp (CategoryTheory.CategoryStruct.comp i.inv (CategoryTheory.CategoryStruct.comp φ j.hom)) F.f = E.f, CerednikDrinfeld.QM.FakeEllipticCurve.PreservesLevel E F (CategoryTheory.CategoryStruct.comp i.inv (CategoryTheory.CategoryStruct.comp φ j.hom)) hΦ",
+  "lean_name": "p07_rr_isogeny_transport_857cd4d38c",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p07/20261007t081612z-857cd4d38c/root-rigidification-reduction-a1-isogeny-level-transport-a1-a1"
+}
