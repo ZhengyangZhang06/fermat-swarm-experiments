@@ -5982,3 +5982,84 @@ theorem Submission.p05_fhe_determinant_inverse_a5b449214a
     exact hd.antipode.comul_eq_tmul_self
   · rw [← hSu]
     exact hd.antipode_antipode
+
+theorem Submission.p05_finite_hopf_envelope_a5b449214a :
+    ∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
+      (F : Finset H), ∃ A : Subalgebra k H, (∀ x ∈ F, x ∈ A) ∧
+      Algebra.FiniteType k A ∧
+      (∀ x ∈ A, Coalgebra.comul (R := k) x ∈
+        Submodule.span k {t : TensorProduct k H H |
+          ∃ a ∈ A, ∃ b ∈ A, t = TensorProduct.tmul k a b}) ∧
+      (∀ x ∈ A, HopfAlgebra.antipode k x ∈ A) := by
+  intro k _ H _ _ F
+  classical
+  obtain ⟨V, hV, _, hF, hVΔ⟩ := Submission.p05_fhe_stable_subspace_a5b449214a (k := k) F
+  let : FiniteDimensional k V := hV
+  obtain ⟨n, c, hcV, hcΔ, hcε⟩ :=
+    Submission.p05_fhe_coefficient_matrix_a5b449214a V hVΔ
+  obtain ⟨u, _, huΔ, huS, hcS⟩ :=
+    Submission.p05_fhe_determinant_inverse_a5b449214a n c hcΔ hcε
+  let s : Set H := insert u (Set.range (fun p : Fin n × Fin n => c p.1 p.2))
+  let A := Algebra.adjoin k s
+  have hu : u ∈ A := Algebra.subset_adjoin (Set.mem_insert u _)
+  have hc (i j : Fin n) : c i j ∈ A :=
+    Algebra.subset_adjoin (Set.mem_insert_of_mem u ⟨(i, j), rfl⟩)
+  have hspan : Submodule.span k (Set.range (fun p : Fin n × Fin n => c p.1 p.2)) ≤
+      A.toSubmodule := by
+    apply Submodule.span_le.mpr
+    rintro _ ⟨⟨i, j⟩, rfl⟩
+    exact hc i j
+  refine ⟨A, (fun x hx => hspan (hcV x (hF x hx))),
+    Algebra.FiniteType.adjoin_of_finite ((Set.finite_range _).insert u), ?_, ?_⟩
+  · -- The tensor-map range is a subalgebra with exactly the required underlying span.
+    let T : Subalgebra k (H ⊗[k] H) := (Algebra.TensorProduct.map A.val A.val).range
+    have hT : T.toSubmodule = Submodule.span k {t : H ⊗[k] H |
+        ∃ a ∈ A, ∃ b ∈ A, t = a ⊗ₜ[k] b} := by
+      change LinearMap.range (TensorProduct.map A.val.toLinearMap A.val.toLinearMap) = _
+      rw [TensorProduct.range_map_eq_span_tmul]
+      congr 1
+      ext t
+      constructor
+      · rintro ⟨a, b, rfl⟩
+        exact ⟨a, a.property, b, b.property, rfl⟩
+      · rintro ⟨a, ha, b, hb, rfl⟩
+        exact ⟨⟨a, ha⟩, ⟨b, hb⟩, rfl⟩
+    have htmul (a b : H) (ha : a ∈ A) (hb : b ∈ A) : a ⊗ₜ[k] b ∈ T := by
+      change a ⊗ₜ[k] b ∈ T.toSubmodule
+      rw [hT]
+      exact Submodule.subset_span ⟨a, ha, b, hb, rfl⟩
+    have hΔA : A ≤ T.comap (Bialgebra.comulAlgHom k H) := by
+      apply Algebra.adjoin_le
+      intro x hx
+      change Coalgebra.comul (R := k) x ∈ T
+      rcases hx with hxu | ⟨⟨i, j⟩, rfl⟩
+      · rw [hxu, huΔ]
+        exact htmul u u hu hu
+      · rw [hcΔ]
+        exact T.sum_mem fun l _ => htmul (c i l) (c l j) (hc i l) (hc l j)
+    intro x hx
+    rw [← hT]
+    exact hΔA hx
+  · -- Determinants and adjugates of the coefficient matrix can be formed inside A.
+    let cA : Matrix (Fin n) (Fin n) A := fun i j => ⟨c i j, hc i j⟩
+    have hcA : A.val.mapMatrix cA = c := rfl
+    have hdet : Matrix.det c ∈ A := by
+      have hd := A.val.map_det cA
+      rw [hcA] at hd
+      exact hd ▸ (Matrix.det cA).property
+    have hadj (i j : Fin n) : Matrix.adjugate c i j ∈ A := by
+      have hm := congrArg (fun m : Matrix (Fin n) (Fin n) H => m i j)
+        (A.val.map_adjugate cA)
+      change ((Matrix.adjugate cA i j : A) : H) = Matrix.adjugate c i j at hm
+      rw [← hm]
+      exact (Matrix.adjugate cA i j).property
+    have hSA : A ≤ A.comap (HopfAlgebra.antipodeAlgHom k H) := by
+      apply Algebra.adjoin_le
+      intro x hx
+      change HopfAlgebra.antipode k x ∈ A
+      rcases hx with hxu | ⟨⟨i, j⟩, rfl⟩
+      · rw [hxu, huS]
+        exact hdet
+      · rw [hcS]
+        exact A.mul_mem hu (hadj i j)
+    exact fun x hx => hSA hx
