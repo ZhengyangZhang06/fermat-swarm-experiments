@@ -693,6 +693,8 @@ theorem p04_pb_60221840b0_central_telescoping :
     MonoidAlgebra.single (T l) (1 : k) - MonoidAlgebra.single (T (l + 1)) (1 : k)),
     Finset.sum_range_sub', hzero, hlast]
 
+end Submission
+
 namespace Submission
 
 open Representation
