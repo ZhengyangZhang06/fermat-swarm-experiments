@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "b6402f785738c051ff913374cc64b2d9fee4cc8697b30c64ade0efb675f0e627",
+  "git_delta": {
+    "base_commit": "2ba8428e225d0cba65c96dc863058248b21082ec",
+    "candidate_commit": "8ea7e04d7bce83fee7b6d6965504a9b057675ab1",
+    "target": "Submission.lean",
+    "declaration": "p08_7d1ff633a4_tp26_normal_level_retraction",
+    "diff_sha256": "5e68fdd3457f43952d51b79e2ce4893f782569ecfc7714f9ea62beb2b63a0b41",
+    "source_sha256": "a712cf2639a1a7cc5dbc5a2f99489d7cc8838b8cf9c931a25bf6911a4dc57d10",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p08_7d1ff633a4_tp26_normal_level_retraction",
+      "statement": "∀ {G : Type} [Group G] (H : Subgroup G), ∃ a : G → H, (∀ h : H, a (h : G) = h) ∧ (∀ (h : H) (g : G), a ((h : G) * g) = h * a g) ∧ (∀ K : Subgroup G, K.Normal → K ≤ H → ∀ g u : G, u ∈ K → (a g : G)⁻¹ * (a (g * u) : G) ∈ K)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
