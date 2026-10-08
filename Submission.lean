@@ -9,6 +9,7 @@ import Definitions.Def_AlgebraicCurve_PlacesOverDVR
 
 namespace Submission
 
+set_option warningAsError true in
 /-- A compatible equivalence of valuation rings preserves normalized orders.
 
 Transport a unit-times-uniformizer factorization through the two compatible equivalences,
