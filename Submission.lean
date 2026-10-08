@@ -242,6 +242,8 @@ theorem p04_hct139_coset_average_laws :
     change (∑ q : G ⧸ H, A.ρ q.out (F.hom (B.ρ q.out⁻¹ x))) = H.index • F.hom x
     simp [Rep.hom_comm_apply, Subgroup.index_eq_card, Nat.card_eq_fintype_card]
 
+end Submission
+
 namespace Submission
 
 /-- The subgroup coefficient in a right transversal containing `1` gives an equivariant retraction.
