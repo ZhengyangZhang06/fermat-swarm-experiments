@@ -10428,3 +10428,61 @@ theorem Submission.p10_17ae7b7d_phdisk_mobius_bijon :
       hpos d (-b) (-c) a hinvdet w hw, ?_⟩
     simpa only [Complex.ofReal_neg, neg_neg, sub_neg_eq_add] using
       hleft d (-b) (-c) a hinvdet w hw
+theorem Submission.p10_17ae7b7d_phdisk_mobius_ratio_norm :
+    ∀ (a b c d : ℝ) (z v : ℂ), a * d - b * c = 1 → 0 < z.im → 0 < v.im →
+      let M : ℂ → ℂ := fun x =>
+        ((a : ℂ) * x + (b : ℂ)) / ((c : ℂ) * x + (d : ℂ))
+      ‖(M z - M v) / (M z - star (M v))‖ = ‖(z - v) / (z - star v)‖ := by
+  intro a b c d z v hdet hz hv
+  let Q : ℂ → ℂ := fun x => (c : ℂ) * x + (d : ℂ)
+  let M : ℂ → ℂ := fun x => ((a : ℂ) * x + (b : ℂ)) / Q x
+  change ‖(M z - M v) / (M z - star (M v))‖ = ‖(z - v) / (z - star v)‖
+  have hQ (x : ℂ) (hx : 0 < x.im) : Q x ≠ 0 := by
+    intro hzero
+    have him : c * x.im = 0 := by
+      simpa only [Q, Complex.add_im, Complex.mul_im, Complex.ofReal_re,
+        Complex.ofReal_im, zero_mul, add_zero, Complex.zero_im] using
+        congrArg Complex.im hzero
+    have hc : c = 0 := (mul_eq_zero.mp him).resolve_right (ne_of_gt hx)
+    have hd : d = 0 := by
+      simpa only [Q, hc, Complex.ofReal_zero, zero_mul, zero_add,
+        Complex.ofReal_eq_zero] using hzero
+    norm_num [hc, hd] at hdet
+  have hQz : Q z ≠ 0 := hQ z hz
+  have hQv : Q v ≠ 0 := hQ v hv
+  have hQconj : Q (star v) = star (Q v) := by
+    simp [Q, Complex.star_def]
+  have hMconj : M (star v) = star (M v) := by
+    simp [M, Q, Complex.star_def]
+  have hQstar : star (Q v) ≠ 0 := star_ne_zero.mpr hQv
+  have hQsv : Q (star v) ≠ 0 := by
+    rw [hQconj]
+    exact hQstar
+  have hdetC : (a : ℂ) * (d : ℂ) - (b : ℂ) * (c : ℂ) = 1 := by
+    exact_mod_cast hdet
+  have hdiff (x y : ℂ) (hx : Q x ≠ 0) (hy : Q y ≠ 0) :
+      M x - M y = (x - y) / (Q x * Q y) := by
+    dsimp only [M]
+    rw [div_sub_div _ _ hx hy]
+    congr 1
+    calc
+      ((a : ℂ) * x + (b : ℂ)) * Q y -
+          ((a : ℂ) * y + (b : ℂ)) * Q x =
+          ((a : ℂ) * (d : ℂ) - (b : ℂ) * (c : ℂ)) * (x - y) := by
+        dsimp only [Q]
+        ring
+      _ = x - y := by rw [hdetC, one_mul]
+  have hzsv : z - star v ≠ 0 := by
+    intro hzero
+    have him := congrArg Complex.im hzero
+    simp only [Complex.sub_im, Complex.star_def, Complex.conj_im,
+      Complex.zero_im] at him
+    linarith
+  have hratio : (M z - M v) / (M z - star (M v)) =
+      ((z - v) / (z - star v)) * (star (Q v) / Q v) := by
+    rw [hdiff z v hQz hQv, ← hMconj, hdiff z (star v) hQz hQsv, hQconj]
+    field_simp [hQz, hQv, hQstar, hzsv] <;> ring
+  have hunit : ‖star (Q v) / Q v‖ = 1 := by
+    rw [norm_div, Complex.star_def, Complex.norm_conj,
+      div_self (norm_ne_zero_iff.mpr hQv)]
+  rw [hratio, norm_mul, hunit, mul_one]
