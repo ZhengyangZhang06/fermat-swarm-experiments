@@ -1557,8 +1557,8 @@ theorem Submission.p10_17ae7b7d_rd_coeff_support :
   have hcoeff : ζ ^ n * p.coeff n = p.coeff n := by
     have h := congrArg
       (fun q : FormalMultilinearSeries ℂ ℂ ℂ => q n (fun _ => (1 : ℂ))) heq
-    simpa [FormalMultilinearSeries.compContinuousLinearMap_apply, Function.comp_def,
-      L, FormalMultilinearSeries.apply_eq_pow_smul_coeff, smul_eq_mul] using h
+    rw [FormalMultilinearSeries.compContinuousLinearMap_apply] at h
+    simpa [Function.comp_def, L, smul_eq_mul] using h
   have hroot : ζ ^ n ≠ 1 := by
     intro h
     have hexp : Complex.exp (2 * (Real.pi : ℂ) * Complex.I * (n : ℂ) / (w : ℂ)) = 1 := by
