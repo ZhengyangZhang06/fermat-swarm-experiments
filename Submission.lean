@@ -3128,3 +3128,53 @@ theorem Submission.p06_9e0f5043ff_inf_reciprocal_polynomial_order :
       (Polynomial.eval₂_reverse_mul_pow (algebraMap K F) s⁻¹ a).symm
   rw [hidentity, v.ord_mul (zpow_ne_zero _ hs0) heval, v.ord_zpow, hv,
     horder, mul_one, add_zero]
+/-- Polynomial evaluation at a nonunit of a place is a unit exactly away from `(X)`. -/
+theorem Submission.p06_9e0f5043ff_vfc_polynomial_unit_criterion :
+    ∀ (K F : Type*) [Field K] [Field F] [Algebra K F]
+      (s : F) (w : AlgebraicCurve.Place K F),
+      s⁻¹ ∉ w.toValuationSubring → ∀ p : Polynomial K,
+        (∃ u : Units w.toValuationSubring,
+          ((u : w.toValuationSubring) : F) = Polynomial.aeval s p) ↔
+        ¬ (Polynomial.X : Polynomial K) ∣ p := by
+  intro K F _ _ _ s w hinv p
+  have hs : s ∈ w.toValuationSubring :=
+    (w.toValuationSubring.mem_or_inv_mem s).resolve_right hinv
+  let t : w.toValuationSubring := ⟨s, hs⟩
+  have ht : ¬ IsUnit t := by
+    rintro ⟨u, hu⟩
+    have hmul : s * (((u⁻¹ : Units w.toValuationSubring) : w.toValuationSubring) : F) = 1 := by
+      change (t : F) * _ = 1
+      rw [← hu]
+      exact congrArg (fun x : w.toValuationSubring => (x : F)) u.val_inv
+    have hi : (((u⁻¹ : Units w.toValuationSubring) : w.toValuationSubring) : F) = s⁻¹ :=
+      eq_inv_of_mul_eq_one_right hmul
+    exact hinv (hi ▸ (u⁻¹).val.property)
+  -- Evaluate inside the valuation subring using its inherited K-algebra structure.
+  let E : Polynomial K →+* w.toValuationSubring := (Polynomial.aeval t).toRingHom
+  have hE (q : Polynomial K) : (E q : F) = Polynomial.aeval s q := by
+    exact (Polynomial.aeval_algHom_apply
+      (IsScalarTower.toAlgHom K w.toValuationSubring F) t q).symm
+  let J : Ideal (Polynomial K) := (IsLocalRing.maximalIdeal w.toValuationSubring).comap E
+  have hJ : J ≠ ⊤ :=
+    Ideal.comap_ne_top E (IsLocalRing.maximalIdeal.isMaximal w.toValuationSubring).ne_top
+  have hX : (Polynomial.X : Polynomial K) ∈ J := by
+    change E Polynomial.X ∈ IsLocalRing.maximalIdeal w.toValuationSubring
+    change Polynomial.aeval t Polynomial.X ∈ IsLocalRing.maximalIdeal w.toValuationSubring
+    rw [Polynomial.aeval_X, IsLocalRing.mem_maximalIdeal, mem_nonunits_iff]
+    exact ht
+  -- The proper contraction contains the maximal ideal (X), so they coincide.
+  have hspan : Ideal.span ({Polynomial.X} : Set (Polynomial K)) = J :=
+    (PrincipalIdealRing.isMaximal_of_irreducible Polynomial.irreducible_X).eq_of_le hJ
+      (Ideal.span_le.mpr (Set.singleton_subset_iff.mpr hX))
+  have hunit : IsUnit (E p) ↔ ¬ (Polynomial.X : Polynomial K) ∣ p := by
+    rw [← IsLocalRing.notMem_maximalIdeal]
+    change p ∉ J ↔ ¬ (Polynomial.X : Polynomial K) ∣ p
+    rw [← hspan, Ideal.mem_span_singleton]
+  constructor
+  · rintro ⟨u, hu⟩
+    apply hunit.mp
+    refine ⟨u, ?_⟩
+    exact Subtype.ext (hu.trans (hE p).symm)
+  · intro hp
+    obtain ⟨u, hu⟩ := hunit.mpr hp
+    exact ⟨u, (congrArg (fun x : w.toValuationSubring => (x : F)) hu).trans (hE p)⟩
