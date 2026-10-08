@@ -2172,8 +2172,7 @@ theorem p06_9e0f5043ff_dmc_diagonal_quotient
     · intro hy
       choose z hz using hy
       refine ⟨z, ?_⟩
-      ext i
-      simpa only [Matrix.mulVecLin_apply, Matrix.mulVec_diagonal] using (hz i).symm
+      exact funext fun i => (Matrix.mulVec_diagonal d z i).trans (hz i).symm
   -- The library equivalence descends the coordinate quotient maps and supplies their inverse.
   exact ⟨(Submodule.quotEquivOfEq _ _ hrange).trans
     (Submodule.quotientPi fun i => Ideal.span ({d i} : Set R))⟩
