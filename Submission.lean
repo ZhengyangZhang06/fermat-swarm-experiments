@@ -3934,3 +3934,141 @@ theorem p06_9e0f5043ff_rmp_infinity_place :
       K (FractionRing (Polynomial K)) s hs hfractions w hw' f).trans (hmem f).symm
 
 end Submission
+
+
+namespace Submission
+
+/-- The rational function field has principal divisors, assembled from the finite
+places and the unique place at infinity. -/
+theorem p06_9e0f5043ff_rational_model_principal (K : Type*) [Field K] :
+    AlgebraicCurve.HasPrincipalDivisors K (FractionRing (Polynomial K)) := by
+  classical
+  let M := FractionRing (Polynomial K)
+  let ι : Polynomial K →+* M := algebraMap (Polynomial K) M
+  have hι : Function.Injective ι := IsFractionRing.injective (Polynomial K) M
+  have hιne (a : Polynomial K) (ha : a ≠ 0) : ι a ≠ 0 := by
+    intro h
+    exact ha (hι (h.trans (map_zero ι).symm))
+  have heval (a : Polynomial K) : Polynomial.aeval (ι Polynomial.X) a = ι a := by
+    change Polynomial.aeval (algebraMap (Polynomial K) M Polynomial.X) a =
+      algebraMap (Polynomial K) M a
+    rw [Polynomial.aeval_algebraMap_apply, Polynomial.aeval_X_left_apply]
+  have hx : Transcendental K (ι Polynomial.X) :=
+    (transcendental_algebraMap_iff hι).mpr (Polynomial.transcendental_X K)
+  have hrep (f : M) : ∃ a b : Polynomial K, b ≠ 0 ∧ f = ι a / ι b := by
+    obtain ⟨a, b, hb, hab⟩ := IsFractionRing.div_surjective (Polynomial K) f
+    exact ⟨a, b, mem_nonZeroDivisors_iff_ne_zero.mp hb, hab.symm⟩
+  have hrepEval (f : M) : ∃ a b : Polynomial K, b ≠ 0 ∧
+      f = Polynomial.aeval (ι Polynomial.X) a / Polynomial.aeval (ι Polynomial.X) b := by
+    simpa only [heval] using hrep f
+  have hmodel (q : Polynomial K) (hm : q.Monic) (hi : Irreducible q) :
+      ∃ v : Place K M,
+        (∀ f : M, f ∈ v.toValuationSubring ↔
+          ∃ a b : Polynomial K, ¬ q ∣ b ∧ f = ι a / ι b) ∧
+        v.deg = q.natDegree ∧ v.ord (ι q) = 1 ∧
+        (∀ a : Polynomial K, ¬ q ∣ a → v.ord (ι a) = 0) := by
+    simpa only [heval] using
+      p06_9e0f5043ff_rmp_finite_place_model K M (ι Polynomial.X) hx hrepEval q hm hi
+  obtain ⟨vinf, hinfX, hinfdeg, hinford, hinfunique⟩ :=
+    p06_9e0f5043ff_rmp_infinity_place K
+
+  -- Divisor witnesses are closed under multiplication of nonzero functions.
+  let P : M → Prop := fun f => ∃ D : Divisor K M,
+    (∀ v : Place K M, D v = v.ord f) ∧ Divisor.degree D = 0
+  have hmul {f g : M} (hf : f ≠ 0) (hg : g ≠ 0) (hPf : P f) (hPg : P g) :
+      P (f * g) := by
+    obtain ⟨D, hD, hDdeg⟩ := hPf
+    obtain ⟨E, hE, hEdeg⟩ := hPg
+    refine ⟨D + E, ?_, ?_⟩
+    · intro v
+      rw [Finsupp.add_apply, hD v, hE v, v.ord_mul hf hg]
+    · rw [map_add, hDdeg, hEdeg, add_zero]
+  have hunit (a : Polynomial K) (ha : IsUnit a) : P (ι a) := by
+    obtain ⟨c, hc, rfl⟩ := Polynomial.isUnit_iff.mp ha
+    obtain ⟨u, rfl⟩ := hc
+    refine ⟨0, ?_, map_zero _⟩
+    intro v
+    change 0 = v.ord (algebraMap K M (u : K))
+    exact (v.ord_coe_unit
+      (Units.map (algebraMap K v.toValuationSubring).toMonoidHom u)).symm
+
+  -- A monic irreducible contributes [v_q] - deg(q) [vinf].
+  have hmonic (q : Polynomial K) (hm : q.Monic) (hi : Irreducible q) : P (ι q) := by
+    obtain ⟨vq, hvq, hvqdeg, hvqord, _⟩ := hmodel q hm hi
+    have hqone : ¬ q ∣ (1 : Polynomial K) := fun h =>
+      hi.not_isUnit (isUnit_iff_dvd_one.mpr h)
+    have hvqX : ι Polynomial.X ∈ vq.toValuationSubring := by
+      exact (hvq _).mpr ⟨Polynomial.X, 1, hqone, by simp⟩
+    have hvqinf : vq ≠ vinf := by
+      intro h
+      exact hinfX (h ▸ hvqX)
+    refine ⟨Finsupp.single vq 1 - Finsupp.single vinf (q.natDegree : ℤ), ?_, ?_⟩
+    · intro w
+      by_cases hwX : ι Polynomial.X ∈ w.toValuationSubring
+      · have hwinf : w ≠ vinf := by
+          intro h
+          exact hinfX (h ▸ hwX)
+        obtain ⟨r, hrm, hri, hwr⟩ :=
+          p06_9e0f5043ff_rmp_finite_place_classification K w hwX
+        obtain ⟨vr, hvr, _, _, hvrcoprime⟩ := hmodel r hrm hri
+        have hwvr : w = vr := by
+          apply Place.ext
+          exact SetLike.ext fun f => (hwr f).trans (hvr f).symm
+        subst vr
+        by_cases hrq : r = q
+        · subst r
+          have hwq : w = vq := by
+            apply Place.ext
+            exact SetLike.ext fun f => (hvr f).trans (hvq f).symm
+          subst w
+          simp [Finsupp.sub_apply, hvqinf, hvqord]
+        · have hrndvd : ¬ r ∣ q := by
+            intro h
+            exact hrq (Polynomial.eq_of_monic_of_associated hrm hm
+              (hri.associated_of_dvd hi h))
+          have hwq : w ≠ vq := by
+            intro h
+            have hz := hvrcoprime q hrndvd
+            rw [h, hvqord] at hz
+            norm_num at hz
+          simp [Finsupp.sub_apply, hwq, hwinf, hvrcoprime q hrndvd]
+      · have hwinf : w = vinf := hinfunique w hwX
+        subst w
+        have hqinf : vinf.ord (ι q) = -(q.natDegree : ℤ) := hinford q hi.ne_zero
+        simp [Finsupp.sub_apply, hvqinf, hqinf]
+    · simp only [map_sub, Divisor.degree_single, hvqdeg, hinfdeg,
+        Nat.cast_one, mul_one, one_mul, sub_self]
+
+  -- Normalize irreducibles, then assemble a polynomial's finitely many factors.
+  have hirred (q : Polynomial K) (hq : Irreducible q) : P (ι q) := by
+    have hn := (associated_normalize q).irreducible hq
+    have hPn := hmonic (normalize q) (Polynomial.monic_normalize hq.ne_zero) hn
+    obtain ⟨u, hu⟩ := normalize_associated q
+    rw [← hu, map_mul]
+    exact hmul (hιne _ hn.ne_zero) (hιne _ u.ne_zero) hPn (hunit _ u.isUnit)
+  have hpoly (a : Polynomial K) : a ≠ 0 → P (ι a) := by
+    induction a using WfDvdMonoid.induction_on_irreducible with
+    | zero => exact fun h => (h rfl).elim
+    | unit a ha => exact fun _ => hunit a ha
+    | mul a q ha hq ih =>
+        intro _
+        rw [map_mul]
+        exact hmul (hιne q hq.ne_zero) (hιne a ha) (hirred q hq) (ih ha)
+
+  -- Subtract the denominator divisor from the numerator divisor.
+  refine ⟨?_⟩
+  intro f hf
+  obtain ⟨a, b, hb, rfl⟩ := hrep f
+  have ha : a ≠ 0 := by
+    intro ha
+    apply hf
+    simp [ha]
+  obtain ⟨D, hD, hDdeg⟩ := hpoly a ha
+  obtain ⟨E, hE, hEdeg⟩ := hpoly b hb
+  refine ⟨D - E, ?_, ?_⟩
+  · intro v
+    rw [Finsupp.sub_apply, hD v, hE v, div_eq_mul_inv,
+      v.ord_mul (hιne a ha) (inv_ne_zero (hιne b hb)), v.ord_inv, sub_eq_add_neg]
+  · rw [map_sub, hDdeg, hEdeg, sub_self]
+
+end Submission
