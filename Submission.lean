@@ -15,3 +15,80 @@ theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field
     [Algebra K F] (x : F) (hx : Transcendental K x)
     [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
   sorry
+
+namespace Submission
+
+open scoped BigOperators
+
+/-- Length after localization is the sum of the localized successive quotient lengths.
+The equality is in `ℕ∞`; the proof uses addition only and needs no finite-length hypothesis. -/
+theorem p06_9e0f5043ff_llm_localized_series_sum
+    (B M : Type*) [CommRing B] [AddCommGroup M] [Module B M]
+    (T : Submonoid B) (s : CompositionSeries (Submodule B M))
+    (hhead : s.head = ⊥) (hlast : s.last = ⊤) :
+    Module.length (Localization T) (LocalizedModule T M) =
+      Finset.sum Finset.univ (fun i : Fin s.length =>
+        Module.length (Localization T)
+          (LocalizedModule T (↥(s i.succ) ⧸ (s i.castSucc).comap (s i.succ).subtype))) := by
+  -- Localize each short exact sequence of successive terms.
+  have hstep (i : Fin s.length) :
+      Module.length (Localization T) (LocalizedModule T (s i.succ)) =
+        Module.length (Localization T) (LocalizedModule T (s i.castSucc)) +
+          Module.length (Localization T)
+            (LocalizedModule T (↥(s i.succ) ⧸ (s i.castSucc).comap (s i.succ).subtype)) := by
+    let hle : s i.castSucc ≤ s i.succ := s.strictMono.monotone (Fin.castSucc_le_succ i)
+    let f := Submodule.inclusion hle
+    let g := ((s i.castSucc).comap (s i.succ).subtype).mkQ
+    have hex : Function.Exact f g := by
+      rw [LinearMap.exact_iff, Submodule.ker_mkQ, Submodule.range_inclusion]
+    -- The localized maps are linear over `Localization T`. Clear a denominator
+    -- to lift each localized kernel element through the original exact sequence.
+    refine Module.length_eq_add_of_exact (LocalizedModule.map T f) (LocalizedModule.map T g)
+      (LocalizedModule.map_injective T f (Submodule.inclusion_injective hle))
+      (LocalizedModule.map_surjective T g (Submodule.mkQ_surjective _)) ?_
+    intro y
+    constructor
+    · refine LocalizedModule.induction_on (fun m u hy => ?_) y
+      rw [LocalizedModule.map_mk, ← LocalizedModule.zero_mk (1 : T),
+        LocalizedModule.mk_eq, one_smul, smul_zero] at hy
+      obtain ⟨a, haT, ha⟩ := Subtype.exists.1 hy
+      rw [smul_zero, Submonoid.mk_smul, ← map_smul, hex (a • m)] at ha
+      obtain ⟨x, hx⟩ := ha
+      use LocalizedModule.mk x (⟨a, haT⟩ * u)
+      rw [LocalizedModule.map_mk, hx,
+        ← LocalizedModule.mk_cancel_common_left ⟨a, haT⟩ u m, Submonoid.mk_smul]
+    · rintro ⟨x, hx⟩
+      revert hx
+      refine LocalizedModule.induction_on (fun m u hx => ?_) x
+      rw [← hx, LocalizedModule.map_mk, LocalizedModule.map_mk,
+        (hex (f m)).2 ⟨m, rfl⟩, LocalizedModule.zero_mk]
+  -- Add the recurrences without subtracting or cancelling infinite lengths.
+  have hsum : ∀ (n : ℕ) (l : Fin (n + 1) → ℕ∞) (q : Fin n → ℕ∞),
+      (∀ i, l i.succ = l i.castSucc + q i) →
+        l (Fin.last n) = l 0 + ∑ i, q i := by
+    intro n
+    induction n with
+    | zero => intro l q h; simp
+    | succ n ih =>
+      intro l q h
+      rw [← Fin.succ_last, h (Fin.last n), Fin.sum_univ_castSucc]
+      have hprefix := ih (fun i => l i.castSucc) (fun i => q i.castSucc)
+        (fun i => by simpa only [Fin.succ_castSucc] using h i.castSucc)
+      rw [hprefix, Fin.castSucc_zero, add_assoc]
+  have hzero : Module.length (Localization T) (LocalizedModule T (s 0)) = 0 := by
+    change Module.length (Localization T) (LocalizedModule T s.head) = 0
+    rw [hhead]
+    exact Module.length_eq_zero
+  have htop : Module.length (Localization T) (LocalizedModule T (s (Fin.last s.length))) =
+      Module.length (Localization T) (LocalizedModule T M) := by
+    change Module.length (Localization T) (LocalizedModule T s.last) = _
+    rw [hlast]
+    exact (IsLocalizedModule.mapEquiv T (LocalizedModule.mkLinearMap T (⊤ : Submodule B M))
+      (LocalizedModule.mkLinearMap T M) (Localization T) (Submodule.topEquiv)).length_eq
+  have h := hsum s.length
+    (fun i => Module.length (Localization T) (LocalizedModule T (s i)))
+    (fun i => Module.length (Localization T)
+      (LocalizedModule T (↥(s i.succ) ⧸ (s i.castSucc).comap (s i.succ).subtype))) hstep
+  simpa only [htop, hzero, zero_add] using h
+
+end Submission
