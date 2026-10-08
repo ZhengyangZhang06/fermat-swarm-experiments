@@ -1,0 +1,169 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081614Z-f036cc6b1f",
+  "parent_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1",
+  "dispatch_branch": "proof-workspace/fermat-p01/20261007t081614z-f036cc6b1f/dispatch/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4",
+  "source_commit": "61b5f85556ac71631ccad822e0694511234f7132",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1.integral_of_equidecomposition-a1",
+      "key": "integral_of_equidecomposition",
+      "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-1773027a0f-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-1773027a0f",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "fundamental|Fundamental|integral|volume|MeasurePreserving|SMulInvariant|invariant",
+              "neg_smul|smul_neg|mapGL.*smul|smul.*mapGL|continuous.*[Ss][Ll]|specialLinear.*[Aa]ction|modular.*[Aa]ction",
+              "integrableOn_iUnion|integral_iUnion|lintegral_iUnion|integrableOn_congr_set|setIntegral_congr_set|measurePreserving_smul|restrict_preimage|setIntegral_map|integral_comp",
+              "domain_transfer|equidecomposition|unique.*sign|integrable.*fundamental|fundamental.*integral",
+              "f036cc6b1f_pic_dt_measurable_equidecomposition|f036cc6b1f_pic_dt_integral_of_equidecomposition",
+              "git -C .lake/packages/mathlib rev-parse HEAD",
+              "git -C .lake/packages/mathlib status --porcelain --untracked-files=no",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/fermat-p01-domain-transfer-types-mz0mfqkj/Check.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Group/FundamentalDomain.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Integral/Lebesgue/Map.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Integral/Bochner/Set.lean",
+              "/tmp/fermat-p01-domain-transfer-types-mz0mfqkj/Check.lean",
+              "/tmp/fermat-p01-domain-transfer-types-mz0mfqkj/Check.log"
+            ],
+            "conclusion": "The manifest pins project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Measure.lean supplies hyperbolic volume and GL₂(ℝ)-invariance; Topology.lean supplies continuous action maps; ModularGroup.sl_moeb and ModularGroup.SL_neg_smul identify the SL₂(ℤ) action and its sign invariance. FundamentalDomain.lean contains analogous integral-transfer results, but its pairwise-disjointness requirement cannot be applied directly to Δ because −I acts trivially. Lebesgue/Basic.lean, Lebesgue/Map.lean and Bochner/Set.lean supply countable additivity and change of variables. No relevant domain-transfer or equidecomposition declaration was found by the stated search in project/Definitions. Neither proposed name occurred in the searched DAG, node artifacts, Submission, or project snapshot. Both exact child types elaborated after import Submission, with exit code 0. Instance inspection confirmed hyperbolic volume and the canonical SL action through mapGL. The checked library results have only propext, Classical.choice and Quot.sound as transitive axioms. All nine dependency repositories were rechecked clean at their pinned revisions; referenced mathlib files and the recorded project import closure matched the snapshot."
+          }
+        ],
+        "parent_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1",
+        "child_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1.integral_of_equidecomposition-a1",
+        "subproblem": {
+          "key": "integral_of_equidecomposition",
+          "title": "Integrability and integral transport across countable measurable equidecompositions",
+          "statement": "Let α be a measurable space with measure μ, and let ι be a countable type. Let E,F ⊆ α and A_i,B_i ⊆ α be measurable sets. Assume that the A_i are pairwise disjoint, the B_i are pairwise disjoint, E agrees μ-almost everywhere with ⋃i A_i, and F agrees μ-almost everywhere with ⋃i B_i. Let T_i : α → α be measurable embeddings preserving μ, with T_i(A_i) = B_i for every i. If φ : α → ℂ is strongly measurable, satisfies φ(T_i x) = φ(x) for every i and x ∈ A_i, and is integrable on E, then φ is integrable on F and its integrals over E and F are equal.",
+          "lean_statement": "∀ (α ι : Type) [MeasurableSpace α] [Countable ι] (μ : MeasureTheory.Measure α) (E F : Set α) (A B : ι → Set α) (T : ι → α → α), MeasurableSet E → MeasurableSet F → (∀ i, MeasurableSet (A i)) → (∀ i, MeasurableSet (B i)) → Pairwise (fun i j => Disjoint (A i) (A j)) → Pairwise (fun i j => Disjoint (B i) (B j)) → (∀ᵐ x ∂μ, x ∈ E ↔ x ∈ ⋃ i, A i) → (∀ᵐ x ∂μ, x ∈ F ↔ x ∈ ⋃ i, B i) → (∀ i, MeasurableEmbedding (T i)) → (∀ i, MeasureTheory.MeasurePreserving (T i) μ μ) → (∀ i, T i '' A i = B i) → ∀ φ : α → ℂ, MeasureTheory.StronglyMeasurable φ → (∀ i, ∀ x ∈ A i, φ (T i x) = φ x) → MeasureTheory.IntegrableOn φ E μ → MeasureTheory.IntegrableOn φ F μ ∧ MeasureTheory.integral (μ.restrict E) φ = MeasureTheory.integral (μ.restrict F) φ",
+          "lean_name": "f036cc6b1f_pic_dt_integral_of_equidecomposition",
+          "depends_on": [],
+          "natural_proof": "1. Fix all the stated data and hypotheses. Put U = ⋃i A_i and V = ⋃i B_i. These sets are measurable because ι is countable. Almost-everywhere equality of sets gives equality of their restricted measures: μ restricted to E equals μ restricted to U, and μ restricted to F equals μ restricted to V. Thus φ is integrable on U, and it suffices to prove integrability on V and equality of the integrals over U and V.\n2. For each i, the map T_i transports μ restricted to A_i to μ restricted to B_i. Indeed, let C ⊆ α be measurable. Injectivity of T_i and T_i(A_i) = B_i give A_i ∩ T_i⁻¹(C) = T_i⁻¹(B_i ∩ C). Because B_i ∩ C is measurable and T_i preserves μ, the two sides have measure μ(B_i ∩ C). This is exactly the equality of the restricted pushforward measure with μ restricted to B_i. Measurability of T_i supplies the measurable-map condition.\n3. Define h(x) = ENNReal.ofReal(‖φ(x)‖). Strong measurability of φ implies measurability of this nonnegative extended-real function. Change of variables using step 2 gives ∫⁺_{B_i} h dμ = ∫⁺_{A_i} h(T_i x) dμ. On A_i the assumed equality φ(T_i x) = φ(x) implies h(T_i x) = h(x). Hence ∫⁺_{B_i} h dμ = ∫⁺_{A_i} h dμ for every i.\n4. Countable additivity of nonnegative integrals over the two measurable disjoint families now gives ∫⁺_V h dμ = ∑i ∫⁺_{B_i} h dμ = ∑i ∫⁺_{A_i} h dμ = ∫⁺_U h dμ. The final quantity is finite because φ is integrable on U. Since φ is strongly measurable, it is almost everywhere strongly measurable for the restriction to V. The finite norm integral therefore proves that φ is integrable on V, and step 1 transfers this to F.\n5. Every A_i lies in U and every B_i lies in V, so restriction of integrability shows that φ is integrable on each A_i and each B_i. The measurable-embedding change-of-variables formula, equivalently the restricted measure transport from step 2, gives ∫_{B_i} φ dμ = ∫_{A_i} φ(T_i x) dμ. The pointwise identity on A_i then gives ∫_{B_i} φ dμ = ∫_{A_i} φ dμ.\n6. Countable additivity for Bochner integrals applies to the measurable disjoint partitions of U and V because φ is integrable on both unions. In particular, ∫_U φ dμ = ∑i ∫_{A_i} φ dμ and ∫_V φ dμ = ∑i ∫_{B_i} φ dμ. These series are absolutely convergent: the norm of each piece integral is at most the integral of ‖φ‖ over that piece, and the sums of those nonnegative bounds equal the finite norm integrals over U and V. Step 5 identifies the corresponding summands, so the integrals over U and V are equal. Finally step 1 identifies them with the integrals over E and F. Together with step 4, this proves the required conjunction.",
+          "proof_key_steps": [
+            "Replace E and F by the almost-everywhere equal unions of their pieces.",
+            "Show each measurable embedding transports the restricted source measure to the restricted target measure.",
+            "Apply change of variables to the nonnegative norm and sum over the disjoint partitions.",
+            "Deduce integrability on the target union from strong measurability and finiteness of its norm integral.",
+            "Apply complex-valued change of variables on each piece.",
+            "Use countable additivity of Bochner integrals and restore E and F by equality of restricted measures."
+          ]
+        },
+        "audit": {
+          "key": "integral_of_equidecomposition",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The prose and standalone one-line Lean proposition agree on all data, hypotheses, and conclusions. All six proof steps are valid. Injectivity and T_i(A_i)=B_i imply T_i⁻¹(B_i)=A_i, establishing the restricted pushforward identity. Norm-integral transport and countable additivity establish target integrability before Bochner additivity is used. No additional topology on α or σ-finiteness assumption is needed. The proof is complete and non-circular, and the bare identifier is unreserved. The independent sibling obligations form an appropriate acyclic split: instantiate this child with α=UpperHalfPlane, ι=Δ, and T_γ(z)=γ⁻¹•z; canonical action properties and continuity supply the remaining parent hypotheses."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-1773027a0f/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-1773027a0f/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-1773027a0f/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1.measurable_equidecomposition-a1",
+      "key": "measurable_equidecomposition",
+      "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-bb048e1c26-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-bb048e1c26",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "fundamental|Fundamental|integral|volume|MeasurePreserving|SMulInvariant|invariant",
+              "neg_smul|smul_neg|mapGL.*smul|smul.*mapGL|continuous.*[Ss][Ll]|specialLinear.*[Aa]ction|modular.*[Aa]ction",
+              "integrableOn_iUnion|integral_iUnion|lintegral_iUnion|integrableOn_congr_set|setIntegral_congr_set|measurePreserving_smul|restrict_preimage|setIntegral_map|integral_comp",
+              "domain_transfer|equidecomposition|unique.*sign|integrable.*fundamental|fundamental.*integral",
+              "f036cc6b1f_pic_dt_measurable_equidecomposition|f036cc6b1f_pic_dt_integral_of_equidecomposition",
+              "git -C .lake/packages/mathlib rev-parse HEAD",
+              "git -C .lake/packages/mathlib status --porcelain --untracked-files=no",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/fermat-p01-domain-transfer-types-mz0mfqkj/Check.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Group/FundamentalDomain.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Integral/Lebesgue/Map.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Integral/Bochner/Set.lean",
+              "/tmp/fermat-p01-domain-transfer-types-mz0mfqkj/Check.lean",
+              "/tmp/fermat-p01-domain-transfer-types-mz0mfqkj/Check.log"
+            ],
+            "conclusion": "The manifest pins project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Measure.lean supplies hyperbolic volume and GL₂(ℝ)-invariance; Topology.lean supplies continuous action maps; ModularGroup.sl_moeb and ModularGroup.SL_neg_smul identify the SL₂(ℤ) action and its sign invariance. FundamentalDomain.lean contains analogous integral-transfer results, but its pairwise-disjointness requirement cannot be applied directly to Δ because −I acts trivially. Lebesgue/Basic.lean, Lebesgue/Map.lean and Bochner/Set.lean supply countable additivity and change of variables. No relevant domain-transfer or equidecomposition declaration was found by the stated search in project/Definitions. Neither proposed name occurred in the searched DAG, node artifacts, Submission, or project snapshot. Both exact child types elaborated after import Submission, with exit code 0. Instance inspection confirmed hyperbolic volume and the canonical SL action through mapGL. The checked library results have only propext, Classical.choice and Quot.sound as transitive axioms. All nine dependency repositories were rechecked clean at their pinned revisions; referenced mathlib files and the recorded project import closure matched the snapshot."
+          }
+        ],
+        "parent_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1",
+        "child_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1.measurable_equidecomposition-a1",
+        "subproblem": {
+          "key": "measurable_equidecomposition",
+          "title": "Measurable equidecomposition of domains with representatives unique modulo sign",
+          "statement": "Let G = SL₂(ℤ) act canonically on the upper half-plane ℍ, with hyperbolic measure μ = dx dy/y². Let Δ ≤ G contain −I, and let E,F ⊆ ℍ be measurable. For each S ∈ {E,F}, assume that for μ-almost every z there exists γ ∈ Δ such that γz ∈ S and every δ ∈ Δ with δz ∈ S satisfies δ = γ or δ = −γ. Then there exist families A,B : Δ → Set ℍ such that every Aγ and Bγ is measurable, each family is pairwise disjoint, E agrees μ-almost everywhere with ⋃γ Aγ, F agrees μ-almost everywhere with ⋃γ Bγ, and the image of Aγ under z ↦ γ⁻¹z is exactly Bγ for every γ ∈ Δ.",
+          "lean_statement": "∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (E F : Set UpperHalfPlane), (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ → MeasurableSet E → MeasurableSet F → (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ E ∧ ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ, δ ∈ Δ → δ • z ∈ E → δ = γ ∨ δ = -γ) → (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ F ∧ ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ, δ ∈ Δ → δ • z ∈ F → δ = γ ∨ δ = -γ) → ∃ A B : Δ → Set UpperHalfPlane, (∀ γ, MeasurableSet (A γ)) ∧ (∀ γ, MeasurableSet (B γ)) ∧ Pairwise (fun γ δ => Disjoint (A γ) (A δ)) ∧ Pairwise (fun γ δ => Disjoint (B γ) (B δ)) ∧ (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), z ∈ E ↔ z ∈ ⋃ γ, A γ) ∧ (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), z ∈ F ↔ z ∈ ⋃ γ, B γ) ∧ (∀ γ : Δ, (fun z : UpperHalfPlane => (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ)⁻¹ • z) '' A γ = B γ)",
+          "lean_name": "f036cc6b1f_pic_dt_measurable_equidecomposition",
+          "depends_on": [],
+          "natural_proof": "1. Fix Δ,E,F satisfying the hypotheses, and write G = SL₂(ℤ). An element of G is determined by its four integer entries, so G and its subtype Δ are countable. For g ∈ G, the action map z ↦ gz equals the action of mapGL ℝ g. The pinned GL action is continuous and preserves hyperbolic volume; applying continuity also to g⁻¹ shows that this map is a measure-preserving homeomorphism. Furthermore, ModularGroup.SL_neg_smul gives (−g)z = gz.\n2. For S = E or F, let R_S(z) mean that some γ ∈ Δ sends z into S and every δ ∈ Δ sending z into S equals γ or −γ. For fixed γ, the set of z with γz ∈ S is measurable. The membership and matrix-equality conditions involving γ and δ but not z are constant predicates. Countable unions and intersections over G therefore show that {z : R_S(z)} is measurable. Consequently N = {z : ¬R_E(z) or ¬R_F(z)} is measurable. Each exceptional set is null by its almost-everywhere hypothesis, so μ(N) = 0.\n3. Define N* = ⋃δ∈Δ {z : δz ∈ N}, and X = ℍ \\ N*. Every set in this countable union is a measurable preimage of N and has measure zero by measure preservation. Thus N* is measurable and null, while X is measurable and conull. Since the identity belongs to Δ, N ⊆ N*, and hence R_E(z) and R_F(z) hold for every z ∈ X.\n4. The set X is Δ-invariant. Indeed, if z ∈ X and η ∈ Δ, then for every δ ∈ Δ the element δη belongs to Δ, so δ(ηz) = (δη)z does not belong to N. Therefore ηz ∈ X. Applying this implication to η⁻¹ also gives ηz ∈ X ⇒ z ∈ X.\n5. At any z ∈ X, if p,q ∈ Δ both send z into the same S ∈ {E,F}, then q = p or q = −p. To see this, choose the witness r in R_S(z). Each of p and q equals r or −r. The four possibilities give either equality or opposition, using −(−r) = r.\n6. Negation preserves Δ, since −p = (−I)p and −I ∈ Δ. The relation p ∼ q defined by q = p or q = −p is an equivalence relation: reflexivity is equality, symmetry follows by negating an equality when necessary, and transitivity follows by multiplying the two signs. Choose one representative from each equivalence class and let L ⊆ Δ be their set. Thus every p ∈ Δ equals γ or −γ for some γ ∈ L, and two members of L differing by sign are equal. The set L is countable as a subset of Δ. Since −I is central and has square I, (−p)⁻¹ = −p⁻¹.\n7. Define families indexed by all γ ∈ Δ. For γ ∈ L put Aγ = E ∩ X ∩ γF and Bγ = F ∩ X ∩ γ⁻¹E, where group elements act on sets by image. For γ ∉ L put Aγ = Bγ = ∅. The images γF and γ⁻¹E are measurable because the action maps are homeomorphisms with measurable inverses. Hence every Aγ and Bγ is measurable.\n8. The Aγ cover E ∩ X. For z ∈ E ∩ X, R_F(z) supplies δ ∈ Δ with δz ∈ F. Choose γ ∈ L representing the sign class of δ⁻¹. Then γ(δz) = z, since replacing a matrix by its negative does not change its action. Thus z ∈ γF and z ∈ Aγ. Conversely every Aγ lies in E ∩ X. They are pairwise disjoint: if z ∈ Aγ ∩ Aη, then both indices lie in L and γ⁻¹z,η⁻¹z ∈ F. Step 5 gives η⁻¹ = γ⁻¹ or η⁻¹ = −γ⁻¹. Inversion and the identity at the end of step 6 give η = γ or η = −γ. The defining property of L forces η = γ.\n9. The Bγ cover F ∩ X. For z ∈ F ∩ X, choose δ ∈ Δ with δz ∈ E using R_E(z), and choose γ ∈ L representing δ modulo sign. Then γz = δz ∈ E, so z ∈ γ⁻¹E and z ∈ Bγ. Conversely every Bγ lies in F ∩ X. If z ∈ Bγ ∩ Bη, both indices lie in L and γz,ηz ∈ E. Step 5 gives η = γ or η = −γ, so η = γ. This proves pairwise disjointness.\n10. Fix γ ∈ L. If z ∈ Aγ and y = γ⁻¹z, then y ∈ F because z ∈ γF, y ∈ X by step 4, and γy = z ∈ E. Thus y ∈ Bγ. Conversely, if y ∈ Bγ, put z = γy. Then z ∈ E, z ∈ X by step 4, and z ∈ γF because y ∈ F; hence z ∈ Aγ and γ⁻¹z = y. Therefore γ⁻¹Aγ = Bγ. For γ ∉ L this equality holds because both sets are empty. Finally, steps 8 and 9 identify the unions with E ∩ X and F ∩ X. Since X is conull, these unions agree almost everywhere with E and F, respectively. All asserted properties follow.",
+          "proof_key_steps": [
+            "Use countability and the canonical measure-preserving homeomorphisms to make the representative predicates measurable.",
+            "Saturate their null exceptional set under Δ to obtain an invariant measurable conull set X.",
+            "Choose one representative of each sign class in Δ.",
+            "Define paired intersection pieces on those representatives and empty pieces at all other indices.",
+            "Prove coverage and pairwise disjointness using representative uniqueness modulo sign.",
+            "Prove inverse action maps each source piece exactly onto its paired target piece, then remove the null complement of X."
+          ]
+        },
+        "audit": {
+          "key": "measurable_equidecomposition",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The prose includes every hypothesis and matches the standalone one-line Lean proposition, including indexing by all of Δ and the inverse-action image direction. All ten proof steps are valid: countability makes the representative predicates measurable; null-set saturation produces an invariant conull set; sign-class representatives yield measurable pieces, with empty pieces at unused indices; uniqueness gives disjointness; and invariance proves the exact image equality. The construction is complete and non-circular. The bare identifier is unreserved. Its empty dependency list correctly expresses independence from the integration child."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-bb048e1c26/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-bb048e1c26/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-bb048e1c26/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/task.md": "05006e5102d8511e94dc61fded268fcca7b1594ae676beaa70ca219b913620d8",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/problem.md": "0929eb9ca2ad7ea30f1aafc2c1446aaf06dcdc301374ffe2ca7f4b56816d2cc8",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/problem.json": "c64a078a3af06a0ca64b6d4803eb85ec446543f75da9e877043ae15bfce62d9d",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/reference-manifest.json": "509f4932b6d1c571a2a1434f97319ae47791212dabf986cc6faad0e84a6d9346",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/decomposition.json": "b6f98baa19a7104d138ab9ce9c518a32b869f2c6dd0d9cab0468d10ccf3e746f",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/decomposition-audit.json": "7c38e67352fad4eca0a9fccd328755a27b285ff255fb1d5c6b842a56d783a687",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/controller-contract.json": "bff7bdd835120310c8d06285451ab49cb58d39fdb94d2ad676fc3fff3afc415d",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-1773027a0f/parent-child-handoff.json": "d8297562ec29abb4525c1e6f6ca1edf2403680fb41ca64adc213d7ae37b382e2",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-1773027a0f/parent-supplied-plan.md": "e080e6f7f387177629ad1ad622f2f0e85df73374fe6b4959281dd1241729694e",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-1773027a0f/parent-supplied-natural-proof.md": "1a45157ad03546d5f2b82caf807fbd53f0e1c92ee76914ccb0a06c51608bffec",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-1773027a0f/parent-supplied-natural-proof.json": "18ce4978fb8fe47b2dfa67d1c8edca660410e8d212ccbc32749dba10a1e0f9ee",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-1773027a0f/node.json": "1366fb9765eb46d449a7a7ba92e9356224aafd23eaa9f580091b69e71012ea50",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-bb048e1c26/parent-child-handoff.json": "fbe06248d810a07fb82d5fd6f121b95fe423601849c16442416849ee9f84dd04",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-bb048e1c26/parent-supplied-plan.md": "d0c12fced94d12538402ee3e064eb2dc941e8af209545c13a6e157da466daf26",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-bb048e1c26/parent-supplied-natural-proof.md": "2181f5b14f41effaed522f45629fbe91a25e0129904cf4912506d87c90833a92",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-bb048e1c26/parent-supplied-natural-proof.json": "80347396e82b39f6d8110bda5287a985a837cd55ffca265b0bae156fd9f71d1e",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-bb048e1c26/node.json": "bd9d48fc97c896ac37692f05d3b4625f341c71912163e4e649a7ff97d039dd5c"
+  }
+}

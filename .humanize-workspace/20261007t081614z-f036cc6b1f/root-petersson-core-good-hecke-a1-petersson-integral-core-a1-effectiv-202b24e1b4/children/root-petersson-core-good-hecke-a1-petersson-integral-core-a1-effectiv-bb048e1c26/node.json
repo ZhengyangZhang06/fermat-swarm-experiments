@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1.measurable_equidecomposition-a1",
+  "parent_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1",
+  "depth": 4,
+  "title": "Measurable equidecomposition of domains with representatives unique modulo sign",
+  "statement": "Let G = SL₂(ℤ) act canonically on the upper half-plane ℍ, with hyperbolic measure μ = dx dy/y². Let Δ ≤ G contain −I, and let E,F ⊆ ℍ be measurable. For each S ∈ {E,F}, assume that for μ-almost every z there exists γ ∈ Δ such that γz ∈ S and every δ ∈ Δ with δz ∈ S satisfies δ = γ or δ = −γ. Then there exist families A,B : Δ → Set ℍ such that every Aγ and Bγ is measurable, each family is pairwise disjoint, E agrees μ-almost everywhere with ⋃γ Aγ, F agrees μ-almost everywhere with ⋃γ Bγ, and the image of Aγ under z ↦ γ⁻¹z is exactly Bγ for every γ ∈ Δ.",
+  "lean_statement": "∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (E F : Set UpperHalfPlane), (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ → MeasurableSet E → MeasurableSet F → (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ E ∧ ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ, δ ∈ Δ → δ • z ∈ E → δ = γ ∨ δ = -γ) → (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ F ∧ ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ, δ ∈ Δ → δ • z ∈ F → δ = γ ∨ δ = -γ) → ∃ A B : Δ → Set UpperHalfPlane, (∀ γ, MeasurableSet (A γ)) ∧ (∀ γ, MeasurableSet (B γ)) ∧ Pairwise (fun γ δ => Disjoint (A γ) (A δ)) ∧ Pairwise (fun γ δ => Disjoint (B γ) (B δ)) ∧ (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), z ∈ E ↔ z ∈ ⋃ γ, A γ) ∧ (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), z ∈ F ↔ z ∈ ⋃ γ, B γ) ∧ (∀ γ : Δ, (fun z : UpperHalfPlane => (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ)⁻¹ • z) '' A γ = B γ)",
+  "lean_name": "f036cc6b1f_pic_dt_measurable_equidecomposition",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-bb048e1c26-a1"
+}

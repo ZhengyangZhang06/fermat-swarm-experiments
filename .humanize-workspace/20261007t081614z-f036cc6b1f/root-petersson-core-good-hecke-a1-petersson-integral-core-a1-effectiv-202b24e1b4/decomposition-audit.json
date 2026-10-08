@@ -1,0 +1,50 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "measurePreserving|SMulInvariant|volume|sl_moeb|SL_neg_smul|Continuous.*SMul|continuous_smul",
+        "integrableOn_iUnion|integral_iUnion|lintegral_iUnion|integrableOn_congr_set|setIntegral_congr_set|restrict_preimage|setIntegral_map|integral_comp|integral_eq|integrableOn",
+        "domain_transfer|equidecomposition|unique.*sign|integrable.*fundamental|fundamental.*integral",
+        "f036cc6b1f_pic_dt_measurable_equidecomposition|f036cc6b1f_pic_dt_integral_of_equidecomposition",
+        "SLAction|mapGL",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/fermat-p01-independent-dt-audit-l3bxowhy/Check.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Group/FundamentalDomain.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Integral/Lebesgue/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Integral/Lebesgue/Map.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Integral/Bochner/Set.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Measure/Restrict.lean",
+        "/tmp/fermat-p01-independent-dt-audit-l3bxowhy/Check.lean",
+        "/tmp/fermat-p01-independent-dt-audit-l3bxowhy/Check.log",
+        "/tmp/fermat-p01-independent-dt-audit-l3bxowhy/Environment.json"
+      ],
+      "conclusion": "The manifest pins project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The DAG identifies this parent as the depth-3 domain-transfer helper under the unchanged frozen Hecke theorem. No relevant domain-transfer/equidecomposition declaration was found in project/Definitions; neither proposed name is reserved in the DAG, and the name search found only this proposal. Measure.lean defines hyperbolic volume and proves GL invariance; MoebiusAction.lean defines the canonical SL action through mapGL and proves sign invariance; Topology.lean supplies continuity. The integration sources provide countable additivity, restricted-measure congruence, and change of variables. FundamentalDomain.lean requires pairwise almost-everywhere disjoint translates, so it cannot be applied directly to the action with ineffective −I. Both exact child propositions independently elaborated without importing either child or the parent theorem. Anonymous checks also verified that the canonical SL maps are measurable embeddings and measure preserving. Lean exited 0. The checked supporting declarations have only propext, Classical.choice, and Quot.sound as transitive axioms. All nine dependencies were clean at their pinned revisions; the 20-file project import closure and the seven compared reference Lean files matched the snapshot. These checks validate the decomposition contracts, not acceptance of implementations."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "measurable_equidecomposition",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose includes every hypothesis and matches the standalone one-line Lean proposition, including indexing by all of Δ and the inverse-action image direction. All ten proof steps are valid: countability makes the representative predicates measurable; null-set saturation produces an invariant conull set; sign-class representatives yield measurable pieces, with empty pieces at unused indices; uniqueness gives disjointness; and invariance proves the exact image equality. The construction is complete and non-circular. The bare identifier is unreserved. Its empty dependency list correctly expresses independence from the integration child."
+    },
+    {
+      "key": "integral_of_equidecomposition",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and standalone one-line Lean proposition agree on all data, hypotheses, and conclusions. All six proof steps are valid. Injectivity and T_i(A_i)=B_i imply T_i⁻¹(B_i)=A_i, establishing the restricted pushforward identity. Norm-integral transport and countable additivity establish target integrability before Bochner additivity is used. No additional topology on α or σ-finiteness assumption is needed. The proof is complete and non-circular, and the bare identifier is unreserved. The independent sibling obligations form an appropriate acyclic split: instantiate this child with α=UpperHalfPlane, ι=Δ, and T_γ(z)=γ⁻¹•z; canonical action properties and continuity supply the remaining parent hypotheses."
+    }
+  ],
+  "required_changes": []
+}
