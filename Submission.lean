@@ -3102,3 +3102,42 @@ theorem Submission.p05_pie_identity_block_stabilization_a5b449214a
           x = Matrix.det (E.submatrix rows cols)}
       rw [hd]
       exact Ideal.subset_span ⟨rows', cols', hminor.symm⟩
+
+theorem Submission.p05_pie_redundant_generator_relations_a5b449214a
+    {R : Type*} [CommRing R] {M : Type*} [AddCommGroup M] [Module R M]
+    (n p t : ℕ) (P : Matrix (Fin n) (Fin p) R) (A : Matrix (Fin n) (Fin t) R)
+    (π : (Fin n → R) →ₗ[R] M) (ψ : (Fin t → R) →ₗ[R] M)
+    (_hker : LinearMap.ker π = LinearMap.range P.mulVecLin)
+    (_hA : ∀ y : Fin t → R, π (A.mulVecLin y) = ψ y) :
+    let T : Matrix (Fin n ⊕ Fin t) (Fin p ⊕ Fin t) R :=
+      Matrix.fromBlocks P (-A) 0 (1 : Matrix (Fin t) (Fin t) R)
+    ∀ z : (Fin n ⊕ Fin t) → R,
+      (π (fun i => z (Sum.inl i)) + ψ (fun j => z (Sum.inr j)) = 0) ↔
+        ∃ w : (Fin p ⊕ Fin t) → R, T.mulVecLin w = z := by
+  intro T z
+  have hT (w : (Fin p ⊕ Fin t) → R) :
+      T.mulVecLin w = Sum.elim
+        (P.mulVecLin (fun i => w (Sum.inl i)) - A.mulVecLin (fun j => w (Sum.inr j)))
+        (fun j => w (Sum.inr j)) := by
+    simp only [T, Matrix.mulVecLin_apply, Matrix.fromBlocks_mulVec,
+      Matrix.neg_mulVec, Matrix.zero_mulVec, Matrix.one_mulVec, zero_add,
+      sub_eq_add_neg, Function.comp_def]
+  constructor
+  · intro hz
+    have hx : (fun i => z (Sum.inl i)) + A.mulVecLin (fun j => z (Sum.inr j)) ∈
+        LinearMap.range P.mulVecLin := by
+      rw [← _hker, LinearMap.mem_ker, map_add, _hA]
+      exact hz
+    obtain ⟨u, hu⟩ := hx
+    refine ⟨Sum.elim u (fun j => z (Sum.inr j)), ?_⟩
+    rw [hT]
+    simp only [Sum.elim_inl, Sum.elim_inr, hu, add_sub_cancel_right]
+    funext i
+    cases i <;> rfl
+  · rintro ⟨w, rfl⟩
+    have hP : π (P.mulVecLin (fun i => w (Sum.inl i))) = 0 := by
+      apply LinearMap.mem_ker.mp
+      rw [_hker]
+      exact ⟨fun i => w (Sum.inl i), rfl⟩
+    rw [hT]
+    simp only [Sum.elim_inl, Sum.elim_inr, map_sub, hP, _hA, zero_sub, neg_add_cancel]
