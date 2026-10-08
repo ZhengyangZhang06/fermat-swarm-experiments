@@ -536,6 +536,9 @@ theorem p07_cre_abelian_surface_857cd4d38c
   · intro s
     rw [hfibre s]
     exact hdim (ε.base s)
+
+end Submission
+
 namespace Submission
 
 /-- Repeated addition commutes with compatible precomposition of points.
