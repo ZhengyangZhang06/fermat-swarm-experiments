@@ -1155,10 +1155,8 @@ theorem f036cc6b1f_pc_ed_aoi_boundary_null :
       · exact Or.inl (by linarith)
       · exact Or.inr (by linarith)
       rcases mul_eq_zero.mp hfactor with hpos | hneg
-      · simp only [Set.mem_insert_iff, Set.mem_singleton_iff]
-        exact Or.inl (by linarith)
-      · simp only [Set.mem_insert_iff, Set.mem_singleton_iff]
-        exact Or.inr (by linarith)
+      · exact Or.inl (by linarith)
+      · exact Or.inr (by linarith)
     · have hempty : Prod.mk x ⁻¹' {p : ℝ × ℝ | p.1 ^ 2 + p.2 ^ 2 = 1} = ∅ := by
         ext y
         simp only [Set.mem_preimage, Set.mem_ofPred_eq, Set.mem_empty_iff_false, iff_false]
