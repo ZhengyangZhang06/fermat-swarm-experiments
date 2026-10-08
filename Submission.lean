@@ -3945,3 +3945,118 @@ theorem Submission.p03_eds_two_torsion_four_sum_68cf3476_d5 :
       simp [huv_v, huv_u, huv0, hv_ne.2, hv_ne.1, hu0]
     _ = (u + u) + (v + v) := by abel
     _ = 0 := by rw [huu, hvv, add_zero]
+theorem Submission.p03_ptf_positive_nsmul_nonzero_c5b7b5ed_d6 :
+    ∀ (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k]
+      (W : WeierstrassCurve k), W.Δ ≠ 0 → ∀ n : ℕ, 0 < n →
+        ∃ P : W.toAffine.Point, n • P ≠ 0 := by
+  intro k _ _ _ _ W hΔ
+  classical
+  have root (p : Polynomial k) (m : ℕ) (hm : 0 < m) (hc : p.coeff m ≠ 0) :
+      ∃ x : k, p.eval x = 0 := by
+    apply IsAlgClosed.exists_root p
+    intro hd
+    apply hc
+    apply Polynomial.coeff_eq_zero_of_degree_lt
+    rw [hd]
+    exact WithBot.coe_lt_coe.mpr hm
+  have point (x : k) : ∃ y : k, W.toAffine.Nonsingular x y := by
+    let p : Polynomial k := Polynomial.X ^ 2 +
+      Polynomial.C (W.a₁ * x + W.a₃) * Polynomial.X -
+      Polynomial.C (x ^ 3 + W.a₂ * x ^ 2 + W.a₄ * x + W.a₆)
+    have hc : p.coeff 2 = 1 := by dsimp [p]; compute_degree!
+    obtain ⟨y, hy⟩ := root p 2 (by omega) (by rw [hc]; exact one_ne_zero)
+    refine ⟨y, (equation_iff_nonsingular_of_Δ_ne_zero hΔ).mp ?_⟩
+    rw [equation_iff]
+    simp only [p, Polynomial.eval_sub, Polynomial.eval_add, Polynomial.eval_mul,
+      Polynomial.eval_pow, Polynomial.eval_X, Polynomial.eval_C] at hy
+    linear_combination hy
+  have disc (x y : k) (h : W.toAffine.Nonsingular x y) :
+      (2 * y + W.a₁ * x + W.a₃) ^ 2 =
+        4 * x ^ 3 + W.b₂ * x ^ 2 + 2 * W.b₄ * x + W.b₆ := by
+    have he := (equation_iff x y).mp h.1
+    simp only [b₂, b₄, b₆]
+    linear_combination 4 * he
+  have torsion : ∃ T : W.toAffine.Point, T ≠ 0 ∧ 2 • T = 0 := by
+    let p : Polynomial k := Polynomial.C 4 * Polynomial.X ^ 3 +
+      Polynomial.C W.b₂ * Polynomial.X ^ 2 +
+      Polynomial.C (2 * W.b₄) * Polynomial.X + Polynomial.C W.b₆
+    have hc : p.coeff 3 = 4 := by dsimp [p]; compute_degree!
+    obtain ⟨x, hx⟩ := root p 3 (by omega) (by rw [hc]; norm_num)
+    obtain ⟨y, hxy⟩ := point x
+    simp only [p, Polynomial.eval_add, Polynomial.eval_mul, Polynomial.eval_pow,
+      Polynomial.eval_X, Polynomial.eval_C] at hx
+    have ht : 2 * y + W.a₁ * x + W.a₃ = 0 := by
+      apply pow_eq_zero (n := 2)
+      exact (disc x y hxy).trans hx
+    have hy : y = W.toAffine.negY x y := by
+      dsimp only [negY]
+      linear_combination ht
+    refine ⟨some x y hxy, some_ne_zero hxy, ?_⟩
+    rw [two_nsmul, add_self_of_Y_eq hy]
+  have half (P : W.toAffine.Point) :
+      ∃ Q : W.toAffine.Point, 2 • Q = P ∨ 2 • Q = -P := by
+    cases P with
+    | zero => exact ⟨0, Or.inl (by simp [zero_def])⟩
+    | some u v huv =>
+      let p : Polynomial k := Polynomial.X ^ 4 -
+        Polynomial.C W.b₄ * Polynomial.X ^ 2 -
+        Polynomial.C (2 * W.b₆) * Polynomial.X - Polynomial.C W.b₈ -
+        Polynomial.C u * (Polynomial.C 4 * Polynomial.X ^ 3 +
+          Polynomial.C W.b₂ * Polynomial.X ^ 2 +
+          Polynomial.C (2 * W.b₄) * Polynomial.X + Polynomial.C W.b₆)
+      have hc : p.coeff 4 = 1 := by dsimp [p]; compute_degree!
+      obtain ⟨x, hx⟩ := root p 4 (by omega) (by rw [hc]; exact one_ne_zero)
+      obtain ⟨y, hxy⟩ := point x
+      have he := (equation_iff x y).mp hxy.1
+      simp only [p, Polynomial.eval_sub, Polynomial.eval_add, Polynomial.eval_mul,
+        Polynomial.eval_pow, Polynomial.eval_X, Polynomial.eval_C, b₂, b₄, b₆, b₈] at hx
+      let t := 2 * y + W.a₁ * x + W.a₃
+      let z := 3 * x ^ 2 + 2 * W.a₂ * x + W.a₄ - W.a₁ * y
+      have hz : z ^ 2 + W.a₁ * z * t - (W.a₂ + 2 * x + u) * t ^ 2 = 0 := by
+        dsimp [z, t]
+        linear_combination hx - (W.a₁ ^ 2 + 4 * W.a₂ + 8 * x + 4 * u) * he
+      have ht : t ≠ 0 := by
+        intro ht
+        have hz0 : z = 0 := by
+          apply pow_eq_zero (n := 2)
+          simpa only [ht, mul_zero, zero_pow (by omega : 2 ≠ 0), add_zero,
+            sub_zero] using hz
+        rcases ((nonsingular_iff' x y).mp hxy).2 with h | h
+        · apply h
+          dsimp [z] at hz0
+          linear_combination -hz0
+        · exact h ht
+      have hy : y ≠ W.toAffine.negY x y := by
+        intro hy
+        apply ht
+        dsimp only [t, negY] at *
+        linear_combination hy
+      have hx' : W.toAffine.addX x x (W.toAffine.slope x x y y) = u := by
+        rw [slope_of_Y_ne rfl hy, addX]
+        change (z / t) ^ 2 + W.a₁ * (z / t) - W.a₂ - x - x = u
+        have hmul : ((z / t) ^ 2 + W.a₁ * (z / t) - W.a₂ - x - x - u) *
+            t ^ 2 = 0 := by
+          calc
+            _ = z ^ 2 + W.a₁ * z * t - (W.a₂ + 2 * x + u) * t ^ 2 := by
+              field_simp
+              <;> ring
+            _ = 0 := hz
+        exact sub_eq_zero.mp ((mul_eq_zero.mp hmul).resolve_right (pow_ne_zero 2 ht))
+      refine ⟨some x y hxy, ?_⟩
+      rw [two_nsmul, add_self_of_Y_ne hy]
+      exact X_eq_iff.mp hx'
+  obtain ⟨T, hT, hT2⟩ := torsion
+  intro n
+  induction n using Nat.strong_induction_on with
+  | h n ih =>
+    intro hn
+    obtain ⟨m, rfl | rfl⟩ := Nat.even_or_odd' n
+    · obtain ⟨P, hP⟩ := ih m (by omega) (by omega)
+      obtain ⟨Q, hQ | hQ⟩ := half P
+      · refine ⟨Q, ?_⟩
+        simpa only [mul_nsmul, hQ] using hP
+      · refine ⟨Q, ?_⟩
+        simpa only [mul_nsmul, hQ, nsmul_neg, neg_ne_zero] using hP
+    · refine ⟨T, ?_⟩
+      simpa only [add_nsmul, mul_nsmul, hT2, nsmul_zero, one_nsmul,
+        zero_add] using hT
