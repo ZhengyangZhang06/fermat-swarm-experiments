@@ -337,7 +337,6 @@ theorem p02_es_177ebb5a_pnf_primitive_eigenvector_triangular :
   change δ.val = Matrix.of ![![ε, δ.val 0 1], ![0, ε]]
   ext i j
   fin_cases i <;> fin_cases j <;> simp [hδ₀, hδ₁, hdiag]
-namespace Submission
 
 /-- Coefficientwise derivative of an Eichler integral after a modular substitution. -/
 theorem p02_es_177ebb5a_cd_modular_pullback_derivative
