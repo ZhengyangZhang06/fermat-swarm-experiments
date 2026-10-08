@@ -1,5 +1,28 @@
 # B1 controller repair handoff: residue quotient length
 
+## 2026-10-08 18:36 selected-node invocation: verify the repaired context
+
+Plan v13 requests another exact selected-node author comparator after the older
+reviewer failure. The preceding author request `88de46dc791d469b8110c1bc8bd9eed6`
+passed at `1708782d785ddd69c724dc3f25d70c9841fd7c33`, with the controller's
+header-absence gate and allowed-axiom report. That result does not replace this
+invocation's required comparator or the outer independent review.
+
+The current source audit retains the frozen prefix and the sole selected proof
+byte for byte. All nine package checkouts are clean at their manifest pins;
+the three inspected normalization, residue-action and module-length files match
+the pinned local-project snapshot. A fresh read-only simplifier review recommends
+retaining the proof, including its denominator and canonical scalar-action checks.
+There is no mathematical or source-safety reason to edit the selected theorem.
+
+The round evidence is under `.humanize/rlcr/2026-10-08_18-36-04/`: the tracker,
+contract, complete source diff, source/dependency audit, local-project provenance,
+warning-fatal logs, simplifier review, and summary. The summary and comparator
+result bind this invocation's terminal outcome to its exact clean candidate SHA.
+No committed header edit, worker-selected verifier policy, protected-file change,
+new helper, or DAG change accompanies this evidence update. Independent reviewer
+verification, publication and the DAG transition remain outer-controller tasks.
+
 ## 2026-10-08 18:07 selected-node invocation: operator repair discovered
 
 Plan v12 requires a fresh exact selected-node comparator after the earlier
