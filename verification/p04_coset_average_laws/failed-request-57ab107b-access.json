@@ -1,0 +1,94 @@
+{
+  "kind": "failed-request-artifact-access-audit",
+  "round": 1,
+  "request_id": "57ab107b6cbe4d8fa357f54f85cbc10f",
+  "compared_candidate": "3a27a31217cf316378e3f369c07be89d2d782359",
+  "reported_packet_digest": "8eae94f717e28255d24d18e41693afb40379dc34e87052c7226021273d6e215b",
+  "theorems": [
+    "Submission.p04_hct139_coset_average_laws"
+  ],
+  "existing_request": {
+    "request_id": "57ab107b6cbe4d8fa357f54f85cbc10f",
+    "revision": "3a27a31217cf316378e3f369c07be89d2d782359",
+    "state": "finished",
+    "returncode": 1,
+    "response_fields": [
+      "output",
+      "request_id",
+      "returncode",
+      "revision",
+      "state"
+    ],
+    "output_sha256": "dc224046ef91c30e008f5d512339d1e0610f8956ad4e5b62f9fc4b01e6542e71",
+    "artifact_location_lines": [],
+    "new_request_created": false,
+    "output_matches_original_suffix": true
+  },
+  "export_search": [
+    {
+      "root": "/runtime/review-evidence",
+      "record_count": 579,
+      "matching_files": []
+    },
+    {
+      "root": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize",
+      "record_count": 0,
+      "matching_files": []
+    }
+  ],
+  "inspected_source_hashes": {
+    "/runtime/operator-review-evidence-3155d2fa0d3e/export-review-evidence.py": "3155d2fa0d3ee19b460df4a9391d9c46a03ff73ebc59673abf21d2b4c6c5e863",
+    "/runtime/operator-review-evidence-f116f3cae2f8/export-review-evidence.py": "f116f3cae2f8a8397c6e0cbbb4030804133b8b1c7807fd2b9941be86721d6ec7",
+    "/runtime/flows/math-lean-flow-fleet-verifiers-v2/_recursive_lean/swarm_broker.py": "dba947dc9a09982a556b3ff2c9c8a4eb7c1f84f97740f42c7de0996afe516519",
+    "/runtime/flows/math-lean-flow-fleet-verifiers-v2/_recursive_lean/remote_verification.py": "84f360640e06eea77a87e001e98a3a531871e419940ee067addc131b623af2ad",
+    "/runtime/flows/math-lean-flow-machine-leaves-v5/docs/review-evidence-export.md": "e46dfeba3d455e4bba3ff9b9f768c96395533adc125315ac84f2d1501ac8ec99"
+  },
+  "findings": [
+    "Both mounted export relays require a finished request with returncode zero and a verified operation receipt; this failed request is ineligible.",
+    "The documented relay is controller-only; private operation directories and the ledger are explicitly excluded from worker access.",
+    "Inspected broker source exposes no artifact download route. The existing-request response has only request_id, revision, state, returncode and output.",
+    "The existing terminal result is unchanged and has no appended export location. No new request or verifier process was requested."
+  ],
+  "authority_limit": "Inspected mounted-source hashes do not authenticate the checker actually executed remotely. Matching log bytes and reported packet digest alone do not authenticate its retained inputs.",
+  "required_controller_input": {
+    "request_id": "57ab107b6cbe4d8fa357f54f85cbc10f",
+    "read_only_artifacts": [
+      "Original operation receipt binding request, candidate, packet digest, service/task and executed code digests.",
+      "Receipt-bound prepared packet, retained evidence, and complete challenge/solution source trees covered by source hashes.",
+      "Exact executed checker and launchers, relevant configuration, and toolchain/reference-cache identity."
+    ],
+    "preserve_failure_returncode": 1,
+    "delivery": "Controller-published path under an existing read-only worker mount, or a supported failed-request artifact interface.",
+    "after_authentication": "Reconcile challenge construction while preserving both frozen contracts, then require the prescribed exact-node author comparator to pass."
+  },
+  "analyze_question": "Which controller-published read-only path or supported failed-request export interface supplies these retained artifacts? User input was requested asynchronously; no path is available yet.",
+  "candidate_source_sha256": "400b459f4e5853500ca1d89e524d3776e681be24b05419d91eacb430ad06a739",
+  "original_contract_sha256": "42953c937798c4a4ff8c5a5266936d11cb7f7836ede7175b49e6d157bd9e9551",
+  "protected_inputs_unchanged": true,
+  "reference_use": [
+    {
+      "source": "local-project",
+      "snapshot": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8",
+      "manifest": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+      "mode": "local-project",
+      "project_commit": "2475a3790d7ba0c3b10be8086001b154a45be597",
+      "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "queries": [
+        {
+          "query": "cosetDecomp_apply|namespace TateResCor|cosetDecomp",
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+          "exit_code": 1,
+          "finding": "No matches. Inspected lines 1-35; installed pinned definition file matches byte for byte."
+        }
+      ],
+      "reuse": "No new Lean implementation or upstream reuse. Prior warning-fatal, frozen-type and axiom evidence is retained; it is not comparator acceptance."
+    }
+  ],
+  "bitlesson": {
+    "action": "none",
+    "lesson_ids": [
+      "NONE"
+    ]
+  },
+  "acceptance": false
+}
