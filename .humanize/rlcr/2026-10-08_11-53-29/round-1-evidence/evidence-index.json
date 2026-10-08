@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "kind": "broker-result-retrieval-not-proof-acceptance",
+  "request_id": "27fd3948c4be48cba0db03b6310d8b8d",
+  "candidate_commit": "62bf03d3d829c00f23001f66cbe936b3ae5c37b7",
+  "reported_packet": {
+    "stage": "packet-validated",
+    "digest": "73650432c983cebce7710a75aae780626ff6a7433c4d41fa48b6e819a02afaff",
+    "candidate_commit": "62bf03d3d829c00f23001f66cbe936b3ae5c37b7",
+    "node": "root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1.hom_coset_average_laws-a1"
+  },
+  "returncode": 1,
+  "success_marker_present": false,
+  "retrieval": "one authenticated TLS lookup of the existing finished request; no new request ID",
+  "artifact_sha256": {
+    "existing-request-result.json": "5ef447ec0d44ca5d27b5b8c9acf516b9be1c1cb9f75939ac7ff18504d5ce272b",
+    "existing-request.log": "d3cec81c86ef83af682e5cf06d3f00d22403b5b4ff803d353689a6cc7b73ff67"
+  },
+  "available_prior_identity_candidate": "b111ca1b6059bb13c5f6948208e3ec5aa40daf18",
+  "missing_required_evidence": [
+    "controller operation receipt binding request to retained packet and code hashes",
+    "prepared.json and evidence.json bound to the reported packet digest",
+    "packet challenge and solution source trees",
+    "actual remote output/result source trees",
+    "executed checker code and checker/toolchain binary/cache identities"
+  ],
+  "limits": [
+    "Reported packet digest comes from the retrieved log; packet contents cannot be independently recomputed here.",
+    "Local runtime source variants are inspection aids, not attested copies of the remotely executed checker.",
+    "Round-0 local build and axiom checks are not configured comparator acceptance."
+  ]
+}
