@@ -39,7 +39,7 @@ def proof_records(config):
         frozen = dict(id=problem['id'] + '/root', problem=problem['id'], local_id='root',
                       title=problem['theorem'], status='queued', requires=[], active=True,
                       issue_url=problem['issue_url'], pr_url='', pr_state='', merge_commit='',
-                      lean_verified=False, integrated=False, prose_status='pending')
+                      lean_verified=False, accepted=False, integrated=False, prose_status='pending')
         report = dict(id=problem['id'], enabled=bool(registration.get('enabled')), nodes=[frozen],
                       graph_ok=True, root_integrated=False, natural_proof_reviewed=False)
         verification = registration.get('verification')
@@ -106,7 +106,9 @@ def proof_records(config):
                 active=True, issue_url=problem['issue_url'] if key == 'root' else link('github_issue_url', 'issues'),
                 pr_url=link('github_pr_url', 'pull'),
                 pr_state=node.get('github_pr_state', ''), merge_commit=node.get('github_merge_commit', ''),
-                lean_verified=verified, integrated=integrated, prose_status=prose))
+                lean_verified=verified, integrated=integrated, prose_status=prose,
+                accepted=node.get('status') == 'proved' or (
+                    node.get('status') == 'integrating' and bool(node.get('candidate_commit')))))
         root = next(n for n in public if n['local_id'] == 'root')
         report.update(nodes=public, root_integrated=root['integrated'] and all(n['integrated'] for n in public),
                       natural_proof_reviewed=root['prose_status'] == 'reviewed')

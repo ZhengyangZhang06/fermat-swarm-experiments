@@ -131,6 +131,27 @@ class StatusBrowserTests(unittest.TestCase):
         self.assertNotIn('worker hoa6', node.text_content())
         self.assertEqual(self.errors, [])
 
+    def test_dependency_wait_is_primary_and_saved_decomposing_does_not_imply_execution(self):
+        self.add_graphs()
+        first, second = self.problems[0]['nodes'][1:]
+        first.update(issue_url='https://github.com/o/r/issues/140', status='integrating', accepted=False)
+        second.update(issue_url='https://github.com/o/r/issues/141', requires=[first['id']],
+                      waiting_on=[first['id']], activity_state='waiting-dependencies')
+        self.open_graphs()
+        node = self.page.locator('a[data-node-id="fermat-p01/child-b"]')
+        self.assertEqual(node.locator('.node-activity').text_content(), 'Waiting on #140')
+        self.assertEqual(node.locator('.node-saved').text_content(), 'Saved: decomposing')
+        second.update(activity_state='executing', observed_running=True, worker_node='hoa54', waiting_on=[])
+        self.page.evaluate('window.testRefresh()')
+        self.assertEqual(node.locator('.node-activity').text_content(), 'Decomposing')
+        self.assertIn('worker hoa54', node.text_content())
+        self.mode='offline'
+        self.page.evaluate('Date.now = () => ' + str(int((datetime.now(timezone.utc).timestamp()+181)*1000)))
+        self.page.evaluate('window.testRefresh()')
+        self.assertEqual(node.locator('.node-activity').text_content(), 'Activity observation stale')
+        self.assertNotIn('worker hoa54', node.text_content())
+        self.assertEqual(self.errors, [])
+
     def test_comparing_distinguishes_queued_running_and_unobserved_checks(self):
         self.add_graphs()
         observed = datetime.now(timezone.utc).timestamp()

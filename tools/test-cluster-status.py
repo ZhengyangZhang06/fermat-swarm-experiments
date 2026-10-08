@@ -49,6 +49,17 @@ class ProofFeedTests(unittest.TestCase):
         self.assertTrue(self.report()['nodes'][0]['lean_verified'])
         self.assertFalse(self.report()['root_integrated'])
 
+    def test_accepted_dependency_requires_candidate_but_does_not_imply_merge(self):
+        for state, candidate, accepted in [('integrating', '', False),
+                                           ('integrating', 'a' * 40, True),
+                                           ('comparing', 'a' * 40, False)]:
+            with self.subTest(state=state, candidate=candidate):
+                self.dag([dict(id='root', status=state, candidate_commit=candidate)])
+                report = self.report()
+                self.assertEqual(report['nodes'][0]['accepted'], accepted)
+                self.assertFalse(report['nodes'][0]['integrated'])
+                self.assertFalse(report['root_integrated'])
+
     def test_every_retained_dependency_must_be_integrated(self):
         root = dict(id='root', status='proved', integrated_commit='abc', github_pr_state='merged',
                     github_merge_commit='def', children=['child'])

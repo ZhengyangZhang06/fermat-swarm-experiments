@@ -5,10 +5,12 @@ using the theorem issue/PR workflow with 128 autonomous Swarm pollers.
 
 ## Current status
 
-**Setup in progress; no theorem is claimed solved and issue resolvers are not yet
-launched.** All 128 target nodes passed the credential-free readiness probe.
-Readiness probes are not proof workers. This status will be replaced by observed
-resolver and proof state when deployment is active.
+The campaign is running. The [live dashboard](https://zhengyangzhang06.github.io/fermat-swarm-experiments/)
+reports observed workers, dependency waits, verification and merged proofs.
+Root completion requires the final checked solution; activity or solved children
+alone do not establish it. The dashboard separates current activity from saved
+stages: `Saved: decomposing` does not mean a worker is currently decomposing.
+Arrows point from prerequisite to dependent: A → B means B uses A.
 
 The source contracts are in `Fermat/`. Their `sorry` terms are explicitly unsolved
 specifications, never accepted solutions. The upstream definition library is
@@ -20,16 +22,18 @@ pinned by `Fermat/manifest.json`; the extracts are not standalone Lean projects.
    status. Decomposition creates an issue for every new named subtheorem.
 2. Node workers poll the GitHub-backed issue list and claim eligible work through
    one transactional authority. No parent-to-worker start notification is used.
-3. The initial deployment serializes mutations within each problem. Independent
-   problems may run concurrently; idle pollers do not consume model sessions.
+3. Independent ready theorem issues may run concurrently within each problem.
+   Git integration remains coordinated; idle pollers do not consume model sessions.
 4. Solutions require exact-statement/context checking, transitive axiom checking,
-   independent prose and Lean review, and a solution PR per theorem.
+   independent prose/decomposition review, and a solution PR per theorem.
+   Lean leaves use deterministic Git identity gates and the exact comparator;
+   non-leaves retain Lean integrity review.
 5. The exact verified solution is merged before its issue is closed. Parent/root
    acceptance checks the combined solution and every retained child interface.
 
 The campaign is complete only when all ten roots and all introduced prerequisites
 are verified and integrated. [Root issues](https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues)
-are recorded in `campaign.json` and `proofs/`. The setup dashboard source is in
+are recorded in `campaign.json` and `proofs/`. The dashboard source is in
 `site/`; its deployment observation must not be confused with live proof progress.
 
 ## Provenance
