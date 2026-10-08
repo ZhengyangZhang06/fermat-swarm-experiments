@@ -434,6 +434,8 @@ theorem p04_prism_a8325b9888_equivariant_components :
         exact hP n h c }
   exact ⟨D, hL⟩
 
+end Submission
+
 open CategoryTheory Rep Representation MonoidalCategory
 
 namespace Submission
