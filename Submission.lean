@@ -1615,6 +1615,9 @@ theorem p04_tia_coh_restricted_standard_homotopy_equiv
            inv := q
            homotopyHomInvId := hp
            homotopyInvHomId := Homotopy.ofEq hpq }⟩
+
+end Submission
+
 namespace Submission
 
 set_option warningAsError true in
@@ -1998,3 +2001,53 @@ theorem Submission.p04_tia_coh_hom_complex_transfer :
   intro F
   change C (X.X i) ((Rep.resFunctor H.subtype).map F) = H.index • F
   exact hC_index (X.X i) F
+
+namespace Submission
+
+set_option warningAsError true in
+/-- Restriction and corestriction on group cohomology compose to the subgroup index.
+
+The two approved dependencies give the resolution comparison and the Hom-complex
+transfer identity. Transport to group cohomology uses `groupCohomologyIso`,
+`Functor.mapHomotopyEquiv`, `HomotopyEquiv.toHomologyIso`, and
+`HomologicalComplex.homologyUnop` from pinned mathlib
+`db584cd6d46c92f209a44c0f1c829460d327499d`. -/
+theorem p04_tia_cohomology_transfer {k G : Type u} [CommRing k] [Group G] [Fintype G]
+    (A : Rep k G) (H : Subgroup G) [Fintype H] (n : ℕ) :
+    ∃ R : groupCohomology A n →ₗ[k] groupCohomology (Rep.res H.subtype A) n,
+      ∃ C : groupCohomology (Rep.res H.subtype A) n →ₗ[k] groupCohomology A n,
+        ∀ x : groupCohomology A n, C (R x) = H.index • x := by
+  classical
+  obtain ⟨e⟩ := p04_tia_coh_restricted_standard_homotopy_equiv (k := k) H
+  obtain ⟨r, c, hrc⟩ := p04_tia_coh_hom_complex_transfer A H (Rep.standardComplex k G)
+  -- Applying Hom(-, Res A) reverses the comparison of the two resolutions.
+  let F := ((linearYoneda k (Rep k H)).obj (Rep.res H.subtype A)).rightOp
+  let e' := F.mapHomotopyEquiv e
+  let T := HomologicalComplex.homologyFunctor (ModuleCat k) (ComplexShape.up ℕ) n
+  let γ : groupCohomology A n ≅ T.obj ((Rep.standardComplex k G).linearYonedaObj k A) :=
+    groupCohomologyIso A n (Rep.standardResolution k G)
+  let α :
+      T.obj (ChainComplex.linearYonedaObj
+        (((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj
+          (Rep.standardComplex k G)) k (Rep.res H.subtype A)) ≅
+        groupCohomology (Rep.res H.subtype A) n :=
+    HomologicalComplex.homologyUnop _ n ≪≫ (e'.toHomologyIso n).unop.symm ≪≫
+      (HomologicalComplex.homologyUnop _ n).symm ≪≫
+        (groupCohomologyIso (Rep.res H.subtype A) n (Rep.standardResolution k H)).symm
+  have hrc' : T.map r ≫ T.map c = H.index • 𝟙 _ := by
+    rw [← T.map_comp, hrc, T.map_nsmul, T.map_id]
+  let R := γ.hom ≫ T.map r ≫ α.hom
+  let C := α.inv ≫ T.map c ≫ γ.inv
+  have hRC : R ≫ C = H.index • 𝟙 (groupCohomology A n) := by
+    change (γ.hom ≫ T.map r ≫ α.hom) ≫ (α.inv ≫ T.map c ≫ γ.inv) = _
+    calc
+      _ = γ.hom ≫ (T.map r ≫ T.map c) ≫ γ.inv := by
+        simp only [Category.assoc, Iso.hom_inv_id_assoc]
+      _ = H.index • 𝟙 (groupCohomology A n) := by
+        rw [hrc']
+        simp only [Preadditive.comp_nsmul, Preadditive.nsmul_comp, Category.id_comp,
+          Iso.hom_inv_id]
+  refine ⟨R.hom, C.hom, fun x => ?_⟩
+  exact congrArg (fun f : groupCohomology A n ⟶ groupCohomology A n => f.hom x) hRC
+
+end Submission
