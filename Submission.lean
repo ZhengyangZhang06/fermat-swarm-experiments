@@ -3451,4 +3451,155 @@ theorem p02_es_177ebb5a_tb_periodic_strip_bound
     exact (Int.sub_floor_div_mul_lt τ.re hN).le
   · simpa only [τ', UpperHalfPlane.vadd_im] using hτ
 
+open Filter Topology
+
+/-- Exponential decay of an Eichler derivative and translation equivariance bound its scalarization. -/
+theorem p02_es_177ebb5a_sm_translation_bound
+    (N : ℕ) [NeZero N] (n : ℕ) (u : UpperHalfPlane → ℂ)
+    (G : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n))
+    (hu : Continuous u) (hG : HeckeEis.IsEichlerIntegral n u G)
+    (htrans : ∀ τ : UpperHalfPlane, G ((ModularGroup.T ^ N) • τ) =
+      (HeckeEis.binaryFormRepSL ℂ n (ModularGroup.T ^ N)) (G τ))
+    (hdecay : ∃ a C Y : ℝ, 0 < a ∧ 0 ≤ C ∧ ∀ τ : UpperHalfPlane,
+      Y ≤ τ.im → ‖u τ‖ ≤ C * Real.exp (-a * τ.im)) :
+    UpperHalfPlane.IsBoundedAtImInfty (fun τ : UpperHalfPlane =>
+      MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -(τ : ℂ)) (G τ).val) := by
+  classical
+  obtain ⟨a, C, Y, ha, hC, hu_decay⟩ := hdecay
+  have hN : (0 : ℝ) ≤ N := Nat.cast_nonneg N
+  obtain ⟨A, K, hK, hcoeff⟩ := p02_es_177ebb5a_tb_strip_coefficient_limit
+    n u G a C Y N ha hC hN hu hG hu_decay
+  -- All polynomial factors are dominated by the exponential, also after shifting y by 1.
+  have hpoly (m : ℕ) : Tendsto (fun y : ℝ => (1 + y) ^ m * Real.exp (-a * y))
+      atTop (𝓝 0) := by
+    have h := ((tendsto_rpow_mul_exp_neg_mul_atTop_nhds_zero (m : ℝ) a ha).comp
+      (tendsto_atTop_add_const_left atTop (1 : ℝ) tendsto_id)).mul_const (Real.exp a)
+    simp only [Function.comp_def, id_eq, Real.rpow_natCast, zero_mul] at h
+    convert h using 1
+    funext y
+    rw [mul_assoc, ← Real.exp_add]
+    congr 2
+    ring
+  have hsmall : Tendsto (fun y : ℝ => K * (1 + y) ^ n * Real.exp (-a * y))
+      atTop (𝓝 0) := by
+    simpa only [mul_assoc, mul_zero] using (hpoly n).const_mul K
+  -- A single finite set of degree-n monomials works for every binary form.
+  let s := (Finsupp.finite_of_degree_eq (σ := Fin 2) n).toFinset
+  have hexpand (B : ↥(HeckeEis.BinaryForm ℂ n)) : B.val =
+      ∑ d ∈ s, MvPolynomial.coeff d B.val • MvPolynomial.monomial d (1 : ℂ) := by
+    conv_lhs => rw [MvPolynomial.as_sum B.val]
+    simp only [MvPolynomial.smul_monomial, smul_eq_mul, mul_one]
+    apply Finset.sum_subset
+    · intro d hd
+      have hdeg := B.property (MvPolynomial.mem_support_iff.mp hd)
+      simpa [s, Finsupp.degree_eq_weight_one, Pi.one_def] using hdeg
+    · intro d _ hd
+      simp [MvPolynomial.notMem_support_iff.mp hd]
+  let z (y : ℝ) : UpperHalfPlane := ⟨⟨0, max 1 y⟩,
+    lt_of_lt_of_le zero_lt_one (le_max_left _ _)⟩
+  have hlimcoeff (x : ℝ) (hx : 0 ≤ x) (hxN : x ≤ N) (d : Fin 2 →₀ ℕ) :
+      Tendsto (fun y : ℝ => MvPolynomial.coeff d (G (x +ᵥ z y)).val)
+        atTop (𝓝 (MvPolynomial.coeff d A.val)) := by
+    apply tendsto_iff_norm_sub_tendsto_zero.mpr
+    apply squeeze_zero' (Eventually.of_forall (fun _ => norm_nonneg _)) _ hsmall
+    filter_upwards [eventually_ge_atTop (max 1 Y)] with y hy
+    have hy1 : 1 ≤ y := (le_max_left _ _).trans hy
+    simpa [z, max_eq_right hy1, MvPolynomial.coeff_sub,
+      UpperHalfPlane.vadd_re, UpperHalfPlane.vadd_im] using
+      hcoeff (x +ᵥ z y) (by simpa [z] using hx) (by simpa [z] using hxN)
+        (by simpa [z, max_eq_right hy1] using hy) d
+  have hlim (ℓ : MvPolynomial (Fin 2) ℂ →ₗ[ℂ] ℂ)
+      (x : ℝ) (hx : 0 ≤ x) (hxN : x ≤ N) :
+      Tendsto (fun y : ℝ => ℓ (G (x +ᵥ z y)).val) atTop (𝓝 (ℓ A.val)) := by
+    have hex (B : ↥(HeckeEis.BinaryForm ℂ n)) : ℓ B.val =
+        ∑ d ∈ s, MvPolynomial.coeff d B.val * ℓ (MvPolynomial.monomial d 1) := by
+      conv_lhs => rw [hexpand B]
+      simp only [map_sum, map_smul, smul_eq_mul]
+    simp_rw [hex]
+    exact tendsto_finsetSum s (fun d _ => (hlimcoeff x hx hxN d).mul_const _)
+  have hshift (τ : UpperHalfPlane) : (ModularGroup.T ^ N) • τ = (N : ℝ) +ᵥ τ := by
+    simpa only [zpow_natCast, Int.cast_natCast] using
+      UpperHalfPlane.modular_T_zpow_smul τ (N : ℤ)
+  -- Coefficient limits commute with substitution because the expansion is finite.
+  have hfixed : HeckeEis.binaryFormRepSL ℂ n (ModularGroup.T ^ N) A = A := by
+    apply Subtype.ext
+    apply MvPolynomial.ext
+    intro d
+    let ℓ := (MvPolynomial.lcoeff ℂ d).comp
+      (HeckeEis.binarySubst ℂ (ModularGroup.T ^ N : SL(2, ℤ))).toLinearMap
+    have hleft := hlim ℓ 0 le_rfl hN
+    have hright := hlimcoeff (N : ℝ) hN le_rfl d
+    have heq (y : ℝ) : ℓ (G ((0 : ℝ) +ᵥ z y)).val =
+        MvPolynomial.coeff d (G ((N : ℝ) +ᵥ z y)).val := by
+      rw [zero_vadd, ← hshift, htrans]
+      rfl
+    simp_rw [heq] at hleft
+    exact tendsto_nhds_unique hleft hright
+  obtain ⟨α, hA⟩ := p02_es_177ebb5a_tb_fixed_form N n A hfixed
+  have hevalA (w : ℂ) :
+      MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -w) A.val = α := by
+    simp [hA]
+  let q (τ : UpperHalfPlane) :=
+    MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -(τ : ℂ)) (G τ).val
+  apply p02_es_177ebb5a_tb_periodic_strip_bound N q
+  · intro τ
+    have hmatrix : ((ModularGroup.T ^ N : SL(2, ℤ)) : Matrix (Fin 2) (Fin 2) ℤ) =
+        !![1, (N : ℤ); 0, 1] := by
+      simpa only [zpow_natCast] using ModularGroup.coe_T_zpow (N : ℤ)
+    have heval : (MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else
+          -(((ModularGroup.T ^ N) • τ : UpperHalfPlane) : ℂ))).comp
+          (HeckeEis.binarySubst ℂ (ModularGroup.T ^ N : SL(2, ℤ))).toRingHom =
+        MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -(τ : ℂ)) := by
+      apply MvPolynomial.ringHom_ext
+      · intro c
+        simp
+      · intro j
+        change MvPolynomial.eval _ (HeckeEis.binarySubst ℂ
+          (ModularGroup.T ^ N : SL(2, ℤ)) (MvPolynomial.X j)) = _
+        rw [HeckeEis.binarySubst_X, hmatrix, hshift, UpperHalfPlane.coe_vadd]
+        fin_cases j <;> simp [Fin.sum_univ_two]
+    change MvPolynomial.eval _ (G ((ModularGroup.T ^ N) • τ)).val = _
+    rw [htrans]
+    exact congrArg (fun f : MvPolynomial (Fin 2) ℂ →+* ℂ => f (G τ).val) heval
+  · let B : ℝ := ((n + 1 : ℕ) : ℝ) * (N + 2 : ℝ) ^ n * K
+    have herr : Tendsto (fun y : ℝ => B * (1 + y) ^ (2 * n) * Real.exp (-a * y))
+        atTop (𝓝 0) := by
+      simpa only [mul_assoc, mul_zero] using (hpoly (2 * n)).const_mul B
+    obtain ⟨Y₁, hY₁⟩ := eventually_atTop.mp (herr.eventually (gt_mem_nhds (by norm_num : (0 : ℝ) < 1)))
+    refine ⟨‖α‖ + 1, max (max 1 Y) Y₁, ?_⟩
+    intro τ hx hxN hy
+    have hy₀ : max 1 Y ≤ τ.im := (le_max_left _ _).trans hy
+    have hy1 : 1 ≤ τ.im := (le_max_left _ _).trans hy₀
+    have hpos : 0 ≤ 1 + τ.im := by linarith
+    have hz : max 1 ‖(τ : ℂ)‖ ≤ (N + 2 : ℝ) * (1 + τ.im) := by
+      apply max_le
+      · nlinarith
+      · have ht := Complex.norm_le_abs_re_add_abs_im (τ : ℂ)
+        change ‖(τ : ℂ)‖ ≤ |τ.re| + |τ.im| at ht
+        rw [abs_of_nonneg hx, abs_of_nonneg τ.im_pos.le] at ht
+        nlinarith
+    have hbound := p02_es_177ebb5a_tb_eval_bound n (G τ - A) (τ : ℂ)
+      (K * (1 + τ.im) ^ n * Real.exp (-a * τ.im)) (by positivity)
+      (hcoeff τ hx hxN hy₀)
+    have hnorm : ‖q τ - α‖ ≤ B * (1 + τ.im) ^ (2 * n) * Real.exp (-a * τ.im) := by
+      calc
+        ‖q τ - α‖ = ‖MvPolynomial.eval
+            (fun j : Fin 2 => if j = 0 then 1 else -(τ : ℂ)) (G τ - A).val‖ := by
+          simp only [Submodule.coe_sub, map_sub, hevalA, q]
+        _ ≤ ((n + 1 : ℕ) : ℝ) * (max 1 ‖(τ : ℂ)‖) ^ n *
+            (K * (1 + τ.im) ^ n * Real.exp (-a * τ.im)) := hbound
+        _ ≤ ((n + 1 : ℕ) : ℝ) * ((N + 2 : ℝ) * (1 + τ.im)) ^ n *
+            (K * (1 + τ.im) ^ n * Real.exp (-a * τ.im)) := by gcongr
+        _ = B * (1 + τ.im) ^ (2 * n) * Real.exp (-a * τ.im) := by
+          rw [mul_pow, two_mul, pow_add]
+          dsimp [B]
+          ring
+    calc
+      ‖q τ‖ ≤ ‖q τ - α‖ + ‖α‖ := norm_le_norm_sub_add _ _
+      _ ≤ 1 + ‖α‖ := by
+        have := (hY₁ τ.im ((le_max_right _ _).trans hy)).le
+        linarith
+      _ = ‖α‖ + 1 := add_comm _ _
+
+
 end Submission
