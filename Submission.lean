@@ -12,6 +12,52 @@ attribute [-simp] Representation.TateResCor.cosetDecomp_apply Rep.coe_tateHneg1R
 set_option autoImplicit false
 universe u
 open CategoryTheory Rep
+
+namespace Submission
+
+/-- Restriction to a subgroup with zero Tate cohomology makes its index annihilate
+the ambient Tate cohomology. -/
+theorem p04_index_nsmul_zero_of_restriction_isZero
+    {k G : Type u} [CommRing k] [Group G] [Fintype G]
+    (A : Rep.{u} k G) (H : Subgroup G) [Fintype H] (q : ℤ)
+    (h : CategoryTheory.Limits.IsZero ((Rep.res H.subtype A).tateCohomology q)) :
+    ∀ x : A.tateCohomology q, H.index • x = 0 := by
+  cases q with
+  | ofNat n =>
+    cases n with
+    | zero =>
+      change ∀ x : A.tateH0, H.index • x = 0
+      have : Subsingleton ((Rep.res H.subtype A).tateH0) :=
+        ModuleCat.subsingleton_of_isZero h
+      intro x
+      obtain ⟨R, C, hCR⟩ := Submission.p04_tia_tate_zero_transfer A H
+      rw [← hCR x, Subsingleton.elim (R x) 0, map_zero]
+    | succ n =>
+      change ∀ x : groupCohomology A (n + 1), H.index • x = 0
+      have : Subsingleton (groupCohomology (Rep.res H.subtype A) (n + 1)) :=
+        ModuleCat.subsingleton_of_isZero h
+      intro x
+      obtain ⟨R, C, hCR⟩ := Submission.p04_tia_cohomology_transfer A H (n + 1)
+      rw [← hCR x, Subsingleton.elim (R x) 0, map_zero]
+  | negSucc n =>
+    cases n with
+    | zero =>
+      change ∀ x : A.tateHneg1, H.index • x = 0
+      have : Subsingleton ((Rep.res H.subtype A).tateHneg1) :=
+        ModuleCat.subsingleton_of_isZero h
+      intro x
+      obtain ⟨T, P, hPT⟩ := Submission.p04_tia_tate_neg_one_transfer A H
+      rw [← hPT x, Subsingleton.elim (T x) 0, map_zero]
+    | succ n =>
+      change ∀ x : groupHomology A (n + 1), H.index • x = 0
+      have : Subsingleton (groupHomology (Rep.res H.subtype A) (n + 1)) :=
+        ModuleCat.subsingleton_of_isZero h
+      intro x
+      obtain ⟨T, P, hPT⟩ := Submission.p04_tia_homology_transfer A H (n + 1)
+      rw [← hPT x, Subsingleton.elim (T x) 0, map_zero]
+
+end Submission
+
 theorem Rep.isZero_tateCohomology_of_forall_sylow {k G : Type u} [CommRing k] [Group G] [Fintype G]
     (A : Rep.{u} k G) (q : ℤ)
     (h : ∀ (p : ℕ) [Fact p.Prime] (P : Sylow p G) [Fintype (P : Subgroup G)],
