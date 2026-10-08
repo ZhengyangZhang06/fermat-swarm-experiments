@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "20601ef49361bc4baaa938452884d6886123e113ac0f1c0f189c2531e47b80c8",
+  "git_delta": {
+    "base_commit": "1bdc037c06eea9c3356d1732b39077f59e1adf5f",
+    "candidate_commit": "b395023ab42930e173701fdfd55f30d0b79c12e8",
+    "target": "Submission.lean",
+    "declaration": "p02_es_177ebb5a_ssl_segment_estimates",
+    "diff_sha256": "4411439dd2e02db71c25b7bacd0d8e12772fededb01c8bf03c3f87ff02e67de9",
+    "source_sha256": "e1a519f3ff95ba58cea521686acb7cbbb51f26c70a40872e14046b2407683243",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_ssl_segment_estimates",
+      "statement": "∀ (F H : ℂ → ℂ) (w : ℝ → ℝ) (L y₀ : ℝ), 0 ≤ L → 0 < y₀ → ContinuousOn H {z : ℂ | 0 < z.im} → (∀ z : ℂ, 0 < z.im → HasDerivAt F (H z) z) → ContinuousOn w (Set.Ici y₀) → (∀ z : ℂ, 0 ≤ z.re → z.re ≤ L → y₀ ≤ z.im → ‖H z‖ ≤ w z.im) → (∀ (x y t : ℝ), 0 ≤ x → x ≤ L → y₀ ≤ y → y ≤ t → ‖F ((x : ℂ) + (t : ℂ) * Complex.I) - F ((x : ℂ) + (y : ℂ) * Complex.I)‖ ≤ ∫ s in y..t, w s) ∧ (∀ (x y : ℝ), 0 ≤ x → x ≤ L → y₀ ≤ y → ‖F ((x : ℂ) + (y : ℂ) * Complex.I) - F ((y : ℂ) * Complex.I)‖ ≤ x * w y)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
