@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "standardComplex|isZero_tateCohomology_of_forall_sylow|p04_prism_a8325b9888_boundary_identity",
+        "def d |theorem d_|lemma d_",
+        "p04_prism_a8325b9888_boundary_identity|p04_pb_60221840b0"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Submission.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/Resolution.lean"
+      ],
+      "conclusion": "The snapshot pins project 2475a3790d7ba0c3b10be8086001b154a45be597 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The frozen root context matches; Resolution.lean defines the alternating differential and d_single without a group assumption. No node or prerequisite declaration names matched in the snapshot. All nine installed dependencies match their pins and have clean tracked sources."
+    }
+  ],
+  "comparison_identity": "aba3e08bd2f3973c1d212f6343e9d51e0b3a53733f7f372359f63d91c3712aa9",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p04_prism_a8325b9888_boundary_identity",
+      "statement": "∀ {k X : Type _} [CommRing k] (u v : X → X), let P : ∀ n : ℕ, (Fin (n + 1) → X) → MonoidAlgebra k (Fin (n + 2) → X) := fun n c => ∑ j : Fin (n + 1), MonoidAlgebra.single (Fin.insertNth j.castSucc (u (c j)) (fun i : Fin (n + 1) => if i < j then u (c i) else v (c i))) ((-1 : k) ^ j.val); (∀ c : Fin 1 → X, Rep.standardComplex.d k X 1 (P 0 c) = MonoidAlgebra.single (v ∘ c) (1 : k) - MonoidAlgebra.single (u ∘ c) (1 : k)) ∧ ∀ (n : ℕ) (c : Fin (n + 2) → X), Rep.standardComplex.d k X (n + 2) (P (n + 1) c) + ∑ b : Fin (n + 2), ((-1 : k) ^ b.val) • P n (c ∘ b.succAbove) = MonoidAlgebra.single (v ∘ c) (1 : k) - MonoidAlgebra.single (u ∘ c) (1 : k)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Expands the alternating differential and combines the accepted noncentral cancellation and central telescoping lemmas; in degree zero, the noncentral sum is empty."
+    }
+  ]
+}
