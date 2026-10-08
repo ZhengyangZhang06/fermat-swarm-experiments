@@ -1,0 +1,61 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "analyticOrderNatAt.*(comp|mul|prod|pow)|analyticOrderAt.*(comp|mul|prod|pow)|exp_two_pi_mul_I_mul_div_eq_one_iff",
+        "invariant|divisib|comp_pow|iterate.*coeff",
+        "eq_formalMultilinearSeries|unique|coeff|eq_of",
+        "hasFPowerSeries|analyticAt|summable.*radius|le_radius",
+        "cyclic.*(product|prod|descent)|rotation.*(descent|invariant)|analytic.*(root.of.unity|comp_pow)"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Order.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/OfScalars.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Uniqueness.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/ConvergenceRadius.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/SpecialFunctions/Complex/Log.lean"
+      ],
+      "conclusion": "The clean snapshot matches project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Order.lean supplies local factorization, analyticOrderAt_congr, analyticOrderAt_pow, and AnalyticAt.analyticOrderAt_comp. Uniqueness.lean supplies uniqueness of one-variable analytic expansions. OfScalars.lean and ConvergenceRadius.lean support scalar series and convergence-radius bounds from summability. Log.lean:160 supplies the exponential divisibility criterion. Targeted searches found no matching analytic rotation-descent theorem. All nine dependency checkouts match their pins and are clean. The checked proposition definitions and cited library declarations depend only on propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "should_split": true,
+  "rationale": "Depth 2 is below the limit 6. Separate the reusable cyclic-product calculation from descent of an arbitrary rotation-invariant analytic germ. Both children are independent. Apply the first with ζ=exp(2πi/w), then the second to P. Local equality and the existing composition-order theorem give ord(P)=w·ord(C). Since ord(P)=w·ord(A) is finite and w>0, ord(C) is finite; natural-number cancellation gives the required order equality. Both exact types elaborate after import Submission in a policy-derived disposable copy, with the complex instances inspected. Names are unused across the active DAG and all 19 local Git refs. Diagnostics, including the 56-target absence probe and reversible header hashes, are recorded in /tmp/p10-cpd-decomposition-2csdfzfu/receipt.json. Original sources remain unchanged; these checks do not constitute proof acceptance.",
+  "subproblems": [
+    {
+      "key": "orbit_product_order",
+      "title": "Analytic cyclic orbit product, order, and invariance",
+      "statement": "Let w be a positive natural number, let ζ∈ℂ satisfy ζ^w=1, and let A:ℂ→ℂ be analytic at zero with analyticOrderAt A 0≠⊤. Define P(t)=∏_{j=0}^{w−1}A(ζ^j t). Then P is analytic at zero, analyticOrderAt P 0≠⊤, analyticOrderNatAt P 0=w·analyticOrderNatAt A 0, and P(ζt)=P(t) for every t∈ℂ.",
+      "lean_statement": "∀ (w : ℕ) (ζ : ℂ) (A : ℂ → ℂ), 0 < w → ζ ^ w = 1 → AnalyticAt ℂ A 0 → analyticOrderAt A 0 ≠ ⊤ → let P : ℂ → ℂ := fun t => ∏ j ∈ Finset.range w, A (ζ ^ j * t); AnalyticAt ℂ P 0 ∧ analyticOrderAt P 0 ≠ ⊤ ∧ analyticOrderNatAt P 0 = w * analyticOrderNatAt A 0 ∧ ∀ t : ℂ, P (ζ * t) = P t",
+      "lean_name": "p10_17ae7b7d_cpd_orbit_product_order",
+      "depends_on": [],
+      "natural_proof": "1. Fix a positive natural number w, a complex number ζ with ζ^w=1, and a complex-valued function A analytic at zero with finite analytic order. Define P(t)=∏_{j=0}^{w−1} A(ζ^j t). Since w>0, ζ=0 would imply ζ^w=0, contradicting ζ^w=1. Thus ζ≠0.\n2. Put m=analyticOrderNatAt A 0. The local order characterization gives a function b analytic at zero, with b(0)≠0, such that A(t)=t^m b(t) on a neighborhood of zero. This follows from AnalyticAt.analyticOrderNatAt_eq_iff using the given finite-order hypothesis.\n3. For each j<w, the linear map t↦ζ^j t is analytic, is continuous, and takes zero to zero. Consequently A(ζ^j t) and b(ζ^j t) are analytic at zero, and the identity from step 2 applies at ζ^j t throughout a neighborhood of zero. Intersect these finitely many neighborhoods. On the resulting neighborhood all these identities hold simultaneously. The finite product defining P is analytic at zero.\n4. Define D(t)=∏_{j=0}^{w−1}(ζ^(j*m) b(ζ^j t)). It is analytic at zero, and each factor of D(0) is nonzero because ζ≠0 and b(0)≠0. Therefore D(0)≠0. On the neighborhood from step 3, expanding (ζ^j t)^m and multiplying the w factors gives P(t)=t^(w*m)D(t).\n5. Apply AnalyticAt.analyticOrderAt_eq_natCast to P and the factorization in step 4. It gives analyticOrderAt P 0=(w*m : ℕ∞). This is finite, and taking its natural value gives analyticOrderNatAt P 0=w*m.\n6. For every complex t, associativity and commutativity give P(ζt)=∏_{j=0}^{w−1} A(ζ^(j+1)t). Its exponents are 1 through w. The last factor is A(t), since ζ^w=1, and the factors with exponents 1 through w−1 are the same as in P(t). Permuting factors therefore gives P(ζt)=P(t). When w=1 both intervening products are empty and this argument still applies. Combining steps 3, 5, and 6 proves all conclusions.",
+      "proof_key_steps": [
+        "Deduce ζ≠0 from w>0 and ζ^w=1.",
+        "Factor A(t)=t^m b(t) locally with b analytic and b(0)≠0.",
+        "Pull back this factorization along the finitely many linear maps t↦ζ^j t.",
+        "Obtain P(t)=t^(w*m)D(t), with D analytic and D(0)≠0, and apply the order characterization.",
+        "Reindex the cyclic product to prove P(ζt)=P(t) globally."
+      ]
+    },
+    {
+      "key": "rotation_descent",
+      "title": "A rotation-invariant analytic germ descends through a power",
+      "statement": "Let w be a positive natural number and P:ℂ→ℂ be analytic at zero. Put ζ=exp(2πi/w). Suppose there exists a real s>0 such that P(ζt)=P(t) whenever ‖t‖<s. Then there exist C:ℂ→ℂ analytic at zero and a real r>0 such that P(t)=C(t^w) whenever ‖t‖<r.",
+      "lean_statement": "∀ (w : ℕ) (P : ℂ → ℂ), 0 < w → AnalyticAt ℂ P 0 → (∃ s : ℝ, 0 < s ∧ ∀ t : ℂ, ‖t‖ < s → P (Complex.exp (2 * (Real.pi : ℂ) * Complex.I / (w : ℂ)) * t) = P t) → ∃ C : ℂ → ℂ, AnalyticAt ℂ C 0 ∧ ∃ r : ℝ, 0 < r ∧ ∀ t : ℂ, ‖t‖ < r → P t = C (t ^ w)",
+      "lean_name": "p10_17ae7b7d_cpd_rotation_descent",
+      "depends_on": [],
+      "natural_proof": "1. Fix w>0 and P analytic at zero, and take s>0 witnessing the stated local rotation invariance. Put ζ=exp(2πi/w). The exponent has real part zero, so ‖ζ‖=1. For every natural n, the exponential power identity gives ζ^n=exp(2πin/w). Since w≠0, Complex.exp_two_pi_mul_I_mul_div_eq_one_iff gives ζ^n=1 if and only if w divides n.\n2. Analyticity gives complex Taylor coefficients a_n and a positive real R<s such that P(t)=∑_{n≥0}a_n t^n for ‖t‖<R, with absolute convergence at every radius smaller than R. Since ‖ζ‖=1, substituting ζt is valid on this same disk. Local invariance implies ∑_{n≥0}d_n t^n=0 there, where d_n=a_n(ζ^n−1). These series are absolutely convergent; indeed ‖d_n‖≤2‖a_n‖.\n3. All d_n vanish. For completeness, if some d_n were nonzero, let k be its least such index and choose 0<ρ<R. For 0<‖t‖<ρ, division of the zero series by t^k gives 0=d_k+∑_{n>k}d_n t^(n−k). Let S=∑_{n>k}‖d_n‖ρ^n, which is finite. The norm of the tail is at most ‖t‖ρ^(−k−1)S, since ‖t‖^(n−k)≤‖t‖ρ^(n−k−1) for n>k. As nonzero t tends to zero, this bound tends to zero, forcing d_k=0, a contradiction. Thus a_n(ζ^n−1)=0 for every n. If w does not divide n, step 1 makes the second factor nonzero, so a_n=0.\n4. Choose 0<r<R and put q=r^w>0. Absolute convergence gives ∑_{n≥0}‖a_n‖r^n<∞. The map ℓ↦wℓ is injective because w>0; hence ∑_{ℓ≥0}‖a_(wℓ)‖q^ℓ=∑_{ℓ≥0}‖a_(wℓ)‖r^(wℓ) is a convergent subseries. For ‖u‖<q, the series ∑_{ℓ≥0}a_(wℓ)u^ℓ converges absolutely by comparison with this subseries. It is a power series with convergence radius at least q>0.\n5. Define C(u) to be this sum for ‖u‖<q and zero outside that disk. The positive convergence radius means its sum is analytic at zero; C agrees with that sum on a neighborhood of zero, so C is analytic at zero as well.\n6. If ‖t‖<r, positivity of w gives ‖t^w‖=‖t‖^w<r^w=q. By step 3 all terms of the Taylor series of P with indices outside the image of ℓ↦wℓ vanish. Absolute convergence permits restriction to that image and reindexing, giving P(t)=∑_{ℓ≥0}a_(wℓ)t^(wℓ)=∑_{ℓ≥0}a_(wℓ)(t^w)^ℓ=C(t^w). At t=0 the same identity holds by the constant terms, since w>0 and only ℓ=0 contributes. The function C and radius r satisfy exactly the required conclusion.",
+      "proof_key_steps": [
+        "Establish ‖ζ‖=1 and ζ^n=1 exactly when w divides n.",
+        "Expand P and P(ζ·) in absolutely convergent Taylor series on a common disk.",
+        "Use coefficient uniqueness, with an explicit tail estimate, to eliminate all coefficients whose indices are not divisible by w.",
+        "Show the selected coefficients a_(wℓ) define a power series of positive convergence radius.",
+        "Define C locally by that series and extend it by zero outside the disk.",
+        "Reindex the absolutely convergent Taylor series to prove P(t)=C(t^w), including t=0."
+      ]
+    }
+  ]
+}

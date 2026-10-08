@@ -1,0 +1,46 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "analyticOrderNatAt_eq_iff|analyticOrderAt_eq_natCast|analyticOrderAt_comp|analyticOrderAt_pow|analyticOrderAt_congr",
+        "cyclic.*(product|prod|descent)|rotation.*(descent|invariant)|analytic.*(root.of.unity|comp_pow)|exp_two_pi_mul_I_mul_div_eq_one_iff",
+        "hasFPowerSeries|analyticAt|summable|le_radius|ofScalars|eq_formalMultilinearSeries|unique",
+        "p10_17ae7b7d_cpd_orbit_product_order|p10_17ae7b7d_cpd_rotation_descent"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Order.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/OfScalars.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Uniqueness.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/ConvergenceRadius.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/SpecialFunctions/Complex/Log.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p10-cpd-decomposition-2csdfzfu/receipt.json",
+        "/tmp/p10-cpd-independent-audit-4lm1htob/receipt.json",
+        "/tmp/p10-cpd-independent-audit-4lm1htob/AuditTypes.log"
+      ],
+      "conclusion": "Independently confirmed clean snapshot revisions project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d, and nine clean pinned dependencies. Order.lean supplies the exact factorization and composition-order results; the inspected series files support coefficient uniqueness, absolute convergence and analyticity of the descended series. Log.lean:160 supplies the divisibility criterion. Searches found no matching rotation-descent theorem. Both exact child propositions independently elaborate without either child declaration, using ordinary complex arithmetic. Their type definitions and checked library declarations have only propext, Classical.choice and Quot.sound as transitive axioms. Neither name is reserved by another active branch or declared in the final scan of 30 Git refs. Verified the matching header policy digest, exact omissions at lines 10–12, reversible original/build hashes, and a fresh successful Lean absence probe for all 56 targets. Original sources remain unchanged. The split is appropriate and the extended DAG is acyclic: composition order and positive-w cancellation recover the parent's remaining order conclusions. This approves decomposition and prose only; implementation comparator acceptance remains a later gate."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "orbit_product_order",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches every prose hypothesis and conclusion. Its local let defines the product independently of any candidate implementation. The bare identifier is available. Each proof step is valid: positivity and ζ^w=1 imply ζ≠0; the finite-order characterization supplies b; continuity pulls the factorization back to finitely many neighborhoods; their intersection yields P(t)=t^(w*m)D(t) with analytic D and D(0)≠0. The order characterization gives both order conclusions, and cyclic reindexing proves global invariance, including w=1. No primitivity or unit-norm hypothesis is needed. The proof is complete, non-circular and independent of the other child."
+    },
+    {
+      "key": "rotation_descent",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly expresses local rotation invariance and local analytic descent, with all hypotheses explicit and no implementation dependency. The bare identifier is available. The proof correctly establishes the root-of-unity criterion, restricts the Taylor disk inside the invariance disk, and proves coefficient uniqueness using the valid tail bound ‖t‖ρ^(-k-1)S. Positivity of w makes the selected-index map injective and r^w positive; the convergent nonnegative subseries provides the required convergence radius. The local series defines an analytic germ, and absolute-convergence reindexing proves the identity, including t=0. Zero germs and w=1 are covered. No parent or sibling theorem is assumed, so the empty dependency list is correct."
+    }
+  ],
+  "required_changes": []
+}
