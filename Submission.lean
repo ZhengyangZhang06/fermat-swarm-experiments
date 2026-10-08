@@ -328,3 +328,78 @@ theorem Submission.p03_tu_algebraic_aut_isometry_68cf3476 :
   apply isometry_iff_dist_eq.mpr
   intro x y
   rw [dist_eq_norm, dist_eq_norm, ← map_sub, hnorm]
+theorem Submission.p03_tu_euler_product_powers_68cf3476 :
+    ∀ (F : Type) [NormedField F] [CompleteSpace F],
+      (∀ x y : F, ‖x + y‖ ≤ max ‖x‖ ‖y‖) → ∀ q : F, ‖q‖ < 1 →
+      Multipliable (fun d : ℕ => 1 - q ^ (d + 1)) ∧
+      (∏' d : ℕ, (1 - q ^ (d + 1))) ≠ 0 ∧
+      ∀ k : ℕ, Multipliable (fun d : ℕ => (1 - q ^ (d + 1)) ^ k) ∧
+        (∏' d : ℕ, (1 - q ^ (d + 1)) ^ k) =
+          (∏' d : ℕ, (1 - q ^ (d + 1))) ^ k ∧
+        (∏' d : ℕ, (1 - q ^ (d + 1)) ^ k) ≠ 0 := by
+  intro F _ _ hna q hq
+  classical
+  let a : ℕ → F := fun d => 1 - q ^ (d + 1)
+  have hpow (d : ℕ) : ‖q ^ (d + 1)‖ < 1 := by
+    rw [norm_pow]
+    exact pow_lt_one₀ (norm_nonneg q) hq (by omega)
+  have ha (d : ℕ) : ‖a d‖ = 1 := by
+    apply le_antisymm
+    · simpa only [a, sub_eq_add_neg, norm_one, norm_neg, max_le_iff] using
+        (hna 1 (-(q ^ (d + 1)))).trans
+          (max_le (by simp) (by simpa using (hpow d).le))
+    · by_contra h
+      have hlt : ‖a d‖ < 1 := lt_of_not_ge h
+      have h := hna (a d) (q ^ (d + 1))
+      have heq : a d + q ^ (d + 1) = 1 := by dsimp [a]; ring
+      rw [heq, norm_one] at h
+      exact (not_lt_of_ge h) (max_lt hlt (hpow d))
+  have hprod (s : Finset ℕ) : ‖∏ d ∈ s, a d‖ = 1 := by
+    simp [norm_prod, ha]
+  have htail (N : ℕ) (s : Finset ℕ) (hs : ∀ d ∈ s, N ≤ d) :
+      ‖(∏ d ∈ s, a d) - 1‖ ≤ ‖q‖ ^ (N + 1) := by
+    induction s using Finset.induction_on with
+    | empty => simp [pow_nonneg (norm_nonneg q)]
+    | @insert d s hd ih =>
+      have hds : N ≤ d := hs d (Finset.mem_insert_self d s)
+      have hss : ∀ i ∈ s, N ≤ i := fun i hi => hs i (Finset.mem_insert_of_mem hi)
+      rw [Finset.prod_insert hd]
+      have heq : a d * (∏ i ∈ s, a i) - 1 =
+          (a d - 1) * (∏ i ∈ s, a i) + ((∏ i ∈ s, a i) - 1) := by ring
+      rw [heq]
+      apply (hna _ _).trans
+      apply max_le _ (ih hss)
+      rw [norm_mul, hprod, mul_one]
+      have heq : a d - 1 = -(q ^ (d + 1)) := by dsimp [a]; ring
+      rw [heq, norm_neg, norm_pow]
+      exact pow_le_pow_of_le_one (norm_nonneg q) hq.le (Nat.add_le_add_right hds 1)
+  have hm : Multipliable a := by
+    apply multipliable_iff_cauchySeq_finset.mpr
+    apply Metric.cauchySeq_iff'.mpr
+    intro ε hε
+    have ht := tendsto_pow_atTop_nhds_zero_of_lt_one (norm_nonneg q) hq
+    obtain ⟨N, hN⟩ := Filter.eventually_atTop.mp (ht.eventually (gt_mem_nhds hε))
+    refine ⟨Finset.range N, ?_⟩
+    intro s hs
+    have htail' := htail N (s \ Finset.range N) (by
+      intro d hd
+      exact Nat.le_of_not_lt (by simpa using (Finset.mem_sdiff.mp hd).2))
+    have heq : (∏ d ∈ s, a d) - (∏ d ∈ Finset.range N, a d) =
+        (∏ d ∈ Finset.range N, a d) * ((∏ d ∈ s \ Finset.range N, a d) - 1) := by
+      rw [mul_sub, mul_one, mul_comm, Finset.prod_sdiff hs]
+    rw [dist_eq_norm, heq, norm_mul, hprod, one_mul]
+    exact htail'.trans_lt (hN (N + 1) (Nat.le_succ N))
+  have hn : ‖∏' d, a d‖ = 1 := by
+    have ht := (show Filter.Tendsto (fun s : Finset ℕ => ∏ d ∈ s, a d)
+        Filter.atTop (nhds (∏' d, a d)) from hm.hasProd).norm
+    simp only [hprod] at ht
+    exact tendsto_nhds_unique ht tendsto_const_nhds
+  have hz : (∏' d, a d) ≠ 0 := by
+    intro hz
+    rw [hz, norm_zero] at hn
+    exact zero_ne_one hn
+  refine ⟨hm, hz, ?_⟩
+  intro k
+  refine ⟨hm.pow k, hm.tprod_pow k, ?_⟩
+  rw [hm.tprod_pow k]
+  exact pow_ne_zero k hz
