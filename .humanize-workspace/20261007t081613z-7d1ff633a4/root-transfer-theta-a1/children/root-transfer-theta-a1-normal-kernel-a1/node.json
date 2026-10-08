@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.transfer_theta-a1.normal_kernel-a1",
+  "parent_id": "root.transfer_theta-a1",
+  "depth": 2,
+  "title": "Normal finite-index inverse images of finite normal fixing groups",
+  "statement": "Let G be a group, Ω = AlgebraicClosure ℚ, r : G → Autℚ(Ω) a homomorphism, and E an intermediate field of Ω/ℚ. If E is finite-dimensional and normal over ℚ, then K = r⁻¹(Fix(E)) is a normal finite-index subgroup of G.",
+  "lean_statement": "∀ {G : Type} [Group G] (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)) (E : IntermediateField ℚ (AlgebraicClosure ℚ)), FiniteDimensional ℚ E → Normal ℚ E → (E.fixingSubgroup.comap r).Normal ∧ (E.fixingSubgroup.comap r).FiniteIndex",
+  "lean_name": "p08_7d1ff633a4_tt26_normal_kernel",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p08/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-normal-kernel-a1-a1"
+}

@@ -1,0 +1,55 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "def (continuousH|levelCo|IsTheta)|H1π_eq|cupCochain|transfer|corestriction|prism|normal_comap_fixingSubgroup|finiteIndex_comap_fixingSubgroup",
+        "transfer|corestriction|prism|normal_comap_fixingSubgroup|finiteIndex_comap_fixingSubgroup",
+        "normal|splittingField|splits|finiteDimensional|restrictNormal",
+        "normal_comap|Normal.comap|normal_comap|finiteIndex_comap|FiniteIndex.comap"
+      ],
+      "files": [
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/manifest.json",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH1.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH2.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousDuality.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_CupProduct.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/LowDegree.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/FieldTheory/Normal/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/Algebra/Group/Subgroup/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/dag.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p08-tt26-independent-audit-qqy8kjul/receipt.json"
+      ],
+      "conclusion": "The pinned definitions confirm the H¹ image, H² quotient denominator, representative maps, theta predicates, differential signs, and cup-boundary primitives used by the proofs. The focused continuous/group-cohomology search found no transfer, corestriction, prism implementation, or policy-listed instances. Snapshot definitions matched the recorded Git revision; dependency heads matched their pins and tracked sources were clean. Independently, all four one-line propositions elaborated both under frozen imports alone and after the captured Submission import. Module-instance equality checks passed, and proposition definitions used only propext, Classical.choice, and Quot.sound. All proposed identifiers are bare and unreserved. The matching policy digest, exact line-18 omission, reversible original/build hashes, and successful Lean absence probe are recorded in the independent receipt. These checks approve interfaces, not implemented theorem proofs; comparator acceptance remains a later gate."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "normal_kernel",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and exact Lean proposition agree. Finite dimensionality supplies finitely many basis-polynomial roots; normality places them in E. Their permutation action has precisely the asserted kernel, giving normality and an injection of the quotient into a finite group. The proof is complete and independent."
+    },
+    {
+      "key": "cup_pairings",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "All hypotheses and representative conclusions match the Lean type. Fixing B suffices for the middle product's level condition and its right-boundary primitive. Both boundary signs are correct, endpoint primitives remain level, and descent uses the exact frozen H¹ image and H² denominator. The supplied proof constructs actual witnesses without additional obligations."
+    },
+    {
+      "key": "theta_from_pairings",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The conditional prose and Lean type agree, including full algebraic duals and degreewise uniqueness. Supplied product witnesses establish the universally quantified theta predicates by extensionality. H² quotient surjectivity and the H¹ image description prove uniqueness on all inputs. No equivariance assumption or sibling dependency is silently required."
+    },
+    {
+      "key": "transfer_projection",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact type includes every stated hypothesis and both projection identities for the same transfer maps. The proof supplies cofinal normal levels, exact frozen-carrier identifications, the coset retraction and prism homotopy, transfer, and both projection formulas with correct signs. Its sole sibling dependency points correctly to normal_kernel; P and PH are explicit hypotheses. The split is appropriate: applying cup_pairings over G and H, this transfer theorem, then theta_from_pairings with ℓ and ℓ.comp CN yields the parent, with transfers chosen before ℓ. No circular reliance or further proof-discovery step remains."
+    }
+  ],
+  "required_changes": []
+}

@@ -1,0 +1,50 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'def (continuousH|levelCo|IsTheta)|theorem.*(theta|transfer|cores)|normal_comap_fixingSubgroup|finiteIndex_comap_fixingSubgroup|H1π_eq|cupCochain' .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory",
+        "rg -n 'transfer|corestriction|prism|normal_comap_fixingSubgroup|finiteIndex_comap_fixingSubgroup' .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_Continuous*.lean .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology",
+        "rg -n 'splittingField|finiteDimensional|Normal' .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/FieldTheory/Normal/Basic.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH1.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH2.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousDuality.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_CupProduct.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/LowDegree.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/FieldTheory/Normal/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/Algebra/Group/Subgroup/Basic.lean"
+      ],
+      "conclusion": "The snapshot pins project 9db4b2bea94e42612c675170cfe30ec626166658 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. continuousH1 is the image of level one-cocycles in ordinary H1; continuousH2 is the quotient by the pulled-back image of level one-cochains. The theta predicates universally quantify over product-cocycle witnesses, so uniqueness needs actual witnesses. CupProduct supplies the middle product formula and explicit boundary primitives; LowDegree supplies H1π_eq_zero_iff and H1π_eq_iff. Normal/Basic supplies normality of splitting fields, and Subgroup/Basic supplies normality under comap. The focused continuous/cohomology search found no transfer, corestriction, prism implementation, or either policy-listed groupCohomology instance."
+    }
+  ],
+  "parent_id": "root.transfer_theta-a1",
+  "child_id": "root.transfer_theta-a1.normal_kernel-a1",
+  "subproblem": {
+    "key": "normal_kernel",
+    "title": "Normal finite-index inverse images of finite normal fixing groups",
+    "statement": "Let G be a group, Ω = AlgebraicClosure ℚ, r : G → Autℚ(Ω) a homomorphism, and E an intermediate field of Ω/ℚ. If E is finite-dimensional and normal over ℚ, then K = r⁻¹(Fix(E)) is a normal finite-index subgroup of G.",
+    "lean_statement": "∀ {G : Type} [Group G] (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)) (E : IntermediateField ℚ (AlgebraicClosure ℚ)), FiniteDimensional ℚ E → Normal ℚ E → (E.fixingSubgroup.comap r).Normal ∧ (E.fixingSubgroup.comap r).FiniteIndex",
+    "lean_name": "p08_7d1ff633a4_tt26_normal_kernel",
+    "depends_on": [],
+    "natural_proof": "1. Choose a finite rational basis b₁,…,b_d of E. Each b_i is algebraic over ℚ, so its minimal polynomial is nonzero and has finitely many roots in Ω. Let Z be the union of these complete root sets. Thus Z is finite and contains every basis vector.\n2. Normality of E/ℚ implies that every root in Ω of the minimal polynomial of each b_i belongs to E. Hence Z is contained in E. Since Z contains a rational basis, the intermediate field generated by Z is exactly E.\n3. Every rational automorphism of Ω preserves each of these root sets: applying the automorphism to the polynomial equation leaves its rational coefficients fixed. Applying the inverse automorphism proves bijectivity on each root set. Consequently r induces a group homomorphism τ : G → Perm(Z).\n4. An element g lies in ker τ precisely when r(g) fixes every element of Z. Fixing E implies this condition, and this condition implies fixing E because Z generates E. Thus ker τ = K.\n5. A homomorphism kernel is normal. The map G/K → Perm(Z) sending the class of g to τ(g) is well defined and injective: equal values mean τ(g₂⁻¹g₁)=1 and hence g₂⁻¹g₁ lies in K. Perm(Z) is finite, so G/K is finite. Therefore K is normal and has finite index.",
+    "proof_key_steps": [
+      "Choose a finite basis and the finite union of its minimal-polynomial root sets.",
+      "Normality places the roots in E, and the basis makes them generate E.",
+      "The permutation action through r has kernel exactly r⁻¹(Fix(E)).",
+      "The kernel is normal and its quotient injects into a finite permutation group."
+    ]
+  },
+  "audit": {
+    "key": "normal_kernel",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "The prose and exact Lean proposition agree. Finite dimensionality supplies finitely many basis-polynomial roots; normality places them in E. Their permutation action has precisely the asserted kernel, giving normality and an injection of the quotient into a finite group. The proof is complete and independent."
+  },
+  "resolved_dependencies": [],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-transfer-theta-a1-normal-kernel-a1/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-transfer-theta-a1-normal-kernel-a1/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-transfer-theta-a1-normal-kernel-a1/parent-supplied-natural-proof.json"
+}
