@@ -22,3 +22,16 @@ theorem WeierstrassCurve.galoisRep_ordinaryLineAt (W : WeierstrassCurve ℤ) (p 
           WeierstrassCurve.Affine.Point.galoisRepModuleEnd (K := AlgebraicClosure ℚ) ℚ
             (W.map (Int.castRingHom ℚ)) p σ v - v ∈ L := by
   sorry
+
+
+theorem Submission.p03_odd_prepsi_degree_lc_68cf3476
+    (F : Type) [Field F] [CharZero F] [DecidableEq F]
+    (W : WeierstrassCurve F) (n : ℕ) (hn : 3 ≤ n) (hodd : Odd n) :
+    (W.preΨ' n).natDegree = (n ^ 2 - 1) / 2 ∧
+      (W.preΨ' n).leadingCoeff = (n : F) := by
+  have hn0 : n ≠ 0 := ne_of_gt (lt_of_lt_of_le (by decide : 0 < 3) hn)
+  have hnF : (n : F) ≠ 0 := Nat.cast_ne_zero.mpr hn0
+  have hneven : ¬ Even n := Nat.not_even_iff_odd.mpr hodd
+  constructor
+  · simpa only [if_neg hneven] using W.natDegree_preΨ' hnF
+  · simpa only [if_neg hneven] using W.leadingCoeff_preΨ' hnF
