@@ -79,3 +79,19 @@ Action: none
 Lesson ID(s): NONE
 Notes: The lesson file contains no entries. It was reread for each task; no lesson
 was added or changed.
+
+## Revalidation in round 2026-10-08_14-36-17
+
+Starting from the configured base `50d6ef03add7dfab338ed651ec0576fe8f0c6fba`,
+the unchanged candidate passed a fresh `lake env lean -DwarningAsError=true
+Submission.lean` check using the installed Lean 4.33.1 toolchain. A fresh temporary
+audit with the exact type copied from the immutable dispatch also exited zero;
+the theorem's transitive axioms remain `[propext, Classical.choice, Quot.sound]`.
+The nine dependencies are still pinned and clean, the accepted proof and type
+match the immutable dispatch, and the protected root source is byte-identical
+to the frozen revision. The complete inherited diff and source-safety scan passed.
+
+No Lean source, protected input, dependency, or verifier was changed. This local
+revalidation is not comparator acceptance. The required selected-node comparator
+will run after this record is committed; its outcome belongs in this round's
+ignored RLCR summary so recording it does not advance the checked candidate SHA.
