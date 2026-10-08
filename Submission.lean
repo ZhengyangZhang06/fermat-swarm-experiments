@@ -905,6 +905,11 @@ theorem p06_9e0f5043ff_io_fraction_extension :
 Take the union of the order supports of its nonzero coefficients. Outside that union,
 unit–uniformizer factorization makes each nonzero coefficient a valuation-subring unit. -/
 
+open AlgebraicCurve
+theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
+    [Algebra K F] (x : F) (hx : Transcendental K x)
+    [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
+  sorry
 
 open AlgebraicCurve
 theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
