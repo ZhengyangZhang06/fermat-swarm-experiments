@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "5a1c6decedb4322e3ba4fc2f0b26b0aba42d067edb5f96d72735f840a66aa239",
+  "git_delta": {
+    "base_commit": "b45259a055779d23b69d1cf73dc8d7c8b288c6c5",
+    "candidate_commit": "a14e341de9e461684be1acb7b54a165f4fe6056f",
+    "target": "Submission.lean",
+    "declaration": "p08_7d1ff633a4_normal_refinement",
+    "diff_sha256": "df57e4592ec51ec608a9623c499b883f5da49cee8e18c54ee7240d301a3cf07e",
+    "source_sha256": "9b8706c7f9fac8055377d77ac911727ef0b5bf1c6e7380ab1fbc711efe8a09e3",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p08_7d1ff633a4_normal_refinement",
+      "statement": "∀ {ι : Type} [Finite ι] (F : ι → IntermediateField ℚ (AlgebraicClosure ℚ)), (∀ i, FiniteDimensional ℚ (F i)) → ∃ E : IntermediateField ℚ (AlgebraicClosure ℚ), FiniteDimensional ℚ E ∧ Normal ℚ E ∧ (∀ i, F i ≤ E) ∧ E.fixingSubgroup.Normal ∧ E.fixingSubgroup.FiniteIndex",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
