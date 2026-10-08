@@ -6,99 +6,8 @@ Requires the upstream Definitions modules and their dependencies.
 -/
 
 import Definitions.Def_ModularForm_HeckeOperatorForms
-/- These cleanup commands refer to declarations absent from the pinned reduced
-import closure. Retain their text for provenance; there is no imported attribute
-to remove. The frozen Fermat contract is unchanged.
 attribute [-instance] FLT.HyperbolicMeasure.instSMulInvariantMeasureSpecialLinearGroupFinOfNatNatIntUpperHalfPlaneVolume_definitions FLT.HyperbolicMeasure.instIsOpenPosMeasureUpperHalfPlaneVolume_definitions FLT.Gamma0FundamentalSet.instContinuousConstSMulSpecialLinearGroupFinOfNatNatIntUpperHalfPlane_definitions FLT.L2ProductionInstance.isFiniteMeasure_gamma0 FLT.L2ProductionInstance.countable_SL2Z FLT.L2ProductionInstance.countable_quotient FLT.L2ProductionInstance.nontrivial_gamma0L2
 attribute [-simp] FreyPackage.ModMCarrier.coe_rescaleLin_apply ModularForm.AtkinLehnerDatum.mk.injEq ModularForm.AtkinLehnerDatum.alGL_coe ModularForm.AtkinLehnerDatum.mk.sizeOf_spec ModularForm.AtkinLehnerDatum.sqUnitSL_coe ModularForm.AtkinLehnerDatum.det_sqUnit ModularForm.AtkinLehnerDatum.det_mat FLT.TruncatedDomainPartition.unipotentDiagonalSum_zero
--/
-
-namespace Submission
-
-theorem f036cc6b1f_pic_mec_pointwise_sign_partition
-    (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (E F X : Set UpperHalfPlane)
-    (hneg : (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ)
-    (hE : MeasurableSet E) (hF : MeasurableSet F) (hX : MeasurableSet X)
-    (hinv : ∀ (γ : Δ) (z : UpperHalfPlane),
-      (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • z ∈ X ↔ z ∈ X)
-    (hrep : ∀ S : Set UpperHalfPlane, (S = E ∨ S = F) → ∀ z ∈ X,
-      ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ S ∧
-        ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
-          δ ∈ Δ → δ • z ∈ S → δ = γ ∨ δ = -γ) :
-    ∃ A B : Δ → Set UpperHalfPlane,
-      (∀ γ, MeasurableSet (A γ)) ∧ (∀ γ, MeasurableSet (B γ)) ∧
-      Pairwise (fun γ δ => Disjoint (A γ) (A δ)) ∧
-      Pairwise (fun γ δ => Disjoint (B γ) (B δ)) ∧
-      (⋃ γ, A γ) = E ∩ X ∧ (⋃ γ, B γ) = F ∩ X ∧
-      (∀ γ : Δ, (fun z : UpperHalfPlane =>
-        (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ)⁻¹ • z) '' (A γ) = B γ) := by
-  classical
-  obtain ⟨L, hcover, hunique⟩ := f036cc6b1f_pic_psp_sign_transversal Δ hneg
-  -- Inversion carries a sign transversal to a sign transversal.
-  let Linv : Set Δ := {γ | γ⁻¹ ∈ L}
-  have hcoverInv : ∀ δ : Δ, ∃ γ : Δ, γ ∈ Linv ∧
-      ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) = δ ∨
-        (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) = -(δ : Matrix.SpecialLinearGroup (Fin 2) ℤ)) := by
-    intro δ
-    obtain ⟨γ, hγ, hsign⟩ := hcover δ⁻¹
-    refine ⟨γ⁻¹, ?_, ?_⟩
-    · simpa only [Linv, Set.mem_ofPred_eq, inv_inv] using hγ
-    · rcases hsign with hsign | hsign
-      · left
-        simpa only [Subgroup.coe_inv, inv_inv] using congrArg Inv.inv hsign
-      · right
-        simpa only [Subgroup.coe_inv, inv_neg, inv_inv] using congrArg Inv.inv hsign
-  have huniqueInv : ∀ γ : Δ, γ ∈ Linv → ∀ η : Δ, η ∈ Linv →
-      ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) = η ∨
-        (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) = -(η : Matrix.SpecialLinearGroup (Fin 2) ℤ)) →
-      γ = η := by
-    intro γ hγ η hη hsign
-    apply inv_injective
-    apply hunique γ⁻¹ hγ η⁻¹ hη
-    rcases hsign with hsign | hsign
-    · left
-      simpa only [Subgroup.coe_inv] using congrArg Inv.inv hsign
-    · right
-      simpa only [Subgroup.coe_inv, inv_neg] using congrArg Inv.inv hsign
-  let C : Δ → Set UpperHalfPlane := fun γ =>
-    {z | γ ∈ Linv ∧ z ∈ E ∩ X ∧ (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • z ∈ F}
-  let A : Δ → Set UpperHalfPlane := fun γ => C γ⁻¹
-  let B : Δ → Set UpperHalfPlane := fun γ =>
-    {z | γ ∈ L ∧ z ∈ F ∩ X ∧ (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • z ∈ E}
-  obtain ⟨hCmeas, hCdisj, hCunion⟩ :=
-    f036cc6b1f_pic_psp_measurable_slice_partition Δ Linv E F X hE hF hX
-      hcoverInv huniqueInv (hrep F (Or.inr rfl))
-  obtain ⟨hBmeas, hBdisj, hBunion⟩ :=
-    f036cc6b1f_pic_psp_measurable_slice_partition Δ L F E X hF hE hX
-      hcover hunique (hrep E (Or.inl rfl))
-  refine ⟨A, B, (fun γ => hCmeas γ⁻¹), hBmeas, ?_, hBdisj, ?_, hBunion, ?_⟩
-  · intro γ η hne
-    exact hCdisj (fun h => hne (inv_injective h))
-  · calc
-      (⋃ γ, A γ) = ⋃ γ, C γ :=
-        Set.iUnion_congr_of_surjective Inv.inv inv_surjective (fun _ => rfl)
-      _ = E ∩ X := hCunion
-  · intro γ
-    ext y
-    constructor
-    · rintro ⟨z, hz, rfl⟩
-      change (γ⁻¹)⁻¹ ∈ L ∧ z ∈ E ∩ X ∧
-        ((γ⁻¹ : Δ) : Matrix.SpecialLinearGroup (Fin 2) ℤ) • z ∈ F at hz
-      simp only [inv_inv, Subgroup.coe_inv] at hz
-      refine ⟨hz.1, ⟨hz.2.2, (hinv γ⁻¹ z).2 hz.2.1.2⟩, ?_⟩
-      simpa only [smul_inv_smul] using hz.2.1.1
-    · intro hy
-      change γ ∈ L ∧ y ∈ F ∩ X ∧
-        (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • y ∈ E at hy
-      refine ⟨(γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • y, ?_, inv_smul_smul _ _⟩
-      change (γ⁻¹)⁻¹ ∈ L ∧
-        (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • y ∈ E ∩ X ∧
-        ((γ⁻¹ : Δ) : Matrix.SpecialLinearGroup (Fin 2) ℤ) •
-          ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • y) ∈ F
-      simp only [inv_inv, Subgroup.coe_inv, inv_smul_smul]
-      exact ⟨hy.1, ⟨hy.2.2, (hinv γ y).2 hy.2.1.2⟩, hy.2.1.1⟩
-
-end Submission
 
 theorem CuspForm.span_heckeTLin_eigen_eq_top (M : ℕ) [NeZero M] :
     Submodule.span ℂ {v : CuspForm (CongruenceSubgroup.Gamma0 M) 2 |
@@ -2967,3 +2876,90 @@ theorem Submission.f036cc6b1f_pic_psp_measurable_slice_partition :
         rcases hsgn with hsgn | hsgn
         · simpa only [hsgn] using hrs
         · simpa only [hsgn, ModularGroup.SL_neg_smul] using hrs
+
+namespace Submission
+
+theorem f036cc6b1f_pic_mec_pointwise_sign_partition
+    (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (E F X : Set UpperHalfPlane)
+    (hneg : (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ)
+    (hE : MeasurableSet E) (hF : MeasurableSet F) (hX : MeasurableSet X)
+    (hinv : ∀ (γ : Δ) (z : UpperHalfPlane),
+      (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • z ∈ X ↔ z ∈ X)
+    (hrep : ∀ S : Set UpperHalfPlane, (S = E ∨ S = F) → ∀ z ∈ X,
+      ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ S ∧
+        ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+          δ ∈ Δ → δ • z ∈ S → δ = γ ∨ δ = -γ) :
+    ∃ A B : Δ → Set UpperHalfPlane,
+      (∀ γ, MeasurableSet (A γ)) ∧ (∀ γ, MeasurableSet (B γ)) ∧
+      Pairwise (fun γ δ => Disjoint (A γ) (A δ)) ∧
+      Pairwise (fun γ δ => Disjoint (B γ) (B δ)) ∧
+      (⋃ γ, A γ) = E ∩ X ∧ (⋃ γ, B γ) = F ∩ X ∧
+      (∀ γ : Δ, (fun z : UpperHalfPlane =>
+        (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ)⁻¹ • z) '' (A γ) = B γ) := by
+  classical
+  obtain ⟨L, hcover, hunique⟩ := f036cc6b1f_pic_psp_sign_transversal Δ hneg
+  -- Inversion carries a sign transversal to a sign transversal.
+  let Linv : Set Δ := {γ | γ⁻¹ ∈ L}
+  have hcoverInv : ∀ δ : Δ, ∃ γ : Δ, γ ∈ Linv ∧
+      ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) = δ ∨
+        (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) = -(δ : Matrix.SpecialLinearGroup (Fin 2) ℤ)) := by
+    intro δ
+    obtain ⟨γ, hγ, hsign⟩ := hcover δ⁻¹
+    refine ⟨γ⁻¹, ?_, ?_⟩
+    · simpa only [Linv, Set.mem_ofPred_eq, inv_inv] using hγ
+    · rcases hsign with hsign | hsign
+      · left
+        simpa only [Subgroup.coe_inv, inv_inv] using congrArg Inv.inv hsign
+      · right
+        simpa only [Subgroup.coe_inv, inv_neg, inv_inv] using congrArg Inv.inv hsign
+  have huniqueInv : ∀ γ : Δ, γ ∈ Linv → ∀ η : Δ, η ∈ Linv →
+      ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) = η ∨
+        (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) = -(η : Matrix.SpecialLinearGroup (Fin 2) ℤ)) →
+      γ = η := by
+    intro γ hγ η hη hsign
+    apply inv_injective
+    apply hunique γ⁻¹ hγ η⁻¹ hη
+    rcases hsign with hsign | hsign
+    · left
+      simpa only [Subgroup.coe_inv] using congrArg Inv.inv hsign
+    · right
+      simpa only [Subgroup.coe_inv, inv_neg] using congrArg Inv.inv hsign
+  let C : Δ → Set UpperHalfPlane := fun γ =>
+    {z | γ ∈ Linv ∧ z ∈ E ∩ X ∧ (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • z ∈ F}
+  let A : Δ → Set UpperHalfPlane := fun γ => C γ⁻¹
+  let B : Δ → Set UpperHalfPlane := fun γ =>
+    {z | γ ∈ L ∧ z ∈ F ∩ X ∧ (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • z ∈ E}
+  obtain ⟨hCmeas, hCdisj, hCunion⟩ :=
+    f036cc6b1f_pic_psp_measurable_slice_partition Δ Linv E F X hE hF hX
+      hcoverInv huniqueInv (hrep F (Or.inr rfl))
+  obtain ⟨hBmeas, hBdisj, hBunion⟩ :=
+    f036cc6b1f_pic_psp_measurable_slice_partition Δ L F E X hF hE hX
+      hcover hunique (hrep E (Or.inl rfl))
+  refine ⟨A, B, (fun γ => hCmeas γ⁻¹), hBmeas, ?_, hBdisj, ?_, hBunion, ?_⟩
+  · intro γ η hne
+    exact hCdisj (fun h => hne (inv_injective h))
+  · calc
+      (⋃ γ, A γ) = ⋃ γ, C γ :=
+        Set.iUnion_congr_of_surjective Inv.inv inv_surjective (fun _ => rfl)
+      _ = E ∩ X := hCunion
+  · intro γ
+    ext y
+    constructor
+    · rintro ⟨z, hz, rfl⟩
+      change (γ⁻¹)⁻¹ ∈ L ∧ z ∈ E ∩ X ∧
+        ((γ⁻¹ : Δ) : Matrix.SpecialLinearGroup (Fin 2) ℤ) • z ∈ F at hz
+      simp only [inv_inv, Subgroup.coe_inv] at hz
+      refine ⟨hz.1, ⟨hz.2.2, (hinv γ⁻¹ z).2 hz.2.1.2⟩, ?_⟩
+      simpa only [smul_inv_smul] using hz.2.1.1
+    · intro hy
+      change γ ∈ L ∧ y ∈ F ∩ X ∧
+        (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • y ∈ E at hy
+      refine ⟨(γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • y, ?_, inv_smul_smul _ _⟩
+      change (γ⁻¹)⁻¹ ∈ L ∧
+        (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • y ∈ E ∩ X ∧
+        ((γ⁻¹ : Δ) : Matrix.SpecialLinearGroup (Fin 2) ℤ) •
+          ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • y) ∈ F
+      simp only [inv_inv, Subgroup.coe_inv, inv_smul_smul]
+      exact ⟨hy.1, ⟨hy.2.2, (hinv γ y).2 hy.2.1.2⟩, hy.2.1.1⟩
+
+end Submission
