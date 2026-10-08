@@ -1,7 +1,8 @@
 /-
-Selected atomic node for the frozen fermat-p06 problem.
-The root contract remains in
-Fermat/Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean.
+Copyright 2026 Anthropic, PBC. Licensed under Apache-2.0; see LICENSE.
+Source: https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean
+Modified: replaced the proof with sorry and removed P2M proof imports.
+Requires the upstream Definitions modules and their dependencies.
 -/
 
 import Definitions.Def_AlgebraicCurve_PlacesOverDVR
