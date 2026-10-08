@@ -1964,3 +1964,31 @@ theorem Submission.p10_17ae7b7d_ccm_coset_crt_equivariant :
   intro g q
   induction q using QuotientGroup.induction_on with | H A =>
     rfl
+
+theorem Submission.p10_17ae7b7d_uce_unimodular_iff_unit_coord :
+    ∀ (p a : ℕ), p.Prime → 0 < a → ∀ r s : ZMod (p ^ a),
+      (∃ x y : ZMod (p ^ a), x * r + y * s = 1) ↔ IsUnit r ∨ IsUnit s := by
+  intro p a hp ha r s
+  let : NeZero (p ^ a) := ⟨pow_ne_zero _ hp.ne_zero⟩
+  let : Fact p.Prime := ⟨hp⟩
+  constructor
+  · rintro ⟨x, y, hxy⟩
+    by_contra h
+    obtain ⟨hr, hs⟩ := not_or.mp h
+    let f : ZMod (p ^ a) →+* ZMod p := ZMod.castHom (dvd_pow_self p ha.ne') (ZMod p)
+    have hzero : ∀ t : ZMod (p ^ a), ¬ IsUnit t → f t = 0 := by
+      intro t ht
+      have hd : p ∣ t.val := by
+        by_contra hd
+        apply ht
+        simpa only [ZMod.natCast_zmod_val] using
+          (ZMod.isUnit_natCast_iff_not_dvd_pow (a := t.val) hp ha).mpr hd
+      rw [← ZMod.natCast_zmod_val t, map_natCast]
+      exact (ZMod.natCast_eq_zero_iff t.val p).mpr hd
+    have hz := congrArg f hxy
+    simp only [map_add, map_mul, map_one, hzero r hr, hzero s hs,
+      mul_zero, add_zero] at hz
+    exact zero_ne_one hz
+  · rintro (⟨u, rfl⟩ | ⟨u, rfl⟩)
+    · exact ⟨↑(u⁻¹), 0, by simp⟩
+    · exact ⟨0, ↑(u⁻¹), by simp⟩
