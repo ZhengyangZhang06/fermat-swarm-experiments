@@ -13,74 +13,6 @@ attribute [-simp] ModularCurve.CuspSpace.cuspDenomAux_coe ModularCurve.CuspSpace
 
 set_option autoImplicit false
 
-namespace Submission
-
-open Filter
-open scoped Topology
-
-theorem p10_17ae7b7d_norm_cyclic_product_descent :
-    ∀ (w : ℕ) (A : ℂ → ℂ), 0 < w → AnalyticAt ℂ A 0 →
-      analyticOrderAt A 0 ≠ ⊤ →
-      ∃ C : ℂ → ℂ, AnalyticAt ℂ C 0 ∧ analyticOrderAt C 0 ≠ ⊤ ∧
-        analyticOrderNatAt C 0 = analyticOrderNatAt A 0 ∧
-        ∃ r : ℝ, 0 < r ∧ ∀ t : ℂ, ‖t‖ < r →
-          (∏ j ∈ Finset.range w,
-            A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I / (w : ℂ)) ^ j * t)) =
-              C (t ^ w) := by
-  intro w A hw hA hAfinite
-  let ζ : ℂ := Complex.exp (2 * (Real.pi : ℂ) * Complex.I / (w : ℂ))
-  have hζ : ζ ^ w = 1 := by
-    dsimp [ζ]
-    rw [← Complex.exp_nat_mul]
-    have hexp := (Complex.exp_two_pi_mul_I_mul_div_eq_one_iff
-      (Nat.ne_of_gt hw)).2 (dvd_refl w)
-    convert hexp using 1
-    congr 1
-    ring
-  let P : ℂ → ℂ := fun t => ∏ j ∈ Finset.range w, A (ζ ^ j * t)
-  obtain ⟨hP, hPfinite, hPorder, hProt⟩ :=
-    Submission.p10_17ae7b7d_cpd_orbit_product_order w ζ A hw hζ hA hAfinite
-  obtain ⟨C, hC, r, hr, hPC⟩ :=
-    Submission.p10_17ae7b7d_cpd_rotation_descent w P hw hP
-      ⟨1, zero_lt_one, fun t _ => hProt t⟩
-  have hPCevent : P =ᶠ[𝓝 (0 : ℂ)] (fun t => C (t ^ w)) := by
-    filter_upwards [Metric.ball_mem_nhds (0 : ℂ) hr] with t ht
-    exact hPC t (by simpa using ht)
-  -- Composition with the power map multiplies the descended order by w.
-  have hzero : (0 : ℂ) ^ w = 0 := zero_pow (Nat.ne_of_gt hw)
-  have hpow : AnalyticAt ℂ (fun t : ℂ => t ^ w) 0 := analyticAt_id.pow w
-  have hpoworder : analyticOrderAt (fun t : ℂ => t ^ w) 0 = (w : ℕ∞) := by
-    have hfun : ((fun t : ℂ => t - 0) ^ w) = (fun t : ℂ => t ^ w) := by
-      funext t
-      simp
-    rw [← hfun]
-    exact analyticOrderAt_centeredMonomial
-  have hCpow : AnalyticAt ℂ C ((0 : ℂ) ^ w) := by
-    simpa only [hzero] using hC
-  have horder : analyticOrderAt P 0 = analyticOrderAt C 0 * (w : ℕ∞) := by
-    calc
-      analyticOrderAt P 0 = analyticOrderAt (C ∘ fun t : ℂ => t ^ w) 0 :=
-        analyticOrderAt_congr hPCevent
-      _ = analyticOrderAt C 0 * (w : ℕ∞) := by
-        simpa only [hzero, sub_zero, hpoworder] using
-          (hCpow.analyticOrderAt_comp (g := fun t : ℂ => t ^ w) hpow)
-  have hCfinite : analyticOrderAt C 0 ≠ ⊤ := by
-    intro htop
-    apply hPfinite
-    rw [horder, htop]
-    exact ENat.top_mul (by exact_mod_cast Nat.ne_of_gt hw)
-  have hNatorder : analyticOrderNatAt P 0 = analyticOrderNatAt C 0 * w := by
-    simpa only [analyticOrderNatAt, ENat.toNat_mul, ENat.toNat_natCast] using
-      congrArg ENat.toNat horder
-  refine ⟨C, hC, hCfinite, ?_, r, hr, hPC⟩
-  apply Nat.eq_of_mul_eq_mul_left hw
-  calc
-    w * analyticOrderNatAt C 0 = analyticOrderNatAt P 0 := by
-      rw [hNatorder, Nat.mul_comm]
-    _ = w * analyticOrderNatAt A 0 := hPorder
-
-end Submission
-
 theorem CuspForm.gamma0_weight_two_eq_zero_of_genusFormula_eq_zero (N : ℕ) [NeZero N]
     (hg : ModularCurve.genusFormula N = 0) (f : CuspForm (CongruenceSubgroup.Gamma0 N) 2) : f = 0 := by
   sorry
@@ -453,3 +385,71 @@ theorem Submission.p10_17ae7b7d_cpd_rotation_descent :
   obtain ⟨p, hp⟩ := hP
   exact Submission.p10_17ae7b7d_rd_sparse_series_descent w P p hw hp
     (Submission.p10_17ae7b7d_rd_coeff_support w P p hw hp hrotation)
+
+namespace Submission
+
+open Filter
+open scoped Topology
+
+theorem p10_17ae7b7d_norm_cyclic_product_descent :
+    ∀ (w : ℕ) (A : ℂ → ℂ), 0 < w → AnalyticAt ℂ A 0 →
+      analyticOrderAt A 0 ≠ ⊤ →
+      ∃ C : ℂ → ℂ, AnalyticAt ℂ C 0 ∧ analyticOrderAt C 0 ≠ ⊤ ∧
+        analyticOrderNatAt C 0 = analyticOrderNatAt A 0 ∧
+        ∃ r : ℝ, 0 < r ∧ ∀ t : ℂ, ‖t‖ < r →
+          (∏ j ∈ Finset.range w,
+            A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I / (w : ℂ)) ^ j * t)) =
+              C (t ^ w) := by
+  intro w A hw hA hAfinite
+  let ζ : ℂ := Complex.exp (2 * (Real.pi : ℂ) * Complex.I / (w : ℂ))
+  have hζ : ζ ^ w = 1 := by
+    dsimp [ζ]
+    rw [← Complex.exp_nat_mul]
+    have hexp := (Complex.exp_two_pi_mul_I_mul_div_eq_one_iff
+      (Nat.ne_of_gt hw)).2 (dvd_refl w)
+    convert hexp using 1
+    congr 1
+    ring
+  let P : ℂ → ℂ := fun t => ∏ j ∈ Finset.range w, A (ζ ^ j * t)
+  obtain ⟨hP, hPfinite, hPorder, hProt⟩ :=
+    Submission.p10_17ae7b7d_cpd_orbit_product_order w ζ A hw hζ hA hAfinite
+  obtain ⟨C, hC, r, hr, hPC⟩ :=
+    Submission.p10_17ae7b7d_cpd_rotation_descent w P hw hP
+      ⟨1, zero_lt_one, fun t _ => hProt t⟩
+  have hPCevent : P =ᶠ[𝓝 (0 : ℂ)] (fun t => C (t ^ w)) := by
+    filter_upwards [Metric.ball_mem_nhds (0 : ℂ) hr] with t ht
+    exact hPC t (by simpa using ht)
+  -- Composition with the power map multiplies the descended order by w.
+  have hzero : (0 : ℂ) ^ w = 0 := zero_pow (Nat.ne_of_gt hw)
+  have hpow : AnalyticAt ℂ (fun t : ℂ => t ^ w) 0 := analyticAt_id.pow w
+  have hpoworder : analyticOrderAt (fun t : ℂ => t ^ w) 0 = (w : ℕ∞) := by
+    have hfun : ((fun t : ℂ => t - 0) ^ w) = (fun t : ℂ => t ^ w) := by
+      funext t
+      simp
+    rw [← hfun]
+    exact analyticOrderAt_centeredMonomial
+  have hCpow : AnalyticAt ℂ C ((0 : ℂ) ^ w) := by
+    simpa only [hzero] using hC
+  have horder : analyticOrderAt P 0 = analyticOrderAt C 0 * (w : ℕ∞) := by
+    calc
+      analyticOrderAt P 0 = analyticOrderAt (C ∘ fun t : ℂ => t ^ w) 0 :=
+        analyticOrderAt_congr hPCevent
+      _ = analyticOrderAt C 0 * (w : ℕ∞) := by
+        simpa only [hzero, sub_zero, hpoworder] using
+          (hCpow.analyticOrderAt_comp (g := fun t : ℂ => t ^ w) hpow)
+  have hCfinite : analyticOrderAt C 0 ≠ ⊤ := by
+    intro htop
+    apply hPfinite
+    rw [horder, htop]
+    exact ENat.top_mul (by exact_mod_cast Nat.ne_of_gt hw)
+  have hNatorder : analyticOrderNatAt P 0 = analyticOrderNatAt C 0 * w := by
+    simpa only [analyticOrderNatAt, ENat.toNat_mul, ENat.toNat_natCast] using
+      congrArg ENat.toNat horder
+  refine ⟨C, hC, hCfinite, ?_, r, hr, hPC⟩
+  apply Nat.eq_of_mul_eq_mul_left hw
+  calc
+    w * analyticOrderNatAt C 0 = analyticOrderNatAt P 0 := by
+      rw [hNatorder, Nat.mul_comm]
+    _ = w * analyticOrderNatAt A 0 := hPorder
+
+end Submission
