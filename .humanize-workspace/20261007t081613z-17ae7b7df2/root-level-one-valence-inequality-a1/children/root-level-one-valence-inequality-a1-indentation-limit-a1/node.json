@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.level_one_valence_inequality-a1.indentation_limit-a1",
+  "parent_id": "root.level_one_valence_inequality-a1",
+  "depth": 2,
+  "title": "Logarithmic-derivative integral along shrinking Möbius arcs",
+  "statement": "Let f:ℂ→ℂ be analytic at v∈ℂ, with Im v>0 and analyticOrderAt f v finite. Let α,β:ℝ→ℝ satisfy α(ε)→a and β(ε)→b as ε→0 through positive reals, where a,b∈ℝ. Put γ(ε,t)=(v−conj(v) ε exp(it))/(1−ε exp(it)). With f′ denoting the complex derivative and ∂tγ the real-parameter derivative, the signed interval integral ∫ from α(ε) to β(ε) of [f′(γ(ε,t))/f(γ(ε,t))]∂tγ(ε,t) dt tends to i·analyticOrderNatAt f v·(b−a). No ordering of the endpoints is assumed.",
+  "lean_statement": "∀ (f : ℂ → ℂ) (v : ℂ), 0 < v.im → AnalyticAt ℂ f v → analyticOrderAt f v ≠ ⊤ → ∀ (α β : ℝ → ℝ) (a b : ℝ), Filter.Tendsto α (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds a) → Filter.Tendsto β (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds b) → let γ : ℝ → ℝ → ℂ := fun ε t => (v - star v * ((ε : ℂ) * Complex.exp ((t : ℂ) * Complex.I))) / (1 - (ε : ℂ) * Complex.exp ((t : ℂ) * Complex.I)); Filter.Tendsto (fun ε : ℝ => intervalIntegral (fun t : ℝ => (deriv f (γ ε t) / f (γ ε t)) * deriv (γ ε) t) (α ε) (β ε) MeasureTheory.volume) (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds (Complex.I * (analyticOrderNatAt f v : ℂ) * ((b - a : ℝ) : ℂ)))",
+  "lean_name": "p10_17ae7b7d_valence_indentation_limit",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-indentation-limit-a1-a1"
+}

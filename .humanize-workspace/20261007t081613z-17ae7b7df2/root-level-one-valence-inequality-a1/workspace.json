@@ -1,0 +1,287 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081613Z-17ae7b7df2",
+  "parent_id": "root.level_one_valence_inequality-a1",
+  "dispatch_branch": "proof-workspace/fermat-p10/20261007t081613z-17ae7b7df2/dispatch/root-level-one-valence-inequality-a1",
+  "source_commit": "a97febc53b1c4d489edc54ca44132af7a21279b3",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.level_one_valence_inequality-a1.cusp_log_derivative-a1",
+      "key": "cusp_log_derivative",
+      "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-cusp-log-derivative-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/children/root-level-one-valence-inequality-a1-cusp-log-derivative-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "\\bvalence\\b|argument.?principle|windingnumber",
+              "analyticOrderNatAt_eq_iff|analyticOrderAt_ne_top|analyticOrderAt_eq_top",
+              "eqOn_zero|eqOn_of|finite|eq_zero_or|frequently",
+              "logDeriv_mul|logDeriv_comp|logDeriv_pow",
+              "integral_eq_sub_of_hasDerivAt_of_le|norm_integral_le_of_norm_le_const",
+              "sed -n '1,150p' project/Definitions/Def_ModularCurve_GenusNumerics.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Order.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/IsolatedZeros.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/HasPrimitives.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Calculus/LogDeriv.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/FundThmCalculus.lean"
+            ],
+            "conclusion": "The manifest pins project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Searches of mathlib/Mathlib/Analysis/Complex and project/Definitions found no valence, argument-principle, or winding-number implementation. The inspected library supplies local analyticity, the identity principle, finite-order factorization, logarithmic-derivative rules, local primitives, and interval-integral estimates. The cited library declarations passed transitive axiom probes using only propext, Classical.choice, and Quot.sound. All nine installed dependencies matched their pinned revisions and were Git-clean."
+          }
+        ],
+        "parent_id": "root.level_one_valence_inequality-a1",
+        "child_id": "root.level_one_valence_inequality-a1.cusp_log_derivative-a1",
+        "subproblem": {
+          "key": "cusp_log_derivative",
+          "title": "Finite cusp order and exponential logarithmic-derivative estimate",
+          "statement": "Let F,A:ℂ→ℂ and H={z:Im z>0}. Assume F is holomorphic on H and has a nonzero value there, A is analytic at zero, and there is a real Y₀ such that F(z)=A(exp(2πiz)) whenever z∈H and Im z≥Y₀. Then analyticOrderAt A 0 is finite. Moreover, there exist real Y>0 and C≥0 such that every z with Im z≥Y satisfies F(z)≠0 and ‖F′(z)/F(z)−2πi·analyticOrderNatAt A 0‖≤C exp(−2π Im z), with the natural order cast to ℂ.",
+          "lean_statement": "∀ (F A : ℂ → ℂ), DifferentiableOn ℂ F {z : ℂ | 0 < z.im} → (∃ z : ℂ, 0 < z.im ∧ F z ≠ 0) → AnalyticAt ℂ A 0 → (∃ Y₀ : ℝ, ∀ z : ℂ, 0 < z.im → Y₀ ≤ z.im → F z = A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z))) → analyticOrderAt A 0 ≠ ⊤ ∧ ∃ Y C : ℝ, 0 < Y ∧ 0 ≤ C ∧ ∀ z : ℂ, Y ≤ z.im → F z ≠ 0 ∧ ‖deriv F z / F z - 2 * (Real.pi : ℂ) * Complex.I * (analyticOrderNatAt A 0 : ℂ)‖ ≤ C * Real.exp (-2 * Real.pi * z.im)",
+          "lean_name": "p10_17ae7b7d_valence_cusp_log_derivative",
+          "depends_on": [],
+          "natural_proof": "1. The open half-plane H is convex and connected. Holomorphy gives analyticity at each point by DifferentiableOn.analyticAt. Let E consist of points of H near which F vanishes identically. This set is relatively open. At a point outside E, the Taylor series has a first nonzero coefficient, so locally F(u)=(u−v)^n b(u), where b is analytic and b(v)≠0. After shrinking the disk, b is nowhere zero; hence this disk contains no point of E. Thus E is relatively closed as well. The assumed nonzero value makes E proper, so connectedness gives E=∅. In particular, F cannot vanish on any nonempty open subset of H.\n2. Suppose analyticOrderAt A 0 were infinite. By analyticOrderAt_eq_top, A would vanish on a disk about zero. Put q(z)=exp(2πiz). The exponential is nonzero and ‖q(z)‖=exp(−2π Im z), which tends to zero as Im z tends to infinity. Consequently the expansion identity would make F vanish on an open upper half-plane above both Y₀ and a sufficiently large height. This contradicts step 1. Therefore analyticOrderAt A 0 is finite.\n3. Put m=analyticOrderNatAt A 0. Finite-order factorization, as stated by AnalyticAt.analyticOrderAt_ne_top and AnalyticAt.analyticOrderNatAt_eq_iff in the pinned Order.lean, supplies an analytic B with B(0)≠0 and A(q)=q^m B(q) near zero. Choose r>0 so that this identity holds on |q|<2r and B is holomorphic and nowhere zero there. Such a choice follows by shrinking a neighborhood of analyticity and using continuity of B at zero.\n4. The function G=B′/B is holomorphic on |q|<2r and continuous on the compact disk |q|≤r. Choose M≥0 bounding its norm there. Choose Y>0 with Y>Y₀ and exp(−2πY)<r. For every z with Im z≥Y, q(z) lies in this disk and F(z)=q(z)^m B(q(z))≠0.\n5. At each such z, the expansion and factorization hold throughout a neighborhood of z: the inequalities Im z>Y₀ and |q(z)|<r are strict. Differentiating there, using q′=2πiq and q≠0, gives F′(z)/F(z)=2πi(m+q(z)G(q(z))). This identity also holds when m=0, since the derivative of q^0 is zero.\n6. Set C=2πM, which is nonnegative. Subtracting 2πim from the identity in step 5 and taking norms gives ‖F′(z)/F(z)−2πim‖=2π‖q(z)‖‖G(q(z))‖≤C exp(−2π Im z). Together with steps 2 and 4, this proves every asserted conclusion.",
+          "proof_key_steps": [
+            "Use connectedness and analytic local factorization to exclude a zero germ of F anywhere in H.",
+            "A zero germ of A would force F to vanish on an open upper half-plane.",
+            "Factor A(q)=q^m B(q) with B analytic and nonvanishing near zero.",
+            "Bound B′/B on a smaller closed disk and choose a sufficiently large positive height.",
+            "Differentiate the expansion and obtain the uniform exponential estimate."
+          ]
+        },
+        "audit": {
+          "key": "cusp_log_derivative",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The standalone one-line proposition matches every prose hypothesis and conclusion. Connectedness excludes local vanishing of F, which rules out an infinite cusp order. Factorization and a compact bound on B′/B establish nonvanishing and the stated uniform exponential estimate. Choosing Y strictly above Y₀ justifies differentiation even at Im z=Y. The proof is complete and non-circular; no child dependency is needed."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-level-one-valence-inequality-a1-cusp-log-derivative-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-level-one-valence-inequality-a1-cusp-log-derivative-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-level-one-valence-inequality-a1-cusp-log-derivative-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.level_one_valence_inequality-a1.indentation_limit-a1",
+      "key": "indentation_limit",
+      "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-indentation-limit-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/children/root-level-one-valence-inequality-a1-indentation-limit-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "\\bvalence\\b|argument.?principle|windingnumber",
+              "analyticOrderNatAt_eq_iff|analyticOrderAt_ne_top|analyticOrderAt_eq_top",
+              "eqOn_zero|eqOn_of|finite|eq_zero_or|frequently",
+              "logDeriv_mul|logDeriv_comp|logDeriv_pow",
+              "integral_eq_sub_of_hasDerivAt_of_le|norm_integral_le_of_norm_le_const",
+              "sed -n '1,150p' project/Definitions/Def_ModularCurve_GenusNumerics.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Order.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/IsolatedZeros.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/HasPrimitives.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Calculus/LogDeriv.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/FundThmCalculus.lean"
+            ],
+            "conclusion": "The manifest pins project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Searches of mathlib/Mathlib/Analysis/Complex and project/Definitions found no valence, argument-principle, or winding-number implementation. The inspected library supplies local analyticity, the identity principle, finite-order factorization, logarithmic-derivative rules, local primitives, and interval-integral estimates. The cited library declarations passed transitive axiom probes using only propext, Classical.choice, and Quot.sound. All nine installed dependencies matched their pinned revisions and were Git-clean."
+          }
+        ],
+        "parent_id": "root.level_one_valence_inequality-a1",
+        "child_id": "root.level_one_valence_inequality-a1.indentation_limit-a1",
+        "subproblem": {
+          "key": "indentation_limit",
+          "title": "Logarithmic-derivative integral along shrinking Möbius arcs",
+          "statement": "Let f:ℂ→ℂ be analytic at v∈ℂ, with Im v>0 and analyticOrderAt f v finite. Let α,β:ℝ→ℝ satisfy α(ε)→a and β(ε)→b as ε→0 through positive reals, where a,b∈ℝ. Put γ(ε,t)=(v−conj(v) ε exp(it))/(1−ε exp(it)). With f′ denoting the complex derivative and ∂tγ the real-parameter derivative, the signed interval integral ∫ from α(ε) to β(ε) of [f′(γ(ε,t))/f(γ(ε,t))]∂tγ(ε,t) dt tends to i·analyticOrderNatAt f v·(b−a). No ordering of the endpoints is assumed.",
+          "lean_statement": "∀ (f : ℂ → ℂ) (v : ℂ), 0 < v.im → AnalyticAt ℂ f v → analyticOrderAt f v ≠ ⊤ → ∀ (α β : ℝ → ℝ) (a b : ℝ), Filter.Tendsto α (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds a) → Filter.Tendsto β (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds b) → let γ : ℝ → ℝ → ℂ := fun ε t => (v - star v * ((ε : ℂ) * Complex.exp ((t : ℂ) * Complex.I))) / (1 - (ε : ℂ) * Complex.exp ((t : ℂ) * Complex.I)); Filter.Tendsto (fun ε : ℝ => intervalIntegral (fun t : ℝ => (deriv f (γ ε t) / f (γ ε t)) * deriv (γ ε) t) (α ε) (β ε) MeasureTheory.volume) (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds (Complex.I * (analyticOrderNatAt f v : ℂ) * ((b - a : ℝ) : ℂ)))",
+          "lean_name": "p10_17ae7b7d_valence_indentation_limit",
+          "depends_on": [],
+          "natural_proof": "1. Put m=analyticOrderNatAt f v. Analyticity and finite order give a local factorization f(z)=(z−v)^m B(z), with B analytic near v and B(v)≠0, by AnalyticAt.analyticOrderAt_ne_top. Choose r>0 so that the factorization holds on a neighborhood of the closed disk |z−v|≤r and B is holomorphic and nonvanishing there. The holomorphic function G=B′/B is bounded in norm by some M≥0 on this closed disk. On its punctured interior, differentiating the factorization gives f′(z)/f(z)=m/(z−v)+G(z). This also holds for m=0.\n2. Set c=v−conj(v), which is nonzero because Im v>0, and w(ε,t)=ε exp(it). For 0<ε<1, one has |w|=ε, w≠0, and |1−w|≥1−ε>0. Algebra in the definition of γ gives γ(ε,t)−v=cw/(1−w). Thus γ(ε,t)≠v and |γ(ε,t)−v|≤|c|ε/(1−ε), uniformly in all real t. For every sufficiently small positive ε, the entire parametrized circle lies in |z−v|<r, and f is nonzero along it by the factorization.\n3. Differentiating with respect to the real variable t gives ∂tγ=ciw/(1−w)². Consequently (∂tγ)/(γ−v)=i/(1−w)=i+iw/(1−w), and |∂tγ|≤|c|ε/(1−ε)².\n4. Substitute these formulas into the logarithmic-derivative identity from step 1. For all sufficiently small positive ε and all t, the integrand equals im+imw/(1−w)+G(γ(ε,t))∂tγ(ε,t). Its difference from the constant im therefore has norm at most δ(ε)=mε/(1−ε)+M|c|ε/(1−ε)². This bound is independent of t and tends to zero as ε→0 from above.\n5. For each such ε the integrand is continuous in t: the curve is smooth, the sampled values remain in the analytic neighborhood, and the denominators are nonzero. Hence it is integrable on the compact interval between α(ε) and β(ε). The integral of the constant im over the signed interval is im(β(ε)−α(ε)). Applying the interval-integral norm estimate to the error gives a norm bound δ(ε)|β(ε)−α(ε)|. The estimate holds in either endpoint order, by reversing the interval if necessary.\n6. The endpoint hypotheses imply β(ε)−α(ε)→b−a and make |β(ε)−α(ε)| eventually bounded. Since δ(ε)→0, the error integral tends to zero. Meanwhile im(β(ε)−α(ε)) tends to im(b−a). Adding these limits proves the claimed convergence with the stated casts and orientation.",
+          "proof_key_steps": [
+            "Factor the analytic germ and separate its logarithmic derivative into a pole and a bounded holomorphic remainder.",
+            "Express γ−v as (v−conj(v))w/(1−w) and obtain uniform shrinking and nonvanishing.",
+            "Compute the real-parameter derivative of γ.",
+            "Bound the integrand's difference from the constant i times the order uniformly in t.",
+            "Integrate the error over the signed interval and bound it by the endpoint distance.",
+            "Use convergence of the endpoints and vanishing of the uniform error."
+          ]
+        },
+        "audit": {
+          "key": "indentation_limit",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The exact proposition matches the right-sided limit and signed integral without ordering endpoints. Lean independently confirms the complex derivative of f and real derivative of γ. Factorization supplies a bounded remainder; the curve and derivative formulas yield the stated uniform error tending to zero. Endpoint convergence bounds interval lengths and gives the claimed limit in either orientation, including order zero. No hidden dependency or additional proof-planning step is needed."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-level-one-valence-inequality-a1-indentation-limit-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-level-one-valence-inequality-a1-indentation-limit-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-level-one-valence-inequality-a1-indentation-limit-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.level_one_valence_inequality-a1.modular_log_derivative-a1",
+      "key": "modular_log_derivative",
+      "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-modular-log-derivative-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/children/root-level-one-valence-inequality-a1-modular-log-derivative-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "\\bvalence\\b|argument.?principle|windingnumber",
+              "analyticOrderNatAt_eq_iff|analyticOrderAt_ne_top|analyticOrderAt_eq_top",
+              "eqOn_zero|eqOn_of|finite|eq_zero_or|frequently",
+              "logDeriv_mul|logDeriv_comp|logDeriv_pow",
+              "integral_eq_sub_of_hasDerivAt_of_le|norm_integral_le_of_norm_le_const",
+              "sed -n '1,150p' project/Definitions/Def_ModularCurve_GenusNumerics.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Order.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/IsolatedZeros.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/HasPrimitives.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Calculus/LogDeriv.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/FundThmCalculus.lean"
+            ],
+            "conclusion": "The manifest pins project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Searches of mathlib/Mathlib/Analysis/Complex and project/Definitions found no valence, argument-principle, or winding-number implementation. The inspected library supplies local analyticity, the identity principle, finite-order factorization, logarithmic-derivative rules, local primitives, and interval-integral estimates. The cited library declarations passed transitive axiom probes using only propext, Classical.choice, and Quot.sound. All nine installed dependencies matched their pinned revisions and were Git-clean."
+          }
+        ],
+        "parent_id": "root.level_one_valence_inequality-a1",
+        "child_id": "root.level_one_valence_inequality-a1.modular_log_derivative-a1",
+        "subproblem": {
+          "key": "modular_log_derivative",
+          "title": "Orders and logarithmic derivatives under translation and inversion",
+          "statement": "Let k∈ℕ and F:ℂ→ℂ be holomorphic on H={z:Im z>0}. Assume F(z+1)=F(z) and F(−1/z)=z^k F(z) for every z∈H. Then for every z∈H, analyticOrderNatAt F (z+1)=analyticOrderNatAt F z and analyticOrderNatAt F (−1/z)=analyticOrderNatAt F z. Moreover, whenever F(z)≠0, writing L(u)=F′(u)/F(u), one has L(z+1)=L(z) and L(−1/z)/z²=k/z+L(z). The order equalities also cover locally zero germs, for which analyticOrderNatAt is zero by definition.",
+          "lean_statement": "∀ (k : ℕ) (F : ℂ → ℂ), DifferentiableOn ℂ F {z : ℂ | 0 < z.im} → (∀ z : ℂ, 0 < z.im → F (z + 1) = F z) → (∀ z : ℂ, 0 < z.im → F (-1 / z) = z ^ k * F z) → ∀ z : ℂ, 0 < z.im → analyticOrderNatAt F (z + 1) = analyticOrderNatAt F z ∧ analyticOrderNatAt F (-1 / z) = analyticOrderNatAt F z ∧ (F z ≠ 0 → deriv F (z + 1) / F (z + 1) = deriv F z / F z ∧ (deriv F (-1 / z) / F (-1 / z)) / z ^ 2 = (k : ℂ) / z + deriv F z / F z)",
+          "lean_name": "p10_17ae7b7d_valence_modular_log_derivative",
+          "depends_on": [],
+          "natural_proof": "1. Write T(u)=u+1 and S(u)=−1/u. Both are holomorphic bijections of H: T has inverse u↦u−1, S is its own inverse, and Im S(u)=Im u/|u|²>0. Every u∈H is nonzero. Their derivatives are T′(u)=1 and S′(u)=1/u², both nonzero. F is analytic at every point of H by local analyticity of holomorphic functions.\n2. For either φ=T or φ=S, the hypotheses have the form F(φ(u))=J(u)F(u), where respectively J(u)=1 or J(u)=u^k. In both cases J is analytic and nonvanishing on H. At any z∈H, F has a zero germ at z if and only if it has a zero germ at φ(z). Indeed, a zero germ at φ(z) pulls back to a zero germ of F∘φ at z, and division by the nonvanishing J gives a zero germ of F at z. Conversely, a zero germ at z gives a zero germ of F∘φ there; applying the continuous local inverse of φ gives a zero germ at φ(z).\n3. If these germs are zero, both analytic orders are infinite and both natural-valued orders are zero, proving the desired equality in this case. Otherwise both orders are finite. Put m=analyticOrderNatAt F z and n=analyticOrderNatAt F (φ(z)). Finite-order factorization gives F(u)=(u−z)^m b(u) near z and F(w)=(w−φ(z))^n c(w) near φ(z), with b and c analytic and their values at the respective centers nonzero.\n4. Near z write φ(u)−φ(z)=(u−z)a(u). For T take a(u)=1; for S take a(u)=1/(uz). In either case a is analytic near z and a(z)≠0. Substituting the two factorizations into F(φ(u))=J(u)F(u) gives two factorizations of the same germ, with exponents n and m and nonzero analytic leading factors a(u)^n c(φ(u)) and J(u)b(u). Uniqueness of the factorization exponent gives n=m. Explicitly, if the exponents differed, cancellation of the smaller power on a punctured disk and passage to the center would force one of these leading factors to vanish. This proves both order equalities.\n5. Now assume F(z)≠0. The transformation identities and z^k≠0 imply F(T(z))≠0 and F(S(z))≠0. Differentiate the translation identity on the open set H to obtain F′(z+1)=F′(z). Division by the equal nonzero function values yields L(z+1)=L(z).\n6. Differentiate the inversion identity. At nonzero z the derivative of u↦u^k is (k:ℂ)z^k/z; this follows from the power rule for k>0 and is also true for k=0. Thus F′(S(z))/z²=z^k F′(z)+(k:ℂ)z^k F(z)/z. Divide by z^k F(z)=F(S(z)), which is nonzero. The result is L(S(z))/z²=(k:ℂ)/z+L(z), proving the remaining conclusion.",
+          "proof_key_steps": [
+            "Verify that T and S are holomorphic bijections of H with nonzero derivatives.",
+            "Use the nonvanishing multipliers to transport zero germs in both directions.",
+            "Compare local factorizations to preserve finite orders; handle infinite orders through the definition of analyticOrderNatAt.",
+            "Differentiate periodicity and divide at nonzero values.",
+            "Differentiate the inversion law and divide by z^k F(z)."
+          ]
+        },
+        "audit": {
+          "key": "modular_log_derivative",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The exact type correctly separates unconditional order equalities from derivative identities requiring F(z)≠0. The proof transports zero germs in both directions, compares finite factorizations using nonvanishing multipliers, and correctly handles infinite natural orders and k=0. Differentiated inversion has the required factor 1/z². All hypotheses are present, and the proof needs neither the parent nor another child."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-level-one-valence-inequality-a1-modular-log-derivative-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-level-one-valence-inequality-a1-modular-log-derivative-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-level-one-valence-inequality-a1-modular-log-derivative-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.level_one_valence_inequality-a1.pseudohyperbolic_disks-a1",
+      "key": "pseudohyperbolic_disks",
+      "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/children/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "\\bvalence\\b|argument.?principle|windingnumber",
+              "analyticOrderNatAt_eq_iff|analyticOrderAt_ne_top|analyticOrderAt_eq_top",
+              "eqOn_zero|eqOn_of|finite|eq_zero_or|frequently",
+              "logDeriv_mul|logDeriv_comp|logDeriv_pow",
+              "integral_eq_sub_of_hasDerivAt_of_le|norm_integral_le_of_norm_le_const",
+              "sed -n '1,150p' project/Definitions/Def_ModularCurve_GenusNumerics.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Order.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/IsolatedZeros.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/HasPrimitives.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Calculus/LogDeriv.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/FundThmCalculus.lean"
+            ],
+            "conclusion": "The manifest pins project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Searches of mathlib/Mathlib/Analysis/Complex and project/Definitions found no valence, argument-principle, or winding-number implementation. The inspected library supplies local analyticity, the identity principle, finite-order factorization, logarithmic-derivative rules, local primitives, and interval-integral estimates. The cited library declarations passed transitive axiom probes using only propext, Classical.choice, and Quot.sound. All nine installed dependencies matched their pinned revisions and were Git-clean."
+          }
+        ],
+        "parent_id": "root.level_one_valence_inequality-a1",
+        "child_id": "root.level_one_valence_inequality-a1.pseudohyperbolic_disks-a1",
+        "subproblem": {
+          "key": "pseudohyperbolic_disks",
+          "title": "Euclidean description and Möbius invariance of the cut disks",
+          "statement": "For v∈ℂ and real ε define D(v,ε)={z∈ℂ:Im z>0 and |(z−v)/(z−conj(v))|≤ε}. If Im v>0 and 0<ε<1, then D(v,ε) is the Euclidean closed disk with center Re v+i Im v(1+ε²)/(1−ε²) and radius 2 Im v ε/(1−ε²). Furthermore, for any real a,b,c,d satisfying ad−bc=1, the map M(z)=(az+b)/(cz+d) satisfies M(D(v,ε))=D(M(v),ε).",
+          "lean_statement": "let D : ℂ → ℝ → Set ℂ := fun v ε => {z : ℂ | 0 < z.im ∧ ‖(z - v) / (z - star v)‖ ≤ ε}; ∀ (v : ℂ) (ε : ℝ), 0 < v.im → 0 < ε → ε < 1 → D v ε = Metric.closedBall ((v.re : ℂ) + ((v.im * (1 + ε ^ 2) / (1 - ε ^ 2) : ℝ) : ℂ) * Complex.I) (2 * v.im * ε / (1 - ε ^ 2)) ∧ ∀ a b c d : ℝ, a * d - b * c = 1 → let M : ℂ → ℂ := fun z => ((a : ℂ) * z + (b : ℂ)) / ((c : ℂ) * z + (d : ℂ)); M '' (D v ε) = D (M v) ε",
+          "lean_name": "p10_17ae7b7d_valence_pseudohyperbolic_disks",
+          "depends_on": [],
+          "natural_proof": "1. Write v=x+iy with y>0 and z=u+it. Since 0<ε<1, the real number 1−ε² is positive. If t>0, then z−conj(v) has imaginary part t+y>0 and is nonzero. Hence the defining norm inequality can be multiplied by its denominator and squared without changing its truth value.\n2. The resulting inequality is (u−x)²+(t−y)²≤ε²((u−x)²+(t+y)²). Expanding, dividing by 1−ε², and completing the square gives exactly (u−x)²+(t−y(1+ε²)/(1−ε²))²≤(2yε/(1−ε²))². The radius on the right is positive, so this is precisely membership in the asserted Euclidean closed disk.\n3. The center's imaginary part minus the radius equals y(1+ε²−2ε)/(1−ε²)=y(1−ε)/(1+ε)>0. Every point of the Euclidean disk therefore lies in H. Consequently the equivalence in step 2 proves equality of the full sets, including the half-plane condition in D.\n4. Fix real a,b,c,d with ad−bc=1. For z∈H, cz+d is nonzero: if c≠0 its imaginary part is c Im z≠0, and if c=0 the determinant equation implies d≠0. Direct multiplication by the conjugate denominator gives Im M(z)=Im z/|cz+d|²>0. The map N(w)=(dw−b)/(−cw+a) has the same properties and satisfies N(M(z))=z and M(N(w))=w on H, by the determinant equation.\n5. For z,v∈H, subtraction of fractions gives M(z)−M(v)=(z−v)/((cz+d)(cv+d)). Real coefficients also give conj(M(v))=M(conj(v)), and subtraction with conj(v) gives M(z)−conj(M(v))=(z−conj(v))/((cz+d)(c conj(v)+d)). All denominators are nonzero: those at conjugate points are conjugates of the corresponding nonzero denominators, and M(z)−conj(M(v)) has positive imaginary part. Dividing the two identities yields (M(z)−M(v))/(M(z)−conj(M(v)))=((z−v)/(z−conj(v)))·((c conj(v)+d)/(cv+d)). The final factor has norm one because its numerator is the conjugate of its nonzero denominator. Thus the two pseudohyperbolic ratios have equal norms.\n6. Steps 4–5 show that z∈D(v,ε) implies M(z)∈D(M(v),ε), proving one image inclusion. Conversely, if w∈D(M(v),ε), apply the same norm identity to N and the center M(v). It gives N(w)∈D(v,ε), while M(N(w))=w. This proves the reverse inclusion and completes the theorem.",
+          "proof_key_steps": [
+            "Square the defining inequality using its nonzero denominator in H.",
+            "Complete the square to identify the Euclidean center and radius.",
+            "Show the entire Euclidean disk lies strictly inside H.",
+            "Verify that determinant-one real Möbius maps and their inverses preserve H.",
+            "Compute the transformed ratio and its unit-modulus factor.",
+            "Apply the inverse transformation to obtain equality of images."
+          ]
+        },
+        "audit": {
+          "key": "pseudohyperbolic_disks",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The let-bound D and M produce a standalone one-line proposition, with complex star independently checked as conjugation. Completing the square gives the stated center and radius; the positive lower height supplies the converse half-plane condition. The determinant hypothesis ensures denominator nonvanishing, half-plane preservation, and an inverse. The ratio identity proves both image inclusions. The proof is complete and independent."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/task.md": "88b1002f931f9db565a73aca07e087230eaf4513e50f89dde142b288f4f74309",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/problem.md": "c0d696de12207f8a138e01c1056e5c32494f559ac76a7f989b86196fbe3ec896",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/problem.json": "09bfb3e94e9c52916c6ee18b497e1146a074f98a2710e85c5c5460cb0b09f76a",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/reference-manifest.json": "57bc5044097a9c3cadb6a565fb02bfe2c5c9db06690993e4e6916463cba75efa",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/decomposition.json": "f3b2ca7c8a7437d2bade8e8a8ab1357d776568b48046d0f623ebe893dfbe5135",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/decomposition-audit.json": "37a119db684acd74710a9817dd681712aa3564c99f4d9b889c12114787b5c95c",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/controller-contract.json": "d1b66564f94c24ea9aabf052e7675de958b8785c03d14b64249e21e1e9480907",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/children/root-level-one-valence-inequality-a1-cusp-log-derivative-a1/parent-child-handoff.json": "382cc81a66233af181210f29b6f082fb0eb97daba4ce158a031c2378f7dc3657",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/children/root-level-one-valence-inequality-a1-cusp-log-derivative-a1/parent-supplied-plan.md": "f7bc1af6f2913380a7a18bb05a6cce8032548cf4d81811b0283831200e238205",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/children/root-level-one-valence-inequality-a1-cusp-log-derivative-a1/parent-supplied-natural-proof.md": "97467f1a39ded5d8fa1d00fc4511a5bd7e1f3ea68cec3ba406bb3e3bf50efe2e",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/children/root-level-one-valence-inequality-a1-cusp-log-derivative-a1/parent-supplied-natural-proof.json": "15dfb31e7915e5fb1670df5c9fa39301c83c236c5251a3d24237339d309c8332",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/children/root-level-one-valence-inequality-a1-cusp-log-derivative-a1/node.json": "8bed8da7853db50ea0e846bda0f685d3888fab288618e66713df76ed5ae6c678",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/children/root-level-one-valence-inequality-a1-indentation-limit-a1/parent-child-handoff.json": "0b97852385d60c17a84385a1cbad3bef4381bd08543ffc9a9671f750c4e692e5",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/children/root-level-one-valence-inequality-a1-indentation-limit-a1/parent-supplied-plan.md": "6456eade4721a5dc85b268520e29c77a0d2e23c20ad1b21fb4ffb6d9335f3c3c",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/children/root-level-one-valence-inequality-a1-indentation-limit-a1/parent-supplied-natural-proof.md": "08c76e6281d6b42c632acf2e9c54ae3b7c21386e31784dbd961decdeec25b9cf",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/children/root-level-one-valence-inequality-a1-indentation-limit-a1/parent-supplied-natural-proof.json": "163cc106563eced7b394a032cc449a5c17a8ab9597f961d692f553c4c40ef346",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/children/root-level-one-valence-inequality-a1-indentation-limit-a1/node.json": "c0aa32b532f2cce69b9226f0a5824613fb38d428f2576f96b80e1022d509e1bc",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/children/root-level-one-valence-inequality-a1-modular-log-derivative-a1/parent-child-handoff.json": "c2feafd2f0261a2317cd2de409cf68cdc40be2b065629297ca78567bbf8b4e1f",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/children/root-level-one-valence-inequality-a1-modular-log-derivative-a1/parent-supplied-plan.md": "74e3cfd810647fb6ee70f859b7b774bb0c4adc32ce6afe3998d635dd1596ee29",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/children/root-level-one-valence-inequality-a1-modular-log-derivative-a1/parent-supplied-natural-proof.md": "573818fb4ee6da947cb448c8294dcb2ce2b3f6cb46351eae191d0bac033103ec",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/children/root-level-one-valence-inequality-a1-modular-log-derivative-a1/parent-supplied-natural-proof.json": "908ea78aa89b9452467b1475819069251eed0cf21664f2b91f50e3735a7a4c7f",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/children/root-level-one-valence-inequality-a1-modular-log-derivative-a1/node.json": "6ea7d908a91393d7e130b3bbfcbfada7c48f2f3ede9067f2534d221459f05ace",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/children/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1/parent-child-handoff.json": "152e4a01d8f18baa129e70fa63c7b479a44669f9cb6e1a125817b8ce6bd17059",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/children/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1/parent-supplied-plan.md": "0a7ae9a03db4171975100a1b21899b0d390c84aeca461af2e92609f164c807ef",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/children/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1/parent-supplied-natural-proof.md": "19ed8b923962de3e92fddff8a86a54014ac8b08eb228001cb17a8173dbf9e1a1",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/children/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1/parent-supplied-natural-proof.json": "d54569f52758493d0ed403d6e518f2576a93165eb3c8bd99b05f20856e8b449f",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1/children/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1/node.json": "a1f71acb89f8dee659190748e317c7d955e2d6c8185d4e7facef078f3ad01573"
+  }
+}

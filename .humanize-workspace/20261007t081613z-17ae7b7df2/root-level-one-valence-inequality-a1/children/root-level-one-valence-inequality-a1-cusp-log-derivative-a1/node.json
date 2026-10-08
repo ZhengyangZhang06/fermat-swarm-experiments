@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.level_one_valence_inequality-a1.cusp_log_derivative-a1",
+  "parent_id": "root.level_one_valence_inequality-a1",
+  "depth": 2,
+  "title": "Finite cusp order and exponential logarithmic-derivative estimate",
+  "statement": "Let F,A:ℂ→ℂ and H={z:Im z>0}. Assume F is holomorphic on H and has a nonzero value there, A is analytic at zero, and there is a real Y₀ such that F(z)=A(exp(2πiz)) whenever z∈H and Im z≥Y₀. Then analyticOrderAt A 0 is finite. Moreover, there exist real Y>0 and C≥0 such that every z with Im z≥Y satisfies F(z)≠0 and ‖F′(z)/F(z)−2πi·analyticOrderNatAt A 0‖≤C exp(−2π Im z), with the natural order cast to ℂ.",
+  "lean_statement": "∀ (F A : ℂ → ℂ), DifferentiableOn ℂ F {z : ℂ | 0 < z.im} → (∃ z : ℂ, 0 < z.im ∧ F z ≠ 0) → AnalyticAt ℂ A 0 → (∃ Y₀ : ℝ, ∀ z : ℂ, 0 < z.im → Y₀ ≤ z.im → F z = A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z))) → analyticOrderAt A 0 ≠ ⊤ ∧ ∃ Y C : ℝ, 0 < Y ∧ 0 ≤ C ∧ ∀ z : ℂ, Y ≤ z.im → F z ≠ 0 ∧ ‖deriv F z / F z - 2 * (Real.pi : ℂ) * Complex.I * (analyticOrderNatAt A 0 : ℂ)‖ ≤ C * Real.exp (-2 * Real.pi * z.im)",
+  "lean_name": "p10_17ae7b7d_valence_cusp_log_derivative",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-cusp-log-derivative-a1-a1"
+}

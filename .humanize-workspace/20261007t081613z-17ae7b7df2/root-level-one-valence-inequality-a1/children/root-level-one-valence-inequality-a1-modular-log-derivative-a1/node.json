@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.level_one_valence_inequality-a1.modular_log_derivative-a1",
+  "parent_id": "root.level_one_valence_inequality-a1",
+  "depth": 2,
+  "title": "Orders and logarithmic derivatives under translation and inversion",
+  "statement": "Let k∈ℕ and F:ℂ→ℂ be holomorphic on H={z:Im z>0}. Assume F(z+1)=F(z) and F(−1/z)=z^k F(z) for every z∈H. Then for every z∈H, analyticOrderNatAt F (z+1)=analyticOrderNatAt F z and analyticOrderNatAt F (−1/z)=analyticOrderNatAt F z. Moreover, whenever F(z)≠0, writing L(u)=F′(u)/F(u), one has L(z+1)=L(z) and L(−1/z)/z²=k/z+L(z). The order equalities also cover locally zero germs, for which analyticOrderNatAt is zero by definition.",
+  "lean_statement": "∀ (k : ℕ) (F : ℂ → ℂ), DifferentiableOn ℂ F {z : ℂ | 0 < z.im} → (∀ z : ℂ, 0 < z.im → F (z + 1) = F z) → (∀ z : ℂ, 0 < z.im → F (-1 / z) = z ^ k * F z) → ∀ z : ℂ, 0 < z.im → analyticOrderNatAt F (z + 1) = analyticOrderNatAt F z ∧ analyticOrderNatAt F (-1 / z) = analyticOrderNatAt F z ∧ (F z ≠ 0 → deriv F (z + 1) / F (z + 1) = deriv F z / F z ∧ (deriv F (-1 / z) / F (-1 / z)) / z ^ 2 = (k : ℂ) / z + deriv F z / F z)",
+  "lean_name": "p10_17ae7b7d_valence_modular_log_derivative",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-modular-log-derivative-a1-a1"
+}
