@@ -6361,3 +6361,113 @@ theorem p05_ptm_split_of_away_splits_a5b449214a
   exact Submission.p05_pcs_patch_power_sections_a5b449214a π q f _hcover N hN t ht
 
 end Submission
+
+
+namespace Submission
+
+theorem p05_fr_projective_of_trivial_minors_a5b449214a
+    {R : Type*} [CommRing R] {M : Type*} [AddCommGroup M] [Module R M]
+    (n p : ℕ) (P : Matrix (Fin n) (Fin p) R) (π : (Fin n → R) →ₗ[R] M)
+    (_hπ : Function.Surjective π)
+    (_hker : LinearMap.ker π = LinearMap.range P.mulVecLin)
+    (_hminor : ∀ d : ℕ,
+      let J : Ideal R := Ideal.span
+        {x : R | ∃ (rows : Fin d ↪ Fin n) (cols : Fin d ↪ Fin p),
+          x = Matrix.det (P.submatrix rows cols)}
+      J = ⊥ ∨ J = ⊤) :
+    Module.Projective R M := by
+  classical
+  -- Choose a maximal size whose minors generate the unit ideal.
+  let J : ℕ → Ideal R := fun d ↦ Ideal.span
+    {x : R | ∃ (rows : Fin d ↪ Fin n) (cols : Fin d ↪ Fin p),
+      x = Matrix.det (P.submatrix rows cols)}
+  have hzero : J 0 = ⊤ := by
+    apply (Ideal.eq_top_iff_one _).mpr
+    apply Ideal.subset_span
+    exact ⟨Function.Embedding.ofIsEmpty, Function.Embedding.ofIsEmpty,
+      Matrix.det_isEmpty.symm⟩
+  let d := Nat.findGreatest (fun k ↦ J k = ⊤) n
+  have hd : J d = ⊤ :=
+    Nat.findGreatest_spec (P := fun k ↦ J k = ⊤) (Nat.zero_le n) hzero
+  have hnext : ∀ (rows : Fin (d + 1) ↪ Fin n) (cols : Fin (d + 1) ↪ Fin p),
+      Matrix.det (P.submatrix rows cols) = 0 := by
+    intro rows cols
+    have hbound : d + 1 ≤ n := by
+      simpa using Fintype.card_le_of_injective rows rows.injective
+    have hnot : J (d + 1) ≠ ⊤ :=
+      Nat.findGreatest_is_greatest (P := fun k ↦ J k = ⊤) (Nat.lt_succ_self d) hbound
+    have hbot : J (d + 1) = ⊥ := (_hminor (d + 1)).resolve_right hnot
+    have hmem : Matrix.det (P.submatrix rows cols) ∈ J (d + 1) :=
+      Ideal.subset_span ⟨rows, cols, rfl⟩
+    simpa only [hbot, Ideal.mem_bot] using hmem
+  -- Enumerate all minors of this size, including the unique empty minor.
+  let I := (Fin d ↪ Fin n) × (Fin d ↪ Fin p)
+  let q := Fintype.card I
+  let e : Fin q ≃ I := (Fintype.equivFin I).symm
+  let f : Fin q → R := fun i ↦ Matrix.det (P.submatrix (e i).1 (e i).2)
+  have hcover : Ideal.span (Set.range f) = ⊤ := by
+    convert hd using 1
+    congr 1
+    ext x
+    constructor
+    · rintro ⟨i, rfl⟩
+      exact ⟨(e i).1, (e i).2, rfl⟩
+    · rintro ⟨rows, cols, rfl⟩
+      exact ⟨e.symm (rows, cols), by simp [f]⟩
+  obtain ⟨s, hs⟩ := p05_ptm_split_of_away_splits_a5b449214a
+    n p q P π _hπ _hker f hcover (by
+      intro i
+      let S := Submonoid.powers (f i)
+      let A := Localization.Away (f i)
+      let loc (k : ℕ) : (Fin k → R) →ₗ[R] (Fin k → A) :=
+        LinearMap.pi fun j ↦ (Algebra.linearMap R A).comp (LinearMap.proj j)
+      let mloc := LocalizedModule.mkLinearMap S M
+      let PA : Matrix (Fin n) (Fin p) A := P.map (algebraMap R A)
+      let πA : (Fin n → A) →ₗ[A] LocalizedModule S M :=
+        IsLocalizedModule.mapExtendScalars S (loc n) mloc A π
+      have hπA : Function.Surjective πA :=
+        IsLocalizedModule.map_surjective S (loc n) mloc π _hπ
+      -- Localization of the matrix map is entrywise localization of the matrix.
+      have hP : IsLocalizedModule.map S (loc p) (loc n) P.mulVecLin =
+          PA.mulVecLin.restrictScalars R := by
+        apply IsLocalizedModule.linearMap_ext S (loc p) (loc n)
+        rw [IsLocalizedModule.map_comp]
+        apply LinearMap.ext
+        intro x
+        funext j
+        simp [loc, PA, Matrix.mulVec, dotProduct]
+      have hex := IsLocalizedModule.map_exact S (loc p) (loc n) mloc
+        P.mulVecLin π (LinearMap.exact_iff.mpr _hker)
+      have hkerA : LinearMap.ker πA = LinearMap.range PA.mulVecLin := by
+        apply LinearMap.exact_iff.mp
+        rw [hP] at hex
+        exact hex
+      have hunit : IsUnit (Matrix.det (PA.submatrix (e i).1 (e i).2)) := by
+        change IsUnit (Matrix.det ((algebraMap R A).mapMatrix
+          (P.submatrix (e i).1 (e i).2)))
+        rw [← RingHom.map_det]
+        exact IsLocalization.map_units A ⟨f i, Submonoid.mem_powers (f i)⟩
+      have hnextA : ∀ (rows : Fin (d + 1) ↪ Fin n) (cols : Fin (d + 1) ↪ Fin p),
+          Matrix.det (PA.submatrix rows cols) = 0 := by
+        intro rows cols
+        change Matrix.det ((algebraMap R A).mapMatrix (P.submatrix rows cols)) = 0
+        rw [← RingHom.map_det, hnext, map_zero]
+      obtain ⟨sA, hsA⟩ := p05_ptm_split_of_unit_minor_a5b449214a
+        n p d PA πA hπA hkerA (e i).1 (e i).2 hunit hnextA
+      -- Identify localized finite free modules with tuples over the localized ring.
+      let E : (Fin n → A) ≃ₗ[A] LocalizedModule S (Fin n → R) :=
+        (IsLocalizedModule.linearEquiv S (loc n)
+          (LocalizedModule.mkLinearMap S (Fin n → R))).extendScalarsOfIsLocalization S A
+      have hπE : (LocalizedModule.map S π).comp E.toLinearMap = πA := by
+        apply LinearMap.restrictScalars_injective R
+        apply IsLocalizedModule.linearMap_ext S (loc n) mloc
+        apply LinearMap.ext
+        intro x
+        simp [E, πA, mloc, IsLocalizedModule.mapExtendScalars,
+          LocalizedModule.mkLinearMap_apply]
+        exact LocalizedModule.map_mk S π x 1
+      refine ⟨E.toLinearMap.comp sA, ?_⟩
+      rw [← LinearMap.comp_assoc, hπE, hsA])
+  exact Module.Projective.of_split s π hs
+
+end Submission
