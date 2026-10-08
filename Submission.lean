@@ -1057,11 +1057,13 @@ theorem p04_tz91_invariant_transfer_norm_index
     obtain ⟨h, hh⟩ := QuotientGroup.mk_out_eq_mul H g
     rw [hh, map_mul, Module.End.mul_apply]
     exact congrArg (A.ρ g) (b.property h)
+  -- Summing linear maps gives the transfer's linearity before restricting its codomain.
   let t : (Rep.res H.subtype A).ρ.invariants →ₗ[k] A :=
     ∑ q : G ⧸ H, (A.ρ q.out).comp (Rep.res H.subtype A).ρ.invariants.subtype
   have ht (b : (Rep.res H.subtype A).ρ.invariants) : t b ∈ A.ρ.invariants := by
     intro g
     simp only [t, LinearMap.sum_apply, LinearMap.comp_apply, Submodule.subtype_apply, map_sum]
+    -- Left multiplication permutes the cosets, and hrep identifies their translates.
     refine Fintype.sum_equiv (MulAction.toPerm g) _ _ fun q => ?_
     change A.ρ g (A.ρ q.out (b : A)) = A.ρ (g • q).out (b : A)
     rw [← Module.End.mul_apply, ← map_mul]
