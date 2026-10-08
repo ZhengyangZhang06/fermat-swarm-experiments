@@ -3247,3 +3247,67 @@ theorem p05_fr_rhm_presentation_ideals_eq_a5b449214a
     _ = D Q (n' - r) := hstabilize n' p' n Q B
 
 end Submission
+
+
+namespace Submission
+
+theorem p05_fr_rhm_base_change_semilinear_invariance_a5b449214a
+    {R : Type*} [CommRing R] {S : Type*} [CommRing S] [Algebra R S]
+    {M : Type*} [AddCommGroup M] [Module R M]
+    (n p : ℕ) (P : Matrix (Fin n) (Fin p) R) (π : (Fin n → R) →ₗ[R] M)
+    (_hπ : Function.Surjective π)
+    (_hker : LinearMap.ker π = LinearMap.range P.mulVecLin)
+    (θ : S ≃+* S) (T : TensorProduct R S M ≃+ TensorProduct R S M)
+    (_hT : ∀ (s : S) (x : TensorProduct R S M), T (s • x) = θ s • T x)
+    (r : ℕ) :
+    let J : Ideal R := Ideal.span {x : R |
+      ∃ (rows : Fin (n - r) ↪ Fin n) (cols : Fin (n - r) ↪ Fin p),
+        x = Matrix.det (P.submatrix rows cols)}
+    Ideal.map θ.toRingHom (Ideal.map (algebraMap R S) J) =
+      Ideal.map (algebraMap R S) J := by
+  classical
+  dsimp only
+  obtain ⟨q, _hq_formula, hq, hqker⟩ :=
+    p05_fr_rhm_bcsi_base_changed_presentation_a5b449214a (S := S) n p P π _hπ _hker
+  obtain ⟨qθ, _hqθ_formula, hqθ, hqθker⟩ :=
+    p05_fr_rhm_bcsi_twisted_presentation_a5b449214a
+      n p (P.map (algebraMap R S)) q hq hqker θ T _hT
+  -- Extending the ideal commutes with taking the selected determinants.
+  have hbase :
+      Ideal.map (algebraMap R S) (Ideal.span {x : R |
+        ∃ (rows : Fin (n - r) ↪ Fin n) (cols : Fin (n - r) ↪ Fin p),
+          x = Matrix.det (P.submatrix rows cols)}) =
+      Ideal.span {x : S |
+        ∃ (rows : Fin (n - r) ↪ Fin n) (cols : Fin (n - r) ↪ Fin p),
+          x = Matrix.det ((P.map (algebraMap R S)).submatrix rows cols)} := by
+    rw [Ideal.map_span]
+    congr 1
+    ext x
+    constructor
+    · rintro ⟨y, ⟨rows, cols, rfl⟩, rfl⟩
+      exact ⟨rows, cols, (algebraMap R S).map_det _⟩
+    · rintro ⟨rows, cols, rfl⟩
+      exact ⟨_, ⟨rows, cols, rfl⟩, (algebraMap R S).map_det _⟩
+  rw [hbase]
+  calc
+    Ideal.map θ.toRingHom (Ideal.span {x : S |
+        ∃ (rows : Fin (n - r) ↪ Fin n) (cols : Fin (n - r) ↪ Fin p),
+          x = Matrix.det ((P.map (algebraMap R S)).submatrix rows cols)}) =
+        Ideal.span {x : S |
+          ∃ (rows : Fin (n - r) ↪ Fin n) (cols : Fin (n - r) ↪ Fin p),
+            x = Matrix.det
+              (((P.map (algebraMap R S)).map θ.toRingHom).submatrix rows cols)} := by
+      rw [Ideal.map_span]
+      congr 1
+      ext x
+      constructor
+      · rintro ⟨y, ⟨rows, cols, rfl⟩, rfl⟩
+        exact ⟨rows, cols, θ.toRingHom.map_det _⟩
+      · rintro ⟨rows, cols, rfl⟩
+        exact ⟨_, ⟨rows, cols, rfl⟩, θ.toRingHom.map_det _⟩
+    _ = _ :=
+      (p05_fr_rhm_presentation_ideals_eq_a5b449214a n p n p
+        (P.map (algebraMap R S)) ((P.map (algebraMap R S)).map θ.toRingHom)
+        q qθ hq hqker hqθ hqθker r).symm
+
+end Submission
