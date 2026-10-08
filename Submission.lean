@@ -2172,9 +2172,7 @@ theorem p06_9e0f5043ff_dmd_finite_family_dividing_member
   by_cases hj : a j = 0
   · rw [hj]
     exact dvd_zero _
-  · let k : S := ⟨j, hj⟩
-    change a (i : ι) ∣ a (k : ι)
-    rw [he i, he k, Units.mul_left_dvd, Units.dvd_mul_left]
-    exact pow_dvd_pow π (hmin k (Finset.mem_univ k))
+  · rw [he i, he ⟨j, hj⟩, Units.mul_left_dvd, Units.dvd_mul_left]
+    exact pow_dvd_pow π (hmin ⟨j, hj⟩ (Finset.mem_univ _))
 
 end Submission
