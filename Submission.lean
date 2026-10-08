@@ -3156,6 +3156,7 @@ theorem p06_9e0f5043ff_elp_fraction_subalgebra
     intro b hb heval
     have hb0 : b = 0 := transcendental_iff.mp hx b heval
     exact hb (hb0 ▸ dvd_zero q)
+  -- Subalgebra obtains negation closure by multiplying by the included constant -1.
   refine ⟨{
     carrier := {f | ∃ a b : Polynomial K, ¬ q ∣ b ∧
       f = Polynomial.aeval x a / Polynomial.aeval x b}
