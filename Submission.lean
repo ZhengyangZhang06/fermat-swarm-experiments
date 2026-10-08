@@ -1736,6 +1736,7 @@ theorem p06_9e0f5043ff_lno_dvr_determinant_length
 
 namespace Submission
 
+set_option warningAsError true in
 /-- A compatible equivalence of valuation rings preserves normalized orders.
 
 Transport a unit-times-uniformizer factorization through the two compatible equivalences,
