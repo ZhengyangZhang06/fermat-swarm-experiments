@@ -3,6 +3,44 @@
 Selected node: `root.gamma0_finite_dimensional-a1.coset_norm_bound-a1`.
 Only tracked theorem: `Submission.f036cc6b1f_fd_norm_bound`.
 
+## Current round: 2026-10-08 18:03:37 UTC
+
+The selected Lean proof and its complete frozen prefix remain unchanged. A fresh
+read-only simplifier review found no concrete proof defect or worthwhile simplification.
+This round adds evidence only; it does not claim proof acceptance or a source repair.
+
+The blocker is independent of the candidate proof. Inspection of the configured
+`/runtime/flows/math-lean-flow/scripts/verify-frozen-node.py` shows that `verify()`
+copies proof base `218176a9f57bf541cd6a4601fd809a5b3c5b91d2` into the challenge,
+then gives the child challenge `import Submission`. `compare()` exports that
+challenge before exporting the solution. Thus no edit confined to the selected
+candidate declaration can repair the missing constants in the challenge's frozen
+header. Altering the frozen base, imports, header, dependencies, or verifier is
+outside this implementation contract. No such change was made.
+
+Fresh source checks confirm all nine dependency repositories are clean at their
+manifest revisions. All 81 snapshot Definitions files, all 20 transitively imported
+project modules, and the six cited mathlib files match the pinned snapshot exactly.
+An exact-name rg search for all 15 attribute targets in snapshot `project/Definitions`
+and `mathlib/Mathlib` returns no matches. Searching the entire snapshot `project/`
+for the two reported names finds only the two frozen attribute-command headers.
+`fd_norm_bound|norm_domination|coset_norm` has no matches in snapshot Definitions
+or mathlib's modular-form directory. These textual results are evidence of the
+source mismatch, not a substitute for Lean's environment check.
+
+Fresh evidence is stored in
+`.humanize/rlcr/2026-10-08_18-03-37/validation/`: source/dependency audit, complete
+candidate diff, protected-artifact digests, reference-search logs, one structured
+`reference_use` entry with source `local-project`, and the simplifier review.
+Fresh Lean 4.33.1 diagnostics with `-DwarningAsError=true` and the project options
+give exit 0 for the unchanged selected proof plus literal frozen-type check, with
+only `propext`, `Classical.choice`, and `Quot.sound` in all four axiom reports.
+Retaining the frozen header gives exit 1 on the same two unknown constants at
+lines 9–10. Both diagnostics exclude the unrelated root theorem. The exact
+clean-SHA comparator result is recorded in this round's summary after the commit
+and run; these diagnostic results do not establish acceptance. The older checks
+below are historical.
+
 The existing implementation in `Submission.lean` is retained unchanged. It realizes the
 accepted parent proof: the finite coset factors tend to zero, so they are simultaneously
 bounded by one above a common height; separating the identity factor yields the bound
