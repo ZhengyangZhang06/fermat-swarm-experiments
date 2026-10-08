@@ -398,6 +398,7 @@ theorem p02_es_177ebb5a_ic_inverse_linepow
   simpa only [smul_smul, inv_mul_cancel₀ hj, one_smul] using
     congrArg (fun v => ((HeckeEis.jFactor σ τ) ^ n)⁻¹ • v) h.symm
 
+/-- A bound on one period strip gives a uniform bound for sufficiently large imaginary part. -/
 theorem p02_es_177ebb5a_tb_periodic_strip_bound
     (N : ℕ) [NeZero N] (q : UpperHalfPlane → ℂ)
     (hperiod : ∀ τ : UpperHalfPlane, q ((ModularGroup.T ^ N) • τ) = q τ)
