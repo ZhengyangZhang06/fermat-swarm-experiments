@@ -25,3 +25,34 @@ theorem HopfAlgebra.hopfKer_eq_of_surjective_of_ker_eq_span
       Ideal.span {x : H | x ∈ K ∧ Coalgebra.counit (R := k) x = 0}) :
     HopfAlgebra.hopfKer q = K := by
   sorry
+
+theorem Submission.p05_fhess_tensor_independent_right_a5b449214a
+    {k : Type*} [Field k] {M : Type*} [AddCommGroup M] [Module k M]
+    {N : Type*} [AddCommGroup N] [Module k N] (z : TensorProduct k M N) :
+    ∃ (n : ℕ) (v : Fin n → M) (w : Fin n → N),
+      LinearIndependent k w ∧ z = ∑ i : Fin n, TensorProduct.tmul k (v i) (w i) := by
+  classical
+  obtain ⟨r, a, b, hz⟩ := TensorProduct.exists_sum_tmul_eq z
+  let S := Submodule.span k (Set.range b)
+  let : Module.Finite k S := Module.Finite.span_of_finite k (Set.finite_range b)
+  let c := Module.finBasis k S
+  let b' : Fin r → S := fun j => ⟨b j, Submodule.subset_span (Set.mem_range_self j)⟩
+  refine ⟨Module.finrank k S, (fun i => ∑ j, c.repr (b' j) i • a j),
+    (fun i => (c i : N)), ?_, ?_⟩
+  · exact c.linearIndependent.map' S.subtype (Submodule.ker_subtype S)
+  · calc
+      z = ∑ j, TensorProduct.tmul k (a j) (b j) := hz
+      _ = ∑ j, ∑ i, TensorProduct.tmul k (c.repr (b' j) i • a j) (c i : N) := by
+        apply Finset.sum_congr rfl
+        intro j _
+        have hj : b j = ∑ i, c.repr (b' j) i • (c i : N) := by
+          simpa only [map_sum, map_smul, Submodule.subtype_apply] using
+            (congrArg S.subtype (c.sum_repr (b' j))).symm
+        rw [hj, TensorProduct.tmul_sum]
+        apply Finset.sum_congr rfl
+        intro i _
+        rw [TensorProduct.tmul_smul, TensorProduct.smul_tmul']
+      _ = ∑ i, ∑ j, TensorProduct.tmul k (c.repr (b' j) i • a j) (c i : N) :=
+        Finset.sum_comm
+      _ = ∑ i, TensorProduct.tmul k (∑ j, c.repr (b' j) i • a j) (c i : N) := by
+        simp only [TensorProduct.sum_tmul]
