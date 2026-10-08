@@ -1,0 +1,52 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "petersson_self|petersson.*nonneg|petersson.*zero|petersson.*invariant|theorem.*petersson|lemma.*petersson",
+        "IsOpenPosMeasure|volume|withDensity|invariant|mapGL|measurePreserving",
+        "ae_.*smul|measurePreserving_smul|preimage_smul|SMulInvariantMeasure",
+        "IsOpenPosMeasure.*UpperHalfPlane|UpperHalfPlane.*IsOpenPosMeasure|ae.*orbit|orbit.*ae|ae_orbit_zero|dd_open_pos|f036cc6b1f_pic_dd_ae_orbit_zero|f036cc6b1f_pic_dd_open_pos",
+        "SLAction|specialLinearGroup_apply|mapGL|instContinuousGLSMul|IsOpenEmbedding|isOpenEmbedding",
+        "integral_eq_zero_iff_of_nonneg|integral_re",
+        "withDensity_absolutelyContinuous|withDensity_apply|ae_all_iff|isOpenEmbedding_coe|volume_ball",
+        "theorem volume_ball|lemma volume_ball|volume_ball.*π|volume_ball.*pi"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Group/Action.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Measure/OpenPos.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Measure/WithDensity.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/OuterMeasure/AE.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Measure/Lebesgue/VolumeOfBalls.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Petersson.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean",
+        "/tmp/f036cc6b1f_dd_independent_audit/Compatibility.json",
+        "/tmp/f036cc6b1f_dd_independent_audit/FrozenTypes.lean",
+        "/tmp/f036cc6b1f_dd_independent_audit/FrozenTypes.log"
+      ],
+      "conclusion": "The split appropriately isolates two independent measure-theoretic obligations within the frozen theorem's existing DAG. The snapshot supplies hyperbolic volume, GL₂(ℝ)-invariance, the canonical SL₂ action through mapGL, the open embedding into ℂ, density formulas, countable almost-everywhere reasoning, and the parent's integral/continuity infrastructure. Targeted searches found no matching orbit-cover propagation theorem or UpperHalfPlane full-support declaration; full-support name matches were cleanup commands only. Both proposed names are unreserved. Independently verified all nine package pins and clean trees, seven mathlib source matches, and twenty project import-source matches against the snapshot pinned to project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The independent Lean rerun succeeded: both exact types elaborate without either child declaration, and instance inspection confirms the intended measure and action. Thirteen checked infrastructure declarations use only propext, Classical.choice, and Quot.sound. This accepts the decomposition and supplied prose proofs, not future Lean implementations."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "ae_vanishing_from_orbit_cover",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly includes every prose hypothesis and conclusion. The proof correctly establishes countability, identifies the restricted-measure exceptional set, transports nullity by measure-preserving preimages, forms the countable null saturation, and combines coverage with invariance. No finite-index assumption or parent conclusion is needed. The proof is complete and guides formalization. Its empty dependency list is correct; the bare identifier is unreserved."
+    },
+    {
+      "key": "hyperbolic_volume_open_positive",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone proposition exactly expresses positivity on every nonempty open set for the verified hyperbolic volume instance. The proof correctly uses the open embedding, chooses a positive-radius disk inside U, bounds the density below by a positive constant, computes positive planar area, and applies integral and measure monotonicity. No extra hypothesis or circular appeal is present. Its empty dependency list is correct; the bare identifier is unreserved."
+    }
+  ],
+  "required_changes": []
+}

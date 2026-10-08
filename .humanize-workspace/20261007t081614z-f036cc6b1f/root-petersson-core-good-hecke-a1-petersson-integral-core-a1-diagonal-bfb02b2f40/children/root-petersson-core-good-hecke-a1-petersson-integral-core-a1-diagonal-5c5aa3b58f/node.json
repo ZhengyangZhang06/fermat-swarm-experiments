@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.diagonal_integral_definite-a1.ae_vanishing_from_orbit_cover-a1",
+  "parent_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.diagonal_integral_definite-a1",
+  "depth": 4,
+  "title": "Invariant almost-everywhere vanishing extends from an orbit-covering set",
+  "statement": "Let Δ be any subgroup of SL₂(ℤ), acting canonically on the upper half-plane ℍ, and let μ=dx dy/y². Let E⊂ℍ be measurable and A:ℍ→ℝ be measurable. Assume that for μ-almost every z there exists γ∈Δ with γz∈E, that A(γz)=A(z) for every γ∈Δ and z∈ℍ, and that A(z)=0 for μ restricted to E-almost every z. Then A(z)=0 for μ-almost every z∈ℍ.",
+  "lean_statement": "∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (E : Set UpperHalfPlane) (A : UpperHalfPlane → ℝ), MeasurableSet E → Measurable A → (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ E) → (∀ (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ), γ ∈ Δ → ∀ z : UpperHalfPlane, A (γ • z) = A z) → (∀ᵐ z ∂((MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane).restrict E), A z = 0) → ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), A z = 0",
+  "lean_name": "f036cc6b1f_pic_dd_ae_orbit_zero",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-5c5aa3b58f-a1"
+}

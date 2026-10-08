@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081614Z-f036cc6b1f",
+  "parent_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.diagonal_integral_definite-a1",
+  "dispatch_branch": "proof-workspace/fermat-p01/20261007t081614z-f036cc6b1f/dispatch/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40",
+  "source_commit": "61b5f85556ac71631ccad822e0694511234f7132",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.diagonal_integral_definite-a1.ae_vanishing_from_orbit_cover-a1",
+      "key": "ae_vanishing_from_orbit_cover",
+      "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-5c5aa3b58f-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-5c5aa3b58f",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "petersson_self|petersson.*nonneg|petersson.*zero|petersson.*invariant|theorem.*petersson|lemma.*petersson",
+              "continuous.*ae_eq|eq_of_ae_eq|integral_eq_zero_iff_of_nonneg",
+              "isOpenPosMeasure|IsOpenPosMeasure|ae_eq|ae.*withDensity|withDensity.*ae",
+              "IsOpenPosMeasure.*UpperHalfPlane|UpperHalfPlane.*IsOpenPosMeasure|ae.*orbit|orbit.*ae|ae_orbit_zero|dd_open_pos",
+              "ae_.*smul|measurePreserving_smul|preimage_smul|ae_all_iff",
+              "f036cc6b1f_pic_dd_ae_orbit_zero|f036cc6b1f_pic_dd_open_pos"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Petersson.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Group/Action.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Measure/OpenPos.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Measure/WithDensity.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/decomposition-typechecks-dd/FrozenTypes.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/decomposition-typechecks-dd/FrozenTypes.log",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/decomposition-typechecks-dd/Compatibility.json"
+            ],
+            "conclusion": "The manifest pins project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Petersson.lean supplies continuity and determinant-one invariance; Bochner/Basic.lean supplies the nonnegative zero-integral criterion; OpenPos.lean supplies equality of continuous functions from almost-everywhere equality once full support is established. UpperHalfPlane/Measure.lean supplies the hyperbolic density and GL₂(ℝ)-invariance. Searches found no existing theorem with the proposed orbit-cover propagation statement and no hyperbolic full-support declaration in the snapshot; the latter name occurs only in cleanup commands. Both proposed names are unreserved in the current DAG. All nine installed packages are clean and pinned, and the relevant mathlib sources and twenty local import sources match the snapshot. Both exact child types elaborate after import Submission under Lean 4.33.1. Instance inspection confirms hyperbolic volume and the canonical SL₂ action through mapGL. Thirteen inspected infrastructure declarations have only propext, Classical.choice, and Quot.sound as transitive axioms. These checks validate the proposed interfaces, not acceptance of future child proofs."
+          }
+        ],
+        "parent_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.diagonal_integral_definite-a1",
+        "child_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.diagonal_integral_definite-a1.ae_vanishing_from_orbit_cover-a1",
+        "subproblem": {
+          "key": "ae_vanishing_from_orbit_cover",
+          "title": "Invariant almost-everywhere vanishing extends from an orbit-covering set",
+          "statement": "Let Δ be any subgroup of SL₂(ℤ), acting canonically on the upper half-plane ℍ, and let μ=dx dy/y². Let E⊂ℍ be measurable and A:ℍ→ℝ be measurable. Assume that for μ-almost every z there exists γ∈Δ with γz∈E, that A(γz)=A(z) for every γ∈Δ and z∈ℍ, and that A(z)=0 for μ restricted to E-almost every z. Then A(z)=0 for μ-almost every z∈ℍ.",
+          "lean_statement": "∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (E : Set UpperHalfPlane) (A : UpperHalfPlane → ℝ), MeasurableSet E → Measurable A → (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ E) → (∀ (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ), γ ∈ Δ → ∀ z : UpperHalfPlane, A (γ • z) = A z) → (∀ᵐ z ∂((MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane).restrict E), A z = 0) → ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), A z = 0",
+          "lean_name": "f036cc6b1f_pic_dd_ae_orbit_zero",
+          "depends_on": [],
+          "natural_proof": "1. Write G=SL₂(ℤ) and μ=dx dy/y² on ℍ. The map sending an integer matrix to its four entries embeds G in ℤ⁴. Thus G and its subgroup Δ are countable.\n2. Let N=E∩{z : A(z)≠0}. Since E and A are measurable, N is measurable. The assumed almost-everywhere equality for μ restricted to E says precisely that μ(N)=0.\n3. For each γ∈Δ, the map Tγ(z)=γz is a homeomorphism with inverse Tγ⁻¹ and preserves μ. Indeed, writing γ with real entries a,b,c,d and ad−bc=1, the denominator cz+d never vanishes in ℍ, Im(Tγ(z))=Im(z)/|cz+d|², and the real Jacobian determinant is |cz+d|⁻⁴. Multiplication by the transformed density therefore gives (Im(Tγ(z)))⁻²|cz+d|⁻⁴=(Im z)⁻². The change-of-variables formula gives preservation of μ. This is also the specialization of the pinned UpperHalfPlane GL₂(ℝ)-invariance theorem to the canonical image of γ. Consequently Tγ⁻¹(N) is measurable and null.\n4. Define N*=⋃γ∈Δ Tγ⁻¹(N) and C=⋃γ∈Δ Tγ⁻¹(E), where the inverse notation denotes preimage. Countability makes both sets measurable and makes N* null. The orbit-coverage hypothesis states that μ(ℍ∖C)=0.\n5. Fix z∈C∖N*. By the definition of C, choose γ∈Δ such that γz∈E. Since z∉N*, one has γz∉N. Membership in E and nonmembership in N imply A(γz)=0. The assumed invariance yields A(z)=A(γz)=0.\n6. It follows that {z : A(z)≠0} is contained in (ℍ∖C)∪N*, a null set. Therefore A(z)=0 for μ-almost every z in ℍ, as required.",
+          "proof_key_steps": [
+            "Establish countability of Δ using its embedding in ℤ⁴.",
+            "Identify the measurable null exceptional set N inside E.",
+            "Use hyperbolic measure preservation to show that every translated preimage of N is null.",
+            "Form the countable null saturation N* and the conull orbit cover C.",
+            "Use invariance to prove vanishing on C∖N*, hence almost everywhere."
+          ]
+        },
+        "audit": {
+          "key": "ae_vanishing_from_orbit_cover",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly includes every prose hypothesis and conclusion. The proof correctly establishes countability, identifies the restricted-measure exceptional set, transports nullity by measure-preserving preimages, forms the countable null saturation, and combines coverage with invariance. No finite-index assumption or parent conclusion is needed. The proof is complete and guides formalization. Its empty dependency list is correct; the bare identifier is unreserved."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-5c5aa3b58f/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-5c5aa3b58f/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-5c5aa3b58f/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.diagonal_integral_definite-a1.hyperbolic_volume_open_positive-a1",
+      "key": "hyperbolic_volume_open_positive",
+      "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-fa237e11e1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-fa237e11e1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "petersson_self|petersson.*nonneg|petersson.*zero|petersson.*invariant|theorem.*petersson|lemma.*petersson",
+              "continuous.*ae_eq|eq_of_ae_eq|integral_eq_zero_iff_of_nonneg",
+              "isOpenPosMeasure|IsOpenPosMeasure|ae_eq|ae.*withDensity|withDensity.*ae",
+              "IsOpenPosMeasure.*UpperHalfPlane|UpperHalfPlane.*IsOpenPosMeasure|ae.*orbit|orbit.*ae|ae_orbit_zero|dd_open_pos",
+              "ae_.*smul|measurePreserving_smul|preimage_smul|ae_all_iff",
+              "f036cc6b1f_pic_dd_ae_orbit_zero|f036cc6b1f_pic_dd_open_pos"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Petersson.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Group/Action.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Measure/OpenPos.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Measure/WithDensity.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/decomposition-typechecks-dd/FrozenTypes.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/decomposition-typechecks-dd/FrozenTypes.log",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/decomposition-typechecks-dd/Compatibility.json"
+            ],
+            "conclusion": "The manifest pins project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Petersson.lean supplies continuity and determinant-one invariance; Bochner/Basic.lean supplies the nonnegative zero-integral criterion; OpenPos.lean supplies equality of continuous functions from almost-everywhere equality once full support is established. UpperHalfPlane/Measure.lean supplies the hyperbolic density and GL₂(ℝ)-invariance. Searches found no existing theorem with the proposed orbit-cover propagation statement and no hyperbolic full-support declaration in the snapshot; the latter name occurs only in cleanup commands. Both proposed names are unreserved in the current DAG. All nine installed packages are clean and pinned, and the relevant mathlib sources and twenty local import sources match the snapshot. Both exact child types elaborate after import Submission under Lean 4.33.1. Instance inspection confirms hyperbolic volume and the canonical SL₂ action through mapGL. Thirteen inspected infrastructure declarations have only propext, Classical.choice, and Quot.sound as transitive axioms. These checks validate the proposed interfaces, not acceptance of future child proofs."
+          }
+        ],
+        "parent_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.diagonal_integral_definite-a1",
+        "child_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.diagonal_integral_definite-a1.hyperbolic_volume_open_positive-a1",
+        "subproblem": {
+          "key": "hyperbolic_volume_open_positive",
+          "title": "Hyperbolic volume is positive on every nonempty open set",
+          "statement": "For the canonical hyperbolic measure μ=dx dy/y² on the upper half-plane ℍ with its usual topology, every nonempty open set U⊂ℍ satisfies μ(U)≠0. Equivalently, μ is an IsOpenPosMeasure.",
+          "lean_statement": "MeasureTheory.Measure.IsOpenPosMeasure (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane)",
+          "lean_name": "f036cc6b1f_pic_dd_open_pos",
+          "depends_on": [],
+          "natural_proof": "1. Let ν be planar Lebesgue measure pulled back along the inclusion ℍ→ℂ. By the definition of hyperbolic volume, μ=ν.withDensity(w), where w(z)=(Im z)⁻². This density is measurable and strictly positive at every point of ℍ.\n2. Fix any nonempty open set U⊂ℍ and choose z₀=x₀+iy₀∈U. Here y₀>0. The inclusion ℍ→ℂ is an open embedding, so the image of U is open in ℂ. Choose ρ>0 such that the planar disk B(z₀,ρ) lies in that image, and set r=min(ρ/2,y₀/4). Then r>0, r<ρ, and r<y₀/2. The disk B(z₀,r) corresponds to a measurable open set V⊂U in ℍ.\n3. For z∈V, the inequality |Im z−y₀|≤|z−z₀|<r gives 0<Im z<y₀+r. Hence w(z)≥c, where c=(y₀+r)⁻²>0.\n4. The inclusion maps V bijectively onto B(z₀,r), and ν is pulled-back planar measure. Therefore ν(V)=πr²>0. The density formula and monotonicity of the nonnegative integral give μ(V)=∫_V w dν≥cν(V)=πr²/(y₀+r)²>0, with nonnegative real quantities viewed in the extended nonnegative reals.\n5. Since V⊂U, monotonicity gives μ(U)≥μ(V)>0, so μ(U)≠0. This holds for every nonempty open U and is exactly Measure.IsOpenPosMeasure μ.",
+          "proof_key_steps": [
+            "Express hyperbolic volume as planar measure weighted by (Im z)⁻².",
+            "Place a positive-radius planar disk inside an arbitrary nonempty open set.",
+            "Bound the density below by a strictly positive constant on that disk.",
+            "Combine positive disk area with the density bound to obtain positive hyperbolic volume.",
+            "Apply measure monotonicity to the original open set."
+          ]
+        },
+        "audit": {
+          "key": "hyperbolic_volume_open_positive",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The standalone proposition exactly expresses positivity on every nonempty open set for the verified hyperbolic volume instance. The proof correctly uses the open embedding, chooses a positive-radius disk inside U, bounds the density below by a positive constant, computes positive planar area, and applies integral and measure monotonicity. No extra hypothesis or circular appeal is present. Its empty dependency list is correct; the bare identifier is unreserved."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-fa237e11e1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-fa237e11e1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-fa237e11e1/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/task.md": "05006e5102d8511e94dc61fded268fcca7b1594ae676beaa70ca219b913620d8",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/problem.md": "0929eb9ca2ad7ea30f1aafc2c1446aaf06dcdc301374ffe2ca7f4b56816d2cc8",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/problem.json": "c64a078a3af06a0ca64b6d4803eb85ec446543f75da9e877043ae15bfce62d9d",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/reference-manifest.json": "509f4932b6d1c571a2a1434f97319ae47791212dabf986cc6faad0e84a6d9346",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/decomposition.json": "1f0924eaa6cc5350285a9694b3b1b965fcbb4730a99ce47a312dd396472a2469",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/decomposition-audit.json": "3656a3073484e7428b6118c23e0c29f13d53b6948b17cb0dfa5f724fa897d1a8",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/controller-contract.json": "bff7bdd835120310c8d06285451ab49cb58d39fdb94d2ad676fc3fff3afc415d",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-5c5aa3b58f/parent-child-handoff.json": "e0829f2875b0b32e49eab71f3f452c8ca48ccc5e68b8f171ef4e3e4f848dcae5",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-5c5aa3b58f/parent-supplied-plan.md": "74db1c80d70249839a5e4c096a5a1c116764abf148d2e2cb5692b54edf7faafa",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-5c5aa3b58f/parent-supplied-natural-proof.md": "1e3a1911ab4ae26365f9746ca2bff35ec9857f8043e49e8bbe00f550549f9713",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-5c5aa3b58f/parent-supplied-natural-proof.json": "85924000d9baeca9fd1c8b9b8b48d96d43fb98037f23b02d910e3cbb32af6936",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-5c5aa3b58f/node.json": "266c6f6930e16c4dbb25da1da6f6c0dcef235eaaf1f574ed60079066e62d71a7",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-fa237e11e1/parent-child-handoff.json": "b64386703aa54fbb868653ce25f5194c50e337e91565270595007c175999a78a",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-fa237e11e1/parent-supplied-plan.md": "e53eb1301546c693eea63b24433bab30c2f07315a23eb17f8c5f81eac4017852",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-fa237e11e1/parent-supplied-natural-proof.md": "4ec8ed75d6258ef4946abca131b1844d47f4f0a38fc7606d549e83b8a86e2fde",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-fa237e11e1/parent-supplied-natural-proof.json": "5e1455cc0249fba5237606dcec94df7b3a4872f331e9770de780b3ba73a66618",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-fa237e11e1/node.json": "05485577ee4ceee6900331595694437e8dc2b781d6950225fea1f67efd8436e9"
+  }
+}
