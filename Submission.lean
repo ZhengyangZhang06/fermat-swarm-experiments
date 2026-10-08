@@ -3149,3 +3149,4 @@ theorem p05_finite_retraction_a5b449214a
   rfl
 
 end Submission
+    exact Bialgebra.comul_mul
