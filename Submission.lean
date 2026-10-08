@@ -2246,8 +2246,9 @@ namespace Submission
 open CategoryTheory
 
 /-- The restricted standard resolution computes subgroup homology.
-Restriction to a subgroup preserves projective resolutions, so the standard
-resolution comparison applies to its tensor-coinvariant complex in every degree. -/
+Subgroup restriction is exact and preserves projective objects, so the restricted
+standard resolution resolves the trivial representation of the subgroup.
+`groupHomologyIso` identifies its tensor-coinvariant homology in every degree. -/
 theorem p04_ht_restricted_standard_comparison
     {k G : Type _} [CommRing k] [Group G] [Fintype G]
     (A : Rep k G) (H : Subgroup G) [Fintype H] (n : ℕ) :
@@ -2257,9 +2258,9 @@ theorem p04_ht_restricted_standard_comparison
           (Rep.res H.subtype A)).homology n ≃ₗ[k]
         groupHomology (Rep.res H.subtype A) n) := by
   classical
-  -- `mapProjectiveResolution` has exactly the restricted standard complex as its complex.
-  exact ⟨(groupHomologyIso (Rep.res H.subtype A) n
-    ((Rep.resFunctor H.subtype).mapProjectiveResolution
-      (Rep.standardResolution k G))).symm.toLinearEquiv⟩
+  let P : ProjectiveResolution (Rep.trivial k H k) :=
+    (Rep.resFunctor H.subtype).mapProjectiveResolution (Rep.standardResolution k G)
+  -- The complex of `P` is definitionally the restricted standard complex.
+  exact ⟨(groupHomologyIso (Rep.res H.subtype A) n P).symm.toLinearEquiv⟩
 
 end Submission
