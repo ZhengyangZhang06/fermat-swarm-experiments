@@ -2392,6 +2392,7 @@ open MeasureTheory
 
 namespace Submission
 
+/-- The boundary of the standard modular domain is measurable and has hyperbolic volume zero. -/
 theorem f036cc6b1f_pc_ed_aoi_boundary_null :
     MeasurableSet (ModularGroup.fd \ ModularGroup.fdo) ∧
       (volume : Measure UpperHalfPlane) (ModularGroup.fd \ ModularGroup.fdo) = 0 := by
