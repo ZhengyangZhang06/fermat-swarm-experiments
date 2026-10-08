@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1.measurable_equidecomposition-a1.invariant_conull_core-a1",
+  "parent_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1.measurable_equidecomposition-a1",
+  "depth": 5,
+  "title": "A measurable conull set contains a measurable invariant conull subset",
+  "statement": "Let G = SL₂(ℤ) act canonically on the upper half-plane ℍ, equipped with hyperbolic measure μ = dx dy/y². Let Δ ≤ G be any subgroup, and let S ⊆ ℍ be measurable with z ∈ S for μ-almost every z. Then there exists a measurable set X ⊆ S such that z ∈ X for μ-almost every z and, for every γ ∈ Δ and every z ∈ ℍ, γz ∈ X if and only if z ∈ X.",
+  "lean_statement": "∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (S : Set UpperHalfPlane), MeasurableSet S → (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), z ∈ S) → ∃ X : Set UpperHalfPlane, MeasurableSet X ∧ (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), z ∈ X) ∧ X ⊆ S ∧ (∀ (γ : Δ) (z : UpperHalfPlane), (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • z ∈ X ↔ z ∈ X)",
+  "lean_name": "f036cc6b1f_pic_mec_invariant_conull_core",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-2dae18e5e8-a1"
+}

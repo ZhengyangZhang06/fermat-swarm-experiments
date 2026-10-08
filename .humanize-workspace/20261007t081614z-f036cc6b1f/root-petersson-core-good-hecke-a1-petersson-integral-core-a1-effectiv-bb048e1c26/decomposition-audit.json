@@ -1,0 +1,48 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "measurePreserving|instSMulInvariant|volume|mapGL",
+        "SL_neg_smul|SLAction|mapGL|ContinuousGLSMul",
+        "invariant.*conull|conull.*invariant|equidecomposition|unique.*sign",
+        "neg_inv|inv_neg|HasDistribNeg|hasDistribNeg|instance.*Neg|neg_one|neg_neg",
+        "structure IsFundamentalDomain|def IsFundamentalDomain|ae_disjoint|aedisjoint|pairwise",
+        "f036cc6b1f_pic_mec_invariant_conull_core|f036cc6b1f_pic_mec_pointwise_sign_partition",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean -DautoImplicit=false -DmaxHeartbeats=4000000 -DsynthInstance.maxHeartbeats=400000 -Dbackward.isDefEq.respectTransparency.types=false /tmp/fermat-p01-mec-independent-audit/Audit.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Group/Action.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Group/FundamentalDomain.lean",
+        "/tmp/fermat-p01-mec-independent-audit/Audit.lean",
+        "/tmp/fermat-p01-mec-independent-audit/Audit.log",
+        "/tmp/fermat-p01-mec-independent-audit/command.json"
+      ],
+      "conclusion": "The manifest pins project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The DAG identifies this parent as a depth-four descendant of the frozen cusp-form theorem. The inspected sources establish hyperbolic volume, its GL invariance, continuity, the canonical SL action through mapGL, and sign invariance. Fundamental-domain infrastructure requires pairwise almost-everywhere disjoint translates, so it cannot directly handle the trivial action of −I. The targeted project/Definitions search found no matching invariant-conull or sign-equidecomposition result. Neither proposed name was reserved in the DAG or existing child handoffs. All nine dependency checkouts were clean at their pins; twenty local import sources matched the manifest's project revision. Independent Lean checks exited successfully: both exact expressions elaborate as Prop from the definition import alone, without either child declaration. Instance checks confirmed the intended Borel structure, hyperbolic measure, SL action, group operations, and negation. Anonymous checks verified countability, continuity, measure preservation, and the sign identities. Audited infrastructure declarations have only propext, Classical.choice, and Quot.sound as transitive axioms. These checks validate interfaces and supporting infrastructure, not comparator acceptance of child implementations."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "invariant_conull_core",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and independently elaborated one-line proposition match exactly. Steps 1–7 justify countability, measurable measure-preserving action maps, null saturation, containment, and both directions of invariance without any sign assumption or circular appeal. The split appropriately separates null-set saturation from partition construction; the parent's measurable conull simultaneous-good set supplies this child's input. The bare identifier is unreserved, and no sibling dependency is needed."
+    },
+    {
+      "key": "pointwise_sign_partition",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and independently elaborated one-line proposition include all hypotheses and match the exact covering, disjointness, and inverse-image correspondence conclusions. Steps 1–12 completely justify subgroup closure under negation, sign-class selection, uniqueness, measurable pieces, both covers, both disjointness claims, and image equality, including unselected indices. The proof uses the assumed invariance directly and neither invokes the parent nor requires the other child. The bare identifier is unreserved; both contracts are independently usable comparator types. Adding the parent-to-child edges leaves the DAG acyclic."
+    }
+  ],
+  "required_changes": []
+}

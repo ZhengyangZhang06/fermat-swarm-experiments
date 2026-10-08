@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1.measurable_equidecomposition-a1.pointwise_sign_partition-a1",
+  "parent_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1.measurable_equidecomposition-a1",
+  "depth": 5,
+  "title": "Exact matched partitions on an invariant set with representatives unique modulo sign",
+  "statement": "Let G = SL₂(ℤ) act canonically on the upper half-plane ℍ with its Borel measurable structure. Let Δ ≤ G contain −I, and let E,F,X ⊆ ℍ be measurable. Assume γz ∈ X if and only if z ∈ X for every γ ∈ Δ and z ∈ ℍ. Assume also that, for each S equal to E or F and every z ∈ X, there exists r ∈ Δ such that rz ∈ S and every δ ∈ Δ with δz ∈ S satisfies δ = r or δ = −r. Then there exist families A,B : Δ → Set ℍ whose members are measurable, such that each family is pairwise disjoint, ⋃γ Aγ = E ∩ X, ⋃γ Bγ = F ∩ X, and the image of Aγ under z ↦ γ⁻¹z is exactly Bγ for every γ ∈ Δ.",
+  "lean_statement": "∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (E F X : Set UpperHalfPlane), (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ → MeasurableSet E → MeasurableSet F → MeasurableSet X → (∀ (γ : Δ) (z : UpperHalfPlane), (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • z ∈ X ↔ z ∈ X) → (∀ S : Set UpperHalfPlane, (S = E ∨ S = F) → ∀ z ∈ X, ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ S ∧ ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ, δ ∈ Δ → δ • z ∈ S → δ = γ ∨ δ = -γ) → ∃ A B : Δ → Set UpperHalfPlane, (∀ γ, MeasurableSet (A γ)) ∧ (∀ γ, MeasurableSet (B γ)) ∧ Pairwise (fun γ δ => Disjoint (A γ) (A δ)) ∧ Pairwise (fun γ δ => Disjoint (B γ) (B δ)) ∧ (⋃ γ, A γ) = E ∩ X ∧ (⋃ γ, B γ) = F ∩ X ∧ (∀ γ : Δ, (fun z : UpperHalfPlane => (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ)⁻¹ • z) '' (A γ) = B γ)",
+  "lean_name": "f036cc6b1f_pic_mec_pointwise_sign_partition",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f2ec3caac6-a1"
+}
