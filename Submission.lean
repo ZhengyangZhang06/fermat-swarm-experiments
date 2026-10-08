@@ -2721,3 +2721,59 @@ theorem Submission.p10_17ae7b7d_crt_ring_equiv_rows :
       simpa only [map_mul, e.symm_apply_apply] using congrArg e.symm h₁
     · change e.symm (u : S) * v.1.2 = w.1.2
       simpa only [map_mul, e.symm_apply_apply] using congrArg e.symm h₂
+theorem Submission.p10_17ae7b7d_crt_pi_rows :
+    ∀ (ι : Type) [Fintype ι] (R : ι → Type) [∀ i, CommRing (R i)],
+      let P := fun (A : Type) [CommRing A] =>
+        Quot (fun v w : {v : A × A // ∃ x y : A, x * v.1 + y * v.2 = 1} =>
+          ∃ u : Aˣ, (u : A) * v.1.1 = w.1.1 ∧ (u : A) * v.1.2 = w.1.2)
+      Nonempty (P (∀ i, R i) ≃ (∀ i, P (R i))) := by
+  classical
+  intro ι _ R _
+  let U := fun (A : Type) [CommRing A] =>
+    {v : A × A // ∃ x y : A, x * v.1 + y * v.2 = 1}
+  let rel := fun (A : Type) [CommRing A] (v w : U A) =>
+    ∃ u : Aˣ, (u : A) * v.1.1 = w.1.1 ∧ (u : A) * v.1.2 = w.1.2
+  have hrel (A : Type) [CommRing A] : Equivalence (rel A) := by
+    refine ⟨fun v => ⟨1, by simp, by simp⟩, ?_, ?_⟩
+    · rintro v w ⟨u, h1, h2⟩
+      exact ⟨u⁻¹, by rw [← h1, Units.inv_mul_cancel_left],
+        by rw [← h2, Units.inv_mul_cancel_left]⟩
+    · rintro v w z ⟨u, h1, h2⟩ ⟨u', h1', h2'⟩
+      exact ⟨u' * u, by rw [Units.val_mul, mul_assoc, h1, h1'],
+        by rw [Units.val_mul, mul_assoc, h2, h2']⟩
+  let ev : U (∀ i, R i) → ∀ i, U (R i) := fun v i =>
+    ⟨(v.1.1 i, v.1.2 i), by
+      obtain ⟨x, y, hxy⟩ := v.2
+      exact ⟨x i, y i, congrFun hxy i⟩⟩
+  let F : Quot (rel (∀ i, R i)) → ∀ i, Quot (rel (R i)) :=
+    Quot.lift (fun v i => Quot.mk _ (ev v i)) (by
+      rintro v w ⟨u, h1, h2⟩
+      funext i
+      exact Quot.sound ⟨MulEquiv.piUnits u i, congrFun h1 i, congrFun h2 i⟩)
+  change Nonempty (Quot (rel (∀ i, R i)) ≃ (∀ i, Quot (rel (R i))))
+  refine ⟨Equiv.ofBijective F ⟨?_, ?_⟩⟩
+  · intro a b
+    refine Quot.inductionOn a (fun v => ?_)
+    refine Quot.inductionOn b (fun w => ?_)
+    intro h
+    have hscale : ∀ i, ∃ u : (R i)ˣ,
+        (u : R i) * (ev v i).1.1 = (ev w i).1.1 ∧
+        (u : R i) * (ev v i).1.2 = (ev w i).1.2 := by
+      intro i
+      exact ((hrel (R i)).quot_mk_eq_iff (ev v i) (ev w i)).mp (congrFun h i)
+    choose u h1 h2 using hscale
+    apply Quot.sound
+    exact ⟨MulEquiv.piUnits.symm u, funext h1, funext h2⟩
+  · intro q
+    choose v hv using fun i => Quot.exists_rep (q i)
+    have hwitness : ∀ i, ∃ x y : R i,
+        x * (v i).1.1 + y * (v i).1.2 = 1 := fun i => (v i).2
+    choose x y hxy using hwitness
+    let row : U (∀ i, R i) :=
+      ⟨(fun i => (v i).1.1, fun i => (v i).1.2), x, y, funext hxy⟩
+    refine ⟨Quot.mk _ row, ?_⟩
+    funext i
+    change Quot.mk (rel (R i)) (ev row i) = q i
+    have he : ev row i = v i := Subtype.ext rfl
+    rw [he]
+    exact hv i
