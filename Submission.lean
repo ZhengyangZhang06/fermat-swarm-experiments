@@ -94,6 +94,7 @@ theorem p04_prism_a8325b9888_equivariant_components :
         exact hP n h c }
   exact ⟨D, hL⟩
 set_option maxHeartbeats 4000000
+set_option warningAsError true
 
 namespace Submission
 
@@ -204,6 +205,8 @@ theorem p04_pb_60221840b0_noncentral_cancellation
   rw [← reindex]
   exact neg_add_cancel _
 
+end Submission
+
 namespace Submission
 
 /-- The two central faces of each inserted tuple telescope to the endpoint tuples. -/
@@ -250,6 +253,9 @@ theorem p04_pb_60221840b0_central_telescoping :
   rw [Fin.sum_univ_eq_sum_range (fun l =>
     MonoidAlgebra.single (T l) (1 : k) - MonoidAlgebra.single (T (l + 1)) (1 : k)),
     Finset.sum_range_sub', hzero, hlast]
+
+end Submission
+
 namespace Submission
 
 /-- The alternating prism has boundary equal to its two endpoints. -/
