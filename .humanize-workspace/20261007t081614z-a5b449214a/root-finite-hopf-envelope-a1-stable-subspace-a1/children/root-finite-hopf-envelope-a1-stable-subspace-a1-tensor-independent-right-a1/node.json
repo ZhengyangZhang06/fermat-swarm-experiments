@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_hopf_envelope-a1.stable_subspace-a1.tensor_independent_right-a1",
+  "parent_id": "root.finite_hopf_envelope-a1.stable_subspace-a1",
+  "depth": 3,
+  "title": "Finite tensor expansion with independent right factors",
+  "statement": "Let k be a field and M,N be k-vector spaces. For every z∈M⊗ₖN, there exist a natural number n and families v:Fin n→M and w:Fin n→N such that w is k-linearly independent and z=Σᵢ vᵢ⊗wᵢ. The index set may be empty.",
+  "lean_statement": "∀ {k : Type*} [Field k] {M : Type*} [AddCommGroup M] [Module k M] {N : Type*} [AddCommGroup N] [Module k N] (z : TensorProduct k M N), ∃ (n : ℕ) (v : Fin n → M) (w : Fin n → N), LinearIndependent k w ∧ z = ∑ i : Fin n, TensorProduct.tmul k (v i) (w i)",
+  "lean_name": "p05_fhess_tensor_independent_right_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-stable-subspace-a1-tensor-independent-right-a1-a1"
+}
