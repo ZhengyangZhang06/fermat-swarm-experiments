@@ -475,3 +475,67 @@ theorem Submission.p05_fhess_tensor_independent_right_a5b449214a
         Finset.sum_comm
       _ = ∑ i, TensorProduct.tmul k (∑ j, c.repr (b' j) i • a j) (c i : N) := by
         simp only [TensorProduct.sum_tmul]
+
+theorem Submission.p05_pie_minor_product_containment_a5b449214a
+    {R : Type*} [CommRing R] {ι κ ν : Type*}
+    [Fintype ι] [Fintype κ] [Fintype ν]
+    (A : Matrix ι κ R) (B : Matrix κ ν R) (d : ℕ) :
+    (Ideal.span {x : R | ∃ (rows : Fin d ↪ ι) (cols : Fin d ↪ ν),
+      x = Matrix.det ((A * B).submatrix rows cols)}) ≤
+    (Ideal.span {x : R | ∃ (rows : Fin d ↪ ι) (cols : Fin d ↪ κ),
+      x = Matrix.det (A.submatrix rows cols)}) ⊓
+    (Ideal.span {x : R | ∃ (rows : Fin d ↪ κ) (cols : Fin d ↪ ν),
+      x = Matrix.det (B.submatrix rows cols)}) := by
+  classical
+  have hrows (C : Matrix (Fin d) κ R) (D : Matrix κ (Fin d) R)
+      (J : Ideal R)
+      (hgen : ∀ r : Fin d ↪ κ, Matrix.det (D.submatrix r id) ∈ J) :
+      Matrix.det (C * D) ∈ J := by
+    have hexp : Matrix.det (C * D) =
+        ∑ f : Fin d → κ, (∏ i, C i (f i)) * Matrix.det (D.submatrix f id) := by
+      have hmat : C * D = fun i => ∑ k, C i k • D k := by
+        ext i j
+        simp [Matrix.mul_apply]
+      have hsum : Matrix.det (fun i => ∑ k, C i k • D k) =
+          ∑ f : Fin d → κ, Matrix.det (fun i => C i (f i) • D (f i)) :=
+        (Matrix.detRowAlternating : (Fin d → R) [⋀^Fin d]→ₗ[R] R).toMultilinearMap.map_sum
+          (fun i k => C i k • D k)
+      rw [hmat, hsum]
+      apply Finset.sum_congr rfl
+      intro f _
+      exact Matrix.det_mul_column (fun i => C i (f i)) (D.submatrix f id)
+    rw [hexp]
+    apply J.sum_mem
+    intro f _
+    by_cases hf : Function.Injective f
+    · exact J.mul_mem_left _ (hgen ⟨f, hf⟩)
+    · have hz : Matrix.det (D.submatrix f id) = 0 := by
+        rw [Function.Injective] at hf
+        push Not at hf
+        obtain ⟨i, j, hij, hne⟩ := hf
+        apply Matrix.det_zero_of_row_eq hne
+        funext k
+        change D (f i) k = D (f j) k
+        rw [hij]
+      rw [hz, mul_zero]
+      exact J.zero_mem
+  apply Ideal.span_le.mpr
+  rintro x ⟨rows, cols, rfl⟩
+  constructor
+  · have h := hrows (B.transpose.submatrix cols id) (A.transpose.submatrix id rows)
+      (Ideal.span {x : R | ∃ (r : Fin d ↪ ι) (c : Fin d ↪ κ),
+        x = Matrix.det (A.submatrix r c)}) (fun r => by
+          apply Ideal.subset_span
+          refine ⟨rows, r, ?_⟩
+          exact Matrix.det_transpose (A.submatrix rows r))
+    have hmat : B.transpose.submatrix cols id * A.transpose.submatrix id rows =
+        ((A * B).submatrix rows cols).transpose := by
+      ext i j
+      simp only [Matrix.mul_apply, Matrix.submatrix_apply, Matrix.transpose_apply, id_eq]
+      apply Finset.sum_congr rfl
+      intro k _
+      exact mul_comm _ _
+    rw [hmat, Matrix.det_transpose] at h
+    exact h
+  · exact hrows (A.submatrix rows id) (B.submatrix id cols) _
+      (fun r => Ideal.subset_span ⟨r, cols, rfl⟩)
