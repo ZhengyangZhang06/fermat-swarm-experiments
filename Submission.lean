@@ -2224,13 +2224,14 @@ theorem p04_ht_restricted_standard_comparison
   -- Reverse the library comparison to start at its tensor-coinvariant homology.
   exact ⟨(groupHomologyIso (Rep.res H.subtype A) n P).symm.toLinearEquiv⟩
 
+set_option warningAsError true in
 /-- Transfer and projection on group homology have composite multiplication by the index.
 The accepted complex transfer is transported through the accepted restricted comparison
 and `groupHomologyIso` for `Rep.standardResolution`. These upstream declarations are in
 `Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean` and
 `Mathlib/RepresentationTheory/Homological/Resolution.lean` at the pinned revision
 `db584cd6d46c92f209a44c0f1c829460d327499d`. -/
-theorem p04_tia_homology_transfer {k G : Type u} [CommRing k] [Group G] [Fintype G]
+theorem p04_tia_homology_transfer {k G : Type _} [CommRing k] [Group G] [Fintype G]
     (A : Rep k G) (H : Subgroup G) [Fintype H] (n : ℕ) :
     ∃ T : groupHomology A n →ₗ[k] groupHomology (Rep.res H.subtype A) n,
       ∃ P : groupHomology (Rep.res H.subtype A) n →ₗ[k] groupHomology A n,
