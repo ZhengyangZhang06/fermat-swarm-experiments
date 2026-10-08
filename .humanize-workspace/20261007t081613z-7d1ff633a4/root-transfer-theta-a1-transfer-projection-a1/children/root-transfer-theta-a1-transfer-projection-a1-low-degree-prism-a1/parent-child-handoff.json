@@ -1,0 +1,52 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "levelCochains|levelCocycles|levelCoboundaries|continuousH[12]|H1π_eq|cores|transfer|homogeneous",
+        "transfer|corestriction|prism|normal_comap_fixingSubgroup|finiteIndex_comap_fixingSubgroup",
+        "representative|leftCoset|rightCoset|quotientEquiv|QuotientGroup.mk|exists.*rep|out_eq",
+        "index_eq_card|index_eq|def index|card_quotient|FiniteIndex",
+        "H1π_eq_zero_iff|H1π_eq_iff|d₀₁_hom_apply|d₁₂_hom_apply|d₂₃_hom_apply"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH1.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH2.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_CupProduct.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/LowDegree.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/GroupTheory/Coset/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/GroupTheory/Coset/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/GroupTheory/Index.lean"
+      ],
+      "conclusion": "The snapshot pins project 9db4b2bea94e42612c675170cfe30ec626166658 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. ContinuousH1 defines the carrier as an image of level cocycles; ContinuousH2 uses the quotient by the pulled-back image of level one-cochains. LowDegree supplies the exact H1 representative kernel and equality criteria. Coset/Defs and Coset/Basic supply representative and coset-equality interfaces without requiring H.Normal; Index identifies H.index with Nat.card (G ⧸ H). The focused search of the continuous-cohomology files and mathlib group-cohomology subtree found no transfer, corestriction, prism implementation, or either policy-listed instance."
+    }
+  ],
+  "parent_id": "root.transfer_theta-a1.transfer_projection-a1",
+  "child_id": "root.transfer_theta-a1.transfer_projection-a1.low_degree_prism-a1",
+  "subproblem": {
+    "key": "low_degree_prism",
+    "title": "Explicit prism identities for homogeneous one- and two-cocycles",
+    "statement": "Let X be a set, V an abelian group, and α,β : X → X. If F : X×X → V satisfies F(y,z)−F(x,z)+F(x,y)=0 for all x,y,z, then F(βx,βy)−F(αx,αy)=F(αy,βy)−F(αx,βx). Also, if F : X×X×X → V satisfies F(x,y,z)−F(w,y,z)+F(w,x,z)−F(w,x,y)=0 for all w,x,y,z, define h(x,y)=F(αx,βx,βy)−F(αx,αy,βy). Then F(βx,βy,βz)−F(αx,αy,αz)=h(y,z)−h(x,z)+h(x,y) for all x,y,z.",
+    "lean_statement": "∀ {X V : Type} [AddCommGroup V] (α β : X → X), (∀ F : X → X → V, (∀ x y z : X, F y z - F x z + F x y = 0) → ∀ x y : X, F (β x) (β y) - F (α x) (α y) = F (α y) (β y) - F (α x) (β x)) ∧ (∀ F : X → X → X → V, (∀ w x y z : X, F x y z - F w y z + F w x z - F w x y = 0) → let h : X → X → V := fun x y => F (α x) (β x) (β y) - F (α x) (α y) (β y); ∀ x y z : X, F (β x) (β y) (β z) - F (α x) (α y) (α z) = h y z - h x z + h x y)",
+    "lean_name": "p08_7d1ff633a4_tp26_low_degree_prism",
+    "depends_on": [],
+    "natural_proof": "1. For the first assertion fix a two-variable F satisfying the stated cocycle equation and x,y∈X. Applying that equation to (αx,βx,βy) gives F(βx,βy)−F(αx,βy)+F(αx,βx)=0. Applying it to (αx,αy,βy) gives F(αy,βy)−F(αx,βy)+F(αx,αy)=0.\n2. Subtract the second equality from the first. The two occurrences of F(αx,βy) cancel. Rearranging in the abelian group V gives F(βx,βy)−F(αx,αy)=F(αy,βy)−F(αx,βx), as required.\n3. For the second assertion fix a three-variable F satisfying its stated cocycle equation and x,y,z∈X, and define h as in the statement. Apply the cocycle equation to the three quadruples (αx,βx,βy,βz), (αx,αy,βy,βz), and (αx,αy,αz,βz). The resulting zero expressions are respectively E₀=F(βx,βy,βz)−F(αx,βy,βz)+F(αx,βx,βz)−F(αx,βx,βy), E₁=F(αy,βy,βz)−F(αx,βy,βz)+F(αx,αy,βz)−F(αx,αy,βy), and E₂=F(αy,αz,βz)−F(αx,αz,βz)+F(αx,αy,βz)−F(αx,αy,αz).\n4. Form E₀−E₁+E₂=0. The terms F(αx,βy,βz) and F(αx,αy,βz) each cancel with their opposite. The remaining expression is F(βx,βy,βz)−F(αx,αy,αz)−h(y,z)+h(x,z)−h(x,y)=0. Rearranging proves the second identity.\n5. The arguments apply to every F and all indicated vertices, proving both universally quantified assertions for the given α and β.",
+    "proof_key_steps": [
+      "Evaluate the degree-one cocycle identity on the two triangles of a prism.",
+      "Subtract and cancel to obtain the degree-one coboundary formula.",
+      "Evaluate the degree-two cocycle identity on the three tetrahedra of a prism.",
+      "Take their alternating sum, cancel internal faces, and identify the explicit h."
+    ]
+  },
+  "audit": {
+    "key": "low_degree_prism",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "Both universally quantified cocycle identities and the explicit local definition of h match the prose exactly. Subtracting the two triangle equations proves the first identity. Expanding E₀−E₁+E₂ cancels the internal terms and leaves precisely the second claimed coboundary identity with the stated signs. AddCommGroup suffices; no normalization, alternation, or additional hypotheses are hidden. The proof is complete and independent."
+  },
+  "resolved_dependencies": [],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-transfer-theta-a1-transfer-projection-a1-low-degree-prism-a1/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-transfer-theta-a1-transfer-projection-a1-low-degree-prism-a1/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-transfer-theta-a1-transfer-projection-a1-low-degree-prism-a1/parent-supplied-natural-proof.json"
+}

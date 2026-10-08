@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.transfer_theta-a1.transfer_projection-a1.bilinear_averaging-a1",
+  "parent_id": "root.transfer_theta-a1.transfer_projection-a1",
+  "depth": 3,
+  "title": "Both bilinear projection identities for finite averaging",
+  "statement": "Let k be a field, G a group, X and Y left G-sets, I a finite set, and A,B,N k-representations of G. Let φ : A×B → N be k-bilinear and satisfy φ(ρA(s)a,ρB(s)b)=ρN(s)φ(a,b) for all s,a,b. For any family t : I → G and functions F : X → A and Q : Y → B, the following two conditional identities hold. If F is G-equivariant, then Σ_i ρN(t_i)φ(F(t_i⁻¹·x),Q(t_i⁻¹·y))=φ(F(x),Σ_i ρB(t_i)Q(t_i⁻¹·y)). If Q is G-equivariant, then the same left side equals φ(Σ_i ρA(t_i)F(t_i⁻¹·x),Q(y)). Both identities hold for all x,y; the other function requires no equivariance.",
+  "lean_statement": "∀ {k G X Y ι : Type} [Field k] [Group G] [MulAction G X] [MulAction G Y] [Fintype ι] (A B N : Rep.{0} k G) (φ : A →ₗ[k] B →ₗ[k] N), (∀ (s : G) (a : A) (b : B), φ (A.ρ s a) (B.ρ s b) = N.ρ s (φ a b)) → ∀ (t : ι → G) (F : X → A) (Q : Y → B), ((∀ (s : G) (x : X), F (s • x) = A.ρ s (F x)) → ∀ (x : X) (y : Y), (∑ c : ι, N.ρ (t c) (φ (F ((t c)⁻¹ • x)) (Q ((t c)⁻¹ • y)))) = φ (F x) (∑ c : ι, B.ρ (t c) (Q ((t c)⁻¹ • y)))) ∧ ((∀ (s : G) (y : Y), Q (s • y) = B.ρ s (Q y)) → ∀ (x : X) (y : Y), (∑ c : ι, N.ρ (t c) (φ (F ((t c)⁻¹ • x)) (Q ((t c)⁻¹ • y)))) = φ (∑ c : ι, A.ρ (t c) (F ((t c)⁻¹ • x))) (Q y))",
+  "lean_name": "p08_7d1ff633a4_tp26_bilinear_averaging",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p08/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-transfer-projection-a1-bilinear-averaging-a1-a1"
+}

@@ -1,0 +1,58 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "levelCochains|levelCocycles|levelCoboundaries|continuousH[12]|H1π_eq|transfer|corestriction|homogeneous|prism",
+        "leftRel|rightRel|quotientRightRelEquivQuotientLeftRel|eq_iff|out_eq|def index|index_eq_card|card_quotient|mulAction",
+        "transfer|corestriction|prism|normal_comap_fixingSubgroup|finiteIndex_comap_fixingSubgroup",
+        "p08_7d1ff633a4_tp26_(normal_level_retraction|low_degree_prism|coset_averaging|bilinear_averaging)"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-transfer-theta-a1-transfer-projection-a1/decomposition-v1.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH1.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH2.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_CupProduct.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/LowDegree.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/GroupTheory/Coset/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/GroupTheory/Coset/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/GroupTheory/Index.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p08-independent-decomposition-audit-h7r4_6kk/audit-receipt.json"
+      ],
+      "conclusion": "The inspected reference files match pinned project 9db4b2bea94e42612c675170cfe30ec626166658 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. They confirm the continuousH1 image, continuousH2 quotient, representative criteria, ordered cup formula, left-coset interpretation of G ⧸ H, and H.index = Nat.card (G ⧸ H). The focused continuous-cohomology search found no transfer/corestriction/prism implementation or policy-listed targets. The supplied parent matches the transfer_projection DAG branch beneath the frozen root. The split isolates four genuine obligations while retaining carrier identifications and assembly in the parent. All proposed names are bare, distinct, and unreserved; their empty prerequisite lists are correct, and adding these leaves preserves the independently checked acyclic DAG. Fresh Lean diagnostics elaborated all four exact proposition expressions independently after Submission and Challenge, with type-expression axioms limited to propext, Classical.choice, and Quot.sound. The policy digest matches; omission of the exact directive on line 18 is reversible with matching original/build hashes, and Lean independently confirmed both targets absent. This approves decomposition and supplied prose proofs only, not implementation or comparator acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "normal_level_retraction",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly includes retraction, H-equivariance, and simultaneous preservation of every normal K ≤ H. The normalized right-coset transversal gives a unique H-component. Normality places tut⁻¹ in K, and K ≤ H permits the same representative for gu, proving the required difference lies in K. The construction precedes the choice of K, establishing the quantifier order. No finite-index assumption, sibling result, or parent theorem is used."
+    },
+    {
+      "key": "low_degree_prism",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "Both universally quantified cocycle identities and the explicit local definition of h match the prose exactly. Subtracting the two triangle equations proves the first identity. Expanding E₀−E₁+E₂ cancels the internal terms and leaves precisely the second claimed coboundary identity with the stated signs. AddCommGroup suffices; no normalization, alternation, or additional hypotheses are hidden. The proof is complete and independent."
+    },
+    {
+      "key": "coset_averaging",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact type correctly encodes the field, group action, finite left-coset enumeration, representation, section, and all four properties of the same linear map T. Pointwise linearity constructs T on all functions. H-equivariance cancels right changes of representative; left-coset reindexing proves G-equivariance without H.Normal. For G-equivariant F each summand equals F(x), yielding the stated scalar through the pinned index definition. Termwise comparison proves section independence. The supplied argument has no circular or deferred step."
+    },
+    {
+      "key": "bilinear_averaging",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line type matches every hypothesis and both separately conditional conclusions. Equivariance of φ rewrites each summand without reversing the factors. Equivariance of F or Q then cancels exactly its translated input, and linearity in the other argument moves the finite sum inside φ. This covers arbitrary finite indexing, including empty sums, and requires no equivariance of the other function. The proof is complete and uses no other child."
+    }
+  ],
+  "required_changes": []
+}

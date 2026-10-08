@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.transfer_theta-a1.transfer_projection-a1.coset_averaging-a1",
+  "parent_id": "root.transfer_theta-a1.transfer_projection-a1",
+  "depth": 3,
+  "title": "Linear coset averaging, equivariance, and the index identity",
+  "statement": "Let k be a field, G a group, X a left G-set, H≤G a subgroup with a fixed finite enumeration of the left-coset set G/H, and V a k-representation of G. Let t : G/H → G satisfy t(c)H=c. There exists a k-linear map T : (X→V) → (X→V) given by (TF)(x)=Σ_c ρV(t(c))F(t(c)⁻¹·x). For every H-equivariant F, TF is G-equivariant. For every G-equivariant F, (TF)(x)=([G:H]:k)·F(x). Moreover, for every other section u : G/H → G and every H-equivariant F, this same TF equals the sum defined with u at every x. Here H-equivariance means F(h·x)=ρV(h)F(x) for all h∈H.",
+  "lean_statement": "∀ {k G X : Type} [Field k] [Group G] [MulAction G X] (H : Subgroup G) [Fintype (G ⧸ H)] (V : Rep.{0} k G) (t : (G ⧸ H) → G), (∀ c : G ⧸ H, (t c : G ⧸ H) = c) → ∃ T : (X → V) →ₗ[k] (X → V), (∀ (F : X → V) (x : X), T F x = ∑ c : G ⧸ H, V.ρ (t c) (F ((t c)⁻¹ • x))) ∧ (∀ F : X → V, (∀ (h : H) (x : X), F ((h : G) • x) = V.ρ (h : G) (F x)) → ∀ (s : G) (x : X), T F (s • x) = V.ρ s (T F x)) ∧ (∀ F : X → V, (∀ (s : G) (x : X), F (s • x) = V.ρ s (F x)) → ∀ x : X, T F x = (H.index : k) • F x) ∧ (∀ u : (G ⧸ H) → G, (∀ c : G ⧸ H, (u c : G ⧸ H) = c) → ∀ F : X → V, (∀ (h : H) (x : X), F ((h : G) • x) = V.ρ (h : G) (F x)) → ∀ x : X, T F x = ∑ c : G ⧸ H, V.ρ (u c) (F ((u c)⁻¹ • x)))",
+  "lean_name": "p08_7d1ff633a4_tp26_coset_averaging",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p08/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-transfer-projection-a1-coset-averaging-a1-a1"
+}

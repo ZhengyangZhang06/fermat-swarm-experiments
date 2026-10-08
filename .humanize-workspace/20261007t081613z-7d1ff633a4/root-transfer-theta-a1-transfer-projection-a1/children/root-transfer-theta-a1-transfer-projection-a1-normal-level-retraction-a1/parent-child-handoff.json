@@ -1,0 +1,52 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "levelCochains|levelCocycles|levelCoboundaries|continuousH[12]|H1π_eq|cores|transfer|homogeneous",
+        "transfer|corestriction|prism|normal_comap_fixingSubgroup|finiteIndex_comap_fixingSubgroup",
+        "representative|leftCoset|rightCoset|quotientEquiv|QuotientGroup.mk|exists.*rep|out_eq",
+        "index_eq_card|index_eq|def index|card_quotient|FiniteIndex",
+        "H1π_eq_zero_iff|H1π_eq_iff|d₀₁_hom_apply|d₁₂_hom_apply|d₂₃_hom_apply"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH1.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH2.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_CupProduct.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/LowDegree.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/GroupTheory/Coset/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/GroupTheory/Coset/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/GroupTheory/Index.lean"
+      ],
+      "conclusion": "The snapshot pins project 9db4b2bea94e42612c675170cfe30ec626166658 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. ContinuousH1 defines the carrier as an image of level cocycles; ContinuousH2 uses the quotient by the pulled-back image of level one-cochains. LowDegree supplies the exact H1 representative kernel and equality criteria. Coset/Defs and Coset/Basic supply representative and coset-equality interfaces without requiring H.Normal; Index identifies H.index with Nat.card (G ⧸ H). The focused search of the continuous-cohomology files and mathlib group-cohomology subtree found no transfer, corestriction, prism implementation, or either policy-listed instance."
+    }
+  ],
+  "parent_id": "root.transfer_theta-a1.transfer_projection-a1",
+  "child_id": "root.transfer_theta-a1.transfer_projection-a1.normal_level_retraction-a1",
+  "subproblem": {
+    "key": "normal_level_retraction",
+    "title": "An equivariant coset retraction preserving every normal level",
+    "statement": "For every group G and subgroup H ≤ G, there is a function a : G → H such that a(h)=h for h∈H, a(hg)=h a(g) for h∈H and g∈G, and, simultaneously for every normal subgroup K of G contained in H, every g∈G and u∈K satisfy a(g)⁻¹a(gu)∈K, where elements of H are regarded as elements of G. Neither finite index nor normality of H is assumed.",
+    "lean_statement": "∀ {G : Type} [Group G] (H : Subgroup G), ∃ a : G → H, (∀ h : H, a (h : G) = h) ∧ (∀ (h : H) (g : G), a ((h : G) * g) = h * a g) ∧ (∀ K : Subgroup G, K.Normal → K ≤ H → ∀ g u : G, u ∈ K → (a g : G)⁻¹ * (a (g * u) : G) ∈ K)",
+    "lean_name": "p08_7d1ff633a4_tp26_normal_level_retraction",
+    "depends_on": [],
+    "natural_proof": "1. Choose one representative t_C in each right coset C=Hg, choosing t_H=1 for the coset H itself. Each coset is nonempty, so these choices exist. Every g has a unique expression g=h t_C with h∈H and C=Hg: existence follows from g∈Ht_C, and uniqueness follows by right cancellation of t_C. Define a(g)=h, as an element of H.\n2. If g=h∈H, its chosen representative is 1, so a(h)=h.\n3. For h₁∈H and g=a(g)t_C, the right cosets Hh₁g and Hg agree. Thus h₁g=(h₁a(g))t_C uses the same representative, and uniqueness gives a(h₁g)=h₁a(g).\n4. Now fix any normal K≤G with K≤H, any g=a(g)t_C, and u∈K. Normality gives v=t_C u t_C⁻¹∈K, hence v∈H. Therefore gu=a(g)v t_C belongs to the same right coset C and its unique H-component is a(g)v. It follows that a(gu)=a(g)v and a(g)⁻¹a(gu)=v∈K.\n5. The initial choice of representatives did not involve K, so this last assertion holds for every such K for the same a. The three required properties follow.",
+    "proof_key_steps": [
+      "Choose right-coset representatives, with 1 representing H, and define a(g) by g=a(g)t.",
+      "Right cancellation gives uniqueness, the retraction property, and H-equivariance.",
+      "For u∈K normal in G, rewrite gu=a(g)(tut⁻¹)t.",
+      "Use K≤H and uniqueness to obtain a(g)⁻¹a(gu)=tut⁻¹∈K simultaneously for every normal level."
+    ]
+  },
+  "audit": {
+    "key": "normal_level_retraction",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "The one-line proposition exactly includes retraction, H-equivariance, and simultaneous preservation of every normal K ≤ H. The normalized right-coset transversal gives a unique H-component. Normality places tut⁻¹ in K, and K ≤ H permits the same representative for gu, proving the required difference lies in K. The construction precedes the choice of K, establishing the quantifier order. No finite-index assumption, sibling result, or parent theorem is used."
+  },
+  "resolved_dependencies": [],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-transfer-theta-a1-transfer-projection-a1-normal-level-retraction-a1/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-transfer-theta-a1-transfer-projection-a1-normal-level-retraction-a1/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-transfer-theta-a1-transfer-projection-a1-normal-level-retraction-a1/parent-supplied-natural-proof.json"
+}

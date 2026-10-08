@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.transfer_theta-a1.transfer_projection-a1.low_degree_prism-a1",
+  "parent_id": "root.transfer_theta-a1.transfer_projection-a1",
+  "depth": 3,
+  "title": "Explicit prism identities for homogeneous one- and two-cocycles",
+  "statement": "Let X be a set, V an abelian group, and α,β : X → X. If F : X×X → V satisfies F(y,z)−F(x,z)+F(x,y)=0 for all x,y,z, then F(βx,βy)−F(αx,αy)=F(αy,βy)−F(αx,βx). Also, if F : X×X×X → V satisfies F(x,y,z)−F(w,y,z)+F(w,x,z)−F(w,x,y)=0 for all w,x,y,z, define h(x,y)=F(αx,βx,βy)−F(αx,αy,βy). Then F(βx,βy,βz)−F(αx,αy,αz)=h(y,z)−h(x,z)+h(x,y) for all x,y,z.",
+  "lean_statement": "∀ {X V : Type} [AddCommGroup V] (α β : X → X), (∀ F : X → X → V, (∀ x y z : X, F y z - F x z + F x y = 0) → ∀ x y : X, F (β x) (β y) - F (α x) (α y) = F (α y) (β y) - F (α x) (β x)) ∧ (∀ F : X → X → X → V, (∀ w x y z : X, F x y z - F w y z + F w x z - F w x y = 0) → let h : X → X → V := fun x y => F (α x) (β x) (β y) - F (α x) (α y) (β y); ∀ x y z : X, F (β x) (β y) (β z) - F (α x) (α y) (α z) = h y z - h x z + h x y)",
+  "lean_name": "p08_7d1ff633a4_tp26_low_degree_prism",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p08/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-transfer-projection-a1-low-degree-prism-a1-a1"
+}

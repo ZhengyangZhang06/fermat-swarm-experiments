@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.transfer_theta-a1.transfer_projection-a1.normal_level_retraction-a1",
+  "parent_id": "root.transfer_theta-a1.transfer_projection-a1",
+  "depth": 3,
+  "title": "An equivariant coset retraction preserving every normal level",
+  "statement": "For every group G and subgroup H ≤ G, there is a function a : G → H such that a(h)=h for h∈H, a(hg)=h a(g) for h∈H and g∈G, and, simultaneously for every normal subgroup K of G contained in H, every g∈G and u∈K satisfy a(g)⁻¹a(gu)∈K, where elements of H are regarded as elements of G. Neither finite index nor normality of H is assumed.",
+  "lean_statement": "∀ {G : Type} [Group G] (H : Subgroup G), ∃ a : G → H, (∀ h : H, a (h : G) = h) ∧ (∀ (h : H) (g : G), a ((h : G) * g) = h * a g) ∧ (∀ K : Subgroup G, K.Normal → K ≤ H → ∀ g u : G, u ∈ K → (a g : G)⁻¹ * (a (g * u) : G) ∈ K)",
+  "lean_name": "p08_7d1ff633a4_tp26_normal_level_retraction",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p08/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-transfer-projection-a1-normal-level-retraction-a1-a1"
+}

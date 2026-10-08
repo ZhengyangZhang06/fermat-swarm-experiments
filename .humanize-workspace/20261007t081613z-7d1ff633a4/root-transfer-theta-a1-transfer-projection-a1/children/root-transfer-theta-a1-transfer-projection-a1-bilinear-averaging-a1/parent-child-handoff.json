@@ -1,0 +1,52 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "levelCochains|levelCocycles|levelCoboundaries|continuousH[12]|H1π_eq|cores|transfer|homogeneous",
+        "transfer|corestriction|prism|normal_comap_fixingSubgroup|finiteIndex_comap_fixingSubgroup",
+        "representative|leftCoset|rightCoset|quotientEquiv|QuotientGroup.mk|exists.*rep|out_eq",
+        "index_eq_card|index_eq|def index|card_quotient|FiniteIndex",
+        "H1π_eq_zero_iff|H1π_eq_iff|d₀₁_hom_apply|d₁₂_hom_apply|d₂₃_hom_apply"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH1.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH2.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_CupProduct.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/LowDegree.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/GroupTheory/Coset/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/GroupTheory/Coset/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/GroupTheory/Index.lean"
+      ],
+      "conclusion": "The snapshot pins project 9db4b2bea94e42612c675170cfe30ec626166658 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. ContinuousH1 defines the carrier as an image of level cocycles; ContinuousH2 uses the quotient by the pulled-back image of level one-cochains. LowDegree supplies the exact H1 representative kernel and equality criteria. Coset/Defs and Coset/Basic supply representative and coset-equality interfaces without requiring H.Normal; Index identifies H.index with Nat.card (G ⧸ H). The focused search of the continuous-cohomology files and mathlib group-cohomology subtree found no transfer, corestriction, prism implementation, or either policy-listed instance."
+    }
+  ],
+  "parent_id": "root.transfer_theta-a1.transfer_projection-a1",
+  "child_id": "root.transfer_theta-a1.transfer_projection-a1.bilinear_averaging-a1",
+  "subproblem": {
+    "key": "bilinear_averaging",
+    "title": "Both bilinear projection identities for finite averaging",
+    "statement": "Let k be a field, G a group, X and Y left G-sets, I a finite set, and A,B,N k-representations of G. Let φ : A×B → N be k-bilinear and satisfy φ(ρA(s)a,ρB(s)b)=ρN(s)φ(a,b) for all s,a,b. For any family t : I → G and functions F : X → A and Q : Y → B, the following two conditional identities hold. If F is G-equivariant, then Σ_i ρN(t_i)φ(F(t_i⁻¹·x),Q(t_i⁻¹·y))=φ(F(x),Σ_i ρB(t_i)Q(t_i⁻¹·y)). If Q is G-equivariant, then the same left side equals φ(Σ_i ρA(t_i)F(t_i⁻¹·x),Q(y)). Both identities hold for all x,y; the other function requires no equivariance.",
+    "lean_statement": "∀ {k G X Y ι : Type} [Field k] [Group G] [MulAction G X] [MulAction G Y] [Fintype ι] (A B N : Rep.{0} k G) (φ : A →ₗ[k] B →ₗ[k] N), (∀ (s : G) (a : A) (b : B), φ (A.ρ s a) (B.ρ s b) = N.ρ s (φ a b)) → ∀ (t : ι → G) (F : X → A) (Q : Y → B), ((∀ (s : G) (x : X), F (s • x) = A.ρ s (F x)) → ∀ (x : X) (y : Y), (∑ c : ι, N.ρ (t c) (φ (F ((t c)⁻¹ • x)) (Q ((t c)⁻¹ • y)))) = φ (F x) (∑ c : ι, B.ρ (t c) (Q ((t c)⁻¹ • y)))) ∧ ((∀ (s : G) (y : Y), Q (s • y) = B.ρ s (Q y)) → ∀ (x : X) (y : Y), (∑ c : ι, N.ρ (t c) (φ (F ((t c)⁻¹ • x)) (Q ((t c)⁻¹ • y)))) = φ (∑ c : ι, A.ρ (t c) (F ((t c)⁻¹ • x))) (Q y))",
+    "lean_name": "p08_7d1ff633a4_tp26_bilinear_averaging",
+    "depends_on": [],
+    "natural_proof": "1. Fix t,F,Q,x,y and an index i. Equivariance of φ rewrites the i-th summand as φ(ρA(t_i)F(t_i⁻¹·x),ρB(t_i)Q(t_i⁻¹·y)). This uses the given equivariance equality in its reverse direction and does not exchange the two arguments.\n2. Suppose F is G-equivariant. Applying this equivariance at t_i and t_i⁻¹·x, and using t_i·(t_i⁻¹·x)=x, gives ρA(t_i)F(t_i⁻¹·x)=F(x). Thus each summand from step 1 equals φ(F(x),ρB(t_i)Q(t_i⁻¹·y)).\n3. Sum the equalities of step 2. Linearity of b↦φ(F(x),b) moves the finite sum inside the second argument. The result is precisely the first projection identity.\n4. Suppose instead Q is G-equivariant. Applying its equivariance at t_i and t_i⁻¹·y gives ρB(t_i)Q(t_i⁻¹·y)=Q(y). The summand in step 1 is therefore φ(ρA(t_i)F(t_i⁻¹·x),Q(y)).\n5. Sum these equalities and use additivity in the first argument of φ, equivalently evaluate the sum of linear maps φ(ρA(t_i)F(t_i⁻¹·x)) at Q(y). This yields the second identity. Empty sums are included because both linear maps send zero to zero. All choices were arbitrary, so both conditional identities hold with exactly the stated hypotheses.",
+    "proof_key_steps": [
+      "Use equivariance of φ to move the representation action onto its two inputs.",
+      "If F is equivariant, cancel its translated input and sum in the second argument.",
+      "If Q is equivariant, cancel its translated input and sum in the first argument.",
+      "Keep the order of the two factors throughout."
+    ]
+  },
+  "audit": {
+    "key": "bilinear_averaging",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "The one-line type matches every hypothesis and both separately conditional conclusions. Equivariance of φ rewrites each summand without reversing the factors. Equivariance of F or Q then cancels exactly its translated input, and linearity in the other argument moves the finite sum inside φ. This covers arbitrary finite indexing, including empty sums, and requires no equivariance of the other function. The proof is complete and uses no other child."
+  },
+  "resolved_dependencies": [],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-transfer-theta-a1-transfer-projection-a1-bilinear-averaging-a1/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-transfer-theta-a1-transfer-projection-a1-bilinear-averaging-a1/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-transfer-theta-a1-transfer-projection-a1-bilinear-averaging-a1/parent-supplied-natural-proof.json"
+}
