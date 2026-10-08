@@ -373,3 +373,15 @@ theorem Submission.p10_17ae7b7d_rd_sparse_series_descent :
         intro n
         simp only [B, FormalMultilinearSeries.apply_eq_pow_smul_coeff,
           FormalMultilinearSeries.coeff_ofScalars, pow_mul]
+
+
+theorem Submission.p10_17ae7b7d_cpd_rotation_descent :
+    ∀ (w : ℕ) (P : ℂ → ℂ), 0 < w → AnalyticAt ℂ P 0 →
+      (∃ s : ℝ, 0 < s ∧ ∀ t : ℂ, ‖t‖ < s →
+        P (Complex.exp (2 * (Real.pi : ℂ) * Complex.I / (w : ℂ)) * t) = P t) →
+      ∃ C : ℂ → ℂ, AnalyticAt ℂ C 0 ∧
+        ∃ r : ℝ, 0 < r ∧ ∀ t : ℂ, ‖t‖ < r → P t = C (t ^ w) := by
+  intro w P hw hP hrotation
+  obtain ⟨p, hp⟩ := hP
+  exact Submission.p10_17ae7b7d_rd_sparse_series_descent w P p hw hp
+    (Submission.p10_17ae7b7d_rd_coeff_support w P p hw hp hrotation)
