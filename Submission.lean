@@ -10014,3 +10014,153 @@ theorem Submission.p10_17ae7b7d_valence_modular_log_derivative :
       dS, logDeriv_mul (f := fun w : ℂ => w ^ k) (g := F) z (pow_ne_zero k hz0) hFz aP.differentiableAt
         (hA z hz).differentiableAt, logDeriv_pow] at h
     simpa only [logDeriv_apply, mul_one_div] using h
+theorem Submission.p10_17ae7b7d_norm_local_multiplier_order :
+    ∀ (g ψ J : ℂ → ℂ) (v : ℂ), AnalyticAt ℂ g v → analyticOrderAt g v ≠ ⊤ →
+      AnalyticAt ℂ ψ v → ψ v = v → deriv ψ v ≠ 0 → AnalyticAt ℂ J v →
+      (∃ r : ℝ, 0 < r ∧ ∀ z : ℂ, ‖z - v‖ < r → g (ψ z) = J z * g z) →
+      (deriv ψ v) ^ analyticOrderNatAt g v = J v := by
+  intro g ψ J v hg hgfin hψ hfix _hderiv hJ hequiv
+  let m := analyticOrderNatAt g v
+  obtain ⟨b, hb, hbne, hfactor⟩ := (hg.analyticOrderNatAt_eq_iff hgfin).mp rfl
+  have hfactor' : ∀ᶠ z in nhds v, g z = (z - v) ^ m * b z := by
+    simpa only [smul_eq_mul] using hfactor
+  have hψt : Filter.Tendsto ψ (nhds v) (nhds v) := by
+    simpa only [hfix] using hψ.continuousAt.tendsto
+  have hfactorψ : ∀ᶠ z in nhds v, g (ψ z) = (ψ z - v) ^ m * b (ψ z) :=
+    hψt.eventually hfactor'
+  obtain ⟨r, hr, hequiv⟩ := hequiv
+  have hequiv' : ∀ᶠ z in nhds v, g (ψ z) = J z * g z := by
+    apply Metric.eventually_nhds_iff.mpr
+    exact ⟨r, hr, fun z hz => hequiv z (by simpa only [dist_eq_norm] using hz)⟩
+  have hcancel : (fun z => dslope ψ v z ^ m * b (ψ z)) =ᶠ[nhdsWithin v {v}ᶜ]
+      (fun z => J z * b z) := by
+    filter_upwards [hfactor'.filter_mono nhdsWithin_le_nhds,
+      hfactorψ.filter_mono nhdsWithin_le_nhds,
+      hequiv'.filter_mono nhdsWithin_le_nhds, self_mem_nhdsWithin] with z hz hzψ heq hzne
+    apply mul_left_cancel₀ (pow_ne_zero m (sub_ne_zero.mpr hzne))
+    calc
+      (z - v) ^ m * (dslope ψ v z ^ m * b (ψ z)) =
+          ((z - v) * dslope ψ v z) ^ m * b (ψ z) := by rw [mul_pow, mul_assoc]
+      _ = (ψ z - v) ^ m * b (ψ z) := by
+        rw [show (z - v) * dslope ψ v z = ψ z - v from by
+          simpa only [smul_eq_mul, hfix] using sub_smul_dslope ψ v z]
+      _ = g (ψ z) := hzψ.symm
+      _ = J z * g z := heq
+      _ = (z - v) ^ m * (J z * b z) := by rw [hz]; ring
+  have hd : Filter.Tendsto (fun z => dslope ψ v z ^ m) (nhds v) (nhds (deriv ψ v ^ m)) := by
+    simpa only [dslope_same] using
+      (continuousAt_dslope_same.mpr hψ.differentiableAt).tendsto.pow m
+  have hleft : Filter.Tendsto (fun z => dslope ψ v z ^ m * b (ψ z))
+      (nhds v) (nhds (deriv ψ v ^ m * b v)) :=
+    hd.mul (hb.continuousAt.tendsto.comp hψt)
+  have hright : Filter.Tendsto (fun z => J z * b z) (nhds v) (nhds (J v * b v)) :=
+    hJ.continuousAt.tendsto.mul hb.continuousAt.tendsto
+  exact mul_right_cancel₀ hbne (tendsto_nhds_unique_of_eventuallyEq
+    (hleft.mono_left nhdsWithin_le_nhds) (hright.mono_left nhdsWithin_le_nhds) hcancel)
+
+
+theorem Submission.p10_17ae7b7d_efp_unimodular_eigenrow_iff :
+    ∀ (R : Type) [CommRing R] (k r s : R),
+      (∃ x y : R, x * r + y * s = 1) →
+      ((∃ u : Rˣ, s = (u : R) * r ∧ k * s - r = (u : R) * s) ↔
+        IsUnit r ∧ ∃! t : R, s = r * t ∧ t ^ 2 - k * t + 1 = 0) := by
+  intro R _ k r s ⟨x, y, hxy⟩
+  constructor
+  · rintro ⟨u, hs, heigen⟩
+    have hinv : (x + y * (u : R)) * r = 1 := by
+      calc
+        (x + y * (u : R)) * r = x * r + y * s := by rw [hs]; ring
+        _ = 1 := hxy
+    have hr : IsUnit r := isUnit_iff_exists.mpr
+      ⟨x + y * (u : R), by rw [mul_comm]; exact hinv, hinv⟩
+    refine ⟨hr, (u : R), ⟨?_, ?_⟩, ?_⟩
+    · exact hs.trans (mul_comm _ _)
+    · apply hr.mul_left_cancel
+      calc
+        r * ((u : R) ^ 2 - k * (u : R) + 1) =
+            (u : R) * s - (k * s - r) := by rw [hs]; ring
+        _ = r * 0 := by rw [heigen, sub_self, mul_zero]
+    · intro t ht
+      apply hr.mul_left_cancel
+      calc
+        r * t = s := ht.1.symm
+        _ = r * (u : R) := hs.trans (mul_comm _ _)
+  · rintro ⟨_, t, ⟨hs, hpoly⟩, _⟩
+    have hinv : t * (k - t) = 1 := by
+      calc
+        t * (k - t) = 1 - (t ^ 2 - k * t + 1) := by ring
+        _ = 1 := by rw [hpoly, sub_zero]
+    let u : Rˣ := ⟨t, k - t, hinv, by rw [mul_comm]; exact hinv⟩
+    refine ⟨u, ?_, ?_⟩
+    · change s = t * r
+      exact hs.trans (mul_comm _ _)
+    · change k * s - r = t * s
+      calc
+        k * s - r = t * s - r * (t ^ 2 - k * t + 1) := by rw [hs]; ring
+        _ = t * s := by rw [hpoly, mul_zero, sub_zero]
+
+theorem Submission.p10_17ae7b7d_phdisk_euclidean :
+    ∀ (v : ℂ) (ε : ℝ), 0 < v.im → 0 < ε → ε < 1 →
+      {z : ℂ | 0 < z.im ∧ ‖(z - v) / (z - star v)‖ ≤ ε} =
+        Metric.closedBall
+          ((v.re : ℂ) + ((v.im * (1 + ε ^ 2) / (1 - ε ^ 2) : ℝ) : ℂ) * Complex.I)
+          (2 * v.im * ε / (1 - ε ^ 2)) := by
+  intro v ε hv hε hε1
+  have hΔ : 0 < 1 - ε ^ 2 := by
+    nlinarith [mul_pos (sub_pos.mpr hε1) (show 0 < 1 + ε by linarith)]
+  let Y : ℝ := v.im * (1 + ε ^ 2) / (1 - ε ^ 2)
+  let R : ℝ := 2 * v.im * ε / (1 - ε ^ 2)
+  let C : ℂ := (v.re : ℂ) + (Y : ℂ) * Complex.I
+  have hR : 0 < R := div_pos (mul_pos (mul_pos (by norm_num) hv) hε) hΔ
+  have hYR : 0 < Y - R := by
+    have heq : Y - R = v.im * (1 - ε) ^ 2 / (1 - ε ^ 2) := by
+      dsimp [Y, R]
+      ring
+    rw [heq]
+    exact div_pos (mul_pos hv (sq_pos_of_pos (sub_pos.mpr hε1))) hΔ
+  have hsq (w : ℂ) : ‖w‖ ^ 2 = w.re ^ 2 + w.im ^ 2 := by
+    rw [Complex.sq_norm, Complex.normSq_apply]
+    ring
+  ext z
+  change (0 < z.im ∧ ‖(z - v) / (z - star v)‖ ≤ ε) ↔ dist z C ≤ R
+  rw [dist_eq_norm]
+  have hidentity : (1 - ε ^ 2) * (‖z - C‖ ^ 2 - R ^ 2) =
+      ‖z - v‖ ^ 2 - ε ^ 2 * ‖z - star v‖ ^ 2 := by
+    simp only [hsq, C, Complex.sub_re, Complex.sub_im, Complex.add_re,
+      Complex.add_im, Complex.mul_re, Complex.mul_im, Complex.ofReal_re,
+      Complex.ofReal_im, Complex.I_re, Complex.I_im, Complex.star_def,
+      Complex.conj_re, Complex.conj_im, mul_zero, mul_one,
+      sub_zero, add_zero, zero_add, sub_neg_eq_add]
+    dsimp [Y, R]
+    field_simp [hΔ.ne']
+    ring
+  have hshape : ‖z - C‖ ≤ R ↔
+      ‖z - v‖ ^ 2 ≤ ε ^ 2 * ‖z - star v‖ ^ 2 := by
+    calc
+      ‖z - C‖ ≤ R ↔ ‖z - C‖ ^ 2 - R ^ 2 ≤ 0 := by
+        rw [sub_nonpos, sq_le_sq₀ (norm_nonneg _) hR.le]
+      _ ↔ (1 - ε ^ 2) * (‖z - C‖ ^ 2 - R ^ 2) ≤ 0 := by
+        simpa only [mul_zero] using
+          (mul_le_mul_iff_right₀ hΔ (b := ‖z - C‖ ^ 2 - R ^ 2) (c := 0)).symm
+      _ ↔ ‖z - v‖ ^ 2 ≤ ε ^ 2 * ‖z - star v‖ ^ 2 := by
+        rw [hidentity, sub_nonpos]
+  have hratio (hz : 0 < z.im) : ‖(z - v) / (z - star v)‖ ≤ ε ↔
+      ‖z - v‖ ^ 2 ≤ ε ^ 2 * ‖z - star v‖ ^ 2 := by
+    have hden : z - star v ≠ 0 := by
+      intro heq
+      have him := congrArg Complex.im heq
+      simp only [Complex.sub_im, Complex.star_def, Complex.conj_im,
+        Complex.zero_im] at him
+      linarith
+    rw [norm_div, div_le_iff₀ (norm_pos_iff.mpr hden),
+      ← sq_le_sq₀ (norm_nonneg _) (mul_nonneg hε.le (norm_nonneg _)), mul_pow]
+  constructor
+  · rintro ⟨hz, hnorm⟩
+    exact hshape.mpr ((hratio hz).mp hnorm)
+  · intro hball
+    have him : |z.im - Y| ≤ R := by
+      simpa [C] using (Complex.abs_im_le_norm (z - C)).trans hball
+    have hz : 0 < z.im := by
+      have hlower := (abs_le.mp him).1
+      linarith
+    exact ⟨hz, (hratio hz).mpr (hshape.mp hball)⟩
