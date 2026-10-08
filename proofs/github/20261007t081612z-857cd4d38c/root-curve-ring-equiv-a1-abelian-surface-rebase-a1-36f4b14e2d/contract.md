@@ -1,3 +1,32 @@
+<!-- theorem-id: fermat-p07/root.curve_ring_equiv-a1.abelian_surface_rebase-a1 -->
+
+## Theorem `Submission.p07_cre_abelian_surface_857cd4d38c`
+
+Let T and U be commutative rings in universe zero, k : T ≃+* U, A a scheme in universe zero, and f : A → Spec U. Assume AbelianSchemePropertyBundle U f: f is smooth and proper, all its topological fibres are connected, and RelativeGroupLaw U f is nonempty. Assume also that every topological fibre of f has topological Krull dimension two. Set fT = f ≫ Spec(k). Then AbelianSchemePropertyBundle T fT holds, and every topological fibre of fT has topological Krull dimension two.
+
+Node: `root.curve_ring_equiv-a1.abelian_surface_rebase-a1`
+
+Root: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/7
+
+Parent: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/55
+
+Prerequisites: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/60
+
+Decomposition children: None
+
+## Lean problem
+
+Declaration: `Submission.p07_cre_abelian_surface_857cd4d38c`
+
+```lean
+∀ (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U) (A : AlgebraicGeometry.Scheme.{0}) (f : Quiver.Hom A (AlgebraicGeometry.Spec (CommRingCat.of U))), GoodReductionJacobian.AbelianSchemePropertyBundle U f → (∀ s : ↥(AlgebraicGeometry.Spec (CommRingCat.of U)), topologicalKrullDim ↥(f.base ⁻¹' {s}) = 2) → let fT := CategoryTheory.CategoryStruct.comp f (AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.toRingHom)); GoodReductionJacobian.AbelianSchemePropertyBundle T fT ∧ (∀ s : ↥(AlgebraicGeometry.Spec (CommRingCat.of T)), topologicalKrullDim ↥(fT.base ⁻¹' {s}) = 2)
+```
+
+### Frozen project context
+
+`Fermat/Thm_CerednikDrinfeld_QM_RigidifiedPairClass_exists_ptR_eq.lean` at `73257f1e32d99b75813b037f28a5cf45a2db886d` supplies the original imports, definitions and root contract. Child hypotheses are stated above; prerequisite declarations are linked in their issues.
+
+```lean
 /-
 Copyright 2026 Anthropic, PBC. Licensed under Apache-2.0; see LICENSE.
 Source: https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_CerednikDrinfeld_QM_RigidifiedPairClass_exists_ptR_eq.lean
@@ -72,175 +101,79 @@ theorem CerednikDrinfeld.QM.RigidifiedPairClass.exists_ptR_eq
           (ψS : Onr →ₐ[𝒪] S) (hψS : ψS = (IsScalarTower.toAlgHom 𝒪 C S).comp ψ) (z : (RigidifiedPairClass.PR 𝒪 π Onr Λ hΛℤ A₀ n C ψ (Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))) X ξ tM xOf hmap).obj S),
           ∃ (u : FakeEllipticCurve.WithFullLevel Λ N n S) (ρ : FakeEllipticCurve.Rigidification r π A₀ ψS u.1), (RigidifiedPairClass.ptR 𝒪 π Onr Λ hΛℤ A₀ n C ψ (Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))) X ξ tM xOf hmap) S ψS hψS u ρ = z) := by
   sorry
+```
 
-namespace Submission
+## Natural-language proof
 
-/-- Transport a relative group law along a ring equivalence. The equivalences of
-relative points preserve their underlying scheme morphisms and all group operations. -/
-theorem p07_cre_group_law_857cd4d38c :
-    ∀ (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U)
-      (A : AlgebraicGeometry.Scheme.{0})
-      (f : Quiver.Hom A (AlgebraicGeometry.Spec (CommRingCat.of U)))
-      (G : GoodReductionJacobian.RelativeGroupLaw U f),
-    let κ := AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.toRingHom);
-    let ε := AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.symm.toRingHom);
-    let fT := CategoryTheory.CategoryStruct.comp f κ;
-    ∃ (H : GoodReductionJacobian.RelativeGroupLaw T fT)
-      (B : ∀ (W : AlgebraicGeometry.Scheme.{0})
-        (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))),
-        NeronModelInfra.SchemeHomOver t fT ≃
-          NeronModelInfra.SchemeHomOver (CategoryTheory.CategoryStruct.comp t ε) f),
-      (G.IsCommutative → H.IsCommutative) ∧
-      (∀ (W : AlgebraicGeometry.Scheme.{0})
-        (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T)))
-        (P : NeronModelInfra.SchemeHomOver t fT), (B W t P).1 = P.1) ∧
-      (∀ (W : AlgebraicGeometry.Scheme.{0})
-        (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T)))
-        (P Q : NeronModelInfra.SchemeHomOver t fT),
-        B W t (H.mul t P Q) =
-          G.mul (CategoryTheory.CategoryStruct.comp t ε) (B W t P) (B W t Q)) ∧
-      (∀ (W : AlgebraicGeometry.Scheme.{0})
-        (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))),
-        B W t (H.one t) = G.one (CategoryTheory.CategoryStruct.comp t ε)) ∧
-      (∀ (W : AlgebraicGeometry.Scheme.{0})
-        (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T)))
-        (P : NeronModelInfra.SchemeHomOver t fT),
-        B W t (H.inv t P) = G.inv (CategoryTheory.CategoryStruct.comp t ε) (B W t P)) := by
-  intro T U _ _ k A f G
-  let κ := Spec.map (CommRingCat.ofHom k.toRingHom)
-  let ε := Spec.map (CommRingCat.ofHom k.symm.toRingHom)
-  have hκε : κ ≫ ε = 𝟙 _ := by
-    dsimp [κ, ε]
-    rw [← Spec.map_comp]
-    have h : CommRingCat.ofHom k.symm.toRingHom ≫ CommRingCat.ofHom k.toRingHom =
-        𝟙 (CommRingCat.of U) := by
-      ext x
-      exact k.apply_symm_apply x
-    exact (congrArg Spec.map h).trans (Spec.map_id _)
-  have hεκ : ε ≫ κ = 𝟙 _ := by
-    dsimp [κ, ε]
-    rw [← Spec.map_comp]
-    have h : CommRingCat.ofHom k.toRingHom ≫ CommRingCat.ofHom k.symm.toRingHom =
-        𝟙 (CommRingCat.of T) := by
-      ext x
-      exact k.symm_apply_apply x
-    exact (congrArg Spec.map h).trans (Spec.map_id _)
-  let B : ∀ (W : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of T)),
-      SchemeHomOver t (f ≫ κ) ≃ SchemeHomOver (t ≫ ε) f := fun W t =>
-    { toFun := fun P => ⟨P.1, by
-        calc
-          P.1 ≫ f = (P.1 ≫ (f ≫ κ)) ≫ ε := by
-            rw [Category.assoc, Category.assoc, hκε, Category.comp_id]
-          _ = t ≫ ε := by rw [P.2]⟩
-      invFun := fun P => ⟨P.1, by
-        rw [← Category.assoc, P.2, Category.assoc, hεκ, Category.comp_id]⟩
-      left_inv := fun _ => Subtype.ext rfl
-      right_inv := fun _ => Subtype.ext rfl }
-  -- Both routes leave the underlying map equal to ψ ≫ P.1.
-  have hBcomp (W W' : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of T))
-      (t' : W' ⟶ Spec (CommRingCat.of T)) (ψ : W' ⟶ W) (hψ : ψ ≫ t = t')
-      (P : SchemeHomOver t (f ≫ κ)) :
-      B W' t' (GoodReductionJacobian.schemeHomOverComp ψ hψ P) =
-        GoodReductionJacobian.schemeHomOverComp ψ
-          (by rw [← Category.assoc, hψ]) (B W t P) :=
-    Subtype.ext rfl
-  let H : RelativeGroupLaw T (f ≫ κ) :=
-    { mul := fun {W} t P Q => (B W t).symm (G.mul (t ≫ ε) (B W t P) (B W t Q))
-      one := fun {W} t => (B W t).symm (G.one (t ≫ ε))
-      inv := fun {W} t P => (B W t).symm (G.inv (t ≫ ε) (B W t P))
-      mul_assoc := by
-        intro W t P Q R
-        apply (B W t).injective
-        simp only [Equiv.apply_symm_apply]
-        exact G.mul_assoc _ _ _ _
-      one_mul := by
-        intro W t P
-        apply (B W t).injective
-        simp only [Equiv.apply_symm_apply]
-        exact G.one_mul _ _
-      mul_one := by
-        intro W t P
-        apply (B W t).injective
-        simp only [Equiv.apply_symm_apply]
-        exact G.mul_one _ _
-      inv_mul_cancel := by
-        intro W t P
-        apply (B W t).injective
-        simp only [Equiv.apply_symm_apply]
-        exact G.inv_mul_cancel _ _
-      mul_natural := by
-        intro W W' t t' ψ hψ P Q
-        apply (B W' t').injective
-        simp only [Equiv.apply_symm_apply, hBcomp]
-        exact G.mul_natural _ _ ψ _ _ _ }
-  refine ⟨H, B, ?_, ?_, ?_, ?_, ?_⟩
-  · intro hG W t P Q
-    apply (B W t).injective
-    change B W t ((B W t).symm _) = B W t ((B W t).symm _)
-    simp only [Equiv.apply_symm_apply]
-    exact hG _ _ _
-  · intro W t P
-    rfl
-  · intro W t P Q
-    exact (B W t).apply_symm_apply _
-  · intro W t
-    exact (B W t).apply_symm_apply _
-  · intro W t P
-    exact (B W t).apply_symm_apply _
+Reviewed mathematical argument; formal verification state: `proved`.
 
-end Submission
+# Parent-supplied natural-language proof
+
+- Parent DAG node: `root.curve_ring_equiv-a1`
+- Child DAG node: `root.curve_ring_equiv-a1.abelian_surface_rebase-a1`
+- Review gate: accepted as part of the parent's decomposition audit
+
+## Proof
+
+1. Put κ = Spec(k), ε = Spec(k⁻¹), and fT = f ≫ κ. The inverse identities for k imply κ ≫ ε = id and ε ≫ κ = id. In particular, fT ≫ ε = f.
+2. The square with top arrow id_A, left arrow fT, right arrow f, and bottom arrow ε is a pullback. To verify its universal property, take any scheme W and morphisms R : W → A and t : W → Spec T satisfying R ≫ f = t ≫ ε. The unique candidate for the lift is R because the top projection is id_A. It has the required second projection since R ≫ fT = R ≫ f ≫ κ = t ≫ ε ≫ κ = t. Thus the candidate is a lift and is unique.
+3. The given bundle makes f smooth and proper. Apply stability under base change to the pullback of step 2. This makes fT smooth by AlgebraicGeometry.smooth_isStableUnderBaseChange, Mathlib/AlgebraicGeometry/Morphisms/Smooth.lean:117, and proper by AlgebraicGeometry.IsProper.isStableUnderBaseChange, Mathlib/AlgebraicGeometry/Morphisms/Proper.lean:72, both at pinned revision db584cd6d46c92f209a44c0f1c829460d327499d.
+4. Fix s : Spec T. For every point x of A, fT(x) = s is equivalent to f(x) = ε(s): apply ε for the forward implication and κ for the reverse implication. Hence fT⁻¹({s}) and f⁻¹({ε(s)}) are equal subsets of the same topological space A. The latter is connected by the original bundle, so the former is connected. Equality of these subsets also identifies their subtype topologies. Therefore their topological Krull dimensions are equal, and the assumed dimension formula at ε(s) gives dimension two for the fibre of fT at s.
+5. Choose G : RelativeGroupLaw U f from the original bundle's hasGroupLaw field. Apply the sibling theorem p07_cre_group_law_857cd4d38c to T,U,k,A,f,G. It supplies H : RelativeGroupLaw T fT; therefore RelativeGroupLaw T fT is nonempty. No commutativity hypothesis is needed for this application.
+6. Assemble smoothness and properness from step 3, connected fibres from step 4, and existence of H from step 5 into AbelianSchemePropertyBundle T fT. The dimension statement was proved for every s in step 4. This proves both conjuncts.
+
+## Key steps
+
+1. Express the rebased morphism as a pullback along Spec(k⁻¹).
+2. Transfer smoothness and properness using pinned base-change results.
+3. Identify each new topological fibre with the old fibre over Spec(k⁻¹)(s).
+4. Transfer connectedness and topological Krull dimension through equality of fibre subsets.
+5. Use the group-law sibling to supply the bundle's existence field.
+6. Assemble the transported bundle and dimension formula.
+
+## Reference use
+
+### local-project
+
+Queries:
+- `structure FakeEllipticCurve|def IsPullbackVia|structure IsPullbackVia|act_trace|def tangentZero|def tangentScale|structure RelativeGroupLaw|structure AbelianScheme`
+- `rebase|ringEquiv|RingEquiv|IsPullbackVia|transport`
+- `transport|ringEquiv|rebase|baseChange`
+- `isStableUnderBaseChange|finrank_pullback_snd|finrank_comp|IsIso`
+- `p07_cre_group_law_857cd4d38c|p07_cre_abelian_surface_857cd4d38c|p07_cre_finite_flat_rank_857cd4d38c`
+- `/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean -DautoImplicit=false -DmaxHeartbeats=4000000 -DsynthInstance.maxHeartbeats=400000 -Dbackward.isDefEq.respectTransparency.types=false /tmp/p07_cre_contract_check/TypesDiagnostic.lean`
+- `#print axioms AlgebraicGeometry.IsFinite.instIsStableUnderBaseChangeScheme`
+
+Files inspected:
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/problem.md`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/dag.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_AlgebraicGeometry_RelativeGroupLaw.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_JacJ1Iface.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMModuli.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFormalModuleOf.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMModuliProps.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/P2M`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Smooth.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Proper.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Finite.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Flat.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/FinitePresentation.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/FlatRank.lean`
+- `/tmp/p07_cre_contract_check/TypesDiagnostic.lean`
+- `/tmp/p07_cre_contract_check/types_diagnostic.log`
+- `/tmp/p07_cre_contract_check/finite_axiom.log`
+- `/tmp/p07_cre_contract_check/unchanged_submission.log`
+
+The snapshots are clean at project revision 73257f1e32d99b75813b037f28a5cf45a2db886d and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d; all installed dependencies match lake-manifest.json and are clean. Searches using /runtime/bin/rg found no reusable rebase/transport construction in the searched project files. RelativeGroupLaw specifies exactly the group identities and multiplication naturality used below; AbelianSchemePropertyBundle consists of smoothness, properness, connected fibres, and existence of a relative group law. The geometric files provide base-change stability, and FlatRank.lean:165 provides finrank_of_isPullback. All three proposed types elaborate with Lean 4.33.1 and the pinned project options against the definition imports. The audited definitions and cited results depend only on propext, Classical.choice, and Quot.sound. The inferred finite base-change instance is AlgebraicGeometry.IsFinite.instIsStableUnderBaseChangeScheme, and Spec(k) has the required direction. No proposed name occurs as an existing declaration or active DAG reservation. However, unchanged Submission.lean fails on the attribute references AlgebraicGeometry.Scheme.Hom.opensMapFinal, GoodReductionJacobian.RelativeGroupLaw.baseChangePointToBase_ofBase, and RegularLocalRingQuotientAscent.dualNumberFst_apply. Therefore the literal import Submission gate remains blocked; diagnostic elaboration is not comparator acceptance.
 
 
-namespace Submission
+## Acceptance
 
-/-- Rebase an abelian surface along a ring equivalence. -/
-theorem p07_cre_abelian_surface_857cd4d38c
-    (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U)
-    (A : Scheme.{0}) (f : A ⟶ Spec (CommRingCat.of U))
-    (hf : AbelianSchemePropertyBundle U f)
-    (hdim : ∀ s : Spec (CommRingCat.of U),
-      topologicalKrullDim ↥(f.base ⁻¹' {s}) = 2) :
-    let fT := f ≫ Spec.map (CommRingCat.ofHom k.toRingHom)
-    AbelianSchemePropertyBundle T fT ∧
-      (∀ s : Spec (CommRingCat.of T), topologicalKrullDim ↥(fT.base ⁻¹' {s}) = 2) := by
-  let κ := Spec.map (CommRingCat.ofHom k.toRingHom)
-  let ε := Spec.map (CommRingCat.ofHom k.symm.toRingHom)
-  let fT := f ≫ κ
-  change AbelianSchemePropertyBundle T fT ∧ _
-  have hκε : κ ≫ ε = 𝟙 (Spec (CommRingCat.of U)) := by
-    change Spec.map k.toCommRingCatIso.hom ≫ Spec.map k.toCommRingCatIso.inv = _
-    rw [← Spec.map_comp, k.toCommRingCatIso.inv_hom_id, Spec.map_id]
-  have hεκ : ε ≫ κ = 𝟙 (Spec (CommRingCat.of T)) := by
-    change Spec.map k.toCommRingCatIso.inv ≫ Spec.map k.toCommRingCatIso.hom = _
-    rw [← Spec.map_comp, k.toCommRingCatIso.hom_inv_id, Spec.map_id]
-  let : IsIso ε :=
-    (show IsIso (Spec.map k.toCommRingCatIso.inv) from inferInstance)
-  have hpb : IsPullback (𝟙 A) fT f ε :=
-    IsPullback.of_horiz_isIso ⟨by
-      simp only [fT, Category.id_comp, Category.assoc, hκε, Category.comp_id]⟩
-  have hfibre (s : Spec (CommRingCat.of T)) :
-      fT.base ⁻¹' {s} = f.base ⁻¹' {ε.base s} := by
-    ext x
-    change κ.base (f.base x) = s ↔ f.base x = ε.base s
-    constructor
-    · intro hx
-      calc
-        f.base x = ε.base (κ.base (f.base x)) :=
-          (congrArg (fun g => g.base (f.base x)) hκε).symm
-        _ = ε.base s := congrArg ε.base hx
-    · intro hx
-      calc
-        κ.base (f.base x) = κ.base (ε.base s) := congrArg κ.base hx
-        _ = s := congrArg (fun g => g.base s) hεκ
-  obtain ⟨G⟩ := hf.hasGroupLaw
-  obtain ⟨H, _⟩ := Submission.p07_cre_group_law_857cd4d38c T U k A f G
-  refine ⟨⟨MorphismProperty.of_isPullback (P := @Smooth) hpb hf.smooth,
-    MorphismProperty.of_isPullback (P := @IsProper) hpb hf.proper, ?_, ⟨H⟩⟩, ?_⟩
-  · intro s
-    rw [hfibre s]
-    exact hf.connectedFibres (ε.base s)
-  · intro s
-    rw [hfibre s]
-    exact hdim (ε.base s)
+The exact contract must pass deterministic Git identity checks and the machine comparator, without a Lean agent review, changed assumptions or proof holes. Local integration must pass before publication. Every decomposition child has its own issue and verified solution PR.
 
-end Submission
+Solution PR: Pending
+
+Current user-authorized lifecycle: merge the exact verified PR, validate its remote tree, then close this proved issue. This supersedes historical no-auto-merge instructions in the original experiment brief.
+
+Remote merge status is recorded by GitHub; local `proved` does not mean merged.
