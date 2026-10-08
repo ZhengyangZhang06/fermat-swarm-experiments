@@ -7166,3 +7166,33 @@ theorem Submission.p05_ibsrm_matching_support_blocks_a5b449214a
       Matrix.zero_apply]
   · simp only [Matrix.submatrix_apply, hr₂, hc₂, Matrix.fromBlocks_apply₂₂,
       Matrix.one_apply, s.injective.eq_iff]
+
+
+theorem Submission.p05_ibs_reduce_minor_a5b449214a :
+    ∀ {R : Type*} [CommRing R] (n p t d : ℕ) (P : Matrix (Fin n) (Fin p) R)
+      (rows : Fin d ↪ (Fin n ⊕ Fin t)) (cols : Fin d ↪ (Fin p ⊕ Fin t)),
+      let E : Matrix (Fin n ⊕ Fin t) (Fin p ⊕ Fin t) R :=
+        Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R)
+      Matrix.det (E.submatrix rows cols) = 0 ∨
+        ∃ l : ℕ, l ≤ t ∧ l ≤ d ∧
+          ∃ (rows' : Fin (d - l) ↪ Fin n) (cols' : Fin (d - l) ↪ Fin p),
+            Matrix.det (E.submatrix rows cols) = Matrix.det (P.submatrix rows' cols') ∨
+              Matrix.det (E.submatrix rows cols) = -Matrix.det (P.submatrix rows' cols') := by
+  intro R _ n p t d P rows cols E
+  classical
+  by_cases hsupport : ∀ a : Fin t,
+      (∃ i : Fin d, rows i = Sum.inr a) ↔ (∃ j : Fin d, cols j = Sum.inr a)
+  · obtain ⟨l, hlt, hld, rows', cols', er, ec, hblocks⟩ :=
+      Submission.p05_ibsrm_matching_support_blocks_a5b449214a n p t d P rows cols hsupport
+    refine Or.inr ⟨l, hlt, hld, rows', cols', ?_⟩
+    -- The common identity block has determinant one; reindexing contributes a sign.
+    have hdet := Matrix.det_reindex er.symm ec.symm (E.submatrix rows cols)
+    simp only [Matrix.reindex_apply, Equiv.symm_symm, E, hblocks,
+      Matrix.det_fromBlocks_zero₂₁, Matrix.det_one, mul_one] at hdet
+    rcases Int.isUnit_eq_one_or (Equiv.Perm.sign (ec.symm.trans er)).isUnit with hs | hs
+    · left
+      simpa [hs] using hdet.symm
+    · right
+      simpa [hs] using congrArg (fun x : R => -x) hdet.symm
+  · exact Or.inl
+      (Submission.p05_ibsrm_mismatched_support_zero_a5b449214a n p t d P rows cols hsupport)
