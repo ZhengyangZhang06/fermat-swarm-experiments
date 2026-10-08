@@ -1,0 +1,81 @@
+{
+  "node": "root.petersson_core_good_hecke-a1.hecke_integral_adjointness-a1.good_prime_transversal-a1",
+  "integration_parent": "22c72bfa24a3d45b5802707dda03305a3d1d1485",
+  "repair": "Remove only the second byte-identical declaration of Submission.f036cc6b1f_pc_hi_gpt_bezout_lift. Retain the earlier accepted declaration and every other byte of Submission.lean.",
+  "history": "The reviewed commits are represented by their complete, byte-identical Lean additions in the combined history. Context changed during replay; no claim of identical commit hashes or patch IDs is made.",
+  "reviewed_additions": [
+    {
+      "commit": "a90f1be262063effbd6276a7f37c1d15a96a2ffb",
+      "sha256": "dc71d483ee4e4d0d41e956c157671b9821a1bbbd415eef93fddee11badb6eb9c",
+      "bytes": 2399,
+      "retained_occurrences": 1
+    },
+    {
+      "commit": "0ad524b9fb2bc849bc9177e92ab9e01d8108a3ed",
+      "sha256": "b81426b389e938edde09556f972184a5bcb3d6ee982082395ec6d52473fbb8e8",
+      "bytes": 2323,
+      "retained_occurrences": 1
+    },
+    {
+      "commit": "fbe30ff169860d824e1b180fbb0ad8a862d9e748",
+      "sha256": "685ee24ebf2b7c08cae1de2a7391a3123ef242d56af87a2ee155592ed2713b0c",
+      "bytes": 3032,
+      "retained_occurrences": 1
+    }
+  ],
+  "checks": {
+    "submission_before_sha256": "5d9aa6e6bbcd59df169d89b228771032213df628e902fe8d0bd9a656e208584d",
+    "submission_after_sha256": "76457f97a3a83247df1cfccba9fd230f739011dc237b22cde46caef765bce4d5",
+    "removed_duplicate_bytes": 2323,
+    "removed_duplicate_lines": 42,
+    "retained_declaration_original_line": 303,
+    "removed_duplicate_original_line": 670,
+    "frozen_prefix_unchanged": true,
+    "all_other_submission_bytes_unchanged": true,
+    "snapshot_infrastructure_files_equal": 98,
+    "clean_pinned_dependencies": 9
+  },
+  "operator_policy": {
+    "path": "/runtime/operator-header-policy-v1/policy.json",
+    "sha256": "96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96",
+    "source_commit": "61b5f85556ac71631ccad822e0694511234f7132",
+    "contract_file": "Fermat/Thm_CuspForm_span_heckeTLin_eigen_eq_top.lean",
+    "contract_sha256": "365510742cf45daae091fcbb675dc22f4df855f4f5e522aa065b65339f379bbe",
+    "compiler_copy_only_omitted_lines": [
+      9,
+      10
+    ],
+    "git_header_unchanged": true
+  },
+  "verification": "The configured exact comparator must verify the committed integration tree. These byte and dependency checks are not proof acceptance or replacement comparator evidence.",
+  "reference_use": [
+    {
+      "source": "local-project",
+      "manifest": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+      "project_commit": "61b5f85556ac71631ccad822e0694511234f7132",
+      "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "queries": [
+        {
+          "query": "f036cc6b1f_pc_hi_gpt_bezout_lift|good_prime_transversal",
+          "scope": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb",
+          "finding": "No matches in Lean files (rg exit 1). No alternative proof was imported."
+        },
+        {
+          "query": "^(def|lemma|theorem) (heckeMatrix|heckeDiagMatrix|val_heckeMatrix|val_heckeDiagMatrix)",
+          "scope": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperator.lean",
+          "finding": "Definitions at lines 18 and 21. Inspected lines 1-100, including attributed value theorems at lines 24 and 28: matrices are [1,j;0,p] and [p,0;0,1] for nonzero p."
+        },
+        {
+          "query": "theorem (gcd_eq_gcd_ab|coprime_iff_not_dvd)|lemma (gcd_eq_gcd_ab|coprime_iff_not_dvd)",
+          "scope": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib",
+          "finding": "Bézout identities found in Algebra/EuclideanDomain/Basic.lean:206 and Data/Int/GCD.lean:124,172. Inspected Data/Int/GCD.lean:111-133; line 124 is the Nat identity already used by the accepted lift."
+        }
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperator.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Data/Int/GCD.lean"
+      ],
+      "compatibility": "All 98 local Definitions/Theorems/P2M Lean sources match the pinned snapshot; all nine installed dependencies are clean at their manifest revisions. No new reference material is copied. Kernel, exact-type, transitive-axiom and operator compiler-copy evidence remain the configured comparator responsibility."
+    }
+  ]
+}
