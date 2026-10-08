@@ -119,9 +119,6 @@ theorem p07_cq_group_law_pullback_857cd4d38c :
           (by rw [← Category.assoc, hh]) (B W t P) :=
     Subtype.ext (Category.assoc h P.1 g)
   -- Transport the operations; injectivity reduces their laws to those of G.
-          (by rw [← Category.assoc, hh]) (B W t P) := by
-    exact Subtype.ext (Category.assoc h P.1 g)
-  -- Transport the operations; injectivity reduces their laws to those of G.
   let H : RelativeGroupLaw T p :=
     { mul := fun {W} t P Q =>
         (B W t).symm (G.mul (t ≫ β) (B W t P) (B W t Q))
@@ -318,7 +315,7 @@ theorem p07_flq_curve_quotient_857cd4d38c
     p07_cq_group_law_pullback_857cd4d38c S (S ⧸ J) q E.A E.f E.L
   obtain ⟨hbundle, hdim⟩ :=
     p07_cq_abelian_surface_quotient_857cd4d38c S J E.A E.f E.bundle E.dim_fibre
-  obtain ⟨ℓ, hℓpb, hℓp, hclosed, hfinite, hflat, hfp, hrank, hfactor⟩ :=
+  obtain ⟨ℓ, _, hℓp, hclosed, hfinite, hflat, hfp, hrank, hfactor⟩ :=
     p07_cq_level_geometry_pullback_857cd4d38c S (S ⧸ J) q E.A E.C E.f E.lev
       E.lev_closed E.lev_finite E.lev_flat E.lev_finitePresentation
   -- The action is the unique lift with the prescribed two projections.
