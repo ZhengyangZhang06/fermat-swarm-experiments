@@ -58,7 +58,7 @@ theorem p06_9e0f5043ff_elp_principal_ideals_of_order :
   refine ⟨⟨(z : F) / (h : F), hquot⟩, ?_⟩
   apply Subtype.ext
   exact div_mul_cancel₀ _ hh
-/-- Clear the first row by an invertible column operation, preserving the trailing block. -/
+
 /-- Clear the first row by an invertible column operation, preserving the trailing block.
 The correction matrix squares to zero, so `1 - M` has the explicit inverse `1 + M`.
 Divisibility supplies the coefficients without requiring the pivot to be nonzero or a unit. -/
