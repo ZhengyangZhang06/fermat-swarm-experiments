@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "0707a35a642ea14c677ee068090c3af61b00360760a3158320204cd6244a9822",
+  "git_delta": {
+    "base_commit": "c3a3cf5d2236db1d7db968adbf212108db7bf6d5",
+    "candidate_commit": "ff52e595fa0f5c8d074892c4e240e0e9981cf0cd",
+    "target": "Submission.lean",
+    "declaration": "f036cc6b1f_pc_hi_gpt_unique_projective_index",
+    "diff_sha256": "d7c521da1e2f728b029210392e0e0e4b1ecc6a0b7cf2fa17b1ee0464386f61bb",
+    "source_sha256": "21bf8cb686f4a7da17c091c2c1dc1caa1403bc1232789f27042d2e736712762a",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.f036cc6b1f_pc_hi_gpt_unique_projective_index",
+      "statement": "∀ (p : ℕ), p.Prime → ∀ (a b v : ℤ), (¬ (p : ℤ) ∣ a ∨ ¬ (p : ℤ) ∣ b) → ¬ (p : ℤ) ∣ v → ∃! i : Fin (p + 1), (p : ℤ) ∣ (if i.val < p then b - a * (i.val : ℤ) else a * v + b * (p : ℤ))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
