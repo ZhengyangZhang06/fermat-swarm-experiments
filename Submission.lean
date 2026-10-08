@@ -4812,3 +4812,55 @@ theorem Submission.p10_17ae7b7d_ccm_translation_period :
     ring
   rw [hentry]
   simp
+theorem Submission.p10_17ae7b7d_ccm_coprime_orbit_product :
+    ∀ (G X Y : Type) [Group G] [MulAction G X] [MulAction G Y]
+      (g : G) (m n : ℕ) [NeZero m] [NeZero n], Nat.Coprime m n →
+      (∀ x : X, (g ^ m) • x = x) → (∀ y : Y, (g ^ n) • y = y) →
+      Nat.card (Quotient (MulAction.orbitRel (Subgroup.zpowers g) (X × Y))) =
+        Nat.card (Quotient (MulAction.orbitRel (Subgroup.zpowers g) X)) *
+          Nat.card (Quotient (MulAction.orbitRel (Subgroup.zpowers g) Y)) := by
+  intro G X Y _ _ _ g m n _ _ hmn hX hY
+  have hperiod : ∀ (Z : Type) [MulAction G Z] (d : ℕ),
+      (∀ z : Z, (g ^ d) • z = z) → ∀ a b : ℤ,
+      (d : ℤ) ∣ a - b → ∀ z : Z, (g ^ a) • z = (g ^ b) • z := by
+    intro Z _ d hd a b ⟨k, hk⟩ z
+    have ha : a = (d : ℤ) * k + b := by omega
+    rw [ha, zpow_add, mul_smul, zpow_mul, zpow_natCast]
+    exact MulAction.mem_fixedBy_zpow (hd ((g ^ b) • z)) k
+  have hbez : (1 : ℤ) = (m : ℤ) * Nat.gcdA m n + (n : ℤ) * Nat.gcdB m n := by
+    simpa only [hmn.gcd_eq_one, Nat.cast_one] using Nat.gcd_eq_gcd_ab m n
+  have hrel : MulAction.orbitRel (Subgroup.zpowers g) (X × Y) =
+      (MulAction.orbitRel (Subgroup.zpowers g) X).prod
+        (MulAction.orbitRel (Subgroup.zpowers g) Y) := by
+    apply Setoid.ext
+    intro p q
+    change (∃ h : Subgroup.zpowers g, h • q = p) ↔
+      (∃ h : Subgroup.zpowers g, h • q.1 = p.1) ∧
+        (∃ h : Subgroup.zpowers g, h • q.2 = p.2)
+    constructor
+    · rintro ⟨h, hh⟩
+      exact ⟨⟨h, congrArg Prod.fst hh⟩, ⟨h, congrArg Prod.snd hh⟩⟩
+    · rintro ⟨⟨a, ha⟩, ⟨b, hb⟩⟩
+      obtain ⟨i, hi⟩ := Subgroup.mem_zpowers_iff.mp a.property
+      obtain ⟨j, hj⟩ := Subgroup.mem_zpowers_iff.mp b.property
+      change (a : G) • q.1 = p.1 at ha
+      change (b : G) • q.2 = p.2 at hb
+      rw [← hi] at ha
+      rw [← hj] at hb
+      let t : ℤ := i * (n : ℤ) * Nat.gcdB m n + j * (m : ℤ) * Nat.gcdA m n
+      have hti : (m : ℤ) ∣ t - i := by
+        refine ⟨Nat.gcdA m n * (j - i), ?_⟩
+        dsimp [t]
+        linear_combination -i * hbez
+      have htj : (n : ℤ) ∣ t - j := by
+        refine ⟨Nat.gcdB m n * (i - j), ?_⟩
+        dsimp [t]
+        linear_combination -j * hbez
+      refine ⟨⟨g ^ t, Subgroup.zpow_mem_zpowers g t⟩, ?_⟩
+      apply Prod.ext
+      · exact (hperiod X m hX t i hti q.1).trans ha
+      · exact (hperiod Y n hY t j htj q.2).trans hb
+  rw [hrel]
+  exact (Nat.card_congr (Setoid.prodQuotientEquiv
+    (MulAction.orbitRel (Subgroup.zpowers g) X)
+    (MulAction.orbitRel (Subgroup.zpowers g) Y)).symm).trans (Nat.card_prod _ _)
