@@ -2870,6 +2870,48 @@ theorem Submission.p10_17ae7b7d_gamma0_coset_counts :
   obtain ⟨hfinite, hindex⟩ := Submission.p10_17ae7b7d_cc_index N
   obtain ⟨htwo, hthree⟩ := Submission.p10_17ae7b7d_cc_elliptic_fixed_points N
   exact ⟨hfinite, hindex, htwo, hthree, Submission.p10_17ae7b7d_cc_translation_orbits N⟩
+theorem Submission.p10_17ae7b7d_cld_qexp_finite_order :
+    ∀ (F A : ℂ → ℂ), DifferentiableOn ℂ F {z : ℂ | 0 < z.im} →
+      (∃ z : ℂ, 0 < z.im ∧ F z ≠ 0) → AnalyticAt ℂ A 0 →
+      (∃ Y₀ : ℝ, ∀ z : ℂ, 0 < z.im → Y₀ ≤ z.im →
+        F z = A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z))) →
+      analyticOrderAt A 0 ≠ ⊤ := by
+  intro F A hF ⟨z₁, hz₁, hFz₁⟩ _ ⟨Y₀, hfactor⟩ htop
+  have hU : IsOpen {z : ℂ | 0 < z.im} :=
+    isOpen_lt continuous_const Complex.continuous_im
+  have hAn : AnalyticOnNhd ℂ F {z : ℂ | 0 < z.im} := hF.analyticOnNhd hU
+  obtain ⟨δ, hδ, hAzero⟩ := Metric.eventually_nhds_iff.mp (analyticOrderAt_eq_top.mp htop)
+  let T : ℝ := max (max 0 Y₀) (-Real.log δ / (2 * Real.pi))
+  have hT0 : 0 ≤ T := le_trans (le_max_left 0 Y₀) (le_max_left _ _)
+  have hTY : Y₀ ≤ T := le_trans (le_max_right 0 Y₀) (le_max_left _ _)
+  have hTlog : -Real.log δ / (2 * Real.pi) ≤ T := le_max_right _ _
+  have hexp : Real.exp (-2 * Real.pi * T) ≤ δ := by
+    rw [← Real.exp_log hδ]
+    apply Real.exp_le_exp.mpr
+    have hmul := (div_le_iff₀ (by positivity : 0 < 2 * Real.pi)).mp hTlog
+    nlinarith
+  have hhigh : ∀ z : ℂ, T < z.im → F z = 0 := by
+    intro z hz
+    rw [hfactor z (lt_of_le_of_lt hT0 hz) (le_trans hTY hz.le)]
+    apply hAzero
+    rw [dist_zero_right]
+    have hq := (Function.Periodic.norm_qParam_lt_iff (by norm_num : (0 : ℝ) < 1) T z).mpr hz
+    have hq' : ‖Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z)‖ <
+        Real.exp (-2 * Real.pi * T) := by
+      simpa only [Function.Periodic.qParam, Complex.ofReal_one, div_one] using hq
+    exact lt_of_lt_of_le hq' hexp
+  let v : ℂ := ((T + 1 : ℝ) : ℂ) * Complex.I
+  have hv : T < v.im := by simp [v]
+  have hvU : v ∈ {z : ℂ | 0 < z.im} := lt_of_le_of_lt hT0 hv
+  have hzero : F =ᶠ[nhds v] 0 := by
+    have hV : IsOpen {z : ℂ | T < z.im} :=
+      isOpen_lt continuous_const Complex.continuous_im
+    filter_upwards [hV.mem_nhds hv] with z hz
+    exact hhigh z hz
+  exact hFz₁ (hAn.eqOn_zero_of_preconnected_of_eventuallyEq_zero
+    (convex_halfSpace_im_gt 0).isPreconnected hvU hzero hz₁)
+
+
 theorem Submission.p10_17ae7b7d_rd_sparse_series_descent :
     ∀ (w : ℕ) (P : ℂ → ℂ) (p : FormalMultilinearSeries ℂ ℂ ℂ),
       0 < w → HasFPowerSeriesAt P p 0 →
@@ -3039,3 +3081,19 @@ theorem Submission.p10_17ae7b7d_norm_local_multiplier_order :
     hJ.continuousAt.tendsto.mul hb.continuousAt.tendsto
   exact mul_right_cancel₀ hbne (tendsto_nhds_unique_of_eventuallyEq
     (hleft.mono_left nhdsWithin_le_nhds) (hright.mono_left nhdsWithin_le_nhds) hcancel)
+theorem Submission.p10_17ae7b7d_crcard_quot_eq_unit :
+    ∀ (R : Type) [CommRing R],
+      let U := {v : R × R // ∃ x y : R, x * v.1 + y * v.2 = 1}
+      let rel : U → U → Prop := fun v w =>
+        ∃ u : Rˣ, (u : R) * v.1.1 = w.1.1 ∧ (u : R) * v.1.2 = w.1.2
+      ∀ v w : U, Quot.mk rel v = Quot.mk rel w ↔ rel v w := by
+  intro R _ U rel v w
+  have hequiv : Equivalence rel := by
+    refine ⟨fun a => ⟨1, by simp, by simp⟩, ?_, ?_⟩
+    · rintro a b ⟨u, h1, h2⟩
+      exact ⟨u⁻¹, by rw [← h1, Units.inv_mul_cancel_left],
+        by rw [← h2, Units.inv_mul_cancel_left]⟩
+    · rintro a b c ⟨u, h1, h2⟩ ⟨t, h1', h2'⟩
+      exact ⟨t * u, by rw [Units.val_mul, mul_assoc, h1, h1'],
+        by rw [Units.val_mul, mul_assoc, h2, h2']⟩
+  exact hequiv.quot_mk_eq_iff v w
