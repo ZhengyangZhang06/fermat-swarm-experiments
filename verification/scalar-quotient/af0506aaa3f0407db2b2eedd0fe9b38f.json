@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "purpose": "Local audit observations of an existing failed request; not a controller receipt or proof acceptance.",
+  "request_id": "af0506aaa3f0407db2b2eedd0fe9b38f",
+  "node_id": "root.local_norm_order-a1.dvr_determinant_length-a1.scalar_quotient_length_order-a1",
+  "candidate_commit_checked": "dbe478749afa15b2ac4a65d23df7e64ff2899735",
+  "prior_result": {
+    "exit_code": 1,
+    "success_marker_present": false,
+    "reported_packet_digest": "2e37c53ce491ed5e6e33d2004900acf335e092572da67f80bd91d155b12c619f",
+    "failure_stage": "challenge build; solution comparison not reached",
+    "log_path": "af0506aaa3f0407db2b2eedd0fe9b38f.log",
+    "log_sha256": "30ab4b54aedb7853a3e0d0c03e648758ee9bf6dcfa4b30b37c4d7a5ca774f517",
+    "original_tool_record": {
+      "path": "/home/ubuntu/.codex/sessions/2026/10/08/rollout-2026-10-08T11-57-38-01a11b60-4ca8-7091-b9a1-f44034f6fa68.jsonl",
+      "line": 202
+    }
+  },
+  "candidate_source": {
+    "path": "Submission.lean",
+    "sha256": "a39a2bb2dc7c9b7d11ae0b637caaecf1c17109793434137a6664f578a0382041",
+    "bytes": 6259,
+    "matches_checked_commit": true,
+    "frozen_prefix_sha256": "b004dca1496ade3fb13e18207639dd199dcb7aeb7df210061bf8c375960870bc",
+    "frozen_prefix_bytes": 5160,
+    "frozen_prefix_preserved": true
+  },
+  "local_runtime": {
+    "tracked_commit": "2e30c71a9c74a2d396820e735c64094927f9722c",
+    "tracked_wrapper_sha256": "926962c03ed7022866a063526a363d1fb5a49abda258c7877f46546a132cb75a",
+    "configured_endpoint": "https://10.44.0.210:8849",
+    "mounts": [
+      {
+        "mountpoint": "/runtime",
+        "options": "ro,noatime"
+      },
+      {
+        "mountpoint": "/runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+        "options": "ro,noatime"
+      }
+    ],
+    "observed_files": [
+      {
+        "path": "/runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+        "sha256": "f3202ba84d3096d6e05a494f073e454e5aa82c4383a08b171832acbc28c5d9b2",
+        "bytes": 2553,
+        "scope": "observed wrapper; separate read-only bind mount; differs from tracked runtime"
+      },
+      {
+        "path": "/runtime/operator-review-evidence-3155d2fa0d3e/export-review-evidence.py",
+        "sha256": "3155d2fa0d3ee19b460df4a9391d9c46a03ff73ebc59673abf21d2b4c6c5e863",
+        "bytes": 8823,
+        "scope": "operator export implementation; explicitly excludes failed requests"
+      },
+      {
+        "path": "/runtime/flows/math-lean-flow-missing-candidate-v1/_recursive_lean/swarm_broker.py",
+        "sha256": "dba947dc9a09982a556b3ff2c9c8a4eb7c1f84f97740f42c7de0996afe516519",
+        "bytes": 19947,
+        "scope": "available runtime archive; not authenticated as this request's broker implementation"
+      },
+      {
+        "path": "/runtime/flows/math-lean-flow-missing-candidate-v1/scripts/verify-frozen-node.py",
+        "sha256": "17360b2ac18e997034d13017a50a6bfe476c7100a5d8ef0569dbc3ac8fb87197",
+        "bytes": 28235,
+        "scope": "available checker copy; not authenticated as this request's remote checker"
+      },
+      {
+        "path": "/runtime/flows/math-lean-flow-missing-candidate-v1/docs/swarm-experiment-progress.md",
+        "sha256": "2f90cdfaab95f05a9bdc4ff0f28ef3a10a98f37cbb2ac3bcb1e35a0a1fe925d9",
+        "bytes": 72663,
+        "scope": "deployment notes record additive TLS broker on port 8849; not request-specific authorization"
+      }
+    ]
+  },
+  "old_identity": {
+    "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-local-norm-order-a1-dvr-determinant-length-a1-scalar-quotient-le-9dc69f4859/comparison-identity-v1.json",
+    "sha256": "62a36dec9a2ec42e4223e6f850f50065fc22f06f05214a4aeba5e5c7a139a382",
+    "candidate_commit": "ee0110eeb25dd35b82b7086bee294c6589a4f29c",
+    "covers_current_request": false
+  },
+  "remote_evidence": {
+    "expected_worker_export": "/runtime/review-evidence/af0506aaa3f0407db2b2eedd0fe9b38f",
+    "export_exists": false,
+    "actual_prepared_packet_available": false,
+    "actual_remote_checker_identity_verified": false,
+    "request_specific_controller_authorization_verified": false,
+    "reason": "The available operator exporter publishes only finished returncode-zero verified operations. The inspected broker source exposes no artifact GET route; the actual request's broker implementation remains unverified."
+  },
+  "controller_decisions_required": [
+    "Provide a read-only export of this failed request's retained prepared.json, operation receipt, hashed challenge/solution inputs, exact remote checker files and identities, and request-to-endpoint authorization. Preserve failure state and exit code.",
+    "Reconcile unavailable frozen attribute names in the independently prepared challenge without a worker silently changing the frozen contract. Specify the authorized input policy before any new verification."
+  ],
+  "actions_not_taken": [
+    "No comparator rerun",
+    "No broker request",
+    "No controller/service/ledger/loop-state changes",
+    "No frozen source, theorem, dependency, or runtime edits"
+  ]
+}
