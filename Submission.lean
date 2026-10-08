@@ -2845,45 +2845,6 @@ theorem Submission.p02_es_177ebb5a_ssl_segment_estimates :
           (by simpa using hs'.1.le) (by simpa using hs'.2.trans hxL)
           (by simpa using hy))
       _ = x * w y := by rw [sub_zero, abs_of_nonneg hx, mul_comm]
-      R.val.support.card ≤ (Finset.range (n + 1)).card := by
-        apply Finset.card_le_card_of_injOn (fun d : Fin 2 →₀ ℕ => d 1)
-        · intro d hd
-          have := hdeg d hd
-          exact Finset.mem_range.mpr (by change d 1 < n + 1; omega)
-        · intro d hd e he hde
-          change d 1 = e 1 at hde
-          have hddeg := hdeg d hd
-          have hedeg := hdeg e he
-          ext j
-          fin_cases j
-          · change d 0 = e 0
-            omega
-          · exact hde
-      _ = n + 1 := Finset.card_range _
-  have hterm (d : Fin 2 →₀ ℕ) (hd : d ∈ R.val.support) :
-      ‖MvPolynomial.coeff d R.val * (-z) ^ d 1‖ ≤ b * (max 1 ‖z‖) ^ n := by
-    have hpow : ‖z‖ ^ d 1 ≤ (max 1 ‖z‖) ^ n := by
-      calc
-        ‖z‖ ^ d 1 ≤ (max 1 ‖z‖) ^ d 1 :=
-          pow_le_pow_left₀ (norm_nonneg _) (le_max_right _ _) _
-        _ ≤ (max 1 ‖z‖) ^ n :=
-          pow_le_pow_right₀ (le_max_left _ _) (by have := hdeg d hd; omega)
-    simpa only [norm_mul, norm_pow, norm_neg] using
-      mul_le_mul (hcoeff d) hpow (pow_nonneg (norm_nonneg _) _) hb
-  rw [MvPolynomial.eval_eq']
-  simp only [Fin.prod_univ_two, Fin.isValue, ite_true, one_pow, one_ne_zero,
-    ite_false, one_mul]
-  calc
-    ‖∑ d ∈ R.val.support, MvPolynomial.coeff d R.val * (-z) ^ d 1‖ ≤
-        ∑ d ∈ R.val.support, ‖MvPolynomial.coeff d R.val * (-z) ^ d 1‖ :=
-      norm_sum_le _ _
-    _ ≤ ∑ _d ∈ R.val.support, b * (max 1 ‖z‖) ^ n := Finset.sum_le_sum hterm
-    _ = (R.val.support.card : ℝ) * (b * (max 1 ‖z‖) ^ n) := by
-      simp only [Finset.sum_const, nsmul_eq_mul]
-    _ ≤ ((n + 1 : ℕ) : ℝ) * (b * (max 1 ‖z‖) ^ n) :=
-      mul_le_mul_of_nonneg_right (by exact_mod_cast hcard)
-        (mul_nonneg hb (pow_nonneg (le_trans (norm_nonneg _) (le_max_right _ _)) _))
-    _ = ((n + 1 : ℕ) : ℝ) * (max 1 ‖z‖) ^ n * b := by ring
 
 /-- A uniform coefficient bound for the homogeneous power `(z * X₀ + X₁) ^ n`. -/
 theorem p02_es_177ebb5a_scl_linepow_coeff_bound :
@@ -2924,40 +2885,6 @@ theorem p02_es_177ebb5a_scl_linepow_coeff_bound :
     exact mul_le_mul hchoose hpow (pow_nonneg (norm_nonneg z) _) (by positivity)
   · rw [if_neg hd, norm_zero]
     positivity
-/-- Pull back to the unit disk, apply `DifferentiableOn.isExactOn_ball` from
-`Mathlib.Analysis.Complex.HasPrimitives`, and transport the primitive back by the Cayley map. -/
-theorem p02_es_177ebb5a_primitive_exists_scalar_primitive :
-    ∀ (a : ℂ → ℂ), DifferentiableOn ℂ a {z : ℂ | 0 < z.im} →
-      ∃ A : ℂ → ℂ, ∀ z : ℂ, 0 < z.im → HasDerivAt A (a z) z := by
-  intro a ha
-  let φ := fun w : ℂ => Complex.I * (1 + w) / (1 - w)
-  let ψ := fun z : ℂ => (z - Complex.I) / (z + Complex.I)
-  obtain ⟨hφ, hψ, hφψ, _⟩ := p02_es_177ebb5a_sp_cayley_equivalence
-  obtain ⟨hdφ, hdψ, hprod⟩ := p02_es_177ebb5a_sp_cayley_derivatives
-  have hopen : IsOpen {z : ℂ | 0 < z.im} :=
-    isOpen_lt continuous_const Complex.continuous_im
-  have hb : DifferentiableOn ℂ
-      (fun w => a (φ w) * (2 * Complex.I / (1 - w) ^ 2))
-      (Metric.ball (0 : ℂ) 1) := by
-    intro w hw
-    have hw' : ‖w‖ < 1 := by simpa only [Metric.mem_ball, dist_zero_right] using hw
-    have hden : 1 - w ≠ 0 := by
-      intro h
-      have hw1 : w = 1 := (sub_eq_zero.mp h).symm
-      simp [hw1] at hw'
-    exact (((ha.differentiableAt (hopen.mem_nhds (hφ w hw'))).comp w
-      (hdφ w hw').differentiableAt).mul
-        ((differentiableAt_const (2 * Complex.I)).div
-          ((differentiableAt_id.const_sub 1).pow 2)
-          (pow_ne_zero 2 hden))).differentiableWithinAt
-  obtain ⟨B, hB⟩ := hb.isExactOn_ball
-  refine ⟨fun z => B (ψ z), ?_⟩
-  intro z hz
-  have hw : ψ z ∈ Metric.ball (0 : ℂ) 1 := by
-    simpa only [Metric.mem_ball, dist_zero_right] using hψ z hz
-  convert! (hB (ψ z) hw).comp z (hdψ z hz) using 1
-  simp only [φ, ψ, hφψ z hz, mul_assoc, hprod z hz, mul_one]
-
 /-- Expand a homogeneous binary form in the monomials with exponents `(r, n - r)`. -/
 theorem p02_es_177ebb5a_ic_lct_monomial_expansion
     (n : ℕ) (Q : ↥(HeckeEis.BinaryForm ℂ n)) :
@@ -3061,8 +2988,6 @@ theorem p02_es_177ebb5a_sd_jr_linepow_eval :
   · have hnr : n - r ≠ 0 := by omega
     simp [h, zero_pow hnr]
 
-end Submission
-
 
 theorem Submission.p02_es_177ebb5a_ssl_tail_limit :
     ∀ (f : ℝ → ℂ) (e : ℝ → ℝ) (y₀ : ℝ),
@@ -3109,9 +3034,70 @@ theorem Submission.p02_es_177ebb5a_scl_scalar_strip_limit :
   intro n a D L y₀ F H ha hD hL hy₀ hH hF hbound
   let w : ℝ → ℝ := fun y => (1 + y) ^ n * Real.exp (-a * y)
   let J : ℝ := ∫ s in Set.Ioi (0 : ℝ), w s
-  obtain ⟨_, _, htail, hdecay⟩ :=
-    Submission.p02_es_177ebb5a_scl_polynomial_exp_tail n a ha
-  have hw : Continuous (fun y => D * w y) := by dsimp [w]; fun_prop
+  -- Establish the analytic estimates locally, using the pinned mathlib results.
+  have hdecay_rate (b : ℝ) (hb : 0 < b) :
+      Filter.Tendsto (fun y : ℝ => (1 + y) ^ n * Real.exp (-b * y))
+        Filter.atTop (nhds 0) := by
+    have h := ((isLittleO_pow_exp_pos_mul_atTop n hb).tendsto_div_nhds_zero.comp
+      (Filter.tendsto_atTop_add_const_left Filter.atTop 1 Filter.tendsto_id)).mul_const
+        (Real.exp b)
+    simp only [zero_mul] at h
+    convert h using 1
+    ext y
+    simp only [Function.comp_apply, id_eq]
+    rw [div_eq_mul_inv, ← Real.exp_neg, mul_assoc, ← Real.exp_add]
+    congr 2
+    ring
+  have hdecay := hdecay_rate a ha
+  have hw_cont : Continuous w := by fun_prop
+  have hw_nonneg (s : ℝ) (hs : 0 ≤ s) : 0 ≤ w s := by
+    dsimp [w]
+    positivity
+  have hint : MeasureTheory.IntegrableOn w (Set.Ioi 0) := by
+    apply integrable_of_isBigO_exp_neg (half_pos ha) hw_cont.continuousOn
+    apply Asymptotics.IsLittleO.isBigO
+    apply Asymptotics.isLittleO_of_tendsto (fun x hx => (Real.exp_ne_zero _ hx).elim)
+    convert hdecay_rate (a / 2) (half_pos ha) using 1
+    ext s
+    dsimp [w]
+    rw [div_eq_mul_inv, ← Real.exp_neg, mul_assoc, ← Real.exp_add]
+    congr 2
+    ring
+  have htail (y t : ℝ) (hy : 0 ≤ y) (hyt : y ≤ t) :
+      (∫ s in y..t, w s) ≤ J * w y := by
+    have hty : 0 ≤ t - y := sub_nonneg.mpr hyt
+    have hsub (v : ℝ) (hv : 0 ≤ v) : w (y + v) ≤ w y * w v := by
+      have hp : (1 + (y + v)) ^ n ≤ ((1 + y) * (1 + v)) ^ n :=
+        pow_le_pow_left₀ (by positivity) (by nlinarith [mul_nonneg hy hv]) n
+      dsimp [w]
+      calc
+        (1 + (y + v)) ^ n * Real.exp (-a * (y + v)) ≤
+            ((1 + y) * (1 + v)) ^ n * Real.exp (-a * (y + v)) :=
+          mul_le_mul_of_nonneg_right hp (Real.exp_pos _).le
+        _ = ((1 + y) ^ n * Real.exp (-a * y)) *
+            ((1 + v) ^ n * Real.exp (-a * v)) := by
+          rw [mul_pow, show -a * (y + v) = -a * y + -a * v by ring, Real.exp_add]
+          ring
+    have hfinite : (∫ v in (0 : ℝ)..t - y, w v) ≤ J := by
+      rw [intervalIntegral.integral_of_le hty]
+      apply MeasureTheory.setIntegral_mono_set hint
+      · filter_upwards [MeasureTheory.ae_restrict_mem measurableSet_Ioi] with v hv
+        exact hw_nonneg v hv.le
+      · exact Filter.Eventually.of_forall (fun v hv => hv.1)
+    calc
+      (∫ s in y..t, w s) = ∫ v in (0 : ℝ)..t - y, w (y + v) := by
+        rw [intervalIntegral.integral_comp_add_left]
+        simp
+      _ ≤ ∫ v in (0 : ℝ)..t - y, w y * w v := by
+        apply intervalIntegral.integral_mono_on hty
+          ((hw_cont.comp (continuous_const.add continuous_id)).intervalIntegrable _ _)
+          ((continuous_const.mul hw_cont).intervalIntegrable _ _)
+        intro v hv
+        exact hsub v hv.1
+      _ = w y * ∫ v in (0 : ℝ)..t - y, w v := intervalIntegral.integral_const_mul _ _
+      _ ≤ w y * J := mul_le_mul_of_nonneg_left hfinite (hw_nonneg y hy)
+      _ = J * w y := mul_comm _ _
+  have hw : Continuous (fun y => D * w y) := continuous_const.mul hw_cont
   obtain ⟨hvertical, hhorizontal⟩ :=
     Submission.p02_es_177ebb5a_ssl_segment_estimates F H (fun y => D * w y) L y₀
       hL (by linarith) hH hF hw.continuousOn (by
@@ -3133,9 +3119,8 @@ theorem Submission.p02_es_177ebb5a_scl_scalar_strip_limit :
           F ((x : ℂ) + (y : ℂ) * Complex.I)‖ ≤
           ∫ s in y..t, D * w s := hvertical x y t hx hxL hy hyt
       _ = D * ∫ s in y..t, w s := intervalIntegral.integral_const_mul _ _
-      _ ≤ D * (J * w y) := by
-        simpa only [J, w, mul_assoc] using
-          mul_le_mul_of_nonneg_left (htail y t (by linarith) hyt) hD
+      _ ≤ D * (J * w y) :=
+        mul_le_mul_of_nonneg_left (htail y t (by linarith) hyt) hD
       _ = (D * J) * w y := (mul_assoc _ _ _).symm
   obtain ⟨b, hb, _⟩ := hlimit 0 le_rfl hL
   refine ⟨b, ?_⟩
