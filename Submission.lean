@@ -1637,6 +1637,8 @@ theorem Submission.p10_17ae7b7d_ccf_prime_power :
     exact Nat.gcd_eq_right (pow_dvd_pow p h)
 
 theorem Submission.p10_17ae7b7d_crcard_quot_eq_unit :
+
+theorem Submission.p10_17ae7b7d_uce_normalized_quot_eq_iff :
     ∀ (R : Type) [CommRing R],
       let U := {v : R × R // ∃ x y : R, x * v.1 + y * v.2 = 1}
       let rel : U → U → Prop := fun v w =>
@@ -1710,3 +1712,35 @@ theorem Submission.p10_17ae7b7d_phdisk_mobius_ratio_norm :
     rw [norm_div, Complex.star_def, Complex.norm_conj,
       div_self (norm_ne_zero_iff.mpr hQv)]
   rw [hratio, norm_mul, hunit, mul_one]
+      ∀ v w : U,
+        (v.1.1 = 1 ∨ (¬ IsUnit v.1.1 ∧ v.1.2 = 1)) →
+        (w.1.1 = 1 ∨ (¬ IsUnit w.1.1 ∧ w.1.2 = 1)) →
+        (Quot.mk rel v = Quot.mk rel w ↔ v = w) := by
+  intro R _ U rel v w hv hw
+  constructor
+  · intro hq
+    have heqv : Equivalence rel := by
+      refine ⟨fun a => ⟨1, by simp, by simp⟩, ?_, ?_⟩
+      · rintro a b ⟨u, h₁, h₂⟩
+        exact ⟨u⁻¹, by rw [← h₁, Units.inv_mul_cancel_left],
+          by rw [← h₂, Units.inv_mul_cancel_left]⟩
+      · rintro a b c ⟨u, h₁, h₂⟩ ⟨t, h₁', h₂'⟩
+        exact ⟨t * u, by rw [Units.val_mul, mul_assoc, h₁, h₁'],
+          by rw [Units.val_mul, mul_assoc, h₂, h₂']⟩
+    obtain ⟨u, h₁, h₂⟩ := heqv.eqvGen_iff.mp (Quot.eq.mp hq)
+    have hu : (u : R) = 1 := by
+      rcases hv with hv | ⟨hv, hv₂⟩ <;> rcases hw with hw | ⟨hw, hw₂⟩
+      · simpa only [hv, hw, mul_one] using h₁
+      · exact False.elim (hw ⟨u, by simpa only [hv, mul_one] using h₁⟩)
+      · apply False.elim
+        apply hv
+        refine ⟨u⁻¹, ?_⟩
+        calc
+          (↑u⁻¹ : R) = ↑u⁻¹ * w.1.1 := by rw [hw, mul_one]
+          _ = v.1.1 := by rw [← h₁, Units.inv_mul_cancel_left]
+      · simpa only [hv₂, hw₂, mul_one] using h₂
+    apply Subtype.ext
+    apply Prod.ext
+    · simpa only [hu, one_mul] using h₁
+    · simpa only [hu, one_mul] using h₂
+  · exact congrArg (Quot.mk rel)
