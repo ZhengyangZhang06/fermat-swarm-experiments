@@ -3837,7 +3837,7 @@ theorem p06_9e0f5043ff_local_norm_order
     v.ord (Algebra.norm E f) =
         v.ord (Algebra.norm E (algebraMap B L b)) -
           v.ord (Algebra.norm E (algebraMap B L c)) := by
-      rw [← hfrac, map_div₀, div_eq_mul_inv,
+      rw [← hfrac, div_eq_mul_inv, map_mul, Algebra.norm_inv,
         v.ord_mul (Algebra.norm_ne_zero_iff.mpr hbL)
           (inv_ne_zero (Algebra.norm_ne_zero_iff.mpr hcL)),
         v.ord_inv, sub_eq_add_neg]
