@@ -2661,7 +2661,6 @@ theorem p02_es_177ebb5a_cd_linear_coeff_derivative
   apply HasDerivAt.fun_sum
   intro r _
   exact (hF _).const_mul (c r)
-namespace Submission
 
 /-- Coefficientwise derivative of an Eichler integral after a modular substitution. -/
 theorem p02_es_177ebb5a_cd_modular_pullback_derivative
@@ -2710,5 +2709,37 @@ theorem p02_es_177ebb5a_cd_modular_pullback_derivative
   convert! hcomp using 1
   rw [hslash, hrep, pow_add]
   field_simp [hj]
+
+/-- The modular defect of an Eichler integral is constant on the upper half-plane. -/
+theorem p02_es_177ebb5a_primitive_exists_constant_defect
+    (N : ℕ) [NeZero N] (n : ℕ)
+    (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2))
+    (F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n))
+    (hF : HeckeEis.IsEichlerIntegral n (fun τ => f τ) F) :
+    HeckeEis.IsEquivariantPrimitiveWith
+      ((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype) F := by
+  let ρ := (HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype
+  intro γ
+  let D (τ : UpperHalfPlane) := F ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • τ) - ρ γ (F τ)
+  refine ⟨D UpperHalfPlane.I, ?_⟩
+  intro τ
+  apply Subtype.ext
+  apply MvPolynomial.ext
+  intro e
+  let q (z : ℂ) := MvPolynomial.coeff e (D (UpperHalfPlane.ofComplex z)).val
+  have hq (υ : UpperHalfPlane) : HasDerivAt q 0 (υ : ℂ) := by
+    have hlinear := p02_es_177ebb5a_cd_linear_coeff_derivative n (ρ γ)
+      (fun z => F (UpperHalfPlane.ofComplex z)) (f υ • HeckeEis.linePow n (υ : ℂ))
+      (υ : ℂ) (fun d => by
+        simpa only [Submodule.coe_smul, MvPolynomial.coeff_smul, smul_eq_mul] using hF d υ) e
+    have hpullback := p02_es_177ebb5a_cd_modular_pullback_derivative N n f F hF γ e υ
+    convert! hpullback.sub hlinear using 1
+    simp only [ρ, map_smul, Submodule.coe_smul, MvPolynomial.coeff_smul,
+      smul_eq_mul, sub_self]
+  have hconstant := UpperHalfPlane.isOpen_upperHalfPlaneSet.is_const_of_deriv_eq_zero
+    (convex_halfSpace_im_gt (0 : ℝ)).isPreconnected
+    (fun z hz => (hq ⟨z, hz⟩).differentiableAt.differentiableWithinAt)
+    (fun z hz => (hq ⟨z, hz⟩).deriv) τ.im_pos UpperHalfPlane.I.im_pos
+  simpa only [q, UpperHalfPlane.ofComplex_apply] using hconstant
 
 end Submission
