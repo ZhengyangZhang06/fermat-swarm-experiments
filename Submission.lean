@@ -1298,6 +1298,7 @@ theorem p02_es_177ebb5a_sd_jr_linepow_eval :
     MvPolynomial.X 1
   have hD : MvPolynomial.pderiv (1 : Fin 2) L = 1 := by
     simp [L]
+  -- Each derivative lowers the power and contributes the next descending factor.
   have hiter (s : ℕ) (hs : s ≤ n) :
       (fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[s]
         (L ^ n) = MvPolynomial.C (n.descFactorial s : ℂ) * L ^ (n - s) := by
@@ -1308,7 +1309,7 @@ theorem p02_es_177ebb5a_sd_jr_linepow_eval :
         MvPolynomial.pderiv_pow, hD, mul_one]
       simp only [Nat.descFactorial_succ, Nat.cast_mul, map_mul, map_natCast,
         Nat.sub_sub]
-      ring
+      ac_rfl
   have hEval : MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -t) L = 0 := by
     simp [L]
   change MvPolynomial.eval _
