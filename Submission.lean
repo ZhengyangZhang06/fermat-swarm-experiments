@@ -1336,31 +1336,21 @@ theorem p06_9e0f5043ff_dmc_diagonal_quotient
     Nonempty (((Fin m → R) ⧸ LinearMap.range (Matrix.mulVecLin (Matrix.diagonal d)))
       ≃ₗ[R] ((i : Fin m) → R ⧸ Ideal.span ({d i} : Set R))) := by
   classical
-  let C : (Fin m → R) →ₗ[R] ((i : Fin m) → R ⧸ Ideal.span ({d i} : Set R)) :=
-    LinearMap.pi fun i => (Ideal.span ({d i} : Set R)).mkQ.comp (LinearMap.proj i)
-  have hker : LinearMap.ker C = LinearMap.range (Matrix.mulVecLin (Matrix.diagonal d)) := by
+  have hrange : LinearMap.range (Matrix.mulVecLin (Matrix.diagonal d)) =
+      Submodule.pi Set.univ (fun i => Ideal.span ({d i} : Set R)) := by
     ext y
+    simp only [LinearMap.mem_range, Submodule.mem_pi, Set.mem_univ, forall_true_left,
+      Ideal.mem_span_singleton]
     constructor
+    · rintro ⟨z, rfl⟩ i
+      exact ⟨z i, Matrix.mulVec_diagonal d z i⟩
     · intro hy
-      have hdiv : ∀ i, ∃ z, y i = d i * z := by
-        intro i
-        exact Ideal.mem_span_singleton.mp
-          ((Submodule.Quotient.mk_eq_zero _).mp (congrFun (LinearMap.mem_ker.mp hy) i))
-      choose z hz using hdiv
+      choose z hz using hy
       refine ⟨z, ?_⟩
       ext i
       simpa only [Matrix.mulVecLin_apply, Matrix.mulVec_diagonal] using (hz i).symm
-    · rintro ⟨z, rfl⟩
-      apply LinearMap.mem_ker.mpr
-      ext i
-      change (Submodule.Quotient.mk _ : R ⧸ Ideal.span ({d i} : Set R)) = 0
-      rw [Submodule.Quotient.mk_eq_zero, Ideal.mem_span_singleton]
-      exact ⟨z i, Matrix.mulVec_diagonal d z i⟩
-  have hsurj : Function.Surjective C := by
-    intro w
-    choose y hy using fun i => (Ideal.span ({d i} : Set R)).mkQ_surjective (w i)
-    exact ⟨y, funext hy⟩
-  exact ⟨(Submodule.quotEquivOfEq _ _ hker.symm).trans (C.quotKerEquivOfSurjective hsurj)⟩
+  exact ⟨(Submodule.quotEquivOfEq _ _ hrange).trans
+    (Submodule.quotientPi fun i => Ideal.span ({d i} : Set R))⟩
 
 end Submission
 
