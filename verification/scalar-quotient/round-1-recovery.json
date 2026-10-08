@@ -1,0 +1,60 @@
+{
+  "purpose": "Round 1 local recovery audit, not a controller receipt, remote packet, or acceptance",
+  "request_id": "55a4a8c2acda411e956a98fab12bc763",
+  "failed_candidate_commit": "8e2496040595a4dddb246106fc5dba84db961735",
+  "expected_export": "/runtime/review-evidence/55a4a8c2acda411e956a98fab12bc763",
+  "expected_export_exists": false,
+  "review_export_receipts_inspected": 115,
+  "request_or_candidate_matches": [],
+  "failed_log_sha256": "c72ff6c6c1174adb1d91584168648d2c7607b1ee8eee735ee3ae6e15fda9836d",
+  "reported_packet_digest": "9bdfe6be7bdefdb821f3eb2c3f1d2903c57cbd6cd715c75fa3e1548d43b63769",
+  "current_source_sha256": "a39a2bb2dc7c9b7d11ae0b637caaecf1c17109793434137a6664f578a0382041",
+  "frozen_prefix_preserved": true,
+  "frozen_prefix_bytes": 5160,
+  "frozen_prefix_sha256": "b004dca1496ade3fb13e18207639dd199dcb7aeb7df210061bf8c375960870bc",
+  "local_files": [
+    {
+      "path": "/runtime/operator-review-evidence-3155d2fa0d3e/export-review-evidence.py",
+      "sha256": "3155d2fa0d3ee19b460df4a9391d9c46a03ff73ebc59673abf21d2b4c6c5e863",
+      "bytes": 8823,
+      "scope": "Readable local copy; not authenticated as executed checker for the failed request"
+    },
+    {
+      "path": "/runtime/operator-review-evidence-f116f3cae2f8/export-review-evidence.py",
+      "sha256": "f116f3cae2f8a8397c6e0cbbb4030804133b8b1c7807fd2b9941be86721d6ec7",
+      "bytes": 11900,
+      "scope": "Readable local copy; not authenticated as executed checker for the failed request"
+    },
+    {
+      "path": "/runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+      "sha256": "f3202ba84d3096d6e05a494f073e454e5aa82c4383a08b171832acbc28c5d9b2",
+      "bytes": 2553,
+      "scope": "Readable local copy; not authenticated as executed checker for the failed request"
+    },
+    {
+      "path": "/runtime/flows/math-lean-flow/scripts/verify-frozen-node.py",
+      "sha256": "30954f9ae216d73e4fb125cae5c04795a8aae08b799dfbc779c7fd6a2f9af433",
+      "bytes": 17615,
+      "scope": "Readable local copy; not authenticated as executed checker for the failed request"
+    },
+    {
+      "path": "/runtime/flows/math-lean-flow-missing-candidate-v1/scripts/verify-frozen-node.py",
+      "sha256": "17360b2ac18e997034d13017a50a6bfe476c7100a5d8ef0569dbc3ac8fb87197",
+      "bytes": 28235,
+      "scope": "Readable local copy; not authenticated as executed checker for the failed request"
+    },
+    {
+      "path": "/runtime/flows/math-lean-flow/_recursive_lean/swarm_broker.py",
+      "sha256": "e1799b85f4a3f29b0f5b125af616a866cbd893e715ab8ee7e06a6d385f89bd63",
+      "bytes": 14922,
+      "scope": "Readable local copy; not authenticated as executed checker for the failed request"
+    }
+  ],
+  "remote_provenance_verified": false,
+  "new_comparator_run": false,
+  "remaining_requirements": [
+    "Controller-approved reconciliation of frozen import/attribute inconsistency",
+    "Read-only export of existing failed request without altering its exit code or verdict",
+    "Request-bound prepared packet, hashed Lean inputs, operation receipt and actual checker/tool implementation identities"
+  ]
+}
