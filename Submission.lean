@@ -2357,3 +2357,32 @@ theorem p04_tz91_invariant_transfer_norm_index
     rw [Subgroup.index_eq_card, Nat.card_eq_fintype_card]
 
 end Submission
+
+
+namespace Submission
+
+theorem p04_tia_tate_zero_transfer :
+    ∀ {k G : Type _} [CommRing k] [Group G] [Fintype G]
+      (A : Rep k G) (H : Subgroup G) [Fintype H],
+      ∃ R : A.tateH0 →ₗ[k] (Rep.res H.subtype A).tateH0,
+      ∃ C : (Rep.res H.subtype A).tateH0 →ₗ[k] A.tateH0,
+      ∀ x : A.tateH0, C (R x) = H.index • x := by
+  intro k G _ _ _ A H _
+  obtain ⟨j, hj, hj_range⟩ :=
+    Submission.p04_tz91_invariant_restriction_norm_range A H
+  obtain ⟨c, hc_norm, hc_index⟩ :=
+    Submission.p04_tz91_invariant_transfer_norm_index A H
+  have hc_range : LinearMap.range (Rep.res H.subtype A).ρ.normBar ≤
+      (LinearMap.range A.ρ.normBar).comap c := by
+    rintro _ ⟨y, rfl⟩
+    obtain ⟨v, rfl⟩ :=
+      Representation.Coinvariants.mk_surjective (Rep.res H.subtype A).ρ y
+    exact ⟨Representation.Coinvariants.mk A.ρ v, by
+      simpa only [Representation.normBar_mk] using (hc_norm v).symm⟩
+  refine ⟨Submodule.mapQ _ _ j hj_range, Submodule.mapQ _ _ c hc_range, ?_⟩
+  intro x
+  obtain ⟨a, rfl⟩ := Submodule.Quotient.mk_surjective _ x
+  simp only [Submodule.mapQ_apply, hc_index a (j a) (hj a)]
+  exact map_nsmul (LinearMap.range A.ρ.normBar).mkQ H.index a
+
+end Submission
