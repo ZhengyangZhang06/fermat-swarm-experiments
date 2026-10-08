@@ -4366,9 +4366,7 @@ theorem p02_es_177ebb5a_tff_periodic_polynomial_constant
   apply Polynomial.eq_C_of_natDegree_eq_zero
   by_contra hdegree
   obtain ⟨d, hd⟩ := Nat.exists_eq_succ_of_ne_zero hdegree
-  have hp : p ≠ 0 := by
-    intro hp
-    simp [hp] at hdegree
+  have hp : p ≠ 0 := Polynomial.ne_zero_of_natDegree_gt (Nat.pos_of_ne_zero hdegree)
   have hlinear : (Polynomial.hasseDeriv d p).natDegree ≤ 1 := by
     simpa [hd] using Polynomial.natDegree_hasseDeriv_le p d
   -- The degree-d coefficient of the translate is (d + 1) * p.coeff (d + 1) * c
