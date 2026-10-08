@@ -595,7 +595,6 @@ theorem Submission.p03_eds_canonical_even_recurrence_68cf3476_d4 :
       not_false_eq_true, ite_true, ite_false, mul_one] <;> ring
 
 theorem Submission.p03_eds_canonical_odd_recurrence_68cf3476_d4 :
-theorem Submission.p03_eds_canonical_even_recurrence_68cf3476_d4 :
     ∀ (k : Type) [Field k] [CharZero k] [DecidableEq k] (W : WeierstrassCurve k),
       let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine
       let h := q W.ψ₂
@@ -788,6 +787,13 @@ theorem Submission.p03_tkc_two_torsion_card_68cf3476_d5
   rw [Nat.card_congr (e₀.trans e.optionCongr)]
   change Nat.card (Option s) = 4
   rw [Nat.card_eq_fintype_card, Fintype.card_option, Fintype.card_coe, hs]
+
+theorem Submission.p03_eds_canonical_even_recurrence_68cf3476_d4 :
+    ∀ (k : Type) [Field k] [CharZero k] [DecidableEq k] (W : WeierstrassCurve k),
+      let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine
+      let h := q W.ψ₂
+      let F : ℕ → W.toAffine.CoordinateRing :=
+        fun n => q (Polynomial.C (W.preΨ' n)) * (if Even n then h else 1)
       ∀ r : ℕ, 3 ≤ r →
         h * F (2 * r) =
           F r * (F (r + 2) * F (r - 1) ^ 2 - F (r - 2) * F (r + 1) ^ 2) := by
