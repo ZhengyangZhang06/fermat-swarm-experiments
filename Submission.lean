@@ -1765,4 +1765,23 @@ theorem Submission.p02_es_177ebb5a_sd_jr_moving_eval_derivative :
     (fun k => hcoeff
       (Finsupp.single (0 : Fin 2) (n - k.val) + Finsupp.single (1 : Fin 2) k.val))
 
+theorem p02_es_177ebb5a_cd_linear_coeff_derivative
+    (n : ℕ)
+    (A : ↥(HeckeEis.BinaryForm ℂ n) →ₗ[ℂ] ↥(HeckeEis.BinaryForm ℂ n))
+    (F : ℂ → ↥(HeckeEis.BinaryForm ℂ n))
+    (P : ↥(HeckeEis.BinaryForm ℂ n)) (z : ℂ)
+    (hF : ∀ e : Fin 2 →₀ ℕ,
+      HasDerivAt (fun w : ℂ => MvPolynomial.coeff e (F w).val)
+        (MvPolynomial.coeff e P.val) z) :
+    ∀ e : Fin 2 →₀ ℕ,
+      HasDerivAt (fun w : ℂ => MvPolynomial.coeff e (A (F w)).val)
+        (MvPolynomial.coeff e (A P).val) z := by
+  classical
+  intro e
+  obtain ⟨c, hc⟩ := p02_es_177ebb5a_lcd_coeff_linear_combination n A e
+  simp_rw [hc]
+  apply HasDerivAt.fun_sum
+  intro r _
+  exact (hF _).const_mul (c r)
+
 end Submission
