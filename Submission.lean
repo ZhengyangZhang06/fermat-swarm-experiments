@@ -601,3 +601,102 @@ theorem p07_curve_ring_equiv_857cd4d38c
 
 
 end Submission
+
+
+namespace Submission
+
+theorem p07_rigidification_reduction_857cd4d38c
+    {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (r N : ℕ)
+    (𝒪 : Type) [CommRing 𝒪] (π : 𝒪) (Onr : Type) [CommRing Onr] [Algebra 𝒪 Onr]
+    (A₀ : FakeEllipticCurve Λ N (Onr ⧸ Ideal.span {algebraMap 𝒪 Onr π}))
+    (S : Type) [CommRing S] [Algebra 𝒪 S] (ψ : Onr →ₐ[𝒪] S)
+    (E : FakeEllipticCurve Λ N S)
+    (V : FakeEllipticCurve Λ N (S ⧸ Ideal.span {algebraMap 𝒪 S π}))
+    (g : V.A ⟶ E.A)
+    (hg : FakeEllipticCurve.IsPullbackVia
+      (Ideal.Quotient.mk (Ideal.span {algebraMap 𝒪 S π})) E V g)
+    (σ : FakeEllipticCurve.Rigidification r π A₀
+      ((Ideal.Quotient.mkₐ 𝒪 (Ideal.span {algebraMap 𝒪 S π})).comp ψ) V) :
+    ∃ ρ : FakeEllipticCurve.Rigidification r π A₀ ψ E,
+      ρ.d = σ.d ∧ FakeEllipticCurve.Rigidification.IsPullbackVia
+        (Ideal.Quotient.mkₐ 𝒪 (Ideal.span {algebraMap 𝒪 S π})) g hg ρ σ := by
+  classical
+  let J : Ideal S := Ideal.span {algebraMap 𝒪 S π}
+  let T := S ⧸ J
+  let q : S →+* T := Ideal.Quotient.mk J
+  let qₐ : S →ₐ[𝒪] T := Ideal.Quotient.mkₐ 𝒪 J
+  let K : Ideal T := Ideal.span {algebraMap 𝒪 T π}
+  let U := T ⧸ K
+  -- The second reduction is a quotient by zero.
+  have hπ : algebraMap 𝒪 T π = 0 := by
+    change Ideal.Quotient.mk J (algebraMap 𝒪 S π) = 0
+    exact Ideal.Quotient.eq_zero_iff_mem.mpr (Ideal.subset_span rfl)
+  have hK : K = ⊥ := by
+    change Ideal.span {algebraMap 𝒪 T π} = ⊥
+    rw [hπ, Ideal.span_singleton_zero]
+  let k : T ≃+* U := RingEquiv.ofBijective (Ideal.Quotient.mk K)
+    ((Ideal.Quotient.mk_bijective_iff_eq_bot K).mpr hK)
+  -- Both residue maps are computed on quotient representatives.
+  have hq : k.symm.toRingHom.comp ((Ideal.Quotient.mk K).comp q) = q := by
+    ext x
+    exact k.symm_apply_apply (q x)
+  have hψ : k.symm.toRingHom.comp
+      (FakeEllipticCurve.Rigidification.residueLeg π (qₐ.comp ψ)) =
+      FakeEllipticCurve.Rigidification.residueLeg π ψ := by
+    apply Ideal.Quotient.ringHom_ext
+    ext x
+    change k.symm (k (Ideal.Quotient.mk J (ψ x))) = Ideal.Quotient.mk J (ψ x)
+    exact k.symm_apply_apply _
+  have hqbar : FakeEllipticCurve.Rigidification.residueLeg π qₐ = k.toRingHom := by
+    apply Ideal.Quotient.ringHom_ext
+    ext x
+    rfl
+  obtain ⟨B, ib, hib, hib'⟩ :=
+    Submission.p07_curve_ring_equiv_857cd4d38c Λ N T U k σ.Eb
+  obtain ⟨A, iA, hiA, hiA'⟩ :=
+    Submission.p07_curve_ring_equiv_857cd4d38c Λ N T U k σ.Ab
+  -- Compose the reduction squares with the inverse transport squares.
+  have hb₀ := Submission.p07_rr_pullback_comp_857cd4d38c Λ N S T U
+    q (Ideal.Quotient.mk K) E V σ.Eb g σ.gb hg σ.isPullback_Eb
+  have hb := Submission.p07_rr_pullback_comp_857cd4d38c Λ N S U T
+    ((Ideal.Quotient.mk K).comp q) k.symm.toRingHom E σ.Eb B
+    (σ.gb ≫ g) ib.inv hb₀ hib'
+  rw [hq] at hb
+  have hA := Submission.p07_rr_pullback_comp_857cd4d38c Λ N
+    (Onr ⧸ Ideal.span {algebraMap 𝒪 Onr π}) U T
+    (FakeEllipticCurve.Rigidification.residueLeg π (qₐ.comp ψ)) k.symm.toRingHom
+    A₀ σ.Ab A σ.gA iA.inv σ.isPullback_Ab hiA'
+  rw [hψ] at hA
+  obtain ⟨hpair, hφ, hlevel⟩ := Submission.p07_rr_isogeny_transport_857cd4d38c
+    Λ N (r ^ σ.d) T U k B A σ.Eb σ.Ab ib iA hib hib' hiA hiA'
+    σ.φ σ.φ' σ.φ_over σ.isIsogenyPair σ.preservesLevel
+  let ρ : FakeEllipticCurve.Rigidification r π A₀ ψ E :=
+    { Eb := B
+      gb := ib.inv ≫ σ.gb ≫ g
+      isPullback_Eb := hb
+      Ab := A
+      gA := iA.inv ≫ σ.gA
+      isPullback_Ab := hA
+      d := σ.d
+      φ := ib.inv ≫ σ.φ ≫ iA.hom
+      φ' := iA.inv ≫ σ.φ' ≫ ib.hom
+      φ_over := hφ
+      isIsogenyPair := hpair
+      preservesLevel := hlevel }
+  refine ⟨ρ, rfl, ib.hom, iA.hom, ?_, ?_, ?_, ?_, rfl, ?_⟩
+  · change FakeEllipticCurve.IsPullbackVia
+      (FakeEllipticCurve.Rigidification.residueLeg π qₐ) B σ.Eb ib.hom
+    rw [hqbar]
+    exact hib
+  · change ib.hom ≫ ib.inv ≫ σ.gb ≫ g = σ.gb ≫ g
+    simp only [Iso.hom_inv_id_assoc]
+  · change FakeEllipticCurve.IsPullbackVia
+      (FakeEllipticCurve.Rigidification.residueLeg π qₐ) A σ.Ab iA.hom
+    rw [hqbar]
+    exact hiA
+  · change iA.hom ≫ iA.inv ≫ σ.gA = σ.gA
+    simp only [Iso.hom_inv_id_assoc]
+  · change ib.hom ≫ ib.inv ≫ σ.φ ≫ iA.hom = σ.φ ≫ iA.hom
+    simp only [Iso.hom_inv_id_assoc]
+
+end Submission
