@@ -1693,3 +1693,35 @@ theorem Submission.p10_17ae7b7d_ccm_coprime_orbit_product :
   exact (Nat.card_congr (Setoid.prodQuotientEquiv
     (MulAction.orbitRel (Subgroup.zpowers g) X)
     (MulAction.orbitRel (Subgroup.zpowers g) Y)).symm).trans (Nat.card_prod _ _)
+
+
+theorem Submission.p10_17ae7b7d_to_coprime_count_mul :
+    ∀ (m n : ℕ) [NeZero m] [NeZero n], Nat.Coprime m n →
+      Nat.card (Quotient (MulAction.orbitRel (Subgroup.zpowers ModularGroup.T)
+        ((Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 (m * n)))) =
+      Nat.card (Quotient (MulAction.orbitRel (Subgroup.zpowers ModularGroup.T)
+        ((Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 m))) *
+      Nat.card (Quotient (MulAction.orbitRel (Subgroup.zpowers ModularGroup.T)
+        ((Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 n))) := by
+  intro m n _ _ hmn
+  let G := Matrix.SpecialLinearGroup (Fin 2) ℤ
+  let Q := fun k : ℕ => G ⧸ CongruenceSubgroup.Gamma0 k
+  let H := Subgroup.zpowers ModularGroup.T
+  obtain ⟨e, he⟩ := Submission.p10_17ae7b7d_ccm_coset_crt_equivariant m n hmn
+  have horbit : ∀ a b : Q (m * n),
+      MulAction.orbitRel H (Q (m * n)) a b ↔
+        MulAction.orbitRel H (Q m × Q n) (e a) (e b) := by
+    intro a b
+    simp only [MulAction.orbitRel_apply, MulAction.mem_orbit_iff]
+    constructor
+    · rintro ⟨g, hg⟩
+      exact ⟨g, (he (g : G) b).symm.trans (congrArg e hg)⟩
+    · rintro ⟨g, hg⟩
+      exact ⟨g, e.injective ((he (g : G) b).trans hg)⟩
+  calc
+    _ = Nat.card (Quotient (MulAction.orbitRel H (Q m × Q n))) :=
+      Nat.card_congr (Quotient.congr e horbit)
+    _ = _ := Submission.p10_17ae7b7d_ccm_coprime_orbit_product
+      G (Q m) (Q n) ModularGroup.T m n hmn
+      (Submission.p10_17ae7b7d_ccm_translation_period m)
+      (Submission.p10_17ae7b7d_ccm_translation_period n)
