@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081614Z-f036cc6b1f",
+  "parent_id": "root.petersson_core_good_hecke-a1.hecke_integral_adjointness-a1.good_prime_transversal-a1",
+  "dispatch_branch": "proof-workspace/fermat-p01/20261007t081614z-f036cc6b1f/dispatch/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-5924095ded",
+  "source_commit": "61b5f85556ac71631ccad822e0694511234f7132",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.petersson_core_good_hecke-a1.hecke_integral_adjointness-a1.good_prime_transversal-a1.bezout_exceptional_lift-a1",
+      "key": "bezout_exceptional_lift",
+      "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-66691c21e4-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-5924095ded/children/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-66691c21e4",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "def heckeMatrix|def heckeDiagMatrix|heckeMatrix.*coe|coe.*heckeMatrix|heckeDiagMatrix.*coe|coe.*heckeDiagMatrix|exists.*[Bb]ezout|transversal",
+              "mapGL|coe_inv|coe_mul|det_coe|det_eq|def mk|fin_two",
+              "intCast_zmod_eq_zero|val_lt|val_injective|intCast_zmod_cast|cast_val",
+              "transversal|[Bb]ezout.*hecke|hecke.*[Bb]ezout|projective.*index",
+              "f036cc6b1f_pc_hi_gpt_(unique_projective_index|bezout_lift)",
+              "git -C .lake/packages/mathlib rev-parse HEAD",
+              "git -C .lake/packages/mathlib status --short",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/f036cc6b1f_gpt_split_23h6rj5x/Types.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperator.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/LinearAlgebra/Matrix/GeneralLinearGroup/Defs.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Data/ZMod/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Data/Int/GCD.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Data/Nat/Prime/Defs.lean",
+              "/tmp/f036cc6b1f_gpt_split_23h6rj5x/Types.lean",
+              "/tmp/f036cc6b1f_gpt_split_23h6rj5x/Types.log",
+              "/tmp/f036cc6b1f_gpt_split_23h6rj5x/Compatibility.json",
+              "/tmp/f036cc6b1f_gpt_split_23h6rj5x/check-command.json"
+            ],
+            "conclusion": "The manifest pins project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The inspected sources supply the exact Hecke matrix values, Gamma0 membership criterion, SL2 inverse formula, canonical real embedding, Bézout identity, and residue/divisibility and representative lemmas. The project search found no matching transversal or Bézout–Hecke helper; neither proposed identifier occurs in the searched DAG metadata. Both literal child propositions elaborated successfully after import Submission. Fully explicit elaboration confirmed Units.instMul over Matrix.semiring and the canonical integer-to-real algebra instance. Installed mathlib is clean at the pinned revision, and all 20 imported project sources in the selected offline cache match the snapshot. Transitive axiom checks of the cited supporting declarations returned only subsets of propext, Classical.choice, and Quot.sound. These checks validate the proposed interfaces and library references; they do not constitute comparator acceptance of child proofs."
+          }
+        ],
+        "parent_id": "root.petersson_core_good_hecke-a1.hecke_integral_adjointness-a1.good_prime_transversal-a1",
+        "child_id": "root.petersson_core_good_hecke-a1.hecke_integral_adjointness-a1.good_prime_transversal-a1.bezout_exceptional_lift-a1",
+        "subproblem": {
+          "key": "bezout_exceptional_lift",
+          "title": "Bézout lift of the exceptional Hecke representative",
+          "statement": "Let M be a nonzero natural number and p a natural prime with p not dividing M. Let Γ = Γ₀(M), let ι : SL₂(ℤ) → GL₂(ℝ) be the canonical embedding, let α = ModularForm.heckeMatrix p 0, and let C = ModularForm.heckeDiagMatrix p. There exist an integer v and matrices σ, β in SL₂(ℤ) such that p does not divide v, both σ and β belong to Γ, the first row of σ is (p, −v), and α·ι(σ) = ι(β)·C.",
+          "lean_statement": "∀ (M : ℕ) [NeZero M] (p : ℕ), p.Prime → ¬ p ∣ M → ∃ (v : ℤ) (σ β : Matrix.SpecialLinearGroup (Fin 2) ℤ), (¬ (p : ℤ) ∣ v) ∧ σ ∈ CongruenceSubgroup.Gamma0 M ∧ β ∈ CongruenceSubgroup.Gamma0 M ∧ σ 0 0 = (p : ℤ) ∧ σ 0 1 = -v ∧ ModularForm.heckeMatrix p 0 * Matrix.SpecialLinearGroup.mapGL ℝ σ = Matrix.SpecialLinearGroup.mapGL ℝ β * ModularForm.heckeDiagMatrix p",
+          "lean_name": "f036cc6b1f_pc_hi_gpt_bezout_lift",
+          "depends_on": [],
+          "natural_proof": "1. Fix M and p satisfying the hypotheses. Primality gives p ≥ 2. Since p does not divide M, gcd(p,M) = 1: this gcd divides p, so it is either 1 or p, and the latter alternative would imply p divides M.\n2. Apply the integer Bézout identity for natural inputs, Nat.gcd_eq_gcd_ab. Taking u = Nat.gcdA p M and v = Nat.gcdB p M gives the integer equality p·u + M·v = 1.\n3. The integer p does not divide v. Indeed, if it divided v, it would divide both p·u and M·v, hence their sum 1 by step 2. This is impossible because p ≥ 2.\n4. Define integer matrices σ = ((p, −v), (M, u)) and β = ((1, −v), (M, p·u)). Their determinants are respectively p·u − (−v)·M = p·u + M·v = 1 and 1·(p·u) − (−v)·M = p·u + M·v = 1. They therefore define elements of SL₂(ℤ). Their displayed entries give σ₀₀ = p and σ₀₁ = −v.\n5. Both matrices have lower-left entry M. This entry reduces to zero modulo M, so the defining membership criterion for Γ₀(M) shows σ ∈ Γ and β ∈ Γ.\n6. Since p ≠ 0, the pinned Hecke definitions give α = diag(1,p) and C = diag(p,1). The canonical embedding ι casts each integer matrix entry to the reals. Direct matrix multiplication gives α·ι(σ) = ((p, −v), (p·M, p·u)) and ι(β)·C = ((p, −v), (M·p, p·u)). These real matrices are equal because p·M = M·p. Equality of their underlying matrices gives equality in GL₂(ℝ).\n7. The witnesses v, σ, β satisfy the nondivisibility condition from step 3, both membership conditions from step 5, the first-row conditions from step 4, and the required Hecke identity from step 6. This proves the full existential conclusion.",
+          "proof_key_steps": [
+            "Deduce coprimality of p and M and obtain integer Bézout coefficients.",
+            "Use the Bézout identity to prove that p does not divide v.",
+            "Construct σ and β explicitly and verify both determinants are one.",
+            "Check Gamma0 membership through the lower-left entries.",
+            "Compute both embedded matrix products using the nonzero-p Hecke definitions."
+          ]
+        },
+        "audit": {
+          "key": "bezout_exceptional_lift",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly preserves the prose assumptions and all existential conjuncts. The proof derives coprimality and pu+Mv=1, correctly proves p does not divide v, checks both displayed determinants and Gamma0 memberships, and verifies the required first row. The two embedded products are respectively ((p,-v),(pM,pu)) and ((p,-v),(Mp,pu)), giving the stated GL2 equality. Independent elaboration confirms ordinary matrix multiplication and canonical integer-to-real casting. The construction is explicit, complete, and independent of the parent and sibling. The bare identifier is unreserved and the type requires no child implementation."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-66691c21e4/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-66691c21e4/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-66691c21e4/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.petersson_core_good_hecke-a1.hecke_integral_adjointness-a1.good_prime_transversal-a1.unique_projective_index-a1",
+      "key": "unique_projective_index",
+      "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-4a18d4f43e-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-5924095ded/children/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-4a18d4f43e",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "def heckeMatrix|def heckeDiagMatrix|heckeMatrix.*coe|coe.*heckeMatrix|heckeDiagMatrix.*coe|coe.*heckeDiagMatrix|exists.*[Bb]ezout|transversal",
+              "mapGL|coe_inv|coe_mul|det_coe|det_eq|def mk|fin_two",
+              "intCast_zmod_eq_zero|val_lt|val_injective|intCast_zmod_cast|cast_val",
+              "transversal|[Bb]ezout.*hecke|hecke.*[Bb]ezout|projective.*index",
+              "f036cc6b1f_pc_hi_gpt_(unique_projective_index|bezout_lift)",
+              "git -C .lake/packages/mathlib rev-parse HEAD",
+              "git -C .lake/packages/mathlib status --short",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/f036cc6b1f_gpt_split_23h6rj5x/Types.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperator.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/LinearAlgebra/Matrix/GeneralLinearGroup/Defs.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Data/ZMod/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Data/Int/GCD.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Data/Nat/Prime/Defs.lean",
+              "/tmp/f036cc6b1f_gpt_split_23h6rj5x/Types.lean",
+              "/tmp/f036cc6b1f_gpt_split_23h6rj5x/Types.log",
+              "/tmp/f036cc6b1f_gpt_split_23h6rj5x/Compatibility.json",
+              "/tmp/f036cc6b1f_gpt_split_23h6rj5x/check-command.json"
+            ],
+            "conclusion": "The manifest pins project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The inspected sources supply the exact Hecke matrix values, Gamma0 membership criterion, SL2 inverse formula, canonical real embedding, Bézout identity, and residue/divisibility and representative lemmas. The project search found no matching transversal or Bézout–Hecke helper; neither proposed identifier occurs in the searched DAG metadata. Both literal child propositions elaborated successfully after import Submission. Fully explicit elaboration confirmed Units.instMul over Matrix.semiring and the canonical integer-to-real algebra instance. Installed mathlib is clean at the pinned revision, and all 20 imported project sources in the selected offline cache match the snapshot. Transitive axiom checks of the cited supporting declarations returned only subsets of propext, Classical.choice, and Quot.sound. These checks validate the proposed interfaces and library references; they do not constitute comparator acceptance of child proofs."
+          }
+        ],
+        "parent_id": "root.petersson_core_good_hecke-a1.hecke_integral_adjointness-a1.good_prime_transversal-a1",
+        "child_id": "root.petersson_core_good_hecke-a1.hecke_integral_adjointness-a1.good_prime_transversal-a1.unique_projective_index-a1",
+        "subproblem": {
+          "key": "unique_projective_index",
+          "title": "Unique projective-direction index modulo a prime",
+          "statement": "Let p be a natural prime and let a, b, v be integers. Assume that p does not divide at least one of a and b, and that p does not divide v. For i in Fin(p+1), define D(i) = b − a·i.val when i.val < p, and D(i) = a·v + b·p otherwise, with all arithmetic in the integers. There exists exactly one i in Fin(p+1) such that p divides D(i).",
+          "lean_statement": "∀ (p : ℕ), p.Prime → ∀ (a b v : ℤ), (¬ (p : ℤ) ∣ a ∨ ¬ (p : ℤ) ∣ b) → ¬ (p : ℤ) ∣ v → ∃! i : Fin (p + 1), (p : ℤ) ∣ (if i.val < p then b - a * (i.val : ℤ) else a * v + b * (p : ℤ))",
+          "lean_name": "f036cc6b1f_pc_hi_gpt_unique_projective_index",
+          "depends_on": [],
+          "natural_proof": "1. Fix p, a, b, v satisfying the hypotheses. Since p is prime, p ≥ 2 and F = ℤ/pℤ is a field. Write A, B, V for the reductions of a, b, v in F. Reduction of an integer is zero exactly when p divides that integer. Thus A and B are not both zero, and V ≠ 0.\n2. Every i in Fin(p+1) has 0 ≤ i.val ≤ p. Consequently either i.val < p, or i.val = p and i = Fin.last p. In the first case the reduction of D(i) is B − A·[i.val]. In the second case it is A·V, because the reduction of b·p is zero.\n3. Suppose A ≠ 0. Define x = B/A in F. Let j = x.val be its canonical natural representative. The residue-field representative identities give j < p and [j] = x. Let i₀ in Fin(p+1) have value j. Then A·[j] = B, so D(i₀) reduces to zero and p divides D(i₀).\n4. Still assuming A ≠ 0, the last index cannot satisfy the divisibility condition: its reduced value is A·V, which is nonzero since both factors are nonzero in a field.\n5. If another index i satisfies the condition, step 4 implies i.val < p. Step 2 gives A·[i.val] = B = A·[j]. Cancel A to obtain [i.val] = [j]. Taking canonical natural representatives gives i.val = j, since both values are less than p. Equality of Fin elements follows from equality of their values, so i = i₀. This proves existence and uniqueness when A ≠ 0.\n6. Suppose instead A = 0. The hypothesis that A and B are not both zero implies B ≠ 0. For every index with value less than p, step 2 now gives the nonzero reduced value B. None of these indices satisfies the divisibility condition. At Fin.last p the reduced value is A·V = 0, so this index does satisfy it. Every index is covered by the alternatives in step 2; therefore the last index is the unique solution.\n7. The two cases A ≠ 0 and A = 0 exhaust all possibilities and establish the asserted unique index.",
+          "proof_key_steps": [
+            "Translate integer divisibility into vanishing in the field ZMod p.",
+            "Separate the indices with value less than p from the unique last index.",
+            "When the first coordinate is nonzero, choose the canonical representative of B/A.",
+            "Exclude the last index and prove uniqueness by cancellation and canonical representatives.",
+            "When the first coordinate vanishes, use the nonzero second coordinate to show that exactly the last index works."
+          ]
+        },
+        "audit": {
+          "key": "unique_projective_index",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly matches every prose hypothesis and the integer-valued piecewise divisibility condition. The proof correctly converts divisibility to vanishing in ZMod p, exhausts Fin(p+1), constructs the canonical representative of B/A when A is nonzero, excludes the exceptional index using V ≠ 0, and proves uniqueness by cancellation and bounded representatives. When A = 0, the nonvanishing hypothesis forces B ≠ 0 and exactly the last index works. All steps are complete and non-circular. The bare identifier is unreserved, the type is independently usable, and no sibling dependency is needed."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-4a18d4f43e/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-4a18d4f43e/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-4a18d4f43e/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-5924095ded/task.md": "05006e5102d8511e94dc61fded268fcca7b1594ae676beaa70ca219b913620d8",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-5924095ded/problem.md": "0929eb9ca2ad7ea30f1aafc2c1446aaf06dcdc301374ffe2ca7f4b56816d2cc8",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-5924095ded/problem.json": "c64a078a3af06a0ca64b6d4803eb85ec446543f75da9e877043ae15bfce62d9d",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-5924095ded/reference-manifest.json": "509f4932b6d1c571a2a1434f97319ae47791212dabf986cc6faad0e84a6d9346",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-5924095ded/decomposition.json": "80662b1efb41c768b61af02aa8d40efdce9eaef3c298397fe50a12b01cfd86e4",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-5924095ded/decomposition-audit.json": "b12d85ce3806a6f9af9e013aaf363b84e0b8fb1abc1c20f8f2780042b81ca14d",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-5924095ded/controller-contract.json": "bff7bdd835120310c8d06285451ab49cb58d39fdb94d2ad676fc3fff3afc415d",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-5924095ded/children/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-66691c21e4/parent-child-handoff.json": "ad505dca7aabc43d0bc888e83864b02eb8e8c5cd9d42ff3f05a959d889a2a29f",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-5924095ded/children/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-66691c21e4/parent-supplied-plan.md": "08cbe5285c58392cc372ef096e3829cc9dc272754176eb0989a6045e343e0b9d",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-5924095ded/children/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-66691c21e4/parent-supplied-natural-proof.md": "9e346acef6b962dcce68c2021f30506faf46b7ba286a8ac1fb7086f43c83a9db",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-5924095ded/children/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-66691c21e4/parent-supplied-natural-proof.json": "2314038746b411b8a04fc7b64e1de17b9fff7a719571bbc764bcc89ba7db34f1",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-5924095ded/children/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-66691c21e4/node.json": "2ad24a60ce84fb8616b261f2bfd7f1365a0a657578ef14dbeac099db964a8b3b",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-5924095ded/children/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-4a18d4f43e/parent-child-handoff.json": "cca464d335c7e4208a0e506ad15ce2ccfb8fbe0c22c5e42b618d97b3335452fb",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-5924095ded/children/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-4a18d4f43e/parent-supplied-plan.md": "146534ef2c57f6024e596e3977b9733eff92db38891487290d6436a14cfaad8d",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-5924095ded/children/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-4a18d4f43e/parent-supplied-natural-proof.md": "37425a39ceb02963441749fcb37af48075455e8ee94e2fd0165a69f402ef5953",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-5924095ded/children/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-4a18d4f43e/parent-supplied-natural-proof.json": "ead233b0e1418f9a4136469913e5aa17aaa873b22b115d0a58dff340dc2522a5",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-5924095ded/children/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-4a18d4f43e/node.json": "90b09a4f1f8da66a88fceb88b29b26a564b73f909d8b982bfc01ca479d31576d"
+  }
+}

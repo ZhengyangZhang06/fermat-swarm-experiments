@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.petersson_core_good_hecke-a1.hecke_integral_adjointness-a1.good_prime_transversal-a1.unique_projective_index-a1",
+  "parent_id": "root.petersson_core_good_hecke-a1.hecke_integral_adjointness-a1.good_prime_transversal-a1",
+  "depth": 4,
+  "title": "Unique projective-direction index modulo a prime",
+  "statement": "Let p be a natural prime and let a, b, v be integers. Assume that p does not divide at least one of a and b, and that p does not divide v. For i in Fin(p+1), define D(i) = b − a·i.val when i.val < p, and D(i) = a·v + b·p otherwise, with all arithmetic in the integers. There exists exactly one i in Fin(p+1) such that p divides D(i).",
+  "lean_statement": "∀ (p : ℕ), p.Prime → ∀ (a b v : ℤ), (¬ (p : ℤ) ∣ a ∨ ¬ (p : ℤ) ∣ b) → ¬ (p : ℤ) ∣ v → ∃! i : Fin (p + 1), (p : ℤ) ∣ (if i.val < p then b - a * (i.val : ℤ) else a * v + b * (p : ℤ))",
+  "lean_name": "f036cc6b1f_pc_hi_gpt_unique_projective_index",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-4a18d4f43e-a1"
+}

@@ -1,0 +1,70 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "def heckeMatrix|def heckeDiagMatrix|heckeMatrix.*coe|coe.*heckeMatrix|heckeDiagMatrix.*coe|coe.*heckeDiagMatrix|exists.*[Bb]ezout|transversal",
+        "mapGL|coe_inv|coe_mul|det_coe|det_eq|def mk|fin_two",
+        "intCast_zmod_eq_zero|val_lt|val_injective|intCast_zmod_cast|cast_val",
+        "transversal|[Bb]ezout.*hecke|hecke.*[Bb]ezout|projective.*index",
+        "f036cc6b1f_pc_hi_gpt_(unique_projective_index|bezout_lift)",
+        "git -C .lake/packages/mathlib rev-parse HEAD",
+        "git -C .lake/packages/mathlib status --short",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/f036cc6b1f_gpt_split_23h6rj5x/Types.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperator.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/LinearAlgebra/Matrix/GeneralLinearGroup/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Data/ZMod/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Data/Int/GCD.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Data/Nat/Prime/Defs.lean",
+        "/tmp/f036cc6b1f_gpt_split_23h6rj5x/Types.lean",
+        "/tmp/f036cc6b1f_gpt_split_23h6rj5x/Types.log",
+        "/tmp/f036cc6b1f_gpt_split_23h6rj5x/Compatibility.json",
+        "/tmp/f036cc6b1f_gpt_split_23h6rj5x/check-command.json"
+      ],
+      "conclusion": "The manifest pins project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The inspected sources supply the exact Hecke matrix values, Gamma0 membership criterion, SL2 inverse formula, canonical real embedding, Bézout identity, and residue/divisibility and representative lemmas. The project search found no matching transversal or Bézout–Hecke helper; neither proposed identifier occurs in the searched DAG metadata. Both literal child propositions elaborated successfully after import Submission. Fully explicit elaboration confirmed Units.instMul over Matrix.semiring and the canonical integer-to-real algebra instance. Installed mathlib is clean at the pinned revision, and all 20 imported project sources in the selected offline cache match the snapshot. Transitive axiom checks of the cited supporting declarations returned only subsets of propext, Classical.choice, and Quot.sound. These checks validate the proposed interfaces and library references; they do not constitute comparator acceptance of child proofs."
+    }
+  ],
+  "should_split": true,
+  "rationale": "Split into two independent reusable obligations: unique selection among the p affine directions and the exceptional direction modulo p, and a Bézout lift realizing the exceptional Hecke representative in Gamma0. Neither restates the parent. The parent retains the translation matrices, determinant-based nonvanishing of the first row, inverse-entry calculations, and assembly on Fin (p + 1). The current depth is 3, below the limit 6; both sibling dependency lists are empty.",
+  "subproblems": [
+    {
+      "key": "unique_projective_index",
+      "title": "Unique projective-direction index modulo a prime",
+      "statement": "Let p be a natural prime and let a, b, v be integers. Assume that p does not divide at least one of a and b, and that p does not divide v. For i in Fin(p+1), define D(i) = b − a·i.val when i.val < p, and D(i) = a·v + b·p otherwise, with all arithmetic in the integers. There exists exactly one i in Fin(p+1) such that p divides D(i).",
+      "lean_statement": "∀ (p : ℕ), p.Prime → ∀ (a b v : ℤ), (¬ (p : ℤ) ∣ a ∨ ¬ (p : ℤ) ∣ b) → ¬ (p : ℤ) ∣ v → ∃! i : Fin (p + 1), (p : ℤ) ∣ (if i.val < p then b - a * (i.val : ℤ) else a * v + b * (p : ℤ))",
+      "lean_name": "f036cc6b1f_pc_hi_gpt_unique_projective_index",
+      "depends_on": [],
+      "natural_proof": "1. Fix p, a, b, v satisfying the hypotheses. Since p is prime, p ≥ 2 and F = ℤ/pℤ is a field. Write A, B, V for the reductions of a, b, v in F. Reduction of an integer is zero exactly when p divides that integer. Thus A and B are not both zero, and V ≠ 0.\n2. Every i in Fin(p+1) has 0 ≤ i.val ≤ p. Consequently either i.val < p, or i.val = p and i = Fin.last p. In the first case the reduction of D(i) is B − A·[i.val]. In the second case it is A·V, because the reduction of b·p is zero.\n3. Suppose A ≠ 0. Define x = B/A in F. Let j = x.val be its canonical natural representative. The residue-field representative identities give j < p and [j] = x. Let i₀ in Fin(p+1) have value j. Then A·[j] = B, so D(i₀) reduces to zero and p divides D(i₀).\n4. Still assuming A ≠ 0, the last index cannot satisfy the divisibility condition: its reduced value is A·V, which is nonzero since both factors are nonzero in a field.\n5. If another index i satisfies the condition, step 4 implies i.val < p. Step 2 gives A·[i.val] = B = A·[j]. Cancel A to obtain [i.val] = [j]. Taking canonical natural representatives gives i.val = j, since both values are less than p. Equality of Fin elements follows from equality of their values, so i = i₀. This proves existence and uniqueness when A ≠ 0.\n6. Suppose instead A = 0. The hypothesis that A and B are not both zero implies B ≠ 0. For every index with value less than p, step 2 now gives the nonzero reduced value B. None of these indices satisfies the divisibility condition. At Fin.last p the reduced value is A·V = 0, so this index does satisfy it. Every index is covered by the alternatives in step 2; therefore the last index is the unique solution.\n7. The two cases A ≠ 0 and A = 0 exhaust all possibilities and establish the asserted unique index.",
+      "proof_key_steps": [
+        "Translate integer divisibility into vanishing in the field ZMod p.",
+        "Separate the indices with value less than p from the unique last index.",
+        "When the first coordinate is nonzero, choose the canonical representative of B/A.",
+        "Exclude the last index and prove uniqueness by cancellation and canonical representatives.",
+        "When the first coordinate vanishes, use the nonzero second coordinate to show that exactly the last index works."
+      ]
+    },
+    {
+      "key": "bezout_exceptional_lift",
+      "title": "Bézout lift of the exceptional Hecke representative",
+      "statement": "Let M be a nonzero natural number and p a natural prime with p not dividing M. Let Γ = Γ₀(M), let ι : SL₂(ℤ) → GL₂(ℝ) be the canonical embedding, let α = ModularForm.heckeMatrix p 0, and let C = ModularForm.heckeDiagMatrix p. There exist an integer v and matrices σ, β in SL₂(ℤ) such that p does not divide v, both σ and β belong to Γ, the first row of σ is (p, −v), and α·ι(σ) = ι(β)·C.",
+      "lean_statement": "∀ (M : ℕ) [NeZero M] (p : ℕ), p.Prime → ¬ p ∣ M → ∃ (v : ℤ) (σ β : Matrix.SpecialLinearGroup (Fin 2) ℤ), (¬ (p : ℤ) ∣ v) ∧ σ ∈ CongruenceSubgroup.Gamma0 M ∧ β ∈ CongruenceSubgroup.Gamma0 M ∧ σ 0 0 = (p : ℤ) ∧ σ 0 1 = -v ∧ ModularForm.heckeMatrix p 0 * Matrix.SpecialLinearGroup.mapGL ℝ σ = Matrix.SpecialLinearGroup.mapGL ℝ β * ModularForm.heckeDiagMatrix p",
+      "lean_name": "f036cc6b1f_pc_hi_gpt_bezout_lift",
+      "depends_on": [],
+      "natural_proof": "1. Fix M and p satisfying the hypotheses. Primality gives p ≥ 2. Since p does not divide M, gcd(p,M) = 1: this gcd divides p, so it is either 1 or p, and the latter alternative would imply p divides M.\n2. Apply the integer Bézout identity for natural inputs, Nat.gcd_eq_gcd_ab. Taking u = Nat.gcdA p M and v = Nat.gcdB p M gives the integer equality p·u + M·v = 1.\n3. The integer p does not divide v. Indeed, if it divided v, it would divide both p·u and M·v, hence their sum 1 by step 2. This is impossible because p ≥ 2.\n4. Define integer matrices σ = ((p, −v), (M, u)) and β = ((1, −v), (M, p·u)). Their determinants are respectively p·u − (−v)·M = p·u + M·v = 1 and 1·(p·u) − (−v)·M = p·u + M·v = 1. They therefore define elements of SL₂(ℤ). Their displayed entries give σ₀₀ = p and σ₀₁ = −v.\n5. Both matrices have lower-left entry M. This entry reduces to zero modulo M, so the defining membership criterion for Γ₀(M) shows σ ∈ Γ and β ∈ Γ.\n6. Since p ≠ 0, the pinned Hecke definitions give α = diag(1,p) and C = diag(p,1). The canonical embedding ι casts each integer matrix entry to the reals. Direct matrix multiplication gives α·ι(σ) = ((p, −v), (p·M, p·u)) and ι(β)·C = ((p, −v), (M·p, p·u)). These real matrices are equal because p·M = M·p. Equality of their underlying matrices gives equality in GL₂(ℝ).\n7. The witnesses v, σ, β satisfy the nondivisibility condition from step 3, both membership conditions from step 5, the first-row conditions from step 4, and the required Hecke identity from step 6. This proves the full existential conclusion.",
+      "proof_key_steps": [
+        "Deduce coprimality of p and M and obtain integer Bézout coefficients.",
+        "Use the Bézout identity to prove that p does not divide v.",
+        "Construct σ and β explicitly and verify both determinants are one.",
+        "Check Gamma0 membership through the lower-left entries.",
+        "Compute both embedded matrix products using the nonzero-p Hecke definitions."
+      ]
+    }
+  ]
+}

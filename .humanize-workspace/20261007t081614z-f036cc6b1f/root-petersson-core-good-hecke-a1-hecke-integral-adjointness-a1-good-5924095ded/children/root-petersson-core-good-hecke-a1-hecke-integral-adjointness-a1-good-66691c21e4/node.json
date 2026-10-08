@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.petersson_core_good_hecke-a1.hecke_integral_adjointness-a1.good_prime_transversal-a1.bezout_exceptional_lift-a1",
+  "parent_id": "root.petersson_core_good_hecke-a1.hecke_integral_adjointness-a1.good_prime_transversal-a1",
+  "depth": 4,
+  "title": "Bézout lift of the exceptional Hecke representative",
+  "statement": "Let M be a nonzero natural number and p a natural prime with p not dividing M. Let Γ = Γ₀(M), let ι : SL₂(ℤ) → GL₂(ℝ) be the canonical embedding, let α = ModularForm.heckeMatrix p 0, and let C = ModularForm.heckeDiagMatrix p. There exist an integer v and matrices σ, β in SL₂(ℤ) such that p does not divide v, both σ and β belong to Γ, the first row of σ is (p, −v), and α·ι(σ) = ι(β)·C.",
+  "lean_statement": "∀ (M : ℕ) [NeZero M] (p : ℕ), p.Prime → ¬ p ∣ M → ∃ (v : ℤ) (σ β : Matrix.SpecialLinearGroup (Fin 2) ℤ), (¬ (p : ℤ) ∣ v) ∧ σ ∈ CongruenceSubgroup.Gamma0 M ∧ β ∈ CongruenceSubgroup.Gamma0 M ∧ σ 0 0 = (p : ℤ) ∧ σ 0 1 = -v ∧ ModularForm.heckeMatrix p 0 * Matrix.SpecialLinearGroup.mapGL ℝ σ = Matrix.SpecialLinearGroup.mapGL ℝ β * ModularForm.heckeDiagMatrix p",
+  "lean_name": "f036cc6b1f_pc_hi_gpt_bezout_lift",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-66691c21e4-a1"
+}

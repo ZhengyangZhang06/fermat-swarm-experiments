@@ -1,0 +1,54 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "def heckeMatrix|def heckeDiagMatrix|heckeMatrix.*coe|coe.*heckeMatrix|heckeDiagMatrix.*coe|coe.*heckeDiagMatrix|transversal|[Bb]ezout",
+        "transversal|[Bb]ezout.*hecke|hecke.*[Bb]ezout|projective.*index",
+        "Gamma0|mapGL|coe_inv|coe_mul|det_coe|det_eq|intCast_zmod_eq_zero|val_lt|val_injective|intCast_zmod_cast|cast_val|gcd_eq_gcd_ab|coprime_iff_not_dvd",
+        "f036cc6b1f_pc_hi_gpt_(unique_projective_index|bezout_lift)",
+        "instance.*[Ff]ield|def.*[Ff]ield",
+        "git -C .lake/packages/mathlib rev-parse HEAD",
+        "git -C .lake/packages/mathlib status --short",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/f036cc6b1f_independent_split_audit_0ksbh66t/Types.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/f036cc6b1f_independent_split_audit_0ksbh66t/Field.lean",
+        "Units.instMul|Matrix.semiring|Int.*[Aa]lgebra|Pi.*[Mm]ul"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperator.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/LinearAlgebra/Matrix/GeneralLinearGroup/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Data/ZMod/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Algebra/Field/ZMod.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Data/Int/GCD.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Data/Nat/Prime/Defs.lean",
+        "/tmp/f036cc6b1f_independent_split_audit_0ksbh66t/Types.lean",
+        "/tmp/f036cc6b1f_independent_split_audit_0ksbh66t/Types.log",
+        "/tmp/f036cc6b1f_independent_split_audit_0ksbh66t/check-command.json",
+        "/tmp/f036cc6b1f_independent_split_audit_0ksbh66t/Field.lean",
+        "/tmp/f036cc6b1f_independent_split_audit_0ksbh66t/Field.log"
+      ],
+      "conclusion": "The manifest pins project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Inspected sources confirm the Hecke matrix entries, Gamma0 membership, SL2 inverse formula, canonical embedding, Bézout identity, and prime-field representative arguments. The specialized project-helper search returned no matches. Neither proposed name is reserved elsewhere in the DAG or searched handoffs/decompositions; the existing 27-node dependency graph is acyclic. Independent Lean checks accepted both literal propositions without importing Submission or either child implementation. Explicit elaboration confirms Units.instMul over Matrix.semiring and Ring.toIntAlgebra. Installed mathlib is clean at the pinned revision, and the imported project definition source matches the snapshot byte-for-byte. All 18 checked supporting declarations have only subsets of propext, Classical.choice, and Quot.sound as transitive axioms. The split is appropriate: independent arithmetic selection and exceptional lifting leave translations, determinant-based row nonvanishing, inverse-entry calculations, and assembly to the parent. This is decomposition acceptance, not comparator acceptance of child implementations."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "unique_projective_index",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches every prose hypothesis and the integer-valued piecewise divisibility condition. The proof correctly converts divisibility to vanishing in ZMod p, exhausts Fin(p+1), constructs the canonical representative of B/A when A is nonzero, excludes the exceptional index using V ≠ 0, and proves uniqueness by cancellation and bounded representatives. When A = 0, the nonvanishing hypothesis forces B ≠ 0 and exactly the last index works. All steps are complete and non-circular. The bare identifier is unreserved, the type is independently usable, and no sibling dependency is needed."
+    },
+    {
+      "key": "bezout_exceptional_lift",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly preserves the prose assumptions and all existential conjuncts. The proof derives coprimality and pu+Mv=1, correctly proves p does not divide v, checks both displayed determinants and Gamma0 memberships, and verifies the required first row. The two embedded products are respectively ((p,-v),(pM,pu)) and ((p,-v),(Mp,pu)), giving the stated GL2 equality. Independent elaboration confirms ordinary matrix multiplication and canonical integer-to-real casting. The construction is explicit, complete, and independent of the parent and sibling. The bare identifier is unreserved and the type requires no child implementation."
+    }
+  ],
+  "required_changes": []
+}
