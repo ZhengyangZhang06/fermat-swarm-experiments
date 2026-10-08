@@ -7054,3 +7054,46 @@ theorem Submission.p05_ums_inner_inverse_of_minors_a5b449214a
     n p d P rows cols (P.submatrix rows cols)⁻¹
     (Submission.p05_umgi_minor_reconstruction_a5b449214a
       n p d P rows cols _hunit _hnext)
+theorem Submission.p05_ums_section_of_inner_inverse_a5b449214a
+    {R : Type*} [CommRing R]
+    {F : Type*} [AddCommGroup F] [Module R F]
+    {G : Type*} [AddCommGroup G] [Module R G]
+    {M : Type*} [AddCommGroup M] [Module R M]
+    (f : G →ₗ[R] F) (g : F →ₗ[R] G) (π : F →ₗ[R] M)
+    (_hinner : (f.comp g).comp f = f) (_hπ : Function.Surjective π)
+    (_hker : LinearMap.ker π = LinearMap.range f) :
+    ∃ s : M →ₗ[R] F, π.comp s = LinearMap.id := by
+  classical
+  let r : F →ₗ[R] F := LinearMap.id - f.comp g
+  have hπf (y : G) : π (f y) = 0 := by
+    apply LinearMap.mem_ker.mp
+    rw [_hker]
+    exact LinearMap.mem_range_self f y
+  have hfiber (x y : F) (h : π x = π y) : r x = r y := by
+    apply sub_eq_zero.mp
+    rw [← map_sub]
+    have hmem : x - y ∈ LinearMap.ker π := by
+      rw [LinearMap.mem_ker, map_sub, h, sub_self]
+    rw [_hker] at hmem
+    obtain ⟨z, hz⟩ := hmem
+    rw [← hz]
+    change f z - f (g (f z)) = 0
+    rw [show f (g (f z)) = f z from LinearMap.congr_fun _hinner z, sub_self]
+  choose t ht using _hπ
+  let s : M →ₗ[R] F :=
+    { toFun := fun m => r (t m)
+      map_add' := by
+        intro m n
+        rw [← map_add]
+        apply hfiber
+        rw [ht, map_add, ht, ht]
+      map_smul' := by
+        intro a m
+        change r (t (a • m)) = a • r (t m)
+        rw [← map_smul]
+        apply hfiber
+        rw [ht, map_smul, ht] }
+  refine ⟨s, ?_⟩
+  ext m
+  change π (t m - f (g (t m))) = m
+  rw [map_sub, hπf, sub_zero, ht]
