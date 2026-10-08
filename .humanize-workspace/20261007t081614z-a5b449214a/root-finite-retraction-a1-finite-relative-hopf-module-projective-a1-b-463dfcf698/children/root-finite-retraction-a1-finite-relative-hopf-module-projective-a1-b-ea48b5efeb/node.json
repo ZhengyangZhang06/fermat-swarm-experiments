@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.base_change_semilinear_invariance-a1.twisted_presentation-a1",
+  "parent_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.base_change_semilinear_invariance-a1",
+  "depth": 4,
+  "title": "Semilinear bijections transport exact matrix presentations",
+  "statement": "Let S be a commutative ring and L an S-module with commutative additive group. Let n,p be natural numbers, P an n-by-p matrix over S, and q:S^n→L a surjective S-linear map with ker(q)=im(P), where P acts by matrix-vector multiplication. Let θ:S→S be a ring automorphism and T:L→L an additive equivalence satisfying T(sx)=θ(s)T(x) for every s∈S and x∈L. Let Pθ have entries θ(P_ij). Then there exists an S-linear map qθ:S^n→L such that qθ(b)=T(q((θ⁻¹(b_i))_i)) for every b, qθ is surjective, and ker(qθ)=im(Pθ). Zero n and zero p are allowed.",
+  "lean_statement": "∀ {S : Type*} [CommRing S] {L : Type*} [AddCommGroup L] [Module S L] (n p : ℕ) (P : Matrix (Fin n) (Fin p) S) (q : (Fin n → S) →ₗ[S] L) (_hq : Function.Surjective q) (_hker : LinearMap.ker q = LinearMap.range P.mulVecLin) (θ : S ≃+* S) (T : L ≃+ L) (_hT : ∀ (s : S) (x : L), T (s • x) = θ s • T x), ∃ qθ : (Fin n → S) →ₗ[S] L, (∀ b : Fin n → S, qθ b = T (q (fun i => θ.symm (b i)))) ∧ Function.Surjective qθ ∧ LinearMap.ker qθ = LinearMap.range (P.map θ.toRingHom).mulVecLin",
+  "lean_name": "p05_fr_rhm_bcsi_twisted_presentation_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-b-ea48b5efeb-a1"
+}

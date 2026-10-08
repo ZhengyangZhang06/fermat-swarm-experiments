@@ -1,0 +1,46 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "determinantal|fittingideal|fitting ideal",
+        "lTensor_exact|rTensor_exact|baseChange_surjective|smul_tmul|tmul_smul",
+        "def mulVecLin|mulVecLin_apply|theorem map_det|map_span",
+        "def hopfKer|theorem hopfKer",
+        "rg --files -uu /mnt/data/zhengyang-workspace/fermat-swarm-projects -g dag.json"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/RightExactness.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/ToLin.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Ideal/Maps.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p05-bcsi-independent-audit-bjrh3qvn/Checks.lean",
+        "/tmp/p05-bcsi-independent-audit-bjrh3qvn/report.json",
+        "/tmp/p05-bcsi-independent-audit-bjrh3qvn/identity-and-names.json"
+      ],
+      "conclusion": "Independently verified clean project revision 2fdd42759f4ab17640ac773289b521dd69d4b26e, mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d, and all nine compiler dependency pins. The determinantal/Fitting search found no matching API in mathlib LinearAlgebra or RingTheory; relevant infrastructure includes tensor right exactness, first-factor scalar action, mulVecLin, RingHom.map_det, and Ideal.map_span. Fresh Lean diagnostics at proof-base ca1bb49d173a82f6c760dd27fdde39c92765501e elaborated both literal propositions without either child declaration and verified the tensor action and mapped matrix-vector formulas. Six inspected library axiom closures contain only propext, Classical.choice, and Quot.sound. Neither name is reserved in the ten active DAGs. The graph is acyclic. The split appropriately isolates two independent obligations; the parent retains determinant transport and its presentation-independence prerequisite. Verified policy SHA256 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, exact omissions of lines 10–11, reversible original/build hashes, and a fresh successful Lean absence probe for all 13 targets. Frozen sources remain unchanged. These checks approve the decomposition only; no child proof or configured-comparator acceptance is asserted."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "base_changed_presentation",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition matches every prose hypothesis and conclusion, including the explicit formula, first-factor S-action, surjectivity, and matrix-image kernel. Steps 1–2 establish linearity and surjectivity. Steps 3–5 correctly descend through the relation quotient, construct a lift-independent R-linear map using both presentation hypotheses, and extend it by tensor balancing. Steps 6–7 verify inverse maps on generators and deduce the full kernel equality. No flatness assumption, circular appeal, or deferred argument is needed; zero dimensions are covered. The bare identifier is unused, and the empty dependency list is correct."
+    },
+    {
+      "key": "twisted_presentation",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition exactly matches the prose, including the additive equivalence, semilinearity hypothesis, inverse-coordinate formula, and mapped matrix. Step 1 proves linearity using θ⁻¹ and semilinearity; step 2 constructs preimages using T⁻¹. Step 3 proves both matrix-vector transport identities, and steps 4–5 establish both kernel inclusions using injectivity of T and the original kernel equality. Empty index sets cause no exception. The proof is complete and non-circular. The bare identifier is unused; no dependency on the other child is needed because q is an explicit hypothesis."
+    }
+  ],
+  "required_changes": []
+}

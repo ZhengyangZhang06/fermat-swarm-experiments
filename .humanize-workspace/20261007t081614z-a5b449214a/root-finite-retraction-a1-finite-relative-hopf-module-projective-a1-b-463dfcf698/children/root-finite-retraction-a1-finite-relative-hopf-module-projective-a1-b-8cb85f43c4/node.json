@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.base_change_semilinear_invariance-a1.base_changed_presentation-a1",
+  "parent_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.base_change_semilinear_invariance-a1",
+  "depth": 4,
+  "title": "Exact matrix presentations survive extension of scalars",
+  "statement": "Let R and S be commutative rings with an R-algebra structure on S, and write φ:R→S for the structure map. Let M be an R-module with commutative additive group. Let n,p be natural numbers, let P be an n-by-p matrix over R, and let π:R^n→M be a surjective R-linear map with ker(π)=im(P), where P acts by matrix-vector multiplication. Let P_S have entries φ(P_ij). Give S⊗_R M the S-action on its first factor. Then there exists an S-linear map q:S^n→S⊗_R M such that q(b)=Σ_i b_i·(1⊗π(e_i)) for every b, q is surjective, and ker(q)=im(P_S). Here e_i is the ith standard coordinate vector; zero n and zero p are allowed.",
+  "lean_statement": "∀ {R : Type*} [CommRing R] {S : Type*} [CommRing S] [Algebra R S] {M : Type*} [AddCommGroup M] [Module R M] (n p : ℕ) (P : Matrix (Fin n) (Fin p) R) (π : (Fin n → R) →ₗ[R] M) (_hπ : Function.Surjective π) (_hker : LinearMap.ker π = LinearMap.range P.mulVecLin), ∃ q : (Fin n → S) →ₗ[S] TensorProduct R S M, (∀ b : Fin n → S, q b = ∑ i, b i • TensorProduct.tmul R (1 : S) (π (Pi.single i (1 : R)))) ∧ Function.Surjective q ∧ LinearMap.ker q = LinearMap.range (P.map (algebraMap R S)).mulVecLin",
+  "lean_name": "p05_fr_rhm_bcsi_base_changed_presentation_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-b-8cb85f43c4-a1"
+}
