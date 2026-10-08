@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "p02_es_177ebb5a_scl_scalar_strip_limit|isLittleO_pow_exp_pos_mul_atTop|integrable_of_isBigO_exp_neg",
+        "p02_es_177ebb5a_scl_scalar_strip_limit"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Fermat/Thm_HeckeEis_eichlerShimuraMap_injective.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/SpecialFunctions/Pow/Asymptotics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/MeasureTheory/Integral/ExpDecay.lean"
+      ],
+      "conclusion": "Snapshots are clean at project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The frozen root contract matches. Referenced exponential decay and integrability declarations exist in pinned mathlib; no copy of the tracked theorem was found. The exact comparator rerun passed with only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "0f92a3ca4a1b9045219f6e2c88056aff5c5204b13ee0fa8360b3c5b5227be867",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_scl_scalar_strip_limit",
+      "statement": "∀ (n : ℕ) (a D L y₀ : ℝ) (F H : ℂ → ℂ), 0 < a → 0 ≤ D → 0 ≤ L → 1 ≤ y₀ → ContinuousOn H {z : ℂ | 0 < z.im} → (∀ z : ℂ, 0 < z.im → HasDerivAt F (H z) z) → (∀ z : ℂ, 0 ≤ z.re → z.re ≤ L → y₀ ≤ z.im → ‖H z‖ ≤ D * (1 + z.im) ^ n * Real.exp (-a * z.im)) → ∃ b : ℂ, ∀ z : ℂ, 0 ≤ z.re → z.re ≤ L → y₀ ≤ z.im → ‖F z - b‖ ≤ (D * (∫ s in Set.Ioi (0 : ℝ), (1 + s) ^ n * Real.exp (-a * s))) * (1 + z.im) ^ n * Real.exp (-a * z.im)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Vertical integral estimates give limits with the stated tail bound; horizontal decay identifies a common limit throughout the strip."
+    }
+  ]
+}
