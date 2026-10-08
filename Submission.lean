@@ -13,88 +13,6 @@ set_option autoImplicit false
 universe u
 open CategoryTheory Rep
 
-namespace Submission
-
-set_option backward.defeqAttrib.useBackward true in
-set_option backward.isDefEq.respectTransparency false in
-/-- The equivariant prism operators give a homotopy from the vertex map `v` to `u`. -/
-theorem p04_rsh_82a013d1d0_prism_homotopy
-    {k G : Type u} [CommRing k] [Group G] (H : Subgroup G) (u v : G → G)
-    (hu : ∀ (h : H) (g : G), u ((h : G) * g) = (h : G) * u g)
-    (hv : ∀ (h : H) (g : G), v ((h : G) * g) = (h : G) * v g) :
-    let C := ((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj
-      (Rep.standardComplex k G)
-    ∀ U V : CategoryTheory.End C,
-      (∀ (n : ℕ) (c : Fin (n + 1) → G),
-        (U.f n).hom (MonoidAlgebra.single c (1 : k)) =
-          MonoidAlgebra.single (u ∘ c) (1 : k)) →
-      (∀ (n : ℕ) (c : Fin (n + 1) → G),
-        (V.f n).hom (MonoidAlgebra.single c (1 : k)) =
-          MonoidAlgebra.single (v ∘ c) (1 : k)) →
-      Nonempty (Homotopy V U) := by
-  classical
-  intro C U V hU hV
-  let P : ∀ n : ℕ, (Fin (n + 1) → G) → MonoidAlgebra k (Fin (n + 2) → G) :=
-    fun n c => ∑ j : Fin (n + 1),
-      MonoidAlgebra.single
-        (Fin.insertNth j.castSucc (u (c j))
-          (fun i : Fin (n + 1) => if i < j then u (c i) else v (c i)))
-        ((-1 : k) ^ j.val)
-  obtain ⟨D, hD⟩ := p04_prism_a8325b9888_equivariant_components (k := k) H u v hu hv
-  change ∀ (n : ℕ) (c : Fin (n + 1) → G),
-    (D n).hom (MonoidAlgebra.single c (1 : k)) = P n c at hD
-  obtain ⟨hzero, hsucc⟩ := p04_prism_a8325b9888_boundary_identity (k := k) u v
-  change ∀ c : Fin 1 → G, Rep.standardComplex.d k G 1 (P 0 c) =
-    MonoidAlgebra.single (v ∘ c) (1 : k) - MonoidAlgebra.single (u ∘ c) (1 : k) at hzero
-  change ∀ (n : ℕ) (c : Fin (n + 2) → G),
-    Rep.standardComplex.d k G (n + 2) (P (n + 1) c) +
-      ∑ b : Fin (n + 2), ((-1 : k) ^ b.val) • P n (c ∘ b.succAbove) =
-    MonoidAlgebra.single (v ∘ c) (1 : k) - MonoidAlgebra.single (u ∘ c) (1 : k) at hsucc
-  have hd (n : ℕ) (x : MonoidAlgebra k (Fin (n + 2) → G)) :
-      (C.d (n + 1) n).hom x = Rep.standardComplex.d k G (n + 1) x :=
-    Rep.standardComplex.d_apply k G x
-  let hom : ∀ i j, C.X i ⟶ C.X j := fun i j =>
-    if h : i + 1 = j then D i ≫ eqToHom (congrArg C.X h) else 0
-  have hom_succ (i : ℕ) : hom i (i + 1) = D i := by
-    simp [hom]
-  refine ⟨{ hom := hom, zero := ?_, comm := ?_ }⟩
-  · intro i j hij
-    exact dif_neg hij
-  · intro n
-    cases n with
-    | zero =>
-      rw [Homotopy.dNext_zero_chainComplex, Homotopy.prevD_chainComplex, hom_succ, zero_add]
-      apply Rep.hom_ext
-      apply Representation.IntertwiningMap.toLinearMap_injective
-      refine MonoidAlgebra.lhom_ext' fun (c : Fin 1 → G) => LinearMap.ext_ring ?_
-      change (V.f 0).hom (MonoidAlgebra.single c (1 : k)) =
-        (C.d 1 0).hom ((D 0).hom (MonoidAlgebra.single c (1 : k))) +
-          (U.f 0).hom (MonoidAlgebra.single c (1 : k))
-      rw [hU, hV, hD, hd, hzero, sub_add_cancel]
-    | succ n =>
-      rw [Homotopy.dNext_succ_chainComplex, Homotopy.prevD_chainComplex, hom_succ, hom_succ]
-      apply Rep.hom_ext
-      apply Representation.IntertwiningMap.toLinearMap_injective
-      refine MonoidAlgebra.lhom_ext' fun (c : Fin (n + 2) → G) => LinearMap.ext_ring ?_
-      change (V.f (n + 1)).hom (MonoidAlgebra.single c (1 : k)) =
-        (D n).hom ((C.d (n + 1) n).hom (MonoidAlgebra.single c (1 : k))) +
-          (C.d (n + 2) (n + 1)).hom
-            ((D (n + 1)).hom (MonoidAlgebra.single c (1 : k))) +
-          (U.f (n + 1)).hom (MonoidAlgebra.single c (1 : k))
-      rw [hU, hV, hD, hd, hd, Rep.standardComplex.d_of, map_sum]
-      have hsum :
-          (∑ b : Fin (n + 2), (D n).hom
-            (MonoidAlgebra.single (c ∘ b.succAbove) ((-1 : k) ^ b.val))) =
-          ∑ b : Fin (n + 2), ((-1 : k) ^ b.val) • P n (c ∘ b.succAbove) := by
-        apply Finset.sum_congr rfl
-        intro b _
-        rw [← mul_one ((-1 : k) ^ b.val), ← smul_eq_mul,
-          ← MonoidAlgebra.smul_single, map_smul, hD]
-        simp only [smul_eq_mul, mul_one]
-      rw [hsum, add_comm _ (Rep.standardComplex.d k G (n + 2) (P (n + 1) c)),
-        hsucc, sub_add_cancel]
-
-end Submission
 
 theorem Rep.isZero_tateCohomology_of_forall_sylow {k G : Type u} [CommRing k] [Group G] [Fintype G]
     (A : Rep.{u} k G) (q : ℤ)
@@ -419,6 +337,9 @@ theorem p04_prism_a8325b9888_equivariant_components :
         rw [Representation.ofMulAction_single, hL, hL]
         exact hP n h c }
   exact ⟨D, hL⟩
+
+end Submission
+
 set_option maxHeartbeats 4000000
 set_option warningAsError true
 
