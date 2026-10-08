@@ -450,6 +450,8 @@ theorem p06_9e0f5043ff_fpm_residue_degree
   exact hdim.symm.trans finrank_quotient_span_eq_natDegree
 namespace Submission
 
+set_option warningAsError true
+
 theorem p06_9e0f5043ff_fno_fraction_isunit
     (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F)
     (hx : Transcendental K x) (q : Polynomial K) (_hqmonic : q.Monic)
