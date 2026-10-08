@@ -1988,3 +1988,54 @@ theorem Submission.p05_fhess_coefficient_span_stable_a5b449214a
     rw [heq]
     exact Submodule.sum_mem _ fun i _ =>
       Submodule.subset_span ⟨v i, hv i, D (Coalgebra.comul (R := k) (w i)), rfl⟩
+
+
+namespace Submission
+
+theorem p05_fhe_stable_subspace_a5b449214a :
+    ∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
+      (F : Finset H), ∃ V : Submodule k H, FiniteDimensional k V ∧ (1 : H) ∈ V ∧
+      (∀ x ∈ F, x ∈ V) ∧ (∀ x ∈ V, Coalgebra.comul (R := k) x ∈
+        Submodule.span k {t : TensorProduct k H H |
+          ∃ a ∈ V, ∃ b : H, t = TensorProduct.tmul k a b}) := by
+  intro k _ H _ _ F
+  classical
+  -- The two children supply the stable coefficient span for each element.
+  have hsingle (x : H) : ∃ V : Submodule k H,
+      FiniteDimensional k V ∧ x ∈ V ∧ (∀ y ∈ V, Coalgebra.comul (R := k) y ∈
+        Submodule.span k {t : TensorProduct k H H |
+          ∃ a ∈ V, ∃ b : H, t = TensorProduct.tmul k a b}) := by
+    obtain ⟨n, v, w, hw, hΔ⟩ :=
+      p05_fhess_tensor_independent_right_a5b449214a (Coalgebra.comul (R := k) x)
+    exact ⟨Submodule.span k (Set.range v),
+      p05_fhess_coefficient_span_stable_a5b449214a x n v w hw hΔ⟩
+  have hmono {U V : Submodule k H} (hUV : U ≤ V) :
+      Submodule.span k {t : TensorProduct k H H |
+        ∃ a ∈ U, ∃ b : H, t = TensorProduct.tmul k a b} ≤
+      Submodule.span k {t : TensorProduct k H H |
+        ∃ a ∈ V, ∃ b : H, t = TensorProduct.tmul k a b} := by
+    apply Submodule.span_mono
+    rintro t ⟨a, ha, b, rfl⟩
+    exact ⟨a, hUV ha, b, rfl⟩
+  -- Start with the span for 1 and add the spans for the elements of F.
+  induction F using Finset.induction_on with
+  | empty =>
+      obtain ⟨V, hV, h1, hΔ⟩ := hsingle 1
+      exact ⟨V, hV, h1, by simp, hΔ⟩
+  | @insert x F _ ih =>
+      obtain ⟨V, hV, h1, hF, hVΔ⟩ := ih
+      obtain ⟨U, hU, hx, hUΔ⟩ := hsingle x
+      let : FiniteDimensional k U := hU
+      let : FiniteDimensional k V := hV
+      refine ⟨U ⊔ V, inferInstance, Submodule.mem_sup_right h1, ?_, ?_⟩
+      · intro y hy
+        rcases Finset.mem_insert.mp hy with rfl | hy
+        · exact Submodule.mem_sup_left hx
+        · exact Submodule.mem_sup_right (hF y hy)
+      · intro y hy
+        obtain ⟨a, ha, b, hb, rfl⟩ := Submodule.mem_sup.mp hy
+        rw [map_add]
+        exact Submodule.add_mem _ (hmono le_sup_left (hUΔ a ha))
+          (hmono le_sup_right (hVΔ b hb))
+
+end Submission
