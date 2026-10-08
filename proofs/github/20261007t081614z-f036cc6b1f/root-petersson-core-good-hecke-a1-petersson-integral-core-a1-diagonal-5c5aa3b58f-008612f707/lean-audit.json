@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "d99b2aeedfd09589491ce02b17762b0a72c47c6b3836dd1313448176dd01a8fd",
+  "git_delta": {
+    "base_commit": "85457bf4daefce97f9d416af21f5133532d0a5b9",
+    "candidate_commit": "33ff831aac2584dc1e7e010d32a7f35e11efedb8",
+    "target": "Submission.lean",
+    "declaration": "f036cc6b1f_pic_dd_ae_orbit_zero",
+    "diff_sha256": "bac0b972966cea3f282aea6467da238361b0251e187b71472e2cd87654178cac",
+    "source_sha256": "4b54ce43e5041189dade715532dc07e2f30cce06aa4ab712d54c47abcc2325b4",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.f036cc6b1f_pic_dd_ae_orbit_zero",
+      "statement": "∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (E : Set UpperHalfPlane) (A : UpperHalfPlane → ℝ), MeasurableSet E → Measurable A → (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ E) → (∀ (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ), γ ∈ Δ → ∀ z : UpperHalfPlane, A (γ • z) = A z) → (∀ᵐ z ∂((MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane).restrict E), A z = 0) → ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), A z = 0",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
