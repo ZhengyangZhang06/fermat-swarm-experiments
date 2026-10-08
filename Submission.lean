@@ -1140,6 +1140,7 @@ theorem p02_es_177ebb5a_tff_periodic_polynomial_constant
   exact (mul_ne_zero (mul_ne_zero hcast hlead) hc)
     (add_right_cancel (hcoeff.trans (zero_add _).symm))
 theorem p02_es_177ebb5a_crl_horizontal_difference_limit :
+theorem p02_es_177ebb5a_pcl_scalar_common_ray_limit :
     ∀ (n : ℕ) (a : ℝ) (H G : ℂ → ℂ), 0 < a →
       ContinuousOn G {z : ℂ | 0 < z.im} →
       (∀ z : ℂ, 0 < z.im → HasDerivAt H (G z) z) →
@@ -1464,5 +1465,19 @@ theorem p02_es_177ebb5a_cd_linear_coeff_derivative
   exact (hF _).const_mul (c r)
 
   exact ⟨_, MeasureTheory.tendsto_limUnder_of_hasDerivAt_of_integrableOn_Ioi hderiv hint⟩
+      ∃ A : ℂ, ∀ x : ℝ, Filter.Tendsto
+        (fun y : ℝ => H ((x : ℂ) + (y : ℂ) * Complex.I))
+        Filter.atTop (nhds A) := by
+  intro n a H G ha hG hH hstrip
+  obtain ⟨C, Y, hC, hY, hbound⟩ := hstrip 1 zero_lt_one
+  have hray : ∀ t : ℝ, Y ≤ t →
+      ‖G ((t : ℂ) * Complex.I)‖ ≤ C * (1 + t) ^ n * Real.exp (-a * t) := by
+    intro t ht
+    simpa using hbound ((t : ℂ) * Complex.I) (by simp) (by simpa using ht)
+  obtain ⟨A, hA⟩ := p02_es_177ebb5a_crl_imaginary_ray_limit n a H G ha hG hH
+    ⟨C, Y, hC, hY, hray⟩
+  refine ⟨A, fun x => ?_⟩
+  simpa only [sub_add_cancel, zero_add] using
+    (p02_es_177ebb5a_crl_horizontal_difference_limit n a H G ha hG hH hstrip x).add hA
 
 end Submission
