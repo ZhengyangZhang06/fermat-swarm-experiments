@@ -1347,3 +1347,40 @@ theorem Submission.p03_tu_bilateral_summable_68cf3476 :
       map_mul, map_zpow₀, IntermediateField.algebraMap_apply,
       IntermediateField.coe_algebraMap_apply] using
       hs2.map (algebraMap E Ω) continuous_subtype_val
+theorem Submission.p03_tu_algebraic_aut_isometry_68cf3476 :
+    ∀ (F Ω : Type) [NormedField F] [CompleteSpace F] [NormedField Ω]
+      [NormedAlgebra F Ω] [Algebra.IsAlgebraic F Ω],
+      ∀ q : F, 0 < ‖q‖ → ‖q‖ < 1 →
+      ∀ σ : Ω ≃ₐ[F] Ω, Isometry (fun x : Ω => σ x) := by
+  intro F Ω _ _ _ _ _ q hq₀ hq₁
+  let : NontriviallyNormedField F :=
+    { ‹NormedField F› with
+      non_trivial := ⟨q⁻¹, by simpa only [norm_inv] using (one_lt_inv₀ hq₀).2 hq₁⟩ }
+  have hle (σ : Ω ≃ₐ[F] Ω) (x : Ω) : ‖σ x‖ ≤ ‖x‖ := by
+    by_cases hx : x = 0
+    · simp [hx]
+    let E := IntermediateField.adjoin F ({x} : Set Ω)
+    let : FiniteDimensional F E :=
+      IntermediateField.adjoin.finiteDimensional (Algebra.IsIntegral.isIntegral x)
+    let L : E →ₗ[F] Ω := σ.toLinearMap.comp E.val.toLinearMap
+    let T : E →L[F] Ω := ⟨L, L.continuous_of_finiteDimensional⟩
+    let z : E := ⟨x, IntermediateField.mem_adjoin_simple_self F x⟩
+    have hpow (n : ℕ) : ‖σ x‖ ^ n ≤ ‖T‖ * ‖x‖ ^ n := by
+      have hb := T.le_opNorm (z ^ n)
+      change ‖σ (x ^ n)‖ ≤ ‖T‖ * ‖x ^ n‖ at hb
+      simpa only [map_pow, norm_pow] using hb
+    have hratio (n : ℕ) : (‖σ x‖ / ‖x‖) ^ n ≤ ‖T‖ := by
+      rw [div_pow]
+      exact (div_le_iff₀ (pow_pos (norm_pos_iff.mpr hx) n)).2 (hpow n)
+    by_contra h
+    have hr : 1 < ‖σ x‖ / ‖x‖ :=
+      (one_lt_div (norm_pos_iff.mpr hx)).2 (lt_of_not_ge h)
+    obtain ⟨n, hn⟩ := pow_unbounded_of_one_lt ‖T‖ hr
+    exact (not_lt_of_ge (hratio n)) hn
+  intro σ
+  have hnorm (x : Ω) : ‖σ x‖ = ‖x‖ := by
+    apply le_antisymm (hle σ x)
+    simpa only [AlgEquiv.symm_apply_apply] using hle σ.symm (σ x)
+  apply isometry_iff_dist_eq.mpr
+  intro x y
+  rw [dist_eq_norm, dist_eq_norm, ← map_sub, hnorm]
