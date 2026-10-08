@@ -1016,6 +1016,8 @@ translated interval integrals, and tends to zero at infinity. -/
 open Filter MeasureTheory Set
 open scoped Topology
 
+/-- The polynomial-exponential weight has a finite nonnegative integral, controls its
+translated interval integrals, and tends to zero at infinity. -/
 theorem p02_es_177ebb5a_scl_polynomial_exp_tail :
     ∀ (n : ℕ) (a : ℝ), 0 < a →
       IntegrableOn (fun s : ℝ => (1 + s) ^ n * Real.exp (-a * s)) (Ioi 0) ∧
