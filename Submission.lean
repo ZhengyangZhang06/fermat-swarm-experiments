@@ -2029,7 +2029,7 @@ theorem Submission.p10_17ae7b7d_fi_unit_mul_dvd_val :
     ∀ (M d : ℕ), 0 < M → d ∣ M → ∀ (x u : ZMod M), IsUnit u →
       (d ∣ (x * u).val ↔ d ∣ x.val) := by
   intro M d hM hd x u hu
-  letI : NeZero M := ⟨Nat.ne_of_gt hM⟩
+  let : NeZero M := ⟨Nat.ne_of_gt hM⟩
   let ρ : ZMod M →+* ZMod d := ZMod.castHom hd (ZMod d)
   have hval (y : ZMod M) : ρ y = 0 ↔ d ∣ y.val := by
     change (ZMod.cast y : ZMod d) = 0 ↔ d ∣ y.val
