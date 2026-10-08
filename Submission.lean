@@ -521,4 +521,4 @@ theorem Submission.p05_hte_sshs_br_comul_alg_lift_a5b449214a
   · intro d e
     apply hRJ.injective
     rw [hδ, map_mul, hδ, hδ]
-    exact Bialgebra.comul_mul
+    exact Bialgebra.comul_mul (R := k) (d : H) (e : H)
