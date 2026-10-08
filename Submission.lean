@@ -575,8 +575,10 @@ theorem p04_hca_bc7c754a4b_summand_eq_of_coset_eq
     (F : Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) (s t : G)
     (hst : (QuotientGroup.mk s : G ⧸ H) = QuotientGroup.mk t) (x : B) :
     A.ρ s (F.hom (B.ρ s⁻¹ x)) = A.ρ t (F.hom (B.ρ t⁻¹ x)) := by
+  -- Equal left cosets differ by right multiplication by an element of H.
   let h : H := ⟨s⁻¹ * t, QuotientGroup.eq.mp hst⟩
   have ht : t = s * (h : G) := by simp [h]
+  -- Equivariance moves the inverse subgroup action through F.
   have hF : F.hom (B.ρ (h : G)⁻¹ (B.ρ s⁻¹ x)) =
       A.ρ (h : G)⁻¹ (F.hom (B.ρ s⁻¹ x)) :=
     Rep.hom_comm_apply F h⁻¹ (B.ρ s⁻¹ x)
