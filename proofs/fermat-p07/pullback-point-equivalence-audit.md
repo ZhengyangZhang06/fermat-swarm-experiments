@@ -7,7 +7,7 @@ It does not assert comparator acceptance or prove the enclosing root theorem.
 ## Candidate and scope
 
 The existing candidate was introduced by `8ac90b1` and inspected at
-`fa849f7f13845977193811f4b026ad216d9d7b81` in the 2026-10-08 15:01:17
+`89409226687ea7862bb7ca26dc29d14086a99e45` in the 2026-10-08 16:17:26
 RLCR round. Its `Submission.lean` SHA-256 is
 `81d0a9d64dee7d82cd27ac069c5dde7a4617d51a74ca4899b6fe5ef3dfe4002b`.
 The entire source prefix from frozen proof base
@@ -80,7 +80,7 @@ pinned upstream infrastructure, not newly invented dependency nodes.
 
 ## Current author validation
 
-The 2026-10-08 15:01:17 round re-read the accepted proof and independently
+The 2026-10-08 16:17:26 round re-read the accepted proof and independently
 checked the existing implementation. A fresh read-only simplifier review found
 no concrete improvement or defect and recommended retaining the proof unchanged.
 No Lean source change was needed or made in this round.
@@ -107,11 +107,20 @@ base contains only `Submission.lean` and this audit. Protected problem and libra
 sources remain unchanged. The trusted build boundary remains a controller concern;
 this candidate does not alter it or suppress its diagnostics.
 
-Evidence is retained under `.humanize/rlcr/2026-10-08_15-01-17/` in
+Evidence is retained under `.humanize/rlcr/2026-10-08_16-17-26/` in
 `round-0-full-build.log`, `round-0-selected-diagnostic.log`,
 `round-0-source-audit.json`, `round-0-source.diff`,
 `round-0-reference-use.json`, `round-0-dependency-audit.json`, and
 `round-0-simplifier-review.md`.
+The round uses the authoritative v8 implementation plan. The exact-type diagnostic
+reads the literal `lean_statement` from the selected DAG record, checks an
+`example` against that independent type, and prints the selected theorem's
+transitive axioms. The full-source command uses the pinned Lean 4.33.1 toolchain
+and `-DwarningAsError=true` with all four project options. Both checks were rerun
+in this round: the supplemental diagnostic exited zero and the full-source check
+exited one with precisely the four diagnostics listed above. `git diff --check`
+against the proof base also passed. The two snapshots and all nine installed
+dependencies were rechecked clean and at their pinned commits.
 These local round artifacts are ignored by Git. The exact candidate commit and
 fresh comparator outcome are recorded in the round summary after this audit is
 committed; this text makes no claim of comparator success.
