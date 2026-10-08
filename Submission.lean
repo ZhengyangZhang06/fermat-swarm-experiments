@@ -2596,9 +2596,9 @@ theorem Submission.p10_17ae7b7d_phdisk_mobius_ratio_norm :
   have hQz : Q z ≠ 0 := hQ z hz
   have hQv : Q v ≠ 0 := hQ v hv
   have hQconj : Q (star v) = star (Q v) := by
-    simp [Q, Complex.star_def]
+    simp [Q]
   have hMconj : M (star v) = star (M v) := by
-    simp [M, Q, Complex.star_def]
+    simp [M, Q]
   have hQstar : star (Q v) ≠ 0 := star_ne_zero.mpr hQv
   have hQsv : Q (star v) ≠ 0 := by
     rw [hQconj]
@@ -2612,7 +2612,7 @@ theorem Submission.p10_17ae7b7d_phdisk_mobius_ratio_norm :
     congr 1
     calc
       ((a : ℂ) * x + (b : ℂ)) * Q y -
-          ((a : ℂ) * y + (b : ℂ)) * Q x =
+          Q x * ((a : ℂ) * y + (b : ℂ)) =
           ((a : ℂ) * (d : ℂ) - (b : ℂ) * (c : ℂ)) * (x - y) := by
         dsimp only [Q]
         ring
