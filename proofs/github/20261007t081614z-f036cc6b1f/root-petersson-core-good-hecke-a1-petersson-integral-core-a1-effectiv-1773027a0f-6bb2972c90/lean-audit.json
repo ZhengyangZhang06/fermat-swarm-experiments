@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "93ad781830709ec1c3eda01cf820ae395fcb228dac2eef6bb626191e3ced93a6",
+  "git_delta": {
+    "base_commit": "aa8803836929b7c68b45025080a7db88d706f98c",
+    "candidate_commit": "926a379fc18d8c3ec41d01ec1514d7200c2b24d1",
+    "target": "Submission.lean",
+    "declaration": "f036cc6b1f_pic_dt_integral_of_equidecomposition",
+    "diff_sha256": "128eb02483fd6142b2cc5f20a2d4b99f778066982888b25b491fd47a0bb75b6c",
+    "source_sha256": "7514f7d5e27b2f7b1c08b8f10bb724be6fdffed72a984f3e70e318feb7b4bf15",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.f036cc6b1f_pic_dt_integral_of_equidecomposition",
+      "statement": "∀ (α ι : Type) [MeasurableSpace α] [Countable ι] (μ : MeasureTheory.Measure α) (E F : Set α) (A B : ι → Set α) (T : ι → α → α), MeasurableSet E → MeasurableSet F → (∀ i, MeasurableSet (A i)) → (∀ i, MeasurableSet (B i)) → Pairwise (fun i j => Disjoint (A i) (A j)) → Pairwise (fun i j => Disjoint (B i) (B j)) → (∀ᵐ x ∂μ, x ∈ E ↔ x ∈ ⋃ i, A i) → (∀ᵐ x ∂μ, x ∈ F ↔ x ∈ ⋃ i, B i) → (∀ i, MeasurableEmbedding (T i)) → (∀ i, MeasureTheory.MeasurePreserving (T i) μ μ) → (∀ i, T i '' A i = B i) → ∀ φ : α → ℂ, MeasureTheory.StronglyMeasurable φ → (∀ i, ∀ x ∈ A i, φ (T i x) = φ x) → MeasureTheory.IntegrableOn φ E μ → MeasureTheory.IntegrableOn φ F μ ∧ MeasureTheory.integral (μ.restrict E) φ = MeasureTheory.integral (μ.restrict F) φ",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
