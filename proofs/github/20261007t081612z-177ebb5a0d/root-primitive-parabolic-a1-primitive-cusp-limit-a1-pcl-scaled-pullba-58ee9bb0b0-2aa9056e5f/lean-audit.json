@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "IsEichlerIntegral|jFactor|binaryFormRepSL_linePow|hasStrictDerivAt_smul|pcl_scaled_pullback_derivative",
+        "pcl_scaled_pullback_derivative"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Manifold.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b"
+      ],
+      "conclusion": "Confirmed clean project revision 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d. The snapshot supplies IsEichlerIntegral, jFactor, binaryFormRepSL_linePow, and hasStrictDerivAt_smul; inspected sources match candidate dependencies byte-for-byte. No snapshot match for pcl_scaled_pullback_derivative. The independent comparator passed with only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "41dfc0b65d4d14af465fde6cb74b8458e9b42df99f3ca9fbf591e486c17157e7",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_pcl_scaled_pullback_derivative",
+      "statement": "∀ (n : ℕ) (f : UpperHalfPlane → ℂ) (F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.IsEichlerIntegral n f F → ∀ (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (d : Fin 2 →₀ ℕ) (τ : UpperHalfPlane), HasDerivAt (fun z : ℂ => MvPolynomial.coeff d (F (σ • UpperHalfPlane.ofComplex z)).val) ((HeckeEis.jFactor σ τ) ^ (-((n : ℤ) + 2)) * f (σ • τ) * MvPolynomial.coeff d ((HeckeEis.binaryFormRepSL ℂ n σ) (HeckeEis.linePow n (τ : ℂ))).val) (τ : ℂ)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Uses the chain rule with the existing Möbius derivative and binaryFormRepSL_linePow identity."
+    }
+  ]
+}
