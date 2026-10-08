@@ -47,7 +47,7 @@ The free-module extension uses `Finsupp.lift` and `MonoidAlgebra.coeffLinearEqui
 `Rep.standardComplex.d`. Equivariance is checked on generators using
 `Representation.ofMulAction_single` and `Fin.insertNth_eq_iff`. -/
 theorem p04_prism_a8325b9888_equivariant_components :
-    ∀ {k G : Type u} [CommRing k] [Group G] (H : Subgroup G) (u v : G → G),
+    ∀ {k G : Type _} [CommRing k] [Group G] (H : Subgroup G) (u v : G → G),
       (∀ (h : H) (g : G), u ((h : G) * g) = (h : G) * u g) →
       (∀ (h : H) (g : G), v ((h : G) * g) = (h : G) * v g) →
       let P : ∀ n : ℕ, (Fin (n + 1) → G) → MonoidAlgebra k (Fin (n + 2) → G) :=
