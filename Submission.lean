@@ -3737,3 +3737,40 @@ theorem p05_fhe_stable_subspace_a5b449214a :
           (hmono le_sup_right (hVΔ b hb))
 
 end Submission
+theorem Submission.p05_cm_basis_expansion_a5b449214a
+    {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
+    (V : Submodule k H) (n : ℕ) (b : Module.Basis (Fin n) k V)
+    (hV : ∀ x ∈ V, Coalgebra.comul (R := k) x ∈
+      Submodule.span k {t : TensorProduct k H H |
+        ∃ a ∈ V, ∃ y : H, t = TensorProduct.tmul k a y}) :
+    ∃ c : Matrix (Fin n) (Fin n) H, ∀ j : Fin n,
+      Coalgebra.comul (R := k) (b j : H) =
+        ∑ i : Fin n, TensorProduct.tmul k (b i : H) (c i j) := by
+  classical
+  let W : Submodule k (H ⊗[k] H) :=
+    { carrier := {z | ∃ d : Fin n → H, z = ∑ i, (b i : H) ⊗ₜ[k] d i}
+      zero_mem' := ⟨fun _ => 0, by simp⟩
+      add_mem' := by
+        rintro x y ⟨d, rfl⟩ ⟨e, rfl⟩
+        exact ⟨fun i => d i + e i, by
+          simp only [TensorProduct.tmul_add, Finset.sum_add_distrib]⟩
+      smul_mem' := by
+        rintro r x ⟨d, rfl⟩
+        exact ⟨fun i => r • d i, by
+          simp only [TensorProduct.tmul_smul, Finset.smul_sum]⟩ }
+  have hspan : Submodule.span k {t : TensorProduct k H H |
+      ∃ a ∈ V, ∃ y : H, t = TensorProduct.tmul k a y} ≤ W := by
+    apply Submodule.span_le.mpr
+    rintro t ⟨a, ha, y, rfl⟩
+    refine ⟨fun i => b.repr ⟨a, ha⟩ i • y, ?_⟩
+    have hexp : ∑ i, b.repr ⟨a, ha⟩ i • (b i : H) = a := by
+      simpa only [map_sum, map_smul, Submodule.subtype_apply] using
+        congrArg V.subtype (b.sum_repr ⟨a, ha⟩)
+    conv_lhs => rw [← hexp]
+    rw [TensorProduct.sum_tmul]
+    simp only [TensorProduct.smul_tmul]
+  have hcol (j : Fin n) : ∃ d : Fin n → H,
+      Coalgebra.comul (R := k) (b j : H) = ∑ i, (b i : H) ⊗ₜ[k] d i :=
+    hspan (hV (b j : H) (b j).property)
+  choose d hd using hcol
+  exact ⟨Matrix.of (fun i j => d j i), hd⟩
