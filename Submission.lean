@@ -2431,6 +2431,7 @@ theorem p06_9e0f5043ff_dmc_diagonal_quotient
     Nonempty (((Fin m → R) ⧸ LinearMap.range (Matrix.mulVecLin (Matrix.diagonal d)))
       ≃ₗ[R] ((i : Fin m) → R ⧸ Ideal.span ({d i} : Set R))) := by
   classical
+  -- The diagonal image is exactly the product of the coordinate principal ideals.
   have hrange : LinearMap.range (Matrix.mulVecLin (Matrix.diagonal d)) =
       Submodule.pi Set.univ (fun i => Ideal.span ({d i} : Set R)) := by
     ext y
@@ -2444,6 +2445,7 @@ theorem p06_9e0f5043ff_dmc_diagonal_quotient
       refine ⟨z, ?_⟩
       ext i
       simpa only [Matrix.mulVecLin_apply, Matrix.mulVec_diagonal] using (hz i).symm
+  -- The library equivalence descends the coordinate quotient maps and supplies their inverse.
   exact ⟨(Submodule.quotEquivOfEq _ _ hrange).trans
     (Submodule.quotientPi fun i => Ideal.span ({d i} : Set R))⟩
 
