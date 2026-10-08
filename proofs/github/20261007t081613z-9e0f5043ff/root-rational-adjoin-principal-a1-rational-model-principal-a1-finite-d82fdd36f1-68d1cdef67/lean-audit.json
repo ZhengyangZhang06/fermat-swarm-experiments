@@ -1,0 +1,37 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'residue_surjective|coprime_iff_not_dvd|transcendental_iff_injective' mathlib/Mathlib/RingTheory/LocalRing/ResidueField/Basic.lean mathlib/Mathlib/RingTheory/Algebraic/Basic.lean mathlib/Mathlib/RingTheory/PrincipalIdealDomain.lean",
+        "rg -n 'p06_9e0f5043ff_fpm_rd_residue_surjective' project/Definitions project/Submission.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/LocalRing/ResidueField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Algebraic/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/PrincipalIdealDomain.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Submission.lean"
+      ],
+      "conclusion": "Queries ran from the snapshot root. Found the existing residue-surjectivity, transcendental-evaluation injectivity, and coprimality declarations; no tracked-theorem match in the searched project sources. Project and mathlib checkouts are clean at the manifest revisions. The exact comparator rerun exited 0 with the required marker and only propext, Classical.choice, and Quot.sound. All 221 fresh exported input hashes match the inspected packet. Compiler copies differ from committed sources only by the controller-pinned removal of three negative attribute directives, with target absence checked."
+    }
+  ],
+  "comparison_identity": "4e8cbd6e4015b103d1527b7e546334a9161392925483e4eed76c4d071193f87f",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_fpm_rd_residue_surjective",
+      "statement": "∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F), Transcendental K x → ∀ q : Polynomial K, Irreducible q → ∀ v : AlgebraicCurve.Place K F, (∀ h : v.toValuationSubring, ∃ a b : Polynomial K, ¬ q ∣ b ∧ (h : F) = Polynomial.aeval x a / Polynomial.aeval x b) → ∀ e : Polynomial K →ₐ[K] v.toValuationSubring, (∀ a : Polynomial K, (e a : F) = Polynomial.aeval x a) → IsLocalRing.residue v.toValuationSubring (e q) = 0 → Function.Surjective ((IsLocalRing.residue v.toValuationSubring).comp e.toRingHom)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Lift a residue, express its lift as a permitted fraction, and use a Bézout inverse modulo q to exhibit a polynomial preimage."
+    }
+  ]
+}
