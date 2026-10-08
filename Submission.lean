@@ -57,38 +57,35 @@ theorem Submission.f036cc6b1f_tdi_planar_exp_integrable_fd :
   simpa only [Set.preimage_image_eq _ UpperHalfPlane.coe_injective, Function.comp_def,
     UpperHalfPlane.coe_im] using ht
 
-namespace Submission
-
-open MeasureTheory
-open scoped ComplexConjugate
-
-theorem f036cc6b1f_tdi_petersson_integrable_of_exp_product_bound
+theorem Submission.f036cc6b1f_tdi_petersson_integrable_of_exp_product_bound
     (u v : UpperHalfPlane → ℂ) (a C Y : ℝ)
     (hu : Continuous u) (hv : Continuous v) (ha : 0 < a) (_hC : 0 ≤ C)
     (hbound : ∀ z : UpperHalfPlane, Y ≤ z.im →
       ‖u z * v z‖ ≤ C * Real.exp (-a * z.im)) :
-    IntegrableOn (UpperHalfPlane.petersson 2 u v) ModularGroup.fd
-      (volume : Measure UpperHalfPlane) := by
-  let ν : Measure UpperHalfPlane := (volume : Measure ℂ).comap UpperHalfPlane.coe
-  let W : UpperHalfPlane → ℂ := fun z ↦ conj (u z) * v z
+    MeasureTheory.IntegrableOn (UpperHalfPlane.petersson 2 u v) ModularGroup.fd
+      (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) := by
+  let ν : MeasureTheory.Measure UpperHalfPlane :=
+    (MeasureTheory.volume : MeasureTheory.Measure ℂ).comap UpperHalfPlane.coe
+  let W : UpperHalfPlane → ℂ := fun z ↦ (starRingEnd ℂ) (u z) * v z
   let L : ℝ := max 1 Y
   let D := ModularGroup.truncatedFundamentalDomain L
   let E := ModularGroup.fd ∩ {z : UpperHalfPlane | L < z.im}
   have hW : Continuous W := (Complex.continuous_conj.comp hu).mul hv
   -- The lower truncation is compact and planar measure is finite on compact sets.
-  have hD : IntegrableOn W D ν :=
+  have hD : MeasureTheory.IntegrableOn W D ν :=
     hW.continuousOn.integrableOn_compact
       (ModularGroup.isCompact_truncatedFundamentalDomain L)
   have hEmeas : MeasurableSet E :=
     ModularGroup.isClosed_fd.measurableSet.inter
       (isOpen_lt continuous_const UpperHalfPlane.continuous_im).measurableSet
   -- On the tail, use precisely the supplied planar exponential-integrability interface.
-  have hmajor : IntegrableOn (fun z : UpperHalfPlane ↦ C * Real.exp (-a * z.im)) E ν :=
+  have hmajor : MeasureTheory.IntegrableOn
+      (fun z : UpperHalfPlane ↦ C * Real.exp (-a * z.im)) E ν :=
     ((Submission.f036cc6b1f_tdi_planar_exp_integrable_fd a ha).mono_set
       Set.inter_subset_left).const_mul C
-  have hE : IntegrableOn W E ν := by
+  have hE : MeasureTheory.IntegrableOn W E ν := by
     refine hmajor.mono' hW.aestronglyMeasurable ?_
-    filter_upwards [ae_restrict_mem hEmeas] with z hz
+    filter_upwards [MeasureTheory.ae_restrict_mem hEmeas] with z hz
     have hY : Y ≤ z.im := (le_max_right 1 Y).trans hz.2.le
     simpa only [W, norm_mul, Complex.norm_conj] using hbound z hY
   have hpartition : D ∪ E = ModularGroup.fd := by
@@ -101,16 +98,16 @@ theorem f036cc6b1f_tdi_petersson_integrable_of_exp_product_bound
       rcases le_or_gt z.im L with h | h
       · exact Or.inl ⟨hz, h⟩
       · exact Or.inr ⟨hz, h⟩
-  have hplanar : IntegrableOn W ModularGroup.fd ν := by
+  have hplanar : MeasureTheory.IntegrableOn W ModularGroup.fd ν := by
     rw [← hpartition]
     exact hD.union hE
   -- Multiplication by the hyperbolic density cancels the weight-two factor.
-  rw [IntegrableOn, UpperHalfPlane.volume_def,
-    restrict_withDensity ModularGroup.isClosed_fd.measurableSet]
+  rw [MeasureTheory.IntegrableOn, UpperHalfPlane.volume_def,
+    MeasureTheory.restrict_withDensity ModularGroup.isClosed_fd.measurableSet]
   have hdensity : Measurable (fun z : UpperHalfPlane ↦
       (1 / NNReal.mk z.im z.im_pos.le : NNReal) ^ 2) := by
     fun_prop
-  rw [integrable_withDensity_iff_integrable_coe_smul hdensity]
+  rw [MeasureTheory.integrable_withDensity_iff_integrable_coe_smul hdensity]
   have hcancel : (fun z : UpperHalfPlane ↦
       (((1 / NNReal.mk z.im z.im_pos.le : NNReal) ^ 2 : NNReal) : ℝ) •
         UpperHalfPlane.petersson 2 u v z) = W := by
