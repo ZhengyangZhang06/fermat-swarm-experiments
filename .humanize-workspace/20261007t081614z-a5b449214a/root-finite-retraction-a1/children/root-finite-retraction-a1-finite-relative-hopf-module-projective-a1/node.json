@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1",
+  "parent_id": "root.finite_retraction-a1",
+  "depth": 2,
+  "title": "Finite modules with compatible relative Hopf coactions are projective",
+  "statement": "Let k be a field. Let A and H be commutative Hopf k-algebras, with A finitely generated as a k-algebra, and let ι:A→H be an injective k-bialgebra homomorphism. Let M be an additive commutative group with compatible k-module and A-module structures, meaning (c·a)·m=c·(a·m), and suppose M is finitely generated over A. Let μ:M→M⊗_k H be k-linear. Assume (μ⊗id)μ=(id⊗Δ_H)μ after the canonical associator, and (id⊗ε_H)μ=id after the canonical identification M⊗k≅M. Assume also μ(a·m)=Σ a_1·m_0⊗ι(a_2)m_1, where Δ_A(a)=Σ a_1⊗a_2 and μ(m)=Σ m_0⊗m_1. This identity is independent of the chosen finite tensor representations; the Lean type uses Coalgebra.Repr.arbitrary for Δ_A(a). Then M is projective over A.",
+  "lean_statement": "∀ {k : Type*} [Field k] {A : Type*} [CommRing A] [HopfAlgebra k A] [Algebra.FiniteType k A] {H : Type*} [CommRing H] [HopfAlgebra k H] (ι : BialgHom k A H) (_hι : Function.Injective ι) {M : Type*} [AddCommGroup M] [Module k M] [Module A M] [IsScalarTower k A M] [Module.Finite A M] (μ : M →ₗ[k] TensorProduct k M H) (_hcoassoc : ∀ m : M, TensorProduct.assoc k M H H ((TensorProduct.map μ (LinearMap.id : H →ₗ[k] H)) (μ m)) = (TensorProduct.map (LinearMap.id : M →ₗ[k] M) (Coalgebra.comul (R := k))) (μ m)) (_hcounit : ∀ m : M, TensorProduct.rid k M ((TensorProduct.map (LinearMap.id : M →ₗ[k] M) (Coalgebra.counit (R := k))) (μ m)) = m) (_hcompat : ∀ (a : A) (m : M), let d := Coalgebra.Repr.arbitrary k a; μ (a • m) = ∑ i ∈ d.index, TensorProduct.map ((Algebra.lsmul k k M) (d.left i)) (LinearMap.mulLeft k (ι (d.right i))) (μ m)), Module.Projective A M",
+  "lean_name": "p05_fr_finite_relative_hopf_module_projective_a5b449214a",
+  "depends_on": [
+    "root.finite_retraction-a1.coideal_ideal_dichotomy-a1",
+    "root.finite_retraction-a1.projective_of_trivial_minors-a1"
+  ],
+  "dependency_workspaces": [
+    {
+      "node_id": "root.finite_retraction-a1.coideal_ideal_dichotomy-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    },
+    {
+      "node_id": "root.finite_retraction-a1.projective_of_trivial_minors-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    }
+  ],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-a1"
+}

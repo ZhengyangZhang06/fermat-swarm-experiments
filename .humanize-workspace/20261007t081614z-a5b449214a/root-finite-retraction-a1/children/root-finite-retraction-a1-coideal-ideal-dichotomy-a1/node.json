@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_retraction-a1.coideal_ideal_dichotomy-a1",
+  "parent_id": "root.finite_retraction-a1",
+  "depth": 2,
+  "title": "A right coideal ideal is zero or the whole Hopf algebra",
+  "statement": "Let k be a field and A a commutative Hopf k-algebra. Let J be an ideal of A. Suppose that, for every x∈J, Δ(x) belongs to the k-linear span of tensors a⊗b with a∈J and b∈A. Then J is the zero ideal or the whole ring.",
+  "lean_statement": "∀ {k : Type*} [Field k] {A : Type*} [CommRing A] [HopfAlgebra k A] (J : Ideal A) (_hJ : ∀ x ∈ J, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k A A | ∃ a ∈ J, ∃ b : A, t = TensorProduct.tmul k a b}), J = ⊥ ∨ J = ⊤",
+  "lean_name": "p05_fr_coideal_ideal_dichotomy_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-retraction-a1-coideal-ideal-dichotomy-a1-a1"
+}
