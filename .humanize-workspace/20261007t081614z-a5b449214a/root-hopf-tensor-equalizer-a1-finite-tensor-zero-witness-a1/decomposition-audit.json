@@ -1,0 +1,48 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "finite.*(tensor|tmul)|(tensor|tmul).*finite|FreeAbelianGroup|hopfKer_eq_of_surjective",
+        "inductive Eqv|liftAddHom|map_injective|equivFinsupp|mem_closure|closure_eq|exists.*finset",
+        "p05_ftzw_tensor_relation_kernel_a5b449214a|p05_ftzw_supported_relations_vanish_a5b449214a",
+        "lake env lean HeaderPolicyCheck.lean",
+        "lake env lean CheckTypes.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/FreeAbelianGroup/Finsupp.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Group/Subgroup/Finsupp.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Algebra/Subalgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/decomposition-ftzw-diagnostics/report.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/ftzw-independent-audit-w2x0jxhg/challenge/CheckTypes.lean",
+        "/tmp/ftzw-independent-audit-w2x0jxhg/interfaces.log",
+        "/tmp/ftzw-independent-audit-w2x0jxhg/receipt.json"
+      ],
+      "conclusion": "The pinned sources supply the balanced additive tensor universal property, finite integer combinations for subgroup closure, free-abelian coefficient equivalence, and restricted subalgebra actions. The inspected vanishing criteria require additional hypotheses and do not replace these obligations. Neither proposed name occurs in the snapshot, active DAG, or another decomposition proposal. Snapshot revisions and all nine dependency pins are clean. Fresh disposable Lean checks independently elaborate both literal propositions, verify the scalar-action equalities by rfl, and report only propext, Classical.choice and Quot.sound for all fourteen inspected infrastructure declarations. Policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, omission of exactly lines 10–11, reversible original/build hashes, and Lean-confirmed absence of all thirteen targets were verified; protected inputs remain unchanged. The split appropriately separates presentation from supported transport, leaving finite-support collection to the parent. This approves decomposition only; theorem acceptance still requires the configured comparator and independent implementation review."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "tensor_relation_kernel",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose and includes every ring and module hypothesis. It elaborates independently without either proposed declaration. All six proof steps are valid: evaluation kills the generators; quotient pair classes are biadditive and balanced; liftAddHom supplies the additive descent; agreement on free generators identifies its composite with the quotient projection; the projection kernel proves the reverse inclusion. No quotient module structure or circular appeal is needed. The bare name is unreserved, and the empty dependency list is correct."
+    },
+    {
+      "key": "supported_relations_vanish",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly expresses all five supported relation families and the conclusion for m in N. Fresh Lean probes confirm the inferred A-actions are restrictions of the D-actions. The proof completely justifies finite integer combinations, each lifted relation, injectivity of the free-abelian inclusion through coefficients, transfer of the formal identity, and evaluation to zero. Submodule closure supplies zero, sums and scalar products; no membership hypothesis is missing. The proof uses neither sibling nor parent theorem, so its empty dependency list is correct. The bare name is unreserved."
+    }
+  ],
+  "required_changes": []
+}

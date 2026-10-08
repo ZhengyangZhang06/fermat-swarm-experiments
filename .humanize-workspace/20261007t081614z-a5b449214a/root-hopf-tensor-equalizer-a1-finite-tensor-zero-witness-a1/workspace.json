@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081614Z-a5b449214a",
+  "parent_id": "root.hopf_tensor_equalizer-a1.finite_tensor_zero_witness-a1",
+  "dispatch_branch": "proof-workspace/fermat-p05/20261007t081614z-a5b449214a/dispatch/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1",
+  "source_commit": "2fdd42759f4ab17640ac773289b521dd69d4b26e",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.hopf_tensor_equalizer-a1.finite_tensor_zero_witness-a1.supported_relations_vanish-a1",
+      "key": "supported_relations_vanish",
+      "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1-supported-7947d24ba2-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/children/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1-supported-7947d24ba2",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "finite.*(tensor|tmul)|(tensor|tmul).*finite|FreeAbelianGroup|hopfKer_eq_of_surjective",
+              "map_injective|map_inj|lift_apply_of|induction_on|closure_induction|mem_closure|exists.*finset|closure.*finset",
+              "finite.*(tensor|tmul)|(tensor|tmul).*finite|ker.*closure|closure.*ker|FreeAbelianGroup",
+              "p05_ftzw_tensor_relation_kernel_a5b449214a|p05_ftzw_supported_relations_vanish_a5b449214a"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Defs.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/GroupTheory/FreeAbelianGroup.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/FreeAbelianGroup/Finsupp.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Group/Subgroup/Finsupp.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/decomposition-ftzw-diagnostics/report.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/decomposition-ftzw-diagnostics/challenge-types-instances-axioms.log"
+            ],
+            "conclusion": "Found the tensor relation presentation, TensorProduct.liftAddHom, finite integer combinations for subgroup closure, and free-abelian coefficient infrastructure. No exact match for either proposed helper was found; the vanishing criteria require additional generation or injectivity hypotheses. Both names remain unreserved. Project 2fdd42759f4ab17640ac773289b521dd69d4b26e, mathlib db584cd6d46c92f209a44c0f1c829460d327499d, and all nine dependencies passed clean-pin checks. Both literal types elaborate after import Submission in disposable compiler copies; explicit equality probes verify the restricted scalar instances. Fourteen infrastructure axiom checks use only propext, Classical.choice and Quot.sound. The diagnostic receipt validates policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, omission of only lines 10–11, reversible original/build hashes, and Lean-confirmed absence of all 13 targets. Protected inputs remain unchanged. These checks validate interfaces, not theorem acceptance."
+          }
+        ],
+        "parent_id": "root.hopf_tensor_equalizer-a1.finite_tensor_zero_witness-a1",
+        "child_id": "root.hopf_tensor_equalizer-a1.finite_tensor_zero_witness-a1.supported_relations_vanish-a1",
+        "subproblem": {
+          "key": "supported_relations_vanish",
+          "title": "Transport of supported tensor relations to a restricted module",
+          "statement": "Let k and D be commutative rings, let D be a k-algebra, and let M and P be D-modules with additive commutative group structures. Fix a k-subalgebra A⊆D and an A-submodule N⊆M, using restricted D-actions throughout. Write G=FreeAbelianGroup(M×P) and [u,z] for its pair generator. Let T(A,N) consist of all [0,z] with z∈P; [u,0] with u∈N; [u+v,z]−[u,z]−[v,z] with u,v∈N and z∈P; [u,z+w]−[u,z]−[u,w] with u∈N and z,w∈P; and [d•u,z]−[u,d•z] with d∈A, u∈N and z∈P. For every m∈N and p∈P, if [m,p] belongs to the additive subgroup of G generated by T(A,N), then m⊗_A p=0 in N⊗_A P.",
+          "lean_statement": "∀ {k : Type*} [CommRing k] {D : Type*} [CommRing D] [Algebra k D] {M : Type*} [AddCommGroup M] [Module D M] {P : Type*} [AddCommGroup P] [Module D P] (A : Subalgebra k D) (N : Submodule A M) (m : N) (p : P), let b : M → P → FreeAbelianGroup (M × P) := fun u z => FreeAbelianGroup.of (u, z); b (m : M) p ∈ AddSubgroup.closure {r : FreeAbelianGroup (M × P) | (∃ z : P, r = b 0 z) ∨ (∃ u : M, u ∈ N ∧ r = b u 0) ∨ (∃ (u v : M) (z : P), u ∈ N ∧ v ∈ N ∧ r = b (u + v) z - b u z - b v z) ∨ (∃ (u : M) (z w : P), u ∈ N ∧ r = b u (z + w) - b u z - b u w) ∨ (∃ (d : D) (u : M) (z : P), d ∈ A ∧ u ∈ N ∧ r = b (d • u) z - b u (d • z))} → (TensorProduct.tmul A m p : TensorProduct A N P) = 0",
+          "lean_name": "p05_ftzw_supported_relations_vanish_a5b449214a",
+          "depends_on": [],
+          "natural_proof": "1. Fix all the stated data and let R be the subgroup generated by T(A,N). Finite integer linear combinations of elements of T(A,N) form a subgroup: the empty sum gives zero, concatenation gives addition, and negating coefficients gives additive inverses. This subgroup contains T(A,N), and every subgroup containing T(A,N) contains these combinations. Hence it equals R. The hypothesis therefore gives a finite formal identity [m,p]=∑_{i=1}^n c_i r_i in G, where each c_i is an integer and each r_i has one of the five forms defining T(A,N). Choose such a form and its operands for each r_i.\n2. Put G_N=FreeAbelianGroup(N×P). Lift the first coordinates of the chosen relations to N. The zero-left relation lifts to [0,z], and a zero-right relation lifts to [ũ,0]. A first-coordinate additivity relation lifts to [ũ+ṽ,z]−[ũ,z]−[ṽ,z]; a second-coordinate additivity relation lifts to [ũ,z+w]−[ũ,z]−[ũ,w]. The required lifts exist because the chosen u and v belong to N and N is closed under addition and contains zero. For a balancing relation, d∈A gives a=⟨d,hd⟩ in A, and its lift is [a•ũ,z]−[ũ,a•z]. Restricted scalar actions give (a•ũ:M)=d•u and a•z=d•z. Thus all these lifted relations have precisely their chosen original forms after inclusion. Equalities between lifts follow from injectivity of subtype inclusion.\n3. The inclusion i:N×P→M×P induces an additive homomorphism J:G_N→G sending every pair generator to the generator of its included pair. If r̃_i denotes the lifted relation from step 2, then J(r̃_i)=r_i. Also J([m,p]) is the original [m,p] in G.\n4. The homomorphism J is injective. Indeed, write an element of G_N as its finitely supported integer coefficient function on N×P. Because i is injective, the coefficient of J(h) at i(t) is exactly the coefficient of h at t: no distinct pair contributes at i(t). Thus J(h)=0 implies that every coefficient of h is zero, and hence h=0. Applying this to the difference of any two elements proves injectivity.\n5. By step 1 and preservation of finite sums and integer multiples, J([m,p])=J(∑ c_i r̃_i). Injectivity yields [m,p]=∑ c_i r̃_i already in G_N. Evaluate a pair generator [n,z] as n⊗_A z, extending to an additive homomorphism G_N→N⊗_A P. The zero, additivity and A-balancing identities of the tensor product kill all five types of lifted relations from step 2. Therefore the right side evaluates to zero and the left side evaluates to m⊗_A p. This proves the required equality.",
+          "proof_key_steps": [
+            "Express membership in the supported relation subgroup as a finite integer combination.",
+            "Lift each zero, additivity and balancing relation using the submodule operations and restricted scalar actions.",
+            "Show that inclusion of pair generators induces an injective free-abelian-group map.",
+            "Use injectivity to lift the formal identity.",
+            "Evaluate in the smaller tensor product, where all lifted relations vanish."
+          ]
+        },
+        "audit": {
+          "key": "supported_relations_vanish",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly expresses all five supported relation families and the conclusion for m in N. Fresh Lean probes confirm the inferred A-actions are restrictions of the D-actions. The proof completely justifies finite integer combinations, each lifted relation, injectivity of the free-abelian inclusion through coefficients, transfer of the formal identity, and evaluation to zero. Submodule closure supplies zero, sums and scalar products; no membership hypothesis is missing. The proof uses neither sibling nor parent theorem, so its empty dependency list is correct. The bare name is unreserved."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1-supported-7947d24ba2/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1-supported-7947d24ba2/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1-supported-7947d24ba2/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.hopf_tensor_equalizer-a1.finite_tensor_zero_witness-a1.tensor_relation_kernel-a1",
+      "key": "tensor_relation_kernel",
+      "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1-tensor-re-acaf243b05-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/children/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1-tensor-re-acaf243b05",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "finite.*(tensor|tmul)|(tensor|tmul).*finite|FreeAbelianGroup|hopfKer_eq_of_surjective",
+              "map_injective|map_inj|lift_apply_of|induction_on|closure_induction|mem_closure|exists.*finset|closure.*finset",
+              "finite.*(tensor|tmul)|(tensor|tmul).*finite|ker.*closure|closure.*ker|FreeAbelianGroup",
+              "p05_ftzw_tensor_relation_kernel_a5b449214a|p05_ftzw_supported_relations_vanish_a5b449214a"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Defs.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/GroupTheory/FreeAbelianGroup.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/FreeAbelianGroup/Finsupp.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Group/Subgroup/Finsupp.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/decomposition-ftzw-diagnostics/report.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/decomposition-ftzw-diagnostics/challenge-types-instances-axioms.log"
+            ],
+            "conclusion": "Found the tensor relation presentation, TensorProduct.liftAddHom, finite integer combinations for subgroup closure, and free-abelian coefficient infrastructure. No exact match for either proposed helper was found; the vanishing criteria require additional generation or injectivity hypotheses. Both names remain unreserved. Project 2fdd42759f4ab17640ac773289b521dd69d4b26e, mathlib db584cd6d46c92f209a44c0f1c829460d327499d, and all nine dependencies passed clean-pin checks. Both literal types elaborate after import Submission in disposable compiler copies; explicit equality probes verify the restricted scalar instances. Fourteen infrastructure axiom checks use only propext, Classical.choice and Quot.sound. The diagnostic receipt validates policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, omission of only lines 10–11, reversible original/build hashes, and Lean-confirmed absence of all 13 targets. Protected inputs remain unchanged. These checks validate interfaces, not theorem acceptance."
+          }
+        ],
+        "parent_id": "root.hopf_tensor_equalizer-a1.finite_tensor_zero_witness-a1",
+        "child_id": "root.hopf_tensor_equalizer-a1.finite_tensor_zero_witness-a1.tensor_relation_kernel-a1",
+        "subproblem": {
+          "key": "tensor_relation_kernel",
+          "title": "Kernel presentation of a tensor product by additive relations",
+          "statement": "Let D be a commutative ring and let M and P be D-modules with additive commutative group structures. Write G = FreeAbelianGroup(M × P) and [u,z] for its pair generator. Let T consist of all [0,z], [u,0], [u+v,z]−[u,z]−[v,z], [u,z+w]−[u,z]−[u,w], and [d•u,z]−[u,d•z], with u,v in M, z,w in P, and d in D. Let E:G→M⊗_D P be the additive homomorphism sending [u,z] to u⊗_D z. Then ker E is the additive subgroup generated by T.",
+          "lean_statement": "∀ {D : Type*} [CommRing D] {M : Type*} [AddCommGroup M] [Module D M] {P : Type*} [AddCommGroup P] [Module D P], let b : M → P → FreeAbelianGroup (M × P) := fun u z => FreeAbelianGroup.of (u, z); (FreeAbelianGroup.lift (fun x : M × P => TensorProduct.tmul D x.1 x.2)).ker = AddSubgroup.closure {r : FreeAbelianGroup (M × P) | (∃ z : P, r = b 0 z) ∨ (∃ u : M, r = b u 0) ∨ (∃ (u v : M) (z : P), r = b (u + v) z - b u z - b v z) ∨ (∃ (u : M) (z w : P), r = b u (z + w) - b u z - b u w) ∨ (∃ (d : D) (u : M) (z : P), r = b (d • u) z - b u (d • z))}",
+          "lean_name": "p05_ftzw_tensor_relation_kernel_a5b449214a",
+          "depends_on": [],
+          "natural_proof": "1. Fix D, M and P as in the statement, and use its notation G, T and [u,z]. Let R be the additive subgroup generated by T. The universal property of the free abelian group gives the additive homomorphism E:G→M⊗_D P sending [u,z] to u⊗_D z.\n2. Every generator in T is killed by E. For the two zero forms this follows from 0⊗z=0 and u⊗0=0; for the two additivity forms it follows from additivity of the tensor in the indicated argument; for the balancing form it follows from (d•u)⊗z=u⊗(d•z). Since ker E is a subgroup containing T, R is contained in ker E.\n3. Form the quotient additive group Q=G/R with projection π. Set β(u,z)=π([u,z]). The first two types of generators give β(0,z)=0 and β(u,0)=0. The next two give β(u+v,z)=β(u,z)+β(v,z) and β(u,z+w)=β(u,z)+β(u,w). The last gives β(d•u,z)=β(u,d•z). Thus β is biadditive and D-balanced.\n4. These identities induce an additive homomorphism L:M⊗_D P→Q with L(u⊗z)=β(u,z). Explicitly, extend β to the free additive monoid on pairs by summation. Its values agree across the zero, additivity and balancing constructors of the pinned TensorProduct.Eqv by step 3; they agree across its commutativity constructor because Q is abelian. The map therefore factors through the defining additive-congruence quotient. This is precisely TensorProduct.liftAddHom in the pinned library.\n5. On each pair generator, (L∘E)([u,z])=π([u,z]). Additive homomorphisms out of a free abelian group are determined by generators, so L∘E=π on all of G: the equality extends to sums and additive inverses.\n6. If g belongs to ker E, then π(g)=L(E(g))=L(0)=0. The zero class of G/R is exactly R, so g belongs to R. Hence ker E is contained in R. Together with step 2, this proves the asserted equality ker E=AddSubgroup.closure T.",
+          "proof_key_steps": [
+            "Evaluate pair generators as pure tensors and show that every defining relation is killed.",
+            "In the quotient by the generated subgroup, pair classes form a biadditive balanced map.",
+            "Descend this map through the pinned tensor presentation to an additive map into the quotient.",
+            "Identify its composite with free-group evaluation as the quotient projection.",
+            "Use the kernel of the quotient projection to prove the reverse kernel inclusion."
+          ]
+        },
+        "audit": {
+          "key": "tensor_relation_kernel",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly matches the prose and includes every ring and module hypothesis. It elaborates independently without either proposed declaration. All six proof steps are valid: evaluation kills the generators; quotient pair classes are biadditive and balanced; liftAddHom supplies the additive descent; agreement on free generators identifies its composite with the quotient projection; the projection kernel proves the reverse inclusion. No quotient module structure or circular appeal is needed. The bare name is unreserved, and the empty dependency list is correct."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1-tensor-re-acaf243b05/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1-tensor-re-acaf243b05/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1-tensor-re-acaf243b05/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/task.md": "3dc73676a86d8d8b7e3880aaca4875ccb55e1f69c70e9ec1bcf6f20bc01755d2",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/problem.md": "2f45861732b83e16d4873caf0c9444a7fa00a4264a1ac5e1f1ff0e2204fedfa8",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/problem.json": "701bdd1174185b1e65ab66c2cd98b64493a189e8738d6a153e929d4a2054385b",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/reference-manifest.json": "6c786975eb0eef7173c81aff14a1b156236148918e2f72a647e0f1f06054c1c5",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/decomposition.json": "09fced5cb5f1e8d5a4452c65bff476509efd20b7a25343b6dbae19dfa749db4d",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/decomposition-audit.json": "6763f62ca6e3edbe3de09559a9f0bb6396f1b88c2714e454bdb46dae8efadd96",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/controller-contract.json": "d884e19cbcd0cfe69c6417511400aa04e303e937b236f051376ed445b0fe9900",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/children/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1-supported-7947d24ba2/parent-child-handoff.json": "946159f342acb6f92aa7cab30c24dcefce7529719e2b08654cb6ab0de3aad5d2",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/children/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1-supported-7947d24ba2/parent-supplied-plan.md": "a8600324fffa999932d83ec263664f02b016b897fa2dd4e9229e0ed83ee93294",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/children/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1-supported-7947d24ba2/parent-supplied-natural-proof.md": "dc39e684e8a807c09f7746a5cc2fe58d20b28464991c2b7a2e142ee140939d20",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/children/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1-supported-7947d24ba2/parent-supplied-natural-proof.json": "f15332a2327b8e39cb8c6ebd5e52d6ef386a7e2d9cb087f2c0002479ae84bdc7",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/children/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1-supported-7947d24ba2/node.json": "0faad9e0466befedd6a458f3cc6de0359fd26ff3a725c8d268aeea5ad081095d",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/children/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1-tensor-re-acaf243b05/parent-child-handoff.json": "6e524d8f35ddba7a274a8207b5f2694c34d405a3b76d8df5c67769292315107d",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/children/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1-tensor-re-acaf243b05/parent-supplied-plan.md": "9dd9a0325bb79e38025f1926e1ba6cedb09a0aaad7deb90f2f4d0927565619f1",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/children/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1-tensor-re-acaf243b05/parent-supplied-natural-proof.md": "e2497292df636942eb9140ad7a1b062731a139c42f2ba3f446a2a0b726305339",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/children/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1-tensor-re-acaf243b05/parent-supplied-natural-proof.json": "9c4a8f0e9e2e03d779a20b904c4b8e358bfa442a7631893aa18439ee3b5aac84",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/children/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1-tensor-re-acaf243b05/node.json": "66602c86bc80152fd688ca4b73d1b0740e2d70e05ec41875e9cce9034bffb9af"
+  }
+}
