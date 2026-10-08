@@ -1,0 +1,45 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "det_fromBlocks|det_submatrix_equiv|det_permute|det_eq_zero_of_row_eq_zero|det_eq_zero_of_column_eq_zero|fromBlocks.*submatrix|submatrix.*fromBlocks",
+        "p05_ibsrm_|reduce_minor|identity.*minor|minor.*identity|support.*fromBlocks|fromBlocks.*support",
+        "equivFin|orderIsoOfFin",
+        "\"lean_name\": \"(Submission\\.)?p05_ibsrm_(mismatched_support_zero|matching_support_blocks)_a5b449214a\""
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Submission.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Data/Matrix/Block.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Data/Finset/Sort.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/decomposition-v1.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p05-ibsrm-audit-9lislxhk/Checks.lean",
+        "/tmp/p05-ibsrm-audit-9lislxhk/Checks.lean.log",
+        "/tmp/p05-ibsrm-audit-9lislxhk/Absence.lean",
+        "/tmp/p05-ibsrm-audit-9lislxhk/binding.json"
+      ],
+      "conclusion": "Verified the manifest's project and mathlib revisions and clean tracked dependency pins. The support/minor search found no relevant match; inspected sources provide zero-row/column vanishing, determinant permutation and reindexing rules, block determinants, and ordered finite enumeration. Both exact child propositions independently elaborate without warnings before either child exists. Kernel-checked entry computations confirm matrix identity semantics; fromBlocks uses Matrix.of. Nine supporting declarations have only propext, Classical.choice and Quot.sound in their transitive axiom closures. Neither proposed name is reserved. The existing DAG is acyclic; adding these two independent depth-6 children preserves acyclicity with parent-to-child dependency edges. The split isolates genuine support and normal-form obligations, leaving standard determinant calculations to the parent. Independent disposable diagnostics verified the specified policy digest, reversible omission of exactly lines 10–11, original/build hashes, and absence of all 13 targets. Frozen artifacts remain unchanged. The inherited root sorry warning is not proof evidence; this audit approves the decomposition, not any Lean solution or comparator result."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "mismatched_support_zero",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The single-line proposition exactly matches all prose hypotheses and the determinant conclusion. Classical negation produces an index selected on exactly one side; the block entries then give a zero row or column. Each determinant product contains a zero factor, including the column case via the inverse permutation. Degenerate cases introduce no missing assumptions. The proof is complete, independent of both parent and sibling, and ready for formalization. The bare lean_name is unreserved, and the type requires no candidate declaration."
+    },
+    {
+      "key": "matching_support_blocks",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The single-line proposition exactly expresses the stated bounds, embeddings, equivalence directions, and matrix equality. The proof establishes the two selection bijections using injectivity and support equality, derives the cardinalities and truncated-subtraction identities, enumerates all three supports, and constructs er and ec by inverse selection. Its four entry computations prove precisely the required equality; using the same injective enumeration of S gives the identity block. Empty dimensions and the zero ring are covered. No circular dependency or deferred proof search occurs. The bare lean_name is unreserved, and the type independently elaborates without either child."
+    }
+  ],
+  "required_changes": []
+}

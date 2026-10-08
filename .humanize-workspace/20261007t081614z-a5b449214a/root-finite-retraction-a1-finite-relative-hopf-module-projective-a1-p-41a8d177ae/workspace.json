@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081614Z-a5b449214a",
+  "parent_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.presentation_ideals_eq-a1.identity_block_stabilization-a1.reduce_minor-a1",
+  "dispatch_branch": "proof-workspace/fermat-p05/20261007t081614z-a5b449214a/dispatch/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae",
+  "source_commit": "6491d15478e299b17d68d53e2ad429297113ad19",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.presentation_ideals_eq-a1.identity_block_stabilization-a1.reduce_minor-a1.matching_support_blocks-a1",
+      "key": "matching_support_blocks",
+      "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-c687415cc8-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/children/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-c687415cc8",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "det_fromBlocks|det_submatrix_equiv|det_permute|det_eq_zero_of_row_eq_zero|det_eq_zero_of_column_eq_zero|fromBlocks.*submatrix|submatrix.*fromBlocks",
+              "p05_ibsrm_|reduce_minor|equivFin|orderIsoOfFin",
+              "identity.*minor|minor.*identity|support.*fromBlocks|fromBlocks.*support|p05_ibsrm_"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Submission.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Data/Matrix/Block.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Data/Finset/Sort.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json",
+              "/runtime/operator-header-policy-v1/policy.json",
+              "/tmp/p05-ibsrm-types-eqdyysp9/Types.lean",
+              "/tmp/p05-ibsrm-types-eqdyysp9/Types.lean.log",
+              "/tmp/p05-ibsrm-types-eqdyysp9/binding.json"
+            ],
+            "conclusion": "The snapshots match project revision 2fdd42759f4ab17640ac773289b521dd69d4b26e and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d; their tracked files and all nine installed dependency pins checked clean. The support/minor search found no matching theorem for the queried spellings. Inspected sources supply zero-row and zero-column determinant lemmas, permutation signs, simultaneous reindexing invariance, block determinant evaluation, and finite ordered enumeration. Both proposed types elaborate without warnings after import Submission from frozen proof base ece9f4a43483cf83ab2a417a07107d2da5436ffa. Entrywise checks confirm the matrix identity instance, and fromBlocks explicitly uses Matrix.of. Eight supporting declarations have transitive axiom closures containing only propext, Classical.choice and Quot.sound. Both proposed names remain unreserved. Disposable compilation verified policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, omitted only approved lines 10–11, and passed absence probes for all 13 targets. Exact omitted lines, reversible original/build hashes and check results are recorded in binding.json. The frozen proof base, contract, problem, header and handoff were preserved; a concurrent clean project advance was recorded separately. These checks establish interface compatibility, not comparator acceptance of either proposed theorem."
+          }
+        ],
+        "parent_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.presentation_ideals_eq-a1.identity_block_stabilization-a1.reduce_minor-a1",
+        "child_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.presentation_ideals_eq-a1.identity_block_stabilization-a1.reduce_minor-a1.matching_support_blocks-a1",
+        "subproblem": {
+          "key": "matching_support_blocks",
+          "title": "Matching identity supports give a block-diagonal normal form",
+          "statement": "Let R be a commutative ring, let n,p,t,d be natural numbers, let P be a matrix with rows Fin n and columns Fin p over R, and let rows:Fin d ↪ (Fin n ⊕ Fin t) and cols:Fin d ↪ (Fin p ⊕ Fin t) be embeddings. Assume that for every a in Fin t, some rows(i) equals inr(a) if and only if some cols(j) equals inr(a). Put E=diag(P,I_t) and M=E[rows,cols]. There exist a natural number l≤t with l≤d, embeddings rows':Fin(d−l) ↪ Fin n and cols':Fin(d−l) ↪ Fin p, and equivalences er,ec:(Fin(d−l) ⊕ Fin l) ≃ Fin d such that M[er,ec]=diag(P[rows',cols'],I_l). Subtraction is truncated; zero dimensions and the zero ring are allowed.",
+          "lean_statement": "∀ {R : Type*} [CommRing R] (n p t d : ℕ) (P : Matrix (Fin n) (Fin p) R) (rows : Fin d ↪ (Fin n ⊕ Fin t)) (cols : Fin d ↪ (Fin p ⊕ Fin t)) (_h : ∀ a : Fin t, (∃ i : Fin d, rows i = Sum.inr a) ↔ (∃ j : Fin d, cols j = Sum.inr a)), ∃ l : ℕ, l ≤ t ∧ l ≤ d ∧ ∃ (rows' : Fin (d - l) ↪ Fin n) (cols' : Fin (d - l) ↪ Fin p) (er ec : (Fin (d - l) ⊕ Fin l) ≃ Fin d), ((Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R)).submatrix rows cols).submatrix er ec = Matrix.fromBlocks (P.submatrix rows' cols') 0 0 (1 : Matrix (Fin l) (Fin l) R)",
+          "lean_name": "p05_ibsrm_matching_support_blocks_a5b449214a",
+          "depends_on": [],
+          "natural_proof": "1. Define finite subsets A={a in Fin n | ∃i, rows(i)=inl(a)}, B={b in Fin p | ∃j, cols(j)=inl(b)}, and S={a in Fin t | ∃i, rows(i)=inr(a)}. The support hypothesis also identifies S with {a in Fin t | ∃j, cols(j)=inr(a)}.\n2. Sending a row position i to its selected ambient index, in A for an old index or in S for a new index, gives a bijection br:Fin d→A⊕S. Indeed, every position has exactly one of these forms; equal outputs imply equal ambient row indices and hence equal positions by injectivity of rows; every element of A or S has a preimage by its defining membership. Likewise the column selection gives a bijection bc:Fin d→B⊕S: injectivity follows from cols, old-column surjectivity follows from the definition of B, and new-column surjectivity follows from the support hypothesis.\n3. Set l=|S|. Since S is a subset of Fin t, l≤t. Counting the two bijections gives d=|A|+l and d=|B|+l. Hence l≤d. Set q=d−l; these equalities give |A|=q, |B|=q and q+l=d, including when one of these numbers is zero.\n4. List A and B in increasing order to obtain bijections α:Fin q→A and β:Fin q→B; list S in increasing order to obtain a bijection γ:Fin l→S. Such lists exist for every finite subset of a finite linear order and contain each element exactly once. Composing α and β with the inclusions into Fin n and Fin p gives embeddings rows' and cols'. Write s:Fin l→Fin t for γ followed by inclusion; s is injective.\n5. Define er=br⁻¹∘(α⊕γ) and ec=bc⁻¹∘(β⊕γ). These are equivalences from Fin q⊕Fin l to Fin d because both factors in each composite are bijections. Their defining identities are rows(er(inl i))=inl(rows'(i)), rows(er(inr a))=inr(s(a)), cols(ec(inl j))=inl(cols'(j)), and cols(ec(inr b))=inr(s(b)).\n6. Let N=M[er,ec] and C=P[rows',cols']. The identities in step 5 show that N(inl i,inl j)=C(i,j), N(inl i,inr b)=0, and N(inr a,inl j)=0 by the three corresponding blocks of E. The remaining entry is N(inr a,inr b)=I_t(s(a),s(b)). Since s is injective, s(a)=s(b) if and only if a=b, so this entry equals I_l(a,b). This equality of Kronecker-delta expressions is valid in every commutative ring, including the zero ring.\n7. Every row and column index of N belongs to one of the two summands, so the four entry computations prove N=diag(C,I_l) by matrix extensionality. The number l, bounds from step 3, embeddings from step 4 and equivalences from step 5 are the required witnesses. Empty enumerations and empty blocks satisfy the same constructions, so no separate nonempty hypothesis is needed.",
+          "proof_key_steps": [
+            "Identify the common selected identity support S and the old row and column supports A and B.",
+            "Build bijections Fin d≃A⊕S and Fin d≃B⊕S using the embedding hypotheses.",
+            "Count l=|S| and q=d−l, proving the bounds and |A|=|B|=q.",
+            "Enumerate A, B and S, using the same enumeration of S on both sides.",
+            "Compose these enumerations with the inverse selection bijections to construct er and ec.",
+            "Check the four blocks entrywise and use injectivity of the common enumeration to identify the identity block."
+          ]
+        },
+        "audit": {
+          "key": "matching_support_blocks",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The single-line proposition exactly expresses the stated bounds, embeddings, equivalence directions, and matrix equality. The proof establishes the two selection bijections using injectivity and support equality, derives the cardinalities and truncated-subtraction identities, enumerates all three supports, and constructs er and ec by inverse selection. Its four entry computations prove precisely the required equality; using the same injective enumeration of S gives the identity block. Empty dimensions and the zero ring are covered. No circular dependency or deferred proof search occurs. The bare lean_name is unreserved, and the type independently elaborates without either child."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-c687415cc8/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-c687415cc8/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-c687415cc8/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.presentation_ideals_eq-a1.identity_block_stabilization-a1.reduce_minor-a1.mismatched_support_zero-a1",
+      "key": "mismatched_support_zero",
+      "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-a96bdfbb52-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/children/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-a96bdfbb52",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "det_fromBlocks|det_submatrix_equiv|det_permute|det_eq_zero_of_row_eq_zero|det_eq_zero_of_column_eq_zero|fromBlocks.*submatrix|submatrix.*fromBlocks",
+              "p05_ibsrm_|reduce_minor|equivFin|orderIsoOfFin",
+              "identity.*minor|minor.*identity|support.*fromBlocks|fromBlocks.*support|p05_ibsrm_"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Submission.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Data/Matrix/Block.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Data/Finset/Sort.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json",
+              "/runtime/operator-header-policy-v1/policy.json",
+              "/tmp/p05-ibsrm-types-eqdyysp9/Types.lean",
+              "/tmp/p05-ibsrm-types-eqdyysp9/Types.lean.log",
+              "/tmp/p05-ibsrm-types-eqdyysp9/binding.json"
+            ],
+            "conclusion": "The snapshots match project revision 2fdd42759f4ab17640ac773289b521dd69d4b26e and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d; their tracked files and all nine installed dependency pins checked clean. The support/minor search found no matching theorem for the queried spellings. Inspected sources supply zero-row and zero-column determinant lemmas, permutation signs, simultaneous reindexing invariance, block determinant evaluation, and finite ordered enumeration. Both proposed types elaborate without warnings after import Submission from frozen proof base ece9f4a43483cf83ab2a417a07107d2da5436ffa. Entrywise checks confirm the matrix identity instance, and fromBlocks explicitly uses Matrix.of. Eight supporting declarations have transitive axiom closures containing only propext, Classical.choice and Quot.sound. Both proposed names remain unreserved. Disposable compilation verified policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, omitted only approved lines 10–11, and passed absence probes for all 13 targets. Exact omitted lines, reversible original/build hashes and check results are recorded in binding.json. The frozen proof base, contract, problem, header and handoff were preserved; a concurrent clean project advance was recorded separately. These checks establish interface compatibility, not comparator acceptance of either proposed theorem."
+          }
+        ],
+        "parent_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.presentation_ideals_eq-a1.identity_block_stabilization-a1.reduce_minor-a1",
+        "child_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.presentation_ideals_eq-a1.identity_block_stabilization-a1.reduce_minor-a1.mismatched_support_zero-a1",
+        "subproblem": {
+          "key": "mismatched_support_zero",
+          "title": "Unequal identity supports force a zero minor",
+          "statement": "Let R be a commutative ring, let n,p,t,d be natural numbers, let P be a matrix with rows Fin n and columns Fin p over R, and let rows:Fin d ↪ (Fin n ⊕ Fin t) and cols:Fin d ↪ (Fin p ⊕ Fin t) be embeddings. Put E=diag(P,I_t). Assume it is not the case that, for every a in Fin t, the predicates (∃i, rows(i)=inr(a)) and (∃j, cols(j)=inr(a)) are equivalent. Then det(E[rows,cols])=0.",
+          "lean_statement": "∀ {R : Type*} [CommRing R] (n p t d : ℕ) (P : Matrix (Fin n) (Fin p) R) (rows : Fin d ↪ (Fin n ⊕ Fin t)) (cols : Fin d ↪ (Fin p ⊕ Fin t)) (_h : ¬ (∀ a : Fin t, (∃ i : Fin d, rows i = Sum.inr a) ↔ (∃ j : Fin d, cols j = Sum.inr a))), Matrix.det ((Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R)).submatrix rows cols) = 0",
+          "lean_name": "p05_ibsrm_mismatched_support_zero_a5b449214a",
+          "depends_on": [],
+          "natural_proof": "1. Put M=E[rows,cols], and let S and T be the subsets of Fin t consisting of the identity indices selected by rows and cols, respectively. The hypothesis says that membership in S and T is not equivalent for every index. By classical logic there is an index a belonging to exactly one of S and T.\n2. Suppose a belongs to S but not T. Choose i in Fin d with rows(i)=inr(a). For any j in Fin d, if cols(j)=inl(b), then M(i,j)=0 by the lower-left zero block. If cols(j)=inr(b), then b≠a, since otherwise a would belong to T. The identity-block entry at (a,b) is therefore zero. Thus every entry in row i of M is zero.\n3. In the determinant formula det M=Σσ sign(σ)∏k M(k,σ(k)), every product contains M(i,σ(i))=0. Every summand is zero, so det M=0 in this case.\n4. Suppose instead a belongs to T but not S. Choose j in Fin d with cols(j)=inr(a). For each i, an old row gives M(i,j)=0 by the upper-right zero block; a new row rows(i)=inr(b) has b≠a, because a is absent from S, and its identity-block entry is also zero. Thus column j is zero. For each determinant permutation σ, the factor indexed by k=σ⁻¹(j) is M(k,j)=0, so again every summand vanishes and det M=0.\n5. These two cases exhaust the witness from step 1 and prove the conclusion. No nontriviality or positivity assumption was used; if d=0 or t=0, the mismatch hypothesis itself is impossible.",
+          "proof_key_steps": [
+            "Extract an identity index selected on exactly one side.",
+            "A row-only identity index gives a zero row; a column-only identity index gives a zero column.",
+            "Every product in the determinant expansion contains an entry from that zero row or column."
+          ]
+        },
+        "audit": {
+          "key": "mismatched_support_zero",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The single-line proposition exactly matches all prose hypotheses and the determinant conclusion. Classical negation produces an index selected on exactly one side; the block entries then give a zero row or column. Each determinant product contains a zero factor, including the column case via the inverse permutation. Degenerate cases introduce no missing assumptions. The proof is complete, independent of both parent and sibling, and ready for formalization. The bare lean_name is unreserved, and the type requires no candidate declaration."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-a96bdfbb52/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-a96bdfbb52/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-a96bdfbb52/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/task.md": "3dc73676a86d8d8b7e3880aaca4875ccb55e1f69c70e9ec1bcf6f20bc01755d2",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/problem.md": "2f45861732b83e16d4873caf0c9444a7fa00a4264a1ac5e1f1ff0e2204fedfa8",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/problem.json": "701bdd1174185b1e65ab66c2cd98b64493a189e8738d6a153e929d4a2054385b",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/reference-manifest.json": "6c786975eb0eef7173c81aff14a1b156236148918e2f72a647e0f1f06054c1c5",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/decomposition.json": "a2a1e23657e88ce980b3d0b254af9e7daa523331e0f6173396e608bf6d8fa959",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/decomposition-audit.json": "1c44b25d373da5c342970ea15c146c6b82529a68a7ea6748ca8f43e7ba682d33",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/controller-contract.json": "d884e19cbcd0cfe69c6417511400aa04e303e937b236f051376ed445b0fe9900",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/children/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-c687415cc8/parent-child-handoff.json": "7d814538252a93799e47dbdbd142a3c8372b3c1e310c38071dab495142b30612",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/children/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-c687415cc8/parent-supplied-plan.md": "e210e53ff3b4a04680393ec627135b443142655dcd504ee27ee4a404a462d855",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/children/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-c687415cc8/parent-supplied-natural-proof.md": "982d691eae164bffd96cfc67feb071dbcc69d7dc31b0f06c9be0ba29c71943ad",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/children/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-c687415cc8/parent-supplied-natural-proof.json": "b33a3ca176f41dff00d71f38798c4c70571cd8a9068f44dde3b1b317ae8a704a",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/children/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-c687415cc8/node.json": "7096f7c42e34e8e7d81582fae4861ef82d4fa5fd3dde94d9f89415cd4b1b402a",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/children/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-a96bdfbb52/parent-child-handoff.json": "ee3bb8a3ba04b58c4ab639dbdae592ac888c36aa443b9c2f8500586c7b84a1a6",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/children/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-a96bdfbb52/parent-supplied-plan.md": "e8e22ba07cf42023872fa83848f8cc3f915eeabba2b2b819c8ae5324a009d0a5",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/children/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-a96bdfbb52/parent-supplied-natural-proof.md": "e699bb91c96f2ac851c4d3edc799bf3e36eab789ac3743f4f5565e63714a5592",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/children/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-a96bdfbb52/parent-supplied-natural-proof.json": "06f6c2b7193ff87753de8e0098840d6a6d7dce26f55a0e9e6f69216e2ad22492",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/children/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-a96bdfbb52/node.json": "666b40019b91733d281d7c980eeddda537ad7eff21aad2fa304ace44bd06861c"
+  }
+}

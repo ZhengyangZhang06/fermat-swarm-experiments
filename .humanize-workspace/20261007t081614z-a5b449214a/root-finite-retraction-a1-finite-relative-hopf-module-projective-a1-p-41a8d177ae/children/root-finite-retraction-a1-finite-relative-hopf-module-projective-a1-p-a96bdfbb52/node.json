@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.presentation_ideals_eq-a1.identity_block_stabilization-a1.reduce_minor-a1.mismatched_support_zero-a1",
+  "parent_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.presentation_ideals_eq-a1.identity_block_stabilization-a1.reduce_minor-a1",
+  "depth": 6,
+  "title": "Unequal identity supports force a zero minor",
+  "statement": "Let R be a commutative ring, let n,p,t,d be natural numbers, let P be a matrix with rows Fin n and columns Fin p over R, and let rows:Fin d ↪ (Fin n ⊕ Fin t) and cols:Fin d ↪ (Fin p ⊕ Fin t) be embeddings. Put E=diag(P,I_t). Assume it is not the case that, for every a in Fin t, the predicates (∃i, rows(i)=inr(a)) and (∃j, cols(j)=inr(a)) are equivalent. Then det(E[rows,cols])=0.",
+  "lean_statement": "∀ {R : Type*} [CommRing R] (n p t d : ℕ) (P : Matrix (Fin n) (Fin p) R) (rows : Fin d ↪ (Fin n ⊕ Fin t)) (cols : Fin d ↪ (Fin p ⊕ Fin t)) (_h : ¬ (∀ a : Fin t, (∃ i : Fin d, rows i = Sum.inr a) ↔ (∃ j : Fin d, cols j = Sum.inr a))), Matrix.det ((Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R)).submatrix rows cols) = 0",
+  "lean_name": "p05_ibsrm_mismatched_support_zero_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-a96bdfbb52-a1"
+}

@@ -1,0 +1,61 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "det_fromBlocks|det_submatrix_equiv|det_permute|det_eq_zero_of_row_eq_zero|det_eq_zero_of_column_eq_zero|fromBlocks.*submatrix|submatrix.*fromBlocks",
+        "p05_ibsrm_|reduce_minor|equivFin|orderIsoOfFin",
+        "identity.*minor|minor.*identity|support.*fromBlocks|fromBlocks.*support|p05_ibsrm_"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Submission.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Data/Matrix/Block.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Data/Finset/Sort.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p05-ibsrm-types-eqdyysp9/Types.lean",
+        "/tmp/p05-ibsrm-types-eqdyysp9/Types.lean.log",
+        "/tmp/p05-ibsrm-types-eqdyysp9/binding.json"
+      ],
+      "conclusion": "The snapshots match project revision 2fdd42759f4ab17640ac773289b521dd69d4b26e and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d; their tracked files and all nine installed dependency pins checked clean. The support/minor search found no matching theorem for the queried spellings. Inspected sources supply zero-row and zero-column determinant lemmas, permutation signs, simultaneous reindexing invariance, block determinant evaluation, and finite ordered enumeration. Both proposed types elaborate without warnings after import Submission from frozen proof base ece9f4a43483cf83ab2a417a07107d2da5436ffa. Entrywise checks confirm the matrix identity instance, and fromBlocks explicitly uses Matrix.of. Eight supporting declarations have transitive axiom closures containing only propext, Classical.choice and Quot.sound. Both proposed names remain unreserved. Disposable compilation verified policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, omitted only approved lines 10–11, and passed absence probes for all 13 targets. Exact omitted lines, reversible original/build hashes and check results are recorded in binding.json. The frozen proof base, contract, problem, header and handoff were preserved; a concurrent clean project advance was recorded separately. These checks establish interface compatibility, not comparator acceptance of either proposed theorem."
+    }
+  ],
+  "should_split": true,
+  "rationale": "Split into two independent reusable obligations: a support obstruction forcing vanishing, and a finite-index block normal form under matching supports. The latter proves a matrix identity without restating the parent's determinant conclusion. Existing determinant lemmas then give det C = ε det M with ε = ±1; multiplying by ε yields the required signed equality. The current depth is 5, so these children reach the permitted limit 6.",
+  "subproblems": [
+    {
+      "key": "mismatched_support_zero",
+      "title": "Unequal identity supports force a zero minor",
+      "statement": "Let R be a commutative ring, let n,p,t,d be natural numbers, let P be a matrix with rows Fin n and columns Fin p over R, and let rows:Fin d ↪ (Fin n ⊕ Fin t) and cols:Fin d ↪ (Fin p ⊕ Fin t) be embeddings. Put E=diag(P,I_t). Assume it is not the case that, for every a in Fin t, the predicates (∃i, rows(i)=inr(a)) and (∃j, cols(j)=inr(a)) are equivalent. Then det(E[rows,cols])=0.",
+      "lean_statement": "∀ {R : Type*} [CommRing R] (n p t d : ℕ) (P : Matrix (Fin n) (Fin p) R) (rows : Fin d ↪ (Fin n ⊕ Fin t)) (cols : Fin d ↪ (Fin p ⊕ Fin t)) (_h : ¬ (∀ a : Fin t, (∃ i : Fin d, rows i = Sum.inr a) ↔ (∃ j : Fin d, cols j = Sum.inr a))), Matrix.det ((Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R)).submatrix rows cols) = 0",
+      "lean_name": "p05_ibsrm_mismatched_support_zero_a5b449214a",
+      "depends_on": [],
+      "natural_proof": "1. Put M=E[rows,cols], and let S and T be the subsets of Fin t consisting of the identity indices selected by rows and cols, respectively. The hypothesis says that membership in S and T is not equivalent for every index. By classical logic there is an index a belonging to exactly one of S and T.\n2. Suppose a belongs to S but not T. Choose i in Fin d with rows(i)=inr(a). For any j in Fin d, if cols(j)=inl(b), then M(i,j)=0 by the lower-left zero block. If cols(j)=inr(b), then b≠a, since otherwise a would belong to T. The identity-block entry at (a,b) is therefore zero. Thus every entry in row i of M is zero.\n3. In the determinant formula det M=Σσ sign(σ)∏k M(k,σ(k)), every product contains M(i,σ(i))=0. Every summand is zero, so det M=0 in this case.\n4. Suppose instead a belongs to T but not S. Choose j in Fin d with cols(j)=inr(a). For each i, an old row gives M(i,j)=0 by the upper-right zero block; a new row rows(i)=inr(b) has b≠a, because a is absent from S, and its identity-block entry is also zero. Thus column j is zero. For each determinant permutation σ, the factor indexed by k=σ⁻¹(j) is M(k,j)=0, so again every summand vanishes and det M=0.\n5. These two cases exhaust the witness from step 1 and prove the conclusion. No nontriviality or positivity assumption was used; if d=0 or t=0, the mismatch hypothesis itself is impossible.",
+      "proof_key_steps": [
+        "Extract an identity index selected on exactly one side.",
+        "A row-only identity index gives a zero row; a column-only identity index gives a zero column.",
+        "Every product in the determinant expansion contains an entry from that zero row or column."
+      ]
+    },
+    {
+      "key": "matching_support_blocks",
+      "title": "Matching identity supports give a block-diagonal normal form",
+      "statement": "Let R be a commutative ring, let n,p,t,d be natural numbers, let P be a matrix with rows Fin n and columns Fin p over R, and let rows:Fin d ↪ (Fin n ⊕ Fin t) and cols:Fin d ↪ (Fin p ⊕ Fin t) be embeddings. Assume that for every a in Fin t, some rows(i) equals inr(a) if and only if some cols(j) equals inr(a). Put E=diag(P,I_t) and M=E[rows,cols]. There exist a natural number l≤t with l≤d, embeddings rows':Fin(d−l) ↪ Fin n and cols':Fin(d−l) ↪ Fin p, and equivalences er,ec:(Fin(d−l) ⊕ Fin l) ≃ Fin d such that M[er,ec]=diag(P[rows',cols'],I_l). Subtraction is truncated; zero dimensions and the zero ring are allowed.",
+      "lean_statement": "∀ {R : Type*} [CommRing R] (n p t d : ℕ) (P : Matrix (Fin n) (Fin p) R) (rows : Fin d ↪ (Fin n ⊕ Fin t)) (cols : Fin d ↪ (Fin p ⊕ Fin t)) (_h : ∀ a : Fin t, (∃ i : Fin d, rows i = Sum.inr a) ↔ (∃ j : Fin d, cols j = Sum.inr a)), ∃ l : ℕ, l ≤ t ∧ l ≤ d ∧ ∃ (rows' : Fin (d - l) ↪ Fin n) (cols' : Fin (d - l) ↪ Fin p) (er ec : (Fin (d - l) ⊕ Fin l) ≃ Fin d), ((Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R)).submatrix rows cols).submatrix er ec = Matrix.fromBlocks (P.submatrix rows' cols') 0 0 (1 : Matrix (Fin l) (Fin l) R)",
+      "lean_name": "p05_ibsrm_matching_support_blocks_a5b449214a",
+      "depends_on": [],
+      "natural_proof": "1. Define finite subsets A={a in Fin n | ∃i, rows(i)=inl(a)}, B={b in Fin p | ∃j, cols(j)=inl(b)}, and S={a in Fin t | ∃i, rows(i)=inr(a)}. The support hypothesis also identifies S with {a in Fin t | ∃j, cols(j)=inr(a)}.\n2. Sending a row position i to its selected ambient index, in A for an old index or in S for a new index, gives a bijection br:Fin d→A⊕S. Indeed, every position has exactly one of these forms; equal outputs imply equal ambient row indices and hence equal positions by injectivity of rows; every element of A or S has a preimage by its defining membership. Likewise the column selection gives a bijection bc:Fin d→B⊕S: injectivity follows from cols, old-column surjectivity follows from the definition of B, and new-column surjectivity follows from the support hypothesis.\n3. Set l=|S|. Since S is a subset of Fin t, l≤t. Counting the two bijections gives d=|A|+l and d=|B|+l. Hence l≤d. Set q=d−l; these equalities give |A|=q, |B|=q and q+l=d, including when one of these numbers is zero.\n4. List A and B in increasing order to obtain bijections α:Fin q→A and β:Fin q→B; list S in increasing order to obtain a bijection γ:Fin l→S. Such lists exist for every finite subset of a finite linear order and contain each element exactly once. Composing α and β with the inclusions into Fin n and Fin p gives embeddings rows' and cols'. Write s:Fin l→Fin t for γ followed by inclusion; s is injective.\n5. Define er=br⁻¹∘(α⊕γ) and ec=bc⁻¹∘(β⊕γ). These are equivalences from Fin q⊕Fin l to Fin d because both factors in each composite are bijections. Their defining identities are rows(er(inl i))=inl(rows'(i)), rows(er(inr a))=inr(s(a)), cols(ec(inl j))=inl(cols'(j)), and cols(ec(inr b))=inr(s(b)).\n6. Let N=M[er,ec] and C=P[rows',cols']. The identities in step 5 show that N(inl i,inl j)=C(i,j), N(inl i,inr b)=0, and N(inr a,inl j)=0 by the three corresponding blocks of E. The remaining entry is N(inr a,inr b)=I_t(s(a),s(b)). Since s is injective, s(a)=s(b) if and only if a=b, so this entry equals I_l(a,b). This equality of Kronecker-delta expressions is valid in every commutative ring, including the zero ring.\n7. Every row and column index of N belongs to one of the two summands, so the four entry computations prove N=diag(C,I_l) by matrix extensionality. The number l, bounds from step 3, embeddings from step 4 and equivalences from step 5 are the required witnesses. Empty enumerations and empty blocks satisfy the same constructions, so no separate nonempty hypothesis is needed.",
+      "proof_key_steps": [
+        "Identify the common selected identity support S and the old row and column supports A and B.",
+        "Build bijections Fin d≃A⊕S and Fin d≃B⊕S using the embedding hypotheses.",
+        "Count l=|S| and q=d−l, proving the bounds and |A|=|B|=q.",
+        "Enumerate A, B and S, using the same enumeration of S on both sides.",
+        "Compose these enumerations with the inverse selection bijections to construct er and ec.",
+        "Check the four blocks entrywise and use injectivity of the common enumeration to identify the identity block."
+      ]
+    }
+  ]
+}

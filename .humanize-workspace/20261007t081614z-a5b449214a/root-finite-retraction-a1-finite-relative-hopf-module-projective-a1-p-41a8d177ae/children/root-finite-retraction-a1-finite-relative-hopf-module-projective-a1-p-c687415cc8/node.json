@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.presentation_ideals_eq-a1.identity_block_stabilization-a1.reduce_minor-a1.matching_support_blocks-a1",
+  "parent_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.presentation_ideals_eq-a1.identity_block_stabilization-a1.reduce_minor-a1",
+  "depth": 6,
+  "title": "Matching identity supports give a block-diagonal normal form",
+  "statement": "Let R be a commutative ring, let n,p,t,d be natural numbers, let P be a matrix with rows Fin n and columns Fin p over R, and let rows:Fin d ↪ (Fin n ⊕ Fin t) and cols:Fin d ↪ (Fin p ⊕ Fin t) be embeddings. Assume that for every a in Fin t, some rows(i) equals inr(a) if and only if some cols(j) equals inr(a). Put E=diag(P,I_t) and M=E[rows,cols]. There exist a natural number l≤t with l≤d, embeddings rows':Fin(d−l) ↪ Fin n and cols':Fin(d−l) ↪ Fin p, and equivalences er,ec:(Fin(d−l) ⊕ Fin l) ≃ Fin d such that M[er,ec]=diag(P[rows',cols'],I_l). Subtraction is truncated; zero dimensions and the zero ring are allowed.",
+  "lean_statement": "∀ {R : Type*} [CommRing R] (n p t d : ℕ) (P : Matrix (Fin n) (Fin p) R) (rows : Fin d ↪ (Fin n ⊕ Fin t)) (cols : Fin d ↪ (Fin p ⊕ Fin t)) (_h : ∀ a : Fin t, (∃ i : Fin d, rows i = Sum.inr a) ↔ (∃ j : Fin d, cols j = Sum.inr a)), ∃ l : ℕ, l ≤ t ∧ l ≤ d ∧ ∃ (rows' : Fin (d - l) ↪ Fin n) (cols' : Fin (d - l) ↪ Fin p) (er ec : (Fin (d - l) ⊕ Fin l) ≃ Fin d), ((Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R)).submatrix rows cols).submatrix er ec = Matrix.fromBlocks (P.submatrix rows' cols') 0 0 (1 : Matrix (Fin l) (Fin l) R)",
+  "lean_name": "p05_ibsrm_matching_support_blocks_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-c687415cc8-a1"
+}
