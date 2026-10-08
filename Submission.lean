@@ -169,25 +169,6 @@ theorem p02_es_177ebb5a_ic_lmd_scalar_pullback
   simpa only [Function.comp_def, UpperHalfPlane.ofComplex_apply, mul_one_div] using
     hh.comp_of_eq (τ : ℂ) hσ (by simp only [UpperHalfPlane.ofComplex_apply])
 
-theorem p02_es_177ebb5a_ic_linear_mobius_derivative
-    (n : ℕ)
-    (A : ↥(HeckeEis.BinaryForm ℂ n) →ₗ[ℂ] ↥(HeckeEis.BinaryForm ℂ n))
-    (F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n))
-    (P : ↥(HeckeEis.BinaryForm ℂ n))
-    (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (τ : UpperHalfPlane)
-    (hF : ∀ d : Fin 2 →₀ ℕ,
-      HasDerivAt (fun z : ℂ => MvPolynomial.coeff d (F (UpperHalfPlane.ofComplex z)).val)
-        (MvPolynomial.coeff d P.val) ((σ • τ : UpperHalfPlane) : ℂ)) :
-    ∀ e : Fin 2 →₀ ℕ,
-      HasDerivAt
-        (fun z : ℂ => MvPolynomial.coeff e (A (F (σ • UpperHalfPlane.ofComplex z))).val)
-        (MvPolynomial.coeff e (A P).val / (HeckeEis.jFactor σ τ) ^ 2) (τ : ℂ) := by
-  intro e
-  exact p02_es_177ebb5a_ic_lmd_scalar_pullback
-    (fun w => MvPolynomial.coeff e (A (F w)).val)
-    (MvPolynomial.coeff e (A P).val) σ τ
-    (Submission.p02_es_177ebb5a_ic_lmd_linear_coeff n A F P (σ • τ) hF e)
-
 end Submission
 
 /-- Each output coefficient of a linear map is a fixed linear combination of input coefficients. -/
@@ -236,3 +217,26 @@ theorem Submission.p02_es_177ebb5a_ic_lmd_linear_coeff
   obtain ⟨c, hc⟩ := Submission.p02_es_177ebb5a_ic_lct_coeff_linear_combination n A e
   simp_rw [hc]
   exact HasDerivAt.fun_sum fun r _ => (h _).const_mul (c r)
+
+namespace Submission
+
+theorem p02_es_177ebb5a_ic_linear_mobius_derivative
+    (n : ℕ)
+    (A : ↥(HeckeEis.BinaryForm ℂ n) →ₗ[ℂ] ↥(HeckeEis.BinaryForm ℂ n))
+    (F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n))
+    (P : ↥(HeckeEis.BinaryForm ℂ n))
+    (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (τ : UpperHalfPlane)
+    (hF : ∀ d : Fin 2 →₀ ℕ,
+      HasDerivAt (fun z : ℂ => MvPolynomial.coeff d (F (UpperHalfPlane.ofComplex z)).val)
+        (MvPolynomial.coeff d P.val) ((σ • τ : UpperHalfPlane) : ℂ)) :
+    ∀ e : Fin 2 →₀ ℕ,
+      HasDerivAt
+        (fun z : ℂ => MvPolynomial.coeff e (A (F (σ • UpperHalfPlane.ofComplex z))).val)
+        (MvPolynomial.coeff e (A P).val / (HeckeEis.jFactor σ τ) ^ 2) (τ : ℂ) := by
+  intro e
+  exact p02_es_177ebb5a_ic_lmd_scalar_pullback
+    (fun w => MvPolynomial.coeff e (A (F w)).val)
+    (MvPolynomial.coeff e (A P).val) σ τ
+    (Submission.p02_es_177ebb5a_ic_lmd_linear_coeff n A F P (σ • τ) hF e)
+
+end Submission
