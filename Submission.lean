@@ -6111,3 +6111,59 @@ theorem p05_fr_rhm_coaction_twist_a5b449214a :
     simp only [add_smul, map_add, hs₁, hs₂]
 
 end Submission
+
+theorem Submission.p05_umgi_minor_reconstruction_a5b449214a
+    {R : Type*} [CommRing R] (n p d : ℕ) (P : Matrix (Fin n) (Fin p) R)
+    (rows : Fin d ↪ Fin n) (cols : Fin d ↪ Fin p)
+    (_hunit : IsUnit (Matrix.det (P.submatrix rows cols)))
+    (_hnext : ∀ (rows' : Fin (d + 1) ↪ Fin n) (cols' : Fin (d + 1) ↪ Fin p),
+      Matrix.det (P.submatrix rows' cols') = 0) :
+    P = (P.submatrix id cols) * (P.submatrix rows cols)⁻¹ * (P.submatrix rows id) := by
+  classical
+  let B := P.submatrix rows cols
+  let L := P.submatrix id cols
+  let H := P.submatrix rows id
+  ext i j
+  by_cases hi : i ∈ Set.range rows
+  · obtain ⟨a, rfl⟩ := hi
+    change P (rows a) j = (B * B⁻¹ * H) a j
+    rw [Matrix.mul_nonsing_inv B _hunit, Matrix.one_mul]
+    rfl
+  by_cases hj : j ∈ Set.range cols
+  · obtain ⟨b, rfl⟩ := hj
+    change P i (cols b) = (L * B⁻¹ * B) i b
+    rw [Matrix.nonsing_inv_mul_cancel_right B L _hunit]
+    rfl
+  let er : Fin d ⊕ Fin 1 ↪ Fin n :=
+    { toFun := Sum.elim rows (fun _ => i)
+      inj' := by
+        intro a b hab
+        rcases a with a | a <;> rcases b with b | b
+        · exact congrArg Sum.inl (rows.injective hab)
+        · exact (hi ⟨a, hab⟩).elim
+        · exact (hi ⟨b, hab.symm⟩).elim
+        · exact congrArg Sum.inr (Subsingleton.elim _ _) }
+  let ec : Fin d ⊕ Fin 1 ↪ Fin p :=
+    { toFun := Sum.elim cols (fun _ => j)
+      inj' := by
+        intro a b hab
+        rcases a with a | a <;> rcases b with b | b
+        · exact congrArg Sum.inl (cols.injective hab)
+        · exact (hj ⟨a, hab⟩).elim
+        · exact (hj ⟨b, hab.symm⟩).elim
+        · exact congrArg Sum.inr (Subsingleton.elim _ _) }
+  let e : Fin d ⊕ Fin 1 ≃ Fin (d + 1) := finSumFinEquiv
+  have hz : Matrix.det (P.submatrix er ec) = 0 := by
+    rw [← Matrix.det_submatrix_equiv_self e.symm (P.submatrix er ec)]
+    exact _hnext (e.symm.toEmbedding.trans er) (e.symm.toEmbedding.trans ec)
+  let c : Matrix (Fin d) (Fin 1) R := fun a _ => P (rows a) j
+  let r : Matrix (Fin 1) (Fin d) R := fun _ b => P i (cols b)
+  let z : Matrix (Fin 1) (Fin 1) R := fun _ _ => P i j
+  have hblock : P.submatrix er ec = Matrix.fromBlocks B c r z := by
+    ext a b
+    cases a <;> cases b <;> rfl
+  let : Invertible B := Matrix.invertibleOfIsUnitDet B _hunit
+  rw [hblock, Matrix.det_fromBlocks₁₁, Matrix.invOf_eq_nonsing_inv] at hz
+  have hcorner := _hunit.mul_right_eq_zero.mp hz
+  rw [Matrix.det_fin_one] at hcorner
+  exact sub_eq_zero.mp hcorner
