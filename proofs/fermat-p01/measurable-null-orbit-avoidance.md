@@ -208,3 +208,24 @@ warnings. Current exact-type harness results, axiom reports, and the committed
 candidate's exact-node comparator outcome are recorded in
 `.humanize/rlcr/2026-10-08_15-15-08/round-0-summary.md` and its adjacent evidence
 files. No frozen source or dependency was altered to avoid a validation failure.
+
+## Revalidation started 2026-10-08 16:35:21 UTC
+
+The exact theorem remains unchanged after a fresh advisory simplifier review.
+The complete Lean diff still adds only the selected declaration, and the frozen
+type and prefix match exactly. All nine dependencies are clean and pinned; all
+98 project Lean sources, nine relevant mathlib sources, the toolchain file, and
+the manifest match the reference snapshot. Handoff digests are unchanged.
+
+Fresh warning-fatal validation again fails: the dependency build emits inherited
+deprecation/style warnings, and the complete-header selected-node harness finds
+unknown constants in both frozen attribute directives. Individual probes confirm
+that all 15 directive names are unavailable under the frozen import. The theorem
+and six audited infrastructure declarations report only `propext`,
+`Classical.choice`, and `Quot.sound`; that axiom report does not establish a
+successful build or comparator acceptance.
+
+Evidence and the exact committed-candidate comparator outcome are recorded in
+`.humanize/rlcr/2026-10-08_16-35-21/round-0-summary.md` and adjacent logs. The
+controller prerequisite described above remains unresolved. No pinned context,
+frozen directive, proof boundary, or validation policy was changed.
