@@ -1046,6 +1046,9 @@ end Submission
 
 namespace Submission
 
+/-- Split off an entry dividing every matrix entry using invertible row and column operations.
+Swap the pivot into position `(0, 0)`, then apply the approved column and row clearing lemmas.
+The pivot need not be nonzero, and the trailing block may have size zero. -/
 theorem p06_9e0f5043ff_dmd_split_divisible_pivot
     (R : Type*) [CommRing R] (m : ℕ)
     (D : Matrix (Fin (m + 1)) (Fin (m + 1)) R) (r c : Fin (m + 1))
