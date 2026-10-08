@@ -502,7 +502,7 @@ namespace Submission
 
 /-- The alternating prism has boundary equal to its two endpoints. -/
 theorem p04_prism_a8325b9888_boundary_identity :
-    ∀ {k X : Type u} [CommRing k] (u v : X → X),
+    ∀ {k X : Type _} [CommRing k] (u v : X → X),
     let P : ∀ n : ℕ, (Fin (n + 1) → X) → MonoidAlgebra k (Fin (n + 2) → X) :=
       fun n c => ∑ j : Fin (n + 1),
         MonoidAlgebra.single
