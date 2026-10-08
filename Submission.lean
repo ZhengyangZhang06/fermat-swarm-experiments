@@ -808,9 +808,13 @@ open CategoryTheory.Limits
 
 /-- The level immersion and its finite flat structure morphism commute with base change.
 
-The cartesian square follows from `IsPullback.of_bot`; the rank formula is
-`Scheme.Hom.finrank_pullback_snd`. These and the morphism-property base-change instances
-are from the pinned mathlib revision `db584cd6d46c92f209a44c0f1c829460d327499d`. -/
+The cartesian square follows from `IsPullback.of_bot`
+(`Mathlib/CategoryTheory/Limits/Shapes/Pullback/IsPullback/Basic.lean`), which packages
+the existence and uniqueness argument in steps 3–4 of the accepted natural proof.
+The rank formula is `Scheme.Hom.finrank_pullback_snd`
+(`Mathlib/AlgebraicGeometry/Morphisms/FlatRank.lean`). These and the morphism-property
+base-change instances are from the pinned mathlib revision
+`db584cd6d46c92f209a44c0f1c829460d327499d`. -/
 theorem p07_cq_level_geometry_pullback_857cd4d38c :
     ∀ (S T : Type) [CommRing S] [CommRing T] (φ : S →+* T)
       (A C : AlgebraicGeometry.Scheme.{0})
