@@ -201,3 +201,54 @@ theorem Submission.p05_subalgebra_coinvariant_a5b449214a
   rw [HopfAlgebra.mem_hopfKer_iff, HopfAlgebra.coaction_apply, hspan _ (hΔ x hx)]
   simp only [Coalgebra.lTensor_counit_comul, LinearMap.lTensor_tmul,
     Algebra.linearMap_apply, map_one]
+
+theorem Submission.p05_canonical_map_injective_a5b449214a
+    {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
+    (K : Subalgebra k H)
+    (hΔ : ∀ x ∈ K, Coalgebra.comul (R := k) x ∈
+      Submodule.span k {t : TensorProduct k H H |
+        ∃ a ∈ K, ∃ b ∈ K, t = TensorProduct.tmul k a b})
+    (hS : ∀ x ∈ K, HopfAlgebra.antipode k x ∈ K)
+    {B : Type*} [CommRing B] [Bialgebra k B] (q : BialgHom k H B)
+    (hq : Function.Surjective q)
+    (hker : RingHom.ker (q : H →+* B) =
+      Ideal.span {x : H | x ∈ K ∧ Coalgebra.counit (R := k) x = 0}) :
+    ∃ β : (TensorProduct K H H) →ₐ[k] (TensorProduct k H B),
+      Function.Injective β ∧ ∀ a b : H, β (TensorProduct.tmul K a b) =
+        (TensorProduct.tmul k a (1 : B)) * HopfAlgebra.coaction q b := by
+  have hqK (t : H) (ht : t ∈ K) :
+      q t = algebraMap k B (Coalgebra.counit (R := k) t) := by
+    have hmem : t - algebraMap k H (Coalgebra.counit (R := k) t) ∈
+        RingHom.ker (q : H →+* B) := by
+      rw [hker]
+      exact Ideal.subset_span ⟨K.sub_mem ht (K.algebraMap_mem _), by simp⟩
+    have hz : q (t - algebraMap k H (Coalgebra.counit (R := k) t)) = 0 := hmem
+    have hscalar : q (algebraMap k H (Coalgebra.counit (R := k) t)) =
+        algebraMap k B (Coalgebra.counit (R := k) t) :=
+      (q : H →ₐ[k] B).commutes _
+    rw [map_sub, hscalar] at hz
+    exact sub_eq_zero.mp hz
+  have hspan (z : H ⊗[k] H)
+      (hz : z ∈ Submodule.span k
+        {t : H ⊗[k] H | ∃ a ∈ K, ∃ b ∈ K, t = a ⊗ₜ[k] b}) :
+      Algebra.TensorProduct.map (AlgHom.id k H) (q : H →ₐ[k] B) z =
+        (Algebra.linearMap k B).lTensor H
+          ((Coalgebra.counit (R := k)).lTensor H z) := by
+    induction hz using Submodule.span_induction with
+    | mem z hz =>
+      obtain ⟨a, _, b, hb, rfl⟩ := hz
+      simp only [Algebra.TensorProduct.map_tmul, AlgHom.id_apply,
+        LinearMap.lTensor_tmul, Algebra.linearMap_apply, BialgHom.coe_toAlgHom]
+      rw [hqK b hb]
+    | zero => simp only [map_zero]
+    | add z w _ _ hz hw => simp only [map_add, hz, hw]
+    | smul c z _ hz => simp only [map_smul, hz]
+  have hcoinv (t : H) (ht : t ∈ K) :
+      HopfAlgebra.coaction q t = TensorProduct.tmul k t (1 : B) := by
+    rw [HopfAlgebra.coaction_apply, hspan _ (hΔ t ht)]
+    simp only [Coalgebra.lTensor_counit_comul, LinearMap.lTensor_tmul,
+      Algebra.linearMap_apply, map_one]
+  obtain ⟨β, hβ⟩ := Submission.p05_canonical_balanced_lift_a5b449214a K q hcoinv
+  obtain ⟨σ, hσ⟩ := Submission.p05_translation_descends_a5b449214a K hΔ hS q hq hker
+  obtain ⟨γ, _, hγβ⟩ := Submission.p05_translation_left_inverse_a5b449214a K q β hβ σ hσ
+  exact ⟨β, hγβ.injective, hβ⟩
