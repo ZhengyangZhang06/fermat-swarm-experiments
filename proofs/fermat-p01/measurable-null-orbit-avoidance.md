@@ -85,3 +85,42 @@ Detailed local evidence is in
 Only the configured selected-node comparator can establish machine acceptance of
 the committed candidate. The independent reviewer comparator, issue/PR lifecycle,
 wiki publication, and DAG transition remain outer-controller responsibilities.
+
+## Revalidation started 2026-10-08 14:00:06 UTC
+
+The selected implementation is unchanged. A fresh advisory simplifier review
+found no warranted simplification: the explicit countability witness, restricted
+real GL action, measurable-preimage identity, and countable AE quantifier match
+the accepted proof directly. This source review does not establish acceptance.
+
+Fresh compatibility checks found all nine dependencies clean at their manifest
+revisions. All 98 sources in `Definitions`, `P2M`, and `Theorems`, the seven
+referenced mathlib files, `lean-toolchain`, and `lake-manifest.json` match the
+pinned snapshot byte for byte. The selected proposition also matches the literal
+frozen type after whitespace normalization. The full Lean diff from dispatch
+`eae1c3e` adds only the selected theorem; the frozen prefix is byte-identical,
+and the added proof contains no prohibited constructs.
+
+Fresh `rg` searches in the snapshot's `project/Definitions` and `project/P2M`
+found no matches for either
+`instSMulInvariantMeasureSpecialLinearGroupFinOfNatNatIntUpperHalfPlaneVolume_definitions`
+or `coe_rescaleLin_apply`. These names occur in the inherited frozen attribute
+directives, so changing this theorem's proof cannot supply them. The directives
+and pinned sources remain unchanged. Likewise, the selected identifier is absent
+from both `project` and `mathlib/Mathlib`; this implementation uses library
+infrastructure, not an upstream proof of the selected node.
+
+The fresh warning-fatal dependency build exited 1 on inherited deprecation/style
+warnings. The selected-node harness also exited 1, reporting exactly the two
+unknown frozen attribute constants above. It nevertheless printed transitive
+axioms `[propext, Classical.choice, Quot.sound]` for the selected theorem and all
+six audited library declarations. These axiom reports do not turn either failed
+command into acceptance. The harness retains every frozen import and attribute
+directive while omitting only the unrelated root theorem, and checks the literal
+child proposition with an anonymous example.
+
+Fresh command outputs, source and compatibility audits, and the eventual exact
+committed-candidate comparator result are recorded under
+`.humanize/rlcr/2026-10-08_14-00-06/`. Consult `round-0-summary.md` there for the
+author's final outcome. An unresolved frozen-context build error or nonzero
+comparator result must remain a blocker, regardless of the proof's axiom report.
