@@ -3,7 +3,44 @@
 Selected node: `root.gamma0_finite_dimensional-a1.coset_norm_bound-a1`.
 Only tracked theorem: `Submission.f036cc6b1f_fd_norm_bound`.
 
-## Current round: 2026-10-08 18:03:37 UTC
+## Current round: 2026-10-08 18:43:04 UTC
+
+The latest requested repair remains constrained by the frozen context: the candidate's
+selected theorem comes after the two failing attribute commands, while the inspected
+local verifier independently copies the frozen proof base into its challenge and
+exports that challenge first. No allowed edit of this selected theorem can repair
+either earlier command. The exact statement, accepted prose, imports, dependencies,
+and verifier remain unchanged; no dummy declarations or error suppression were added.
+
+A fresh read-only simplifier review found no concrete defect or useful simplification
+of the existing proof. The source/dependency audit again confirms nine clean pinned
+package repositories, 81 identical snapshot Definitions files, 20 identical imported
+project modules, and six identical inspected mathlib files. The complete source diff
+from proof base `218176a9f57bf541cd6a4601fd809a5b3c5b91d2` introduces only
+`Submission.f036cc6b1f_fd_norm_bound`; the inherited root `sorry` is untouched.
+
+The fresh `rg` queries, source audit, simplifier review, warning-fatal scoped diagnostics,
+and exact-node comparator outcome are recorded under
+`.humanize/rlcr/2026-10-08_18-43-04/validation/` and in that round's summary.
+The structured research record has exactly one `reference_use` entry, source
+`local-project`. Searches for all 15 header targets in pinned Definitions/mathlib
+and for `fd_norm_bound|norm_domination|coset_norm` have no matches; the two reported
+names occur only in the pinned project's two frozen headers. The library provenance
+below remains applicable and was inspected again this round.
+
+This evidence update does not claim that the header was repaired or that the outer
+reviewer has accepted the proof. The required clean-commit comparator will be recorded
+separately from the local diagnostics; a passing comparator must not conceal a failed
+full-context build. BitLesson selection remains `NONE` (the catalogue is empty).
+
+The fresh Lean 4.33.1 warning-fatal diagnostics have now completed: the selected body
+and literal frozen-type example exit 0, and the version retaining the frozen attributes
+exits 1 on the same two unknown constants. All four scoped transitive axiom reports
+(selected theorem, norm, integral-slash decay, Gamma0 finite index) contain only
+`propext`, `Classical.choice`, and `Quot.sound`. These diagnostics omit the unrelated
+root theorem and do not replace the configured comparator.
+
+## Previous round: 2026-10-08 18:03:37 UTC
 
 The selected Lean proof and its complete frozen prefix remain unchanged. A fresh
 read-only simplifier review found no concrete proof defect or worthwhile simplification.
