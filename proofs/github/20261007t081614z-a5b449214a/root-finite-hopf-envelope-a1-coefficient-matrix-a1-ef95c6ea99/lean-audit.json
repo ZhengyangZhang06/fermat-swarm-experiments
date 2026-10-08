@@ -1,0 +1,32 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n --glob '*.lean' 'hopfKer_eq_of_surjective_of_ker_eq_span|p05_cm_|p05_fhe_coefficient_matrix|HopfKerHopf' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Submission.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean"
+      ],
+      "conclusion": "The snapshot preserves the original root contract and defines hopfKer as an equalizer. No coefficient-matrix declarations matched. Its pinned mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d matches the verifier dependency manifest. Both post-base helper overlays match accepted child declarations. The exact comparator rerun exited zero with the required marker; all 221 exported Lean inputs matched the inspected evidence. Header omissions were exactly policy lines 10–11, reversible hashes matched, and Lean confirmed all 13 targets absent. The tracked theorem's transitive axioms were only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "2fc1616538269e2a3e59bc540207571c1dffcd87a692b6e4642f3a683911be62",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p05_fhe_coefficient_matrix_a5b449214a",
+      "statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (V : Submodule k H) [FiniteDimensional k V] (hV : ∀ x ∈ V, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ V, ∃ b : H, t = TensorProduct.tmul k a b}), ∃ (n : ℕ) (c : Matrix (Fin n) (Fin n) H), (∀ x ∈ V, x ∈ Submodule.span k (Set.range (fun p : Fin n × Fin n => c p.1 p.2))) ∧ (∀ i j : Fin n, Coalgebra.comul (R := k) (c i j) = ∑ l : Fin n, TensorProduct.tmul k (c i l) (c l j)) ∧ (∀ i j : Fin n, Coalgebra.counit (R := k) (c i j) = if i = j then (1 : k) else 0)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines the accepted basis-expansion and coalgebra-law lemmas with counitality to obtain the required span containment. This audit checked Git and comparator-input integrity only."
+    }
+  ]
+}
