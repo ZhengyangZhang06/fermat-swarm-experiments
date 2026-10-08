@@ -1476,3 +1476,58 @@ theorem p07_cre_group_law_857cd4d38c :
     exact (B W t).apply_symm_apply _
 
 end Submission
+
+
+namespace Submission
+
+/-- Rebase an abelian surface along a ring equivalence. -/
+theorem p07_cre_abelian_surface_857cd4d38c
+    (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U)
+    (A : Scheme.{0}) (f : A ⟶ Spec (CommRingCat.of U))
+    (hf : AbelianSchemePropertyBundle U f)
+    (hdim : ∀ s : Spec (CommRingCat.of U),
+      topologicalKrullDim ↥(f.base ⁻¹' {s}) = 2) :
+    let fT := f ≫ Spec.map (CommRingCat.ofHom k.toRingHom)
+    AbelianSchemePropertyBundle T fT ∧
+      (∀ s : Spec (CommRingCat.of T), topologicalKrullDim ↥(fT.base ⁻¹' {s}) = 2) := by
+  let κ := Spec.map (CommRingCat.ofHom k.toRingHom)
+  let ε := Spec.map (CommRingCat.ofHom k.symm.toRingHom)
+  let fT := f ≫ κ
+  change AbelianSchemePropertyBundle T fT ∧ _
+  have hκε : κ ≫ ε = 𝟙 (Spec (CommRingCat.of U)) := by
+    change Spec.map k.toCommRingCatIso.hom ≫ Spec.map k.toCommRingCatIso.inv = _
+    rw [← Spec.map_comp, k.toCommRingCatIso.inv_hom_id, Spec.map_id]
+  have hεκ : ε ≫ κ = 𝟙 (Spec (CommRingCat.of T)) := by
+    change Spec.map k.toCommRingCatIso.inv ≫ Spec.map k.toCommRingCatIso.hom = _
+    rw [← Spec.map_comp, k.toCommRingCatIso.hom_inv_id, Spec.map_id]
+  let : IsIso ε :=
+    (show IsIso (Spec.map k.toCommRingCatIso.inv) from inferInstance)
+  have hpb : IsPullback (𝟙 A) fT f ε :=
+    IsPullback.of_horiz_isIso ⟨by
+      simp only [fT, Category.id_comp, Category.assoc, hκε, Category.comp_id]⟩
+  have hfibre (s : Spec (CommRingCat.of T)) :
+      fT.base ⁻¹' {s} = f.base ⁻¹' {ε.base s} := by
+    ext x
+    change κ.base (f.base x) = s ↔ f.base x = ε.base s
+    constructor
+    · intro hx
+      calc
+        f.base x = ε.base (κ.base (f.base x)) :=
+          (congrArg (fun g => g.base (f.base x)) hκε).symm
+        _ = ε.base s := congrArg ε.base hx
+    · intro hx
+      calc
+        κ.base (f.base x) = κ.base (ε.base s) := congrArg κ.base hx
+        _ = s := congrArg (fun g => g.base s) hεκ
+  obtain ⟨G⟩ := hf.hasGroupLaw
+  obtain ⟨H, _⟩ := Submission.p07_cre_group_law_857cd4d38c T U k A f G
+  refine ⟨⟨MorphismProperty.of_isPullback (P := @Smooth) hpb hf.smooth,
+    MorphismProperty.of_isPullback (P := @IsProper) hpb hf.proper, ?_, ⟨H⟩⟩, ?_⟩
+  · intro s
+    rw [hfibre s]
+    exact hf.connectedFibres (ε.base s)
+  · intro s
+    rw [hfibre s]
+    exact hdim (ε.base s)
+
+end Submission
