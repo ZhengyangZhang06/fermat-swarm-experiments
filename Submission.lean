@@ -14,6 +14,8 @@ open CategoryTheory Rep
 
 namespace Submission
 
+/-- Coset averaging is natural in its source and acts by the subgroup index on restricted
+`G`-equivariant morphisms. -/
 theorem p04_hct139_coset_average_laws :
     ∀ {k G : Type _} [CommRing k] [Group G] [Fintype G]
       (A : Rep k G) (H : Subgroup G) [Fintype H] [Fintype (G ⧸ H)]
