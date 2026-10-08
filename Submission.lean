@@ -5269,3 +5269,46 @@ end Submission
     exact Bialgebra.comul_mul
         simpa only [TensorProduct.map_tmul, LinearMap.id_apply] using
           Coalgebra.lTensor_counit_comul (R := k) (i v)
+namespace Submission
+
+/-- A subalgebra stable under comultiplication and antipode inherits a compatible Hopf structure. -/
+theorem p05_hte_stable_subalgebra_hopf_structure_a5b449214a
+    {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
+    (D : Subalgebra k H)
+    (hΔ : ∀ x ∈ D, Coalgebra.comul (R := k) x ∈
+      Submodule.span k {t : TensorProduct k H H |
+        ∃ a ∈ D, ∃ b ∈ D, t = TensorProduct.tmul k a b})
+    (hS : ∀ x ∈ D, HopfAlgebra.antipode k x ∈ D) :
+    ∃ hD : HopfAlgebra k D,
+      hD.toHopfAlgebraStruct.toBialgebra.toAlgebra = (inferInstance : Algebra k D) ∧
+      (letI : Algebra k D := hD.toHopfAlgebraStruct.toBialgebra.toAlgebra;
+       letI : Module k D := Algebra.toModule;
+       letI : HopfAlgebra k D := hD;
+       ∃ ι : BialgHom k D H, (∀ d : D, ι d = (d : H)) ∧
+         ∀ d : D, ((HopfAlgebra.antipode k d : D) : H) =
+           HopfAlgebra.antipode k (d : H)) := by
+  obtain ⟨bD, hAlg, hInclusion⟩ :=
+    p05_hte_sshs_bialgebra_restriction_a5b449214a D hΔ
+  let : Algebra k D := bD.toAlgebra
+  let : Module k D := Algebra.toModule
+  let : Bialgebra k D := bD
+  obtain ⟨ι, hι⟩ := hInclusion
+  have hInjective : Function.Injective ι := by
+    intro a b hab
+    apply Subtype.val_injective
+    exact (hι a).symm.trans (hab.trans (hι b))
+  have hStable : ∀ a : D, ∃ b : D, ι b = HopfAlgebra.antipode k (ι a) := by
+    intro a
+    refine ⟨⟨HopfAlgebra.antipode k (a : H), hS a a.property⟩, ?_⟩
+    rw [hι, hι]
+  obtain ⟨hD, hbD, hAntipode⟩ :=
+    p05_hte_sshs_antipode_lift_a5b449214a ι hInjective hStable
+  change hD.toHopfAlgebraStruct.toBialgebra = bD at hbD
+  subst bD
+  refine ⟨hD, hAlg, ?_⟩
+  let : HopfAlgebra k D := hD
+  refine ⟨ι, hι, ?_⟩
+  intro d
+  simpa only [hι] using hAntipode d
+
+end Submission
