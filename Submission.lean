@@ -1655,10 +1655,12 @@ theorem Submission.f036cc6b1f_tdi_planar_exp_integrable_fd :
   have hprod : MeasureTheory.IntegrableOn (fun p : ℝ × ℝ => Real.exp (-a * p.2))
       (Set.Icc (-(1 / 2 : ℝ)) (1 / 2) ×ˢ Set.Ici b) := by
     MeasureTheory.integrableOn_Ici_iff_integrableOn_Ioi.mpr (exp_neg_integrableOn_Ioi b ha)
+    (MeasureTheory.integrableOn_Ici_iff_integrableOn_Ioi (by finiteness)).mpr
+      (exp_neg_integrableOn_Ioi b ha)
   have hx : MeasureTheory.IntegrableOn (fun _ : ℝ => (1 : ℝ))
-      (Set.Icc (-(1 : ℝ) / 2) (1 / 2)) := MeasureTheory.integrableOn_const
+      (Set.Icc (-(1 / 2 : ℝ)) (1 / 2)) := MeasureTheory.integrableOn_const
   have hprod : MeasureTheory.IntegrableOn (fun p : ℝ × ℝ => Real.exp (-a * p.2))
-      (Set.Icc (-(1 : ℝ) / 2) (1 / 2) ×ˢ Set.Ici b) := by
+      (Set.Icc (-(1 / 2 : ℝ)) (1 / 2) ×ˢ Set.Ici b) := by
     change MeasureTheory.Integrable _
       (((MeasureTheory.volume : MeasureTheory.Measure ℝ).prod MeasureTheory.volume).restrict _)
     rw [← MeasureTheory.Measure.prod_restrict]
