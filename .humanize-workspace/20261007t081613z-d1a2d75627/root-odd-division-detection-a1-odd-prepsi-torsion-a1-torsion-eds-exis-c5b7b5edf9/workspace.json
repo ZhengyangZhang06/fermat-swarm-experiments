@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081613Z-d1a2d75627",
+  "parent_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_cardinality-a1.positive_torsion_finite-a1",
+  "dispatch_branch": "proof-workspace/fermat-p03/20261007t081613z-d1a2d75627/dispatch/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-c5b7b5edf9",
+  "source_commit": "1b176f358d8fc9ecbd20e2abd6e13475349b280f",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_cardinality-a1.positive_torsion_finite-a1.finite_kernel_of_nsmul_nonzero-a1",
+      "key": "finite_kernel_of_nsmul_nonzero",
+      "result_branch": "humanize-recursive/fermat-p03/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-9f961b41c9-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-c5b7b5edf9/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-9f961b41c9",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "finite.*torsion|torsion.*finite|finite_nsmul|nsmul.*finite|nonconstant|formalGroup|formal group",
+              "finite|Finite|nonconstant|Nonconstant|Scheme|uniformizer|PowerSeries|tangent",
+              "nonconstant|Nonconstant|[Ff]ormal[Gg]roup|completed local|uniformizer|degree_nsmul|nsmul_degree",
+              "inductive Point|instance.*AddCommGroup|equation_iff_nonsingular_of_Δ_ne_zero|def toAffine|equiv|Equiv|toProjective|nonsingular_zero",
+              "weak|Zariski|IsAlgClosed|residue|Residue|finiteType",
+              "class IsFinite|finite.*fiber|Finite.*fiber|isQuasiFinite"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Definitions/Def_GaloisRep_Residual.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Point.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Projective/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Projective/Point.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/RingTheory/Jacobson/Ring.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/RingTheory/Nullstellensatz.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Finite.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/Morphisms/QuasiFinite.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/diagnostics/positive-kernel-d6-types-1ume4_n5/results.json"
+            ],
+            "conclusion": "The snapshot pins project 81f093181fd6c58dc887fcae5ec8b896996f1885 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Affine/Basic proves nonsingularity from nonzero discriminant; Affine/Point supplies the usual point group; Projective/Point supplies toAffineAddEquiv. Searches found no ready-made positive-torsion finiteness or multiplication-nonconstancy theorem in the inspected elliptic-curve sources. Def_GaloisRep_Residual assumes torsion cardinality, so it cannot supply this argument. Jacobson/Ring contains finite_of_finite_type_of_isJacobsonRing, supporting the closed-point argument; the scheme files supply general finite-morphism and finite-fiber infrastructure. Both proposed types elaborated after import Submission at frozen proof base adae8afec901619961ae1b5b1c73338837b271da. Instance probes confirmed nsmulBinRec and the identity constructor; checked types and point-group declarations depend only on propext, Classical.choice, and Quot.sound. Pinned repositories were clean, and searches of ten DAGs found no proposed-name collisions. The disposable compiler copy records the supplied policy digest, omission of exactly lines 10–11, reversible original/build hashes, and a successful absence probe for all 37 targets. Original sources and handoffs were unchanged. These are interface diagnostics, not comparator acceptance."
+          }
+        ],
+        "parent_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_cardinality-a1.positive_torsion_finite-a1",
+        "child_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_cardinality-a1.positive_torsion_finite-a1.finite_kernel_of_nsmul_nonzero-a1",
+        "subproblem": {
+          "key": "finite_kernel_of_nsmul_nonzero",
+          "title": "Nonzero multiplication has finite kernel",
+          "statement": "Let k be an algebraically closed field with decidable equality, of arbitrary characteristic, and let W be a Weierstrass curve over k with W.Δ ≠ 0. For every natural number n, if there exists Q : W.toAffine.Point with n • Q ≠ 0, then the subtype {P : W.toAffine.Point // n • P = 0} is finite, using the usual point-group operation and identity.",
+          "lean_statement": "∀ (k : Type) [Field k] [IsAlgClosed k] [DecidableEq k] (W : WeierstrassCurve k), W.Δ ≠ 0 → ∀ n : ℕ, (∃ P : W.toAffine.Point, n • P ≠ 0) → Finite {P : W.toAffine.Point // n • P = 0}",
+          "lean_name": "p03_ptf_finite_kernel_of_nsmul_nonzero_c5b7b5ed_d6",
+          "depends_on": [],
+          "natural_proof": "1. Fix k, W, n, and a point Q with n • Q ≠ 0. Let E be the projective cubic obtained by homogenizing the Weierstrass equation, and let O = [0:1:0]. Nonzero discriminant makes all affine points nonsingular. At infinity the equation forces X = 0, so O is the unique point there; the partial derivative with respect to Z at O is 1. Thus E is smooth. Repeated components would force vanishing partial derivatives along a component, and distinct components would intersect over k and force vanishing partial derivatives at their intersection. Smoothness excludes both possibilities. Hence E is a smooth projective integral curve. Its k-points identify with W.toAffine.Point, sending O to zero and respecting the regular Weierstrass group law. These curve and group-law facts hold in arbitrary characteristic; we use them as in Silverman, The Arithmetic of Elliptic Curves, second edition (2009), Chapter II, §§2–3, and Chapter III, §§2–4.\n2. Repeated regular addition defines the multiplication morphism [n] : E → E. It sends O to O. The k-point corresponding to Q is sent to a point different from O, by the witness hypothesis and compatibility with the usual point-group law. Therefore [n] is nonconstant.\n3. Apply the theorem that a nonconstant morphism between smooth projective integral curves is finite, as in Silverman, Chapter II, §§2–3. Its hypotheses hold for [n] by steps 1 and 2; no separability or characteristic-zero assumption is needed. Base change along the k-point O preserves finiteness. Consequently the scheme-theoretic fiber T = [n]⁻¹(O) is finite over k, so T = Spec B for a finite-dimensional commutative k-algebra B.\n4. The set of k-points of Spec B is finite. To see this explicitly, its points correspond to k-algebra homomorphisms B → k. Each such map is surjective because it fixes k, and hence has a maximal kernel. Two such maps with the same kernel coincide: the quotient is one-dimensional over k, and a k-algebra map from that quotient to k is uniquely determined by its action on k. For any r distinct maps, their maximal kernels are pairwise comaximal, so the Chinese remainder theorem gives a surjective k-linear map B → kʳ. Therefore r ≤ dim_k B. There cannot be more than dim_k B distinct maps, proving that T(k) is finite. This argument also covers a nonreduced fiber.\n5. By the defining fiber property, T(k) consists exactly of points R ∈ E(k) satisfying [n]R = O. Under the group-compatible identification in step 1, this condition is exactly n • P = 0. Thus T(k) is in bijection with {P : W.toAffine.Point // n • P = 0}. Transporting finiteness along this bijection proves the stated conclusion.",
+          "proof_key_steps": [
+            "Construct the smooth projective integral cubic and identify its point group.",
+            "Use the nonzero-multiple witness and the fixed identity to prove multiplication is nonconstant.",
+            "Apply the finite-morphism theorem and base change to the identity fiber.",
+            "Bound the number of k-points of a finite k-algebra using maximal kernels and the Chinese remainder theorem.",
+            "Identify the finite fiber with the required torsion subtype."
+          ]
+        },
+        "audit": {
+          "key": "finite_kernel_of_nsmul_nonzero",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The prose and independently elaborated standalone type agree, including arbitrary characteristic, every natural n, and the explicit witness hypothesis. The bare lean_name is unused. Steps 1–3 correctly establish nonconstancy from the witness and fixed identity, then apply the cited finite-morphism theorem and base change without a separability assumption. Step 4 correctly distinguishes algebra homomorphisms by their maximal kernels and uses Chinese remainders to bound their number by dim_k B, including nonreduced fibers. Step 5 identifies the fiber with the exact torsion subtype. The proof is complete and non-circular. Empty sibling dependencies are correct because the witness is a hypothesis; the parent supplies it using the first child. This gives an appropriate acyclic split, and the parent assembly was independently checked in Lean."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-9f961b41c9/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-9f961b41c9/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-9f961b41c9/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_cardinality-a1.positive_torsion_finite-a1.positive_nsmul_nonzero-a1",
+      "key": "positive_nsmul_nonzero",
+      "result_branch": "humanize-recursive/fermat-p03/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-ed0f455fac-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-c5b7b5edf9/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-ed0f455fac",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "finite.*torsion|torsion.*finite|finite_nsmul|nsmul.*finite|nonconstant|formalGroup|formal group",
+              "finite|Finite|nonconstant|Nonconstant|Scheme|uniformizer|PowerSeries|tangent",
+              "nonconstant|Nonconstant|[Ff]ormal[Gg]roup|completed local|uniformizer|degree_nsmul|nsmul_degree",
+              "inductive Point|instance.*AddCommGroup|equation_iff_nonsingular_of_Δ_ne_zero|def toAffine|equiv|Equiv|toProjective|nonsingular_zero",
+              "weak|Zariski|IsAlgClosed|residue|Residue|finiteType",
+              "class IsFinite|finite.*fiber|Finite.*fiber|isQuasiFinite"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Definitions/Def_GaloisRep_Residual.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Point.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Projective/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Projective/Point.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/RingTheory/Jacobson/Ring.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/RingTheory/Nullstellensatz.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Finite.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/Morphisms/QuasiFinite.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/diagnostics/positive-kernel-d6-types-1ume4_n5/results.json"
+            ],
+            "conclusion": "The snapshot pins project 81f093181fd6c58dc887fcae5ec8b896996f1885 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Affine/Basic proves nonsingularity from nonzero discriminant; Affine/Point supplies the usual point group; Projective/Point supplies toAffineAddEquiv. Searches found no ready-made positive-torsion finiteness or multiplication-nonconstancy theorem in the inspected elliptic-curve sources. Def_GaloisRep_Residual assumes torsion cardinality, so it cannot supply this argument. Jacobson/Ring contains finite_of_finite_type_of_isJacobsonRing, supporting the closed-point argument; the scheme files supply general finite-morphism and finite-fiber infrastructure. Both proposed types elaborated after import Submission at frozen proof base adae8afec901619961ae1b5b1c73338837b271da. Instance probes confirmed nsmulBinRec and the identity constructor; checked types and point-group declarations depend only on propext, Classical.choice, and Quot.sound. Pinned repositories were clean, and searches of ten DAGs found no proposed-name collisions. The disposable compiler copy records the supplied policy digest, omission of exactly lines 10–11, reversible original/build hashes, and a successful absence probe for all 37 targets. Original sources and handoffs were unchanged. These are interface diagnostics, not comparator acceptance."
+          }
+        ],
+        "parent_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_cardinality-a1.positive_torsion_finite-a1",
+        "child_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_cardinality-a1.positive_torsion_finite-a1.positive_nsmul_nonzero-a1",
+        "subproblem": {
+          "key": "positive_nsmul_nonzero",
+          "title": "Positive multiplication is nonzero in characteristic zero",
+          "statement": "Let k be an algebraically closed field of characteristic zero with decidable equality, and let W be a Weierstrass curve over k with W.Δ ≠ 0. For every natural number n > 0, there exists P : W.toAffine.Point such that n • P ≠ 0, using the usual point-group operation and identity.",
+          "lean_statement": "∀ (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k] (W : WeierstrassCurve k), W.Δ ≠ 0 → ∀ n : ℕ, 0 < n → ∃ P : W.toAffine.Point, n • P ≠ 0",
+          "lean_name": "p03_ptf_positive_nsmul_nonzero_c5b7b5ed_d6",
+          "depends_on": [],
+          "natural_proof": "1. Fix k, W, and n satisfying the hypotheses. Homogenize the Weierstrass equation to obtain the projective cubic E, with O = [0:1:0]. Nonzero discriminant makes every affine point nonsingular. Setting Z = 0 in the homogeneous equation gives X³ = 0, so O is the unique point at infinity. The partial derivative with respect to Z at O is 1, so O is nonsingular too. Thus E is smooth. A repeated component would have vanishing partial derivatives along that component. Distinct components would intersect over the algebraically closed field, and their intersection would also have vanishing partial derivatives. These possibilities contradict smoothness, so E is integral. Its k-points identify with W.toAffine.Point, with O corresponding to zero. The regular Weierstrass group law agrees with the usual point-group law. We use this standard regularity theorem as in Silverman, The Arithmetic of Elliptic Curves, second edition (2009), Chapter III, §§2–4. Consequently repeated addition defines a regular morphism [j] : E → E for every natural number j, fixing O.\n2. On the chart Y ≠ 0 around O, put t = −X/Y and s = −Z/Y. The equation becomes s = t³ + a₁ts + a₂t²s + a₃s² + a₄ts² + a₆s³. The derivative with respect to s of the left side minus the right side is 1 at (0,0). The formal implicit-function theorem therefore identifies the completed local ring at O with k[[t]], with s represented by the unique series s(t) having constant coefficient zero and satisfying this equation. Coefficient comparison determines each coefficient of s from preceding coefficients: the first two coefficients vanish and the coefficient of t³ is 1. Thus s(t) starts with t³, and t is a uniformizer. This is the local-parameter construction of Silverman, Chapter IV, §1.\n3. Complete the regular addition morphism at (O,O). Its pullback of t is a series F(t₁,t₂). The identities P + O = P and O + P = P imply F(t,0) = t and F(0,t) = t. Hence F has constant coefficient zero and linear part t₁ + t₂; every remaining term has total degree at least two.\n4. Let H_j(t) be the completed pullback of t under [j]. We have H_1(t) = t, and the identity [j+1]R = [j]R + R gives H_(j+1)(t) = F(H_j(t),t). Inductively H_j has constant coefficient zero and linear coefficient j: substitution into every term of total degree at least two contributes only terms of degree at least two, while the linear part contributes H_j(t) + t. Therefore H_n(t) = n t plus terms of degree at least two. Since n > 0 and k has characteristic zero, its linear coefficient is nonzero, so H_n is nonzero.\n5. Choose an affine open neighborhood U of O contained in the inverse image under [n] of the chart Y ≠ 0. The function g = t ∘ [n] is regular on U. Write U = Spec A. The algebra A is a finitely generated integral k-algebra because E is an integral curve of finite type. The image of g in the completed local ring at O is H_n, which is nonzero by step 4. Thus g is nonzero in A. Since A is a domain, A[g⁻¹] is a nonzero finitely generated k-algebra.\n6. Choose a maximal ideal of A[g⁻¹]. Its residue field is a finitely generated k-algebra that is a field, hence a finite algebraic extension of k by Zariski's lemma. Algebraic closedness identifies that residue field with k. The resulting k-algebra homomorphism A[g⁻¹] → k defines a k-point R of U at which g is nonzero, because g is invertible in A[g⁻¹]. This is the weak Nullstellensatz argument; its algebraic ingredients occur in the pinned Mathlib/RingTheory/Jacobson/Ring.lean and Mathlib/RingTheory/Nullstellensatz.lean.\n7. At this point, t([n]R) = g(R) ≠ 0, whereas t(O) = 0. Consequently [n]R ≠ O. Under the group-compatible identification E(k) ≃ W.toAffine.Point from step 1, R gives a point P satisfying n • P ≠ 0. This proves the required existence without any assumption about the size of a multiplication kernel.",
+          "proof_key_steps": [
+            "Realize the usual point group on the smooth projective integral Weierstrass cubic.",
+            "Use the identity chart to identify the completed local ring with k[[t]].",
+            "Derive the linear part t₁ + t₂ of formal addition.",
+            "Inductively compute the nonzero linear coefficient n of multiplication by n.",
+            "Represent that nonzero completed germ by a nonzero regular function on an affine neighborhood.",
+            "Use the weak Nullstellensatz to obtain a k-point where the pullback is nonzero.",
+            "Transfer this point to W.toAffine.Point."
+          ]
+        },
+        "audit": {
+          "key": "positive_nsmul_nonzero",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The prose includes every hypothesis and matches the independently elaborated, standalone one-line proposition. The bare lean_name is unused. Steps 1–4 correctly construct the smooth integral cubic and formal parameter, derive formal addition's linear term, and use positivity and characteristic zero to obtain a nonzero multiplication pullback. Steps 5–7 correctly pass to a nonzero regular function, localize, and apply the weak Nullstellensatz to produce an actual k-point with nonzero multiple. The supplied argument uses the explicitly cited geometric facts, contains no appeal to kernel finiteness or the parent, and requires no further proof-discovery pass. This is a genuine local obligation with no sibling dependency."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-ed0f455fac/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-ed0f455fac/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-ed0f455fac/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-c5b7b5edf9/task.md": "ab60d7bf7fbb76cb393a8a85a557ef3927e6f20cb2bdcb465f7734d4c8f5008f",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-c5b7b5edf9/problem.md": "38ac0d3762f9cdf23c23661eebbc5a9adb09adf6609593276dc22271b0ba6207",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-c5b7b5edf9/problem.json": "7f044edb66fcfa09e49a85b70a860bdeec0bd498adb67bb8ff164bdbe26c18ce",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-c5b7b5edf9/reference-manifest.json": "326a87159f351a7fa61c53fcbbb24df6a67ea73bb33bcacba88609fa45c48638",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-c5b7b5edf9/decomposition.json": "8da85c4ad5790badd8e1eeb406d92f0b92cd0fd22408739cc678be6d5bdd265e",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-c5b7b5edf9/decomposition-audit.json": "11a2a53fdfbb65505b622f71aec5d8095eb1774353fd08eea7fbf0456a0a0b48",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-c5b7b5edf9/controller-contract.json": "e0a38e99db16eb6327c6d547c1244d1a2e5c7c021c8a5c53358d9811e783c177",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-c5b7b5edf9/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-9f961b41c9/parent-child-handoff.json": "e724c11e547041bbb91c41ac0e2863e260da0759658eae8a4a650ca7c1008bbb",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-c5b7b5edf9/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-9f961b41c9/parent-supplied-plan.md": "b943cbb2b9b249e58fb81c3c56c82d4db8ac8e1687e822e01ca0c9ae01e3e008",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-c5b7b5edf9/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-9f961b41c9/parent-supplied-natural-proof.md": "855cf61bea74cc1ac0d3957548d6c284acd17357ebb0a22aa246c55746a66048",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-c5b7b5edf9/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-9f961b41c9/parent-supplied-natural-proof.json": "642a6b0d30d8605019336c973e4efaca5b12103ec5380aa5a51e4d782adbc7e0",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-c5b7b5edf9/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-9f961b41c9/node.json": "5dc534ae9e0f02c93978f600bdac132bd420fe61fc8dcddfa5a533cc9a221c92",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-c5b7b5edf9/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-ed0f455fac/parent-child-handoff.json": "6805698b6a394cbd33c663b7b3c81fb01a7b4d7f3c895b9c84a5e5ed7ca1822c",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-c5b7b5edf9/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-ed0f455fac/parent-supplied-plan.md": "79af5ec095db9ac0cc1b624e5f1fc7da293901bbad0394b48f1dc120abac1ba3",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-c5b7b5edf9/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-ed0f455fac/parent-supplied-natural-proof.md": "390a4abe46ea940639d240e863cb9a680e3987870675e219393b73c43691d546",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-c5b7b5edf9/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-ed0f455fac/parent-supplied-natural-proof.json": "eeeab670d935777d1b6dd4b2e083bb27b5e16712df770b803db809107db315ea",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-c5b7b5edf9/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-ed0f455fac/node.json": "47bed8910c0c3c6ad54e02f01a437f4e182a8d9551863ee0e5dba643bf31eb06"
+  }
+}

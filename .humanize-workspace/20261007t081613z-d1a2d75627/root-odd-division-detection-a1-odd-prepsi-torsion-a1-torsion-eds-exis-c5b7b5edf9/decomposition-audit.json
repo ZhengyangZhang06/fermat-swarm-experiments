@@ -1,0 +1,49 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "finite.*torsion|torsion.*finite|finite_nsmul|nsmul.*finite|nonconstant|formalGroup|formal group",
+        "inductive Point|instAddCommGroup|nsmul|equation_iff_nonsingular_of_Δ_ne_zero|toAffineAddEquiv|nonsingular_zero|polynomialZ|eval_polynomialZ",
+        "finite_of_finite_type_of_isJacobsonRing|weak|IsAlgClosed|residue|Residue",
+        "class IsFinite|baseChange|isStableUnderBaseChange|finite.*fiber|Finite.*fiber|isQuasiFinite|finite_preimage",
+        "nonconstant|Nonconstant|[Ff]ormal[Gg]roup|completed local|uniformizer|degree_nsmul|nsmul_degree"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Definitions/Def_GaloisRep_Residual.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Point.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Projective/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Projective/Point.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/RingTheory/Jacobson/Ring.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/RingTheory/Nullstellensatz.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Finite.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/Morphisms/QuasiFinite.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/diagnostics/positive-kernel-d6-types-1ume4_n5/results.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/diagnostics/independent-positive-kernel-audit-erkrln2m/IndependentTypes.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/diagnostics/independent-positive-kernel-audit-erkrln2m/results.json"
+      ],
+      "conclusion": "Verified clean project and mathlib snapshots at 81f093181fd6c58dc887fcae5ec8b896996f1885 and db584cd6d46c92f209a44c0f1c829460d327499d, plus pinned dependencies and toolchain. Sources supply nonsingularity, the usual point group, the projective/affine additive equivalence, Zariski's lemma, and finite-morphism infrastructure. Searches found no ready-made multiplication-nonconstancy or positive-torsion-finiteness theorem in the elliptic-curve sources. Def_GaloisRep_Residual assumes torsion cardinality. The parent matches the recorded depth-5 helper under the frozen root. Independent Lean checks at proof base adae8afec901619961ae1b5b1c73338837b271da validated both literal types, ordinary nsmul/zero instances, and parent assembly without either child declaration present. Checked type and group-instance axioms are only propext, Classical.choice, and Quot.sound. Neither bare helper name collides across 10 DAGs containing 350 nodes. Verified policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, exact line-10/11 omissions, reversible original/build hashes, and a fresh successful Lean absence probe for all 37 targets. Tracked sources remain unchanged. These checks support decomposition approval only; implementation comparator acceptance remains pending."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "positive_nsmul_nonzero",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose includes every hypothesis and matches the independently elaborated, standalone one-line proposition. The bare lean_name is unused. Steps 1–4 correctly construct the smooth integral cubic and formal parameter, derive formal addition's linear term, and use positivity and characteristic zero to obtain a nonzero multiplication pullback. Steps 5–7 correctly pass to a nonzero regular function, localize, and apply the weak Nullstellensatz to produce an actual k-point with nonzero multiple. The supplied argument uses the explicitly cited geometric facts, contains no appeal to kernel finiteness or the parent, and requires no further proof-discovery pass. This is a genuine local obligation with no sibling dependency."
+    },
+    {
+      "key": "finite_kernel_of_nsmul_nonzero",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and independently elaborated standalone type agree, including arbitrary characteristic, every natural n, and the explicit witness hypothesis. The bare lean_name is unused. Steps 1–3 correctly establish nonconstancy from the witness and fixed identity, then apply the cited finite-morphism theorem and base change without a separability assumption. Step 4 correctly distinguishes algebra homomorphisms by their maximal kernels and uses Chinese remainders to bound their number by dim_k B, including nonreduced fibers. Step 5 identifies the fiber with the exact torsion subtype. The proof is complete and non-circular. Empty sibling dependencies are correct because the witness is a hypothesis; the parent supplies it using the first child. This gives an appropriate acyclic split, and the parent assembly was independently checked in Lean."
+    }
+  ],
+  "required_changes": []
+}
