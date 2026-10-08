@@ -1882,3 +1882,4 @@ theorem Submission.p05_umgi_inner_inverse_of_reconstruction_a5b449214a :
       simp only [Matrix.mul_assoc]
     _ = (P.submatrix id cols) * T * (P.submatrix rows id) := by rw [hU, hV]
     _ = P := hfactor.symm
+    exact Bialgebra.comul_mul
