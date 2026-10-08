@@ -130,3 +130,27 @@ theorem Submission.p08_7d1ff633a4_rank_one_transfer
     rw [hab]
   · intro a
     exact ⟨a • v, by simp only [map_smul, hv, smul_eq_mul, mul_one]⟩
+theorem Submission.p08_7d1ff633a4_normal_refinement :
+    ∀ {ι : Type} [Finite ι] (F : ι → IntermediateField ℚ (AlgebraicClosure ℚ)),
+      (∀ i, FiniteDimensional ℚ (F i)) →
+      ∃ E : IntermediateField ℚ (AlgebraicClosure ℚ),
+        FiniteDimensional ℚ E ∧ Normal ℚ E ∧ (∀ i, F i ≤ E) ∧
+          E.fixingSubgroup.Normal ∧ E.fixingSubgroup.FiniteIndex := by
+  intro ι _ F hF
+  let : ∀ i, FiniteDimensional ℚ (F i) := hF
+  have : IsAlgClosure ℚ (AlgebraicClosure ℚ) :=
+    ⟨AlgebraicClosure.isAlgClosed ℚ, AlgebraicClosure.isAlgebraic ℚ⟩
+  have : Normal ℚ (AlgebraicClosure ℚ) := IsAlgClosure.normal ℚ _
+  let K : IntermediateField ℚ (AlgebraicClosure ℚ) := iSup F
+  let E := IntermediateField.normalClosure ℚ K (AlgebraicClosure ℚ)
+  have : FiniteDimensional ℚ K :=
+    IntermediateField.finiteDimensional_iSup_of_finite
+  have : FiniteDimensional ℚ E := normalClosure.is_finiteDimensional ℚ K _
+  have : Normal ℚ E := normalClosure.normal ℚ K _
+  refine ⟨E, inferInstance, inferInstance, ?_, ?_, ?_⟩
+  · intro i
+    exact (le_iSup F i).trans (IntermediateField.le_normalClosure K)
+  · rw [← IntermediateField.restrictNormalHom_ker E]
+    infer_instance
+  · rw [← IntermediateField.restrictNormalHom_ker E]
+    infer_instance
