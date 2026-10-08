@@ -1368,6 +1368,8 @@ theorem Submission.p02_es_177ebb5a_hi_prescribed_coefficients :
       simpa only [Finsupp.degree_eq_sum, Fin.sum_univ_two] using hdegree
     simp [hrd]
 
+namespace Submission
+
 theorem p02_es_177ebb5a_cd_linear_coeff_derivative
     (n : ℕ)
     (A : ↥(HeckeEis.BinaryForm ℂ n) →ₗ[ℂ] ↥(HeckeEis.BinaryForm ℂ n))
