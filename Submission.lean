@@ -4526,3 +4526,17 @@ theorem Submission.p05_umgi_inner_inverse_of_reconstruction_a5b449214a :
       simp only [Matrix.mul_assoc]
     _ = (P.submatrix id cols) * T * (P.submatrix rows id) := by rw [hU, hV]
     _ = P := hfactor.symm
+
+
+theorem Submission.p05_ums_inner_inverse_of_minors_a5b449214a
+    {R : Type*} [CommRing R] (n p d : ℕ)
+    (P : Matrix (Fin n) (Fin p) R)
+    (rows : Fin d ↪ Fin n) (cols : Fin d ↪ Fin p)
+    (_hunit : IsUnit (Matrix.det (P.submatrix rows cols)))
+    (_hnext : ∀ (rows' : Fin (d + 1) ↪ Fin n) (cols' : Fin (d + 1) ↪ Fin p),
+      Matrix.det (P.submatrix rows' cols') = 0) :
+    ∃ Q : Matrix (Fin p) (Fin n) R, P * Q * P = P := by
+  exact Submission.p05_umgi_inner_inverse_of_reconstruction_a5b449214a
+    n p d P rows cols (P.submatrix rows cols)⁻¹
+    (Submission.p05_umgi_minor_reconstruction_a5b449214a
+      n p d P rows cols _hunit _hnext)
