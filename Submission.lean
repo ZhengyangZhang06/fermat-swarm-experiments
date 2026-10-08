@@ -1215,3 +1215,71 @@ theorem Submission.p05_ibsrm_mismatched_support_zero_a5b449214a
           intro hba
           exact hr ⟨i, hi.trans (congrArg Sum.inr hba)⟩
         simp only [Matrix.fromBlocks_apply₂₂, Matrix.one_apply, if_neg hba]
+theorem Submission.p05_ibsrm_matching_support_blocks_a5b449214a
+    {R : Type*} [CommRing R] (n p t d : ℕ) (P : Matrix (Fin n) (Fin p) R)
+    (rows : Fin d ↪ (Fin n ⊕ Fin t)) (cols : Fin d ↪ (Fin p ⊕ Fin t))
+    (_h : ∀ a : Fin t, (∃ i : Fin d, rows i = Sum.inr a) ↔
+      (∃ j : Fin d, cols j = Sum.inr a)) :
+    ∃ l : ℕ, l ≤ t ∧ l ≤ d ∧
+      ∃ (rows' : Fin (d - l) ↪ Fin n) (cols' : Fin (d - l) ↪ Fin p)
+        (er ec : (Fin (d - l) ⊕ Fin l) ≃ Fin d),
+        ((Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R)).submatrix rows cols).submatrix er ec =
+          Matrix.fromBlocks (P.submatrix rows' cols') 0 0
+            (1 : Matrix (Fin l) (Fin l) R) := by
+  classical
+  let A := {a : Fin n // ∃ i : Fin d, rows i = Sum.inl a}
+  let B := {b : Fin p // ∃ j : Fin d, cols j = Sum.inl b}
+  let S := {a : Fin t // ∃ i : Fin d, rows i = Sum.inr a}
+  let br : Fin d ≃ A ⊕ S :=
+    (Equiv.ofInjective rows rows.injective).trans Equiv.subtypeSum
+  let bc : Fin d ≃ B ⊕ S :=
+    ((Equiv.ofInjective cols cols.injective).trans Equiv.subtypeSum).trans
+      (Equiv.sumCongr (Equiv.refl B) (Equiv.subtypeEquivRight (fun a => (_h a).symm)))
+  let l := Fintype.card S
+  have hlt : l ≤ t := by
+    simpa only [Fintype.card_fin] using
+      (Fintype.card_le_of_injective (Subtype.val : S → Fin t) Subtype.val_injective)
+  have hr : d = Fintype.card A + l := by
+    simpa only [Fintype.card_fin, Fintype.card_sum] using Fintype.card_congr br
+  have hc : d = Fintype.card B + l := by
+    simpa only [Fintype.card_fin, Fintype.card_sum] using Fintype.card_congr bc
+  have hld : l ≤ d := by omega
+  have hA : Fintype.card A = d - l := by omega
+  have hB : Fintype.card B = d - l := by omega
+  let α : Fin (d - l) ≃ A := (monoEquivOfFin A hA).toEquiv
+  let β : Fin (d - l) ≃ B := (monoEquivOfFin B hB).toEquiv
+  let γ : Fin l ≃ S := (monoEquivOfFin S rfl).toEquiv
+  let rows' : Fin (d - l) ↪ Fin n :=
+    ⟨fun i => (α i).val, Subtype.val_injective.comp α.injective⟩
+  let cols' : Fin (d - l) ↪ Fin p :=
+    ⟨fun j => (β j).val, Subtype.val_injective.comp β.injective⟩
+  let s : Fin l ↪ Fin t :=
+    ⟨fun a => (γ a).val, Subtype.val_injective.comp γ.injective⟩
+  let er : (Fin (d - l) ⊕ Fin l) ≃ Fin d := (α.sumCongr γ).trans br.symm
+  let ec : (Fin (d - l) ⊕ Fin l) ≃ Fin d := (β.sumCongr γ).trans bc.symm
+  have hr₁ (i : Fin (d - l)) : rows (er (Sum.inl i)) = Sum.inl (rows' i) := by
+    change rows ((Equiv.ofInjective rows rows.injective).symm
+      ⟨Sum.inl (α i).val, (α i).property⟩) = _
+    exact Equiv.apply_ofInjective_symm rows.injective _
+  have hr₂ (a : Fin l) : rows (er (Sum.inr a)) = Sum.inr (s a) := by
+    change rows ((Equiv.ofInjective rows rows.injective).symm
+      ⟨Sum.inr (γ a).val, (γ a).property⟩) = _
+    exact Equiv.apply_ofInjective_symm rows.injective _
+  have hc₁ (j : Fin (d - l)) : cols (ec (Sum.inl j)) = Sum.inl (cols' j) := by
+    change cols ((Equiv.ofInjective cols cols.injective).symm
+      ⟨Sum.inl (β j).val, (β j).property⟩) = _
+    exact Equiv.apply_ofInjective_symm cols.injective _
+  have hc₂ (b : Fin l) : cols (ec (Sum.inr b)) = Sum.inr (s b) := by
+    change cols ((Equiv.ofInjective cols cols.injective).symm
+      ⟨Sum.inr (γ b).val, (_h (γ b).val).mp (γ b).property⟩) = _
+    exact Equiv.apply_ofInjective_symm cols.injective _
+  refine ⟨l, hlt, hld, rows', cols', er, ec, ?_⟩
+  ext i j
+  rcases i with i | a <;> rcases j with j | b
+  · simp only [Matrix.submatrix_apply, hr₁, hc₁, Matrix.fromBlocks_apply₁₁]
+  · simp only [Matrix.submatrix_apply, hr₁, hc₂, Matrix.fromBlocks_apply₁₂,
+      Matrix.zero_apply]
+  · simp only [Matrix.submatrix_apply, hr₂, hc₁, Matrix.fromBlocks_apply₂₁,
+      Matrix.zero_apply]
+  · simp only [Matrix.submatrix_apply, hr₂, hc₂, Matrix.fromBlocks_apply₂₂,
+      Matrix.one_apply, s.injective.eq_iff]
