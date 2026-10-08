@@ -1,0 +1,50 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "UnimodularRow|unimodularRow|ProjectiveLine.*(card|equiv)|card.*ProjectiveLine",
+        "ProjectiveLine.*(card|equiv)|card.*ProjectiveLine|IsLocalRing.*ZMod|ZMod.*IsLocalRing",
+        "isUnit_natCast_iff_not_dvd_pow|natCast_zmod_val|val_lt|val_injective|natCard|card_zmod|theorem card_sum|theorem card_congr|eqvGen_exact|Quot.eq",
+        "instance.*[Ff]inite|fintype|commRing|def ZMod",
+        "p10_17ae7b7d_ppr_(unit_chart_equiv|nonunit_card)",
+        "python3 .humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/row-card-independent-uur3q2q7/run.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_X0.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/SetTheory/Cardinal/Finite.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Quot.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/row-card-decomposition-g9q8sg1v/report.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/row-card-independent-uur3q2q7/ChildTypes.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/row-card-independent-uur3q2q7/ChildTypes.log",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/row-card-independent-uur3q2q7/TargetAbsence.log",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/row-card-independent-uur3q2q7/report.json"
+      ],
+      "conclusion": "The project defines the stated unit-scaling relation; no matching chart-equivalence or total-cardinality theorem was found. Pinned mathlib supplies the prime-power unit criterion, canonical representatives, quotient equality via equivalence closure, and cardinality transfer. Snapshot revisions and all nine dependency pins were independently checked clean. Fresh Lean checks at proof base 1e115a452fbc98bff8aaa6728679030b19690b46 successfully elaborated both exact propositions without either child declaration and confirmed ordinary ZMod.commRing instances for IsUnit, units and multiplication. Checked support lemmas have only propext, Classical.choice and Quot.sound among their transitive axioms. An anonymous conditional proof successfully derived the exact parent type from the two child statements. The split appropriately separates classification from counting; parent-to-child edges preserve acyclicity and place children at depth 4, below limit 6. Neither name is reserved. The matching policy digest, exact omitted lines 10–12, original/build hashes and reversibility were independently verified; a fresh Lean probe confirmed all 56 targets absent. Frozen sources and handoffs remained unchanged. These checks approve decomposition only, not child implementation or comparator acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "unit_chart_equivalence",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The single-line proposition exactly expresses the stated equivalence with both hypotheses and the explicit unimodular-row quotient. It is independently elaboratable and references no proposed child or parent theorem. The bare identifier is unreserved. Steps 1–2 correctly establish the unit criterion and unit-coordinate dichotomy using primality and positive exponent. Step 3 proves the scaling relation is already an equivalence relation, justifying its use for Quot equality. Steps 4–6 establish chart membership, surjectivity, injectivity and disjointness; step 7 correctly reverses the bijection to obtain the required Nonempty equivalence. The proof is complete, non-circular and ready for formalization. Its empty dependency list is correct."
+    },
+    {
+      "key": "nonunit_cardinality",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The single-line proposition exactly matches the nonunit subtype, hypotheses and natural cardinality in the prose. It elaborates independently with the ordinary ZMod unit predicate; its bare identifier is unreserved. Step 1 establishes positive modulus and p^a = p·p^(a−1). Step 2 correctly characterizes nonunits through divisibility of canonical representatives. Steps 3–5 construct the map from Fin (p^(a−1)), establish its range, prove injectivity by bounded representatives and cancellation, and prove surjectivity by divisibility and the representative bound. Step 6 transfers cardinality correctly, including a=1. No classification lemma or parent conclusion is assumed, so the proof and empty dependency list are complete and non-circular."
+    }
+  ],
+  "required_changes": []
+}
