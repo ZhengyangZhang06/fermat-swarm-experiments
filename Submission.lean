@@ -1276,6 +1276,7 @@ theorem p02_es_177ebb5a_tb_fixed_form
   exact p02_es_177ebb5a_tff_periodic_polynomial_constant (d A.val) (N : ℂ)
     (Nat.cast_ne_zero.mpr (NeZero.ne N)) hperiod
 
+/-- Expand a homogeneous binary form in the monomials with exponents `(r, n - r)`. -/
 theorem p02_es_177ebb5a_ic_lct_monomial_expansion
     (n : ℕ) (Q : ↥(HeckeEis.BinaryForm ℂ n)) :
     Q.val = ∑ r : Fin (n + 1),
