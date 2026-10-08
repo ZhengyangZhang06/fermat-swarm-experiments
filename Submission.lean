@@ -3793,8 +3793,8 @@ theorem p06_9e0f5043ff_ifl_local_length_order
   obtain ⟨m, u, hu⟩ := IsDiscreteValuationRing.eq_unit_mul_pow_irreducible hbR hπ
   refine ⟨m, ?_, ?_⟩
   -- The pinned Mathlib/RingTheory/DiscreteValuationRing/Basic.lean theorem
-  -- combines Module.length_quotient with coheight_pow_maximalIdeal, counting
-  -- the uniformizer-power filtration from the accepted proof, also when m = 0.
+  -- combines Module.length_quotient with coheight_pow_maximalIdeal to compute
+  -- the coheight of the uniformizer-power ideal, including when m = 0.
   · rw [hu, Ideal.span_singleton_mul_left_unit u.isUnit,
       ← Ideal.span_singleton_pow, ← hπ.maximalIdeal_eq]
     exact IsDiscreteValuationRing.length_quotient_pow_maximalIdeal R m
