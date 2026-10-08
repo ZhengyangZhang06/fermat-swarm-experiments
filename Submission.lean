@@ -636,3 +636,1046 @@ theorem Submission.p08_7d1ff633a4_tp26_bilinear_averaging :
     apply Finset.sum_congr rfl
     intro c _
     rw [← hφ, ← hQ, smul_inv_smul]
+
+
+/-- Finite-index transfer and both projection formulas on the frozen carriers. -/
+theorem Submission.p08_7d1ff633a4_tt26_transfer_projection :
+    ∀ {k G : Type} [Field k] [Group G] (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)) (H : Subgroup G) [H.FiniteIndex] (A B N : Rep.{0} k G) (E₀ : IntermediateField ℚ (AlgebraicClosure ℚ)), FiniteDimensional ℚ E₀ → Normal ℚ E₀ → E₀.fixingSubgroup.comap r ≤ H → (∀ g : G, r g ∈ E₀.fixingSubgroup → ∀ a : A, A.ρ g a = a) → (∀ g : G, r g ∈ E₀.fixingSubgroup → ∀ b : B, B.ρ g b = b) → (∀ g : G, r g ∈ E₀.fixingSubgroup → ∀ z : N, N.ρ g z = z) → ∀ φ : A →ₗ[k] B →ₗ[k] N, (∀ (g : G) (a : A) (b : B), φ (A.ρ g a) (B.ρ g b) = N.ρ g (φ a b)) → let rH := r.comp H.subtype; let AH := Rep.res H.subtype A; let BH := Rep.res H.subtype B; let NH := Rep.res H.subtype N; let φH : AH →ₗ[k] BH →ₗ[k] NH := φ; let X : Fin 3 → ModuleCat k := ![ModuleCat.of k A.ρ.invariants, ModuleCat.of k (groupCohomology.continuousH1 r A), ModuleCat.of k (groupCohomology.continuousH2 r A)]; let Y : Fin 3 → ModuleCat k := ![ModuleCat.of k (groupCohomology.continuousH2 r B), ModuleCat.of k (groupCohomology.continuousH1 r B), ModuleCat.of k B.ρ.invariants]; let XH : Fin 3 → ModuleCat k := ![ModuleCat.of k AH.ρ.invariants, ModuleCat.of k (groupCohomology.continuousH1 rH AH), ModuleCat.of k (groupCohomology.continuousH2 rH AH)]; let YH : Fin 3 → ModuleCat k := ![ModuleCat.of k (groupCohomology.continuousH2 rH BH), ModuleCat.of k (groupCohomology.continuousH1 rH BH), ModuleCat.of k BH.ρ.invariants]; ∀ (P : ∀ i : Fin 3, X i →ₗ[k] Y i →ₗ[k] groupCohomology.continuousH2 r N) (PH : ∀ i : Fin 3, XH i →ₗ[k] YH i →ₗ[k] groupCohomology.continuousH2 rH NH), ((∀ (m : A.ρ.invariants) (z : groupCohomology.levelCocycles₂ r B), ∃ e : groupCohomology.levelCocycles₂ r N, (∀ st : G × G, (e : G × G → N) st = φ (m : A) ((z : G × G → B) st)) ∧ P 0 m (groupCohomology.continuousH2π r B z) = groupCohomology.continuousH2π r N e) ∧ (∀ (f : groupCohomology.cocycles₁ A) (hf : groupCohomology.IsLevelConstant₁ r (⇑f)) (g : groupCohomology.cocycles₁ B) (hg : groupCohomology.IsLevelConstant₁ r (⇑g)), ∃ e : groupCohomology.levelCocycles₂ r N, (∀ st : G × G, (e : G × G → N) st = groupCohomology.cupCochain φ (⇑f) (⇑g) st) ∧ P 1 ⟨(groupCohomology.H1π A).hom f, groupCohomology.H1π_mem_continuousH1 r A hf⟩ ⟨(groupCohomology.H1π B).hom g, groupCohomology.H1π_mem_continuousH1 r B hg⟩ = groupCohomology.continuousH2π r N e) ∧ (∀ (z : groupCohomology.levelCocycles₂ r A) (d : B.ρ.invariants), ∃ e : groupCohomology.levelCocycles₂ r N, (∀ st : G × G, (e : G × G → N) st = φ ((z : G × G → A) st) (d : B)) ∧ P 2 (groupCohomology.continuousH2π r A z) d = groupCohomology.continuousH2π r N e)) → ((∀ (m : AH.ρ.invariants) (z : groupCohomology.levelCocycles₂ rH BH), ∃ e : groupCohomology.levelCocycles₂ rH NH, (∀ st : H × H, (e : H × H → NH) st = φH (m : AH) ((z : H × H → BH) st)) ∧ PH 0 m (groupCohomology.continuousH2π rH BH z) = groupCohomology.continuousH2π rH NH e) ∧ (∀ (f : groupCohomology.cocycles₁ AH) (hf : groupCohomology.IsLevelConstant₁ rH (⇑f)) (g : groupCohomology.cocycles₁ BH) (hg : groupCohomology.IsLevelConstant₁ rH (⇑g)), ∃ e : groupCohomology.levelCocycles₂ rH NH, (∀ st : H × H, (e : H × H → NH) st = groupCohomology.cupCochain φH (⇑f) (⇑g) st) ∧ PH 1 ⟨(groupCohomology.H1π AH).hom f, groupCohomology.H1π_mem_continuousH1 rH AH hf⟩ ⟨(groupCohomology.H1π BH).hom g, groupCohomology.H1π_mem_continuousH1 rH BH hg⟩ = groupCohomology.continuousH2π rH NH e) ∧ (∀ (z : groupCohomology.levelCocycles₂ rH AH) (d : BH.ρ.invariants), ∃ e : groupCohomology.levelCocycles₂ rH NH, (∀ st : H × H, (e : H × H → NH) st = φH ((z : H × H → AH) st) (d : BH)) ∧ PH 2 (groupCohomology.continuousH2π rH AH z) d = groupCohomology.continuousH2π rH NH e)) → ∃ (RX : ∀ i : Fin 3, X i →ₗ[k] XH i) (CX : ∀ i : Fin 3, XH i →ₗ[k] X i) (RY : ∀ i : Fin 3, Y i →ₗ[k] YH i) (CY : ∀ i : Fin 3, YH i →ₗ[k] Y i) (RN : groupCohomology.continuousH2 r N →ₗ[k] groupCohomology.continuousH2 rH NH) (CN : groupCohomology.continuousH2 rH NH →ₗ[k] groupCohomology.continuousH2 r N), (∀ (i : Fin 3) (x : X i), CX i (RX i x) = (H.index : k) • x) ∧ (∀ (i : Fin 3) (y : Y i), CY i (RY i y) = (H.index : k) • y) ∧ (∀ z : groupCohomology.continuousH2 r N, CN (RN z) = (H.index : k) • z) ∧ (∀ (i : Fin 3) (x : X i) (y : YH i), CN (PH i (RX i x) y) = P i x (CY i y)) ∧ (∀ (i : Fin 3) (x : XH i) (y : Y i), CN (PH i x (RY i y)) = P i (CX i x) y) := by
+  classical
+  intro k G _ _ r H _ A B N E₀ hE₀ hNormal₀ hKH hA hB hN φ hφ
+    rH AH BH NH φH X Y XH YH P PH hP hPH
+  -- In zero index characteristic, the six zero maps satisfy the exact conclusion.
+  by_cases hindex : (H.index : k) = 0
+  · refine ⟨0, 0, 0, 0, 0, 0, ?_⟩
+    simp [hindex]
+  -- Fix the same retraction and left-coset representatives in every degree.
+  obtain ⟨a, haH, haEq, haLevel⟩ :=
+    Submission.p08_7d1ff633a4_tp26_normal_level_retraction H
+  let : Fintype (G ⧸ H) := Fintype.ofFinite _
+  let t : (G ⧸ H) → G := Quotient.out
+  have ht : ∀ c : G ⧸ H, (t c : G ⧸ H) = c := Quotient.out_eq
+  have hρ : ∀ (V : Rep.{0} k G) (s u : G) (v : V),
+      V.ρ s (V.ρ u v) = V.ρ (s * u) v := by
+    intro V s u v
+    rw [Rep.ρ_mul]
+    rfl
+  -- A finite family of witness fields has a common normal level containing E₀.
+  have commonLevel : ∀ (F : IntermediateField ℚ (AlgebraicClosure ℚ)),
+      FiniteDimensional ℚ F →
+      ∃ E : IntermediateField ℚ (AlgebraicClosure ℚ),
+        FiniteDimensional ℚ E ∧ Normal ℚ E ∧ E₀ ≤ E ∧ F ≤ E ∧
+        (E.fixingSubgroup.comap r).Normal ∧
+        (E.fixingSubgroup.comap r).FiniteIndex ∧ E.fixingSubgroup.comap r ≤ H := by
+    intro F hF
+    obtain ⟨E, hE, hnE, hle, _, _⟩ :=
+      Submission.p08_7d1ff633a4_normal_refinement (fun b : Bool => if b then E₀ else F)
+        (by intro b; cases b; exact hF; exact hE₀)
+    have h₀ : E₀ ≤ E := by simpa using hle true
+    have hF' : F ≤ E := by simpa using hle false
+    obtain ⟨hKn, hKf⟩ := Submission.p08_7d1ff633a4_tt26_normal_kernel r E hE hnE
+    refine ⟨E, hE, hnE, h₀, hF', hKn, hKf, ?_⟩
+    intro g hg
+    exact hKH (IntermediateField.fixingSubgroup_antitone h₀ hg)
+  -- Restriction in degree zero uses the original underlying coefficient module.
+  let R₀ (V : Rep.{0} k G) : V.ρ.invariants →ₗ[k] (Rep.res H.subtype V).ρ.invariants :=
+    { toFun := fun v => ⟨v, fun h => v.property (h : G)⟩
+      map_add' := fun _ _ => rfl
+      map_smul' := fun _ _ => rfl }
+  -- Restriction on the frozen H² quotient is already supplied by the pinned library.
+  let R₂ (V : Rep.{0} k G) : continuousH2 r V →ₗ[k]
+      continuousH2 rH (Rep.res H.subtype V) :=
+    continuousH2Map H.subtype (fun _ => rfl) (LinearMap.id : V →ₗ[k] V)
+      (fun _ _ => rfl)
+  -- Homogeneous cocycles, used for the retraction/prism argument.
+  let hom₁ (V : Rep.{0} k G) (f : G → V) : G → G → V :=
+    fun x y => V.ρ x (f (x⁻¹ * y))
+  let hom₂ (V : Rep.{0} k G) (z : G × G → V) : G → G → G → V :=
+    fun x y w => V.ρ x (z (x⁻¹ * y, y⁻¹ * w))
+  have hom₁_eq : ∀ (V : Rep.{0} k G) (f : G → V) (s x y : G),
+      hom₁ V f (s * x) (s * y) = V.ρ s (hom₁ V f x y) := by
+    intro V f s x y
+    simp only [hom₁, mul_inv_rev, mul_assoc, inv_mul_cancel_left, hρ]
+  have hom₂_eq : ∀ (V : Rep.{0} k G) (z : G × G → V) (s x y w : G),
+      hom₂ V z (s * x) (s * y) (s * w) = V.ρ s (hom₂ V z x y w) := by
+    intro V z s x y w
+    simp only [hom₂, mul_inv_rev, mul_assoc, inv_mul_cancel_left, hρ]
+  have hom₁_closed : ∀ (V : Rep.{0} k G) (f : cocycles₁ V) (x y z : G),
+      hom₁ V f y z - hom₁ V f x z + hom₁ V f x y = 0 := by
+    intro V f x y z
+    have hc := congrArg (V.ρ x) ((mem_cocycles₁_def (⇑f)).mp f.property
+      (x⁻¹ * y) (y⁻¹ * z))
+    simpa only [hom₁, map_add, map_sub, map_zero, hρ, mul_assoc,
+      inv_mul_cancel_left, mul_inv_cancel_left] using hc
+  have hom₂_closed : ∀ (V : Rep.{0} k G) (z : cocycles₂ V) (w x y u : G),
+      hom₂ V z x y u - hom₂ V z w y u + hom₂ V z w x u - hom₂ V z w x y = 0 := by
+    intro V z w x y u
+    have hc := congrArg (V.ρ w) ((mem_cocycles₂_def (⇑z)).mp z.property
+      (w⁻¹ * x) (x⁻¹ * y) (y⁻¹ * u))
+    simpa only [hom₂, map_add, map_sub, map_zero, hρ, mul_assoc,
+      inv_mul_cancel_left, mul_inv_cancel_left] using hc
+  -- The two exact child prism identities give the required explicit primitives.
+  have prism₁ : ∀ (V : Rep.{0} k G) (f : cocycles₁ V) (x y : G),
+      hom₁ V f x y - hom₁ V f (a x) (a y) =
+        hom₁ V f (a y) y - hom₁ V f (a x) x := by
+    intro V f
+    exact (Submission.p08_7d1ff633a4_tp26_low_degree_prism
+      (fun x : G => (a x : G)) id).1 (hom₁ V f) (hom₁_closed V f)
+  have prism₂ : ∀ (V : Rep.{0} k G) (z : cocycles₂ V),
+      let p : G → G → V := fun x y =>
+        hom₂ V z (a x) x y - hom₂ V z (a x) (a y) y
+      ∀ x y u : G, hom₂ V z x y u - hom₂ V z (a x) (a y) (a u) =
+        p y u - p x u + p x y := by
+    intro V z
+    exact (Submission.p08_7d1ff633a4_tp26_low_degree_prism
+      (fun x : G => (a x : G)) id).2 (hom₂ V z) (hom₂_closed V z)
+  -- Use the same averaging operation for every coefficient and vertex domain.
+  let avg (V : Rep.{0} k G) (D : Type) [MulAction G D] :
+      (D → V) →ₗ[k] (D → V) :=
+    Classical.choose (Submission.p08_7d1ff633a4_tp26_coset_averaging H V t ht)
+  have avg_spec (V : Rep.{0} k G) (D : Type) [MulAction G D] :=
+    Classical.choose_spec (Submission.p08_7d1ff633a4_tp26_coset_averaging
+      (X := D) H V t ht)
+  have avg_apply (V : Rep.{0} k G) (D : Type) [MulAction G D]
+      (F : D → V) (x : D) :
+      avg V D F x = ∑ c : G ⧸ H, V.ρ (t c) (F ((t c)⁻¹ • x)) :=
+    (avg_spec V D).1 F x
+  have avg_equivariant (V : Rep.{0} k G) (D : Type) [MulAction G D]
+      (F : D → V) (hF : ∀ (h : H) (x : D), F ((h : G) • x) = V.ρ (h : G) (F x)) :
+      ∀ (s : G) (x : D), avg V D F (s • x) = V.ρ s (avg V D F x) :=
+    (avg_spec V D).2.1 F hF
+  have avg_index (V : Rep.{0} k G) (D : Type) [MulAction G D]
+      (F : D → V) (hF : ∀ (s : G) (x : D), F (s • x) = V.ρ s (F x)) :
+      ∀ x : D, avg V D F x = (H.index : k) • F x :=
+    (avg_spec V D).2.2.1 F hF
+  have norm_invariant (V : Rep.{0} k G) (v : (Rep.res H.subtype V).ρ.invariants) :
+      (∑ c : G ⧸ H, V.ρ (t c) (v : V)) ∈ V.ρ.invariants := by
+    intro s
+    have heq := avg_equivariant V G (fun _ => (v : V))
+      (fun h _ => (v.property h).symm) s 1
+    simpa only [avg_apply] using heq.symm
+  let C₀ (V : Rep.{0} k G) : (Rep.res H.subtype V).ρ.invariants →ₗ[k] V.ρ.invariants :=
+    { toFun := fun v => ⟨∑ c : G ⧸ H, V.ρ (t c) (v : V), norm_invariant V v⟩
+      map_add' := by
+        intro v w
+        apply Subtype.ext
+        simp only [Submodule.coe_add, map_add, Finset.sum_add_distrib]
+      map_smul' := by
+        intro c v
+        apply Subtype.ext
+        simp only [Submodule.coe_smul, map_smul, Finset.smul_sum, RingHom.id_apply] }
+  have C₀_R₀ (V : Rep.{0} k G) (v : V.ρ.invariants) :
+      C₀ V (R₀ V v) = (H.index : k) • v := by
+    apply Subtype.ext
+    have heq := avg_index V G (fun _ => (v : V)) (fun s _ => (v.property s).symm) 1
+    change (∑ c : G ⧸ H, V.ρ (t c) (v : V)) = (H.index : k) • (v : V)
+    simpa only [avg_apply] using heq
+  -- Both projection identities already hold for arbitrary homogeneous cochains.
+  have avg_product (D D' : Type) [MulAction G D] [MulAction G D']
+      (F : D → A) (Q : D' → B) :=
+    Submission.p08_7d1ff633a4_tp26_bilinear_averaging A B N φ hφ t F Q
+  -- Coordinate pullback along a preserves the subgroup equivariance.
+  let lift₁ (V : Rep.{0} k G) (f : H → Rep.res H.subtype V) : G × G → V :=
+    fun xy => V.ρ (a xy.1) (f ((a xy.1)⁻¹ * a xy.2))
+  let lift₂ (V : Rep.{0} k G) (z : H × H → Rep.res H.subtype V) : G × G × G → V :=
+    fun xyz => V.ρ (a xyz.1) (z ((a xyz.1)⁻¹ * a xyz.2.1,
+      (a xyz.2.1)⁻¹ * a xyz.2.2))
+  have lift₁_eq (V : Rep.{0} k G) (f : H → Rep.res H.subtype V) (h : H) (xy : G × G) :
+      lift₁ V f ((h : G) • xy) = V.ρ (h : G) (lift₁ V f xy) := by
+    change V.ρ (a ((h : G) * xy.1))
+      (f ((a ((h : G) * xy.1))⁻¹ * a ((h : G) * xy.2))) = _
+    simp only [haEq, mul_inv_rev, mul_assoc, inv_mul_cancel_left]
+    change V.ρ ((h : G) * (a xy.1 : G)) _ = _
+    rw [← hρ]
+  have lift₂_eq (V : Rep.{0} k G) (z : H × H → Rep.res H.subtype V)
+      (h : H) (xyz : G × G × G) :
+      lift₂ V z ((h : G) • xyz) = V.ρ (h : G) (lift₂ V z xyz) := by
+    change V.ρ (a ((h : G) * xyz.1))
+      (z ((a ((h : G) * xyz.1))⁻¹ * a ((h : G) * xyz.2.1),
+        (a ((h : G) * xyz.2.1))⁻¹ * a ((h : G) * xyz.2.2))) = _
+    simp only [haEq, mul_inv_rev, mul_assoc, inv_mul_cancel_left]
+    change V.ρ ((h : G) * (a xyz.1 : G)) _ = _
+    rw [← hρ]
+  let transferCochain₁ (V : Rep.{0} k G) : (H → Rep.res H.subtype V) →ₗ[k] (G → V) :=
+    { toFun := fun f s => avg V (G × G) (lift₁ V f) (1, s)
+      map_add' := by
+        intro f g
+        ext s
+        simp [avg_apply, lift₁, map_add, Finset.sum_add_distrib]
+      map_smul' := by
+        intro c f
+        ext s
+        simp [avg_apply, lift₁, map_smul, Finset.smul_sum] }
+  let transferCochain₂ (V : Rep.{0} k G) :
+      (H × H → Rep.res H.subtype V) →ₗ[k] (G × G → V) :=
+    { toFun := fun z st => avg V (G × G × G) (lift₂ V z) (1, st.1, st.1 * st.2)
+      map_add' := by
+        intro z w
+        ext st
+        simp [avg_apply, lift₂, map_add, Finset.sum_add_distrib]
+      map_smul' := by
+        intro c z
+        ext st
+        simp [avg_apply, lift₂, map_smul, Finset.smul_sum] }
+  -- The averaged pullbacks are closed whenever their inputs are closed.
+  have lift₁_closed (V : Rep.{0} k G) (f : cocycles₁ (Rep.res H.subtype V))
+      (x y z : G) : lift₁ V f (y, z) - lift₁ V f (x, z) + lift₁ V f (x, y) = 0 := by
+    have hc := congrArg (V.ρ (a x : G))
+      ((mem_cocycles₁_def (⇑f)).mp f.property ((a x)⁻¹ * a y) ((a y)⁻¹ * a z))
+    change V.ρ (a x : G) (V.ρ ((a x : G)⁻¹ * (a y : G))
+      (f ((a y)⁻¹ * a z)) - f (((a x)⁻¹ * a y) * ((a y)⁻¹ * a z)) +
+        f ((a x)⁻¹ * a y)) = V.ρ (a x : G) 0 at hc
+    simpa only [lift₁, map_add, map_sub, map_zero, hρ, mul_assoc,
+      inv_mul_cancel_left, mul_inv_cancel_left] using hc
+  have lift₂_closed (V : Rep.{0} k G) (z : cocycles₂ (Rep.res H.subtype V))
+      (w x y u : G) :
+      lift₂ V z (x, y, u) - lift₂ V z (w, y, u) +
+        lift₂ V z (w, x, u) - lift₂ V z (w, x, y) = 0 := by
+    have hc := congrArg (V.ρ (a w : G)) ((mem_cocycles₂_def (⇑z)).mp z.property
+      ((a w)⁻¹ * a x) ((a x)⁻¹ * a y) ((a y)⁻¹ * a u))
+    change V.ρ (a w : G)
+      (V.ρ ((a w : G)⁻¹ * (a x : G)) (z ((a x)⁻¹ * a y, (a y)⁻¹ * a u)) -
+        z (((a w)⁻¹ * a x) * ((a x)⁻¹ * a y), (a y)⁻¹ * a u) +
+        z ((a w)⁻¹ * a x, ((a x)⁻¹ * a y) * ((a y)⁻¹ * a u)) -
+        z ((a w)⁻¹ * a x, (a x)⁻¹ * a y)) = V.ρ (a w : G) 0 at hc
+    simpa only [lift₂, map_add, map_sub, map_zero, hρ, mul_assoc,
+      inv_mul_cancel_left, mul_inv_cancel_left] using hc
+  have avg_closed₁ (V : Rep.{0} k G) (F : G × G → V)
+      (hF : ∀ x y z : G, F (y, z) - F (x, z) + F (x, y) = 0)
+      (x y z : G) :
+      avg V (G × G) F (y, z) - avg V (G × G) F (x, z) +
+        avg V (G × G) F (x, y) = 0 := by
+    simp only [avg_apply, ← Finset.sum_sub_distrib, ← Finset.sum_add_distrib]
+    apply Finset.sum_eq_zero
+    intro c _
+    change V.ρ (t c) (F ((t c)⁻¹ * y, (t c)⁻¹ * z)) -
+      V.ρ (t c) (F ((t c)⁻¹ * x, (t c)⁻¹ * z)) +
+      V.ρ (t c) (F ((t c)⁻¹ * x, (t c)⁻¹ * y)) = 0
+    rw [← map_sub, ← map_add, hF, map_zero]
+  have avg_closed₂ (V : Rep.{0} k G) (F : G × G × G → V)
+      (hF : ∀ w x y z : G, F (x, y, z) - F (w, y, z) + F (w, x, z) - F (w, x, y) = 0)
+      (w x y z : G) :
+      avg V (G × G × G) F (x, y, z) - avg V (G × G × G) F (w, y, z) +
+        avg V (G × G × G) F (w, x, z) - avg V (G × G × G) F (w, x, y) = 0 := by
+    simp only [avg_apply, ← Finset.sum_sub_distrib, ← Finset.sum_add_distrib]
+    apply Finset.sum_eq_zero
+    intro c _
+    change V.ρ (t c) (F ((t c)⁻¹ * x, (t c)⁻¹ * y, (t c)⁻¹ * z)) -
+      V.ρ (t c) (F ((t c)⁻¹ * w, (t c)⁻¹ * y, (t c)⁻¹ * z)) +
+      V.ρ (t c) (F ((t c)⁻¹ * w, (t c)⁻¹ * x, (t c)⁻¹ * z)) -
+      V.ρ (t c) (F ((t c)⁻¹ * w, (t c)⁻¹ * x, (t c)⁻¹ * y)) = 0
+    rw [← map_sub, ← map_add, ← map_sub, hF, map_zero]
+  have transfer_closed₁ (V : Rep.{0} k G) (f : cocycles₁ (Rep.res H.subtype V)) :
+      transferCochain₁ V (⇑f) ∈ cocycles₁ V := by
+    rw [mem_cocycles₁_def]
+    intro s u
+    have heq := avg_equivariant V (G × G) (lift₁ V f) (lift₁_eq V f) s (1, u)
+    change avg V (G × G) (lift₁ V f) (s * 1, s * u) = _ at heq
+    simp only [mul_one] at heq
+    change V.ρ s (avg V (G × G) (lift₁ V f) (1, u)) -
+      avg V (G × G) (lift₁ V f) (1, s * u) + avg V (G × G) (lift₁ V f) (1, s) = 0
+    rw [← heq]
+    exact avg_closed₁ V _ (lift₁_closed V f) 1 s (s * u)
+  have transfer_closed₂ (V : Rep.{0} k G) (z : cocycles₂ (Rep.res H.subtype V)) :
+      transferCochain₂ V (⇑z) ∈ cocycles₂ V := by
+    rw [mem_cocycles₂_def]
+    intro s u v
+    have heq := avg_equivariant V (G × G × G) (lift₂ V z) (lift₂_eq V z) s (1, u, u * v)
+    change avg V (G × G × G) (lift₂ V z) (s * 1, s * u, s * (u * v)) = _ at heq
+    simp only [mul_one] at heq
+    change V.ρ s (avg V (G × G × G) (lift₂ V z) (1, u, u * v)) -
+      avg V (G × G × G) (lift₂ V z) (1, s * u, (s * u) * v) +
+      avg V (G × G × G) (lift₂ V z) (1, s, s * (u * v)) -
+      avg V (G × G × G) (lift₂ V z) (1, s, s * u) = 0
+    rw [← heq, mul_assoc]
+    exact avg_closed₂ V _ (lift₂_closed V z) 1 s (s * u) (s * (u * v))
+  -- Normality controls consecutive differences under independent coordinate changes.
+  have difference_level (K : Subgroup G) (hK : K.Normal) (x x' y y' : G)
+      (hx : x⁻¹ * x' ∈ K) (hy : y⁻¹ * y' ∈ K) :
+      (x⁻¹ * y)⁻¹ * (x'⁻¹ * y') ∈ K := by
+    have hc := K.mul_mem (hK.conj_mem _ (K.inv_mem hx) (x⁻¹ * y)⁻¹) hy
+    convert hc using 1; group
+  have lift₁_level (V : Rep.{0} k G)
+      (hV : ∀ g : G, r g ∈ E₀.fixingSubgroup → ∀ v : V, V.ρ g v = v)
+      (f : H → Rep.res H.subtype V) (hf : IsLevelConstant₁ rH f) :
+      ∃ E : IntermediateField ℚ (AlgebraicClosure ℚ), FiniteDimensional ℚ E ∧
+        ∀ x y u v : G, r u ∈ E.fixingSubgroup → r v ∈ E.fixingSubgroup →
+          lift₁ V f (x * u, y * v) = lift₁ V f (x, y) := by
+    obtain ⟨F, hF, hf⟩ := hf
+    obtain ⟨E, hE, _, h₀, hFE, hKn, _, hKE⟩ := commonLevel F hF
+    refine ⟨E, hE, ?_⟩
+    intro x y u v hu hv
+    let K := E.fixingSubgroup.comap r
+    have hx := haLevel K hKn hKE x u hu
+    have hy := haLevel K hKn hKE y v hv
+    let d : H := (a x)⁻¹ * a y
+    let d' : H := (a (x * u))⁻¹ * a (y * v)
+    have hd : rH (d⁻¹ * d') ∈ E.fixingSubgroup :=
+      difference_level K hKn (a x) (a (x * u)) (a y) (a (y * v)) hx hy
+    have hfd : f d' = f d := by
+      simpa only [mul_inv_cancel_left] using
+        hf d (d⁻¹ * d') (IntermediateField.fixingSubgroup_antitone hFE hd)
+    have hact : ∀ w : V, V.ρ (a (x * u) : G) w = V.ρ (a x : G) w := by
+      intro w
+      calc
+        V.ρ (a (x * u) : G) w =
+            V.ρ (a x : G) (V.ρ ((a x : G)⁻¹ * (a (x * u) : G)) w) := by
+          rw [hρ, mul_inv_cancel_left]
+        _ = V.ρ (a x : G) w := by
+          rw [hV _ (IntermediateField.fixingSubgroup_antitone h₀ hx)]
+    change V.ρ (a (x * u) : G) (f d') = V.ρ (a x : G) (f d)
+    rw [hfd, hact]
+  have lift₂_level (V : Rep.{0} k G)
+      (hV : ∀ g : G, r g ∈ E₀.fixingSubgroup → ∀ v : V, V.ρ g v = v)
+      (z : H × H → Rep.res H.subtype V) (hz : IsLevelConstant₂ rH z) :
+      ∃ E : IntermediateField ℚ (AlgebraicClosure ℚ), FiniteDimensional ℚ E ∧
+        ∀ x y w u v q : G, r u ∈ E.fixingSubgroup → r v ∈ E.fixingSubgroup →
+          r q ∈ E.fixingSubgroup →
+          lift₂ V z (x * u, y * v, w * q) = lift₂ V z (x, y, w) := by
+    obtain ⟨F, hF, hz⟩ := hz
+    obtain ⟨E, hE, _, h₀, hFE, hKn, _, hKE⟩ := commonLevel F hF
+    refine ⟨E, hE, ?_⟩
+    intro x y w u v q hu hv hq
+    let K := E.fixingSubgroup.comap r
+    have hx := haLevel K hKn hKE x u hu
+    have hy := haLevel K hKn hKE y v hv
+    have hw := haLevel K hKn hKE w q hq
+    let d : H := (a x)⁻¹ * a y
+    let d' : H := (a (x * u))⁻¹ * a (y * v)
+    let e : H := (a y)⁻¹ * a w
+    let e' : H := (a (y * v))⁻¹ * a (w * q)
+    have hd : rH (d⁻¹ * d') ∈ E.fixingSubgroup :=
+      difference_level K hKn (a x) (a (x * u)) (a y) (a (y * v)) hx hy
+    have he : rH (e⁻¹ * e') ∈ E.fixingSubgroup :=
+      difference_level K hKn (a y) (a (y * v)) (a w) (a (w * q)) hy hw
+    have hzd : z (d', e') = z (d, e) := by
+      simpa only [mul_inv_cancel_left] using
+        hz d e (d⁻¹ * d') (e⁻¹ * e')
+          (IntermediateField.fixingSubgroup_antitone hFE hd)
+          (IntermediateField.fixingSubgroup_antitone hFE he)
+    have hact : ∀ v : V, V.ρ (a (x * u) : G) v = V.ρ (a x : G) v := by
+      intro v
+      calc
+        V.ρ (a (x * u) : G) v =
+            V.ρ (a x : G) (V.ρ ((a x : G)⁻¹ * (a (x * u) : G)) v) := by
+          rw [hρ, mul_inv_cancel_left]
+        _ = V.ρ (a x : G) v := by
+          rw [hV _ (IntermediateField.fixingSubgroup_antitone h₀ hx)]
+    change V.ρ (a (x * u) : G) (z (d', e')) = V.ρ (a x : G) (z (d, e))
+    rw [hzd, hact]
+  have transfer_level₁ (V : Rep.{0} k G)
+      (hV : ∀ g : G, r g ∈ E₀.fixingSubgroup → ∀ v : V, V.ρ g v = v)
+      (f : H → Rep.res H.subtype V) (hf : IsLevelConstant₁ rH f) :
+      IsLevelConstant₁ r (transferCochain₁ V f) := by
+    obtain ⟨E, hE, hlev⟩ := lift₁_level V hV f hf
+    refine ⟨E, hE, ?_⟩
+    intro s u hu
+    change avg V (G × G) (lift₁ V f) (1, s * u) = avg V (G × G) (lift₁ V f) (1, s)
+    simp only [avg_apply]
+    apply Finset.sum_congr rfl
+    intro c _
+    congr 1
+    change lift₁ V f ((t c)⁻¹ * 1, (t c)⁻¹ * (s * u)) =
+      lift₁ V f ((t c)⁻¹ * 1, (t c)⁻¹ * s)
+    simpa only [mul_one, mul_assoc] using hlev (t c)⁻¹ ((t c)⁻¹ * s) 1 u
+      (by simpa only [map_one] using E.fixingSubgroup.one_mem) hu
+  have transfer_level₂ (V : Rep.{0} k G)
+      (hV : ∀ g : G, r g ∈ E₀.fixingSubgroup → ∀ v : V, V.ρ g v = v)
+      (z : H × H → Rep.res H.subtype V) (hz : IsLevelConstant₂ rH z) :
+      IsLevelConstant₂ r (transferCochain₂ V z) := by
+    obtain ⟨E, hE, hlev⟩ := lift₂_level V hV z hz
+    obtain ⟨D, hD, _, _, hED, hDn, _, _⟩ := commonLevel E hE
+    refine ⟨D, hD, ?_⟩
+    intro s w u v hu hv
+    let K := D.fixingSubgroup.comap r
+    have hprod : w⁻¹ * u * w * v ∈ K := by
+      apply K.mul_mem _ hv
+      simpa only [inv_inv] using hDn.conj_mem u hu w⁻¹
+    change avg V (G × G × G) (lift₂ V z) (1, s * u, (s * u) * (w * v)) =
+      avg V (G × G × G) (lift₂ V z) (1, s, s * w)
+    simp only [avg_apply]
+    apply Finset.sum_congr rfl
+    intro c _
+    congr 1
+    change lift₂ V z ((t c)⁻¹ * 1, (t c)⁻¹ * (s * u), (t c)⁻¹ * ((s * u) * (w * v))) =
+      lift₂ V z ((t c)⁻¹ * 1, (t c)⁻¹ * s, (t c)⁻¹ * (s * w))
+    simpa only [mul_one, mul_assoc, mul_inv_cancel_left] using
+      hlev (t c)⁻¹ ((t c)⁻¹ * s) ((t c)⁻¹ * (s * w)) 1 u (w⁻¹ * u * w * v)
+        (by simpa only [map_one] using E.fixingSubgroup.one_mem)
+        (IntermediateField.fixingSubgroup_antitone hED hu)
+        (IntermediateField.fixingSubgroup_antitone hED hprod)
+  -- A level primitive is transferred by the very same degree-one cochain map.
+  have lift_d₁₂ (V : Rep.{0} k G) (f : H → Rep.res H.subtype V) (x y z : G) :
+      lift₂ V ((d₁₂ (Rep.res H.subtype V)).hom f) (x, y, z) =
+        lift₁ V f (y, z) - lift₁ V f (x, z) + lift₁ V f (x, y) := by
+    change V.ρ (a x : G) ((d₁₂ (Rep.res H.subtype V)).hom f
+      ((a x)⁻¹ * a y, (a y)⁻¹ * a z)) = _
+    rw [d₁₂_hom_apply]
+    change V.ρ (a x : G) (V.ρ ((a x : G)⁻¹ * (a y : G)) (f ((a y)⁻¹ * a z)) -
+      f (((a x)⁻¹ * a y) * ((a y)⁻¹ * a z)) + f ((a x)⁻¹ * a y)) = _
+    simp only [lift₁, map_add, map_sub, hρ, mul_assoc, mul_inv_cancel_left]
+  have transfer_d₁₂ (V : Rep.{0} k G) (f : H → Rep.res H.subtype V) :
+      transferCochain₂ V ((d₁₂ (Rep.res H.subtype V)).hom f) =
+        (d₁₂ V).hom (transferCochain₁ V f) := by
+    ext ⟨s, u⟩
+    have heq := avg_equivariant V (G × G) (lift₁ V f) (lift₁_eq V f) s (1, u)
+    change avg V (G × G) (lift₁ V f) (s * 1, s * u) = _ at heq
+    simp only [mul_one] at heq
+    rw [d₁₂_hom_apply]
+    change avg V (G × G × G) (lift₂ V ((d₁₂ (Rep.res H.subtype V)).hom f)) (1, s, s * u) =
+      V.ρ s (avg V (G × G) (lift₁ V f) (1, u)) -
+        avg V (G × G) (lift₁ V f) (1, s * u) + avg V (G × G) (lift₁ V f) (1, s)
+    rw [← heq]
+    simp only [avg_apply, ← Finset.sum_sub_distrib, ← Finset.sum_add_distrib]
+    apply Finset.sum_congr rfl
+    intro c _
+    change V.ρ (t c) (lift₂ V ((d₁₂ (Rep.res H.subtype V)).hom f)
+      ((t c)⁻¹ * 1, (t c)⁻¹ * s, (t c)⁻¹ * (s * u))) = _
+    rw [lift_d₁₂, map_add, map_sub]
+    rfl
+  let transferZ₂ (V : Rep.{0} k G)
+      (hV : ∀ g : G, r g ∈ E₀.fixingSubgroup → ∀ v : V, V.ρ g v = v) :
+      levelCocycles₂ rH (Rep.res H.subtype V) →ₗ[k] levelCocycles₂ r V :=
+    (transferCochain₂ V).restrict (fun z hz =>
+      ⟨transfer_closed₂ V ⟨z, hz.1⟩, transfer_level₂ V hV z hz.2⟩)
+  let C₂ (V : Rep.{0} k G)
+      (hV : ∀ g : G, r g ∈ E₀.fixingSubgroup → ∀ v : V, V.ρ g v = v) :
+      continuousH2 rH (Rep.res H.subtype V) →ₗ[k] continuousH2 r V :=
+    Submodule.mapQ _ _ (transferZ₂ V hV) (by
+      intro z hz
+      obtain ⟨f, hf, heq⟩ := (mem_levelCoboundaries₂_iff rH (Rep.res H.subtype V) z).mp hz
+      change transferCochain₂ V z ∈ levelCoboundaries₂ r V
+      apply (mem_levelCoboundaries₂_iff r V _).mpr
+      refine ⟨transferCochain₁ V f, transfer_level₁ V hV f hf, ?_⟩
+      rw [← transfer_d₁₂, heq])
+  have C₂_rep (V : Rep.{0} k G)
+      (hV : ∀ g : G, r g ∈ E₀.fixingSubgroup → ∀ v : V, V.ρ g v = v)
+      (z : levelCocycles₂ rH (Rep.res H.subtype V)) :
+      C₂ V hV (continuousH2π rH (Rep.res H.subtype V) z) =
+        continuousH2π r V (transferZ₂ V hV z) := rfl
+  let transferCochain₀ (V : Rep.{0} k G) : V →ₗ[k] V :=
+    { toFun := fun v => ∑ c : G ⧸ H, V.ρ (t c) (V.ρ (a (t c)⁻¹ : G) v)
+      map_add' := by intro v w; simp only [map_add, Finset.sum_add_distrib]
+      map_smul' := by intro c v; simp only [map_smul, Finset.smul_sum, RingHom.id_apply] }
+  have lift₀_eq (V : Rep.{0} k G) (v : V) (h : H) (x : G) :
+      V.ρ (a ((h : G) • x) : G) v = V.ρ (h : G) (V.ρ (a x : G) v) := by
+    change V.ρ (a ((h : G) * x) : G) v = _
+    rw [haEq, hρ]
+    rfl
+  have transfer_d₀₁ (V : Rep.{0} k G) (v : V) :
+      transferCochain₁ V ((d₀₁ (Rep.res H.subtype V)).hom v) =
+        (d₀₁ V).hom (transferCochain₀ V v) := by
+    ext s
+    have heq := avg_equivariant V G (fun x => V.ρ (a x : G) v) (lift₀_eq V v) s 1
+    change avg V G (fun x => V.ρ (a x : G) v) (s * 1) = _ at heq
+    simp only [mul_one, avg_apply] at heq
+    change (∑ c : G ⧸ H, V.ρ (t c) (V.ρ (a ((t c)⁻¹ * s) : G) v)) =
+      V.ρ s (∑ c : G ⧸ H, V.ρ (t c) (V.ρ (a ((t c)⁻¹ * 1) : G) v)) at heq
+    simp only [mul_one] at heq
+    rw [d₀₁_hom_apply]
+    change avg V (G × G) (lift₁ V ((d₀₁ (Rep.res H.subtype V)).hom v)) (1, s) =
+      V.ρ s (∑ c : G ⧸ H, V.ρ (t c) (V.ρ (a (t c)⁻¹ : G) v)) -
+        ∑ c : G ⧸ H, V.ρ (t c) (V.ρ (a (t c)⁻¹ : G) v)
+    rw [← heq]
+    simp only [avg_apply, ← Finset.sum_sub_distrib]
+    apply Finset.sum_congr rfl
+    intro c _
+    change V.ρ (t c) (V.ρ (a ((t c)⁻¹ * 1) : G)
+      ((d₀₁ (Rep.res H.subtype V)).hom v
+        ((a ((t c)⁻¹ * 1))⁻¹ * a ((t c)⁻¹ * s)))) = _
+    rw [d₀₁_hom_apply]
+    change V.ρ (t c) (V.ρ (a ((t c)⁻¹ * 1) : G)
+      (V.ρ ((a ((t c)⁻¹ * 1) : G)⁻¹ * (a ((t c)⁻¹ * s) : G)) v - v)) = _
+    simp only [map_sub, hρ, mul_inv_cancel_left, mul_one]
+  let transferZ₁ (V : Rep.{0} k G) :
+      cocycles₁ (Rep.res H.subtype V) →ₗ[k] cocycles₁ V :=
+    (transferCochain₁ V).restrict (fun f hf => transfer_closed₁ V ⟨f, hf⟩)
+  have transfer_boundary₁ (V : Rep.{0} k G)
+      (f : cocycles₁ (Rep.res H.subtype V)) (hf : ⇑f ∈ coboundaries₁ (Rep.res H.subtype V)) :
+      (H1π V).hom (transferZ₁ V f) = 0 := by
+    apply (H1π_eq_zero_iff _).mpr
+    obtain ⟨v, hv⟩ := hf
+    refine ⟨transferCochain₀ V v, ?_⟩
+    change (d₀₁ V).hom (transferCochain₀ V v) = transferCochain₁ V f
+    rw [← transfer_d₀₁, hv]
+  let transferH₁ (V : Rep.{0} k G) : H1 (Rep.res H.subtype V) →ₗ[k] H1 V :=
+    H1desc ((H1π V).hom ∘ₗ transferZ₁ V) (transfer_boundary₁ V)
+  have transferH₁_rep (V : Rep.{0} k G) (f : cocycles₁ (Rep.res H.subtype V)) :
+      transferH₁ V ((H1π (Rep.res H.subtype V)).hom f) = (H1π V).hom (transferZ₁ V f) :=
+    H1desc_H1π _ _ f
+  let C₁ (V : Rep.{0} k G)
+      (hV : ∀ g : G, r g ∈ E₀.fixingSubgroup → ∀ v : V, V.ρ g v = v) :
+      continuousH1 rH (Rep.res H.subtype V) →ₗ[k] continuousH1 r V :=
+    (transferH₁ V).restrict (by
+      intro x hx
+      obtain ⟨f, hf, rfl⟩ := (mem_continuousH1_iff rH (Rep.res H.subtype V) x).mp hx
+      rw [transferH₁_rep]
+      exact H1π_mem_continuousH1 r V (transfer_level₁ V hV f hf))
+  let resH₁ (V : Rep.{0} k G) : H1 V →ₗ[k] H1 (Rep.res H.subtype V) :=
+    (groupCohomology.map H.subtype (𝟙 (Rep.res H.subtype V)) 1).hom
+  have resH₁_rep (V : Rep.{0} k G) (f : cocycles₁ V) :
+      resH₁ V ((H1π V).hom f) =
+        (H1π (Rep.res H.subtype V)).hom (mapCocycles₁ H.subtype (𝟙 (Rep.res H.subtype V)) f) :=
+    H1π_comp_map_apply H.subtype (𝟙 (Rep.res H.subtype V)) f
+  let R₁ (V : Rep.{0} k G) : continuousH1 r V →ₗ[k] continuousH1 rH (Rep.res H.subtype V) :=
+    (resH₁ V).restrict (by
+      intro x hx
+      obtain ⟨f, hf, rfl⟩ := (mem_continuousH1_iff r V x).mp hx
+      rw [resH₁_rep]
+      apply H1π_mem_continuousH1
+      change IsLevelConstant₁ rH (fun h : H => f (h : G))
+      exact IsLevelConstant₁.precomp H.subtype (fun _ => rfl) hf)
+  -- Averaging commutes with each of the two low-degree deletion differentials.
+  have avg_δ₀ (V : Rep.{0} k G) (F : G → V) (x y : G) :
+      avg V (G × G) (fun xy => F xy.2 - F xy.1) (x, y) =
+        avg V G F y - avg V G F x := by
+    simp only [avg_apply, map_sub, Finset.sum_sub_distrib]
+    rfl
+  have avg_δ₁ (V : Rep.{0} k G) (F : G × G → V) (x y z : G) :
+      avg V (G × G × G) (fun xyz => F (xyz.2.1, xyz.2.2) -
+        F (xyz.1, xyz.2.2) + F (xyz.1, xyz.2.1)) (x, y, z) =
+        avg V (G × G) F (y, z) - avg V (G × G) F (x, z) + avg V (G × G) F (x, y) := by
+    simp only [avg_apply, map_sub, map_add, Finset.sum_sub_distrib, Finset.sum_add_distrib]
+    rfl
+  -- Transfer after restriction in H¹: the averaged prism is an ordinary boundary.
+  have transfer_res₁ (V : Rep.{0} k G) (f : cocycles₁ V) :
+      transferH₁ V (resH₁ V ((H1π V).hom f)) = (H.index : k) • (H1π V).hom f := by
+    let fH := mapCocycles₁ H.subtype (𝟙 (Rep.res H.subtype V)) f
+    let p : G → V := fun x => hom₁ V f (a x) x
+    have hpH : ∀ (h : H) (x : G), p ((h : G) • x) = V.ρ (h : G) (p x) := by
+      intro h x
+      change hom₁ V f (a ((h : G) * x)) ((h : G) * x) = _
+      rw [haEq]
+      exact hom₁_eq V f (h : G) (a x) x
+    have hpr : (fun xy : G × G => hom₁ V f xy.1 xy.2) - lift₁ V fH =
+        fun xy => p xy.2 - p xy.1 := by
+      funext xy
+      exact prism₁ V f xy.1 xy.2
+    have hi : ∀ s : G, avg V (G × G) (fun xy => hom₁ V f xy.1 xy.2) (1, s) =
+        (H.index : k) • f s := by
+      intro s
+      have hh := avg_index V (G × G) (fun xy => hom₁ V f xy.1 xy.2)
+        (fun s xy => hom₁_eq V f s xy.1 xy.2) (1, s)
+      simpa only [hom₁, map_one, Module.End.one_apply, inv_one, one_mul] using hh
+    have hdiff : ∀ s : G, (H.index : k) • f s - transferCochain₁ V fH s =
+        V.ρ s (avg V G p 1) - avg V G p 1 := by
+      intro s
+      have heq := congrArg (fun F : G × G → V => avg V (G × G) F (1, s)) hpr
+      rw [map_sub, Pi.sub_apply, hi, avg_δ₀] at heq
+      have heqv := avg_equivariant V G p hpH s 1
+      change avg V G p (s * 1) = _ at heqv
+      simp only [mul_one] at heqv
+      rw [heqv] at heq
+      exact heq
+    rw [resH₁_rep, transferH₁_rep, ← map_smul]
+    apply (H1π_eq_iff _ _).mpr
+    refine ⟨-(avg V G p 1), ?_⟩
+    funext s
+    rw [d₀₁_hom_apply, map_neg]
+    change -V.ρ s (avg V G p 1) - -avg V G p 1 =
+      transferCochain₁ V fH s - (H.index : k) • f s
+    calc
+      -V.ρ s (avg V G p 1) - -avg V G p 1 =
+          -(V.ρ s (avg V G p 1) - avg V G p 1) := by abel
+      _ = -((H.index : k) • f s - transferCochain₁ V fH s) :=
+        congrArg Neg.neg (hdiff s).symm
+      _ = _ := neg_sub _ _
+  have C₁_R₁ (V : Rep.{0} k G)
+      (hV : ∀ g : G, r g ∈ E₀.fixingSubgroup → ∀ v : V, V.ρ g v = v)
+      (x : continuousH1 r V) : C₁ V hV (R₁ V x) = (H.index : k) • x := by
+    apply Subtype.ext
+    obtain ⟨f, _, hf⟩ := (mem_continuousH1_iff r V x.val).mp x.property
+    change transferH₁ V (resH₁ V x.val) = (H.index : k) • x.val
+    rw [← hf]
+    exact transfer_res₁ V f
+  have hom₂_level (V : Rep.{0} k G)
+      (hV : ∀ g : G, r g ∈ E₀.fixingSubgroup → ∀ v : V, V.ρ g v = v)
+      (z : G × G → V) (hz : IsLevelConstant₂ r z) :
+      ∃ E : IntermediateField ℚ (AlgebraicClosure ℚ), FiniteDimensional ℚ E ∧
+        (E.fixingSubgroup.comap r).Normal ∧ E.fixingSubgroup.comap r ≤ H ∧
+        ∀ x x' y y' w w' : G,
+          r (x⁻¹ * x') ∈ E.fixingSubgroup → r (y⁻¹ * y') ∈ E.fixingSubgroup →
+          r (w⁻¹ * w') ∈ E.fixingSubgroup → hom₂ V z x' y' w' = hom₂ V z x y w := by
+    obtain ⟨F, hF, hz⟩ := hz
+    obtain ⟨E, hE, _, h₀, hFE, hKn, _, hKE⟩ := commonLevel F hF
+    refine ⟨E, hE, hKn, hKE, ?_⟩
+    intro x x' y y' w w' hx hy hw
+    let K := E.fixingSubgroup.comap r
+    have hd := difference_level K hKn x x' y y' hx hy
+    have he := difference_level K hKn y y' w w' hy hw
+    have hzd : z (x'⁻¹ * y', y'⁻¹ * w') = z (x⁻¹ * y, y⁻¹ * w) := by
+      simpa only [mul_inv_cancel_left] using
+        hz (x⁻¹ * y) (y⁻¹ * w) ((x⁻¹ * y)⁻¹ * (x'⁻¹ * y'))
+          ((y⁻¹ * w)⁻¹ * (y'⁻¹ * w'))
+          (IntermediateField.fixingSubgroup_antitone hFE hd)
+          (IntermediateField.fixingSubgroup_antitone hFE he)
+    change V.ρ x' (z (x'⁻¹ * y', y'⁻¹ * w')) = V.ρ x (z (x⁻¹ * y, y⁻¹ * w))
+    rw [hzd]
+    calc
+      V.ρ x' _ = V.ρ x (V.ρ (x⁻¹ * x') _) := by rw [hρ, mul_inv_cancel_left]
+      _ = _ := by rw [hV _ (IntermediateField.fixingSubgroup_antitone h₀ hx)]
+  have avg_level₁ (V : Rep.{0} k G) (F : G × G → V)
+      (E : IntermediateField ℚ (AlgebraicClosure ℚ)) (hE : FiniteDimensional ℚ E)
+      (hlev : ∀ x y u v : G, r u ∈ E.fixingSubgroup → r v ∈ E.fixingSubgroup →
+        F (x * u, y * v) = F (x, y)) :
+      IsLevelConstant₁ r (fun s => avg V (G × G) F (1, s)) := by
+    refine ⟨E, hE, ?_⟩
+    intro s u hu
+    simp only [avg_apply]
+    apply Finset.sum_congr rfl
+    intro c _
+    congr 1
+    change F ((t c)⁻¹ * 1, (t c)⁻¹ * (s * u)) = F ((t c)⁻¹ * 1, (t c)⁻¹ * s)
+    simpa only [mul_one, mul_assoc] using hlev (t c)⁻¹ ((t c)⁻¹ * s) 1 u
+      (by simpa only [map_one] using E.fixingSubgroup.one_mem) hu
+  have avg_boundary₂ (V : Rep.{0} k G) (F : G × G → V)
+      (hFH : ∀ (h : H) (xy : G × G), F ((h : G) • xy) = V.ρ (h : G) (F xy))
+      (s u : G) :
+      (d₁₂ V).hom (fun s => avg V (G × G) F (1, s)) (s, u) =
+        avg V (G × G × G) (fun xyz => F (xyz.2.1, xyz.2.2) -
+          F (xyz.1, xyz.2.2) + F (xyz.1, xyz.2.1)) (1, s, s * u) := by
+    rw [avg_δ₁, d₁₂_hom_apply]
+    have heq := avg_equivariant V (G × G) F hFH s (1, u)
+    change avg V (G × G) F (s * 1, s * u) = _ at heq
+    simpa only [mul_one, heq] using congrArg
+      (fun v : V => v - avg V (G × G) F (1, s * u) + avg V (G × G) F (1, s)) heq.symm
+  have C₂_R₂ (V : Rep.{0} k G)
+      (hV : ∀ g : G, r g ∈ E₀.fixingSubgroup → ∀ v : V, V.ρ g v = v)
+      (x : continuousH2 r V) : C₂ V hV (R₂ V x) = (H.index : k) • x := by
+    obtain ⟨z, rfl⟩ := Submodule.mkQ_surjective
+      ((levelCoboundaries₂ r V).comap (levelCocycles₂ r V).subtype) x
+    let zH : levelCocycles₂ rH (Rep.res H.subtype V) := levelCocycles₂Map H.subtype (fun _ => rfl)
+      (LinearMap.id : V →ₗ[k] V) (fun _ _ => rfl) z
+    let p : G × G → V := fun xy =>
+      hom₂ V z (a xy.1) xy.1 xy.2 - hom₂ V z (a xy.1) (a xy.2) xy.2
+    have hpH : ∀ (h : H) (xy : G × G), p ((h : G) • xy) = V.ρ (h : G) (p xy) := by
+      intro h xy
+      change hom₂ V z (a ((h : G) * xy.1)) ((h : G) * xy.1) ((h : G) * xy.2) -
+        hom₂ V z (a ((h : G) * xy.1)) (a ((h : G) * xy.2)) ((h : G) * xy.2) = _
+      simp only [haEq, Subgroup.coe_mul, hom₂_eq, p, map_sub]
+    have hplevel : IsLevelConstant₁ r (fun s => avg V (G × G) p (1, s)) := by
+      obtain ⟨E, hE, hKn, hKH', hz⟩ := hom₂_level V hV z z.property.2
+      apply avg_level₁ V p E hE
+      intro x y u v hu hv
+      have hx := haLevel (E.fixingSubgroup.comap r) hKn hKH' x u hu
+      have hy := haLevel (E.fixingSubgroup.comap r) hKn hKH' y v hv
+      have hxu : r (x⁻¹ * (x * u)) ∈ E.fixingSubgroup := by simpa only [inv_mul_cancel_left] using hu
+      have hyv : r (y⁻¹ * (y * v)) ∈ E.fixingSubgroup := by simpa only [inv_mul_cancel_left] using hv
+      exact congrArg₂ (· - ·) (hz (a x) (a (x * u)) x (x * u) y (y * v) hx hxu hyv)
+        (hz (a x) (a (x * u)) (a y) (a (y * v)) y (y * v) hx hy hyv)
+    have hpr : (fun xyz : G × G × G => hom₂ V z xyz.1 xyz.2.1 xyz.2.2) - lift₂ V zH =
+        fun xyz => p (xyz.2.1, xyz.2.2) - p (xyz.1, xyz.2.2) + p (xyz.1, xyz.2.1) := by
+      funext xyz
+      exact prism₂ V ⟨z, z.property.1⟩ xyz.1 xyz.2.1 xyz.2.2
+    have hi : ∀ s u : G, avg V (G × G × G) (fun xyz => hom₂ V z xyz.1 xyz.2.1 xyz.2.2)
+        (1, s, s * u) = (H.index : k) • (z : G × G → V) (s, u) := by
+      intro s u
+      have hh := avg_index V (G × G × G) (fun xyz => hom₂ V z xyz.1 xyz.2.1 xyz.2.2)
+        (fun s xyz => hom₂_eq V z s xyz.1 xyz.2.1 xyz.2.2) (1, s, s * u)
+      simpa only [hom₂, map_one, Module.End.one_apply, inv_one, one_mul, inv_mul_cancel_left] using hh
+    have hb : (H.index : k) • (z : G × G → V) - transferCochain₂ V zH ∈ levelCoboundaries₂ r V := by
+      apply (mem_levelCoboundaries₂_iff r V _).mpr
+      refine ⟨fun s => avg V (G × G) p (1, s), hplevel, ?_⟩
+      funext st
+      rcases st with ⟨s, u⟩
+      rw [avg_boundary₂ V p hpH]
+      have heq := congrArg (fun F : G × G × G → V => avg V (G × G × G) F (1, s, s * u)) hpr
+      rw [map_sub, Pi.sub_apply, hi] at heq
+      exact heq.symm
+    change C₂ V hV (continuousH2π rH (Rep.res H.subtype V) zH) =
+      (H.index : k) • continuousH2π r V z
+    rw [C₂_rep V hV, ← map_smul]
+    symm
+    apply sub_eq_zero.mp
+    rw [← map_sub]
+    exact (continuousH2π_eq_zero_iff r V _).mpr hb
+  have projection₀_left (m : A.ρ.invariants) (y : continuousH2 rH BH) :
+      C₂ N hN (PH 0 (R₀ A m) y) = P 0 m (C₂ B hB y) := by
+    obtain ⟨z, rfl⟩ := Submodule.mkQ_surjective
+      ((levelCoboundaries₂ rH BH).comap (levelCocycles₂ rH BH).subtype) y
+    obtain ⟨eH, heH, hPHrep⟩ := hPH.1 (R₀ A m) z
+    obtain ⟨eG, heG, hPrep⟩ := hP.1 m (transferZ₂ B hB z)
+    rw [hPHrep, C₂_rep N hN, C₂_rep B hB, hPrep]
+    congr 1
+    apply Subtype.ext
+    funext st
+    rcases st with ⟨s, u⟩
+    have hfun : lift₂ N eH = fun xyz => φ (m : A) (lift₂ B z xyz) := by
+      funext xyz
+      change N.ρ (a xyz.1 : G) ((eH : H × H → NH)
+        ((a xyz.1)⁻¹ * a xyz.2.1, (a xyz.2.1)⁻¹ * a xyz.2.2)) = _
+      rw [heH]
+      change N.ρ (a xyz.1 : G) (φ (m : A) ((z : H × H → BH) _)) = _
+      rw [← hφ, m.property]
+    change avg N (G × G × G) (lift₂ N eH) (1, s, s * u) = (eG : G × G → N) (s, u)
+    rw [hfun, heG]
+    change avg N (G × G × G) (fun xyz => φ (m : A) (lift₂ B z xyz)) (1, s, s * u) =
+      φ (m : A) (avg B (G × G × G) (lift₂ B z) (1, s, s * u))
+    simp only [avg_apply]
+    exact (avg_product (G × G × G) (G × G × G) (fun _ => (m : A)) (lift₂ B z)).1
+      (fun g _ => (m.property g).symm) (1, s, s * u) (1, s, s * u)
+  have projection₂_right (x : continuousH2 rH AH) (d : B.ρ.invariants) :
+      C₂ N hN (PH 2 x (R₀ B d)) = P 2 (C₂ A hA x) d := by
+    obtain ⟨z, rfl⟩ := Submodule.mkQ_surjective
+      ((levelCoboundaries₂ rH AH).comap (levelCocycles₂ rH AH).subtype) x
+    obtain ⟨eH, heH, hPHrep⟩ := hPH.2.2 z (R₀ B d)
+    obtain ⟨eG, heG, hPrep⟩ := hP.2.2 (transferZ₂ A hA z) d
+    rw [hPHrep, C₂_rep N hN, C₂_rep A hA, hPrep]
+    congr 1
+    apply Subtype.ext
+    funext st
+    rcases st with ⟨s, u⟩
+    have hfun : lift₂ N eH = fun xyz => φ (lift₂ A z xyz) (d : B) := by
+      funext xyz
+      change N.ρ (a xyz.1 : G) ((eH : H × H → NH)
+        ((a xyz.1)⁻¹ * a xyz.2.1, (a xyz.2.1)⁻¹ * a xyz.2.2)) = _
+      rw [heH]
+      change N.ρ (a xyz.1 : G) (φ ((z : H × H → AH) _) (d : B)) = _
+      rw [← hφ, d.property]
+    change avg N (G × G × G) (lift₂ N eH) (1, s, s * u) = (eG : G × G → N) (s, u)
+    rw [hfun, heG]
+    change avg N (G × G × G) (fun xyz => φ (lift₂ A z xyz) (d : B)) (1, s, s * u) =
+      φ (avg A (G × G × G) (lift₂ A z) (1, s, s * u)) (d : B)
+    simp only [avg_apply]
+    exact (avg_product (G × G × G) (G × G × G) (lift₂ A z) (fun _ => (d : B))).2
+      (fun g _ => (d.property g).symm) (1, s, s * u) (1, s, s * u)
+  have prism_data₂ (V : Rep.{0} k G)
+      (hV : ∀ g : G, r g ∈ E₀.fixingSubgroup → ∀ v : V, V.ρ g v = v)
+      (z : levelCocycles₂ r V) :
+      ∃ p : G × G → V,
+        (∀ (h : H) (xy : G × G), p ((h : G) • xy) = V.ρ (h : G) (p xy)) ∧
+        IsLevelConstant₂ r p ∧
+        ∀ x y u : G, hom₂ V z x y u - hom₂ V z (a x) (a y) (a u) =
+          p (y, u) - p (x, u) + p (x, y) := by
+    let p : G × G → V := fun xy =>
+      hom₂ V z (a xy.1) xy.1 xy.2 - hom₂ V z (a xy.1) (a xy.2) xy.2
+    refine ⟨p, ?_, ?_, prism₂ V ⟨z, z.property.1⟩⟩
+    · intro h xy
+      change hom₂ V z (a ((h : G) * xy.1)) ((h : G) * xy.1) ((h : G) * xy.2) -
+        hom₂ V z (a ((h : G) * xy.1)) (a ((h : G) * xy.2)) ((h : G) * xy.2) = _
+      simp only [haEq, Subgroup.coe_mul, hom₂_eq, p, map_sub]
+    · obtain ⟨E, hE, hKn, hKH', hz⟩ := hom₂_level V hV z z.property.2
+      refine ⟨E, hE, ?_⟩
+      intro x y u v hu hv
+      have hx := haLevel (E.fixingSubgroup.comap r) hKn hKH' x u hu
+      have hy := haLevel (E.fixingSubgroup.comap r) hKn hKH' y v hv
+      have hxu : r (x⁻¹ * (x * u)) ∈ E.fixingSubgroup := by simpa only [inv_mul_cancel_left] using hu
+      have hyv : r (y⁻¹ * (y * v)) ∈ E.fixingSubgroup := by simpa only [inv_mul_cancel_left] using hv
+      exact congrArg₂ (· - ·) (hz (a x) (a (x * u)) x (x * u) y (y * v) hx hxu hyv)
+        (hz (a x) (a (x * u)) (a y) (a (y * v)) y (y * v) hx hy hyv)
+  have eq_of_avg_boundary (e e' : levelCocycles₂ r N) (p : G × G → N)
+      (hpH : ∀ (h : H) (xy : G × G), p ((h : G) • xy) = N.ρ (h : G) (p xy))
+      (hplev : IsLevelConstant₂ r p)
+      (heq : ∀ s u : G, (e : G × G → N) (s, u) - (e' : G × G → N) (s, u) =
+        avg N (G × G × G) (fun xyz => p (xyz.2.1, xyz.2.2) -
+          p (xyz.1, xyz.2.2) + p (xyz.1, xyz.2.1)) (1, s, s * u)) :
+      continuousH2π r N e = continuousH2π r N e' := by
+    apply sub_eq_zero.mp
+    rw [← map_sub]
+    apply (continuousH2π_eq_zero_iff r N _).mpr
+    apply (mem_levelCoboundaries₂_iff r N _).mpr
+    obtain ⟨E, hE, hp⟩ := hplev
+    refine ⟨fun s => avg N (G × G) p (1, s), avg_level₁ N p E hE hp, ?_⟩
+    funext st
+    rcases st with ⟨s, u⟩
+    rw [avg_boundary₂ N p hpH]
+    exact (heq s u).symm
+  have projection₀_right (m : AH.ρ.invariants) (y : continuousH2 r B) :
+      C₂ N hN (PH 0 m (R₂ B y)) = P 0 (C₀ A m) y := by
+    obtain ⟨z, rfl⟩ := Submodule.mkQ_surjective
+      ((levelCoboundaries₂ r B).comap (levelCocycles₂ r B).subtype) y
+    let zH : levelCocycles₂ rH BH := levelCocycles₂Map H.subtype (fun _ => rfl)
+      (LinearMap.id : B →ₗ[k] B) (fun _ _ => rfl) z
+    obtain ⟨eH, heH, hPHrep⟩ := hPH.1 m zH
+    obtain ⟨eG, heG, hPrep⟩ := hP.1 (C₀ A m) z
+    change C₂ N hN (PH 0 m (continuousH2π rH BH zH)) = P 0 (C₀ A m) (continuousH2π r B z)
+    rw [hPHrep, C₂_rep N hN, hPrep]
+    obtain ⟨p, hpH, hplev, hp⟩ := prism_data₂ B hB z
+    symm
+    apply eq_of_avg_boundary eG (transferZ₂ N hN eH) (fun xy => φ (m : A) (p xy))
+    · intro h xy
+      rw [hpH, ← hφ]
+      rw [show A.ρ (h : G) (m : A) = (m : A) from m.property h]
+    · exact hplev.comp (φ (m : A))
+    · intro s u
+      let F : G × G × G → N := fun xyz => φ (m : A) (hom₂ B z xyz.1 xyz.2.1 xyz.2.2)
+      have hF : avg N (G × G × G) F (1, s, s * u) = (eG : G × G → N) (s, u) := by
+        rw [heG, avg_apply]
+        change _ = φ (∑ c : G ⧸ H, A.ρ (t c) (m : A)) ((z : G × G → B) (s, u))
+        have hh := (avg_product (G × G × G) (G × G × G) (fun _ => (m : A))
+          (fun xyz => hom₂ B z xyz.1 xyz.2.1 xyz.2.2)).2
+          (fun g xyz => hom₂_eq B z g xyz.1 xyz.2.1 xyz.2.2) (1, s, s * u) (1, s, s * u)
+        simpa only [F, hom₂, map_one, Module.End.one_apply, inv_one, one_mul,
+          inv_mul_cancel_left] using hh
+      have hd : F - lift₂ N eH = fun xyz =>
+          φ (m : A) (p (xyz.2.1, xyz.2.2)) - φ (m : A) (p (xyz.1, xyz.2.2)) +
+            φ (m : A) (p (xyz.1, xyz.2.1)) := by
+        funext xyz
+        have hl : lift₂ N eH xyz = φ (m : A) (hom₂ B z (a xyz.1) (a xyz.2.1) (a xyz.2.2)) := by
+          change N.ρ (a xyz.1 : G) ((eH : H × H → NH) _) = _
+          rw [heH]
+          change N.ρ (a xyz.1 : G) (φ (m : A) ((zH : H × H → BH) _)) = _
+          rw [← hφ, show A.ρ (a xyz.1 : G) (m : A) = (m : A) from m.property (a xyz.1)]
+          rfl
+        change F xyz - lift₂ N eH xyz = _
+        rw [hl]
+        change φ (m : A) (hom₂ B z xyz.1 xyz.2.1 xyz.2.2) -
+          φ (m : A) (hom₂ B z (a xyz.1) (a xyz.2.1) (a xyz.2.2)) = _
+        rw [← map_sub, hp, map_add, map_sub]
+      have hh := congrArg (fun F => avg N (G × G × G) F (1, s, s * u)) hd
+      rw [map_sub, Pi.sub_apply, hF] at hh
+      exact hh
+  have projection₂_left (x : continuousH2 r A) (d : BH.ρ.invariants) :
+      C₂ N hN (PH 2 (R₂ A x) d) = P 2 x (C₀ B d) := by
+    obtain ⟨z, rfl⟩ := Submodule.mkQ_surjective
+      ((levelCoboundaries₂ r A).comap (levelCocycles₂ r A).subtype) x
+    let zH : levelCocycles₂ rH AH := levelCocycles₂Map H.subtype (fun _ => rfl)
+      (LinearMap.id : A →ₗ[k] A) (fun _ _ => rfl) z
+    obtain ⟨eH, heH, hPHrep⟩ := hPH.2.2 zH d
+    obtain ⟨eG, heG, hPrep⟩ := hP.2.2 z (C₀ B d)
+    change C₂ N hN (PH 2 (continuousH2π rH AH zH) d) = P 2 (continuousH2π r A z) (C₀ B d)
+    rw [hPHrep, C₂_rep N hN, hPrep]
+    obtain ⟨p, hpH, hplev, hp⟩ := prism_data₂ A hA z
+    symm
+    apply eq_of_avg_boundary eG (transferZ₂ N hN eH) (fun xy => φ (p xy) (d : B))
+    · intro h xy
+      rw [hpH, ← hφ]
+      rw [show B.ρ (h : G) (d : B) = (d : B) from d.property h]
+    · exact hplev.comp (fun v => φ v (d : B))
+    · intro s u
+      let F : G × G × G → N := fun xyz => φ (hom₂ A z xyz.1 xyz.2.1 xyz.2.2) (d : B)
+      have hF : avg N (G × G × G) F (1, s, s * u) = (eG : G × G → N) (s, u) := by
+        rw [heG, avg_apply]
+        change _ = φ ((z : G × G → A) (s, u)) (∑ c : G ⧸ H, B.ρ (t c) (d : B))
+        have hh := (avg_product (G × G × G) (G × G × G)
+          (fun xyz => hom₂ A z xyz.1 xyz.2.1 xyz.2.2) (fun _ => (d : B))).1
+          (fun g xyz => hom₂_eq A z g xyz.1 xyz.2.1 xyz.2.2) (1, s, s * u) (1, s, s * u)
+        simpa only [F, hom₂, map_one, Module.End.one_apply, inv_one, one_mul,
+          inv_mul_cancel_left] using hh
+      have hd : F - lift₂ N eH = fun xyz =>
+          φ (p (xyz.2.1, xyz.2.2)) (d : B) - φ (p (xyz.1, xyz.2.2)) (d : B) +
+            φ (p (xyz.1, xyz.2.1)) (d : B) := by
+        funext xyz
+        have hl : lift₂ N eH xyz = φ (hom₂ A z (a xyz.1) (a xyz.2.1) (a xyz.2.2)) (d : B) := by
+          change N.ρ (a xyz.1 : G) ((eH : H × H → NH) _) = _
+          rw [heH]
+          change N.ρ (a xyz.1 : G) (φ ((zH : H × H → AH) _) (d : B)) = _
+          rw [← hφ, show B.ρ (a xyz.1 : G) (d : B) = (d : B) from d.property (a xyz.1)]
+          rfl
+        change F xyz - lift₂ N eH xyz = _
+        rw [hl]
+        change φ (hom₂ A z xyz.1 xyz.2.1 xyz.2.2) (d : B) -
+          φ (hom₂ A z (a xyz.1) (a xyz.2.1) (a xyz.2.2)) (d : B) = _
+        rw [← LinearMap.sub_apply, ← map_sub, hp, map_add, map_sub,
+          LinearMap.add_apply, LinearMap.sub_apply]
+      have hh := congrArg (fun F => avg N (G × G × G) F (1, s, s * u)) hd
+      rw [map_sub, Pi.sub_apply, hF] at hh
+      exact hh
+  have prism_data₁ (V : Rep.{0} k G)
+      (hV : ∀ g : G, r g ∈ E₀.fixingSubgroup → ∀ v : V, V.ρ g v = v)
+      (f : cocycles₁ V) (hf : IsLevelConstant₁ r (⇑f)) :
+      ∃ p : G → V,
+        (∀ (h : H) (x : G), p ((h : G) • x) = V.ρ (h : G) (p x)) ∧
+        IsLevelConstant₁ r p ∧
+        ∀ x y : G, hom₁ V f x y - hom₁ V f (a x) (a y) = p y - p x := by
+    let p : G → V := fun x => hom₁ V f (a x) x
+    refine ⟨p, ?_, ?_, prism₁ V f⟩
+    · intro h x
+      change hom₁ V f (a ((h : G) * x)) ((h : G) * x) = _
+      rw [haEq]
+      exact hom₁_eq V f (h : G) (a x) x
+    · obtain ⟨F, hF, hf⟩ := hf
+      obtain ⟨E, hE, _, h₀, hFE, hKn, _, hKH'⟩ := commonLevel F hF
+      refine ⟨E, hE, ?_⟩
+      intro x u hu
+      have hx := haLevel (E.fixingSubgroup.comap r) hKn hKH' x u hu
+      have hxu : r (x⁻¹ * (x * u)) ∈ E.fixingSubgroup := by simpa only [inv_mul_cancel_left] using hu
+      have hd := difference_level (E.fixingSubgroup.comap r) hKn
+        (a x) (a (x * u)) x (x * u) hx hxu
+      have hfd : f ((a (x * u) : G)⁻¹ * (x * u)) = f ((a x : G)⁻¹ * x) := by
+        simpa only [mul_inv_cancel_left] using hf ((a x : G)⁻¹ * x)
+          (((a x : G)⁻¹ * x)⁻¹ * ((a (x * u) : G)⁻¹ * (x * u)))
+          (IntermediateField.fixingSubgroup_antitone hFE hd)
+      change V.ρ (a (x * u) : G) (f ((a (x * u) : G)⁻¹ * (x * u))) =
+        V.ρ (a x : G) (f ((a x : G)⁻¹ * x))
+      rw [hfd]
+      calc
+        V.ρ (a (x * u) : G) _ = V.ρ (a x : G) (V.ρ ((a x : G)⁻¹ * (a (x * u) : G)) _) := by
+          rw [hρ, mul_inv_cancel_left]
+        _ = _ := by rw [hV _ (IntermediateField.fixingSubgroup_antitone h₀ hx)]
+  have combine_level₂ {U V W : Type} (f : G × G → U) (g : G × G → V)
+      (hf : IsLevelConstant₂ r f) (hg : IsLevelConstant₂ r g) (b : U → V → W) :
+      IsLevelConstant₂ r (fun xy => b (f xy) (g xy)) := by
+    obtain ⟨E, hE, hf⟩ := hf
+    obtain ⟨F, hF, hg⟩ := hg
+    let : FiniteDimensional ℚ E := hE
+    let : FiniteDimensional ℚ F := hF
+    refine ⟨E ⊔ F, inferInstance, ?_⟩
+    intro x y u v hu hv
+    change b (f (x * u, y * v)) (g (x * u, y * v)) = b (f (x, y)) (g (x, y))
+    rw [hf x y u v (IntermediateField.fixingSubgroup_antitone le_sup_left hu)
+      (IntermediateField.fixingSubgroup_antitone le_sup_left hv),
+      hg x y u v (IntermediateField.fixingSubgroup_antitone le_sup_right hu)
+      (IntermediateField.fixingSubgroup_antitone le_sup_right hv)]
+  let rep₁ (V : Rep.{0} k G) (f : cocycles₁ V) (hf : IsLevelConstant₁ r (⇑f)) :
+      continuousH1 r V := ⟨(H1π V).hom f, H1π_mem_continuousH1 r V hf⟩
+  let repH₁ (V : Rep.{0} k G) (f : cocycles₁ (Rep.res H.subtype V))
+      (hf : IsLevelConstant₁ rH (⇑f)) : continuousH1 rH (Rep.res H.subtype V) :=
+    ⟨(H1π (Rep.res H.subtype V)).hom f, H1π_mem_continuousH1 rH (Rep.res H.subtype V) hf⟩
+  let resZ₁ (V : Rep.{0} k G) := mapCocycles₁ H.subtype (𝟙 (Rep.res H.subtype V))
+  have resZ₁_level (V : Rep.{0} k G) (f : cocycles₁ V) (hf : IsLevelConstant₁ r (⇑f)) :
+      IsLevelConstant₁ rH (⇑(resZ₁ V f)) :=
+    IsLevelConstant₁.precomp H.subtype (fun _ => rfl) hf
+  have R₁_rep (V : Rep.{0} k G) (f : cocycles₁ V) (hf : IsLevelConstant₁ r (⇑f)) :
+      R₁ V (rep₁ V f hf) = repH₁ V (resZ₁ V f) (resZ₁_level V f hf) := by
+    apply Subtype.ext
+    exact resH₁_rep V f
+  have C₁_rep (V : Rep.{0} k G)
+      (hV : ∀ g : G, r g ∈ E₀.fixingSubgroup → ∀ v : V, V.ρ g v = v)
+      (f : cocycles₁ (Rep.res H.subtype V)) (hf : IsLevelConstant₁ rH (⇑f)) :
+      C₁ V hV (repH₁ V f hf) = rep₁ V (transferZ₁ V f) (transfer_level₁ V hV f hf) := by
+    apply Subtype.ext
+    exact transferH₁_rep V f
+  have rep₁_surj (V : Rep.{0} k G) (x : continuousH1 r V) :
+      ∃ (f : cocycles₁ V) (hf : IsLevelConstant₁ r (⇑f)), x = rep₁ V f hf := by
+    obtain ⟨f, hf, heq⟩ := (mem_continuousH1_iff r V x.val).mp x.property
+    exact ⟨f, hf, Subtype.ext heq.symm⟩
+  have repH₁_surj (V : Rep.{0} k G) (x : continuousH1 rH (Rep.res H.subtype V)) :
+      ∃ (f : cocycles₁ (Rep.res H.subtype V)) (hf : IsLevelConstant₁ rH (⇑f)), x = repH₁ V f hf := by
+    obtain ⟨f, hf, heq⟩ := (mem_continuousH1_iff rH (Rep.res H.subtype V) x.val).mp x.property
+    exact ⟨f, hf, Subtype.ext heq.symm⟩
+  have lift_cup (f : H → AH) (g : H → BH) (e : levelCocycles₂ rH NH)
+      (he : ∀ st : H × H, (e : H × H → NH) st = cupCochain φH f g st) (xyz : G × G × G) :
+      lift₂ N e xyz = φ (lift₁ A f (xyz.1, xyz.2.1)) (lift₁ B g (xyz.2.1, xyz.2.2)) := by
+    change N.ρ (a xyz.1 : G) ((e : H × H → NH) _) = _
+    rw [he, cupCochain_apply]
+    change N.ρ (a xyz.1 : G) (φ (f ((a xyz.1)⁻¹ * a xyz.2.1))
+      (B.ρ ((a xyz.1 : G)⁻¹ * (a xyz.2.1 : G)) (g ((a xyz.2.1)⁻¹ * a xyz.2.2)))) = _
+    rw [← hφ, hρ, mul_inv_cancel_left]
+  have projection₁_left (x : continuousH1 r A) (y : continuousH1 rH BH) :
+      C₂ N hN (PH 1 (R₁ A x) y) = P 1 x (C₁ B hB y) := by
+    obtain ⟨f, hf, rfl⟩ := rep₁_surj A x
+    obtain ⟨g, hg, rfl⟩ := repH₁_surj B y
+    obtain ⟨eH, heH, hPHrep⟩ := hPH.2.1 (resZ₁ A f) (resZ₁_level A f hf) g hg
+    obtain ⟨eG, heG, hPrep⟩ := hP.2.1 f hf (transferZ₁ B g) (transfer_level₁ B hB g hg)
+    rw [R₁_rep A f hf, C₁_rep B hB g hg, hPHrep, C₂_rep N hN, hPrep]
+    obtain ⟨p, hpH, hplev, hp⟩ := prism_data₁ A hA f hf
+    let q : G × G → N := fun xy => φ (p xy.1) (lift₁ B g xy)
+    symm
+    apply eq_of_avg_boundary eG (transferZ₂ N hN eH) q
+    · intro h xy
+      change φ (p ((h : G) • xy.1)) (lift₁ B g ((h : G) • xy)) = _
+      rw [hpH, lift₁_eq, hφ]
+    · apply combine_level₂ (fun xy => p xy.1) (lift₁ B g) _ (lift₁_level B hB g hg) (fun v w => φ v w)
+      obtain ⟨E, hE, hp⟩ := hplev
+      exact ⟨E, hE, fun x _ u _ hu _ => hp x u hu⟩
+    · intro s u
+      let F : G × G × G → N := fun xyz =>
+        φ (hom₁ A f xyz.1 xyz.2.1) (lift₁ B g (xyz.2.1, xyz.2.2))
+      have hF : avg N (G × G × G) F (1, s, s * u) = (eG : G × G → N) (s, u) := by
+        rw [heG, cupCochain_apply]
+        change avg N (G × G × G) F (1, s, s * u) =
+          φ (f s) (B.ρ s (avg B (G × G) (lift₁ B g) (1, u)))
+        have heq := avg_equivariant B (G × G) (lift₁ B g) (lift₁_eq B g) s (1, u)
+        change avg B (G × G) (lift₁ B g) (s * 1, s * u) = _ at heq
+        simp only [mul_one] at heq
+        rw [← heq, avg_apply]
+        have hh := (avg_product (G × G) (G × G) (fun xy => hom₁ A f xy.1 xy.2) (lift₁ B g)).1
+          (fun g xy => hom₁_eq A f g xy.1 xy.2) (1, s) (s, s * u)
+        simpa only [F, hom₁, map_one, Module.End.one_apply, inv_one, one_mul, avg_apply,
+          Prod.smul_mk, Prod.fst, Prod.snd] using hh
+      have hd : F - lift₂ N eH = fun xyz => q (xyz.2.1, xyz.2.2) - q (xyz.1, xyz.2.2) + q (xyz.1, xyz.2.1) := by
+        funext xyz
+        change F xyz - lift₂ N eH xyz = _
+        rw [lift_cup (resZ₁ A f) g eH heH]
+        change φ (hom₁ A f xyz.1 xyz.2.1) (lift₁ B g (xyz.2.1, xyz.2.2)) -
+          φ (hom₁ A f (a xyz.1) (a xyz.2.1)) (lift₁ B g (xyz.2.1, xyz.2.2)) = _
+        rw [← LinearMap.sub_apply, ← map_sub, hp]
+        have hc := lift₁_closed B g xyz.1 xyz.2.1 xyz.2.2
+        have hq : lift₁ B g (xyz.2.1, xyz.2.2) + lift₁ B g (xyz.1, xyz.2.1) =
+            lift₁ B g (xyz.1, xyz.2.2) := sub_eq_zero.mp (by
+          rw [← sub_add_eq_add_sub]
+          exact hc)
+        simp only [q, map_sub, LinearMap.sub_apply]
+        rw [← hq, map_add]
+        abel
+      have hh := congrArg (fun F => avg N (G × G × G) F (1, s, s * u)) hd
+      rw [map_sub, Pi.sub_apply, hF] at hh
+      exact hh
+  have projection₁_right (x : continuousH1 rH AH) (y : continuousH1 r B) :
+      C₂ N hN (PH 1 x (R₁ B y)) = P 1 (C₁ A hA x) y := by
+    obtain ⟨f, hf, rfl⟩ := repH₁_surj A x
+    obtain ⟨g, hg, rfl⟩ := rep₁_surj B y
+    obtain ⟨eH, heH, hPHrep⟩ := hPH.2.1 f hf (resZ₁ B g) (resZ₁_level B g hg)
+    obtain ⟨eG, heG, hPrep⟩ := hP.2.1 (transferZ₁ A f) (transfer_level₁ A hA f hf) g hg
+    rw [R₁_rep B g hg, C₁_rep A hA f hf, hPHrep, C₂_rep N hN, hPrep]
+    obtain ⟨p, hpH, hplev, hp⟩ := prism_data₁ B hB g hg
+    let q : G × G → N := fun xy => -φ (lift₁ A f xy) (p xy.2)
+    symm
+    apply eq_of_avg_boundary eG (transferZ₂ N hN eH) q
+    · intro h xy
+      change -φ (lift₁ A f ((h : G) • xy)) (p ((h : G) • xy.2)) = _
+      rw [lift₁_eq, hpH, hφ, map_neg]
+    · have hq : IsLevelConstant₂ r (fun xy => φ (lift₁ A f xy) (p xy.2)) := by
+        apply combine_level₂ (lift₁ A f) (fun xy => p xy.2) (lift₁_level A hA f hf) _ (fun v w => φ v w)
+        obtain ⟨E, hE, hp⟩ := hplev
+        exact ⟨E, hE, fun _ y _ v _ hv => hp y v hv⟩
+      exact hq.comp Neg.neg
+    · intro s u
+      let F : G × G × G → N := fun xyz =>
+        φ (lift₁ A f (xyz.1, xyz.2.1)) (hom₁ B g xyz.2.1 xyz.2.2)
+      have hF : avg N (G × G × G) F (1, s, s * u) = (eG : G × G → N) (s, u) := by
+        rw [heG, cupCochain_apply]
+        change avg N (G × G × G) F (1, s, s * u) =
+          φ (avg A (G × G) (lift₁ A f) (1, s)) (B.ρ s (g u))
+        rw [avg_apply]
+        have hh := (avg_product (G × G) (G × G) (lift₁ A f) (fun xy => hom₁ B g xy.1 xy.2)).2
+          (fun s xy => hom₁_eq B g s xy.1 xy.2) (1, s) (s, s * u)
+        simpa only [F, hom₁, inv_mul_cancel_left, avg_apply, Prod.smul_mk, Prod.fst, Prod.snd] using hh
+      have hd : F - lift₂ N eH = fun xyz => q (xyz.2.1, xyz.2.2) - q (xyz.1, xyz.2.2) + q (xyz.1, xyz.2.1) := by
+        funext xyz
+        change F xyz - lift₂ N eH xyz = _
+        rw [lift_cup f (resZ₁ B g) eH heH]
+        change φ (lift₁ A f (xyz.1, xyz.2.1)) (hom₁ B g xyz.2.1 xyz.2.2) -
+          φ (lift₁ A f (xyz.1, xyz.2.1)) (hom₁ B g (a xyz.2.1) (a xyz.2.2)) = _
+        rw [← map_sub, hp, map_sub]
+        have hc := lift₁_closed A f xyz.1 xyz.2.1 xyz.2.2
+        have hq : lift₁ A f (xyz.2.1, xyz.2.2) + lift₁ A f (xyz.1, xyz.2.1) =
+            lift₁ A f (xyz.1, xyz.2.2) := sub_eq_zero.mp (by
+          rw [← sub_add_eq_add_sub]
+          exact hc)
+        simp only [q]
+        rw [← hq, map_add, LinearMap.add_apply]
+        abel
+      have hh := congrArg (fun F => avg N (G × G × G) F (1, s, s * u)) hd
+      rw [map_sub, Pi.sub_apply, hF] at hh
+      exact hh
+  -- Package one common choice of maps in the two required degree orders.
+  let RX : ∀ i : Fin 3, X i →ₗ[k] XH i :=
+    fun i => Fin.cases (R₀ A) (fun j => Fin.cases (R₁ A) (fun l => Fin.cases (R₂ A) (fun z => Fin.elim0 z) l) j) i
+  let CX : ∀ i : Fin 3, XH i →ₗ[k] X i :=
+    fun i => Fin.cases (C₀ A) (fun j => Fin.cases (C₁ A hA) (fun l => Fin.cases (C₂ A hA) (fun z => Fin.elim0 z) l) j) i
+  let RY : ∀ i : Fin 3, Y i →ₗ[k] YH i :=
+    fun i => Fin.cases (R₂ B) (fun j => Fin.cases (R₁ B) (fun l => Fin.cases (R₀ B) (fun z => Fin.elim0 z) l) j) i
+  let CY : ∀ i : Fin 3, YH i →ₗ[k] Y i :=
+    fun i => Fin.cases (C₂ B hB) (fun j => Fin.cases (C₁ B hB) (fun l => Fin.cases (C₀ B) (fun z => Fin.elim0 z) l) j) i
+  refine ⟨RX, CX, RY, CY, R₂ N, C₂ N hN, ?_, ?_, C₂_R₂ N hN, ?_, ?_⟩
+  · intro i x
+    fin_cases i
+    · exact C₀_R₀ A x
+    · exact C₁_R₁ A hA x
+    · exact C₂_R₂ A hA x
+  · intro i y
+    fin_cases i
+    · exact C₂_R₂ B hB y
+    · exact C₁_R₁ B hB y
+    · exact C₀_R₀ B y
+  · intro i x y
+    fin_cases i
+    · exact projection₀_left x y
+    · exact projection₁_left x y
+    · exact projection₂_left x y
+  · intro i x y
+    fin_cases i
+    · exact projection₀_right x y
+    · exact projection₁_right x y
+    · exact projection₂_right x y
