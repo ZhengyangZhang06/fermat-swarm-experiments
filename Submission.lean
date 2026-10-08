@@ -2823,6 +2823,7 @@ theorem p06_9e0f5043ff_fpm_rd_eval_kernel
   have hne (a : Polynomial K) (ha : a ≠ 0) : Polynomial.aeval x a ≠ 0 := by
     intro h
     exact ha (hinj (h.trans (map_zero (Polynomial.aeval x)).symm))
+  -- Denominator 1 lifts every polynomial evaluation into the valuation ring.
   have hmem (a : Polynomial K) : Polynomial.aeval x a ∈ v.toValuationSubring :=
     (hv _).mpr ⟨a, 1, hq.not_dvd_one, by rw [map_one, div_one]⟩
   let e : Polynomial K →ₐ[K] v.toValuationSubring :=
@@ -2833,6 +2834,7 @@ theorem p06_9e0f5043ff_fpm_rd_eval_kernel
       map_add' := fun a b => Subtype.ext (map_add (Polynomial.aeval x) a b)
       commutes' := fun c => Subtype.ext ((Polynomial.aeval x).commutes c) }
   have he (a : Polynomial K) : (e a : F) = Polynomial.aeval x a := rfl
+  -- A denominator coprime to q supplies an inverse in the valuation ring.
   have hunit (a : Polynomial K) (ha : ¬ q ∣ a) : IsUnit (e a) := by
     have ha0 : Polynomial.aeval x a ≠ 0 := hne a (fun h => ha (h ▸ dvd_zero q))
     have hi : (Polynomial.aeval x a)⁻¹ ∈ v.toValuationSubring :=
@@ -2841,6 +2843,7 @@ theorem p06_9e0f5043ff_fpm_rd_eval_kernel
     refine ⟨⟨(Polynomial.aeval x a)⁻¹, hi⟩, ?_⟩
     apply Subtype.ext
     exact mul_inv_cancel₀ ha0
+  -- An inverse of q(x) would force q to divide an allowed denominator.
   have hq_nonunit : ¬ IsUnit (e q) := by
     intro hu
     obtain ⟨z, hz⟩ := isUnit_iff_exists_inv.mp hu
