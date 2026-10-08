@@ -1410,8 +1410,9 @@ theorem p06_9e0f5043ff_fpm_normalized_orders
   classical
   let eP := Matrix.toLinearEquiv' P hP.invertible
   let eQ := Matrix.toLinearEquiv' Q hQ.invertible
+  -- Descend P and its inverse to the quotients once P maps the two ranges onto each other.
   refine ⟨Submodule.Quotient.equiv _ _ eP ?_⟩
-  -- The image under P is unchanged by precomposing with the automorphism Q.
+  -- P(range D) = range (P * D), and surjectivity of Q gives range (P * D * Q).
   change (LinearMap.range D.mulVecLin).map P.mulVecLin =
     LinearMap.range (P * D * Q).mulVecLin
   rw [← LinearMap.range_comp, ← Matrix.mulVecLin_mul, Matrix.mulVecLin_mul (P * D) Q]
