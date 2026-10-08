@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.hopf_tensor_equalizer-a1.finite_stable_subspace-a1.tensor_dual_expansion-a1",
+  "parent_id": "root.hopf_tensor_equalizer-a1.finite_stable_subspace-a1",
+  "depth": 3,
+  "title": "Finite tensor expansion with dual coordinate functionals",
+  "statement": "Let k be a field and C an additive commutative group equipped with a k-module structure. For every z in C ⊗ₖ C, there exist a natural number n, families v,w : Fin n → C, and k-linear maps ell_i : C → k such that z = Σ_i v_i ⊗ w_i and ell_i(w_j) equals 1 when i = j and 0 otherwise.",
+  "lean_statement": "∀ {k : Type*} [Field k] {C : Type*} [AddCommGroup C] [Module k C] (z : TensorProduct k C C), ∃ (n : ℕ) (v w : Fin n → C) (ell : Fin n → C →ₗ[k] k), z = ∑ i : Fin n, TensorProduct.tmul k (v i) (w i) ∧ ∀ i j : Fin n, ell i (w j) = if i = j then (1 : k) else 0",
+  "lean_name": "p05_hte_fss_tensor_dual_expansion_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-finite-stable-subspace-a1-tensor-dual-expansion-a1-a1"
+}

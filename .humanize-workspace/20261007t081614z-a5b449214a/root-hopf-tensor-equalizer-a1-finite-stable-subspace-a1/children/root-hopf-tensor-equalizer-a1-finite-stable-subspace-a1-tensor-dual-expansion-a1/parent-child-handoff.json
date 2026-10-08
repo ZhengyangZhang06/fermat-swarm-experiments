@@ -1,0 +1,50 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "finiteDimensional|FiniteDimensional|coideal|exists.*subcoalgebra|exists.*[Ss]table",
+        "exists.*(sum|linearIndependent)|sum.*exists|dualBasis|exists_extend|extend_apply|linearMapOf",
+        "exists.*(dual|repr)|biorthogonal|dual.*exists",
+        "finite_span|span.*[Ff]inite|[Ff]inite.*span"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Coalgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Finiteness.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Basis/VectorSpace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/FiniteDimensional/Defs.lean"
+      ],
+      "conclusion": "The snapshots match project revision 2fdd42759f4ab17640ac773289b521dd69d4b26e and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d, with no tracked modifications. Relevant infrastructure includes TensorProduct.exists_sum_tmul_eq, LinearMap.exists_extend, FiniteDimensional.span_of_finite, Coalgebra.coassoc_apply, and Coalgebra.lTensor_counit_comul. Their transitive axiom reports contain only propext, Classical.choice, and Quot.sound, or subsets thereof. The searches found no matching finite stable-subspace theorem or tensor expansion theorem supplying the required coordinate functionals."
+    }
+  ],
+  "parent_id": "root.hopf_tensor_equalizer-a1.finite_stable_subspace-a1",
+  "child_id": "root.hopf_tensor_equalizer-a1.finite_stable_subspace-a1.tensor_dual_expansion-a1",
+  "subproblem": {
+    "key": "tensor_dual_expansion",
+    "title": "Finite tensor expansion with dual coordinate functionals",
+    "statement": "Let k be a field and C an additive commutative group equipped with a k-module structure. For every z in C ⊗ₖ C, there exist a natural number n, families v,w : Fin n → C, and k-linear maps ell_i : C → k such that z = Σ_i v_i ⊗ w_i and ell_i(w_j) equals 1 when i = j and 0 otherwise.",
+    "lean_statement": "∀ {k : Type*} [Field k] {C : Type*} [AddCommGroup C] [Module k C] (z : TensorProduct k C C), ∃ (n : ℕ) (v w : Fin n → C) (ell : Fin n → C →ₗ[k] k), z = ∑ i : Fin n, TensorProduct.tmul k (v i) (w i) ∧ ∀ i j : Fin n, ell i (w j) = if i = j then (1 : k) else 0",
+    "lean_name": "p05_hte_fss_tensor_dual_expansion_a5b449214a",
+    "depends_on": [],
+    "natural_proof": "1. Express z as a finite sum z = Σ_{r∈R} x_r ⊗ y_r. Such an expression exists by tensor-product induction: zero has an empty expression, a pure tensor has a one-term expression, and expressions for two tensors concatenate to give an expression for their sum.\n2. Let W be the k-linear span of the finitely many vectors y_r. This subspace is finite-dimensional because those vectors span it. Choose a basis (b_i) indexed by Fin n for some natural number n, and let w_i be the image of b_i in C. For every r, the basis expansion of y_r gives scalars α_{r,i} with y_r = Σ_i α_{r,i} • w_i.\n3. Define v_i = Σ_{r∈R} α_{r,i} • x_r. Bilinearity and the balancing relation for the tensor product give x_r ⊗ y_r = Σ_i (α_{r,i} • x_r) ⊗ w_i. Summing over r and interchanging the two finite sums gives z = Σ_i v_i ⊗ w_i.\n4. The family (w_i) is linearly independent in C: any relation between its members is a relation between the basis vectors b_i in W, since the inclusion W → C is injective. Extend this independent family to a basis of C. Define ell_i to be the coordinate functional corresponding to w_i in that extended basis, so it is zero on every other basis vector. Uniqueness of basis expansions shows that coordinate extraction preserves addition and k-scalar multiplication, hence ell_i is k-linear. Its values on the original family are ell_i(w_j) = 1 if i = j and 0 otherwise.\n5. If W is zero, every y_r is zero and therefore z = 0. Take n = 0 and the empty families v, w, and ell. The tensor sum is zero and the coordinate identities are vacuous. Thus the construction also covers the empty case and proves the entire assertion.",
+    "proof_key_steps": [
+      "Express the tensor as a finite sum of pure tensors.",
+      "Choose a finite basis of the span of the second factors.",
+      "Expand those factors in the basis and collect the first coefficients.",
+      "Extend the independent right-factor family to a basis of C and take coordinate functionals.",
+      "Handle the zero span with empty families."
+    ]
+  },
+  "audit": {
+    "key": "tensor_dual_expansion",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "The one-line proposition exactly matches the prose, includes every hypothesis, and elaborates independently without either proposed declaration. The proof constructs a finite pure-tensor expansion, chooses a finite basis of the second-factor span, and correctly moves scalar coefficients to the first factors. Injectivity of the subspace inclusion preserves linear independence; extending the family to a basis supplies the stated linear coordinate functionals. The zero-span case gives the required empty witnesses. This is a complete, non-circular mathematical obligation requiring no child planning pass. Its bare Lean name is unreserved, and the empty dependency list is correct."
+  },
+  "resolved_dependencies": [],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1-finite-stable-subspace-a1-tensor-dual-expansion-a1/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1-finite-stable-subspace-a1-tensor-dual-expansion-a1/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1-finite-stable-subspace-a1-tensor-dual-expansion-a1/parent-supplied-natural-proof.json"
+}

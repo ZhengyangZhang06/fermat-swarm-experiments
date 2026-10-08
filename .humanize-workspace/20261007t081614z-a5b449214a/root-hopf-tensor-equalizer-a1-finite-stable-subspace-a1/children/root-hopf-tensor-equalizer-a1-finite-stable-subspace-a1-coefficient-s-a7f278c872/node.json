@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.hopf_tensor_equalizer-a1.finite_stable_subspace-a1.coefficient_span_stability-a1",
+  "parent_id": "root.hopf_tensor_equalizer-a1.finite_stable_subspace-a1",
+  "depth": 3,
+  "title": "A coalgebra coefficient span is finite-dimensional and stable",
+  "statement": "Let k be a field and C an additive commutative group with a k-module structure and a k-coalgebra structure. Let f ∈ C, n ∈ ℕ, v,w : Fin n → C, and ell_i : C →ₗ[k] k. Assume Δ(f) = Σ_i v_i ⊗ w_i and ell_i(w_j) = 1 if i = j and 0 otherwise. Set V = spanₖ{v_i | i ∈ Fin n}. Then V is finite-dimensional, f belongs to V, and for every x ∈ V, Δ(x) belongs to spanₖ{a ⊗ b | a ∈ V, b ∈ C}.",
+  "lean_statement": "∀ {k : Type*} [Field k] {C : Type*} [AddCommGroup C] [Module k C] [Coalgebra k C] (f : C) (n : ℕ) (v w : Fin n → C) (ell : Fin n → C →ₗ[k] k) (hΔ : Coalgebra.comul (R := k) f = ∑ i : Fin n, TensorProduct.tmul k (v i) (w i)) (hdual : ∀ i j : Fin n, ell i (w j) = if i = j then (1 : k) else 0), let V : Submodule k C := Submodule.span k (Set.range v); FiniteDimensional k V ∧ f ∈ V ∧ ∀ x ∈ V, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k C C | ∃ a ∈ V, ∃ b : C, t = TensorProduct.tmul k a b}",
+  "lean_name": "p05_hte_fss_coefficient_span_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-finite-stable-subspace-a1-coefficient-s-a7f278c872-a1"
+}
