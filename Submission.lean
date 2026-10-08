@@ -2550,3 +2550,33 @@ theorem p06_9e0f5043ff_fpm_rd_residue_surjective
     _ = ρ h := by rw [mul_assoc, mul_comm (φ b) (φ t), htb, mul_one]
 
 end Submission
+
+
+namespace Submission
+
+theorem p06_9e0f5043ff_fpm_residue_degree
+    (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F)
+    (hx : Transcendental K x) (q : Polynomial K) (_hq : q.Monic)
+    (hqi : Irreducible q) (v : AlgebraicCurve.Place K F)
+    (hv : ∀ f : F, f ∈ v.toValuationSubring ↔
+      ∃ a b : Polynomial K, ¬ q ∣ b ∧
+        f = Polynomial.aeval x a / Polynomial.aeval x b) :
+    v.deg = q.natDegree := by
+  obtain ⟨e, he, hker⟩ :=
+    Submission.p06_9e0f5043ff_fpm_rd_eval_kernel K F x hx q hqi v hv
+  have hqzero : IsLocalRing.residue v.toValuationSubring (e q) = 0 := by
+    change q ∈ RingHom.ker ((IsLocalRing.residue v.toValuationSubring).comp e.toRingHom)
+    rw [hker]
+    exact Ideal.subset_span (Set.mem_singleton q)
+  have hsurj := Submission.p06_9e0f5043ff_fpm_rd_residue_surjective
+    K F x hx q hqi v (fun h => (hv (h : F)).mp h.property) e he hqzero
+  let φ : Polynomial K →ₐ[K] v.ResidueField :=
+    (IsScalarTower.toAlgHom K v.toValuationSubring v.ResidueField).comp e
+  have hkerφ : RingHom.ker φ = Ideal.span ({q} : Set (Polynomial K)) := hker
+  have hsurjφ : Function.Surjective φ := hsurj
+  have hdim :=
+    ((Ideal.quotientEquivAlgOfEq K hkerφ.symm).trans
+      (Ideal.quotientKerAlgEquivOfSurjective (f := φ) hsurjφ)).toLinearEquiv.finrank_eq
+  exact hdim.symm.trans finrank_quotient_span_eq_natDegree
+
+end Submission
