@@ -2059,11 +2059,13 @@ transfer identity. Transport to group cohomology uses `groupCohomologyIso`,
 `Functor.mapHomotopyEquiv`, `HomotopyEquiv.toHomologyIso`, and
 `HomologicalComplex.homologyUnop` from pinned mathlib
 `db584cd6d46c92f209a44c0f1c829460d327499d`. -/
-theorem p04_tia_cohomology_transfer {k G : Type u} [CommRing k] [Group G] [Fintype G]
-    (A : Rep k G) (H : Subgroup G) [Fintype H] (n : ℕ) :
+theorem p04_tia_cohomology_transfer :
+    ∀ {k G : Type _} [CommRing k] [Group G] [Fintype G]
+      (A : Rep k G) (H : Subgroup G) [Fintype H] (n : ℕ),
     ∃ R : groupCohomology A n →ₗ[k] groupCohomology (Rep.res H.subtype A) n,
       ∃ C : groupCohomology (Rep.res H.subtype A) n →ₗ[k] groupCohomology A n,
         ∀ x : groupCohomology A n, C (R x) = H.index • x := by
+  intro k G _ _ _ A H _ n
   classical
   obtain ⟨e⟩ := p04_tia_coh_restricted_standard_homotopy_equiv (k := k) H
   obtain ⟨r, c, hrc⟩ := p04_tia_coh_hom_complex_transfer A H (Rep.standardComplex k G)
