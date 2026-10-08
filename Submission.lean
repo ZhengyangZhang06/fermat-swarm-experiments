@@ -830,6 +830,9 @@ theorem p06_9e0f5043ff_ifl_local_length_order
       simpa [u', zpow_natCast] using h
     rw [hcoe]
     exact w.ord_unit_smul_zpow u' hπ' (m : ℤ)
+
+end Submission
+
 namespace Submission
 
 /-- Extend an additive exponent on nonzero polynomials to integer orders on a field
