@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.tate_uniformization-a1.algebraic_aut_isometry-a1",
+  "parent_id": "root.tate_uniformization-a1",
+  "depth": 2,
+  "title": "Algebraic automorphisms over a complete normed base are isometries",
+  "statement": "Let F be a complete normed field and Ω a normed field with a NormedAlgebra F Ω structure, algebraic over F. Suppose q ∈ F satisfies 0 < ‖q‖ < 1. Then every F-algebra automorphism σ of Ω is an isometry for the given metric on Ω.",
+  "lean_statement": "∀ (F Ω : Type) [NormedField F] [CompleteSpace F] [NormedField Ω] [NormedAlgebra F Ω] [Algebra.IsAlgebraic F Ω], ∀ q : F, 0 < ‖q‖ → ‖q‖ < 1 → ∀ σ : Ω ≃ₐ[F] Ω, Isometry (fun x : Ω => σ x)",
+  "lean_name": "p03_tu_algebraic_aut_isometry_68cf3476",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p03/20261007t081613z-d1a2d75627/root-tate-uniformization-a1-algebraic-aut-isometry-a1-a1"
+}

@@ -1,0 +1,73 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "TateCurve|tateCurve|tateUniformization|LaurentAnalytic|Laurent.*annulus|lambert|Lambert",
+        "FiniteDimensional.complete|LinearMap.continuous_of_finiteDimensional|theorem Summable.of_norm_bounded|norm_algebraMap|exists_isWeierstrassFactorization",
+        "exists_pos_bound|continuous_iff.*bound|bound_of.*continuous",
+        "p03_tu_(lambert_summable|euler_product_powers|bilateral_summable|algebraic_aut_isometry|coordinate_symmetries)_68cf3476",
+        "python3 /tmp/p03-tu-independent-audit-20261008.py",
+        "python3 /tmp/p03-tu-independent-audit-hcgsmgon/check_instances.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-tate-uniformization-a1/decomposition-v1.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Submission.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Definitions",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Topology/Algebra/Module/FiniteDimension.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Analysis/Normed/Group/InfiniteSum.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Analysis/Normed/Module/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Analysis/Normed/Field/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Analysis/Normed/Operator/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/FieldTheory/IntermediateField/Adjoin/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/NumberTheory/TsumDivisorsAntidiagonal.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p03-tu-independent-audit-hcgsmgon/result.json",
+        "/tmp/p03-tu-independent-audit-hcgsmgon/FrozenTypes.lean",
+        "/tmp/p03-tu-independent-audit-hcgsmgon/FrozenTypes.lean.log",
+        "/tmp/p03-tu-independent-audit-hcgsmgon/AbsenceProbe.lean",
+        "/tmp/p03-tu-independent-audit-hcgsmgon/InstanceAudit.lean",
+        "/tmp/p03-tu-independent-audit-hcgsmgon/InstanceAudit.lean.log"
+      ],
+      "conclusion": "Independently confirmed project revision 81f093181fd6c58dc887fcae5ec8b896996f1885, mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d, and clean pinned checkouts and dependencies. The library supports norm comparison, finite-dimensional completeness, continuity and boundedness; the Lambert search found related summability and divisor identities but no matching Tate-uniformization or annular Laurent-analysis interface. All five exact one-line propositions elaborate independently of their proposed implementations. Lean also checked inherited intermediate-field norms, multiplication and inversion, completeness of F(x), and boundedness of the restricted automorphism. The five types and nine checked library declarations have only propext, Classical.choice and Quot.sound as transitive axioms. All names are bare identifiers; searches found no collisions in pinned sources, ten local DAGs, or the active sibling branch. The split is appropriate: four independent obligations support coordinate_symmetries through its two correctly directed dependencies, with no cycles or parent-equivalent child. Fresh header diagnostics confirmed policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, absence of all 37 targets, and omission only of lines 10–11. The recorded reversible original/build hashes are dd8891addb75e48583885c932518af8bc6d34438aec4e3ccd76ce6aa765e423f and 81502485ae6796527a5c4e210837b198322b438244a2f58054b94b98aef9dda9. Protected originals and handoffs remained unchanged. This accepts the decomposition and supplied prose proofs only; implementation acceptance still requires the configured comparator."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "lambert_summability",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone Lean proposition exactly matches the prose hypotheses and summability conclusion. The proof establishes the cast bound, denominator norm one, geometric domination and completeness-based unordered summability. It covers q = 0 and k = 0 without additional assumptions or circular reliance."
+    },
+    {
+      "key": "euler_product_powers",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The type expresses every claimed convergence, equality and nonvanishing assertion. The finite-tail estimate proves the full finite-product net Cauchy; completeness supplies its limit, whose norm remains one. Continuity of powers proves all powered-product assertions, including k = 0. The proof is complete and independent."
+    },
+    {
+      "key": "bilateral_summability",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "Prose and type agree, including the absence of a completeness assumption on Ω. The proof correctly obtains nontriviality from q, places the terms in the finite complete field F(u), excludes vanishing denominators, bounds both integer tails geometrically, and transports their unordered sums through the continuous inclusion. The sensitive field and norm constructions were independently checked in Lean."
+    },
+    {
+      "key": "algebraic_aut_isometry",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact type matches the stated metric isometry under precisely the given hypotheses. Finite-dimensional continuity and boundedness apply to the restriction on F(x). Applying one fixed bound to all powers forces norm contraction; applying the same argument to the inverse gives equality, then distance preservation. No completeness of Ω or parent theorem is used."
+    },
+    {
+      "key": "coordinate_symmetries",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The inline definitions and all six identities match the prose. The proof verifies preservation of the nonkernel domain, applies bilateral summability before manipulating sums, and correctly derives periodicity and inversion, including the constant terms. Isometry supplies continuity for passage through sums. Its only sibling dependencies are exactly bilateral_summability and algebraic_aut_isometry, with no circular reliance."
+    }
+  ],
+  "required_changes": []
+}

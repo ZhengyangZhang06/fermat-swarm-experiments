@@ -1,0 +1,404 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081613Z-d1a2d75627",
+  "parent_id": "root.tate_uniformization-a1",
+  "dispatch_branch": "proof-workspace/fermat-p03/20261007t081613z-d1a2d75627/dispatch/root-tate-uniformization-a1",
+  "source_commit": "81f093181fd6c58dc887fcae5ec8b896996f1885",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.tate_uniformization-a1.algebraic_aut_isometry-a1",
+      "key": "algebraic_aut_isometry",
+      "result_branch": "humanize-recursive/fermat-p03/20261007t081613z-d1a2d75627/root-tate-uniformization-a1-algebraic-aut-isometry-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-algebraic-aut-isometry-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "TateCurve|tateCurve|tateUniformization|LaurentAnalytic|Laurent.*annulus|lambert|Lambert",
+              "FiniteDimensional.complete|LinearMap.continuous_of_finiteDimensional",
+              "summable_of_norm_bounded|summable_geometric_of_norm_lt_one",
+              "theorem Summable.of_norm_bounded|lemma Summable.of_norm_bounded|theorem Summable.of_norm|lemma Summable.of_norm",
+              "exists_isWeierstrassFactorization|theorem complete|continuous_of_finiteDimensional|summable_norm_iff|multipliable.*norm|multipliable.*sub|tprod_ne_zero",
+              "p03_tu_(lambert_summable|euler_product_powers|bilateral_summable|algebraic_aut_isometry|coordinate_symmetries)_68cf3476",
+              "python3 /tmp/p03-tu-decomposition-14v63537/check.py"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Submission.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Definitions",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Topology/Algebra/Module/FiniteDimension.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Analysis/Normed/Group/InfiniteSum.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Analysis/Normed/Module/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Analysis/SpecificLimits/Normed.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Analysis/SpecialFunctions/Log/Summable.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/NumberTheory/TsumDivisorsAntidiagonal.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/RingTheory/PowerSeries/WeierstrassPreparation.lean",
+              "/runtime/operator-header-policy-v1/policy.json",
+              "/tmp/p03-tu-decomposition-14v63537/result.json",
+              "/tmp/p03-tu-decomposition-14v63537/ExtraType.lean.log",
+              "/tmp/p03-tu-decomposition-14v63537/LibraryEvidenceV2.lean.log"
+            ],
+            "conclusion": "The snapshot pins project 81f093181fd6c58dc887fcae5ec8b896996f1885 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. It supplies geometric-series comparison, finite-dimensional completeness and continuity, induced norms, infinite-product convergence infrastructure, and formal Weierstrass preparation. The Lambert-series search found divisor-sum identities, but no matching Tate uniformization or annular Laurent-analysis interface. All five proposed types elaborate after import Submission in a disposable compiler copy. The matching policy digest is 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96; only lines 10 and 11 were omitted, after Lean confirmed all 37 targets absent. The reversible original/build hashes are dd8891addb75e48583885c932518af8bc6d34438aec4e3ccd76ce6aa765e423f and 81502485ae6796527a5c4e210837b198322b438244a2f58054b94b98aef9dda9. Pinned sources and dependencies were clean; the original sources were unchanged. Source searches and all ten local DAGs showed no proposed-name collisions. Induced intermediate-field norms and multiplication were checked. The five type expressions and seven inspected library theorems depend only on propext, Classical.choice and Quot.sound. These are interface diagnostics, not theorem-comparator acceptance."
+          }
+        ],
+        "parent_id": "root.tate_uniformization-a1",
+        "child_id": "root.tate_uniformization-a1.algebraic_aut_isometry-a1",
+        "subproblem": {
+          "key": "algebraic_aut_isometry",
+          "title": "Algebraic automorphisms over a complete normed base are isometries",
+          "statement": "Let F be a complete normed field and Ω a normed field with a NormedAlgebra F Ω structure, algebraic over F. Suppose q ∈ F satisfies 0 < ‖q‖ < 1. Then every F-algebra automorphism σ of Ω is an isometry for the given metric on Ω.",
+          "lean_statement": "∀ (F Ω : Type) [NormedField F] [CompleteSpace F] [NormedField Ω] [NormedAlgebra F Ω] [Algebra.IsAlgebraic F Ω], ∀ q : F, 0 < ‖q‖ → ‖q‖ < 1 → ∀ σ : Ω ≃ₐ[F] Ω, Isometry (fun x : Ω => σ x)",
+          "lean_name": "p03_tu_algebraic_aut_isometry_68cf3476",
+          "depends_on": [],
+          "natural_proof": "1. Since 0 < ‖q‖ < 1, q is nonzero and ‖q⁻¹‖ > 1. Thus F is nontrivially normed, with no change to its given norm or field operations.\n\n2. Fix an F-algebra automorphism σ and a nonzero x ∈ Ω. The intermediate field E = F(x), equipped with the norm induced from Ω, is finite-dimensional over F because x is algebraic. The map L : E → Ω obtained by restricting σ is F-linear. The pinned theorem LinearMap.continuous_of_finiteDimensional applies over the complete nontrivially normed field F and proves L continuous. A continuous linear map between normed spaces over such a field is bounded, so there exists a real C > 0 such that ‖L(y)‖ ≤ C‖y‖ for every y ∈ E.\n\n3. Apply this single bound to y = x^n for every positive integer n. Multiplicativity of σ and of the norms yields ‖σ(x)‖^n ≤ C‖x‖^n. Since x ≠ 0, division by ‖x‖^n gives (‖σ(x)‖/‖x‖)^n ≤ C.\n\n4. The ratio in step 3 cannot exceed one. If it were 1+δ with δ > 0, Bernoulli's inequality would give (1+δ)^n ≥ 1+nδ, contradicting the fixed upper bound C for sufficiently large n. Hence ‖σ(x)‖ ≤ ‖x‖. For x = 0 the same inequality follows from σ(0) = 0. This proves the inequality for every automorphism and every x.\n\n5. Apply step 4 to σ⁻¹ at σ(x). It gives ‖x‖ ≤ ‖σ(x)‖, so in fact ‖σ(x)‖ = ‖x‖ for every x.\n\n6. For arbitrary x,y ∈ Ω, additivity of σ and step 5 give dist(σ(x),σ(y)) = ‖σ(x−y)‖ = ‖x−y‖ = dist(x,y). This is precisely the asserted Isometry property.",
+          "proof_key_steps": [
+            "Obtain a nontrivially normed base from q.",
+            "Restrict an automorphism to the finite-dimensional field F(x).",
+            "Use finite-dimensional continuity to bound that restriction.",
+            "Apply the bound to all powers of x to remove the bound constant.",
+            "Apply the same argument to the inverse automorphism.",
+            "Translate norm preservation into preservation of distances."
+          ]
+        },
+        "audit": {
+          "key": "algebraic_aut_isometry",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The exact type matches the stated metric isometry under precisely the given hypotheses. Finite-dimensional continuity and boundedness apply to the restriction on F(x). Applying one fixed bound to all powers forces norm contraction; applying the same argument to the inverse gives equality, then distance preservation. No completeness of Ω or parent theorem is used."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-tate-uniformization-a1-algebraic-aut-isometry-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-tate-uniformization-a1-algebraic-aut-isometry-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-tate-uniformization-a1-algebraic-aut-isometry-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.tate_uniformization-a1.bilateral_summability-a1",
+      "key": "bilateral_summability",
+      "result_branch": "humanize-recursive/fermat-p03/20261007t081613z-d1a2d75627/root-tate-uniformization-a1-bilateral-summability-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-bilateral-summability-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "TateCurve|tateCurve|tateUniformization|LaurentAnalytic|Laurent.*annulus|lambert|Lambert",
+              "FiniteDimensional.complete|LinearMap.continuous_of_finiteDimensional",
+              "summable_of_norm_bounded|summable_geometric_of_norm_lt_one",
+              "theorem Summable.of_norm_bounded|lemma Summable.of_norm_bounded|theorem Summable.of_norm|lemma Summable.of_norm",
+              "exists_isWeierstrassFactorization|theorem complete|continuous_of_finiteDimensional|summable_norm_iff|multipliable.*norm|multipliable.*sub|tprod_ne_zero",
+              "p03_tu_(lambert_summable|euler_product_powers|bilateral_summable|algebraic_aut_isometry|coordinate_symmetries)_68cf3476",
+              "python3 /tmp/p03-tu-decomposition-14v63537/check.py"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Submission.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Definitions",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Topology/Algebra/Module/FiniteDimension.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Analysis/Normed/Group/InfiniteSum.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Analysis/Normed/Module/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Analysis/SpecificLimits/Normed.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Analysis/SpecialFunctions/Log/Summable.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/NumberTheory/TsumDivisorsAntidiagonal.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/RingTheory/PowerSeries/WeierstrassPreparation.lean",
+              "/runtime/operator-header-policy-v1/policy.json",
+              "/tmp/p03-tu-decomposition-14v63537/result.json",
+              "/tmp/p03-tu-decomposition-14v63537/ExtraType.lean.log",
+              "/tmp/p03-tu-decomposition-14v63537/LibraryEvidenceV2.lean.log"
+            ],
+            "conclusion": "The snapshot pins project 81f093181fd6c58dc887fcae5ec8b896996f1885 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. It supplies geometric-series comparison, finite-dimensional completeness and continuity, induced norms, infinite-product convergence infrastructure, and formal Weierstrass preparation. The Lambert-series search found divisor-sum identities, but no matching Tate uniformization or annular Laurent-analysis interface. All five proposed types elaborate after import Submission in a disposable compiler copy. The matching policy digest is 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96; only lines 10 and 11 were omitted, after Lean confirmed all 37 targets absent. The reversible original/build hashes are dd8891addb75e48583885c932518af8bc6d34438aec4e3ccd76ce6aa765e423f and 81502485ae6796527a5c4e210837b198322b438244a2f58054b94b98aef9dda9. Pinned sources and dependencies were clean; the original sources were unchanged. Source searches and all ten local DAGs showed no proposed-name collisions. Induced intermediate-field norms and multiplication were checked. The five type expressions and seven inspected library theorems depend only on propext, Classical.choice and Quot.sound. These are interface diagnostics, not theorem-comparator acceptance."
+          }
+        ],
+        "parent_id": "root.tate_uniformization-a1",
+        "child_id": "root.tate_uniformization-a1.bilateral_summability-a1",
+        "subproblem": {
+          "key": "bilateral_summability",
+          "title": "Tate-coordinate series converge in an algebraic normed extension",
+          "statement": "Let F be a complete normed field and Ω a normed field equipped with a NormedAlgebra F Ω structure and algebraic over F. Assume the norm of Ω satisfies ‖x+y‖ ≤ max(‖x‖,‖y‖). Let q ∈ F satisfy 0 < ‖q‖ < 1, and put Q = algebraMap F Ω q. For every unit u ∈ Ωˣ such that u ≠ Q^m for every integer m, both ℤ-indexed families Q^n u/(1−Q^n u)^2 and (Q^n u)^2/(1−Q^n u)^3 are summable in Ω. Completeness of Ω is not assumed.",
+          "lean_statement": "∀ (F Ω : Type) [NormedField F] [CompleteSpace F] [NormedField Ω] [NormedAlgebra F Ω] [Algebra.IsAlgebraic F Ω], (∀ x y : Ω, ‖x + y‖ ≤ max ‖x‖ ‖y‖) → ∀ q : F, 0 < ‖q‖ → ‖q‖ < 1 → let qΩ : Ω := algebraMap F Ω q; ∀ u : Ωˣ, (¬ ∃ m : ℤ, (u : Ω) = qΩ ^ m) → Summable (fun n : ℤ => qΩ ^ n * (u : Ω) / (1 - qΩ ^ n * (u : Ω)) ^ 2) ∧ Summable (fun n : ℤ => (qΩ ^ n * (u : Ω)) ^ 2 / (1 - qΩ ^ n * (u : Ω)) ^ 3)",
+          "lean_name": "p03_tu_bilateral_summable_68cf3476",
+          "depends_on": [],
+          "natural_proof": "1. Put R = ‖q‖ and U = ‖u‖. Then 0 < R < 1 and U > 0. NormedAlgebra makes the inclusion F → Ω norm-preserving, so ‖Q‖ = R and Q ≠ 0. The element q⁻¹ has norm R⁻¹ > 1; hence F is nontrivially normed, with its original norm and field operations.\n\n2. Let E = F(u) be the intermediate field of Ω generated by u. Algebraicity of Ω/F makes u algebraic, and therefore E is finite-dimensional over F. Give E its norm and field operations induced from Ω. Its inclusion into Ω is isometric, and its scalar action from F is compatible with the norm. The pinned theorem FiniteDimensional.complete applies because F is complete and nontrivially normed, so E is complete. The elements Q, u and every summand under consideration belong to E.\n\n3. In an ultrametric normed field, if ‖a‖ > ‖b‖, then ‖a−b‖ = ‖a‖: one inequality is ultrametric, and a = (a−b)+b rules out a strictly smaller norm for a−b. Also 1−Q^n u never vanishes. Indeed Q^n u = 1 would imply u = Q^(−n), contrary to the hypothesis.\n\n4. For nonnegative indices n = j, the quantity z_j = Q^j u has norm R^j U, which tends to zero. For all sufficiently large j it is less than one. Step 3 then gives ‖1−z_j‖ = 1. Consequently the first summand has norm R^j U, and the second has norm (R^j U)^2 ≤ R^j U. The real family U R^j is summable. Comparison in the complete field E, with finitely many initial exceptions, proves summability of both nonnegative-index families.\n\n5. Write the negative indices as n = −(j+1), where j ∈ ℕ. Now z_j = Q^(−(j+1))u has norm U/R^(j+1), which eventually exceeds one. Step 3 gives ‖1−z_j‖ = ‖z_j‖. Both rational summands consequently have norm ‖z_j‖⁻¹ = R^(j+1)/U. This is a summable real geometric family. Comparison in E, again allowing finitely many initial exceptions, proves summability of both negative-index families.\n\n6. The integers are the disjoint union of j ↦ j and j ↦ −(j+1). Combining the two summable families from steps 4 and 5 therefore proves unordered summability over ℤ in E. Finally apply the continuous additive inclusion E → Ω to their convergent nets of finite partial sums. The resulting families are exactly those in the statement, proving summability in Ω without requiring Ω to be complete.",
+          "proof_key_steps": [
+            "Use q to obtain nontriviality of the base-field norm.",
+            "Place all summands in the finite complete intermediate field F(u).",
+            "Exclude zero denominators and establish the unequal-norm subtraction rule.",
+            "Bound the nonnegative tails by U‖q‖^j.",
+            "Bound the negative tails by ‖q‖^(j+1)/U.",
+            "Combine the two integer halves and map their sums into Ω."
+          ]
+        },
+        "audit": {
+          "key": "bilateral_summability",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "Prose and type agree, including the absence of a completeness assumption on Ω. The proof correctly obtains nontriviality from q, places the terms in the finite complete field F(u), excludes vanishing denominators, bounds both integer tails geometrically, and transports their unordered sums through the continuous inclusion. The sensitive field and norm constructions were independently checked in Lean."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-tate-uniformization-a1-bilateral-summability-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-tate-uniformization-a1-bilateral-summability-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-tate-uniformization-a1-bilateral-summability-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.tate_uniformization-a1.euler_product_powers-a1",
+      "key": "euler_product_powers",
+      "result_branch": "humanize-recursive/fermat-p03/20261007t081613z-d1a2d75627/root-tate-uniformization-a1-euler-product-powers-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-euler-product-powers-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "TateCurve|tateCurve|tateUniformization|LaurentAnalytic|Laurent.*annulus|lambert|Lambert",
+              "FiniteDimensional.complete|LinearMap.continuous_of_finiteDimensional",
+              "summable_of_norm_bounded|summable_geometric_of_norm_lt_one",
+              "theorem Summable.of_norm_bounded|lemma Summable.of_norm_bounded|theorem Summable.of_norm|lemma Summable.of_norm",
+              "exists_isWeierstrassFactorization|theorem complete|continuous_of_finiteDimensional|summable_norm_iff|multipliable.*norm|multipliable.*sub|tprod_ne_zero",
+              "p03_tu_(lambert_summable|euler_product_powers|bilateral_summable|algebraic_aut_isometry|coordinate_symmetries)_68cf3476",
+              "python3 /tmp/p03-tu-decomposition-14v63537/check.py"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Submission.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Definitions",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Topology/Algebra/Module/FiniteDimension.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Analysis/Normed/Group/InfiniteSum.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Analysis/Normed/Module/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Analysis/SpecificLimits/Normed.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Analysis/SpecialFunctions/Log/Summable.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/NumberTheory/TsumDivisorsAntidiagonal.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/RingTheory/PowerSeries/WeierstrassPreparation.lean",
+              "/runtime/operator-header-policy-v1/policy.json",
+              "/tmp/p03-tu-decomposition-14v63537/result.json",
+              "/tmp/p03-tu-decomposition-14v63537/ExtraType.lean.log",
+              "/tmp/p03-tu-decomposition-14v63537/LibraryEvidenceV2.lean.log"
+            ],
+            "conclusion": "The snapshot pins project 81f093181fd6c58dc887fcae5ec8b896996f1885 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. It supplies geometric-series comparison, finite-dimensional completeness and continuity, induced norms, infinite-product convergence infrastructure, and formal Weierstrass preparation. The Lambert-series search found divisor-sum identities, but no matching Tate uniformization or annular Laurent-analysis interface. All five proposed types elaborate after import Submission in a disposable compiler copy. The matching policy digest is 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96; only lines 10 and 11 were omitted, after Lean confirmed all 37 targets absent. The reversible original/build hashes are dd8891addb75e48583885c932518af8bc6d34438aec4e3ccd76ce6aa765e423f and 81502485ae6796527a5c4e210837b198322b438244a2f58054b94b98aef9dda9. Pinned sources and dependencies were clean; the original sources were unchanged. Source searches and all ten local DAGs showed no proposed-name collisions. Induced intermediate-field norms and multiplication were checked. The five type expressions and seven inspected library theorems depend only on propext, Classical.choice and Quot.sound. These are interface diagnostics, not theorem-comparator acceptance."
+          }
+        ],
+        "parent_id": "root.tate_uniformization-a1",
+        "child_id": "root.tate_uniformization-a1.euler_product_powers-a1",
+        "subproblem": {
+          "key": "euler_product_powers",
+          "title": "Nonzero Euler product and all natural powers",
+          "statement": "Let F be a complete normed field satisfying ‖x+y‖ ≤ max(‖x‖,‖y‖) for all x,y ∈ F, and let q ∈ F satisfy ‖q‖ < 1. The unordered product P = ∏_{d∈ℕ}(1−q^(d+1)) converges and is nonzero. For every k ∈ ℕ, the unordered product ∏_{d∈ℕ}(1−q^(d+1))^k converges, equals P^k, and is nonzero.",
+          "lean_statement": "∀ (F : Type) [NormedField F] [CompleteSpace F], (∀ x y : F, ‖x + y‖ ≤ max ‖x‖ ‖y‖) → ∀ q : F, ‖q‖ < 1 → Multipliable (fun d : ℕ => 1 - q ^ (d + 1)) ∧ (∏' d : ℕ, (1 - q ^ (d + 1))) ≠ 0 ∧ ∀ k : ℕ, Multipliable (fun d : ℕ => (1 - q ^ (d + 1)) ^ k) ∧ (∏' d : ℕ, (1 - q ^ (d + 1)) ^ k) = (∏' d : ℕ, (1 - q ^ (d + 1))) ^ k ∧ (∏' d : ℕ, (1 - q ^ (d + 1)) ^ k) ≠ 0",
+          "lean_name": "p03_tu_euler_product_powers_68cf3476",
+          "depends_on": [],
+          "natural_proof": "1. Put R = ‖q‖ and a_d = 1−q^(d+1). Then 0 ≤ R < 1 and ‖q^(d+1)‖ = R^(d+1) < 1. The ultrametric inequality gives ‖a_d‖ ≤ 1. If ‖a_d‖ < 1, the equation 1 = a_d+q^(d+1) contradicts ‖1‖ = 1. Therefore ‖a_d‖ = 1 and ‖a_d−1‖ = R^(d+1).\n\n2. For every N and every finite set S of indices d ≥ N, prove ‖∏_{d∈S}a_d−1‖ ≤ R^(N+1) by induction on S. The empty product has difference zero. For the induction step use AB−1 = (A−1)B+(B−1), the fact that every finite product B of the a_d has norm one, and the ultrametric inequality. The new factor satisfies ‖a_d−1‖ = R^(d+1) ≤ R^(N+1).\n\n3. Let P_S = ∏_{d∈S}a_d for arbitrary finite S. If S and T both contain {0,…,N−1}, put V = S∪T. Then P_V = P_S P_{V\\S}, and V\\S contains only indices at least N. Thus ‖P_V−P_S‖ ≤ R^(N+1) by step 2 and ‖P_S‖ = 1. The same estimate holds with T. The ultrametric inequality therefore gives ‖P_S−P_T‖ ≤ R^(N+1).\n\n4. Since R^(N+1) tends to zero, step 3 proves that the net of finite products is Cauchy. Completeness of F supplies its limit P, establishing Multipliable. Every P_S has norm one, so continuity of the norm gives ‖P‖ = 1. Hence P is nonzero, and uniqueness of limits identifies P with the stated tprod.\n\n5. Fix k ∈ ℕ. For every finite S, commutativity gives ∏_{d∈S}a_d^k = P_S^k. The power map x ↦ x^k is continuous, so these finite products tend to P^k. This proves their Multipliable assertion and identifies their tprod with P^k. Finally ‖P^k‖ = ‖P‖^k = 1, including k = 0, so this product is nonzero.",
+          "proof_key_steps": [
+            "Show every Euler factor has norm one and geometrically small difference from one.",
+            "Bound every finite tail product minus one by a geometric tail bound.",
+            "Prove that the net of all finite products is Cauchy.",
+            "Use completeness and continuity of the norm to obtain a nonzero product.",
+            "Pass natural powers through the finite-product limit."
+          ]
+        },
+        "audit": {
+          "key": "euler_product_powers",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The type expresses every claimed convergence, equality and nonvanishing assertion. The finite-tail estimate proves the full finite-product net Cauchy; completeness supplies its limit, whose norm remains one. Continuity of powers proves all powered-product assertions, including k = 0. The proof is complete and independent."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-tate-uniformization-a1-euler-product-powers-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-tate-uniformization-a1-euler-product-powers-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-tate-uniformization-a1-euler-product-powers-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.tate_uniformization-a1.lambert_summability-a1",
+      "key": "lambert_summability",
+      "result_branch": "humanize-recursive/fermat-p03/20261007t081613z-d1a2d75627/root-tate-uniformization-a1-lambert-summability-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-lambert-summability-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "TateCurve|tateCurve|tateUniformization|LaurentAnalytic|Laurent.*annulus|lambert|Lambert",
+              "FiniteDimensional.complete|LinearMap.continuous_of_finiteDimensional",
+              "summable_of_norm_bounded|summable_geometric_of_norm_lt_one",
+              "theorem Summable.of_norm_bounded|lemma Summable.of_norm_bounded|theorem Summable.of_norm|lemma Summable.of_norm",
+              "exists_isWeierstrassFactorization|theorem complete|continuous_of_finiteDimensional|summable_norm_iff|multipliable.*norm|multipliable.*sub|tprod_ne_zero",
+              "p03_tu_(lambert_summable|euler_product_powers|bilateral_summable|algebraic_aut_isometry|coordinate_symmetries)_68cf3476",
+              "python3 /tmp/p03-tu-decomposition-14v63537/check.py"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Submission.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Definitions",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Topology/Algebra/Module/FiniteDimension.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Analysis/Normed/Group/InfiniteSum.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Analysis/Normed/Module/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Analysis/SpecificLimits/Normed.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Analysis/SpecialFunctions/Log/Summable.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/NumberTheory/TsumDivisorsAntidiagonal.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/RingTheory/PowerSeries/WeierstrassPreparation.lean",
+              "/runtime/operator-header-policy-v1/policy.json",
+              "/tmp/p03-tu-decomposition-14v63537/result.json",
+              "/tmp/p03-tu-decomposition-14v63537/ExtraType.lean.log",
+              "/tmp/p03-tu-decomposition-14v63537/LibraryEvidenceV2.lean.log"
+            ],
+            "conclusion": "The snapshot pins project 81f093181fd6c58dc887fcae5ec8b896996f1885 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. It supplies geometric-series comparison, finite-dimensional completeness and continuity, induced norms, infinite-product convergence infrastructure, and formal Weierstrass preparation. The Lambert-series search found divisor-sum identities, but no matching Tate uniformization or annular Laurent-analysis interface. All five proposed types elaborate after import Submission in a disposable compiler copy. The matching policy digest is 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96; only lines 10 and 11 were omitted, after Lean confirmed all 37 targets absent. The reversible original/build hashes are dd8891addb75e48583885c932518af8bc6d34438aec4e3ccd76ce6aa765e423f and 81502485ae6796527a5c4e210837b198322b438244a2f58054b94b98aef9dda9. Pinned sources and dependencies were clean; the original sources were unchanged. Source searches and all ten local DAGs showed no proposed-name collisions. Induced intermediate-field norms and multiplication were checked. The five type expressions and seven inspected library theorems depend only on propext, Classical.choice and Quot.sound. These are interface diagnostics, not theorem-comparator acceptance."
+          }
+        ],
+        "parent_id": "root.tate_uniformization-a1",
+        "child_id": "root.tate_uniformization-a1.lambert_summability-a1",
+        "subproblem": {
+          "key": "lambert_summability",
+          "title": "Nonarchimedean Lambert-series summability",
+          "statement": "Let F be a complete normed field satisfying ‖x+y‖ ≤ max(‖x‖,‖y‖) for all x,y ∈ F. If q ∈ F satisfies ‖q‖ < 1, then for every natural number k the family indexed by d ∈ ℕ with term ((d+1 : F)^k q^(d+1))/(1−q^(d+1)) is summable in F.",
+          "lean_statement": "∀ (F : Type) [NormedField F] [CompleteSpace F], (∀ x y : F, ‖x + y‖ ≤ max ‖x‖ ‖y‖) → ∀ q : F, ‖q‖ < 1 → ∀ k : ℕ, Summable (fun d : ℕ => ((d + 1 : ℕ) : F) ^ k * q ^ (d + 1) / (1 - q ^ (d + 1)))",
+          "lean_name": "p03_tu_lambert_summable_68cf3476",
+          "depends_on": [],
+          "natural_proof": "1. Write R = ‖q‖, so 0 ≤ R < 1. Induction on the natural number m gives ‖(m : F)‖ ≤ 1: the zero case is immediate, and the successor case follows from the ultrametric inequality applied to (m : F)+1. Consequently ‖(m : F)^k‖ ≤ 1 for every k, including k = 0.\n\n2. If z ∈ F has ‖z‖ < 1, the ultrametric inequality gives ‖1−z‖ ≤ 1. This norm cannot be less than 1, because 1 = (1−z)+z would then have norm strictly less than 1. Thus ‖1−z‖ = 1. Apply this to z = q^(d+1), whose norm is R^(d+1) < 1.\n\n3. Multiplicativity of the field norm and step 2 give ‖((d+1 : F)^k q^(d+1))/(1−q^(d+1))‖ ≤ R^(d+1) for every d.\n\n4. The real geometric series with terms R^(d+1) is summable because 0 ≤ R < 1. The comparison theorem for series in a complete normed additive group, namely Summable.of_norm_bounded in the pinned library, applies to the estimate in step 3. It proves the required unordered summability in F for each k. This also covers q = 0, when every term is zero.",
+          "proof_key_steps": [
+            "Bound the norm of every natural-number cast and its powers by one.",
+            "Show that ‖1−q^(d+1)‖ = 1.",
+            "Bound each Lambert summand by the real geometric term ‖q‖^(d+1).",
+            "Apply geometric summability and completeness-based norm comparison."
+          ]
+        },
+        "audit": {
+          "key": "lambert_summability",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The standalone Lean proposition exactly matches the prose hypotheses and summability conclusion. The proof establishes the cast bound, denominator norm one, geometric domination and completeness-based unordered summability. It covers q = 0 and k = 0 without additional assumptions or circular reliance."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-tate-uniformization-a1-lambert-summability-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-tate-uniformization-a1-lambert-summability-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-tate-uniformization-a1-lambert-summability-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.tate_uniformization-a1.coordinate_symmetries-a1",
+      "key": "coordinate_symmetries",
+      "result_branch": "humanize-recursive/fermat-p03/20261007t081613z-d1a2d75627/root-tate-uniformization-a1-coordinate-symmetries-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-coordinate-symmetries-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "TateCurve|tateCurve|tateUniformization|LaurentAnalytic|Laurent.*annulus|lambert|Lambert",
+              "FiniteDimensional.complete|LinearMap.continuous_of_finiteDimensional",
+              "summable_of_norm_bounded|summable_geometric_of_norm_lt_one",
+              "theorem Summable.of_norm_bounded|lemma Summable.of_norm_bounded|theorem Summable.of_norm|lemma Summable.of_norm",
+              "exists_isWeierstrassFactorization|theorem complete|continuous_of_finiteDimensional|summable_norm_iff|multipliable.*norm|multipliable.*sub|tprod_ne_zero",
+              "p03_tu_(lambert_summable|euler_product_powers|bilateral_summable|algebraic_aut_isometry|coordinate_symmetries)_68cf3476",
+              "python3 /tmp/p03-tu-decomposition-14v63537/check.py"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Submission.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Definitions",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Topology/Algebra/Module/FiniteDimension.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Analysis/Normed/Group/InfiniteSum.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Analysis/Normed/Module/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Analysis/SpecificLimits/Normed.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Analysis/SpecialFunctions/Log/Summable.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/NumberTheory/TsumDivisorsAntidiagonal.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/RingTheory/PowerSeries/WeierstrassPreparation.lean",
+              "/runtime/operator-header-policy-v1/policy.json",
+              "/tmp/p03-tu-decomposition-14v63537/result.json",
+              "/tmp/p03-tu-decomposition-14v63537/ExtraType.lean.log",
+              "/tmp/p03-tu-decomposition-14v63537/LibraryEvidenceV2.lean.log"
+            ],
+            "conclusion": "The snapshot pins project 81f093181fd6c58dc887fcae5ec8b896996f1885 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. It supplies geometric-series comparison, finite-dimensional completeness and continuity, induced norms, infinite-product convergence infrastructure, and formal Weierstrass preparation. The Lambert-series search found divisor-sum identities, but no matching Tate uniformization or annular Laurent-analysis interface. All five proposed types elaborate after import Submission in a disposable compiler copy. The matching policy digest is 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96; only lines 10 and 11 were omitted, after Lean confirmed all 37 targets absent. The reversible original/build hashes are dd8891addb75e48583885c932518af8bc6d34438aec4e3ccd76ce6aa765e423f and 81502485ae6796527a5c4e210837b198322b438244a2f58054b94b98aef9dda9. Pinned sources and dependencies were clean; the original sources were unchanged. Source searches and all ten local DAGs showed no proposed-name collisions. Induced intermediate-field norms and multiplication were checked. The five type expressions and seven inspected library theorems depend only on propext, Classical.choice and Quot.sound. These are interface diagnostics, not theorem-comparator acceptance."
+          }
+        ],
+        "parent_id": "root.tate_uniformization-a1",
+        "child_id": "root.tate_uniformization-a1.coordinate_symmetries-a1",
+        "subproblem": {
+          "key": "coordinate_symmetries",
+          "title": "Periodicity, inversion and equivariance of Tate coordinate sums",
+          "statement": "Let F be a complete normed field and Ω an algebraic normed extension with a NormedAlgebra F Ω structure. Assume Ω has an ultrametric norm. Let q ∈ F satisfy 0 < ‖q‖ < 1, let c ∈ F, and put Q = algebraMap F Ω q and C = algebraMap F Ω c. Define X(u) = Σ_{n∈ℤ} Q^n u/(1−Q^n u)^2−2C and Y(u) = Σ_{n∈ℤ}(Q^n u)^2/(1−Q^n u)^3+C. For every u ∈ Ωˣ outside Q^ℤ, one has X(Qu)=X(u), Y(Qu)=Y(u), X(u⁻¹)=X(u), and Y(u⁻¹)=−Y(u)−X(u). For every F-algebra automorphism σ of Ω one also has X(σu)=σ(X(u)) and Y(σu)=σ(Y(u)).",
+          "lean_statement": "∀ (F Ω : Type) [NormedField F] [CompleteSpace F] [NormedField Ω] [NormedAlgebra F Ω] [Algebra.IsAlgebraic F Ω], (∀ x y : Ω, ‖x + y‖ ≤ max ‖x‖ ‖y‖) → ∀ q : F, 0 < ‖q‖ → ‖q‖ < 1 → ∀ c : F, let qΩ : Ω := algebraMap F Ω q; let X : Ω → Ω := fun u => (∑' n : ℤ, qΩ ^ n * u / (1 - qΩ ^ n * u) ^ 2) - 2 * algebraMap F Ω c; let Y : Ω → Ω := fun u => (∑' n : ℤ, (qΩ ^ n * u) ^ 2 / (1 - qΩ ^ n * u) ^ 3) + algebraMap F Ω c; ∀ u : Ωˣ, (¬ ∃ m : ℤ, (u : Ω) = qΩ ^ m) → X (qΩ * (u : Ω)) = X (u : Ω) ∧ Y (qΩ * (u : Ω)) = Y (u : Ω) ∧ X ((u : Ω)⁻¹) = X (u : Ω) ∧ Y ((u : Ω)⁻¹) = -Y (u : Ω) - X (u : Ω) ∧ ∀ σ : Ω ≃ₐ[F] Ω, X (σ (u : Ω)) = σ (X (u : Ω)) ∧ Y (σ (u : Ω)) = σ (Y (u : Ω))",
+          "lean_name": "p03_tu_coordinate_symmetries_68cf3476",
+          "depends_on": [
+            "bilateral_summability",
+            "algebraic_aut_isometry"
+          ],
+          "natural_proof": "1. Write A(z) = z/(1−z)^2 and B(z) = z^2/(1−z)^3, and retain Q and C from the statement. Norm preservation of the algebra map gives Q ≠ 0. Fix a unit u outside Q^ℤ. Every Q^n u is nonzero and differs from one, since Q^n u = 1 would give u = Q^(−n).\n\n2. The nonzero elements Qu and u⁻¹ also lie outside Q^ℤ: equations Qu = Q^m and u⁻¹ = Q^m would respectively imply u = Q^(m−1) and u = Q^(−m). An F-algebra automorphism σ fixes Q and C. If σ(u) = Q^m, applying σ⁻¹ gives u = Q^m, so σ(u) is likewise outside Q^ℤ. Regard these nonzero elements as units. The sibling bilateral_summability theorem applies with the given F, Ω and q to each of them. Therefore all A- and B-families used below are summable in Ω, and their sums may be reindexed and added.\n\n3. For every integer n, Q^n(Qu) = Q^(n+1)u. Translation n ↦ n+1 is a bijection of ℤ, so reindexing gives Σ_n A(Q^n Qu) = Σ_n A(Q^n u) and the analogous equality for B. Subtracting 2C and adding C respectively proves X(Qu)=X(u) and Y(Qu)=Y(u).\n\n4. For nonzero z ≠ 1, the identity 1−z⁻¹ = −(1−z)/z gives A(z⁻¹)=A(z). It also gives B(z⁻¹)=−z/(1−z)^3=−B(z)−A(z). Reindex the series at u⁻¹ by n ↦ −n and use Q^(−n)u⁻¹=(Q^n u)⁻¹. Thus its A-sum equals the A-sum at u, and its B-sum equals minus the B-sum at u minus the A-sum at u. If these latter sums are S_A and S_B, then X(u⁻¹)=S_A−2C=X(u), while Y(u⁻¹)=−S_B−S_A+C=−(S_B+C)−(S_A−2C)=−Y(u)−X(u).\n\n5. Fix an F-algebra automorphism σ. The sibling algebraic_aut_isometry theorem applies with the given complete base, algebraic extension and q, so σ is an isometry and hence continuous. It preserves addition, multiplication, inverses and integer powers, and fixes Q. Consequently σ(A(Q^n u))=A(Q^n σ(u)) and σ(B(Q^n u))=B(Q^n σ(u)) for every n.\n\n6. Apply σ to the convergent nets of finite partial sums of the two series at u. Continuity and step 5 show that their limits are the corresponding sums at σ(u); uniqueness of limits in the normed field Ω identifies these limits. Since σ fixes C and the integer 2, subtracting 2C and adding C gives X(σ(u))=σ(X(u)) and Y(σ(u))=σ(Y(u)). Together with steps 3 and 4, these are all the claimed identities.",
+          "proof_key_steps": [
+            "Check that translation, inversion and algebraic automorphisms preserve the nonkernel domain.",
+            "Apply bilateral summability to justify all sum manipulations.",
+            "Reindex by integer translation to prove periodicity.",
+            "Reindex by negation and use two rational identities to prove inversion formulas.",
+            "Apply automorphism isometry to obtain continuity.",
+            "Pass automorphisms through convergent sums and fixed base-field constants."
+          ]
+        },
+        "audit": {
+          "key": "coordinate_symmetries",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The inline definitions and all six identities match the prose. The proof verifies preservation of the nonkernel domain, applies bilateral summability before manipulating sums, and correctly derives periodicity and inversion, including the constant terms. Isometry supplies continuity for passage through sums. Its only sibling dependencies are exactly bilateral_summability and algebraic_aut_isometry, with no circular reliance."
+        },
+        "resolved_dependencies": [
+          "root.tate_uniformization-a1.bilateral_summability-a1",
+          "root.tate_uniformization-a1.algebraic_aut_isometry-a1"
+        ],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-tate-uniformization-a1-coordinate-symmetries-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-tate-uniformization-a1-coordinate-symmetries-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-tate-uniformization-a1-coordinate-symmetries-a1/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/task.md": "ab60d7bf7fbb76cb393a8a85a557ef3927e6f20cb2bdcb465f7734d4c8f5008f",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/problem.md": "38ac0d3762f9cdf23c23661eebbc5a9adb09adf6609593276dc22271b0ba6207",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/problem.json": "7f044edb66fcfa09e49a85b70a860bdeec0bd498adb67bb8ff164bdbe26c18ce",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/reference-manifest.json": "326a87159f351a7fa61c53fcbbb24df6a67ea73bb33bcacba88609fa45c48638",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/decomposition.json": "9a7fb670f994bfa6b45d47229931ed591eb0e623765f1ab6424bb90b4ada3872",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/decomposition-audit.json": "7dee5f2913098fb0d7a3abbaa37f186d4126f3db0700eb8896d131a7dc7e468c",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/controller-contract.json": "e0a38e99db16eb6327c6d547c1244d1a2e5c7c021c8a5c53358d9811e783c177",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-algebraic-aut-isometry-a1/parent-child-handoff.json": "73adcc7e3624ac91a340ad284ef76a0effd0769529023ebaf1630a7da7fbd454",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-algebraic-aut-isometry-a1/parent-supplied-plan.md": "4c844a9da7b9ae121bd00e488b63d56ba023d388276ede719e5aeb8221bf8921",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-algebraic-aut-isometry-a1/parent-supplied-natural-proof.md": "e33c77a7d87061a2543b983e59214a9c2e831e4b8a768ca3006f88cadd192bf6",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-algebraic-aut-isometry-a1/parent-supplied-natural-proof.json": "cc1c27e94283ea03196db4e86ed4f21138a727d1ec595da1fc49f18c478193b5",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-algebraic-aut-isometry-a1/node.json": "d16fce50d111543f6c181edb58138af21dcb4faa1cb3ea2b4a1e13e2fa6a4d95",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-bilateral-summability-a1/parent-child-handoff.json": "9d8200b6ba5b47a0ba8fb87a8e358632f21377bf356a92f1fb6d64fc56cce53f",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-bilateral-summability-a1/parent-supplied-plan.md": "f0552416d5e5fd6f3fa6b79122e9bd1bea03680f1fadec0b1183611b11a0e4db",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-bilateral-summability-a1/parent-supplied-natural-proof.md": "d2b24ad9b9f69433c6f06deeed4a15d36b86196b5b4b3fea40988de41083e1e5",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-bilateral-summability-a1/parent-supplied-natural-proof.json": "2e73727fbf5eee1fba239a23cc86858b95fab6708aa7ab8413f15be92006e77c",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-bilateral-summability-a1/node.json": "11eec26c2378d7c675fea1426981b35ca1caa3f9629521bf1e2b058cc41d4377",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-euler-product-powers-a1/parent-child-handoff.json": "f8983f14c8234b52add2bef42ce3ca4253e53a57c142e03d56fca70b6db43a90",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-euler-product-powers-a1/parent-supplied-plan.md": "850244dee850e30cf258ebb61a57abbb5bbb5082f7de02b4c636dbf10f92c747",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-euler-product-powers-a1/parent-supplied-natural-proof.md": "a99b01a44ac8ac8f5cf1e6a04cca8692c08b4bece67f1b463dea4ee618986d0d",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-euler-product-powers-a1/parent-supplied-natural-proof.json": "6412e928be3c6101764af5732e5549bd0b75a914ca51fef6a674f4046af5e3e5",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-euler-product-powers-a1/node.json": "76ab89607992a263c7c4cfd65dd9ce87dc3107b86a04938f48e53030db362ed0",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-lambert-summability-a1/parent-child-handoff.json": "08fde46c708750febd31ec659c95719685c21e692ab8e627ed22f9fb8ffa1fc7",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-lambert-summability-a1/parent-supplied-plan.md": "ea4e1d19e6aa2fbe3431e741ec5300ca1cba41cbb84bdec003ed3cf801df6fce",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-lambert-summability-a1/parent-supplied-natural-proof.md": "d72f1ec82d7335fcc114e61e38270c6e8d05ec4bb2b919cf767d72857456f60d",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-lambert-summability-a1/parent-supplied-natural-proof.json": "dbf446042fac6e82c36f19c6e87fa0a4316eac3019049dfb8a39add0d70d6bb3",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-lambert-summability-a1/node.json": "bb2dcde37959299ab7530acd0797f13657163ecc8fdf560a859053b5cf94a879",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-coordinate-symmetries-a1/parent-child-handoff.json": "414c231d02848c7f82c74a91e135e3dedc9bf832915e78e6c59cb15ca60469f6",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-coordinate-symmetries-a1/parent-supplied-plan.md": "03ca5aed9719ebbd881892300e5d2c4930b003b3917387ed7f089c84f3905398",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-coordinate-symmetries-a1/parent-supplied-natural-proof.md": "c6edac13aae9fd559d402ec8d0217ca0d95afaaa55314f1823dba1b61c953860",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-coordinate-symmetries-a1/parent-supplied-natural-proof.json": "96520f29cd98240f7513521d586649ef04ad1f8f2a32c742d745f66995ac39f6",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-tate-uniformization-a1/children/root-tate-uniformization-a1-coordinate-symmetries-a1/node.json": "cccce8147af5bc8d92685dbd7d7a311df8641261c2190070492c8119865a1ec8"
+  }
+}

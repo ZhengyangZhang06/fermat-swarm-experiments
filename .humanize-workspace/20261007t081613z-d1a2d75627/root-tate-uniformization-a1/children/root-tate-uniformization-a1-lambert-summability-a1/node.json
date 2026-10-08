@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.tate_uniformization-a1.lambert_summability-a1",
+  "parent_id": "root.tate_uniformization-a1",
+  "depth": 2,
+  "title": "Nonarchimedean Lambert-series summability",
+  "statement": "Let F be a complete normed field satisfying ‖x+y‖ ≤ max(‖x‖,‖y‖) for all x,y ∈ F. If q ∈ F satisfies ‖q‖ < 1, then for every natural number k the family indexed by d ∈ ℕ with term ((d+1 : F)^k q^(d+1))/(1−q^(d+1)) is summable in F.",
+  "lean_statement": "∀ (F : Type) [NormedField F] [CompleteSpace F], (∀ x y : F, ‖x + y‖ ≤ max ‖x‖ ‖y‖) → ∀ q : F, ‖q‖ < 1 → ∀ k : ℕ, Summable (fun d : ℕ => ((d + 1 : ℕ) : F) ^ k * q ^ (d + 1) / (1 - q ^ (d + 1)))",
+  "lean_name": "p03_tu_lambert_summable_68cf3476",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p03/20261007t081613z-d1a2d75627/root-tate-uniformization-a1-lambert-summability-a1-a1"
+}

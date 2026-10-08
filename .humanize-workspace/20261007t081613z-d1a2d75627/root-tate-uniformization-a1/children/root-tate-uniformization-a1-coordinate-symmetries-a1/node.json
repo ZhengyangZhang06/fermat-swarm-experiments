@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "node_id": "root.tate_uniformization-a1.coordinate_symmetries-a1",
+  "parent_id": "root.tate_uniformization-a1",
+  "depth": 2,
+  "title": "Periodicity, inversion and equivariance of Tate coordinate sums",
+  "statement": "Let F be a complete normed field and Ω an algebraic normed extension with a NormedAlgebra F Ω structure. Assume Ω has an ultrametric norm. Let q ∈ F satisfy 0 < ‖q‖ < 1, let c ∈ F, and put Q = algebraMap F Ω q and C = algebraMap F Ω c. Define X(u) = Σ_{n∈ℤ} Q^n u/(1−Q^n u)^2−2C and Y(u) = Σ_{n∈ℤ}(Q^n u)^2/(1−Q^n u)^3+C. For every u ∈ Ωˣ outside Q^ℤ, one has X(Qu)=X(u), Y(Qu)=Y(u), X(u⁻¹)=X(u), and Y(u⁻¹)=−Y(u)−X(u). For every F-algebra automorphism σ of Ω one also has X(σu)=σ(X(u)) and Y(σu)=σ(Y(u)).",
+  "lean_statement": "∀ (F Ω : Type) [NormedField F] [CompleteSpace F] [NormedField Ω] [NormedAlgebra F Ω] [Algebra.IsAlgebraic F Ω], (∀ x y : Ω, ‖x + y‖ ≤ max ‖x‖ ‖y‖) → ∀ q : F, 0 < ‖q‖ → ‖q‖ < 1 → ∀ c : F, let qΩ : Ω := algebraMap F Ω q; let X : Ω → Ω := fun u => (∑' n : ℤ, qΩ ^ n * u / (1 - qΩ ^ n * u) ^ 2) - 2 * algebraMap F Ω c; let Y : Ω → Ω := fun u => (∑' n : ℤ, (qΩ ^ n * u) ^ 2 / (1 - qΩ ^ n * u) ^ 3) + algebraMap F Ω c; ∀ u : Ωˣ, (¬ ∃ m : ℤ, (u : Ω) = qΩ ^ m) → X (qΩ * (u : Ω)) = X (u : Ω) ∧ Y (qΩ * (u : Ω)) = Y (u : Ω) ∧ X ((u : Ω)⁻¹) = X (u : Ω) ∧ Y ((u : Ω)⁻¹) = -Y (u : Ω) - X (u : Ω) ∧ ∀ σ : Ω ≃ₐ[F] Ω, X (σ (u : Ω)) = σ (X (u : Ω)) ∧ Y (σ (u : Ω)) = σ (Y (u : Ω))",
+  "lean_name": "p03_tu_coordinate_symmetries_68cf3476",
+  "depends_on": [
+    "root.tate_uniformization-a1.bilateral_summability-a1",
+    "root.tate_uniformization-a1.algebraic_aut_isometry-a1"
+  ],
+  "dependency_workspaces": [
+    {
+      "node_id": "root.tate_uniformization-a1.bilateral_summability-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    },
+    {
+      "node_id": "root.tate_uniformization-a1.algebraic_aut_isometry-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    }
+  ],
+  "result_branch": "humanize-recursive/fermat-p03/20261007t081613z-d1a2d75627/root-tate-uniformization-a1-coordinate-symmetries-a1-a1"
+}

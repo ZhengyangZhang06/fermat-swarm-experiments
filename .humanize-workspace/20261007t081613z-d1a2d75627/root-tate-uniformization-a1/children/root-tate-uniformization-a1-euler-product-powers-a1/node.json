@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.tate_uniformization-a1.euler_product_powers-a1",
+  "parent_id": "root.tate_uniformization-a1",
+  "depth": 2,
+  "title": "Nonzero Euler product and all natural powers",
+  "statement": "Let F be a complete normed field satisfying ‖x+y‖ ≤ max(‖x‖,‖y‖) for all x,y ∈ F, and let q ∈ F satisfy ‖q‖ < 1. The unordered product P = ∏_{d∈ℕ}(1−q^(d+1)) converges and is nonzero. For every k ∈ ℕ, the unordered product ∏_{d∈ℕ}(1−q^(d+1))^k converges, equals P^k, and is nonzero.",
+  "lean_statement": "∀ (F : Type) [NormedField F] [CompleteSpace F], (∀ x y : F, ‖x + y‖ ≤ max ‖x‖ ‖y‖) → ∀ q : F, ‖q‖ < 1 → Multipliable (fun d : ℕ => 1 - q ^ (d + 1)) ∧ (∏' d : ℕ, (1 - q ^ (d + 1))) ≠ 0 ∧ ∀ k : ℕ, Multipliable (fun d : ℕ => (1 - q ^ (d + 1)) ^ k) ∧ (∏' d : ℕ, (1 - q ^ (d + 1)) ^ k) = (∏' d : ℕ, (1 - q ^ (d + 1))) ^ k ∧ (∏' d : ℕ, (1 - q ^ (d + 1)) ^ k) ≠ 0",
+  "lean_name": "p03_tu_euler_product_powers_68cf3476",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p03/20261007t081613z-d1a2d75627/root-tate-uniformization-a1-euler-product-powers-a1-a1"
+}

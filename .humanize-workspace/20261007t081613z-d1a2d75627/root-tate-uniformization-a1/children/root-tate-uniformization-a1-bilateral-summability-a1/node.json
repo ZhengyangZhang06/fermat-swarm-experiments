@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.tate_uniformization-a1.bilateral_summability-a1",
+  "parent_id": "root.tate_uniformization-a1",
+  "depth": 2,
+  "title": "Tate-coordinate series converge in an algebraic normed extension",
+  "statement": "Let F be a complete normed field and Ω a normed field equipped with a NormedAlgebra F Ω structure and algebraic over F. Assume the norm of Ω satisfies ‖x+y‖ ≤ max(‖x‖,‖y‖). Let q ∈ F satisfy 0 < ‖q‖ < 1, and put Q = algebraMap F Ω q. For every unit u ∈ Ωˣ such that u ≠ Q^m for every integer m, both ℤ-indexed families Q^n u/(1−Q^n u)^2 and (Q^n u)^2/(1−Q^n u)^3 are summable in Ω. Completeness of Ω is not assumed.",
+  "lean_statement": "∀ (F Ω : Type) [NormedField F] [CompleteSpace F] [NormedField Ω] [NormedAlgebra F Ω] [Algebra.IsAlgebraic F Ω], (∀ x y : Ω, ‖x + y‖ ≤ max ‖x‖ ‖y‖) → ∀ q : F, 0 < ‖q‖ → ‖q‖ < 1 → let qΩ : Ω := algebraMap F Ω q; ∀ u : Ωˣ, (¬ ∃ m : ℤ, (u : Ω) = qΩ ^ m) → Summable (fun n : ℤ => qΩ ^ n * (u : Ω) / (1 - qΩ ^ n * (u : Ω)) ^ 2) ∧ Summable (fun n : ℤ => (qΩ ^ n * (u : Ω)) ^ 2 / (1 - qΩ ^ n * (u : Ω)) ^ 3)",
+  "lean_name": "p03_tu_bilateral_summable_68cf3476",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p03/20261007t081613z-d1a2d75627/root-tate-uniformization-a1-bilateral-summability-a1-a1"
+}
