@@ -3363,6 +3363,7 @@ theorem p02_es_177ebb5a_tb_eval_bound
       mul_le_mul_of_nonneg_right (by exact_mod_cast hcard)
         (mul_nonneg hb (pow_nonneg (le_trans (norm_nonneg _) (le_max_right _ _)) _))
     _ = ((n + 1 : ℕ) : ℝ) * (max 1 ‖z‖) ^ n * b := by ring
+/-- A bound on one period strip gives a uniform bound for sufficiently large imaginary part. -/
 theorem p02_es_177ebb5a_tb_periodic_strip_bound
     (N : ℕ) [NeZero N] (q : UpperHalfPlane → ℂ)
     (hperiod : ∀ τ : UpperHalfPlane, q ((ModularGroup.T ^ N) • τ) = q τ)
