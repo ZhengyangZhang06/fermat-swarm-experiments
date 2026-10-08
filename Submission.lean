@@ -3092,3 +3092,65 @@ theorem Submission.p02_es_177ebb5a_ssl_tail_limit :
   rw [norm_sub_rev]
   apply le_of_tendsto (hb.sub_const (f y)).norm
   exact (Filter.eventually_ge_atTop y).mono fun t ht => hbound y t hy ht
+
+/-- A primitive whose derivative decays on a vertical strip has one common limit,
+with the polynomial-exponential tail bound throughout the strip. -/
+theorem Submission.p02_es_177ebb5a_scl_scalar_strip_limit :
+    ∀ (n : ℕ) (a D L y₀ : ℝ) (F H : ℂ → ℂ),
+      0 < a → 0 ≤ D → 0 ≤ L → 1 ≤ y₀ →
+      ContinuousOn H {z : ℂ | 0 < z.im} →
+      (∀ z : ℂ, 0 < z.im → HasDerivAt F (H z) z) →
+      (∀ z : ℂ, 0 ≤ z.re → z.re ≤ L → y₀ ≤ z.im →
+        ‖H z‖ ≤ D * (1 + z.im) ^ n * Real.exp (-a * z.im)) →
+      ∃ b : ℂ, ∀ z : ℂ, 0 ≤ z.re → z.re ≤ L → y₀ ≤ z.im →
+        ‖F z - b‖ ≤
+          (D * (∫ s in Set.Ioi (0 : ℝ), (1 + s) ^ n * Real.exp (-a * s))) *
+            (1 + z.im) ^ n * Real.exp (-a * z.im) := by
+  intro n a D L y₀ F H ha hD hL hy₀ hH hF hbound
+  let w : ℝ → ℝ := fun y => (1 + y) ^ n * Real.exp (-a * y)
+  let J : ℝ := ∫ s in Set.Ioi (0 : ℝ), w s
+  obtain ⟨_, _, htail, hdecay⟩ :=
+    Submission.p02_es_177ebb5a_scl_polynomial_exp_tail n a ha
+  have hw : Continuous (fun y => D * w y) := by dsimp [w]; fun_prop
+  obtain ⟨hvertical, hhorizontal⟩ :=
+    Submission.p02_es_177ebb5a_ssl_segment_estimates F H (fun y => D * w y) L y₀
+      hL (by linarith) hH hF hw.continuousOn (by
+        intro z hx hxL hy
+        simpa only [w, mul_assoc] using hbound z hx hxL hy)
+  have herror : Filter.Tendsto (fun y => (D * J) * w y) Filter.atTop (nhds 0) := by
+    simpa only [mul_zero] using hdecay.const_mul (D * J)
+  -- The vertical segment estimate gives a limit and its tail bound on each vertical line.
+  have hlimit (x : ℝ) (hx : 0 ≤ x) (hxL : x ≤ L) :
+      ∃ b : ℂ,
+        Filter.Tendsto (fun y : ℝ => F ((x : ℂ) + (y : ℂ) * Complex.I))
+          Filter.atTop (nhds b) ∧
+        ∀ y : ℝ, y₀ ≤ y →
+          ‖F ((x : ℂ) + (y : ℂ) * Complex.I) - b‖ ≤ (D * J) * w y := by
+    apply Submission.p02_es_177ebb5a_ssl_tail_limit _ _ y₀ herror
+    intro y t hy hyt
+    calc
+      ‖F ((x : ℂ) + (t : ℂ) * Complex.I) -
+          F ((x : ℂ) + (y : ℂ) * Complex.I)‖ ≤
+          ∫ s in y..t, D * w s := hvertical x y t hx hxL hy hyt
+      _ = D * ∫ s in y..t, w s := intervalIntegral.integral_const_mul _ _
+      _ ≤ D * (J * w y) := by
+        simpa only [J, w, mul_assoc] using
+          mul_le_mul_of_nonneg_left (htail y t (by linarith) hyt) hD
+      _ = (D * J) * w y := (mul_assoc _ _ _).symm
+  obtain ⟨b, hb, _⟩ := hlimit 0 le_rfl hL
+  refine ⟨b, ?_⟩
+  intro z hx hxL hy
+  obtain ⟨bx, hbx, hbx_bound⟩ := hlimit z.re hx hxL
+  -- Horizontal differences vanish, so every vertical limit agrees with that at x = 0.
+  have hbzero : Filter.Tendsto (fun y : ℝ => F ((y : ℂ) * Complex.I))
+      Filter.atTop (nhds b) := by simpa only [Complex.ofReal_zero, zero_add] using hb
+  have hhorizontal_decay : Filter.Tendsto (fun y => z.re * (D * w y))
+      Filter.atTop (nhds 0) := by
+    simpa only [mul_zero] using (hdecay.const_mul D).const_mul z.re
+  have hnorm : ‖bx - b‖ ≤ 0 :=
+    le_of_tendsto_of_tendsto (hbx.sub hbzero).norm hhorizontal_decay
+      ((Filter.eventually_ge_atTop y₀).mono fun y hy => hhorizontal z.re y hx hxL hy)
+  have heq : bx = b := sub_eq_zero.mp (norm_eq_zero.mp (le_antisymm hnorm (norm_nonneg _)))
+  have hz := hbx_bound z.im hy
+  rw [heq, Complex.re_add_im] at hz
+  simpa only [w, J, mul_assoc] using hz
