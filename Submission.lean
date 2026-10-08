@@ -898,8 +898,7 @@ theorem p06_9e0f5043ff_fosa_coefficients_integral_off_finite
         exact hv (Set.mem_biUnion (Polynomial.mem_support_iff.mpr hi) h)
       obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible v.toValuationSubring
       obtain ⟨u, hu⟩ := v.exists_unit_mul_zpow hi hπ
-      rw [hord, zpow_zero, mul_one] at hu
-      rw [hu]
+      rw [hu, hord, zpow_zero, mul_one]
       exact (u : v.toValuationSubring).property
 
 end Submission
