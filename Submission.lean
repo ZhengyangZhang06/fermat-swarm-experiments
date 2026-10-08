@@ -3714,3 +3714,42 @@ theorem Submission.p02_es_177ebb5a_med_js_iterated_monomial :
         Nat.descFactorial_succ, Nat.cast_mul]
       congr 1
       ring
+
+theorem Submission.p02_es_177ebb5a_med_jet_sum :
+    ∀ (n : ℕ) (P : ↥(HeckeEis.BinaryForm ℂ n)) (r : ℕ) (z : ℂ),
+      MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z)
+        ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r]
+          P.val) =
+        ∑ k : Fin (n + 1),
+          MvPolynomial.coeff
+              (Finsupp.single (0 : Fin 2) (n - k.val) + Finsupp.single (1 : Fin 2) k.val)
+              P.val *
+            (Nat.descFactorial k.val r : ℂ) * (-z) ^ (k.val - r) := by
+  classical
+  intro n P r z
+  let d (k : Fin (n + 1)) : Fin 2 →₀ ℕ :=
+    Finsupp.single 0 (n - k.val) + Finsupp.single 1 k.val
+  have hexpand : P.val = ∑ k : Fin (n + 1),
+      MvPolynomial.monomial (d k) (MvPolynomial.coeff (d k) P.val) := by
+    conv_lhs => rw [Submission.p02_es_177ebb5a_lcd_monomial_expansion n P]
+    refine Fintype.sum_equiv Fin.revPerm _ _ ?_
+    intro k
+    simp [d, Fin.revPerm_apply, Fin.val_rev,
+      Nat.sub_sub_self (Nat.le_of_lt_succ k.isLt),
+      MvPolynomial.smul_monomial, smul_eq_mul]
+  let D : Module.End ℂ (MvPolynomial (Fin 2) ℂ) :=
+    (MvPolynomial.pderiv (1 : Fin 2)).toLinearMap
+  change MvPolynomial.eval _ ((D : MvPolynomial (Fin 2) ℂ →
+    MvPolynomial (Fin 2) ℂ)^[r] P.val) = _
+  rw [← Module.End.pow_apply]
+  conv_lhs => rw [hexpand, map_sum]
+  rw [map_sum]
+  apply Finset.sum_congr rfl
+  intro k _
+  rw [Module.End.pow_apply]
+  change MvPolynomial.eval _
+    ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r]
+      (MvPolynomial.monomial (d k) (MvPolynomial.coeff (d k) P.val))) = _
+  rw [Submission.p02_es_177ebb5a_med_js_iterated_monomial, MvPolynomial.eval_monomial,
+    Finsupp.prod_fintype _ _ (by intro j; simp)]
+  simp [d, Fin.prod_univ_two, Finsupp.tsub_apply]
