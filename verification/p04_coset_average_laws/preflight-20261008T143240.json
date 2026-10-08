@@ -1,0 +1,123 @@
+{
+  "node_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1.hom_coset_average_laws-a1",
+  "proof_base_commit": "bcd46b8accac96c56c6f3c3a4eba8516986e7d3f",
+  "initial_candidate": "21e34289ae2eda7f4f9cdc08c6bc740c9088f5fc",
+  "submission_sha256": "400b459f4e5853500ca1d89e524d3776e681be24b05419d91eacb430ad06a739",
+  "frozen_statement_sha256": "97343abb47baa2b7fd7d3ed6cc0d19ae0a5941cfbfdd8b2bb0dca90a8e8d4360",
+  "protected_input_sha256": {
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/problem.md": "e8a185db32b7970bfb531df6ac346f5d6e87d21826d4795296f450038092455d",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/nodes/root-tate-index-annihilation-a1-cohomology-transfer-a1-hom-complex-tr-cf3204ff53/parent-supplied-natural-proof.md": "be311f8869fc896beae6b1aa34efff987d47082147ca65e6e49679f1c39e2281",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/nodes/root-tate-index-annihilation-a1-cohomology-transfer-a1-hom-complex-tr-cf3204ff53/parent-supplied-plan.md": "3b9fd019ed9c74a1762857e4648efdebc3e06d4b78d8de5c7cddc2065e3b32e4",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/nodes/root-tate-index-annihilation-a1-cohomology-transfer-a1-hom-complex-tr-cf3204ff53/rlcr-plan-v7.md": "1f06e0cedd2cf2fd0eb9df76e8dc43ecc7e58564419238e5a0c32591d80685e8",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json": "5719e035ae23f5683c154f28ac6798802cfe5b0a4e0c2aff8128dcaa150abc38"
+  },
+  "theorems": [
+    "Submission.p04_hct139_coset_average_laws"
+  ],
+  "frozen_type_matches": true,
+  "source_safety_audit_passed": true,
+  "protected_source_unchanged": true,
+  "bitlesson_ids": [
+    "NONE"
+  ],
+  "kind": "author-preflight",
+  "issue_url": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/151",
+  "implementation_change": "Retain existing exact-node implementation; requested simplifier review recommended no changes.",
+  "simplifier_review": {
+    "scope": "readability and redundancy only",
+    "recommendation": "retain candidate unchanged",
+    "bitlesson_ids": [
+      "NONE"
+    ]
+  },
+  "dependency_pins": {
+    "mathlib": "db584cd6d46c92f209a44c0f1c829460d327499d",
+    "plausible": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+    "LeanSearchClient": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+    "importGraph": "16f02aa7642864af59f1ff0e384a015994db9118",
+    "proofwidgets": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+    "aesop": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+    "Qq": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+    "batteries": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+    "Cli": "6130a47896ce867c6a4a55373441e59e565bad0f"
+  },
+  "all_dependency_checkouts_clean": true,
+  "configured_comparator_status": "pending; this preflight is not proof acceptance",
+  "outer_acceptance": "pending independent reviewer and controller handoff",
+  "reference_use": [
+    {
+      "source": "local-project",
+      "snapshot": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8",
+      "manifest": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+      "mode": "local-project",
+      "project_commit": "2475a3790d7ba0c3b10be8086001b154a45be597",
+      "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "queries": [
+        {
+          "query": "coset.*[Aa]verag|[Aa]verag.*coset|p04_hct139_coset_average_laws",
+          "paths": [
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project",
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib"
+          ],
+          "finding": "No matches."
+        },
+        {
+          "query": "hom_comm_apply|nsmul|hom_ext|comp_hom",
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Basic.lean",
+          "finding": "Inspected lines 100-150 and 234-257: hom_comp, hom_ext, hom_comm_apply, and pointwise nsmul_hom."
+        },
+        {
+          "query": "def res|resFunctor|resMap",
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean",
+          "finding": "Inspected lines 20-66: restriction preserves the underlying linear map by definition."
+        },
+        {
+          "query": "index_eq_card|def index",
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/Index.lean",
+          "finding": "Inspected lines 48-62 and 340-352: H.index is Nat.card (G / H)."
+        },
+        {
+          "query": "tateH0Cores|coinvariantsTransfer|cosetNorm",
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+          "finding": "No matches; inspected lines 1-125: norm, invariants, coinvariants, and low-degree Tate definitions are present."
+        },
+        {
+          "query": "inv_self|self_inv",
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Basic.lean",
+          "finding": "Inspected lines 82-105: Representation.self_inv_apply cancels each group action with its inverse."
+        },
+        {
+          "query": "sum_const|card_univ",
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean",
+          "finding": "sum_const_nat at lines 960-961 uses the existing sum_const lemma; no card_univ match in this file."
+        }
+      ],
+      "compatibility": "Rep/Basic, Rep/Res, Index, project Tate definitions, lean-toolchain, and lake-manifest match installed pinned files byte for byte."
+    }
+  ],
+  "additional_snapshot_files_match_installed": true,
+  "validation": [
+    {
+      "command": "lake env lean -DwarningAsError=true Submission.lean",
+      "returncode": 0,
+      "output": ""
+    },
+    {
+      "command": "lake --wfail build Submission",
+      "returncode": 0,
+      "output": "Build completed successfully (8708 jobs)."
+    },
+    {
+      "command": "lake env lean -DwarningAsError=true .humanize/rlcr/2026-10-08_14-32-40/AxiomAudit.lean",
+      "returncode": 0,
+      "output": "'Submission.p04_hct139_coset_average_laws' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Rep.hom_comm_apply' depends on axioms: [propext, Quot.sound]\n'Rep.resMap' depends on axioms: [propext, Quot.sound]\n'Rep.nsmul_hom' depends on axioms: [propext, Quot.sound]\n'Subgroup.index_eq_card' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Nat.card_eq_fintype_card' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
+    }
+  ],
+  "toolchain_bin": "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin",
+  "candidate_transitive_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "postbuild_input_and_dependency_check_passed": true
+}
