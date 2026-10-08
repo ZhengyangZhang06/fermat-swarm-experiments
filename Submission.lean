@@ -19,7 +19,243 @@ set_option autoImplicit false
 open scoped TensorProduct Quaternion NumberField
 open CategoryTheory AlgebraicGeometry QuaternionAlgebra CerednikDrinfeld CerednikDrinfeld.QM NeronModelInfra GoodReductionJacobian
 
+theorem CerednikDrinfeld.QM.RigidifiedPairClass.exists_ptR_eq
+    {r N : ℕ} [Fact r.Prime] [NeZero N] (hrN : ¬ r ∣ N) {rbar : ℕ} [Fact rbar.Prime] (hrr : rbar ≠ r)
+
+    (𝒪 : Type) [CommRing 𝒪] (π : 𝒪) (hunr : Ideal.span {((r : ℕ) : 𝒪)} = Ideal.span {π}) (Onr : Type) [CommRing Onr] [Algebra 𝒪 Onr]
+    {a b : ℚ} (hBq : IsIndefiniteRamifiedExactlyAt a b r rbar)
+    (Λ : Submodule ℤ ℍ[ℚ, a, b]) (hΛ : IsMaximalOrder Λ) (hΛℤ : ∀ m : ℤ, ((m : ℚ) : ℍ[ℚ, a, b]) ∈ Λ)
+
+    (coord : ↥Λ → Zp2 r × Zp2 r) (hcoord : IsOrderCoord Λ r coord)
+    (A₀ : FakeEllipticCurve Λ N (Onr ⧸ Ideal.span {algebraMap 𝒪 Onr π}))
+
+    (n : ℕ) (hn : 3 ≤ n) (hrn : ¬ r ∣ n) (M : Scheme.{0}) (fM : M ⟶ Spec (CommRingCat.of 𝒪))
+    (ptF : ∀ (S : Type) [CommRing S] (s : Spec (CommRingCat.of S) ⟶ Spec (CommRingCat.of 𝒪)),
+      FakeEllipticCurve.WithFullLevel Λ N n S → SchemeHomOver s fM)
+    (hM : IsFineModuli Λ N n M fM ptF)
+
+    (C : Type) [CommRing C] [IsNoetherianRing C] [Algebra 𝒪 C] (hC : IsNilpotent (algebraMap 𝒪 C π)) (ψ : Onr →ₐ[𝒪] C)
+
+    (X : ℕ → Scheme.{0}) (ξ : ∀ d, X d ⟶ Limits.pullback fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C))))
+    (tM : ∀ (T : Type) [CommRing T] [Algebra C T],
+      FakeEllipticCurve.WithFullLevel Λ N n T → SchemeHomOver (Spec.map (CommRingCat.ofHom (algebraMap C T))) (Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))))
+    (xOf : ∀ (T : Type) [CommRing T] [Algebra C T] [Algebra 𝒪 T] [IsScalarTower 𝒪 C T]
+      (ψT : Onr →ₐ[𝒪] T) (_ : ψT = (IsScalarTower.toAlgHom 𝒪 C T).comp ψ)
+      (u : FakeEllipticCurve.WithFullLevel Λ N n T) (ρ : FakeEllipticCurve.Rigidification r π A₀ ψT u.1),
+      { x : Spec (CommRingCat.of (T ⧸ Ideal.span {algebraMap C T (algebraMap 𝒪 C π)})) ⟶ X ρ.d //
+        x ≫ ξ ρ.d = Spec.map (CommRingCat.ofHom (Ideal.Quotient.mk (Ideal.span {algebraMap C T (algebraMap 𝒪 C π)}))) ≫ (tM T u).1 })
+    (hmap : RigidifiedPairClass.MapCompat 𝒪 π Onr Λ hΛℤ A₀ n C ψ (Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))) X ξ tM xOf)
+
+    (htM : ∀ (T : Type) [CommRing T] [Algebra C T] [Algebra 𝒪 T] [IsScalarTower 𝒪 C T]
+        (u : FakeEllipticCurve.WithFullLevel Λ N n T),
+        (tM T u).1 ≫ Limits.pullback.fst fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C))) = (ptF T (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 T))) u).1)
+
+    (hx3 : (∀ (d : ℕ) (T : Type) [CommRing T] [Algebra C T] [Algebra 𝒪 T] [IsScalarTower 𝒪 C T]
+                (ψT : Onr →ₐ[𝒪] T) (hψT : ψT = (IsScalarTower.toAlgHom 𝒪 C T).comp ψ)
+                (h0 : algebraMap C T (algebraMap 𝒪 C π) = 0) (x : SchemeHomOver (Spec.map (CommRingCat.ofHom (algebraMap C T))) (ξ d ≫ Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C))))),
+                ∃ (u : FakeEllipticCurve.WithFullLevel Λ N n T) (ρ : FakeEllipticCurve.Rigidification r π A₀ ψT u.1) (hd : ρ.d = d),
+                  (RigidifiedPairClass.ptX 𝒪 π Onr Λ A₀ n C ψ (Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))) X ξ tM xOf) d T ψT hψT u ρ hd h0 = x))
+
+    (hxOf : ∀ (S S' : Type) [CommRing S] [Algebra C S] [Algebra 𝒪 S] [IsScalarTower 𝒪 C S]
+        [CommRing S'] [Algebra C S'] [Algebra 𝒪 S'] [IsScalarTower 𝒪 C S'] (φ : S →ₐ[C] S')
+        (ψS : Onr →ₐ[𝒪] S) (hψS : ψS = (IsScalarTower.toAlgHom 𝒪 C S).comp ψ)
+        (hψS' : (φ.restrictScalars 𝒪).comp ψS = (IsScalarTower.toAlgHom 𝒪 C S').comp ψ)
+        (u : FakeEllipticCurve.WithFullLevel Λ N n S) (u' : FakeEllipticCurve.WithFullLevel Λ N n S')
+        (ρ : FakeEllipticCurve.Rigidification r π A₀ ψS u.1)
+        (ρ' : FakeEllipticCurve.Rigidification r π A₀ ((φ.restrictScalars 𝒪).comp ψS) u'.1)
+        (g : u'.1.A ⟶ u.1.A) (hg : FakeEllipticCurve.IsPullbackVia (φ : S →+* S') u.1 u'.1 g),
+        (u'.2.P).1 ≫ g = Spec.map (CommRingCat.ofHom (φ : S →+* S')) ≫ (u.2.P).1 →
+        FakeEllipticCurve.Rigidification.IsPullbackVia (φ.restrictScalars 𝒪) g hg ρ ρ' →
+          ∃ hd : ρ'.d = ρ.d, (xOf S' ((φ.restrictScalars 𝒪).comp ψS) hψS' u' ρ').1 ≫ eqToHom (congrArg X hd) =
+            Spec.map (CommRingCat.ofHom (RigidifiedPairClass.qmap (algebraMap 𝒪 C π) φ)) ≫ (xOf S ψS hψS u ρ).1) :
+    (∀ (S : Type) [CommRing S] [Algebra C S] [Algebra 𝒪 S] [IsScalarTower 𝒪 C S]
+          (ψS : Onr →ₐ[𝒪] S) (hψS : ψS = (IsScalarTower.toAlgHom 𝒪 C S).comp ψ) (z : (RigidifiedPairClass.PR 𝒪 π Onr Λ hΛℤ A₀ n C ψ (Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))) X ξ tM xOf hmap).obj S),
+          ∃ (u : FakeEllipticCurve.WithFullLevel Λ N n S) (ρ : FakeEllipticCurve.Rigidification r π A₀ ψS u.1), (RigidifiedPairClass.ptR 𝒪 π Onr Λ hΛℤ A₀ n C ψ (Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))) X ξ tM xOf hmap) S ψS hψS u ρ = z) := by
+  sorry
+
 namespace Submission
+
+theorem p07_cre_group_law_857cd4d38c :
+    ∀ (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U)
+      (A : AlgebraicGeometry.Scheme.{0})
+      (f : Quiver.Hom A (AlgebraicGeometry.Spec (CommRingCat.of U)))
+      (G : GoodReductionJacobian.RelativeGroupLaw U f),
+    let κ := AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.toRingHom);
+    let ε := AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.symm.toRingHom);
+    let fT := CategoryTheory.CategoryStruct.comp f κ;
+    ∃ (H : GoodReductionJacobian.RelativeGroupLaw T fT)
+      (B : ∀ (W : AlgebraicGeometry.Scheme.{0})
+        (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))),
+        NeronModelInfra.SchemeHomOver t fT ≃
+          NeronModelInfra.SchemeHomOver (CategoryTheory.CategoryStruct.comp t ε) f),
+      (G.IsCommutative → H.IsCommutative) ∧
+      (∀ (W : AlgebraicGeometry.Scheme.{0})
+        (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T)))
+        (P : NeronModelInfra.SchemeHomOver t fT), (B W t P).1 = P.1) ∧
+      (∀ (W : AlgebraicGeometry.Scheme.{0})
+        (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T)))
+        (P Q : NeronModelInfra.SchemeHomOver t fT),
+        B W t (H.mul t P Q) =
+          G.mul (CategoryTheory.CategoryStruct.comp t ε) (B W t P) (B W t Q)) ∧
+      (∀ (W : AlgebraicGeometry.Scheme.{0})
+        (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))),
+        B W t (H.one t) = G.one (CategoryTheory.CategoryStruct.comp t ε)) ∧
+      (∀ (W : AlgebraicGeometry.Scheme.{0})
+        (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T)))
+        (P : NeronModelInfra.SchemeHomOver t fT),
+        B W t (H.inv t P) = G.inv (CategoryTheory.CategoryStruct.comp t ε) (B W t P)) := by
+  intro T U _ _ k A f G
+  let κ := Spec.map (CommRingCat.ofHom k.toRingHom)
+  let ε := Spec.map (CommRingCat.ofHom k.symm.toRingHom)
+  have hκε : κ ≫ ε = 𝟙 _ := by
+    dsimp [κ, ε]
+    rw [← Spec.map_comp]
+    have h : CommRingCat.ofHom k.symm.toRingHom ≫ CommRingCat.ofHom k.toRingHom =
+        𝟙 (CommRingCat.of U) := by
+      ext x
+      exact k.apply_symm_apply x
+    exact (congrArg Spec.map h).trans (Spec.map_id _)
+  have hεκ : ε ≫ κ = 𝟙 _ := by
+    dsimp [κ, ε]
+    rw [← Spec.map_comp]
+    have h : CommRingCat.ofHom k.toRingHom ≫ CommRingCat.ofHom k.symm.toRingHom =
+        𝟙 (CommRingCat.of T) := by
+      ext x
+      exact k.symm_apply_apply x
+    exact (congrArg Spec.map h).trans (Spec.map_id _)
+  let B : ∀ (W : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of T)),
+      SchemeHomOver t (f ≫ κ) ≃ SchemeHomOver (t ≫ ε) f := fun W t =>
+    { toFun := fun P => ⟨P.1, by
+        calc
+          P.1 ≫ f = (P.1 ≫ (f ≫ κ)) ≫ ε := by
+            rw [Category.assoc, Category.assoc, hκε, Category.comp_id]
+          _ = t ≫ ε := by rw [P.2]⟩
+      invFun := fun P => ⟨P.1, by
+        rw [← Category.assoc, P.2, Category.assoc, hεκ, Category.comp_id]⟩
+      left_inv := fun _ => Subtype.ext rfl
+      right_inv := fun _ => Subtype.ext rfl }
+  -- Both routes leave the underlying map equal to ψ ≫ P.1.
+  have hBcomp (W W' : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of T))
+      (t' : W' ⟶ Spec (CommRingCat.of T)) (ψ : W' ⟶ W) (hψ : ψ ≫ t = t')
+      (P : SchemeHomOver t (f ≫ κ)) :
+      B W' t' (GoodReductionJacobian.schemeHomOverComp ψ hψ P) =
+        GoodReductionJacobian.schemeHomOverComp ψ
+          (by rw [← Category.assoc, hψ]) (B W t P) :=
+    Subtype.ext rfl
+  let H : RelativeGroupLaw T (f ≫ κ) :=
+    { mul := fun {W} t P Q => (B W t).symm (G.mul (t ≫ ε) (B W t P) (B W t Q))
+      one := fun {W} t => (B W t).symm (G.one (t ≫ ε))
+      inv := fun {W} t P => (B W t).symm (G.inv (t ≫ ε) (B W t P))
+      mul_assoc := by
+        intro W t P Q R
+        apply (B W t).injective
+        simp only [Equiv.apply_symm_apply]
+        exact G.mul_assoc _ _ _ _
+      one_mul := by
+        intro W t P
+        apply (B W t).injective
+        simp only [Equiv.apply_symm_apply]
+        exact G.one_mul _ _
+      mul_one := by
+        intro W t P
+        apply (B W t).injective
+        simp only [Equiv.apply_symm_apply]
+        exact G.mul_one _ _
+      inv_mul_cancel := by
+        intro W t P
+        apply (B W t).injective
+        simp only [Equiv.apply_symm_apply]
+        exact G.inv_mul_cancel _ _
+      mul_natural := by
+        intro W W' t t' ψ hψ P Q
+        apply (B W' t').injective
+        simp only [Equiv.apply_symm_apply, hBcomp]
+        exact G.mul_natural _ _ ψ _ _ _ }
+  refine ⟨H, B, ?_, ?_, ?_, ?_, ?_⟩
+  · intro hG W t P Q
+    apply (B W t).injective
+    change B W t ((B W t).symm _) = B W t ((B W t).symm _)
+    simp only [Equiv.apply_symm_apply]
+    exact hG _ _ _
+  · intro W t P
+    rfl
+  · intro W t P Q
+    exact (B W t).apply_symm_apply _
+  · intro W t
+    exact (B W t).apply_symm_apply _
+  · intro W t P
+    exact (B W t).apply_symm_apply _
+
+theorem p07_cre_abelian_surface_857cd4d38c
+    (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U)
+    (A : Scheme.{0}) (f : A ⟶ Spec (CommRingCat.of U))
+    (hf : AbelianSchemePropertyBundle U f)
+    (hdim : ∀ s : Spec (CommRingCat.of U),
+      topologicalKrullDim ↥(f.base ⁻¹' {s}) = 2) :
+    let fT := f ≫ Spec.map (CommRingCat.ofHom k.toRingHom)
+    AbelianSchemePropertyBundle T fT ∧
+      (∀ s : Spec (CommRingCat.of T), topologicalKrullDim ↥(fT.base ⁻¹' {s}) = 2) := by
+  let κ := Spec.map (CommRingCat.ofHom k.toRingHom)
+  let ε := Spec.map (CommRingCat.ofHom k.symm.toRingHom)
+  let fT := f ≫ κ
+  change AbelianSchemePropertyBundle T fT ∧ _
+  have hκε : κ ≫ ε = 𝟙 (Spec (CommRingCat.of U)) := by
+    change Spec.map k.toCommRingCatIso.hom ≫ Spec.map k.toCommRingCatIso.inv = _
+    rw [← Spec.map_comp, k.toCommRingCatIso.inv_hom_id, Spec.map_id]
+  have hεκ : ε ≫ κ = 𝟙 (Spec (CommRingCat.of T)) := by
+    change Spec.map k.toCommRingCatIso.inv ≫ Spec.map k.toCommRingCatIso.hom = _
+    rw [← Spec.map_comp, k.toCommRingCatIso.hom_inv_id, Spec.map_id]
+  let : IsIso ε :=
+    (show IsIso (Spec.map k.toCommRingCatIso.inv) from inferInstance)
+  have hpb : IsPullback (𝟙 A) fT f ε :=
+    IsPullback.of_horiz_isIso ⟨by
+      simp only [fT, Category.id_comp, Category.assoc, hκε, Category.comp_id]⟩
+  have hfibre (s : Spec (CommRingCat.of T)) :
+      fT.base ⁻¹' {s} = f.base ⁻¹' {ε.base s} := by
+    ext x
+    change κ.base (f.base x) = s ↔ f.base x = ε.base s
+    constructor
+    · intro hx
+      calc
+        f.base x = ε.base (κ.base (f.base x)) :=
+          (congrArg (fun g => g.base (f.base x)) hκε).symm
+        _ = ε.base s := congrArg ε.base hx
+    · intro hx
+      calc
+        κ.base (f.base x) = κ.base (ε.base s) := congrArg κ.base hx
+        _ = s := congrArg (fun g => g.base s) hεκ
+  obtain ⟨G⟩ := hf.hasGroupLaw
+  obtain ⟨H, _⟩ := Submission.p07_cre_group_law_857cd4d38c T U k A f G
+  refine ⟨⟨MorphismProperty.of_isPullback (P := @Smooth) hpb hf.smooth,
+    MorphismProperty.of_isPullback (P := @IsProper) hpb hf.proper, ?_, ⟨H⟩⟩, ?_⟩
+  · intro s
+    rw [hfibre s]
+    exact hf.connectedFibres (ε.base s)
+  · intro s
+    rw [hfibre s]
+    exact hdim (ε.base s)
+
+theorem p07_cre_finite_flat_rank_857cd4d38c
+    (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U)
+    (C : Scheme.{0}) (q : C ⟶ Spec (CommRingCat.of U)) :
+    IsFinite q → Flat q → LocallyOfFinitePresentation q →
+    let ε := Spec.map (CommRingCat.ofHom k.symm.toRingHom)
+    let qT := q ≫ Spec.map (CommRingCat.ofHom k.toRingHom)
+    IsFinite qT ∧ Flat qT ∧ LocallyOfFinitePresentation qT ∧
+      (∀ s : Spec (CommRingCat.of T), qT.finrank s = q.finrank (ε s)) := by
+  intro hfinite hflat hpresentation
+  -- Contravariance gives `e.hom = Spec(k⁻¹)` and `e.inv = Spec(k)`.
+  let e := Scheme.Spec.mapIso k.symm.toCommRingCatIso.op
+  -- The identity on C identifies qT with the base change of q along e.hom.
+  have hpb : IsPullback (𝟙 C) (q ≫ e.inv) q e.hom :=
+    IsPullback.of_horiz_isIso
+      ⟨by simp only [Category.id_comp, Category.assoc, Iso.inv_hom_id, Category.comp_id]⟩
+  let : IsFinite q := hfinite
+  let : Flat q := hflat
+  exact ⟨MorphismProperty.of_isPullback hpb hfinite,
+    MorphismProperty.of_isPullback hpb hflat,
+    MorphismProperty.of_isPullback hpb hpresentation,
+    fun s => Scheme.Hom.finrank_of_isPullback (𝟙 C) (q ≫ e.inv) q e.hom hpb s⟩
 
 theorem p07_curve_ring_equiv_857cd4d38c
     {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N : ℕ)
@@ -216,271 +452,5 @@ theorem p07_curve_ring_equiv_857cd4d38c
     · intro W t P hP
       simpa only [E, CategoryTheory.Iso.refl_inv, Category.comp_id, FactorsThrough] using hP
 
-end Submission
-
-theorem CerednikDrinfeld.QM.RigidifiedPairClass.exists_ptR_eq
-    {r N : ℕ} [Fact r.Prime] [NeZero N] (hrN : ¬ r ∣ N) {rbar : ℕ} [Fact rbar.Prime] (hrr : rbar ≠ r)
-
-    (𝒪 : Type) [CommRing 𝒪] (π : 𝒪) (hunr : Ideal.span {((r : ℕ) : 𝒪)} = Ideal.span {π}) (Onr : Type) [CommRing Onr] [Algebra 𝒪 Onr]
-    {a b : ℚ} (hBq : IsIndefiniteRamifiedExactlyAt a b r rbar)
-    (Λ : Submodule ℤ ℍ[ℚ, a, b]) (hΛ : IsMaximalOrder Λ) (hΛℤ : ∀ m : ℤ, ((m : ℚ) : ℍ[ℚ, a, b]) ∈ Λ)
-
-    (coord : ↥Λ → Zp2 r × Zp2 r) (hcoord : IsOrderCoord Λ r coord)
-    (A₀ : FakeEllipticCurve Λ N (Onr ⧸ Ideal.span {algebraMap 𝒪 Onr π}))
-
-    (n : ℕ) (hn : 3 ≤ n) (hrn : ¬ r ∣ n) (M : Scheme.{0}) (fM : M ⟶ Spec (CommRingCat.of 𝒪))
-    (ptF : ∀ (S : Type) [CommRing S] (s : Spec (CommRingCat.of S) ⟶ Spec (CommRingCat.of 𝒪)),
-      FakeEllipticCurve.WithFullLevel Λ N n S → SchemeHomOver s fM)
-    (hM : IsFineModuli Λ N n M fM ptF)
-
-    (C : Type) [CommRing C] [IsNoetherianRing C] [Algebra 𝒪 C] (hC : IsNilpotent (algebraMap 𝒪 C π)) (ψ : Onr →ₐ[𝒪] C)
-
-    (X : ℕ → Scheme.{0}) (ξ : ∀ d, X d ⟶ Limits.pullback fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C))))
-    (tM : ∀ (T : Type) [CommRing T] [Algebra C T],
-      FakeEllipticCurve.WithFullLevel Λ N n T → SchemeHomOver (Spec.map (CommRingCat.ofHom (algebraMap C T))) (Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))))
-    (xOf : ∀ (T : Type) [CommRing T] [Algebra C T] [Algebra 𝒪 T] [IsScalarTower 𝒪 C T]
-      (ψT : Onr →ₐ[𝒪] T) (_ : ψT = (IsScalarTower.toAlgHom 𝒪 C T).comp ψ)
-      (u : FakeEllipticCurve.WithFullLevel Λ N n T) (ρ : FakeEllipticCurve.Rigidification r π A₀ ψT u.1),
-      { x : Spec (CommRingCat.of (T ⧸ Ideal.span {algebraMap C T (algebraMap 𝒪 C π)})) ⟶ X ρ.d //
-        x ≫ ξ ρ.d = Spec.map (CommRingCat.ofHom (Ideal.Quotient.mk (Ideal.span {algebraMap C T (algebraMap 𝒪 C π)}))) ≫ (tM T u).1 })
-    (hmap : RigidifiedPairClass.MapCompat 𝒪 π Onr Λ hΛℤ A₀ n C ψ (Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))) X ξ tM xOf)
-
-    (htM : ∀ (T : Type) [CommRing T] [Algebra C T] [Algebra 𝒪 T] [IsScalarTower 𝒪 C T]
-        (u : FakeEllipticCurve.WithFullLevel Λ N n T),
-        (tM T u).1 ≫ Limits.pullback.fst fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C))) = (ptF T (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 T))) u).1)
-
-    (hx3 : (∀ (d : ℕ) (T : Type) [CommRing T] [Algebra C T] [Algebra 𝒪 T] [IsScalarTower 𝒪 C T]
-                (ψT : Onr →ₐ[𝒪] T) (hψT : ψT = (IsScalarTower.toAlgHom 𝒪 C T).comp ψ)
-                (h0 : algebraMap C T (algebraMap 𝒪 C π) = 0) (x : SchemeHomOver (Spec.map (CommRingCat.ofHom (algebraMap C T))) (ξ d ≫ Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C))))),
-                ∃ (u : FakeEllipticCurve.WithFullLevel Λ N n T) (ρ : FakeEllipticCurve.Rigidification r π A₀ ψT u.1) (hd : ρ.d = d),
-                  (RigidifiedPairClass.ptX 𝒪 π Onr Λ A₀ n C ψ (Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))) X ξ tM xOf) d T ψT hψT u ρ hd h0 = x))
-
-    (hxOf : ∀ (S S' : Type) [CommRing S] [Algebra C S] [Algebra 𝒪 S] [IsScalarTower 𝒪 C S]
-        [CommRing S'] [Algebra C S'] [Algebra 𝒪 S'] [IsScalarTower 𝒪 C S'] (φ : S →ₐ[C] S')
-        (ψS : Onr →ₐ[𝒪] S) (hψS : ψS = (IsScalarTower.toAlgHom 𝒪 C S).comp ψ)
-        (hψS' : (φ.restrictScalars 𝒪).comp ψS = (IsScalarTower.toAlgHom 𝒪 C S').comp ψ)
-        (u : FakeEllipticCurve.WithFullLevel Λ N n S) (u' : FakeEllipticCurve.WithFullLevel Λ N n S')
-        (ρ : FakeEllipticCurve.Rigidification r π A₀ ψS u.1)
-        (ρ' : FakeEllipticCurve.Rigidification r π A₀ ((φ.restrictScalars 𝒪).comp ψS) u'.1)
-        (g : u'.1.A ⟶ u.1.A) (hg : FakeEllipticCurve.IsPullbackVia (φ : S →+* S') u.1 u'.1 g),
-        (u'.2.P).1 ≫ g = Spec.map (CommRingCat.ofHom (φ : S →+* S')) ≫ (u.2.P).1 →
-        FakeEllipticCurve.Rigidification.IsPullbackVia (φ.restrictScalars 𝒪) g hg ρ ρ' →
-          ∃ hd : ρ'.d = ρ.d, (xOf S' ((φ.restrictScalars 𝒪).comp ψS) hψS' u' ρ').1 ≫ eqToHom (congrArg X hd) =
-            Spec.map (CommRingCat.ofHom (RigidifiedPairClass.qmap (algebraMap 𝒪 C π) φ)) ≫ (xOf S ψS hψS u ρ).1) :
-    (∀ (S : Type) [CommRing S] [Algebra C S] [Algebra 𝒪 S] [IsScalarTower 𝒪 C S]
-          (ψS : Onr →ₐ[𝒪] S) (hψS : ψS = (IsScalarTower.toAlgHom 𝒪 C S).comp ψ) (z : (RigidifiedPairClass.PR 𝒪 π Onr Λ hΛℤ A₀ n C ψ (Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))) X ξ tM xOf hmap).obj S),
-          ∃ (u : FakeEllipticCurve.WithFullLevel Λ N n S) (ρ : FakeEllipticCurve.Rigidification r π A₀ ψS u.1), (RigidifiedPairClass.ptR 𝒪 π Onr Λ hΛℤ A₀ n C ψ (Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))) X ξ tM xOf hmap) S ψS hψS u ρ = z) := by
-  sorry
-
-namespace Submission
-
-/-- Transport a relative group law along a ring equivalence. The equivalences of
-relative points preserve their underlying scheme morphisms and all group operations. -/
-theorem p07_cre_group_law_857cd4d38c :
-    ∀ (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U)
-      (A : AlgebraicGeometry.Scheme.{0})
-      (f : Quiver.Hom A (AlgebraicGeometry.Spec (CommRingCat.of U)))
-      (G : GoodReductionJacobian.RelativeGroupLaw U f),
-    let κ := AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.toRingHom);
-    let ε := AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.symm.toRingHom);
-    let fT := CategoryTheory.CategoryStruct.comp f κ;
-    let κ := AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.toRingHom)
-    let ε := AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.symm.toRingHom)
-    let fT := CategoryTheory.CategoryStruct.comp f κ
-    ∃ (H : GoodReductionJacobian.RelativeGroupLaw T fT)
-      (B : ∀ (W : AlgebraicGeometry.Scheme.{0})
-        (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))),
-        NeronModelInfra.SchemeHomOver t fT ≃
-          NeronModelInfra.SchemeHomOver (CategoryTheory.CategoryStruct.comp t ε) f),
-      (G.IsCommutative → H.IsCommutative) ∧
-      (∀ (W : AlgebraicGeometry.Scheme.{0})
-        (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T)))
-        (P : NeronModelInfra.SchemeHomOver t fT), (B W t P).1 = P.1) ∧
-      (∀ (W : AlgebraicGeometry.Scheme.{0})
-        (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T)))
-        (P Q : NeronModelInfra.SchemeHomOver t fT),
-        B W t (H.mul t P Q) =
-          G.mul (CategoryTheory.CategoryStruct.comp t ε) (B W t P) (B W t Q)) ∧
-      (∀ (W : AlgebraicGeometry.Scheme.{0})
-        (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))),
-        B W t (H.one t) = G.one (CategoryTheory.CategoryStruct.comp t ε)) ∧
-      (∀ (W : AlgebraicGeometry.Scheme.{0})
-        (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T)))
-        (P : NeronModelInfra.SchemeHomOver t fT),
-        B W t (H.inv t P) = G.inv (CategoryTheory.CategoryStruct.comp t ε) (B W t P)) := by
-  intro T U _ _ k A f G
-open CategoryTheory AlgebraicGeometry
-
-namespace Submission
-
-/-- Transport finiteness, flatness, local finite presentation, and fibre rank along
-an isomorphism of the base rings. -/
-theorem p07_cre_finite_flat_rank_857cd4d38c
-    (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U)
-    (C : Scheme.{0}) (q : C ⟶ Spec (CommRingCat.of U)) :
-    IsFinite q → Flat q → LocallyOfFinitePresentation q →
-    let ε := Spec.map (CommRingCat.ofHom k.symm.toRingHom)
-    let qT := q ≫ Spec.map (CommRingCat.ofHom k.toRingHom)
-    IsFinite qT ∧ Flat qT ∧ LocallyOfFinitePresentation qT ∧
-      (∀ s : Spec (CommRingCat.of T), qT.finrank s = q.finrank (ε s)) := by
-  intro hfinite hflat hpresentation
-  let κ := Spec.map (CommRingCat.ofHom k.toRingHom)
-  let ε := Spec.map (CommRingCat.ofHom k.symm.toRingHom)
-  have hκε : κ ≫ ε = 𝟙 _ := by
-    dsimp [κ, ε]
-    rw [← Spec.map_comp]
-    have h : CommRingCat.ofHom k.symm.toRingHom ≫ CommRingCat.ofHom k.toRingHom =
-        𝟙 (CommRingCat.of U) := by
-      ext x
-      exact k.apply_symm_apply x
-    exact (congrArg Spec.map h).trans (Spec.map_id _)
-  have hεκ : ε ≫ κ = 𝟙 _ := by
-    dsimp [κ, ε]
-    rw [← Spec.map_comp]
-    have h : CommRingCat.ofHom k.toRingHom ≫ CommRingCat.ofHom k.symm.toRingHom =
-        𝟙 (CommRingCat.of T) := by
-      ext x
-      exact k.symm_apply_apply x
-    exact (congrArg Spec.map h).trans (Spec.map_id _)
-  let B : ∀ (W : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of T)),
-      SchemeHomOver t (f ≫ κ) ≃ SchemeHomOver (t ≫ ε) f := fun W t =>
-    { toFun := fun P => ⟨P.1, by
-        calc
-          P.1 ≫ f = (P.1 ≫ (f ≫ κ)) ≫ ε := by
-            rw [Category.assoc, Category.assoc, hκε, Category.comp_id]
-          _ = t ≫ ε := by rw [P.2]⟩
-      invFun := fun P => ⟨P.1, by
-        rw [← Category.assoc, P.2, Category.assoc, hεκ, Category.comp_id]⟩
-      left_inv := fun _ => Subtype.ext rfl
-      right_inv := fun _ => Subtype.ext rfl }
-  -- Both routes leave the underlying map equal to ψ ≫ P.1.
-  have hBcomp (W W' : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of T))
-      (t' : W' ⟶ Spec (CommRingCat.of T)) (ψ : W' ⟶ W) (hψ : ψ ≫ t = t')
-      (P : SchemeHomOver t (f ≫ κ)) :
-      B W' t' (GoodReductionJacobian.schemeHomOverComp ψ hψ P) =
-        GoodReductionJacobian.schemeHomOverComp ψ
-          (by rw [← Category.assoc, hψ]) (B W t P) :=
-    Subtype.ext rfl
-  let H : RelativeGroupLaw T (f ≫ κ) :=
-    { mul := fun {W} t P Q => (B W t).symm (G.mul (t ≫ ε) (B W t P) (B W t Q))
-      one := fun {W} t => (B W t).symm (G.one (t ≫ ε))
-      inv := fun {W} t P => (B W t).symm (G.inv (t ≫ ε) (B W t P))
-      mul_assoc := by
-        intro W t P Q R
-        apply (B W t).injective
-        simp only [Equiv.apply_symm_apply]
-        exact G.mul_assoc _ _ _ _
-      one_mul := by
-        intro W t P
-        apply (B W t).injective
-        simp only [Equiv.apply_symm_apply]
-        exact G.one_mul _ _
-      mul_one := by
-        intro W t P
-        apply (B W t).injective
-        simp only [Equiv.apply_symm_apply]
-        exact G.mul_one _ _
-      inv_mul_cancel := by
-        intro W t P
-        apply (B W t).injective
-        simp only [Equiv.apply_symm_apply]
-        exact G.inv_mul_cancel _ _
-      mul_natural := by
-        intro W W' t t' ψ hψ P Q
-        apply (B W' t').injective
-        simp only [Equiv.apply_symm_apply, hBcomp]
-        exact G.mul_natural _ _ ψ _ _ _ }
-  refine ⟨H, B, ?_, ?_, ?_, ?_, ?_⟩
-  · intro hG W t P Q
-    apply (B W t).injective
-    change B W t ((B W t).symm _) = B W t ((B W t).symm _)
-    simp only [Equiv.apply_symm_apply]
-    exact hG _ _ _
-  · intro W t P
-    rfl
-  · intro W t P Q
-    exact (B W t).apply_symm_apply _
-  · intro W t
-    exact (B W t).apply_symm_apply _
-  · intro W t P
-    exact (B W t).apply_symm_apply _
-
-end Submission
-
-
-namespace Submission
-
-/-- Rebase an abelian surface along a ring equivalence. -/
-theorem p07_cre_abelian_surface_857cd4d38c
-    (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U)
-    (A : Scheme.{0}) (f : A ⟶ Spec (CommRingCat.of U))
-    (hf : AbelianSchemePropertyBundle U f)
-    (hdim : ∀ s : Spec (CommRingCat.of U),
-      topologicalKrullDim ↥(f.base ⁻¹' {s}) = 2) :
-    let fT := f ≫ Spec.map (CommRingCat.ofHom k.toRingHom)
-    AbelianSchemePropertyBundle T fT ∧
-      (∀ s : Spec (CommRingCat.of T), topologicalKrullDim ↥(fT.base ⁻¹' {s}) = 2) := by
-  let κ := Spec.map (CommRingCat.ofHom k.toRingHom)
-  let ε := Spec.map (CommRingCat.ofHom k.symm.toRingHom)
-  let fT := f ≫ κ
-  change AbelianSchemePropertyBundle T fT ∧ _
-  have hκε : κ ≫ ε = 𝟙 (Spec (CommRingCat.of U)) := by
-    change Spec.map k.toCommRingCatIso.hom ≫ Spec.map k.toCommRingCatIso.inv = _
-    rw [← Spec.map_comp, k.toCommRingCatIso.inv_hom_id, Spec.map_id]
-  have hεκ : ε ≫ κ = 𝟙 (Spec (CommRingCat.of T)) := by
-    change Spec.map k.toCommRingCatIso.inv ≫ Spec.map k.toCommRingCatIso.hom = _
-    rw [← Spec.map_comp, k.toCommRingCatIso.hom_inv_id, Spec.map_id]
-  let : IsIso ε :=
-    (show IsIso (Spec.map k.toCommRingCatIso.inv) from inferInstance)
-  have hpb : IsPullback (𝟙 A) fT f ε :=
-    IsPullback.of_horiz_isIso ⟨by
-      simp only [fT, Category.id_comp, Category.assoc, hκε, Category.comp_id]⟩
-  have hfibre (s : Spec (CommRingCat.of T)) :
-      fT.base ⁻¹' {s} = f.base ⁻¹' {ε.base s} := by
-    ext x
-    change κ.base (f.base x) = s ↔ f.base x = ε.base s
-    constructor
-    · intro hx
-      calc
-        f.base x = ε.base (κ.base (f.base x)) :=
-          (congrArg (fun g => g.base (f.base x)) hκε).symm
-        _ = ε.base s := congrArg ε.base hx
-    · intro hx
-      calc
-        κ.base (f.base x) = κ.base (ε.base s) := congrArg κ.base hx
-        _ = s := congrArg (fun g => g.base s) hεκ
-  obtain ⟨G⟩ := hf.hasGroupLaw
-  obtain ⟨H, _⟩ := Submission.p07_cre_group_law_857cd4d38c T U k A f G
-  refine ⟨⟨MorphismProperty.of_isPullback (P := @Smooth) hpb hf.smooth,
-    MorphismProperty.of_isPullback (P := @IsProper) hpb hf.proper, ?_, ⟨H⟩⟩, ?_⟩
-  · intro s
-    rw [hfibre s]
-    exact hf.connectedFibres (ε.base s)
-  · intro s
-    rw [hfibre s]
-    exact hdim (ε.base s)
-    rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
-    change Spec.map (CommRingCat.ofHom (k.toRingHom.comp k.symm.toRingHom)) = _
-    rw [k.toRingHom_comp_symm_toRingHom, CommRingCat.ofHom_id, Spec.map_id]
-  have hεκ : ε ≫ κ = 𝟙 _ := by
-    dsimp [κ, ε]
-    rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
-    change Spec.map (CommRingCat.ofHom (k.symm.toRingHom.comp k.toRingHom)) = _
-    rw [k.symm_toRingHom_comp_toRingHom, CommRingCat.ofHom_id, Spec.map_id]
-  let : IsIso ε := ⟨⟨κ, hεκ, hκε⟩⟩
-  have hpb : IsPullback (𝟙 C) (q ≫ κ) q ε :=
-    IsPullback.of_horiz_isIso ⟨by simp [Category.assoc, hκε]⟩
-  -- Contravariance gives `e.hom = Spec(k⁻¹)` and `e.inv = Spec(k)`.
-  let e := Scheme.Spec.mapIso k.symm.toCommRingCatIso.op
-  -- The identity on C identifies qT with the base change of q along e.hom.
-  have hpb : IsPullback (𝟙 C) (q ≫ e.inv) q e.hom :=
-    IsPullback.of_horiz_isIso
-      ⟨by simp only [Category.id_comp, Category.assoc, Iso.inv_hom_id, Category.comp_id]⟩
-  let : IsFinite q := hfinite
-  let : Flat q := hflat
-  exact ⟨MorphismProperty.of_isPullback hpb hfinite,
-    MorphismProperty.of_isPullback hpb hflat,
-    MorphismProperty.of_isPullback hpb hpresentation,
-    fun s => Scheme.Hom.finrank_of_isPullback (𝟙 C) (q ≫ e.inv) q e.hom hpb s⟩
 
 end Submission
