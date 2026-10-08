@@ -1217,4 +1217,92 @@ theorem p07_flp_nsmul_precomp_857cd4d38c :
       -- The recursive step commutes with precomposition by multiplication naturality.
       rw [CerednikDrinfeld.QM.nsmulPt, CerednikDrinfeld.QM.nsmulPt, L.mul_natural, ih]
 
+/-- Full level structures pull back along any pullback of fake elliptic curves. -/
+theorem p07_flq_full_level_pullback_857cd4d38c
+    {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N n : ℕ)
+    (S T : Type) [CommRing S] [CommRing T] (φ : S →+* T)
+    (E : FakeEllipticCurve Λ N S) (ET : FakeEllipticCurve Λ N T)
+    (g : ET.A ⟶ E.A) (hg : FakeEllipticCurve.IsPullbackVia φ E ET g)
+    (L : E.FullLevel n) :
+    ∃ LT : ET.FullLevel n,
+      LT.P.1 ≫ g = Spec.map (CommRingCat.ofHom φ) ≫ L.P.1 := by
+  classical
+  let β := Spec.map (CommRingCat.ofHom φ)
+  -- Identify the target base map before using the point equivalence.
+  have equiv_over (W : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of T))
+      (s : W ⟶ Spec (CommRingCat.of S)) (hs : t ≫ β = s) :
+      ∃ B : SchemeHomOver t ET.f ≃ SchemeHomOver s E.f,
+        (∀ P : SchemeHomOver t ET.f, (B P).1 = P.1 ≫ g) ∧
+        B (ET.L.one t) = E.L.one s ∧
+        (∀ (k : ℕ) (P : SchemeHomOver t ET.f),
+          B (nsmulPt ET.L t k P) = nsmulPt E.L s k (B P)) ∧
+        (∀ (x : ↥Λ) (P : SchemeHomOver t ET.f),
+          B (pushPt (ET.act x) (ET.act_over x) P) =
+            pushPt (E.act x) (E.act_over x) (B P)) := by
+    subst s
+    obtain ⟨B, hB, _, hOne, hSum, hAct⟩ :=
+      p07_flp_point_equiv_857cd4d38c Λ N S T φ E ET g hg W t
+    exact ⟨B, hB, hOne, hSum, hAct⟩
+  obtain ⟨B, hB, hOne, hSum, _⟩ :=
+    equiv_over (Spec (CommRingCat.of T)) (𝟙 _) β (Category.id_comp β)
+  let Pβ : SchemeHomOver β E.f := schemeHomOverComp β (Category.comp_id β) L.P
+  let PT : SchemeHomOver (𝟙 (Spec (CommRingCat.of T))) ET.f := B.symm Pβ
+  have hPT : B PT = Pβ := B.apply_symm_apply Pβ
+  have hproj : PT.1 ≫ g = β ≫ L.P.1 := by
+    rw [← hB, hPT]
+    rfl
+  have htorsion : nsmulPt ET.L (𝟙 _) n PT = ET.L.one (𝟙 _) := by
+    apply B.injective
+    rw [hSum, hOne, hPT]
+    change nsmulPt E.L β n (schemeHomOverComp β (Category.comp_id β) L.P) = _
+    rw [← p07_flp_nsmul_precomp_857cd4d38c S E.A
+      (Spec (CommRingCat.of S)) (Spec (CommRingCat.of T)) E.f E.L
+      (𝟙 _) β β (Category.comp_id β) n L.P, L.torsion]
+    exact E.L.one_natural (𝟙 _) β β (Category.comp_id β)
+  have hgeom (K : Type) [Field K] [IsAlgClosed K] (α : T →+* K) :
+      (∀ Q : SchemeHomOver (geomPoint K α) ET.f,
+        nsmulPt ET.L (geomPoint K α) n Q = ET.L.one (geomPoint K α) →
+        ∃ x : ↥Λ,
+          pushPt (ET.act x) (ET.act_over x) (FakeEllipticCurve.sectionAt PT K α) = Q) ∧
+      (∀ x : ↥Λ,
+        pushPt (ET.act x) (ET.act_over x) (FakeEllipticCurve.sectionAt PT K α) =
+            ET.L.one (geomPoint K α) ↔
+          ∃ y : ↥Λ, (x : QuaternionAlgebra ℚ a 0 b) =
+            (n : ℚ) • (y : QuaternionAlgebra ℚ a 0 b)) := by
+    have hbase : geomPoint K α ≫ β = geomPoint K (α.comp φ) := by
+      simp only [geomPoint, β, CommRingCat.ofHom_comp, Spec.map_comp]
+    obtain ⟨BK, hBK, hOneK, hSumK, hActK⟩ :=
+      equiv_over (Spec (CommRingCat.of K)) (geomPoint K α)
+        (geomPoint K (α.comp φ)) hbase
+    have hsection : BK (FakeEllipticCurve.sectionAt PT K α) =
+        FakeEllipticCurve.sectionAt L.P K (α.comp φ) := by
+      apply Subtype.ext
+      rw [hBK]
+      change (geomPoint K α ≫ PT.1) ≫ g = geomPoint K (α.comp φ) ≫ L.P.1
+      rw [Category.assoc, hproj, ← Category.assoc, hbase]
+    constructor
+    · intro Q hQ
+      have hQ' : nsmulPt E.L (geomPoint K (α.comp φ)) n (BK Q) =
+          E.L.one (geomPoint K (α.comp φ)) := by
+        rw [← hSumK, hQ, hOneK]
+      obtain ⟨x, hx⟩ := L.generates K (α.comp φ) (BK Q) hQ'
+      refine ⟨x, BK.injective ?_⟩
+      rw [hActK, hsection]
+      exact hx
+    · intro x
+      rw [← L.annihilator K (α.comp φ) x]
+      constructor
+      · intro hx
+        have h := congrArg BK hx
+        rw [hActK, hsection, hOneK] at h
+        exact h
+      · intro hx
+        apply BK.injective
+        rw [hActK, hsection, hOneK]
+        exact hx
+  exact ⟨{ P := PT
+           torsion := htorsion
+           generates := fun K _ _ α => (hgeom K α).1
+           annihilator := fun K _ _ α => (hgeom K α).2 }, hproj⟩
+
 end Submission
