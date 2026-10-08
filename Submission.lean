@@ -3200,3 +3200,45 @@ theorem Submission.f036cc6b1f_pc_hi_gpt_unique_projective_index :
       · have hzero : (a : ZMod p) * (v : ZMod p) = 0 := by
           simpa [hip] using hz
         exact (mul_ne_zero ha hv' hzero).elim
+theorem Submission.f036cc6b1f_pc_hi_gpt_bezout_lift :
+    ∀ (M : ℕ) [NeZero M] (p : ℕ), p.Prime → ¬ p ∣ M →
+      ∃ (v : ℤ) (σ β : Matrix.SpecialLinearGroup (Fin 2) ℤ),
+        (¬ (p : ℤ) ∣ v) ∧ σ ∈ CongruenceSubgroup.Gamma0 M ∧
+        β ∈ CongruenceSubgroup.Gamma0 M ∧ σ 0 0 = (p : ℤ) ∧ σ 0 1 = -v ∧
+        ModularForm.heckeMatrix p 0 * Matrix.SpecialLinearGroup.mapGL ℝ σ =
+          Matrix.SpecialLinearGroup.mapGL ℝ β * ModularForm.heckeDiagMatrix p := by
+  intro M _ p hp hpM
+  let u : ℤ := Nat.gcdA p M
+  let v : ℤ := Nat.gcdB p M
+  have hcop : Nat.Coprime p M := hp.coprime_iff_not_dvd.mpr hpM
+  have hbez : (p : ℤ) * u + (M : ℤ) * v = 1 := by
+    simpa only [hcop.gcd_eq_one, Nat.cast_one] using (Nat.gcd_eq_gcd_ab p M).symm
+  have hv : ¬ (p : ℤ) ∣ v := by
+    intro hdiv
+    have hone : (p : ℤ) ∣ 1 := by
+      rw [← hbez]
+      exact dvd_add (dvd_mul_right _ _) (dvd_mul_of_dvd_right hdiv _)
+    exact hp.not_dvd_one (by exact_mod_cast hone)
+  let σ : Matrix.SpecialLinearGroup (Fin 2) ℤ :=
+    ⟨!![(p : ℤ), -v; (M : ℤ), u], by
+      simpa only [Matrix.det_fin_two_of, neg_mul, sub_neg_eq_add, mul_comm v (M : ℤ)]
+        using hbez⟩
+  let β : Matrix.SpecialLinearGroup (Fin 2) ℤ :=
+    ⟨!![(1 : ℤ), -v; (M : ℤ), (p : ℤ) * u], by
+      simpa only [Matrix.det_fin_two_of, one_mul, neg_mul, sub_neg_eq_add,
+        mul_comm v (M : ℤ)] using hbez⟩
+  refine ⟨v, σ, β, hv, ?_, ?_, rfl, rfl, ?_⟩
+  · rw [CongruenceSubgroup.Gamma0_mem, ZMod.intCast_zmod_eq_zero_iff_dvd]
+    exact dvd_refl (M : ℤ)
+  · rw [CongruenceSubgroup.Gamma0_mem, ZMod.intCast_zmod_eq_zero_iff_dvd]
+    exact dvd_refl (M : ℤ)
+  · apply Units.ext
+    change (ModularForm.heckeMatrix p 0 : Matrix (Fin 2) (Fin 2) ℝ) *
+        (Matrix.SpecialLinearGroup.mapGL ℝ σ : Matrix (Fin 2) (Fin 2) ℝ) =
+      (Matrix.SpecialLinearGroup.mapGL ℝ β : Matrix (Fin 2) (Fin 2) ℝ) *
+        (ModularForm.heckeDiagMatrix p : Matrix (Fin 2) (Fin 2) ℝ)
+    rw [ModularForm.val_heckeMatrix hp.ne_zero, ModularForm.val_heckeDiagMatrix hp.ne_zero]
+    ext i j
+    fin_cases i <;> fin_cases j <;>
+      simp [σ, β, Matrix.mul_apply, Fin.sum_univ_two, Matrix.SpecialLinearGroup.mapGL,
+        Matrix.SpecialLinearGroup.map_apply_coe, mul_comm]
