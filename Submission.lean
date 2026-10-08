@@ -2626,7 +2626,7 @@ theorem Submission.p10_17ae7b7d_phdisk_mobius_ratio_norm :
   have hratio : (M z - M v) / (M z - star (M v)) =
       ((z - v) / (z - star v)) * (star (Q v) / Q v) := by
     rw [hdiff z v hQz hQv, ← hMconj, hdiff z (star v) hQz hQsv, hQconj]
-    field_simp [hQz, hQv, hQstar, hzsv] <;> ring
+    field_simp [hQz, hQv, hQstar, hzsv]
   have hunit : ‖star (Q v) / Q v‖ = 1 := by
     rw [norm_div, Complex.star_def, Complex.norm_conj,
       div_self (norm_ne_zero_iff.mpr hQv)]
