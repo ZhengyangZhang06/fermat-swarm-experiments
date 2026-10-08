@@ -3085,7 +3085,9 @@ theorem Submission.p02_es_177ebb5a_scl_scalar_strip_limit :
   intro n a D L y₀ F H ha hD hL hy₀ hH hF hbound
   let w : ℝ → ℝ := fun y => (1 + y) ^ n * Real.exp (-a * y)
   let J : ℝ := ∫ s in Set.Ioi (0 : ℝ), w s
-  -- Establish the analytic estimates locally, using the pinned mathlib results.
+  -- Keep the weight estimates local to the approved dependency boundary.
+  -- Pinned mathlib: Pow/Asymptotics.isLittleO_pow_exp_pos_mul_atTop and
+  -- Integral/ExpDecay.integrable_of_isBigO_exp_neg supply decay and integrability.
   have hdecay_rate (b : ℝ) (hb : 0 < b) :
       Filter.Tendsto (fun y : ℝ => (1 + y) ^ n * Real.exp (-b * y))
         Filter.atTop (nhds 0) := by
