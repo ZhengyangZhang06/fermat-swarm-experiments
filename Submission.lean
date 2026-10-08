@@ -1358,6 +1358,8 @@ theorem Submission.p02_es_177ebb5a_hi_linepow_coefficients :
   split_ifs with hd
   · rw [hd]
   · rfl
+end Submission
+
 theorem Submission.p02_es_177ebb5a_hi_prescribed_coefficients :
     ∀ (n : ℕ) (a : ℕ → ℂ), ∃ P : ↥(HeckeEis.BinaryForm ℂ n),
       ∀ d : Fin 2 →₀ ℕ, MvPolynomial.coeff d P.val =
