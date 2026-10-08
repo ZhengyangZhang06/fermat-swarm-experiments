@@ -17421,3 +17421,21 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
   ring
 
 end Submission
+  by_contra hf
+  obtain ⟨F, A, hF, hF_ne, hT, hS, hA, hq, hc, h₂, h₃⟩ :=
+    Submission.p10_17ae7b7d_gamma0_norm_vanishing N f hf
+  have hval := Submission.p10_17ae7b7d_level_one_valence_inequality
+    (2 * ModularCurve.dedekindPsi N) F A (even_two_mul _) hF hF_ne hT hS hA hq
+  have hc_real : (ModularCurve.cuspCount N : ℝ) ≤ analyticOrderNatAt A 0 := by
+    exact_mod_cast hc
+  have h₂_real : (ModularCurve.nuTwo N : ℝ) ≤ analyticOrderNatAt F Complex.I := by
+    exact_mod_cast h₂
+  have h₃_real : (2 : ℝ) * ModularCurve.nuThree N ≤
+      analyticOrderNatAt F ((-1 + (Real.sqrt 3 : ℂ) * Complex.I) / 2) := by
+    exact_mod_cast h₃
+  have hg_real : (1 : ℝ) + (ModularCurve.dedekindPsi N : ℝ) / 12 -
+      (ModularCurve.nuTwo N : ℝ) / 4 - (ModularCurve.nuThree N : ℝ) / 3 -
+      (ModularCurve.cuspCount N : ℝ) / 2 = 0 := by
+    simpa [ModularCurve.genusFormula] using congrArg (fun q : ℚ => (q : ℝ)) hg
+  norm_num only [Nat.cast_mul, Nat.cast_ofNat] at hval
+  linarith only [hval, hc_real, h₂_real, h₃_real, hg_real]
