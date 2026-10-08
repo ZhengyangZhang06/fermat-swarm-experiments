@@ -1739,6 +1739,7 @@ theorem Submission.p05_hte_sshs_br_coalgebra_laws_a5b449214a
           (TensorProduct.tmul k (1 : k) v) := by
         rw [_hδ]
         simpa only [LinearMap.rTensor, TensorProduct.map_tmul, LinearMap.id_apply] using
+        simpa only [TensorProduct.map_tmul, LinearMap.id_apply] using
           Coalgebra.rTensor_counit_comul (R := k) (i v)
   · intro v
     apply hR
@@ -5266,3 +5267,5 @@ theorem p05_finite_retraction_a5b449214a
 
 end Submission
     exact Bialgebra.comul_mul
+        simpa only [TensorProduct.map_tmul, LinearMap.id_apply] using
+          Coalgebra.lTensor_counit_comul (R := k) (i v)
