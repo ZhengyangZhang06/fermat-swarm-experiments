@@ -1,0 +1,98 @@
+{
+  "node": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.translated_domain_integrability-a1",
+  "integration_parent": "f0cae9fbdf145bea79ca379438919bd3504d85f8",
+  "canonical_base": "6999aa2621fddc4d1a19ceb83b258bd89f7b1ece",
+  "accepted_candidate": "2b66498b6a6266defc86e8bf3ba96dc5a8922c15",
+  "reviewed_candidate_commits": [
+    "ff0e11db2a82dcc4497851f3085c0c4da1047ecb",
+    "599211a664ba2032af0c959cf8b3c10990962956",
+    "75e006333bf1f58c4807ad4578726814e2d8d884",
+    "6fa672665401a915c9a0cd3fda5636cc1df26db6",
+    "38bcc11811d4b825ff8e0c04084767c413c39504",
+    "3e194b49d65aff1802c369d2b506566d8268bdda",
+    "26a7457a01eb4436ceddedafcfb56c2b76a1e504",
+    "db6ea3161e360adbfe7b4ca54a13a930a8085926",
+    "c4d23dce78a31f123ae8c847873568a98981560d",
+    "725bb66ccbe58c7876bba7981a0ffb59611961c3",
+    "66e08cd16ace1c1801e7a7adad55874b723ca17a",
+    "2b66498b6a6266defc86e8bf3ba96dc5a8922c15"
+  ],
+  "repair": "Restore the byte-exact canonical Submission through its final namespace boundary, then append the byte-exact translated-integrability namespace block from the accepted candidate. Both dependency declarations already occur byte-exactly in the canonical base. This removes duplicated and interleaved replay fragments, the displaced proof line, and the accidental enclosing namespace and premature ModularForm notation scope. No accepted theorem statement or proof body changes.",
+  "preservation": {
+    "canonical_declarations": {
+      "CuspForm.span_heckeTLin_eigen_eq_top": "7a5392bf82ec7f9117cdbf585b5111fa7dfc1614bd327dcb63707e771337cd9f",
+      "Submission.f036cc6b1f_pic_dd_ae_orbit_zero": "b09d5607a34a27cde53cbe81bed31d71cec3f82584bce1787f6557f6a7b0b293",
+      "Submission.f036cc6b1f_pic_dd_open_pos": "c59ef7853b7e46dd30f9bad2006578abaef4708a51505026ddf67eba06d7692b",
+      "f036cc6b1f_pic_diagonal_definite": "b8cfa2ad5cc955a5ebe9e496c91adab117ff215c41602bc303501a43e16b3f46",
+      "Submission.f036cc6b1f_pic_psp_measurable_slice_partition": "49d55c1e639146619da35cba366097afb433fa3fcd219b429765de0104771e26",
+      "Submission.f036cc6b1f_pic_dt_integral_of_equidecomposition": "40d6f9bba1a10725733dc29ab89d918dc8cbaad367aaedfe689d257a021847c2",
+      "Submission.f036cc6b1f_pic_psp_sign_transversal": "6c0773c55ed1985e2f53b561a968cb57b2609aaca03b45ae33e947a892802dab",
+      "f036cc6b1f_pic_mec_pointwise_sign_partition": "96778e689c527f17125707b76b5bc31644f3afae222ef0da856448309c256fe8",
+      "Submission.f036cc6b1f_pc_hi_effective_domain_lift": "a8b7d0edea391c5ce6d51c4ed851847ea9c46b53d133f9c217a592758dbd21b3",
+      "Submission.f036cc6b1f_pc_hi_gpt_bezout_lift": "f0505b112b55e2bbadb369a54a5587d9ddae7cd2f5d923891e920a20dd1e3561",
+      "Submission.f036cc6b1f_pc_hi_rational_slash": "a3d603aa96a7a4e1c189c9fae2719c7fafb9b36c45044c0231950cfde230182d",
+      "Submission.f036cc6b1f_tdi_planar_exp_integrable_fd": "7ed55c5a8ef20259f747b93aa7d166b8e30d938cbfbdf97b2234d968414e8465",
+      "f036cc6b1f_pc_ed_aoi_null_orbit": "4c99f0db57cee5ada772ef484105837aa0e8848b38a175b6b986787b1c2a330e",
+      "Submission.f036cc6b1f_pc_hi_gpt_unique_projective_index": "1d08ff8f89dbad42386460f8b75afbd7b9d42543370018097f722837ad6142d1",
+      "f036cc6b1f_hecke_commute": "c3065d4eaf1ca3f1dbc55836d2aac678b09a7f144f998639d0fa482c2458ac59",
+      "Submission.f036cc6b1f_pic_mec_invariant_conull_core": "70093c06cd1757c14f6c48469f707caa61b1bf312d569e0931101a1e681134ad",
+      "f036cc6b1f_pc_ed_transversal_unique": "923ec7be4a3e61cd64e451661a6ca82148f9f45d0815345103a7eb0c3bbaf505",
+      "f036cc6b1f_pc_hi_good_prime_transversal": "baaa2a53df25fd0236e013dff2a5e9e3e75313b37fed5137d8cc0c1bbec30d25",
+      "Submission.f036cc6b1f_pc_hi_finite_trace_unfolding": "936a01f3268bd71faeda8a581f7d03f6ee88cf411639b9640be6309e8db72f8d",
+      "Submission.f036cc6b1f_tdi_petersson_integrable_of_exp_product_bound": "a7947fee839b1721baa758d1fe705ec5cbefa363466309213e379b2335211a6f",
+      "f036cc6b1f_pc_ed_aoi_boundary_null": "4d16cd8059ac8bda1b820f320566e8a52fce85298bd2fdbeefcfded36def4fc7",
+      "f036cc6b1f_pic_dt_measurable_equidecomposition": "c678484253ec3fb686168b25bd25e0fe8d4314416ad2c060ac4f9b2d42064301"
+    },
+    "accepted_candidate_declarations": {
+      "CuspForm.span_heckeTLin_eigen_eq_top": "7a5392bf82ec7f9117cdbf585b5111fa7dfc1614bd327dcb63707e771337cd9f",
+      "Submission.f036cc6b1f_tdi_planar_exp_integrable_fd": "7ed55c5a8ef20259f747b93aa7d166b8e30d938cbfbdf97b2234d968414e8465",
+      "Submission.f036cc6b1f_tdi_petersson_integrable_of_exp_product_bound": "a7947fee839b1721baa758d1fe705ec5cbefa363466309213e379b2335211a6f",
+      "f036cc6b1f_pic_translated_integrable": "06f06e2bb52c5d67f7bcfb16e3d4327999aa747c12e45f04103c4e2bd8db7c7c"
+    },
+    "distinct_declarations": 23,
+    "canonical_file_preserved_as_prefix": true,
+    "accepted_parent_namespace_block_sha256": "fb4bd6197394c40e1c2776b5629a8221ad3c4ac9b1544399bfb78cc1bcf9ae4e",
+    "submission_before_sha256": "f24529da307bbd41022410c09d5cb6e50b565623185e999739d2fce4c136efbc",
+    "submission_after_sha256": "e9ca630120f5bb019511f51cefae758cee1c1fc1366572befaa7613f387e535b",
+    "contract_sha256": "365510742cf45daae091fcbb675dc22f4df855f4f5e522aa065b65339f379bbe",
+    "submission_header_sha256": "47db91bc7f9b01995ededd82fdf4c723debd5cce26f5bc19e9e1555eed609892",
+    "operator_policy_sha256": "96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96",
+    "protected_artifact_sha256": {
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md": "0929eb9ca2ad7ea30f1aafc2c1446aaf06dcdc301374ffe2ca7f4b56816d2cc8",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json": "509f4932b6d1c571a2a1434f97319ae47791212dabf986cc6faad0e84a6d9346",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/parent-child-handoff.json": "6a4d89e1434b5b11290d885a91125027f1aa44302e1d7ef4edba309b48b6095c",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/parent-supplied-plan.md": "22b593c4290b05d452518262269130af2f0ef37e4a671685ddb7343848656df2",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/parent-supplied-natural-proof.md": "ea13a7015f7eabbabe961a6ff1fe53551826a1964b15be8645f9ece851d38e36",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/parent-supplied-natural-proof.json": "29abff330f7e8f53cbe7f1988d7838b91a0cc9e2378993bc32b1e2c9d5783232",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/decomposition-v1.json": "b371f08c64324b36ad1b10f45d0968d1b5fc693f45dd44a059af165a6a3681ee",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/decomposition-audit-v1.json": "a99ef004b9b933d01fed077f32f4c647cb560253687546b1ab9e5ecdbb5d7714",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/rlcr-plan-v1.md": "2f436c8aee0b298fbfb41670cc1f05750bb9c4caae740fe5adf9b1c725c41ea6",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/lean-audit-v1.json": "0f26d8ff0498444bf625f2832fd96618f3d524ef7753d052857eab645cb6c3ea"
+    },
+    "verification_requirement": "The configured comparator must verify the committed tree. Review its Git identity, exact frozen type, kernel, transitive axioms, clean pins, and frozen_header_repair evidence; these source-preservation checks alone do not establish acceptance."
+  },
+  "reference_use": [
+    {
+      "source": "local-project",
+      "manifest": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+      "project_commit": "61b5f85556ac71631ccad822e0694511234f7132",
+      "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "queries": [
+        {
+          "query": "rg -n 'f036cc6b1f_pic_translated_integrable|f036cc6b1f_tdi_planar_exp_integrable_fd|f036cc6b1f_tdi_petersson_integrable_of_exp_product_bound' project mathlib/Mathlib",
+          "finding": "No matches in the pinned snapshot (exit 1); these node-specific declarations originate in the accepted histories."
+        },
+        {
+          "query": "rg -n 'petersson_slash|integrableOn_comp_preimage|theorem integrableOn_iff_comap|notation.*\"η\"|planar_exp_integrable_fd' mathlib/Mathlib/{NumberTheory/ModularForms,MeasureTheory,Algebra/Algebra} --glob '*.lean'",
+          "finding": "DedekindEta.lean:63 defines scoped[ModularForm] notation η, explaining the premature-scope binder failures. Petersson.lean:59 supplies the existing determinant-one covariance lemma used by the unchanged accepted proof. IntegrableOn.lean:319 supplies the existing measure-preserving preimage interface."
+        }
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/DedekindEta.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Petersson.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Integral/IntegrableOn.lean"
+      ],
+      "compatibility": "Both snapshot HEADs match the manifest and their tracked trees are clean. All nine local package HEADs match lake-manifest.json and their tracked trees are clean. The toolchain and build configuration are unchanged from the accepted candidate. No reference proof is newly copied; acceptance requires the configured exact comparator and its axiom checks."
+    }
+  ]
+}
