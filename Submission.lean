@@ -39,6 +39,7 @@ theorem p04_rsh_82a013d1d0_equivariant_retraction {G : Type*} [Group G] (H : Sub
 
 namespace Submission
 
+/-- The signed prism assignment extends to morphisms of the restricted standard complex. -/
 theorem p04_prism_a8325b9888_equivariant_components :
     ∀ {k G : Type u} [CommRing k] [Group G] (H : Subgroup G) (u v : G → G),
       (∀ (h : H) (g : G), u ((h : G) * g) = (h : G) * u g) →
@@ -78,9 +79,7 @@ theorem p04_prism_a8325b9888_equivariant_components :
   let D (n : ℕ) : C.X n ⟶ C.X (n + 1) := Rep.ofHom
     { toLinearMap := L n
       isIntertwining' := fun h => by
-        apply MonoidAlgebra.lhom_ext'
-        intro c
-        apply LinearMap.ext_ring
+        refine MonoidAlgebra.lhom_ext' fun (c : Fin (n + 1) → G) => LinearMap.ext_ring ?_
         change L n (Representation.ofMulAction k G (Fin (n + 1) → G) (h : G)
           (MonoidAlgebra.single c 1)) =
             Representation.ofMulAction k G (Fin (n + 2) → G) (h : G)
