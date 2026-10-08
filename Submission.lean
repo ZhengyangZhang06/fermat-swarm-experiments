@@ -72,3 +72,92 @@ theorem CerednikDrinfeld.QM.RigidifiedPairClass.exists_ptR_eq
           (ψS : Onr →ₐ[𝒪] S) (hψS : ψS = (IsScalarTower.toAlgHom 𝒪 C S).comp ψ) (z : (RigidifiedPairClass.PR 𝒪 π Onr Λ hΛℤ A₀ n C ψ (Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))) X ξ tM xOf hmap).obj S),
           ∃ (u : FakeEllipticCurve.WithFullLevel Λ N n S) (ρ : FakeEllipticCurve.Rigidification r π A₀ ψS u.1), (RigidifiedPairClass.ptR 𝒪 π Onr Λ hΛℤ A₀ n C ψ (Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))) X ξ tM xOf hmap) S ψS hψS u ρ = z) := by
   sorry
+
+namespace Submission
+
+/-- A relative group law pulls back along a ring homomorphism, with its point operations
+identified by the pullback projection. -/
+theorem p07_cq_group_law_pullback_857cd4d38c :
+    ∀ (S T : Type) [CommRing S] [CommRing T] (φ : S →+* T)
+      (A : Scheme.{0}) (f : A ⟶ Spec (CommRingCat.of S))
+      (G : RelativeGroupLaw S f),
+      let β := Spec.map (CommRingCat.ofHom φ)
+      let p := Limits.pullback.snd f β
+      let g := Limits.pullback.fst f β
+      ∃ (H : RelativeGroupLaw T p)
+        (B : ∀ (W : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of T)),
+          SchemeHomOver t p ≃ SchemeHomOver (t ≫ β) f),
+        (G.IsCommutative → H.IsCommutative) ∧
+        (∀ (W : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of T))
+          (P : SchemeHomOver t p), (B W t P).1 = P.1 ≫ g) ∧
+        (∀ (W : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of T))
+          (P Q : SchemeHomOver t p),
+          B W t (H.mul t P Q) = G.mul (t ≫ β) (B W t P) (B W t Q)) ∧
+        (∀ (W : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of T)),
+          B W t (H.one t) = G.one (t ≫ β)) ∧
+        (∀ (W : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of T))
+          (P : SchemeHomOver t p),
+          B W t (H.inv t P) = G.inv (t ≫ β) (B W t P)) := by
+  intro S T _ _ φ A f G β p g
+  -- The projection and universal lift identify points over the two bases.
+  let B : ∀ (W : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of T)),
+      SchemeHomOver t p ≃ SchemeHomOver (t ≫ β) f := fun W t =>
+    { toFun := fun P => ⟨P.1 ≫ g, by
+        change (P.1 ≫ Limits.pullback.fst f β) ≫ f = t ≫ β
+        rw [Category.assoc, Limits.pullback.condition, ← Category.assoc, P.2]⟩
+      invFun := fun R =>
+        ⟨Limits.pullback.lift R.1 t R.2, Limits.pullback.lift_snd _ _ _⟩
+      left_inv := fun P => Subtype.ext (Limits.pullback.hom_ext
+        (Limits.pullback.lift_fst _ _ _)
+        ((Limits.pullback.lift_snd _ _ _).trans P.2.symm))
+      right_inv := fun R => Subtype.ext (Limits.pullback.lift_fst _ _ _) }
+  have B_natural {W W' : Scheme.{0}}
+      (t : W ⟶ Spec (CommRingCat.of T)) (t' : W' ⟶ Spec (CommRingCat.of T))
+      (h : W' ⟶ W) (hh : h ≫ t = t') (P : SchemeHomOver t p) :
+      B W' t' (GoodReductionJacobian.schemeHomOverComp h hh P) =
+        GoodReductionJacobian.schemeHomOverComp h
+          (by rw [← Category.assoc, hh]) (B W t P) :=
+    Subtype.ext (Category.assoc h P.1 g)
+  -- Transport the operations; injectivity reduces their laws to those of G.
+  let H : RelativeGroupLaw T p :=
+    { mul := fun {W} t P Q =>
+        (B W t).symm (G.mul (t ≫ β) (B W t P) (B W t Q))
+      one := fun {W} t => (B W t).symm (G.one (t ≫ β))
+      inv := fun {W} t P => (B W t).symm (G.inv (t ≫ β) (B W t P))
+      mul_assoc := by
+        intro W t P Q R
+        apply (B W t).injective
+        simp only [Equiv.apply_symm_apply, G.mul_assoc]
+      one_mul := by
+        intro W t P
+        apply (B W t).injective
+        simp only [Equiv.apply_symm_apply, G.one_mul]
+      mul_one := by
+        intro W t P
+        apply (B W t).injective
+        simp only [Equiv.apply_symm_apply, G.mul_one]
+      inv_mul_cancel := by
+        intro W t P
+        apply (B W t).injective
+        simp only [Equiv.apply_symm_apply, G.inv_mul_cancel]
+      mul_natural := by
+        intro W W' t t' h hh P Q
+        apply (B W' t').injective
+        rw [B_natural]
+        simp only [Equiv.apply_symm_apply]
+        rw [G.mul_natural, B_natural, B_natural] }
+  refine ⟨H, B, ?_, ?_, ?_, ?_, ?_⟩
+  · intro hG W t P Q
+    apply (B W t).injective
+    change B W t ((B W t).symm _) = B W t ((B W t).symm _)
+    simpa only [Equiv.apply_symm_apply] using hG (t ≫ β) (B W t P) (B W t Q)
+  · intro W t P
+    rfl
+  · intro W t P Q
+    exact (B W t).apply_symm_apply _
+  · intro W t
+    exact (B W t).apply_symm_apply _
+  · intro W t P
+    exact (B W t).apply_symm_apply _
+
+end Submission
