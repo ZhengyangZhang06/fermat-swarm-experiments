@@ -784,3 +784,226 @@ theorem p07_cq_level_geometry_pullback_857cd4d38c :
       exact ⟨hpb.lift R Q hR, hpb.lift_snd R Q hR⟩
 
 end Submission
+
+
+namespace Submission
+
+/-- Quotient base change of a fake elliptic curve, using the three curve-quotient
+DAG prerequisites for the group law, surface geometry, and level geometry. -/
+theorem p07_flq_curve_quotient_857cd4d38c
+    {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N : ℕ)
+    (S : Type) [CommRing S] (J : Ideal S) (E : FakeEllipticCurve Λ N S) :
+    ∃ (EJ : FakeEllipticCurve Λ N (S ⧸ J)) (g : EJ.A ⟶ E.A),
+      FakeEllipticCurve.IsPullbackVia (Ideal.Quotient.mk J) E EJ g := by
+  classical
+  let q := Ideal.Quotient.mk J
+  let β := Spec.map (CommRingCat.ofHom q)
+  let A := Limits.pullback E.f β
+  let p : A ⟶ Spec (CommRingCat.of (S ⧸ J)) := Limits.pullback.snd E.f β
+  let g : A ⟶ E.A := Limits.pullback.fst E.f β
+  have hg : CategoryTheory.IsPullback g p E.f β := CategoryTheory.IsPullback.of_hasPullback _ _
+  obtain ⟨H, B, hcomm, hcoe, hmul, hone, hinv⟩ :=
+    p07_cq_group_law_pullback_857cd4d38c S (S ⧸ J) q E.A E.f E.L
+  obtain ⟨hbundle, hdim⟩ :=
+    p07_cq_abelian_surface_quotient_857cd4d38c S J E.A E.f E.bundle E.dim_fibre
+  obtain ⟨ℓ, hℓpb, hℓp, hclosed, hfinite, hflat, hfp, hrank, hfactor⟩ :=
+    p07_cq_level_geometry_pullback_857cd4d38c S (S ⧸ J) q E.A E.C E.f E.lev
+      E.lev_closed E.lev_finite E.lev_flat E.lev_finitePresentation
+  -- The action is the unique lift with the prescribed two projections.
+  let act (x : ↥Λ) : A ⟶ A := Limits.pullback.lift (g ≫ E.act x) p
+    (by rw [Category.assoc, E.act_over]; exact hg.w)
+  have act_g (x : ↥Λ) : act x ≫ g = g ≫ E.act x := Limits.pullback.lift_fst _ _ _
+  have act_p (x : ↥Λ) : act x ≫ p = p := Limits.pullback.lift_snd _ _ _
+  have b_act (W : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of (S ⧸ J)))
+      (x : ↥Λ) (P : SchemeHomOver t p) :
+      B W t (pushPt (act x) (act_p x) P) =
+        pushPt (E.act x) (E.act_over x) (B W t P) := by
+    apply Subtype.ext
+    simp only [hcoe, pushPt, mapPt_coe]
+    change (P.1 ≫ act x) ≫ g = (P.1 ≫ g) ≫ E.act x
+    rw [Category.assoc, act_g, Category.assoc]
+  have factors (W : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of (S ⧸ J)))
+      (P : SchemeHomOver t p) : FactorsThrough ℓ P ↔ FactorsThrough E.lev (B W t P) := by
+    change (∃ R, R ≫ ℓ = P.1) ↔ ∃ R, R ≫ E.lev = (B W t P).1
+    rw [hcoe]
+    exact hfactor W P.1
+  -- Allow the target base morphism to be written as an equal Spec-composite.
+  let B' (W : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of (S ⧸ J)))
+      (s : W ⟶ Spec (CommRingCat.of S)) (h : t ≫ β = s) :
+      SchemeHomOver t p ≃ SchemeHomOver s E.f :=
+    (B W t).trans
+      { toFun := fun P => ⟨P.1, P.2.trans h⟩
+        invFun := fun P => ⟨P.1, P.2.trans h.symm⟩
+        left_inv := fun _ => rfl
+        right_inv := fun _ => rfl }
+  have b'_coe (W) (t) (s) (h) (P : SchemeHomOver t p) :
+      (B' W t s h P).1 = P.1 ≫ g := hcoe W t P
+  have b'_mul (W) (t) (s) (h) (P Q : SchemeHomOver t p) :
+      B' W t s h (H.mul t P Q) = E.L.mul s (B' W t s h P) (B' W t s h Q) := by
+    subst s
+    exact hmul W t P Q
+  have b'_one (W) (t) (s) (h) : B' W t s h (H.one t) = E.L.one s := by
+    subst s
+    exact hone W t
+  have b'_act (W) (t) (s) (h) (x : ↥Λ) (P : SchemeHomOver t p) :
+      B' W t s h (pushPt (act x) (act_p x) P) =
+        pushPt (E.act x) (E.act_over x) (B' W t s h P) := by
+    subst s
+    exact b_act W t x P
+  have geom_comp (k : Type) [Field k] (sk : (S ⧸ J) →+* k) :
+      geomPoint k sk ≫ β = geomPoint k (sk.comp q) := by
+    simp only [geomPoint, β, CommRingCat.ofHom_comp, Spec.map_comp]
+  have tangent_comp (k : Type) [Field k] (sk : (S ⧸ J) →+* k) :
+      tangentBase k sk ≫ β = tangentBase k (sk.comp q) := by
+    simp only [tangentBase, β, CommRingCat.ofHom_comp,
+      Spec.map_comp, Category.assoc]
+  let EJ : FakeEllipticCurve Λ N (S ⧸ J) := {
+    A := A
+    f := p
+    L := H
+    comm := hcomm E.comm
+    bundle := hbundle
+    dim_fibre := hdim
+    act := act
+    act_over := act_p
+    act_hom := by
+      intro x W t P Q
+      apply (B W t).injective
+      simp only [b_act, hmul, E.act_hom]
+    act_one := by
+      intro h
+      apply Limits.pullback.hom_ext
+      · change act ⟨1, h⟩ ≫ g = (𝟙 A) ≫ g
+        rw [act_g, E.act_one, Category.comp_id, Category.id_comp]
+      · change act ⟨1, h⟩ ≫ p = (𝟙 A) ≫ p
+        rw [act_p, Category.id_comp]
+    act_mul := by
+      intro x y h
+      apply Limits.pullback.hom_ext
+      · change act ⟨_, h⟩ ≫ g = (act y ≫ act x) ≫ g
+        rw [act_g, E.act_mul, Category.assoc, act_g]
+        rw [← Category.assoc (act y) g (E.act x), act_g, Category.assoc]
+      · change act ⟨_, h⟩ ≫ p = (act y ≫ act x) ≫ p
+        rw [act_p, Category.assoc, act_p, act_p]
+    act_add := by
+      intro x y W t P
+      apply (B W t).injective
+      rw [b_act, hmul, b_act, b_act, E.act_add]
+    act_trace := by
+      intro k _ _ sk V _ _ _ τ hτ hτrange hτadd hτscale m Φ hΦ n hn
+      let D := B' _ (tangentBase k sk) (tangentBase k (sk.comp q)) (tangent_comp k sk)
+      have dcoe (P) : (D P).1 = P.1 ≫ g :=
+        b'_coe _ _ _ (tangent_comp k sk) P
+      have done : (H.one (geomPoint k sk)).1 ≫ g =
+          (E.L.one (geomPoint k (sk.comp q))).1 := by
+        rw [← b'_coe _ _ _ (geom_comp k sk), b'_one _ _ _ (geom_comp k sk)]
+      have tangent_iff (P : SchemeHomOver (tangentBase k sk) p) :
+          IsTangentVector H k sk P ↔ IsTangentVector E.L k (sk.comp q) (D P) := by
+        change tangentZero k ≫ P.1 = (H.one (geomPoint k sk)).1 ↔
+          tangentZero k ≫ (D P).1 = (E.L.one (geomPoint k (sk.comp q))).1
+        rw [dcoe, ← done, ← Category.assoc]
+        constructor
+        · intro h
+          rw [h]
+        · intro h
+          apply Limits.pullback.hom_ext
+          · exact h
+          · change (tangentZero k ≫ P.1) ≫ p = (H.one (geomPoint k sk)).1 ≫ p
+            rw [Category.assoc, P.2, (H.one (geomPoint k sk)).2]
+            simp only [tangentZero, tangentBase, geomPoint, ← Spec.map_comp,
+              ← CommRingCat.ofHom_comp]
+            congr 1
+      apply E.act_trace k (sk.comp q) V (fun v => D (τ v))
+        (D.injective.comp hτ) _ _ _ m Φ _ n hn
+      · intro P
+        constructor
+        · rintro ⟨v, rfl⟩
+          exact (tangent_iff (τ v)).mp ((hτrange _).mp ⟨v, rfl⟩)
+        · intro h
+          have ht : IsTangentVector H k sk (D.symm P) :=
+            (tangent_iff _).mpr (by simpa only [D.apply_symm_apply] using h)
+          obtain ⟨v, hv⟩ := (hτrange _).mpr ht
+          exact ⟨v, (congrArg D hv).trans (D.apply_symm_apply P)⟩
+      · intro v w
+        rw [hτadd]
+        exact b'_mul _ _ _ (tangent_comp k sk) _ _
+      · intro c v
+        rw [dcoe, dcoe, hτscale, Category.assoc]
+      · intro v
+        rw [hΦ]
+        exact b'_act _ _ _ (tangent_comp k sk) _ _
+    C := Limits.pullback (E.lev ≫ E.f) β
+    lev := ℓ
+    lev_closed := hclosed
+    lev_sub := by
+      intro W t P Q hP hQ
+      obtain ⟨hm, hi⟩ := E.lev_sub (t ≫ β) (B W t P) (B W t Q)
+        ((factors W t P).mp hP) ((factors W t Q).mp hQ)
+      constructor
+      · apply (factors W t _).mpr
+        rw [hmul]
+        exact hm
+      · apply (factors W t _).mpr
+        rw [hinv]
+        exact hi
+    lev_one := by
+      intro W t
+      apply (factors W t _).mpr
+      rw [hone]
+      exact E.lev_one _
+    lev_torsion := by
+      intro W t P hP
+      have hnsmul (k : ℕ) : B W t (nsmulPt H t k P) =
+          nsmulPt E.L (t ≫ β) k (B W t P) := by
+        induction k with
+        | zero => exact hone W t
+        | succ k ih =>
+          simp only [nsmulPt, hmul, ih, β]
+      apply (B W t).injective
+      rw [hnsmul, hone]
+      exact E.lev_torsion _ _ ((factors W t P).mp hP)
+    lev_stable := by
+      intro x W t P hP
+      apply (factors W t _).mpr
+      rw [b_act]
+      exact E.lev_stable x _ _ ((factors W t P).mp hP)
+    lev_finite := by rw [hℓp]; exact hfinite
+    lev_flat := by rw [hℓp]; exact hflat
+    lev_finitePresentation := by rw [hℓp]; exact hfp
+    lev_rank := by intro t; rw [hℓp, hrank, E.lev_rank]
+    lev_fibre := by
+      intro k _ _ sk hN
+      let D := B' _ (geomPoint k sk) (geomPoint k (sk.comp q)) (geom_comp k sk)
+      have dfactor (P : SchemeHomOver (geomPoint k sk) p) :
+          FactorsThrough ℓ P ↔ FactorsThrough E.lev (D P) := by
+        change (∃ R, R ≫ ℓ = P.1) ↔ ∃ R, R ≫ E.lev = (D P).1
+        rw [b'_coe _ _ _ (geom_comp k sk)]
+        exact hfactor _ P.1
+      let F : {P : SchemeHomOver (geomPoint k sk) p // FactorsThrough ℓ P} ≃
+          {P : SchemeHomOver (geomPoint k (sk.comp q)) E.f // FactorsThrough E.lev P} := {
+        toFun := fun P => ⟨D P.1, (dfactor P.1).mp P.2⟩
+        invFun := fun P => ⟨D.symm P.1, (dfactor _).mpr
+          (by simpa only [D.apply_symm_apply] using P.2)⟩
+        left_inv := fun P => Subtype.ext (D.symm_apply_apply P.1)
+        right_inv := fun P => Subtype.ext (D.apply_symm_apply P.1) }
+      obtain ⟨e, he⟩ := E.lev_fibre k (sk.comp q) hN
+      refine ⟨e.trans F.symm, ?_⟩
+      intro x y
+      apply D.injective
+      change D (D.symm (e (x + y)).1) =
+        D (H.mul (geomPoint k sk) (D.symm (e x).1) (D.symm (e y).1))
+      rw [D.apply_symm_apply, b'_mul _ _ _ (geom_comp k sk),
+        D.apply_symm_apply, D.apply_symm_apply]
+      exact he x y }
+  refine ⟨EJ, g, hg, ?_, act_g, ?_⟩
+  · intro W t P Q
+    have hP : B W t P = ⟨P.1 ≫ g, by
+      rw [Category.assoc, hg.w, ← Category.assoc, P.2]⟩ := Subtype.ext (hcoe W t P)
+    have hQ : B W t Q = ⟨Q.1 ≫ g, by
+      rw [Category.assoc, hg.w, ← Category.assoc, Q.2]⟩ := Subtype.ext (hcoe W t Q)
+    change (H.mul t P Q).1 ≫ g = _
+    rw [← hcoe W t, hmul, hP, hQ]
+  · intro W t P hP
+    exact (hfactor W P.1).mp hP
+
+end Submission
