@@ -2160,21 +2160,30 @@ theorem p06_9e0f5043ff_dmc_diagonal_quotient
     Nonempty (((Fin m → R) ⧸ LinearMap.range (Matrix.mulVecLin (Matrix.diagonal d)))
       ≃ₗ[R] ((i : Fin m) → R ⧸ Ideal.span ({d i} : Set R))) := by
   classical
-  -- The diagonal image is exactly the product of the coordinate principal ideals.
-  have hrange : LinearMap.range (Matrix.mulVecLin (Matrix.diagonal d)) =
-      Submodule.pi Set.univ (fun i => Ideal.span ({d i} : Set R)) := by
+  -- Reduce each coordinate modulo the corresponding principal ideal.
+  let C : (Fin m → R) →ₗ[R] ((i : Fin m) → R ⧸ Ideal.span ({d i} : Set R)) :=
+    LinearMap.pi fun i => (Ideal.span ({d i} : Set R)).mkQ.comp (LinearMap.proj i)
+  have hker : LinearMap.ker C = LinearMap.range (Matrix.mulVecLin (Matrix.diagonal d)) := by
     ext y
-    simp only [LinearMap.mem_range, Submodule.mem_pi, Set.mem_univ, forall_true_left,
-      Ideal.mem_span_singleton]
+    simp only [LinearMap.mem_ker, LinearMap.mem_range]
     constructor
-    · rintro ⟨z, rfl⟩ i
-      exact ⟨z i, Matrix.mulVec_diagonal d z i⟩
     · intro hy
-      choose z hz using hy
-      refine ⟨z, ?_⟩
-      exact funext fun i => (Matrix.mulVec_diagonal d z i).trans (hz i).symm
-  -- The library equivalence descends the coordinate quotient maps and supplies their inverse.
-  exact ⟨(Submodule.quotEquivOfEq _ _ hrange).trans
-    (Submodule.quotientPi fun i => Ideal.span ({d i} : Set R))⟩
+      have hyi : ∀ i, d i ∣ y i := by
+        intro i
+        apply Ideal.mem_span_singleton.mp
+        apply (Submodule.Quotient.mk_eq_zero _).mp
+        exact congrFun hy i
+      choose z hz using hyi
+      exact ⟨z, funext fun i => (Matrix.mulVec_diagonal d z i).trans (hz i).symm⟩
+    · rintro ⟨z, rfl⟩
+      funext i
+      apply (Submodule.Quotient.mk_eq_zero _).mpr
+      exact Ideal.mem_span_singleton.mpr ⟨z i, Matrix.mulVec_diagonal d z i⟩
+  have hsurj : Function.Surjective C := by
+    intro w
+    choose y hy using fun i => (Ideal.span ({d i} : Set R)).mkQ_surjective (w i)
+    exact ⟨y, funext hy⟩
+  -- The first isomorphism theorem supplies the induced bijection and its linear inverse.
+  exact ⟨(Submodule.quotEquivOfEq _ _ hker.symm).trans (C.quotKerEquivOfSurjective hsurj)⟩
 
 end Submission
