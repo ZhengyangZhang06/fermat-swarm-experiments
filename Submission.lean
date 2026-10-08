@@ -1072,6 +1072,9 @@ theorem p07_flp_point_equiv_857cd4d38c
     apply Subtype.ext
     change (P.1 ≫ ET.act x) ≫ g = (P.1 ≫ g) ≫ E.act x
     rw [Category.assoc, hact, Category.assoc]
+
+end Submission
+
 namespace Submission
 
 /-- Repeated addition commutes with compatible precomposition of points.
