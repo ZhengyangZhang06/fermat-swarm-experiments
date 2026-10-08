@@ -1195,3 +1195,46 @@ theorem Submission.p10_17ae7b7d_idx_crt_row_card :
       Nat.card_pi
     _ = _ := Finset.prod_coe_sort N.primeFactors
       (fun p => Nat.card (P (ZMod (p ^ N.factorization p))))
+
+
+theorem Submission.p10_17ae7b7d_idx_dedekind_psi_product :
+    ∀ (N : ℕ) [NeZero N], ModularCurve.dedekindPsi N =
+      N.primeFactors.prod (fun p => p ^ N.factorization p + p ^ (N.factorization p - 1)) := by
+  classical
+  intro N _
+  have hN : N ≠ 0 := NeZero.ne N
+  rw [ModularCurve.dedekindPsi, Nat.sum_divisors_filter_squarefree hN, Nat.factors_eq]
+  simp only [List.toFinset_coe, Nat.toFinset_factors, Finset.prod_val]
+  change (∑ s ∈ N.primeFactors.powerset, N / (∏ p ∈ s, p)) = _
+  calc
+    _ = ∑ s ∈ N.primeFactors.powerset,
+        (∏ p ∈ s, p ^ (N.factorization p - 1)) *
+          ∏ p ∈ N.primeFactors \ s, p ^ N.factorization p := by
+      apply Finset.sum_congr rfl
+      intro s hs
+      have hsub : s ⊆ N.primeFactors := Finset.mem_powerset.mp hs
+      have hpos : 0 < ∏ p ∈ s, p :=
+        Finset.prod_pos fun p hp => Nat.pos_of_mem_primeFactors (hsub hp)
+      have hprod : (∏ p ∈ s, p) * (∏ p ∈ s, p ^ (N.factorization p - 1)) =
+          ∏ p ∈ s, p ^ N.factorization p := by
+        rw [← Finset.prod_mul_distrib]
+        apply Finset.prod_congr rfl
+        intro p hp
+        have he : 1 ≤ N.factorization p :=
+          (Nat.prime_of_mem_primeFactors (hsub hp)).factorization_pos_of_dvd hN
+            (Nat.dvd_of_mem_primeFactors (hsub hp))
+        rw [← pow_succ', Nat.sub_add_cancel he]
+      apply Nat.div_eq_of_eq_mul_right hpos
+      calc
+        N = ∏ p ∈ N.primeFactors, p ^ N.factorization p :=
+          Nat.prod_primeFactors_pow_factorization hN
+        _ = (∏ p ∈ s, p ^ N.factorization p) *
+            ∏ p ∈ N.primeFactors \ s, p ^ N.factorization p := by
+          rw [mul_comm, Finset.prod_sdiff hsub]
+        _ = _ := by rw [← hprod, mul_assoc]
+    _ = ∏ p ∈ N.primeFactors, (p ^ (N.factorization p - 1) + p ^ N.factorization p) :=
+      (Finset.prod_add _ _ _).symm
+    _ = _ := by
+      apply Finset.prod_congr rfl
+      intro p _
+      exact Nat.add_comm _ _
