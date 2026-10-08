@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "IsEichlerIntegral|eichlerShimuraMap_injective|exp_decay_atImInfty",
+        "p02_es_177ebb5a_pp_primitive_cusp_limit"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Fermat/Thm_HeckeEis_eichlerShimuraMap_injective.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/QExpansion.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b"
+      ],
+      "conclusion": "Confirmed the frozen contract, IsEichlerIntegral definition, and existing cusp-decay declaration; no selected-node declaration occurs in the snapshot. Project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d match the manifest. Relevant sources match byte-for-byte, and all nine dependencies are clean and pinned. The exact comparator rerun exited zero with the required marker and only propext, Classical.choice, and Quot.sound. Verified all 222 artifact hashes under /runtime/review-evidence/da403dbf8ab84364b4d40599a19a56ef and matched both complete Lean source trees to the inspected commits."
+    }
+  ],
+  "comparison_identity": "8fec7575935799c359bd1e6222f20cc4c8747b63678c5549afcc82d64d7aa903",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_pp_primitive_cusp_limit",
+      "statement": "∀ (N : ℕ) [NeZero N] (n : ℕ) (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2)) (F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.IsEichlerIntegral n (fun τ => f τ) F → ∀ σ : Matrix.SpecialLinearGroup (Fin 2) ℤ, ∃ A : ↥(HeckeEis.BinaryForm ℂ n), ∀ (x : ℝ) (d : Fin 2 →₀ ℕ), Filter.Tendsto (fun y : ℝ => MvPolynomial.coeff d (F (σ • UpperHalfPlane.ofComplex ((x : ℂ) + (y : ℂ) * Complex.I))).val) Filter.atTop (nhds (MvPolynomial.coeff d A.val))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines cusp decay with accepted derivative, growth, and scalar-limit declarations, then assembles the limiting homogeneous polynomial."
+    }
+  ]
+}
