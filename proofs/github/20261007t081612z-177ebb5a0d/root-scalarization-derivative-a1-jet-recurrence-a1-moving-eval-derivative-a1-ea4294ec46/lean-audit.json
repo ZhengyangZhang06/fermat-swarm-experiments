@@ -1,0 +1,37 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "def BinaryForm|abbrev BinaryForm|def IsEichlerIntegral|eichlerShimuraMap_injective|moving_eval_derivative|med_jet_sum",
+        "theorem pderiv_monomial|theorem HasDerivAt.fun_sum|theorem HasDerivAt.mul|theorem HasDerivAt.pow",
+        "p02_es_177ebb5a_sd_jr_moving_eval_derivative|p02_es_177ebb5a_med_jet_sum"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/PDeriv.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Add.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b"
+      ],
+      "conclusion": "Verified clean snapshot revisions: project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. BinaryForm and IsEichlerIntegral definitions match the candidate unchanged; pinned mathlib supplies formal partial differentiation and finite-sum differentiation. No matching moving-evaluation or jet-sum declaration was found in the snapshot. The exact comparator rerun exited zero with the required marker and only propext, Classical.choice, and Quot.sound. Its exported evidence at /runtime/review-evidence/65b2482f1e8a4c7eafd8f02bd25b81e2 matched all 220 input hashes and the inspected committed trees."
+    }
+  ],
+  "comparison_identity": "7a44f14481a498037455c9dd263770babf50c6f944bb3ac6eb1cba22c43cf737",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_sd_jr_moving_eval_derivative",
+      "statement": "∀ (n : ℕ) (F : ℂ → ↥(HeckeEis.BinaryForm ℂ n)) (G : ↥(HeckeEis.BinaryForm ℂ n)) (c t : ℂ), (∀ d : Fin 2 →₀ ℕ, HasDerivAt (fun z : ℂ => MvPolynomial.coeff d (F z).val) (c * MvPolynomial.coeff d G.val) t) → ∀ r : ℕ, r ≤ n → HasDerivAt (fun z : ℂ => MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z) ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r] (F z).val)) (c * MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -t) ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r] G.val) - MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -t) ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r + 1] (F t).val)) t",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Rewrites evaluated jets using the accepted finite coefficient expansion, then applies the accepted finite-sum derivative theorem to the coefficientwise derivative hypotheses."
+    }
+  ]
+}
