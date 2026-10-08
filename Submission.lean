@@ -25,3 +25,23 @@ theorem HopfAlgebra.hopfKer_eq_of_surjective_of_ker_eq_span
       Ideal.span {x : H | x ∈ K ∧ Coalgebra.counit (R := k) x = 0}) :
     HopfAlgebra.hopfKer q = K := by
   sorry
+
+
+theorem Submission.p05_canonical_balanced_lift_a5b449214a
+    {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
+    (K : Subalgebra k H) {B : Type*} [CommRing B] [Bialgebra k B]
+    (q : BialgHom k H B)
+    (hcoinv : ∀ t ∈ K, HopfAlgebra.coaction q t = TensorProduct.tmul k t (1 : B)) :
+    ∃ β : (TensorProduct K H H) →ₐ[k] (TensorProduct k H B),
+      ∀ a b : H, β (TensorProduct.tmul K a b) =
+        (TensorProduct.tmul k a (1 : B)) * HopfAlgebra.coaction q b := by
+  let ρ : H →ₐ[K] (TensorProduct k H B) :=
+    { (HopfAlgebra.coaction q).toRingHom with
+      commutes' := fun t => by
+        change HopfAlgebra.coaction q (t : H) = TensorProduct.tmul k (t : H) (1 : B)
+        exact hcoinv t t.property }
+  refine ⟨(Algebra.TensorProduct.lift
+    (Algebra.TensorProduct.includeLeft : H →ₐ[H] (TensorProduct k H B))
+    ρ (fun _ _ => Commute.all _ _)).restrictScalars k, ?_⟩
+  intro a b
+  rfl
