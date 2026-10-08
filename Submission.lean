@@ -2460,3 +2460,23 @@ theorem Submission.p10_17ae7b7d_ccf_prime_power :
     exact Nat.gcd_eq_left (pow_dvd_pow p h)
   · rw [min_eq_right h]
     exact Nat.gcd_eq_right (pow_dvd_pow p h)
+
+
+theorem Submission.p10_17ae7b7d_to_cusp_count_factorization :
+    ∀ (N : ℕ) [NeZero N], ModularCurve.cuspCount N =
+      N.primeFactors.prod (fun p =>
+        (Finset.range (N.factorization p + 1)).sum (fun j =>
+          Nat.totient (p ^ min j (N.factorization p - j)))) := by
+  intro N _
+  calc
+    ModularCurve.cuspCount N =
+        N.factorization.prod (fun p a => ModularCurve.cuspCount (p ^ a)) :=
+      Nat.multiplicative_factorization ModularCurve.cuspCount
+        Submission.p10_17ae7b7d_ccf_coprime_mul ModularCurve.cuspCount_one (NeZero.ne N)
+    _ = N.primeFactors.prod (fun p => ModularCurve.cuspCount (p ^ N.factorization p)) :=
+      Nat.prod_factorization_eq_prod_primeFactors _
+    _ = _ := by
+      apply Finset.prod_congr rfl
+      intro p hp
+      exact Submission.p10_17ae7b7d_ccf_prime_power p (N.factorization p)
+        (Nat.prime_of_mem_primeFactors hp)
