@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.diagonal_integral_definite-a1",
+  "parent_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1",
+  "depth": 3,
+  "title": "A vanishing diagonal integral on an orbit-covering set forces a cusp form to vanish",
+  "statement": "Let Δ be any subgroup of SL₂(ℤ), viewed in GL₂(ℝ) by the canonical embedding, and let μ=dx dy/y² on ℍ. Let E⊂ℍ be measurable and suppose that for μ-almost every z there is γ∈Δ with γz∈E. Let f∈CuspForm Δ 2 and put P(f,f)(z)=conjugate(f(z))f(z)(Im z)². If P(f,f) is μ-integrable on E and ∫_E P(f,f)dμ=0, then f=0.",
+  "lean_statement": "∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (E : Set UpperHalfPlane), MeasurableSet E → (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ E) → ∀ f : CuspForm Δ 2, MeasureTheory.IntegrableOn (UpperHalfPlane.petersson 2 f f) E (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) → MeasureTheory.integral ((MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane).restrict E) (UpperHalfPlane.petersson 2 f f) = 0 → f = 0",
+  "lean_name": "f036cc6b1f_pic_diagonal_definite",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40-a1"
+}

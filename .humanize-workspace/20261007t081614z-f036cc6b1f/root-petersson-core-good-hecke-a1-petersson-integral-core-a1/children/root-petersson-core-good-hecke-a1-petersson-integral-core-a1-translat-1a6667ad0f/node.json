@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.translated_domain_integrability-a1",
+  "parent_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1",
+  "depth": 3,
+  "title": "Absolute Petersson integrability on a translated modular domain",
+  "statement": "Let Δ be any finite-index subgroup of SL₂(ℤ), viewed in GL₂(ℝ) by the canonical embedding. Let r∈SL₂(ℤ) and f,g∈CuspForm Δ 2. Put μ=dx dy/y² on ℍ, F₀={z∈ℍ : 1≤|z|² and |Re z|≤1/2}, and P(f,g)(z)=conjugate(f(z))g(z)(Im z)². Then P(f,g) is μ-integrable on rF₀.",
+  "lean_statement": "∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) [Δ.FiniteIndex] (r : Matrix.SpecialLinearGroup (Fin 2) ℤ) (f g : CuspForm Δ 2), MeasureTheory.IntegrableOn (UpperHalfPlane.petersson 2 f g) ((fun z : UpperHalfPlane => r • z) '' ModularGroup.fd) (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane)",
+  "lean_name": "f036cc6b1f_pic_translated_integrable",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f-a1"
+}

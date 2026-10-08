@@ -1,0 +1,254 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081614Z-f036cc6b1f",
+  "parent_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1",
+  "dispatch_branch": "proof-workspace/fermat-p01/20261007t081614z-f036cc6b1f/dispatch/root-petersson-core-good-hecke-a1-petersson-integral-core-a1",
+  "source_commit": "61b5f85556ac71631ccad822e0694511234f7132",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.diagonal_integral_definite-a1",
+      "key": "diagonal_integral_definite",
+      "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg -n 'integrable.*petersson|petersson.*integrable|integral.*petersson|petersson.*integral|IsOpenPosMeasure' project/Definitions mathlib/Mathlib/NumberTheory/ModularForms mathlib/Mathlib/Analysis/Complex/UpperHalfPlane",
+              "exp_decay|cuspFunction|hasSum|zero_at|IsCusp|FiniteIndex|translate",
+              "def fd|def fdo|isClosed_fd|sqrt|im.*fd|mem_fd",
+              "SL_neg_smul|coeSubgroup|coe.*Subgroup|instCoe",
+              "f036cc6b1f_pic_translated_integrable|f036cc6b1f_pic_domain_transfer|f036cc6b1f_pic_diagonal_definite",
+              "git -C .lake/packages/mathlib rev-parse HEAD",
+              "git -C .lake/packages/mathlib status --porcelain",
+              "python3 /tmp/f036cc6b1f_integral_core_split/verify.py",
+              "tail -8 /tmp/f036cc6b1f_integral_core_split/CheckInfrastructure.log"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/Modular.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Petersson.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/QExpansion.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/InnerProductSpace/Defs.lean",
+              "/tmp/f036cc6b1f_integral_core_split/verify.py",
+              "/tmp/f036cc6b1f_integral_core_split/CheckTypes.lean",
+              "/tmp/f036cc6b1f_integral_core_split/CheckTypes.log",
+              "/tmp/f036cc6b1f_integral_core_split/CheckInfrastructure.lean",
+              "/tmp/f036cc6b1f_integral_core_split/CheckInfrastructure.log"
+            ],
+            "conclusion": "The snapshot pins project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. All nine installed package revisions match their pins and have clean working trees. The inspected mathlib sources and all twenty local dependency modules rebuilt for this check match the snapshot. QExpansion.lean supplies the removable-singularity and exponential-decay arguments; Petersson.lean supplies continuity and covariance; Measure.lean defines the unnormalized hyperbolic measure and proves GL₂(ℝ)-invariance; Modular.lean supplies the domain geometry. The targeted search found no matching Petersson-integrability/integral or IsOpenPosMeasure declarations in the searched directories. All three proposed types elaborate after literal import Submission. Instance inspection confirms UpperHalfPlane.instMeasureSpace, UpperHalfPlane.SLAction.toSMul, matrix multiplication in GL₂(ℝ), and the subgroup embedding Subgroup.map (Matrix.SpecialLinearGroup.mapGL ℝ). Twelve audited infrastructure declarations have only propext, Classical.choice, and Quot.sound as transitive axioms. The proposed names have no active-DAG collisions. These checks establish interface compatibility, not comparator acceptance of the proposed child proofs."
+          }
+        ],
+        "parent_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1",
+        "child_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.diagonal_integral_definite-a1",
+        "subproblem": {
+          "key": "diagonal_integral_definite",
+          "title": "A vanishing diagonal integral on an orbit-covering set forces a cusp form to vanish",
+          "statement": "Let Δ be any subgroup of SL₂(ℤ), viewed in GL₂(ℝ) by the canonical embedding, and let μ=dx dy/y² on ℍ. Let E⊂ℍ be measurable and suppose that for μ-almost every z there is γ∈Δ with γz∈E. Let f∈CuspForm Δ 2 and put P(f,f)(z)=conjugate(f(z))f(z)(Im z)². If P(f,f) is μ-integrable on E and ∫_E P(f,f)dμ=0, then f=0.",
+          "lean_statement": "∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (E : Set UpperHalfPlane), MeasurableSet E → (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ E) → ∀ f : CuspForm Δ 2, MeasureTheory.IntegrableOn (UpperHalfPlane.petersson 2 f f) E (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) → MeasureTheory.integral ((MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane).restrict E) (UpperHalfPlane.petersson 2 f f) = 0 → f = 0",
+          "lean_name": "f036cc6b1f_pic_diagonal_definite",
+          "depends_on": [],
+          "natural_proof": "1. Fix Δ,E,f as stated and define A(z)=|f(z)|²(Im z)², a real-valued continuous nonnegative function. The identity conjugate(f(z))f(z)=|f(z)|² identifies P(f,f)(z) with the complex image of A(z). Taking real parts is a continuous real-linear map, so the assumed integrability gives integrability of A on E and ∫_E A dμ=Re(∫_E P(f,f)dμ)=0.\n2. A nonnegative integrable real function with zero integral vanishes almost everywhere. Hence N=E∩{z : A(z)≠0} is measurable and μ-null; measurability follows from measurability of E and continuity of A.\n3. The diagonal is Δ-invariant. For γ∈Δ the slash-invariance of f, together with the determinant-one Petersson covariance identity, gives P(f,f)(γz)=P(f,f)(z), and taking real parts gives A(γz)=A(z). Every γ acts by a μ-preserving homeomorphism. The group Δ is countable as a subgroup of the integer matrices, so N*=⋃_{γ∈Δ}γ⁻¹N is measurable and null.\n4. Put C=⋃_{γ∈Δ}γ⁻¹E. The coverage hypothesis states precisely that C is conull, and countability makes it measurable. If z∈C\\N*, choose γ∈Δ with γz∈E. Since z∉γ⁻¹N, we have γz∉N, so A(γz)=0. Invariance implies A(z)=0. Thus A vanishes μ-almost everywhere on all of ℍ.\n5. Suppose f(z₀)≠0 for some z₀=x₀+iy₀∈ℍ. Then A(z₀)>0. By continuity choose a Euclidean disk U of radius r>0 centered at z₀, with r<y₀/2 and A(z)≥A(z₀)/2 on U. It is a measurable open subset of ℍ whose closure stays in ℍ. On U we have y≤y₀+r, so the hyperbolic density satisfies y⁻²≥(y₀+r)⁻². The disk has planar area πr²>0; consequently μ(U)≥πr²/(y₀+r)²>0. This contradicts step 4, since A is strictly positive at every point of U.\n6. Therefore f(z)=0 for every z∈ℍ. The zero cusp form has the same underlying function, and extensionality of cusp forms gives f=0.",
+          "proof_key_steps": [
+            "Identify the complex diagonal with the real nonnegative continuous function |f|²(Im z)².",
+            "Use zero integral and nonnegativity to obtain almost-everywhere vanishing on E.",
+            "Establish subgroup invariance and saturate the null exceptional set.",
+            "Use almost-everywhere orbit coverage to propagate vanishing to ℍ.",
+            "Contradict any nonzero value using continuity and positive hyperbolic measure of a small disk.",
+            "Apply cusp-form extensionality."
+          ]
+        },
+        "audit": {
+          "key": "diagonal_integral_definite",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The standalone proposition exactly matches the prose, with orbit coverage and integrability explicitly assumed. The proof passes to the nonnegative real diagonal, obtains almost-everywhere vanishing on E, propagates it using countability and invariance, and excludes nonzero values by a quantitative positive-measure disk argument before applying extensionality. Neither finite index nor −I membership is required. The proof is complete and independent, and the bare name is available."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1",
+      "key": "effective_domain_transfer",
+      "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg -n 'integrable.*petersson|petersson.*integrable|integral.*petersson|petersson.*integral|IsOpenPosMeasure' project/Definitions mathlib/Mathlib/NumberTheory/ModularForms mathlib/Mathlib/Analysis/Complex/UpperHalfPlane",
+              "exp_decay|cuspFunction|hasSum|zero_at|IsCusp|FiniteIndex|translate",
+              "def fd|def fdo|isClosed_fd|sqrt|im.*fd|mem_fd",
+              "SL_neg_smul|coeSubgroup|coe.*Subgroup|instCoe",
+              "f036cc6b1f_pic_translated_integrable|f036cc6b1f_pic_domain_transfer|f036cc6b1f_pic_diagonal_definite",
+              "git -C .lake/packages/mathlib rev-parse HEAD",
+              "git -C .lake/packages/mathlib status --porcelain",
+              "python3 /tmp/f036cc6b1f_integral_core_split/verify.py",
+              "tail -8 /tmp/f036cc6b1f_integral_core_split/CheckInfrastructure.log"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/Modular.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Petersson.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/QExpansion.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/InnerProductSpace/Defs.lean",
+              "/tmp/f036cc6b1f_integral_core_split/verify.py",
+              "/tmp/f036cc6b1f_integral_core_split/CheckTypes.lean",
+              "/tmp/f036cc6b1f_integral_core_split/CheckTypes.log",
+              "/tmp/f036cc6b1f_integral_core_split/CheckInfrastructure.lean",
+              "/tmp/f036cc6b1f_integral_core_split/CheckInfrastructure.log"
+            ],
+            "conclusion": "The snapshot pins project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. All nine installed package revisions match their pins and have clean working trees. The inspected mathlib sources and all twenty local dependency modules rebuilt for this check match the snapshot. QExpansion.lean supplies the removable-singularity and exponential-decay arguments; Petersson.lean supplies continuity and covariance; Measure.lean defines the unnormalized hyperbolic measure and proves GL₂(ℝ)-invariance; Modular.lean supplies the domain geometry. The targeted search found no matching Petersson-integrability/integral or IsOpenPosMeasure declarations in the searched directories. All three proposed types elaborate after literal import Submission. Instance inspection confirms UpperHalfPlane.instMeasureSpace, UpperHalfPlane.SLAction.toSMul, matrix multiplication in GL₂(ℝ), and the subgroup embedding Subgroup.map (Matrix.SpecialLinearGroup.mapGL ℝ). Twelve audited infrastructure declarations have only propext, Classical.choice, and Quot.sound as transitive axioms. The proposed names have no active-DAG collisions. These checks establish interface compatibility, not comparator acceptance of the proposed child proofs."
+          }
+        ],
+        "parent_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1",
+        "child_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1",
+        "subproblem": {
+          "key": "effective_domain_transfer",
+          "title": "Transfer of invariant integrals between effective representative domains",
+          "statement": "Let Δ≤SL₂(ℤ) contain −I and let μ=dx dy/y² on ℍ. Let E,F⊂ℍ be measurable. For each S∈{E,F}, assume that for μ-almost every z there is γ∈Δ with γz∈S and every δ∈Δ with δz∈S satisfies δ=γ or δ=−γ. Let φ:ℍ→ℂ be continuous and Δ-invariant, meaning φ(γz)=φ(z) for every γ∈Δ and z∈ℍ. If φ is μ-integrable on E, then it is μ-integrable on F and ∫_E φ dμ=∫_F φ dμ.",
+          "lean_statement": "∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (E F : Set UpperHalfPlane), (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ → MeasurableSet E → MeasurableSet F → (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ E ∧ ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ, δ ∈ Δ → δ • z ∈ E → δ = γ ∨ δ = -γ) → (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ F ∧ ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ, δ ∈ Δ → δ • z ∈ F → δ = γ ∨ δ = -γ) → ∀ φ : UpperHalfPlane → ℂ, Continuous φ → (∀ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ → ∀ z : UpperHalfPlane, φ (γ • z) = φ z) → MeasureTheory.IntegrableOn φ E (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) → MeasureTheory.IntegrableOn φ F (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) ∧ MeasureTheory.integral ((MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane).restrict E) φ = MeasureTheory.integral ((MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane).restrict F) φ",
+          "lean_name": "f036cc6b1f_pic_domain_transfer",
+          "depends_on": [],
+          "natural_proof": "1. Fix Δ,E,F,φ satisfying the hypotheses. The group SL₂(ℤ), and hence its subgroup Δ, is countable, since an integer 2×2 matrix is determined by four integers. Every element acts on ℍ by a measure-preserving homeomorphism: the action agrees with the canonical GL₂(ℝ) action whose invariance is proved in the pinned UpperHalfPlane/Measure.lean.\n2. For S=E or F, let R_S(z) be its stated representative predicate. It is measurable as a predicate in z: for each fixed γ, the condition γz∈S is a measurable preimage, and the existential and universal quantifiers over Δ are countable unions and intersections; the matrix equalities impose only constant truth values. Consequently N={z : not R_E(z) or not R_F(z)} is measurable and null by the two almost-everywhere hypotheses.\n3. Let N*=⋃_{δ∈Δ}δ⁻¹N and X=ℍ\\N*. Countability and measure preservation show that N* is measurable and null, so X is measurable and conull. Multiplication in Δ reindexes the union, giving δX=X for every δ∈Δ. The identity lies in Δ, so N⊆N*, and both R_E and R_F hold at every point of X. Each representative predicate implies that any two subgroup elements sending that point into the given set differ by sign, by comparing both with its witnessing representative.\n4. The central subgroup {I,−I} is contained in Δ and acts trivially on ℍ. Choose a countable set L⊂Δ containing exactly one representative of each class modulo this subgroup. For γ∈L define A_γ=E∩X∩γF and B_γ=F∩X∩γ⁻¹E. These sets are measurable because all the action maps are homeomorphisms.\n5. The sets A_γ partition E∩X. Indeed, for z∈E∩X choose δ∈Δ with δz∈F. If γ∈L represents δ⁻¹ modulo sign, then γ⁻¹z=δz, because −I acts trivially, so z∈A_γ. If z∈A_γ∩A_η, then γ⁻¹z and η⁻¹z belong to F. The uniqueness consequence of R_F(z) gives η⁻¹=±γ⁻¹, hence η=±γ; the choice of L implies η=γ. Likewise the B_γ partition F∩X: use R_E(z) to find δz∈E and choose γ representing δ, and use its uniqueness to prove disjointness.\n6. The map z↦γ⁻¹z sends A_γ bijectively onto B_γ. Invariance of X verifies the X condition in each direction; the other conditions follow directly from the definitions. This map preserves μ, and Δ-invariance gives φ(γ⁻¹z)=φ(z). Thus the nonnegative norm integrals over A_γ and B_γ are equal. Summing these equalities over the countable partitions and discarding the null complement of X gives ∫⁺_F|φ|dμ=∫⁺_E|φ|dμ<∞.\n7. Continuity makes φ strongly measurable with values in the separable Banach space ℂ. Step 6 therefore proves its integrability on F. Its restrictions to all A_γ and B_γ are integrable, and the same change of variables gives ∫_{A_γ}φdμ=∫_{B_γ}φdμ for every γ. The series of these integrals are absolutely convergent, since each summand's norm is bounded by the corresponding integral of |φ| and their sum is finite by step 6. Countable additivity for integrable functions, followed by removal of the null complement of X, now gives ∫_E φdμ=∑_γ∫_{A_γ}φdμ=∑_γ∫_{B_γ}φdμ=∫_F φdμ.",
+          "proof_key_steps": [
+            "Use countability and measure-preserving Möbius actions.",
+            "Show the failures of the representative predicates form a measurable null set.",
+            "Remove its countable subgroup saturation to obtain an invariant conull set.",
+            "Choose representatives of Δ/{±I} and construct paired measurable pieces.",
+            "Prove both families are disjoint partitions using uniqueness modulo sign.",
+            "Transfer nonnegative norm integrals piece by piece to obtain integrability on F.",
+            "Transfer the absolutely convergent complex integrals to obtain equality."
+          ]
+        },
+        "audit": {
+          "key": "effective_domain_transfer",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The type exactly includes both measurable domains, both almost-everywhere representative predicates, −I membership, continuity, invariance, and assumed integrability on E. The proof correctly constructs an invariant conull set, verifies both disjoint partitions and their inverse-translation pairing, transfers norm integrals first, and then transfers absolutely convergent complex integrals. Its empty dependency list is justified because integrability is explicitly assumed. The bare name is available."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.translated_domain_integrability-a1",
+      "key": "translated_domain_integrability",
+      "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg -n 'integrable.*petersson|petersson.*integrable|integral.*petersson|petersson.*integral|IsOpenPosMeasure' project/Definitions mathlib/Mathlib/NumberTheory/ModularForms mathlib/Mathlib/Analysis/Complex/UpperHalfPlane",
+              "exp_decay|cuspFunction|hasSum|zero_at|IsCusp|FiniteIndex|translate",
+              "def fd|def fdo|isClosed_fd|sqrt|im.*fd|mem_fd",
+              "SL_neg_smul|coeSubgroup|coe.*Subgroup|instCoe",
+              "f036cc6b1f_pic_translated_integrable|f036cc6b1f_pic_domain_transfer|f036cc6b1f_pic_diagonal_definite",
+              "git -C .lake/packages/mathlib rev-parse HEAD",
+              "git -C .lake/packages/mathlib status --porcelain",
+              "python3 /tmp/f036cc6b1f_integral_core_split/verify.py",
+              "tail -8 /tmp/f036cc6b1f_integral_core_split/CheckInfrastructure.log"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/Modular.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Petersson.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/QExpansion.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/InnerProductSpace/Defs.lean",
+              "/tmp/f036cc6b1f_integral_core_split/verify.py",
+              "/tmp/f036cc6b1f_integral_core_split/CheckTypes.lean",
+              "/tmp/f036cc6b1f_integral_core_split/CheckTypes.log",
+              "/tmp/f036cc6b1f_integral_core_split/CheckInfrastructure.lean",
+              "/tmp/f036cc6b1f_integral_core_split/CheckInfrastructure.log"
+            ],
+            "conclusion": "The snapshot pins project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. All nine installed package revisions match their pins and have clean working trees. The inspected mathlib sources and all twenty local dependency modules rebuilt for this check match the snapshot. QExpansion.lean supplies the removable-singularity and exponential-decay arguments; Petersson.lean supplies continuity and covariance; Measure.lean defines the unnormalized hyperbolic measure and proves GL₂(ℝ)-invariance; Modular.lean supplies the domain geometry. The targeted search found no matching Petersson-integrability/integral or IsOpenPosMeasure declarations in the searched directories. All three proposed types elaborate after literal import Submission. Instance inspection confirms UpperHalfPlane.instMeasureSpace, UpperHalfPlane.SLAction.toSMul, matrix multiplication in GL₂(ℝ), and the subgroup embedding Subgroup.map (Matrix.SpecialLinearGroup.mapGL ℝ). Twelve audited infrastructure declarations have only propext, Classical.choice, and Quot.sound as transitive axioms. The proposed names have no active-DAG collisions. These checks establish interface compatibility, not comparator acceptance of the proposed child proofs."
+          }
+        ],
+        "parent_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1",
+        "child_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.translated_domain_integrability-a1",
+        "subproblem": {
+          "key": "translated_domain_integrability",
+          "title": "Absolute Petersson integrability on a translated modular domain",
+          "statement": "Let Δ be any finite-index subgroup of SL₂(ℤ), viewed in GL₂(ℝ) by the canonical embedding. Let r∈SL₂(ℤ) and f,g∈CuspForm Δ 2. Put μ=dx dy/y² on ℍ, F₀={z∈ℍ : 1≤|z|² and |Re z|≤1/2}, and P(f,g)(z)=conjugate(f(z))g(z)(Im z)². Then P(f,g) is μ-integrable on rF₀.",
+          "lean_statement": "∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) [Δ.FiniteIndex] (r : Matrix.SpecialLinearGroup (Fin 2) ℤ) (f g : CuspForm Δ 2), MeasureTheory.IntegrableOn (UpperHalfPlane.petersson 2 f g) ((fun z : UpperHalfPlane => r • z) '' ModularGroup.fd) (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane)",
+          "lean_name": "f036cc6b1f_pic_translated_integrable",
+          "depends_on": [],
+          "natural_proof": "1. Fix Δ,r,f,g as stated, and put H=r⁻¹Δr. Conjugation preserves finite index. Let T be the integral determinant-one translation matrix acting by z↦z+1. Since H has finitely many cosets, two distinct nonnegative powers T^i,T^j, with i<j, represent the same coset. Their quotient is T^h∈H for h=j−i>0. This nontrivial parabolic fixes infinity, so infinity is a cusp of H and r∞ is a cusp of Δ.\n2. Set u=f|₂r and v=g|₂r. The slash formula and holomorphy of f,g show that u,v are holomorphic on ℍ. Since rT^hr⁻¹∈Δ, slash invariance and the slash composition law give u(z+h)=u(z) and v(z+h)=v(z). Vanishing of f,g at the cusp r∞ gives u(z),v(z)→0 as Im z→∞, uniformly in Re z. These are the translated cusp conditions, also expressed by CuspForm.translate and CuspFormClass.zero_at_infty_slash in the pinned Basic.lean.\n3. For q=exp(2πiz/h), equality of q-values is equivalent to the two arguments differing by an integral multiple of h. Hence periodicity makes u descend to a well-defined holomorphic function u₀ on 0<|q|<1; local logarithms show holomorphy. Since |q|=exp(−2π Im z/h), the uniform zero limit of u makes u₀ tend to zero at q=0. The removable-singularity theorem extends u₀ holomorphically across zero, with u₀(0)=0. The quotient U(q)=u₀(q)/q extends holomorphically at zero with value u₀′(0). The identical argument gives v₀(q)=qV(q) with V holomorphic on the unit disk. This is the argument behind UpperHalfPlane.IsZeroAtImInfty.exp_decay_atImInfty in the pinned QExpansion.lean.\n4. Continuity on the compact disk |q|≤1/2 supplies nonnegative constants Cᵤ,Cᵥ bounding |U| and |V| there. Choose Y≥1 such that exp(−2πY/h)≤1/2. For every z=x+iy with y≥Y, we have |u(z)v(z)|≤CᵤCᵥ exp(−ay), where a=4π/h>0. Thus the planar integral of |uv| over F₀∩{y≥Y} is at most CᵤCᵥ times the integral of exp(−ay) over [−1/2,1/2]×[Y,∞), which equals CᵤCᵥ exp(−aY)/a and is finite.\n5. If z=x+iy belongs to F₀, then x²+y²≥1 and x²≤1/4, so y≥√3/2. Therefore F₀∩{y≤Y} lies in the compact rectangle [−1/2,1/2]×[√3/2,Y], entirely inside ℍ. Continuity of u,v bounds |uv| on this rectangle. Its planar area is finite, so the planar integral of |uv| on the lower part is finite. Together with step 4 this proves that the planar integral of |uv| over F₀ is finite. All these sets are measurable, since the defining coordinate inequalities are closed or open inequalities of continuous functions.\n6. For r with lower row (c,d), the determinant-one slash formula gives u(z)=(cz+d)⁻²f(rz), and similarly for v, while Im(rz)=Im(z)/|cz+d|². Direct substitution gives P(u,v)(z)=P(f,g)(rz), the identity UpperHalfPlane.petersson_slash_SL. The Möbius map z↦rz is a measure-preserving homeomorphism for μ by the pinned UpperHalfPlane/Measure.lean. Changing variables therefore gives ∫⁺_{rF₀}|P(f,g)|dμ=∫⁺_{F₀}|u(z)v(z)|(Im z)²dμ. In μ=dx dy/y², the positive factor y² cancels the density, so the last integral is exactly the finite planar integral obtained in step 5.\n7. The function P(f,g) is continuous, hence strongly measurable as a complex-valued function. The image rF₀ is measurable because the action is a homeomorphism. The finite integral of its norm established in step 6 proves the asserted complex Bochner integrability on rF₀.",
+          "proof_key_steps": [
+            "Obtain a positive translation period in r⁻¹Δr from finite index.",
+            "Translate the cusp forms and deduce holomorphy, periodicity, and uniform vanishing at infinity.",
+            "Descend through q=exp(2πiz/h), remove the singularity at zero, and factor out q.",
+            "Bound the high-domain planar integral by an integrable exponential.",
+            "Bound the remaining part using its containment in a compact rectangle.",
+            "Use Petersson covariance and hyperbolic-measure invariance to transfer the finite norm integral to rF₀.",
+            "Combine continuity with finite norm integral to conclude integrability."
+          ]
+        },
+        "audit": {
+          "key": "translated_domain_integrability",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The standalone one-line proposition matches every prose hypothesis and conclusion; the bare name is available. Steps 1–3 establish a positive period and uniform exponential decay. Steps 4–5 prove finite planar norm integral, and steps 6–7 correctly use covariance, measure preservation, density cancellation, and measurability to obtain IntegrableOn. No assumption that −I belongs to Δ is needed, and there is no circular dependency."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1/task.md": "05006e5102d8511e94dc61fded268fcca7b1594ae676beaa70ca219b913620d8",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1/problem.md": "0929eb9ca2ad7ea30f1aafc2c1446aaf06dcdc301374ffe2ca7f4b56816d2cc8",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1/problem.json": "c64a078a3af06a0ca64b6d4803eb85ec446543f75da9e877043ae15bfce62d9d",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1/reference-manifest.json": "509f4932b6d1c571a2a1434f97319ae47791212dabf986cc6faad0e84a6d9346",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1/decomposition.json": "36e2007a32a53589119674ec13f8cf706ca9c1565484e390118743d026835595",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1/decomposition-audit.json": "52d6da7901b71a0148ffbc7116dc4114523be6efc183b951460098e080681607",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1/controller-contract.json": "bff7bdd835120310c8d06285451ab49cb58d39fdb94d2ad676fc3fff3afc415d",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/parent-child-handoff.json": "8ef8d1d94054223af2ce61c76ec850c6f740a637b7647d702cd73e753cef4c08",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/parent-supplied-plan.md": "46e70566a1cf1bc3e15603c6ee5d3169292a6af9af2308ee51d765294dbde4fc",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/parent-supplied-natural-proof.md": "d6fc6a90247a830c3c7790c6ee8da44dc2a87cb792d1a3ff8c32cd67ac31a898",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/parent-supplied-natural-proof.json": "a4a9f10590440b2126143f0cae292e87f25c84a844ae91fccecaf5256df334e3",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/node.json": "45c9128bcf77a6186c5afb5531847cbb63ad869373f7b9da86a22a03c4cb2b1f",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/parent-child-handoff.json": "ef3dec0c9b94e36c86cddb74506aee1ded0ca4681d48270c4d98a9100686a835",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/parent-supplied-plan.md": "f491dbf4a4819d279e0c5ed0edc88fc950923a8a01cd7a5fecaf149dc2de8d07",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/parent-supplied-natural-proof.md": "d74bf16c1ef45c2fea894a7826f569f8aa62b8c913b743af5a5ea0c0c39e0a4c",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/parent-supplied-natural-proof.json": "1d52044c575b53dcf14db1104ad5adacaf72db26d1420e918d18ac31461e1c8c",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/node.json": "45e05f7634d44743b98debc5ccd476633c45877b15934a0ed510dc2458b3378d",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/parent-child-handoff.json": "6a4d89e1434b5b11290d885a91125027f1aa44302e1d7ef4edba309b48b6095c",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/parent-supplied-plan.md": "22b593c4290b05d452518262269130af2f0ef37e4a671685ddb7343848656df2",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/parent-supplied-natural-proof.md": "ea13a7015f7eabbabe961a6ff1fe53551826a1964b15be8645f9ece851d38e36",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/parent-supplied-natural-proof.json": "29abff330f7e8f53cbe7f1988d7838b91a0cc9e2378993bc32b1e2c9d5783232",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/node.json": "2555f97c1524f2071ec3118252dd4e008a775533095844403847269c73abb838"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1",
+  "parent_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1",
+  "depth": 3,
+  "title": "Transfer of invariant integrals between effective representative domains",
+  "statement": "Let Δ≤SL₂(ℤ) contain −I and let μ=dx dy/y² on ℍ. Let E,F⊂ℍ be measurable. For each S∈{E,F}, assume that for μ-almost every z there is γ∈Δ with γz∈S and every δ∈Δ with δz∈S satisfies δ=γ or δ=−γ. Let φ:ℍ→ℂ be continuous and Δ-invariant, meaning φ(γz)=φ(z) for every γ∈Δ and z∈ℍ. If φ is μ-integrable on E, then it is μ-integrable on F and ∫_E φ dμ=∫_F φ dμ.",
+  "lean_statement": "∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (E F : Set UpperHalfPlane), (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ → MeasurableSet E → MeasurableSet F → (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ E ∧ ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ, δ ∈ Δ → δ • z ∈ E → δ = γ ∨ δ = -γ) → (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ F ∧ ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ, δ ∈ Δ → δ • z ∈ F → δ = γ ∨ δ = -γ) → ∀ φ : UpperHalfPlane → ℂ, Continuous φ → (∀ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ → ∀ z : UpperHalfPlane, φ (γ • z) = φ z) → MeasureTheory.IntegrableOn φ E (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) → MeasureTheory.IntegrableOn φ F (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) ∧ MeasureTheory.integral ((MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane).restrict E) φ = MeasureTheory.integral ((MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane).restrict F) φ",
+  "lean_name": "f036cc6b1f_pic_domain_transfer",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4-a1"
+}

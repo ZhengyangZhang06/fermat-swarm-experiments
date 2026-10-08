@@ -1,0 +1,55 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'integrable.*petersson|petersson.*integrable|integral.*petersson|petersson.*integral|IsOpenPosMeasure' project/Definitions mathlib/Mathlib/NumberTheory/ModularForms mathlib/Mathlib/Analysis/Complex/UpperHalfPlane",
+        "rg -n 'f036cc6b1f_pic_translated_integrable|f036cc6b1f_pic_domain_transfer|f036cc6b1f_pic_diagonal_definite' project mathlib/Mathlib",
+        "rg -n 'petersson.integral.core|effective_domain|f036cc6b1f_pic_|lean_name|depends_on' .humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/dag.json",
+        "rg -n 'IsZeroAtImInfty|atImInfty' mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/FunctionsBoundedAtInfty.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean -DautoImplicit=false -DmaxHeartbeats=4000000 -DsynthInstance.maxHeartbeats=400000 -Dbackward.isDefEq.respectTransparency.types=false /tmp/f036cc6b1f_integral_core_independent_audit/Check.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/Modular.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/ArithmeticSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/QExpansion.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Petersson.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/FunctionsBoundedAtInfty.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/InnerProductSpace/Defs.lean",
+        "/tmp/f036cc6b1f_integral_core_independent_audit/Check.lean",
+        "/tmp/f036cc6b1f_integral_core_independent_audit/Check.log",
+        "/tmp/f036cc6b1f_integral_core_independent_audit/verified_source_modules.json"
+      ],
+      "conclusion": "The manifest pins project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Independently verified all nine installed packages are clean and pinned, compared the relevant sources, and rebuilt all twenty local import dependencies separately. All three literal types elaborate as Prop without importing the parent theorem or implementing any child. Instance inspection confirms the canonical subgroup embedding, ordinary matrix semiring, SL action, and unnormalized hyperbolic measure. Fourteen inspected infrastructure declarations have only propext, Classical.choice, and Quot.sound as transitive axioms. Sources support uniform cusp decay, Petersson covariance, measure invariance, domain geometry, and the Core fields. Targeted searches found no matching integral/integrability or IsOpenPosMeasure declarations, and no existing proposed child names. The split is appropriate: the children isolate distinct obligations, while the parent retains effective_domain and Core construction. Names are unreserved and the extended DAG is acyclic. This approves the decomposition, not comparator acceptance of future Lean proofs."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "translated_domain_integrability",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition matches every prose hypothesis and conclusion; the bare name is available. Steps 1–3 establish a positive period and uniform exponential decay. Steps 4–5 prove finite planar norm integral, and steps 6–7 correctly use covariance, measure preservation, density cancellation, and measurability to obtain IntegrableOn. No assumption that −I belongs to Δ is needed, and there is no circular dependency."
+    },
+    {
+      "key": "effective_domain_transfer",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The type exactly includes both measurable domains, both almost-everywhere representative predicates, −I membership, continuity, invariance, and assumed integrability on E. The proof correctly constructs an invariant conull set, verifies both disjoint partitions and their inverse-translation pairing, transfers norm integrals first, and then transfers absolutely convergent complex integrals. Its empty dependency list is justified because integrability is explicitly assumed. The bare name is available."
+    },
+    {
+      "key": "diagonal_integral_definite",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone proposition exactly matches the prose, with orbit coverage and integrability explicitly assumed. The proof passes to the nonnegative real diagonal, obtains almost-everywhere vanishing on E, propagates it using countability and invariance, and excludes nonzero values by a quantitative positive-measure disk argument before applying extensionality. Neither finite index nor −I membership is required. The proof is complete and independent, and the bare name is available."
+    }
+  ],
+  "required_changes": []
+}
