@@ -47,8 +47,7 @@ Source plan: /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.hum
 |------|-----------|--------|-----|-------|-------|
 | [mainline] T2 Implement the exact selected theorem using accepted dependencies and local proof steps | AC1 | blocked | coding | claude | BitLesson: NONE; local assembly checked, but discriminant identity and uniformization construction remain unproved in Lean; no candidate source added |
 | [mainline] T3 Run warning-fatal checks and audit the complete source diff | AC1 | blocked | coding | claude | BitLesson: NONE; source integrity checked; exact-goal attempt exits 1; conditional assembly exits 0 and does not prove the target |
-| [mainline] T4 Commit the candidate, confirm clean SHA, and run the exact node comparator | AC2 | in_progress | coding | claude | BitLesson: NONE; committing an honest evidence record only; no verified theorem candidate exists |
-| [mainline] T5 Finalize round evidence and return control | AC3, AC4 | in_progress | coding | claude | BitLesson: NONE; record unsuccessful outcome without outer acceptance/publication |
+| [mainline] T4 Commit the candidate, confirm clean SHA, and run the exact node comparator | AC2 | blocked | coding | claude | BitLesson: NONE; comparator on clean evidence commit a1f5a77 exited 1: selected declaration not found; no proof candidate or acceptance exists |
 
 ### Blocking Side Issues
 <!-- Only issues that directly block current mainline progress belong here -->
@@ -56,6 +55,7 @@ Source plan: /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.hum
 |-------|-----------------|-------------|-----------------|
 | [blocking] Sandbox command launcher lacks bubblewrap | 0 | AC1, AC2 | Required commands can run only through explicit tool escalation; initial escalated read succeeded |
 | [blocking] The selected Lean proof is unfinished | 0 | AC1, AC2 | Final exact-goal diagnostic at `/tmp/p03-tu-round0-ve8vshzl/AssemblyAttempt.lean.log` leaves the discriminant product identity and the surjective homomorphism with specified kernel and coordinates. Nonvanishing and equivariance assemble conditionally. This is unfinished formalization, not a rejection of the accepted proof or DAG |
+| [blocking] Exact selected-node comparator failed | 0 | AC2 | Request 876d96e55a0b44d889b7712cd11d5ae7 exited 1 on clean a1f5a77: `Submission.p03_tate_uniformization_68cf3476` is absent; implementing the complete frozen theorem remains necessary |
 
 ### Queued Side Issues
 <!-- Non-blocking issues stay queued and must NOT replace the round objective -->
@@ -69,6 +69,7 @@ Source plan: /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.hum
 | AC | Task | Completed Round | Verified Round | Evidence |
 |----|------|-----------------|----------------|----------|
 | AC1, AC3 | [mainline] T1 Inspect frozen inputs, accepted proof, policy, and local references (coding / claude) | 0 | pending verification | Read accepted 18-step proof and frozen problem; matching policy digest and lines 10–11; pinned source searches and inspection found invariant definitions, preparation and point group formulas, but no Tate uniformization declaration |
+| AC3, AC4 | [mainline] T5 Finalize round evidence and return control (coding / claude) | 0 | pending verification | Round contract, summary, explicit remaining formal goals, local diagnostic record, and failed comparator identity recorded; return is unsuccessful and does not assert proof acceptance |
 
 ### Explicitly Deferred
 <!-- Items here require strong justification -->

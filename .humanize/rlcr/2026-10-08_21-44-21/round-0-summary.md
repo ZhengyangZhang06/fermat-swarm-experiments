@@ -30,7 +30,9 @@ I did not complete the Lean formalization of these parts of the accepted proof. 
 - All nine pinned dependency repositories matched `lake-manifest.json` and were clean both before and after diagnostics.
 - `git diff --check` passed. The complete Lean/build-configuration diff against starting SHA `e2e90f641b71e1e2261eb0a50f2c28bec191727d` is empty.
 - Pinned `Definitions/Def_FLTPrelim_Modularity.lean` emitted an inherited deprecated-import warning while compiling with exit 0; it was not edited, and the full build is not described as warning-clean.
-- Selected-node comparator: pending invocation after the evidence commit. Its output will be recorded separately; neither success nor full kernel/axiom verification is claimed.
+- The diagnostic proposition text equals the authoritative selected DAG's `lean_statement` byte-for-byte.
+- The exact requested selected-node comparator ran against clean evidence commit `a1f5a77b8f8739c2d5a0ca2920760751713b01aa`, request `876d96e55a0b44d889b7712cd11d5ae7`, and exited **1**. The validated packet identified node `root.tate_uniformization-a1` and digest `d9d28356bfd971c530d3e527fe0bf10852b9c8b7e9644efd0b9774d542f45b87`. Export failed with `Constant Submission.p03_tate_uniformization_68cf3476 not found in environment.` No `Your solution is okay!` result occurred; exact-type comparison, candidate kernel replay, and candidate transitive-axiom acceptance did not complete. Only this selected-node comparator was invoked.
+- The final documentation commit records that failed invocation; it is not a newly verified solution revision. No comparator success is claimed for either commit.
 
 ## Compiler-header evidence
 
@@ -78,4 +80,4 @@ The policy-evidence skill's required adjacent `evidence.json` and `diagnostic.js
 
 ## Return boundary
 
-Return an unsuccessful implementation round to the recursive controller. No solution PR, merge, theorem-wiki publication, independent reviewer acceptance, or DAG `proved` transition was performed or claimed. There is no completed implementation for a code-simplifier review.
+Return an unsuccessful implementation round to the recursive controller. The selected node remains unproved. No solution PR, merge, theorem-wiki publication, independent reviewer acceptance, or DAG `proved` transition was performed or claimed. There is no completed implementation for a code-simplifier review.
