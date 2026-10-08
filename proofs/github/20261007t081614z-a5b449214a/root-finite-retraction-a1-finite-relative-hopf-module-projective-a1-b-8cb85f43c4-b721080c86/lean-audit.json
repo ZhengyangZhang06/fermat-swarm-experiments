@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "9758089774a378f7e6389911d88980fa257fb7a042e85dd48b1a13611de3e086",
+  "git_delta": {
+    "base_commit": "52ca2319f2e271dc8f94596bf4d5072a1b2a6d5b",
+    "candidate_commit": "52b923577592ae4fd24466c046fef870ee2b1210",
+    "target": "Submission.lean",
+    "declaration": "p05_fr_rhm_bcsi_base_changed_presentation_a5b449214a",
+    "diff_sha256": "32b77a68dcf44500bd32fb8e5278a0c41935f1437cc89055159c006617ede106",
+    "source_sha256": "0064b25ee3e2eec1abf7d155988af38c7c4f6b8c8536d22675563c1daab3b731",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_fr_rhm_bcsi_base_changed_presentation_a5b449214a",
+      "statement": "∀ {R : Type*} [CommRing R] {S : Type*} [CommRing S] [Algebra R S] {M : Type*} [AddCommGroup M] [Module R M] (n p : ℕ) (P : Matrix (Fin n) (Fin p) R) (π : (Fin n → R) →ₗ[R] M) (_hπ : Function.Surjective π) (_hker : LinearMap.ker π = LinearMap.range P.mulVecLin), ∃ q : (Fin n → S) →ₗ[S] TensorProduct R S M, (∀ b : Fin n → S, q b = ∑ i, b i • TensorProduct.tmul R (1 : S) (π (Pi.single i (1 : R)))) ∧ Function.Surjective q ∧ LinearMap.ker q = LinearMap.range (P.map (algebraMap R S)).mulVecLin",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
