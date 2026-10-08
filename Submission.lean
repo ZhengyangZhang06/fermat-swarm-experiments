@@ -4059,3 +4059,54 @@ theorem Submission.f036cc6b1f_pic_dt_integral_of_equidecomposition :
     (∫ x in A i, φ x ∂μ) = ∫ x in A i, φ (T i x) ∂μ :=
       MeasureTheory.setIntegral_congr_fun (hA i) (fun x hx => (hinv i x hx).symm)
     _ = ∫ x in B i, φ x ∂μ := (htransport i).integral_comp (hemb i) φ
+
+
+namespace Submission
+
+/-- Transfer integrability and the integral between effective fundamental domains. -/
+theorem f036cc6b1f_pic_domain_transfer
+    (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (E F : Set UpperHalfPlane)
+    (hneg : (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ)
+    (hE : MeasurableSet E) (hF : MeasurableSet F)
+    (hrepE : ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
+      ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+        γ ∈ Δ ∧ γ • z ∈ E ∧ ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+          δ ∈ Δ → δ • z ∈ E → δ = γ ∨ δ = -γ)
+    (hrepF : ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
+      ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+        γ ∈ Δ ∧ γ • z ∈ F ∧ ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+          δ ∈ Δ → δ • z ∈ F → δ = γ ∨ δ = -γ)
+    (φ : UpperHalfPlane → ℂ) (hφ : Continuous φ)
+    (hφinv : ∀ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ →
+      ∀ z : UpperHalfPlane, φ (γ • z) = φ z)
+    (hφE : MeasureTheory.IntegrableOn φ E
+      (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane)) :
+    MeasureTheory.IntegrableOn φ F
+        (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) ∧
+      MeasureTheory.integral
+          ((MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane).restrict E) φ =
+        MeasureTheory.integral
+          ((MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane).restrict F) φ := by
+  have : Countable (Matrix.SpecialLinearGroup (Fin 2) ℤ) :=
+    inferInstanceAs (Countable {A : Fin 2 → Fin 2 → ℤ // Matrix.det A = 1})
+  obtain ⟨A, B, hA, hB, hdisjA, hdisjB, hcoverE, hcoverF, hAB⟩ :=
+    f036cc6b1f_pic_dt_measurable_equidecomposition Δ E F hneg hE hF hrepE hrepF
+  refine f036cc6b1f_pic_dt_integral_of_equidecomposition UpperHalfPlane Δ
+    MeasureTheory.volume E F A B
+    (fun γ z => (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ)⁻¹ • z)
+    hE hF hA hB hdisjA hdisjB hcoverE hcoverF ?_ ?_ hAB φ
+    hφ.stronglyMeasurable ?_ hφE
+  · intro γ
+    -- The special linear action is the canonical general linear action via `mapGL`.
+    change MeasurableEmbedding (fun z : UpperHalfPlane =>
+      Matrix.SpecialLinearGroup.mapGL ℝ (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ)⁻¹ • z)
+    exact measurableEmbedding_const_smul _
+  · intro γ
+    change MeasureTheory.MeasurePreserving (fun z : UpperHalfPlane =>
+      Matrix.SpecialLinearGroup.mapGL ℝ (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ)⁻¹ • z)
+      MeasureTheory.volume MeasureTheory.volume
+    exact MeasureTheory.measurePreserving_smul _ _
+  · intro γ z _
+    exact hφinv _ (Δ.inv_mem γ.property) z
+
+end Submission
