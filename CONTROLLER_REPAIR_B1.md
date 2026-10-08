@@ -1,5 +1,23 @@
 # B1 controller repair handoff: residue quotient length
 
+## 2026-10-08 17:39 selected-node invocation
+
+Plan v11 again requires the exact selected-node author comparator following the
+reviewer's challenge-export failure. The accepted six-step proof, complete Lean
+diff, pinned local-project sources, and separate read-only simplifier review
+identify no selected-proof change that would repair the independently frozen
+challenge. The selected source remains byte-identical, SHA-256
+`28e2eaad24cf4369a15b5c63345d546d35dbfd357d9bfd5dfa0e2b3ff1b7e7c8`.
+All nine package checkouts are clean at their manifest revisions; five inspected
+library files match the snapshot. No protected source or controller state changed.
+
+This invocation records the current build diagnostics and prescribed comparator
+outcome under `.humanize/rlcr/2026-10-08_17-39-38/`, alongside the initialized
+tracker, round contract, source audit, reference-use record, and final summary.
+The summary binds the terminal result to the exact committed candidate. This
+evidence update does not resolve B1 or establish proof acceptance; controller
+preparation remains necessary if challenge export fails again.
+
 ## 2026-10-08 14:48 selected-node audit
 
 The current invocation starts at `bdf8fe847a0928f5598be4621913ca0db72411f3`
