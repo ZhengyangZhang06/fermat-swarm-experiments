@@ -172,6 +172,8 @@ request, or controller state was restarted, canceled, or modified.
 and attribute commands, while excluding the unrelated root theorem, exits 1. The two
 grouped commands fail before this node's proof. A fresh exact-name provider search across
 snapshot `project/Definitions` and `mathlib/Mathlib` returns no matches for their 15 targets.
+That textual search alone does not rule out generated declarations; the Lean errors
+establish the missing targets in the actual imported environment.
 The first errors name
 `FLT.HyperbolicMeasure.instSMulInvariantMeasureSpecialLinearGroupFinOfNatNatIntUpperHalfPlaneVolume_definitions`
 and `FreyPackage.ModMCarrier.coe_rescaleLin_apply`. The fresh selected-body diagnostic exits zero;
@@ -232,9 +234,10 @@ turn filter bounds into a common height. Searches for the exact selected name an
 norm-bound variants in `project/Definitions` returned no matches.
 and mathlib's modular-form directory returned no matches. A broader substring
 search returned unrelated norm and asymptotic bounds. The structured research
+and mathlib's modular-form directory returned no matches. The structured research
 record has exactly one `reference_use` entry with source `local-project`.
 
-Fresh local evidence is in `.humanize/rlcr/2026-10-08_12-54-01/validation/`, including
+Fresh local evidence is in `.humanize/rlcr/2026-10-08_14-05-24/validation/`, including
 the scoped diagnostic sources, completed body/context build logs, `build-results.json`,
 `source-dependency-audit.json`, protected-artifact digests, `reference-use.json`, and
 `complete-source.diff`. The freshly requested simplifier agent independently reviewed the selected
