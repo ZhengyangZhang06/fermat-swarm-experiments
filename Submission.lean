@@ -277,3 +277,21 @@ theorem Submission.p10_17ae7b7d_cpo_rotation_invariant :
           A (ζ ^ 0 * t) := by rw [hζ, pow_zero]
       _ = ∏ j ∈ Finset.range (n + 1), A (ζ ^ j * t) :=
         (Finset.prod_range_succ' (fun j => A (ζ ^ j * t)) n).symm
+
+
+theorem Submission.p10_17ae7b7d_cpd_orbit_product_order :
+    ∀ (w : ℕ) (ζ : ℂ) (A : ℂ → ℂ), 0 < w → ζ ^ w = 1 →
+      AnalyticAt ℂ A 0 → analyticOrderAt A 0 ≠ ⊤ →
+      let P : ℂ → ℂ := fun t => ∏ j ∈ Finset.range w, A (ζ ^ j * t)
+      AnalyticAt ℂ P 0 ∧ analyticOrderAt P 0 ≠ ⊤ ∧
+        analyticOrderNatAt P 0 = w * analyticOrderNatAt A 0 ∧
+        ∀ t : ℂ, P (ζ * t) = P t := by
+  intro w ζ A hw hζ hA hfinite
+  have hζ0 : ζ ≠ 0 := by
+    intro hzero
+    simp only [hzero, zero_pow (Nat.ne_of_gt hw)] at hζ
+    exact zero_ne_one hζ
+  obtain ⟨hP, hPfinite, hPorder⟩ :=
+    Submission.p10_17ae7b7d_cpo_analytic_order_nonzero w ζ A hζ0 hA hfinite
+  exact ⟨hP, hPfinite, hPorder,
+    Submission.p10_17ae7b7d_cpo_rotation_invariant w ζ A hw hζ⟩
