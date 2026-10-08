@@ -1,0 +1,126 @@
+{
+  "node": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.diagonal_integral_definite-a1",
+  "integration_parent": "d5d01ee8c9b030716f930557c099827d2b83a521",
+  "canonical_base": "cc2cd0d4c1ecef4a5e165d81bd2b88832514aa7b",
+  "reviewed_candidate_commits": [
+    "4871ced6b9243c9d3e198212082760924849b952",
+    "76e6e7216ce8b5315d6ee1940df829ecd3726afd",
+    "31d9959d9e5cc3973d77bee84ee5d5c0538f17fb",
+    "0c8121e32d9d02ad49942a0118d8ca3baff1d68f"
+  ],
+  "repair": "Remove four byte-identical extra declaration copies: one root stub, one orbit-zero helper and two open-positivity helpers. Preserve the complete accepted candidate as an exact prefix, including the frozen header, root declaration, dependency order, and diagonal-definiteness proof. Preserve all canonical-base theorem bodies and namespace contexts.",
+  "history": "Reviewed commits are represented by the replayed integration history and their unchanged source. The full final reviewed Submission.lean from 0c8121e32d9d02ad49942a0118d8ca3baff1d68f is the first 7311 bytes of the repaired Submission.lean. No reviewed commit is rewritten.",
+  "checks": {
+    "accepted_candidate_unchanged_prefix_bytes": 7311,
+    "distinct_declarations_preserved": 19,
+    "canonical_base_declarations_preserved": 18,
+    "lean_diff_added_lines": 0,
+    "lean_diff_removed_lines": 68,
+    "submission_sha256": "ad6c154d543bf5ea4c4965ffbef8b2a13e9124f30900261986e87172ea6bbc57",
+    "contract_sha256": "365510742cf45daae091fcbb675dc22f4df855f4f5e522aa065b65339f379bbe",
+    "operator_policy_sha256": "96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96",
+    "snapshot_infrastructure_files_equal": 98,
+    "clean_pinned_dependencies": [
+      {
+        "name": "mathlib",
+        "commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+        "clean": true
+      },
+      {
+        "name": "plausible",
+        "commit": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+        "clean": true
+      },
+      {
+        "name": "LeanSearchClient",
+        "commit": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+        "clean": true
+      },
+      {
+        "name": "importGraph",
+        "commit": "16f02aa7642864af59f1ff0e384a015994db9118",
+        "clean": true
+      },
+      {
+        "name": "proofwidgets",
+        "commit": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+        "clean": true
+      },
+      {
+        "name": "aesop",
+        "commit": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+        "clean": true
+      },
+      {
+        "name": "Qq",
+        "commit": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+        "clean": true
+      },
+      {
+        "name": "batteries",
+        "commit": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+        "clean": true
+      },
+      {
+        "name": "Cli",
+        "commit": "6130a47896ce867c6a4a55373441e59e565bad0f",
+        "clean": true
+      }
+    ],
+    "protected_artifact_sha256": {
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md": "0929eb9ca2ad7ea30f1aafc2c1446aaf06dcdc301374ffe2ca7f4b56816d2cc8",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json": "509f4932b6d1c571a2a1434f97319ae47791212dabf986cc6faad0e84a6d9346",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/parent-child-handoff.json": "8ef8d1d94054223af2ce61c76ec850c6f740a637b7647d702cd73e753cef4c08",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/parent-supplied-plan.md": "46e70566a1cf1bc3e15603c6ee5d3169292a6af9af2308ee51d765294dbde4fc",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/parent-supplied-natural-proof.md": "d6fc6a90247a830c3c7790c6ee8da44dc2a87cb792d1a3ff8c32cd67ac31a898",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/parent-supplied-natural-proof.json": "a4a9f10590440b2126143f0cae292e87f25c84a844ae91fccecaf5256df334e3",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/rlcr-plan-v1.md": "899d00e09314d23627b8ebab3086700dd33952a099449b4b48f44e6ae0e09cba",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/rlcr-plan-v2.md": "899d00e09314d23627b8ebab3086700dd33952a099449b4b48f44e6ae0e09cba",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-diagonal-bfb02b2f40/lean-audit-v1.json": "97e65b27c2d4ddf2d0d8c851e6daa1dc3df6401b34cf96d508668fd17fda9bd5"
+    }
+  },
+  "reference_use": [
+    {
+      "source": "local-project",
+      "manifest": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+      "project_commit": "61b5f85556ac71631ccad822e0694511234f7132",
+      "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "queries": [
+        {
+          "query": "f036cc6b1f_pic_(diagonal_definite|dd_open_pos|dd_ae_orbit_zero)",
+          "scope": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project",
+          "finding": "No matches (rg exit 1)."
+        },
+        {
+          "query": "petersson|IsOpenPosMeasure",
+          "scope": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions",
+          "finding": "No matches (rg exit 1)."
+        },
+        {
+          "query": "volume_def|petersson_continuous|petersson_smul",
+          "scope": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane",
+          "finding": "Measure.lean:49 defines volume using the positive hyperbolic density."
+        },
+        {
+          "query": "theorem (ae_all_iff|ae_restrict_iff\\x27|eq_of_ae_eq)|withDensity_absolutelyContinuous\\x27",
+          "scope": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory",
+          "finding": "OuterMeasure/AE.lean:97 supplies the countable almost-everywhere quantifier; Measure/Restrict.lean:627 supplies restriction; Measure/WithDensity.lean:576 supplies absolute continuity for positive density; Measure/OpenPos.lean:130 upgrades almost-everywhere equality of continuous functions."
+        },
+        {
+          "query": "petersson_continuous|theorem petersson_smul",
+          "scope": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib",
+          "finding": "NumberTheory/ModularForms/Petersson.lean:35 provides continuity. The query restricted to theorem declarations does not match the petersson_smul lemma."
+        }
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Petersson.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Measure/WithDensity.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Measure/OpenPos.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Measure/Restrict.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/OuterMeasure/AE.lean"
+      ],
+      "compatibility": "No new mathematical material is copied. The inspected library files and all project infrastructure files match the pinned snapshot; all nine installed dependency repositories are clean at their manifest revisions. Exact-type, kernel, transitive-axiom and compiler-copy header evidence must come from the configured comparator for the committed repaired tree; these preservation checks alone are not acceptance."
+    }
+  ]
+}
