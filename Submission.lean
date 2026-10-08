@@ -9,7 +9,6 @@ import Mathlib
 import Definitions.Def_HeckeEis_BinaryFormRep
 import Definitions.Def_Gamma0CoeffCohomology
 import Definitions.Def_HeckeEis_EichlerIntegral
-
 set_option autoImplicit false
 
 open scoped Manifold MatrixGroups ModularForm
@@ -169,6 +168,25 @@ theorem p02_es_177ebb5a_ic_lmd_scalar_pullback
         (g := Matrix.SpecialLinearGroup.mapGL ℝ σ) (by rw [hdet]; exact zero_lt_one) τ).hasDerivAt
   simpa only [Function.comp_def, UpperHalfPlane.ofComplex_apply, mul_one_div] using
     hh.comp_of_eq (τ : ℂ) hσ (by simp only [UpperHalfPlane.ofComplex_apply])
+
+theorem p02_es_177ebb5a_ic_linear_mobius_derivative
+    (n : ℕ)
+    (A : ↥(HeckeEis.BinaryForm ℂ n) →ₗ[ℂ] ↥(HeckeEis.BinaryForm ℂ n))
+    (F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n))
+    (P : ↥(HeckeEis.BinaryForm ℂ n))
+    (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (τ : UpperHalfPlane)
+    (hF : ∀ d : Fin 2 →₀ ℕ,
+      HasDerivAt (fun z : ℂ => MvPolynomial.coeff d (F (UpperHalfPlane.ofComplex z)).val)
+        (MvPolynomial.coeff d P.val) ((σ • τ : UpperHalfPlane) : ℂ)) :
+    ∀ e : Fin 2 →₀ ℕ,
+      HasDerivAt
+        (fun z : ℂ => MvPolynomial.coeff e (A (F (σ • UpperHalfPlane.ofComplex z))).val)
+        (MvPolynomial.coeff e (A P).val / (HeckeEis.jFactor σ τ) ^ 2) (τ : ℂ) := by
+  intro e
+  exact p02_es_177ebb5a_ic_lmd_scalar_pullback
+    (fun w => MvPolynomial.coeff e (A (F w)).val)
+    (MvPolynomial.coeff e (A P).val) σ τ
+    (Submission.p02_es_177ebb5a_ic_lmd_linear_coeff n A F P (σ • τ) hF e)
 
 end Submission
 
