@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "bef38a3094c1a26074c16b2a4c2ad863a8a11a967ddc959e6dfe377a31ea1763",
+  "git_delta": {
+    "base_commit": "994f15dc7f394064c7dcd4c100ff9d41ee67ce15",
+    "candidate_commit": "462a8e7f80aa7ccf32f92fdcbacfba785be5ddbb",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_indent_moving_interval_limit",
+    "diff_sha256": "6b40b360c66422d36db0b7979031c3eda654b1599dce7d1ecb4e1854cadf7a6c",
+    "source_sha256": "75b6d3035f6c3b6e59e3f32f432cd1309bcb181bf9b0ab5344dad65d25014aae",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_indent_moving_interval_limit",
+      "statement": "∀ (F : ℝ → ℝ → ℂ) (α β δ : ℝ → ℝ) (c : ℂ) (a b : ℝ), Filter.Tendsto α (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds a) → Filter.Tendsto β (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds b) → Filter.Tendsto δ (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds (0 : ℝ)) → Filter.Eventually (fun ε : ℝ => IntervalIntegrable (F ε) MeasureTheory.volume (α ε) (β ε) ∧ ∀ t : ℝ, ‖F ε t - c‖ ≤ δ ε) (nhdsWithin (0 : ℝ) (Set.Ioi 0)) → Filter.Tendsto (fun ε : ℝ => intervalIntegral (F ε) (α ε) (β ε) MeasureTheory.volume) (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds (c * ((b - a : ℝ) : ℂ)))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
