@@ -2244,3 +2244,67 @@ theorem p06_9e0f5043ff_sdp_clear_first_row :
       simp [Matrix.sub_apply, hHM, hcol, hb]
 
 end Submission
+
+
+namespace Submission
+
+theorem p06_9e0f5043ff_dmd_split_divisible_pivot
+    (R : Type*) [CommRing R] (m : ℕ)
+    (D : Matrix (Fin (m + 1)) (Fin (m + 1)) R) (r c : Fin (m + 1))
+    (hdiv : ∀ i j, D r c ∣ D i j) :
+    ∃ (P Q : Matrix (Fin (m + 1)) (Fin (m + 1)) R)
+      (C : Matrix (Fin m) (Fin m) R),
+      IsUnit P ∧ IsUnit Q ∧
+        P * D * Q = Matrix.of (fun i j =>
+          Fin.cases (Fin.cases (D r c) (fun _ => 0) j)
+            (fun i' => Fin.cases 0 (fun j' => C i' j') j) i) := by
+  classical
+  -- Move the chosen pivot to the upper-left corner using two involutions.
+  let σ := Equiv.swap (0 : Fin (m + 1)) r
+  let τ := Equiv.swap (0 : Fin (m + 1)) c
+  let S : Matrix (Fin (m + 1)) (Fin (m + 1)) R :=
+    (1 : Matrix (Fin (m + 1)) (Fin (m + 1)) R).submatrix σ (Equiv.refl _)
+  let T : Matrix (Fin (m + 1)) (Fin (m + 1)) R :=
+    (1 : Matrix (Fin (m + 1)) (Fin (m + 1)) R).submatrix (Equiv.refl _) τ
+  have hSS : S * S = 1 := by
+    dsimp only [S]
+    rw [Matrix.one_submatrix_mul]
+    ext i j
+    exact congrArg (fun k => (1 : Matrix (Fin (m + 1)) (Fin (m + 1)) R) k j)
+      (Equiv.swap_apply_self 0 r i)
+  have hTT : T * T = 1 := by
+    dsimp only [T]
+    rw [Matrix.mul_submatrix_one]
+    ext i j
+    exact congrArg (fun k => (1 : Matrix (Fin (m + 1)) (Fin (m + 1)) R) i k)
+      (Equiv.swap_apply_self 0 c j)
+  have hS : IsUnit S := ⟨⟨S, S, hSS, hSS⟩, rfl⟩
+  have hT : IsUnit T := ⟨⟨T, T, hTT, hTT⟩, rfl⟩
+  let B := S * D * T
+  have hB : B = D.submatrix σ τ := by
+    dsimp only [B, S, T]
+    rw [Matrix.one_submatrix_mul, Matrix.mul_submatrix_one]
+    rfl
+  have hB00 : B 0 0 = D r c := by
+    simp [hB, Matrix.submatrix, σ, τ]
+  have hdivB : ∀ i j, B 0 0 ∣ B i j := by
+    intro i j
+    rw [hB00, hB]
+    exact hdiv _ _
+  -- The first operation preserves row zero, so its divisibility also survives.
+  obtain ⟨U, hU, hrow, hcol⟩ :=
+    p06_9e0f5043ff_sdp_clear_first_column R m B (fun i => hdivB i.succ 0)
+  obtain ⟨V, hV, hblock⟩ :=
+    p06_9e0f5043ff_sdp_clear_first_row R m (U * B) hcol (by
+      intro j
+      rw [hrow 0, hrow j.succ]
+      exact hdivB 0 j.succ)
+  refine ⟨U * S, T * V, Matrix.of (fun i j => (U * B) i.succ j.succ),
+    hU.mul hS, hT.mul hV, ?_⟩
+  calc
+    (U * S) * D * (T * V) = (U * B) * V := by
+      simp only [B, mul_assoc]
+    _ = _ := by
+      simpa only [hrow 0, hB00, Matrix.of_apply] using hblock
+
+end Submission
