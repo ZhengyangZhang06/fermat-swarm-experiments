@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "b0fe9a5482a164d43cb88c2c4bb9358ef857b655b267e5ca5f93b0a7dfdc9284",
+  "git_delta": {
+    "base_commit": "faa5b2353a0fa7e66adeea1277f7df0bf441c35d",
+    "candidate_commit": "ae0468c9822a3cb2e1fccaeb7c878d91b94c7c66",
+    "target": "Submission.lean",
+    "declaration": "p05_canonical_balanced_lift_a5b449214a",
+    "diff_sha256": "f9a472612e6d4a74172a68e6e92b83f98d7c71a96a24cc0a1da035d25a33ac00",
+    "source_sha256": "2818edf9a39ef16dddb5bee3398a65d4276d7a08494dc28e4e687482295dc8bc",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_canonical_balanced_lift_a5b449214a",
+      "statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (K : Subalgebra k H) {B : Type*} [CommRing B] [Bialgebra k B] (q : BialgHom k H B) (hcoinv : ∀ t ∈ K, HopfAlgebra.coaction q t = TensorProduct.tmul k t (1 : B)), ∃ β : (TensorProduct K H H) →ₐ[k] (TensorProduct k H B), ∀ a b : H, β (TensorProduct.tmul K a b) = (TensorProduct.tmul k a (1 : B)) * HopfAlgebra.coaction q b",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
