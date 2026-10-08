@@ -3149,6 +3149,7 @@ theorem p06_9e0f5043ff_elp_fraction_subalgebra
     ∃ A : Subalgebra K F, ∀ f : F, f ∈ A ↔
       ∃ a b : Polynomial K, ¬ q ∣ b ∧
         f = Polynomial.aeval x a / Polynomial.aeval x b := by
+  -- Irreducibility in K[T] gives the denominator product property from the accepted proof.
   have hprime : Prime q := hq.prime
   -- A permitted denominator cannot evaluate to zero at a transcendental element.
   have hden : ∀ b : Polynomial K, ¬ q ∣ b → Polynomial.aeval x b ≠ 0 := by
