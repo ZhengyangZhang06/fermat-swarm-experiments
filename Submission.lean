@@ -4667,3 +4667,104 @@ theorem p02_es_177ebb5a_sm_translation_bound
 
 
 end Submission
+
+theorem Submission.p02_es_177ebb5a_sm_all_cusps :
+    ∀ (N : ℕ) [NeZero N] (n : ℕ)
+      (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2))
+      (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)),
+      HeckeEis.IsEichlerIntegral n (fun τ => f τ) E →
+      (∀ (γ : CongruenceSubgroup.Gamma0 N) (τ : UpperHalfPlane),
+        E ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • τ) =
+          ((HeckeEis.binaryFormRepSL ℂ n).comp
+            (CongruenceSubgroup.Gamma0 N).subtype) γ (E τ)) →
+      ∀ c : OnePoint ℝ,
+        IsCusp c ((CongruenceSubgroup.Gamma0 N).map
+          (Matrix.SpecialLinearGroup.mapGL ℝ)) →
+        OnePoint.IsBoundedAt c (fun τ : UpperHalfPlane =>
+          MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -(τ : ℂ))
+            (E τ).val) (-(n : ℤ)) := by
+  classical
+  intro N _ n f E hE heq c hc
+  have hcSL := (Subgroup.IsArithmetic.isCusp_iff_isCusp_SL2Z
+    ((CongruenceSubgroup.Gamma0 N).map (Matrix.SpecialLinearGroup.mapGL ℝ))).mp hc
+  obtain ⟨σ, hσ⟩ := isCusp_SL2Z_iff'.mp hcSL
+  let T : SL(2, ℤ) := ModularGroup.T ^ N
+  let γ : SL(2, ℤ) := σ * T * σ⁻¹
+  have hT : T ∈ CongruenceSubgroup.Gamma N := by
+    simpa only [T, zpow_natCast, Int.natAbs_natCast] using
+      CongruenceSubgroup.ModularGroup_T_pow_mem_Gamma (N : ℤ) (N : ℤ) (dvd_refl _)
+  have hγ : γ ∈ CongruenceSubgroup.Gamma0 N := by
+    have h := (CongruenceSubgroup.Gamma_normal N).conj_mem T hT σ
+    exact (CongruenceSubgroup.Gamma_mem.mp h).2.2.1
+  have hcomm : σ * T = γ * σ := by simp [γ, mul_assoc]
+  let u : UpperHalfPlane → ℂ := SlashAction.map ((n : ℤ) + 2) σ (fun τ => f τ)
+  let G : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n) :=
+    fun τ => (HeckeEis.binaryFormRepSL ℂ n σ⁻¹) (E (σ • τ))
+  have huinv : SlashAction.map ((n : ℤ) + 2) T u = u := by
+    change ((fun τ => f τ) ∣[(n : ℤ) + 2] σ) ∣[(n : ℤ) + 2] T = _
+    rw [← SlashAction.slash_mul, hcomm, SlashAction.slash_mul]
+    have hfγ : (fun τ => f τ) ∣[(n : ℤ) + 2] γ = (fun τ => f τ) := by
+      rw [ModularForm.SL_slash]
+      exact SlashInvariantFormClass.slash_action_eq f _ ⟨γ, hγ, rfl⟩
+    rw [hfγ]
+  have hshift (τ : UpperHalfPlane) : T • τ = (N : ℝ) +ᵥ τ := by
+    simpa only [T, zpow_natCast, Int.cast_natCast] using
+      UpperHalfPlane.modular_T_zpow_smul τ (N : ℤ)
+  have hmatrix : (T : Matrix (Fin 2) (Fin 2) ℤ) = !![1, (N : ℤ); 0, 1] := by
+    simpa only [T, zpow_natCast] using ModularGroup.coe_T_zpow (N : ℤ)
+  have huper (τ : UpperHalfPlane) : u ((N : ℝ) +ᵥ τ) = u τ := by
+    have h := congrFun huinv τ
+    simpa [ModularForm.SL_slash_apply, UpperHalfPlane.denom, hmatrix, hshift] using h
+  have huper' : Function.Periodic (u ∘ UpperHalfPlane.ofComplex) (N : ℂ) := by
+    intro w
+    by_cases hw : 0 < w.im
+    · have hw' : 0 < (w + (N : ℂ)).im := by simpa using hw
+      simp only [Function.comp_apply, UpperHalfPlane.ofComplex_apply_of_im_pos hw',
+        UpperHalfPlane.ofComplex_apply_of_im_pos hw]
+      convert huper ⟨w, hw⟩ using 2
+      apply UpperHalfPlane.ext
+      simp [UpperHalfPlane.coe_vadd, add_comm]
+    · have hw' : (w + (N : ℂ)).im ≤ 0 := by simpa using le_of_not_gt hw
+      simp only [Function.comp_apply]
+      rw [UpperHalfPlane.ofComplex_apply_eq_of_im_nonpos hw' (le_of_not_gt hw)]
+  have huhol : MDiff u := by
+    simpa only [u, ModularForm.SL_slash] using
+      (ModularFormClass.holo f).slash ((n : ℤ) + 2) (σ : GL (Fin 2) ℝ)
+  have huzero : UpperHalfPlane.IsZeroAtImInfty u :=
+    CuspFormClass.zero_at_infty_slash f σ
+  have hN : (0 : ℝ) < N := by exact_mod_cast NeZero.pos N
+  have hdecay : ∃ a C Y : ℝ, 0 < a ∧ 0 ≤ C ∧ ∀ τ : UpperHalfPlane,
+      Y ≤ τ.im → ‖u τ‖ ≤ C * Real.exp (-a * τ.im) := by
+    have hbig := huzero.exp_decay_atImInfty hN huper' huhol huzero.isBoundedAtImInfty
+    obtain ⟨C, hC, hbound⟩ := hbig.exists_nonneg
+    obtain ⟨Y, hY⟩ := (UpperHalfPlane.atImInfty_mem _).mp hbound.bound
+    refine ⟨2 * Real.pi / N, C, Y, by positivity, hC, ?_⟩
+    intro τ hτ
+    have hexp : -2 * Real.pi * τ.im / (N : ℝ) =
+        -(2 * Real.pi / (N : ℝ)) * τ.im := by ring
+    simpa only [Set.mem_ofPred_eq, Real.norm_eq_abs, abs_of_pos (Real.exp_pos _),
+      hexp] using hY τ hτ
+  have hG : HeckeEis.IsEichlerIntegral n u G :=
+    Submission.p02_es_177ebb5a_sm_transformed_integral n (fun τ => f τ) E σ hE
+  have hGtrans (τ : UpperHalfPlane) : G (T • τ) =
+      (HeckeEis.binaryFormRepSL ℂ n T) (G τ) := by
+    have hact : σ • (T • τ) = γ • (σ • τ) := by
+      rw [← mul_smul, hcomm, mul_smul]
+    change (HeckeEis.binaryFormRepSL ℂ n σ⁻¹) (E (σ • (T • τ))) = _
+    rw [hact, heq ⟨γ, hγ⟩ (σ • τ)]
+    change ((HeckeEis.binaryFormRepSL ℂ n σ⁻¹) *
+      (HeckeEis.binaryFormRepSL ℂ n γ)) (E (σ • τ)) =
+      ((HeckeEis.binaryFormRepSL ℂ n T) *
+        (HeckeEis.binaryFormRepSL ℂ n σ⁻¹)) (E (σ • τ))
+    rw [← map_mul, ← map_mul]
+    simp [γ, mul_assoc]
+  have hb := Submission.p02_es_177ebb5a_sm_translation_bound N n u G
+    huhol.continuous hG hGtrans hdecay
+  apply (OnePoint.isBoundedAt_iff_exists_SL2Z hcSL).mpr
+  refine ⟨σ, hσ.symm, ?_⟩
+  have hscalar : SlashAction.map (-(n : ℤ)) σ (fun τ : UpperHalfPlane =>
+      MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -(τ : ℂ)) (E τ).val) =
+      (fun τ : UpperHalfPlane =>
+        MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -(τ : ℂ)) (G τ).val) :=
+    funext (Submission.p02_es_177ebb5a_sm_slash n E σ)
+  rwa [hscalar]
