@@ -843,10 +843,12 @@ theorem p07_cq_level_geometry_pullback_857cd4d38c :
     pullback.lift_fst _ _ _
   have hsnd : ℓT ≫ pullback.snd f β = pullback.snd c β :=
     pullback.lift_snd _ _ _
+  -- Cancel the lower pullback square from the outer square for c = ℓ ≫ f.
   have hpb : IsPullback (pullback.fst c β) ℓT ℓ (pullback.fst f β) := by
     apply IsPullback.of_bot (s := ?_) hfst.symm (IsPullback.of_hasPullback f β)
     rw [hsnd]
     exact IsPullback.of_hasPullback c β
+  -- The structure morphism is the canonical base change of the finite flat c.
   refine ⟨ℓT, hpb, hsnd, ?_, inferInstance, inferInstance, inferInstance, ?_, ?_⟩
   · exact MorphismProperty.of_isPullback hpb hℓ
   · exact Scheme.Hom.finrank_pullback_snd c β
@@ -856,6 +858,7 @@ theorem p07_cq_level_geometry_pullback_857cd4d38c :
       refine ⟨U ≫ pullback.fst c β, ?_⟩
       rw [Category.assoc, hpb.w, ← Category.assoc, hU]
     · rintro ⟨R, hR⟩
+      -- A factorization through ℓ supplies exactly the compatibility for this lift.
       exact ⟨hpb.lift R Q hR, hpb.lift_snd R Q hR⟩
 
 end Submission
