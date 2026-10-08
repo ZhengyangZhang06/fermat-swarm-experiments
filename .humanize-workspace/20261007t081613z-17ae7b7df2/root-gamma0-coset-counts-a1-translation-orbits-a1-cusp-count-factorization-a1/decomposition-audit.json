@@ -1,0 +1,46 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "cuspCount|genusFormula|cusp_count_coprime|cusp_count_prime_power|ccf_coprime_mul|ccf_prime_power",
+        "multiplicative_factorization|sum_divisors_prime_pow|totient_mul|gcd_pow_min|gcd_mul_gcd|divisors_mul",
+        "divisors_zero|divisors_prime_pow",
+        "p10_17ae7b7d_ccf_coprime_mul|p10_17ae7b7d_ccf_prime_power"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_X0.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/Factorization/Divisors.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/Factorization/Induction.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/Totient.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/Divisors.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/cusp-factor-split-px5t9744/report.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p10-cusp-decomposition-audit-bqkrio37/ChildTypes.lean",
+        "/tmp/p10-cusp-decomposition-audit-bqkrio37/ParentAssembly.lean",
+        "/tmp/p10-cusp-decomposition-audit-bqkrio37/TargetAbsence.lean"
+      ],
+      "conclusion": "Verified the relevant sources against project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; pinned dependencies are tracked-clean. The project supplies the stated cuspCount definition and cuspCount_one, but no existing multiplicativity or prime-power helper was found. Mathlib supplies the required divisor and multiplicative-factorization infrastructure. The split is appropriate: both children plus cuspCount_one imply the exact parent, including N = 1. Independently compiled both exact propositions and the conditional parent assembly under frozen imports without importing Submission. Checked infrastructure has only propext, Classical.choice and Quot.sound as transitive axioms. Verified policy digest, exact omitted lines, reversible hashes and Git identities; independently reran the absence probe for all 56 targets. These are decomposition diagnostics, not comparator acceptance of child proofs."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "cusp_count_coprime_mul",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose, including zero levels. Step 1 correctly uses divisors 0 = ∅. Step 2 establishes the divisor-pair bijection using disjoint prime supports. Step 3 correctly computes the complementary quotient, factors its gcd, and establishes coprimality of those factors. Step 4 supplies a valid CRT proof of totient multiplicativity, including modulus 1. Step 5 reindexes and distributes finite sums. The proof is complete and independent of the parent and sibling. Its dependency list is correctly empty; the parent depends on this child. The bare name p10_17ae7b7d_ccf_coprime_mul is unreserved. The type independently elaborates without any child implementation."
+    },
+    {
+      "key": "cusp_count_prime_power",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose, with primality, natural subtraction and exponent zero all accounted for. Step 1 gives a bijective divisor parametrization because p ≥ 2. Step 2 justifies exact division using j ≤ a and positivity. Step 3 correctly evaluates the gcd by comparing exponents. Step 4 reindexes the sum and covers a = 0. No additional mathematical argument or circular reliance is needed. Its dependency list is correctly empty; the parent depends on this child. The bare name p10_17ae7b7d_ccf_prime_power is unreserved. The type independently elaborates without any child implementation."
+    }
+  ],
+  "required_changes": []
+}
