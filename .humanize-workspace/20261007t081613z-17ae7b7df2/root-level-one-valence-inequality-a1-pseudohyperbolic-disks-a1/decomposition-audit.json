@@ -1,0 +1,49 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "pseudohyperbolic|pseudo_hyperbolic|pseudoHyperbolic",
+        "denom_ne_zero|im_smul|normSq|im_div|norm_conj|star_def|closedBall|moebius|mobius",
+        "rg -n --hidden --no-ignore -g dag.json -g '!**/.lake/**' -g '!**/local-references/**' 'p10_17ae7b7d_phdisk_(euclidean|mobius_image)' /mnt/data/zhengyang-workspace/fermat-swarm-projects",
+        "python3 /tmp/p10-independent-decomp-audit.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Complex/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/Norm.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Metric.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root/natural-proof-v140.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root/natural-audit-v140.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1/parent-child-handoff.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/pseudohyperbolic-split-sha5f2su/report.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p10-independent-decomp-audit-7liqby6u/IndependentTypes.lean",
+        "/tmp/p10-independent-decomp-audit-7liqby6u/audit-receipt.json"
+      ],
+      "conclusion": "Both snapshots match their manifest commits and are clean; all nine installed dependencies match their pins and are clean. No pseudohyperbolic terminology matched the searched snapshot roots. The inspected sources supply conjugation, Euclidean norm, denominator nonvanishing, imaginary-part identities, and a related closed-ball description. The committed handoff matches byte-for-byte and identifies this geometric parent as the depth-2 obligation used in the reviewed cusp-form proof; the frozen root is unchanged. Splitting its two independent conclusions is appropriate, and adding the proposed parent-to-child edges preserves acyclicity. No proposed name matched the searched DAGs. Independent Lean checks passed for both literal propositions, their composition into the exact frozen parent, and conjugation, norm, closed-ball and center-coordinate meanings. Selected library transitive axioms are limited to propext, Classical.choice and Quot.sound. The approved policy digest, exact omissions of lines 10–12, reversible original/build hashes and Lean-confirmed absence of all 56 targets were checked. This approves the decomposition and supplied prose only; final implementation comparator acceptance remains required."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "disk_euclidean_description",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition matches every prose hypothesis, the set definition, center and radius. Its bare Lean name is unreserved. Steps 1–2 justify positivity, denominator clearance and squaring; step 3 supplies the correct completed-square identity; step 4 identifies Euclidean closed-ball membership. Step 5 establishes the strictly positive lower height needed for the converse, and step 6 proves both inclusions. The proof is complete, non-circular and independently formalizable, with no child dependencies."
+    },
+    {
+      "key": "disk_mobius_image",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line let-bound proposition exactly matches the hypotheses, total complex function and set-theoretic image. Its bare Lean name is unreserved. Steps 1–3 establish denominator nonvanishing, half-plane preservation and both inverse identities. Steps 4–5 justify every cancellation and the unit-norm conjugate factor. Steps 6–7 prove both image inclusions using the inverse. The epsilon bounds are retained, although this invariance argument proves more without them. No Euclidean-description lemma or parent theorem is assumed; the supplied proof is complete and non-circular."
+    }
+  ],
+  "required_changes": []
+}
