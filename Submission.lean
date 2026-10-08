@@ -3282,4 +3282,41 @@ theorem p02_es_177ebb5a_tff_constant_dehomogenization
       (0 : Fin 2) n).coeff_eq_zero]
     all_goals simpa [Finsupp.degree_eq_sum, Fin.sum_univ_two] using hd
 
+/-- A homogeneous binary form fixed by a nonzero integral translation is a power of X₀. -/
+theorem p02_es_177ebb5a_tb_fixed_form
+    (N : ℕ) [NeZero N] (n : ℕ) (A : ↥(HeckeEis.BinaryForm ℂ n))
+    (hA : HeckeEis.binaryFormRepSL ℂ n (ModularGroup.T ^ N) A = A) :
+    ∃ α : ℂ, A.val = MvPolynomial.C α * MvPolynomial.X (0 : Fin 2) ^ n := by
+  classical
+  let d : MvPolynomial (Fin 2) ℂ →+* Polynomial ℂ :=
+    MvPolynomial.eval₂Hom Polynomial.C (fun j => if j = 0 then 1 else Polynomial.X)
+  let t := Polynomial.compRingHom (Polynomial.X + Polynomial.C (N : ℂ))
+  have hmatrix : ((ModularGroup.T ^ N : SL(2, ℤ)) : Matrix (Fin 2) (Fin 2) ℤ) =
+      !![1, (N : ℤ); 0, 1] := by
+    simpa only [zpow_natCast] using ModularGroup.coe_T_zpow (N : ℤ)
+  -- Dehomogenizing the column substitution is translation of the univariate polynomial.
+  have hcomm : d.comp (HeckeEis.binarySubst ℂ (ModularGroup.T ^ N : SL(2, ℤ))).toRingHom =
+      t.comp d := by
+    apply MvPolynomial.ringHom_ext
+    · intro a
+      change d (HeckeEis.binarySubst ℂ (ModularGroup.T ^ N : SL(2, ℤ)) (MvPolynomial.C a)) =
+        t (d (MvPolynomial.C a))
+      rw [HeckeEis.binarySubst_C]
+      simp [d, t]
+    · intro a
+      change d (HeckeEis.binarySubst ℂ (ModularGroup.T ^ N : SL(2, ℤ)) (MvPolynomial.X a)) =
+        t (d (MvPolynomial.X a))
+      rw [HeckeEis.binarySubst_X, hmatrix]
+      fin_cases a <;> simp [d, t, Fin.sum_univ_two, add_comm]
+  have hfixed : HeckeEis.binarySubst ℂ (ModularGroup.T ^ N : SL(2, ℤ)) A.val = A.val :=
+    congrArg Subtype.val hA
+  have hperiod : (d A.val).comp (Polynomial.X + Polynomial.C (N : ℂ)) = d A.val := by
+    calc
+      _ = d (HeckeEis.binarySubst ℂ (ModularGroup.T ^ N : SL(2, ℤ)) A.val) :=
+        (congrArg (fun f : MvPolynomial (Fin 2) ℂ →+* Polynomial ℂ => f A.val) hcomm).symm
+      _ = d A.val := congrArg d hfixed
+  refine ⟨(d A.val).coeff 0, p02_es_177ebb5a_tff_constant_dehomogenization n A _ ?_⟩
+  exact p02_es_177ebb5a_tff_periodic_polynomial_constant (d A.val) (N : ℂ)
+    (Nat.cast_ne_zero.mpr (NeZero.ne N)) hperiod
+
 end Submission
