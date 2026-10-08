@@ -223,11 +223,9 @@ and `FreyPackage.ModMCarrier.coe_rescaleLin_apply`. Thus the passing diagnostic 
 the attribute commands is not full-context acceptance. Both fresh diagnostics exclude the
 unrelated root theorem; no root or sibling theorem was validated and no root comparator was run.
 
-The preceding round's terminal comparator record reports exit 1 for request
-`a76fde2e2fd94b00afb3291ec0e5d1ac` at candidate
-`11719a01a15845ac8aabc464120a78c8d304a014`, with the same missing constants in the
-frozen challenge. No prior process, request, or controller state was restarted,
-canceled, or modified.
+The inherited implementation and historical comparator reports were not treated as
+proof acceptance. All diagnostics above were rerun in this round. No prior process,
+request, or controller state was restarted, canceled, or modified.
 
 The current plan requires a fresh exact-node comparator run on a clean committed
 candidate. Its result belongs to that exact SHA and is recorded in the local round
@@ -298,8 +296,10 @@ the scoped diagnostic sources, completed body/context build logs, `build-results
 `source-dependency-audit.json`, protected-artifact digests, `reference-use.json`, and
 `complete-source.diff`. The freshly requested simplifier agent independently reviewed the selected
 proof and found no defect or worthwhile simplification. The round tracker,
+search returned unrelated `of_norm_bounded` lemmas only. The structured research
+record has exactly one `reference_use` entry with source `local-project`.
 
-Fresh local evidence is in `.humanize/rlcr/2026-10-08_06-03-43/validation/`, including
+Fresh local evidence is in `.humanize/rlcr/2026-10-08_11-57-32/validation/`, including
 the scoped diagnostic sources, completed body/context build logs, `build-results.json`,
 `source-dependency-audit.json`, protected-artifact digests, `reference-searches.md`, and
 `complete-source.diff`. The freshly requested simplifier agent independently reviewed the selected
