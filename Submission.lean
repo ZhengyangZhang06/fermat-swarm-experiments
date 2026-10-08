@@ -936,6 +936,8 @@ theorem p06_9e0f5043ff_fosa_coefficients_integral_off_finite
       exact (u : v.toValuationSubring).property
 namespace Submission
 
+/-- Monic equations for a nonzero element and its inverse over the restricted valuation ring
+make the element a unit upstairs, so its order is zero. -/
 theorem p06_9e0f5043ff_fosa_ord_zero_of_monic_pair
     (K E L : Type*) [Field K] [Field E] [Field L]
     [Algebra K E] [Algebra K L] [Algebra E L] [IsScalarTower K E L]
