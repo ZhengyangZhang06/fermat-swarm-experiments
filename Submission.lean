@@ -9,62 +9,6 @@ import Definitions.Def_ModularForm_HeckeOperatorForms
 attribute [-instance] FLT.HyperbolicMeasure.instSMulInvariantMeasureSpecialLinearGroupFinOfNatNatIntUpperHalfPlaneVolume_definitions FLT.HyperbolicMeasure.instIsOpenPosMeasureUpperHalfPlaneVolume_definitions FLT.Gamma0FundamentalSet.instContinuousConstSMulSpecialLinearGroupFinOfNatNatIntUpperHalfPlane_definitions FLT.L2ProductionInstance.isFiniteMeasure_gamma0 FLT.L2ProductionInstance.countable_SL2Z FLT.L2ProductionInstance.countable_quotient FLT.L2ProductionInstance.nontrivial_gamma0L2
 attribute [-simp] FreyPackage.ModMCarrier.coe_rescaleLin_apply ModularForm.AtkinLehnerDatum.mk.injEq ModularForm.AtkinLehnerDatum.alGL_coe ModularForm.AtkinLehnerDatum.mk.sizeOf_spec ModularForm.AtkinLehnerDatum.sqUnitSL_coe ModularForm.AtkinLehnerDatum.det_sqUnit ModularForm.AtkinLehnerDatum.det_mat FLT.TruncatedDomainPartition.unipotentDiagonalSum_zero
 
-namespace Submission
-
-theorem f036cc6b1f_pc_effective_domain
-    (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) [Δ.FiniteIndex]
-    (hneg : (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ) :
-    ∃ R : Finset (Matrix.SpecialLinearGroup (Fin 2) ℤ),
-      let F : Set UpperHalfPlane :=
-        ⋃ r ∈ R, (fun z : UpperHalfPlane => r • z) '' ModularGroup.fd
-      MeasurableSet F ∧
-        (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
-          ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
-            γ ∈ Δ ∧ γ • z ∈ F ∧
-              ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
-                δ ∈ Δ → δ • z ∈ F → δ = γ ∨ δ = -γ) := by
-  classical
-  -- Choose one representative of each right coset Δr.
-  let : Fintype (Matrix.SpecialLinearGroup (Fin 2) ℤ ⧸ Δ) :=
-    Subgroup.fintypeQuotientOfFiniteIndex
-  let R : Finset (Matrix.SpecialLinearGroup (Fin 2) ℤ) :=
-    Finset.univ.image (fun q : Quotient (QuotientGroup.rightRel Δ) => q.out)
-  have hR : ∀ r ∈ R, ∀ s ∈ R, s * r⁻¹ ∈ Δ → s = r := by
-    intro r hr s hs hsr
-    obtain ⟨q, _, rfl⟩ := Finset.mem_image.mp hr
-    obtain ⟨p, _, rfl⟩ := Finset.mem_image.mp hs
-    have hqp : q = p :=
-      Quotient.out_equiv_out.mp (QuotientGroup.rightRel_apply.mpr hsr)
-    exact congrArg Quotient.out hqp.symm
-  refine ⟨R, ?_, ?_⟩
-  · apply R.measurableSet_biUnion
-    intro r _
-    -- The SL action is the restriction of the continuous GL action.
-    change MeasurableSet
-      ((fun z : UpperHalfPlane => Matrix.SpecialLinearGroup.mapGL ℝ r • z) ''
-        ModularGroup.fd)
-    exact (isClosedMap_smul (Matrix.SpecialLinearGroup.mapGL ℝ r)
-      ModularGroup.fd ModularGroup.isClosed_fd).measurableSet
-  · filter_upwards [Submission.f036cc6b1f_pc_ed_ae_orbit_interior] with z hz
-    obtain ⟨g, hg⟩ := ModularGroup.exists_smul_mem_fd z
-    let q : Quotient (QuotientGroup.rightRel Δ) := Quotient.mk _ g⁻¹
-    let r : Matrix.SpecialLinearGroup (Fin 2) ℤ := q.out
-    have hr : r ∈ R := Finset.mem_image.mpr ⟨q, Finset.mem_univ _, rfl⟩
-    have hmem : g⁻¹ * r⁻¹ ∈ Δ :=
-      QuotientGroup.rightRel_apply.mp (Quotient.mk_out g⁻¹)
-    -- If g⁻¹ = ηr, then η⁻¹z = r(gz) lies in the finite union.
-    have hγ : (g⁻¹ * r⁻¹)⁻¹ ∈ Δ := Δ.inv_mem hmem
-    have hγF : (g⁻¹ * r⁻¹)⁻¹ • z ∈
-        ⋃ s ∈ R, (fun w : UpperHalfPlane => s • w) '' ModularGroup.fd := by
-      refine Set.mem_iUnion.mpr ⟨r, Set.mem_iUnion.mpr ⟨hr, ?_⟩⟩
-      exact ⟨g • z, hg, by simp only [mul_inv_rev, inv_inv, mul_smul]⟩
-    refine ⟨(g⁻¹ * r⁻¹)⁻¹, hγ, hγF, ?_⟩
-    intro δ hδ hδF
-    exact Submission.f036cc6b1f_pc_ed_transversal_unique Δ R hneg hR z hz
-      (g⁻¹ * r⁻¹)⁻¹ δ hγ hδ hγF hδF
-
-end Submission
-
 theorem CuspForm.span_heckeTLin_eigen_eq_top (M : ℕ) [NeZero M] :
     Submodule.span ℂ {v : CuspForm (CongruenceSubgroup.Gamma0 M) 2 |
       ∀ (ℓ : ℕ) (hℓ : ℓ.Prime) (hℓM : ¬ ℓ ∣ M), ∃ c : ℂ,
@@ -4861,6 +4805,9 @@ theorem f036cc6b1f_pc_ed_ae_orbit_interior :
   exact (f036cc6b1f_pc_ed_aoi_null_orbit (ModularGroup.fd \ ModularGroup.fdo)
     f036cc6b1f_pc_ed_aoi_boundary_null.1 f036cc6b1f_pc_ed_aoi_boundary_null.2).mono
     fun _ hz a hfd => Classical.byContradiction fun hfdo => hz a ⟨hfd, hfdo⟩
+
+end Submission
+
 namespace Submission
 
 /-- Away from the modular boundary, a union of separated coset translates meets each
@@ -4914,5 +4861,61 @@ theorem f036cc6b1f_pc_ed_transversal_unique :
       simpa only [hsr, mul_inv_cancel] using heq
     have h := congrArg (fun a => a * γ) hcancel
     simpa only [inv_mul_cancel_right, neg_mul, one_mul] using h
+
+end Submission
+
+namespace Submission
+
+theorem f036cc6b1f_pc_effective_domain
+    (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) [Δ.FiniteIndex]
+    (hneg : (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ) :
+    ∃ R : Finset (Matrix.SpecialLinearGroup (Fin 2) ℤ),
+      let F : Set UpperHalfPlane :=
+        ⋃ r ∈ R, (fun z : UpperHalfPlane => r • z) '' ModularGroup.fd
+      MeasurableSet F ∧
+        (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
+          ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+            γ ∈ Δ ∧ γ • z ∈ F ∧
+              ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+                δ ∈ Δ → δ • z ∈ F → δ = γ ∨ δ = -γ) := by
+  classical
+  -- Choose one representative of each right coset Δr.
+  let : Fintype (Matrix.SpecialLinearGroup (Fin 2) ℤ ⧸ Δ) :=
+    Subgroup.fintypeQuotientOfFiniteIndex
+  let R : Finset (Matrix.SpecialLinearGroup (Fin 2) ℤ) :=
+    Finset.univ.image (fun q : Quotient (QuotientGroup.rightRel Δ) => q.out)
+  have hR : ∀ r ∈ R, ∀ s ∈ R, s * r⁻¹ ∈ Δ → s = r := by
+    intro r hr s hs hsr
+    obtain ⟨q, _, rfl⟩ := Finset.mem_image.mp hr
+    obtain ⟨p, _, rfl⟩ := Finset.mem_image.mp hs
+    have hqp : q = p :=
+      Quotient.out_equiv_out.mp (QuotientGroup.rightRel_apply.mpr hsr)
+    exact congrArg Quotient.out hqp.symm
+  refine ⟨R, ?_, ?_⟩
+  · apply R.measurableSet_biUnion
+    intro r _
+    -- The SL action is the restriction of the continuous GL action.
+    change MeasurableSet
+      ((fun z : UpperHalfPlane => Matrix.SpecialLinearGroup.mapGL ℝ r • z) ''
+        ModularGroup.fd)
+    exact (isClosedMap_smul (Matrix.SpecialLinearGroup.mapGL ℝ r)
+      ModularGroup.fd ModularGroup.isClosed_fd).measurableSet
+  · filter_upwards [Submission.f036cc6b1f_pc_ed_ae_orbit_interior] with z hz
+    obtain ⟨g, hg⟩ := ModularGroup.exists_smul_mem_fd z
+    let q : Quotient (QuotientGroup.rightRel Δ) := Quotient.mk _ g⁻¹
+    let r : Matrix.SpecialLinearGroup (Fin 2) ℤ := q.out
+    have hr : r ∈ R := Finset.mem_image.mpr ⟨q, Finset.mem_univ _, rfl⟩
+    have hmem : g⁻¹ * r⁻¹ ∈ Δ :=
+      QuotientGroup.rightRel_apply.mp (Quotient.mk_out g⁻¹)
+    -- If g⁻¹ = ηr, then η⁻¹z = r(gz) lies in the finite union.
+    have hγ : (g⁻¹ * r⁻¹)⁻¹ ∈ Δ := Δ.inv_mem hmem
+    have hγF : (g⁻¹ * r⁻¹)⁻¹ • z ∈
+        ⋃ s ∈ R, (fun w : UpperHalfPlane => s • w) '' ModularGroup.fd := by
+      refine Set.mem_iUnion.mpr ⟨r, Set.mem_iUnion.mpr ⟨hr, ?_⟩⟩
+      exact ⟨g • z, hg, by simp only [mul_inv_rev, inv_inv, mul_smul]⟩
+    refine ⟨(g⁻¹ * r⁻¹)⁻¹, hγ, hγF, ?_⟩
+    intro δ hδ hδF
+    exact Submission.f036cc6b1f_pc_ed_transversal_unique Δ R hneg hR z hz
+      (g⁻¹ * r⁻¹)⁻¹ δ hγ hδ hγF hδF
 
 end Submission
