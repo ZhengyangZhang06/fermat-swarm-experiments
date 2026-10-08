@@ -137,4 +137,44 @@ theorem p02_es_177ebb5a_pnf_primitive_eigenvector_triangular :
   ext i j
   fin_cases i <;> fin_cases j <;> simp [hδ₀, hδ₁, hdiag]
 
+theorem p02_es_177ebb5a_pp_integral_parabolic_normal_form :
+    ∀ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+      (γ : Matrix (Fin 2) (Fin 2) ℤ).trace ^ 2 = 4 →
+      ∃ (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (m : ℤ),
+        σ⁻¹ * γ * σ = ModularGroup.T ^ m ∨ σ⁻¹ * γ * σ = -(ModularGroup.T ^ m) := by
+  intro γ htrace
+  obtain ⟨ε, hε, htr⟩ :
+      ∃ ε : ℤ, (ε = 1 ∨ ε = -1) ∧ γ.val.trace = 2 * ε := by
+    have ht : γ.val.trace ^ 2 = (2 : ℤ) ^ 2 := by simpa using htrace
+    rcases sq_eq_sq_iff_eq_or_eq_neg.mp ht with ht | ht
+    · exact ⟨1, Or.inl rfl, by simpa using ht⟩
+    · exact ⟨-1, Or.inr rfl, by simpa using ht⟩
+  have hεsq : ε ^ 2 = 1 := by rcases hε with rfl | rfl <;> norm_num
+  -- The primitive-kernel dependency also handles the central case γ = εI.
+  have hsing : (γ.val - ε • (1 : Matrix (Fin 2) (Fin 2) ℤ)).det = 0 := by
+    have hdet := γ.property
+    have htr' : γ.val 0 0 + γ.val 1 1 = 2 * ε := by
+      simpa [Matrix.trace, Matrix.diag, Fin.sum_univ_two] using htr
+    simp only [Matrix.det_fin_two] at hdet ⊢
+    simp only [Matrix.sub_apply, Matrix.smul_apply, Matrix.one_apply, smul_eq_mul]
+    norm_num
+    nlinarith only [hdet, hεsq, congrArg (ε * ·) htr']
+  obtain ⟨p, q, hpq, hker⟩ :=
+    p02_es_177ebb5a_pnf_primitive_kernel _ hsing
+  have heigen : γ.val.mulVec ![p, q] = ![ε * p, ε * q] := by
+    rw [Matrix.sub_mulVec, Matrix.smul_mulVec, Matrix.one_mulVec, sub_eq_zero] at hker
+    simpa using hker
+  obtain ⟨σ, b, hσ⟩ :=
+    p02_es_177ebb5a_pnf_primitive_eigenvector_triangular γ ε p q hεsq hpq heigen
+  rcases hε with rfl | rfl
+  · refine ⟨σ, b, Or.inl ?_⟩
+    apply Subtype.ext
+    exact hσ.trans (ModularGroup.coe_T_zpow b).symm
+  · refine ⟨σ, -b, Or.inr ?_⟩
+    apply Subtype.ext
+    change (σ⁻¹ * γ * σ).val = -((ModularGroup.T ^ (-b)).val)
+    rw [hσ, ModularGroup.coe_T_zpow]
+    ext i j
+    fin_cases i <;> fin_cases j <;> simp
+
 end Submission
