@@ -3726,5 +3726,22 @@ theorem p06_9e0f5043ff_fpm_residue_degree
     ((Ideal.quotientEquivAlgOfEq K hkerφ.symm).trans
       (Ideal.quotientKerAlgEquivOfSurjective (f := φ) hsurjφ)).toLinearEquiv.finrank_eq
   exact hdim.symm.trans finrank_quotient_span_eq_natDegree
+theorem p06_9e0f5043ff_rmp_finite_place_model
+    (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F)
+    (hx : Transcendental K x)
+    (hfrac : ∀ f : F, ∃ a b : Polynomial K,
+      b ≠ 0 ∧ f = Polynomial.aeval x a / Polynomial.aeval x b)
+    (q : Polynomial K) (hq : q.Monic) (hirr : Irreducible q) :
+    ∃ v : AlgebraicCurve.Place K F,
+      (∀ f : F, f ∈ v.toValuationSubring ↔ ∃ a b : Polynomial K,
+        ¬ q ∣ b ∧ f = Polynomial.aeval x a / Polynomial.aeval x b) ∧
+      v.deg = q.natDegree ∧
+      v.ord (Polynomial.aeval x q) = 1 ∧
+      (∀ a : Polynomial K, ¬ q ∣ a → v.ord (Polynomial.aeval x a) = 0) := by
+  obtain ⟨v, hv⟩ :=
+    Submission.p06_9e0f5043ff_fpm_exists_local_place K F x hx hfrac q hq hirr
+  exact ⟨v, hv,
+    Submission.p06_9e0f5043ff_fpm_residue_degree K F x hx q hq hirr v hv,
+    Submission.p06_9e0f5043ff_fpm_normalized_orders K F x hx q hq hirr v hv⟩
 
 end Submission
