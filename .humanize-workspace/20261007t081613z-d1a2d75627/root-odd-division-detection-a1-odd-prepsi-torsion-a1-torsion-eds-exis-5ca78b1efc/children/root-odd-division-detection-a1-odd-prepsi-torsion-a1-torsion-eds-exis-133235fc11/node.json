@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "node_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_cardinality-a1.torsion_card_recurrence-a1",
+  "parent_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_cardinality-a1",
+  "depth": 5,
+  "title": "Adjacent torsion cardinalities satisfy a quadratic recurrence",
+  "statement": "Let k be an algebraically closed field of characteristic zero with decidable equality, and let W be a Weierstrass curve over k with W.Δ ≠ 0. For each positive integer j write c_j = Nat.card {P : W.toAffine.Point // j • P = 0}. For every natural number m ≥ 2, one has c_(m+1) + c_(m−1) = 2c_m + 2.",
+  "lean_statement": "∀ (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k] (W : WeierstrassCurve k), W.Δ ≠ 0 → ∀ m : ℕ, 2 ≤ m → Nat.card {P : W.toAffine.Point // (m + 1) • P = 0} + Nat.card {P : W.toAffine.Point // (m - 1) • P = 0} = 2 * Nat.card {P : W.toAffine.Point // m • P = 0} + 2",
+  "lean_name": "p03_tkc_torsion_card_recurrence_68cf3476_d5",
+  "depends_on": [
+    "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_cardinality-a1.positive_torsion_finite-a1"
+  ],
+  "dependency_workspaces": [
+    {
+      "node_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_cardinality-a1.positive_torsion_finite-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    }
+  ],
+  "result_branch": "humanize-recursive/fermat-p03/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-133235fc11-a1"
+}
