@@ -2186,6 +2186,7 @@ theorem p02_es_177ebb5a_pnf_primitive_kernel :
   · subst M
     exact ⟨1, 0, ⟨1, 0, by norm_num⟩, by simp⟩
   rw [Matrix.det_fin_two] at hdet
+  -- A vector perpendicular to a nonzero row lies in the kernel when the determinant vanishes.
   obtain ⟨x, y, hxy, hker⟩ :
       ∃ x y : ℤ, (x ≠ 0 ∨ y ≠ 0) ∧
         ∀ i : Fin 2, M i 0 * x + M i 1 * y = 0 := by
@@ -2208,6 +2209,7 @@ theorem p02_es_177ebb5a_pnf_primitive_kernel :
           ring
         · change M 1 0 * M 0 1 + M 1 1 * (-M 0 0) = 0
           nlinarith [hdet]
+  -- Dividing by the positive gcd gives coprime coordinates; cancel it in the kernel equations.
   have hg : 0 < Int.gcd x y := Int.gcd_pos_iff.mpr hxy
   obtain ⟨p, q, hpq, hx, hy⟩ := Int.exists_gcd_one hg
   refine ⟨p, q, Int.isCoprime_iff_gcd_eq_one.mpr hpq, ?_⟩
@@ -2219,7 +2221,8 @@ theorem p02_es_177ebb5a_pnf_primitive_kernel :
     (M i 0 * p + M i 1 * q) * (Int.gcd x y : ℤ) = 0 from ?_)).resolve_right hg'
   calc
     (M i 0 * p + M i 1 * q) * (Int.gcd x y : ℤ) =
-        M i 0 * (p * (Int.gcd x y : ℤ)) + M i 1 * (q * (Int.gcd x y : ℤ)) := by ring
+        M i 0 * (p * (Int.gcd x y : ℤ)) + M i 1 * (q * (Int.gcd x y : ℤ)) := by
+          rw [add_mul, mul_assoc, mul_assoc]
     _ = 0 := by rw [← hx, ← hy]; exact hker i
 
 end Submission
