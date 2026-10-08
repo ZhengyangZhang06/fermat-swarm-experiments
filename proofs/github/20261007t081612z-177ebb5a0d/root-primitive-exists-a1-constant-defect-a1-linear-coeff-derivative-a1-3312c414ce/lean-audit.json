@@ -1,0 +1,38 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'abbrev BinaryForm|def IsEichlerIntegral' project/Definitions/Def_HeckeEis_BinaryFormRep.lean project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "rg -n 'theorem HasDerivAt.fun_sum|theorem HasDerivAt.const_mul' mathlib/Mathlib/Analysis/Calculus/Deriv",
+        "rg -n 'p02_es_177ebb5a_cd_linear_coeff_derivative|p02_es_177ebb5a_lcd_coeff_linear_combination' project mathlib/Mathlib"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Fermat/Thm_HeckeEis_eichlerShimuraMap_injective.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Add.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Mul.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b"
+      ],
+      "conclusion": "Queries ran from the snapshot root. Clean project and mathlib checkouts match manifest revisions 1f74c284b125d4c45f527f2d621597fcf1e103a9 and db584cd6d46c92f209a44c0f1c829460d327499d. Inspected the homogeneous BinaryForm definition, frozen root contract, and existing finite-sum and constant-multiple derivative rules. Neither searched Submission declaration occurs in the snapshot. Accepted prerequisite overlays were separately matched byte-for-byte to their approved commits; the rerun confirmed compatible pinned dependencies and permitted transitive axioms."
+    }
+  ],
+  "comparison_identity": "bcbf926cad23c0bdb099066050e9c5219299fa07670f01783178bda40a5c6a5c",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_cd_linear_coeff_derivative",
+      "statement": "∀ (n : ℕ) (A : ↥(HeckeEis.BinaryForm ℂ n) →ₗ[ℂ] ↥(HeckeEis.BinaryForm ℂ n)) (F : ℂ → ↥(HeckeEis.BinaryForm ℂ n)) (P : ↥(HeckeEis.BinaryForm ℂ n)) (z : ℂ), (∀ e : Fin 2 →₀ ℕ, HasDerivAt (fun w : ℂ => MvPolynomial.coeff e (F w).val) (MvPolynomial.coeff e P.val) z) → ∀ e : Fin 2 →₀ ℕ, HasDerivAt (fun w : ℂ => MvPolynomial.coeff e (A (F w)).val) (MvPolynomial.coeff e (A P).val) z",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Uses the accepted coefficient-expansion theorem, then applies the finite-sum and constant-multiple derivative rules."
+    }
+  ]
+}
