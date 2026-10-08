@@ -8,7 +8,9 @@ open scoped Topology
 namespace Submission
 
 /-- Vanishing through degree `b` is equivalent to decay of order `b + 1` at infinity.
-The proof uses the analytic order of the cusp function and the inverse q-parameter. -/
+`natCast_le_analyticOrderAt` supplies the local Taylor factorization; continuity bounds
+its analytic factor near zero. The inverse q-parameter transfers the decay bound to a
+punctured neighborhood, where any smaller finite analytic order gives a contradiction. -/
 theorem f036cc6b1f_fd_coeff_decay :
     ∀ (Γ : Subgroup (Matrix.GeneralLinearGroup (Fin 2) ℝ)) (k : ℤ)
       (f : ModularForm Γ k), (1 : ℝ) ∈ Γ.strictPeriods → ∀ b : ℕ,
