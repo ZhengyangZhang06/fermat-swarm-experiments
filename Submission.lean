@@ -467,8 +467,7 @@ theorem p02_es_177ebb5a_pnf_primitive_kernel :
   ext i
   simp only [Matrix.mulVec_apply_eq_sum, Fin.sum_univ_two, Matrix.cons_val_zero,
     Matrix.cons_val_one, Pi.zero_apply]
-  apply (mul_eq_zero.mp (show
-    (M i 0 * p + M i 1 * q) * (Int.gcd x y : ℤ) = 0 from ?_)).resolve_right hg'
+  apply (mul_eq_zero_iff_right hg').mp
   calc
     (M i 0 * p + M i 1 * q) * (Int.gcd x y : ℤ) =
         M i 0 * (p * (Int.gcd x y : ℤ)) + M i 1 * (q * (Int.gcd x y : ℤ)) := by
