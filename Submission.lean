@@ -3761,6 +3761,9 @@ theorem p06_9e0f5043ff_ifl_residue_length_inertia
     _ = Module.length (w.restrict E).ResidueField w.ResidueField :=
       Module.length_eq_of_surjective (residue_surjective (R := A))
     _ = (w.inertiaDeg E : ℕ∞) := Module.length_eq_finrank _ _
+
+end Submission
+
 namespace Submission
 
 open AlgebraicCurve IsDedekindDomain
@@ -3811,6 +3814,8 @@ theorem p06_9e0f5043ff_ifl_local_length_order
       simpa [u', zpow_natCast] using h
     rw [hcoe]
     exact w.ord_unit_smul_zpow u' hπ' (m : ℤ)
+
+/-- Reindex the weighted local quotient lengths by the places above `v`. -/
 theorem p06_9e0f5043ff_lno_integral_fiber_length
     (K E L : Type*) [Field K] [Field E] [Field L]
     [Algebra K E] [Algebra K L] [Algebra E L] [IsScalarTower K E L]
