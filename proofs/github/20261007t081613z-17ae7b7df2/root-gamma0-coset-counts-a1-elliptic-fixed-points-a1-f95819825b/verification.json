@@ -1,0 +1,19 @@
+{
+  "node_id": "root.gamma0_coset_counts-a1.elliptic_fixed_points-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/419",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "d6c60164e343e435aca8c8125d57b6e29b390b35",
+  "integrated_commit": "814fea8082d5a80dc82c812d7634424dcc8fc631",
+  "proof_base_commit": "8bda679fe638815d2ba318c4cdd5799ba8275181",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.gamma0_coset_counts-a1",
+  "requires": [
+    "root.gamma0_coset_counts-a1.lift_unimodular_row-a1",
+    "root.gamma0_coset_counts-a1.elliptic_fixed_points-a1.inverse_coset_row_criterion-a1",
+    "root.gamma0_coset_counts-a1.elliptic_fixed_points-a1.unimodular_eigenrow_normalization-a1"
+  ]
+}
