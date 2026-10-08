@@ -1,0 +1,52 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "cupCochain|levelCocycles₁|levelCocycles₂|levelCoboundaries₂|continuousH2π|H1π_eq_iff",
+        "finiteDimensional.*sup|finiteDimensional_sup|fixingSubgroup_antitone",
+        "continuous.*[Cc]up|[Cc]up.*continuous",
+        "def d₀₁|def d₁₂|def d₂₃|d₀₁_apply|d₁₂_apply|d₂₃_apply|mem_cocycles₁_iff|mem_cocycles₂_iff|mem_coboundaries₁_iff|H1π_eq_iff",
+        "p08_7d1ff633a4_cp11_(level_cocycle|left_level_boundary|right_level_boundary)"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_CupProduct.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH1.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH2.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/LowDegree.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/FieldTheory/IntermediateField/Adjoin/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/FieldTheory/Galois/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/dag.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/diagnostics/cup11-three-obligations-20261008/report.json",
+        "/tmp/p08-cup11-independent-audit-g05avgi0/TypesFromFrozenImports.lean",
+        "/tmp/p08-cup11-independent-audit-g05avgi0/typecheck.log"
+      ],
+      "conclusion": "The snapshot confirms the cup formula, differential signs, level definitions, boundary-image denominator, finite composita, and fixing-subgroup antitonicity. The focused continuous-cup search found no match. Relevant sources match the pinned revisions; all configured dependencies are clean and match their pins. The split is appropriate: three strictly narrower, independent obligations support the parent's retained bilinearity and descent argument. Empty sibling dependency lists are correct and parent-to-child edges are acyclic. All names are bare identifiers and unreserved by other DAG branches. All three exact one-line propositions independently elaborate under the frozen imports without Submission or child implementations. Inline coboundaries match the pinned representation differential; no matrix-unit construction occurs. Diagnostic axiom checks found only propext, Classical.choice, and Quot.sound. The policy digest, exact directive omission, original/build hashes, and reversibility were verified; a fresh Lean probe confirmed both omitted targets absent. This approves decomposition and supplied prose only, not implementation or comparator acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "level_cup_cocycle",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose includes every Lean hypothesis and exactly matches membership in levelCocycles₂. The differential expansion cancels correctly. The finite field (E₀ ⊔ Ff) ⊔ Fg supplies both level identities and triviality of h on g(t), proving the required two-variable constancy. No normality, finite index, parent theorem, or sibling result is used. The complete proof directly guides formalization."
+    },
+    {
+      "key": "left_level_boundary",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone Lean proposition matches the prose and all its hypotheses. The primitive v(t)=φ(a,g(t)) inherits g's level field. Equivariance, the cocycle identity, and bilinearity give d₁v=cupCochain φ (d₀a) g with the correct sign. This supplies exactly the preimage required by levelCoboundaries₂. No additional action hypothesis or child dependency is needed; the proof is complete and non-circular."
+    },
+    {
+      "key": "right_level_boundary",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and standalone Lean proposition agree, including finite-dimensional E₀ and its trivial-action hypothesis. The finite compositum E₀ ⊔ Ff makes u(s)=φ(f(s),s·b) and −u level. The calculation correctly gives d₁u=−cupCochain φ f (d₀b), so −u is the required level primitive. Every step is justified without parent or sibling reliance, and no further proof-planning pass is needed."
+    }
+  ],
+  "required_changes": []
+}

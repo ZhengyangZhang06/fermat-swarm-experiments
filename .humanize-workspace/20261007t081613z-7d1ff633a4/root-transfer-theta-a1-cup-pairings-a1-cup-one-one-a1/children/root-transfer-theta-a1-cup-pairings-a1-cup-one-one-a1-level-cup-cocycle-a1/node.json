@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.transfer_theta-a1.cup_pairings-a1.cup_one_one-a1.level_cup_cocycle-a1",
+  "parent_id": "root.transfer_theta-a1.cup_pairings-a1.cup_one_one-a1",
+  "depth": 4,
+  "title": "Level preservation of the degree-(1,1) cup cocycle",
+  "statement": "Let k be a field, G a group, Ω=AlgebraicClosure ℚ, r:G→Autℚ(Ω) a group homomorphism, and A,B,N k-representations of G. Let E₀⊆Ω be a rational intermediate field finite-dimensional over ℚ. Assume that r(s) fixing E₀ implies s·b=b for every b∈B. Let φ:A→ₗ[k]B→ₗ[k]N satisfy φ(s·a,s·b)=s·φ(a,b) for every s,a,b. Let f:G→A and g:G→B be one-cocycles, so f(st)=s·f(t)+f(s) and g(st)=s·g(t)+g(s). Assume each is level: there are finite-dimensional rational intermediate fields Ff,Fg such that f(sh)=f(s) whenever r(h) fixes Ff and g(th)=g(t) whenever r(h) fixes Fg. Then e(s,t)=φ(f(s),s·g(t)) belongs to levelCocycles₂ r N: it is a two-cocycle and there is a finite-dimensional rational intermediate field F such that e(sh,tℓ)=e(s,t) whenever r(h),r(ℓ) fix F.",
+  "lean_statement": "∀ {k G : Type} [Field k] [Group G] (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)) (A B N : Rep.{0} k G) (E₀ : IntermediateField ℚ (AlgebraicClosure ℚ)), FiniteDimensional ℚ E₀ → (∀ s : G, r s ∈ E₀.fixingSubgroup → ∀ b : B, B.ρ s b = b) → ∀ φ : A →ₗ[k] B →ₗ[k] N, (∀ (s : G) (a : A) (b : B), φ (A.ρ s a) (B.ρ s b) = N.ρ s (φ a b)) → ∀ (f : groupCohomology.cocycles₁ A) (g : groupCohomology.cocycles₁ B), groupCohomology.IsLevelConstant₁ r (⇑f) → groupCohomology.IsLevelConstant₁ r (⇑g) → groupCohomology.cupCochain φ (⇑f) (⇑g) ∈ groupCohomology.levelCocycles₂ r N",
+  "lean_name": "p08_7d1ff633a4_cp11_level_cocycle",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p08/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-cup-pairings-a1-cup-one-one-a1-level-cup-cocycle-a1-a1"
+}

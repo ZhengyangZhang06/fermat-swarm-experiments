@@ -1,0 +1,49 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'cupCochain|levelCocycles₁|levelCocycles₂|continuousH2π|H1π_eq_iff' .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36 --glob '*.lean'",
+        "rg -n 'finiteDimensional.*sup|finiteDimensional_sup|fixingSubgroup_antitone' .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/FieldTheory",
+        "rg -n 'continuous.*[Cc]up|[Cc]up.*continuous' .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_CupProduct.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH1.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH2.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/LowDegree.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/FieldTheory/IntermediateField/Adjoin/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/FieldTheory/Galois/Basic.lean"
+      ],
+      "conclusion": "The manifest pins project 9db4b2bea94e42612c675170cfe30ec626166658 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. CupProduct provides the ordinary bilinear cup and both boundary-primitive calculations. ContinuousH1 is an image of level one-cocycles; ContinuousH2 uses the image of level one-cochains as its boundary denominator. H1π_eq_iff, finiteDimensional_sup, and fixingSubgroup_antitone support descent and common level fields. The focused continuous-cup search found no matching theorem. The three project definition files match the snapshot byte-for-byte, and the local mathlib checkout is clean at the pinned commit. Diagnostic axiom checks of the three proposed types and cited declarations found only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "parent_id": "root.transfer_theta-a1.cup_pairings-a1.cup_one_one-a1",
+  "child_id": "root.transfer_theta-a1.cup_pairings-a1.cup_one_one-a1.left_level_boundary-a1",
+  "subproblem": {
+    "key": "left_level_boundary",
+    "title": "A left one-coboundary cups to a level two-boundary",
+    "statement": "Let k be a field, G a group, Ω=AlgebraicClosure ℚ, r:G→Autℚ(Ω) a group homomorphism, and A,B,N k-representations of G. Let φ:A→ₗ[k]B→ₗ[k]N be equivariant: φ(s·a,s·b)=s·φ(a,b) for all s,a,b. Fix a∈A and a one-cocycle g:G→B satisfying g(st)=s·g(t)+g(s). Assume g is level, meaning that some finite-dimensional rational intermediate field F⊆Ω satisfies g(th)=g(t) whenever r(h) fixes F. Define d₀a(s)=s·a−a. Then cupCochain φ (d₀a) g belongs to levelCoboundaries₂ r N, the image of the level one-cochains under d₁v(s,t)=s·v(t)−v(st)+v(s).",
+    "lean_statement": "∀ {k G : Type} [Field k] [Group G] (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)) (A B N : Rep.{0} k G) (φ : A →ₗ[k] B →ₗ[k] N), (∀ (s : G) (a : A) (b : B), φ (A.ρ s a) (B.ρ s b) = N.ρ s (φ a b)) → ∀ (a : A) (g : groupCohomology.cocycles₁ B), groupCohomology.IsLevelConstant₁ r (⇑g) → groupCohomology.cupCochain φ (fun s : G => A.ρ s a - a) (⇑g) ∈ groupCohomology.levelCoboundaries₂ r N",
+    "lean_name": "p08_7d1ff633a4_cp11_left_level_boundary",
+    "depends_on": [],
+    "natural_proof": "1. Fix the stated data. Choose a finite-dimensional rational intermediate field F witnessing the level property of g, and define v:G→N by v(t)=φ(a,g(t)).\n2. If r(h) fixes F, then v(th)=φ(a,g(th))=φ(a,g(t))=v(t). Thus the same F witnesses IsLevelConstant₁ r v, so v is a member of levelCochains₁ r N.\n3. For arbitrary s,t∈G, equivariance gives s·φ(a,g(t))=φ(s·a,s·g(t)), and the one-cocycle identity gives g(st)=s·g(t)+g(s). Therefore d₁v(s,t)=φ(s·a,s·g(t))−φ(a,s·g(t)+g(s))+φ(a,g(s))=φ(s·a,s·g(t))−φ(a,s·g(t))=φ(s·a−a,s·g(t)), using linearity in the second argument to cancel φ(a,g(s)) and linearity in the first argument for the last equality.\n4. The final expression is cupCochain φ (fun s↦s·a−a) g evaluated at (s,t). Equality at every pair gives equality of the two cochains. Since levelCoboundaries₂ r N is precisely the image of levelCochains₁ r N under (d₁₂ N).hom, the level cochain v is a preimage of the required cup cochain. This proves its membership in levelCoboundaries₂ r N.",
+    "proof_key_steps": [
+      "Choose v(t)=φ(a,g(t)) as the boundary primitive.",
+      "Use the level field of g to prove that v is level.",
+      "Compute d₁v=cupCochain φ (d₀a) g using equivariance and the cocycle identity.",
+      "Use the defining image description of levelCoboundaries₂."
+    ]
+  },
+  "audit": {
+    "key": "left_level_boundary",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "The standalone Lean proposition matches the prose and all its hypotheses. The primitive v(t)=φ(a,g(t)) inherits g's level field. Equivariance, the cocycle identity, and bilinearity give d₁v=cupCochain φ (d₀a) g with the correct sign. This supplies exactly the preimage required by levelCoboundaries₂. No additional action hypothesis or child dependency is needed; the proof is complete and non-circular."
+  },
+  "resolved_dependencies": [],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-transfer-theta-a1-cup-pairings-a1-cup-one-one-a1-left-level-boundary-a1/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-transfer-theta-a1-cup-pairings-a1-cup-one-one-a1-left-level-boundary-a1/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-transfer-theta-a1-cup-pairings-a1-cup-one-one-a1-left-level-boundary-a1/parent-supplied-natural-proof.json"
+}

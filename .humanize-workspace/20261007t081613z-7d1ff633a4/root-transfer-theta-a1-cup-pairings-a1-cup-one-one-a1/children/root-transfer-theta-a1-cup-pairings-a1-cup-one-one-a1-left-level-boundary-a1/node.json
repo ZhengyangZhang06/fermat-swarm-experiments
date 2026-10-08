@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.transfer_theta-a1.cup_pairings-a1.cup_one_one-a1.left_level_boundary-a1",
+  "parent_id": "root.transfer_theta-a1.cup_pairings-a1.cup_one_one-a1",
+  "depth": 4,
+  "title": "A left one-coboundary cups to a level two-boundary",
+  "statement": "Let k be a field, G a group, Ω=AlgebraicClosure ℚ, r:G→Autℚ(Ω) a group homomorphism, and A,B,N k-representations of G. Let φ:A→ₗ[k]B→ₗ[k]N be equivariant: φ(s·a,s·b)=s·φ(a,b) for all s,a,b. Fix a∈A and a one-cocycle g:G→B satisfying g(st)=s·g(t)+g(s). Assume g is level, meaning that some finite-dimensional rational intermediate field F⊆Ω satisfies g(th)=g(t) whenever r(h) fixes F. Define d₀a(s)=s·a−a. Then cupCochain φ (d₀a) g belongs to levelCoboundaries₂ r N, the image of the level one-cochains under d₁v(s,t)=s·v(t)−v(st)+v(s).",
+  "lean_statement": "∀ {k G : Type} [Field k] [Group G] (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)) (A B N : Rep.{0} k G) (φ : A →ₗ[k] B →ₗ[k] N), (∀ (s : G) (a : A) (b : B), φ (A.ρ s a) (B.ρ s b) = N.ρ s (φ a b)) → ∀ (a : A) (g : groupCohomology.cocycles₁ B), groupCohomology.IsLevelConstant₁ r (⇑g) → groupCohomology.cupCochain φ (fun s : G => A.ρ s a - a) (⇑g) ∈ groupCohomology.levelCoboundaries₂ r N",
+  "lean_name": "p08_7d1ff633a4_cp11_left_level_boundary",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p08/20261007t081613z-7d1ff633a4/root-transfer-theta-a1-cup-pairings-a1-cup-one-one-a1-left-level-boundary-a1-a1"
+}
