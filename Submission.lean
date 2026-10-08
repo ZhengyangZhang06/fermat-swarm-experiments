@@ -472,3 +472,147 @@ theorem Submission.p08_7d1ff633a4_cp11_right_level_boundary :
       ← hφ s (f t) (B.ρ t b), Rep.ρ_mul, LinearMap.comp_apply]
     simp only [map_add, map_sub, LinearMap.add_apply]
     abel
+
+
+/-- The cup product of level one-cocycles descends to the frozen continuous H¹ images. -/
+theorem Submission.p08_7d1ff633a4_tt26_cp_one_one :
+    ∀ {k G : Type} [Field k] [Group G]
+      (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ))
+      (A B N : Rep.{0} k G) (E₀ : IntermediateField ℚ (AlgebraicClosure ℚ)),
+      FiniteDimensional ℚ E₀ →
+      (∀ s : G, r s ∈ E₀.fixingSubgroup → ∀ b : B, B.ρ s b = b) →
+      ∀ φ : A →ₗ[k] B →ₗ[k] N,
+      (∀ (s : G) (a : A) (b : B), φ (A.ρ s a) (B.ρ s b) = N.ρ s (φ a b)) →
+      ∃ P : continuousH1 r A →ₗ[k] continuousH1 r B →ₗ[k] continuousH2 r N,
+        ∀ (f : cocycles₁ A) (hf : IsLevelConstant₁ r (⇑f))
+          (g : cocycles₁ B) (hg : IsLevelConstant₁ r (⇑g)),
+        ∃ e : levelCocycles₂ r N,
+          (∀ st : G × G, (e : G × G → N) st = cupCochain φ (⇑f) (⇑g) st) ∧
+          P ⟨(H1π A).hom f, H1π_mem_continuousH1 r A hf⟩
+            ⟨(H1π B).hom g, H1π_mem_continuousH1 r B hg⟩ = continuousH2π r N e := by
+  classical
+  intro k G _ _ r A B N E₀ hE₀ hB φ hφ
+  -- The child supplies an actual level two-cocycle for each pair of representatives.
+  let C : levelCocycles₁ r A →ₗ[k] levelCocycles₁ r B →ₗ[k] levelCocycles₂ r N :=
+    LinearMap.mk₂ k
+      (fun f g => ⟨cupCochain φ (⇑f.val) (⇑g.val),
+        Submission.p08_7d1ff633a4_cp11_level_cocycle r A B N E₀ hE₀ hB φ hφ
+          f.val g.val f.property g.property⟩)
+      (fun f f' g => by
+        apply Subtype.ext
+        funext st
+        change φ (f.val st.1 + f'.val st.1) (B.ρ st.1 (g.val st.2)) =
+          φ (f.val st.1) (B.ρ st.1 (g.val st.2)) +
+            φ (f'.val st.1) (B.ρ st.1 (g.val st.2))
+        rw [map_add, LinearMap.add_apply])
+      (fun c f g => by
+        apply Subtype.ext
+        funext st
+        change φ (c • f.val st.1) (B.ρ st.1 (g.val st.2)) =
+          c • φ (f.val st.1) (B.ρ st.1 (g.val st.2))
+        rw [map_smul, LinearMap.smul_apply])
+      (fun f g g' => by
+        apply Subtype.ext
+        funext st
+        change φ (f.val st.1) (B.ρ st.1 (g.val st.2 + g'.val st.2)) =
+          φ (f.val st.1) (B.ρ st.1 (g.val st.2)) +
+            φ (f.val st.1) (B.ρ st.1 (g'.val st.2))
+        rw [map_add, map_add])
+      (fun c f g => by
+        apply Subtype.ext
+        funext st
+        change φ (f.val st.1) (B.ρ st.1 (c • g.val st.2)) =
+          c • φ (f.val st.1) (B.ρ st.1 (g.val st.2))
+        rw [map_smul, map_smul])
+  let Q : levelCocycles₁ r A →ₗ[k] levelCocycles₁ r B →ₗ[k] continuousH2 r N :=
+    C.compr₂ (continuousH2π r N)
+  -- The image definition gives a surjective projection from level cocycles.
+  let π (M : Rep.{0} k G) : levelCocycles₁ r M →ₗ[k] continuousH1 r M :=
+    ((H1π M).hom.comp (levelCocycles₁ r M).subtype).codRestrict
+      (continuousH1 r M) (fun f => H1π_mem_continuousH1 r M f.property)
+  have hπ (M : Rep.{0} k G) : Function.Surjective (π M) := by
+    intro x
+    obtain ⟨f, hf, hfx⟩ := (mem_continuousH1_iff r M x.val).mp x.property
+    exact ⟨⟨f, hf⟩, Subtype.ext hfx⟩
+  -- The two boundary children kill the kernels in the respective variables.
+  have hleft : LinearMap.ker (π A) ≤ LinearMap.ker Q := by
+    intro f hf
+    apply LinearMap.mem_ker.mpr
+    ext g
+    change continuousH2π r N (C f g) = 0
+    apply (continuousH2π_eq_zero_iff r N (C f g)).mpr
+    have hf0 : (H1π A).hom f.val = 0 :=
+      congrArg Subtype.val (LinearMap.mem_ker.mp hf)
+    obtain ⟨a, ha⟩ := (H1π_eq_zero_iff f.val).mp hf0
+    have hfa : (⇑f.val) = fun s : G => A.ρ s a - a := by
+      funext s
+      rw [← ha, d₀₁_hom_apply]
+    change cupCochain φ (⇑f.val) (⇑g.val) ∈ levelCoboundaries₂ r N
+    rw [hfa]
+    exact Submission.p08_7d1ff633a4_cp11_left_level_boundary r A B N φ hφ
+      a g.val g.property
+  have hright : LinearMap.ker (π B) ≤ LinearMap.ker Q.flip := by
+    intro g hg
+    apply LinearMap.mem_ker.mpr
+    ext f
+    change continuousH2π r N (C f g) = 0
+    apply (continuousH2π_eq_zero_iff r N (C f g)).mpr
+    have hg0 : (H1π B).hom g.val = 0 :=
+      congrArg Subtype.val (LinearMap.mem_ker.mp hg)
+    obtain ⟨b, hb⟩ := (H1π_eq_zero_iff g.val).mp hg0
+    have hgb : (⇑g.val) = fun t : G => B.ρ t b - b := by
+      funext t
+      rw [← hb, d₀₁_hom_apply]
+    change cupCochain φ (⇑f.val) (⇑g.val) ∈ levelCoboundaries₂ r N
+    rw [hgb]
+    exact Submission.p08_7d1ff633a4_cp11_right_level_boundary r A B N E₀ hE₀ hB
+      φ hφ f.val b f.property
+  -- Kernel vanishing makes Q independent of either level representative.
+  have hQl (f f' : levelCocycles₁ r A) (g : levelCocycles₁ r B)
+      (h : π A f = π A f') : Q f g = Q f' g := by
+    have hz : Q (f + (-1 : k) • f') = 0 := hleft (by
+      rw [LinearMap.mem_ker, map_add, map_smul, h, neg_one_smul, add_neg_cancel])
+    have he := LinearMap.congr_fun hz g
+    simpa only [map_add, map_smul, LinearMap.add_apply, LinearMap.smul_apply,
+      neg_one_smul, LinearMap.zero_apply, ← sub_eq_add_neg, sub_eq_zero] using he
+  have hQr (f : levelCocycles₁ r A) (g g' : levelCocycles₁ r B)
+      (h : π B g = π B g') : Q f g = Q f g' := by
+    have hz : Q.flip (g + (-1 : k) • g') = 0 := hright (by
+      rw [LinearMap.mem_ker, map_add, map_smul, h, neg_one_smul, add_neg_cancel])
+    have he := LinearMap.congr_fun hz f
+    simpa only [LinearMap.flip_apply, map_add, map_smul, LinearMap.add_apply,
+      LinearMap.smul_apply, neg_one_smul, LinearMap.zero_apply,
+      ← sub_eq_add_neg, sub_eq_zero] using he
+  let R (M : Rep.{0} k G) (x : continuousH1 r M) : levelCocycles₁ r M :=
+    (hπ M x).choose
+  have hR (M : Rep.{0} k G) (x : continuousH1 r M) : π M (R M x) = x :=
+    (hπ M x).choose_spec
+  let P : continuousH1 r A →ₗ[k] continuousH1 r B →ₗ[k] continuousH2 r N :=
+    LinearMap.mk₂ k (fun x y => Q (R A x) (R B y))
+      (fun x x' y => by
+        calc
+          Q (R A (x + x')) (R B y) = Q (R A x + R A x') (R B y) :=
+            hQl _ _ _ (by rw [hR, map_add, hR, hR])
+          _ = Q (R A x) (R B y) + Q (R A x') (R B y) := by
+            rw [map_add, LinearMap.add_apply])
+      (fun c x y => by
+        calc
+          Q (R A (c • x)) (R B y) = Q (c • R A x) (R B y) :=
+            hQl _ _ _ (by rw [hR, map_smul, hR])
+          _ = c • Q (R A x) (R B y) := by rw [map_smul, LinearMap.smul_apply])
+      (fun x y y' => by
+        calc
+          Q (R A x) (R B (y + y')) = Q (R A x) (R B y + R B y') :=
+            hQr _ _ _ (by rw [hR, map_add, hR, hR])
+          _ = Q (R A x) (R B y) + Q (R A x) (R B y') := by rw [map_add])
+      (fun c x y => by
+        calc
+          Q (R A x) (R B (c • y)) = Q (R A x) (c • R B y) :=
+            hQr _ _ _ (by rw [hR, map_smul, hR])
+          _ = c • Q (R A x) (R B y) := by rw [map_smul])
+  refine ⟨P, ?_⟩
+  intro f hf g hg
+  refine ⟨C ⟨f, hf⟩ ⟨g, hg⟩, fun _ => rfl, ?_⟩
+  change Q (R A (π A ⟨f, hf⟩)) (R B (π B ⟨g, hg⟩)) = Q ⟨f, hf⟩ ⟨g, hg⟩
+  exact (hQl _ _ _ (hR A (π A ⟨f, hf⟩))).trans
+    (hQr _ _ _ (hR B (π B ⟨g, hg⟩)))
