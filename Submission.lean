@@ -2655,3 +2655,19 @@ theorem p05_hte_stable_subalgebra_hopf_structure_a5b449214a
   simpa only [hι] using hAntipode d
 
 end Submission
+theorem Submission.p05_pie_successive_minor_containment_a5b449214a
+    {R : Type*} [CommRing R] {ι κ : Type*} [Fintype ι] [Fintype κ]
+    (P : Matrix ι κ R) (d : ℕ) :
+    (Ideal.span {x : R | ∃ (rows : Fin (d + 1) ↪ ι) (cols : Fin (d + 1) ↪ κ),
+      x = Matrix.det (P.submatrix rows cols)}) ≤
+    Ideal.span {x : R | ∃ (rows : Fin d ↪ ι) (cols : Fin d ↪ κ),
+      x = Matrix.det (P.submatrix rows cols)} := by
+  classical
+  apply Ideal.span_le.mpr
+  rintro x ⟨rows, cols, rfl⟩
+  rw [Matrix.det_succ_row_zero]
+  apply Ideal.sum_mem
+  intro j _
+  apply Ideal.mul_mem_left
+  exact Ideal.subset_span
+    ⟨(Fin.succEmb d).trans rows, j.succAboveEmb.trans cols, rfl⟩
