@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "196ac5f4d57117b9f76f840f148f38bcda544691864103394babc86665911b17",
+  "git_delta": {
+    "base_commit": "0c70ed25382ea680a6aa78d4bb9a6f9fd1ded925",
+    "candidate_commit": "6c2d9bd17e30737468214dec931ec78e3c3840dd",
+    "target": "Submission.lean",
+    "declaration": "p07_cre_abelian_surface_857cd4d38c",
+    "diff_sha256": "44b3ae8bda71dcec0563b479eb4d2ec31a9599cb0ba29615d598eda3cd9618bd",
+    "source_sha256": "3ebd93741395bcb87d2cac1d61bb1c286aec253a83655fe39bcb2775cfa05d56",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p07_cre_abelian_surface_857cd4d38c",
+      "statement": "∀ (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U) (A : AlgebraicGeometry.Scheme.{0}) (f : Quiver.Hom A (AlgebraicGeometry.Spec (CommRingCat.of U))), GoodReductionJacobian.AbelianSchemePropertyBundle U f → (∀ s : ↥(AlgebraicGeometry.Spec (CommRingCat.of U)), topologicalKrullDim ↥(f.base ⁻¹' {s}) = 2) → let fT := CategoryTheory.CategoryStruct.comp f (AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.toRingHom)); GoodReductionJacobian.AbelianSchemePropertyBundle T fT ∧ (∀ s : ↥(AlgebraicGeometry.Spec (CommRingCat.of T)), topologicalKrullDim ↥(fT.base ⁻¹' {s}) = 2)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
