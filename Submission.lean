@@ -2405,3 +2405,31 @@ theorem Submission.p02_es_177ebb5a_sd_jr_moving_eval_derivative :
   exact Submission.p02_es_177ebb5a_med_sum_derivative n r _ _ c t
     (fun k => hcoeff
       (Finsupp.single (0 : Fin 2) (n - k.val) + Finsupp.single (1 : Fin 2) k.val))
+
+namespace Submission
+
+theorem p02_es_177ebb5a_sd_jet_recurrence :
+    ∀ (n : ℕ) (h : UpperHalfPlane → ℂ)
+      (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)),
+      HeckeEis.IsEichlerIntegral n h E → ∀ (r : ℕ), r ≤ n → ∀ τ : UpperHalfPlane,
+      HasDerivAt
+        (fun z : ℂ => MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z)
+          ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r]
+            (E (UpperHalfPlane.ofComplex z)).val))
+        (if r = n then (Nat.factorial n : ℂ) * h τ
+          else -MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -(τ : ℂ))
+            ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r + 1]
+              (E τ).val))
+        (τ : ℂ) := by
+  intro n h E hE r hr τ
+  have hderiv := Submission.p02_es_177ebb5a_sd_jr_moving_eval_derivative n
+    (fun z : ℂ => E (UpperHalfPlane.ofComplex z)) (HeckeEis.linePow n (τ : ℂ))
+    (h τ) (τ : ℂ) (fun d => hE d τ) r hr
+  rw [UpperHalfPlane.ofComplex_apply,
+    p02_es_177ebb5a_sd_jr_linepow_eval n r hr (τ : ℂ)] at hderiv
+  by_cases htop : r = n
+  · subst r
+    simpa [p02_es_177ebb5a_sd_jr_homogeneous_nilpotence, mul_comm] using hderiv
+  · simpa only [if_neg htop, mul_zero, zero_sub] using hderiv
+
+end Submission
