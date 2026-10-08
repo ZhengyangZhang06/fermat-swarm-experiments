@@ -2183,59 +2183,6 @@ theorem p02_es_177ebb5a_med_sum_derivative :
     ((hasDerivAt_id' t).neg.pow (k.val - r))) using 1
   simp only [Nat.descFactorial_succ, Nat.cast_mul, Nat.sub_sub, Pi.pow_apply, Pi.neg_apply]
   ring
-theorem p02_es_177ebb5a_sd_jr_homogeneous_nilpotence
-    (n : ℕ) (P : ↥(HeckeEis.BinaryForm ℂ n)) :
-    ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[n + 1]
-      P.val) = 0 := by
-  classical
-  let D : Module.End ℂ (MvPolynomial (Fin 2) ℂ) :=
-    (MvPolynomial.pderiv (1 : Fin 2)).toLinearMap
-  have hmon (k : ℕ) (d : Fin 2 →₀ ℕ) (a : ℂ) (hd : d 1 < k) :
-      (D ^ k) (MvPolynomial.monomial d a) = 0 := by
-    induction k generalizing d a with
-    | zero => omega
-    | succ k ih =>
-      rw [pow_succ, Module.End.mul_apply]
-      change (D ^ k) (MvPolynomial.pderiv 1 (MvPolynomial.monomial d a)) = 0
-      rw [MvPolynomial.pderiv_monomial]
-      by_cases hzero : d 1 = 0
-      · simp [hzero]
-      · apply ih
-        simp only [Finsupp.tsub_apply, Finsupp.single_eq_same]
-        omega
-  change (D : MvPolynomial (Fin 2) ℂ → MvPolynomial (Fin 2) ℂ)^[n + 1] P.val = 0
-  rw [← Module.End.pow_apply, ← P.val.support_sum_monomial_coeff, map_sum]
-  apply Finset.sum_eq_zero
-  intro d hd
-  apply hmon
-  have hdegree : d.degree = n := by
-    simpa only [Finsupp.degree_eq_weight_one, Pi.one_def] using
-      P.property (MvPolynomial.mem_support_iff.mp hd)
-  exact lt_of_le_of_lt ((Finsupp.le_degree 1 d).trans_eq hdegree) (Nat.lt_succ_self n)
-
-theorem p02_es_177ebb5a_sd_jet_recurrence :
-    ∀ (n : ℕ) (h : UpperHalfPlane → ℂ)
-      (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)),
-      HeckeEis.IsEichlerIntegral n h E → ∀ (r : ℕ), r ≤ n → ∀ τ : UpperHalfPlane,
-      HasDerivAt
-        (fun z : ℂ => MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z)
-          ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r]
-            (E (UpperHalfPlane.ofComplex z)).val))
-        (if r = n then (Nat.factorial n : ℂ) * h τ
-          else -MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -(τ : ℂ))
-            ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r + 1]
-              (E τ).val))
-        (τ : ℂ) := by
-  intro n h E hE r hr τ
-  have hderiv := Submission.p02_es_177ebb5a_sd_jr_moving_eval_derivative n
-    (fun z : ℂ => E (UpperHalfPlane.ofComplex z)) (HeckeEis.linePow n (τ : ℂ))
-    (h τ) (τ : ℂ) (fun d => hE d τ) r hr
-  rw [UpperHalfPlane.ofComplex_apply,
-    p02_es_177ebb5a_sd_jr_linepow_eval n r hr (τ : ℂ)] at hderiv
-  by_cases htop : r = n
-  · subst r
-    simpa [p02_es_177ebb5a_sd_jr_homogeneous_nilpotence, mul_comm] using hderiv
-  · simpa only [if_neg htop, mul_zero, zero_sub] using hderiv
 
 end Submission
 
@@ -2326,3 +2273,31 @@ theorem Submission.p02_es_177ebb5a_sd_jr_moving_eval_derivative :
   exact Submission.p02_es_177ebb5a_med_sum_derivative n r _ _ c t
     (fun k => hcoeff
       (Finsupp.single (0 : Fin 2) (n - k.val) + Finsupp.single (1 : Fin 2) k.val))
+
+namespace Submission
+
+theorem p02_es_177ebb5a_sd_jet_recurrence :
+    ∀ (n : ℕ) (h : UpperHalfPlane → ℂ)
+      (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)),
+      HeckeEis.IsEichlerIntegral n h E → ∀ (r : ℕ), r ≤ n → ∀ τ : UpperHalfPlane,
+      HasDerivAt
+        (fun z : ℂ => MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z)
+          ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r]
+            (E (UpperHalfPlane.ofComplex z)).val))
+        (if r = n then (Nat.factorial n : ℂ) * h τ
+          else -MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -(τ : ℂ))
+            ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r + 1]
+              (E τ).val))
+        (τ : ℂ) := by
+  intro n h E hE r hr τ
+  have hderiv := Submission.p02_es_177ebb5a_sd_jr_moving_eval_derivative n
+    (fun z : ℂ => E (UpperHalfPlane.ofComplex z)) (HeckeEis.linePow n (τ : ℂ))
+    (h τ) (τ : ℂ) (fun d => hE d τ) r hr
+  rw [UpperHalfPlane.ofComplex_apply,
+    p02_es_177ebb5a_sd_jr_linepow_eval n r hr (τ : ℂ)] at hderiv
+  by_cases htop : r = n
+  · subst r
+    simpa [p02_es_177ebb5a_sd_jr_homogeneous_nilpotence, mul_comm] using hderiv
+  · simpa only [if_neg htop, mul_zero, zero_sub] using hderiv
+
+end Submission
