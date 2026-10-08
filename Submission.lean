@@ -9,6 +9,55 @@ import Definitions.Def_ModularForm_HeckeOperatorForms
 attribute [-instance] FLT.HyperbolicMeasure.instSMulInvariantMeasureSpecialLinearGroupFinOfNatNatIntUpperHalfPlaneVolume_definitions FLT.HyperbolicMeasure.instIsOpenPosMeasureUpperHalfPlaneVolume_definitions FLT.Gamma0FundamentalSet.instContinuousConstSMulSpecialLinearGroupFinOfNatNatIntUpperHalfPlane_definitions FLT.L2ProductionInstance.isFiniteMeasure_gamma0 FLT.L2ProductionInstance.countable_SL2Z FLT.L2ProductionInstance.countable_quotient FLT.L2ProductionInstance.nontrivial_gamma0L2
 attribute [-simp] FreyPackage.ModMCarrier.coe_rescaleLin_apply ModularForm.AtkinLehnerDatum.mk.injEq ModularForm.AtkinLehnerDatum.alGL_coe ModularForm.AtkinLehnerDatum.mk.sizeOf_spec ModularForm.AtkinLehnerDatum.sqUnitSL_coe ModularForm.AtkinLehnerDatum.det_sqUnit ModularForm.AtkinLehnerDatum.det_mat FLT.TruncatedDomainPartition.unipotentDiagonalSum_zero
 
+theorem CuspForm.span_heckeTLin_eigen_eq_top (M : ℕ) [NeZero M] :
+    Submodule.span ℂ {v : CuspForm (CongruenceSubgroup.Gamma0 M) 2 |
+      ∀ (ℓ : ℕ) (hℓ : ℓ.Prime) (hℓM : ¬ ℓ ∣ M), ∃ c : ℂ,
+        CuspForm.heckeTLin 2 hℓ hℓM v = c • v} = ⊤ := by
+  sorry
+
+theorem Submission.f036cc6b1f_pic_dd_ae_orbit_zero :
+    ∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (E : Set UpperHalfPlane) (A : UpperHalfPlane → ℝ), MeasurableSet E → Measurable A → (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ E) → (∀ (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ), γ ∈ Δ → ∀ z : UpperHalfPlane, A (γ • z) = A z) → (∀ᵐ z ∂((MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane).restrict E), A z = 0) → ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), A z = 0 := by
+  intro Δ E A hE _hA hcover hinv hzero
+  have : Countable (Matrix (Fin 2) (Fin 2) ℤ) :=
+    inferInstanceAs (Countable (Fin 2 → Fin 2 → ℤ))
+  have : Countable (Matrix.SpecialLinearGroup (Fin 2) ℤ) :=
+    inferInstanceAs (Countable {g : Matrix (Fin 2) (Fin 2) ℤ // g.det = 1})
+  have hzero' : ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
+      z ∈ E → A z = 0 :=
+    (MeasureTheory.ae_restrict_iff' hE).mp hzero
+  have htranslate : ∀ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+      ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
+        γ • z ∈ E → A (γ • z) = 0 := by
+    intro γ
+    exact (MeasureTheory.measurePreserving_smul (Matrix.SpecialLinearGroup.mapGL ℝ γ)
+      (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane)).quasiMeasurePreserving.ae
+        hzero'
+  have hall : ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
+      ∀ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ • z ∈ E → A (γ • z) = 0 :=
+    MeasureTheory.ae_all_iff.mpr htranslate
+  filter_upwards [hcover, hall] with z hz hzall
+  obtain ⟨γ, hγ, hzE⟩ := hz
+  exact (hinv γ hγ z).symm.trans (hzall γ hzE)
+theorem Submission.f036cc6b1f_pic_dd_open_pos :
+    MeasureTheory.Measure.IsOpenPosMeasure
+      (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) := by
+  let : MeasureTheory.Measure.IsOpenPosMeasure
+      ((MeasureTheory.volume : MeasureTheory.Measure ℂ).comap UpperHalfPlane.coe) :=
+    MeasureTheory.Measure.IsOpenPosMeasure.comap _ UpperHalfPlane.isOpenEmbedding_coe
+  rw [UpperHalfPlane.volume_def]
+  apply MeasureTheory.Measure.AbsolutelyContinuous.isOpenPosMeasure
+    (μ := (MeasureTheory.volume : MeasureTheory.Measure ℂ).comap UpperHalfPlane.coe)
+  apply MeasureTheory.withDensity_absolutelyContinuous'
+  · have hw : Continuous (fun z : UpperHalfPlane ↦
+        (1 / NNReal.mk z.im z.im_pos.le : NNReal) ^ 2) := by
+      refine .pow (.div₀ continuous_const ?_ ?_) _
+      · exact UpperHalfPlane.continuous_im.subtype_mk _
+      · exact fun z ↦ NNReal.ne_iff.mp z.im_ne_zero
+    exact hw.measurable.coe_nnreal_ennreal.aemeasurable
+  · exact Filter.Eventually.of_forall fun z ↦
+      ENNReal.coe_ne_zero.mpr (pow_ne_zero 2
+        (div_ne_zero one_ne_zero (NNReal.ne_iff.mp z.im_ne_zero)))
+
 namespace Submission
 
 open MeasureTheory
