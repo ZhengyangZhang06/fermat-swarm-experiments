@@ -1,0 +1,49 @@
+{
+  "node": "root.good_hecke_commute-a1",
+  "integration_parent": "5369723d2311299af580c888165e24f874cf7d54",
+  "accepted_candidate": "10d8ede77769076cd2a05b10ec37b7dee89461f6",
+  "repair": "Remove only the second identical root stub introduced by replaying the frozen-header restoration. Keep the complete frozen prefix and every sibling and selected-node declaration byte-for-byte.",
+  "history": "The eleven reviewed commits are represented by the preceding cherry-picked history. Nine have identical stable patch IDs; d364a03 and 578a504 were replayed over the parallel sibling declarations, with the latter introducing the duplicate removed here.",
+  "checks": {
+    "frozen_prefix_unchanged": true,
+    "accepted_child_section_unchanged": true,
+    "all_sibling_declarations_unchanged": true,
+    "snapshot_infrastructure_files_equal": 98,
+    "clean_pinned_dependencies": 9
+  },
+  "reference_use": [
+    {
+      "source": "local-project",
+      "manifest": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+      "project_commit": "61b5f85556ac71631ccad822e0694511234f7132",
+      "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "queries": [
+        {
+          "query": "instSMulInvariantMeasureSpecialLinearGroupFinOfNatNatIntUpperHalfPlaneVolume_definitions|coe_rescaleLin_apply",
+          "scope": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb",
+          "finding": "Only references in project/Submission.lean:9-10 and project/Fermat/Thm_CuspForm_span_heckeTLin_eigen_eq_top.lean:9-10; no definitions found."
+        },
+        {
+          "query": "qCoeff_heckeT_class|eq_of_forall_qCoeff_eq|def heckeTLin",
+          "scope": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project",
+          "finding": "The bundled CuspForm operator is defined at Definitions/Def_ModularForm_HeckeOperatorForms.lean:69. Existing coefficient uniqueness and action are at P2M/Sol/S_ModularForm_mdifferentiable_heckeT.lean:172 and :340; these files were inspected and match the current sources."
+        },
+        {
+          "query": "heckeTLin.*commut|commut.*heckeTLin|coeffHeckeT.*commut|commut.*coeffHeckeT",
+          "scope": [
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project",
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms"
+          ],
+          "finding": "No matches (rg exit 1)."
+        }
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Submission.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Fermat/Thm_CuspForm_span_heckeTLin_eigen_eq_top.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/P2M/Sol/S_ModularForm_mdifferentiable_heckeT.lean"
+      ],
+      "compatibility": "No reference source is copied or changed. All 98 Definitions/Theorems/P2M Lean files match the pinned project snapshot, and all nine installed Git dependencies are clean at their manifest revisions. The configured exact comparator and its transitive axiom check remain required; these source checks alone do not establish acceptance."
+    }
+  ]
+}

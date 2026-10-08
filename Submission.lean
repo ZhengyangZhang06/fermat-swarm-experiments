@@ -15,12 +15,6 @@ theorem CuspForm.span_heckeTLin_eigen_eq_top (M : ℕ) [NeZero M] :
         CuspForm.heckeTLin 2 hℓ hℓM v = c • v} = ⊤ := by
   sorry
 
-theorem CuspForm.span_heckeTLin_eigen_eq_top (M : ℕ) [NeZero M] :
-    Submodule.span ℂ {v : CuspForm (CongruenceSubgroup.Gamma0 M) 2 |
-      ∀ (ℓ : ℕ) (hℓ : ℓ.Prime) (hℓM : ¬ ℓ ∣ M), ∃ c : ℂ,
-        CuspForm.heckeTLin 2 hℓ hℓM v = c • v} = ⊤ := by
-  sorry
-
 theorem Submission.f036cc6b1f_pic_dd_open_pos :
     MeasureTheory.Measure.IsOpenPosMeasure
       (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) := by
