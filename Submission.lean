@@ -1218,3 +1218,40 @@ theorem Submission.p05_translation_left_inverse_a5b449214a
     rw [hβ, map_mul, hγ, map_one, mul_one, hcoaction]
     simp only [Algebra.TensorProduct.tmul_mul_tmul, mul_one, one_mul]
   | add x y hx hy => simp [hx, hy]
+theorem Submission.p05_subalgebra_coinvariant_a5b449214a
+    {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
+    (K : Subalgebra k H)
+    (hΔ : ∀ x ∈ K, Coalgebra.comul (R := k) x ∈
+      Submodule.span k {t : H ⊗[k] H | ∃ a ∈ K, ∃ b ∈ K, t = a ⊗ₜ[k] b})
+    {B : Type*} [CommRing B] [Bialgebra k B] (q : BialgHom k H B)
+    (hker : RingHom.ker (q : H →+* B) =
+      Ideal.span {x : H | x ∈ K ∧ Coalgebra.counit (R := k) x = 0}) :
+    K ≤ HopfAlgebra.hopfKer q := by
+  have hqK (t : H) (ht : t ∈ K) :
+      q t = algebraMap k B (Coalgebra.counit (R := k) t) := by
+    have hmem : t - algebraMap k H (Coalgebra.counit (R := k) t) ∈
+        RingHom.ker (q : H →+* B) := by
+      rw [hker]
+      exact Ideal.subset_span ⟨K.sub_mem ht (K.algebraMap_mem _), by simp⟩
+    have hz : q (t - algebraMap k H (Coalgebra.counit (R := k) t)) = 0 := hmem
+    rw [map_sub, (q : H →ₐ[k] B).commutes] at hz
+    exact sub_eq_zero.mp hz
+  have hspan (z : H ⊗[k] H)
+      (hz : z ∈ Submodule.span k
+        {t : H ⊗[k] H | ∃ a ∈ K, ∃ b ∈ K, t = a ⊗ₜ[k] b}) :
+      Algebra.TensorProduct.map (AlgHom.id k H) (q : H →ₐ[k] B) z =
+        (Algebra.linearMap k B).lTensor H
+          ((Coalgebra.counit (R := k)).lTensor H z) := by
+    induction hz using Submodule.span_induction with
+    | mem z hz =>
+      obtain ⟨a, _, b, hb, rfl⟩ := hz
+      simp only [Algebra.TensorProduct.map_tmul, AlgHom.id_apply,
+        LinearMap.lTensor_tmul, Algebra.linearMap_apply, BialgHom.coe_toAlgHom]
+      rw [hqK b hb]
+    | zero => simp only [map_zero]
+    | add z w _ _ hz hw => simp only [map_add, hz, hw]
+    | smul c z _ hz => simp only [map_smul, hz]
+  intro x hx
+  rw [HopfAlgebra.mem_hopfKer_iff, HopfAlgebra.coaction_apply, hspan _ (hΔ x hx)]
+  simp only [Coalgebra.lTensor_counit_comul, LinearMap.lTensor_tmul,
+    Algebra.linearMap_apply, map_one]
