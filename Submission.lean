@@ -1297,3 +1297,37 @@ theorem Submission.p05_cm_coalgebra_laws_a5b449214a
     rw [hexp j] at h
     have hu := congrArg U h
     simpa [U, map_sum, hφ, ite_smul] using hu
+
+theorem Submission.p05_fhe_coefficient_matrix_a5b449214a
+    {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
+    (V : Submodule k H) [FiniteDimensional k V]
+    (hV : ∀ x ∈ V, Coalgebra.comul (R := k) x ∈
+      Submodule.span k {t : TensorProduct k H H |
+        ∃ a ∈ V, ∃ b : H, t = TensorProduct.tmul k a b}) :
+    ∃ (n : ℕ) (c : Matrix (Fin n) (Fin n) H),
+      (∀ x ∈ V, x ∈ Submodule.span k
+        (Set.range (fun p : Fin n × Fin n => c p.1 p.2))) ∧
+      (∀ i j : Fin n, Coalgebra.comul (R := k) (c i j) =
+        ∑ l : Fin n, TensorProduct.tmul k (c i l) (c l j)) ∧
+      (∀ i j : Fin n, Coalgebra.counit (R := k) (c i j) =
+        if i = j then (1 : k) else 0) := by
+  classical
+  let n := Module.finrank k V
+  let b : Module.Basis (Fin n) k V := Module.finBasis k V
+  obtain ⟨c, hexp⟩ := Submission.p05_cm_basis_expansion_a5b449214a V n b hV
+  refine ⟨n, c, ?_, Submission.p05_cm_coalgebra_laws_a5b449214a V n b c hexp⟩
+  let W := Submodule.span k (Set.range (fun p : Fin n × Fin n => c p.1 p.2))
+  have hb (j : Fin n) : (b j : H) ∈ W := by
+    have h := Coalgebra.rTensor_counit_comul (R := k) (b j : H)
+    rw [hexp j] at h
+    have hsum : ∑ i, Coalgebra.counit (R := k) (b i : H) • c i j = (b j : H) := by
+      simpa [map_sum] using congrArg (TensorProduct.lid k H) h
+    rw [← hsum]
+    exact Submodule.sum_mem W fun i _ =>
+      Submodule.smul_mem W _ (Submodule.subset_span ⟨(i, j), rfl⟩)
+  intro x hx
+  have hsum : ∑ i, b.repr ⟨x, hx⟩ i • (b i : H) = x := by
+    simpa only [map_sum, map_smul, Submodule.subtype_apply] using
+      congrArg V.subtype (b.sum_repr ⟨x, hx⟩)
+  rw [← hsum]
+  exact Submodule.sum_mem W fun i _ => Submodule.smul_mem W _ (hb i)
