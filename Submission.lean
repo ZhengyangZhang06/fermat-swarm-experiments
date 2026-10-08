@@ -733,3 +733,33 @@ theorem p02_es_177ebb5a_sd_jr_linepow_eval :
     simp [h, zero_pow hnr]
 
 end Submission
+
+
+theorem Submission.p02_es_177ebb5a_ssl_tail_limit :
+    ∀ (f : ℝ → ℂ) (e : ℝ → ℝ) (y₀ : ℝ),
+      Filter.Tendsto e Filter.atTop (nhds (0 : ℝ)) →
+      (∀ (y t : ℝ), y₀ ≤ y → y ≤ t → ‖f t - f y‖ ≤ e y) →
+      ∃ b : ℂ, Filter.Tendsto f Filter.atTop (nhds b) ∧
+        ∀ y : ℝ, y₀ ≤ y → ‖f y - b‖ ≤ e y := by
+  intro f e y₀ he hbound
+  have hcauchy : CauchySeq f := by
+    apply Metric.cauchySeq_iff.mpr
+    intro ε hε
+    obtain ⟨T, hT⟩ := Filter.eventually_atTop.mp (he.eventually (gt_mem_nhds hε))
+    refine ⟨max y₀ T, ?_⟩
+    intro s hs t ht
+    have hsy : y₀ ≤ s := (le_max_left _ _).trans hs
+    have hty : y₀ ≤ t := (le_max_left _ _).trans ht
+    have hsT : T ≤ s := (le_max_right _ _).trans hs
+    have htT : T ≤ t := (le_max_right _ _).trans ht
+    rcases le_total s t with hst | hts
+    · rw [dist_eq_norm, norm_sub_rev]
+      exact (hbound s t hsy hst).trans_lt (hT s hsT)
+    · rw [dist_eq_norm]
+      exact (hbound t s hty hts).trans_lt (hT t htT)
+  obtain ⟨b, hb⟩ := cauchySeq_tendsto_of_complete hcauchy
+  refine ⟨b, hb, ?_⟩
+  intro y hy
+  rw [norm_sub_rev]
+  apply le_of_tendsto (hb.sub_const (f y)).norm
+  exact (Filter.eventually_ge_atTop y).mono fun t ht => hbound y t hy ht

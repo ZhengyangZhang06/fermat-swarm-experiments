@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "e9ac4e9a07527fd756c0e04f90fa0eeb67006363da35e230f8cac6f0e59a11de",
+  "git_delta": {
+    "base_commit": "1bdc037c06eea9c3356d1732b39077f59e1adf5f",
+    "candidate_commit": "61282d90540a46d7af0c43f4e7d7750e9ae0f776",
+    "target": "Submission.lean",
+    "declaration": "p02_es_177ebb5a_ssl_tail_limit",
+    "diff_sha256": "df14bdc3f9094d405f8b2eec6a11a3b53fcf0c243d528562967c391b0bd2d1e5",
+    "source_sha256": "76e8a672d1ab516678b9418b4bcbbcdb38f76deccfb1bf38bfc5b844e94b6b84",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_ssl_tail_limit",
+      "statement": "∀ (f : ℝ → ℂ) (e : ℝ → ℝ) (y₀ : ℝ), Filter.Tendsto e Filter.atTop (nhds (0 : ℝ)) → (∀ (y t : ℝ), y₀ ≤ y → y ≤ t → ‖f t - f y‖ ≤ e y) → ∃ b : ℂ, Filter.Tendsto f Filter.atTop (nhds b) ∧ ∀ y : ℝ, y₀ ≤ y → ‖f y - b‖ ≤ e y",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
