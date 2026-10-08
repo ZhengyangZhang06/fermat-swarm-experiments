@@ -1,0 +1,77 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "def (genusFormula|nuTwo|nuThree|cuspCount|dedekindPsi)|valence|gamma0_coset_counts|periodic_disk_extension|gamma0_norm_vanishing|level_one_valence_inequality",
+        "Gamma0_mem|def Gamma0|Coe.*Subgroup|mapGL|def IsZeroAt|def IsCusp|def IsParabolic|structure CuspForm|holo.|zero_at_cusps|SL_slash_def|SL_slash_apply",
+        "instance.*(SMul|MulAction)|smul_mk|def orbitRel",
+        "def orbitRel|orbitRel_apply|orbitRel_def",
+        "rg -n --hidden --no-ignore -g dag.json 'p10_17ae7b7d_(gamma0_coset_counts|periodic_disk_extension|gamma0_norm_vanishing|level_one_valence_inequality)' /mnt/data/zhengyang-workspace/fermat-swarm-projects",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean -DautoImplicit=false -DmaxHeartbeats=4000000 -DsynthInstance.maxHeartbeats=400000 -Dbackward.isDefEq.respectTransparency.types=false -o TargetAbsence.olean TargetAbsence.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean -DautoImplicit=false -DmaxHeartbeats=4000000 -DsynthInstance.maxHeartbeats=400000 -Dbackward.isDefEq.respectTransparency.types=false -o ChildTypes.olean ChildTypes.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_X0.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/GroupAction/Quotient.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/GroupAction/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Algebra/Group/Subgroup/Actions.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/LinearAlgebra/Matrix/GeneralLinearGroup/FinTwo.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/ArithmeticSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/SlashActions.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/Cusps.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/BoundedAtCusp.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Manifold.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/FunctionsBoundedAtInfty.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Order.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/HasPrimitives.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/SpecialFunctions/Complex/Log.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/FundThmCalculus.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.agents/skills/frozen-header-policy-evidence/evidence.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.agents/skills/frozen-header-policy-evidence/diagnostic.json",
+        "/tmp/p10-independent-decomposition-audit-wyecdizf/report.json",
+        "/tmp/p10-independent-decomposition-audit-wyecdizf/TargetAbsence.lean",
+        "/tmp/p10-independent-decomposition-audit-wyecdizf/ChildTypes.lean",
+        "/tmp/p10-independent-decomposition-audit-wyecdizf/ChildTypes.log"
+      ],
+      "conclusion": "The four-way split is appropriate: its independent arithmetic, extension, norm, and valence obligations reduce the root to the stated numerical contradiction. Snapshot Git identities match project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d, with clean tracked trees; all nine compiler dependency checkouts also match their pins and are tracked-clean. Inspected definitions support the numerical quantities, left-coset and subgroup-orbit actions, real-image cusp-form coercion, and analytic-order interpretation. Searches found no declarations of these helpers or named valence theorem in the searched Definitions/modular-form sources, and no conflicting helper-name reservation in local DAGs. Independently compiled all four literal proposition types and reflexivity probes for the relevant actions, coercion, and ordinary matrix multiplication. No child implementation was imported; checked type definitions and selected supporting declarations use only propext, Classical.choice, and Quot.sound. The matching policy digest is 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96. Only lines 10–12 were omitted in the disposable copy, and a fresh Lean probe confirmed all 56 targets absent. Original hash 96e3f06b92cb64921c5c4745f0115bb7ca89de8412a80d1d3a1599b7693a0d8a and derived hash fb90bb88b6fa024189bde0f814c11f19649668a957e83b1a7c298dea579e3539 have reversible reconstruction recorded in the independent report. Original contract and Submission remained unchanged. These are decomposition/interface diagnostics; child proof comparators and subsequent acceptance gates remain mandatory."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "gamma0_coset_counts",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition matches every prose hypothesis and count. The proof handles N=1, establishes the row-class bijection by explicit lifting, computes both fixed-point counts, and assembles translation cycles using coprime prime-power periods. Inversion correctly transfers right-coset computations to the verified left action. The obligation is independent and non-circular. Its bare identifier has no detected reservation."
+    },
+    {
+      "key": "periodic_disk_extension",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The literal type matches the boundedness, periodicity, nonzero-value, and conditional decay assumptions. The supplied proof constructs the descended function, establishes local holomorphy, removes the puncture through the q² construction, and proves finite order before interpreting analyticOrderAt. Decay proves positive natural order for the same extension. No argument is deferred to later discovery, and no parent or sibling result is assumed. The bare identifier is unreserved."
+    },
+    {
+      "key": "gamma0_norm_vanishing",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact type matches the prose, including the verified real-image subgroup coercion. Finite translation cycles establish cusp decay; the slash cocycle establishes the norm transformation laws. Cycle descent gives the cusp-order bound, and leading coefficients at i and rho give the elliptic bounds. Analyticity and finite orders are established before natural orders are used. Dependencies point correctly to coset counts and periodic extension, with no cycle or genus-zero assumption. The bare identifier is unreserved."
+    },
+    {
+      "key": "level_one_valence_inequality",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line type exactly expresses the prose inequality with real casts and all hypotheses. The proof establishes finite orders, proves its argument principle using local primitives, verifies compatible boundary cuts and their geometry, and performs cancellation before taking limits. The indentation angles yield the required one-half and one-third coefficients; remaining zero orders are nonnegative. The proof is self-contained relative to cited foundations and has no dependency on the parent or siblings. The bare identifier is unreserved."
+    }
+  ],
+  "required_changes": []
+}

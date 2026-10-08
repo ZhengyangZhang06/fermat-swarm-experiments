@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.periodic_disk_extension-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "Holomorphic disk extension of a periodic function",
+  "statement": "Let w>0 be real and g:ℂ→ℂ be holomorphic on ℍ={z:Im z>0}, with a nonzero value there. Suppose g(z+w)=g(z) on ℍ and there exist real C,Y such that ‖g(z)‖≤C whenever z∈ℍ and Im z≥Y. Then there exists A:ℂ→ℂ holomorphic on |q|<1 such that g(z)=A(exp(2πiz/w)) on ℍ and analyticOrderAt A 0≠⊤. For this same A, if additionally for every ε>0 there is a real Yε such that ‖g(z)‖≤ε whenever z∈ℍ and Im z≥Yε, then analyticOrderNatAt A 0≥1.",
+  "lean_statement": "∀ (w : ℝ) (g : ℂ → ℂ), 0 < w → DifferentiableOn ℂ g {z : ℂ | 0 < z.im} → (∃ z : ℂ, 0 < z.im ∧ g z ≠ 0) → (∀ z : ℂ, 0 < z.im → g (z + (w : ℂ)) = g z) → (∃ C Y : ℝ, ∀ z : ℂ, 0 < z.im → Y ≤ z.im → ‖g z‖ ≤ C) → ∃ A : ℂ → ℂ, DifferentiableOn ℂ A (Metric.ball (0 : ℂ) 1) ∧ (∀ z : ℂ, 0 < z.im → g z = A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z / (w : ℂ)))) ∧ analyticOrderAt A 0 ≠ ⊤ ∧ ((∀ ε : ℝ, 0 < ε → ∃ Y : ℝ, ∀ z : ℂ, 0 < z.im → Y ≤ z.im → ‖g z‖ ≤ ε) → 1 ≤ analyticOrderNatAt A 0)",
+  "lean_name": "p10_17ae7b7d_periodic_disk_extension",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-periodic-disk-extension-a1-a1"
+}

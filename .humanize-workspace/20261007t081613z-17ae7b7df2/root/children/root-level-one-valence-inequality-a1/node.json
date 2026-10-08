@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.level_one_valence_inequality-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "Level-one valence inequality including boundary zeros",
+  "statement": "Let k be an even natural number and F,A:ℂ→ℂ. Put ℍ={z:Im z>0} and ρ=(−1+i√3)/2. Assume F is holomorphic on ℍ and has a nonzero value there; F(z+1)=F(z) and F(−1/z)=zᵏF(z) for every z∈ℍ; A is analytic at zero; and some real Y satisfies F(z)=A(exp(2πiz)) whenever z∈ℍ and Im z≥Y. Then, with the natural orders cast to ℝ, analyticOrderNatAt A 0 + analyticOrderNatAt F i/2 + analyticOrderNatAt F ρ/3 ≤ k/12.",
+  "lean_statement": "∀ (k : ℕ) (F A : ℂ → ℂ), Even k → DifferentiableOn ℂ F {z : ℂ | 0 < z.im} → (∃ z : ℂ, 0 < z.im ∧ F z ≠ 0) → (∀ z : ℂ, 0 < z.im → F (z + 1) = F z) → (∀ z : ℂ, 0 < z.im → F (-1 / z) = z ^ k * F z) → AnalyticAt ℂ A 0 → (∃ Y : ℝ, ∀ z : ℂ, 0 < z.im → Y ≤ z.im → F z = A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z))) → (analyticOrderNatAt A 0 : ℝ) + (analyticOrderNatAt F Complex.I : ℝ) / 2 + (analyticOrderNatAt F ((-1 + (Real.sqrt 3 : ℂ) * Complex.I) / 2) : ℝ) / 3 ≤ (k : ℝ) / 12",
+  "lean_name": "p10_17ae7b7d_level_one_valence_inequality",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-a1"
+}
