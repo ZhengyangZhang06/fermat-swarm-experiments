@@ -9,6 +9,7 @@ It does not assert comparator acceptance or prove the enclosing root theorem.
 The existing candidate was introduced by `8ac90b1` and inspected at
 `89409226687ea7862bb7ca26dc29d14086a99e45` in the 2026-10-08 16:17:26
 RLCR round. Its `Submission.lean` SHA-256 is
+`fc148b20f2f93b932dbd898b3ccd5caad0fe6d80`. Its `Submission.lean` SHA-256 is
 `81d0a9d64dee7d82cd27ac069c5dde7a4617d51a74ca4899b6fe5ef3dfe4002b`.
 The entire source prefix from frozen proof base
 `8cb34c690b020247caaf2f18f9cb6fbab8d526f6` is byte-identical. The complete Lean
@@ -59,6 +60,10 @@ Queries run with `rg` against this snapshot:
 - `def IsPullbackVia|structure RelativeGroupLaw|def pushPt|def SchemeHomOver`
 - `IsPullbackVia|pushPt`
 - `p07_flp_point_equiv|pullback_point_equiv|nsmulPt.*natural`
+- `IsPullbackVia|def nsmulPt|def pushPt|structure RelativeGroupLaw|def SchemeHomOver|p07_flp_point_equiv|pullback_point_equiv`
+- `lift_fst|lift_snd|hom_ext|noncomputable def lift`
+- `SchemeHomOver.*:=|def SchemeHomOver|abbrev SchemeHomOver`
+- `p07_flp_point_equiv|pullback_point_equiv|nsmulPt.*natural|theorem.*nsmulPt|lemma.*nsmulPt`
 
 Inspected files, relative to the snapshot root:
 
