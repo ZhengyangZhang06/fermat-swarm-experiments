@@ -2873,3 +2873,53 @@ theorem p05_fr_rhm_presentation_ideals_eq_a5b449214a
     _ = D Q (n' - r) := hstabilize n' p' n Q B
 
 end Submission
+theorem Submission.p05_fr_rhm_bcsi_base_changed_presentation_a5b449214a
+    {R : Type*} [CommRing R] {S : Type*} [CommRing S] [Algebra R S]
+    {M : Type*} [AddCommGroup M] [Module R M]
+    (n p : ℕ) (P : Matrix (Fin n) (Fin p) R)
+    (π : (Fin n → R) →ₗ[R] M) (_hπ : Function.Surjective π)
+    (_hker : LinearMap.ker π = LinearMap.range P.mulVecLin) :
+    ∃ q : (Fin n → S) →ₗ[S] TensorProduct R S M,
+      (∀ b : Fin n → S, q b =
+        ∑ i, b i • TensorProduct.tmul R (1 : S) (π (Pi.single i (1 : R)))) ∧
+      Function.Surjective q ∧
+      LinearMap.ker q = LinearMap.range (P.map (algebraMap R S)).mulVecLin := by
+  classical
+  let e (k : ℕ) : TensorProduct R S (Fin k → R) ≃ₗ[S] (Fin k → S) :=
+    TensorProduct.piScalarRight R S S (Fin k)
+  let q : (Fin n → S) →ₗ[S] TensorProduct R S M :=
+    (π.baseChange S).comp (e n).symm.toLinearMap
+  have hP (x : TensorProduct R S (Fin p → R)) :
+      e n (P.mulVecLin.baseChange S x) =
+        (P.map (algebraMap R S)).mulVecLin (e p x) := by
+    induction x with
+    | zero => simp
+    | tmul s a =>
+      ext i
+      simp [e, Matrix.mulVec, dotProduct,
+        Algebra.smul_def, Finset.sum_mul, mul_assoc]
+    | add x y hx hy => simp only [map_add, hx, hy]
+  have hex : Function.Exact (P.mulVecLin.baseChange S) (π.baseChange S) :=
+    lTensor_exact S (LinearMap.exact_iff.mpr _hker) _hπ
+  refine ⟨q, ?_, ?_, ?_⟩
+  · intro b
+    calc
+      q b = q (∑ i, Pi.single i (b i)) := by rw [Finset.univ_sum_single]
+      _ = ∑ i, TensorProduct.tmul R (b i) (π (Pi.single i (1 : R))) := by
+        simp [q, e]
+      _ = _ := by
+        simp only [TensorProduct.smul_tmul', smul_eq_mul, mul_one]
+  · exact (LinearMap.baseChange_surjective S _hπ).comp (e n).symm.surjective
+  · ext b
+    change q b = 0 ↔ ∃ c, (P.map (algebraMap R S)).mulVecLin c = b
+    constructor
+    · intro hb
+      obtain ⟨x, hx⟩ := (hex ((e n).symm b)).mp hb
+      refine ⟨e p x, ?_⟩
+      rw [← hP, hx, (e n).apply_symm_apply]
+    · rintro ⟨c, rfl⟩
+      apply (hex _).mpr
+      refine ⟨(e p).symm c, ?_⟩
+      apply (e n).injective
+      rw [hP, (e p).apply_symm_apply]
+      exact ((e n).apply_symm_apply _).symm
