@@ -120,3 +120,103 @@ theorem Submission.p07_rr_pullback_comp_857cd4d38c
     obtain ⟨w₁, hw₁⟩ := hlev₁₂ t P hP
     obtain ⟨w₀, hw₀⟩ := hlev₀₁ (t ≫ Spec.map (CommRingCat.ofHom h)) P₁ ⟨w₁, hw₁⟩
     exact ⟨w₀, by simpa only [P₁, Category.assoc] using hw₀⟩
+theorem Submission.p07_rr_isogeny_transport_857cd4d38c :
+    ∀ {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N d : ℕ) (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U) (E F : CerednikDrinfeld.QM.FakeEllipticCurve Λ N T) (D H : CerednikDrinfeld.QM.FakeEllipticCurve Λ N U) (i : CategoryTheory.Iso D.A E.A) (j : CategoryTheory.Iso H.A F.A), CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia k.toRingHom E D i.hom → CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia k.symm.toRingHom D E i.inv → CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia k.toRingHom F H j.hom → CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia k.symm.toRingHom H F j.inv → ∀ (φ : Quiver.Hom D.A H.A) (ψ : Quiver.Hom H.A D.A) (hφ : CategoryTheory.CategoryStruct.comp φ H.f = D.f), CerednikDrinfeld.QM.FakeEllipticCurve.IsIsogenyPair d D H φ ψ → CerednikDrinfeld.QM.FakeEllipticCurve.PreservesLevel D H φ hφ → CerednikDrinfeld.QM.FakeEllipticCurve.IsIsogenyPair d E F (CategoryTheory.CategoryStruct.comp i.inv (CategoryTheory.CategoryStruct.comp φ j.hom)) (CategoryTheory.CategoryStruct.comp j.inv (CategoryTheory.CategoryStruct.comp ψ i.hom)) ∧ ∃ hΦ : CategoryTheory.CategoryStruct.comp (CategoryTheory.CategoryStruct.comp i.inv (CategoryTheory.CategoryStruct.comp φ j.hom)) F.f = E.f, CerednikDrinfeld.QM.FakeEllipticCurve.PreservesLevel E F (CategoryTheory.CategoryStruct.comp i.inv (CategoryTheory.CategoryStruct.comp φ j.hom)) hΦ := by
+  intro a b Λ N d T U _ _ k E F D H i j hi hv hj hw φ ψ hφ hiso hlevel
+  rcases hi with ⟨hi, _, hi_act, _⟩
+  rcases hv with ⟨hv, hv_mul, hv_act, hv_level⟩
+  rcases hj with ⟨hj, _, hj_act, hj_level⟩
+  rcases hw with ⟨hw, hw_mul, hw_act, _⟩
+  rcases hiso with ⟨_, hψ, hφ_mul, hψ_mul, hφ_act, hψ_act, hscalar⟩
+  have hbase : Spec.map (CommRingCat.ofHom k.symm.toRingHom) ≫
+      Spec.map (CommRingCat.ofHom k.toRingHom) = 𝟙 (Spec (CommRingCat.of T)) := by
+    rw [← Spec.map_comp, ← CommRingCat.ofHom_comp,
+      RingEquiv.symm_toRingHom_comp_toRingHom, CommRingCat.ofHom_id, Spec.map_id]
+  have hΦ : (i.inv ≫ φ ≫ j.hom) ≫ F.f = E.f := by
+    calc
+      (i.inv ≫ φ ≫ j.hom) ≫ F.f = i.inv ≫ φ ≫ H.f ≫
+          Spec.map (CommRingCat.ofHom k.toRingHom) := by
+        rw [Category.assoc, Category.assoc, hj.w]
+      _ = (i.inv ≫ D.f) ≫ Spec.map (CommRingCat.ofHom k.toRingHom) := by
+        rw [← Category.assoc φ H.f, hφ, ← Category.assoc]
+      _ = E.f := by rw [hv.w, Category.assoc, hbase, Category.comp_id]
+  have hΨ : (j.inv ≫ ψ ≫ i.hom) ≫ E.f = F.f := by
+    calc
+      (j.inv ≫ ψ ≫ i.hom) ≫ E.f = j.inv ≫ ψ ≫ D.f ≫
+          Spec.map (CommRingCat.ofHom k.toRingHom) := by
+        rw [Category.assoc, Category.assoc, hi.w]
+      _ = (j.inv ≫ H.f) ≫ Spec.map (CommRingCat.ofHom k.toRingHom) := by
+        rw [← Category.assoc ψ D.f, hψ, ← Category.assoc]
+      _ = F.f := by rw [hw.w, Category.assoc, hbase, Category.comp_id]
+  constructor
+  · refine ⟨hΦ, hΨ, ?_, ?_, ?_, ?_, ?_⟩
+    · intro X t P Q
+      apply Subtype.ext
+      apply (cancel_mono j.inv).mp
+      change ((E.L.mul t P Q).1 ≫ (i.inv ≫ φ ≫ j.hom)) ≫ j.inv =
+        (F.L.mul t (mapPt (i.inv ≫ φ ≫ j.hom) hΦ P)
+          (mapPt (i.inv ≫ φ ≫ j.hom) hΦ Q)).1 ≫ j.inv
+      rw [hw_mul]
+      simp only [mapPt_coe, Category.assoc, Iso.hom_inv_id, Category.comp_id]
+      rw [← Category.assoc, hv_mul]
+      exact congrArg Subtype.val (hφ_mul _ _ _)
+    · intro X t P Q
+      apply Subtype.ext
+      apply (cancel_mono i.inv).mp
+      change ((F.L.mul t P Q).1 ≫ (j.inv ≫ ψ ≫ i.hom)) ≫ i.inv =
+        (E.L.mul t (mapPt (j.inv ≫ ψ ≫ i.hom) hΨ P)
+          (mapPt (j.inv ≫ ψ ≫ i.hom) hΨ Q)).1 ≫ i.inv
+      rw [hv_mul]
+      simp only [mapPt_coe, Category.assoc, Iso.hom_inv_id, Category.comp_id]
+      rw [← Category.assoc, hw_mul]
+      exact congrArg Subtype.val (hψ_mul _ _ _)
+    · intro x
+      calc
+        E.act x ≫ (i.inv ≫ φ ≫ j.hom) =
+            i.inv ≫ (D.act x ≫ φ) ≫ j.hom := by
+          rw [← Category.assoc, hv_act]
+          simp only [Category.assoc]
+        _ = i.inv ≫ (φ ≫ H.act x) ≫ j.hom := by rw [hφ_act]
+        _ = (i.inv ≫ φ ≫ j.hom) ≫ F.act x := by
+          rw [Category.assoc, hj_act]
+          simp only [Category.assoc]
+    · intro x
+      calc
+        F.act x ≫ (j.inv ≫ ψ ≫ i.hom) =
+            j.inv ≫ (H.act x ≫ ψ) ≫ i.hom := by
+          rw [← Category.assoc, hw_act]
+          simp only [Category.assoc]
+        _ = j.inv ≫ (ψ ≫ D.act x) ≫ i.hom := by rw [hψ_act]
+        _ = (j.inv ≫ ψ ≫ i.hom) ≫ E.act x := by
+          rw [Category.assoc, hi_act]
+          simp only [Category.assoc]
+    · intro hd
+      constructor
+      · calc
+          (i.inv ≫ φ ≫ j.hom) ≫ (j.inv ≫ ψ ≫ i.hom) =
+              i.inv ≫ (φ ≫ ψ) ≫ i.hom := by
+            simp only [Category.assoc, Iso.hom_inv_id_assoc]
+          _ = i.inv ≫ D.act ⟨((d : ℚ) : ℍ[ℚ, a, b]), hd⟩ ≫ i.hom := by
+            rw [(hscalar hd).1]
+          _ = (E.act ⟨((d : ℚ) : ℍ[ℚ, a, b]), hd⟩ ≫ i.inv) ≫ i.hom := by
+            rw [← Category.assoc, ← hv_act]
+          _ = E.act ⟨((d : ℚ) : ℍ[ℚ, a, b]), hd⟩ := by
+            rw [Category.assoc, i.inv_hom_id, Category.comp_id]
+      · calc
+          (j.inv ≫ ψ ≫ i.hom) ≫ (i.inv ≫ φ ≫ j.hom) =
+              j.inv ≫ (ψ ≫ φ) ≫ j.hom := by
+            simp only [Category.assoc, Iso.hom_inv_id_assoc]
+          _ = j.inv ≫ H.act ⟨((d : ℚ) : ℍ[ℚ, a, b]), hd⟩ ≫ j.hom := by
+            rw [(hscalar hd).2]
+          _ = (F.act ⟨((d : ℚ) : ℍ[ℚ, a, b]), hd⟩ ≫ j.inv) ≫ j.hom := by
+            rw [← Category.assoc, ← hw_act]
+          _ = F.act ⟨((d : ℚ) : ℍ[ℚ, a, b]), hd⟩ := by
+            rw [Category.assoc, j.inv_hom_id, Category.comp_id]
+  · refine ⟨hΦ, ?_⟩
+    intro X t P hP
+    let P' : SchemeHomOver (t ≫ Spec.map (CommRingCat.ofHom k.symm.toRingHom)) D.f :=
+      ⟨P.1 ≫ i.inv, by rw [Category.assoc, hv.w, ← Category.assoc, P.2]⟩
+    have hP' : FactorsThrough D.lev P' := hv_level t P hP
+    obtain ⟨P₀, hP₀⟩ := hj_level _ (mapPt φ hφ P') (hlevel _ P' hP')
+    refine ⟨P₀, ?_⟩
+    simpa only [mapPt_coe, P', Category.assoc] using hP₀
