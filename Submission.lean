@@ -1061,6 +1061,9 @@ theorem p06_9e0f5043ff_fosa_coefficients_integral_off_finite
       obtain ⟨u, hu⟩ := v.exists_unit_mul_zpow hi hπ
       rw [hu, hord, zpow_zero, mul_one]
       exact (u : v.toValuationSubring).property
+
+end Submission
+
 namespace Submission
 
 /-- Monic equations for a nonzero element and its inverse over the restricted valuation ring
@@ -1092,8 +1095,16 @@ theorem p06_9e0f5043ff_fosa_ord_zero_of_monic_pair
       inv := ⟨f⁻¹, mem_of_root Q f⁻¹ hQ hQcoeff hQf⟩
       val_inv := Subtype.ext (mul_inv_cancel₀ hf)
       inv_val := Subtype.ext (inv_mul_cancel₀ hf) }
+
+end Submission
+
 namespace Submission
 
+/-- Finite order support ascends along a finite separable field extension.
+Choose monic equations for the element and its inverse. The approved coefficient lemma
+gives two finite exceptional sets downstairs; the approved monic-pair lemma makes the
+order zero outside their inverse image. Restriction has finite fibers by the pinned
+`AlgebraicCurve.Place.finite_setOf_restrict_eq`, so that inverse image is finite. -/
 theorem p06_9e0f5043ff_finite_order_support_ascent
     (K E L : Type*) [Field K] [Field E] [Field L]
     [Algebra K E] [Algebra K L] [Algebra E L] [IsScalarTower K E L]
