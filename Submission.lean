@@ -4460,69 +4460,6 @@ theorem Submission.p05_ftzw_tensor_relation_kernel_a5b449214a :
   rw [← hcomp]
   change L (E g) = 0
   rw [show E g = 0 from hg, map_zero]
-theorem Submission.p05_fr_rhm_bcsi_twisted_presentation_a5b449214a
-    {S : Type*} [CommRing S] {L : Type*} [AddCommGroup L] [Module S L]
-    (n p : ℕ) (P : Matrix (Fin n) (Fin p) S) (q : (Fin n → S) →ₗ[S] L)
-    (_hq : Function.Surjective q)
-    (_hker : LinearMap.ker q = LinearMap.range P.mulVecLin)
-    (θ : S ≃+* S) (T : L ≃+ L)
-    (_hT : ∀ (s : S) (x : L), T (s • x) = θ s • T x) :
-    ∃ qθ : (Fin n → S) →ₗ[S] L,
-      (∀ b : Fin n → S, qθ b = T (q (fun i => θ.symm (b i)))) ∧
-      Function.Surjective qθ ∧
-      LinearMap.ker qθ = LinearMap.range (P.map θ.toRingHom).mulVecLin := by
-  let qθ : (Fin n → S) →ₗ[S] L :=
-    { toFun := fun b => T (q (fun i => θ.symm (b i)))
-      map_add' := by
-        intro b c
-        have h : (fun i => θ.symm ((b + c) i)) =
-            (fun i => θ.symm (b i)) + (fun i => θ.symm (c i)) := by
-          ext i
-          exact map_add θ.symm (b i) (c i)
-        rw [h, map_add, map_add]
-      map_smul' := by
-        intro s b
-        have h : (fun i => θ.symm ((s • b) i)) =
-            θ.symm s • (fun i => θ.symm (b i)) := by
-          ext i
-          exact map_mul θ.symm s (b i)
-        change T (q (fun i => θ.symm ((s • b) i))) =
-          s • T (q (fun i => θ.symm (b i)))
-        rw [h, map_smul, _hT, θ.apply_symm_apply] }
-  refine ⟨qθ, fun _ => rfl, ?_, ?_⟩
-  · intro y
-    obtain ⟨a, ha⟩ := _hq (T.symm y)
-    refine ⟨fun i => θ (a i), ?_⟩
-    change T (q (fun i => θ.symm (θ (a i)))) = y
-    simpa only [θ.symm_apply_apply, ha] using T.apply_symm_apply y
-  · ext b
-    rw [LinearMap.mem_ker, LinearMap.mem_range]
-    constructor
-    · intro hb
-      change T (q (fun i => θ.symm (b i))) = 0 at hb
-      have hb0 : q (fun i => θ.symm (b i)) = 0 :=
-        T.injective (by simpa only [map_zero] using hb)
-      have hbker := LinearMap.mem_ker.mpr hb0
-      rw [_hker] at hbker
-      obtain ⟨c, hc⟩ := LinearMap.mem_range.mp hbker
-      refine ⟨fun j => θ (c j), ?_⟩
-      funext i
-      calc
-        (P.map θ.toRingHom).mulVecLin (fun j => θ (c j)) i =
-            θ (P.mulVecLin c i) := (θ.toRingHom.map_mulVec P c i).symm
-        _ = b i := by rw [congrFun hc i, θ.apply_symm_apply]
-    · rintro ⟨d, rfl⟩
-      have hA : (fun i => θ.symm ((P.map θ.toRingHom).mulVecLin d i)) =
-          P.mulVecLin (fun j => θ.symm (d j)) := by
-        ext i
-        simp [Matrix.mulVec, dotProduct, map_sum]
-      have hzero : q (P.mulVecLin (fun j => θ.symm (d j))) = 0 := by
-        apply LinearMap.mem_ker.mp
-        rw [_hker]
-        exact LinearMap.mem_range.mpr ⟨_, rfl⟩
-      change T (q (fun i => θ.symm ((P.map θ.toRingHom).mulVecLin d i))) = 0
-      rw [hA, hzero, map_zero]
-
 
 theorem Submission.p05_ibsrm_mismatched_support_zero_a5b449214a
     {R : Type*} [CommRing R] (n p t d : ℕ)
