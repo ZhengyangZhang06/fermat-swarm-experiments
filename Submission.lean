@@ -696,9 +696,7 @@ theorem p04_hct139_coset_average_laws :
     rw [hC, hC]
     change (∑ q : G ⧸ H, A.ρ q.out (F.hom (f.hom (D.ρ q.out⁻¹ x)))) =
       ∑ q : G ⧸ H, A.ρ q.out (F.hom (B.ρ q.out⁻¹ (f.hom x)))
-    apply Finset.sum_congr rfl
-    intro q _
-    rw [Rep.hom_comm_apply]
+    simp only [Rep.hom_comm_apply]
   · intro B F
     ext x
     change (C B _).hom x = H.index • F.hom x
