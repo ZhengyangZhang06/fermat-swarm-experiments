@@ -2150,8 +2150,6 @@ theorem Submission.p05_fhe_coefficient_matrix_a5b449214a
 
 theorem Submission.p05_di_antipode_adjugate_a5b449214a
     {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
-theorem Submission.p05_di_determinant_grouplike_a5b449214a
-    {k : Type*} [Field k] {H : Type*} [CommRing H] [Bialgebra k H]
     (n : ℕ) (c : Matrix (Fin n) (Fin n) H)
     (hΔ : ∀ i j : Fin n, Coalgebra.comul (R := k) (c i j) =
       ∑ l : Fin n, TensorProduct.tmul k (c i l) (c l j))
@@ -2186,6 +2184,14 @@ theorem Submission.p05_di_determinant_grouplike_a5b449214a
   refine ⟨Matrix.det Q, hdet, ?_⟩
   intro i j
   exact congrArg (fun M : Matrix (Fin n) (Fin n) H => M i j) hQT
+
+theorem Submission.p05_di_determinant_grouplike_a5b449214a
+    {k : Type*} [Field k] {H : Type*} [CommRing H] [Bialgebra k H]
+    (n : ℕ) (c : Matrix (Fin n) (Fin n) H)
+    (hΔ : ∀ i j : Fin n, Coalgebra.comul (R := k) (c i j) =
+      ∑ l : Fin n, TensorProduct.tmul k (c i l) (c l j))
+    (hε : ∀ i j : Fin n, Coalgebra.counit (R := k) (c i j) =
+      if i = j then (1 : k) else 0) :
     Coalgebra.comul (R := k) (Matrix.det c) =
       TensorProduct.tmul k (Matrix.det c) (Matrix.det c) ∧
     Coalgebra.counit (R := k) (Matrix.det c) = 1 := by
@@ -2212,3 +2218,25 @@ theorem Submission.p05_di_determinant_grouplike_a5b449214a
       exact hε i j
     change (Bialgebra.counitAlgHom k H) (Matrix.det c) = 1
     rw [AlgHom.map_det, hcounit, Matrix.det_one]
+
+theorem Submission.p05_fhe_determinant_inverse_a5b449214a
+    {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
+    (n : ℕ) (c : Matrix (Fin n) (Fin n) H)
+    (hΔ : ∀ i j : Fin n, Coalgebra.comul (R := k) (c i j) =
+      ∑ l : Fin n, TensorProduct.tmul k (c i l) (c l j))
+    (hε : ∀ i j : Fin n, Coalgebra.counit (R := k) (c i j) =
+      if i = j then (1 : k) else 0) :
+    ∃ u : H, Matrix.det c * u = 1 ∧
+      Coalgebra.comul (R := k) u = TensorProduct.tmul k u u ∧
+      HopfAlgebra.antipode k u = Matrix.det c ∧
+      (∀ i j : Fin n, HopfAlgebra.antipode k (c i j) = u * Matrix.adjugate c i j) := by
+  obtain ⟨u, hdu, hadj⟩ := Submission.p05_di_antipode_adjugate_a5b449214a n c hΔ hε
+  obtain ⟨hdΔ, hdε⟩ := Submission.p05_di_determinant_grouplike_a5b449214a n c hΔ hε
+  have hd : IsGroupLikeElem k (Matrix.det c) := ⟨hdε, hdΔ⟩
+  have hSu : HopfAlgebra.antipode k (Matrix.det c) = u :=
+    left_inv_eq_right_inv hd.antipode_mul_cancel hdu
+  refine ⟨u, hdu, ?_, ?_, hadj⟩
+  · rw [← hSu]
+    exact hd.antipode.comul_eq_tmul_self
+  · rw [← hSu]
+    exact hd.antipode_antipode
