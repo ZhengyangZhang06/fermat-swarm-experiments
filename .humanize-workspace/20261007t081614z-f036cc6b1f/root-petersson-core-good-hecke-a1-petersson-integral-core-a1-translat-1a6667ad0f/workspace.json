@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081614Z-f036cc6b1f",
+  "parent_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.translated_domain_integrability-a1",
+  "dispatch_branch": "proof-workspace/fermat-p01/20261007t081614z-f036cc6b1f/dispatch/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f",
+  "source_commit": "61b5f85556ac71631ccad822e0694511234f7132",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.translated_domain_integrability-a1.planar_exp_integrable_fd-a1",
+      "key": "planar_exp_integrable_fd",
+      "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-17222c8617-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-17222c8617",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "petersson_slash_SL|exp_decay_atImInfty|zero_at_infty_slash|integrable.*petersson|petersson.*integrable",
+              "im.*fd|fd.*im|def fd|isCompact_truncated|isClosed_fd",
+              "integrable.*exp|integral.*exp",
+              "integrable_withDensity|lintegral_withDensity|integrableOn_iff_comap",
+              "integrableOn_comp_preimage|integrableOn_image|integrableOn.*smul|integrableOn_comp_iff",
+              "petersson.*integrable|integrable.*petersson|planar_exp_integrable_fd|petersson_integrable_of_exp_product_bound"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/QExpansion.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Petersson.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/Modular.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Integral/ExpDecay.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Measure/Lebesgue/Complex.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Function/L1Space/Integrable.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Integral/IntegrableOn.lean"
+            ],
+            "conclusion": "The manifest pins project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Basic and QExpansion provide translated cusp conditions and exponential decay; Petersson provides slash covariance. Modular provides the height lower bound and compact truncated domains. Measure identifies hyperbolic volume as planar comap measure with density y⁻² and proves action invariance. ExpDecay, Lebesgue/Complex, and the integration files provide exponential integrability, volume-preserving coordinates, density conversion, and image transport. The direct Petersson-integrability search found no matching theorem. All nine dependency checkouts matched their pins and were clean; inspected sources matched the snapshot. Audited library declarations had only propext, Classical.choice, and Quot.sound as transitive axioms."
+          }
+        ],
+        "parent_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.translated_domain_integrability-a1",
+        "child_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.translated_domain_integrability-a1.planar_exp_integrable_fd-a1",
+        "subproblem": {
+          "key": "planar_exp_integrable_fd",
+          "title": "Planar integrability of an exponential majorant on the standard modular domain",
+          "statement": "Let ℍ be the upper half-plane, F₀={z∈ℍ : 1≤|z|² and |Re z|≤1/2}, and ν=dx dy, the comap of complex Lebesgue measure along the inclusion ℍ→ℂ. For every real a>0, the real-valued function z↦exp(−a Im z) is ν-integrable on F₀.",
+          "lean_statement": "∀ (a : ℝ), 0 < a → MeasureTheory.IntegrableOn (fun z : UpperHalfPlane => Real.exp (-a * z.im)) ModularGroup.fd ((MeasureTheory.volume : MeasureTheory.Measure ℂ).comap UpperHalfPlane.coe)",
+          "lean_name": "f036cc6b1f_tdi_planar_exp_integrable_fd",
+          "depends_on": [],
+          "natural_proof": "1. Fix a>0 and let ν be the stated planar measure. Put b=√3/2>0. If z=x+iy belongs to F₀, then x²≤1/4 and x²+y²≥1. Therefore y²≥3/4, and y>0 gives y≥b. Consequently F₀ is contained in S={x+iy : −1/2≤x≤1/2, b≤y}. Both sets are Borel, since their defining coordinate and norm functions are continuous.\n2. The inclusion ℍ→ℂ is a measurable embedding, as established by UpperHalfPlane.measurableEmbedding_coe. Since ν is its comap measure, integration on S agrees with integration over its image in ℂ. The volume-preserving coordinate identification Complex.volume_preserving_equiv_real_prod then identifies this measure with dx dy on [−1/2,1/2]×[b,∞).\n3. For R≥b, the antiderivative −exp(−ay)/a gives the integral of exp(−ay) on [b,R] as (exp(−ab)−exp(−aR))/a. Because a>0, exp(−aR) tends to zero as R tends to infinity. Monotone convergence for the nonnegative integrand therefore gives its nonnegative Lebesgue integral on [b,∞) as exp(−ab)/a<∞; interval endpoints have measure zero. Tonelli's theorem now gives the nonnegative integral of exp(−a Im z) on S as exp(−ab)/a, since the horizontal interval has length one.\n4. The function z↦exp(−a Im z) is continuous, hence strongly measurable, and nonnegative, so its norm equals itself. Its norm integral on F₀ is at most its finite integral on S. Strong measurability and finiteness of this norm integral prove the asserted real Bochner integrability.",
+          "proof_key_steps": [
+            "Use the defining inequalities of F₀ to place it in a width-one strip above height √3/2.",
+            "Identify planar comap measure with product Lebesgue measure through the inclusion and complex coordinate equivalence.",
+            "Integrate the positive exponential on the strip using its antiderivative, monotone convergence, and Tonelli.",
+            "Restrict the finite norm integral to F₀ and conclude Bochner integrability."
+          ]
+        },
+        "audit": {
+          "key": "planar_exp_integrable_fd",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly matches the prose, including a>0 and the explicit planar comap measure. The bare identifier is unreserved, and the contract needs no child implementation. Independently checked all four steps: the positive height bound, measurable coordinate transport, finite exponential strip integral by monotone convergence and Tonelli, and restriction plus strong measurability. The proof is complete, non-circular, and sufficiently detailed for formalization."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-17222c8617/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-17222c8617/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-17222c8617/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.translated_domain_integrability-a1.petersson_integrable_of_exp_product-a1",
+      "key": "petersson_integrable_of_exp_product",
+      "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-0d391f273d-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-0d391f273d",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "petersson_slash_SL|exp_decay_atImInfty|zero_at_infty_slash|integrable.*petersson|petersson.*integrable",
+              "im.*fd|fd.*im|def fd|isCompact_truncated|isClosed_fd",
+              "integrable.*exp|integral.*exp",
+              "integrable_withDensity|lintegral_withDensity|integrableOn_iff_comap",
+              "integrableOn_comp_preimage|integrableOn_image|integrableOn.*smul|integrableOn_comp_iff",
+              "petersson.*integrable|integrable.*petersson|planar_exp_integrable_fd|petersson_integrable_of_exp_product_bound"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/QExpansion.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Petersson.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/Modular.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Integral/ExpDecay.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Measure/Lebesgue/Complex.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Function/L1Space/Integrable.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Integral/IntegrableOn.lean"
+            ],
+            "conclusion": "The manifest pins project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Basic and QExpansion provide translated cusp conditions and exponential decay; Petersson provides slash covariance. Modular provides the height lower bound and compact truncated domains. Measure identifies hyperbolic volume as planar comap measure with density y⁻² and proves action invariance. ExpDecay, Lebesgue/Complex, and the integration files provide exponential integrability, volume-preserving coordinates, density conversion, and image transport. The direct Petersson-integrability search found no matching theorem. All nine dependency checkouts matched their pins and were clean; inspected sources matched the snapshot. Audited library declarations had only propext, Classical.choice, and Quot.sound as transitive axioms."
+          }
+        ],
+        "parent_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.translated_domain_integrability-a1",
+        "child_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.translated_domain_integrability-a1.petersson_integrable_of_exp_product-a1",
+        "subproblem": {
+          "key": "petersson_integrable_of_exp_product",
+          "title": "Petersson integrability from continuity and an exponential product bound",
+          "statement": "Let u,v:ℍ→ℂ be continuous. Let a,C,Y∈ℝ satisfy a>0 and C≥0, and assume that ‖u(z)v(z)‖≤C exp(−a Im z) for every z∈ℍ with Y≤Im z. Put F₀={z∈ℍ : 1≤|z|² and |Re z|≤1/2} and μ=dx dy/y². Then z↦conjugate(u(z))v(z)(Im z)² is μ-integrable on F₀.",
+          "lean_statement": "∀ (u v : UpperHalfPlane → ℂ) (a C Y : ℝ), Continuous u → Continuous v → 0 < a → 0 ≤ C → (∀ z : UpperHalfPlane, Y ≤ z.im → ‖u z * v z‖ ≤ C * Real.exp (-a * z.im)) → MeasureTheory.IntegrableOn (UpperHalfPlane.petersson 2 u v) ModularGroup.fd (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane)",
+          "lean_name": "f036cc6b1f_tdi_petersson_integrable_of_exp_product_bound",
+          "depends_on": [
+            "planar_exp_integrable_fd"
+          ],
+          "natural_proof": "1. Fix u,v,a,C,Y satisfying the hypotheses. Write ν=dx dy for planar measure on ℍ and μ=dx dy/y². Put L=max 1 Y, D=F₀∩{Im z≤L}, and E=F₀∩{L<Im z}. These sets are Borel, are disjoint, and have union F₀. All norm integrals below are nonnegative Lebesgue integrals, so their use does not presuppose Bochner integrability.\n2. Put b=√3/2. For z=x+iy in F₀, the inequalities x²≤1/4 and x²+y²≥1 imply y≥b>0. Thus D is a closed subset of the compact rectangle [−1/2,1/2]×[b,L], which lies entirely inside ℍ. Consequently D is compact and has finite planar measure, bounded by the rectangle's finite area. The function W(z)=conjugate(u(z))v(z) is continuous. Compactness supplies B≥0 bounding ‖W‖ on D, so the norm integral of W on D is at most Bν(D)<∞.\n3. Apply the sibling planar_exp_integrable_fd with the given a>0. It supplies ν-integrability of z↦exp(−a Im z) on F₀. If z∈E, then Im z>L≥Y, and the norm identities for conjugation and multiplication give ‖W(z)‖=‖u(z)v(z)‖≤C exp(−a Im z). Since C≥0, this is a nonnegative integrable majorant on E. Hence the norm integral of W on E is finite. Additivity over the disjoint Borel partition D∪E=F₀ proves that the norm integral of W on F₀ is finite.\n4. Define P(z)=W(z)(Im z)², which equals UpperHalfPlane.petersson 2 u v z. By UpperHalfPlane.volume_def, μ is ν with density (Im z)⁻². For every z∈ℍ, Im z>0, and therefore ‖P(z)‖(Im z)⁻²=‖W(z)‖. The with-density formula after restriction to the Borel set F₀ identifies the μ-norm integral of P with the finite ν-norm integral of W established in step 3.\n5. The function P is continuous because u,v and Im are continuous. It is therefore strongly measurable with values in the separable space ℂ. Together with the finite μ-norm integral from step 4, this proves its complex Bochner integrability on F₀.",
+          "proof_key_steps": [
+            "Partition F₀ into a lower truncation and a tail above max 1 Y.",
+            "Use the positive height lower bound and continuity to obtain a finite planar norm integral on the compact truncation.",
+            "Apply planar_exp_integrable_fd and the product bound to control the tail.",
+            "Cancel the weight y² against the hyperbolic density y⁻² in the norm integral.",
+            "Combine continuity with the finite norm integral to conclude Petersson integrability."
+          ]
+        },
+        "audit": {
+          "key": "petersson_integrable_of_exp_product",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition includes every prose hypothesis and matches the Petersson integrand and hyperbolic measure. The bare identifier is unreserved. All five proof steps are sound: max 1 Y handles arbitrary Y; compactness and finite planar measure control the lower part; the declared first child controls the tail; positivity of Im z justifies density cancellation; continuity supplies strong measurability. Its sole dependency points to planar_exp_integrable_fd, producing an acyclic split into genuine analytic obligations. Neither proof relies on the parent or asks the child to discover a missing argument."
+        },
+        "resolved_dependencies": [
+          "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.translated_domain_integrability-a1.planar_exp_integrable_fd-a1"
+        ],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-0d391f273d/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-0d391f273d/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-0d391f273d/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/task.md": "05006e5102d8511e94dc61fded268fcca7b1594ae676beaa70ca219b913620d8",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/problem.md": "0929eb9ca2ad7ea30f1aafc2c1446aaf06dcdc301374ffe2ca7f4b56816d2cc8",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/problem.json": "c64a078a3af06a0ca64b6d4803eb85ec446543f75da9e877043ae15bfce62d9d",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/reference-manifest.json": "509f4932b6d1c571a2a1434f97319ae47791212dabf986cc6faad0e84a6d9346",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/decomposition.json": "b371f08c64324b36ad1b10f45d0968d1b5fc693f45dd44a059af165a6a3681ee",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/decomposition-audit.json": "a99ef004b9b933d01fed077f32f4c647cb560253687546b1ab9e5ecdbb5d7714",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/controller-contract.json": "bff7bdd835120310c8d06285451ab49cb58d39fdb94d2ad676fc3fff3afc415d",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-17222c8617/parent-child-handoff.json": "f7acfad29d732454e69087d9963f3f4ac89a7f62f004d2a14d25901a4a777e0d",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-17222c8617/parent-supplied-plan.md": "b6530c065daddd1c226ffd38fef27bd7bb5b82134b00b2e4fc267258113591c6",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-17222c8617/parent-supplied-natural-proof.md": "6bd3973d6e296a054417395c0796452c3cb7f924615bfc0b3358b5f445f1b3ee",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-17222c8617/parent-supplied-natural-proof.json": "0a192241060a3a33fc41c4c8f2a4181f661587cc7ba2d8a6f8aad3ab9a3cea2e",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-17222c8617/node.json": "c67b21d6f6413e24ab790b98c3558177e77d73b0a45104b27dd4b06b34c29844",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-0d391f273d/parent-child-handoff.json": "fafa21cb76a5c63853a0d87b48b3e939d0354708c1caa7639c8fb315f450a6e9",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-0d391f273d/parent-supplied-plan.md": "d7a6d20a5f36c726731c480baed4e977ef3fb938a7e6b28311ee7975bc9f1f88",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-0d391f273d/parent-supplied-natural-proof.md": "94077bf69b42a637a34a691b036186e23248d0392ef679dc78445ca8351869be",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-0d391f273d/parent-supplied-natural-proof.json": "b159c91fa2b6f9f1d5bec4c6c7e55ce849694a9440400a407c01dfbd03e8cdcc",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-1a6667ad0f/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-0d391f273d/node.json": "2f8493de09352ab5197c17583264388658452bbdcd873c660163c8b2bc555ff5"
+  }
+}

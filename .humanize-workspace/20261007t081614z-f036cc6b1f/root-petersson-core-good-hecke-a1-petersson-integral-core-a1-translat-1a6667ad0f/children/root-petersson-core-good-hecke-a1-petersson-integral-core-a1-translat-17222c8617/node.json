@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.translated_domain_integrability-a1.planar_exp_integrable_fd-a1",
+  "parent_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.translated_domain_integrability-a1",
+  "depth": 4,
+  "title": "Planar integrability of an exponential majorant on the standard modular domain",
+  "statement": "Let ℍ be the upper half-plane, F₀={z∈ℍ : 1≤|z|² and |Re z|≤1/2}, and ν=dx dy, the comap of complex Lebesgue measure along the inclusion ℍ→ℂ. For every real a>0, the real-valued function z↦exp(−a Im z) is ν-integrable on F₀.",
+  "lean_statement": "∀ (a : ℝ), 0 < a → MeasureTheory.IntegrableOn (fun z : UpperHalfPlane => Real.exp (-a * z.im)) ModularGroup.fd ((MeasureTheory.volume : MeasureTheory.Measure ℂ).comap UpperHalfPlane.coe)",
+  "lean_name": "f036cc6b1f_tdi_planar_exp_integrable_fd",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-17222c8617-a1"
+}

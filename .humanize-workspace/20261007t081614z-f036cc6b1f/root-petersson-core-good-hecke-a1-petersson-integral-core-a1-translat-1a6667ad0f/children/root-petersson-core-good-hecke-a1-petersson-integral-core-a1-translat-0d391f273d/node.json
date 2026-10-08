@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.translated_domain_integrability-a1.petersson_integrable_of_exp_product-a1",
+  "parent_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.translated_domain_integrability-a1",
+  "depth": 4,
+  "title": "Petersson integrability from continuity and an exponential product bound",
+  "statement": "Let u,v:ℍ→ℂ be continuous. Let a,C,Y∈ℝ satisfy a>0 and C≥0, and assume that ‖u(z)v(z)‖≤C exp(−a Im z) for every z∈ℍ with Y≤Im z. Put F₀={z∈ℍ : 1≤|z|² and |Re z|≤1/2} and μ=dx dy/y². Then z↦conjugate(u(z))v(z)(Im z)² is μ-integrable on F₀.",
+  "lean_statement": "∀ (u v : UpperHalfPlane → ℂ) (a C Y : ℝ), Continuous u → Continuous v → 0 < a → 0 ≤ C → (∀ z : UpperHalfPlane, Y ≤ z.im → ‖u z * v z‖ ≤ C * Real.exp (-a * z.im)) → MeasureTheory.IntegrableOn (UpperHalfPlane.petersson 2 u v) ModularGroup.fd (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane)",
+  "lean_name": "f036cc6b1f_tdi_petersson_integrable_of_exp_product_bound",
+  "depends_on": [
+    "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.translated_domain_integrability-a1.planar_exp_integrable_fd-a1"
+  ],
+  "dependency_workspaces": [
+    {
+      "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.translated_domain_integrability-a1.planar_exp_integrable_fd-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    }
+  ],
+  "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-translat-0d391f273d-a1"
+}

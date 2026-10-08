@@ -1,0 +1,48 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "petersson_slash_SL|exp_decay_atImInfty|zero_at_infty_slash|integrable.*petersson|petersson.*integrable|def petersson|def fd|volume_def|measurableEmbedding_coe|volume_preserving_equiv_real_prod",
+        "isCompact_truncated|isClosed_fd|sqrt.*3|im.*fd|fd.*im",
+        "integrable_withDensity|lintegral_withDensity|integrableOn_iff_comap|integrableOn_image|integrableOn_comp_preimage|integrableOn_comp_iff|withDensity_restrict",
+        "petersson.*integrable|integrable.*petersson|planar_exp_integrable_fd|petersson_integrable_of_exp_product_bound",
+        "f036cc6b1f_tdi_planar_exp_integrable_fd|f036cc6b1f_tdi_petersson_integrable_of_exp_product_bound",
+        "PATH=/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin:$PATH /mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/fermat-decomposition-audit-lhasvezf/ContractAudit.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/Modular.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/QExpansion.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Petersson.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Integral/ExpDecay.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Measure/Lebesgue/Complex.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Integral/IntegrableOn.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Measure/WithDensity.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb",
+        "/tmp/fermat-decomposition-audit-lhasvezf/ContractAudit.lean"
+      ],
+      "conclusion": "Independently confirmed clean snapshots at project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d, all nine dependency pins and clean checkouts, and matching inspected mathlib sources. Modular supplies the exact domain, height bound, and compact truncation; Measure supplies planar comap infrastructure and hyperbolic density; the coordinate, exponential, density, and transport lemmas support the supplied arguments. Basic, QExpansion, and Petersson support the parent's remaining steps. The snapshot-wide direct Petersson-integrability search found no match. Both exact propositions elaborated independently using only pinned mathlib imports under Lean 4.33.1, without either child declaration. Anonymous checks verified the inferred hyperbolic measure by rfl and the weight-two Petersson expression. Twenty audited library declarations had only propext, Classical.choice, and Quot.sound as transitive axioms. Neither proposed name is reserved in the active DAG or another proposal. These checks establish contract suitability, not comparator acceptance of future implementations."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "planar_exp_integrable_fd",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose, including a>0 and the explicit planar comap measure. The bare identifier is unreserved, and the contract needs no child implementation. Independently checked all four steps: the positive height bound, measurable coordinate transport, finite exponential strip integral by monotone convergence and Tonelli, and restriction plus strong measurability. The proof is complete, non-circular, and sufficiently detailed for formalization."
+    },
+    {
+      "key": "petersson_integrable_of_exp_product",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition includes every prose hypothesis and matches the Petersson integrand and hyperbolic measure. The bare identifier is unreserved. All five proof steps are sound: max 1 Y handles arbitrary Y; compactness and finite planar measure control the lower part; the declared first child controls the tail; positivity of Im z justifies density cancellation; continuity supplies strong measurability. Its sole dependency points to planar_exp_integrable_fd, producing an acyclic split into genuine analytic obligations. Neither proof relies on the parent or asks the child to discover a missing argument."
+    }
+  ],
+  "required_changes": []
+}
