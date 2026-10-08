@@ -4457,7 +4457,8 @@ theorem p06_9e0f5043ff_llm_localized_residue_factors
       Ideal.Quotient.eq_zero_iff_mem.mpr htp, zero_mul]
 open scoped BigOperators
 
-/-- Length after localization is the sum of the localized successive quotient lengths. -/
+/-- Length after localization is the sum of the localized successive quotient lengths.
+The equality is in `ℕ∞`; the proof uses addition only and needs no finite-length hypothesis. -/
 theorem p06_9e0f5043ff_llm_localized_series_sum
     (B M : Type*) [CommRing B] [AddCommGroup M] [Module B M]
     (T : Submonoid B) (s : CompositionSeries (Submodule B M))
@@ -4477,6 +4478,8 @@ theorem p06_9e0f5043ff_llm_localized_series_sum
     let g := ((s i.castSucc).comap (s i.succ).subtype).mkQ
     have hex : Function.Exact f g := by
       rw [LinearMap.exact_iff, Submodule.ker_mkQ, Submodule.range_inclusion]
+    -- These maps are linear over `Localization T`; their underlying maps are the
+    -- same maps used by `LocalizedModule.map_exact` over the original ring.
     exact Module.length_eq_add_of_exact (LocalizedModule.map T f) (LocalizedModule.map T g)
       (LocalizedModule.map_injective T f (Submodule.inclusion_injective hle))
       (LocalizedModule.map_surjective T g (Submodule.mkQ_surjective _))
