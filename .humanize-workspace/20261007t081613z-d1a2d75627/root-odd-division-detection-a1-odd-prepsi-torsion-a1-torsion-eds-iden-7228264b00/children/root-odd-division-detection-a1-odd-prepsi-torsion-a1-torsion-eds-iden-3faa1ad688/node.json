@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_identification-a1.canonical_eds_recurrences-a1.canonical_even_recurrence-a1",
+  "parent_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_identification-a1.canonical_eds_recurrences-a1",
+  "depth": 5,
+  "title": "Even recurrence for the canonical coordinate-ring division sequence",
+  "statement": "Let k be a characteristic-zero field with decidable equality and W a Weierstrass equation over k. Let A=W.toAffine.CoordinateRing, let q:k[X,Y]→A be its quotient ring homomorphism, and let C:k[X]→k[X,Y] be the constant-polynomial inclusion in Y. Put h=q(W.ψ₂) and define F:ℕ→A by F(n)=q(C(W.preΨ' n))·(if n is even then h else 1). For every natural number r≥3, hF(2r)=F(r)(F(r+2)F(r−1)²−F(r−2)F(r+1)²).",
+  "lean_statement": "∀ (k : Type) [Field k] [CharZero k] [DecidableEq k] (W : WeierstrassCurve k), let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine; let h := q W.ψ₂; let F : ℕ → W.toAffine.CoordinateRing := fun n => q (Polynomial.C (W.preΨ' n)) * (if Even n then h else 1); ∀ r : ℕ, 3 ≤ r → h * F (2 * r) = F r * (F (r + 2) * F (r - 1) ^ 2 - F (r - 2) * F (r + 1) ^ 2)",
+  "lean_name": "p03_eds_canonical_even_recurrence_68cf3476_d4",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p03/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-3faa1ad688-a1"
+}

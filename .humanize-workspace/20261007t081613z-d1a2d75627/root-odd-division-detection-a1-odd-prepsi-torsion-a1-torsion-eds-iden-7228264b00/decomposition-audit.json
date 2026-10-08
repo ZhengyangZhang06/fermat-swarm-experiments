@@ -1,0 +1,46 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "preΨ'_even|preΨ'_odd|mk_ψ₂_sq|ψ₂_sq|preΨ'_zero|preΨ'_one|preΨ'_two|preΨ'_three|preΨ'_four",
+        "def CoordinateRing|namespace CoordinateRing|def mk|abbrev mk|instance.*CommRing|mk_eq_zero",
+        "p03_eds_canonical_(odd|even)_recurrence_68cf3476_d4",
+        "python3 /tmp/p03_canonical_recurrence_type_probe.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Point.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/dag.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p03_canonical_recurrence_type_probe.py",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/diagnostics/canonical-recurrence-types-b78z16iq/results.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/diagnostics/canonical-recurrence-types-b78z16iq/TypesAfterSubmission.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/diagnostics/canonical-recurrence-types-b78z16iq/TypesAfterSubmission.lean.log",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/diagnostics/canonical-recurrence-types-b78z16iq/InstancesAfterSubmission.lean.log",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/diagnostics/canonical-recurrence-types-b78z16iq/LibraryAxioms.lean.log",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/diagnostics/canonical-recurrence-types-b78z16iq/TargetAbsence.lean"
+      ],
+      "conclusion": "Basic.lean supplies the exact initial identities and both preΨ' recurrences; Point.lean identifies the coordinate ring and quotient homomorphism with AdjoinRoot. Independently rerun diagnostics elaborated both supplied propositions after import Submission and confirmed AdjoinRoot multiplication. The types and cited library lemmas have only propext, Classical.choice, and Quot.sound as transitive axioms. Project revision 81f093181fd6c58dc887fcae5ec8b896996f1885, mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d, and pinned dependencies were clean before and after. Neither proposed name matched the snapshot or any of the ten DAG registries recorded in the receipt. The matching header-policy digest was verified; only listed lines 10–11 were omitted in disposable copies, restoration and hashes were checked, and Lean confirmed all 37 targets absent. Original sources were preserved. These checks support decomposition approval, not theorem acceptance; candidate proofs still require the authoritative comparator and independent verification."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "canonical_odd_recurrence",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose, including all field hypotheses, q, h, F, and r≥2. It is independently usable without either child declaration. The bare name is unreserved. Step 2 correctly derives h²=b in the quotient; step 3 validly reindexes preΨ'_odd using r≥2 and preserves parity. Steps 4–5 collect exactly four factors of h in the appropriate term, and step 6 identifies F(2r+1). The proof is complete and non-circular. This is a genuine independent component of the parent; empty child dependencies are correct."
+    },
+    {
+      "key": "canonical_even_recurrence",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose and all hypotheses, and requires no implemented child or post-hoc alias. The bare name is unreserved. The bound r≥3 justifies every subtraction in the reindexing of preΨ'_even. Mapping and factoring give a_(2r)=a_rD; both parity expansions correctly yield h²a_rD, while hF(2r)=h²a_(2r). No cancellation or additional geometric assumption is used. The proof is complete and independent of the odd child. Splitting these two recurrence obligations at depth 5 is appropriate and acyclic; the five direct initial-value calculations remain with the parent."
+    }
+  ],
+  "required_changes": []
+}
