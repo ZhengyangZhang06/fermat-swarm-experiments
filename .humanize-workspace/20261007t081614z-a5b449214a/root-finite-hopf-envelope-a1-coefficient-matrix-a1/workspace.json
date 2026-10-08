@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081614Z-a5b449214a",
+  "parent_id": "root.finite_hopf_envelope-a1.coefficient_matrix-a1",
+  "dispatch_branch": "proof-workspace/fermat-p05/20261007t081614z-a5b449214a/dispatch/root-finite-hopf-envelope-a1-coefficient-matrix-a1",
+  "source_commit": "2fdd42759f4ab17640ac773289b521dd69d4b26e",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.finite_hopf_envelope-a1.coefficient_matrix-a1.basis_expansion-a1",
+      "key": "basis_expansion",
+      "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-coefficient-matrix-a1-basis-expansion-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-coefficient-matrix-a1/children/root-finite-hopf-envelope-a1-coefficient-matrix-a1-basis-expansion-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "coassoc|counit.*comul|comul.*counit",
+              "exists_extension|extend|exists.*basis|finite_basis|finBasis",
+              "sum_repr|sum.*repr",
+              "exists.*coefficient|coefficient.*matrix|matrix.*coefficient",
+              "p05_cm_basis_expansion_a5b449214a|p05_cm_coalgebra_laws_a5b449214a",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p05_cm_types_a5b449214a.lean",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean HeaderPolicyCheck.lean",
+              "python3 /tmp/p05_cm_context_a5b449214a.py"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Basis/VectorSpace.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Basis/Defs.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Dimension/Free.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Basis.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Coalgebra/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/report.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/challenge/HeaderPolicyCheck.lean",
+              "/tmp/p05_cm_types_a5b449214a.lean",
+              "/tmp/p05_cm_context_a5b449214a.json"
+            ],
+            "conclusion": "The snapshots are clean at project 2fdd42759f4ab17640ac773289b521dd69d4b26e and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; all nine compiled dependencies match their pinned revisions and are clean. Relevant infrastructure includes Module.finBasis, Module.Basis.sum_repr, LinearMap.exists_extend, TensorProduct.eq_repr_basis_left, Coalgebra.coassoc_apply, and both counitality lemmas. The coefficient-matrix search found no matching theorem in the coalgebra/Hopf-algebra directories. Both proposed exact types elaborated after import Submission; their names are absent from the DAG, searched snapshot, and imported environment. The inspected infrastructure has only propext, Classical.choice, and Quot.sound as transitive axioms. Compiler-copy diagnostics verified policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, precisely the authorized omissions at lines 10–11, and reversible original/build hashes 2e81f3c63685285e1af52e3dee0c135a8a7c8e9f37be7ad076712f55790c632c and d10948155ea0e92408d3ce320bdd5db3b7f00b622f4c9de9c98f040a414fa2f6. The rerun Lean probe confirmed every omitted target absent. These checks validate decomposition inputs and types; they do not constitute comparator acceptance of child proofs."
+          }
+        ],
+        "parent_id": "root.finite_hopf_envelope-a1.coefficient_matrix-a1",
+        "child_id": "root.finite_hopf_envelope-a1.coefficient_matrix-a1.basis_expansion-a1",
+        "subproblem": {
+          "key": "basis_expansion",
+          "title": "Comultiplication expansion in a prescribed finite basis",
+          "statement": "Let k be a field, H a commutative Hopf k-algebra with comultiplication Δ, V a k-subspace of H, n a natural number, and b a basis of V indexed by Fin n. Write v_i for the image of b_i in H. Assume that Δ(x) belongs to span_k{a⊗y | a∈V, y∈H} for every x∈V. Then there exists c : Matrix (Fin n) (Fin n) H such that Δ(v_j)=∑_i v_i⊗c_ij for every j∈Fin n. All tensor products are over k.",
+          "lean_statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (V : Submodule k H) (n : ℕ) (b : Module.Basis (Fin n) k V) (hV : ∀ x ∈ V, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ V, ∃ y : H, t = TensorProduct.tmul k a y}), ∃ c : Matrix (Fin n) (Fin n) H, ∀ j : Fin n, Coalgebra.comul (R := k) (b j : H) = ∑ i : Fin n, TensorProduct.tmul k (b i : H) (c i j)",
+          "lean_name": "p05_cm_basis_expansion_a5b449214a",
+          "depends_on": [],
+          "natural_proof": "1. Put v_i=(b_i:H). For every a∈V, the basis expansion in V, followed by its linear inclusion into H, gives a=∑_i α_i v_i, where α_i is the i-th coordinate of a in b.\n2. Let W be the set of tensors expressible as ∑_i v_i⊗d_i for some family d:Fin n→H. This is a k-subspace of H⊗H. The zero family represents zero. If d and e represent two tensors, d+e represents their sum by additivity in the second tensor factor. If d represents a tensor and r∈k, the family i↦r•d_i represents its scalar multiple by r, by bilinearity of the tensor product.\n3. Every generator a⊗y with a∈V belongs to W. Indeed, using the coefficients from step 1 and the balancing identity for tensor products gives a⊗y=(∑_i α_i v_i)⊗y=∑_i v_i⊗(α_i•y). Therefore the k-linear span of all these generators is contained in W.\n4. For each j, v_j∈V. The stability hypothesis and step 3 imply Δ(v_j)∈W. Hence choose d_j:Fin n→H such that Δ(v_j)=∑_i v_i⊗d_j(i). Define c=Matrix.of (fun i j => d_j(i)). Its entries satisfy c_ij=d_j(i), so the required equality holds for every j.\n5. The construction also covers n=0: there is a unique empty matrix and there are no column indices j, so the asserted family of equalities is vacuous. Thus the conclusion holds for every natural number n.",
+          "proof_key_steps": [
+            "Expand every vector of V in the prescribed finite basis.",
+            "Show that tensors of the form ∑ i, v_i⊗d_i form a subspace.",
+            "Place each generating tensor a⊗y in that subspace using basis expansion and tensor balancing.",
+            "Apply stability to each basis vector and assemble the chosen coefficient families into a matrix.",
+            "Observe that the empty-index case satisfies the conclusion."
+          ]
+        },
+        "audit": {
+          "key": "basis_expansion",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly matches every prose hypothesis and conclusion; the supplied finite basis already ensures finite dimensionality. Independently checked basis expansion, closure of W under zero/addition/scalars, tensor balancing for generators, span containment, and coefficient selection using hV. Matrix.of correctly assembles the entries, and n=0 is covered. No circular reliance or deferred proof construction occurs. The bare identifier is available, the type contains no implementation-dependent reference, and the empty dependency list is correct."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-hopf-envelope-a1-coefficient-matrix-a1-basis-expansion-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-hopf-envelope-a1-coefficient-matrix-a1-basis-expansion-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-hopf-envelope-a1-coefficient-matrix-a1-basis-expansion-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.finite_hopf_envelope-a1.coefficient_matrix-a1.coalgebra_laws-a1",
+      "key": "coalgebra_laws",
+      "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-coefficient-matrix-a1-coalgebra-laws-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-coefficient-matrix-a1/children/root-finite-hopf-envelope-a1-coefficient-matrix-a1-coalgebra-laws-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "coassoc|counit.*comul|comul.*counit",
+              "exists_extension|extend|exists.*basis|finite_basis|finBasis",
+              "sum_repr|sum.*repr",
+              "exists.*coefficient|coefficient.*matrix|matrix.*coefficient",
+              "p05_cm_basis_expansion_a5b449214a|p05_cm_coalgebra_laws_a5b449214a",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p05_cm_types_a5b449214a.lean",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean HeaderPolicyCheck.lean",
+              "python3 /tmp/p05_cm_context_a5b449214a.py"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Basis/VectorSpace.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Basis/Defs.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Dimension/Free.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Basis.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Coalgebra/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/report.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/challenge/HeaderPolicyCheck.lean",
+              "/tmp/p05_cm_types_a5b449214a.lean",
+              "/tmp/p05_cm_context_a5b449214a.json"
+            ],
+            "conclusion": "The snapshots are clean at project 2fdd42759f4ab17640ac773289b521dd69d4b26e and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; all nine compiled dependencies match their pinned revisions and are clean. Relevant infrastructure includes Module.finBasis, Module.Basis.sum_repr, LinearMap.exists_extend, TensorProduct.eq_repr_basis_left, Coalgebra.coassoc_apply, and both counitality lemmas. The coefficient-matrix search found no matching theorem in the coalgebra/Hopf-algebra directories. Both proposed exact types elaborated after import Submission; their names are absent from the DAG, searched snapshot, and imported environment. The inspected infrastructure has only propext, Classical.choice, and Quot.sound as transitive axioms. Compiler-copy diagnostics verified policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, precisely the authorized omissions at lines 10–11, and reversible original/build hashes 2e81f3c63685285e1af52e3dee0c135a8a7c8e9f37be7ad076712f55790c632c and d10948155ea0e92408d3ce320bdd5db3b7f00b622f4c9de9c98f040a414fa2f6. The rerun Lean probe confirmed every omitted target absent. These checks validate decomposition inputs and types; they do not constitute comparator acceptance of child proofs."
+          }
+        ],
+        "parent_id": "root.finite_hopf_envelope-a1.coefficient_matrix-a1",
+        "child_id": "root.finite_hopf_envelope-a1.coefficient_matrix-a1.coalgebra_laws-a1",
+        "subproblem": {
+          "key": "coalgebra_laws",
+          "title": "Corepresentation identities for coefficients of a basis expansion",
+          "statement": "Let k be a field, H a commutative Hopf k-algebra with comultiplication Δ and counit ε, V a k-subspace of H, n a natural number, and b a basis of V indexed by Fin n. Write v_i for the image of b_i in H. Let c : Matrix (Fin n) (Fin n) H satisfy Δ(v_j)=∑_i v_i⊗c_ij for every j. Then Δ(c_ij)=∑_l c_il⊗c_lj and ε(c_ij)=δ_ij for every i,j∈Fin n, where δ_ij is 1 in k when i=j and 0 otherwise. All tensor products are over k.",
+          "lean_statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (V : Submodule k H) (n : ℕ) (b : Module.Basis (Fin n) k V) (c : Matrix (Fin n) (Fin n) H) (hexp : ∀ j : Fin n, Coalgebra.comul (R := k) (b j : H) = ∑ i : Fin n, TensorProduct.tmul k (b i : H) (c i j)), (∀ i j : Fin n, Coalgebra.comul (R := k) (c i j) = ∑ l : Fin n, TensorProduct.tmul k (c i l) (c l j)) ∧ (∀ i j : Fin n, Coalgebra.counit (R := k) (c i j) = if i = j then (1 : k) else 0)",
+          "lean_name": "p05_cm_coalgebra_laws_a5b449214a",
+          "depends_on": [],
+          "natural_proof": "1. The vectors v_i=(b_i:H) are linearly independent, since b is a basis and the inclusion V→H is injective. Extend their image to a basis B of H. To justify the extension, order the linearly independent subsets of H containing this image by inclusion. A chain union is independent because every finite relation is contained in one member of the chain. Zorn's lemma gives a maximal such subset B. If a vector were outside its span, adjoining that vector would preserve independence, contradicting maximality. Thus B spans H and is a basis. For each i, define φ_i:H→k to be the coordinate functional of v_i in B. Uniqueness of basis coordinates makes φ_i linear and gives φ_i(v_r)=δ_ir.\n2. For each i, define a linear contraction U_i:H⊗(H⊗H)→H⊗H by U_i(x⊗z)=φ_i(x)•z. The defining expression is bilinear in x and z, so it induces a linear map by the tensor-product universal property. In particular U_i(v_r⊗z)=δ_ir•z.\n3. Fix j. Coassociativity, with the canonical associator identifying (H⊗H)⊗H with H⊗(H⊗H), gives (id⊗Δ)Δ(v_j)=assoc((Δ⊗id)Δ(v_j)). Substitute the assumed expansion on the left to obtain ∑_r v_r⊗Δ(c_rj). On the right first expand Δ(v_j)=∑_l v_l⊗c_lj and then expand each Δ(v_l)=∑_r v_r⊗c_rl. Linearity and the defining action of the associator give the equality ∑_r v_r⊗Δ(c_rj)=∑_l ∑_r v_r⊗(c_rl⊗c_lj).\n4. Apply U_i to this equality. Linearity moves U_i through both finite sums, and φ_i(v_r)=δ_ir removes every term except r=i. Hence Δ(c_ij)=∑_l c_il⊗c_lj. Since i and j were arbitrary, the comultiplication identity holds for every pair of indices.\n5. Right counitality says that the linear map x⊗y↦ε(y)•x sends Δ(v_j) to v_j. Applying it to the assumed expansion yields v_j=∑_r ε(c_rj)•v_r. Apply φ_i and use its linearity and its values on the v_r. This gives δ_ij=∑_r ε(c_rj)φ_i(v_r)=ε(c_ij). Reversing the equality proves the required counit identity for every i,j.\n6. When n=0 there are no pairs of indices i,j, so both universally quantified conclusions are vacuous. Thus both identities hold in all cases.",
+          "proof_key_steps": [
+            "Extend the included basis to a basis of H and obtain coordinate functionals φ_i with φ_i(v_r)=δ_ir.",
+            "Define linear contraction of the first factor of H⊗(H⊗H).",
+            "Expand both sides of coassociativity using the given coefficient equations.",
+            "Contract the first factor to obtain Δ(c_ij)=∑ l, c_il⊗c_lj.",
+            "Apply right counitality and coordinate functionals to obtain ε(c_ij)=δ_ij.",
+            "Include the vacuous zero-dimensional case."
+          ]
+        },
+        "audit": {
+          "key": "coalgebra_laws",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly matches the prescribed basis, matrix, expansion hypothesis, and both identities. Independently checked the basis-extension argument, coordinate functionals, bilinear contraction, associator orientation, indices in both coassociativity expansions, and right-counit contraction. These establish precisely Δ(c_ij)=Σ_l c_il⊗c_lj and ε(c_ij)=δ_ij, including the empty-index case. The proof is complete and non-circular. No sibling dependency is needed because expansion is an explicit hypothesis. The bare identifier is available, and the type is independently usable without implementing either child. Adding these dependency-free children preserves the DAG's acyclicity."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-hopf-envelope-a1-coefficient-matrix-a1-coalgebra-laws-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-hopf-envelope-a1-coefficient-matrix-a1-coalgebra-laws-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-hopf-envelope-a1-coefficient-matrix-a1-coalgebra-laws-a1/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-coefficient-matrix-a1/task.md": "3dc73676a86d8d8b7e3880aaca4875ccb55e1f69c70e9ec1bcf6f20bc01755d2",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-coefficient-matrix-a1/problem.md": "2f45861732b83e16d4873caf0c9444a7fa00a4264a1ac5e1f1ff0e2204fedfa8",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-coefficient-matrix-a1/problem.json": "701bdd1174185b1e65ab66c2cd98b64493a189e8738d6a153e929d4a2054385b",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-coefficient-matrix-a1/reference-manifest.json": "6c786975eb0eef7173c81aff14a1b156236148918e2f72a647e0f1f06054c1c5",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-coefficient-matrix-a1/decomposition.json": "7b64a19194b4a4f63fbcad0dc10ccbfdd545bd8b74ed867186d0fb99c2ac7382",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-coefficient-matrix-a1/decomposition-audit.json": "3fbd2ac411c3a58c9200dde8e7205f5d80d1b3d34565c62b6eae3ebeb6caf773",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-coefficient-matrix-a1/controller-contract.json": "d884e19cbcd0cfe69c6417511400aa04e303e937b236f051376ed445b0fe9900",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-coefficient-matrix-a1/children/root-finite-hopf-envelope-a1-coefficient-matrix-a1-basis-expansion-a1/parent-child-handoff.json": "d3a1e88222c929a4bf351c29b9f233b4f30ce7ae5b65fae37c9da6ea82180900",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-coefficient-matrix-a1/children/root-finite-hopf-envelope-a1-coefficient-matrix-a1-basis-expansion-a1/parent-supplied-plan.md": "b409ee9129d46ac5b4b7ac68f905c92ba1d02e190d30a3dfac9209cdb9775bd2",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-coefficient-matrix-a1/children/root-finite-hopf-envelope-a1-coefficient-matrix-a1-basis-expansion-a1/parent-supplied-natural-proof.md": "f5641e6cf830e1c1c2786aac8ba5e603eb30eb9918d3a1fb1df470e0c7b23480",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-coefficient-matrix-a1/children/root-finite-hopf-envelope-a1-coefficient-matrix-a1-basis-expansion-a1/parent-supplied-natural-proof.json": "9581a85600857011e9da2a328255841a32a3bdaca2b674ac77d753d242822c2e",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-coefficient-matrix-a1/children/root-finite-hopf-envelope-a1-coefficient-matrix-a1-basis-expansion-a1/node.json": "ed45a60ebc3d8bd76ddeb8b19143c445480724f7f9bad3b94d9ca8af7a18a06a",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-coefficient-matrix-a1/children/root-finite-hopf-envelope-a1-coefficient-matrix-a1-coalgebra-laws-a1/parent-child-handoff.json": "e86b2cfa50c3f83cee6efcb0d354610da3cd782d09c9a43ac8fe007d58384771",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-coefficient-matrix-a1/children/root-finite-hopf-envelope-a1-coefficient-matrix-a1-coalgebra-laws-a1/parent-supplied-plan.md": "d64f3ed48fc38547be33c5bffbf484a10e031e36f3923f880f0cdfa104b8eff8",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-coefficient-matrix-a1/children/root-finite-hopf-envelope-a1-coefficient-matrix-a1-coalgebra-laws-a1/parent-supplied-natural-proof.md": "990a75ea624a46abd40fe086e92a2aea0fa3c61852e33285b66a242f9f695c1c",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-coefficient-matrix-a1/children/root-finite-hopf-envelope-a1-coefficient-matrix-a1-coalgebra-laws-a1/parent-supplied-natural-proof.json": "00b5425925282a701d25413d8204f91c7823c731c75217f693962e3a067253f4",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-coefficient-matrix-a1/children/root-finite-hopf-envelope-a1-coefficient-matrix-a1-coalgebra-laws-a1/node.json": "4cc1b04270bcd068a80c0f25c703f05944e8dc6894201e4d41960b6011fe6d08"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_hopf_envelope-a1.coefficient_matrix-a1.coalgebra_laws-a1",
+  "parent_id": "root.finite_hopf_envelope-a1.coefficient_matrix-a1",
+  "depth": 3,
+  "title": "Corepresentation identities for coefficients of a basis expansion",
+  "statement": "Let k be a field, H a commutative Hopf k-algebra with comultiplication Δ and counit ε, V a k-subspace of H, n a natural number, and b a basis of V indexed by Fin n. Write v_i for the image of b_i in H. Let c : Matrix (Fin n) (Fin n) H satisfy Δ(v_j)=∑_i v_i⊗c_ij for every j. Then Δ(c_ij)=∑_l c_il⊗c_lj and ε(c_ij)=δ_ij for every i,j∈Fin n, where δ_ij is 1 in k when i=j and 0 otherwise. All tensor products are over k.",
+  "lean_statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (V : Submodule k H) (n : ℕ) (b : Module.Basis (Fin n) k V) (c : Matrix (Fin n) (Fin n) H) (hexp : ∀ j : Fin n, Coalgebra.comul (R := k) (b j : H) = ∑ i : Fin n, TensorProduct.tmul k (b i : H) (c i j)), (∀ i j : Fin n, Coalgebra.comul (R := k) (c i j) = ∑ l : Fin n, TensorProduct.tmul k (c i l) (c l j)) ∧ (∀ i j : Fin n, Coalgebra.counit (R := k) (c i j) = if i = j then (1 : k) else 0)",
+  "lean_name": "p05_cm_coalgebra_laws_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-coefficient-matrix-a1-coalgebra-laws-a1-a1"
+}
