@@ -475,3 +475,54 @@ theorem Submission.p10_17ae7b7d_fi_square_annihilation :
   · have ha : a ≤ 2 * j := by omega
     exact iff_of_true (dvd_mul_of_dvd_right (pow_dvd_pow p ha) n)
       (by simp [Nat.sub_eq_zero_of_le ha])
+
+
+theorem Submission.p10_17ae7b7d_pp_fractional_iterates :
+    ∀ (p a j : ℕ), Nat.Prime p → 1 ≤ j → j < a → ∀ z : ZMod (p ^ a),
+      p ^ j ∣ z.val → ¬ p ^ (j + 1) ∣ z.val →
+      let F : ZMod (p ^ a) → ZMod (p ^ a) := fun w => w * (1 + w)⁻¹
+      ∀ n : ℕ, IsUnit (1 + (n : ZMod (p ^ a)) * z) ∧
+        (F^[n]) z = z * (1 + (n : ZMod (p ^ a)) * z)⁻¹ ∧
+        ((F^[n]) z = z ↔ p ^ (a - 2 * j) ∣ n) ∧
+        p ^ j ∣ ((F^[n]) z).val ∧ ¬ p ^ (j + 1) ∣ ((F^[n]) z).val := by
+  intro p a j hp hj hja z hz hznext
+  dsimp only
+  intro n
+  have hpz : p ∣ z.val := (dvd_pow_self p (by omega : j ≠ 0)).trans hz
+  obtain ⟨hunit, hformula⟩ :=
+    Submission.p10_17ae7b7d_fi_unit_iterate_formula p a hp (by omega) z hpz n
+  have hinv : IsUnit ((1 + (n : ZMod (p ^ a)) * z)⁻¹) := by
+    obtain ⟨u, hu⟩ := hunit
+    rw [← hu, ZMod.inv_coe_unit]
+    exact Units.isUnit _
+  refine ⟨hunit, hformula, ?_, ?_, ?_⟩
+  · rw [hformula, ← Submission.p10_17ae7b7d_fi_square_annihilation p a j hp hja z
+      hz hznext n]
+    constructor
+    · intro h
+      have hmul := congrArg (fun w : ZMod (p ^ a) =>
+        w * (1 + (n : ZMod (p ^ a)) * z)) h
+      have hdenom : z = z * (1 + (n : ZMod (p ^ a)) * z) := by
+        simpa only [mul_assoc, ZMod.inv_mul_of_unit _ hunit, mul_one] using hmul
+      calc
+        (n : ZMod (p ^ a)) * z ^ 2 =
+            z * (1 + (n : ZMod (p ^ a)) * z) - z := by ring
+        _ = 0 := by rw [← hdenom, sub_self]
+    · intro h
+      have hdenom : z * (1 + (n : ZMod (p ^ a)) * z) = z := by
+        calc
+          z * (1 + (n : ZMod (p ^ a)) * z) = z + (n : ZMod (p ^ a)) * z ^ 2 := by
+            ring
+          _ = z := by rw [h, add_zero]
+      calc
+        z * (1 + (n : ZMod (p ^ a)) * z)⁻¹ =
+            (z * (1 + (n : ZMod (p ^ a)) * z)) *
+              (1 + (n : ZMod (p ^ a)) * z)⁻¹ := by rw [hdenom]
+        _ = z := by rw [mul_assoc, ZMod.mul_inv_of_unit _ hunit, mul_one]
+  · rw [hformula]
+    exact (Submission.p10_17ae7b7d_fi_unit_mul_dvd_val (p ^ a) (p ^ j)
+      (pow_pos hp.pos _) (pow_dvd_pow p hja.le) z _ hinv).mpr hz
+  · rw [hformula]
+    intro h
+    exact hznext ((Submission.p10_17ae7b7d_fi_unit_mul_dvd_val (p ^ a) (p ^ (j + 1))
+      (pow_pos hp.pos _) (pow_dvd_pow p hja) z _ hinv).mp h)
