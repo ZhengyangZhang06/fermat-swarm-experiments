@@ -1,5 +1,27 @@
 # B1 controller repair handoff: residue quotient length
 
+## Current integration prerequisite: completed local repair
+
+Read-only inspection in recovery Round 2 found the separate verifier repair
+committed and clean at `b69cf0f7af93ebf4e5f3a9502b1ff9dba4de5782`, in
+`.humanize/recovery/b1-verifier-20261008T133420Z`. Its `docs/INTEGRATION.md`
+and independent review now report completed local validation, including the
+positive full-context case and selected-warning, selected-placeholder,
+transitive-axiom and changed-type rejection cases. All 13 committed evidence
+hashes and the implementation-patch digest were checked; each context's audit
+has 95 occurrences. The repair repository was not changed or taken over.
+
+The remaining prerequisite is controller integration, not finishing that local
+patch. Its evidence explicitly says the sandbox and comparator were not
+exercised and deployed identity is unverified. Its policy binds theorem fixture
+commit `8fdbf66ad7c3111d6ae8ed4233fae6733a202e2a`; matching Submission bytes do
+not authorize applying it to a newer candidate revision. The controller must
+reconcile the exact repair tree with deployed code, privately pin the policy and
+helper for the final candidate, run the protected positive/rejection preflights,
+and publish the bound receipt before T3 resumes. See the repair's integration
+instructions and `.humanize/rlcr/2026-10-08_13-40-27/round-2-repair-evidence-assessment.json`.
+No new theorem validation or comparator request accompanied this observation.
+
 ## Round 1 recovery prerequisite for plan v9
 
 The latest independently reviewed failed candidate is
