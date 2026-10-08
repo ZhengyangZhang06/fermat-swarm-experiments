@@ -1,0 +1,48 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'dualTwist_ρ_apply|noncomputable def cycloChar|card_rootsOfUnity_eq_self|noncomputable abbrev ofChar' project/Definitions/Def_GroupCohomology_Selmer.lean project/Definitions/Def_ExtCitation_KummerBridge.lean project/Definitions/Def_ExtCitation_AdmissibleExtension.lean project/Definitions/Def_DualSelmer_ExtConditions.lean",
+        "rg -n 'lemma unique|finiteDimensional_iSup_of_finite|theorem finiteDimensional_adjoin|p08_7d1ff633a4_ck_uniform_stabilizer|p08_7d1ff633a4_ck_cyclotomic_kernel|p08_7d1ff633a4_normal_refinement' project mathlib/Mathlib/NumberTheory/Cyclotomic/CyclotomicCharacter.lean mathlib/Mathlib/FieldTheory/IntermediateField/Adjoin/Basic.lean",
+        "rg -n 'p08_7d1ff633a4_ck_uniform_stabilizer|p08_7d1ff633a4_ck_cyclotomic_kernel|p08_7d1ff633a4_normal_refinement' project mathlib",
+        "rg -n 'cycloChar.*(fixingSubgroup|ker)|fixingSubgroup.*cycloChar|uniform.*stabiliz|stabiliz.*uniform' project/Definitions mathlib/Mathlib/RepresentationTheory"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_Selmer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_ExtCitation_KummerBridge.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_ExtCitation_AdmissibleExtension.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_DualSelmer_ExtConditions.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/NumberTheory/Cyclotomic/CyclotomicCharacter.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/FieldTheory/IntermediateField/Adjoin/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/dag.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/common-kernel-decomposition-check-20261008/receipt.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/common-kernel-independent-audit-sqw15mjn/InterfaceAudit.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/common-kernel-independent-audit-sqw15mjn/InterfaceAudit.log",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/common-kernel-independent-audit-sqw15mjn/receipt.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/common-kernel-independent-audit-sqw15mjn/DagAudit.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/common-kernel-independent-audit-sqw15mjn/DependencyAudit.json"
+      ],
+      "conclusion": "Searches ran from the supplied snapshot. Project revision 9db4b2bea94e42612c675170cfe30ec626166658 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d match the manifest; all nine package checkouts match their pins with clean tracked files. Inspected sources establish finite composita and adjunctions, roots-of-unity cardinality, character uniqueness, and the required action formulas. Identifier and direct-duplicate searches returned no matches. Independent inspection of all ten DAGs found neither proposed name reserved. The supplied parent matches the registered common-kernel helper below the frozen root. Splitting it into these two independent obligations is appropriate: the parent retains normal refinement and completes the remaining action arguments directly. The resulting dependency graph is acyclic. Both literal child types independently elaborated under the frozen imports without either child declaration; kernel-checked type identities also passed. Library axiom probes reported only propext, Classical.choice, and Quot.sound. The policy digest matched; the sole permitted omission is original line 18. Original/build hashes and reversible reconstruction checked, and Lean independently confirmed both omitted targets absent. These diagnostics approve the decomposition interfaces, not child implementations or final comparator acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "uniform_stabilizer",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact one-line proposition matches every prose hypothesis and conclusion and requires no child implementation. The proof correctly selects finite-basis witnesses, proves finite dimension of their compositum, restricts fixing to each witness, and extends identity from the basis by linearity, including the empty-basis case. It contains no circular reliance or deferred proof search. Empty dependencies are correct, and the bare identifier is unreserved."
+    },
+    {
+      "key": "cyclotomic_kernel",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact one-line proposition matches the prime hypothesis, finite-field witness, and unit-valued character conclusion. The proof establishes finite adjunction, simple-root cardinality in characteristic zero, and fixedness of every root. Primality supplies the required nonzero modulus and val(1)=1; the pinned uniqueness theorem then gives residue equality, which lifts injectively to units. All steps are complete and non-circular. Empty dependencies are correct, and the bare identifier is unreserved."
+    }
+  ],
+  "required_changes": []
+}

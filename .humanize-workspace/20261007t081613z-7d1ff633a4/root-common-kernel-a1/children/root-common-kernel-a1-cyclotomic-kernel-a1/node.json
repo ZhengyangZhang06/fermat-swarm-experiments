@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.common_kernel-a1.cyclotomic_kernel-a1",
+  "parent_id": "root.common_kernel-a1",
+  "depth": 2,
+  "title": "The cyclotomic character is trivial on a finite-field fixing subgroup",
+  "statement": "Let p be prime and Ω = AlgebraicClosure ℚ. There exists an intermediate field F of Ω/ℚ, finite-dimensional over ℚ, such that ExtCitation.cycloChar p σ = 1 in (ZMod p)ˣ for every rational algebra automorphism σ of Ω that fixes F pointwise.",
+  "lean_statement": "∀ {p : ℕ} [Fact p.Prime], ∃ F : IntermediateField ℚ (AlgebraicClosure ℚ), FiniteDimensional ℚ F ∧ ∀ σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ, σ ∈ F.fixingSubgroup → ExtCitation.cycloChar p σ = 1",
+  "lean_name": "p08_7d1ff633a4_ck_cyclotomic_kernel",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p08/20261007t081613z-7d1ff633a4/root-common-kernel-a1-cyclotomic-kernel-a1-a1"
+}

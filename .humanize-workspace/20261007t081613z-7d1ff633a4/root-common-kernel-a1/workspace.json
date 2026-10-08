@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081613Z-7d1ff633a4",
+  "parent_id": "root.common_kernel-a1",
+  "dispatch_branch": "proof-workspace/fermat-p08/20261007t081613z-7d1ff633a4/dispatch/root-common-kernel-a1",
+  "source_commit": "9db4b2bea94e42612c675170cfe30ec626166658",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.common_kernel-a1.cyclotomic_kernel-a1",
+      "key": "cyclotomic_kernel",
+      "result_branch": "humanize-recursive/fermat-p08/20261007t081613z-7d1ff633a4/root-common-kernel-a1-cyclotomic-kernel-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-7d1ff633a4/root-common-kernel-a1/children/root-common-kernel-a1-cyclotomic-kernel-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg -n 'dualTwist_ρ_apply|noncomputable def cycloChar|card_rootsOfUnity_eq_self|noncomputable abbrev ofChar' project/Definitions/Def_GroupCohomology_Selmer.lean project/Definitions/Def_ExtCitation_KummerBridge.lean project/Definitions/Def_ExtCitation_AdmissibleExtension.lean project/Definitions/Def_DualSelmer_ExtConditions.lean",
+              "rg -n 'lemma unique|finiteDimensional_iSup_of_finite|theorem finiteDimensional_adjoin' mathlib/Mathlib/NumberTheory/Cyclotomic/CyclotomicCharacter.lean mathlib/Mathlib/FieldTheory/IntermediateField/Adjoin/Basic.lean",
+              "p08_7d1ff633a4_ck_uniform_stabilizer|p08_7d1ff633a4_ck_cyclotomic_kernel|p08_7d1ff633a4_normal_refinement"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_Selmer.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_ExtCitation_KummerBridge.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_ExtCitation_AdmissibleExtension.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_DualSelmer_ExtConditions.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/NumberTheory/Cyclotomic/CyclotomicCharacter.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/FieldTheory/IntermediateField/Adjoin/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/common-kernel-decomposition-check-20261008/Types.lean.log",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/common-kernel-decomposition-check-20261008/receipt.json"
+            ],
+            "conclusion": "The relative rg commands ran from the supplied snapshot root. The manifest pins project 9db4b2bea94e42612c675170cfe30ec626166658 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Inspected sources provide finite-dimensional finite composita and adjunctions, the required roots-of-unity cardinality, modularCyclotomicCharacter.unique, and the character and twisted-dual action formulas. No reference-source match exists for either proposed identifier or p08_7d1ff633a4_normal_refinement; the latter is an existing DAG prerequisite. Both proposed identifiers are absent from all ten local active DAGs. Both exact child types elaborated after import Submission in a disposable compiler copy. The policy digest matched, Lean confirmed both omitted targets absent, and reversible header-copy hashes were recorded; original sources remain unchanged. The checked library declarations have only propext, Classical.choice, and Quot.sound among their transitive axioms. These are interface diagnostics, not comparator acceptance of child proofs."
+          }
+        ],
+        "parent_id": "root.common_kernel-a1",
+        "child_id": "root.common_kernel-a1.cyclotomic_kernel-a1",
+        "subproblem": {
+          "key": "cyclotomic_kernel",
+          "title": "The cyclotomic character is trivial on a finite-field fixing subgroup",
+          "statement": "Let p be prime and Ω = AlgebraicClosure ℚ. There exists an intermediate field F of Ω/ℚ, finite-dimensional over ℚ, such that ExtCitation.cycloChar p σ = 1 in (ZMod p)ˣ for every rational algebra automorphism σ of Ω that fixes F pointwise.",
+          "lean_statement": "∀ {p : ℕ} [Fact p.Prime], ∃ F : IntermediateField ℚ (AlgebraicClosure ℚ), FiniteDimensional ℚ F ∧ ∀ σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ, σ ∈ F.fixingSubgroup → ExtCitation.cycloChar p σ = 1",
+          "lean_name": "p08_7d1ff633a4_ck_cyclotomic_kernel",
+          "depends_on": [],
+          "natural_proof": "1. Fix a prime p and write Ω = AlgebraicClosure ℚ. Then p ≥ 2 and p ≠ 0. Let R = {ζ ∈ Ω : ζ^p = 1}. This is the root set in Ω of X^p − 1. The polynomial is monic of degree p, hence nonzero, so R is finite.\n2. Let F = ℚ(R), the intermediate field generated by R. To prove finite dimension, enumerate R and adjoin its elements successively. Over any field L arising at an intermediate stage, the next root ζ satisfies the monic equation X^p − 1. Thus L[ζ] is spanned over L by 1, ζ, …, ζ^(p−1). For nonzero x ∈ L[ζ], multiplication by x is an injective endomorphism of this finite-dimensional L-vector space, hence surjective. In particular x has an inverse in L[ζ]. Consequently L[ζ] is already L(ζ), and L(ζ)/L is finite-dimensional. The tower formula applied to the finitely many adjunctions proves that F/ℚ is finite-dimensional. Every element of R belongs to F by construction.\n3. The polynomial X^p − 1 splits over the algebraically closed field Ω. For any root ζ, the equation ζ^p = 1 gives ζ ≠ 0. Since Ω has characteristic zero, p is nonzero in Ω. Therefore the derivative at ζ, namely pζ^(p−1), is nonzero. A repeated root would produce a factor (X − ζ)^2, whose product-rule derivative vanishes at ζ, a contradiction. Thus all roots are simple. A split polynomial of degree p with only simple roots has exactly p distinct roots.\n4. Each ζ ∈ R is a unit with inverse ζ^(p−1), and this unit has p-th power 1. Conversely, the underlying field element of a unit with p-th power 1 lies in R. These assignments are inverse, since a unit is determined by its underlying field element. Hence Nat.card (rootsOfUnity p Ω) = p. This is precisely the cardinality equality provided by the pinned theorem ExtCitation.card_rootsOfUnity_eq_self.\n5. Let σ be a rational algebra automorphism of Ω with σ ∈ F.fixingSubgroup. For every t ∈ rootsOfUnity p Ω, its underlying field element belongs to R and therefore to F. Thus σ fixes that field element.\n6. Set c = 1 in ZMod p. Because p ≥ 2, c.val = 1. Step 5 gives σ(t) = t = t^(c.val) for every p-th root of unity, interpreting the equality in Ω. Apply modularCyclotomicCharacter.unique to the ring automorphism underlying σ, using the cardinality equality from Step 4. It follows that 1 equals the underlying residue of modularCyclotomicCharacter evaluated at σ. By the pinned definition of ExtCitation.cycloChar, this is the underlying residue of ExtCitation.cycloChar p σ. The coercion from units to ZMod p is injective, so ExtCitation.cycloChar p σ = 1 as units. Together with Step 2, this proves the required existence statement.",
+          "proof_key_steps": [
+            "Take the finite root set of X^p − 1 in the algebraic closure.",
+            "Adjoin these roots and prove finite dimension by successive finite adjunctions.",
+            "Use splitting and the nonvanishing derivative to obtain exactly p distinct roots.",
+            "Identify those roots with rootsOfUnity p Ω to establish the character's cardinality hypothesis.",
+            "An automorphism fixing the generated field fixes every p-th root of unity.",
+            "Apply modularCyclotomicCharacter.unique with residue 1 and lift equality to units."
+          ]
+        },
+        "audit": {
+          "key": "cyclotomic_kernel",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The exact one-line proposition matches the prime hypothesis, finite-field witness, and unit-valued character conclusion. The proof establishes finite adjunction, simple-root cardinality in characteristic zero, and fixedness of every root. Primality supplies the required nonzero modulus and val(1)=1; the pinned uniqueness theorem then gives residue equality, which lifts injectively to units. All steps are complete and non-circular. Empty dependencies are correct, and the bare identifier is unreserved."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-common-kernel-a1-cyclotomic-kernel-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-common-kernel-a1-cyclotomic-kernel-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-common-kernel-a1-cyclotomic-kernel-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.common_kernel-a1.uniform_stabilizer-a1",
+      "key": "uniform_stabilizer",
+      "result_branch": "humanize-recursive/fermat-p08/20261007t081613z-7d1ff633a4/root-common-kernel-a1-uniform-stabilizer-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-7d1ff633a4/root-common-kernel-a1/children/root-common-kernel-a1-uniform-stabilizer-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg -n 'dualTwist_ρ_apply|noncomputable def cycloChar|card_rootsOfUnity_eq_self|noncomputable abbrev ofChar' project/Definitions/Def_GroupCohomology_Selmer.lean project/Definitions/Def_ExtCitation_KummerBridge.lean project/Definitions/Def_ExtCitation_AdmissibleExtension.lean project/Definitions/Def_DualSelmer_ExtConditions.lean",
+              "rg -n 'lemma unique|finiteDimensional_iSup_of_finite|theorem finiteDimensional_adjoin' mathlib/Mathlib/NumberTheory/Cyclotomic/CyclotomicCharacter.lean mathlib/Mathlib/FieldTheory/IntermediateField/Adjoin/Basic.lean",
+              "p08_7d1ff633a4_ck_uniform_stabilizer|p08_7d1ff633a4_ck_cyclotomic_kernel|p08_7d1ff633a4_normal_refinement"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_Selmer.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_ExtCitation_KummerBridge.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_ExtCitation_AdmissibleExtension.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_DualSelmer_ExtConditions.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/NumberTheory/Cyclotomic/CyclotomicCharacter.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/FieldTheory/IntermediateField/Adjoin/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/common-kernel-decomposition-check-20261008/Types.lean.log",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/common-kernel-decomposition-check-20261008/receipt.json"
+            ],
+            "conclusion": "The relative rg commands ran from the supplied snapshot root. The manifest pins project 9db4b2bea94e42612c675170cfe30ec626166658 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Inspected sources provide finite-dimensional finite composita and adjunctions, the required roots-of-unity cardinality, modularCyclotomicCharacter.unique, and the character and twisted-dual action formulas. No reference-source match exists for either proposed identifier or p08_7d1ff633a4_normal_refinement; the latter is an existing DAG prerequisite. Both proposed identifiers are absent from all ten local active DAGs. Both exact child types elaborated after import Submission in a disposable compiler copy. The policy digest matched, Lean confirmed both omitted targets absent, and reversible header-copy hashes were recorded; original sources remain unchanged. The checked library declarations have only propext, Classical.choice, and Quot.sound among their transitive axioms. These are interface diagnostics, not comparator acceptance of child proofs."
+          }
+        ],
+        "parent_id": "root.common_kernel-a1",
+        "child_id": "root.common_kernel-a1.uniform_stabilizer-a1",
+        "subproblem": {
+          "key": "uniform_stabilizer",
+          "title": "A finite-dimensional representation has a uniform finite-field stabilizer",
+          "statement": "Let Ω = AlgebraicClosure ℚ, let k be a field, let G be a group, and let r : G → Aut_ℚ(Ω) be a group homomorphism. Let M be a finite-dimensional k-representation of G. Assume that for every m ∈ M there is an intermediate field F of Ω/ℚ, finite-dimensional over ℚ, such that M.ρ(g)m = m whenever r(g) fixes F pointwise. Then there is one intermediate field F, finite-dimensional over ℚ, such that for every g ∈ G with r(g) fixing F pointwise, M.ρ(g)m = m for every m ∈ M.",
+          "lean_statement": "∀ {k G : Type} [Field k] [Group G] (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)) (M : Rep.{0} k G) [FiniteDimensional k M], (∀ m : M, ∃ F : IntermediateField ℚ (AlgebraicClosure ℚ), FiniteDimensional ℚ F ∧ ∀ g : G, r g ∈ F.fixingSubgroup → M.ρ g m = m) → ∃ F : IntermediateField ℚ (AlgebraicClosure ℚ), FiniteDimensional ℚ F ∧ ∀ g : G, r g ∈ F.fixingSubgroup → ∀ m : M, M.ρ g m = m",
+          "lean_name": "p08_7d1ff633a4_ck_uniform_stabilizer",
+          "depends_on": [],
+          "natural_proof": "1. Fix k, G, r, and M satisfying the hypotheses, and write Ω = AlgebraicClosure ℚ. Choose a k-basis (bᵢ) of M indexed by a finite set I. The index set is allowed to be empty.\n2. For each i ∈ I, apply the pointwise hypothesis to bᵢ. Choose an intermediate field Fᵢ finite-dimensional over ℚ such that r(g) ∈ Fᵢ.fixingSubgroup implies M.ρ(g)bᵢ = bᵢ for every g ∈ G. Let F be the compositum of these finitely many fields, using ℚ inside Ω for the empty compositum. Each Fᵢ is contained in F.\n3. This compositum is finite-dimensional over ℚ. Here is a direct justification of the finite-compositum fact. For finite-dimensional intermediate fields A and B, choose finite ℚ-bases (aⱼ) and (bₗ). The ℚ-span C inside Ω of the products aⱼbₗ contains 1, A, and B. Expanding products using the two bases shows that C is closed under multiplication. For any nonzero x ∈ C, multiplication by x is an injective ℚ-linear endomorphism of C, since Ω is a field. Because C is finite-dimensional, this endomorphism is surjective, so xy = 1 for some y ∈ C. Thus C is a subfield. Every subfield containing A and B contains every aⱼbₗ and their ℚ-linear combinations, so C is exactly their compositum. Induction over the finite family, beginning with ℚ, proves that F is finite-dimensional. This also follows from the pinned theorem IntermediateField.finiteDimensional_iSup_of_finite.\n4. Let g ∈ G satisfy r(g) ∈ F.fixingSubgroup. Since Fᵢ ≤ F, the automorphism r(g) fixes every Fᵢ pointwise. The choice in Step 2 therefore gives M.ρ(g)bᵢ = bᵢ for every i.\n5. For arbitrary m ∈ M, write m = Σᵢ cᵢbᵢ. Since M.ρ(g) is k-linear, M.ρ(g)m = Σᵢ cᵢM.ρ(g)bᵢ = Σᵢ cᵢbᵢ = m. If I is empty, this is the same empty-sum calculation and M is zero. Thus the field F satisfies both required conclusions.",
+          "proof_key_steps": [
+            "Choose a finite basis of M.",
+            "Choose a finite-dimensional field witness for each basis vector.",
+            "Form their finite compositum and prove its finite dimension.",
+            "An automorphism fixing the compositum fixes every witness field, hence every basis vector.",
+            "Extend the identity action to all vectors by linearity, including the empty-basis case."
+          ]
+        },
+        "audit": {
+          "key": "uniform_stabilizer",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The exact one-line proposition matches every prose hypothesis and conclusion and requires no child implementation. The proof correctly selects finite-basis witnesses, proves finite dimension of their compositum, restricts fixing to each witness, and extends identity from the basis by linearity, including the empty-basis case. It contains no circular reliance or deferred proof search. Empty dependencies are correct, and the bare identifier is unreserved."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-common-kernel-a1-uniform-stabilizer-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-common-kernel-a1-uniform-stabilizer-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/nodes/root-common-kernel-a1-uniform-stabilizer-a1/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-common-kernel-a1/task.md": "01ec13e95c2472232632eac0186c7c10b8f9372ef5cbbf3fdfe9b2a3841739b7",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-common-kernel-a1/problem.md": "a2dd591da1584bfdab6b5bbb23ad6ae751d55e6d1537f69d92f449b80f09ecf7",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-common-kernel-a1/problem.json": "db4b4bd5614e93f35774b6b3812612e4ca99a47a13cd4db807fc9ddd9d46783d",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-common-kernel-a1/reference-manifest.json": "300231130a8a6defc08cc15b3903805efad5299c1c1c3e93d64a57d7af967440",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-common-kernel-a1/decomposition.json": "c0e3d5b29d8945aa6a17efb5496f259a6f4447ca205e170cba9ab4b1dd7d42f4",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-common-kernel-a1/decomposition-audit.json": "e1b89808369ac68300d5fa8e41e070d96d1a6ae54d1d5a2941a1d90301e4e25d",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-common-kernel-a1/controller-contract.json": "b02cf6ae2d43312a16185ec6fd6bbd4e56b2ba58995df942cd0a2f1383916eb6",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-common-kernel-a1/children/root-common-kernel-a1-cyclotomic-kernel-a1/parent-child-handoff.json": "e2312fee433885469500c3d3dc8d7811a47b9b402af2417acde8aa1ad833f146",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-common-kernel-a1/children/root-common-kernel-a1-cyclotomic-kernel-a1/parent-supplied-plan.md": "54896e325b2d6d3eb3286874822a53b139b22a172cd9966caaf91a1facd6e72d",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-common-kernel-a1/children/root-common-kernel-a1-cyclotomic-kernel-a1/parent-supplied-natural-proof.md": "748d0edf7cf95281c47e7a5768f17d1cde7b7ca4045ecef49900f11590e616dc",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-common-kernel-a1/children/root-common-kernel-a1-cyclotomic-kernel-a1/parent-supplied-natural-proof.json": "d7b31ab2f671a0f54cb77d32f787b78b158493cc241dd8ae394b896f804da2f9",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-common-kernel-a1/children/root-common-kernel-a1-cyclotomic-kernel-a1/node.json": "da860c9be7d332fd8d4a40bef1d582c38a47dbd600e0fbe4d7230ce86bcc5785",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-common-kernel-a1/children/root-common-kernel-a1-uniform-stabilizer-a1/parent-child-handoff.json": "6edb49280ff95732ab18a14a79ae8cf63278be6e9133207cb5686dcde06abdf8",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-common-kernel-a1/children/root-common-kernel-a1-uniform-stabilizer-a1/parent-supplied-plan.md": "a7e850bef2f5fe2f1f7ca9db6ff545db599c359248c5a9b79a3552dfbb50fb86",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-common-kernel-a1/children/root-common-kernel-a1-uniform-stabilizer-a1/parent-supplied-natural-proof.md": "931d38415ed053be267102702d756b813901d5760ba1d77ccbb18f6e8a30f378",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-common-kernel-a1/children/root-common-kernel-a1-uniform-stabilizer-a1/parent-supplied-natural-proof.json": "808c72825ccb6d25fe19d716ee188a08829d536fb3caa9114d9d906713e02a8b",
+    ".humanize-workspace/20261007t081613z-7d1ff633a4/root-common-kernel-a1/children/root-common-kernel-a1-uniform-stabilizer-a1/node.json": "7fe4821b3e2458eabb59470ce2bdf0ea590869ec365f27575836e29264f4b525"
+  }
+}
