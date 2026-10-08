@@ -87,9 +87,11 @@ theorem Submission.p07_rr_pullback_comp_857cd4d38c
   have hspec : Spec.map (CommRingCat.ofHom (h.comp f)) =
       Spec.map (CommRingCat.ofHom h) ≫ Spec.map (CommRingCat.ofHom f) :=
     Spec.map_comp (CommRingCat.ofHom f) (CommRingCat.ofHom h)
-  unfold FakeEllipticCurve.IsPullbackVia
-  rw [hspec]
-  refine ⟨hg₁₂.paste_horiz hg₀₁, ?_, ?_, ?_⟩
+  have hg : IsPullback (g₁₂ ≫ g₀₁) E₂.f E₀.f
+      (Spec.map (CommRingCat.ofHom (h.comp f))) := by
+    rw [hspec]
+    exact hg₁₂.paste_horiz hg₀₁
+  refine ⟨hg, ?_, ?_, ?_⟩
   · intro T t P Q
     let P₁ : SchemeHomOver (t ≫ Spec.map (CommRingCat.ofHom h)) E₁.f :=
       ⟨P.1 ≫ g₁₂, by rw [Category.assoc, hg₁₂.w, ← Category.assoc, P.2]⟩
@@ -97,7 +99,19 @@ theorem Submission.p07_rr_pullback_comp_857cd4d38c
       ⟨Q.1 ≫ g₁₂, by rw [Category.assoc, hg₁₂.w, ← Category.assoc, Q.2]⟩
     have hmul := (congrArg (fun k => k ≫ g₀₁) (hmul₁₂ t P Q)).trans
       (hmul₀₁ (t ≫ Spec.map (CommRingCat.ofHom h)) P₁ Q₁)
-    simpa only [P₁, Q₁, Category.assoc] using hmul
+    have hmul_congr {s₀ s₁ : T ⟶ Spec (CommRingCat.of S₀)} (hs : s₀ = s₁)
+        (P₀ Q₀ : SchemeHomOver s₀ E₀.f) (P₀' Q₀' : SchemeHomOver s₁ E₀.f)
+        (hP : P₀.1 = P₀'.1) (hQ : Q₀.1 = Q₀'.1) :
+        (E₀.L.mul s₀ P₀ Q₀).1 = (E₀.L.mul s₁ P₀' Q₀').1 := by
+      cases hs
+      cases Subtype.ext hP
+      cases Subtype.ext hQ
+      rfl
+    refine (Category.assoc _ _ _).symm.trans (hmul.trans ?_)
+    apply hmul_congr
+    · rw [hspec, Category.assoc]
+    · exact Category.assoc _ _ _
+    · exact Category.assoc _ _ _
   · intro x
     rw [← Category.assoc, hact₁₂, Category.assoc, hact₀₁, ← Category.assoc]
   · intro T t P hP
