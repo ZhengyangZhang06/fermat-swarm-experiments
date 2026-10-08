@@ -2834,3 +2834,124 @@ theorem p06_9e0f5043ff_rmp_finite_place_classification
   simp only [hspan, Ideal.mem_span_singleton, exists_prop, div_eq_mul_inv]
 
 end Submission
+/-- Clear the first row by an invertible column operation, preserving the trailing block.
+The correction matrix squares to zero, so `1 - M` has the explicit inverse `1 + M`.
+Divisibility supplies the coefficients without requiring the pivot to be nonzero or a unit. -/
+theorem p06_9e0f5043ff_sdp_clear_first_row :
+    ∀ (R : Type*) [CommRing R] (m : ℕ)
+      (H : Matrix (Fin (m + 1)) (Fin (m + 1)) R),
+      (∀ i : Fin m, H i.succ 0 = 0) →
+      (∀ j : Fin m, H 0 0 ∣ H 0 j.succ) →
+      ∃ V : Matrix (Fin (m + 1)) (Fin (m + 1)) R,
+        IsUnit V ∧ H * V = Matrix.of (fun i j =>
+          Fin.cases (Fin.cases (H 0 0) (fun _ => 0) j)
+            (fun i' => Fin.cases 0 (fun j' => H i'.succ j'.succ) j) i) := by
+  classical
+  intro R _ m H hcol hdiv
+  choose b hb using hdiv
+  let M : Matrix (Fin (m + 1)) (Fin (m + 1)) R :=
+    Matrix.of (fun i j => Fin.cases (Fin.cases 0 b j) (fun _ => 0) i)
+  have hM0 (i : Fin (m + 1)) : M i 0 = 0 := by
+    refine Fin.cases ?_ (fun _ => ?_) i <;> rfl
+  have hMs (i : Fin m) (j : Fin (m + 1)) : M i.succ j = 0 := rfl
+  have hMM : M * M = 0 := by
+    ext i j
+    simp [Matrix.mul_apply, Fin.sum_univ_succ, hM0, hMs]
+  have hHM (i j : Fin (m + 1)) :
+      (H * M) i j = H i 0 * Fin.cases 0 b j := by
+    simp [Matrix.mul_apply, Fin.sum_univ_succ, M]
+  refine ⟨1 - M, ?_, ?_⟩
+  · refine ⟨⟨1 - M, 1 + M, ?_, ?_⟩, rfl⟩
+    · simp [sub_mul, mul_add, hMM]
+    · simp [mul_sub, add_mul, hMM]
+  · rw [mul_sub, mul_one]
+    ext i j
+    refine Fin.cases ?_ (fun i' => ?_) i <;>
+      refine Fin.cases ?_ (fun j' => ?_) j <;>
+      simp [Matrix.sub_apply, hHM, hcol, hb]
+/-- Clear the first column below a divisible pivot by a unit that preserves the first row. -/
+theorem p06_9e0f5043ff_sdp_clear_first_column
+    (R : Type*) [CommRing R] (m : ℕ)
+    (B : Matrix (Fin (m + 1)) (Fin (m + 1)) R)
+    (h : ∀ i : Fin m, B 0 0 ∣ B i.succ 0) :
+    ∃ U : Matrix (Fin (m + 1)) (Fin (m + 1)) R,
+      IsUnit U ∧ (∀ j : Fin (m + 1), (U * B) 0 j = B 0 j) ∧
+        (∀ i : Fin m, (U * B) i.succ 0 = 0) := by
+  classical
+  choose a ha using h
+  -- Extend the chosen coefficients by zero so the first row is unchanged.
+  let c : Fin (m + 1) → R := Fin.cases 0 a
+  let N : Matrix (Fin (m + 1)) (Fin (m + 1)) R :=
+    Matrix.of fun i j => if j = 0 then c i else 0
+  have hmul (M : Matrix (Fin (m + 1)) (Fin (m + 1)) R)
+      (i j : Fin (m + 1)) : (N * M) i j = c i * M 0 j := by
+    simp [Matrix.mul_apply, N]
+  have hsq : N * N = 0 := by
+    ext i j
+    simp [hmul, N, c]
+  -- Since N² = 0, the clearing matrix 1 - N has two-sided inverse 1 + N.
+  refine ⟨1 - N, ?_, ?_, ?_⟩
+  · refine ⟨⟨1 - N, 1 + N, ?_, ?_⟩, rfl⟩
+    · simp [sub_mul, mul_add, hsq]
+    · simp [mul_sub, add_mul, hsq]
+  · intro j
+    simp [sub_mul, hmul, c]
+  · intro i
+    simp [sub_mul, hmul, c, ha i, mul_comm]
+
+end Submission
+
+/-- The reciprocal of the fraction-ring variable is transcendental and presents every fraction. -/
+theorem Submission.p06_9e0f5043ff_inf_reciprocal_presentation :
+    ∀ (K : Type*) [Field K],
+      Transcendental K
+        ((algebraMap (Polynomial K) (FractionRing (Polynomial K)) Polynomial.X)⁻¹) ∧
+      (∀ f : FractionRing (Polynomial K), ∃ a b : Polynomial K, b ≠ 0 ∧
+        f = Polynomial.aeval
+          ((algebraMap (Polynomial K) (FractionRing (Polynomial K)) Polynomial.X)⁻¹) a /
+          Polynomial.aeval
+          ((algebraMap (Polynomial K) (FractionRing (Polynomial K)) Polynomial.X)⁻¹) b) := by
+  intro K _
+  let t : FractionRing (Polynomial K) :=
+    algebraMap (Polynomial K) (FractionRing (Polynomial K)) Polynomial.X
+  have hinj := IsFractionRing.injective (Polynomial K) (FractionRing (Polynomial K))
+  have ht : t ≠ 0 := by
+    exact fun h => Polynomial.X_ne_zero (hinj (h.trans (map_zero _).symm))
+  have heval (p : Polynomial K) :
+      Polynomial.aeval t p = algebraMap (Polynomial K) (FractionRing (Polynomial K)) p := by
+    simp [t, Polynomial.aeval_algebraMap_apply]
+  have htrans : Transcendental K t :=
+    (transcendental_algebraMap_iff hinj).mpr (Polynomial.transcendental_X K)
+  have hs : Transcendental K t⁻¹ := by
+    intro h
+    exact htrans (IsAlgebraic.inv_iff.mp h)
+  refine ⟨hs, ?_⟩
+  intro f
+  change ∃ a b : Polynomial K, b ≠ 0 ∧
+    f = Polynomial.aeval t⁻¹ a / Polynomial.aeval t⁻¹ b
+  by_cases hf : f = 0
+  · exact ⟨0, 1, one_ne_zero, by simp [hf]⟩
+  obtain ⟨a, b, hb, hab⟩ := IsFractionRing.div_surjective (Polynomial K) f
+  have hb0 : b ≠ 0 := mem_nonZeroDivisors_iff_ne_zero.mp hb
+  have hbr : b.reverse ≠ 0 := by simpa using hb0
+  have hbev : Polynomial.aeval t⁻¹ b.reverse ≠ 0 := by
+    exact fun h => hbr ((transcendental_iff_injective.mp hs) (by simpa using h))
+  let : Invertible t := invertibleOfNonzero ht
+  have hreverse (p : Polynomial K) :
+      algebraMap (Polynomial K) (FractionRing (Polynomial K)) p =
+        Polynomial.aeval t⁻¹ p.reverse / (t⁻¹) ^ p.natDegree := by
+    have h := Polynomial.eval₂_reverse_mul_pow
+      (algebraMap K (FractionRing (Polynomial K))) t p
+    simpa only [invOf_eq_inv, ← Polynomial.aeval_def, heval, inv_pow,
+      div_inv_eq_mul] using h.symm
+  rw [← hab, hreverse a, hreverse b]
+  by_cases hdeg : a.natDegree ≤ b.natDegree
+  · refine ⟨Polynomial.X ^ (b.natDegree - a.natDegree) * a.reverse,
+      b.reverse, hbr, ?_⟩
+    rw [map_mul, map_pow, Polynomial.aeval_X, pow_sub₀ _ (inv_ne_zero ht) hdeg]
+    field_simp
+  · refine ⟨a.reverse, Polynomial.X ^ (a.natDegree - b.natDegree) * b.reverse,
+      mul_ne_zero (pow_ne_zero _ Polynomial.X_ne_zero) hbr, ?_⟩
+    rw [map_mul, map_pow, Polynomial.aeval_X,
+      pow_sub₀ _ (inv_ne_zero ht) (Nat.le_of_lt (Nat.lt_of_not_ge hdeg))]
+    field_simp
