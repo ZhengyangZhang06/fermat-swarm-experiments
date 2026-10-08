@@ -2360,7 +2360,8 @@ theorem f036cc6b1f_fd_sturm (M : ℕ) [NeZero M]
     (ModularForm.mcast_eq_zero_iff hweight rfl _).mp hNzero
   exact DFunLike.coe_injective ((ModularForm.norm_eq_zero_iff H f).mp hnorm_zero)
 
-/-- The coefficients through the Sturm bound embed weight-two cusp forms in a finite product. -/
+/-- The coefficients from zero through the approved Sturm bound embed weight-two cusp forms
+in a finite product; the bound is inclusive, so the codomain has `b + 1` coordinates. -/
 theorem f036cc6b1f_finite_dimensional :
     ∀ (M : ℕ) [NeZero M],
       FiniteDimensional ℂ (CuspForm (CongruenceSubgroup.Gamma0 M) 2) := by
