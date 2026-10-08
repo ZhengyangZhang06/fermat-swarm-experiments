@@ -1438,6 +1438,125 @@ theorem p04_rsh_82a013d1d0_prism_homotopy
         simp only [smul_eq_mul, mul_one]
       rw [hsum, add_comm _ (Rep.standardComplex.d k G (n + 2) (P (n + 1) c)),
         hsucc, sub_add_cancel]
+set_option backward.isDefEq.respectTransparency.types false in
+/-- The coordinatewise retraction and inclusion of homogeneous tuples give the
+restricted standard-complex homotopy equivalence. -/
+theorem p04_tia_coh_restricted_standard_homotopy_equiv
+    {k G : Type u} [CommRing k] [Group G] (H : Subgroup G) :
+    Nonempty (HomotopyEquiv
+      (((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj
+        (Rep.standardComplex k G)) (Rep.standardComplex k H)) := by
+  classical
+  obtain ⟨r, hr, hrH⟩ := p04_rsh_82a013d1d0_equivariant_retraction H
+  let C := ((Rep.resFunctor H.subtype).mapHomologicalComplex
+    (ComplexShape.down ℕ)).obj (Rep.standardComplex k G)
+  let D := Rep.standardComplex k H
+  -- Coordinatewise maps commute with every vertex deletion.
+  have natural_d (L M : Type u) (f : L → M) (n : ℕ) :
+      (Rep.standardComplex.d k M (n + 1)).comp
+          (MonoidAlgebra.mapDomainLinearMap k k (fun c : Fin (n + 2) → L => f ∘ c)) =
+        (MonoidAlgebra.mapDomainLinearMap k k (fun c : Fin (n + 1) → L => f ∘ c)).comp
+          (Rep.standardComplex.d k L (n + 1)) := by
+    apply MonoidAlgebra.lhom_ext'
+    intro c
+    apply LinearMap.ext_ring
+    simp [Rep.standardComplex.d_of, Function.comp_assoc]
+  let pF : ∀ n, C.X n ⟶ D.X n := fun n => Rep.ofHom
+    { toLinearMap := MonoidAlgebra.mapDomainLinearMap k k
+        (fun c : Fin (n + 1) → G => r ∘ c)
+      isIntertwining' := by
+        intro h
+        apply MonoidAlgebra.lhom_ext'
+        intro c
+        apply LinearMap.ext_ring
+        change MonoidAlgebra.mapDomainLinearMap k k (fun c => r ∘ c)
+            (Representation.ofMulAction k G (Fin (n + 1) → G) (h : G)
+              (MonoidAlgebra.single c 1)) =
+          Representation.ofMulAction k H (Fin (n + 1) → H) h
+            (MonoidAlgebra.mapDomainLinearMap k k (fun c => r ∘ c)
+              (MonoidAlgebra.single c 1))
+        simp only [Representation.ofMulAction_single,
+          MonoidAlgebra.mapDomainLinearMap_single]
+        congr 1
+        funext i
+        exact hr h (c i) }
+  let qF : ∀ n, D.X n ⟶ C.X n := fun n => Rep.ofHom
+    { toLinearMap := MonoidAlgebra.mapDomainLinearMap k k
+        (fun c : Fin (n + 1) → H => H.subtype ∘ c)
+      isIntertwining' := by
+        intro h
+        apply MonoidAlgebra.lhom_ext'
+        intro c
+        apply LinearMap.ext_ring
+        change MonoidAlgebra.mapDomainLinearMap k k (fun c => H.subtype ∘ c)
+            (Representation.ofMulAction k H (Fin (n + 1) → H) h
+              (MonoidAlgebra.single c 1)) =
+          Representation.ofMulAction k G (Fin (n + 1) → G) (h : G)
+            (MonoidAlgebra.mapDomainLinearMap k k (fun c => H.subtype ∘ c)
+              (MonoidAlgebra.single c 1))
+        simp only [Representation.ofMulAction_single,
+          MonoidAlgebra.mapDomainLinearMap_single]
+        rfl }
+  let p : C ⟶ D :=
+    { f := pF
+      comm' := by
+        intro i j hij
+        obtain rfl : j + 1 = i := hij
+        apply Rep.hom_ext
+        apply Representation.IntertwiningMap.ext
+        apply LinearMap.ext
+        intro x
+        change ((Rep.standardComplex k H).d (j + 1) j).hom
+            (MonoidAlgebra.mapDomainLinearMap k k (fun c => r ∘ c) x) =
+          MonoidAlgebra.mapDomainLinearMap k k (fun c => r ∘ c)
+            ((Rep.standardComplex k G).d (j + 1) j |>.hom x)
+        rw [Rep.standardComplex.d_apply, Rep.standardComplex.d_apply]
+        exact LinearMap.congr_fun (natural_d G H r j) x }
+  let q : D ⟶ C :=
+    { f := qF
+      comm' := by
+        intro i j hij
+        obtain rfl : j + 1 = i := hij
+        apply Rep.hom_ext
+        apply Representation.IntertwiningMap.ext
+        apply LinearMap.ext
+        intro x
+        change ((Rep.standardComplex k G).d (j + 1) j).hom
+            (MonoidAlgebra.mapDomainLinearMap k k (fun c => H.subtype ∘ c) x) =
+          MonoidAlgebra.mapDomainLinearMap k k (fun c => H.subtype ∘ c)
+            ((Rep.standardComplex k H).d (j + 1) j |>.hom x)
+        rw [Rep.standardComplex.d_apply, Rep.standardComplex.d_apply]
+        exact LinearMap.congr_fun (natural_d H G H.subtype j) x }
+  have hpq : q ≫ p = 𝟙 D := by
+    apply HomologicalComplex.hom_ext
+    intro n
+    apply Rep.hom_ext
+    apply Representation.IntertwiningMap.ext
+    apply MonoidAlgebra.lhom_ext'
+    intro c
+    apply LinearMap.ext_ring
+    change MonoidAlgebra.mapDomainLinearMap k k (fun c => r ∘ c)
+        (MonoidAlgebra.mapDomainLinearMap k k (fun c => H.subtype ∘ c)
+          (MonoidAlgebra.single c 1)) = MonoidAlgebra.single c 1
+    simp only [MonoidAlgebra.mapDomainLinearMap_single]
+    congr 1
+    funext i
+    exact hrH (c i)
+  obtain ⟨hp⟩ := p04_rsh_82a013d1d0_prism_homotopy (k := k) H
+    id (fun g => (r g : G)) (fun _ _ => rfl)
+    (fun h g => congrArg Subtype.val (hr h g)) (𝟙 C) (p ≫ q)
+    (by intro n c; rfl)
+    (by
+      intro n c
+      change MonoidAlgebra.mapDomainLinearMap k k (fun c => H.subtype ∘ c)
+          (MonoidAlgebra.mapDomainLinearMap k k (fun c => r ∘ c)
+            (MonoidAlgebra.single c 1)) = _
+      simp only [MonoidAlgebra.mapDomainLinearMap_single]
+      rfl)
+  exact ⟨{ hom := p
+           inv := q
+           homotopyHomInvId := hp
+           homotopyInvHomId := Homotopy.ofEq hpq }⟩
 
 end Submission
 
