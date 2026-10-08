@@ -1742,7 +1742,9 @@ set_option warningAsError true in
 Transport a unit-times-uniformizer factorization through the two compatible equivalences,
 then evaluate its normalized order in the target valuation ring. The factorization and
 evaluation lemmas are `Place.exists_unit_mul_zpow` and `Place.ord_unit_smul_zpow`
-from `Definitions.Def_AlgebraicCurve_DivisorClassGroup`. -/
+from `Definitions.Def_AlgebraicCurve_DivisorClassGroup`. The uniformizer is supplied by
+`IsDiscreteValuationRing.exists_irreducible`; `Irreducible.map` and `Units.map`
+transport its irreducibility and the unit through the valuation-ring equivalence. -/
 theorem p06_9e0f5043ff_pae_compatible_order_invariance
     (K E L : Type*) [Field K] [Field E] [Field L] [Algebra K E] [Algebra K L]
     (e : E ≃ₐ[K] L) (v : AlgebraicCurve.Place K E) (w : AlgebraicCurve.Place K L)
