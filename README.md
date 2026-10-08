@@ -35,6 +35,8 @@ The campaign is complete only when all ten roots and all introduced prerequisite
 are verified and integrated. [Root issues](https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues)
 are recorded in `campaign.json` and `proofs/`. The dashboard source is in
 `site/`; its deployment observation must not be confused with live proof progress.
+The explicit [Pages workflow](.github/workflows/pages.yml) deploys `site/` and
+`campaign.json` from `main`; the separate `status-live` branch supplies observations.
 
 ## Provenance
 
