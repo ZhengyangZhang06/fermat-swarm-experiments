@@ -1305,3 +1305,61 @@ theorem Submission.p10_17ae7b7d_idx_dedekind_psi_product :
       apply Finset.prod_congr rfl
       intro p _
       exact Nat.add_comm _ _
+theorem Submission.p10_17ae7b7d_phdisk_mobius_bijon :
+    ∀ (a b c d : ℝ), a * d - b * c = 1 →
+      Set.BijOn (fun z : ℂ => ((a : ℂ) * z + (b : ℂ)) / ((c : ℂ) * z + (d : ℂ)))
+        {z : ℂ | 0 < z.im} {z : ℂ | 0 < z.im} := by
+  have hden (a b c d : ℝ) (hdet : a * d - b * c = 1)
+      (z : ℂ) (hz : 0 < z.im) : (c : ℂ) * z + (d : ℂ) ≠ 0 := by
+    intro hzero
+    have him : c * z.im = 0 := by
+      simpa only [Complex.add_im, Complex.mul_im, Complex.ofReal_re,
+        Complex.ofReal_im, zero_mul, add_zero, Complex.zero_im] using
+        congrArg Complex.im hzero
+    have hc : c = 0 := (mul_eq_zero.mp him).resolve_right (ne_of_gt hz)
+    have hd : d = 0 := by simpa [hc] using hzero
+    simp [hc, hd] at hdet
+  have hpos (a b c d : ℝ) (hdet : a * d - b * c = 1)
+      (z : ℂ) (hz : 0 < z.im) :
+      0 < (((a : ℂ) * z + (b : ℂ)) / ((c : ℂ) * z + (d : ℂ))).im := by
+    have him : (((a : ℂ) * z + (b : ℂ)) / ((c : ℂ) * z + (d : ℂ))).im =
+        z.im / Complex.normSq ((c : ℂ) * z + (d : ℂ)) := by
+      simp only [Complex.div_im, Complex.add_im, Complex.mul_im, Complex.ofReal_re,
+        Complex.ofReal_im, zero_mul, add_zero, Complex.add_re, Complex.mul_re,
+        sub_zero, ← sub_div]
+      congr 1
+      calc
+        a * z.im * (c * z.re + d) - (a * z.re + b) * (c * z.im) =
+            (a * d - b * c) * z.im := by ring
+        _ = z.im := by rw [hdet, one_mul]
+    rw [him]
+    exact div_pos hz (Complex.normSq_pos.mpr (hden a b c d hdet z hz))
+  have hleft (a b c d : ℝ) (hdet : a * d - b * c = 1)
+      (z : ℂ) (hz : 0 < z.im) :
+      ((d : ℂ) * (((a : ℂ) * z + (b : ℂ)) / ((c : ℂ) * z + (d : ℂ))) - (b : ℂ)) /
+        (-(c : ℂ) * (((a : ℂ) * z + (b : ℂ)) / ((c : ℂ) * z + (d : ℂ))) + (a : ℂ)) = z := by
+    have hdetC : (a : ℂ) * (d : ℂ) - (b : ℂ) * (c : ℂ) = 1 := by
+      exact_mod_cast hdet
+    have hq := hden a b c d hdet z hz
+    have hnum : (d : ℂ) * (((a : ℂ) * z + (b : ℂ)) / ((c : ℂ) * z + (d : ℂ))) -
+        (b : ℂ) = z / ((c : ℂ) * z + (d : ℂ)) := by
+      apply (eq_div_iff hq).2
+      rw [sub_mul, mul_assoc, div_mul_cancel₀ _ hq]
+      linear_combination z * hdetC
+    have hinv : -(c : ℂ) * (((a : ℂ) * z + (b : ℂ)) / ((c : ℂ) * z + (d : ℂ))) +
+        (a : ℂ) = 1 / ((c : ℂ) * z + (d : ℂ)) := by
+      apply (eq_div_iff hq).2
+      rw [add_mul, mul_assoc, div_mul_cancel₀ _ hq]
+      linear_combination hdetC
+    rw [hnum, hinv, div_div_div_cancel_right₀ hq, div_one]
+  intro a b c d hdet
+  have hinvdet : d * a - (-b) * (-c) = 1 := by nlinarith [hdet]
+  refine ⟨fun z hz => hpos a b c d hdet z hz, ?_, ?_⟩
+  · intro z hz w hw heq
+    have h := congrArg (fun u : ℂ => ((d : ℂ) * u - (b : ℂ)) / (-(c : ℂ) * u + (a : ℂ))) heq
+    simpa only [hleft a b c d hdet z hz, hleft a b c d hdet w hw] using h
+  · intro w hw
+    refine ⟨((d : ℂ) * w + ((-b : ℝ) : ℂ)) / (((-c : ℝ) : ℂ) * w + (a : ℂ)),
+      hpos d (-b) (-c) a hinvdet w hw, ?_⟩
+    simpa only [Complex.ofReal_neg, neg_neg, sub_neg_eq_add] using
+      hleft d (-b) (-c) a hinvdet w hw
