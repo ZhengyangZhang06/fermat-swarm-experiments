@@ -2048,37 +2048,6 @@ theorem p02_es_177ebb5a_pcl_scalar_common_ray_limit :
   simpa only [sub_add_cancel, zero_add] using
     (p02_es_177ebb5a_crl_horizontal_difference_limit n a H G ha hG hH hstrip x).add hA
 open scoped Pointwise in
-theorem p02_es_177ebb5a_pp_scaled_cusp_decay
-    (N : ℕ) [NeZero N] (n : ℕ)
-    (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2))
-    (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) :
-    ∃ (a C Y : ℝ), 0 < a ∧ 0 ≤ C ∧ ∀ τ : UpperHalfPlane, Y ≤ τ.im →
-      ‖(HeckeEis.jFactor σ τ) ^ (-((n : ℤ) + 2)) * f (σ • τ)‖ ≤
-        C * Real.exp (-a * τ.im) := by
-  let Γ : Subgroup (Matrix.GeneralLinearGroup (Fin 2) ℝ) := CongruenceSubgroup.Gamma0 N
-  let g : Matrix.GeneralLinearGroup (Fin 2) ℝ := σ
-  have hg : (Matrix.SpecialLinearGroup.mapGL ℚ σ⁻¹).map (Rat.castHom ℝ) = g⁻¹ := by
-    change (Matrix.SpecialLinearGroup.mapGL ℚ σ⁻¹).map (algebraMap ℚ ℝ) = g⁻¹
-    rw [Matrix.SpecialLinearGroup.map_mapGL, map_inv]
-    rfl
-  have : (ConjAct.toConjAct g⁻¹ • Γ).IsArithmetic := by
-    rw [← hg]
-    exact Subgroup.IsArithmetic.conj Γ (Matrix.SpecialLinearGroup.mapGL ℚ σ⁻¹)
-  let u := CuspForm.translate f g
-  obtain ⟨a, ha, hdecay⟩ := CuspFormClass.exp_decay_atImInfty' u
-  obtain ⟨C, hC, hbound⟩ := hdecay.exists_nonneg
-  obtain ⟨Y, hY⟩ := (UpperHalfPlane.atImInfty_mem _).mp hbound.bound
-  refine ⟨a, C, Y, ha, hC, ?_⟩
-  intro τ hτ
-  have h := hY τ hτ
-  change ‖((f : UpperHalfPlane → ℂ) ∣[(n : ℤ) + 2] σ) τ‖ ≤
-    C * ‖Real.exp (-a * τ.im)‖ at h
-  rw [HeckeEis.jFactor_eq_denom, mul_comm]
-  simpa only [ModularForm.SL_slash_apply, Real.norm_eq_abs,
-    abs_of_pos (Real.exp_pos _)] using! h
-
-
-open scoped Pointwise in
 theorem p02_es_177ebb5a_pp_primitive_cusp_limit :
     ∀ (N : ℕ) [NeZero N] (n : ℕ)
       (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2))
@@ -2300,5 +2269,90 @@ theorem p02_es_177ebb5a_pp_integral_parabolic_normal_form :
     rw [hσ, ModularGroup.coe_T_zpow]
     ext i j
     fin_cases i <;> fin_cases j <;> simp
+
+theorem p02_es_177ebb5a_primitive_parabolic :
+    ∀ (N : ℕ) [NeZero N] (n : ℕ)
+      (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2))
+      (F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)),
+      HeckeEis.IsEichlerIntegral n (fun τ => f τ) F →
+      ∀ hF : HeckeEis.IsEquivariantPrimitiveWith
+        ((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype) F,
+      HeckeEis.IsParabolicCocycle
+        ((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype)
+        hF.cocycle := by
+  classical
+  intro N _ n f F hEI hF γ hγ
+  obtain ⟨σ, m, hσ⟩ := p02_es_177ebb5a_pp_integral_parabolic_normal_form γ hγ
+  obtain ⟨A, hA⟩ := p02_es_177ebb5a_pp_primitive_cusp_limit N n f F hEI σ
+  let ρ := (HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype
+  let ray (x y : ℝ) := UpperHalfPlane.ofComplex ((x : ℂ) + (y : ℂ) * Complex.I)
+  -- Both signs of the normal form act by the same real translation.
+  have hmove (y : ℝ) (hy : 0 < y) :
+      (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • (σ • ray 0 y) =
+        σ • ray (m : ℝ) y := by
+    have hconj : (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • (σ • ray 0 y) =
+        σ • ((σ⁻¹ * γ * σ) • ray 0 y) := by
+      simp only [mul_smul, smul_inv_smul]
+    rw [hconj]
+    have htrans : (σ⁻¹ * γ * σ) • ray 0 y = (m : ℝ) +ᵥ ray 0 y := by
+      rcases hσ with hσ | hσ
+      · rw [hσ, UpperHalfPlane.modular_T_zpow_smul]
+      · rw [hσ, ModularGroup.SL_neg_smul, UpperHalfPlane.modular_T_zpow_smul]
+    rw [htrans]
+    congr 1
+    have hpos (x : ℝ) : 0 < ((x : ℂ) + (y : ℂ) * Complex.I).im := by simpa using hy
+    apply UpperHalfPlane.ext
+    simp [ray, UpperHalfPlane.ofComplex_apply_of_im_pos (hpos _), UpperHalfPlane.coe_vadd]
+  -- A fixed finite coefficient expansion allows the representation to pass through the limit.
+  let s := (Finsupp.finite_of_degree_eq (σ := Fin 2) n).toFinset
+  have hexpand (Q : ↥(HeckeEis.BinaryForm ℂ n)) :
+      Q.val = ∑ e ∈ s, MvPolynomial.coeff e Q.val • MvPolynomial.monomial e (1 : ℂ) := by
+    calc
+      Q.val = ∑ e ∈ Q.val.support, MvPolynomial.coeff e Q.val •
+          MvPolynomial.monomial e (1 : ℂ) := by
+        simpa only [MvPolynomial.smul_monomial, smul_eq_mul, mul_one] using Q.val.as_sum
+      _ = ∑ e ∈ s, MvPolynomial.coeff e Q.val • MvPolynomial.monomial e (1 : ℂ) := by
+        apply Finset.sum_subset
+        · intro e he
+          have hdeg := Q.property (MvPolynomial.mem_support_iff.mp he)
+          simpa [s, Finsupp.degree_eq_weight_one, Pi.one_def] using hdeg
+        · intro e _ he
+          simp [MvPolynomial.notMem_support_iff.mp he]
+  have hcoeff (Q : ↥(HeckeEis.BinaryForm ℂ n)) (d : Fin 2 →₀ ℕ) :
+      MvPolynomial.coeff d (ρ γ Q).val =
+        ∑ e ∈ s, MvPolynomial.coeff e Q.val *
+          MvPolynomial.coeff d (HeckeEis.binarySubst ℂ γ
+            (MvPolynomial.monomial e (1 : ℂ))) := by
+    change MvPolynomial.coeff d (HeckeEis.binarySubst ℂ γ Q.val) = _
+    conv_lhs => rw [hexpand Q]
+    simp only [map_sum, map_smul, MvPolynomial.coeff_sum,
+      MvPolynomial.coeff_smul, smul_eq_mul]
+  have hrep (d : Fin 2 →₀ ℕ) : Filter.Tendsto
+      (fun y : ℝ => MvPolynomial.coeff d (ρ γ (F (σ • ray 0 y))).val)
+      Filter.atTop (nhds (MvPolynomial.coeff d (ρ γ A).val)) := by
+    simp_rw [hcoeff]
+    apply tendsto_finsetSum
+    intro e _
+    exact (hA 0 e).mul_const _
+  have hdefect : A - ρ γ A = hF.cocycle γ := by
+    apply Subtype.ext
+    apply MvPolynomial.ext
+    intro d
+    have hlim := (hA (m : ℝ) d).sub (hrep d)
+    have heq : (fun y : ℝ =>
+        MvPolynomial.coeff d (F (σ • ray (m : ℝ) y)).val -
+        MvPolynomial.coeff d (ρ γ (F (σ • ray 0 y))).val) =ᶠ[Filter.atTop]
+        (fun _ => MvPolynomial.coeff d (hF.cocycle γ).val) := by
+      filter_upwards [Filter.eventually_gt_atTop (0 : ℝ)] with y hy
+      have h := hF.sub_eq_cocycle γ (σ • ray 0 y)
+      rw [hmove y hy] at h
+      simpa only [Submodule.coe_sub, MvPolynomial.coeff_sub] using
+        congrArg (fun Q : ↥(HeckeEis.BinaryForm ℂ n) => MvPolynomial.coeff d Q.val) h
+    simpa only [Submodule.coe_sub, MvPolynomial.coeff_sub] using
+      (tendsto_nhds_unique hlim (tendsto_const_nhds.congr' heq.symm))
+  refine ⟨-A, ?_⟩
+  change ρ γ (-A) - (-A) = hF.cocycle γ
+  rw [map_neg, neg_sub_neg]
+  exact hdefect
 
 end Submission
