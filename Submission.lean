@@ -2124,3 +2124,65 @@ theorem Submission.p10_17ae7b7d_pp_fractional_iterates :
     intro h
     exact hznext ((Submission.p10_17ae7b7d_fi_unit_mul_dvd_val (p ^ a) (p ^ (j + 1))
       (pow_pos hp.pos _) (pow_dvd_pow p hja) z _ hinv).mp h)
+theorem Submission.p10_17ae7b7d_pp_stratum_card :
+    ∀ (p a j : ℕ), Nat.Prime p → 1 ≤ j → j < a →
+      Nat.card {z : ZMod (p ^ a) // p ^ j ∣ z.val ∧ ¬ p ^ (j + 1) ∣ z.val} =
+        Nat.totient (p ^ min j (a - j)) * p ^ (a - 2 * j) := by
+  classical
+  intro p a j hp hj hja
+  have : NeZero (p ^ a) := ⟨pow_ne_zero _ hp.ne_zero⟩
+  have hcount (k : ℕ) (hk : k ≤ a) :
+      (Finset.univ.filter (fun z : ZMod (p ^ a) => p ^ k ∣ z.val)).card = p ^ (a - k) := by
+    have hpk : 0 < p ^ k := pow_pos hp.pos _
+    have hpa : p ^ k * p ^ (a - k) = p ^ a := by
+      rw [← pow_add, Nat.add_sub_of_le hk]
+    have hbound (t : Fin (p ^ (a - k))) : p ^ k * t.val < p ^ a := by
+      rw [← hpa]
+      exact Nat.mul_lt_mul_of_pos_left t.isLt hpk
+    let f : Fin (p ^ (a - k)) → {z : ZMod (p ^ a) // p ^ k ∣ z.val} :=
+      fun t => ⟨(p ^ k * t.val : ℕ), by
+        rw [ZMod.val_natCast_of_lt (hbound t)]
+        exact dvd_mul_right _ _⟩
+    have hfval (t : Fin (p ^ (a - k))) : (f t).val.val = p ^ k * t.val :=
+      ZMod.val_natCast_of_lt (hbound t)
+    have hbij : Function.Bijective f := by
+      constructor
+      · intro t u h
+        apply Fin.ext
+        apply Nat.eq_of_mul_eq_mul_left hpk
+        simpa only [hfval] using congrArg (fun z => z.val.val) h
+      · intro z
+        obtain ⟨t, ht⟩ := z.property
+        have htlt : t < p ^ (a - k) := by
+          apply (Nat.mul_lt_mul_left hpk).mp
+          rw [hpa, ← ht]
+          exact ZMod.val_lt z.val
+        refine ⟨⟨t, htlt⟩, Subtype.ext ?_⟩
+        change ((p ^ k * t : ℕ) : ZMod (p ^ a)) = z.val
+        rw [← ht, ZMod.natCast_zmod_val]
+    rw [← Fintype.card_subtype]
+    simpa using (Fintype.card_congr (Equiv.ofBijective f hbij)).symm
+  have hsub :
+      Finset.univ.filter (fun z : ZMod (p ^ a) => p ^ (j + 1) ∣ z.val) ⊆
+        Finset.univ.filter (fun z : ZMod (p ^ a) => p ^ j ∣ z.val) := by
+    intro z hz
+    simp only [Finset.mem_filter, Finset.mem_univ, true_and] at hz ⊢
+    exact dvd_trans (pow_dvd_pow p (by omega : j ≤ j + 1)) hz
+  have hstratum :
+      Finset.univ.filter (fun z : ZMod (p ^ a) => p ^ j ∣ z.val ∧ ¬ p ^ (j + 1) ∣ z.val) =
+        (Finset.univ.filter (fun z : ZMod (p ^ a) => p ^ j ∣ z.val)) \
+          (Finset.univ.filter (fun z : ZMod (p ^ a) => p ^ (j + 1) ∣ z.val)) := by
+    ext z
+    simp
+  rw [Nat.card_eq_fintype_card, Fintype.card_subtype, hstratum,
+    Finset.card_sdiff_of_subset hsub, hcount j hja.le, hcount (j + 1) (by omega)]
+  have hpos : 0 < min j (a - j) := by omega
+  rw [Nat.totient_prime_pow hp hpos]
+  have hexp : a - j = (a - (j + 1)) + 1 := by omega
+  have he : a - (j + 1) = min j (a - j) - 1 + (a - 2 * j) := by omega
+  calc
+    p ^ (a - j) - p ^ (a - (j + 1)) = p ^ (a - (j + 1)) * (p - 1) := by
+      simp only [hexp, pow_succ, Nat.mul_sub_left_distrib, Nat.mul_one]
+    _ = (p ^ (min j (a - j) - 1) * p ^ (a - 2 * j)) * (p - 1) := by
+      rw [← pow_add, ← he]
+    _ = p ^ (min j (a - j) - 1) * (p - 1) * p ^ (a - 2 * j) := by ac_rfl
