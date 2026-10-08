@@ -876,3 +876,42 @@ theorem Submission.p10_17ae7b7d_ppr_nonunit_card :
     Nat.card {z : ZMod (p ^ a) // ¬ IsUnit z} = Nat.card (Fin (p ^ (a - 1))) :=
       (Nat.card_congr (Equiv.ofBijective f ⟨hinj, hsurj⟩)).symm
     _ = p ^ (a - 1) := Nat.card_fin _
+theorem Submission.p10_17ae7b7d_efp_unimodular_eigenrow_iff :
+    ∀ (R : Type) [CommRing R] (k r s : R),
+      (∃ x y : R, x * r + y * s = 1) →
+      ((∃ u : Rˣ, s = (u : R) * r ∧ k * s - r = (u : R) * s) ↔
+        IsUnit r ∧ ∃! t : R, s = r * t ∧ t ^ 2 - k * t + 1 = 0) := by
+  intro R _ k r s ⟨x, y, hxy⟩
+  constructor
+  · rintro ⟨u, hs, heigen⟩
+    have hinv : (x + y * (u : R)) * r = 1 := by
+      calc
+        (x + y * (u : R)) * r = x * r + y * s := by rw [hs]; ring
+        _ = 1 := hxy
+    have hr : IsUnit r := isUnit_iff_exists.mpr
+      ⟨x + y * (u : R), by rw [mul_comm]; exact hinv, hinv⟩
+    refine ⟨hr, (u : R), ⟨?_, ?_⟩, ?_⟩
+    · exact hs.trans (mul_comm _ _)
+    · apply hr.mul_left_cancel
+      calc
+        r * ((u : R) ^ 2 - k * (u : R) + 1) =
+            (u : R) * s - (k * s - r) := by rw [hs]; ring
+        _ = r * 0 := by rw [heigen, sub_self, mul_zero]
+    · intro t ht
+      apply hr.mul_left_cancel
+      calc
+        r * t = s := ht.1.symm
+        _ = r * (u : R) := hs.trans (mul_comm _ _)
+  · rintro ⟨_, t, ⟨hs, hpoly⟩, _⟩
+    have hinv : t * (k - t) = 1 := by
+      calc
+        t * (k - t) = 1 - (t ^ 2 - k * t + 1) := by ring
+        _ = 1 := by rw [hpoly, sub_zero]
+    let u : Rˣ := ⟨t, k - t, hinv, by rw [mul_comm]; exact hinv⟩
+    refine ⟨u, ?_, ?_⟩
+    · change s = t * r
+      exact hs.trans (mul_comm _ _)
+    · change k * s - r = t * s
+      calc
+        k * s - r = t * s - r * (t ^ 2 - k * t + 1) := by rw [hs]; ring
+        _ = t * s := by rw [hpoly, mul_zero, sub_zero]
