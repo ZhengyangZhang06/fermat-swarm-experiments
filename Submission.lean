@@ -5312,3 +5312,37 @@ theorem p05_hte_stable_subalgebra_hopf_structure_a5b449214a
   simpa only [hι] using hAntipode d
 
 end Submission
+theorem Submission.p05_hte_fss_tensor_dual_expansion_a5b449214a :
+    ∀ {k : Type*} [Field k] {C : Type*} [AddCommGroup C] [Module k C]
+      (z : TensorProduct k C C),
+      ∃ (n : ℕ) (v w : Fin n → C) (ell : Fin n → C →ₗ[k] k),
+        z = ∑ i : Fin n, TensorProduct.tmul k (v i) (w i) ∧
+          ∀ i j : Fin n, ell i (w j) = if i = j then (1 : k) else 0 := by
+  intro k _ C _ _ z
+  classical
+  obtain ⟨m, x, y, hz⟩ := TensorProduct.exists_sum_tmul_eq z
+  let W : Submodule k C := Submodule.span k (Set.range y)
+  have : FiniteDimensional k W := FiniteDimensional.span_of_finite k (Set.finite_range y)
+  let b := Module.finBasis k W
+  let yW : Fin m → W := fun r => ⟨y r, Submodule.subset_span (Set.mem_range_self r)⟩
+  choose ell hell using fun i : Fin (Module.finrank k W) => (b.coord i).exists_extend
+  refine ⟨Module.finrank k W, (fun i => ∑ r, b.repr (yW r) i • x r),
+    (fun i => (b i : C)), ell, ?_, ?_⟩
+  · have hy (r : Fin m) : y r = ∑ i, b.repr (yW r) i • (b i : C) := by
+      simpa only [map_sum, map_smul, Submodule.subtype_apply, yW] using
+        (congrArg W.subtype (b.sum_repr (yW r))).symm
+    calc
+      z = ∑ r, TensorProduct.tmul k (x r) (y r) := hz
+      _ = ∑ r, ∑ i, TensorProduct.tmul k (b.repr (yW r) i • x r) (b i : C) := by
+        apply Finset.sum_congr rfl
+        intro r _
+        rw [hy r, TensorProduct.tmul_sum]
+        apply Finset.sum_congr rfl
+        intro i _
+        exact (TensorProduct.smul_tmul _ _ _).symm
+      _ = ∑ i, TensorProduct.tmul k (∑ r, b.repr (yW r) i • x r) (b i : C) := by
+        rw [Finset.sum_comm]
+        simp only [TensorProduct.sum_tmul]
+  · intro i j
+    have h := LinearMap.congr_fun (hell i) (b j)
+    simpa [Module.Basis.coord_apply, Module.Basis.repr_self, Finsupp.single_apply, eq_comm] using h
