@@ -2249,8 +2249,10 @@ open CategoryTheory
 Subgroup restriction is exact and preserves projective objects, so the restricted
 standard resolution resolves the trivial representation of the subgroup.
 `groupHomologyIso` identifies its tensor-coinvariant homology in every degree,
-including zero. This uses the restriction construction from mathlib's
-`RepresentationTheory/Homological/GroupHomology/Shapiro.lean`. -/
+including zero. The restriction instances are in mathlib's `Rep/Res.lean` and
+`Coinduced.lean`; the comparison is in `Homological/GroupHomology/Basic.lean`,
+all under `Mathlib/RepresentationTheory`. The same restricted-resolution
+construction is used in `Homological/GroupHomology/Shapiro.lean`. -/
 theorem p04_ht_restricted_standard_comparison
     {k G : Type _} [CommRing k] [Group G] [Fintype G]
     (A : Rep k G) (H : Subgroup G) [Fintype H] (n : ℕ) :
