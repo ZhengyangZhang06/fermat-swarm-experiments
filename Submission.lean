@@ -899,3 +899,40 @@ theorem Submission.p10_17ae7b7d_idx_prime_power_row_card :
   obtain ⟨e⟩ := Submission.p10_17ae7b7d_ppr_unit_chart_equiv p a hp ha
   rw [Nat.card_congr e, Nat.card_sum, Nat.card_zmod,
     Submission.p10_17ae7b7d_ppr_nonunit_card p a hp ha]
+theorem Submission.p10_17ae7b7d_crt_ring_equiv_rows :
+    ∀ (R S : Type) [CommRing R] [CommRing S], (R ≃+* S) →
+      let P := fun (A : Type) [CommRing A] =>
+        Quot (fun v w : {v : A × A // ∃ x y : A, x * v.1 + y * v.2 = 1} =>
+          ∃ u : Aˣ, (u : A) * v.1.1 = w.1.1 ∧ (u : A) * v.1.2 = w.1.2)
+      Nonempty (P R ≃ P S) := by
+  intro R S _ _ e
+  let f : {v : R × R // ∃ x y : R, x * v.1 + y * v.2 = 1} ≃
+      {v : S × S // ∃ x y : S, x * v.1 + y * v.2 = 1} :=
+    { toFun := fun v => ⟨(e v.1.1, e v.1.2), by
+        obtain ⟨x, y, hxy⟩ := v.2
+        exact ⟨e x, e y, by simpa only [map_add, map_mul, map_one] using congrArg e hxy⟩⟩
+      invFun := fun v => ⟨(e.symm v.1.1, e.symm v.1.2), by
+        obtain ⟨x, y, hxy⟩ := v.2
+        exact ⟨e.symm x, e.symm y, by
+          simpa only [map_add, map_mul, map_one] using congrArg e.symm hxy⟩⟩
+      left_inv := fun v => Subtype.ext (Prod.ext
+        (e.symm_apply_apply v.1.1) (e.symm_apply_apply v.1.2))
+      right_inv := fun v => Subtype.ext (Prod.ext
+        (e.apply_symm_apply v.1.1) (e.apply_symm_apply v.1.2)) }
+  refine ⟨Quot.congr f ?_⟩
+  intro v w
+  constructor
+  · rintro ⟨u, h₁, h₂⟩
+    refine ⟨Units.map e.toMonoidHom u, ?_, ?_⟩
+    · change e (u : R) * e v.1.1 = e w.1.1
+      simpa only [map_mul] using congrArg e h₁
+    · change e (u : R) * e v.1.2 = e w.1.2
+      simpa only [map_mul] using congrArg e h₂
+  · rintro ⟨u, h₁, h₂⟩
+    change (u : S) * e v.1.1 = e w.1.1 at h₁
+    change (u : S) * e v.1.2 = e w.1.2 at h₂
+    refine ⟨Units.map e.symm.toMonoidHom u, ?_, ?_⟩
+    · change e.symm (u : S) * v.1.1 = w.1.1
+      simpa only [map_mul, e.symm_apply_apply] using congrArg e.symm h₁
+    · change e.symm (u : S) * v.1.2 = w.1.2
+      simpa only [map_mul, e.symm_apply_apply] using congrArg e.symm h₂
