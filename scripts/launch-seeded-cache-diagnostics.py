@@ -41,6 +41,26 @@ def inspect(kind, identity):
     return values[0]
 
 
+def canonical_task_tmpfs(task):
+    """Normalize only Docker's omitted /tmp tmpfs mode, never explicit changes.
+
+    Docker defaults a tmpfs mount to 01777 but may omit Mode from inspection.
+    Keep raw service specifications for evidence hashing and readiness binding.
+    """
+    result = copy.deepcopy(task)
+    for mount in result.get('ContainerSpec', {}).get('Mounts', []):
+        if mount.get('Type') == 'tmpfs' and mount.get('Target') == '/tmp':
+            mount.setdefault('TmpfsOptions', {}).setdefault('Mode', 0o1777)
+    return result
+
+
+def equivalent_service_spec(actual, expected):
+    actual, expected = copy.deepcopy(actual), copy.deepcopy(expected)
+    actual['TaskTemplate'] = canonical_task_tmpfs(actual['TaskTemplate'])
+    expected['TaskTemplate'] = canonical_task_tmpfs(expected['TaskTemplate'])
+    return actual == expected
+
+
 def exact_task(service, node_id):
     ids = docker('service', 'ps', '--no-trunc', '--format', '{{.ID}}', service['ID']).split()
     if len(ids) != 1:
@@ -48,10 +68,10 @@ def exact_task(service, node_id):
     task = inspect('task', ids[0])
     if task.get('ID') != ids[0] or task['ServiceID'] != service['ID'] or task.get('NodeID') != node_id:
         raise ValueError('task service or physical node identity changed')
-    actual = copy.deepcopy(task.get('Spec', {}))
+    actual = canonical_task_tmpfs(task.get('Spec', {}))
     actual.setdefault('Runtime', 'container')  # Swarm omits the default on task records.
     actual.get('ContainerSpec', {}).setdefault('StopGracePeriod', 10000000000)
-    expected = copy.deepcopy(service['Spec']['TaskTemplate'])
+    expected = canonical_task_tmpfs(service['Spec']['TaskTemplate'])
     expected.get('ContainerSpec', {}).setdefault('StopGracePeriod', 10000000000)
     if actual != expected:
         raise ValueError('task specification differs from pinned service')
@@ -150,7 +170,10 @@ def create_command(spec):
         command += ['--env', value]
     for mount in container['Mounts']:
         if mount['Type'] == 'tmpfs' and mount['Target'] == '/tmp':
-            text = 'type=tmpfs,destination=/tmp,tmpfs-size=' + str(mount['TmpfsOptions']['SizeBytes'])
+            if mount['TmpfsOptions'].get('Mode', 0o1777) != 0o1777:
+                raise ValueError('diagnostic tmpfs mode differs from reviewed 01777')
+            text = ('type=tmpfs,destination=/tmp,tmpfs-mode=1777,tmpfs-size=' +
+                    str(mount['TmpfsOptions']['SizeBytes']))
         elif mount['Type'] in ('bind', 'volume') and mount.get('ReadOnly') is True:
             if any(',' in mount[key] for key in ('Source', 'Target')):
                 raise ValueError('invalid mount coordinate')
@@ -261,7 +284,7 @@ def run(config, directory, *, apply=False, ledger=None, max_active=3, readiness_
         if record and record['state'] in ('submitting', 'passed') and present:
             was_active = record['state'] == 'submitting'
             service = inspect('service', record.get('service_id') or spec['Name'])
-            if service['Spec'] != spec or record.get('service_id', service['ID']) != service['ID']:
+            if not equivalent_service_spec(service['Spec'], spec) or record.get('service_id', service['ID']) != service['ID']:
                 raise ValueError('diagnostic service differs from retained specification')
             task = exact_task(service, node['node_id'])
             if record.get('task_id') and task['ID'] != record['task_id']:

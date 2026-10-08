@@ -235,6 +235,63 @@ class DiagnosticLauncherTests(unittest.TestCase):
         self.ledger.reserve_node.assert_called_once()
         self.ledger.release_node.assert_not_called()
 
+    def tmpfs(self):
+        mount = dict(Type='tmpfs', Target='/tmp', TmpfsOptions=dict(SizeBytes=536870912,Mode=0o1777))
+        self.template['TaskTemplate']['ContainerSpec']['Mounts'].append(copy.deepcopy(mount))
+        self.spec = launcher.diagnostic_spec(self.template,self.node)
+        self.service = dict(ID='d'*25,Spec=copy.deepcopy(self.spec))
+        self.task['Spec'] = copy.deepcopy(self.spec['TaskTemplate'])
+
+    def test_omitted_default_tmpfs_mode_reconciles_without_respawn_and_hashes_raw_spec(self):
+        self.tmpfs()
+        self.launch(apply=True)
+        del self.service['Spec']['TaskTemplate']['ContainerSpec']['Mounts'][-1]['TmpfsOptions']['Mode']
+        del self.task['Spec']['ContainerSpec']['Mounts'][-1]['TmpfsOptions']['Mode']
+        raw_digest = launcher.digest(self.service['Spec'])
+        self.assertNotEqual(raw_digest,launcher.digest(self.spec))
+        readiness=self.directory/'readiness'
+        readiness.mkdir(mode=0o700)
+        task=copy.deepcopy(self.task)
+        task['Status']['State']='complete'
+        with patch.object(launcher,'json_receipts',return_value=self.good_receipts):
+            result,docker=self.launch(apply=True,existing='diagnostic-one',task=task,readiness=readiness)
+        self.assertEqual(result[0]['state'],'passed')
+        self.assertEqual(docker.call_count,1)
+        self.assertEqual(launcher.read_record(readiness/'hoa1.json')['diagnostic_spec_sha256'],raw_digest)
+        self.assertNotIn('Mode',self.service['Spec']['TaskTemplate']['ContainerSpec']['Mounts'][-1]['TmpfsOptions'])
+
+    def test_explicit_changed_tmpfs_mode_or_other_mount_property_is_rejected(self):
+        self.tmpfs()
+        self.launch(apply=True)
+        options=self.service['Spec']['TaskTemplate']['ContainerSpec']['Mounts'][-1]['TmpfsOptions']
+        for key,value in [('Mode',0o755),('SizeBytes',123)]:
+            original=options[key]
+            options[key]=value
+            result,docker=self.launch(apply=True,existing='diagnostic-one')
+            self.assertEqual(result[0]['state'],'needs-reconciliation')
+            self.ledger.release_node.assert_not_called()
+            self.assertEqual(docker.call_count,1)
+            options[key]=original
+
+    def test_new_create_emits_explicit_octal_default_mode(self):
+        self.tmpfs()
+        command=launcher.create_command(self.spec)
+        self.assertIn('type=tmpfs,destination=/tmp,tmpfs-mode=1777,tmpfs-size=536870912',command)
+        self.spec['TaskTemplate']['ContainerSpec']['Mounts'][-1]['TmpfsOptions']['Mode']=0o755
+        with self.assertRaisesRegex(ValueError,'tmpfs mode'):
+            launcher.create_command(self.spec)
+
+    def test_task_tmpfs_normalizes_omission_but_not_an_explicit_change(self):
+        self.tmpfs()
+        options=self.task['Spec']['ContainerSpec']['Mounts'][-1]['TmpfsOptions']
+        del options['Mode']
+        with patch.object(launcher,'docker',return_value='t'*25), \
+             patch.object(launcher,'inspect',return_value=self.task):
+            self.assertEqual(launcher.exact_task(self.service,'n'*25),self.task)
+            options['Mode']=0o755
+            with self.assertRaisesRegex(ValueError,'specification'):
+                launcher.exact_task(self.service,'n'*25)
+
 
 if __name__ == '__main__':
     unittest.main()
