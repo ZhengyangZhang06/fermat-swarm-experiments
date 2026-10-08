@@ -401,21 +401,6 @@ theorem p07_cre_group_law_857cd4d38c :
         (P : NeronModelInfra.SchemeHomOver t fT),
         B W t (H.inv t P) = G.inv (CategoryTheory.CategoryStruct.comp t ε) (B W t P)) := by
   intro T U _ _ k A f G
-open CategoryTheory AlgebraicGeometry
-
-namespace Submission
-
-/-- Transport finiteness, flatness, local finite presentation, and fibre rank along
-an isomorphism of the base rings. -/
-theorem p07_cre_finite_flat_rank_857cd4d38c
-    (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U)
-    (C : Scheme.{0}) (q : C ⟶ Spec (CommRingCat.of U)) :
-    IsFinite q → Flat q → LocallyOfFinitePresentation q →
-    let ε := Spec.map (CommRingCat.ofHom k.symm.toRingHom)
-    let qT := q ≫ Spec.map (CommRingCat.ofHom k.toRingHom)
-    IsFinite qT ∧ Flat qT ∧ LocallyOfFinitePresentation qT ∧
-      (∀ s : Spec (CommRingCat.of T), qT.finrank s = q.finrank (ε s)) := by
-  intro hfinite hflat hpresentation
   let κ := Spec.map (CommRingCat.ofHom k.toRingHom)
   let ε := Spec.map (CommRingCat.ofHom k.symm.toRingHom)
   have hκε : κ ≫ ε = 𝟙 _ := by
@@ -721,17 +706,22 @@ theorem p07_cq_abelian_surface_quotient_857cd4d38c
   refine ⟨⟨?_, ?_, fun t => (hfibres t).1, ⟨H⟩⟩, fun t => (hfibres t).2⟩
   · exact MorphismProperty.pullback_snd _ _ h.smooth
   · infer_instance
-    rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
-    change Spec.map (CommRingCat.ofHom (k.toRingHom.comp k.symm.toRingHom)) = _
-    rw [k.toRingHom_comp_symm_toRingHom, CommRingCat.ofHom_id, Spec.map_id]
-  have hεκ : ε ≫ κ = 𝟙 _ := by
-    dsimp [κ, ε]
-    rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
-    change Spec.map (CommRingCat.ofHom (k.symm.toRingHom.comp k.toRingHom)) = _
-    rw [k.symm_toRingHom_comp_toRingHom, CommRingCat.ofHom_id, Spec.map_id]
-  let : IsIso ε := ⟨⟨κ, hεκ, hκε⟩⟩
-  have hpb : IsPullback (𝟙 C) (q ≫ κ) q ε :=
-    IsPullback.of_horiz_isIso ⟨by simp [Category.assoc, hκε]⟩
+
+end Submission
+
+namespace Submission
+
+/-- Transport finiteness, flatness, local finite presentation, and fibre rank along
+an isomorphism of the base rings. -/
+theorem p07_cre_finite_flat_rank_857cd4d38c
+    (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U)
+    (C : Scheme.{0}) (q : C ⟶ Spec (CommRingCat.of U)) :
+    IsFinite q → Flat q → LocallyOfFinitePresentation q →
+    let ε := Spec.map (CommRingCat.ofHom k.symm.toRingHom)
+    let qT := q ≫ Spec.map (CommRingCat.ofHom k.toRingHom)
+    IsFinite qT ∧ Flat qT ∧ LocallyOfFinitePresentation qT ∧
+      (∀ s : Spec (CommRingCat.of T), qT.finrank s = q.finrank (ε s)) := by
+  intro hfinite hflat hpresentation
   -- Contravariance gives `e.hom = Spec(k⁻¹)` and `e.inv = Spec(k)`.
   let e := Scheme.Spec.mapIso k.symm.toCommRingCatIso.op
   -- The identity on C identifies qT with the base change of q along e.hom.
