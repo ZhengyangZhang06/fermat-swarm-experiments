@@ -205,6 +205,7 @@ theorem p04_pb_60221840b0_noncentral_cancellation
 
 namespace Submission
 
+/-- The two central faces of each inserted tuple telescope to the endpoint tuples. -/
 theorem p04_pb_60221840b0_central_telescoping :
     ∀ {k X : Type _} [CommRing k] (u v : X → X) (m : ℕ) (c : Fin (m + 1) → X),
       let Q : Fin (m + 1) → (Fin (m + 2) → X) := fun j =>
@@ -217,6 +218,7 @@ theorem p04_pb_60221840b0_central_telescoping :
           MonoidAlgebra.single (u ∘ c) (1 : k) := by
   intro k X _ u v m c Q
   classical
+  -- Moving the transition one position accounts for the two central deletions.
   let T : ℕ → (Fin (m + 1) → X) := fun l i =>
     if i.val < l then u (c i) else v (c i)
   have hleft (j : Fin (m + 1)) : Q j ∘ j.castSucc.succAbove = T j.val := by
@@ -242,6 +244,7 @@ theorem p04_pb_60221840b0_central_telescoping :
   have hlast : T (m + 1) = u ∘ c := by
     funext i
     simp [T, i.is_lt]
+  -- The adjacent differences cancel, leaving the all-v and all-u tuples.
   simp_rw [hleft, hright]
   rw [Fin.sum_univ_eq_sum_range (fun l =>
     MonoidAlgebra.single (T l) (1 : k) - MonoidAlgebra.single (T (l + 1)) (1 : k)),
