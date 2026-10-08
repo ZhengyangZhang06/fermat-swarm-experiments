@@ -1,0 +1,42 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'IsUnimodularRow|unimodularRowSetoid|Gamma0_mem|isUnit_natCast_iff_not_dvd_pow|inv_coe_unit|natCast_zmod_val|SL2_inv_expl|leftCoset_eq_iff' project/Definitions/Def_ModularCurve_ProjectiveLine.lean mathlib/Mathlib/Data/ZMod/Basic.lean mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean mathlib/Mathlib/GroupTheory/Coset/Basic.lean",
+        "rg -n 'normal.*form|chart.*equiv|existsUnique.*[Rr]ow|unique.*[Rr]ow' project/Definitions/Def_ModularCurve_ProjectiveLine.lean mathlib/Mathlib/Data/ZMod mathlib/Mathlib/NumberTheory/ModularForms",
+        "rg -n --glob '*dag*.json' --glob 'parent-child-handoff.json' 'p10_17ae7b7d_tchart_unique_row|p10_17ae7b7d_efp_inverse_coset_eq_iff' .humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/Coset/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+        "/runtime/review-evidence/368e526889a54138b85fae0ee5c62c0e/evidence.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/translation-charts-independent-000mx5_f/receipt.json"
+      ],
+      "conclusion": "The first two searches ran from the pinned snapshot root; the third ran from the workspace root. Independently confirmed clean project a97febc53b1c4d489edc54ca44132af7a21279b3, mathlib db584cd6d46c92f209a44c0f1c829460d327499d, and all nine dependency pins. Inspected unimodularity/unit-scaling definitions, the prime-power unit criterion, representative and inverse identities, Gamma0 membership, matrix inversion, and left-coset orientation. No relevant normalization theorem was found. Both exact propositions and instance probes passed independent Lean checks. Reuse evidence passed Git identity, exported-hash, frozen-type, and permitted transitive-axiom checks. The compiler policy digest matched; only lines 10–12 were omitted, original/build hashes were reversible, and Lean independently confirmed all 56 targets absent. These diagnostics approve interfaces, not the new child's implementation."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "inverse_coset_row_criterion",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and standalone one-line proposition match, including N≠0 and both scaling equations. Steps 2–6 correctly establish the coset orientation, obtain a scalar unit from the triangular determinant identity, and prove the converse by computing c′d−d′c. The argument is complete, non-circular, and valid for N=1. The bare identifier reuses the previously comparator-accepted declaration at integrated commit a4661c138b927c1387f1d015762f1c5c51bd44ec with an identical frozen type. Independent Lean application and axiom checks passed. Its empty dependency list is correct."
+    },
+    {
+      "key": "unique_row_parameter",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition exactly expresses the stated unique parameter, with primality, positive exponent, unimodularity witnesses, and canonical-representative divisibility explicit. Steps 1–3 justify reduction and the unit criterion; steps 4–5 construct both cases; steps 6–7 prove uniqueness within and across summands. No argument is deferred or circular. Lean independently confirmed elaboration and the ordinary scalar-unit instance. The bare identifier is absent from the DAG, searched handoffs, and frozen proof base. Empty dependencies are appropriate. The split separates genuine obligations while leaving quotient descent, representative construction, and equivariance with the parent."
+    }
+  ],
+  "required_changes": []
+}

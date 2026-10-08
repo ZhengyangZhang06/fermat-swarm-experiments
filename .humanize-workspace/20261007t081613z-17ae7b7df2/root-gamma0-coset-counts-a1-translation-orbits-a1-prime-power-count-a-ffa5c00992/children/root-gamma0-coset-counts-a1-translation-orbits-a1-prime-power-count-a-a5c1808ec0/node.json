@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1.translation_charts-a1.unique_row_parameter-a1",
+  "parent_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1.translation_charts-a1",
+  "depth": 5,
+  "title": "Unique normalized parameter for a prime-power unimodular row",
+  "statement": "Let p and a be natural numbers with p prime and a≥1. Put R=ℤ/(p^a)ℤ and B={z∈R : p divides z.val}, using the canonical nonnegative representative. For every r,s∈R satisfying xr+ys=1 for some x,y∈R, there exists exactly one c∈R⊔B with the following property: if c=inl(t), there is u∈Rˣ such that r=u and s=ut; if c=inr(z), there is u∈Rˣ such that r=uz and s=u.",
+  "lean_statement": "∀ (p a : ℕ), Nat.Prime p → 1 ≤ a → let R := ZMod (p ^ a); ∀ r s : R, (∃ x y : R, x * r + y * s = 1) → ∃! c : R ⊕ {z : R // p ∣ z.val}, match c with | Sum.inl t => ∃ u : Rˣ, r = (u : R) ∧ s = (u : R) * t | Sum.inr z => ∃ u : Rˣ, r = (u : R) * z.1 ∧ s = (u : R)",
+  "lean_name": "p10_17ae7b7d_tchart_unique_row",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-a5c1808ec0-a1"
+}

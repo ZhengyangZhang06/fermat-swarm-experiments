@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081613Z-17ae7b7df2",
+  "parent_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1.translation_charts-a1",
+  "dispatch_branch": "proof-workspace/fermat-p10/20261007t081613z-17ae7b7df2/dispatch/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ffa5c00992",
+  "source_commit": "1505079c1e4dff067c8c731932290cf1de248736",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1.translation_charts-a1.unique_row_parameter-a1",
+      "key": "unique_row_parameter",
+      "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-a5c1808ec0-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ffa5c00992/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-a5c1808ec0",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg -n 'IsUnimodularRow|unimodularRowSetoid|Gamma0_mem|isUnit_natCast_iff_not_dvd_pow|inv_coe_unit|natCast_zmod_val|SL2_inv_expl|leftCoset_eq_iff' project/Definitions/Def_ModularCurve_ProjectiveLine.lean mathlib/Mathlib/Data/ZMod/Basic.lean mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean mathlib/Mathlib/GroupTheory/Coset/Basic.lean",
+              "rg -n 'normal.*form|chart.*equiv|existsUnique.*[Rr]ow|unique.*[Rr]ow' project/Definitions/Def_ModularCurve_ProjectiveLine.lean mathlib/Mathlib/Data/ZMod mathlib/Mathlib/NumberTheory/ModularForms",
+              "sed -n '799,853p' .humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Basic.lean",
+              "sed -n '75,102p' mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/Coset/Basic.lean"
+            ],
+            "conclusion": "The manifest pins project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Snapshot-relative commands above ran from the snapshot root. ProjectiveLine defines unimodular rows and common unit scaling, but that module is absent from the frozen imports; the new type therefore uses explicit witnesses. The normalization search found no relevant existing theorem. Pinned mathlib supplies the prime-power unit criterion, canonical-representative identity, agreement of ZMod inversion with unit inversion, Gamma0 membership, and the determinant-one inverse formula. Clean dependency pins, compatibility, and permitted transitive axioms were checked during the disposable interface diagnostics."
+          }
+        ],
+        "parent_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1.translation_charts-a1",
+        "child_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1.translation_charts-a1.unique_row_parameter-a1",
+        "subproblem": {
+          "key": "unique_row_parameter",
+          "title": "Unique normalized parameter for a prime-power unimodular row",
+          "statement": "Let p and a be natural numbers with p prime and a≥1. Put R=ℤ/(p^a)ℤ and B={z∈R : p divides z.val}, using the canonical nonnegative representative. For every r,s∈R satisfying xr+ys=1 for some x,y∈R, there exists exactly one c∈R⊔B with the following property: if c=inl(t), there is u∈Rˣ such that r=u and s=ut; if c=inr(z), there is u∈Rˣ such that r=uz and s=u.",
+          "lean_statement": "∀ (p a : ℕ), Nat.Prime p → 1 ≤ a → let R := ZMod (p ^ a); ∀ r s : R, (∃ x y : R, x * r + y * s = 1) → ∃! c : R ⊕ {z : R // p ∣ z.val}, match c with | Sum.inl t => ∃ u : Rˣ, r = (u : R) ∧ s = (u : R) * t | Sum.inr z => ∃ u : Rˣ, r = (u : R) * z.1 ∧ s = (u : R)",
+          "lean_name": "p10_17ae7b7d_tchart_unique_row",
+          "depends_on": [],
+          "natural_proof": "1. Put M=p^a. Since p is prime and a≥1, p≥2, M>1, and p divides M. Reduction of integer representatives modulo p therefore defines a unital ring homomorphism ρ:R→ℤ/pℤ: representatives differing by a multiple of M also differ by a multiple of p. Every x∈R is represented by x.val, so ρ(x)=0 exactly when p divides x.val.\n2. An element x∈R is a unit exactly when p does not divide x.val. If p does not divide x.val, then gcd(x.val,M)=1: any prime dividing both would divide p^a, hence equal p, a contradiction. A Bezout identity for x.val and M reduces to an inverse for x in R. Conversely, if p divides x.val and x had an inverse, applying ρ to their product would give 0=1 in ℤ/pℤ, impossible because p≥2.\n3. Fix r,s and witnesses x,y with xr+ys=1. At least one of r,s is a unit. Otherwise step 2 gives ρ(r)=ρ(s)=0, and reducing the witness identity gives 0=1 in ℤ/pℤ.\n4. If r is a unit, choose u∈Rˣ with value r and set t=(u⁻¹)s, where the inverse is taken in the unit group and then coerced into R. The unit identities give r=u and ut=s. Thus c=inl(t) satisfies the required property.\n5. If r is not a unit, step 3 makes s a unit. Choose u∈Rˣ with value s and set z=(u⁻¹)r. Steps 1 and 2 give ρ(r)=0, hence ρ(z)=ρ(u⁻¹)ρ(r)=0. Therefore p divides z.val, so z determines an element of B. The unit identities give uz=r and u=s. Thus c=inr(z) satisfies the required property.\n6. Prove uniqueness within each summand. If inl(t) and inl(t′) satisfy the property with unit witnesses u,v, then u=r=v as elements of R. The equations s=ut=vt′ therefore give ut=ut′; multiplication by u⁻¹ yields t=t′. If inr(z) and inr(z′) satisfy the property with witnesses u,v, then u=s=v. The equations r=uz=vz′ give uz=uz′; multiplication by u⁻¹ yields equality of the underlying ring elements. Subtype extensionality gives z=z′ in B.\n7. Parameters from different summands cannot both satisfy the property. An inl parameter makes r the value of a unit. An inr parameter gives r=vz with z∈B, so ρ(r)=ρ(v)ρ(z)=0. By steps 1 and 2, r is then not a unit, a contradiction. Steps 4 and 5 establish existence, and steps 6 and 7 show that any two satisfying parameters are equal. This proves the asserted unique existence.",
+          "proof_key_steps": [
+            "Construct reduction modulo p and identify its zero fiber using canonical representatives.",
+            "Characterize units modulo p^a by nondivisibility of the representative by p.",
+            "Reduce the unimodularity identity to prove that one coordinate is a unit.",
+            "Normalize by the first coordinate when it is a unit.",
+            "Otherwise normalize by the second coordinate and prove the resulting first coordinate belongs to B.",
+            "Cancel unit witnesses to establish uniqueness within each chart.",
+            "Separate the charts by whether the first coordinate is a unit."
+          ]
+        },
+        "audit": {
+          "key": "unique_row_parameter",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The standalone one-line proposition exactly expresses the stated unique parameter, with primality, positive exponent, unimodularity witnesses, and canonical-representative divisibility explicit. Steps 1–3 justify reduction and the unit criterion; steps 4–5 construct both cases; steps 6–7 prove uniqueness within and across summands. No argument is deferred or circular. Lean independently confirmed elaboration and the ordinary scalar-unit instance. The bare identifier is absent from the DAG, searched handoffs, and frozen proof base. Empty dependencies are appropriate. The split separates genuine obligations while leaving quotient descent, representative construction, and equivariance with the parent."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-a5c1808ec0/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-a5c1808ec0/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-a5c1808ec0/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ffa5c00992/task.md": "88b1002f931f9db565a73aca07e087230eaf4513e50f89dde142b288f4f74309",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ffa5c00992/problem.md": "c0d696de12207f8a138e01c1056e5c32494f559ac76a7f989b86196fbe3ec896",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ffa5c00992/problem.json": "09bfb3e94e9c52916c6ee18b497e1146a074f98a2710e85c5c5460cb0b09f76a",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ffa5c00992/reference-manifest.json": "57bc5044097a9c3cadb6a565fb02bfe2c5c9db06690993e4e6916463cba75efa",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ffa5c00992/decomposition.json": "2dce982b4694a14c120c72a9103fa22761aefc35bcfa365dac96f93528087727",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ffa5c00992/decomposition-audit.json": "4cc1a68892bd11e661df7a472b718f678cc8688b718bd5f4112e50788f3f45e6",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ffa5c00992/controller-contract.json": "d1b66564f94c24ea9aabf052e7675de958b8785c03d14b64249e21e1e9480907",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ffa5c00992/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-a5c1808ec0/parent-child-handoff.json": "fec9f42a0104724e5cafed504ff1578edbb6737b6999ff68db5e027e893869cc",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ffa5c00992/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-a5c1808ec0/parent-supplied-plan.md": "d9c3819aa9a2587242d1d4db155c75a6d713ca4b81c91946b4484c6fcf9daf63",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ffa5c00992/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-a5c1808ec0/parent-supplied-natural-proof.md": "37b8df79919551361f92197aafb2322129acc592b5d7ee2d87815e54c300103d",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ffa5c00992/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-a5c1808ec0/parent-supplied-natural-proof.json": "ac7ac1aaebc9841de2795764458676ba0fbc4c70ca34b29ca8fd36fbf63cec4d",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ffa5c00992/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-a5c1808ec0/node.json": "194ff3ff6d895511fa2c3a2c858b4720c67a212778aa2f73c528e5016c101d75"
+  }
+}

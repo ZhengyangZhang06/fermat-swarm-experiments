@@ -1,0 +1,61 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'IsUnimodularRow|unimodularRowSetoid|Gamma0_mem|isUnit_natCast_iff_not_dvd_pow|inv_coe_unit|natCast_zmod_val|SL2_inv_expl|leftCoset_eq_iff' project/Definitions/Def_ModularCurve_ProjectiveLine.lean mathlib/Mathlib/Data/ZMod/Basic.lean mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean mathlib/Mathlib/GroupTheory/Coset/Basic.lean",
+        "rg -n 'normal.*form|chart.*equiv|existsUnique.*[Rr]ow|unique.*[Rr]ow' project/Definitions/Def_ModularCurve_ProjectiveLine.lean mathlib/Mathlib/Data/ZMod mathlib/Mathlib/NumberTheory/ModularForms",
+        "sed -n '799,853p' .humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Basic.lean",
+        "sed -n '75,102p' mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/Coset/Basic.lean"
+      ],
+      "conclusion": "The manifest pins project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Snapshot-relative commands above ran from the snapshot root. ProjectiveLine defines unimodular rows and common unit scaling, but that module is absent from the frozen imports; the new type therefore uses explicit witnesses. The normalization search found no relevant existing theorem. Pinned mathlib supplies the prime-power unit criterion, canonical-representative identity, agreement of ZMod inversion with unit inversion, Gamma0 membership, and the determinant-one inverse formula. Clean dependency pins, compatibility, and permitted transitive axioms were checked during the disposable interface diagnostics."
+    }
+  ],
+  "should_split": true,
+  "rationale": "At depth 4, below limit 6, separate the two reusable obligations: equality of inverse cosets and unique normalization of unimodular rows. Reuse p10_17ae7b7d_efp_inverse_coset_eq_iff with its identical accepted frozen type and inherited proof; do not create another implementation of it. Its trusted comparator evidence was inspected at /runtime/review-evidence/368e526889a54138b85fae0ee5c62c0e/evidence.json, including exact identity, kernel/axiom results, policy digest, omitted lines, and reversible input hashes. The normalization identifier is fresh in the searched DAG and handoffs. Both types elaborate after import Submission in a disposable copy of proof base 81e439ead62e72b45d1f96dd998a9b47a5b90960. Scalar-unit instances, matrix multiplication, and coset orientation were checked; Lean confirmed all 56 omitted targets absent. Diagnostic evidence is in .humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/translation-charts-split-9iu9m238/receipt.json. These diagnostics do not accept the new proof. The parent retains quotient descent, explicit representative matrices, and the translation calculation. Common unit scaling preserves the unique parameter by multiplying its unit witness; equal parameters imply proportional rows. Normalizing (z,1+z), which is unimodular with witnesses -1 and 1, supplies the second-chart parameter and its fractional formula. Neither child restates the parent's equivariant equivalence.",
+  "subproblems": [
+    {
+      "key": "inverse_coset_row_criterion",
+      "title": "Equality of inverse Gamma0 cosets through bottom-row scaling",
+      "statement": "Let N be a nonzero natural number, R=ℤ/Nℤ, G=SL₂(ℤ), and H=Γ₀(N)={M∈G : M₁₀=0 in R}. For any A,B∈G, the left cosets A⁻¹H and B⁻¹H are equal if and only if there exists a unit u∈Rˣ such that B₁₀=uA₁₀ and B₁₁=uA₁₁ in R.",
+      "lean_statement": "∀ (N : ℕ) [NeZero N] (A B : Matrix.SpecialLinearGroup (Fin 2) ℤ), (QuotientGroup.mk (A⁻¹) : (Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 N) = QuotientGroup.mk (B⁻¹) ↔ ∃ u : (ZMod N)ˣ, (B 1 0 : ZMod N) = (u : ZMod N) * (A 1 0 : ZMod N) ∧ (B 1 1 : ZMod N) = (u : ZMod N) * (A 1 1 : ZMod N)",
+      "lean_name": "p10_17ae7b7d_efp_inverse_coset_eq_iff",
+      "depends_on": [],
+      "natural_proof": "1. Fix N≠0 and A,B∈SL₂(ℤ). Work in the commutative ring R=ℤ/Nℤ when discussing matrix entries. Write the bottom rows of A and B as (c,d) and (c′,d′), respectively, and put H=Γ₀(N).\n2. For any subgroup H, equality gH=hH is equivalent to g⁻¹h∈H: membership expresses h as gh₀ for h₀∈H, and conversely equal cosets imply h∈gH. Applying this to g=A⁻¹ and h=B⁻¹ shows that A⁻¹H=B⁻¹H is equivalent to AB⁻¹∈H. Since a subgroup is closed under inversion, this is also equivalent to E=BA⁻¹ belonging to H.\n3. Suppose the cosets are equal. By step 2, E∈H, so its reduced matrix has the form ((a,b),(0,e)). Reduction preserves the determinant, and det E=1, hence ae=1 in R. Commutativity also gives ea=1. Thus e is the value of a unit u with inverse a.\n4. The identity B=EA follows from E=BA⁻¹. Multiplying the bottom row (0,e) of E by A gives c′=ec and d′=ed. The unit u from step 3 therefore satisfies both required scaling equations.\n5. Conversely, suppose there is a unit u with c′=uc and d′=ud. Since det A=1, if A=((a,b),(c,d)), then A⁻¹=((d,−b),(−c,a)). Consequently the reduced bottom-left entry of E=BA⁻¹ is c′d−d′c. Substituting the scaling equations gives ucd−udc=0 by commutativity. Hence E∈Γ₀(N).\n6. Step 2 now gives A⁻¹H=B⁻¹H. This proves both implications. Every calculation remains valid in ℤ/1ℤ, so no additional restriction on N is needed.",
+      "proof_key_steps": [
+        "Translate equality of inverse left cosets into BA⁻¹∈Γ₀(N).",
+        "Use determinant one to show the bottom-right entry of an upper-triangular reduction is a unit.",
+        "Multiply B=(BA⁻¹)A to obtain common unit scaling of bottom rows.",
+        "Conversely compute (BA⁻¹)₁₀=c′d−d′c and use scaling to make it zero.",
+        "Recover the required coset equality from subgroup membership."
+      ]
+    },
+    {
+      "key": "unique_row_parameter",
+      "title": "Unique normalized parameter for a prime-power unimodular row",
+      "statement": "Let p and a be natural numbers with p prime and a≥1. Put R=ℤ/(p^a)ℤ and B={z∈R : p divides z.val}, using the canonical nonnegative representative. For every r,s∈R satisfying xr+ys=1 for some x,y∈R, there exists exactly one c∈R⊔B with the following property: if c=inl(t), there is u∈Rˣ such that r=u and s=ut; if c=inr(z), there is u∈Rˣ such that r=uz and s=u.",
+      "lean_statement": "∀ (p a : ℕ), Nat.Prime p → 1 ≤ a → let R := ZMod (p ^ a); ∀ r s : R, (∃ x y : R, x * r + y * s = 1) → ∃! c : R ⊕ {z : R // p ∣ z.val}, match c with | Sum.inl t => ∃ u : Rˣ, r = (u : R) ∧ s = (u : R) * t | Sum.inr z => ∃ u : Rˣ, r = (u : R) * z.1 ∧ s = (u : R)",
+      "lean_name": "p10_17ae7b7d_tchart_unique_row",
+      "depends_on": [],
+      "natural_proof": "1. Put M=p^a. Since p is prime and a≥1, p≥2, M>1, and p divides M. Reduction of integer representatives modulo p therefore defines a unital ring homomorphism ρ:R→ℤ/pℤ: representatives differing by a multiple of M also differ by a multiple of p. Every x∈R is represented by x.val, so ρ(x)=0 exactly when p divides x.val.\n2. An element x∈R is a unit exactly when p does not divide x.val. If p does not divide x.val, then gcd(x.val,M)=1: any prime dividing both would divide p^a, hence equal p, a contradiction. A Bezout identity for x.val and M reduces to an inverse for x in R. Conversely, if p divides x.val and x had an inverse, applying ρ to their product would give 0=1 in ℤ/pℤ, impossible because p≥2.\n3. Fix r,s and witnesses x,y with xr+ys=1. At least one of r,s is a unit. Otherwise step 2 gives ρ(r)=ρ(s)=0, and reducing the witness identity gives 0=1 in ℤ/pℤ.\n4. If r is a unit, choose u∈Rˣ with value r and set t=(u⁻¹)s, where the inverse is taken in the unit group and then coerced into R. The unit identities give r=u and ut=s. Thus c=inl(t) satisfies the required property.\n5. If r is not a unit, step 3 makes s a unit. Choose u∈Rˣ with value s and set z=(u⁻¹)r. Steps 1 and 2 give ρ(r)=0, hence ρ(z)=ρ(u⁻¹)ρ(r)=0. Therefore p divides z.val, so z determines an element of B. The unit identities give uz=r and u=s. Thus c=inr(z) satisfies the required property.\n6. Prove uniqueness within each summand. If inl(t) and inl(t′) satisfy the property with unit witnesses u,v, then u=r=v as elements of R. The equations s=ut=vt′ therefore give ut=ut′; multiplication by u⁻¹ yields t=t′. If inr(z) and inr(z′) satisfy the property with witnesses u,v, then u=s=v. The equations r=uz=vz′ give uz=uz′; multiplication by u⁻¹ yields equality of the underlying ring elements. Subtype extensionality gives z=z′ in B.\n7. Parameters from different summands cannot both satisfy the property. An inl parameter makes r the value of a unit. An inr parameter gives r=vz with z∈B, so ρ(r)=ρ(v)ρ(z)=0. By steps 1 and 2, r is then not a unit, a contradiction. Steps 4 and 5 establish existence, and steps 6 and 7 show that any two satisfying parameters are equal. This proves the asserted unique existence.",
+      "proof_key_steps": [
+        "Construct reduction modulo p and identify its zero fiber using canonical representatives.",
+        "Characterize units modulo p^a by nondivisibility of the representative by p.",
+        "Reduce the unimodularity identity to prove that one coordinate is a unit.",
+        "Normalize by the first coordinate when it is a unit.",
+        "Otherwise normalize by the second coordinate and prove the resulting first coordinate belongs to B.",
+        "Cancel unit witnesses to establish uniqueness within each chart.",
+        "Separate the charts by whether the first coordinate is a unit."
+      ]
+    }
+  ]
+}
