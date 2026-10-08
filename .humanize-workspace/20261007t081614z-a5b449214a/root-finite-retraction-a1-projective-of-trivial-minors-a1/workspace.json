@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081614Z-a5b449214a",
+  "parent_id": "root.finite_retraction-a1.projective_of_trivial_minors-a1",
+  "dispatch_branch": "proof-workspace/fermat-p05/20261007t081614z-a5b449214a/dispatch/root-finite-retraction-a1-projective-of-trivial-minors-a1",
+  "source_commit": "2fdd42759f4ab17640ac773289b521dd69d4b26e",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.finite_retraction-a1.projective_of_trivial_minors-a1.principal_cover_splitting-a1",
+      "key": "principal_cover_splitting",
+      "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1-principal-c-fd30309f6a-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1/children/root-finite-retraction-a1-projective-of-trivial-minors-a1-principal-c-fd30309f6a",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "fittingIdeal|fitting_ideal|determinantal|minor.*[Pp]rojectiv|[Pp]rojectiv.*minor",
+              "baseChange|Projective|split_surjective|projective",
+              "det_fromBlocks|det_mul|det_submatrix|isUnit_det|adjugate",
+              "def map|map_mk|map_surjective|namespace LocalizedModule",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean CheckTypes.lean",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean CheckInstances.lean",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean HeaderPolicyCheck.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Module/Projective.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Module/LocalizedModule/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Module/LocalizedModule/Exact.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/SchurComplement.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Ideal/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Localization/Module.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/LocalProperties/Projective.lean",
+              "/tmp/p05-ptm-decomp-e4krhmb5/build/CheckTypes.lean",
+              "/tmp/p05-ptm-decomp-e4krhmb5/build/CheckInstances.lean",
+              "/tmp/p05-ptm-decomp-e4krhmb5/CheckTypes.log",
+              "/tmp/p05-ptm-decomp-e4krhmb5/CheckInstances.log",
+              "/tmp/p05-ptm-decomp-e4krhmb5/HeaderPolicyCheck.log",
+              "/tmp/p05-ptm-decomp-e4krhmb5/header-input-binding.json",
+              "/tmp/p05-ptm-decomp-e4krhmb5/name-audit.json",
+              "/tmp/p05-ptm-decomp-e4krhmb5/pins.json",
+              "/tmp/p05-ptm-decomp-e4krhmb5/interface-report.json"
+            ],
+            "conclusion": "The project and mathlib snapshots are clean at 2fdd42759f4ab17640ac773289b521dd69d4b26e and db584cd6d46c92f209a44c0f1c829460d327499d; all nine compiler dependency checkouts match their clean pins. The targeted search found no determinantal projectivity criterion. Available infrastructure includes Schur-complement determinants, localization exactness, Ideal.span_range_pow_eq_top, and Module.Projective.of_split. Both proposed literal types elaborate after import Submission. Anonymous Lean proofs verify matrix-vector multiplication, localization-ring linearity, the localized map's fraction formula, and the scalar interpretation of the unit-determinant hypothesis. Eight inspected infrastructure declarations have transitive axiom closures contained in propext, Classical.choice, and Quot.sound. Neither proposed name occurs in the ten active DAG registries or imported environment. Private compiler copies follow policy SHA256 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, omitting exactly lines 10–11; Lean confirms all 13 omitted targets absent. Exact omitted text and reversible original/build hashes are recorded in header-input-binding.json. Protected sources and handoffs were not edited. These checks validate decomposition interfaces; theorem acceptance still requires the configured exact-contract comparator and independent review."
+          }
+        ],
+        "parent_id": "root.finite_retraction-a1.projective_of_trivial_minors-a1",
+        "child_id": "root.finite_retraction-a1.projective_of_trivial_minors-a1.principal_cover_splitting-a1",
+        "subproblem": {
+          "key": "principal_cover_splitting",
+          "title": "Local sections on a finite principal cover descend through a finite presentation",
+          "statement": "Let R be a commutative ring, M an R-module, and n,p,q natural numbers. Let P be an n-by-p matrix over R and π:R^n→M a surjective R-linear map with ker π=im(P). Let f:Fin q→R have image generating the unit ideal. For each i, put S_i=R[(f_i)⁻¹] and localize modules at powers of f_i. Suppose the induced S_i-linear map π_i:(R^n)_{f_i}→M_{f_i} has an S_i-linear section for every i. Then π has an R-linear section.",
+          "lean_statement": "∀ {R : Type*} [CommRing R] {M : Type*} [AddCommGroup M] [Module R M] (n p q : ℕ) (P : Matrix (Fin n) (Fin p) R) (π : (Fin n → R) →ₗ[R] M) (_hπ : Function.Surjective π) (_hker : LinearMap.ker π = LinearMap.range P.mulVecLin) (f : Fin q → R) (_hcover : Ideal.span (Set.range f) = ⊤) (_hlocal : ∀ i : Fin q, ∃ s : LocalizedModule (Submonoid.powers (f i)) M →ₗ[Localization.Away (f i)] LocalizedModule (Submonoid.powers (f i)) (Fin n → R), (LocalizedModule.map (Submonoid.powers (f i)) π).comp s = LinearMap.id), ∃ s : M →ₗ[R] (Fin n → R), π.comp s = LinearMap.id",
+          "lean_name": "p05_ptm_split_of_away_splits_a5b449214a",
+          "depends_on": [],
+          "natural_proof": "1. If R is the zero ring, every R-module is zero because m=1m=0m=0, and the zero map is the required section. Otherwise the cover condition forces q>0, since the ideal generated by an empty family is zero. Write F=R^n, let e_j be its standard basis, and put m_j=π(e_j). Surjectivity of π shows that the m_j generate M. The ℓ-th column c_ℓ of P lies in ker π, and every element of ker π is a linear combination of these columns because ker π=im P.\n2. Fix i, put f=f_i, S=R[f⁻¹], and use the hypothesized S-linear section σ:M_f→F_f. For localization at powers of f, every element is a fraction x/f^a; moreover x/1=0 precisely when f^b x=0 for some b. These assertions follow from the defining fraction equivalence: x/f^a=y/f^b if and only if some f^c annihilates f^b x-f^a y. They apply to any module, including when S is zero.\n3. Write each of the finitely many values σ(m_j/1) as v'_j/f^{e_j}. Take a common exponent e at least all e_j (take 0 for an empty family), and replace v'_j by v_j=f^{e-e_j}v'_j. Thus σ(m_j/1)=v_j/f^e for every j.\n4. For each column ℓ, put z_ℓ=Σ_j P_{jℓ}v_j in F. The relation Σ_j P_{jℓ}m_j=0 and S-linearity of σ imply z_ℓ/1=f^e σ(0)=0. For each ℓ choose an exponent annihilating z_ℓ and let t be a common upper bound, taking 0 if p=0. Then f^t z_ℓ=0 for every ℓ. The R-linear map A:F→F defined by A(e_j)=f^t v_j kills each column and hence all of ker π.\n5. Consequently A descends to an R-linear map u:M→F satisfying u(π(x))=A(x). Explicitly choose x with π(x)=m and set u(m)=A(x); two choices differ by an element of ker π, which A kills, so this is well defined. Additivity and R-linearity follow by using x+x' and rx as representatives.\n6. On every localized generator m_j/1, the localized map u_f takes the value f^t v_j/1=f^{e+t}σ(m_j/1). These generators span M_f over S, since every fraction m/f^a can be expanded using the m_j. Thus u_f=f^{e+t}σ. Composing with π_f and using π_fσ=id shows that w=πu-f^{e+t}id_M becomes zero after localization. For each generator m_j, Step 2 supplies an exponent annihilating w(m_j). Taking a common upper bound c gives f^c w=0 on M, since the m_j generate M.\n7. Define N_i=e+t+c+1 and t_i=f^{c+1}u. Then N_i>0 and πt_i=f^{N_i}id_M. This construction works for every i and did not require S to be nonzero.\n8. From Ideal.span(range f)=R, the definition of the generated ideal gives coefficients a_i with 1=Σ_i a_i f_i; finite sums over repeated generators can be grouped into this indexed sum. Set L=1+Σ_i(N_i-1). Expand (Σ_i a_i f_i)^L=1 as the finite sum over all sequences of L indices. In each sequence some index i occurs at least N_i times: otherwise the sum of all occurrence counts would be at most Σ_i(N_i-1)=L-1, although it equals L. By commutativity, that summand is divisible by f_i^{N_i}. Choose such an index for each summand and group the finitely many quotients to obtain b_i with 1=Σ_i b_i f_i^{N_i}.\n9. Set s=Σ_i b_i t_i, a finite sum of R-linear maps M→F. For every m, π(s(m))=Σ_i b_i π(t_i(m))=(Σ_i b_i f_i^{N_i})m=m. Hence π.comp s=id, as required.",
+          "proof_key_steps": [
+            "Use the presentation to obtain finite lists of module generators and kernel generators.",
+            "Choose common denominators for the images of generators under each localized section.",
+            "Annihilate the finitely many relation errors by one power and descend a map M→R^n.",
+            "Annihilate the remaining section error on the finite generating family.",
+            "Obtain πt_i=f_i^{N_i}id with positive N_i.",
+            "Show these powers still generate the unit ideal by a finite expansion and counting argument.",
+            "Take a linear combination of the power-scaled sections to obtain a global section."
+          ]
+        },
+        "audit": {
+          "key": "principal_cover_splitting",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The single-line proposition independently elaborates with sections linear over Localization.Away (f i), exactly matching the prose. Steps 1–4 correctly obtain finite generators and relations, common denominators, and a common annihilating power. Step 5 validly descends through the stated kernel. Steps 6–7 check localized equality on generators and clear the remaining error, yielding positive N_i with πt_i=f_i^N_i id. Step 8 supplies a complete finite expansion and counting argument showing these powers generate the unit ideal; Step 9 patches the section. Zero rings, zero localizations, and empty generator or relation families are handled. There is no circular appeal or deferred proof search. Its local-section assumption makes the empty dependency list correct; the parent supplies that assumption using the sibling. The bare name is unreserved."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-projective-of-trivial-minors-a1-principal-c-fd30309f6a/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-projective-of-trivial-minors-a1-principal-c-fd30309f6a/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-projective-of-trivial-minors-a1-principal-c-fd30309f6a/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.finite_retraction-a1.projective_of_trivial_minors-a1.unit_minor_splitting-a1",
+      "key": "unit_minor_splitting",
+      "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1-unit-minor-5b68ec51cc-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1/children/root-finite-retraction-a1-projective-of-trivial-minors-a1-unit-minor-5b68ec51cc",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "fittingIdeal|fitting_ideal|determinantal|minor.*[Pp]rojectiv|[Pp]rojectiv.*minor",
+              "baseChange|Projective|split_surjective|projective",
+              "det_fromBlocks|det_mul|det_submatrix|isUnit_det|adjugate",
+              "def map|map_mk|map_surjective|namespace LocalizedModule",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean CheckTypes.lean",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean CheckInstances.lean",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean HeaderPolicyCheck.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Module/Projective.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Module/LocalizedModule/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Module/LocalizedModule/Exact.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/SchurComplement.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Ideal/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Localization/Module.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/LocalProperties/Projective.lean",
+              "/tmp/p05-ptm-decomp-e4krhmb5/build/CheckTypes.lean",
+              "/tmp/p05-ptm-decomp-e4krhmb5/build/CheckInstances.lean",
+              "/tmp/p05-ptm-decomp-e4krhmb5/CheckTypes.log",
+              "/tmp/p05-ptm-decomp-e4krhmb5/CheckInstances.log",
+              "/tmp/p05-ptm-decomp-e4krhmb5/HeaderPolicyCheck.log",
+              "/tmp/p05-ptm-decomp-e4krhmb5/header-input-binding.json",
+              "/tmp/p05-ptm-decomp-e4krhmb5/name-audit.json",
+              "/tmp/p05-ptm-decomp-e4krhmb5/pins.json",
+              "/tmp/p05-ptm-decomp-e4krhmb5/interface-report.json"
+            ],
+            "conclusion": "The project and mathlib snapshots are clean at 2fdd42759f4ab17640ac773289b521dd69d4b26e and db584cd6d46c92f209a44c0f1c829460d327499d; all nine compiler dependency checkouts match their clean pins. The targeted search found no determinantal projectivity criterion. Available infrastructure includes Schur-complement determinants, localization exactness, Ideal.span_range_pow_eq_top, and Module.Projective.of_split. Both proposed literal types elaborate after import Submission. Anonymous Lean proofs verify matrix-vector multiplication, localization-ring linearity, the localized map's fraction formula, and the scalar interpretation of the unit-determinant hypothesis. Eight inspected infrastructure declarations have transitive axiom closures contained in propext, Classical.choice, and Quot.sound. Neither proposed name occurs in the ten active DAG registries or imported environment. Private compiler copies follow policy SHA256 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, omitting exactly lines 10–11; Lean confirms all 13 omitted targets absent. Exact omitted text and reversible original/build hashes are recorded in header-input-binding.json. Protected sources and handoffs were not edited. These checks validate decomposition interfaces; theorem acceptance still requires the configured exact-contract comparator and independent review."
+          }
+        ],
+        "parent_id": "root.finite_retraction-a1.projective_of_trivial_minors-a1",
+        "child_id": "root.finite_retraction-a1.projective_of_trivial_minors-a1.unit_minor_splitting-a1",
+        "subproblem": {
+          "key": "unit_minor_splitting",
+          "title": "A unit minor and vanishing larger minors split a finite presentation",
+          "statement": "Let R be a commutative ring, M an R-module, and n,p,d natural numbers. Let P be an n-by-p matrix over R and π:R^n→M a surjective R-linear map with ker π=im(P). Suppose rows:Fin d↪Fin n and cols:Fin d↪Fin p select a submatrix B whose determinant is a unit. Suppose every minor selected by embeddings Fin(d+1)↪Fin n and Fin(d+1)↪Fin p has determinant zero. Then there exists an R-linear map s:M→R^n with π∘s=id_M. No nontriviality or positivity assumptions are imposed.",
+          "lean_statement": "∀ {R : Type*} [CommRing R] {M : Type*} [AddCommGroup M] [Module R M] (n p d : ℕ) (P : Matrix (Fin n) (Fin p) R) (π : (Fin n → R) →ₗ[R] M) (_hπ : Function.Surjective π) (_hker : LinearMap.ker π = LinearMap.range P.mulVecLin) (rows : Fin d ↪ Fin n) (cols : Fin d ↪ Fin p) (_hunit : IsUnit (Matrix.det (P.submatrix rows cols))) (_hnext : ∀ (rows' : Fin (d + 1) ↪ Fin n) (cols' : Fin (d + 1) ↪ Fin p), Matrix.det (P.submatrix rows' cols') = 0), ∃ s : M →ₗ[R] (Fin n → R), π.comp s = LinearMap.id",
+          "lean_name": "p05_ptm_split_of_unit_minor_a5b449214a",
+          "depends_on": [],
+          "natural_proof": "1. Write F=R^n and G=R^p. The row embedding identifies the row index set with the disjoint union of Fin d and its complementary set I; the column embedding similarly gives Fin d and its complementary set J. The identifications send the left summands to the specified embeddings and the right summands to the complementary indices. They are bijections because the embeddings are injective. Reordering coordinates gives a matrix A=[[B,C],[D,E]] with B=P[rows,cols]. Let T:F→R^d×R^I be the row coordinate isomorphism; the column coordinate isomorphism does not change the image of the presentation map.\n2. Since det(B) is a unit, choose a with a det(B)=det(B)a=1. Put B'=a adj(B). Cofactor expansion gives B adj(B)=adj(B)B=det(B)I: diagonal entries are the determinant expansion and off-diagonal entries are determinants with repeated rows or columns. Thus BB'=B'B=I. These equalities also hold for the empty block when d=0.\n3. Fix i in I and j in J. Extend the specified row list by i and the column list by j; both are injective selections of length d+1. Their minor is [[B,C_j],[D_i,E_ij]], and its determinant is zero by the hypothesis. Subtract from its last row the linear combination of its first d rows with coefficients D_i B'. This preserves the determinant: by multilinearity each added term has a repeated row and vanishes. The resulting last row is [0,E_ij-D_i B' C_j]. Expanding along this last row gives 0=det(B)(E_ij-D_i B' C_j). Multiplication by a proves E_ij=D_i B' C_j. Hence E=DB'C. If either complementary index set is empty there are no entries to prove; if d=0 the same computation says every entry of P is a vanishing 1-minor.\n4. Define U=[[B',0],[-DB',I]] and V=[[I,-B'C],[0,I]]. Direct block multiplication shows that their inverses are [[B,0],[D,I]] and [[I,B'C],[0,I]], respectively, and that UAV=[[I,0],[0,0]]. Let W=U∘T. Since the column reordering and V are invertible, W sends the image of P exactly onto the first summand R^d×{0}. This follows also directly from the displayed diagonal matrix, which maps (x,y) to (x,0).\n5. Define φ=π∘W⁻¹:R^d×R^I→M. It is surjective because π is, and its kernel is R^d×{0}, by the assumed equality ker π=im P and Step 4. Define ψ:R^I→M by ψ(b)=φ(0,b). Given m, choose (a,b) with φ(a,b)=m. Since φ(a,0)=0, ψ(b)=m, proving surjectivity. If ψ(b)=0, then (0,b) lies in the first summand, so b=0, proving injectivity. Therefore ψ is a linear isomorphism; its inverse is linear because ψ is linear and bijective.\n6. Set s(m)=W⁻¹(0,ψ⁻¹(m)). This is R-linear and π(s(m))=φ(0,ψ⁻¹(m))=m, so π.comp s=id. All constructions and identities remain valid in the zero ring and with empty complementary sets, so the statement has no additional nontriviality or dimension assumptions.",
+          "proof_key_steps": [
+            "Reorder the selected rows and columns into an initial square block.",
+            "Invert that block using its unit determinant and the adjugate identities.",
+            "Apply the vanishing hypothesis to bordered minors to prove the Schur complement is zero.",
+            "Use explicit invertible block operations to identify the presentation image with the first coordinate summand.",
+            "Identify M with the complementary coordinate module.",
+            "Transport the complementary inclusion back to obtain a section of π."
+          ]
+        },
+        "audit": {
+          "key": "unit_minor_splitting",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The single-line proposition independently elaborates and matches every prose hypothesis and the section conclusion. IsUnit applies to a determinant in R, avoiding pointwise-function multiplication. Steps 1–2 correctly reorder coordinates and invert the selected block. Step 3 uses injective bordered selections and determinant-preserving row subtraction to obtain E=DB'C. The displayed block inverses and diagonal reduction are correct. Steps 5–6 use the exact kernel equality and surjectivity to identify the complementary module with M and construct the section. Empty blocks, empty complements, and zero rings are covered. The proof is complete, non-circular, and ready for formalization. The bare name is unreserved, and no child dependency is needed."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-projective-of-trivial-minors-a1-unit-minor-5b68ec51cc/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-projective-of-trivial-minors-a1-unit-minor-5b68ec51cc/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-projective-of-trivial-minors-a1-unit-minor-5b68ec51cc/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1/task.md": "3dc73676a86d8d8b7e3880aaca4875ccb55e1f69c70e9ec1bcf6f20bc01755d2",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1/problem.md": "2f45861732b83e16d4873caf0c9444a7fa00a4264a1ac5e1f1ff0e2204fedfa8",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1/problem.json": "701bdd1174185b1e65ab66c2cd98b64493a189e8738d6a153e929d4a2054385b",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1/reference-manifest.json": "6c786975eb0eef7173c81aff14a1b156236148918e2f72a647e0f1f06054c1c5",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1/decomposition.json": "631a303784a2ea67348cd6e3eb8490659c700a3090111673b2689959f52a9496",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1/decomposition-audit.json": "5f9b8cd65ccfeee0443cdcab886e3e4e0d214dff810ec9e1f39b8d59327b307a",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1/controller-contract.json": "d884e19cbcd0cfe69c6417511400aa04e303e937b236f051376ed445b0fe9900",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1/children/root-finite-retraction-a1-projective-of-trivial-minors-a1-principal-c-fd30309f6a/parent-child-handoff.json": "2f2de9cb80a05352398c3d6678200a6cae881a8be5d7d69a2bf5baf7cdfd8105",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1/children/root-finite-retraction-a1-projective-of-trivial-minors-a1-principal-c-fd30309f6a/parent-supplied-plan.md": "e8493668274257b3b68f7da909ccbe87693594ed6ca16dd351f0adce1b92b5ee",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1/children/root-finite-retraction-a1-projective-of-trivial-minors-a1-principal-c-fd30309f6a/parent-supplied-natural-proof.md": "bd376fd1cfbd3c000ae57ab0a8e0b7b66ecfe7b20686d379c7e7cf2cad06997c",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1/children/root-finite-retraction-a1-projective-of-trivial-minors-a1-principal-c-fd30309f6a/parent-supplied-natural-proof.json": "f5b5121a930cea92803329845d575dd0e27450328cc0d65cfae0609bffc4bccb",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1/children/root-finite-retraction-a1-projective-of-trivial-minors-a1-principal-c-fd30309f6a/node.json": "b7d09e0bccfc43d51599c6f2a99afc943e80c15657f5f855f55285a2678cb2fa",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1/children/root-finite-retraction-a1-projective-of-trivial-minors-a1-unit-minor-5b68ec51cc/parent-child-handoff.json": "ea4fdbd7a56a8ac421ecceaf0b786caa28fc25c2574826ceab43cef4b295536f",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1/children/root-finite-retraction-a1-projective-of-trivial-minors-a1-unit-minor-5b68ec51cc/parent-supplied-plan.md": "4e04d7174ca2c57bb640143f121e2dc08827337629ab8f6b85124ce0f642fa26",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1/children/root-finite-retraction-a1-projective-of-trivial-minors-a1-unit-minor-5b68ec51cc/parent-supplied-natural-proof.md": "a5b1953c09ba119c7f6578430d0e1502843a5a73e1568de40507e39068eaedeb",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1/children/root-finite-retraction-a1-projective-of-trivial-minors-a1-unit-minor-5b68ec51cc/parent-supplied-natural-proof.json": "467e909c16cc30a9e03f6836649a3d9cf47b26d508cd14d605f2afe14abee32b",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1/children/root-finite-retraction-a1-projective-of-trivial-minors-a1-unit-minor-5b68ec51cc/node.json": "9ed396fdbafc1fcc558798e262285e112317baeef487c46e05cc96e926fcfe7f"
+  }
+}

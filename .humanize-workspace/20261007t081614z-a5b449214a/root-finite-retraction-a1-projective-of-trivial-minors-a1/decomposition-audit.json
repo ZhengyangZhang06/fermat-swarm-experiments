@@ -1,0 +1,56 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "fittingIdeal|fitting_ideal|determinantal|\\bminor\\b.*[Pp]rojectiv|[Pp]rojectiv.*\\bminor\\b",
+        "def map|map_mk|map_surjective|of_split|span_range_pow_eq_top|det_fromBlocks|det_mul|isUnit_det|adjugate",
+        "lemma mk_eq|theorem mk_eq|mk_eq_zero|def mulVecLin|mulVecLin_apply",
+        "rg --files -uu -g dag.json /mnt/data/zhengyang-workspace/fermat-swarm-projects",
+        "git grep -n -E 'p05_ptm_split_of_unit_minor_a5b449214a|p05_ptm_split_of_away_splits_a5b449214a' 1d267f27a571c82fe0e6e340c82bbd5861d93194 -- '*.lean'",
+        "python3 /tmp/p05_ptm_independent_audit.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-projective-of-trivial-minors-a1/parent-child-handoff.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/SchurComplement.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Adjugate.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/ToLin.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Module/LocalizedModule/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Module/LocalizedModule/Exact.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Localization/Module.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Ideal/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Module/Projective.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p05-ptm-independent-audit-fucysc5v/CheckTypes.log",
+        "/tmp/p05-ptm-independent-audit-fucysc5v/CheckInstances.log",
+        "/tmp/p05-ptm-independent-audit-fucysc5v/HeaderPolicyCheck.log",
+        "/tmp/p05-ptm-independent-audit-fucysc5v/header-input-binding.json",
+        "/tmp/p05-ptm-independent-audit-fucysc5v/pins.json",
+        "/tmp/p05-ptm-independent-audit-fucysc5v/name-audit.json",
+        "/tmp/p05-ptm-independent-audit-fucysc5v/protected-inputs.json"
+      ],
+      "conclusion": "The targeted determinantal-projectivity search returned no matches. Inspected sources support Schur complements, adjugate identities, localization exactness and fraction semantics, power generation, and projectivity from a section. Independently verified clean project/mathlib revisions 2fdd42759f4ab17640ac773289b521dd69d4b26e and db584cd6d46c92f209a44c0f1c829460d327499d, plus all nine compiler dependency pins. Fresh Lean checks elaborated both literal propositions and verified matrix-vector semantics, localization-ring linearity, fraction mapping, scalar-unit interpretation, and the final projectivity inference. Eight infrastructure axiom closures contain only propext, Classical.choice and Quot.sound. Both bare names are absent from the ten active DAG registries, frozen proof-base Lean sources, and checked imported environment. The matching header policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, exact omissions of lines 10–11, reversible original/build hashes, and an independent Lean absence probe for all 13 targets passed. Protected inputs remained unchanged. The split appropriately separates elimination from descent; the parent obtains local sections using the first child, patches them using the second, and applies Projective.of_split. This approves decomposition and supplied prose only; candidate theorem acceptance still requires the configured comparator and independent implementation review."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "unit_minor_splitting",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The single-line proposition independently elaborates and matches every prose hypothesis and the section conclusion. IsUnit applies to a determinant in R, avoiding pointwise-function multiplication. Steps 1–2 correctly reorder coordinates and invert the selected block. Step 3 uses injective bordered selections and determinant-preserving row subtraction to obtain E=DB'C. The displayed block inverses and diagonal reduction are correct. Steps 5–6 use the exact kernel equality and surjectivity to identify the complementary module with M and construct the section. Empty blocks, empty complements, and zero rings are covered. The proof is complete, non-circular, and ready for formalization. The bare name is unreserved, and no child dependency is needed."
+    },
+    {
+      "key": "principal_cover_splitting",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The single-line proposition independently elaborates with sections linear over Localization.Away (f i), exactly matching the prose. Steps 1–4 correctly obtain finite generators and relations, common denominators, and a common annihilating power. Step 5 validly descends through the stated kernel. Steps 6–7 check localized equality on generators and clear the remaining error, yielding positive N_i with πt_i=f_i^N_i id. Step 8 supplies a complete finite expansion and counting argument showing these powers generate the unit ideal; Step 9 patches the section. Zero rings, zero localizations, and empty generator or relation families are handled. There is no circular appeal or deferred proof search. Its local-section assumption makes the empty dependency list correct; the parent supplies that assumption using the sibling. The bare name is unreserved."
+    }
+  ],
+  "required_changes": []
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_retraction-a1.projective_of_trivial_minors-a1.principal_cover_splitting-a1",
+  "parent_id": "root.finite_retraction-a1.projective_of_trivial_minors-a1",
+  "depth": 3,
+  "title": "Local sections on a finite principal cover descend through a finite presentation",
+  "statement": "Let R be a commutative ring, M an R-module, and n,p,q natural numbers. Let P be an n-by-p matrix over R and π:R^n→M a surjective R-linear map with ker π=im(P). Let f:Fin q→R have image generating the unit ideal. For each i, put S_i=R[(f_i)⁻¹] and localize modules at powers of f_i. Suppose the induced S_i-linear map π_i:(R^n)_{f_i}→M_{f_i} has an S_i-linear section for every i. Then π has an R-linear section.",
+  "lean_statement": "∀ {R : Type*} [CommRing R] {M : Type*} [AddCommGroup M] [Module R M] (n p q : ℕ) (P : Matrix (Fin n) (Fin p) R) (π : (Fin n → R) →ₗ[R] M) (_hπ : Function.Surjective π) (_hker : LinearMap.ker π = LinearMap.range P.mulVecLin) (f : Fin q → R) (_hcover : Ideal.span (Set.range f) = ⊤) (_hlocal : ∀ i : Fin q, ∃ s : LocalizedModule (Submonoid.powers (f i)) M →ₗ[Localization.Away (f i)] LocalizedModule (Submonoid.powers (f i)) (Fin n → R), (LocalizedModule.map (Submonoid.powers (f i)) π).comp s = LinearMap.id), ∃ s : M →ₗ[R] (Fin n → R), π.comp s = LinearMap.id",
+  "lean_name": "p05_ptm_split_of_away_splits_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1-principal-c-fd30309f6a-a1"
+}

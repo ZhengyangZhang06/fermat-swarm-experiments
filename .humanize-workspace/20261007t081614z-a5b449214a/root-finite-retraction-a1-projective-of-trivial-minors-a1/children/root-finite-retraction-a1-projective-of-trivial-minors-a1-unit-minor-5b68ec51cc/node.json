@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_retraction-a1.projective_of_trivial_minors-a1.unit_minor_splitting-a1",
+  "parent_id": "root.finite_retraction-a1.projective_of_trivial_minors-a1",
+  "depth": 3,
+  "title": "A unit minor and vanishing larger minors split a finite presentation",
+  "statement": "Let R be a commutative ring, M an R-module, and n,p,d natural numbers. Let P be an n-by-p matrix over R and π:R^n→M a surjective R-linear map with ker π=im(P). Suppose rows:Fin d↪Fin n and cols:Fin d↪Fin p select a submatrix B whose determinant is a unit. Suppose every minor selected by embeddings Fin(d+1)↪Fin n and Fin(d+1)↪Fin p has determinant zero. Then there exists an R-linear map s:M→R^n with π∘s=id_M. No nontriviality or positivity assumptions are imposed.",
+  "lean_statement": "∀ {R : Type*} [CommRing R] {M : Type*} [AddCommGroup M] [Module R M] (n p d : ℕ) (P : Matrix (Fin n) (Fin p) R) (π : (Fin n → R) →ₗ[R] M) (_hπ : Function.Surjective π) (_hker : LinearMap.ker π = LinearMap.range P.mulVecLin) (rows : Fin d ↪ Fin n) (cols : Fin d ↪ Fin p) (_hunit : IsUnit (Matrix.det (P.submatrix rows cols))) (_hnext : ∀ (rows' : Fin (d + 1) ↪ Fin n) (cols' : Fin (d + 1) ↪ Fin p), Matrix.det (P.submatrix rows' cols') = 0), ∃ s : M →ₗ[R] (Fin n → R), π.comp s = LinearMap.id",
+  "lean_name": "p05_ptm_split_of_unit_minor_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1-unit-minor-5b68ec51cc-a1"
+}
