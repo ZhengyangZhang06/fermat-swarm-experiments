@@ -21,33 +21,6 @@ open AlgebraicCurve
 
 open AlgebraicCurve
 
-namespace Submission
-
-theorem p06_9e0f5043ff_principal_alg_equiv
-    (K E L : Type*) [Field K] [Field E] [Field L] [Algebra K E] [Algebra K L]
-    (e : E ≃ₐ[K] L) (h : HasPrincipalDivisors K E) : HasPrincipalDivisors K L := by
-  classical
-  obtain ⟨θ, hdeg, hring⟩ := p06_9e0f5043ff_pae_place_equivalence_degree K E L e
-  refine ⟨fun f hf => ?_⟩
-  have hf' : e.symm f ≠ 0 := by
-    intro hzero
-    apply hf
-    simpa only [AlgEquiv.apply_symm_apply, map_zero] using congrArg e hzero
-  obtain ⟨D, hD, hDdeg⟩ := h.exists_divisor (e.symm f) hf'
-  refine ⟨Finsupp.equivMapDomain θ D, ?_, ?_⟩
-  · intro w
-    obtain ⟨r, hr⟩ := hring (θ.symm w)
-    have hord := p06_9e0f5043ff_pae_compatible_order_invariance K E L e
-      (θ.symm w) (θ (θ.symm w)) r hr (e.symm f) hf'
-    rw [Finsupp.equivMapDomain_apply, hD]
-    simpa only [Equiv.apply_symm_apply, AlgEquiv.apply_symm_apply] using hord.symm
-  · change (Finsupp.equivMapDomain θ D).sum (fun w n => n * (w.deg : ℤ)) = 0
-    rw [Finsupp.sum_equivMapDomain]
-    change D.sum (fun v n => n * (v.deg : ℤ)) = 0 at hDdeg
-    simpa only [hdeg] using hDdeg
-
-end Submission
-
 theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
     [Algebra K F] (x : F) (hx : Transcendental K x)
     [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
@@ -2084,6 +2057,9 @@ theorem p06_9e0f5043ff_pae_place_equivalence_degree :
   obtain ⟨r, _⟩ := (hT v).2
   -- The residue equivalence descends through the maximal ideals; finrank needs no finiteness.
   exact (IsLocalRing.ResidueField.mapAlgEquiv r).toLinearEquiv.finrank_eq.symm
+
+end Submission
+
 namespace Submission
 
 set_option warningAsError true in
@@ -2111,6 +2087,33 @@ theorem p06_9e0f5043ff_pae_compatible_order_invariance
       ((r π : L) ^ v.ord f) := by
     simpa only [map_mul, map_zpow₀, hcoeu, hcompat π] using congrArg e hu
   rw [hfactor, w.ord_unit_smul_zpow u' hπ' (v.ord f)]
+
+set_option warningAsError true in
+/-- Transport principal divisors along an algebra equivalence using the approved
+place equivalence and normalized-order invariance. The finite-support reindexing
+lemmas are from the pinned `Mathlib.Data.Finsupp.Basic`. -/
+theorem p06_9e0f5043ff_principal_alg_equiv
+    (K E L : Type*) [Field K] [Field E] [Field L] [Algebra K E] [Algebra K L]
+    (e : E ≃ₐ[K] L) (h : HasPrincipalDivisors K E) : HasPrincipalDivisors K L := by
+  classical
+  obtain ⟨θ, hdeg, hring⟩ := p06_9e0f5043ff_pae_place_equivalence_degree K E L e
+  refine ⟨fun f hf => ?_⟩
+  have hf' : e.symm f ≠ 0 := by
+    intro hzero
+    apply hf
+    simpa only [AlgEquiv.apply_symm_apply, map_zero] using congrArg e hzero
+  obtain ⟨D, hD, hDdeg⟩ := h.exists_divisor (e.symm f) hf'
+  refine ⟨Finsupp.equivMapDomain θ D, ?_, ?_⟩
+  · intro w
+    obtain ⟨r, hr⟩ := hring (θ.symm w)
+    have hord := p06_9e0f5043ff_pae_compatible_order_invariance K E L e
+      (θ.symm w) (θ (θ.symm w)) r hr (e.symm f) hf'
+    rw [Finsupp.equivMapDomain_apply, hD]
+    simpa only [Equiv.apply_symm_apply, AlgEquiv.apply_symm_apply] using hord.symm
+  · change (Finsupp.equivMapDomain θ D).sum (fun w n => n * (w.deg : ℤ)) = 0
+    rw [Finsupp.sum_equivMapDomain]
+    change D.sum (fun v n => n * (v.deg : ℤ)) = 0 at hDdeg
+    simpa only [hdeg] using hDdeg
 
 end Submission
 
