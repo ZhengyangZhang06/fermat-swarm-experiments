@@ -20,6 +20,8 @@ theorem CuspForm.span_heckeTLin_eigen_eq_top (M : ℕ) [NeZero M] :
 
 namespace Submission
 
+/-- Away from the modular boundary, a union of separated coset translates meets each
+subgroup orbit in at most one point modulo the central sign. -/
 theorem f036cc6b1f_pc_ed_transversal_unique :
     ∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ))
       (R : Finset (Matrix.SpecialLinearGroup (Fin 2) ℤ)),
