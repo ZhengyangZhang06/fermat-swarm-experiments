@@ -10,6 +10,8 @@ The existing candidate was introduced by `8ac90b1` and inspected at
 `89409226687ea7862bb7ca26dc29d14086a99e45` in the 2026-10-08 16:17:26
 RLCR round. Its `Submission.lean` SHA-256 is
 `fc148b20f2f93b932dbd898b3ccd5caad0fe6d80`. Its `Submission.lean` SHA-256 is
+`ce7f97a2175fe0fece630c86908254333621b36c` in the 2026-10-08 14:03:36
+RLCR round. Its `Submission.lean` SHA-256 is
 `81d0a9d64dee7d82cd27ac069c5dde7a4617d51a74ca4899b6fe5ef3dfe4002b`.
 The entire source prefix from frozen proof base
 `8cb34c690b020247caaf2f18f9cb6fbab8d526f6` is byte-identical. The complete Lean
@@ -86,6 +88,7 @@ pinned upstream infrastructure, not newly invented dependency nodes.
 ## Current author validation
 
 The 2026-10-08 16:17:26 round re-read the accepted proof and independently
+The 2026-10-08 14:03:36 round re-read the accepted proof and independently
 checked the existing implementation. A fresh read-only simplifier review found
 no concrete improvement or defect and recommended retaining the proof unchanged.
 No Lean source change was needed or made in this round.
@@ -126,6 +129,10 @@ in this round: the supplemental diagnostic exited zero and the full-source check
 exited one with precisely the four diagnostics listed above. `git diff --check`
 against the proof base also passed. The two snapshots and all nine installed
 dependencies were rechecked clean and at their pinned commits.
+Evidence is retained under `.humanize/rlcr/2026-10-08_14-03-36/` in
+`round-0-full-build.log`, `round-0-selected-diagnostic.log`,
+`round-0-source-audit.json`, `round-0-source.diff`,
+`round-0-reference-use.json`, and `round-0-simplifier-review.md`.
 These local round artifacts are ignored by Git. The exact candidate commit and
 fresh comparator outcome are recorded in the round summary after this audit is
 committed; this text makes no claim of comparator success.
