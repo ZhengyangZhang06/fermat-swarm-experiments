@@ -14,6 +14,7 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+import tempfile
 import time
 
 SERVICE = 'fermat-issue-resolvers-20261007'
@@ -196,20 +197,52 @@ def collect():
     }
 
 
+def publish_snapshot(worktree, content, minute):
+    """Publish only this observation without sharing a checkout's Git index.
+
+    An interrupted Git command can leave index.lock behind. Each attempt uses a
+    fresh local index, so that lock cannot block later observations or require
+    guessing whether another process owns it. The ordinary index is untouched.
+    """
+    paths = [Path('status.json'), Path(f'ticks/{minute}/status.json'),
+             Path(f'ticks/{minute + 1}/status.json')]
+    for relative in paths:
+        path = worktree / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(content)
+    with tempfile.TemporaryDirectory(prefix='fermat-status-index-') as temporary:
+        environment = {**os.environ, 'GIT_INDEX_FILE': str(Path(temporary) / 'index')}
+
+        def git(*args):
+            try:
+                return subprocess.run(['git', '-c', 'core.sshCommand=' + SSH, *args],
+                                      cwd=worktree, env=environment, check=True,
+                                      capture_output=True, text=True, timeout=120).stdout.strip()
+            except subprocess.CalledProcessError as error:
+                # Identify the failed step without logging arbitrary remote stderr.
+                raise RuntimeError(f'Status Git {args[0]} failed (exit {error.returncode})') from error
+            except subprocess.TimeoutExpired as error:
+                raise RuntimeError(f'Status Git {args[0]} timed out') from error
+
+        parent = git('rev-parse', 'HEAD')
+        git('read-tree', parent)
+        git('add', '--', *(str(path) for path in paths))
+        tree = git('write-tree')
+        if tree != git('rev-parse', parent + '^{tree}'):
+            commit = git('commit-tree', tree, '-p', parent, '-m',
+                         'Observe live Swarm workers and theorem DAG evidence')
+            # Fail rather than overwrite another writer's concurrent branch update.
+            git('update-ref', 'HEAD', commit, parent)
+        # A prior push may have failed after creating a local commit. Retry even
+        # if collection returned the same observation, without inventing freshness.
+        git('push', 'origin', 'HEAD:status-live')
+
+
 def publish(worktree):
     report = collect()
     content = json.dumps(report, indent=2) + '\n'
     minute = int(time.time() // 60)
-    for path in (worktree / 'status.json', worktree / f'ticks/{minute}/status.json',
-                 worktree / f'ticks/{minute + 1}/status.json'):
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(content)
-    def git(*args):
-        return subprocess.run(['git', '-c', 'core.sshCommand=' + SSH, *args],
-                              cwd=worktree, check=True, capture_output=True, text=True, timeout=120)
-    git('add', 'status.json', 'ticks')
-    git('commit', '-m', 'Observe live Swarm workers and theorem DAG evidence')
-    git('push', 'origin', 'HEAD:status-live')
+    publish_snapshot(worktree, content, minute)
     print(json.dumps({'observed_at': report['observed_at'], 'running_resolvers': report['running_resolvers']}), flush=True)
 
 
@@ -229,7 +262,8 @@ def main():
         try:
             publish(args.worktree)
         except Exception as exc:
-            print(f'Publication observation failed: {type(exc).__name__}', flush=True)
+            detail = str(exc) if isinstance(exc, RuntimeError) and str(exc).startswith('Status Git ') else type(exc).__name__
+            print(f'Publication observation failed: {detail}', flush=True)
             if args.once:
                 raise
         if args.once:

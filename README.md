@@ -37,6 +37,11 @@ are recorded in `campaign.json` and `proofs/`. The dashboard source is in
 `site/`; its deployment observation must not be confused with live proof progress.
 The explicit [Pages workflow](.github/workflows/pages.yml) deploys `site/` and
 `campaign.json` from `main`; the separate `status-live` branch supplies observations.
+Activity labels expire after three minutes without a fresh published observation;
+this reports stale monitoring data, not stopped proof workers. The publisher uses
+a temporary Git index for each attempt and stages only the current observation's
+three files. It preserves the checkout index and any unrelated staged changes,
+retries failed pushes, and never removes an unknown Git lock automatically.
 
 ## Provenance
 

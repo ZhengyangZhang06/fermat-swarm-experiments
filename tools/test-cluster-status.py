@@ -2,8 +2,10 @@
 import importlib.util
 import json
 from pathlib import Path
+import subprocess
 import tempfile
 import unittest
+from unittest.mock import patch
 
 spec = importlib.util.spec_from_file_location('publisher', Path(__file__).with_name('publish-cluster-status.py'))
 publisher = importlib.util.module_from_spec(spec)
@@ -119,6 +121,86 @@ class ProofFeedTests(unittest.TestCase):
         self.assertEqual(first['worker_node'], 'hoa3')
         self.assertFalse(second['observed_running'])
         self.assertEqual(second['worker_node'], '')
+
+
+class StatusPublicationTests(unittest.TestCase):
+    def setUp(self):
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        self.root = Path(temporary.name)
+        self.worktree = self.root / 'worktree'
+        self.worktree.mkdir()
+        self.remote = self.root / 'remote.git'
+        subprocess.run(['git', 'init', '--bare', str(self.remote)], check=True, capture_output=True)
+        self.git('init', '-b', 'status-live')
+        self.git('config', 'user.name', 'Status test')
+        self.git('config', 'user.email', 'status@example.invalid')
+        (self.worktree / 'keep.txt').write_text('original\n')
+        self.git('add', 'keep.txt')
+        self.git('commit', '-m', 'Initial')
+        self.git('remote', 'add', 'origin', str(self.remote))
+        self.git('push', 'origin', 'HEAD:status-live')
+        self.content = '{"observed_at":"2026-10-08T15:40:00Z"}\n'
+
+    def git(self, *args, remote=False):
+        return subprocess.run(['git', *args], cwd=self.remote if remote else self.worktree,
+                              check=True, capture_output=True, text=True).stdout.strip()
+
+    def test_existing_index_lock_and_unrelated_staging_do_not_block_or_leak(self):
+        (self.worktree / 'keep.txt').write_text('unrelated staged edit\n')
+        self.git('add', 'keep.txt')
+        index = self.worktree / '.git/index'
+        original_index = index.read_bytes()
+        lock = self.worktree / '.git/index.lock'
+        lock.write_text('another index owner\n')
+        publisher.publish_snapshot(self.worktree, self.content, 100)
+        self.assertEqual(lock.read_text(), 'another index owner\n')
+        self.assertEqual(index.read_bytes(), original_index)
+        self.assertEqual(self.git('show', 'status-live:keep.txt', remote=True), 'original')
+        self.assertEqual(self.git('show', 'status-live:status.json', remote=True), self.content.strip())
+        self.assertEqual(self.git('show', 'status-live:ticks/101/status.json', remote=True), self.content.strip())
+
+    def test_only_current_observation_paths_are_published(self):
+        old = self.worktree / 'ticks/99/private.json'
+        old.parent.mkdir(parents=True)
+        old.write_text('not part of this observation')
+        publisher.publish_snapshot(self.worktree, self.content, 100)
+        paths = self.git('ls-tree', '-r', '--name-only', 'status-live', remote=True).splitlines()
+        self.assertEqual(paths, ['keep.txt', 'status.json', 'ticks/100/status.json', 'ticks/101/status.json'])
+
+    def test_failed_push_is_retried_without_duplicate_commit_or_new_timestamp(self):
+        run = subprocess.run
+        def fail_push(args, **kwargs):
+            if args[3] == 'push':
+                raise subprocess.CalledProcessError(128, args, stderr='private-canary')
+            return run(args, **kwargs)
+        with patch.object(publisher.subprocess, 'run', side_effect=fail_push):
+            with self.assertRaisesRegex(RuntimeError, r'Status Git push failed \(exit 128\)') as error:
+                publisher.publish_snapshot(self.worktree, self.content, 100)
+        self.assertNotIn('private-canary', str(error.exception))
+        pending = self.git('rev-parse', 'HEAD')
+        self.assertNotEqual(self.git('rev-parse', 'status-live', remote=True), pending)
+        publisher.publish_snapshot(self.worktree, self.content, 100)
+        self.assertEqual(self.git('rev-parse', 'HEAD'), pending)
+        self.assertEqual(self.git('rev-parse', 'status-live', remote=True), pending)
+        self.assertEqual(self.git('show', 'status-live:status.json', remote=True), self.content.strip())
+
+    def test_interrupted_private_index_does_not_poison_next_attempt(self):
+        run = subprocess.run
+        indexes = []
+        def interrupt_add(args, **kwargs):
+            if args[3] == 'add':
+                index = Path(kwargs['env']['GIT_INDEX_FILE'])
+                indexes.append(index)
+                index.with_name('index.lock').write_text('interrupted staging')
+                raise subprocess.TimeoutExpired(args, 120)
+            return run(args, **kwargs)
+        with patch.object(publisher.subprocess, 'run', side_effect=interrupt_add):
+            with self.assertRaisesRegex(RuntimeError, 'Status Git add timed out'):
+                publisher.publish_snapshot(self.worktree, self.content, 100)
+        self.assertFalse(indexes[0].parent.exists())
+        publisher.publish_snapshot(self.worktree, self.content, 100)
+        self.assertEqual(self.git('show', 'status-live:status.json', remote=True), self.content.strip())
 
 
 if __name__ == '__main__':
