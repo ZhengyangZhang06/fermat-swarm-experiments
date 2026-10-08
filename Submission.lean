@@ -31799,3 +31799,168 @@ theorem Submission.p03_eds_torsion_kernel_sum_68cf3476_d4 :
     have hPn := (hS P).1 hPS
     rw [hodd, add_nsmul, mul_nsmul, hP2, smul_zero, one_nsmul, zero_add] at hPn
     exact hPn
+namespace Submission
+
+open scoped nonZeroDivisors BigOperators
+
+/-- Speculative draft for the frozen torsion-EDS existence node.
+The local constructions below compile individually. The final principal-ideal
+identification is still an open formalization obligation, explicitly reported
+by the last tactic; this declaration is not an accepted proof. -/
+theorem p03_torsion_eds_exists_68cf3476_d2
+    (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k]
+    (W : WeierstrassCurve k) (hΔ : W.Δ ≠ 0) :
+    let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine
+    let h := q W.ψ₂
+    ∃ f : ℕ → W.toAffine.CoordinateRing,
+      (f 0 = 0 ∧ f 1 = 1 ∧ f 2 = h ∧ f 3 = q (Polynomial.C W.Ψ₃) ∧
+        f 4 = h * q (Polynomial.C W.preΨ₄) ∧
+        (∀ r : ℕ, 2 ≤ r → f (2 * r + 1) =
+          f (r + 2) * f r ^ 3 - f (r - 1) * f (r + 1) ^ 3) ∧
+        (∀ r : ℕ, 3 ≤ r → h * f (2 * r) =
+          f r * (f (r + 2) * f (r - 1) ^ 2 - f (r - 2) * f (r + 1) ^ 2))) ∧
+      ∀ n : ℕ, 0 < n → ∀ (x y : k) (hP : W.toAffine.Nonsingular x y),
+        f n ∈ WeierstrassCurve.Affine.CoordinateRing.XYIdeal W.toAffine x (Polynomial.C y) ↔
+          n • WeierstrassCurve.Affine.Point.some x y hP = 0 := by
+  classical
+  let q := CoordinateRing.mk W.toAffine
+  let f : ℕ → W.toAffine.CoordinateRing := fun n => q (W.Ψ (n : ℤ))
+  -- The exact two child interfaces give the finite torsion kernel and its sum.
+  have hkernel (n : ℕ) (hn : 0 < n) :
+      ∃ S : Finset W.toAffine.Point,
+        (∀ P, P ∈ S ↔ n • P = 0) ∧ S.card = n ^ 2 ∧ S.sum (fun P => P) = 0 := by
+    obtain ⟨hfinite, hcard⟩ := Submission.p03_eds_torsion_kernel_card_68cf3476_d4 k W hΔ n hn
+    let : Fintype {P : W.toAffine.Point // n • P = 0} := @Fintype.ofFinite _ hfinite
+    let e : {P : W.toAffine.Point // n • P = 0} ↪ W.toAffine.Point :=
+      ⟨Subtype.val, Subtype.val_injective⟩
+    let S : Finset W.toAffine.Point := Finset.univ.map e
+    have hS : ∀ P, P ∈ S ↔ n • P = 0 := by
+      intro P
+      simp [S, e]
+    refine ⟨S, hS, ?_, Submission.p03_eds_torsion_kernel_sum_68cf3476_d4 k W hΔ n hn S hS⟩
+    simpa only [S, Finset.card_map, Finset.card_univ, Nat.card_eq_fintype_card] using hcard
+  let pointIdeal : W.toAffine.Point → Ideal W.toAffine.CoordinateRing := fun P =>
+    match P with
+    | .zero => ⊤
+    | .some x y hP => CoordinateRing.XYIdeal W.toAffine x (Polynomial.C y)
+  let pointUnit : W.toAffine.Point →
+      (FractionalIdeal W.toAffine.CoordinateRing⁰ W.toAffine.FunctionField)ˣ := fun P =>
+    match P with
+    | .zero => 1
+    | .some _ _ hP => CoordinateRing.XYIdeal' hP
+  have hcoe (P : W.toAffine.Point) :
+      (pointUnit P : FractionalIdeal W.toAffine.CoordinateRing⁰ W.toAffine.FunctionField) =
+        pointIdeal P := by
+    cases P with
+    | zero => simp [pointUnit, pointIdeal]
+    | some x y hP => rfl
+  have hclass (P : W.toAffine.Point) :
+      Additive.ofMul (ClassGroup.mk W.toAffine.FunctionField (pointUnit P)) =
+        Point.toClass P := by
+    cases P with
+    | zero => simp [pointUnit]
+    | some x y hP => rfl
+  have hprincipal (S : Finset W.toAffine.Point) (hS : S.sum (fun P => P) = 0) :
+      ∃ g : W.toAffine.CoordinateRing, g ≠ 0 ∧ S.prod pointIdeal = Ideal.span {g} := by
+    have hprodcoe :
+        ((S.prod pointUnit : (FractionalIdeal W.toAffine.CoordinateRing⁰
+          W.toAffine.FunctionField)ˣ) :
+          FractionalIdeal W.toAffine.CoordinateRing⁰ W.toAffine.FunctionField) =
+          (S.prod pointIdeal : Ideal W.toAffine.CoordinateRing) := by
+      rw [Units.coe_prod, show
+        ((S.prod pointIdeal : Ideal W.toAffine.CoordinateRing) :
+          FractionalIdeal W.toAffine.CoordinateRing⁰ W.toAffine.FunctionField) =
+        S.prod (fun P => (pointIdeal P : FractionalIdeal W.toAffine.CoordinateRing⁰
+          W.toAffine.FunctionField)) from
+        map_prod (FractionalIdeal.coeIdealHom _ _) pointIdeal S]
+      exact Finset.prod_congr rfl (fun P _ => hcoe P)
+    apply (ClassGroup.mk_eq_one_of_coe_ideal hprodcoe).mp
+    change Additive.ofMul (ClassGroup.mk W.toAffine.FunctionField (S.prod pointUnit)) = 0
+    rw [map_prod, ofMul_prod, Finset.sum_congr rfl (fun P _ => hclass P),
+      ← map_sum, hS, _root_.map_zero]
+  have hmax (x y : k) (hP : W.toAffine.Nonsingular x y) :
+      (CoordinateRing.XYIdeal W.toAffine x (Polynomial.C y)).IsMaximal := by
+    let e := CoordinateRing.quotientXYIdealEquiv hP.1
+    exact Ideal.Quotient.maximal_of_isField _
+      (MulEquiv.isField (Field.toIsField k) e.toRingEquiv.toMulEquiv)
+  have hpoint_le (P : W.toAffine.Point) (x y : k) (hP : W.toAffine.Nonsingular x y) :
+      pointIdeal P ≤ CoordinateRing.XYIdeal W.toAffine x (Polynomial.C y) ↔
+        P = Point.some x y hP := by
+    cases P with
+    | zero =>
+      constructor
+      · intro h
+        exact ((hmax x y hP).ne_top (top_unique h)).elim
+      · intro h
+        exact (Point.some_ne_zero hP h.symm).elim
+    | some x' y' hP' =>
+      constructor
+      · intro h
+        have heq := (hmax x' y' hP').eq_of_le (hmax x y hP).ne_top h
+        apply Point.toClass_injective
+        change Additive.ofMul (ClassGroup.mk W.toAffine.FunctionField
+            (CoordinateRing.XYIdeal' hP')) =
+          Additive.ofMul (ClassGroup.mk W.toAffine.FunctionField
+            (CoordinateRing.XYIdeal' hP))
+        apply congrArg (fun I => Additive.ofMul (ClassGroup.mk W.toAffine.FunctionField I))
+        apply Units.ext
+        exact congrArg (fun I : Ideal W.toAffine.CoordinateRing =>
+          (I : FractionalIdeal W.toAffine.CoordinateRing⁰ W.toAffine.FunctionField)) heq
+      · intro h
+        cases h
+        exact le_rfl
+  have hvanish (S : Finset W.toAffine.Point) (g : W.toAffine.CoordinateRing)
+      (hg : S.prod pointIdeal = Ideal.span {g}) (x y : k)
+      (hP : W.toAffine.Nonsingular x y) :
+      g ∈ CoordinateRing.XYIdeal W.toAffine x (Polynomial.C y) ↔
+        Point.some x y hP ∈ S := by
+    rw [← Ideal.span_singleton_le_iff_mem, ← hg, (hmax x y hP).isPrime.prod_le]
+    constructor
+    · rintro ⟨P, hPS, hle⟩
+      exact (hpoint_le P x y hP).mp hle ▸ hPS
+    · intro hPS
+      exact ⟨Point.some x y hP, hPS, le_rfl⟩
+  refine ⟨f, ?_, ?_⟩
+  · refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+    · change q (W.Ψ 0) = 0
+      rw [WeierstrassCurve.Ψ_zero, _root_.map_zero]
+    · change q (W.Ψ 1) = 1
+      rw [WeierstrassCurve.Ψ_one, map_one]
+    · change q (W.Ψ 2) = q W.ψ₂
+      rw [WeierstrassCurve.Ψ_two]
+    · change q (W.Ψ 3) = q (Polynomial.C W.Ψ₃)
+      rw [WeierstrassCurve.Ψ_three]
+    · change q (W.Ψ 4) = q W.ψ₂ * q (Polynomial.C W.preΨ₄)
+      rw [WeierstrassCurve.Ψ_four, map_mul, mul_comm]
+    · intro r hr
+      have hr1 : 1 ≤ r := by omega
+      have hc := congrArg q (W.Ψ_odd (r : ℤ))
+      have hq : q W.toAffine.polynomial = 0 := AdjoinRoot.mk_self
+      simpa only [f, Nat.cast_add, Nat.cast_mul, Nat.cast_ofNat, Nat.cast_one,
+        Nat.cast_sub hr1, map_add, map_sub, map_mul, map_pow, hq, zero_mul,
+        add_zero] using hc
+    · intro r hr
+      have hr1 : 1 ≤ r := by omega
+      have hr2 : 2 ≤ r := by omega
+      have hc := congrArg q (W.Ψ_even (r : ℤ))
+      have hc' : f (2 * r) * q W.ψ₂ =
+          f (r - 1) ^ 2 * f r * f (r + 2) -
+          f (r - 2) * f r * f (r + 1) ^ 2 := by
+        simpa only [f, Nat.cast_add, Nat.cast_mul, Nat.cast_ofNat, Nat.cast_one,
+          Nat.cast_sub hr1, Nat.cast_sub hr2, map_sub, map_mul, map_pow] using hc
+      calc
+        q W.ψ₂ * f (2 * r) = f (2 * r) * q W.ψ₂ := mul_comm _ _
+        _ = _ := hc'
+        _ = _ := by ring
+  · intro n hn x y hP
+    obtain ⟨S, hS, hcard, hsum⟩ := hkernel n hn
+    obtain ⟨g, hg, hgen⟩ := hprincipal S hsum
+    suffices hspan : Ideal.span {f n} = Ideal.span {g} by
+      rw [← Ideal.span_singleton_le_iff_mem, hspan, Ideal.span_singleton_le_iff_mem]
+      exact (hvanish S g hgen x y hP).trans (hS _)
+    -- Remaining accepted-proof steps: construct the normalized torsion-divisor
+    -- functions and compare them with the explicit recurrence sequence. The
+    -- ideal equality forgets the harmless nonzero normalization scalar.
+    fail "Unfinished torsion-divisor identification: span {q (W.Ψ n)} = the torsion-kernel ideal product."
+
+end Submission
