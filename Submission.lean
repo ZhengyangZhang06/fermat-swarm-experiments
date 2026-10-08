@@ -990,8 +990,7 @@ theorem p04_eq_zero_of_prime_avoiding_annihilators :
   obtain ⟨m₂, hm₂, _, h₂⟩ := h 2 Nat.prime_two
   have hex : ∃ n : ℕ, 0 < n ∧ n • v = 0 := ⟨m₂, hm₂, h₂ v⟩
   let n := Nat.find hex
-  have hn_pos : 0 < n := (Nat.find_spec hex).1
-  have hn_zero : n • v = 0 := (Nat.find_spec hex).2
+  obtain ⟨hn_pos, hn_zero⟩ : 0 < n ∧ n • v = 0 := Nat.find_spec hex
   -- A nonzero remainder would be a smaller positive annihilator.
   have hn_dvd : ∀ m : ℕ, m • v = 0 → n ∣ m := by
     intro m hm
