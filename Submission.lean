@@ -12,83 +12,6 @@ attribute [-simp] AlgebraicCurve.SemilinearAut.coe_torsion_smul AlgebraicCurve.S
 
 open AlgebraicCurve
 
-namespace Submission
-
-/-- The finite place whose ring consists of fractions with denominator prime to `q`. -/
-theorem p06_9e0f5043ff_fpm_exists_local_place
-    (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F)
-    (hx : Transcendental K x)
-    (hF : ∀ f : F, ∃ a b : Polynomial K, b ≠ 0 ∧
-      f = Polynomial.aeval x a / Polynomial.aeval x b)
-    (q : Polynomial K) (hqmonic : q.Monic) (hq : Irreducible q) :
-    ∃ v : AlgebraicCurve.Place K F, ∀ f : F,
-      f ∈ v.toValuationSubring ↔ ∃ a b : Polynomial K,
-        ¬ q ∣ b ∧ f = Polynomial.aeval x a / Polynomial.aeval x b := by
-  obtain ⟨A, hA⟩ := p06_9e0f5043ff_elp_fraction_subalgebra K F x hx q hqmonic hq
-  obtain ⟨ν, hνzero, hνq, hνdiv, hνmem⟩ :=
-    p06_9e0f5043ff_elp_integer_order K F x hx hF q hqmonic hq
-  have hmem (f : F) (hf : f ≠ 0) : f ∈ A ↔ 0 ≤ ν f :=
-    (hA f).trans (hνmem f hf).symm
-  have hνone : ν 1 = 0 := by
-    simpa only [div_self (one_ne_zero : (1 : F) ≠ 0), sub_self] using
-      hνdiv 1 1 one_ne_zero one_ne_zero
-  have hνinv (f : F) (hf : f ≠ 0) : ν f⁻¹ = -ν f := by
-    simpa only [one_div, hνone, zero_sub] using hνdiv 1 f one_ne_zero hf
-  -- The sign of the order gives the valuation-subring alternative.
-  let V : ValuationSubring F :=
-    { A.toSubring with
-      mem_or_inv_mem' := by
-        intro f
-        change f ∈ A ∨ f⁻¹ ∈ A
-        by_cases hf : f = 0
-        · exact Or.inl (hf ▸ A.zero_mem)
-        · by_cases hnonneg : 0 ≤ ν f
-          · exact Or.inl ((hmem f hf).mpr hnonneg)
-          · apply Or.inr
-            apply (hmem f⁻¹ (inv_ne_zero hf)).mpr
-            rw [hνinv f hf]
-            omega }
-  -- The inverse of q(x) has order -1, so this valuation subring is proper.
-  have hqx : Polynomial.aeval x q ≠ 0 := by
-    intro hzero
-    rw [hzero, hνzero] at hνq
-    omega
-  have hVproper : V ≠ ⊤ := by
-    intro htop
-    have hin : (Polynomial.aeval x q)⁻¹ ∈ V := by
-      rw [htop]
-      exact ValuationSubring.mem_top _
-    have hnonneg := (hmem _ (inv_ne_zero hqx)).mp hin
-    rw [hνinv _ hqx, hνq] at hnonneg
-    omega
-  refine ⟨{
-    toValuationSubring := V
-    algebraMap_mem' := A.algebraMap_mem
-    ne_top' := hVproper
-    isPrincipalIdealRing' :=
-      p06_9e0f5043ff_elp_principal_ideals_of_order F A.toSubring ν hνdiv hmem
-  }, ?_⟩
-  exact hA
-
-end Submission
-
-theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
-    [Algebra K F] (x : F) (hx : Transcendental K x)
-    [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
-  sorry
-
-namespace Submission
-
-open AlgebraicCurve
-
-theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
-    [Algebra K F] (x : F) (hx : Transcendental K x)
-    [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
-  sorry
-
-namespace Submission
-
-open AlgebraicCurve
 theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
     [Algebra K F] (x : F) (hx : Transcendental K x)
     [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
@@ -848,7 +771,6 @@ theorem p06_9e0f5043ff_elp_fraction_subalgebra
       refine ⟨a * c, b * d, hprime.not_dvd_mul hb hd, ?_⟩
       simp only [map_mul, div_mul_div_comm]
   }, fun _ => Iff.rfl⟩
-/-- The exponent of an irreducible polynomial, realized by the pinned library's `multiplicity`. -/
 /-- The exponent of an irreducible polynomial, realized by the pinned library's `multiplicity`.
 The monicity hypothesis is retained from the frozen contract; irreducibility suffices for the proof. -/
 theorem p06_9e0f5043ff_io_polynomial_exponent :
@@ -1708,5 +1630,65 @@ theorem p06_9e0f5043ff_elp_principal_ideals_of_order :
   refine ⟨⟨(z : F) / (h : F), hquot⟩, ?_⟩
   apply Subtype.ext
   exact div_mul_cancel₀ _ hh
+
+end Submission
+
+namespace Submission
+
+/-- The finite place whose ring consists of fractions with denominator prime to `q`. -/
+theorem p06_9e0f5043ff_fpm_exists_local_place
+    (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F)
+    (hx : Transcendental K x)
+    (hF : ∀ f : F, ∃ a b : Polynomial K, b ≠ 0 ∧
+      f = Polynomial.aeval x a / Polynomial.aeval x b)
+    (q : Polynomial K) (hqmonic : q.Monic) (hq : Irreducible q) :
+    ∃ v : AlgebraicCurve.Place K F, ∀ f : F,
+      f ∈ v.toValuationSubring ↔ ∃ a b : Polynomial K,
+        ¬ q ∣ b ∧ f = Polynomial.aeval x a / Polynomial.aeval x b := by
+  obtain ⟨A, hA⟩ := p06_9e0f5043ff_elp_fraction_subalgebra K F x hx q hqmonic hq
+  obtain ⟨ν, hνzero, hνq, hνdiv, hνmem⟩ :=
+    p06_9e0f5043ff_elp_integer_order K F x hx hF q hqmonic hq
+  have hmem (f : F) (hf : f ≠ 0) : f ∈ A ↔ 0 ≤ ν f :=
+    (hA f).trans (hνmem f hf).symm
+  have hνone : ν 1 = 0 := by
+    simpa only [div_self (one_ne_zero : (1 : F) ≠ 0), sub_self] using
+      hνdiv 1 1 one_ne_zero one_ne_zero
+  have hνinv (f : F) (hf : f ≠ 0) : ν f⁻¹ = -ν f := by
+    simpa only [one_div, hνone, zero_sub] using hνdiv 1 f one_ne_zero hf
+  -- The sign of the order gives the valuation-subring alternative.
+  let V : ValuationSubring F :=
+    { A.toSubring with
+      mem_or_inv_mem' := by
+        intro f
+        change f ∈ A ∨ f⁻¹ ∈ A
+        by_cases hf : f = 0
+        · exact Or.inl (hf ▸ A.zero_mem)
+        · by_cases hnonneg : 0 ≤ ν f
+          · exact Or.inl ((hmem f hf).mpr hnonneg)
+          · apply Or.inr
+            apply (hmem f⁻¹ (inv_ne_zero hf)).mpr
+            rw [hνinv f hf]
+            omega }
+  -- The inverse of q(x) has order -1, so this valuation subring is proper.
+  have hqx : Polynomial.aeval x q ≠ 0 := by
+    intro hzero
+    rw [hzero, hνzero] at hνq
+    omega
+  have hVproper : V ≠ ⊤ := by
+    intro htop
+    have hin : (Polynomial.aeval x q)⁻¹ ∈ V := by
+      rw [htop]
+      exact ValuationSubring.mem_top _
+    have hnonneg := (hmem _ (inv_ne_zero hqx)).mp hin
+    rw [hνinv _ hqx, hνq] at hnonneg
+    omega
+  refine ⟨{
+    toValuationSubring := V
+    algebraMap_mem' := A.algebraMap_mem
+    ne_top' := hVproper
+    isPrincipalIdealRing' :=
+      p06_9e0f5043ff_elp_principal_ideals_of_order F A.toSubring ν hνdiv hmem
+  }, ?_⟩
+  exact hA
 
 end Submission
