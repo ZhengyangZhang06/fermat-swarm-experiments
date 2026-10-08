@@ -10,41 +10,6 @@ import Mathlib.LinearAlgebra.FiniteDimensional.Defs
 attribute [-instance] FLT.HyperbolicMeasure.instSMulInvariantMeasureSpecialLinearGroupFinOfNatNatIntUpperHalfPlaneVolume_definitions FLT.HyperbolicMeasure.instIsOpenPosMeasureUpperHalfPlaneVolume_definitions FLT.Gamma0FundamentalSet.instContinuousConstSMulSpecialLinearGroupFinOfNatNatIntUpperHalfPlane_definitions FLT.L2ProductionInstance.isFiniteMeasure_gamma0 FLT.L2ProductionInstance.countable_SL2Z FLT.L2ProductionInstance.countable_quotient FLT.L2ProductionInstance.nontrivial_gamma0L2
 attribute [-simp] FreyPackage.ModMCarrier.coe_rescaleLin_apply ModularForm.AtkinLehnerDatum.mk.injEq ModularForm.AtkinLehnerDatum.alGL_coe ModularForm.AtkinLehnerDatum.mk.sizeOf_spec ModularForm.AtkinLehnerDatum.sqUnitSL_coe ModularForm.AtkinLehnerDatum.det_sqUnit ModularForm.AtkinLehnerDatum.det_mat FLT.TruncatedDomainPartition.unipotentDiagonalSum_zero
 
-namespace Submission
-
-theorem f036cc6b1f_finite_dimensional :
-    ∀ (M : ℕ) [NeZero M],
-      FiniteDimensional ℂ (CuspForm (CongruenceSubgroup.Gamma0 M) 2) := by
-  intro M _
-  let b := (2 * (CongruenceSubgroup.Gamma0 M).index) / 12
-  have hperiod : (1 : ℝ) ∈
-      (CongruenceSubgroup.Gamma0 M :
-        Subgroup (Matrix.GeneralLinearGroup (Fin 2) ℝ)).strictPeriods := by
-    simp
-  -- The coefficients up to the Sturm bound give a linear map to a finite product.
-  let L : CuspForm (CongruenceSubgroup.Gamma0 M) 2 →ₗ[ℂ] (Fin (b + 1) → ℂ) :=
-    { toFun := fun f n => (UpperHalfPlane.qExpansion 1 f).coeff n
-      map_add' := by
-        intro f g
-        funext n
-        simp only [FunLike.coe_add, ModularForm.qExpansion_add one_pos hperiod,
-          map_add, Pi.add_apply]
-      map_smul' := by
-        intro c f
-        funext n
-        simp only [FunLike.coe_smul,
-          ModularForm.qExpansion_smul one_pos hperiod, PowerSeries.coeff_smul,
-          Pi.smul_apply, RingHom.id_apply] }
-  apply FiniteDimensional.of_injective L
-  apply LinearMap.ker_eq_bot.mp
-  apply LinearMap.ker_eq_bot'.mpr
-  intro f hf
-  apply Submission.f036cc6b1f_fd_sturm M f
-  intro n hn
-  exact congr_fun hf (⟨n, Nat.lt_succ_of_le hn⟩ : Fin (b + 1))
-
-end Submission
-
 theorem CuspForm.span_heckeTLin_eigen_eq_top (M : ℕ) [NeZero M] :
     Submodule.span ℂ {v : CuspForm (CongruenceSubgroup.Gamma0 M) 2 |
       ∀ (ℓ : ℕ) (hℓ : ℓ.Prime) (hℓM : ¬ ℓ ∣ M), ∃ c : ℂ,
@@ -52,7 +17,7 @@ theorem CuspForm.span_heckeTLin_eigen_eq_top (M : ℕ) [NeZero M] :
   sorry
 
 open Filter Asymptotics
-open scoped Topology
+open scoped Topology ModularForm
 
 namespace Submission
 
@@ -143,9 +108,6 @@ theorem f036cc6b1f_fd_coeff_decay :
       rw [hq, mul_div_cancel_left₀ _ (pow_ne_zero _ hq0)]
     exact hg0 (tendsto_nhds_unique hg.continuousAt.continuousWithinAt
       (hlittle.tendsto_div_nhds_zero.congr' hquot))
-open scoped ModularForm
-
-namespace Submission
 
 /-- Above a common height, every coset factor other than the identity has norm at most one,
 so the modular-form norm is bounded by the identity factor with constant `C = 1`. -/
@@ -2398,3 +2360,36 @@ theorem f036cc6b1f_fd_sturm (M : ℕ) [NeZero M]
   have hnorm_zero : ModularForm.norm H f = 0 :=
     (ModularForm.mcast_eq_zero_iff hweight rfl _).mp hNzero
   exact DFunLike.coe_injective ((ModularForm.norm_eq_zero_iff H f).mp hnorm_zero)
+
+/-- The coefficients through the Sturm bound embed weight-two cusp forms in a finite product. -/
+theorem f036cc6b1f_finite_dimensional :
+    ∀ (M : ℕ) [NeZero M],
+      FiniteDimensional ℂ (CuspForm (CongruenceSubgroup.Gamma0 M) 2) := by
+  intro M _
+  let b := (2 * (CongruenceSubgroup.Gamma0 M).index) / 12
+  have hperiod : (1 : ℝ) ∈
+      (CongruenceSubgroup.Gamma0 M :
+        Subgroup (Matrix.GeneralLinearGroup (Fin 2) ℝ)).strictPeriods := by
+    simp
+  let L : CuspForm (CongruenceSubgroup.Gamma0 M) 2 →ₗ[ℂ] (Fin (b + 1) → ℂ) :=
+    { toFun := fun f n => (UpperHalfPlane.qExpansion 1 f).coeff n
+      map_add' := by
+        intro f g
+        funext n
+        simp only [FunLike.coe_add, ModularForm.qExpansion_add one_pos hperiod,
+          map_add, Pi.add_apply]
+      map_smul' := by
+        intro c f
+        funext n
+        simp only [FunLike.coe_smul,
+          ModularForm.qExpansion_smul one_pos hperiod, PowerSeries.coeff_smul,
+          Pi.smul_apply, RingHom.id_apply] }
+  apply FiniteDimensional.of_injective L
+  apply LinearMap.ker_eq_bot.mp
+  apply LinearMap.ker_eq_bot'.mpr
+  intro f hf
+  apply f036cc6b1f_fd_sturm M f
+  intro n hn
+  exact congr_fun hf (⟨n, Nat.lt_succ_of_le hn⟩ : Fin (b + 1))
+
+end Submission
