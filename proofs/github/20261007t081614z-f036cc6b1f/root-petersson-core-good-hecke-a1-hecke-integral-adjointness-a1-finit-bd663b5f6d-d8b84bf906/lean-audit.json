@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "06cab990371969b910e404db63ec3bf12a565a7b6e0e69736b32934e4d8b3e55",
+  "git_delta": {
+    "base_commit": "4a388ab704820faa3f21ffb909d71ec716454591",
+    "candidate_commit": "061faf779f654dde09f21a757e4149dba3d04176",
+    "target": "Submission.lean",
+    "declaration": "f036cc6b1f_pc_hi_finite_trace_unfolding",
+    "diff_sha256": "5d305ea5cd1d8ea8ecb753123a9586e5b5b5a97447581dab1e00a78c64ae8287",
+    "source_sha256": "68f3390b9e5eedc42b0bf3a0dcd638e3b330db65ba5928c19e0befd2d77d0b9b",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.f036cc6b1f_pc_hi_finite_trace_unfolding",
+      "statement": "∀ (Γ Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (R : Finset (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (F : Set UpperHalfPlane), Δ ≤ Γ → (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ → (∀ r ∈ R, r ∈ Γ) → (∀ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Γ → ∃ r ∈ R, γ * r⁻¹ ∈ Δ) → (∀ r ∈ R, ∀ s ∈ R, s * r⁻¹ ∈ Δ → s = r) → MeasurableSet F → (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Γ ∧ γ • z ∈ F ∧ ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ, δ ∈ Γ → δ • z ∈ F → δ = γ ∨ δ = -γ) → ∀ u v : UpperHalfPlane → ℂ, (∀ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Γ → SlashAction.map (2 : ℤ) γ v = v) → let E : Set UpperHalfPlane := ⋃ r ∈ R, (fun z : UpperHalfPlane => r • z) '' F; MeasureTheory.IntegrableOn (UpperHalfPlane.petersson 2 u v) E (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) → (∀ r ∈ R, MeasureTheory.IntegrableOn (UpperHalfPlane.petersson 2 (SlashAction.map (2 : ℤ) r u) v) F (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane)) ∧ MeasureTheory.integral ((MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane).restrict F) (UpperHalfPlane.petersson 2 (R.sum (fun r => SlashAction.map (2 : ℤ) r u)) v) = MeasureTheory.integral ((MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane).restrict E) (UpperHalfPlane.petersson 2 u v)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
