@@ -301,3 +301,66 @@ theorem Submission.p10_17ae7b7d_cld_local_logderiv_bound :
     change ‖q * deriv A q / A q - (m : ℂ)‖ ≤ max M 0 * ‖q‖
     rw [hid, norm_mul, mul_comm (max M 0)]
     exact mul_le_mul_of_nonneg_left ((hM q hq).trans (le_max_left _ _)) (norm_nonneg q)
+
+theorem Submission.p10_17ae7b7d_valence_cusp_log_derivative :
+    ∀ (F A : ℂ → ℂ), DifferentiableOn ℂ F {z : ℂ | 0 < z.im} →
+      (∃ z : ℂ, 0 < z.im ∧ F z ≠ 0) → AnalyticAt ℂ A 0 →
+      (∃ Y₀ : ℝ, ∀ z : ℂ, 0 < z.im → Y₀ ≤ z.im →
+        F z = A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z))) →
+      analyticOrderAt A 0 ≠ ⊤ ∧ ∃ Y C : ℝ, 0 < Y ∧ 0 ≤ C ∧
+        ∀ z : ℂ, Y ≤ z.im → F z ≠ 0 ∧
+          ‖deriv F z / F z -
+            2 * (Real.pi : ℂ) * Complex.I * (analyticOrderNatAt A 0 : ℂ)‖ ≤
+            C * Real.exp (-2 * Real.pi * z.im) := by
+  intro F A hF hnonzero hA hfactor
+  have hfinite := Submission.p10_17ae7b7d_cld_qexp_finite_order F A hF hnonzero hA hfactor
+  obtain ⟨r, M, hr, hM, hAdiff, hbound⟩ :=
+    Submission.p10_17ae7b7d_cld_local_logderiv_bound A hA hfinite
+  obtain ⟨Y₀, hfactor⟩ := hfactor
+  let k : ℂ := 2 * (Real.pi : ℂ) * Complex.I
+  let q : ℂ → ℂ := fun z => Complex.exp (k * z)
+  let T : ℝ := max (max 0 Y₀) (-Real.log r / (2 * Real.pi))
+  have hT0 : 0 ≤ T := le_trans (le_max_left 0 Y₀) (le_max_left _ _)
+  have hTlog : -Real.log r / (2 * Real.pi) ≤ T := le_max_right _ _
+  have hexp : Real.exp (-2 * Real.pi * T) ≤ r := by
+    rw [← Real.exp_log hr]
+    apply Real.exp_le_exp.mpr
+    have hmul := (div_le_iff₀ (by positivity : 0 < 2 * Real.pi)).mp hTlog
+    nlinarith
+  refine ⟨hfinite, T + 1, ‖k‖ * M, by linarith, mul_nonneg (norm_nonneg _) hM, ?_⟩
+  intro z hz
+  have hzT : T < z.im := by linarith
+  have hzmax : max 0 Y₀ < z.im := lt_of_le_of_lt (le_max_left _ _) hzT
+  have hqnorm : ‖q z‖ = Real.exp (-2 * Real.pi * z.im) := by
+    simpa only [Function.Periodic.qParam, Complex.ofReal_one, div_one] using
+      Function.Periodic.norm_qParam 1 z
+  have hqr : ‖q z‖ < r := by
+    rw [hqnorm]
+    apply lt_of_lt_of_le _ hexp
+    apply Real.exp_lt_exp.mpr
+    exact mul_lt_mul_of_neg_left hzT (mul_neg_of_neg_of_pos (by norm_num) Real.pi_pos)
+  obtain ⟨hAq, hestimate⟩ := hbound (q z) (Complex.exp_ne_zero _) hqr
+  have heq : F =ᶠ[nhds z] fun w => A (q w) := by
+    have hopen : IsOpen {w : ℂ | max 0 Y₀ < w.im} :=
+      isOpen_lt continuous_const Complex.continuous_im
+    filter_upwards [hopen.mem_nhds hzmax] with w hw
+    exact hfactor w (lt_of_le_of_lt (le_max_left _ _) hw)
+      (le_of_lt (lt_of_le_of_lt (le_max_right _ _) hw))
+  have hFz : F z = A (q z) := heq.self_of_nhds
+  have hqderiv : HasDerivAt q (q z * k) z := by
+    convert! ((hasDerivAt_id z).const_mul k).cexp using 1
+    simp [q]
+  have hball : q z ∈ Metric.ball (0 : ℂ) r := by
+    simpa only [Metric.mem_ball, dist_zero_right] using hqr
+  have hderiv : deriv F z = deriv A (q z) * (q z * k) :=
+    (((hAdiff.differentiableAt (Metric.isOpen_ball.mem_nhds hball)).hasDerivAt.comp z
+      hqderiv).congr_of_eventuallyEq heq).deriv
+  refine ⟨hFz ▸ hAq, ?_⟩
+  change ‖deriv F z / F z - k * (analyticOrderNatAt A 0 : ℂ)‖ ≤
+    (‖k‖ * M) * Real.exp (-2 * Real.pi * z.im)
+  rw [hderiv, hFz]
+  have hid : deriv A (q z) * (q z * k) / A (q z) -
+      k * (analyticOrderNatAt A 0 : ℂ) =
+      k * (q z * deriv A (q z) / A (q z) - (analyticOrderNatAt A 0 : ℂ)) := by ring
+  rw [hid, norm_mul, mul_assoc, ← hqnorm]
+  exact mul_le_mul_of_nonneg_left hestimate (norm_nonneg k)
