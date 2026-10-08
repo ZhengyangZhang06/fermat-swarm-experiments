@@ -47,8 +47,6 @@ theorem Submission.p05_canonical_balanced_lift_a5b449214a
   rfl
 theorem Submission.p05_di_determinant_grouplike_a5b449214a
     {k : Type*} [Field k] {H : Type*} [CommRing H] [Bialgebra k H]
-theorem Submission.p05_di_antipode_adjugate_a5b449214a
-    {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
     (n : ℕ) (c : Matrix (Fin n) (Fin n) H)
     (hΔ : ∀ i j : Fin n, Coalgebra.comul (R := k) (c i j) =
       ∑ l : Fin n, TensorProduct.tmul k (c i l) (c l j))
@@ -205,6 +203,15 @@ theorem Submission.p05_fr_coideal_ideal_dichotomy_a5b449214a
     LinearMap.congr_fun (Coalgebra.lift_lsmul_comp_counit_comp_comul
       (R := k) (A := A)) x
   exact hidx.symm.trans (hC _ (_hJ x hx))
+
+
+theorem Submission.p05_di_antipode_adjugate_a5b449214a
+    {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
+    (n : ℕ) (c : Matrix (Fin n) (Fin n) H)
+    (hΔ : ∀ i j : Fin n, Coalgebra.comul (R := k) (c i j) =
+      ∑ l : Fin n, TensorProduct.tmul k (c i l) (c l j))
+    (hε : ∀ i j : Fin n, Coalgebra.counit (R := k) (c i j) =
+      if i = j then (1 : k) else 0) :
     ∃ u : H, Matrix.det c * u = 1 ∧ ∀ i j : Fin n,
       HopfAlgebra.antipode k (c i j) = u * Matrix.adjugate c i j := by
   classical
