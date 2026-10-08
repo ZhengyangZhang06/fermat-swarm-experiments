@@ -487,3 +487,22 @@ theorem Submission.p10_17ae7b7d_cpo_analytic_order_nonzero :
     exact ENat.natCast_ne_top _
   · simp only [analyticOrderNatAt, horder, ENat.toNat_natCast]
     rfl
+
+
+theorem Submission.p10_17ae7b7d_ccf_prime_power :
+    ∀ (p a : ℕ), Nat.Prime p →
+      ModularCurve.cuspCount (p ^ a) =
+        (Finset.range (a + 1)).sum (fun j => Nat.totient (p ^ min j (a - j))) := by
+  intro p a hp
+  unfold ModularCurve.cuspCount
+  rw [Nat.sum_divisors_prime_pow hp]
+  apply Finset.sum_congr rfl
+  intro j hj
+  have hja : j ≤ a := Nat.le_of_lt_succ (Finset.mem_range.mp hj)
+  rw [Nat.pow_div hja hp.pos]
+  congr 1
+  rcases le_total j (a - j) with h | h
+  · rw [min_eq_left h]
+    exact Nat.gcd_eq_left (pow_dvd_pow p h)
+  · rw [min_eq_right h]
+    exact Nat.gcd_eq_right (pow_dvd_pow p h)
