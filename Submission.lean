@@ -467,6 +467,23 @@ theorem p07_cre_group_law_857cd4d38c :
         apply (B W' t').injective
         simp only [Equiv.apply_symm_apply, hBcomp]
         exact G.mul_natural _ _ ψ _ _ _ }
+  refine ⟨H, B, ?_, ?_, ?_, ?_, ?_⟩
+  · intro hG W t P Q
+    apply (B W t).injective
+    change B W t ((B W t).symm _) = B W t ((B W t).symm _)
+    simp only [Equiv.apply_symm_apply]
+    exact hG _ _ _
+  · intro W t P
+    rfl
+  · intro W t P Q
+    exact (B W t).apply_symm_apply _
+  · intro W t
+    exact (B W t).apply_symm_apply _
+  · intro W t P
+    exact (B W t).apply_symm_apply _
+
+end Submission
+
 namespace Submission
 
 /-- A relative group law pulls back along a ring homomorphism, with its point operations
@@ -544,8 +561,6 @@ theorem p07_cq_group_law_pullback_857cd4d38c :
   · intro hG W t P Q
     apply (B W t).injective
     change B W t ((B W t).symm _) = B W t ((B W t).symm _)
-    simp only [Equiv.apply_symm_apply]
-    exact hG _ _ _
     simpa only [Equiv.apply_symm_apply] using hG (t ≫ β) (B W t P) (B W t Q)
   · intro W t P
     rfl
