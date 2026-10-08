@@ -993,7 +993,8 @@ theorem p06_9e0f5043ff_elp_fraction_subalgebra
     algebraMap_mem' := by
       -- Constants use denominator one; Subalgebra derives zero and one membership.
       intro c
-      exact ⟨Polynomial.C c, 1, hprime.not_dvd_one, by simp⟩
+      exact ⟨Polynomial.C c, 1, hprime.not_dvd_one, by
+        simp only [Polynomial.aeval_C, map_one, div_one]⟩
     add_mem' := by
       rintro _ _ ⟨a, b, hb, rfl⟩ ⟨c, d, hd, rfl⟩
       refine ⟨a * d + b * c, b * d, hprime.not_dvd_mul hb hd, ?_⟩
