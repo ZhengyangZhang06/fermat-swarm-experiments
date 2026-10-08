@@ -1778,3 +1778,28 @@ theorem Submission.p05_pcs_patch_power_sections_a5b449214a
   have ht (i : Fin q) : π (t i m) = f i ^ N i • m :=
     LinearMap.congr_fun (_ht i) m
   simp only [ht, smul_smul, ← Finset.sum_smul, hb, one_smul, LinearMap.id_apply]
+
+
+namespace Submission
+
+theorem p05_ptm_split_of_away_splits_a5b449214a
+    {R : Type*} [CommRing R] {M : Type*} [AddCommGroup M] [Module R M]
+    (n p q : ℕ) (P : Matrix (Fin n) (Fin p) R) (π : (Fin n → R) →ₗ[R] M)
+    (_hπ : Function.Surjective π) (_hker : LinearMap.ker π = LinearMap.range P.mulVecLin)
+    (f : Fin q → R) (_hcover : Ideal.span (Set.range f) = ⊤)
+    (_hlocal : ∀ i : Fin q,
+      ∃ s : LocalizedModule (Submonoid.powers (f i)) M →ₗ[Localization.Away (f i)]
+        LocalizedModule (Submonoid.powers (f i)) (Fin n → R),
+        (LocalizedModule.map (Submonoid.powers (f i)) π).comp s = LinearMap.id) :
+    ∃ s : M →ₗ[R] (Fin n → R), π.comp s = LinearMap.id := by
+  classical
+  have hpower : ∀ i : Fin q, ∃ N : ℕ, 0 < N ∧
+      ∃ t : M →ₗ[R] (Fin n → R),
+        π.comp t = (f i) ^ N • (LinearMap.id : M →ₗ[R] M) := by
+    intro i
+    exact Submission.p05_pcs_clear_away_section_a5b449214a
+      n p P π _hπ _hker (f i) (_hlocal i)
+  choose N hN t ht using hpower
+  exact Submission.p05_pcs_patch_power_sections_a5b449214a π q f _hcover N hN t ht
+
+end Submission
