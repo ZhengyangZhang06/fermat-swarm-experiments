@@ -1,5 +1,36 @@
 # B1 controller repair handoff: residue quotient length
 
+## 2026-10-08 18:07 selected-node invocation: operator repair discovered
+
+Plan v12 requires a fresh exact selected-node comparator after the earlier
+reviewer failure. The selected proof remains unchanged, with source SHA-256
+`28e2eaad24cf4369a15b5c63345d546d35dbfd357d9bfd5dfa0e2b3ff1b7e7c8`.
+The warning-fatal exact-type diagnostic passes with only `propext`,
+`Classical.choice`, and `Quot.sound`; a separate read-only simplifier review
+found no defect or worthwhile simplification. All nine package checkouts are
+clean at their manifest pins. Three inspected library files match the pinned
+local-project snapshot, and the complete Lean diff adds only the selected theorem.
+
+New read-only evidence is available at
+`/runtime/flows/math-lean-flow-header-policy-v4/docs/frozen-header-policy.md`.
+It documents a controller-only derived-header repair and successful Problem 6
+requests under that policy. The worker-readable manifest
+`/runtime/operator-header-policy-v1/policy.json` has SHA-256
+`96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96`;
+its Problem 6 entry matches the original source commit, full contract digest,
+candidate header, and lines 9–11. This guidance cannot select verifier policy
+and does not authorize committed header edits. The original source and all
+protected artifacts remain unchanged.
+
+The unprepared warning-fatal `Submission.lean` command still fails on the three
+header commands and the inherited root placeholder. The selected-only diagnostic
+does not replace configured verification. The exact prescribed comparator is the
+next gate; its terminal result and tested SHA are recorded in
+`.humanize/rlcr/2026-10-08_18-07-45/round-0-summary.md`, together with source,
+dependency, reference, and axiom evidence. This pre-verification record does not
+claim acceptance or the resolution of B1. Independent review and publication
+remain outer-controller responsibilities.
+
 ## 2026-10-08 17:39 selected-node invocation
 
 Plan v11 again requires the exact selected-node author comparator following the
