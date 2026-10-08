@@ -1828,3 +1828,87 @@ theorem p06_9e0f5043ff_dmd_split_divisible_pivot
       simpa only [hrow 0, hB00, Matrix.of_apply] using hblock
 
 end Submission
+
+
+namespace Submission
+
+/-- Diagonalization over a DVR, with no divisibility ordering on the diagonal. -/
+theorem p06_9e0f5043ff_dlen_matrix_diagonalization
+    (A : Type*) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A]
+    (m : ℕ) (D : Matrix (Fin m) (Fin m) A) (hD : D.det ≠ 0) :
+    ∃ (P Q : Matrix (Fin m) (Fin m) A) (d : Fin m → A),
+      IsUnit P ∧ IsUnit Q ∧ (∀ i, d i ≠ 0) ∧ P * D * Q = Matrix.diagonal d := by
+  classical
+  induction m with
+  | zero =>
+      refine ⟨1, 1, Fin.elim0, isUnit_one, isUnit_one, ?_, ?_⟩
+      · intro i
+        exact Fin.elim0 i
+      · ext i
+        exact Fin.elim0 i
+  | succ m ih =>
+      -- The children select a dividing pivot and isolate its one-by-one block.
+      have hentry : ∃ ij : Fin (m + 1) × Fin (m + 1), D ij.1 ij.2 ≠ 0 := by
+        by_contra! h
+        have hz : D = 0 := by
+          ext i j
+          exact h (i, j)
+        exact hD (by simp [hz])
+      obtain ⟨⟨r, c⟩, hp, hdiv⟩ :=
+        p06_9e0f5043ff_dmd_finite_family_dividing_member A
+          (Fin (m + 1) × Fin (m + 1)) (fun ij => D ij.1 ij.2) hentry
+      obtain ⟨P₀, Q₀, C, hP₀, hQ₀, hsplit⟩ :=
+        p06_9e0f5043ff_dmd_split_divisible_pivot A m D r c
+          (fun i j => hdiv (i, j))
+      let block (a : A) (B : Matrix (Fin m) (Fin m) A) :
+          Matrix (Fin (m + 1)) (Fin (m + 1)) A :=
+        Matrix.of (fun i j =>
+          Fin.cases (Fin.cases a (fun _ => 0) j)
+            (fun i' => Fin.cases 0 (fun j' => B i' j') j) i)
+      have hdet (a : A) (B : Matrix (Fin m) (Fin m) A) :
+          (block a B).det = a * B.det := by
+        rw [Matrix.det_succ_row_zero]
+        simp [block, Fin.sum_univ_succ, Matrix.submatrix,
+          show Matrix.of (fun i j => B i j) = B from rfl]
+      have hmul (a b : A) (B E : Matrix (Fin m) (Fin m) A) :
+          block a B * block b E = block (a * b) (B * E) := by
+        ext i j
+        refine Fin.cases ?_ (fun i => ?_) i <;>
+          refine Fin.cases ?_ (fun j => ?_) j <;>
+          simp [block, Matrix.mul_apply, Fin.sum_univ_succ]
+      have hdiag (a : A) (d : Fin m → A) :
+          block a (Matrix.diagonal d) = Matrix.diagonal (Fin.cases a d) := by
+        ext i j
+        refine Fin.cases ?_ (fun i => ?_) i <;>
+          refine Fin.cases ?_ (fun j => ?_) j <;>
+          simp [block, Matrix.diagonal, eq_comm]
+      change P₀ * D * Q₀ = block (D r c) C at hsplit
+      -- Nonvanishing of the determinant passes to the remaining block.
+      have hsplit_det : (block (D r c) C).det ≠ 0 := by
+        rw [← hsplit, Matrix.det_mul, Matrix.det_mul]
+        exact mul_ne_zero
+          (mul_ne_zero ((Matrix.isUnit_iff_isUnit_det P₀).mp hP₀).ne_zero hD)
+          ((Matrix.isUnit_iff_isUnit_det Q₀).mp hQ₀).ne_zero
+      have hC : C.det ≠ 0 := by
+        intro hz
+        apply hsplit_det
+        rw [hdet, hz, mul_zero]
+      obtain ⟨P', Q', d', hP', hQ', hd', heq⟩ := ih C hC
+      have hunit (B : Matrix (Fin m) (Fin m) A) (hB : IsUnit B) :
+          IsUnit (block 1 B) := by
+        apply (Matrix.isUnit_iff_isUnit_det _).mpr
+        rw [hdet, one_mul]
+        exact (Matrix.isUnit_iff_isUnit_det B).mp hB
+      refine ⟨block 1 P' * P₀, Q₀ * block 1 Q', Fin.cases (D r c) d',
+        (hunit P' hP').mul hP₀, hQ₀.mul (hunit Q' hQ'), ?_, ?_⟩
+      · intro i
+        exact Fin.cases hp (fun j => hd' j) i
+      · calc
+          block 1 P' * P₀ * D * (Q₀ * block 1 Q') =
+              block 1 P' * (P₀ * D * Q₀) * block 1 Q' := by
+                simp only [mul_assoc]
+          _ = block 1 P' * block (D r c) C * block 1 Q' := by rw [hsplit]
+          _ = block (D r c) (P' * C * Q') := by rw [hmul, hmul, one_mul, mul_one]
+          _ = Matrix.diagonal (Fin.cases (D r c) d') := by rw [heq, hdiag]
+
+end Submission
