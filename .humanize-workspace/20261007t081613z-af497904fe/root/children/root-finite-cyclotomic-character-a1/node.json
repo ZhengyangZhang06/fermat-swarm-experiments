@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_cyclotomic_character-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "Finite cyclotomic character with finite-field control and Frobenius values",
+  "statement": "Put Ω = AlgebraicClosure ℚ and G = Autℚ(Ω). For every positive natural number N, there exist a homomorphism χ : G → (ℤ/Nℤ)ˣ and an intermediate field F of Ω/ℚ finite-dimensional over ℚ such that: agreement of σ and τ on F implies χ(σ) = χ(τ); whenever ζ ∈ Ω satisfies ζ^N = 1, σ(ζ) = ζ^a for the least nonnegative representative a of χ(σ); and, for every prime ℓ not dividing N, every valuation subring P of Ω with ℓ a nonunit, and every arithmetic Frobenius σ at P above ℓ, χ(σ) equals the unit represented by ℓ modulo N.",
+  "lean_statement": "∀ (N : ℕ) [NeZero N], ∃ (χ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) →* (ZMod N)ˣ) (F : IntermediateField ℚ (AlgebraicClosure ℚ)), FiniteDimensional ℚ F ∧ (∀ σ τ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ), (∀ x ∈ F, σ x = τ x) → χ σ = χ τ) ∧ (∀ (σ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)) (ζ : AlgebraicClosure ℚ), ζ ^ N = 1 → σ ζ = ζ ^ ((χ σ : ZMod N).val)) ∧ (∀ (ℓ : ℕ) (hℓ : ℓ.Prime) (hℓN : ¬ ℓ ∣ N) (P : ValuationSubring (AlgebraicClosure ℚ)), P.LiesOverPrime ℓ → ∀ σ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ), P.IsFrobeniusAt σ ℓ → χ σ = ZMod.unitOfCoprime ℓ ((Nat.Prime.coprime_iff_not_dvd hℓ).mpr hℓN))",
+  "lean_name": "p09_af497904fe_finite_cyclotomic_character",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-finite-cyclotomic-character-a1-a1"
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.adic_character_lift-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "Unique unit-valued lift of compatible approximate characters",
+  "statement": "Let C be a commutative ring, G a group, and J an ideal such that C is complete and separated for its J-adic filtration. Suppose a_n : G → C satisfy a_m(g)−a_n(g) ∈ J^n for n ≤ m, a_n(1)−1 ∈ J^n, and a_n(gh)−a_n(g)a_n(h) ∈ J^n for all n,g,h. There is a unique homomorphism b : G → Cˣ such that b(g)−a_n(g) ∈ J^n for all n,g.",
+  "lean_statement": "∀ {C G : Type} [CommRing C] [Group G] (J : Ideal C) [IsAdicComplete J C] (a : ℕ → G → C), (∀ (n m : ℕ), n ≤ m → ∀ g : G, a m g - a n g ∈ J ^ n) → (∀ n : ℕ, a n 1 - 1 ∈ J ^ n) → (∀ (n : ℕ) (g h : G), a n (g * h) - a n g * a n h ∈ J ^ n) → ∃! b : G →* Cˣ, ∀ (n : ℕ) (g : G), (b g : C) - a n g ∈ J ^ n",
+  "lean_name": "p09_af497904fe_adic_character_lift",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-adic-character-lift-a1-a1"
+}

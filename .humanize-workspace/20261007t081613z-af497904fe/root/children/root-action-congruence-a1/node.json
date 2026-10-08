@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.action_congruence-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "Agreement on a field implies congruent representation actions",
+  "statement": "Let C be a commutative ring, M an additive commutative group with a C-module structure, J an ideal of C, G = Autℚ(AlgebraicClosure ℚ), U : G → End_C(M) a monoid homomorphism, and F an intermediate field of AlgebraicClosure ℚ over ℚ. Suppose U(δ)y−y ∈ J • ⊤ for every y whenever δ fixes F pointwise. If σ and τ agree on F, then (U(σ)−U(τ))y ∈ J • ⊤ for every y.",
+  "lean_statement": "∀ {C M : Type} [CommRing C] [AddCommGroup M] [Module C M] (J : Ideal C) (U : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) →* Module.End C M) (F : IntermediateField ℚ (AlgebraicClosure ℚ)), (∀ δ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ, (∀ x ∈ F, δ x = x) → ∀ y : M, U δ y - y ∈ J • (⊤ : Submodule C M)) → ∀ σ τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ, (∀ x ∈ F, σ x = τ x) → ∀ y : M, (U σ - U τ) y ∈ J • (⊤ : Submodule C M)",
+  "lean_name": "p09_af497904fe_action_congruence",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-action-congruence-a1-a1"
+}

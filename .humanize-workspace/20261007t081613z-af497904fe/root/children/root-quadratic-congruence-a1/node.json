@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.quadratic_congruence-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "Quadratic endomorphism expressions preserve ideal congruence",
+  "statement": "Let C be a commutative ring, M an additive commutative group with a C-module structure, J an ideal of C, a,b,d ∈ End_C(M), and s,r,u,v ∈ C. Suppose (a−b)y ∈ J • ⊤ for every y, s−r ∈ J and u−v ∈ J. Then ((a*a−s•a+u•d)−(b*b−r•b+v•d))y ∈ J • ⊤ for every y. Multiplication is composition of endomorphisms; no commutation hypothesis on a,b,d is imposed.",
+  "lean_statement": "∀ {C M : Type} [CommRing C] [AddCommGroup M] [Module C M] (J : Ideal C) (a b d : Module.End C M) (s r u v : C), (∀ y : M, (a - b) y ∈ J • (⊤ : Submodule C M)) → s - r ∈ J → u - v ∈ J → ∀ y : M, ((a * a - s • a + u • d) - (b * b - r • b + v • d)) y ∈ J • (⊤ : Submodule C M)",
+  "lean_name": "p09_af497904fe_quadratic_congruence",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-quadratic-congruence-a1-a1"
+}
