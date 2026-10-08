@@ -40,3 +40,11 @@ Searching the required pinned project snapshot for the two missing names finds o
 The current round's generated diagnostic, source/dependency audit, exact comparator output, and final outcome are kept in `.humanize/rlcr/2026-10-08_13-03-54/`. The diagnostic omits the failing frozen context and cannot establish comparator acceptance. The exact candidate SHA and comparator outcome must be taken from the final round summary; this committed note makes no prospective success claim.
 
 Independent review, theorem-wiki publication, DAG acceptance, and solution-PR integration remain the recursive controller's responsibility.
+
+## Recheck in the 2026-10-08 14:08:23 implementation round
+
+The exact candidate was retained after a separate read-only simplifier review found no necessary correction or useful simplification. Fresh source checks confirm the exact frozen type, unchanged proof-base prefix, one added named theorem, and no prohibited proof mechanisms. The three reused source files again match both the snapshot and proof base; all nine dependencies are clean at their pinned revisions.
+
+Using `/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake`, the full warning-fatal `Submission.lean` check again exits 1 with the two missing frozen attribute names and the inherited root `sorry` reported above. An isolated diagnostic containing the unchanged selected theorem and an anonymous check against the handoff type exits 0 with warnings fatal. The theorem, bundled operator, coefficient formula, and coefficient uniqueness lemma each have exactly the transitive axiom set `propext`, `Classical.choice`, `Quot.sound`. The diagnostic omits the frozen prefix and therefore is not full-context or comparator acceptance.
+
+Current evidence is in `.humanize/rlcr/2026-10-08_14-08-23/`: `source-audit.json`, `full-warning-fatal.log`, `selected-node-diagnostic.log`, and `simplifier-review.md`. The final `round-0-summary.md` records the exact committed candidate and configured child-comparator result. No parent/sibling comparator or new helper theorem is introduced.
