@@ -3601,7 +3601,9 @@ namespace Submission
 /-- A compatible equivalence of valuation rings preserves normalized orders.
 
 Transport a unit-times-uniformizer factorization through the two compatible equivalences,
-then evaluate its normalized order in the target valuation ring. -/
+then evaluate its normalized order in the target valuation ring. The factorization and
+evaluation lemmas are `Place.exists_unit_mul_zpow` and `Place.ord_unit_smul_zpow`
+from `Definitions.Def_AlgebraicCurve_DivisorClassGroup`. -/
 theorem p06_9e0f5043ff_pae_compatible_order_invariance
     (K E L : Type*) [Field K] [Field E] [Field L] [Algebra K E] [Algebra K L]
     (e : E ≃ₐ[K] L) (v : AlgebraicCurve.Place K E) (w : AlgebraicCurve.Place K L)
