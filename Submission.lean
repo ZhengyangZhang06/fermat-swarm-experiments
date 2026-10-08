@@ -631,3 +631,45 @@ theorem f036cc6b1f_pic_translated_integrable
   exact (petersson_slash_SL 2 f g r z).symm
 
 end Submission
+theorem Submission.f036cc6b1f_pic_mec_invariant_conull_core :
+    ∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (S : Set UpperHalfPlane),
+      MeasurableSet S →
+      (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), z ∈ S) →
+      ∃ X : Set UpperHalfPlane, MeasurableSet X ∧
+        (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), z ∈ X) ∧
+        X ⊆ S ∧ (∀ (γ : Δ) (z : UpperHalfPlane),
+          (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • z ∈ X ↔ z ∈ X) := by
+  intro Δ S hS hSae
+  have : Countable (Matrix.SpecialLinearGroup (Fin 2) ℤ) :=
+    Function.Injective.countable (β := Fin 2 → Fin 2 → ℤ)
+      (f := fun g : Matrix.SpecialLinearGroup (Fin 2) ℤ => (g.1 : Fin 2 → Fin 2 → ℤ))
+      Subtype.val_injective
+  have hpres (γ : Δ) : MeasureTheory.MeasurePreserving
+      (fun z : UpperHalfPlane => (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • z)
+      MeasureTheory.volume MeasureTheory.volume := by
+    change MeasureTheory.MeasurePreserving
+      (fun z : UpperHalfPlane =>
+        Matrix.SpecialLinearGroup.mapGL ℝ (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • z)
+      MeasureTheory.volume MeasureTheory.volume
+    exact MeasureTheory.measurePreserving_smul _ _
+  let X : Set UpperHalfPlane :=
+    ⋂ γ : Δ, (fun z : UpperHalfPlane =>
+      (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • z) ⁻¹' S
+  have hstable (γ : Δ) (z : UpperHalfPlane) (hz : z ∈ X) :
+      (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • z ∈ X := by
+    refine Set.mem_iInter.mpr fun δ => ?_
+    have h := Set.mem_iInter.mp hz (δ * γ)
+    simpa only [Set.mem_preimage, Subgroup.coe_mul, mul_smul] using h
+  refine ⟨X, MeasurableSet.iInter (fun γ => hS.preimage (hpres γ).measurable),
+    ?_, ?_, ?_⟩
+  · exact (MeasureTheory.ae_all_iff.mpr fun γ =>
+      (hpres γ).quasiMeasurePreserving.ae hSae).mono fun z hz => Set.mem_iInter.mpr hz
+  · intro z hz
+    have h := Set.mem_iInter.mp hz (1 : Δ)
+    simpa only [Set.mem_preimage, Subgroup.coe_one, one_smul] using h
+  · intro γ z
+    constructor
+    · intro hz
+      simpa only [Subgroup.coe_inv, inv_smul_smul] using
+        hstable γ⁻¹ ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • z) hz
+    · exact hstable γ z
