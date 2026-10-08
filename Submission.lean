@@ -2111,6 +2111,7 @@ theorem p02_es_177ebb5a_tb_strip_coefficient_limit :
   intro n u G a C Y L ha hC hL hu hG hubound
   let D := C * (2 : ℝ) ^ n * (L + 1) ^ n
   let J := ∫ s in Set.Ioi (0 : ℝ), (1 + s) ^ n * Real.exp (-a * s)
+  let J := ∫ s in Ioi (0 : ℝ), (1 + s) ^ n * Real.exp (-a * s)
   have hD : 0 ≤ D := by dsimp [D]; positivity
   have hJ : 0 ≤ J := (p02_es_177ebb5a_scl_polynomial_exp_tail n a ha).2.1
   -- Each coefficient of the line power is a scalar polynomial in z.
