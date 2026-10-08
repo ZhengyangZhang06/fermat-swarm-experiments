@@ -9,19 +9,6 @@ import Definitions.Def_ModularForm_HeckeOperatorForms
 attribute [-instance] FLT.HyperbolicMeasure.instSMulInvariantMeasureSpecialLinearGroupFinOfNatNatIntUpperHalfPlaneVolume_definitions FLT.HyperbolicMeasure.instIsOpenPosMeasureUpperHalfPlaneVolume_definitions FLT.Gamma0FundamentalSet.instContinuousConstSMulSpecialLinearGroupFinOfNatNatIntUpperHalfPlane_definitions FLT.L2ProductionInstance.isFiniteMeasure_gamma0 FLT.L2ProductionInstance.countable_SL2Z FLT.L2ProductionInstance.countable_quotient FLT.L2ProductionInstance.nontrivial_gamma0L2
 attribute [-simp] FreyPackage.ModMCarrier.coe_rescaleLin_apply ModularForm.AtkinLehnerDatum.mk.injEq ModularForm.AtkinLehnerDatum.alGL_coe ModularForm.AtkinLehnerDatum.mk.sizeOf_spec ModularForm.AtkinLehnerDatum.sqUnitSL_coe ModularForm.AtkinLehnerDatum.det_sqUnit ModularForm.AtkinLehnerDatum.det_mat FLT.TruncatedDomainPartition.unipotentDiagonalSum_zero
 
-namespace Submission
-
-/-- Almost every modular orbit avoids the boundary of the standard fundamental domain. -/
-theorem f036cc6b1f_pc_ed_ae_orbit_interior :
-    ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
-      ∀ a : Matrix.SpecialLinearGroup (Fin 2) ℤ,
-        a • z ∈ ModularGroup.fd → a • z ∈ ModularGroup.fdo := by
-  exact (f036cc6b1f_pc_ed_aoi_null_orbit (ModularGroup.fd \ ModularGroup.fdo)
-    f036cc6b1f_pc_ed_aoi_boundary_null.1 f036cc6b1f_pc_ed_aoi_boundary_null.2).mono
-    fun _ hz a hfd => Classical.byContradiction fun hfdo => hz a ⟨hfd, hfdo⟩
-
-end Submission
-
 theorem CuspForm.span_heckeTLin_eigen_eq_top (M : ℕ) [NeZero M] :
     Submodule.span ℂ {v : CuspForm (CongruenceSubgroup.Gamma0 M) 2 |
       ∀ (ℓ : ℕ) (hℓ : ℓ.Prime) (hℓM : ¬ ℓ ∣ M), ∃ c : ℂ,
@@ -2827,6 +2814,9 @@ theorem f036cc6b1f_pc_ed_aoi_boundary_null :
       · exact Or.inr (Or.inr (by rw [abs_of_neg hn] at hr; linarith))
   rw [UpperHalfPlane.volume_eq_lintegral, Measure.restrict_eq_zero.mpr himage]
   simp
+
+end Submission
+
 namespace Submission
 
 /-- Almost every point has a modular orbit disjoint from a prescribed measurable null set. -/
@@ -2849,5 +2839,14 @@ theorem f036cc6b1f_pc_ed_aoi_null_orbit :
   exact (MeasureTheory.SMulInvariantMeasure.measure_preimage_smul
     (μ := (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane))
     (Matrix.SpecialLinearGroup.mapGL ℝ a) hs).trans hnull
+
+/-- Almost every modular orbit avoids the boundary of the standard fundamental domain. -/
+theorem f036cc6b1f_pc_ed_ae_orbit_interior :
+    ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
+      ∀ a : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+        a • z ∈ ModularGroup.fd → a • z ∈ ModularGroup.fdo := by
+  exact (f036cc6b1f_pc_ed_aoi_null_orbit (ModularGroup.fd \ ModularGroup.fdo)
+    f036cc6b1f_pc_ed_aoi_boundary_null.1 f036cc6b1f_pc_ed_aoi_boundary_null.2).mono
+    fun _ hz a hfd => Classical.byContradiction fun hfdo => hz a ⟨hfd, hfdo⟩
 
 end Submission
