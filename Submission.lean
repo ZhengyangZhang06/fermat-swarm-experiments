@@ -1375,3 +1375,70 @@ theorem Submission.f036cc6b1f_pc_hi_gpt_bezout_lift :
     fin_cases i <;> fin_cases j <;>
       simp [σ, β, Matrix.mul_apply, Fin.sum_univ_two, Matrix.SpecialLinearGroup.mapGL,
         Matrix.SpecialLinearGroup.map_apply_coe, mul_comm]
+
+
+namespace Submission
+
+theorem f036cc6b1f_pc_hi_good_prime_transversal
+    (M : ℕ) [NeZero M] (p : ℕ) (hp : p.Prime) (hpM : ¬ p ∣ M) :
+    ∃ r : Fin (p + 1) → Matrix.SpecialLinearGroup (Fin 2) ℤ,
+      (∀ i, r i ∈ CongruenceSubgroup.Gamma0 M) ∧
+      (∀ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+        γ ∈ CongruenceSubgroup.Gamma0 M →
+          ∃! i : Fin (p + 1), (p : ℤ) ∣ (γ * (r i)⁻¹) 0 1) ∧
+      (∀ i : Fin p, ModularForm.heckeMatrix p 0 *
+        Matrix.SpecialLinearGroup.mapGL ℝ (r i.castSucc) =
+          ModularForm.heckeMatrix p i.val) ∧
+      (∃ β : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+        β ∈ CongruenceSubgroup.Gamma0 M ∧
+          ModularForm.heckeMatrix p 0 *
+            Matrix.SpecialLinearGroup.mapGL ℝ (r (Fin.last p)) =
+              Matrix.SpecialLinearGroup.mapGL ℝ β * ModularForm.heckeDiagMatrix p) := by
+  obtain ⟨v, σ, β, hv, hσ, hβ, hσ00, hσ01, hσβ⟩ :=
+    f036cc6b1f_pc_hi_gpt_bezout_lift M p hp hpM
+  let t (j : ℕ) : Matrix.SpecialLinearGroup (Fin 2) ℤ :=
+    ⟨!![1, (j : ℤ); 0, 1], by simp [Matrix.det_fin_two]⟩
+  let r (i : Fin (p + 1)) : Matrix.SpecialLinearGroup (Fin 2) ℤ :=
+    if i.val < p then t i.val else σ
+  have hentry (γ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ) :
+      (γ * δ⁻¹) 0 1 = -(γ 0 0) * δ 0 1 + γ 0 1 * δ 0 0 := by
+    change ((γ : Matrix (Fin 2) (Fin 2) ℤ) *
+      ((δ⁻¹ : Matrix.SpecialLinearGroup (Fin 2) ℤ) : Matrix (Fin 2) (Fin 2) ℤ)) 0 1 = _
+    rw [Matrix.SpecialLinearGroup.coe_inv, Matrix.adjugate_fin_two]
+    simp [Matrix.mul_apply, Fin.sum_univ_two]
+  have hrentry (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (i : Fin (p + 1)) :
+      (γ * (r i)⁻¹) 0 1 =
+        if i.val < p then γ 0 1 - γ 0 0 * (i.val : ℤ)
+          else γ 0 0 * v + γ 0 1 * (p : ℤ) := by
+    rw [hentry]
+    by_cases hi : i.val < p
+    · simp [r, hi, t, sub_eq_add_neg, add_comm]
+    · simp [r, hi, hσ00, hσ01]
+  refine ⟨r, ?_, ?_, ?_, ?_⟩
+  · intro i
+    dsimp [r]
+    split_ifs with hi
+    · simp [CongruenceSubgroup.Gamma0_mem, t]
+    · exact hσ
+  · intro γ _hγ
+    have hrow : ¬ (p : ℤ) ∣ γ 0 0 ∨ ¬ (p : ℤ) ∣ γ 0 1 := by
+      by_contra! h
+      have hdet : (p : ℤ) ∣ 1 := by
+        rw [← γ.det_coe, Matrix.det_fin_two]
+        exact dvd_sub (dvd_mul_of_dvd_left h.1 _) (dvd_mul_of_dvd_left h.2 _)
+      exact hp.not_dvd_one (by exact_mod_cast hdet)
+    simpa only [hrentry] using
+      (f036cc6b1f_pc_hi_gpt_unique_projective_index p hp (γ 0 0) (γ 0 1) v hrow hv)
+  · intro i
+    have hri : r i.castSucc = t i.val := by simp [r, i.isLt]
+    rw [hri]
+    apply Matrix.GeneralLinearGroup.ext
+    intro a b
+    fin_cases a <;> fin_cases b <;>
+      simp [Units.val_mul, ModularForm.val_heckeMatrix hp.ne_zero,
+        Matrix.SpecialLinearGroup.mapGL_coe_matrix, t, Matrix.mul_apply,
+        Fin.sum_univ_two, Matrix.SpecialLinearGroup.map_apply_coe]
+  · refine ⟨β, hβ, ?_⟩
+    simpa [r] using hσβ
+
+end Submission
