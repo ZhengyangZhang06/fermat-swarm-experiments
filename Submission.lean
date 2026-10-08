@@ -731,3 +731,45 @@ theorem Submission.p10_17ae7b7d_ppr_unit_chart_equiv :
         (w : R) * 1 = v.1.2
       exact ⟨u, u.mul_inv_cancel_left _, by simpa only [mul_one] using hu⟩
   exact ⟨(Equiv.ofBijective F ⟨hinj, hsurj⟩).symm⟩
+
+theorem Submission.p10_17ae7b7d_ppr_nonunit_card :
+    ∀ (p a : ℕ), p.Prime → 0 < a →
+      Nat.card {z : ZMod (p ^ a) // ¬ IsUnit z} = p ^ (a - 1) := by
+  intro p a hp ha
+  have hpow : p ^ a = p * p ^ (a - 1) := by
+    calc
+      p ^ a = p ^ ((a - 1) + 1) := by congr 1; omega
+      _ = p * p ^ (a - 1) := by rw [pow_succ, Nat.mul_comm]
+  let : NeZero (p ^ a) := ⟨pow_ne_zero a hp.ne_zero⟩
+  have hnonunit (z : ZMod (p ^ a)) : ¬ IsUnit z ↔ p ∣ z.val := by
+    simpa only [ZMod.natCast_zmod_val, not_not] using
+      not_congr (ZMod.isUnit_natCast_iff_not_dvd_pow (a := z.val) hp ha)
+  let f : Fin (p ^ (a - 1)) → {z : ZMod (p ^ a) // ¬ IsUnit z} := fun k =>
+    ⟨((p * k.val : ℕ) : ZMod (p ^ a)), fun h =>
+      ((ZMod.isUnit_natCast_iff_not_dvd_pow hp ha).mp h) (dvd_mul_right p k.val)⟩
+  have hval (k : Fin (p ^ (a - 1))) : (f k).val.val = p * k.val := by
+    change ((p * k.val : ℕ) : ZMod (p ^ a)).val = p * k.val
+    apply ZMod.val_natCast_of_lt
+    rw [hpow]
+    exact Nat.mul_lt_mul_of_pos_left k.isLt hp.pos
+  have hinj : Function.Injective f := by
+    intro k l h
+    apply Fin.ext
+    apply Nat.eq_of_mul_eq_mul_left hp.pos
+    exact (hval k).symm.trans
+      ((congrArg (fun z : {z : ZMod (p ^ a) // ¬ IsUnit z} => z.val.val) h).trans (hval l))
+  have hsurj : Function.Surjective f := by
+    intro z
+    obtain ⟨k, hk⟩ := (hnonunit z.val).mp z.property
+    have hlt : k < p ^ (a - 1) := by
+      apply Nat.lt_of_mul_lt_mul_left
+      rw [← hk, ← hpow]
+      exact ZMod.val_lt z.val
+    refine ⟨⟨k, hlt⟩, ?_⟩
+    apply Subtype.ext
+    change ((p * k : ℕ) : ZMod (p ^ a)) = z.val
+    rw [← hk, ZMod.natCast_zmod_val]
+  calc
+    Nat.card {z : ZMod (p ^ a) // ¬ IsUnit z} = Nat.card (Fin (p ^ (a - 1))) :=
+      (Nat.card_congr (Equiv.ofBijective f ⟨hinj, hsurj⟩)).symm
+    _ = p ^ (a - 1) := Nat.card_fin _
