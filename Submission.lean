@@ -239,3 +239,65 @@ theorem Submission.p10_17ae7b7d_cld_qexp_finite_order :
     exact hhigh z hz
   exact hFz₁ (hAn.eqOn_zero_of_preconnected_of_eventuallyEq_zero
     (convex_halfSpace_im_gt 0).isPreconnected hvU hzero hz₁)
+
+theorem Submission.p10_17ae7b7d_cld_local_logderiv_bound :
+    ∀ (A : ℂ → ℂ), AnalyticAt ℂ A 0 → analyticOrderAt A 0 ≠ ⊤ →
+      ∃ r M : ℝ, 0 < r ∧ 0 ≤ M ∧
+        DifferentiableOn ℂ A (Metric.ball (0 : ℂ) r) ∧
+        ∀ q : ℂ, q ≠ 0 → ‖q‖ < r → A q ≠ 0 ∧
+          ‖q * deriv A q / A q - (analyticOrderNatAt A 0 : ℂ)‖ ≤ M * ‖q‖ := by
+  intro A hA hfinite
+  obtain ⟨B, hB, hB0, hfactor⟩ := hA.analyticOrderAt_ne_top.mp hfinite
+  let m := analyticOrderNatAt A 0
+  have hlocal : ∀ᶠ q in nhds (0 : ℂ),
+      AnalyticAt ℂ B q ∧ B q ≠ 0 ∧ A q = q ^ m * B q := by
+    filter_upwards [hB.eventually_analyticAt, hB.continuousAt.eventually_ne hB0,
+      hfactor] with q hBq hBq0 hAq
+    exact ⟨hBq, hBq0, by simpa only [sub_zero, smul_eq_mul] using hAq⟩
+  obtain ⟨ρ, hρ, hball⟩ := Metric.mem_nhds_iff.mp hlocal
+  have hdB : DifferentiableOn ℂ B (Metric.ball (0 : ℂ) ρ) := by
+    intro q hq
+    exact (hball hq).1.differentiableAt.differentiableWithinAt
+  have hG : ContinuousOn (fun q => deriv B q / B q) (Metric.ball (0 : ℂ) ρ) :=
+    ((hdB.deriv Metric.isOpen_ball).div hdB (fun q hq => (hball hq).2.1)).continuousOn
+  have hsub : Metric.closedBall (0 : ℂ) (ρ / 2) ⊆ Metric.ball (0 : ℂ) ρ :=
+    Metric.closedBall_subset_ball (by linarith)
+  obtain ⟨M, hM⟩ := (isCompact_closedBall (0 : ℂ) (ρ / 2)).exists_bound_of_continuousOn
+    (hG.mono hsub)
+  have heq : ∀ q ∈ Metric.ball (0 : ℂ) ρ,
+      A =ᶠ[nhds q] fun z => z ^ m * B z := by
+    intro q hq
+    filter_upwards [Metric.isOpen_ball.mem_nhds hq] with z hz
+    exact (hball hz).2.2
+  refine ⟨ρ / 2, max M 0, half_pos hρ, le_max_right _ _, ?_, ?_⟩
+  · intro q hq
+    have hqρ := hsub (Metric.ball_subset_closedBall hq)
+    have hprod : DifferentiableAt ℂ (fun z : ℂ => z ^ m * B z) q :=
+      (differentiableAt_id.pow m).mul (hball hqρ).1.differentiableAt
+    exact (hprod.congr_of_eventuallyEq (heq q hqρ)).differentiableWithinAt
+  · intro q hq0 hqr
+    have hq : q ∈ Metric.closedBall (0 : ℂ) (ρ / 2) := by
+      simpa only [Metric.mem_closedBall, dist_zero_right] using hqr.le
+    have hqρ := hsub hq
+    have hBq := (hball hqρ).2.1
+    have hAq : A q ≠ 0 := by
+      rw [(hball hqρ).2.2]
+      exact mul_ne_zero (pow_ne_zero _ hq0) hBq
+    have hlog : logDeriv A q = (m : ℂ) / q + deriv B q / B q := by
+      calc
+        logDeriv A q = logDeriv (fun z => z ^ m * B z) q :=
+          (logDeriv_congr_nhds (heq q hqρ)).self_of_nhds
+        _ = logDeriv (fun z : ℂ => z ^ m) q + logDeriv B q :=
+          logDeriv_mul (f := fun z : ℂ => z ^ m) (g := B) q
+            (pow_ne_zero _ hq0) hBq (differentiableAt_id.pow m)
+            (hball hqρ).1.differentiableAt
+        _ = (m : ℂ) / q + deriv B q / B q :=
+          congrArg (fun c : ℂ => c + logDeriv B q) (logDeriv_pow q m)
+    have hid : q * deriv A q / A q - (m : ℂ) = q * (deriv B q / B q) := by
+      rw [mul_div_assoc, ← logDeriv_apply, hlog, mul_add,
+        mul_div_cancel₀ _ hq0]
+      ring
+    refine ⟨hAq, ?_⟩
+    change ‖q * deriv A q / A q - (m : ℂ)‖ ≤ max M 0 * ‖q‖
+    rw [hid, norm_mul, mul_comm (max M 0)]
+    exact mul_le_mul_of_nonneg_left ((hM q hq).trans (le_max_left _ _)) (norm_nonneg q)
