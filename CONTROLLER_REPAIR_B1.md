@@ -1,5 +1,32 @@
 # B1 controller repair handoff: residue quotient length
 
+## 2026-10-08 12:42 selected-node revalidation
+
+The new invocation at `.humanize/rlcr/2026-10-08_12-42-42` starts from
+`0b4a99859665d9644fcfc590fce6a24232a9498c` and explicitly requests a fresh
+selected-node comparator run. The existing selected proof remains unchanged.
+
+- Actual `Submission.lean`, checked with pinned Lean 4.33.1 and
+  `-DwarningAsError=true`, exits 1 on the same three frozen attribute targets
+  and the inherited root placeholder. The selected theorem has no reported error.
+- A diagnostic extract checks the candidate against the exact proposition read
+  independently from `parent-child-handoff.json`. It exits zero with warnings
+  fatal and reports only `propext`, `Classical.choice`, and `Quot.sound`.
+  This extract omits the broken preamble and is not authoritative acceptance.
+- All nine dependencies are clean at their manifest revisions. Normalization,
+  canonical residue-action, and module-length source files match the pinned
+  local-project snapshot byte for byte. The complete source diff preserves the
+  frozen prefix and adds only this node's theorem with local proof steps.
+- The separate read-only simplifier review recommends retaining the proof;
+  no material simplification or selected-theorem defect was found.
+
+The local round directory retains the initialized tracker and contract, complete
+diffs, `source-audit.json`, the exact-type diagnostic and compiler logs, and
+simplification review. Its `round-0-summary.md` records the subsequent committed
+candidate and comparator result. Humanize records remain ignored as configured.
+This evidence commit does not resolve B1 or claim proof acceptance. No frozen
+context, dependency, accepted proof handoff, DAG, or loop state is changed.
+
 ## 2026-10-08 11:49 selected-node revalidation
 
 The implementation invocation at `.humanize/rlcr/2026-10-08_11-49-07`
