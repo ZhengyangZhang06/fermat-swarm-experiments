@@ -15,3 +15,33 @@ theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field
     [Algebra K F] (x : F) (hx : Transcendental K x)
     [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
   sorry
+
+namespace Submission
+
+/-- A finite family in a DVR with a nonzero entry has a nonzero member dividing every entry.
+Choose a member of minimum uniformizer exponent among the nonzero entries. Unit factors
+do not affect divisibility, and the minimum power divides every other power. -/
+theorem p06_9e0f5043ff_dmd_finite_family_dividing_member
+    (A : Type*) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A]
+    (ι : Type*) [Fintype ι] (a : ι → A) (ha : ∃ i, a i ≠ 0) :
+    ∃ i, a i ≠ 0 ∧ ∀ j, a i ∣ a j := by
+  classical
+  obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible A
+  let S := {i : ι // a i ≠ 0}
+  have hfactor : ∀ i : S, ∃ (n : ℕ) (u : Aˣ), a i = u * π ^ n :=
+    fun i => IsDiscreteValuationRing.eq_unit_mul_pow_irreducible i.property hπ
+  choose e u he using hfactor
+  have hS : (Finset.univ : Finset S).Nonempty := by
+    obtain ⟨i, hi⟩ := ha
+    exact ⟨⟨i, hi⟩, Finset.mem_univ _⟩
+  -- Minimize the uniformizer exponent among the nonzero entries.
+  obtain ⟨i, _, hmin⟩ := Finset.exists_min_image Finset.univ e hS
+  refine ⟨i.val, i.property, ?_⟩
+  intro j
+  by_cases hj : a j = 0
+  · rw [hj]
+    exact dvd_zero _
+  · rw [he i, he ⟨j, hj⟩, Units.mul_left_dvd, Units.dvd_mul_left]
+    exact pow_dvd_pow π (hmin ⟨j, hj⟩ (Finset.mem_univ _))
+
+end Submission
