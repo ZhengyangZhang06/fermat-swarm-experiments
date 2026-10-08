@@ -2407,6 +2407,9 @@ theorem p06_9e0f5043ff_dlen_matrix_diagonalization
           _ = block 1 P' * block (D r c) C * block 1 Q' := by rw [hsplit]
           _ = block (D r c) (P' * C * Q') := by rw [hmul, hmul, one_mul, mul_one]
           _ = Matrix.diagonal (Fin.cases (D r c) d') := by rw [heq, hdiag]
+
+end Submission
+
 namespace Submission
 
 /-- Left and right multiplication by unit matrices preserve the cokernel up to linear equivalence. -/
