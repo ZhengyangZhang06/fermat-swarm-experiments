@@ -2529,3 +2529,28 @@ theorem Submission.p02_es_177ebb5a_hi_prescribed_coefficients :
       have hdegree : d.degree = n := h ▸ he r
       simpa only [Finsupp.degree_eq_sum, Fin.sum_univ_two] using hdegree
     simp [hrd]
+theorem Submission.p02_es_177ebb5a_hi_linepow_coefficients :
+    ∀ (n : ℕ) (z : ℂ) (d : Fin 2 →₀ ℕ),
+      MvPolynomial.coeff d (HeckeEis.linePow n z).val =
+        if d 0 + d 1 = n then (Nat.choose n (d 0) : ℂ) * z ^ (d 0) else 0 := by
+  classical
+  intro n z d
+  have hsum : d.sum (fun _ m ↦ m) = d 0 + d 1 := by
+    simp [Finsupp.sum_of_support_subset d (Finset.subset_univ d.support)]
+  have hprod : d.prod (fun j m ↦ (if j = 0 then z else (1 : ℂ)) ^ m) =
+      z ^ d 0 := by
+    rw [d.prod_fintype _ (by simp)]
+    simp
+  have hmulti : d.multinomial = (d 0 + d 1).choose (d 0) := by
+    rw [Finsupp.multinomial_eq_of_support_subset (Finset.subset_univ d.support),
+      Finset.univ_fin2, Nat.binomial_eq_choose Fin.zero_ne_one]
+  have h := MvPolynomial.coeff_linearCombination_X_pow_of_fintype
+    (fun j : Fin 2 ↦ if j = 0 then z else (1 : ℂ)) d n
+  simp only [Fin.sum_univ_two, Fin.isValue, ite_true, one_ne_zero, ite_false,
+    MvPolynomial.smul_eq_C_mul, map_one, one_mul] at h
+  change MvPolynomial.coeff d
+    ((MvPolynomial.C z * MvPolynomial.X 0 + MvPolynomial.X 1) ^ n) = _
+  rw [h, hsum, hprod, hmulti]
+  split_ifs with hd
+  · rw [hd]
+  · rfl
