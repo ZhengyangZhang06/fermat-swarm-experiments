@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "043cd4252d6ba6c6870749aedbc587f79840da60450e34013aee8475c9746bd4",
+  "git_delta": {
+    "base_commit": "053d6edb8e1246d6c8b75a1f70dd59c0b91cb51c",
+    "candidate_commit": "50338d3ca41268311306e9815fe3927dfe07e350",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_cld_qexp_finite_order",
+    "diff_sha256": "fd3eae73f613877d2ab9450a4d13c8282af832117aba2625e74cb820ff2041c5",
+    "source_sha256": "54340576a4ad7a2a1287445bf9da41b65cb7c28057c3ae7f31158b88a1f7bef1",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_cld_qexp_finite_order",
+      "statement": "∀ (F A : ℂ → ℂ), DifferentiableOn ℂ F {z : ℂ | 0 < z.im} → (∃ z : ℂ, 0 < z.im ∧ F z ≠ 0) → AnalyticAt ℂ A 0 → (∃ Y₀ : ℝ, ∀ z : ℂ, 0 < z.im → Y₀ ≤ z.im → F z = A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z))) → analyticOrderAt A 0 ≠ ⊤",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
