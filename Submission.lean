@@ -2337,3 +2337,35 @@ theorem Submission.p08_7d1ff633a4_tp26_normal_level_retraction :
       group
     rw [heq]
     exact hK.conj_mem u hu (t (q g))
+theorem Submission.p08_7d1ff633a4_tp26_low_degree_prism :
+    ∀ {X V : Type} [AddCommGroup V] (α β : X → X),
+      (∀ F : X → X → V,
+        (∀ x y z : X, F y z - F x z + F x y = 0) →
+        ∀ x y : X, F (β x) (β y) - F (α x) (α y) =
+          F (α y) (β y) - F (α x) (β x)) ∧
+      (∀ F : X → X → X → V,
+        (∀ w x y z : X, F x y z - F w y z + F w x z - F w x y = 0) →
+        let h : X → X → V := fun x y =>
+          F (α x) (β x) (β y) - F (α x) (α y) (β y)
+        ∀ x y z : X, F (β x) (β y) (β z) - F (α x) (α y) (α z) =
+          h y z - h x z + h x y) := by
+  intro X V _ α β
+  constructor
+  · intro F hF x y
+    apply sub_eq_zero.mp
+    calc
+      _ = (F (β x) (β y) - F (α x) (β y) + F (α x) (β x)) -
+          (F (α y) (β y) - F (α x) (β y) + F (α x) (α y)) := by abel
+      _ = 0 := by simp only [hF, sub_self]
+  · intro F hF
+    dsimp only
+    intro x y z
+    apply sub_eq_zero.mp
+    calc
+      _ = (F (β x) (β y) (β z) - F (α x) (β y) (β z) +
+            F (α x) (β x) (β z) - F (α x) (β x) (β y)) -
+          (F (α y) (β y) (β z) - F (α x) (β y) (β z) +
+            F (α x) (α y) (β z) - F (α x) (α y) (β y)) +
+          (F (α y) (α z) (β z) - F (α x) (α z) (β z) +
+            F (α x) (α y) (β z) - F (α x) (α y) (α z)) := by abel
+      _ = 0 := by simp only [hF, sub_self, add_zero]
