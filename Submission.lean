@@ -475,3 +475,85 @@ theorem Submission.p05_fhess_tensor_independent_right_a5b449214a
         Finset.sum_comm
       _ = ∑ i, TensorProduct.tmul k (∑ j, c.repr (b' j) i • a j) (c i : N) := by
         simp only [TensorProduct.sum_tmul]
+
+theorem Submission.p05_hte_sshs_br_coalgebra_laws_a5b449214a
+    {k : Type*} [Field k] {C : Type*} [AddCommGroup C] [Module k C] [Coalgebra k C]
+    {V : Type*} [AddCommGroup V] [Module k V]
+    (i : V →ₗ[k] C) (_hi : Function.Injective i)
+    (δ : V →ₗ[k] TensorProduct k V V) (ε : V →ₗ[k] k)
+    (_hδ : ∀ v : V, TensorProduct.map i i (δ v) = Coalgebra.comul (R := k) (i v))
+    (_hε : ∀ v : V, ε v = Coalgebra.counit (R := k) (i v)) :
+    (∀ v : V, TensorProduct.assoc k V V V
+      (TensorProduct.map δ (LinearMap.id : V →ₗ[k] V) (δ v)) =
+      TensorProduct.map (LinearMap.id : V →ₗ[k] V) δ (δ v)) ∧
+    (∀ v : V, TensorProduct.map ε (LinearMap.id : V →ₗ[k] V) (δ v) =
+      TensorProduct.tmul k (1 : k) v) ∧
+    (∀ v : V, TensorProduct.map (LinearMap.id : V →ₗ[k] V) ε (δ v) =
+      TensorProduct.tmul k v (1 : k)) := by
+  obtain ⟨r, hr⟩ := i.exists_leftInverse_of_injective (LinearMap.ker_eq_bot.mpr _hi)
+  have hJ : Function.Injective (TensorProduct.map i (TensorProduct.map i i)) := by
+    apply Function.LeftInverse.injective
+      (g := TensorProduct.map r (TensorProduct.map r r))
+    intro t
+    simp only [TensorProduct.map_map, ← TensorProduct.map_comp, hr,
+      TensorProduct.map_id, LinearMap.id_apply]
+  have hL : Function.Injective (TensorProduct.map (LinearMap.id : k →ₗ[k] k) i) := by
+    apply Function.LeftInverse.injective
+      (g := TensorProduct.map (LinearMap.id : k →ₗ[k] k) r)
+    intro t
+    simp only [TensorProduct.map_map, hr, LinearMap.id_comp,
+      TensorProduct.map_id, LinearMap.id_apply]
+  have hR : Function.Injective (TensorProduct.map i (LinearMap.id : k →ₗ[k] k)) := by
+    apply Function.LeftInverse.injective
+      (g := TensorProduct.map r (LinearMap.id : k →ₗ[k] k))
+    intro t
+    simp only [TensorProduct.map_map, hr, LinearMap.id_comp,
+      TensorProduct.map_id, LinearMap.id_apply]
+  have hδcomp : (TensorProduct.map i i).comp δ =
+      (Coalgebra.comul (R := k)).comp i := LinearMap.ext _hδ
+  have hεcomp : ε = (Coalgebra.counit (R := k)).comp i := LinearMap.ext _hε
+  refine ⟨?_, ?_, ?_⟩
+  · intro v
+    apply hJ
+    calc
+      TensorProduct.map i (TensorProduct.map i i)
+          (TensorProduct.assoc k V V V
+            (TensorProduct.map δ (LinearMap.id : V →ₗ[k] V) (δ v))) =
+          TensorProduct.assoc k C C C
+            (TensorProduct.map (Coalgebra.comul (R := k)) (LinearMap.id : C →ₗ[k] C)
+              (TensorProduct.map i i (δ v))) := by
+        rw [TensorProduct.map_map_assoc]
+        simp only [TensorProduct.map_map, hδcomp, LinearMap.comp_id, LinearMap.id_comp]
+      _ = TensorProduct.map (LinearMap.id : C →ₗ[k] C) (Coalgebra.comul (R := k))
+          (TensorProduct.map i i (δ v)) := by
+        rw [_hδ]
+        exact Coalgebra.coassoc_apply (R := k) (i v)
+      _ = TensorProduct.map i (TensorProduct.map i i)
+          (TensorProduct.map (LinearMap.id : V →ₗ[k] V) δ (δ v)) := by
+        simp only [TensorProduct.map_map, hδcomp, LinearMap.comp_id, LinearMap.id_comp]
+  · intro v
+    apply hL
+    calc
+      TensorProduct.map (LinearMap.id : k →ₗ[k] k) i
+          (TensorProduct.map ε (LinearMap.id : V →ₗ[k] V) (δ v)) =
+          TensorProduct.map (Coalgebra.counit (R := k)) (LinearMap.id : C →ₗ[k] C)
+            (TensorProduct.map i i (δ v)) := by
+        simp only [TensorProduct.map_map, hεcomp, LinearMap.comp_id, LinearMap.id_comp]
+      _ = TensorProduct.map (LinearMap.id : k →ₗ[k] k) i
+          (TensorProduct.tmul k (1 : k) v) := by
+        rw [_hδ]
+        simpa only [LinearMap.rTensor, TensorProduct.map_tmul, LinearMap.id_apply] using
+          Coalgebra.rTensor_counit_comul (R := k) (i v)
+  · intro v
+    apply hR
+    calc
+      TensorProduct.map i (LinearMap.id : k →ₗ[k] k)
+          (TensorProduct.map (LinearMap.id : V →ₗ[k] V) ε (δ v)) =
+          TensorProduct.map (LinearMap.id : C →ₗ[k] C) (Coalgebra.counit (R := k))
+            (TensorProduct.map i i (δ v)) := by
+        simp only [TensorProduct.map_map, hεcomp, LinearMap.comp_id, LinearMap.id_comp]
+      _ = TensorProduct.map i (LinearMap.id : k →ₗ[k] k)
+          (TensorProduct.tmul k v (1 : k)) := by
+        rw [_hδ]
+        simpa only [LinearMap.lTensor, TensorProduct.map_tmul, LinearMap.id_apply] using
+          Coalgebra.lTensor_counit_comul (R := k) (i v)
