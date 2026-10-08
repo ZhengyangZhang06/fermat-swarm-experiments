@@ -3594,3 +3594,58 @@ theorem p06_9e0f5043ff_llm_localized_series_sum
   simpa only [htop, hzero, zero_add] using h
 
 end Submission
+
+
+namespace Submission
+
+/-- Localizing the given composition factors counts exactly the factors at `q`. -/
+theorem p06_9e0f5043ff_wll_local_length_multiplicity
+    (B : Type*) [CommRing B] [IsDedekindDomain B] (b : B)
+    (s : CompositionSeries (Submodule B (B ⧸ Ideal.span ({b} : Set B))))
+    (p : Fin s.length → IsDedekindDomain.HeightOneSpectrum B)
+    (hhead : s.head = ⊥) (hlast : s.last = ⊤)
+    (hfactors : ∀ i : Fin s.length,
+      Nonempty ((↥(s i.succ) ⧸ (s i.castSucc).comap (s i.succ).subtype) ≃ₗ[B]
+        (B ⧸ (p i).asIdeal)))
+    (q : IsDedekindDomain.HeightOneSpectrum B) :
+    Module.length (Localization.AtPrime q.asIdeal)
+      (Localization.AtPrime q.asIdeal ⧸ Ideal.span
+        ({algebraMap B (Localization.AtPrime q.asIdeal) b} :
+          Set (Localization.AtPrime q.asIdeal))) =
+      (Nat.card {i : Fin s.length // p i = q} : ℕ∞) := by
+  classical
+  let T := q.asIdeal.primeCompl
+  let R := Localization.AtPrime q.asIdeal
+  let I : Ideal B := Ideal.span ({b} : Set B)
+  let f : B →ₗ[B] R := Algebra.linearMap B R
+  -- The canonical localized quotient is the quotient by the image of `b`.
+  have hI : I.localized' R T f = Ideal.span ({algebraMap B R b} : Set R) := by
+    simpa only [I, Ideal.span, f, Set.image_singleton, Algebra.linearMap_apply] using
+      (Submodule.localized'_span R T f ({b} : Set B))
+  let e := (IsLocalizedModule.linearEquiv T (I.toLocalizedQuotient' R T f)
+    (LocalizedModule.mkLinearMap T (B ⧸ I))).extendScalarsOfIsLocalization T R
+  have hquot : Module.length R (R ⧸ Ideal.span ({algebraMap B R b} : Set R)) =
+      Module.length R (LocalizedModule T (B ⧸ I)) := by
+    rw [← hI]
+    exact e.length_eq
+  calc
+    Module.length R (R ⧸ Ideal.span ({algebraMap B R b} : Set R)) =
+        Module.length R (LocalizedModule T (B ⧸ I)) := hquot
+    _ = ∑ i : Fin s.length, Module.length R
+        (LocalizedModule T (↥(s i.succ) ⧸ (s i.castSucc).comap (s i.succ).subtype)) :=
+      p06_9e0f5043ff_llm_localized_series_sum B (B ⧸ I) T s hhead hlast
+    _ = ∑ i : Fin s.length, (if p i = q then (1 : ℕ∞) else 0) := by
+      apply Finset.sum_congr rfl
+      intro i _
+      let ei := IsLocalizedModule.mapEquiv T (LocalizedModule.mkLinearMap T _)
+        (LocalizedModule.mkLinearMap T _) R (hfactors i).some
+      rw [ei.length_eq]
+      by_cases hi : p i = q
+      · have := (p06_9e0f5043ff_llm_localized_residue_factors B (p i) q).1 hi
+        simp only [if_pos hi, Module.length_eq_one]
+      · have := (p06_9e0f5043ff_llm_localized_residue_factors B (p i) q).2 hi
+        simp only [if_neg hi, Module.length_eq_zero]
+    _ = (Nat.card {i : Fin s.length // p i = q} : ℕ∞) := by
+      simp [Nat.card_eq_fintype_card, Fintype.card_subtype]
+
+end Submission
