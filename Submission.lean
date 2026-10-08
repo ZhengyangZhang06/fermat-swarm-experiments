@@ -2533,3 +2533,77 @@ theorem Submission.p05_pie_successive_minor_containment_a5b449214a
   apply Ideal.mul_mem_left
   exact Ideal.subset_span
     ⟨(Fin.succEmb d).trans rows, j.succAboveEmb.trans cols, rfl⟩
+
+
+theorem Submission.p05_pie_identity_block_stabilization_a5b449214a
+    {R : Type*} [CommRing R] (n p t r : ℕ) (P : Matrix (Fin n) (Fin p) R) :
+    (Ideal.span {x : R |
+      ∃ (rows : Fin (n + t - r) ↪ (Fin n ⊕ Fin t))
+        (cols : Fin (n + t - r) ↪ (Fin p ⊕ Fin t)),
+        x = Matrix.det
+          ((Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R)).submatrix rows cols)}) =
+    Ideal.span {x : R | ∃ (rows : Fin (n - r) ↪ Fin n) (cols : Fin (n - r) ↪ Fin p),
+      x = Matrix.det (P.submatrix rows cols)} := by
+  classical
+  let D (a : ℕ) : Ideal R := Ideal.span
+    {x : R | ∃ (rows : Fin a ↪ Fin n) (cols : Fin a ↪ Fin p),
+      x = Matrix.det (P.submatrix rows cols)}
+  let E := Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R)
+  let J : Ideal R := Ideal.span
+    {x : R | ∃ (rows : Fin (n + t - r) ↪ (Fin n ⊕ Fin t))
+      (cols : Fin (n + t - r) ↪ (Fin p ⊕ Fin t)),
+      x = Matrix.det (E.submatrix rows cols)}
+  change J = D (n - r)
+  by_cases hnr : n ≤ r
+  · have hd : n + t - r ≤ t := by omega
+    let e := Fin.castLEEmb hd
+    let rows : Fin (n + t - r) ↪ (Fin n ⊕ Fin t) := e.trans Function.Embedding.inr
+    let cols : Fin (n + t - r) ↪ (Fin p ⊕ Fin t) := e.trans Function.Embedding.inr
+    have hmatrix : E.submatrix rows cols = (1 : Matrix (Fin (n + t - r)) _ R) := by
+      ext i j
+      change (1 : Matrix (Fin t) (Fin t) R) (e i) (e j) =
+        (1 : Matrix (Fin (n + t - r)) _ R) i j
+      simp only [Matrix.one_apply, e.injective.eq_iff]
+    have hJ : J = ⊤ := by
+      apply (Ideal.eq_top_iff_one J).mpr
+      exact Ideal.subset_span ⟨rows, cols, by rw [hmatrix, Matrix.det_one]⟩
+    have hD : D (n - r) = ⊤ := by
+      rw [Nat.sub_eq_zero_of_le hnr]
+      apply (Ideal.eq_top_iff_one (D 0)).mpr
+      exact Ideal.subset_span
+        ⟨Function.Embedding.ofIsEmpty, Function.Embedding.ofIsEmpty, Matrix.det_isEmpty.symm⟩
+    exact hJ.trans hD.symm
+  · have hd : n + t - r = (n - r) + t := by omega
+    have hdesc {a b : ℕ} (hab : a ≤ b) : D b ≤ D a := by
+      induction hab with
+      | refl => exact le_rfl
+      | @step b _ ih =>
+        exact le_trans (Submission.p05_pie_successive_minor_containment_a5b449214a P b) ih
+    apply le_antisymm
+    · apply Ideal.span_le.mpr
+      rintro x ⟨rows, cols, rfl⟩
+      rcases Submission.p05_ibs_reduce_minor_a5b449214a n p t (n + t - r) P rows cols with
+        hz | ⟨l, hlt, _, rows', cols', hminor⟩
+      · change Matrix.det (E.submatrix rows cols) = 0 at hz
+        rw [hz]
+        exact Ideal.zero_mem _
+      · have hsize : n - r ≤ n + t - r - l := by omega
+        have hmem : Matrix.det (P.submatrix rows' cols') ∈ D (n - r) :=
+          hdesc hsize (Ideal.subset_span ⟨rows', cols', rfl⟩)
+        rcases hminor with hminor | hminor
+        · change Matrix.det (E.submatrix rows cols) = _ at hminor
+          rw [hminor]
+          exact hmem
+        · change Matrix.det (E.submatrix rows cols) = _ at hminor
+          rw [hminor]
+          exact (D (n - r)).neg_mem hmem
+    · apply Ideal.span_le.mpr
+      rintro x ⟨rows, cols, rfl⟩
+      obtain ⟨rows', cols', hminor⟩ :=
+        Submission.p05_ibs_extend_minor_a5b449214a n p t (n - r) P rows cols
+      change Matrix.det (P.submatrix rows cols) ∈ Ideal.span
+        {x : R | ∃ (rows : Fin (n + t - r) ↪ (Fin n ⊕ Fin t))
+          (cols : Fin (n + t - r) ↪ (Fin p ⊕ Fin t)),
+          x = Matrix.det (E.submatrix rows cols)}
+      rw [hd]
+      exact Ideal.subset_span ⟨rows', cols', hminor.symm⟩
