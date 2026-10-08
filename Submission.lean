@@ -2794,3 +2794,250 @@ theorem Submission.p02_es_177ebb5a_ssl_segment_estimates :
           (by simpa using hs'.1.le) (by simpa using hs'.2.trans hxL)
           (by simpa using hy))
       _ = x * w y := by rw [sub_zero, abs_of_nonneg hx, mul_comm]
+      R.val.support.card ≤ (Finset.range (n + 1)).card := by
+        apply Finset.card_le_card_of_injOn (fun d : Fin 2 →₀ ℕ => d 1)
+        · intro d hd
+          have := hdeg d hd
+          exact Finset.mem_range.mpr (by change d 1 < n + 1; omega)
+        · intro d hd e he hde
+          change d 1 = e 1 at hde
+          have hddeg := hdeg d hd
+          have hedeg := hdeg e he
+          ext j
+          fin_cases j
+          · change d 0 = e 0
+            omega
+          · exact hde
+      _ = n + 1 := Finset.card_range _
+  have hterm (d : Fin 2 →₀ ℕ) (hd : d ∈ R.val.support) :
+      ‖MvPolynomial.coeff d R.val * (-z) ^ d 1‖ ≤ b * (max 1 ‖z‖) ^ n := by
+    have hpow : ‖z‖ ^ d 1 ≤ (max 1 ‖z‖) ^ n := by
+      calc
+        ‖z‖ ^ d 1 ≤ (max 1 ‖z‖) ^ d 1 :=
+          pow_le_pow_left₀ (norm_nonneg _) (le_max_right _ _) _
+        _ ≤ (max 1 ‖z‖) ^ n :=
+          pow_le_pow_right₀ (le_max_left _ _) (by have := hdeg d hd; omega)
+    simpa only [norm_mul, norm_pow, norm_neg] using
+      mul_le_mul (hcoeff d) hpow (pow_nonneg (norm_nonneg _) _) hb
+  rw [MvPolynomial.eval_eq']
+  simp only [Fin.prod_univ_two, Fin.isValue, ite_true, one_pow, one_ne_zero,
+    ite_false, one_mul]
+  calc
+    ‖∑ d ∈ R.val.support, MvPolynomial.coeff d R.val * (-z) ^ d 1‖ ≤
+        ∑ d ∈ R.val.support, ‖MvPolynomial.coeff d R.val * (-z) ^ d 1‖ :=
+      norm_sum_le _ _
+    _ ≤ ∑ _d ∈ R.val.support, b * (max 1 ‖z‖) ^ n := Finset.sum_le_sum hterm
+    _ = (R.val.support.card : ℝ) * (b * (max 1 ‖z‖) ^ n) := by
+      simp only [Finset.sum_const, nsmul_eq_mul]
+    _ ≤ ((n + 1 : ℕ) : ℝ) * (b * (max 1 ‖z‖) ^ n) :=
+      mul_le_mul_of_nonneg_right (by exact_mod_cast hcard)
+        (mul_nonneg hb (pow_nonneg (le_trans (norm_nonneg _) (le_max_right _ _)) _))
+    _ = ((n + 1 : ℕ) : ℝ) * (max 1 ‖z‖) ^ n * b := by ring
+
+/-- A uniform coefficient bound for the homogeneous power `(z * X₀ + X₁) ^ n`. -/
+theorem p02_es_177ebb5a_scl_linepow_coeff_bound :
+    ∀ (n : ℕ) (z : ℂ) (d : Fin 2 →₀ ℕ),
+      ‖MvPolynomial.coeff d (HeckeEis.linePow n z).val‖ ≤
+        (2 : ℝ) ^ n * (max 1 ‖z‖) ^ n := by
+  classical
+  intro n z d
+  have hsum : d.sum (fun _ m ↦ m) = d 0 + d 1 := by
+    simp [Finsupp.sum_of_support_subset d (Finset.subset_univ d.support)]
+  have hprod : d.prod (fun j m ↦ (if j = 0 then z else (1 : ℂ)) ^ m) =
+      z ^ d 0 := by
+    rw [d.prod_fintype _ (by simp)]
+    simp
+  have hmulti : d.multinomial = (d 0 + d 1).choose (d 0) := by
+    rw [Finsupp.multinomial_eq_of_support_subset (Finset.subset_univ d.support),
+      Finset.univ_fin2, Nat.binomial_eq_choose Fin.zero_ne_one]
+  have hcoeff : MvPolynomial.coeff d (HeckeEis.linePow n z).val =
+      if d 0 + d 1 = n then (n.choose (d 0) : ℂ) * z ^ d 0 else 0 := by
+    have h := MvPolynomial.coeff_linearCombination_X_pow_of_fintype
+      (fun j : Fin 2 ↦ if j = 0 then z else (1 : ℂ)) d n
+    simp only [Fin.sum_univ_two, Fin.isValue, ite_true, one_ne_zero, ite_false,
+      MvPolynomial.smul_eq_C_mul, map_one, one_mul] at h
+    change MvPolynomial.coeff d
+      ((MvPolynomial.C z * MvPolynomial.X 0 + MvPolynomial.X 1) ^ n) = _
+    rw [h, hsum, hprod, hmulti]
+    split_ifs with hd
+    · rw [hd]
+    · rfl
+  rw [hcoeff]
+  by_cases hd : d 0 + d 1 = n
+  · rw [if_pos hd, norm_mul, Complex.norm_natCast, norm_pow]
+    have hchoose : (n.choose (d 0) : ℝ) ≤ (2 : ℝ) ^ n := by
+      exact_mod_cast Nat.choose_le_two_pow n (d 0)
+    have hpow : ‖z‖ ^ d 0 ≤ (max 1 ‖z‖) ^ n := by
+      exact (pow_le_pow_left₀ (norm_nonneg z) (le_max_right 1 ‖z‖) (d 0)).trans
+        (pow_le_pow_right₀ (le_max_left 1 ‖z‖) (by omega))
+    exact mul_le_mul hchoose hpow (pow_nonneg (norm_nonneg z) _) (by positivity)
+  · rw [if_neg hd, norm_zero]
+    positivity
+/-- Pull back to the unit disk, apply `DifferentiableOn.isExactOn_ball` from
+`Mathlib.Analysis.Complex.HasPrimitives`, and transport the primitive back by the Cayley map. -/
+theorem p02_es_177ebb5a_primitive_exists_scalar_primitive :
+    ∀ (a : ℂ → ℂ), DifferentiableOn ℂ a {z : ℂ | 0 < z.im} →
+      ∃ A : ℂ → ℂ, ∀ z : ℂ, 0 < z.im → HasDerivAt A (a z) z := by
+  intro a ha
+  let φ := fun w : ℂ => Complex.I * (1 + w) / (1 - w)
+  let ψ := fun z : ℂ => (z - Complex.I) / (z + Complex.I)
+  obtain ⟨hφ, hψ, hφψ, _⟩ := p02_es_177ebb5a_sp_cayley_equivalence
+  obtain ⟨hdφ, hdψ, hprod⟩ := p02_es_177ebb5a_sp_cayley_derivatives
+  have hopen : IsOpen {z : ℂ | 0 < z.im} :=
+    isOpen_lt continuous_const Complex.continuous_im
+  have hb : DifferentiableOn ℂ
+      (fun w => a (φ w) * (2 * Complex.I / (1 - w) ^ 2))
+      (Metric.ball (0 : ℂ) 1) := by
+    intro w hw
+    have hw' : ‖w‖ < 1 := by simpa only [Metric.mem_ball, dist_zero_right] using hw
+    have hden : 1 - w ≠ 0 := by
+      intro h
+      have hw1 : w = 1 := (sub_eq_zero.mp h).symm
+      simp [hw1] at hw'
+    exact (((ha.differentiableAt (hopen.mem_nhds (hφ w hw'))).comp w
+      (hdφ w hw').differentiableAt).mul
+        ((differentiableAt_const (2 * Complex.I)).div
+          ((differentiableAt_id.const_sub 1).pow 2)
+          (pow_ne_zero 2 hden))).differentiableWithinAt
+  obtain ⟨B, hB⟩ := hb.isExactOn_ball
+  refine ⟨fun z => B (ψ z), ?_⟩
+  intro z hz
+  have hw : ψ z ∈ Metric.ball (0 : ℂ) 1 := by
+    simpa only [Metric.mem_ball, dist_zero_right] using hψ z hz
+  convert! (hB (ψ z) hw).comp z (hdψ z hz) using 1
+  simp only [φ, ψ, hφψ z hz, mul_assoc, hprod z hz, mul_one]
+
+/-- Expand a homogeneous binary form in the monomials with exponents `(r, n - r)`. -/
+theorem p02_es_177ebb5a_ic_lct_monomial_expansion
+    (n : ℕ) (Q : ↥(HeckeEis.BinaryForm ℂ n)) :
+    Q.val = ∑ r : Fin (n + 1),
+      MvPolynomial.coeff (Finsupp.single (0 : Fin 2) r.val +
+        Finsupp.single (1 : Fin 2) (n - r.val)) Q.val •
+      MvPolynomial.monomial (Finsupp.single (0 : Fin 2) r.val +
+        Finsupp.single (1 : Fin 2) (n - r.val)) (1 : ℂ) := by
+  classical
+  let exponent (r : Fin (n + 1)) : Fin 2 →₀ ℕ :=
+    Finsupp.single 0 r.val + Finsupp.single 1 (n - r.val)
+  have hdegree (r : Fin (n + 1)) : (exponent r).degree = n := by
+    simp only [exponent, map_add, Finsupp.degree_single]
+    exact Nat.add_sub_of_le (Nat.le_of_lt_succ r.isLt)
+  apply MvPolynomial.ext
+  intro d
+  rw [MvPolynomial.coeff_sum]
+  simp only [MvPolynomial.coeff_smul, MvPolynomial.coeff_monomial, smul_eq_mul]
+  change MvPolynomial.coeff d Q.val = ∑ r : Fin (n + 1),
+    MvPolynomial.coeff (exponent r) Q.val * (if exponent r = d then 1 else 0)
+  by_cases hd : d.degree = n
+  · have hd01 : d 0 + d 1 = n := by
+      simpa only [Finsupp.degree_eq_sum, Fin.sum_univ_two] using hd
+    let r₀ : Fin (n + 1) := ⟨d 0, by omega⟩
+    have hr₀ : exponent r₀ = d := by
+      ext i
+      fin_cases i <;> simp [exponent, r₀]
+      omega
+    rw [Finset.sum_eq_single r₀]
+    · simp [hr₀]
+    · intro r _ hne
+      have hrd : exponent r ≠ d := by
+        intro h
+        apply hne
+        apply Fin.ext
+        have h0 := congrArg (fun e : Fin 2 →₀ ℕ => e 0) h
+        simpa [exponent, r₀] using h0
+      simp [hrd]
+    · simp
+  · have hQ : MvPolynomial.coeff d Q.val = 0 :=
+      MvPolynomial.IsHomogeneous.coeff_eq_zero Q.property hd
+    rw [hQ]
+    symm
+    apply Finset.sum_eq_zero
+    intro r _
+    have hrd : exponent r ≠ d := by
+      intro h
+      exact hd (h ▸ hdegree r)
+    simp [hrd]
+
+theorem p02_es_177ebb5a_ic_lmd_scalar_pullback
+    (h : UpperHalfPlane → ℂ) (v : ℂ)
+    (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (τ : UpperHalfPlane)
+    (hh : HasDerivAt (fun z : ℂ => h (UpperHalfPlane.ofComplex z)) v
+      ((σ • τ : UpperHalfPlane) : ℂ)) :
+    HasDerivAt (fun z : ℂ => h (σ • UpperHalfPlane.ofComplex z))
+      (v / (HeckeEis.jFactor σ τ) ^ 2) (τ : ℂ) := by
+  have hdet : (Matrix.SpecialLinearGroup.mapGL ℝ σ).val.det = 1 :=
+    (Matrix.SpecialLinearGroup.map (algebraMap ℤ ℝ) σ).property
+  have hσ : HasDerivAt
+      (fun z : ℂ => ((σ • UpperHalfPlane.ofComplex z : UpperHalfPlane) : ℂ))
+      (1 / (HeckeEis.jFactor σ τ) ^ 2) (τ : ℂ) := by
+    simpa only [hdet, Complex.ofReal_one, ← HeckeEis.jFactor_eq_denom] using!
+      (UpperHalfPlane.hasStrictDerivAt_smul
+        (g := Matrix.SpecialLinearGroup.mapGL ℝ σ) (by rw [hdet]; exact zero_lt_one) τ).hasDerivAt
+  simpa only [Function.comp_def, UpperHalfPlane.ofComplex_apply, mul_one_div] using
+    hh.comp_of_eq (τ : ℂ) hσ (by simp only [UpperHalfPlane.ofComplex_apply])
+
+theorem p02_es_177ebb5a_sd_jr_linepow_eval :
+    ∀ (n r : ℕ), r ≤ n → ∀ t : ℂ,
+      MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -t)
+        ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r]
+          (HeckeEis.linePow n t).val) =
+        (if r = n then (Nat.factorial n : ℂ) else 0) := by
+  intro n r hr t
+  let L : MvPolynomial (Fin 2) ℂ := MvPolynomial.C t * MvPolynomial.X 0 +
+    MvPolynomial.X 1
+  have hD : MvPolynomial.pderiv (1 : Fin 2) L = 1 := by
+    simp [L]
+  -- Each derivative lowers the power and contributes the next descending factor.
+  have hiter (s : ℕ) (hs : s ≤ n) :
+      (fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[s]
+        (L ^ n) = MvPolynomial.C (n.descFactorial s : ℂ) * L ^ (n - s) := by
+    induction s with
+    | zero => simp
+    | succ s ih =>
+      rw [Function.iterate_succ_apply', ih (by omega), MvPolynomial.pderiv_C_mul,
+        MvPolynomial.pderiv_pow, hD, mul_one]
+      simp only [Nat.descFactorial_succ, Nat.cast_mul, map_mul, map_natCast,
+        Nat.sub_sub]
+      ac_rfl
+  have hEval : MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -t) L = 0 := by
+    simp [L]
+  change MvPolynomial.eval _
+    ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r]
+      (L ^ n)) = _
+  rw [hiter r hr, map_mul, MvPolynomial.eval_C, map_pow, hEval]
+  by_cases h : r = n
+  · subst r
+    simp [Nat.descFactorial_self]
+  · have hnr : n - r ≠ 0 := by omega
+    simp [h, zero_pow hnr]
+
+end Submission
+
+
+theorem Submission.p02_es_177ebb5a_ssl_tail_limit :
+    ∀ (f : ℝ → ℂ) (e : ℝ → ℝ) (y₀ : ℝ),
+      Filter.Tendsto e Filter.atTop (nhds (0 : ℝ)) →
+      (∀ (y t : ℝ), y₀ ≤ y → y ≤ t → ‖f t - f y‖ ≤ e y) →
+      ∃ b : ℂ, Filter.Tendsto f Filter.atTop (nhds b) ∧
+        ∀ y : ℝ, y₀ ≤ y → ‖f y - b‖ ≤ e y := by
+  intro f e y₀ he hbound
+  have hcauchy : CauchySeq f := by
+    apply Metric.cauchySeq_iff.mpr
+    intro ε hε
+    obtain ⟨T, hT⟩ := Filter.eventually_atTop.mp (he.eventually (gt_mem_nhds hε))
+    refine ⟨max y₀ T, ?_⟩
+    intro s hs t ht
+    have hsy : y₀ ≤ s := (le_max_left _ _).trans hs
+    have hty : y₀ ≤ t := (le_max_left _ _).trans ht
+    have hsT : T ≤ s := (le_max_right _ _).trans hs
+    have htT : T ≤ t := (le_max_right _ _).trans ht
+    rcases le_total s t with hst | hts
+    · rw [dist_eq_norm, norm_sub_rev]
+      exact (hbound s t hsy hst).trans_lt (hT s hsT)
+    · rw [dist_eq_norm]
+      exact (hbound t s hty hts).trans_lt (hT t htT)
+  obtain ⟨b, hb⟩ := cauchySeq_tendsto_of_complete hcauchy
+  refine ⟨b, hb, ?_⟩
+  intro y hy
+  rw [norm_sub_rev]
+  apply le_of_tendsto (hb.sub_const (f y)).norm
+  exact (Filter.eventually_ge_atTop y).mono fun t ht => hbound y t hy ht
