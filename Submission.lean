@@ -407,4 +407,106 @@ theorem p02_es_177ebb5a_pp_scaled_cusp_decay
   simpa only [ModularForm.SL_slash_apply, Real.norm_eq_abs,
     abs_of_pos (Real.exp_pos _)] using! h
 
+
+open scoped Pointwise in
+theorem p02_es_177ebb5a_pp_primitive_cusp_limit :
+    ∀ (N : ℕ) [NeZero N] (n : ℕ)
+      (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2))
+      (F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)),
+      HeckeEis.IsEichlerIntegral n (fun τ => f τ) F →
+      ∀ σ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+      ∃ A : ↥(HeckeEis.BinaryForm ℂ n), ∀ (x : ℝ) (d : Fin 2 →₀ ℕ),
+        Filter.Tendsto (fun y : ℝ => MvPolynomial.coeff d
+          (F (σ • UpperHalfPlane.ofComplex ((x : ℂ) + (y : ℂ) * Complex.I))).val)
+          Filter.atTop (nhds (MvPolynomial.coeff d A.val)) := by
+  classical
+  intro N _ n f F hF σ
+  -- Apply the pinned cusp-form estimate to the translate by σ.
+  have hdecay : ∃ a C Y : ℝ, 0 < a ∧ 0 ≤ C ∧ ∀ τ : UpperHalfPlane,
+      Y ≤ τ.im → ‖(HeckeEis.jFactor σ τ) ^ (-((n : ℤ) + 2)) * f (σ • τ)‖ ≤
+        C * Real.exp (-a * τ.im) := by
+    let Γ : Subgroup (Matrix.GeneralLinearGroup (Fin 2) ℝ) := CongruenceSubgroup.Gamma0 N
+    let g : Matrix.GeneralLinearGroup (Fin 2) ℝ := σ
+    have hg : (Matrix.SpecialLinearGroup.mapGL ℚ σ⁻¹).map (Rat.castHom ℝ) = g⁻¹ := by
+      change (Matrix.SpecialLinearGroup.mapGL ℚ σ⁻¹).map (algebraMap ℚ ℝ) = g⁻¹
+      rw [Matrix.SpecialLinearGroup.map_mapGL, map_inv]
+      rfl
+    have : (ConjAct.toConjAct g⁻¹ • Γ).IsArithmetic := by
+      rw [← hg]
+      exact Subgroup.IsArithmetic.conj Γ (Matrix.SpecialLinearGroup.mapGL ℚ σ⁻¹)
+    obtain ⟨a, ha, hbound⟩ := CuspFormClass.exp_decay_atImInfty' (CuspForm.translate f g)
+    obtain ⟨C, hC, hbound⟩ := hbound.exists_nonneg
+    obtain ⟨Y, hY⟩ := (UpperHalfPlane.atImInfty_mem _).mp hbound.bound
+    refine ⟨a, C, Y, ha, hC, ?_⟩
+    intro τ hτ
+    have h := hY τ hτ
+    change ‖((f : UpperHalfPlane → ℂ) ∣[(n : ℤ) + 2] σ) τ‖ ≤
+      C * ‖Real.exp (-a * τ.im)‖ at h
+    rw [HeckeEis.jFactor_eq_denom, mul_comm]
+    simpa only [ModularForm.SL_slash_apply, Real.norm_eq_abs,
+      abs_of_pos (Real.exp_pos _)] using! h
+  obtain ⟨a, C, Y, ha, hC, hdecay⟩ := hdecay
+  obtain ⟨K, hK, hgrowth⟩ := p02_es_177ebb5a_pcl_linear_linepow_growth n
+    (HeckeEis.binaryFormRepSL ℂ n σ)
+  let H (d : Fin 2 →₀ ℕ) (z : ℂ) :=
+    MvPolynomial.coeff d (F (σ • UpperHalfPlane.ofComplex z)).val
+  have hderiv (d : Fin 2 →₀ ℕ) (z : ℂ) (hz : 0 < z.im) :
+      HasDerivAt (H d)
+        ((HeckeEis.jFactor σ ⟨z, hz⟩) ^ (-((n : ℤ) + 2)) * f (σ • ⟨z, hz⟩) *
+          MvPolynomial.coeff d ((HeckeEis.binaryFormRepSL ℂ n σ)
+            (HeckeEis.linePow n z)).val) z :=
+    p02_es_177ebb5a_pcl_scaled_pullback_derivative n _ F hF σ d ⟨z, hz⟩
+  have hlimit (d : Fin 2 →₀ ℕ) : ∃ A : ℂ, ∀ x : ℝ,
+      Filter.Tendsto (fun y : ℝ => H d ((x : ℂ) + (y : ℂ) * Complex.I))
+        Filter.atTop (nhds A) := by
+    have hhol : DifferentiableOn ℂ (H d) {z : ℂ | 0 < z.im} :=
+      fun z hz => (hderiv d z hz).differentiableAt.differentiableWithinAt
+    refine p02_es_177ebb5a_pcl_scalar_common_ray_limit n a (H d) (deriv (H d)) ha
+      (hhol.deriv (isOpen_lt continuous_const Complex.continuous_im)).continuousOn
+      (fun z hz => (hderiv d z hz).differentiableAt.hasDerivAt) ?_
+    intro B hB
+    refine ⟨C * K * (B + 2) ^ n, max 1 Y, by positivity, le_max_left _ _, ?_⟩
+    intro z hzre hzim
+    have hz1 : 1 ≤ z.im := (le_max_left _ _).trans hzim
+    have hz : 0 < z.im := by linarith
+    have hnorm : 1 + ‖z‖ ≤ (B + 2) * (1 + z.im) := by
+      have hn := Complex.norm_le_abs_re_add_abs_im z
+      rw [abs_of_pos hz] at hn
+      nlinarith
+    have hp : (1 + ‖z‖) ^ n ≤ (B + 2) ^ n * (1 + z.im) ^ n := by
+      rw [← mul_pow]
+      exact pow_le_pow_left₀ (by positivity) hnorm n
+    rw [(hderiv d z hz).deriv, norm_mul]
+    calc
+      _ ≤ (C * Real.exp (-a * z.im)) * (K * (1 + ‖z‖) ^ n) :=
+        mul_le_mul (hdecay ⟨z, hz⟩ ((le_max_right _ _).trans hzim))
+          (hgrowth z d) (norm_nonneg _) (by positivity)
+      _ ≤ (C * Real.exp (-a * z.im)) *
+          (K * ((B + 2) ^ n * (1 + z.im) ^ n)) :=
+        mul_le_mul_of_nonneg_left (mul_le_mul_of_nonneg_left hp hK) (by positivity)
+      _ = C * K * (B + 2) ^ n * (1 + z.im) ^ n * Real.exp (-a * z.im) := by ring
+  choose A hA using hlimit
+  -- Only degree-n coefficients can be nonzero; their index set is finite.
+  let s := (Finsupp.finite_of_degree_eq (σ := Fin 2) n).toFinset
+  have hs (d : Fin 2 →₀ ℕ) : d ∈ s ↔ d.degree = n := by simp [s]
+  let P : MvPolynomial (Fin 2) ℂ := ∑ d ∈ s, MvPolynomial.monomial d (A d)
+  have hP : P.IsHomogeneous n := by
+    apply MvPolynomial.IsHomogeneous.sum
+    intro d hd
+    exact MvPolynomial.isHomogeneous_monomial _ ((hs d).mp hd)
+  refine ⟨⟨P, hP⟩, ?_⟩
+  intro x d
+  by_cases hd : d ∈ s
+  · have hc : MvPolynomial.coeff d P = A d := by
+      simp [P, MvPolynomial.coeff_sum, MvPolynomial.coeff_monomial, hd]
+    change Filter.Tendsto (fun y : ℝ => H d ((x : ℂ) + (y : ℂ) * Complex.I))
+      Filter.atTop (nhds (MvPolynomial.coeff d P))
+    rw [hc]
+    exact hA d x
+  · have hdegree : d.degree ≠ n := fun h => hd ((hs d).mpr h)
+    have hzero (τ : UpperHalfPlane) : MvPolynomial.coeff d (F τ).val = 0 :=
+      MvPolynomial.IsHomogeneous.coeff_eq_zero (F τ).property hdegree
+    simp only [hzero, MvPolynomial.IsHomogeneous.coeff_eq_zero hP hdegree]
+    exact tendsto_const_nhds
+
 end Submission
