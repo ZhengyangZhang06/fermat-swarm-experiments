@@ -3882,3 +3882,54 @@ theorem p06_9e0f5043ff_lno_integral_fiber_length
     _ = (n : ℤ) := hsum_int
 
 end Submission
+
+/-- Extend the integral norm-order identity to the fraction field of the integral closure. -/
+theorem p06_9e0f5043ff_local_norm_order
+    (K E L : Type*) [Field K] [Field E] [Field L]
+    [Algebra K E] [Algebra K L] [Algebra E L] [IsScalarTower K E L]
+    [FiniteDimensional E L] [Algebra.IsSeparable E L]
+    (v : AlgebraicCurve.Place K E) (f : L) (hf : f ≠ 0) :
+    v.ord (Algebra.norm E f) = Finset.sum (v.fiberOver L)
+      (fun w => (w.inertiaDeg E : ℤ) * w.ord f) := by
+  classical
+  let B := AlgebraicCurve.Place.integralClosureAt L v
+  have hintegral (b : B) (hb : b ≠ 0) :
+      v.ord (Algebra.norm E (algebraMap B L b)) =
+        Finset.sum (v.fiberOver L)
+          (fun w => (w.inertiaDeg E : ℤ) * w.ord (algebraMap B L b)) := by
+    obtain ⟨n, hlength, hord⟩ :=
+      p06_9e0f5043ff_lno_integral_norm_length K E L v b hb
+    exact hord.trans (p06_9e0f5043ff_lno_integral_fiber_length K E L v b hb n hlength).symm
+  obtain ⟨b, c, hc, hfrac⟩ := IsFractionRing.div_surjective B f
+  have hcL : algebraMap B L c ≠ 0 :=
+    IsFractionRing.to_map_ne_zero_of_mem_nonZeroDivisors hc
+  have hbL : algebraMap B L b ≠ 0 := by
+    intro hb0
+    apply hf
+    rw [← hfrac, hb0, zero_div]
+  have hb : b ≠ 0 := fun h => hbL (by rw [h, map_zero])
+  have hcB : c ≠ 0 := fun h => hcL (by rw [h, map_zero])
+  have hord (w : AlgebraicCurve.Place K L) :
+      w.ord (algebraMap B L b / algebraMap B L c) =
+        w.ord (algebraMap B L b) - w.ord (algebraMap B L c) := by
+    rw [div_eq_mul_inv, w.ord_mul hbL (inv_ne_zero hcL), w.ord_inv, sub_eq_add_neg]
+  calc
+    v.ord (Algebra.norm E f) =
+        v.ord (Algebra.norm E (algebraMap B L b)) -
+          v.ord (Algebra.norm E (algebraMap B L c)) := by
+      rw [← hfrac, map_div₀, div_eq_mul_inv,
+        v.ord_mul (Algebra.norm_ne_zero_iff.mpr hbL)
+          (inv_ne_zero (Algebra.norm_ne_zero_iff.mpr hcL)),
+        v.ord_inv, sub_eq_add_neg]
+    _ = Finset.sum (v.fiberOver L)
+          (fun w => (w.inertiaDeg E : ℤ) * w.ord (algebraMap B L b)) -
+        Finset.sum (v.fiberOver L)
+          (fun w => (w.inertiaDeg E : ℤ) * w.ord (algebraMap B L c)) := by
+      rw [hintegral b hb, hintegral c hcB]
+    _ = Finset.sum (v.fiberOver L) (fun w => (w.inertiaDeg E : ℤ) * w.ord f) := by
+      rw [← Finset.sum_sub_distrib]
+      apply Finset.sum_congr rfl
+      intro w _
+      rw [← hfrac, hord, mul_sub]
+
+end Submission
