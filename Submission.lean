@@ -81,3 +81,36 @@ theorem Submission.p08_7d1ff633a4_ck_uniform_stabilizer :
   have hρ : M.ρ g = LinearMap.id := b.ext fun i =>
     hfix i g (IntermediateField.fixingSubgroup_le (le_iSup F i) hg)
   exact LinearMap.congr_fun hρ m
+theorem Submission.p08_7d1ff633a4_ck_cyclotomic_kernel :
+    ∀ {p : ℕ} [Fact p.Prime],
+      ∃ F : IntermediateField ℚ (AlgebraicClosure ℚ), FiniteDimensional ℚ F ∧
+        ∀ σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ,
+          σ ∈ F.fixingSubgroup → ExtCitation.cycloChar p σ = 1 := by
+  classical
+  intro p hp
+  let : NeZero p := ⟨(Fact.out : p.Prime).ne_zero⟩
+  let R : Set (AlgebraicClosure ℚ) :=
+    Set.range (fun t : rootsOfUnity p (AlgebraicClosure ℚ) =>
+      ((t : (AlgebraicClosure ℚ)ˣ) : AlgebraicClosure ℚ))
+  have : Finite R := (Set.finite_range _).to_subtype
+  refine ⟨IntermediateField.adjoin ℚ R,
+    IntermediateField.finiteDimensional_adjoin ?_, ?_⟩
+  · rintro x ⟨t, rfl⟩
+    refine ⟨Polynomial.X ^ p - 1, ?_, ?_⟩
+    · simpa only [Polynomial.C_1] using
+        Polynomial.monic_X_pow_sub_C (1 : ℚ) (NeZero.ne p)
+    · simpa only [Polynomial.eval₂_sub, Polynomial.eval₂_pow, Polynomial.eval₂_X,
+        Polynomial.eval₂_one, sub_eq_zero] using
+        (mem_rootsOfUnity' p (t : (AlgebraicClosure ℚ)ˣ)).mp t.property
+  intro σ hσ
+  apply Units.ext
+  change (modularCyclotomicCharacter (AlgebraicClosure ℚ)
+    (ExtCitation.card_rootsOfUnity_eq_self p) σ : ZMod p) = 1
+  symm
+  apply modularCyclotomicCharacter.unique
+  intro t ht
+  change σ (t : AlgebraicClosure ℚ) = (t : AlgebraicClosure ℚ) ^ (1 : ZMod p).val
+  have htF : (t : AlgebraicClosure ℚ) ∈ IntermediateField.adjoin ℚ R :=
+    IntermediateField.subset_adjoin ℚ R ⟨⟨t, ht⟩, rfl⟩
+  simpa only [ZMod.val_one'' (Fact.out : p.Prime).ne_one, pow_one] using
+    ((IntermediateField.mem_fixingSubgroup_iff _ σ).mp hσ) (t : AlgebraicClosure ℚ) htF
