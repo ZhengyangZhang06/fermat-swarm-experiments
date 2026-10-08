@@ -2101,6 +2101,8 @@ namespace Submission
 
 set_option warningAsError true
 
+/-- In the given polynomial-fraction model of a place, a fraction is a unit exactly when
+its numerator is not divisible by the defining irreducible polynomial. -/
 theorem p06_9e0f5043ff_fno_fraction_isunit
     (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F)
     (hx : Transcendental K x) (q : Polynomial K) (_hqmonic : q.Monic)
