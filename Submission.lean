@@ -201,6 +201,7 @@ theorem Submission.p08_7d1ff633a4_ck_uniform_stabilizer :
   let b : Basis (Fin (finrank k M)) k M := Module.finBasis k M
   choose F hF hfix using fun i => h (b i)
   let : ∀ i, FiniteDimensional ℚ (F i) := hF
+  letI : ∀ i, FiniteDimensional ℚ (F i) := hF
   refine ⟨⨆ i, F i, inferInstance, ?_⟩
   intro g hg m
   have hρ : M.ρ g = LinearMap.id := b.ext fun i =>
