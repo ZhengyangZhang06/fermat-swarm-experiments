@@ -25242,3 +25242,7 @@ theorem Submission.p03_tkc_two_torsion_card_68cf3476_d5
   rw [Nat.card_congr (e₀.trans e.optionCongr)]
   change Nat.card (Option s) = 4
   rw [Nat.card_eq_fintype_card, Fintype.card_option, Fintype.card_coe, hs]
+        simpa only [mul_nsmul, hQ, nsmul_neg, neg_ne_zero] using hP
+    · refine ⟨T, ?_⟩
+      simpa only [add_nsmul, mul_nsmul, hT2, nsmul_zero, one_nsmul,
+        zero_add] using hT
