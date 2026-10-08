@@ -403,3 +403,32 @@ theorem Submission.p03_tu_euler_product_powers_68cf3476 :
   refine ⟨hm.pow k, hm.tprod_pow k, ?_⟩
   rw [hm.tprod_pow k]
   exact pow_ne_zero k hz
+
+theorem Submission.p03_eds_canonical_odd_recurrence_68cf3476_d4 :
+    ∀ (k : Type) [Field k] [CharZero k] [DecidableEq k] (W : WeierstrassCurve k),
+      let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine
+      let h := q W.ψ₂
+      let F : ℕ → W.toAffine.CoordinateRing :=
+        fun n => q (Polynomial.C (W.preΨ' n)) * (if Even n then h else 1)
+      ∀ r : ℕ, 2 ≤ r →
+        F (2 * r + 1) = F (r + 2) * F r ^ 3 - F (r - 1) * F (r + 1) ^ 3 := by
+  intro k _ _ _ W q h F r hr
+  have hs : h ^ 2 = q (Polynomial.C W.Ψ₂Sq) := CoordinateRing.mk_ψ₂_sq W
+  have hfour : h ^ 4 = q (Polynomial.C W.Ψ₂Sq) ^ 2 := by
+    rw [show 4 = 2 * 2 by rfl, pow_mul, hs]
+  obtain ⟨m, rfl⟩ : ∃ m, r = m + 2 := ⟨r - 2, by omega⟩
+  have hrec := congrArg (fun p : Polynomial k => q (Polynomial.C p)) (W.preΨ'_odd m)
+  have hsub : m + 2 - 1 = m + 1 := by omega
+  by_cases he : Even m
+  · simp only [if_pos he, map_sub, map_mul, map_pow, mul_one] at hrec
+    simp only [F, hsub, Nat.add_assoc]
+    simp [Nat.even_add, he, show Even (4 : ℕ) by decide,
+      show ¬ Even (3 : ℕ) by decide]
+    rw [hrec, ← hfour]
+    ring
+  · simp only [if_neg he, map_sub, map_mul, map_pow, mul_one] at hrec
+    simp only [F, hsub, Nat.add_assoc]
+    simp [Nat.even_add, he, show Even (4 : ℕ) by decide,
+      show ¬ Even (3 : ℕ) by decide]
+    rw [hrec, ← hfour]
+    ring
