@@ -732,50 +732,6 @@ theorem p02_es_177ebb5a_sd_jr_linepow_eval :
   · have hnr : n - r ≠ 0 := by omega
     simp [h, zero_pow hnr]
 
-theorem p02_es_177ebb5a_lcd_monomial_expansion
-    (n : ℕ) (Q : ↥(HeckeEis.BinaryForm ℂ n)) :
-    Q.val = ∑ r : Fin (n + 1),
-      MvPolynomial.coeff
-          (Finsupp.single (0 : Fin 2) r.val + Finsupp.single (1 : Fin 2) (n - r.val))
-          Q.val •
-        MvPolynomial.monomial
-          (Finsupp.single (0 : Fin 2) r.val + Finsupp.single (1 : Fin 2) (n - r.val))
-          (1 : ℂ) := by
-  classical
-  let e (r : Fin (n + 1)) : Fin 2 →₀ ℕ :=
-    Finsupp.single 0 r.val + Finsupp.single 1 (n - r.val)
-  have he (r : Fin (n + 1)) : (e r).degree = n := by
-    simp [e, Finsupp.degree_eq_sum, Fin.sum_univ_two,
-      Nat.add_sub_of_le (Nat.le_of_lt_succ r.isLt)]
-  change Q.val = ∑ r, MvPolynomial.coeff (e r) Q.val •
-    MvPolynomial.monomial (e r) (1 : ℂ)
-  apply MvPolynomial.ext
-  intro d
-  simp only [MvPolynomial.coeff_sum, MvPolynomial.coeff_smul, MvPolynomial.coeff_monomial]
-  by_cases hd : d.degree = n
-  · have hsum : d 0 + d 1 = n := by
-      simpa [Finsupp.degree_eq_sum, Fin.sum_univ_two] using hd
-    let r : Fin (n + 1) := ⟨d 0, by omega⟩
-    have hr : e r = d := by
-      ext i
-      fin_cases i <;> simp [e, r, ← hsum]
-    have huniq (s : Fin (n + 1)) (hs : e s = d) : s = r := by
-      apply Fin.ext
-      have hzero := congrArg (fun t : Fin 2 →₀ ℕ => t 0) hs
-      simpa [e, r] using hzero
-    rw [Finset.sum_eq_single r]
-    · simp [hr]
-    · intro s _ hs
-      have hne : e s ≠ d := fun h => hs (huniq s h)
-      simp [hne]
-    · simp
-  · rw [MvPolynomial.IsHomogeneous.coeff_eq_zero Q.property hd]
-    symm
-    apply Finset.sum_eq_zero
-    intro r _
-    have hne : e r ≠ d := fun h => hd (h ▸ he r)
-    simp [hne]
-
 theorem p02_es_177ebb5a_lcd_coeff_linear_combination
     (n : ℕ)
     (A : ↥(HeckeEis.BinaryForm ℂ n) →ₗ[ℂ] ↥(HeckeEis.BinaryForm ℂ n))
