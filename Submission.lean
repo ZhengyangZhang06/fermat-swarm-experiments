@@ -1916,3 +1916,27 @@ theorem Submission.p05_hte_sshs_bialgebra_restriction_a5b449214a
     rfl
   · ext d
     exact hδ d
+
+
+theorem Submission.p05_ibs_extend_minor_a5b449214a
+    {R : Type*} [CommRing R] (n p t s : ℕ) (P : Matrix (Fin n) (Fin p) R)
+    (rows : Fin s ↪ Fin n) (cols : Fin s ↪ Fin p) :
+    ∃ (rows' : Fin (s + t) ↪ (Fin n ⊕ Fin t))
+      (cols' : Fin (s + t) ↪ (Fin p ⊕ Fin t)),
+      Matrix.det ((Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R)).submatrix
+        rows' cols') = Matrix.det (P.submatrix rows cols) := by
+  classical
+  let e : Fin (s + t) ≃ (Fin s ⊕ Fin t) := finSumFinEquiv.symm
+  let r : (Fin s ⊕ Fin t) ↪ (Fin n ⊕ Fin t) :=
+    rows.sumMap (Function.Embedding.refl (Fin t))
+  let c : (Fin s ⊕ Fin t) ↪ (Fin p ⊕ Fin t) :=
+    cols.sumMap (Function.Embedding.refl (Fin t))
+  refine ⟨e.toEmbedding.trans r, e.toEmbedding.trans c, ?_⟩
+  have h : (Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R)).submatrix r c =
+      Matrix.fromBlocks (P.submatrix rows cols) 0 0 (1 : Matrix (Fin t) (Fin t) R) := by
+    ext i j
+    rcases i with i | i <;> rcases j with j | j <;> rfl
+  change Matrix.det (((Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R)).submatrix
+    r c).submatrix e e) = _
+  rw [Matrix.det_submatrix_equiv_self, h, Matrix.det_fromBlocks_zero₂₁,
+    Matrix.det_one, mul_one]
