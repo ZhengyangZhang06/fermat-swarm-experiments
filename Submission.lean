@@ -18,3 +18,42 @@ theorem Rep.isZero_tateCohomology_of_forall_sylow {k G : Type u} [CommRing k] [G
       CategoryTheory.Limits.IsZero ((Rep.res (P : Subgroup G).subtype A).tateCohomology q)) :
     CategoryTheory.Limits.IsZero (A.tateCohomology q) := by
   sorry
+
+namespace Submission
+
+/-- Coset averaging is natural in its source and acts by the subgroup index on restricted
+`G`-equivariant morphisms. -/
+theorem p04_hct139_coset_average_laws :
+    ∀ {k G : Type _} [CommRing k] [Group G] [Fintype G]
+      (A : Rep k G) (H : Subgroup G) [Fintype H] [Fintype (G ⧸ H)]
+      (C : ∀ B : Rep k G,
+        (Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) →ₗ[k] (Quiver.Hom B A)),
+      (∀ (B : Rep k G)
+        (F : Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) (x : B),
+        (C B F).hom x = ∑ q : G ⧸ H, A.ρ q.out (F.hom (B.ρ q.out⁻¹ x))) →
+      (∀ (B D : Rep k G) (f : Quiver.Hom D B)
+        (F : Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)),
+        C D (CategoryTheory.CategoryStruct.comp ((Rep.resFunctor H.subtype).map f) F) =
+          CategoryTheory.CategoryStruct.comp f (C B F)) ∧
+      (∀ (B : Rep k G) (F : Quiver.Hom B A),
+        C B ((Rep.resFunctor H.subtype).map F) = H.index • F) := by
+  classical
+  intro k G _ _ _ A H _ _ C hC
+  constructor
+  -- Naturality follows by commuting the source map through each averaging summand.
+  · intro B D f F
+    ext x
+    change (C D _).hom x = (C B F).hom (f.hom x)
+    rw [hC, hC]
+    change (∑ q : G ⧸ H, A.ρ q.out (F.hom (f.hom (D.ρ q.out⁻¹ x)))) =
+      ∑ q : G ⧸ H, A.ρ q.out (F.hom (B.ρ q.out⁻¹ (f.hom x)))
+    simp only [Rep.hom_comm_apply]
+  -- For a restricted equivariant map, each coset contributes the same value.
+  · intro B F
+    ext x
+    change (C B _).hom x = H.index • F.hom x
+    rw [hC]
+    change (∑ q : G ⧸ H, A.ρ q.out (F.hom (B.ρ q.out⁻¹ x))) = H.index • F.hom x
+    simp [Rep.hom_comm_apply, Subgroup.index_eq_card, Nat.card_eq_fintype_card]
+
+end Submission
