@@ -6,8 +6,8 @@
   ],
   "proof_base_commit": "bcd46b8accac96c56c6f3c3a4eba8516986e7d3f",
   "initial_candidate": "c544b9cd21dc4a5f1b44f7d9e7694ddfa5a87e02",
-  "implementation_change": "None: retain the existing exact-node candidate after read-only simplifier review.",
-  "submission_sha256": "400b459f4e5853500ca1d89e524d3776e681be24b05419d91eacb430ad06a739",
+  "implementation_change": "Restore the exact frozen negative-simp attribute line in Submission.lean. The theorem statement and proof are byte-identical; operator-pinned comparator policy derives the compiler copies.",
+  "submission_sha256": "4d418f13d63eabe6bfa1e641c0b7354b06bd0057589d64c5e8b5d806d772175d",
   "frozen_statement_sha256": "97343abb47baa2b7fd7d3ed6cc0d19ae0a5941cfbfdd8b2bb0dca90a8e8d4360",
   "frozen_type_matches": true,
   "source_safety_audit_passed": true,
@@ -20,7 +20,7 @@
     "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json": "5719e035ae23f5683c154f28ac6798802cfe5b0a4e0c2aff8128dcaa150abc38",
     "/runtime/flows/math-lean-flow/scripts/swarm-compare.py": "f3202ba84d3096d6e05a494f073e454e5aa82c4383a08b171832acbc28c5d9b2"
   },
-  "complete_source_diff_audit": "Reviewed the complete Lean and Python source diff from the frozen proof base. The inherited controller-only diagnostic exporter and synthetic tests are not imported, invoked, edited, or installed. Only Submission.lean differs among Lean/build inputs; this round changes no source.",
+  "complete_source_diff_audit": "Reviewed complete Lean and Python source diff from frozen proof base, plus this round repair diff. Only Submission.lean differs among Lean/build inputs; its original frozen header is now restored, and its only named theorem is the selected node. Inherited diagnostic exporter/tests are unchanged and not invoked.",
   "dependency_pins": [
     {
       "name": "mathlib",
@@ -143,7 +143,7 @@
           "finding": "Broad transfer search returned unrelated group transfer and other transfer APIs; none implements the selected Hom averaging law."
         }
       ],
-      "compatibility": "All six inspected snapshot/installed files match byte for byte; nine package checkouts are clean at their exact manifest pins. Fresh Lean and axiom checks cannot run on this worker because lake is unavailable. Prior axiom evidence is historical only."
+      "compatibility": "All six inspected snapshot/installed files match byte for byte; nine package checkouts are clean at exact pins. Restored candidate header exactly matches the original frozen source and operator policy. The policy-derived compiler source matches the historically built source byte for byte. Fresh local Lean and axiom checks remain blocked because lake is absent."
     }
   ],
   "bitlesson": {
@@ -173,9 +173,22 @@
   ],
   "historical_validation": {
     "record": "verification/p04_coset_average_laws/preflight-20261008T154644.json",
-    "submission_sha256_matches": true,
-    "scope": "Earlier warning-fatal build, exact-type elaboration, and standard-axiom report; not a fresh run or comparator acceptance."
+    "submission_sha256_matches": false,
+    "scope": "Earlier warning-fatal build, exact-type elaboration, and standard-axiom report for the policy-derived source; not fresh validation or comparator acceptance.",
+    "policy_derived_source_sha256_matches": true
   },
   "configured_comparator_status": "pending",
-  "acceptance": false
+  "acceptance": false,
+  "header_repair": {
+    "policy_path": "/runtime/operator-header-policy-v1/policy.json",
+    "policy_sha256": "96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96",
+    "contract_sha256": "42953c937798c4a4ff8c5a5266936d11cb7f7836ede7175b49e6d157bd9e9551",
+    "original_header_restored": true,
+    "theorem_and_proof_unchanged": true,
+    "policy_derived_source_sha256": "400b459f4e5853500ca1d89e524d3776e681be24b05419d91eacb430ad06a739",
+    "prior_candidate": "0be0e6ac443dff1d101a3c44ac210c2e833bbefb",
+    "prior_request_id": "c0a8b8b38fd24f69a940004eaa7a7f35",
+    "prior_returncode": 1,
+    "prior_error": "frozen header changed before derived-copy preparation: solution/Submission.lean"
+  }
 }
