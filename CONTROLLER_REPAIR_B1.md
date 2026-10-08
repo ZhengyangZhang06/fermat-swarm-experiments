@@ -1,5 +1,35 @@
 # B1 controller repair handoff: residue quotient length
 
+## 2026-10-08 13:40 selected-node audit
+
+This implementation round starts from `8fdbf66ad7c3111d6ae8ed4233fae6733a202e2a`.
+The user again requires the exact selected-node comparator. No Lean change is
+justified by the source audit or the separate read-only simplifier review.
+The existing candidate is retained without claiming acceptance.
+
+- Fresh warning-fatal checking of actual `Submission.lean` exits 1 on the
+  three unavailable frozen attribute targets and the inherited root placeholder.
+- The diagnostic extract passes with warnings fatal against the exact type from
+  `parent-child-handoff.json`. Its only transitive axioms are `propext`,
+  `Classical.choice`, and `Quot.sound`. Omitting the broken frozen prefix for
+  this diagnostic does not establish authoritative acceptance.
+- All nine dependency repositories are clean at their exact manifest revisions.
+  The normalization, canonical residue-action, and module-length sources match
+  the pinned local-project snapshot byte for byte.
+- The complete Lean diff against proof base
+  `1bf214e15ce2cd6df53d35714012c812d46f2811` preserves the frozen prefix and adds
+  only the selected declaration. Its proof has no prohibited constructs or
+  additional named helpers; its source SHA-256 remains
+  `28e2eaad24cf4369a15b5c63345d546d35dbfd357d9bfd5dfa0e2b3ff1b7e7c8`.
+
+The initialized tracker, round contract, fresh source/dependency audit, reference
+queries (including no-match results), compiler logs, simplifier review, and final
+summary are retained in `.humanize/rlcr/2026-10-08_13-40-27/`. These records remain
+ignored by repository policy. The final summary records the subsequent committed
+candidate and exact comparator outcome. No protected source, accepted proof,
+dependency pin, DAG, or loop state is changed. B1 remains unresolved until the
+authoritative build and comparator pass.
+
 ## Round 1 recovery handoff for the 2026-10-08 12:42 review
 
 The review's recovery request was delivered through the existing issue:
