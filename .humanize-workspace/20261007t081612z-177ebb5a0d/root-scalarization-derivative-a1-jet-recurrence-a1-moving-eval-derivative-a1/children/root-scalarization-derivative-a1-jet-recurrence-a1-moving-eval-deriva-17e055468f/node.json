@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.scalarization_derivative-a1.jet_recurrence-a1.moving_eval_derivative-a1.finite_jet_sum_derivative-a1",
+  "parent_id": "root.scalarization_derivative-a1.jet_recurrence-a1.moving_eval_derivative-a1",
+  "depth": 4,
+  "title": "Derivative recurrence for finite falling-factorial sums",
+  "statement": "Let n,r∈ℕ, a:Fin(n+1)→ℂ→ℂ, b:Fin(n+1)→ℂ and c,t∈ℂ. Assume that for every k∈Fin(n+1), a k has complex derivative c·b k at t. Define A(m,s)=(Nat.descFactorial m s : ℂ), with A(m,0)=1 and A(m,s+1)=A(m,s)·(m−s), using natural subtraction before casting. Then z↦Σ_k a k z·A(k.val,r)·(−z)^(k.val−r) has complex derivative c·Σ_k b k·A(k.val,r)·(−t)^(k.val−r) − Σ_k a k t·A(k.val,r+1)·(−t)^(k.val−(r+1)) at t. Every sum is over Fin(n+1), and every exponent subtraction is natural subtraction.",
+  "lean_statement": "∀ (n r : ℕ) (a : Fin (n + 1) → ℂ → ℂ) (b : Fin (n + 1) → ℂ) (c t : ℂ), (∀ k : Fin (n + 1), HasDerivAt (a k) (c * b k) t) → HasDerivAt (fun z : ℂ => ∑ k : Fin (n + 1), a k z * (Nat.descFactorial k.val r : ℂ) * (-z) ^ (k.val - r)) (c * (∑ k : Fin (n + 1), b k * (Nat.descFactorial k.val r : ℂ) * (-t) ^ (k.val - r)) - (∑ k : Fin (n + 1), a k t * (Nat.descFactorial k.val (r + 1) : ℂ) * (-t) ^ (k.val - (r + 1)))) t",
+  "lean_name": "p02_es_177ebb5a_med_sum_derivative",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1-moving-eval-deriva-17e055468f-a1"
+}

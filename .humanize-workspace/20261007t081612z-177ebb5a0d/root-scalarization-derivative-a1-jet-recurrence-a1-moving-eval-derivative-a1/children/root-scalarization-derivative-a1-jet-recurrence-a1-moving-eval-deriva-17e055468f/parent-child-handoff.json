@@ -1,0 +1,54 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "homogeneous_nilpotence|def BinaryForm|abbrev BinaryForm|theorem.*(pderiv|coeff|deriv)|lemma.*(pderiv|coeff|deriv)",
+        "coeff_pderiv|pderiv_monomial|pderiv_pow",
+        "descFactorial.*(succ|eq_zero)|descFactorial_succ|def descFactorial",
+        "support_sum_monomial_coeff|eval_monomial|def IsHomogeneous|mem_homogeneousSubmodule",
+        "theorem.*(sum|pow|mul_const)|lemma.*(sum|pow|mul_const)"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Eval.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/PDeriv.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Data/Nat/Factorial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Add.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Mul.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Pow.lean"
+      ],
+      "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. BinaryForm is the homogeneous-polynomial submodule. The snapshot supplies support_sum_monomial_coeff, eval_monomial, pderiv_monomial, the descFactorial recurrence, and finite-sum/product/power derivative rules. No homogeneous_nilpotence match was found in the pinned project. Installed mathlib is clean at the pinned revision; the inspected differentiation and factorial sources match the snapshot. Both proposed types successfully elaborated after import Submission using Lean 4.33.1. Axiom checks of support_sum_monomial_coeff, pderiv_monomial, HasDerivAt.fun_sum, HasDerivAt.mul and HasDerivAt.pow reported only propext, Classical.choice and Quot.sound; descFactorial_succ uses no axioms. These are interface and supporting-library checks, not acceptance of unimplemented child proofs."
+    }
+  ],
+  "parent_id": "root.scalarization_derivative-a1.jet_recurrence-a1.moving_eval_derivative-a1",
+  "child_id": "root.scalarization_derivative-a1.jet_recurrence-a1.moving_eval_derivative-a1.finite_jet_sum_derivative-a1",
+  "subproblem": {
+    "key": "finite_jet_sum_derivative",
+    "title": "Derivative recurrence for finite falling-factorial sums",
+    "statement": "Let n,r∈ℕ, a:Fin(n+1)→ℂ→ℂ, b:Fin(n+1)→ℂ and c,t∈ℂ. Assume that for every k∈Fin(n+1), a k has complex derivative c·b k at t. Define A(m,s)=(Nat.descFactorial m s : ℂ), with A(m,0)=1 and A(m,s+1)=A(m,s)·(m−s), using natural subtraction before casting. Then z↦Σ_k a k z·A(k.val,r)·(−z)^(k.val−r) has complex derivative c·Σ_k b k·A(k.val,r)·(−t)^(k.val−r) − Σ_k a k t·A(k.val,r+1)·(−t)^(k.val−(r+1)) at t. Every sum is over Fin(n+1), and every exponent subtraction is natural subtraction.",
+    "lean_statement": "∀ (n r : ℕ) (a : Fin (n + 1) → ℂ → ℂ) (b : Fin (n + 1) → ℂ) (c t : ℂ), (∀ k : Fin (n + 1), HasDerivAt (a k) (c * b k) t) → HasDerivAt (fun z : ℂ => ∑ k : Fin (n + 1), a k z * (Nat.descFactorial k.val r : ℂ) * (-z) ^ (k.val - r)) (c * (∑ k : Fin (n + 1), b k * (Nat.descFactorial k.val r : ℂ) * (-t) ^ (k.val - r)) - (∑ k : Fin (n + 1), a k t * (Nat.descFactorial k.val (r + 1) : ℂ) * (-t) ^ (k.val - (r + 1)))) t",
+    "lean_name": "p02_es_177ebb5a_med_sum_derivative",
+    "depends_on": [],
+    "natural_proof": "1. Fix n,r,a,b,c,t and assume HasDerivAt (a k) (c b k) t for every k∈Fin(n+1). For a fixed k put m=k.val and A_s=(Nat.descFactorial m s : ℂ). Its defining recurrence is A_(r+1)=A_r·(m−r), where m−r is natural subtraction cast to ℂ.\n2. Set q=m−r. The function z↦−z has derivative −1 at t. If q=0, its q-th power is the constant 1 with derivative zero; the formula −(q:ℂ)(−t)^(q−1) is also zero. If q>0, the power and chain rules give precisely that same derivative. Thus the formula holds for every q, including t=0.\n3. Multiplying the coefficient derivative by the constant A_r and applying the product rule with this power function shows that z↦a k z·A_r·(−z)^q has derivative (c b k)·A_r·(−t)^q − a k t·A_r·(q:ℂ)·(−t)^(q−1) at t.\n4. Natural subtraction gives q−1=(m−r)−1=m−(r+1). By the recurrence in step 1, A_r·(q:ℂ)=A_(r+1). Consequently the derivative in step 3 is c·(b k·A_r·(−t)^(m−r)) − a k t·A_(r+1)·(−t)^(m−(r+1)). When m≤r, q=0 and A_(r+1)=0, so this calculation also accounts for every vanished power-derivative term.\n5. Apply the finite-sum derivative rule over Fin(n+1). Sum the first derivative contribution and factor out c; sum the second contribution and use distribution of subtraction over a finite sum. The result is exactly the stated derivative. Only derivatives at t have been used, so no additional regularity hypothesis is needed.",
+    "proof_key_steps": [
+      "Differentiate each negative power, treating exponent zero explicitly.",
+      "Apply constant multiplication and the product rule to each summand.",
+      "Use the falling-factorial recurrence and natural-subtraction identity to identify the next-order term.",
+      "Sum the derivatives and factor out c."
+    ]
+  },
+  "audit": {
+    "key": "finite_jet_sum_derivative",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "The one-line proposition exactly matches all quantified data, derivative hypotheses, finite sums and subtraction conventions. The proof correctly handles exponent zero and t=0, applies the product rule, uses (m−r)−1=m−(r+1) and the falling-factorial recurrence, then sums derivatives. It requires no regularity away from t and contains no circular or deferred step. The bare identifier is unreserved, and the type elaborates independently of either child. Empty dependencies are correct. This is a genuine calculus obligation complementary to the algebraic child: substituting coefficient functions and applying the expansion to F z, G and F t yields the exact parent conclusion. Thus the split is appropriate and its dependency direction is sound."
+  },
+  "resolved_dependencies": [],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-derivative-a1-jet-recurrence-a1-moving-eval-deriva-17e055468f/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-derivative-a1-jet-recurrence-a1-moving-eval-deriva-17e055468f/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-scalarization-derivative-a1-jet-recurrence-a1-moving-eval-deriva-17e055468f/parent-supplied-natural-proof.json"
+}

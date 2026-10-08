@@ -1,0 +1,49 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "def BinaryForm|abbrev BinaryForm|homogeneous_nilpotence|p02_es_177ebb5a_med_(jet_sum|sum_derivative)",
+        "def IsHomogeneous|mem_homogeneousSubmodule|support_sum_monomial_coeff|eval_monomial|pderiv_monomial|pderiv_pow|descFactorial_succ|HasDerivAt.(fun_sum|sum|mul|pow)",
+        "def IsWeightedHomogeneous|coeff.*ne|IsHomogeneous.*iff|degree_eq",
+        "p02_es_177ebb5a_med_(jet_sum|sum_derivative)",
+        "git -C .lake/packages/mathlib rev-parse HEAD",
+        "git -C .lake/packages/mathlib status --porcelain=v1",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env /mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/p02-decomposition-independent-audit-fjjdj1bk.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/WeightedHomogeneous.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Eval.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/PDeriv.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Data/Nat/Factorial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Add.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Mul.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Pow.lean",
+        "/tmp/p02-decomposition-independent-audit-fjjdj1bk.lean"
+      ],
+      "conclusion": "Both snapshots are clean at project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Inspected installed sources match the snapshot; installed mathlib is clean and pinned. Sources confirm the coefficient interpretation of homogeneity, monomial expansion and differentiation, falling-factorial recurrence, and finite-sum/product/power derivative rules. No homogeneous_nilpotence match occurs in the frozen project. Neither proposed name is reserved in the active DAG or Submission; run-artifact matches occur only in this proposal. The 50-node DAG is acyclic, and the audited parent is the recorded descendant of the frozen injectivity theorem. Both exact propositions independently elaborated as Prop under Lean 4.33.1 using only the BinaryForm definition module, without importing Submission. Supporting axiom checks reported only propext, Classical.choice and Quot.sound; descFactorial_succ uses no axioms. This accepts the decomposition and prose proofs, not unimplemented Lean solutions."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "binary_form_jet_expansion",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose, including unrestricted r and natural subtraction. Homogeneity and uniqueness of d_k justify the fixed finite expansion. The induction correctly handles both s<k and k≤s, including vanishing beyond the Y-degree; linearity and evaluation complete the identity. All hypotheses are present and used correctly, with no circular appeal or deferred proof construction. The bare identifier is unreserved. The type is independently usable by a comparator and contains no candidate-dependent alias or ambiguous matrix construction. Empty dependencies are correct."
+    },
+    {
+      "key": "finite_jet_sum_derivative",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches all quantified data, derivative hypotheses, finite sums and subtraction conventions. The proof correctly handles exponent zero and t=0, applies the product rule, uses (m−r)−1=m−(r+1) and the falling-factorial recurrence, then sums derivatives. It requires no regularity away from t and contains no circular or deferred step. The bare identifier is unreserved, and the type elaborates independently of either child. Empty dependencies are correct. This is a genuine calculus obligation complementary to the algebraic child: substituting coefficient functions and applying the expansion to F z, G and F t yields the exact parent conclusion. Thus the split is appropriate and its dependency direction is sound."
+    }
+  ],
+  "required_changes": []
+}

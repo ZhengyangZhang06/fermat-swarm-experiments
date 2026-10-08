@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.scalarization_derivative-a1.jet_recurrence-a1.moving_eval_derivative-a1.binary_form_jet_expansion-a1",
+  "parent_id": "root.scalarization_derivative-a1.jet_recurrence-a1.moving_eval_derivative-a1",
+  "depth": 4,
+  "title": "Finite coefficient formula for evaluated binary-form jets",
+  "statement": "Let n,r∈ℕ, P∈BinaryForm ℂ n and z∈ℂ. Write D for formal differentiation in variable 1. For k∈Fin(n+1), put d_k=single 0 (n−k.val)+single 1 k.val. For m,s∈ℕ, let A(m,s)=(Nat.descFactorial m s : ℂ), so A(m,0)=1 and A(m,s+1)=A(m,s)·(m−s), with natural subtraction before casting. Then (D^r P)(1,−z)=Σ_{k∈Fin(n+1)} coeff d_k(P)·A(k.val,r)·(−z)^(k.val−r). All exponent subtractions are natural subtraction; there is no restriction r≤n.",
+  "lean_statement": "∀ (n : ℕ) (P : ↥(HeckeEis.BinaryForm ℂ n)) (r : ℕ) (z : ℂ), MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z) ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r] P.val) = ∑ k : Fin (n + 1), MvPolynomial.coeff (Finsupp.single (0 : Fin 2) (n - k.val) + Finsupp.single (1 : Fin 2) k.val) P.val * (Nat.descFactorial k.val r : ℂ) * (-z) ^ (k.val - r)",
+  "lean_name": "p02_es_177ebb5a_med_jet_sum",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1-moving-eval-deriva-0e3aa19dea-a1"
+}
