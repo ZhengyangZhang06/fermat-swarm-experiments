@@ -2026,4 +2026,26 @@ theorem p02_es_177ebb5a_crl_horizontal_difference_limit :
   apply squeeze_zero_norm' (Filter.eventually_atTop.2 ⟨Y, hhorizontal⟩)
   simpa only [mul_zero] using hweight.const_mul (|x| * C)
 
+theorem p02_es_177ebb5a_pcl_scalar_common_ray_limit :
+    ∀ (n : ℕ) (a : ℝ) (H G : ℂ → ℂ), 0 < a →
+      ContinuousOn G {z : ℂ | 0 < z.im} →
+      (∀ z : ℂ, 0 < z.im → HasDerivAt H (G z) z) →
+      (∀ B : ℝ, 0 < B → ∃ C Y : ℝ, 0 ≤ C ∧ 1 ≤ Y ∧
+        ∀ z : ℂ, |z.re| ≤ B → Y ≤ z.im →
+          ‖G z‖ ≤ C * (1 + z.im) ^ n * Real.exp (-a * z.im)) →
+      ∃ A : ℂ, ∀ x : ℝ, Filter.Tendsto
+        (fun y : ℝ => H ((x : ℂ) + (y : ℂ) * Complex.I))
+        Filter.atTop (nhds A) := by
+  intro n a H G ha hG hH hstrip
+  obtain ⟨C, Y, hC, hY, hbound⟩ := hstrip 1 zero_lt_one
+  have hray : ∀ t : ℝ, Y ≤ t →
+      ‖G ((t : ℂ) * Complex.I)‖ ≤ C * (1 + t) ^ n * Real.exp (-a * t) := by
+    intro t ht
+    simpa using hbound ((t : ℂ) * Complex.I) (by simp) (by simpa using ht)
+  obtain ⟨A, hA⟩ := p02_es_177ebb5a_crl_imaginary_ray_limit n a H G ha hG hH
+    ⟨C, Y, hC, hY, hray⟩
+  refine ⟨A, fun x => ?_⟩
+  simpa only [sub_add_cancel, zero_add] using
+    (p02_es_177ebb5a_crl_horizontal_difference_limit n a H G ha hG hH hstrip x).add hA
+
 end Submission
