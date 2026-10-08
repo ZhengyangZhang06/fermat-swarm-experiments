@@ -4645,3 +4645,338 @@ theorem Submission.p05_fr_rhm_bcsi_twisted_presentation_a5b449214a
         exact LinearMap.mem_range.mpr ⟨_, rfl⟩
       change T (q (fun i => θ.symm ((P.map θ.toRingHom).mulVecLin d i))) = 0
       rw [hA, hzero, map_zero]
+
+theorem Submission.p05_di_antipode_adjugate_a5b449214a
+    {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
+    (n : ℕ) (c : Matrix (Fin n) (Fin n) H)
+    (hΔ : ∀ i j : Fin n, Coalgebra.comul (R := k) (c i j) =
+      ∑ l : Fin n, TensorProduct.tmul k (c i l) (c l j))
+    (hε : ∀ i j : Fin n, Coalgebra.counit (R := k) (c i j) =
+      if i = j then (1 : k) else 0) :
+    ∃ u : H, Matrix.det c * u = 1 ∧ ∀ i j : Fin n,
+      HopfAlgebra.antipode k (c i j) = u * Matrix.adjugate c i j := by
+  classical
+  let Q : Matrix (Fin n) (Fin n) H :=
+    Matrix.of fun i j => HopfAlgebra.antipode k (c i j)
+  have hQc : Q * c = 1 := by
+    ext i j
+    simpa [Q, Matrix.mul_apply, Matrix.one_apply, hΔ, hε, map_sum] using
+      (HopfAlgebra.mul_antipode_rTensor_comul_apply (R := k) (c i j))
+  have hcQ : c * Q = 1 := by
+    ext i j
+    simpa [Q, Matrix.mul_apply, Matrix.one_apply, hΔ, hε, map_sum] using
+      (HopfAlgebra.mul_antipode_lTensor_comul_apply (R := k) (c i j))
+  have hdet : Matrix.det c * Matrix.det Q = 1 := by
+    rw [← Matrix.det_mul, hcQ, Matrix.det_one]
+  have hdet' : Matrix.det Q * Matrix.det c = 1 := by
+    rw [mul_comm, hdet]
+  have hcT : c * (Matrix.det Q • Matrix.adjugate c) = 1 := by
+    rw [Matrix.mul_smul, Matrix.mul_adjugate, smul_smul, hdet', one_smul]
+  have hQT : Q = Matrix.det Q • Matrix.adjugate c := by
+    calc
+      Q = Q * 1 := (Matrix.mul_one Q).symm
+      _ = Q * (c * (Matrix.det Q • Matrix.adjugate c)) := by rw [hcT]
+      _ = (Q * c) * (Matrix.det Q • Matrix.adjugate c) :=
+        (Matrix.mul_assoc _ _ _).symm
+      _ = Matrix.det Q • Matrix.adjugate c := by rw [hQc, Matrix.one_mul]
+  refine ⟨Matrix.det Q, hdet, ?_⟩
+  intro i j
+  exact congrArg (fun M : Matrix (Fin n) (Fin n) H => M i j) hQT
+theorem Submission.p05_subalgebra_coinvariant_a5b449214a
+    {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
+    (K : Subalgebra k H)
+    (hΔ : ∀ x ∈ K, Coalgebra.comul (R := k) x ∈
+      Submodule.span k {t : H ⊗[k] H | ∃ a ∈ K, ∃ b ∈ K, t = a ⊗ₜ[k] b})
+    {B : Type*} [CommRing B] [Bialgebra k B] (q : BialgHom k H B)
+    (hker : RingHom.ker (q : H →+* B) =
+      Ideal.span {x : H | x ∈ K ∧ Coalgebra.counit (R := k) x = 0}) :
+    K ≤ HopfAlgebra.hopfKer q := by
+  have hqK (t : H) (ht : t ∈ K) :
+      q t = algebraMap k B (Coalgebra.counit (R := k) t) := by
+    have hmem : t - algebraMap k H (Coalgebra.counit (R := k) t) ∈
+        RingHom.ker (q : H →+* B) := by
+      rw [hker]
+      exact Ideal.subset_span ⟨K.sub_mem ht (K.algebraMap_mem _), by simp⟩
+    have hz : q (t - algebraMap k H (Coalgebra.counit (R := k) t)) = 0 := hmem
+    have hscalar : q (algebraMap k H (Coalgebra.counit (R := k) t)) =
+        algebraMap k B (Coalgebra.counit (R := k) t) :=
+      (q : H →ₐ[k] B).commutes _
+    rw [map_sub, hscalar] at hz
+    exact sub_eq_zero.mp hz
+  have hspan (z : H ⊗[k] H)
+      (hz : z ∈ Submodule.span k
+        {t : H ⊗[k] H | ∃ a ∈ K, ∃ b ∈ K, t = a ⊗ₜ[k] b}) :
+      Algebra.TensorProduct.map (AlgHom.id k H) (q : H →ₐ[k] B) z =
+        (Algebra.linearMap k B).lTensor H
+          ((Coalgebra.counit (R := k)).lTensor H z) := by
+    induction hz using Submodule.span_induction with
+    | mem z hz =>
+      obtain ⟨a, _, b, hb, rfl⟩ := hz
+      simp only [Algebra.TensorProduct.map_tmul, AlgHom.id_apply,
+        LinearMap.lTensor_tmul, Algebra.linearMap_apply, BialgHom.coe_toAlgHom]
+      rw [hqK b hb]
+    | zero => simp only [map_zero]
+    | add z w _ _ hz hw => simp only [map_add, hz, hw]
+    | smul c z _ hz => simp only [map_smul, hz]
+  intro x hx
+  rw [HopfAlgebra.mem_hopfKer_iff, HopfAlgebra.coaction_apply, hspan _ (hΔ x hx)]
+  simp only [Coalgebra.lTensor_counit_comul, LinearMap.lTensor_tmul,
+    Algebra.linearMap_apply, map_one]
+theorem Submission.p05_translation_left_inverse_a5b449214a
+    {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
+    (K : Subalgebra k H) {B : Type*} [CommRing B] [Bialgebra k B]
+    (q : BialgHom k H B)
+    (β : (TensorProduct K H H) →ₐ[k] (TensorProduct k H B))
+    (hβ : ∀ a b : H, β (TensorProduct.tmul K a b) =
+      (TensorProduct.tmul k a (1 : B)) * HopfAlgebra.coaction q b)
+    (σ : B →ₐ[k] (TensorProduct K H H))
+    (hσ : ∀ b : H, σ (q b) =
+      Algebra.TensorProduct.mapOfCompatibleSMul K k k H H
+        (TensorProduct.map (HopfAlgebra.antipode k) (LinearMap.id : H →ₗ[k] H)
+          (Coalgebra.comul (R := k) b))) :
+    ∃ γ : (TensorProduct k H B) →ₐ[k] (TensorProduct K H H),
+      (∀ (a : H) (c : B), γ (TensorProduct.tmul k a c) =
+        (TensorProduct.tmul K a (1 : H)) * σ c) ∧ Function.LeftInverse γ β := by
+  let C := Algebra.TensorProduct.mapOfCompatibleSMul K k k H H
+  let γ : H ⊗[k] B →ₐ[k] H ⊗[K] H :=
+    Algebra.TensorProduct.lift
+      (Algebra.TensorProduct.includeLeft : H →ₐ[k] H ⊗[K] H) σ
+      (fun _ _ => Commute.all _ _)
+  have hγ (a : H) (c : B) : γ (a ⊗ₜ[k] c) = (a ⊗ₜ[K] (1 : H)) * σ c := rfl
+  let mS : H ⊗[k] H →ₗ[k] H :=
+    (LinearMap.mul' k H).comp ((HopfAlgebra.antipode k).lTensor H)
+  let F : H ⊗[k] (H ⊗[k] H) →ₗ[k] H ⊗[k] H :=
+    (mS.rTensor H).comp (TensorProduct.assoc k H H H).symm.toLinearMap
+  have hF (a b c : H) :
+      F (a ⊗ₜ[k] (b ⊗ₜ[k] c)) = (a * HopfAlgebra.antipode k b) ⊗ₜ[k] c := rfl
+  have hmS : mS.comp (Coalgebra.comul (R := k)) =
+      (Algebra.linearMap k H).comp (Coalgebra.counit (R := k)) :=
+    HopfAlgebra.mul_antipode_lTensor_comul
+  have hcancel (b : H) :
+      F ((Coalgebra.comul (R := k)).lTensor H (Coalgebra.comul b)) =
+        (1 : H) ⊗ₜ[k] b := by
+    change mS.rTensor H ((TensorProduct.assoc k H H H).symm
+      ((Coalgebra.comul (R := k)).lTensor H (Coalgebra.comul b))) = _
+    rw [Coalgebra.coassoc_symm_apply, ← LinearMap.rTensor_comp_apply, hmS,
+      LinearMap.rTensor_comp_apply, Coalgebra.rTensor_counit_comul]
+    simp
+  have htranslate (a : H) (t : H ⊗[k] H) :
+      (a ⊗ₜ[K] (1 : H)) * C
+          (TensorProduct.map (HopfAlgebra.antipode k) (LinearMap.id : H →ₗ[k] H) t) =
+        C (F (a ⊗ₜ[k] t)) := by
+    induction t using TensorProduct.induction_on with
+    | zero => simp
+    | tmul b c => simp [C, hF, Algebra.TensorProduct.tmul_mul_tmul]
+    | add x y hx hy => simp [TensorProduct.tmul_add, mul_add, hx, hy]
+  have hcomp (t : H ⊗[k] H) :
+      γ (Algebra.TensorProduct.map (AlgHom.id k H) (q : H →ₐ[k] B) t) =
+        C (F ((Coalgebra.comul (R := k)).lTensor H t)) := by
+    induction t using TensorProduct.induction_on with
+    | zero => simp
+    | tmul a b =>
+      simp only [Algebra.TensorProduct.map_tmul, AlgHom.id_apply,
+        BialgHom.coe_toAlgHom, LinearMap.lTensor_tmul, hγ, hσ]
+      exact htranslate a (Coalgebra.comul b)
+    | add x y hx hy => simp [hx, hy]
+  have hcoaction (b : H) : γ (HopfAlgebra.coaction q b) = (1 : H) ⊗ₜ[K] b := by
+    rw [HopfAlgebra.coaction_apply, hcomp, hcancel]
+    rfl
+  refine ⟨γ, hγ, ?_⟩
+  intro t
+  induction t using TensorProduct.induction_on with
+  | zero => simp
+  | tmul a b =>
+    rw [hβ, map_mul, hγ, map_one, mul_one, hcoaction]
+    simp only [Algebra.TensorProduct.tmul_mul_tmul, mul_one, one_mul]
+  | add x y hx hy => simp [hx, hy]
+theorem Submission.p05_fhess_coefficient_span_stable_a5b449214a
+    {k : Type*} [Field k] {C : Type*} [AddCommGroup C] [Module k C] [Coalgebra k C]
+    (x : C) (n : ℕ) (v w : Fin n → C) (hw : LinearIndependent k w)
+    (hΔ : Coalgebra.comul (R := k) x =
+      ∑ i : Fin n, TensorProduct.tmul k (v i) (w i)) :
+    FiniteDimensional k (Submodule.span k (Set.range v)) ∧
+    x ∈ Submodule.span k (Set.range v) ∧
+    ∀ y ∈ Submodule.span k (Set.range v), Coalgebra.comul (R := k) y ∈
+      Submodule.span k {t : TensorProduct k C C |
+        ∃ a ∈ Submodule.span k (Set.range v), ∃ b : C,
+          t = TensorProduct.tmul k a b} := by
+  classical
+  let V := Submodule.span k (Set.range v)
+  let W := Submodule.span k {t : C ⊗[k] C | ∃ a ∈ V, ∃ b : C, t = a ⊗ₜ[k] b}
+  have hv (i : Fin n) : v i ∈ V := Submodule.subset_span (Set.mem_range_self i)
+  refine ⟨FiniteDimensional.span_of_finite k (Set.finite_range v), ?_, ?_⟩
+  · have hx : x = ∑ i : Fin n, Coalgebra.counit (R := k) (w i) • v i := by
+      have h := congrArg
+        (fun z => TensorProduct.rid k C ((Coalgebra.counit (R := k)).lTensor C z)) hΔ
+      simpa [map_sum] using h
+    rw [hx]
+    exact Submodule.sum_mem _ fun i _ => Submodule.smul_mem V _ (hv i)
+  · suffices hs : V ≤ W.comap (Coalgebra.comul (R := k)) from fun y hy => hs hy
+    apply Submodule.span_le.mpr
+    rintro _ ⟨j, rfl⟩
+    change Coalgebra.comul (R := k) (v j) ∈ W
+    obtain ⟨φ, hφ⟩ := ((Finsupp.lapply j).comp hw.repr).exists_extend
+    have hφw (i : Fin n) : φ (w i) = if i = j then 1 else 0 := by
+      have h := LinearMap.congr_fun hφ
+        ⟨w i, Submodule.subset_span (Set.mem_range_self i)⟩
+      simpa [hw.repr_eq_single i
+        ⟨w i, Submodule.subset_span (Set.mem_range_self i)⟩ rfl, Finsupp.single_apply] using h
+    let D : C ⊗[k] C →ₗ[k] C := (TensorProduct.rid k C).toLinearMap.comp (φ.lTensor C)
+    let T : (C ⊗[k] C) ⊗[k] C →ₗ[k] C ⊗[k] C :=
+      (TensorProduct.rid k (C ⊗[k] C)).toLinearMap.comp (φ.lTensor (C ⊗[k] C))
+    have hT (a : C) (z : C ⊗[k] C) :
+        T ((TensorProduct.assoc k C C C).symm (a ⊗ₜ[k] z)) = a ⊗ₜ[k] D z := by
+      induction z using TensorProduct.induction_on with
+      | zero => simp [D, T]
+      | tmul b c => simp [D, T, TensorProduct.tmul_smul]
+      | add z z' hz hz' => simp [TensorProduct.tmul_add, hz, hz']
+    have hco := congrArg T (Coalgebra.coassoc_symm_apply (R := k) x)
+    have heq : Coalgebra.comul (R := k) (v j) =
+        ∑ i : Fin n, v i ⊗ₜ[k] D (Coalgebra.comul (R := k) (w i)) := by
+      simpa [hΔ, map_sum, hT, T, hφw] using hco.symm
+    rw [heq]
+    exact Submodule.sum_mem _ fun i _ =>
+      Submodule.subset_span ⟨v i, hv i, D (Coalgebra.comul (R := k) (w i)), rfl⟩
+theorem Submission.p05_translation_descends_a5b449214a
+    {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
+    (K : Subalgebra k H)
+    (hΔ : ∀ x ∈ K, Coalgebra.comul (R := k) x ∈
+      Submodule.span k {t : TensorProduct k H H |
+        ∃ a ∈ K, ∃ b ∈ K, t = TensorProduct.tmul k a b})
+    (hS : ∀ x ∈ K, HopfAlgebra.antipode k x ∈ K)
+    {B : Type*} [CommRing B] [Bialgebra k B] (q : BialgHom k H B)
+    (hq : Function.Surjective q)
+    (hker : RingHom.ker (q : H →+* B) =
+      Ideal.span {x : H | x ∈ K ∧ Coalgebra.counit (R := k) x = 0}) :
+    ∃ σ : B →ₐ[k] (TensorProduct K H H), ∀ b : H,
+      σ (q b) = Algebra.TensorProduct.mapOfCompatibleSMul K k k H H
+        (TensorProduct.map (HopfAlgebra.antipode k) (LinearMap.id : H →ₗ[k] H)
+          (Coalgebra.comul (R := k) b)) := by
+  let C := Algebra.TensorProduct.mapOfCompatibleSMul K k k H H
+  let s : TensorProduct k H H →ₗ[k] TensorProduct k H H := TensorProduct.map (HopfAlgebra.antipode k) (LinearMap.id : H →ₗ[k] H)
+  let i : H →ₗ[k] TensorProduct K H H :=
+    ((Algebra.TensorProduct.includeRight : H →ₐ[K] TensorProduct K H H).restrictScalars k).toLinearMap
+  let τ : H →ₐ[k] TensorProduct K H H :=
+    C.comp ((Algebra.TensorProduct.map (HopfAlgebra.antipodeAlgHom k H)
+      (AlgHom.id k H)).comp (Bialgebra.comulAlgHom k H))
+  have hbalance : ∀ z ∈ Submodule.span k {t : TensorProduct k H H |
+      ∃ a ∈ K, ∃ b ∈ K, t = TensorProduct.tmul k a b},
+      (C.toLinearMap.comp s) z = (i.comp ((LinearMap.mul' k H).comp s)) z := by
+    intro z hz
+    induction hz using Submodule.span_induction with
+    | mem z hz =>
+      obtain ⟨a, ha, b, _, rfl⟩ := hz
+      change HopfAlgebra.antipode k a ⊗ₜ[K] b =
+        (1 : H) ⊗ₜ[K] (HopfAlgebra.antipode k a * b)
+      simpa [Algebra.smul_def] using
+        (TensorProduct.smul_tmul (⟨HopfAlgebra.antipode k a, hS a ha⟩ : K) (1 : H) b)
+    | zero => simp only [map_zero]
+    | add x y _ _ hx hy => simp only [map_add, hx, hy]
+    | smul r x _ hx => simp only [map_smul, hx]
+  have hτker : RingHom.ker (q : H →+* B) ≤ RingHom.ker τ.toRingHom := by
+    rw [hker]
+    apply Ideal.span_le.mpr
+    intro x hx
+    change τ x = 0
+    change (C.toLinearMap.comp s) (Coalgebra.comul (R := k) x) = 0
+    rw [hbalance _ (hΔ x hx.1)]
+    change i (LinearMap.mul' k H
+      ((HopfAlgebra.antipode k).rTensor H (Coalgebra.comul (R := k) x))) = 0
+    rw [HopfAlgebra.mul_antipode_rTensor_comul_apply, hx.2, map_zero, map_zero]
+  refine ⟨AlgHom.liftOfSurjective q.toAlgHom hq τ hτker, ?_⟩
+  intro b
+  exact AlgHom.liftOfSurjective_apply q.toAlgHom hq τ hτker b
+theorem Submission.p05_fhess_tensor_independent_right_a5b449214a
+    {k : Type*} [Field k] {M : Type*} [AddCommGroup M] [Module k M]
+    {N : Type*} [AddCommGroup N] [Module k N] (z : TensorProduct k M N) :
+    ∃ (n : ℕ) (v : Fin n → M) (w : Fin n → N),
+      LinearIndependent k w ∧ z = ∑ i : Fin n, TensorProduct.tmul k (v i) (w i) := by
+  classical
+  obtain ⟨r, a, b, hz⟩ := TensorProduct.exists_sum_tmul_eq z
+  let S := Submodule.span k (Set.range b)
+  let : Module.Finite k S := Module.Finite.span_of_finite k (Set.finite_range b)
+  let c := Module.finBasis k S
+  let b' : Fin r → S := fun j => ⟨b j, Submodule.subset_span (Set.mem_range_self j)⟩
+  refine ⟨Module.finrank k S, (fun i => ∑ j, c.repr (b' j) i • a j),
+    (fun i => (c i : N)), ?_, ?_⟩
+  · exact c.linearIndependent.map' S.subtype (Submodule.ker_subtype S)
+  · calc
+      z = ∑ j, TensorProduct.tmul k (a j) (b j) := hz
+      _ = ∑ j, ∑ i, TensorProduct.tmul k (c.repr (b' j) i • a j) (c i : N) := by
+        apply Finset.sum_congr rfl
+        intro j _
+        have hj : b j = ∑ i, c.repr (b' j) i • (c i : N) := by
+          simpa only [map_sum, map_smul, Submodule.subtype_apply] using
+            (congrArg S.subtype (c.sum_repr (b' j))).symm
+        rw [hj, TensorProduct.tmul_sum]
+        apply Finset.sum_congr rfl
+        intro i _
+        rw [TensorProduct.tmul_smul, TensorProduct.smul_tmul']
+      _ = ∑ i, ∑ j, TensorProduct.tmul k (c.repr (b' j) i • a j) (c i : N) :=
+        Finset.sum_comm
+      _ = ∑ i, TensorProduct.tmul k (∑ j, c.repr (b' j) i • a j) (c i : N) := by
+        simp only [TensorProduct.sum_tmul]
+
+theorem Submission.p05_pie_minor_product_containment_a5b449214a
+    {R : Type*} [CommRing R] {ι κ ν : Type*}
+    [Fintype ι] [Fintype κ] [Fintype ν]
+    (A : Matrix ι κ R) (B : Matrix κ ν R) (d : ℕ) :
+    (Ideal.span {x : R | ∃ (rows : Fin d ↪ ι) (cols : Fin d ↪ ν),
+      x = Matrix.det ((A * B).submatrix rows cols)}) ≤
+    (Ideal.span {x : R | ∃ (rows : Fin d ↪ ι) (cols : Fin d ↪ κ),
+      x = Matrix.det (A.submatrix rows cols)}) ⊓
+    (Ideal.span {x : R | ∃ (rows : Fin d ↪ κ) (cols : Fin d ↪ ν),
+      x = Matrix.det (B.submatrix rows cols)}) := by
+  classical
+  have hrows (C : Matrix (Fin d) κ R) (D : Matrix κ (Fin d) R)
+      (J : Ideal R)
+      (hgen : ∀ r : Fin d ↪ κ, Matrix.det (D.submatrix r id) ∈ J) :
+      Matrix.det (C * D) ∈ J := by
+    have hexp : Matrix.det (C * D) =
+        ∑ f : Fin d → κ, (∏ i, C i (f i)) * Matrix.det (D.submatrix f id) := by
+      have hmat : C * D = fun i => ∑ k, C i k • D k := by
+        ext i j
+        simp [Matrix.mul_apply]
+      have hsum : Matrix.det (fun i => ∑ k, C i k • D k) =
+          ∑ f : Fin d → κ, Matrix.det (fun i => C i (f i) • D (f i)) :=
+        (Matrix.detRowAlternating : (Fin d → R) [⋀^Fin d]→ₗ[R] R).toMultilinearMap.map_sum
+          (fun i k => C i k • D k)
+      rw [hmat, hsum]
+      apply Finset.sum_congr rfl
+      intro f _
+      exact Matrix.det_mul_column (fun i => C i (f i)) (D.submatrix f id)
+    rw [hexp]
+    apply J.sum_mem
+    intro f _
+    by_cases hf : Function.Injective f
+    · exact J.mul_mem_left _ (hgen ⟨f, hf⟩)
+    · have hz : Matrix.det (D.submatrix f id) = 0 := by
+        rw [Function.Injective] at hf
+        push Not at hf
+        obtain ⟨i, j, hij, hne⟩ := hf
+        apply Matrix.det_zero_of_row_eq hne
+        funext k
+        change D (f i) k = D (f j) k
+        rw [hij]
+      rw [hz, mul_zero]
+      exact J.zero_mem
+  apply Ideal.span_le.mpr
+  rintro x ⟨rows, cols, rfl⟩
+  constructor
+  · have h := hrows (B.transpose.submatrix cols id) (A.transpose.submatrix id rows)
+      (Ideal.span {x : R | ∃ (r : Fin d ↪ ι) (c : Fin d ↪ κ),
+        x = Matrix.det (A.submatrix r c)}) (fun r => by
+          apply Ideal.subset_span
+          refine ⟨rows, r, ?_⟩
+          exact Matrix.det_transpose (A.submatrix rows r))
+    have hmat : B.transpose.submatrix cols id * A.transpose.submatrix id rows =
+        ((A * B).submatrix rows cols).transpose := by
+      ext i j
+      simp only [Matrix.mul_apply, Matrix.submatrix_apply, Matrix.transpose_apply, id_eq]
+      apply Finset.sum_congr rfl
+      intro k _
+      exact mul_comm _ _
+    rw [hmat, Matrix.det_transpose] at h
+    exact h
+  · exact hrows (A.submatrix rows id) (B.submatrix id cols) _
+      (fun r => Ideal.subset_span ⟨r, cols, rfl⟩)
