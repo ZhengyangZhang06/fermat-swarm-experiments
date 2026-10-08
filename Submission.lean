@@ -456,3 +456,70 @@ theorem Submission.p08_7d1ff633a4_tp26_normal_level_retraction :
       group
     rw [heq]
     exact hK.conj_mem u hu (t (q g))
+
+theorem Submission.p08_7d1ff633a4_tp26_coset_averaging :
+    ∀ {k G X : Type} [Field k] [Group G] [MulAction G X]
+      (H : Subgroup G) [Fintype (G ⧸ H)] (V : Rep.{0} k G) (t : (G ⧸ H) → G),
+      (∀ c : G ⧸ H, (t c : G ⧸ H) = c) →
+      ∃ T : (X → V) →ₗ[k] (X → V),
+        (∀ (F : X → V) (x : X),
+          T F x = ∑ c : G ⧸ H, V.ρ (t c) (F ((t c)⁻¹ • x))) ∧
+        (∀ F : X → V,
+          (∀ (h : H) (x : X), F ((h : G) • x) = V.ρ (h : G) (F x)) →
+          ∀ (s : G) (x : X), T F (s • x) = V.ρ s (T F x)) ∧
+        (∀ F : X → V,
+          (∀ (s : G) (x : X), F (s • x) = V.ρ s (F x)) →
+          ∀ x : X, T F x = (H.index : k) • F x) ∧
+        (∀ u : (G ⧸ H) → G, (∀ c : G ⧸ H, (u c : G ⧸ H) = c) →
+          ∀ F : X → V,
+          (∀ (h : H) (x : X), F ((h : G) • x) = V.ρ (h : G) (F x)) →
+          ∀ x : X, T F x = ∑ c : G ⧸ H, V.ρ (u c) (F ((u c)⁻¹ • x))) := by
+  classical
+  intro k G X _ _ _ H _ V t ht
+  let T : (X → V) →ₗ[k] (X → V) :=
+    { toFun := fun F x => ∑ c : G ⧸ H, V.ρ (t c) (F ((t c)⁻¹ • x))
+      map_add' := by
+        intro F F'
+        funext x
+        simp only [Pi.add_apply, map_add, Finset.sum_add_distrib]
+      map_smul' := by
+        intro b F
+        funext x
+        simp only [Pi.smul_apply, map_smul, Finset.smul_sum, RingHom.id_apply] }
+  have hrep (F : X → V)
+      (hF : ∀ (h : H) (x : X), F ((h : G) • x) = V.ρ (h : G) (F x))
+      (a b : G) (hab : (a : G ⧸ H) = (b : G ⧸ H)) (x : X) :
+      V.ρ a (F (a⁻¹ • x)) = V.ρ b (F (b⁻¹ • x)) := by
+    let h : H := ⟨a⁻¹ * b, QuotientGroup.eq.mp hab⟩
+    have hb : b = a * (h : G) := by simp [h]
+    rw [hb, mul_inv_rev, mul_smul]
+    rw [← Subgroup.coe_inv, hF h⁻¹]
+    simp only [Subgroup.coe_inv, map_mul, Module.End.mul_apply,
+      Representation.self_inv_apply]
+  refine ⟨T, fun _ _ => rfl, ?_, ?_, ?_⟩
+  · intro F hF s x
+    change (∑ c : G ⧸ H, V.ρ (t c) (F ((t c)⁻¹ • (s • x)))) =
+      V.ρ s (∑ c : G ⧸ H, V.ρ (t c) (F ((t c)⁻¹ • x)))
+    calc
+      _ = ∑ c : G ⧸ H, V.ρ (t (s • c)) (F ((t (s • c))⁻¹ • (s • x))) :=
+        (Equiv.sum_comp (MulAction.toPerm s) _).symm
+      _ = ∑ c : G ⧸ H, V.ρ s (V.ρ (t c) (F ((t c)⁻¹ • x))) := by
+        apply Finset.sum_congr rfl
+        intro c _
+        have hc : (t (s • c) : G ⧸ H) = ((s * t c : G) : G ⧸ H) := by
+          exact (ht (s • c)).trans
+            (congrArg (fun d : G ⧸ H => s • d) (ht c).symm)
+        rw [hrep F hF _ _ hc]
+        simp only [mul_inv_rev, mul_smul, inv_smul_smul, map_mul, Module.End.mul_apply]
+      _ = _ := (map_sum (V.ρ s) _ _).symm
+  · intro F hF x
+    change (∑ c : G ⧸ H, V.ρ (t c) (F ((t c)⁻¹ • x))) = _
+    have hc (c : G ⧸ H) : V.ρ (t c) (F ((t c)⁻¹ • x)) = F x := by
+      rw [← hF, smul_inv_smul]
+    simp only [hc, Finset.sum_const, Finset.card_univ]
+    rw [Subgroup.index_eq_card, Nat.card_eq_fintype_card, Nat.cast_smul_eq_nsmul]
+  · intro u hu F hF x
+    change (∑ c : G ⧸ H, V.ρ (t c) (F ((t c)⁻¹ • x))) = _
+    apply Finset.sum_congr rfl
+    intro c _
+    exact hrep F hF (t c) (u c) ((ht c).trans (hu c).symm) x
