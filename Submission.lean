@@ -67,14 +67,6 @@ theorem p06_9e0f5043ff_wll_length_sum_factors
   rw [← (Submodule.topEquiv (R := B) (M := M)).restrictScalars A |>.length_eq]
   exact h
 
-open AlgebraicCurve
-theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
-    [Algebra K F] (x : F) (hx : Transcendental K x)
-    [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
-  sorry
-
-namespace Submission
-
 /-- An integer order characterizing subring membership makes every ideal principal. -/
 theorem p06_9e0f5043ff_elp_principal_ideals_of_order :
     ∀ (F : Type*) [Field F] (A : Subring F) (ν : F → ℤ),
