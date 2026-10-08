@@ -3309,3 +3309,107 @@ theorem f036cc6b1f_pc_hi_good_prime_transversal
     simpa [r] using hσβ
 
 end Submission
+theorem Submission.f036cc6b1f_pc_hi_effective_domain_lift :
+    ∀ (Γ Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ))
+      (R : Finset (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (F : Set UpperHalfPlane),
+      Δ ≤ Γ → (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ →
+      (∀ r ∈ R, r ∈ Γ) →
+      (∀ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Γ → ∃ r ∈ R, γ * r⁻¹ ∈ Δ) →
+      (∀ r ∈ R, ∀ s ∈ R, s * r⁻¹ ∈ Δ → s = r) → MeasurableSet F →
+      (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
+        ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Γ ∧ γ • z ∈ F ∧
+          ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+            δ ∈ Γ → δ • z ∈ F → δ = γ ∨ δ = -γ) →
+      let E : Set UpperHalfPlane := ⋃ r ∈ R, (fun z : UpperHalfPlane => r • z) '' F
+      MeasurableSet E ∧
+        (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
+          ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ E ∧
+            ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+              δ ∈ Δ → δ • z ∈ E → δ = γ ∨ δ = -γ) ∧
+        (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
+          ∀ r ∈ R, ∀ s ∈ R,
+            z ∈ (fun w : UpperHalfPlane => r • w) '' F →
+            z ∈ (fun w : UpperHalfPlane => s • w) '' F → r = s) := by
+  classical
+  intro Γ Δ R F hΔ hneg hR hcover htrans hF hgood
+  dsimp only
+  have himage (r : Matrix.SpecialLinearGroup (Fin 2) ℤ) (z : UpperHalfPlane) :
+      z ∈ (fun w : UpperHalfPlane => r • w) '' F ↔ r⁻¹ • z ∈ F := by
+    constructor
+    · rintro ⟨w, hw, rfl⟩
+      simpa only [inv_smul_smul] using hw
+    · intro hz
+      exact ⟨r⁻¹ • z, hz, smul_inv_smul r z⟩
+  refine ⟨R.measurableSet_biUnion (fun r _ => ?_), ?_, ?_⟩
+  · have heq : (fun w : UpperHalfPlane => r • w) '' F =
+        (fun z : UpperHalfPlane => r⁻¹ • z) ⁻¹' F := Set.ext (himage r)
+    rw [heq]
+    apply hF.preimage
+    change Measurable (fun z : UpperHalfPlane =>
+      ((r⁻¹ : Matrix.SpecialLinearGroup (Fin 2) ℤ) :
+        Matrix.GeneralLinearGroup (Fin 2) ℝ) • z)
+    exact (continuous_const_smul _).measurable
+  · filter_upwards [hgood] with z hz
+    obtain ⟨η, hη, hηF, hηuniq⟩ := hz
+    have hpair (a b : Matrix.SpecialLinearGroup (Fin 2) ℤ)
+        (ha : a ∈ Γ) (hb : b ∈ Γ) (haF : a • z ∈ F) (hbF : b • z ∈ F) :
+        b = a ∨ b = -a := by
+      rcases hηuniq a ha haF with haη | haη <;>
+        rcases hηuniq b hb hbF with hbη | hbη <;> simp [haη, hbη]
+    obtain ⟨r, hr, hh⟩ := hcover η⁻¹ (Γ.inv_mem hη)
+    have hγ : (η⁻¹ * r⁻¹)⁻¹ ∈ Δ := Δ.inv_mem hh
+    have hγE : (η⁻¹ * r⁻¹)⁻¹ • z ∈
+        ⋃ t ∈ R, (fun w : UpperHalfPlane => t • w) '' F := by
+      apply Set.mem_iUnion_of_mem r
+      apply Set.mem_iUnion_of_mem hr
+      exact ⟨η • z, hηF, by simp [mul_smul]⟩
+    refine ⟨(η⁻¹ * r⁻¹)⁻¹, hγ, hγE, ?_⟩
+    intro δ hδ hδE
+    obtain ⟨s, hs, hsF⟩ := Set.mem_iUnion₂.mp hδE
+    have hrF : (r⁻¹ * (η⁻¹ * r⁻¹)⁻¹) • z ∈ F := by
+      simpa only [mul_inv_rev, inv_inv, inv_mul_cancel_left] using hηF
+    have hsF' : (s⁻¹ * δ) • z ∈ F := by
+      simpa only [mul_smul] using (himage s (δ • z)).mp hsF
+    have hsign := hpair (r⁻¹ * (η⁻¹ * r⁻¹)⁻¹) (s⁻¹ * δ)
+      (Γ.mul_mem (Γ.inv_mem (hR r hr)) (hΔ hγ))
+      (Γ.mul_mem (Γ.inv_mem (hR s hs)) (hΔ hδ)) hrF hsF'
+    have hδeq : δ = s * r⁻¹ * (η⁻¹ * r⁻¹)⁻¹ ∨
+        δ = -(s * r⁻¹ * (η⁻¹ * r⁻¹)⁻¹) := by
+      rcases hsign with heq | heq
+      · left
+        simpa only [mul_assoc, mul_inv_cancel_left] using congrArg (fun a => s * a) heq
+      · right
+        simpa only [mul_neg, mul_assoc, mul_inv_cancel_left] using
+          congrArg (fun a => s * a) heq
+    have hsr : s * r⁻¹ ∈ Δ := by
+      rcases hδeq with heq | heq
+      · have hm := Δ.mul_mem hδ (Δ.inv_mem hγ)
+        simpa [heq, mul_assoc] using hm
+      · have hnδ : -δ ∈ Δ := by
+          simpa only [neg_one_mul] using Δ.mul_mem hneg hδ
+        have hm := Δ.mul_mem hnδ (Δ.inv_mem hγ)
+        simpa [heq, mul_assoc] using hm
+    have hsr_eq := htrans r hr s hs hsr
+    subst s
+    simpa only [mul_inv_cancel, one_mul] using hδeq
+  · filter_upwards [hgood] with z hz
+    obtain ⟨η, hη, hηF, hηuniq⟩ := hz
+    intro r hr s hs hrF hsF
+    have hrF' := (himage r z).mp hrF
+    have hsF' := (himage s z).mp hsF
+    have hsign : s⁻¹ = r⁻¹ ∨ s⁻¹ = -r⁻¹ := by
+      rcases hηuniq r⁻¹ (Γ.inv_mem (hR r hr)) hrF' with heqr | heqr <;>
+        rcases hηuniq s⁻¹ (Γ.inv_mem (hR s hs)) hsF' with heqs | heqs <;>
+        simp [heqr, heqs]
+    have hsr : s * r⁻¹ ∈ Δ := by
+      rcases hsign with heq | heq
+      · have hmul : s * r⁻¹ = 1 := by rw [← heq, mul_inv_cancel]
+        rw [hmul]
+        exact Δ.one_mem
+      · have hmul : s * r⁻¹ = -1 := by
+          have h := congrArg (fun a => s * a) heq
+          simp only [mul_inv_cancel, mul_neg] at h
+          simpa only [neg_neg] using (congrArg Neg.neg h).symm
+        rw [hmul]
+        exact hneg
+    exact (htrans r hr s hs hsr).symm
