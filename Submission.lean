@@ -25,11 +25,6 @@ set_option warningAsError true in
 /-- Conjugating an `H`-equivariant morphism depends only on the left coset in `G ⧸ H`.
 The proof uses `QuotientGroup.eq` to identify the subgroup element and
 `Rep.hom_comm_apply` to cancel its action through the restricted morphism. -/
-
-namespace Submission
-
-set_option warningAsError true in
-/-- Conjugating an `H`-equivariant morphism depends only on the left coset in `G ⧸ H`. -/
 theorem p04_hca_bc7c754a4b_summand_eq_of_coset_eq
     {k G : Type _} [CommRing k] [Group G] (A B : Rep k G) (H : Subgroup G)
     (F : Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) (s t : G)
@@ -43,12 +38,6 @@ theorem p04_hca_bc7c754a4b_summand_eq_of_coset_eq
       A.ρ (h : G)⁻¹ (F.hom (B.ρ s⁻¹ x)) :=
     Rep.hom_comm_apply F h⁻¹ (B.ρ s⁻¹ x)
   -- Expand the product action, use equivariance, and cancel the inverse actions.
-  let h : H := ⟨s⁻¹ * t, QuotientGroup.eq.mp hst⟩
-  have ht : t = s * (h : G) := by simp [h]
-  -- Equivariance moves the inverse subgroup action through F.
-  have hF : F.hom (B.ρ (h : G)⁻¹ (B.ρ s⁻¹ x)) =
-      A.ρ (h : G)⁻¹ (F.hom (B.ρ s⁻¹ x)) :=
-    Rep.hom_comm_apply F h⁻¹ (B.ρ s⁻¹ x)
   rw [ht]
   simp only [mul_inv_rev, map_mul, Module.End.mul_apply]
   rw [hF, Representation.self_inv_apply]
