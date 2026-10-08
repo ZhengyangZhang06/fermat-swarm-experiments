@@ -889,3 +889,68 @@ theorem Submission.p03_tkc_positive_torsion_finite_68cf3476_d5 :
   intro k _ _ _ _ W hΔ n hn
   exact Submission.p03_ptf_finite_kernel_of_nsmul_nonzero_c5b7b5ed_d6 k W hΔ n
     (Submission.p03_ptf_positive_nsmul_nonzero_c5b7b5ed_d6 k W hΔ n hn)
+
+theorem Submission.p03_tkc_two_torsion_card_68cf3476_d5
+    (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k]
+    (W : WeierstrassCurve k) (hΔ : W.Δ ≠ 0) :
+    Nat.card {P : W.toAffine.Point // (2 : ℕ) • P = 0} = 4 := by
+  classical
+  -- Pinned mathlib: Cubic.card_roots_of_discr_ne_zero and
+  -- WeierstrassCurve.twoTorsionPolynomial_discr count the three affine roots.
+  let s := W.twoTorsionPolynomial.roots.toFinset
+  have ha : W.twoTorsionPolynomial.a ≠ 0 := by
+    change (4 : k) ≠ 0
+    norm_num
+  have hd : W.twoTorsionPolynomial.discr ≠ 0 := by
+    rw [W.twoTorsionPolynomial_discr]
+    exact mul_ne_zero (by norm_num) hΔ
+  have hs : s.card = 3 := by
+    simpa [Cubic.map, s] using
+      (Cubic.card_roots_of_discr_ne_zero (φ := RingHom.id k) ha
+        (IsAlgClosed.splits _) hd)
+  have hroot (x : k) : x ∈ s ↔
+      4 * x ^ 3 + W.b₂ * x ^ 2 + 2 * W.b₄ * x + W.b₆ = 0 := by
+    rw [Multiset.mem_toFinset, Cubic.mem_roots_iff (Cubic.ne_zero_of_a_ne_zero ha)]
+    rfl
+  let y₀ : k → k := fun x => -(W.a₁ * x + W.a₃) / 2
+  have heq (x : k) : W.toAffine.Equation x (y₀ x) ↔ x ∈ s := by
+    rw [hroot, equation_iff']
+    dsimp [y₀, b₂, b₄, b₆]
+    constructor
+    · intro h
+      linear_combination -4 * h
+    · intro h
+      linear_combination -(1 / 4 : k) * h
+  have htwo (x y : k) (h : W.toAffine.Nonsingular x y) :
+      (2 : ℕ) • (Point.some x y h) = 0 ↔ y = y₀ x := by
+    rw [two_nsmul, add_eq_zero_iff_eq_neg, neg_some, Point.some.injEq]
+    simp only [true_and, negY]
+    dsimp [y₀]
+    constructor
+    · intro hy
+      linear_combination (1 / 2 : k) * hy
+    · intro hy
+      linear_combination 2 * hy
+  let e : {xy : k × k // ∃ h : W.toAffine.Nonsingular xy.1 xy.2,
+      (2 : ℕ) • Point.some xy.1 xy.2 h = 0} ≃ s :=
+    { toFun := fun xy => ⟨xy.val.1, by
+        obtain ⟨h, ht⟩ := xy.property
+        have hy := (htwo _ _ h).mp ht
+        exact (heq _).mp (hy ▸ h.1)⟩
+      invFun := fun x => ⟨(x.val, y₀ x.val), by
+        have h := (W.toAffine.equation_iff_nonsingular_of_Δ_ne_zero hΔ).mp
+          ((heq _).mpr x.property)
+        exact ⟨h, (htwo _ _ h).mpr rfl⟩⟩
+      left_inv := by
+        intro xy
+        apply Subtype.ext
+        apply Prod.ext
+        · rfl
+        · exact ((htwo _ _ xy.property.choose).mp xy.property.choose_spec).symm
+      right_inv := by intro x; rfl }
+  have e₀ := nonsingularPointEquivSubtype
+    (p := fun P : W.toAffine.Point => (2 : ℕ) • P = 0)
+    (show (2 : ℕ) • (Point.zero : W.toAffine.Point) = 0 by exact nsmul_zero 2)
+  rw [Nat.card_congr (e₀.trans e.optionCongr)]
+  change Nat.card (Option s) = 4
+  rw [Nat.card_eq_fintype_card, Fintype.card_option, Fintype.card_coe, hs]
