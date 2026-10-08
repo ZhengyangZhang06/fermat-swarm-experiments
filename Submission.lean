@@ -11,6 +11,34 @@ attribute [-simp] AlgebraicCurve.IsFrobeniusEndo.frobNormRingHom_apply ModularCu
 attribute [-simp] AlgebraicCurve.SemilinearAut.coe_torsion_smul AlgebraicCurve.SemilinearAut.toRingAut_mul AlgebraicCurve.coe_frobeniusPushforwardDegZero AlgebraicCurve.IsFrobeniusEndo.coe_frobeniusPullbackDegZero ModularCurve.jqNModC_one ModularCurve.qExpand_coeff_mul ModularCurve.qExpandₐ_apply ModularCurve.jqN_one ModularCurve.qExpand_single ModularCurve.dedekindPsi_one ModularCurve.ModularPolynomialData.mk.sizeOf_spec ModularCurve.evalAtJ_X ModularCurve.ModularPolynomialData.mk.injEq ModularCurve.constantCoeff_jNum ModularCurve.constantCoeff_eisenstein4 ModularCurve.qExpand_C ModularCurve.coeff_jq_neg_one ModularCurve.constantCoeff_jNumQ ModularCurve.reduceModBivar_C_X ModularCurve.laurentMap_coeff ModularCurve.reduceModBivar_X ModularCurve.laurentMap_single ModularCurve.evalAtJInt_X ModularCurve.evalAtJMod_X ModularCurve.jqNMod_one ModularCurve.aeval_heckeGen ModularCurve.coe_mTorsionGaloisRep_apply ModularCurve.eisensteinSystem_of_dvd ModularCurve.eisensteinSystem_of_not_dvd FreyPackage.mk.sizeOf_spec FreyPackage.mk.injEq WeierstrassCurve.Affine.Point.galoisRepModuleEnd_apply
 
 open AlgebraicCurve
+
+namespace Submission
+
+theorem p06_9e0f5043ff_fpm_normalized_orders
+    (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F)
+    (hx : Transcendental K x) (q : Polynomial K) (hq : q.Monic)
+    (hqirr : Irreducible q) (v : AlgebraicCurve.Place K F)
+    (hv : ∀ f : F, f ∈ v.toValuationSubring ↔
+      ∃ a b : Polynomial K, ¬ q ∣ b ∧
+        f = Polynomial.aeval x a / Polynomial.aeval x b) :
+    v.ord (Polynomial.aeval x q) = 1 ∧
+      (∀ a : Polynomial K, ¬ q ∣ a → v.ord (Polynomial.aeval x a) = 0) := by
+  obtain ⟨π, hπ, hπirr⟩ :=
+    Submission.p06_9e0f5043ff_fno_irreducible_aeval K F x hx q hq hqirr v hv
+  constructor
+  · simpa only [hπ] using v.ord_coe_irreducible hπirr
+  · intro a ha
+    have hqone : ¬ q ∣ (1 : Polynomial K) := hqirr.not_dvd_one
+    have hamem : Polynomial.aeval x a ∈ v.toValuationSubring :=
+      (hv _).mpr ⟨a, 1, hqone, by simp⟩
+    let z : v.toValuationSubring := ⟨Polynomial.aeval x a, hamem⟩
+    have hz : IsUnit z :=
+      (Submission.p06_9e0f5043ff_fno_fraction_isunit K F x hx q hq hqirr v hv
+        a 1 z hqone (by simp [z])).mpr ha
+    simpa only [IsUnit.unit_spec] using v.ord_coe_unit hz.unit
+
+end Submission
+
 theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
     [Algebra K F] (x : F) (hx : Transcendental K x)
     [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
