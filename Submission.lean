@@ -2325,7 +2325,11 @@ theorem p04_tz91_invariant_restriction_norm_range
   rw [← Fintype.sum_prod_type (fun p : H × S.1 => A.ρ ((p.1 : G) * (p.2 : G)) v)]
   exact Fintype.sum_equiv S.2.equiv.symm _ _ fun _ => rfl
 /-- Summing translates over left cosets transfers subgroup invariants to ambient invariants.
-It takes the subgroup norm to the ambient norm and acts on ambient invariants by the index. -/
+It takes the subgroup norm to the ambient norm and acts on ambient invariants by the index.
+
+The coset representatives use `QuotientGroup.mk_out_eq_mul` from Mathlib's
+`GroupTheory.Coset.Defs`; the norm is the `normToInvariants` map from
+`Definitions.Def_GroupCohomology_TateCohomology`. -/
 theorem p04_tz91_invariant_transfer_norm_index
     {k G : Type _} [CommRing k] [Group G] [Fintype G]
     (A : Rep k G) (H : Subgroup G) [Fintype H] :
