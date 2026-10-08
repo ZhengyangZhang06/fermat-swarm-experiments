@@ -12,6 +12,12 @@ attribute [-simp] Representation.TateResCor.cosetDecomp_apply Rep.coe_tateHneg1R
 set_option autoImplicit false
 universe u
 open CategoryTheory Rep
+theorem Rep.isZero_tateCohomology_of_forall_sylow {k G : Type u} [CommRing k] [Group G] [Fintype G]
+    (A : Rep.{u} k G) (q : ℤ)
+    (h : ∀ (p : ℕ) [Fact p.Prime] (P : Sylow p G) [Fintype (P : Subgroup G)],
+      CategoryTheory.Limits.IsZero ((Rep.res (P : Subgroup G).subtype A).tateCohomology q)) :
+    CategoryTheory.Limits.IsZero (A.tateCohomology q) := by
+  sorry
 
 namespace Submission
 
