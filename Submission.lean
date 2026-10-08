@@ -3689,3 +3689,28 @@ theorem p02_es_177ebb5a_sd_jr_linepow_eval :
     simp [h, zero_pow hnr]
 
 end Submission
+
+theorem Submission.p02_es_177ebb5a_med_js_iterated_monomial :
+    ∀ (d : Fin 2 →₀ ℕ) (a : ℂ) (r : ℕ),
+      ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r]
+        (MvPolynomial.monomial d a)) =
+      MvPolynomial.monomial (d - Finsupp.single (1 : Fin 2) r)
+        (a * (Nat.descFactorial (d 1) r : ℂ)) := by
+  intro d a r
+  induction r with
+  | zero => simp
+  | succ r ih =>
+      rw [Function.iterate_succ_apply', ih, MvPolynomial.pderiv_monomial]
+      have hexponent :
+          d - Finsupp.single (1 : Fin 2) r - Finsupp.single (1 : Fin 2) 1 =
+            d - Finsupp.single (1 : Fin 2) (r + 1) := by
+        ext i
+        by_cases hi : i = 1
+        · subst i
+          simp [Finsupp.tsub_apply, Nat.sub_sub]
+        · simp [Finsupp.tsub_apply, Finsupp.single_eq_of_ne hi]
+      rw [hexponent]
+      simp only [Finsupp.tsub_apply, Finsupp.single_eq_same,
+        Nat.descFactorial_succ, Nat.cast_mul]
+      congr 1
+      ring
