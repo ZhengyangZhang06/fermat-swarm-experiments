@@ -282,3 +282,53 @@ theorem Submission.p10_17ae7b7d_efp_unimodular_eigenrow_iff :
       calc
         k * s - r = t * s - r * (t ^ 2 - k * t + 1) := by rw [hs]; ring
         _ = t * s := by rw [hpoly, mul_zero, sub_zero]
+
+
+theorem Submission.p10_17ae7b7d_efp_inverse_coset_eq_iff :
+    ∀ (N : ℕ) [NeZero N] (A B : Matrix.SpecialLinearGroup (Fin 2) ℤ),
+      (QuotientGroup.mk (A⁻¹) :
+        (Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 N) =
+          QuotientGroup.mk (B⁻¹) ↔
+        ∃ u : (ZMod N)ˣ,
+          (B 1 0 : ZMod N) = (u : ZMod N) * (A 1 0 : ZMod N) ∧
+          (B 1 1 : ZMod N) = (u : ZMod N) * (A 1 1 : ZMod N) := by
+  intro N _ A B
+  constructor
+  · intro h
+    let E := B * A⁻¹
+    have hE : E ∈ CongruenceSubgroup.Gamma0 N := by
+      simpa only [inv_inv] using (QuotientGroup.eq.mp h.symm)
+    have hzero : (E 1 0 : ZMod N) = 0 := CongruenceSubgroup.Gamma0_mem.mp hE
+    have hdet : (E 0 0 : ZMod N) * (E 1 1 : ZMod N) -
+        (E 0 1 : ZMod N) * (E 1 0 : ZMod N) = 1 := by
+      have h := E.det_coe
+      rw [Matrix.det_fin_two] at h
+      exact_mod_cast h
+    have hunit : (E 1 1 : ZMod N) * (E 0 0 : ZMod N) = 1 := by
+      rw [hzero, mul_zero, sub_zero] at hdet
+      simpa only [mul_comm] using hdet
+    let u : (ZMod N)ˣ := Units.mkOfMulEqOne (E 1 1 : ZMod N) (E 0 0 : ZMod N) hunit
+    have hBA : E * A = B := by
+      dsimp [E]
+      rw [mul_assoc, inv_mul_cancel, mul_one]
+    have hrow (j : Fin 2) : (B 1 j : ZMod N) = (E 1 1 : ZMod N) * (A 1 j : ZMod N) := by
+      have h := congrArg (fun C : Matrix.SpecialLinearGroup (Fin 2) ℤ =>
+        (C 1 j : ZMod N)) hBA
+      change (((E.1 * A.1) 1 j : ℤ) : ZMod N) = (B 1 j : ZMod N) at h
+      simp only [Matrix.mul_apply, Fin.sum_univ_two, Int.cast_add, Int.cast_mul] at h
+      change (E 1 0 : ZMod N) * (A 0 j : ZMod N) +
+        (E 1 1 : ZMod N) * (A 1 j : ZMod N) = (B 1 j : ZMod N) at h
+      simpa only [hzero, zero_mul, zero_add] using h.symm
+    exact ⟨u, hrow 0, hrow 1⟩
+  · rintro ⟨u, hc, hd⟩
+    apply Eq.symm
+    apply QuotientGroup.eq.mpr
+    rw [inv_inv]
+    apply CongruenceSubgroup.Gamma0_mem.mpr
+    change (((B.1 * (A⁻¹).1) 1 0 : ℤ) : ZMod N) = 0
+    rw [Matrix.SpecialLinearGroup.SL2_inv_expl]
+    simp only [Matrix.mul_apply, Fin.sum_univ_two]
+    change ((B 1 0 * A 1 1 + B 1 1 * -(A 1 0) : ℤ) : ZMod N) = 0
+    push_cast
+    rw [hc, hd]
+    ring
