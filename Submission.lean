@@ -435,3 +435,121 @@ theorem Submission.p03_eds_recurrence_unique_68cf3476_d3 :
         rw [hfodd r hr, hgodd r hr,
           ih (r + 2) (by omega), ih r (by omega),
           ih (r - 1) (by omega), ih (r + 1) (by omega)]
+
+theorem Submission.p03_tu_coordinate_symmetries_68cf3476 :
+    ∀ (F Ω : Type) [NormedField F] [CompleteSpace F] [NormedField Ω]
+      [NormedAlgebra F Ω] [Algebra.IsAlgebraic F Ω],
+      (∀ x y : Ω, ‖x + y‖ ≤ max ‖x‖ ‖y‖) →
+      ∀ q : F, 0 < ‖q‖ → ‖q‖ < 1 → ∀ c : F,
+      let qΩ : Ω := algebraMap F Ω q
+      let X : Ω → Ω := fun u =>
+        (∑' n : ℤ, qΩ ^ n * u / (1 - qΩ ^ n * u) ^ 2) - 2 * algebraMap F Ω c
+      let Y : Ω → Ω := fun u =>
+        (∑' n : ℤ, (qΩ ^ n * u) ^ 2 / (1 - qΩ ^ n * u) ^ 3) + algebraMap F Ω c
+      ∀ u : Ωˣ, (¬ ∃ m : ℤ, (u : Ω) = qΩ ^ m) →
+        X (qΩ * (u : Ω)) = X (u : Ω) ∧
+        Y (qΩ * (u : Ω)) = Y (u : Ω) ∧
+        X ((u : Ω)⁻¹) = X (u : Ω) ∧
+        Y ((u : Ω)⁻¹) = -Y (u : Ω) - X (u : Ω) ∧
+        ∀ σ : Ω ≃ₐ[F] Ω,
+          X (σ (u : Ω)) = σ (X (u : Ω)) ∧
+          Y (σ (u : Ω)) = σ (Y (u : Ω)) := by
+  intro F Ω _ _ _ _ _ hΩ q hq0 hq1 c qΩ X Y u hu
+  let A : Ω → Ω := fun z => z / (1 - z) ^ 2
+  let B : Ω → Ω := fun z => z ^ 2 / (1 - z) ^ 3
+  have hQ0 : qΩ ≠ 0 := by
+    apply norm_pos_iff.mp
+    simpa only [qΩ, norm_algebraMap'] using hq0
+  obtain ⟨hsA, hsB⟩ :=
+    Submission.p03_tu_bilateral_summable_68cf3476 F Ω hΩ q hq0 hq1 u hu
+  change Summable (fun n : ℤ => A (qΩ ^ n * (u : Ω))) at hsA
+  change Summable (fun n : ℤ => B (qΩ ^ n * (u : Ω))) at hsB
+  have hz0 (n : ℤ) : qΩ ^ n * (u : Ω) ≠ 0 :=
+    mul_ne_zero (zpow_ne_zero n hQ0) u.ne_zero
+  have hz1 (n : ℤ) : 1 - qΩ ^ n * (u : Ω) ≠ 0 := by
+    intro h
+    have hh : qΩ ^ n * (u : Ω) = 1 := (sub_eq_zero.mp h).symm
+    apply hu
+    refine ⟨-n, ?_⟩
+    calc
+      (u : Ω) = (qΩ ^ n)⁻¹ * (qΩ ^ n * (u : Ω)) := by
+        rw [← mul_assoc, inv_mul_cancel₀ (zpow_ne_zero n hQ0), one_mul]
+      _ = qΩ ^ (-n) := by rw [hh, mul_one, zpow_neg]
+  have hinv (z : Ω) (hz : z ≠ 0) (hd : 1 - z ≠ 0) :
+      A z⁻¹ = A z ∧ B z⁻¹ = -B z - A z := by
+    have he : 1 - z⁻¹ = -(1 - z) / z := by
+      field_simp
+      ring
+    dsimp only [A, B]
+    rw [he]
+    constructor
+    · field_simp
+    · field_simp
+      ring
+  have hshift (g : Ω → Ω) :
+      (∑' n : ℤ, g (qΩ ^ n * (qΩ * (u : Ω)))) =
+        ∑' n : ℤ, g (qΩ ^ n * (u : Ω)) := by
+    calc
+      _ = ∑' n : ℤ, g (qΩ ^ (n + 1) * (u : Ω)) := by
+        apply tsum_congr
+        intro n
+        rw [zpow_add₀ hQ0, zpow_one, mul_assoc]
+      _ = _ := (Equiv.addRight (1 : ℤ)).tsum_eq (fun n : ℤ => g (qΩ ^ n * (u : Ω)))
+  have hAsumInv :
+      (∑' n : ℤ, A (qΩ ^ n * (u : Ω)⁻¹)) =
+        ∑' n : ℤ, A (qΩ ^ n * (u : Ω)) := by
+    calc
+      _ = ∑' n : ℤ, A (qΩ ^ (-n) * (u : Ω)⁻¹) :=
+        (tsum_comp_neg (fun n : ℤ => A (qΩ ^ n * (u : Ω)⁻¹))).symm
+      _ = _ := by
+        apply tsum_congr
+        intro n
+        simpa only [zpow_neg, mul_inv_rev, mul_comm] using
+          (hinv (qΩ ^ n * (u : Ω)) (hz0 n) (hz1 n)).1
+  have hBsumInv :
+      (∑' n : ℤ, B (qΩ ^ n * (u : Ω)⁻¹)) =
+        -(∑' n : ℤ, B (qΩ ^ n * (u : Ω))) -
+          ∑' n : ℤ, A (qΩ ^ n * (u : Ω)) := by
+    calc
+      _ = ∑' n : ℤ, B (qΩ ^ (-n) * (u : Ω)⁻¹) :=
+        (tsum_comp_neg (fun n : ℤ => B (qΩ ^ n * (u : Ω)⁻¹))).symm
+      _ = ∑' n : ℤ, (-B (qΩ ^ n * (u : Ω)) - A (qΩ ^ n * (u : Ω))) := by
+        apply tsum_congr
+        intro n
+        simpa only [zpow_neg, mul_inv_rev, mul_comm] using
+          (hinv (qΩ ^ n * (u : Ω)) (hz0 n) (hz1 n)).2
+      _ = _ := by rw [hsB.neg.tsum_sub hsA, tsum_neg]
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩
+  · exact congrArg (fun s : Ω => s - 2 * algebraMap F Ω c) (hshift A)
+  · exact congrArg (fun s : Ω => s + algebraMap F Ω c) (hshift B)
+  · exact congrArg (fun s : Ω => s - 2 * algebraMap F Ω c) hAsumInv
+  · change (∑' n : ℤ, B (qΩ ^ n * (u : Ω)⁻¹)) + algebraMap F Ω c =
+      -((∑' n : ℤ, B (qΩ ^ n * (u : Ω))) + algebraMap F Ω c) -
+        ((∑' n : ℤ, A (qΩ ^ n * (u : Ω))) - 2 * algebraMap F Ω c)
+    rw [hBsumInv]
+    ring
+  · intro σ
+    have hσ : Continuous (fun x : Ω => σ x) :=
+      (Submission.p03_tu_algebraic_aut_isometry_68cf3476 F Ω q hq0 hq1 σ).continuous
+    have hσQ : σ qΩ = qΩ := σ.commutes q
+    have hAsumMap :
+        (∑' n : ℤ, A (qΩ ^ n * σ (u : Ω))) =
+          σ (∑' n : ℤ, A (qΩ ^ n * (u : Ω))) := by
+      rw [hsA.map_tsum σ hσ]
+      apply tsum_congr
+      intro n
+      simp only [A, map_div₀, map_pow, map_sub, map_one, map_mul, map_zpow₀, hσQ]
+    have hBsumMap :
+        (∑' n : ℤ, B (qΩ ^ n * σ (u : Ω))) =
+          σ (∑' n : ℤ, B (qΩ ^ n * (u : Ω))) := by
+      rw [hsB.map_tsum σ hσ]
+      apply tsum_congr
+      intro n
+      simp only [B, map_div₀, map_pow, map_sub, map_one, map_mul, map_zpow₀, hσQ]
+    constructor
+    · change (∑' n : ℤ, A (qΩ ^ n * σ (u : Ω))) - 2 * algebraMap F Ω c =
+        σ ((∑' n : ℤ, A (qΩ ^ n * (u : Ω))) - 2 * algebraMap F Ω c)
+      rw [hAsumMap, map_sub, map_mul, map_ofNat, σ.commutes]
+    · change (∑' n : ℤ, B (qΩ ^ n * σ (u : Ω))) + algebraMap F Ω c =
+        σ ((∑' n : ℤ, B (qΩ ^ n * (u : Ω))) + algebraMap F Ω c)
+      rw [hBsumMap, map_add, σ.commutes]
