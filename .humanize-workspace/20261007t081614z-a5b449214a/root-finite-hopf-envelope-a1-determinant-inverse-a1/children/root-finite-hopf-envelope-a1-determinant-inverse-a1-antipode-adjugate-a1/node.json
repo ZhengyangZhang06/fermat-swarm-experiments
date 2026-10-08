@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_hopf_envelope-a1.determinant_inverse-a1.antipode_adjugate-a1",
+  "parent_id": "root.finite_hopf_envelope-a1.determinant_inverse-a1",
+  "depth": 3,
+  "title": "Determinant invertibility and the antipode adjugate formula",
+  "statement": "Let k be a field, H a commutative Hopf k-algebra with comultiplication Δ, counit ε and antipode S, n a natural number, and c an n×n matrix over H. Assume Δ(c_ij)=Σ_l c_il⊗c_lj and ε(c_ij)=δ_ij for every i,j, where tensor products are over k and δ_ij is 1 when i=j and 0 otherwise. Then there exists u∈H such that det(c)u=1 and S(c_ij)=u adj(c)_ij for every i,j, with the ordinary determinant and adjugate.",
+  "lean_statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (n : ℕ) (c : Matrix (Fin n) (Fin n) H) (hΔ : ∀ i j : Fin n, Coalgebra.comul (R := k) (c i j) = ∑ l : Fin n, TensorProduct.tmul k (c i l) (c l j)) (hε : ∀ i j : Fin n, Coalgebra.counit (R := k) (c i j) = if i = j then (1 : k) else 0), ∃ u : H, Matrix.det c * u = 1 ∧ ∀ i j : Fin n, HopfAlgebra.antipode k (c i j) = u * Matrix.adjugate c i j",
+  "lean_name": "p05_di_antipode_adjugate_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-determinant-inverse-a1-antipode-adjugate-a1-a1"
+}

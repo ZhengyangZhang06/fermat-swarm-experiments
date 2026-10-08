@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_hopf_envelope-a1.determinant_inverse-a1.determinant_grouplike-a1",
+  "parent_id": "root.finite_hopf_envelope-a1.determinant_inverse-a1",
+  "depth": 3,
+  "title": "The determinant of a coefficient matrix is group-like",
+  "statement": "Let k be a field, H a commutative k-bialgebra with comultiplication Δ and counit ε, n a natural number, and c an n×n matrix over H. Assume Δ(c_ij)=Σ_l c_il⊗c_lj and ε(c_ij)=δ_ij for every i,j, where tensor products are over k and δ_ij is 1 when i=j and 0 otherwise. Then Δ(det(c))=det(c)⊗det(c) and ε(det(c))=1.",
+  "lean_statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [Bialgebra k H] (n : ℕ) (c : Matrix (Fin n) (Fin n) H) (hΔ : ∀ i j : Fin n, Coalgebra.comul (R := k) (c i j) = ∑ l : Fin n, TensorProduct.tmul k (c i l) (c l j)) (hε : ∀ i j : Fin n, Coalgebra.counit (R := k) (c i j) = if i = j then (1 : k) else 0), Coalgebra.comul (R := k) (Matrix.det c) = TensorProduct.tmul k (Matrix.det c) (Matrix.det c) ∧ Coalgebra.counit (R := k) (Matrix.det c) = 1",
+  "lean_name": "p05_di_determinant_grouplike_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-determinant-inverse-a1-determinant-grouplike-a1-a1"
+}

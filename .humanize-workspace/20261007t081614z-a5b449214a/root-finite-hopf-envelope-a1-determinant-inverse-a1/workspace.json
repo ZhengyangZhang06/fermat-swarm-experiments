@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081614Z-a5b449214a",
+  "parent_id": "root.finite_hopf_envelope-a1.determinant_inverse-a1",
+  "dispatch_branch": "proof-workspace/fermat-p05/20261007t081614z-a5b449214a/dispatch/root-finite-hopf-envelope-a1-determinant-inverse-a1",
+  "source_commit": "2fdd42759f4ab17640ac773289b521dd69d4b26e",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.finite_hopf_envelope-a1.determinant_inverse-a1.antipode_adjugate-a1",
+      "key": "antipode_adjugate",
+      "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-determinant-inverse-a1-antipode-adjugate-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-determinant-inverse-a1/children/root-finite-hopf-envelope-a1-determinant-inverse-a1-antipode-adjugate-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "antipode_mul|antipodeAlgHom|antipode.*[Aa]lg|det_mul|det_map|mul_adjugate|adjugate_mul|hopfKer_eq_of_surjective",
+              "antipodeAlgHom|antipode_mul|map_det|comulAlgHom|counitAlgHom|of_mul_eq_one",
+              "(det.*(comul|[Gg]roup[Ll]ike)|([Gg]roup[Ll]ike|comul).*det|antipode.*adjugate|adjugate.*antipode)",
+              "p05_di_antipode_adjugate_a5b449214a|p05_di_determinant_grouplike_a5b449214a",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p05_di_typecheck_a5b449214a.lean",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean HeaderPolicyCheck.lean",
+              "python3 /tmp/p05_di_audit_a5b449214a.py"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Convolution.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/GroupLike.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Bialgebra/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Adjugate.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/report.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/challenge/HeaderPolicyCheck.lean",
+              "/tmp/p05_di_typecheck_a5b449214a.lean",
+              "/tmp/p05_di_audit_a5b449214a.json"
+            ],
+            "conclusion": "The snapshots match project 2fdd42759f4ab17640ac773289b521dd69d4b26e and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; both snapshots and all nine diagnostic compiler dependencies are clean and pinned. HopfAlgebra.Basic supplies both antipode identities; Convolution supplies antipodeAlgHom. The matrix files supply det_mul, RingHom.map_det, det_one, det_isEmpty, mul_adjugate and adjugate_mul. The targeted search found no existing determinant/comultiplication or antipode/adjugate theorem in the searched snapshot directories. Both proposed names were absent from the searched DAG, handoffs, snapshot and imported environment. Both exact child types elaborated after import Submission under Lean 4.33.1; kernel-checked diagnostic equalities confirmed ordinary multiplication for Matrix.of constructions. Audited library declarations have only propext, Classical.choice and Quot.sound as transitive axioms. Reviewed compiler-copy evidence matches policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96: exactly authorized lines 10–11 were omitted, original hash 2e81f3c63685285e1af52e3dee0c135a8a7c8e9f37be7ad076712f55790c632c reversibly yields build hash d10948155ea0e92408d3ce320bdd5db3b7f00b622f4c9de9c98f040a414fa2f6, and the rerun Lean probe confirmed all omitted targets absent. These checks establish decomposition compatibility, not comparator acceptance of child proofs."
+          }
+        ],
+        "parent_id": "root.finite_hopf_envelope-a1.determinant_inverse-a1",
+        "child_id": "root.finite_hopf_envelope-a1.determinant_inverse-a1.antipode_adjugate-a1",
+        "subproblem": {
+          "key": "antipode_adjugate",
+          "title": "Determinant invertibility and the antipode adjugate formula",
+          "statement": "Let k be a field, H a commutative Hopf k-algebra with comultiplication Δ, counit ε and antipode S, n a natural number, and c an n×n matrix over H. Assume Δ(c_ij)=Σ_l c_il⊗c_lj and ε(c_ij)=δ_ij for every i,j, where tensor products are over k and δ_ij is 1 when i=j and 0 otherwise. Then there exists u∈H such that det(c)u=1 and S(c_ij)=u adj(c)_ij for every i,j, with the ordinary determinant and adjugate.",
+          "lean_statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (n : ℕ) (c : Matrix (Fin n) (Fin n) H) (hΔ : ∀ i j : Fin n, Coalgebra.comul (R := k) (c i j) = ∑ l : Fin n, TensorProduct.tmul k (c i l) (c l j)) (hε : ∀ i j : Fin n, Coalgebra.counit (R := k) (c i j) = if i = j then (1 : k) else 0), ∃ u : H, Matrix.det c * u = 1 ∧ ∀ i j : Fin n, HopfAlgebra.antipode k (c i j) = u * Matrix.adjugate c i j",
+          "lean_name": "p05_di_antipode_adjugate_a5b449214a",
+          "depends_on": [],
+          "natural_proof": "1. Fix k,H,n,c satisfying the hypotheses. Define the ordinary matrix Q by Q_ij=S(c_ij). Write m:H⊗_k H→H for the k-linear multiplication map. Apply m∘(S⊗id) to Δ(c_ij)=Σ_l c_il⊗c_lj. Linearity and the left antipode identity give Σ_l S(c_il)c_lj=algebraMap(ε(c_ij))=δ_ij in H. These are exactly the entries of Qc=I. Applying m∘(id⊗S) instead gives Σ_l c_ilS(c_lj)=δ_ij, hence cQ=I. Here I denotes the ordinary identity matrix.\n2. Put d=det(c) and u=det(Q). The commutative-ring identities Matrix.det_mul and Matrix.det_one, supplied by the pinned Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean, applied to cQ=I give du=det(cQ)=det(I)=1. Commutativity of H also gives ud=1.\n3. Define the ordinary matrix T by T_ij=u adj(c)_ij. The identity Matrix.mul_adjugate in the pinned Mathlib/LinearAlgebra/Matrix/Adjugate.lean gives c adj(c)=dI. For every i,j, commutativity and distributivity therefore give (cT)_ij=Σ_l c_il(u adj(c)_lj)=u Σ_l c_il adj(c)_lj=u(dI_ij)=(ud)I_ij=I_ij. Consequently cT=I.\n4. Associativity of ordinary matrix multiplication and Qc=I imply Q=QI=Q(cT)=(Qc)T=IT=T. Taking the i,j entry yields S(c_ij)=u adj(c)_ij. Together with du=1, this proves the required existential statement with u=det(Q).\n5. No step requires n to be positive. When n=0, both determinants are 1 by Matrix.det_isEmpty, and the entrywise assertion has no indices, so the same argument covers the empty matrix.",
+          "proof_key_steps": [
+            "Apply the two antipode identities to the coefficient comultiplication formulas to obtain Qc=I=cQ.",
+            "Set u=det(Q) and take determinants to obtain det(c)u=1.",
+            "Use c adj(c)=det(c)I to show that u adj(c) is a right inverse of c.",
+            "Compare this right inverse with Q using Qc=I and take entries.",
+            "Use the empty determinant convention to include n=0."
+          ]
+        },
+        "audit": {
+          "key": "antipode_adjugate",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly matches all prose hypotheses and conclusions and is independently usable as a comparator challenge. The bare identifier is unreserved. Both antipode identities give Qc=I=cQ; determinants give det(c)u=1; commutativity and the adjugate identity give c(u adj(c))=I; associativity then identifies Q with u adj(c). The proof covers n=0 and requires no cancellation by a nonunit, hidden hypothesis, sibling result or parent theorem. This is a genuine narrower obligation with a complete formalization-ready proof."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-hopf-envelope-a1-determinant-inverse-a1-antipode-adjugate-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-hopf-envelope-a1-determinant-inverse-a1-antipode-adjugate-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-hopf-envelope-a1-determinant-inverse-a1-antipode-adjugate-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.finite_hopf_envelope-a1.determinant_inverse-a1.determinant_grouplike-a1",
+      "key": "determinant_grouplike",
+      "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-determinant-inverse-a1-determinant-grouplike-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-determinant-inverse-a1/children/root-finite-hopf-envelope-a1-determinant-inverse-a1-determinant-grouplike-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "antipode_mul|antipodeAlgHom|antipode.*[Aa]lg|det_mul|det_map|mul_adjugate|adjugate_mul|hopfKer_eq_of_surjective",
+              "antipodeAlgHom|antipode_mul|map_det|comulAlgHom|counitAlgHom|of_mul_eq_one",
+              "(det.*(comul|[Gg]roup[Ll]ike)|([Gg]roup[Ll]ike|comul).*det|antipode.*adjugate|adjugate.*antipode)",
+              "p05_di_antipode_adjugate_a5b449214a|p05_di_determinant_grouplike_a5b449214a",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p05_di_typecheck_a5b449214a.lean",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean HeaderPolicyCheck.lean",
+              "python3 /tmp/p05_di_audit_a5b449214a.py"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Convolution.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/GroupLike.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Bialgebra/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Adjugate.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/report.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/challenge/HeaderPolicyCheck.lean",
+              "/tmp/p05_di_typecheck_a5b449214a.lean",
+              "/tmp/p05_di_audit_a5b449214a.json"
+            ],
+            "conclusion": "The snapshots match project 2fdd42759f4ab17640ac773289b521dd69d4b26e and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; both snapshots and all nine diagnostic compiler dependencies are clean and pinned. HopfAlgebra.Basic supplies both antipode identities; Convolution supplies antipodeAlgHom. The matrix files supply det_mul, RingHom.map_det, det_one, det_isEmpty, mul_adjugate and adjugate_mul. The targeted search found no existing determinant/comultiplication or antipode/adjugate theorem in the searched snapshot directories. Both proposed names were absent from the searched DAG, handoffs, snapshot and imported environment. Both exact child types elaborated after import Submission under Lean 4.33.1; kernel-checked diagnostic equalities confirmed ordinary multiplication for Matrix.of constructions. Audited library declarations have only propext, Classical.choice and Quot.sound as transitive axioms. Reviewed compiler-copy evidence matches policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96: exactly authorized lines 10–11 were omitted, original hash 2e81f3c63685285e1af52e3dee0c135a8a7c8e9f37be7ad076712f55790c632c reversibly yields build hash d10948155ea0e92408d3ce320bdd5db3b7f00b622f4c9de9c98f040a414fa2f6, and the rerun Lean probe confirmed all omitted targets absent. These checks establish decomposition compatibility, not comparator acceptance of child proofs."
+          }
+        ],
+        "parent_id": "root.finite_hopf_envelope-a1.determinant_inverse-a1",
+        "child_id": "root.finite_hopf_envelope-a1.determinant_inverse-a1.determinant_grouplike-a1",
+        "subproblem": {
+          "key": "determinant_grouplike",
+          "title": "The determinant of a coefficient matrix is group-like",
+          "statement": "Let k be a field, H a commutative k-bialgebra with comultiplication Δ and counit ε, n a natural number, and c an n×n matrix over H. Assume Δ(c_ij)=Σ_l c_il⊗c_lj and ε(c_ij)=δ_ij for every i,j, where tensor products are over k and δ_ij is 1 when i=j and 0 otherwise. Then Δ(det(c))=det(c)⊗det(c) and ε(det(c))=1.",
+          "lean_statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [Bialgebra k H] (n : ℕ) (c : Matrix (Fin n) (Fin n) H) (hΔ : ∀ i j : Fin n, Coalgebra.comul (R := k) (c i j) = ∑ l : Fin n, TensorProduct.tmul k (c i l) (c l j)) (hε : ∀ i j : Fin n, Coalgebra.counit (R := k) (c i j) = if i = j then (1 : k) else 0), Coalgebra.comul (R := k) (Matrix.det c) = TensorProduct.tmul k (Matrix.det c) (Matrix.det c) ∧ Coalgebra.counit (R := k) (Matrix.det c) = 1",
+          "lean_name": "p05_di_determinant_grouplike_a5b449214a",
+          "depends_on": [],
+          "natural_proof": "1. Fix k,H,n,c satisfying the hypotheses and put d=det(c). The bialgebra axioms make Δ:H→H⊗_k H and ε:H→k unital k-algebra homomorphisms, represented by Bialgebra.comulAlgHom and Bialgebra.counitAlgHom. The tensor product is a commutative k-algebra. Its two inclusions λ(a)=a⊗1 and ρ(a)=1⊗a are also unital k-algebra homomorphisms.\n2. Define ordinary matrices X and Y over H⊗_k H by X_ij=λ(c_ij) and Y_ij=ρ(c_ij). For every i,j, ordinary matrix multiplication and tensor multiplication give (XY)_ij=Σ_l (c_il⊗1)(1⊗c_lj)=Σ_l c_il⊗c_lj=Δ(c_ij). Thus applying Δ entrywise to c produces XY.\n3. Use determinant functoriality RingHom.map_det and multiplicativity Matrix.det_mul from the pinned Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean. Step 2 gives Δ(d)=det(XY)=det(X)det(Y). Since X and Y are obtained by applying λ and ρ entrywise, functoriality also gives det(X)=λ(d)=d⊗1 and det(Y)=ρ(d)=1⊗d. Therefore Δ(d)=(d⊗1)(1⊗d)=d⊗d.\n4. The counit hypothesis says that applying ε entrywise to c yields the ordinary identity matrix over k. Determinant functoriality and Matrix.det_one therefore give ε(d)=det(ε(c))=det(I)=1. This establishes both asserted identities.\n5. These determinant identities require no nonempty index set. When n=0, d=1 by Matrix.det_isEmpty, and the conclusions also follow directly from preservation of the unit by Δ and ε.",
+          "proof_key_steps": [
+            "Use the algebra homomorphisms Δ, ε and the two tensor inclusions.",
+            "Factor the entrywise comultiplication matrix as the product of the two inclusion matrices.",
+            "Apply determinant functoriality and multiplicativity to obtain Δ(det(c))=det(c)⊗det(c).",
+            "Apply determinant functoriality to the counit identity matrix to obtain ε(det(c))=1.",
+            "Include n=0 through the empty determinant convention."
+          ]
+        },
+        "audit": {
+          "key": "determinant_grouplike",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly matches the commutative bialgebra statement, including both coefficient hypotheses and conclusions. Its bare identifier is unreserved. The tensor inclusions are algebra homomorphisms; ordinary matrix multiplication gives the stated factorization; determinant functoriality and multiplicativity yield the comultiplication identity; the counit hypothesis yields the identity matrix and counit determinant 1. All steps apply when n=0. No antipode or other child is used. Both empty dependency lists are correct and acyclic; the two children combine through the parent's supplied inverse-uniqueness argument to recover every parent conclusion."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-hopf-envelope-a1-determinant-inverse-a1-determinant-grouplike-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-hopf-envelope-a1-determinant-inverse-a1-determinant-grouplike-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-hopf-envelope-a1-determinant-inverse-a1-determinant-grouplike-a1/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-determinant-inverse-a1/task.md": "3dc73676a86d8d8b7e3880aaca4875ccb55e1f69c70e9ec1bcf6f20bc01755d2",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-determinant-inverse-a1/problem.md": "2f45861732b83e16d4873caf0c9444a7fa00a4264a1ac5e1f1ff0e2204fedfa8",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-determinant-inverse-a1/problem.json": "701bdd1174185b1e65ab66c2cd98b64493a189e8738d6a153e929d4a2054385b",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-determinant-inverse-a1/reference-manifest.json": "6c786975eb0eef7173c81aff14a1b156236148918e2f72a647e0f1f06054c1c5",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-determinant-inverse-a1/decomposition.json": "43dab1fc8b5be182e672f48534ac7ff10ddd772c48c5eb122033b31d1318bb15",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-determinant-inverse-a1/decomposition-audit.json": "f51225f4d2773b6aaa2e368d8c64ef6d12f28d026d765ca69963b526af60e23d",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-determinant-inverse-a1/controller-contract.json": "d884e19cbcd0cfe69c6417511400aa04e303e937b236f051376ed445b0fe9900",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-determinant-inverse-a1/children/root-finite-hopf-envelope-a1-determinant-inverse-a1-antipode-adjugate-a1/parent-child-handoff.json": "960f66df7814e7015c08e70e86c2846df6d6e35af849aef46a1fb890a86715f6",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-determinant-inverse-a1/children/root-finite-hopf-envelope-a1-determinant-inverse-a1-antipode-adjugate-a1/parent-supplied-plan.md": "86c0ce527c31876ca6490de8a0e5e0760ac660b05bde38204737cb741e384b0a",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-determinant-inverse-a1/children/root-finite-hopf-envelope-a1-determinant-inverse-a1-antipode-adjugate-a1/parent-supplied-natural-proof.md": "9dde257371d727332f5cb95b89c37ff53d8fc72f8389b1cbded143718928af24",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-determinant-inverse-a1/children/root-finite-hopf-envelope-a1-determinant-inverse-a1-antipode-adjugate-a1/parent-supplied-natural-proof.json": "d80a4c466a15fd508523e6fcd38d0c044cd601854831dfaf88935eae60a99fa1",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-determinant-inverse-a1/children/root-finite-hopf-envelope-a1-determinant-inverse-a1-antipode-adjugate-a1/node.json": "f12b30641ab243fc8403760a7ea14d894e2b74987b82f88f72144102a6ab07f6",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-determinant-inverse-a1/children/root-finite-hopf-envelope-a1-determinant-inverse-a1-determinant-grouplike-a1/parent-child-handoff.json": "f0587ea4d21f21bd2cf57edec8a84facae1bfc1337621a83405aeaff27f6f9f4",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-determinant-inverse-a1/children/root-finite-hopf-envelope-a1-determinant-inverse-a1-determinant-grouplike-a1/parent-supplied-plan.md": "3fda9d966a6c4734768dcf7ef78b389f3ff076376c87c66a02dc5a79bace3a90",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-determinant-inverse-a1/children/root-finite-hopf-envelope-a1-determinant-inverse-a1-determinant-grouplike-a1/parent-supplied-natural-proof.md": "1a038adbe48a8d426613a09a625038ecf347f6fc9d8a77b0f3e1853258c65eb4",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-determinant-inverse-a1/children/root-finite-hopf-envelope-a1-determinant-inverse-a1-determinant-grouplike-a1/parent-supplied-natural-proof.json": "ac25f99a6dc8a1891e31d1ddc898eafc5b95aaa67a58929bf93d254cb3089b92",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-determinant-inverse-a1/children/root-finite-hopf-envelope-a1-determinant-inverse-a1-determinant-grouplike-a1/node.json": "bcbd38b1499745a266b239ad488adf5f1f33e3d22de067f906e2178ebd2b1777"
+  }
+}
