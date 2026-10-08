@@ -1,0 +1,24 @@
+# Parent-supplied child implementation contract
+
+This scaffold was created deterministically by the controller. DAG child
+`root.finite_retraction-a1` must not run plan generation or natural-language proof generation.
+Use the independently reviewed proof at `.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1/parent-supplied-natural-proof.md` directly.
+
+## Frozen theorem
+
+- Parent node: `root`
+- Child key: `finite_retraction`
+- Declaration: `Submission.p05_finite_retraction_a5b449214a`
+- Exact Lean type: `∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (A : Subalgebra k H) [Algebra.FiniteType k A] (hΔ : (∀ x ∈ A, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ A, ∃ b ∈ A, t = TensorProduct.tmul k a b})) (hS : (∀ x ∈ A, HopfAlgebra.antipode k x ∈ A)) (V : Submodule k H) [FiniteDimensional k V] (h1 : (1 : H) ∈ V) (hV : ∀ x ∈ V, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ V, ∃ b : H, t = TensorProduct.tmul k a b}), ∃ r : (Submodule.span A (V : Set H)) →ₗ[A] A, ∀ (a : A) (ha : (a : H) ∈ Submodule.span A (V : Set H)), r ⟨(a : H), ha⟩ = a`
+
+## Sibling prerequisites
+
+- None.
+
+## Implementation steps
+
+1. Read the complete parent-supplied natural-language proof.
+2. Formalize exactly the frozen theorem without weakening or replacing it.
+3. Use only the listed accepted sibling prerequisites and ordinary frozen proof-base helpers.
+4. Run the configured author-side child comparator and return a committed candidate. The outer
+   controller, not this nested implementation loop, owns the independent reviewer comparator.

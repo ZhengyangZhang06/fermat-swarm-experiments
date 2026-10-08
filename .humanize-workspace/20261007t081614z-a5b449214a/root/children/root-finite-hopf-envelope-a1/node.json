@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_hopf_envelope-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "Finite Hopf envelopes",
+  "statement": "Let k be a field and H a commutative Hopf k-algebra, with comultiplication Δ and antipode S. For every finite set F of elements of H, there exists a k-subalgebra A of H containing F, finitely generated as a k-algebra, such that Δ(x) belongs to the k-linear span of tensors a⊗b with a,b∈A whenever x∈A, and S(x)∈A whenever x∈A.",
+  "lean_statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (F : Finset H), ∃ A : Subalgebra k H, (∀ x ∈ F, x ∈ A) ∧ Algebra.FiniteType k A ∧ (∀ x ∈ A, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ A, ∃ b ∈ A, t = TensorProduct.tmul k a b}) ∧ (∀ x ∈ A, HopfAlgebra.antipode k x ∈ A)",
+  "lean_name": "p05_finite_hopf_envelope_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-a1"
+}

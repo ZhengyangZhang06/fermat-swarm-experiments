@@ -1,0 +1,74 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "HopfKerHopf|ι₂_comulK|p05_(finite_hopf_envelope|finite_retraction|hopf_tensor_equalizer|subalgebra_coinvariant|canonical_map_injective)_a5b449214a",
+        "antipode_mul_distrib|antipodeAlgHom|isNoetherianRing_of_fg|finitePresentation_of_finite|one_tmul_eq_zero_iff|eqLocus_includeLeft_includeRight|of_faithfullyFlat",
+        "class.*FiniteType|def.*FiniteType|abbrev.*FiniteType",
+        "rg --files -uu -g dag.json /mnt/data/zhengyang-workspace/fermat-swarm-projects",
+        "rg -n -uu -g dag.json 'p05_(finite_hopf_envelope|finite_retraction|hopf_tensor_equalizer|subalgebra_coinvariant|canonical_map_injective)_a5b449214a' /mnt/data/zhengyang-workspace/fermat-swarm-projects",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p05-independent-decomposition-audit-f9819ytf/IndependentTypes.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p05-independent-decomposition-audit-f9819ytf/CombinedProbes.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Fermat/Thm_HopfAlgebra_hopfKer_eq_of_surjective_of_ker_eq_span.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Convolution.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/FiniteType.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Adjoin/FG.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Module/FinitePresentation.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/TensorProduct/IncludeLeftSubRight.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Flat/FaithfullyFlat/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/runtime/flows/math-lean-flow-header-policy-v4/docs/frozen-header-policy.md",
+        "/runtime/flows/math-lean-flow-header-policy-v4/scripts/verify-frozen-node.py",
+        "/tmp/p05-independent-decomposition-audit-f9819ytf/report.json",
+        "/tmp/p05-independent-decomposition-audit-f9819ytf/challenge-name-absence.log",
+        "/tmp/p05-independent-decomposition-audit-f9819ytf/challenge-header-absence.log"
+      ],
+      "conclusion": "The pinned definitions confirm the stated coinvariance equation; FiniteType means finite algebra generation. The library supplies antipode multiplicativity and Noetherian finite-presentation infrastructure, while its generic tensor equalizer results require additional hypotheses that the supplied proofs establish directly. Searches found no proposed helper declarations or orphan HopfKerHopf declarations in the pinned Definitions/mathlib trees, and no conflicting names in local DAG files. Snapshot revisions 2fdd42759f4ab17640ac773289b521dd69d4b26e and db584cd6d46c92f209a44c0f1c829460d327499d and all nine dependency pins are clean. Original contracts remain unchanged; derived copies omit exactly the two policy-authorized attribute lines, whose targets independently tested absent. Fresh Lean 4.33.1 checks passed for all five literal propositions both without Submission and in the prepared contexts; one initial import timeout passed on retry. Instance probes confirm inclusion scalar actions and ordinary tensor-algebra multiplication. All five names are bare, unreserved identifiers, and no child type contains a matrix construction or depends on its implementation. Inspected infrastructure axiom closures contain only propext, Classical.choice and Quot.sound. The split is appropriate and acyclic, and its children recover both parent inclusions without changing the frozen contract. This accepts the decomposition, not any Lean theorem proof or solution PR."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "finite_hopf_envelope",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone proposition matches every prose hypothesis and conclusion. Steps 1–3 construct the finite coefficient comodule; steps 4–8 establish antipode multiplicativity, determinant inversion, finite generation and both stability conditions. The proof is complete and independent of siblings and parent."
+    },
+    {
+      "key": "finite_retraction",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The type matches the retraction statement: h1 ensures A lies in span_A(V), so quantification over membership witnesses is not vacuous. The proof supplies Hopf restriction, quotient coactions, finite presentation, presentation-ideal invariance, projectivity through localization and patching, and the resulting retraction. No faithful-flatness assumption or circular theorem is used."
+    },
+    {
+      "key": "hopf_tensor_equalizer",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The proposition exactly states the tensor implication over the inclusion-induced K-module structure. The finite-relation argument correctly avoids assuming tensor injectivity over K; finite_retraction handles finite generation, and finite_hopf_envelope removes that restriction. Applying the resulting purity to H/K proves the conclusion. Both declared dependencies are necessary and correctly directed."
+    },
+    {
+      "key": "subalgebra_coinvariant",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and Lean type agree, including the precise augmentation-ideal kernel equality. Subtracting the counit scalar determines q on K; coproduct stability and right counitality then give the defining Hopf-kernel equation. The proof needs neither surjectivity nor antipode stability and has no undeclared dependency."
+    },
+    {
+      "key": "canonical_map_injective",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact proposition uses the intended tensor-algebra instances and matches all prose hypotheses. Coinvariance supplies K-balancing; the antipode translation map kills ker(q), descends using surjectivity, and yields a left inverse by coassociativity and antipode cancellation. This proves injectivity and the specified formula, using only the declared coinvariance sibling."
+    }
+  ],
+  "required_changes": []
+}

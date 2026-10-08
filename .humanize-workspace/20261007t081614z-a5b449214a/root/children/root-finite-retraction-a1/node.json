@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_retraction-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "Finite retractions over Hopf-stable subalgebras",
+  "statement": "Let k be a field, H a commutative Hopf k-algebra, and A a k-subalgebra finitely generated over k. Assume Δ(A) lies in the k-linear span of tensors with both factors in A, and S(A)⊆A. Let V be a finite-dimensional k-subspace of H containing 1 such that Δ(V) lies in the k-linear span of tensors v⊗h with v∈V and h∈H. Give H its A-module structure by inclusion and put N=span_A(V). Then A⊂N, and there exists an A-linear map r:N→A whose value on the inclusion of every a∈A is a.",
+  "lean_statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (A : Subalgebra k H) [Algebra.FiniteType k A] (hΔ : (∀ x ∈ A, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ A, ∃ b ∈ A, t = TensorProduct.tmul k a b})) (hS : (∀ x ∈ A, HopfAlgebra.antipode k x ∈ A)) (V : Submodule k H) [FiniteDimensional k V] (h1 : (1 : H) ∈ V) (hV : ∀ x ∈ V, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ V, ∃ b : H, t = TensorProduct.tmul k a b}), ∃ r : (Submodule.span A (V : Set H)) →ₗ[A] A, ∀ (a : A) (ha : (a : H) ∈ Submodule.span A (V : Set H)), r ⟨(a : H), ha⟩ = a",
+  "lean_name": "p05_finite_retraction_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-retraction-a1-a1"
+}
