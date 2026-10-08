@@ -1455,4 +1455,17 @@ theorem p06_9e0f5043ff_fpm_normalized_orders
   rw [← LinearMap.range_comp, ← Matrix.mulVecLin_mul, Matrix.mulVecLin_mul (P * D) Q]
   exact (LinearMap.range_comp_of_range_eq_top _ eQ.range).symm
 
+namespace Submission
+
+theorem p06_9e0f5043ff_dlen_diagonal_cokernel
+    (R : Type*) [CommRing R] (m : ℕ) (D P Q : Matrix (Fin m) (Fin m) R)
+    (d : Fin m → R) (hP : IsUnit P) (hQ : IsUnit Q)
+    (hdiag : P * D * Q = Matrix.diagonal d) :
+    Nonempty (((Fin m → R) ⧸ LinearMap.range (Matrix.mulVecLin D)) ≃ₗ[R]
+      ((i : Fin m) → R ⧸ Ideal.span ({d i} : Set R))) := by
+  obtain ⟨eUnits⟩ := Submission.p06_9e0f5043ff_dmc_cokernel_units R m D P Q hP hQ
+  rw [hdiag] at eUnits
+  obtain ⟨eDiagonal⟩ := Submission.p06_9e0f5043ff_dmc_diagonal_quotient R m d
+  exact ⟨eUnits.trans eDiagonal⟩
+
 end Submission
