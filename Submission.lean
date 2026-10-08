@@ -264,6 +264,7 @@ theorem p06_9e0f5043ff_fpm_rd_eval_kernel
       commutes' := fun c => Subtype.ext ((Polynomial.aeval x).commutes c) }
   have he (a : Polynomial K) : (e a : F) = Polynomial.aeval x a := rfl
   -- A polynomial not divisible by q has an inverse evaluation in the valuation ring.
+  -- A denominator coprime to q supplies an inverse in the valuation ring.
   have hunit (a : Polynomial K) (ha : ¬ q ∣ a) : IsUnit (e a) := by
     have ha0 : Polynomial.aeval x a ≠ 0 := hne a (fun h => ha (h ▸ dvd_zero q))
     have hi : (Polynomial.aeval x a)⁻¹ ∈ v.toValuationSubring :=
@@ -275,6 +276,7 @@ theorem p06_9e0f5043ff_fpm_rd_eval_kernel
     refine ⟨⟨(Polynomial.aeval x a)⁻¹, hi⟩, ?_⟩
     apply Subtype.ext
     exact mul_inv_cancel₀ ha0
+  -- An inverse of q(x) would force q to divide an allowed denominator.
   have hq_nonunit : ¬ IsUnit (e q) := by
     intro hu
     obtain ⟨z, hz⟩ := isUnit_iff_exists_inv.mp hu
