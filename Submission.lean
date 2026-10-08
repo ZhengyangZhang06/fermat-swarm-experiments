@@ -7,8 +7,6 @@ Requires the upstream Definitions modules and their dependencies.
 
 import Mathlib
 import Definitions.Def_GroupCohomology_TateCohomology
-attribute [-simp] Representation.TateResCor.cosetDecomp_apply Rep.coe_tateHneg1Res_apply Representation.TateResCor.coe_tateHneg1Cores_apply Representation.TateResCor.tateH0Res_mk Rep.coe_tateHneg1Cores_apply Rep.tateH0Res_mk Representation.TateResCor.coe_cosetNormInvariants_apply Rep.tateH0Cores_mk Representation.TateResCor.coinvariantsCores_mk Representation.TateResCor.coinvariantsTransfer_mk Representation.TateResCor.tateH0Cores_mk Representation.TateResCor.coe_tateHneg1Res_apply Rep.coe_tateδneg2_apply
-
 set_option autoImplicit false
 universe u
 open CategoryTheory Rep
@@ -2540,3 +2538,17 @@ theorem p04_index_nsmul_zero_of_restriction_isZero :
       rw [← hPT x, Subsingleton.elim (T x) 0, map_zero]
 
 end Submission
+  classical
+  have hzero : ∀ x : A.tateCohomology q, x = 0 := by
+    apply Submission.p04_eq_zero_of_prime_avoiding_annihilators
+    intro p hp
+    let : Fact p.Prime := ⟨hp⟩
+    let P : Sylow p G := Classical.choice (Sylow.nonempty (p := p) (G := G))
+    let : Fintype (P : Subgroup G) := Fintype.ofFinite (P : Subgroup G)
+    refine ⟨(P : Subgroup G).index,
+      Nat.pos_of_ne_zero (Subgroup.index_ne_zero_of_finite (H := (P : Subgroup G))),
+      P.not_dvd_index, ?_⟩
+    exact Submission.p04_index_nsmul_zero_of_restriction_isZero
+      A (P : Subgroup G) q (h p P)
+  exact ModuleCat.isZero_iff_subsingleton.mpr
+    ⟨fun x y => (hzero x).trans (hzero y).symm⟩
