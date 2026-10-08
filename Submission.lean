@@ -2841,6 +2841,7 @@ end Submission
       rw [hord, zpow_zero, mul_one] at hu
       rw [hu]
       exact (u : v.toValuationSubring).property
+/-- A finite family in a DVR with a nonzero entry has a nonzero member dividing every entry. -/
 theorem p06_9e0f5043ff_dmd_finite_family_dividing_member
     (A : Type*) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A]
     (ι : Type*) [Fintype ι] (a : ι → A) (ha : ∃ i, a i ≠ 0) :
@@ -2854,6 +2855,7 @@ theorem p06_9e0f5043ff_dmd_finite_family_dividing_member
   have hS : (Finset.univ : Finset S).Nonempty := by
     obtain ⟨i, hi⟩ := ha
     exact ⟨⟨i, hi⟩, Finset.mem_univ _⟩
+  -- Minimize the uniformizer exponent among the nonzero entries.
   obtain ⟨i, _, hmin⟩ := Finset.exists_min_image Finset.univ e hS
   refine ⟨i, i.property, ?_⟩
   intro j
