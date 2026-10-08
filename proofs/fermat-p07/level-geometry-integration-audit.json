@@ -1,0 +1,162 @@
+{
+  "scope": "Integration-only reconciliation of already accepted histories; no mathematical or Lean-source revision.",
+  "node": "root.full_level_quotient-a1.curve_quotient-a1.level_geometry_pullback-a1",
+  "theorem": "Submission.p07_cq_level_geometry_pullback_857cd4d38c",
+  "integration_start": "a3d1b77ef7a6a2b3972f5490735735bdcc6a63ee",
+  "canonical_history": "71b9afbe15f7680e193e0351856b78aaaac5117a",
+  "reviewed_history": "44cb70289a45a52de30bf46702810989164327d9",
+  "history_reconciliation": "The reviewed tip is retained as a second merge parent. Its substantive changes were already represented by the integrated cherry-picks. The complete current Lean tree and existing controller-handoff exclusion are unchanged.",
+  "reviewed_commits": [
+    {
+      "accepted": "5934f62b1fef4170fe7112debfe80f5054a9679e",
+      "integrated_cherry_pick": "377f7f79ea6bf24707a08c5755d9f1848d50b114",
+      "note": "Initial insertion has different surrounding context and one shared boundary newline; the complete accepted theorem block is byte-identical."
+    },
+    {
+      "accepted": "768fc90970dc68c01bdfc49841a84a2dab248f85",
+      "integrated_cherry_pick": "77990afa90ea2d5375b0e8b43cb273046a752fdd",
+      "note": "Matching cherry-picked patch."
+    },
+    {
+      "accepted": "af86f939a10cb1668a4fd1fe4acc47fe82a430de",
+      "integrated_cherry_pick": "ea00fc1ece565a60cfc65111b311c14ec58fe936",
+      "note": "Matching cherry-picked patch."
+    },
+    {
+      "accepted": "510f23f196538a5d394fe0f393edbf9aadfbc77a",
+      "integrated_cherry_pick": "0552804047cf974c95d6b25f079f0984d2fcf4b5",
+      "note": "Matching cherry-picked patch."
+    },
+    {
+      "accepted": "f996e7c8507e9017a33774bcb0a1e936f7a48189",
+      "integrated_cherry_pick": "fa1ed7341a4655fd2d107366329122ad1d76b520",
+      "note": "Matching cherry-picked patch."
+    },
+    {
+      "accepted": "22e4534f15397eaac0db2aef8d8a89f4bed1939e",
+      "integrated_cherry_pick": "a506e7cde0a480ac3cf35aa46e4f596f36f19495",
+      "note": "Matching cherry-picked patch."
+    },
+    {
+      "accepted": "a41b72fb9f43ac1f2b0ba046582207ac94f6f737",
+      "integrated_cherry_pick": "da39a4285503dfae3c73ce98f906cba6ca4b7b72",
+      "note": "Matching cherry-picked patch."
+    },
+    {
+      "accepted": "1d5fae45ced54b6acac9a765021b9d3b40630d83",
+      "integrated_cherry_pick": null,
+      "note": "Empty checkpoint: same tree as its parent; retained in the merge ancestry."
+    },
+    {
+      "accepted": "78d7f6a0d9e64519d62396d9ce8a40933d8426e9",
+      "integrated_cherry_pick": "88589038ad671340d4ec57ce8c489fe1dda85159",
+      "note": "Matching cherry-picked patch."
+    },
+    {
+      "accepted": "44cb70289a45a52de30bf46702810989164327d9",
+      "integrated_cherry_pick": "a3d1b77ef7a6a2b3972f5490735735bdcc6a63ee",
+      "note": "Matching cherry-picked patch."
+    }
+  ],
+  "preservation": {
+    "submission_sha256": "66fd0ab5354cff9f7445e394848a2ddd9829b3d2af58ef4cc85785df0db86d61",
+    "canonical_submission_is_exact_prefix": true,
+    "accepted_child_namespace_is_exact_suffix": true,
+    "accepted_child_namespace_sha256": "70270e606ef53b3c932411d12a926a00df6fd2327a7a027c4693ffa5f2fb3d59",
+    "frozen_root_declaration_unchanged": true,
+    "retained_declarations": [
+      "CerednikDrinfeld.QM.RigidifiedPairClass.exists_ptR_eq",
+      "Submission.p07_rr_isogeny_transport_857cd4d38c",
+      "Submission.p07_flp_point_equiv_857cd4d38c",
+      "Submission.p07_rr_pullback_comp_857cd4d38c",
+      "Submission.p07_cq_level_geometry_pullback_857cd4d38c"
+    ],
+    "scope_note": "The inherited unsolved root specification is preserved. Only the selected child is in scope; its prior isolated acceptance is preserved, and no new integration or root acceptance is claimed."
+  },
+  "reported_failure": {
+    "log": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-full-level-quotient-a1-curve-quotient-a1-level-geometry-pullback-a1/comparator-v12-integration.log",
+    "finding": "Compilation stopped at inherited attribute commands referencing unavailable declarations, before the accepted child proof. Prior isolated acceptance already used the controller-owned frozen-header normalization.",
+    "prior_accepted_evidence": "/runtime/review-evidence/6f802300ada14f76abd8491d5c01b7dd/evidence.json",
+    "existing_normalization_policy_sha256": "96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96",
+    "existing_normalization_remove_lines": [
+      13,
+      14,
+      15
+    ],
+    "absent_attribute_targets": 100,
+    "policy_ownership": "Controller-owned; neither the policy, comparator, challenge nor source header is edited by this integration."
+  },
+  "baseline_comparator": {
+    "request_id": "67bbddb17663447fa909e620228c2bb4",
+    "candidate_commit": "a3d1b77ef7a6a2b3972f5490735735bdcc6a63ee",
+    "status": "failed",
+    "exit_code": 1,
+    "success_marker_present": false,
+    "output_file": "proofs/fermat-p07/level-geometry-integration-comparator.log",
+    "output_sha256": "0db6c79cafb7e64745190e2038dc43d6545d7cc9f2f3a5d79e493c6c0ede79b6",
+    "errors": [
+      "error: Submission.lean:13:22: Unknown constant `AlgebraicGeometry.Scheme.Hom.opensMapFinal`",
+      "error: Submission.lean:14:18: Unknown constant `GoodReductionJacobian.RelativeGroupLaw.baseChangePointToBase_ofBase`",
+      "error: Submission.lean:15:18: Unknown constant `RegularLocalRingQuotientAscent.dualNumberFst_apply`"
+    ],
+    "failure_stage": "Frozen challenge build; candidate comparison was not reached.",
+    "raw_output_sha256": "74f2e7400d2470ea7caa3072eda507f716a2f87e53ae5246d1eceb8d668ddd62",
+    "output_format": "Captured final comparator output chunk with trailing whitespace removed; earlier progress-only chunks omitted."
+  },
+  "dependency_revisions": {
+    "mathlib": "db584cd6d46c92f209a44c0f1c829460d327499d",
+    "plausible": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+    "LeanSearchClient": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+    "importGraph": "16f02aa7642864af59f1ff0e384a015994db9118",
+    "proofwidgets": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+    "aesop": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+    "Qq": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+    "batteries": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+    "Cli": "6130a47896ce867c6a4a55373441e59e565bad0f"
+  },
+  "reference_use": [
+    {
+      "source": "local-project",
+      "snapshot": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89",
+      "manifest": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+      "project_commit": "73257f1e32d99b75813b037f28a5cf45a2db886d",
+      "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "queries": [
+        {
+          "query": "rg -n \"opensMapFinal|baseChangePointToBase_ofBase|dualNumberFst_apply\" project/Definitions mathlib/Mathlib",
+          "result": "Exit 1: no matches in either pinned source tree."
+        },
+        {
+          "query": "rg -n \"theorem of_bot|theorem finrank_pullback_snd|def IsPullbackVia\" mathlib/Mathlib/CategoryTheory/Limits/Shapes/Pullback/IsPullback/Basic.lean mathlib/Mathlib/AlgebraicGeometry/Morphisms/FlatRank.lean project/Definitions/Def_CerednikDrinfeld_QMModuliProps.lean",
+          "result": "of_bot and of_bot' matched in Basic.lean; no matches in the other two files for this exact query."
+        },
+        {
+          "query": "rg -n \"finrank_pullback_snd|finrank_eq_of_isPullback\" mathlib/Mathlib/AlgebraicGeometry/Morphisms/FlatRank.lean",
+          "result": "finrank_pullback_snd is a lemma at line 157, with the exact pointwise pullback rank equality."
+        }
+      ],
+      "inspected_files": [
+        {
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/CategoryTheory/Limits/Shapes/Pullback/IsPullback/Basic.lean",
+          "line": 213,
+          "finding": "of_bot supplies the pullback-square cancellation already used in the accepted proof."
+        },
+        {
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/FlatRank.lean",
+          "line": 157,
+          "finding": "finrank_pullback_snd assumes Flat and IsFinite and supplies the accepted rank formula."
+        }
+      ],
+      "compatibility": "Both pinned snapshot Git trees and all nine installed dependencies were checked clean at the manifest revisions. The exact comparator is the toolchain/context compatibility gate.",
+      "axiom_check": "Prior accepted isolated verification reports only propext, Classical.choice and Quot.sound. The fresh integration comparator failed before candidate comparison and therefore provides no new axiom-acceptance result."
+    }
+  ],
+  "integration_acceptance": {
+    "accepted": false,
+    "blocker": "The active comparator cannot compile Submission copied from the frozen proof-base commit because its inherited attribute targets are absent. The prior accepted controller-owned header normalization was not applied in this run.",
+    "local_repair_available": false,
+    "required_external_action": "Reconcile the controller invocation with the existing approved frozen-header normalization policy, then rerun the exact comparator and independent reviewer comparator on this committed integration candidate.",
+    "protected_boundary": "No plan, natural-language proof, Lean declaration, challenge, comparator, dependency, or .humanize file has been edited.",
+    "independent_review": "Read-only independent review confirmed byte preservation, commit mapping, reference searches, and the fresh frozen-challenge failure. Comparator acceptance is withheld."
+  }
+}
