@@ -1,0 +1,100 @@
+{
+  "schema": 1,
+  "kind": "blocked-comparator-artifact-access-handoff",
+  "request_id": "a673077169b44232a446dc5c026e1465",
+  "candidate_commit": "5db9933878321031b6b672165854c578be1c52ca",
+  "theorems": [
+    "Submission.p04_hct139_coset_average_laws"
+  ],
+  "reported_packet_digest": "00bb8e0d59b1fab4cf6dec34c80699b6573395fc23118fefe8bbb28e9eb1752c",
+  "current_proof_base_commit": "bcd46b8accac96c56c6f3c3a4eba8516986e7d3f",
+  "candidate_source_sha256": "d29f73d8d066ce6b75f4e301cee750a9dc3135321fbbedb31399c3ec8d8c322c",
+  "existing_request_result": {
+    "request_id": "a673077169b44232a446dc5c026e1465",
+    "revision": "5db9933878321031b6b672165854c578be1c52ca",
+    "state": "finished",
+    "returncode": 1
+  },
+  "existing_request_output_sha256": "591c665edddb68ca156994278f4e3b08a8d78919801e8b882cfa05bb84818190",
+  "existing_request_output_file": "failed-request-a6730771-output.txt",
+  "existing_request_output_matches_round_0": true,
+  "success_marker_present": false,
+  "new_verification_started": false,
+  "artifact_search": {
+    "request_id": "a673077169b44232a446dc5c026e1465",
+    "packet_digest": "00bb8e0d59b1fab4cf6dec34c80699b6573395fc23118fefe8bbb28e9eb1752c",
+    "search": [
+      {
+        "file_glob": "review-export.json",
+        "files_examined": 114,
+        "matches": []
+      },
+      {
+        "file_glob": "prepared.json",
+        "files_examined": 114,
+        "matches": []
+      },
+      {
+        "file_glob": "evidence.json",
+        "files_examined": 114,
+        "matches": []
+      }
+    ],
+    "direct_request_directory_exists": false
+  },
+  "blocking_findings": [
+    "The current proof-base Submission contains the failing attribute reference; the pinned Tate definition file has no cosetDecomp_apply, cosetDecomp, or TateResCor namespace match.",
+    "The mounted exporter selects only finished requests with returncode 0 and requires verified operation/evidence status. It cannot publish this failed request through its present interface.",
+    "The broker terminal response exposes only request_id, revision, state, returncode and output. Inspected broker routes expose no packet or executed-code download endpoint.",
+    "Local runtime scripts are inspection aids, not authenticated copies of the remotely executed checker."
+  ],
+  "missing_controller_artifacts": [
+    "Original operation.json receipt binding request, candidate, packet_digest, code_sha256, service/task and reference-cache identities.",
+    "The receipt-bound prepared.json, evidence.json and complete challenge/solution source trees covered by source_sha256.",
+    "The executed verify-frozen-node.py, swarm-verifier-packet.py and swarm-verifier-selftest.py checked against code_sha256, plus relevant configuration and checker/toolchain/cache identity.",
+    "Corresponding retained remote output/result inputs."
+  ],
+  "required_controller_actions": [
+    "Expose a read-only export of the failed request artifacts without relabeling it successful or changing its verdict.",
+    "Reconcile the frozen-challenge compilation failure without weakening the original contract, selected child type or authoritative proof context.",
+    "After authenticated input reconciliation, run the configured exact-node author comparator on a clean committed candidate and require exit zero and the success marker."
+  ],
+  "analyze_question": "Which operator-authorized input reconciliation and read-only failed-request export should be used? No such worker-accessible interface was found; user clarification is pending.",
+  "inspected_local_sources_sha256": {
+    "/runtime/operator-review-evidence-f116f3cae2f8/export-review-evidence.py": "f116f3cae2f8a8397c6e0cbbb4030804133b8b1c7807fd2b9941be86721d6ec7",
+    "/runtime/flows/math-lean-flow/scripts/swarm-compare.py": "f3202ba84d3096d6e05a494f073e454e5aa82c4383a08b171832acbc28c5d9b2",
+    "/runtime/flows/math-lean-flow/scripts/verify-frozen-node.py": "30954f9ae216d73e4fb125cae5c04795a8aae08b799dfbc779c7fd6a2f9af433",
+    "/runtime/flows/math-lean-flow-fleet-verifiers-v2/_recursive_lean/remote_verification.py": "84f360640e06eea77a87e001e98a3a531871e419940ee067addc131b623af2ad",
+    "/runtime/flows/math-lean-flow-fleet-verifiers-v2/_recursive_lean/swarm_broker.py": "dba947dc9a09982a556b3ff2c9c8a4eb7c1f84f97740f42c7de0996afe516519"
+  },
+  "local_source_identity_limitation": "These digests identify only inspected mounted sources; none is asserted to be the executed remote checker identity.",
+  "reference_use": [
+    {
+      "source": "local-project",
+      "snapshot": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8",
+      "manifest": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+      "project_commit": "2475a3790d7ba0c3b10be8086001b154a45be597",
+      "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "queries": [
+        {
+          "query": "cosetDecomp_apply|namespace TateResCor|cosetDecomp",
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+          "exit_code": 1,
+          "finding": "No matches; inspected lines 1-80. Installed project definition matches snapshot."
+        },
+        {
+          "query": "resMap_hom_apply|def resMap|abbrev resFunctor",
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean",
+          "finding": "Matches at lines 32, 37 and 62; inspected lines 24-66. Installed pinned mathlib file matches snapshot."
+        }
+      ]
+    }
+  ],
+  "bitlesson": {
+    "action": "none",
+    "lesson_ids": [
+      "NONE"
+    ]
+  },
+  "acceptance": false
+}
