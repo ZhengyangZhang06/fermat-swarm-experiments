@@ -7,7 +7,7 @@ It does not assert comparator acceptance or prove the enclosing root theorem.
 ## Candidate and scope
 
 The existing candidate was introduced by `8ac90b1` and inspected at
-`ce7f97a2175fe0fece630c86908254333621b36c` in the 2026-10-08 14:03:36
+`fa849f7f13845977193811f4b026ad216d9d7b81` in the 2026-10-08 15:01:17
 RLCR round. Its `Submission.lean` SHA-256 is
 `81d0a9d64dee7d82cd27ac069c5dde7a4617d51a74ca4899b6fe5ef3dfe4002b`.
 The entire source prefix from frozen proof base
@@ -54,10 +54,11 @@ not independently authenticate cached build artifacts.
 
 Queries run with `rg` against this snapshot:
 
-- `IsPullbackVia|def nsmulPt|def pushPt|structure RelativeGroupLaw|def SchemeHomOver|p07_flp_point_equiv|pullback_point_equiv`
-- `lift_fst|lift_snd|hom_ext|noncomputable def lift`
-- `SchemeHomOver.*:=|def SchemeHomOver|abbrev SchemeHomOver`
-- `p07_flp_point_equiv|pullback_point_equiv|nsmulPt.*natural|theorem.*nsmulPt|lemma.*nsmulPt`
+- `IsPullbackVia|nsmulPt|def pushPt`
+- `lift_fst|lift_snd|theorem hom_ext|noncomputable def lift`
+- `def IsPullbackVia|structure RelativeGroupLaw|def pushPt|def SchemeHomOver`
+- `IsPullbackVia|pushPt`
+- `p07_flp_point_equiv|pullback_point_equiv|nsmulPt.*natural`
 
 Inspected files, relative to the snapshot root:
 
@@ -79,7 +80,7 @@ pinned upstream infrastructure, not newly invented dependency nodes.
 
 ## Current author validation
 
-The 2026-10-08 14:03:36 round re-read the accepted proof and independently
+The 2026-10-08 15:01:17 round re-read the accepted proof and independently
 checked the existing implementation. A fresh read-only simplifier review found
 no concrete improvement or defect and recommended retaining the proof unchanged.
 No Lean source change was needed or made in this round.
@@ -106,13 +107,21 @@ base contains only `Submission.lean` and this audit. Protected problem and libra
 sources remain unchanged. The trusted build boundary remains a controller concern;
 this candidate does not alter it or suppress its diagnostics.
 
-Evidence is retained under `.humanize/rlcr/2026-10-08_14-03-36/` in
+Evidence is retained under `.humanize/rlcr/2026-10-08_15-01-17/` in
 `round-0-full-build.log`, `round-0-selected-diagnostic.log`,
 `round-0-source-audit.json`, `round-0-source.diff`,
-`round-0-reference-use.json`, and `round-0-simplifier-review.md`.
+`round-0-reference-use.json`, `round-0-dependency-audit.json`, and
+`round-0-simplifier-review.md`.
 These local round artifacts are ignored by Git. The exact candidate commit and
 fresh comparator outcome are recorded in the round summary after this audit is
 committed; this text makes no claim of comparator success.
+
+The inherited root placeholder is outside the selected child's proof. Its
+whole-file warning is recorded for transparency; child warning acceptance is
+determined by the configured comparator's frozen baseline. The three unknown
+attribute names are a separate inherited compilation problem. Neither condition
+justifies editing the protected prefix or treating the isolated diagnostic as
+comparator acceptance.
 
 ## Verification boundary
 
