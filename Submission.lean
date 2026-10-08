@@ -2555,4 +2555,37 @@ theorem Submission.p02_es_177ebb5a_hi_linepow_coefficients :
   · rw [hd]
   · rfl
 
+namespace Submission
+
+/-- Assemble scalar holomorphic primitives into a coefficientwise Eichler integral. -/
+theorem p02_es_177ebb5a_primitive_exists_holomorphic_integral :
+    ∀ (n : ℕ) (h : UpperHalfPlane → ℂ),
+      DifferentiableOn ℂ (fun z : ℂ => h (UpperHalfPlane.ofComplex z))
+        {z : ℂ | 0 < z.im} →
+      ∃ F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n),
+        HeckeEis.IsEichlerIntegral n h F := by
+  classical
+  intro n h hh
+  have hprimitives (r : ℕ) : ∃ A : ℂ → ℂ, ∀ z : ℂ, 0 < z.im →
+      HasDerivAt A ((n.choose r : ℂ) * h (UpperHalfPlane.ofComplex z) * z ^ r) z :=
+    p02_es_177ebb5a_primitive_exists_scalar_primitive _
+      ((hh.const_mul (n.choose r : ℂ)).mul (differentiableOn_id.pow r))
+  choose A hA using hprimitives
+  choose F hF using fun τ : UpperHalfPlane =>
+    p02_es_177ebb5a_hi_prescribed_coefficients n (fun r => A r (τ : ℂ))
+  refine ⟨F, ?_⟩
+  intro d τ
+  change HasDerivAt (fun z : ℂ => MvPolynomial.coeff d (F (UpperHalfPlane.ofComplex z)).val)
+    (h τ * MvPolynomial.coeff d (HeckeEis.linePow n (τ : ℂ)).val) (τ : ℂ)
+  simp_rw [hF, p02_es_177ebb5a_hi_linepow_coefficients]
+  by_cases hd : d 0 + d 1 = n
+  · simp only [if_pos hd]
+    have heq : (fun z : ℂ => A (d 0) (UpperHalfPlane.ofComplex z : ℂ)) =ᶠ[nhds (τ : ℂ)]
+        A (d 0) :=
+      (UpperHalfPlane.eventuallyEq_coe_comp_ofComplex τ.im_pos).fun_comp (A (d 0))
+    have hderiv := (hA (d 0) (τ : ℂ) τ.im_pos).congr_of_eventuallyEq heq
+    simpa only [UpperHalfPlane.ofComplex_apply, mul_left_comm, mul_assoc] using hderiv
+  · simp only [if_neg hd, mul_zero]
+    exact hasDerivAt_const (τ : ℂ) (0 : ℂ)
+
 end Submission
