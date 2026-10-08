@@ -12,6 +12,30 @@ attribute [-simp] Representation.TateResCor.cosetDecomp_apply Rep.coe_tateHneg1R
 set_option autoImplicit false
 universe u
 open CategoryTheory Rep
+
+namespace Submission
+
+/-- Transfer and projection on group homology have composite multiplication by the index. -/
+theorem p04_tia_homology_transfer {k G : Type u} [CommRing k] [Group G] [Fintype G]
+    (A : Rep k G) (H : Subgroup G) [Fintype H] (n : ℕ) :
+    ∃ T : groupHomology A n →ₗ[k] groupHomology (Rep.res H.subtype A) n,
+      ∃ P : groupHomology (Rep.res H.subtype A) n →ₗ[k] groupHomology A n,
+        ∀ x : groupHomology A n, P (T x) = H.index • x := by
+  classical
+  obtain ⟨T, P, hPT⟩ :=
+    Submission.p04_ht_coinvariant_complex_transfer A H (Rep.standardComplex k G) n
+  obtain ⟨α⟩ := Submission.p04_ht_restricted_standard_comparison A H n
+  let γ : groupHomology A n ≃ₗ[k]
+      ((Rep.standardComplex k G).coinvariantsTensorObj A).homology n :=
+    (groupHomologyIso A n (Rep.standardResolution k G)).toLinearEquiv
+  refine ⟨α.toLinearMap.comp (T.comp γ.toLinearMap),
+    γ.symm.toLinearMap.comp (P.comp α.symm.toLinearMap), ?_⟩
+  intro x
+  change γ.symm (P (α.symm (α (T (γ x))))) = H.index • x
+  rw [α.symm_apply_apply, hPT, map_nsmul, γ.symm_apply_apply]
+
+end Submission
+
 theorem Rep.isZero_tateCohomology_of_forall_sylow {k G : Type u} [CommRing k] [Group G] [Fintype G]
     (A : Rep.{u} k G) (q : ℤ)
     (h : ∀ (p : ℕ) [Fact p.Prime] (P : Sylow p G) [Fintype (P : Subgroup G)],
