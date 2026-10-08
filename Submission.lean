@@ -455,9 +455,6 @@ and `RepresentationTheory/Rep/Res.lean`; the complex and additive homology APIs 
 `db584cd6d46c92f209a44c0f1c829460d327499d`. Right-coset cardinality uses
 `GroupTheory/Coset/Defs.lean` and `GroupTheory/Index.lean`; preservation of repeated addition
 uses `CategoryTheory/Preadditive/AdditiveFunctor.lean` at the same revision. -/
-/-- Transfer and projection on tensor coinvariant homology have composite the subgroup index. -/
-index composite. -/
-`db584cd6d46c92f209a44c0f1c829460d327499d`. -/
 theorem p04_ht_coinvariant_complex_transfer
     {k G : Type _} [CommRing k] [Group G] [Fintype G]
     (A : Rep k G) (H : Subgroup G) [Fintype H]
@@ -581,29 +578,6 @@ end Submission
 namespace Submission
 
 open CategoryTheory
-
-/-- The restricted standard resolution computes subgroup homology.
-Subgroup restriction is exact and preserves projective objects, so the restricted
-standard resolution resolves the trivial representation of the subgroup.
-`groupHomologyIso` identifies its tensor-coinvariant homology in every degree,
-including zero. The restriction instances are in mathlib's `Rep/Res.lean` and
-`Coinduced.lean`; the comparison is in `Homological/GroupHomology/Basic.lean`,
-all under `Mathlib/RepresentationTheory`. The same restricted-resolution
-construction is used in `Homological/GroupHomology/Shapiro.lean`. -/
-theorem p04_ht_restricted_standard_comparison
-    {k G : Type _} [CommRing k] [Group G] [Fintype G]
-    (A : Rep k G) (H : Subgroup G) [Fintype H] (n : ℕ) :
-    Nonempty
-      (((((Rep.resFunctor (k := k) H.subtype).mapHomologicalComplex
-          (ComplexShape.down ℕ)).obj (Rep.standardComplex k G)).coinvariantsTensorObj
-          (Rep.res H.subtype A)).homology n ≃ₗ[k]
-        groupHomology (Rep.res H.subtype A) n) := by
-  classical
-  let P : ProjectiveResolution (Rep.trivial k H k) :=
-    (Rep.resFunctor (k := k) H.subtype).mapProjectiveResolution (Rep.standardResolution k G)
-  -- `mapProjectiveResolution` gives exactly the complex in the frozen goal.
-  -- Reverse the library comparison to start at its tensor-coinvariant homology.
-  exact ⟨(groupHomologyIso (Rep.res H.subtype A) n P).symm.toLinearEquiv⟩
 
 set_option warningAsError true in
 /-- Transfer and projection on group homology have composite multiplication by the index.
