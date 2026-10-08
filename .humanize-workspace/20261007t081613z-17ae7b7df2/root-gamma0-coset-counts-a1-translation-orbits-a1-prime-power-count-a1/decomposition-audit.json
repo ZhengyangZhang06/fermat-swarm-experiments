@@ -1,0 +1,60 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "unimodular|ProjectiveLine|cuspCount|genusFormula",
+        "isUnit_natCast_iff_not_dvd_pow|isUnit_iff_coprime|mul_inv_of_unit|inv_coe_unit|val_natCast|natCast_eq_zero|def inv|val_lt",
+        "totient_prime_pow|totient_one|orbitRel|selfEquivSigmaOrbits|def Gamma0|mem_Gamma0|quotientAction|smul_mk",
+        "prime_power.*(orbit|chart)|valuation.*strat|translation.*chart|fractional.*(iterat|period)",
+        "p10_17ae7b7d_pp_translation_charts|p10_17ae7b7d_pp_fractional_iterates|p10_17ae7b7d_pp_stratum_card",
+        "git rev-parse HEAD",
+        "git status --porcelain --untracked-files=all",
+        "git show c77074cc2682d4bf219f2909b6b4767445f7f7bc:Submission.lean",
+        "python3 /tmp/p10-split-independent-audit-ovz5aagj/run.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/Totient.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/GroupAction/Quotient.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/prime-power-split-ipfffwyj/report.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p10-split-independent-audit-ovz5aagj/ChildTypes.lean",
+        "/tmp/p10-split-independent-audit-ovz5aagj/ChildTypes.log",
+        "/tmp/p10-split-independent-audit-ovz5aagj/TargetAbsence.lean",
+        "/tmp/p10-split-independent-audit-ovz5aagj/report.json"
+      ],
+      "conclusion": "Independently verified the pinned project and mathlib revisions and all nine clean dependency checkouts. Inspected definitions confirm Gamma0 membership, left quotient multiplication, ZMod unit inversion, and the prime-power totient formula. The specialized chart/period/stratum search returned no matches. All three exact propositions elaborated independently; instance probes passed, and interface/library axiom checks contained only propext, Classical.choice, and Quot.sound. Verified the policy digest, exact omissions of lines 10–12, original/build hashes, and reversible reconstruction; a fresh Lean probe confirmed all 56 targets absent. Frozen inputs remain unchanged. Names are bare, distinct, and unreserved. The existing DAG is acyclic; empty sibling dependencies are correct. Splitting is appropriate: chart transport, return periods, and stratum sizes are separate obligations that combine with the supplied endpoint and cycle-count arguments. This approves decomposition only; implementation still requires authoritative comparator acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "translation_charts",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose and includes all hypotheses. Steps 1–3 establish the unit criterion and unique disjoint normalizations. Step 4 correctly relates inverse-coset equality to unit-scaled bottom rows through βα⁻¹. Explicit determinant-one representatives prove surjectivity. Steps 6–7 correctly transport T⁻¹ to right multiplication by T and justify the unit denominator and membership of w. The proof is complete, independent, and non-circular."
+    },
+    {
+      "key": "fractional_iterates",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact type matches every stated hypothesis and conclusion, including truncated subtraction. The proof establishes unit denominators before cancellation, proves the iterate formula inductively, and preserves exact valuation using reductions with j and j+1 at most a. Coprimality justifies cancelling v². The two exponent cases prove the return criterion, including n=0 and a=2j. IsUnit concerns the ordinary ZMod ring. No sibling or parent result is assumed."
+    },
+    {
+      "key": "stratum_card",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The independently elaborated proposition exactly expresses the prose cardinality. Unique bounded representatives count multiples of each prime power; subtracting the nested sets gives the exact stratum. The totient calculation is justified by primality. Both arithmetic cases correctly handle natural subtraction, with positivity supplied by 1≤j<a and equality 2j=a included. The proof is complete and independent of any orbit-count theorem."
+    }
+  ],
+  "required_changes": []
+}

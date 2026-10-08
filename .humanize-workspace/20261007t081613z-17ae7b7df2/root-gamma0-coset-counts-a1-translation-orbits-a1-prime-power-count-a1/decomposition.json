@@ -1,0 +1,82 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "unimodular|ProjectiveLine|cusp|orbit|zpow",
+        "isUnit_iff_coprime|val_lt|mul_inv_of_unit|inv_mul_of_unit|isUnit.*pow|isUnit.*iff|natCast.*val|natCast_eq_zero|val_natCast",
+        "totient_prime_pow|totient_one|card|orbitRel|mem_Gamma0|def Gamma0|eq_iff",
+        "prime_power.*(orbit|chart)|valuation.*strat|translation.*chart|fractional.*(iterat|period)",
+        "p10_17ae7b7d_pp_translation_charts|p10_17ae7b7d_pp_fractional_iterates|p10_17ae7b7d_pp_stratum_card",
+        "python3 .humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/prime-power-split-ipfffwyj/run.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/Totient.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/GroupAction/Quotient.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/prime-power-split-ipfffwyj/ChildTypes.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/prime-power-split-ipfffwyj/ChildTypes.log",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/prime-power-split-ipfffwyj/report.json"
+      ],
+      "conclusion": "The snapshots match project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; both snapshots and all nine pinned dependency checkouts are clean. Relevant infrastructure includes ZMod.isUnit_natCast_iff_not_dvd_pow, ZMod.inv_coe_unit, ZMod.mul_inv_of_unit, Nat.totient_prime_pow, the Gamma0 membership definition, and coset-action/orbit equivalences. No matching chart, fractional-period, or valuation-stratum theorem was found. The separate projective-line module supplies useful definitions but is absent under the frozen imports; the proposed types avoid those unavailable declarations. All three exact types elaborate after import Submission from proof-base c77074cc2682d4bf219f2909b6b4767445f7f7bc in the disposable compiler copy. Reflexivity probes verify left coset multiplication, function iteration, and matrix multiplication. Proposed names have no collisions in the DAG, node records, Submission, or imported environment. Audited interfaces and library lemmas depend only on propext, Classical.choice, and Quot.sound. Header-policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96 matched; only listed lines 10–12 were omitted, and Lean verified all 56 targets absent. The report records exact omissions, reversible reconstruction, and original/build hashes. The original contract and working tree remain unchanged. These are interface diagnostics, not comparator acceptance of theorem proofs."
+    }
+  ],
+  "should_split": true,
+  "rationale": "Depth 3 is below the limit 6. Three independent reusable obligations separate the geometric chart construction, the dynamical return-time calculation, and the arithmetic stratum count. None restates the parent orbit-count theorem. The parent transports translation through the chart equivalence, counts the first chart as one cycle, and counts zero in the second chart as one fixed point. Every remaining second-chart parameter has a unique exact valuation 1 ≤ j < a. The iterate theorem makes each such stratum invariant with cycle length L = p^(a−2j). Its cardinality is φ(p^min(j,a−j))·L by the third child, so cancellation of positive L gives its cycle count. Summing the strata and the two endpoint contributions proves the parent. T and T⁻¹ generate the same subgroup. All sibling dependency lists are empty, hence acyclic.",
+  "subproblems": [
+    {
+      "key": "translation_charts",
+      "title": "Two-chart model of prime-power cosets and translation",
+      "statement": "Let p be prime and a ≥ 1, put M = p^a, R = Z/MZ, H = Γ₀(M), Q = SL₂(Z)/H, and B = {z ∈ R : p divides z.val}, where z.val is the representative in [0,M). Let T = ((1,1),(0,1)), acting on Q by left multiplication. There exists a bijection e : Q ≃ R ⊔ B such that, for every t ∈ R, e(T⁻¹ · e⁻¹(inl t)) = inl(t+1), and for every z ∈ B there exists w ∈ B with e(T⁻¹ · e⁻¹(inr z)) = inr w and w = z(1+z)⁻¹. The inverse is the ZMod inverse, which agrees with unit inversion whenever its argument is a unit.",
+      "lean_statement": "∀ (p a : ℕ), Nat.Prime p → 1 ≤ a → let R := ZMod (p ^ a); let Q := (Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 (p ^ a); ∃ e : Q ≃ (R ⊕ {z : R // p ∣ z.val}), (∀ t : R, e (ModularGroup.T⁻¹ • e.symm (Sum.inl t)) = Sum.inl (t + 1)) ∧ (∀ z : {z : R // p ∣ z.val}, ∃ w : {z : R // p ∣ z.val}, e (ModularGroup.T⁻¹ • e.symm (Sum.inr z)) = Sum.inr w ∧ w.1 = z.1 * (1 + z.1)⁻¹)",
+      "lean_name": "p10_17ae7b7d_pp_translation_charts",
+      "depends_on": [],
+      "natural_proof": "1. Set M = p^a. Since p is prime and a ≥ 1, M > 1 and p divides M. An element x of R is a unit exactly when p does not divide x.val: if p does not divide this representative, it is coprime to M and a Bezout identity supplies an inverse; if p divides it, reduction modulo p sends x to zero and precludes an inverse. Reduction modulo p sends x to zero exactly when p divides x.val.\n2. Write a determinant-one integer matrix α as ((A,B),(C,D)). Its bottom row (r,s) modulo M is unimodular, since (-B)r + As = 1. At least one of r,s is a unit: otherwise their reductions modulo p are both zero, contradicting this identity. Common multiplication by a unit preserves unimodularity, with the witnesses multiplied by the inverse unit.\n3. Every such row has a unique normalized form of one of two kinds. If r is a unit, scale by r⁻¹ to obtain (1,t), with t = r⁻¹s. Otherwise s is a unit, and scaling by s⁻¹ gives (z,1), with z = s⁻¹r and p dividing z.val. The two kinds cannot be related by a unit scaling, since their first coordinates are respectively a unit and a nonunit. Two normalized rows of the same kind related by a unit scaling have scaling factor 1, by comparing their coordinate equal to 1, so their parameters agree. Unit scaling preserves the kind and these normalized parameters.\n4. For matrices α,β, the cosets α⁻¹H and β⁻¹H agree exactly when their bottom rows modulo M are related by a unit scaling. Indeed, equality of the cosets gives η = βα⁻¹ ∈ H and β = ηα. Modulo M the bottom-left entry of η is zero, and det η = 1 gives η₁₁η₂₂ = 1. Thus η₂₂ is a unit and the bottom row of β is η₂₂ times that of α. Conversely, if the rows are (r,s) and (r′,s′) = u(r,s), then the bottom-left entry of βα⁻¹ modulo M is r′s - s′r = 0. Hence βα⁻¹ ∈ H and the cosets agree.\n5. Define e on the coset α⁻¹H by the normalized bottom row of α, recording (1,t) as inl t and (z,1) as inr z. Steps 3 and 4 make this well defined and injective. For surjectivity, choose integer representatives t̃ and z̃. The determinant-one matrices ((0,-1),(1,t̃)) and ((1,0),(z̃,1)) have the required normalized bottom rows. Their inverse cosets map respectively to inl t and inr z. Therefore e is a bijection, and thus an equivalence with inverse e⁻¹.\n6. Left multiplication by T⁻¹ sends α⁻¹H to (αT)⁻¹H. Right multiplication of α by T sends its bottom row (r,s) to (r,r+s). This operation respects common unit scaling, so its effect may be computed using the normalized rows. On (1,t) it gives (1,t+1). Applying the definition of e proves the first required identity for every t.\n7. On (z,1), with z ∈ B, the new row is (z,1+z). Its second coordinate reduces to 1 modulo p and is therefore a unit by step 1. Normalization gives (w,1), where w = z(1+z)⁻¹; the ZMod inverse here is the inverse of that unit. Reducing w modulo p gives zero, so p divides w.val and w ∈ B. This w satisfies both assertions required in the second identity, completing the proof.",
+      "proof_key_steps": [
+        "Characterize units modulo p^a by nondivisibility by p.",
+        "Normalize unimodular rows uniquely into disjoint forms (1,t) and (z,1) with p dividing z.val.",
+        "Identify equality of inverse cosets with common unit scaling of bottom rows.",
+        "Construct the bijection and prove surjectivity using explicit determinant-one matrices.",
+        "Compute T⁻¹ on inverse cosets by right multiplication by T, obtaining t ↦ t+1 and z ↦ z(1+z)⁻¹."
+      ]
+    },
+    {
+      "key": "fractional_iterates",
+      "title": "Fractional translation iterates and exact prime-power periods",
+      "statement": "Let p be prime, let a,j be natural numbers with 1 ≤ j < a, and let z ∈ R = Z/(p^a)Z satisfy p^j | z.val and p^(j+1) ∤ z.val. Define F(w) = w(1+w)⁻¹ using the ZMod inverse. For every natural number n, 1+nz is a unit, F^n(z) = z(1+nz)⁻¹, F^n(z) = z if and only if p^(a−2j) divides n, and F^n(z) still has exact valuation j: p^j divides its canonical representative and p^(j+1) does not. The exponent a−2j is truncated natural subtraction.",
+      "lean_statement": "∀ (p a j : ℕ), Nat.Prime p → 1 ≤ j → j < a → ∀ z : ZMod (p ^ a), p ^ j ∣ z.val → ¬ p ^ (j + 1) ∣ z.val → let F : ZMod (p ^ a) → ZMod (p ^ a) := fun w => w * (1 + w)⁻¹; ∀ n : ℕ, IsUnit (1 + (n : ZMod (p ^ a)) * z) ∧ (F^[n]) z = z * (1 + (n : ZMod (p ^ a)) * z)⁻¹ ∧ ((F^[n]) z = z ↔ p ^ (a - 2 * j) ∣ n) ∧ p ^ j ∣ ((F^[n]) z).val ∧ ¬ p ^ (j + 1) ∣ ((F^[n]) z).val",
+      "lean_name": "p10_17ae7b7d_pp_fractional_iterates",
+      "depends_on": [],
+      "natural_proof": "1. Put M = p^a and m = z.val. The hypotheses give m = p^j v for a natural number v not divisible by p: divisibility supplies v, and p | v would contradict p^(j+1) ∤ m. In particular m is nonzero, p divides m, and a ≥ 2. Since p is prime, v and v² are coprime to M.\n2. For each n ≥ 0 put D_n = 1+nz in R. Since z reduces to zero modulo p, D_n reduces to 1 modulo p. Its canonical representative is consequently not divisible by p, and hence is coprime to p^a. A Bezout identity shows D_n is a unit. The ZMod inverse D_n⁻¹ is its unit inverse, so both D_n D_n⁻¹ and D_n⁻¹ D_n equal 1.\n3. Prove F^n(z) = zD_n⁻¹ by induction on n. For n = 0 this follows from D_0 = 1. If the identity holds for n, then 1+F^n(z) = 1+zD_n⁻¹ = D_(n+1)D_n⁻¹. This is a unit whose inverse is D_n D_(n+1)⁻¹. Therefore F(F^n(z)) = zD_n⁻¹ D_n D_(n+1)⁻¹ = zD_(n+1)⁻¹, proving the induction step.\n4. For k ≤ a, reduction R → Z/(p^k)Z is well defined, and its value on x is zero exactly when p^k divides x.val. Multiplication by a unit preserves this kernel in both directions, since the image of a unit is invertible. Apply this observation to x = z and the unit D_n⁻¹, first with k = j and then with k = j+1, both at most a. By step 3 it follows that p^j divides (F^n(z)).val and p^(j+1) does not.\n5. Since D_n is a unit, step 3 gives F^n(z) = z if and only if z = zD_n. Expanding D_n, this is equivalent to nz² = 0 in R, and hence to M dividing n m² as an integer. Substituting m = p^j v and cancelling the coprime factor v² gives the equivalent condition p^a | n p^(2j). This cancellation follows, for example, by multiplying a Bezout identity for v² and M by n p^(2j).\n6. If 2j < a, write p^a = p^(2j) p^(a−2j) and cancel the positive integer p^(2j); the condition is exactly p^(a−2j) | n. If a ≤ 2j, then p^a divides p^(2j), so the condition holds for every n. In this case truncated subtraction gives a−2j = 0 and p^(a−2j) = 1, which also divides every n. This proves the stated return criterion in all cases. Together with steps 2, 3 and 4, it proves all four conclusions for every n.",
+      "proof_key_steps": [
+        "Write the canonical representative as p^j v with p not dividing v.",
+        "Show every denominator 1+nz is a unit by reduction modulo p.",
+        "Inductively compute F^n(z) = z(1+nz)⁻¹ using only unit cancellations.",
+        "Use reduction modulo p^j and p^(j+1) to preserve exact valuation under unit multiplication.",
+        "Convert the return condition to p^a | n p^(2j) and distinguish 2j < a from a ≤ 2j."
+      ]
+    },
+    {
+      "key": "stratum_card",
+      "title": "Valuation-stratum size as totient times orbit length",
+      "statement": "Let p be prime and a,j natural numbers with 1 ≤ j < a. The number of residues z modulo p^a whose canonical representatives are divisible by p^j but not by p^(j+1) equals φ(p^min(j,a−j)) · p^(a−2j), with natural subtraction truncated at zero and φ Euler’s totient.",
+      "lean_statement": "∀ (p a j : ℕ), Nat.Prime p → 1 ≤ j → j < a → Nat.card {z : ZMod (p ^ a) // p ^ j ∣ z.val ∧ ¬ p ^ (j + 1) ∣ z.val} = Nat.totient (p ^ min j (a - j)) * p ^ (a - 2 * j)",
+      "lean_name": "p10_17ae7b7d_pp_stratum_card",
+      "depends_on": [],
+      "natural_proof": "1. Put M = p^a. Because p is prime, M is positive and each residue modulo M has a unique representative m with 0 ≤ m < M. For any k ≤ a, the representatives divisible by p^k are exactly p^k t with 0 ≤ t < p^(a−k). Indeed, p^a = p^k p^(a−k), so division by the positive integer p^k gives the claimed bound and uniqueness. Thus there are p^(a−k) such residues.\n2. Take k = j and k = j+1, which are both at most a. The second set is contained in the first, and removing it leaves exactly the required stratum. Its cardinality is p^(a−j) − p^(a−j−1). Put b = a−j; since j < a, b ≥ 1. The cardinality is therefore p^(b−1)(p−1).\n3. For any c ≥ 1, a natural number is coprime to p^c exactly when it is not divisible by p, by primality of p. Among the p^c representatives from 0 through p^c−1, exactly p^(c−1) are divisible by p. The definition of Euler’s totient consequently gives φ(p^c) = p^c − p^(c−1) = p^(c−1)(p−1).\n4. If 2j ≤ a, then min(j,a−j) = j and b−1 = (j−1)+(a−2j), since j ≥ 1. The expression from step 2 is therefore p^(j−1)(p−1) p^(a−2j) = φ(p^j) p^(a−2j), by step 3. This is the claimed right-hand side.\n5. If a < 2j, then min(j,a−j) = a−j = b and the truncated difference a−2j is zero. The proposed right-hand side is consequently φ(p^b) · 1 = p^(b−1)(p−1), again by step 3, agreeing with step 2. The two cases exhaust all possibilities and establish the required cardinality.",
+      "proof_key_steps": [
+        "Parametrize multiples of p^k modulo p^a uniquely by t < p^(a−k).",
+        "Subtract the counts for k = j and k = j+1.",
+        "Count residues coprime to p^c to obtain φ(p^c) = p^(c−1)(p−1).",
+        "Split at 2j ≤ a to express the cardinality as φ(p^min(j,a−j)) times p^(a−2j)."
+      ]
+    }
+  ]
+}
