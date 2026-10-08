@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1.fractional_iterates-a1.square_annihilation-a1",
+  "parent_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1.fractional_iterates-a1",
+  "depth": 5,
+  "title": "Prime-power annihilation of a square",
+  "statement": "Let p be prime and let a,j be natural numbers with j < a. Suppose z ∈ ZMod(p^a) satisfies p^j ∣ z.val and p^(j+1) ∤ z.val. For every natural n, (n : ZMod(p^a))z² = 0 if and only if p^(a−2j) ∣ n, where subtraction in the exponent is truncated natural subtraction.",
+  "lean_statement": "∀ (p a j : ℕ), Nat.Prime p → j < a → ∀ z : ZMod (p ^ a), p ^ j ∣ z.val → ¬ p ^ (j + 1) ∣ z.val → ∀ n : ℕ, ((n : ZMod (p ^ a)) * z ^ 2 = 0 ↔ p ^ (a - 2 * j) ∣ n)",
+  "lean_name": "p10_17ae7b7d_fi_square_annihilation",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-2f4e515a06-a1"
+}

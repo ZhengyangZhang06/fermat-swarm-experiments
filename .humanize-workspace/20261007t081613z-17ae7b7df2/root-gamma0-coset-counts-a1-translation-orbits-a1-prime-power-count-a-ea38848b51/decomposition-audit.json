@@ -1,0 +1,54 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "isUnit_natCast_iff_not_dvd_pow|inv_coe_unit|mul_inv_of_unit|inv_mul_of_unit|inv_eq_of_mul_eq_one|def castHom|cast_eq_val|natCast_zmod_val|natCast_eq_zero_iff|val_mul",
+        "coprime_pow_of_not_dvd|coprime_iff_not_dvd|pow_dvd_pow|dvd_mul_left|mul_dvd_mul_iff",
+        "fractional.*iterat|unit_mul_dvd_val|square_annihilation|valuation.*strat",
+        "p10_17ae7b7d_fi_unit_iterate_formula|p10_17ae7b7d_fi_unit_mul_dvd_val|p10_17ae7b7d_fi_square_annihilation",
+        "instance.*commRing|def inv|instance.*Inv"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/parent-child-handoff.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/Prime/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/GCD/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Logic/Function/Iterate.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/fractional-split-0kqs_t14/report.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/fractional-independent-jrffh97a/InterfaceAudit.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/fractional-independent-jrffh97a/InterfaceAudit.log",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/fractional-independent-jrffh97a/report.json"
+      ],
+      "conclusion": "The split is appropriate: three independently proved, narrower obligations supply the parent's conclusions through unit cancellation and divisibility preservation. All child dependency lists are correctly empty; the existing 45-node DAG is acyclic. Names are valid bare identifiers, with no competing reservations or imported declarations. Searches found the required ZMod unit, inverse, reduction, representative and coprimality infrastructure, but no specialized matching child theorem. Both snapshots match their manifest revisions and are clean; all nine dependencies match clean pinned revisions. Independent Lean checks against proof-base 81e439ead62e72b45d1f96dd998a9b47a5b90960 confirm that all three exact propositions elaborate without child implementations, using ordinary ZMod multiplication, IsUnit, inversion and function iteration. Audited types and library dependencies use only propext, Classical.choice and Quot.sound. Header-policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, exact omissions of lines 10–12, original/build hashes and reversible reconstruction were verified; an independent Lean probe confirmed all 56 targets absent. Original contracts remain unchanged. These diagnostics approve interfaces and decomposition, not implemented proofs or comparator acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "unit_iterate_formula",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition exactly matches all prose hypotheses and both conclusions. Steps 1–2 establish unit denominators through coprimality and Bezout before using inverse identities. Steps 3–5 prove the base case and successor formula with an explicit two-sided inverse. The proof is complete, non-circular and sufficient for formalization."
+    },
+    {
+      "key": "unit_mul_dvd_val",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition exactly matches M>0, d∣M, unit u and the stated equivalence. The proof justifies reduction modulo d, identifies its kernel using canonical representatives, maps an inverse of u and proves both implications. It covers d=1 without assuming a nontrivial target ring and uses no parent or sibling result."
+    },
+    {
+      "key": "square_annihilation",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition exactly matches the prose, including j<a and truncated subtraction. Steps 1–4 correctly extract the factor coprime to p, translate vanishing into divisibility and cancel its square using Bezout. Steps 5–6 prove both exponent cases, including a=2j, j=0 and n=0. No circular reliance or deferred proof search remains."
+    }
+  ],
+  "required_changes": []
+}

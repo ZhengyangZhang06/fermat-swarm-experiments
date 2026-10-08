@@ -1,0 +1,228 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081613Z-17ae7b7df2",
+  "parent_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1.fractional_iterates-a1",
+  "dispatch_branch": "proof-workspace/fermat-p10/20261007t081613z-17ae7b7df2/dispatch/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51",
+  "source_commit": "9a841e4b580f5ae092c351554ad92e1fcd67d3e6",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1.fractional_iterates-a1.square_annihilation-a1",
+      "key": "square_annihilation",
+      "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-2f4e515a06-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-2f4e515a06",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "val_mul|isUnit_iff_coprime|isUnit_of_coprime|castHom|mul_inv_of_unit|inv_mul_of_unit",
+              "dvd_val|val.*dvd.*mul|dvd.*val.*mul|iterate.*inv|inv.*iterate",
+              "natCast_zmod_val|natCast_eq_zero_iff|val_natCast|cast_eq_val",
+              "pow.*dvd.*pow|dvd.*mul.*iff|pow.*not_dvd|coprime_pow",
+              "fractional.*iterat|unit_mul_dvd_val|square_annihilation|valuation.*strat",
+              "p10_17ae7b7d_fi_unit_iterate_formula|p10_17ae7b7d_fi_unit_mul_dvd_val|p10_17ae7b7d_fi_square_annihilation"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/parent-child-handoff.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Defs.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/Prime/Basic.lean",
+              "/runtime/operator-header-policy-v1/policy.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/fractional-split-0kqs_t14/ChildTypes.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/fractional-split-0kqs_t14/ChildTypes.log",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/fractional-split-0kqs_t14/report.json"
+            ],
+            "conclusion": "The handoff identifies this theorem as the depth-four fractional_iterates node. The reference snapshots match project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; both snapshots and all nine pinned dependencies are clean. Relevant infrastructure includes ZMod.isUnit_natCast_iff_not_dvd_pow, unit inverse identities, ZMod.castHom, representative-cast identities, ZMod.natCast_eq_zero_iff, and Nat.Prime.coprime_pow_of_not_dvd. The searches found no specialized fractional-iterate, unit-preservation, or square-annihilation theorem matching the searched patterns. All three proposed types elaborate after import Submission at proof-base 81e439ead62e72b45d1f96dd998a9b47a5b90960 in a disposable compiler copy. Reflexivity probes confirm function iteration, ZMod ring multiplication, the ZMod inverse, and the monoid used by IsUnit. The names are absent from the imported environment and active DAG reservations. Audited types and library declarations use only propext, Classical.choice, and Quot.sound. The policy digest matches 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96; only listed lines 10–12 were omitted, and Lean confirmed all 56 targets absent. The report records exact omissions, reversible original/build hashes, and successful final diagnostics. The frozen contract remains unchanged. These checks establish interface compatibility, not comparator acceptance of the unimplemented child proofs."
+          }
+        ],
+        "parent_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1.fractional_iterates-a1",
+        "child_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1.fractional_iterates-a1.square_annihilation-a1",
+        "subproblem": {
+          "key": "square_annihilation",
+          "title": "Prime-power annihilation of a square",
+          "statement": "Let p be prime and let a,j be natural numbers with j < a. Suppose z ∈ ZMod(p^a) satisfies p^j ∣ z.val and p^(j+1) ∤ z.val. For every natural n, (n : ZMod(p^a))z² = 0 if and only if p^(a−2j) ∣ n, where subtraction in the exponent is truncated natural subtraction.",
+          "lean_statement": "∀ (p a j : ℕ), Nat.Prime p → j < a → ∀ z : ZMod (p ^ a), p ^ j ∣ z.val → ¬ p ^ (j + 1) ∣ z.val → ∀ n : ℕ, ((n : ZMod (p ^ a)) * z ^ 2 = 0 ↔ p ^ (a - 2 * j) ∣ n)",
+          "lean_name": "p10_17ae7b7d_fi_square_annihilation",
+          "depends_on": [],
+          "natural_proof": "1. Fix a prime p, natural numbers a,j with j<a, z in ZMod(p^a), and the stated exact-divisibility hypotheses. Write M=p^a and m=z.val. Primality makes M positive. From p^j dividing m choose a natural v with m=p^j v. If p divided v, writing v=pw would give m=p^(j+1)w, contrary to the hypothesis. Thus p does not divide v.\n2. As p is prime, v is coprime to p. Taking powers preserves coprimality, so v² is coprime to M. In particular there are integers s,t with s v²+t M=1.\n3. Fix a natural n. Since the natural-number cast of m modulo M is z and casting preserves products and powers, (n : ZMod M)z² is the class of n m². It is zero exactly when M divides n m². Substitute m=p^j v to rewrite this as M dividing B v², where B=n p^(2j).\n4. The latter divisibility is equivalent to M dividing B. One direction follows by multiplication by v². For the other, multiply the Bezout identity in step 2 by B: B=s B v²+t M B. If M divides B v², both terms on the right are divisible by M, so M divides B as an integer. For natural M and B this is the same as natural-number divisibility.\n5. If 2j<a, then p^a=p^(2j)p^(a-2j), with p^(2j)>0. Thus p^a dividing n p^(2j) is equivalent to the existence of a natural q with n p^(2j)=p^(2j)p^(a-2j)q. Cancellation of the positive factor p^(2j) makes this equivalent to n=p^(a-2j)q, exactly p^(a-2j) dividing n; each rewriting is reversible.\n6. If a≤2j, then p^(2j)=p^a p^(2j-a), so p^a divides n p^(2j) for every n. Truncated subtraction gives a-2j=0 and p^(a-2j)=1, which also divides every n. Combining this case with step 5 and the equivalences in steps 3–4 proves the stated criterion for every n, including n=0.",
+          "proof_key_steps": [
+            "Factor z.val as p^j v and deduce p does not divide v.",
+            "Establish coprimality of v² and p^a.",
+            "Translate nz² = 0 into p^a ∣ n p^(2j)v².",
+            "Cancel v² using Bezout.",
+            "When 2j < a, cancel the positive factor p^(2j).",
+            "When a ≤ 2j, verify both divisibility conditions hold for every n."
+          ]
+        },
+        "audit": {
+          "key": "square_annihilation",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The standalone one-line proposition exactly matches the prose, including j<a and truncated subtraction. Steps 1–4 correctly extract the factor coprime to p, translate vanishing into divisibility and cancel its square using Bezout. Steps 5–6 prove both exponent cases, including a=2j, j=0 and n=0. No circular reliance or deferred proof search remains."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-2f4e515a06/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-2f4e515a06/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-2f4e515a06/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1.fractional_iterates-a1.unit_iterate_formula-a1",
+      "key": "unit_iterate_formula",
+      "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-e50d6db760-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-e50d6db760",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "val_mul|isUnit_iff_coprime|isUnit_of_coprime|castHom|mul_inv_of_unit|inv_mul_of_unit",
+              "dvd_val|val.*dvd.*mul|dvd.*val.*mul|iterate.*inv|inv.*iterate",
+              "natCast_zmod_val|natCast_eq_zero_iff|val_natCast|cast_eq_val",
+              "pow.*dvd.*pow|dvd.*mul.*iff|pow.*not_dvd|coprime_pow",
+              "fractional.*iterat|unit_mul_dvd_val|square_annihilation|valuation.*strat",
+              "p10_17ae7b7d_fi_unit_iterate_formula|p10_17ae7b7d_fi_unit_mul_dvd_val|p10_17ae7b7d_fi_square_annihilation"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/parent-child-handoff.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Defs.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/Prime/Basic.lean",
+              "/runtime/operator-header-policy-v1/policy.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/fractional-split-0kqs_t14/ChildTypes.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/fractional-split-0kqs_t14/ChildTypes.log",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/fractional-split-0kqs_t14/report.json"
+            ],
+            "conclusion": "The handoff identifies this theorem as the depth-four fractional_iterates node. The reference snapshots match project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; both snapshots and all nine pinned dependencies are clean. Relevant infrastructure includes ZMod.isUnit_natCast_iff_not_dvd_pow, unit inverse identities, ZMod.castHom, representative-cast identities, ZMod.natCast_eq_zero_iff, and Nat.Prime.coprime_pow_of_not_dvd. The searches found no specialized fractional-iterate, unit-preservation, or square-annihilation theorem matching the searched patterns. All three proposed types elaborate after import Submission at proof-base 81e439ead62e72b45d1f96dd998a9b47a5b90960 in a disposable compiler copy. Reflexivity probes confirm function iteration, ZMod ring multiplication, the ZMod inverse, and the monoid used by IsUnit. The names are absent from the imported environment and active DAG reservations. Audited types and library declarations use only propext, Classical.choice, and Quot.sound. The policy digest matches 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96; only listed lines 10–12 were omitted, and Lean confirmed all 56 targets absent. The report records exact omissions, reversible original/build hashes, and successful final diagnostics. The frozen contract remains unchanged. These checks establish interface compatibility, not comparator acceptance of the unimplemented child proofs."
+          }
+        ],
+        "parent_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1.fractional_iterates-a1",
+        "child_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1.fractional_iterates-a1.unit_iterate_formula-a1",
+        "subproblem": {
+          "key": "unit_iterate_formula",
+          "title": "Unit denominators and the fractional iterate formula",
+          "statement": "Let p be prime, let a be a natural number with 1 ≤ a, and let z ∈ R = ZMod(p^a) satisfy p ∣ z.val. Define F : R → R by F(w) = w(1+w)⁻¹, using the ZMod inverse. For every natural n, the element 1+nz is a unit and F^n(z) = z(1+nz)⁻¹. Natural numbers in ring expressions are cast into R.",
+          "lean_statement": "∀ (p a : ℕ), Nat.Prime p → 1 ≤ a → ∀ z : ZMod (p ^ a), p ∣ z.val → let F : ZMod (p ^ a) → ZMod (p ^ a) := fun w => w * (1 + w)⁻¹; ∀ n : ℕ, IsUnit (1 + (n : ZMod (p ^ a)) * z) ∧ (F^[n]) z = z * (1 + (n : ZMod (p ^ a)) * z)⁻¹",
+          "lean_name": "p10_17ae7b7d_fi_unit_iterate_formula",
+          "depends_on": [],
+          "natural_proof": "1. Fix a prime p, a natural number a with 1 ≤ a, and z in R = ZMod(p^a) with p dividing m = z.val. Put M = p^a, which is positive, and D_n = 1+nz. The natural-number cast of m in R equals z.\n2. For each natural n, set b = 1+n m. Because p divides n m, it cannot divide b: otherwise it would divide b-n m = 1, contradicting p ≥ 2. Thus b is coprime to p, and hence to M = p^a. Choose integers s,t with s b+t M = 1. Reduction modulo M gives (s : R)D_n = 1; commutativity gives the reverse product too. Therefore D_n is a unit. The ZMod inverse of a unit is its unit inverse, so D_n D_n⁻¹ = D_n⁻¹ D_n = 1.\n3. Define F(w) = w(1+w)⁻¹. Prove (F^[n])(z) = z D_n⁻¹ by induction on n. At n=0, F^[0] is the identity and D_0 = 1, so the claimed equality holds.\n4. Suppose the equality holds at n and write x = z D_n⁻¹. Since D_(n+1) = D_n+z, distributing multiplication and using D_n D_n⁻¹ = 1 gives 1+x = D_(n+1)D_n⁻¹. The element E = D_n D_(n+1)⁻¹ is a two-sided inverse of this product: each product with E reduces, by commutativity and the two unit cancellation identities, to 1. Thus 1+x is a unit and its ZMod inverse is E by uniqueness of inverses.\n5. Consequently F(x) = z D_n⁻¹ D_n D_(n+1)⁻¹ = z D_(n+1)⁻¹. The recursion for function iteration completes the induction. Together with step 2 this gives both claimed conclusions for every n.",
+          "proof_key_steps": [
+            "Represent z by m and show p does not divide 1+n m.",
+            "Use coprimality and Bezout to prove every denominator D_n is a unit.",
+            "Establish the iterate formula at n = 0.",
+            "Express 1+zD_n⁻¹ as D_(n+1)D_n⁻¹ and identify its inverse explicitly.",
+            "Cancel unit factors to complete the induction."
+          ]
+        },
+        "audit": {
+          "key": "unit_iterate_formula",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The standalone one-line proposition exactly matches all prose hypotheses and both conclusions. Steps 1–2 establish unit denominators through coprimality and Bezout before using inverse identities. Steps 3–5 prove the base case and successor formula with an explicit two-sided inverse. The proof is complete, non-circular and sufficient for formalization."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-e50d6db760/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-e50d6db760/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-e50d6db760/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1.fractional_iterates-a1.unit_mul_dvd_val-a1",
+      "key": "unit_mul_dvd_val",
+      "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-0fd2aa1434-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-0fd2aa1434",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "val_mul|isUnit_iff_coprime|isUnit_of_coprime|castHom|mul_inv_of_unit|inv_mul_of_unit",
+              "dvd_val|val.*dvd.*mul|dvd.*val.*mul|iterate.*inv|inv.*iterate",
+              "natCast_zmod_val|natCast_eq_zero_iff|val_natCast|cast_eq_val",
+              "pow.*dvd.*pow|dvd.*mul.*iff|pow.*not_dvd|coprime_pow",
+              "fractional.*iterat|unit_mul_dvd_val|square_annihilation|valuation.*strat",
+              "p10_17ae7b7d_fi_unit_iterate_formula|p10_17ae7b7d_fi_unit_mul_dvd_val|p10_17ae7b7d_fi_square_annihilation"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/parent-child-handoff.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Defs.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/Prime/Basic.lean",
+              "/runtime/operator-header-policy-v1/policy.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/fractional-split-0kqs_t14/ChildTypes.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/fractional-split-0kqs_t14/ChildTypes.log",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/fractional-split-0kqs_t14/report.json"
+            ],
+            "conclusion": "The handoff identifies this theorem as the depth-four fractional_iterates node. The reference snapshots match project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; both snapshots and all nine pinned dependencies are clean. Relevant infrastructure includes ZMod.isUnit_natCast_iff_not_dvd_pow, unit inverse identities, ZMod.castHom, representative-cast identities, ZMod.natCast_eq_zero_iff, and Nat.Prime.coprime_pow_of_not_dvd. The searches found no specialized fractional-iterate, unit-preservation, or square-annihilation theorem matching the searched patterns. All three proposed types elaborate after import Submission at proof-base 81e439ead62e72b45d1f96dd998a9b47a5b90960 in a disposable compiler copy. Reflexivity probes confirm function iteration, ZMod ring multiplication, the ZMod inverse, and the monoid used by IsUnit. The names are absent from the imported environment and active DAG reservations. Audited types and library declarations use only propext, Classical.choice, and Quot.sound. The policy digest matches 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96; only listed lines 10–12 were omitted, and Lean confirmed all 56 targets absent. The report records exact omissions, reversible original/build hashes, and successful final diagnostics. The frozen contract remains unchanged. These checks establish interface compatibility, not comparator acceptance of the unimplemented child proofs."
+          }
+        ],
+        "parent_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1.fractional_iterates-a1",
+        "child_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1.fractional_iterates-a1.unit_mul_dvd_val-a1",
+        "subproblem": {
+          "key": "unit_mul_dvd_val",
+          "title": "Unit multiplication preserves divisibility of representatives",
+          "statement": "Let M,d be natural numbers with M > 0 and d ∣ M. For any x,u ∈ ZMod M with u a unit, d divides the canonical representative of xu if and only if d divides the canonical representative of x.",
+          "lean_statement": "∀ (M d : ℕ), 0 < M → d ∣ M → ∀ (x u : ZMod M), IsUnit u → (d ∣ (x * u).val ↔ d ∣ x.val)",
+          "lean_name": "p10_17ae7b7d_fi_unit_mul_dvd_val",
+          "depends_on": [],
+          "natural_proof": "1. Fix natural numbers M,d with M>0 and d dividing M, elements x,u of ZMod M, and assume u is a unit. Since 0 does not divide the positive number M, d>0.\n2. Reduction of integer representatives modulo d gives a ring homomorphism ρ : ZMod M → ZMod d: two representatives of the same class modulo M differ by a multiple of M and therefore by a multiple of d. For every y in ZMod M, ρ(y) is the class of y.val modulo d. Consequently ρ(y)=0 if and only if d divides y.val.\n3. Because u is a unit, there is v in ZMod M with uv=vu=1. Applying ρ gives ρ(u)ρ(v)=ρ(v)ρ(u)=1. If d divides x.val, then ρ(x)=0, so ρ(xu)=ρ(x)ρ(u)=0 and d divides (xu).val.\n4. Conversely, if d divides (xu).val, then ρ(x)ρ(u)=0. Multiplication by ρ(v) yields ρ(x)=0, whence d divides x.val. These two implications prove the required equivalence, also when d=1.",
+          "proof_key_steps": [
+            "Construct reduction modulo d using d ∣ M.",
+            "Identify its kernel with divisibility of canonical representatives by d.",
+            "Map a multiplicative inverse of u through the reduction homomorphism.",
+            "Prove both implications by multiplication and cancellation in ZMod d."
+          ]
+        },
+        "audit": {
+          "key": "unit_mul_dvd_val",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The standalone one-line proposition exactly matches M>0, d∣M, unit u and the stated equivalence. The proof justifies reduction modulo d, identifies its kernel using canonical representatives, maps an inverse of u and proves both implications. It covers d=1 without assuming a nontrivial target ring and uses no parent or sibling result."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-0fd2aa1434/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-0fd2aa1434/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-0fd2aa1434/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/task.md": "88b1002f931f9db565a73aca07e087230eaf4513e50f89dde142b288f4f74309",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/problem.md": "c0d696de12207f8a138e01c1056e5c32494f559ac76a7f989b86196fbe3ec896",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/problem.json": "09bfb3e94e9c52916c6ee18b497e1146a074f98a2710e85c5c5460cb0b09f76a",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/reference-manifest.json": "57bc5044097a9c3cadb6a565fb02bfe2c5c9db06690993e4e6916463cba75efa",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/decomposition.json": "4fa1095a9b210b5889db170d16ed4e91f05614579e3e2ce44398c69a825cd371",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/decomposition-audit.json": "93656db54dec17c1d3d851fd7cfe5957a2464827c6b58247f5b8f1324dcaca73",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/controller-contract.json": "d1b66564f94c24ea9aabf052e7675de958b8785c03d14b64249e21e1e9480907",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-2f4e515a06/parent-child-handoff.json": "641bdfa93de973056d422408b5eab269e31731ff9603705fccf5a653e3906c8a",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-2f4e515a06/parent-supplied-plan.md": "c1c40acc1c7ac05700ac14f6d56be4bc9f46aa18040c54fcfb92b50421283d2d",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-2f4e515a06/parent-supplied-natural-proof.md": "7ceacf237e29adcfb2f4036c4c3c0bc0679c4b5f63a44c064973494c1bb6efcd",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-2f4e515a06/parent-supplied-natural-proof.json": "43e666955468f8e7743fa5d94b40052f9dc074434033d7c37113ca92b8f23b7e",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-2f4e515a06/node.json": "b9eea4a1ed12a69b62f75dd668e5ba9e5fa52858d7e8e29456db2769af2f005b",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-e50d6db760/parent-child-handoff.json": "7617ae3a72c5808abc68c6038114af8b83704f7f5301af256237abe776899555",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-e50d6db760/parent-supplied-plan.md": "62526feefb24bca5c9e44fca94b90f02df858e34866df4b882696390c6de496a",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-e50d6db760/parent-supplied-natural-proof.md": "80c4f3e4a90df81c69dbc85ee2a878eb72996da4a6f035fdd7308446ebaf8238",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-e50d6db760/parent-supplied-natural-proof.json": "305d6577a52ae018c959d575131dc3fb30023897a7722773455e0fffd5b51ab0",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-e50d6db760/node.json": "849b214c7724127020277225b755a8c183b7618ecc7e5086f53e2ab76b02b3fc",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-0fd2aa1434/parent-child-handoff.json": "598dcb3757dbf2ac98bc4ab896066201cf3dc15cca9fe64b9ae40852c869566e",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-0fd2aa1434/parent-supplied-plan.md": "8c003710e7f9b1ff5f2250a11a5d1e7c6417de597fcab67700765082208025d3",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-0fd2aa1434/parent-supplied-natural-proof.md": "92d92243770e271e40c327be6007095c21630f4b61d6b9be3a1160dcb8523e08",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-0fd2aa1434/parent-supplied-natural-proof.json": "0728d76d4afb7d35b810631320ee8d3ffd4eb4a4d7806e0158d307c6791109d5",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-ea38848b51/children/root-gamma0-coset-counts-a1-translation-orbits-a1-prime-power-count-a-0fd2aa1434/node.json": "efc42825a59c685ebabeb9062725b5b7eb7eadbdb50d1c91a7e288f6c734978c"
+  }
+}
