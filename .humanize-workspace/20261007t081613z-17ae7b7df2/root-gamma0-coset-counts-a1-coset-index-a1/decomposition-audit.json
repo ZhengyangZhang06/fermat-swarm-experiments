@@ -1,0 +1,69 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "dedekindPsi|ProjectiveLine|unimodularRow|^import",
+        "card.*ProjectiveLine|ProjectiveLine.*card|Gamma0.*(index|card)|(index|card).*Gamma0|dedekindPsi",
+        "chineseRemainder|isUnit_iff|isUnit.*coprime|isUnit.*prime",
+        "prod_primeFactors_pow_factorization|prod.*factorization|factorization.*prod|factorization_pos",
+        "squarefree_iff_factorization_le_one|squarefree_iff|prod_primeFactors",
+        "leftRel|rightRel|QuotientGroup|HasQuotient",
+        "rg -n 'p10_17ae7b7d_idx_(coset_row_card|prime_power_row_card|crt_row_card|dedekind_psi_product)' .humanize --glob 'dag.json' --glob 'parent-child-handoff.json'",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean -DautoImplicit=false -DmaxHeartbeats=4000000 -DsynthInstance.maxHeartbeats=400000 -Dbackward.isDefEq.respectTransparency.types=false -o TargetAbsence.olean TargetAbsence.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean -DautoImplicit=false -DmaxHeartbeats=4000000 -DsynthInstance.maxHeartbeats=400000 -Dbackward.isDefEq.respectTransparency.types=false -o ChildTypes.olean ChildTypes.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean -DautoImplicit=false -DmaxHeartbeats=4000000 -DsynthInstance.maxHeartbeats=400000 -Dbackward.isDefEq.respectTransparency.types=false -o Composition.olean Composition.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-coset-index-a1/parent-child-handoff.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-coset-index-a1/decomposition-v1.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_X0.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/Factorization/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/Squarefree.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/Coset/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/index-split-ssqaob6l/report.json",
+        "/tmp/p10-independent-index-audit-44iiqx3r/TargetAbsence.lean",
+        "/tmp/p10-independent-index-audit-44iiqx3r/ChildTypes.lean",
+        "/tmp/p10-independent-index-audit-44iiqx3r/Composition.lean",
+        "/tmp/p10-independent-index-audit-44iiqx3r/report.json"
+      ],
+      "conclusion": "Verified the pinned project and mathlib revisions and all nine clean dependency checkouts. Sources confirm the quotient relation, left-coset convention, Gamma0 membership, prime-power unit criterion, CRT, factorization and squarefree-divisor definition. No matching cardinality theorem appeared in the searched definition/modular-forms sources; no proposed name appeared in DAGs, handoffs or Submission. The four bare names are available, and the existing 29-node DAG is acyclic. Fresh Lean checks accepted every literal child proposition, verified scalar and ordinary matrix multiplication, and proved the exact parent conclusion conditionally from these four contracts and its existing lifting prerequisite. Thus the split is sufficient, genuinely mathematical and correctly directed. Checked type/library axiom closures contain only propext, Classical.choice and Quot.sound. Independently verified policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, exact omissions of lines 10–12, both recorded hashes and reversible reconstruction; the fresh Lean probe confirmed all 56 targets absent. All 31 protected files remained unchanged. This approves decomposition only; child proof comparator acceptance remains a later requirement."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "coset_row_cardinality",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line type matches every hypothesis and both conclusions. Steps 1–5 establish the scaling equivalence, finiteness, and a bijection from right cosets using the determinant calculation and precisely the explicit lifting hypothesis. Step 6 correctly transfers to left cosets by inversion, including N=1. No parent theorem is invoked. Empty child dependencies are correct because lifting is an argument; the parent retains its matching lifting prerequisite."
+    },
+    {
+      "key": "prime_power_row_cardinality",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The type exactly includes primality, positive exponent and the stated quotient cardinality. The proof establishes the unit criterion, characterizes unimodular rows, and gives exhaustive, unique, disjoint charts. Counting multiples of p among canonical representatives gives p^(a−1), including a=1. Every step is justified independently of the parent and other children."
+    },
+    {
+      "key": "crt_row_cardinality",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone type matches the defined quotient family and product over N.primeFactors. The proof handles N=1, justifies the prime-power decomposition and CRT, and assembles both unimodularity witnesses and scaling units. These constructions establish surjectivity and injectivity on quotient classes before taking finite cardinalities. No finiteness claim for modulus zero is needed, and no sibling result is assumed."
+    },
+    {
+      "key": "dedekind_psi_product",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The type exactly matches the frozen Dedekind-psi definition and proposed product. The proof handles N=1, proves the subset-to-squarefree-divisor correspondence, justifies exact natural division using positive divisors, and expands the product by finite induction. The argument is complete and independent of all row-counting results."
+    }
+  ],
+  "required_changes": []
+}

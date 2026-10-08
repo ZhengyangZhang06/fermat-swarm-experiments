@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.gamma0_coset_counts-a1.coset_index-a1.prime_power_row_cardinality-a1",
+  "parent_id": "root.gamma0_coset_counts-a1.coset_index-a1",
+  "depth": 3,
+  "title": "Count unimodular row classes over a prime-power residue ring",
+  "statement": "Let p be a prime natural number and a a positive natural number. Put R=ℤ/pᵃℤ. Let U={(r,s)∈R² | ∃x,y∈R, xr+ys=1}, and let P be its quotient by simultaneous multiplication of both coordinates by a unit of R. Then Nat.card P=pᵃ+p^(a−1).",
+  "lean_statement": "∀ (p a : ℕ), p.Prime → 0 < a → Nat.card (Quot (fun v w : {v : ZMod (p ^ a) × ZMod (p ^ a) // ∃ x y : ZMod (p ^ a), x * v.1 + y * v.2 = 1} => ∃ u : (ZMod (p ^ a))ˣ, (u : ZMod (p ^ a)) * v.1.1 = w.1.1 ∧ (u : ZMod (p ^ a)) * v.1.2 = w.1.2)) = p ^ a + p ^ (a - 1)",
+  "lean_name": "p10_17ae7b7d_idx_prime_power_row_card",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-prime-power-row-cardinality-a1-a1"
+}

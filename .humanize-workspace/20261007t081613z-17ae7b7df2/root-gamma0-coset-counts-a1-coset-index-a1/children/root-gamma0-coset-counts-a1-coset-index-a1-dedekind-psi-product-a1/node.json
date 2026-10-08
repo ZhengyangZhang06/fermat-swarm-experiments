@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.gamma0_coset_counts-a1.coset_index-a1.dedekind_psi_product-a1",
+  "parent_id": "root.gamma0_coset_counts-a1.coset_index-a1",
+  "depth": 3,
+  "title": "Express Dedekind psi as a product of prime-power chart counts",
+  "statement": "For every nonzero natural number N, let S=N.primeFactors be its finite set of prime divisors and e_p=N.factorization p. With ModularCurve.dedekindPsi N defined as ∑_{d∣N, Squarefree d} N/d, one has ModularCurve.dedekindPsi N=∏_{p∈S}(p^e_p+p^(e_p−1)).",
+  "lean_statement": "∀ (N : ℕ) [NeZero N], ModularCurve.dedekindPsi N = N.primeFactors.prod (fun p => p ^ N.factorization p + p ^ (N.factorization p - 1))",
+  "lean_name": "p10_17ae7b7d_idx_dedekind_psi_product",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-dedekind-psi-product-a1-a1"
+}
