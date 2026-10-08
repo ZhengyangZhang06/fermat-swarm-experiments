@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "70cc5aecc788075686f382533fed063ba4c3f01901ff5df514976e380145113b",
+  "git_delta": {
+    "base_commit": "6c1cdf90055b6818a20c88246780dde67c42bae3",
+    "candidate_commit": "cf9237188768caf40b553d4e78a72491290ec11e",
+    "target": "Submission.lean",
+    "declaration": "p06_9e0f5043ff_inf_reciprocal_presentation",
+    "diff_sha256": "18c2d0d6baa8107e5997d5b3782b2bfc47f96ceb2c768ab0168068c173908fa7",
+    "source_sha256": "0d3d9812b35405510f2ad13ba1300005a750454d2b58d982f65abb22b3968f41",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_inf_reciprocal_presentation",
+      "statement": "∀ (K : Type*) [Field K], Transcendental K ((algebraMap (Polynomial K) (FractionRing (Polynomial K)) Polynomial.X)⁻¹) ∧ (∀ f : FractionRing (Polynomial K), ∃ a b : Polynomial K, b ≠ 0 ∧ f = Polynomial.aeval ((algebraMap (Polynomial K) (FractionRing (Polynomial K)) Polynomial.X)⁻¹) a / Polynomial.aeval ((algebraMap (Polynomial K) (FractionRing (Polynomial K)) Polynomial.X)⁻¹) b)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
