@@ -1,5 +1,39 @@
 # B1 controller repair handoff: residue quotient length
 
+## 2026-10-08 11:49 selected-node revalidation
+
+The implementation invocation at `.humanize/rlcr/2026-10-08_11-49-07`
+requires a fresh selected-node comparator attempt. Starting HEAD is
+`7bd41db49cdcc4859f0bea808d07ed3497c444dc`; the selected Lean source remains
+unchanged, with SHA-256
+`28e2eaad24cf4369a15b5c63345d546d35dbfd357d9bfd5dfa0e2b3ff1b7e7c8`.
+
+Fresh evidence confirms the same boundary:
+
+- The pinned Lean 4.33.1 warning-fatal check of actual `Submission.lean`
+  exits 1 on the three unavailable frozen attribute targets and inherited root
+  placeholder. No reported error concerns the selected theorem.
+- An explicitly diagnostic extract of the selected theorem passes with warnings
+  fatal, against the exact type read independently from `parent-child-handoff.json`.
+  Its transitive axioms are exactly `propext`, `Classical.choice`, and `Quot.sound`.
+  Omitting the broken preamble for that diagnostic does not establish authoritative
+  module or comparator acceptance.
+- All nine dependency repositories are clean at their manifest pins. The inspected
+  normalization, residue-scalar, and module-length files match the mandatory
+  local-project snapshot. The frozen prefix is preserved; the complete Lean diff
+  adds only this node's theorem and local proof steps.
+- The requested separate simplifier review recommends retaining the implementation.
+  No source edit, new named helper, or decomposition change is justified.
+
+The local round directory records `source-audit.json`, `complete-source.diff`,
+`submission.log`, `submission-result.json`, `SelectedNodeDiagnostic.lean`,
+`selected-node.log`, `selected-node-result.json`, and `simplification-review.md`.
+Its final `round-0-summary.md` will record the exact committed candidate and
+comparator outcome. These Humanize records remain ignored by repository policy.
+The authoritative build is still blocked; this evidence commit does not claim
+proof acceptance or resolve B1. Frozen contexts, package pins, proof handoffs,
+and controller state remain unchanged.
+
 ## 2026-10-08 selected-node revalidation
 
 The new implementation invocation at `.humanize/rlcr/2026-10-08_06-19-09`
