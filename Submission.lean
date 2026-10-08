@@ -61,3 +61,41 @@ theorem groupCohomology.bijective_theta_dualTwist_of_res_of_isOpen
         Rep.res S.subtype (ofChar (k := ZMod p) ((cycloChar p).comp (primeLocalToGlobal q)))) inv θ₂) :
     Function.Bijective θ₀ ∧ Function.Bijective θ₁ ∧ Function.Bijective θ₂ := by
   sorry
+
+theorem Submission.p08_7d1ff633a4_linear_descent
+    {k X Y X' Y' : Type} [Field k]
+    [AddCommGroup X] [Module k X] [AddCommGroup Y] [Module k Y]
+    [AddCommGroup X'] [Module k X'] [AddCommGroup Y'] [Module k Y']
+    (n : k) (hn : n ≠ 0)
+    (R_X : X →ₗ[k] X') (C_X : X' →ₗ[k] X)
+    (R_Y : Y →ₗ[k] Y') (C_Y : Y' →ₗ[k] Y)
+    (Θ : X →ₗ[k] Module.Dual k Y) (Θ' : X' →ₗ[k] Module.Dual k Y')
+    (hX : ∀ x : X, C_X (R_X x) = n • x)
+    (hY : ∀ y : Y, C_Y (R_Y y) = n • y)
+    (hcompatX : ∀ (x : X) (y' : Y'), Θ' (R_X x) y' = Θ x (C_Y y'))
+    (hcompatY : ∀ (x' : X') (y : Y), Θ' x' (R_Y y) = Θ (C_X x') y)
+    (hΘ' : Function.Bijective Θ') : Function.Bijective Θ := by
+  constructor
+  · have hker : ∀ x : X, Θ x = 0 → x = 0 := by
+      intro x hx
+      have hRX : R_X x = 0 := hΘ'.1 (by
+        ext y'
+        simp only [hcompatX, hx, map_zero, LinearMap.zero_apply])
+      have hnx : n • x = 0 := by
+        rw [← hX x, hRX, map_zero]
+      have hcancel := congrArg (fun z : X => n⁻¹ • z) hnx
+      simpa only [inv_smul_smul₀ hn, smul_zero] using hcancel
+    intro x₁ x₂ h
+    apply sub_eq_zero.mp
+    apply hker
+    rw [map_sub, h, sub_self]
+  · intro φ
+    obtain ⟨x', hx'⟩ := hΘ'.2 (φ.comp C_Y)
+    refine ⟨n⁻¹ • C_X x', ?_⟩
+    ext y
+    calc
+      Θ (n⁻¹ • C_X x') y = n⁻¹ • Θ (C_X x') y := by
+        simp only [map_smul, LinearMap.smul_apply]
+      _ = n⁻¹ • Θ' x' (R_Y y) := by rw [hcompatY]
+      _ = n⁻¹ • φ (C_Y (R_Y y)) := by rw [hx', LinearMap.comp_apply]
+      _ = φ y := by rw [hY, map_smul, inv_smul_smul₀ hn]
