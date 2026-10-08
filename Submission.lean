@@ -3748,5 +3748,76 @@ theorem p06_9e0f5043ff_rmp_finite_place_model
   exact ⟨v, hv,
     Submission.p06_9e0f5043ff_fpm_residue_degree K F x hx q hq hirr v hv,
     Submission.p06_9e0f5043ff_fpm_normalized_orders K F x hx q hq hirr v hv⟩
+theorem p06_9e0f5043ff_rmp_infinity_place :
+    ∀ (K : Type*) [Field K],
+      ∃ v : AlgebraicCurve.Place K (FractionRing (Polynomial K)),
+        algebraMap (Polynomial K) (FractionRing (Polynomial K)) Polynomial.X ∉
+            v.toValuationSubring ∧
+          v.deg = 1 ∧
+          (∀ a : Polynomial K, a ≠ 0 →
+            v.ord (algebraMap (Polynomial K) (FractionRing (Polynomial K)) a) =
+              -(a.natDegree : ℤ)) ∧
+          (∀ w : AlgebraicCurve.Place K (FractionRing (Polynomial K)),
+            algebraMap (Polynomial K) (FractionRing (Polynomial K)) Polynomial.X ∉
+                w.toValuationSubring → w = v) := by
+  intro K _
+  let t : FractionRing (Polynomial K) :=
+    algebraMap (Polynomial K) (FractionRing (Polynomial K)) Polynomial.X
+  let s : FractionRing (Polynomial K) := t⁻¹
+  obtain ⟨hs, hfractions⟩ := p06_9e0f5043ff_inf_reciprocal_presentation K
+  change Transcendental K s at hs
+  change ∀ f : FractionRing (Polynomial K), ∃ a b : Polynomial K, b ≠ 0 ∧
+    f = Polynomial.aeval s a / Polynomial.aeval s b at hfractions
+  have hinj := transcendental_iff_injective.mp hs
+  have hs0 : s ≠ 0 := by
+    simpa only [Polynomial.aeval_X, map_zero] using
+      hinj.ne (Polynomial.X_ne_zero (R := K))
+  obtain ⟨v, hmem, hdeg, hord, hunits⟩ :=
+    p06_9e0f5043ff_rmp_finite_place_model K (FractionRing (Polynomial K)) s hs hfractions
+      Polynomial.X Polynomial.monic_X Polynomial.irreducible_X
+  have hnotmem : t ∉ v.toValuationSubring := by
+    intro ht
+    obtain ⟨a, b, hb, hab⟩ := (hmem t).mp ht
+    have hb0 : b ≠ 0 := fun h => hb (h ▸ dvd_zero Polynomial.X)
+    have hbeval : Polynomial.aeval s b ≠ 0 := by
+      simpa only [map_zero] using hinj.ne hb0
+    have hmul : s⁻¹ * Polynomial.aeval s b = Polynomial.aeval s a := by
+      apply (eq_div_iff hbeval).mp
+      change t⁻¹⁻¹ = _
+      rw [inv_inv]
+      exact hab
+    apply hb
+    refine ⟨a, hinj ?_⟩
+    rw [map_mul, Polynomial.aeval_X]
+    calc
+      Polynomial.aeval s b = s * (s⁻¹ * Polynomial.aeval s b) := by
+        rw [← mul_assoc, mul_inv_cancel₀ hs0, one_mul]
+      _ = s * Polynomial.aeval s a := by rw [hmul]
+  refine ⟨v, hnotmem, ?_, ?_, ?_⟩
+  · simpa only [Polynomial.natDegree_X] using hdeg
+  · intro a ha
+    have hsord : v.ord s = 1 := by
+      simpa only [Polynomial.aeval_X] using hord
+    have heval : Polynomial.aeval s⁻¹ a =
+        algebraMap (Polynomial K) (FractionRing (Polynomial K)) a := by
+      change Polynomial.aeval t⁻¹⁻¹ a = _
+      rw [inv_inv]
+      simpa only [Polynomial.aeval_X_left_apply, IsScalarTower.toAlgHom_apply] using
+        (Polynomial.aeval_algHom_apply
+          (IsScalarTower.toAlgHom K (Polynomial K) (FractionRing (Polynomial K)))
+          Polynomial.X a)
+    rw [← heval]
+    exact p06_9e0f5043ff_inf_reciprocal_polynomial_order
+      K (FractionRing (Polynomial K)) s hs v hsord hunits a ha
+  · intro w hw
+    have hw' : s⁻¹ ∉ w.toValuationSubring := by
+      change t⁻¹⁻¹ ∉ w.toValuationSubring
+      rw [inv_inv]
+      exact hw
+    apply AlgebraicCurve.Place.ext
+    apply SetLike.ext
+    intro f
+    exact (p06_9e0f5043ff_inf_valuation_fraction_characterization
+      K (FractionRing (Polynomial K)) s hs hfractions w hw' f).trans (hmem f).symm
 
 end Submission
