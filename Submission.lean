@@ -18,6 +18,7 @@ theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field
 
 namespace Submission
 
+/-- The uniformizer exponent of a nonzero scalar is both its quotient length and its place order. -/
 theorem p06_9e0f5043ff_dlen_scalar_quotient
     (K E : Type*) [Field K] [Field E] [Algebra K E]
     (v : AlgebraicCurve.Place K E) (a : v.toValuationSubring) (ha : a ≠ 0) :
