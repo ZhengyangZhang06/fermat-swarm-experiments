@@ -848,3 +848,50 @@ theorem Submission.p05_hte_fss_coefficient_span_a5b449214a
       exact Submodule.subset_span ⟨v j, hv j, R (Coalgebra.comul (R := k) (w j)), rfl⟩
     intro x hx
     exact hstable hx
+
+
+namespace Submission
+
+theorem p05_hte_finite_stable_subspace_a5b449214a
+    {k : Type*} [Field k] {C : Type*} [AddCommGroup C] [Module k C] [Coalgebra k C]
+    (E : Finset C) :
+    ∃ V : Submodule k C, FiniteDimensional k V ∧ (∀ x ∈ E, x ∈ V) ∧
+      ∀ x ∈ V, Coalgebra.comul (R := k) x ∈
+        Submodule.span k {t : TensorProduct k C C |
+          ∃ a ∈ V, ∃ b : C, t = TensorProduct.tmul k a b} := by
+  classical
+  induction E using Finset.induction_on with
+  | empty =>
+      refine ⟨⊥, inferInstance, ?_, ?_⟩
+      · simp
+      · intro x hx
+        have hx0 : x = 0 := (Submodule.mem_bot k).mp hx
+        subst x
+        rw [map_zero]
+        exact Submodule.zero_mem _
+  | @insert f E _ ih =>
+      obtain ⟨V, hVfin, hEV, hVstable⟩ := ih
+      obtain ⟨n, v, w, ell, hΔ, hdual⟩ :=
+        p05_hte_fss_tensor_dual_expansion_a5b449214a (Coalgebra.comul (R := k) f)
+      obtain ⟨hWfin, hfW, hWstable⟩ :=
+        p05_hte_fss_coefficient_span_a5b449214a f n v w ell hΔ hdual
+      let W : Submodule k C := Submodule.span k (Set.range v)
+      let : FiniteDimensional k V := hVfin
+      let : FiniteDimensional k W := hWfin
+      refine ⟨W ⊔ V, inferInstance, ?_, ?_⟩
+      · intro x hx
+        rcases Finset.mem_insert.mp hx with rfl | hx
+        · exact Submodule.mem_sup_left hfW
+        · exact Submodule.mem_sup_right (hEV x hx)
+      · intro x hx
+        obtain ⟨y, hy, z, hz, rfl⟩ := Submodule.mem_sup.mp hx
+        rw [map_add]
+        apply Submodule.add_mem
+        · apply (Submodule.span_mono ?_) (hWstable y hy)
+          rintro t ⟨a, ha, b, rfl⟩
+          exact ⟨a, Submodule.mem_sup_left ha, b, rfl⟩
+        · apply (Submodule.span_mono ?_) (hVstable z hz)
+          rintro t ⟨a, ha, b, rfl⟩
+          exact ⟨a, Submodule.mem_sup_right ha, b, rfl⟩
+
+end Submission
