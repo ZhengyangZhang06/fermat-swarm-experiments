@@ -1188,3 +1188,22 @@ theorem p07_flq_full_level_pullback_857cd4d38c
            annihilator := fun K _ _ α => (hgeom K α).2 }, hproj⟩
 
 end Submission
+
+
+namespace Submission
+
+theorem p07_full_level_quotient_857cd4d38c
+    {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N n : ℕ)
+    (S : Type) [CommRing S] (J : Ideal S)
+    (u : FakeEllipticCurve.WithFullLevel Λ N n S) :
+    ∃ (v : FakeEllipticCurve.WithFullLevel Λ N n (S ⧸ J)) (g : v.1.A ⟶ u.1.A),
+      FakeEllipticCurve.IsPullbackVia (Ideal.Quotient.mk J) u.1 v.1 g ∧
+        v.2.P.1 ≫ g = Spec.map (CommRingCat.ofHom (Ideal.Quotient.mk J)) ≫ u.2.P.1 := by
+  obtain ⟨EJ, g, hg⟩ :=
+    Submission.p07_flq_curve_quotient_857cd4d38c Λ N S J u.1
+  obtain ⟨LJ, hP⟩ :=
+    Submission.p07_flq_full_level_pullback_857cd4d38c Λ N n S (S ⧸ J)
+      (Ideal.Quotient.mk J) u.1 EJ g hg u.2
+  exact ⟨⟨EJ, LJ⟩, g, hg, hP⟩
+
+end Submission
