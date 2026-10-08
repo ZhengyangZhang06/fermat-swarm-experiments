@@ -11,6 +11,34 @@ attribute [-simp] AlgebraicCurve.IsFrobeniusEndo.frobNormRingHom_apply ModularCu
 attribute [-simp] AlgebraicCurve.SemilinearAut.coe_torsion_smul AlgebraicCurve.SemilinearAut.toRingAut_mul AlgebraicCurve.coe_frobeniusPushforwardDegZero AlgebraicCurve.IsFrobeniusEndo.coe_frobeniusPullbackDegZero ModularCurve.jqNModC_one ModularCurve.qExpand_coeff_mul ModularCurve.qExpandₐ_apply ModularCurve.jqN_one ModularCurve.qExpand_single ModularCurve.dedekindPsi_one ModularCurve.ModularPolynomialData.mk.sizeOf_spec ModularCurve.evalAtJ_X ModularCurve.ModularPolynomialData.mk.injEq ModularCurve.constantCoeff_jNum ModularCurve.constantCoeff_eisenstein4 ModularCurve.qExpand_C ModularCurve.coeff_jq_neg_one ModularCurve.constantCoeff_jNumQ ModularCurve.reduceModBivar_C_X ModularCurve.laurentMap_coeff ModularCurve.reduceModBivar_X ModularCurve.laurentMap_single ModularCurve.evalAtJInt_X ModularCurve.evalAtJMod_X ModularCurve.jqNMod_one ModularCurve.aeval_heckeGen ModularCurve.coe_mTorsionGaloisRep_apply ModularCurve.eisensteinSystem_of_dvd ModularCurve.eisensteinSystem_of_not_dvd FreyPackage.mk.sizeOf_spec FreyPackage.mk.injEq WeierstrassCurve.Affine.Point.galoisRepModuleEnd_apply
 
 open AlgebraicCurve
+
+namespace Submission
+
+theorem p06_9e0f5043ff_principal_alg_equiv
+    (K E L : Type*) [Field K] [Field E] [Field L] [Algebra K E] [Algebra K L]
+    (e : E ≃ₐ[K] L) (h : HasPrincipalDivisors K E) : HasPrincipalDivisors K L := by
+  classical
+  obtain ⟨θ, hdeg, hring⟩ := p06_9e0f5043ff_pae_place_equivalence_degree K E L e
+  refine ⟨fun f hf => ?_⟩
+  have hf' : e.symm f ≠ 0 := by
+    intro hzero
+    apply hf
+    simpa only [AlgEquiv.apply_symm_apply, map_zero] using congrArg e hzero
+  obtain ⟨D, hD, hDdeg⟩ := h.exists_divisor (e.symm f) hf'
+  refine ⟨Finsupp.equivMapDomain θ D, ?_, ?_⟩
+  · intro w
+    obtain ⟨r, hr⟩ := hring (θ.symm w)
+    have hord := p06_9e0f5043ff_pae_compatible_order_invariance K E L e
+      (θ.symm w) (θ (θ.symm w)) r hr (e.symm f) hf'
+    rw [Finsupp.equivMapDomain_apply, hD]
+    simpa only [Equiv.apply_symm_apply, AlgEquiv.apply_symm_apply] using hord.symm
+  · change (Finsupp.equivMapDomain θ D).sum (fun w n => n * (w.deg : ℤ)) = 0
+    rw [Finsupp.sum_equivMapDomain]
+    change D.sum (fun v n => n * (v.deg : ℤ)) = 0 at hDdeg
+    simpa only [hdeg] using hDdeg
+
+end Submission
+
 theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
     [Algebra K F] (x : F) (hx : Transcendental K x)
     [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
