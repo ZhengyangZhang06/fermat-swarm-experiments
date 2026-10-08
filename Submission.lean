@@ -3178,3 +3178,32 @@ theorem Submission.p06_9e0f5043ff_vfc_polynomial_unit_criterion :
   · intro hp
     obtain ⟨u, hu⟩ := hunit.mpr hp
     exact ⟨u, (congrArg (fun x : w.toValuationSubring => (x : F)) hu).trans (hE p)⟩
+/-- Membership of a unit times a parameter-power quotient forces nonnegative exponent. -/
+theorem Submission.p06_9e0f5043ff_vfc_unit_power_quotient_exponents :
+    ∀ (F : Type*) [Field F] (W : Subring F) (s : F), s ∈ W → s⁻¹ ∉ W →
+      ∀ (u : Units W) (r k : ℕ), ((u : W) : F) * s ^ r / s ^ k ∈ W → k ≤ r := by
+  intro F _ W s hs hsinv u r k hquot
+  have hs0 : s ≠ 0 := by
+    intro h
+    apply hsinv
+    simp [h]
+  have hu : ((u : W) : F) * ((↑(u⁻¹) : W) : F) = 1 := by
+    exact_mod_cast u.mul_inv
+  by_contra hle
+  let n := k - r - 1
+  have hk : k = r + n + 1 := by
+    dsimp [n]
+    omega
+  have hprod :
+      (((u : W) : F) * s ^ r / s ^ k) * ((↑(u⁻¹) : W) : F) * s ^ n ∈ W :=
+    W.mul_mem (W.mul_mem hquot (↑(u⁻¹) : W).property) (W.pow_mem hs n)
+  have heq :
+      (((u : W) : F) * s ^ r / s ^ k) * ((↑(u⁻¹) : W) : F) * s ^ n = s⁻¹ := by
+    calc
+      _ = (((u : W) : F) * ((↑(u⁻¹) : W) : F)) * (s ^ r * s ^ n) / s ^ k := by
+        ring
+      _ = s ^ (r + n) / s ^ (r + n + 1) := by
+        rw [hu, one_mul, ← pow_add, hk]
+      _ = s⁻¹ := by
+        rw [pow_succ, div_mul_eq_div_div, div_self (pow_ne_zero _ hs0), one_div]
+  exact hsinv (heq ▸ hprod)
