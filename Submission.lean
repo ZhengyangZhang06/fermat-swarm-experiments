@@ -2436,3 +2436,17 @@ theorem Submission.p08_7d1ff633a4_tp26_coset_averaging :
     apply Finset.sum_congr rfl
     intro c _
     exact hrep F hF (t c) (u c) ((ht c).trans (hu c).symm) x
+theorem Submission.p08_7d1ff633a4_tp26_bilinear_averaging :
+    ∀ {k G X Y ι : Type} [Field k] [Group G] [MulAction G X] [MulAction G Y] [Fintype ι] (A B N : Rep.{0} k G) (φ : A →ₗ[k] B →ₗ[k] N), (∀ (s : G) (a : A) (b : B), φ (A.ρ s a) (B.ρ s b) = N.ρ s (φ a b)) → ∀ (t : ι → G) (F : X → A) (Q : Y → B), ((∀ (s : G) (x : X), F (s • x) = A.ρ s (F x)) → ∀ (x : X) (y : Y), (∑ c : ι, N.ρ (t c) (φ (F ((t c)⁻¹ • x)) (Q ((t c)⁻¹ • y)))) = φ (F x) (∑ c : ι, B.ρ (t c) (Q ((t c)⁻¹ • y)))) ∧ ((∀ (s : G) (y : Y), Q (s • y) = B.ρ s (Q y)) → ∀ (x : X) (y : Y), (∑ c : ι, N.ρ (t c) (φ (F ((t c)⁻¹ • x)) (Q ((t c)⁻¹ • y)))) = φ (∑ c : ι, A.ρ (t c) (F ((t c)⁻¹ • x))) (Q y)) := by
+  intro k G X Y ι _ _ _ _ _ A B N φ hφ t F Q
+  constructor
+  · intro hF x y
+    rw [map_sum]
+    apply Finset.sum_congr rfl
+    intro c _
+    rw [← hφ, ← hF, smul_inv_smul]
+  · intro hQ x y
+    rw [map_sum, LinearMap.sum_apply]
+    apply Finset.sum_congr rfl
+    intro c _
+    rw [← hφ, ← hQ, smul_inv_smul]
