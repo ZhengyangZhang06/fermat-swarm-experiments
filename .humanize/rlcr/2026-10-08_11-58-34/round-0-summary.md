@@ -1,5 +1,7 @@
 # Round 0 Summary
 
+**Outcome: blocked; no proof acceptance.** The exact selected-node comparator exits 1 while compiling the controller's frozen challenge, before candidate comparison. The isolated child proof passes its warning-fatal type and axiom checks. No Lean source was changed in this round.
+
 ## Implementation and scope
 
 The starting branch already contains the sole selected theorem, `Submission.p07_flp_point_equiv_857cd4d38c`, introduced in `8ac90b184237be5f866deac1545609af0e0bfb36` and documented in `eccb2440c4b9010b4c819733095470fb5a4a17ab`. This round reviews and verifies that candidate; it does not treat the existing implementation as an accepted dependency. The frozen proof base is `8cb34c690b020247caaf2f18f9cb6fbab8d526f6`, and the selected node has no children or approved dependencies.
@@ -23,9 +25,11 @@ The requested read-only code simplifier reviewed lines 80–144 and found no def
 - All nine installed dependency checkouts match `lake-manifest.json` and are clean, including untracked files.
 - `lake` was absent from PATH; the pinned Lean 4.33.1 compiler was located at `/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin`.
 - Warning-fatal command: `PATH=/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin:$PATH lake env lean -DwarningAsError=true Submission.lean`. Exit 1: unknown constants `AlgebraicGeometry.Scheme.Hom.opensMapFinal` (line 13), `GoodReductionJacobian.RelativeGroupLaw.baseChangePointToBase_ofBase` (line 14), and `RegularLocalRingQuotientAscent.dualNumberFst_apply` (line 15); inherited root declaration uses `sorry` (line 22). All four diagnostics concern the byte-for-byte unchanged frozen source prefix. No child-theorem error was reported. This is a failed check, not a warning-clean candidate.
-- Exact-node comparator: pending. No compilation, commit, or review result is represented as comparator acceptance.
+- Exact-node comparator: exit 1 at clean commit `81698cca3ff5c5387d604ab60ee86d2e988ba762`, request `7b0142dd56a241709f70716c7f2a3f3c`. The request packet identified precisely this node and candidate; packet digest `f59369ba62f21902c4bb5bd1ee32c1bcfde19cd1166ce9a0092691c08ab37041`. The verifier failed building `/output/result/challenge/Submission.lean` on the same three unknown constants at lines 13–15. The root `sorry` appeared as a warning in that build. No candidate export or comparison completed, and `Your solution is okay!` was not printed. The exact command from the plan was run with `env -u HF_TOKEN` and only the selected node ID. Neither root nor sibling comparator was run.
 - Isolated diagnostic `/tmp/p07-point-equiv-round0-o4lku_rc/CheckNode.lean`: exit 0 with `-DwarningAsError=true` and the pinned project options. This imports the same five Definitions modules, copies the selected theorem verbatim, and checks it against the exact frozen DAG type with `example`. It excludes the broken frozen prefix and root specification, so it is diagnostic evidence only, not acceptance of `Submission.lean`.
 - Diagnostic transitive axiom reports for the selected theorem and `CategoryTheory.IsPullback.lift`, `lift_fst`, `lift_snd`, and `hom_ext` each list only `propext`, `Classical.choice`, and `Quot.sound`.
+- `git diff 8cb34c6..HEAD --check` passed. Manual review and an added-source scan found no `sorry`, `admit`, new `axiom`, `unsafe`, `native_decide`, `implemented_by`, `run_tac`, or `run_elab` in the theorem addition. No extra named helpers were added. `Submission.lean` SHA-256 is `81d0a9d64dee7d82cd27ac069c5dde7a4617d51a74ca4899b6fe5ef3dfe4002b`.
+- The comparator candidate remained committed and clean for the entire request and was confirmed unchanged after exit. A final documentation-only commit records this outcome; it does not represent a successful comparator run at a new SHA. The Lean source is unchanged from the checked candidate.
 
 ## Reference use
 
@@ -54,7 +58,11 @@ Compatibility was checked against the actual manifest, the installed clean depen
 
 ## Remaining items
 
-The frozen-source build failure blocks AC2. The isolated exact-child diagnostic passed, and the candidate audit is committed; exact-node comparator evidence remains pending. The independent reviewer comparator rerun, theorem-wiki publication, issue/PR integration and DAG `proved` transition belong to the outer controller.
+AC2 is unmet. The controller must resolve the frozen challenge build context before exact-node acceptance can succeed. No candidate-local proof change can repair the separately copied frozen challenge, and changing that controller-owned contract is outside this selected-node implementation. T3 and T4 remain explicitly blocked; T1 and T2 are recorded as completed pending independent verification. The reference audit, contract and final handoff evidence satisfy the documentation work for AC3, without implying theorem acceptance.
+
+The independent reviewer comparator rerun, theorem-wiki publication, issue/PR integration and DAG `proved` transition remain outer-controller tasks. No decomposition or proof rewrite was attempted. No retry of the identical failed comparator is justified until its frozen-source blocker changes.
+
+The theorem catalogue for this node consists solely of `Submission.p07_flp_point_equiv_857cd4d38c`. The only acceptance issue found is the frozen-source build failure above; the read-only simplifier found no selected-proof defect.
 
 ## BitLesson Delta
 
