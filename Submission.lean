@@ -733,3 +733,50 @@ theorem p02_es_177ebb5a_sd_jr_linepow_eval :
     simp [h, zero_pow hnr]
 
 end Submission
+
+theorem Submission.p02_es_177ebb5a_hi_prescribed_coefficients :
+    ∀ (n : ℕ) (a : ℕ → ℂ), ∃ P : ↥(HeckeEis.BinaryForm ℂ n),
+      ∀ d : Fin 2 →₀ ℕ, MvPolynomial.coeff d P.val =
+        if d 0 + d 1 = n then a (d 0) else 0 := by
+  classical
+  intro n a
+  let e (r : Fin (n + 1)) : Fin 2 →₀ ℕ :=
+    Finsupp.single 0 r.val + Finsupp.single 1 (n - r.val)
+  have he (r : Fin (n + 1)) : (e r).degree = n := by
+    simp only [e, map_add, Finsupp.degree_single]
+    exact Nat.add_sub_of_le (Nat.le_of_lt_succ r.isLt)
+  let p : MvPolynomial (Fin 2) ℂ := ∑ r : Fin (n + 1),
+    MvPolynomial.monomial (e r) (a r.val)
+  have hp : p.IsHomogeneous n :=
+    MvPolynomial.IsHomogeneous.sum _ _ _ fun r _ =>
+      MvPolynomial.isHomogeneous_monomial _ (he r)
+  refine ⟨⟨p, hp⟩, ?_⟩
+  intro d
+  change MvPolynomial.coeff d p = _
+  simp only [p, MvPolynomial.coeff_sum, MvPolynomial.coeff_monomial]
+  by_cases hd : d 0 + d 1 = n
+  · rw [if_pos hd]
+    let r₀ : Fin (n + 1) := ⟨d 0, by omega⟩
+    have hr₀ : e r₀ = d := by
+      ext i
+      fin_cases i <;> simp [e, r₀, ← hd]
+    rw [Finset.sum_eq_single r₀]
+    · simp [hr₀, r₀]
+    · intro r _ hne
+      have hrd : e r ≠ d := by
+        intro h
+        apply hne
+        apply Fin.ext
+        have h0 := congrArg (fun t : Fin 2 →₀ ℕ => t 0) h
+        simpa [e, r₀] using h0
+      simp [hrd]
+    · simp
+  · rw [if_neg hd]
+    apply Finset.sum_eq_zero
+    intro r _
+    have hrd : e r ≠ d := by
+      intro h
+      apply hd
+      have hdegree : d.degree = n := h ▸ he r
+      simpa only [Finsupp.degree_eq_sum, Fin.sum_univ_two] using hdegree
+    simp [hrd]
