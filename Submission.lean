@@ -206,3 +206,16 @@ theorem Submission.p08_7d1ff633a4_ck_uniform_stabilizer :
   have hρ : M.ρ g = LinearMap.id := b.ext fun i =>
     hfix i g (IntermediateField.fixingSubgroup_le (le_iSup F i) hg)
   exact LinearMap.congr_fun hρ m
+
+
+theorem Submission.p08_7d1ff633a4_tt26_normal_kernel :
+    ∀ {G : Type} [Group G]
+      (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ))
+      (E : IntermediateField ℚ (AlgebraicClosure ℚ)),
+      FiniteDimensional ℚ E → Normal ℚ E →
+        (E.fixingSubgroup.comap r).Normal ∧ (E.fixingSubgroup.comap r).FiniteIndex := by
+  intro G _ r E hE hN
+  have : FiniteDimensional ℚ E := hE
+  have hker := @IntermediateField.restrictNormalHom_ker ℚ (AlgebraicClosure ℚ) _ _ _ E hN
+  rw [← hker, MonoidHom.comap_ker]
+  exact ⟨inferInstance, inferInstance⟩
