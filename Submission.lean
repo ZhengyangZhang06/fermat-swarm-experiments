@@ -644,6 +644,7 @@ theorem p04_hct139_coset_average_exists
   · intro F x
     rfl
 
+end Submission
 
 namespace Submission
 
