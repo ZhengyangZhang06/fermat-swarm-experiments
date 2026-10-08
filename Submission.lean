@@ -1306,6 +1306,12 @@ end Submission
 import Mathlib.LinearAlgebra.Matrix.ToLinearEquiv
 import Mathlib.LinearAlgebra.Quotient.Basic
 
+open AlgebraicCurve
+theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
+    [Algebra K F] (x : F) (hx : Transcendental K x)
+    [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
+  sorry
+
 namespace Submission
 
 /-- Left and right multiplication by unit matrices preserve the cokernel up to linear equivalence. -/
