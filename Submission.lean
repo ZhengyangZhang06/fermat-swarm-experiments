@@ -2543,3 +2543,23 @@ theorem Submission.p10_17ae7b7d_gamma0_coset_counts :
   obtain ⟨hfinite, hindex⟩ := Submission.p10_17ae7b7d_cc_index N
   obtain ⟨htwo, hthree⟩ := Submission.p10_17ae7b7d_cc_elliptic_fixed_points N
   exact ⟨hfinite, hindex, htwo, hthree, Submission.p10_17ae7b7d_cc_translation_orbits N⟩
+
+theorem Submission.p10_17ae7b7d_pde_finite_order :
+    ∀ A : ℂ → ℂ, DifferentiableOn ℂ A (Metric.ball (0 : ℂ) 1) →
+      (∃ q : ℂ, q ∈ Metric.ball (0 : ℂ) 1 ∧ A q ≠ 0) →
+      analyticOrderAt A 0 ≠ ⊤ ∧ (A 0 = 0 → 1 ≤ analyticOrderNatAt A 0) := by
+  intro A hA ⟨q, hq, hAq⟩
+  have h0 : (0 : ℂ) ∈ Metric.ball (0 : ℂ) 1 := by simp
+  have hAn : AnalyticOnNhd ℂ A (Metric.ball (0 : ℂ) 1) :=
+    hA.analyticOnNhd Metric.isOpen_ball
+  have hfinite : analyticOrderAt A 0 ≠ ⊤ := by
+    intro htop
+    have hzero := hAn.eqOn_zero_of_preconnected_of_eventuallyEq_zero
+      (convex_ball (0 : ℂ) (1 : ℝ)).isPreconnected h0
+      (analyticOrderAt_eq_top.mp htop)
+    exact hAq (hzero hq)
+  refine ⟨hfinite, fun hzero => Nat.one_le_iff_ne_zero.mpr ?_⟩
+  intro horder
+  have hz : analyticOrderAt A 0 = 0 := by
+    simpa only [horder, Nat.cast_zero] using (Nat.cast_analyticOrderNatAt hfinite).symm
+  exact ((hAn 0 h0).analyticOrderAt_eq_zero.mp hz) hzero
