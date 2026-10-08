@@ -1660,6 +1660,195 @@ theorem Submission.p08_7d1ff633a4_cp11_right_level_boundary :
       ← hφ s (f t) (B.ρ t b), Rep.ρ_mul, LinearMap.comp_apply]
     simp only [map_add, map_sub, LinearMap.add_apply]
     abel
+theorem Submission.p08_7d1ff633a4_tt26_theta_from_pairings :
+    ∀ {k G : Type} [Field k] [Group G] (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)) (A B N : Rep.{0} k G) (φ : A →ₗ[k] B →ₗ[k] N), let X : Fin 3 → ModuleCat k := ![ModuleCat.of k A.ρ.invariants, ModuleCat.of k (groupCohomology.continuousH1 r A), ModuleCat.of k (groupCohomology.continuousH2 r A)]; let Y : Fin 3 → ModuleCat k := ![ModuleCat.of k (groupCohomology.continuousH2 r B), ModuleCat.of k (groupCohomology.continuousH1 r B), ModuleCat.of k B.ρ.invariants]; ∀ (P : ∀ i : Fin 3, X i →ₗ[k] Y i →ₗ[k] groupCohomology.continuousH2 r N), ((∀ (m : A.ρ.invariants) (z : groupCohomology.levelCocycles₂ r B), ∃ e : groupCohomology.levelCocycles₂ r N, (∀ st : G × G, (e : G × G → N) st = φ (m : A) ((z : G × G → B) st)) ∧ P 0 m (groupCohomology.continuousH2π r B z) = groupCohomology.continuousH2π r N e) ∧ (∀ (f : groupCohomology.cocycles₁ A) (hf : groupCohomology.IsLevelConstant₁ r (⇑f)) (g : groupCohomology.cocycles₁ B) (hg : groupCohomology.IsLevelConstant₁ r (⇑g)), ∃ e : groupCohomology.levelCocycles₂ r N, (∀ st : G × G, (e : G × G → N) st = groupCohomology.cupCochain φ (⇑f) (⇑g) st) ∧ P 1 ⟨(groupCohomology.H1π A).hom f, groupCohomology.H1π_mem_continuousH1 r A hf⟩ ⟨(groupCohomology.H1π B).hom g, groupCohomology.H1π_mem_continuousH1 r B hg⟩ = groupCohomology.continuousH2π r N e) ∧ (∀ (z : groupCohomology.levelCocycles₂ r A) (d : B.ρ.invariants), ∃ e : groupCohomology.levelCocycles₂ r N, (∀ st : G × G, (e : G × G → N) st = φ ((z : G × G → A) st) (d : B)) ∧ P 2 (groupCohomology.continuousH2π r A z) d = groupCohomology.continuousH2π r N e)) → ∀ ℓ : groupCohomology.continuousH2 r N →ₗ[k] k, ∃ Θ : ∀ i : Fin 3, X i →ₗ[k] Module.Dual k (Y i), (groupCohomology.IsTheta0 r φ ℓ (Θ 0) ∧ groupCohomology.IsTheta1 r φ ℓ (Θ 1) ∧ groupCohomology.IsTheta2 r φ ℓ (Θ 2)) ∧ (∀ (i : Fin 3) (x : X i) (y : Y i), Θ i x y = ℓ (P i x y)) ∧ (∀ Ψ : ∀ i : Fin 3, X i →ₗ[k] Module.Dual k (Y i), (groupCohomology.IsTheta0 r φ ℓ (Ψ 0) ∧ groupCohomology.IsTheta1 r φ ℓ (Ψ 1) ∧ groupCohomology.IsTheta2 r φ ℓ (Ψ 2)) → ∀ i : Fin 3, Ψ i = Θ i) := by
+  intro k G _ _ r A B N φ X Y P hP ℓ
+  rcases hP with ⟨hP0, hP1, hP2⟩
+  let Θ : ∀ i : Fin 3, X i →ₗ[k] Module.Dual k (Y i) := fun i =>
+    { toFun := fun x => ℓ.comp (P i x)
+      map_add' := by
+        intro x x'
+        ext y
+        change ℓ (P i (x + x') y) = ℓ (P i x y) + ℓ (P i x' y)
+        rw [map_add, LinearMap.add_apply, map_add]
+      map_smul' := by
+        intro c x
+        ext y
+        change ℓ (P i (c • x) y) = c • ℓ (P i x y)
+        rw [map_smul, LinearMap.smul_apply, map_smul] }
+  refine ⟨Θ, ⟨?_, ?_, ?_⟩, ?_, ?_⟩
+  · intro m z e he
+    obtain ⟨e', he', hP⟩ := hP0 m z
+    have heq : e' = e := Subtype.ext (funext fun st => (he' st).trans (he st).symm)
+    subst e'
+    change ℓ (P 0 m (continuousH2π r B z)) = ℓ (continuousH2π r N e)
+    exact congrArg ℓ hP
+  · intro f hf g hg e he
+    obtain ⟨e', he', hP⟩ := hP1 f hf g hg
+    have heq : e' = e := Subtype.ext (funext fun st => (he' st).trans (he st).symm)
+    subst e'
+    change ℓ (P 1 ⟨(H1π A).hom f, H1π_mem_continuousH1 r A hf⟩
+      ⟨(H1π B).hom g, H1π_mem_continuousH1 r B hg⟩) = ℓ (continuousH2π r N e)
+    exact congrArg ℓ hP
+  · intro z d e he
+    obtain ⟨e', he', hP⟩ := hP2 z d
+    have heq : e' = e := Subtype.ext (funext fun st => (he' st).trans (he st).symm)
+    subst e'
+    change ℓ (P 2 (continuousH2π r A z) d) = ℓ (continuousH2π r N e)
+    exact congrArg ℓ hP
+  · intro i x y
+    rfl
+  · intro Ψ hΨ i
+    rcases hΨ with ⟨hΨ0, hΨ1, hΨ2⟩
+    fin_cases i
+    · apply LinearMap.ext
+      intro x
+      apply LinearMap.ext
+      intro y
+      change Ψ 0 x y = ℓ (P 0 x y)
+      obtain ⟨z, rfl⟩ :=
+        (show Function.Surjective (continuousH2π r B) from Submodule.mkQ_surjective _) y
+      obtain ⟨e, he, hP⟩ := hP0 x z
+      exact (hΨ0 x z e he).trans (congrArg ℓ hP).symm
+    · apply LinearMap.ext
+      intro x
+      apply LinearMap.ext
+      intro y
+      change Ψ 1 x y = ℓ (P 1 x y)
+      obtain ⟨f, hf, hfx⟩ := (mem_continuousH1_iff r A x.val).mp x.property
+      obtain ⟨g, hg, hgy⟩ := (mem_continuousH1_iff r B y.val).mp y.property
+      have hx : (⟨(H1π A).hom f, H1π_mem_continuousH1 r A hf⟩ : continuousH1 r A) = x :=
+        Subtype.ext hfx
+      have hy : (⟨(H1π B).hom g, H1π_mem_continuousH1 r B hg⟩ : continuousH1 r B) = y :=
+        Subtype.ext hgy
+      rw [← hx, ← hy]
+      obtain ⟨e, he, hP⟩ := hP1 f hf g hg
+      exact (hΨ1 f hf g hg e he).trans (congrArg ℓ hP).symm
+    · apply LinearMap.ext
+      intro x
+      apply LinearMap.ext
+      intro y
+      change Ψ 2 x y = ℓ (P 2 x y)
+      obtain ⟨z, rfl⟩ :=
+        (show Function.Surjective (continuousH2π r A) from Submodule.mkQ_surjective _) x
+      obtain ⟨e, he, hP⟩ := hP2 z y
+      exact (hΨ2 z y e he).trans (congrArg ℓ hP).symm
+
+namespace Submission
+
+theorem p08_7d1ff633a4_common_kernel
+    {p : ℕ} [Fact p.Prime] (q : Nat.Primes)
+    (S : Subgroup (ExtCitation.primeLocalGaloisGroup q)) (U : Subgroup S)
+    (M : Rep.{0} (ZMod p) S) [FiniteDimensional (ZMod p) M]
+    (hU : ∃ F₀ : IntermediateField ℚ (AlgebraicClosure ℚ), FiniteDimensional ℚ F₀ ∧
+      F₀.fixingSubgroup.comap ((ExtCitation.primeLocalToGlobal q).comp S.subtype) ≤ U)
+    (hsm : ∀ m : M, ∃ F : IntermediateField ℚ (AlgebraicClosure ℚ),
+      FiniteDimensional ℚ F ∧ ∀ s : S,
+        ((ExtCitation.primeLocalToGlobal q).comp S.subtype) s ∈ F.fixingSubgroup →
+          M.ρ s m = m) :
+    ∃ E : IntermediateField ℚ (AlgebraicClosure ℚ),
+      FiniteDimensional ℚ E ∧ Normal ℚ E ∧
+      E.fixingSubgroup.comap ((ExtCitation.primeLocalToGlobal q).comp S.subtype) ≤ U ∧
+      (∀ s : S, ((ExtCitation.primeLocalToGlobal q).comp S.subtype) s ∈ E.fixingSubgroup →
+        (∀ m : M, M.ρ s m = m) ∧
+        (∀ d : M.dualTwist
+            (((ExtCitation.cycloChar p).comp (ExtCitation.primeLocalToGlobal q)).comp S.subtype),
+          (M.dualTwist
+            (((ExtCitation.cycloChar p).comp (ExtCitation.primeLocalToGlobal q)).comp S.subtype)).ρ
+              s d = d) ∧
+        (∀ a : Rep.res S.subtype
+            (groupCohomology.ofChar (k := ZMod p)
+              ((ExtCitation.cycloChar p).comp (ExtCitation.primeLocalToGlobal q))),
+          (Rep.res S.subtype
+            (groupCohomology.ofChar (k := ZMod p)
+              ((ExtCitation.cycloChar p).comp (ExtCitation.primeLocalToGlobal q)))).ρ s a = a)) := by
+  obtain ⟨F₀, hF₀, hF₀U⟩ := hU
+  obtain ⟨FM, hFM, hFMfix⟩ :=
+    p08_7d1ff633a4_ck_uniform_stabilizer
+      ((ExtCitation.primeLocalToGlobal q).comp S.subtype) M hsm
+  obtain ⟨FC, hFC, hFCfix⟩ := p08_7d1ff633a4_ck_cyclotomic_kernel (p := p)
+  have hfinite : ∀ i : Fin 3, FiniteDimensional ℚ (![F₀, FM, FC] i) := by
+    intro i
+    fin_cases i
+    · exact hF₀
+    · exact hFM
+    · exact hFC
+  obtain ⟨E, hE, hEnormal, hFE, _, _⟩ :=
+    p08_7d1ff633a4_normal_refinement ![F₀, FM, FC] hfinite
+  have hMfix : ∀ s : S,
+      ((ExtCitation.primeLocalToGlobal q).comp S.subtype) s ∈ E.fixingSubgroup →
+        ∀ m : M, M.ρ s m = m := by
+    intro s hs
+    exact hFMfix s (IntermediateField.fixingSubgroup_le (hFE 1) hs)
+  refine ⟨E, hE, hEnormal, ?_, ?_⟩
+  · intro s hs
+    exact hF₀U (IntermediateField.fixingSubgroup_le (hFE 0) hs)
+  · intro s hs
+    have hχ : (((ExtCitation.cycloChar p).comp
+        (ExtCitation.primeLocalToGlobal q)).comp S.subtype) s = 1 :=
+      hFCfix _ (IntermediateField.fixingSubgroup_le (hFE 2) hs)
+    have hinv : ((ExtCitation.primeLocalToGlobal q).comp S.subtype) s⁻¹ ∈
+        E.fixingSubgroup := by
+      rw [map_inv]
+      exact E.fixingSubgroup.inv_mem hs
+    refine ⟨hMfix s hs, ?_, ?_⟩
+    · intro d
+      rw [Rep.dualTwist_ρ_apply, hχ, Units.val_one, one_smul]
+      ext m
+      exact congrArg d (hMfix s⁻¹ hinv m)
+    · intro a
+      change (((((ExtCitation.cycloChar p).comp
+        (ExtCitation.primeLocalToGlobal q)).comp S.subtype) s : ZMod p) • a) = a
+      rw [hχ, Units.val_one, one_smul]
+
+end Submission
+theorem Submission.p08_7d1ff633a4_tp26_low_degree_prism :
+    ∀ {X V : Type} [AddCommGroup V] (α β : X → X),
+      (∀ F : X → X → V,
+        (∀ x y z : X, F y z - F x z + F x y = 0) →
+        ∀ x y : X, F (β x) (β y) - F (α x) (α y) =
+          F (α y) (β y) - F (α x) (β x)) ∧
+      (∀ F : X → X → X → V,
+        (∀ w x y z : X, F x y z - F w y z + F w x z - F w x y = 0) →
+        let h : X → X → V := fun x y =>
+          F (α x) (β x) (β y) - F (α x) (α y) (β y)
+        ∀ x y z : X, F (β x) (β y) (β z) - F (α x) (α y) (α z) =
+          h y z - h x z + h x y) := by
+  intro X V _ α β
+  constructor
+  · intro F hF x y
+    apply sub_eq_zero.mp
+    calc
+      _ = (F (β x) (β y) - F (α x) (β y) + F (α x) (β x)) -
+          (F (α y) (β y) - F (α x) (β y) + F (α x) (α y)) := by abel
+      _ = 0 := by simp only [hF, sub_self]
+  · intro F hF
+    dsimp only
+    intro x y z
+    apply sub_eq_zero.mp
+    calc
+      _ = (F (β x) (β y) (β z) - F (α x) (β y) (β z) +
+            F (α x) (β x) (β z) - F (α x) (β x) (β y)) -
+          (F (α y) (β y) (β z) - F (α x) (β y) (β z) +
+            F (α x) (α y) (β z) - F (α x) (α y) (β y)) +
+          (F (α y) (α z) (β z) - F (α x) (α z) (β z) +
+            F (α x) (α y) (β z) - F (α x) (α y) (α z)) := by abel
+      _ = 0 := by simp only [hF, sub_self, add_zero]
+theorem Submission.p08_7d1ff633a4_tp26_bilinear_averaging :
+    ∀ {k G X Y ι : Type} [Field k] [Group G] [MulAction G X] [MulAction G Y] [Fintype ι] (A B N : Rep.{0} k G) (φ : A →ₗ[k] B →ₗ[k] N), (∀ (s : G) (a : A) (b : B), φ (A.ρ s a) (B.ρ s b) = N.ρ s (φ a b)) → ∀ (t : ι → G) (F : X → A) (Q : Y → B), ((∀ (s : G) (x : X), F (s • x) = A.ρ s (F x)) → ∀ (x : X) (y : Y), (∑ c : ι, N.ρ (t c) (φ (F ((t c)⁻¹ • x)) (Q ((t c)⁻¹ • y)))) = φ (F x) (∑ c : ι, B.ρ (t c) (Q ((t c)⁻¹ • y)))) ∧ ((∀ (s : G) (y : Y), Q (s • y) = B.ρ s (Q y)) → ∀ (x : X) (y : Y), (∑ c : ι, N.ρ (t c) (φ (F ((t c)⁻¹ • x)) (Q ((t c)⁻¹ • y)))) = φ (∑ c : ι, A.ρ (t c) (F ((t c)⁻¹ • x))) (Q y)) := by
+  intro k G X Y ι _ _ _ _ _ A B N φ hφ t F Q
+  constructor
+  · intro hF x y
+    rw [map_sum]
+    apply Finset.sum_congr rfl
+    intro c _
+    rw [← hφ, ← hF, smul_inv_smul]
+  · intro hQ x y
+    rw [map_sum, LinearMap.sum_apply]
+    apply Finset.sum_congr rfl
+    intro c _
+    rw [← hφ, ← hQ, smul_inv_smul]
+
 theorem Submission.p08_7d1ff633a4_cp11_level_cocycle :
     ∀ {k G : Type} [Field k] [Group G] (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)) (A B N : Rep.{0} k G) (E₀ : IntermediateField ℚ (AlgebraicClosure ℚ)), FiniteDimensional ℚ E₀ → (∀ s : G, r s ∈ E₀.fixingSubgroup → ∀ b : B, B.ρ s b = b) → ∀ φ : A →ₗ[k] B →ₗ[k] N, (∀ (s : G) (a : A) (b : B), φ (A.ρ s a) (B.ρ s b) = N.ρ s (φ a b)) → ∀ (f : groupCohomology.cocycles₁ A) (g : groupCohomology.cocycles₁ B), groupCohomology.IsLevelConstant₁ r (⇑f) → groupCohomology.IsLevelConstant₁ r (⇑g) → groupCohomology.cupCochain φ (⇑f) (⇑g) ∈ groupCohomology.levelCocycles₂ r N := by
   intro k G _ _ r A B N E₀ hE₀ hB φ hφ f g hf hg
@@ -1672,6 +1861,9 @@ theorem Submission.p08_7d1ff633a4_cp11_level_cocycle :
     let := hE₀
     let := hFf
     let := hFg
+    letI := hE₀
+    letI := hFf
+    letI := hFg
     refine ⟨(E₀ ⊔ Ff) ⊔ Fg, inferInstance, ?_⟩
     intro s t h l hh hl
     have hh₀ : r h ∈ E₀.fixingSubgroup :=
