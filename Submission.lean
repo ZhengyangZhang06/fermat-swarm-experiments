@@ -6053,3 +6053,61 @@ theorem Submission.p05_ct_comodule_a5b449214a
     ext b
     exact mul_comm b h
   rw [hmul]
+
+
+namespace Submission
+
+/-- The two coaction twists intertwine the prescribed tensor action. -/
+theorem p05_fr_rhm_coaction_twist_a5b449214a :
+    ∀ {k : Type*} [Field k]
+      {A : Type*} [CommRing A] [HopfAlgebra k A]
+      {H : Type*} [CommRing H] [HopfAlgebra k H]
+      (ι : BialgHom k A H)
+      {M : Type*} [AddCommGroup M] [Module k M] [Module A M]
+      [IsScalarTower k A M]
+      [Module (TensorProduct k A H) (TensorProduct k M H)]
+      (_hact : ∀ (a : A) (h : H) (m : M) (g : H), (TensorProduct.tmul k a h) • (TensorProduct.tmul k m g) = TensorProduct.tmul k (a • m) (h * g))
+      (μ : M →ₗ[k] TensorProduct k M H)
+      (_hcoassoc : ∀ m : M, TensorProduct.assoc k M H H ((TensorProduct.map μ (LinearMap.id : H →ₗ[k] H)) (μ m)) = (TensorProduct.map (LinearMap.id : M →ₗ[k] M) (Coalgebra.comul (R := k))) (μ m))
+      (_hcounit : ∀ m : M, TensorProduct.rid k M ((TensorProduct.map (LinearMap.id : M →ₗ[k] M) (Coalgebra.counit (R := k))) (μ m)) = m)
+      (_hcompat : ∀ (a : A) (m : M), let d := Coalgebra.Repr.arbitrary k a; μ (a • m) = ∑ i ∈ d.index, TensorProduct.map ((Algebra.lsmul k k M) (d.left i)) (LinearMap.mulLeft k (ι (d.right i))) (μ m)),
+      ∃ (θ : TensorProduct k A H ≃ₐ[k] TensorProduct k A H)
+        (T : TensorProduct k M H ≃ₗ[k] TensorProduct k M H),
+        (∀ (a : A) (h : H), θ (TensorProduct.tmul k a h) = (TensorProduct.map (LinearMap.id : A →ₗ[k] A) ι.toLinearMap) (Coalgebra.comul (R := k) a) * TensorProduct.tmul k (1 : A) h) ∧
+        (∀ (m : M) (h : H), T (TensorProduct.tmul k m h) = TensorProduct.map (LinearMap.id : M →ₗ[k] M) (LinearMap.mulLeft k h) (μ m)) ∧
+        (∀ (s : TensorProduct k A H) (x : TensorProduct k M H), T (s • x) = θ s • T x) := by
+  classical
+  intro k _ A _ _ H _ _ ι M _ _ _ _ _ hact μ hcoassoc hcounit hcompat
+  obtain ⟨θ, hθ⟩ := Submission.p05_ct_algebra_a5b449214a ι
+  obtain ⟨T, hT⟩ := Submission.p05_ct_comodule_a5b449214a μ hcoassoc hcounit
+  refine ⟨θ, T, hθ, hT, ?_⟩
+  intro s x
+  induction s using TensorProduct.induction_on with
+  | zero => simp
+  | tmul a h =>
+    induction x using TensorProduct.induction_on with
+    | zero => simp
+    | tmul m g =>
+      rw [hact, hT, hθ, hT, hcompat]
+      -- Expand the algebra twist using the representation fixed by compatibility.
+      let d := Coalgebra.Repr.arbitrary k a
+      rw [← d.eq]
+      simp only [map_sum, Finset.sum_mul, Finset.sum_smul]
+      apply Finset.sum_congr rfl
+      intro i hi
+      -- The summand identity is additive in the coaction tensor.
+      generalize μ m = z
+      induction z using TensorProduct.induction_on with
+      | zero => simp
+      | tmul n t =>
+        simp [d, hact, Algebra.TensorProduct.tmul_mul_tmul, BialgHom.toCoalgHom_apply,
+          mul_assoc,
+          mul_left_comm, mul_comm]
+      | add z₁ z₂ hz₁ hz₂ =>
+        simp only [map_add, smul_add, hz₁, hz₂]
+    | add x₁ x₂ hx₁ hx₂ =>
+      simp only [smul_add, map_add, hx₁, hx₂]
+  | add s₁ s₂ hs₁ hs₂ =>
+    simp only [add_smul, map_add, hs₁, hs₂]
+
+end Submission
