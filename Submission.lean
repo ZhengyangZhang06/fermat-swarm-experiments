@@ -7,6 +7,7 @@ Requires the upstream Definitions modules and their dependencies.
 
 import Mathlib
 import Definitions.Def_GroupCohomology_TateCohomology
+attribute [-simp] Representation.TateResCor.cosetDecomp_apply Rep.coe_tateHneg1Res_apply Representation.TateResCor.coe_tateHneg1Cores_apply Representation.TateResCor.tateH0Res_mk Rep.coe_tateHneg1Cores_apply Rep.tateH0Res_mk Representation.TateResCor.coe_cosetNormInvariants_apply Rep.tateH0Cores_mk Representation.TateResCor.coinvariantsCores_mk Representation.TateResCor.coinvariantsTransfer_mk Representation.TateResCor.tateH0Cores_mk Representation.TateResCor.coe_tateHneg1Res_apply Rep.coe_tateδneg2_apply
 
 set_option autoImplicit false
 universe u
@@ -575,6 +576,7 @@ The proof uses `QuotientGroup.eq` to identify the subgroup element and
 
 namespace Submission
 
+set_option warningAsError true in
 theorem p04_hca_bc7c754a4b_summand_eq_of_coset_eq
     {k G : Type _} [CommRing k] [Group G] (A B : Rep k G) (H : Subgroup G)
     (F : Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) (s t : G)
