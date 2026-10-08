@@ -2004,6 +2004,9 @@ theorem Submission.p10_17ae7b7d_ccf_coprime_mul :
   unfold ModularCurve.cuspCount
   rw [Nat.divisors_mul, Finset.mul_def, Finset.sum_image hmn.mul_injOn_divisors,
     Finset.sum_product, Finset.sum_mul_sum]
+  rw [hmn.divisors_mul, Finset.sum_map]
+  simp only [Function.Embedding.coeFn_mk]
+  rw [Finset.sum_attach, Finset.sum_product, Finset.sum_mul_sum]
   apply Finset.sum_congr rfl
   intro a ha
   apply Finset.sum_congr rfl
