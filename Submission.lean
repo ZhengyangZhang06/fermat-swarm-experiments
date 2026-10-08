@@ -733,13 +733,10 @@ theorem f036cc6b1f_pc_hi_good_prime_transversal
   · refine ⟨β, hβ, ?_⟩
     simpa [r] using hσβ
 
-namespace Submission
-
-open MeasureTheory
-open scoped MatrixGroups
-
+open MeasureTheory in
+open scoped MatrixGroups in
 /-- Unfold the finite slash trace over the almost-everywhere disjoint translated domains. -/
-theorem f036cc6b1f_pc_hi_finite_trace_unfolding
+theorem Submission.f036cc6b1f_pc_hi_finite_trace_unfolding
     (Γ Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ))
     (R : Finset (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (F : Set UpperHalfPlane)
     (hΔΓ : Δ ≤ Γ) (hneg : (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ)
@@ -825,5 +822,3 @@ theorem f036cc6b1f_pc_hi_finite_trace_unfolding
   · rw [← Finset.sum_coe_sort R (fun r =>
       ∫ z in (fun w : UpperHalfPlane => r • w) '' F, UpperHalfPlane.petersson 2 u v z)]
     simpa only [hUnion, tsum_fintype] using hUnfold.symm
-
-end Submission
