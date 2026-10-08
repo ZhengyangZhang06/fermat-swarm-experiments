@@ -3853,3 +3853,47 @@ theorem p06_9e0f5043ff_local_norm_order
       rw [← hfrac, hord, mul_sub]
 
 end Submission
+  classical
+  let E := IntermediateField.adjoin K ({x} : Set F)
+  have : CharZero E := charZero_of_injective_algebraMap (algebraMap K E).injective
+  have : Algebra.IsSeparable E F := inferInstance
+  have : HasPrincipalDivisors K E :=
+    Submission.p06_9e0f5043ff_rational_adjoin_principal K x hx
+  have hfinite : ∀ a : E, a ≠ 0 → {v : Place K E | v.ord a ≠ 0}.Finite := by
+    intro a ha
+    obtain ⟨A, hA, _⟩ := HasPrincipalDivisors.exists_divisor (K := K) a ha
+    apply Set.Finite.subset A.support.finite_toSet
+    intro v hv
+    change v.ord a ≠ 0 at hv
+    simpa only [Finset.mem_coe, Finsupp.mem_support_iff, hA v] using hv
+  refine ⟨fun f hf => ?_⟩
+  let D : Divisor K F := Finsupp.ofSupportFinite (fun w : Place K F => w.ord f)
+    (Submission.p06_9e0f5043ff_finite_order_support_ascent K E F hfinite f hf)
+  have hD : ∀ w : Place K F, D w = w.ord f := fun _ => rfl
+  obtain ⟨A, hA, hdegree⟩ := HasPrincipalDivisors.exists_divisor (K := K)
+    (Algebra.norm E f) (Algebra.norm_ne_zero_iff.mpr hf)
+  have hpush : Divisor.pushforward E D = A := by
+    ext v
+    rw [hA v, Submission.p06_9e0f5043ff_local_norm_order K E F v f hf,
+      Divisor.pushforward_apply, ← Finset.sum_filter]
+    calc
+      ∑ w ∈ D.support.filter (fun w => w.restrict E = v),
+          D w * (w.inertiaDeg E : ℤ) =
+          ∑ w ∈ v.fiberOver F, D w * (w.inertiaDeg E : ℤ) := by
+        apply Finset.sum_subset
+        · intro w hw
+          exact (Place.mem_fiberOver v).mpr (Finset.mem_filter.mp hw).2
+        · intro w hw hnot
+          have hzero : D w = 0 := by
+            apply Finsupp.notMem_support_iff.mp
+            intro hmem
+            exact hnot (Finset.mem_filter.mpr
+              ⟨hmem, (Place.mem_fiberOver v).mp hw⟩)
+          rw [hzero, zero_mul]
+      _ = ∑ w ∈ v.fiberOver F, (w.inertiaDeg E : ℤ) * w.ord f := by
+        apply Finset.sum_congr rfl
+        intro w _
+        rw [hD w, mul_comm]
+  refine ⟨D, hD, ?_⟩
+  rw [← Divisor.degree_pushforward (F := E) D, hpush]
+  exact hdegree
