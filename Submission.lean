@@ -257,7 +257,10 @@ theorem Submission.p05_subalgebra_coinvariant_a5b449214a
       rw [hker]
       exact Ideal.subset_span ⟨K.sub_mem ht (K.algebraMap_mem _), by simp⟩
     have hz : q (t - algebraMap k H (Coalgebra.counit (R := k) t)) = 0 := hmem
-    rw [map_sub, (q : H →ₐ[k] B).commutes] at hz
+    have hscalar : q (algebraMap k H (Coalgebra.counit (R := k) t)) =
+        algebraMap k B (Coalgebra.counit (R := k) t) :=
+      (q : H →ₐ[k] B).commutes _
+    rw [map_sub, hscalar] at hz
     exact sub_eq_zero.mp hz
   have hspan (z : H ⊗[k] H)
       (hz : z ∈ Submodule.span k
