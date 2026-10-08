@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081613Z-17ae7b7df2",
+  "parent_id": "root.gamma0_norm_vanishing-a1.cyclic_product_descent-a1.orbit_product_order-a1",
+  "dispatch_branch": "proof-workspace/fermat-p10/20261007t081613z-17ae7b7df2/dispatch/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-order-a1",
+  "source_commit": "533432b476bec95a4485a6d93169f00b86c0b466",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.gamma0_norm_vanishing-a1.cyclic_product_descent-a1.orbit_product_order-a1.cyclic_product_invariance-a1",
+      "key": "cyclic_product_invariance",
+      "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-279161c5da-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-order-a1/children/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-279161c5da",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "analyticOrderNatAt_eq_iff|analyticOrderAt_eq_natCast|analyticOrderAt_prod|analyticOrderNatAt.*prod|prod_range_succ|prod_range_succ_comm",
+              "cyclic.*(product|prod|descent)|orbit.*product|rotation.*(product|invariant)|analyticOrderNatAt",
+              "finset_prod|Finset.*prod|analyticAt.*mul|lemma AnalyticAt.mul"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Submission.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_X0.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Order.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Constructions.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean"
+            ],
+            "conclusion": "The snapshot revisions match project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Order.lean supplies AnalyticAt.analyticOrderNatAt_eq_iff and AnalyticAt.analyticOrderAt_eq_natCast; Constructions.lean supplies Finset.analyticAt_fun_prod; Basic.lean supplies Finset.prod_range_succ and Finset.prod_range_succ'. The targeted project search found no matching cyclic/orbit-product theorem. All nine build dependencies match their pins and are clean. Both proposed types elaborated after literal import Submission in diagnostics/cpo-typecheck-0t_gyk3m/TypesAfterSubmission.lean. The private compiler copy omitted only policy-listed lines 10–12; the policy digest matched, reconstruction recovered the original bytes, and Lean confirmed all 56 omitted targets absent. The checked types and cited library lemmas use only propext, Classical.choice, and Quot.sound. Complex multiplication uses Complex.commRing.toCommMonoid. These diagnostics establish compatibility, not comparator acceptance of child proofs."
+          }
+        ],
+        "parent_id": "root.gamma0_norm_vanishing-a1.cyclic_product_descent-a1.orbit_product_order-a1",
+        "child_id": "root.gamma0_norm_vanishing-a1.cyclic_product_descent-a1.orbit_product_order-a1.cyclic_product_invariance-a1",
+        "subproblem": {
+          "key": "cyclic_product_invariance",
+          "title": "Cyclic invariance of a root-of-unity orbit product",
+          "statement": "Let w be a positive natural number, let ζ ∈ ℂ satisfy ζ^w = 1, and let A : ℂ → ℂ be any function. Define P(t) = ∏_{j=0}^{w−1} A(ζ^j t). Then P(ζt) = P(t) for every complex number t.",
+          "lean_statement": "∀ (w : ℕ) (ζ : ℂ) (A : ℂ → ℂ), 0 < w → ζ ^ w = 1 → let P : ℂ → ℂ := fun t => ∏ j ∈ Finset.range w, A (ζ ^ j * t); ∀ t : ℂ, P (ζ * t) = P t",
+          "lean_name": "p10_17ae7b7d_cpo_rotation_invariant",
+          "depends_on": [],
+          "natural_proof": "1. Fix w, ζ, and A satisfying the hypotheses, and fix t ∈ ℂ. Since w > 0, put n = w−1, so w = n+1. For each natural number j define f(j) = A(ζ^j t). Thus P(t) is the product of f(j) over j in Finset.range (n+1).\n2. The identity ζ^j(ζt) = ζ^(j+1)t follows from associativity and the successor power identity. Applying A to it in every factor shows P(ζt) = ∏_{j∈Finset.range (n+1)} f(j+1).\n3. The endpoints agree: f(n+1) = A(ζ^w t) = A(t), using ζ^w = 1, while f(0) = A(ζ^0 t) = A(t). Therefore f(n+1) = f(0).\n4. Let Q = ∏_{j∈Finset.range n} f(j+1). Splitting off the last factor of the shifted product, by Finset.prod_range_succ, gives P(ζt) = Q f(n+1). Splitting off the first factor of the original product, by Finset.prod_range_succ', gives P(t) = Q f(0). Step 3 makes these expressions equal. When n = 0, Q = 1 and both identities remain valid. Since t was arbitrary, P(ζt) = P(t) for every t ∈ ℂ.",
+          "proof_key_steps": [
+            "Write the positive integer w as n+1.",
+            "Rewrite evaluation at ζt as the product with exponents shifted by one.",
+            "Use ζ^w = 1 to identify the last shifted factor with the original first factor.",
+            "Apply the two endpoint product identities to conclude equality, including w = 1."
+          ]
+        },
+        "audit": {
+          "key": "cyclic_product_invariance",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The standalone one-line proposition exactly matches positive w, ζ^w=1, arbitrary A, and global invariance. The bare identifier is available. Writing w=n+1, shifting exponents, and identifying f(n+1)=f(0) are valid. The inspected prod_range_succ and prod_range_succ' lemmas give precisely the two displayed endpoint decompositions, including w=1. The proof needs neither analyticity nor primitivity and is complete independently of the other child and parent. Empty dependency lists are correct."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-279161c5da/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-279161c5da/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-279161c5da/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.gamma0_norm_vanishing-a1.cyclic_product_descent-a1.orbit_product_order-a1.nonzero_dilation_product_order-a1",
+      "key": "nonzero_dilation_product_order",
+      "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-5077c4d9ed-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-order-a1/children/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-5077c4d9ed",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "analyticOrderNatAt_eq_iff|analyticOrderAt_eq_natCast|analyticOrderAt_prod|analyticOrderNatAt.*prod|prod_range_succ|prod_range_succ_comm",
+              "cyclic.*(product|prod|descent)|orbit.*product|rotation.*(product|invariant)|analyticOrderNatAt",
+              "finset_prod|Finset.*prod|analyticAt.*mul|lemma AnalyticAt.mul"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Submission.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_X0.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Order.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Constructions.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean"
+            ],
+            "conclusion": "The snapshot revisions match project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Order.lean supplies AnalyticAt.analyticOrderNatAt_eq_iff and AnalyticAt.analyticOrderAt_eq_natCast; Constructions.lean supplies Finset.analyticAt_fun_prod; Basic.lean supplies Finset.prod_range_succ and Finset.prod_range_succ'. The targeted project search found no matching cyclic/orbit-product theorem. All nine build dependencies match their pins and are clean. Both proposed types elaborated after literal import Submission in diagnostics/cpo-typecheck-0t_gyk3m/TypesAfterSubmission.lean. The private compiler copy omitted only policy-listed lines 10–12; the policy digest matched, reconstruction recovered the original bytes, and Lean confirmed all 56 omitted targets absent. The checked types and cited library lemmas use only propext, Classical.choice, and Quot.sound. Complex multiplication uses Complex.commRing.toCommMonoid. These diagnostics establish compatibility, not comparator acceptance of child proofs."
+          }
+        ],
+        "parent_id": "root.gamma0_norm_vanishing-a1.cyclic_product_descent-a1.orbit_product_order-a1",
+        "child_id": "root.gamma0_norm_vanishing-a1.cyclic_product_descent-a1.orbit_product_order-a1.nonzero_dilation_product_order-a1",
+        "subproblem": {
+          "key": "nonzero_dilation_product_order",
+          "title": "Analytic order of a product of nonzero dilations",
+          "statement": "Let w be any natural number, let ζ be a nonzero complex number, and let A : ℂ → ℂ be analytic at zero with analyticOrderAt A 0 ≠ ⊤. Define P(t) = ∏_{j=0}^{w−1} A(ζ^j t), interpreting an empty product as 1. Then P is analytic at zero, analyticOrderAt P 0 ≠ ⊤, and analyticOrderNatAt P 0 = w · analyticOrderNatAt A 0.",
+          "lean_statement": "∀ (w : ℕ) (ζ : ℂ) (A : ℂ → ℂ), ζ ≠ 0 → AnalyticAt ℂ A 0 → analyticOrderAt A 0 ≠ ⊤ → let P : ℂ → ℂ := fun t => ∏ j ∈ Finset.range w, A (ζ ^ j * t); AnalyticAt ℂ P 0 ∧ analyticOrderAt P 0 ≠ ⊤ ∧ analyticOrderNatAt P 0 = w * analyticOrderNatAt A 0",
+          "lean_name": "p10_17ae7b7d_cpo_analytic_order_nonzero",
+          "depends_on": [],
+          "natural_proof": "1. Fix w, ζ, and A satisfying the hypotheses, define P as stated, and put m = analyticOrderNatAt A 0. Apply AnalyticAt.analyticOrderNatAt_eq_iff to the analyticity and finite-order hypotheses, using the equality analyticOrderNatAt A 0 = m. It supplies b : ℂ → ℂ analytic at zero with b(0) ≠ 0 and A(u) = u^m b(u) throughout a neighborhood U of zero. Here subtraction of zero and scalar multiplication of complex numbers simplify to the displayed formula.\n2. For each j < w, the map L_j(t) = ζ^j t is analytic, continuous, and satisfies L_j(0) = 0. Hence A ∘ L_j and b ∘ L_j are analytic at zero. The inverse image of U under L_j is a neighborhood of zero. Their finite intersection V is a neighborhood on which A(ζ^j t) = (ζ^j t)^m b(ζ^j t) holds simultaneously for every j < w. If w = 0, take V = ℂ. The finite product of the analytic functions A ∘ L_j is analytic at zero, proving analyticity of P.\n3. Define D(t) = ∏_{j=0}^{w−1} (ζ^(j*m) b(ζ^j t)). Every factor is analytic at zero, so D is analytic there. At zero, each factor equals ζ^(j*m) b(0), which is nonzero because ζ ≠ 0 and b(0) ≠ 0. A finite product of nonzero complex numbers is nonzero, so D(0) ≠ 0. This also covers w = 0, when D(0) = 1.\n4. For t in V and j < w, the power identities and commutativity of complex multiplication give A(ζ^j t) = ζ^(j*m) t^m b(ζ^j t) = t^m (ζ^(j*m) b(ζ^j t)). Multiplying these identities gives P(t) = (t^m)^w D(t) = t^(w*m) D(t), using m*w = w*m. The same identity holds for the empty product because t^0 = 1.\n5. Apply AnalyticAt.analyticOrderAt_eq_natCast to P, with the analytic nonvanishing factor D from steps 3–4. This gives analyticOrderAt P 0 = (w*m : ℕ∞). A natural-number cast into ℕ∞ is not ⊤, establishing finite order.\n6. By definition analyticOrderNatAt is the natural value of analyticOrderAt. Taking that value in the equality from step 5 gives analyticOrderNatAt P 0 = w*m = w · analyticOrderNatAt A 0. Together with steps 2 and 5, this proves all three conclusions.",
+          "proof_key_steps": [
+            "Factor A locally as t^m b(t), where b is analytic and b(0) ≠ 0.",
+            "Pull the factorization back along finitely many dilations and prove P analytic.",
+            "Construct an analytic residual product D with D(0) ≠ 0.",
+            "Multiply the local factorizations to obtain P(t) = t^(w*m) D(t), including the empty-product case.",
+            "Apply the order characterization and take the natural value to obtain both order conclusions."
+          ]
+        },
+        "audit": {
+          "key": "nonzero_dilation_product_order",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The standalone one-line proposition exactly matches all prose hypotheses and conclusions, including arbitrary w and the empty product. Its local let is independent of implementation; the bare identifier is available. Every proof step is justified: finite order supplies the local factorization, continuous dilations pull it back to a common neighborhood, and the analytic residual product is nonzero at zero. Multiplication yields exponent w*m, including w=0. The order characterization establishes finite order, and toNat gives the stated natural order. No circular reliance, missing dependency, or further proof-planning obligation remains."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-5077c4d9ed/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-5077c4d9ed/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-5077c4d9ed/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-order-a1/task.md": "88b1002f931f9db565a73aca07e087230eaf4513e50f89dde142b288f4f74309",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-order-a1/problem.md": "c0d696de12207f8a138e01c1056e5c32494f559ac76a7f989b86196fbe3ec896",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-order-a1/problem.json": "09bfb3e94e9c52916c6ee18b497e1146a074f98a2710e85c5c5460cb0b09f76a",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-order-a1/reference-manifest.json": "57bc5044097a9c3cadb6a565fb02bfe2c5c9db06690993e4e6916463cba75efa",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-order-a1/decomposition.json": "b7438086673facee66ec82d7c788bb49ce8ed1f8e421e59267cb1762048e5aa4",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-order-a1/decomposition-audit.json": "a3f48cac6d4d4b18d1027cda7ac87b8a006718056d179664a48c34269d9b85b6",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-order-a1/controller-contract.json": "d1b66564f94c24ea9aabf052e7675de958b8785c03d14b64249e21e1e9480907",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-order-a1/children/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-279161c5da/parent-child-handoff.json": "1db7d317bccceb86d02c2583e2782afbfb941d6d19a27550b91865bf91803aeb",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-order-a1/children/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-279161c5da/parent-supplied-plan.md": "4be23e621ae5def6a4fe1e9f814f9bcb99b6f79cac7abab3674f10e8ff95dd6e",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-order-a1/children/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-279161c5da/parent-supplied-natural-proof.md": "0e65f7cdcf84675f78fdb4a07de17718c7d587d261ea55e894003c785c6067a6",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-order-a1/children/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-279161c5da/parent-supplied-natural-proof.json": "99d49f46518cc58e9cbc1688f1d1ab21a2272ffafbc25a38a02993c101a66652",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-order-a1/children/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-279161c5da/node.json": "d8db8da03008efea4078f4972a94fbe9dcffc68cf5f3fcd8694878d387fb723c",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-order-a1/children/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-5077c4d9ed/parent-child-handoff.json": "3e0f963b8bcf416692ef3e9119d7ffef022cc8658bc86ffddf1926f6c6206fca",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-order-a1/children/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-5077c4d9ed/parent-supplied-plan.md": "727ecd1f4ea7334926ab589391505c6399ffa45ce47e2d03483acc49e6e3958a",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-order-a1/children/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-5077c4d9ed/parent-supplied-natural-proof.md": "d101de150be9c68b18e419977dd6c9b0a3009414bd0817c7c381bbca1d03ed14",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-order-a1/children/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-5077c4d9ed/parent-supplied-natural-proof.json": "8f01f3052c2014fb556d4564a9474e66684c184e82b087f044f92aec7aeb424b",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-order-a1/children/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-5077c4d9ed/node.json": "904817db57a808d61c698bc50bb5daf6670c3824a0c4e73334014618fc4fc7fb"
+  }
+}

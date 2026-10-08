@@ -1,0 +1,42 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "analyticOrderNatAt_eq_iff|analyticOrderAt_eq_natCast|analyticOrderNatAt|analyticOrderAt_prod",
+        "analyticAt_fun_prod|prod_range_succ",
+        "cyclic.*(product|prod|descent)|orbit.*product|rotation.*(product|invariant)|analyticOrderNatAt",
+        "p10_17ae7b7d_cpo_analytic_order_nonzero|p10_17ae7b7d_cpo_rotation_invariant"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Submission.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Order.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Constructions.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/cpo-independent-audit-rql1vgp5/Interfaces.lean",
+        "/runtime/operator-header-policy-v1/policy.json"
+      ],
+      "conclusion": "Confirmed snapshot revisions a97febc53b1c4d489edc54ca44132af7a21279b3 and db584cd6d46c92f209a44c0f1c829460d327499d; all nine dependencies are clean and pinned. Inspected the exact local-factorization, analytic-product, and endpoint-product lemmas. The project Definitions/Submission search found no matching orbit-product theorem. Fresh Lean checks passed for both literal propositions, identifier availability, ordinary complex multiplication, and assembly of the exact parent from the two child hypotheses. The checked propositions and cited lemmas depend only on propext, Classical.choice, and Quot.sound. The active DAG is acyclic; neither name is reserved elsewhere. Independently verified the specified policy digest, exact omissions at lines 10–12, reversible original/build hashes, and Lean-confirmed absence of all 56 targets. The split appropriately separates analytic order from global algebraic invariance. This approves the decomposition and supplied prose, not implementation or comparator acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "nonzero_dilation_product_order",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition exactly matches all prose hypotheses and conclusions, including arbitrary w and the empty product. Its local let is independent of implementation; the bare identifier is available. Every proof step is justified: finite order supplies the local factorization, continuous dilations pull it back to a common neighborhood, and the analytic residual product is nonzero at zero. Multiplication yields exponent w*m, including w=0. The order characterization establishes finite order, and toNat gives the stated natural order. No circular reliance, missing dependency, or further proof-planning obligation remains."
+    },
+    {
+      "key": "cyclic_product_invariance",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition exactly matches positive w, ζ^w=1, arbitrary A, and global invariance. The bare identifier is available. Writing w=n+1, shifting exponents, and identifying f(n+1)=f(0) are valid. The inspected prod_range_succ and prod_range_succ' lemmas give precisely the two displayed endpoint decompositions, including w=1. The proof needs neither analyticity nor primitivity and is complete independently of the other child and parent. Empty dependency lists are correct."
+    }
+  ],
+  "required_changes": []
+}

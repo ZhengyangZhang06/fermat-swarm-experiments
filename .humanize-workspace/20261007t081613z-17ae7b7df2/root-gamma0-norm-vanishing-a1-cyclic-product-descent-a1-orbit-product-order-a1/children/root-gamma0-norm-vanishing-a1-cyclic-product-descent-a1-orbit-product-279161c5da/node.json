@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.gamma0_norm_vanishing-a1.cyclic_product_descent-a1.orbit_product_order-a1.cyclic_product_invariance-a1",
+  "parent_id": "root.gamma0_norm_vanishing-a1.cyclic_product_descent-a1.orbit_product_order-a1",
+  "depth": 4,
+  "title": "Cyclic invariance of a root-of-unity orbit product",
+  "statement": "Let w be a positive natural number, let ζ ∈ ℂ satisfy ζ^w = 1, and let A : ℂ → ℂ be any function. Define P(t) = ∏_{j=0}^{w−1} A(ζ^j t). Then P(ζt) = P(t) for every complex number t.",
+  "lean_statement": "∀ (w : ℕ) (ζ : ℂ) (A : ℂ → ℂ), 0 < w → ζ ^ w = 1 → let P : ℂ → ℂ := fun t => ∏ j ∈ Finset.range w, A (ζ ^ j * t); ∀ t : ℂ, P (ζ * t) = P t",
+  "lean_name": "p10_17ae7b7d_cpo_rotation_invariant",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-gamma0-norm-vanishing-a1-cyclic-product-descent-a1-orbit-product-279161c5da-a1"
+}
