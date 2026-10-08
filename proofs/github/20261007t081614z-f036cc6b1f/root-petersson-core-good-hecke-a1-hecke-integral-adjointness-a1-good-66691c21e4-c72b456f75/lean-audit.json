@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "025943f76aebed1d278fa4e6eca803193ca4c29e8f0228dd41a8af3a8d346db9",
+  "git_delta": {
+    "base_commit": "c3a3cf5d2236db1d7db968adbf212108db7bf6d5",
+    "candidate_commit": "1ac560b9cd9d596b42b3fdc370a7c8750471c584",
+    "target": "Submission.lean",
+    "declaration": "f036cc6b1f_pc_hi_gpt_bezout_lift",
+    "diff_sha256": "ecf9bfc417d0a0d25fe5b83eade6c312e24c64cd0801d4a30d88217f87e51e55",
+    "source_sha256": "292a39219895d8fe129279e3ef8e945a1b92824ee30d16fd79cae3f981569b03",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.f036cc6b1f_pc_hi_gpt_bezout_lift",
+      "statement": "∀ (M : ℕ) [NeZero M] (p : ℕ), p.Prime → ¬ p ∣ M → ∃ (v : ℤ) (σ β : Matrix.SpecialLinearGroup (Fin 2) ℤ), (¬ (p : ℤ) ∣ v) ∧ σ ∈ CongruenceSubgroup.Gamma0 M ∧ β ∈ CongruenceSubgroup.Gamma0 M ∧ σ 0 0 = (p : ℤ) ∧ σ 0 1 = -v ∧ ModularForm.heckeMatrix p 0 * Matrix.SpecialLinearGroup.mapGL ℝ σ = Matrix.SpecialLinearGroup.mapGL ℝ β * ModularForm.heckeDiagMatrix p",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
