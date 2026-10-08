@@ -1080,8 +1080,7 @@ theorem p06_9e0f5043ff_fosa_ord_zero_of_monic_pair
       x ∈ w.toValuationSubring := by
     apply w.mem_of_eval_monic_eq_zero (P := R.map (algebraMap E L)) (hR.map _)
     · intro i
-      rw [Polynomial.coeff_map]
-      exact w.mem_restrict_iff.mp (hcoeff i)
+      simpa only [Polynomial.coeff_map] using w.mem_restrict_iff.mp (hcoeff i)
     · simpa only [Polynomial.eval_map] using hx
   exact w.ord_coe_unit
     { val := ⟨f, mem_of_root P f hP hPcoeff hPf⟩
