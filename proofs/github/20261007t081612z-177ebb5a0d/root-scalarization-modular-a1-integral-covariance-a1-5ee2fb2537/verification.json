@@ -1,0 +1,18 @@
+{
+  "node_id": "root.scalarization_modular-a1.integral_covariance-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/47",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "c1c8e383c6a8ce5cc25a724d70016e44aba9f48a",
+  "integrated_commit": "d04754ee418d236d0c0d4aef14089234b72f51ca",
+  "proof_base_commit": "f433f505e209a0721abf52e908d34801732a2e70",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.scalarization_modular-a1",
+  "requires": [
+    "root.scalarization_modular-a1.integral_covariance-a1.linear_mobius_derivative-a1",
+    "root.scalarization_modular-a1.integral_covariance-a1.inverse_linepow_transport-a1"
+  ]
+}
