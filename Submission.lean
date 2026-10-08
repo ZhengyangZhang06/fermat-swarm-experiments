@@ -4441,10 +4441,9 @@ theorem p02_es_177ebb5a_tff_constant_dehomogenization
     A.val = MvPolynomial.C α * MvPolynomial.X (0 : Fin 2) ^ n := by
   classical
   have hdegree (d : Fin 2 →₀ ℕ) (hd : d ∈ A.val.support) : d 0 + d 1 = n := by
-    have h := A.property (MvPolynomial.mem_support_iff.mp hd)
-    have hdeg : d.degree = n := by
-      simpa only [Finsupp.degree_eq_weight_one, Pi.one_def] using h
-    simpa only [Finsupp.degree_eq_sum, Fin.sum_univ_two] using hdeg
+    simpa only [← Finsupp.degree_apply, Finsupp.degree_eq_sum, Fin.sum_univ_two] using
+      (A.property.degree_eq_sum_deg_support hd).symm
+  -- At fixed total degree, the exponent of X₁ uniquely determines the monomial.
   have hcoeff (d : Fin 2 →₀ ℕ) (hd : d 0 + d 1 = n) :
       (MvPolynomial.eval₂ Polynomial.C
         (fun j : Fin 2 => if j = 0 then 1 else Polynomial.X) A.val).coeff (d 1) =
