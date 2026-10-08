@@ -499,6 +499,8 @@ theorem Submission.p10_17ae7b7d_cpo_rotation_invariant :
   | succ n =>
     dsimp only
     intro t
+    change (∏ j ∈ Finset.range (n + 1), A (ζ ^ j * (ζ * t))) =
+      ∏ j ∈ Finset.range (n + 1), A (ζ ^ j * t)
     calc
       (∏ j ∈ Finset.range (n + 1), A (ζ ^ j * (ζ * t))) =
           ∏ j ∈ Finset.range (n + 1), A (ζ ^ (j + 1) * t) := by
