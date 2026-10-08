@@ -1,0 +1,40 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "nuTwo|nuThree|unimodularRow|ProjectiveLine|fixedPoints",
+        "def Gamma0|Gamma0_mem|leftRel|rightRel|quotientRightRelEquivQuotientLeftRel|eq_iff_div_mem|SL2_inv_expl|coe_S|coe_T|def S |def T ",
+        "isUnit_iff_exists|isUnit_iff.*mul|def IsUnit|theorem IsUnit.*cancel",
+        "[Ff]ixed.*[Rr]oot|[Rr]oot.*[Ff]ixed|[Cc]oset.*[Uu]nimodular|[Uu]nimodular.*[Cc]oset|unimodular_eigenrow|inverse_coset_eq_iff",
+        "p10_17ae7b7d_efp_inverse_coset_eq_iff|p10_17ae7b7d_efp_unimodular_eigenrow_iff"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/Coset/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Algebra/Group/Units/Defs.lean"
+      ],
+      "conclusion": "Confirmed clean tracked snapshots at project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The inspected definitions confirm the root cardinalities, unit-scaling relation, left-coset orientation, Gamma0 membership, matrix inverse, and two-sided unit characterization. The matching-result search found no relevant theorem in project Definitions or mathlib ModularForms. Independent DAG inspection found neither name reserved and verified acyclicity after adding both children; the parent retains its row-lifting prerequisite. Both exact interfaces elaborated independently with clean pinned dependencies and no nonstandard transitive axioms in their type definitions. Policy digest, exact omissions, reversible original/build hashes, and Lean-confirmed absence of all 56 targets were checked; fresh diagnostics are recorded at /tmp/p10-efp-independent-audit-j2xjgd22/receipt.json. This approves decomposition only; implementation acceptance still requires the configured comparator and independent review."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "inverse_coset_row_criterion",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the stated hypotheses and conclusion. Independently checked all six steps: inverse-coset equality gives AB⁻¹∈H, inversion gives BA⁻¹∈H, determinant one supplies the scaling unit, and the converse bottom-left calculation vanishes. The argument includes N=1 and uses no parent or child conclusion. Lean probes confirmed coset orientation and ordinary special-linear matrix operations. The bare name is unreserved. This is a genuine independent obligation, appropriately separated from lifting and fixed-point counting."
+    },
+    {
+      "key": "unimodular_eigenrow_normalization",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly expresses unimodularity and the stated equivalence, including unique existence and IsUnit r. Independently checked all six steps: w=x+yv is a two-sided inverse of r, cancellation gives the quadratic equation and uniqueness, and the reverse direction constructs the unit t with inverse k−t and recovers both equations. No field or nontriviality assumption is needed. IsUnit uses the supplied ring's multiplication; there is no inline matrix-instance ambiguity. The bare name is unreserved, dependencies are correctly empty, and specialization to k=0 and k=1 justifies this reusable split."
+    }
+  ],
+  "required_changes": []
+}

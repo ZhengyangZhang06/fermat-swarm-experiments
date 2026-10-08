@@ -1,0 +1,50 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "nuTwo|nuThree|unimodularRow|ProjectiveLine|fixedPoints",
+        "def Gamma0|mem_Gamma0|rightRel|quotientRightRelEquivQuotientLeftRel|eq_iff_div_mem|inv.*Quotient|Quotient.*inv",
+        "isUnit_iff_exists|isUnit_iff.*mul|SL2_inv_expl|coe.*S|coe.*T",
+        "nuTwo|nuThree|[Ff]ixed.*[Rr]oot|[Rr]oot.*[Ff]ixed|[Cc]oset.*[Uu]nimodular|[Uu]nimodular.*[Cc]oset"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/Coset/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean"
+      ],
+      "conclusion": "The manifest pins project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. GenusNumerics defines nuTwo and nuThree as the stated root-subtype cardinalities. ProjectiveLine defines unimodular rows modulo common unit scaling. CongruenceSubgroups provides Gamma0_mem; Coset/Defs provides the left/right coset relations and their inversion equivalence; SpecialLinearGroup provides SL2_inv_expl and the concrete S and T matrices. No matching fixed-point-count theorem was found in the searched project Definitions and mathlib ModularForms files. The proposed interfaces use the imported coset and ring infrastructure directly."
+    }
+  ],
+  "parent_id": "root.gamma0_coset_counts-a1.elliptic_fixed_points-a1",
+  "child_id": "root.gamma0_coset_counts-a1.elliptic_fixed_points-a1.inverse_coset_row_criterion-a1",
+  "subproblem": {
+    "key": "inverse_coset_row_criterion",
+    "title": "Equality of inverse Gamma0 cosets through bottom-row scaling",
+    "statement": "Let N be a nonzero natural number, R=ℤ/Nℤ, G=SL₂(ℤ), and H=Γ₀(N)={M∈G : M₁₀=0 in R}. For any A,B∈G, the left cosets A⁻¹H and B⁻¹H are equal if and only if there exists a unit u∈Rˣ such that B₁₀=uA₁₀ and B₁₁=uA₁₁ in R.",
+    "lean_statement": "∀ (N : ℕ) [NeZero N] (A B : Matrix.SpecialLinearGroup (Fin 2) ℤ), (QuotientGroup.mk (A⁻¹) : (Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 N) = QuotientGroup.mk (B⁻¹) ↔ ∃ u : (ZMod N)ˣ, (B 1 0 : ZMod N) = (u : ZMod N) * (A 1 0 : ZMod N) ∧ (B 1 1 : ZMod N) = (u : ZMod N) * (A 1 1 : ZMod N)",
+    "lean_name": "p10_17ae7b7d_efp_inverse_coset_eq_iff",
+    "depends_on": [],
+    "natural_proof": "1. Fix N≠0 and A,B∈SL₂(ℤ). Work in the commutative ring R=ℤ/Nℤ when discussing matrix entries. Write the bottom rows of A and B as (c,d) and (c′,d′), respectively, and put H=Γ₀(N).\n2. For any subgroup H, equality gH=hH is equivalent to g⁻¹h∈H: membership expresses h as gh₀ for h₀∈H, and conversely equal cosets imply h∈gH. Applying this to g=A⁻¹ and h=B⁻¹ shows that A⁻¹H=B⁻¹H is equivalent to AB⁻¹∈H. Since a subgroup is closed under inversion, this is also equivalent to E=BA⁻¹ belonging to H.\n3. Suppose the cosets are equal. By step 2, E∈H, so its reduced matrix has the form ((a,b),(0,e)). Reduction preserves the determinant, and det E=1, hence ae=1 in R. Commutativity also gives ea=1. Thus e is the value of a unit u with inverse a.\n4. The identity B=EA follows from E=BA⁻¹. Multiplying the bottom row (0,e) of E by A gives c′=ec and d′=ed. The unit u from step 3 therefore satisfies both required scaling equations.\n5. Conversely, suppose there is a unit u with c′=uc and d′=ud. Since det A=1, if A=((a,b),(c,d)), then A⁻¹=((d,−b),(−c,a)). Consequently the reduced bottom-left entry of E=BA⁻¹ is c′d−d′c. Substituting the scaling equations gives ucd−udc=0 by commutativity. Hence E∈Γ₀(N).\n6. Step 2 now gives A⁻¹H=B⁻¹H. This proves both implications. Every calculation remains valid in ℤ/1ℤ, so no additional restriction on N is needed.",
+    "proof_key_steps": [
+      "Translate equality of inverse left cosets into BA⁻¹∈Γ₀(N).",
+      "Use determinant one to show the bottom-right entry of an upper-triangular reduction is a unit.",
+      "Multiply B=(BA⁻¹)A to obtain common unit scaling of bottom rows.",
+      "Conversely compute (BA⁻¹)₁₀=c′d−d′c and use scaling to make it zero.",
+      "Recover the required coset equality from subgroup membership."
+    ]
+  },
+  "audit": {
+    "key": "inverse_coset_row_criterion",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "The one-line proposition exactly matches the stated hypotheses and conclusion. Independently checked all six steps: inverse-coset equality gives AB⁻¹∈H, inversion gives BA⁻¹∈H, determinant one supplies the scaling unit, and the converse bottom-left calculation vanishes. The argument includes N=1 and uses no parent or child conclusion. Lean probes confirmed coset orientation and ordinary special-linear matrix operations. The bare name is unreserved. This is a genuine independent obligation, appropriately separated from lifting and fixed-point counting."
+  },
+  "resolved_dependencies": [],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-elliptic-fixed-points-a1-inverse-coset-ro-c0e2117968/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-elliptic-fixed-points-a1-inverse-coset-ro-c0e2117968/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-elliptic-fixed-points-a1-inverse-coset-ro-c0e2117968/parent-supplied-natural-proof.json"
+}
