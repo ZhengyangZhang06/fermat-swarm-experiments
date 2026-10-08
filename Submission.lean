@@ -72,3 +72,37 @@ theorem CerednikDrinfeld.QM.RigidifiedPairClass.exists_ptR_eq
           (ψS : Onr →ₐ[𝒪] S) (hψS : ψS = (IsScalarTower.toAlgHom 𝒪 C S).comp ψ) (z : (RigidifiedPairClass.PR 𝒪 π Onr Λ hΛℤ A₀ n C ψ (Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))) X ξ tM xOf hmap).obj S),
           ∃ (u : FakeEllipticCurve.WithFullLevel Λ N n S) (ρ : FakeEllipticCurve.Rigidification r π A₀ ψS u.1), (RigidifiedPairClass.ptR 𝒪 π Onr Λ hΛℤ A₀ n C ψ (Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))) X ξ tM xOf hmap) S ψS hψS u ρ = z) := by
   sorry
+
+
+theorem Submission.p07_rr_pullback_comp_857cd4d38c
+    {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N : ℕ)
+    (S₀ S₁ S₂ : Type) [CommRing S₀] [CommRing S₁] [CommRing S₂]
+    (f : S₀ →+* S₁) (h : S₁ →+* S₂)
+    (E₀ : FakeEllipticCurve Λ N S₀) (E₁ : FakeEllipticCurve Λ N S₁)
+    (E₂ : FakeEllipticCurve Λ N S₂) (g₀₁ : E₁.A ⟶ E₀.A) (g₁₂ : E₂.A ⟶ E₁.A) :
+    FakeEllipticCurve.IsPullbackVia f E₀ E₁ g₀₁ →
+    FakeEllipticCurve.IsPullbackVia h E₁ E₂ g₁₂ →
+    FakeEllipticCurve.IsPullbackVia (h.comp f) E₀ E₂ (g₁₂ ≫ g₀₁) := by
+  rintro ⟨hg₀₁, hmul₀₁, hact₀₁, hlev₀₁⟩ ⟨hg₁₂, hmul₁₂, hact₁₂, hlev₁₂⟩
+  have hspec : Spec.map (CommRingCat.ofHom (h.comp f)) =
+      Spec.map (CommRingCat.ofHom h) ≫ Spec.map (CommRingCat.ofHom f) :=
+    Spec.map_comp (CommRingCat.ofHom f) (CommRingCat.ofHom h)
+  unfold FakeEllipticCurve.IsPullbackVia
+  rw [hspec]
+  refine ⟨hg₁₂.paste_horiz hg₀₁, ?_, ?_, ?_⟩
+  · intro T t P Q
+    let P₁ : SchemeHomOver (t ≫ Spec.map (CommRingCat.ofHom h)) E₁.f :=
+      ⟨P.1 ≫ g₁₂, by rw [Category.assoc, hg₁₂.w, ← Category.assoc, P.2]⟩
+    let Q₁ : SchemeHomOver (t ≫ Spec.map (CommRingCat.ofHom h)) E₁.f :=
+      ⟨Q.1 ≫ g₁₂, by rw [Category.assoc, hg₁₂.w, ← Category.assoc, Q.2]⟩
+    have hmul := (congrArg (fun k => k ≫ g₀₁) (hmul₁₂ t P Q)).trans
+      (hmul₀₁ (t ≫ Spec.map (CommRingCat.ofHom h)) P₁ Q₁)
+    simpa only [P₁, Q₁, Category.assoc] using hmul
+  · intro x
+    rw [← Category.assoc, hact₁₂, Category.assoc, hact₀₁, ← Category.assoc]
+  · intro T t P hP
+    let P₁ : SchemeHomOver (t ≫ Spec.map (CommRingCat.ofHom h)) E₁.f :=
+      ⟨P.1 ≫ g₁₂, by rw [Category.assoc, hg₁₂.w, ← Category.assoc, P.2]⟩
+    obtain ⟨w₁, hw₁⟩ := hlev₁₂ t P hP
+    obtain ⟨w₀, hw₀⟩ := hlev₀₁ (t ≫ Spec.map (CommRingCat.ofHom h)) P₁ ⟨w₁, hw₁⟩
+    exact ⟨w₀, by simpa only [P₁, Category.assoc] using hw₀⟩
