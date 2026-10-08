@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_retraction-a1.projective_of_trivial_minors-a1.unit_minor_splitting-a1.section_of_inner_inverse-a1",
+  "parent_id": "root.finite_retraction-a1.projective_of_trivial_minors-a1.unit_minor_splitting-a1",
+  "depth": 4,
+  "title": "A surjection whose kernel has an inner inverse admits a section",
+  "statement": "Let R be a commutative ring and let F,G,M be R-modules with underlying additive commutative groups. Let f:G→F, g:F→G, and π:F→M be R-linear maps. Assume (f∘g)∘f=f, π is surjective, and ker π=im f. Then there exists an R-linear map s:M→F with π∘s=id_M. No freeness, finiteness, or nontriviality assumptions are required.",
+  "lean_statement": "∀ {R : Type*} [CommRing R] {F : Type*} [AddCommGroup F] [Module R F] {G : Type*} [AddCommGroup G] [Module R G] {M : Type*} [AddCommGroup M] [Module R M] (f : G →ₗ[R] F) (g : F →ₗ[R] G) (π : F →ₗ[R] M) (_hinner : (f.comp g).comp f = f) (_hπ : Function.Surjective π) (_hker : LinearMap.ker π = LinearMap.range f), ∃ s : M →ₗ[R] F, π.comp s = LinearMap.id",
+  "lean_name": "p05_ums_section_of_inner_inverse_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1-unit-minor-6f95d067f1-a1"
+}

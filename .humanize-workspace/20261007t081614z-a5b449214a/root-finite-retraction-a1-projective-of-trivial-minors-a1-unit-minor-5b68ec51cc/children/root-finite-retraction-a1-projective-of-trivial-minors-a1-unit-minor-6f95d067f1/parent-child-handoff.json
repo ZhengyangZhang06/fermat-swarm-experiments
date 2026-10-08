@@ -1,0 +1,56 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "inner.inverse|generalized.inverse|unit_minor|unit.*minor|split.*minor",
+        "det_fromBlocks|isUnit_iff_isUnit_det|mul_adjugate|adjugate_mul|det_updateRow|det_succ",
+        "mulVecLin_mul|mulVecLin.*comp|def mulVecLin|def liftOfSurjective|liftOfSurjective",
+        "range.*[Cc]ompl|exists.*[Rr]ight[Ii]nverse|ofBijective|liftQ|isIdempotentElem_iff",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean HeaderPolicyCheck.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean CheckAll.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Adjugate.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/SchurComplement.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/ToLin.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Quotient/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Projection.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-projective-of-trivial-minors-a1-unit-minor-5b68ec51cc/decomposition-ums-diagnostics-y5c5gqal/build/CheckAll.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-projective-of-trivial-minors-a1-unit-minor-5b68ec51cc/decomposition-ums-diagnostics-y5c5gqal/interface-report.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-projective-of-trivial-minors-a1-unit-minor-5b68ec51cc/decomposition-ums-diagnostics-y5c5gqal/name-audit.json"
+      ],
+      "conclusion": "The targeted project search found no matching inner-inverse or unit-minor splitting theorem. Pinned mathlib supplies adjugate identities, Schur-complement determinants, Matrix.mulVecLin_mul, and quotient/projection infrastructure. Both snapshots and all nine compiler dependencies matched their clean pins. Both literal child types elaborate after import Submission; anonymous checks verify genuine matrix multiplication by its finite-sum formula, scalar IsUnit semantics, and conditional assembly of the exact frozen parent. Six inspected infrastructure declarations have transitive axiom closures contained in propext, Classical.choice, and Quot.sound. Proposed names are absent from the imported environment, current Submission, and ten DAG registries. Private compiler copies omit exactly lines 10–11 under policy SHA256 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96; Lean confirms all 13 targets absent. The receipt records exact omissions and reversible original/build hashes. The frozen contract, problem record, and handoff remain unchanged. These are interface diagnostics; proof acceptance still requires the configured comparator and independent review."
+    }
+  ],
+  "parent_id": "root.finite_retraction-a1.projective_of_trivial_minors-a1.unit_minor_splitting-a1",
+  "child_id": "root.finite_retraction-a1.projective_of_trivial_minors-a1.unit_minor_splitting-a1.section_of_inner_inverse-a1",
+  "subproblem": {
+    "key": "section_of_inner_inverse",
+    "title": "A surjection whose kernel has an inner inverse admits a section",
+    "statement": "Let R be a commutative ring and let F,G,M be R-modules with underlying additive commutative groups. Let f:G→F, g:F→G, and π:F→M be R-linear maps. Assume (f∘g)∘f=f, π is surjective, and ker π=im f. Then there exists an R-linear map s:M→F with π∘s=id_M. No freeness, finiteness, or nontriviality assumptions are required.",
+    "lean_statement": "∀ {R : Type*} [CommRing R] {F : Type*} [AddCommGroup F] [Module R F] {G : Type*} [AddCommGroup G] [Module R G] {M : Type*} [AddCommGroup M] [Module R M] (f : G →ₗ[R] F) (g : F →ₗ[R] G) (π : F →ₗ[R] M) (_hinner : (f.comp g).comp f = f) (_hπ : Function.Surjective π) (_hker : LinearMap.ker π = LinearMap.range f), ∃ s : M →ₗ[R] F, π.comp s = LinearMap.id",
+    "lean_name": "p05_ums_section_of_inner_inverse_a5b449214a",
+    "depends_on": [],
+    "natural_proof": "1. Define the linear endomorphism e=f∘g of F. The identity (f∘g)∘f=f says e(f(y))=f(y) for every y in G. Therefore r=id_F-e annihilates the image of f: r(f(y))=0. Moreover, e(x) lies in the image of f and hence in ker π for every x, so π(r(x))=π(x).\n2. If π(x)=π(x'), then x-x' belongs to ker π=im f. Choose y with f(y)=x-x'. The previous step gives r(x)-r(x')=r(x-x')=r(f(y))=0. Consequently r(x)=r(x').\n3. Surjectivity of π provides a preimage x of each m in M. Define s(m)=r(x). Step 2 proves that this value is independent of the chosen preimage, so it defines a function M→F. Equivalently, choose one preimage for each m and use Step 2 to replace that choice by any other preimage when computing s.\n4. The element 0 of F is a preimage of 0 in M, so s(0)=r(0)=0. If x and y are preimages of m and m', then x+y is a preimage of m+m'; hence s(m+m')=r(x+y)=r(x)+r(y)=s(m)+s(m'). For a in R, ax is a preimage of am, and therefore s(am)=r(ax)=a r(x)=a s(m). Thus s is R-linear.\n5. For any m, choose x with π(x)=m. Step 1 gives π(s(m))=π(r(x))=π(x)=m. Equality at every m proves π.comp s=LinearMap.id. This uses no freeness, finiteness, positivity, or nontriviality assumptions.",
+    "proof_key_steps": [
+      "Define r=id_F−fg; show that r annihilates im f and satisfies πr=π.",
+      "Use ker π=im f to show r takes equal values on equal π-fibers.",
+      "Define s on M using preimages under the surjective map π.",
+      "Prove additivity and scalar compatibility using independence of the chosen preimages.",
+      "Verify πs=id_M pointwise."
+    ]
+  },
+  "audit": {
+    "key": "section_of_inner_inverse",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "The independently elaborated one-line proposition exactly includes the ring, additive-group and module structures, map directions, inner-inverse identity, surjectivity, kernel equality, and section conclusion. Step 1 correctly shows r=id−fg annihilates im f and satisfies πr=π. Step 2 uses the kernel equality to prove constancy on π-fibers. Steps 3–4 use surjectivity and that constancy to define s and establish its linearity. Step 5 proves πs=id pointwise. No freeness, finiteness, nontriviality, or additional assumption is needed. The proof is complete and non-circular, and its bare name is unreserved. Its abstract inner-inverse hypothesis makes an empty dependency list correct. Together the two independent obligations yield the exact parent through Matrix.mulVecLin_mul, so the split and dependency directions are appropriate."
+  },
+  "resolved_dependencies": [],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-projective-of-trivial-minors-a1-unit-minor-6f95d067f1/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-projective-of-trivial-minors-a1-unit-minor-6f95d067f1/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-projective-of-trivial-minors-a1-unit-minor-6f95d067f1/parent-supplied-natural-proof.json"
+}

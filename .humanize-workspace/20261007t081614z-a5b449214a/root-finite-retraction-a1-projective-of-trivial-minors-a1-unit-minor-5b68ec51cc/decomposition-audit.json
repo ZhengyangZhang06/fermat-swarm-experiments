@@ -1,0 +1,53 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "inner.inverse|generalized.inverse|unit_minor|unit.*minor|split.*minor",
+        "det_fromBlocks|isUnit_iff_isUnit_det|mul_adjugate|adjugate_mul|det_updateRow|det_succ",
+        "mulVecLin_mul|mulVecLin :",
+        "isIdempotentElem_iff|quotientEquivOfIsCompl",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean HeaderPolicyCheck.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean CheckAll.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Adjugate.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/SchurComplement.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/ToLin.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Quotient/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Projection.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-projective-of-trivial-minors-a1-unit-minor-5b68ec51cc/parent-child-handoff.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-projective-of-trivial-minors-a1-unit-minor-5b68ec51cc/decomposition-ums-diagnostics-y5c5gqal/interface-report.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p05-ums-independent-audit-ywhfwtpm/CheckAll.lean",
+        "/tmp/p05-ums-independent-audit-ywhfwtpm/HeaderPolicyCheck.lean",
+        "/tmp/p05-ums-independent-audit-ywhfwtpm/compiler-results.json",
+        "/tmp/p05-ums-independent-audit-ywhfwtpm/receipt.json",
+        "/tmp/p05-ums-independent-audit-ywhfwtpm/pins.json",
+        "/tmp/p05-ums-independent-audit-ywhfwtpm/name-audit.json"
+      ],
+      "conclusion": "The project search, repeated with rg --no-ignore, found no relevant inner-inverse or unit-minor splitting theorem. Inspected mathlib supplies the required adjugate identities, determinant row operations, Schur-complement formula, matrix-to-linear-map composition identity, and quotient infrastructure. Both snapshots match their manifest commits and are clean; all nine compiler dependencies match clean pins. Independent Lean reruns successfully elaborate both literal child propositions, confirm finite-sum matrix multiplication and scalar IsUnit semantics, and check conditional assembly of the exact frozen parent. Eight inspected infrastructure declarations have transitive axiom closures confined to propext, Classical.choice, and Quot.sound. Both names are absent from the imported environment, current Submission, and all ten current DAG registries. The matching header policy has SHA256 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96; exact omissions of lines 10–11, original/build hashes, and reversibility were independently verified, and Lean confirmed all 13 omitted targets absent. Protected contracts, headers, problem and handoff were preserved. These are decomposition diagnostics, not candidate-proof acceptance; the configured comparator and independent implementation review remain required."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "inner_inverse_of_minors",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition matches every prose hypothesis and the matrix equation PQP=P, independently of any child implementation. IsUnit applies to a scalar determinant, and ordinary matrix multiplication was verified in Lean. Steps 1–2 correctly construct complementary index bijections and invert B using its unit determinant. Step 3 uses injective bordered selections, determinant-preserving row subtraction, and the positive final diagonal cofactor to obtain E=DB'C. Steps 4–5 explicitly construct Q0, verify AQ0A=A, and transport finite sums through the bijections. Step 6 correctly covers d=0, empty complements, and zero rings. The proof is complete and non-circular. The bare name is unreserved. This is an appropriate determinant obligation; the parent depends on it, and it needs no sibling dependency."
+    },
+    {
+      "key": "section_of_inner_inverse",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The independently elaborated one-line proposition exactly includes the ring, additive-group and module structures, map directions, inner-inverse identity, surjectivity, kernel equality, and section conclusion. Step 1 correctly shows r=id−fg annihilates im f and satisfies πr=π. Step 2 uses the kernel equality to prove constancy on π-fibers. Steps 3–4 use surjectivity and that constancy to define s and establish its linearity. Step 5 proves πs=id pointwise. No freeness, finiteness, nontriviality, or additional assumption is needed. The proof is complete and non-circular, and its bare name is unreserved. Its abstract inner-inverse hypothesis makes an empty dependency list correct. Together the two independent obligations yield the exact parent through Matrix.mulVecLin_mul, so the split and dependency directions are appropriate."
+    }
+  ],
+  "required_changes": []
+}
