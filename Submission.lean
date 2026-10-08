@@ -822,7 +822,9 @@ The quotient and restriction APIs come from mathlib's `RepresentationTheory/Coin
 and `RepresentationTheory/Rep/Res.lean`; the complex and additive homology APIs come from
 `RepresentationTheory/Homological/GroupHomology/Basic.lean` and
 `Algebra/Homology/ShortComplex/HomologicalComplex.lean`, at the pinned revision
-`db584cd6d46c92f209a44c0f1c829460d327499d`. -/
+`db584cd6d46c92f209a44c0f1c829460d327499d`. Right-coset cardinality uses
+`GroupTheory/Coset/Defs.lean` and `GroupTheory/Index.lean`; preservation of repeated addition
+uses `CategoryTheory/Preadditive/AdditiveFunctor.lean` at the same revision. -/
 theorem p04_ht_coinvariant_complex_transfer
     {k G : Type _} [CommRing k] [Group G] [Fintype G]
     (A : Rep k G) (H : Subgroup G) [Fintype H]
