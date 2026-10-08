@@ -1091,14 +1091,12 @@ theorem p06_9e0f5043ff_llm_localized_residue_factors
     (p = q → IsSimpleModule (Localization.AtPrime q.asIdeal)
       (LocalizedModule q.asIdeal.primeCompl (B ⧸ p.asIdeal))) ∧
     (p ≠ q → Subsingleton (LocalizedModule q.asIdeal.primeCompl (B ⧸ p.asIdeal))) := by
-  classical
   constructor
   · rintro rfl
     -- At the same prime, every denominator acts invertibly on the residue field.
     let k := B ⧸ p.asIdeal
     let : Field k := Ideal.Quotient.field p.asIdeal
     let T := p.asIdeal.primeCompl
-    let f := LocalizedModule.mkLinearMap T k
     have : IsLocalizedModule T (LinearMap.id : k →ₗ[B] k) := by
       refine ⟨?_, fun m ↦ ⟨(m, 1), by simp⟩, fun h ↦ ⟨1, by simpa using h⟩⟩
       intro s
