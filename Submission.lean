@@ -2661,47 +2661,6 @@ import Mathlib.RingTheory.Localization.Module
 
 namespace Submission
 
-theorem p06_9e0f5043ff_ifl_weighted_local_lengths
-    (A B : Type*) [CommRing A] [CommRing B] [IsDedekindDomain B] [Algebra A B]
-    [Fintype (IsDedekindDomain.HeightOneSpectrum B)] (b : B) (hb : b ≠ 0)
-    (n : ℕ) (hn : Module.length A (B ⧸ Ideal.span ({b} : Set B)) = (n : ℕ∞)) :
-    Finset.sum Finset.univ (fun q : IsDedekindDomain.HeightOneSpectrum B =>
-      Module.length A (B ⧸ q.asIdeal) *
-        Module.length (Localization.AtPrime q.asIdeal)
-          (Localization.AtPrime q.asIdeal ⧸
-            Ideal.span ({algebraMap B (Localization.AtPrime q.asIdeal) b} :
-              Set (Localization.AtPrime q.asIdeal)))) = (n : ℕ∞) := by
-  classical
-  obtain ⟨s, hs₀, hs₁, p, hp⟩ :=
-    Submission.p06_9e0f5043ff_wll_residue_composition_series A B b hb n hn
-  have hsum := Submission.p06_9e0f5043ff_wll_length_sum_factors
-    A B (B ⧸ Ideal.span ({b} : Set B)) s p hs₀ hs₁ hp
-  have hlocal := Submission.p06_9e0f5043ff_wll_local_length_multiplicity
-    B b s p hs₀ hs₁ hp
-  simp_rw [hlocal]
-  calc
-    _ = Finset.sum Finset.univ (fun q : IsDedekindDomain.HeightOneSpectrum B =>
-        Finset.sum Finset.univ (fun _i : {i : Fin s.length // p i = q} =>
-          Module.length A (B ⧸ q.asIdeal))) := by
-      apply Finset.sum_congr rfl
-      intro q _
-      simp only [Finset.sum_const, Finset.card_univ, Nat.card_eq_fintype_card,
-        nsmul_eq_mul, mul_comm]
-    _ = Finset.sum Finset.univ (fun i : Fin s.length =>
-        Module.length A (B ⧸ (p i).asIdeal)) :=
-      Fintype.sum_fiberwise' p (fun q => Module.length A (B ⧸ q.asIdeal))
-    _ = (n : ℕ∞) := hsum.symm.trans hn
-
-end Submission
-
-open AlgebraicCurve
-theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
-    [Algebra K F] (x : F) (hx : Transcendental K x)
-    [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
-  sorry
-
-namespace Submission
-
 /-- Compute the length over `A` by summing the residue factors of a composition series over `B`.
 The sum is in `ℕ∞`, so the factors need not have finite length over `A`.
 Apply `Module.length_eq_add_of_exact` after restricting scalars, then induct on the
@@ -2751,11 +2710,7 @@ theorem p06_9e0f5043ff_wll_length_sum_factors
   rw [← (Submodule.topEquiv (R := B) (M := M)).restrictScalars A |>.length_eq]
   exact h
 
-open AlgebraicCurve
-theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
-    [Algebra K F] (x : F) (hx : Transcendental K x)
-    [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
-  sorry
+end Submission
 
 namespace Submission
 
@@ -2810,6 +2765,9 @@ theorem p06_9e0f5043ff_wll_residue_composition_series :
     exact ⟨⟨m, hm.isPrime, hm_ne⟩, ⟨e⟩⟩
   choose p hp using factors
   exact ⟨p, hp⟩
+
+end Submission
+
 namespace Submission
 
 /-- A residue module localized at a height-one prime is simple at its own prime
@@ -2991,5 +2949,42 @@ theorem p06_9e0f5043ff_wll_local_length_multiplicity
         simp only [if_neg hi, Module.length_eq_zero]
     _ = (Nat.card {i : Fin s.length // p i = q} : ℕ∞) := by
       simp [Nat.card_eq_fintype_card, Fintype.card_subtype]
+
+end Submission
+
+namespace Submission
+
+/-- Regroup residue composition factors by their height-one primes and substitute
+the localized lengths, which count those factors. All sums remain in `ℕ∞`. -/
+theorem p06_9e0f5043ff_ifl_weighted_local_lengths
+    (A B : Type*) [CommRing A] [CommRing B] [IsDedekindDomain B] [Algebra A B]
+    [Fintype (IsDedekindDomain.HeightOneSpectrum B)] (b : B) (hb : b ≠ 0)
+    (n : ℕ) (hn : Module.length A (B ⧸ Ideal.span ({b} : Set B)) = (n : ℕ∞)) :
+    Finset.sum Finset.univ (fun q : IsDedekindDomain.HeightOneSpectrum B =>
+      Module.length A (B ⧸ q.asIdeal) *
+        Module.length (Localization.AtPrime q.asIdeal)
+          (Localization.AtPrime q.asIdeal ⧸
+            Ideal.span ({algebraMap B (Localization.AtPrime q.asIdeal) b} :
+              Set (Localization.AtPrime q.asIdeal)))) = (n : ℕ∞) := by
+  classical
+  obtain ⟨s, hs₀, hs₁, p, hp⟩ :=
+    Submission.p06_9e0f5043ff_wll_residue_composition_series A B b hb n hn
+  have hsum := Submission.p06_9e0f5043ff_wll_length_sum_factors
+    A B (B ⧸ Ideal.span ({b} : Set B)) s p hs₀ hs₁ hp
+  have hlocal := Submission.p06_9e0f5043ff_wll_local_length_multiplicity
+    B b s p hs₀ hs₁ hp
+  simp_rw [hlocal]
+  calc
+    _ = Finset.sum Finset.univ (fun q : IsDedekindDomain.HeightOneSpectrum B =>
+        Finset.sum Finset.univ (fun _i : {i : Fin s.length // p i = q} =>
+          Module.length A (B ⧸ q.asIdeal))) := by
+      apply Finset.sum_congr rfl
+      intro q _
+      simp only [Finset.sum_const, Finset.card_univ, Nat.card_eq_fintype_card,
+        nsmul_eq_mul, mul_comm]
+    _ = Finset.sum Finset.univ (fun i : Fin s.length =>
+        Module.length A (B ⧸ (p i).asIdeal)) :=
+      Fintype.sum_fiberwise' p (fun q => Module.length A (B ⧸ q.asIdeal))
+    _ = (n : ℕ∞) := hsum.symm.trans hn
 
 end Submission
