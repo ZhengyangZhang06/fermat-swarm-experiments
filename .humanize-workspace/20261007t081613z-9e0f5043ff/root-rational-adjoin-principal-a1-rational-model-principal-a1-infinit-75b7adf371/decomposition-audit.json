@@ -1,0 +1,46 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "structure Place|algebraMap_mem|mem_or_inv_mem|instIsLocalRing|notMem_maximalIdeal|exists_eq_pow_rootMultiplicity_mul_and_not_dvd|theorem X_dvd_iff",
+        "isLocalRing|isUnit_iff",
+        "X_mul_divX_add",
+        "p06_9e0f5043ff_vfc_polynomial_unit_criterion|p06_9e0f5043ff_vfc_unit_power_quotient_exponents"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Polynomial/Div.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/LocalRing/MaximalIdeal/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p06_vfc_decomposition_p_0ah0j7/frozen_header_repair.json",
+        "/tmp/p06_vfc_independent_audit_51c19k4b/CheckTypes.lean",
+        "/tmp/p06_vfc_independent_audit_51c19k4b/CheckTypes.log",
+        "/tmp/p06_vfc_independent_audit_51c19k4b/Probe.log",
+        "/tmp/p06_vfc_independent_audit_51c19k4b/audit-evidence.json"
+      ],
+      "conclusion": "Independently confirmed Place supplies constants, valuation subrings are local rings, maximal-ideal avoidance characterizes units, and polynomial root-multiplicity factorization supplies the parent’s required X-factor removal. No proposed-name matches occur in the snapshot, active DAG, or imported frozen proof base. Relevant source bytes match the snapshot; all nine installed dependencies are clean at their manifest pins, including mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Both exact propositions independently elaborate and pass kernel-checked Prop and coercion diagnostics, including conversion of valuation-subring units to underlying-subring units. Audited supporting declarations use only propext, Classical.choice, and Quot.sound. Verified the policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96 and its matching source/contract entry, exact omitted lines 9–11, original/build hashes, reversible reconstruction, and an independent Lean probe confirming all 95 targets absent. Protected originals remain unchanged. The split is appropriate: two independent obligations at permitted depth suffice with existing polynomial factorization. This accepts the decomposition and supplied prose proofs only; implemented theorems still require the configured comparator and independent proof-acceptance gates."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "polynomial_unit_criterion",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The single-line proposition exactly matches every stated hypothesis and the unit-witness biconditional. The bare identifier is unreserved. Steps 1–2 correctly obtain a nonunit parameter and evaluation into W. Steps 3–4 produce a proper contracted ideal containing (X), and the explicit constant-coefficient argument proves (X) maximal. Steps 5–6 correctly translate ideal avoidance into the required unit witness using injectivity of the inclusion W → F. Evaluation itself need not be injective, so omitting transcendence and fraction generation is justified. The proof is complete, independent of the parent and sibling, and ready for formalization."
+    },
+    {
+      "key": "unit_power_quotient_exponents",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The single-line proposition exactly states the field, arbitrary subring, parameter membership and inverse exclusion, unit, natural exponents, and quotient-membership hypothesis. The bare identifier is unreserved. Inverse exclusion implies s ≠ 0; the unit inverse supplies β ∈ W with αβ = 1. Under r < k, n = k−r−1 satisfies k = r+n+1, and closure puts fβs^n in W. Field cancellation then identifies this element with s⁻¹, giving the contradiction and k ≤ r. No valuation or locality hypothesis is silently used. The proof is complete, and its empty dependency list is correct."
+    }
+  ],
+  "required_changes": []
+}

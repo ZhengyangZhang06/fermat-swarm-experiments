@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081613Z-9e0f5043ff",
+  "parent_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1.valuation_fraction_characterization-a1",
+  "dispatch_branch": "proof-workspace/fermat-p06/20261007t081613z-9e0f5043ff/dispatch/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-75b7adf371",
+  "source_commit": "48e42e465a53ca4e7e68adec07b04eb0cb073f71",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1.valuation_fraction_characterization-a1.polynomial_unit_criterion-a1",
+      "key": "polynomial_unit_criterion",
+      "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-aa5e222c8d-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-75b7adf371/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-aa5e222c8d",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "structure Place|def center|center_ne_bot|toValuationSubring_eq_of_forall_mem|mem_or_inv_mem|algebraMap_mem",
+              "exists.*X_pow|X_pow.*exists|X_pow_mul.*[a-z]|not_dvd.*iff|exists_eq_pow_mul_and_not_dvd|exists_pow_mul",
+              "isUnit_iff|mem_or_inv_mem|IsLocalRing|isUnit.*mem|mem.*isUnit",
+              "theorem X_dvd_iff|theorem irreducible_X|lemma irreducible_X|quotientSpanXSubCAlgEquiv"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Polynomial/Div.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Polynomial/RingDivision.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/LocalRing/MaximalIdeal/Basic.lean",
+              "/tmp/p06_vfc_decomposition_p_0ah0j7/CheckTypes.lean",
+              "/tmp/p06_vfc_decomposition_p_0ah0j7/CheckTypes.log",
+              "/tmp/p06_vfc_decomposition_p_0ah0j7/source-compatibility.json",
+              "/tmp/p06_vfc_decomposition_p_0ah0j7/frozen_header_repair.json"
+            ],
+            "conclusion": "The manifest pins project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Place.algebraMap_mem' supplies containment of constants; valuation subrings supply mem_or_inv_mem and IsLocalRing; IsLocalRing.notMem_maximalIdeal identifies units. Polynomial.X_dvd_iff and exists_eq_pow_rootMultiplicity_mul_and_not_dvd supply divisibility and the required factorization at zero, so polynomial factorization needs no new node. Consulted sources matched installed sources, and installed mathlib was clean at its pinned revision. The checked library declarations have only propext, Classical.choice and Quot.sound as transitive axioms. Both proposed types elaborated after import Submission in a disposable compiler copy of the node's frozen proof base; subring ring instances and unit multiplication coercions were checked. Both proposed names were absent from run metadata and the imported base. Compiler-copy evidence records the prescribed policy digest, exact omitted lines 9–11, reversible original/build hashes, and a successful Lean absence probe for all 95 targets. Original repository files remain unchanged. These are interface diagnostics, not comparator acceptance of either proposed theorem."
+          }
+        ],
+        "parent_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1.valuation_fraction_characterization-a1",
+        "child_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1.valuation_fraction_characterization-a1.polynomial_unit_criterion-a1",
+        "subproblem": {
+          "key": "polynomial_unit_criterion",
+          "title": "Polynomial units at a place excluding the inverse parameter",
+          "statement": "Let K and F be fields with a K-algebra structure on F. Let s ∈ F and w : AlgebraicCurve.Place K F, and put W = w.toValuationSubring. Assume s⁻¹ ∉ W. For every polynomial p ∈ K[T], there exists a unit u of W whose image in F equals p(s) if and only if T does not divide p. Here p(s) denotes Polynomial.aeval s p. No transcendence or fraction-generation hypothesis is required.",
+          "lean_statement": "∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (s : F) (w : AlgebraicCurve.Place K F), s⁻¹ ∉ w.toValuationSubring → ∀ p : Polynomial K, (∃ u : Units w.toValuationSubring, ((u : w.toValuationSubring) : F) = Polynomial.aeval s p) ↔ ¬ (Polynomial.X : Polynomial K) ∣ p",
+          "lean_name": "p06_9e0f5043ff_vfc_polynomial_unit_criterion",
+          "depends_on": [],
+          "natural_proof": "1. Fix K, F, their algebra structure, s and w satisfying the hypotheses, and put W = w.toValuationSubring. Since zero belongs to W and the inverse of zero is zero, the exclusion s⁻¹ ∉ W implies s ≠ 0. The valuation-subring property gives s ∈ W or s⁻¹ ∈ W, so s ∈ W. The resulting element of W is not a unit: the image in F of an inverse in W would equal s⁻¹, contradicting its exclusion.\n2. The defining property of a project place puts algebraMap K F c in W for every c ∈ K. Together with s ∈ W and closure under finite sums and products, this puts p(s) in W for every polynomial p. Consequently evaluation defines a unital ring homomorphism E : K[T] → W, whose composition with the inclusion W → F is Polynomial.aeval s. Its homomorphism laws follow from the evaluation laws and injectivity of the inclusion.\n3. A valuation subring is a local ring. Let m be its maximal ideal, which consists exactly of its nonunits, and let J = E⁻¹(m). This is a proper ideal of K[T]: E(1) = 1 is a unit and hence does not belong to m. By step 1, E(T) is a nonunit, so T ∈ J and the principal ideal (T) is contained in J.\n4. The ideal (T) is maximal. Indeed, every polynomial p has the form C(c) + Tq, where c is its constant coefficient, and T divides p exactly when c = 0. In particular, (T) is proper because the constant coefficient of 1 is nonzero. If an ideal I properly contains (T), choose p ∈ I with T not dividing p. Its constant coefficient c is nonzero. Subtracting Tq from p shows C(c) ∈ I, and multiplying by C(c⁻¹) shows 1 ∈ I. Thus I is the whole polynomial ring, proving maximality. Since J is proper and contains (T), it follows that J = (T).\n5. Fix any polynomial p. The local-ring unit criterion and the definition of J give: E(p) is a unit if and only if E(p) ∉ m, if and only if p ∉ J. By J = (T), this is equivalent to T not dividing p.\n6. If E(p) is a unit, choose a unit u of W with value E(p). Its image in F is p(s), giving the required existential statement. Conversely, if a unit u of W has image p(s), its value and E(p) have the same image in F. Injectivity of W → F identifies them, so E(p) is a unit. Combining this equivalence with step 5 proves the stated biconditional for every p.",
+          "proof_key_steps": [
+            "Use inverse exclusion to place s in W and show that it is a nonunit.",
+            "Factor polynomial evaluation through a unital ring homomorphism E into W.",
+            "Contract the maximal ideal to a proper polynomial ideal J containing T.",
+            "Use constant coefficients to prove maximality of (T), hence J = (T).",
+            "Translate avoidance of J into being a unit and then into the stated unit witness."
+          ]
+        },
+        "audit": {
+          "key": "polynomial_unit_criterion",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The single-line proposition exactly matches every stated hypothesis and the unit-witness biconditional. The bare identifier is unreserved. Steps 1–2 correctly obtain a nonunit parameter and evaluation into W. Steps 3–4 produce a proper contracted ideal containing (X), and the explicit constant-coefficient argument proves (X) maximal. Steps 5–6 correctly translate ideal avoidance into the required unit witness using injectivity of the inclusion W → F. Evaluation itself need not be injective, so omitting transcendence and fraction generation is justified. The proof is complete, independent of the parent and sibling, and ready for formalization."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-aa5e222c8d/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-aa5e222c8d/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-aa5e222c8d/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1.valuation_fraction_characterization-a1.unit_power_quotient_exponents-a1",
+      "key": "unit_power_quotient_exponents",
+      "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-d9838fa3ae-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-75b7adf371/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-d9838fa3ae",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "structure Place|def center|center_ne_bot|toValuationSubring_eq_of_forall_mem|mem_or_inv_mem|algebraMap_mem",
+              "exists.*X_pow|X_pow.*exists|X_pow_mul.*[a-z]|not_dvd.*iff|exists_eq_pow_mul_and_not_dvd|exists_pow_mul",
+              "isUnit_iff|mem_or_inv_mem|IsLocalRing|isUnit.*mem|mem.*isUnit",
+              "theorem X_dvd_iff|theorem irreducible_X|lemma irreducible_X|quotientSpanXSubCAlgEquiv"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Polynomial/Div.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Polynomial/RingDivision.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/LocalRing/MaximalIdeal/Basic.lean",
+              "/tmp/p06_vfc_decomposition_p_0ah0j7/CheckTypes.lean",
+              "/tmp/p06_vfc_decomposition_p_0ah0j7/CheckTypes.log",
+              "/tmp/p06_vfc_decomposition_p_0ah0j7/source-compatibility.json",
+              "/tmp/p06_vfc_decomposition_p_0ah0j7/frozen_header_repair.json"
+            ],
+            "conclusion": "The manifest pins project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Place.algebraMap_mem' supplies containment of constants; valuation subrings supply mem_or_inv_mem and IsLocalRing; IsLocalRing.notMem_maximalIdeal identifies units. Polynomial.X_dvd_iff and exists_eq_pow_rootMultiplicity_mul_and_not_dvd supply divisibility and the required factorization at zero, so polynomial factorization needs no new node. Consulted sources matched installed sources, and installed mathlib was clean at its pinned revision. The checked library declarations have only propext, Classical.choice and Quot.sound as transitive axioms. Both proposed types elaborated after import Submission in a disposable compiler copy of the node's frozen proof base; subring ring instances and unit multiplication coercions were checked. Both proposed names were absent from run metadata and the imported base. Compiler-copy evidence records the prescribed policy digest, exact omitted lines 9–11, reversible original/build hashes, and a successful Lean absence probe for all 95 targets. Original repository files remain unchanged. These are interface diagnostics, not comparator acceptance of either proposed theorem."
+          }
+        ],
+        "parent_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1.valuation_fraction_characterization-a1",
+        "child_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1.valuation_fraction_characterization-a1.unit_power_quotient_exponents-a1",
+        "subproblem": {
+          "key": "unit_power_quotient_exponents",
+          "title": "A regular unit times a parameter-power quotient has nonnegative exponent",
+          "statement": "Let F be a field, W a subring of F, and s ∈ F satisfy s ∈ W and s⁻¹ ∉ W. Let u be a unit of W, with image ū in F, and let r,k be natural numbers. If ū s^r/s^k belongs to W, then k ≤ r.",
+          "lean_statement": "∀ (F : Type*) [Field F] (W : Subring F) (s : F), s ∈ W → s⁻¹ ∉ W → ∀ (u : Units W) (r k : ℕ), ((u : W) : F) * s ^ r / s ^ k ∈ W → k ≤ r",
+          "lean_name": "p06_9e0f5043ff_vfc_unit_power_quotient_exponents",
+          "depends_on": [],
+          "natural_proof": "1. Fix F, W, s, u, r and k satisfying the hypotheses. Since zero belongs to W, the assumption s⁻¹ ∉ W implies s ≠ 0. Thus every natural power of s is nonzero.\n2. Let α be the image in F of the value of u, and let β be the image of the value of u⁻¹. Both α and β belong to W, and the unit identities give αβ = 1. Put f = α s^r/s^k; by hypothesis f belongs to W.\n3. Suppose for contradiction that r < k. Set n = k−r−1 in the natural numbers. Since k ≥ r+1, this gives k = r+n+1. The assumptions s ∈ W and β ∈ W imply s^n ∈ W and hence fβs^n ∈ W by closure under multiplication.\n4. Compute in F. Commutativity, αβ = 1 and the power laws give fβs^n = ((αβ)s^(r+n))/s^k = s^(r+n)/s^(r+n+1). Since s ≠ 0, cancel the nonzero factor s^(r+n) from the last fraction to obtain fβs^n = s⁻¹. Step 3 therefore puts s⁻¹ in W, contradicting the hypothesis.\n5. Thus r < k is impossible. The linear order on the natural numbers yields k ≤ r, as required.",
+          "proof_key_steps": [
+            "Deduce s ≠ 0 from inverse exclusion.",
+            "Use the unit and its inverse to obtain αβ = 1 inside F.",
+            "Under r < k, choose n with k = r+n+1 and form fβs^n in W.",
+            "Cancel nonzero parameter powers to identify this product with s⁻¹.",
+            "Contradict inverse exclusion and conclude k ≤ r."
+          ]
+        },
+        "audit": {
+          "key": "unit_power_quotient_exponents",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The single-line proposition exactly states the field, arbitrary subring, parameter membership and inverse exclusion, unit, natural exponents, and quotient-membership hypothesis. The bare identifier is unreserved. Inverse exclusion implies s ≠ 0; the unit inverse supplies β ∈ W with αβ = 1. Under r < k, n = k−r−1 satisfies k = r+n+1, and closure puts fβs^n in W. Field cancellation then identifies this element with s⁻¹, giving the contradiction and k ≤ r. No valuation or locality hypothesis is silently used. The proof is complete, and its empty dependency list is correct."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-d9838fa3ae/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-d9838fa3ae/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-d9838fa3ae/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-75b7adf371/task.md": "c9a88d64f41b8c1fb3a94db18cc20ec89daa48cacf177d4c3796aa3e3c023052",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-75b7adf371/problem.md": "789e1ee8f9e22e1ad8bb71a38c175e66a6bcc4caaf162eedaa432c1a5a5a4aa8",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-75b7adf371/problem.json": "4501669342296827730e039055e10d19d4ab8cfca16727da7844902ff2c862c5",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-75b7adf371/reference-manifest.json": "d193b7c9f4eb7ba36653e983d90fe6ed3e815fbf158e54214ade05340be153d1",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-75b7adf371/decomposition.json": "64c1aaacf8c48f6b89d21779176d55cafa70c365c3c1a954050d7d7abad2e6fb",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-75b7adf371/decomposition-audit.json": "4ddd6a00b22c3389ded4d80210e4ddc194c35e6ddf09f4cec1ed57987bee32a7",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-75b7adf371/controller-contract.json": "730a41ee712e50cb88de514fa8f7f25ad53ed095f40e5642c7e761e89a033aa2",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-75b7adf371/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-aa5e222c8d/parent-child-handoff.json": "663486f5838869dc08528664340b5f375f4f0e7b615257d1d8397b809e09480f",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-75b7adf371/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-aa5e222c8d/parent-supplied-plan.md": "5345e2fefb273a98b116206e98b7500d14c0995c5eda09e5fa41db4bdf8ed3ff",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-75b7adf371/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-aa5e222c8d/parent-supplied-natural-proof.md": "fb06713cdbccd562a353defdf4d6100c9172782391b176f1fbc69a1b8bfad70d",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-75b7adf371/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-aa5e222c8d/parent-supplied-natural-proof.json": "bb9e77ab127cd1b601e63d17b309a2b2a74a0d6cdc7ba12311e21f54cebb6c25",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-75b7adf371/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-aa5e222c8d/node.json": "ac3342e68237a443f405265438d8562e5218e6293b324444f0acf305171cb80c",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-75b7adf371/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-d9838fa3ae/parent-child-handoff.json": "2b187a4724e342798f260d054665ab160b28fb070f995c1e1a68b9868eebc670",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-75b7adf371/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-d9838fa3ae/parent-supplied-plan.md": "1a36b5996ce17221024282165ae3733c613d3c6bcedb0a6229ed2d36f5e96611",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-75b7adf371/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-d9838fa3ae/parent-supplied-natural-proof.md": "87811fa2faa8048f5961775eaa1fd7b9b2c2af3c6b584edc40c17506f889b976",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-75b7adf371/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-d9838fa3ae/parent-supplied-natural-proof.json": "7368f27676b88a64e55ac10e3a007fb376058505d46dfc75ef5247d5d46fcf33",
+    ".humanize-workspace/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-75b7adf371/children/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-d9838fa3ae/node.json": "c4bf598b760454ca47a6f626176b698f5ec4cbcb067e270f68325df77504312c"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "structure Place|def center|center_ne_bot|toValuationSubring_eq_of_forall_mem|mem_or_inv_mem|algebraMap_mem",
+        "exists.*X_pow|X_pow.*exists|X_pow_mul.*[a-z]|not_dvd.*iff|exists_eq_pow_mul_and_not_dvd|exists_pow_mul",
+        "isUnit_iff|mem_or_inv_mem|IsLocalRing|isUnit.*mem|mem.*isUnit",
+        "theorem X_dvd_iff|theorem irreducible_X|lemma irreducible_X|quotientSpanXSubCAlgEquiv"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Polynomial/Div.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Polynomial/RingDivision.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/LocalRing/MaximalIdeal/Basic.lean",
+        "/tmp/p06_vfc_decomposition_p_0ah0j7/CheckTypes.lean",
+        "/tmp/p06_vfc_decomposition_p_0ah0j7/CheckTypes.log",
+        "/tmp/p06_vfc_decomposition_p_0ah0j7/source-compatibility.json",
+        "/tmp/p06_vfc_decomposition_p_0ah0j7/frozen_header_repair.json"
+      ],
+      "conclusion": "The manifest pins project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Place.algebraMap_mem' supplies containment of constants; valuation subrings supply mem_or_inv_mem and IsLocalRing; IsLocalRing.notMem_maximalIdeal identifies units. Polynomial.X_dvd_iff and exists_eq_pow_rootMultiplicity_mul_and_not_dvd supply divisibility and the required factorization at zero, so polynomial factorization needs no new node. Consulted sources matched installed sources, and installed mathlib was clean at its pinned revision. The checked library declarations have only propext, Classical.choice and Quot.sound as transitive axioms. Both proposed types elaborated after import Submission in a disposable compiler copy of the node's frozen proof base; subring ring instances and unit multiplication coercions were checked. Both proposed names were absent from run metadata and the imported base. Compiler-copy evidence records the prescribed policy digest, exact omitted lines 9–11, reversible original/build hashes, and a successful Lean absence probe for all 95 targets. Original repository files remain unchanged. These are interface diagnostics, not comparator acceptance of either proposed theorem."
+    }
+  ],
+  "should_split": true,
+  "rationale": "Depth 4 is below the limit 6. Separate the polynomial unit criterion from the reusable obstruction to negative parameter exponents. Both are independent mathematical obligations; neither restates the parent. Polynomial factorization is already supplied by mathlib. For assembly, constants and s belong to W, hence every polynomial evaluation belongs to W. The first child makes permitted denominators units, proving fraction-to-membership. For nonzero f in W, factor its numerator and denominator as T^r a₀ and T^k b₀. The first child supplies the unit u = a₀(s)/b₀(s); apply the second child to W.toSubring and f = u s^r/s^k to obtain k ≤ r. Cancelling gives numerator T^(r−k)a₀ and denominator b₀. Zero uses 0/1.",
+  "subproblems": [
+    {
+      "key": "polynomial_unit_criterion",
+      "title": "Polynomial units at a place excluding the inverse parameter",
+      "statement": "Let K and F be fields with a K-algebra structure on F. Let s ∈ F and w : AlgebraicCurve.Place K F, and put W = w.toValuationSubring. Assume s⁻¹ ∉ W. For every polynomial p ∈ K[T], there exists a unit u of W whose image in F equals p(s) if and only if T does not divide p. Here p(s) denotes Polynomial.aeval s p. No transcendence or fraction-generation hypothesis is required.",
+      "lean_statement": "∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (s : F) (w : AlgebraicCurve.Place K F), s⁻¹ ∉ w.toValuationSubring → ∀ p : Polynomial K, (∃ u : Units w.toValuationSubring, ((u : w.toValuationSubring) : F) = Polynomial.aeval s p) ↔ ¬ (Polynomial.X : Polynomial K) ∣ p",
+      "lean_name": "p06_9e0f5043ff_vfc_polynomial_unit_criterion",
+      "depends_on": [],
+      "natural_proof": "1. Fix K, F, their algebra structure, s and w satisfying the hypotheses, and put W = w.toValuationSubring. Since zero belongs to W and the inverse of zero is zero, the exclusion s⁻¹ ∉ W implies s ≠ 0. The valuation-subring property gives s ∈ W or s⁻¹ ∈ W, so s ∈ W. The resulting element of W is not a unit: the image in F of an inverse in W would equal s⁻¹, contradicting its exclusion.\n2. The defining property of a project place puts algebraMap K F c in W for every c ∈ K. Together with s ∈ W and closure under finite sums and products, this puts p(s) in W for every polynomial p. Consequently evaluation defines a unital ring homomorphism E : K[T] → W, whose composition with the inclusion W → F is Polynomial.aeval s. Its homomorphism laws follow from the evaluation laws and injectivity of the inclusion.\n3. A valuation subring is a local ring. Let m be its maximal ideal, which consists exactly of its nonunits, and let J = E⁻¹(m). This is a proper ideal of K[T]: E(1) = 1 is a unit and hence does not belong to m. By step 1, E(T) is a nonunit, so T ∈ J and the principal ideal (T) is contained in J.\n4. The ideal (T) is maximal. Indeed, every polynomial p has the form C(c) + Tq, where c is its constant coefficient, and T divides p exactly when c = 0. In particular, (T) is proper because the constant coefficient of 1 is nonzero. If an ideal I properly contains (T), choose p ∈ I with T not dividing p. Its constant coefficient c is nonzero. Subtracting Tq from p shows C(c) ∈ I, and multiplying by C(c⁻¹) shows 1 ∈ I. Thus I is the whole polynomial ring, proving maximality. Since J is proper and contains (T), it follows that J = (T).\n5. Fix any polynomial p. The local-ring unit criterion and the definition of J give: E(p) is a unit if and only if E(p) ∉ m, if and only if p ∉ J. By J = (T), this is equivalent to T not dividing p.\n6. If E(p) is a unit, choose a unit u of W with value E(p). Its image in F is p(s), giving the required existential statement. Conversely, if a unit u of W has image p(s), its value and E(p) have the same image in F. Injectivity of W → F identifies them, so E(p) is a unit. Combining this equivalence with step 5 proves the stated biconditional for every p.",
+      "proof_key_steps": [
+        "Use inverse exclusion to place s in W and show that it is a nonunit.",
+        "Factor polynomial evaluation through a unital ring homomorphism E into W.",
+        "Contract the maximal ideal to a proper polynomial ideal J containing T.",
+        "Use constant coefficients to prove maximality of (T), hence J = (T).",
+        "Translate avoidance of J into being a unit and then into the stated unit witness."
+      ]
+    },
+    {
+      "key": "unit_power_quotient_exponents",
+      "title": "A regular unit times a parameter-power quotient has nonnegative exponent",
+      "statement": "Let F be a field, W a subring of F, and s ∈ F satisfy s ∈ W and s⁻¹ ∉ W. Let u be a unit of W, with image ū in F, and let r,k be natural numbers. If ū s^r/s^k belongs to W, then k ≤ r.",
+      "lean_statement": "∀ (F : Type*) [Field F] (W : Subring F) (s : F), s ∈ W → s⁻¹ ∉ W → ∀ (u : Units W) (r k : ℕ), ((u : W) : F) * s ^ r / s ^ k ∈ W → k ≤ r",
+      "lean_name": "p06_9e0f5043ff_vfc_unit_power_quotient_exponents",
+      "depends_on": [],
+      "natural_proof": "1. Fix F, W, s, u, r and k satisfying the hypotheses. Since zero belongs to W, the assumption s⁻¹ ∉ W implies s ≠ 0. Thus every natural power of s is nonzero.\n2. Let α be the image in F of the value of u, and let β be the image of the value of u⁻¹. Both α and β belong to W, and the unit identities give αβ = 1. Put f = α s^r/s^k; by hypothesis f belongs to W.\n3. Suppose for contradiction that r < k. Set n = k−r−1 in the natural numbers. Since k ≥ r+1, this gives k = r+n+1. The assumptions s ∈ W and β ∈ W imply s^n ∈ W and hence fβs^n ∈ W by closure under multiplication.\n4. Compute in F. Commutativity, αβ = 1 and the power laws give fβs^n = ((αβ)s^(r+n))/s^k = s^(r+n)/s^(r+n+1). Since s ≠ 0, cancel the nonzero factor s^(r+n) from the last fraction to obtain fβs^n = s⁻¹. Step 3 therefore puts s⁻¹ in W, contradicting the hypothesis.\n5. Thus r < k is impossible. The linear order on the natural numbers yields k ≤ r, as required.",
+      "proof_key_steps": [
+        "Deduce s ≠ 0 from inverse exclusion.",
+        "Use the unit and its inverse to obtain αβ = 1 inside F.",
+        "Under r < k, choose n with k = r+n+1 and form fβs^n in W.",
+        "Cancel nonzero parameter powers to identify this product with s⁻¹.",
+        "Contradict inverse exclusion and conclude k ≤ r."
+      ]
+    }
+  ]
+}

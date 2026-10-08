@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1.valuation_fraction_characterization-a1.unit_power_quotient_exponents-a1",
+  "parent_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1.valuation_fraction_characterization-a1",
+  "depth": 5,
+  "title": "A regular unit times a parameter-power quotient has nonnegative exponent",
+  "statement": "Let F be a field, W a subring of F, and s ∈ F satisfy s ∈ W and s⁻¹ ∉ W. Let u be a unit of W, with image ū in F, and let r,k be natural numbers. If ū s^r/s^k belongs to W, then k ≤ r.",
+  "lean_statement": "∀ (F : Type*) [Field F] (W : Subring F) (s : F), s ∈ W → s⁻¹ ∉ W → ∀ (u : Units W) (r k : ℕ), ((u : W) : F) * s ^ r / s ^ k ∈ W → k ≤ r",
+  "lean_name": "p06_9e0f5043ff_vfc_unit_power_quotient_exponents",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-d9838fa3ae-a1"
+}

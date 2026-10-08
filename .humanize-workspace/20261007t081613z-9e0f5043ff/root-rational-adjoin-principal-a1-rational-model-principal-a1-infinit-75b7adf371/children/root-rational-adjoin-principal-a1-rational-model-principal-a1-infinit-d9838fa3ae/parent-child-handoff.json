@@ -1,0 +1,55 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "structure Place|def center|center_ne_bot|toValuationSubring_eq_of_forall_mem|mem_or_inv_mem|algebraMap_mem",
+        "exists.*X_pow|X_pow.*exists|X_pow_mul.*[a-z]|not_dvd.*iff|exists_eq_pow_mul_and_not_dvd|exists_pow_mul",
+        "isUnit_iff|mem_or_inv_mem|IsLocalRing|isUnit.*mem|mem.*isUnit",
+        "theorem X_dvd_iff|theorem irreducible_X|lemma irreducible_X|quotientSpanXSubCAlgEquiv"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Polynomial/Div.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Polynomial/RingDivision.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/LocalRing/MaximalIdeal/Basic.lean",
+        "/tmp/p06_vfc_decomposition_p_0ah0j7/CheckTypes.lean",
+        "/tmp/p06_vfc_decomposition_p_0ah0j7/CheckTypes.log",
+        "/tmp/p06_vfc_decomposition_p_0ah0j7/source-compatibility.json",
+        "/tmp/p06_vfc_decomposition_p_0ah0j7/frozen_header_repair.json"
+      ],
+      "conclusion": "The manifest pins project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Place.algebraMap_mem' supplies containment of constants; valuation subrings supply mem_or_inv_mem and IsLocalRing; IsLocalRing.notMem_maximalIdeal identifies units. Polynomial.X_dvd_iff and exists_eq_pow_rootMultiplicity_mul_and_not_dvd supply divisibility and the required factorization at zero, so polynomial factorization needs no new node. Consulted sources matched installed sources, and installed mathlib was clean at its pinned revision. The checked library declarations have only propext, Classical.choice and Quot.sound as transitive axioms. Both proposed types elaborated after import Submission in a disposable compiler copy of the node's frozen proof base; subring ring instances and unit multiplication coercions were checked. Both proposed names were absent from run metadata and the imported base. Compiler-copy evidence records the prescribed policy digest, exact omitted lines 9–11, reversible original/build hashes, and a successful Lean absence probe for all 95 targets. Original repository files remain unchanged. These are interface diagnostics, not comparator acceptance of either proposed theorem."
+    }
+  ],
+  "parent_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1.valuation_fraction_characterization-a1",
+  "child_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1.valuation_fraction_characterization-a1.unit_power_quotient_exponents-a1",
+  "subproblem": {
+    "key": "unit_power_quotient_exponents",
+    "title": "A regular unit times a parameter-power quotient has nonnegative exponent",
+    "statement": "Let F be a field, W a subring of F, and s ∈ F satisfy s ∈ W and s⁻¹ ∉ W. Let u be a unit of W, with image ū in F, and let r,k be natural numbers. If ū s^r/s^k belongs to W, then k ≤ r.",
+    "lean_statement": "∀ (F : Type*) [Field F] (W : Subring F) (s : F), s ∈ W → s⁻¹ ∉ W → ∀ (u : Units W) (r k : ℕ), ((u : W) : F) * s ^ r / s ^ k ∈ W → k ≤ r",
+    "lean_name": "p06_9e0f5043ff_vfc_unit_power_quotient_exponents",
+    "depends_on": [],
+    "natural_proof": "1. Fix F, W, s, u, r and k satisfying the hypotheses. Since zero belongs to W, the assumption s⁻¹ ∉ W implies s ≠ 0. Thus every natural power of s is nonzero.\n2. Let α be the image in F of the value of u, and let β be the image of the value of u⁻¹. Both α and β belong to W, and the unit identities give αβ = 1. Put f = α s^r/s^k; by hypothesis f belongs to W.\n3. Suppose for contradiction that r < k. Set n = k−r−1 in the natural numbers. Since k ≥ r+1, this gives k = r+n+1. The assumptions s ∈ W and β ∈ W imply s^n ∈ W and hence fβs^n ∈ W by closure under multiplication.\n4. Compute in F. Commutativity, αβ = 1 and the power laws give fβs^n = ((αβ)s^(r+n))/s^k = s^(r+n)/s^(r+n+1). Since s ≠ 0, cancel the nonzero factor s^(r+n) from the last fraction to obtain fβs^n = s⁻¹. Step 3 therefore puts s⁻¹ in W, contradicting the hypothesis.\n5. Thus r < k is impossible. The linear order on the natural numbers yields k ≤ r, as required.",
+    "proof_key_steps": [
+      "Deduce s ≠ 0 from inverse exclusion.",
+      "Use the unit and its inverse to obtain αβ = 1 inside F.",
+      "Under r < k, choose n with k = r+n+1 and form fβs^n in W.",
+      "Cancel nonzero parameter powers to identify this product with s⁻¹.",
+      "Contradict inverse exclusion and conclude k ≤ r."
+    ]
+  },
+  "audit": {
+    "key": "unit_power_quotient_exponents",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "The single-line proposition exactly states the field, arbitrary subring, parameter membership and inverse exclusion, unit, natural exponents, and quotient-membership hypothesis. The bare identifier is unreserved. Inverse exclusion implies s ≠ 0; the unit inverse supplies β ∈ W with αβ = 1. Under r < k, n = k−r−1 satisfies k = r+n+1, and closure puts fβs^n in W. Field cancellation then identifies this element with s⁻¹, giving the contradiction and k ≤ r. No valuation or locality hypothesis is silently used. The proof is complete, and its empty dependency list is correct."
+  },
+  "resolved_dependencies": [],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-d9838fa3ae/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-d9838fa3ae/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-d9838fa3ae/parent-supplied-natural-proof.json"
+}

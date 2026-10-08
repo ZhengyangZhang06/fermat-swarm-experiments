@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1.valuation_fraction_characterization-a1.polynomial_unit_criterion-a1",
+  "parent_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1.valuation_fraction_characterization-a1",
+  "depth": 5,
+  "title": "Polynomial units at a place excluding the inverse parameter",
+  "statement": "Let K and F be fields with a K-algebra structure on F. Let s ∈ F and w : AlgebraicCurve.Place K F, and put W = w.toValuationSubring. Assume s⁻¹ ∉ W. For every polynomial p ∈ K[T], there exists a unit u of W whose image in F equals p(s) if and only if T does not divide p. Here p(s) denotes Polynomial.aeval s p. No transcendence or fraction-generation hypothesis is required.",
+  "lean_statement": "∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (s : F) (w : AlgebraicCurve.Place K F), s⁻¹ ∉ w.toValuationSubring → ∀ p : Polynomial K, (∃ u : Units w.toValuationSubring, ((u : w.toValuationSubring) : F) = Polynomial.aeval s p) ↔ ¬ (Polynomial.X : Polynomial K) ∣ p",
+  "lean_name": "p06_9e0f5043ff_vfc_polynomial_unit_criterion",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-aa5e222c8d-a1"
+}
