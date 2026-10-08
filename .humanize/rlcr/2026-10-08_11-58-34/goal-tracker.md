@@ -40,27 +40,27 @@ Source plan: /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.hum
 |-------|--------|--------|--------------|
 | 0 | Initialize the supplied atomic-node implementation plan | Current frozen node contract controls; no decomposition changes | AC1–AC3 |
 | 0 | Review and verify the existing selected-node candidate instead of duplicating it | Initial HEAD eccb244 already contains this node's implementation from 8ac90b1; it is not treated as an accepted dependency or as proof acceptance | AC1, AC2 remain required |
+| 0 | Return blocked after the exact comparator fails building its frozen challenge | Request 7b0142dd56a241709f70716c7f2a3f3c exited 1 on three pre-existing unknown constants; changing this node cannot repair the separate controller-owned challenge snapshot | AC2 unmet; no decomposition, contract, or source changes made; AC3 records the failed result |
 
 #### Active Tasks
 <!-- Mainline tasks only: each task must directly advance the current round objective and carry routing metadata -->
 | Task | Target AC | Status | Tag | Owner | Notes |
 |------|-----------|--------|-----|-------|-------|
 | [mainline] T3 Run warning-fatal checks, review source, and commit clean candidate | AC2 | blocked | coding | claude | BitLesson: NONE; full-source check failed on unchanged frozen attributes and root sorry; isolated child warning-fatal diagnostic and axiom reports passed; source review complete and candidate committed |
-| [mainline] T4 Run exact-node comparator and finalize handoff | AC2, AC3 | in_progress | coding | claude | BitLesson: NONE; candidate and round audit committed; preserve exact HEAD while comparator runs; independent reviewer/wiki/DAG transitions remain controller tasks |
+| [mainline] T4 Run exact-node comparator and finalize handoff | AC2, AC3 | blocked | coding | claude | BitLesson: NONE; comparator ran at clean 81698cca3ff5c5387d604ab60ee86d2e988ba762 and exited 1 in frozen challenge build; no success marker; handoff finalized, acceptance blocked |
 
 ### Blocking Side Issues
 <!-- Only issues that directly block current mainline progress belong here -->
 | Issue | Discovered Round | Blocking AC | Resolution Path |
 |-------|-----------------|-------------|-----------------|
-| Sandbox launcher cannot find bubblewrap | 0 | AC1, AC2 | Local commands run through approved escalation; initial reads succeeded |
-| `lake` absent from PATH | 0 | AC2 | Pinned binaries located at /mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin; use explicit toolchain PATH |
-| Frozen Submission prefix does not pass warning-fatal Lean | 0 | AC2 | Lines 13–15 name unavailable constants opensMapFinal, baseChangePointToBase_ofBase, dualNumberFst_apply; line 22 is the inherited unsolved root. Preserve frozen context and obtain exact comparator evidence; isolated child diagnostics do not constitute acceptance |
+| Frozen Submission prefix does not compile in the exact comparator challenge | 0 | AC2 | Confirmed by comparator exit 1 at clean 81698cca: lines 13–15 name unavailable constants opensMapFinal, baseChangePointToBase_ofBase, dualNumberFst_apply. Local warning-fatal checking additionally rejects the inherited root sorry. Controller must resolve the frozen challenge build; changing candidate code would not repair it. No acceptance claimed |
 
 ### Queued Side Issues
 <!-- Non-blocking issues stay queued and must NOT replace the round objective -->
 | Issue | Discovered Round | Why Not Blocking | Revisit Trigger |
 |-------|-----------------|------------------|-----------------|
 | TaskCreate/TaskUpdate/TaskList unavailable in exposed tools | 0 | Goal tracker records the same task IDs, lane, routing, status, and evidence | If task tools become available |
+| Sandbox launcher lacks bubblewrap; lake is absent from default PATH | 0 | Approved escalation and the explicit pinned Lean path allowed all required commands to run | Environment maintenance outside this node |
 
 ### Completed and Verified
 <!-- Only move tasks here after the reviewer has verified them -->
