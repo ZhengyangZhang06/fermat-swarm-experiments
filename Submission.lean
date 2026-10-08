@@ -451,6 +451,9 @@ theorem p06_9e0f5043ff_fpm_residue_degree
     ((Ideal.quotientEquivAlgOfEq K hkerφ.symm).trans
       (Ideal.quotientKerAlgEquivOfSurjective (f := φ) hsurjφ)).toLinearEquiv.finrank_eq
   exact hdim.symm.trans finrank_quotient_span_eq_natDegree
+
+end Submission
+
 namespace Submission
 
 set_option warningAsError true
