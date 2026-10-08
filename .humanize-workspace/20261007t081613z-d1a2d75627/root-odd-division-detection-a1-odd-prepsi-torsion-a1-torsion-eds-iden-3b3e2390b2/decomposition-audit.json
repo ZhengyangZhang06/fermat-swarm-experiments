@@ -1,0 +1,45 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "preΨ'_(zero|one|two|three|four|even|odd)|ψ₂_sq|mk_ψ₂_sq",
+        "namespace CoordinateRing|def basis|lemma.*basis|instance.*IsDomain|smul_basis_eq_zero|polynomialY",
+        "uniqu|ext|eq_of",
+        "p03_eds_canonical_recurrences_68cf3476_d3|p03_eds_recurrence_unique_68cf3476_d3",
+        "python3 /tmp/p03-independent-decomposition-audit.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Point.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/NumberTheory/EllipticDivisibilitySequence.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-3b3e2390b2/parent-child-handoff.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/dag.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p03-independent-decomposition-audit.py",
+        "/tmp/p03-independent-decomposition-audit-w6fzm8ls/IndependentTypes.lean.log",
+        "/tmp/p03-independent-decomposition-audit-w6fzm8ls/result.json"
+      ],
+      "conclusion": "Independently confirmed clean project revision 81f093181fd6c58dc887fcae5ec8b896996f1885, mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d, and pinned package revisions. The cited files supply the exact initial values, recurrences, quotient square identity, basis {1,Y}, and unconditional coordinate-ring domain instance; polynomialY has Y coefficient 2. No applicable arbitrary-sequence uniqueness theorem was found in EllipticDivisibilitySequence.lean. Both literal proposed propositions elaborated with neither child declared. Lean selected AdjoinRoot.instCommRing and CoordinateRing.instIsDomain; inspected types and library dependencies used only propext, Classical.choice, and Quot.sound. No proposed-name conflicts appeared in the frozen project or ten local DAG registries. Independent disposable diagnostics verified policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, exact omissions at lines 10–11, original hash dd8891addb75e48583885c932518af8bc6d34438aec4e3ccd76ce6aa765e423f, build hash 81502485ae6796527a5c4e210837b198322b438244a2f58054b94b98aef9dda9, reversible reconstruction, and Lean-checked absence of all 37 targets. Protected originals remained byte-exact. These are decomposition/interface diagnostics, not comparator acceptance of implemented proofs."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "canonical_eds_recurrences",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches all prose hypotheses, five initial values, and both bounded recurrences. Its bare identifier is unreserved, and its type is independently usable without a child implementation. Steps 1–2 correctly establish h²=b, h⁴=b² and the initial values. Steps 3–4 correctly reindex the pinned recurrences using r−3 and r−2, with valid subtraction bounds and preserved parity. Steps 5–6 account for every h factor in both parity cases and prove the exact recurrences without cancellation. The proof is complete and non-circular; its empty dependency list is correct."
+    },
+    {
+      "key": "eds_recurrence_uniqueness",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly includes the commutative-domain hypothesis, h≠0, initial agreement through index 4, and both recurrences for each sequence. Its bare identifier is unreserved and its type references neither child nor parent implementation. The supplied strong induction is complete: the initial hypothesis covers n≤4; odd n≥5 gives r≥2 and strictly smaller recurrence indices; even n≥6 gives r≥3 and strictly smaller indices. Substitution yields equality directly in the odd case and h f(n)=h g(n) in the even case, where the stated hypotheses justify cancellation. No sibling dependency is needed. The split appropriately separates canonical recurrence verification from abstract uniqueness; the parent's basis argument supplies h≠0, so these two independent obligations compose to prove the parent without a cycle."
+    }
+  ],
+  "required_changes": []
+}

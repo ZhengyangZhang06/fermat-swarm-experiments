@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081613Z-d1a2d75627",
+  "parent_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_identification-a1",
+  "dispatch_branch": "proof-workspace/fermat-p03/20261007t081613z-d1a2d75627/dispatch/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-3b3e2390b2",
+  "source_commit": "ec4b95088b87f6015ce9317acebdea9942cbce39",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_identification-a1.canonical_eds_recurrences-a1",
+      "key": "canonical_eds_recurrences",
+      "result_branch": "humanize-recursive/fermat-p03/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-7228264b00-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-3b3e2390b2/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-7228264b00",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "preΨ.|ψ₂|Ψ₂Sq",
+              "namespace CoordinateRing|def basis|lemma.*basis|instance.*IsDomain|noncomputable.*basis|mk.*ne_zero|repr",
+              "uniqu|ext|eq_of",
+              "python3 /tmp/p03-eds-decomposition-check.py"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Point.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/NumberTheory/EllipticDivisibilitySequence.lean",
+              "/tmp/p03-eds-decomposition-ubcfsypt/TypesAfterSubmission.lean.log",
+              "/tmp/p03-eds-decomposition-ubcfsypt/result.json"
+            ],
+            "conclusion": "The pinned project revision is 81f093181fd6c58dc887fcae5ec8b896996f1885 and mathlib revision is db584cd6d46c92f209a44c0f1c829460d327499d. DivisionPolynomial/Basic.lean supplies preΨ'_zero through preΨ'_four, preΨ'_even, preΨ'_odd, and CoordinateRing.mk_ψ₂_sq. Affine/Point.lean supplies the basis {1,Y}, smul_basis_eq_zero, and the coordinate-ring domain instance without a discriminant hypothesis; Affine/Basic.lean gives polynomialY with Y coefficient 2. No matching arbitrary-sequence uniqueness theorem was found in EllipticDivisibilitySequence.lean. Both proposed types elaborated after literal import Submission using the node's frozen proof-base context and the authorized disposable header copy. Lean confirmed the AdjoinRoot commutative-ring instance and CoordinateRing.instIsDomain; inspected library dependencies use only propext, Classical.choice, and Quot.sound. Pinned trees were clean before and after checking, and neither proposed name appeared in the ten inspected DAG registries. The diagnostic receipt records the required policy digest, exact omitted lines 10–11, reversible original/build hashes, and a successful absence probe for all 37 omitted targets. These are interface diagnostics, not comparator acceptance."
+          }
+        ],
+        "parent_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_identification-a1",
+        "child_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_identification-a1.canonical_eds_recurrences-a1",
+        "subproblem": {
+          "key": "canonical_eds_recurrences",
+          "title": "The canonical coordinate-ring division sequence satisfies the recurrences",
+          "statement": "Let k be a characteristic-zero field with decidable equality and W a Weierstrass equation over k. Let A=W.toAffine.CoordinateRing=k[X,Y]/(W(X,Y)), let q:k[X,Y]→A be the quotient ring homomorphism, let C:k[X]→k[X,Y] be the constant-polynomial inclusion, and put h=q(W.ψ₂). Define F:ℕ→A by F(n)=q(C(W.preΨ' n))·h when n is even and F(n)=q(C(W.preΨ' n)) when n is odd. Then F(0)=0, F(1)=1, F(2)=h, F(3)=q(C(W.Ψ₃)), and F(4)=h·q(C(W.preΨ₄)). Moreover, for every r≥2, F(2r+1)=F(r+2)F(r)³−F(r−1)F(r+1)³; and for every r≥3, hF(2r)=F(r)(F(r+2)F(r−1)²−F(r−2)F(r+1)²).",
+          "lean_statement": "∀ (k : Type) [Field k] [CharZero k] [DecidableEq k] (W : WeierstrassCurve k), let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine; let h := q W.ψ₂; let F : ℕ → W.toAffine.CoordinateRing := fun n => q (Polynomial.C (W.preΨ' n)) * (if Even n then h else 1); F 0 = 0 ∧ F 1 = 1 ∧ F 2 = h ∧ F 3 = q (Polynomial.C W.Ψ₃) ∧ F 4 = h * q (Polynomial.C W.preΨ₄) ∧ (∀ r : ℕ, 2 ≤ r → F (2 * r + 1) = F (r + 2) * F r ^ 3 - F (r - 1) * F (r + 1) ^ 3) ∧ (∀ r : ℕ, 3 ≤ r → h * F (2 * r) = F r * (F (r + 2) * F (r - 1) ^ 2 - F (r - 2) * F (r + 1) ^ 2))",
+          "lean_name": "p03_eds_canonical_recurrences_68cf3476_d3",
+          "depends_on": [],
+          "natural_proof": "1. Fix k and W as stated. Work in the commutative ring A, and write a_n=q(C(W.preΨ' n)) and b=q(C(W.Ψ₂Sq)). Thus F(n)=a_n h for even n and F(n)=a_n for odd n. The pinned identity WeierstrassCurve.ψ₂_sq says ψ₂²=C(Ψ₂Sq)+4W(X,Y). Applying q, which kills the defining equation, gives h²=b, equivalently the pinned CoordinateRing.mk_ψ₂_sq identity. Squaring gives h⁴=b².\n2. Apply the ring homomorphism q∘C to WeierstrassCurve.preΨ'_zero, preΨ'_one, preΨ'_two, preΨ'_three, and preΨ'_four. These give a_0=0, a_1=a_2=1, a_3=q(C(W.Ψ₃)), and a_4=q(C(W.preΨ₄)). Since 0,2,4 are even and 1,3 are odd, the definition of F gives the five asserted initial values; for F(4), commute a_4 and h.\n3. Fix r≥3 and put m=r−3. Natural subtraction is exact here: m+1=r−2, m+2=r−1, m+3=r, m+4=r+1, and m+5=r+2. Apply q∘C to the pinned identity preΨ'_even at m. Preservation of subtraction, multiplication and powers gives a_(2r)=a_(r−1)² a_r a_(r+2)−a_(r−2) a_r a_(r+1)². Factoring in the commutative ring A yields a_(2r)=a_r(a_(r+2)a_(r−1)²−a_(r−2)a_(r+1)²).\n4. Fix r≥2 and put m=r−2. Then m+1=r−1, m+2=r, m+3=r+1, and m+4=r+2. Also m and r have the same parity because r=m+2. Apply q∘C to preΨ'_odd at m. The image of Ψ₂Sq² is b². Consequently, if r is even, a_(2r+1)=b²a_(r+2)a_r³−a_(r−1)a_(r+1)³; if r is odd, a_(2r+1)=a_(r+2)a_r³−b²a_(r−1)a_(r+1)³.\n5. To prove the odd recurrence for F, fix r≥2. If r is even, r+2 is even and r−1,r+1 are odd, so F(r+2)F(r)³−F(r−1)F(r+1)³=h⁴a_(r+2)a_r³−a_(r−1)a_(r+1)³. Replace h⁴ by b² and use step 4 to obtain a_(2r+1). If r is odd, r+2 is odd and r−1,r+1 are even, so the same expression is a_(r+2)a_r³−h⁴a_(r−1)a_(r+1)³, again equal to a_(2r+1) by steps 1 and 4. Since 2r+1 is odd, a_(2r+1)=F(2r+1). This proves the odd recurrence in both cases.\n6. To prove the even recurrence, fix r≥3 and set D=a_(r+2)a_(r−1)²−a_(r−2)a_(r+1)². If r is even, F(r)=a_r h, F(r+2)=a_(r+2)h, F(r−2)=a_(r−2)h, and F(r−1),F(r+1) have no h factor. Hence F(r)(F(r+2)F(r−1)²−F(r−2)F(r+1)²)=h²a_rD. If r is odd, F(r) and F(r±2) have no h factor, whereas each squared F(r±1) contributes h², giving the identical expression h²a_rD. By step 3 this is h²a_(2r). Since 2r is even, hF(2r)=h(a_(2r)h)=h²a_(2r), proving the required equality.\n7. Steps 2, 5 and 6 establish every component of the stated conjunction. No cancellation, nonsingularity, or algebraic-closedness assumption was used.",
+          "proof_key_steps": [
+            "Pass ψ₂²=C(Ψ₂Sq)+4W to the quotient to obtain h²=b and h⁴=b².",
+            "Map the five pinned preΨ' initial values and apply the parity definition of F.",
+            "Reindex preΨ'_even with r−3 and factor its image in the coordinate ring.",
+            "Reindex preΨ'_odd with r−2, preserving parity and mapping Ψ₂Sq² to b².",
+            "Expand the odd F recurrence in both parity cases and replace h⁴ by b².",
+            "Expand the even F recurrence in both parity cases; both sides equal h²a_(2r)."
+          ]
+        },
+        "audit": {
+          "key": "canonical_eds_recurrences",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly matches all prose hypotheses, five initial values, and both bounded recurrences. Its bare identifier is unreserved, and its type is independently usable without a child implementation. Steps 1–2 correctly establish h²=b, h⁴=b² and the initial values. Steps 3–4 correctly reindex the pinned recurrences using r−3 and r−2, with valid subtraction bounds and preserved parity. Steps 5–6 account for every h factor in both parity cases and prove the exact recurrences without cancellation. The proof is complete and non-circular; its empty dependency list is correct."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-7228264b00/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-7228264b00/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-7228264b00/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_identification-a1.eds_recurrence_uniqueness-a1",
+      "key": "eds_recurrence_uniqueness",
+      "result_branch": "humanize-recursive/fermat-p03/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-14533197fa-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-3b3e2390b2/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-14533197fa",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "preΨ.|ψ₂|Ψ₂Sq",
+              "namespace CoordinateRing|def basis|lemma.*basis|instance.*IsDomain|noncomputable.*basis|mk.*ne_zero|repr",
+              "uniqu|ext|eq_of",
+              "python3 /tmp/p03-eds-decomposition-check.py"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Point.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/NumberTheory/EllipticDivisibilitySequence.lean",
+              "/tmp/p03-eds-decomposition-ubcfsypt/TypesAfterSubmission.lean.log",
+              "/tmp/p03-eds-decomposition-ubcfsypt/result.json"
+            ],
+            "conclusion": "The pinned project revision is 81f093181fd6c58dc887fcae5ec8b896996f1885 and mathlib revision is db584cd6d46c92f209a44c0f1c829460d327499d. DivisionPolynomial/Basic.lean supplies preΨ'_zero through preΨ'_four, preΨ'_even, preΨ'_odd, and CoordinateRing.mk_ψ₂_sq. Affine/Point.lean supplies the basis {1,Y}, smul_basis_eq_zero, and the coordinate-ring domain instance without a discriminant hypothesis; Affine/Basic.lean gives polynomialY with Y coefficient 2. No matching arbitrary-sequence uniqueness theorem was found in EllipticDivisibilitySequence.lean. Both proposed types elaborated after literal import Submission using the node's frozen proof-base context and the authorized disposable header copy. Lean confirmed the AdjoinRoot commutative-ring instance and CoordinateRing.instIsDomain; inspected library dependencies use only propext, Classical.choice, and Quot.sound. Pinned trees were clean before and after checking, and neither proposed name appeared in the ten inspected DAG registries. The diagnostic receipt records the required policy digest, exact omitted lines 10–11, reversible original/build hashes, and a successful absence probe for all 37 omitted targets. These are interface diagnostics, not comparator acceptance."
+          }
+        ],
+        "parent_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_identification-a1",
+        "child_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_identification-a1.eds_recurrence_uniqueness-a1",
+        "subproblem": {
+          "key": "eds_recurrence_uniqueness",
+          "title": "Uniqueness of sequences satisfying cancellable elliptic recurrences",
+          "statement": "Let R be a commutative integral domain and h∈R with h≠0. Let f,g:ℕ→R agree at every n≤4. Suppose each sequence s=f and s=g satisfies s(2r+1)=s(r+2)s(r)³−s(r−1)s(r+1)³ for every r≥2, and hs(2r)=s(r)(s(r+2)s(r−1)²−s(r−2)s(r+1)²) for every r≥3. Then f(n)=g(n) for every n∈ℕ.",
+          "lean_statement": "∀ (R : Type) [CommRing R] [IsDomain R] (h : R), h ≠ 0 → ∀ f g : ℕ → R, (∀ n : ℕ, n ≤ 4 → f n = g n) → (∀ r : ℕ, 2 ≤ r → f (2 * r + 1) = f (r + 2) * f r ^ 3 - f (r - 1) * f (r + 1) ^ 3) → (∀ r : ℕ, 3 ≤ r → h * f (2 * r) = f r * (f (r + 2) * f (r - 1) ^ 2 - f (r - 2) * f (r + 1) ^ 2)) → (∀ r : ℕ, 2 ≤ r → g (2 * r + 1) = g (r + 2) * g r ^ 3 - g (r - 1) * g (r + 1) ^ 3) → (∀ r : ℕ, 3 ≤ r → h * g (2 * r) = g r * (g (r + 2) * g (r - 1) ^ 2 - g (r - 2) * g (r + 1) ^ 2)) → ∀ n : ℕ, f n = g n",
+          "lean_name": "p03_eds_recurrence_unique_68cf3476_d3",
+          "depends_on": [],
+          "natural_proof": "1. Fix R,h,f,g and all the stated hypotheses. Prove f(n)=g(n) by strong induction on n. At the induction step, assume f(j)=g(j) for every natural j<n.\n2. If n≤4, the asserted equality is exactly the initial-agreement hypothesis. Otherwise n≥5.\n3. Suppose n is odd. Write n=2r+1. The bound n≥5 implies r≥2. Since r+2<2r+1, all four indices r−1,r,r+1,r+2 are less than n. The induction hypothesis therefore identifies f and g at every index appearing on the right side of the odd recurrence. Apply that recurrence first to f, substitute these four equalities, and apply the recurrence for g in reverse. This gives f(n)=f(r+2)f(r)³−f(r−1)f(r+1)³=g(r+2)g(r)³−g(r−1)g(r+1)³=g(n).\n4. Suppose n is even. Write n=2r. Since n≥5 and n is even, r≥3. The inequality r+2<2r shows that every index r−2,r−1,r,r+1,r+2 is less than n. Substituting the induction equalities into the two even recurrences gives h f(n)=f(r)(f(r+2)f(r−1)²−f(r−2)f(r+1)²)=g(r)(g(r+2)g(r−1)²−g(r−2)g(r+1)²)=h g(n). Thus h(f(n)−g(n))=0. Because R has no zero divisors and h≠0, f(n)−g(n)=0, hence f(n)=g(n).\n5. Every natural n is covered by the base case or one of the two parity cases. Strong induction proves f(n)=g(n) for all n.",
+          "proof_key_steps": [
+            "Use strong induction on the sequence index.",
+            "Discharge indices 0 through 4 using initial agreement.",
+            "For n=2r+1≥5, all recurrence indices are smaller; substitute induction equalities into the odd recurrence.",
+            "For n=2r≥6, all recurrence indices are smaller; the even recurrences give h f(n)=h g(n).",
+            "Cancel the nonzero factor h in the integral domain and conclude the induction."
+          ]
+        },
+        "audit": {
+          "key": "eds_recurrence_uniqueness",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly includes the commutative-domain hypothesis, h≠0, initial agreement through index 4, and both recurrences for each sequence. Its bare identifier is unreserved and its type references neither child nor parent implementation. The supplied strong induction is complete: the initial hypothesis covers n≤4; odd n≥5 gives r≥2 and strictly smaller recurrence indices; even n≥6 gives r≥3 and strictly smaller indices. Substitution yields equality directly in the odd case and h f(n)=h g(n) in the even case, where the stated hypotheses justify cancellation. No sibling dependency is needed. The split appropriately separates canonical recurrence verification from abstract uniqueness; the parent's basis argument supplies h≠0, so these two independent obligations compose to prove the parent without a cycle."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-14533197fa/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-14533197fa/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-14533197fa/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-3b3e2390b2/task.md": "ab60d7bf7fbb76cb393a8a85a557ef3927e6f20cb2bdcb465f7734d4c8f5008f",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-3b3e2390b2/problem.md": "38ac0d3762f9cdf23c23661eebbc5a9adb09adf6609593276dc22271b0ba6207",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-3b3e2390b2/problem.json": "7f044edb66fcfa09e49a85b70a860bdeec0bd498adb67bb8ff164bdbe26c18ce",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-3b3e2390b2/reference-manifest.json": "326a87159f351a7fa61c53fcbbb24df6a67ea73bb33bcacba88609fa45c48638",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-3b3e2390b2/decomposition.json": "30fdcc37f5243c1099d010742fec3d03deda290fc2142f3eeb3034c5e01a243f",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-3b3e2390b2/decomposition-audit.json": "3e2afc2ee61579f8fcd1f77a595c97d7dabd0d96669ac834ee57653efd4857c3",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-3b3e2390b2/controller-contract.json": "e0a38e99db16eb6327c6d547c1244d1a2e5c7c021c8a5c53358d9811e783c177",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-3b3e2390b2/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-7228264b00/parent-child-handoff.json": "f8141e6e2e5ef7aacf2efd1bc7a35a4fdc29f744d1ae77bfb17a5cc0dd89d51b",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-3b3e2390b2/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-7228264b00/parent-supplied-plan.md": "62c94776746a19ed2dc14790ddf9473c3a7d1c5e0bdd84e590f7d5c1b454bea4",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-3b3e2390b2/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-7228264b00/parent-supplied-natural-proof.md": "342066387d878af0e8514d25f3857b653d5157049770088143fd04a4112e9191",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-3b3e2390b2/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-7228264b00/parent-supplied-natural-proof.json": "2214f4110dfb3a2c9d66cebb6c9513703f2b8cfb3219111459d5377a231d7c32",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-3b3e2390b2/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-7228264b00/node.json": "8565dac3f7acb5adeb2e322841fab612802e2a3fe02457632ae6c759af0c90e9",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-3b3e2390b2/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-14533197fa/parent-child-handoff.json": "01684b0f3b7173b064a689a23b9f2c30d7632c688e02b01cc6f5a2d63232b7c4",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-3b3e2390b2/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-14533197fa/parent-supplied-plan.md": "4cb98f5c9b2d93fb4086c6bdc292216ccaf184eed13de380bec943db4b26935b",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-3b3e2390b2/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-14533197fa/parent-supplied-natural-proof.md": "2bc6e0a4dcaa51bc253d41b651ebb8c622dd274a7b3bef44e7d9dac6264edcd6",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-3b3e2390b2/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-14533197fa/parent-supplied-natural-proof.json": "77acef644106474346f27c056e32ff32de10f764ef917d4d5e3dee732780c7fd",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-3b3e2390b2/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-iden-14533197fa/node.json": "39999a8ab6d7bdd5ad8c797311250946ff3f842c39a8d9f610ffb313eb52cd41"
+  }
+}
