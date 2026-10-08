@@ -1243,3 +1243,107 @@ theorem Submission.p03_tkc_positive_torsion_finite_68cf3476_d5 :
   intro k _ _ _ _ W hΔ n hn
   exact Submission.p03_ptf_finite_kernel_of_nsmul_nonzero_c5b7b5ed_d6 k W hΔ n
     (Submission.p03_ptf_positive_nsmul_nonzero_c5b7b5ed_d6 k W hΔ n hn)
+theorem Submission.p03_tu_bilateral_summable_68cf3476 :
+    ∀ (F Ω : Type) [NormedField F] [CompleteSpace F] [NormedField Ω]
+      [NormedAlgebra F Ω] [Algebra.IsAlgebraic F Ω],
+      (∀ x y : Ω, ‖x + y‖ ≤ max ‖x‖ ‖y‖) →
+      ∀ q : F, 0 < ‖q‖ → ‖q‖ < 1 →
+      let qΩ : Ω := algebraMap F Ω q
+      ∀ u : Ωˣ, (¬ ∃ m : ℤ, (u : Ω) = qΩ ^ m) →
+        Summable (fun n : ℤ => qΩ ^ n * (u : Ω) / (1 - qΩ ^ n * (u : Ω)) ^ 2) ∧
+        Summable (fun n : ℤ => (qΩ ^ n * (u : Ω)) ^ 2 /
+          (1 - qΩ ^ n * (u : Ω)) ^ 3) := by
+  intro F Ω _ _ _ _ _ hΩ q hq0 hq1 qΩ u _hu
+  let : NontriviallyNormedField F :=
+    NontriviallyNormedField.ofNormNeOne ⟨q, norm_pos_iff.mp hq0, ne_of_lt hq1⟩
+  let E := IntermediateField.adjoin F ({(u : Ω)} : Set Ω)
+  have : FiniteDimensional F E :=
+    IntermediateField.adjoin.finiteDimensional
+      (Algebra.IsAlgebraic.isAlgebraic (R := F) (u : Ω)).isIntegral
+  have : CompleteSpace E := FiniteDimensional.complete F E
+  let Q : E := algebraMap F E q
+  let v : E := ⟨(u : Ω), IntermediateField.mem_adjoin_simple_self F (u : Ω)⟩
+  have hQnorm : ‖Q‖ = ‖q‖ := norm_algebraMap' E q
+  have hQ0 : Q ≠ 0 := norm_pos_iff.mp (hQnorm ▸ hq0)
+  have hv0 : v ≠ 0 := by
+    intro hv
+    exact u.ne_zero (congrArg (fun x : E => (x : Ω)) hv)
+  have hE : ∀ x y : E, ‖x + y‖ ≤ max ‖x‖ ‖y‖ := fun x y => hΩ x y
+  have hsub : ∀ x y : E, ‖y‖ < ‖x‖ → ‖x - y‖ = ‖x‖ := by
+    intro x y hxy
+    have hle : ‖x - y‖ ≤ ‖x‖ := by
+      simpa only [sub_eq_add_neg, norm_neg, max_eq_left hxy.le] using hE x (-y)
+    have hrev : ‖x‖ ≤ max ‖x - y‖ ‖y‖ := by
+      simpa only [sub_add_cancel] using hE (x - y) y
+    exact le_antisymm hle ((le_max_iff.mp hrev).resolve_right (not_le.mpr hxy))
+  let z : ℤ → E := fun n => Q ^ n * v
+  have hgeom : Summable (fun n : ℕ => ‖Q‖ ^ n) :=
+    summable_geometric_of_lt_one (norm_nonneg _) (hQnorm ▸ hq1)
+  have hlim : Filter.Tendsto (fun n : ℕ => ‖Q‖ ^ n) Filter.atTop (nhds 0) :=
+    tendsto_pow_atTop_nhds_zero_of_lt_one (norm_nonneg _) (hQnorm ▸ hq1)
+  have hpos : ∀ᶠ n : ℕ in Filter.atTop, ‖z (n : ℤ)‖ < 1 := by
+    have ht : Filter.Tendsto (fun n : ℕ => ‖Q‖ ^ n * ‖v‖)
+        Filter.atTop (nhds 0) := by
+      simpa using hlim.mul_const ‖v‖
+    simpa only [z, norm_mul, zpow_natCast, norm_pow] using
+      ht.eventually (gt_mem_nhds (show (0 : ℝ) < 1 by norm_num))
+  have hneg_norm : ∀ n : ℕ, ‖z (-(n : ℤ))‖⁻¹ = ‖Q‖ ^ n * ‖v‖⁻¹ := by
+    intro n
+    simp only [z, norm_mul, zpow_neg, zpow_natCast, norm_inv, norm_pow,
+      mul_inv_rev, inv_inv, mul_comm]
+  have hneg : ∀ᶠ n : ℕ in Filter.atTop, 1 < ‖z (-(n : ℤ))‖ := by
+    have ht : Filter.Tendsto (fun n : ℕ => ‖Q‖ ^ n * ‖v‖⁻¹)
+        Filter.atTop (nhds 0) := by
+      simpa using hlim.mul_const ‖v‖⁻¹
+    filter_upwards [ht.eventually (gt_mem_nhds (show (0 : ℝ) < 1 by norm_num))] with n hn
+    have hz0 : 0 < ‖z (-(n : ℤ))‖ :=
+      norm_pos_iff.mpr (mul_ne_zero (zpow_ne_zero _ hQ0) hv0)
+    exact (inv_lt_one₀ hz0).mp (by rwa [hneg_norm])
+  have hpos1 : Summable (fun n : ℕ => z (n : ℤ) / (1 - z (n : ℤ)) ^ 2) := by
+    apply (hgeom.mul_right ‖v‖).of_norm_bounded_eventually_nat
+    filter_upwards [hpos] with n hn
+    have hd : ‖1 - z (n : ℤ)‖ = 1 := by
+      simpa only [norm_one] using hsub 1 (z (n : ℤ)) (by simpa only [norm_one] using hn)
+    simp only [norm_div, norm_pow, hd, one_pow, div_one]
+    simp only [z, norm_mul, zpow_natCast, norm_pow, le_refl]
+  have hpos2 : Summable (fun n : ℕ => (z (n : ℤ)) ^ 2 / (1 - z (n : ℤ)) ^ 3) := by
+    apply (hgeom.mul_right ‖v‖).of_norm_bounded_eventually_nat
+    filter_upwards [hpos] with n hn
+    have hd : ‖1 - z (n : ℤ)‖ = 1 := by
+      simpa only [norm_one] using hsub 1 (z (n : ℤ)) (by simpa only [norm_one] using hn)
+    rw [norm_div, norm_pow, norm_pow, hd, one_pow, div_one]
+    calc
+      ‖z (n : ℤ)‖ ^ 2 ≤ ‖z (n : ℤ)‖ := by
+        nlinarith [norm_nonneg (z (n : ℤ))]
+      _ = ‖Q‖ ^ n * ‖v‖ := by simp only [z, norm_mul, zpow_natCast, norm_pow]
+  have hneg1 : Summable (fun n : ℕ => z (-(n : ℤ)) / (1 - z (-(n : ℤ))) ^ 2) := by
+    apply (hgeom.mul_right ‖v‖⁻¹).of_norm_bounded_eventually_nat
+    filter_upwards [hneg] with n hn
+    have hd : ‖1 - z (-(n : ℤ))‖ = ‖z (-(n : ℤ))‖ := by
+      rw [norm_sub_rev]
+      exact hsub _ 1 (by simpa only [norm_one] using hn)
+    rw [norm_div, norm_pow, hd, ← hneg_norm]
+    have hz : ‖z (-(n : ℤ))‖ ≠ 0 := ne_of_gt (lt_trans zero_lt_one hn)
+    exact le_of_eq (by field_simp)
+  have hneg2 : Summable (fun n : ℕ => (z (-(n : ℤ))) ^ 2 / (1 - z (-(n : ℤ))) ^ 3) := by
+    apply (hgeom.mul_right ‖v‖⁻¹).of_norm_bounded_eventually_nat
+    filter_upwards [hneg] with n hn
+    have hd : ‖1 - z (-(n : ℤ))‖ = ‖z (-(n : ℤ))‖ := by
+      rw [norm_sub_rev]
+      exact hsub _ 1 (by simpa only [norm_one] using hn)
+    rw [norm_div, norm_pow, norm_pow, hd, ← hneg_norm]
+    have hz : ‖z (-(n : ℤ))‖ ≠ 0 := ne_of_gt (lt_trans zero_lt_one hn)
+    exact le_of_eq (by field_simp)
+  have hs1 : Summable (fun n : ℤ => z n / (1 - z n) ^ 2) :=
+    Summable.of_nat_of_neg hpos1 hneg1
+  have hs2 : Summable (fun n : ℤ => (z n) ^ 2 / (1 - z n) ^ 3) :=
+    Summable.of_nat_of_neg hpos2 hneg2
+  constructor
+  · simpa only [Function.comp_def, z, Q, v, qΩ, map_div₀, map_pow, map_sub, map_one,
+      map_mul, map_zpow₀, IntermediateField.algebraMap_apply,
+      IntermediateField.coe_algebraMap_apply] using
+      hs1.map (algebraMap E Ω) continuous_subtype_val
+  · simpa only [Function.comp_def, z, Q, v, qΩ, map_div₀, map_pow, map_sub, map_one,
+      map_mul, map_zpow₀, IntermediateField.algebraMap_apply,
+      IntermediateField.coe_algebraMap_apply] using
+      hs2.map (algebraMap E Ω) continuous_subtype_val
