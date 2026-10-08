@@ -1,0 +1,56 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "FiniteDimensional|finiteDimensional|exists.*[Ss]ubcoalgebra|exists.*[Ss]ubcomodule|finite.*[Ss]ubcoalgebra",
+        "theorem (det_mul|map_det|mul_adjugate|adjugate_mul)|def adjugate|exists_extend|adjoin_of_finite",
+        "class Bialgebra|comulAlgHom|counitAlgHom",
+        "p05_fhe_(stable_subspace|coefficient_matrix|determinant_inverse)_a5b449214a",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p05_fhe_independent_decomposition_audit.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean HeaderPolicyCheck.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Coalgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Convolution.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Bialgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Basis/VectorSpace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Adjugate.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/FiniteType.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/report.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/challenge/HeaderPolicyCheck.lean",
+        "/tmp/p05_fhe_independent_decomposition_audit.lean"
+      ],
+      "conclusion": "Independently confirmed clean snapshot revisions project 2fdd42759f4ab17640ac773289b521dd69d4b26e and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The sources supply finite tensor representations, coordinate-functional extension, antipodeAlgHom, determinant functoriality/multiplicativity, adjugate identities and finite generation of finite adjunctions. The coalgebra-directory search found no matching finite-dimensional stable-subspace existence result. All three literal propositions independently elaborated; anonymous matrix diagnostics kernel-checked ordinary multiplication using Matrix.of. Eight checked infrastructure declarations have only propext, Classical.choice and Quot.sound as transitive axioms. All nine compiler dependencies are clean, pinned and bound to the checked artifact locations. Verified policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, exactly the authorized omissions at lines 10–11, and reversible original/build hashes 2e81f3c63685285e1af52e3dee0c135a8a7c8e9f37be7ad076712f55790c632c and d10948155ea0e92408d3ce320bdd5db3b7f00b622f4c9de9c98f040a414fa2f6. The independently rerun Lean probe confirmed every omitted target absent. Original contract, Submission and frozen problem text match. The DAG identifies this parent as the finite Hopf envelope helper; its three narrower obligations form an appropriate split. Empty sibling dependencies are correct because each child assumes its input data. All names are bare identifiers with no competing DAG, handoff or searched library reservation. This accepts the decomposition only; theorem proofs still require the authoritative comparator and independent review."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "stable_subspace",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose and includes all hypotheses. Independent second factors and extended coordinate functionals justify the coassociativity contraction; right counitality recovers each original element. The finite sum preserves stability and finite dimension and contains F and 1. Empty expressions are covered. The proof is complete and non-circular."
+    },
+    {
+      "key": "coefficient_matrix",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The proposition exactly states the assumed finite-dimensional stability and all three conclusions. Basis expansion defines the coefficients; first-factor contraction gives the correctly indexed comultiplication formula. Right and left counitality respectively give the Kronecker counit and span containment. Dimension zero is covered. No sibling or parent theorem is used."
+    },
+    {
+      "key": "determinant_inverse",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The proposition matches every hypothesis and conclusion, using ordinary Matrix.det and Matrix.adjugate without an ambiguous inline IsUnit construction. Convolution establishes antipode multiplicativity non-circularly. The antipode identities give both matrix inverses; determinant functoriality gives the group-like determinant, and inverse uniqueness gives Δ(u). The adjugate comparison and antipode calculation prove the remaining formulas, including the empty-matrix case. The supplied proof is complete."
+    }
+  ],
+  "required_changes": []
+}

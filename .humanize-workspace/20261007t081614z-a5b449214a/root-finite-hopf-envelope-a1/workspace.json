@@ -1,0 +1,236 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081614Z-a5b449214a",
+  "parent_id": "root.finite_hopf_envelope-a1",
+  "dispatch_branch": "proof-workspace/fermat-p05/20261007t081614z-a5b449214a/dispatch/root-finite-hopf-envelope-a1",
+  "source_commit": "2fdd42759f4ab17640ac773289b521dd69d4b26e",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.finite_hopf_envelope-a1.coefficient_matrix-a1",
+      "key": "coefficient_matrix",
+      "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-coefficient-matrix-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1/children/root-finite-hopf-envelope-a1-coefficient-matrix-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "antipode.*(mul|one)|def antipode|antipodeAlgHom|exists.*(subcoalgebra|Subcoalgebra)|FiniteDimensional|finite.*[Cc]oalgebra",
+              "FiniteDimensional|finiteDimensional|exists.*[Ss]ubcoalgebra|exists.*[Ss]ubcomodule|finite.*[Ss]ubcoalgebra",
+              "theorem (det_mul|det_map|mul_adjugate|adjugate_mul)|def adjugate|theorem.*det.*one|map_det",
+              "exists_extension|extend|exists.*basis|finite_basis|finBasis",
+              "finiteType_adjoin|finiteType.*fg|fg.*finiteType|fg_adjoin|adjoin.*finite",
+              "p05_fhe_(stable_subspace|coefficient_matrix|determinant_inverse)_a5b449214a",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p05_fhe_typecheck_a5b449214a.lean",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean HeaderPolicyCheck.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Coalgebra/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Convolution.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Basis/VectorSpace.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Adjugate.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/FiniteType.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/report.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/challenge/HeaderPolicyCheck.lean",
+              "/tmp/p05_fhe_typecheck_a5b449214a.lean"
+            ],
+            "conclusion": "The clean snapshots match project 2fdd42759f4ab17640ac773289b521dd69d4b26e and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Coalgebra.Basic supplies finite tensor representations, coassociativity and counitality; the coalgebra-directory search found no finite-dimensional subcomodule existence theorem. Basis.VectorSpace supplies LinearMap.exists_extend. HopfAlgebra.Convolution already supplies antipodeAlgHom. The matrix files supply det_mul, RingHom.map_det, mul_adjugate and adjugate_mul; FiniteType supplies adjoin_of_finite. All three proposed types elaborated after import Submission under Lean 4.33.1. Kernel-checked diagnostic equalities confirmed ordinary multiplication for matrices constructed with Matrix.of. Audited infrastructure depends only on propext, Classical.choice and Quot.sound; all nine checked dependencies are clean and pinned. The existing private compiler copies were verified against policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96: only listed lines 10–11 are omitted, original hash 2e81f3c63685285e1af52e3dee0c135a8a7c8e9f37be7ad076712f55790c632c reversibly yields build hash d10948155ea0e92408d3ce320bdd5db3b7f00b622f4c9de9c98f040a414fa2f6, and the rerun Lean probe confirmed every omitted target absent. The proposed names have no current DAG or searched library collisions. These are decomposition diagnostics, not comparator acceptance of theorem proofs."
+          }
+        ],
+        "parent_id": "root.finite_hopf_envelope-a1",
+        "child_id": "root.finite_hopf_envelope-a1.coefficient_matrix-a1",
+        "subproblem": {
+          "key": "coefficient_matrix",
+          "title": "Coefficient matrix of a finite-dimensional stable subspace",
+          "statement": "Let k be a field, H a commutative Hopf k-algebra with comultiplication Δ and counit ε, and V⊆H a finite-dimensional k-subspace. Assume Δ(x)∈span_k{a⊗b | a∈V, b∈H} for every x∈V. Then there exist n∈ℕ and an n×n matrix c over H such that V is contained in the k-linear span of the entries of c, Δ(c_ij)=Σ_l c_il⊗c_lj, and ε(c_ij)=δ_ij for all indices i,j. All tensor products are over k.",
+          "lean_statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (V : Submodule k H) [FiniteDimensional k V] (hV : ∀ x ∈ V, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ V, ∃ b : H, t = TensorProduct.tmul k a b}), ∃ (n : ℕ) (c : Matrix (Fin n) (Fin n) H), (∀ x ∈ V, x ∈ Submodule.span k (Set.range (fun p : Fin n × Fin n => c p.1 p.2))) ∧ (∀ i j : Fin n, Coalgebra.comul (R := k) (c i j) = ∑ l : Fin n, TensorProduct.tmul k (c i l) (c l j)) ∧ (∀ i j : Fin n, Coalgebra.counit (R := k) (c i j) = if i = j then (1 : k) else 0)",
+          "lean_name": "p05_fhe_coefficient_matrix_a5b449214a",
+          "depends_on": [],
+          "natural_proof": "1. Let n=dim_k V and choose a basis v_i of V indexed by Fin n. Their images in H remain linearly independent because inclusion of V is injective. Extend this family to a basis of H. Such an extension exists by taking a maximal independent set containing the family: chain unions remain independent, and maximality forces spanning. Define φ_i:H→k to be the coordinate functional of v_i in this extended basis. Then φ_i(v_j)=δ_ij.\n2. For each j, the stability hypothesis expresses Δ(v_j) as a finite linear combination of tensors a⊗b with a∈V. Absorb scalar coefficients into a, and expand each such a in the basis v_i. Collecting terms gives Δ(v_j)=Σ_i v_i⊗c_ij for elements c_ij∈H. These coefficients are unique: contracting the first tensor factor by φ_i recovers c_ij. They form a matrix c indexed by Fin n.\n3. Apply coassociativity to v_j and substitute the expressions from step 2. In H⊗H⊗H this yields Σ_i v_i⊗Δ(c_ij)=Σ_l Σ_i v_i⊗c_il⊗c_lj. Contract the first factor by φ_i. The resulting equality is Δ(c_ij)=Σ_l c_il⊗c_lj, proving the required comultiplication formula.\n4. Right counitality applied to step 2 gives v_j=Σ_i ε(c_ij)v_i. Applying φ_i to this equality gives ε(c_ij)=φ_i(v_j)=δ_ij. This proves the required counit formula.\n5. Left counitality applied to the same expression gives v_j=Σ_i ε(v_i)c_ij. Consequently every basis vector v_j lies in the k-linear span of all entries of c. Since every x∈V is a linear combination of these basis vectors, every such x lies in that span.\n6. If n=0, the basis is empty and V is zero. The containment in step 5 is then containment of zero in the span of an empty set, while both indexed formulas are vacuous. Thus the construction proves the statement in every dimension.",
+          "proof_key_steps": [
+            "Choose a finite basis and extend its coordinate functionals to H.",
+            "Expand each basis-vector comultiplication in that basis to define c.",
+            "Extract first-factor coefficients from coassociativity.",
+            "Extract coefficients from right counitality to obtain the identity counit matrix.",
+            "Use left counitality to place V in the span of the matrix entries."
+          ]
+        },
+        "audit": {
+          "key": "coefficient_matrix",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The proposition exactly states the assumed finite-dimensional stability and all three conclusions. Basis expansion defines the coefficients; first-factor contraction gives the correctly indexed comultiplication formula. Right and left counitality respectively give the Kronecker counit and span containment. Dimension zero is covered. No sibling or parent theorem is used."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-hopf-envelope-a1-coefficient-matrix-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-hopf-envelope-a1-coefficient-matrix-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-hopf-envelope-a1-coefficient-matrix-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.finite_hopf_envelope-a1.determinant_inverse-a1",
+      "key": "determinant_inverse",
+      "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-determinant-inverse-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1/children/root-finite-hopf-envelope-a1-determinant-inverse-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "antipode.*(mul|one)|def antipode|antipodeAlgHom|exists.*(subcoalgebra|Subcoalgebra)|FiniteDimensional|finite.*[Cc]oalgebra",
+              "FiniteDimensional|finiteDimensional|exists.*[Ss]ubcoalgebra|exists.*[Ss]ubcomodule|finite.*[Ss]ubcoalgebra",
+              "theorem (det_mul|det_map|mul_adjugate|adjugate_mul)|def adjugate|theorem.*det.*one|map_det",
+              "exists_extension|extend|exists.*basis|finite_basis|finBasis",
+              "finiteType_adjoin|finiteType.*fg|fg.*finiteType|fg_adjoin|adjoin.*finite",
+              "p05_fhe_(stable_subspace|coefficient_matrix|determinant_inverse)_a5b449214a",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p05_fhe_typecheck_a5b449214a.lean",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean HeaderPolicyCheck.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Coalgebra/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Convolution.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Basis/VectorSpace.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Adjugate.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/FiniteType.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/report.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/challenge/HeaderPolicyCheck.lean",
+              "/tmp/p05_fhe_typecheck_a5b449214a.lean"
+            ],
+            "conclusion": "The clean snapshots match project 2fdd42759f4ab17640ac773289b521dd69d4b26e and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Coalgebra.Basic supplies finite tensor representations, coassociativity and counitality; the coalgebra-directory search found no finite-dimensional subcomodule existence theorem. Basis.VectorSpace supplies LinearMap.exists_extend. HopfAlgebra.Convolution already supplies antipodeAlgHom. The matrix files supply det_mul, RingHom.map_det, mul_adjugate and adjugate_mul; FiniteType supplies adjoin_of_finite. All three proposed types elaborated after import Submission under Lean 4.33.1. Kernel-checked diagnostic equalities confirmed ordinary multiplication for matrices constructed with Matrix.of. Audited infrastructure depends only on propext, Classical.choice and Quot.sound; all nine checked dependencies are clean and pinned. The existing private compiler copies were verified against policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96: only listed lines 10–11 are omitted, original hash 2e81f3c63685285e1af52e3dee0c135a8a7c8e9f37be7ad076712f55790c632c reversibly yields build hash d10948155ea0e92408d3ce320bdd5db3b7f00b622f4c9de9c98f040a414fa2f6, and the rerun Lean probe confirmed every omitted target absent. The proposed names have no current DAG or searched library collisions. These are decomposition diagnostics, not comparator acceptance of theorem proofs."
+          }
+        ],
+        "parent_id": "root.finite_hopf_envelope-a1",
+        "child_id": "root.finite_hopf_envelope-a1.determinant_inverse-a1",
+        "subproblem": {
+          "key": "determinant_inverse",
+          "title": "Determinant inverse and antipode formulas for a coefficient matrix",
+          "statement": "Let k be a field and H a commutative Hopf k-algebra with comultiplication Δ, counit ε and antipode S. Let n∈ℕ and c be an n×n matrix over H satisfying Δ(c_ij)=Σ_l c_il⊗c_lj and ε(c_ij)=δ_ij. Then there exists u∈H such that det(c)u=1, Δ(u)=u⊗u, S(u)=det(c), and S(c_ij)=u adj(c)_ij for every i,j. Here adj(c) is the ordinary adjugate matrix, and tensor products are over k.",
+          "lean_statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (n : ℕ) (c : Matrix (Fin n) (Fin n) H) (hΔ : ∀ i j : Fin n, Coalgebra.comul (R := k) (c i j) = ∑ l : Fin n, TensorProduct.tmul k (c i l) (c l j)) (hε : ∀ i j : Fin n, Coalgebra.counit (R := k) (c i j) = if i = j then (1 : k) else 0), ∃ u : H, Matrix.det c * u = 1 ∧ Coalgebra.comul (R := k) u = TensorProduct.tmul k u u ∧ HopfAlgebra.antipode k u = Matrix.det c ∧ (∀ i j : Fin n, HopfAlgebra.antipode k (c i j) = u * Matrix.adjugate c i j)",
+          "lean_name": "p05_fhe_determinant_inverse_a5b449214a",
+          "depends_on": [],
+          "natural_proof": "1. First recall why S is a k-algebra homomorphism in this commutative setting. It is k-linear by the Hopf structure, and the antipode identity at 1 gives S(1)=1. For linear maps H⊗H→H, define convolution by (f*g)(a⊗b)=Σ f(a₁⊗b₁)g(a₂⊗b₂). Coassociativity and associativity show that both parenthesizations of a triple convolution have the same iterated sum. Counitality gives the convolution identity e(a⊗b)=ε(a)ε(b)1. The bilinear prescriptions f(a⊗b)=ab, g(a⊗b)=S(ab), and h(a⊗b)=S(a)S(b) define linear maps. Multiplicativity of Δ and ε and the antipode identity give (g*f)(a⊗b)=Σ S(a₁b₁)a₂b₂=ε(a)ε(b)1. Commutativity and the two individual antipode identities give (f*h)(a⊗b)=(Σ a₁S(a₂))(Σ b₁S(b₂))=ε(a)ε(b)1. Pure tensors span, so g*f=e=f*h. Hence g=g*(f*h)=(g*f)*h=h. Thus S(ab)=S(a)S(b); linearity and S(1)=1 also give preservation of k-scalars.\n2. Let Q be the ordinary matrix whose entry Q_ij is S(c_ij). Apply multiplication after S on the first tensor factor to the assumed formula for Δ(c_ij). The antipode identity and the counit hypothesis give Σ_l S(c_il)c_lj=δ_ij in H. Applying S on the second factor instead gives Σ_l c_ilS(c_lj)=δ_ij. These are precisely Qc=I and cQ=I for ordinary matrix multiplication.\n3. We use determinant identities valid over every commutative ring: det(XY)=det(X)det(Y), determinants commute with unital ring homomorphisms, and c adj(c)=adj(c)c=det(c)I. These are supplied by the pinned determinant and adjugate library. Their algebraic justification uses the permutation formula: homomorphisms preserve its sums and products; multilinear expansion of det(XY) cancels repeated-column selections by pairing permutations differing by a transposition, and the remaining selections give det(X)det(Y). Cofactor expansion gives the adjugate identities, with off-diagonal entries vanishing by the same repeated-row or repeated-column cancellation. Pairwise cancellation is valid in every characteristic. The determinant of the empty matrix is 1.\n4. Put d=det(c) and u=det(Q). Taking determinants in cQ=I gives du=1. Since H is commutative, also ud=1.\n5. Form matrices X and Y over the commutative algebra H⊗H with entries X_ij=c_ij⊗1 and Y_ij=1⊗c_ij. Their product has entry Σ_l c_il⊗c_lj, so the comultiplication hypothesis says that the matrix obtained by applying Δ entrywise to c is XY. Since Δ and the two tensor inclusions are algebra homomorphisms, determinant multiplicativity and functoriality give Δ(d)=det(XY)=(d⊗1)(1⊗d)=d⊗d. Applying determinant functoriality to ε(c)=I similarly gives ε(d)=1.\n6. Apply Δ to du=1. It follows that Δ(u) is an inverse of Δ(d)=d⊗d. The element u⊗u is also an inverse, because (d⊗d)(u⊗u)=du⊗du=1⊗1, and the reverse product is the same. Inverses are unique: if x and y are inverses of a, then x=x(ay)=(xa)y=y. Thus Δ(u)=u⊗u.\n7. The adjugate identity and ud=1 show that c(u adj(c))=I. Since Qc=I, associativity gives Q=Q(c(u adj(c)))=(Qc)(u adj(c))=u adj(c). Taking entries proves S(c_ij)=u adj(c)_ij for every i,j.\n8. Apply the antipode identity to Δ(d)=d⊗d, using ε(d)=1. This gives S(d)d=1. Since du=1, multiplication by u gives S(d)=u. Applying the algebra homomorphism S to du=1 now gives uS(u)=1. Multiplying by d and using du=1 gives S(u)=d.\n9. The chosen u therefore satisfies du=1, Δ(u)=u⊗u, S(u)=d, and all the asserted entrywise antipode formulas. When n=0, d=u=1 and the entrywise statements are vacuous; the same determinant identities and Hopf unit identities cover this case.",
+          "proof_key_steps": [
+            "Establish antipode multiplicativity by uniqueness of convolution inverses.",
+            "Apply the antipode identities entrywise to obtain Qc=I=cQ.",
+            "Set u=det(Q) and deduce det(c)u=1.",
+            "Factor the comultiplication matrix through the two tensor inclusions to prove Δ(det(c))=det(c)⊗det(c) and ε(det(c))=1.",
+            "Use uniqueness of inverses to prove Δ(u)=u⊗u.",
+            "Compare Q with u adj(c) using the adjugate identity.",
+            "Apply the antipode to the determinant identities to prove S(u)=det(c)."
+          ]
+        },
+        "audit": {
+          "key": "determinant_inverse",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The proposition matches every hypothesis and conclusion, using ordinary Matrix.det and Matrix.adjugate without an ambiguous inline IsUnit construction. Convolution establishes antipode multiplicativity non-circularly. The antipode identities give both matrix inverses; determinant functoriality gives the group-like determinant, and inverse uniqueness gives Δ(u). The adjugate comparison and antipode calculation prove the remaining formulas, including the empty-matrix case. The supplied proof is complete."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-hopf-envelope-a1-determinant-inverse-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-hopf-envelope-a1-determinant-inverse-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-hopf-envelope-a1-determinant-inverse-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.finite_hopf_envelope-a1.stable_subspace-a1",
+      "key": "stable_subspace",
+      "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-stable-subspace-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1/children/root-finite-hopf-envelope-a1-stable-subspace-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "antipode.*(mul|one)|def antipode|antipodeAlgHom|exists.*(subcoalgebra|Subcoalgebra)|FiniteDimensional|finite.*[Cc]oalgebra",
+              "FiniteDimensional|finiteDimensional|exists.*[Ss]ubcoalgebra|exists.*[Ss]ubcomodule|finite.*[Ss]ubcoalgebra",
+              "theorem (det_mul|det_map|mul_adjugate|adjugate_mul)|def adjugate|theorem.*det.*one|map_det",
+              "exists_extension|extend|exists.*basis|finite_basis|finBasis",
+              "finiteType_adjoin|finiteType.*fg|fg.*finiteType|fg_adjoin|adjoin.*finite",
+              "p05_fhe_(stable_subspace|coefficient_matrix|determinant_inverse)_a5b449214a",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p05_fhe_typecheck_a5b449214a.lean",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean HeaderPolicyCheck.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Coalgebra/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Convolution.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Basis/VectorSpace.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Adjugate.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/FiniteType.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/report.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/challenge/HeaderPolicyCheck.lean",
+              "/tmp/p05_fhe_typecheck_a5b449214a.lean"
+            ],
+            "conclusion": "The clean snapshots match project 2fdd42759f4ab17640ac773289b521dd69d4b26e and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Coalgebra.Basic supplies finite tensor representations, coassociativity and counitality; the coalgebra-directory search found no finite-dimensional subcomodule existence theorem. Basis.VectorSpace supplies LinearMap.exists_extend. HopfAlgebra.Convolution already supplies antipodeAlgHom. The matrix files supply det_mul, RingHom.map_det, mul_adjugate and adjugate_mul; FiniteType supplies adjoin_of_finite. All three proposed types elaborated after import Submission under Lean 4.33.1. Kernel-checked diagnostic equalities confirmed ordinary multiplication for matrices constructed with Matrix.of. Audited infrastructure depends only on propext, Classical.choice and Quot.sound; all nine checked dependencies are clean and pinned. The existing private compiler copies were verified against policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96: only listed lines 10–11 are omitted, original hash 2e81f3c63685285e1af52e3dee0c135a8a7c8e9f37be7ad076712f55790c632c reversibly yields build hash d10948155ea0e92408d3ce320bdd5db3b7f00b622f4c9de9c98f040a414fa2f6, and the rerun Lean probe confirmed every omitted target absent. The proposed names have no current DAG or searched library collisions. These are decomposition diagnostics, not comparator acceptance of theorem proofs."
+          }
+        ],
+        "parent_id": "root.finite_hopf_envelope-a1",
+        "child_id": "root.finite_hopf_envelope-a1.stable_subspace-a1",
+        "subproblem": {
+          "key": "stable_subspace",
+          "title": "Finite-dimensional stable subspace containing a finite set",
+          "statement": "Let k be a field and H a commutative Hopf k-algebra with comultiplication Δ. For every finite set F⊆H, there is a finite-dimensional k-subspace V⊆H containing 1 and F such that, for every x∈V, Δ(x) lies in span_k{a⊗b | a∈V, b∈H}. All tensor products are over k.",
+          "lean_statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (F : Finset H), ∃ V : Submodule k H, FiniteDimensional k V ∧ (1 : H) ∈ V ∧ (∀ x ∈ F, x ∈ V) ∧ (∀ x ∈ V, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ V, ∃ b : H, t = TensorProduct.tmul k a b})",
+          "lean_name": "p05_fhe_stable_subspace_a5b449214a",
+          "depends_on": [],
+          "natural_proof": "1. Write ε for the counit, and put E=F∪{1}. Every element of an algebraic tensor product is a finite sum of pure tensors: these tensors generate the tensor product, and scalar coefficients can be absorbed into either factor. For each f∈E, choose an expression Δ(f)=Σ_r a_r⊗b_r.\n2. Choose a finite basis w_1,…,w_m of the span of the b_r. Write b_r=Σ_i λ_ir w_i and put v_i=Σ_r λ_ir a_r. Tensor bilinearity gives Δ(f)=Σ_i v_i⊗w_i, with the w_i linearly independent in H. An empty family is permitted when this span is zero. Let V_f=span_k{v_i}; it is finite-dimensional.\n3. Each coordinate functional on span_k{w_i} extends to a k-linear functional φ_j:H→k satisfying φ_j(w_i)=δ_ji. Indeed, extend the independent family to a basis of H and prescribe value zero on the additional basis vectors. Basis extension follows from the maximality principle: unions of chains of independent sets remain independent, and a maximal independent set spans because otherwise one can add a vector outside its span.\n4. Coassociativity, with the usual tensor associativity identification, gives Σ_i Δ(v_i)⊗w_i=Σ_i v_i⊗Δ(w_i). Apply the linear map that sends a⊗b⊗c to φ_j(c)(a⊗b). The left side becomes Δ(v_j); the right side becomes Σ_i v_i⊗t_ij, where t_ij is the contraction of Δ(w_i) by φ_j in its second factor. Thus Δ(v_j) lies in span_k{a⊗b | a∈V_f, b∈H}. Linearity of Δ proves the same assertion for every element of V_f.\n5. Apply the right counit identity to Δ(f)=Σ_i v_i⊗w_i. It gives f=Σ_i ε(w_i)v_i, so f∈V_f. This also covers the empty expression, when the identity gives f=0.\n6. Let V be the sum of the V_f over the finite set E. The union of their finite generating families is finite and spans V, so V is finite-dimensional. Step 5 gives E⊆V, hence F⊆V and 1∈V.\n7. Every x∈V is a finite sum of elements belonging to the V_f. By step 4, each corresponding comultiplication is a sum of pure tensors whose first factors lie in V_f⊆V. Linearity therefore places Δ(x) in span_k{a⊗b | a∈V, b∈H}. This proves every asserted property of V.",
+          "proof_key_steps": [
+            "Express each comultiplication using linearly independent second factors.",
+            "Extend their coordinate functionals to the ambient vector space.",
+            "Contract coassociativity to obtain stability of the first-factor span.",
+            "Use right counitality to recover the original element in that span.",
+            "Sum the finitely many stable spans for F∪{1}."
+          ]
+        },
+        "audit": {
+          "key": "stable_subspace",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly matches the prose and includes all hypotheses. Independent second factors and extended coordinate functionals justify the coassociativity contraction; right counitality recovers each original element. The finite sum preserves stability and finite dimension and contains F and 1. Empty expressions are covered. The proof is complete and non-circular."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-hopf-envelope-a1-stable-subspace-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-hopf-envelope-a1-stable-subspace-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-hopf-envelope-a1-stable-subspace-a1/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1/task.md": "3dc73676a86d8d8b7e3880aaca4875ccb55e1f69c70e9ec1bcf6f20bc01755d2",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1/problem.md": "2f45861732b83e16d4873caf0c9444a7fa00a4264a1ac5e1f1ff0e2204fedfa8",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1/problem.json": "701bdd1174185b1e65ab66c2cd98b64493a189e8738d6a153e929d4a2054385b",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1/reference-manifest.json": "6c786975eb0eef7173c81aff14a1b156236148918e2f72a647e0f1f06054c1c5",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1/decomposition.json": "67e1efc9f44d3d34d4061b6ec0a3d6497ac5fc39b9847d0c188c625761e1fc39",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1/decomposition-audit.json": "46143f77619e6d3e40d8667ccbe90d0d0272e70b3b8ec29c9cc26a1c82611918",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1/controller-contract.json": "d884e19cbcd0cfe69c6417511400aa04e303e937b236f051376ed445b0fe9900",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1/children/root-finite-hopf-envelope-a1-coefficient-matrix-a1/parent-child-handoff.json": "d6e375446108e433227e42bc317d4c3fff07814469957861c2c1f964d93fdcb0",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1/children/root-finite-hopf-envelope-a1-coefficient-matrix-a1/parent-supplied-plan.md": "af9926d5d45c916d14fe5b8519157aeaf1856e4a723c7d0718db21c64b75ec7b",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1/children/root-finite-hopf-envelope-a1-coefficient-matrix-a1/parent-supplied-natural-proof.md": "8cdc270d9a2436317ad2f08815e66f0da77a0ee4a58ac866b138475d310b4e32",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1/children/root-finite-hopf-envelope-a1-coefficient-matrix-a1/parent-supplied-natural-proof.json": "343cdebef59c037c12bfc80a7ab8167b15cf5e6454e4f9bb3e08f68b77051829",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1/children/root-finite-hopf-envelope-a1-coefficient-matrix-a1/node.json": "f8f3a90894d9a8b8372758d8b4bce45d5759bd712497f3923545a6b9f181b2bb",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1/children/root-finite-hopf-envelope-a1-determinant-inverse-a1/parent-child-handoff.json": "e0d3f0a923098d3eb010a743c27075005f977bfe7a3b88c7cf25f4d06afe6e22",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1/children/root-finite-hopf-envelope-a1-determinant-inverse-a1/parent-supplied-plan.md": "ec03482cbcbed226b3d7a935141bfaaea6c69acd0c998830fbc140608f984ca1",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1/children/root-finite-hopf-envelope-a1-determinant-inverse-a1/parent-supplied-natural-proof.md": "6b84515029cf379a7f702f780d59dc49854edbe475647b9dbcb7ccf8ba718b9f",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1/children/root-finite-hopf-envelope-a1-determinant-inverse-a1/parent-supplied-natural-proof.json": "f0ddf59772172b64a0b62b586501b2ca00248321e1ebf827da945797d275dae9",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1/children/root-finite-hopf-envelope-a1-determinant-inverse-a1/node.json": "4a59ebbcaa16a8e29d3e928683d247009bf2eba02881bde38a1ed5bb7c0b0101",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1/children/root-finite-hopf-envelope-a1-stable-subspace-a1/parent-child-handoff.json": "77f9e96c4dbf167131e02d5a8bece3a0a557fe3826259bbc9c16f056c71bad66",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1/children/root-finite-hopf-envelope-a1-stable-subspace-a1/parent-supplied-plan.md": "88c5bd67b0f825631571afea7298d63be635b9e223e3884606341d0a77277e7e",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1/children/root-finite-hopf-envelope-a1-stable-subspace-a1/parent-supplied-natural-proof.md": "4fb59c0ec85e1beb5133982df18b8b70f17a6c35e8f0e386a32ad6d825d12b0f",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1/children/root-finite-hopf-envelope-a1-stable-subspace-a1/parent-supplied-natural-proof.json": "0bf999c1bbd93794325c701e9bc0fc6371f39f2ffe9dbc7f17feb741a540a420",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1/children/root-finite-hopf-envelope-a1-stable-subspace-a1/node.json": "bd49e33bd655756393530517f39ac1230c176ea1c1487bb9abb61ecbb630ec7e"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_hopf_envelope-a1.stable_subspace-a1",
+  "parent_id": "root.finite_hopf_envelope-a1",
+  "depth": 2,
+  "title": "Finite-dimensional stable subspace containing a finite set",
+  "statement": "Let k be a field and H a commutative Hopf k-algebra with comultiplication Δ. For every finite set F⊆H, there is a finite-dimensional k-subspace V⊆H containing 1 and F such that, for every x∈V, Δ(x) lies in span_k{a⊗b | a∈V, b∈H}. All tensor products are over k.",
+  "lean_statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (F : Finset H), ∃ V : Submodule k H, FiniteDimensional k V ∧ (1 : H) ∈ V ∧ (∀ x ∈ F, x ∈ V) ∧ (∀ x ∈ V, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ V, ∃ b : H, t = TensorProduct.tmul k a b})",
+  "lean_name": "p05_fhe_stable_subspace_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-stable-subspace-a1-a1"
+}

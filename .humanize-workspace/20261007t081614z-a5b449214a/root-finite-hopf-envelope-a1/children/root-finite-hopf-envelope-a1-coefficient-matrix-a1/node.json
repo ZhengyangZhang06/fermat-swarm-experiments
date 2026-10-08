@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_hopf_envelope-a1.coefficient_matrix-a1",
+  "parent_id": "root.finite_hopf_envelope-a1",
+  "depth": 2,
+  "title": "Coefficient matrix of a finite-dimensional stable subspace",
+  "statement": "Let k be a field, H a commutative Hopf k-algebra with comultiplication Δ and counit ε, and V⊆H a finite-dimensional k-subspace. Assume Δ(x)∈span_k{a⊗b | a∈V, b∈H} for every x∈V. Then there exist n∈ℕ and an n×n matrix c over H such that V is contained in the k-linear span of the entries of c, Δ(c_ij)=Σ_l c_il⊗c_lj, and ε(c_ij)=δ_ij for all indices i,j. All tensor products are over k.",
+  "lean_statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (V : Submodule k H) [FiniteDimensional k V] (hV : ∀ x ∈ V, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ V, ∃ b : H, t = TensorProduct.tmul k a b}), ∃ (n : ℕ) (c : Matrix (Fin n) (Fin n) H), (∀ x ∈ V, x ∈ Submodule.span k (Set.range (fun p : Fin n × Fin n => c p.1 p.2))) ∧ (∀ i j : Fin n, Coalgebra.comul (R := k) (c i j) = ∑ l : Fin n, TensorProduct.tmul k (c i l) (c l j)) ∧ (∀ i j : Fin n, Coalgebra.counit (R := k) (c i j) = if i = j then (1 : k) else 0)",
+  "lean_name": "p05_fhe_coefficient_matrix_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-hopf-envelope-a1-coefficient-matrix-a1-a1"
+}
