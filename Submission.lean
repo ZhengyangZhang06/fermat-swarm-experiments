@@ -2153,6 +2153,6 @@ theorem p06_9e0f5043ff_dmc_cokernel_units :
   change (LinearMap.range D.mulVecLin).map P.mulVecLin =
     LinearMap.range (P * D * Q).mulVecLin
   rw [← LinearMap.range_comp, ← Matrix.mulVecLin_mul, Matrix.mulVecLin_mul (P * D) Q]
-  exact (LinearMap.range_comp_of_range_eq_top _ eQ.range).symm
+  exact (eQ.range_comp _).symm
 
 end Submission
