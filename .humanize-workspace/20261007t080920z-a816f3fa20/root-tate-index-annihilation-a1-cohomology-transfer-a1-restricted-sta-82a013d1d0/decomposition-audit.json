@@ -1,0 +1,54 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'standardComplex|def res|resFunctor|linearizeMap_single|IsComplement|exists.*complement' mathlib/Mathlib/RepresentationTheory/Homological/Resolution.lean mathlib/Mathlib/RepresentationTheory/Rep/Res.lean mathlib/Mathlib/RepresentationTheory/Action.lean mathlib/Mathlib/GroupTheory/Complement.lean",
+        "rg -n 'structure Homotopy|structure HomotopyEquiv|dNext|prevD|comm :|comm =|def symm' mathlib/Mathlib/Algebra/Homology/Homotopy.lean",
+        "rg -n 'restricted.*standard.*[Hh]omotopy|standard.*[Hh]omotopy.*restrict|standardComplex.*resFunctor' mathlib/Mathlib/RepresentationTheory project/Definitions",
+        "rg -n 'p04_rsh_82a013d1d0_equivariant_retraction|p04_rsh_82a013d1d0_prism_homotopy' .humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/dag.json .humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/nodes -g '*.json' -g '*.lean'",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/p04-independent-split-audit-cwyoxr8i/Contracts.lean",
+        "#print axioms Rep.standardComplex.d_eq",
+        "#print axioms Rep.standardComplex.d_single",
+        "#print axioms Rep.standardComplex.xIso",
+        "#print axioms Rep.resFunctor",
+        "#print axioms Representation.linearizeMap_single",
+        "#print axioms Subgroup.exists_isComplement_right",
+        "#print axioms Homotopy.dNext_zero_chainComplex",
+        "#print axioms Homotopy.prevD_chainComplex",
+        "#print axioms Homotopy.dNext_succ_chainComplex"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/nodes/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/parent-child-handoff.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/lake-manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/Resolution.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Action.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/Complement.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/Homology/Homotopy.lean",
+        "/tmp/p04-independent-split-audit-cwyoxr8i/Contracts.lean",
+        "/tmp/p04-independent-split-audit-cwyoxr8i/check.log"
+      ],
+      "conclusion": "The manifest records project 2475a3790d7ba0c3b10be8086001b154a45be597 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Snapshot searches confirm free tuple modules, alternating deletion, unchanged underlying maps under restriction, equivariant linearization, normalized right transversals, and the convention Homotopy V U means V = dD + Dd + U. The targeted existing restricted-standard-homotopy search returned no matches. All five inspected library files match the installed pinned sources; all nine dependencies match their revisions and have clean Git status. Both exact propositions independently elaborate under import Mathlib, inside namespace Submission, without importing a candidate. The inferred component maps are Rep.Hom.hom into intertwining maps, retaining H-equivariance. All nine transitive axiom checks returned only subsets of propext, Classical.choice, and Quot.sound. Neither proposed identifier occurs in the current DAG or another branch's inspected metadata; matches occur only in this proposal. The two independent mathematical obligations justify the split, and parent-to-child dependency edges are correctly directed and acyclic. These checks approve the decomposition and supplied prose, not any implemented theorem."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "normalized_equivariant_retraction",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the arbitrary-group and arbitrary-subgroup statement. The bare identifier is unreserved, and the contract is independently usable without either child or parent declaration. Choosing normalized right-coset representatives, obtaining the unique subgroup coefficient by cancellation, and using invariance of Hg under left H-multiplication proves equivariance and the identity on H. Every step is justified without finiteness, normality, or circular reliance. Its empty dependency list is correct."
+    },
+    {
+      "key": "equivariant_prism_homotopy",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The independently elaborated one-line proposition includes the common universe, both equivariance hypotheses, chain endomorphisms in Rep k H, and both generator formulas, with exactly Nonempty (Homotopy V U) as conclusion. Its local let-expression does not depend on a candidate declaration, and its bare identifier is unreserved. The proof constructs equivariant linear prism operators, explicitly pairs every off-transition deletion with an opposite-sign term, proves those pairings exhaustive and unique, telescopes the remaining terms to V−U, checks degree zero, and packages the correctly shaped homotopy. It is complete, non-circular, and independent of the retraction child; no dependency is missing."
+    }
+  ],
+  "required_changes": []
+}
