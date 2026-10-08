@@ -1287,3 +1287,92 @@ theorem Submission.p06_9e0f5043ff_vfc_unit_power_quotient_exponents :
       _ = s⁻¹ := by
         rw [pow_succ, div_mul_eq_div_div, div_self (pow_ne_zero _ hs0), one_div]
   exact hsinv (heq ▸ hprod)
+
+
+namespace Submission
+/-- The valuation ring in which the parameter is a nonunit consists exactly of
+fractions whose denominator is not divisible by `X`. -/
+theorem p06_9e0f5043ff_inf_valuation_fraction_characterization :
+    ∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (s : F),
+      Transcendental K s →
+      (∀ f : F, ∃ a b : Polynomial K, b ≠ 0 ∧
+        f = Polynomial.aeval s a / Polynomial.aeval s b) →
+      ∀ w : AlgebraicCurve.Place K F, s⁻¹ ∉ w.toValuationSubring →
+      ∀ f : F, f ∈ w.toValuationSubring ↔
+        ∃ a b : Polynomial K, ¬ (Polynomial.X : Polynomial K) ∣ b ∧
+          f = Polynomial.aeval s a / Polynomial.aeval s b := by
+  intro K F _ _ _ s hs hfrac w hsinv f
+  classical
+  let W : Subring F := w.toValuationSubring.toSubring
+  have hsW : s ∈ W := (w.toValuationSubring.mem_or_inv_mem s).resolve_right hsinv
+  have hs0 : s ≠ 0 := by
+    intro h
+    apply hsinv
+    simp [h]
+  have heval_mem (p : Polynomial K) : Polynomial.aeval s p ∈ W := by
+    induction p using Polynomial.induction_on' with
+    | add p q hp hq => simpa only [map_add] using W.add_mem hp hq
+    | monomial n a =>
+      rw [Polynomial.aeval_monomial]
+      exact W.mul_mem (w.algebraMap_mem' a) (W.pow_mem hsW n)
+  have hunit_inv (u : Units W) :
+      (((u⁻¹ : Units W) : W) : F) = (((u : W) : F))⁻¹ := by
+    exact (Units.map W.subtype.toMonoidHom u).val_inv_eq_inv_val
+  have heval_ne (p : Polynomial K) (hp : p ≠ 0) : Polynomial.aeval s p ≠ 0 := by
+    intro h
+    apply hp
+    exact (transcendental_iff_injective.mp hs) (h.trans (map_zero _).symm)
+  constructor
+  · intro hf
+    by_cases hf0 : f = 0
+    · exact ⟨0, 1, by simp [Polynomial.X_dvd_iff], by simp [hf0]⟩
+    obtain ⟨a, b, hb, hfab⟩ := hfrac f
+    have ha : a ≠ 0 := by
+      intro h
+      apply hf0
+      simpa [h] using hfab
+    -- Remove all factors of X, leaving polynomials that evaluate to units.
+    obtain ⟨a₀, ha_factor, ha₀⟩ :=
+      Polynomial.exists_eq_pow_rootMultiplicity_mul_and_not_dvd a ha 0
+    obtain ⟨b₀, hb_factor, hb₀⟩ :=
+      Polynomial.exists_eq_pow_rootMultiplicity_mul_and_not_dvd b hb 0
+    simp only [map_zero, sub_zero] at ha_factor ha₀ hb_factor hb₀
+    obtain ⟨ua, hua⟩ :=
+      (p06_9e0f5043ff_vfc_polynomial_unit_criterion K F s w hsinv a₀).mpr ha₀
+    obtain ⟨ub, hub⟩ :=
+      (p06_9e0f5043ff_vfc_polynomial_unit_criterion K F s w hsinv b₀).mpr hb₀
+    let r := a.rootMultiplicity 0
+    let k := b.rootMultiplicity 0
+    let u : Units W := ua * ub⁻¹
+    have hu : ((u : W) : F) = Polynomial.aeval s a₀ / Polynomial.aeval s b₀ := by
+      change ((ua : W) : F) * (((ub⁻¹ : Units W) : W) : F) = _
+      rw [hunit_inv, hua, hub, div_eq_mul_inv]
+    have hnormalized : f = ((u : W) : F) * s ^ r / s ^ k := by
+      rw [hfab, ha_factor, hb_factor, hu]
+      simp only [map_mul, map_pow, Polynomial.aeval_X]
+      dsimp only [r, k]
+      simp only [div_eq_mul_inv, mul_inv_rev]
+      ring
+    -- Membership rules out a negative exponent of the nonunit parameter.
+    have hkr : k ≤ r :=
+      p06_9e0f5043ff_vfc_unit_power_quotient_exponents F W s hsW hsinv u r k
+        (hnormalized ▸ hf)
+    refine ⟨Polynomial.X ^ (r - k) * a₀, b₀, hb₀, ?_⟩
+    have hb₀_ne : Polynomial.aeval s b₀ ≠ 0 :=
+      heval_ne b₀ (fun h => hb₀ (by simp [h]))
+    have hpow : s ^ r = s ^ (r - k) * s ^ k := by
+      rw [← pow_add, Nat.sub_add_cancel hkr]
+    rw [hnormalized, hu]
+    simp only [map_mul, map_pow, Polynomial.aeval_X]
+    rw [hpow]
+    field_simp [hs0, hb₀_ne]
+  · rintro ⟨a, b, hb, rfl⟩
+    obtain ⟨u, hu⟩ :=
+      (p06_9e0f5043ff_vfc_polynomial_unit_criterion K F s w hsinv b).mpr hb
+    have hinv : (Polynomial.aeval s b)⁻¹ ∈ W := by
+      rw [← hu, ← hunit_inv]
+      exact ((u⁻¹ : Units W) : W).property
+    change Polynomial.aeval s a / Polynomial.aeval s b ∈ W
+    rw [div_eq_mul_inv]
+    exact W.mul_mem (heval_mem a) hinv
+end Submission
