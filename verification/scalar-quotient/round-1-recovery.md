@@ -23,3 +23,7 @@ Provide a read-only export of the existing failed request with:
 - An explicit controller decision on reconciling unavailable frozen attribute targets while preserving the authoritative statement and context. Specify any authorized derived-input policy and its integrity check; the worker cannot infer permission to delete attribute lines, introduce stubs, replace the frozen source, or reframe the child theorem.
 
 These are unresolved questions for the reviewer/controller, not instructions already executed. Once the prerequisites are resolved, the planned warning-fatal check and exact-node comparator must still succeed on a clean committed candidate. The separate reviewer comparator, publication, and DAG transition remain outer-controller work.
+
+## Drift recovery handoff
+
+Round 2 requested the missing controller repair policy and read-only failed-request export directly from the user. A single availability check found the export still absent and all previously recorded local verification mechanisms unchanged. There is no worker-only code change within this node's frozen boundary that can repair the independent challenge or establish the missing remote provenance. Resume implementation after those authoritative inputs arrive; do not treat another audit, commit, or unchanged comparator retry as mainline advancement. The acceptance gates remain unmet.
