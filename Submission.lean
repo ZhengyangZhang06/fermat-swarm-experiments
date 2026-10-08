@@ -54,6 +54,7 @@ theorem p02_es_177ebb5a_sm_holomorphic
     exact (hE d ⟨z, hz⟩).differentiableAt.differentiableWithinAt
   · exact (differentiable_id.neg.pow (d 1)).differentiableOn
 
+/-- A uniform coefficient bound for the homogeneous power `(z * X₀ + X₁) ^ n`. -/
 theorem p02_es_177ebb5a_scl_linepow_coeff_bound :
     ∀ (n : ℕ) (z : ℂ) (d : Fin 2 →₀ ℕ),
       ‖MvPolynomial.coeff d (HeckeEis.linePow n z).val‖ ≤
