@@ -3468,7 +3468,11 @@ theorem p06_9e0f5043ff_wll_residue_composition_series :
 namespace Submission
 
 /-- A residue module localized at a height-one prime is simple at its own prime
-and is the zero module at every distinct height-one prime. -/
+and is the zero module at every distinct height-one prime.
+
+At its own prime, the localization equivalence over `B` transfers simplicity of
+the residue field. Every nonzero element then also generates the module over the
+localized ring, since the original scalars act through its canonical algebra map. -/
 theorem p06_9e0f5043ff_llm_localized_residue_factors
     (B : Type*) [CommRing B] [IsDedekindDomain B]
     (p q : IsDedekindDomain.HeightOneSpectrum B) :
