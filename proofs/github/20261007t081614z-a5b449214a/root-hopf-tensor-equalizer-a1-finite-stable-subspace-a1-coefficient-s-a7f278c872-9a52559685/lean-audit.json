@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "e577a3feb371a689adb805879bb655e4171f871432bc5d4110b645425e346ba8",
+  "git_delta": {
+    "base_commit": "61cb7c75e0b623a67d06a6f12fbd4c02f775e8e9",
+    "candidate_commit": "c30e56bca122e6e9401b792b78e44ef158b5cdcd",
+    "target": "Submission.lean",
+    "declaration": "p05_hte_fss_coefficient_span_a5b449214a",
+    "diff_sha256": "da50313113c8f12e483325472f316e93e14893e81dd413539c45e6f555a3e0c7",
+    "source_sha256": "ebde26c03ad5fe3d2880bbcbabb4130e77c90aca71bcb1576d74d546dd2b0874",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_hte_fss_coefficient_span_a5b449214a",
+      "statement": "∀ {k : Type*} [Field k] {C : Type*} [AddCommGroup C] [Module k C] [Coalgebra k C] (f : C) (n : ℕ) (v w : Fin n → C) (ell : Fin n → C →ₗ[k] k) (hΔ : Coalgebra.comul (R := k) f = ∑ i : Fin n, TensorProduct.tmul k (v i) (w i)) (hdual : ∀ i j : Fin n, ell i (w j) = if i = j then (1 : k) else 0), let V : Submodule k C := Submodule.span k (Set.range v); FiniteDimensional k V ∧ f ∈ V ∧ ∀ x ∈ V, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k C C | ∃ a ∈ V, ∃ b : C, t = TensorProduct.tmul k a b}",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
