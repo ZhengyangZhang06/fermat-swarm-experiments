@@ -14,3 +14,28 @@ theorem CuspForm.span_heckeTLin_eigen_eq_top (M : ℕ) [NeZero M] :
       ∀ (ℓ : ℕ) (hℓ : ℓ.Prime) (hℓM : ¬ ℓ ∣ M), ∃ c : ℂ,
         CuspForm.heckeTLin 2 hℓ hℓM v = c • v} = ⊤ := by
   sorry
+
+namespace Submission
+
+/-- Almost every point has a modular orbit disjoint from a prescribed measurable null set. -/
+theorem f036cc6b1f_pc_ed_aoi_null_orbit :
+    ∀ s : Set UpperHalfPlane, MeasurableSet s →
+      (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) s = 0 →
+      ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
+        ∀ a : Matrix.SpecialLinearGroup (Fin 2) ℤ, a • z ∉ s := by
+  intro s hs hnull
+  -- The determinant-one subtype of four integer entries is countable.
+  let : Countable (Matrix.SpecialLinearGroup (Fin 2) ℤ) := by
+    unfold Matrix.SpecialLinearGroup Matrix
+    infer_instance
+  apply MeasureTheory.ae_all_iff.mpr
+  intro a
+  -- The modular action is the restriction of the measure-invariant real GL action.
+  change ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
+    z ∉ (fun z : UpperHalfPlane => Matrix.SpecialLinearGroup.mapGL ℝ a • z) ⁻¹' s
+  apply MeasureTheory.measure_eq_zero_iff_ae_notMem.mp
+  exact (MeasureTheory.SMulInvariantMeasure.measure_preimage_smul
+    (μ := (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane))
+    (Matrix.SpecialLinearGroup.mapGL ℝ a) hs).trans hnull
+
+end Submission
