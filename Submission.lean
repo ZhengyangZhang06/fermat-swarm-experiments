@@ -593,6 +593,7 @@ theorem p02_es_177ebb5a_med_sum_derivative :
     ((hasDerivAt_id' t).neg.pow (k.val - r))) using 1
   simp only [Nat.descFactorial_succ, Nat.cast_mul, Nat.sub_sub, Pi.pow_apply, Pi.neg_apply]
   ring
+
 /-- A coefficient bound controls evaluation of a homogeneous binary form at `(1, -z)`. -/
 theorem p02_es_177ebb5a_tb_eval_bound
     (n : ℕ) (R : ↥(HeckeEis.BinaryForm ℂ n)) (z : ℂ) (b : ℝ)
@@ -2377,3 +2378,154 @@ theorem p02_es_177ebb5a_sm_translation_bound
 
 
 end Submission
+/-- Expand a homogeneous binary form in the monomials with exponents `(r, n - r)`. -/
+theorem p02_es_177ebb5a_ic_lct_monomial_expansion
+    (n : ℕ) (Q : ↥(HeckeEis.BinaryForm ℂ n)) :
+    Q.val = ∑ r : Fin (n + 1),
+      MvPolynomial.coeff (Finsupp.single (0 : Fin 2) r.val +
+        Finsupp.single (1 : Fin 2) (n - r.val)) Q.val •
+      MvPolynomial.monomial (Finsupp.single (0 : Fin 2) r.val +
+        Finsupp.single (1 : Fin 2) (n - r.val)) (1 : ℂ) := by
+  classical
+  let exponent (r : Fin (n + 1)) : Fin 2 →₀ ℕ :=
+    Finsupp.single 0 r.val + Finsupp.single 1 (n - r.val)
+  have hdegree (r : Fin (n + 1)) : (exponent r).degree = n := by
+    simp only [exponent, map_add, Finsupp.degree_single]
+    exact Nat.add_sub_of_le (Nat.le_of_lt_succ r.isLt)
+  apply MvPolynomial.ext
+  intro d
+  rw [MvPolynomial.coeff_sum]
+  simp only [MvPolynomial.coeff_smul, MvPolynomial.coeff_monomial, smul_eq_mul]
+  change MvPolynomial.coeff d Q.val = ∑ r : Fin (n + 1),
+    MvPolynomial.coeff (exponent r) Q.val * (if exponent r = d then 1 else 0)
+  by_cases hd : d.degree = n
+  · have hd01 : d 0 + d 1 = n := by
+      simpa only [Finsupp.degree_eq_sum, Fin.sum_univ_two] using hd
+    let r₀ : Fin (n + 1) := ⟨d 0, by omega⟩
+    have hr₀ : exponent r₀ = d := by
+      ext i
+      fin_cases i <;> simp [exponent, r₀]
+      omega
+    rw [Finset.sum_eq_single r₀]
+    · simp [hr₀]
+    · intro r _ hne
+      have hrd : exponent r ≠ d := by
+        intro h
+        apply hne
+        apply Fin.ext
+        have h0 := congrArg (fun e : Fin 2 →₀ ℕ => e 0) h
+        simpa [exponent, r₀] using h0
+      simp [hrd]
+    · simp
+  · have hQ : MvPolynomial.coeff d Q.val = 0 :=
+      MvPolynomial.IsHomogeneous.coeff_eq_zero Q.property hd
+    rw [hQ]
+    symm
+    apply Finset.sum_eq_zero
+    intro r _
+    have hrd : exponent r ≠ d := by
+      intro h
+      exact hd (h ▸ hdegree r)
+    simp [hrd]
+
+theorem p02_es_177ebb5a_ic_lmd_scalar_pullback
+    (h : UpperHalfPlane → ℂ) (v : ℂ)
+    (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (τ : UpperHalfPlane)
+    (hh : HasDerivAt (fun z : ℂ => h (UpperHalfPlane.ofComplex z)) v
+      ((σ • τ : UpperHalfPlane) : ℂ)) :
+    HasDerivAt (fun z : ℂ => h (σ • UpperHalfPlane.ofComplex z))
+      (v / (HeckeEis.jFactor σ τ) ^ 2) (τ : ℂ) := by
+  have hdet : (Matrix.SpecialLinearGroup.mapGL ℝ σ).val.det = 1 :=
+    (Matrix.SpecialLinearGroup.map (algebraMap ℤ ℝ) σ).property
+  have hσ : HasDerivAt
+      (fun z : ℂ => ((σ • UpperHalfPlane.ofComplex z : UpperHalfPlane) : ℂ))
+      (1 / (HeckeEis.jFactor σ τ) ^ 2) (τ : ℂ) := by
+    simpa only [hdet, Complex.ofReal_one, ← HeckeEis.jFactor_eq_denom] using!
+      (UpperHalfPlane.hasStrictDerivAt_smul
+        (g := Matrix.SpecialLinearGroup.mapGL ℝ σ) (by rw [hdet]; exact zero_lt_one) τ).hasDerivAt
+  simpa only [Function.comp_def, UpperHalfPlane.ofComplex_apply, mul_one_div] using
+    hh.comp_of_eq (τ : ℂ) hσ (by simp only [UpperHalfPlane.ofComplex_apply])
+
+theorem p02_es_177ebb5a_sd_jr_linepow_eval :
+    ∀ (n r : ℕ), r ≤ n → ∀ t : ℂ,
+      MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -t)
+        ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r]
+          (HeckeEis.linePow n t).val) =
+        (if r = n then (Nat.factorial n : ℂ) else 0) := by
+  intro n r hr t
+  let L : MvPolynomial (Fin 2) ℂ := MvPolynomial.C t * MvPolynomial.X 0 +
+    MvPolynomial.X 1
+  have hD : MvPolynomial.pderiv (1 : Fin 2) L = 1 := by
+    simp [L]
+  -- Each derivative lowers the power and contributes the next descending factor.
+  have hiter (s : ℕ) (hs : s ≤ n) :
+      (fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[s]
+        (L ^ n) = MvPolynomial.C (n.descFactorial s : ℂ) * L ^ (n - s) := by
+    induction s with
+    | zero => simp
+    | succ s ih =>
+      rw [Function.iterate_succ_apply', ih (by omega), MvPolynomial.pderiv_C_mul,
+        MvPolynomial.pderiv_pow, hD, mul_one]
+      simp only [Nat.descFactorial_succ, Nat.cast_mul, map_mul, map_natCast,
+        Nat.sub_sub]
+      ac_rfl
+  have hEval : MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -t) L = 0 := by
+    simp [L]
+  change MvPolynomial.eval _
+    ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r]
+      (L ^ n)) = _
+  rw [hiter r hr, map_mul, MvPolynomial.eval_C, map_pow, hEval]
+  by_cases h : r = n
+  · subst r
+    simp [Nat.descFactorial_self]
+  · have hnr : n - r ≠ 0 := by omega
+    simp [h, zero_pow hnr]
+
+end Submission
+
+theorem Submission.p02_es_177ebb5a_hi_prescribed_coefficients :
+    ∀ (n : ℕ) (a : ℕ → ℂ), ∃ P : ↥(HeckeEis.BinaryForm ℂ n),
+      ∀ d : Fin 2 →₀ ℕ, MvPolynomial.coeff d P.val =
+        if d 0 + d 1 = n then a (d 0) else 0 := by
+  classical
+  intro n a
+  let e (r : Fin (n + 1)) : Fin 2 →₀ ℕ :=
+    Finsupp.single 0 r.val + Finsupp.single 1 (n - r.val)
+  have he (r : Fin (n + 1)) : (e r).degree = n := by
+    simp only [e, map_add, Finsupp.degree_single]
+    exact Nat.add_sub_of_le (Nat.le_of_lt_succ r.isLt)
+  let p : MvPolynomial (Fin 2) ℂ := ∑ r : Fin (n + 1),
+    MvPolynomial.monomial (e r) (a r.val)
+  have hp : p.IsHomogeneous n :=
+    MvPolynomial.IsHomogeneous.sum _ _ _ fun r _ =>
+      MvPolynomial.isHomogeneous_monomial _ (he r)
+  refine ⟨⟨p, hp⟩, ?_⟩
+  intro d
+  change MvPolynomial.coeff d p = _
+  simp only [p, MvPolynomial.coeff_sum, MvPolynomial.coeff_monomial]
+  by_cases hd : d 0 + d 1 = n
+  · rw [if_pos hd]
+    let r₀ : Fin (n + 1) := ⟨d 0, by omega⟩
+    have hr₀ : e r₀ = d := by
+      ext i
+      fin_cases i <;> simp [e, r₀, ← hd]
+    rw [Finset.sum_eq_single r₀]
+    · simp [hr₀, r₀]
+    · intro r _ hne
+      have hrd : e r ≠ d := by
+        intro h
+        apply hne
+        apply Fin.ext
+        have h0 := congrArg (fun t : Fin 2 →₀ ℕ => t 0) h
+        simpa [e, r₀] using h0
+      simp [hrd]
+    · simp
+  · rw [if_neg hd]
+    apply Finset.sum_eq_zero
+    intro r _
+    have hrd : e r ≠ d := by
+      intro h
+      apply hd
+      have hdegree : d.degree = n := h ▸ he r
+      simpa only [Finsupp.degree_eq_sum, Fin.sum_univ_two] using hdegree
+    simp [hrd]
