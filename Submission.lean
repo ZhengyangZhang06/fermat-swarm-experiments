@@ -1376,7 +1376,8 @@ theorem p06_9e0f5043ff_elp_fraction_subalgebra
   -- A permitted denominator cannot evaluate to zero at a transcendental element.
   have hden : ∀ b : Polynomial K, ¬ q ∣ b → Polynomial.aeval x b ≠ 0 := by
     intro b hb heval
-    exact hb (transcendental_iff.mp hx b heval ▸ dvd_zero q)
+    have hb0 : b = 0 := transcendental_iff.mp hx b heval
+    exact hb (hb0 ▸ dvd_zero q)
   refine ⟨{
     carrier := {f | ∃ a b : Polynomial K, ¬ q ∣ b ∧
       f = Polynomial.aeval x a / Polynomial.aeval x b}
