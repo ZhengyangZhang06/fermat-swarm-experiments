@@ -255,3 +255,27 @@ theorem Submission.p10_17ae7b7d_cpo_analytic_order_nonzero :
     exact ENat.natCast_ne_top _
   · simp only [analyticOrderNatAt, horder, ENat.toNat_natCast]
     rfl
+theorem Submission.p10_17ae7b7d_cpo_rotation_invariant :
+    ∀ (w : ℕ) (ζ : ℂ) (A : ℂ → ℂ), 0 < w → ζ ^ w = 1 →
+      let P : ℂ → ℂ := fun t => ∏ j ∈ Finset.range w, A (ζ ^ j * t)
+      ∀ t : ℂ, P (ζ * t) = P t := by
+  intro w ζ A hw hζ
+  cases w with
+  | zero => omega
+  | succ n =>
+    dsimp only
+    intro t
+    change (∏ j ∈ Finset.range (n + 1), A (ζ ^ j * (ζ * t))) =
+      ∏ j ∈ Finset.range (n + 1), A (ζ ^ j * t)
+    calc
+      (∏ j ∈ Finset.range (n + 1), A (ζ ^ j * (ζ * t))) =
+          ∏ j ∈ Finset.range (n + 1), A (ζ ^ (j + 1) * t) := by
+        apply Finset.prod_congr rfl
+        intro j _
+        rw [pow_succ, mul_assoc]
+      _ = (∏ j ∈ Finset.range n, A (ζ ^ (j + 1) * t)) *
+          A (ζ ^ (n + 1) * t) := Finset.prod_range_succ _ _
+      _ = (∏ j ∈ Finset.range n, A (ζ ^ (j + 1) * t)) *
+          A (ζ ^ 0 * t) := by rw [hζ, pow_zero]
+      _ = ∏ j ∈ Finset.range (n + 1), A (ζ ^ j * t) :=
+        (Finset.prod_range_succ' (fun j => A (ζ ^ j * t)) n).symm
