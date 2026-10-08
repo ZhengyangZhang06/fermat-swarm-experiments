@@ -1,0 +1,59 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "Repr.arbitrary|coassociat|semilinear|tensor.*equiv|exists.*twist|antipode",
+        "coassoc|counit.*rTensor|rTensor.*counit|arbitrary|sum_tmul",
+        "coaction.*(twist|equiv)|twist.*(coaction|tensor)|p05_ct_(algebra|comodule|compatibility)_a5b449214a",
+        "theorem tmul_mul_tmul|lemma tmul_mul_tmul|instance.*CommRing|def mulLeft"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Coalgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/TensorProduct/Basic.lean"
+      ],
+      "conclusion": "The project defines the induced algebra coaction. Coalgebra.Basic provides finite representations, coassociativity and counitality; HopfAlgebra.Basic provides both antipode cancellation identities; TensorProduct.Basic supplies tensor multiplication. No existing coaction-twist equivalence matched the search in the project and HopfAlgebra reference sources. Snapshot revisions match the manifest and are clean; installed dependency revisions also match their pins. Both proposed types elaborated after import Submission using Lean 4.33.1 in /tmp/p05-coaction-decomposition-h39p315q. The inferred multiplication was checked against Algebra.TensorProduct.tmul_mul_tmul. The inspected cancellation, coassociativity, counit and tensor-map declarations have only standard logical axioms. Private-copy header omissions matched the specified policy, and a fresh Lean probe confirmed all 13 omitted targets absent. These are decomposition diagnostics, not proof acceptance."
+    }
+  ],
+  "should_split": true,
+  "rationale": "At depth 3, below the limit 6, the two independent automorphism constructions are useful reusable obligations. Split them without sibling dependencies. The parent obtains θ and T from these children, then proves semilinearity directly using its action and compatibility hypotheses on pure tensors and additivity in both tensor arguments. Both literal types passed elaboration checks, and neither proposed name occurs in the inspected DAG or existing node contracts. Frozen sources and reviewed handoffs were not edited; child proofs still require independent comparator acceptance.",
+  "subproblems": [
+    {
+      "key": "algebra_coaction_twist",
+      "title": "The algebra coaction twist is an automorphism",
+      "statement": "Let k be a field, let A and H be commutative Hopf k-algebras, and let ι:A→H be a k-bialgebra homomorphism. All tensor products are over k, and Δ_A denotes the comultiplication of A. There exists a k-algebra automorphism θ of A⊗H such that, for every a∈A and h∈H, θ(a⊗h)=((id_A⊗ι)(Δ_A(a)))(1⊗h), where multiplication is the tensor-product algebra multiplication.",
+      "lean_statement": "∀ {k : Type*} [Field k] {A : Type*} [CommRing A] [HopfAlgebra k A] {H : Type*} [CommRing H] [HopfAlgebra k H] (ι : BialgHom k A H), ∃ θ : TensorProduct k A H ≃ₐ[k] TensorProduct k A H, ∀ (a : A) (h : H), θ (TensorProduct.tmul k a h) = (TensorProduct.map (LinearMap.id : A →ₗ[k] A) ι.toLinearMap) (Coalgebra.comul (R := k) a) * TensorProduct.tmul k (1 : A) h",
+      "lean_name": "p05_ct_algebra_a5b449214a",
+      "depends_on": [],
+      "natural_proof": "1. Put S=A⊗_k H and denote the antipode and counit of A by S_A and ε_A. Write Δ_A(a)=Σa₁⊗a₂. Such notation abbreviates a finite tensor representation. Every expression below is obtained by applying linear maps induced by multiplication, ι and S_A, so its value is independent of the chosen representation.\n2. Define prescriptions F(a,h)=Σa₁⊗ι(a₂)h and G(a,h)=Σa₁⊗ι(S_A(a₂))h. Explicitly, F(a,h)=((id_A⊗ι)(Δ_A(a)))(1⊗h), and G uses ι∘S_A in place of ι. Comultiplication, ι, S_A and h↦1⊗h are k-linear, while multiplication in S is k-bilinear. Hence F and G are separately k-linear in a and h. The tensor universal property therefore gives k-linear maps θ₀,ψ:S→S with θ₀(a⊗h)=F(a,h) and ψ(a⊗h)=G(a,h).\n3. Since Δ_A and ι preserve multiplication, for a,b∈A and h,g∈H we have θ₀((a⊗h)(b⊗g))=Σa₁b₁⊗ι(a₂b₂)hg. Tensor-product multiplication gives θ₀(a⊗h)θ₀(b⊗g)=Σa₁b₁⊗(ι(a₂)h)(ι(b₂)g). Multiplicativity of ι and commutativity of H identify these two sums. Both sides of θ₀(xy)=θ₀(x)θ₀(y) are separately k-linear in x and y. Every tensor is a finite sum of pure tensors, so the equality holds for all x,y∈S.\n4. Comultiplication and ι preserve the unit, hence θ₀(1⊗1)=1⊗1. Together with k-linearity this implies θ₀(c·1)=c·1 for every c∈k. Thus θ₀ is a unital k-algebra homomorphism.\n5. Expanding θ₀ψ on a pure tensor gives Σ(a₁)₁⊗ι((a₁)₂)ι(S_A(a₂))h. Apply coassociativity of Δ_A, followed by the linear map sending x⊗y⊗z to x⊗ι(yS_A(z))h. This rewrites the result as Σa₁⊗ι((a₂)₁S_A((a₂)₂))h. The antipode identity Σb₁S_A(b₂)=ε_A(b)·1_A, and preservation of scalars by ι, reduce it to Σa₁⊗(ε_A(a₂)·h). Tensor balancing changes this to (Σ ε_A(a₂)·a₁)⊗h, which equals a⊗h by right counitality.\n6. Expanding ψθ₀ gives Σ(a₁)₁⊗ι(S_A((a₁)₂))ι(a₂)h. Coassociativity, now followed by x⊗y⊗z↦x⊗ι(S_A(y)z)h, rewrites this as Σa₁⊗ι(S_A((a₂)₁)(a₂)₂)h. The other antipode identity ΣS_A(b₁)b₂=ε_A(b)·1_A reduces it to the same counit expression as in step 5, hence to a⊗h.\n7. Both compositions θ₀ψ and ψθ₀ are k-linear and agree with the identity on every pure tensor. They consequently equal the identity on all of S. Thus θ₀ is bijective, with inverse ψ. The bijective k-algebra homomorphism θ₀ defines a k-algebra automorphism θ. Its value on each a⊗h is the formula from step 2, exactly as required.",
+      "proof_key_steps": [
+        "Construct θ₀ and its antipode-based candidate inverse ψ by the tensor universal property.",
+        "Prove θ₀ multiplicative on pure tensors and extend in both arguments.",
+        "Prove preservation of the unit and embedded k-scalars.",
+        "Use coassociativity and the id–antipode cancellation identity to show θ₀ψ=id.",
+        "Use coassociativity and the antipode–id cancellation identity to show ψθ₀=id.",
+        "Bundle the bijective algebra homomorphism as θ with the required formula."
+      ]
+    },
+    {
+      "key": "comodule_coaction_twist",
+      "title": "A counital coassociative coaction gives a tensor automorphism",
+      "statement": "Let k be a field, H a commutative Hopf k-algebra, and M an additive commutative group equipped with a k-module structure. Let μ:M→M⊗_k H be k-linear. Assume that, for every m∈M, assoc((μ⊗id_H)(μ(m)))=(id_M⊗Δ_H)(μ(m)) and rid((id_M⊗ε_H)(μ(m)))=m, where assoc:(M⊗H)⊗H→M⊗(H⊗H) is the tensor associator and rid:M⊗k→M sends m⊗c to c·m. There exists a k-linear automorphism T of M⊗_k H such that T(m⊗h)=(id_M⊗L_h)(μ(m)) for every m∈M and h∈H, where L_h(x)=hx.",
+      "lean_statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] {M : Type*} [AddCommGroup M] [Module k M] (μ : M →ₗ[k] TensorProduct k M H) (_hcoassoc : ∀ m : M, TensorProduct.assoc k M H H ((TensorProduct.map μ (LinearMap.id : H →ₗ[k] H)) (μ m)) = (TensorProduct.map (LinearMap.id : M →ₗ[k] M) (Coalgebra.comul (R := k))) (μ m)) (_hcounit : ∀ m : M, TensorProduct.rid k M ((TensorProduct.map (LinearMap.id : M →ₗ[k] M) (Coalgebra.counit (R := k))) (μ m)) = m), ∃ T : TensorProduct k M H ≃ₗ[k] TensorProduct k M H, ∀ (m : M) (h : H), T (TensorProduct.tmul k m h) = TensorProduct.map (LinearMap.id : M →ₗ[k] M) (LinearMap.mulLeft k h) (μ m)",
+      "lean_name": "p05_ct_comodule_a5b449214a",
+      "depends_on": [],
+      "natural_proof": "1. Put W=M⊗_k H and denote the antipode and counit of H by S_H and ε_H. Write μ(m)=Σm₀⊗m₁. These are finite tensor sums. Applying linear maps to μ(m) makes all expressions below independent of their finite representations.\n2. Define F(m,h)=Σm₀⊗m₁h and G(m,h)=Σm₀⊗S_H(m₁)h. For fixed h these are compositions of μ with tensor maps induced by k-linear maps on H. For fixed m, additivity and k-homogeneity in h follow from bilinearity of multiplication in H and of the tensor product. Thus F and G are k-bilinear. The tensor universal property gives k-linear maps T₀,U:W→W satisfying T₀(m⊗h)=F(m,h) and U(m⊗h)=G(m,h).\n3. The assumed coassociativity is the tensor identity Σ(m₀)₀⊗(m₀)₁⊗m₁=Σm₀⊗(m₁)₁⊗(m₁)₂, with the left side transported by the associator. For fixed h, the prescriptions x⊗y⊗z↦x⊗yS_H(z)h and x⊗y⊗z↦x⊗S_H(y)zh define linear maps on the threefold tensor product: each prescription is k-multilinear. We may therefore apply either map to this identity.\n4. Expanding the first composition gives T₀U(m⊗h)=Σ(m₀)₀⊗(m₀)₁S_H(m₁)h. Apply the first linear map from step 3 to coassociativity to obtain Σm₀⊗(m₁)₁S_H((m₁)₂)h. The Hopf identity Σb₁S_H(b₂)=ε_H(b)·1_H reduces this to Σm₀⊗(ε_H(m₁)·h).\n5. Expanding the other composition gives UT₀(m⊗h)=Σ(m₀)₀⊗S_H((m₀)₁)m₁h. Apply the second linear map from step 3 to coassociativity to obtain Σm₀⊗S_H((m₁)₁)(m₁)₂h. The Hopf identity ΣS_H(b₁)b₂=ε_H(b)·1_H reduces this to the same expression Σm₀⊗(ε_H(m₁)·h).\n6. Tensor balancing and additivity identify that common expression with (Σ ε_H(m₁)·m₀)⊗h. By the defining formula for rid, the first tensor factor is rid((id_M⊗ε_H)(μ(m))), which equals m by the assumed counitality. Thus both compositions fix every pure tensor m⊗h. Since both compositions are k-linear and pure tensors span W, T₀U=id_W and UT₀=id_W on all of W.\n7. The mutually inverse k-linear maps T₀ and U define a k-linear automorphism T with forward map T₀. Commutativity of H gives m₁h=hm₁, so T(m⊗h)=Σm₀⊗hm₁=(id_M⊗L_h)(μ(m)). This is precisely the asserted formula.",
+      "proof_key_steps": [
+        "Construct T₀ and U from the coaction and antipode using bilinearity.",
+        "Express the coassociativity hypothesis as an equality of threefold tensor sums.",
+        "Rewrite T₀U and apply the id–antipode Hopf identity.",
+        "Rewrite UT₀ and apply the antipode–id Hopf identity.",
+        "Apply tensor balancing and the assumed counitality, then extend from pure tensors.",
+        "Bundle the inverse linear maps and use commutativity to obtain the left-multiplication formula."
+      ]
+    }
+  ]
+}

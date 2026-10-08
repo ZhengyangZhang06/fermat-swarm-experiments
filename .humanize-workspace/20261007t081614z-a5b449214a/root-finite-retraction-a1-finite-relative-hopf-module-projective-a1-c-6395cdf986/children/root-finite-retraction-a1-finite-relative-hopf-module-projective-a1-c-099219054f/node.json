@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.coaction_twist-a1.comodule_coaction_twist-a1",
+  "parent_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.coaction_twist-a1",
+  "depth": 4,
+  "title": "A counital coassociative coaction gives a tensor automorphism",
+  "statement": "Let k be a field, H a commutative Hopf k-algebra, and M an additive commutative group equipped with a k-module structure. Let μ:M→M⊗_k H be k-linear. Assume that, for every m∈M, assoc((μ⊗id_H)(μ(m)))=(id_M⊗Δ_H)(μ(m)) and rid((id_M⊗ε_H)(μ(m)))=m, where assoc:(M⊗H)⊗H→M⊗(H⊗H) is the tensor associator and rid:M⊗k→M sends m⊗c to c·m. There exists a k-linear automorphism T of M⊗_k H such that T(m⊗h)=(id_M⊗L_h)(μ(m)) for every m∈M and h∈H, where L_h(x)=hx.",
+  "lean_statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] {M : Type*} [AddCommGroup M] [Module k M] (μ : M →ₗ[k] TensorProduct k M H) (_hcoassoc : ∀ m : M, TensorProduct.assoc k M H H ((TensorProduct.map μ (LinearMap.id : H →ₗ[k] H)) (μ m)) = (TensorProduct.map (LinearMap.id : M →ₗ[k] M) (Coalgebra.comul (R := k))) (μ m)) (_hcounit : ∀ m : M, TensorProduct.rid k M ((TensorProduct.map (LinearMap.id : M →ₗ[k] M) (Coalgebra.counit (R := k))) (μ m)) = m), ∃ T : TensorProduct k M H ≃ₗ[k] TensorProduct k M H, ∀ (m : M) (h : H), T (TensorProduct.tmul k m h) = TensorProduct.map (LinearMap.id : M →ₗ[k] M) (LinearMap.mulLeft k h) (μ m)",
+  "lean_name": "p05_ct_comodule_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-c-099219054f-a1"
+}

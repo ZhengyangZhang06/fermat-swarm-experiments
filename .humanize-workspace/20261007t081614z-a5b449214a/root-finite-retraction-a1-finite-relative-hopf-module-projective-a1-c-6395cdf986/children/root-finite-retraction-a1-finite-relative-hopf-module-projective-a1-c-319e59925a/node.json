@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.coaction_twist-a1.algebra_coaction_twist-a1",
+  "parent_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.coaction_twist-a1",
+  "depth": 4,
+  "title": "The algebra coaction twist is an automorphism",
+  "statement": "Let k be a field, let A and H be commutative Hopf k-algebras, and let ι:A→H be a k-bialgebra homomorphism. All tensor products are over k, and Δ_A denotes the comultiplication of A. There exists a k-algebra automorphism θ of A⊗H such that, for every a∈A and h∈H, θ(a⊗h)=((id_A⊗ι)(Δ_A(a)))(1⊗h), where multiplication is the tensor-product algebra multiplication.",
+  "lean_statement": "∀ {k : Type*} [Field k] {A : Type*} [CommRing A] [HopfAlgebra k A] {H : Type*} [CommRing H] [HopfAlgebra k H] (ι : BialgHom k A H), ∃ θ : TensorProduct k A H ≃ₐ[k] TensorProduct k A H, ∀ (a : A) (h : H), θ (TensorProduct.tmul k a h) = (TensorProduct.map (LinearMap.id : A →ₗ[k] A) ι.toLinearMap) (Coalgebra.comul (R := k) a) * TensorProduct.tmul k (1 : A) h",
+  "lean_name": "p05_ct_algebra_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-c-319e59925a-a1"
+}

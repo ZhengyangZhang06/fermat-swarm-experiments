@@ -1,0 +1,43 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "coaction|coassoc|counit|Repr|antipode",
+        "coaction.*(twist|equiv)|twist.*(coaction|tensor)|p05_ct_(algebra|comodule)_a5b449214a",
+        "tmul_mul_tmul|instance.*CommRing|def mulLeft|mulLeft_apply",
+        "def mulLeft|abbrev mulLeft|lemma mulLeft_apply|theorem mulLeft_apply",
+        "git grep -n -E 'p05_ct_(algebra|comodule)_a5b449214a' ca1bb49d173a82f6c760dd27fdde39c92765501e -- '*.lean'"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Coalgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/TensorProduct/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Associator.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Module/LinearMap/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json",
+        "/tmp/p05-coaction-independent-audit-70vf3i83/Types.lean",
+        "/tmp/p05-coaction-independent-audit-70vf3i83/report.json"
+      ],
+      "conclusion": "The sources supply the induced coaction, both antipode identities, coalgebra laws, and the required tensor operations. No existing twist equivalence matched the search in project/Definitions or mathlib's HopfAlgebra directory; neither proposed name occurs in the frozen proof base or active DAG reservations. Snapshot revisions and cleanliness match the manifest; installed dependency revisions match their pins with clean tracked files. Fresh standalone Lean checks passed for both literal propositions and confirmed ordinary tensor multiplication, left multiplication, associator orientation, and the right unitor. Inspected supporting declarations use only standard logical axioms. The matching header-policy digest, permitted omissions, reversible hashes, and fresh absence probe for all 13 targets were checked. No frozen files changed. These diagnostics approve decomposition only; candidate comparator and independent proof-verification gates remain required."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "algebra_coaction_twist",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition exactly matches the prose and includes all hypotheses. The bare identifier is unreserved. Steps 1–2 justify representation independence and bilinear construction; steps 3–4 establish multiplication, unit, and scalar preservation; steps 5–6 correctly use the two antipode identities after coassociativity and then right counitality; step 7 bundles the inverse maps. No parent or sibling result is assumed. This is a genuine independent obligation, and its empty dependency list is correct."
+    },
+    {
+      "key": "comodule_coaction_twist",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition exactly matches all prose hypotheses and the left-multiplication conclusion. The bare identifier is unreserved. Steps 1–3 justify both bilinear constructions and the maps applied to coassociativity; steps 4–5 correctly cancel opposite antipode products; step 6 uses precisely the stated counitality and tensor balancing; step 7 obtains the required formula using commutativity. The proof is complete and non-circular. No sibling dependency is needed. Together the children leave the parent only the supplied pure-tensor semilinearity argument and additive extension, so the split is appropriate and acyclic."
+    }
+  ],
+  "required_changes": []
+}
