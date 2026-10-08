@@ -1,0 +1,13 @@
+fun {k G} [CommRing k] [Group G] [Fintype G] =>
+  Submission.p04_ht_restricted_standard_comparison : ∀ {k G : Type u_1} [inst : CommRing k] [inst_1 : Group G]
+  [Fintype G] (A : Rep.{u_1, u_1, u_1} k G) (H : Subgroup G) [Fintype ↥H] (n : ℕ),
+  Nonempty
+    (↑(HomologicalComplex.homology
+          (HomologicalComplex.coinvariantsTensorObj (Rep.res H.subtype A)
+            (((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj (Rep.standardComplex k G)))
+          n) ≃ₗ[k]
+      ↑(groupHomology (Rep.res H.subtype A) n))
+'Submission.p04_ht_restricted_standard_comparison' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Rep.standardResolution' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CategoryTheory.Functor.mapProjectiveResolution' depends on axioms: [propext, Classical.choice, Quot.sound]
+'groupHomologyIso' depends on axioms: [propext, Classical.choice, Quot.sound]
