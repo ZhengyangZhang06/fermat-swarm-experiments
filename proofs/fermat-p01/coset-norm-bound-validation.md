@@ -107,7 +107,7 @@ The exact type remains:
 
 - Lean 4.33.1 (commit `819816b2e0a3bf405af45ae5c7af2491d8f5bee6`), `-DwarningAsError=true` and the project Lean options: the unchanged selected theorem in a fresh diagnostic importing
 
-- Lean 4.33.1, `-DwarningAsError=true` and the project Lean options: the unchanged selected theorem in a fresh diagnostic importing
+- Lean 4.33.1 (commit `819816b2e0a3bf405af45ae5c7af2491d8f5bee6`), `-DwarningAsError=true` and the project Lean options: the unchanged selected theorem in a fresh diagnostic importing
   `Definitions.Def_ModularForm_HeckeOperatorForms` passes, including an anonymous check
   against the literal frozen type.
 - Transitive axiom reports for the selected theorem, `ModularForm.norm`,
@@ -195,11 +195,11 @@ request, or controller state was restarted, canceled, or modified.
 **Required validation remains blocked.** The fresh diagnostic retaining the frozen imports
 and attribute commands, while excluding the unrelated root theorem, exits 1. The two
 grouped commands fail before this node's proof. A fresh exact-name provider search across
-snapshot `project/Definitions` and `mathlib/Mathlib` returns no matches for their 15 targets;
-the earlier individual-target diagnostic remains available in the previous round's evidence.
+snapshot `project/Definitions` and `mathlib/Mathlib` returns no matches for their 15 targets.
 The first errors name
 `FLT.HyperbolicMeasure.instSMulInvariantMeasureSpecialLinearGroupFinOfNatNatIntUpperHalfPlaneVolume_definitions`
-and `FreyPackage.ModMCarrier.coe_rescaleLin_apply`. Thus the passing diagnostic without
+and `FreyPackage.ModMCarrier.coe_rescaleLin_apply`. The fresh selected-body diagnostic exits zero;
+the fresh full-context diagnostic exits one. Thus the passing diagnostic without
 the attribute commands is not full-context acceptance. Both fresh diagnostics exclude the
 unrelated root theorem; no root or sibling theorem was validated and no root comparator was run.
 
@@ -267,12 +267,12 @@ proof and found no defect or worthwhile simplification. The round tracker,
 turn filter bounds into a common height. Searches for the exact selected name and
 norm-bound variants in `project/Definitions` returned no matches.
 and mathlib's modular-form directory returned no matches. A broader substring
-search returned unrelated `of_norm_bounded` lemmas only. The structured research
+search returned unrelated norm and asymptotic bounds. The structured research
 record has exactly one `reference_use` entry with source `local-project`.
 
-Fresh local evidence is in `.humanize/rlcr/2026-10-08_11-57-32/validation/`, including
+Fresh local evidence is in `.humanize/rlcr/2026-10-08_12-54-01/validation/`, including
 the scoped diagnostic sources, completed body/context build logs, `build-results.json`,
-`source-dependency-audit.json`, protected-artifact digests, `reference-searches.md`, and
+`source-dependency-audit.json`, protected-artifact digests, `reference-use.json`, and
 `complete-source.diff`. The freshly requested simplifier agent independently reviewed the selected
 proof and found no defect or worthwhile simplification. The round tracker,
 contract, summary, and raw logs remain ignored runtime metadata; this report provides
