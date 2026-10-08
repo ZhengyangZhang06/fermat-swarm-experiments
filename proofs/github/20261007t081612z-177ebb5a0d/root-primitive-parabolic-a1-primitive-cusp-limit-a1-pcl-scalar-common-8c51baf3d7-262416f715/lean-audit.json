@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "integrableOn_rpow_mul_exp_neg_mul_rpow|tendsto_limUnder_of_hasDerivAt_of_integrableOn_Ioi|p02_es_177ebb5a_crl_imaginary_ray_limit",
+        "p02_es_177ebb5a_crl_imaginary_ray_limit"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Fermat/Thm_HeckeEis_eichlerShimuraMap_injective.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/SpecialFunctions/Gaussian/GaussianIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/MeasureTheory/Integral/IntegralEqImproper.lean"
+      ],
+      "conclusion": "Found both cited upstream analysis declarations; their files match the installed pinned mathlib byte-for-byte. No declaration matching this node's name exists in the snapshot. The frozen root contract is unchanged. All nine dependency checkouts match the frozen manifest and are clean. The exact comparator rerun passed under Lean 4.33.1, reporting only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "e2a4655719ab6c0322171eaa6530e859d2d67355fa9b95654d0b63717f62e54b",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_crl_imaginary_ray_limit",
+      "statement": "∀ (n : ℕ) (a : ℝ) (H G : ℂ → ℂ), 0 < a → ContinuousOn G {z : ℂ | 0 < z.im} → (∀ z : ℂ, 0 < z.im → HasDerivAt H (G z) z) → (∃ C Y : ℝ, 0 ≤ C ∧ 1 ≤ Y ∧ ∀ t : ℝ, Y ≤ t → ‖G ((t : ℂ) * Complex.I)‖ ≤ C * (1 + t) ^ n * Real.exp (-a * t)) → ∃ A : ℂ, Filter.Tendsto (fun y : ℝ => H ((y : ℂ) * Complex.I)) Filter.atTop (nhds A)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Restricts H to the imaginary ray and applies pinned mathlib results for exponential-moment integrability and convergence from an integrable derivative."
+    }
+  ]
+}
