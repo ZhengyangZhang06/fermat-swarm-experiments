@@ -254,6 +254,7 @@ theorem p04_rsh_82a013d1d0_equivariant_retraction {G : Type*} [Group G] (H : Sub
 
 namespace Submission
 
+/-- The subgroup coefficient in a right transversal containing `1` gives an equivariant retraction. -/
 theorem p04_rsh_82a013d1d0_equivariant_retraction {G : Type*} [Group G] (H : Subgroup G) :
     ∃ r : G → H, (∀ (h : H) (g : G), r ((h : G) * g) = h * r g) ∧
       ∀ h : H, r (h : G) = h := by
