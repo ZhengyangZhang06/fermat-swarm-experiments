@@ -325,6 +325,8 @@ theorem p02_es_177ebb5a_crl_imaginary_ray_limit :
     apply hG.comp (Complex.continuous_ofReal.mul_const Complex.I).continuousOn
     intro t ht
     simpa using hpos t ht
+  -- Pinned mathlib: Analysis/SpecialFunctions/Gaussian/GaussianIntegral.lean.
+  -- Its exponential moment estimate applies with real power n and decay power 1.
   have hmoment : MeasureTheory.IntegrableOn
       (fun t : ℝ => t ^ n * Real.exp (-a * t)) (Set.Ioi (0 : ℝ)) := by
     simpa using integrableOn_rpow_mul_exp_neg_mul_rpow
@@ -346,6 +348,8 @@ theorem p02_es_177ebb5a_crl_imaginary_ray_limit :
       _ ≤ C * (2 * t) ^ n * Real.exp (-a * t) :=
         mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_left hpow hC) (Real.exp_pos _).le
       _ = (C * 2 ^ n) * (t ^ n * Real.exp (-a * t)) := by rw [mul_pow]; ring
+  -- Pinned mathlib: MeasureTheory/Integral/IntegralEqImproper.lean packages the
+  -- FTC tail estimate and completeness argument for an integrable derivative.
   exact ⟨_, MeasureTheory.tendsto_limUnder_of_hasDerivAt_of_integrableOn_Ioi hderiv hint⟩
 
 end Submission
