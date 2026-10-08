@@ -330,7 +330,11 @@ set_option maxHeartbeats 4000000
 
 namespace Submission
 
-/-- Pair noncentral prism faces with the signed prisms of the boundary. -/
+/-- Pair noncentral prism faces with the signed prisms of the boundary.
+
+The inverse pairing sends a boundary index `(b, t)` to `(t + 1, b)` when `b ≤ t`,
+and to `(t, b + 1)` otherwise. The paired tuples agree and the exponents differ by one.
+-/
 theorem p04_pb_60221840b0_noncentral_cancellation
     {k X : Type _} [CommRing k] (u v : X → X) (n : ℕ) (c : Fin (n + 2) → X) :
     let Q : ∀ m : ℕ, (Fin (m + 1) → X) → Fin (m + 1) → (Fin (m + 2) → X) :=
