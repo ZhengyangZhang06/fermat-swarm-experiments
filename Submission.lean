@@ -392,6 +392,7 @@ theorem p04_prism_a8325b9888_equivariant_components :
 
 namespace Submission
 
+/-- The signed prism assignment extends to morphisms of the restricted standard complex. -/
 theorem p04_prism_a8325b9888_equivariant_components :
     ∀ {k G : Type u} [CommRing k] [Group G] (H : Subgroup G) (u v : G → G),
       (∀ (h : H) (g : G), u ((h : G) * g) = (h : G) * u g) →
