@@ -647,6 +647,11 @@ theorem Submission.f036cc6b1f_tdi_planar_exp_integrable_fd :
       exact ENNReal.ofReal_ne_top)
   have hprod : MeasureTheory.IntegrableOn (fun p : ℝ × ℝ => Real.exp (-a * p.2))
       (Set.Icc (-(1 / 2 : ℝ)) (1 / 2) ×ˢ Set.Ici b) := by
+    MeasureTheory.integrableOn_Ici_iff_integrableOn_Ioi.mpr (exp_neg_integrableOn_Ioi b ha)
+  have hx : MeasureTheory.IntegrableOn (fun _ : ℝ => (1 : ℝ))
+      (Set.Icc (-(1 : ℝ) / 2) (1 / 2)) := MeasureTheory.integrableOn_const
+  have hprod : MeasureTheory.IntegrableOn (fun p : ℝ × ℝ => Real.exp (-a * p.2))
+      (Set.Icc (-(1 : ℝ) / 2) (1 / 2) ×ˢ Set.Ici b) := by
     change MeasureTheory.Integrable _
       (((MeasureTheory.volume : MeasureTheory.Measure ℝ).prod MeasureTheory.volume).restrict _)
     rw [← MeasureTheory.Measure.prod_restrict]
@@ -654,6 +659,7 @@ theorem Submission.f036cc6b1f_tdi_planar_exp_integrable_fd :
   have hc : MeasureTheory.IntegrableOn (fun z : ℂ => Real.exp (-a * z.im))
       (Complex.measurableEquivRealProd ⁻¹'
         (Set.Icc (-(1 / 2 : ℝ)) (1 / 2) ×ˢ Set.Ici b)) :=
+        (Set.Icc (-(1 : ℝ) / 2) (1 / 2) ×ˢ Set.Ici b)) :=
     (Complex.volume_preserving_equiv_real_prod.integrableOn_comp_preimage
       Complex.measurableEquivRealProd.measurableEmbedding).mpr hprod
   have hi : MeasureTheory.IntegrableOn (fun z : ℂ => Real.exp (-a * z.im))
@@ -661,6 +667,7 @@ theorem Submission.f036cc6b1f_tdi_planar_exp_integrable_fd :
     apply hc.mono_set
     rintro _ ⟨z, hz, rfl⟩
     change z.re ∈ Set.Icc (-(1 / 2 : ℝ)) (1 / 2) ∧ b ≤ z.im
+    change z.re ∈ Set.Icc (-(1 : ℝ) / 2) (1 / 2) ∧ b ≤ z.im
     constructor
     · exact abs_le.mp hz.2
     · dsimp [b]
@@ -1536,3 +1543,4 @@ theorem f036cc6b1f_pc_effective_domain
       (g⁻¹ * r⁻¹)⁻¹ δ hγ hδ hγF hδF
 
 end Submission
+  simpa only [Set.preimage_image_eq _ UpperHalfPlane.coe_injective, Function.comp_def] using ht
