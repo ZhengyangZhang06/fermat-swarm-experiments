@@ -7,6 +7,7 @@ Requires the upstream Definitions modules and their dependencies.
 
 import Mathlib
 import Definitions.Def_GroupCohomology_TateCohomology
+attribute [-simp] Representation.TateResCor.cosetDecomp_apply Rep.coe_tateHneg1Res_apply Representation.TateResCor.coe_tateHneg1Cores_apply Representation.TateResCor.tateH0Res_mk Rep.coe_tateHneg1Cores_apply Rep.tateH0Res_mk Representation.TateResCor.coe_cosetNormInvariants_apply Rep.tateH0Cores_mk Representation.TateResCor.coinvariantsCores_mk Representation.TateResCor.coinvariantsTransfer_mk Representation.TateResCor.tateH0Cores_mk Representation.TateResCor.coe_tateHneg1Res_apply Rep.coe_tateδneg2_apply
 
 set_option autoImplicit false
 universe u
@@ -18,19 +19,6 @@ theorem Rep.isZero_tateCohomology_of_forall_sylow {k G : Type u} [CommRing k] [G
     CategoryTheory.Limits.IsZero (A.tateCohomology q) := by
   sorry
 
-theorem Rep.isZero_tateCohomology_of_forall_sylow {k G : Type u} [CommRing k] [Group G] [Fintype G]
-    (A : Rep.{u} k G) (q : ℤ)
-    (h : ∀ (p : ℕ) [Fact p.Prime] (P : Sylow p G) [Fintype (P : Subgroup G)],
-      CategoryTheory.Limits.IsZero ((Rep.res (P : Subgroup G).subtype A).tateCohomology q)) :
-    CategoryTheory.Limits.IsZero (A.tateCohomology q) := by
-  sorry
-
-namespace Submission
-
-set_option warningAsError true in
-/-- Conjugating an `H`-equivariant morphism depends only on the left coset in `G ⧸ H`.
-The proof uses `QuotientGroup.eq` to identify the subgroup element and
-`Rep.hom_comm_apply` to cancel its action through the restricted morphism. -/
 namespace Submission
 
 set_option warningAsError true in
@@ -846,41 +834,62 @@ theorem p04_tia_tate_neg_one_transfer
   refine ⟨T, P, fun x => Subtype.ext ?_⟩
   exact hcomp x.val
 
-namespace Submission
-
-/-- Coset averaging is natural in its source and acts by the subgroup index on restricted
-`G`-equivariant morphisms. -/
-theorem p04_hct139_coset_average_laws :
-    ∀ {k G : Type _} [CommRing k] [Group G] [Fintype G]
-      (A : Rep k G) (H : Subgroup G) [Fintype H] [Fintype (G ⧸ H)]
-      (C : ∀ B : Rep k G,
-        (Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) →ₗ[k] (Quiver.Hom B A)),
-      (∀ (B : Rep k G)
-        (F : Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) (x : B),
-        (C B F).hom x = ∑ q : G ⧸ H, A.ρ q.out (F.hom (B.ρ q.out⁻¹ x))) →
-      (∀ (B D : Rep k G) (f : Quiver.Hom D B)
-        (F : Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)),
-        C D (CategoryTheory.CategoryStruct.comp ((Rep.resFunctor H.subtype).map f) F) =
-          CategoryTheory.CategoryStruct.comp f (C B F)) ∧
-      (∀ (B : Rep k G) (F : Quiver.Hom B A),
-        C B ((Rep.resFunctor H.subtype).map F) = H.index • F) := by
-  classical
-  intro k G _ _ _ A H _ _ C hC
-  constructor
-  -- Naturality follows by commuting the source map through each averaging summand.
-  · intro B D f F
-    ext x
-    change (C D _).hom x = (C B F).hom (f.hom x)
-    rw [hC, hC]
-    change (∑ q : G ⧸ H, A.ρ q.out (F.hom (f.hom (D.ρ q.out⁻¹ x)))) =
-      ∑ q : G ⧸ H, A.ρ q.out (F.hom (B.ρ q.out⁻¹ (f.hom x)))
-    simp only [Rep.hom_comm_apply]
-  -- For a restricted equivariant map, each coset contributes the same value.
-  · intro B F
-    ext x
-    change (C B _).hom x = H.index • F.hom x
-    rw [hC]
-    change (∑ q : G ⧸ H, A.ρ q.out (F.hom (B.ρ q.out⁻¹ x))) = H.index • F.hom x
-    simp [Rep.hom_comm_apply, Subgroup.index_eq_card, Nat.card_eq_fintype_card]
-
 end Submission
+
+set_option warningAsError true in
+/-- Restriction and coset averaging on the equivariant Hom cochain complex. -/
+theorem Submission.p04_tia_coh_hom_complex_transfer :
+    ∀ {k G : Type _} [CommRing k] [Group G] [Fintype G]
+      (A : Rep k G) (H : Subgroup G) [Fintype H]
+      (X : ChainComplex (Rep k G) ℕ),
+      ∃ R : Quiver.Hom (X.linearYonedaObj k A)
+        (ChainComplex.linearYonedaObj
+          (((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj X)
+          k (Rep.res H.subtype A)),
+      ∃ C : Quiver.Hom
+        (ChainComplex.linearYonedaObj
+          (((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj X)
+          k (Rep.res H.subtype A))
+        (X.linearYonedaObj k A),
+      CategoryTheory.CategoryStruct.comp R C =
+        H.index • CategoryTheory.CategoryStruct.id (X.linearYonedaObj k A) := by
+  intro k G _ _ _ A H _ X
+  classical
+  let : Fintype (G ⧸ H) := Fintype.ofFinite _
+  choose C hC using fun (B : Rep k G) =>
+    Submission.p04_hct139_coset_average_exists A B H
+  obtain ⟨hC_natural, hC_index⟩ :=
+    Submission.p04_hct139_coset_average_laws A H C hC
+  let U := X.linearYonedaObj k A
+  let V := ChainComplex.linearYonedaObj
+    (((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj X)
+    k (Rep.res H.subtype A)
+  let R : U ⟶ V :=
+    { f := fun _ => ModuleCat.ofHom ((Rep.resFunctor H.subtype).mapLinearMap k)
+      comm' := by
+        intro i j _
+        apply ModuleCat.hom_ext
+        apply LinearMap.ext
+        intro F
+        change (Rep.resFunctor H.subtype).map (X.d j i) ≫
+            (Rep.resFunctor H.subtype).map F =
+          (Rep.resFunctor H.subtype).map (X.d j i ≫ F)
+        exact ((Rep.resFunctor H.subtype).map_comp _ _).symm }
+  let T : V ⟶ U :=
+    { f := fun i => ModuleCat.ofHom (C (X.X i))
+      comm' := by
+        intro i j _
+        apply ModuleCat.hom_ext
+        apply LinearMap.ext
+        intro F
+        change X.d j i ≫ C (X.X i) F =
+          C (X.X j) ((Rep.resFunctor H.subtype).map (X.d j i) ≫ F)
+        exact (hC_natural (X.X i) (X.X j) (X.d j i) F).symm }
+  refine ⟨R, T, ?_⟩
+  apply HomologicalComplex.hom_ext
+  intro i
+  apply ModuleCat.hom_ext
+  apply LinearMap.ext
+  intro F
+  change C (X.X i) ((Rep.resFunctor H.subtype).map F) = H.index • F
+  exact hC_index (X.X i) F

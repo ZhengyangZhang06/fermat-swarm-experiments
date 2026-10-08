@@ -1,0 +1,167 @@
+{
+  "kind": "integration-only-source-audit",
+  "canonical_parent": "774566b38e538b369da302c08d6df32290d25051",
+  "reviewed_parent": "0e109a7176c3a69f2d9f57aced24766ee8e1f55f",
+  "node_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1",
+  "distinct_declarations": [
+    "Rep.isZero_tateCohomology_of_forall_sylow",
+    "p04_hca_bc7c754a4b_summand_eq_of_coset_eq",
+    "p04_ht_restricted_standard_comparison",
+    "p04_tz91_invariant_restriction_norm_range",
+    "p04_tz91_invariant_transfer_norm_index",
+    "p04_hca_bc7c754a4b_sum_equivariant",
+    "p04_hct139_coset_average_laws",
+    "p04_rsh_82a013d1d0_equivariant_retraction",
+    "p04_pb_60221840b0_noncentral_cancellation",
+    "p04_prism_a8325b9888_equivariant_components",
+    "p04_ht_coinvariant_complex_transfer",
+    "p04_tia_homology_transfer",
+    "p04_tia_tate_zero_transfer",
+    "p04_hct139_coset_average_exists",
+    "p04_pb_60221840b0_central_telescoping",
+    "p04_tia_tate_neg_one_transfer",
+    "p04_tia_coh_hom_complex_transfer"
+  ],
+  "all_declaration_text_preserved": true,
+  "reconciliation": [
+    "Restore the reviewed frozen header exactly.",
+    "Retain one copy of the duplicated root specification and coset-average laws.",
+    "Remove accidental nested Submission namespace and close the Tate minus-one namespace.",
+    "Append the accepted Hom-complex transfer declaration unchanged.",
+    "Keep the canonical preflight-20261008T165943.json: it is byte-identical to the reviewed parent final record; its predecessor is retained in ancestor 8fec3dcfa3542a4f97f900368333ef4ece9f02b2.",
+    "Preserve reviewed .humanize-workspace handoffs byte-for-byte."
+  ],
+  "submission_sha256": "d6f9b039cfca8c6a859281d2a56b76a507ad0b0af097ae6f3601907e1b4d4c28",
+  "operator_policy_sha256": "96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96",
+  "contract_sha256": "42953c937798c4a4ff8c5a5266936d11cb7f7836ede7175b49e6d157bd9e9551",
+  "dependency_pins": [
+    {
+      "name": "mathlib",
+      "expected": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "actual": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "clean": true
+    },
+    {
+      "name": "plausible",
+      "expected": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "actual": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "clean": true
+    },
+    {
+      "name": "LeanSearchClient",
+      "expected": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "actual": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "clean": true
+    },
+    {
+      "name": "importGraph",
+      "expected": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "actual": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "clean": true
+    },
+    {
+      "name": "proofwidgets",
+      "expected": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "actual": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "clean": true
+    },
+    {
+      "name": "aesop",
+      "expected": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "actual": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "clean": true
+    },
+    {
+      "name": "Qq",
+      "expected": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "actual": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "clean": true
+    },
+    {
+      "name": "batteries",
+      "expected": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "actual": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "clean": true
+    },
+    {
+      "name": "Cli",
+      "expected": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "actual": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "clean": true
+    }
+  ],
+  "reference_use": [
+    {
+      "source": "local-project",
+      "snapshot": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8",
+      "manifest": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+      "mode": "local-project",
+      "project_commit": "2475a3790d7ba0c3b10be8086001b154a45be597",
+      "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "queries": [
+        {
+          "query": "hom_complex_transfer|hom_coset_average|p04_hct139_coset_average_laws",
+          "paths": [
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project",
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib"
+          ],
+          "exit_code": 1,
+          "finding": "No matches; no replacement proof imported."
+        },
+        {
+          "query": "linearYonedaObj|linearYonedaObjMap",
+          "paths": [
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/Homology"
+          ],
+          "exit_code": 1,
+          "finding": "No matches in Algebra/Homology."
+        },
+        {
+          "query": "linearYonedaObj",
+          "paths": [
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib"
+          ],
+          "exit_code": 0,
+          "finding": "CategoryTheory/Abelian/Ext.lean:58 defines ChainComplex.linearYonedaObj by the linear Yoneda functor on complexes. Inspected the definition; representation cohomology files use this same construction."
+        },
+        {
+          "query": "def res|resFunctor|resMap",
+          "paths": [
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean"
+          ],
+          "exit_code": 0,
+          "finding": "Lines 32-42 define restriction on objects and morphisms; lines 55-64 preserve the underlying map, and lines 85-89 provide additive and linear instances."
+        }
+      ],
+      "compatibility": [
+        {
+          "snapshot_file": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/lean-toolchain",
+          "installed_file": "lean-toolchain",
+          "matches": true
+        },
+        {
+          "snapshot_file": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/lake-manifest.json",
+          "installed_file": "lake-manifest.json",
+          "matches": true
+        },
+        {
+          "snapshot_file": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+          "installed_file": "Definitions/Def_GroupCohomology_TateCohomology.lean",
+          "matches": true
+        },
+        {
+          "snapshot_file": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/CategoryTheory/Abelian/Ext.lean",
+          "installed_file": ".lake/packages/mathlib/Mathlib/CategoryTheory/Abelian/Ext.lean",
+          "matches": true
+        },
+        {
+          "snapshot_file": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean",
+          "installed_file": ".lake/packages/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean",
+          "matches": true
+        }
+      ],
+      "reuse": "No new proof or API substitution; accepted declarations are retained. Transitive axioms remain subject to the exact configured comparator."
+    }
+  ],
+  "validation_scope": "Source and history reconciliation only. The configured comparator must validate the resulting committed tree; this audit is not proof acceptance."
+}
