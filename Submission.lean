@@ -3734,3 +3734,124 @@ theorem Submission.p05_pie_redundant_generator_relations_a5b449214a
       exact ⟨fun i => w (Sum.inl i), rfl⟩
     rw [hT]
     simp only [Sum.elim_inl, Sum.elim_inr, map_sub, hP, _hA, zero_sub, neg_add_cancel]
+
+
+namespace Submission
+
+/-- The determinantal ideal of a finite presentation is independent of the presentation. -/
+theorem p05_fr_rhm_presentation_ideals_eq_a5b449214a
+    {R : Type*} [CommRing R] {M : Type*} [AddCommGroup M] [Module R M]
+    (n p n' p' : ℕ) (P : Matrix (Fin n) (Fin p) R)
+    (Q : Matrix (Fin n') (Fin p') R)
+    (π : (Fin n → R) →ₗ[R] M) (π' : (Fin n' → R) →ₗ[R] M)
+    (_hπ : Function.Surjective π)
+    (_hker : LinearMap.ker π = LinearMap.range P.mulVecLin)
+    (_hπ' : Function.Surjective π')
+    (_hker' : LinearMap.ker π' = LinearMap.range Q.mulVecLin) (r : ℕ) :
+    (Ideal.span {x : R | ∃ (rows : Fin (n - r) ↪ Fin n)
+      (cols : Fin (n - r) ↪ Fin p), x = Matrix.det (P.submatrix rows cols)}) =
+    Ideal.span {x : R | ∃ (rows : Fin (n' - r) ↪ Fin n')
+      (cols : Fin (n' - r) ↪ Fin p'), x = Matrix.det (Q.submatrix rows cols)} := by
+  classical
+  let D : {ι κ : Type} → Matrix ι κ R → ℕ → Ideal R := fun {_ _} B d =>
+    Ideal.span {x : R | ∃ (rows : Fin d ↪ _) (cols : Fin d ↪ _),
+      x = Matrix.det (B.submatrix rows cols)}
+  -- Changing the finite list of relation columns does not change its minor ideals.
+  have hcol {ι κ ν : Type} [Fintype ι] [Fintype κ] [Fintype ν]
+      (B : Matrix ι κ R) (C : Matrix ι ν R)
+      (h : LinearMap.range B.mulVecLin ≤ LinearMap.range C.mulVecLin) (d : ℕ) :
+      D B d ≤ D C d := by
+    have hc (j : κ) : ∃ v, C.mulVecLin v = B.mulVecLin (Pi.single j 1) :=
+      h ⟨Pi.single j 1, rfl⟩
+    choose v hv using hc
+    let V : Matrix ν κ R := fun i j => v j i
+    have hfactor : C * V = B := by
+      ext i j
+      calc
+        (C * V) i j = (C.mulVecLin (v j)) i := rfl
+        _ = (B.mulVecLin (Pi.single j 1)) i := congrFun (hv j) i
+        _ = B i j := by simp
+    have hh := (p05_pie_minor_product_containment_a5b449214a C V d).trans inf_le_left
+    change D (C * V) d ≤ D C d at hh
+    rwa [hfactor] at hh
+  -- Row reindexing transports the injective selections without changing determinants.
+  have hrow {ι κ ν : Type} (B : Matrix ι κ R) (e : ν ≃ ι) (d : ℕ) :
+      D (B.submatrix e id) d = D B d := by
+    apply congrArg Ideal.span
+    ext x
+    constructor
+    · rintro ⟨rows, cols, hx⟩
+      exact ⟨rows.trans e.toEmbedding, cols, hx⟩
+    · rintro ⟨rows, cols, hx⟩
+      refine ⟨rows.trans e.symm.toEmbedding, cols, ?_⟩
+      simpa [Matrix.submatrix, Function.Embedding.trans] using hx
+  -- The two triangular row operations reduce the enlarged relation matrix to a block diagonal.
+  have hstabilize (a b t : ℕ) (B : Matrix (Fin a) (Fin b) R)
+      (A : Matrix (Fin a) (Fin t) R) :
+      D (Matrix.fromBlocks B (-A) 0 (1 : Matrix (Fin t) (Fin t) R)) (a + t - r) =
+        D B (a - r) := by
+    let T := Matrix.fromBlocks B (-A) 0 (1 : Matrix (Fin t) (Fin t) R)
+    let S := Matrix.fromBlocks B 0 0 (1 : Matrix (Fin t) (Fin t) R)
+    let E := Matrix.fromBlocks (1 : Matrix (Fin a) (Fin a) R) A 0
+      (1 : Matrix (Fin t) (Fin t) R)
+    let F := Matrix.fromBlocks (1 : Matrix (Fin a) (Fin a) R) (-A) 0
+      (1 : Matrix (Fin t) (Fin t) R)
+    have hET : E * T = S := by
+      simp [E, T, S, Matrix.fromBlocks_multiply]
+    have hFS : F * S = T := by
+      simp [F, S, T, Matrix.fromBlocks_multiply]
+    have hTS : D T (a + t - r) = D S (a + t - r) := by
+      apply le_antisymm
+      · have hh := (p05_pie_minor_product_containment_a5b449214a F S
+          (a + t - r)).trans inf_le_right
+        change D (F * S) (a + t - r) ≤ D S (a + t - r) at hh
+        rwa [hFS] at hh
+      · have hh := (p05_pie_minor_product_containment_a5b449214a E T
+          (a + t - r)).trans inf_le_right
+        change D (E * T) (a + t - r) ≤ D T (a + t - r) at hh
+        rwa [hET] at hh
+    exact hTS.trans (p05_pie_identity_block_stabilization_a5b449214a a b t r B)
+  -- Lift the second generator list through the first presentation, and conversely.
+  obtain ⟨f, hf⟩ := Module.projective_lifting_property π π' _hπ
+  obtain ⟨g, hg⟩ := Module.projective_lifting_property π' π _hπ'
+  let A := LinearMap.toMatrix' f
+  let B := LinearMap.toMatrix' g
+  have hA (y : Fin n' → R) : π (A.mulVecLin y) = π' y := by
+    simpa [A] using LinearMap.congr_fun hf y
+  have hB (y : Fin n → R) : π' (B.mulVecLin y) = π y := by
+    simpa [B] using LinearMap.congr_fun hg y
+  let T := Matrix.fromBlocks P (-A) 0 (1 : Matrix (Fin n') (Fin n') R)
+  let T' := Matrix.fromBlocks Q (-B) 0 (1 : Matrix (Fin n) (Fin n) R)
+  let e : (Fin n ⊕ Fin n') ≃ (Fin n' ⊕ Fin n) := Equiv.sumComm _ _
+  let U := T'.submatrix e id
+  have hT := p05_pie_redundant_generator_relations_a5b449214a n p n' P A π π' _hker hA
+  have hT' := p05_pie_redundant_generator_relations_a5b449214a n' p' n Q B π' π _hker' hB
+  have hswap (w : (Fin p' ⊕ Fin n) → R) :
+      U.mulVecLin w = T'.mulVecLin w ∘ e := rfl
+  have hU (z : (Fin n ⊕ Fin n') → R) :
+      (∃ w, U.mulVecLin w = z) ↔ ∃ w, T'.mulVecLin w = z ∘ e.symm := by
+    constructor
+    · rintro ⟨w, hw⟩
+      refine ⟨w, ?_⟩
+      have hh := congrArg (fun v => v ∘ e.symm) hw
+      simpa [hswap, Function.comp_def] using hh
+    · rintro ⟨w, hw⟩
+      refine ⟨w, ?_⟩
+      rw [hswap, hw]
+      simp [Function.comp_def]
+  -- Both enlarged relation lists generate the kernel of the combined generator map.
+  have hrange : LinearMap.range T.mulVecLin = LinearMap.range U.mulVecLin := by
+    ext z
+    change (∃ w, T.mulVecLin w = z) ↔ ∃ w, U.mulVecLin w = z
+    rw [hU, ← hT z, ← hT' (z ∘ e.symm)]
+    simp [e, add_comm]
+  change D P (n - r) = D Q (n' - r)
+  calc
+    D P (n - r) = D T (n + n' - r) := (hstabilize n p n' P A).symm
+    _ = D U (n + n' - r) :=
+      le_antisymm (hcol T U hrange.le _) (hcol U T hrange.ge _)
+    _ = D T' (n + n' - r) := hrow T' e _
+    _ = D T' (n' + n - r) := by rw [Nat.add_comm n n']
+    _ = D Q (n' - r) := hstabilize n' p' n Q B
+
+end Submission
