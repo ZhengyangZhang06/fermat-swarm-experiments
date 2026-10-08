@@ -2409,8 +2409,7 @@ theorem p04_tia_tate_neg_one_transfer
   have hf (a : A) : f a = ∑ s : S.val, Coinvariants.mk B.ρ (A.ρ (s : G) a) := by
     simp only [f, LinearMap.sum_apply, LinearMap.comp_apply]
   have hrep (s : S.val) : (S.property.equiv (s : G)).2 = s := by
-    have hs := congrArg Prod.snd (S.property.equiv.apply_symm_apply (1, s))
-    simpa only [Subgroup.IsComplement.equiv_symm_apply, Subgroup.coe_one, one_mul] using hs
+    exact S.property.equiv_snd_eq_self_of_mem_of_one_mem H.one_mem s.property
   have hclass (g : G) (a : A) :
       Coinvariants.mk B.ρ (A.ρ g a) =
         Coinvariants.mk B.ρ (A.ρ ((S.property.equiv g).2 : G) a) := by
