@@ -893,7 +893,7 @@ theorem p06_9e0f5043ff_io_fraction_extension :
       hμ _ _ (hb f) (ha g hg)]
     simp only [ν, if_neg hf, if_neg hg, Nat.cast_add]
     ring
-/-- Finite order supports give a finite exceptional set for all coefficients of a polynomial. -/
+
 /-- Finite order supports give a finite exceptional set for all coefficients of a polynomial.
 Take the union of the order supports of its nonzero coefficients. Outside that union,
 unit–uniformizer factorization makes each nonzero coefficient a valuation-subring unit. -/
