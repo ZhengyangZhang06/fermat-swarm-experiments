@@ -18,3 +18,78 @@ theorem Rep.isZero_tateCohomology_of_forall_sylow {k G : Type u} [CommRing k] [G
       CategoryTheory.Limits.IsZero ((Rep.res (P : Subgroup G).subtype A).tateCohomology q)) :
     CategoryTheory.Limits.IsZero (A.tateCohomology q) := by
   sorry
+
+namespace Submission
+
+/-- Summing translates over left cosets transfers subgroup invariants to ambient invariants.
+It takes the subgroup norm to the ambient norm and acts on ambient invariants by the index.
+
+The coset representatives use `QuotientGroup.mk_out_eq_mul` from Mathlib's
+`GroupTheory.Coset.Defs`; the norm is the `normToInvariants` map from
+`Definitions.Def_GroupCohomology_TateCohomology`. Left multiplication on cosets uses
+`MulAction.Quotient.mk_smul_out` from `GroupTheory.GroupAction.Quotient`, and
+`Subgroup.index_eq_card` from `GroupTheory.Index` identifies the number of summands.
+The multiplication bijection is proved locally so its formula remains explicit in the norm sum. -/
+theorem p04_tz91_invariant_transfer_norm_index
+    {k G : Type _} [CommRing k] [Group G] [Fintype G]
+    (A : Rep k G) (H : Subgroup G) [Fintype H] :
+    ∃ c : (Rep.res H.subtype A).ρ.invariants →ₗ[k] A.ρ.invariants,
+      (∀ v : A, c ((Rep.res H.subtype A).ρ.normToInvariants v) =
+        A.ρ.normToInvariants v) ∧
+      ∀ (a : A.ρ.invariants) (b : (Rep.res H.subtype A).ρ.invariants),
+        (b : A) = (a : A) → c b = H.index • a := by
+  classical
+  let : Fintype (G ⧸ H) := Fintype.ofFinite _
+  -- An H-invariant vector has the same translate for any representative of a coset.
+  have hrep (b : (Rep.res H.subtype A).ρ.invariants) (g : G) :
+      A.ρ (QuotientGroup.mk g : G ⧸ H).out (b : A) = A.ρ g (b : A) := by
+    obtain ⟨h, hh⟩ := QuotientGroup.mk_out_eq_mul H g
+    rw [hh, map_mul, Module.End.mul_apply]
+    exact congrArg (A.ρ g) (b.property h)
+  -- Summing linear maps gives the transfer's linearity before restricting its codomain.
+  let t : (Rep.res H.subtype A).ρ.invariants →ₗ[k] A :=
+    ∑ q : G ⧸ H, (A.ρ q.out).comp (Rep.res H.subtype A).ρ.invariants.subtype
+  have ht (b : (Rep.res H.subtype A).ρ.invariants) : t b ∈ A.ρ.invariants := by
+    intro g
+    simp only [t, LinearMap.sum_apply, LinearMap.comp_apply, Submodule.subtype_apply, map_sum]
+    -- Left multiplication permutes the cosets, and hrep identifies their translates.
+    refine Fintype.sum_equiv (MulAction.toPerm g) _ _ fun q => ?_
+    change A.ρ g (A.ρ q.out (b : A)) = A.ρ (g • q).out (b : A)
+    rw [← Module.End.mul_apply, ← map_mul]
+    simpa only [← smul_eq_mul, MulAction.Quotient.mk_smul_out] using
+      (hrep b (g * q.out)).symm
+  let c := t.codRestrict A.ρ.invariants ht
+  refine ⟨c, ?_, ?_⟩
+  · intro v
+    apply Subtype.ext
+    -- Multiplication identifies a coset representative and an H-coordinate with G.
+    let e : (G ⧸ H) × H ≃ G := Equiv.ofBijective
+      (fun p => p.1.out * (p.2 : G)) (by
+        constructor
+        · rintro ⟨q, h⟩ ⟨q', h'⟩ heq
+          have hq : q = q' := by
+            have := congrArg (fun g : G => (QuotientGroup.mk g : G ⧸ H)) heq
+            simpa only [QuotientGroup.mk_mul_of_mem _ h.property,
+              QuotientGroup.mk_mul_of_mem _ h'.property, QuotientGroup.out_eq'] using this
+          subst q'
+          exact Prod.ext rfl (Subtype.ext (mul_left_cancel heq))
+        · intro g
+          refine ⟨⟨QuotientGroup.mk g, ⟨(QuotientGroup.mk g : G ⧸ H).out⁻¹ * g,
+            QuotientGroup.eq.mp (QuotientGroup.out_eq' _)⟩⟩, ?_⟩
+          exact mul_inv_cancel_left _ _)
+    change t ((Rep.res H.subtype A).ρ.normToInvariants v) = A.ρ.norm v
+    simp only [t, LinearMap.sum_apply, LinearMap.comp_apply, Submodule.subtype_apply,
+      Representation.coe_normToInvariants_apply, Representation.norm, map_sum]
+    rw [← Fintype.sum_prod_type']
+    refine Fintype.sum_equiv e _ _ fun p => ?_
+    change A.ρ p.1.out (A.ρ (p.2 : G) v) = A.ρ (p.1.out * (p.2 : G)) v
+    rw [map_mul, Module.End.mul_apply]
+  · intro a b hab
+    apply Subtype.ext
+    change t b = H.index • (a : A)
+    have ha : ∀ g : G, A.ρ g (a : A) = a := a.property
+    simp only [t, LinearMap.sum_apply, LinearMap.comp_apply, Submodule.subtype_apply,
+      hab, ha, Finset.sum_const, Finset.card_univ]
+    rw [Subgroup.index_eq_card, Nat.card_eq_fintype_card]
+
+end Submission
