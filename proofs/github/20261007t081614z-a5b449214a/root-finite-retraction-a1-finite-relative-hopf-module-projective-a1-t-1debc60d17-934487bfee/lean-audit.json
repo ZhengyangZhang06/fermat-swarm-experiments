@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "cf35f87b68b1b2d6dca980d0bad5f8d3a9640cb5371eb606c88414435e04caca",
+  "git_delta": {
+    "base_commit": "ca1bb49d173a82f6c760dd27fdde39c92765501e",
+    "candidate_commit": "eada7b1acb1d1fe2505192e00a8095cfc6f14105",
+    "target": "Submission.lean",
+    "declaration": "p05_fr_rhm_tensor_ideal_descent_a5b449214a",
+    "diff_sha256": "0c42c9db18e9ff38aea51a9d95be2c8c59ee1607e94e96b8390e0de19ad33d44",
+    "source_sha256": "5eec9638ead961a6135a0eda0406075176c99c4810037db328755e493ffedc53",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_fr_rhm_tensor_ideal_descent_a5b449214a",
+      "statement": "∀ {k : Type*} [Field k] {A : Type*} [CommRing A] [Algebra k A] {H : Type*} [CommRing H] [Algebra k H] (f : A →ₗ[k] H) (_hf : Function.Injective f) (J : Ideal A) (t : TensorProduct k A A) (_ht : TensorProduct.map (LinearMap.id : A →ₗ[k] A) f t ∈ Ideal.map (Algebra.TensorProduct.includeLeft : A →ₐ[k] TensorProduct k A H).toRingHom J), t ∈ Submodule.span k {z : TensorProduct k A A | ∃ a ∈ J, ∃ b : A, z = TensorProduct.tmul k a b}",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
