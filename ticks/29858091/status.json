@@ -1,9 +1,9 @@
 {
-  "observed_at": "2026-10-08T18:50:15.075780+00:00",
+  "observed_at": "2026-10-08T18:51:28.473053+00:00",
   "phase": "proving",
   "readiness_passed": 128,
   "running_resolvers": 128,
-  "working_resolvers": 97,
+  "working_resolvers": 96,
   "verified_integrated_roots": 0,
   "reviewed_natural_proofs": 6,
   "proof_feed_active": true,
@@ -47,7 +47,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -85,7 +85,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -121,7 +121,7 @@
               "finished": 18
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -148,16 +148,16 @@
           "activity_reason": "worker hoa81",
           "saved_status": "rlcr-lean",
           "verification_activity": {
-            "state": "no-active-check",
+            "state": "verification-running",
             "counts": {
               "queued": 0,
-              "running": 0,
+              "running": 1,
               "starting": 0,
               "needs_reconciliation": 0,
               "finished": 24
             },
-            "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "pending_revisions": 1,
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -193,7 +193,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -229,7 +229,7 @@
               "finished": 21
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -267,7 +267,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -302,7 +302,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -337,7 +337,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -345,35 +345,35 @@
           "problem": "fermat-p01",
           "local_id": "root.petersson_core_good_hecke-a1.effective_domain-a1.ae_orbit_interior-a1.measurable_null_orbit_avoidance-a1",
           "title": "f036cc6b1f_pc_ed_aoi_null_orbit",
-          "status": "integrating",
+          "status": "proved",
           "requires": [],
           "active": true,
           "issue_url": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/114",
-          "pr_url": "",
-          "pr_state": "",
-          "merge_commit": "",
-          "lean_verified": false,
-          "integrated": false,
+          "pr_url": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/274",
+          "pr_state": "merged",
+          "merge_commit": "05b156ccf8f6ef2f56b93e90ee9766c035cae300",
+          "lean_verified": true,
+          "integrated": true,
           "prose_status": "checkpoint recorded",
           "accepted": true,
           "publication_pending": false,
           "worker_node": "hoa98",
           "observed_running": true,
           "waiting_on": [],
-          "activity_state": "executing",
+          "activity_state": "merged",
           "activity_reason": "worker hoa98",
-          "saved_status": "integrating",
+          "saved_status": "proved",
           "verification_activity": {
-            "state": "verification-running",
+            "state": "no-active-check",
             "counts": {
               "queued": 0,
-              "running": 1,
+              "running": 0,
               "starting": 0,
               "needs_reconciliation": 0,
-              "finished": 14
+              "finished": 15
             },
-            "pending_revisions": 1,
-            "observed_at": 1791485415.0204382
+            "pending_revisions": 0,
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -409,7 +409,7 @@
               "finished": 16
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -445,7 +445,7 @@
               "finished": 19
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -484,7 +484,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -514,7 +514,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -552,7 +552,7 @@
               "finished": 2
             },
             "pending_revisions": 1,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -591,7 +591,7 @@
               "finished": 2
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -621,7 +621,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -648,16 +648,16 @@
           "activity_reason": "worker hoa22",
           "saved_status": "integrating",
           "verification_activity": {
-            "state": "no-active-check",
+            "state": "verification-running",
             "counts": {
               "queued": 0,
-              "running": 0,
+              "running": 1,
               "starting": 0,
               "needs_reconciliation": 0,
               "finished": 10
             },
-            "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "pending_revisions": 1,
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -687,7 +687,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -727,7 +727,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -735,7 +735,7 @@
           "problem": "fermat-p01",
           "local_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.diagonal_integral_definite-a1",
           "title": "f036cc6b1f_pic_diagonal_definite",
-          "status": "rlcr-lean",
+          "status": "comparing",
           "requires": [
             "fermat-p01/root.petersson_core_good_hecke-a1.petersson_integral_core-a1.diagonal_integral_definite-a1.ae_vanishing_from_orbit_cover-a1",
             "fermat-p01/root.petersson_core_good_hecke-a1.petersson_integral_core-a1.diagonal_integral_definite-a1.hyperbolic_volume_open_positive-a1"
@@ -755,18 +755,18 @@
           "waiting_on": [],
           "activity_state": "executing",
           "activity_reason": "worker hoa79",
-          "saved_status": "rlcr-lean",
+          "saved_status": "comparing",
           "verification_activity": {
-            "state": "no-active-check",
+            "state": "verification-running",
             "counts": {
               "queued": 0,
-              "running": 0,
+              "running": 1,
               "starting": 0,
               "needs_reconciliation": 0,
               "finished": 2
             },
-            "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "pending_revisions": 1,
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -796,7 +796,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -826,7 +826,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -861,7 +861,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -891,7 +891,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -926,7 +926,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -962,7 +962,7 @@
               "finished": 8
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1001,7 +1001,7 @@
               "finished": 2
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1037,7 +1037,7 @@
               "finished": 8
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1067,7 +1067,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1102,7 +1102,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1140,7 +1140,7 @@
               "finished": 2
             },
             "pending_revisions": 1,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1170,7 +1170,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         }
       ],
@@ -1220,7 +1220,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1256,7 +1256,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1296,7 +1296,7 @@
               "finished": 2
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1335,7 +1335,7 @@
               "finished": 3
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1368,7 +1368,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1398,7 +1398,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1430,7 +1430,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1460,7 +1460,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1500,7 +1500,7 @@
               "finished": 4
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1530,7 +1530,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1560,7 +1560,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1593,7 +1593,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1623,7 +1623,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1653,7 +1653,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1693,7 +1693,7 @@
               "finished": 3
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1726,7 +1726,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1756,7 +1756,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1786,7 +1786,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1827,7 +1827,7 @@
               "finished": 3
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1857,7 +1857,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1890,7 +1890,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1920,7 +1920,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1950,7 +1950,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -1980,7 +1980,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2010,7 +2010,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2045,7 +2045,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2085,7 +2085,7 @@
               "finished": 2
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2115,7 +2115,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2145,7 +2145,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2185,7 +2185,7 @@
               "finished": 3
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2224,7 +2224,7 @@
               "finished": 5
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2254,7 +2254,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2284,7 +2284,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2314,7 +2314,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2353,7 +2353,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2389,7 +2389,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2419,7 +2419,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2458,7 +2458,7 @@
               "finished": 2
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2488,7 +2488,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2527,7 +2527,7 @@
               "finished": 4
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2566,7 +2566,7 @@
               "finished": 3
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2598,7 +2598,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2628,7 +2628,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2658,7 +2658,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2688,7 +2688,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2725,7 +2725,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2755,7 +2755,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2785,7 +2785,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2825,7 +2825,7 @@
               "finished": 3
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2855,7 +2855,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2885,7 +2885,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2925,7 +2925,7 @@
               "finished": 9
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2961,7 +2961,7 @@
               "finished": 4
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -2991,7 +2991,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -3030,7 +3030,7 @@
               "finished": 3
             },
             "pending_revisions": 1,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -3060,7 +3060,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -3090,7 +3090,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         }
       ],
@@ -3129,7 +3129,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         }
       ],
@@ -3174,7 +3174,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -3182,7 +3182,7 @@
           "problem": "fermat-p04",
           "local_id": "root.prime_avoiding_annihilators-a1",
           "title": "p04_eq_zero_of_prime_avoiding_annihilators",
-          "status": "comparing",
+          "status": "rlcr-lean",
           "requires": [],
           "active": true,
           "issue_url": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/22",
@@ -3199,18 +3199,18 @@
           "waiting_on": [],
           "activity_state": "executing",
           "activity_reason": "worker hoa83",
-          "saved_status": "comparing",
+          "saved_status": "rlcr-lean",
           "verification_activity": {
-            "state": "verification-running",
+            "state": "no-active-check",
             "counts": {
               "queued": 0,
-              "running": 1,
+              "running": 0,
               "starting": 0,
               "needs_reconciliation": 0,
-              "finished": 25
+              "finished": 26
             },
-            "pending_revisions": 1,
-            "observed_at": 1791485415.0204382
+            "pending_revisions": 0,
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -3250,7 +3250,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -3286,7 +3286,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -3321,7 +3321,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -3360,7 +3360,7 @@
               "finished": 2
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -3398,7 +3398,7 @@
               "finished": 1
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -3428,7 +3428,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -3464,7 +3464,7 @@
               "finished": 20
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -3490,7 +3490,6 @@
           "worker_node": "",
           "observed_running": false,
           "waiting_on": [
-            "fermat-p04/root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.normalized_equivariant_retraction-a1",
             "fermat-p04/root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1"
           ],
           "activity_state": "waiting-dependencies",
@@ -3500,7 +3499,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -3536,7 +3535,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -3572,7 +3571,7 @@
               "finished": 21
             },
             "pending_revisions": 1,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -3608,7 +3607,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -3644,7 +3643,7 @@
               "finished": 23
             },
             "pending_revisions": 1,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -3652,7 +3651,7 @@
           "problem": "fermat-p04",
           "local_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1.prism_boundary_identity-a1.noncentral_cancellation-a1",
           "title": "p04_pb_60221840b0_noncentral_cancellation",
-          "status": "comparing",
+          "status": "lean-review",
           "requires": [],
           "active": true,
           "issue_url": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/167",
@@ -3669,7 +3668,7 @@
           "waiting_on": [],
           "activity_state": "executing",
           "activity_reason": "worker hoa100",
-          "saved_status": "comparing",
+          "saved_status": "lean-review",
           "verification_activity": {
             "state": "verification-running",
             "counts": {
@@ -3677,10 +3676,10 @@
               "running": 1,
               "starting": 0,
               "needs_reconciliation": 0,
-              "finished": 24
+              "finished": 25
             },
             "pending_revisions": 1,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -3688,7 +3687,7 @@
           "problem": "fermat-p04",
           "local_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.normalized_equivariant_retraction-a1",
           "title": "p04_rsh_82a013d1d0_equivariant_retraction",
-          "status": "lean-review",
+          "status": "integrating",
           "requires": [],
           "active": true,
           "issue_url": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/148",
@@ -3698,14 +3697,14 @@
           "lean_verified": false,
           "integrated": false,
           "prose_status": "checkpoint recorded",
-          "accepted": false,
+          "accepted": true,
           "publication_pending": false,
           "worker_node": "hoa47",
           "observed_running": true,
           "waiting_on": [],
           "activity_state": "executing",
           "activity_reason": "worker hoa47",
-          "saved_status": "lean-review",
+          "saved_status": "integrating",
           "verification_activity": {
             "state": "no-active-check",
             "counts": {
@@ -3716,7 +3715,7 @@
               "finished": 24
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -3751,7 +3750,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -3787,7 +3786,7 @@
               "finished": 19
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -3817,7 +3816,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -3853,7 +3852,7 @@
               "finished": 17
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -3888,7 +3887,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -3918,7 +3917,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -3954,7 +3953,7 @@
               "finished": 19
             },
             "pending_revisions": 1,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         }
       ],
@@ -4005,7 +4004,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4045,7 +4044,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4075,7 +4074,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4105,7 +4104,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4135,7 +4134,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4173,7 +4172,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4209,7 +4208,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4239,7 +4238,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4269,7 +4268,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4305,7 +4304,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4335,7 +4334,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4343,7 +4342,7 @@
           "problem": "fermat-p05",
           "local_id": "root.finite_hopf_envelope-a1.determinant_inverse-a1.determinant_grouplike-a1",
           "title": "p05_di_determinant_grouplike_a5b449214a",
-          "status": "decomposing",
+          "status": "rlcr-lean",
           "requires": [],
           "active": true,
           "issue_url": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/268",
@@ -4360,12 +4359,12 @@
           "waiting_on": [],
           "activity_state": "executing",
           "activity_reason": "worker hoa115",
-          "saved_status": "decomposing",
+          "saved_status": "rlcr-lean",
           "verification_activity": {
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4401,7 +4400,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4431,7 +4430,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4461,7 +4460,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4499,7 +4498,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4526,10 +4525,16 @@
           "activity_reason": "worker hoa33",
           "saved_status": "rlcr-lean",
           "verification_activity": {
-            "state": "no-active-check",
-            "counts": null,
-            "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "state": "verification-running",
+            "counts": {
+              "queued": 0,
+              "running": 1,
+              "starting": 0,
+              "needs_reconciliation": 0,
+              "finished": 0
+            },
+            "pending_revisions": 1,
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4565,7 +4570,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4595,7 +4600,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4637,7 +4642,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4667,7 +4672,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4697,7 +4702,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4727,7 +4732,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4763,7 +4768,7 @@
               "finished": 2
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         }
       ],
@@ -4810,7 +4815,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4836,8 +4841,7 @@
           "worker_node": "",
           "observed_running": false,
           "waiting_on": [
-            "fermat-p06/root.finite_order_support_ascent-a1.polynomial_coefficients_integral_off_fa-a1",
-            "fermat-p06/root.finite_order_support_ascent-a1.order_zero_from_monic_pair-a1"
+            "fermat-p06/root.finite_order_support_ascent-a1.polynomial_coefficients_integral_off_fa-a1"
           ],
           "activity_state": "waiting-dependencies",
           "activity_reason": "waiting for prerequisite proofs",
@@ -4846,7 +4850,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4854,7 +4858,7 @@
           "problem": "fermat-p06",
           "local_id": "root.finite_order_support_ascent-a1.order_zero_from_monic_pair-a1",
           "title": "p06_9e0f5043ff_fosa_ord_zero_of_monic_pair",
-          "status": "lean-review",
+          "status": "integrating",
           "requires": [],
           "active": true,
           "issue_url": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/101",
@@ -4864,14 +4868,14 @@
           "lean_verified": false,
           "integrated": false,
           "prose_status": "checkpoint recorded",
-          "accepted": false,
+          "accepted": true,
           "publication_pending": false,
           "worker_node": "hoa32",
           "observed_running": true,
           "waiting_on": [],
           "activity_state": "executing",
           "activity_reason": "worker hoa32",
-          "saved_status": "lean-review",
+          "saved_status": "integrating",
           "verification_activity": {
             "state": "no-active-check",
             "counts": {
@@ -4882,7 +4886,7 @@
               "finished": 22
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4909,16 +4913,16 @@
           "activity_reason": "worker hoa82",
           "saved_status": "comparing",
           "verification_activity": {
-            "state": "verification-running",
+            "state": "no-active-check",
             "counts": {
               "queued": 0,
-              "running": 1,
+              "running": 0,
               "starting": 0,
               "needs_reconciliation": 0,
-              "finished": 18
+              "finished": 19
             },
-            "pending_revisions": 1,
-            "observed_at": 1791485415.0204382
+            "pending_revisions": 0,
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4956,7 +4960,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -4993,7 +4997,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5028,7 +5032,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5064,7 +5068,7 @@
               "finished": 20
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5100,7 +5104,7 @@
               "finished": 19
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5135,7 +5139,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5165,7 +5169,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5204,7 +5208,7 @@
               "finished": 2
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5234,7 +5238,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5264,7 +5268,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5300,7 +5304,7 @@
               "finished": 17
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5338,7 +5342,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5365,16 +5369,16 @@
           "activity_reason": "worker hoa31",
           "saved_status": "lean-review",
           "verification_activity": {
-            "state": "verification-running",
+            "state": "no-active-check",
             "counts": {
               "queued": 0,
-              "running": 1,
+              "running": 0,
               "starting": 0,
               "needs_reconciliation": 0,
-              "finished": 20
+              "finished": 21
             },
-            "pending_revisions": 1,
-            "observed_at": 1791485415.0204382
+            "pending_revisions": 0,
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5410,7 +5414,7 @@
               "finished": 24
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5446,7 +5450,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5482,7 +5486,7 @@
               "finished": 19
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5517,7 +5521,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5553,7 +5557,7 @@
               "finished": 19
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5589,7 +5593,7 @@
               "finished": 20
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5625,7 +5629,7 @@
               "finished": 20
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5659,7 +5663,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5695,7 +5699,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5731,7 +5735,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5739,7 +5743,7 @@
           "problem": "fermat-p06",
           "local_id": "root.rational_adjoin_principal-a1.principal_alg_equiv-a1.compatible_order_invariance-a1",
           "title": "p06_9e0f5043ff_pae_compatible_order_invariance",
-          "status": "rlcr-lean",
+          "status": "comparing",
           "requires": [],
           "active": true,
           "issue_url": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/53",
@@ -5756,18 +5760,18 @@
           "waiting_on": [],
           "activity_state": "executing",
           "activity_reason": "worker hoa63",
-          "saved_status": "rlcr-lean",
+          "saved_status": "comparing",
           "verification_activity": {
-            "state": "no-active-check",
+            "state": "verification-running",
             "counts": {
               "queued": 0,
-              "running": 0,
+              "running": 1,
               "starting": 0,
               "needs_reconciliation": 0,
               "finished": 23
             },
-            "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "pending_revisions": 1,
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5803,7 +5807,7 @@
               "finished": 23
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5841,7 +5845,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5877,7 +5881,7 @@
               "finished": 19
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5914,7 +5918,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5950,7 +5954,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -5986,7 +5990,7 @@
               "finished": 21
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -6022,7 +6026,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -6058,7 +6062,7 @@
               "finished": 21
             },
             "pending_revisions": 1,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -6094,7 +6098,7 @@
               "finished": 18
             },
             "pending_revisions": 1,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -6130,7 +6134,7 @@
               "finished": 16
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -6169,7 +6173,7 @@
               "finished": 1
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -6205,7 +6209,7 @@
               "finished": 19
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -6243,7 +6247,7 @@
               "finished": 1
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -6282,7 +6286,7 @@
               "finished": 2
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -6309,16 +6313,16 @@
           "activity_reason": "worker hoa86",
           "saved_status": "integrating",
           "verification_activity": {
-            "state": "no-active-check",
+            "state": "verification-running",
             "counts": {
               "queued": 0,
-              "running": 0,
+              "running": 1,
               "starting": 0,
               "needs_reconciliation": 0,
               "finished": 18
             },
-            "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "pending_revisions": 1,
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -6348,7 +6352,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -6386,7 +6390,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -6422,7 +6426,7 @@
               "finished": 2
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -6458,7 +6462,7 @@
               "finished": 2
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -6466,7 +6470,7 @@
           "problem": "fermat-p06",
           "local_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1.valuation_fraction_characterization-a1",
           "title": "p06_9e0f5043ff_inf_valuation_fraction_characterization",
-          "status": "speculative-lean",
+          "status": "speculative-ready",
           "requires": [
             "fermat-p06/root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1.valuation_fraction_characterization-a1.polynomial_unit_criterion-a1",
             "fermat-p06/root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1.valuation_fraction_characterization-a1.unit_power_quotient_exponents-a1"
@@ -6481,20 +6485,20 @@
           "prose_status": "checkpoint recorded",
           "accepted": false,
           "publication_pending": false,
-          "worker_node": "hoa80",
-          "observed_running": true,
+          "worker_node": "",
+          "observed_running": false,
           "waiting_on": [
             "fermat-p06/root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1.valuation_fraction_characterization-a1.polynomial_unit_criterion-a1",
             "fermat-p06/root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1.valuation_fraction_characterization-a1.unit_power_quotient_exponents-a1"
           ],
-          "activity_state": "executing",
-          "activity_reason": "worker hoa80",
-          "saved_status": "speculative-lean",
+          "activity_state": "waiting-dependencies",
+          "activity_reason": "waiting for prerequisite proofs",
+          "saved_status": "speculative-ready",
           "verification_activity": {
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -6524,7 +6528,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -6554,7 +6558,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         }
       ],
@@ -6601,7 +6605,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -6639,7 +6643,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -6673,7 +6677,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -6709,7 +6713,7 @@
               "finished": 18
             },
             "pending_revisions": 1,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -6745,7 +6749,7 @@
               "finished": 20
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -6781,7 +6785,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -6819,7 +6823,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -6853,7 +6857,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -6889,7 +6893,7 @@
               "finished": 23
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -6925,7 +6929,7 @@
               "finished": 20
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -6960,7 +6964,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -6996,7 +7000,7 @@
               "finished": 16
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -7032,7 +7036,7 @@
               "finished": 17
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -7068,7 +7072,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -7098,7 +7102,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         },
         {
@@ -7128,7 +7132,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         }
       ],
@@ -7167,7 +7171,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         }
       ],
@@ -7212,7 +7216,7 @@
               "finished": 1
             },
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         }
       ],
@@ -7251,7 +7255,7 @@
             "state": "no-active-check",
             "counts": null,
             "pending_revisions": 0,
-            "observed_at": 1791485415.0204382
+            "observed_at": 1791485488.4491808
           }
         }
       ],
@@ -7266,909 +7270,909 @@
       "phase": "working",
       "polls": 2912,
       "issue": 246,
-      "observed_at": 1791485402.6347778
+      "observed_at": 1791485477.6722765
     },
     {
       "node": "hoa1",
       "phase": "uncertain",
       "polls": 78,
       "issue": 130,
-      "observed_at": 1791485400.3756962
+      "observed_at": 1791485475.717314
     },
     {
       "node": "hoa2",
       "phase": "idle",
-      "polls": 1782,
+      "polls": 1787,
       "issue": null,
-      "observed_at": 1791485399.876526
+      "observed_at": 1791485475.3908255
     },
     {
       "node": "hoa3",
       "phase": "working",
       "polls": 2125,
       "issue": 121,
-      "observed_at": 1791485399.5315118
+      "observed_at": 1791485475.2275965
     },
     {
       "node": "hoa4",
       "phase": "working",
       "polls": 68,
       "issue": 62,
-      "observed_at": 1791485393.998499
+      "observed_at": 1791485475.4334128
     },
     {
       "node": "hoa5",
       "phase": "working",
       "polls": 166,
       "issue": 151,
-      "observed_at": 1791485400.874052
+      "observed_at": 1791485475.975433
     },
     {
       "node": "hoa6",
       "phase": "idle",
-      "polls": 3657,
+      "polls": 3662,
       "issue": null,
-      "observed_at": 1791485400.4020557
+      "observed_at": 1791485475.7284398
     },
     {
       "node": "hoa7",
       "phase": "working",
       "polls": 142,
       "issue": 146,
-      "observed_at": 1791485400.24503
+      "observed_at": 1791485475.6725209
     },
     {
       "node": "hoa8",
       "phase": "working",
       "polls": 2711,
       "issue": 128,
-      "observed_at": 1791485399.6885061
+      "observed_at": 1791485475.280789
     },
     {
       "node": "hoa9",
       "phase": "working",
       "polls": 76,
       "issue": 123,
-      "observed_at": 1791485399.5210598
+      "observed_at": 1791485475.2187667
     },
     {
       "node": "hoa10",
       "phase": "idle",
-      "polls": 2955,
+      "polls": 3838,
       "issue": null,
-      "observed_at": 1791485399.9691892
+      "observed_at": 1791485475.882359
     },
     {
       "node": "hoa11",
       "phase": "idle",
-      "polls": 3451,
+      "polls": 3920,
       "issue": null,
-      "observed_at": 1791485399.76213
+      "observed_at": 1791485475.5187335
     },
     {
       "node": "hoa12",
       "phase": "working",
       "polls": 3542,
       "issue": 248,
-      "observed_at": 1791485400.3858023
+      "observed_at": 1791485475.7212257
     },
     {
       "node": "hoa13",
       "phase": "idle",
-      "polls": 3215,
+      "polls": 3860,
       "issue": null,
-      "observed_at": 1791485400.268443
+      "observed_at": 1791485476.035972
     },
     {
       "node": "hoa14",
       "phase": "working",
       "polls": 4,
       "issue": 90,
-      "observed_at": 1791485399.886416
+      "observed_at": 1791485475.3800018
     },
     {
       "node": "hoa15",
       "phase": "working",
       "polls": 1052,
       "issue": 242,
-      "observed_at": 1791485400.7384403
+      "observed_at": 1791485475.910823
     },
     {
       "node": "hoa16",
       "phase": "idle",
-      "polls": 2144,
+      "polls": 2149,
       "issue": null,
-      "observed_at": 1791485399.7315342
+      "observed_at": 1791485475.2985902
     },
     {
       "node": "hoa17",
       "phase": "idle",
-      "polls": 3643,
+      "polls": 3648,
       "issue": null,
-      "observed_at": 1791485399.6147263
+      "observed_at": 1791485475.222982
     },
     {
       "node": "hoa18",
       "phase": "idle",
-      "polls": 3687,
+      "polls": 3691,
       "issue": null,
-      "observed_at": 1791485401.133212
+      "observed_at": 1791485476.2052655
     },
     {
       "node": "hoa19",
       "phase": "idle",
-      "polls": 2027,
+      "polls": 2032,
       "issue": null,
-      "observed_at": 1791485400.3599873
+      "observed_at": 1791485475.7121282
     },
     {
       "node": "hoa20",
       "phase": "working",
       "polls": 579,
       "issue": 267,
-      "observed_at": 1791485399.5121408
+      "observed_at": 1791485475.2061405
     },
     {
       "node": "hoa21",
       "phase": "working",
       "polls": 119,
       "issue": 272,
-      "observed_at": 1791485399.493774
+      "observed_at": 1791485475.1836414
     },
     {
       "node": "hoa22",
       "phase": "working",
       "polls": 645,
       "issue": 214,
-      "observed_at": 1791485399.6231596
+      "observed_at": 1791485475.2494044
     },
     {
       "node": "hoa23",
       "phase": "working",
       "polls": 3436,
       "issue": 255,
-      "observed_at": 1791485400.8686578
+      "observed_at": 1791485475.9626205
     },
     {
       "node": "hoa24",
       "phase": "working",
       "polls": 2583,
       "issue": 115,
-      "observed_at": 1791485400.5347583
+      "observed_at": 1791485475.8033137
     },
     {
       "node": "hoa25",
       "phase": "working",
       "polls": 100,
       "issue": 9,
-      "observed_at": 1791485394.232467
+      "observed_at": 1791485475.6129405
     },
     {
       "node": "hoa26",
       "phase": "working",
       "polls": 100,
       "issue": 264,
-      "observed_at": 1791485400.4397898
+      "observed_at": 1791485475.761517
     },
     {
       "node": "hoa27",
       "phase": "idle",
-      "polls": 824,
+      "polls": 3923,
       "issue": null,
-      "observed_at": 1791485400.252413
+      "observed_at": 1791485475.8121324
     },
     {
       "node": "hoa28",
       "phase": "working",
       "polls": 2726,
       "issue": 27,
-      "observed_at": 1791485400.1420429
+      "observed_at": 1791485475.5709283
     },
     {
       "node": "hoa29",
       "phase": "working",
       "polls": 2495,
       "issue": 217,
-      "observed_at": 1791485399.8433628
+      "observed_at": 1791485475.373531
     },
     {
       "node": "hoa30",
       "phase": "working",
       "polls": 2820,
       "issue": 257,
-      "observed_at": 1791485402.6410365
+      "observed_at": 1791485477.6855278
     },
     {
       "node": "hoa31",
       "phase": "working",
       "polls": 4,
       "issue": 87,
-      "observed_at": 1791485400.0144982
+      "observed_at": 1791485475.527517
     },
     {
       "node": "hoa32",
       "phase": "working",
       "polls": 6,
       "issue": 101,
-      "observed_at": 1791485402.6704822
+      "observed_at": 1791485477.7375333
     },
     {
       "node": "hoa33",
       "phase": "working",
       "polls": 932,
       "issue": 252,
-      "observed_at": 1791485399.948879
+      "observed_at": 1791485475.4223263
     },
     {
       "node": "hoa34",
       "phase": "working",
       "polls": 68,
       "issue": 113,
-      "observed_at": 1791485400.7711275
+      "observed_at": 1791485475.922045
     },
     {
       "node": "hoa35",
       "phase": "working",
       "polls": 3491,
       "issue": 253,
-      "observed_at": 1791485400.5648792
+      "observed_at": 1791485475.8214757
     },
     {
       "node": "hoa36",
       "phase": "idle",
-      "polls": 3547,
+      "polls": 2199,
       "issue": null,
-      "observed_at": 1791485399.910976
+      "observed_at": 1791485475.7842357
     },
     {
       "node": "hoa37",
       "phase": "working",
       "polls": 80,
       "issue": 129,
-      "observed_at": 1791485400.4998064
+      "observed_at": 1791485475.7746751
     },
     {
       "node": "hoa38",
       "phase": "working",
       "polls": 3536,
       "issue": 210,
-      "observed_at": 1791485400.7288299
+      "observed_at": 1791485475.9043956
     },
     {
       "node": "hoa39",
       "phase": "working",
       "polls": 66,
       "issue": 40,
-      "observed_at": 1791485394.0349855
+      "observed_at": 1791485475.456973
     },
     {
       "node": "hoa40",
       "phase": "idle",
-      "polls": 3476,
+      "polls": 3481,
       "issue": null,
-      "observed_at": 1791485400.9274628
+      "observed_at": 1791485476.0088115
     },
     {
       "node": "hoa41",
       "phase": "working",
       "polls": 3517,
       "issue": 254,
-      "observed_at": 1791485400.9480247
+      "observed_at": 1791485476.016676
     },
     {
       "node": "hoa42",
       "phase": "working",
       "polls": 3565,
       "issue": 218,
-      "observed_at": 1791485399.704588
+      "observed_at": 1791485475.2754405
     },
     {
       "node": "hoa43",
       "phase": "idle",
-      "polls": 764,
+      "polls": 769,
       "issue": null,
-      "observed_at": 1791485400.8573883
+      "observed_at": 1791485475.9539497
     },
     {
       "node": "hoa44",
       "phase": "working",
       "polls": 7,
       "issue": 103,
-      "observed_at": 1791485400.039971
+      "observed_at": 1791485475.476421
     },
     {
       "node": "hoa45",
       "phase": "working",
       "polls": 73,
       "issue": 3,
-      "observed_at": 1791485397.6165612
+      "observed_at": 1791485475.9924805
     },
     {
       "node": "hoa46",
       "phase": "working",
       "polls": 1090,
       "issue": 265,
-      "observed_at": 1791485400.5065746
+      "observed_at": 1791485475.7864294
     },
     {
       "node": "hoa47",
       "phase": "working",
       "polls": 158,
       "issue": 148,
-      "observed_at": 1791485400.7006772
+      "observed_at": 1791485475.8876579
     },
     {
       "node": "hoa48",
       "phase": "working",
       "polls": 2750,
       "issue": 98,
-      "observed_at": 1791485400.700117
+      "observed_at": 1791485475.8672764
     },
     {
       "node": "hoa49",
       "phase": "working",
       "polls": 252,
       "issue": 154,
-      "observed_at": 1791485400.0568898
+      "observed_at": 1791485475.5274115
     },
     {
       "node": "hoa50",
       "phase": "working",
       "polls": 3627,
       "issue": 108,
-      "observed_at": 1791485399.83612
+      "observed_at": 1791485475.3643222
     },
     {
       "node": "hoa51",
       "phase": "idle",
-      "polls": 1146,
+      "polls": 1151,
       "issue": null,
-      "observed_at": 1791485401.1326513
+      "observed_at": 1791485476.218834
     },
     {
       "node": "hoa52",
       "phase": "working",
       "polls": 74,
       "issue": 8,
-      "observed_at": 1791485393.773444
+      "observed_at": 1791485471.4010367
     },
     {
       "node": "hoa53",
       "phase": "working",
       "polls": 2929,
       "issue": 110,
-      "observed_at": 1791485392.7722921
+      "observed_at": 1791485467.8887286
     },
     {
       "node": "hoa54",
       "phase": "working",
       "polls": 3228,
       "issue": 247,
-      "observed_at": 1791485400.699946
+      "observed_at": 1791485475.8807316
     },
     {
       "node": "hoa55",
       "phase": "working",
       "polls": 3558,
       "issue": 153,
-      "observed_at": 1791485400.6103895
+      "observed_at": 1791485475.8513856
     },
     {
       "node": "hoa56",
       "phase": "working",
       "polls": 137,
       "issue": 143,
-      "observed_at": 1791485400.5453603
+      "observed_at": 1791485475.7971554
     },
     {
       "node": "hoa57",
       "phase": "working",
       "polls": 204,
       "issue": 77,
-      "observed_at": 1791485393.6125975
+      "observed_at": 1791485468.706941
     },
     {
       "node": "hoa58",
       "phase": "working",
       "polls": 180,
       "issue": 78,
-      "observed_at": 1791485394.070902
+      "observed_at": 1791485475.4891446
     },
     {
       "node": "hoa59",
       "phase": "working",
       "polls": 2262,
       "issue": 259,
-      "observed_at": 1791485399.72155
+      "observed_at": 1791485475.2920592
     },
     {
       "node": "hoa60",
       "phase": "working",
       "polls": 68,
       "issue": 52,
-      "observed_at": 1791485393.6733084
+      "observed_at": 1791485471.3098924
     },
     {
       "node": "hoa61",
       "phase": "idle",
-      "polls": 2619,
+      "polls": 2624,
       "issue": null,
-      "observed_at": 1791485401.1274757
+      "observed_at": 1791485476.1618783
     },
     {
       "node": "hoa62",
       "phase": "working",
       "polls": 173,
       "issue": 205,
-      "observed_at": 1791485400.5881035
+      "observed_at": 1791485475.8357737
     },
     {
       "node": "hoa63",
       "phase": "working",
       "polls": 67,
       "issue": 53,
-      "observed_at": 1791485394.1039994
+      "observed_at": 1791485475.5117128
     },
     {
       "node": "hoa64",
       "phase": "idle",
-      "polls": 2986,
+      "polls": 2991,
       "issue": null,
-      "observed_at": 1791485400.4141023
+      "observed_at": 1791485475.756392
     },
     {
       "node": "hoa65",
       "phase": "working",
       "polls": 74,
       "issue": 10,
-      "observed_at": 1791485393.838476
+      "observed_at": 1791485471.448059
     },
     {
       "node": "hoa66",
       "phase": "working",
       "polls": 406,
       "issue": 71,
-      "observed_at": 1791485400.2265573
+      "observed_at": 1791485475.6737883
     },
     {
       "node": "hoa67",
       "phase": "working",
       "polls": 2706,
       "issue": 26,
-      "observed_at": 1791485399.8505213
+      "observed_at": 1791485475.365628
     },
     {
       "node": "hoa68",
       "phase": "working",
       "polls": 87,
       "issue": 135,
-      "observed_at": 1791485400.2881465
+      "observed_at": 1791485475.676828
     },
     {
       "node": "hoa69",
       "phase": "working",
       "polls": 1812,
       "issue": 233,
-      "observed_at": 1791485400.8107934
+      "observed_at": 1791485475.9272668
     },
     {
       "node": "hoa70",
       "phase": "working",
       "polls": 136,
       "issue": 142,
-      "observed_at": 1791485399.7862463
+      "observed_at": 1791485475.326055
     },
     {
       "node": "hoa71",
       "phase": "working",
       "polls": 91,
       "issue": 136,
-      "observed_at": 1791485400.7150307
+      "observed_at": 1791485475.8974702
     },
     {
       "node": "hoa72",
       "phase": "working",
       "polls": 67,
       "issue": 60,
-      "observed_at": 1791485393.9258826
+      "observed_at": 1791485475.3904188
     },
     {
       "node": "hoa73",
       "phase": "idle",
-      "polls": 3653,
+      "polls": 3658,
       "issue": null,
-      "observed_at": 1791485401.1267247
+      "observed_at": 1791485476.1966875
     },
     {
       "node": "hoa74",
       "phase": "working",
       "polls": 2417,
       "issue": 104,
-      "observed_at": 1791485400.700416
+      "observed_at": 1791485475.875742
     },
     {
       "node": "hoa75",
       "phase": "working",
       "polls": 1276,
       "issue": 234,
-      "observed_at": 1791485400.8828852
+      "observed_at": 1791485475.9843605
     },
     {
       "node": "hoa76",
       "phase": "working",
       "polls": 3577,
       "issue": 68,
-      "observed_at": 1791485400.5257812
+      "observed_at": 1791485475.7918205
     },
     {
       "node": "hoa77",
       "phase": "working",
       "polls": 179,
       "issue": 80,
-      "observed_at": 1791485393.9120197
+      "observed_at": 1791485475.3705418
     },
     {
       "node": "hoa78",
       "phase": "idle",
-      "polls": 3564,
+      "polls": 3934,
       "issue": null,
-      "observed_at": 1791485400.026803
+      "observed_at": 1791485475.5501137
     },
     {
       "node": "hoa79",
       "phase": "working",
       "polls": 427,
       "issue": 201,
-      "observed_at": 1791485399.9284306
+      "observed_at": 1791485475.417835
     },
     {
       "node": "hoa80",
-      "phase": "working",
+      "phase": "idle",
       "polls": 3502,
-      "issue": 244,
-      "observed_at": 1791485400.8476408
+      "issue": null,
+      "observed_at": 1791485475.9477258
     },
     {
       "node": "hoa81",
       "phase": "working",
       "polls": 65,
       "issue": 41,
-      "observed_at": 1791485395.8030722
+      "observed_at": 1791485475.7712305
     },
     {
       "node": "hoa82",
       "phase": "working",
       "polls": 7,
       "issue": 100,
-      "observed_at": 1791485399.999513
+      "observed_at": 1791485475.4654918
     },
     {
       "node": "hoa83",
       "phase": "working",
       "polls": 15,
       "issue": 22,
-      "observed_at": 1791485394.2007563
+      "observed_at": 1791485475.5689266
     },
     {
       "node": "hoa84",
       "phase": "working",
       "polls": 2568,
       "issue": 177,
-      "observed_at": 1791485400.1124022
+      "observed_at": 1791485475.5439389
     },
     {
       "node": "hoa85",
       "phase": "idle",
-      "polls": 3626,
+      "polls": 3631,
       "issue": null,
-      "observed_at": 1791485400.5528193
+      "observed_at": 1791485475.811377
     },
     {
       "node": "hoa86",
       "phase": "working",
       "polls": 72,
       "issue": 117,
-      "observed_at": 1791485400.5796943
+      "observed_at": 1791485475.8314166
     },
     {
       "node": "hoa87",
       "phase": "working",
       "polls": 4,
       "issue": 93,
-      "observed_at": 1791485399.8920214
+      "observed_at": 1791485475.38539
     },
     {
       "node": "hoa88",
       "phase": "working",
       "polls": 2606,
       "issue": 39,
-      "observed_at": 1791485400.0645368
+      "observed_at": 1791485475.530537
     },
     {
       "node": "hoa89",
       "phase": "idle",
-      "polls": 2868,
+      "polls": 3932,
       "issue": null,
-      "observed_at": 1791485399.6143806
+      "observed_at": 1791485475.581545
     },
     {
       "node": "hoa90",
       "phase": "idle",
-      "polls": 1207,
+      "polls": 3940,
       "issue": null,
-      "observed_at": 1791485400.0478764
+      "observed_at": 1791485476.0610218
     },
     {
       "node": "hoa91",
       "phase": "uncertain",
       "polls": 68,
       "issue": 125,
-      "observed_at": 1791485400.1065454
+      "observed_at": 1791485475.5500193
     },
     {
       "node": "hoa92",
       "phase": "working",
       "polls": 2343,
       "issue": 270,
-      "observed_at": 1791485399.614438
+      "observed_at": 1791485475.2328172
     },
     {
       "node": "hoa93",
       "phase": "working",
       "polls": 3019,
       "issue": 260,
-      "observed_at": 1791485399.7746472
+      "observed_at": 1791485475.321426
     },
     {
       "node": "hoa94",
       "phase": "working",
       "polls": 2601,
       "issue": 186,
-      "observed_at": 1791485400.90083
+      "observed_at": 1791485475.9907072
     },
     {
       "node": "hoa95",
       "phase": "working",
       "polls": 3541,
       "issue": 133,
-      "observed_at": 1791485400.8344057
+      "observed_at": 1791485475.9393446
     },
     {
       "node": "hoa96",
       "phase": "idle",
-      "polls": 2872,
+      "polls": 3919,
       "issue": null,
-      "observed_at": 1791485400.1301765
+      "observed_at": 1791485475.8393471
     },
     {
       "node": "hoa97",
       "phase": "working",
       "polls": 3500,
       "issue": 150,
-      "observed_at": 1791485400.1368206
+      "observed_at": 1791485475.5761764
     },
     {
       "node": "hoa98",
       "phase": "working",
       "polls": 70,
       "issue": 114,
-      "observed_at": 1791485400.29061
+      "observed_at": 1791485475.6812131
     },
     {
       "node": "hoa99",
       "phase": "idle",
-      "polls": 3644,
+      "polls": 3649,
       "issue": null,
-      "observed_at": 1791485407.783566
+      "observed_at": 1791485482.8984954
     },
     {
       "node": "hoa100",
       "phase": "working",
       "polls": 1918,
       "issue": 167,
-      "observed_at": 1791485399.940239
+      "observed_at": 1791485475.4330518
     },
     {
       "node": "hoa101",
       "phase": "working",
       "polls": 284,
       "issue": 122,
-      "observed_at": 1791485399.6635904
+      "observed_at": 1791485475.5276158
     },
     {
       "node": "hoa102",
       "phase": "working",
       "polls": 207,
       "issue": 263,
-      "observed_at": 1791485399.737436
+      "observed_at": 1791485475.3049185
     },
     {
       "node": "hoa103",
       "phase": "working",
       "polls": 3023,
       "issue": 222,
-      "observed_at": 1791485400.0875602
+      "observed_at": 1791485475.5378742
     },
     {
       "node": "hoa104",
       "phase": "working",
       "polls": 150,
       "issue": 147,
-      "observed_at": 1791485400.0945334
+      "observed_at": 1791485475.5590606
     },
     {
       "node": "hoa105",
       "phase": "working",
       "polls": 2747,
       "issue": 85,
-      "observed_at": 1791485399.8006797
+      "observed_at": 1791485475.5642843
     },
     {
       "node": "hoa106",
-      "phase": "uncertain",
-      "polls": 4,
-      "issue": 88,
-      "observed_at": 1791485399.9174857
+      "phase": "idle",
+      "polls": 3928,
+      "issue": null,
+      "observed_at": 1791485475.4759657
     },
     {
       "node": "hoa107",
       "phase": "working",
       "polls": 3578,
       "issue": 271,
-      "observed_at": 1791485400.3540342
+      "observed_at": 1791485475.70644
     },
     {
       "node": "hoa108",
       "phase": "working",
       "polls": 2612,
       "issue": 38,
-      "observed_at": 1791485400.4265552
+      "observed_at": 1791485475.7458432
     },
     {
       "node": "hoa109",
       "phase": "working",
       "polls": 2235,
       "issue": 273,
-      "observed_at": 1791485399.7491558
+      "observed_at": 1791485475.3172975
     },
     {
       "node": "hoa110",
       "phase": "working",
       "polls": 284,
       "issue": 207,
-      "observed_at": 1791485402.6638615
+      "observed_at": 1791485477.7373915
     },
     {
       "node": "hoa111",
       "phase": "working",
       "polls": 69,
       "issue": 74,
-      "observed_at": 1791485395.9492948
+      "observed_at": 1791485475.9019296
     },
     {
       "node": "hoa112",
       "phase": "working",
       "polls": 1655,
       "issue": 243,
-      "observed_at": 1791485399.8593333
+      "observed_at": 1791485475.4119742
     },
     {
       "node": "hoa113",
       "phase": "idle",
-      "polls": 3582,
+      "polls": 3587,
       "issue": null,
-      "observed_at": 1791485400.6024559
+      "observed_at": 1791485475.8437257
     },
     {
       "node": "hoa114",
       "phase": "working",
       "polls": 64,
       "issue": 25,
-      "observed_at": 1791485395.903903
+      "observed_at": 1791485475.8226469
     },
     {
       "node": "hoa115",
       "phase": "working",
       "polls": 3645,
       "issue": 268,
-      "observed_at": 1791485399.6725101
+      "observed_at": 1791485475.2685096
     },
     {
       "node": "hoa116",
       "phase": "working",
       "polls": 3584,
       "issue": 232,
-      "observed_at": 1791485399.6635125
+      "observed_at": 1791485475.254646
     },
     {
       "node": "hoa117",
       "phase": "working",
       "polls": 1911,
       "issue": 168,
-      "observed_at": 1791485400.073921
+      "observed_at": 1791485475.2620695
     },
     {
       "node": "hoa118",
       "phase": "working",
       "polls": 2514,
       "issue": 105,
-      "observed_at": 1791485399.6142902
+      "observed_at": 1791485475.2134404
     },
     {
       "node": "hoa119",
       "phase": "idle",
-      "polls": 3554,
+      "polls": 3559,
       "issue": null,
-      "observed_at": 1791485400.1480021
+      "observed_at": 1791485475.5824025
     },
     {
       "node": "hoa120",
       "phase": "working",
       "polls": 18,
       "issue": 119,
-      "observed_at": 1791485399.7144613
+      "observed_at": 1791485475.2863495
     },
     {
       "node": "hoa121",
       "phase": "working",
       "polls": 2758,
       "issue": 256,
-      "observed_at": 1791485400.7574632
+      "observed_at": 1791485475.9162807
     },
     {
       "node": "hoa122",
       "phase": "idle",
-      "polls": 3518,
+      "polls": 3928,
       "issue": null,
-      "observed_at": 1791485399.9809659
+      "observed_at": 1791485475.5942984
     },
     {
       "node": "hoa123",
       "phase": "idle",
-      "polls": 3578,
+      "polls": 3923,
       "issue": null,
-      "observed_at": 1791485400.0057533
+      "observed_at": 1791485475.6691945
     },
     {
       "node": "hoa124",
       "phase": "idle",
-      "polls": 2683,
+      "polls": 3933,
       "issue": null,
-      "observed_at": 1791485399.8371942
+      "observed_at": 1791485475.7376952
     },
     {
       "node": "hoa125",
       "phase": "working",
       "polls": 75,
       "issue": 120,
-      "observed_at": 1791485399.9596856
+      "observed_at": 1791485475.428444
     },
     {
       "node": "hoa126",
       "phase": "working",
       "polls": 1512,
       "issue": 47,
-      "observed_at": 1791485399.8365233
+      "observed_at": 1791485475.36526
     },
     {
       "node": "hoa127",
       "phase": "working",
       "polls": 2123,
       "issue": 95,
-      "observed_at": 1791485400.4351785
+      "observed_at": 1791485475.7668154
     }
   ],
   "verification_activity": {
     "available": true,
-    "observed_at": 1791485415.0204382,
+    "observed_at": 1791485488.4491808,
     "counts": {
       "queued": 0,
-      "running": 14,
+      "running": 16,
       "starting": 0,
       "needs_reconciliation": 0,
-      "finished": 1385,
+      "finished": 1390,
       "unowned_pending": 0
     }
   },
-  "message": "128/128 node workers are running and heartbeating. 97 are executing issue jobs; 10/10 projects are enabled. 6/10 current root prose proofs have passed review; 0/10 roots have workflow verification and merge evidence. Model activity, prose review, Lean verification and integration are distinct stages."
+  "message": "128/128 node workers are running and heartbeating. 96 are executing issue jobs; 10/10 projects are enabled. 6/10 current root prose proofs have passed review; 0/10 roots have workflow verification and merge evidence. Model activity, prose review, Lean verification and integration are distinct stages."
 }
