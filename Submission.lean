@@ -1886,3 +1886,37 @@ theorem Submission.p05_umgi_inner_inverse_of_reconstruction_a5b449214a :
     exact Bialgebra.comul_mul
         simpa only [TensorProduct.map_tmul, LinearMap.id_apply] using
           Coalgebra.lTensor_counit_comul (R := k) (i v)
+
+
+theorem Submission.p05_hte_sshs_bialgebra_restriction_a5b449214a
+    {k : Type*} [Field k] {H : Type*} [CommRing H] [Bialgebra k H]
+    (D : Subalgebra k H)
+    (hΔ : ∀ x ∈ D, Coalgebra.comul (R := k) x ∈
+      Submodule.span k {t : TensorProduct k H H |
+        ∃ a ∈ D, ∃ b ∈ D, t = TensorProduct.tmul k a b}) :
+    ∃ bD : Bialgebra k D, bD.toAlgebra = (inferInstance : Algebra k D) ∧
+      (letI : Algebra k D := bD.toAlgebra
+       letI : Module k D := Algebra.toModule
+       letI : Bialgebra k D := bD
+       ∃ ι : BialgHom k D H, ∀ d : D, ι d = (d : H)) := by
+  obtain ⟨δ, hδ⟩ := Submission.p05_hte_sshs_br_comul_alg_lift_a5b449214a D hΔ
+  let ε : D →ₐ[k] k := (Bialgebra.counitAlgHom k H).comp D.val
+  obtain ⟨hcoassoc, hleft, hright⟩ :=
+    Submission.p05_hte_sshs_br_coalgebra_laws_a5b449214a
+      D.val.toLinearMap Subtype.val_injective δ.toLinearMap ε.toLinearMap
+      (fun d => hδ d) (fun _ => rfl)
+  let : Coalgebra k D :=
+    { comul := δ.toLinearMap
+      counit := ε.toLinearMap
+      coassoc := LinearMap.ext hcoassoc
+      rTensor_counit_comp_comul := LinearMap.ext hleft
+      lTensor_counit_comp_comul := LinearMap.ext hright }
+  let bD : Bialgebra k D :=
+    Bialgebra.mk' k D (map_one ε) (map_mul ε _ _) (map_one δ) (map_mul δ _ _)
+  refine ⟨bD, rfl, ?_⟩
+  let : Bialgebra k D := bD
+  refine ⟨BialgHom.ofAlgHom D.val ?_ ?_, fun _ => rfl⟩
+  · ext d
+    rfl
+  · ext d
+    exact hδ d
