@@ -4997,3 +4997,241 @@ theorem Submission.p05_pie_successive_minor_containment_a5b449214a
   apply Ideal.mul_mem_left
   exact Ideal.subset_span
     ⟨(Fin.succEmb d).trans rows, j.succAboveEmb.trans cols, rfl⟩
+
+namespace Submission
+
+theorem p05_fhe_stable_subspace_a5b449214a :
+    ∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
+      (F : Finset H), ∃ V : Submodule k H, FiniteDimensional k V ∧ (1 : H) ∈ V ∧
+      (∀ x ∈ F, x ∈ V) ∧ (∀ x ∈ V, Coalgebra.comul (R := k) x ∈
+        Submodule.span k {t : TensorProduct k H H |
+          ∃ a ∈ V, ∃ b : H, t = TensorProduct.tmul k a b}) := by
+  intro k _ H _ _ F
+  classical
+  -- The two children supply the stable coefficient span for each element.
+  have hsingle (x : H) : ∃ V : Submodule k H,
+      FiniteDimensional k V ∧ x ∈ V ∧ (∀ y ∈ V, Coalgebra.comul (R := k) y ∈
+        Submodule.span k {t : TensorProduct k H H |
+          ∃ a ∈ V, ∃ b : H, t = TensorProduct.tmul k a b}) := by
+    obtain ⟨n, v, w, hw, hΔ⟩ :=
+      p05_fhess_tensor_independent_right_a5b449214a (Coalgebra.comul (R := k) x)
+    exact ⟨Submodule.span k (Set.range v),
+      p05_fhess_coefficient_span_stable_a5b449214a x n v w hw hΔ⟩
+  have hmono {U V : Submodule k H} (hUV : U ≤ V) :
+      Submodule.span k {t : TensorProduct k H H |
+        ∃ a ∈ U, ∃ b : H, t = TensorProduct.tmul k a b} ≤
+      Submodule.span k {t : TensorProduct k H H |
+        ∃ a ∈ V, ∃ b : H, t = TensorProduct.tmul k a b} := by
+    apply Submodule.span_mono
+    rintro t ⟨a, ha, b, rfl⟩
+    exact ⟨a, hUV ha, b, rfl⟩
+  -- Start with the span for 1 and add the spans for the elements of F.
+  induction F using Finset.induction_on with
+  | empty =>
+      obtain ⟨V, hV, h1, hΔ⟩ := hsingle 1
+      exact ⟨V, hV, h1, by simp, hΔ⟩
+  | @insert x F _ ih =>
+      obtain ⟨V, hV, h1, hF, hVΔ⟩ := ih
+      obtain ⟨U, hU, hx, hUΔ⟩ := hsingle x
+      let : FiniteDimensional k U := hU
+      let : FiniteDimensional k V := hV
+      refine ⟨U ⊔ V, inferInstance, Submodule.mem_sup_right h1, ?_, ?_⟩
+      · intro y hy
+        rcases Finset.mem_insert.mp hy with rfl | hy
+        · exact Submodule.mem_sup_left hx
+        · exact Submodule.mem_sup_right (hF y hy)
+      · intro y hy
+        obtain ⟨a, ha, b, hb, rfl⟩ := Submodule.mem_sup.mp hy
+        rw [map_add]
+        exact Submodule.add_mem _ (hmono le_sup_left (hUΔ a ha))
+          (hmono le_sup_right (hVΔ b hb))
+
+end Submission
+
+theorem Submission.p05_hte_fss_coefficient_span_a5b449214a
+    {k : Type*} [Field k] {C : Type*} [AddCommGroup C] [Module k C] [Coalgebra k C]
+    (f : C) (n : ℕ) (v w : Fin n → C) (ell : Fin n → C →ₗ[k] k)
+    (hΔ : Coalgebra.comul (R := k) f =
+      ∑ i : Fin n, TensorProduct.tmul k (v i) (w i))
+    (hdual : ∀ i j : Fin n, ell i (w j) = if i = j then (1 : k) else 0) :
+    let V : Submodule k C := Submodule.span k (Set.range v)
+    FiniteDimensional k V ∧ f ∈ V ∧ ∀ x ∈ V, Coalgebra.comul (R := k) x ∈
+      Submodule.span k {t : TensorProduct k C C |
+        ∃ a ∈ V, ∃ b : C, t = TensorProduct.tmul k a b} := by
+  classical
+  let V : Submodule k C := Submodule.span k (Set.range v)
+  let S : Submodule k (C ⊗[k] C) :=
+    Submodule.span k {t : C ⊗[k] C | ∃ a ∈ V, ∃ b : C, t = a ⊗ₜ[k] b}
+  change FiniteDimensional k V ∧ f ∈ V ∧
+    ∀ x ∈ V, Coalgebra.comul (R := k) x ∈ S
+  have hv (i : Fin n) : v i ∈ V := Submodule.subset_span ⟨i, rfl⟩
+  refine ⟨FiniteDimensional.span_of_finite k (Set.finite_range v), ?_, ?_⟩
+  · have hε := congrArg (TensorProduct.rid k C)
+      (Coalgebra.lTensor_counit_comul (R := k) f)
+    rw [hΔ] at hε
+    have hf : (∑ i : Fin n, Coalgebra.counit (R := k) (w i) • v i) = f := by
+      simpa only [map_sum, LinearMap.lTensor_tmul, TensorProduct.rid_tmul, one_smul]
+        using hε
+    rw [← hf]
+    exact Submodule.sum_mem V fun i _ => V.smul_mem _ (hv i)
+  · have hstable : V ≤ S.comap (Coalgebra.comul (R := k)) := by
+      apply Submodule.span_le.mpr
+      rintro _ ⟨i, rfl⟩
+      change Coalgebra.comul (R := k) (v i) ∈ S
+      let R : C ⊗[k] C →ₗ[k] C :=
+        (TensorProduct.rid k C).toLinearMap ∘ₗ (ell i).lTensor C
+      let T : (C ⊗[k] C) ⊗[k] C →ₗ[k] C ⊗[k] C :=
+        (TensorProduct.rid k (C ⊗[k] C)).toLinearMap ∘ₗ
+          (ell i).lTensor (C ⊗[k] C)
+      have hT (a : C) (t : C ⊗[k] C) :
+          T ((TensorProduct.assoc k C C C).symm (a ⊗ₜ[k] t)) = a ⊗ₜ[k] R t := by
+        induction t using TensorProduct.induction_on with
+        | zero => simp [R, T]
+        | tmul b c => simp [R, T, TensorProduct.tmul_smul]
+        | add t u ht hu =>
+          simp only [TensorProduct.tmul_add, map_add, ht, hu]
+      have hc := Coalgebra.coassoc_symm_apply (R := k) f
+      rw [hΔ] at hc
+      have hcontract := congrArg T hc
+      have hformula : (∑ j : Fin n, v j ⊗ₜ[k] R (Coalgebra.comul (R := k) (w j))) =
+          Coalgebra.comul (R := k) (v i) := by
+        simpa only [map_sum, LinearMap.lTensor_tmul, LinearMap.rTensor_tmul, hT,
+          T, LinearMap.comp_apply, LinearEquiv.coe_coe, TensorProduct.rid_tmul,
+          hdual, ite_smul, one_smul, zero_smul, Finset.sum_ite_eq, Finset.mem_univ,
+          if_true] using hcontract
+      rw [← hformula]
+      apply Submodule.sum_mem
+      intro j _
+      exact Submodule.subset_span ⟨v j, hv j, R (Coalgebra.comul (R := k) (w j)), rfl⟩
+    intro x hx
+    exact hstable hx
+theorem Submission.p05_hte_fss_tensor_dual_expansion_a5b449214a :
+    ∀ {k : Type*} [Field k] {C : Type*} [AddCommGroup C] [Module k C]
+      (z : TensorProduct k C C),
+      ∃ (n : ℕ) (v w : Fin n → C) (ell : Fin n → C →ₗ[k] k),
+        z = ∑ i : Fin n, TensorProduct.tmul k (v i) (w i) ∧
+          ∀ i j : Fin n, ell i (w j) = if i = j then (1 : k) else 0 := by
+  intro k _ C _ _ z
+  classical
+  obtain ⟨m, x, y, hz⟩ := TensorProduct.exists_sum_tmul_eq z
+  let W : Submodule k C := Submodule.span k (Set.range y)
+  have : FiniteDimensional k W := FiniteDimensional.span_of_finite k (Set.finite_range y)
+  let b := Module.finBasis k W
+  let yW : Fin m → W := fun r => ⟨y r, Submodule.subset_span (Set.mem_range_self r)⟩
+  choose ell hell using fun i : Fin (Module.finrank k W) => (b.coord i).exists_extend
+  refine ⟨Module.finrank k W, (fun i => ∑ r, b.repr (yW r) i • x r),
+    (fun i => (b i : C)), ell, ?_, ?_⟩
+  · have hy (r : Fin m) : y r = ∑ i, b.repr (yW r) i • (b i : C) := by
+      simpa only [map_sum, map_smul, Submodule.subtype_apply, yW] using
+        (congrArg W.subtype (b.sum_repr (yW r))).symm
+    calc
+      z = ∑ r, TensorProduct.tmul k (x r) (y r) := hz
+      _ = ∑ r, ∑ i, TensorProduct.tmul k (b.repr (yW r) i • x r) (b i : C) := by
+        apply Finset.sum_congr rfl
+        intro r _
+        rw [hy r, TensorProduct.tmul_sum]
+        apply Finset.sum_congr rfl
+        intro i _
+        exact (TensorProduct.smul_tmul _ _ _).symm
+      _ = ∑ i, TensorProduct.tmul k (∑ r, b.repr (yW r) i • x r) (b i : C) := by
+        rw [Finset.sum_comm]
+        simp only [TensorProduct.sum_tmul]
+  · intro i j
+    have h := LinearMap.congr_fun (hell i) (b j)
+    simpa [Module.Basis.coord_apply, Module.Basis.repr_self, Finsupp.single_apply, eq_comm] using h
+
+
+theorem Submission.p05_hte_sshs_antipode_lift_a5b449214a
+    {k : Type*} [Field k] {A : Type*} [CommRing A] [bA : Bialgebra k A]
+    {H : Type*} [CommRing H] [HopfAlgebra k H]
+    (ι : BialgHom k A H) (hι : Function.Injective ι)
+    (hS : ∀ a : A, ∃ b : A, ι b = HopfAlgebra.antipode k (ι a)) :
+    ∃ hA : HopfAlgebra k A, hA.toHopfAlgebraStruct.toBialgebra = bA ∧
+      (letI : Algebra k A := hA.toHopfAlgebraStruct.toBialgebra.toAlgebra
+       letI : Module k A := Algebra.toModule
+       letI : Bialgebra k A := hA.toHopfAlgebraStruct.toBialgebra
+       letI : HopfAlgebra k A := hA
+       ∀ a : A, ι (HopfAlgebra.antipode k a) = HopfAlgebra.antipode k (ι a)) := by
+  classical
+  let S : A → A := fun a => Classical.choose (hS a)
+  have hSι (a : A) : ι (S a) = HopfAlgebra.antipode k (ι a) :=
+    Classical.choose_spec (hS a)
+  let s : A →ₗ[k] A :=
+    { toFun := S
+      map_add' := fun a b => hι (by simp only [hSι, map_add])
+      map_smul' := fun c a => hι (by simp only [hSι, map_smul, RingHom.id_apply]) }
+  have hs (a : A) : ι (s a) = HopfAlgebra.antipode k (ι a) := hSι a
+  have hr :
+      (ι : A →ₗ[k] H) ∘ₗ (LinearMap.mul' k A ∘ₗ s.rTensor A) =
+        (LinearMap.mul' k H ∘ₗ (HopfAlgebra.antipode k).rTensor H) ∘ₗ
+          TensorProduct.map (ι : A →ₗ[k] H) (ι : A →ₗ[k] H) := by
+    apply TensorProduct.ext'
+    intro a b
+    simp [hs]
+  have hl :
+      (ι : A →ₗ[k] H) ∘ₗ (LinearMap.mul' k A ∘ₗ s.lTensor A) =
+        (LinearMap.mul' k H ∘ₗ (HopfAlgebra.antipode k).lTensor H) ∘ₗ
+          TensorProduct.map (ι : A →ₗ[k] H) (ι : A →ₗ[k] H) := by
+    apply TensorProduct.ext'
+    intro a b
+    simp [hs]
+  have hleft :
+      LinearMap.mul' k A ∘ₗ s.rTensor A ∘ₗ Coalgebra.comul =
+        Algebra.linearMap k A ∘ₗ Coalgebra.counit := by
+    ext a
+    apply hι
+    change ι (LinearMap.mul' k A (s.rTensor A (Coalgebra.comul a))) =
+      ι (algebraMap k A (Coalgebra.counit a))
+    calc
+      _ = LinearMap.mul' k H ((HopfAlgebra.antipode k).rTensor H
+          (TensorProduct.map (ι : A →ₗ[k] H) (ι : A →ₗ[k] H)
+            (Coalgebra.comul a))) := LinearMap.congr_fun hr _
+      _ = algebraMap k H (Coalgebra.counit (ι a)) := by
+        rw [CoalgHomClass.map_comp_comul_apply]
+        exact HopfAlgebra.mul_antipode_rTensor_comul_apply (ι a)
+      _ = _ := by simp only [CoalgHomClass.counit_comp_apply, AlgHomClass.commutes]
+  have hright :
+      LinearMap.mul' k A ∘ₗ s.lTensor A ∘ₗ Coalgebra.comul =
+        Algebra.linearMap k A ∘ₗ Coalgebra.counit := by
+    ext a
+    apply hι
+    change ι (LinearMap.mul' k A (s.lTensor A (Coalgebra.comul a))) =
+      ι (algebraMap k A (Coalgebra.counit a))
+    calc
+      _ = LinearMap.mul' k H ((HopfAlgebra.antipode k).lTensor H
+          (TensorProduct.map (ι : A →ₗ[k] H) (ι : A →ₗ[k] H)
+            (Coalgebra.comul a))) := LinearMap.congr_fun hl _
+      _ = algebraMap k H (Coalgebra.counit (ι a)) := by
+        rw [CoalgHomClass.map_comp_comul_apply]
+        exact HopfAlgebra.mul_antipode_lTensor_comul_apply (ι a)
+      _ = _ := by simp only [CoalgHomClass.counit_comp_apply, AlgHomClass.commutes]
+  let hA : HopfAlgebra k A :=
+    { toBialgebra := bA
+      antipode := s
+      mul_antipode_rTensor_comul := hleft
+      mul_antipode_lTensor_comul := hright }
+  exact ⟨hA, rfl, hs⟩
+
+
+theorem Submission.p05_ibs_extend_minor_a5b449214a
+    {R : Type*} [CommRing R] (n p t s : ℕ) (P : Matrix (Fin n) (Fin p) R)
+    (rows : Fin s ↪ Fin n) (cols : Fin s ↪ Fin p) :
+    ∃ (rows' : Fin (s + t) ↪ (Fin n ⊕ Fin t))
+      (cols' : Fin (s + t) ↪ (Fin p ⊕ Fin t)),
+      Matrix.det ((Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R)).submatrix
+        rows' cols') = Matrix.det (P.submatrix rows cols) := by
+  classical
+  let e : Fin (s + t) ≃ (Fin s ⊕ Fin t) := finSumFinEquiv.symm
+  let r : (Fin s ⊕ Fin t) ↪ (Fin n ⊕ Fin t) :=
+    rows.sumMap (Function.Embedding.refl (Fin t))
+  let c : (Fin s ⊕ Fin t) ↪ (Fin p ⊕ Fin t) :=
+    cols.sumMap (Function.Embedding.refl (Fin t))
+  refine ⟨e.toEmbedding.trans r, e.toEmbedding.trans c, ?_⟩
+  have h : (Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R)).submatrix r c =
+      Matrix.fromBlocks (P.submatrix rows cols) 0 0 (1 : Matrix (Fin t) (Fin t) R) := by
+    ext i j
+    rcases i with i | i <;> rcases j with j | j <;> rfl
+  change Matrix.det (((Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R)).submatrix
+    r c).submatrix e e) = _
+  rw [Matrix.det_submatrix_equiv_self, h, Matrix.det_fromBlocks_zero₂₁,
+    Matrix.det_one, mul_one]
