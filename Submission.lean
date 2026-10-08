@@ -192,6 +192,9 @@ theorem Submission.p07_rr_pullback_comp_857cd4d38c
     rw [hspec]
     exact hg₁₂.paste_horiz hg₀₁
   refine ⟨hg, ?_, ?_, ?_⟩
+  unfold FakeEllipticCurve.IsPullbackVia
+  rw [hspec]
+  refine ⟨hg₁₂.paste_horiz hg₀₁, ?_, ?_, ?_⟩
   · intro T t P Q
     let P₁ : SchemeHomOver (t ≫ Spec.map (CommRingCat.ofHom h)) E₁.f :=
       ⟨P.1 ≫ g₁₂, by rw [Category.assoc, hg₁₂.w, ← Category.assoc, P.2]⟩
@@ -212,6 +215,7 @@ theorem Submission.p07_rr_pullback_comp_857cd4d38c
     · rw [hspec, Category.assoc]
     · exact Category.assoc _ _ _
     · exact Category.assoc _ _ _
+    simpa only [P₁, Q₁, Category.assoc] using hmul
   · intro x
     rw [← Category.assoc, hact₁₂, Category.assoc, hact₀₁, ← Category.assoc]
   · intro T t P hP
