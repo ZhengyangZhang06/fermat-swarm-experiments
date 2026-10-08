@@ -1,5 +1,23 @@
 # B1 controller repair handoff: residue quotient length
 
+## 2026-10-08 14:48 selected-node audit
+
+The current invocation starts at `bdf8fe847a0928f5598be4621913ca0db72411f3`
+and explicitly requires a fresh exact-node comparator. The selected proof remains
+unchanged: its warning-fatal exact-type diagnostic passes with only `propext`,
+`Classical.choice`, and `Quot.sound`. The requested separate simplifier review
+found no defect or worthwhile simplification. All nine dependencies are clean
+at their manifest pins; inspected library sources match the local-project snapshot.
+
+The actual warning-fatal `Submission.lean` command still exits 1 on the three
+unavailable frozen attribute targets and the inherited root placeholder.
+The complete Lean diff preserves the frozen prefix and adds only the selected
+theorem. No protected source, accepted proof, dependency, or controller state
+was changed. The round's tracker, contract, audit artifacts, diagnostic logs,
+and subsequent comparator result are retained under
+`.humanize/rlcr/2026-10-08_14-48-27/`; its `round-0-summary.md` records the tested
+commit and terminal outcome. This audit does not establish acceptance or resolve B1.
+
 ## Current integration prerequisite: completed local repair
 
 Read-only inspection in recovery Round 2 found the separate verifier repair
