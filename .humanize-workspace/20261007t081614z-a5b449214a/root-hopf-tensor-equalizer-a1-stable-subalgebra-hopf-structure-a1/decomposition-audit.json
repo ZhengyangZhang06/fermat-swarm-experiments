@@ -1,0 +1,45 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "exists_leftInverse_of_injective|range_map_eq_span_tmul|class Bialgebra|class Coalgebra|structure BialgHom|def ofAlgHom",
+        "injective.*[Hh]opf|[Hh]opf.*injective|[Ss]ubalgebra.*[Bb]ialgebra|[Bb]ialgebra.*[Ss]ubalgebra|[Ss]ubalgebra.*[Hh]opf|[Hh]opf.*[Ss]ubalgebra",
+        "p05_hte_sshs_bialgebra_restriction_a5b449214a|p05_hte_sshs_antipode_lift_a5b449214a",
+        "lake env lean CheckTypes.lean",
+        "lake env lean CheckComposition.lean",
+        "lake env lean HeaderPolicyCheck.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Basis/VectorSpace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Map.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Coalgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Bialgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Bialgebra/Hom.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1-stable-subalgebra-hopf-structure-a1/decomposition-sshs-diagnostics/report.json",
+        "/tmp/p05-sshs-independent-audit-0n7rpe__/audit-evidence.json"
+      ],
+      "conclusion": "The snapshot supplies linear retractions, tensor-range identification, structure constructors and both antipode identities; searches found no matching restriction/lifting theorem or proposed-name collision. Project and mathlib revisions match the manifest, and all nine dependencies are clean and pinned. Independent disposable builds verified both literal propositions, nine instance probes, and their composition to the exact frozen parent type. Nine infrastructure axiom closures use only propext, Classical.choice and Quot.sound. Policy digest, authorized omissions of lines 10–11, reversible hashes and Lean absence checks for all 13 targets were verified. Frozen inputs and the Submission header remain byte-exact; an unrelated concurrent Submission append was excluded from diagnostics. The split separates genuine independent obligations, with correctly directed acyclic edges. This accepts the decomposition only; child proof acceptance still requires the configured comparator and independent review."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "bialgebra_restriction",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose includes every hypothesis and matches the independently elaborated one-line proposition. Instance probes confirm that the homomorphism uses bD, while the algebra equality preserves the original subalgebra structure. Steps 1–2 establish the linear retraction, tensor injectivity and exact image; steps 3–5 construct compatible coproduct and counit; steps 6–7 prove coassociativity and both counit identities; step 8 packages exactly the required structure and inclusion. The proof is complete and non-circular. The bare identifier is unreserved, the type requires no child implementation, and the empty dependency list is correct."
+    },
+    {
+      "key": "antipode_lift",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and independently elaborated one-line proposition agree, including equality of the entire underlying bialgebra with bA. Explicit instance probes confirm that the conclusion selects hA's antipode and underlying structures. Steps 1–2 use range stability and injectivity to define a unique linear lift; steps 3–5 transfer both antipode identities using preservation of coproduct, counit and multiplication; step 6 extends precisely bA. No parent or sibling theorem is used, and no construction is deferred. The bare identifier is unreserved, the type is independently usable, and the empty dependency list is correct."
+    }
+  ],
+  "required_changes": []
+}

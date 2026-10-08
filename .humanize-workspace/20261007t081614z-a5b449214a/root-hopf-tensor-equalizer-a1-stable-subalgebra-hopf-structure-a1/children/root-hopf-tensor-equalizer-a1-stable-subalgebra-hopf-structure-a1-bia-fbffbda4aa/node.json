@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.hopf_tensor_equalizer-a1.stable_subalgebra_hopf_structure-a1.bialgebra_restriction-a1",
+  "parent_id": "root.hopf_tensor_equalizer-a1.stable_subalgebra_hopf_structure-a1",
+  "depth": 3,
+  "title": "Compatible bialgebra structure on a comultiplication-stable subalgebra",
+  "statement": "Let k be a field, H a commutative bialgebra over k, and D a k-subalgebra of H. Suppose that for every x in D, the comultiplication of x belongs to the k-linear span of the tensors a⊗b with a,b in D. Then there exists a bialgebra structure bD on the existing commutative ring D whose algebra structure equals the existing subalgebra algebra structure, and, using bD, a bialgebra homomorphism from D to H whose value at every d is the underlying element of H.",
+  "lean_statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [Bialgebra k H] (D : Subalgebra k H) (hΔ : ∀ x ∈ D, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ D, ∃ b ∈ D, t = TensorProduct.tmul k a b}), ∃ bD : Bialgebra k D, bD.toAlgebra = (inferInstance : Algebra k D) ∧ (letI : Algebra k D := bD.toAlgebra; letI : Module k D := Algebra.toModule; letI : Bialgebra k D := bD; ∃ ι : BialgHom k D H, ∀ d : D, ι d = (d : H))",
+  "lean_name": "p05_hte_sshs_bialgebra_restriction_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-stable-subalgebra-hopf-structure-a1-bia-fbffbda4aa-a1"
+}
