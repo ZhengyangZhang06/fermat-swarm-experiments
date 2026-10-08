@@ -3780,6 +3780,9 @@ end Submission
 Choose a member of minimum uniformizer exponent among the nonzero entries. Unit factors
 do not affect divisibility, and the minimum power divides every other power. -/
 /-- A finite family in a DVR with a nonzero entry has a nonzero member dividing every entry. -/
+/-- A finite family in a DVR with a nonzero entry has a nonzero member dividing every entry.
+Choose a member of minimum uniformizer exponent among the nonzero entries. Unit factors
+do not affect divisibility, and the minimum power divides every other power. -/
 theorem p06_9e0f5043ff_dmd_finite_family_dividing_member
     (A : Type*) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A]
     (ι : Type*) [Fintype ι] (a : ι → A) (ha : ∃ i, a i ≠ 0) :
