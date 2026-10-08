@@ -2613,3 +2613,40 @@ theorem Submission.p10_17ae7b7d_pde_decay_zero :
       _ ≤ ‖A 0 - A q‖ + ‖A q‖ := norm_add_le _ _
       _ = ‖A q - A 0‖ + ‖A q‖ := by rw [norm_sub_rev]
   linarith
+
+
+namespace Submission
+
+theorem p10_17ae7b7d_periodic_disk_extension :
+    ∀ (w : ℝ) (g : ℂ → ℂ), 0 < w →
+      DifferentiableOn ℂ g {z : ℂ | 0 < z.im} →
+      (∃ z : ℂ, 0 < z.im ∧ g z ≠ 0) →
+      (∀ z : ℂ, 0 < z.im → g (z + (w : ℂ)) = g z) →
+      (∃ C Y : ℝ, ∀ z : ℂ, 0 < z.im → Y ≤ z.im → ‖g z‖ ≤ C) →
+      ∃ A : ℂ → ℂ, DifferentiableOn ℂ A (Metric.ball (0 : ℂ) 1) ∧
+        (∀ z : ℂ, 0 < z.im →
+          g z = A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z / (w : ℂ)))) ∧
+        analyticOrderAt A 0 ≠ ⊤ ∧
+        ((∀ ε : ℝ, 0 < ε → ∃ Y : ℝ, ∀ z : ℂ,
+          0 < z.im → Y ≤ z.im → ‖g z‖ ≤ ε) → 1 ≤ analyticOrderNatAt A 0) := by
+  intro w g hw hg hnonzero hperiodic hbounded
+  obtain ⟨A, hA, hAg⟩ :=
+    p10_17ae7b7d_pde_holomorphic_extension w g hw hg hperiodic hbounded
+  obtain ⟨z, hz, hgz⟩ := hnonzero
+  have hq : Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z / (w : ℂ)) ∈
+      Metric.ball (0 : ℂ) 1 := by
+    rw [Metric.mem_ball, dist_zero_right, Complex.norm_exp, Real.exp_lt_one_iff]
+    have hheight : 0 < 2 * Real.pi * z.im :=
+      mul_pos (mul_pos (by norm_num) Real.pi_pos) hz
+    simpa [Complex.mul_re, Complex.mul_im] using
+      div_neg_of_neg_of_pos (neg_neg_of_pos hheight) hw
+  obtain ⟨hfinite, hpositive⟩ := p10_17ae7b7d_pde_finite_order A hA
+    ⟨_, hq, by simpa only [← hAg z hz] using hgz⟩
+  refine ⟨A, hA, hAg, hfinite, ?_⟩
+  intro hdecay
+  apply hpositive
+  exact p10_17ae7b7d_pde_decay_zero w g A hw
+    (hA.differentiableAt (Metric.ball_mem_nhds _ (by norm_num))).continuousAt
+    hAg hdecay
+
+end Submission
