@@ -3356,7 +3356,9 @@ theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field
 namespace Submission
 
 /-- Compute the length over `A` by summing the residue factors of a composition series over `B`.
-The sum is in `ℕ∞`, so the factors need not have finite length over `A`. -/
+The sum is in `ℕ∞`, so the factors need not have finite length over `A`.
+Apply `Module.length_eq_add_of_exact` after restricting scalars, then induct on the
+number of factors using `Fin.sum_univ_castSucc`, including the empty series. -/
 theorem p06_9e0f5043ff_wll_length_sum_factors
     (A B M : Type*) [CommRing A] [CommRing B] [IsDedekindDomain B] [Algebra A B]
     [AddCommGroup M] [Module A M] [Module B M] [IsScalarTower A B M]
