@@ -13,7 +13,7 @@ import secrets
 import stat
 import subprocess
 
-from .swarm_verification import bind_service, terminal_result
+from .swarm_verification import bind_service, digest, terminal_result
 
 
 def docker(*args):
@@ -105,6 +105,41 @@ class RemoteDispatchSlot:
     def _row(self, request_id):
         with self.ledger._db() as db:
             return db.execute('SELECT * FROM verifications WHERE id=?', (request_id,)).fetchone()
+
+    def readiness(self, catalog, *, checker, environment):
+        """Require exact operator diagnostic evidence before new fleet dispatch."""
+        gate = read_record(catalog)
+        if gate.get('verifier_ready') is False:
+            return False
+        expected = dict(node=self.node, node_id=self.node_id,
+                        reference_digest=environment['FERMAT_VERIFIER_REFERENCE_DIGEST'],
+                        reference_volume=environment['FERMAT_SWARM_VERIFIER_REFERENCE_VOLUME'],
+                        verifier_sha256=hashlib.sha256(Path(checker).read_bytes()).hexdigest())
+        if gate.get('verifier_ready') is not True or any(gate.get(key) != value for key, value in expected.items()):
+            raise RuntimeError('remote readiness differs from node/cache/checker identity')
+        if not all(isinstance(gate.get(key), str) and re.fullmatch(r'[a-f0-9]{64}', gate[key])
+                   for key in ('config_sha256', 'diagnostic_spec_sha256')):
+            raise RuntimeError('remote readiness lacks diagnostic configuration identity')
+        service_id, task_id = gate.get('diagnostic_service_id'), gate.get('diagnostic_task_id')
+        if not all(isinstance(value, str) and re.fullmatch(r'[a-z0-9]{25}', value) for value in (service_id, task_id)):
+            raise RuntimeError('remote readiness lacks exact diagnostic task identity')
+        try:
+            current_node = inspect('node', self.node)
+            if current_node.get('ID') != self.node_id:
+                raise RuntimeError('remote readiness physical node identity changed')
+            service = inspect('service', service_id)
+            if service.get('ID') != service_id or digest(service['Spec']) != gate['diagnostic_spec_sha256']:
+                raise RuntimeError('remote readiness diagnostic service specification changed')
+            if docker('service', 'ps', '--no-trunc', '--format', '{{.ID}}', service_id).splitlines() != [task_id]:
+                raise RuntimeError('remote readiness diagnostic task list changed')
+            task = inspect('task', task_id)
+            if task.get('NodeID') != self.node_id or terminal_result(task, service_id, task_id=task_id) != 0:
+                raise RuntimeError('remote readiness diagnostic is not exactly terminal successful')
+        except (subprocess.CalledProcessError, subprocess.TimeoutExpired):
+            # Read-only observation failure closes readiness for this poll. It
+            # neither frees a held slot nor authorizes a duplicate task launch.
+            return False
+        return True
 
     def reconcile(self):
         """Free only this slot's known completed request; all ambiguity blocks."""

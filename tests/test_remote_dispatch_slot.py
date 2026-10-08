@@ -2,6 +2,7 @@ import hashlib
 import json
 from pathlib import Path
 import sqlite3
+import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -286,6 +287,79 @@ class RemoteSlotTests(unittest.TestCase):
             self.assertNotEqual(current['reservation_id'], old['reservation_id'])
             self.assertEqual(current['owner'], old['owner'])
             self.assertEqual(self.ledger.active_node_reservations()[0]['reservation_id'], current['reservation_id'])
+
+    def bound_gate(self, **changes):
+        checker = self.root / 'checker.py'
+        checker.write_text('trusted checker')
+        gate = dict(verifier_ready=True, node='hoa127', node_id=self.node_id,
+                    reference_digest='d' * 64, reference_volume='trusted-cache',
+                    verifier_sha256=hashlib.sha256(checker.read_bytes()).hexdigest(),
+                    config_sha256='e' * 64, diagnostic_spec_sha256=digest(self.service['Spec']),
+                    diagnostic_service_id=self.service_id, diagnostic_task_id=self.task_id)
+        gate.update(changes)
+        path = self.root / 'readiness.json'
+        path.write_text(json.dumps(gate))
+        path.chmod(0o600)
+        return dict(catalog=path, checker=checker, environment={
+            'FERMAT_VERIFIER_REFERENCE_DIGEST': 'd' * 64,
+            'FERMAT_SWARM_VERIFIER_REFERENCE_VOLUME': 'trusted-cache'})
+
+    def test_bound_readiness_requires_exact_terminal_diagnostic(self):
+        with self.slot() as slot:
+            self.assertTrue(slot.readiness(**self.bound_gate()))
+            self.task['Status'] = dict(State='running')
+            with self.assertRaisesRegex(RuntimeError, 'terminal successful'):
+                slot.readiness(**self.bound_gate())
+
+    def test_bound_readiness_false_gate_needs_no_diagnostic(self):
+        with self.slot() as slot:
+            args = self.bound_gate(verifier_ready=False)
+            self.inspect.reset_mock()
+            self.assertFalse(slot.readiness(**args))
+            self.inspect.assert_not_called()
+
+    def test_bound_readiness_rejects_wrong_identity_or_missing_receipts(self):
+        for key, wrong in (('node', 'hoa126'), ('node_id', 'x' * 25),
+                           ('reference_digest', 'f' * 64), ('reference_volume', 'different-cache'),
+                           ('verifier_sha256', 'f' * 64), ('config_sha256', ''),
+                           ('diagnostic_spec_sha256', 'f' * 64), ('diagnostic_task_id', None)):
+            with self.subTest(key=key), self.slot() as slot:
+                with self.assertRaises(RuntimeError):
+                    slot.readiness(**self.bound_gate(**{key: wrong}))
+
+    def test_bound_readiness_rechecks_current_physical_node(self):
+        with self.slot() as slot:
+            args = self.bound_gate()
+            self.node['ID'] = 'x' * 25
+            with self.assertRaisesRegex(RuntimeError, 'physical node identity'):
+                slot.readiness(**args)
+
+    def test_readiness_observation_failure_waits_without_starting_or_releasing(self):
+        with self.slot() as slot:
+            args = self.bound_gate()
+            for failure in (subprocess.TimeoutExpired('docker', 30),
+                            subprocess.CalledProcessError(1, 'docker')):
+                with self.subTest(failure=failure), patch(
+                        '_recursive_lean.remote_dispatch_slot.inspect', side_effect=failure):
+                    self.assertFalse(slot.readiness(**args))
+                    self.assertFalse(slot.path.exists())
+                    self.assertEqual(self.ledger.active_node_reservations(), [])
+            self.assertTrue(slot.readiness(**args))
+
+    def test_terminal_observation_retry_preserves_slot_without_rerunning_adapter(self):
+        with self.slot() as slot:
+            self.reserve(slot)
+            self.finish()
+            self.receipt()
+            with patch('_recursive_lean.remote_dispatch_slot.inspect',
+                       side_effect=subprocess.TimeoutExpired('docker', 30)):
+                with self.assertRaises(subprocess.TimeoutExpired):
+                    slot.execute_next(None, ready=True)
+            self.assertEqual(json.loads(slot.path.read_text())['state'], 'reserved')
+            # No queued row remains. Retry observes the retained terminal job,
+            # clears its slot and never invokes any adapter execution.
+            self.assertIsNone(slot.execute_next(None, ready=True))
+            self.assertEqual(json.loads(slot.path.read_text())['state'], 'idle')
 
 
 if __name__ == '__main__':

@@ -101,6 +101,21 @@ class SwarmAdapterTests(unittest.TestCase):
             self.assertEqual(json.loads(path.read_text()), {'state': 'submitted', 'service_id': 'known'})
             self.assertFalse(path.with_suffix('.tmp').exists())
 
+    def test_dispatcher_node_replacement_fails_before_packet_or_remote_create(self):
+        node = dict(ID='n' * 25, Description={'Hostname': 'hoa1'}, Status={'State': 'ready'},
+                    Spec={'Availability': 'active', 'Labels': {'fermat-swarm-20261007': 'true'}})
+        environment = dict(FERMAT_VERIFICATION_REQUEST_ID='a' * 32,
+                           FERMAT_SWARM_VERIFIER_NODE='hoa1',
+                           FERMAT_SWARM_VERIFIER_EXPECTED_NODE_ID='x' * 25)
+        with patch.dict(os.environ, environment, clear=True), patch.object(ADAPTER.os, 'umask'), \
+                patch.object(ADAPTER, 'inspect', return_value=node), \
+                patch.object(ADAPTER, 'docker') as docker, \
+                patch.object(ADAPTER.Path, 'mkdir') as mkdir:
+            with self.assertRaisesRegex(RuntimeError, 'durable dispatcher/readiness identity'):
+                ADAPTER.execute()
+            docker.assert_not_called()
+            mkdir.assert_not_called()
+
 
 if __name__ == '__main__':
     unittest.main()

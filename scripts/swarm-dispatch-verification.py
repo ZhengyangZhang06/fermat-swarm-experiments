@@ -9,6 +9,7 @@ import argparse
 import json
 import os
 from pathlib import Path
+import subprocess
 import sys
 import time
 
@@ -27,11 +28,15 @@ def main():
     parser.add_argument('--request', help='Explicit queued request to prioritize in --once mode')
     parser.add_argument('--remote-node', help='Reserve one durable remote verifier capacity slot')
     parser.add_argument('--remote-directory', type=Path, help='Private operator packet directory')
+    parser.add_argument('--require-bound-readiness', action='store_true',
+                        help='Require exact terminal diagnostic/cache/node evidence in the readiness gate')
     args = parser.parse_args()
     if args.request and not args.once:
         parser.error('--request requires --once')
     if bool(args.remote_node) != bool(args.remote_directory):
         parser.error('--remote-node and --remote-directory must be provided together')
+    if args.require_bound_readiness and not args.remote_node:
+        parser.error('--require-bound-readiness requires --remote-node')
     remote_environment = os.environ.get('FERMAT_SWARM_VERIFIER_NODE') or os.environ.get('FERMAT_SWARM_VERIFIER_DIRECTORY')
     if remote_environment and not args.remote_node:
         parser.error('remote adapter configuration requires the durable --remote-node slot')
@@ -50,11 +55,24 @@ def main():
     try:
         if args.remote_node:
             with RemoteDispatchSlot(service.ledger, args.remote_node, args.remote_directory) as slot:
+                os.environ['FERMAT_SWARM_VERIFIER_EXPECTED_NODE_ID'] = slot.node_id
                 while True:
-                    ready = json.loads(args.catalog.read_text()).get('verifier_ready') is True
-                    if args.request and not ready:
-                        raise RuntimeError('verification readiness gate is closed')
-                    started = slot.execute_next(service, ready=ready, request_id=args.request)
+                    try:
+                        ready = (slot.readiness(args.catalog, checker=args.program.with_name('verify-frozen-node.py'),
+                                                environment=os.environ) if args.require_bound_readiness else
+                                 json.loads(args.catalog.read_text()).get('verifier_ready') is True)
+                        if args.request and not ready:
+                            raise RuntimeError('verification readiness gate is closed')
+                        started = slot.execute_next(service, ready=ready, request_id=args.request)
+                    except (subprocess.CalledProcessError, subprocess.TimeoutExpired):
+                        if args.once:
+                            raise
+                        # Slot reconciliation only observes existing identities.
+                        # Keep its durable state and retry observation, never the
+                        # adapter launch or an uncertain external create.
+                        print('Remote observation unavailable; retaining exact slot and retrying observation', flush=True)
+                        time.sleep(10)
+                        continue
                     if started:
                         print(f'Dispatched registered remote verification {started}', flush=True)
                     if args.once:

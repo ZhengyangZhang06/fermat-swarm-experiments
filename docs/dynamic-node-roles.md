@@ -41,3 +41,54 @@ support separately after review and require exact terminal evidence before reusi
 any presently occupied node. Static broker `--reserve-node` exclusions continue to
 apply independently until an explicitly reviewed deployment removes them; this API
 does not modify their startup configuration or any job catalog.
+
+## Provision an explicit guarded dispatcher fleet
+
+`scripts/provision-remote-verifier-dispatchers.py --config /private/fleet.json
+--unit-directory /home/ubuntu/.config/systemd/user` performs a read-only plan.
+The private operator JSON has these required fields:
+
+```json
+{
+  "nodes": ["hoa3", "hoa4"],
+  "database": "/private/claims.sqlite",
+  "workflow_root": "/private/immutable-workflow",
+  "python": "/absolute/resolved/python3",
+  "readiness_directory": "/private/node-readiness",
+  "packet_directory": "/private/shared-verification-packets",
+  "reference_cache": "/private/trusted-reference-cache",
+  "reference_digest": "<original 64-character SHA-256>",
+  "reference_volume": "operator-seeded-cache"
+}
+```
+
+An optional `unit_prefix` defaults to `fermat-guarded-verifier`. Nodes must be an
+explicit unique subset of the authorized fleet. Interpreter and workflow paths
+must be resolved, absolute and free of symlink ancestors and systemd substitution
+characters. All three private directories and the user unit directory must already
+exist and be operator-owned mode0700. The ledger and immutable scripts must exist.
+
+`--apply` exclusively installs missing unit files, per-node packet directories and
+`<readiness_directory>/<node>.json` gates initially containing `verifier_ready:false`.
+It never resets existing gates. Add `--start-new` only when authorized to start the
+units newly created by this invocation. Existing units are never replaced, restarted
+or started; mismatched files, loaded commands/environments, drop-ins and ambiguous
+runtime identities require reconciliation. An uncertain start remains a durable
+unit-file intent and is not retried automatically. Other newly installed nodes in
+the same batch still receive their independent initial start attempts. A crash
+between installation and start requires operator reconciliation of those exact
+units, not deletion/reinstallation or a speculative restart.
+
+Fleet units opt into `--require-bound-readiness`. A true gate must bind the actual
+Docker node ID, original cache digest, named volume, immutable checker SHA-256,
+diagnostic configuration hash, service specification hash and exact diagnostic
+service/task IDs. The dispatcher freshly inspects the sole diagnostic task and
+requires terminal exit zero on the bound physical node before dispatch. It passes
+the expected physical NodeID to the adapter, which rejects hostname replacement.
+False gates may remain minimal while seeding/diagnostics run. True gates are written
+only by the trusted diagnostic controller after all real comparator, inventory and
+isolation checks; presence of a file or an unbound boolean cannot start fleet work.
+
+This provisioner does not seed caches, attest diagnostics, enable login startup,
+change existing running deployments, release proof owners, or treat installed
+units as active comparison jobs. Publish actual task/ledger observations separately.

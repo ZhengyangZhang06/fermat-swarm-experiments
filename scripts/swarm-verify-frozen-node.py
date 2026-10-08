@@ -136,6 +136,8 @@ def execute():
         raise ValueError('invalid registered request or verifier node')
     reference_volume, reference_digest = reference_volume_settings(os.environ)
     node_id = registered_node(inspect('node', node), node)
+    if os.environ.get('FERMAT_SWARM_VERIFIER_EXPECTED_NODE_ID', node_id) != node_id:
+        raise RuntimeError('remote verifier node differs from durable dispatcher/readiness identity')
     shared = Path(os.environ['FERMAT_SWARM_VERIFIER_DIRECTORY']).resolve(strict=True)
     project = Path(os.environ['FERMAT_VERIFIER_PROJECT']).resolve()
     if shared.is_relative_to(project.parent) or shared.stat().st_mode & 0o077:
