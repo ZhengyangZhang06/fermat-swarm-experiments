@@ -3146,3 +3146,24 @@ theorem Submission.p05_ums_section_of_inner_inverse_a5b449214a
   ext m
   change π (t m - f (g (t m))) = m
   rw [map_sub, hπf, sub_zero, ht]
+
+
+namespace Submission
+
+theorem p05_ptm_split_of_unit_minor_a5b449214a
+    {R : Type*} [CommRing R] {M : Type*} [AddCommGroup M] [Module R M]
+    (n p d : ℕ) (P : Matrix (Fin n) (Fin p) R) (π : (Fin n → R) →ₗ[R] M)
+    (_hπ : Function.Surjective π) (_hker : LinearMap.ker π = LinearMap.range P.mulVecLin)
+    (rows : Fin d ↪ Fin n) (cols : Fin d ↪ Fin p)
+    (_hunit : IsUnit (Matrix.det (P.submatrix rows cols)))
+    (_hnext : ∀ (rows' : Fin (d + 1) ↪ Fin n) (cols' : Fin (d + 1) ↪ Fin p),
+      Matrix.det (P.submatrix rows' cols') = 0) :
+    ∃ s : M →ₗ[R] (Fin n → R), π.comp s = LinearMap.id := by
+  obtain ⟨Q, hQ⟩ := Submission.p05_ums_inner_inverse_of_minors_a5b449214a
+    n p d P rows cols _hunit _hnext
+  refine Submission.p05_ums_section_of_inner_inverse_a5b449214a
+    P.mulVecLin Q.mulVecLin π ?_ _hπ _hker
+  simpa only [Matrix.mulVecLin_mul] using
+    congrArg (fun A : Matrix (Fin n) (Fin p) R => A.mulVecLin) hQ
+
+end Submission
