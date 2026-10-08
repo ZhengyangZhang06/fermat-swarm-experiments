@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "fc96846834164b9687836d9dcfadbcafc5b2d085dfb26816ec334c63b66cc03f",
+  "git_delta": {
+    "base_commit": "98c9b6f7e6d776ce7cb707a606fdd9332a3144c5",
+    "candidate_commit": "e5624d85f8e9ead38e5a1d2b1426c028dc0ace80",
+    "target": "Submission.lean",
+    "declaration": "p02_es_177ebb5a_hi_prescribed_coefficients",
+    "diff_sha256": "7de419ec3c14c57a279b9f6fe7fa99b70d23026ae7667089db4847268bdba2af",
+    "source_sha256": "79eb4202172a73ffdad676aa87bb44315f53f566adddb63a204ee4e7fd64530f",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_hi_prescribed_coefficients",
+      "statement": "∀ (n : ℕ) (a : ℕ → ℂ), ∃ P : ↥(HeckeEis.BinaryForm ℂ n), ∀ d : Fin 2 →₀ ℕ, MvPolynomial.coeff d P.val = if d 0 + d 1 = n then a (d 0) else 0",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
