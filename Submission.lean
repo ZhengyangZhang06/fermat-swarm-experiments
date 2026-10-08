@@ -430,3 +430,60 @@ theorem Submission.p10_17ae7b7d_efp_inverse_coset_eq_iff :
     push_cast
     rw [hc, hd]
     ring
+
+
+theorem Submission.p10_17ae7b7d_cpo_analytic_order_nonzero :
+    ∀ (w : ℕ) (ζ : ℂ) (A : ℂ → ℂ), ζ ≠ 0 → AnalyticAt ℂ A 0 →
+      analyticOrderAt A 0 ≠ ⊤ →
+      let P : ℂ → ℂ := fun t => ∏ j ∈ Finset.range w, A (ζ ^ j * t)
+      AnalyticAt ℂ P 0 ∧ analyticOrderAt P 0 ≠ ⊤ ∧
+        analyticOrderNatAt P 0 = w * analyticOrderNatAt A 0 := by
+  intro w ζ A hζ hA hfinite
+  let m := analyticOrderNatAt A 0
+  obtain ⟨b, hb, hb0, hAb⟩ := (hA.analyticOrderNatAt_eq_iff hfinite).mp (rfl :
+    analyticOrderNatAt A 0 = m)
+  simp only [sub_zero, smul_eq_mul] at hAb
+  have hL (j : ℕ) : AnalyticAt ℂ (fun t : ℂ => ζ ^ j * t) 0 :=
+    analyticAt_const.mul analyticAt_id
+  have hP : AnalyticAt ℂ (fun t => ∏ j ∈ Finset.range w, A (ζ ^ j * t)) 0 := by
+    apply Finset.analyticAt_fun_prod
+    intro j _
+    exact (by simpa only [mul_zero] using hA : AnalyticAt ℂ A (ζ ^ j * 0)).comp (hL j)
+  let D : ℂ → ℂ := fun t => ∏ j ∈ Finset.range w, ζ ^ (j * m) * b (ζ ^ j * t)
+  have hD : AnalyticAt ℂ D 0 := by
+    apply Finset.analyticAt_fun_prod
+    intro j _
+    exact analyticAt_const.mul
+      ((by simpa only [mul_zero] using hb : AnalyticAt ℂ b (ζ ^ j * 0)).comp (hL j))
+  have hD0 : D 0 ≠ 0 := by
+    apply Finset.prod_ne_zero_iff.mpr
+    intro j _
+    simpa only [mul_zero] using mul_ne_zero (pow_ne_zero (j * m) hζ) hb0
+  have hlocal : ∀ᶠ t in nhds (0 : ℂ), ∀ j ∈ Finset.range w,
+      A (ζ ^ j * t) = (ζ ^ j * t) ^ m * b (ζ ^ j * t) := by
+    apply (Filter.eventually_all_finset (Finset.range w)).mpr
+    intro j _
+    have ht : Filter.Tendsto (fun t : ℂ => ζ ^ j * t) (nhds 0) (nhds 0) := by
+      simpa only [ContinuousAt, mul_zero] using (hL j).continuousAt
+    exact ht.eventually hAb
+  have horder : analyticOrderAt (fun t => ∏ j ∈ Finset.range w, A (ζ ^ j * t)) 0 =
+      (w * m : ℕ) := by
+    apply hP.analyticOrderAt_eq_natCast.mpr
+    refine ⟨D, hD, hD0, ?_⟩
+    filter_upwards [hlocal] with t ht
+    simp only [sub_zero, smul_eq_mul]
+    calc
+      (∏ j ∈ Finset.range w, A (ζ ^ j * t)) =
+          ∏ j ∈ Finset.range w, t ^ m * (ζ ^ (j * m) * b (ζ ^ j * t)) := by
+        apply Finset.prod_congr rfl
+        intro j hj
+        rw [ht j hj, mul_pow, ← pow_mul]
+        rw [mul_comm (ζ ^ (j * m)) (t ^ m), mul_assoc]
+      _ = t ^ (w * m) * D t := by
+        simp only [Finset.prod_mul_distrib, Finset.prod_const, Finset.card_range,
+          ← pow_mul, Nat.mul_comm, D]
+  refine ⟨hP, ?_, ?_⟩
+  · rw [horder]
+    exact ENat.natCast_ne_top _
+  · simp only [analyticOrderNatAt, horder, ENat.toNat_natCast]
+    rfl
