@@ -7,7 +7,8 @@ It does not assert comparator acceptance or prove the enclosing root theorem.
 ## Candidate and scope
 
 The existing candidate was introduced by `8ac90b1` and inspected at
-`fc148b20f2f93b932dbd898b3ccd5caad0fe6d80`. Its `Submission.lean` SHA-256 is
+`ce7f97a2175fe0fece630c86908254333621b36c` in the 2026-10-08 14:03:36
+RLCR round. Its `Submission.lean` SHA-256 is
 `81d0a9d64dee7d82cd27ac069c5dde7a4617d51a74ca4899b6fe5ef3dfe4002b`.
 The entire source prefix from frozen proof base
 `8cb34c690b020247caaf2f18f9cb6fbab8d526f6` is byte-identical. The complete Lean
@@ -75,6 +76,43 @@ Inspected files, relative to the snapshot root:
 The last query returned no matches (exit 1): the pinned project contains no
 selected theorem or matching `nsmulPt` naturality lemma. Reused declarations are
 pinned upstream infrastructure, not newly invented dependency nodes.
+
+## Current author validation
+
+The 2026-10-08 14:03:36 round re-read the accepted proof and independently
+checked the existing implementation. A fresh read-only simplifier review found
+no concrete improvement or defect and recommended retaining the proof unchanged.
+No Lean source change was needed or made in this round.
+
+With pinned Lean 4.33.1, the selected-declaration diagnostic checks an `example`
+against the literal frozen type from the selected DAG record, with warnings fatal
+and the project options applied. It exits zero, and `#print axioms` reports only
+`propext`, `Classical.choice`, and `Quot.sound`. This diagnostic intentionally
+omits the inherited root declaration and attribute commands; it is not an exact
+comparator result or full-source build acceptance.
+
+The actual full-source warning-fatal check exits one with four errors:
+
+- `Submission.lean:13`: unknown `AlgebraicGeometry.Scheme.Hom.opensMapFinal`.
+- `Submission.lean:14`: unknown
+  `GoodReductionJacobian.RelativeGroupLaw.baseChangePointToBase_ofBase`.
+- `Submission.lean:15`: unknown
+  `RegularLocalRingQuotientAscent.dualNumberFst_apply`.
+- `Submission.lean:22`: the inherited root declaration uses `sorry`.
+
+All errors occur in the unchanged frozen prefix. No placeholder belongs to the
+selected theorem. The entire tracked file-change inventory since the frozen proof
+base contains only `Submission.lean` and this audit. Protected problem and library
+sources remain unchanged. The trusted build boundary remains a controller concern;
+this candidate does not alter it or suppress its diagnostics.
+
+Evidence is retained under `.humanize/rlcr/2026-10-08_14-03-36/` in
+`round-0-full-build.log`, `round-0-selected-diagnostic.log`,
+`round-0-source-audit.json`, `round-0-source.diff`,
+`round-0-reference-use.json`, and `round-0-simplifier-review.md`.
+These local round artifacts are ignored by Git. The exact candidate commit and
+fresh comparator outcome are recorded in the round summary after this audit is
+committed; this text makes no claim of comparator success.
 
 ## Verification boundary
 
