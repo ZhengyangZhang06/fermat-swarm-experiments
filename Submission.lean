@@ -20,6 +20,17 @@ theorem HeckeEis.eichlerShimuraMap_injective (N : ℕ) [NeZero N] (n : ℕ) :
 
 namespace Submission
 
+theorem p02_es_177ebb5a_primitive_exists
+    (N : ℕ) [NeZero N] (n : ℕ)
+    (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2)) :
+    ∃ F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n),
+      HeckeEis.IsEichlerIntegral n (fun τ => f τ) F ∧
+      HeckeEis.IsEquivariantPrimitiveWith
+        ((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype) F := by
+  obtain ⟨F, hF⟩ := p02_es_177ebb5a_primitive_exists_holomorphic_integral n
+    (fun τ => f τ) (UpperHalfPlane.mdifferentiable_iff.mp f.holo')
+  exact ⟨F, hF, p02_es_177ebb5a_primitive_exists_constant_defect N n f F hF⟩
+
 theorem p02_es_177ebb5a_sm_holomorphic
     (n : ℕ) (h : UpperHalfPlane → ℂ)
     (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n))
