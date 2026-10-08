@@ -16,6 +16,11 @@ namespace Submission
 For each element, its least positive annihilator divides every annihilator by Euclidean
 division. A prime divisor of that least annihilator would contradict the hypothesis,
 so the least annihilator is one and the element is zero.
+
+The well-ordering step uses `Nat.find_spec` and `Nat.find_min` from
+`Mathlib.Data.Nat.Find`. Euclidean division uses `nsmul_eq_mod_nsmul` from
+`Mathlib.Algebra.Group.Basic`, and the prime divisor is supplied by
+`Nat.exists_prime_and_dvd` from `Mathlib.Data.Nat.Prime.Defs`.
 -/
 theorem p04_eq_zero_of_prime_avoiding_annihilators :
     ∀ {V : Type*} [AddCommGroup V],
