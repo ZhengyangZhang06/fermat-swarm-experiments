@@ -1,0 +1,19 @@
+{
+  "node_id": "root.scalarization_modular-a1.translation_bound-a1.strip_coefficient_limit-a1.scalar_strip_limit-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/128",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "325f98dcd106ad4fbb28e6bbf3c7af0de59c6cea",
+  "integrated_commit": "574df5c6d9410d3a642ce435d30c8a7efd84da0f",
+  "proof_base_commit": "73e416e3433a007a89fc639335217494451856bd",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.scalarization_modular-a1.translation_bound-a1.strip_coefficient_limit-a1",
+  "requires": [
+    "root.scalarization_modular-a1.translation_bound-a1.strip_coefficient_limit-a1.polynomial_exponential_tail-a1",
+    "root.scalarization_modular-a1.translation_bound-a1.strip_coefficient_limit-a1.scalar_strip_limit-a1.ssl_segment_estimates-a1",
+    "root.scalarization_modular-a1.translation_bound-a1.strip_coefficient_limit-a1.scalar_strip_limit-a1.ssl_tail_limit-a1"
+  ]
+}
