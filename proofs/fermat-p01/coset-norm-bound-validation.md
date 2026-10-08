@@ -14,7 +14,7 @@ The exact type remains:
 ∀ (M : ℕ) [NeZero M] (f : CuspForm (CongruenceSubgroup.Gamma0 M) 2), ∃ C Y : ℝ, 0 ≤ C ∧ ∀ z : UpperHalfPlane, Y ≤ z.im → ‖ModularForm.norm (MonoidHom.range (Matrix.SpecialLinearGroup.mapGL ℝ : Matrix.SpecialLinearGroup (Fin 2) ℤ →* Matrix.GeneralLinearGroup (Fin 2) ℝ)) f z‖ ≤ C * ‖f z‖
 ```
 
-## Fresh author checks, 2026-10-08, round started 15:32:30 UTC
+## Fresh author checks, 2026-10-08, round started 16:35:33 UTC
 
 - Lean 4.33.1 (commit `819816b2e0a3bf405af45ae5c7af2491d8f5bee6`), `-DwarningAsError=true` and the project Lean options: the unchanged selected theorem in a fresh diagnostic importing
   `Definitions.Def_ModularForm_HeckeOperatorForms` passes, including an anonymous check
@@ -23,7 +23,7 @@ The exact type remains:
   `CuspFormClass.zero_at_infty_slash`, and `CongruenceSubgroup.instFiniteIndexGamma0`
   contain only `propext`, `Classical.choice`, and `Quot.sound`.
 - All nine dependency repositories have clean status and their manifest-pinned HEADs.
-- Five inspected mathlib files and all 81 snapshot project Definitions files match the
+- Six inspected mathlib files and all 81 snapshot project Definitions files match the
   local reference snapshot byte-for-byte.
 - The complete inherited source diff preserves the frozen Submission prefix. Its only
   new theorem is the selected declaration, with no local placeholders, new axioms,
@@ -67,12 +67,13 @@ defines the quotient factors, and lines 64–65 and 108–110 define the norm pr
 `Basic.lean:719` supplies integral slash-translate vanishing.
 `CongruenceSubgroups.lean:187` and `ArithmeticSubgroups.lean:107–135` supply finite
 index and arithmeticity. `mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/FunctionsBoundedAtInfty.lean:42,70`
-turn filter bounds into a common height. An rg search for
-`fd_norm_bound|norm_domination` across `project/Definitions`
+turn filter bounds into a common height. `SlashActions.lean:155–156` identifies the
+integral and real matrix slash actions. An rg search for
+`fd_norm_bound|norm_domination|coset_norm` across `project/Definitions`
 and mathlib's modular-form directory returned no matches. The structured research
 record has exactly one `reference_use` entry with source `local-project`.
 
-Fresh local evidence is in `.humanize/rlcr/2026-10-08_15-32-30/validation/`, including
+Fresh local evidence is in `.humanize/rlcr/2026-10-08_16-35-33/validation/`, including
 the scoped diagnostic sources, completed body/context build logs, `build-results.json`,
 `source-dependency-audit.json`, protected-artifact digests, `reference-use.json`, and
 `complete-source.diff`. The freshly requested simplifier agent independently reviewed the selected
