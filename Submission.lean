@@ -884,3 +884,18 @@ theorem Submission.p10_17ae7b7d_ppr_nonunit_card :
     Nat.card {z : ZMod (p ^ a) // ¬ IsUnit z} = Nat.card (Fin (p ^ (a - 1))) :=
       (Nat.card_congr (Equiv.ofBijective f ⟨hinj, hsurj⟩)).symm
     _ = p ^ (a - 1) := Nat.card_fin _
+
+
+theorem Submission.p10_17ae7b7d_idx_prime_power_row_card :
+    ∀ (p a : ℕ), p.Prime → 0 < a →
+      Nat.card (Quot (fun v w :
+        {v : ZMod (p ^ a) × ZMod (p ^ a) //
+          ∃ x y : ZMod (p ^ a), x * v.1 + y * v.2 = 1} =>
+        ∃ u : (ZMod (p ^ a))ˣ,
+          (u : ZMod (p ^ a)) * v.1.1 = w.1.1 ∧
+          (u : ZMod (p ^ a)) * v.1.2 = w.1.2)) = p ^ a + p ^ (a - 1) := by
+  intro p a hp ha
+  have : NeZero (p ^ a) := ⟨pow_ne_zero a hp.ne_zero⟩
+  obtain ⟨e⟩ := Submission.p10_17ae7b7d_ppr_unit_chart_equiv p a hp ha
+  rw [Nat.card_congr e, Nat.card_sum, Nat.card_zmod,
+    Submission.p10_17ae7b7d_ppr_nonunit_card p a hp ha]
