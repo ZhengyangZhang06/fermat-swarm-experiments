@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "node_id": "root.gamma0_coset_counts-a1.elliptic_fixed_points-a1",
+  "parent_id": "root.gamma0_coset_counts-a1",
+  "depth": 2,
+  "title": "The S and ST fixed-point counts",
+  "statement": "For every nonzero natural number N, let Γ₀(N) be the subgroup of SL₂(ℤ) whose bottom-left entry is zero modulo N, and let Q=SL₂(ℤ)/Γ₀(N) with left multiplication. Put S=((0,−1),(1,0)) and T=((1,1),(0,1)). The number of q∈Q fixed by S is #{x∈ℤ/Nℤ:x²+1=0}=ModularCurve.nuTwo N, and the number fixed by ST is #{x∈ℤ/Nℤ:x²+x+1=0}=ModularCurve.nuThree N.",
+  "lean_statement": "∀ (N : ℕ) [NeZero N], let Q := (Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 N; Nat.card {q : Q // ModularGroup.S • q = q} = ModularCurve.nuTwo N ∧ Nat.card {q : Q // (ModularGroup.S * ModularGroup.T) • q = q} = ModularCurve.nuThree N",
+  "lean_name": "p10_17ae7b7d_cc_elliptic_fixed_points",
+  "depends_on": [
+    "root.gamma0_coset_counts-a1.lift_unimodular_row-a1"
+  ],
+  "dependency_workspaces": [
+    {
+      "node_id": "root.gamma0_coset_counts-a1.lift_unimodular_row-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    }
+  ],
+  "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-elliptic-fixed-points-a1-a1"
+}

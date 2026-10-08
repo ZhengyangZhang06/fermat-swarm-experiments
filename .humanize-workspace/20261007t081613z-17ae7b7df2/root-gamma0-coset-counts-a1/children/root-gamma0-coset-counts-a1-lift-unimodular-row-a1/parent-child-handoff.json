@@ -1,0 +1,63 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "surject|lift|coprime|Coprime",
+        "SpecialLinearGroup.*surject|surject.*SpecialLinearGroup|[Gg]amma0.*card|[Gg]amma0.*index|[Pp]rojectiveLine.*[Cc]ard|[Cc]ard.*[Pp]rojectiveLine|[Tt]ransvection.*surject",
+        "p10_17ae7b7d_cc_(lift_unimodular_row|index|elliptic_fixed_points|translation_orbits)",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean -DautoImplicit=false -DmaxHeartbeats=4000000 -DsynthInstance.maxHeartbeats=400000 -Dbackward.isDefEq.respectTransparency.types=false -o TargetAbsence.olean TargetAbsence.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean -DautoImplicit=false -DmaxHeartbeats=4000000 -DsynthInstance.maxHeartbeats=400000 -Dbackward.isDefEq.respectTransparency.types=false -o ChildTypes.olean ChildTypes.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1/parent-child-handoff.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_X0.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ProjectiveLineMatrixAction.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/Totient.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/GroupAction/Quotient.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/Coset/Defs.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p10-coset-split-nairohng/TargetAbsence.lean",
+        "/tmp/p10-coset-split-nairohng/ChildTypes.lean",
+        "/tmp/p10-coset-split-nairohng/ChildTypes.log",
+        "/tmp/p10-coset-split-nairohng/report.json"
+      ],
+      "conclusion": "The snapshot matches project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; both tracked snapshot trees and all nine pinned dependency checkouts were clean. Existing infrastructure supplies same-ring Bézout row completion, Chinese remaindering, totient formulas, Gamma0 finiteness, and quotient actions. Searches found no matching integer lift of a unimodular residue row or the requested counting formulas, and no reservation of the proposed names in local DAGs. The separate projective-line modules are not in the frozen imports. All four literal types compiled after import Submission in /tmp/p10-coset-split-nairohng; reflexivity probes checked left coset multiplication, subgroup restriction and matrix multiplication. The types and selected imported lemmas reported only propext, Classical.choice and Quot.sound. Policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96 matched; only listed lines 10–12 were omitted in the disposable copy, and Lean verified all 56 targets absent. The report records exact omitted lines, reversible reconstruction, original hash 96e3f06b92cb64921c5c4745f0115bb7ca89de8412a80d1d3a1599b7693a0d8a and build hash fb90bb88b6fa024189bde0f814c11f19649668a957e83b1a7c298dea579e3539. Original contract and Submission were unchanged. These are interface diagnostics, not comparator acceptance of proofs."
+    }
+  ],
+  "parent_id": "root.gamma0_coset_counts-a1",
+  "child_id": "root.gamma0_coset_counts-a1.lift_unimodular_row-a1",
+  "subproblem": {
+    "key": "lift_unimodular_row",
+    "title": "Lifting a unimodular residue row to SL₂(ℤ)",
+    "statement": "For every nonzero natural number N and r,s in ℤ/Nℤ, if there exist x,y in ℤ/Nℤ with xr+ys=1, then there is A in SL₂(ℤ) whose bottom-left and bottom-right entries reduce to r and s, respectively.",
+    "lean_statement": "∀ (N : ℕ) [NeZero N] (r s : ZMod N), (∃ x y : ZMod N, x * r + y * s = 1) → ∃ A : Matrix.SpecialLinearGroup (Fin 2) ℤ, (A 1 0 : ZMod N) = r ∧ (A 1 1 : ZMod N) = s",
+    "lean_name": "p10_17ae7b7d_cc_lift_unimodular_row",
+    "depends_on": [],
+    "natural_proof": "1. Fix N≠0 and r,s with xr+ys=1 in R=ℤ/Nℤ. If N=1, R has one element, so the identity matrix has the required reductions. Hence assume N>1.\n2. Choose an integer D representing s with 1≤D≤N: use the representative in {1,…,N−1} if s≠0, and use N if s=0. Let P be the finite set of primes dividing D but not N. The moduli consisting of N and the distinct primes in P are positive and pairwise coprime.\n3. Choose an integer C congruent to r modulo N and to 1 modulo every p in P. To justify this simultaneous choice, for coprime positive a,b the Euclidean algorithm gives integers u,v with ua+vb=1; given representatives A modulo a and B modulo b, Avb+Bua has both prescribed residues. A product of moduli already used is coprime to the next one: multiplying Bézout identities proves that coprimality with each factor implies coprimality with their product. Induction therefore constructs C for the stated finite family.\n4. No prime divides both C and D. Indeed, if p divides D and not N, its defining congruence gives C≡1 modulo p. If p divides D and N, a hypothetical p∣C would make both r and s zero after reduction from ℤ/Nℤ to ℤ/pℤ. Reducing xr+ys=1 would give 0=1 in ℤ/pℤ, impossible for a prime p.\n5. Consequently gcd(|C|,D)=1. This gcd is positive since D>0; if it exceeded 1, its least divisor greater than 1 would be prime and divide both C and D, contradicting step 4.\n6. The integer Euclidean algorithm now gives a,b∈ℤ with aC+bD=1. Set A=((b,−a),(C,D)). Its determinant is bD+aC=1, so A belongs to SL₂(ℤ). Its bottom row reduces to (r,s) by construction, proving the exact assertion.",
+    "proof_key_steps": [
+      "Handle N=1 using the identity matrix.",
+      "Choose a positive representative D of the second coordinate.",
+      "Use Bézout and finite Chinese remaindering to choose C avoiding the primes of D outside N.",
+      "Use unimodularity to exclude common prime factors inside N.",
+      "Apply integer Bézout to C,D and construct the determinant-one matrix."
+    ]
+  },
+  "audit": {
+    "key": "lift_unimodular_row",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "The standalone one-line proposition exactly includes nonzero N, both residues, unimodularity and the specified bottom-row reductions. Steps 1–6 correctly handle N=1, construct C by finite CRT, exclude every common prime divisor of C and D, and apply integer Bézout to obtain determinant one. This is a genuine dependency-free lifting obligation, with a fresh bare identifier and no circular appeal."
+  },
+  "resolved_dependencies": [],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-lift-unimodular-row-a1/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-lift-unimodular-row-a1/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-lift-unimodular-row-a1/parent-supplied-natural-proof.json"
+}

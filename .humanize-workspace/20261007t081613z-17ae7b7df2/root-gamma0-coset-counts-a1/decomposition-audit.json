@@ -1,0 +1,72 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "dedekindPsi|nuTwo|nuThree|cuspCount",
+        "Gamma0|mem_Gamma0|finiteIndex|FiniteIndex",
+        "exists_SL2_row|exists_SL2|def S |def T |coe_mul|specialLinearGroup|SpecialLinearGroup",
+        "chineseRemainder|isUnit_iff_coprime|card_units_eq_totient|totient_mul|totient_prime_pow",
+        "([Gg]amma0.*(card|index)|(card|index).*[Gg]amma0|[Pp]rojectiveLine.*[Cc]ard|[Cc]ard.*[Pp]rojectiveLine|surject.*SpecialLinearGroup|SpecialLinearGroup.*surject|lift_unimodular)",
+        "p10_17ae7b7d_cc_(lift_unimodular_row|index|elliptic_fixed_points|translation_orbits)",
+        "git rev-parse HEAD",
+        "git status --porcelain --untracked-files=no",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean -DautoImplicit=false -DmaxHeartbeats=4000000 -DsynthInstance.maxHeartbeats=400000 -Dbackward.isDefEq.respectTransparency.types=false -o TargetAbsence.olean TargetAbsence.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean -DautoImplicit=false -DmaxHeartbeats=4000000 -DsynthInstance.maxHeartbeats=400000 -Dbackward.isDefEq.respectTransparency.types=false -o ChildTypes.olean ChildTypes.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1/parent-child-handoff.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1/decomposition-v1.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_X0.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ProjectiveLineMatrixAction.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/Coset/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/GroupAction/Quotient.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/GroupAction/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/Totient.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p10-coset-independent-audit-dy8t2ub_/TargetAbsence.lean",
+        "/tmp/p10-coset-independent-audit-dy8t2ub_/ChildTypes.lean",
+        "/tmp/p10-coset-independent-audit-dy8t2ub_/ChildTypes.log",
+        "/tmp/p10-coset-independent-audit-dy8t2ub_/report.json"
+      ],
+      "conclusion": "The snapshot revisions match the manifest: project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Both tracked trees and all nine compiler dependency checkouts were clean and pinned. Sources confirm the numerical definitions, Gamma0 membership, ordinary matrix multiplication, left-coset action, subgroup restriction, CRT and totient infrastructure. Searches found no matching integer-row lift or counting theorem; the separate projective-line modules are outside the frozen imports. No proposed name occurs in the ten local DAGs. Fresh independent Lean diagnostics compiled all four literal propositions without child implementations, verified action instances, and checked conditional assembly into the frozen parent type. Their transitive axioms and those of the inspected supporting lemmas were only propext, Classical.choice and Quot.sound. The split appropriately separates reusable lifting from three narrower counting obligations; dependencies point only from counting children to lifting and are acyclic. Policy SHA256 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96 matched. The report records exact omitted lines 10–12, original hash 96e3f06b92cb64921c5c4745f0115bb7ca89de8412a80d1d3a1599b7693a0d8a, build hash fb90bb88b6fa024189bde0f814c11f19649668a957e83b1a7c298dea579e3539, reversible reconstruction and successful Lean absence checks for all 56 targets. Original contracts, Submission and reviewed inputs remained unchanged. This approves decomposition and supplied prose only; implemented proofs still require the configured comparator and independent verification."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "lift_unimodular_row",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition exactly includes nonzero N, both residues, unimodularity and the specified bottom-row reductions. Steps 1–6 correctly handle N=1, construct C by finite CRT, exclude every common prime divisor of C and D, and apply integer Bézout to obtain determinant one. This is a genuine dependency-free lifting obligation, with a fresh bare identifier and no circular appeal."
+    },
+    {
+      "key": "coset_index",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The type matches both finiteness and the exact dedekindPsi formula. Steps 1–4 establish the finite row-class model and correctly transfer right cosets to left cosets; lifting is used precisely for surjectivity. Steps 5–10 justify disjoint prime-power charts, componentwise CRT, their cardinalities and the squarefree-divisor expansion. The proof is complete, non-circular and depends only on the declared lifting sibling. Its identifier is bare and unreserved."
+    },
+    {
+      "key": "elliptic_fixed_points",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The literal type selects the intended left action and exactly matches both root counts. Steps 1–3 justify the row-class model and inversion transfer. Steps 4–8 correctly force the first coordinate to be a unit, prove both directions of each normalized fixed-point correspondence, and negate the ST parameter to obtain nuThree. N=1 is covered. Only row lifting is invoked; there is no hidden dependency or circularity. The identifier is bare and fresh."
+    },
+    {
+      "key": "translation_orbits",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The type correctly counts the orbit quotient of the restricted zpowers action. Steps 1–5 establish the finite model and CRT compatibility. Steps 6–11 prove chart invariance, the return condition ns²=0, exact periods p^max(a−2j,0), stratum sizes and endpoint contributions. Steps 12–13 correctly combine coprime local periods and expand the totient divisor sum. The proof supplies the full argument, uses only its lifting dependency, and has a fresh bare identifier."
+    }
+  ],
+  "required_changes": []
+}
