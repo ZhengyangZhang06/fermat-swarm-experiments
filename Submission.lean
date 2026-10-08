@@ -36,7 +36,6 @@ theorem p06_9e0f5043ff_dlen_scalar_quotient
     exact IsDiscreteValuationRing.length_quotient_pow_maximalIdeal v.toValuationSubring n
   · change v.ord (((u : v.toValuationSubring) : E) * (π : E) ^ n) = (n : ℤ)
     simpa only [zpow_natCast] using v.ord_unit_smul_zpow u hπ (n : ℤ)
-/-- A finite family in a DVR with a nonzero entry has a nonzero member dividing every entry. -/
 /-- A finite family in a DVR with a nonzero entry has a nonzero member dividing every entry.
 Choose a member of minimum uniformizer exponent among the nonzero entries. Unit factors
 do not affect divisibility, and the minimum power divides every other power. -/
@@ -277,6 +276,9 @@ theorem p06_9e0f5043ff_dlen_matrix_diagonalization
           _ = block 1 P' * block (D r c) C * block 1 Q' := by rw [hsplit]
           _ = block (D r c) (P' * C * Q') := by rw [hmul, hmul, one_mul, mul_one]
           _ = Matrix.diagonal (Fin.cases (D r c) d') := by rw [heq, hdiag]
+
+end Submission
+
 namespace Submission
 
 /-- Left and right multiplication by unit matrices preserve the cokernel up to linear equivalence. -/
