@@ -1761,6 +1761,9 @@ import Mathlib.RingTheory.Length
 
 namespace Submission
 
+/-- A principal quotient of finite `A`-length has a `B`-composition series whose factors
+are residue modules at height-one primes. The element `b` annihilates every factor,
+so `b ≠ 0` rules out the zero ideal in the simple-module classification. -/
 theorem p06_9e0f5043ff_wll_residue_composition_series :
     ∀ (A B : Type*) [CommRing A] [CommRing B] [IsDedekindDomain B] [Algebra A B]
       (b : B), b ≠ 0 → ∀ n : ℕ,
