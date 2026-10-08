@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "1657477e53b4cc7b178e79e37f7d1a13fe11cc173110957493ae44e1bae24893",
+  "git_delta": {
+    "base_commit": "a5aab1ce73dee70471c99f5841c95ffcfeeffdde",
+    "candidate_commit": "87780a08a9f29e074f101a24ebc821eb267d9b4d",
+    "target": "Submission.lean",
+    "declaration": "p05_di_determinant_grouplike_a5b449214a",
+    "diff_sha256": "4a2aad17bd871c6f1c41e38ac9573e991253628b4ab2d867ff9b3eef6675997d",
+    "source_sha256": "55003b3b09995e0ecedbc44cd50cec43e187b443739156916fed86ebb5dc5771",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_di_determinant_grouplike_a5b449214a",
+      "statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [Bialgebra k H] (n : ℕ) (c : Matrix (Fin n) (Fin n) H) (hΔ : ∀ i j : Fin n, Coalgebra.comul (R := k) (c i j) = ∑ l : Fin n, TensorProduct.tmul k (c i l) (c l j)) (hε : ∀ i j : Fin n, Coalgebra.counit (R := k) (c i j) = if i = j then (1 : k) else 0), Coalgebra.comul (R := k) (Matrix.det c) = TensorProduct.tmul k (Matrix.det c) (Matrix.det c) ∧ Coalgebra.counit (R := k) (Matrix.det c) = 1",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
