@@ -407,6 +407,110 @@ theorem p02_es_177ebb5a_scl_polynomial_exp_tail :
       dsimp [w]
       ring
 
+/-- The coefficients of an Eichler integral have a common limit on a finite strip,
+with a uniform polynomial-exponential error bound. -/
+theorem p02_es_177ebb5a_tb_strip_coefficient_limit :
+    ∀ (n : ℕ) (u : UpperHalfPlane → ℂ)
+      (G : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)) (a C Y L : ℝ),
+      0 < a → 0 ≤ C → 0 ≤ L → Continuous u → HeckeEis.IsEichlerIntegral n u G →
+      (∀ τ : UpperHalfPlane, Y ≤ τ.im → ‖u τ‖ ≤ C * Real.exp (-a * τ.im)) →
+      ∃ (A : ↥(HeckeEis.BinaryForm ℂ n)) (K : ℝ), 0 ≤ K ∧
+        ∀ τ : UpperHalfPlane, 0 ≤ τ.re → τ.re ≤ L → max 1 Y ≤ τ.im →
+          ∀ d : Fin 2 →₀ ℕ,
+            ‖MvPolynomial.coeff d ((G τ).val - A.val)‖ ≤
+              K * (1 + τ.im) ^ n * Real.exp (-a * τ.im) := by
+  classical
+  intro n u G a C Y L ha hC hL hu hG hubound
+  let D := C * (2 : ℝ) ^ n * (L + 1) ^ n
+  let J := ∫ s in Ioi (0 : ℝ), (1 + s) ^ n * Real.exp (-a * s)
+  have hD : 0 ≤ D := by dsimp [D]; positivity
+  have hJ : 0 ≤ J := (p02_es_177ebb5a_scl_polynomial_exp_tail n a ha).2.1
+  -- Each coefficient of the line power is a scalar polynomial in z.
+  have hline_cont (d : Fin 2 →₀ ℕ) :
+      Continuous (fun z : ℂ => MvPolynomial.coeff d (HeckeEis.linePow n z).val) := by
+    have hformula (z : ℂ) :
+        MvPolynomial.coeff d (HeckeEis.linePow n z).val =
+          if d.sum (fun _ m ↦ m) = n then (d.multinomial : ℂ) * z ^ d 0 else 0 := by
+      have h := MvPolynomial.coeff_linearCombination_X_pow_of_fintype
+        (fun j : Fin 2 ↦ if j = 0 then z else (1 : ℂ)) d n
+      simp only [Fin.sum_univ_two, Fin.isValue, ite_true, one_ne_zero, ite_false,
+        MvPolynomial.smul_eq_C_mul, map_one, one_mul] at h
+      change MvPolynomial.coeff d
+        ((MvPolynomial.C z * MvPolynomial.X 0 + MvPolynomial.X 1) ^ n) = _
+      rw [h, d.prod_fintype _ (by simp)]
+      simp
+    simp_rw [hformula]
+    split_ifs <;> fun_prop
+  -- Apply the scalar strip theorem with the same majorant for every coefficient.
+  have hscalar (d : Fin 2 →₀ ℕ) : ∃ b : ℂ,
+      ∀ z : ℂ, 0 ≤ z.re → z.re ≤ L → max 1 Y ≤ z.im →
+        ‖MvPolynomial.coeff d (G (UpperHalfPlane.ofComplex z)).val - b‖ ≤
+          (D * J) * (1 + z.im) ^ n * Real.exp (-a * z.im) := by
+    apply p02_es_177ebb5a_scl_scalar_strip_limit n a D L (max 1 Y)
+      (fun z => MvPolynomial.coeff d (G (UpperHalfPlane.ofComplex z)).val)
+      (fun z => u (UpperHalfPlane.ofComplex z) *
+        MvPolynomial.coeff d (HeckeEis.linePow n z).val)
+      ha hD hL (le_max_left 1 Y)
+    · intro z hz
+      exact ((hu.continuousAt.comp
+        (UpperHalfPlane.mdifferentiableAt_ofComplex hz).continuousAt).mul
+          (hline_cont d).continuousAt).continuousWithinAt
+    · intro z hz
+      simpa only [UpperHalfPlane.ofComplex_apply_of_im_pos hz] using hG d ⟨z, hz⟩
+    · intro z hx hxL hy
+      have hy1 : 1 ≤ z.im := (le_max_left 1 Y).trans hy
+      have hy0 : 0 ≤ z.im := by linarith
+      have hz : 0 < z.im := by linarith
+      have hum : ‖u (UpperHalfPlane.ofComplex z)‖ ≤ C * Real.exp (-a * z.im) := by
+        simpa only [UpperHalfPlane.ofComplex_apply_of_im_pos hz, UpperHalfPlane.im] using
+          hubound ⟨z, hz⟩ ((le_max_right 1 Y).trans hy)
+      have hnorm : max 1 ‖z‖ ≤ (L + 1) * (1 + z.im) := by
+        apply max_le
+        · nlinarith [mul_nonneg hL hy0]
+        · have hzbound := Complex.norm_le_abs_re_add_abs_im z
+          rw [abs_of_nonneg hx, abs_of_nonneg hy0] at hzbound
+          nlinarith [mul_nonneg hL hy0]
+      calc
+        ‖u (UpperHalfPlane.ofComplex z) *
+            MvPolynomial.coeff d (HeckeEis.linePow n z).val‖ =
+            ‖u (UpperHalfPlane.ofComplex z)‖ *
+              ‖MvPolynomial.coeff d (HeckeEis.linePow n z).val‖ := norm_mul _ _
+        _ ≤ (C * Real.exp (-a * z.im)) * ((2 : ℝ) ^ n * (max 1 ‖z‖) ^ n) :=
+          mul_le_mul hum (p02_es_177ebb5a_scl_linepow_coeff_bound n z d)
+            (norm_nonneg _) (by positivity)
+        _ ≤ (C * Real.exp (-a * z.im)) *
+            ((2 : ℝ) ^ n * ((L + 1) * (1 + z.im)) ^ n) :=
+          mul_le_mul_of_nonneg_left
+            (mul_le_mul_of_nonneg_left
+              (pow_le_pow_left₀ (by positivity) hnorm n) (by positivity)) (by positivity)
+        _ = D * (1 + z.im) ^ n * Real.exp (-a * z.im) := by
+          dsimp [D]
+          rw [mul_pow]
+          ring
+  choose b hb using hscalar
+  -- Only degree-n exponents are used in the limiting homogeneous polynomial.
+  let s := (Finsupp.finite_of_degree_eq (σ := Fin 2) n).toFinset
+  have hs (d : Fin 2 →₀ ℕ) : d ∈ s ↔ d.degree = n := by simp [s]
+  let A : ↥(HeckeEis.BinaryForm ℂ n) :=
+    ⟨∑ d ∈ s, MvPolynomial.monomial d (b d), by
+      apply MvPolynomial.IsHomogeneous.sum
+      intro d hd
+      exact MvPolynomial.isHomogeneous_monomial (b d) ((hs d).mp hd)⟩
+  have hA (d : Fin 2 →₀ ℕ) (hd : d ∈ s) : MvPolynomial.coeff d A.val = b d := by
+    simp [A, MvPolynomial.coeff_sum, MvPolynomial.coeff_monomial, hd]
+  refine ⟨A, D * J, mul_nonneg hD hJ, ?_⟩
+  intro τ hx hxL hy d
+  rw [MvPolynomial.coeff_sub]
+  by_cases hd : d ∈ s
+  · rw [hA d hd]
+    simpa only [UpperHalfPlane.ofComplex_apply, UpperHalfPlane.im] using
+      hb d (τ : ℂ) hx hxL hy
+  · have hdeg : d.degree ≠ n := by simpa only [hs d] using hd
+    rw [(G τ).property.coeff_eq_zero hdeg, A.property.coeff_eq_zero hdeg,
+      sub_self, norm_zero]
+    have hy0 : 0 ≤ τ.im := τ.im_pos.le
+    positivity
+
 end Submission
 
 theorem Submission.p02_es_177ebb5a_ssl_segment_estimates :
