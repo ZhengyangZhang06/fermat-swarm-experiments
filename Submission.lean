@@ -18,14 +18,6 @@ theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field
 
 namespace Submission
 
-open AlgebraicCurve
-theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
-    [Algebra K F] (x : F) (hx : Transcendental K x)
-    [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
-  sorry
-
-namespace Submission
-
 /-- A principal quotient of finite `A`-length has a `B`-composition series whose factors
 are residue modules at height-one primes. The element `b` annihilates every factor,
 so `b ≠ 0` rules out the zero ideal in the simple-module classification. -/
@@ -714,6 +706,9 @@ theorem Submission.p06_9e0f5043ff_inf_reciprocal_polynomial_order :
       (Polynomial.eval₂_reverse_mul_pow (algebraMap K F) s⁻¹ a).symm
   rw [hidentity, v.ord_mul (zpow_ne_zero _ hs0) heval, v.ord_zpow, hv,
     horder, mul_one, add_zero]
+
+namespace Submission
+
 /-- Fractions with denominators not divisible by an irreducible polynomial form a subalgebra. -/
 theorem p06_9e0f5043ff_elp_fraction_subalgebra
     (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F)
