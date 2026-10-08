@@ -927,6 +927,7 @@ theorem p07_flq_curve_quotient_857cd4d38c
   obtain ⟨hbundle, hdim⟩ :=
     p07_cq_abelian_surface_quotient_857cd4d38c S J E.A E.f E.bundle E.dim_fibre
   obtain ⟨ℓ, _, hℓp, hclosed, hfinite, hflat, hfp, hrank, hfactor⟩ :=
+  obtain ⟨ℓ, hℓpb, hℓp, hclosed, hfinite, hflat, hfp, hrank, hfactor⟩ :=
     p07_cq_level_geometry_pullback_857cd4d38c S (S ⧸ J) q E.A E.C E.f E.lev
       E.lev_closed E.lev_finite E.lev_flat E.lev_finitePresentation
   -- The action is the unique lift with the prescribed two projections.
