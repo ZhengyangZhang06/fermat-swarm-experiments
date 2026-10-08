@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "ac11db130a60fabc23047243cabc51284ca0642936b060fc704e3ebe80a19d27",
+  "git_delta": {
+    "base_commit": "2e63b83283924ad7800c72a157d379c90498ccf3",
+    "candidate_commit": "155f00307812d58c757a6d2a07bf85e6d6cfb65f",
+    "target": "Submission.lean",
+    "declaration": "p05_pie_successive_minor_containment_a5b449214a",
+    "diff_sha256": "a266ae3d9323fec038629e400c36360b42e13f30601dc3304243e34e9c05de03",
+    "source_sha256": "2a237e317435729a3c725ce8c1178f85e59cbd1ff13c1fafd54badb255db4023",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_pie_successive_minor_containment_a5b449214a",
+      "statement": "∀ {R : Type*} [CommRing R] {ι κ : Type*} [Fintype ι] [Fintype κ] (P : Matrix ι κ R) (d : ℕ), (Ideal.span {x : R | ∃ (rows : Fin (d + 1) ↪ ι) (cols : Fin (d + 1) ↪ κ), x = Matrix.det (P.submatrix rows cols)}) ≤ Ideal.span {x : R | ∃ (rows : Fin d ↪ ι) (cols : Fin d ↪ κ), x = Matrix.det (P.submatrix rows cols)}",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
