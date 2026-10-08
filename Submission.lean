@@ -42,6 +42,8 @@ theorem p04_hca_bc7c754a4b_summand_eq_of_coset_eq
   simp only [mul_inv_rev, map_mul, Module.End.mul_apply]
   rw [hF, Representation.self_inv_apply]
 
+end Submission
+
 namespace Submission
 
 open CategoryTheory
