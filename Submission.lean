@@ -583,6 +583,7 @@ theorem p04_hca_bc7c754a4b_summand_eq_of_coset_eq
   have hF : F.hom (B.ρ (h : G)⁻¹ (B.ρ s⁻¹ x)) =
       A.ρ (h : G)⁻¹ (F.hom (B.ρ s⁻¹ x)) :=
     Rep.hom_comm_apply F h⁻¹ (B.ρ s⁻¹ x)
+  -- Expand the product action, use equivariance, and cancel the inverse actions.
   rw [ht]
   simp only [mul_inv_rev, map_mul, Module.End.mul_apply]
   rw [hF, Representation.self_inv_apply]
