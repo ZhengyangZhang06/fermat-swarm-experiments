@@ -1376,6 +1376,7 @@ theorem Submission.p05_fhe_coefficient_matrix_a5b449214a
       congrArg V.subtype (b.sum_repr ⟨x, hx⟩)
   rw [← hsum]
   exact Submodule.sum_mem W fun i _ => Submodule.smul_mem W _ (hb i)
+
 theorem Submission.p05_pcs_patch_power_sections_a5b449214a
     {R : Type*} [CommRing R] {M : Type*} [AddCommGroup M] [Module R M]
     {F : Type*} [AddCommGroup F] [Module R F]
