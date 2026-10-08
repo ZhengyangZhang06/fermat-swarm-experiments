@@ -2225,3 +2225,44 @@ theorem Submission.f036cc6b1f_pic_mec_invariant_conull_core :
       simpa only [Subgroup.coe_inv, inv_smul_smul] using
         hstable γ⁻¹ ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • z) hz
     · exact hstable γ z
+theorem Submission.f036cc6b1f_pic_psp_sign_transversal :
+    ∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)),
+      (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ →
+      ∃ L : Set Δ,
+        (∀ δ : Δ, ∃ γ : Δ, γ ∈ L ∧
+          ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) =
+              (δ : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∨
+            (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) =
+              -(δ : Matrix.SpecialLinearGroup (Fin 2) ℤ))) ∧
+        (∀ γ : Δ, γ ∈ L → ∀ η : Δ, η ∈ L →
+          ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) =
+              (η : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∨
+            (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) =
+              -(η : Matrix.SpecialLinearGroup (Fin 2) ℤ)) → γ = η) := by
+  classical
+  intro Δ _hΔ
+  let s : Setoid Δ :=
+    { r := fun γ η =>
+        (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) =
+            (η : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∨
+          (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) =
+            -(η : Matrix.SpecialLinearGroup (Fin 2) ℤ)
+      iseqv := ⟨fun _ => Or.inl rfl, by
+        intro γ η h
+        rcases h with h | h
+        · exact Or.inl h.symm
+        · exact Or.inr (by rw [h, neg_neg]), by
+        intro γ η ξ hγη hηξ
+        rcases hγη with hγη | hγη <;> rcases hηξ with hηξ | hηξ
+        · exact Or.inl (hγη.trans hηξ)
+        · exact Or.inr (hγη.trans hηξ)
+        · exact Or.inr (by rw [hγη, hηξ])
+        · exact Or.inl (by rw [hγη, hηξ, neg_neg])⟩ }
+  refine ⟨Set.range (Quotient.out (s := s)), ?_, ?_⟩
+  · intro δ
+    refine ⟨(Quotient.mk s δ).out, ⟨Quotient.mk s δ, rfl⟩, ?_⟩
+    exact Quotient.exact (Quotient.out_eq (Quotient.mk s δ))
+  · rintro γ ⟨c, rfl⟩ η ⟨d, rfl⟩ h
+    have heq : Quotient.mk s c.out = Quotient.mk s d.out := Quotient.sound h
+    have hcd : c = d := by simpa only [Quotient.out_eq] using heq
+    exact congrArg (Quotient.out (s := s)) hcd
