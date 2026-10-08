@@ -2847,7 +2847,7 @@ theorem Submission.p02_es_177ebb5a_ssl_segment_estimates :
       _ = x * w y := by rw [sub_zero, abs_of_nonneg hx, mul_comm]
 
 /-- A uniform coefficient bound for the homogeneous power `(z * X₀ + X₁) ^ n`. -/
-theorem p02_es_177ebb5a_scl_linepow_coeff_bound :
+theorem Submission.p02_es_177ebb5a_scl_linepow_coeff_bound :
     ∀ (n : ℕ) (z : ℂ) (d : Fin 2 →₀ ℕ),
       ‖MvPolynomial.coeff d (HeckeEis.linePow n z).val‖ ≤
         (2 : ℝ) ^ n * (max 1 ‖z‖) ^ n := by
@@ -2886,7 +2886,7 @@ theorem p02_es_177ebb5a_scl_linepow_coeff_bound :
   · rw [if_neg hd, norm_zero]
     positivity
 /-- Expand a homogeneous binary form in the monomials with exponents `(r, n - r)`. -/
-theorem p02_es_177ebb5a_ic_lct_monomial_expansion
+theorem Submission.p02_es_177ebb5a_ic_lct_monomial_expansion
     (n : ℕ) (Q : ↥(HeckeEis.BinaryForm ℂ n)) :
     Q.val = ∑ r : Fin (n + 1),
       MvPolynomial.coeff (Finsupp.single (0 : Fin 2) r.val +
@@ -2935,7 +2935,7 @@ theorem p02_es_177ebb5a_ic_lct_monomial_expansion
       exact hd (h ▸ hdegree r)
     simp [hrd]
 
-theorem p02_es_177ebb5a_ic_lmd_scalar_pullback
+theorem Submission.p02_es_177ebb5a_ic_lmd_scalar_pullback
     (h : UpperHalfPlane → ℂ) (v : ℂ)
     (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (τ : UpperHalfPlane)
     (hh : HasDerivAt (fun z : ℂ => h (UpperHalfPlane.ofComplex z)) v
@@ -2953,7 +2953,7 @@ theorem p02_es_177ebb5a_ic_lmd_scalar_pullback
   simpa only [Function.comp_def, UpperHalfPlane.ofComplex_apply, mul_one_div] using
     hh.comp_of_eq (τ : ℂ) hσ (by simp only [UpperHalfPlane.ofComplex_apply])
 
-theorem p02_es_177ebb5a_sd_jr_linepow_eval :
+theorem Submission.p02_es_177ebb5a_sd_jr_linepow_eval :
     ∀ (n r : ℕ), r ≤ n → ∀ t : ℂ,
       MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -t)
         ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r]
