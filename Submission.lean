@@ -1296,7 +1296,7 @@ theorem p06_9e0f5043ff_pae_compatible_order_invariance
     (hcompat : ∀ a : v.toValuationSubring, (r a : L) = e (a : E))
     (f : E) (hf : f ≠ 0) : w.ord (e f) = v.ord f := by
   obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible v.toValuationSubring
-  have hπ' : Irreducible (r π) := (MulEquiv.irreducible_iff r).mpr hπ
+  have hπ' : Irreducible (r π) := hπ.map r
   obtain ⟨u, hu⟩ := v.exists_unit_mul_zpow hf hπ
   let u' : w.toValuationSubringˣ := Units.map r.toRingEquiv.toMonoidHom u
   have hcoeu : ((u' : w.toValuationSubring) : L) =
