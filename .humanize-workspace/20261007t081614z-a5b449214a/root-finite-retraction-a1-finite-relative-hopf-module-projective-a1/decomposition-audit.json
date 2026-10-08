@@ -1,0 +1,59 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "fitting|Fitting|fittingIdeal|fitting_ideal",
+        "exists_leftInverse|exists_leftInverse_of_injective|map_det|det_map|antipode|mul_antipode|antipode_mul|tmul_mul_tmul|smul_tmul|includeLeft|rTensor_exact|lTensor_exact",
+        "exists_fin|finitePresentation_of_finite|isNoetherianRing|map_det|mul_antipode.*comul_apply|exists_leftInverse_of_injective|def mulVecLin|mulVecLin_apply",
+        "def arbitrary|theorem.*arbitrary|structure Repr|sum_tmul|eq_sum",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean -j 1 AuditInterfaces.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Module/FinitePresentation.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/RightExactness.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/TensorProduct/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Coalgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Basis/VectorSpace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+        "/tmp/p05-rhm-independent-audit-cgat7nji/AuditInterfaces.lean",
+        "/tmp/p05-rhm-independent-audit-cgat7nji/AuditInterfaces.lean.log",
+        "/tmp/p05-rhm-independent-audit-cgat7nji/binding.json"
+      ],
+      "conclusion": "Verified clean snapshot revisions 2fdd42759f4ab17640ac773289b521dd69d4b26e and db584cd6d46c92f209a44c0f1c829460d327499d; all nine dependency checkouts match clean pins. Sources provide finite presentations, tensor right exactness, extended-ideal identification, antipode identities, linear retractions, and determinant compatibility with ring maps. The Fitting search found only unrelated Artinian-module decomposition results in the searched directories. Independent Lean checks under the frozen imports passed for all four literal propositions and five instance-sensitive equalities. Nine infrastructure axiom closures contain only propext, Classical.choice, and Quot.sound. All names are bare, unreserved identifiers; the combined 28-node dependency graph is acyclic. The split isolates genuine obligations while leaving assembly and existing prerequisites with the parent. Verified policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, exactly omitted lines 10–11, reversible original/build hashes, and independent absence of all 13 targets. Protected artifacts remain unchanged. These are decomposition diagnostics, not comparator acceptance of implemented theorems."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "presentation_ideals_eq",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition exactly matches both finite presentations and the truncated minor convention. Steps 1–3 establish the required determinant containments; steps 4–6 compare presentations through redundant generators. Empty minors, unavailable sizes, and all r-versus-N cases are covered. The proof is complete and non-circular."
+    },
+    {
+      "key": "base_change_semilinear_invariance",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and literal type agree, including the specified algebra map and first-factor S-action, independently checked in Lean. Steps 1–2 prove base-change exactness through inverse cokernel–tensor maps without assuming flatness. Steps 3–6 transport relations through the semilinear bijection and identify the mapped ideals. Its sole dependency on presentation_ideals_eq is necessary and correctly directed."
+    },
+    {
+      "key": "coaction_twist",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The type includes every stated action, scalar-compatibility, coassociativity, counitality, and coaction-compatibility hypothesis. The proof constructs both twists and their two-sided inverses using precisely the antipode identities, then establishes semilinearity on pure tensors and extends additively. Commutativity accounts for the stated multiplication order. Tensor multiplication and the compatibility action were independently checked; no parent conclusion or undeclared dependency is used."
+    },
+    {
+      "key": "tensor_ideal_descent",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact type matches extension along a↦a⊗1 and the specified k-linear span. Steps 1–2 identify the extended ideal with the tensor span; step 3 constructs a linear retraction using field structure and injectivity; step 4 transports membership through that retraction. No multiplicativity of f is assumed or needed. The proof is complete and independent."
+    }
+  ],
+  "required_changes": []
+}
