@@ -198,3 +198,83 @@ theorem Submission.p10_17ae7b7d_pde_holomorphic_extension :
   · intro z hz
     simpa [Function.Periodic.qParam, f, hz] using
       (Function.Periodic.eq_cuspFunction hw.ne' hf z).symm
+
+theorem Submission.p10_17ae7b7d_indent_mobius_arc_estimates :
+    ∀ (v : ℂ) (ε : ℝ), 0 < v.im → 0 < ε → ε < 1 →
+      let w : ℝ → ℂ := fun t => (ε : ℂ) * Complex.exp ((t : ℂ) * Complex.I)
+      let γ : ℝ → ℂ := fun t => (v - star v * w t) / (1 - w t)
+      Continuous γ ∧ Continuous (deriv γ) ∧ ∀ t : ℝ,
+        γ t ≠ v ∧
+        γ t - v = (v - star v) * w t / (1 - w t) ∧
+        HasDerivAt γ ((v - star v) * Complex.I * w t / (1 - w t) ^ 2) t ∧
+        deriv γ t / (γ t - v) = Complex.I / (1 - w t) ∧
+        ‖γ t - v‖ ≤ ‖v - star v‖ * ε / (1 - ε) ∧
+        ‖deriv γ t‖ ≤ ‖v - star v‖ * ε / (1 - ε) ^ 2 ∧
+        ‖deriv γ t / (γ t - v) - Complex.I‖ ≤ ε / (1 - ε) := by
+  intro v ε hv hε hε1
+  dsimp only
+  let w : ℝ → ℂ := fun t => (ε : ℂ) * Complex.exp ((t : ℂ) * Complex.I)
+  let γ : ℝ → ℂ := fun t => (v - star v * w t) / (1 - w t)
+  change Continuous γ ∧ Continuous (deriv γ) ∧ _
+  have hc : v - star v ≠ 0 := by
+    intro h
+    have hi := congrArg Complex.im h
+    simp at hi
+    linarith
+  have hwcircle : w = circleMap 0 ε := by
+    funext t
+    simp only [w, circleMap, zero_add]
+  have hwnorm (t : ℝ) : ‖w t‖ = ε := by
+    rw [hwcircle, norm_circleMap_zero, abs_of_pos hε]
+  have hwne (t : ℝ) : w t ≠ 0 :=
+    norm_pos_iff.mp (by rw [hwnorm]; exact hε)
+  have hpos : 0 < 1 - ε := sub_pos.mpr hε1
+  have hbound (t : ℝ) : 1 - ε ≤ ‖1 - w t‖ := by
+    simpa only [norm_one, hwnorm] using norm_sub_norm_le (1 : ℂ) (w t)
+  have hden (t : ℝ) : 1 - w t ≠ 0 :=
+    norm_pos_iff.mp (lt_of_lt_of_le hpos (hbound t))
+  have hwderiv (t : ℝ) : HasDerivAt w (Complex.I * w t) t := by
+    rw [hwcircle]
+    simpa only [mul_comm] using hasDerivAt_circleMap 0 ε t
+  have hwcont : Continuous w :=
+    (show Differentiable ℝ w from fun t => (hwderiv t).differentiableAt).continuous
+  have hsub (t : ℝ) : γ t - v = (v - star v) * w t / (1 - w t) := by
+    dsimp only [γ]
+    field_simp [hden t]
+    ring
+  have hγderiv (t : ℝ) :
+      HasDerivAt γ ((v - star v) * Complex.I * w t / (1 - w t) ^ 2) t := by
+    have hd := (((hwderiv t).const_mul (star v)).const_sub v).div
+      ((hwderiv t).const_sub 1) (hden t)
+    convert hd using 1 <;> first | rfl | ring
+  have hderiv (t : ℝ) :
+      deriv γ t = (v - star v) * Complex.I * w t / (1 - w t) ^ 2 :=
+    (hγderiv t).deriv
+  refine ⟨(show Differentiable ℝ γ from fun t => (hγderiv t).differentiableAt).continuous,
+    ?_, ?_⟩
+  · have heq : deriv γ = fun t =>
+        (v - star v) * Complex.I * w t / (1 - w t) ^ 2 := funext hderiv
+    rw [heq]
+    exact (continuous_const.mul hwcont).div
+      ((continuous_const.sub hwcont).pow 2) (fun t => pow_ne_zero 2 (hden t))
+  · intro t
+    have hratio : deriv γ t / (γ t - v) = Complex.I / (1 - w t) := by
+      rw [hderiv, hsub]
+      field_simp [hc, hwne t, hden t]
+    refine ⟨?_, hsub t, hγderiv t, hratio, ?_, ?_, ?_⟩
+    · apply sub_ne_zero.mp
+      rw [hsub]
+      exact div_ne_zero (mul_ne_zero hc (hwne t)) (hden t)
+    · rw [hsub, norm_div, norm_mul, hwnorm]
+      exact div_le_div_of_nonneg_left (mul_nonneg (norm_nonneg _) hε.le) hpos (hbound t)
+    · rw [hderiv, norm_div, norm_mul, norm_mul, Complex.norm_I, mul_one, hwnorm,
+        norm_pow]
+      exact div_le_div_of_nonneg_left (mul_nonneg (norm_nonneg _) hε.le)
+        (sq_pos_of_pos hpos) (pow_le_pow_left₀ hpos.le (hbound t) 2)
+    · rw [hratio]
+      have heq : Complex.I / (1 - w t) - Complex.I =
+          Complex.I * w t / (1 - w t) := by
+        field_simp [hden t]
+        ring
+      rw [heq, norm_div, norm_mul, Complex.norm_I, one_mul, hwnorm]
+      exact div_le_div_of_nonneg_left hε.le hpos (hbound t)
