@@ -167,6 +167,9 @@ in this round: the supplemental diagnostic exited zero and the full-source check
 exited one with precisely the four diagnostics listed above. `git diff --check`
 against the proof base also passed. The two snapshots and all nine installed
 dependencies were rechecked clean and at their pinned commits.
+`round-0-full-build.log`, `round-0-selected-diagnostic.log`,
+`round-0-source-audit.json`, `round-0-source.diff`,
+`round-0-reference-use.json`, and `round-0-simplifier-review.md`.
 These local round artifacts are ignored by Git. The exact candidate commit and
 fresh comparator outcome are recorded in the round summary after this audit is
 committed; this text makes no claim of comparator success.
