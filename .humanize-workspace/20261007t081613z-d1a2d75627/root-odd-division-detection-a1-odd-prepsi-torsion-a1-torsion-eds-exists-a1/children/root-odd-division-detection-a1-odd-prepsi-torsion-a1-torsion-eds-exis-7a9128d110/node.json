@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "node_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_sum_zero-a1",
+  "parent_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1",
+  "depth": 4,
+  "title": "The sum of all positive n-torsion points is zero",
+  "statement": "Let k be an algebraically closed field of characteristic zero with decidable equality, and let W be a Weierstrass curve over k with W.Δ ≠ 0. Let n > 0 be a natural number and S a finite set of points in W.toAffine.Point such that P belongs to S exactly when n • P = 0. Then the sum of the points of S, using the Weierstrass point-group addition, is zero.",
+  "lean_statement": "∀ (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k] (W : WeierstrassCurve k), W.Δ ≠ 0 → ∀ n : ℕ, 0 < n → ∀ S : Finset W.toAffine.Point, (∀ P : W.toAffine.Point, P ∈ S ↔ n • P = 0) → S.sum (fun P => P) = 0",
+  "lean_name": "p03_eds_torsion_kernel_sum_68cf3476_d4",
+  "depends_on": [
+    "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_cardinality-a1"
+  ],
+  "dependency_workspaces": [
+    {
+      "node_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_cardinality-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    }
+  ],
+  "result_branch": "humanize-recursive/fermat-p03/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-7a9128d110-a1"
+}

@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081613Z-d1a2d75627",
+  "parent_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1",
+  "dispatch_branch": "proof-workspace/fermat-p03/20261007t081613z-d1a2d75627/dispatch/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exists-a1",
+  "source_commit": "1b176f358d8fc9ecbd20e2abd6e13475349b280f",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_cardinality-a1",
+      "key": "torsion_kernel_cardinality",
+      "result_branch": "humanize-recursive/fermat-p03/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-5ca78b1efc-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exists-a1/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-5ca78b1efc",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "ψ_|Ψ_|ψ₂|preΨ₄|XYIdeal|ordinaryLineAt|division.*polynomial|DivisionPolynomial",
+              "Nat.card.*torsion|card.*torsionBy|sum.*(invol|neg|orderOf)|sum.*eq_zero",
+              "namespace Point|deriving|instAddCommGroup|instAddGroup|neg_some|two_nsmul|Nonsingular",
+              "twoTorsionPolynomial_discr|twoTorsionPolynomial|b_relation",
+              "p03_eds_torsion_kernel_card_68cf3476_d4|p03_eds_torsion_kernel_sum_68cf3476_d4",
+              "git -C .lake/packages/mathlib rev-parse HEAD",
+              "git -C .lake/packages/mathlib status --porcelain"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Point.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Weierstrass.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/dag.json",
+              "/runtime/operator-header-policy-v1/policy.json",
+              "/tmp/p03_eds_geometric_split_mce1cixa/ChildTypes.lean",
+              "/tmp/p03_eds_geometric_split_mce1cixa/HeaderAbsence.lean",
+              "/tmp/p03_eds_geometric_split_mce1cixa/InstanceAxioms.log",
+              "/tmp/p03_eds_geometric_split_mce1cixa/receipt.json"
+            ],
+            "conclusion": "The snapshot records project 81f093181fd6c58dc887fcae5ec8b896996f1885 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; the compiler's mathlib checkout matched and was clean. DivisionPolynomial/Basic.lean already supplies the canonical initial values and recurrences. Affine/Basic.lean supplies nonsingularity from nonzero discriminant; Affine/Point.lean supplies the intended point group, negation and equality-of-x-coordinate criterion. Weierstrass.lean proves that the two-torsion cubic has discriminant 16Δ. The targeted torsion-cardinality and torsion-sum search found no relevant theorem in the searched elliptic-curve and finite-abelian-group modules. The DAG already reserves recurrence uniqueness in another branch; neither proposed identifier was reserved. Both exact child types elaborated after import Submission using a disposable copy of the parent's frozen proof base. Lean confirmed the canonical point-group instances and definitionally identified natural scalar multiplication with nsmulBinRec. The inspected library declarations have only propext, Classical.choice and Quot.sound as transitive axioms. Policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96 matched; only listed lines 10 and 11 were omitted, all 37 targets were checked absent under the frozen imports, and byte-exact restoration and dependency-source checks passed. These are interface diagnostics, not comparator acceptance of either proposed theorem."
+          }
+        ],
+        "parent_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1",
+        "child_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_cardinality-a1",
+        "subproblem": {
+          "key": "torsion_kernel_cardinality",
+          "title": "The positive multiplication kernel has square cardinality",
+          "statement": "Let k be an algebraically closed field of characteristic zero with decidable equality, and let W be a Weierstrass curve over k with W.Δ ≠ 0. For every natural number n > 0, the type of points P in W.toAffine.Point satisfying n • P = 0 is finite and has cardinality n². Here scalar multiplication and zero are those of the usual Weierstrass point group, including its identity point.",
+          "lean_statement": "∀ (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k] (W : WeierstrassCurve k), W.Δ ≠ 0 → ∀ n : ℕ, 0 < n → Finite {P : W.toAffine.Point // n • P = 0} ∧ Nat.card {P : W.toAffine.Point // n • P = 0} = n ^ 2",
+          "lean_name": "p03_eds_torsion_kernel_card_68cf3476_d4",
+          "depends_on": [],
+          "natural_proof": "1. Fix k and W satisfying the hypotheses. Let E be the projective Weierstrass cubic, with identity O and affine coordinate functions x and y. The nonzero discriminant makes E smooth. It is geometrically integral: over the algebraically closed field, distinct components of a reducible projective plane cubic would intersect, producing a singular point. Its k-points, consisting of O and the nonsingular affine points, identify with W.toAffine.Point, and the chord-and-tangent law gives the same group operation. We use the standard facts that a nonconstant morphism between smooth projective integral curves is finite and surjective, that the multiplicities in each fiber sum to its degree, and that principal divisors have degree zero. These are the curve facts in Silverman, The Arithmetic of Elliptic Curves, second edition (2009), Chapter II, §§2–3. The Weierstrass group law and local parameters used here are treated in Chapter III, §§2–4, and Chapter IV, §1.\n2. At O put t = −x/y and s = −1/y. The equation becomes s = t³ + a₁ts + a₂t²s + a₃s² + a₄ts² + a₆s³. Its derivative with respect to s, after moving the right side to the left, is 1 at (0,0). Consequently t is a uniformizer, and solving successively for the coefficients of s gives s = t³ plus terms of higher degree. Since x = t/s and y = −1/s, the leading terms of x and y are respectively t⁻² and −t⁻³.\n3. The regular group law has expansion F(t₁,t₂) = t₁ + t₂ plus terms of total degree at least two: its restrictions F(t₁,0) = t₁ and F(0,t₂) = t₂ force these linear coefficients. Induction on j therefore gives t ∘ [j] = jt plus terms of degree at least two for every positive integer j. Characteristic zero makes the coefficient j nonzero. For any P, the identity [j](P + Q) = [j]P + [j]Q transports this computation by translations to the local rings at P and [j]P. Thus [j] has local multiplicity one everywhere. It is nonconstant, hence finite and surjective. Write d_j for its degree. Every fiber consists of d_j distinct k-points, because k is algebraically closed and every local multiplicity is one. In particular E[j] = {P : [j]P = O} is finite with d_j elements. Write K_j for the divisor consisting of these points, each with coefficient one; then K_j = [j]⁎(O) and deg K_j = d_j.\n4. Complete the square by putting z = y + (a₁x + a₃)/2 and G(X) = 4X³ + b₂X² + 2b₄X + b₆. The equation is z² = G(x)/4. The cubic G has three distinct roots in k: a repeated root α would make (α,0) singular in these coordinates, contrary to smoothness. Negation sends (x,z) to (x,−z), so its affine fixed points are precisely these three points. They are exactly the nonzero points of E[2]. Thus d₂ = 4, while d₁ = 1. At a nonzero two-torsion point T with x-coordinate α, the nonvanishing of G′(α) makes z a uniformizer and gives x − α = (4/G′(α))z² plus terms of higher order. At any affine point outside E[2], the derivative with respect to y is 2z ≠ 0, so x minus its value is a uniformizer.\n5. Fix integers m > r ≥ 1 and set H = x ∘ [m] − x ∘ [r]. At O its leading term is (m⁻² − r⁻²)t⁻². This coefficient is nonzero, because m and r are distinct positive integers in a characteristic-zero field. Hence H is a nonzero rational function.\n6. Consider a source point P for which both [m]P and [r]P are affine. Two affine points have the same x-coordinate exactly when they are equal or opposite; this also follows directly from z² = G(x)/4. Suppose first that [m]P = [r]P = Q and Q is not two-torsion. In the translated parameter u at O, write x(Q + R) = x(Q) + c u(R) plus higher-order terms, where c ≠ 0 by step 4. Using P + R as the source, the leading coefficient in H is c(m − r), so its zero at P is simple. If [m]P = −[r]P = Q and Q is not two-torsion, replace the second argument using x(−Q + [r]R) = x(Q − [r]R). The leading coefficient is c(m + r), again nonzero, so the zero is simple. If both images are the same nonzero two-torsion point T, step 4 and translation give x(T + R) = x(T) + c u(R)² plus higher-order terms with c ≠ 0. The leading coefficient of H is then c(m² − r²), so the zero has order two. If the two images are neither equal nor opposite, H is regular and nonzero at P.\n7. If exactly one of [m]P and [r]P is O, precisely one summand of H has a pole of order two, so H has order −2 at P. If both images are O, translate the source by P. The expansions from steps 2–3 give the nonzero leading coefficient m⁻² − r⁻² at order −2, so H again has order −2.\n8. These cases give the divisor identity div(H) = K_(m+r) + K_(m−r) − 2K_m − 2K_r. Indeed, equal affine images outside two-torsion contribute only to K_(m−r), opposite affine images outside two-torsion contribute only to K_(m+r), and a common nonzero two-torsion image contributes to both. If exactly one image is O, only one of K_m and K_r contributes. If both images are O, all four divisors contribute, giving coefficient 1 + 1 − 2 − 2 = −2. All other coefficients are zero. Every K_j has coefficient one on its support by step 3, so these are exactly the local orders computed above.\n9. Taking degrees and using deg div(H) = 0 yields d_(m+r) + d_(m−r) = 2d_m + 2d_r. Set r = 1. For m ≥ 2 this gives d_(m+1) = 2d_m + 2 − d_(m−1). Together with d₁ = 1 and d₂ = 4, induction gives d_j = j² for every j ≥ 1: if the formula holds at m and m−1, then d_(m+1) = 2m² + 2 − (m−1)² = (m+1)².\n10. For the given n > 0, step 3 supplies finiteness of E[n], and step 9 gives its cardinality n². Under the point-group identification in step 1, this is exactly the subtype {P : W.toAffine.Point // n • P = 0}. Finiteness and its Nat.card equality follow.",
+          "proof_key_steps": [
+            "Identify the smooth projective Weierstrass cubic and its k-point group with the stated point type.",
+            "Use t = −x/y to obtain the leading coordinate terms and the linear term jt of multiplication by j.",
+            "Translate the local calculation to prove that every positive multiplication map is finite, surjective and everywhere unramified.",
+            "Count the two-torsion points using the separable cubic obtained by completing the square.",
+            "Compute every local order of x ∘ [m] − x ∘ [r].",
+            "Take degrees of its divisor to obtain the recurrence for multiplication-map degrees.",
+            "Solve the recurrence from d₁ = 1 and d₂ = 4 and identify the finite kernel cardinality."
+          ]
+        },
+        "audit": {
+          "key": "torsion_kernel_cardinality",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly matches the prose, including every field hypothesis, nonzero discriminant, positive index, finiteness, and cardinality. Its bare identifier is unreserved. The proof independently establishes unramified finite multiplication maps, counts two-torsion, and computes every local order of H, including coincident two-torsion images and simultaneous poles. Characteristic zero justifies each nonvanishing leading coefficient. Taking divisor degrees and solving the recurrence proves n² without using the parent division sequence or another proposed child. The supplied argument is complete enough to guide formalization."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-5ca78b1efc/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-5ca78b1efc/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-5ca78b1efc/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_sum_zero-a1",
+      "key": "torsion_kernel_sum_zero",
+      "result_branch": "humanize-recursive/fermat-p03/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-7a9128d110-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exists-a1/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-7a9128d110",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "ψ_|Ψ_|ψ₂|preΨ₄|XYIdeal|ordinaryLineAt|division.*polynomial|DivisionPolynomial",
+              "Nat.card.*torsion|card.*torsionBy|sum.*(invol|neg|orderOf)|sum.*eq_zero",
+              "namespace Point|deriving|instAddCommGroup|instAddGroup|neg_some|two_nsmul|Nonsingular",
+              "twoTorsionPolynomial_discr|twoTorsionPolynomial|b_relation",
+              "p03_eds_torsion_kernel_card_68cf3476_d4|p03_eds_torsion_kernel_sum_68cf3476_d4",
+              "git -C .lake/packages/mathlib rev-parse HEAD",
+              "git -C .lake/packages/mathlib status --porcelain"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Point.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Weierstrass.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/dag.json",
+              "/runtime/operator-header-policy-v1/policy.json",
+              "/tmp/p03_eds_geometric_split_mce1cixa/ChildTypes.lean",
+              "/tmp/p03_eds_geometric_split_mce1cixa/HeaderAbsence.lean",
+              "/tmp/p03_eds_geometric_split_mce1cixa/InstanceAxioms.log",
+              "/tmp/p03_eds_geometric_split_mce1cixa/receipt.json"
+            ],
+            "conclusion": "The snapshot records project 81f093181fd6c58dc887fcae5ec8b896996f1885 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; the compiler's mathlib checkout matched and was clean. DivisionPolynomial/Basic.lean already supplies the canonical initial values and recurrences. Affine/Basic.lean supplies nonsingularity from nonzero discriminant; Affine/Point.lean supplies the intended point group, negation and equality-of-x-coordinate criterion. Weierstrass.lean proves that the two-torsion cubic has discriminant 16Δ. The targeted torsion-cardinality and torsion-sum search found no relevant theorem in the searched elliptic-curve and finite-abelian-group modules. The DAG already reserves recurrence uniqueness in another branch; neither proposed identifier was reserved. Both exact child types elaborated after import Submission using a disposable copy of the parent's frozen proof base. Lean confirmed the canonical point-group instances and definitionally identified natural scalar multiplication with nsmulBinRec. The inspected library declarations have only propext, Classical.choice and Quot.sound as transitive axioms. Policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96 matched; only listed lines 10 and 11 were omitted, all 37 targets were checked absent under the frozen imports, and byte-exact restoration and dependency-source checks passed. These are interface diagnostics, not comparator acceptance of either proposed theorem."
+          }
+        ],
+        "parent_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1",
+        "child_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_sum_zero-a1",
+        "subproblem": {
+          "key": "torsion_kernel_sum_zero",
+          "title": "The sum of all positive n-torsion points is zero",
+          "statement": "Let k be an algebraically closed field of characteristic zero with decidable equality, and let W be a Weierstrass curve over k with W.Δ ≠ 0. Let n > 0 be a natural number and S a finite set of points in W.toAffine.Point such that P belongs to S exactly when n • P = 0. Then the sum of the points of S, using the Weierstrass point-group addition, is zero.",
+          "lean_statement": "∀ (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k] (W : WeierstrassCurve k), W.Δ ≠ 0 → ∀ n : ℕ, 0 < n → ∀ S : Finset W.toAffine.Point, (∀ P : W.toAffine.Point, P ∈ S ↔ n • P = 0) → S.sum (fun P => P) = 0",
+          "lean_name": "p03_eds_torsion_kernel_sum_68cf3476_d4",
+          "depends_on": [
+            "torsion_kernel_cardinality"
+          ],
+          "natural_proof": "1. Fix k, W, n and S satisfying the hypotheses, and write E for the additive group W.toAffine.Point. Apply the sibling theorem p03_eds_torsion_kernel_card_68cf3476_d4 with the same k and W and with index 2. Its hypotheses hold because 2 > 0. Consequently E[2] = {P ∈ E : 2 • P = 0} is finite and has exactly four elements.\n2. Negation preserves S: if n • P = 0, then n • (−P) = −(n • P) = 0. It is an involution. Every orbit that is not a fixed point is the two-element set {P,−P}, whose sum is zero. Thus the sum of S equals the sum of its fixed-point subset F = {P ∈ S : P = −P}. Explicitly, this reduction follows by finite induction: whenever a nonfixed P remains, remove the distinct pair P and −P; the remainder is still stable under negation, and removing the pair does not change the sum. The process terminates with F. In an additive group, P = −P is equivalent to 2 • P = 0.\n3. Suppose n is odd, and write n = 2r + 1. For P ∈ F, both n • P and 2 • P are zero. Therefore 0 = n • P = r • (2 • P) + P = P. Conversely, zero belongs to S and is fixed by negation. Hence F consists only of zero, and its sum is zero.\n4. Suppose n is even, and write n = 2r. Every point P of E[2] satisfies n • P = r • (2 • P) = 0, so it belongs to S and to F. The reverse inclusion follows from the definition of F. Thus F consists of all four elements of E[2]. This set is an additive subgroup, because multiplication by 2 is an additive homomorphism.\n5. Choose distinct nonzero elements U and V of E[2]; they exist because E[2] has four elements, only one of which is zero. The element U + V also belongs to E[2]. It is nonzero: otherwise V = −U = U, contrary to their distinctness. It differs from U and V by cancellation and the nonvanishing of V and U respectively. Therefore the four elements 0, U, V and U + V are distinct and exhaust E[2]. Their sum is 0 + U + V + (U + V) = 2 • U + 2 • V = 0.\n6. Every natural number is odd or even. Steps 3–5 therefore show that the fixed-point sum is zero in all cases. Combining this with step 2 gives S.sum (fun P => P) = 0, as required.",
+          "proof_key_steps": [
+            "Specialize the kernel-cardinality sibling to obtain exactly four two-torsion points.",
+            "Cancel all nonfixed pairs under the negation involution on S.",
+            "For odd n, show that a point killed by both n and 2 must be zero.",
+            "For even n, identify the fixed-point subset with the whole two-torsion subgroup.",
+            "Enumerate that subgroup as 0, U, V, U + V and compute its sum as zero.",
+            "Conclude that the sum over S is zero in both parity cases."
+          ]
+        },
+        "audit": {
+          "key": "torsion_kernel_sum_zero",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly expresses the stated finite-set sum with all hypotheses and the verified ordinary point-group instances. Its bare identifier is unreserved. The sole dependency correctly points to cardinality, used only at index 2. Negation-pair cancellation is justified by finite induction; the odd case leaves only zero, while the even case leaves the four-element two-torsion subgroup, explicitly enumerated and summed. This proves the exact conclusion without circularity or deferred proof discovery. Extracting these two narrower obligations appropriately supports the parent's principal-divisor construction while leaving its remaining arguments with the parent."
+        },
+        "resolved_dependencies": [
+          "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_cardinality-a1"
+        ],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-7a9128d110/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-7a9128d110/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-7a9128d110/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exists-a1/task.md": "ab60d7bf7fbb76cb393a8a85a557ef3927e6f20cb2bdcb465f7734d4c8f5008f",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exists-a1/problem.md": "38ac0d3762f9cdf23c23661eebbc5a9adb09adf6609593276dc22271b0ba6207",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exists-a1/problem.json": "7f044edb66fcfa09e49a85b70a860bdeec0bd498adb67bb8ff164bdbe26c18ce",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exists-a1/reference-manifest.json": "326a87159f351a7fa61c53fcbbb24df6a67ea73bb33bcacba88609fa45c48638",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exists-a1/decomposition.json": "fc05085b1aa33981c6af5e7dbe79424bb86a4ca418078a3177aa8e839d45813b",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exists-a1/decomposition-audit.json": "1bfee5e43c8adee8d853f8f54be64bcce854b31921c72e4f3ca3e4a0170cd42b",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exists-a1/controller-contract.json": "e0a38e99db16eb6327c6d547c1244d1a2e5c7c021c8a5c53358d9811e783c177",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exists-a1/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-5ca78b1efc/parent-child-handoff.json": "642075f91e1ea868a7a9e9ef5406160bf3f03eb13304649ae547727b9c977911",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exists-a1/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-5ca78b1efc/parent-supplied-plan.md": "ac083c74bf45ebfdf874273064086d4f8563fea049e2ae44c4d3027f07bf6470",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exists-a1/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-5ca78b1efc/parent-supplied-natural-proof.md": "d7921b5916b62f518fff5aa7adde9903b1bb3158471f85e25467add0577c09a6",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exists-a1/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-5ca78b1efc/parent-supplied-natural-proof.json": "c3f6388ac989070dc37e355b5699847e57cac3d2335380d636f24f883c6ae46f",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exists-a1/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-5ca78b1efc/node.json": "101efe88bf3d9fad9a0c574e082fa7b2d781d6b7ce8773ad86cecca32e1933fe",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exists-a1/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-7a9128d110/parent-child-handoff.json": "2ea6d87ffede6f7042a7d4b070131658304174c45f15c09390610b8c477d3264",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exists-a1/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-7a9128d110/parent-supplied-plan.md": "061f52cce842aca3e51f4232d9b48f6c7a96a74d595a332bb8720809f6d8d7fb",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exists-a1/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-7a9128d110/parent-supplied-natural-proof.md": "e3dc712b13a70a8e15a5645435ad27daca9a237d8ec0534c45671f417a1823c6",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exists-a1/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-7a9128d110/parent-supplied-natural-proof.json": "65ce2444fe16ad3123949cf77857c7d80524ff0f1daba14072045197324634e1",
+    ".humanize-workspace/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exists-a1/children/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-7a9128d110/node.json": "ebf582b6a54603ea07b09ca0caeac15aa21097b78c95ccafc567854b0e504a3b"
+  }
+}

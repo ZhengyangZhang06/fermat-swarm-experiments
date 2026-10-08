@@ -1,0 +1,50 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "ψ_|Ψ_|ψ₂|preΨ₄|XYIdeal|ordinaryLineAt|division.*polynomial|DivisionPolynomial",
+        "Nat.card.*torsion|card.*torsionBy|sum.*(invol|neg|orderOf)|sum.*eq_zero",
+        "inductive Point|deriving|instAddCommGroup|instAddGroup|neg_some|two_nsmul|nsmul|namespace Point|XYIdeal|nonsingular_of_Δ_ne_zero|equation_iff_nonsingular",
+        "p03_eds_torsion_kernel_card_68cf3476_d4|p03_eds_torsion_kernel_sum_68cf3476_d4",
+        "git -C .lake/packages/mathlib rev-parse HEAD",
+        "git -C .lake/packages/mathlib status --porcelain",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean -o ChildTypes.olean ChildTypes.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Point.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Weierstrass.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/GroupTheory/FiniteAbelian",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Definitions/Def_GaloisRep_Residual.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/dag.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p03_eds_geometric_split_mce1cixa/receipt.json",
+        "/tmp/p03_decomp_independent_vtvjudot/HeaderAbsence.lean",
+        "/tmp/p03_decomp_independent_vtvjudot/ChildTypes.lean",
+        "/tmp/p03_decomp_independent_vtvjudot/ChildTypes.log",
+        "/tmp/p03_decomp_independent_vtvjudot/receipt.json"
+      ],
+      "conclusion": "The manifest pins project 81f093181fd6c58dc887fcae5ec8b896996f1885 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Inspected sources supply nonsingularity, the ordinary point group, the equal-x criterion, division-polynomial recurrences, and the two-torsion discriminant identity. Targeted elliptic-curve and FiniteAbelian searches found no kernel-cardinality or kernel-sum theorem; residualGaloisRepOf takes cardinality as a hypothesis. The DAG confirms this parent is the frozen root's depth-three descendant. Both proposed names are unreserved, and adding the proposed edges preserves acyclicity. An independent disposable rebuild elaborated both exact propositions without either child declaration present and checked the ordinary group operations and nsmulBinRec by definitional equality. All nine packages matched their pins and were clean; inspected library axioms were limited to propext, Classical.choice and Quot.sound. Policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, exact omissions at lines 10–11, reversible original/build hashes, and Git identities matched; an independently generated Lean probe confirmed all 37 targets absent. These checks approve interfaces and decomposition only, not child implementations or comparator acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "torsion_kernel_cardinality",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose, including every field hypothesis, nonzero discriminant, positive index, finiteness, and cardinality. Its bare identifier is unreserved. The proof independently establishes unramified finite multiplication maps, counts two-torsion, and computes every local order of H, including coincident two-torsion images and simultaneous poles. Characteristic zero justifies each nonvanishing leading coefficient. Taking divisor degrees and solving the recurrence proves n² without using the parent division sequence or another proposed child. The supplied argument is complete enough to guide formalization."
+    },
+    {
+      "key": "torsion_kernel_sum_zero",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly expresses the stated finite-set sum with all hypotheses and the verified ordinary point-group instances. Its bare identifier is unreserved. The sole dependency correctly points to cardinality, used only at index 2. Negation-pair cancellation is justified by finite induction; the odd case leaves only zero, while the even case leaves the four-element two-torsion subgroup, explicitly enumerated and summed. This proves the exact conclusion without circularity or deferred proof discovery. Extracting these two narrower obligations appropriately supports the parent's principal-divisor construction while leaving its remaining arguments with the parent."
+    }
+  ],
+  "required_changes": []
+}
