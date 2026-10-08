@@ -70,14 +70,6 @@ theorem p06_9e0f5043ff_wll_residue_composition_series :
   choose p hp using factors
   exact ⟨p, hp⟩
 
-open AlgebraicCurve
-theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
-    [Algebra K F] (x : F) (hx : Transcendental K x)
-    [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
-  sorry
-
-namespace Submission
-
 /-- Compute the length over `A` by summing the residue factors of a composition series over `B`.
 The sum is in `ℕ∞`, so the factors need not have finite length over `A`.
 Apply `Module.length_eq_add_of_exact` after restricting scalars, then induct on the
