@@ -13,6 +13,7 @@ RLCR round. Its `Submission.lean` SHA-256 is
 `ce7f97a2175fe0fece630c86908254333621b36c` in the 2026-10-08 14:03:36
 `fa849f7f13845977193811f4b026ad216d9d7b81` in the 2026-10-08 15:01:17
 RLCR round. Its `Submission.lean` SHA-256 is
+`fc148b20f2f93b932dbd898b3ccd5caad0fe6d80`. Its `Submission.lean` SHA-256 is
 `81d0a9d64dee7d82cd27ac069c5dde7a4617d51a74ca4899b6fe5ef3dfe4002b`.
 The entire source prefix from frozen proof base
 `8cb34c690b020247caaf2f18f9cb6fbab8d526f6` is byte-identical. The complete Lean
