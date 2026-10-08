@@ -28278,3 +28278,52 @@ theorem Submission.p03_eds_negation_fixed_sum_68cf3476_d5 :
     rw [← Finset.sum_sdiff hpair]
     simp only [Finset.sum_pair hne, add_neg_cancel, add_zero, R]
   rw [hsum, ih R hRlt hR, hfilter]
+
+theorem Submission.p03_eds_two_torsion_four_sum_68cf3476_d5 :
+    ∀ (G : Type) [AddCommGroup G] [DecidableEq G] (T : Finset G),
+      (∀ x : G, x ∈ T ↔ (2 : ℕ) • x = 0) → T.card = 4 →
+        T.sum (fun x => x) = 0 := by
+  intro G _ _ T hT hcard
+  have hzero : (0 : G) ∈ T := (hT 0).2 (smul_zero 2)
+  obtain ⟨u, hu, hu_not⟩ := Finset.exists_mem_notMem_of_card_lt_card
+    (s := ({0} : Finset G)) (t := T) (by simp [hcard])
+  have hu0 : u ≠ 0 := by simpa only [Finset.mem_singleton] using hu_not
+  obtain ⟨v, hv, hv_not⟩ := Finset.exists_mem_notMem_of_card_lt_card
+    (s := ({0, u} : Finset G)) (t := T)
+    (lt_of_le_of_lt Finset.card_le_two (by omega))
+  have hv_ne : v ≠ 0 ∧ v ≠ u := by
+    simpa only [Finset.mem_insert, Finset.mem_singleton, not_or] using hv_not
+  have huu : u + u = 0 := by simpa only [two_nsmul] using (hT u).1 hu
+  have hvv : v + v = 0 := by simpa only [two_nsmul] using (hT v).1 hv
+  have huv_mem : u + v ∈ T := by
+    apply (hT (u + v)).2
+    rw [smul_add, (hT u).1 hu, (hT v).1 hv, add_zero]
+  have huv0 : u + v ≠ 0 := by
+    intro h
+    apply hv_ne.2
+    calc
+      v = u + (u + v) := by rw [← add_assoc, huu, zero_add]
+      _ = u := by rw [h, add_zero]
+  have huv_u : u + v ≠ u := by
+    intro h
+    exact hv_ne.1 (add_left_cancel (h.trans (add_zero u).symm))
+  have huv_v : u + v ≠ v := by
+    intro h
+    exact hu0 (add_right_cancel (h.trans (zero_add v).symm))
+  have hset : ({u + v, v, u, 0} : Finset G) = T := by
+    apply Finset.eq_of_subset_of_card_le
+    · intro x hx
+      simp only [Finset.mem_insert, Finset.mem_singleton] at hx
+      rcases hx with rfl | rfl | rfl | rfl
+      · exact huv_mem
+      · exact hv
+      · exact hu
+      · exact hzero
+    · simp [hcard, Finset.card_insert_of_notMem, huv_v, huv_u, huv0,
+        hv_ne.2, hv_ne.1, hu0]
+  calc
+    T.sum (fun x => x) = (u + v) + (v + u) := by
+      rw [← hset]
+      simp [huv_v, huv_u, huv0, hv_ne.2, hv_ne.1, hu0]
+    _ = (u + u) + (v + v) := by abel
+    _ = 0 := by rw [huu, hvv, add_zero]
