@@ -12,6 +12,54 @@ attribute [-simp] Representation.TateResCor.cosetDecomp_apply Rep.coe_tateHneg1R
 set_option autoImplicit false
 universe u
 open CategoryTheory Rep
+
+namespace Submission
+
+theorem p04_hct139_coset_average_exists
+    {k G : Type _} [CommRing k] [Group G] [Fintype G]
+    (A B : Rep k G) (H : Subgroup G) [Fintype H] [Fintype (G ⧸ H)] :
+    ∃ C : (Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) →ₗ[k]
+        (Quiver.Hom B A),
+      ∀ (F : Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) (x : B),
+        (C F).hom x = ∑ q : G ⧸ H, A.ρ q.out (F.hom (B.ρ q.out⁻¹ x)) := by
+  classical
+  let S (F : Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) : B →ₗ[k] A :=
+    { toFun := fun x => ∑ q : G ⧸ H, A.ρ q.out (F.hom (B.ρ q.out⁻¹ x))
+      map_add' := by
+        intro x y
+        simp only [map_add, Finset.sum_add_distrib]
+      map_smul' := by
+        intro a x
+        simp only [map_smul, RingHom.id_apply, Finset.smul_sum] }
+  let C (F : Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) :
+      Quiver.Hom B A :=
+    Rep.ofHom
+      { toLinearMap := S F
+        isIntertwining' := by
+          intro g
+          apply LinearMap.ext
+          intro x
+          exact p04_hca_bc7c754a4b_sum_equivariant A B H F g x }
+  refine ⟨{ toFun := C, map_add' := ?_, map_smul' := ?_ }, ?_⟩
+  · intro F₁ F₂
+    apply Rep.hom_ext
+    apply Representation.IntertwiningMap.ext
+    apply LinearMap.ext
+    intro x
+    change S (F₁ + F₂) x = S F₁ x + S F₂ x
+    simp [S, Rep.add_hom, Finset.sum_add_distrib]
+  · intro a F
+    apply Rep.hom_ext
+    apply Representation.IntertwiningMap.ext
+    apply LinearMap.ext
+    intro x
+    change S (a • F) x = a • S F x
+    simp [S, Rep.smul_hom, Finset.smul_sum]
+  · intro F x
+    rfl
+
+end Submission
+
 theorem Rep.isZero_tateCohomology_of_forall_sylow {k G : Type u} [CommRing k] [Group G] [Fintype G]
     (A : Rep.{u} k G) (q : ℤ)
     (h : ∀ (p : ℕ) [Fact p.Prime] (P : Sylow p G) [Fintype (P : Subgroup G)],
