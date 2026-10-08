@@ -518,6 +518,12 @@ set_option warningAsError true
 /-- In the given polynomial-fraction model of a place, a fraction is a unit exactly when
 its numerator is not divisible by the defining irreducible polynomial. -/
 
+open AlgebraicCurve
+theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
+    [Algebra K F] (x : F) (hx : Transcendental K x)
+    [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
+  sorry
+
 namespace Submission
 
 set_option warningAsError true
