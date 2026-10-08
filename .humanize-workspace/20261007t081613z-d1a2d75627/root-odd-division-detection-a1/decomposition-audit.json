@@ -1,0 +1,49 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "natDegree_preΨ|leadingCoeff_preΨ|map_preΨ|preΨ\\x27_(even|odd|zero|one|two|three|four)",
+        "preΨ.*(torsion|nsmul|smul.*zero)|(torsion|nsmul).*preΨ",
+        "instAddCommGroup|def map|map_injective|map_some|some_ne_zero|inductive Point|def Nonsingular",
+        "rg -n --hidden -g '*.lean' -g dag.json 'p03_odd_prepsi_degree_lc_68cf3476|p03_odd_prepsi_torsion_68cf3476' /mnt/data/zhengyang-workspace/fermat-swarm-projects",
+        "python3 /tmp/p03_odd_split_probe.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-odd-division-detection-a1/parent-child-handoff.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/Degree.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Point.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Weierstrass.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p03_odd_split_probe.py",
+        "/tmp/p03-odd-split-j4s91apo/results.json",
+        "/tmp/p03-odd-split-j4s91apo/TypesAfterSubmission.lean.log",
+        "/tmp/p03-odd-split-j4s91apo/InstancesAfterSubmission.lean.log",
+        "/tmp/p03-odd-split-j4s91apo/LibraryAxioms.lean.log",
+        "/tmp/p03-odd-split-j4s91apo/IndependentAlgebraAudit.lean"
+      ],
+      "conclusion": "The split appropriately separates the numerical library corollary from the geometric torsion criterion; their conclusions reconstruct the frozen parent conjunction. Degree.lean supplies the claimed formulas without a discriminant assumption. Basic.lean confirms all initial polynomials, recurrences and map_preΨ'. Affine sources confirm nonsingularity includes the curve equation and supply the injective point homomorphism. The torsion search returned no matching theorem; identifier searches and fresh scans of all ten DAGs found no reservations. Independently rerunning the inspected diagnostic script confirmed clean pinned project/mathlib revisions and dependencies, elaboration of both literal types without child implementations, and the intended Point.instAddCommGroup scalar multiplication. Inspected types and library declarations use only propext, Classical.choice and Quot.sound. Additional independently written Lean checks verified the polynomial expansions. Header evidence matches policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96: only exact lines 10–11 were omitted, original hash dd8891addb75e48583885c932518af8bc6d34438aec4e3ccd76ce6aa765e423f and derived hash 81502485ae6796527a5c4e210837b198322b438244a2f58054b94b98aef9dda9 reconstruct reversibly, and Lean confirmed all 37 targets absent. These are decomposition diagnostics; neither proposed proof has received final comparator acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "odd_prepsi_degree_lc",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose and elaborates independently. Its bare identifier is unreserved. The proof correctly obtains a nonzero natural-number cast from 3 ≤ n and characteristic zero, applies the exact pinned degree and leading-coefficient lemmas, and eliminates their even branches using oddness. Omitting the discriminant assumption is justified. No parent or sibling result is used, so the empty dependency list is correct."
+    },
+    {
+      "key": "odd_prepsi_torsion",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition preserves every stated hypothesis and uses the intended elliptic-curve point group. Its bare identifier is unreserved and its type requires no child implementation. The twelve-step proof is complete: characteristic zero justifies unramified multiplication and nonvanishing local coefficients; every divisor multiplicity, including two-torsion and common poles, is accounted for; the kernel sum establishes principality; normalization fixes the signs; the initial polynomials and parity recurrences identify the exact pinned sequence; and regular affine evaluation plus injective base change proves both directions. The cited foundational curve facts are applied under their hypotheses. No circular appeal, deferred proof search, or sibling dependency occurs."
+    }
+  ],
+  "required_changes": []
+}

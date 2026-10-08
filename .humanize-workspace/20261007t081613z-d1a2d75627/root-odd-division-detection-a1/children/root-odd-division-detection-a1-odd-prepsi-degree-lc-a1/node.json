@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.odd_division_detection-a1.odd_prepsi_degree_lc-a1",
+  "parent_id": "root.odd_division_detection-a1",
+  "depth": 2,
+  "title": "Degree and leading coefficient of odd predivision polynomials",
+  "statement": "Let F be a characteristic-zero field with decidable equality, W a Weierstrass equation over F, and n an odd natural number with 3 ≤ n. Then (W.preΨ' n).natDegree = (n² − 1)/2 and (W.preΨ' n).leadingCoeff = n, with n interpreted in F in the second equality. No discriminant hypothesis is required.",
+  "lean_statement": "∀ (F : Type) [Field F] [CharZero F] [DecidableEq F] (W : WeierstrassCurve F) (n : ℕ), 3 ≤ n → Odd n → (W.preΨ' n).natDegree = (n ^ 2 - 1) / 2 ∧ (W.preΨ' n).leadingCoeff = (n : F)",
+  "lean_name": "p03_odd_prepsi_degree_lc_68cf3476",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p03/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-degree-lc-a1-a1"
+}
