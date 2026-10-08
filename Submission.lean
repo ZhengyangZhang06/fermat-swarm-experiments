@@ -10679,3 +10679,97 @@ theorem Submission.p10_17ae7b7d_indent_moving_interval_limit :
   rw [intervalIntegral.integral_sub hε.1 intervalIntegrable_const,
     intervalIntegral.integral_const]
   simp only [Complex.real_smul, mul_comm (↑(β ε - α ε) : ℂ) c, sub_add_cancel]
+
+
+namespace Submission
+
+theorem p10_17ae7b7d_valence_indentation_limit
+    (f : ℂ → ℂ) (v : ℂ) (hv : 0 < v.im) (hf : AnalyticAt ℂ f v)
+    (horder : analyticOrderAt f v ≠ ⊤)
+    (α β : ℝ → ℝ) (a b : ℝ)
+    (hα : Filter.Tendsto α (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds a))
+    (hβ : Filter.Tendsto β (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds b)) :
+    let γ : ℝ → ℝ → ℂ := fun ε t =>
+      (v - star v * ((ε : ℂ) * Complex.exp ((t : ℂ) * Complex.I))) /
+        (1 - (ε : ℂ) * Complex.exp ((t : ℂ) * Complex.I))
+    Filter.Tendsto
+      (fun ε : ℝ => intervalIntegral
+        (fun t : ℝ => (deriv f (γ ε t) / f (γ ε t)) * deriv (γ ε) t)
+        (α ε) (β ε) MeasureTheory.volume)
+      (nhdsWithin (0 : ℝ) (Set.Ioi 0))
+      (nhds (Complex.I * (analyticOrderNatAt f v : ℂ) * ((b - a : ℝ) : ℂ))) := by
+  dsimp only
+  let γ : ℝ → ℝ → ℂ := fun ε t =>
+    (v - star v * ((ε : ℂ) * Complex.exp ((t : ℂ) * Complex.I))) /
+      (1 - (ε : ℂ) * Complex.exp ((t : ℂ) * Complex.I))
+  let F : ℝ → ℝ → ℂ := fun ε t =>
+    (deriv f (γ ε t) / f (γ ε t)) * deriv (γ ε) t
+  let m : ℂ := (analyticOrderNatAt f v : ℂ)
+  obtain ⟨r, M, G, hr, hM, hG, hGbound, hlog⟩ :=
+    p10_17ae7b7d_indent_logderiv_remainder f v hf horder
+  let δ : ℝ → ℝ := fun ε =>
+    ‖m‖ * (ε / (1 - ε)) + M * (‖v - star v‖ * ε / (1 - ε) ^ 2)
+  have hε : Filter.Tendsto (fun ε : ℝ => ε)
+      (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds 0) :=
+    Filter.tendsto_id.mono_left nhdsWithin_le_nhds
+  have hden : Filter.Tendsto (fun ε : ℝ => 1 - ε)
+      (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds 1) := by
+    simpa using (tendsto_const_nhds (x := (1 : ℝ))).sub hε
+  have hshrink : Filter.Tendsto (fun ε : ℝ => ‖v - star v‖ * ε / (1 - ε))
+      (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds 0) := by
+    simpa [Pi.div_def] using (hε.const_mul ‖v - star v‖).div hden (by norm_num)
+  have hδ : Filter.Tendsto δ
+      (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds 0) := by
+    have hfirst : Filter.Tendsto (fun ε : ℝ => ε / (1 - ε))
+        (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds 0) := by
+      simpa [Pi.div_def] using hε.div hden (by norm_num)
+    have hsecond : Filter.Tendsto (fun ε : ℝ => ‖v - star v‖ * ε / (1 - ε) ^ 2)
+        (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds 0) := by
+      simpa [Pi.div_def] using (hε.const_mul ‖v - star v‖).div (hden.pow 2) (by norm_num)
+    simpa [δ] using (hfirst.const_mul ‖m‖).add (hsecond.const_mul M)
+  apply p10_17ae7b7d_indent_moving_interval_limit F α β δ (Complex.I * m) a b hα hβ hδ
+  filter_upwards [self_mem_nhdsWithin, hε.eventually_lt_const (by norm_num : (0 : ℝ) < 1),
+    hshrink.eventually_lt_const hr] with ε hεpos hεone hεsmall
+  have hεpos' : 0 < ε := hεpos
+  obtain ⟨hγ, hdγ, hest⟩ := p10_17ae7b7d_indent_mobius_arc_estimates v ε hv hεpos' hεone
+  change Continuous (γ ε) at hγ
+  change Continuous (deriv (γ ε)) at hdγ
+  have hball (t : ℝ) : γ ε t ∈ Metric.ball v r := by
+    rw [Metric.mem_ball, dist_eq_norm]
+    exact lt_of_le_of_lt (hest t).2.2.2.2.1 hεsmall
+  have hclosed (t : ℝ) : γ ε t ∈ Metric.closedBall v r :=
+    Metric.ball_subset_closedBall (hball t)
+  have hlogγ (t : ℝ) : deriv f (γ ε t) / f (γ ε t) = m / (γ ε t - v) + G (γ ε t) :=
+    (hlog (γ ε t) (hball t) (hest t).1).2
+  have hGc : Continuous (fun t : ℝ => G (γ ε t)) := by
+    apply continuous_iff_continuousAt.mpr
+    intro t
+    exact (hG (γ ε t) (hclosed t)).continuousAt.comp hγ.continuousAt
+  have hFc : Continuous (F ε) := by
+    have heq : F ε = fun t => (m / (γ ε t - v) + G (γ ε t)) * deriv (γ ε) t := by
+      funext t
+      exact congrArg (fun z : ℂ => z * deriv (γ ε) t) (hlogγ t)
+    rw [heq]
+    exact ((continuous_const.div (hγ.sub continuous_const)
+      (fun t => sub_ne_zero.mpr (hest t).1)).add hGc).mul hdγ
+  refine ⟨hFc.intervalIntegrable _ _, ?_⟩
+  intro t
+  have herror : F ε t - Complex.I * m =
+      m * (deriv (γ ε) t / (γ ε t - v) - Complex.I) + G (γ ε t) * deriv (γ ε) t := by
+    dsimp only [F]
+    rw [hlogγ t]
+    ring
+  rw [herror]
+  calc
+    ‖m * (deriv (γ ε) t / (γ ε t - v) - Complex.I) + G (γ ε t) * deriv (γ ε) t‖
+        ≤ ‖m‖ * ‖deriv (γ ε) t / (γ ε t - v) - Complex.I‖ +
+          ‖G (γ ε t)‖ * ‖deriv (γ ε) t‖ := by
+            simpa only [norm_mul] using norm_add_le
+              (m * (deriv (γ ε) t / (γ ε t - v) - Complex.I))
+              (G (γ ε t) * deriv (γ ε) t)
+    _ ≤ δ ε := add_le_add
+      (mul_le_mul_of_nonneg_left (hest t).2.2.2.2.2.2 (norm_nonneg m))
+      (mul_le_mul (hGbound (γ ε t) (hclosed t)) (hest t).2.2.2.2.2.1
+        (norm_nonneg _) hM)
+
+end Submission
