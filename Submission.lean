@@ -2139,3 +2139,56 @@ theorem Submission.p10_17ae7b7d_ppr_unit_chart_equiv :
         (w : R) * 1 = v.1.2
       exact ⟨u, u.mul_inv_cancel_left _, by simpa only [mul_one] using hu⟩
   exact ⟨(Equiv.ofBijective F ⟨hinj, hsurj⟩).symm⟩
+
+
+theorem Submission.p10_17ae7b7d_idx_coset_row_card :
+    ∀ (N : ℕ) [NeZero N],
+      (∀ r s : ZMod N, (∃ x y : ZMod N, x * r + y * s = 1) →
+        ∃ A : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+          (A 1 0 : ZMod N) = r ∧ (A 1 1 : ZMod N) = s) →
+      let P := Quot (fun v w :
+        {v : ZMod N × ZMod N // ∃ x y : ZMod N, x * v.1 + y * v.2 = 1} =>
+          ∃ u : (ZMod N)ˣ,
+            (u : ZMod N) * v.1.1 = w.1.1 ∧ (u : ZMod N) * v.1.2 = w.1.2)
+      let Q := (Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 N
+      Finite Q ∧ Nat.card Q = Nat.card P := by
+  intro N _ hlift
+  classical
+  let U := {v : ZMod N × ZMod N // ∃ x y : ZMod N, x * v.1 + y * v.2 = 1}
+  let rel : U → U → Prop := fun v w => ∃ u : (ZMod N)ˣ,
+    (u : ZMod N) * v.1.1 = w.1.1 ∧ (u : ZMod N) * v.1.2 = w.1.2
+  let P := Quot rel
+  let H := CongruenceSubgroup.Gamma0 N
+  let Qr := Quotient (QuotientGroup.rightRel H)
+  let row : Matrix.SpecialLinearGroup (Fin 2) ℤ → U := fun A =>
+    ⟨((A 1 0 : ZMod N), (A 1 1 : ZMod N)),
+      (A.isCoprime_row 1).map (Int.castRingHom (ZMod N))⟩
+  -- Bottom rows classify right cosets; the child criterion proves well-definedness.
+  let f : Qr → P := Quotient.lift (fun A => Quot.mk rel (row A)) (by
+    intro A B hAB
+    apply Quot.sound
+    exact (Submission.p10_17ae7b7d_crcard_gamma0_row_criterion N A B).mp
+      (QuotientGroup.rightRel_apply.mp hAB))
+  have hinj : Function.Injective f := by
+    intro a b
+    refine Quotient.inductionOn₂ a b ?_
+    intro A B hAB
+    apply Quotient.sound
+    apply QuotientGroup.rightRel_apply.mpr
+    apply (Submission.p10_17ae7b7d_crcard_gamma0_row_criterion N A B).mpr
+    exact (Submission.p10_17ae7b7d_crcard_quot_eq_unit (ZMod N) (row A) (row B)).mp hAB
+  have hsurj : Function.Surjective f := by
+    intro p
+    refine Quot.inductionOn p ?_
+    intro v
+    obtain ⟨A, hAr, hAs⟩ := hlift v.1.1 v.1.2 v.2
+    refine ⟨Quotient.mk _ A, ?_⟩
+    change Quot.mk rel (row A) = Quot.mk rel v
+    apply congrArg (Quot.mk rel)
+    apply Subtype.ext
+    exact Prod.ext hAr hAs
+  -- Inversion identifies the right-coset quotient with the specified left quotient.
+  let e : ((Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ H) ≃ P :=
+    (QuotientGroup.quotientRightRelEquivQuotientLeftRel H).symm.trans
+      (Equiv.ofBijective f ⟨hinj, hsurj⟩)
+  exact ⟨Finite.of_equiv P e.symm, Nat.card_congr e⟩
