@@ -394,6 +394,7 @@ theorem Submission.f036cc6b1f_tdi_planar_exp_integrable_fd :
     UpperHalfPlane.coe_im] using ht
 namespace Submission
 
+/-- Almost every point has a modular orbit disjoint from a prescribed measurable null set. -/
 theorem f036cc6b1f_pc_ed_aoi_null_orbit :
     ∀ s : Set UpperHalfPlane, MeasurableSet s →
       (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) s = 0 →
