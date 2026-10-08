@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "d073d1d3a2f0c4be930577ca19658ae9a302390e8d53e0a1824f5fcc5eaa76ce",
+  "git_delta": {
+    "base_commit": "478536998f47c9bc43626606742e4648832e9c7e",
+    "candidate_commit": "72161edd030768ced7509065bdfcbd91d73ad351",
+    "target": "Submission.lean",
+    "declaration": "p05_cm_coalgebra_laws_a5b449214a",
+    "diff_sha256": "d36b43bdf4d382962da7d66c26093fa7a2403b91232ccc193a98c05389a4bb24",
+    "source_sha256": "a5e1e64e1d75912e818e91c976e7b2aeb05a818b587b13f12ecbde11bac7e76c",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_cm_coalgebra_laws_a5b449214a",
+      "statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (V : Submodule k H) (n : ℕ) (b : Module.Basis (Fin n) k V) (c : Matrix (Fin n) (Fin n) H) (hexp : ∀ j : Fin n, Coalgebra.comul (R := k) (b j : H) = ∑ i : Fin n, TensorProduct.tmul k (b i : H) (c i j)), (∀ i j : Fin n, Coalgebra.comul (R := k) (c i j) = ∑ l : Fin n, TensorProduct.tmul k (c i l) (c l j)) ∧ (∀ i j : Fin n, Coalgebra.counit (R := k) (c i j) = if i = j then (1 : k) else 0)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
