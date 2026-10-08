@@ -475,3 +475,50 @@ theorem Submission.p05_fhess_tensor_independent_right_a5b449214a
         Finset.sum_comm
       _ = ∑ i, TensorProduct.tmul k (∑ j, c.repr (b' j) i • a j) (c i : N) := by
         simp only [TensorProduct.sum_tmul]
+
+theorem Submission.p05_hte_sshs_br_comul_alg_lift_a5b449214a
+    {k : Type*} [Field k] {H : Type*} [CommRing H] [Bialgebra k H]
+    (D : Subalgebra k H)
+    (_hΔ : ∀ x ∈ D, Coalgebra.comul (R := k) x ∈
+      Submodule.span k {t : TensorProduct k H H |
+        ∃ a ∈ D, ∃ b ∈ D, t = TensorProduct.tmul k a b}) :
+    ∃ δ : D →ₐ[k] TensorProduct k D D, ∀ d : D,
+      (Algebra.TensorProduct.map D.val D.val) (δ d) =
+        Coalgebra.comul (R := k) (d : H) := by
+  classical
+  let i : D →ₗ[k] H := D.val.toLinearMap
+  obtain ⟨r, hr⟩ := i.exists_leftInverse_of_injective
+    (LinearMap.ker_eq_bot.mpr Subtype.val_injective)
+  have hri (d : D) : r (d : H) = d := LinearMap.congr_fun hr d
+  let J : TensorProduct k D D →ₐ[k] TensorProduct k H H :=
+    Algebra.TensorProduct.map D.val D.val
+  let R : TensorProduct k H H →ₗ[k] TensorProduct k D D := TensorProduct.map r r
+  have hRJ : Function.LeftInverse R J := by
+    intro z
+    induction z using TensorProduct.induction_on with
+    | zero => simp only [map_zero]
+    | tmul d e =>
+      change r (d : H) ⊗ₜ[k] r (e : H) = d ⊗ₜ[k] e
+      rw [hri, hri]
+    | add z w hz hw => simp only [map_add, hz, hw]
+  have hspan : Submodule.span k {t : TensorProduct k H H |
+      ∃ a ∈ D, ∃ b ∈ D, t = TensorProduct.tmul k a b} ≤
+        LinearMap.range J.toLinearMap := by
+    apply Submodule.span_le.mpr
+    rintro t ⟨a, ha, b, hb, rfl⟩
+    exact ⟨(⟨a, ha⟩ : D) ⊗ₜ[k] (⟨b, hb⟩ : D), rfl⟩
+  let δ : D →ₗ[k] TensorProduct k D D :=
+    R.comp ((Coalgebra.comul (R := k)).comp i)
+  have hδ (d : D) : J (δ d) = Coalgebra.comul (R := k) (d : H) := by
+    obtain ⟨z, hz⟩ := hspan (_hΔ (d : H) d.property)
+    change J (R (Coalgebra.comul (R := k) (d : H))) = _
+    change J z = Coalgebra.comul (R := k) (d : H) at hz
+    rw [← hz, hRJ z]
+  refine ⟨AlgHom.ofLinearMap δ ?_ ?_, hδ⟩
+  · apply hRJ.injective
+    rw [hδ, map_one]
+    exact Bialgebra.comul_one
+  · intro d e
+    apply hRJ.injective
+    rw [hδ, map_mul, hδ, hδ]
+    exact Bialgebra.comul_mul (R := k) (d : H) (e : H)
