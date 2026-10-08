@@ -1,0 +1,38 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'exists_irreducible|eq_unit_mul_pow_irreducible|length_quotient_pow_maximalIdeal' mathlib/Mathlib/RingTheory/DiscreteValuationRing/Basic.lean",
+        "rg -n 'ord_unit_smul_zpow|instIsDiscreteValuationRing|def ord|def Place' project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "rg -n 'p06_9e0f5043ff_dlen_scalar_quotient|length.*ord|ord.*length' project/Definitions",
+        "rg -n 'span_singleton_mul_left_unit|span_singleton_pow' mathlib/Mathlib/RingTheory/Ideal/Span.lean mathlib/Mathlib/RingTheory/Ideal/Operations.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DiscreteValuationRing/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Ideal/Span.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Ideal/Operations.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions"
+      ],
+      "conclusion": "Queries ran from the snapshot root. Existing pinned declarations supply DVR factorization, quotient length, ideal identities and normalized order; the exact-theorem/length-order search returned no matches. Both snapshots and all nine dependencies are clean at their pinned revisions. The complete diff introduces only the tracked Lean theorem plus audit records. All 221 comparator inputs were hash-checked against committed sources and the controller-authorized, reversible omission of three absent-target attribute directives. Independent request 3c26ab761ad34483a3965b1678c283d5 exited 0 with the required marker; its exported inputs match the inspected packet exactly. Transitive axioms are only propext, Classical.choice and Quot.sound."
+    }
+  ],
+  "comparison_identity": "22e0eb8849f446e254c7dc5ba30a77b96d5c5d1b5e0e07cf5c0bcb2b405d4ca6",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_dlen_scalar_quotient",
+      "statement": "∀ (K E : Type*) [Field K] [Field E] [Algebra K E] (v : AlgebraicCurve.Place K E) (a : v.toValuationSubring), a ≠ 0 → ∃ n : ℕ, Module.length v.toValuationSubring (v.toValuationSubring ⧸ Ideal.span ({a} : Set v.toValuationSubring)) = (n : ℕ∞) ∧ v.ord (algebraMap v.toValuationSubring E a) = (n : ℤ)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Uses existing pinned DVR factorization, quotient-length and place-order declarations with the same uniformizer exponent. This audit checked integrity, not the mathematical argument."
+    }
+  ]
+}
