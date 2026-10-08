@@ -34,3 +34,26 @@ theorem Submission.f036cc6b1f_pic_dd_open_pos :
   · exact Filter.Eventually.of_forall fun z ↦
       ENNReal.coe_ne_zero.mpr (pow_ne_zero 2
         (div_ne_zero one_ne_zero (NNReal.ne_iff.mp z.im_ne_zero)))
+theorem Submission.f036cc6b1f_pic_dd_ae_orbit_zero :
+    ∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (E : Set UpperHalfPlane) (A : UpperHalfPlane → ℝ), MeasurableSet E → Measurable A → (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ E) → (∀ (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ), γ ∈ Δ → ∀ z : UpperHalfPlane, A (γ • z) = A z) → (∀ᵐ z ∂((MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane).restrict E), A z = 0) → ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), A z = 0 := by
+  intro Δ E A hE _hA hcover hinv hzero
+  have : Countable (Matrix (Fin 2) (Fin 2) ℤ) :=
+    inferInstanceAs (Countable (Fin 2 → Fin 2 → ℤ))
+  have : Countable (Matrix.SpecialLinearGroup (Fin 2) ℤ) :=
+    inferInstanceAs (Countable {g : Matrix (Fin 2) (Fin 2) ℤ // g.det = 1})
+  have hzero' : ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
+      z ∈ E → A z = 0 :=
+    (MeasureTheory.ae_restrict_iff' hE).mp hzero
+  have htranslate : ∀ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+      ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
+        γ • z ∈ E → A (γ • z) = 0 := by
+    intro γ
+    exact (MeasureTheory.measurePreserving_smul (Matrix.SpecialLinearGroup.mapGL ℝ γ)
+      (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane)).quasiMeasurePreserving.ae
+        hzero'
+  have hall : ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
+      ∀ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ • z ∈ E → A (γ • z) = 0 :=
+    MeasureTheory.ae_all_iff.mpr htranslate
+  filter_upwards [hcover, hall] with z hz hzall
+  obtain ⟨γ, hγ, hzE⟩ := hz
+  exact (hinv γ hγ z).symm.trans (hzall γ hzE)
