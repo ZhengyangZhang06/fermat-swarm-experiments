@@ -54,4 +54,32 @@ theorem p02_es_177ebb5a_sm_holomorphic
     exact (hE d ⟨z, hz⟩).differentiableAt.differentiableWithinAt
   · exact (differentiable_id.neg.pow (d 1)).differentiableOn
 
+/-- A complex polynomial fixed by a nonzero translation is constant.
+For positive degree `d + 1`, its `d`th Hasse derivative is linear; the Taylor
+coefficient identity makes translation invariance contradict its nonzero slope. -/
+theorem p02_es_177ebb5a_tff_periodic_polynomial_constant
+    (p : Polynomial ℂ) (c : ℂ) (hc : c ≠ 0)
+    (hperiod : p.comp (Polynomial.X + Polynomial.C c) = p) :
+    p = Polynomial.C (p.coeff 0) := by
+  apply Polynomial.eq_C_of_natDegree_eq_zero
+  by_contra hdegree
+  obtain ⟨d, hd⟩ := Nat.exists_eq_succ_of_ne_zero hdegree
+  have hp : p ≠ 0 := Polynomial.ne_zero_of_natDegree_gt (Nat.pos_of_ne_zero hdegree)
+  have hlinear : (Polynomial.hasseDeriv d p).natDegree ≤ 1 := by
+    simpa [hd] using Polynomial.natDegree_hasseDeriv_le p d
+  -- The degree-d coefficient of the translate is (d + 1) * p.coeff (d + 1) * c
+  -- plus p.coeff d; invariance forces the first summand to vanish.
+  have hcoeff := congrArg (fun q : Polynomial ℂ => q.coeff d) hperiod
+  rw [← Polynomial.taylor_apply, Polynomial.taylor_coeff,
+    Polynomial.eq_X_add_C_of_natDegree_le_one hlinear] at hcoeff
+  simp only [Polynomial.eval_add, Polynomial.eval_mul, Polynomial.eval_C,
+    Polynomial.eval_X, Polynomial.hasseDeriv_coeff, Nat.zero_add, Nat.choose_self,
+    Nat.cast_one, one_mul, Nat.add_comm 1 d, Nat.choose_succ_self_right] at hcoeff
+  have hlead : p.coeff (d + 1) ≠ 0 := by
+    simpa only [Polynomial.leadingCoeff, hd, Nat.succ_eq_add_one] using
+      Polynomial.leadingCoeff_ne_zero.mpr hp
+  have hcast : ((d + 1 : ℕ) : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (Nat.succ_ne_zero d)
+  exact (mul_ne_zero (mul_ne_zero hcast hlead) hc)
+    (add_right_cancel (hcoeff.trans (zero_add _).symm))
+
 end Submission
