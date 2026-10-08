@@ -3303,6 +3303,56 @@ theorem Submission.p05_hte_fss_tensor_dual_expansion_a5b449214a :
     have h := LinearMap.congr_fun (hell i) (b j)
     simpa [Module.Basis.coord_apply, Module.Basis.repr_self, Finsupp.single_apply, eq_comm] using h
 
+namespace Submission
+
+theorem p05_fhe_stable_subspace_a5b449214a :
+    ∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
+      (F : Finset H), ∃ V : Submodule k H, FiniteDimensional k V ∧ (1 : H) ∈ V ∧
+      (∀ x ∈ F, x ∈ V) ∧ (∀ x ∈ V, Coalgebra.comul (R := k) x ∈
+        Submodule.span k {t : TensorProduct k H H |
+          ∃ a ∈ V, ∃ b : H, t = TensorProduct.tmul k a b}) := by
+  intro k _ H _ _ F
+  classical
+  -- The two children supply the stable coefficient span for each element.
+  have hsingle (x : H) : ∃ V : Submodule k H,
+      FiniteDimensional k V ∧ x ∈ V ∧ (∀ y ∈ V, Coalgebra.comul (R := k) y ∈
+        Submodule.span k {t : TensorProduct k H H |
+          ∃ a ∈ V, ∃ b : H, t = TensorProduct.tmul k a b}) := by
+    obtain ⟨n, v, w, hw, hΔ⟩ :=
+      p05_fhess_tensor_independent_right_a5b449214a (Coalgebra.comul (R := k) x)
+    exact ⟨Submodule.span k (Set.range v),
+      p05_fhess_coefficient_span_stable_a5b449214a x n v w hw hΔ⟩
+  have hmono {U V : Submodule k H} (hUV : U ≤ V) :
+      Submodule.span k {t : TensorProduct k H H |
+        ∃ a ∈ U, ∃ b : H, t = TensorProduct.tmul k a b} ≤
+      Submodule.span k {t : TensorProduct k H H |
+        ∃ a ∈ V, ∃ b : H, t = TensorProduct.tmul k a b} := by
+    apply Submodule.span_mono
+    rintro t ⟨a, ha, b, rfl⟩
+    exact ⟨a, hUV ha, b, rfl⟩
+  -- Start with the span for 1 and add the spans for the elements of F.
+  induction F using Finset.induction_on with
+  | empty =>
+      obtain ⟨V, hV, h1, hΔ⟩ := hsingle 1
+      exact ⟨V, hV, h1, by simp, hΔ⟩
+  | @insert x F _ ih =>
+      obtain ⟨V, hV, h1, hF, hVΔ⟩ := ih
+      obtain ⟨U, hU, hx, hUΔ⟩ := hsingle x
+      let : FiniteDimensional k U := hU
+      let : FiniteDimensional k V := hV
+      refine ⟨U ⊔ V, inferInstance, Submodule.mem_sup_right h1, ?_, ?_⟩
+      · intro y hy
+        rcases Finset.mem_insert.mp hy with rfl | hy
+        · exact Submodule.mem_sup_left hx
+        · exact Submodule.mem_sup_right (hF y hy)
+      · intro y hy
+        obtain ⟨a, ha, b, hb, rfl⟩ := Submodule.mem_sup.mp hy
+        rw [map_add]
+        exact Submodule.add_mem _ (hmono le_sup_left (hUΔ a ha))
+          (hmono le_sup_right (hVΔ b hb))
+
+end Submission
+
 theorem Submission.p05_hte_fss_coefficient_span_a5b449214a
     {k : Type*} [Field k] {C : Type*} [AddCommGroup C] [Module k C] [Coalgebra k C]
     (f : C) (n : ℕ) (v w : Fin n → C) (ell : Fin n → C →ₗ[k] k)
@@ -4019,3 +4069,58 @@ theorem Submission.p05_finite_hopf_envelope_a5b449214a :
       · rw [hcS]
         exact A.mul_mem hu (hadj i j)
     exact fun x hx => hSA hx
+theorem Submission.p05_umgi_minor_reconstruction_a5b449214a
+    {R : Type*} [CommRing R] (n p d : ℕ) (P : Matrix (Fin n) (Fin p) R)
+    (rows : Fin d ↪ Fin n) (cols : Fin d ↪ Fin p)
+    (_hunit : IsUnit (Matrix.det (P.submatrix rows cols)))
+    (_hnext : ∀ (rows' : Fin (d + 1) ↪ Fin n) (cols' : Fin (d + 1) ↪ Fin p),
+      Matrix.det (P.submatrix rows' cols') = 0) :
+    P = (P.submatrix id cols) * (P.submatrix rows cols)⁻¹ * (P.submatrix rows id) := by
+  classical
+  let B := P.submatrix rows cols
+  let L := P.submatrix id cols
+  let H := P.submatrix rows id
+  ext i j
+  by_cases hi : i ∈ Set.range rows
+  · obtain ⟨a, rfl⟩ := hi
+    change P (rows a) j = (B * B⁻¹ * H) a j
+    rw [Matrix.mul_nonsing_inv B _hunit, Matrix.one_mul]
+    rfl
+  by_cases hj : j ∈ Set.range cols
+  · obtain ⟨b, rfl⟩ := hj
+    change P i (cols b) = (L * B⁻¹ * B) i b
+    rw [Matrix.nonsing_inv_mul_cancel_right B L _hunit]
+    rfl
+  let er : Fin d ⊕ Fin 1 ↪ Fin n :=
+    { toFun := Sum.elim rows (fun _ => i)
+      inj' := by
+        intro a b hab
+        rcases a with a | a <;> rcases b with b | b
+        · exact congrArg Sum.inl (rows.injective hab)
+        · exact (hi ⟨a, hab⟩).elim
+        · exact (hi ⟨b, hab.symm⟩).elim
+        · exact congrArg Sum.inr (Subsingleton.elim _ _) }
+  let ec : Fin d ⊕ Fin 1 ↪ Fin p :=
+    { toFun := Sum.elim cols (fun _ => j)
+      inj' := by
+        intro a b hab
+        rcases a with a | a <;> rcases b with b | b
+        · exact congrArg Sum.inl (cols.injective hab)
+        · exact (hj ⟨a, hab⟩).elim
+        · exact (hj ⟨b, hab.symm⟩).elim
+        · exact congrArg Sum.inr (Subsingleton.elim _ _) }
+  let e : Fin d ⊕ Fin 1 ≃ Fin (d + 1) := finSumFinEquiv
+  have hz : Matrix.det (P.submatrix er ec) = 0 := by
+    rw [← Matrix.det_submatrix_equiv_self e.symm (P.submatrix er ec)]
+    exact _hnext (e.symm.toEmbedding.trans er) (e.symm.toEmbedding.trans ec)
+  let c : Matrix (Fin d) (Fin 1) R := fun a _ => P (rows a) j
+  let r : Matrix (Fin 1) (Fin d) R := fun _ b => P i (cols b)
+  let z : Matrix (Fin 1) (Fin 1) R := fun _ _ => P i j
+  have hblock : P.submatrix er ec = Matrix.fromBlocks B c r z := by
+    ext a b
+    cases a <;> cases b <;> rfl
+  let : Invertible B := Matrix.invertibleOfIsUnitDet B _hunit
+  rw [hblock, Matrix.det_fromBlocks₁₁, Matrix.invOf_eq_nonsing_inv] at hz
+  have hcorner := _hunit.mul_right_eq_zero.mp hz
+  rw [Matrix.det_fin_one] at hcorner
+  exact sub_eq_zero.mp hcorner
