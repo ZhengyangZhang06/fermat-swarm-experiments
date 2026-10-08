@@ -2610,3 +2610,4 @@ theorem p05_fr_rhm_base_change_semilinear_invariance_a5b449214a
         q qθ hq hqker hqθ hqθker r).symm
 
 end Submission
+    exact Bialgebra.comul_mul
