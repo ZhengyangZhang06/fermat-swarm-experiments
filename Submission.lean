@@ -250,5 +250,95 @@ theorem p04_pb_60221840b0_central_telescoping :
   rw [Fin.sum_univ_eq_sum_range (fun l =>
     MonoidAlgebra.single (T l) (1 : k) - MonoidAlgebra.single (T (l + 1)) (1 : k)),
     Finset.sum_range_sub', hzero, hlast]
+namespace Submission
+
+/-- The alternating prism has boundary equal to its two endpoints. -/
+theorem p04_prism_a8325b9888_boundary_identity :
+    ∀ {k X : Type u} [CommRing k] (u v : X → X),
+    let P : ∀ n : ℕ, (Fin (n + 1) → X) → MonoidAlgebra k (Fin (n + 2) → X) :=
+      fun n c => ∑ j : Fin (n + 1),
+        MonoidAlgebra.single
+          (Fin.insertNth j.castSucc (u (c j))
+            (fun i : Fin (n + 1) => if i < j then u (c i) else v (c i)))
+          ((-1 : k) ^ j.val)
+    (∀ c : Fin 1 → X, Rep.standardComplex.d k X 1 (P 0 c) =
+      MonoidAlgebra.single (v ∘ c) (1 : k) - MonoidAlgebra.single (u ∘ c) (1 : k)) ∧
+    ∀ (n : ℕ) (c : Fin (n + 2) → X),
+      Rep.standardComplex.d k X (n + 2) (P (n + 1) c) +
+          ∑ b : Fin (n + 2), ((-1 : k) ^ b.val) • P n (c ∘ b.succAbove) =
+        MonoidAlgebra.single (v ∘ c) (1 : k) -
+          MonoidAlgebra.single (u ∘ c) (1 : k) := by
+  classical
+  intro k X _ u v P
+  let Q : ∀ m : ℕ, (Fin (m + 1) → X) → Fin (m + 1) → (Fin (m + 2) → X) :=
+    fun m c j => Fin.insertNth j.castSucc (u (c j))
+      (fun i : Fin (m + 1) => if i < j then u (c i) else v (c i))
+  -- Separate the two central faces from all other faces, retaining their signs.
+  have split_faces (m : ℕ) (c : Fin (m + 1) → X) (j : Fin (m + 1)) :
+      (∑ a : Fin (m + 2),
+        MonoidAlgebra.single (Q m c j ∘ a.succAbove) ((-1 : k) ^ (j.val + a.val))) =
+      (∑ a : Fin (m + 2) with a.val < j.val ∨ j.val + 1 < a.val,
+        MonoidAlgebra.single (Q m c j ∘ a.succAbove) ((-1 : k) ^ (j.val + a.val))) +
+      (MonoidAlgebra.single (Q m c j ∘ j.castSucc.succAbove) (1 : k) -
+        MonoidAlgebra.single (Q m c j ∘ j.succ.succAbove) (1 : k)) := by
+    have central :
+        (Finset.univ.filter fun a : Fin (m + 2) =>
+          ¬ (a.val < j.val ∨ j.val + 1 < a.val)) = {j.castSucc, j.succ} := by
+      ext a
+      simp only [Finset.mem_filter, Finset.mem_univ, true_and,
+        Finset.mem_insert, Finset.mem_singleton, Fin.ext_iff, Fin.val_castSucc,
+        Fin.val_succ]
+      omega
+    have distinct : j.castSucc ≠ j.succ := by
+      intro h
+      have := congrArg Fin.val h
+      simp only [Fin.val_castSucc, Fin.val_succ] at this
+      omega
+    have even_sign : (-1 : k) ^ (j.val + j.val) = 1 := by
+      rw [← two_mul, pow_mul]
+      simp
+    have odd_sign : (-1 : k) ^ (j.val + (j.val + 1)) = -1 := by
+      rw [← Nat.add_assoc, pow_succ, even_sign, one_mul]
+    rw [← Finset.sum_filter_add_sum_filter_not
+      (s := Finset.univ) (p := fun a : Fin (m + 2) =>
+        a.val < j.val ∨ j.val + 1 < a.val)]
+    rw [central, Finset.sum_pair distinct]
+    simp only [Fin.val_castSucc, Fin.val_succ, even_sign, odd_sign,
+      MonoidAlgebra.single_neg, sub_eq_add_neg]
+  have boundary (m : ℕ) (c : Fin (m + 1) → X) :
+      Rep.standardComplex.d k X (m + 1) (P m c) =
+      (∑ j : Fin (m + 1),
+        ∑ a : Fin (m + 2) with a.val < j.val ∨ j.val + 1 < a.val,
+          MonoidAlgebra.single (Q m c j ∘ a.succAbove) ((-1 : k) ^ (j.val + a.val))) +
+      (MonoidAlgebra.single (v ∘ c) (1 : k) -
+        MonoidAlgebra.single (u ∘ c) (1 : k)) := by
+    change Rep.standardComplex.d k X (m + 1)
+      (∑ j : Fin (m + 1), MonoidAlgebra.single (Q m c j) ((-1 : k) ^ j.val)) = _
+    simp only [map_sum, Rep.standardComplex.d_single, ← pow_add]
+    simp_rw [split_faces]
+    rw [Finset.sum_add_distrib]
+    congr 1
+    exact Submission.p04_pb_60221840b0_central_telescoping u v m c
+  constructor
+  · intro c
+    rw [boundary]
+    have no_noncentral (j : Fin 1) (a : Fin 2) :
+        ¬ (a.val < j.val ∨ j.val + 1 < a.val) := by
+      have hj := j.isLt
+      have ha := a.isLt
+      omega
+    simp only [no_noncentral, Finset.filter_false, Finset.sum_empty,
+      Finset.sum_const_zero, zero_add]
+  · intro n c
+    have lower :
+        (∑ b : Fin (n + 2), ((-1 : k) ^ b.val) • P n (c ∘ b.succAbove)) =
+        ∑ b : Fin (n + 2), ∑ t : Fin (n + 1),
+          MonoidAlgebra.single (Q n (c ∘ b.succAbove) t)
+            ((-1 : k) ^ (b.val + t.val)) := by
+      simp only [P, Q, Finset.smul_sum, MonoidAlgebra.smul_single, smul_eq_mul, pow_add]
+    rw [boundary, lower, add_right_comm]
+    have cancel := Submission.p04_pb_60221840b0_noncentral_cancellation (k := k) u v n c
+    change _ + _ = 0 at cancel
+    rw [cancel, zero_add]
 
 end Submission
