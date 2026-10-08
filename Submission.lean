@@ -6,8 +6,44 @@ Requires the upstream Definitions modules and their dependencies.
 -/
 
 import Definitions.Def_ModularForm_HeckeOperatorForms
+import Mathlib.LinearAlgebra.FiniteDimensional.Defs
 attribute [-instance] FLT.HyperbolicMeasure.instSMulInvariantMeasureSpecialLinearGroupFinOfNatNatIntUpperHalfPlaneVolume_definitions FLT.HyperbolicMeasure.instIsOpenPosMeasureUpperHalfPlaneVolume_definitions FLT.Gamma0FundamentalSet.instContinuousConstSMulSpecialLinearGroupFinOfNatNatIntUpperHalfPlane_definitions FLT.L2ProductionInstance.isFiniteMeasure_gamma0 FLT.L2ProductionInstance.countable_SL2Z FLT.L2ProductionInstance.countable_quotient FLT.L2ProductionInstance.nontrivial_gamma0L2
 attribute [-simp] FreyPackage.ModMCarrier.coe_rescaleLin_apply ModularForm.AtkinLehnerDatum.mk.injEq ModularForm.AtkinLehnerDatum.alGL_coe ModularForm.AtkinLehnerDatum.mk.sizeOf_spec ModularForm.AtkinLehnerDatum.sqUnitSL_coe ModularForm.AtkinLehnerDatum.det_sqUnit ModularForm.AtkinLehnerDatum.det_mat FLT.TruncatedDomainPartition.unipotentDiagonalSum_zero
+
+namespace Submission
+
+theorem f036cc6b1f_finite_dimensional :
+    ∀ (M : ℕ) [NeZero M],
+      FiniteDimensional ℂ (CuspForm (CongruenceSubgroup.Gamma0 M) 2) := by
+  intro M _
+  let b := (2 * (CongruenceSubgroup.Gamma0 M).index) / 12
+  have hperiod : (1 : ℝ) ∈
+      (CongruenceSubgroup.Gamma0 M :
+        Subgroup (Matrix.GeneralLinearGroup (Fin 2) ℝ)).strictPeriods := by
+    simp
+  -- The coefficients up to the Sturm bound give a linear map to a finite product.
+  let L : CuspForm (CongruenceSubgroup.Gamma0 M) 2 →ₗ[ℂ] (Fin (b + 1) → ℂ) :=
+    { toFun := fun f n => (UpperHalfPlane.qExpansion 1 f).coeff n
+      map_add' := by
+        intro f g
+        funext n
+        simp only [FunLike.coe_add, ModularForm.qExpansion_add one_pos hperiod,
+          map_add, Pi.add_apply]
+      map_smul' := by
+        intro c f
+        funext n
+        simp only [FunLike.coe_smul,
+          ModularForm.qExpansion_smul one_pos hperiod, PowerSeries.coeff_smul,
+          Pi.smul_apply, RingHom.id_apply] }
+  apply FiniteDimensional.of_injective L
+  apply LinearMap.ker_eq_bot.mp
+  apply LinearMap.ker_eq_bot'.mpr
+  intro f hf
+  apply Submission.f036cc6b1f_fd_sturm M f
+  intro n hn
+  exact congr_fun hf (⟨n, Nat.lt_succ_of_le hn⟩ : Fin (b + 1))
+
+end Submission
 
 theorem CuspForm.span_heckeTLin_eigen_eq_top (M : ℕ) [NeZero M] :
     Submodule.span ℂ {v : CuspForm (CongruenceSubgroup.Gamma0 M) 2 |
