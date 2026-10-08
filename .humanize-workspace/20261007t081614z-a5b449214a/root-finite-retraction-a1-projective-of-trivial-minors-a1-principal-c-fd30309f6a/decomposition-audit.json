@@ -1,0 +1,50 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "span_range_pow_eq_top|span_range_eq_top|def map|map_mk|mk_eq|eq_zero_iff|exists_smul|mk_surjective|induction_on|def lift|projective_of",
+        "def mulVecLin|mulVecLin_apply|theorem mulVecLin",
+        "pcs_clear_away_section|pcs_patch_power_sections",
+        "p05_pcs_clear_away_section_a5b449214a",
+        "p05_pcs_patch_power_sections_a5b449214a",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean HeaderAbsence.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean CheckInterfaces.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean CheckComposition.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Module/LocalizedModule/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Localization/Module.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Ideal/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/LocalProperties/Projective.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/ToLin.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-projective-of-trivial-minors-a1-principal-c-fd30309f6a/parent-child-handoff.json",
+        "/tmp/p05-pcs-independent-audit-e9nbvjx4/build/CheckInterfaces.lean",
+        "/tmp/p05-pcs-independent-audit-e9nbvjx4/build/CheckComposition.lean",
+        "/tmp/p05-pcs-independent-audit-e9nbvjx4/report.json",
+        "/tmp/p05-pcs-independent-audit-e9nbvjx4/pins.json",
+        "/tmp/p05-pcs-independent-audit-e9nbvjx4/name-audit.json"
+      ],
+      "conclusion": "The handoff confirms this is the depth-3 principal_cover_splitting descendant of the frozen Hopf-kernel problem. Project 2fdd42759f4ab17640ac773289b521dd69d4b26e, mathlib db584cd6d46c92f209a44c0f1c829460d327499d, and all nine compiler dependencies independently match clean pins. Source inspection confirms fraction representation/equality, power annihilation, localization-ring linearity, matrix-vector orientation, and powers-cover infrastructure. No proposed-name matches occur in the reference snapshot, ten DAG registries, current Submission, or imported frozen proof base. Both literal propositions and five instance checks independently pass Lean; a separate conditional proof assembles the exact parent from the children. Seven inspected library declarations have transitive axioms contained in propext, Classical.choice, and Quot.sound. Header diagnostics independently validate policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, exactly omitted lines 10–11, reversible source/build hashes, and absence of all 13 targets. Protected artifacts remain unchanged. The local/global split is appropriate; these diagnostic results approve interfaces and decomposition, not implementations, whose configured comparator and independent proof-review gates remain required."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "clear_away_section",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition exactly matches every prose hypothesis and conclusion. Lean verifies the matrix-vector map, localization-ring linearity, and scalar action on linear maps. Steps 1–3 correctly obtain generators, relations, and common denominators. Step 4 kills all finitely many relation errors; Step 5 validly descends through the stated kernel using surjectivity. Step 6 establishes localized equality on spanning generators. Step 7 annihilates the remaining error and correctly produces N=e+d+c+1>0 and t=f^(c+1)u. Zero rings, zero localizations, and empty generator/relation families are covered. The proof is complete without circular appeals or deferred discovery. Its empty dependency list is correct. The lean_name is a bare, unreserved identifier."
+    },
+    {
+      "key": "patch_power_sections",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition exactly matches the prose, including arbitrary modules, the cover, positive exponents, and all power-scaled section equations. Steps 1–2 handle the zero ring and rigorously obtain indexed coefficients for 1. Steps 3–4 give a complete finite expansion, occurrence-count contradiction, division-free factorization, and grouping argument yielding 1=Σ b_i f_i^N_i, including repeated cover elements. Step 5 uses linearity to construct the required section. No unstated finiteness or surjectivity assumption is used. This obligation assumes the scaled sections explicitly, so it needs no dependency on clear_away_section; the parent supplies those data. Both children therefore form an acyclic split. The proof requires no further planning, and the lean_name is bare and unreserved."
+    }
+  ],
+  "required_changes": []
+}

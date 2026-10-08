@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_retraction-a1.projective_of_trivial_minors-a1.principal_cover_splitting-a1.clear_away_section-a1",
+  "parent_id": "root.finite_retraction-a1.projective_of_trivial_minors-a1.principal_cover_splitting-a1",
+  "depth": 4,
+  "title": "Clear a localized section to a positive power-scaled section",
+  "statement": "Let R be a commutative ring and M an R-module. Let n,p be natural numbers, P an n-by-p matrix over R, and π:R^n→M a surjective R-linear map whose kernel equals the image of the matrix-vector map defined by P. Fix f∈R. Put S=R[f⁻¹], F_f=(R^n)_f, and M_f equal to the localization of M at powers of f. Suppose the induced S-linear map π_f:F_f→M_f has an S-linear section. Then there exist a natural number N>0 and an R-linear map t:M→R^n such that π∘t=f^N id_M.",
+  "lean_statement": "∀ {R : Type*} [CommRing R] {M : Type*} [AddCommGroup M] [Module R M] (n p : ℕ) (P : Matrix (Fin n) (Fin p) R) (π : (Fin n → R) →ₗ[R] M) (_hπ : Function.Surjective π) (_hker : LinearMap.ker π = LinearMap.range P.mulVecLin) (f : R) (_hlocal : ∃ σ : LocalizedModule (Submonoid.powers f) M →ₗ[Localization.Away f] LocalizedModule (Submonoid.powers f) (Fin n → R), (LocalizedModule.map (Submonoid.powers f) π).comp σ = LinearMap.id), ∃ N : ℕ, 0 < N ∧ ∃ t : M →ₗ[R] (Fin n → R), π.comp t = f ^ N • (LinearMap.id : M →ₗ[R] M)",
+  "lean_name": "p05_pcs_clear_away_section_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1-principal-c-45360bbe28-a1"
+}

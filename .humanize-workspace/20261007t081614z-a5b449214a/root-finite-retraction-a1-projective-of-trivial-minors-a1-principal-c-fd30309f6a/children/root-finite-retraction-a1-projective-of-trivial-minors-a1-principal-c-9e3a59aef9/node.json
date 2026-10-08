@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_retraction-a1.projective_of_trivial_minors-a1.principal_cover_splitting-a1.patch_power_sections-a1",
+  "parent_id": "root.finite_retraction-a1.projective_of_trivial_minors-a1.principal_cover_splitting-a1",
+  "depth": 4,
+  "title": "Patch power-scaled sections over a finite principal cover",
+  "statement": "Let R be a commutative ring, F and M be R-modules, and π:F→M an R-linear map. Let q be a natural number and f:Fin q→R satisfy Ideal.span(range f)=R. Suppose N:Fin q→ℕ has N_i>0 for every i, and t_i:M→F are R-linear maps satisfying π∘t_i=f_i^{N_i}id_M for every i. Then there exists an R-linear section s:M→F of π.",
+  "lean_statement": "∀ {R : Type*} [CommRing R] {M : Type*} [AddCommGroup M] [Module R M] {F : Type*} [AddCommGroup F] [Module R F] (π : F →ₗ[R] M) (q : ℕ) (f : Fin q → R) (_hcover : Ideal.span (Set.range f) = ⊤) (N : Fin q → ℕ) (_hN : ∀ i, 0 < N i) (t : Fin q → M →ₗ[R] F) (_ht : ∀ i, π.comp (t i) = (f i) ^ (N i) • (LinearMap.id : M →ₗ[R] M)), ∃ s : M →ₗ[R] F, π.comp s = LinearMap.id",
+  "lean_name": "p05_pcs_patch_power_sections_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1-principal-c-9e3a59aef9-a1"
+}
