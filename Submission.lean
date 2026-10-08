@@ -9,6 +9,90 @@ import Definitions.Def_ModularForm_HeckeOperatorForms
 attribute [-instance] FLT.HyperbolicMeasure.instSMulInvariantMeasureSpecialLinearGroupFinOfNatNatIntUpperHalfPlaneVolume_definitions FLT.HyperbolicMeasure.instIsOpenPosMeasureUpperHalfPlaneVolume_definitions FLT.Gamma0FundamentalSet.instContinuousConstSMulSpecialLinearGroupFinOfNatNatIntUpperHalfPlane_definitions FLT.L2ProductionInstance.isFiniteMeasure_gamma0 FLT.L2ProductionInstance.countable_SL2Z FLT.L2ProductionInstance.countable_quotient FLT.L2ProductionInstance.nontrivial_gamma0L2
 attribute [-simp] FreyPackage.ModMCarrier.coe_rescaleLin_apply ModularForm.AtkinLehnerDatum.mk.injEq ModularForm.AtkinLehnerDatum.alGL_coe ModularForm.AtkinLehnerDatum.mk.sizeOf_spec ModularForm.AtkinLehnerDatum.sqUnitSL_coe ModularForm.AtkinLehnerDatum.det_sqUnit ModularForm.AtkinLehnerDatum.det_mat FLT.TruncatedDomainPartition.unipotentDiagonalSum_zero
 
+namespace Submission
+
+open MeasureTheory
+open scoped ComplexConjugate
+
+theorem f036cc6b1f_pc_integral_core
+    (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) [Δ.FiniteIndex]
+    (hneg : (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ) :
+    ∃ B : InnerProductSpace.Core ℂ (CuspForm Δ 2),
+      ∀ (F : Set UpperHalfPlane), MeasurableSet F →
+        (∀ᵐ z ∂(volume : Measure UpperHalfPlane),
+          ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+            γ ∈ Δ ∧ γ • z ∈ F ∧
+              ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+                δ ∈ Δ → δ • z ∈ F → δ = γ ∨ δ = -γ) →
+        ∀ f g : CuspForm Δ 2,
+          IntegrableOn (UpperHalfPlane.petersson 2 f g) F
+              (volume : Measure UpperHalfPlane) ∧
+            B.inner f g = integral ((volume : Measure UpperHalfPlane).restrict F)
+              (UpperHalfPlane.petersson 2 f g) := by
+  classical
+  obtain ⟨R, hEmeas, hErep⟩ := f036cc6b1f_pc_effective_domain Δ hneg
+  let E : Set UpperHalfPlane :=
+    ⋃ r ∈ R, (fun z : UpperHalfPlane => r • z) '' ModularGroup.fd
+  have hEint (f g : CuspForm Δ 2) :
+      IntegrableOn (UpperHalfPlane.petersson 2 f g) E
+        (volume : Measure UpperHalfPlane) := by
+    exact integrableOn_finset_iUnion.mpr
+      (fun r _ => f036cc6b1f_pic_translated_integrable Δ r f g)
+  have hEcover : ∀ᵐ z ∂(volume : Measure UpperHalfPlane),
+      ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ E := by
+    filter_upwards [hErep] with z hz
+    obtain ⟨γ, hγ, hz, _⟩ := hz
+    exact ⟨γ, hγ, hz⟩
+  let B : InnerProductSpace.Core ℂ (CuspForm Δ 2) :=
+    { inner := fun f g => integral ((volume : Measure UpperHalfPlane).restrict E)
+        (UpperHalfPlane.petersson 2 f g)
+      conj_inner_symm := by
+        intro f g
+        rw [← integral_conj]
+        exact integral_congr_ae (Filter.Eventually.of_forall fun z =>
+          (UpperHalfPlane.petersson_symm 2 g f z).symm)
+      re_inner_nonneg := by
+        intro f
+        rw [← integral_re (hEint f f)]
+        apply integral_nonneg
+        intro z
+        simp only [UpperHalfPlane.petersson, ← Complex.normSq_eq_conj_mul_self,
+          zpow_ofNat, ← Complex.ofReal_pow, ← Complex.ofReal_mul]
+        exact mul_nonneg (Complex.normSq_nonneg (f z)) (sq_nonneg z.im)
+      add_left := by
+        intro f g h
+        calc
+          _ = integral ((volume : Measure UpperHalfPlane).restrict E)
+              (fun z => UpperHalfPlane.petersson 2 f h z +
+                UpperHalfPlane.petersson 2 g h z) := by
+            apply integral_congr_ae
+            filter_upwards [] with z
+            simp [UpperHalfPlane.petersson, map_add, add_mul]
+          _ = _ := integral_add (hEint f h) (hEint g h)
+      smul_left := by
+        intro f g c
+        calc
+          _ = integral ((volume : Measure UpperHalfPlane).restrict E)
+              (fun z => conj c * UpperHalfPlane.petersson 2 f g z) := by
+            apply integral_congr_ae
+            filter_upwards [] with z
+            simp [UpperHalfPlane.petersson, map_mul, mul_assoc]
+          _ = _ := integral_const_mul _ _
+      definite := fun f hf =>
+        f036cc6b1f_pic_diagonal_definite Δ E hEmeas hEcover f (hEint f f) hf }
+  refine ⟨B, ?_⟩
+  intro F hFmeas hFrep f g
+  apply f036cc6b1f_pic_domain_transfer Δ E F hneg hEmeas hFmeas hErep hFrep
+    (UpperHalfPlane.petersson 2 f g)
+  · exact UpperHalfPlane.petersson_continuous 2
+      (ModularFormClass.continuous f) (ModularFormClass.continuous g)
+  · intro γ hγ z
+    exact SlashInvariantFormClass.petersson_smul
+      (f := f) (f' := g) (by simpa using hγ)
+  · exact hEint f g
+
+end Submission
+
 theorem CuspForm.span_heckeTLin_eigen_eq_top (M : ℕ) [NeZero M] :
     Submodule.span ℂ {v : CuspForm (CongruenceSubgroup.Gamma0 M) 2 |
       ∀ (ℓ : ℕ) (hℓ : ℓ.Prime) (hℓM : ¬ ℓ ∣ M), ∃ c : ℂ,
