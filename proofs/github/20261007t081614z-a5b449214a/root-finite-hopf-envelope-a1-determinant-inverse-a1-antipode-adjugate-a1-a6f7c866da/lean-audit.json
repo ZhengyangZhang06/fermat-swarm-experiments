@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "2bdcb7db61e7c4e7a8a21b2640f138a3a12e1eecc4277c201598afda82711667",
+  "git_delta": {
+    "base_commit": "a5aab1ce73dee70471c99f5841c95ffcfeeffdde",
+    "candidate_commit": "694b1ba416e85100bad879a8f9fd247620ed77e9",
+    "target": "Submission.lean",
+    "declaration": "p05_di_antipode_adjugate_a5b449214a",
+    "diff_sha256": "176e58737e4b33ca46f4c19474a6d7643ca9059f5b2cdbd26d90c8785591b368",
+    "source_sha256": "9c3a8a41fa6c51cf737509d5e8ea38e8f2648efa48f7b03200fad1a6295d6ee0",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_di_antipode_adjugate_a5b449214a",
+      "statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (n : ℕ) (c : Matrix (Fin n) (Fin n) H) (hΔ : ∀ i j : Fin n, Coalgebra.comul (R := k) (c i j) = ∑ l : Fin n, TensorProduct.tmul k (c i l) (c l j)) (hε : ∀ i j : Fin n, Coalgebra.counit (R := k) (c i j) = if i = j then (1 : k) else 0), ∃ u : H, Matrix.det c * u = 1 ∧ ∀ i j : Fin n, HopfAlgebra.antipode k (c i j) = u * Matrix.adjugate c i j",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
