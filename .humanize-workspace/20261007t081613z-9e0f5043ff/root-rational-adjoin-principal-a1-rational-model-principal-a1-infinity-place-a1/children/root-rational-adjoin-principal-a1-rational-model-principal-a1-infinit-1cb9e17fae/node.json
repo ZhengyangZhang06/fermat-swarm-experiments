@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1.reciprocal_presentation-a1",
+  "parent_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1",
+  "depth": 4,
+  "title": "The inverse variable is a transcendental rational-function generator",
+  "statement": "Let K be any field, let M = FractionRing (Polynomial K) with its canonical K-algebra, let t be the image of Polynomial.X in M, and put s = t⁻¹. Then s is transcendental over K, and every f ∈ M admits polynomials a,b ∈ K[T] with b ≠ 0 and f = a(s)/b(s).",
+  "lean_statement": "∀ (K : Type*) [Field K], Transcendental K ((algebraMap (Polynomial K) (FractionRing (Polynomial K)) Polynomial.X)⁻¹) ∧ (∀ f : FractionRing (Polynomial K), ∃ a b : Polynomial K, b ≠ 0 ∧ f = Polynomial.aeval ((algebraMap (Polynomial K) (FractionRing (Polynomial K)) Polynomial.X)⁻¹) a / Polynomial.aeval ((algebraMap (Polynomial K) (FractionRing (Polynomial K)) Polynomial.X)⁻¹) b)",
+  "lean_name": "p06_9e0f5043ff_inf_reciprocal_presentation",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-1cb9e17fae-a1"
+}

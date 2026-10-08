@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1.valuation_fraction_characterization-a1",
+  "parent_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1",
+  "depth": 4,
+  "title": "Characterize a rational-function valuation subring excluding the inverse parameter",
+  "statement": "Let K and F be fields with a K-algebra structure on F. Suppose s ∈ F is transcendental over K and every f ∈ F has a representation a(s)/b(s) with a,b ∈ K[T] and b ≠ 0. Let w be an AlgebraicCurve.Place K F such that s⁻¹ does not belong to W = w.toValuationSubring. Then, for every f ∈ F, membership f ∈ W is equivalent to the existence of a,b ∈ K[T] such that T does not divide b and f = a(s)/b(s).",
+  "lean_statement": "∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (s : F), Transcendental K s → (∀ f : F, ∃ a b : Polynomial K, b ≠ 0 ∧ f = Polynomial.aeval s a / Polynomial.aeval s b) → ∀ w : AlgebraicCurve.Place K F, s⁻¹ ∉ w.toValuationSubring → ∀ f : F, f ∈ w.toValuationSubring ↔ ∃ a b : Polynomial K, ¬ (Polynomial.X : Polynomial K) ∣ b ∧ f = Polynomial.aeval s a / Polynomial.aeval s b",
+  "lean_name": "p06_9e0f5043ff_inf_valuation_fraction_characterization",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-75b7adf371-a1"
+}

@@ -1,0 +1,55 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "finite_place_model|reverse_eval|eval₂_reverse|eval_reverse|transcendental_inv|transcendental_iff_inv|p06_9e0f5043ff_inf_reciprocal_presentation|p06_9e0f5043ff_inf_reciprocal_polynomial_order|p06_9e0f5043ff_inf_valuation_fraction_characterization",
+        "structure Place|theorem ext|lemma ext|ord_mul|ord_zpow|algebraMap_mem|toValuationSubring|def ord|def deg",
+        "mem_or_inv_mem|isUnit_iff|IsLocalRing|algebraMap_mem",
+        "X_dvd_iff|exists_eq_pow_rootMultiplicity_mul_and_not_dvd|coeff_zero_reverse|eval₂_reverse_mul_pow|eval₂_reverse_eq_zero_iff|inv_iff|span_X|quotientSpanX|ker_eval|ker.*eval|span.*X.*IsMaximal",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/p06-infinity-decomposition-audit-n14evd_v/AuditTypes.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/Submission.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Polynomial/Reverse.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Polynomial/Div.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Algebraic/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Localization/FractionRing.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Polynomial/Ideal.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Polynomial/Quotient.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinity-place-a1/parent-child-handoff.json",
+        "/tmp/p06-infinity-decomposition-audit-n14evd_v/AuditTypes.lean",
+        "/tmp/p06-infinity-decomposition-audit-n14evd_v/standalone-types.log",
+        "/tmp/p06-infinity-decomposition-audit-n14evd_v/frozen-source.log"
+      ],
+      "conclusion": "The split separates three genuine obligations and leaves place construction and final assembly with the parent. The existing DAG is acyclic and correctly records the parent's dependency on finite_place_model. Neither that declaration nor the proposed names occur in the searched snapshot; the proposed names also have no reservations in the 45-node DAG. All are bare identifiers. The inspected sources support reversal, fraction-field injection and presentation, normalized orders, valuation-subring locality, X-factor removal, and the quotient by (X). Independently checked project revision 956e8c600d8b95b46948ae5e37b13930b5f3d06b, mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d, and all nine dependency pins match clean tracked trees. All three exact propositions elaborate warning-free using direct Definitions imports without any child implementation or alias. Definitional checks confirm the canonical FractionRing algebra and evaluation instances. Audited supporting declarations transitively use only propext, Classical.choice, and Quot.sound. This accepts the decomposition, not any Lean solution. Independently rerunning unchanged Submission.lean confirms the three reported unknown attribute targets; the separately stated activation blocker remains in force."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "reciprocal_presentation",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly includes the arbitrary field, canonical fraction field, inverse variable, transcendence, and fraction representation with nonzero denominator polynomial. All six proof steps are sound: injectivity identifies evaluation, reversal establishes transcendence, and the two degree cases give explicit valid fractions, including zero. No child or parent theorem is assumed, and no sibling dependency is needed."
+    },
+    {
+      "key": "reciprocal_polynomial_order",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The proposition exactly matches every field, algebra, transcendence, normalization, and vanishing hypothesis, with the required integer-valued conclusion. The five-step proof establishes the reversed polynomial's nonzero constant coefficient and evaluation, justifies both nonzero factors, and applies the inspected ord_mul and ord_zpow signatures correctly. It is complete and independent of the other children."
+    },
+    {
+      "key": "valuation_fraction_characterization",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The proposition precisely states the generation hypothesis, inverse exclusion, and membership equivalence. All eight steps are justified: Place supplies constants, valuation locality gives a proper contraction equal to (X), permitted denominators become units, and terminating X-factor removal reduces membership to a nonnegative exponent. The negative-exponent contradiction and zero case are explicit. Transcendence supplies the necessary nonvanishing; no circular dependency or further proof-discovery task remains."
+    }
+  ],
+  "required_changes": []
+}

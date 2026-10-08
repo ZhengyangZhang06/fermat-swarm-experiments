@@ -1,0 +1,60 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "finite_place_model|reverse_eval|eval₂_reverse|eval_reverse|transcendental_inv|transcendental_iff_inv",
+        "mem_or_inv_mem|isUnit_iff|eq_of_le_of_ne_top|algebraMap_mem|X_dvd_iff|exists.*pow.*dvd|X_pow|trailingDegree|factor.*X",
+        "isMaximal.*X|X.*isMaximal|ker.*eval|span_X|eval.*ker",
+        "p06_9e0f5043ff_inf_reciprocal_presentation|p06_9e0f5043ff_inf_reciprocal_polynomial_order|p06_9e0f5043ff_inf_valuation_fraction_characterization"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Polynomial/Reverse.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Polynomial/Div.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Algebraic/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Polynomial/Ideal.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Polynomial/Quotient.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinity-place-a1/parent-child-handoff.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinity-place-a1/decomposition-typecheck/CheckTypes.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinity-place-a1/decomposition-typecheck/CheckTypes.interface-check.log",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinity-place-a1/decomposition-typecheck/Submission.frozen-source-check.log",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinity-place-a1/decomposition-typecheck/provenance-check.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinity-place-a1/decomposition-typecheck/name-collision-check.json"
+      ],
+      "conclusion": "The snapshot supplies Place.ext, Place.ord_mul, Place.ord_zpow, polynomial reversal identities, X-divisibility and root-multiplicity factorization, valuation-subring locality, and the quotient-by-X identification with K. No finite_place_model declaration was found in the snapshot; it is an existing ancestor-level DAG dependency, not an accepted library theorem. Proposed identifiers have no searched-source or active-DAG collisions. Project revision 956e8c600d8b95b46948ae5e37b13930b5f3d06b, mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d, and all nine dependencies match their manifests with clean tracked files. All three proposed types elaborate warning-free under the existing isolated import-only Submission interface. Definitional checks verify the canonical FractionRing algebra, polynomial evaluation, and Place subring and residue algebras. Audited supporting declarations use only propext, Classical.choice, and Quot.sound. However, checking the unchanged actual Submission.lean fails on the pre-existing unknown attribute targets AlgebraicCurve.IsCurveOver.instNontrivialKaehler, AlgebraicCurve.IsFrobeniusEndo.frobNormRingHom_apply, and AlgebraicCurve.SemilinearAut.coe_torsion_smul. Consequently actual import Submission validation remains blocked; interface typechecking is not comparator acceptance or authorization to activate children."
+    }
+  ],
+  "parent_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1",
+  "child_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1.reciprocal_polynomial_order-a1",
+  "subproblem": {
+    "key": "reciprocal_polynomial_order",
+    "title": "Polynomial order at the inverse of a normalized parameter",
+    "statement": "Let K and F be fields with a K-algebra structure on F, and let s ∈ F be transcendental over K. Let v be an AlgebraicCurve.Place K F satisfying v.ord(s) = 1 and v.ord(c(s)) = 0 for every c ∈ K[T] not divisible by T. Then every nonzero a ∈ K[T] satisfies v.ord(a(s⁻¹)) = −(a.natDegree : ℤ).",
+    "lean_statement": "∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (s : F), Transcendental K s → ∀ v : AlgebraicCurve.Place K F, v.ord s = 1 → (∀ c : Polynomial K, ¬ (Polynomial.X : Polynomial K) ∣ c → v.ord (Polynomial.aeval s c) = 0) → ∀ a : Polynomial K, a ≠ 0 → v.ord (Polynomial.aeval s⁻¹ a) = -(a.natDegree : ℤ)",
+    "lean_name": "p06_9e0f5043ff_inf_reciprocal_polynomial_order",
+    "depends_on": [],
+    "natural_proof": "1. Fix K,F,s,v with the stated hypotheses. Transcendence implies that every nonzero polynomial has nonzero evaluation at s. In particular s ≠ 0, because the nonzero polynomial X evaluates to s.\n2. Fix a nonzero polynomial a and put d = a.natDegree. Define A(T) = Σ_{i=0}^d C(a_i)T^(d−i). Its constant coefficient equals the leading coefficient a_d of a, which is nonzero. A polynomial divisible by T has zero constant coefficient, so T does not divide A. In particular A ≠ 0, and therefore A(s) ≠ 0 by transcendence.\n3. Expanding both evaluations and using s ≠ 0 gives s^d a(s⁻¹) = Σ_{i=0}^d a_i s^(d−i) = A(s). Multiplying by s^(−(d : ℤ)) yields a(s⁻¹) = s^(−(d : ℤ)) A(s). Both factors on the right are nonzero.\n4. Since T does not divide A, the assumed vanishing property gives v.ord(A(s)) = 0. Applying Place.ord_mul to the nonzero factors and then Place.ord_zpow gives v.ord(a(s⁻¹)) = (−(d : ℤ)) · v.ord(s) + v.ord(A(s)).\n5. Substitute v.ord(s) = 1 and v.ord(A(s)) = 0. The result is v.ord(a(s⁻¹)) = −(d : ℤ), which is the required formula for every nonzero a.",
+    "proof_key_steps": [
+      "Deduce that the transcendental parameter is nonzero.",
+      "Reverse the polynomial and show that its nonzero constant coefficient excludes divisibility by X.",
+      "Express evaluation at the inverse parameter as a negative power times the reversed-polynomial evaluation.",
+      "Apply the assumed zero-order property to the reversed polynomial.",
+      "Use multiplicativity and the integer-power order formula to obtain minus the degree."
+    ]
+  },
+  "audit": {
+    "key": "reciprocal_polynomial_order",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "The proposition exactly matches every field, algebra, transcendence, normalization, and vanishing hypothesis, with the required integer-valued conclusion. The five-step proof establishes the reversed polynomial's nonzero constant coefficient and evaluation, justifies both nonzero factors, and applies the inspected ord_mul and ord_zpow signatures correctly. It is complete and independent of the other children."
+  },
+  "resolved_dependencies": [],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-87559659ac/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-87559659ac/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-87559659ac/parent-supplied-natural-proof.json"
+}

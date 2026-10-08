@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1.reciprocal_polynomial_order-a1",
+  "parent_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1",
+  "depth": 4,
+  "title": "Polynomial order at the inverse of a normalized parameter",
+  "statement": "Let K and F be fields with a K-algebra structure on F, and let s ∈ F be transcendental over K. Let v be an AlgebraicCurve.Place K F satisfying v.ord(s) = 1 and v.ord(c(s)) = 0 for every c ∈ K[T] not divisible by T. Then every nonzero a ∈ K[T] satisfies v.ord(a(s⁻¹)) = −(a.natDegree : ℤ).",
+  "lean_statement": "∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (s : F), Transcendental K s → ∀ v : AlgebraicCurve.Place K F, v.ord s = 1 → (∀ c : Polynomial K, ¬ (Polynomial.X : Polynomial K) ∣ c → v.ord (Polynomial.aeval s c) = 0) → ∀ a : Polynomial K, a ≠ 0 → v.ord (Polynomial.aeval s⁻¹ a) = -(a.natDegree : ℤ)",
+  "lean_name": "p06_9e0f5043ff_inf_reciprocal_polynomial_order",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p06/20261007t081613z-9e0f5043ff/root-rational-adjoin-principal-a1-rational-model-principal-a1-infinit-87559659ac-a1"
+}
