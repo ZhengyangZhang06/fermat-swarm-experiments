@@ -2234,3 +2234,70 @@ theorem Submission.p10_17ae7b7d_to_cusp_count_factorization :
       intro p hp
       exact Submission.p10_17ae7b7d_ccf_prime_power p (N.factorization p)
         (Nat.prime_of_mem_primeFactors hp)
+theorem Submission.p10_17ae7b7d_tchart_unique_row :
+    ∀ (p a : ℕ), Nat.Prime p → 1 ≤ a →
+      let R := ZMod (p ^ a)
+      ∀ r s : R, (∃ x y : R, x * r + y * s = 1) →
+        ∃! c : R ⊕ {z : R // p ∣ z.val},
+          match c with
+          | Sum.inl t => ∃ u : Rˣ, r = (u : R) ∧ s = (u : R) * t
+          | Sum.inr z => ∃ u : Rˣ, r = (u : R) * z.1 ∧ s = (u : R) := by
+  intro p a hp ha
+  have : NeZero (p ^ a) := ⟨pow_ne_zero _ hp.ne_zero⟩
+  have : Fact p.Prime := ⟨hp⟩
+  dsimp only
+  intro r s ⟨x, y, hxy⟩
+  let ρ : ZMod (p ^ a) →+* ZMod p :=
+    ZMod.castHom (dvd_pow_self p (by omega)) (ZMod p)
+  have hρ (z : ZMod (p ^ a)) : ρ z = 0 ↔ p ∣ z.val := by
+    have heq : ρ z = (z.val : ZMod p) := by
+      conv_lhs => rw [← ZMod.natCast_zmod_val z]
+      exact map_natCast ρ z.val
+    rw [heq, ZMod.natCast_eq_zero_iff]
+  have hunit (z : ZMod (p ^ a)) : IsUnit z ↔ ¬ p ∣ z.val := by
+    simpa only [ZMod.natCast_zmod_val] using
+      (ZMod.isUnit_natCast_iff_not_dvd_pow (a := z.val) hp (by omega : 0 < a))
+  by_cases hr : IsUnit r
+  · obtain ⟨u, hu⟩ := hr
+    refine ⟨Sum.inl ((↑u⁻¹ : ZMod (p ^ a)) * s), ⟨u, hu.symm, ?_⟩, ?_⟩
+    · simp only [Units.mul_inv_cancel_left]
+    · intro c hc
+      cases c with
+      | inl t =>
+          obtain ⟨v, hv, hvt⟩ := hc
+          apply congrArg Sum.inl
+          have huv : (v : ZMod (p ^ a)) = u := hv.symm.trans hu.symm
+          rw [huv] at hvt
+          rw [hvt, Units.inv_mul_cancel_left]
+      | inr z =>
+          obtain ⟨v, hv, _⟩ := hc
+          have hrzero : ρ r = 0 := by
+            rw [hv, map_mul, (hρ z.1).mpr z.2, mul_zero]
+          exact False.elim ((hunit r).mp ⟨u, hu⟩ ((hρ r).mp hrzero))
+  · have hrzero : ρ r = 0 := (hρ r).mpr (by simpa only [hunit, not_not] using hr)
+    have hs : IsUnit s := by
+      by_contra hs
+      have hszero : ρ s = 0 := (hρ s).mpr (by simpa only [hunit, not_not] using hs)
+      have heq := congrArg ρ hxy
+      simp only [map_add, map_mul, map_one, hrzero, hszero, mul_zero, add_zero] at heq
+      exact zero_ne_one heq
+    obtain ⟨u, hu⟩ := hs
+    have hz : p ∣ ((↑u⁻¹ : ZMod (p ^ a)) * r).val := by
+      apply (hρ _).mp
+      rw [map_mul, hrzero, mul_zero]
+    refine ⟨Sum.inr ⟨(↑u⁻¹ : ZMod (p ^ a)) * r, hz⟩,
+      ⟨u, ?_, hu.symm⟩, ?_⟩
+    · simp only [Units.mul_inv_cancel_left]
+    · intro c hc
+      cases c with
+      | inl t =>
+          obtain ⟨v, hv, _⟩ := hc
+          exact False.elim (hr ⟨v, hv.symm⟩)
+      | inr z =>
+          obtain ⟨v, hvz, hv⟩ := hc
+          apply congrArg Sum.inr
+          apply Subtype.ext
+          have huv : (v : ZMod (p ^ a)) = u := hv.symm.trans hu.symm
+          rw [huv] at hvz
+          change z.1 = (↑u⁻¹ : ZMod (p ^ a)) * r
+          rw [hvz, Units.inv_mul_cancel_left]
