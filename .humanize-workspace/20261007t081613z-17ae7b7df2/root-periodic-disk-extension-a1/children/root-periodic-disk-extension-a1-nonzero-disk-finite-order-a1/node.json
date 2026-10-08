@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.periodic_disk_extension-a1.nonzero_disk_finite_order-a1",
+  "parent_id": "root.periodic_disk_extension-a1",
+  "depth": 2,
+  "title": "Finite order and positive vanishing order on the unit disk",
+  "statement": "Let A:ℂ→ℂ be holomorphic on D={q:‖q‖<1}. Suppose there exists q∈D with A(q)≠0. Then analyticOrderAt A 0≠⊤. Moreover, if A(0)=0, then 1≤analyticOrderNatAt A 0.",
+  "lean_statement": "∀ A : ℂ → ℂ, DifferentiableOn ℂ A (Metric.ball (0 : ℂ) 1) → (∃ q : ℂ, q ∈ Metric.ball (0 : ℂ) 1 ∧ A q ≠ 0) → analyticOrderAt A 0 ≠ ⊤ ∧ (A 0 = 0 → 1 ≤ analyticOrderNatAt A 0)",
+  "lean_name": "p10_17ae7b7d_pde_finite_order",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-periodic-disk-extension-a1-nonzero-disk-finite-order-a1-a1"
+}

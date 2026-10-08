@@ -1,0 +1,47 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "qParam|cuspFunction|analyticOrderAt|periodic_disk_extension|pde_holomorphic_extension|pde_finite_order|pde_decay_zero",
+        "differentiableOn|bounded|removable|limUnder",
+        "exists_eventuallyEq_pow_smul_nonzero_iff|analyticOrderAt_eq_natCast|analyticOrderNatAt_eq_iff|DifferentiableOn.analyticAt|exp_log|exp_eq_exp_iff_exists_int|integral_eq_sub_of_hasDerivAt_of_le"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_X0.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/Periodic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/RemovableSingularity.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/IsolatedZeros.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Order.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/SpecialFunctions/Complex/Log.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/FundThmCalculus.lean"
+      ],
+      "conclusion": "Verified project revision a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d; inspected sources match the installed sources, and all nine dependencies are clean and pinned. Periodic.lean:49–77 supports the exponential coordinate and height formulas; its global-periodicity hypotheses are not assumed by these proofs. Log.lean:41,171, CauchyIntegral.lean:625, IsolatedZeros.lean:185, Order.lean:86,101, and FundThmCalculus.lean:1140 support the cited steps. RemovableSingularity.lean:101 independently corroborates bounded removability. The stated search found no matching analytic-extension/order result in either inspected project definition file. Independent Lean diagnostics passed for all three exact propositions after import Submission; checked types and library declarations use only propext, Classical.choice, and Quot.sound. Receipt: /tmp/p10-pde-independent-audit-vov2_6vo/report.json. Independently validated the supplied header-repair receipt against policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, Git source identity, exact omitted lines 10–12, reversible original/build hashes, and a fresh Lean absence probe for all 56 targets. This approves decomposition and prose only; implementation acceptance still requires the configured comparator and independent proof review."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "bounded_periodic_holomorphic_extension",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition exactly matches all prose hypotheses and the extension conclusion. Its bare identifier is unreserved in the inspected active DAG. Steps 1–8 correctly establish exponential fibers, integer-shift invariance within H, holomorphic descent using local logarithms, boundedness near zero, and the Taylor quotient extension. No nonzero-value assumption is needed. The proof is complete and non-circular. The split is appropriate: choose A here once, transfer g's nonzero value to A for the second child, and apply the third child under decay. Empty sibling dependencies are correct; parent-to-child edges preserve acyclicity."
+    },
+    {
+      "key": "nonzero_disk_finite_order",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact one-line type includes disk holomorphy, a nonzero disk value, and both stated order conclusions. Its bare identifier is unreserved. The local factorization alternative makes the locally-zero locus relatively clopen; connectedness and the nonzero value exclude every zero germ. The cited order characterizations then identify the finite exponent, and A(0)=0 excludes exponent zero. All five steps are justified independently, with no reliance on the parent or siblings."
+    },
+    {
+      "key": "decay_forces_extension_zero",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact one-line type matches positivity of w, continuity of the given A at zero, factorization on H, and uniform decay with real thresholds. Its bare identifier is unreserved. The inverse-coordinate height calculation converts decay into punctured-disk bounds. Continuity and the explicit positive real test point yield the stated contradiction when A(0) is nonzero. The proof preserves the given A throughout, requires no sibling theorem, and contains no omitted hypothesis or circular step."
+    }
+  ],
+  "required_changes": []
+}

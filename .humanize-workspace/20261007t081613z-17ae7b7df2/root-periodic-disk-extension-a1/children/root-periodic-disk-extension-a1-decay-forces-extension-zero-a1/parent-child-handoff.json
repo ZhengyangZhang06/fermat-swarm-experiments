@@ -1,0 +1,53 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "qParam|cuspFunction|analyticOrderAt|periodic_disk_extension|pde_holomorphic_extension|pde_finite_order|pde_decay_zero",
+        "removable|differentiableOn|bounded|exists|limUnder",
+        "analyticOrderAt_eq_top|eqOn_zero|eqOn_of_preconnected|exists_eventuallyEq_pow|analyticAt",
+        "exp_log|exp_eq_exp_iff_exists_int"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_X0.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/Periodic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/RemovableSingularity.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/IsolatedZeros.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Order.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/SpecialFunctions/Complex/Log.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/FundThmCalculus.lean"
+      ],
+      "conclusion": "The snapshot records project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Periodic.lean supplies the q-parameter norm, inverse, and descent API; its global-periodicity hypotheses must not be confused with the parent's periodicity restricted to the upper half-plane. RemovableSingularity.lean provides bounded removable singularities. CauchyIntegral.lean:625 supplies holomorphic-to-analytic conversion; IsolatedZeros.lean:185 supplies local factorization; Order.lean:86,101 identifies the two orders. Log.lean:41,171 supplies exponential surjectivity onto nonzero complex numbers and its integer-period fibers. FundThmCalculus.lean:1140 supports the segment argument. The search found no matching analytic-extension or analytic-order lemma in Def_ModularCurve_GenusNumerics.lean. Inspected mathematical sources match the installed pinned sources; all nine dependencies were clean and matched their pins. The checked library declarations depend only on propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "parent_id": "root.periodic_disk_extension-a1",
+  "child_id": "root.periodic_disk_extension-a1.decay_forces_extension_zero-a1",
+  "subproblem": {
+    "key": "decay_forces_extension_zero",
+    "title": "Decay forces the value of a continuous q-extension to vanish",
+    "statement": "Let w>0 be real and g,A:ℂ→ℂ. Assume A is continuous at zero and g(z)=A(exp(2πiz/w)) whenever Im z>0. Suppose that for every real ε>0 there exists Y∈ℝ such that ‖g(z)‖≤ε whenever Im z>0 and Y≤Im z. Then A(0)=0.",
+    "lean_statement": "∀ (w : ℝ) (g A : ℂ → ℂ), 0 < w → ContinuousAt A 0 → (∀ z : ℂ, 0 < z.im → g z = A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z / (w : ℂ)))) → (∀ ε : ℝ, 0 < ε → ∃ Y : ℝ, ∀ z : ℂ, 0 < z.im → Y ≤ z.im → ‖g z‖ ≤ ε) → A 0 = 0",
+    "lean_name": "p10_17ae7b7d_pde_decay_zero",
+    "depends_on": [],
+    "natural_proof": "1. Fix w,g,A satisfying the hypotheses. For every nonzero q, let L=Complex.log q and z=wL/(2πi). Complex.exp_log gives exp(2πiz/w)=q. The exponential norm identity gives Im z=−w log‖q‖/(2π). These identities are also recorded as qParam_right_inv and im_invQParam in the pinned Mathlib/Analysis/Complex/Periodic.lean.\n2. Fix ε>0 and choose its decay threshold Y. Put H₀=max(1,Y) and r=exp(−2πH₀/w), so 0<r<1. If 0<‖q‖<r, the point z from step 1 has Im z>H₀≥Y and Im z>0. The factorization and decay assumptions therefore give ‖A(q)‖=‖g(z)‖≤ε. Thus every positive ε bounds A on some punctured disk about zero.\n3. Suppose for contradiction that A(0)≠0, and set a=‖A(0)‖>0 and ε=a/3. Choose r>0 from step 2 for this ε. By continuity at zero, there is δ>0 such that ‖A(q)−A(0)‖<ε whenever ‖q‖<δ. Choose the complex number q whose real part is min(r,δ)/2 and whose imaginary part is zero. It satisfies 0<‖q‖<r and ‖q‖<δ. Hence the triangle inequality gives a≤‖A(0)−A(q)‖+‖A(q)‖<ε+ε=2a/3, a contradiction.\n4. Therefore A(0)=0. The argument concerns the given A throughout and makes no new choice of extension.",
+    "proof_key_steps": [
+      "Construct exponential preimages and compute their heights.",
+      "Convert each decay threshold into a bound on a punctured disk.",
+      "Combine that bound with continuity at zero to contradict a nonzero value.",
+      "Conclude that the given extension vanishes at zero."
+    ]
+  },
+  "audit": {
+    "key": "decay_forces_extension_zero",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "The exact one-line type matches positivity of w, continuity of the given A at zero, factorization on H, and uniform decay with real thresholds. Its bare identifier is unreserved. The inverse-coordinate height calculation converts decay into punctured-disk bounds. Continuity and the explicit positive real test point yield the stated contradiction when A(0) is nonzero. The proof preserves the given A throughout, requires no sibling theorem, and contains no omitted hypothesis or circular step."
+  },
+  "resolved_dependencies": [],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-periodic-disk-extension-a1-decay-forces-extension-zero-a1/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-periodic-disk-extension-a1-decay-forces-extension-zero-a1/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-periodic-disk-extension-a1-decay-forces-extension-zero-a1/parent-supplied-natural-proof.json"
+}
