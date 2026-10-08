@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.level_one_valence_inequality-a1.cusp_log_derivative-a1.local_logderiv_bound-a1",
+  "parent_id": "root.level_one_valence_inequality-a1.cusp_log_derivative-a1",
+  "depth": 3,
+  "title": "Local scaled logarithmic-derivative estimate",
+  "statement": "Let A:ℂ→ℂ be analytic at zero with analyticOrderAt A 0≠⊤, and put m=analyticOrderNatAt A 0. There exist r,M∈ℝ with r>0 and M≥0 such that A is holomorphic on {q:‖q‖<r}, and every nonzero q with ‖q‖<r satisfies A(q)≠0 and ‖qA′(q)/A(q)−m‖≤M‖q‖, where m is cast to ℂ.",
+  "lean_statement": "∀ (A : ℂ → ℂ), AnalyticAt ℂ A 0 → analyticOrderAt A 0 ≠ ⊤ → ∃ r M : ℝ, 0 < r ∧ 0 ≤ M ∧ DifferentiableOn ℂ A (Metric.ball (0 : ℂ) r) ∧ ∀ q : ℂ, q ≠ 0 → ‖q‖ < r → A q ≠ 0 ∧ ‖q * deriv A q / A q - (analyticOrderNatAt A 0 : ℂ)‖ ≤ M * ‖q‖",
+  "lean_name": "p10_17ae7b7d_cld_local_logderiv_bound",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-cusp-log-derivative-a1-local-log-16fdd74a11-a1"
+}

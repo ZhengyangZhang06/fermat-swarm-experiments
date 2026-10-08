@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.level_one_valence_inequality-a1.cusp_log_derivative-a1.qexp_finite_order-a1",
+  "parent_id": "root.level_one_valence_inequality-a1.cusp_log_derivative-a1",
+  "depth": 3,
+  "title": "Finite order of a nontrivial upper-half-plane expansion",
+  "statement": "Let F,A:ℂ→ℂ. Suppose F is holomorphic on H={z:Im z>0}, F has a nonzero value in H, A is analytic at zero, and there exists Y₀∈ℝ such that F(z)=A(exp(2πiz)) whenever 0<Im z and Y₀≤Im z. Then analyticOrderAt A 0≠⊤.",
+  "lean_statement": "∀ (F A : ℂ → ℂ), DifferentiableOn ℂ F {z : ℂ | 0 < z.im} → (∃ z : ℂ, 0 < z.im ∧ F z ≠ 0) → AnalyticAt ℂ A 0 → (∃ Y₀ : ℝ, ∀ z : ℂ, 0 < z.im → Y₀ ≤ z.im → F z = A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z))) → analyticOrderAt A 0 ≠ ⊤",
+  "lean_name": "p10_17ae7b7d_cld_qexp_finite_order",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-cusp-log-derivative-a1-qexp-finite-order-a1-a1"
+}

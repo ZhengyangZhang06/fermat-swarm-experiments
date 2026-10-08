@@ -1,0 +1,48 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "analyticOrderAt_ne_top|analyticOrderNatAt_eq_iff|analyticOrderAt_eq_top|eqOn_zero_of_preconnected_of_eventuallyEq_zero|theorem DifferentiableOn.deriv|theorem DifferentiableOn.analyticOnNhd",
+        "norm_qParam|hasDerivAt_qParam|tendsto_qParam|def qParam",
+        "analyticOrder|logDeriv|log_deriv",
+        "DifferentiableOn.deriv|DifferentiableOn.analyticOnNhd|DifferentiableOn.analyticAt",
+        "sed -n '60,132p' Mathlib/Analysis/Analytic/Order.lean",
+        "sed -n '195,233p' Mathlib/Analysis/Analytic/Uniqueness.lean",
+        "sed -n '30,104p' Mathlib/Analysis/Complex/Periodic.lean",
+        "sed -n '1,140p' Mathlib/Analysis/Calculus/LogDeriv.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/P2M",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Theorems",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Order.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Uniqueness.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/Periodic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Calculus/LogDeriv.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/cusp-logderiv-independent-ip481oym/report.json"
+      ],
+      "conclusion": "The snapshot pins project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Project searches found no analytic-order or logarithmic-derivative matches. The inspected mathlib declarations support finite-order factorization, uniqueness, holomorphy of derivatives, and the exponential parameter norm formula. Independently confirmed five source files match installed sources and all nine dependencies are clean at pinned revisions. Both exact propositions elaborated after Submission from the parent's frozen proof-base in a disposable policy-derived copy. Verified the policy digest, exact omitted lines, reversible hashes, and Lean-confirmed absence of all 56 targets. Library axiom probes reported only propext, Classical.choice, and Quot.sound. These are decomposition diagnostics, not acceptance of implemented child proofs."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "qexp_finite_order",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition includes every prose hypothesis and exactly the finite-order conclusion. Its bare name is unreserved in the active DAG and absent from the checked Lean environment. The proof correctly establishes that the zero-germ locus is relatively clopen using local factorization, excludes it by connectedness and the nonzero value, and contradicts infinite order of A using the explicitly chosen high half-plane. Each step is justified without reliance on either proposed child or the parent theorem. This is a genuine obligation narrower than the parent."
+    },
+    {
+      "key": "local_logderiv_bound",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The independently elaborated proposition matches the prose, including holomorphy on the ball, nonzero q, nonvanishing of A, real r and M, and the complex cast of the natural order. Its bare name is unreserved and absent from the environment; operations have the intended complex scalar instances. The proof correctly obtains factorization with the exact order, shrinks to a nonvanishing holomorphic factor, bounds B′/B on a smaller compact disk, and derives the estimate with m=0 handled explicitly. No gap or circular reliance remains. Empty sibling dependencies are correct because finite order is an explicit hypothesis. The parent combines the children using a strict height choice and the chain rule, so the split is appropriate and acyclic."
+    }
+  ],
+  "required_changes": []
+}
