@@ -16,7 +16,53 @@ open scoped Manifold MatrixGroups ModularForm
 theorem HeckeEis.eichlerShimuraMap_injective (N : ℕ) [NeZero N] (n : ℕ) :
     Function.Injective
       (fun f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2) ↦ HeckeEis.eichlerShimuraMap n N f) := by
-  sorry
+  classical
+  intro f g hfg
+  let ρ := (HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype
+  -- Existence and parabolicity put both map values in the defining existence branch.
+  obtain ⟨F₁, hF₁, hF₁eq⟩ := Submission.p02_es_177ebb5a_primitive_exists N n f
+  obtain ⟨G₁, hG₁, hG₁eq⟩ := Submission.p02_es_177ebb5a_primitive_exists N n g
+  obtain ⟨F, hF, hFeq, hFpar, hfmap⟩ := HeckeEis.eichlerShimuraMap_def n N
+    (fun τ => f τ) hF₁ hF₁eq
+    (Submission.p02_es_177ebb5a_primitive_parabolic N n f F₁ hF₁ hF₁eq)
+  obtain ⟨G, hG, hGeq, hGpar, hgmap⟩ := HeckeEis.eichlerShimuraMap_def n N
+    (fun τ => g τ) hG₁ hG₁eq
+    (Submission.p02_es_177ebb5a_primitive_parabolic N n g G₁ hG₁ hG₁eq)
+  -- Use the actual selected representatives, whose difference is a coboundary.
+  let cf : ↥(HeckeEis.coeffParabolicCocycles ρ) :=
+    ⟨hFeq.cocycle, hFeq.cocycle_mem_coeffCocycles, hFpar⟩
+  let cg : ↥(HeckeEis.coeffParabolicCocycles ρ) :=
+    ⟨hGeq.cocycle, hGeq.cocycle_mem_coeffCocycles, hGpar⟩
+  rw [hfmap, hgmap] at hfg
+  change HeckeEis.coeffH1parMk ρ cf = HeckeEis.coeffH1parMk ρ cg at hfg
+  have hzero : HeckeEis.coeffH1parMk ρ (cf - cg) = 0 := by
+    rw [map_sub, hfg, sub_self]
+  obtain ⟨v, hv⟩ := (HeckeEis.mem_coeffCoboundaries_iff ρ _).mp
+    ((HeckeEis.coeffH1parMk_eq_zero_iff ρ (cf - cg)).mp hzero)
+  have hdiff (γ : CongruenceSubgroup.Gamma0 N) :
+      hFeq.cocycle γ - hGeq.cocycle γ = ρ γ v - v :=
+    (congrFun hv γ).symm
+  -- Adding this constant preserves the derivative and cancels the defect.
+  let E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n) := fun τ => F τ - G τ + v
+  have hE : HeckeEis.IsEichlerIntegral n (fun τ => (f - g) τ) E := by
+    intro d τ
+    simpa only [E, Submodule.coe_add, Submodule.coe_sub,
+      MvPolynomial.coeff_add, MvPolynomial.coeff_sub, sub_apply, sub_mul] using
+      ((hF d τ).fun_sub (hG d τ)).add_const (MvPolynomial.coeff d v.val)
+  have hEeq (γ : CongruenceSubgroup.Gamma0 N) (τ : UpperHalfPlane) :
+      E ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • τ) = ρ γ (E τ) := by
+    change F ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • τ) -
+      G ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • τ) + v =
+      ρ γ (F τ - G τ + v)
+    rw [hFeq.apply_smul γ τ, hGeq.apply_smul γ τ, map_add, map_sub]
+    calc
+      (hFeq.cocycle γ + ρ γ (F τ)) - (hGeq.cocycle γ + ρ γ (G τ)) + v =
+          (hFeq.cocycle γ - hGeq.cocycle γ + v) + (ρ γ (F τ) - ρ γ (G τ)) := by
+        abel
+      _ = (ρ γ v - v + v) + (ρ γ (F τ) - ρ γ (G τ)) := by rw [hdiff]
+      _ = ρ γ (F τ) - ρ γ (G τ) + ρ γ v := by abel
+  exact sub_eq_zero.mp
+    (Submission.p02_es_177ebb5a_equivariant_primitive_vanishes N n (f - g) E hE hEeq)
 
 namespace Submission
 
