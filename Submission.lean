@@ -2081,6 +2081,7 @@ theorem p02_es_177ebb5a_sd_jet_recurrence :
     simpa [p02_es_177ebb5a_sd_jr_homogeneous_nilpotence, mul_comm] using hderiv
   · simpa only [if_neg htop, mul_zero, zero_sub] using hderiv
 
+/-- A uniform coefficient bound for the homogeneous power `(z * X₀ + X₁) ^ n`. -/
 theorem p02_es_177ebb5a_scl_linepow_coeff_bound :
     ∀ (n : ℕ) (z : ℂ) (d : Fin 2 →₀ ℕ),
       ‖MvPolynomial.coeff d (HeckeEis.linePow n z).val‖ ≤
