@@ -987,6 +987,9 @@ theorem p04_prism_a8325b9888_boundary_identity :
     have cancel := Submission.p04_pb_60221840b0_noncentral_cancellation (k := k) u v n c
     change _ + _ = 0 at cancel
     rw [cancel, zero_add]
+
+end Submission
+
 namespace Submission
 
 /-- An additive group is trivial if every prime is avoided by a positive global annihilator.

@@ -1,0 +1,225 @@
+{
+  "kind": "integration-only-source-audit",
+  "node_id": "root.prime_avoiding_annihilators-a1",
+  "integration_parent": "ddb13b3615a788167648047b114ede428193dd90",
+  "canonical_history": "8f4601639fa1376e136b7d4501be48ab17d38ba0",
+  "reviewed_candidate": "6d94ada56f3b333d660fa4207e7f2cbc365d8c8f",
+  "reconciliation": "Insert the missing end Submission after the prism boundary theorem, before the accepted annihilator namespace. No declaration, proof, import, option, or frozen artifact changes.",
+  "canonical_submission_preserved_as_prefix": true,
+  "accepted_namespace_block_preserved_as_suffix": true,
+  "theorem_declarations_preserved": 19,
+  "submission_sha256": "a5162a235ec3d4309782e92e2ca0d718c05bbd12155278d4d8d97adf0cc414ee",
+  "history_representation": "Retain the existing replay history without rewriting it. Every nonempty reviewed commit has its replay below; eight empty verification checkpoints are recorded at their corresponding replay positions. The final reviewed delta changes only Submission.lean, and its entire accepted namespace block is preserved byte-for-byte.",
+  "reviewed_history": [
+    {
+      "reviewed_commit": "3e7de243c3b4f85adaaa4b648f1c938fdc2ab6fb",
+      "existing_replay": "8521abd17be45feb812ef9b659c71e09b4462f0d"
+    },
+    {
+      "reviewed_commit": "334c623b728ed2809619ab9fe9c7f85c134ab91d",
+      "existing_replay": "cef73811b1e5a9aa3f566f77f29216d1069cb527"
+    },
+    {
+      "reviewed_commit": "f1b38bc144441a79900c89e52935234695ab66c8",
+      "existing_replay": "9098638f011cd0affad660c70bf42cfd135c6d41"
+    },
+    {
+      "reviewed_commit": "62f7e132ada51b630736947bfa7755ae62a78c6c",
+      "empty_checkpoint_after_replay": "9098638f011cd0affad660c70bf42cfd135c6d41"
+    },
+    {
+      "reviewed_commit": "7a4817690af23b8bfa9803ec6975d538e5afcc75",
+      "existing_replay": "e8a6ff87e2d12ee9d1eda4492be938cf586cc2be"
+    },
+    {
+      "reviewed_commit": "f1d97b93455953b02c3d5883895297ddcdea59c0",
+      "existing_replay": "2e39ffdd500b2c57a52c21b1f9f57262750a294f"
+    },
+    {
+      "reviewed_commit": "ddcb32c10093b8ae7fc0d1ba8c1749276f2ff48e",
+      "existing_replay": "4ccfd5ec57658ba6c0aa0f73b3238bab24264aad"
+    },
+    {
+      "reviewed_commit": "3b4dcc683d38ab74d7aa17f7250b264e65e5d38e",
+      "existing_replay": "f3ea65ffa63ba333f82eb552c4b3ca6597d1fb6b"
+    },
+    {
+      "reviewed_commit": "f1c215bb034812db5698ce887f4e74a453799148",
+      "existing_replay": "8807f9a8ebe31cdd172280b44ccf8dbbe35de6c8"
+    },
+    {
+      "reviewed_commit": "183cc34b85eb507798962033c3d0161332f9207c",
+      "existing_replay": "a965ba151a817ad02bdcd041f0f258f9e2c93a75"
+    },
+    {
+      "reviewed_commit": "a1ca999fbecb54f29650fe3e785f892f094ce776",
+      "existing_replay": "2ed6b7e60bc75b90d297fad12e0d3582ea523c7e"
+    },
+    {
+      "reviewed_commit": "25223e01bf292712acb3eea89bd47a827b179dd1",
+      "empty_checkpoint_after_replay": "2ed6b7e60bc75b90d297fad12e0d3582ea523c7e"
+    },
+    {
+      "reviewed_commit": "4836ad074105412a3e0e89be9802aa580bfe25d1",
+      "empty_checkpoint_after_replay": "2ed6b7e60bc75b90d297fad12e0d3582ea523c7e"
+    },
+    {
+      "reviewed_commit": "0ac7cda444bf0882da8df0e7891f771e522d78b8",
+      "existing_replay": "ad055e941f9cde881355095fe3e3665186df6712"
+    },
+    {
+      "reviewed_commit": "6cff3d7672c72930a8be374ceb72c77be5d19f0b",
+      "empty_checkpoint_after_replay": "ad055e941f9cde881355095fe3e3665186df6712"
+    },
+    {
+      "reviewed_commit": "281cd3427380fed9cc83a81a8b967b4390fc85a7",
+      "empty_checkpoint_after_replay": "ad055e941f9cde881355095fe3e3665186df6712"
+    },
+    {
+      "reviewed_commit": "c6603979471b601b5500398f6ad7d5c609c63cf9",
+      "existing_replay": "8a841f2ebef9fde27ae8a72bac9bbfd2c47c01d1"
+    },
+    {
+      "reviewed_commit": "24b1aac1f6ad509984d2208350a8a30a8b5a36fa",
+      "empty_checkpoint_after_replay": "8a841f2ebef9fde27ae8a72bac9bbfd2c47c01d1"
+    },
+    {
+      "reviewed_commit": "260d98e1f0a0de1e5d2b7f5ebeba541f5ec0c6fe",
+      "empty_checkpoint_after_replay": "8a841f2ebef9fde27ae8a72bac9bbfd2c47c01d1"
+    },
+    {
+      "reviewed_commit": "7ff39dad16ec0ccf199eddcadbe318e6591738b9",
+      "existing_replay": "ddb13b3615a788167648047b114ede428193dd90"
+    },
+    {
+      "reviewed_commit": "6d94ada56f3b333d660fa4207e7f2cbc365d8c8f",
+      "empty_checkpoint_after_replay": "ddb13b3615a788167648047b114ede428193dd90"
+    }
+  ],
+  "dependency_pins": [
+    {
+      "name": "mathlib",
+      "expected": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "actual": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "clean": true
+    },
+    {
+      "name": "plausible",
+      "expected": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "actual": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "clean": true
+    },
+    {
+      "name": "LeanSearchClient",
+      "expected": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "actual": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "clean": true
+    },
+    {
+      "name": "importGraph",
+      "expected": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "actual": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "clean": true
+    },
+    {
+      "name": "proofwidgets",
+      "expected": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "actual": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "clean": true
+    },
+    {
+      "name": "aesop",
+      "expected": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "actual": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "clean": true
+    },
+    {
+      "name": "Qq",
+      "expected": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "actual": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "clean": true
+    },
+    {
+      "name": "batteries",
+      "expected": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "actual": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "clean": true
+    },
+    {
+      "name": "Cli",
+      "expected": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "actual": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "clean": true
+    }
+  ],
+  "reference_use": [
+    {
+      "source": "local-project",
+      "snapshot": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8",
+      "manifest": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+      "mode": "local-project",
+      "project_commit": "2475a3790d7ba0c3b10be8086001b154a45be597",
+      "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "queries": [
+        {
+          "query": "prime_avoiding_annihilators|eq_zero_of_prime_avoiding",
+          "paths": [
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project",
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib"
+          ],
+          "exit_code": 1,
+          "finding": "No matches. No replacement proof imported."
+        },
+        {
+          "query": "nsmul_eq_mod_nsmul|theorem exists_prime_and_dvd|theorem find_spec|theorem find_min",
+          "paths": [
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/Group/Basic.lean",
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Data/Nat/Prime/Defs.lean",
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Data/Nat/Find.lean"
+          ],
+          "exit_code": 0,
+          "finding": "Inspected Algebra/Group/Basic.lean:166-171: the additive lemma is generated by to_additive. Inspected Data/Nat/Prime/Defs.lean:407-408: exists_prime_and_dvd assumes n != 1. Inspected Data/Nat/Find.lean:73-84: find_spec and find_min certify the least witness. All are the unchanged accepted proof dependencies."
+        }
+      ],
+      "compatibility": [
+        {
+          "snapshot_file": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/lean-toolchain",
+          "installed_file": "lean-toolchain",
+          "matches": true
+        },
+        {
+          "snapshot_file": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/lake-manifest.json",
+          "installed_file": "lake-manifest.json",
+          "matches": true
+        },
+        {
+          "snapshot_file": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+          "installed_file": "Definitions/Def_GroupCohomology_TateCohomology.lean",
+          "matches": true
+        },
+        {
+          "snapshot_file": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Fermat/Thm_Rep_isZero_tateCohomology_of_forall_sylow.lean",
+          "installed_file": "Fermat/Thm_Rep_isZero_tateCohomology_of_forall_sylow.lean",
+          "matches": true
+        },
+        {
+          "snapshot_file": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/Group/Basic.lean",
+          "installed_file": ".lake/packages/mathlib/Mathlib/Algebra/Group/Basic.lean",
+          "matches": true
+        },
+        {
+          "snapshot_file": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Data/Nat/Find.lean",
+          "installed_file": ".lake/packages/mathlib/Mathlib/Data/Nat/Find.lean",
+          "matches": true
+        },
+        {
+          "snapshot_file": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Data/Nat/Prime/Defs.lean",
+          "installed_file": ".lake/packages/mathlib/Mathlib/Data/Nat/Prime/Defs.lean",
+          "matches": true
+        }
+      ],
+      "reuse": "No new Lean material copied. Toolchain, dependency manifest, frozen theorem, Tate definitions, and inspected mathlib files match the snapshot. Transitive axioms must be checked by the exact configured comparator."
+    }
+  ],
+  "validation_scope": "This source audit records integration preservation, not proof acceptance. Run the exact configured comparator on the committed tree; independent integration review remains the outer controller gate."
+}
