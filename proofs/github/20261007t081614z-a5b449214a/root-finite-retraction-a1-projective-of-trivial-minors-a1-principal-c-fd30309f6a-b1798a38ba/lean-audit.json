@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "exists_lift_of_isLocalizedModule|exists_smul_of_comp_eq_of_isLocalizedModule|span_range_pow_eq_top|p05_ptm_split_of_away_splits",
+        "HopfKerHopf|p05_ptm_split_of_away_splits_a5b449214a"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Module/FinitePresentation.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Ideal/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib"
+      ],
+      "conclusion": "Both snapshots are clean at the manifest revisions. Located the upstream localization-lifting, scalar-equality, and power-span declarations used by accepted dependencies. No match for the tracked theorem or HopfKerHopf in the searched definition file and Mathlib tree. The exact comparator rerun passed with only propext, Classical.choice, and Quot.sound. Its 223 exported file hashes match the inspected evidence, including the policy-authorized reversible header copies."
+    }
+  ],
+  "comparison_identity": "45608ece93abd5b5ef84c45767c4068c91399e45c58913c1ccf541c220253297",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p05_ptm_split_of_away_splits_a5b449214a",
+      "statement": "∀ {R : Type*} [CommRing R] {M : Type*} [AddCommGroup M] [Module R M] (n p q : ℕ) (P : Matrix (Fin n) (Fin p) R) (π : (Fin n → R) →ₗ[R] M) (_hπ : Function.Surjective π) (_hker : LinearMap.ker π = LinearMap.range P.mulVecLin) (f : Fin q → R) (_hcover : Ideal.span (Set.range f) = ⊤) (_hlocal : ∀ i : Fin q, ∃ s : LocalizedModule (Submonoid.powers (f i)) M →ₗ[Localization.Away (f i)] LocalizedModule (Submonoid.powers (f i)) (Fin n → R), (LocalizedModule.map (Submonoid.powers (f i)) π).comp s = LinearMap.id), ∃ s : M →ₗ[R] (Fin n → R), π.comp s = LinearMap.id",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Composes the accepted denominator-clearing and finite-cover patching prerequisites to obtain a global section."
+    }
+  ]
+}
