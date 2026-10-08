@@ -1940,3 +1940,51 @@ theorem Submission.p05_ibs_extend_minor_a5b449214a
     r c).submatrix e e) = _
   rw [Matrix.det_submatrix_equiv_self, h, Matrix.det_fromBlocks_zero₂₁,
     Matrix.det_one, mul_one]
+theorem Submission.p05_fhess_coefficient_span_stable_a5b449214a
+    {k : Type*} [Field k] {C : Type*} [AddCommGroup C] [Module k C] [Coalgebra k C]
+    (x : C) (n : ℕ) (v w : Fin n → C) (hw : LinearIndependent k w)
+    (hΔ : Coalgebra.comul (R := k) x =
+      ∑ i : Fin n, TensorProduct.tmul k (v i) (w i)) :
+    FiniteDimensional k (Submodule.span k (Set.range v)) ∧
+    x ∈ Submodule.span k (Set.range v) ∧
+    ∀ y ∈ Submodule.span k (Set.range v), Coalgebra.comul (R := k) y ∈
+      Submodule.span k {t : TensorProduct k C C |
+        ∃ a ∈ Submodule.span k (Set.range v), ∃ b : C,
+          t = TensorProduct.tmul k a b} := by
+  classical
+  let V := Submodule.span k (Set.range v)
+  let W := Submodule.span k {t : C ⊗[k] C | ∃ a ∈ V, ∃ b : C, t = a ⊗ₜ[k] b}
+  have hv (i : Fin n) : v i ∈ V := Submodule.subset_span (Set.mem_range_self i)
+  refine ⟨FiniteDimensional.span_of_finite k (Set.finite_range v), ?_, ?_⟩
+  · have hx : x = ∑ i : Fin n, Coalgebra.counit (R := k) (w i) • v i := by
+      have h := congrArg
+        (fun z => TensorProduct.rid k C ((Coalgebra.counit (R := k)).lTensor C z)) hΔ
+      simpa [map_sum] using h
+    rw [hx]
+    exact Submodule.sum_mem _ fun i _ => Submodule.smul_mem V _ (hv i)
+  · suffices hs : V ≤ W.comap (Coalgebra.comul (R := k)) from fun y hy => hs hy
+    apply Submodule.span_le.mpr
+    rintro _ ⟨j, rfl⟩
+    change Coalgebra.comul (R := k) (v j) ∈ W
+    obtain ⟨φ, hφ⟩ := ((Finsupp.lapply j).comp hw.repr).exists_extend
+    have hφw (i : Fin n) : φ (w i) = if i = j then 1 else 0 := by
+      have h := LinearMap.congr_fun hφ
+        ⟨w i, Submodule.subset_span (Set.mem_range_self i)⟩
+      simpa [hw.repr_eq_single i
+        ⟨w i, Submodule.subset_span (Set.mem_range_self i)⟩ rfl, Finsupp.single_apply] using h
+    let D : C ⊗[k] C →ₗ[k] C := (TensorProduct.rid k C).toLinearMap.comp (φ.lTensor C)
+    let T : (C ⊗[k] C) ⊗[k] C →ₗ[k] C ⊗[k] C :=
+      (TensorProduct.rid k (C ⊗[k] C)).toLinearMap.comp (φ.lTensor (C ⊗[k] C))
+    have hT (a : C) (z : C ⊗[k] C) :
+        T ((TensorProduct.assoc k C C C).symm (a ⊗ₜ[k] z)) = a ⊗ₜ[k] D z := by
+      induction z using TensorProduct.induction_on with
+      | zero => simp [D, T]
+      | tmul b c => simp [D, T, TensorProduct.tmul_smul]
+      | add z z' hz hz' => simp [TensorProduct.tmul_add, hz, hz']
+    have hco := congrArg T (Coalgebra.coassoc_symm_apply (R := k) x)
+    have heq : Coalgebra.comul (R := k) (v j) =
+        ∑ i : Fin n, v i ⊗ₜ[k] D (Coalgebra.comul (R := k) (w i)) := by
+      simpa [hΔ, map_sum, hT, T, hφw] using hco.symm
+    rw [heq]
+    exact Submodule.sum_mem _ fun i _ =>
+      Submodule.subset_span ⟨v i, hv i, D (Coalgebra.comul (R := k) (w i)), rfl⟩
