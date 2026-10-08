@@ -822,6 +822,8 @@ theorem p06_9e0f5043ff_ifl_local_length_order
     exact w.ord_unit_smul_zpow u' hπ' (m : ℤ)
 namespace Submission
 
+/-- Extend an additive exponent on nonzero polynomials to integer orders on a field
+represented by fractions of their evaluations at a transcendental element. -/
 theorem p06_9e0f5043ff_io_fraction_extension :
     ∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F),
       Transcendental K x →
@@ -856,6 +858,7 @@ theorem p06_9e0f5043ff_io_fraction_extension :
     have hsum := congrArg μ hcross
     rw [hμ p s hp hs, hμ r q hr hq] at hsum
     omega
+  -- The exponent at the zero polynomial is unrestricted, so define the value at zero separately.
   let ν : F → ℤ := fun f => if f = 0 then 0 else (μ (a f) : ℤ) - (μ (b f) : ℤ)
   have hformula (p q : Polynomial K) (hp : p ≠ 0) (hq : q ≠ 0) :
       ν (e p / e q) = (μ p : ℤ) - (μ q : ℤ) := by
