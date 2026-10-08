@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "coaction|hopfKer|mul_antipode",
+        "mul_antipode_(lTensor|rTensor)_comul",
+        "p05_fr_rhm_coaction_twist_a5b449214a|p05_ct_algebra_a5b449214a|p05_ct_comodule_a5b449214a"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Basic.lean"
+      ],
+      "conclusion": "Both snapshots are clean at their manifest revisions. The project defines coaction and hopfKer; pinned mathlib supplies both antipode cancellation identities. No selected or prerequisite theorem names matched the searched project Definitions and mathlib HopfAlgebra directories. Actual compiler copies preserve the pinned definitions. The independent comparator rerun verified exact types and reported only propext, Classical.choice and Quot.sound."
+    }
+  ],
+  "comparison_identity": "e53984d2d44fc3214b2fd3f5055a0d38b9bec1a404bfbee4593c1134bf953c67",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p05_fr_rhm_coaction_twist_a5b449214a",
+      "statement": "∀ {k : Type*} [Field k] {A : Type*} [CommRing A] [HopfAlgebra k A] {H : Type*} [CommRing H] [HopfAlgebra k H] (ι : BialgHom k A H) {M : Type*} [AddCommGroup M] [Module k M] [Module A M] [IsScalarTower k A M] [Module (TensorProduct k A H) (TensorProduct k M H)] (_hact : ∀ (a : A) (h : H) (m : M) (g : H), (TensorProduct.tmul k a h) • (TensorProduct.tmul k m g) = TensorProduct.tmul k (a • m) (h * g)) (μ : M →ₗ[k] TensorProduct k M H) (_hcoassoc : ∀ m : M, TensorProduct.assoc k M H H ((TensorProduct.map μ (LinearMap.id : H →ₗ[k] H)) (μ m)) = (TensorProduct.map (LinearMap.id : M →ₗ[k] M) (Coalgebra.comul (R := k))) (μ m)) (_hcounit : ∀ m : M, TensorProduct.rid k M ((TensorProduct.map (LinearMap.id : M →ₗ[k] M) (Coalgebra.counit (R := k))) (μ m)) = m) (_hcompat : ∀ (a : A) (m : M), let d := Coalgebra.Repr.arbitrary k a; μ (a • m) = ∑ i ∈ d.index, TensorProduct.map ((Algebra.lsmul k k M) (d.left i)) (LinearMap.mulLeft k (ι (d.right i))) (μ m)), ∃ (θ : TensorProduct k A H ≃ₐ[k] TensorProduct k A H) (T : TensorProduct k M H ≃ₗ[k] TensorProduct k M H), (∀ (a : A) (h : H), θ (TensorProduct.tmul k a h) = (TensorProduct.map (LinearMap.id : A →ₗ[k] A) ι.toLinearMap) (Coalgebra.comul (R := k) a) * TensorProduct.tmul k (1 : A) h) ∧ (∀ (m : M) (h : H), T (TensorProduct.tmul k m h) = TensorProduct.map (LinearMap.id : M →ₗ[k] M) (LinearMap.mulLeft k h) (μ m)) ∧ (∀ (s : TensorProduct k A H) (x : TensorProduct k M H), T (s • x) = θ s • T x)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines the accepted algebra and comodule twist equivalences, then establishes compatibility using the prescribed action and tensor additivity."
+    }
+  ]
+}
