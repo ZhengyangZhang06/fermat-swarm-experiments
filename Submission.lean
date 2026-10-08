@@ -61,3 +61,23 @@ theorem groupCohomology.bijective_theta_dualTwist_of_res_of_isOpen
         Rep.res S.subtype (ofChar (k := ZMod p) ((cycloChar p).comp (primeLocalToGlobal q)))) inv θ₂) :
     Function.Bijective θ₀ ∧ Function.Bijective θ₁ ∧ Function.Bijective θ₂ := by
   sorry
+
+theorem Submission.p08_7d1ff633a4_ck_uniform_stabilizer :
+    ∀ {k G : Type} [Field k] [Group G]
+      (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ))
+      (M : Rep.{0} k G) [FiniteDimensional k M],
+      (∀ m : M, ∃ F : IntermediateField ℚ (AlgebraicClosure ℚ),
+        FiniteDimensional ℚ F ∧
+        ∀ g : G, r g ∈ F.fixingSubgroup → M.ρ g m = m) →
+      ∃ F : IntermediateField ℚ (AlgebraicClosure ℚ), FiniteDimensional ℚ F ∧
+        ∀ g : G, r g ∈ F.fixingSubgroup → ∀ m : M, M.ρ g m = m := by
+  classical
+  intro k G _ _ r M _ h
+  let b : Basis (Fin (finrank k M)) k M := Module.finBasis k M
+  choose F hF hfix using fun i => h (b i)
+  let : ∀ i, FiniteDimensional ℚ (F i) := hF
+  refine ⟨⨆ i, F i, inferInstance, ?_⟩
+  intro g hg m
+  have hρ : M.ρ g = LinearMap.id := b.ext fun i =>
+    hfix i g (IntermediateField.fixingSubgroup_le (le_iSup F i) hg)
+  exact LinearMap.congr_fun hρ m

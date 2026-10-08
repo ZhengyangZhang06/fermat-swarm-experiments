@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "fd27681af296df274187682d61a82d600260d4ea7781c7c9c3084828cbb2ff9b",
+  "git_delta": {
+    "base_commit": "7fd2f521153cd84a4090e77972b9201a5558ea0f",
+    "candidate_commit": "90aafdc292203388f55abf45f31c3a9e0383a03b",
+    "target": "Submission.lean",
+    "declaration": "p08_7d1ff633a4_ck_uniform_stabilizer",
+    "diff_sha256": "8a1a4633211bf7ab41ba78d94a0ff30d750c17f122749b08ab2fe26ce9ce6827",
+    "source_sha256": "b605322e1dbf01b9ff7efe2f8e80a780928242551ca8da5a18c34e920241037e",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p08_7d1ff633a4_ck_uniform_stabilizer",
+      "statement": "∀ {k G : Type} [Field k] [Group G] (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)) (M : Rep.{0} k G) [FiniteDimensional k M], (∀ m : M, ∃ F : IntermediateField ℚ (AlgebraicClosure ℚ), FiniteDimensional ℚ F ∧ ∀ g : G, r g ∈ F.fixingSubgroup → M.ρ g m = m) → ∃ F : IntermediateField ℚ (AlgebraicClosure ℚ), FiniteDimensional ℚ F ∧ ∀ g : G, r g ∈ F.fixingSubgroup → ∀ m : M, M.ρ g m = m",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
