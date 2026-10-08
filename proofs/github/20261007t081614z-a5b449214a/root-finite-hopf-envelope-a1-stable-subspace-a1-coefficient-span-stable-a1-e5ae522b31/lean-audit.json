@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "52317fe9f18928a0837a01f68b39b4b674d89e8c643ad770ab35f43479436ca8",
+  "git_delta": {
+    "base_commit": "2945f29458d97e8cc85e9ccc2a324b1850032da2",
+    "candidate_commit": "67e0ece27838157077918d429d76ca69f601806d",
+    "target": "Submission.lean",
+    "declaration": "p05_fhess_coefficient_span_stable_a5b449214a",
+    "diff_sha256": "81bbd8922c2d22550ea5e96675a2867fe8743eeb82127577395ab44d69e5309b",
+    "source_sha256": "c7c3590d94a48f6d0e33fe5d2f380829315bcf833e1d663c42d5141adff4bcdb",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_fhess_coefficient_span_stable_a5b449214a",
+      "statement": "∀ {k : Type*} [Field k] {C : Type*} [AddCommGroup C] [Module k C] [Coalgebra k C] (x : C) (n : ℕ) (v w : Fin n → C), LinearIndependent k w → Coalgebra.comul (R := k) x = (∑ i : Fin n, TensorProduct.tmul k (v i) (w i)) → FiniteDimensional k (Submodule.span k (Set.range v)) ∧ x ∈ Submodule.span k (Set.range v) ∧ ∀ y ∈ Submodule.span k (Set.range v), Coalgebra.comul (R := k) y ∈ Submodule.span k {t : TensorProduct k C C | ∃ a ∈ Submodule.span k (Set.range v), ∃ b : C, t = TensorProduct.tmul k a b}",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
