@@ -1180,6 +1180,7 @@ theorem p02_es_177ebb5a_pp_integral_parabolic_normal_form :
     ext i j
     fin_cases i <;> fin_cases j <;> simp
 
+/-- Expand a homogeneous binary form in the monomials with exponents `(r, n - r)`. -/
 theorem p02_es_177ebb5a_ic_lct_monomial_expansion
     (n : ℕ) (Q : ↥(HeckeEis.BinaryForm ℂ n)) :
     Q.val = ∑ r : Fin (n + 1),
