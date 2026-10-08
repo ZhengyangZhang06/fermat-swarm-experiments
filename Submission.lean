@@ -3346,3 +3346,80 @@ theorem Submission.p05_ct_algebra_a5b449214a
   refine ⟨AlgEquiv.ofBijective F hbij, ?_⟩
   intro a h
   rfl
+theorem Submission.p05_ct_comodule_a5b449214a
+    {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
+    {M : Type*} [AddCommGroup M] [Module k M]
+    (μ : M →ₗ[k] TensorProduct k M H)
+    (_hcoassoc : ∀ m : M, TensorProduct.assoc k M H H
+      ((TensorProduct.map μ (LinearMap.id : H →ₗ[k] H)) (μ m)) =
+      (TensorProduct.map (LinearMap.id : M →ₗ[k] M)
+        (Coalgebra.comul (R := k))) (μ m))
+    (_hcounit : ∀ m : M, TensorProduct.rid k M
+      ((TensorProduct.map (LinearMap.id : M →ₗ[k] M)
+        (Coalgebra.counit (R := k))) (μ m)) = m) :
+    ∃ T : TensorProduct k M H ≃ₗ[k] TensorProduct k M H,
+      ∀ (m : M) (h : H), T (TensorProduct.tmul k m h) =
+        TensorProduct.map (LinearMap.id : M →ₗ[k] M) (LinearMap.mulLeft k h) (μ m) := by
+  let P (f g : H →ₗ[k] H) : H ⊗[k] H →ₗ[k] H :=
+    LinearMap.mul' k H ∘ₗ TensorProduct.map f g
+  let F (f : H →ₗ[k] H) : M ⊗[k] H →ₗ[k] M ⊗[k] H :=
+    TensorProduct.map LinearMap.id (P f LinearMap.id) ∘ₗ
+      (TensorProduct.assoc k M H H).toLinearMap ∘ₗ
+        TensorProduct.map μ LinearMap.id
+  have hF (f : H →ₗ[k] H) (m : M) (h : H) :
+      F f (m ⊗ₜ[k] h) =
+        TensorProduct.map LinearMap.id (LinearMap.mulRight k h ∘ₗ f) (μ m) := by
+    change TensorProduct.map LinearMap.id (P f LinearMap.id)
+      (TensorProduct.assoc k M H H ((μ m) ⊗ₜ[k] h)) = _
+    induction μ m using TensorProduct.induction_on with
+    | zero => simp
+    | tmul x y => simp [P]
+    | add x y hx hy => simp only [TensorProduct.add_tmul, map_add, hx, hy]
+  have hcomp (f g : H →ₗ[k] H) (h : H) (z : M ⊗[k] H) :
+      F f (TensorProduct.map LinearMap.id (LinearMap.mulRight k h ∘ₗ g) z) =
+        TensorProduct.map LinearMap.id (LinearMap.mulRight k h ∘ₗ P f g)
+          (TensorProduct.assoc k M H H (TensorProduct.map μ LinearMap.id z)) := by
+    induction z using TensorProduct.induction_on with
+    | zero => simp
+    | tmul m b =>
+      simp only [TensorProduct.map_tmul, LinearMap.id_apply, LinearMap.comp_apply,
+        LinearMap.mulRight_apply, hF]
+      induction μ m using TensorProduct.induction_on with
+      | zero => simp
+      | tmul x y => simp [P, mul_assoc]
+      | add x y hx hy => simp only [TensorProduct.add_tmul, map_add, hx, hy]
+    | add x y hx hy => simp only [map_add, hx, hy]
+  have hcancel (f g : H →ₗ[k] H)
+      (hfg : P f g ∘ₗ Coalgebra.comul (R := k) =
+        Algebra.linearMap k H ∘ₗ Coalgebra.counit (R := k)) :
+      F f ∘ₗ F g = LinearMap.id := by
+    apply TensorProduct.ext'
+    intro m h
+    simp only [LinearMap.comp_apply, LinearMap.id_apply, hF, hcomp, _hcoassoc]
+    rw [TensorProduct.map_map, LinearMap.id_comp, LinearMap.comp_assoc, hfg]
+    have hc (z : M ⊗[k] H) :
+        TensorProduct.map (LinearMap.id : M →ₗ[k] M)
+          (LinearMap.mulRight k h ∘ₗ Algebra.linearMap k H ∘ₗ
+            Coalgebra.counit (R := k)) z =
+          TensorProduct.rid k M
+            (TensorProduct.map LinearMap.id (Coalgebra.counit (R := k)) z) ⊗ₜ[k] h := by
+      induction z using TensorProduct.induction_on with
+      | zero => simp
+      | tmul x y => simp [Algebra.smul_def, TensorProduct.smul_tmul]
+      | add x y hx hy => simp only [map_add, TensorProduct.add_tmul, hx, hy]
+    rw [hc, _hcounit]
+  have hleft : F (HopfAlgebra.antipode k) ∘ₗ F LinearMap.id = LinearMap.id :=
+    hcancel _ _ (HopfAlgebra.mul_antipode_rTensor_comul (R := k) (A := H))
+  have hright : F LinearMap.id ∘ₗ F (HopfAlgebra.antipode k) = LinearMap.id :=
+    hcancel _ _ (HopfAlgebra.mul_antipode_lTensor_comul (R := k) (A := H))
+  refine ⟨{ F LinearMap.id with
+    invFun := F (HopfAlgebra.antipode k)
+    left_inv := fun z => LinearMap.congr_fun hleft z
+    right_inv := fun z => LinearMap.congr_fun hright z }, ?_⟩
+  intro m h
+  change F LinearMap.id (m ⊗ₜ[k] h) = _
+  rw [hF, LinearMap.comp_id]
+  have hmul : LinearMap.mulRight k h = LinearMap.mulLeft k h := by
+    ext b
+    exact mul_comm b h
+  rw [hmul]
