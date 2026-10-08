@@ -2022,3 +2022,16 @@ theorem Submission.p08_7d1ff633a4_tt26_cp_one_one :
   change Q (R A (π A ⟨f, hf⟩)) (R B (π B ⟨g, hg⟩)) = Q ⟨f, hf⟩ ⟨g, hg⟩
   exact (hQl _ _ _ (hR A (π A ⟨f, hf⟩))).trans
     (hQr _ _ _ (hR B (π B ⟨g, hg⟩)))
+theorem Submission.p08_7d1ff633a4_cp11_left_level_boundary :
+    ∀ {k G : Type} [Field k] [Group G] (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)) (A B N : Rep.{0} k G) (φ : A →ₗ[k] B →ₗ[k] N), (∀ (s : G) (a : A) (b : B), φ (A.ρ s a) (B.ρ s b) = N.ρ s (φ a b)) → ∀ (a : A) (g : groupCohomology.cocycles₁ B), groupCohomology.IsLevelConstant₁ r (⇑g) → groupCohomology.cupCochain φ (fun s : G => A.ρ s a - a) (⇑g) ∈ groupCohomology.levelCoboundaries₂ r N := by
+  intro k G _ _ r A B N φ hφ a g hg
+  apply (groupCohomology.mem_levelCoboundaries₂_iff r N _).2
+  refine ⟨fun t => φ a (g t), hg.comp (φ a), ?_⟩
+  funext p
+  obtain ⟨s, t⟩ := p
+  rw [groupCohomology.d₁₂_hom_apply]
+  change N.ρ s (φ a (g t)) - φ a (g (s * t)) + φ a (g s) =
+    φ (A.ρ s a - a) (B.ρ s (g t))
+  rw [(groupCohomology.mem_cocycles₁_iff (⇑g)).1 g.2 s t, ← hφ s a (g t)]
+  simp only [map_add, map_sub, LinearMap.sub_apply]
+  abel
