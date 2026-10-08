@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081613Z-17ae7b7df2",
+  "parent_id": "root.level_one_valence_inequality-a1.pseudohyperbolic_disks-a1.disk_mobius_image-a1",
+  "dispatch_branch": "proof-workspace/fermat-p10/20261007t081613z-17ae7b7df2/dispatch/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-3b4813b4ee",
+  "source_commit": "a9c343f05e2a84f6e944a06a2da5d3ccc484b52c",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.level_one_valence_inequality-a1.pseudohyperbolic_disks-a1.disk_mobius_image-a1.mobius_ratio_norm_invariance-a1",
+      "key": "mobius_ratio_norm_invariance",
+      "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-a603e2d17e-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-3b4813b4ee/children/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-a603e2d17e",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "denom_ne_zero|im_smul|specialLinearGroup_apply|norm.*sub|conj|div.*im",
+              "pseudohyperbolic|cross.ratio|norm.*conj.*denom",
+              "def BijOn|theorem BijOn.mapsTo|theorem BijOn.surjOn|def SurjOn|structure BijOn|norm_conj|star_def",
+              "rg -n --hidden --no-ignore -g 'dag.json' -g '!**/.lake/**' -g '!**/local-references/**' 'p10_17ae7b7d_phdisk_mobius_(bijon|ratio_norm)' /mnt/data/zhengyang-workspace/fermat-swarm-projects",
+              "python3 /tmp/phdisk_mobius_decomposition_probe.py"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Metric.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/Norm.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Complex/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Set/Function.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/mobius-image-split-hyi3t56v/report.json"
+            ],
+            "conclusion": "The pinned sources provide denominator nonvanishing, the Möbius imaginary-part formula, the special-linear action, the related tanh_half_dist ratio identity, conjugation preserving norm, and the mapsTo/surjOn components of Set.BijOn. The targeted pseudohyperbolic/cross-ratio search found no matches in project/Definitions or the upper-half-plane directory. Both snapshots and all nine installed dependencies match their recorded revisions and are clean; the five inspected mathlib files match the installed sources byte-for-byte. Selected library axiom probes report only propext, Classical.choice and Quot.sound, or no axioms. Neither proposed name occurs in the searched DAGs or imported Lean environment. Both exact child types, complex-star/norm probes, and their composition into the unchanged parent type pass Lean after import Submission at proof base b4ff37aac322c66612cb8df5edb6a2d6a3a2dd6c. The diagnostic receipt records policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, reversible omission of only lines 10–12, original/build hashes, and a successful Lean absence probe for all 56 targets. These are decomposition diagnostics, not comparator acceptance."
+          }
+        ],
+        "parent_id": "root.level_one_valence_inequality-a1.pseudohyperbolic_disks-a1.disk_mobius_image-a1",
+        "child_id": "root.level_one_valence_inequality-a1.pseudohyperbolic_disks-a1.disk_mobius_image-a1.mobius_ratio_norm_invariance-a1",
+        "subproblem": {
+          "key": "mobius_ratio_norm_invariance",
+          "title": "Determinant-one real Möbius maps preserve the pseudohyperbolic ratio norm",
+          "statement": "Let a,b,c,d be real numbers satisfying ad−bc=1, and let z,v∈ℂ satisfy Im(z)>0 and Im(v)>0. Define the total complex function M(x)=(ax+b)/(cx+d), with real coefficients embedded in ℂ. Then ‖(M(z)−M(v))/(M(z)−conj(M(v)))‖=‖(z−v)/(z−conj(v))‖.",
+          "lean_statement": "∀ (a b c d : ℝ) (z v : ℂ), a * d - b * c = 1 → 0 < z.im → 0 < v.im → let M : ℂ → ℂ := fun x => ((a : ℂ) * x + (b : ℂ)) / ((c : ℂ) * x + (d : ℂ)); ‖(M z - M v) / (M z - star (M v))‖ = ‖(z - v) / (z - star v)‖",
+          "lean_name": "p10_17ae7b7d_phdisk_mobius_ratio_norm",
+          "depends_on": [],
+          "natural_proof": "1. Fix a,b,c,d,z,v satisfying the stated hypotheses. Write Q(x)=cx+d and M(x)=(ax+b)/Q(x). For either x=z or x=v, if c≠0 then Im(Q(x))=c Im(x)≠0, so Q(x)≠0. If c=0, the determinant equation implies ad=1 and therefore d≠0, again giving Q(x)≠0. Thus Q(z) and Q(v) are nonzero.\n2. Because a,b,c,d are real, conjugation gives Q(conj(v))=conj(Q(v)) and M(conj(v))=conj(M(v)). Conjugation is an involution and sends zero to zero, so conj(Q(v))≠0.\n3. For any complex x,y with Q(x)≠0 and Q(y)≠0, subtraction over the common denominator gives M(x)−M(y)=[(ax+b)(cy+d)−(ay+b)(cx+d)]/[Q(x)Q(y)]. Expanding the numerator cancels the acxy and bd terms and leaves (ad−bc)(x−y)=x−y. Hence M(x)−M(y)=(x−y)/(Q(x)Q(y)).\n4. Apply step 3 to x=z,y=v to obtain M(z)−M(v)=(z−v)/(Q(z)Q(v)). Apply it to x=z,y=conj(v), using step 2, to obtain M(z)−conj(M(v))=(z−conj(v))/(Q(z)conj(Q(v))). The imaginary part of z−conj(v) is Im(z)+Im(v)>0, so z−conj(v)≠0. Since Q(z) and conj(Q(v)) are nonzero, the latter difference M(z)−conj(M(v)) is also nonzero.\n5. Divide the two identities from step 4. Cancelling the nonzero factors Q(z), Q(v), conj(Q(v)) and z−conj(v) yields (M(z)−M(v))/(M(z)−conj(M(v)))=((z−v)/(z−conj(v)))·(conj(Q(v))/Q(v)). This cancellation does not require z−v to be nonzero.\n6. Complex conjugation preserves norm, and Q(v)≠0 implies ‖Q(v)‖>0. Therefore ‖conj(Q(v))/Q(v)‖=‖conj(Q(v))‖/‖Q(v)‖=‖Q(v)‖/‖Q(v)‖=1. Taking norms in step 5 and using multiplicativity of the complex norm gives the required equality.",
+          "proof_key_steps": [
+            "Establish nonvanishing of the denominators at z and v.",
+            "Use real coefficients to commute conjugation with the denominator and Möbius map.",
+            "Expand the numerator of a general difference of two Möbius values.",
+            "Specialize to v and its conjugate and verify nonvanishing of the ratio denominators.",
+            "Express the transformed ratio as the original ratio times conj(Q(v))/Q(v).",
+            "Show that the extra factor has norm one and take norms."
+          ]
+        },
+        "audit": {
+          "key": "mobius_ratio_norm_invariance",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition includes every hypothesis and exactly expresses the prose equality; complex star was independently checked as conjugation. The local let defines M without relying on a child implementation. Steps 1–4 establish all necessary nonvanishing facts and correctly expand both differences. Step 5 cancels only nonzero factors, allowing z=v. Step 6 proves the remaining conjugate quotient has norm one. The proof is complete and independent of the parent and sibling, so its empty dependency list is correct. The bare Lean name is unreserved."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-a603e2d17e/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-a603e2d17e/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-a603e2d17e/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.level_one_valence_inequality-a1.pseudohyperbolic_disks-a1.disk_mobius_image-a1.mobius_upper_half_plane_bijection-a1",
+      "key": "mobius_upper_half_plane_bijection",
+      "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-53f9f3ac68-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-3b4813b4ee/children/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-53f9f3ac68",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "denom_ne_zero|im_smul|specialLinearGroup_apply|norm.*sub|conj|div.*im",
+              "pseudohyperbolic|cross.ratio|norm.*conj.*denom",
+              "def BijOn|theorem BijOn.mapsTo|theorem BijOn.surjOn|def SurjOn|structure BijOn|norm_conj|star_def",
+              "rg -n --hidden --no-ignore -g 'dag.json' -g '!**/.lake/**' -g '!**/local-references/**' 'p10_17ae7b7d_phdisk_mobius_(bijon|ratio_norm)' /mnt/data/zhengyang-workspace/fermat-swarm-projects",
+              "python3 /tmp/phdisk_mobius_decomposition_probe.py"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Metric.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/Norm.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Complex/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Set/Function.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/mobius-image-split-hyi3t56v/report.json"
+            ],
+            "conclusion": "The pinned sources provide denominator nonvanishing, the Möbius imaginary-part formula, the special-linear action, the related tanh_half_dist ratio identity, conjugation preserving norm, and the mapsTo/surjOn components of Set.BijOn. The targeted pseudohyperbolic/cross-ratio search found no matches in project/Definitions or the upper-half-plane directory. Both snapshots and all nine installed dependencies match their recorded revisions and are clean; the five inspected mathlib files match the installed sources byte-for-byte. Selected library axiom probes report only propext, Classical.choice and Quot.sound, or no axioms. Neither proposed name occurs in the searched DAGs or imported Lean environment. Both exact child types, complex-star/norm probes, and their composition into the unchanged parent type pass Lean after import Submission at proof base b4ff37aac322c66612cb8df5edb6a2d6a3a2dd6c. The diagnostic receipt records policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, reversible omission of only lines 10–12, original/build hashes, and a successful Lean absence probe for all 56 targets. These are decomposition diagnostics, not comparator acceptance."
+          }
+        ],
+        "parent_id": "root.level_one_valence_inequality-a1.pseudohyperbolic_disks-a1.disk_mobius_image-a1",
+        "child_id": "root.level_one_valence_inequality-a1.pseudohyperbolic_disks-a1.disk_mobius_image-a1.mobius_upper_half_plane_bijection-a1",
+        "subproblem": {
+          "key": "mobius_upper_half_plane_bijection",
+          "title": "Determinant-one real Möbius maps biject the upper half-plane",
+          "statement": "Let a,b,c,d be real numbers satisfying ad−bc=1. Define H={z∈ℂ : Im(z)>0} and the total complex function M(z)=(az+b)/(cz+d), with real coefficients embedded in ℂ. Then M maps H into H, is injective on H, and is surjective from H onto H.",
+          "lean_statement": "∀ (a b c d : ℝ), a * d - b * c = 1 → Set.BijOn (fun z : ℂ => ((a : ℂ) * z + (b : ℂ)) / ((c : ℂ) * z + (d : ℂ))) {z : ℂ | 0 < z.im} {z : ℂ | 0 < z.im}",
+          "lean_name": "p10_17ae7b7d_phdisk_mobius_bijon",
+          "depends_on": [],
+          "natural_proof": "1. Fix real a,b,c,d with ad−bc=1. Set H={z∈ℂ : Im(z)>0}, Q(z)=cz+d, M(z)=(az+b)/Q(z), P(w)=−cw+a, and N(w)=(dw−b)/P(w). All real coefficients in these expressions are viewed as complex numbers.\n2. First consider arbitrary real α,β,γ,δ satisfying αδ−βγ=1, and x=u+it with t>0. Put R(x)=γx+δ. If γ≠0, then Im(R(x))=γt≠0, hence R(x)≠0. If γ=0, the determinant equation gives αδ=1, so δ≠0 and R(x)=δ≠0. Thus R(x) is nonzero in either case.\n3. For these same arbitrary coefficients, multiplication by the conjugate denominator gives Im((αx+β)/R(x))=[αt(γu+δ)−(αu+β)γt]/‖R(x)‖². The numerator is (αδ−βγ)t=t. Since R(x)≠0, its squared norm is positive, so this imaginary part is positive. Consequently every real determinant-one coefficient quadruple defines a map from H into H, with nonzero denominator there.\n4. Apply steps 2–3 to (a,b,c,d). This proves Q(z)≠0 and M(z)∈H for every z∈H. Apply them also to (d,−b,−c,a), whose determinant is da−(−b)(−c)=ad−bc=1. This proves P(w)≠0 and N(w)∈H for every w∈H.\n5. For z∈H, expansion gives d(az+b)−b(cz+d)=(ad−bc)z=z and −c(az+b)+a(cz+d)=ad−bc=1. Division by the nonzero Q(z) therefore gives dM(z)−b=z/Q(z) and P(M(z))=−cM(z)+a=1/Q(z). In particular this latter denominator is nonzero, and N(M(z))=(z/Q(z))/(1/Q(z))=z.\n6. For w∈H, expansion gives a(dw−b)+b(−cw+a)=(ad−bc)w=w and c(dw−b)+d(−cw+a)=ad−bc=1. Division by the nonzero P(w) gives aN(w)+b=w/P(w) and Q(N(w))=cN(w)+d=1/P(w). Hence M(N(w))=(w/P(w))/(1/P(w))=w.\n7. Step 4 proves that M maps H into H. If z₁,z₂∈H and M(z₁)=M(z₂), applying N and using step 5 gives z₁=z₂, proving injectivity on H. For any w∈H, step 4 gives N(w)∈H and step 6 gives M(N(w))=w, proving surjectivity onto H. These three assertions are precisely the claimed set bijection.",
+          "proof_key_steps": [
+            "Prove that a real determinant-one linear denominator cannot vanish at a point with positive imaginary part.",
+            "Compute the transformed imaginary part as the original imaginary part divided by the squared denominator norm.",
+            "Apply this calculation to the original and inverse coefficient quadruples.",
+            "Expand the numerators to establish N(M(z))=z on the upper half-plane.",
+            "Expand the inverse numerators to establish M(N(w))=w there.",
+            "Deduce preservation, injectivity and surjectivity."
+          ]
+        },
+        "audit": {
+          "key": "mobius_upper_half_plane_bijection",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly matches the prose, including real coefficients, determinant one, and bijectivity restricted to the upper half-plane. Steps 2–3 correctly establish denominator nonvanishing and positive transformed imaginary part. Steps 4–6 verify the inverse determinant and both inverse identities with justified cancellations. Step 7 proves every component of Set.BijOn. The proof is complete, uses no parent or sibling result, and supports the empty dependency list. The bare Lean name is unreserved."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-53f9f3ac68/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-53f9f3ac68/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-53f9f3ac68/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-3b4813b4ee/task.md": "88b1002f931f9db565a73aca07e087230eaf4513e50f89dde142b288f4f74309",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-3b4813b4ee/problem.md": "c0d696de12207f8a138e01c1056e5c32494f559ac76a7f989b86196fbe3ec896",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-3b4813b4ee/problem.json": "09bfb3e94e9c52916c6ee18b497e1146a074f98a2710e85c5c5460cb0b09f76a",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-3b4813b4ee/reference-manifest.json": "57bc5044097a9c3cadb6a565fb02bfe2c5c9db06690993e4e6916463cba75efa",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-3b4813b4ee/decomposition.json": "ce60b61d5af5534204dbc4e3e5d98675ce99369a40f00e9a788264bb88d63149",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-3b4813b4ee/decomposition-audit.json": "d552f2c27573e8b9a55bd628e11e9bc146d0ab7765fd12bc6f8d40ba6254607a",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-3b4813b4ee/controller-contract.json": "d1b66564f94c24ea9aabf052e7675de958b8785c03d14b64249e21e1e9480907",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-3b4813b4ee/children/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-a603e2d17e/parent-child-handoff.json": "3846a28c865c1f796c3652086ef99d275356b087e5ce7a1459455f4d72807e13",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-3b4813b4ee/children/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-a603e2d17e/parent-supplied-plan.md": "86312fb0956cd54164fedd9b5e89f3dee5b41cda4639823736dbd55f4580fd93",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-3b4813b4ee/children/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-a603e2d17e/parent-supplied-natural-proof.md": "320c9a6932931a9056f3d649b7b4a195949abbb26026764bcf2310360287a30b",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-3b4813b4ee/children/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-a603e2d17e/parent-supplied-natural-proof.json": "d48c5c33fca7e236f74685e8b69803df04672e8a0c3ca97ada9a115718c933ba",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-3b4813b4ee/children/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-a603e2d17e/node.json": "eff6dd2833a701ab6e57af5c09403a0db369df915bb06ad16edf3e9a6f24890c",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-3b4813b4ee/children/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-53f9f3ac68/parent-child-handoff.json": "5280d0b129f24255be5aaec9e6052ab1dea6fb688116e14e6b2d3a6ba4d372f1",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-3b4813b4ee/children/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-53f9f3ac68/parent-supplied-plan.md": "4b63da18e84de6df8b9527f53cf5a519d94e3dcb64138ecdb05fa5c6d086aa9e",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-3b4813b4ee/children/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-53f9f3ac68/parent-supplied-natural-proof.md": "44dde2eaceb67f6cd1dcb937f0f9236b8349adba78dcb7d8c72fad51c48e48df",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-3b4813b4ee/children/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-53f9f3ac68/parent-supplied-natural-proof.json": "57a6ea03cc6e963c32adaaeb05dc281b89dcbc9dfd218ef65e7ab86d1e0c5095",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-3b4813b4ee/children/root-level-one-valence-inequality-a1-pseudohyperbolic-disks-a1-disk-m-53f9f3ac68/node.json": "8ee2742b8b75dfe1b7727852f60d7fca2c3c6f4efc2a867c117218eff05146ba"
+  }
+}

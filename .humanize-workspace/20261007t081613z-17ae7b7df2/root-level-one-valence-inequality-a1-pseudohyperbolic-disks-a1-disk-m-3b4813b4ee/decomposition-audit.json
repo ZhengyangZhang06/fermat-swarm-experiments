@@ -1,0 +1,46 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "denom_ne_zero|im_smul|specialLinearGroup_apply|tanh_half_dist|norm_conj|star_def|def BijOn|theorem BijOn.mapsTo|theorem BijOn.surjOn|def SurjOn",
+        "pseudohyperbolic|cross.ratio|norm.*conj.*denom",
+        "def (MapsTo|InjOn|SurjOn|BijOn)",
+        "rg -n --hidden --no-ignore -g 'dag.json' -g '!**/.lake/**' -g '!**/local-references/**' 'p10_17ae7b7d_phdisk_mobius_(bijon|ratio_norm)' /mnt/data/zhengyang-workspace/fermat-swarm-projects",
+        "python3 /tmp/independent_phdisk_audit.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Metric.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/Norm.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Complex/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Set/Function.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Set/Operations.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/mobius-image-split-hyi3t56v/report.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/mobius-image-independent-audit-ql7bpk7i/report.json"
+      ],
+      "conclusion": "The split appropriately separates two independent obligations within the recorded depth-3 helper. The sources confirm denominator nonvanishing, the imaginary-part formula, complex conjugation and norm identities, and the exact meaning of Set.BijOn. The targeted pseudohyperbolic/cross-ratio search found no matches. Both names are bare identifiers, absent from searched DAG reservations and the imported environment. Independent Lean checks elaborated both exact propositions without child implementations and verified their conditional composition into the unchanged parent type. Snapshot revisions and all nine dependencies are pinned and clean; inspected library axiom probes contain only standard axioms or none. The matching compiler policy digest, omitted lines 10–12, reversible hashes, Git contract and handoff identity were verified; a fresh Lean probe confirmed all 56 omitted targets absent. This approves the decomposition only, not comparator acceptance of child implementations."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "mobius_upper_half_plane_bijection",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose, including real coefficients, determinant one, and bijectivity restricted to the upper half-plane. Steps 2–3 correctly establish denominator nonvanishing and positive transformed imaginary part. Steps 4–6 verify the inverse determinant and both inverse identities with justified cancellations. Step 7 proves every component of Set.BijOn. The proof is complete, uses no parent or sibling result, and supports the empty dependency list. The bare Lean name is unreserved."
+    },
+    {
+      "key": "mobius_ratio_norm_invariance",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition includes every hypothesis and exactly expresses the prose equality; complex star was independently checked as conjugation. The local let defines M without relying on a child implementation. Steps 1–4 establish all necessary nonvanishing facts and correctly expand both differences. Step 5 cancels only nonzero factors, allowing z=v. Step 6 proves the remaining conjugate quotient has norm one. The proof is complete and independent of the parent and sibling, so its empty dependency list is correct. The bare Lean name is unreserved."
+    }
+  ],
+  "required_changes": []
+}

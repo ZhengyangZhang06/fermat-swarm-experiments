@@ -1,0 +1,65 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "denom_ne_zero|im_smul|specialLinearGroup_apply|norm.*sub|conj|div.*im",
+        "pseudohyperbolic|cross.ratio|norm.*conj.*denom",
+        "def BijOn|theorem BijOn.mapsTo|theorem BijOn.surjOn|def SurjOn|structure BijOn|norm_conj|star_def",
+        "rg -n --hidden --no-ignore -g 'dag.json' -g '!**/.lake/**' -g '!**/local-references/**' 'p10_17ae7b7d_phdisk_mobius_(bijon|ratio_norm)' /mnt/data/zhengyang-workspace/fermat-swarm-projects",
+        "python3 /tmp/phdisk_mobius_decomposition_probe.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Metric.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/Norm.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Complex/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Set/Function.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/mobius-image-split-hyi3t56v/report.json"
+      ],
+      "conclusion": "The pinned sources provide denominator nonvanishing, the Möbius imaginary-part formula, the special-linear action, the related tanh_half_dist ratio identity, conjugation preserving norm, and the mapsTo/surjOn components of Set.BijOn. The targeted pseudohyperbolic/cross-ratio search found no matches in project/Definitions or the upper-half-plane directory. Both snapshots and all nine installed dependencies match their recorded revisions and are clean; the five inspected mathlib files match the installed sources byte-for-byte. Selected library axiom probes report only propext, Classical.choice and Quot.sound, or no axioms. Neither proposed name occurs in the searched DAGs or imported Lean environment. Both exact child types, complex-star/norm probes, and their composition into the unchanged parent type pass Lean after import Submission at proof base b4ff37aac322c66612cb8df5edb6a2d6a3a2dd6c. The diagnostic receipt records policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, reversible omission of only lines 10–12, original/build hashes, and a successful Lean absence probe for all 56 targets. These are decomposition diagnostics, not comparator acceptance."
+    }
+  ],
+  "should_split": true,
+  "rationale": "At depth 3, below the limit 6, the proof separates into two reusable obligations: bijectivity on the upper half-plane and preservation of the ratio norm. Their proofs are independent. The parent then follows by two image inclusions: use half-plane preservation forward, and choose a half-plane preimage by surjectivity backward; the norm identity transfers the bound in either direction. Neither child restates the disk-image theorem.",
+  "subproblems": [
+    {
+      "key": "mobius_upper_half_plane_bijection",
+      "title": "Determinant-one real Möbius maps biject the upper half-plane",
+      "statement": "Let a,b,c,d be real numbers satisfying ad−bc=1. Define H={z∈ℂ : Im(z)>0} and the total complex function M(z)=(az+b)/(cz+d), with real coefficients embedded in ℂ. Then M maps H into H, is injective on H, and is surjective from H onto H.",
+      "lean_statement": "∀ (a b c d : ℝ), a * d - b * c = 1 → Set.BijOn (fun z : ℂ => ((a : ℂ) * z + (b : ℂ)) / ((c : ℂ) * z + (d : ℂ))) {z : ℂ | 0 < z.im} {z : ℂ | 0 < z.im}",
+      "lean_name": "p10_17ae7b7d_phdisk_mobius_bijon",
+      "depends_on": [],
+      "natural_proof": "1. Fix real a,b,c,d with ad−bc=1. Set H={z∈ℂ : Im(z)>0}, Q(z)=cz+d, M(z)=(az+b)/Q(z), P(w)=−cw+a, and N(w)=(dw−b)/P(w). All real coefficients in these expressions are viewed as complex numbers.\n2. First consider arbitrary real α,β,γ,δ satisfying αδ−βγ=1, and x=u+it with t>0. Put R(x)=γx+δ. If γ≠0, then Im(R(x))=γt≠0, hence R(x)≠0. If γ=0, the determinant equation gives αδ=1, so δ≠0 and R(x)=δ≠0. Thus R(x) is nonzero in either case.\n3. For these same arbitrary coefficients, multiplication by the conjugate denominator gives Im((αx+β)/R(x))=[αt(γu+δ)−(αu+β)γt]/‖R(x)‖². The numerator is (αδ−βγ)t=t. Since R(x)≠0, its squared norm is positive, so this imaginary part is positive. Consequently every real determinant-one coefficient quadruple defines a map from H into H, with nonzero denominator there.\n4. Apply steps 2–3 to (a,b,c,d). This proves Q(z)≠0 and M(z)∈H for every z∈H. Apply them also to (d,−b,−c,a), whose determinant is da−(−b)(−c)=ad−bc=1. This proves P(w)≠0 and N(w)∈H for every w∈H.\n5. For z∈H, expansion gives d(az+b)−b(cz+d)=(ad−bc)z=z and −c(az+b)+a(cz+d)=ad−bc=1. Division by the nonzero Q(z) therefore gives dM(z)−b=z/Q(z) and P(M(z))=−cM(z)+a=1/Q(z). In particular this latter denominator is nonzero, and N(M(z))=(z/Q(z))/(1/Q(z))=z.\n6. For w∈H, expansion gives a(dw−b)+b(−cw+a)=(ad−bc)w=w and c(dw−b)+d(−cw+a)=ad−bc=1. Division by the nonzero P(w) gives aN(w)+b=w/P(w) and Q(N(w))=cN(w)+d=1/P(w). Hence M(N(w))=(w/P(w))/(1/P(w))=w.\n7. Step 4 proves that M maps H into H. If z₁,z₂∈H and M(z₁)=M(z₂), applying N and using step 5 gives z₁=z₂, proving injectivity on H. For any w∈H, step 4 gives N(w)∈H and step 6 gives M(N(w))=w, proving surjectivity onto H. These three assertions are precisely the claimed set bijection.",
+      "proof_key_steps": [
+        "Prove that a real determinant-one linear denominator cannot vanish at a point with positive imaginary part.",
+        "Compute the transformed imaginary part as the original imaginary part divided by the squared denominator norm.",
+        "Apply this calculation to the original and inverse coefficient quadruples.",
+        "Expand the numerators to establish N(M(z))=z on the upper half-plane.",
+        "Expand the inverse numerators to establish M(N(w))=w there.",
+        "Deduce preservation, injectivity and surjectivity."
+      ]
+    },
+    {
+      "key": "mobius_ratio_norm_invariance",
+      "title": "Determinant-one real Möbius maps preserve the pseudohyperbolic ratio norm",
+      "statement": "Let a,b,c,d be real numbers satisfying ad−bc=1, and let z,v∈ℂ satisfy Im(z)>0 and Im(v)>0. Define the total complex function M(x)=(ax+b)/(cx+d), with real coefficients embedded in ℂ. Then ‖(M(z)−M(v))/(M(z)−conj(M(v)))‖=‖(z−v)/(z−conj(v))‖.",
+      "lean_statement": "∀ (a b c d : ℝ) (z v : ℂ), a * d - b * c = 1 → 0 < z.im → 0 < v.im → let M : ℂ → ℂ := fun x => ((a : ℂ) * x + (b : ℂ)) / ((c : ℂ) * x + (d : ℂ)); ‖(M z - M v) / (M z - star (M v))‖ = ‖(z - v) / (z - star v)‖",
+      "lean_name": "p10_17ae7b7d_phdisk_mobius_ratio_norm",
+      "depends_on": [],
+      "natural_proof": "1. Fix a,b,c,d,z,v satisfying the stated hypotheses. Write Q(x)=cx+d and M(x)=(ax+b)/Q(x). For either x=z or x=v, if c≠0 then Im(Q(x))=c Im(x)≠0, so Q(x)≠0. If c=0, the determinant equation implies ad=1 and therefore d≠0, again giving Q(x)≠0. Thus Q(z) and Q(v) are nonzero.\n2. Because a,b,c,d are real, conjugation gives Q(conj(v))=conj(Q(v)) and M(conj(v))=conj(M(v)). Conjugation is an involution and sends zero to zero, so conj(Q(v))≠0.\n3. For any complex x,y with Q(x)≠0 and Q(y)≠0, subtraction over the common denominator gives M(x)−M(y)=[(ax+b)(cy+d)−(ay+b)(cx+d)]/[Q(x)Q(y)]. Expanding the numerator cancels the acxy and bd terms and leaves (ad−bc)(x−y)=x−y. Hence M(x)−M(y)=(x−y)/(Q(x)Q(y)).\n4. Apply step 3 to x=z,y=v to obtain M(z)−M(v)=(z−v)/(Q(z)Q(v)). Apply it to x=z,y=conj(v), using step 2, to obtain M(z)−conj(M(v))=(z−conj(v))/(Q(z)conj(Q(v))). The imaginary part of z−conj(v) is Im(z)+Im(v)>0, so z−conj(v)≠0. Since Q(z) and conj(Q(v)) are nonzero, the latter difference M(z)−conj(M(v)) is also nonzero.\n5. Divide the two identities from step 4. Cancelling the nonzero factors Q(z), Q(v), conj(Q(v)) and z−conj(v) yields (M(z)−M(v))/(M(z)−conj(M(v)))=((z−v)/(z−conj(v)))·(conj(Q(v))/Q(v)). This cancellation does not require z−v to be nonzero.\n6. Complex conjugation preserves norm, and Q(v)≠0 implies ‖Q(v)‖>0. Therefore ‖conj(Q(v))/Q(v)‖=‖conj(Q(v))‖/‖Q(v)‖=‖Q(v)‖/‖Q(v)‖=1. Taking norms in step 5 and using multiplicativity of the complex norm gives the required equality.",
+      "proof_key_steps": [
+        "Establish nonvanishing of the denominators at z and v.",
+        "Use real coefficients to commute conjugation with the denominator and Möbius map.",
+        "Expand the numerator of a general difference of two Möbius values.",
+        "Specialize to v and its conjugate and verify nonvanishing of the ratio denominators.",
+        "Express the transformed ratio as the original ratio times conj(Q(v))/Q(v).",
+        "Show that the extra factor has norm one and take norms."
+      ]
+    }
+  ]
+}
