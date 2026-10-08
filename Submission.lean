@@ -99,3 +99,34 @@ theorem Submission.p08_7d1ff633a4_linear_descent
       _ = n⁻¹ • Θ' x' (R_Y y) := by rw [hcompatY]
       _ = n⁻¹ • φ (C_Y (R_Y y)) := by rw [hx', LinearMap.comp_apply]
       _ = φ y := by rw [hY, map_smul, inv_smul_smul₀ hn]
+
+theorem Submission.p08_7d1ff633a4_rank_one_transfer
+    {k V W : Type} [Field k] [AddCommGroup V] [Module k V]
+    [AddCommGroup W] [Module k W] [FiniteDimensional k W]
+    (n : k) (hn : n ≠ 0) (R : V →ₗ[k] W) (C : W →ₗ[k] V) :
+    (∀ v : V, C (R v) = n • v) → Module.finrank k W = 1 →
+    ∀ ℓ : V →ₗ[k] k, Function.Surjective ℓ → Function.Bijective (ℓ.comp C) := by
+  intro hCR hW ℓ hℓ
+  obtain ⟨z, hz⟩ := hℓ 1
+  let f : W →ₗ[k] k := ℓ.comp C
+  let v : W := n⁻¹ • R z
+  have hv : f v = 1 := by
+    change ℓ (C (n⁻¹ • R z)) = 1
+    rw [C.map_smul, hCR, ℓ.map_smul, ℓ.map_smul, hz]
+    simp [hn]
+  have hv0 : v ≠ 0 := by
+    intro h
+    have h01 : (0 : k) = 1 := by simpa only [h, map_zero] using hv
+    exact zero_ne_one h01
+  have hspan : ∀ w : W, ∃ a : k, a • v = w :=
+    (finrank_eq_one_iff_of_nonzero' v hv0).mp hW
+  change Function.Bijective f
+  constructor
+  · intro w₁ w₂ h
+    obtain ⟨a, rfl⟩ := hspan w₁
+    obtain ⟨b, rfl⟩ := hspan w₂
+    have hab : a = b := by
+      simpa only [map_smul, hv, smul_eq_mul, mul_one] using h
+    rw [hab]
+  · intro a
+    exact ⟨a • v, by simp only [map_smul, hv, smul_eq_mul, mul_one]⟩
