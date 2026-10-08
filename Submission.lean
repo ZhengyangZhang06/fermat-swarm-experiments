@@ -198,3 +198,48 @@ theorem Submission.p10_17ae7b7d_pde_holomorphic_extension :
   · intro z hz
     simpa [Function.Periodic.qParam, f, hz] using
       (Function.Periodic.eq_cuspFunction hw.ne' hf z).symm
+
+theorem Submission.p10_17ae7b7d_indent_logderiv_remainder :
+    ∀ (f : ℂ → ℂ) (v : ℂ), AnalyticAt ℂ f v → analyticOrderAt f v ≠ ⊤ →
+      ∃ (r M : ℝ) (G : ℂ → ℂ), 0 < r ∧ 0 ≤ M ∧
+        AnalyticOnNhd ℂ G (Metric.closedBall v r) ∧
+        (∀ z ∈ Metric.closedBall v r, ‖G z‖ ≤ M) ∧
+        ∀ z ∈ Metric.ball v r, z ≠ v → f z ≠ 0 ∧
+          deriv f z / f z = (analyticOrderNatAt f v : ℂ) / (z - v) + G z := by
+  intro f v hf hfinite
+  obtain ⟨B, hB, hBv, hfactor⟩ := hf.analyticOrderAt_ne_top.mp hfinite
+  have hnear : ∀ᶠ z in nhds v, AnalyticAt ℂ B z ∧ B z ≠ 0 ∧
+      f z = (z - v) ^ analyticOrderNatAt f v * B z := by
+    filter_upwards [hB.eventually_analyticAt, hB.continuousAt.eventually_ne hBv,
+      hfactor] with z hz hne heq
+    exact ⟨hz, hne, by simpa only [smul_eq_mul] using heq⟩
+  obtain ⟨ρ, hρ, hρprop⟩ := Metric.eventually_nhds_iff_ball.mp hnear
+  have hclosed : Metric.closedBall v (ρ / 2) ⊆ Metric.ball v ρ :=
+    Metric.closedBall_subset_ball (by linarith)
+  let G : ℂ → ℂ := fun z => deriv B z / B z
+  have hG : AnalyticOnNhd ℂ G (Metric.closedBall v (ρ / 2)) := by
+    intro z hz
+    obtain ⟨hBz, hBzne, _⟩ := hρprop z (hclosed hz)
+    exact hBz.deriv.div hBz hBzne
+  obtain ⟨K, hK⟩ := (isCompact_closedBall v (ρ / 2)).exists_bound_of_continuousOn
+    hG.continuousOn
+  refine ⟨ρ / 2, max 0 K, G, half_pos hρ, le_max_left _ _, hG,
+    fun z hz => (hK z hz).trans (le_max_right _ _), ?_⟩
+  intro z hz hzv
+  have hzρ : z ∈ Metric.ball v ρ := hclosed (Metric.ball_subset_closedBall hz)
+  obtain ⟨hBz, hBzne, hfz⟩ := hρprop z hzρ
+  have hsub : z - v ≠ 0 := sub_ne_zero.mpr hzv
+  have hpow : (z - v) ^ analyticOrderNatAt f v ≠ 0 := pow_ne_zero _ hsub
+  refine ⟨by rw [hfz]; exact mul_ne_zero hpow hBzne, ?_⟩
+  have heq : f =ᶠ[nhds z] fun w => (w - v) ^ analyticOrderNatAt f v * B w := by
+    filter_upwards [Metric.isOpen_ball.mem_nhds hzρ] with w hw
+    exact (hρprop w hw).2.2
+  change logDeriv f z = (analyticOrderNatAt f v : ℂ) / (z - v) + logDeriv B z
+  have hdsub : DifferentiableAt ℂ (fun w : ℂ => w - v) z :=
+    differentiableAt_id.sub_const v
+  have hdpow : DifferentiableAt ℂ
+      (fun w : ℂ => (w - v) ^ analyticOrderNatAt f v) z := hdsub.pow _
+  rw [(logDeriv_congr_nhds heq).self_of_nhds,
+    logDeriv_mul z hpow hBzne hdpow hBz.differentiableAt,
+    logDeriv_fun_pow hdsub]
+  simp only [logDeriv_apply, deriv_sub_const, deriv_id'', mul_one_div]
