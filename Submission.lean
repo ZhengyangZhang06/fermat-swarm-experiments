@@ -17,16 +17,6 @@ theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field
     [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
   sorry
 
-namespace Submission
-
-open AlgebraicCurve
-theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
-    [Algebra K F] (x : F) (hx : Transcendental K x)
-    [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
-  sorry
-
-end Submission
-
 set_option warningAsError true
 
 namespace Submission
