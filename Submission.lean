@@ -688,6 +688,7 @@ theorem Submission.f036cc6b1f_pc_hi_gpt_bezout_lift :
     fin_cases i <;> fin_cases j <;>
       simp [σ, β, Matrix.mul_apply, Fin.sum_univ_two, Matrix.SpecialLinearGroup.mapGL,
         Matrix.SpecialLinearGroup.map_apply_coe, mul_comm]
+
 theorem Submission.f036cc6b1f_pc_hi_rational_slash
     (Γ Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ))
     [Γ.FiniteIndex] [Δ.FiniteIndex]
