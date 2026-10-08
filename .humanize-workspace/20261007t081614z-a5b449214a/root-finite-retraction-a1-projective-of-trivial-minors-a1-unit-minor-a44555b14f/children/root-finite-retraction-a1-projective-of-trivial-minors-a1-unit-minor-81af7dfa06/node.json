@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_retraction-a1.projective_of_trivial_minors-a1.unit_minor_splitting-a1.inner_inverse_of_minors-a1.inner_inverse_of_reconstruction-a1",
+  "parent_id": "root.finite_retraction-a1.projective_of_trivial_minors-a1.unit_minor_splitting-a1.inner_inverse_of_minors-a1",
+  "depth": 5,
+  "title": "A selected-row and selected-column reconstruction gives an inner inverse",
+  "statement": "Let R be a commutative ring, n,p,d natural numbers, P an n-by-p matrix over R, rows:Fin d↪Fin n and cols:Fin d↪Fin p embeddings, and T a d-by-d matrix over R. Assume P=(P.submatrix id cols) T (P.submatrix rows id), with matrix multiplication. Then there exists a p-by-n matrix Q over R with PQP=P. There are no determinant, positivity, or nontriviality assumptions.",
+  "lean_statement": "∀ {R : Type*} [CommRing R] (n p d : ℕ) (P : Matrix (Fin n) (Fin p) R) (rows : Fin d ↪ Fin n) (cols : Fin d ↪ Fin p) (T : Matrix (Fin d) (Fin d) R) (_hfactor : P = (P.submatrix id cols) * T * (P.submatrix rows id)), ∃ Q : Matrix (Fin p) (Fin n) R, P * Q * P = P",
+  "lean_name": "p05_umgi_inner_inverse_of_reconstruction_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1-unit-minor-81af7dfa06-a1"
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_retraction-a1.projective_of_trivial_minors-a1.unit_minor_splitting-a1.inner_inverse_of_minors-a1.minor_reconstruction-a1",
+  "parent_id": "root.finite_retraction-a1.projective_of_trivial_minors-a1.unit_minor_splitting-a1.inner_inverse_of_minors-a1",
+  "depth": 5,
+  "title": "Reconstruction from a unit minor and vanishing bordered minors",
+  "statement": "Let R be a commutative ring, n,p,d natural numbers, P an n-by-p matrix over R, and rows:Fin d↪Fin n and cols:Fin d↪Fin p embeddings. Suppose det(P.submatrix rows cols) is a unit and every (d+1)-minor obtained using row and column embeddings has determinant zero. Write B=P.submatrix rows cols, L=P.submatrix id cols, and H=P.submatrix rows id. Then P=L B⁻¹ H, where B⁻¹ is the nonsingular matrix inverse and all products are matrix products. No nontriviality or positivity assumptions are imposed.",
+  "lean_statement": "∀ {R : Type*} [CommRing R] (n p d : ℕ) (P : Matrix (Fin n) (Fin p) R) (rows : Fin d ↪ Fin n) (cols : Fin d ↪ Fin p) (_hunit : IsUnit (Matrix.det (P.submatrix rows cols))) (_hnext : ∀ (rows' : Fin (d + 1) ↪ Fin n) (cols' : Fin (d + 1) ↪ Fin p), Matrix.det (P.submatrix rows' cols') = 0), P = (P.submatrix id cols) * (P.submatrix rows cols)⁻¹ * (P.submatrix rows id)",
+  "lean_name": "p05_umgi_minor_reconstruction_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-retraction-a1-projective-of-trivial-minors-a1-unit-minor-bc0b9dd7ab-a1"
+}

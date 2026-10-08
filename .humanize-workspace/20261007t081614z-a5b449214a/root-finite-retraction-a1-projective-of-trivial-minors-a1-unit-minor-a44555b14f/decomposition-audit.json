@@ -1,0 +1,47 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "inner.inverse|generalized.inverse|unit_minor|minor_reconstruction|supported_inner_inverse",
+        "nonsing_inv|mul_adjugate|adjugate_mul|det_fromBlocks₁₁|mul_submatrix_one|one_submatrix_mul|submatrix_mul_equiv|fromBlocks_mul",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/p05-decomposition-audit-rxj448k9/HeaderPolicyCheck.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/p05-decomposition-audit-rxj448k9/CheckIndependent.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Adjugate.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/SchurComplement.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Data/Matrix/Mul.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Data/Matrix/Block.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-projective-of-trivial-minors-a1-unit-minor-a44555b14f/decomposition-inner-inverse-0nwgeq0a/header-receipt.json",
+        "/tmp/p05-decomposition-audit-rxj448k9/HeaderPolicyCheck.lean",
+        "/tmp/p05-decomposition-audit-rxj448k9/CheckIndependent.lean",
+        "/tmp/p05-decomposition-audit-rxj448k9/CheckIndependent.lean.log",
+        "/tmp/p05-decomposition-audit-rxj448k9/audit-receipt.json"
+      ],
+      "conclusion": "The project search returned no matching helper. Pinned mathlib supplies the stated adjugate, nonsingular-inverse, determinant, and selection-matrix identities. Independently verified both snapshot pins and all nine clean compiler dependencies. Both exact child propositions elaborate under frozen imports without importing Submission or either child; Lean checks confirm ordinary matrix multiplication, the nonsingular inverse, and conditional assembly of the exact parent. Both bare names are absent from that environment and all ten inspected DAG registries. Eleven supporting declarations have axiom closures contained in propext, Classical.choice, and Quot.sound. Verified policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, precisely reversible removal of lines 10–11, recorded original/build hashes and Git identity, and independently reran the successful absence probe for all 13 targets. Frozen contract, problem, handoff, and Submission header checks pass. This is decomposition approval; implementation acceptance still requires the configured comparator."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "minor_reconstruction",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The split appropriately isolates determinant reasoning from the inner-inverse construction. The standalone one-line Lean proposition matches all prose hypotheses and the reconstruction conclusion. The proof establishes both inverse identities, handles selected rows and columns, constructs injective bordered minors, justifies determinant-preserving row subtraction and the positive final cofactor, and cancels only a unit. Empty dimensions and zero rings are covered. It contains no circular appeal or deferred proof search. The bare name is unreserved, and its empty dependency list is correct."
+    },
+    {
+      "key": "inner_inverse_of_reconstruction",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line Lean proposition exactly matches the prose, including the explicit reconstruction hypothesis and absence of determinant assumptions. The selection matrices have the required dimensions; their finite sums give PU=L and VP=H, so Q=UTV satisfies PQP=LTH=P by associativity. The argument covers empty dimensions and zero rings without cancellation. It does not invoke reconstruction's proof, so no sibling dependency is required: the parent supplies that hypothesis when applying it. Dependencies are acyclic, the bare name is unreserved, and no proof step is deferred."
+    }
+  ],
+  "required_changes": []
+}
