@@ -2329,7 +2329,10 @@ It takes the subgroup norm to the ambient norm and acts on ambient invariants by
 
 The coset representatives use `QuotientGroup.mk_out_eq_mul` from Mathlib's
 `GroupTheory.Coset.Defs`; the norm is the `normToInvariants` map from
-`Definitions.Def_GroupCohomology_TateCohomology`. -/
+`Definitions.Def_GroupCohomology_TateCohomology`. Left multiplication on cosets uses
+`MulAction.Quotient.mk_smul_out` from `GroupTheory.GroupAction.Quotient`, and
+`Subgroup.index_eq_card` from `GroupTheory.Index` identifies the number of summands.
+The multiplication bijection is proved locally so its formula remains explicit in the norm sum. -/
 theorem p04_tz91_invariant_transfer_norm_index
     {k G : Type _} [CommRing k] [Group G] [Fintype G]
     (A : Rep k G) (H : Subgroup G) [Fintype H] :
