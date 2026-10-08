@@ -1065,6 +1065,9 @@ theorem p06_9e0f5043ff_dmd_split_divisible_pivot
       simp only [B, mul_assoc]
     _ = _ := by
       simpa only [hrow 0, hB00, Matrix.of_apply] using hblock
+
+end Submission
+
 namespace Submission
 
 /-- A residue module localized at a height-one prime is simple at its own prime
