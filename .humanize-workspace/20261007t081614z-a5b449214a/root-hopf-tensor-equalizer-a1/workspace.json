@@ -1,0 +1,222 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081614Z-a5b449214a",
+  "parent_id": "root.hopf_tensor_equalizer-a1",
+  "dispatch_branch": "proof-workspace/fermat-p05/20261007t081614z-a5b449214a/dispatch/root-hopf-tensor-equalizer-a1",
+  "source_commit": "2fdd42759f4ab17640ac773289b521dd69d4b26e",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.hopf_tensor_equalizer-a1.finite_stable_subspace-a1",
+      "key": "finite_stable_subspace",
+      "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-finite-stable-subspace-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1/children/root-hopf-tensor-equalizer-a1-finite-stable-subspace-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "finiteDimensional|FiniteDimensional|exists.*[Ss]ub|finite.*[Cc]omodule|finite.*[Cc]oalgebra",
+              "exists.*[Ff]in|exists.*fg|finite.*relation|[Ff]inite.*[Zz]ero|exists.*[Ss]ubmodule",
+              "Subalgebra.*[Mm]odule|module.*[Cc]omp|compHom|instance.*[Mm]odule",
+              "coassoc|rTensor_counit|lTensor_counit",
+              "p05_hte_stable_subalgebra_hopf_structure_a5b449214a|p05_hte_finite_stable_subspace_a5b449214a|p05_hte_finite_tensor_zero_witness_a5b449214a|HopfKerHopf"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Bialgebra/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Coalgebra/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Defs.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Finiteness.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Basis/VectorSpace.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Algebra/Subalgebra/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1/decomposition-hte-diagnostics/report.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1/decomposition-hte-diagnostics/challenge-types-instances-axioms.log"
+            ],
+            "conclusion": "The snapshot provides the tensor relation presentation, finite tensor expansions, basis extension, linear retractions, restricted scalar instances, and Hopf axioms. The searches found no matching finite stable-subspace or simultaneous scalar/submodule zero-witness theorem, and no proposed-name collisions or HopfKerHopf declarations in the searched libraries. Project 2fdd42759f4ab17640ac773289b521dd69d4b26e, mathlib db584cd6d46c92f209a44c0f1c829460d327499d, and all nine dependencies passed clean-pin checks. All three literal propositions elaborate after import Submission in both derived contexts. Explicit probes verify the constructed Hopf structure's algebra/module/coalgebra instances and the restricted scalar actions. Twelve infrastructure axiom closures contain only propext, Classical.choice and Quot.sound. Policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96 was checked; only listed lines 10–11 were omitted in compiler copies, reversible hashes were validated, and Lean confirmed all 13 targets absent. Protected original inputs remain unchanged. These are decomposition diagnostics, not comparator acceptance of any theorem."
+          }
+        ],
+        "parent_id": "root.hopf_tensor_equalizer-a1",
+        "child_id": "root.hopf_tensor_equalizer-a1.finite_stable_subspace-a1",
+        "subproblem": {
+          "key": "finite_stable_subspace",
+          "title": "Finite subsets of a coalgebra lie in finite stable subspaces",
+          "statement": "Let k be a field and C a k-coalgebra whose underlying k-module is an additive commutative group. For every finite subset E of C there is a finite-dimensional k-subspace V of C containing E such that Δ_C(v) lies in the k-linear span of tensors a⊗b with a∈V and b∈C for every v∈V.",
+          "lean_statement": "∀ {k : Type*} [Field k] {C : Type*} [AddCommGroup C] [Module k C] [Coalgebra k C] (E : Finset C), ∃ V : Submodule k C, FiniteDimensional k V ∧ (∀ x ∈ E, x ∈ V) ∧ ∀ x ∈ V, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k C C | ∃ a ∈ V, ∃ b : C, t = TensorProduct.tmul k a b}",
+          "lean_name": "p05_hte_finite_stable_subspace_a5b449214a",
+          "depends_on": [],
+          "natural_proof": "1. Fix f∈C. Express Δ(f) as a finite sum of pure tensors. Let W be the finite-dimensional span of its second factors and choose a basis w₁,…,w_n of W. Expanding the second factors in this basis and collecting coefficients yields Δ(f)=Σ_i v_i⊗w_i. If W=0, take the empty sum. Extend this basis of W to a basis of C; the coordinate functions on the w_i, set to zero on the additional basis vectors, give k-linear maps λ_i:C→k satisfying λ_i(w_j)=δ_ij.\n2. Coassociativity, after identifying the two parenthesizations of the triple tensor product, says Σ_j Δ(v_j)⊗w_j=Σ_j v_j⊗Δ(w_j). Applying id⊗id⊗λ_i gives Δ(v_i)=Σ_j v_j⊗(id⊗λ_i)(Δ(w_j)), where C⊗k is identified with C by c⊗a↦ac. Therefore each Δ(v_i) lies in the span of tensors whose first factors belong to V_f=span_k{v₁,…,v_n}.\n3. The right counit identity gives f=Σ_i ε(w_i)v_i, so f∈V_f. This also shows f=0 in the empty-sum case. The subspace V_f is finite-dimensional, since it has a finite spanning family. Linearity of Δ and closure of the tensor span under addition and k-scalar multiplication imply the same stability property for every element of V_f.\n4. For the given finite set E, perform this construction for each f∈E, and let V be the sum of these finitely many V_f. The union of their finite spanning families is finite and spans V, so V is finite-dimensional. Each f∈E belongs to V_f⊆V. Writing an element of V as a sum of elements from the V_f and applying linearity proves that its coproduct belongs to the span of tensors with first factor in V. For E empty take V=0. This proves all asserted properties.",
+          "proof_key_steps": [
+            "Express each coproduct with linearly independent second factors.",
+            "Extend their coordinate functionals to the whole coalgebra.",
+            "Apply those functionals to coassociativity to obtain a finite stable span.",
+            "Use counitality to recover the original element.",
+            "Sum the stable spans for the finite set."
+          ]
+        },
+        "audit": {
+          "key": "finite_stable_subspace",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The proposition exactly expresses the stated coalgebra result with all hypotheses. Independent second factors and extended coordinate functionals extract the claimed stability equation from coassociativity. Right counitality recovers each original element; finite sums give the required subspace. Empty sets and empty expansions are addressed. The parent obtains containment of 1 by adjoining it to E. The proof is complete, non-circular and ready for formalization. The bare name is unreserved and no child dependencies are needed."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1-finite-stable-subspace-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1-finite-stable-subspace-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1-finite-stable-subspace-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.hopf_tensor_equalizer-a1.finite_tensor_zero_witness-a1",
+      "key": "finite_tensor_zero_witness",
+      "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1/children/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "finiteDimensional|FiniteDimensional|exists.*[Ss]ub|finite.*[Cc]omodule|finite.*[Cc]oalgebra",
+              "exists.*[Ff]in|exists.*fg|finite.*relation|[Ff]inite.*[Zz]ero|exists.*[Ss]ubmodule",
+              "Subalgebra.*[Mm]odule|module.*[Cc]omp|compHom|instance.*[Mm]odule",
+              "coassoc|rTensor_counit|lTensor_counit",
+              "p05_hte_stable_subalgebra_hopf_structure_a5b449214a|p05_hte_finite_stable_subspace_a5b449214a|p05_hte_finite_tensor_zero_witness_a5b449214a|HopfKerHopf"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Bialgebra/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Coalgebra/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Defs.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Finiteness.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Basis/VectorSpace.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Algebra/Subalgebra/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1/decomposition-hte-diagnostics/report.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1/decomposition-hte-diagnostics/challenge-types-instances-axioms.log"
+            ],
+            "conclusion": "The snapshot provides the tensor relation presentation, finite tensor expansions, basis extension, linear retractions, restricted scalar instances, and Hopf axioms. The searches found no matching finite stable-subspace or simultaneous scalar/submodule zero-witness theorem, and no proposed-name collisions or HopfKerHopf declarations in the searched libraries. Project 2fdd42759f4ab17640ac773289b521dd69d4b26e, mathlib db584cd6d46c92f209a44c0f1c829460d327499d, and all nine dependencies passed clean-pin checks. All three literal propositions elaborate after import Submission in both derived contexts. Explicit probes verify the constructed Hopf structure's algebra/module/coalgebra instances and the restricted scalar actions. Twelve infrastructure axiom closures contain only propext, Classical.choice and Quot.sound. Policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96 was checked; only listed lines 10–11 were omitted in compiler copies, reversible hashes were validated, and Lean confirmed all 13 targets absent. Protected original inputs remain unchanged. These are decomposition diagnostics, not comparator acceptance of any theorem."
+          }
+        ],
+        "parent_id": "root.hopf_tensor_equalizer-a1",
+        "child_id": "root.hopf_tensor_equalizer-a1.finite_tensor_zero_witness-a1",
+        "subproblem": {
+          "key": "finite_tensor_zero_witness",
+          "title": "Finite scalar and module support for a vanishing pure tensor",
+          "statement": "Let k and D be commutative rings, with D a k-algebra, and let M and P be D-modules whose additive structures are commutative groups. If m⊗_D p=0, there are finite sets S⊆D and F⊆M, with m∈F, such that the following holds. For every k-subalgebra A⊆D containing S and every A-submodule N⊆M containing F, the pure tensor of m, regarded as an element of N, with p is zero in N⊗_A P. All A-actions are restrictions of the given D-actions.",
+          "lean_statement": "∀ {k : Type*} [CommRing k] {D : Type*} [CommRing D] [Algebra k D] {M : Type*} [AddCommGroup M] [Module D M] {P : Type*} [AddCommGroup P] [Module D P] (m : M) (p : P), (TensorProduct.tmul D m p : TensorProduct D M P) = 0 → ∃ S : Finset D, ∃ F : Finset M, m ∈ F ∧ ∀ (A : Subalgebra k D), (∀ d ∈ S, d ∈ A) → ∀ (N : Submodule A M), (∀ y ∈ F, y ∈ N) → ∀ hm : m ∈ N, (TensorProduct.tmul A (⟨m, hm⟩ : N) p : TensorProduct A N P) = 0",
+          "lean_name": "p05_hte_finite_tensor_zero_witness_a5b449214a",
+          "depends_on": [],
+          "natural_proof": "1. Let G be the free abelian group on M×P, writing [u,z] for a basis generator. Let R be the subgroup generated by the zero relations [0,z] and [u,0], the additivity relations [u+v,z]−[u,z]−[v,z] and [u,z+w]−[u,z]−[u,w], and the balancing relations [d•u,z]−[u,d•z], for all indicated elements and d∈D.\n2. The quotient G/R is the usual tensor product as an additive group. For completeness, d•[u,z]=[d•u,z] preserves R: it sends additivity and zero relations to relations, and sends a balancing relation with scalar e to a balancing relation with scalar e after using d•(e•u)=e•(d•u). The module laws on the quotient follow from the D-module laws on M and the first-coordinate additivity relations. The map (u,z)↦[u,z] modulo R is D-bilinear, because balancing also gives [u,d•z]=[d•u,z]. It induces a map from the pinned tensor product to G/R. Conversely, [u,z]↦u⊗_D z defines an additive map from G/R to the tensor product since every displayed relation vanishes there. These maps are inverse on pair generators, which generate both objects. This also agrees directly with the pinned free-additive-monoid presentation: its zero, addition, balancing and commutativity relations hold in G/R, and its tensor product is an additive group over the ring D.\n3. The hypothesis therefore says [m,p]∈R. The elements that are finite integer linear combinations of the displayed generators form a subgroup: zero is the empty combination, sums concatenate combinations, and negatives negate coefficients. This subgroup contains all generators and is contained in every subgroup containing them. Hence it is R, and [m,p] has an expression as a finite integer linear combination of displayed relations.\n4. Let S contain all balancing scalars in this finite expression. Let F contain m and every first coordinate of every pair occurring in its relations; in particular include all first-coordinate operands, their sums, zero where it occurs, and the products d•u in balancing relations. These are finite sets. Fix a k-subalgebra A containing S and an A-submodule N of M containing F. Restrict the D-actions on M and P to A.\n5. Lift every pair in the chosen expression to N×P by giving its first coordinate the known membership proof in N. Each lifted zero or additivity relation is a relation for N⊗_A P, since N inherits the addition and zero of M. Each lifted balancing relation uses a scalar d in S⊆A; regarded as an element of A, this scalar acts by its original D-action, so the relation is also a valid A-balancing relation. Equalities among first coordinates lift to N because subtype inclusion is injective.\n6. The induced map from the free abelian group on N×P to G is injective: the inclusion of pairs is injective, so distinct basis generators have distinct images, and a finite integer coefficient function can map to zero only if all its coefficients vanish. Both the lifted [m,p] and the lifted finite sum map to the original formal-sum identity from step 3. Injectivity proves that identity already in the free abelian group on N×P. Passing to its tensor-product quotient annihilates all lifted relations, giving m⊗_A p=0 in N⊗_A P. The subtype element is independent of the chosen proof hm:m∈N, so the result holds for every such hm, as asserted.",
+          "proof_key_steps": [
+            "Present the tensor product as a free abelian group modulo zero, additivity and balancing relations.",
+            "Express zero membership by a finite integer combination of defining relations.",
+            "Collect the finitely many scalars and first coordinates in the witness.",
+            "Lift the witness to any subalgebra and submodule containing those supports.",
+            "Use injectivity on free abelian groups, then pass to the smaller tensor quotient."
+          ]
+        },
+        "audit": {
+          "key": "finite_tensor_zero_witness",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The prose and literal proposition match, including uniformity over A, N and every membership proof hm. Lean probes confirm that all A-actions are restrictions of the D-actions. The quotient construction is justified, with commutativity of D correctly used to preserve balancing relations. Finite integer combinations provide finite supports S and F. Every relation lifts to N, and injectivity of the free-abelian-group map transfers the formal identity before taking the tensor quotient; no tensor-map injectivity is assumed. The proof is complete and independent. The bare name is unreserved and the empty dependency list is correct."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.hopf_tensor_equalizer-a1.stable_subalgebra_hopf_structure-a1",
+      "key": "stable_subalgebra_hopf_structure",
+      "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-stable-subalgebra-hopf-structure-a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1/children/root-hopf-tensor-equalizer-a1-stable-subalgebra-hopf-structure-a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "finiteDimensional|FiniteDimensional|exists.*[Ss]ub|finite.*[Cc]omodule|finite.*[Cc]oalgebra",
+              "exists.*[Ff]in|exists.*fg|finite.*relation|[Ff]inite.*[Zz]ero|exists.*[Ss]ubmodule",
+              "Subalgebra.*[Mm]odule|module.*[Cc]omp|compHom|instance.*[Mm]odule",
+              "coassoc|rTensor_counit|lTensor_counit",
+              "p05_hte_stable_subalgebra_hopf_structure_a5b449214a|p05_hte_finite_stable_subspace_a5b449214a|p05_hte_finite_tensor_zero_witness_a5b449214a|HopfKerHopf"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Bialgebra/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Coalgebra/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Defs.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Finiteness.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Basis/VectorSpace.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Algebra/Subalgebra/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1/decomposition-hte-diagnostics/report.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1/decomposition-hte-diagnostics/challenge-types-instances-axioms.log"
+            ],
+            "conclusion": "The snapshot provides the tensor relation presentation, finite tensor expansions, basis extension, linear retractions, restricted scalar instances, and Hopf axioms. The searches found no matching finite stable-subspace or simultaneous scalar/submodule zero-witness theorem, and no proposed-name collisions or HopfKerHopf declarations in the searched libraries. Project 2fdd42759f4ab17640ac773289b521dd69d4b26e, mathlib db584cd6d46c92f209a44c0f1c829460d327499d, and all nine dependencies passed clean-pin checks. All three literal propositions elaborate after import Submission in both derived contexts. Explicit probes verify the constructed Hopf structure's algebra/module/coalgebra instances and the restricted scalar actions. Twelve infrastructure axiom closures contain only propext, Classical.choice and Quot.sound. Policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96 was checked; only listed lines 10–11 were omitted in compiler copies, reversible hashes were validated, and Lean confirmed all 13 targets absent. Protected original inputs remain unchanged. These are decomposition diagnostics, not comparator acceptance of any theorem."
+          }
+        ],
+        "parent_id": "root.hopf_tensor_equalizer-a1",
+        "child_id": "root.hopf_tensor_equalizer-a1.stable_subalgebra_hopf_structure-a1",
+        "subproblem": {
+          "key": "stable_subalgebra_hopf_structure",
+          "title": "Compatible Hopf structure on a stable subalgebra",
+          "statement": "Let k be a field, H a commutative Hopf k-algebra, and D a k-subalgebra of H. Suppose Δ_H(d) lies in the k-linear span of a⊗b with a,b∈D for every d∈D, and S_H(D)⊆D. Then D admits a Hopf k-algebra structure whose algebra structure is its existing subalgebra structure, together with a bialgebra homomorphism ι:D→H equal to inclusion on every element and satisfying ι(S_D(d))=S_H(ι(d)) for every d∈D.",
+          "lean_statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (D : Subalgebra k H) (hΔ : ∀ x ∈ D, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ D, ∃ b ∈ D, t = TensorProduct.tmul k a b}) (hS : ∀ x ∈ D, HopfAlgebra.antipode k x ∈ D), ∃ hD : HopfAlgebra k D, hD.toHopfAlgebraStruct.toBialgebra.toAlgebra = (inferInstance : Algebra k D) ∧ (letI : Algebra k D := hD.toHopfAlgebraStruct.toBialgebra.toAlgebra; letI : Module k D := Algebra.toModule; letI : HopfAlgebra k D := hD; ∃ ι : BialgHom k D H, (∀ d : D, ι d = (d : H)) ∧ ∀ d : D, ((HopfAlgebra.antipode k d : D) : H) = HopfAlgebra.antipode k (d : H))",
+          "lean_name": "p05_hte_stable_subalgebra_hopf_structure_a5b449214a",
+          "depends_on": [],
+          "natural_proof": "1. Give D its existing commutative ring and k-algebra structures, and write i:D→H for inclusion. Extend a k-basis of D, viewed through i, to a basis of H. Sending the original basis vectors back to D and the added vectors to zero defines a k-linear map r:H→D with r∘i=id_D.\n2. The maps i₂=i⊗i and i₃=i⊗i⊗i are injective because r⊗r and r⊗r⊗r are left inverses, with the usual associators understood. The image of i₂ is exactly the k-linear span of the tensors a⊗b with a,b∈D: pure tensors generate D⊗D, and each specified generator is the image of a pure tensor in D⊗D.\n3. For d∈D, hΔ puts Δ_H(i(d)) in this image. Define Δ_D(d) as its unique preimage under i₂. Injectivity of i₂ and linearity of Δ_H show that Δ_D preserves sums and k-scalars. Since the tensor inclusion preserves multiplication and the unit, applying i₂ to Δ_D(de)=Δ_D(d)Δ_D(e) and Δ_D(1)=1 gives the corresponding identities in H⊗H. Injectivity proves both identities in D⊗D.\n4. Define ε_D=ε_H∘i. This is k-linear and preserves multiplication and the unit. Apply i₃ to the two iterated coproducts of d. Naturality of tensor maps and i₂Δ_D=Δ_Hi identify their images with the two iterated coproducts of i(d), which agree by coassociativity of H. Injectivity gives coassociativity in D. Applying i to each of the two counit composites gives the corresponding counit composite in H, hence i(d); injectivity gives both counit identities in D. These operations equip the existing k-algebra D with a bialgebra structure.\n5. By hS define S_D(d) to be S_H(i(d)), regarded as an element of D. Linearity follows from linearity of S_H and injectivity of i. Apply i to each of m_D(S_D⊗id)Δ_D(d) and m_D(id⊗S_D)Δ_D(d). Their images are respectively m_H(S_H⊗id)Δ_H(i(d)) and m_H(id⊗S_H)Δ_H(i(d)), both equal to ε_H(i(d))1_H. Since i(ε_D(d)1_D) has this same value, injectivity gives both antipode identities in D.\n6. Thus these operations define hD:HopfAlgebra k D, using precisely the preexisting algebra structure, so the required equality of algebra structures holds. The original inclusion i preserves the algebra operations, Δ, and ε by construction, and therefore defines the required bialgebra homomorphism ι. Its underlying function is inclusion and the equality involving antipodes is exactly the definition of S_D.",
+          "proof_key_steps": [
+            "Split the vector-space inclusion by extending a basis.",
+            "Use tensor powers of the splitting to prove injectivity and identify the double tensor image.",
+            "Restrict comultiplication and transfer its algebra and coassociativity identities.",
+            "Restrict the counit and antipode and transfer their identities.",
+            "Package the structure with the unchanged algebra structure and compatible inclusion."
+          ]
+        },
+        "audit": {
+          "key": "stable_subalgebra_hopf_structure",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The prose and independently elaborated one-line proposition agree, including preservation of the existing algebra structure and inclusion compatibility. The explicit local instances select the proposed Hopf structure and its compatible algebra, module and coalgebra structures. Steps 1–2 establish tensor injectivity and the required image; steps 3–5 transfer every bialgebra and antipode identity; step 6 packages precisely the conclusion. No parent or sibling theorem is used. The bare name is unreserved and the empty dependency list is correct."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1-stable-subalgebra-hopf-structure-a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1-stable-subalgebra-hopf-structure-a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1-stable-subalgebra-hopf-structure-a1/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1/task.md": "3dc73676a86d8d8b7e3880aaca4875ccb55e1f69c70e9ec1bcf6f20bc01755d2",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1/problem.md": "2f45861732b83e16d4873caf0c9444a7fa00a4264a1ac5e1f1ff0e2204fedfa8",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1/problem.json": "701bdd1174185b1e65ab66c2cd98b64493a189e8738d6a153e929d4a2054385b",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1/reference-manifest.json": "6c786975eb0eef7173c81aff14a1b156236148918e2f72a647e0f1f06054c1c5",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1/decomposition.json": "34735519aa93a1816bfd6700c4c095f2d565e765bf73b92199828b333d97b3e7",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1/decomposition-audit.json": "348a26d215d66363b8a2992e23c9371ee950edc4aba596734f6f3c630eaa5261",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1/controller-contract.json": "d884e19cbcd0cfe69c6417511400aa04e303e937b236f051376ed445b0fe9900",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1/children/root-hopf-tensor-equalizer-a1-finite-stable-subspace-a1/parent-child-handoff.json": "1ebe8d26663bf6a3c795f4de3143ae4d975fae7148986eb276d4e4caf2f86f70",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1/children/root-hopf-tensor-equalizer-a1-finite-stable-subspace-a1/parent-supplied-plan.md": "1107ce52cee4ae25be2759b6734d9b39e7ade080aba6e7aa79cdd8fcac1a80c1",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1/children/root-hopf-tensor-equalizer-a1-finite-stable-subspace-a1/parent-supplied-natural-proof.md": "de9aeced49fb02e62b27f4b65f4f02e8385f7e55d612d70b16fedd69e37dc26a",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1/children/root-hopf-tensor-equalizer-a1-finite-stable-subspace-a1/parent-supplied-natural-proof.json": "c8a90085aaf0c2aa5a81efadd5c9e0ab882db2f90dbab9b93a4606d3d41fe92a",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1/children/root-hopf-tensor-equalizer-a1-finite-stable-subspace-a1/node.json": "e9834e8a3de4e38b6032ba2df70eb60fd414f8cc36f5bb7dc6806f746662987b",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1/children/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/parent-child-handoff.json": "1ea2cd9f84690c35a3ce0ce35b141439b043edbb195d18f54f097cb3c0d6066e",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1/children/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/parent-supplied-plan.md": "b4d297bece595007ca46358bd6851f7c35b0b6c0e1003edb34dee6a21a6ea16b",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1/children/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/parent-supplied-natural-proof.md": "f87fbbbdc67d67d5e2687c3fee8478caf9a7110d1bb23391c73ae2d588306c87",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1/children/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/parent-supplied-natural-proof.json": "11f9f7a1807868615865a369c405f51ddb54226758d8eaf034a539b43865c13f",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1/children/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1/node.json": "809e499610cd2042b5a7988b6b0bbe3d87a5c23bbc7f990595b36203771f7b5e",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1/children/root-hopf-tensor-equalizer-a1-stable-subalgebra-hopf-structure-a1/parent-child-handoff.json": "60e840ac8fbb72987e1a30d080ade93e4c69706da84abdf016844883371059bc",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1/children/root-hopf-tensor-equalizer-a1-stable-subalgebra-hopf-structure-a1/parent-supplied-plan.md": "3b9349dfaa56ca5437fb8bf5854bce75d81ea10355b97344ee0bdb8cd4f8421f",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1/children/root-hopf-tensor-equalizer-a1-stable-subalgebra-hopf-structure-a1/parent-supplied-natural-proof.md": "4c4bc51fa4031a955bc45c32affeee3cd3c55ceb688eaf85f21329ac0edad980",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1/children/root-hopf-tensor-equalizer-a1-stable-subalgebra-hopf-structure-a1/parent-supplied-natural-proof.json": "60372c1193bf19cf84dd791ee08d05309c5f4f25c5c7a63881220c4c350fbf99",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1/children/root-hopf-tensor-equalizer-a1-stable-subalgebra-hopf-structure-a1/node.json": "e35cc3d9bee535d92d31a2f0dc82509a22dccea1b6db8a69af4e9a71526c8eba"
+  }
+}

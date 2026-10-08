@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.hopf_tensor_equalizer-a1.finite_tensor_zero_witness-a1",
+  "parent_id": "root.hopf_tensor_equalizer-a1",
+  "depth": 2,
+  "title": "Finite scalar and module support for a vanishing pure tensor",
+  "statement": "Let k and D be commutative rings, with D a k-algebra, and let M and P be D-modules whose additive structures are commutative groups. If m⊗_D p=0, there are finite sets S⊆D and F⊆M, with m∈F, such that the following holds. For every k-subalgebra A⊆D containing S and every A-submodule N⊆M containing F, the pure tensor of m, regarded as an element of N, with p is zero in N⊗_A P. All A-actions are restrictions of the given D-actions.",
+  "lean_statement": "∀ {k : Type*} [CommRing k] {D : Type*} [CommRing D] [Algebra k D] {M : Type*} [AddCommGroup M] [Module D M] {P : Type*} [AddCommGroup P] [Module D P] (m : M) (p : P), (TensorProduct.tmul D m p : TensorProduct D M P) = 0 → ∃ S : Finset D, ∃ F : Finset M, m ∈ F ∧ ∀ (A : Subalgebra k D), (∀ d ∈ S, d ∈ A) → ∀ (N : Submodule A M), (∀ y ∈ F, y ∈ N) → ∀ hm : m ∈ N, (TensorProduct.tmul A (⟨m, hm⟩ : N) p : TensorProduct A N P) = 0",
+  "lean_name": "p05_hte_finite_tensor_zero_witness_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-finite-tensor-zero-witness-a1-a1"
+}

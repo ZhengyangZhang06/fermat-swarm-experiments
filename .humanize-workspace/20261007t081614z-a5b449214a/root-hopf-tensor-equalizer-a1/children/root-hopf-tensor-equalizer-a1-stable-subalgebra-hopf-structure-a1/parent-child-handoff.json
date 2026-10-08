@@ -1,0 +1,56 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "finiteDimensional|FiniteDimensional|exists.*[Ss]ub|finite.*[Cc]omodule|finite.*[Cc]oalgebra",
+        "exists.*[Ff]in|exists.*fg|finite.*relation|[Ff]inite.*[Zz]ero|exists.*[Ss]ubmodule",
+        "Subalgebra.*[Mm]odule|module.*[Cc]omp|compHom|instance.*[Mm]odule",
+        "coassoc|rTensor_counit|lTensor_counit",
+        "p05_hte_stable_subalgebra_hopf_structure_a5b449214a|p05_hte_finite_stable_subspace_a5b449214a|p05_hte_finite_tensor_zero_witness_a5b449214a|HopfKerHopf"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Bialgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Coalgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Finiteness.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Basis/VectorSpace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Algebra/Subalgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1/decomposition-hte-diagnostics/report.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1/decomposition-hte-diagnostics/challenge-types-instances-axioms.log"
+      ],
+      "conclusion": "The snapshot provides the tensor relation presentation, finite tensor expansions, basis extension, linear retractions, restricted scalar instances, and Hopf axioms. The searches found no matching finite stable-subspace or simultaneous scalar/submodule zero-witness theorem, and no proposed-name collisions or HopfKerHopf declarations in the searched libraries. Project 2fdd42759f4ab17640ac773289b521dd69d4b26e, mathlib db584cd6d46c92f209a44c0f1c829460d327499d, and all nine dependencies passed clean-pin checks. All three literal propositions elaborate after import Submission in both derived contexts. Explicit probes verify the constructed Hopf structure's algebra/module/coalgebra instances and the restricted scalar actions. Twelve infrastructure axiom closures contain only propext, Classical.choice and Quot.sound. Policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96 was checked; only listed lines 10–11 were omitted in compiler copies, reversible hashes were validated, and Lean confirmed all 13 targets absent. Protected original inputs remain unchanged. These are decomposition diagnostics, not comparator acceptance of any theorem."
+    }
+  ],
+  "parent_id": "root.hopf_tensor_equalizer-a1",
+  "child_id": "root.hopf_tensor_equalizer-a1.stable_subalgebra_hopf_structure-a1",
+  "subproblem": {
+    "key": "stable_subalgebra_hopf_structure",
+    "title": "Compatible Hopf structure on a stable subalgebra",
+    "statement": "Let k be a field, H a commutative Hopf k-algebra, and D a k-subalgebra of H. Suppose Δ_H(d) lies in the k-linear span of a⊗b with a,b∈D for every d∈D, and S_H(D)⊆D. Then D admits a Hopf k-algebra structure whose algebra structure is its existing subalgebra structure, together with a bialgebra homomorphism ι:D→H equal to inclusion on every element and satisfying ι(S_D(d))=S_H(ι(d)) for every d∈D.",
+    "lean_statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (D : Subalgebra k H) (hΔ : ∀ x ∈ D, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ D, ∃ b ∈ D, t = TensorProduct.tmul k a b}) (hS : ∀ x ∈ D, HopfAlgebra.antipode k x ∈ D), ∃ hD : HopfAlgebra k D, hD.toHopfAlgebraStruct.toBialgebra.toAlgebra = (inferInstance : Algebra k D) ∧ (letI : Algebra k D := hD.toHopfAlgebraStruct.toBialgebra.toAlgebra; letI : Module k D := Algebra.toModule; letI : HopfAlgebra k D := hD; ∃ ι : BialgHom k D H, (∀ d : D, ι d = (d : H)) ∧ ∀ d : D, ((HopfAlgebra.antipode k d : D) : H) = HopfAlgebra.antipode k (d : H))",
+    "lean_name": "p05_hte_stable_subalgebra_hopf_structure_a5b449214a",
+    "depends_on": [],
+    "natural_proof": "1. Give D its existing commutative ring and k-algebra structures, and write i:D→H for inclusion. Extend a k-basis of D, viewed through i, to a basis of H. Sending the original basis vectors back to D and the added vectors to zero defines a k-linear map r:H→D with r∘i=id_D.\n2. The maps i₂=i⊗i and i₃=i⊗i⊗i are injective because r⊗r and r⊗r⊗r are left inverses, with the usual associators understood. The image of i₂ is exactly the k-linear span of the tensors a⊗b with a,b∈D: pure tensors generate D⊗D, and each specified generator is the image of a pure tensor in D⊗D.\n3. For d∈D, hΔ puts Δ_H(i(d)) in this image. Define Δ_D(d) as its unique preimage under i₂. Injectivity of i₂ and linearity of Δ_H show that Δ_D preserves sums and k-scalars. Since the tensor inclusion preserves multiplication and the unit, applying i₂ to Δ_D(de)=Δ_D(d)Δ_D(e) and Δ_D(1)=1 gives the corresponding identities in H⊗H. Injectivity proves both identities in D⊗D.\n4. Define ε_D=ε_H∘i. This is k-linear and preserves multiplication and the unit. Apply i₃ to the two iterated coproducts of d. Naturality of tensor maps and i₂Δ_D=Δ_Hi identify their images with the two iterated coproducts of i(d), which agree by coassociativity of H. Injectivity gives coassociativity in D. Applying i to each of the two counit composites gives the corresponding counit composite in H, hence i(d); injectivity gives both counit identities in D. These operations equip the existing k-algebra D with a bialgebra structure.\n5. By hS define S_D(d) to be S_H(i(d)), regarded as an element of D. Linearity follows from linearity of S_H and injectivity of i. Apply i to each of m_D(S_D⊗id)Δ_D(d) and m_D(id⊗S_D)Δ_D(d). Their images are respectively m_H(S_H⊗id)Δ_H(i(d)) and m_H(id⊗S_H)Δ_H(i(d)), both equal to ε_H(i(d))1_H. Since i(ε_D(d)1_D) has this same value, injectivity gives both antipode identities in D.\n6. Thus these operations define hD:HopfAlgebra k D, using precisely the preexisting algebra structure, so the required equality of algebra structures holds. The original inclusion i preserves the algebra operations, Δ, and ε by construction, and therefore defines the required bialgebra homomorphism ι. Its underlying function is inclusion and the equality involving antipodes is exactly the definition of S_D.",
+    "proof_key_steps": [
+      "Split the vector-space inclusion by extending a basis.",
+      "Use tensor powers of the splitting to prove injectivity and identify the double tensor image.",
+      "Restrict comultiplication and transfer its algebra and coassociativity identities.",
+      "Restrict the counit and antipode and transfer their identities.",
+      "Package the structure with the unchanged algebra structure and compatible inclusion."
+    ]
+  },
+  "audit": {
+    "key": "stable_subalgebra_hopf_structure",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "The prose and independently elaborated one-line proposition agree, including preservation of the existing algebra structure and inclusion compatibility. The explicit local instances select the proposed Hopf structure and its compatible algebra, module and coalgebra structures. Steps 1–2 establish tensor injectivity and the required image; steps 3–5 transfer every bialgebra and antipode identity; step 6 packages precisely the conclusion. No parent or sibling theorem is used. The bare name is unreserved and the empty dependency list is correct."
+  },
+  "resolved_dependencies": [],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1-stable-subalgebra-hopf-structure-a1/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1-stable-subalgebra-hopf-structure-a1/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1-stable-subalgebra-hopf-structure-a1/parent-supplied-natural-proof.json"
+}

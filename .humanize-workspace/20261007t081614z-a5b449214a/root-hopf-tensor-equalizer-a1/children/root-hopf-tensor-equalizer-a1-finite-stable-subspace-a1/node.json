@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.hopf_tensor_equalizer-a1.finite_stable_subspace-a1",
+  "parent_id": "root.hopf_tensor_equalizer-a1",
+  "depth": 2,
+  "title": "Finite subsets of a coalgebra lie in finite stable subspaces",
+  "statement": "Let k be a field and C a k-coalgebra whose underlying k-module is an additive commutative group. For every finite subset E of C there is a finite-dimensional k-subspace V of C containing E such that Δ_C(v) lies in the k-linear span of tensors a⊗b with a∈V and b∈C for every v∈V.",
+  "lean_statement": "∀ {k : Type*} [Field k] {C : Type*} [AddCommGroup C] [Module k C] [Coalgebra k C] (E : Finset C), ∃ V : Submodule k C, FiniteDimensional k V ∧ (∀ x ∈ E, x ∈ V) ∧ ∀ x ∈ V, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k C C | ∃ a ∈ V, ∃ b : C, t = TensorProduct.tmul k a b}",
+  "lean_name": "p05_hte_finite_stable_subspace_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-finite-stable-subspace-a1-a1"
+}

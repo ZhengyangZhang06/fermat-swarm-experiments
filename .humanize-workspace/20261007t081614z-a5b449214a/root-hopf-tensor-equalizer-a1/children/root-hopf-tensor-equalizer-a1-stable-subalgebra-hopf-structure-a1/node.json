@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.hopf_tensor_equalizer-a1.stable_subalgebra_hopf_structure-a1",
+  "parent_id": "root.hopf_tensor_equalizer-a1",
+  "depth": 2,
+  "title": "Compatible Hopf structure on a stable subalgebra",
+  "statement": "Let k be a field, H a commutative Hopf k-algebra, and D a k-subalgebra of H. Suppose Δ_H(d) lies in the k-linear span of a⊗b with a,b∈D for every d∈D, and S_H(D)⊆D. Then D admits a Hopf k-algebra structure whose algebra structure is its existing subalgebra structure, together with a bialgebra homomorphism ι:D→H equal to inclusion on every element and satisfying ι(S_D(d))=S_H(ι(d)) for every d∈D.",
+  "lean_statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (D : Subalgebra k H) (hΔ : ∀ x ∈ D, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ D, ∃ b ∈ D, t = TensorProduct.tmul k a b}) (hS : ∀ x ∈ D, HopfAlgebra.antipode k x ∈ D), ∃ hD : HopfAlgebra k D, hD.toHopfAlgebraStruct.toBialgebra.toAlgebra = (inferInstance : Algebra k D) ∧ (letI : Algebra k D := hD.toHopfAlgebraStruct.toBialgebra.toAlgebra; letI : Module k D := Algebra.toModule; letI : HopfAlgebra k D := hD; ∃ ι : BialgHom k D H, (∀ d : D, ι d = (d : H)) ∧ ∀ d : D, ((HopfAlgebra.antipode k d : D) : H) = HopfAlgebra.antipode k (d : H))",
+  "lean_name": "p05_hte_stable_subalgebra_hopf_structure_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-stable-subalgebra-hopf-structure-a1-a1"
+}

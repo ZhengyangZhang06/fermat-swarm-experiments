@@ -1,0 +1,55 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "HopfKerHopf|finite.*[Cc]omodule|finite.*[Cc]oalgebra|exists.*[Ss]table|p05_hte_",
+        "finite.*zero|zero.*finite|relation|exists.*fg",
+        "exists_finset|exists_leftInverse_of_injective|exists_extend|theorem extend|def extend|instance.*Module|module",
+        "p05_hte_stable_subalgebra_hopf_structure_a5b449214a|p05_hte_finite_stable_subspace_a5b449214a|p05_hte_finite_tensor_zero_witness_a5b449214a",
+        "def map|map_injective|map.*injective|equivFinsupp|def lift|induction_on"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Bialgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Coalgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Finiteness.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Basis/VectorSpace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Algebra/Subalgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/GroupTheory/FreeAbelianGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-hopf-tensor-equalizer-a1/decomposition-hte-diagnostics/report.json",
+        "/tmp/fermat-hte-independent-audit-hg7bwu1i/checks.json",
+        "/tmp/fermat-hte-independent-audit-hg7bwu1i/challenge-absence.log",
+        "/tmp/fermat-hte-independent-audit-hg7bwu1i/challenge-independent-checks.log",
+        "/tmp/fermat-hte-independent-audit-hg7bwu1i/solution-independent-checks.log"
+      ],
+      "conclusion": "The snapshot supplies the required Hopf axioms, tensor presentation, basis extension, retractions and restricted scalar instances. Searches found no relevant finite stable-subspace theorem in the searched coalgebra/Hopf files, no finite-zero relation theorem in TensorProduct/Finiteness.lean, and no proposed-name collisions in the snapshot or other DAG branches. Project 2fdd42759f4ab17640ac773289b521dd69d4b26e, mathlib db584cd6d46c92f209a44c0f1c829460d327499d and all nine dependency pins were independently checked clean. Fresh disposable Lean contexts accepted all three literal propositions without child implementations and verified the sensitive instances; twelve infrastructure axiom closures use only propext, Classical.choice and Quot.sound. Verified policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, exactly the listed omissions at lines 10–11, reversible original/build hashes, and Lean-confirmed absence of all 13 targets. Protected originals remain unchanged. The split is appropriate and acyclic, retaining the parent's finite_hopf_envelope and finite_retraction prerequisites. These checks approve decomposition only; they do not constitute comparator acceptance of implemented theorems."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "stable_subalgebra_hopf_structure",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and independently elaborated one-line proposition agree, including preservation of the existing algebra structure and inclusion compatibility. The explicit local instances select the proposed Hopf structure and its compatible algebra, module and coalgebra structures. Steps 1–2 establish tensor injectivity and the required image; steps 3–5 transfer every bialgebra and antipode identity; step 6 packages precisely the conclusion. No parent or sibling theorem is used. The bare name is unreserved and the empty dependency list is correct."
+    },
+    {
+      "key": "finite_stable_subspace",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The proposition exactly expresses the stated coalgebra result with all hypotheses. Independent second factors and extended coordinate functionals extract the claimed stability equation from coassociativity. Right counitality recovers each original element; finite sums give the required subspace. Empty sets and empty expansions are addressed. The parent obtains containment of 1 by adjoining it to E. The proof is complete, non-circular and ready for formalization. The bare name is unreserved and no child dependencies are needed."
+    },
+    {
+      "key": "finite_tensor_zero_witness",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and literal proposition match, including uniformity over A, N and every membership proof hm. Lean probes confirm that all A-actions are restrictions of the D-actions. The quotient construction is justified, with commutativity of D correctly used to preserve balancing relations. Finite integer combinations provide finite supports S and F. Every relation lifts to N, and injectivity of the free-abelian-group map transfers the formal identity before taking the tensor quotient; no tensor-map injectivity is assumed. The proof is complete and independent. The bare name is unreserved and the empty dependency list is correct."
+    }
+  ],
+  "required_changes": []
+}
