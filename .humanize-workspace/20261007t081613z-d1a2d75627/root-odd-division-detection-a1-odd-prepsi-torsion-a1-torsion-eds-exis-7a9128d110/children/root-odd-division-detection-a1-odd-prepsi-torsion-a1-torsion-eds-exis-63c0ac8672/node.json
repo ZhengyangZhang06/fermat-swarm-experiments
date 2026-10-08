@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_sum_zero-a1.two_torsion_four_sum-a1",
+  "parent_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_sum_zero-a1",
+  "depth": 5,
+  "title": "A four-element two-torsion subgroup has sum zero",
+  "statement": "Let G be an additive commutative group with decidable equality. Let T be a finite subset of G such that x belongs to T if and only if 2 • x = 0, using natural-number repeated addition. If T has exactly four elements, then the sum of its elements is zero.",
+  "lean_statement": "∀ (G : Type) [AddCommGroup G] [DecidableEq G] (T : Finset G), (∀ x : G, x ∈ T ↔ (2 : ℕ) • x = 0) → T.card = 4 → T.sum (fun x => x) = 0",
+  "lean_name": "p03_eds_two_torsion_four_sum_68cf3476_d5",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p03/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-63c0ac8672-a1"
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_sum_zero-a1.negation_fixed_sum-a1",
+  "parent_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_sum_zero-a1",
+  "depth": 5,
+  "title": "A negation-stable finite sum reduces to its two-torsion part",
+  "statement": "Let G be an additive commutative group with decidable equality. Let S be a finite subset of G such that −x belongs to S whenever x belongs to S. Then the sum of all elements of S equals the sum of those elements x of S satisfying 2 • x = 0, where scalar multiplication is natural-number repeated addition.",
+  "lean_statement": "∀ (G : Type) [AddCommGroup G] [DecidableEq G] (S : Finset G), (∀ x ∈ S, -x ∈ S) → S.sum (fun x => x) = (S.filter (fun x => (2 : ℕ) • x = 0)).sum (fun x => x)",
+  "lean_name": "p03_eds_negation_fixed_sum_68cf3476_d5",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p03/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-torsion-eds-exis-c31df82942-a1"
+}

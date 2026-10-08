@@ -1,0 +1,48 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "sum_involution|prod_involution|sum.*filter|prod.*filter",
+        "instDecidableEqPoint|AddCommGroup|nsmul :=|nsmulBinRec",
+        "sum.*(torsion|card_four|card.*4|two_nsmul)|prod.*(card_four|card.*4)|Klein",
+        "inductive Point|deriving DecidableEq|instDecidableEqPoint|DecidableEq",
+        "p03_eds_negation_fixed_sum_68cf3476_d5|p03_eds_two_torsion_four_sum_68cf3476_d5",
+        "python3 /tmp/p03_eds_sum_decomposition_check.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Point.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/GroupTheory/FiniteAbelian",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/dag.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p03_eds_sum_decomposition_check.py",
+        "/tmp/p03_eds_sum_split_x6aj20aj/ChildTypes.lean",
+        "/tmp/p03_eds_sum_split_x6aj20aj/ChildTypes.lean.log",
+        "/tmp/p03_eds_sum_split_x6aj20aj/InstancesAxioms.lean",
+        "/tmp/p03_eds_sum_split_x6aj20aj/InstancesAxioms.lean.log",
+        "/tmp/p03_eds_sum_split_x6aj20aj/TargetAbsence.lean",
+        "/tmp/p03_eds_sum_split_x6aj20aj/receipt.json"
+      ],
+      "conclusion": "Independently confirmed clean pinned project 81f093181fd6c58dc887fcae5ec8b896996f1885, mathlib db584cd6d46c92f209a44c0f1c829460d327499d, and compiler dependencies. Finset/Basic.lean supplies sum_involution through to_additive; Affine/Point.lean supplies derived decidable equality and the additive commutative group with nsmulBinRec. No relevant four-element sum theorem matched the targeted FiniteAbelian search. A fresh diagnostic run elaborated both exact propositions without either child declaration and confirmed the intended point-group scalar multiplication. Checked library declarations use only propext, Classical.choice and Quot.sound, or no axioms. Neither name is reserved in the ten local DAGs or declared in the imported environment. Adding both independent children preserves acyclicity and the parent's existing dependency on torsion-kernel cardinality. Verified the matching header-policy digest, omission of exactly lines 10–11, reversible original/build hashes, and Lean-confirmed absence of all 37 targets. These checks approve interfaces and decomposition only; child implementations still require authoritative comparator and independent proof acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "negation_fixed_sum",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose, including AddCommGroup, decidable equality, finite-set membership, negation stability and natural scalar multiplication. Its bare name is available, and its type is independently usable without a declaration or alias. Each proof step is sound: two-torsion equals negation-fixedness; a nonfixed element supplies a distinct cancelling pair; removing it strictly decreases cardinality, preserves negation stability and leaves the filtered subset unchanged; disjoint-union summation and strong induction finish. No parent or sibling result is used. This is an appropriate reusable obligation, with no child dependencies."
+    },
+    {
+      "key": "two_torsion_four_sum",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly includes the full two-torsion membership characterization and cardinality-four hypothesis stated in the prose. Its bare name is available, and the type elaborates independently of implementation. The proof establishes zero membership, self-negation and additive closure; cardinality supplies distinct nonzero U and V; cancellation proves that 0, U, V and U+V are pairwise distinct; inclusion and equal cardinality establish exhaustion; commutativity regroups their sum into two vanishing doubles. All steps are justified without circular reliance or deferred proof discovery. This independent obligation is appropriate: the parent retains cardinality and parity reasoning, with dependency arrows directed from the parent to its prerequisites."
+    }
+  ],
+  "required_changes": []
+}
