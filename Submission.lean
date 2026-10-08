@@ -9,7 +9,6 @@ import Mathlib
 import Definitions.Def_HeckeEis_BinaryFormRep
 import Definitions.Def_Gamma0CoeffCohomology
 import Definitions.Def_HeckeEis_EichlerIntegral
-
 set_option autoImplicit false
 
 open scoped Manifold MatrixGroups ModularForm
