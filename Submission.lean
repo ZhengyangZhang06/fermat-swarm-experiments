@@ -511,3 +511,44 @@ theorem Submission.p10_17ae7b7d_cpo_rotation_invariant :
           A (ζ ^ 0 * t) := by rw [hζ, pow_zero]
       _ = ∏ j ∈ Finset.range (n + 1), A (ζ ^ j * t) :=
         (Finset.prod_range_succ' (fun j => A (ζ ^ j * t)) n).symm
+
+theorem Submission.p10_17ae7b7d_cld_qexp_finite_order :
+    ∀ (F A : ℂ → ℂ), DifferentiableOn ℂ F {z : ℂ | 0 < z.im} →
+      (∃ z : ℂ, 0 < z.im ∧ F z ≠ 0) → AnalyticAt ℂ A 0 →
+      (∃ Y₀ : ℝ, ∀ z : ℂ, 0 < z.im → Y₀ ≤ z.im →
+        F z = A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z))) →
+      analyticOrderAt A 0 ≠ ⊤ := by
+  intro F A hF ⟨z₁, hz₁, hFz₁⟩ _ ⟨Y₀, hfactor⟩ htop
+  have hU : IsOpen {z : ℂ | 0 < z.im} :=
+    isOpen_lt continuous_const Complex.continuous_im
+  have hAn : AnalyticOnNhd ℂ F {z : ℂ | 0 < z.im} := hF.analyticOnNhd hU
+  obtain ⟨δ, hδ, hAzero⟩ := Metric.eventually_nhds_iff.mp (analyticOrderAt_eq_top.mp htop)
+  let T : ℝ := max (max 0 Y₀) (-Real.log δ / (2 * Real.pi))
+  have hT0 : 0 ≤ T := le_trans (le_max_left 0 Y₀) (le_max_left _ _)
+  have hTY : Y₀ ≤ T := le_trans (le_max_right 0 Y₀) (le_max_left _ _)
+  have hTlog : -Real.log δ / (2 * Real.pi) ≤ T := le_max_right _ _
+  have hexp : Real.exp (-2 * Real.pi * T) ≤ δ := by
+    rw [← Real.exp_log hδ]
+    apply Real.exp_le_exp.mpr
+    have hmul := (div_le_iff₀ (by positivity : 0 < 2 * Real.pi)).mp hTlog
+    nlinarith
+  have hhigh : ∀ z : ℂ, T < z.im → F z = 0 := by
+    intro z hz
+    rw [hfactor z (lt_of_le_of_lt hT0 hz) (le_trans hTY hz.le)]
+    apply hAzero
+    rw [dist_zero_right]
+    have hq := (Function.Periodic.norm_qParam_lt_iff (by norm_num : (0 : ℝ) < 1) T z).mpr hz
+    have hq' : ‖Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z)‖ <
+        Real.exp (-2 * Real.pi * T) := by
+      simpa only [Function.Periodic.qParam, Complex.ofReal_one, div_one] using hq
+    exact lt_of_lt_of_le hq' hexp
+  let v : ℂ := ((T + 1 : ℝ) : ℂ) * Complex.I
+  have hv : T < v.im := by simp [v]
+  have hvU : v ∈ {z : ℂ | 0 < z.im} := lt_of_le_of_lt hT0 hv
+  have hzero : F =ᶠ[nhds v] 0 := by
+    have hV : IsOpen {z : ℂ | T < z.im} :=
+      isOpen_lt continuous_const Complex.continuous_im
+    filter_upwards [hV.mem_nhds hv] with z hz
+    exact hhigh z hz
+  exact hFz₁ (hAn.eqOn_zero_of_preconnected_of_eventuallyEq_zero
+    (convex_halfSpace_im_gt 0).isPreconnected hvU hzero hz₁)
