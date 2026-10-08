@@ -1,0 +1,18 @@
+{
+  "node_id": "root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/96",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "7ae62a5571d8b1bb8689dd51700704ba375653c8",
+  "integrated_commit": "b3f8f08d2e475163778534ae3218b0341e3c8bcf",
+  "proof_base_commit": "5da12614987b5d1f0110e32890511a7094b8737f",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.local_norm_order-a1.dvr_determinant_length-a1",
+  "requires": [
+    "root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1.finite_family_dividing_member-a1",
+    "root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1.split_divisible_pivot-a1"
+  ]
+}
