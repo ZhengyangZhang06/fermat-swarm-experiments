@@ -5892,6 +5892,8 @@ theorem Submission.p05_fhe_coefficient_matrix_a5b449214a
 
 theorem Submission.p05_di_antipode_adjugate_a5b449214a
     {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
+theorem Submission.p05_di_determinant_grouplike_a5b449214a
+    {k : Type*} [Field k] {H : Type*} [CommRing H] [Bialgebra k H]
     (n : ℕ) (c : Matrix (Fin n) (Fin n) H)
     (hΔ : ∀ i j : Fin n, Coalgebra.comul (R := k) (c i j) =
       ∑ l : Fin n, TensorProduct.tmul k (c i l) (c l j))
@@ -5926,3 +5928,29 @@ theorem Submission.p05_di_antipode_adjugate_a5b449214a
   refine ⟨Matrix.det Q, hdet, ?_⟩
   intro i j
   exact congrArg (fun M : Matrix (Fin n) (Fin n) H => M i j) hQT
+    Coalgebra.comul (R := k) (Matrix.det c) =
+      TensorProduct.tmul k (Matrix.det c) (Matrix.det c) ∧
+    Coalgebra.counit (R := k) (Matrix.det c) = 1 := by
+  classical
+  let L : H →ₐ[k] H ⊗[k] H := Algebra.TensorProduct.includeLeft
+  let R : H →ₐ[k] H ⊗[k] H := Algebra.TensorProduct.includeRight
+  have hcomul : (Bialgebra.comulAlgHom k H).mapMatrix c =
+      L.mapMatrix c * R.mapMatrix c := by
+    ext i j
+    change Coalgebra.comul (R := k) (c i j) =
+      ∑ l : Fin n, L (c i l) * R (c l j)
+    rw [hΔ]
+    apply Finset.sum_congr rfl
+    intro l _
+    simp [L, R, Algebra.TensorProduct.tmul_mul_tmul]
+  constructor
+  · change (Bialgebra.comulAlgHom k H) (Matrix.det c) = _
+    rw [AlgHom.map_det, hcomul, Matrix.det_mul, ← L.map_det, ← R.map_det]
+    simp [L, R, Algebra.TensorProduct.tmul_mul_tmul]
+  · have hcounit : (Bialgebra.counitAlgHom k H).mapMatrix c =
+        (1 : Matrix (Fin n) (Fin n) k) := by
+      ext i j
+      change Coalgebra.counit (R := k) (c i j) = if i = j then 1 else 0
+      exact hε i j
+    change (Bialgebra.counitAlgHom k H) (Matrix.det c) = 1
+    rw [AlgHom.map_det, hcounit, Matrix.det_one]
