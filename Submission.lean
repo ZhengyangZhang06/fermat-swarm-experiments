@@ -18,3 +18,32 @@ theorem Rep.isZero_tateCohomology_of_forall_sylow {k G : Type u} [CommRing k] [G
       CategoryTheory.Limits.IsZero ((Rep.res (P : Subgroup G).subtype A).tateCohomology q)) :
     CategoryTheory.Limits.IsZero (A.tateCohomology q) := by
   sorry
+
+namespace Submission
+
+open CategoryTheory
+
+/-- The restricted standard resolution computes subgroup homology.
+Subgroup restriction is exact and preserves projective objects, so the restricted
+standard resolution resolves the trivial representation of the subgroup.
+`groupHomologyIso` identifies its tensor-coinvariant homology in every degree,
+including zero. The restriction instances are in mathlib's `Rep/Res.lean` and
+`Coinduced.lean`; the comparison is in `Homological/GroupHomology/Basic.lean`,
+all under `Mathlib/RepresentationTheory`. The same restricted-resolution
+construction is used in `Homological/GroupHomology/Shapiro.lean`. -/
+theorem p04_ht_restricted_standard_comparison
+    {k G : Type _} [CommRing k] [Group G] [Fintype G]
+    (A : Rep k G) (H : Subgroup G) [Fintype H] (n : ℕ) :
+    Nonempty
+      (((((Rep.resFunctor (k := k) H.subtype).mapHomologicalComplex
+          (ComplexShape.down ℕ)).obj (Rep.standardComplex k G)).coinvariantsTensorObj
+          (Rep.res H.subtype A)).homology n ≃ₗ[k]
+        groupHomology (Rep.res H.subtype A) n) := by
+  classical
+  let P : ProjectiveResolution (Rep.trivial k H k) :=
+    (Rep.resFunctor (k := k) H.subtype).mapProjectiveResolution (Rep.standardResolution k G)
+  -- `mapProjectiveResolution` gives exactly the complex in the frozen goal.
+  -- Reverse the library comparison to start at its tensor-coinvariant homology.
+  exact ⟨(groupHomologyIso (Rep.res H.subtype A) n P).symm.toLinearEquiv⟩
+
+end Submission
