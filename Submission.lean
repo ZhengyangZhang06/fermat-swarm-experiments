@@ -2614,3 +2614,73 @@ end Submission
     exact Bialgebra.comul_mul
         simpa only [TensorProduct.map_tmul, LinearMap.id_apply] using
           Coalgebra.lTensor_counit_comul (R := k) (i v)
+theorem Submission.p05_hte_sshs_antipode_lift_a5b449214a
+    {k : Type*} [Field k] {A : Type*} [CommRing A] [bA : Bialgebra k A]
+    {H : Type*} [CommRing H] [HopfAlgebra k H]
+    (ι : BialgHom k A H) (hι : Function.Injective ι)
+    (hS : ∀ a : A, ∃ b : A, ι b = HopfAlgebra.antipode k (ι a)) :
+    ∃ hA : HopfAlgebra k A, hA.toHopfAlgebraStruct.toBialgebra = bA ∧
+      (letI : Algebra k A := hA.toHopfAlgebraStruct.toBialgebra.toAlgebra
+       letI : Module k A := Algebra.toModule
+       letI : Bialgebra k A := hA.toHopfAlgebraStruct.toBialgebra
+       letI : HopfAlgebra k A := hA
+       ∀ a : A, ι (HopfAlgebra.antipode k a) = HopfAlgebra.antipode k (ι a)) := by
+  classical
+  let S : A → A := fun a => Classical.choose (hS a)
+  have hSι (a : A) : ι (S a) = HopfAlgebra.antipode k (ι a) :=
+    Classical.choose_spec (hS a)
+  let s : A →ₗ[k] A :=
+    { toFun := S
+      map_add' := fun a b => hι (by simp only [hSι, map_add])
+      map_smul' := fun c a => hι (by simp only [hSι, map_smul, RingHom.id_apply]) }
+  have hs (a : A) : ι (s a) = HopfAlgebra.antipode k (ι a) := hSι a
+  have hr :
+      (ι : A →ₗ[k] H) ∘ₗ (LinearMap.mul' k A ∘ₗ s.rTensor A) =
+        (LinearMap.mul' k H ∘ₗ (HopfAlgebra.antipode k).rTensor H) ∘ₗ
+          TensorProduct.map (ι : A →ₗ[k] H) (ι : A →ₗ[k] H) := by
+    apply TensorProduct.ext'
+    intro a b
+    simp [hs]
+  have hl :
+      (ι : A →ₗ[k] H) ∘ₗ (LinearMap.mul' k A ∘ₗ s.lTensor A) =
+        (LinearMap.mul' k H ∘ₗ (HopfAlgebra.antipode k).lTensor H) ∘ₗ
+          TensorProduct.map (ι : A →ₗ[k] H) (ι : A →ₗ[k] H) := by
+    apply TensorProduct.ext'
+    intro a b
+    simp [hs]
+  have hleft :
+      LinearMap.mul' k A ∘ₗ s.rTensor A ∘ₗ Coalgebra.comul =
+        Algebra.linearMap k A ∘ₗ Coalgebra.counit := by
+    ext a
+    apply hι
+    change ι (LinearMap.mul' k A (s.rTensor A (Coalgebra.comul a))) =
+      ι (algebraMap k A (Coalgebra.counit a))
+    calc
+      _ = LinearMap.mul' k H ((HopfAlgebra.antipode k).rTensor H
+          (TensorProduct.map (ι : A →ₗ[k] H) (ι : A →ₗ[k] H)
+            (Coalgebra.comul a))) := LinearMap.congr_fun hr _
+      _ = algebraMap k H (Coalgebra.counit (ι a)) := by
+        rw [CoalgHomClass.map_comp_comul_apply]
+        exact HopfAlgebra.mul_antipode_rTensor_comul_apply (ι a)
+      _ = _ := by simp only [CoalgHomClass.counit_comp_apply, AlgHomClass.commutes]
+  have hright :
+      LinearMap.mul' k A ∘ₗ s.lTensor A ∘ₗ Coalgebra.comul =
+        Algebra.linearMap k A ∘ₗ Coalgebra.counit := by
+    ext a
+    apply hι
+    change ι (LinearMap.mul' k A (s.lTensor A (Coalgebra.comul a))) =
+      ι (algebraMap k A (Coalgebra.counit a))
+    calc
+      _ = LinearMap.mul' k H ((HopfAlgebra.antipode k).lTensor H
+          (TensorProduct.map (ι : A →ₗ[k] H) (ι : A →ₗ[k] H)
+            (Coalgebra.comul a))) := LinearMap.congr_fun hl _
+      _ = algebraMap k H (Coalgebra.counit (ι a)) := by
+        rw [CoalgHomClass.map_comp_comul_apply]
+        exact HopfAlgebra.mul_antipode_lTensor_comul_apply (ι a)
+      _ = _ := by simp only [CoalgHomClass.counit_comp_apply, AlgHomClass.commutes]
+  let hA : HopfAlgebra k A :=
+    { toBialgebra := bA
+      antipode := s
+      mul_antipode_rTensor_comul := hleft
+      mul_antipode_lTensor_comul := hright }
+  exact ⟨hA, rfl, hs⟩
