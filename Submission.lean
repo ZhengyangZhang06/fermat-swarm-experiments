@@ -219,3 +219,61 @@ theorem Submission.p08_7d1ff633a4_tt26_normal_kernel :
   have hker := @IntermediateField.restrictNormalHom_ker ℚ (AlgebraicClosure ℚ) _ _ _ E hN
   rw [← hker, MonoidHom.comap_ker]
   exact ⟨inferInstance, inferInstance⟩
+
+
+theorem Submission.p08_7d1ff633a4_tt26_cp_zero_two :
+    ∀ {k G : Type} [Field k] [Group G]
+      (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ))
+      (A B N : Rep.{0} k G) (φ : A →ₗ[k] B →ₗ[k] N),
+      (∀ (s : G) (a : A) (b : B),
+        φ (A.ρ s a) (B.ρ s b) = N.ρ s (φ a b)) →
+      ∃ P : A.ρ.invariants →ₗ[k] continuousH2 r B →ₗ[k] continuousH2 r N,
+        ∀ (m : A.ρ.invariants) (z : levelCocycles₂ r B),
+          ∃ e : levelCocycles₂ r N,
+            (∀ st : G × G, (e : G × G → N) st =
+              φ (m : A) ((z : G × G → B) st)) ∧
+            P m (continuousH2π r B z) = continuousH2π r N e := by
+  intro k G _ _ r A B N φ hφ
+  have heq (m : A.ρ.invariants) (s : G) (b : B) :
+      φ (m : A) (B.ρ ((MonoidHom.id G) s) b) = N.ρ s (φ (m : A) b) := by
+    simpa only [MonoidHom.id_apply, m.property s] using hφ s (m : A) b
+  let e (m : A.ρ.invariants) : levelCocycles₂ r B →ₗ[k] levelCocycles₂ r N :=
+    levelCocycles₂Map (MonoidHom.id G) (fun _ => rfl) (φ (m : A)) (heq m)
+  let F (m : A.ρ.invariants) : continuousH2 r B →ₗ[k] continuousH2 r N :=
+    continuousH2Map (MonoidHom.id G) (fun _ => rfl) (φ (m : A)) (heq m)
+  have hF (m : A.ρ.invariants) (z : levelCocycles₂ r B) :
+      F m (continuousH2π r B z) = continuousH2π r N (e m z) := rfl
+  let P : A.ρ.invariants →ₗ[k] continuousH2 r B →ₗ[k] continuousH2 r N :=
+    { toFun := F
+      map_add' := by
+        intro m m'
+        apply LinearMap.ext
+        intro y
+        obtain ⟨z, rfl⟩ := Submodule.mkQ_surjective
+          ((levelCoboundaries₂ r B).comap (levelCocycles₂ r B).subtype) y
+        change F (m + m') (continuousH2π r B z) =
+          F m (continuousH2π r B z) + F m' (continuousH2π r B z)
+        rw [hF, hF, hF, ← map_add]
+        apply congrArg (continuousH2π r N)
+        apply Subtype.ext
+        funext st
+        change φ ((m : A) + (m' : A)) ((z : G × G → B) st) =
+          φ (m : A) ((z : G × G → B) st) + φ (m' : A) ((z : G × G → B) st)
+        simp only [map_add, LinearMap.add_apply]
+      map_smul' := by
+        intro c m
+        apply LinearMap.ext
+        intro y
+        obtain ⟨z, rfl⟩ := Submodule.mkQ_surjective
+          ((levelCoboundaries₂ r B).comap (levelCocycles₂ r B).subtype) y
+        change F (c • m) (continuousH2π r B z) = c • F m (continuousH2π r B z)
+        rw [hF, hF, ← map_smul]
+        apply congrArg (continuousH2π r N)
+        apply Subtype.ext
+        funext st
+        change φ (c • (m : A)) ((z : G × G → B) st) =
+          c • φ (m : A) ((z : G × G → B) st)
+        simp only [map_smul, LinearMap.smul_apply] }
+  refine ⟨P, fun m z => ⟨e m z, ?_, hF m z⟩⟩
+  intro st
+  rfl
