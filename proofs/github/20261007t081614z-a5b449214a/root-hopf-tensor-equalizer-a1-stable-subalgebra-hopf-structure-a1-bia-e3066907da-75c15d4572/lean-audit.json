@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "99ca558f7587c40b37500b617d7eef03a008dd3990767298ca93514268299578",
+  "git_delta": {
+    "base_commit": "e53a36956e72b437a879169887c66e8c46ed9458",
+    "candidate_commit": "4ebbc3ef7ce69b58df5057d933b9fb5b4d5ef39f",
+    "target": "Submission.lean",
+    "declaration": "p05_hte_sshs_br_comul_alg_lift_a5b449214a",
+    "diff_sha256": "34aaef3993580f794f902bfa4b5b8e63272e8f09696202b8e9da7ccc1975d52a",
+    "source_sha256": "5e1e4c241db6ab2782978513d7be73ec3e1b618ba1b3fe4674561886c83e807c",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_hte_sshs_br_comul_alg_lift_a5b449214a",
+      "statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [Bialgebra k H] (D : Subalgebra k H) (_hΔ : ∀ x ∈ D, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ D, ∃ b ∈ D, t = TensorProduct.tmul k a b}), ∃ δ : D →ₐ[k] TensorProduct k D D, ∀ d : D, (Algebra.TensorProduct.map D.val D.val) (δ d) = Coalgebra.comul (R := k) (d : H)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
