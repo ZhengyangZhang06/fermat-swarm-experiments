@@ -2332,3 +2332,26 @@ theorem Submission.p10_17ae7b7d_valence_pseudohyperbolic_disks :
   intro v ε hv hε hε_one
   exact ⟨Submission.p10_17ae7b7d_phdisk_euclidean v ε hv hε hε_one,
     Submission.p10_17ae7b7d_phdisk_mobius_image v ε hv hε hε_one⟩
+theorem Submission.p10_17ae7b7d_ccm_translation_period :
+    ∀ (N : ℕ) [NeZero N]
+      (q : (Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 N),
+      (ModularGroup.T ^ N) • q = q := by
+  intro N _ q
+  refine QuotientGroup.induction_on q ?_
+  intro A
+  rw [MulAction.Quotient.smul_mk, smul_eq_mul]
+  apply Eq.symm
+  apply QuotientGroup.eq.mpr
+  apply CongruenceSubgroup.Gamma0_mem.mpr
+  have hT : (ModularGroup.T ^ N).1 = !![1, (N : ℤ); 0, 1] := by
+    simpa only [zpow_natCast] using ModularGroup.coe_T_zpow (N : ℤ)
+  have hentry : (A⁻¹ * (ModularGroup.T ^ N * A)) 1 0 =
+      -(N : ℤ) * (A 1 0) ^ 2 := by
+    change ((A⁻¹).1 * ((ModularGroup.T ^ N).1 * A.1)) 1 0 = _
+    rw [Matrix.SpecialLinearGroup.SL2_inv_expl, hT]
+    simp only [Matrix.mul_apply, Fin.sum_univ_two]
+    change -(A 1 0) * (1 * A 0 0 + (N : ℤ) * A 1 0) +
+      A 0 0 * (0 * A 0 0 + 1 * A 1 0) = _
+    ring
+  rw [hentry]
+  simp
