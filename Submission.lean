@@ -351,3 +351,73 @@ theorem Submission.p08_7d1ff633a4_normal_refinement :
     infer_instance
   · rw [← IntermediateField.restrictNormalHom_ker E]
     infer_instance
+
+
+namespace Submission
+
+theorem p08_7d1ff633a4_common_kernel
+    {p : ℕ} [Fact p.Prime] (q : Nat.Primes)
+    (S : Subgroup (ExtCitation.primeLocalGaloisGroup q)) (U : Subgroup S)
+    (M : Rep.{0} (ZMod p) S) [FiniteDimensional (ZMod p) M]
+    (hU : ∃ F₀ : IntermediateField ℚ (AlgebraicClosure ℚ), FiniteDimensional ℚ F₀ ∧
+      F₀.fixingSubgroup.comap ((ExtCitation.primeLocalToGlobal q).comp S.subtype) ≤ U)
+    (hsm : ∀ m : M, ∃ F : IntermediateField ℚ (AlgebraicClosure ℚ),
+      FiniteDimensional ℚ F ∧ ∀ s : S,
+        ((ExtCitation.primeLocalToGlobal q).comp S.subtype) s ∈ F.fixingSubgroup →
+          M.ρ s m = m) :
+    ∃ E : IntermediateField ℚ (AlgebraicClosure ℚ),
+      FiniteDimensional ℚ E ∧ Normal ℚ E ∧
+      E.fixingSubgroup.comap ((ExtCitation.primeLocalToGlobal q).comp S.subtype) ≤ U ∧
+      (∀ s : S, ((ExtCitation.primeLocalToGlobal q).comp S.subtype) s ∈ E.fixingSubgroup →
+        (∀ m : M, M.ρ s m = m) ∧
+        (∀ d : M.dualTwist
+            (((ExtCitation.cycloChar p).comp (ExtCitation.primeLocalToGlobal q)).comp S.subtype),
+          (M.dualTwist
+            (((ExtCitation.cycloChar p).comp (ExtCitation.primeLocalToGlobal q)).comp S.subtype)).ρ
+              s d = d) ∧
+        (∀ a : Rep.res S.subtype
+            (groupCohomology.ofChar (k := ZMod p)
+              ((ExtCitation.cycloChar p).comp (ExtCitation.primeLocalToGlobal q))),
+          (Rep.res S.subtype
+            (groupCohomology.ofChar (k := ZMod p)
+              ((ExtCitation.cycloChar p).comp (ExtCitation.primeLocalToGlobal q)))).ρ s a = a)) := by
+  obtain ⟨F₀, hF₀, hF₀U⟩ := hU
+  obtain ⟨FM, hFM, hFMfix⟩ :=
+    p08_7d1ff633a4_ck_uniform_stabilizer
+      ((ExtCitation.primeLocalToGlobal q).comp S.subtype) M hsm
+  obtain ⟨FC, hFC, hFCfix⟩ := p08_7d1ff633a4_ck_cyclotomic_kernel (p := p)
+  have hfinite : ∀ i : Fin 3, FiniteDimensional ℚ (![F₀, FM, FC] i) := by
+    intro i
+    fin_cases i
+    · exact hF₀
+    · exact hFM
+    · exact hFC
+  obtain ⟨E, hE, hEnormal, hFE, _, _⟩ :=
+    p08_7d1ff633a4_normal_refinement ![F₀, FM, FC] hfinite
+  have hMfix : ∀ s : S,
+      ((ExtCitation.primeLocalToGlobal q).comp S.subtype) s ∈ E.fixingSubgroup →
+        ∀ m : M, M.ρ s m = m := by
+    intro s hs
+    exact hFMfix s (IntermediateField.fixingSubgroup_le (hFE 1) hs)
+  refine ⟨E, hE, hEnormal, ?_, ?_⟩
+  · intro s hs
+    exact hF₀U (IntermediateField.fixingSubgroup_le (hFE 0) hs)
+  · intro s hs
+    have hχ : (((ExtCitation.cycloChar p).comp
+        (ExtCitation.primeLocalToGlobal q)).comp S.subtype) s = 1 :=
+      hFCfix _ (IntermediateField.fixingSubgroup_le (hFE 2) hs)
+    have hinv : ((ExtCitation.primeLocalToGlobal q).comp S.subtype) s⁻¹ ∈
+        E.fixingSubgroup := by
+      rw [map_inv]
+      exact E.fixingSubgroup.inv_mem hs
+    refine ⟨hMfix s hs, ?_, ?_⟩
+    · intro d
+      rw [Rep.dualTwist_ρ_apply, hχ, Units.val_one, one_smul]
+      ext m
+      exact congrArg d (hMfix s⁻¹ hinv m)
+    · intro a
+      change (((((ExtCitation.cycloChar p).comp
+        (ExtCitation.primeLocalToGlobal q)).comp S.subtype) s : ZMod p) • a) = a
+      rw [hχ, Units.val_one, one_smul]
+
+end Submission
