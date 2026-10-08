@@ -1,0 +1,45 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "unimodularRow|ProjectiveLine|Gamma0|rightRel|leftRel",
+        "quot_mk_eq_iff|eqvGen_exact|quot_eq|Quot.eq|SL2_inv_expl|det_coe|coe_mul|coe_inv",
+        "Gamma0.*(row|equiv)|bottomRow|bottom_row|row.*Gamma0",
+        "p10_17ae7b7d_crcard_(quot_eq_unit|gamma0_row_criterion)",
+        "python3 /tmp/p10_crcard_independent_audit.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Quot.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Logic/Relation.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/Coset/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/coset-row-split-m1rrb_86/report.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/coset-row-independent-audit-38kz1ovk/report.json"
+      ],
+      "conclusion": "Independently confirmed the manifest revisions and clean tracked snapshot/dependency files. The sources support unit-scaling equivalence, quotient exactness, Gamma0 membership, determinant/inverse formulas, and right-to-left coset inversion. The focused search found no bottom-row Gamma0 criterion in project Definitions or mathlib ModularForms. Neither child name is reserved in stored DAGs or handoffs. The 59-node stored graph remains acyclic after adding the proposed parent-to-child edges. Both exact types independently elaborated under frozen imports and parent proof base 1e115a452fbc98bff8aaa6728679030b19690b46; reflexivity checks confirmed ordinary matrix multiplication and left-coset notation. Checked type/library dependencies contain only standard axioms, with no sorryAx. Verified the matching policy digest, exact omissions of lines 10–12, original/build hashes and reversibility; independently reran the successful absence probe for all 56 targets. Protected sources and the live Submission header remained unchanged. The split is appropriate: both obligations are narrower and independent, while lifting, quotient-map assembly and cardinality transfer remain with the parent. This approves decomposition only; implementation comparator and subsequent acceptance gates remain required."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "row_quotient_equality",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The single-line proposition exactly expresses the stated unimodular subtype, unit-scaling relation and quotient-equality criterion. Its local lets are self-contained and independent of any child implementation. Step 1 supplies valid inverse-scaled unimodularity witnesses; step 2 correctly uses identity, inverse and product units; step 3 reduces generated equivalence to rel by induction. This proves both implications without nontriviality or circular reliance. The bare identifier is unreserved, and the empty dependency list is correct."
+    },
+    {
+      "key": "gamma0_bottom_row_criterion",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The single-line proposition matches every hypothesis and both scaling equations, with BA⁻¹ correctly oriented for right cosets. For the forward implication, determinant one supplies the two inverse equations making the lower-right entry a unit, and CA=B supplies the row equations. Conversely, the explicit inverse gives lower-left entry rd−sc, which vanishes after substitution. These arguments remain valid for N=1 and need no lifting hypothesis. Independent Lean checks confirmed ordinary special-linear matrix multiplication. The proof is complete and non-circular; the bare identifier is unreserved and no child dependency is needed."
+    }
+  ],
+  "required_changes": []
+}

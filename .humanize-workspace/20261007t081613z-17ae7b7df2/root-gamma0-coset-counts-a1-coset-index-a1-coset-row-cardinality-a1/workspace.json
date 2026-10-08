@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081613Z-17ae7b7df2",
+  "parent_id": "root.gamma0_coset_counts-a1.coset_index-a1.coset_row_cardinality-a1",
+  "dispatch_branch": "proof-workspace/fermat-p10/20261007t081613z-17ae7b7df2/dispatch/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1",
+  "source_commit": "07f3020c600a02ff5179af41ae5a696736b1bcf1",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.gamma0_coset_counts-a1.coset_index-a1.coset_row_cardinality-a1.gamma0_bottom_row_criterion-a1",
+      "key": "gamma0_bottom_row_criterion",
+      "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1-g-7d69e19dd2-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1/children/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1-g-7d69e19dd2",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "unimodularRow|ProjectiveLine|Gamma0|rightRel|leftRel",
+              "quot.*(eq|equiv)|eq.*quot|Quot.eq|EqvGen|SL2_inv_expl|det_coe|det_fin_two",
+              "Gamma0.*(row|equiv)|bottomRow|bottom_row|row.*Gamma0",
+              "p10_17ae7b7d_crcard_(quot_eq_unit|gamma0_row_criterion)",
+              "python3 /tmp/p10_coset_split_diagnostics.py",
+              "python3 /tmp/p10_coset_split_retry.py"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Quot.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Logic/Relation.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/Coset/Defs.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+              "/runtime/operator-header-policy-v1/policy.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/coset-row-split-m1rrb_86/ChildTypes.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/coset-row-split-m1rrb_86/ChildTypes.log",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/coset-row-split-m1rrb_86/TargetAbsence.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/coset-row-split-m1rrb_86/report.json"
+            ],
+            "conclusion": "The snapshot matches project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; both snapshot trees and all nine pinned dependency checkouts had clean tracked files. The projective-line source supplies the unit-scaling equivalence argument, but that module is outside the frozen imports, so the proposed interface uses the explicit subtype and Quot. Mathlib supplies Equivalence.quot_mk_eq_iff, Gamma0_mem, determinant-one and inverse-matrix formulas, and quotientRightRelEquivQuotientLeftRel. The focused search found no existing bottom-row Gamma0 criterion in project Definitions or mathlib ModularForms. Neither proposed identifier was reserved in the searched DAGs or handoffs. Both exact child types compiled after import Submission in a disposable captured compiler copy. A reflexivity check identified special-linear multiplication with the explicit finite-sum matrix product. The types and checked library declarations use only propext, Classical.choice and Quot.sound, or no axioms. The matching header policy digest is 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96; only lines 10–12 were omitted, and Lean checked all 56 targets absent. The receipt records exact omitted text, reversible copies, contract original hash 96e3f06b92cb64921c5c4745f0115bb7ca89de8412a80d1d3a1599b7693a0d8a and compiler-copy hash fb90bb88b6fa024189bde0f814c11f19649668a957e83b1a7c298dea579e3539. No production source was edited by these diagnostics; a concurrent Submission update was recorded and preserved. These are interface checks, not comparator acceptance of proofs."
+          }
+        ],
+        "parent_id": "root.gamma0_coset_counts-a1.coset_index-a1.coset_row_cardinality-a1",
+        "child_id": "root.gamma0_coset_counts-a1.coset_index-a1.coset_row_cardinality-a1.gamma0_bottom_row_criterion-a1",
+        "subproblem": {
+          "key": "gamma0_bottom_row_criterion",
+          "title": "Gamma0 right-coset criterion from reduced bottom rows",
+          "statement": "Let N be a nonzero natural number, put R=ℤ/Nℤ, and let A,B∈SL₂(ℤ). Define Γ₀(N) as the subgroup whose bottom-left entry reduces to zero in R. Then BA⁻¹∈Γ₀(N) if and only if there exists a unit u∈R× such that u times the reduction of A₂₁ equals the reduction of B₂₁, and u times the reduction of A₂₂ equals the reduction of B₂₂.",
+          "lean_statement": "∀ (N : ℕ) [NeZero N] (A B : Matrix.SpecialLinearGroup (Fin 2) ℤ), B * A⁻¹ ∈ CongruenceSubgroup.Gamma0 N ↔ ∃ u : (ZMod N)ˣ, (u : ZMod N) * (A 1 0 : ZMod N) = (B 1 0 : ZMod N) ∧ (u : ZMod N) * (A 1 1 : ZMod N) = (B 1 1 : ZMod N)",
+          "lean_name": "p10_17ae7b7d_crcard_gamma0_row_criterion",
+          "depends_on": [],
+          "natural_proof": "1. Fix N≠0 and A,B∈SL₂(ℤ), and reduce all entries modulo N into R=ℤ/Nℤ. Membership of an integral determinant-one matrix in Γ₀(N) means that its reduced bottom-left entry is zero.\n2. Suppose C=BA⁻¹ lies in Γ₀(N). Write its reduction as [[k,l],[0,e]]. Reducing det C=1 gives ke=1. Commutativity also gives ek=1, so e is the value of a unit u of R whose inverse has value k.\n3. The group identity CA=B implies that the reduced bottom row of B is the bottom row of [[k,l],[0,e]]A. Matrix multiplication gives B₂₁=eA₂₁ and B₂₂=eA₂₂ in R. Thus u is the required simultaneous scaling unit, proving the forward implication.\n4. Conversely, suppose a unit u satisfies the two displayed scaling equations. Write A=[[a,b],[c,d]] over ℤ, and write r,s for the reduced bottom entries of B. The determinant-one equation ad−bc=1 gives A⁻¹=[[d,−b],[−c,a]]. Consequently the reduced bottom-left entry of BA⁻¹ is r d−s c, with c,d now denoting their reductions. Substituting r=uc and s=ud gives ucd−udc=0 by commutativity. Hence BA⁻¹ lies in Γ₀(N), proving the reverse implication.\n5. Both directions hold in every residue ring, including the zero ring R=ℤ/1ℤ, since the proof only used ring identities and explicit inverse equations for units.",
+          "proof_key_steps": [
+            "Reduce C=BA⁻¹ in Gamma0 to an upper-triangular determinant-one matrix.",
+            "Use its diagonal entries to construct the bottom-right scaling unit.",
+            "Apply CA=B to obtain the two bottom-row scaling equations.",
+            "Conversely compute the bottom-left entry of BA⁻¹ and cancel it using the scaling equations."
+          ]
+        },
+        "audit": {
+          "key": "gamma0_bottom_row_criterion",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The single-line proposition matches every hypothesis and both scaling equations, with BA⁻¹ correctly oriented for right cosets. For the forward implication, determinant one supplies the two inverse equations making the lower-right entry a unit, and CA=B supplies the row equations. Conversely, the explicit inverse gives lower-left entry rd−sc, which vanishes after substitution. These arguments remain valid for N=1 and need no lifting hypothesis. Independent Lean checks confirmed ordinary special-linear matrix multiplication. The proof is complete and non-circular; the bare identifier is unreserved and no child dependency is needed."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1-g-7d69e19dd2/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1-g-7d69e19dd2/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1-g-7d69e19dd2/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.gamma0_coset_counts-a1.coset_index-a1.coset_row_cardinality-a1.row_quotient_equality-a1",
+      "key": "row_quotient_equality",
+      "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1-r-e8931888f5-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1/children/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1-r-e8931888f5",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "unimodularRow|ProjectiveLine|Gamma0|rightRel|leftRel",
+              "quot.*(eq|equiv)|eq.*quot|Quot.eq|EqvGen|SL2_inv_expl|det_coe|det_fin_two",
+              "Gamma0.*(row|equiv)|bottomRow|bottom_row|row.*Gamma0",
+              "p10_17ae7b7d_crcard_(quot_eq_unit|gamma0_row_criterion)",
+              "python3 /tmp/p10_coset_split_diagnostics.py",
+              "python3 /tmp/p10_coset_split_retry.py"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Quot.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Logic/Relation.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/Coset/Defs.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+              "/runtime/operator-header-policy-v1/policy.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/coset-row-split-m1rrb_86/ChildTypes.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/coset-row-split-m1rrb_86/ChildTypes.log",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/coset-row-split-m1rrb_86/TargetAbsence.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/coset-row-split-m1rrb_86/report.json"
+            ],
+            "conclusion": "The snapshot matches project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; both snapshot trees and all nine pinned dependency checkouts had clean tracked files. The projective-line source supplies the unit-scaling equivalence argument, but that module is outside the frozen imports, so the proposed interface uses the explicit subtype and Quot. Mathlib supplies Equivalence.quot_mk_eq_iff, Gamma0_mem, determinant-one and inverse-matrix formulas, and quotientRightRelEquivQuotientLeftRel. The focused search found no existing bottom-row Gamma0 criterion in project Definitions or mathlib ModularForms. Neither proposed identifier was reserved in the searched DAGs or handoffs. Both exact child types compiled after import Submission in a disposable captured compiler copy. A reflexivity check identified special-linear multiplication with the explicit finite-sum matrix product. The types and checked library declarations use only propext, Classical.choice and Quot.sound, or no axioms. The matching header policy digest is 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96; only lines 10–12 were omitted, and Lean checked all 56 targets absent. The receipt records exact omitted text, reversible copies, contract original hash 96e3f06b92cb64921c5c4745f0115bb7ca89de8412a80d1d3a1599b7693a0d8a and compiler-copy hash fb90bb88b6fa024189bde0f814c11f19649668a957e83b1a7c298dea579e3539. No production source was edited by these diagnostics; a concurrent Submission update was recorded and preserved. These are interface checks, not comparator acceptance of proofs."
+          }
+        ],
+        "parent_id": "root.gamma0_coset_counts-a1.coset_index-a1.coset_row_cardinality-a1",
+        "child_id": "root.gamma0_coset_counts-a1.coset_index-a1.coset_row_cardinality-a1.row_quotient_equality-a1",
+        "subproblem": {
+          "key": "row_quotient_equality",
+          "title": "Equality of unimodular row classes is unit scaling",
+          "statement": "Let R be a commutative ring, with no nontriviality assumption. Define U={(r,s)∈R² | ∃x,y∈R, xr+ys=1}. For v,w∈U, define rel(v,w) to mean that there exists u∈R× with uv₁=w₁ and uv₂=w₂. Then for every v,w∈U, their images in Quot rel are equal if and only if rel(v,w).",
+          "lean_statement": "∀ (R : Type) [CommRing R], let U := {v : R × R // ∃ x y : R, x * v.1 + y * v.2 = 1}; let rel : U → U → Prop := fun v w => ∃ u : Rˣ, (u : R) * v.1.1 = w.1.1 ∧ (u : R) * v.1.2 = w.1.2; ∀ v w : U, Quot.mk rel v = Quot.mk rel w ↔ rel v w",
+          "lean_name": "p10_17ae7b7d_crcard_quot_eq_unit",
+          "depends_on": [],
+          "natural_proof": "1. Fix a commutative ring R. Let U be the stated unimodular-row subtype and let rel be unit scaling. If xr+ys=1 and u is a unit, then (x u⁻¹)(ur)+(y u⁻¹)(us)=xr+ys=1, so scaling preserves U.\n2. The unit 1 scales every row to itself. If u scales v to w, then u⁻¹ scales w to v, since u⁻¹(ur)=r in each coordinate. If u scales v to w and t scales w to z, then the unit tu scales v to z, by associativity in each coordinate. Thus rel is reflexive, symmetric and transitive.\n3. Equality of the images of v and w in Quot rel is equivalent to membership in the equivalence relation generated by rel. Every generator is rel-related; reflexivity, symmetry and transitivity from step 2 show, by induction on the generation of this relation, that every generated pair is already rel-related. Conversely every rel-related pair is a generator and has equal quotient images. Hence Quot.mk rel v = Quot.mk rel w if and only if rel v w, which is precisely the existence of the stated scaling unit. No nontriviality assumption on R is used.",
+          "proof_key_steps": [
+            "Unit scaling preserves unimodularity by scaling the witness coefficients by the inverse unit.",
+            "Identity, inverse and product units establish reflexivity, symmetry and transitivity.",
+            "The generated equivalence relation therefore equals unit scaling, giving the exact quotient-equality criterion."
+          ]
+        },
+        "audit": {
+          "key": "row_quotient_equality",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The single-line proposition exactly expresses the stated unimodular subtype, unit-scaling relation and quotient-equality criterion. Its local lets are self-contained and independent of any child implementation. Step 1 supplies valid inverse-scaled unimodularity witnesses; step 2 correctly uses identity, inverse and product units; step 3 reduces generated equivalence to rel by induction. This proves both implications without nontriviality or circular reliance. The bare identifier is unreserved, and the empty dependency list is correct."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1-r-e8931888f5/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1-r-e8931888f5/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1-r-e8931888f5/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1/task.md": "88b1002f931f9db565a73aca07e087230eaf4513e50f89dde142b288f4f74309",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1/problem.md": "c0d696de12207f8a138e01c1056e5c32494f559ac76a7f989b86196fbe3ec896",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1/problem.json": "09bfb3e94e9c52916c6ee18b497e1146a074f98a2710e85c5c5460cb0b09f76a",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1/reference-manifest.json": "57bc5044097a9c3cadb6a565fb02bfe2c5c9db06690993e4e6916463cba75efa",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1/decomposition.json": "3a25a08943306e6a7d6c4c0f152b28ea1b28095982f792c972fd9682179e3657",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1/decomposition-audit.json": "1796c7894218c32418d899d1f36f11f55a69163f809c9db8b97b81a6a8180218",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1/controller-contract.json": "d1b66564f94c24ea9aabf052e7675de958b8785c03d14b64249e21e1e9480907",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1/children/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1-g-7d69e19dd2/parent-child-handoff.json": "118eb6a11e901a02b7dce62e379ba31504014ee372827dc2c3a145e9586171b8",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1/children/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1-g-7d69e19dd2/parent-supplied-plan.md": "c3a1ce5abc41f64d99f6a70e539835fd071f8c4d4852a5c06d66ce10224dd89f",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1/children/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1-g-7d69e19dd2/parent-supplied-natural-proof.md": "9e84d1f16a3419ec00b1aec8f597d505d6d1d15dfcee3bff720f5996999dad68",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1/children/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1-g-7d69e19dd2/parent-supplied-natural-proof.json": "91d95231e0ed4a7b07bd88a5562380e480cd68bea8ccbf2618b2f7514f2ebd0d",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1/children/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1-g-7d69e19dd2/node.json": "aee83354ec6fd6610107d26f2fc97f11f71fbc8cf179de1769235665af597916",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1/children/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1-r-e8931888f5/parent-child-handoff.json": "2b0423b05ae29da5e9d6b764a4f9aa9fb1bd235ec9a2132c0c8ef8465d01a138",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1/children/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1-r-e8931888f5/parent-supplied-plan.md": "ca44a84c850050851fa76b7886bd89a6daa197437d330bde810e6a021871e010",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1/children/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1-r-e8931888f5/parent-supplied-natural-proof.md": "61a0e0944546b65e2c3bd1cf9c8374166df02095e898a2576c0b21a50558c6b5",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1/children/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1-r-e8931888f5/parent-supplied-natural-proof.json": "b6931be80e1eafcd77d4276e5b89fb4164ddf936025ac7f2da31f406515ae737",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1/children/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1-r-e8931888f5/node.json": "3ae5d04da8593763cd46d6d3c03debb8f290776128beb5363daaced353815795"
+  }
+}

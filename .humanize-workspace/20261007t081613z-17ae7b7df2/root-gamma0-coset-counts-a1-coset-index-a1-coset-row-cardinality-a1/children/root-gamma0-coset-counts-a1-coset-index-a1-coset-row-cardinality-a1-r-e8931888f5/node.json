@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.gamma0_coset_counts-a1.coset_index-a1.coset_row_cardinality-a1.row_quotient_equality-a1",
+  "parent_id": "root.gamma0_coset_counts-a1.coset_index-a1.coset_row_cardinality-a1",
+  "depth": 4,
+  "title": "Equality of unimodular row classes is unit scaling",
+  "statement": "Let R be a commutative ring, with no nontriviality assumption. Define U={(r,s)∈R² | ∃x,y∈R, xr+ys=1}. For v,w∈U, define rel(v,w) to mean that there exists u∈R× with uv₁=w₁ and uv₂=w₂. Then for every v,w∈U, their images in Quot rel are equal if and only if rel(v,w).",
+  "lean_statement": "∀ (R : Type) [CommRing R], let U := {v : R × R // ∃ x y : R, x * v.1 + y * v.2 = 1}; let rel : U → U → Prop := fun v w => ∃ u : Rˣ, (u : R) * v.1.1 = w.1.1 ∧ (u : R) * v.1.2 = w.1.2; ∀ v w : U, Quot.mk rel v = Quot.mk rel w ↔ rel v w",
+  "lean_name": "p10_17ae7b7d_crcard_quot_eq_unit",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-coset-row-cardinality-a1-r-e8931888f5-a1"
+}
