@@ -303,7 +303,8 @@ theorem Submission.p10_17ae7b7d_efp_inverse_coset_eq_iff :
         (E 0 1 : ZMod N) * (E 1 0 : ZMod N) = 1 := by
       have h := E.det_coe
       rw [Matrix.det_fin_two] at h
-      exact_mod_cast h
+      simpa only [Int.cast_sub, Int.cast_mul, Int.cast_one] using
+        congrArg (fun z : ℤ => (z : ZMod N)) h
     have hunit : (E 1 1 : ZMod N) * (E 0 0 : ZMod N) = 1 := by
       rw [hzero, mul_zero, sub_zero] at hdet
       simpa only [mul_comm] using hdet
