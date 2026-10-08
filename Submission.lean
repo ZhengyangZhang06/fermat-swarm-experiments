@@ -16,3 +16,60 @@ set_option autoImplicit false
 theorem CuspForm.gamma0_weight_two_eq_zero_of_genusFormula_eq_zero (N : ℕ) [NeZero N]
     (hg : ModularCurve.genusFormula N = 0) (f : CuspForm (CongruenceSubgroup.Gamma0 N) 2) : f = 0 := by
   sorry
+
+theorem Submission.p10_17ae7b7d_pde_holomorphic_extension :
+    ∀ (w : ℝ) (g : ℂ → ℂ), 0 < w →
+      DifferentiableOn ℂ g {z : ℂ | 0 < z.im} →
+      (∀ z : ℂ, 0 < z.im → g (z + (w : ℂ)) = g z) →
+      (∃ C Y : ℝ, ∀ z : ℂ, 0 < z.im → Y ≤ z.im → ‖g z‖ ≤ C) →
+      ∃ A : ℂ → ℂ, DifferentiableOn ℂ A (Metric.ball (0 : ℂ) 1) ∧
+        (∀ z : ℂ, 0 < z.im →
+          g z = A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z / (w : ℂ)))) := by
+  classical
+  intro w g hw hg hp hb
+  let f : ℂ → ℂ := fun z => if 0 < z.im then g z else 0
+  have hf : Function.Periodic f (w : ℂ) := by
+    intro z
+    by_cases hz : 0 < z.im
+    · simpa [f, Complex.add_im, hz] using hp z hz
+    · simp [f, Complex.add_im, hz]
+  have hU : IsOpen {z : ℂ | 0 < z.im} :=
+    isOpen_lt continuous_const Complex.continuous_im
+  have hdiff : ∀ z : ℂ, 0 < z.im → DifferentiableAt ℂ f z := by
+    intro z hz
+    apply (hg.differentiableAt (hU.mem_nhds hz)).congr_of_eventuallyEq
+    filter_upwards [hU.mem_nhds hz] with y hy
+    simp [f, hy]
+  have hhol : ∀ᶠ z in Filter.comap Complex.im Filter.atTop,
+      DifferentiableAt ℂ f z := by
+    apply Filter.eventually_comap.mpr
+    filter_upwards [Filter.eventually_gt_atTop (0 : ℝ)] with y hy
+    intro z hz
+    exact hdiff z (hz ▸ hy)
+  have hbd : Filter.BoundedAtFilter (Filter.comap Complex.im Filter.atTop) f := by
+    obtain ⟨C, Y, hCY⟩ := hb
+    apply Asymptotics.IsBigO.of_bound C
+    apply Filter.eventually_comap.mpr
+    filter_upwards [Filter.eventually_gt_atTop (max 0 Y)] with y hy
+    intro z hz
+    have hz0 : 0 < z.im := hz ▸ lt_of_le_of_lt (le_max_left 0 Y) hy
+    have hzY : Y ≤ z.im := hz ▸ le_of_lt (lt_of_le_of_lt (le_max_right 0 Y) hy)
+    simpa [f, hz0] using hCY z hz0 hzY
+  refine ⟨Function.Periodic.cuspFunction w f, ?_, ?_⟩
+  · intro q hq
+    by_cases hq0 : q = 0
+    · subst q
+      exact (Function.Periodic.differentiableAt_cuspFunction_zero hw hf hhol hbd).differentiableWithinAt
+    · have hqn : ‖q‖ < 1 := by simpa [Metric.mem_ball, dist_zero_right] using hq
+      have hqi : 0 < (Function.Periodic.invQParam w q).im := by
+        rw [Function.Periodic.im_invQParam]
+        exact mul_pos_of_neg_of_neg
+          (div_neg_of_neg_of_pos (neg_lt_zero.mpr hw) (by positivity))
+          (Real.log_neg (norm_pos_iff.mpr hq0) hqn)
+      have hd := Function.Periodic.differentiableAt_cuspFunction hw.ne' hf
+        (hdiff _ hqi)
+      rw [Function.Periodic.qParam_right_inv hw.ne' hq0] at hd
+      exact hd.differentiableWithinAt
+  · intro z hz
+    simpa [Function.Periodic.qParam, f, hz] using
+      (Function.Periodic.eq_cuspFunction hw.ne' hf z).symm
