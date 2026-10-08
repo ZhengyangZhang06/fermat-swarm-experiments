@@ -11,7 +11,12 @@ set_option autoImplicit false
 
 namespace Submission
 
-/-- An additive group is trivial if every prime is avoided by a positive global annihilator. -/
+/-- An additive group is trivial if every prime is avoided by a positive global annihilator.
+
+For each element, its least positive annihilator divides every annihilator by Euclidean
+division. A prime divisor of that least annihilator would contradict the hypothesis,
+so the least annihilator is one and the element is zero.
+-/
 theorem p04_eq_zero_of_prime_avoiding_annihilators :
     ∀ {V : Type*} [AddCommGroup V],
       (∀ p : ℕ, p.Prime → ∃ m : ℕ, 0 < m ∧ ¬ p ∣ m ∧ ∀ v : V, m • v = 0) →
