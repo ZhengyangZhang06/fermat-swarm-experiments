@@ -1,5 +1,48 @@
 # B1 controller repair handoff: residue quotient length
 
+## 2026-10-08 selected-node revalidation
+
+The new implementation invocation at `.humanize/rlcr/2026-10-08_06-19-09`
+explicitly requires another exact-node comparator attempt. Its current user
+instruction supersedes the earlier request below to wait for preflight. The
+frozen theorem, accepted natural proof, and empty dependency list are unchanged.
+
+- Starting candidate: `5001b49220b2262577568410fe74e2dd9665635c`, clean worktree.
+- The actual warning-fatal `Submission.lean` check again exits 1 with the same
+  three unknown attribute targets at lines 9–11 and the inherited root `sorry`
+  at line 14. No error identifies the selected theorem.
+- All nine package repositories are clean and exactly match `lake-manifest.json`.
+  Mathlib remains `db584cd6d46c92f209a44c0f1c829460d327499d`.
+- The candidate's frozen prefix is preserved. The complete Lean source diff
+  against `1bf214e15ce2cd6df53d35714012c812d46f2811` adds only the tracked
+  selected theorem, with local proof steps and no new named helpers, axioms,
+  placeholders, unsafe mechanisms, or protected-source edits.
+- Current project `PlacesOverDVR` and `DivisorPushPull` sources and mathlib
+  `RingTheory/Length.lean` and `LocalRing/Length.lean` match the mandatory local
+  snapshot byte for byte. Reference searches and source inspection confirm the
+  normalization, localization, canonical residue action, and length APIs used
+  in the candidate; the targeted local weighted-length query has no matches.
+- The requested read-only simplification review recommends retaining the proof:
+  it found no correctness defect or worthwhile simplification. It is not the
+  outer controller's independent acceptance gate.
+
+The theorem source SHA-256 remains
+`28e2eaad24cf4369a15b5c63345d546d35dbfd357d9bfd5dfa0e2b3ff1b7e7c8`.
+The theorem itself needs no source change on the evidence available. This
+documentation update records the reproducible context blocker, without changing
+the problem, DAG, protected files, package pins, or controller state.
+
+The local round directory contains the initialized goal tracker and round
+contract, `source-audit.json`, `complete-source.diff`, `submission.log`,
+`submission-result.json`, and `simplification-review.md`. Its final
+`round-0-summary.md` records the current diagnostic and comparator outcomes
+after this documentation commit. These local Humanize records remain ignored
+as configured by the repository. Neither this commit nor a successful isolated
+diagnostic constitutes comparator acceptance. B1 must remain open until the
+actual required build and exact comparator pass.
+
+## Earlier terminal run
+
 This is the builder's requested reproduction for the controller owner. **AC2 remains blocked; no proof acceptance is claimed.** The selected proof is retained unchanged. No further comparator request should be made until the controller supplies the preflight evidence below.
 
 ## Existing repair path and immutable identities
