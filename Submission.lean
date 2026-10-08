@@ -2552,25 +2552,26 @@ theorem Submission.f036cc6b1f_tdi_planar_exp_integrable_fd :
   let b : ℝ := Real.sqrt 3 / 2
   have hy : MeasureTheory.IntegrableOn (fun y : ℝ => Real.exp (-a * y))
       (Set.Ici b) :=
-    MeasureTheory.integrableOn_Ici_iff_integrableOn_Ioi.mpr (exp_neg_integrableOn_Ioi b ha)
+    (MeasureTheory.integrableOn_Ici_iff_integrableOn_Ioi (by finiteness)).mpr
+      (exp_neg_integrableOn_Ioi b ha)
   have hx : MeasureTheory.IntegrableOn (fun _ : ℝ => (1 : ℝ))
-      (Set.Icc (-(1 : ℝ) / 2) (1 / 2)) := MeasureTheory.integrableOn_const
+      (Set.Icc (-(1 / 2 : ℝ)) (1 / 2)) := MeasureTheory.integrableOn_const
   have hprod : MeasureTheory.IntegrableOn (fun p : ℝ × ℝ => Real.exp (-a * p.2))
-      (Set.Icc (-(1 : ℝ) / 2) (1 / 2) ×ˢ Set.Ici b) := by
+      (Set.Icc (-(1 / 2 : ℝ)) (1 / 2) ×ˢ Set.Ici b) := by
     change MeasureTheory.Integrable _
       (((MeasureTheory.volume : MeasureTheory.Measure ℝ).prod MeasureTheory.volume).restrict _)
     rw [← MeasureTheory.Measure.prod_restrict]
     simpa only [one_mul] using hx.mul_prod hy
   have hc : MeasureTheory.IntegrableOn (fun z : ℂ => Real.exp (-a * z.im))
       (Complex.measurableEquivRealProd ⁻¹'
-        (Set.Icc (-(1 : ℝ) / 2) (1 / 2) ×ˢ Set.Ici b)) :=
+        (Set.Icc (-(1 / 2 : ℝ)) (1 / 2) ×ˢ Set.Ici b)) :=
     (Complex.volume_preserving_equiv_real_prod.integrableOn_comp_preimage
       Complex.measurableEquivRealProd.measurableEmbedding).mpr hprod
   have hi : MeasureTheory.IntegrableOn (fun z : ℂ => Real.exp (-a * z.im))
       (UpperHalfPlane.coe '' ModularGroup.fd) := by
     apply hc.mono_set
     rintro _ ⟨z, hz, rfl⟩
-    change z.re ∈ Set.Icc (-(1 : ℝ) / 2) (1 / 2) ∧ b ≤ z.im
+    change z.re ∈ Set.Icc (-(1 / 2 : ℝ)) (1 / 2) ∧ b ≤ z.im
     constructor
     · exact abs_le.mp hz.2
     · dsimp [b]
