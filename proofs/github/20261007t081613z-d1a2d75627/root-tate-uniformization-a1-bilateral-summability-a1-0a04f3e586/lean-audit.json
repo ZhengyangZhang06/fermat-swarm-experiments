@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "c6293a496c79693e5edce8c345a1517f2a8f181f50d70c5a180814a369866f1d",
+  "git_delta": {
+    "base_commit": "76a5a13631ccb5437823224ae790d5515f6426cb",
+    "candidate_commit": "2063f417c57008810118f9941744075d56f563d6",
+    "target": "Submission.lean",
+    "declaration": "p03_tu_bilateral_summable_68cf3476",
+    "diff_sha256": "e415ac1c97ad410a4f3d67710d00cfe788bfa520029d171283246772258f8b2d",
+    "source_sha256": "31bf6a05cf1978ac8637fd12a45e511eb0f6e494180a12e9d59ef1206878440b",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p03_tu_bilateral_summable_68cf3476",
+      "statement": "∀ (F Ω : Type) [NormedField F] [CompleteSpace F] [NormedField Ω] [NormedAlgebra F Ω] [Algebra.IsAlgebraic F Ω], (∀ x y : Ω, ‖x + y‖ ≤ max ‖x‖ ‖y‖) → ∀ q : F, 0 < ‖q‖ → ‖q‖ < 1 → let qΩ : Ω := algebraMap F Ω q; ∀ u : Ωˣ, (¬ ∃ m : ℤ, (u : Ω) = qΩ ^ m) → Summable (fun n : ℤ => qΩ ^ n * (u : Ω) / (1 - qΩ ^ n * (u : Ω)) ^ 2) ∧ Summable (fun n : ℤ => (qΩ ^ n * (u : Ω)) ^ 2 / (1 - qΩ ^ n * (u : Ω)) ^ 3)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
