@@ -4466,7 +4466,6 @@ theorem p06_9e0f5043ff_llm_localized_series_sum
       Finset.sum Finset.univ (fun i : Fin s.length =>
         Module.length (Localization T)
           (LocalizedModule T (↥(s i.succ) ⧸ (s i.castSucc).comap (s i.succ).subtype))) := by
-  classical
   -- Localize each short exact sequence of successive terms.
   have hstep (i : Fin s.length) :
       Module.length (Localization T) (LocalizedModule T (s i.succ)) =
