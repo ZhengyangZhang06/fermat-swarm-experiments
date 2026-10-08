@@ -2057,7 +2057,14 @@ namespace Submission
 
 Transfer is the sum over right cosets, with each summand descended through representative
 independence. Naturality gives chain maps, and the additive homology functor preserves their
-index composite. -/
+index composite. The quotient of right cosets is used directly, so the construction does not
+require a choice of transversal or normality of `H`.
+
+The quotient and restriction APIs come from mathlib's `RepresentationTheory/Coinvariants.lean`
+and `RepresentationTheory/Rep/Res.lean`; the complex and additive homology APIs come from
+`RepresentationTheory/Homological/GroupHomology/Basic.lean` and
+`Algebra/Homology/ShortComplex/HomologicalComplex.lean`, at the pinned revision
+`db584cd6d46c92f209a44c0f1c829460d327499d`. -/
 theorem p04_ht_coinvariant_complex_transfer
     {k G : Type _} [CommRing k] [Group G] [Fintype G]
     (A : Rep k G) (H : Subgroup G) [Fintype H]
