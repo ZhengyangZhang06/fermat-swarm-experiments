@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "groupHomologyIso|mapProjectiveResolution|def groupHomology|universe",
+        "isZero_tateCohomology_of_forall_sylow|p04_tia_homology_transfer",
+        "p04_tia_homology_transfer"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Fermat/Thm_Rep_isZero_tateCohomology_of_forall_sylow.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean"
+      ],
+      "conclusion": "Both snapshot revisions match the manifest and have clean tracked sources. The frozen contract is unchanged; Basic.lean supplies the cited groupHomologyIso with the required common universe. No prior p04_tia_homology_transfer declaration was found in the snapshot. The exact comparator rerun passed kernel and transitive-axiom checks with only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "4152b72c0a3e9b67079197d124c5cdff3c2f3ba2cac54d4a22a1fa49305e77ad",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p04_tia_homology_transfer",
+      "statement": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H] (n : ℕ), ∃ T : groupHomology A n →ₗ[k] groupHomology (Rep.res H.subtype A) n, ∃ P : groupHomology (Rep.res H.subtype A) n →ₗ[k] groupHomology A n, ∀ x : groupHomology A n, P (T x) = H.index • x",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Transports the accepted complex-transfer maps through the accepted restricted-standard comparison and the pinned groupHomologyIso, preserving the index composite."
+    }
+  ]
+}
