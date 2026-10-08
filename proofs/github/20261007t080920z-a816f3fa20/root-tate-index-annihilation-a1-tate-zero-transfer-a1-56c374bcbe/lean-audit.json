@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "\\b(tateH0|normBar|normToInvariants)\\b",
+        "p04_tia_tate_zero_transfer|p04_tz91_invariant_(restriction_norm_range|transfer_norm_index)",
+        "def mapQ|theorem mapQ_apply|lemma mapQ_apply|theorem mk_surjective|def Coinvariants|def norm "
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Coinvariants.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/LinearAlgebra/Quotient/Basic.lean"
+      ],
+      "conclusion": "Verified clean project revision 2475a3790d7ba0c3b10be8086001b154a45be597 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d. Sources confirm the frozen norm quotient, coinvariant projection and quotient-map interfaces. No node or child theorem identifiers occur in the snapshot. The exact comparator rerun passed with matching committed inputs, pinned dependencies, reversible policy-authorized header omission, target-absence probe and only permitted transitive axioms."
+    }
+  ],
+  "comparison_identity": "407489fe605886f5ddf8f3cf633daf34107f680560edecd085c2a73aae067d13",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p04_tia_tate_zero_transfer",
+      "statement": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H], ∃ R : A.tateH0 →ₗ[k] (Rep.res H.subtype A).tateH0, ∃ C : (Rep.res H.subtype A).tateH0 →ₗ[k] A.tateH0, ∀ x : A.tateH0, C (R x) = H.index • x",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Descends the accepted invariant restriction and transfer maps to norm quotients, carrying their index-composition identity to Tate degree zero."
+    }
+  ]
+}
