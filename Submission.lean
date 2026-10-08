@@ -8776,3 +8776,101 @@ theorem p05_fr_rhm_base_change_semilinear_invariance_a5b449214a
         q qθ hq hqker hqθ hqθker r).symm
 
 end Submission
+theorem Submission.p05_ct_algebra_a5b449214a
+    {k : Type*} [Field k] {A : Type*} [CommRing A] [HopfAlgebra k A]
+    {H : Type*} [CommRing H] [HopfAlgebra k H] (ι : BialgHom k A H) :
+    ∃ θ : TensorProduct k A H ≃ₐ[k] TensorProduct k A H,
+      ∀ (a : A) (h : H), θ (TensorProduct.tmul k a h) =
+        (TensorProduct.map (LinearMap.id : A →ₗ[k] A) ι.toLinearMap)
+          (Coalgebra.comul (R := k) a) * TensorProduct.tmul k (1 : A) h := by
+  classical
+  let T (f : A →ₗ[k] H) : A ⊗[k] H →ₗ[k] A ⊗[k] H :=
+    TensorProduct.lift ((LinearMap.mul k (A ⊗[k] H)).compl₁₂
+      (TensorProduct.map LinearMap.id f ∘ₗ Coalgebra.comul)
+      (Algebra.TensorProduct.includeRight : H →ₐ[k] A ⊗[k] H).toLinearMap)
+  have hT (f : A →ₗ[k] H) (a : A) (h : H) :
+      T f (a ⊗ₜ[k] h) = TensorProduct.map LinearMap.id f (Coalgebra.comul a) *
+        (1 ⊗ₜ[k] h) := rfl
+  let r := Coalgebra.Repr.arbitrary k (A := A)
+  have hexp (f : A →ₗ[k] H) (a : A) (h : H) :
+      T f (a ⊗ₜ[k] h) = ∑ i ∈ (r a).index,
+        (r a).left i ⊗ₜ[k] (f ((r a).right i) * h) := by
+    rw [hT, ← (r a).eq]
+    simp [map_sum, Finset.sum_mul, Algebra.TensorProduct.tmul_mul_tmul]
+  have hinv (f g : A →ₗ[k] H)
+      (hfg : TensorProduct.lift ((LinearMap.mul k H).compl₁₂ f g) ∘ₗ
+        Coalgebra.comul = Algebra.linearMap k H ∘ₗ Coalgebra.counit) :
+      T f ∘ₗ T g = LinearMap.id := by
+    ext a h
+    have hc := congrArg
+      (TensorProduct.map (LinearMap.id : A →ₗ[k] A)
+        (TensorProduct.lift ((LinearMap.mul k H).compl₁₂ f g)))
+      (Coalgebra.sum_tmul_tmul_eq (r a) (fun i => r ((r a).left i))
+        (fun i => r ((r a).right i)))
+    simp only [map_sum, TensorProduct.map_tmul, LinearMap.id_apply,
+      TensorProduct.lift.tmul, LinearMap.compl₁₂_apply, LinearMap.mul_apply'] at hc
+    have hc' := congrArg ((LinearMap.mulRight k h).lTensor A) hc
+    simp only [map_sum, LinearMap.lTensor_tmul, LinearMap.mulRight_apply] at hc'
+    have he (b : A) : ∑ j ∈ (r b).index,
+        f ((r b).left j) * g ((r b).right j) =
+          algebraMap k H (Coalgebra.counit b) := by
+      have he := LinearMap.congr_fun hfg b
+      simpa only [LinearMap.comp_apply, ← (r b).eq, map_sum,
+        TensorProduct.lift.tmul, LinearMap.compl₁₂_apply, LinearMap.mul_apply',
+        Algebra.linearMap_apply] using he
+    change T f (T g (a ⊗ₜ[k] h)) = a ⊗ₜ[k] h
+    rw [hexp]
+    simp only [map_sum, hexp, ← mul_assoc]
+    rw [hc']
+    simp only [← TensorProduct.tmul_sum, ← Finset.sum_mul, he,
+      ← Algebra.smul_def, TensorProduct.tmul_smul]
+    have heps := congrArg (TensorProduct.rid k A)
+      (Coalgebra.sum_tmul_counit_eq (r a))
+    simp only [map_sum, TensorProduct.rid_tmul, one_smul] at heps
+    simp only [TensorProduct.smul_tmul', ← TensorProduct.sum_tmul, heps]
+  let f : A →ₗ[k] H := ι.toLinearMap
+  let g : A →ₗ[k] H := ι.toLinearMap ∘ₗ HopfAlgebra.antipode k
+  have hfg : TensorProduct.lift ((LinearMap.mul k H).compl₁₂ f g) =
+      ι.toLinearMap ∘ₗ LinearMap.mul' k A ∘ₗ (HopfAlgebra.antipode k).lTensor A := by
+    ext a b
+    exact (map_mul ι a (HopfAlgebra.antipode k b)).symm
+  have hgf : TensorProduct.lift ((LinearMap.mul k H).compl₁₂ g f) =
+      ι.toLinearMap ∘ₗ LinearMap.mul' k A ∘ₗ (HopfAlgebra.antipode k).rTensor A := by
+    ext a b
+    exact (map_mul ι (HopfAlgebra.antipode k a) b).symm
+  have hright : T f ∘ₗ T g = LinearMap.id := by
+    apply hinv
+    rw [hfg, LinearMap.comp_assoc, LinearMap.comp_assoc,
+      HopfAlgebra.mul_antipode_lTensor_comul]
+    ext a
+    exact ι.toAlgHom.commutes (Coalgebra.counit a)
+  have hleft : T g ∘ₗ T f = LinearMap.id := by
+    apply hinv
+    rw [hgf, LinearMap.comp_assoc, LinearMap.comp_assoc,
+      HopfAlgebra.mul_antipode_rTensor_comul]
+    ext a
+    exact ι.toAlgHom.commutes (Coalgebra.counit a)
+  let F : A ⊗[k] H →ₐ[k] A ⊗[k] H :=
+    Algebra.TensorProduct.lift (HopfAlgebra.coaction ι)
+      Algebra.TensorProduct.includeRight (fun _ _ => Commute.all _ _)
+  have hF : F.toLinearMap = T f := by
+    ext a h
+    rfl
+  have hbij : Function.Bijective F := by
+    constructor
+    · intro x y hxy
+      have hx := LinearMap.congr_fun hleft x
+      have hy := LinearMap.congr_fun hleft y
+      change T g (T f x) = x at hx
+      change T g (T f y) = y at hy
+      rw [← hx, ← hy]
+      apply congrArg (T g)
+      simpa only [← hF, AlgHom.toLinearMap_apply] using hxy
+    · intro x
+      refine ⟨T g x, ?_⟩
+      change F.toLinearMap (T g x) = x
+      rw [hF]
+      exact LinearMap.congr_fun hright x
+  refine ⟨AlgEquiv.ofBijective F hbij, ?_⟩
+  intro a h
+  rfl
