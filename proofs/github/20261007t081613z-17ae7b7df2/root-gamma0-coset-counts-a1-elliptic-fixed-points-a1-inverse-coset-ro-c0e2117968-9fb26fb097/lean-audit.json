@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "1814738c849a8a0cb1cf993b08c7a6b995a13987f85686e19043a50cb718f75f",
+  "git_delta": {
+    "base_commit": "9b16b59f94abfc5e98314c65c77f45544a2588f6",
+    "candidate_commit": "49f0d2250bf3945aef335f9c5756f4fca432a294",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_efp_inverse_coset_eq_iff",
+    "diff_sha256": "518787f040057a1d19bf9ce341104946fe11f4a28369c54e0de7d92d7681022e",
+    "source_sha256": "62eff76969e93a53a7d980da3af3bd2144191e6fbc1b46477d6f9da1c2615e58",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_efp_inverse_coset_eq_iff",
+      "statement": "∀ (N : ℕ) [NeZero N] (A B : Matrix.SpecialLinearGroup (Fin 2) ℤ), (QuotientGroup.mk (A⁻¹) : (Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 N) = QuotientGroup.mk (B⁻¹) ↔ ∃ u : (ZMod N)ˣ, (B 1 0 : ZMod N) = (u : ZMod N) * (A 1 0 : ZMod N) ∧ (B 1 1 : ZMod N) = (u : ZMod N) * (A 1 1 : ZMod N)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
