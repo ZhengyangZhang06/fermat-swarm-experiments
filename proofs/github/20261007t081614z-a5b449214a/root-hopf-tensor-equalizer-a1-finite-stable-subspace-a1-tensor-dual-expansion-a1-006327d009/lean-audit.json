@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "de5d022d0af013ceb7325ee9dc67bcc2ca848d416d51dddc5b695ed8a5aab07f",
+  "git_delta": {
+    "base_commit": "61cb7c75e0b623a67d06a6f12fbd4c02f775e8e9",
+    "candidate_commit": "bb44408d1e70f1a7f1142acb47cfaa5e7e9f7999",
+    "target": "Submission.lean",
+    "declaration": "p05_hte_fss_tensor_dual_expansion_a5b449214a",
+    "diff_sha256": "a6c9e2abd8353f4a0e288bcdbc1c8e3f53eb3e2304bf0bdf46aaffd1e9096277",
+    "source_sha256": "42f9acf05bd621d7281cf70afbafeed16b41fd63bb3a99e75894addca3f1ee6f",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_hte_fss_tensor_dual_expansion_a5b449214a",
+      "statement": "∀ {k : Type*} [Field k] {C : Type*} [AddCommGroup C] [Module k C] (z : TensorProduct k C C), ∃ (n : ℕ) (v w : Fin n → C) (ell : Fin n → C →ₗ[k] k), z = ∑ i : Fin n, TensorProduct.tmul k (v i) (w i) ∧ ∀ i j : Fin n, ell i (w j) = if i = j then (1 : k) else 0",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
