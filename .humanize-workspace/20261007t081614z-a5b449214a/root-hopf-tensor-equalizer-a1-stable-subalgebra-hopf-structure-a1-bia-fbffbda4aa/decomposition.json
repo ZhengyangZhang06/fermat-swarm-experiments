@@ -1,0 +1,61 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "ofInjective|of_injective|map_injective|range.*map|span.*tmul|subalgebra|Subalgebra",
+        "theorem.*[iI]njective|lemma.*[iI]njective|def.*[lL]eftInverse",
+        "bialgebra_restriction|comul.*[lL]ift|[cC]oalgebra.*[iI]njective|[bB]ialgebra.*[iI]njective"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Basis/VectorSpace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Map.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Coalgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Coalgebra/Quotient.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Bialgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Bialgebra/Hom.lean"
+      ],
+      "conclusion": "The manifest pins project 2fdd42759f4ab17640ac773289b521dd69d4b26e and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. VectorSpace.lean supplies LinearMap.exists_leftInverse_of_injective; Map.lean supplies TensorProduct.range_map_eq_span_tmul. Coalgebra.Basic gives exactly the three tensor identities needed below, while Bialgebra.mk' and BialgHom.ofAlgHom provide the final packaging. No relevant injective coalgebra-transfer or subalgebra bialgebra-restriction constructor was found; the nearby lifting match constructs a quotient coalgebra. Relevant snapshot sources match the pinned compiler dependencies. Axiom checks on the retraction and range lemmas, Algebra.TensorProduct.map, AlgHom.ofLinearMap, Coalgebra.mk, Bialgebra.mk', and BialgHom.ofAlgHom reported only propext, Quot.sound, and Classical.choice."
+    }
+  ],
+  "should_split": true,
+  "rationale": "At depth 3, below the limit 6, two reusable obligations remain: lifting the coproduct as an algebra homomorphism, and transferring coalgebra identities through an injective linear map. Both children are independent. The parent applies the second to the first child's coproduct and the restricted ambient counit, then constructs Coalgebra, Bialgebra, and the inclusion homomorphism, retaining the existing algebra structure. Tensor retractions and range calculations already have library infrastructure and need no separate nodes. Both exact types elaborate after import Submission in a disposable copy derived under the matching header policy; the target-absence probe and subtype/tensor-instance checks passed. The proposed names are unused in the active DAG. These checks do not constitute proof acceptance.",
+  "subproblems": [
+    {
+      "key": "comul_alg_lift",
+      "title": "Algebra-valued lift of the restricted coproduct",
+      "statement": "Let k be a field, H a commutative ring equipped with a k-bialgebra structure, and D a k-subalgebra of H with its existing ring and k-algebra structures. Suppose that Δ_H(x) belongs to span_k{a⊗b | a∈D, b∈D} whenever x∈D. Writing i:D→H for inclusion and taking all tensor products over k, there exists a k-algebra homomorphism δ:D→D⊗D such that (i⊗i)(δ(d))=Δ_H(i(d)) for every d∈D.",
+      "lean_statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [Bialgebra k H] (D : Subalgebra k H) (_hΔ : ∀ x ∈ D, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ D, ∃ b ∈ D, t = TensorProduct.tmul k a b}), ∃ δ : D →ₐ[k] TensorProduct k D D, ∀ d : D, (Algebra.TensorProduct.map D.val D.val) (δ d) = Coalgebra.comul (R := k) (d : H)",
+      "lean_name": "p05_hte_sshs_br_comul_alg_lift_a5b449214a",
+      "depends_on": [],
+      "natural_proof": "1. Equip D with its existing subalgebra structures and write i:D→H for inclusion. Choose a k-basis (e_s) of D. Its image (i(e_s)) is linearly independent: any finite linear relation among these images is the image under the injective linear map i of the corresponding relation among the e_s. Extend this independent family to a basis of H. Define a k-linear map r:H→D by sending i(e_s) to e_s and every additional basis vector to zero. Expansion in the basis of D proves r(i(d))=d for every d∈D.\n2. Define J=i⊗i:D⊗D→H⊗H and R=r⊗r. For every pure tensor d⊗e, R(J(d⊗e))=r(i(d))⊗r(i(e))=d⊗e. Since pure tensors span D⊗D and both maps are linear, R∘J is the identity. Therefore J is injective.\n3. Let S=span_k{a⊗b | a∈D, b∈D}, viewed inside H⊗H. Every tensor in D⊗D is a finite sum of pure tensors, with scalar coefficients absorbed into a tensor factor. Its image under J consequently belongs to S, so range(J)⊆S. Conversely, each generator a⊗b of S is J applied to the tensor of the subtype elements determined by a∈D and b∈D. Since range(J) is a linear subspace, it contains S. Thus range(J)=S.\n4. For every d∈D, the hypothesis applied to i(d) and step 3 show that Δ_H(i(d)) has a preimage under J. By step 2 this preimage is unique. Choose it and call it δ(d). Then J(δ(d))=Δ_H(i(d)) for every d.\n5. The map δ is k-linear. Indeed J(δ(0))=0=J(0), so injectivity gives δ(0)=0. For d,e∈D, linearity of Δ_H and i gives J(δ(d+e))=Δ_H(i(d))+Δ_H(i(e))=J(δ(d)+δ(e)), hence δ(d+e)=δ(d)+δ(e). For c∈k, similarly J(δ(c•d))=c•Δ_H(i(d))=J(c•δ(d)), hence δ(c•d)=c•δ(d).\n6. The map J is the algebra tensor map induced by i. Explicitly, for pure tensors its multiplicativity follows from (d⊗e)(d′⊗e′)=dd′⊗ee′ and the multiplicativity of i. Distributivity and finite pure-tensor expansions extend this equality to arbitrary pairs of tensors. It also sends 1_D⊗1_D to 1_H⊗1_H, the respective tensor-algebra units. Thus J preserves multiplication and the unit.\n7. Because Δ_H is an algebra homomorphism, for d,e∈D we have J(δ(de))=Δ_H(i(d)i(e))=Δ_H(i(d))Δ_H(i(e))=J(δ(d)δ(e)). Injectivity gives δ(de)=δ(d)δ(e). Likewise J(δ(1))=Δ_H(1)=1=J(1), so δ(1)=1. Together with step 5 these make δ a unital multiplicative k-linear map. It respects the existing algebra maps because δ(c•1_D)=c•δ(1_D)=c•1_{D⊗D}. Hence δ is a k-algebra homomorphism for the prescribed structures. Its defining equality from step 4 is the required conclusion.",
+      "proof_key_steps": [
+        "Construct a k-linear retraction of the subalgebra inclusion by extending a basis.",
+        "Tensor the retraction to prove injectivity of i⊗i.",
+        "Identify the image of i⊗i with the stipulated span of pure tensors.",
+        "Choose the unique lift of each ambient coproduct.",
+        "Cancel i⊗i to establish linearity of the lifted map.",
+        "Use multiplicativity and unitality of the tensor inclusion and ambient coproduct to establish the algebra-homomorphism laws."
+      ]
+    },
+    {
+      "key": "coalgebra_law_descent",
+      "title": "Coalgebra laws descend through an injective linear map",
+      "statement": "Let k be a field, C a k-vector space with a k-coalgebra structure (Δ_C,ε_C), and V a k-vector space. Let i:V→C be an injective k-linear map, δ:V→V⊗_k V a k-linear map, and ε:V→k a k-linear map. Assume (i⊗i)(δ(v))=Δ_C(i(v)) and ε(v)=ε_C(i(v)) for every v∈V. Then, writing α_V:(V⊗V)⊗V→V⊗(V⊗V) for the tensor associator, every v∈V satisfies α_V((δ⊗id_V)(δ(v)))=(id_V⊗δ)(δ(v)), (ε⊗id_V)(δ(v))=1⊗v, and (id_V⊗ε)(δ(v))=v⊗1. All tensor products are over k.",
+      "lean_statement": "∀ {k : Type*} [Field k] {C : Type*} [AddCommGroup C] [Module k C] [Coalgebra k C] {V : Type*} [AddCommGroup V] [Module k V] (i : V →ₗ[k] C) (_hi : Function.Injective i) (δ : V →ₗ[k] TensorProduct k V V) (ε : V →ₗ[k] k) (_hδ : ∀ v : V, TensorProduct.map i i (δ v) = Coalgebra.comul (R := k) (i v)) (_hε : ∀ v : V, ε v = Coalgebra.counit (R := k) (i v)), (∀ v : V, TensorProduct.assoc k V V V (TensorProduct.map δ (LinearMap.id : V →ₗ[k] V) (δ v)) = TensorProduct.map (LinearMap.id : V →ₗ[k] V) δ (δ v)) ∧ (∀ v : V, TensorProduct.map ε (LinearMap.id : V →ₗ[k] V) (δ v) = TensorProduct.tmul k (1 : k) v) ∧ (∀ v : V, TensorProduct.map (LinearMap.id : V →ₗ[k] V) ε (δ v) = TensorProduct.tmul k v (1 : k))",
+      "lean_name": "p05_hte_sshs_br_coalgebra_laws_a5b449214a",
+      "depends_on": [],
+      "natural_proof": "1. Choose a k-basis (e_s) of V. Injectivity and linearity of i imply that (i(e_s)) is linearly independent in C: applying injectivity to any finite relation among these images reduces it to the corresponding relation among the e_s. Extend this family to a basis of C. Send each i(e_s) back to e_s and the additional basis vectors to zero, and extend linearly to obtain r:C→V. Basis expansion gives r∘i=id_V.\n2. Define J₂=i⊗i, J₃=i⊗(i⊗i), L=id_k⊗i, and R=i⊗id_k. These have respective left inverses r⊗r, r⊗(r⊗r), id_k⊗r, and r⊗id_k. Each claimed composition is the identity on pure tensors; for J₃ use generators x⊗(y⊗z). Such tensors span their domains, so linearity proves all four left-inverse identities. In particular J₃, L, and R are injective.\n3. Let α_C be the associator for C. We establish the naturality identities J₃∘α_V∘(δ⊗id_V)=α_C∘(Δ_C⊗id_C)∘J₂ and J₃∘(id_V⊗δ)=(id_C⊗Δ_C)∘J₂ as maps from V⊗V to C⊗(C⊗C). For the first, evaluate at x⊗y and write δ(x)=Σ_p u_p⊗w_p. Its left side is Σ_p i(u_p)⊗(i(w_p)⊗i(y)), which equals α_C(J₂(δ(x))⊗i(y))=α_C(Δ_C(i(x))⊗i(y)) by the compatibility hypothesis. This is its right side at x⊗y. For the second, expand δ(y) into pure tensors; its left side becomes i(x)⊗J₂(δ(y))=i(x)⊗Δ_C(i(y)), again its right side. Equality on pure tensors extends to all tensors by linearity.\n4. Fix v∈V and apply the identities of step 3 to δ(v). Since J₂(δ(v))=Δ_C(i(v)), they identify the images under J₃ of α_V((δ⊗id_V)(δ(v))) and (id_V⊗δ)(δ(v)) with α_C((Δ_C⊗id_C)(Δ_C(i(v)))) and (id_C⊗Δ_C)(Δ_C(i(v))), respectively. These ambient expressions are equal by coassociativity in C. Injectivity of J₃ proves the required coassociativity identity in V for every v.\n5. On a pure tensor x⊗y, L((ε⊗id_V)(x⊗y))=ε(x)⊗i(y)=ε_C(i(x))⊗i(y)=(ε_C⊗id_C)(J₂(x⊗y)). Thus L∘(ε⊗id_V)=(ε_C⊗id_C)∘J₂ by linearity. Evaluating at δ(v), using coproduct compatibility and the left counit identity in C, gives L((ε⊗id_V)(δ(v)))=(ε_C⊗id_C)(Δ_C(i(v)))=1⊗i(v)=L(1⊗v). Injectivity of L proves (ε⊗id_V)(δ(v))=1⊗v for every v.\n6. Likewise, on x⊗y we have R((id_V⊗ε)(x⊗y))=i(x)⊗ε(y)=i(x)⊗ε_C(i(y))=(id_C⊗ε_C)(J₂(x⊗y)). Extend this equality linearly and evaluate at δ(v). The right counit identity in C yields R((id_V⊗ε)(δ(v)))=(id_C⊗ε_C)(Δ_C(i(v)))=i(v)⊗1=R(v⊗1). Injectivity of R proves (id_V⊗ε)(δ(v))=v⊗1 for every v. Together with steps 4 and 5 this establishes all three stated identities.",
+      "proof_key_steps": [
+        "Construct a linear retraction of the injective map i by basis extension.",
+        "Obtain injectivity of the triple tensor map and the two unit-factor tensor maps.",
+        "Verify coproduct and associator naturality on pure tensors and extend linearly.",
+        "Transport ambient coassociativity and cancel the triple tensor inclusion.",
+        "Transport the left counit identity and cancel id_k⊗i.",
+        "Transport the right counit identity and cancel i⊗id_k."
+      ]
+    }
+  ]
+}

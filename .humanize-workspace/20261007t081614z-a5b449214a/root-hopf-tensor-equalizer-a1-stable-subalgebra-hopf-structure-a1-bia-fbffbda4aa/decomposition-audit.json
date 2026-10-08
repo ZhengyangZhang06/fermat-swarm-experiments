@@ -1,0 +1,43 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "exists_leftInverse_of_injective|range_map_eq_span_tmul|def mk\\x27|def ofAlgHom|class Coalgebra|class Bialgebra|coassoc|rTensor_counit|lTensor_counit",
+        "bialgebra_restriction|comul.*[lL]ift|[cC]oalgebra.*[iI]njective|[bB]ialgebra.*[iI]njective",
+        "def map|map_toLinearMap|toLinearMap_map",
+        "p05_hte_sshs_br_(comul_alg_lift|coalgebra_laws)_a5b449214a|bialgebra_restriction"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Basis/VectorSpace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Map.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/TensorProduct/Maps.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Coalgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Coalgebra/Quotient.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Bialgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Bialgebra/Hom.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json",
+        "/tmp/p05-br-independent-audit-3j1mvvpp/receipt.json"
+      ],
+      "conclusion": "The snapshot pins project 2fdd42759f4ab17640ac773289b521dd69d4b26e and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Inspected sources match the compiler sources, and all nine dependencies passed clean-pin checks. The retraction, tensor-range, coalgebra-law and packaging APIs support the decomposition. No matching injective-transfer or subalgebra-restriction constructor was found; the nearby lifting constructor concerns quotients. Independent Lean checks elaborated both literal child types without child implementations and verified the subtype inclusion, tensor-map correspondence and tensor multiplication. Supporting axiom closures contain only propext, Classical.choice and Quot.sound. The specified header-policy digest, exact omitted lines 10–11 and reversible original/build hashes were verified; an independent Lean probe confirmed all 13 targets absent. Protected inputs remain unchanged. These are decomposition diagnostics, not comparator acceptance of implemented proofs."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "comul_alg_lift",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The single-line proposition exactly matches the prose and includes all hypotheses. The bare identifier is unreserved. Steps 1–3 correctly construct a linear retraction, establish tensor injectivity and identify its range with the stipulated span. Steps 4–7 construct the unique lift and prove linearity, multiplication, unit and scalar compatibility by cancellation. The inferred structures are the existing subalgebra and ordinary tensor-algebra structures. The proof is complete and non-circular. This is a genuine narrower obligation; its empty dependency list is correct."
+    },
+    {
+      "key": "coalgebra_law_descent",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The single-line proposition exactly expresses the stated hypotheses and all three tensor identities, with the correct associator direction and counit factors. The bare identifier is unreserved. Steps 1–2 justify the required injectivity through linear retractions. Steps 3–4 establish naturality on spanning pure tensors and descend coassociativity; steps 5–6 descend both counit identities. The proof is complete and does not assume either child or the parent. Its coproduct is an input, so no dependency on comul_alg_lift is required. The acyclic split leaves routine parent packaging via Coalgebra, Bialgebra.mk' and BialgHom.ofAlgHom while retaining the existing algebra structure."
+    }
+  ],
+  "required_changes": []
+}

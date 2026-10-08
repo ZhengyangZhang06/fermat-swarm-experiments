@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.hopf_tensor_equalizer-a1.stable_subalgebra_hopf_structure-a1.bialgebra_restriction-a1.comul_alg_lift-a1",
+  "parent_id": "root.hopf_tensor_equalizer-a1.stable_subalgebra_hopf_structure-a1.bialgebra_restriction-a1",
+  "depth": 4,
+  "title": "Algebra-valued lift of the restricted coproduct",
+  "statement": "Let k be a field, H a commutative ring equipped with a k-bialgebra structure, and D a k-subalgebra of H with its existing ring and k-algebra structures. Suppose that Δ_H(x) belongs to span_k{a⊗b | a∈D, b∈D} whenever x∈D. Writing i:D→H for inclusion and taking all tensor products over k, there exists a k-algebra homomorphism δ:D→D⊗D such that (i⊗i)(δ(d))=Δ_H(i(d)) for every d∈D.",
+  "lean_statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [Bialgebra k H] (D : Subalgebra k H) (_hΔ : ∀ x ∈ D, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ D, ∃ b ∈ D, t = TensorProduct.tmul k a b}), ∃ δ : D →ₐ[k] TensorProduct k D D, ∀ d : D, (Algebra.TensorProduct.map D.val D.val) (δ d) = Coalgebra.comul (R := k) (d : H)",
+  "lean_name": "p05_hte_sshs_br_comul_alg_lift_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-hopf-tensor-equalizer-a1-stable-subalgebra-hopf-structure-a1-bia-e3066907da-a1"
+}
