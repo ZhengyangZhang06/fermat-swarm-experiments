@@ -364,6 +364,9 @@ theorem p07_cq_level_geometry_pullback_857cd4d38c :
     · rintro ⟨R, hR⟩
       -- A factorization through ℓ supplies exactly the compatibility for this lift.
       exact ⟨hpb.lift R Q hR, hpb.lift_snd R Q hR⟩
+
+end Submission
+
 namespace Submission
 
 /-- Transport a relative group law along a ring equivalence. The equivalences of

@@ -1,0 +1,143 @@
+{
+  "scope": "Integration-only repair of already accepted histories; no change to any theorem statement, proof body, frozen checkpoint, challenge, comparator, or .humanize file.",
+  "node": "root.curve_ring_equiv-a1.group_law_rebase-a1",
+  "theorem": "Submission.p07_cre_group_law_857cd4d38c",
+  "integration_start": "eaf3e0086d883caaced3a9a91844c9c10df23079",
+  "canonical_history": "09716b7",
+  "reviewed_history": "07995ec00b85458daf241f70f5cbd73a12b5a76e",
+  "history_reconciliation": "The integration merge retains the reviewed tip as its second parent, preserving all seven original commits including the empty checkpoint. Their source changes were already represented by cherry-picks; only the namespace boundary required repair. Controller handoff files remain excluded and untouched.",
+  "repair": {
+    "file": "Submission.lean",
+    "finding": "Cherry-pick f947d48 inserted the group-law namespace before the canonical level-geometry namespace was closed, nesting the accepted declaration under Submission.Submission.",
+    "change": "Restore end Submission and separating whitespace before the accepted group-law namespace. No theorem text is edited.",
+    "exact_source_identity": "Submission.lean = git show 09716b7:Submission.lean + one newline + the complete namespace Submission block from git show 07995ec:Submission.lean.",
+    "canonical_submission_sha256": "66fd0ab5354cff9f7445e394848a2ddd9829b3d2af58ef4cc85785df0db86d61",
+    "accepted_namespace_sha256": "341cbef8068bae91a736a982d65fdd1d361b6fef3b99c00b80dd8e16ebfea516",
+    "repaired_submission_sha256": "e3793baffb7777e3c3ce94c03bbd94a8899f1c14fe6cc0e6fd080fd72582c952"
+  },
+  "reviewed_commits": [
+    {
+      "accepted": "be37a2bac41bbeb5a672319ca281dbf3c367ce34",
+      "cherry_pick": "f947d4878ca6ef464dbfe0dc37dd135bc6671527",
+      "note": "Initial insertion misplaced the namespace boundary; this repair restores it. The final accepted namespace block is byte-identical."
+    },
+    {
+      "accepted": "d97a7d4ebe920342702a0e4abe5d28df8db52f08",
+      "cherry_pick": "6808fe1",
+      "note": "Matching stable patch ID."
+    },
+    {
+      "accepted": "2374090e31af519f5c019905c37535a451909cba",
+      "cherry_pick": "9d81da869aaf57a5aa46c1fed7219cdb7088a974",
+      "note": "Identical changed lines with different surrounding integration context."
+    },
+    {
+      "accepted": "296be36f0e5deb175c02578a1c80870f80d4bd2d",
+      "cherry_pick": "bfdb3f4",
+      "note": "Matching stable patch ID."
+    },
+    {
+      "accepted": "4cc85ebf9848cfebbafdd2aa610d5fac79c7cadd",
+      "cherry_pick": "921d59f",
+      "note": "Matching stable patch ID; historical controller records remain in Git history."
+    },
+    {
+      "accepted": "408378332d7f1730cf69a0882355b03aaa95b5b4",
+      "cherry_pick": "eaf3e0086d883caaced3a9a91844c9c10df23079",
+      "note": "Matching stable patch ID; no controller records are restored into the worktree."
+    },
+    {
+      "accepted": "07995ec00b85458daf241f70f5cbd73a12b5a76e",
+      "cherry_pick": null,
+      "note": "Empty accepted checkpoint: its tree equals its parent's tree."
+    }
+  ],
+  "retained_declarations": [
+    "CerednikDrinfeld.QM.RigidifiedPairClass.exists_ptR_eq",
+    "Submission.p07_rr_isogeny_transport_857cd4d38c",
+    "Submission.p07_flp_point_equiv_857cd4d38c",
+    "Submission.p07_rr_pullback_comp_857cd4d38c",
+    "Submission.p07_cq_level_geometry_pullback_857cd4d38c",
+    "Submission.p07_cre_group_law_857cd4d38c"
+  ],
+  "root_scope": "The inherited unsolved root specification is unchanged. This integration repairs the accepted child only and makes no root-proof claim.",
+  "protected_checkpoint_sha256": {
+    "problem.md": "5f0871c2e93d5288092a1f00902e3f8add02d0e21d6e142ac2ea7d6dfbe7d1ce",
+    "parent-child-handoff.json": "7b88f4bc8a7aecd9b369a6bf3bb4db0b4c8bc9238735ca0b5b71c7e5d81e061d",
+    "parent-supplied-natural-proof.json": "40df6dab9b87da4ee0a66750668798c92bd680ad164dc80bebcc45dd795c629b",
+    "parent-supplied-natural-proof.md": "e0bf061d83cc9156a61f87c3fdd5ca6025ba908340bcf1df2d9542d6f81f42d2",
+    "parent-supplied-plan.md": "193e8e9353199042ef4141c5874100d81db135affd9d74eab1b13cb258ce07a3",
+    "/runtime/flows/math-lean-flow/scripts/swarm-compare.py": "f3202ba84d3096d6e05a494f073e454e5aa82c4383a08b171832acbc28c5d9b2"
+  },
+  "prior_isolated_acceptance": {
+    "evidence": "/runtime/review-evidence/393f1d9510f148589e2f52dd9c87c53d/evidence.json",
+    "status": "verified",
+    "candidate_commit": "07995ec00b85458daf241f70f5cbd73a12b5a76e",
+    "base_commit": "378b6d892615f2f4fb2ff1319cb447513bf85bef",
+    "transitive_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "frozen_header_policy_sha256": "96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96",
+    "controller_normalized_lines": [
+      13,
+      14,
+      15
+    ],
+    "note": "Prior acceptance used controller-owned frozen-header normalization. This integration does not edit or invoke a replacement policy, challenge, or comparator."
+  },
+  "independent_source_review": {
+    "status": "source_preservation_confirmed",
+    "findings": "Independent reviewer confirmed the namespace defect, minimal repair, exact accepted theorem preservation, unchanged frozen source and definitions, reviewed commit mappings, and missing header declarations. No replacement mathematical proof was produced."
+  },
+  "reference_use": [
+    {
+      "source": "local-project",
+      "snapshot": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89",
+      "manifest": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+      "project_commit": "73257f1e32d99b75813b037f28a5cf45a2db886d",
+      "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "queries": [
+        {
+          "query": "rg -n 'opensMapFinal|baseChangePointToBase_ofBase|dualNumberFst_apply' project/Definitions mathlib/Mathlib",
+          "result": "Exit 1: no matches in either pinned source tree. These missing attribute targets cannot be supplied by reordering existing imports."
+        },
+        {
+          "query": "rg -n 'structure RelativeGroupLaw|def IsCommutative|pull_mul|pull_one|pull_inv|mul_assoc|one_mul|inv_mul' project/Definitions/Def_AlgebraicGeometry_RelativeGroupLaw.lean",
+          "result": "Inspected structure at line 78, group identities and multiplication naturality at lines 89-103, and commutativity at line 109."
+        },
+        {
+          "query": "rg -n 'Spec\\.map_comp|symm_toRingHom_comp_toRingHom|toRingHom_comp_symm_toRingHom' mathlib/Mathlib/AlgebraicGeometry/Spec.lean mathlib/Mathlib/Algebra/Ring/Equiv.lean",
+          "result": "No matches in Spec.lean; ring-equivalence composition identities at Equiv.lean:824 and :828."
+        },
+        {
+          "query": "rg -n 'theorem Spec.map_comp|lemma Spec.map_comp|theorem Spec.map_id|lemma Spec.map_id' mathlib/Mathlib/AlgebraicGeometry/Scheme.lean",
+          "result": "Inspected Spec.map_id at line 483 and contravariant Spec.map_comp at line 488."
+        },
+        {
+          "query": "rg -n 'p07_cre_group_law_857cd4d38c|group_law_rebase' project/Definitions mathlib/Mathlib",
+          "result": "Exit 1: no matches; no replacement proof was taken from the snapshot."
+        }
+      ],
+      "additional_inspection": "project/Definitions/Def_AlgebraicGeometry_NeronModelPropertyBundleCarrier.lean:23 defines SchemeHomOver as the subtype of morphisms commuting with the base map.",
+      "compatibility": "Project and mathlib snapshot Git trees are clean at manifest revisions. All nine installed dependencies are clean at lake-manifest.json revisions. Project uses Lean 4.33.1; compatibility and fresh transitive axiom acceptance require the exact comparator.",
+      "axiom_check": "Prior isolated acceptance reports only propext, Classical.choice and Quot.sound. Fresh integration acceptance is not inferred from prior acceptance or source preservation."
+    }
+  ],
+  "baseline_comparator": {
+    "request_id": "8abe83d72ef64cf89a45fc38a1b927dd",
+    "candidate_commit": "eaf3e0086d883caaced3a9a91844c9c10df23079",
+    "exit_code": 1,
+    "output_file": "proofs/fermat-p07/group-law-integration-baseline.log",
+    "output_scope": "Final comparator output chunk with trailing whitespace removed; earlier repeated wrapper progress messages omitted.",
+    "finding": "The exact comparator now applies the existing controller-owned header normalization and builds the frozen challenge and combined candidate. It reports the duplicate namespace Submission.Submission.p07_cre_group_law_857cd4d38c and then fails exporting the required Submission.p07_cre_group_law_857cd4d38c. This confirms the repaired integration defect.",
+    "output_sha256": "bf0bc58c6d43811d48b9227366853a545c1e8f81ee1f3198cd71ebc793606b18"
+  },
+  "verification_contract": {
+    "authority": "Fresh author and independent reviewer invocations of the user-supplied exact swarm-compare.py command on the committed repair.",
+    "required_result": "Exit zero, Your solution is okay!, clean pinned dependencies and only permitted transitive axioms.",
+    "evidence_location": "The comparator publishes revision-bound read-only evidence under /runtime/review-evidence/<request_id>; those results are reported after this integration commit is verified.",
+    "note": "This committed audit records source preservation and the baseline diagnosis; it does not substitute compilation or prior isolated acceptance for final comparator acceptance."
+  }
+}
