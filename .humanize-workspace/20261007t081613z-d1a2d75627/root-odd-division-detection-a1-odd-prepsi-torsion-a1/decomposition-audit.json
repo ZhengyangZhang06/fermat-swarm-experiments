@@ -1,0 +1,56 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "instance|IsDomain|basis|XYIdeal|mk_ψ₂|map_injective|map.*nsmul",
+        "preΨ\\x27|preΨ₄|Ψ₃|Ψ₂Sq|map_preΨ|ψ₂_sq",
+        "preΨ.*(torsion|nsmul|smul.*zero)|(?:torsion|nsmul).*preΨ|torsion_eds|eds_identification",
+        "irreducible_polynomial|Nonsingular|polynomialY|addY|negY",
+        "normEDSRec\\x27|strong|preNormEDS\\x27_(even|odd)",
+        "rg -n 'p03_torsion_eds_exists_68cf3476_d2|p03_torsion_eds_identification_68cf3476_d2' --hidden --glob '*.lean' --glob 'dag.json' /mnt/data/zhengyang-workspace/fermat-swarm-projects",
+        "python3 /tmp/p03_torsion_split_check.py",
+        "#print axioms DomainProbe",
+        "#print axioms WeierstrassCurve.Affine.CoordinateRing.basis",
+        "#print axioms WeierstrassCurve.Affine.irreducible_polynomial"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-odd-division-detection-a1-odd-prepsi-torsion-a1/parent-child-handoff.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/nodes/root-odd-division-detection-a1-odd-prepsi-torsion-a1/decomposition-v1.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Point.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/NumberTheory/EllipticDivisibilitySequence.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p03_torsion_split_check.py",
+        "/tmp/p03-torsion-split-wv5k_qlu/TypesAfterSubmission.lean",
+        "/tmp/p03-torsion-split-wv5k_qlu/TypesAfterSubmission.lean.log",
+        "/tmp/p03-torsion-split-wv5k_qlu/InstancesAndAxioms.lean.log",
+        "/tmp/p03-torsion-split-wv5k_qlu/DomainAxioms.lean",
+        "/tmp/p03-torsion-split-wv5k_qlu/DomainAxioms.lean.log",
+        "/tmp/p03-torsion-split-wv5k_qlu/TargetAbsence.lean.log",
+        "/tmp/p03-torsion-split-wv5k_qlu/results.json"
+      ],
+      "conclusion": "The frozen handoff confirms the audited parent is the depth-2 torsion-detection node within the unchanged ordinaryLineAt problem. Source inspection verifies the initial polynomials, parity recurrences, coordinate-ring domain and basis, point ideal, evaluation quotient, and injective point base change. The targeted torsion/identification search found no matching theorem; searches across ten DAGs and local Lean files found no identifier collisions. Fresh diagnostics independently elaborated both exact propositions without either child declaration. Multiplication uses AdjoinRoot.instCommRing; point scalar multiplication uses the intended AddCommGroup. The types and inspected infrastructure transitively use only propext, Classical.choice, and Quot.sound. Project revision 81f093181fd6c58dc887fcae5ec8b896996f1885, mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d, and pinned packages were clean and matching. Compiler-copy checks verified policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, exact omissions of lines 10 and 11, reversible original hash dd8891addb75e48583885c932518af8bc6d34438aec4e3ccd76ce6aa765e423f and build hash 81502485ae6796527a5c4e210837b198322b438244a2f58054b94b98aef9dda9, and Lean-checked absence of all 37 targets. Protected originals remained unchanged. This approves the decomposition and supplied prose; it does not establish comparator acceptance of future proof candidates."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "torsion_eds_exists",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line Lean proposition exactly matches all hypotheses, initial values, recurrence bounds, and the positive-index point-ideal criterion. Its bare identifier is unreserved, and the type is independently usable without a child implementation. The twelve-step proof establishes unramified multiplication, every divisor multiplicity, degree m², principality through the kernel sum, normalized functions, coordinate-ring membership, exact initial polynomials, both recurrences, and the evaluation-kernel equivalence. The cited curve facts have their required hypotheses. No parent or sibling result is assumed and no proof search is deferred. Separating this geometric construction from universal recurrence identification is appropriate; the parent depends on both children, with no sibling dependency."
+    },
+    {
+      "key": "torsion_eds_identification",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly expresses the stated universal sequence identity, including index zero and the even factor h. Its bare identifier is unreserved and its type references no proposed implementation. The pinned domain instance requires no discriminant hypothesis; the free basis gives h a nonzero Y coefficient 2, justifying cancellation. The proof correctly maps the initial values and square identity, reindexes both recurrences, checks indices 0–4, and handles both parity cases with strictly smaller induction indices. It proves the exact statement without algebraic closedness, nonsingularity, or reliance on the existence sibling. Thus its empty dependency list is correct and the decomposition is acyclic."
+    }
+  ],
+  "required_changes": []
+}
