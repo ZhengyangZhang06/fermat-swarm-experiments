@@ -268,6 +268,41 @@ theorem p02_es_177ebb5a_ic_lmd_scalar_pullback
   simpa only [Function.comp_def, UpperHalfPlane.ofComplex_apply, mul_one_div] using
     hh.comp_of_eq (τ : ℂ) hσ (by simp only [UpperHalfPlane.ofComplex_apply])
 
+theorem p02_es_177ebb5a_scalarization_modular
+    (N : ℕ) [NeZero N] (n : ℕ)
+    (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2))
+    (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n))
+    (hE : HeckeEis.IsEichlerIntegral n (fun τ => f τ) E)
+    (hEquiv : ∀ (γ : CongruenceSubgroup.Gamma0 N) (τ : UpperHalfPlane),
+      E ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • τ) =
+        ((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype)
+          γ (E τ)) :
+    ∃ p : ModularForm (CongruenceSubgroup.Gamma0 N) (-(n : ℤ)),
+      ∀ τ : UpperHalfPlane, p τ =
+        MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -(τ : ℂ)) (E τ).val := by
+  refine ⟨{
+    toFun := fun τ =>
+      MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -(τ : ℂ)) (E τ).val
+    slash_action_eq' := ?_
+    holo' := ?_
+    bdd_at_cusps' := fun hc => p02_es_177ebb5a_sm_all_cusps N n f E hE hEquiv _ hc
+  }, fun _ => rfl⟩
+  · intro γ hγ
+    obtain ⟨σ, hσ, rfl⟩ := hγ
+    funext τ
+    change (SlashAction.map (-(n : ℤ)) σ (fun z : UpperHalfPlane =>
+      MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -(z : ℂ)) (E z).val)) τ = _
+    rw [p02_es_177ebb5a_sm_slash, hEquiv ⟨σ, hσ⟩ τ]
+    congr 2
+    change ((HeckeEis.binaryFormRepSL ℂ n σ⁻¹) *
+      (HeckeEis.binaryFormRepSL ℂ n σ)) (E τ) = E τ
+    rw [← map_mul, inv_mul_cancel, map_one]
+    rfl
+  · apply UpperHalfPlane.mdifferentiable_iff.mpr
+    apply (p02_es_177ebb5a_sm_holomorphic n (fun τ => f τ) E hE).congr
+    intro z hz
+    simp [UpperHalfPlane.ofComplex_apply_of_im_pos hz]
+
 end Submission
 
 /-- Each output coefficient of a linear map is a fixed linear combination of input coefficients. -/
