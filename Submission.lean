@@ -654,5 +654,60 @@ theorem p07_flp_nsmul_precomp_857cd4d38c :
   | succ k ih =>
       -- The recursive step commutes with precomposition by multiplication naturality.
       rw [CerednikDrinfeld.QM.nsmulPt, CerednikDrinfeld.QM.nsmulPt, L.mul_natural, ih]
+/-- Quotient base change preserves the abelian-scheme bundle and two-dimensional fibres. -/
+theorem p07_cq_abelian_surface_quotient_857cd4d38c
+    (S : Type) [CommRing S] (J : Ideal S) (A : Scheme.{0})
+    (f : A ⟶ Spec (CommRingCat.of S))
+    (h : AbelianSchemePropertyBundle S f)
+    (hdim : ∀ s : Spec (CommRingCat.of S), topologicalKrullDim ↥(f.base ⁻¹' {s}) = 2) :
+    let β := Spec.map (CommRingCat.ofHom (Ideal.Quotient.mk J))
+    let p := Limits.pullback.snd f β
+    AbelianSchemePropertyBundle (S ⧸ J) p ∧
+      (∀ t : Spec (CommRingCat.of (S ⧸ J)), topologicalKrullDim ↥(p.base ⁻¹' {t}) = 2) := by
+  let β := Spec.map (CommRingCat.ofHom (Ideal.Quotient.mk J))
+  let p := Limits.pullback.snd f β
+  let g := Limits.pullback.fst f β
+  change AbelianSchemePropertyBundle (S ⧸ J) p ∧ _
+  have : IsProper f := h.proper
+  have : IsClosedImmersion β :=
+    IsClosedImmersion.spec_of_quotient_mk (R := CommRingCat.of S) J
+  have : IsClosedImmersion g := inferInstanceAs (IsClosedImmersion (Limits.pullback.fst f β))
+  have hcomm (y : ↥(Limits.pullback f β)) : f (g y) = β (p y) :=
+    congrArg (fun k : Limits.pullback f β ⟶ Spec (CommRingCat.of S) => k y)
+      (Limits.pullback.condition (f := f) (g := β))
+  have hfibres (t : Spec (CommRingCat.of (S ⧸ J))) :
+      _root_.IsConnected (p.base ⁻¹' {t}) ∧ topologicalKrullDim ↥(p.base ⁻¹' {t}) = 2 := by
+    have hmaps : Set.MapsTo g (p.base ⁻¹' {t}) (f.base ⁻¹' {β t}) := by
+      intro y hy
+      change f (g y) = β t
+      change p y = t at hy
+      rw [hcomm, hy]
+    let F : ↥(p.base ⁻¹' {t}) → ↥(f.base ⁻¹' {β t}) := hmaps.restrict
+    have hemb : Topology.IsEmbedding F := g.isClosedEmbedding.isEmbedding.restrict hmaps
+    have hsurj : Function.Surjective F := by
+      intro x
+      have hx : (x : A) ∈ Set.range g := by
+        change (x : A) ∈ Set.range (Limits.pullback.fst f β)
+        rw [Scheme.Pullback.range_fst]
+        exact ⟨t, x.property.symm⟩
+      obtain ⟨y, hy⟩ := hx
+      have hyt : p y = t := by
+        apply β.isClosedEmbedding.injective
+        rw [← hcomm, hy]
+        exact x.property
+      refine ⟨⟨y, hyt⟩, ?_⟩
+      exact Subtype.ext hy
+    have hhomeo : IsHomeomorph F := isHomeomorph_iff_isEmbedding_surjective.mpr ⟨hemb, hsurj⟩
+    constructor
+    · apply isConnected_iff_connectedSpace.mpr
+      exact (hhomeo.homeomorph F).connectedSpace_iff.mpr
+        (isConnected_iff_connectedSpace.mp (h.connectedFibres (β t)))
+    · exact (hhomeo.topologicalKrullDim_eq F).trans (hdim (β t))
+  obtain ⟨G⟩ := h.hasGroupLaw
+  obtain ⟨H, _⟩ := Submission.p07_cq_group_law_pullback_857cd4d38c
+    S (S ⧸ J) (Ideal.Quotient.mk J) A f G
+  refine ⟨⟨?_, ?_, fun t => (hfibres t).1, ⟨H⟩⟩, fun t => (hfibres t).2⟩
+  · exact MorphismProperty.pullback_snd _ _ h.smooth
+  · infer_instance
 
 end Submission
