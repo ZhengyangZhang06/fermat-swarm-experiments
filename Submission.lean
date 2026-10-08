@@ -1567,6 +1567,12 @@ theorem p06_9e0f5043ff_ifl_residue_length_inertia
 
 import Mathlib.RingTheory.Length
 
+open AlgebraicCurve
+theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
+    [Algebra K F] (x : F) (hx : Transcendental K x)
+    [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
+  sorry
+
 namespace Submission
 
 /-- A principal quotient of finite `A`-length has a `B`-composition series whose factors
