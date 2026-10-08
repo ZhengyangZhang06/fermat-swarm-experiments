@@ -1331,3 +1331,40 @@ theorem Submission.p05_fhe_coefficient_matrix_a5b449214a
       congrArg V.subtype (b.sum_repr ⟨x, hx⟩)
   rw [← hsum]
   exact Submodule.sum_mem W fun i _ => Submodule.smul_mem W _ (hb i)
+
+theorem Submission.p05_di_antipode_adjugate_a5b449214a
+    {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
+    (n : ℕ) (c : Matrix (Fin n) (Fin n) H)
+    (hΔ : ∀ i j : Fin n, Coalgebra.comul (R := k) (c i j) =
+      ∑ l : Fin n, TensorProduct.tmul k (c i l) (c l j))
+    (hε : ∀ i j : Fin n, Coalgebra.counit (R := k) (c i j) =
+      if i = j then (1 : k) else 0) :
+    ∃ u : H, Matrix.det c * u = 1 ∧ ∀ i j : Fin n,
+      HopfAlgebra.antipode k (c i j) = u * Matrix.adjugate c i j := by
+  classical
+  let Q : Matrix (Fin n) (Fin n) H :=
+    Matrix.of fun i j => HopfAlgebra.antipode k (c i j)
+  have hQc : Q * c = 1 := by
+    ext i j
+    simpa [Q, Matrix.mul_apply, Matrix.one_apply, hΔ, hε, map_sum] using
+      (HopfAlgebra.mul_antipode_rTensor_comul_apply (R := k) (c i j))
+  have hcQ : c * Q = 1 := by
+    ext i j
+    simpa [Q, Matrix.mul_apply, Matrix.one_apply, hΔ, hε, map_sum] using
+      (HopfAlgebra.mul_antipode_lTensor_comul_apply (R := k) (c i j))
+  have hdet : Matrix.det c * Matrix.det Q = 1 := by
+    rw [← Matrix.det_mul, hcQ, Matrix.det_one]
+  have hdet' : Matrix.det Q * Matrix.det c = 1 := by
+    rw [mul_comm, hdet]
+  have hcT : c * (Matrix.det Q • Matrix.adjugate c) = 1 := by
+    rw [Matrix.mul_smul, Matrix.mul_adjugate, smul_smul, hdet', one_smul]
+  have hQT : Q = Matrix.det Q • Matrix.adjugate c := by
+    calc
+      Q = Q * 1 := (Matrix.mul_one Q).symm
+      _ = Q * (c * (Matrix.det Q • Matrix.adjugate c)) := by rw [hcT]
+      _ = (Q * c) * (Matrix.det Q • Matrix.adjugate c) :=
+        (Matrix.mul_assoc _ _ _).symm
+      _ = Matrix.det Q • Matrix.adjugate c := by rw [hQc, Matrix.one_mul]
+  refine ⟨Matrix.det Q, hdet, ?_⟩
+  intro i j
+  exact congrArg (fun M : Matrix (Fin n) (Fin n) H => M i j) hQT
