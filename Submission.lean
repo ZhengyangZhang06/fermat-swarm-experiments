@@ -6,6 +6,7 @@ Requires the upstream Definitions modules and their dependencies.
 -/
 
 import Definitions.Def_ModularForm_HeckeOperatorForms
+import Mathlib.Analysis.InnerProductSpace.JointEigenspace
 attribute [-instance] FLT.HyperbolicMeasure.instSMulInvariantMeasureSpecialLinearGroupFinOfNatNatIntUpperHalfPlaneVolume_definitions FLT.HyperbolicMeasure.instIsOpenPosMeasureUpperHalfPlaneVolume_definitions FLT.Gamma0FundamentalSet.instContinuousConstSMulSpecialLinearGroupFinOfNatNatIntUpperHalfPlane_definitions FLT.L2ProductionInstance.isFiniteMeasure_gamma0 FLT.L2ProductionInstance.countable_SL2Z FLT.L2ProductionInstance.countable_quotient FLT.L2ProductionInstance.nontrivial_gamma0L2
 attribute [-simp] FreyPackage.ModMCarrier.coe_rescaleLin_apply ModularForm.AtkinLehnerDatum.mk.injEq ModularForm.AtkinLehnerDatum.alGL_coe ModularForm.AtkinLehnerDatum.mk.sizeOf_spec ModularForm.AtkinLehnerDatum.sqUnitSL_coe ModularForm.AtkinLehnerDatum.det_sqUnit ModularForm.AtkinLehnerDatum.det_mat FLT.TruncatedDomainPartition.unipotentDiagonalSum_zero
 
@@ -4570,3 +4571,31 @@ theorem Submission.f036cc6b1f_petersson_core (M : ℕ) [NeZero M] :
   exact ((hB _ hFmeas hFdom (CuspForm.heckeTLin 2 hp hpM f) g).2).trans
     ((Submission.f036cc6b1f_pc_hecke_integral M _ hFmeas hFdom p hp hpM f g).trans
       ((hB _ hFmeas hFdom f (CuspForm.heckeTLin 2 hp hpM g)).2).symm)
+  have : FiniteDimensional ℂ (CuspForm (CongruenceSubgroup.Gamma0 M) 2) :=
+    Submission.f036cc6b1f_finite_dimensional M
+  obtain ⟨B, hB⟩ := Submission.f036cc6b1f_petersson_core M
+  let : InnerProductSpace.Core ℂ (CuspForm (CongruenceSubgroup.Gamma0 M) 2) := B
+  let : NormedAddCommGroup (CuspForm (CongruenceSubgroup.Gamma0 M) 2) :=
+    InnerProductSpace.Core.toNormedAddCommGroup (𝕜 := ℂ)
+  let : InnerProductSpace ℂ (CuspForm (CongruenceSubgroup.Gamma0 M) 2) :=
+    InnerProductSpace.ofCore
+      (inferInstance : PreInnerProductSpace.Core ℂ (CuspForm (CongruenceSubgroup.Gamma0 M) 2))
+  let I := {p : ℕ // p.Prime ∧ ¬ p ∣ M}
+  let T : I → Module.End ℂ (CuspForm (CongruenceSubgroup.Gamma0 M) 2) :=
+    fun p => CuspForm.heckeTLin 2 p.property.1 p.property.2
+  have hT : ∀ p, (T p).IsSymmetric := by
+    intro p f g
+    exact hB p.val p.property.1 p.property.2 f g
+  have hcomm : Pairwise (fun p r => Commute (T p) (T r)) := by
+    intro p r _
+    exact Submission.f036cc6b1f_hecke_commute M p.val r.val
+      p.property.1 r.property.1 p.property.2 r.property.2
+  have htop := LinearMap.IsSymmetric.iSup_iInf_eq_top_of_commute hT hcomm
+  apply top_unique
+  rw [← htop]
+  refine iSup_le fun χ => ?_
+  intro v hv
+  apply Submodule.subset_span
+  intro ℓ hℓ hℓM
+  let p : I := ⟨ℓ, hℓ, hℓM⟩
+  exact ⟨χ p, Module.End.mem_eigenspace_iff.mp ((Submodule.mem_iInf _).mp hv p)⟩
