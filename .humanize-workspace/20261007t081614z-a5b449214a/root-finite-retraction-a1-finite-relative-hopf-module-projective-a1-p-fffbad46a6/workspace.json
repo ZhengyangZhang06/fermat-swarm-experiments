@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081614Z-a5b449214a",
+  "parent_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.presentation_ideals_eq-a1.identity_block_stabilization-a1",
+  "dispatch_branch": "proof-workspace/fermat-p05/20261007t081614z-a5b449214a/dispatch/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-fffbad46a6",
+  "source_commit": "5e920bfa84e01ba2c088432279dd904d560ad337",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.presentation_ideals_eq-a1.identity_block_stabilization-a1.extend_minor-a1",
+      "key": "extend_minor",
+      "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-96fa355737-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-fffbad46a6/children/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-96fa355737",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg -l --glob '*.lean' 'determinantal|minorIdeal|minor_ideal|fittingIdeal' .humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae",
+              "rg -n 'det_fromBlocks|det_submatrix_equiv|det_permute|det_eq_zero_of_row|det_eq_zero_of_column|det_succ' .humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant",
+              "sed -n '200,238p;350,366p;665,685p;720,730p' .humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+              "sed -n '45,115p' .humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Data/Matrix/Block.lean",
+              "git show 2e63b83283924ad7800c72a157d379c90498ccf3:Submission.lean",
+              "rg -n 'p05_ibs_extend_minor_a5b449214a|p05_ibs_reduce_minor_a5b449214a' Submission.lean .humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Submission.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Data/Matrix/Block.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json",
+              "/runtime/operator-header-policy-v1/policy.json",
+              "/tmp/p05-ibs-decomposition-3dl5o7zb/ChildTypes.lean",
+              "/tmp/p05-ibs-decomposition-3dl5o7zb/ChildTypes.lean.log",
+              "/tmp/p05-ibs-decomposition-3dl5o7zb/binding.json"
+            ],
+            "conclusion": "The project and mathlib snapshots match manifest revisions 2fdd42759f4ab17640ac773289b521dd69d4b26e and db584cd6d46c92f209a44c0f1c829460d327499d; tracked files and all nine installed dependency pins checked clean. The determinantal-ideal search returned no matches for the queried spellings. Inspected sources provide block determinant evaluation, simultaneous reindexing invariance, permutation signs, and zero-row/column determinants; fromBlocks constructs a Matrix via Matrix.of. The active DAG identifies this as the depth-4 identity-block helper and already supplies successive-minor containment. Both proposed names remain unreserved. Both exact child types elaborate after import Submission with Lean 4.33.1, and an anonymous entrywise check verifies the identity-matrix instance. Seven supporting determinant declarations have transitive axiom closures containing only propext, Classical.choice, and Quot.sound. Disposable compilation used the matching policy entry and verified digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, omitted only lines 10–11, and passed Lean absence probes for all 13 targets. Reversible original/build hashes and successful diagnostics are recorded in binding.json. Protected artifacts remain unchanged. These are decomposition diagnostics, not comparator acceptance of a theorem."
+          }
+        ],
+        "parent_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.presentation_ideals_eq-a1.identity_block_stabilization-a1",
+        "child_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.presentation_ideals_eq-a1.identity_block_stabilization-a1.extend_minor-a1",
+        "subproblem": {
+          "key": "extend_minor",
+          "title": "Extend a minor by the full identity block",
+          "statement": "Let R be a commutative ring, let n,p,t,s be natural numbers, let P be an n-by-p matrix over R, and let rows:Fin s ↪ Fin n and cols:Fin s ↪ Fin p be embeddings. Set E=diag(P,I_t), with row indices Fin n ⊕ Fin t and column indices Fin p ⊕ Fin t. There exist embeddings rows':Fin(s+t) ↪ (Fin n ⊕ Fin t) and cols':Fin(s+t) ↪ (Fin p ⊕ Fin t) such that det(E[rows',cols'])=det(P[rows,cols]). Empty determinants are 1; no positivity or nontriviality assumptions are imposed.",
+          "lean_statement": "∀ {R : Type*} [CommRing R] (n p t s : ℕ) (P : Matrix (Fin n) (Fin p) R) (rows : Fin s ↪ Fin n) (cols : Fin s ↪ Fin p), ∃ (rows' : Fin (s + t) ↪ (Fin n ⊕ Fin t)) (cols' : Fin (s + t) ↪ (Fin p ⊕ Fin t)), Matrix.det ((Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R)).submatrix rows' cols') = Matrix.det (P.submatrix rows cols)",
+          "lean_name": "p05_ibs_extend_minor_a5b449214a",
+          "depends_on": [],
+          "natural_proof": "1. Put C=P[rows,cols]. Identify Fin(s+t) with Fin s ⊕ Fin t by sending an index i<s to the left index i and an index i≥s to the right index i−s. This is a bijection; its inverse sends a left index a to a and a right index b to s+b.\n2. Define rows' on the first s positions by rows'(i)=inl(rows(i)), and on the last t positions by rows'(s+j)=inr(j). Define cols' in the same way using cols on the first s positions. Each map is injective: equality between different blocks is impossible, equality within the old block reduces to injectivity of the original embedding, and equality within the new block reduces to equality of the indices. Thus both maps are the required embeddings.\n3. After simultaneous reindexing of rows and columns by the bijection in step 1, E[rows',cols'] is diag(C,I_t). Its old-old entries are those of C, its two off-diagonal blocks are zero, and its new-new entry at (i,j) is 1 if i=j and 0 otherwise. Simultaneous reindexing preserves determinant: conjugating permutations in the determinant sum preserves their signs and simply reindexes their products.\n4. In the determinant expansion of diag(C,I_t), every term whose permutation fails to fix some new index has a zero entry from that identity row. The remaining permutations fix every new index and restrict bijectively to permutations of the s old indices. Their signs equal the signs of these restrictions, and all new diagonal factors are 1. The remaining sum is therefore det C.\n5. Steps 3 and 4 give det(E[rows',cols'])=det C, proving the assertion with the embeddings from step 2. The argument includes s=0 and t=0 because empty products are 1 and the empty index set has one permutation.",
+          "proof_key_steps": [
+            "Construct the canonical bijection Fin(s+t) ≃ Fin s ⊕ Fin t.",
+            "Append every identity-block index to each original embedding and prove injectivity.",
+            "Simultaneously reindex the selected matrix as diag(C,I_t).",
+            "Use the determinant permutation formula to remove the fixed identity indices and obtain det C."
+          ]
+        },
+        "audit": {
+          "key": "extend_minor",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly matches all prose hypotheses and the existential conclusion, independently of either child implementation. The bare name is unreserved. Steps 1–2 construct the required injective selections; steps 3–4 justify simultaneous reindexing and determinant reduction, including permutation signs. Empty sizes and the zero ring are covered. The proof is complete, non-circular, and needs no additional dependency."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-96fa355737/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-96fa355737/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-96fa355737/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.presentation_ideals_eq-a1.identity_block_stabilization-a1.reduce_minor-a1",
+      "key": "reduce_minor",
+      "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-fffbad46a6/children/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg -l --glob '*.lean' 'determinantal|minorIdeal|minor_ideal|fittingIdeal' .humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae",
+              "rg -n 'det_fromBlocks|det_submatrix_equiv|det_permute|det_eq_zero_of_row|det_eq_zero_of_column|det_succ' .humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant",
+              "sed -n '200,238p;350,366p;665,685p;720,730p' .humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+              "sed -n '45,115p' .humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Data/Matrix/Block.lean",
+              "git show 2e63b83283924ad7800c72a157d379c90498ccf3:Submission.lean",
+              "rg -n 'p05_ibs_extend_minor_a5b449214a|p05_ibs_reduce_minor_a5b449214a' Submission.lean .humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Submission.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Data/Matrix/Block.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json",
+              "/runtime/operator-header-policy-v1/policy.json",
+              "/tmp/p05-ibs-decomposition-3dl5o7zb/ChildTypes.lean",
+              "/tmp/p05-ibs-decomposition-3dl5o7zb/ChildTypes.lean.log",
+              "/tmp/p05-ibs-decomposition-3dl5o7zb/binding.json"
+            ],
+            "conclusion": "The project and mathlib snapshots match manifest revisions 2fdd42759f4ab17640ac773289b521dd69d4b26e and db584cd6d46c92f209a44c0f1c829460d327499d; tracked files and all nine installed dependency pins checked clean. The determinantal-ideal search returned no matches for the queried spellings. Inspected sources provide block determinant evaluation, simultaneous reindexing invariance, permutation signs, and zero-row/column determinants; fromBlocks constructs a Matrix via Matrix.of. The active DAG identifies this as the depth-4 identity-block helper and already supplies successive-minor containment. Both proposed names remain unreserved. Both exact child types elaborate after import Submission with Lean 4.33.1, and an anonymous entrywise check verifies the identity-matrix instance. Seven supporting determinant declarations have transitive axiom closures containing only propext, Classical.choice, and Quot.sound. Disposable compilation used the matching policy entry and verified digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, omitted only lines 10–11, and passed Lean absence probes for all 13 targets. Reversible original/build hashes and successful diagnostics are recorded in binding.json. Protected artifacts remain unchanged. These are decomposition diagnostics, not comparator acceptance of a theorem."
+          }
+        ],
+        "parent_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.presentation_ideals_eq-a1.identity_block_stabilization-a1",
+        "child_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.presentation_ideals_eq-a1.identity_block_stabilization-a1.reduce_minor-a1",
+        "subproblem": {
+          "key": "reduce_minor",
+          "title": "Reduce an identity-block minor to zero or a signed old minor",
+          "statement": "Let R be a commutative ring, let n,p,t,d be natural numbers, let P be an n-by-p matrix over R, and put E=diag(P,I_t), indexed by Fin n ⊕ Fin t and Fin p ⊕ Fin t. Given embeddings rows:Fin d ↪ (Fin n ⊕ Fin t) and cols:Fin d ↪ (Fin p ⊕ Fin t), either det(E[rows,cols])=0, or there exist a natural number l with l≤t and l≤d and embeddings rows':Fin(d−l) ↪ Fin n and cols':Fin(d−l) ↪ Fin p such that det(E[rows,cols]) equals det(P[rows',cols']) or its negative. Subtraction is truncated at zero and empty determinants are 1.",
+          "lean_statement": "∀ {R : Type*} [CommRing R] (n p t d : ℕ) (P : Matrix (Fin n) (Fin p) R) (rows : Fin d ↪ (Fin n ⊕ Fin t)) (cols : Fin d ↪ (Fin p ⊕ Fin t)), let E : Matrix (Fin n ⊕ Fin t) (Fin p ⊕ Fin t) R := Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R); Matrix.det (E.submatrix rows cols) = 0 ∨ ∃ l : ℕ, l ≤ t ∧ l ≤ d ∧ ∃ (rows' : Fin (d - l) ↪ Fin n) (cols' : Fin (d - l) ↪ Fin p), Matrix.det (E.submatrix rows cols) = Matrix.det (P.submatrix rows' cols') ∨ Matrix.det (E.submatrix rows cols) = -Matrix.det (P.submatrix rows' cols')",
+          "lean_name": "p05_ibs_reduce_minor_a5b449214a",
+          "depends_on": [],
+          "natural_proof": "1. Let M=E[rows,cols]. Let S be the subset of Fin t consisting of indices a for which inr(a) occurs in the image of rows, and let T be the corresponding subset for cols. These are finite sets. Because rows and cols are embeddings, each selected index occurs exactly once.\n2. If S≠T, one of S∖T and T∖S is nonempty. If a∈S∖T, choose the unique selected row with ambient index inr(a). At an old selected column its entry is zero because the lower-left block of E is zero. At a new selected column inr(b), one has b≠a because a∉T, so its entry is also zero. Thus M has a zero row, and every product in its determinant expansion contains a zero factor. Hence det M=0. If instead b∈T∖S, the corresponding selected column is zero by the same argument using the upper-right block and the identity block, and again det M=0. This proves the first alternative whenever S≠T.\n3. Suppose S=T and set l=|S|. Since S⊆Fin t, l≤t. The positions of the selected new rows are in bijection with S, using rows and its injectivity, so there are l such positions and l≤d. The same holds for the selected new columns. Consequently exactly q=d−l selected rows and exactly q selected columns are old, and q+l=d.\n4. Let A⊆Fin n and B⊆Fin p be the sets of old ambient row and column indices that occur. The preceding count gives |A|=|B|=q. Enumerate each set in increasing order to obtain embeddings rows':Fin q ↪ Fin n and cols':Fin q ↪ Fin p, and put C=P[rows',cols']. Enumerate S in increasing order as well. Reorder the d selected rows to list first the old indices in the order rows', then the new indices in that order of S; reorder the columns using cols' and the same order of S. These reorderings are permutations, since each listed ambient index occurs exactly once and every selected index has been listed.\n5. In these orders, and identifying the first q and last l positions with Fin q ⊕ Fin l, the matrix is diag(C,I_l). The old-old entries are those of C, the mixed entries are zero, and the new-new entries are Kronecker deltas because the same distinct indices of S occur in the same order on both sides. Its determinant is det C: in the permutation expansion any term moving a new index has a zero factor from that identity row; the remaining terms fix all new indices and are precisely the signed terms defining det C. Simultaneous identification of the two index sets does not change the determinant.\n6. Let ε be the product of the signs of the row and column permutations, regarded in R via the integer map. The permutation rule for determinants gives det C=ε det M. The integer sign product is either 1 or −1, and ε²=1 in every commutative ring. Multiplying the equality by ε therefore gives det M=ε det C. According to the sign, det M=det C or det M=−det C. Together with l≤t, l≤d and the embeddings from step 4, this is the second alternative.\n7. All constructions use finite sets and their embeddings, so d=0, q=0, t=0, and the zero ring require no additional assumptions. If the initial embeddings do not exist, the universally quantified assertion has no such instance.",
+          "proof_key_steps": [
+            "Compare the sets S and T of selected identity indices.",
+            "Use a mismatched identity index to exhibit a zero row or column.",
+            "When S=T, count l common identity indices and d−l old indices on each side.",
+            "Enumerate the old indices and reorder both selections with a common order on S.",
+            "Evaluate the resulting block determinant as the determinant of the old minor.",
+            "Undo the row and column signs to obtain equality with that minor or its negative."
+          ]
+        },
+        "audit": {
+          "key": "reduce_minor",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly matches the zero-or-signed-minor alternatives, both bounds on l, and truncated subtraction. Its local definition of E is self-contained, and its bare name is unreserved. Step 2 establishes a zero row or column for unequal identity supports. Steps 3–5 justify the counts, embeddings, reorderings, and block determinant. Step 6 correctly undoes the signs using ε²=1 without nontriviality assumptions. All degenerate cases are covered; no parent or sibling theorem is assumed."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-fffbad46a6/task.md": "3dc73676a86d8d8b7e3880aaca4875ccb55e1f69c70e9ec1bcf6f20bc01755d2",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-fffbad46a6/problem.md": "2f45861732b83e16d4873caf0c9444a7fa00a4264a1ac5e1f1ff0e2204fedfa8",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-fffbad46a6/problem.json": "701bdd1174185b1e65ab66c2cd98b64493a189e8738d6a153e929d4a2054385b",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-fffbad46a6/reference-manifest.json": "6c786975eb0eef7173c81aff14a1b156236148918e2f72a647e0f1f06054c1c5",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-fffbad46a6/decomposition.json": "a3124b3595c6000e58b8692af08a0491b544fdd1094e5223faf1ebdd875a4741",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-fffbad46a6/decomposition-audit.json": "986980e9cd30de084a28327c57fca6b729f5eab7775c01c622fa90fa3a697e93",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-fffbad46a6/controller-contract.json": "d884e19cbcd0cfe69c6417511400aa04e303e937b236f051376ed445b0fe9900",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-fffbad46a6/children/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-96fa355737/parent-child-handoff.json": "d8bf9deb1adab8c71b1f7ca3de7d6fae12dfe965fb96775276a71d8154bbca5d",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-fffbad46a6/children/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-96fa355737/parent-supplied-plan.md": "82c78520d11d61f19f489948664c1dacb6db0062d4f37b60133909d47951be8e",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-fffbad46a6/children/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-96fa355737/parent-supplied-natural-proof.md": "2cd70185f8551eccfb08d452cad274d27754c52b506b0af6220c74a2d9b63c84",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-fffbad46a6/children/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-96fa355737/parent-supplied-natural-proof.json": "3a02d144a8de4cb433547c23b7e525652e7c238a0909a293529ffb49a4bae6c8",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-fffbad46a6/children/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-96fa355737/node.json": "baab984f9a49edc2f162ee00a8cfee91256dc753700f06d50a8f0e140512da68",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-fffbad46a6/children/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/parent-child-handoff.json": "912be9b6e27acec15b312a9e42d9c0032d3b7ad747006f0d58353b0944c2c69a",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-fffbad46a6/children/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/parent-supplied-plan.md": "db8c61610e303c367e64b6d12e663f068ee80b2410dfb6a5873188e467f61540",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-fffbad46a6/children/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/parent-supplied-natural-proof.md": "5ffa304f7e5663034619587b472d8602d5072fae8e4cabc6d9ba8b953a50a3f2",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-fffbad46a6/children/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/parent-supplied-natural-proof.json": "7311eff9c49add533b93ae87a100828a94e0e7f0b7596b1186dac75ef8dc6eb1",
+    ".humanize-workspace/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-fffbad46a6/children/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae/node.json": "c8ee4d8c9c096ece7cbe412d1bebcf4e45e1eb79cea9495c25a9e3779002febe"
+  }
+}

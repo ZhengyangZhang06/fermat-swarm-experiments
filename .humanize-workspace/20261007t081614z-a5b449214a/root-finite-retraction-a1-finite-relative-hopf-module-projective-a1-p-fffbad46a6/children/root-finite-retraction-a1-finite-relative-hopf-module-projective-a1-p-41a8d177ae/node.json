@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.presentation_ideals_eq-a1.identity_block_stabilization-a1.reduce_minor-a1",
+  "parent_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.presentation_ideals_eq-a1.identity_block_stabilization-a1",
+  "depth": 5,
+  "title": "Reduce an identity-block minor to zero or a signed old minor",
+  "statement": "Let R be a commutative ring, let n,p,t,d be natural numbers, let P be an n-by-p matrix over R, and put E=diag(P,I_t), indexed by Fin n ⊕ Fin t and Fin p ⊕ Fin t. Given embeddings rows:Fin d ↪ (Fin n ⊕ Fin t) and cols:Fin d ↪ (Fin p ⊕ Fin t), either det(E[rows,cols])=0, or there exist a natural number l with l≤t and l≤d and embeddings rows':Fin(d−l) ↪ Fin n and cols':Fin(d−l) ↪ Fin p such that det(E[rows,cols]) equals det(P[rows',cols']) or its negative. Subtraction is truncated at zero and empty determinants are 1.",
+  "lean_statement": "∀ {R : Type*} [CommRing R] (n p t d : ℕ) (P : Matrix (Fin n) (Fin p) R) (rows : Fin d ↪ (Fin n ⊕ Fin t)) (cols : Fin d ↪ (Fin p ⊕ Fin t)), let E : Matrix (Fin n ⊕ Fin t) (Fin p ⊕ Fin t) R := Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R); Matrix.det (E.submatrix rows cols) = 0 ∨ ∃ l : ℕ, l ≤ t ∧ l ≤ d ∧ ∃ (rows' : Fin (d - l) ↪ Fin n) (cols' : Fin (d - l) ↪ Fin p), Matrix.det (E.submatrix rows cols) = Matrix.det (P.submatrix rows' cols') ∨ Matrix.det (E.submatrix rows cols) = -Matrix.det (P.submatrix rows' cols')",
+  "lean_name": "p05_ibs_reduce_minor_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-41a8d177ae-a1"
+}

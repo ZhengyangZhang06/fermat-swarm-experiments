@@ -1,0 +1,44 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -l --glob '*.lean' 'determinantal|minorIdeal|minor_ideal|fittingIdeal' .humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae",
+        "instance.*One|theorem one_apply|def one|finSumFinEquiv|sign_sumCongr",
+        "rg -n 'p05_ibs_extend_minor_a5b449214a|p05_ibs_reduce_minor_a5b449214a' Submission.lean .humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json",
+        "git show 2e63b83283924ad7800c72a157d379c90498ccf3:Submission.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Data/Matrix/Block.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Data/Matrix/Diagonal.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p05-ibs-decomposition-3dl5o7zb/binding.json",
+        "/tmp/p05-ibs-independent-audit-t_u3ni0c/ChildTypes.lean",
+        "/tmp/p05-ibs-independent-audit-t_u3ni0c/ChildTypes.lean.log",
+        "/tmp/p05-ibs-independent-audit-t_u3ni0c/binding.json"
+      ],
+      "conclusion": "The DAG confirms this is the depth-4 identity-block helper within the frozen Hopf-algebra problem. Splitting into two independent generator-level obligations is appropriate; the parent retains its successive-minor dependency and identity-only case. All 50 existing nodes form an acyclic graph, and neither proposed name is reserved. The determinantal-ideal search returned no matches. Inspected sources supply block determinants, permutation signs, reindexing invariance, zero-row/column determinants, and matrix identity semantics. Snapshot revisions match the manifest; tracked snapshot files and all nine installed dependency pins are clean. Independent Lean 4.33.1 diagnostics accepted both exact propositions and the entrywise identity check. Seven supporting determinant declarations have only propext, Classical.choice, and Quot.sound in their transitive axiom closures. The policy digest matches 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96. Disposable copies omitted exactly authorized lines 10–11; all 13 absence probes passed, with Git binding and reversible original/build hashes recorded. This accepts the decomposition only; theorem acceptance still requires the configured comparator and independent implementation review."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "extend_minor",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches all prose hypotheses and the existential conclusion, independently of either child implementation. The bare name is unreserved. Steps 1–2 construct the required injective selections; steps 3–4 justify simultaneous reindexing and determinant reduction, including permutation signs. Empty sizes and the zero ring are covered. The proof is complete, non-circular, and needs no additional dependency."
+    },
+    {
+      "key": "reduce_minor",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the zero-or-signed-minor alternatives, both bounds on l, and truncated subtraction. Its local definition of E is self-contained, and its bare name is unreserved. Step 2 establishes a zero row or column for unequal identity supports. Steps 3–5 justify the counts, embeddings, reorderings, and block determinant. Step 6 correctly undoes the signs using ε²=1 without nontriviality assumptions. All degenerate cases are covered; no parent or sibling theorem is assumed."
+    }
+  ],
+  "required_changes": []
+}

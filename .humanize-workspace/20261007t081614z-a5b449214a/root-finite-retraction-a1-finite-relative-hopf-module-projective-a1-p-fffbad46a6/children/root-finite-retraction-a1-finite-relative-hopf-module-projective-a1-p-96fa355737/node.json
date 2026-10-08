@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.presentation_ideals_eq-a1.identity_block_stabilization-a1.extend_minor-a1",
+  "parent_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.presentation_ideals_eq-a1.identity_block_stabilization-a1",
+  "depth": 5,
+  "title": "Extend a minor by the full identity block",
+  "statement": "Let R be a commutative ring, let n,p,t,s be natural numbers, let P be an n-by-p matrix over R, and let rows:Fin s ↪ Fin n and cols:Fin s ↪ Fin p be embeddings. Set E=diag(P,I_t), with row indices Fin n ⊕ Fin t and column indices Fin p ⊕ Fin t. There exist embeddings rows':Fin(s+t) ↪ (Fin n ⊕ Fin t) and cols':Fin(s+t) ↪ (Fin p ⊕ Fin t) such that det(E[rows',cols'])=det(P[rows,cols]). Empty determinants are 1; no positivity or nontriviality assumptions are imposed.",
+  "lean_statement": "∀ {R : Type*} [CommRing R] (n p t s : ℕ) (P : Matrix (Fin n) (Fin p) R) (rows : Fin s ↪ Fin n) (cols : Fin s ↪ Fin p), ∃ (rows' : Fin (s + t) ↪ (Fin n ⊕ Fin t)) (cols' : Fin (s + t) ↪ (Fin p ⊕ Fin t)), Matrix.det ((Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R)).submatrix rows' cols') = Matrix.det (P.submatrix rows cols)",
+  "lean_name": "p05_ibs_extend_minor_a5b449214a",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p05/20261007t081614z-a5b449214a/root-finite-retraction-a1-finite-relative-hopf-module-projective-a1-p-96fa355737-a1"
+}
