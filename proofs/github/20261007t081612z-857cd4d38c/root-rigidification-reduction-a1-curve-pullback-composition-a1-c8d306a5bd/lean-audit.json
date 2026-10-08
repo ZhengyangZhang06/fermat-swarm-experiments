@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "f037c6d83e5188a674343489ed920f91f5a69fad736335175aacb6b8304a1afb",
+  "git_delta": {
+    "base_commit": "26d40195bbc974a1283412fec18baa1c0227ff84",
+    "candidate_commit": "a69d3bd7f38fde1cfabd9e0083ca4e5e40a23aa0",
+    "target": "Submission.lean",
+    "declaration": "p07_rr_pullback_comp_857cd4d38c",
+    "diff_sha256": "93211ad15375a11b70563bf02958409a45b6b2715347fa98851b038543b38432",
+    "source_sha256": "aced8965e0f7df8acffd65a52ffd5981f6f765291009face20478829eed5b1c7",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p07_rr_pullback_comp_857cd4d38c",
+      "statement": "∀ {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N : ℕ) (S₀ S₁ S₂ : Type) [CommRing S₀] [CommRing S₁] [CommRing S₂] (f : S₀ →+* S₁) (h : S₁ →+* S₂) (E₀ : CerednikDrinfeld.QM.FakeEllipticCurve Λ N S₀) (E₁ : CerednikDrinfeld.QM.FakeEllipticCurve Λ N S₁) (E₂ : CerednikDrinfeld.QM.FakeEllipticCurve Λ N S₂) (g₀₁ : Quiver.Hom E₁.A E₀.A) (g₁₂ : Quiver.Hom E₂.A E₁.A), CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia f E₀ E₁ g₀₁ → CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia h E₁ E₂ g₁₂ → CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia (h.comp f) E₀ E₂ (CategoryTheory.CategoryStruct.comp g₁₂ g₀₁)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
