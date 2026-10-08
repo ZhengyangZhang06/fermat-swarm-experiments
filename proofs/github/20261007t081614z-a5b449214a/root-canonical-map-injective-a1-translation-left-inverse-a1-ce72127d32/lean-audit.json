@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "12c6de4bba72992dde71fc802f2d2c38d8169dc47ec63fa4802720f9594ae40c",
+  "git_delta": {
+    "base_commit": "faa5b2353a0fa7e66adeea1277f7df0bf441c35d",
+    "candidate_commit": "13e2c2a231f8e667dd620f21db2fa57bfb4b5fa0",
+    "target": "Submission.lean",
+    "declaration": "p05_translation_left_inverse_a5b449214a",
+    "diff_sha256": "1121971994e9ddf220eb5d5514dc167b085b8c2aa0ae7b88afb29432171ff75c",
+    "source_sha256": "eca33a3eec61655d3cea936e6d7f670aa6547662c0d60e71502840afa8d16b24",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_translation_left_inverse_a5b449214a",
+      "statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (K : Subalgebra k H) {B : Type*} [CommRing B] [Bialgebra k B] (q : BialgHom k H B) (β : (TensorProduct K H H) →ₐ[k] (TensorProduct k H B)) (hβ : ∀ a b : H, β (TensorProduct.tmul K a b) = (TensorProduct.tmul k a (1 : B)) * HopfAlgebra.coaction q b) (σ : B →ₐ[k] (TensorProduct K H H)) (hσ : ∀ b : H, σ (q b) = Algebra.TensorProduct.mapOfCompatibleSMul K k k H H (TensorProduct.map (HopfAlgebra.antipode k) (LinearMap.id : H →ₗ[k] H) (Coalgebra.comul (R := k) b))), ∃ γ : (TensorProduct k H B) →ₐ[k] (TensorProduct K H H), (∀ (a : H) (c : B), γ (TensorProduct.tmul k a c) = (TensorProduct.tmul K a (1 : H)) * σ c) ∧ Function.LeftInverse γ β",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
