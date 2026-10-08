@@ -3493,3 +3493,32 @@ theorem Submission.p10_17ae7b7d_to_coprime_count_mul :
       G (Q m) (Q n) ModularGroup.T m n hmn
       (Submission.p10_17ae7b7d_ccm_translation_period m)
       (Submission.p10_17ae7b7d_ccm_translation_period n)
+theorem Submission.p10_17ae7b7d_ccf_coprime_mul :
+    ∀ (m n : ℕ), Nat.Coprime m n →
+      ModularCurve.cuspCount (m * n) = ModularCurve.cuspCount m * ModularCurve.cuspCount n := by
+  intro m n hmn
+  classical
+  by_cases hm : m = 0
+  · simp [hm, ModularCurve.cuspCount]
+  by_cases hn : n = 0
+  · simp [hn, ModularCurve.cuspCount]
+  unfold ModularCurve.cuspCount
+  rw [hmn.divisors_mul, Finset.sum_map]
+  simp only [Function.Embedding.coeFn_mk]
+  rw [Finset.sum_attach, Finset.sum_product, Finset.sum_mul_sum]
+  apply Finset.sum_congr rfl
+  intro a ha
+  apply Finset.sum_congr rfl
+  intro b hb
+  have ham : a ∣ m := Nat.dvd_of_mem_divisors ha
+  have hbn : b ∣ n := Nat.dvd_of_mem_divisors hb
+  have hAm : m / a ∣ m := Nat.div_dvd_of_dvd ham
+  have hBn : n / b ∣ n := Nat.div_dvd_of_dvd hbn
+  have hab : a.Coprime b := hmn.of_dvd ham hbn
+  have haB : (n / b).Coprime a := (hmn.of_dvd ham hBn).symm
+  have hAb : (m / a).Coprime b := hmn.of_dvd hAm hbn
+  rw [Nat.mul_div_mul_comm ham hbn, hab.mul_gcd,
+    haB.gcd_mul_right_cancel_right, hAb.gcd_mul_left_cancel_right]
+  exact Nat.totient_mul (hmn.of_dvd
+    ((Nat.gcd_dvd_left a (m / a)).trans ham)
+    ((Nat.gcd_dvd_left b (n / b)).trans hbn))
