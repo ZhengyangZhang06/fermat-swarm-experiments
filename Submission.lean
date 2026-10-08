@@ -4407,21 +4407,19 @@ theorem p06_9e0f5043ff_llm_localized_residue_factors
     (p = q → IsSimpleModule (Localization.AtPrime q.asIdeal)
       (LocalizedModule q.asIdeal.primeCompl (B ⧸ p.asIdeal))) ∧
     (p ≠ q → Subsingleton (LocalizedModule q.asIdeal.primeCompl (B ⧸ p.asIdeal))) := by
-  classical
   constructor
   · rintro rfl
     -- At the same prime, every denominator acts invertibly on the residue field.
     let k := B ⧸ p.asIdeal
     let : Field k := Ideal.Quotient.field p.asIdeal
     let T := p.asIdeal.primeCompl
-    let f := LocalizedModule.mkLinearMap T k
     have : IsLocalizedModule T (LinearMap.id : k →ₗ[B] k) := by
       refine ⟨?_, fun m ↦ ⟨(m, 1), by simp⟩, fun h ↦ ⟨1, by simpa using h⟩⟩
       intro s
       rw [Module.End.isUnit_iff]
       change Function.Bijective (fun m : k ↦ (s : B) • m)
-      have hs : (Ideal.Quotient.mk p.asIdeal (s : B) : k) ≠ 0 := by
-        exact fun h ↦ s.property ((Ideal.Quotient.eq_zero_iff_mem).mp h)
+      have hs : (Ideal.Quotient.mk p.asIdeal (s : B) : k) ≠ 0 :=
+        fun h ↦ s.property ((Ideal.Quotient.eq_zero_iff_mem).mp h)
       simpa only [Algebra.smul_def, k, Ideal.Quotient.algebraMap_eq] using
         mulLeft_bijective₀ (Ideal.Quotient.mk p.asIdeal (s : B)) hs
     have : IsSimpleModule B k :=
@@ -4429,7 +4427,8 @@ theorem p06_9e0f5043ff_llm_localized_residue_factors
     -- The localization equivalence preserves simplicity over B; enlarging scalars
     -- preserves the fact that each nonzero element generates the whole module.
     have : IsSimpleModule B (LocalizedModule T k) :=
-      IsSimpleModule.congr (IsLocalizedModule.linearEquiv T f LinearMap.id)
+      IsSimpleModule.congr
+        (IsLocalizedModule.linearEquiv T (LocalizedModule.mkLinearMap T k) LinearMap.id)
     refine isSimpleModule_iff_toSpanSingleton_surjective.mpr
       ⟨IsSimpleModule.nontrivial B _, ?_⟩
     intro x hx y
