@@ -18,3 +18,239 @@ theorem HeckeEis.eichlerShimuraMap_injective (N : ℕ) [NeZero N] (n : ℕ) :
     Function.Injective
       (fun f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2) ↦ HeckeEis.eichlerShimuraMap n N f) := by
   sorry
+
+namespace Submission
+
+theorem p02_es_177ebb5a_sm_holomorphic
+    (n : ℕ) (h : UpperHalfPlane → ℂ)
+    (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n))
+    (hE : HeckeEis.IsEichlerIntegral n h E) :
+    DifferentiableOn ℂ
+      (fun z : ℂ => MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z)
+        (E (UpperHalfPlane.ofComplex z)).val)
+      {z : ℂ | 0 < z.im} := by
+  classical
+  let s := (Finsupp.finite_of_degree_eq (σ := Fin 2) n).toFinset
+  have hexpand (z : ℂ) :
+      MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z)
+          (E (UpperHalfPlane.ofComplex z)).val =
+        ∑ d ∈ s, MvPolynomial.coeff d (E (UpperHalfPlane.ofComplex z)).val *
+          (-z) ^ d 1 := by
+    rw [MvPolynomial.eval_eq']
+    simp only [Fin.prod_univ_two, Fin.isValue, ite_true, one_pow, one_ne_zero,
+      ite_false, one_mul]
+    apply Finset.sum_subset
+    · intro d hd
+      have hdeg := (E (UpperHalfPlane.ofComplex z)).property
+        (MvPolynomial.mem_support_iff.mp hd)
+      simpa [s, Finsupp.degree_eq_weight_one, Pi.one_def] using hdeg
+    · intro d _ hd
+      simp [MvPolynomial.notMem_support_iff.mp hd]
+  simp_rw [hexpand]
+  apply DifferentiableOn.fun_sum
+  intro d _
+  apply DifferentiableOn.mul
+  · intro z hz
+    exact (hE d ⟨z, hz⟩).differentiableAt.differentiableWithinAt
+  · exact (differentiable_id.neg.pow (d 1)).differentiableOn
+
+theorem p02_es_177ebb5a_lcd_monomial_expansion
+    (n : ℕ) (Q : ↥(HeckeEis.BinaryForm ℂ n)) :
+    Q.val = ∑ r : Fin (n + 1),
+      MvPolynomial.coeff
+          (Finsupp.single (0 : Fin 2) r.val + Finsupp.single (1 : Fin 2) (n - r.val))
+          Q.val •
+        MvPolynomial.monomial
+          (Finsupp.single (0 : Fin 2) r.val + Finsupp.single (1 : Fin 2) (n - r.val))
+          (1 : ℂ) := by
+  classical
+  let e (r : Fin (n + 1)) : Fin 2 →₀ ℕ :=
+    Finsupp.single 0 r.val + Finsupp.single 1 (n - r.val)
+  have he (r : Fin (n + 1)) : (e r).degree = n := by
+    simp [e, Finsupp.degree_eq_sum, Fin.sum_univ_two,
+      Nat.add_sub_of_le (Nat.le_of_lt_succ r.isLt)]
+  change Q.val = ∑ r, MvPolynomial.coeff (e r) Q.val •
+    MvPolynomial.monomial (e r) (1 : ℂ)
+  apply MvPolynomial.ext
+  intro d
+  simp only [MvPolynomial.coeff_sum, MvPolynomial.coeff_smul, MvPolynomial.coeff_monomial]
+  by_cases hd : d.degree = n
+  · have hsum : d 0 + d 1 = n := by
+      simpa [Finsupp.degree_eq_sum, Fin.sum_univ_two] using hd
+    let r : Fin (n + 1) := ⟨d 0, by omega⟩
+    have hr : e r = d := by
+      ext i
+      fin_cases i <;> simp [e, r, ← hsum]
+    have huniq (s : Fin (n + 1)) (hs : e s = d) : s = r := by
+      apply Fin.ext
+      have hzero := congrArg (fun t : Fin 2 →₀ ℕ => t 0) hs
+      simpa [e, r] using hzero
+    rw [Finset.sum_eq_single r]
+    · simp [hr]
+    · intro s _ hs
+      have hne : e s ≠ d := fun h => hs (huniq s h)
+      simp [hne]
+    · simp
+  · rw [MvPolynomial.IsHomogeneous.coeff_eq_zero Q.property hd]
+    symm
+    apply Finset.sum_eq_zero
+    intro r _
+    have hne : e r ≠ d := fun h => hd (h ▸ he r)
+    simp [hne]
+
+theorem p02_es_177ebb5a_lcd_coeff_linear_combination
+    (n : ℕ)
+    (A : ↥(HeckeEis.BinaryForm ℂ n) →ₗ[ℂ] ↥(HeckeEis.BinaryForm ℂ n))
+    (e : Fin 2 →₀ ℕ) :
+    ∃ c : Fin (n + 1) → ℂ, ∀ Q : ↥(HeckeEis.BinaryForm ℂ n),
+      MvPolynomial.coeff e (A Q).val = ∑ r : Fin (n + 1),
+        c r * MvPolynomial.coeff
+          (Finsupp.single (0 : Fin 2) r.val + Finsupp.single (1 : Fin 2) (n - r.val))
+          Q.val := by
+  classical
+  let d (r : Fin (n + 1)) : Fin 2 →₀ ℕ :=
+    Finsupp.single 0 r.val + Finsupp.single 1 (n - r.val)
+  have hd (r : Fin (n + 1)) : (d r).degree = n := by
+    simp [d, Finsupp.degree_eq_sum, Fin.sum_univ_two,
+      Nat.add_sub_of_le (Nat.le_of_lt_succ r.isLt)]
+  let b (r : Fin (n + 1)) : ↥(HeckeEis.BinaryForm ℂ n) :=
+    ⟨MvPolynomial.monomial (d r) 1, MvPolynomial.isHomogeneous_monomial 1 (hd r)⟩
+  refine ⟨fun r => MvPolynomial.coeff e (A (b r)).val, ?_⟩
+  intro Q
+  have hexpand : Q = ∑ r, MvPolynomial.coeff (d r) Q.val • b r := by
+    apply Subtype.ext
+    simp only [Submodule.coe_sum, Submodule.coe_smul]
+    apply MvPolynomial.ext
+    intro t
+    simp only [b, MvPolynomial.coeff_sum, MvPolynomial.coeff_smul,
+      MvPolynomial.coeff_monomial]
+    by_cases ht : t.degree = n
+    · have hsum : t 0 + t 1 = n := by
+        simpa [Finsupp.degree_eq_sum, Fin.sum_univ_two] using ht
+      let r : Fin (n + 1) := ⟨t 0, by omega⟩
+      have hr : d r = t := by
+        ext i
+        fin_cases i <;> simp [d, r, ← hsum]
+      have huniq (s : Fin (n + 1)) (hs : d s = t) : s = r := by
+        apply Fin.ext
+        have hzero := congrArg (fun u : Fin 2 →₀ ℕ => u 0) hs
+        simpa [d, r] using hzero
+      rw [Finset.sum_eq_single r]
+      · simp [hr]
+      · intro s _ hs
+        have hne : d s ≠ t := fun h => hs (huniq s h)
+        simp [hne]
+      · simp
+    · rw [MvPolynomial.IsHomogeneous.coeff_eq_zero Q.property ht]
+      symm
+      apply Finset.sum_eq_zero
+      intro r _
+      have hne : d r ≠ t := fun h => ht (h ▸ hd r)
+      simp [hne]
+  calc
+    MvPolynomial.coeff e (A Q).val =
+        MvPolynomial.coeff e (A (∑ r, MvPolynomial.coeff (d r) Q.val • b r)).val :=
+      congrArg (fun P => MvPolynomial.coeff e (A P).val) hexpand
+    _ = ∑ r, MvPolynomial.coeff e (A (b r)).val * MvPolynomial.coeff (d r) Q.val := by
+      simp [map_sum, MvPolynomial.coeff_sum, mul_comm]
+
+theorem p02_es_177ebb5a_cd_linear_coeff_derivative
+    (n : ℕ)
+    (A : ↥(HeckeEis.BinaryForm ℂ n) →ₗ[ℂ] ↥(HeckeEis.BinaryForm ℂ n))
+    (F : ℂ → ↥(HeckeEis.BinaryForm ℂ n))
+    (P : ↥(HeckeEis.BinaryForm ℂ n)) (z : ℂ)
+    (hF : ∀ e : Fin 2 →₀ ℕ,
+      HasDerivAt (fun w : ℂ => MvPolynomial.coeff e (F w).val)
+        (MvPolynomial.coeff e P.val) z) :
+    ∀ e : Fin 2 →₀ ℕ,
+      HasDerivAt (fun w : ℂ => MvPolynomial.coeff e (A (F w)).val)
+        (MvPolynomial.coeff e (A P).val) z := by
+  classical
+  intro e
+  obtain ⟨c, hc⟩ := p02_es_177ebb5a_lcd_coeff_linear_combination n A e
+  simp_rw [hc]
+  apply HasDerivAt.fun_sum
+  intro r _
+  exact (hF _).const_mul (c r)
+
+/-- Coefficientwise derivative of an Eichler integral after a modular substitution. -/
+theorem p02_es_177ebb5a_cd_modular_pullback_derivative
+    (N : ℕ) [NeZero N] (n : ℕ)
+    (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2))
+    (F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n))
+    (hF : HeckeEis.IsEichlerIntegral n (fun τ => f τ) F)
+    (γ : CongruenceSubgroup.Gamma0 N) (e : Fin 2 →₀ ℕ) (τ : UpperHalfPlane) :
+    HasDerivAt
+      (fun z : ℂ => MvPolynomial.coeff e
+        (F ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • UpperHalfPlane.ofComplex z)).val)
+      (f τ * MvPolynomial.coeff e
+        ((((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype) γ)
+          (HeckeEis.linePow n (τ : ℂ))).val)
+      (τ : ℂ) := by
+  let g : Matrix.SpecialLinearGroup (Fin 2) ℤ := γ
+  have hj := HeckeEis.jFactor_ne_zero g τ
+  have hT : HasDerivAt
+      (fun z : ℂ => ((g • UpperHalfPlane.ofComplex z : UpperHalfPlane) : ℂ))
+      (1 / HeckeEis.jFactor g τ ^ 2) (τ : ℂ) := by
+    have hdet : (Matrix.SpecialLinearGroup.mapGL ℝ g).val.det = 1 :=
+      (g.map (algebraMap ℤ ℝ)).det_coe
+    simpa only [MulAction.compHom_smul_def, hdet, Complex.ofReal_one,
+      ← HeckeEis.jFactor_eq_denom] using
+      (UpperHalfPlane.hasStrictDerivAt_smul
+        (g := Matrix.SpecialLinearGroup.mapGL ℝ g) (by rw [hdet]; exact zero_lt_one) τ).hasDerivAt
+  have hcomp := (hF e (g • τ)).comp_of_eq (τ : ℂ) hT (by
+    simp only [UpperHalfPlane.ofComplex_apply])
+  have hslash : f (g • τ) = HeckeEis.jFactor g τ ^ (n + 2) * f τ := by
+    have h := SlashInvariantForm.slash_action_eqn_SL'' (Γ := CongruenceSubgroup.Gamma0 N)
+      f (γ := g) γ.property τ
+    change f (g • τ) = UpperHalfPlane.denom (Matrix.SpecialLinearGroup.mapGL ℝ g)
+      (τ : ℂ) ^ ((n : ℤ) + 2) * f τ at h
+    rw [← HeckeEis.jFactor_eq_denom] at h
+    simpa only [show (n : ℤ) + 2 = ((n + 2 : ℕ) : ℤ) by simp, zpow_natCast] using h
+  have hrep : MvPolynomial.coeff e
+      ((((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype) γ)
+        (HeckeEis.linePow n (τ : ℂ))).val =
+      HeckeEis.jFactor g τ ^ n *
+        MvPolynomial.coeff e (HeckeEis.linePow n ((g • τ : UpperHalfPlane) : ℂ)).val := by
+    change MvPolynomial.coeff e ((HeckeEis.binaryFormRepSL ℂ n g)
+      (HeckeEis.linePow n (τ : ℂ))).val = _
+    rw [HeckeEis.binaryFormRepSL_linePow]
+    simp only [Submodule.coe_smul, MvPolynomial.coeff_smul, smul_eq_mul]
+  simp only [Function.comp_def, UpperHalfPlane.ofComplex_apply] at hcomp
+  convert! hcomp using 1
+  rw [hslash, hrep, pow_add]
+  field_simp [hj]
+
+/-- The modular defect of an Eichler integral is constant on the upper half-plane. -/
+theorem p02_es_177ebb5a_primitive_exists_constant_defect
+    (N : ℕ) [NeZero N] (n : ℕ)
+    (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2))
+    (F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n))
+    (hF : HeckeEis.IsEichlerIntegral n (fun τ => f τ) F) :
+    HeckeEis.IsEquivariantPrimitiveWith
+      ((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype) F := by
+  let ρ := (HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype
+  intro γ
+  let D (τ : UpperHalfPlane) := F ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • τ) - ρ γ (F τ)
+  refine ⟨D UpperHalfPlane.I, ?_⟩
+  intro τ
+  apply Subtype.ext
+  apply MvPolynomial.ext
+  intro e
+  let q (z : ℂ) := MvPolynomial.coeff e (D (UpperHalfPlane.ofComplex z)).val
+  have hq (υ : UpperHalfPlane) : HasDerivAt q 0 (υ : ℂ) := by
+    have hlinear := p02_es_177ebb5a_cd_linear_coeff_derivative n (ρ γ)
+      (fun z => F (UpperHalfPlane.ofComplex z)) (f υ • HeckeEis.linePow n (υ : ℂ))
+      (υ : ℂ) (fun d => by
+        simpa only [Submodule.coe_smul, MvPolynomial.coeff_smul, smul_eq_mul] using hF d υ) e
+    have hpullback := p02_es_177ebb5a_cd_modular_pullback_derivative N n f F hF γ e υ
+    convert! hpullback.sub hlinear using 1
+    simp only [ρ, map_smul, Submodule.coe_smul, MvPolynomial.coeff_smul,
+      smul_eq_mul, sub_self]
+  have hconstant := UpperHalfPlane.isOpen_upperHalfPlaneSet.is_const_of_deriv_eq_zero
+    (convex_halfSpace_im_gt (0 : ℝ)).isPreconnected
+    (fun z hz => (hq ⟨z, hz⟩).differentiableAt.differentiableWithinAt)
+    (fun z hz => (hq ⟨z, hz⟩).deriv) τ.im_pos UpperHalfPlane.I.im_pos
+  simpa only [q, UpperHalfPlane.ofComplex_apply] using hconstant
+
+end Submission

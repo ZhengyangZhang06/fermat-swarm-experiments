@@ -1,0 +1,33 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'IsEichlerIntegral|IsEquivariantPrimitiveWith|binaryFormRepSL_linePow|p02_es_177ebb5a_primitive_exists_constant_defect' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b -g '*.lean'",
+        "rg -n 'p02_es_177ebb5a_primitive_exists_constant_defect' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b -g '*.lean'"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean"
+      ],
+      "conclusion": "Found the frozen coefficientwise derivative predicate, constant-defect predicate, binary-form representation, and representation identity. Inspected definitions match the frozen base, committed candidate, and comparator inputs byte-for-byte. No occurrence of the tracked theorem was found in the snapshot. Project and mathlib checkouts are clean at manifest revisions 1f74c284b125d4c45f527f2d621597fcf1e103a9 and db584cd6d46c92f209a44c0f1c829460d327499d."
+    }
+  ],
+  "comparison_identity": "7f5f97c2ffbfa10a6691cbec89b746c58731474a014a17bf57c9cd139fc2be22",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_primitive_exists_constant_defect",
+      "statement": "∀ (N : ℕ) [NeZero N] (n : ℕ) (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2)) (F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.IsEichlerIntegral n (fun τ => f τ) F → HeckeEis.IsEquivariantPrimitiveWith ((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype) F",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Accepted derivative lemmas give zero derivative for every coefficient of the modular defect; constancy on the upper half-plane yields the conclusion."
+    }
+  ]
+}
