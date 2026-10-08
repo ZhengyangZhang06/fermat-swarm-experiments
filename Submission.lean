@@ -1,7 +1,7 @@
 /-
 Copyright 2026 Anthropic, PBC. Licensed under Apache-2.0; see LICENSE.
 Source: https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean
-Modified: replaced the proof with sorry and removed P2M proof imports.
+Modified: implements the selected local length-order node in namespace Submission.
 Requires the upstream Definitions modules and their dependencies.
 -/
 
@@ -3792,7 +3792,8 @@ theorem p06_9e0f5043ff_ifl_local_length_order
   obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible R
   obtain ⟨m, u, hu⟩ := IsDiscreteValuationRing.eq_unit_mul_pow_irreducible hbR hπ
   refine ⟨m, ?_, ?_⟩
-  -- The pinned DVR length formula computes the uniformizer filtration length.
+  -- Mathlib/RingTheory/DiscreteValuationRing/Basic.lean computes this length
+  -- from the chain of powers of the maximal ideal, including the case m = 0.
   · rw [hu, Ideal.span_singleton_mul_left_unit u.isUnit,
       ← Ideal.span_singleton_pow, ← hπ.maximalIdeal_eq]
     exact IsDiscreteValuationRing.length_quotient_pow_maximalIdeal R m
