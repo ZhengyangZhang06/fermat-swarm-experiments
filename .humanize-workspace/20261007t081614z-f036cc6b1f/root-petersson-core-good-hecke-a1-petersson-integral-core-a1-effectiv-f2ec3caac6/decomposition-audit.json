@@ -1,0 +1,52 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "SL_neg_smul|instContinuousGLSMul|SLAction|borel|BorelSpace",
+        "HasDistribNeg|neg_mul|mul_neg|neg_inv|inv_neg|neg_neg|neg_one|out_eq|out_equiv|out.*mk|IsFundamentalDomain|ae_disjoint",
+        "sign.*(partition|transversal)|measurable.*equidecomp|pointwise_sign_partition|f036cc6b1f_pic_psp_sign_transversal|f036cc6b1f_pic_psp_measurable_slice_partition",
+        "\"lean_name\": \"f036cc6b1f_pic_psp_(sign_transversal|measurable_slice_partition)\"",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/psp-independent-audit-6svt_jd5/IndependentTypes.lean",
+        "#print axioms ModularGroup.SL_neg_smul",
+        "#print axioms UpperHalfPlane.instContinuousGLSMul",
+        "#print axioms Quotient.out_eq",
+        "#print axioms Quotient.out_equiv_out",
+        "#print axioms neg_inv",
+        "#print axioms Continuous.measurable"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Data/Quot.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Group/FundamentalDomain.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project",
+        "/tmp/psp-independent-audit-6svt_jd5/IndependentTypes.lean",
+        "/tmp/psp-independent-audit-6svt_jd5/FrozenContextTypes.lean",
+        "/tmp/psp-independent-audit-6svt_jd5/FrozenContextTypes.log"
+      ],
+      "conclusion": "Confirmed the parent is a depth-5 descendant of the frozen CuspForm theorem. The snapshot supplies sign-invariant action, continuity, Borel measurability, distributive negation, and quotient representatives. IsFundamentalDomain provides almost-everywhere properties rather than the required exact partition. Targeted project searches found no matching theorem; neither proposed name is reserved in the local DAG. Both exact propositions independently elaborated with mathlib-only imports and with the frozen Definitions import, without importing either child or the parent implementation. Instance synthesis and definitional equality confirmed the canonical action through mapGL ℝ. All nine dependency checkouts are clean and pinned; consulted mathlib sources and all 81 reused Definitions sources match the snapshot. Checked library declarations use only propext, Classical.choice, and Quot.sound. These checks approve the decomposition, not child implementation acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "sign_transversal",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The single-line proposition exactly matches the prose, including minus-identity membership and subgroup-element uniqueness. All five proof steps are sound: negation preserves the subgroup, equality up to sign is an equivalence relation, quotient choice supplies representatives, and quotient equality proves coverage and uniqueness. No parent or child theorem is assumed. The name is a bare, unreserved identifier, and the type elaborates independently of its implementation."
+    },
+    {
+      "key": "measurable_slice_partition",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The single-line proposition includes every stated hypothesis and defines precisely the specified family C. The proof establishes measurable preimages, disjointness by the four sign cases, and both coverage inclusions without gaps. Neither invariance of X nor minus-identity membership is needed here. The canonical action and measurability step were independently checked in Lean. The name is bare and unreserved; the internal let is a self-contained definition, not a candidate-dependent alias. Empty sibling dependencies are correct because the transversal properties are explicit assumptions. The split is appropriate: inversion transfers the transversal properties, reindexing supplies A, and the parent retains the image-equality argument."
+    }
+  ],
+  "required_changes": []
+}

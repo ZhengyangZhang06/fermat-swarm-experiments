@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1.measurable_equidecomposition-a1.pointwise_sign_partition-a1.measurable_slice_partition-a1",
+  "parent_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1.measurable_equidecomposition-a1.pointwise_sign_partition-a1",
+  "depth": 6,
+  "title": "A sign transversal gives an exact measurable partition by orbit slices",
+  "statement": "Let G = SL₂(ℤ) act canonically on the upper half-plane ℍ with its Borel measurable structure. Let Δ ≤ G be any subgroup, and write γ̄ for the underlying matrix of γ : Δ. Let L ⊆ Δ satisfy: every δ : Δ has some γ ∈ L with γ̄ = δ̄ or γ̄ = −δ̄; and any γ,η ∈ L whose underlying matrices are equal up to sign satisfy γ = η. Let P,S,X ⊆ ℍ be measurable. Assume that for every z ∈ X there exists r ∈ G with r ∈ Δ and rz ∈ S such that every δ ∈ G satisfying δ ∈ Δ and δz ∈ S obeys δ = r or δ = −r. Define Cγ = {z ∈ ℍ | γ ∈ L, z ∈ P ∩ X, and γ̄z ∈ S}. Then every Cγ is measurable, the family C : Δ → Set ℍ is pairwise disjoint, and ⋃γ Cγ = P ∩ X.",
+  "lean_statement": "∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (L : Set Δ) (P S X : Set UpperHalfPlane), MeasurableSet P → MeasurableSet S → MeasurableSet X → (∀ δ : Δ, ∃ γ : Δ, γ ∈ L ∧ ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) = (δ : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∨ (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) = -(δ : Matrix.SpecialLinearGroup (Fin 2) ℤ))) → (∀ γ : Δ, γ ∈ L → ∀ η : Δ, η ∈ L → ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) = (η : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∨ (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) = -(η : Matrix.SpecialLinearGroup (Fin 2) ℤ)) → γ = η) → (∀ z ∈ X, ∃ r : Matrix.SpecialLinearGroup (Fin 2) ℤ, r ∈ Δ ∧ r • z ∈ S ∧ ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ, δ ∈ Δ → δ • z ∈ S → δ = r ∨ δ = -r) → let C : Δ → Set UpperHalfPlane := fun γ => {z | γ ∈ L ∧ z ∈ P ∩ X ∧ (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • z ∈ S}; (∀ γ, MeasurableSet (C γ)) ∧ Pairwise (fun γ η => Disjoint (C γ) (C η)) ∧ (⋃ γ, C γ) = P ∩ X",
+  "lean_name": "f036cc6b1f_pic_psp_measurable_slice_partition",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f681bf4278-a1"
+}

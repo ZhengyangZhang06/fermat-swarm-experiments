@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081614Z-f036cc6b1f",
+  "parent_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1.measurable_equidecomposition-a1.pointwise_sign_partition-a1",
+  "dispatch_branch": "proof-workspace/fermat-p01/20261007t081614z-f036cc6b1f/dispatch/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f2ec3caac6",
+  "source_commit": "61b5f85556ac71631ccad822e0694511234f7132",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1.measurable_equidecomposition-a1.pointwise_sign_partition-a1.measurable_slice_partition-a1",
+      "key": "measurable_slice_partition",
+      "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f681bf4278-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f2ec3caac6/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f681bf4278",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "SL_neg_smul|instContinuousGLSMul|transversal|fundamental.*(partition|domain)|exists.*representative",
+              "neg_mul|mul_neg|neg_inv|inv_neg|neg_neg|neg_one",
+              "exists.*[Rr]ep|exists.*[Oo]ut|range.*[Oo]ut|out_eq|out_equiv|out.*mk|exists.*[Tt]ransversal",
+              "sign.*(partition|transversal)|measurable.*equidecomp|pointwise_sign_partition",
+              "IsFundamentalDomain|pairwise|Pairwise|disjoint|iUnion",
+              "borel|BorelSpace|MeasurableSpace"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Data/Quot.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Group/FundamentalDomain.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f2ec3caac6/decomposition-checks-psp/FrozenTypes.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f2ec3caac6/decomposition-checks-psp/FrozenTypes.log"
+            ],
+            "conclusion": "The manifest pins project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The snapshot supplies ModularGroup.SL_neg_smul, UpperHalfPlane.instContinuousGLSMul, the canonical Borel structure, HasDistribNeg for the special linear group, and Quotient.out representative lemmas. IsFundamentalDomain uses almost-everywhere disjointness and does not directly provide the required exact partition. The targeted project search found no matching sign-partition or measurable-equidecomposition theorem. Both proposed types elaborated after import Submission; an rfl check verified that the inferred action agrees with mapGL ℝ, and instance synthesis returned UpperHalfPlane.SLAction.toSMul and UpperHalfPlane.instBorelSpace. All nine dependency checkouts were clean and matched their pinned revisions; reused compiled project imports had source files identical to the frozen snapshot. The checked library declarations depend only on propext, Classical.choice, and Quot.sound. These are interface and library checks, not comparator acceptance of child proofs."
+          }
+        ],
+        "parent_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1.measurable_equidecomposition-a1.pointwise_sign_partition-a1",
+        "child_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1.measurable_equidecomposition-a1.pointwise_sign_partition-a1.measurable_slice_partition-a1",
+        "subproblem": {
+          "key": "measurable_slice_partition",
+          "title": "A sign transversal gives an exact measurable partition by orbit slices",
+          "statement": "Let G = SL₂(ℤ) act canonically on the upper half-plane ℍ with its Borel measurable structure. Let Δ ≤ G be any subgroup, and write γ̄ for the underlying matrix of γ : Δ. Let L ⊆ Δ satisfy: every δ : Δ has some γ ∈ L with γ̄ = δ̄ or γ̄ = −δ̄; and any γ,η ∈ L whose underlying matrices are equal up to sign satisfy γ = η. Let P,S,X ⊆ ℍ be measurable. Assume that for every z ∈ X there exists r ∈ G with r ∈ Δ and rz ∈ S such that every δ ∈ G satisfying δ ∈ Δ and δz ∈ S obeys δ = r or δ = −r. Define Cγ = {z ∈ ℍ | γ ∈ L, z ∈ P ∩ X, and γ̄z ∈ S}. Then every Cγ is measurable, the family C : Δ → Set ℍ is pairwise disjoint, and ⋃γ Cγ = P ∩ X.",
+          "lean_statement": "∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (L : Set Δ) (P S X : Set UpperHalfPlane), MeasurableSet P → MeasurableSet S → MeasurableSet X → (∀ δ : Δ, ∃ γ : Δ, γ ∈ L ∧ ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) = (δ : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∨ (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) = -(δ : Matrix.SpecialLinearGroup (Fin 2) ℤ))) → (∀ γ : Δ, γ ∈ L → ∀ η : Δ, η ∈ L → ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) = (η : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∨ (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) = -(η : Matrix.SpecialLinearGroup (Fin 2) ℤ)) → γ = η) → (∀ z ∈ X, ∃ r : Matrix.SpecialLinearGroup (Fin 2) ℤ, r ∈ Δ ∧ r • z ∈ S ∧ ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ, δ ∈ Δ → δ • z ∈ S → δ = r ∨ δ = -r) → let C : Δ → Set UpperHalfPlane := fun γ => {z | γ ∈ L ∧ z ∈ P ∩ X ∧ (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • z ∈ S}; (∀ γ, MeasurableSet (C γ)) ∧ Pairwise (fun γ η => Disjoint (C γ) (C η)) ∧ (⋃ γ, C γ) = P ∩ X",
+          "lean_name": "f036cc6b1f_pic_psp_measurable_slice_partition",
+          "depends_on": [],
+          "natural_proof": "1. Fix Δ,L,P,S,X and all the stated hypotheses. For g ∈ G write T_g(z) = gz. The canonical action is definitionally the action through Matrix.SpecialLinearGroup.mapGL ℝ. Therefore UpperHalfPlane.instContinuousGLSMul makes T_g continuous. Since ℍ carries its Borel measurable structure, T_g is measurable. Also ModularGroup.SL_neg_smul gives T_{−g}(z) = T_g(z) for every g and z.\n2. Define Cγ exactly as in the statement. Fix γ : Δ. If γ ∉ L, the defining membership condition is impossible, so Cγ = ∅ and is measurable. If γ ∈ L, then Cγ = (P ∩ X) ∩ T_γ̄⁻¹(S), where the last expression denotes set preimage. The sets P and X are measurable, and the preimage of the measurable set S under the measurable map T_γ̄ is measurable. Their intersection is measurable. Hence every Cγ is measurable.\n3. To prove pairwise disjointness, suppose z ∈ Cγ ∩ Cη. Then γ,η ∈ L, z ∈ X, and γ̄z,η̄z ∈ S. Choose the witness r from the hypothesis for S at z. The subgroup memberships of γ̄ and η̄ and their images in S imply γ̄ = r or γ̄ = −r, and η̄ = r or η̄ = −r. If both equal r, or both equal −r, then γ̄ = η̄. If γ̄ = r and η̄ = −r, then γ̄ = −η̄ by double negation. If γ̄ = −r and η̄ = r, then again γ̄ = −η̄. Thus γ̄ = η̄ or γ̄ = −η̄. The uniqueness hypothesis on L yields γ = η. Consequently distinct indices have no common point in their pieces, proving pairwise disjointness.\n4. Every Cγ is contained in P ∩ X directly from its definition. Thus ⋃γ Cγ ⊆ P ∩ X. Conversely, let z ∈ P ∩ X. Apply the hypothesis for S to z ∈ X to obtain r ∈ Δ with rz ∈ S. Regard r together with its subgroup-membership proof as an element δ : Δ. The covering hypothesis on L gives γ ∈ L with γ̄ = r or γ̄ = −r. In the first case γ̄z = rz; in the second case the sign invariance from step 1 gives the same equality. Hence γ̄z ∈ S. Together with γ ∈ L and z ∈ P ∩ X, this proves z ∈ Cγ and therefore z ∈ ⋃γ Cγ. The two inclusions establish ⋃γ Cγ = P ∩ X.\n5. Combining the measurability from step 2, pairwise disjointness from step 3, and union identity from step 4 gives exactly the asserted conjunction for the specified family C.",
+          "proof_key_steps": [
+            "Obtain measurability and sign invariance of each canonical action map.",
+            "Express each nonempty slice as an intersection with a measurable preimage.",
+            "Reduce intersecting slices to indices equal up to sign, then use uniqueness in L.",
+            "Use an orbit witness and the covering property of L to cover every point of P ∩ X.",
+            "Combine measurability, pairwise disjointness, and exact coverage."
+          ]
+        },
+        "audit": {
+          "key": "measurable_slice_partition",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The single-line proposition includes every stated hypothesis and defines precisely the specified family C. The proof establishes measurable preimages, disjointness by the four sign cases, and both coverage inclusions without gaps. Neither invariance of X nor minus-identity membership is needed here. The canonical action and measurability step were independently checked in Lean. The name is bare and unreserved; the internal let is a self-contained definition, not a candidate-dependent alias. Empty sibling dependencies are correct because the transversal properties are explicit assumptions. The split is appropriate: inversion transfers the transversal properties, reindexing supplies A, and the parent retains the image-equality argument."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f681bf4278/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f681bf4278/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f681bf4278/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1.measurable_equidecomposition-a1.pointwise_sign_partition-a1.sign_transversal-a1",
+      "key": "sign_transversal",
+      "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-4d6e0e6033-a1",
+      "bundle_path": ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f2ec3caac6/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-4d6e0e6033",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "SL_neg_smul|instContinuousGLSMul|transversal|fundamental.*(partition|domain)|exists.*representative",
+              "neg_mul|mul_neg|neg_inv|inv_neg|neg_neg|neg_one",
+              "exists.*[Rr]ep|exists.*[Oo]ut|range.*[Oo]ut|out_eq|out_equiv|out.*mk|exists.*[Tt]ransversal",
+              "sign.*(partition|transversal)|measurable.*equidecomp|pointwise_sign_partition",
+              "IsFundamentalDomain|pairwise|Pairwise|disjoint|iUnion",
+              "borel|BorelSpace|MeasurableSpace"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Data/Quot.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Group/FundamentalDomain.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f2ec3caac6/decomposition-checks-psp/FrozenTypes.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f2ec3caac6/decomposition-checks-psp/FrozenTypes.log"
+            ],
+            "conclusion": "The manifest pins project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The snapshot supplies ModularGroup.SL_neg_smul, UpperHalfPlane.instContinuousGLSMul, the canonical Borel structure, HasDistribNeg for the special linear group, and Quotient.out representative lemmas. IsFundamentalDomain uses almost-everywhere disjointness and does not directly provide the required exact partition. The targeted project search found no matching sign-partition or measurable-equidecomposition theorem. Both proposed types elaborated after import Submission; an rfl check verified that the inferred action agrees with mapGL ℝ, and instance synthesis returned UpperHalfPlane.SLAction.toSMul and UpperHalfPlane.instBorelSpace. All nine dependency checkouts were clean and matched their pinned revisions; reused compiled project imports had source files identical to the frozen snapshot. The checked library declarations depend only on propext, Classical.choice, and Quot.sound. These are interface and library checks, not comparator acceptance of child proofs."
+          }
+        ],
+        "parent_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1.measurable_equidecomposition-a1.pointwise_sign_partition-a1",
+        "child_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1.measurable_equidecomposition-a1.pointwise_sign_partition-a1.sign_transversal-a1",
+        "subproblem": {
+          "key": "sign_transversal",
+          "title": "A subgroup containing minus identity admits representatives modulo sign",
+          "statement": "Let G = SL₂(ℤ), and let Δ ≤ G contain −I. For γ : Δ write γ̄ for its underlying element of G. There exists L ⊆ Δ such that every δ : Δ has a representative γ ∈ L with γ̄ = δ̄ or γ̄ = −δ̄, and whenever γ,η ∈ L satisfy γ̄ = η̄ or γ̄ = −η̄, one has γ = η as elements of Δ.",
+          "lean_statement": "∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)), (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ → ∃ L : Set Δ, (∀ δ : Δ, ∃ γ : Δ, γ ∈ L ∧ ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) = (δ : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∨ (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) = -(δ : Matrix.SpecialLinearGroup (Fin 2) ℤ))) ∧ (∀ γ : Δ, γ ∈ L → ∀ η : Δ, η ∈ L → ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) = (η : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∨ (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) = -(η : Matrix.SpecialLinearGroup (Fin 2) ℤ)) → γ = η)",
+          "lean_name": "f036cc6b1f_pic_psp_sign_transversal",
+          "depends_on": [],
+          "natural_proof": "1. Fix Δ and the hypothesis −I ∈ Δ. For g ∈ Δ, matrix multiplication gives (−I)g = −g, so subgroup closure implies −g ∈ Δ. Entrywise negation satisfies −(−g) = g. Thus negation induces an involution on Δ.\n2. Define a relation on Δ by p ∼ q if p̄ = q̄ or p̄ = −q̄. It is reflexive by equality. For symmetry, equality is symmetric, and p̄ = −q̄ implies q̄ = −p̄ by negating both sides and using double negation. For transitivity, suppose p ∼ q and q ∼ r. If p̄ = q̄ and q̄ = r̄, then p̄ = r̄. If p̄ = q̄ and q̄ = −r̄, then p̄ = −r̄. If p̄ = −q̄ and q̄ = r̄, then p̄ = −r̄. If p̄ = −q̄ and q̄ = −r̄, then p̄ = −(−r̄) = r̄. These exhaust the possibilities, so ∼ is an equivalence relation.\n3. Let Q be the quotient of Δ by this equivalence relation. Every quotient class has a representative in Δ. By classical choice choose a function s : Q → Δ satisfying [s(c)] = c for every c ∈ Q; this is the quotient representative construction supplied by Quotient.out and Quotient.out_eq. Define L to be the range of s.\n4. Given δ : Δ, put γ = s([δ]). Then γ ∈ L and [γ] = [δ]. Equality of classes for this equivalence relation gives γ ∼ δ. By definition, γ̄ = δ̄ or γ̄ = −δ̄, proving the covering property.\n5. Suppose γ,η ∈ L and γ̄ = η̄ or γ̄ = −η̄. Choose c,d ∈ Q with γ = s(c) and η = s(d). The sign condition gives γ ∼ η and hence [γ] = [η]. Since [s(c)] = c and [s(d)] = d, it follows that c = d. Applying s gives γ = η as elements of Δ. Thus L has both required properties.",
+          "proof_key_steps": [
+            "Use −I ∈ Δ to restrict involutive matrix negation to Δ.",
+            "Verify that equality up to sign is an equivalence relation.",
+            "Choose one representative of each quotient class and take the range.",
+            "Use the representative of [δ] to establish coverage.",
+            "Use equality of quotient classes to establish uniqueness inside the range."
+          ]
+        },
+        "audit": {
+          "key": "sign_transversal",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The single-line proposition exactly matches the prose, including minus-identity membership and subgroup-element uniqueness. All five proof steps are sound: negation preserves the subgroup, equality up to sign is an equivalence relation, quotient choice supplies representatives, and quotient equality proves coverage and uniqueness. No parent or child theorem is assumed. The name is a bare, unreserved identifier, and the type elaborates independently of its implementation."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-4d6e0e6033/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-4d6e0e6033/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-4d6e0e6033/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f2ec3caac6/task.md": "05006e5102d8511e94dc61fded268fcca7b1594ae676beaa70ca219b913620d8",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f2ec3caac6/problem.md": "0929eb9ca2ad7ea30f1aafc2c1446aaf06dcdc301374ffe2ca7f4b56816d2cc8",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f2ec3caac6/problem.json": "c64a078a3af06a0ca64b6d4803eb85ec446543f75da9e877043ae15bfce62d9d",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f2ec3caac6/reference-manifest.json": "509f4932b6d1c571a2a1434f97319ae47791212dabf986cc6faad0e84a6d9346",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f2ec3caac6/decomposition.json": "c89638ebb28204e67dc06a4ebe13a8b10f0a3c8d91084d7b1a5d87a6327dc556",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f2ec3caac6/decomposition-audit.json": "1a90e40790e9f4d7de5b125ef2e4ebdca141cf00a259b1c1c8612b1a2b0a0f5e",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f2ec3caac6/controller-contract.json": "bff7bdd835120310c8d06285451ab49cb58d39fdb94d2ad676fc3fff3afc415d",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f2ec3caac6/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f681bf4278/parent-child-handoff.json": "03f94dbb972bf367e8a88d132a07b736aa190be531833ec80660137f3a25d138",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f2ec3caac6/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f681bf4278/parent-supplied-plan.md": "2b69b95b62815a6004488a70083f75d559cc1095e24d627a6642517abe89e05d",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f2ec3caac6/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f681bf4278/parent-supplied-natural-proof.md": "0205ac7b716502da3fd6e28a4359653894661bc7c0c08c20628ed8bdcb4dd034",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f2ec3caac6/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f681bf4278/parent-supplied-natural-proof.json": "01bb4ba005cf9d86db8675bd6e28438a251ffeec766f67b0c46fb26660862fd0",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f2ec3caac6/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f681bf4278/node.json": "23cc88ef441ff160dac8a6c6610ecb71acbfd4874459c8eaba5b8a82a2dae295",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f2ec3caac6/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-4d6e0e6033/parent-child-handoff.json": "8d838030868c7314a4539ca7f9152976e7b1ccf6ffa186905f1c9a67b5efc810",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f2ec3caac6/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-4d6e0e6033/parent-supplied-plan.md": "866536a621508f931303adf375f816ef0018a500d775d4228e2c9e0ba6c52a70",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f2ec3caac6/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-4d6e0e6033/parent-supplied-natural-proof.md": "7063f136c8165a89bb0ac2514216566fc8d37a94dbc9370bdf87f902c9dd75b5",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f2ec3caac6/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-4d6e0e6033/parent-supplied-natural-proof.json": "4881c8bc3b52391e7d57f418c3e5ead8941cf0e6f709c00b1ed2f545adb5ef0a",
+    ".humanize-workspace/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-f2ec3caac6/children/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-4d6e0e6033/node.json": "bed0a3d9855601b149c1ab1da3606a97e95efc21798ab889250b14ea924de3cb"
+  }
+}
