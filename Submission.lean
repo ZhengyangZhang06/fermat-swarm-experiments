@@ -1109,6 +1109,35 @@ theorem p06_9e0f5043ff_fosa_ord_zero_of_monic_pair
       inv := ⟨f⁻¹, mem_of_root Q f⁻¹ hQ hQcoeff hQf⟩
       val_inv := Subtype.ext (mul_inv_cancel₀ hf)
       inv_val := Subtype.ext (inv_mul_cancel₀ hf) }
+namespace Submission
+
+theorem p06_9e0f5043ff_finite_order_support_ascent
+    (K E L : Type*) [Field K] [Field E] [Field L]
+    [Algebra K E] [Algebra K L] [Algebra E L] [IsScalarTower K E L]
+    [FiniteDimensional E L] [Algebra.IsSeparable E L]
+    (hE : ∀ a : E, a ≠ 0 → {v : AlgebraicCurve.Place K E | v.ord a ≠ 0}.Finite)
+    (f : L) (hf : f ≠ 0) :
+    {w : AlgebraicCurve.Place K L | w.ord f ≠ 0}.Finite := by
+  classical
+  obtain ⟨P, hP, hPf⟩ := IsIntegral.of_finite E f
+  obtain ⟨Q, hQ, hQf⟩ := IsIntegral.of_finite E (f⁻¹)
+  obtain ⟨TP, hTP, hPcoeff⟩ :=
+    Submission.p06_9e0f5043ff_fosa_coefficients_integral_off_finite K E hE P
+  obtain ⟨TQ, hTQ, hQcoeff⟩ :=
+    Submission.p06_9e0f5043ff_fosa_coefficients_integral_off_finite K E hE Q
+  have hfinite :
+      ((fun w : AlgebraicCurve.Place K L => w.restrict E) ⁻¹' (TP ∪ TQ)).Finite :=
+    (hTP.union hTQ).preimage' fun v _ =>
+      AlgebraicCurve.Place.finite_setOf_restrict_eq (F' := L) v
+  refine hfinite.subset ?_
+  intro w hw
+  change w.restrict E ∈ TP ∪ TQ
+  by_contra hout
+  apply hw
+  exact Submission.p06_9e0f5043ff_fosa_ord_zero_of_monic_pair K E L w f P Q
+    hf hP hQ hPf hQf
+    (hPcoeff (w.restrict E) (fun hv => hout (Or.inl hv)))
+    (hQcoeff (w.restrict E) (fun hv => hout (Or.inr hv)))
 
 end Submission
 
