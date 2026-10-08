@@ -669,6 +669,7 @@ theorem p02_es_177ebb5a_primitive_exists_scalar_primitive :
 
 /-- Expand a homogeneous binary form in the monomials with exponents `(r, n - r)`. -/
 
+/-- Expand a homogeneous binary form in the monomials with exponents `(r, n - r)`. -/
 theorem p02_es_177ebb5a_ic_lct_monomial_expansion
     (n : ℕ) (Q : ↥(HeckeEis.BinaryForm ℂ n)) :
     Q.val = ∑ r : Fin (n + 1),
