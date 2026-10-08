@@ -3785,7 +3785,7 @@ theorem Submission.p02_es_177ebb5a_med_jet_sum :
     conv_lhs => rw [Submission.p02_es_177ebb5a_lcd_monomial_expansion n P]
     refine Fintype.sum_equiv Fin.revPerm _ _ ?_
     intro k
-    simp only [d, Fin.revPerm_apply, Fin.val_rev, Nat.add_sub_cancel,
+    simp only [d, Fin.revPerm_apply, Fin.val_rev, Nat.add_sub_add_right,
       Nat.sub_sub_self (Nat.le_of_lt_succ k.isLt),
       MvPolynomial.smul_monomial, smul_eq_mul, mul_one]
   let D : Module.End ℂ (MvPolynomial (Fin 2) ℂ) :=
