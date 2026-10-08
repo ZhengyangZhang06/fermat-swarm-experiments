@@ -40,7 +40,7 @@
 <div class="notice" id="notice" role="status">Loading the latest published observation…</div>
 <p id="verification-summary">Verification activity has not been observed.</p>
 <section class="panel"><h2>One problem, one dependency graph</h2><p id="graph-note">Loading the published theorem graphs.</p>
-<div class="legend"><span><i class="dot"></i>No active worker observed</span><span>Gold: active worker · Blue: verification job · Purple: queued check · Green: verified and merged · Red: failed or reconciliation needed</span><span>Arrows: prerequisite → dependent. Saved stage is not current execution.</span></div>
+<div class="legend"><span><i class="dot"></i>Waiting / no active worker observed</span><span>Gold: active worker · Blue: verification job · Purple: queued check · Green: verified and merged · Red: failed or reconciliation needed</span><span>A → B means B uses A. Children from one split are created together; their later stages proceed independently. Saved stages are checkpoints, not current execution.</span></div>
 <nav id="problem-nav" class="problem-nav" aria-label="Jump to a problem graph"></nav></section>
 <div id="problem-graphs" class="problem-graphs"></div>
 <section class="panel"><h2>Theorem ledger</h2><p>Issue state is read from GitHub. A closed issue alone is not evidence of a verified proof.</p><div id="problems" class="list"></div></section>
@@ -68,6 +68,30 @@ function verificationLabel(n){
   'unavailable':'check activity unavailable',
  };
  return labels[state]||labels.unavailable;
+}
+function activityFresh(){
+ const age=Date.now()-Date.parse(status?.observed_at);
+ return Number.isFinite(age)&&age>=0&&age<=180000;
+}
+function workflowActivity(n,allNodes){
+ if(n.integrated)return 'Verified and merged';
+ if(!activityFresh())return 'Activity observation stale';
+ if(n.publication_pending)return 'Pending issue publication';
+ const check=verificationState(n);
+ if(['verification-running','waiting-verification','starting','needs-reconciliation'].includes(check))return verificationLabel(n);
+ if(n.observed_running){
+  const stages={'decomposing':'Decomposing','rlcr-lean':'Writing Lean proof','natural-proof':'Writing prose proof','natural-review':'Reviewing prose','lean-review':'Checking proof integrity','integrating':'Integrating proof'};
+  return stages[n.saved_status||n.status]||'Worker active';
+ }
+ if(n.activity_state==='waiting-dependencies'){
+  const waiting=n.waiting_on||[],labels=waiting.slice(0,2).map(id=>{
+   const issue=allNodes.get(id)?.issue_url?.split('/').pop();return issue?'#'+issue:'prerequisite';
+  });
+  return 'Waiting on '+labels.join(', ')+(waiting.length>2?` (+${waiting.length-2})`:'');
+ }
+ if(n.activity_state==='integration-pending')return 'Awaiting integration';
+ if(n.status==='failed')return 'Needs attention';
+ return 'No active worker observed';
 }
 function showVerificationSummary(){
  const verification=status?.verification_activity,checkAge=Date.now()/1000-verification?.observed_at;
@@ -103,7 +127,7 @@ function drawProblemGraph(svg,owned,allNodes,problemId,availableWidth){
  }
  if(changed)throw Error('Cyclic theorem dependencies');
  const layers=[];for(const n of nodes){const level=levels.get(n.id);(layers[level]||=[]).push(n)}
- const nodeWidth=236,nodeHeight=132,gap=28,rowHeight=184;
+ const nodeWidth=236,nodeHeight=154,gap=28,rowHeight=206;
  const width=Math.max(272,Math.min(availableWidth,950),...layers.map(a=>a.length*(nodeWidth+gap)+8));
  const height=Math.max(144,layers.length*rowHeight-20),positions=new Map();
  layers.forEach((layer,j)=>layer.forEach((n,i)=>positions.set(n.id,[(width-layer.length*(nodeWidth+gap)+gap)/2+i*(nodeWidth+gap),j*rowHeight+12])));
@@ -118,20 +142,22 @@ function drawProblemGraph(svg,owned,allNodes,problemId,availableWidth){
  }
  for(const n of nodes){
   const [x,y]=positions.get(n.id),issue=n.issue_url?.split('/').pop(),stage=(n.saved_status||n.status||'unknown').replaceAll('-',' '),checkState=verificationState(n),checkLabel=verificationLabel(n);
-  const tone=n.integrated?'#278369':n.status==='failed'||checkState==='needs-reconciliation'?'#bc4d4d':checkState==='verification-running'?'#297caa':checkState==='waiting-verification'?'#8061aa':n.observed_running?'#bd8c30':'#829bb0';
-  const activity=n.publication_pending?'pending issue publication':n.observed_running?`worker ${n.worker_node}`:'no active worker observed';
-  const a=svgEl('a',{href:n.issue_url||'#problems','data-node-id':n.id,'data-external':Boolean(n.external),'aria-label':`${n.title}: saved ${stage}; ${activity}; ${checkLabel}`},svg);
+  const tone=n.integrated?'#278369':n.status==='failed'||checkState==='needs-reconciliation'?'#bc4d4d':checkState==='verification-running'?'#297caa':checkState==='waiting-verification'?'#8061aa':n.observed_running&&activityFresh()?'#bd8c30':'#829bb0';
+  const activity=n.publication_pending?'pending issue publication':n.observed_running&&activityFresh()?`worker ${n.worker_node}`:'no active worker observed',progress=workflowActivity(n,allNodes);
+  const a=svgEl('a',{href:n.issue_url||'#problems','data-node-id':n.id,'data-external':Boolean(n.external),'aria-label':`${n.title}: ${progress}; saved ${stage}; ${activity}; ${checkLabel}`},svg);
   const checks=n.verification_activity?.counts,detail=checks?`\nLast recorded request counts: ${checks.queued} queued, ${checks.running} running, ${checks.starting} starting, ${checks.needs_reconciliation} need reconciliation. Pending candidate revisions: ${n.verification_activity.pending_revisions}. Finished checks do not imply proof acceptance.`:'';
-  svgEl('title',{},a,`${n.title}\nSaved stage: ${stage}; ${activity}\n${checkLabel}${detail}${n.external?'\nShared prerequisite from another problem':''}`);
+  const waiting=(n.waiting_on||[]).map(id=>allNodes.get(id)?.issue_url||id);
+  svgEl('title',{},a,`${n.title}\n${progress}\nSaved stage: ${stage}; ${activity}\n${checkLabel}${waiting.length?'\nPrerequisites without accepted proofs: '+waiting.join(', '):''}${detail}${n.external?'\nShared prerequisite from another problem':''}`);
   svgEl('rect',{x,y,width:nodeWidth,height:nodeHeight,rx:10,fill:n.integrated?'#edf8f2':n.external?'#f3f0f9':'#f6f9fa',stroke:'#aebfcb','stroke-width':1},a);
-  svgEl('rect',{x:x+12,y:y+16,width:5,height:80,rx:2,fill:tone,stroke:'none'},a);
+  svgEl('rect',{x:x+12,y:y+16,width:5,height:119,rx:2,fill:tone,stroke:'none'},a);
   const label=n.external?`${n.problem.replace('fermat-','').toUpperCase()} · shared #${issue||'?'}`:n.local_id==='root'?`Root theorem${issue?' · #'+issue:''}`:`Subtheorem${issue?' · #'+issue:''}`;
   svgEl('text',{x:x+27,y:y+25,fill:'#192c42','font-size':12,'font-weight':600,'font-family':'system-ui'},a,label);
   const lines=nodeTitleLines(n.title||n.local_id);
   lines.forEach((line,i)=>svgEl('text',{x:x+27,y:y+44+i*15,fill:'#385970','font-size':10,'font-family':'ui-monospace,monospace'},a,line));
-  svgEl('text',{x:x+27,y:y+81,fill:'#56667b','font-size':11,'font-family':'system-ui'},a,`Saved: ${stage}`);
-  svgEl('text',{x:x+27,y:y+100,fill:'#63798b','font-size':10,'font-family':'system-ui'},a,n.publication_pending||n.observed_running?activity:'no worker observed');
-  svgEl('text',{x:x+27,y:y+118,fill:'#385970','font-size':10,'font-family':'system-ui'},a,checkLabel);
+  svgEl('text',{class:'node-activity',x:x+27,y:y+81,fill:'#385970','font-size':11,'font-weight':600,'font-family':'system-ui'},a,progress);
+  svgEl('text',{x:x+27,y:y+100,fill:'#63798b','font-size':10,'font-family':'system-ui'},a,activity);
+  svgEl('text',{class:'node-saved',x:x+27,y:y+118,fill:'#63798b','font-size':10,'font-family':'system-ui'},a,`Saved: ${stage}`);
+  svgEl('text',{x:x+27,y:y+136,fill:'#385970','font-size':10,'font-family':'system-ui'},a,checkLabel);
  }
  return edges.length;
 }
@@ -149,7 +175,7 @@ function drawGraph(){
   const card=element('section','problem-panel',container);card.id=cardId;card.dataset.problem=p.id;
   const heading=element('div','problem-heading',card),top=element('div','problem-heading-top',heading);
   const title=element('h3','',top,`Problem ${short.slice(1)}`);title.id=`title-${p.id}`;card.setAttribute('aria-labelledby',title.id);
-  element('span','state',top,`Saved: ${(root?.saved_status||root?.status||'unknown').replaceAll('-',' ')}`);
+  element('span','state',top,root?workflowActivity(root,allNodes):'No observation');
   const theorem=element('a','theorem-name',heading,p.theorem);theorem.href=p.issue_url;
   const running=nodes.filter(n=>n.observed_running).length,integrated=nodes.filter(n=>n.integrated).length;
   element('p','problem-summary',heading,observedNodes.length?`${nodes.length} theorem nodes · ${running} active issue ${running===1?'job':'jobs'} · ${integrated} verified & merged`:'Awaiting a live observation for this problem.');
@@ -171,12 +197,13 @@ function drawGraph(){
 }
 function ledger(issues){
  const list=document.getElementById('problems');list.replaceChildren();
+ const allNodes=new Map((status.problems||[]).flatMap(p=>p.nodes||[]).map(n=>[n.id,n]));
  for(const p of campaign.problems){const issue=issues.find(i=>i.number===p.issue_number);
   const row=document.createElement('div');row.className='problem';
   const id=document.createElement('span');id.className='id';id.textContent=p.id.replace('fermat-','');
   const link=document.createElement('a');link.href=p.issue_url;link.textContent=p.theorem;
   const proof=status.problems?.find(r=>r.id===p.id)?.nodes.find(n=>n.local_id==='root');
-  const state=document.createElement('span');state.className='state';state.textContent=proof?`Saved: ${proof.status.replaceAll('-',' ')} · prose ${proof.prose_status}`:(issue?`Issue ${issue.state}`:'Issue state unavailable');
+  const state=document.createElement('span');state.className='state';state.textContent=proof?`${workflowActivity(proof,allNodes)} · prose ${proof.prose_status}`:(issue?`Issue ${issue.state}`:'Issue state unavailable');
   state.title=issue?`GitHub issue ${issue.state}; PR ${proof?.pr_state||'not opened'}`:'GitHub issue state unavailable';
   row.append(id,link,state);list.append(row);
  }
