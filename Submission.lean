@@ -6,61 +6,8 @@ Requires the upstream Definitions modules and their dependencies.
 -/
 
 import Definitions.Def_ModularForm_HeckeOperatorForms
-import Mathlib.NumberTheory.ModularForms.NormTrace
-import Mathlib.NumberTheory.ModularForms.LevelOne.DimensionFormula
 attribute [-instance] FLT.HyperbolicMeasure.instSMulInvariantMeasureSpecialLinearGroupFinOfNatNatIntUpperHalfPlaneVolume_definitions FLT.HyperbolicMeasure.instIsOpenPosMeasureUpperHalfPlaneVolume_definitions FLT.Gamma0FundamentalSet.instContinuousConstSMulSpecialLinearGroupFinOfNatNatIntUpperHalfPlane_definitions FLT.L2ProductionInstance.isFiniteMeasure_gamma0 FLT.L2ProductionInstance.countable_SL2Z FLT.L2ProductionInstance.countable_quotient FLT.L2ProductionInstance.nontrivial_gamma0L2
 attribute [-simp] FreyPackage.ModMCarrier.coe_rescaleLin_apply ModularForm.AtkinLehnerDatum.mk.injEq ModularForm.AtkinLehnerDatum.alGL_coe ModularForm.AtkinLehnerDatum.mk.sizeOf_spec ModularForm.AtkinLehnerDatum.sqUnitSL_coe ModularForm.AtkinLehnerDatum.det_sqUnit ModularForm.AtkinLehnerDatum.det_mat FLT.TruncatedDomainPartition.unipotentDiagonalSum_zero
-
-namespace Submission
-
-/-- The weight-two Sturm bound for `Gamma0 M`, obtained from the level-one norm. -/
-theorem f036cc6b1f_fd_sturm (M : ℕ) [NeZero M]
-    (f : CuspForm (CongruenceSubgroup.Gamma0 M) 2)
-    (hf : ∀ n : ℕ, n ≤ (2 * (CongruenceSubgroup.Gamma0 M).index) / 12 →
-      (UpperHalfPlane.qExpansion 1 f).coeff n = 0) : f = 0 := by
-  classical
-  let Γ : Subgroup (Matrix.GeneralLinearGroup (Fin 2) ℝ) := CongruenceSubgroup.Gamma0 M
-  let H := MonoidHom.range (Matrix.SpecialLinearGroup.mapGL ℝ :
-    Matrix.SpecialLinearGroup (Fin 2) ℤ →* Matrix.GeneralLinearGroup (Fin 2) ℝ)
-  let b := (2 * (CongruenceSubgroup.Gamma0 M).index) / 12
-  have hperiod : (1 : ℝ) ∈ Γ.strictPeriods := by
-    simp [Γ]
-  obtain ⟨Cf, Yf, hCf, hf_decay⟩ :=
-    (Submission.f036cc6b1f_fd_coeff_decay Γ 2 (ModularFormClass.modularForm f)
-      hperiod b).mp hf
-  -- Mapping into GL₂ preserves the index in the image of SL₂(ℤ).
-  have hcard : Nat.card (H ⧸ Γ.subgroupOf H) = (CongruenceSubgroup.Gamma0 M).index := by
-    change ((CongruenceSubgroup.Gamma0 M).map (Matrix.SpecialLinearGroup.mapGL ℝ)).relIndex H = _
-    dsimp only [H]
-    rw [MonoidHom.range_eq_map,
-      Subgroup.relIndex_map_map_of_injective _ _ Matrix.SpecialLinearGroup.mapGL_injective,
-      Subgroup.relIndex_top_right]
-  have hweight : (2 : ℤ) * Nat.card (H ⧸ Γ.subgroupOf H) =
-      ((2 * (CongruenceSubgroup.Gamma0 M).index : ℕ) : ℤ) := by
-    rw [hcard]
-    simp
-  let N := (ModularForm.norm H f).mcast hweight
-  obtain ⟨Cn, Yn, hCn, hnorm_bound⟩ := Submission.f036cc6b1f_fd_norm_bound M f
-  have hNcoeff : ∀ n : ℕ, n ≤ b → (UpperHalfPlane.qExpansion 1 N).coeff n = 0 := by
-    apply (Submission.f036cc6b1f_fd_coeff_decay H _ N one_mem_strictPeriods_SL b).mpr
-    refine ⟨Cn * Cf, max Yf Yn, mul_nonneg hCn hCf, ?_⟩
-    intro z hz
-    calc
-      ‖N z‖ ≤ Cn * ‖f z‖ := hnorm_bound z ((le_max_right Yf Yn).trans hz)
-      _ ≤ Cn * (Cf * Real.exp (-2 * Real.pi * ((b + 1 : ℕ) : ℝ) * z.im)) :=
-        mul_le_mul_of_nonneg_left (hf_decay z ((le_max_left Yf Yn).trans hz)) hCn
-      _ = (Cn * Cf) * Real.exp (-2 * Real.pi * ((b + 1 : ℕ) : ℝ) * z.im) :=
-        (mul_assoc _ _ _).symm
-  have hNzero : N = 0 := by
-    apply ModularForm.sturm_bound_levelOne_nat
-    have horder := PowerSeries.nat_le_order (UpperHalfPlane.qExpansion 1 N) (b + 1)
-      (fun n hn => hNcoeff n (Nat.lt_succ_iff.mp hn))
-    exact lt_of_lt_of_le (by exact_mod_cast Nat.lt_succ_self b) horder
-  have hnorm_zero : ModularForm.norm H f = 0 :=
-    (ModularForm.mcast_eq_zero_iff hweight rfl _).mp hNzero
-  exact DFunLike.coe_injective ((ModularForm.norm_eq_zero_iff H f).mp hnorm_zero)
-
-end Submission
 
 theorem CuspForm.span_heckeTLin_eigen_eq_top (M : ℕ) [NeZero M] :
     Submodule.span ℂ {v : CuspForm (CongruenceSubgroup.Gamma0 M) 2 |
@@ -2369,3 +2316,49 @@ theorem f036cc6b1f_finite_dimensional :
 end Submission
 
 end
+/-- The weight-two Sturm bound for `Gamma0 M`, obtained from the level-one norm. -/
+theorem f036cc6b1f_fd_sturm (M : ℕ) [NeZero M]
+    (f : CuspForm (CongruenceSubgroup.Gamma0 M) 2)
+    (hf : ∀ n : ℕ, n ≤ (2 * (CongruenceSubgroup.Gamma0 M).index) / 12 →
+      (UpperHalfPlane.qExpansion 1 f).coeff n = 0) : f = 0 := by
+  classical
+  let Γ : Subgroup (Matrix.GeneralLinearGroup (Fin 2) ℝ) := CongruenceSubgroup.Gamma0 M
+  let H := MonoidHom.range (Matrix.SpecialLinearGroup.mapGL ℝ :
+    Matrix.SpecialLinearGroup (Fin 2) ℤ →* Matrix.GeneralLinearGroup (Fin 2) ℝ)
+  let b := (2 * (CongruenceSubgroup.Gamma0 M).index) / 12
+  have hperiod : (1 : ℝ) ∈ Γ.strictPeriods := by
+    simp [Γ]
+  obtain ⟨Cf, Yf, hCf, hf_decay⟩ :=
+    (Submission.f036cc6b1f_fd_coeff_decay Γ 2 (ModularFormClass.modularForm f)
+      hperiod b).mp hf
+  -- Mapping into GL₂ preserves the index in the image of SL₂(ℤ).
+  have hcard : Nat.card (H ⧸ Γ.subgroupOf H) = (CongruenceSubgroup.Gamma0 M).index := by
+    change ((CongruenceSubgroup.Gamma0 M).map (Matrix.SpecialLinearGroup.mapGL ℝ)).relIndex H = _
+    dsimp only [H]
+    rw [MonoidHom.range_eq_map,
+      Subgroup.relIndex_map_map_of_injective _ _ Matrix.SpecialLinearGroup.mapGL_injective,
+      Subgroup.relIndex_top_right]
+  have hweight : (2 : ℤ) * Nat.card (H ⧸ Γ.subgroupOf H) =
+      ((2 * (CongruenceSubgroup.Gamma0 M).index : ℕ) : ℤ) := by
+    rw [hcard]
+    simp
+  let N := ModularForm.mcast hweight (ModularForm.norm H f)
+  obtain ⟨Cn, Yn, hCn, hnorm_bound⟩ := Submission.f036cc6b1f_fd_norm_bound M f
+  have hNcoeff : ∀ n : ℕ, n ≤ b → (UpperHalfPlane.qExpansion 1 N).coeff n = 0 := by
+    apply (Submission.f036cc6b1f_fd_coeff_decay H _ N one_mem_strictPeriods_SL b).mpr
+    refine ⟨Cn * Cf, max Yf Yn, mul_nonneg hCn hCf, ?_⟩
+    intro z hz
+    calc
+      ‖N z‖ ≤ Cn * ‖f z‖ := hnorm_bound z ((le_max_right Yf Yn).trans hz)
+      _ ≤ Cn * (Cf * Real.exp (-2 * Real.pi * ((b + 1 : ℕ) : ℝ) * z.im)) :=
+        mul_le_mul_of_nonneg_left (hf_decay z ((le_max_left Yf Yn).trans hz)) hCn
+      _ = (Cn * Cf) * Real.exp (-2 * Real.pi * ((b + 1 : ℕ) : ℝ) * z.im) :=
+        (mul_assoc _ _ _).symm
+  have hNzero : N = 0 := by
+    apply ModularForm.sturm_bound_levelOne_nat
+    have horder := PowerSeries.nat_le_order (UpperHalfPlane.qExpansion 1 N) (b + 1)
+      (fun n hn => hNcoeff n (Nat.lt_succ_iff.mp hn))
+    exact lt_of_lt_of_le (by exact_mod_cast Nat.lt_succ_self b) horder
+  have hnorm_zero : ModularForm.norm H f = 0 :=
+    (ModularForm.mcast_eq_zero_iff hweight rfl _).mp hNzero
+  exact DFunLike.coe_injective ((ModularForm.norm_eq_zero_iff H f).mp hnorm_zero)
