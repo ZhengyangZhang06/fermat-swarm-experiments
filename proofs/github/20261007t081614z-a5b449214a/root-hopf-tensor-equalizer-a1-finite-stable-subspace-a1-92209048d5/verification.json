@@ -1,0 +1,18 @@
+{
+  "node_id": "root.hopf_tensor_equalizer-a1.finite_stable_subspace-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/264",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "0ee4d0c6e4abab2ffd7bc2cb861e66644a1b7395",
+  "integrated_commit": "cc21e60f2bed0a2cf610a876f036db7d7b21de17",
+  "proof_base_commit": "938a841a113b07ff305e96c141e176a831c376cc",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.hopf_tensor_equalizer-a1",
+  "requires": [
+    "root.hopf_tensor_equalizer-a1.finite_stable_subspace-a1.tensor_dual_expansion-a1",
+    "root.hopf_tensor_equalizer-a1.finite_stable_subspace-a1.coefficient_span_stability-a1"
+  ]
+}

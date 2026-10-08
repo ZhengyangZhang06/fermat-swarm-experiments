@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'hopfKer_eq_of_surjective_of_ker_eq_span|p05_hte_finite_stable_subspace|coassoc_symm_apply|exists_sum_tmul_eq' project/Definitions/Def_HopfAlgebra_HopfKer.lean project/Fermat/Thm_HopfAlgebra_hopfKer_eq_of_surjective_of_ker_eq_span.lean mathlib/Mathlib/RingTheory/Coalgebra mathlib/Mathlib/LinearAlgebra/TensorProduct",
+        "rg -n 'p05_hte_finite_stable_subspace_a5b449214a|p05_hte_fss_tensor_dual_expansion_a5b449214a|p05_hte_fss_coefficient_span_a5b449214a' project mathlib/Mathlib --glob '*.lean'"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Fermat/Thm_HopfAlgebra_hopfKer_eq_of_surjective_of_ker_eq_span.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Coalgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Finiteness.lean"
+      ],
+      "conclusion": "Confirmed project revision 2fdd42759f4ab17640ac773289b521dd69d4b26e and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d. Located the frozen Hopf-kernel context and upstream tensor-expansion/coassociativity declarations; no matches for the three node declaration names. Both helper overlays match accepted child commits byte-for-byte. Independently reran the exact comparator: request c49b3576277d4e50bbce2d6141c2ab84 exited zero with the required marker. Verified all 221 exported Lean inputs, immutable handoff, candidate identity, dependency pins, and policy-authorized reversible header omissions with the 13-target absence probe. Kernel and transitive-axiom checks passed with only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "0fc11c8c4075e395d259bb23b983cea8272959db9aaf20e5fac32c33a1dfef33",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p05_hte_finite_stable_subspace_a5b449214a",
+      "statement": "∀ {k : Type*} [Field k] {C : Type*} [AddCommGroup C] [Module k C] [Coalgebra k C] (E : Finset C), ∃ V : Submodule k C, FiniteDimensional k V ∧ (∀ x ∈ E, x ∈ V) ∧ ∀ x ∈ V, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k C C | ∃ a ∈ V, ∃ b : C, t = TensorProduct.tmul k a b}",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Finite-set induction combines the accepted tensor-expansion and coefficient-span results, using the zero subspace for the empty set and sums of stable subspaces for insertion."
+    }
+  ]
+}
