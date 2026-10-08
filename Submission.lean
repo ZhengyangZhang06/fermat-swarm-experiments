@@ -2011,7 +2011,9 @@ theorem Submission.f036cc6b1f_tdi_planar_exp_integrable_fd :
       (exp_neg_integrableOn_Ioi b ha)
   have hx : MeasureTheory.IntegrableOn (fun _ : ℝ => (1 : ℝ))
       (Set.Icc (-(1 / 2 : ℝ)) (1 / 2)) :=
-    MeasureTheory.integrableOn_const (by simp only [Real.volume_Icc, ENNReal.ofReal_ne_top])
+    MeasureTheory.integrableOn_const (by
+      rw [Real.volume_Icc]
+      exact ENNReal.ofReal_ne_top)
   have hprod : MeasureTheory.IntegrableOn (fun p : ℝ × ℝ => Real.exp (-a * p.2))
       (Set.Icc (-(1 / 2 : ℝ)) (1 / 2) ×ˢ Set.Ici b) := by
     change MeasureTheory.Integrable _
