@@ -1,0 +1,37 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "hopfKer|coassoc_symm_apply|exists_sum_tmul_eq|span_of_finite",
+        "coassoc_symm_apply|exists_extend",
+        "p05_fhe_stable_subspace_a5b449214a|p05_fhess_tensor_independent_right_a5b449214a|p05_fhess_coefficient_span_stable_a5b449214a"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Finiteness.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/FiniteDimensional/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Coalgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Basis/VectorSpace.lean"
+      ],
+      "conclusion": "Both snapshots are clean at their manifest-pinned revisions. Located the unchanged Hopf-kernel definition and upstream tensor expansion, finite-span, coassociativity, and linear-extension declarations. No matches for the three node/dependency declaration names. The exact comparator rerun passed on the inspected candidate and prepared-input digest, with only propext, Classical.choice, and Quot.sound in the tracked theorem's transitive axiom report. Verified all 221 prepared Lean input hashes, approved dependency overlays, unchanged frozen contract and handoff, and reversible policy-authorized header omissions with the successful 13-target absence probe."
+    }
+  ],
+  "comparison_identity": "38653e867d734de858d647ee2715cccb36fe279cd43bac1c101a637c9892462c",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p05_fhe_stable_subspace_a5b449214a",
+      "statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (F : Finset H), ∃ V : Submodule k H, FiniteDimensional k V ∧ (1 : H) ∈ V ∧ (∀ x ∈ F, x ∈ V) ∧ (∀ x ∈ V, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ V, ∃ b : H, t = TensorProduct.tmul k a b})",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines the two accepted dependency declarations using finite sums of stable subspaces containing the elements of F and 1."
+    }
+  ]
+}
