@@ -12,73 +12,6 @@ attribute [-simp] AlgebraicCurve.SemilinearAut.coe_torsion_smul AlgebraicCurve.S
 
 open AlgebraicCurve
 
-namespace Submission
-
-theorem p06_9e0f5043ff_elp_integer_order :
-    ∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F),
-      Transcendental K x →
-      (∀ f : F, ∃ a b : Polynomial K,
-        b ≠ 0 ∧ f = Polynomial.aeval x a / Polynomial.aeval x b) →
-      ∀ q : Polynomial K, q.Monic → Irreducible q →
-      ∃ ν : F → ℤ, ν 0 = 0 ∧ ν (Polynomial.aeval x q) = 1 ∧
-        (∀ f g : F, f ≠ 0 → g ≠ 0 → ν (f / g) = ν f - ν g) ∧
-        (∀ f : F, f ≠ 0 → (0 ≤ ν f ↔
-          ∃ a b : Polynomial K, ¬ q ∣ b ∧
-            f = Polynomial.aeval x a / Polynomial.aeval x b)) := by
-  intro K F _ _ _ x hx hrepr q hqmonic hq
-  obtain ⟨μ, hμone, hμq, hμmul, hμzero, hμfactor⟩ :=
-    Submission.p06_9e0f5043ff_io_polynomial_exponent K q hqmonic hq
-  obtain ⟨ν, hνzero, hνfraction, hνdiv⟩ :=
-    Submission.p06_9e0f5043ff_io_fraction_extension K F x hx hrepr μ hμmul
-  have hinj : Function.Injective (Polynomial.aeval x : Polynomial K →ₐ[K] F) :=
-    transcendental_iff_injective.mp hx
-  have heval_ne : ∀ a : Polynomial K, a ≠ 0 → Polynomial.aeval x a ≠ 0 := by
-    intro a ha h
-    apply ha
-    apply hinj
-    simpa only [map_zero] using h
-  refine ⟨ν, hνzero, ?_, hνdiv, ?_⟩
-  · simpa only [map_one, div_one, hμq, hμone, Nat.cast_one, Nat.cast_zero, sub_zero]
-      using hνfraction q 1 hq.ne_zero one_ne_zero
-  · intro f hf
-    constructor
-    · intro hnonneg
-      obtain ⟨a, b, hb, hrep⟩ := hrepr f
-      have ha : a ≠ 0 := by
-        intro ha
-        apply hf
-        rw [hrep, ha, map_zero, zero_div]
-      have horder : 0 ≤ (μ a : ℤ) - (μ b : ℤ) := by
-        rwa [hrep, hνfraction a b ha hb] at hnonneg
-      have hba : μ b ≤ μ a := by
-        exact_mod_cast sub_nonneg.mp horder
-      obtain ⟨a₀, _, _, hafactor⟩ := hμfactor a ha
-      obtain ⟨b₀, _, hqb₀, hbfactor⟩ := hμfactor b hb
-      refine ⟨q ^ (μ a - μ b) * a₀, b₀, hqb₀, ?_⟩
-      calc
-        f = Polynomial.aeval x a / Polynomial.aeval x b := hrep
-        _ = Polynomial.aeval x (q ^ μ a * a₀) /
-            Polynomial.aeval x (q ^ μ b * b₀) :=
-          congrArg₂ (fun r s : Polynomial K =>
-            Polynomial.aeval x r / Polynomial.aeval x s) hafactor hbfactor
-        _ = Polynomial.aeval x (q ^ (μ a - μ b) * a₀) /
-            Polynomial.aeval x b₀ := by
-          simp only [map_mul, map_pow]
-          rw [← pow_mul_pow_sub (Polynomial.aeval x q) hba, mul_assoc,
-            mul_div_mul_left _ _ (pow_ne_zero _ (heval_ne q hq.ne_zero))]
-    · rintro ⟨a, b, hqb, hrep⟩
-      have hb : b ≠ 0 := by
-        rintro rfl
-        exact hqb (dvd_zero q)
-      have ha : a ≠ 0 := by
-        intro ha
-        apply hf
-        rw [hrep, ha, map_zero, zero_div]
-      rw [hrep, hνfraction a b ha hb, (hμzero b hb).2 hqb, Nat.cast_zero, sub_zero]
-      exact Nat.cast_nonneg _
-
-end Submission
-
 theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
     [Algebra K F] (x : F) (hx : Transcendental K x)
     [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
@@ -3426,6 +3359,9 @@ theorem p06_9e0f5043ff_io_polynomial_exponent :
   · intro a ha
     obtain ⟨a₀, hfactor, hfree⟩ := (hfin a ha).exists_eq_pow_mul_and_not_dvd
     exact ⟨a₀, right_ne_zero_of_mul (hfactor ▸ ha), hfree, hfactor⟩
+
+end Submission
+
 namespace Submission
 
 /-- Extend an additive exponent on nonzero polynomials to integer orders on a field
@@ -3486,5 +3422,72 @@ theorem p06_9e0f5043ff_io_fraction_extension :
       hμ _ _ (hb f) (ha g hg)]
     simp only [ν, if_neg hf, if_neg hg, Nat.cast_add]
     ring
+
+end Submission
+
+namespace Submission
+
+theorem p06_9e0f5043ff_elp_integer_order :
+    ∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F),
+      Transcendental K x →
+      (∀ f : F, ∃ a b : Polynomial K,
+        b ≠ 0 ∧ f = Polynomial.aeval x a / Polynomial.aeval x b) →
+      ∀ q : Polynomial K, q.Monic → Irreducible q →
+      ∃ ν : F → ℤ, ν 0 = 0 ∧ ν (Polynomial.aeval x q) = 1 ∧
+        (∀ f g : F, f ≠ 0 → g ≠ 0 → ν (f / g) = ν f - ν g) ∧
+        (∀ f : F, f ≠ 0 → (0 ≤ ν f ↔
+          ∃ a b : Polynomial K, ¬ q ∣ b ∧
+            f = Polynomial.aeval x a / Polynomial.aeval x b)) := by
+  intro K F _ _ _ x hx hrepr q hqmonic hq
+  obtain ⟨μ, hμone, hμq, hμmul, hμzero, hμfactor⟩ :=
+    Submission.p06_9e0f5043ff_io_polynomial_exponent K q hqmonic hq
+  obtain ⟨ν, hνzero, hνfraction, hνdiv⟩ :=
+    Submission.p06_9e0f5043ff_io_fraction_extension K F x hx hrepr μ hμmul
+  have hinj : Function.Injective (Polynomial.aeval x : Polynomial K →ₐ[K] F) :=
+    transcendental_iff_injective.mp hx
+  have heval_ne : ∀ a : Polynomial K, a ≠ 0 → Polynomial.aeval x a ≠ 0 := by
+    intro a ha h
+    apply ha
+    apply hinj
+    simpa only [map_zero] using h
+  refine ⟨ν, hνzero, ?_, hνdiv, ?_⟩
+  · simpa only [map_one, div_one, hμq, hμone, Nat.cast_one, Nat.cast_zero, sub_zero]
+      using hνfraction q 1 hq.ne_zero one_ne_zero
+  · intro f hf
+    constructor
+    · intro hnonneg
+      obtain ⟨a, b, hb, hrep⟩ := hrepr f
+      have ha : a ≠ 0 := by
+        intro ha
+        apply hf
+        rw [hrep, ha, map_zero, zero_div]
+      have horder : 0 ≤ (μ a : ℤ) - (μ b : ℤ) := by
+        rwa [hrep, hνfraction a b ha hb] at hnonneg
+      have hba : μ b ≤ μ a := by
+        exact_mod_cast sub_nonneg.mp horder
+      obtain ⟨a₀, _, _, hafactor⟩ := hμfactor a ha
+      obtain ⟨b₀, _, hqb₀, hbfactor⟩ := hμfactor b hb
+      refine ⟨q ^ (μ a - μ b) * a₀, b₀, hqb₀, ?_⟩
+      calc
+        f = Polynomial.aeval x a / Polynomial.aeval x b := hrep
+        _ = Polynomial.aeval x (q ^ μ a * a₀) /
+            Polynomial.aeval x (q ^ μ b * b₀) :=
+          congrArg₂ (fun r s : Polynomial K =>
+            Polynomial.aeval x r / Polynomial.aeval x s) hafactor hbfactor
+        _ = Polynomial.aeval x (q ^ (μ a - μ b) * a₀) /
+            Polynomial.aeval x b₀ := by
+          simp only [map_mul, map_pow]
+          rw [← pow_mul_pow_sub (Polynomial.aeval x q) hba, mul_assoc,
+            mul_div_mul_left _ _ (pow_ne_zero _ (heval_ne q hq.ne_zero))]
+    · rintro ⟨a, b, hqb, hrep⟩
+      have hb : b ≠ 0 := by
+        rintro rfl
+        exact hqb (dvd_zero q)
+      have ha : a ≠ 0 := by
+        intro ha
+        apply hf
+        rw [hrep, ha, map_zero, zero_div]
+      rw [hrep, hνfraction a b ha hb, (hμzero b hb).2 hqb, Nat.cast_zero, sub_zero]
+      exact Nat.cast_nonneg _
 
 end Submission
