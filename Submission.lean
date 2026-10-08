@@ -777,6 +777,9 @@ theorem p06_9e0f5043ff_fosa_ord_zero_of_monic_pair
       inv := ⟨f⁻¹, mem_of_root Q f⁻¹ hQ hQcoeff hQf⟩
       val_inv := Subtype.ext (mul_inv_cancel₀ hf)
       inv_val := Subtype.ext (inv_mul_cancel₀ hf) }
+
+end Submission
+
 namespace Submission
 
 open AlgebraicCurve IsDedekindDomain
