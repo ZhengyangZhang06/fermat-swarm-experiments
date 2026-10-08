@@ -2338,3 +2338,70 @@ theorem Submission.p10_17ae7b7d_uce_normalized_quot_eq_iff :
     · simpa only [hu, one_mul] using h₁
     · simpa only [hu, one_mul] using h₂
   · exact congrArg (Quot.mk rel)
+
+
+theorem Submission.p10_17ae7b7d_ppr_unit_chart_equiv :
+    ∀ (p a : ℕ), p.Prime → 0 < a →
+      let R := ZMod (p ^ a)
+      Nonempty ((Quot (fun v w :
+        {v : R × R // ∃ x y : R, x * v.1 + y * v.2 = 1} =>
+          ∃ u : Rˣ, (u : R) * v.1.1 = w.1.1 ∧ (u : R) * v.1.2 = w.1.2)) ≃
+        (R ⊕ {z : R // ¬ IsUnit z})) := by
+  classical
+  intro p a hp ha
+  let R := ZMod (p ^ a)
+  let U := {v : R × R // ∃ x y : R, x * v.1 + y * v.2 = 1}
+  let rel : U → U → Prop := fun v w =>
+    ∃ u : Rˣ, (u : R) * v.1.1 = w.1.1 ∧ (u : R) * v.1.2 = w.1.2
+  let chart : R ⊕ {z : R // ¬ IsUnit z} → U := Sum.elim
+    (fun t => ⟨(1, t), 1, 0, by simp⟩)
+    (fun z => ⟨(z.1, 1), 0, 1, by simp⟩)
+  have hnormal : ∀ c, (chart c).1.1 = 1 ∨
+      (¬ IsUnit (chart c).1.1 ∧ (chart c).1.2 = 1) := by
+    intro c
+    cases c with
+    | inl t => exact Or.inl rfl
+    | inr z => exact Or.inr ⟨z.2, rfl⟩
+  have hchart : Function.Injective chart := by
+    intro c d h
+    cases c with
+    | inl t =>
+      cases d with
+      | inl t' =>
+        exact congrArg Sum.inl (congrArg (fun v : U => v.1.2) h)
+      | inr z =>
+        have hz : (1 : R) = z.1 := congrArg (fun v : U => v.1.1) h
+        exact (z.2 (hz ▸ isUnit_one)).elim
+    | inr z =>
+      cases d with
+      | inl t =>
+        have hz : z.1 = (1 : R) := congrArg (fun v : U => v.1.1) h
+        exact (z.2 (hz.symm ▸ isUnit_one)).elim
+      | inr z' =>
+        exact congrArg Sum.inr (Subtype.ext (congrArg (fun v : U => v.1.1) h))
+  let F : R ⊕ {z : R // ¬ IsUnit z} → Quot rel := fun c => Quot.mk rel (chart c)
+  have hinj : Function.Injective F := by
+    intro c d h
+    exact hchart ((Submission.p10_17ae7b7d_uce_normalized_quot_eq_iff R
+      (chart c) (chart d) (hnormal c) (hnormal d)).mp h)
+  have hsurj : Function.Surjective F := by
+    intro q
+    refine Quot.inductionOn q ?_
+    intro v
+    by_cases hr : IsUnit v.1.1
+    · obtain ⟨u, hu⟩ := hr
+      refine ⟨Sum.inl ((↑u⁻¹ : R) * v.1.2), Quot.sound ?_⟩
+      change ∃ w : Rˣ, (w : R) * 1 = v.1.1 ∧
+        (w : R) * ((↑u⁻¹ : R) * v.1.2) = v.1.2
+      exact ⟨u, by simpa only [mul_one] using hu, u.mul_inv_cancel_left _⟩
+    · have hs : IsUnit v.1.2 :=
+        ((Submission.p10_17ae7b7d_uce_unimodular_iff_unit_coord p a hp ha
+          v.1.1 v.1.2).mp v.2).resolve_left hr
+      obtain ⟨u, hu⟩ := hs
+      have hz : ¬ IsUnit ((↑u⁻¹ : R) * v.1.1) := fun h =>
+        hr ((Units.isUnit_units_mul u⁻¹ v.1.1).mp h)
+      refine ⟨Sum.inr ⟨(↑u⁻¹ : R) * v.1.1, hz⟩, Quot.sound ?_⟩
+      change ∃ w : Rˣ, (w : R) * ((↑u⁻¹ : R) * v.1.1) = v.1.1 ∧
+        (w : R) * 1 = v.1.2
+      exact ⟨u, u.mul_inv_cancel_left _, by simpa only [mul_one] using hu⟩
+  exact ⟨(Equiv.ofBijective F ⟨hinj, hsurj⟩).symm⟩
