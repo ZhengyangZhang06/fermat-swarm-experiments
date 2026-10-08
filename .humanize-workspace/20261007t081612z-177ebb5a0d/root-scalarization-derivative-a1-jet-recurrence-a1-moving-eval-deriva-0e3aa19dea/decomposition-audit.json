@@ -1,0 +1,51 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "abbrev BinaryForm|def BinaryForm|homogeneousSubmodule",
+        "def BinaryForm|pderiv_monomial|coeff_eq_zero|descFactorial_succ|descFactorial_zero",
+        "coeff_monomial|coeff_smul|coeff_sum|theorem ext|smul_monomial",
+        "iterate.*pderiv|pderiv.*iterate|descFactorial",
+        "p02_es_177ebb5a_med_js_iterated_monomial|p02_es_177ebb5a_lcd_monomial_expansion",
+        "exit:|Your solution|axioms:|Verification evidence:",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_independent_decomposition_contract_audit.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean /tmp/p02_independent_decomposition_reuse_source_audit.lean"
+      ],
+      "files": [
+        ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/problem.md",
+        ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/PDeriv.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Data/Nat/Factorial/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/dag.json",
+        ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a-ef3717e3c5/parent-child-handoff.json",
+        ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a-ef3717e3c5/lean-audit-v1.json",
+        ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a-ef3717e3c5/comparator-v1.log",
+        ".humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/nodes/root-primitive-exists-a1-constant-defect-a1-linear-coeff-derivative-a-ef3717e3c5/comparator-v1-integration.log",
+        "Submission.lean",
+        "/tmp/p02_independent_decomposition_contract_audit.lean",
+        "/tmp/p02_independent_decomposition_reuse_source_audit.lean"
+      ],
+      "conclusion": "Relative paths are rooted at the supplied repository. The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Sources confirm homogeneity, coefficient formulas, pderiv_monomial, and the natural-subtraction descending-factorial recurrence. Searching both MvPolynomial directories found no iterated-pderiv descending-factorial formula. Both exact types elaborate without importing Submission; inferred instances are AddMonoidAlgebra.algebra.toSMul and Finsupp.tsub. All nine installed dependencies are clean and pinned; inspected definitions and mathlib files match the snapshot. Reuse matches the frozen handoff type and proof, accepted source, and parent base. Prior independent review and both comparator logs pass. The cached Submission module lacked the helper, so its unchanged accepted source was independently compiled in isolation: the exact-type check passed, with only propext, Classical.choice, and Quot.sound as transitive axioms. The new name has no reservation. The DAG is acyclic; the new child would have depth 5, still below limit 6."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "binary_form_monomial_expansion",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly includes the homogeneous-subtype hypothesis and stated scalar expansion. All six proof steps are valid: off-degree coefficients vanish, every degree-n exponent has a unique index determined by coordinate 0, and coefficient extensionality concludes. The bare identifier validly reuses the identical comparator-accepted declaration. No circular dependence occurs. The split appropriately separates expansion from differentiation; reindexing by j ↦ n−j connects this expansion to the parent."
+    },
+    {
+      "key": "iterated_binary_monomial_pderiv",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition exactly matches the unrestricted statement, including coordinatewise natural subtraction and the complex factorial cast. The bare identifier is unreserved. The proof establishes the one-step formula including exponent zero, verifies the zeroth iterate, and identifies successor exponents and coefficients using truncated subtraction and the factorial recurrence. This proves every derivative order without hidden bounds or circular reliance. Empty dependencies are correct; linearity and evaluation complete the parent reconstruction."
+    }
+  ],
+  "required_changes": []
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.scalarization_derivative-a1.jet_recurrence-a1.moving_eval_derivative-a1.binary_form_jet_expansion-a1.iterated_binary_monomial_pderiv-a1",
+  "parent_id": "root.scalarization_derivative-a1.jet_recurrence-a1.moving_eval_derivative-a1.binary_form_jet_expansion-a1",
+  "depth": 5,
+  "title": "Unrestricted iterated partial derivative of a binary monomial",
+  "statement": "For every exponent d:Fin 2→₀ℕ, coefficient a∈ℂ, and r∈ℕ, let D be formal differentiation in variable 1 on MvPolynomial (Fin 2) ℂ. Then D iterated r times on monomial d a equals monomial (d−single 1 r) (a·(Nat.descFactorial (d(1)) r : ℂ)). Subtraction of exponent vectors is coordinatewise natural subtraction. There is no restriction on r or d.",
+  "lean_statement": "∀ (d : Fin 2 →₀ ℕ) (a : ℂ) (r : ℕ), ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r] (MvPolynomial.monomial d a)) = MvPolynomial.monomial (d - Finsupp.single (1 : Fin 2) r) (a * (Nat.descFactorial (d 1) r : ℂ))",
+  "lean_name": "p02_es_177ebb5a_med_js_iterated_monomial",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p02/20261007t081612z-177ebb5a0d/root-scalarization-derivative-a1-jet-recurrence-a1-moving-eval-deriva-c6f7b88845-a1"
+}
