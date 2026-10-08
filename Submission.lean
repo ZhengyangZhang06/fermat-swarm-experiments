@@ -2129,4 +2129,31 @@ theorem p02_es_177ebb5a_ic_inverse_linepow
   simpa only [smul_smul, inv_mul_cancel₀ hj, one_smul] using
     congrArg (fun v => ((HeckeEis.jFactor σ τ) ^ n)⁻¹ • v) h.symm
 
+theorem p02_es_177ebb5a_sm_transformed_integral
+    (n : ℕ) (h : UpperHalfPlane → ℂ)
+    (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n))
+    (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ)
+    (hE : HeckeEis.IsEichlerIntegral n h E) :
+    HeckeEis.IsEichlerIntegral n (SlashAction.map ((n : ℤ) + 2) σ h)
+      (fun τ : UpperHalfPlane =>
+        ((HeckeEis.binaryFormRepSL ℂ n) σ⁻¹) (E (σ • τ))) := by
+  intro e τ
+  have hderiv := p02_es_177ebb5a_ic_linear_mobius_derivative n
+    ((HeckeEis.binaryFormRepSL ℂ n) σ⁻¹) E
+    (h (σ • τ) • HeckeEis.linePow n ((σ • τ : UpperHalfPlane) : ℂ)) σ τ
+    (fun d => by
+      simpa only [Submodule.coe_smul, MvPolynomial.coeff_smul, smul_eq_mul] using
+        hE d (σ • τ)) e
+  rw [map_smul, p02_es_177ebb5a_ic_inverse_linepow, Submodule.coe_smul,
+    MvPolynomial.coeff_smul, Submodule.coe_smul, MvPolynomial.coeff_smul,
+    smul_eq_mul, smul_eq_mul] at hderiv
+  convert hderiv using 1
+  have hdenom := HeckeEis.jFactor_eq_denom σ τ
+  rw [Matrix.SpecialLinearGroup.mapGL, MonoidHom.comp_apply,
+    show algebraMap ℤ ℝ = Int.castRingHom ℝ from rfl] at hdenom
+  rw [ModularForm.SL_slash_apply, ← hdenom]
+  rw [show (n : ℤ) + 2 = ((n + 2 : ℕ) : ℤ) by norm_cast,
+    zpow_neg, zpow_natCast, pow_add, mul_inv_rev, div_eq_mul_inv]
+  ring
+
 end Submission
