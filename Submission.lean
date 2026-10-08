@@ -3413,3 +3413,98 @@ theorem Submission.f036cc6b1f_pc_hi_effective_domain_lift :
         rw [hmul]
         exact hneg
     exact (htrans r hr s hs hsr).symm
+
+namespace Submission
+
+open MeasureTheory
+open scoped MatrixGroups
+
+/-- Unfold the finite slash trace over the almost-everywhere disjoint translated domains. -/
+theorem f036cc6b1f_pc_hi_finite_trace_unfolding
+    (Γ Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ))
+    (R : Finset (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (F : Set UpperHalfPlane)
+    (hΔΓ : Δ ≤ Γ) (hneg : (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ)
+    (hR : ∀ r ∈ R, r ∈ Γ)
+    (hcover : ∀ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Γ →
+      ∃ r ∈ R, γ * r⁻¹ ∈ Δ)
+    (huniq : ∀ r ∈ R, ∀ s ∈ R, s * r⁻¹ ∈ Δ → s = r)
+    (hF : MeasurableSet F)
+    (hdom : ∀ᵐ z ∂(volume : Measure UpperHalfPlane),
+      ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+        γ ∈ Γ ∧ γ • z ∈ F ∧ ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+          δ ∈ Γ → δ • z ∈ F → δ = γ ∨ δ = -γ)
+    (u v : UpperHalfPlane → ℂ)
+    (hv : ∀ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Γ →
+      SlashAction.map (2 : ℤ) γ v = v) :
+    let E : Set UpperHalfPlane := ⋃ r ∈ R, (fun z : UpperHalfPlane => r • z) '' F
+    IntegrableOn (UpperHalfPlane.petersson 2 u v) E (volume : Measure UpperHalfPlane) →
+      (∀ r ∈ R, IntegrableOn
+        (UpperHalfPlane.petersson 2 (SlashAction.map (2 : ℤ) r u) v)
+        F (volume : Measure UpperHalfPlane)) ∧
+      integral ((volume : Measure UpperHalfPlane).restrict F)
+          (UpperHalfPlane.petersson 2 (R.sum (fun r => SlashAction.map (2 : ℤ) r u)) v) =
+        integral ((volume : Measure UpperHalfPlane).restrict E)
+          (UpperHalfPlane.petersson 2 u v) := by
+  classical
+  intro E hInt
+  have hLift := f036cc6b1f_pc_hi_effective_domain_lift
+    Γ Δ R F hΔΓ hneg hR hcover huniq hF hdom
+  have hEmb (r : SL(2, ℤ)) :
+      MeasurableEmbedding (fun z : UpperHalfPlane => r • z) :=
+    (Homeomorph.smul (Matrix.SpecialLinearGroup.mapGL ℝ r)).measurableEmbedding
+  have hPres (r : SL(2, ℤ)) :
+      MeasurePreserving (fun z : UpperHalfPlane => r • z) volume volume :=
+    measurePreserving_smul (Matrix.SpecialLinearGroup.mapGL ℝ r) volume
+  have hMeas (r : SL(2, ℤ)) :
+      MeasurableSet ((fun z : UpperHalfPlane => r • z) '' F) :=
+    (hEmb r).measurableSet_image.mpr hF
+  have hPiece (r : SL(2, ℤ)) (hr : r ∈ R) :
+      IntegrableOn (UpperHalfPlane.petersson 2 u v)
+        ((fun z : UpperHalfPlane => r • z) '' F) volume := by
+    apply hInt.mono_set
+    intro z hz
+    exact Set.mem_iUnion.mpr ⟨r, Set.mem_iUnion.mpr ⟨hr, hz⟩⟩
+  have hCov (r : SL(2, ℤ)) (hr : r ∈ R) :
+      UpperHalfPlane.petersson 2 (SlashAction.map (2 : ℤ) r u) v =
+        fun z => UpperHalfPlane.petersson 2 u v (r • z) := by
+    funext z
+    simpa only [hv r (hR r hr)] using UpperHalfPlane.petersson_slash_SL 2 u v r z
+  have hTerm (r : SL(2, ℤ)) (hr : r ∈ R) :
+      IntegrableOn (UpperHalfPlane.petersson 2 (SlashAction.map (2 : ℤ) r u) v)
+        F volume := by
+    rw [hCov r hr]
+    exact ((hPres r).restrict_image_emb (hEmb r) F).integrable_comp_of_integrable
+      (hPiece r hr)
+  have hIntegral (r : SL(2, ℤ)) (hr : r ∈ R) :
+      (∫ z in F, UpperHalfPlane.petersson 2 (SlashAction.map (2 : ℤ) r u) v z) =
+        ∫ z in (fun w : UpperHalfPlane => r • w) '' F,
+          UpperHalfPlane.petersson 2 u v z := by
+    rw [hCov r hr]
+    exact ((hPres r).setIntegral_image_emb (hEmb r) (UpperHalfPlane.petersson 2 u v) F).symm
+  refine ⟨hTerm, ?_⟩
+  have hSum :
+      UpperHalfPlane.petersson 2 (R.sum (fun r => SlashAction.map (2 : ℤ) r u)) v =
+        fun z => ∑ r ∈ R, UpperHalfPlane.petersson 2 (SlashAction.map (2 : ℤ) r u) v z := by
+    funext z
+    simp only [UpperHalfPlane.petersson, Finset.sum_apply, map_sum, Finset.sum_mul]
+  have hUnion : (⋃ r : ↥R, (fun z : UpperHalfPlane => (r : SL(2, ℤ)) • z) '' F) = E := by
+    simp only [E, Set.iUnion_subtype]
+  have hDisj : Pairwise (fun r s : ↥R => AEDisjoint (volume : Measure UpperHalfPlane)
+      ((fun z : UpperHalfPlane => (r : SL(2, ℤ)) • z) '' F)
+      ((fun z : UpperHalfPlane => (s : SL(2, ℤ)) • z) '' F)) := by
+    intro r s hrs
+    apply measure_eq_zero_iff_ae_notMem.mpr
+    filter_upwards [hLift.2.2] with z hz
+    intro hzs
+    exact hrs (Subtype.ext (hz r r.property s s.property hzs.1 hzs.2))
+  have hUnfold := integral_iUnion_ae (fun r : ↥R => (hMeas r).nullMeasurableSet)
+    hDisj (hUnion.symm ▸ hInt)
+  rw [hSum, integral_finsetSum R (fun r hr => hTerm r hr)]
+  trans ∑ r ∈ R, ∫ z in (fun w : UpperHalfPlane => r • w) '' F,
+    UpperHalfPlane.petersson 2 u v z
+  · exact Finset.sum_congr rfl hIntegral
+  · rw [← Finset.sum_coe_sort R (fun r =>
+      ∫ z in (fun w : UpperHalfPlane => r • w) '' F, UpperHalfPlane.petersson 2 u v z)]
+    simpa only [hUnion, tsum_fintype] using hUnfold.symm
+
+end Submission
