@@ -3266,8 +3266,9 @@ theorem p02_es_177ebb5a_tff_periodic_polynomial_constant
     intro hp
     simp [hp] at hdegree
   have hlinear : (Polynomial.hasseDeriv d p).natDegree ≤ 1 := by
-    have h := Polynomial.natDegree_hasseDeriv_le p d
-    omega
+    simpa [hd] using Polynomial.natDegree_hasseDeriv_le p d
+  -- The degree-d coefficient of the translate is (d + 1) * p.coeff (d + 1) * c
+  -- plus p.coeff d; invariance forces the first summand to vanish.
   have hcoeff := congrArg (fun q : Polynomial ℂ => q.coeff d) hperiod
   rw [← Polynomial.taylor_apply, Polynomial.taylor_coeff,
     Polynomial.eq_X_add_C_of_natDegree_le_one hlinear] at hcoeff
@@ -3277,7 +3278,7 @@ theorem p02_es_177ebb5a_tff_periodic_polynomial_constant
   have hlead : p.coeff (d + 1) ≠ 0 := by
     simpa only [Polynomial.leadingCoeff, hd, Nat.succ_eq_add_one] using
       Polynomial.leadingCoeff_ne_zero.mpr hp
-  have hcast : ((d + 1 : ℕ) : ℂ) ≠ 0 := by exact_mod_cast Nat.succ_ne_zero d
+  have hcast : ((d + 1 : ℕ) : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (Nat.succ_ne_zero d)
   exact (mul_ne_zero (mul_ne_zero hcast hlead) hc)
     (add_right_cancel (hcoeff.trans (zero_add _).symm))
 
