@@ -15,3 +15,39 @@ theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field
     [Algebra K F] (x : F) (hx : Transcendental K x)
     [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
   sorry
+
+namespace Submission
+
+/-- The cokernel of a diagonal matrix is the product of its coordinate principal quotients. -/
+theorem p06_9e0f5043ff_dmc_diagonal_quotient
+    (R : Type*) [CommRing R] (m : ℕ) (d : Fin m → R) :
+    Nonempty (((Fin m → R) ⧸ LinearMap.range (Matrix.mulVecLin (Matrix.diagonal d)))
+      ≃ₗ[R] ((i : Fin m) → R ⧸ Ideal.span ({d i} : Set R))) := by
+  classical
+  -- Reduce each coordinate modulo the corresponding principal ideal.
+  let C : (Fin m → R) →ₗ[R] ((i : Fin m) → R ⧸ Ideal.span ({d i} : Set R)) :=
+    LinearMap.pi fun i => (Ideal.span ({d i} : Set R)).mkQ.comp (LinearMap.proj i)
+  have hker : LinearMap.ker C = LinearMap.range (Matrix.mulVecLin (Matrix.diagonal d)) := by
+    ext y
+    simp only [LinearMap.mem_ker, LinearMap.mem_range]
+    constructor
+    · intro hy
+      have hyi : ∀ i, d i ∣ y i := by
+        intro i
+        apply Ideal.mem_span_singleton.mp
+        apply (Submodule.Quotient.mk_eq_zero _).mp
+        exact congrFun hy i
+      choose z hz using hyi
+      exact ⟨z, funext fun i => (Matrix.mulVec_diagonal d z i).trans (hz i).symm⟩
+    · rintro ⟨z, rfl⟩
+      funext i
+      apply (Submodule.Quotient.mk_eq_zero _).mpr
+      exact Ideal.mem_span_singleton.mpr ⟨z i, Matrix.mulVec_diagonal d z i⟩
+  have hsurj : Function.Surjective C := by
+    intro w
+    choose y hy using fun i => (Ideal.span ({d i} : Set R)).mkQ_surjective (w i)
+    exact ⟨y, funext hy⟩
+  -- The first isomorphism theorem supplies the induced bijection and its linear inverse.
+  exact ⟨(Submodule.quotEquivOfEq _ _ hker.symm).trans (C.quotKerEquivOfSurjective hsurj)⟩
+
+end Submission
