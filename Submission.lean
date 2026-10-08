@@ -408,3 +408,51 @@ theorem Submission.p08_7d1ff633a4_tp26_bilinear_averaging :
     apply Finset.sum_congr rfl
     intro c _
     rw [← hφ, ← hQ, smul_inv_smul]
+theorem Submission.p08_7d1ff633a4_tp26_normal_level_retraction :
+    ∀ {G : Type} [Group G] (H : Subgroup G), ∃ a : G → H,
+      (∀ h : H, a (h : G) = h) ∧
+      (∀ (h : H) (g : G), a ((h : G) * g) = h * a g) ∧
+      (∀ K : Subgroup G, K.Normal → K ≤ H → ∀ g u : G, u ∈ K →
+        (a g : G)⁻¹ * (a (g * u) : G) ∈ K) := by
+  classical
+  intro G _ H
+  let q : G → Quotient (QuotientGroup.rightRel H) := Quotient.mk _
+  let t : Quotient (QuotientGroup.rightRel H) → G :=
+    fun c => if c = q 1 then 1 else c.out
+  have ht (c : Quotient (QuotientGroup.rightRel H)) : q (t c) = c := by
+    by_cases hc : c = q 1
+    · change q (if c = q 1 then 1 else c.out) = c
+      rw [if_pos hc]
+      exact hc.symm
+    · simpa only [t, if_neg hc] using c.out_eq
+  let a : G → H := fun g =>
+    ⟨g * (t (q g))⁻¹, QuotientGroup.rightRel_apply.mp (Quotient.exact (ht (q g)))⟩
+  have hq (h : H) (g : G) : q ((h : G) * g) = q g := by
+    symm
+    apply Quotient.sound
+    apply QuotientGroup.rightRel_apply.mpr
+    simpa only [mul_inv_cancel_right] using h.property
+  have ha (h : H) (g : G) : a ((h : G) * g) = h * a g := by
+    apply Subtype.ext
+    change ((h : G) * g) * (t (q ((h : G) * g)))⁻¹ =
+      (h : G) * (g * (t (q g))⁻¹)
+    rw [hq, mul_assoc]
+  have ha1 : a 1 = 1 := by
+    apply Subtype.ext
+    simp [a, t]
+  refine ⟨a, ?_, ha, ?_⟩
+  · intro h
+    simpa only [mul_one, ha1] using ha h 1
+  · intro K hK hKH g u hu
+    have hqu : q (g * u) = q g := by
+      symm
+      apply Quotient.sound
+      apply QuotientGroup.rightRel_apply.mpr
+      exact hKH (hK.conj_mem u hu g)
+    have heq : (a g : G)⁻¹ * (a (g * u) : G) =
+        t (q g) * u * (t (q g))⁻¹ := by
+      change (g * (t (q g))⁻¹)⁻¹ * ((g * u) * (t (q (g * u)))⁻¹) = _
+      rw [hqu]
+      group
+    rw [heq]
+    exact hK.conj_mem u hu (t (q g))
