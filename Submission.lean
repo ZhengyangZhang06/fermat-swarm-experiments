@@ -1075,6 +1075,7 @@ theorem f036cc6b1f_pic_domain_transfer
     exact hφinv _ (Δ.inv_mem γ.property) z
 
 end Submission
+
 open MeasureTheory
 
 namespace Submission
