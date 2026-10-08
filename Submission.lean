@@ -1,7 +1,7 @@
 /-
 Copyright 2026 Anthropic, PBC. Licensed under Apache-2.0; see LICENSE.
 Source: https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean
-Modified: implements the selected fraction-unit criterion in namespace Submission.
+Modified: replaced the proof with sorry and removed P2M proof imports.
 Requires the upstream Definitions modules and their dependencies.
 -/
 
