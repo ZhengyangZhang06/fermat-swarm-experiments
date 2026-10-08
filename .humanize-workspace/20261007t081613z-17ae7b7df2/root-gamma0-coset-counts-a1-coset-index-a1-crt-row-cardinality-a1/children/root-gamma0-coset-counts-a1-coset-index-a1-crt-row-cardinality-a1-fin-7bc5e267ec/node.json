@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.gamma0_coset_counts-a1.coset_index-a1.crt_row_cardinality-a1.finite_product_row_classes-a1",
+  "parent_id": "root.gamma0_coset_counts-a1.coset_index-a1.crt_row_cardinality-a1",
+  "depth": 4,
+  "title": "Unit-scaling row classes commute with finite products",
+  "statement": "Let I be any finite index type, possibly empty, and let R_i be a commutative ring for each i∈I. For each commutative ring A, let P(A) be the quotient of {(r,s)∈A² | ∃x,y∈A, xr+ys=1} by simultaneous multiplication of both coordinates by one unit of A. Equip T=∏_{i∈I}R_i with its pointwise commutative-ring structure. Then there exists an equivalence P(T)≃∏_{i∈I}P(R_i). The component rings need not be finite or nontrivial.",
+  "lean_statement": "∀ (ι : Type) [Fintype ι] (R : ι → Type) [∀ i, CommRing (R i)], let P := fun (A : Type) [CommRing A] => Quot (fun v w : {v : A × A // ∃ x y : A, x * v.1 + y * v.2 = 1} => ∃ u : Aˣ, (u : A) * v.1.1 = w.1.1 ∧ (u : A) * v.1.2 = w.1.2); Nonempty (P (∀ i, R i) ≃ (∀ i, P (R i)))",
+  "lean_name": "p10_17ae7b7d_crt_pi_rows",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1-fin-7bc5e267ec-a1"
+}

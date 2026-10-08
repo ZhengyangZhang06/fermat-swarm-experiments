@@ -1,0 +1,49 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "ProjectiveLine|UnimodularRow|unimodularRow",
+        "equivPi|chineseRemainder",
+        "quot_mk_eq_iff|theorem card_pi|theorem card_congr|prod_coe_sort|finite_quot",
+        "(ProjectiveLine|UnimodularRow).*(equiv|Equiv|prod|Pi)|(equiv|Equiv|prod|Pi).*(ProjectiveLine|UnimodularRow)",
+        "p10_17ae7b7d_crt_ring_equiv_rows|p10_17ae7b7d_crt_pi_rows",
+        "git rev-parse HEAD",
+        "git status --porcelain",
+        "python3 /tmp/p10_crt_independent_audit.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/QuotientRing.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Quot.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/SetTheory/Cardinal/Finite.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1/parent-child-handoff.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/crt-independent-48ox_9dq/ChildTypes.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/crt-independent-48ox_9dq/ParentAssembly.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/crt-independent-48ox_9dq/report.json"
+      ],
+      "conclusion": "Independently confirmed clean project a97febc53b1c4d489edc54ca44132af7a21279b3, mathlib db584cd6d46c92f209a44c0f1c829460d327499d, and all nine pinned dependencies. The project quotient matches the proposed explicit relation; no corresponding ring-equivalence or product-equivalence theorem matched the targeted Definitions search. ZMod.equivPi, Equivalence.quot_mk_eq_iff, Nat.card_congr, Nat.card_pi and Finset.prod_coe_sort support the split and exact parent assembly. The frozen handoff matches the CRT parent within the original cusp-form DAG. Both proposed names are unreserved; the existing 45-node DAG is acyclic. Independent Lean checks at proof-base commit 1e115a452fbc98bff8aaa6728679030b19690b46 verified both literal child propositions, pointwise ring/unit operations, and conditional assembly of the exact parent, including N=1. Relevant transitive axioms are confined to propext, Classical.choice and Quot.sound. The receipt records policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, exact omissions of lines 10–12, reversible original/build hashes, and an independently successful Lean absence probe for all 56 targets. This approves decomposition only; neither child's implementation or comparator acceptance is claimed."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "ring_equiv_row_classes",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly expresses the stated equivalence for arbitrary commutative rings and a ring isomorphism. It is self-contained and independent of the proposed declaration. Step 1 correctly establishes the scaling equivalence relation; steps 2–4 transport witnesses and units and construct both quotient maps; steps 5–6 prove both inverse identities and Nonempty. No finiteness, nontriviality, circular appeal or deferred proof search is needed. The bare name is unreserved, and the empty dependency list is correct."
+    },
+    {
+      "key": "finite_product_row_classes",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition matches the finite dependent-product statement, including empty indices and possibly trivial or infinite component rings. Independent Lean checks confirm the intended pointwise ring and unit operations. Step 1 justifies equality of representative classes; step 2 defines the quotient map; step 3 assembles representatives and witnesses for surjectivity; steps 4–5 assemble component units and inverses for injectivity; step 6 constructs the equivalence and correctly handles empty indices. Classical choices are legitimate and require no additional hypothesis. The proof is complete and independent of its sibling and parent. The bare name is unreserved, and the empty dependency list is correct."
+    }
+  ],
+  "required_changes": []
+}

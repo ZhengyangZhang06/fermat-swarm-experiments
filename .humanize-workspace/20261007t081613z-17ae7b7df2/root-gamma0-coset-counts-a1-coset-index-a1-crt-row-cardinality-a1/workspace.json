@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081613Z-17ae7b7df2",
+  "parent_id": "root.gamma0_coset_counts-a1.coset_index-a1.crt_row_cardinality-a1",
+  "dispatch_branch": "proof-workspace/fermat-p10/20261007t081613z-17ae7b7df2/dispatch/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1",
+  "source_commit": "9a841e4b580f5ae092c351554ad92e1fcd67d3e6",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.gamma0_coset_counts-a1.coset_index-a1.crt_row_cardinality-a1.finite_product_row_classes-a1",
+      "key": "finite_product_row_classes",
+      "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1-fin-7bc5e267ec-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1/children/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1-fin-7bc5e267ec",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "ProjectiveLine|UnimodularRow|unimodularRow|chineseRemainder|primeFactors",
+              "chineseRemainder|primeFactors|factorization",
+              "(ProjectiveLine|UnimodularRow).*(equiv|Equiv|prod|Pi)|(equiv|Equiv|prod|Pi).*(ProjectiveLine|UnimodularRow)",
+              "card_pi|card_congr|finite_quot|finite_quotient",
+              "prod_coe_sort|prod_attach|prod_subtype",
+              "p10_17ae7b7d_crt_ring_equiv_rows|p10_17ae7b7d_crt_pi_rows",
+              "python3 /tmp/p10_crt_split_diagnostic.py",
+              "python3 /tmp/p10_crt_refine_types.py",
+              "python3 /tmp/p10_crt_parent_assembly.py"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/QuotientRing.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Quot.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/SetTheory/Cardinal/Finite.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+              "/runtime/operator-header-policy-v1/policy.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/crt-split-95f4i2pe/ChildTypes.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/crt-split-95f4i2pe/ParentAssembly.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/crt-split-95f4i2pe/report.json"
+            ],
+            "conclusion": "The clean snapshots match project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; all nine pinned dependency checkouts were also clean and matched their revisions. The project defines the same unit-scaling quotient and its ring-homomorphism map, but that module is outside the frozen imports, so the child types retain explicit Quot expressions. No corresponding project ring-isomorphism or product-equivalence theorem was found; the targeted search matched only unrelated names sharing header lines. ZMod.equivPi supplies the required CRT isomorphism, while Equivalence.quot_mk_eq_iff, Nat.card_congr, Nat.card_pi and Finset.prod_coe_sort supply quotient equality and cardinality infrastructure. Both proposed names are absent from Submission, the DAG and node metadata. Both final types compiled without warnings after import Submission. Reflexivity checks verified pointwise product-ring multiplication, addition and one, and multiplication of unit values. A conditional Lean proof assembled the exact frozen parent type from these two interfaces. Checked types and library results use only propext, Classical.choice and Quot.sound. The disposable compiler copy followed policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96: only lines 10–12 were omitted, and Lean confirmed all 56 targets absent. The report records exact omitted text, reversible original/build hashes and probe evidence. Frozen sources and handoffs were unchanged. These are interface diagnostics, not comparator acceptance of either child proof."
+          }
+        ],
+        "parent_id": "root.gamma0_coset_counts-a1.coset_index-a1.crt_row_cardinality-a1",
+        "child_id": "root.gamma0_coset_counts-a1.coset_index-a1.crt_row_cardinality-a1.finite_product_row_classes-a1",
+        "subproblem": {
+          "key": "finite_product_row_classes",
+          "title": "Unit-scaling row classes commute with finite products",
+          "statement": "Let I be any finite index type, possibly empty, and let R_i be a commutative ring for each i∈I. For each commutative ring A, let P(A) be the quotient of {(r,s)∈A² | ∃x,y∈A, xr+ys=1} by simultaneous multiplication of both coordinates by one unit of A. Equip T=∏_{i∈I}R_i with its pointwise commutative-ring structure. Then there exists an equivalence P(T)≃∏_{i∈I}P(R_i). The component rings need not be finite or nontrivial.",
+          "lean_statement": "∀ (ι : Type) [Fintype ι] (R : ι → Type) [∀ i, CommRing (R i)], let P := fun (A : Type) [CommRing A] => Quot (fun v w : {v : A × A // ∃ x y : A, x * v.1 + y * v.2 = 1} => ∃ u : Aˣ, (u : A) * v.1.1 = w.1.1 ∧ (u : A) * v.1.2 = w.1.2); Nonempty (P (∀ i, R i) ≃ (∀ i, P (R i)))",
+          "lean_name": "p10_17ae7b7d_crt_pi_rows",
+          "depends_on": [],
+          "natural_proof": "1. Let I be the given finite index type, let R_i be the given commutative rings, and let T=∏_i R_i with pointwise operations. For any commutative ring A define U(A) to be its unimodular pairs and P(A) to be the displayed Quot. Multiplying a unimodular pair with witnesses x,y by a unit u preserves unimodularity using witnesses x*u^{-1}, y*u^{-1}. Unit scaling is reflexive, symmetric, and transitive, witnessed respectively by 1, u^{-1}, and products of scaling units. Consequently two representative rows have equal classes in P(A) exactly when one scaling unit takes the first row to the second.\n2. If (r,s) is a row in U(T) with witnesses x,y, then evaluating xr+ys=1 at i yields x_i*r_i+y_i*s_i=1. Send its class to the tuple of classes [(r_i,s_i)]. If a unit u of T scales one global row to another, evaluation of u and its inverse gives a unit u_i in R_i scaling the component rows. Hence this assignment is independent of representatives and defines F:P(T)→∏_i P(R_i).\n3. For surjectivity, fix a tuple of classes q_i. Choose for each i a representative (r_i,s_i) and witnesses x_i,y_i satisfying x_i*r_i+y_i*s_i=1. These choices exist because each quotient class has a representative and each representative is unimodular. Define r,s,x,y in T by these component values. Function extensionality gives xr+ys=1, so (r,s) is a unimodular global row. Its class maps to q_i for every i and therefore to the prescribed tuple.\n4. For injectivity, choose representative global rows (r,s) and (r',s') for two classes having the same F-image. For each i their component classes agree. By the equivalence-relation characterization in step 1 there is a unit u_i in R_i with u_i*r_i=r'_i and u_i*s_i=s'_i. Choose such a unit for every i.\n5. Define a in T by a_i=u_i and b in T by b_i=u_i^{-1}. The equations a_i*b_i=b_i*a_i=1 hold for every i, so pointwise multiplication and extensionality give ab=ba=1 in T. Thus a is the value of a unit u of T with inverse value b. The component scaling equations yield u*r=r' and u*s=s' by extensionality. The global rows are related, so their quotient classes are equal. This proves injectivity.\n6. A bijection F yields an equivalence by assigning to each target its unique preimage. Surjectivity supplies a preimage, and injectivity makes both inverse identities hold. Therefore P(T)≃∏_i P(R_i) is nonempty. All component choices and extensional equalities above also apply when I is empty: there is exactly one empty function, all displayed pointwise equations are vacuous, and the same constructions and inverse identities remain valid.",
+          "proof_key_steps": [
+            "Identify quotient equality with simultaneous unit scaling.",
+            "Evaluate global rows, witnesses and units componentwise to define the quotient map.",
+            "Assemble representatives and unimodularity witnesses to prove surjectivity.",
+            "Extract component scaling units from equality of component classes.",
+            "Assemble those units and their inverses into one global unit to prove injectivity.",
+            "Turn the bijection into an equivalence, including the empty-index case."
+          ]
+        },
+        "audit": {
+          "key": "finite_product_row_classes",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition matches the finite dependent-product statement, including empty indices and possibly trivial or infinite component rings. Independent Lean checks confirm the intended pointwise ring and unit operations. Step 1 justifies equality of representative classes; step 2 defines the quotient map; step 3 assembles representatives and witnesses for surjectivity; steps 4–5 assemble component units and inverses for injectivity; step 6 constructs the equivalence and correctly handles empty indices. Classical choices are legitimate and require no additional hypothesis. The proof is complete and independent of its sibling and parent. The bare name is unreserved, and the empty dependency list is correct."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1-fin-7bc5e267ec/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1-fin-7bc5e267ec/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1-fin-7bc5e267ec/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.gamma0_coset_counts-a1.coset_index-a1.crt_row_cardinality-a1.ring_equiv_row_classes-a1",
+      "key": "ring_equiv_row_classes",
+      "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1-rin-c0ac07a37c-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1/children/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1-rin-c0ac07a37c",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "ProjectiveLine|UnimodularRow|unimodularRow|chineseRemainder|primeFactors",
+              "chineseRemainder|primeFactors|factorization",
+              "(ProjectiveLine|UnimodularRow).*(equiv|Equiv|prod|Pi)|(equiv|Equiv|prod|Pi).*(ProjectiveLine|UnimodularRow)",
+              "card_pi|card_congr|finite_quot|finite_quotient",
+              "prod_coe_sort|prod_attach|prod_subtype",
+              "p10_17ae7b7d_crt_ring_equiv_rows|p10_17ae7b7d_crt_pi_rows",
+              "python3 /tmp/p10_crt_split_diagnostic.py",
+              "python3 /tmp/p10_crt_refine_types.py",
+              "python3 /tmp/p10_crt_parent_assembly.py"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/QuotientRing.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Quot.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/SetTheory/Cardinal/Finite.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+              "/runtime/operator-header-policy-v1/policy.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/crt-split-95f4i2pe/ChildTypes.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/crt-split-95f4i2pe/ParentAssembly.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/crt-split-95f4i2pe/report.json"
+            ],
+            "conclusion": "The clean snapshots match project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; all nine pinned dependency checkouts were also clean and matched their revisions. The project defines the same unit-scaling quotient and its ring-homomorphism map, but that module is outside the frozen imports, so the child types retain explicit Quot expressions. No corresponding project ring-isomorphism or product-equivalence theorem was found; the targeted search matched only unrelated names sharing header lines. ZMod.equivPi supplies the required CRT isomorphism, while Equivalence.quot_mk_eq_iff, Nat.card_congr, Nat.card_pi and Finset.prod_coe_sort supply quotient equality and cardinality infrastructure. Both proposed names are absent from Submission, the DAG and node metadata. Both final types compiled without warnings after import Submission. Reflexivity checks verified pointwise product-ring multiplication, addition and one, and multiplication of unit values. A conditional Lean proof assembled the exact frozen parent type from these two interfaces. Checked types and library results use only propext, Classical.choice and Quot.sound. The disposable compiler copy followed policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96: only lines 10–12 were omitted, and Lean confirmed all 56 targets absent. The report records exact omitted text, reversible original/build hashes and probe evidence. Frozen sources and handoffs were unchanged. These are interface diagnostics, not comparator acceptance of either child proof."
+          }
+        ],
+        "parent_id": "root.gamma0_coset_counts-a1.coset_index-a1.crt_row_cardinality-a1",
+        "child_id": "root.gamma0_coset_counts-a1.coset_index-a1.crt_row_cardinality-a1.ring_equiv_row_classes-a1",
+        "subproblem": {
+          "key": "ring_equiv_row_classes",
+          "title": "Unit-scaling row classes are invariant under ring isomorphism",
+          "statement": "For any commutative rings R and S and any ring isomorphism e:R≃S, define P(A), for each commutative ring A, as the quotient of {(r,s)∈A² | ∃x,y∈A, xr+ys=1} by the relation (r,s)∼(r',s') iff some unit u∈Aˣ satisfies ur=r' and us=s'. Then there exists an equivalence P(R)≃P(S). No finiteness or nontriviality assumption on either ring is required.",
+          "lean_statement": "∀ (R S : Type) [CommRing R] [CommRing S], (R ≃+* S) → let P := fun (A : Type) [CommRing A] => Quot (fun v w : {v : A × A // ∃ x y : A, x * v.1 + y * v.2 = 1} => ∃ u : Aˣ, (u : A) * v.1.1 = w.1.1 ∧ (u : A) * v.1.2 = w.1.2); Nonempty (P R ≃ P S)",
+          "lean_name": "p10_17ae7b7d_crt_ring_equiv_rows",
+          "depends_on": [],
+          "natural_proof": "1. For each commutative ring A, write U(A) for the subtype of pairs (r,s) satisfying xr+ys=1 for some x,y in A. If u is a unit, multiplying both coordinates by u preserves this condition: x*u^{-1}, y*u^{-1} are witnesses. The relation v~w meaning w=u*v for one unit u is reflexive using 1, symmetric using u^{-1}, and transitive using the product of the two scaling units. Thus the displayed Quot is precisely the quotient by this equivalence relation.\n2. Let e:R≃+*S be the given ring isomorphism. Map a row (r,s) to (e(r),e(s)). Applying e to xr+ys=1 gives e(x)e(r)+e(y)e(s)=1, so this is a map U(R)→U(S). Applying e^{-1} defines its inverse; the compositions are identities on both coordinates, and hence on the subtypes.\n3. A unit u of R maps to the unit of S whose value is e(u) and whose inverse is e(u^{-1}). The two unit identities follow by applying e to u*u^{-1}=1 and u^{-1}*u=1. If w=u*v in both coordinates, their images satisfy e(w)=e(u)*e(v) in both coordinates. Therefore the row map descends to a function F:P(R)→P(S).\n4. The identical construction with e^{-1} descends to G:P(S)→P(R), since it also maps witnesses and units as in steps 2 and 3.\n5. For the class of any row (r,s), applying G after F returns the class of (e^{-1}(e(r)),e^{-1}(e(s)))=(r,s). Every quotient element has a representative, so G∘F is the identity. The identities e(e^{-1}(t))=t prove F∘G is the identity in exactly the same way.\n6. Thus F and G define an equivalence P(R)≃P(S). Its existence proves the required Nonempty proposition.",
+          "proof_key_steps": [
+            "Verify that simultaneous unit scaling preserves unimodularity and defines an equivalence relation.",
+            "Transport unimodular rows and their witnesses through the ring isomorphism.",
+            "Transport units and show that the row map respects the quotient relation.",
+            "Construct the reverse quotient map using the inverse ring isomorphism.",
+            "Check both compositions on representatives and obtain the equivalence."
+          ]
+        },
+        "audit": {
+          "key": "ring_equiv_row_classes",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly expresses the stated equivalence for arbitrary commutative rings and a ring isomorphism. It is self-contained and independent of the proposed declaration. Step 1 correctly establishes the scaling equivalence relation; steps 2–4 transport witnesses and units and construct both quotient maps; steps 5–6 prove both inverse identities and Nonempty. No finiteness, nontriviality, circular appeal or deferred proof search is needed. The bare name is unreserved, and the empty dependency list is correct."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1-rin-c0ac07a37c/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1-rin-c0ac07a37c/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1-rin-c0ac07a37c/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1/task.md": "88b1002f931f9db565a73aca07e087230eaf4513e50f89dde142b288f4f74309",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1/problem.md": "c0d696de12207f8a138e01c1056e5c32494f559ac76a7f989b86196fbe3ec896",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1/problem.json": "09bfb3e94e9c52916c6ee18b497e1146a074f98a2710e85c5c5460cb0b09f76a",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1/reference-manifest.json": "57bc5044097a9c3cadb6a565fb02bfe2c5c9db06690993e4e6916463cba75efa",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1/decomposition.json": "6503e35d16a092edfcd31d500a76643b1d24afd358024d7b2bc0f58ec4d937f3",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1/decomposition-audit.json": "59b4890f88132f4057e8fa94b42963f5a8ddf568b8cc7d34561021d986508779",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1/controller-contract.json": "d1b66564f94c24ea9aabf052e7675de958b8785c03d14b64249e21e1e9480907",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1/children/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1-fin-7bc5e267ec/parent-child-handoff.json": "f3cfe145bcb82b0b2596df201f1941bf844eb39bc07101349a9138613e8a5ea3",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1/children/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1-fin-7bc5e267ec/parent-supplied-plan.md": "e0a73f142ba12e98a2754074c378a35622952f7d2d7745677c236bed9e0c52e8",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1/children/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1-fin-7bc5e267ec/parent-supplied-natural-proof.md": "916537612b24b15ce5381b6d06e31d03e0f9b16ebfea3cb24f107f64aa76b9d9",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1/children/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1-fin-7bc5e267ec/parent-supplied-natural-proof.json": "5ba51818fffeea30faa23d27a40c689c0ed2d1ea1b0ae655bfd2005e392eb178",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1/children/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1-fin-7bc5e267ec/node.json": "58d7869c40e4e7655b76cbd4532258812e900716f59ffc67bafac0e77a88f453",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1/children/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1-rin-c0ac07a37c/parent-child-handoff.json": "48f45ed90f82fb6ddc6ed623bf83648880108ef962a564ab6d8cbfe6c49b1d8f",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1/children/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1-rin-c0ac07a37c/parent-supplied-plan.md": "3faf42378dff216f940b41cb465ccf5b280cb11ecbe4f56abb8313530ec574b0",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1/children/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1-rin-c0ac07a37c/parent-supplied-natural-proof.md": "5bedd0739a1d218288f09c7feb47ff0aa6e233b7952084505a39eba003bb7876",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1/children/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1-rin-c0ac07a37c/parent-supplied-natural-proof.json": "94d85f58c8478725c0d77d12b4e7940d79b10bf2069786afefb7bfaf99cd37f0",
+    ".humanize-workspace/20261007t081613z-17ae7b7df2/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1/children/root-gamma0-coset-counts-a1-coset-index-a1-crt-row-cardinality-a1-rin-c0ac07a37c/node.json": "9f1dbfba83a583dfda5c1b331d14e13bc554107f9999314e3ceacdc649f39a3d"
+  }
+}
