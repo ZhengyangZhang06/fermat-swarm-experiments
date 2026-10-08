@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.level_one_valence_inequality-a1.indentation_limit-a1.local_logderiv_remainder-a1",
+  "parent_id": "root.level_one_valence_inequality-a1.indentation_limit-a1",
+  "depth": 3,
+  "title": "Bounded analytic remainder of a logarithmic derivative",
+  "statement": "For every f : ℂ → ℂ and v : ℂ, if f is analytic at v and analyticOrderAt f v is finite, put m = analyticOrderNatAt f v. There exist r > 0, M ≥ 0, and G : ℂ → ℂ analytic on a neighborhood of every point of the closed disk |z−v| ≤ r, such that |G(z)| ≤ M on that closed disk and, whenever |z−v| < r and z ≠ v, f(z) ≠ 0 and f′(z)/f(z) = m/(z−v) + G(z). Here f′ is the complex derivative.",
+  "lean_statement": "∀ (f : ℂ → ℂ) (v : ℂ), AnalyticAt ℂ f v → analyticOrderAt f v ≠ ⊤ → ∃ (r M : ℝ) (G : ℂ → ℂ), 0 < r ∧ 0 ≤ M ∧ AnalyticOnNhd ℂ G (Metric.closedBall v r) ∧ (∀ z ∈ Metric.closedBall v r, ‖G z‖ ≤ M) ∧ ∀ z ∈ Metric.ball v r, z ≠ v → f z ≠ 0 ∧ deriv f z / f z = (analyticOrderNatAt f v : ℂ) / (z - v) + G z",
+  "lean_name": "p10_17ae7b7d_indent_logderiv_remainder",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-indentation-limit-a1-local-logde-07f2fad856-a1"
+}

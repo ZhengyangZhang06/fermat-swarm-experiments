@@ -1,0 +1,52 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "indentation|pseudohyperbolic|analyticOrderAt_ne_top|logDeriv",
+        "analyticOrderAt_ne_top|analyticOrderNatAt|AnalyticAt.deriv|norm_integral_le_of_norm_le_const|hasDerivAt_circleMap|deriv_circleMap|continuous_circleMap",
+        "logDeriv_mul|logDeriv_fun_pow|logDeriv.*(bounded|remainder)|remainder.*logDeriv|tendsto_integral.*uniform",
+        "def conj|theorem conj_im|lemma conj_im|conj_eq|star_def"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Fermat",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Order.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Calculus/FDeriv/Analytic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Calculus/LogDeriv.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/MeasureTheory/Integral/CircleIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Complex/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/nodes/root-level-one-valence-inequality-a1-indentation-limit-a1/parent-child-handoff.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/diagnostics/indentation-independent-rbcpxe43/report.json"
+      ],
+      "conclusion": "The frozen handoff identifies this parent as the indentation-limit helper beneath the unchanged cusp-form root. Project searches found no relevant match; inspected mathlib sources support finite-order factorization, analytic derivatives, circle differentiation, and signed integral bounds. Both snapshots and all nine installed dependencies were clean and revision-correct. Fresh Lean checks elaborated all three exact propositions after both Challenge and Submission from the frozen proof base, without child implementations; derivative domains and complex conjugation were independently checked. Type and cited-library axiom probes contained only propext, Classical.choice, and Quot.sound. Verified the prescribed policy digest, Git identities, exact omissions of lines 10–12, reversible original/build hashes, and fresh absence checks for all 56 targets. The split is appropriate: three independent obligations feed the parent without cycles or duplication. All names are bare and unreserved. This approves decomposition and prose only; theorem acceptance still requires the authoritative comparator."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "local_logderiv_remainder",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition exactly matches the hypotheses and conclusions. Finite-order factorization supplies B; shrinking the common open neighborhood justifies differentiation throughout the punctured disk and compact boundedness of G = B′/B. Nonvanishing and cancellation are justified, including m = 0. The complete proof needs no parent or sibling result."
+    },
+    {
+      "key": "mobius_arc_estimates",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The proposition matches every identity, continuity assertion, and bound. Lean confirms real differentiation of γ and complex conjugation via star. Im v > 0 supplies c ≠ 0; 0 < ε < 1 justifies every denominator and cancellation. Explicit differentiation proves continuity of deriv γ and all three estimates. The proof is complete and independent."
+    },
+    {
+      "key": "moving_interval_limit",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact proposition preserves Lebesgue integration, the right-sided filter, and arbitrary endpoint order. The proof obtains eventual δ ≥ 0 from the uniform bound, establishes integrability after subtracting c, handles both orientations, bounds interval lengths using endpoint convergence, and squeezes the error to zero. Signed constant integration gives precisely the stated complex-cast limit. No additional hypothesis or circular dependency is needed."
+    }
+  ],
+  "required_changes": []
+}

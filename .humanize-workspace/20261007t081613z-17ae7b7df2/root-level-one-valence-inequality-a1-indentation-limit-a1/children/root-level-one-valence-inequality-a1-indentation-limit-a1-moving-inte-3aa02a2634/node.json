@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.level_one_valence_inequality-a1.indentation_limit-a1.moving_interval_limit-a1",
+  "parent_id": "root.level_one_valence_inequality-a1.indentation_limit-a1",
+  "depth": 3,
+  "title": "Signed integrals of uniformly asymptotically constant functions",
+  "statement": "Let F : ℝ → ℝ → ℂ, α, β, δ : ℝ → ℝ, c ∈ ℂ, and a,b ∈ ℝ. Suppose as ε → 0 through positive reals that α(ε) → a, β(ε) → b, and δ(ε) → 0. Suppose also that eventually F(ε,·) is Lebesgue interval-integrable from α(ε) to β(ε) and |F(ε,t)−c| ≤ δ(ε) for every real t. Then the signed integral from α(ε) to β(ε) of F(ε,t) dt tends to c(b−a). No ordering or continuity of the endpoint functions is assumed.",
+  "lean_statement": "∀ (F : ℝ → ℝ → ℂ) (α β δ : ℝ → ℝ) (c : ℂ) (a b : ℝ), Filter.Tendsto α (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds a) → Filter.Tendsto β (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds b) → Filter.Tendsto δ (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds (0 : ℝ)) → Filter.Eventually (fun ε : ℝ => IntervalIntegrable (F ε) MeasureTheory.volume (α ε) (β ε) ∧ ∀ t : ℝ, ‖F ε t - c‖ ≤ δ ε) (nhdsWithin (0 : ℝ) (Set.Ioi 0)) → Filter.Tendsto (fun ε : ℝ => intervalIntegral (F ε) (α ε) (β ε) MeasureTheory.volume) (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds (c * ((b - a : ℝ) : ℂ)))",
+  "lean_name": "p10_17ae7b7d_indent_moving_interval_limit",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p10/20261007t081613z-17ae7b7df2/root-level-one-valence-inequality-a1-indentation-limit-a1-moving-inte-3aa02a2634-a1"
+}
