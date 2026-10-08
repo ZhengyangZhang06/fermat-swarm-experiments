@@ -377,6 +377,8 @@ theorem p04_pb_60221840b0_noncentral_cancellation
   rw [← reindex]
   exact neg_add_cancel _
 
+end Submission
+
 namespace Submission
 
 /-- The signed prism assignment extends to morphisms of the restricted standard complex.
