@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "2ac09f13a0ed13159355e68b5c3f8559edbdaa4efac6d252494c55dca9373d2f",
+  "git_delta": {
+    "base_commit": "ccd52282b2ec3bb3f697ed809a02989601285531",
+    "candidate_commit": "1add73338500213edf200c1c55c6e4015fae290d",
+    "target": "Submission.lean",
+    "declaration": "p06_9e0f5043ff_vfc_polynomial_unit_criterion",
+    "diff_sha256": "042f906c756ccee5cda3ba38838099d3f2b50926cdb8c9d5bfed23e1135939a2",
+    "source_sha256": "1d3bcb37c8966b282b308487bea3d65254b2310222c0fa97a0f211d8add487ca",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_vfc_polynomial_unit_criterion",
+      "statement": "∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (s : F) (w : AlgebraicCurve.Place K F), s⁻¹ ∉ w.toValuationSubring → ∀ p : Polynomial K, (∃ u : Units w.toValuationSubring, ((u : w.toValuationSubring) : F) = Polynomial.aeval s p) ↔ ¬ (Polynomial.X : Polynomial K) ∣ p",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
