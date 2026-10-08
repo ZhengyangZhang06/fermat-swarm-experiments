@@ -17,6 +17,7 @@ theorem CuspForm.span_heckeTLin_eigen_eq_top (M : ℕ) [NeZero M] :
 
 namespace Submission
 
+/-- Almost every point has a modular orbit disjoint from a prescribed measurable null set. -/
 theorem f036cc6b1f_pc_ed_aoi_null_orbit :
     ∀ s : Set UpperHalfPlane, MeasurableSet s →
       (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) s = 0 →
