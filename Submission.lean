@@ -16,3 +16,104 @@ set_option autoImplicit false
 theorem CuspForm.gamma0_weight_two_eq_zero_of_genusFormula_eq_zero (N : ℕ) [NeZero N]
     (hg : ModularCurve.genusFormula N = 0) (f : CuspForm (CongruenceSubgroup.Gamma0 N) 2) : f = 0 := by
   sorry
+
+
+theorem Submission.p10_17ae7b7d_pde_decay_zero :
+    ∀ (w : ℝ) (g A : ℂ → ℂ), 0 < w → ContinuousAt A 0 →
+      (∀ z : ℂ, 0 < z.im →
+        g z = A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z / (w : ℂ)))) →
+      (∀ ε : ℝ, 0 < ε → ∃ Y : ℝ, ∀ z : ℂ,
+        0 < z.im → Y ≤ z.im → ‖g z‖ ≤ ε) → A 0 = 0 := by
+  intro w g A hw hA hfactor hdecay
+  have hbound : ∀ ε : ℝ, 0 < ε →
+      ∃ r : ℝ, 0 < r ∧ ∀ q : ℂ, q ≠ 0 → ‖q‖ < r → ‖A q‖ ≤ ε := by
+    intro ε hε
+    obtain ⟨Y, hY⟩ := hdecay ε hε
+    refine ⟨Real.exp (-2 * Real.pi * max 1 Y / w), Real.exp_pos _, ?_⟩
+    intro q hq hqr
+    let z := Function.Periodic.invQParam w q
+    have heq : Function.Periodic.qParam w z = q :=
+      Function.Periodic.qParam_right_inv hw.ne' hq
+    have him : max 1 Y < z.im :=
+      (Function.Periodic.norm_qParam_lt_iff hw (max 1 Y) z).mp (by rwa [heq])
+    have hz : 0 < z.im := lt_trans (lt_of_lt_of_le zero_lt_one (le_max_left 1 Y)) him
+    have hgz : g z = A q := by
+      have h := hfactor z hz
+      change g z = A (Function.Periodic.qParam w z) at h
+      rwa [heq] at h
+    rw [← hgz]
+    exact hY z hz (le_trans (le_max_right 1 Y) him.le)
+  by_contra hzero
+  have ha : 0 < ‖A 0‖ := norm_pos_iff.mpr hzero
+  have hε : 0 < ‖A 0‖ / 3 := by positivity
+  obtain ⟨r, hr, hbound⟩ := hbound (‖A 0‖ / 3) hε
+  obtain ⟨δ, hδ, hclose⟩ := Metric.continuousAt_iff.mp hA (‖A 0‖ / 3) hε
+  let q : ℂ := (min r δ / 2 : ℝ)
+  have hqpos : 0 < min r δ / 2 := half_pos (lt_min hr hδ)
+  have hqnorm : ‖q‖ = min r δ / 2 := Complex.norm_of_nonneg hqpos.le
+  have hqr : ‖q‖ < r := by
+    rw [hqnorm]
+    linarith [min_le_left r δ]
+  have hqδ : ‖q‖ < δ := by
+    rw [hqnorm]
+    linarith [min_le_right r δ]
+  have hqne : q ≠ 0 := norm_pos_iff.mp (by rwa [hqnorm])
+  have hsmall : ‖A q‖ ≤ ‖A 0‖ / 3 := hbound q hqne hqr
+  have hnear : ‖A q - A 0‖ < ‖A 0‖ / 3 := by
+    simpa only [dist_eq_norm] using hclose (by simpa only [dist_zero_right] using hqδ)
+  have htriangle : ‖A 0‖ ≤ ‖A q - A 0‖ + ‖A q‖ := by
+    calc
+      ‖A 0‖ = ‖(A 0 - A q) + A q‖ := by rw [sub_add_cancel]
+      _ ≤ ‖A 0 - A q‖ + ‖A q‖ := norm_add_le _ _
+      _ = ‖A q - A 0‖ + ‖A q‖ := by rw [norm_sub_rev]
+  linarith
+
+
+theorem Submission.p10_17ae7b7d_efp_inverse_coset_eq_iff :
+    ∀ (N : ℕ) [NeZero N] (A B : Matrix.SpecialLinearGroup (Fin 2) ℤ),
+      (QuotientGroup.mk (A⁻¹) :
+        (Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 N) =
+          QuotientGroup.mk (B⁻¹) ↔
+        ∃ u : (ZMod N)ˣ,
+          (B 1 0 : ZMod N) = (u : ZMod N) * (A 1 0 : ZMod N) ∧
+          (B 1 1 : ZMod N) = (u : ZMod N) * (A 1 1 : ZMod N) := by
+  intro N _ A B
+  constructor
+  · intro h
+    let E := B * A⁻¹
+    have hE : E ∈ CongruenceSubgroup.Gamma0 N := by
+      simpa only [inv_inv] using (QuotientGroup.eq.mp h.symm)
+    have hzero : (E 1 0 : ZMod N) = 0 := CongruenceSubgroup.Gamma0_mem.mp hE
+    have hdet : (E 0 0 : ZMod N) * (E 1 1 : ZMod N) -
+        (E 0 1 : ZMod N) * (E 1 0 : ZMod N) = 1 := by
+      have h := E.det_coe
+      rw [Matrix.det_fin_two] at h
+      exact_mod_cast h
+    have hunit : (E 1 1 : ZMod N) * (E 0 0 : ZMod N) = 1 := by
+      rw [hzero, mul_zero, sub_zero] at hdet
+      simpa only [mul_comm] using hdet
+    let u : (ZMod N)ˣ := Units.mkOfMulEqOne (E 1 1 : ZMod N) (E 0 0 : ZMod N) hunit
+    have hBA : E * A = B := by
+      dsimp [E]
+      rw [mul_assoc, inv_mul_cancel, mul_one]
+    have hrow (j : Fin 2) : (B 1 j : ZMod N) = (E 1 1 : ZMod N) * (A 1 j : ZMod N) := by
+      have h := congrArg (fun C : Matrix.SpecialLinearGroup (Fin 2) ℤ =>
+        (C 1 j : ZMod N)) hBA
+      change (((E.1 * A.1) 1 j : ℤ) : ZMod N) = (B 1 j : ZMod N) at h
+      simp only [Matrix.mul_apply, Fin.sum_univ_two, Int.cast_add, Int.cast_mul] at h
+      change (E 1 0 : ZMod N) * (A 0 j : ZMod N) +
+        (E 1 1 : ZMod N) * (A 1 j : ZMod N) = (B 1 j : ZMod N) at h
+      simpa only [hzero, zero_mul, zero_add] using h.symm
+    exact ⟨u, hrow 0, hrow 1⟩
+  · rintro ⟨u, hc, hd⟩
+    apply Eq.symm
+    apply QuotientGroup.eq.mpr
+    rw [inv_inv]
+    apply CongruenceSubgroup.Gamma0_mem.mpr
+    change (((B.1 * (A⁻¹).1) 1 0 : ℤ) : ZMod N) = 0
+    rw [Matrix.SpecialLinearGroup.SL2_inv_expl]
+    simp only [Matrix.mul_apply, Fin.sum_univ_two]
+    change ((B 1 0 * A 1 1 + B 1 1 * -(A 1 0) : ℤ) : ZMod N) = 0
+    push_cast
+    rw [hc, hd]
+    ring
