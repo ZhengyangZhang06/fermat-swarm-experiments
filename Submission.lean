@@ -2266,6 +2266,7 @@ theorem p04_tz91_invariant_restriction_norm_range
   intro y hy
   obtain ⟨x, rfl⟩ := hy
   obtain ⟨v, rfl⟩ := Representation.Coinvariants.mk_surjective A.ρ x
+  -- The right-coset decomposition writes the ambient norm as a subgroup norm.
   let S : H.RightTransversal := default
   let : Fintype S.1 := Fintype.ofFinite _
   refine ⟨Representation.Coinvariants.mk (Rep.res H.subtype A).ρ
