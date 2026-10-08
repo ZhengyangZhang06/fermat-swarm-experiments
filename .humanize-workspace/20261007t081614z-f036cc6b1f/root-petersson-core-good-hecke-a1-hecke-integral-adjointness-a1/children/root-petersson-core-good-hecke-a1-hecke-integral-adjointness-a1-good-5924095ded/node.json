@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.petersson_core_good_hecke-a1.hecke_integral_adjointness-a1.good_prime_transversal-a1",
+  "parent_id": "root.petersson_core_good_hecke-a1.hecke_integral_adjointness-a1",
+  "depth": 3,
+  "title": "Explicit good-prime coset representatives and Hecke matrices",
+  "statement": "Let M be a nonzero natural number and p a natural prime with p not dividing M. Write Γ = Γ₀(M), ι : SL₂(ℤ) → GL₂(ℝ) for the canonical embedding, α = ModularForm.heckeMatrix p 0 = diag(1,p), A_j = ModularForm.heckeMatrix p j, and C = ModularForm.heckeDiagMatrix p = diag(p,1). There exists r : Fin(p+1) → SL₂(ℤ) such that every r_i belongs to Γ; for every γ ∈ Γ there is a unique i ∈ Fin(p+1) for which p divides the upper-right entry of γr_i⁻¹; α ι(r_j) = A_j for every j ∈ Fin p, embedded by Fin.castSucc; and there exists β ∈ Γ with α ι(r_p) = ι(β) C, where the last index is Fin.last p.",
+  "lean_statement": "∀ (M : ℕ) [NeZero M] (p : ℕ), p.Prime → ¬ p ∣ M → ∃ r : Fin (p + 1) → Matrix.SpecialLinearGroup (Fin 2) ℤ, (∀ i, r i ∈ CongruenceSubgroup.Gamma0 M) ∧ (∀ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ CongruenceSubgroup.Gamma0 M → ∃! i : Fin (p + 1), (p : ℤ) ∣ (γ * (r i)⁻¹) 0 1) ∧ (∀ i : Fin p, ModularForm.heckeMatrix p 0 * Matrix.SpecialLinearGroup.mapGL ℝ (r i.castSucc) = ModularForm.heckeMatrix p i.val) ∧ (∃ β : Matrix.SpecialLinearGroup (Fin 2) ℤ, β ∈ CongruenceSubgroup.Gamma0 M ∧ ModularForm.heckeMatrix p 0 * Matrix.SpecialLinearGroup.mapGL ℝ (r (Fin.last p)) = Matrix.SpecialLinearGroup.mapGL ℝ β * ModularForm.heckeDiagMatrix p)",
+  "lean_name": "f036cc6b1f_pc_hi_good_prime_transversal",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p01/20261007t081614z-f036cc6b1f/root-petersson-core-good-hecke-a1-hecke-integral-adjointness-a1-good-5924095ded-a1"
+}

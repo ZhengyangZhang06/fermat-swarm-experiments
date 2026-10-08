@@ -1,0 +1,67 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "petersson_slash|def petersson|theorem.*slash|isZeroAt_iff|Arithmetic|IsCusp|FiniteIndex|SMulInvariantMeasure|coe_heckeTLin_apply|def heckeMatrix|def heckeDiagMatrix|def heckeT|def Gamma0",
+        "petersson_integral_core|doubleCoset|double_coset|hecke.*adjoint|adjoint.*hecke|slash.*rational|f036cc6b1f_pc_hi_(rational_slash|good_prime_transversal|effective_domain_lift|finite_trace_unfolding)",
+        "MDifferentiable.slash|structure CuspForm|class CuspFormClass|zero_at_infty_slash",
+        "volume|SMulInvariantMeasure|measurePreserving|integral_iUnion_ae|setIntegral_image_emb",
+        "f036cc6b1f_pc_hi_(rational_slash|good_prime_transversal|effective_domain_lift|finite_trace_unfolding)",
+        "git -C .lake/packages/mathlib rev-parse HEAD",
+        "git -C .lake/packages/mathlib status --porcelain",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/f036cc6b1f_independent_audit_pcgwhu4y/IndependentTypes.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperator.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/ArithmeticSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/BoundedAtCusp.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Cusps.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/SlashActions.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Petersson.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Group/Action.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Integral/Bochner/Set.lean",
+        "/tmp/f036cc6b1f_independent_audit_pcgwhu4y/IndependentTypes.lean",
+        "/tmp/f036cc6b1f_independent_audit_pcgwhu4y/IndependentTypes.log",
+        "/tmp/f036cc6b1f_independent_audit_pcgwhu4y/Compatibility.json",
+        "/tmp/f036cc6b1f_independent_audit_pcgwhu4y/ImportClosure.json"
+      ],
+      "conclusion": "The manifest pins project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Installed mathlib is clean at that revision; all 20 project sources in the relevant import closure match the snapshot, including sources behind resolved artifacts. The inspected files support the exact Hecke normalization, subgroup embedding, rational-cusp classification, slash holomorphy, cusp criterion, Petersson covariance, hyperbolic-volume invariance, and integration over almost-everywhere disjoint unions. The existing-adjointness/core/double-coset search returned no matches in project/Definitions and mathlib/Mathlib/NumberTheory/ModularForms. Independent Lean checking succeeded for all four literal propositions using library imports without importing Submission. The inferred measure and slash instances are the intended native instances; no problematic inline IsUnit construction occurs. Audited library declarations have only propext, Classical.choice, and Quot.sound, or no axioms. All four names are bare, distinct, and unreserved in active node metadata. The split is appropriate: its obligations are narrower than the parent, its dependency graph is acyclic, and the existing Petersson-core prerequisite remains correctly directed. This accepts the decomposition and supplied prose proofs, not unimplemented Lean proofs."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "rational_slash_transfer",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition matches every stated hypothesis and the existential cusp-form conclusion. The proof establishes conjugation invariance and holomorphy, identifies rational cusp coordinates, and correctly obtains the factor a/d with a/d > 0. The single-coordinate criterion supplies the full bundled cusp condition. No circular reliance or deferred proof discovery occurs."
+    },
+    {
+      "key": "good_prime_transversal",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The proposition exactly expresses membership, unique divisibility, and both indexed matrix identities. The Bézout matrices have determinant one and belong to Gamma0 M. The calculations b-aj and av+bp prove existence and uniqueness in both residue cases; direct multiplication proves the exact pinned Hecke identities. The proof is complete and independent."
+    },
+    {
+      "key": "effective_domain_lift",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "All transversal, subgroup, measurability, and almost-everywhere hypotheses match the Lean proposition. Decomposing η⁻¹ establishes coverage with the correct coset orientation. Pairwise uniqueness up to sign, together with -I ∈ Δ, proves both effective uniqueness and simultaneous disjointness. Every exceptional-set argument uses the same original point, so no saturation hypothesis is missing."
+    },
+    {
+      "key": "finite_trace_unfolding",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The proposition matches the stated arbitrary-function contract, including individual integrability conclusions. Its sole dependency on effective_domain_lift is correctly directed. Restriction and measure-preserving transport establish integrability before finite-sum linearity is used. Petersson covariance uses precisely the assumed invariance of v; almost-everywhere disjoint additivity then proves the exact unnormalized identity."
+    }
+  ],
+  "required_changes": []
+}
