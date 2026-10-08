@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "77b82bbc752ab6d51de8f624884b2b758086c651d221965825c4342fb8eae5f1",
+  "git_delta": {
+    "base_commit": "d92f34b23948547b83060c71d6dce61babc6cfd0",
+    "candidate_commit": "48f8f5fdf616849d26ff418c7c49f43f4d51bad5",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_norm_local_multiplier_order",
+    "diff_sha256": "64726367d0b4db7469de5a66c73c102291417544f07e035c277edc54c23ed815",
+    "source_sha256": "f7962c6505955f09dd167e54569999d980b6ebb8ab42d12257e05d751de8932f",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_norm_local_multiplier_order",
+      "statement": "∀ (g ψ J : ℂ → ℂ) (v : ℂ), AnalyticAt ℂ g v → analyticOrderAt g v ≠ ⊤ → AnalyticAt ℂ ψ v → ψ v = v → deriv ψ v ≠ 0 → AnalyticAt ℂ J v → (∃ r : ℝ, 0 < r ∧ ∀ z : ℂ, ‖z - v‖ < r → g (ψ z) = J z * g z) → (deriv ψ v) ^ analyticOrderNatAt g v = J v",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
