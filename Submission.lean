@@ -4870,3 +4870,53 @@ theorem Submission.p10_17ae7b7d_pde_finite_order :
   have hz : analyticOrderAt A 0 = 0 := by
     simpa only [horder, Nat.cast_zero] using (Nat.cast_analyticOrderNatAt hfinite).symm
   exact ((hAn 0 h0).analyticOrderAt_eq_zero.mp hz) hzero
+
+theorem Submission.p10_17ae7b7d_pde_decay_zero :
+    ∀ (w : ℝ) (g A : ℂ → ℂ), 0 < w → ContinuousAt A 0 →
+      (∀ z : ℂ, 0 < z.im →
+        g z = A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z / (w : ℂ)))) →
+      (∀ ε : ℝ, 0 < ε → ∃ Y : ℝ, ∀ z : ℂ,
+        0 < z.im → Y ≤ z.im → ‖g z‖ ≤ ε) → A 0 = 0 := by
+  intro w g A hw hA hfactor hdecay
+  have hbound : ∀ ε : ℝ, 0 < ε →
+      ∃ r : ℝ, 0 < r ∧ ∀ q : ℂ, q ≠ 0 → ‖q‖ < r → ‖A q‖ ≤ ε := by
+    intro ε hε
+    obtain ⟨Y, hY⟩ := hdecay ε hε
+    refine ⟨Real.exp (-2 * Real.pi * max 1 Y / w), Real.exp_pos _, ?_⟩
+    intro q hq hqr
+    let z := Function.Periodic.invQParam w q
+    have heq : Function.Periodic.qParam w z = q :=
+      Function.Periodic.qParam_right_inv hw.ne' hq
+    have him : max 1 Y < z.im :=
+      (Function.Periodic.norm_qParam_lt_iff hw (max 1 Y) z).mp (by rwa [heq])
+    have hz : 0 < z.im := lt_trans (lt_of_lt_of_le zero_lt_one (le_max_left 1 Y)) him
+    have hgz : g z = A q := by
+      have h := hfactor z hz
+      change g z = A (Function.Periodic.qParam w z) at h
+      rwa [heq] at h
+    rw [← hgz]
+    exact hY z hz (le_trans (le_max_right 1 Y) him.le)
+  by_contra hzero
+  have ha : 0 < ‖A 0‖ := norm_pos_iff.mpr hzero
+  have hε : 0 < ‖A 0‖ / 3 := by positivity
+  obtain ⟨r, hr, hbound⟩ := hbound (‖A 0‖ / 3) hε
+  obtain ⟨δ, hδ, hclose⟩ := Metric.continuousAt_iff.mp hA (‖A 0‖ / 3) hε
+  let q : ℂ := (min r δ / 2 : ℝ)
+  have hqpos : 0 < min r δ / 2 := half_pos (lt_min hr hδ)
+  have hqnorm : ‖q‖ = min r δ / 2 := Complex.norm_of_nonneg hqpos.le
+  have hqr : ‖q‖ < r := by
+    rw [hqnorm]
+    linarith [min_le_left r δ]
+  have hqδ : ‖q‖ < δ := by
+    rw [hqnorm]
+    linarith [min_le_right r δ]
+  have hqne : q ≠ 0 := norm_pos_iff.mp (by rwa [hqnorm])
+  have hsmall : ‖A q‖ ≤ ‖A 0‖ / 3 := hbound q hqne hqr
+  have hnear : ‖A q - A 0‖ < ‖A 0‖ / 3 := by
+    simpa only [dist_eq_norm] using hclose (by simpa only [dist_zero_right] using hqδ)
+  have htriangle : ‖A 0‖ ≤ ‖A q - A 0‖ + ‖A q‖ := by
+    calc
+      ‖A 0‖ = ‖(A 0 - A q) + A q‖ := by rw [sub_add_cancel]
+      _ ≤ ‖A 0 - A q‖ + ‖A q‖ := norm_add_le _ _
+      _ = ‖A q - A 0‖ + ‖A q‖ := by rw [norm_sub_rev]
+  linarith
