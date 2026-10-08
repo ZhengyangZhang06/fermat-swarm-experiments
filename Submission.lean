@@ -1228,3 +1228,54 @@ theorem f036cc6b1f_pc_integral_core
   · exact hEint f g
 
 end Submission
+
+theorem Submission.f036cc6b1f_pc_hi_rational_slash
+    (Γ Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ))
+    [Γ.FiniteIndex] [Δ.FiniteIndex]
+    (A : Matrix.GeneralLinearGroup (Fin 2) ℝ)
+    (_hpos : 0 < (A.det : ℝ))
+    (hrat : ∀ i j : Fin 2, ∃ q : ℚ, A i j = (q : ℝ))
+    (hconj : ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ, δ ∈ Δ →
+      A * Matrix.SpecialLinearGroup.mapGL ℝ δ * A⁻¹ ∈
+        (Γ : Subgroup (Matrix.GeneralLinearGroup (Fin 2) ℝ))) :
+    ∀ f : CuspForm Γ 2, ∃ g : CuspForm Δ 2,
+      (g : UpperHalfPlane → ℂ) =
+        SlashAction.map (2 : ℤ) A (f : UpperHalfPlane → ℂ) := by
+  classical
+  intro f
+  choose q hq using hrat
+  have rational_cusp (c : OnePoint ℝ)
+      (hc : c ∈ Set.range (OnePoint.map (Rat.cast : ℚ → ℝ))) :
+      A • c ∈ Set.range (OnePoint.map (Rat.cast : ℚ → ℝ)) := by
+    obtain ⟨r, rfl⟩ := hc
+    cases r with
+    | infty =>
+      rw [OnePoint.map_infty, OnePoint.smul_infty_eq_ite]
+      split
+      · exact ⟨OnePoint.infty, rfl⟩
+      · refine ⟨↑(q 0 0 / q 1 0), ?_⟩
+        simp [hq]
+    | coe r =>
+      rw [OnePoint.map_some, OnePoint.smul_some_eq_ite]
+      split
+      · exact ⟨OnePoint.infty, rfl⟩
+      · refine ⟨↑((q 0 0 * r + q 0 1) / (q 1 0 * r + q 1 1)), ?_⟩
+        simp [hq]
+  refine ⟨{
+    toFun := SlashAction.map (2 : ℤ) A (f : UpperHalfPlane → ℂ)
+    slash_action_eq' := ?_
+    holo' := (CuspFormClass.holo f).slash 2 A
+    zero_at_cusps' := ?_
+  }, rfl⟩
+  · rintro _ ⟨δ, hδ, rfl⟩
+    rw [← SlashAction.slash_mul]
+    have hmul : A * Matrix.SpecialLinearGroup.mapGL ℝ δ =
+        (A * Matrix.SpecialLinearGroup.mapGL ℝ δ * A⁻¹) * A := by
+      simp [mul_assoc]
+    rw [hmul, SlashAction.slash_mul,
+      SlashInvariantFormClass.slash_action_eq f _ (hconj δ hδ)]
+  · intro c hc
+    apply OnePoint.IsZeroAt.smul_iff.mp
+    apply CuspFormClass.zero_at_cusps f
+    rw [Subgroup.IsArithmetic.isCusp_iff_isCusp_SL2Z, isCusp_SL2Z_iff] at hc ⊢
+    exact rational_cusp c hc
