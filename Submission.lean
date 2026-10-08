@@ -2599,3 +2599,22 @@ theorem Submission.f036cc6b1f_pic_dd_ae_orbit_zero :
   filter_upwards [hcover, hall] with z hz hzall
   obtain ⟨γ, hγ, hzE⟩ := hz
   exact (hinv γ hγ z).symm.trans (hzall γ hzE)
+theorem Submission.f036cc6b1f_pic_dd_open_pos :
+    MeasureTheory.Measure.IsOpenPosMeasure
+      (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) := by
+  let : MeasureTheory.Measure.IsOpenPosMeasure
+      ((MeasureTheory.volume : MeasureTheory.Measure ℂ).comap UpperHalfPlane.coe) :=
+    MeasureTheory.Measure.IsOpenPosMeasure.comap _ UpperHalfPlane.isOpenEmbedding_coe
+  rw [UpperHalfPlane.volume_def]
+  apply MeasureTheory.Measure.AbsolutelyContinuous.isOpenPosMeasure
+    (μ := (MeasureTheory.volume : MeasureTheory.Measure ℂ).comap UpperHalfPlane.coe)
+  apply MeasureTheory.withDensity_absolutelyContinuous'
+  · have hw : Continuous (fun z : UpperHalfPlane ↦
+        (1 / NNReal.mk z.im z.im_pos.le : NNReal) ^ 2) := by
+      refine .pow (.div₀ continuous_const ?_ ?_) _
+      · exact UpperHalfPlane.continuous_im.subtype_mk _
+      · exact fun z ↦ NNReal.ne_iff.mp z.im_ne_zero
+    exact hw.measurable.coe_nnreal_ennreal.aemeasurable
+  · exact Filter.Eventually.of_forall fun z ↦
+      ENNReal.coe_ne_zero.mpr (pow_ne_zero 2
+        (div_ne_zero one_ne_zero (NNReal.ne_iff.mp z.im_ne_zero)))
