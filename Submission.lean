@@ -3150,4 +3150,68 @@ theorem p06_9e0f5043ff_dlen_diagonal_cokernel
   obtain ⟨eDiagonal⟩ := Submission.p06_9e0f5043ff_dmc_diagonal_quotient R m d
   exact ⟨eUnits.trans eDiagonal⟩
 
+/-- Over a place DVR, the cokernel length equals the order of the determinant. -/
+theorem p06_9e0f5043ff_lno_dvr_determinant_length
+    (K E : Type*) [Field K] [Field E] [Algebra K E]
+    (v : AlgebraicCurve.Place K E) (M : Type*) [AddCommGroup M]
+    [Module v.toValuationSubring M] [Module.Free v.toValuationSubring M]
+    [Module.Finite v.toValuationSubring M] (T : M →ₗ[v.toValuationSubring] M)
+    (hT : LinearMap.det T ≠ 0) :
+    ∃ n : ℕ, Module.length v.toValuationSubring (M ⧸ LinearMap.range T) = (n : ℕ∞) ∧
+      v.ord (algebraMap v.toValuationSubring E (LinearMap.det T)) = (n : ℤ) := by
+  classical
+  let A := v.toValuationSubring
+  let m := Module.finrank A M
+  let b := Module.finBasis A M
+  let D := LinearMap.toMatrix b b T
+  have hD : D.det ≠ 0 := by simpa [D] using hT
+  obtain ⟨P, Q, d, hP, hQ, hd, hdiag⟩ :=
+    p06_9e0f5043ff_dlen_matrix_diagonalization A m D hD
+  obtain ⟨c⟩ := p06_9e0f5043ff_dlen_diagonal_cokernel A m D P Q d hP hQ hdiag
+  choose a hlength hord using fun i => p06_9e0f5043ff_dlen_scalar_quotient K E v (d i) (hd i)
+  have hcoord (x : M) : Matrix.mulVecLin D (b.equivFun x) = b.equivFun (T x) := by
+    exact LinearMap.toMatrix_mulVec_repr b b T x
+  have hrange : (LinearMap.range T).map b.equivFun.toLinearMap =
+      LinearMap.range (Matrix.mulVecLin D) := by
+    ext y
+    constructor
+    · rintro ⟨z, ⟨x, rfl⟩, rfl⟩
+      exact ⟨b.equivFun x, hcoord x⟩
+    · rintro ⟨x, rfl⟩
+      refine ⟨T (b.equivFun.symm x), ⟨b.equivFun.symm x, rfl⟩, ?_⟩
+      change b.equivFun (T (b.equivFun.symm x)) = Matrix.mulVecLin D x
+      rw [← hcoord, LinearEquiv.apply_symm_apply]
+  let e := Submodule.Quotient.equiv (LinearMap.range T)
+    (LinearMap.range (Matrix.mulVecLin D)) b.equivFun hrange
+  refine ⟨∑ i, a i, ?_, ?_⟩
+  · rw [(e.trans c).length_eq, Module.length_pi_of_fintype]
+    rw [Nat.cast_sum]
+    exact Finset.sum_congr rfl (fun i _ => hlength i)
+  · have hcoe (x : A) (hx : x ≠ 0) : algebraMap A E x ≠ 0 := by
+      exact fun h => hx (Subtype.ext h)
+    have hunit (x : A) (hx : IsUnit x) : v.ord (algebraMap A E x) = 0 := by
+      obtain ⟨u, rfl⟩ := hx
+      exact v.ord_coe_unit u
+    have hPdet : IsUnit P.det := (Matrix.isUnit_iff_isUnit_det P).mp hP
+    have hQdet : IsUnit Q.det := (Matrix.isUnit_iff_isUnit_det Q).mp hQ
+    have hdet : P.det * D.det * Q.det = ∏ i, d i := by
+      simpa only [Matrix.det_mul, Matrix.det_diagonal] using congrArg Matrix.det hdiag
+    have hprod : ∀ s : Finset (Fin m),
+        v.ord (algebraMap A E (∏ i ∈ s, d i)) = ∑ i ∈ s, (a i : ℤ) := by
+      intro s
+      induction s using Finset.induction_on with
+      | empty => simp
+      | @insert i s hi ih =>
+        rw [Finset.prod_insert hi, map_mul,
+          v.ord_mul (hcoe _ (hd i))
+            (hcoe _ (Finset.prod_ne_zero_iff.mpr (fun j _ => hd j))),
+          hord i, ih, Finset.sum_insert hi]
+    have horder := congrArg (fun x : A => v.ord (algebraMap A E x)) hdet
+    rw [map_mul, map_mul,
+      v.ord_mul (mul_ne_zero (hcoe _ hPdet.ne_zero) (hcoe _ hD))
+        (hcoe _ hQdet.ne_zero),
+      v.ord_mul (hcoe _ hPdet.ne_zero) (hcoe _ hD),
+      hunit _ hPdet, hunit _ hQdet, zero_add, add_zero, hprod] at horder
+    simpa only [D, LinearMap.det_toMatrix, Nat.cast_sum] using horder
+
 end Submission
