@@ -3133,3 +3133,32 @@ theorem Submission.p10_17ae7b7d_crt_pi_rows :
     have he : ev row i = v i := Subtype.ext rfl
     rw [he]
     exact hv i
+
+
+theorem Submission.p10_17ae7b7d_idx_crt_row_card :
+    ∀ (N : ℕ) [NeZero N],
+      let P : ℕ → Type := fun n => Quot
+        (fun v w : {v : ZMod n × ZMod n // ∃ x y : ZMod n, x * v.1 + y * v.2 = 1} =>
+          ∃ u : (ZMod n)ˣ, (u : ZMod n) * v.1.1 = w.1.1 ∧
+            (u : ZMod n) * v.1.2 = w.1.2)
+      Nat.card (P N) = N.primeFactors.prod (fun p => Nat.card (P (p ^ N.factorization p))) := by
+  intro N _
+  classical
+  let P := fun (A : Type) [CommRing A] => Quot
+    (fun v w : {v : A × A // ∃ x y : A, x * v.1 + y * v.2 = 1} =>
+      ∃ u : Aˣ, (u : A) * v.1.1 = w.1.1 ∧ (u : A) * v.1.2 = w.1.2)
+  change Nat.card (P (ZMod N)) =
+    N.primeFactors.prod (fun p => Nat.card (P (ZMod (p ^ N.factorization p))))
+  obtain ⟨eCRT⟩ := Submission.p10_17ae7b7d_crt_ring_equiv_rows
+    (ZMod N) (∀ p : N.primeFactors, ZMod (p.1 ^ N.factorization p.1))
+    (ZMod.equivPi N (NeZero.ne N))
+  obtain ⟨ePi⟩ := Submission.p10_17ae7b7d_crt_pi_rows N.primeFactors
+    (fun p => ZMod (p.1 ^ N.factorization p.1))
+  calc
+    Nat.card (P (ZMod N)) =
+        Nat.card (∀ p : N.primeFactors, P (ZMod (p.1 ^ N.factorization p.1))) :=
+      Nat.card_congr (eCRT.trans ePi)
+    _ = ∏ p : N.primeFactors, Nat.card (P (ZMod (p.1 ^ N.factorization p.1))) :=
+      Nat.card_pi
+    _ = _ := Finset.prod_coe_sort N.primeFactors
+      (fun p => Nat.card (P (ZMod (p ^ N.factorization p))))
