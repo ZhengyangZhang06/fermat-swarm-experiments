@@ -2951,6 +2951,8 @@ theorem f036cc6b1f_pc_ed_ae_orbit_interior :
     fun _ hz a hfd => Classical.byContradiction fun hfdo => hz a ⟨hfd, hfdo⟩
 namespace Submission
 
+/-- Away from the modular boundary, a union of separated coset translates meets each
+subgroup orbit in at most one point modulo the central sign. -/
 theorem f036cc6b1f_pc_ed_transversal_unique :
     ∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ))
       (R : Finset (Matrix.SpecialLinearGroup (Fin 2) ℤ)),
