@@ -41,6 +41,8 @@ theorem p04_rsh_82a013d1d0_equivariant_retraction {G : Type*} [Group G] (H : Sub
   · intro h
     exact hT.equiv_fst_eq_self_of_mem_of_one_mem h1 h.property
 
+end Submission
+
 namespace Submission
 
 /-- The signed prism assignment extends to morphisms of the restricted standard complex.
@@ -434,11 +436,17 @@ theorem p04_rsh_82a013d1d0_prism_homotopy
         simp only [smul_eq_mul, mul_one]
       rw [hsum, add_comm _ (Rep.standardComplex.d k G (n + 2) (P (n + 1) c)),
         hsucc, sub_add_cancel]
+
 set_option backward.isDefEq.respectTransparency.types false in
 /-- The coordinatewise retraction and inclusion of homogeneous tuples give the
-restricted standard-complex homotopy equivalence. -/
+restricted standard-complex homotopy equivalence.
+
+The linear extensions and their differential compatibility use
+`MonoidAlgebra.mapDomainLinearMap` and `Rep.standardComplex.d_of` from pinned mathlib
+`db584cd6d46c92f209a44c0f1c829460d327499d`; the two approved child declarations supply
+the retraction and the prism homotopy. -/
 theorem p04_tia_coh_restricted_standard_homotopy_equiv
-    {k G : Type u} [CommRing k] [Group G] (H : Subgroup G) :
+    {k G : Type _} [CommRing k] [Group G] (H : Subgroup G) :
     Nonempty (HomotopyEquiv
       (((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj
         (Rep.standardComplex k G)) (Rep.standardComplex k H)) := by
@@ -448,7 +456,7 @@ theorem p04_tia_coh_restricted_standard_homotopy_equiv
     (ComplexShape.down ℕ)).obj (Rep.standardComplex k G)
   let D := Rep.standardComplex k H
   -- Coordinatewise maps commute with every vertex deletion.
-  have natural_d (L M : Type u) (f : L → M) (n : ℕ) :
+  have natural_d (L M : Type _) (f : L → M) (n : ℕ) :
       (Rep.standardComplex.d k M (n + 1)).comp
           (MonoidAlgebra.mapDomainLinearMap k k (fun c : Fin (n + 2) → L => f ∘ c)) =
         (MonoidAlgebra.mapDomainLinearMap k k (fun c : Fin (n + 1) → L => f ∘ c)).comp
