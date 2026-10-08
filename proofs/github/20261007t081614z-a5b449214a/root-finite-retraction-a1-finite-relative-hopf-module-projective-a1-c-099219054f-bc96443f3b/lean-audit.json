@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "c8c4dcb13f61c69d4f27e58b371f8516fc41a2a75a5ff39c21ce5bb2dbeab96f",
+  "git_delta": {
+    "base_commit": "9a5a07f7ee863d587b6355efa4b3e7bb1afe5d82",
+    "candidate_commit": "e582be34184bf5df7bd346dfe677b4871a581286",
+    "target": "Submission.lean",
+    "declaration": "p05_ct_comodule_a5b449214a",
+    "diff_sha256": "3fadae114e69f051867395f98e02bd38603d740da42194eab463aa68e269efc8",
+    "source_sha256": "56a2fb9189a2b1a56c598b81210e64a92d287362be22ffa34d78fd612e557ef4",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_ct_comodule_a5b449214a",
+      "statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] {M : Type*} [AddCommGroup M] [Module k M] (μ : M →ₗ[k] TensorProduct k M H) (_hcoassoc : ∀ m : M, TensorProduct.assoc k M H H ((TensorProduct.map μ (LinearMap.id : H →ₗ[k] H)) (μ m)) = (TensorProduct.map (LinearMap.id : M →ₗ[k] M) (Coalgebra.comul (R := k))) (μ m)) (_hcounit : ∀ m : M, TensorProduct.rid k M ((TensorProduct.map (LinearMap.id : M →ₗ[k] M) (Coalgebra.counit (R := k))) (μ m)) = m), ∃ T : TensorProduct k M H ≃ₗ[k] TensorProduct k M H, ∀ (m : M) (h : H), T (TensorProduct.tmul k m h) = TensorProduct.map (LinearMap.id : M →ₗ[k] M) (LinearMap.mulLeft k h) (μ m)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
