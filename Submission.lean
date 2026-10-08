@@ -25,3 +25,53 @@ theorem HopfAlgebra.hopfKer_eq_of_surjective_of_ker_eq_span
       Ideal.span {x : H | x ∈ K ∧ Coalgebra.counit (R := k) x = 0}) :
     HopfAlgebra.hopfKer q = K := by
   sorry
+
+theorem Submission.p05_translation_descends_a5b449214a
+    {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
+    (K : Subalgebra k H)
+    (hΔ : ∀ x ∈ K, Coalgebra.comul (R := k) x ∈
+      Submodule.span k {t : TensorProduct k H H |
+        ∃ a ∈ K, ∃ b ∈ K, t = TensorProduct.tmul k a b})
+    (hS : ∀ x ∈ K, HopfAlgebra.antipode k x ∈ K)
+    {B : Type*} [CommRing B] [Bialgebra k B] (q : BialgHom k H B)
+    (hq : Function.Surjective q)
+    (hker : RingHom.ker (q : H →+* B) =
+      Ideal.span {x : H | x ∈ K ∧ Coalgebra.counit (R := k) x = 0}) :
+    ∃ σ : B →ₐ[k] (TensorProduct K H H), ∀ b : H,
+      σ (q b) = Algebra.TensorProduct.mapOfCompatibleSMul K k k H H
+        (TensorProduct.map (HopfAlgebra.antipode k) (LinearMap.id : H →ₗ[k] H)
+          (Coalgebra.comul (R := k) b)) := by
+  let C := Algebra.TensorProduct.mapOfCompatibleSMul K k k H H
+  let s : TensorProduct k H H →ₗ[k] TensorProduct k H H := TensorProduct.map (HopfAlgebra.antipode k) (LinearMap.id : H →ₗ[k] H)
+  let i : H →ₗ[k] TensorProduct K H H :=
+    ((Algebra.TensorProduct.includeRight : H →ₐ[K] TensorProduct K H H).restrictScalars k).toLinearMap
+  let τ : H →ₐ[k] TensorProduct K H H :=
+    C.comp ((Algebra.TensorProduct.map (HopfAlgebra.antipodeAlgHom k H)
+      (AlgHom.id k H)).comp (Bialgebra.comulAlgHom k H))
+  have hbalance : ∀ z ∈ Submodule.span k {t : TensorProduct k H H |
+      ∃ a ∈ K, ∃ b ∈ K, t = TensorProduct.tmul k a b},
+      (C.toLinearMap.comp s) z = (i.comp ((LinearMap.mul' k H).comp s)) z := by
+    intro z hz
+    induction hz using Submodule.span_induction with
+    | mem z hz =>
+      obtain ⟨a, ha, b, _, rfl⟩ := hz
+      change HopfAlgebra.antipode k a ⊗ₜ[K] b =
+        (1 : H) ⊗ₜ[K] (HopfAlgebra.antipode k a * b)
+      simpa [Algebra.smul_def] using
+        (TensorProduct.smul_tmul (⟨HopfAlgebra.antipode k a, hS a ha⟩ : K) (1 : H) b)
+    | zero => simp only [map_zero]
+    | add x y _ _ hx hy => simp only [map_add, hx, hy]
+    | smul r x _ hx => simp only [map_smul, hx]
+  have hτker : RingHom.ker (q : H →+* B) ≤ RingHom.ker τ.toRingHom := by
+    rw [hker]
+    apply Ideal.span_le.mpr
+    intro x hx
+    change τ x = 0
+    change (C.toLinearMap.comp s) (Coalgebra.comul (R := k) x) = 0
+    rw [hbalance _ (hΔ x hx.1)]
+    change i (LinearMap.mul' k H
+      ((HopfAlgebra.antipode k).rTensor H (Coalgebra.comul (R := k) x))) = 0
+    rw [HopfAlgebra.mul_antipode_rTensor_comul_apply, hx.2, map_zero, map_zero]
+  refine ⟨AlgHom.liftOfSurjective q.toAlgHom hq τ hτker, ?_⟩
+  intro b
+  exact AlgHom.liftOfSurjective_apply q.toAlgHom hq τ hτker b
