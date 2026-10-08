@@ -2659,6 +2659,9 @@ theorem p06_9e0f5043ff_fpm_exists_local_place
       p06_9e0f5043ff_elp_principal_ideals_of_order F A.toSubring ν hνdiv hmem
   }, ?_⟩
   exact hA
+
+end Submission
+
 namespace Submission
 
 set_option warningAsError true
@@ -2940,6 +2943,8 @@ theorem p06_9e0f5043ff_fpm_residue_degree
     ((Ideal.quotientEquivAlgOfEq K hkerφ.symm).trans
       (Ideal.quotientKerAlgEquivOfSurjective (f := φ) hsurjφ)).toLinearEquiv.finrank_eq
   exact hdim.symm.trans finrank_quotient_span_eq_natDegree
+
+/-- Assemble the finite place, its residue degree, and its normalized orders. -/
 theorem p06_9e0f5043ff_rmp_finite_place_model
     (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F)
     (hx : Transcendental K x)
