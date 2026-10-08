@@ -878,6 +878,9 @@ theorem p06_9e0f5043ff_io_fraction_extension :
     simp only [ν, if_neg hf, if_neg hg, Nat.cast_add]
     ring
 /-- Finite order supports give a finite exceptional set for all coefficients of a polynomial. -/
+/-- Finite order supports give a finite exceptional set for all coefficients of a polynomial.
+Take the union of the order supports of its nonzero coefficients. Outside that union,
+unit–uniformizer factorization makes each nonzero coefficient a valuation-subring unit. -/
 theorem p06_9e0f5043ff_fosa_coefficients_integral_off_finite
     (K E : Type*) [Field K] [Field E] [Algebra K E]
     (hfinite : ∀ a : E, a ≠ 0 → {v : AlgebraicCurve.Place K E | v.ord a ≠ 0}.Finite)
