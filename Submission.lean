@@ -2459,4 +2459,34 @@ theorem p02_es_177ebb5a_sd_open_ladder :
   rw [iteratedDeriv_succ]
   exact (((hg z hz).const_mul ((-1 : ℂ) ^ n)).congr_of_eventuallyEq heq).deriv
 
+theorem p02_es_177ebb5a_scalarization_derivative :
+    ∀ (n : ℕ) (h : UpperHalfPlane → ℂ)
+      (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)),
+      DifferentiableOn ℂ (fun z : ℂ => h (UpperHalfPlane.ofComplex z))
+        {z : ℂ | 0 < z.im} →
+      HeckeEis.IsEichlerIntegral n h E → ∀ τ : UpperHalfPlane,
+      iteratedDeriv (n + 1)
+          (fun z : ℂ => MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z)
+            (E (UpperHalfPlane.ofComplex z)).val) (τ : ℂ) =
+        ((-1 : ℂ) ^ n * (Nat.factorial n : ℂ)) * h τ := by
+  intro n h E _hh hE τ
+  let Q : ℕ → ℂ → ℂ := fun r z =>
+    MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z)
+      ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r]
+        (E (UpperHalfPlane.ofComplex z)).val)
+  have hrec : ∀ r < n, ∀ z ∈ {z : ℂ | 0 < z.im},
+      HasDerivAt (Q r) (-Q (r + 1) z) z := by
+    intro r hr z hz
+    simpa only [Q, if_neg (Nat.ne_of_lt hr), UpperHalfPlane.ofComplex_apply_of_im_pos hz]
+      using p02_es_177ebb5a_sd_jet_recurrence n h E hE r (Nat.le_of_lt hr) ⟨z, hz⟩
+  have htop : ∀ z ∈ {z : ℂ | 0 < z.im},
+      HasDerivAt (Q n) ((Nat.factorial n : ℂ) * h (UpperHalfPlane.ofComplex z)) z := by
+    intro z hz
+    simpa [Q, UpperHalfPlane.ofComplex_apply_of_im_pos hz]
+      using p02_es_177ebb5a_sd_jet_recurrence n h E hE n le_rfl ⟨z, hz⟩
+  have hresult := p02_es_177ebb5a_sd_open_ladder {z : ℂ | 0 < z.im} n Q
+    (fun z => (Nat.factorial n : ℂ) * h (UpperHalfPlane.ofComplex z))
+    UpperHalfPlane.isOpen_upperHalfPlaneSet hrec htop (τ : ℂ) τ.im_pos
+  simpa [Q, mul_assoc] using hresult
+
 end Submission
