@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "f98958a23ae7b5592380f59204e5f725cf15cbbd8a5f1317f6bfcfb396ce1b18",
+  "git_delta": {
+    "base_commit": "2ba8428e225d0cba65c96dc863058248b21082ec",
+    "candidate_commit": "ab0b96493a8b7eb22e0bc8edb2e41e438c401b95",
+    "target": "Submission.lean",
+    "declaration": "p08_7d1ff633a4_tp26_low_degree_prism",
+    "diff_sha256": "bb793070640c15394902f75880539f7041ce01d80c0abb1d65affc2b091507e9",
+    "source_sha256": "b61cb49aea3e4a773dc9c2ab5c21753e4bd898266646c3c29975f33f4f8d5970",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p08_7d1ff633a4_tp26_low_degree_prism",
+      "statement": "∀ {X V : Type} [AddCommGroup V] (α β : X → X), (∀ F : X → X → V, (∀ x y z : X, F y z - F x z + F x y = 0) → ∀ x y : X, F (β x) (β y) - F (α x) (α y) = F (α y) (β y) - F (α x) (β x)) ∧ (∀ F : X → X → X → V, (∀ w x y z : X, F x y z - F w y z + F w x z - F w x y = 0) → let h : X → X → V := fun x y => F (α x) (β x) (β y) - F (α x) (α y) (β y); ∀ x y z : X, F (β x) (β y) (β z) - F (α x) (α y) (α z) = h y z - h x z + h x y)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

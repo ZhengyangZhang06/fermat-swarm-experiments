@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "fd69663895c2ca0267aef5b525abf3ea95b9806d30c54f533b2aa6a20a9cce07",
+  "git_delta": {
+    "base_commit": "7fd2f521153cd84a4090e77972b9201a5558ea0f",
+    "candidate_commit": "20684e9abd7f0514e1732f07454963ce6b00a688",
+    "target": "Submission.lean",
+    "declaration": "p08_7d1ff633a4_ck_cyclotomic_kernel",
+    "diff_sha256": "b656e36b30401db581e4a46d7fab70fd93a60c33b609837698909fdeee7b6029",
+    "source_sha256": "19388e7f7dc8afe6912c3353ddf4b58eb57e75901ab285c1063448293eff3e24",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p08_7d1ff633a4_ck_cyclotomic_kernel",
+      "statement": "∀ {p : ℕ} [Fact p.Prime], ∃ F : IntermediateField ℚ (AlgebraicClosure ℚ), FiniteDimensional ℚ F ∧ ∀ σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ, σ ∈ F.fixingSubgroup → ExtCitation.cycloChar p σ = 1",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

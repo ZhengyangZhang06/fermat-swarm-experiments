@@ -1,0 +1,18 @@
+{
+  "node_id": "root.transfer_theta-a1.cup_pairings-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/426",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/621",
+  "candidate_commit": "239a61aba6a94a1ab233ce7d8d12b9547a4962d6",
+  "integrated_commit": "6cfb31b6d1cbcea0435186648b6628110ef91017",
+  "proof_base_commit": "d62e9e225d519c1ecfd07dd7c399af490117a3f9",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.transfer_theta-a1",
+  "requires": [
+    "root.transfer_theta-a1.cup_pairings-a1.cup_zero_two-a1",
+    "root.transfer_theta-a1.cup_pairings-a1.cup_one_one-a1"
+  ]
+}

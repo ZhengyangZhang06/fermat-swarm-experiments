@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "4537361ef3fe5b77226d6692d97f6b7014d9b89cf69ae9eb10d4a84d963ebf28",
+  "git_delta": {
+    "base_commit": "b45259a055779d23b69d1cf73dc8d7c8b288c6c5",
+    "candidate_commit": "08ed6dee49405452d13ecd59dc0f830e26dff7b3",
+    "target": "Submission.lean",
+    "declaration": "p08_7d1ff633a4_rank_one_transfer",
+    "diff_sha256": "1ae4197769d0f02dd562c8e6b33a91029ffc8fa37b594e1962dbc985b4ff09b7",
+    "source_sha256": "07801c68b58c6230d40fb09815d8d8eaa56fce7b491a6946127f458063ab33bd",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p08_7d1ff633a4_rank_one_transfer",
+      "statement": "∀ {k V W : Type} [Field k] [AddCommGroup V] [Module k V] [AddCommGroup W] [Module k W] [FiniteDimensional k W] (n : k) (hn : n ≠ 0) (R : V →ₗ[k] W) (C : W →ₗ[k] V), (∀ v : V, C (R v) = n • v) → Module.finrank k W = 1 → ∀ ℓ : V →ₗ[k] k, Function.Surjective ℓ → Function.Bijective (ℓ.comp C)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

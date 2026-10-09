@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "20c0dfbedf1ca22a44778bf45f44238375ff06e6851dc1028c92bf1cc90f4982",
+  "git_delta": {
+    "base_commit": "2ba8428e225d0cba65c96dc863058248b21082ec",
+    "candidate_commit": "51ecb8ccc8fef5abe7611839a51aa8d1a1372859",
+    "target": "Submission.lean",
+    "declaration": "p08_7d1ff633a4_tp26_coset_averaging",
+    "diff_sha256": "6bd249389797549777d4117ccab86722b4bf15b8cad8211b8791af0af970bd81",
+    "source_sha256": "e6ee458c9a41ff5968075eddc5891964d2787b934daf51feba29699e3246f572",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p08_7d1ff633a4_tp26_coset_averaging",
+      "statement": "∀ {k G X : Type} [Field k] [Group G] [MulAction G X] (H : Subgroup G) [Fintype (G ⧸ H)] (V : Rep.{0} k G) (t : (G ⧸ H) → G), (∀ c : G ⧸ H, (t c : G ⧸ H) = c) → ∃ T : (X → V) →ₗ[k] (X → V), (∀ (F : X → V) (x : X), T F x = ∑ c : G ⧸ H, V.ρ (t c) (F ((t c)⁻¹ • x))) ∧ (∀ F : X → V, (∀ (h : H) (x : X), F ((h : G) • x) = V.ρ (h : G) (F x)) → ∀ (s : G) (x : X), T F (s • x) = V.ρ s (T F x)) ∧ (∀ F : X → V, (∀ (s : G) (x : X), F (s • x) = V.ρ s (F x)) → ∀ x : X, T F x = (H.index : k) • F x) ∧ (∀ u : (G ⧸ H) → G, (∀ c : G ⧸ H, (u c : G ⧸ H) = c) → ∀ F : X → V, (∀ (h : H) (x : X), F ((h : G) • x) = V.ρ (h : G) (F x)) → ∀ x : X, T F x = ∑ c : G ⧸ H, V.ρ (u c) (F ((u c)⁻¹ • x)))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
