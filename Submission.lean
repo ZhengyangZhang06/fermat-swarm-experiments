@@ -1880,9 +1880,11 @@ theorem Submission.p09_af497904fe_csr_cyclotomic_prime_residue :
   letI : Fact q.Prime := ⟨hq⟩
   letI : NeZero q := ⟨hq.ne_zero⟩
   letI : IsCyclotomicExtension {q} ℚ C :=
+    Algebra.isAlgebraic_iff_isIntegral.mp inferInstance
+  let : IsCyclotomicExtension {q} ℚ C :=
     hζ.intermediateField_adjoin_isCyclotomicExtension ℚ
-  letI : NumberField C := IsCyclotomicExtension.numberField {q} ℚ C
-  letI : IsCyclotomicExtension {q ^ (0 + 1)} ℚ C := by
+  let : NumberField C := IsCyclotomicExtension.numberField {q} ℚ C
+  let : IsCyclotomicExtension {q ^ (0 + 1)} ℚ C := by
     simpa only [zero_add, pow_one] using
       (inferInstance : IsCyclotomicExtension {q} ℚ C)
   have hξ := IsCyclotomicExtension.zeta_spec (q ^ (0 + 1)) ℚ C
