@@ -1,0 +1,36 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'integralClosureAt|fiberEquiv|fiberCenter|restrictResidueMap|def inertiaDeg' project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean project/Definitions/Def_AlgebraicCurve_DivisorPushPull.lean",
+        "rg -n 'length_eq_of_surjective|length_eq_finrank|length_quotient_pow_maximalIdeal' mathlib/Mathlib/RingTheory/Length.lean mathlib/Mathlib/RingTheory/DiscreteValuationRing/Basic.lean",
+        "rg -n 'p06_9e0f5043ff_lno_integral_fiber_length' project mathlib/Mathlib"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorPushPull.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Length.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DiscreteValuationRing/Basic.lean"
+      ],
+      "conclusion": "Queries ran from the snapshot root. Inspected the integral closure, fiber correspondence, canonical restriction residue algebra, inertia degree, and length APIs; relevant files byte-match the pinned candidate dependencies. No selected-theorem declaration was found in the snapshot. All nine dependency checkouts are clean at their manifest revisions."
+    }
+  ],
+  "comparison_identity": "9b7ded319c002a2cdc4fc3951c8076548ef08ddd5669ca285cfd659a64210899",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_lno_integral_fiber_length",
+      "statement": "∀ (K E L : Type*) [Field K] [Field E] [Field L] [Algebra K E] [Algebra K L] [Algebra E L] [IsScalarTower K E L] [FiniteDimensional E L] [Algebra.IsSeparable E L] (v : AlgebraicCurve.Place K E) (b : AlgebraicCurve.Place.integralClosureAt L v), b ≠ 0 → ∀ n : ℕ, Module.length v.toValuationSubring (AlgebraicCurve.Place.integralClosureAt L v ⧸ Ideal.span ({b} : Set (AlgebraicCurve.Place.integralClosureAt L v))) = (n : ℕ∞) → Finset.sum (v.fiberOver L) (fun w => (w.inertiaDeg E : ℤ) * w.ord (algebraMap (AlgebraicCurve.Place.integralClosureAt L v) L b)) = (n : ℤ)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines the accepted weighted-length, residue-degree, and local-order lemmas, then reindexes over the fiber and casts the finite sum to ℤ."
+    }
+  ]
+}
