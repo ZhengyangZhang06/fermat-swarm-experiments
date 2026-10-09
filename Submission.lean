@@ -234,3 +234,31 @@ theorem Submission.p09_af497904fe_finite_inverse_limit
   | succ j hij ih =>
       rw [hcomp i j (j + 1) hij (Nat.le_succ j), hadj j]
       exact ih
+
+
+theorem Submission.p09_af497904fe_fcc_character_finite_action :
+    ∀ (N : ℕ) [NeZero N],
+      ∃ (χ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) →* (ZMod N)ˣ)
+        (F : IntermediateField ℚ (AlgebraicClosure ℚ)),
+        FiniteDimensional ℚ F ∧
+        (∀ σ τ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ),
+          (∀ x ∈ F, σ x = τ x) → χ σ = χ τ) ∧
+        (∀ (σ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ))
+          (ζ : AlgebraicClosure ℚ),
+          ζ ^ N = 1 → σ ζ = ζ ^ ((χ σ : ZMod N).val)) := by
+  classical
+  intro N _
+  obtain ⟨ζ₀, hζ₀⟩ :=
+    HasEnoughRootsOfUnity.exists_primitiveRoot (AlgebraicClosure ℚ) N
+  refine ⟨hζ₀.autToPow ℚ, IntermediateField.adjoin ℚ {ζ₀},
+    IntermediateField.adjoin.finiteDimensional
+      ((hζ₀.isIntegral (NeZero.pos N)).tower_top), ?_, ?_⟩
+  · intro σ τ hστ
+    apply Units.ext
+    apply ZMod.val_injective
+    apply hζ₀.pow_inj (ZMod.val_lt _) (ZMod.val_lt _)
+    rw [hζ₀.autToPow_spec ℚ σ, hζ₀.autToPow_spec ℚ τ]
+    exact hστ ζ₀ (IntermediateField.mem_adjoin_simple_self ℚ ζ₀)
+  · intro σ ζ hζ
+    obtain ⟨b, _, rfl⟩ := hζ₀.eq_pow_of_pow_eq_one hζ
+    rw [map_pow, ← hζ₀.autToPow_spec ℚ σ, pow_right_comm]
