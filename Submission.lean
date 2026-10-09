@@ -6718,11 +6718,45 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
       (hBfinite.countable.image _)
   have hgridCirclesFinite : gridCircles.Finite :=
     ((Set.finite_singleton _).union (hBfinite.image _)).union (hSfinite.image _)
-  obtain ⟨a, hgridCorners, hgridTangencies, hgridVertices⟩ :=
-    hgridChoice d gridCorners gridCircles hgridCornersCountable hgridCirclesFinite.countable
+  -- Include the finite circle seams in the same general-position choice.
+  -- Their first and last subdivision pieces then use a single cell primitive.
+  obtain ⟨a, hgridAvoid, hgridTangencies, hgridVertices⟩ :=
+    hgridChoice d (gridCorners ∪ (fun v => circleMap v r 0) '' S) gridCircles
+      (hgridCornersCountable.union (hSfinite.countable.image _)) hgridCirclesFinite.countable
+  have hgridCorners (p : ℂ) (hp : p ∈ gridCorners) (n : ℤ) :
+      a.re + n * d ≠ p.re ∧ a.im + n * d ≠ p.im := hgridAvoid p (Or.inl hp) n
+  have hgridCircleSeams (v : ℂ) (hv : v ∈ S) (n : ℤ) :
+      a.re + n * d ≠ (circleMap v r 0).re ∧ a.im + n * d ≠ (circleMap v r 0).im :=
+    hgridAvoid (circleMap v r 0) (Or.inr ⟨v, hv, rfl⟩) n
   let gridSquare : ℤ × ℤ → Set ℂ := fun i => {z |
     a.re + (i.1 : ℝ) * d ≤ z.re ∧ z.re ≤ a.re + ((i.1 : ℝ) + 1) * d ∧
     a.im + (i.2 : ℝ) * d ≤ z.im ∧ z.im ≤ a.im + ((i.2 : ℝ) + 1) * d}
+  have hgridCellUnique (z : ℂ)
+      (havoid : ∀ n : ℤ, a.re + n * d ≠ z.re ∧ a.im + n * d ≠ z.im)
+      (i j : ℤ × ℤ) (hi : z ∈ gridSquare i) (hj : z ∈ gridSquare j) : i = j := by
+    have hindex (x o : ℝ) (m n : ℤ)
+        (hm : o + (m : ℝ) * d ≤ x ∧ x ≤ o + ((m : ℝ) + 1) * d)
+        (hn : o + (n : ℝ) * d ≤ x ∧ x ≤ o + ((n : ℝ) + 1) * d)
+        (hnot : ∀ q : ℤ, o + q * d ≠ x) : m = n := by
+      have hmUpper : x < o + ((m : ℝ) + 1) * d :=
+        lt_of_le_of_ne hm.2 (by simpa only [Int.cast_add, Int.cast_one] using (hnot (m + 1)).symm)
+      have hnUpper : x < o + ((n : ℝ) + 1) * d :=
+        lt_of_le_of_ne hn.2 (by simpa only [Int.cast_add, Int.cast_one] using (hnot (n + 1)).symm)
+      apply le_antisymm
+      · by_contra hmn
+        have hle : n + 1 ≤ m := by omega
+        have hmul : ((n : ℝ) + 1) * d ≤ (m : ℝ) * d :=
+          mul_le_mul_of_nonneg_right (by exact_mod_cast hle) hd.le
+        linarith only [hm.1, hnUpper, hmul]
+      · by_contra hnm
+        have hle : m + 1 ≤ n := by omega
+        have hmul : ((m : ℝ) + 1) * d ≤ (n : ℝ) * d :=
+          mul_le_mul_of_nonneg_right (by exact_mod_cast hle) hd.le
+        linarith only [hn.1, hmUpper, hmul]
+    exact Prod.ext
+      (hindex z.re a.re i.1 j.1 ⟨hi.1, hi.2.1⟩ ⟨hj.1, hj.2.1⟩ (fun n => (havoid n).1))
+      (hindex z.im a.im i.2 j.2 ⟨hi.2.2.1, hi.2.2.2⟩ ⟨hj.2.2.1, hj.2.2.2⟩
+        (fun n => (havoid n).2))
   let gridCells : Set (ℤ × ℤ) := {i | (closure V ∩ gridSquare i).Nonempty}
   obtain ⟨hgridFinite, hgridCover, hgridPrimitives⟩ :
       gridCells.Finite ∧ closure V ⊆ ⋃ i ∈ gridCells, gridSquare i ∧
@@ -7682,6 +7716,331 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
       (by simpa only [(hcellEdgeEndpoints i j).2] using
         hcellVertexAvoidsFrontier i (cellNext j)) G
     simpa only [(hcellEdgeEndpoints i j).1, (hcellEdgeEndpoints i j).2] using h
+  have hfinitePieceIncidence (cuts : Finset ℝ) (pieces : Finset (ℝ × ℝ))
+      (hpiece : ∀ p, p ∈ pieces ↔ p.1 ∈ cuts ∧ p.2 ∈ cuts ∧
+        p.1 < p.2 ∧ ∀ t ∈ cuts, t ≤ p.1 ∨ p.2 ≤ t)
+      (t : ℝ) (ht : t ∈ cuts) :
+      ((∃ x ∈ cuts, t < x) → ∃! p : ℝ × ℝ, p ∈ pieces ∧ p.1 = t) ∧
+      ((∃ x ∈ cuts, x < t) → ∃! p : ℝ × ℝ, p ∈ pieces ∧ p.2 = t) := by
+    constructor
+    · rintro ⟨x, hx, htx⟩
+      let above := cuts.filter (fun x => t < x)
+      have habove : above.Nonempty := ⟨x, Finset.mem_filter.mpr ⟨hx, htx⟩⟩
+      let b := above.min' habove
+      have hb := Finset.mem_filter.mp (above.min'_mem habove)
+      refine ⟨(t, b), ⟨(hpiece (t, b)).mpr ⟨ht, hb.1, hb.2, ?_⟩, rfl⟩, ?_⟩
+      · intro y hy
+        by_cases hyt : y ≤ t
+        · exact Or.inl hyt
+        · exact Or.inr (above.min'_le y (Finset.mem_filter.mpr ⟨hy, lt_of_not_ge hyt⟩))
+      · rintro q ⟨hq, hqt⟩
+        obtain ⟨_, hq2, hqLt, hqGap⟩ := (hpiece q).mp hq
+        refine Prod.ext hqt (le_antisymm ?_ ?_)
+        · rcases hqGap b hb.1 with h | h
+          · rw [hqt] at h
+            exact (not_le_of_gt hb.2 h).elim
+          · exact h
+        · exact above.min'_le q.2 (Finset.mem_filter.mpr ⟨hq2, hqt ▸ hqLt⟩)
+    · rintro ⟨x, hx, hxt⟩
+      let below := cuts.filter (fun x => x < t)
+      have hbelow : below.Nonempty := ⟨x, Finset.mem_filter.mpr ⟨hx, hxt⟩⟩
+      let a := below.max' hbelow
+      have ha := Finset.mem_filter.mp (below.max'_mem hbelow)
+      refine ⟨(a, t), ⟨(hpiece (a, t)).mpr ⟨ha.1, ht, ha.2, ?_⟩, rfl⟩, ?_⟩
+      · intro y hy
+        by_cases hty : t ≤ y
+        · exact Or.inr hty
+        · exact Or.inl (below.le_max' y (Finset.mem_filter.mpr ⟨hy, lt_of_not_ge hty⟩))
+      · rintro q ⟨hq, hqt⟩
+        obtain ⟨hq1, _, hqLt, hqGap⟩ := (hpiece q).mp hq
+        refine Prod.ext (le_antisymm ?_ ?_) hqt
+        · exact below.le_max' q.1 (Finset.mem_filter.mpr ⟨hq1, hqt ▸ hqLt⟩)
+        · rcases hqGap a ha.1 with h | h
+          · exact h
+          · rw [hqt] at h
+            exact (not_le_of_gt ha.2 h).elim
+  have hclosedSubdivisionEndpointReduction
+      (cuts : Finset ℝ) (pieces : Finset (ℝ × ℝ)) (u v : ℝ)
+      (hu : u ∈ cuts) (hv : v ∈ cuts) (huv : u < v)
+      (hpiece : ∀ p, p ∈ pieces ↔ p.1 ∈ cuts ∧ p.2 ∈ cuts ∧
+        p.1 < p.2 ∧ ∀ t ∈ cuts, t ≤ p.1 ∨ p.2 ≤ t)
+      (η : ℝ → ℂ) (cell : (ℝ × ℝ) → ℤ × ℤ)
+      (square : (ℤ × ℤ) → Set ℂ)
+      (hpath : ∀ p ∈ pieces, ∀ t ∈ Set.Icc p.1 p.2, η t ∈ square (cell p))
+      (hclosed : η v = η u)
+      (hunique : ∀ i j, η u ∈ square i → η u ∈ square j → i = j)
+      (G : (ℤ × ℤ) → ℂ → ℂ) :
+      (∑ p ∈ pieces, (G (cell p) (η p.2) - G (cell p) (η p.1))) =
+        ∑ p ∈ pieces, ((if p.2 = v then 0 else G (cell p) (η p.2)) -
+          (if p.1 = u then 0 else G (cell p) (η p.1))) := by
+    obtain ⟨first, ⟨hfirst, hfirstStart⟩, hfirstUnique⟩ :=
+      (hfinitePieceIncidence cuts pieces hpiece u hu).1 ⟨v, hv, huv⟩
+    obtain ⟨last, ⟨hlast, hlastEnd⟩, hlastUnique⟩ :=
+      (hfinitePieceIncidence cuts pieces hpiece v hv).2 ⟨u, hu, huv⟩
+    have hfirstMem : η u ∈ square (cell first) := by
+      rw [← hfirstStart]
+      exact hpath first hfirst first.1 ⟨le_rfl, ((hpiece first).mp hfirst).2.2.1.le⟩
+    have hlastMem : η u ∈ square (cell last) := by
+      rw [← hclosed, ← hlastEnd]
+      exact hpath last hlast last.2 ⟨((hpiece last).mp hlast).2.2.1.le, le_rfl⟩
+    have hcell := hunique (cell last) (cell first) hlastMem hfirstMem
+    have hfirstSum :
+        (∑ p ∈ pieces, if p.1 = u then G (cell p) (η p.1) else 0) =
+          G (cell first) (η u) := by
+      rw [Finset.sum_eq_single first]
+      · rw [if_pos hfirstStart, hfirstStart]
+      · intro p hp hne
+        exact if_neg (fun h => hne (hfirstUnique p ⟨hp, h⟩))
+      · exact fun h => (h hfirst).elim
+    have hlastSum :
+        (∑ p ∈ pieces, if p.2 = v then G (cell p) (η p.2) else 0) =
+          G (cell last) (η v) := by
+      rw [Finset.sum_eq_single last]
+      · rw [if_pos hlastEnd, hlastEnd]
+      · intro p hp hne
+        exact if_neg (fun h => hne (hlastUnique p ⟨hp, h⟩))
+      · exact fun h => (h hlast).elim
+    have hbalance :
+        (∑ p ∈ pieces, if p.2 = v then G (cell p) (η p.2) else 0) =
+          ∑ p ∈ pieces, if p.1 = u then G (cell p) (η p.1) else 0 := by
+      rw [hlastSum, hfirstSum, hclosed, hcell]
+    have hsplit (p : ℝ × ℝ) :
+        G (cell p) (η p.2) - G (cell p) (η p.1) =
+          ((if p.2 = v then 0 else G (cell p) (η p.2)) -
+            (if p.1 = u then 0 else G (cell p) (η p.1))) +
+          ((if p.2 = v then G (cell p) (η p.2) else 0) -
+            (if p.1 = u then G (cell p) (η p.1) else 0)) := by
+      split_ifs <;> ring
+    calc
+      _ = (∑ p ∈ pieces, ((if p.2 = v then 0 else G (cell p) (η p.2)) -
+            (if p.1 = u then 0 else G (cell p) (η p.1)))) +
+          ((∑ p ∈ pieces, if p.2 = v then G (cell p) (η p.2) else 0) -
+            ∑ p ∈ pieces, if p.1 = u then G (cell p) (η p.1) else 0) := by
+        simp_rw [hsplit, Finset.sum_add_distrib, Finset.sum_sub_distrib]
+      _ = _ := by rw [hbalance, sub_self, add_zero]
+  have hcellEdgeCoordinates (i : ℤ × ℤ) (j : Fin 4) (t : ℝ) :
+      (cellEdge i j t).re =
+        ![a.re + (i.1 : ℝ) * d + t * d, a.re + ((i.1 : ℝ) + 1) * d,
+          a.re + ((i.1 : ℝ) + 1) * d - t * d, a.re + (i.1 : ℝ) * d] j ∧
+      (cellEdge i j t).im =
+        ![a.im + (i.2 : ℝ) * d, a.im + (i.2 : ℝ) * d + t * d,
+          a.im + ((i.2 : ℝ) + 1) * d, a.im + ((i.2 : ℝ) + 1) * d - t * d] j := by
+    fin_cases j <;> constructor <;>
+      norm_num [cellEdge, cellVertex, cellNext, Equiv.addRight, gridVertex, Fin.add_def,
+        Matrix.cons_val_two, Matrix.cons_val_three] <;> ring_nf <;> simp
+  have hgridCellsAtEdge (i : ℤ × ℤ) (j : Fin 4) (t : ℝ)
+      (ht : t ∈ Set.Ioo (0 : ℝ) 1) (q : ℤ × ℤ)
+      (hq : cellEdge i j t ∈ gridSquare q) : q = i ∨ q = cellAcross i j := by
+    have hinteriorIndex (x o : ℝ) (m n : ℤ)
+        (hm : o + (m : ℝ) * d < x ∧ x < o + ((m : ℝ) + 1) * d)
+        (hn : o + (n : ℝ) * d ≤ x ∧ x ≤ o + ((n : ℝ) + 1) * d) : n = m := by
+      apply le_antisymm
+      · by_contra hnm
+        have hle : m + 1 ≤ n := by omega
+        have hmul : ((m : ℝ) + 1) * d ≤ (n : ℝ) * d :=
+          mul_le_mul_of_nonneg_right (by exact_mod_cast hle) hd.le
+        linarith only [hm.2, hn.1, hmul]
+      · by_contra hmn
+        have hle : n + 1 ≤ m := by omega
+        have hmul : ((n : ℝ) + 1) * d ≤ (m : ℝ) * d :=
+          mul_le_mul_of_nonneg_right (by exact_mod_cast hle) hd.le
+        linarith only [hm.1, hn.2, hmul]
+    have hboundaryIndex (o : ℝ) (m n : ℤ)
+        (hn : o + (n : ℝ) * d ≤ o + (m : ℝ) * d ∧
+          o + (m : ℝ) * d ≤ o + ((n : ℝ) + 1) * d) : n = m ∨ n = m - 1 := by
+      have hlo : n ≤ m := by
+        exact_mod_cast (le_of_mul_le_mul_right (by linarith only [hn.1]) hd : (n : ℝ) ≤ m)
+      have hhi : m ≤ n + 1 := by
+        exact_mod_cast (le_of_mul_le_mul_right (by linarith only [hn.2]) hd : (m : ℝ) ≤ (n : ℝ) + 1)
+      omega
+    have htd : 0 < t * d ∧ t * d < d :=
+      ⟨mul_pos ht.1 hd, by simpa only [one_mul] using mul_lt_mul_of_pos_right ht.2 hd⟩
+    change a.re + (q.1 : ℝ) * d ≤ (cellEdge i j t).re ∧
+      (cellEdge i j t).re ≤ a.re + ((q.1 : ℝ) + 1) * d ∧
+      a.im + (q.2 : ℝ) * d ≤ (cellEdge i j t).im ∧
+      (cellEdge i j t).im ≤ a.im + ((q.2 : ℝ) + 1) * d at hq
+    rw [(hcellEdgeCoordinates i j t).1, (hcellEdgeCoordinates i j t).2] at hq
+    fin_cases j
+    · change a.re + (q.1 : ℝ) * d ≤ a.re + (i.1 : ℝ) * d + t * d ∧
+        a.re + (i.1 : ℝ) * d + t * d ≤ a.re + ((q.1 : ℝ) + 1) * d ∧
+        a.im + (q.2 : ℝ) * d ≤ a.im + (i.2 : ℝ) * d ∧
+        a.im + (i.2 : ℝ) * d ≤ a.im + ((q.2 : ℝ) + 1) * d at hq
+      have hx := hinteriorIndex _ a.re i.1 q.1
+        ⟨by linarith only [htd.1], by linarith only [htd.2]⟩ ⟨hq.1, hq.2.1⟩
+      rcases hboundaryIndex a.im i.2 q.2 hq.2.2 with hy | hy
+      · exact Or.inl (Prod.ext hx hy)
+      · exact Or.inr (Prod.ext hx hy)
+    · change a.re + (q.1 : ℝ) * d ≤ a.re + ((i.1 : ℝ) + 1) * d ∧
+        a.re + ((i.1 : ℝ) + 1) * d ≤ a.re + ((q.1 : ℝ) + 1) * d ∧
+        a.im + (q.2 : ℝ) * d ≤ a.im + (i.2 : ℝ) * d + t * d ∧
+        a.im + (i.2 : ℝ) * d + t * d ≤ a.im + ((q.2 : ℝ) + 1) * d at hq
+      have hy := hinteriorIndex _ a.im i.2 q.2
+        ⟨by linarith only [htd.1], by linarith only [htd.2]⟩ hq.2.2
+      have hx := hboundaryIndex a.re (i.1 + 1) q.1
+        (by simpa only [Int.cast_add, Int.cast_one] using And.intro hq.1 hq.2.1)
+      rcases hx with hx | hx
+      · exact Or.inr (Prod.ext hx hy)
+      · exact Or.inl (Prod.ext (by omega) hy)
+    · change a.re + (q.1 : ℝ) * d ≤ a.re + ((i.1 : ℝ) + 1) * d - t * d ∧
+        a.re + ((i.1 : ℝ) + 1) * d - t * d ≤ a.re + ((q.1 : ℝ) + 1) * d ∧
+        a.im + (q.2 : ℝ) * d ≤ a.im + ((i.2 : ℝ) + 1) * d ∧
+        a.im + ((i.2 : ℝ) + 1) * d ≤ a.im + ((q.2 : ℝ) + 1) * d at hq
+      have hx := hinteriorIndex _ a.re i.1 q.1
+        ⟨by linarith only [htd.2], by linarith only [htd.1]⟩ ⟨hq.1, hq.2.1⟩
+      have hy := hboundaryIndex a.im (i.2 + 1) q.2
+        (by simpa only [Int.cast_add, Int.cast_one] using hq.2.2)
+      rcases hy with hy | hy
+      · exact Or.inr (Prod.ext hx hy)
+      · exact Or.inl (Prod.ext hx (by omega))
+    · change a.re + (q.1 : ℝ) * d ≤ a.re + (i.1 : ℝ) * d ∧
+        a.re + (i.1 : ℝ) * d ≤ a.re + ((q.1 : ℝ) + 1) * d ∧
+        a.im + (q.2 : ℝ) * d ≤ a.im + ((i.2 : ℝ) + 1) * d - t * d ∧
+        a.im + ((i.2 : ℝ) + 1) * d - t * d ≤ a.im + ((q.2 : ℝ) + 1) * d at hq
+      have hy := hinteriorIndex _ a.im i.2 q.2
+        ⟨by linarith only [htd.2], by linarith only [htd.1]⟩ hq.2.2
+      rcases hboundaryIndex a.re i.1 q.1 ⟨hq.1, hq.2.1⟩ with hx | hx
+      · exact Or.inl (Prod.ext hx hy)
+      · exact Or.inr (Prod.ext hx hy)
+  have hnonnegativeEndpointDerivative (f : ℝ → ℝ) (D t u v : ℝ)
+      (hderiv : HasDerivAt f D t) (hzero : f t = 0) (hD : D ≠ 0) (huv : u < v)
+      (hside : ∀ x ∈ Set.Ioo u v, 0 ≤ f x) :
+      (u = t → 0 < D) ∧ (v = t → D < 0) := by
+    constructor
+    · rintro rfl
+      have hnonneg : 0 ≤ D := by
+        apply ge_of_tendsto (hasDerivAt_iff_tendsto_slope_left_right.mp hderiv).2
+        filter_upwards [self_mem_nhdsWithin,
+          (eventually_lt_nhds huv).filter_mono nhdsWithin_le_nhds] with x hx hxv
+        change u < x at hx
+        simp only [slope, vsub_eq_sub, smul_eq_mul, hzero, sub_zero]
+        exact mul_nonneg (inv_nonneg.mpr (sub_nonneg.mpr hx.le)) (hside x ⟨hx, hxv⟩)
+      exact lt_of_le_of_ne hnonneg hD.symm
+    · rintro rfl
+      have hnonpos : D ≤ 0 := by
+        apply le_of_tendsto (hasDerivAt_iff_tendsto_slope_left_right.mp hderiv).1
+        filter_upwards [self_mem_nhdsWithin,
+          (eventually_gt_nhds huv).filter_mono nhdsWithin_le_nhds] with x hx hux
+        change x < v at hx
+        simp only [slope, vsub_eq_sub, smul_eq_mul, hzero, sub_zero]
+        exact mul_nonpos_of_nonpos_of_nonneg (inv_nonpos.mpr (sub_nonpos.mpr hx.le))
+          (hside x ⟨hux, hx⟩)
+      exact lt_of_le_of_ne hnonpos hD
+  have hcellSideNonneg (i : ℤ × ℤ) (j : Fin 4) (z : ℂ) (hz : z ∈ gridSquare i) :
+      0 ≤ ((z - cellVertex i j) * star (cellVelocity i j)).im := by
+    have hformula : ((z - cellVertex i j) * star (cellVelocity i j)).im =
+        ![d * (z.im - (a.im + (i.2 : ℝ) * d)),
+          d * (a.re + ((i.1 : ℝ) + 1) * d - z.re),
+          d * (a.im + ((i.2 : ℝ) + 1) * d - z.im),
+          d * (z.re - (a.re + (i.1 : ℝ) * d))] j := by
+      fin_cases j <;> norm_num [cellVelocity, cellVertex, cellNext, Equiv.addRight,
+        gridVertex, Fin.add_def, Complex.mul_im, Complex.mul_re,
+        Matrix.cons_val_two, Matrix.cons_val_three] <;> ring
+    rw [hformula]
+    fin_cases j
+    · exact mul_nonneg hd.le (sub_nonneg.mpr hz.2.2.1)
+    · exact mul_nonneg hd.le (sub_nonneg.mpr hz.2.1)
+    · exact mul_nonneg hd.le (sub_nonneg.mpr hz.2.2.2)
+    · exact mul_nonneg hd.le (sub_nonneg.mpr hz.1)
+  have hcellSideOnEdge (i : ℤ × ℤ) (j : Fin 4) (t : ℝ) :
+      ((cellEdge i j t - cellVertex i j) * star (cellVelocity i j)).im = 0 := by
+    have hsub : cellEdge i j t - cellVertex i j = (t : ℂ) * cellVelocity i j := by
+      simp only [cellEdge, cellVelocity, add_sub_cancel_left]
+    rw [hsub, mul_assoc,
+      show cellVelocity i j * star (cellVelocity i j) = (Complex.normSq (cellVelocity i j) : ℂ)
+        from Complex.mul_conj (cellVelocity i j)]
+    simp
+  have hcellPathEndpointSigns (η : ℝ → ℂ) (s : ℝ) (w : ℂ)
+      (hη : HasDerivAt η w s) (i : ℤ × ℤ) (j : Fin 4) (t : ℝ)
+      (heq : η s = cellEdge i j t) (u v : ℝ) (huv : u < v)
+      (hpath : ∀ x ∈ Set.Ioo u v, η x ∈ gridSquare i)
+      (htrans : (w * star (cellVelocity i j)).im ≠ 0) :
+      (u = s → 0 < (w * star (cellVelocity i j)).im) ∧
+      (v = s → (w * star (cellVelocity i j)).im < 0) := by
+    apply hnonnegativeEndpointDerivative
+      (fun x => ((η x - cellVertex i j) * star (cellVelocity i j)).im)
+      _ s u v _ _ htrans huv (fun x hx => hcellSideNonneg i j _ (hpath x hx))
+    · simpa only [Function.comp_def, Complex.imCLM_apply] using
+        Complex.imCLM.hasFDerivAt.comp_hasDerivAt s
+          ((hη.sub_const (cellVertex i j)).mul_const (star (cellVelocity i j)))
+    · rw [heq]
+      exact hcellSideOnEdge i j t
+  have hcellPathEndpointCell (η : ℝ → ℂ) (s : ℝ) (D : ℂ)
+      (hD : HasDerivAt η D s) (i : ℤ × ℤ) (j : Fin 4) (t : ℝ)
+      (ht : t ∈ Set.Ioo (0 : ℝ) 1) (heq : η s = cellEdge i j t)
+      (q : ℤ × ℤ) (u v : ℝ) (huv : u < v)
+      (hpath : ∀ x ∈ Set.Icc u v, η x ∈ gridSquare q)
+      (hsign : (u = s ∧ 0 < (D * star (cellVelocity i j)).im) ∨
+        (v = s ∧ (D * star (cellVelocity i j)).im < 0)) : q = i := by
+    have hs : s ∈ Set.Icc u v := by
+      rcases hsign with ⟨h, _⟩ | ⟨h, _⟩ <;> constructor <;> linarith only [huv, h]
+    rcases hgridCellsAtEdge i j t ht q (by rw [← heq]; exact hpath s hs) with hq | hq
+    · exact hq
+    subst q
+    have hcontact : η s = cellEdge (cellAcross i j) (cellOpp j) (1 - t) :=
+      heq.trans (hcellAcrossPath i j t).symm
+    have hdet : (D * star (cellVelocity (cellAcross i j) (cellOpp j))).im =
+        -(D * star (cellVelocity i j)).im := by
+      rw [hcellAcrossVelocity, star_neg, mul_neg, Complex.neg_im]
+    have hn : (D * star (cellVelocity (cellAcross i j) (cellOpp j))).im ≠ 0 := by
+      rw [hdet]
+      rcases hsign with ⟨_, h⟩ | ⟨_, h⟩
+      · exact neg_ne_zero.mpr h.ne'
+      · exact neg_ne_zero.mpr h.ne
+    have hother := hcellPathEndpointSigns η s D hD (cellAcross i j) (cellOpp j)
+      (1 - t) hcontact u v huv (fun x hx => hpath x ⟨hx.1.le, hx.2.le⟩) hn
+    rw [hdet] at hother
+    rcases hsign with ⟨h, hpos⟩ | ⟨h, hneg⟩
+    · have := hother.1 h
+      linarith only [hpos, this]
+    · have := hother.2 h
+      linarith only [hneg, this]
+  have hfiniteRetainedEndpointIncidence
+      (cuts : Finset ℝ) (pieces retained : Finset (ℝ × ℝ))
+      (hpiece : ∀ p, p ∈ pieces ↔ p.1 ∈ cuts ∧ p.2 ∈ cuts ∧
+        p.1 < p.2 ∧ ∀ t ∈ cuts, t ≤ p.1 ∨ p.2 ≤ t)
+      (hretained : retained ⊆ pieces) (η : ℝ → ℂ) (U : Set ℂ)
+      (hinside : ∀ p ∈ retained, ∀ x ∈ Set.Ioo p.1 p.2, η x ∈ U)
+      (houtside : ∀ p ∈ pieces, p ∉ retained → ∀ x ∈ Set.Ioo p.1 p.2, η x ∉ U)
+      (a b t D : ℝ) (ha : a ∈ cuts) (hb : b ∈ cuts) (ht : t ∈ cuts)
+      (hat : a < t) (htb : t < b)
+      (hcross : ∀ᶠ x in nhds t, (η x ∈ U ↔ 0 < (x - t) * D)) :
+      ((∃! p : ℝ × ℝ, p ∈ retained ∧ p.1 = t) ↔ 0 < D) ∧
+      ((∃! p : ℝ × ℝ, p ∈ retained ∧ p.2 = t) ↔ D < 0) := by
+    constructor
+    · constructor
+      · rintro ⟨p, ⟨hp, hpt⟩, _⟩
+        exact (hoccupiedEndpointSigns η U t D p.1 p.2
+          ((hpiece p).mp (hretained hp)).2.2.1 (hinside p hp) hcross).1 hpt
+      · intro hD
+        obtain ⟨p, ⟨hp, hpt⟩, huniq⟩ :=
+          (hfinitePieceIncidence cuts pieces hpiece t ht).1 ⟨b, hb, htb⟩
+        have hpRet : p ∈ retained := by
+          by_contra hn
+          have hlt : t < p.2 := hpt ▸ ((hpiece p).mp hp).2.2.1
+          have hnear := (hcross.and (eventually_lt_nhds hlt)).filter_mono
+            (show nhdsWithin t (Set.Ioi t) ≤ nhds t from nhdsWithin_le_nhds)
+          have hside : ∀ᶠ x in nhdsWithin t (Set.Ioi t), t < x := self_mem_nhdsWithin
+          obtain ⟨x, htx, hlocal, hxp⟩ := (hside.and hnear).exists
+          exact houtside p hp hn x ⟨by simpa only [hpt] using htx, hxp⟩
+            (hlocal.mpr (mul_pos (sub_pos.mpr htx) hD))
+        exact ⟨p, ⟨hpRet, hpt⟩, fun q hq => huniq q ⟨hretained hq.1, hq.2⟩⟩
+    · constructor
+      · rintro ⟨p, ⟨hp, hpt⟩, _⟩
+        exact (hoccupiedEndpointSigns η U t D p.1 p.2
+          ((hpiece p).mp (hretained hp)).2.2.1 (hinside p hp) hcross).2 hpt
+      · intro hD
+        obtain ⟨p, ⟨hp, hpt⟩, huniq⟩ :=
+          (hfinitePieceIncidence cuts pieces hpiece t ht).2 ⟨a, ha, hat⟩
+        have hpRet : p ∈ retained := by
+          by_contra hn
+          have hlt : p.1 < t := hpt ▸ ((hpiece p).mp hp).2.2.1
+          have hnear := (hcross.and (eventually_gt_nhds hlt)).filter_mono
+            (show nhdsWithin t (Set.Iio t) ≤ nhds t from nhdsWithin_le_nhds)
+          have hside : ∀ᶠ x in nhdsWithin t (Set.Iio t), x < t := self_mem_nhdsWithin
+          obtain ⟨x, hxt, hlocal, hpx⟩ := (hside.and hnear).exists
+          exact houtside p hp hn x ⟨hpx, by simpa only [hpt] using hxt⟩
+            (hlocal.mpr (mul_pos_of_neg_of_neg (sub_neg.mpr hxt) hD))
+        exact ⟨p, ⟨hpRet, hpt⟩, fun q hq => huniq q ⟨hretained hq.1, hq.2⟩⟩
   have hfiniteSubdivision (s : Finset ℝ) (a b : ℝ) (ha : a ∈ s) (hb : b ∈ s)
       (hs : ∀ x ∈ s, a ≤ x ∧ x ≤ b) (f : ℝ → ℂ)
       (hf : IntervalIntegrable f MeasureTheory.volume a b) :
@@ -8499,6 +8858,122 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     apply Finset.sum_congr rfl
     intro v _
     rw [intervalIntegral.integral_symm, (hexcisionCertificate v).2.2.2.2.2.1]
+  have hexcisionArtificialIncidence (v : {v // v ∈ S}) (p : ℝ × ℝ)
+      (hp : p ∈ excisionPieces v) (j : Fin 4) (s t : ℝ)
+      (ht : t ∈ Set.Ioo (0 : ℝ) 1)
+      (heq : circleMap v.1 r s = cellEdge (excisionCell v p) j t) :
+      (p.1 = s → ∃! q : ℝ × ℝ, q ∈ retainedPieces (excisionCell v p) j ∧ q.1 = t) ∧
+      (p.2 = s → ∃! q : ℝ × ℝ, q ∈ retainedPieces (excisionCell v p) j ∧ q.2 = t) := by
+    let i := excisionCell v p
+    have hsphere : cellEdge i j t ∈ Metric.sphere v.1 r := by
+      rw [← heq]
+      exact circleMap_mem_sphere v.1 hr.le s
+    have hfront : cellEdge i j t ∈ frontier V := by
+      rw [← heq]
+      exact (hcircles v.1 v.2).1 ⟨s, rfl⟩
+    have hcut : t ∈ edgeCuts i j :=
+      (hedgeCutsMem i j t).mpr (Or.inr (Or.inr ⟨⟨ht.1.le, ht.2.le⟩, hfront⟩))
+    let normal := (cellEdge i j t - v.1).re * (cellVelocity i j).re +
+      (cellEdge i j t - v.1).im * (cellVelocity i j).im
+    have hnormal : normal ≠ 0 :=
+      hcellCircleNormalNe i j t (v.1, r) (Or.inr ⟨v.1, v.2, rfl⟩) hsphere
+    have hdet : (deriv (circleMap v.1 r) s * star (cellVelocity i j)).im = normal := by
+      rw [hcircleTangent, heq]
+    have hlt : p.1 < p.2 := by
+      rw [(hexcisionCertificate v).2.2.2.1] at hp
+      exact (Finset.mem_filter.mp hp).2.1
+    have hsign := hcellPathEndpointSigns (circleMap v.1 r) s _
+      ((differentiable_circleMap v.1 r s).hasDerivAt) i j t heq p.1 p.2 hlt
+      (fun x hx => ((hexcisionCertificate v).2.2.2.2.1 p hp).2.1 x ⟨hx.1.le, hx.2.le⟩)
+      (by rwa [hdet])
+    rw [hdet] at hsign
+    have hincidence := hfiniteRetainedEndpointIncidence
+      (edgeCuts i j) (edgePieces i j) (retainedPieces i j) (hedgePieceMem i j)
+      (fun _ hq => (Finset.mem_filter.mp hq).1) (cellEdge i j) V
+      (hretainedPieceInterior i j)
+      (fun q hq hn x hx hz => hunretainedPieceExterior i j q hq hn x hx (subset_closure hz))
+      0 1 t normal ((hedgeCutsMem i j 0).mpr (Or.inl rfl))
+      ((hedgeCutsMem i j 1).mpr (Or.inr (Or.inl rfl))) hcut ht.1 ht.2
+      (hexcisionEdgeCrossing i j t v.1 v.2 hsphere)
+    exact ⟨fun h => hincidence.1.mpr (hsign.1 h), fun h => hincidence.2.mpr (hsign.2 h)⟩
+  have hexcisionGenuineIncidence (i : ℤ × ℤ) (j : Fin 4) (q : ℝ × ℝ)
+      (hq : q ∈ retainedPieces i j) (t : ℝ) (ht : t ∈ Set.Ioo (0 : ℝ) 1)
+      (v : {v // v ∈ S}) (s : ℝ) (hs : s ∈ Set.Ioo (0 : ℝ) (2 * Real.pi))
+      (heq : cellEdge i j t = circleMap v.1 r s) :
+      (q.1 = t → ∃! p : ℝ × ℝ,
+        p ∈ excisionPieces v ∧ p.1 = s ∧ excisionCell v p = i) ∧
+      (q.2 = t → ∃! p : ℝ × ℝ,
+        p ∈ excisionPieces v ∧ p.2 = s ∧ excisionCell v p = i) := by
+    have hfront : cellEdge i j t ∈ frontier V := by
+      rw [heq]
+      exact (hcircles v.1 v.2).1 ⟨s, rfl⟩
+    have hcross : cellEdge i j t ∈ gridCrossings := by
+      fin_cases j
+      · exact hgridCrossingContains _ hfront i.2
+          (Or.inr (by simpa using (hcellEdgeCoordinates i 0 t).2))
+      · exact hgridCrossingContains _ hfront (i.1 + 1)
+          (Or.inl (by simpa using (hcellEdgeCoordinates i 1 t).1))
+      · exact hgridCrossingContains _ hfront (i.2 + 1)
+          (Or.inr (by simpa using (hcellEdgeCoordinates i 2 t).2))
+      · exact hgridCrossingContains _ hfront i.1
+          (Or.inl (by simpa using (hcellEdgeCoordinates i 3 t).1))
+    have hcut : s ∈ excisionCuts v :=
+      ((hexcisionCertificate v).2.2.2.2.2.2 s).mpr
+        (Or.inr (Or.inr ⟨hs, heq ▸ hcross⟩))
+    have hpieces : ∀ p, p ∈ excisionPieces v ↔ p.1 ∈ excisionCuts v ∧
+        p.2 ∈ excisionCuts v ∧ p.1 < p.2 ∧
+          ∀ t ∈ excisionCuts v, t ≤ p.1 ∨ p.2 ≤ t := by
+      intro p
+      rw [(hexcisionCertificate v).2.2.2.1]
+      simp only [Finset.mem_filter, Finset.mem_product, and_assoc]
+    have hincidence := hfinitePieceIncidence (excisionCuts v) (excisionPieces v)
+      hpieces s hcut
+    have hsign := hexcisionEndpointOrientation i j q hq t v.1 v.2 s heq
+    constructor
+    · intro hqt
+      obtain ⟨p, hp, hunique⟩ := hincidence.1
+        ⟨2 * Real.pi, (hexcisionCertificate v).2.1, hs.2⟩
+      refine ⟨p, ⟨hp.1, hp.2, ?_⟩, fun w hw => hunique w ⟨hw.1, hw.2.1⟩⟩
+      exact hcellPathEndpointCell (circleMap v.1 r) s _
+        (differentiable_circleMap v.1 r s).hasDerivAt i j t ht heq.symm
+        (excisionCell v p) p.1 p.2 ((hpieces p).mp hp.1).2.2.1
+        ((hexcisionCertificate v).2.2.2.2.1 p hp.1).2.1 (Or.inl ⟨hp.2, hsign.1 hqt⟩)
+    · intro hqt
+      obtain ⟨p, hp, hunique⟩ := hincidence.2
+        ⟨0, (hexcisionCertificate v).1, hs.1⟩
+      refine ⟨p, ⟨hp.1, hp.2, ?_⟩, fun w hw => hunique w ⟨hw.1, hw.2.1⟩⟩
+      exact hcellPathEndpointCell (circleMap v.1 r) s _
+        (differentiable_circleMap v.1 r s).hasDerivAt i j t ht heq.symm
+        (excisionCell v p) p.1 p.2 ((hpieces p).mp hp.1).2.2.1
+        ((hexcisionCertificate v).2.2.2.2.1 p hp.1).2.1 (Or.inr ⟨hp.2, hsign.2 hqt⟩)
+  -- The two parameter endpoints of each excision circle are the same
+  -- geometric point in the same cell, so their actual primitive terms cancel.
+  have hexcisionSeamReduction (v : {v // v ∈ S}) :
+      (∑ p ∈ excisionPieces v,
+        (cellPrimitive (excisionCell v p) (circleMap v.1 r p.2) -
+          cellPrimitive (excisionCell v p) (circleMap v.1 r p.1))) =
+      ∑ p ∈ excisionPieces v,
+        ((if p.2 = 2 * Real.pi then 0 else
+            cellPrimitive (excisionCell v p) (circleMap v.1 r p.2)) -
+          (if p.1 = 0 then 0 else
+            cellPrimitive (excisionCell v p) (circleMap v.1 r p.1))) := by
+    apply hclosedSubdivisionEndpointReduction (excisionCuts v) (excisionPieces v)
+      0 (2 * Real.pi) (hexcisionCertificate v).1 (hexcisionCertificate v).2.1
+      (by positivity) _ (circleMap v.1 r) (excisionCell v) gridSquare
+      (fun p hp => ((hexcisionCertificate v).2.2.2.2.1 p hp).2.1)
+      (by simpa only [zero_add] using periodic_circleMap v.1 r 0)
+      (hgridCellUnique _ (hgridCircleSeams v.1 v.2)) cellPrimitive
+    intro p
+    rw [(hexcisionCertificate v).2.2.2.1]
+    simp only [Finset.mem_filter, Finset.mem_product, and_assoc]
+  let excisionCrossingEndpoints : ℂ := -∑ v : {v // v ∈ S}, ∑ p ∈ excisionPieces v,
+    ((if p.2 = 2 * Real.pi then 0 else
+        cellPrimitive (excisionCell v p) (circleMap v.1 r p.2)) -
+      (if p.1 = 0 then 0 else
+        cellPrimitive (excisionCell v p) (circleMap v.1 r p.1)))
+  have hexcisionEndpointReduction : excisionEndpoints = excisionCrossingEndpoints := by
+    apply congrArg Neg.neg
+    exact Finset.sum_congr rfl (fun v _ => hexcisionSeamReduction v)
   have hretainedIntegralEndpoint (e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ))
       (he : e ∈ retainedGridPieces) :
       retainedIntegral e =
@@ -8609,13 +9084,14 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
         -(∑ e ∈ retainedGridPieces, retainedIntegral e) by
     rw [hboundaryAssembly, hretainedGridCancellation, neg_zero]
   rw [houterEndpointSum, hindentationEndpointSum, hexcisionEndpointSum, hgridEndpointSum,
-    hgridEndpointReduction]
+    hgridEndpointReduction, hexcisionEndpointReduction]
   /- Remaining formal obligation: prove the directed endpoint incidence for
   these concrete finite families. Every term now uses the fixed primitive
   of its cell, with the actual outer, indentation, excision and artificial
   edge orientations. Artificial grid-vertex occurrences have been cancelled
-  cyclically in each cell. Circular crossings now have local occupied-side
-  and tangent-sign certificates. Attaching the genuine subarcs to their
+  cyclically in each cell, and excision-circle seam occurrences now cancel
+  using the actual subdivision and common cell primitive. Circular crossings
+  have local occupied-side and tangent-sign certificates. Attaching the genuine subarcs to their
   incident cells and pairing the contour joins must still establish the
   balance of the remaining signed endpoint occurrences. -/
 
