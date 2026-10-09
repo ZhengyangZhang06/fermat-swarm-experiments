@@ -3737,6 +3737,106 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
     change ((normalizedFactors (I : Ideal O)).map primeAction).prod ζ = _
     rw [hprod _ hfactor, ← map_multiset_prod,
       prod_normalizedFactors_eq (nonZeroDivisors.coe_ne_zero I), normalize_eq]
+  -- Step 22: determinant reduction gives the ray-principal norm congruence.
+  have hnormCongruence (a b c : O) (hac : a = b + (q : O) * c) :
+      (Algebra.norm ℤ a : ZMod q) = (Algebra.norm ℤ b : ZMod q) := by
+    let basis := Module.Free.chooseBasis ℤ O
+    let red := (Int.castRingHom (ZMod q)).mapMatrix.comp
+      (Algebra.leftMulMatrix basis).toRingHom
+    have hr : red a = red b := by
+      rw [hac, map_add, map_mul, map_natCast]
+      have hz : (q : Matrix (Module.Free.ChooseBasisIndex ℤ O)
+          (Module.Free.ChooseBasisIndex ℤ O) (ZMod q)) = 0 := by
+        ext i j
+        simp [Matrix.natCast_apply]
+      rw [hz, zero_mul, add_zero]
+    rw [Algebra.norm_eq_matrix_det basis, Algebra.norm_eq_matrix_det basis]
+    calc
+      _ = Matrix.det (red a) := (Int.castRingHom (ZMod q)).map_det _
+      _ = Matrix.det (red b) := congrArg Matrix.det hr
+      _ = _ := ((Int.castRingHom (ZMod q)).map_det _).symm
+  have hAmod (I K : (Ideal O)⁰)
+      (hK : (absNorm (K : Ideal O)).Coprime q)
+      (hIK : (absNorm (I : Ideal O) : ZMod q) = (absNorm (K : Ideal O) : ZMod q)) :
+      A I = A K := by
+    have hI : (absNorm (I : Ideal O)).Coprime q := by
+      rw [← ZMod.isUnit_iff_coprime, hIK]
+      exact (ZMod.isUnit_iff_coprime _ _).mpr hK
+    apply hrootext
+    rw [hAnorm I hI, hAnorm K hK]
+    exact pow_eq_pow_of_modEq ((ZMod.natCast_eq_natCast_iff ..).mp hIK) hζ.pow_eq_one
+  have hnormSign (a : O) (ha : ∀ φ : F →+* ℝ, 0 ≤ φ (a : F)) :
+      0 ≤ Algebra.norm ℤ a := by
+    have hn := Algebra.norm_eq_prod_embeddings ℚ ℂ (a : F)
+    change ((Algebra.norm ℚ (a : F) : ℚ) : ℂ) = _ at hn
+    rw [← Algebra.coe_norm_int] at hn
+    simp only [Rat.cast_intCast] at hn
+    rw [← Fintype.prod_equiv (RingHom.equivRatAlgHom F ℂ)
+      (fun φ => φ (a : F)) (fun φ => φ (a : F))
+      (fun _ => by simp [RingHom.equivRatAlgHom_apply])] at hn
+    have hfac (w : NumberField.InfinitePlace F) : ∃ r : ℝ, 0 ≤ r ∧
+        (∏ φ ∈ Finset.univ.filter (fun φ : F →+* ℂ => NumberField.InfinitePlace.mk φ = w), φ (a : F)) = (r : ℂ) := by
+      have hfilter : (Finset.univ.filter (fun φ : F →+* ℂ => NumberField.InfinitePlace.mk φ = w)) =
+          {NumberField.InfinitePlace.embedding w, NumberField.ComplexEmbedding.conjugate (NumberField.InfinitePlace.embedding w)} := by
+        ext φ
+        simp only [Finset.mem_filter, Finset.mem_univ, true_and,
+          Finset.mem_insert, Finset.mem_singleton]
+        conv_lhs => rw [← NumberField.InfinitePlace.mk_embedding w, NumberField.InfinitePlace.mk_eq_iff, NumberField.ComplexEmbedding.conjugate, star_involutive.eq_iff]
+      rw [hfilter]
+      by_cases hw : NumberField.InfinitePlace.IsReal w
+      · refine ⟨NumberField.InfinitePlace.embedding_of_isReal hw a, ha (NumberField.InfinitePlace.embedding_of_isReal hw), ?_⟩
+        rw [NumberField.InfinitePlace.conjugate_embedding_eq_of_isReal hw, Finset.pair_eq_singleton,
+          Finset.prod_singleton, NumberField.InfinitePlace.embedding_of_isReal_apply hw]
+      · refine ⟨Complex.normSq (NumberField.InfinitePlace.embedding w (a : F)), Complex.normSq_nonneg _, ?_⟩
+        have hne : NumberField.InfinitePlace.embedding w ≠ NumberField.ComplexEmbedding.conjugate (NumberField.InfinitePlace.embedding w) := by
+          intro heq
+          apply hw
+          exact NumberField.InfinitePlace.isReal_iff.mpr (NumberField.ComplexEmbedding.isReal_iff.mpr heq.symm)
+        rw [Finset.prod_pair hne]
+        exact Complex.mul_conj _
+    choose r hr heq using hfac
+    have hnorm : (Algebra.norm ℤ a : ℂ) = (∏ w, r w : ℝ) := by
+      rw [hn, ← Finset.prod_fiberwise Finset.univ NumberField.InfinitePlace.mk]
+      simp_rw [heq]
+      simp only [Complex.ofReal_prod]
+    have hnormReal : (Algebra.norm ℤ a : ℝ) = ∏ w, r w := by
+      exact_mod_cast hnorm
+    have hnonneg : (0 : ℝ) ≤ ∏ w, r w := Finset.prod_nonneg (fun w _ => hr w)
+    rw [← hnormReal] at hnonneg
+    exact_mod_cast hnonneg
+  have hAprincipal (a c : O) (b : ℕ)
+      (ha : a ≠ 0) (hb0 : b ≠ 0) (hb : b.Coprime q)
+      (haNorm : 0 ≤ Algebra.norm ℤ a) (hab : a = (b : O) + q * c) :
+      A ⟨span {a}, mem_nonZeroDivisors_iff_ne_zero.mpr
+        (span_singleton_eq_bot.not.mpr ha)⟩ =
+      A ⟨span {(b : O)}, mem_nonZeroDivisors_iff_ne_zero.mpr
+        (span_singleton_eq_bot.not.mpr (Nat.cast_ne_zero.mpr hb0))⟩ := by
+    apply hAmod
+    · rw [absNorm_span_natCast]
+      exact hb.pow_left _
+    · have hapos : ((Algebra.norm ℤ a).natAbs : ℤ) = Algebra.norm ℤ a := by
+        rw [Int.natCast_natAbs, abs_of_nonneg haNorm]
+      have hbpos : 0 ≤ Algebra.norm ℤ (b : O) := by
+        rw [Algebra.norm_natCast]
+        positivity
+      have hbabs : ((Algebra.norm ℤ (b : O)).natAbs : ℤ) = Algebra.norm ℤ (b : O) := by
+        rw [Int.natCast_natAbs, abs_of_nonneg hbpos]
+      rw [absNorm_span_singleton, absNorm_span_singleton,
+        ← Int.cast_natCast, hapos, ← Int.cast_natCast, hbabs]
+      exact hnormCongruence a b c hab
+  have hAray (I K : (Ideal O)⁰) (a c : O) (b : ℕ)
+      (ha : a ≠ 0) (hb0 : b ≠ 0) (hb : b.Coprime q)
+      (haPos : ∀ φ : F →+* ℝ, 0 < φ (a : F)) (hab : a = (b : O) + q * c)
+      (hIK : span {a} * (I : Ideal O) = span {(b : O)} * (K : Ideal O)) :
+      A I = A K := by
+    let Pa : (Ideal O)⁰ := ⟨span {a}, mem_nonZeroDivisors_iff_ne_zero.mpr
+      (span_singleton_eq_bot.not.mpr ha)⟩
+    let Pb : (Ideal O)⁰ := ⟨span {(b : O)}, mem_nonZeroDivisors_iff_ne_zero.mpr
+      (span_singleton_eq_bot.not.mpr (Nat.cast_ne_zero.mpr hb0))⟩
+    have hmul : Pa * I = Pb * K := Subtype.ext hIK
+    have hmap := congrArg A hmul
+    rw [map_mul, map_mul, hAprincipal a c b ha hb0 hb (hnormSign a (fun φ => (haPos φ).le)) hab] at hmap
+    exact mul_left_cancel hmap
   suffices hcharacters :
       ∀ k : Fin m, ∃ C : ℝ, 0 ≤ C ∧ ∃ ε : ℝ, 0 < ε ∧
         ∀ s : ℝ, 1 < s → s < 1 + ε →
@@ -3886,6 +3986,14 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
     have hwprime (v : ι) : w v.asIdeal = χ v := by
       rw [hwval _ v.ne_bot, hAprime]
       rfl
+    have hwRay (I K : (Ideal O)⁰) (a c : O) (b : ℕ)
+        (ha : a ≠ 0) (hb0 : b ≠ 0) (hb : b.Coprime q)
+        (haPos : ∀ φ : F →+* ℝ, 0 < φ (a : F)) (hab : a = (b : O) + q * c)
+        (hIK : span {a} * (I : Ideal O) = span {(b : O)} * (K : Ideal O)) :
+        w (I : Ideal O) = w (K : Ideal O) := by
+      rw [hwval _ (nonZeroDivisors.coe_ne_zero I),
+        hwval _ (nonZeroDivisors.coe_ne_zero K)]
+      exact congrArg ψ (hAray I K a c b ha hb0 hb haPos hab hIK)
     let S : ℝ → ℂ := fun s => ∑' I : Ideal O,
       w I * Complex.ofReal (Real.rpow (absNorm I : ℝ) (-s))
     have hseries (s : ℝ) (hs : 1 < s) : Complex.exp (E s) = S s := by
