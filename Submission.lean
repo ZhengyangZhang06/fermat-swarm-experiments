@@ -198,3 +198,39 @@ theorem Submission.p10_17ae7b7d_pde_holomorphic_extension :
   · intro z hz
     simpa [Function.Periodic.qParam, f, hz] using
       (Function.Periodic.eq_cuspFunction hw.ne' hf z).symm
+
+
+theorem Submission.p10_17ae7b7d_rd_coeff_support :
+    ∀ (w : ℕ) (P : ℂ → ℂ) (p : FormalMultilinearSeries ℂ ℂ ℂ),
+      0 < w → HasFPowerSeriesAt P p 0 →
+      (∃ s : ℝ, 0 < s ∧ ∀ t : ℂ, ‖t‖ < s →
+        P (Complex.exp (2 * (Real.pi : ℂ) * Complex.I / (w : ℂ)) * t) = P t) →
+      ∀ n : ℕ, ¬ w ∣ n → p.coeff n = 0 := by
+  intro w P p hw hp hrot n hn
+  obtain ⟨s, hs, hrot⟩ := hrot
+  let ζ : ℂ := Complex.exp (2 * (Real.pi : ℂ) * Complex.I / (w : ℂ))
+  let L : ℂ →L[ℂ] ℂ := ζ • ContinuousLinearMap.id ℂ ℂ
+  have hpL : HasFPowerSeriesAt P p (L 0) := by simpa only [map_zero] using hp
+  have heq : p.compContinuousLinearMap L = p := by
+    apply hpL.compContinuousLinearMap.eq_formalMultilinearSeries_of_eventually hp
+    filter_upwards [Metric.ball_mem_nhds (0 : ℂ) hs] with t ht
+    have ht' : ‖t‖ < s := by simpa only [Metric.mem_ball, dist_zero_right] using ht
+    simpa [Function.comp_def, L, ζ, smul_eq_mul] using hrot t ht'
+  have hcoeff : ζ ^ n * p.coeff n = p.coeff n := by
+    have h := congrArg
+      (fun q : FormalMultilinearSeries ℂ ℂ ℂ => q n (fun _ => (1 : ℂ))) heq
+    rw [FormalMultilinearSeries.compContinuousLinearMap_apply] at h
+    simpa [Function.comp_def, L, smul_eq_mul] using h
+  have hroot : ζ ^ n ≠ 1 := by
+    intro h
+    have hexp : Complex.exp (2 * (Real.pi : ℂ) * Complex.I * (n : ℂ) / (w : ℂ)) = 1 := by
+      calc
+        _ = Complex.exp ((n : ℂ) * (2 * (Real.pi : ℂ) * Complex.I / (w : ℂ))) := by
+          congr 1
+          ring
+        _ = ζ ^ n := Complex.exp_nat_mul _ _
+        _ = 1 := h
+    exact hn ((Complex.exp_two_pi_mul_I_mul_div_eq_one_iff (Nat.ne_of_gt hw)).mp hexp)
+  have hzero : (ζ ^ n - 1) * p.coeff n = 0 := by
+    rw [sub_mul, one_mul, hcoeff, sub_self]
+  exact (mul_eq_zero.mp hzero).resolve_left (sub_ne_zero.mpr hroot)
