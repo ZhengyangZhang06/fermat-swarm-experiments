@@ -1,0 +1,21 @@
+{
+  "node_id": "root.tate_uniformization-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/332",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "4eede27c0793d5253894b20090d0dba222cd9123",
+  "integrated_commit": "b3cf020b38966fa24ace6c34b3977caf164df2f4",
+  "proof_base_commit": "d87436625a4f0f53775a47ba49d55e9cfcd8247f",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root",
+  "requires": [
+    "root.tate_uniformization-a1.lambert_summability-a1",
+    "root.tate_uniformization-a1.euler_product_powers-a1",
+    "root.tate_uniformization-a1.bilateral_summability-a1",
+    "root.tate_uniformization-a1.algebraic_aut_isometry-a1",
+    "root.tate_uniformization-a1.coordinate_symmetries-a1"
+  ]
+}
