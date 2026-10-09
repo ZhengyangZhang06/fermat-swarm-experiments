@@ -198,3 +198,307 @@ theorem Submission.p10_17ae7b7d_pde_holomorphic_extension :
   · intro z hz
     simpa [Function.Periodic.qParam, f, hz] using
       (Function.Periodic.eq_cuspFunction hw.ne' hf z).symm
+theorem Submission.p10_17ae7b7d_norm_local_multiplier_order :
+    ∀ (g ψ J : ℂ → ℂ) (v : ℂ), AnalyticAt ℂ g v → analyticOrderAt g v ≠ ⊤ →
+      AnalyticAt ℂ ψ v → ψ v = v → deriv ψ v ≠ 0 → AnalyticAt ℂ J v →
+      (∃ r : ℝ, 0 < r ∧ ∀ z : ℂ, ‖z - v‖ < r → g (ψ z) = J z * g z) →
+      (deriv ψ v) ^ analyticOrderNatAt g v = J v := by
+  intro g ψ J v hg hgfin hψ hfix _hderiv hJ hequiv
+  let m := analyticOrderNatAt g v
+  obtain ⟨b, hb, hbne, hfactor⟩ := (hg.analyticOrderNatAt_eq_iff hgfin).mp rfl
+  have hfactor' : ∀ᶠ z in nhds v, g z = (z - v) ^ m * b z := by
+    simpa only [smul_eq_mul] using hfactor
+  have hψt : Filter.Tendsto ψ (nhds v) (nhds v) := by
+    simpa only [hfix] using hψ.continuousAt.tendsto
+  have hfactorψ : ∀ᶠ z in nhds v, g (ψ z) = (ψ z - v) ^ m * b (ψ z) :=
+    hψt.eventually hfactor'
+  obtain ⟨r, hr, hequiv⟩ := hequiv
+  have hequiv' : ∀ᶠ z in nhds v, g (ψ z) = J z * g z := by
+    apply Metric.eventually_nhds_iff.mpr
+    exact ⟨r, hr, fun z hz => hequiv z (by simpa only [dist_eq_norm] using hz)⟩
+  have hcancel : (fun z => dslope ψ v z ^ m * b (ψ z)) =ᶠ[nhdsWithin v {v}ᶜ]
+      (fun z => J z * b z) := by
+    filter_upwards [hfactor'.filter_mono nhdsWithin_le_nhds,
+      hfactorψ.filter_mono nhdsWithin_le_nhds,
+      hequiv'.filter_mono nhdsWithin_le_nhds, self_mem_nhdsWithin] with z hz hzψ heq hzne
+    apply mul_left_cancel₀ (pow_ne_zero m (sub_ne_zero.mpr hzne))
+    calc
+      (z - v) ^ m * (dslope ψ v z ^ m * b (ψ z)) =
+          ((z - v) * dslope ψ v z) ^ m * b (ψ z) := by rw [mul_pow, mul_assoc]
+      _ = (ψ z - v) ^ m * b (ψ z) := by
+        rw [show (z - v) * dslope ψ v z = ψ z - v from by
+          simpa only [smul_eq_mul, hfix] using sub_smul_dslope ψ v z]
+      _ = g (ψ z) := hzψ.symm
+      _ = J z * g z := heq
+      _ = (z - v) ^ m * (J z * b z) := by rw [hz]; ring
+  have hd : Filter.Tendsto (fun z => dslope ψ v z ^ m) (nhds v) (nhds (deriv ψ v ^ m)) := by
+    simpa only [dslope_same] using
+      (continuousAt_dslope_same.mpr hψ.differentiableAt).tendsto.pow m
+  have hleft : Filter.Tendsto (fun z => dslope ψ v z ^ m * b (ψ z))
+      (nhds v) (nhds (deriv ψ v ^ m * b v)) :=
+    hd.mul (hb.continuousAt.tendsto.comp hψt)
+  have hright : Filter.Tendsto (fun z => J z * b z) (nhds v) (nhds (J v * b v)) :=
+    hJ.continuousAt.tendsto.mul hb.continuousAt.tendsto
+  exact mul_right_cancel₀ hbne (tendsto_nhds_unique_of_eventuallyEq
+    (hleft.mono_left nhdsWithin_le_nhds) (hright.mono_left nhdsWithin_le_nhds) hcancel)
+
+
+theorem Submission.p10_17ae7b7d_efp_unimodular_eigenrow_iff :
+    ∀ (R : Type) [CommRing R] (k r s : R),
+      (∃ x y : R, x * r + y * s = 1) →
+      ((∃ u : Rˣ, s = (u : R) * r ∧ k * s - r = (u : R) * s) ↔
+        IsUnit r ∧ ∃! t : R, s = r * t ∧ t ^ 2 - k * t + 1 = 0) := by
+  intro R _ k r s ⟨x, y, hxy⟩
+  constructor
+  · rintro ⟨u, hs, heigen⟩
+    have hinv : (x + y * (u : R)) * r = 1 := by
+      calc
+        (x + y * (u : R)) * r = x * r + y * s := by rw [hs]; ring
+        _ = 1 := hxy
+    have hr : IsUnit r := isUnit_iff_exists.mpr
+      ⟨x + y * (u : R), by rw [mul_comm]; exact hinv, hinv⟩
+    refine ⟨hr, (u : R), ⟨?_, ?_⟩, ?_⟩
+    · exact hs.trans (mul_comm _ _)
+    · apply hr.mul_left_cancel
+      calc
+        r * ((u : R) ^ 2 - k * (u : R) + 1) =
+            (u : R) * s - (k * s - r) := by rw [hs]; ring
+        _ = r * 0 := by rw [heigen, sub_self, mul_zero]
+    · intro t ht
+      apply hr.mul_left_cancel
+      calc
+        r * t = s := ht.1.symm
+        _ = r * (u : R) := hs.trans (mul_comm _ _)
+  · rintro ⟨_, t, ⟨hs, hpoly⟩, _⟩
+    have hinv : t * (k - t) = 1 := by
+      calc
+        t * (k - t) = 1 - (t ^ 2 - k * t + 1) := by ring
+        _ = 1 := by rw [hpoly, sub_zero]
+    let u : Rˣ := ⟨t, k - t, hinv, by rw [mul_comm]; exact hinv⟩
+    refine ⟨u, ?_, ?_⟩
+    · change s = t * r
+      exact hs.trans (mul_comm _ _)
+    · change k * s - r = t * s
+      calc
+        k * s - r = t * s - r * (t ^ 2 - k * t + 1) := by rw [hs]; ring
+        _ = t * s := by rw [hpoly, mul_zero, sub_zero]
+
+namespace Submission
+
+theorem p10_17ae7b7d_periodic_disk_extension :
+    ∀ (w : ℝ) (g : ℂ → ℂ), 0 < w →
+      DifferentiableOn ℂ g {z : ℂ | 0 < z.im} →
+      (∃ z : ℂ, 0 < z.im ∧ g z ≠ 0) →
+      (∀ z : ℂ, 0 < z.im → g (z + (w : ℂ)) = g z) →
+      (∃ C Y : ℝ, ∀ z : ℂ, 0 < z.im → Y ≤ z.im → ‖g z‖ ≤ C) →
+      ∃ A : ℂ → ℂ, DifferentiableOn ℂ A (Metric.ball (0 : ℂ) 1) ∧
+        (∀ z : ℂ, 0 < z.im →
+          g z = A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z / (w : ℂ)))) ∧
+        analyticOrderAt A 0 ≠ ⊤ ∧
+        ((∀ ε : ℝ, 0 < ε → ∃ Y : ℝ, ∀ z : ℂ,
+          0 < z.im → Y ≤ z.im → ‖g z‖ ≤ ε) → 1 ≤ analyticOrderNatAt A 0) := by
+  intro w g hw hg hnonzero hperiodic hbounded
+  obtain ⟨A, hA, hAg⟩ :=
+    p10_17ae7b7d_pde_holomorphic_extension w g hw hg hperiodic hbounded
+  obtain ⟨z, hz, hgz⟩ := hnonzero
+  have hq : Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z / (w : ℂ)) ∈
+      Metric.ball (0 : ℂ) 1 := by
+    rw [Metric.mem_ball, dist_zero_right, Complex.norm_exp, Real.exp_lt_one_iff]
+    have hheight : 0 < 2 * Real.pi * z.im :=
+      mul_pos (mul_pos (by norm_num) Real.pi_pos) hz
+    simpa [Complex.mul_re, Complex.mul_im] using
+      div_neg_of_neg_of_pos (neg_neg_of_pos hheight) hw
+  obtain ⟨hfinite, hpositive⟩ := p10_17ae7b7d_pde_finite_order A hA
+    ⟨_, hq, by simpa only [← hAg z hz] using hgz⟩
+  refine ⟨A, hA, hAg, hfinite, ?_⟩
+  intro hdecay
+  apply hpositive
+  exact p10_17ae7b7d_pde_decay_zero w g A hw
+    (hA.differentiableAt (Metric.ball_mem_nhds _ (by norm_num))).continuousAt
+    hAg hdecay
+
+end Submission
+theorem Submission.p10_17ae7b7d_valence_modular_log_derivative :
+    ∀ (k : ℕ) (F : ℂ → ℂ),
+      DifferentiableOn ℂ F {z : ℂ | 0 < z.im} →
+      (∀ z : ℂ, 0 < z.im → F (z + 1) = F z) →
+      (∀ z : ℂ, 0 < z.im → F (-1 / z) = z ^ k * F z) →
+      ∀ z : ℂ, 0 < z.im →
+        analyticOrderNatAt F (z + 1) = analyticOrderNatAt F z ∧
+        analyticOrderNatAt F (-1 / z) = analyticOrderNatAt F z ∧
+        (F z ≠ 0 →
+          deriv F (z + 1) / F (z + 1) = deriv F z / F z ∧
+          (deriv F (-1 / z) / F (-1 / z)) / z ^ 2 =
+            (k : ℂ) / z + deriv F z / F z) := by
+  intro k F hF hT hS z hz
+  have hU : IsOpen {w : ℂ | 0 < w.im} :=
+    isOpen_lt continuous_const Complex.continuous_im
+  have hA (w : ℂ) (hw : 0 < w.im) : AnalyticAt ℂ F w :=
+    hF.analyticAt (hU.mem_nhds hw)
+  have hz0 : z ≠ 0 := by
+    intro h
+    simp [h] at hz
+  have hzT : 0 < (z + 1).im := by simpa using hz
+  have hzS : 0 < (-1 / z).im := by
+    simpa [Complex.div_im, neg_div] using div_pos hz (Complex.normSq_pos.mpr hz0)
+  have aT : AnalyticAt ℂ (fun w : ℂ => w + 1) z := by fun_prop
+  have aS : AnalyticAt ℂ (fun w : ℂ => -1 / w) z := by fun_prop
+  have dT : deriv (fun w : ℂ => w + 1) z = 1 := by simp
+  have dS : deriv (fun w : ℂ => -1 / w) z = 1 / z ^ 2 := by simp
+  have eT : Filter.EventuallyEq (nhds z) (F ∘ fun w : ℂ => w + 1) F :=
+    Filter.eventually_of_mem (hU.mem_nhds hz) fun w hw => hT w hw
+  have eS : Filter.EventuallyEq (nhds z) (F ∘ fun w : ℂ => -1 / w)
+      (fun w => w ^ k * F w) :=
+    Filter.eventually_of_mem (hU.mem_nhds hz) fun w hw => hS w hw
+  have oT : analyticOrderAt F (z + 1) = analyticOrderAt F z := by
+    calc
+      analyticOrderAt F (z + 1) =
+          analyticOrderAt (F ∘ fun w : ℂ => w + 1) z :=
+        (analyticOrderAt_comp_of_deriv_ne_zero aT (by simp [dT])).symm
+      _ = analyticOrderAt F z := analyticOrderAt_congr eT
+  have aP : AnalyticAt ℂ (fun w : ℂ => w ^ k) z := by fun_prop
+  have oS : analyticOrderAt F (-1 / z) = analyticOrderAt F z := by
+    calc
+      analyticOrderAt F (-1 / z) =
+          analyticOrderAt (F ∘ fun w : ℂ => -1 / w) z :=
+        (analyticOrderAt_comp_of_deriv_ne_zero aS (by simp [dS, hz0])).symm
+      _ = analyticOrderAt (fun w => w ^ k * F w) z := analyticOrderAt_congr eS
+      _ = analyticOrderAt (fun w : ℂ => w ^ k) z + analyticOrderAt F z :=
+        analyticOrderAt_mul aP (hA z hz)
+      _ = analyticOrderAt F z := by
+        rw [aP.analyticOrderAt_eq_zero.mpr (pow_ne_zero k hz0), zero_add]
+  refine ⟨congrArg ENat.toNat oT, congrArg ENat.toNat oS, ?_⟩
+  intro hFz
+  constructor
+  · have h := (logDeriv_congr_nhds eT).self_of_nhds
+    rw [logDeriv_comp (g := fun w : ℂ => w + 1) (hA (z + 1) hzT).differentiableAt aT.differentiableAt,
+      dT, mul_one] at h
+    exact h
+  · have h := (logDeriv_congr_nhds eS).self_of_nhds
+    rw [logDeriv_comp (g := fun w : ℂ => -1 / w) (hA (-1 / z) hzS).differentiableAt aS.differentiableAt,
+      dS, logDeriv_mul (f := fun w : ℂ => w ^ k) (g := F) z (pow_ne_zero k hz0) hFz aP.differentiableAt
+        (hA z hz).differentiableAt, logDeriv_pow] at h
+    simpa only [logDeriv_apply, mul_one_div] using h
+
+theorem Submission.p10_17ae7b7d_crt_ring_equiv_rows :
+    ∀ (R S : Type) [CommRing R] [CommRing S], (R ≃+* S) →
+      let P := fun (A : Type) [CommRing A] =>
+        Quot (fun v w : {v : A × A // ∃ x y : A, x * v.1 + y * v.2 = 1} =>
+          ∃ u : Aˣ, (u : A) * v.1.1 = w.1.1 ∧ (u : A) * v.1.2 = w.1.2)
+      Nonempty (P R ≃ P S) := by
+  intro R S _ _ e
+  let f : {v : R × R // ∃ x y : R, x * v.1 + y * v.2 = 1} ≃
+      {v : S × S // ∃ x y : S, x * v.1 + y * v.2 = 1} :=
+    { toFun := fun v => ⟨(e v.1.1, e v.1.2), by
+        obtain ⟨x, y, hxy⟩ := v.2
+        exact ⟨e x, e y, by simpa only [map_add, map_mul, map_one] using congrArg e hxy⟩⟩
+      invFun := fun v => ⟨(e.symm v.1.1, e.symm v.1.2), by
+        obtain ⟨x, y, hxy⟩ := v.2
+        exact ⟨e.symm x, e.symm y, by
+          simpa only [map_add, map_mul, map_one] using congrArg e.symm hxy⟩⟩
+      left_inv := fun v => Subtype.ext (Prod.ext
+        (e.symm_apply_apply v.1.1) (e.symm_apply_apply v.1.2))
+      right_inv := fun v => Subtype.ext (Prod.ext
+        (e.apply_symm_apply v.1.1) (e.apply_symm_apply v.1.2)) }
+  refine ⟨Quot.congr f ?_⟩
+  intro v w
+  constructor
+  · rintro ⟨u, h₁, h₂⟩
+    refine ⟨Units.map e.toMonoidHom u, ?_, ?_⟩
+    · change e (u : R) * e v.1.1 = e w.1.1
+      simpa only [map_mul] using congrArg e h₁
+    · change e (u : R) * e v.1.2 = e w.1.2
+      simpa only [map_mul] using congrArg e h₂
+  · rintro ⟨u, h₁, h₂⟩
+    change (u : S) * e v.1.1 = e w.1.1 at h₁
+    change (u : S) * e v.1.2 = e w.1.2 at h₂
+    refine ⟨Units.map e.symm.toMonoidHom u, ?_, ?_⟩
+    · change e.symm (u : S) * v.1.1 = w.1.1
+      simpa only [map_mul, e.symm_apply_apply] using congrArg e.symm h₁
+    · change e.symm (u : S) * v.1.2 = w.1.2
+      simpa only [map_mul, e.symm_apply_apply] using congrArg e.symm h₂
+theorem Submission.p10_17ae7b7d_crt_pi_rows :
+    ∀ (ι : Type) [Fintype ι] (R : ι → Type) [∀ i, CommRing (R i)],
+      let P := fun (A : Type) [CommRing A] =>
+        Quot (fun v w : {v : A × A // ∃ x y : A, x * v.1 + y * v.2 = 1} =>
+          ∃ u : Aˣ, (u : A) * v.1.1 = w.1.1 ∧ (u : A) * v.1.2 = w.1.2)
+      Nonempty (P (∀ i, R i) ≃ (∀ i, P (R i))) := by
+  classical
+  intro ι _ R _
+  let U := fun (A : Type) [CommRing A] =>
+    {v : A × A // ∃ x y : A, x * v.1 + y * v.2 = 1}
+  let rel := fun (A : Type) [CommRing A] (v w : U A) =>
+    ∃ u : Aˣ, (u : A) * v.1.1 = w.1.1 ∧ (u : A) * v.1.2 = w.1.2
+  have hrel (A : Type) [CommRing A] : Equivalence (rel A) := by
+    refine ⟨fun v => ⟨1, by simp, by simp⟩, ?_, ?_⟩
+    · rintro v w ⟨u, h1, h2⟩
+      exact ⟨u⁻¹, by rw [← h1, Units.inv_mul_cancel_left],
+        by rw [← h2, Units.inv_mul_cancel_left]⟩
+    · rintro v w z ⟨u, h1, h2⟩ ⟨u', h1', h2'⟩
+      exact ⟨u' * u, by rw [Units.val_mul, mul_assoc, h1, h1'],
+        by rw [Units.val_mul, mul_assoc, h2, h2']⟩
+  let ev : U (∀ i, R i) → ∀ i, U (R i) := fun v i =>
+    ⟨(v.1.1 i, v.1.2 i), by
+      obtain ⟨x, y, hxy⟩ := v.2
+      exact ⟨x i, y i, congrFun hxy i⟩⟩
+  let F : Quot (rel (∀ i, R i)) → ∀ i, Quot (rel (R i)) :=
+    Quot.lift (fun v i => Quot.mk _ (ev v i)) (by
+      rintro v w ⟨u, h1, h2⟩
+      funext i
+      exact Quot.sound ⟨MulEquiv.piUnits u i, congrFun h1 i, congrFun h2 i⟩)
+  change Nonempty (Quot (rel (∀ i, R i)) ≃ (∀ i, Quot (rel (R i))))
+  refine ⟨Equiv.ofBijective F ⟨?_, ?_⟩⟩
+  · intro a b
+    refine Quot.inductionOn a (fun v => ?_)
+    refine Quot.inductionOn b (fun w => ?_)
+    intro h
+    have hscale : ∀ i, ∃ u : (R i)ˣ,
+        (u : R i) * (ev v i).1.1 = (ev w i).1.1 ∧
+        (u : R i) * (ev v i).1.2 = (ev w i).1.2 := by
+      intro i
+      exact ((hrel (R i)).quot_mk_eq_iff (ev v i) (ev w i)).mp (congrFun h i)
+    choose u h1 h2 using hscale
+    apply Quot.sound
+    exact ⟨MulEquiv.piUnits.symm u, funext h1, funext h2⟩
+  · intro q
+    choose v hv using fun i => Quot.exists_rep (q i)
+    have hwitness : ∀ i, ∃ x y : R i,
+        x * (v i).1.1 + y * (v i).1.2 = 1 := fun i => (v i).2
+    choose x y hxy using hwitness
+    let row : U (∀ i, R i) :=
+      ⟨(fun i => (v i).1.1, fun i => (v i).1.2), x, y, funext hxy⟩
+    refine ⟨Quot.mk _ row, ?_⟩
+    funext i
+    change Quot.mk (rel (R i)) (ev row i) = q i
+    have he : ev row i = v i := Subtype.ext rfl
+    rw [he]
+    exact hv i
+
+
+theorem Submission.p10_17ae7b7d_idx_crt_row_card :
+    ∀ (N : ℕ) [NeZero N],
+      let P : ℕ → Type := fun n => Quot
+        (fun v w : {v : ZMod n × ZMod n // ∃ x y : ZMod n, x * v.1 + y * v.2 = 1} =>
+          ∃ u : (ZMod n)ˣ, (u : ZMod n) * v.1.1 = w.1.1 ∧
+            (u : ZMod n) * v.1.2 = w.1.2)
+      Nat.card (P N) = N.primeFactors.prod (fun p => Nat.card (P (p ^ N.factorization p))) := by
+  intro N _
+  classical
+  let P := fun (A : Type) [CommRing A] => Quot
+    (fun v w : {v : A × A // ∃ x y : A, x * v.1 + y * v.2 = 1} =>
+      ∃ u : Aˣ, (u : A) * v.1.1 = w.1.1 ∧ (u : A) * v.1.2 = w.1.2)
+  change Nat.card (P (ZMod N)) =
+    N.primeFactors.prod (fun p => Nat.card (P (ZMod (p ^ N.factorization p))))
+  obtain ⟨eCRT⟩ := Submission.p10_17ae7b7d_crt_ring_equiv_rows
+    (ZMod N) (∀ p : N.primeFactors, ZMod (p.1 ^ N.factorization p.1))
+    (ZMod.equivPi N (NeZero.ne N))
+  obtain ⟨ePi⟩ := Submission.p10_17ae7b7d_crt_pi_rows N.primeFactors
+    (fun p => ZMod (p.1 ^ N.factorization p.1))
+  calc
+    Nat.card (P (ZMod N)) =
+        Nat.card (∀ p : N.primeFactors, P (ZMod (p.1 ^ N.factorization p.1))) :=
+      Nat.card_congr (eCRT.trans ePi)
+    _ = ∏ p : N.primeFactors, Nat.card (P (ZMod (p.1 ^ N.factorization p.1))) :=
+      Nat.card_pi
+    _ = _ := Finset.prod_coe_sort N.primeFactors
+      (fun p => Nat.card (P (ZMod (p ^ N.factorization p))))
