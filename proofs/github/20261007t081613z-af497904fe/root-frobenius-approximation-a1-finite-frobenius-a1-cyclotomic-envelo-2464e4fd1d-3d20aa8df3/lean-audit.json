@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "c940431b8df81087d18851cd9ad02da9dcfb0622cc20aaa49b6335cfafd6fa19",
+  "git_delta": {
+    "base_commit": "f65f283c5d184f8bc5769c98e8f31e02432d4a36",
+    "candidate_commit": "054fb0c30cb3617777f98ff01260a832655ffab4",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_csr_prime_residue_descent",
+    "diff_sha256": "9b63795f1b74bdc2ff4290bc74d55bbcc96e07376fa5b119b570ca3f2a3f14ee",
+    "source_sha256": "4ddade37d395bb82adb35dd8a82b5191e87f7498eb0e9ff7df38d570e459bcd4",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_csr_prime_residue_descent",
+      "statement": "∀ (C D : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ C] [FiniteDimensional ℚ D] (q : ℕ) (A : Ideal (NumberField.RingOfIntegers C)), q.Prime → D ≤ C → A.IsPrime → A.LiesOver (Ideal.span {(q : ℤ)}) → Nat.card (NumberField.RingOfIntegers C ⧸ A) = q → (∀ B : Ideal (NumberField.RingOfIntegers C), B.IsPrime → B.LiesOver (Ideal.span {(q : ℤ)}) → B = A) → ∃ R : Ideal (NumberField.RingOfIntegers D), R.IsPrime ∧ R.LiesOver (Ideal.span {(q : ℤ)}) ∧ Ideal.ramificationIdx R ℤ = Module.finrank ℚ D",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
