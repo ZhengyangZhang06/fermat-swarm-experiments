@@ -23318,6 +23318,134 @@ theorem Submission.p03_tkc_torsion_card_recurrence_68cf3476_d5 :
   let originFieldEquiv : W.toAffine.FunctionField ≃+* originField :=
     RingEquiv.ofBijective functionFieldAtOrigin
       ⟨functionFieldAtOrigin.injective, h_functionFieldAtOrigin_surjective⟩
+  -- The pole order at infinity of a coordinate-ring element is the degree of
+  -- its norm to k[X]. This gives the infinity term needed in the degree formula.
+  have h_origin_constant_value (c : k) (hc : c ≠ 0) :
+      originValuation (originFieldConstants c) = 1 := by
+    exact horigin_integers.one_of_isUnit ((isUnit_iff_ne_zero.mpr hc).map originConstants)
+  have h_origin_polynomial_value (p : Polynomial k) (hp : p ≠ 0) :
+      originValuation ((Polynomial.eval₂RingHom originFieldConstants originX) p) =
+        originValuation originX ^ p.natDegree := by
+    -- Local eval₂ specialization of the leading-term argument in pinned
+    -- Mathlib/RingTheory/Valuation/IsTrivialOn.lean, whose aeval lemma is not
+    -- exported by the frozen imports (Xavier Genereux and Maria Ines de
+    -- Frutos-Fernandez, Apache 2.0).
+    let e := Polynomial.eval₂RingHom originFieldConstants originX
+    have hmono (n : ℕ) (c : k) :
+        originValuation (e (Polynomial.monomial n c)) =
+          originValuation (originFieldConstants c) * originValuation originX ^ n := by
+      simp only [e, Polynomial.coe_eval₂RingHom, Polynomial.eval₂_monomial, map_mul, map_pow]
+    have he : originValuation (e p) =
+        originValuation (e (Polynomial.monomial p.natDegree p.leadingCoeff)) := by
+      conv_lhs => rw [Polynomial.as_sum_range p, map_sum]
+      change originValuation (∑ i ∈ Finset.range (p.natDegree + 1),
+        e (Polynomial.monomial i (p.coeff i))) = _
+      rw [← Polynomial.coeff_natDegree]
+      apply originValuation.map_sum_eq_of_lt (by simp)
+      intro i hi
+      simp only [Finset.mem_sdiff, Finset.mem_range, Nat.lt_add_one_iff,
+        Finset.mem_singleton, ← lt_iff_le_and_ne] at hi
+      rw [hmono, hmono, Polynomial.coeff_natDegree, h_origin_constant_value _ (Polynomial.leadingCoeff_ne_zero.mpr hp),
+        one_mul]
+      by_cases hc : p.coeff i = 0
+      · simp only [hc, _root_.map_zero, zero_mul]
+        exact pow_pos (zero_lt_one.trans h_originX_value) _
+      · rw [h_origin_constant_value _ hc, one_mul]
+        exact pow_lt_pow_right₀ h_originX_value hi
+    rw [he, hmono, h_origin_constant_value _ (Polynomial.leadingCoeff_ne_zero.mpr hp), one_mul]
+  have h_origin_norm_value (z : W.toAffine.CoordinateRing) (hz : z ≠ 0) :
+      originValuation (affineAtOrigin z) =
+        originValuation (originInclusion t) ^
+          (-(Algebra.norm (Polynomial k) z).natDegree : ℤ) := by
+    obtain ⟨p, q, rfl⟩ := CoordinateRing.exists_smul_basis_eq z
+    have he : affineAtOrigin
+        (p • (1 : W.toAffine.CoordinateRing) + q • CoordinateRing.mk W.toAffine Polynomial.X) =
+          (Polynomial.eval₂RingHom originFieldConstants originX) p +
+            (Polynomial.eval₂RingHom originFieldConstants originX) q * originY := by
+      simp only [CoordinateRing.smul, map_add, map_mul,
+        h_affineAtOrigin_mk, Polynomial.eval₂_C, Polynomial.eval₂_X, mul_one]
+    have hpval (r : Polynomial k) (hr : r ≠ 0) :
+        originValuation ((Polynomial.eval₂RingHom originFieldConstants originX) r) =
+          originValuation (originInclusion t) ^ (-2 * (r.natDegree : ℤ)) := by
+      rw [h_origin_polynomial_value r hr, horigin_poles.1, zpow_mul, zpow_natCast]
+    have hqval (r : Polynomial k) (hr : r ≠ 0) :
+        originValuation ((Polynomial.eval₂RingHom originFieldConstants originX) r * originY) =
+          originValuation (originInclusion t) ^ (-(2 * (r.natDegree : ℤ) + 3)) := by
+      rw [map_mul, hpval r hr, horigin_poles.2, ← zpow_add₀ horigin_value_t.1]
+      congr 1
+      ring
+    have hn := CoordinateRing.degree_norm_smul_basis (W' := W.toAffine) p q
+    rw [he]
+    by_cases hp : p = 0
+    · have hq : q ≠ 0 := by
+        rintro rfl
+        simp only [hp, zero_smul, add_zero] at hz
+        exact hz rfl
+      have hd : (Algebra.norm (Polynomial k)
+          (p • (1 : W.toAffine.CoordinateRing) + q • CoordinateRing.mk W.toAffine Polynomial.X)).natDegree =
+            2 * q.natDegree + 3 := by
+        apply Polynomial.natDegree_eq_of_degree_eq_some
+        rw [hp, Polynomial.degree_zero, Polynomial.degree_eq_natDegree hq] at hn
+        simp only [two_nsmul, WithBot.bot_add, max_bot_left] at hn
+        rw [hp]
+        convert hn using 1
+        norm_cast
+        omega
+      rw [hd, hp, _root_.map_zero, zero_add, hqval q hq]
+      simp only [Nat.cast_add, Nat.cast_mul, Nat.cast_ofNat]
+    · by_cases hq : q = 0
+      · have hd : (Algebra.norm (Polynomial k)
+            (p • (1 : W.toAffine.CoordinateRing) + q • CoordinateRing.mk W.toAffine Polynomial.X)).natDegree =
+              2 * p.natDegree := by
+          apply Polynomial.natDegree_eq_of_degree_eq_some
+          simpa [hq, two_nsmul, Polynomial.degree_eq_natDegree hp,
+            ← WithBot.coe_add, two_mul] using hn
+        rw [hd, hq, _root_.map_zero, zero_mul, add_zero, hpval p hp]
+        simp only [Nat.cast_mul, Nat.cast_ofNat, neg_mul]
+      · have hd : (Algebra.norm (Polynomial k)
+            (p • (1 : W.toAffine.CoordinateRing) + q • CoordinateRing.mk W.toAffine Polynomial.X)).natDegree =
+              max (2 * p.natDegree) (2 * q.natDegree + 3) := by
+          apply Polynomial.natDegree_eq_of_degree_eq_some
+          rw [Polynomial.degree_eq_natDegree hp, Polynomial.degree_eq_natDegree hq] at hn
+          convert hn using 1
+          norm_cast
+        have hne : originValuation ((Polynomial.eval₂RingHom originFieldConstants originX) p) ≠
+            originValuation ((Polynomial.eval₂RingHom originFieldConstants originX) q * originY) := by
+          rw [hpval p hp, hqval q hq]
+          intro hv
+          have he := (zpow_right_inj₀ (pos_iff_ne_zero.mpr horigin_value_t.1)
+            (ne_of_lt horigin_value_t.2)).mp hv
+          omega
+        rw [originValuation.map_add_of_distinct_val hne, hpval p hp, hqval q hq, hd]
+        rcases le_total (2 * p.natDegree) (2 * q.natDegree + 3) with hle | hle
+        · rw [max_eq_right hle, max_eq_right]
+          · simp only [Nat.cast_add, Nat.cast_mul, Nat.cast_ofNat]
+          · apply (zpow_right_strictAnti₀ (pos_iff_ne_zero.mpr horigin_value_t.1)
+              horigin_value_t.2).antitone
+            have hc : (2 * p.natDegree : ℤ) ≤ 2 * q.natDegree + 3 := by exact_mod_cast hle
+            linarith
+        · rw [max_eq_left hle, max_eq_left]
+          · simp only [Nat.cast_mul, Nat.cast_ofNat, neg_mul]
+          · apply (zpow_right_strictAnti₀ (pos_iff_ne_zero.mpr horigin_value_t.1)
+              horigin_value_t.2).antitone
+            have hc : (2 * q.natDegree + 3 : ℤ) ≤ 2 * p.natDegree := by exact_mod_cast hle
+            linarith
+  have h_infinity_norm_value (z : W.toAffine.CoordinateRing) (hz : z ≠ 0) :
+      infinityValuation (algebraMap _ W.toAffine.FunctionField z) =
+        originValuation (originInclusion t) ^
+          (-(Algebra.norm (Polynomial k) z).natDegree : ℤ) := by
+    change originValuation (functionFieldAtOrigin _) = _
+    rw [h_functionFieldAtOrigin]
+    exact h_origin_norm_value z hz
+  have hH_infinity_value : infinityValuation H =
+      originValuation (originInclusion t) ^
+        ((Algebra.norm (Polynomial k) b).natDegree -
+          (Algebra.norm (Polynomial k) a).natDegree : ℤ) := by
+    dsimp only [H]
+    rw [map_div₀, h_infinity_norm_value a ha, h_infinity_norm_value b hb,
+      ← zpow_sub₀ horigin_value_t.1]
+    congr 1
+    ring
   apply finish
   -- Remaining: prove the orders of the nonzero rational function H equal hD
   -- by accepted proof steps 2--7, and use the
