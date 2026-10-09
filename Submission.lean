@@ -1521,6 +1521,169 @@ theorem Submission.p03_tkc_torsion_card_recurrence_68cf3476_d5 :
       rw [if_neg ht]
       simpa only [pow_one, Nat.cast_one] using
         emultiplicity_pow_self hxne hirr.not_isUnit 1
+  -- Identity chart of accepted proof step 2, with t = -x/y and s = -1/y.
+  -- Its equation is s * (1 - a₁*t - a₂*t² - a₃*s - a₄*t*s - a₆*s²) = t³.
+  -- The parenthesized factor is a unit in the local ring at (0,0).
+  let originPolynomial : Polynomial (Polynomial k) :=
+    Polynomial.X - Polynomial.C (Polynomial.X ^ 3) -
+      Polynomial.C (Polynomial.C W.a₁ * Polynomial.X) * Polynomial.X -
+      Polynomial.C (Polynomial.C W.a₂ * Polynomial.X ^ 2) * Polynomial.X -
+      Polynomial.C (Polynomial.C W.a₃) * Polynomial.X ^ 2 -
+      Polynomial.C (Polynomial.C W.a₄ * Polynomial.X) * Polynomial.X ^ 2 -
+      Polynomial.C (Polynomial.C W.a₆) * Polynomial.X ^ 3
+  have horigin : originPolynomial.evalEval 0 0 = 0 := by
+    simp [originPolynomial, Polynomial.evalEval]
+  let originRing := AdjoinRoot originPolynomial
+  let originEval : originRing →+* k := AdjoinRoot.evalEval horigin
+  let originIdeal : Ideal originRing := RingHom.ker originEval
+  let : originIdeal.IsPrime := RingHom.ker_isPrime originEval
+  let originLocalRing := Localization.AtPrime originIdeal
+  let originMap : originRing →+* originLocalRing := algebraMap _ _
+  let t₀ : originRing := AdjoinRoot.mk originPolynomial (Polynomial.C Polynomial.X)
+  let s₀ : originRing := AdjoinRoot.mk originPolynomial Polynomial.X
+  let t : originLocalRing := originMap t₀
+  let s : originLocalRing := originMap s₀
+  have horigin_parameter :
+      Ideal.span {t} = IsLocalRing.maximalIdeal originLocalRing ∧
+        ∃ u : originLocalRingˣ, s = (u : originLocalRing) * t ^ 3 := by
+    have heval (q : Polynomial (Polynomial k)) :
+        originEval (AdjoinRoot.mk originPolynomial q) = q.evalEval 0 0 :=
+      AdjoinRoot.evalEval_mk horigin q
+    have hker : Ideal.span {t₀, s₀} = originIdeal := by
+      apply le_antisymm
+      · rw [Ideal.span_le]
+        intro z hz
+        rcases hz with rfl | hz
+        · change originEval t₀ = 0
+          rw [heval]
+          simp [Polynomial.evalEval_C]
+        · have he : z = s₀ := hz
+          rw [he]
+          change originEval s₀ = 0
+          rw [heval]
+          simp
+      · intro z hz
+        obtain ⟨q, rfl⟩ := AdjoinRoot.mk_surjective z
+        change originEval (AdjoinRoot.mk originPolynomial q) = 0 at hz
+        rw [heval] at hz
+        have hq : q ∈ Ideal.span
+            {Polynomial.C (Polynomial.X - Polynomial.C (0 : k)),
+              Polynomial.X - Polynomial.C (Polynomial.C (0 : k))} := by
+          apply Polynomial.mem_span_C_X_sub_C_X_sub_C_iff_eval_eval_eq_zero.mpr
+          simpa only [Polynomial.evalEval, Polynomial.eval_C] using hz
+        have hi := Ideal.mem_map_of_mem (AdjoinRoot.mk originPolynomial) hq
+        simpa only [Polynomial.C_0, sub_zero, Ideal.map_span,
+          Set.image_pair, t₀, s₀] using hi
+    let v : originRing := AdjoinRoot.mk originPolynomial
+      (1 - Polynomial.C (Polynomial.C W.a₁ * Polynomial.X) -
+        Polynomial.C (Polynomial.C W.a₂ * Polynomial.X ^ 2) -
+        Polynomial.C (Polynomial.C W.a₃) * Polynomial.X -
+        Polynomial.C (Polynomial.C W.a₄ * Polynomial.X) * Polynomial.X -
+        Polynomial.C (Polynomial.C W.a₆) * Polynomial.X ^ 2)
+    have hv : IsUnit (originMap v) := by
+      apply (IsLocalization.AtPrime.isUnit_to_map_iff originLocalRing originIdeal _).mpr
+      change originEval v ≠ 0
+      rw [heval]
+      simp [Polynomial.evalEval_C]
+    have hrel : s₀ * v = t₀ ^ 3 := by
+      dsimp only [s₀, v, t₀]
+      rw [← map_mul, ← map_pow]
+      apply AdjoinRoot.mk_eq_mk.mpr
+      refine ⟨1, ?_⟩
+      dsimp only [originPolynomial]
+      simp only [Polynomial.C_pow]
+      ring
+    have hrel' : s * originMap v = t ^ 3 := by
+      simpa only [map_mul, map_pow] using congrArg originMap hrel
+    have hunit : s = (↑(hv.unit⁻¹) : originLocalRing) * t ^ 3 := by
+      have hu : originMap v * ↑(hv.unit⁻¹) = 1 := by
+        calc
+          originMap v * ↑(hv.unit⁻¹) = (hv.unit : originLocalRing) * ↑(hv.unit⁻¹) :=
+            congrArg (fun z : originLocalRing => z * ↑(hv.unit⁻¹)) hv.unit_spec.symm
+          _ = 1 := by simp
+      calc
+        s = s * (originMap v * ↑(hv.unit⁻¹)) := by rw [hu, mul_one]
+        _ = ↑(hv.unit⁻¹) * t ^ 3 := by rw [← mul_assoc, hrel']; ring
+    have hspan : Ideal.span {t, s} = IsLocalRing.maximalIdeal originLocalRing := by
+      calc
+        Ideal.span {t, s} = Ideal.map originMap (Ideal.span {t₀, s₀}) := by
+          rw [Ideal.map_span, Set.image_pair]
+        _ = Ideal.map originMap originIdeal := by rw [hker]
+        _ = IsLocalRing.maximalIdeal originLocalRing :=
+          IsLocalization.AtPrime.map_eq_maximalIdeal originIdeal originLocalRing
+    refine ⟨?_, hv.unit⁻¹, hunit⟩
+    rw [← hspan]
+    apply le_antisymm
+    · exact Ideal.span_mono (by intro z hz; simp only [Set.mem_singleton_iff] at hz; simp [hz])
+    · rw [Ideal.span_le]
+      intro z hz
+      rcases hz with rfl | hz
+      · exact Ideal.subset_span (Set.mem_singleton t)
+      · have he : z = s := hz
+        rw [he]
+        apply Ideal.mem_span_singleton.mpr
+        exact ⟨↑(hv.unit⁻¹) * t ^ 2, by rw [hunit]; ring⟩
+  have horigin_order : IsRegular t ∧ ¬IsUnit t ∧ emultiplicity t s = 3 := by
+    have hxprime : Prime (Polynomial.C (Polynomial.X : Polynomial k)) :=
+      Polynomial.prime_C_iff.mpr Polynomial.prime_X
+    have hxnot : ¬Polynomial.C (Polynomial.X : Polynomial k) ∣ originPolynomial := by
+      intro hx
+      have hc := (Polynomial.C_dvd_iff_dvd_coeff _ _).mp hx 1
+      have hz := Polynomial.X_dvd_iff.mp hc
+      simp only [originPolynomial, Polynomial.coeff_sub, Polynomial.coeff_C_mul,
+        Polynomial.coeff_C, Polynomial.coeff_X_pow, Polynomial.coeff_X] at hz
+      norm_num at hz
+    have ht₀ : t₀ ∈ nonZeroDivisors originRing := by
+      rw [mem_nonZeroDivisors_iff_left]
+      intro z hz
+      obtain ⟨q, rfl⟩ := AdjoinRoot.mk_surjective z
+      change AdjoinRoot.mk originPolynomial (Polynomial.C Polynomial.X) *
+        AdjoinRoot.mk originPolynomial q = 0 at hz
+      rw [← map_mul, AdjoinRoot.mk_eq_zero] at hz
+      obtain ⟨r, hr⟩ := hz
+      have hrdiv : Polynomial.C (Polynomial.X : Polynomial k) ∣ r := by
+        apply (hxprime.dvd_mul.mp ?_).resolve_left hxnot
+        exact ⟨q, hr.symm⟩
+      obtain ⟨v, rfl⟩ := hrdiv
+      apply AdjoinRoot.mk_eq_zero.mpr
+      refine ⟨v, ?_⟩
+      apply mul_left_cancel₀ hxprime.ne_zero
+      calc
+        Polynomial.C Polynomial.X * q = originPolynomial *
+            (Polynomial.C Polynomial.X * v) := hr
+        _ = Polynomial.C Polynomial.X * (originPolynomial * v) := by ring
+    have ht : IsRegular t := by
+      apply isRegular_iff_mem_nonZeroDivisors.mpr
+      exact IsLocalization.nonZeroDivisors_le_comap originIdeal.primeCompl originLocalRing ht₀
+    have hnonunit : ¬IsUnit t := by
+      apply (IsLocalRing.mem_maximalIdeal t).mp
+      rw [← horigin_parameter.1]
+      exact Ideal.subset_span (Set.mem_singleton t)
+    refine ⟨ht, hnonunit, ?_⟩
+    obtain ⟨u, hu⟩ := horigin_parameter.2
+    have hassoc : Associated (t ^ 3) s := ⟨u, by rw [hu]; ring⟩
+    rw [← emultiplicity_eq_of_associated_right hassoc]
+    apply emultiplicity_eq_of_dvd_of_not_dvd (dvd_refl (t ^ 3))
+    rintro ⟨v, hv⟩
+    have hone : 1 = t * v := (ht.pow 3).left (by
+      simpa only [mul_one, pow_succ, mul_assoc] using hv)
+    apply hnonunit
+    exact isUnit_iff_dvd_one.mpr ⟨v, hone⟩
+  have horigin_leading : ∃ r : originLocalRing, s = t ^ 3 + t ^ 4 * r := by
+    let c : k →+* originLocalRing := originMap.comp
+      ((AdjoinRoot.mk originPolynomial).comp (Polynomial.C.comp Polynomial.C))
+    have hrel : s - t ^ 3 - c W.a₁ * t * s - c W.a₂ * t ^ 2 * s -
+        c W.a₃ * s ^ 2 - c W.a₄ * t * s ^ 2 - c W.a₆ * s ^ 3 = 0 := by
+      have he : originMap (AdjoinRoot.mk originPolynomial originPolynomial) = 0 := by simp
+      dsimp only [originPolynomial] at he
+      simp only [map_sub, map_mul, map_pow] at he
+      exact he
+    obtain ⟨u, hu⟩ := horigin_parameter.2
+    refine ⟨c W.a₁ * ↑u + c W.a₂ * ↑u * t + c W.a₃ * (↑u : originLocalRing) ^ 2 * t ^ 2 +
+      c W.a₄ * (↑u : originLocalRing) ^ 2 * t ^ 3 +
+      c W.a₆ * (↑u : originLocalRing) ^ 3 * t ^ 5, ?_⟩
+    rw [hu] at hrel ⊢
+    linear_combination hrel
   apply finish
   -- Remaining: prove the orders of the nonzero rational function H equal hD
   -- by accepted proof steps 2--7, and use the
