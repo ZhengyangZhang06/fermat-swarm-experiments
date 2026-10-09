@@ -16,11 +16,6 @@ set_option autoImplicit false
 
 
 
-theorem CuspForm.gamma0_weight_two_eq_zero_of_genusFormula_eq_zero (N : ℕ) [NeZero N]
-    (hg : ModularCurve.genusFormula N = 0) (f : CuspForm (CongruenceSubgroup.Gamma0 N) 2) : f = 0 := by
-  sorry
-
-
 theorem Submission.p10_17ae7b7d_pde_decay_zero :
     ∀ (w : ℝ) (g A : ℂ → ℂ), 0 < w → ContinuousAt A 0 →
       (∀ z : ℂ, 0 < z.im →
@@ -17421,6 +17416,9 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
   ring
 
 end Submission
+
+theorem CuspForm.gamma0_weight_two_eq_zero_of_genusFormula_eq_zero (N : ℕ) [NeZero N]
+    (hg : ModularCurve.genusFormula N = 0) (f : CuspForm (CongruenceSubgroup.Gamma0 N) 2) : f = 0 := by
   by_contra hf
   obtain ⟨F, A, hF, hF_ne, hT, hS, hA, hq, hc, h₂, h₃⟩ :=
     Submission.p10_17ae7b7d_gamma0_norm_vanishing N f hf
