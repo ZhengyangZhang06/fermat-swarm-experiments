@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "051223e1941a2987fe5d3848e3ed2421d69976ea0d739c804c8cc6f1537ab72f",
+  "git_delta": {
+    "base_commit": "ec4eb8f6a7c7f6fc745b6fbfca2de9c4c533d64c",
+    "candidate_commit": "859448b2ac7e9ead11876ec9e732ee29cf2d7086",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_action_congruence",
+    "diff_sha256": "7c859b04a42f9ef2f6dd28aae8a11d238adf36d1ae1d67686f1479077ffeefb2",
+    "source_sha256": "05369a8102077b581e1cfa236e421e7a5cdf1e6aadb1bc9520545c3f04b1045a",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_action_congruence",
+      "statement": "∀ {C M : Type} [CommRing C] [AddCommGroup M] [Module C M] (J : Ideal C) (U : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) →* Module.End C M) (F : IntermediateField ℚ (AlgebraicClosure ℚ)), (∀ δ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ, (∀ x ∈ F, δ x = x) → ∀ y : M, U δ y - y ∈ J • (⊤ : Submodule C M)) → ∀ σ τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ, (∀ x ∈ F, σ x = τ x) → ∀ y : M, (U σ - U τ) y ∈ J • (⊤ : Submodule C M)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
