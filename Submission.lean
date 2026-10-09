@@ -39,3 +39,38 @@ theorem GaloisRepAdic.exists_quadraticRelation_forall_of_frobenius
       ∀ σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ,
         ρY σ * ρY σ - (ρ.trace σ) • ρY σ + ((c σ : Rˣ) : R) • D (χ σ) = 0 := by
   sorry
+
+
+theorem Submission.p09_af497904fe_quadratic_congruence :
+    ∀ {C M : Type} [CommRing C] [AddCommGroup M] [Module C M]
+      (J : Ideal C) (a b d : Module.End C M) (s r u v : C),
+      (∀ y : M, (a - b) y ∈ J • (⊤ : Submodule C M)) →
+      s - r ∈ J → u - v ∈ J → ∀ y : M,
+      ((a * a - s • a + u • d) - (b * b - r • b + v • d)) y ∈
+        J • (⊤ : Submodule C M) := by
+  intro C M _ _ _ J a b d s r u v hab hsr huv y
+  have ha : a ((a - b) y) ∈ J • (⊤ : Submodule C M) := by
+    refine Submodule.smul_induction_on (hab y) ?_ ?_
+    · intro c hc z _
+      rw [map_smul]
+      exact Submodule.smul_mem_smul hc (Submodule.mem_top : a z ∈ (⊤ : Submodule C M))
+    · intro x z hx hz
+      rw [map_add]
+      exact Submodule.add_mem _ hx hz
+  have hs : s • ((a - b) y) ∈ J • (⊤ : Submodule C M) :=
+    Submodule.smul_mem _ s (hab y)
+  have hsb : (s - r) • b y ∈ J • (⊤ : Submodule C M) :=
+    Submodule.smul_mem_smul hsr (Submodule.mem_top : b y ∈ (⊤ : Submodule C M))
+  have hud : (u - v) • d y ∈ J • (⊤ : Submodule C M) :=
+    Submodule.smul_mem_smul huv (Submodule.mem_top : d y ∈ (⊤ : Submodule C M))
+  have heq :
+      ((a * a - s • a + u • d) - (b * b - r • b + v • d)) y =
+        a ((a - b) y) + (a - b) (b y) - s • ((a - b) y) -
+          (s - r) • b y + (u - v) • d y := by
+    simp only [LinearMap.sub_apply, LinearMap.add_apply, LinearMap.smul_apply,
+      Module.End.mul_apply, map_sub, smul_sub, sub_smul]
+    abel
+  rw [heq]
+  exact Submodule.add_mem _
+    (Submodule.sub_mem _ (Submodule.sub_mem _ (Submodule.add_mem _ ha (hab (b y))) hs) hsb)
+    hud
