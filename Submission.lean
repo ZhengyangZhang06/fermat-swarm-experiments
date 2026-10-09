@@ -234,3 +234,46 @@ theorem Submission.p09_af497904fe_finite_inverse_limit
   | succ j hij ih =>
       rw [hcomp i j (j + 1) hij (Nat.le_succ j), hadj j]
       exact ih
+
+
+theorem Submission.p09_af497904fe_fcc_fra_residue_injective :
+    ∀ (N : ℕ) [NeZero N] (ℓ : ℕ), ℓ.Prime → ¬ ℓ ∣ N →
+      ∀ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ →
+        ∀ x y : P, x ^ N = 1 → y ^ N = 1 →
+          IsLocalRing.residue P x = IsLocalRing.residue P y → x = y := by
+  intro N _ ℓ hℓ hN P hP x y hx hy hxy
+  have hℓP : (ℓ : P) ∈ IsLocalRing.maximalIdeal P :=
+    ValuationSubring.coe_mem_nonunits_iff.mp (by simpa [ValuationSubring.LiesOverPrime] using hP)
+  have hℓk : (ℓ : IsLocalRing.ResidueField P) = 0 := by
+    rw [← map_natCast (IsLocalRing.residue P) ℓ]
+    exact (IsLocalRing.residue_eq_zero_iff _).mpr hℓP
+  have : CharP (IsLocalRing.ResidueField P) ℓ :=
+    (CharP.charP_iff_prime_eq_zero hℓ).mpr hℓk
+  have hNk : (N : IsLocalRing.ResidueField P) ≠ 0 :=
+    fun h => hN ((CharP.cast_eq_zero_iff (IsLocalRing.ResidueField P) ℓ N).mp h)
+  have hone (t : P) (ht : t ^ N = 1)
+      (hred : IsLocalRing.residue P t = 1) : t = 1 := by
+    by_contra h
+    have hs : (∑ i ∈ Finset.range N, t ^ i) = 0 :=
+      (mul_eq_zero.mp ((geom_sum_mul t N).trans (by rw [ht, sub_self]))).resolve_right
+        (sub_ne_zero.mpr h)
+    have hr := congrArg (IsLocalRing.residue P) hs
+    apply hNk
+    simpa [map_sum, map_pow, hred] using hr
+  have hpos : 1 ≤ N := Nat.one_le_iff_ne_zero.mpr (NeZero.ne N)
+  let v : P := y ^ (N - 1)
+  have hyv : y * v = 1 := by
+    dsimp [v]
+    rw [← pow_succ', Nat.sub_add_cancel hpos, hy]
+  have hvy : v * y = 1 := by rw [mul_comm, hyv]
+  have hv : v ^ N = 1 := by
+    dsimp [v]
+    rw [← pow_mul, Nat.mul_comm, pow_mul, hy, one_pow]
+  have htv : x * v = 1 := by
+    apply hone
+    · rw [mul_pow, hx, hv, one_mul]
+    · rw [map_mul, hxy, ← map_mul, hyv, map_one]
+  calc
+    x = x * (v * y) := by rw [hvy, mul_one]
+    _ = (x * v) * y := (mul_assoc x v y).symm
+    _ = y := by rw [htv, one_mul]
