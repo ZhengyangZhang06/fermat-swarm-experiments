@@ -2072,43 +2072,6 @@ theorem Submission.p10_17ae7b7d_ccm_coprime_orbit_product :
   exact (Nat.card_congr (Setoid.prodQuotientEquiv
     (MulAction.orbitRel (Subgroup.zpowers g) X)
     (MulAction.orbitRel (Subgroup.zpowers g) Y)).symm).trans (Nat.card_prod _ _)
-theorem Submission.p10_17ae7b7d_uce_normalized_quot_eq_iff :
-    ∀ (R : Type) [CommRing R],
-      let U := {v : R × R // ∃ x y : R, x * v.1 + y * v.2 = 1}
-      let rel : U → U → Prop := fun v w =>
-        ∃ u : Rˣ, (u : R) * v.1.1 = w.1.1 ∧ (u : R) * v.1.2 = w.1.2
-      ∀ v w : U,
-        (v.1.1 = 1 ∨ (¬ IsUnit v.1.1 ∧ v.1.2 = 1)) →
-        (w.1.1 = 1 ∨ (¬ IsUnit w.1.1 ∧ w.1.2 = 1)) →
-        (Quot.mk rel v = Quot.mk rel w ↔ v = w) := by
-  intro R _ U rel v w hv hw
-  constructor
-  · intro hq
-    have heqv : Equivalence rel := by
-      refine ⟨fun a => ⟨1, by simp, by simp⟩, ?_, ?_⟩
-      · rintro a b ⟨u, h₁, h₂⟩
-        exact ⟨u⁻¹, by rw [← h₁, Units.inv_mul_cancel_left],
-          by rw [← h₂, Units.inv_mul_cancel_left]⟩
-      · rintro a b c ⟨u, h₁, h₂⟩ ⟨t, h₁', h₂'⟩
-        exact ⟨t * u, by rw [Units.val_mul, mul_assoc, h₁, h₁'],
-          by rw [Units.val_mul, mul_assoc, h₂, h₂']⟩
-    obtain ⟨u, h₁, h₂⟩ := heqv.eqvGen_iff.mp (Quot.eq.mp hq)
-    have hu : (u : R) = 1 := by
-      rcases hv with hv | ⟨hv, hv₂⟩ <;> rcases hw with hw | ⟨hw, hw₂⟩
-      · simpa only [hv, hw, mul_one] using h₁
-      · exact False.elim (hw ⟨u, by simpa only [hv, mul_one] using h₁⟩)
-      · apply False.elim
-        apply hv
-        refine ⟨u⁻¹, ?_⟩
-        calc
-          (↑u⁻¹ : R) = ↑u⁻¹ * w.1.1 := by rw [hw, mul_one]
-          _ = v.1.1 := by rw [← h₁, Units.inv_mul_cancel_left]
-      · simpa only [hv₂, hw₂, mul_one] using h₂
-    apply Subtype.ext
-    apply Prod.ext
-    · simpa only [hu, one_mul] using h₁
-    · simpa only [hu, one_mul] using h₂
-  · exact congrArg (Quot.mk rel)
 
 
 theorem Submission.p10_17ae7b7d_ppr_unit_chart_equiv :
