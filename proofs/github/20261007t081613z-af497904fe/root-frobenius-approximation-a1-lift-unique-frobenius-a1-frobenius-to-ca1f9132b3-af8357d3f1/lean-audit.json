@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "3ed267027ffc836aa84ef05f89b4e47c374714e88f23ef9d9f403ea5330e433d",
+  "git_delta": {
+    "base_commit": "97f32c2abc9205b480ae0c2cb521b382a16c3df0",
+    "candidate_commit": "e10f366b279802bd9557d426ace2a589b1c79784",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_ftl_compatible_automorphisms_glue",
+    "diff_sha256": "af5c143d1e7dc4044b1306038e532bf76f87747962f9b7f82f37e81a6d2cf40a",
+    "source_sha256": "4017b0cb854552cff44a3231d53636c4ceb4ede353bff4204d453a574fe562a1",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_ftl_compatible_automorphisms_glue",
+      "statement": "∀ (F : ℕ → IntermediateField ℚ (AlgebraicClosure ℚ)) (hmono : Monotone F), (∀ x : AlgebraicClosure ℚ, ∃ i : ℕ, x ∈ F i) → ∀ g : (i : ℕ) → F i ≃ₐ[ℚ] F i, (∀ (i j : ℕ) (hij : i ≤ j) (x : F i), IntermediateField.inclusion (hmono hij) (g i x) = g j (IntermediateField.inclusion (hmono hij) x)) → ∃ τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ, ∀ (i : ℕ) (x : F i), τ (x : AlgebraicClosure ℚ) = ((g i x : F i) : AlgebraicClosure ℚ)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
