@@ -1,0 +1,83 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "^(import|structure|def|theorem|lemma|namespace)|quadraticRelation|FrobeniusDensity",
+        "LiesOverPrime|IsFrobeniusAt|decompositionSubgroup|residueField",
+        "class IsAdicComplete|class IsPrecomplete|class IsHausdorff|IsAdicComplete|iInf_pow_smul_eq_bot_of_isLocalRing|trace_eq_matrix_trace|TODO|modularCyclotomicCharacter",
+        "chebotarev|frobenius.*density|density.*frobenius",
+        "p09_af497904fe_rhc_20261009_(adic_cyclotomic_character|frobenius_approximation)"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_GaloisRep_Adic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/AdicCompletion/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Filtration.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/LinearAlgebra/Trace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/Cyclotomic/CyclotomicCharacter.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/Complex/Polynomial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects",
+        "/tmp/p09-independent-decomposition-iyjgqut2/audit.json"
+      ],
+      "conclusion": "The frozen authority is the Galois theorem; the corrected Galois proof in the rationale supports this eight-child split. The Dirichlet-series argument supplies an analytic step inside frobenius_approximation. Definitions confirm the stated continuity, trace, valuation-nonunit and arithmetic-Frobenius meanings. IsAdicComplete includes separatedness; the cited Krull-intersection and trace results have the required hypotheses. The NumberTheory density search returned no matches. Project 20574e45daf714e745af8e649c7b61b21eed5644, mathlib db584cd6d46c92f209a44c0f1c829460d327499d and all nine dependencies were independently checked as pinned and tracked-clean. All eight propositions independently elaborated under the frozen imports without importing Submission; subsequent reuse and operation checks also passed. Six reused declarations have identical frozen types and successful comparator records with permitted transitive axioms. Their exported Git identities, hashes and authorized reversible header repairs were checked. Lean independently confirmed absence of all eight omitted attribute targets. All names are bare identifiers; the two new names have no matches in the searched DAG registries or compiler environment. Dependencies are correctly directed and acyclic. This approves decomposition, not final root Lean acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "finite_cyclotomic_character",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone Lean proposition matches every prose hypothesis and conclusion. The proof constructs the character through primitive roots, establishes finite-field control, proves injectivity of reduction away from N, and identifies arithmetic Frobenius. It correctly includes N = 1. Reuse preserves the comparator-accepted type."
+    },
+    {
+      "key": "adic_character_lift",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The completeness class supplies precisely precompleteness and separatedness. Pointwise limits, the displayed multiplication expansion, inverse construction and uniqueness prove the exact unit-valued homomorphism statement, including precision zero. No circular dependency occurs; the reused frozen type is identical."
+    },
+    {
+      "key": "adic_cyclotomic_character",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The proof derives compatibility of independently chosen finite characters using primitive roots, then applies exactly the two declared prerequisites. Locality transfers ideal-power congruences, while separatedness in 𝒪 proves exact Frobenius values before mapping to R. No completeness or finiteness of R is silently assumed. The proposition elaborates independently and the new name is unreserved."
+    },
+    {
+      "key": "finite_inverse_limit",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The type exactly states the coherent finite nonempty inverse-system contract. Decreasing images stabilize; adjacent maps on stable images are surjective, permitting recursive choices and all-pairs compatibility. The proof never assumes surjectivity of the original maps. The reused declaration has the identical accepted type."
+    },
+    {
+      "key": "frobenius_approximation",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "All forty steps support the exact contract without invoking the child or Galois parent. Ray-class lattice counting establishes equal positive residues independently of prime distribution; cyclotomic factorization and nonvanishing give prescribed degree-one primes. The auxiliary disjoint cyclotomic extension prescribes the exact finite automorphism. The declared inverse-limit prerequisite then supplies compatible lifts, whose unions satisfy the precise valuation and residue-Frobenius predicates. Finite exclusions and agreement on E are retained. The type independently elaborates and the new name is unreserved."
+    },
+    {
+      "key": "action_congruence",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The proof correctly uses δ = τ⁻¹σ, preservation of ideal multiples by linear maps, and left composition by U(τ). Lean checks confirm the automorphism and endomorphism multiplication conventions. No normality or finiteness of F is needed. Prose, standalone type and accepted reused type agree."
+    },
+    {
+      "key": "trace_congruence",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The zero-ring case is handled explicitly. Otherwise finite generation makes the free basis finite; coordinate maps send J•⊤ into J, and summing diagonal entries gives the stated trace difference. The pinned trace theorem supports this identification. All hypotheses match the independently elaborated, identically reused type."
+    },
+    {
+      "key": "quadratic_congruence",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The ordered expansion is correct without commuting endomorphisms. Each evaluated term belongs to J•⊤ by the image congruence, scalar congruences or preservation under linear maps. Lean confirms composition and scalar-action semantics. The proposition matches the prose and identical comparator-accepted declaration."
+    }
+  ],
+  "required_changes": []
+}
