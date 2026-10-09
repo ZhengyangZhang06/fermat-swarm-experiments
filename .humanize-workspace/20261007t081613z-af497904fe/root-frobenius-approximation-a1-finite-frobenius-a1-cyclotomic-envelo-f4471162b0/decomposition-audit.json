@@ -1,0 +1,48 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "sum_ramification_inertia_eq_finrank|exists_ideal_over_prime_of_isIntegral_of_isDomain|absNorm_span_singleton|inertiaDeg_eq_of_isMaximal|extension_algebra_isIntegral|theorem rank",
+        "cyclotomic.*ramif|ramif.*cyclotomic|totally.ramif",
+        "sub_one_norm_eq_eval_cyclotomic|intermediateField_adjoin_isCyclotomicExtension",
+        "class LiesOver|def LiesOver|theorem liesOver_iff|lemma liesOver_iff",
+        "p09_af497904fe_csr_cyclotomic_prime_residue|p09_af497904fe_csr_prime_residue_descent"
+      ],
+      "files": [
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/P2M",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Theorems",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/Cyclotomic/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/Cyclotomic/PrimitiveRoots.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Cyclotomic/Ideal.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/Norm/AbsNorm.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/GoingUp.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/Over.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RamificationInertia/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RamificationInertia/Inertia.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/dag.json",
+        ".humanize/csr-decomposition-audit-lzy1tseu/report.json"
+      ],
+      "conclusion": "Independently verified tracked-clean project revision 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d, matching frozen compiler/dependency pins and clean pinned dependency trees. The project cyclotomic-ramification search returned no matches. Inspected library results support the norm, integral basis, contraction, lying-over, quotient inertia degree, and non-Galois finite-flat degree arguments. Fresh Lean diagnostics rebuilt the frozen project definitions, elaborated both exact propositions without Submission or either child implementation, and kernel-checked their implication to the frozen parent contract. Both names are unreserved. Audited supporting declarations use only propext, Classical.choice, and Quot.sound. Verified policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, precisely omitted lines 10–11 in the private compiler copy, reversible original/build hashes, and successful absence checks for all eight targets. Protected contract, problem, header, and handoffs remained unchanged. The recorded diagnostics are interface evidence, not implementation-comparator acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "cyclotomic_prime_residue",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose, including finite-dimensionality, primality, contraction, quotient cardinality, and uniqueness. The eight steps correctly establish integrality, Eisenstein irreducibility, conjugates and norm, integral units via the integral-basis adjugate, the prime quotient, and ideal-power uniqueness. The argument covers q = 2 and contains no circular appeal or deferred proof search. Its bare name is unreserved, and its type elaborates independently. Isolating this cyclotomic arithmetic is a genuine mathematical split."
+    },
+    {
+      "key": "prime_residue_descent",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition includes every prose hypothesis and the exact ramification conclusion, with no Galois assumption. The six steps correctly construct the integral injective integer-ring map, contract A, apply lying-over, identify the compatible prime-field quotients, obtain inertia degree one, and collapse the applicable finite-flat degree formula. The proof is complete and non-circular. Its bare name is unreserved. Empty sibling dependencies are correct because the upstairs data are explicit hypotheses; the parent depends on both children, whose composition was independently kernel-checked against its frozen type."
+    }
+  ],
+  "required_changes": []
+}

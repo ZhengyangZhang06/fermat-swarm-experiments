@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.cyclotomic_intersection-a1.cyclotomic_subfield_ramification-a1.prime_residue_descent-a1",
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.cyclotomic_intersection-a1.cyclotomic_subfield_ramification-a1",
+  "depth": 6,
+  "title": "A unique prime with prime residue field yields total ramification in every finite subfield",
+  "statement": "Let Ω = AlgebraicClosure ℚ. Let C and D be finite-dimensional intermediate fields of Ω/ℚ with D ⊆ C, and let q be a natural prime. Suppose A is a prime ideal of O_C contracting to (q), O_C/A has exactly q elements, and every prime ideal of O_C contracting to (q) equals A. Then there exists a prime ideal R of O_D contracting to (q) with ramification index e(R/ℤ) = [D:ℚ]. Neither C nor D is required to be Galois over ℚ.",
+  "lean_statement": "∀ (C D : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ C] [FiniteDimensional ℚ D] (q : ℕ) (A : Ideal (NumberField.RingOfIntegers C)), q.Prime → D ≤ C → A.IsPrime → A.LiesOver (Ideal.span {(q : ℤ)}) → Nat.card (NumberField.RingOfIntegers C ⧸ A) = q → (∀ B : Ideal (NumberField.RingOfIntegers C), B.IsPrime → B.LiesOver (Ideal.span {(q : ℤ)}) → B = A) → ∃ R : Ideal (NumberField.RingOfIntegers D), R.IsPrime ∧ R.LiesOver (Ideal.span {(q : ℤ)}) ∧ Ideal.ramificationIdx R ℤ = Module.finrank ℚ D",
+  "lean_name": "p09_af497904fe_csr_prime_residue_descent",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-2464e4fd1d-a1"
+}

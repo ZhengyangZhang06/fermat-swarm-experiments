@@ -1,0 +1,41 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "sum_ramification_inertia_eq_finrank|exists_ideal_over_prime_of_isIntegral_of_isDomain|theorem absNorm_span_singleton",
+        "theorem rank|finrank|instance.*Finite|instance.*Free",
+        "ramif|norm.*sub|sub.*norm|isUnit|span|finrank",
+        "cyclotomic.*ramif|ramif.*cyclotomic|totally.ramif",
+        "intermediateField_adjoin_isCyclotomicExtension|finiteDimensional",
+        "inertiaDeg.*quotient|inertiaDeg_algebraMap|finrank.*quotient|inertiaDeg_eq"
+      ],
+      "files": [
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/P2M",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Theorems",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/Cyclotomic/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/Cyclotomic/PrimitiveRoots.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Cyclotomic/Ideal.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/Norm/AbsNorm.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/GoingUp.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RamificationInertia/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RamificationInertia/Inertia.lean"
+      ],
+      "conclusion": "Verified clean tracked snapshots at project revision 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d, with matching pinned dependencies. The targeted cyclotomic-ramification search found no match in the project Definitions, P2M, or Theorems directories. Mathlib supplies cyclotomic prime uniqueness and norm calculations, integral extensions between integer rings, lying-over, the maximal-ideal quotient formula for inertia degree, the finite-flat ramification-inertia sum, and the integer-ring rank equality. Audited supporting declarations have only propext, Classical.choice, and Quot.sound as transitive axioms. Both proposed types elaborate after import Submission, and their implication to the exact frozen parent type passes Lean. Diagnostic evidence is in .humanize/csr-split-diagnostic-6coyxsue, including reversible policy-authorized header omission and a successful eight-target absence probe. Its audit-summary.json distinguishes concurrent committed changes to live Submission.lean from the unchanged frozen contract, header, and handoffs. These are interface diagnostics, not comparator acceptance."
+    }
+  ],
+  "proof": "1. Fix C, D, q, and A satisfying all hypotheses. The inclusion D ⊆ C restricts to an injective unital ring homomorphism f : O_D → O_C: an element integral over ℤ remains integral after the field inclusion. This map agrees with the canonical maps from ℤ. The extension O_D → O_C is integral, since every element of O_C satisfies a monic polynomial over ℤ and mapping its coefficients to O_D gives a monic polynomial over O_D annihilating that element. This is the integer-ring integrality recorded by NumberField.RingOfIntegers.extension_algebra_isIntegral.\n2. Define R = f⁻¹(A). Contraction of a prime ideal along a unital ring homomorphism is prime. Compatibility with the integer maps and the hypothesis A ∩ ℤ = (q) give R ∩ ℤ = (q). In particular, R lies above (q).\n3. Let Q be any prime ideal of O_D above (q). Apply lying-over to the integral extension O_D → O_C. The injectivity of f makes its kernel zero, which is contained in Q, so the hypotheses of Ideal.exists_ideal_over_prime_of_isIntegral_of_isDomain hold. It supplies a prime ideal B of O_C with f⁻¹(B) = Q. Contracting further to ℤ gives B ∩ ℤ = (q). The assumed uniqueness above q in O_C therefore gives B = A, and hence Q = R. Thus R is the unique prime ideal of O_D above (q).\n4. The assumption Nat.card(O_C/A) = q, with q prime and positive, implies that O_C/A is finite of cardinality q. It is nontrivial because A is prime and therefore proper. In its additive group of prime order q, the nonzero identity has order q and generates the group. Consequently every element is an integer multiple of 1, and the canonical map ℤ → O_C/A is surjective with kernel (q). It induces a ring isomorphism ℤ/qℤ ≃ O_C/A.\n5. The map f induces a unital ring homomorphism f̄ : O_D/R → O_C/A. It is injective because R is exactly the inverse image of A. Its image contains every integer multiple of 1, since f is unital and agrees with the integer maps. By step 4 these multiples exhaust O_C/A, so f̄ is surjective and hence an isomorphism. The canonical map ℤ/(q) → O_D/R is also an isomorphism: its composite with f̄ is the isomorphism from step 4, and f̄ is bijective. Thus R is maximal, and O_D/R has dimension one over ℤ/(q) with its canonical scalar structure. Since (q) is maximal as well, Ideal.inertiaDeg_eq_of_isMaximal identifies this quotient-field dimension with the inertia degree, giving inertiaDeg(R/ℤ) = 1.\n6. As D is a number field, O_D is a finite free ℤ-module, hence finite flat. NumberField.RingOfIntegers.rank identifies its ℤ-rank with [D:ℚ]. Apply Ideal.sum_ramification_inertia_eq_finrank to the prime ideal (q) and the finite flat ℤ-algebra O_D. By steps 2 and 3, the set of prime ideals above (q) is exactly the singleton {R}, so it has a finite indexing type and the sum reduces to e(R/ℤ) times inertiaDeg(R/ℤ). Step 5 makes the second factor one. The formula therefore gives e(R/ℤ) = rank_ℤ(O_D) = [D:ℚ]. Together with step 2, this R satisfies the required conclusion. No Galois hypothesis was used.",
+  "key_steps": [
+    "Restrict the field inclusion to an injective integral map between integer rings.",
+    "Contract A to obtain a prime R above (q).",
+    "Use lying-over and uniqueness upstairs to prove uniqueness of R downstairs.",
+    "Identify the upstairs quotient with the prime field using its cardinality q.",
+    "Show the induced quotient injection is surjective and deduce inertia degree one.",
+    "Collapse the finite-flat ramification-inertia sum to its single term and apply the integer-ring rank equality."
+  ],
+  "unresolved": [],
+  "validation_notes": []
+}

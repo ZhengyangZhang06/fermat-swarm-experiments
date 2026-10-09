@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.cyclotomic_intersection-a1.cyclotomic_subfield_ramification-a1.cyclotomic_prime_residue-a1",
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.cyclotomic_intersection-a1.cyclotomic_subfield_ramification-a1",
+  "depth": 6,
+  "title": "A prime-cyclotomic field has a unique prime above its conductor with prime residue field",
+  "statement": "Let Ω = AlgebraicClosure ℚ, let q be a natural prime, and let ζ ∈ Ω be a primitive qth root of unity. Put C = ℚ(ζ). Then C is finite-dimensional over ℚ, and there exists a prime ideal A of O_C whose contraction to ℤ is (q), whose quotient O_C/A has exactly q elements, and such that every prime ideal B of O_C contracting to (q) equals A.",
+  "lean_statement": "∀ (q : ℕ) (ζ : AlgebraicClosure ℚ), q.Prime → IsPrimitiveRoot ζ q → let C := IntermediateField.adjoin ℚ ({ζ} : Set (AlgebraicClosure ℚ)); FiniteDimensional ℚ C ∧ ∃ A : Ideal (NumberField.RingOfIntegers C), A.IsPrime ∧ A.LiesOver (Ideal.span {(q : ℤ)}) ∧ Nat.card (NumberField.RingOfIntegers C ⧸ A) = q ∧ ∀ B : Ideal (NumberField.RingOfIntegers C), B.IsPrime → B.LiesOver (Ideal.span {(q : ℤ)}) → B = A",
+  "lean_name": "p09_af497904fe_csr_cyclotomic_prime_residue",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-95aaa2cc88-a1"
+}
