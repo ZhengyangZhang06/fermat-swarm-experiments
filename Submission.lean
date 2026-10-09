@@ -1922,3 +1922,96 @@ theorem Submission.p08_7d1ff633a4_tt26_transfer_projection :
     · exact projection₀_right x y
     · exact projection₁_right x y
     · exact projection₂_right x y
+
+
+theorem Submission.p08_7d1ff633a4_transfer_theta :
+    ∀ {k G : Type} [Field k] [Group G]
+      (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ))
+      (H : Subgroup G) [H.FiniteIndex] (A B N : Rep.{0} k G)
+      (E₀ : IntermediateField ℚ (AlgebraicClosure ℚ)),
+      FiniteDimensional ℚ E₀ → Normal ℚ E₀ → E₀.fixingSubgroup.comap r ≤ H →
+      (∀ g : G, r g ∈ E₀.fixingSubgroup → ∀ a : A, A.ρ g a = a) →
+      (∀ g : G, r g ∈ E₀.fixingSubgroup → ∀ b : B, B.ρ g b = b) →
+      (∀ g : G, r g ∈ E₀.fixingSubgroup → ∀ z : N, N.ρ g z = z) →
+      ∀ φ : A →ₗ[k] B →ₗ[k] N,
+      (∀ (g : G) (a : A) (b : B), φ (A.ρ g a) (B.ρ g b) = N.ρ g (φ a b)) →
+      let rH := r.comp H.subtype
+      let AH := Rep.res H.subtype A
+      let BH := Rep.res H.subtype B
+      let NH := Rep.res H.subtype N
+      let φH : AH →ₗ[k] BH →ₗ[k] NH := φ
+      let X : Fin 3 → ModuleCat k :=
+        ![ModuleCat.of k A.ρ.invariants,
+          ModuleCat.of k (groupCohomology.continuousH1 r A),
+          ModuleCat.of k (groupCohomology.continuousH2 r A)]
+      let Y : Fin 3 → ModuleCat k :=
+        ![ModuleCat.of k (groupCohomology.continuousH2 r B),
+          ModuleCat.of k (groupCohomology.continuousH1 r B), ModuleCat.of k B.ρ.invariants]
+      let XH : Fin 3 → ModuleCat k :=
+        ![ModuleCat.of k AH.ρ.invariants,
+          ModuleCat.of k (groupCohomology.continuousH1 rH AH),
+          ModuleCat.of k (groupCohomology.continuousH2 rH AH)]
+      let YH : Fin 3 → ModuleCat k :=
+        ![ModuleCat.of k (groupCohomology.continuousH2 rH BH),
+          ModuleCat.of k (groupCohomology.continuousH1 rH BH), ModuleCat.of k BH.ρ.invariants]
+      ∃ (RX : ∀ i : Fin 3, X i →ₗ[k] XH i) (CX : ∀ i : Fin 3, XH i →ₗ[k] X i)
+        (RY : ∀ i : Fin 3, Y i →ₗ[k] YH i) (CY : ∀ i : Fin 3, YH i →ₗ[k] Y i)
+        (RN : groupCohomology.continuousH2 r N →ₗ[k] groupCohomology.continuousH2 rH NH)
+        (CN : groupCohomology.continuousH2 rH NH →ₗ[k] groupCohomology.continuousH2 r N),
+        (∀ (i : Fin 3) (x : X i), CX i (RX i x) = (H.index : k) • x) ∧
+        (∀ (i : Fin 3) (y : Y i), CY i (RY i y) = (H.index : k) • y) ∧
+        (∀ z : groupCohomology.continuousH2 r N, CN (RN z) = (H.index : k) • z) ∧
+        ∀ ℓ : groupCohomology.continuousH2 r N →ₗ[k] k,
+        ∃ (Θ : ∀ i : Fin 3, X i →ₗ[k] Module.Dual k (Y i))
+          (ΘH : ∀ i : Fin 3, XH i →ₗ[k] Module.Dual k (YH i)),
+          (groupCohomology.IsTheta0 r φ ℓ (Θ 0) ∧
+            groupCohomology.IsTheta1 r φ ℓ (Θ 1) ∧
+            groupCohomology.IsTheta2 r φ ℓ (Θ 2)) ∧
+          (groupCohomology.IsTheta0 rH φH (ℓ.comp CN) (ΘH 0) ∧
+            groupCohomology.IsTheta1 rH φH (ℓ.comp CN) (ΘH 1) ∧
+            groupCohomology.IsTheta2 rH φH (ℓ.comp CN) (ΘH 2)) ∧
+          (∀ Ψ : ∀ i : Fin 3, X i →ₗ[k] Module.Dual k (Y i),
+            (groupCohomology.IsTheta0 r φ ℓ (Ψ 0) ∧
+              groupCohomology.IsTheta1 r φ ℓ (Ψ 1) ∧
+              groupCohomology.IsTheta2 r φ ℓ (Ψ 2)) → ∀ i : Fin 3, Ψ i = Θ i) ∧
+          (∀ (i : Fin 3) (x : X i) (y : YH i), ΘH i (RX i x) y = Θ i x (CY i y)) ∧
+          (∀ (i : Fin 3) (x : XH i) (y : Y i), ΘH i x (RY i y) = Θ i (CX i x) y) := by
+  intro k G _ _ r H _ A B N E₀ hE₀ hnormal hKH hA hB hN φ hφ
+  dsimp only
+  let rH := r.comp H.subtype
+  let AH := Rep.res H.subtype A
+  let BH := Rep.res H.subtype B
+  let NH := Rep.res H.subtype N
+  let φH : AH →ₗ[k] BH →ₗ[k] NH := φ
+  have hBH : ∀ g : H, rH g ∈ E₀.fixingSubgroup → ∀ b : BH, BH.ρ g b = b := by
+    intro g hg b
+    exact hB g hg b
+  have hφH : ∀ (g : H) (a : AH) (b : BH),
+      φH (AH.ρ g a) (BH.ρ g b) = NH.ρ g (φH a b) := by
+    intro g a b
+    exact hφ g a b
+  -- Choose the cup pairings and transfer maps before choosing the functional.
+  obtain ⟨P, hP⟩ := Submission.p08_7d1ff633a4_tt26_cup_pairings
+    r A B N E₀ hE₀ hB φ hφ
+  obtain ⟨PH, hPH⟩ := Submission.p08_7d1ff633a4_tt26_cup_pairings
+    rH AH BH NH E₀ hE₀ hBH φH hφH
+  obtain ⟨RX, CX, RY, CY, RN, CN, hRX, hRY, hRN, hleft, hright⟩ :=
+    Submission.p08_7d1ff633a4_tt26_transfer_projection
+      r H A B N E₀ hE₀ hnormal hKH hA hB hN φ hφ P PH hP hPH
+  refine ⟨RX, CX, RY, CY, RN, CN, hRX, hRY, hRN, ?_⟩
+  intro ℓ
+  obtain ⟨Θ, hΘ, hΘeval, hunique⟩ := Submission.p08_7d1ff633a4_tt26_theta_from_pairings
+    r A B N φ P hP ℓ
+  obtain ⟨ΘH, hΘH, hΘHeval, _⟩ := Submission.p08_7d1ff633a4_tt26_theta_from_pairings
+    rH AH BH NH φH PH hPH (ℓ.comp CN)
+  refine ⟨Θ, ΘH, hΘ, hΘH, hunique, ?_, ?_⟩
+  · intro i x y
+    calc
+      ΘH i (RX i x) y = ℓ (CN (PH i (RX i x) y)) := hΘHeval i (RX i x) y
+      _ = ℓ (P i x (CY i y)) := congrArg ℓ (hleft i x y)
+      _ = Θ i x (CY i y) := (hΘeval i x (CY i y)).symm
+  · intro i x y
+    calc
+      ΘH i x (RY i y) = ℓ (CN (PH i x (RY i y))) := hΘHeval i x (RY i y)
+      _ = ℓ (P i (CX i x) y) := congrArg ℓ (hright i x y)
+      _ = Θ i (CX i x) y := (hΘeval i (CX i x) y).symm
