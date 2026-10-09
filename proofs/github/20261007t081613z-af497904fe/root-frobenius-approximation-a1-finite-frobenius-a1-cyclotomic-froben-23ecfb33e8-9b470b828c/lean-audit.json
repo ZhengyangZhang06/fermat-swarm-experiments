@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "47e6cb4ac4b1c9befb46ea5d8ecbcfed517efb6cf01a6de946d0615b5d65fd30",
+  "git_delta": {
+    "base_commit": "da017685ac9b793f84117ba4413fb828cc3f224e",
+    "candidate_commit": "f8ab71a0611bb9fca073b62d7e2582c8738a2f0f",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_cwi_fiber_log_estimate",
+    "diff_sha256": "91635231d110d0180ad3e8bde0bb2d6f30032d5dc160df7f0ebe0f3e1dab30e8",
+    "source_sha256": "18ad0391926e5b4451a30d8661f8342d1a76cba271961f08c873db5481c4b756",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_cwi_fiber_log_estimate",
+      "statement": "∀ (ι : Type) (m : ℕ) (ω : ℂ) (N : ι → ℕ) (g : ι → ZMod m), 0 < m → IsPrimitiveRoot ω m → (∀ i : ι, 2 ≤ N i) → (∀ s : ℝ, 1 < s → Summable (fun i : ι => Real.rpow (N i : ℝ) (-s))) → (∀ k : Fin m, ∃ C : ℝ, 0 ≤ C ∧ ∃ ε : ℝ, 0 < ε ∧ ∀ s : ℝ, 1 < s → s < 1 + ε → ‖(∑' i : ι, ω ^ (k.val * (g i).val) * Complex.ofReal (Real.rpow (N i : ℝ) (-s))) - (if k.val = 0 then (Real.log (1 / (s - 1)) : ℂ) else 0)‖ ≤ C) → ∃ K : ℝ, 0 ≤ K ∧ ∃ ε : ℝ, 0 < ε ∧ ε ≤ 1 ∧ ∀ (a : ZMod m) (s : ℝ), 1 < s → s < 1 + ε → |(∑' i : {i : ι // g i = a}, Real.rpow (N i.1 : ℝ) (-s)) - Real.log (1 / (s - 1)) / (m : ℝ)| ≤ K",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
