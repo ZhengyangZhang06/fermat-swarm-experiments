@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.valuation_extension-a1",
+  "parent_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1",
+  "depth": 3,
+  "title": "Extend a valuation ring through a finite extension of number fields",
+  "statement": "Let Ω = AlgebraicClosure ℚ. Let E and F be finite-dimensional intermediate fields of Ω/ℚ with E ⊆ F. Let ℓ be a natural prime, and let V be a valuation subring of E in which ℓ is a nonunit. There exists a valuation subring W of F in which ℓ is a nonunit and whose inverse image under the canonical inclusion E → F is exactly V.",
+  "lean_statement": "∀ (E F : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [FiniteDimensional ℚ F] (hEF : E ≤ F) (ℓ : ℕ), ℓ.Prime → ∀ (V : ValuationSubring E), V.LiesOverPrime ℓ → ∃ W : ValuationSubring F, W.LiesOverPrime ℓ ∧ ∀ x : E, IntermediateField.inclusion hEF x ∈ W ↔ x ∈ V",
+  "lean_name": "p09_af497904fe_luf_valuation_extension",
+  "depends_on": [
+    "root.frobenius_approximation-a1.lift_unique_frobenius-a1.valuation_localization-a1"
+  ],
+  "dependency_workspaces": [
+    {
+      "node_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.valuation_localization-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    }
+  ],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-extension-a1-a1"
+}

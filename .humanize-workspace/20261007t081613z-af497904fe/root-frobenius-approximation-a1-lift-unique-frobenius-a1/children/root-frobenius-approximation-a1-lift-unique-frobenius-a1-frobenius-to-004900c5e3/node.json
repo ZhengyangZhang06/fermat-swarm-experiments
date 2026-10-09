@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.frobenius_tower_limit-a1",
+  "parent_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1",
+  "depth": 3,
+  "title": "Assemble Frobenius elements along an exhaustive Galois tower",
+  "statement": "Let Ω = AlgebraicClosure ℚ. Let F_i, indexed by ℕ, be an increasing sequence of finite-dimensional Galois intermediate fields of Ω/ℚ whose union is Ω. Let ℓ be a natural number and V_i a valuation subring of F_i for every i. Assume ℓ is a nonunit of every V_i, that for i ≤ j the inverse image of V_j under F_i → F_j is V_i, and that every V_i admits a rational automorphism inducing the ℓ-power map on its residue field. Then there exist a valuation subring P of Ω and a rational automorphism τ of Ω such that ℓ is a nonunit of P, P restricts to V_i for every i, and P.IsFrobeniusAt τ ℓ. Moreover, for each i there exists a rational automorphism g_i of F_i with V_i.IsFrobeniusAt g_i ℓ whose underlying map agrees with τ on F_i.",
+  "lean_statement": "∀ (F : ℕ → IntermediateField ℚ (AlgebraicClosure ℚ)) (hmono : Monotone F), (∀ i : ℕ, FiniteDimensional ℚ (F i)) → (∀ i : ℕ, IsGalois ℚ (F i)) → (∀ x : AlgebraicClosure ℚ, ∃ i : ℕ, x ∈ F i) → ∀ (V : (i : ℕ) → ValuationSubring (F i)) (ℓ : ℕ), (∀ i : ℕ, (V i).LiesOverPrime ℓ) → (∀ (i j : ℕ) (hij : i ≤ j) (x : F i), IntermediateField.inclusion (hmono hij) x ∈ V j ↔ x ∈ V i) → (∀ i : ℕ, ∃ g : F i ≃ₐ[ℚ] F i, (V i).IsFrobeniusAt g ℓ) → ∃ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ ∧ (∀ (i : ℕ) (x : F i), (x : AlgebraicClosure ℚ) ∈ P ↔ x ∈ V i) ∧ ∃ τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ, P.IsFrobeniusAt τ ℓ ∧ ∀ i : ℕ, ∃ g : F i ≃ₐ[ℚ] F i, (V i).IsFrobeniusAt g ℓ ∧ ∀ x : F i, τ (x : AlgebraicClosure ℚ) = ((g x : F i) : AlgebraicClosure ℚ)",
+  "lean_name": "p09_af497904fe_luf_frobenius_tower_limit",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-004900c5e3-a1"
+}

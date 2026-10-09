@@ -1,0 +1,66 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "IsFrobeniusAt|LiesOverPrime|stabilizerHom_surjective|isDiscreteValuationRing_of_dedekind_domain|mem_nonunits_iff_or",
+        "RingOfIntegers|isDedekindDomain|isFractionRing|finite|free|isInvariant|mem_range_algebraMap_iff_fixed|exists_ideal_over_prime_of_isIntegral_of_isDomain",
+        "exists.*[Ff]robenius|[Ff]robenius.*exists|lift.*[Ff]robenius",
+        "decompositionSubgroup|ResidueField|mulSemiringAction|smul_def|smul_residue",
+        "rg --files --hidden --no-ignore -g dag.json /mnt/data/zhengyang-workspace/fermat-swarm-projects",
+        "python3 .humanize/luf-independent-audit-hqbp009u/check.py"
+      ],
+      "files": [
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/problem.md",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/dag.json",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/DedekindDomain/Dvr.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/GoingUp.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Invariant/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Invariant/Galois.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/Galois/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/LocalRing/ResidueField/Basic.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        ".humanize/luf-independent-audit-hqbp009u/Types.lean",
+        ".humanize/luf-independent-audit-hqbp009u/Types.lean.log",
+        ".humanize/luf-independent-audit-hqbp009u/report.json",
+        ".humanize/luf-independent-audit-hqbp009u/name-graph-contracts.json",
+        ".humanize/luf-independent-audit-hqbp009u/clean-pins.json"
+      ],
+      "conclusion": "Independently confirmed clean project revision 20574e45daf714e745af8e649c7b61b21eed5644, mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d, and pinned compiler dependencies. The inspected sources support integer-ring finiteness, DVR localization, prime lifting, fixed-ring identification, residue-action surjectivity, and the exact frozen predicates. The targeted Frobenius-lifting search returned no matches in the searched Definitions, Valuation, Invariant, and NumberField directories. After rebuilding all frozen project imports privately, all four exact propositions and coercion/action probes passed Lean checks without implementing any child. Checked transitive axioms were only propext, Classical.choice, and Quot.sound. All names are bare identifiers; none collided across 23 local DAG files. The combined dependency graph is acyclic. The fresh header receipt verifies the specified policy digest, precisely omitted lines 10–11, reversible original/build hashes, and Lean-confirmed absence of all eight targets. Protected files remained unchanged. The split is appropriate: it separates genuine obligations while retaining exhaustion, recursive selection, and uniqueness in the parent. This accepts the decomposition and supplied prose, not future Lean implementations; comparator acceptance remains required."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "valuation_localization",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition matches every hypothesis and conclusion. Steps 2–3 establish integral-element membership and the nonzero contracted prime. Steps 4–6 identify V with the DVR localization by controlling maximal ideals and inverses. Step 7 proves quotient finiteness using the finite integral basis modulo ℓ. The proof establishes every conjunct without circular reliance or missing assumptions."
+    },
+    {
+      "key": "valuation_extension",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The Lean inclusion and contraction equivalence exactly match the prose. Integrality and injectivity justify prime lifting; the upper localization yields W with ℓ nonunit. Transport of lower nonunits and the inverse argument prove exact contraction, not merely inclusion. The sole dependency, valuation_localization, is correctly directed and supplies precisely the facts used."
+    },
+    {
+      "key": "finite_frobenius_exists",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact type includes finite dimension, Galoisness, primality, and LiesOverPrime. The proof establishes finite residue characteristic ℓ, verifies the integer-ring action and invariant ring ℤ, and checks the hypotheses of stabilizerHom_surjective. The equivariant residue-field identification transfers the lifted automorphism to the frozen IsFrobeniusAt action. Only the declared localization dependency is used; no existence claim is deferred."
+    },
+    {
+      "key": "frobenius_tower_limit",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone type matches all tower assumptions and every conclusion, including stagewise agreement with τ. Nonunit contraction follows correctly from the inverse criterion; normality supplies restriction maps. The nested infinite-fiber argument produces a compatible family without assuming surjectivity. Gluing automorphisms and inverses, identifying union nonunits, and transferring Frobenius congruences complete the proof. No primality assumption is needed because finite-stage Frobenius existence is explicitly assumed. This child is independent of the other proposed children."
+    }
+  ],
+  "required_changes": []
+}
