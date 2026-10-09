@@ -1,0 +1,38 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'FiniteMultiplicity.of_not_isUnit|exists_eq_pow_mul_and_not_dvd|theorem multiplicity_mul|theorem multiplicity_eq_zero|theorem multiplicity_self|theorem multiplicity_of_one_right' mathlib/Mathlib",
+        "rg -n 'p06_9e0f5043ff_io_polynomial_exponent|polynomial_exponent|FiniteMultiplicity|multiplicity q' project --glob '*.lean'",
+        "rg -n 'WfDvdMonoid|wellFounded|natDegree.*lt' mathlib/Mathlib/RingTheory/Polynomial/UniqueFactorization.lean",
+        "rg -n '(theorem|lemma) Irreducible.prime' mathlib/Mathlib/Algebra mathlib/Mathlib/RingTheory"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Multiplicity.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/UniqueFactorizationDomain/Multiplicity.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Polynomial/UniqueFactorization.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Prime/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project"
+      ],
+      "conclusion": "Searches ran from the specified snapshot. The project search returned no matches. Pinned mathlib supplies finite multiplicity, normalization, additivity, the zero criterion, factor extraction, polynomial well-founded divisibility, and irreducibility-to-primality. Both snapshots are clean at project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; all nine installed dependencies match their pins and are clean. The exact comparator independently passed for candidate 41d9f791d09c2f03507d235d9d7ea2a659f7bdd0 with exit 0 and the required marker. Its kernel and transitive axiom checks accepted the theorem using only propext, Classical.choice, and Quot.sound. The diff adds only the tracked theorem and preserves the complete frozen Submission prefix, including imports and the inherited root placeholder."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_io_polynomial_exponent",
+      "statement": "∀ (K : Type*) [Field K] (q : Polynomial K), q.Monic → Irreducible q → ∃ μ : Polynomial K → ℕ, μ 1 = 0 ∧ μ q = 1 ∧ (∀ a b : Polynomial K, a ≠ 0 → b ≠ 0 → μ (a * b) = μ a + μ b) ∧ (∀ a : Polynomial K, a ≠ 0 → (μ a = 0 ↔ ¬ q ∣ a)) ∧ (∀ a : Polynomial K, a ≠ 0 → ∃ a₀ : Polynomial K, a₀ ≠ 0 ∧ ¬ q ∣ a₀ ∧ a = q ^ μ a * a₀)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Take μ(a) = multiplicity q a. Irreducibility makes q prime and a nonunit; polynomial well-founded divisibility ensures finite multiplicity for nonzero inputs. Pinned library lemmas give normalization, additivity, the zero criterion, and factor extraction. The cofactor is nonzero because its product equals nonzero a. The unconstrained value μ(0) is permitted."
+    }
+  ]
+}
