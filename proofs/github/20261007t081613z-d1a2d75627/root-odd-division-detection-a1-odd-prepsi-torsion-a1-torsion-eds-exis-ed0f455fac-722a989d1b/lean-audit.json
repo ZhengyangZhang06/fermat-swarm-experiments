@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "87bfe79ea06bb3954ab6e9260d3cba828e3436b4e14283e6f2fbb5b4cca0d229",
+  "git_delta": {
+    "base_commit": "96246be67fa423a24afcd5fe4955fe3b2edd7c55",
+    "candidate_commit": "07a489bb801ab812f07143dd5a22dddd55956996",
+    "target": "Submission.lean",
+    "declaration": "p03_ptf_positive_nsmul_nonzero_c5b7b5ed_d6",
+    "diff_sha256": "b561d008bb8f8a9055de434e703673eebe30d64fe738d5c41fc4141686b23e0c",
+    "source_sha256": "a29520e31ff105be145cf0c63a7f632ab93a81c37338cb78209d25ce00a43808",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p03_ptf_positive_nsmul_nonzero_c5b7b5ed_d6",
+      "statement": "∀ (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k] (W : WeierstrassCurve k), W.Δ ≠ 0 → ∀ n : ℕ, 0 < n → ∃ P : W.toAffine.Point, n • P ≠ 0",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
