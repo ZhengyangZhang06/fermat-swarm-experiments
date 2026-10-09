@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "exists_unit_mul_zpow|ord_unit_smul_zpow|compatible_order_invariance|structure Place|def ord",
+        "exists_irreducible|irreducible_iff|Irreducible.map|def map|val_map|map_zpow₀",
+        "compatible_order_invariance"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DiscreteValuationRing/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Group/Irreducible/Lemmas.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Group/Units/Hom.lean"
+      ],
+      "conclusion": "The snapshot supplies the Place DVR instance, normalized-order factorization and evaluation, uniformizer existence, Irreducible.map, and Units.map with the required hypotheses. The node-name search returned no matches (exit 1). Supporting sources match the pinned snapshot; all nine dependencies are clean at their recorded revisions. The personally rerun exact comparator passed on ffa47acc0f24136dd865c173b29ade07f278e37a with exit 0 and 'Your solution is okay!'; transitive axioms are only propext, Classical.choice, and Quot.sound. The frozen baseline, including imports and root placeholder, is preserved byte-for-byte."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_pae_compatible_order_invariance",
+      "statement": "∀ (K E L : Type*) [Field K] [Field E] [Field L] [Algebra K E] [Algebra K L] (e : E ≃ₐ[K] L) (v : AlgebraicCurve.Place K E) (w : AlgebraicCurve.Place K L) (r : v.toValuationSubring ≃ₐ[K] w.toValuationSubring), (∀ a : v.toValuationSubring, (r a : L) = e (a : E)) → ∀ f : E, f ≠ 0 → w.ord (e f) = v.ord f",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Factor nonzero f as a unit times an irreducible uniformizer raised to v.ord f. Transport the unit and irreducibility through r and the factorization through e using compatibility. Evaluating the target normalized order gives the same exponent. This matches the accepted prose proof without additional hypotheses."
+    }
+  ]
+}
