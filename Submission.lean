@@ -7691,5 +7691,178 @@ theorem p03_torsion_eds_exists_68cf3476_d2
         have hj3 : 3 ≤ j := by omega
         exact hcoordinate_from_detection j (by omega)
           (fun l hl hlj => ih l (by omega) hl) α β hQ hjP
+theorem Submission.p03_eds_canonical_odd_recurrence_68cf3476_d4 :
+    ∀ (k : Type) [Field k] [CharZero k] [DecidableEq k] (W : WeierstrassCurve k),
+      let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine
+      let h := q W.ψ₂
+      let F : ℕ → W.toAffine.CoordinateRing :=
+        fun n => q (Polynomial.C (W.preΨ' n)) * (if Even n then h else 1)
+      ∀ r : ℕ, 2 ≤ r →
+        F (2 * r + 1) = F (r + 2) * F r ^ 3 - F (r - 1) * F (r + 1) ^ 3 := by
+  intro k _ _ _ W q h F r hr
+  have hs : h ^ 2 = q (Polynomial.C W.Ψ₂Sq) := CoordinateRing.mk_ψ₂_sq W
+  have hfour : h ^ 4 = q (Polynomial.C W.Ψ₂Sq) ^ 2 := by
+    rw [show 4 = 2 * 2 by rfl, pow_mul, hs]
+  obtain ⟨m, rfl⟩ : ∃ m, r = m + 2 := ⟨r - 2, by omega⟩
+  have hrec := congrArg (fun p : Polynomial k => q (Polynomial.C p)) (W.preΨ'_odd m)
+  have hsub : m + 2 - 1 = m + 1 := by omega
+  by_cases he : Even m
+  · simp only [if_pos he, map_sub, map_mul, map_pow, mul_one] at hrec
+    simp only [F, hsub, Nat.add_assoc]
+    simp [Nat.even_add, he, show Even (4 : ℕ) by decide,
+      show ¬ Even (3 : ℕ) by decide]
+    rw [hrec, ← hfour]
+    ring
+  · simp only [if_neg he, map_sub, map_mul, map_pow, mul_one] at hrec
+    simp only [F, hsub, Nat.add_assoc]
+    simp [Nat.even_add, he, show Even (4 : ℕ) by decide,
+      show ¬ Even (3 : ℕ) by decide]
+    rw [hrec, ← hfour]
+    ring
+
+theorem Submission.p03_eds_canonical_even_recurrence_68cf3476_d4 :
+    ∀ (k : Type) [Field k] [CharZero k] [DecidableEq k] (W : WeierstrassCurve k),
+      let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine
+      let h := q W.ψ₂
+      let F : ℕ → W.toAffine.CoordinateRing :=
+        fun n => q (Polynomial.C (W.preΨ' n)) * (if Even n then h else 1)
+      ∀ r : ℕ, 3 ≤ r →
+        h * F (2 * r) =
+          F r * (F (r + 2) * F (r - 1) ^ 2 - F (r - 2) * F (r + 1) ^ 2) := by
+  intro k _ _ _ W q h F r hr
+  let a : ℕ → W.toAffine.CoordinateRing := fun n => q (Polynomial.C (W.preΨ' n))
+  have hi₁ : r - 3 + 1 = r - 2 := by omega
+  have hi₂ : r - 3 + 2 = r - 1 := by omega
+  have hi₃ : r - 3 + 3 = r := by omega
+  have hi₄ : r - 3 + 4 = r + 1 := by omega
+  have hi₅ : r - 3 + 5 = r + 2 := by omega
+  -- Pinned mathlib DivisionPolynomial/Basic.lean, revision
+  -- db584cd6d46c92f209a44c0f1c829460d327499d, supplies preΨ'_even.
+  have hrec := congrArg (fun p : Polynomial k => q (Polynomial.C p))
+    (W.preΨ'_even (r - 3))
+  simp only [hi₁, hi₂, hi₃, hi₄, hi₅, map_sub, map_mul, map_pow] at hrec
+  change a (2 * r) =
+    a (r - 1) ^ 2 * a r * a (r + 2) - a (r - 2) * a r * a (r + 1) ^ 2 at hrec
+  have hsub₁ : Even (r - 1) ↔ ¬Even r := by
+    rw [Nat.even_sub (by omega : 1 ≤ r)]
+    simp
+  have hsub₂ : Even (r - 2) ↔ Even r := by
+    rw [Nat.even_sub (by omega : 2 ≤ r)]
+    simp
+  have hadd₂ : Even (r + 2) ↔ Even r := by simp [Nat.even_add]
+  change h * (a (2 * r) * (if Even (2 * r) then h else 1)) =
+    (a r * (if Even r then h else 1)) *
+      ((a (r + 2) * (if Even (r + 2) then h else 1)) *
+          (a (r - 1) * (if Even (r - 1) then h else 1)) ^ 2 -
+        (a (r - 2) * (if Even (r - 2) then h else 1)) *
+          (a (r + 1) * (if Even (r + 1) then h else 1)) ^ 2)
+  rw [if_pos (even_two_mul r), hrec]
+  by_cases he : Even r <;>
+    simp only [hsub₁, hsub₂, hadd₂, Nat.even_add_one, he, not_true_eq_false,
+      not_false_eq_true, ite_true, ite_false, mul_one] <;> ring
+
+
+theorem Submission.p03_eds_canonical_recurrences_68cf3476_d3 :
+    ∀ (k : Type) [Field k] [CharZero k] [DecidableEq k] (W : WeierstrassCurve k),
+      let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine
+      let h := q W.ψ₂
+      let F : ℕ → W.toAffine.CoordinateRing :=
+        fun n => q (Polynomial.C (W.preΨ' n)) * (if Even n then h else 1)
+      F 0 = 0 ∧ F 1 = 1 ∧ F 2 = h ∧ F 3 = q (Polynomial.C W.Ψ₃) ∧
+        F 4 = h * q (Polynomial.C W.preΨ₄) ∧
+        (∀ r : ℕ, 2 ≤ r →
+          F (2 * r + 1) = F (r + 2) * F r ^ 3 - F (r - 1) * F (r + 1) ^ 3) ∧
+        (∀ r : ℕ, 3 ≤ r →
+          h * F (2 * r) =
+            F r * (F (r + 2) * F (r - 1) ^ 2 - F (r - 2) * F (r + 1) ^ 2)) := by
+  intro k _ _ _ W
+  dsimp only
+  refine ⟨?_, ?_, ?_, ?_, ?_,
+    Submission.p03_eds_canonical_odd_recurrence_68cf3476_d4 k W,
+    Submission.p03_eds_canonical_even_recurrence_68cf3476_d4 k W⟩
+  · simp only [preΨ'_zero, _root_.map_zero, zero_mul]
+  · simp only [preΨ'_one, map_one, Nat.not_even_one, if_false, one_mul]
+  · simp only [preΨ'_two, map_one, even_two, if_true, one_mul]
+  · simp only [preΨ'_three, show ¬ Even (3 : ℕ) by decide, if_false, mul_one]
+  · simp only [preΨ'_four, show Even (4 : ℕ) by decide, if_true, mul_comm]
+
+
+theorem Submission.p03_eds_recurrence_unique_68cf3476_d3 :
+    ∀ (R : Type) [CommRing R] [IsDomain R] (h : R), h ≠ 0 →
+      ∀ f g : ℕ → R,
+        (∀ n : ℕ, n ≤ 4 → f n = g n) →
+        (∀ r : ℕ, 2 ≤ r →
+          f (2 * r + 1) = f (r + 2) * f r ^ 3 - f (r - 1) * f (r + 1) ^ 3) →
+        (∀ r : ℕ, 3 ≤ r →
+          h * f (2 * r) =
+            f r * (f (r + 2) * f (r - 1) ^ 2 - f (r - 2) * f (r + 1) ^ 2)) →
+        (∀ r : ℕ, 2 ≤ r →
+          g (2 * r + 1) = g (r + 2) * g r ^ 3 - g (r - 1) * g (r + 1) ^ 3) →
+        (∀ r : ℕ, 3 ≤ r →
+          h * g (2 * r) =
+            g r * (g (r + 2) * g (r - 1) ^ 2 - g (r - 2) * g (r + 1) ^ 2)) →
+        ∀ n : ℕ, f n = g n := by
+  intro R _ _ h hh f g hinit hfodd hfeven hgodd hgeven n
+  induction n using Nat.strong_induction_on with
+  | h n ih =>
+    by_cases hn : n ≤ 4
+    · exact hinit n hn
+    · rcases n.even_or_odd' with ⟨r, rfl | rfl⟩
+      · have hr : 3 ≤ r := by omega
+        apply mul_left_cancel₀ hh
+        rw [hfeven r hr, hgeven r hr,
+          ih r (by omega), ih (r + 2) (by omega), ih (r - 1) (by omega),
+          ih (r - 2) (by omega), ih (r + 1) (by omega)]
+      · have hr : 2 ≤ r := by omega
+        rw [hfodd r hr, hgodd r hr,
+          ih (r + 2) (by omega), ih r (by omega),
+          ih (r - 1) (by omega), ih (r + 1) (by omega)]
+
+
+namespace Submission
+
+theorem p03_torsion_eds_identification_68cf3476_d2 :
+    ∀ (k : Type) [Field k] [CharZero k] [DecidableEq k] (W : WeierstrassCurve k),
+      let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine
+      let h := q W.ψ₂
+      ∀ f : ℕ → W.toAffine.CoordinateRing,
+        (f 0 = 0 ∧ f 1 = 1 ∧ f 2 = h ∧ f 3 = q (Polynomial.C W.Ψ₃) ∧
+          f 4 = h * q (Polynomial.C W.preΨ₄) ∧
+          (∀ r : ℕ, 2 ≤ r →
+            f (2 * r + 1) = f (r + 2) * f r ^ 3 - f (r - 1) * f (r + 1) ^ 3) ∧
+          (∀ r : ℕ, 3 ≤ r →
+            h * f (2 * r) =
+              f r * (f (r + 2) * f (r - 1) ^ 2 - f (r - 2) * f (r + 1) ^ 2))) →
+        ∀ n : ℕ, f n = q (Polynomial.C (W.preΨ' n)) * (if Even n then h else 1) := by
+  intro k _ _ _ W q h f hf
+  let F : ℕ → W.toAffine.CoordinateRing :=
+    fun n => q (Polynomial.C (W.preΨ' n)) * (if Even n then h else 1)
+  -- In the free basis {1, Y}, the Y coefficient of h is 2.
+  have hh : h ≠ 0 := by
+    intro hh
+    have hb :
+        (Polynomial.C W.a₁ * Polynomial.X + Polynomial.C W.a₃) •
+            (1 : W.toAffine.CoordinateRing) +
+          Polynomial.C (2 : k) • q Polynomial.X = 0 := by
+      simpa only [h, q, WeierstrassCurve.ψ₂, WeierstrassCurve.Affine.polynomialY,
+        map_add, map_mul, WeierstrassCurve.Affine.CoordinateRing.smul, mul_one,
+        add_comm] using hh
+    have htwo : Polynomial.C (2 : k) = 0 :=
+      (WeierstrassCurve.Affine.CoordinateRing.smul_basis_eq_zero hb).2
+    exact (two_ne_zero : (2 : k) ≠ 0) (Polynomial.C_eq_zero.mp htwo)
+  obtain ⟨hf0, hf1, hf2, hf3, hf4, hfodd, hfeven⟩ := hf
+  obtain ⟨hF0, hF1, hF2, hF3, hF4, hFodd, hFeven⟩ :=
+    Submission.p03_eds_canonical_recurrences_68cf3476_d3 k W
+  have hinitial : ∀ n : ℕ, n ≤ 4 → f n = F n := by
+    intro n hn
+    interval_cases n
+    · exact hf0.trans hF0.symm
+    · exact hf1.trans hF1.symm
+    · exact hf2.trans hF2.symm
+    · exact hf3.trans hF3.symm
+    · exact hf4.trans hF4.symm
+  -- The coordinate ring is a domain even for singular Weierstrass equations.
+  exact Submission.p03_eds_recurrence_unique_68cf3476_d3
+    W.toAffine.CoordinateRing h hh f F hinitial hfodd hfeven hFodd hFeven
 
 end Submission
