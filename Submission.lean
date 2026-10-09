@@ -5092,6 +5092,78 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
     change _ = _ * Nat.card {K : rayIdeals //
       (absNorm (K.1 : Ideal O) : ℝ) ≤ s ∧ rayClass K = c}
     rw [show rayClass I = c⁻¹ from hI, inv_inv]
+  -- Steps 19 and 23: equal ray-class estimates pass through the Artin fibers.
+  have hcountTransfer (X C G : Type) [Group C] [Group G] [Fintype C]
+      [DecidableEq G] (N : X → ℕ) (cls : X → C) (f : C →* G)
+      (hN : ∀ x, 0 < N x) (hfinite : ∀ n, Finite {x : X // N x ≤ n})
+      (hf : Function.Surjective f) (κ α : ℝ)
+      (hestimate : ∀ c : C, ∃ R : ℝ, 0 ≤ R ∧ ∀ n : ℕ, 1 ≤ n →
+        |(Nat.card {x : X // N x ≤ n ∧ cls x = c} : ℝ) - κ * n| ≤
+          R * (n : ℝ) ^ α) :
+      ∀ g : G, ∃ R : ℝ, 0 ≤ R ∧ ∀ n : ℕ, 1 ≤ n →
+        |(∑ k ∈ Finset.Icc 1 n, (Nat.card {x : X // f (cls x) = g ∧ N x = k} : ℝ)) -
+          ((Nat.card f.ker : ℝ) * κ) * n| ≤ R * (n : ℝ) ^ α := by
+    classical
+    have hcountByNorm (Y : Type) (W : Y → ℕ) (hW : ∀ y, 0 < W y)
+        (hfinite : ∀ n, Finite {y : Y // W y ≤ n}) (n : ℕ) :
+        (∑ k ∈ Finset.Icc 1 n, Nat.card {y : Y // W y = k}) =
+          Nat.card {y : Y // W y ≤ n} := by
+      let e : (Σ k : ↥(Finset.Icc 1 n), {y : Y // W y = k.1}) ≃
+          {y : Y // W y ≤ n} :=
+        { toFun := fun y => ⟨y.2.1, y.2.2.trans_le (Finset.mem_Icc.mp y.1.2).2⟩
+          invFun := fun y => ⟨⟨W y.1, Finset.mem_Icc.mpr ⟨hW y.1, y.2⟩⟩, y.1, rfl⟩
+          left_inv := fun ⟨⟨k, hk⟩, y, hy⟩ => by cases hy; rfl
+          right_inv := fun _ => rfl }
+      have hfin (k : ℕ) : Finite {y : Y // W y = k} := by
+        let : Finite {y : Y // W y ≤ k} := hfinite k
+        exact Finite.of_injective (fun y => (⟨y.1, y.2.le⟩ : {y : Y // W y ≤ k}))
+          (fun _ _ h => Subtype.ext (congrArg (fun y : {y : Y // W y ≤ k} => y.1) h))
+      let : ∀ k : ↥(Finset.Icc 1 n), Finite {y : Y // W y = k.1} := fun k => hfin k.1
+      rw [← Nat.card_congr e, Nat.card_sigma]
+      exact (Finset.sum_coe_sort (Finset.Icc 1 n) _).symm
+    intro g
+    let Y := {x : X // f (cls x) = g}
+    have hfiniteY (n : ℕ) : Finite {y : Y // N y.1 ≤ n} := by
+      let : Finite {x : X // N x ≤ n} := hfinite n
+      let i : {y : Y // N y.1 ≤ n} → {x : X // N x ≤ n} := fun y => ⟨y.1.1, y.2⟩
+      exact Finite.of_injective i (fun _ _ h => Subtype.ext
+        (Subtype.ext (congrArg (fun x : {x : X // N x ≤ n} => x.1) h)))
+    have hpartial (n : ℕ) :
+        (∑ k ∈ Finset.Icc 1 n, Nat.card {x : X // f (cls x) = g ∧ N x = k}) =
+          ∑ c : {c : C // f c = g}, Nat.card {x : X // N x ≤ n ∧ cls x = c.1} := by
+      have hcoeff (k : ℕ) : Nat.card {y : Y // N y.1 = k} =
+          Nat.card {x : X // f (cls x) = g ∧ N x = k} :=
+        Nat.card_congr (Equiv.subtypeSubtypeEquivSubtypeInter
+          (fun x => f (cls x) = g) (fun x => N x = k))
+      simp_rw [← hcoeff]
+      rw [hcountByNorm Y (fun y => N y.1) (fun y => hN y.1) hfiniteY n]
+      let e : (Σ c : {c : C // f c = g}, {x : X // N x ≤ n ∧ cls x = c.1}) ≃
+          {y : Y // N y.1 ≤ n} :=
+        { toFun := fun x => ⟨⟨x.2.1, (congrArg f x.2.2.2).trans x.1.2⟩, x.2.2.1⟩
+          invFun := fun y => ⟨⟨cls y.1.1, y.1.2⟩, y.1.1, y.2, rfl⟩
+          left_inv := fun ⟨⟨c, hc⟩, x, hx, heq⟩ => by cases heq; rfl
+          right_inv := fun _ => rfl }
+      have hfin (c : {c : C // f c = g}) : Finite {x : X // N x ≤ n ∧ cls x = c.1} := by
+        let : Finite {x : X // N x ≤ n} := hfinite n
+        exact Finite.of_injective (fun x => (⟨x.1, x.2.1⟩ : {x : X // N x ≤ n}))
+          (fun _ _ h => Subtype.ext (congrArg (fun x : {x : X // N x ≤ n} => x.1) h))
+      let : ∀ c : {c : C // f c = g}, Finite {x : X // N x ≤ n ∧ cls x = c.1} := hfin
+      rw [← Nat.card_congr e, Nat.card_sigma]
+    choose R hR hbound using hestimate
+    have hcard : Nat.card {c : C // f c = g} = Nat.card f.ker := by
+      obtain ⟨c, rfl⟩ := hf g
+      exact Nat.card_congr (f.fiberEquivKer c)
+    refine ⟨∑ c : {c : C // f c = g}, R c.1, Finset.sum_nonneg (fun c _ => hR c.1), ?_⟩
+    intro n hn
+    have hmain : ((Nat.card f.ker : ℝ) * κ) * n =
+        ∑ _c : {c : C // f c = g}, κ * n := by
+      rw [Finset.sum_const, Finset.card_univ, nsmul_eq_mul,
+        ← Nat.card_eq_fintype_card, hcard, mul_assoc]
+    have hpartialR := congrArg (fun n : ℕ => (n : ℝ)) (hpartial n)
+    simp only [Nat.cast_sum] at hpartialR
+    rw [hpartialR, hmain, ← Finset.sum_sub_distrib, Finset.sum_mul]
+    exact (Finset.abs_sum_le_sum_abs _ _).trans
+      (Finset.sum_le_sum (fun c _ => hbound c.1 n hn))
   -- Step 22: the primes above q are finite, and avoiding them is norm coprimality.
   have hfiniteBad : {v : ι | (q : O) ∈ v.asIdeal}.Finite := by
     exact (Ring.HasFiniteQuotients.finite_setOfPred_mem (q : O)
@@ -5863,5 +5935,62 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
             R * (n : ℝ) ^ α by
       obtain ⟨κ, α, hα₀, hα₁, hcount⟩ := hcount
       exact hnonvanishingOfCount κ α hα₀ hα₁ hcount V hsplit
-    -- Steps 15–19 and 23 still require the uniform Frobenius-class count.
+    suffices hrayInput : Function.Surjective rayArtin ∧
+        ∃ κ α : ℝ, 0 ≤ α ∧ α < 1 ∧
+          ∀ c : Ray, ∃ R : ℝ, 0 ≤ R ∧ ∀ n : ℕ, 1 ≤ n →
+            |(rayCount c n : ℝ) - κ * (n : ℝ)| ≤ R * (n : ℝ) ^ α by
+      obtain ⟨hsurj, κ, α, hα₀, hα₁, hestimate⟩ := hrayInput
+      let : Fintype Ray := Fintype.ofFinite _
+      have hfinite (n : ℕ) :
+          Finite {I : rayIdeals // absNorm (I.1 : Ideal O) ≤ n} := by
+        let Y := {I : Ideal O // absNorm I ≤ n}
+        let : Finite Y := finite_setOfPred_absNorm_le n
+        let i : {I : rayIdeals // absNorm (I.1 : Ideal O) ≤ n} → Y :=
+          fun I => ⟨(I.1.1 : Ideal O), I.2⟩
+        exact Finite.of_injective i (fun _ _ h => Subtype.ext
+          (Subtype.ext (Subtype.ext (congrArg (fun I : Y => I.1) h))))
+      have hnormPositive (I : rayIdeals) : 0 < absNorm (I.1 : Ideal O) :=
+        Nat.pos_of_ne_zero (absNorm_ne_zero_of_nonZeroDivisors I.1)
+      have hestimateNat (c : Ray) : ∃ R : ℝ, 0 ≤ R ∧ ∀ n : ℕ, 1 ≤ n →
+          |(Nat.card {I : rayIdeals // absNorm (I.1 : Ideal O) ≤ n ∧
+            rayClass I = c} : ℝ) - κ * n| ≤ R * (n : ℝ) ^ α := by
+        obtain ⟨R, hR, hbound⟩ := hestimate c
+        refine ⟨R, hR, ?_⟩
+        intro n hn
+        have hcard : Nat.card {I : rayIdeals // absNorm (I.1 : Ideal O) ≤ n ∧
+            rayClass I = c} = rayCount c n := by
+          apply Nat.card_congr
+          exact Equiv.subtypeEquivRight (fun I => by simp only [Nat.cast_le])
+        rw [hcard]
+        exact hbound n hn
+      have hcoeff (σ : J) (n : ℕ) : classCount σ n =
+          (Nat.card {I : rayIdeals // rayArtin (rayClass I) = σ ∧
+            absNorm (I.1 : Ideal O) = n} : ℝ) := by
+        have hclass (I : rayIdeals) : classOf (I.1 : Ideal O) = A I.1 := by
+          dsimp only [classOf]
+          rw [dif_neg (nonZeroDivisors.coe_ne_zero I.1)]
+        let e : {I : {I : Ideal O // (absNorm I).Coprime q ∧ classOf I = σ} //
+            absNorm I.1 = n} ≃
+            {I : rayIdeals // rayArtin (rayClass I) = σ ∧ absNorm (I.1 : Ideal O) = n} :=
+          { toFun := fun I => by
+              have hI0 : I.1.1 ≠ 0 := by
+                intro hz
+                exact hq.ne_one (by simpa [hz] using I.1.2.1)
+              let K : rayIdeals := ⟨⟨I.1.1, mem_nonZeroDivisors_iff_ne_zero.mpr hI0⟩,
+                I.1.2.1⟩
+              exact ⟨K, (hrayArtin K).trans ((hclass K).symm.trans I.1.2.2), I.2⟩
+            invFun := fun I => ⟨⟨(I.1.1 : Ideal O), I.1.2,
+              (hclass I.1).trans ((hrayArtin I.1).symm.trans I.2.1)⟩, I.2.2⟩
+            left_inv := fun _ => rfl
+            right_inv := fun _ => rfl }
+        exact congrArg (fun n : ℕ => (n : ℝ)) (Nat.card_congr e)
+      refine ⟨(Nat.card rayArtin.ker : ℝ) * κ, α, hα₀, hα₁, ?_⟩
+      intro σ
+      obtain ⟨R, hR, hbound⟩ := hcountTransfer rayIdeals Ray J
+        (fun I => absNorm (I.1 : Ideal O)) rayClass rayArtin hnormPositive hfinite
+        hsurj κ α hestimateNat σ
+      refine ⟨R, hR, ?_⟩
+      intro n hn
+      simpa only [hcoeff] using hbound n hn
+    -- Steps 17–19 and 23: quantitative ray counting and Artin surjectivity remain open.
     fail "Unfinished arithmetic input: continuously extend the prime-to-q ideal character series Sgood with nonzero value at one."
