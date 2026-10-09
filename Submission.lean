@@ -3736,8 +3736,8 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     push_cast at hresult ⊢
     exact hresult
   filter_upwards [hsmallCuts, hcutZeros, hparametrizedExcisionBoundary, hpairedLowerIntegral,
-    hcutsBelowTop, hcutsDisjoint, hcutArcInterior] with ε hε hzeros hexc hlower hbelowTop
-      hboundaryDisjoint hboundaryArcInterior
+    hcutsBelowTop, hcutsDisjoint, hcutArcInterior, hcutCircleCoverage] with ε hε hzeros hexc hlower hbelowTop
+      hboundaryDisjoint hboundaryArcInterior hboundaryCircleCoverage
   obtain ⟨r, δ, hr, hδ, hVopen, hVcompact, hVzeroFree, hVfrontier,
     hcircles, hmesh, hcells⟩ := hexc
   have hexcisionSum :
@@ -3769,13 +3769,29 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
   -- Instantiate the general-position grid for the actual excised boundary.
   let S : Set ℂ := {z ∈ Ω ε | F z = 0}
   let V : Set ℂ := Ω ε \ ⋃ v ∈ S, Metric.closedBall v r
-  let d : ℝ := δ / 4
-  have hd : 0 < d := by dsimp [d]; positivity
-  have hdδ : 2 * d < δ := by dsimp [d]; linarith
   let gridCorners : Set ℂ :=
     {ρ, ρ + 1, (-1 / 2 : ℂ) + (Y : ℂ) * Complex.I,
       (1 / 2 : ℂ) + (Y : ℂ) * Complex.I} ∪
     (fun v => γ v ε (cutStart v)) '' B ∪ (fun v => γ v ε (cutEnd v)) '' B
+  have hgridCornersFinite : gridCorners.Finite :=
+    ((Set.toFinite _).union (hBfinite.image _)).union (hBfinite.image _)
+  -- Use a grid scale separating the finitely many genuine contour joins.
+  have hseparation : ∀ᶠ d : ℝ in nhdsWithin 0 (Set.Ioi 0),
+      ∀ p ∈ gridCorners, ∀ q ∈ gridCorners, p ≠ q → 2 * d < dist p q := by
+    rw [hgridCornersFinite.eventually_all]
+    intro p _
+    rw [hgridCornersFinite.eventually_all]
+    intro q _
+    by_cases heq : p = q
+    · exact Filter.Eventually.of_forall (fun _ h => (h heq).elim)
+    · have hpos : (0 : ℝ) < dist p q / 2 := div_pos (dist_pos.mpr heq) (by norm_num)
+      filter_upwards [(eventually_lt_nhds hpos).filter_mono nhdsWithin_le_nhds] with d hd
+      intro _
+      linarith only [hd]
+  obtain ⟨d, hd, hdHalf, hsep⟩ := ((show ∀ᶠ d : ℝ in nhdsWithin 0 (Set.Ioi 0), 0 < d from self_mem_nhdsWithin).and
+    (((eventually_lt_nhds (show (0 : ℝ) < δ / 2 from by positivity)).filter_mono
+      nhdsWithin_le_nhds).and hseparation)).exists
+  have hdδ : 2 * d < δ := by linarith only [hdHalf]
   let gridCircles : Set (ℂ × ℝ) :=
     {(0, 1)} ∪ (fun v => (cutCenter v ε, cutRadius v ε)) '' B ∪
       (fun v => (v, r)) '' S
@@ -3853,6 +3869,20 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
   let gridSquare : ℤ × ℤ → Set ℂ := fun i => {z |
     a.re + (i.1 : ℝ) * d ≤ z.re ∧ z.re ≤ a.re + ((i.1 : ℝ) + 1) * d ∧
     a.im + (i.2 : ℝ) * d ≤ z.im ∧ z.im ≤ a.im + ((i.2 : ℝ) + 1) * d}
+  have hgridCornerUnique (i : ℤ × ℤ) (p q : ℂ) (hp : p ∈ gridCorners) (hq : q ∈ gridCorners)
+      (hpi : p ∈ gridSquare i) (hqi : q ∈ gridSquare i) : p = q := by
+    by_contra hne
+    have hre : |p.re - q.re| ≤ d := abs_le.mpr ⟨by linarith only [hpi.1, hqi.2.1],
+      by linarith only [hpi.2.1, hqi.1]⟩
+    have him : |p.im - q.im| ≤ d := abs_le.mpr ⟨by linarith only [hpi.2.2.1, hqi.2.2.2],
+      by linarith only [hpi.2.2.2, hqi.2.2.1]⟩
+    have hbound : dist p q ≤ 2 * d := by
+      rw [dist_eq_norm]
+      calc
+        _ ≤ |(p - q).re| + |(p - q).im| := Complex.norm_le_abs_re_add_abs_im _
+        _ ≤ d + d := add_le_add hre him
+        _ = 2 * d := by ring
+    exact (not_lt_of_ge hbound) (hsep p hp q hq hne)
   have hgridCellUnique (z : ℂ)
       (havoid : ∀ n : ℤ, a.re + n * d ≠ z.re ∧ a.im + n * d ≠ z.im)
       (i j : ℤ × ℤ) (hi : z ∈ gridSquare i) (hj : z ∈ gridSquare j) : i = j := by
@@ -3884,13 +3914,31 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
       gridCells.Finite ∧ closure V ⊆ ⋃ i ∈ gridCells, gridSquare i ∧
         ∀ i ∈ gridCells, Complex.IsExactOn L (gridSquare i) :=
     htranslatedMesh (closure V) hVcompact δ d hd hdδ hmesh a
-  -- Fix one primitive in each occupied cell so all incident pieces use
-  -- the same endpoint values when the finite boundary sums are assembled.
+  -- Fix one primitive in each occupied cell, normalized at its unique
+  -- genuine contour join when the cell contains one.
+  let cellAnchor : (ℤ × ℤ) → ℂ := fun i =>
+    if h : ∃ z ∈ gridCorners, z ∈ gridSquare i then Classical.choose h else 0
   let cellPrimitive : (ℤ × ℤ) → ℂ → ℂ := fun i =>
-    if hi : i ∈ gridCells then Classical.choose (hgridPrimitives i hi) else fun _ => 0
+    if hi : i ∈ gridCells then fun z => Classical.choose (hgridPrimitives i hi) z -
+      Classical.choose (hgridPrimitives i hi) (cellAnchor i)
+    else fun _ => 0
   have hcellPrimitive (i : ℤ × ℤ) (hi : i ∈ gridCells) :
       ∀ z ∈ gridSquare i, HasDerivAt (cellPrimitive i) (L z) z := by
-    simpa only [cellPrimitive, dif_pos hi] using Classical.choose_spec (hgridPrimitives i hi)
+    intro z hz
+    simpa only [cellPrimitive, dif_pos hi] using
+      (Classical.choose_spec (hgridPrimitives i hi) z hz).sub_const
+        (Classical.choose (hgridPrimitives i hi) (cellAnchor i))
+  have hcellPrimitiveJoin (i : ℤ × ℤ) (z : ℂ) (hz : z ∈ gridCorners)
+      (hzi : z ∈ gridSquare i) : cellPrimitive i z = 0 := by
+    have hex : ∃ w ∈ gridCorners, w ∈ gridSquare i := ⟨z, hz, hzi⟩
+    have hanchor : cellAnchor i = z := by
+      dsimp only [cellAnchor]
+      rw [dif_pos hex]
+      exact hgridCornerUnique i _ z (Classical.choose_spec hex).1 hz
+        (Classical.choose_spec hex).2 hzi
+    by_cases hi : i ∈ gridCells
+    · simp only [cellPrimitive, dif_pos hi, hanchor, sub_self]
+    · simp only [cellPrimitive, dif_neg hi]
   let gridVertex : ℤ × ℤ → ℂ := fun i =>
     ((a.re + i.1 * d : ℝ) : ℂ) + ((a.im + i.2 * d : ℝ) : ℂ) * Complex.I
   have hgridVerticalLeft : ∀ n : ℤ, a.re + n * d ≠ -1 / 2 := by
@@ -5653,10 +5701,13 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
         (∀ p ∈ pieces, u ≤ p.1 ∧ p.1 < p.2 ∧ p.2 ≤ v) ∧
         retained = pieces.filter (fun p => η ((p.1 + p.2) / 2) ∉ removed ε) ∧
         (∀ p ∈ retained, ∀ t ∈ Set.Icc p.1 p.2, η t ∈ frontier V) ∧
-        intervalIntegral (fun t => if η t ∈ removed ε then 0 else L (η t) * deriv η t)
+        (intervalIntegral (fun t => if η t ∈ removed ε then 0 else L (η t) * deriv η t)
           u v MeasureTheory.volume =
           ∑ p ∈ retained, intervalIntegral (fun t => L (η t) * deriv η t)
-            p.1 p.2 MeasureTheory.volume := by
+            p.1 p.2 MeasureTheory.volume) ∧
+        (∀ t, t ∈ cuts ↔ t = u ∨ t = v ∨
+          t ∈ Set.Ioo u v ∧ η t ∈ frontier (removed ε)) ∧
+        (∀ p ∈ retained, ∀ t ∈ Set.Ioo p.1 p.2, η t ∉ removed ε) := by
     have hfinite : {t ∈ Set.Ioo u v | η t ∈ frontier (removed ε)}.Finite := by
       have himage : (η '' {t ∈ Set.Ioo u v | η t ∈ frontier (removed ε)}).Finite := by
         apply (houterCutIntersections j).subset
@@ -5746,18 +5797,25 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
             · exact if_pos (interior_subset (h t ht))
           _ = 0 := intervalIntegral.integral_zero
     refine ⟨cuts, pieces, retained, (hcuts u).mpr (Or.inl rfl),
-      (hcuts v).mpr (Or.inr (Or.inl rfl)), hbounds, rfl, hpiece, rfl, hretained, ?_⟩
-    calc
-      _ = ∑ p ∈ pieces, intervalIntegral
-          (fun t => if η t ∈ removed ε then 0 else L (η t) * deriv η t)
-            p.1 p.2 MeasureTheory.volume :=
-        (hfiniteSubdivision cuts u v ((hcuts u).mpr (Or.inl rfl))
-          ((hcuts v).mpr (Or.inr (Or.inl rfl))) hbounds _ hint).symm
-      _ = ∑ p ∈ pieces, if p ∈ retained then
-          intervalIntegral (fun t => L (η t) * deriv η t) p.1 p.2 MeasureTheory.volume else 0 :=
-        Finset.sum_congr rfl hlocal
-      _ = _ := by rw [← Finset.sum_filter]; congr 1; ext p; simp only [retained,
-        Finset.mem_filter, and_self_left]
+      (hcuts v).mpr (Or.inr (Or.inl rfl)), hbounds, rfl, hpiece, rfl, hretained, ?_, hcuts, ?_⟩
+    · calc
+        _ = ∑ p ∈ pieces, intervalIntegral
+            (fun t => if η t ∈ removed ε then 0 else L (η t) * deriv η t)
+              p.1 p.2 MeasureTheory.volume :=
+          (hfiniteSubdivision cuts u v ((hcuts u).mpr (Or.inl rfl))
+            ((hcuts v).mpr (Or.inr (Or.inl rfl))) hbounds _ hint).symm
+        _ = ∑ p ∈ pieces, if p ∈ retained then
+            intervalIntegral (fun t => L (η t) * deriv η t) p.1 p.2 MeasureTheory.volume else 0 :=
+          Finset.sum_congr rfl hlocal
+        _ = _ := by rw [← Finset.sum_filter]; congr 1; ext p; simp only [retained,
+          Finset.mem_filter, and_self_left]
+    · intro p hp t ht
+      obtain ⟨hpp, hmid⟩ := Finset.mem_filter.mp hp
+      rcases hsplit p hpp with hout | hin
+      · exact hout t ht
+      · have hb := hpiece p hpp
+        exact False.elim (hmid (interior_subset (hin ((p.1 + p.2) / 2)
+          ⟨by linarith only [hb.2.1], by linarith only [hb.2.1]⟩)))
   let outerPath : Fin 4 → ℝ → ℂ := ![circleMap 0 1,
     (fun t => (1 / 2 : ℂ) + (t : ℂ) * Complex.I),
     (fun t => (t : ℂ) + (Y : ℂ) * Complex.I),
@@ -5855,7 +5913,7 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
       outerIntegral j = ∑ p ∈ outerRetained j,
         intervalIntegral (fun t => L (outerPath j t) * deriv (outerPath j) t)
           p.1 p.2 MeasureTheory.volume :=
-    (houterCertificate j).2.2.2.2.2.2.2
+    (houterCertificate j).2.2.2.2.2.2.2.1
   have houterDeriv (t : ℝ) :
       deriv (outerPath 0) t = Complex.I * circleMap 0 1 t ∧
       deriv (outerPath 1) t = Complex.I ∧
@@ -5869,6 +5927,169 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     refine ⟨?_, (hvertical _).deriv, htop.deriv, (hvertical _).deriv⟩
     change deriv (circleMap 0 1) t = _
     simp [mul_comm]
+  have houterPathEnds (j : Fin 4) :
+      outerPath j (outerLo j) = ![ρ + 1, ρ + 1,
+        (-1 / 2 : ℂ) + (Y : ℂ) * Complex.I, ρ] j ∧
+      outerPath j (outerHi j) = ![ρ, (1 / 2 : ℂ) + (Y : ℂ) * Complex.I,
+        (1 / 2 : ℂ) + (Y : ℂ) * Complex.I,
+        (-1 / 2 : ℂ) + (Y : ℂ) * Complex.I] j := by
+    have hcos : Real.cos (2 * Real.pi / 3) = -1 / 2 := by
+      rw [show 2 * Real.pi / 3 = Real.pi - Real.pi / 3 by ring,
+        Real.cos_pi_sub, Real.cos_pi_div_three]
+      norm_num
+    have hsin : Real.sin (2 * Real.pi / 3) = Real.sqrt 3 / 2 := by
+      rw [show 2 * Real.pi / 3 = Real.pi - Real.pi / 3 by ring,
+        Real.sin_pi_sub, Real.sin_pi_div_three]
+    fin_cases j <;> constructor <;> apply Complex.ext <;>
+      norm_num [outerPath, outerLo, outerHi, circleMap_zero_re, circleMap_zero_im,
+        hcos, hsin, Real.cos_pi_div_three, Real.sin_pi_div_three, ρ]
+  have houterRepresentation (j : Fin 4) (z : ℂ) (hzK : z ∈ K)
+      (hzj : z ∈ outerSupport j) :
+      ∃ t ∈ Set.Icc (outerLo j) (outerHi j), outerPath j t = z := by
+    fin_cases j
+    · have hn : ‖z‖ = 1 := hzj
+      have ha0 : 0 ≤ z.arg := Complex.arg_nonneg_iff.mpr hzK.2.2.1.le
+      have haπ : z.arg ≤ Real.pi := Complex.arg_le_pi z
+      have hc : Real.cos z.arg = z.re := by
+        simpa only [hn, one_mul] using Complex.norm_mul_cos_arg z
+      have hcos : Real.cos (2 * Real.pi / 3) = -1 / 2 := by
+        rw [show 2 * Real.pi / 3 = Real.pi - Real.pi / 3 by ring,
+          Real.cos_pi_sub, Real.cos_pi_div_three]
+        norm_num
+      have hlow : Real.pi / 3 ≤ z.arg := by
+        by_contra! hlt
+        have h := Real.cos_lt_cos_of_nonneg_of_le_pi ha0
+          (show Real.pi / 3 ≤ Real.pi by linarith [Real.pi_pos]) hlt
+        rw [Real.cos_pi_div_three, hc] at h
+        linarith only [(abs_le.mp hzK.1).2, h]
+      have hhigh : z.arg ≤ 2 * Real.pi / 3 := by
+        by_contra! hlt
+        have h := Real.cos_lt_cos_of_nonneg_of_le_pi (by positivity) haπ hlt
+        rw [hcos, hc] at h
+        linarith only [(abs_le.mp hzK.1).1, h]
+      refine ⟨z.arg, ⟨hlow, hhigh⟩, ?_⟩
+      change circleMap 0 1 z.arg = z
+      simpa only [circleMap, zero_add, hn] using Complex.norm_mul_exp_arg_mul_I z
+    · refine ⟨z.im, ⟨hKlower z hzK, hzK.2.2.2⟩, ?_⟩
+      apply Complex.ext
+      · simpa [outerPath] using (show z.re = 1 / 2 from hzj).symm
+      · simp [outerPath]
+    · refine ⟨z.re, ?_, ?_⟩
+      · change (-1 / 2 : ℝ) ≤ z.re ∧ z.re ≤ 1 / 2
+        simpa only [neg_div] using abs_le.mp hzK.1
+      · apply Complex.ext
+        · simp [outerPath]
+        · simpa [outerPath] using (show z.im = Y from hzj).symm
+    · refine ⟨z.im, ⟨hKlower z hzK, hzK.2.2.2⟩, ?_⟩
+      apply Complex.ext
+      · simpa [outerPath] using (show z.re = -1 / 2 from hzj).symm
+      · simp [outerPath]
+  let outerWindow : Fin 4 → Set ℂ := ![
+    {z | |z.re| < 1 / 2 ∧ 0 < z.im ∧ z.im < Y},
+    {z | -1 / 2 < z.re ∧ 1 < ‖z‖ ∧ 0 < z.im ∧ z.im < Y},
+    {z | |z.re| < 1 / 2 ∧ 1 < ‖z‖ ∧ 0 < z.im},
+    {z | z.re < 1 / 2 ∧ 1 < ‖z‖ ∧ 0 < z.im ∧ z.im < Y}]
+  have houterWindowOpen (j : Fin 4) : IsOpen (outerWindow j) := by
+    fin_cases j
+    · exact (isOpen_lt Complex.continuous_re.abs continuous_const).inter
+        ((isOpen_lt continuous_const Complex.continuous_im).inter
+          (isOpen_lt Complex.continuous_im continuous_const))
+    · exact (isOpen_lt continuous_const Complex.continuous_re).inter
+        ((isOpen_lt continuous_const continuous_norm).inter
+          ((isOpen_lt continuous_const Complex.continuous_im).inter
+            (isOpen_lt Complex.continuous_im continuous_const)))
+    · exact (isOpen_lt Complex.continuous_re.abs continuous_const).inter
+        ((isOpen_lt continuous_const continuous_norm).inter
+          (isOpen_lt continuous_const Complex.continuous_im))
+    · exact (isOpen_lt Complex.continuous_re continuous_const).inter
+        ((isOpen_lt continuous_const continuous_norm).inter
+          ((isOpen_lt continuous_const Complex.continuous_im).inter
+            (isOpen_lt Complex.continuous_im continuous_const)))
+  have houterPathWindow (j : Fin 4) (t : ℝ)
+      (ht : t ∈ Set.Ioo (outerLo j) (outerHi j)) : outerPath j t ∈ outerWindow j := by
+    have hside (x : ℝ) (hx : x = -1 / 2 ∨ x = 1 / 2) (t : ℝ)
+        (ht : Real.sqrt 3 / 2 < t) :
+        1 < ‖(x : ℂ) + (t : ℂ) * Complex.I‖ := by
+      have hs := Real.sq_sqrt (show (0 : ℝ) ≤ 3 by norm_num)
+      have hx2 : x ^ 2 = 1 / 4 := by rcases hx with rfl | rfl <;> norm_num
+      have heq := Complex.sq_norm_sub_sq_re ((x : ℂ) + (t : ℂ) * Complex.I)
+      simp only [Complex.add_re, Complex.ofReal_re, Complex.mul_re, Complex.ofReal_im,
+        Complex.I_re, Complex.I_im, mul_zero, sub_self, add_zero,
+        Complex.add_im, Complex.mul_im, mul_one, zero_add] at heq
+      nlinarith only [heq, hs, hx2, ht, Real.sqrt_nonneg 3,
+        norm_nonneg ((x : ℂ) + (t : ℂ) * Complex.I)]
+    fin_cases j
+    · have ht' : Real.pi / 3 < t ∧ t < 2 * Real.pi / 3 := ht
+      have ht0 : 0 < t := by linarith [Real.pi_pos]
+      have htπ : t < Real.pi := by linarith [Real.pi_pos]
+      have hcos : Real.cos (2 * Real.pi / 3) = -1 / 2 := by
+        rw [show 2 * Real.pi / 3 = Real.pi - Real.pi / 3 by ring,
+          Real.cos_pi_sub, Real.cos_pi_div_three]
+        norm_num
+      have hlo := Real.cos_lt_cos_of_nonneg_of_le_pi ht0.le
+        (show 2 * Real.pi / 3 ≤ Real.pi by linarith [Real.pi_pos]) ht'.2
+      have hhi := Real.cos_lt_cos_of_nonneg_of_le_pi (by positivity : 0 ≤ Real.pi / 3)
+        htπ.le ht'.1
+      rw [hcos] at hlo
+      rw [Real.cos_pi_div_three] at hhi
+      change |(circleMap 0 1 t).re| < 1 / 2 ∧ 0 < (circleMap 0 1 t).im ∧
+        (circleMap 0 1 t).im < Y
+      simp only [circleMap_zero_re, circleMap_zero_im, one_mul]
+      exact ⟨abs_lt.mpr ⟨by linarith, hhi⟩, Real.sin_pos_of_pos_of_lt_pi ht0 htπ,
+        lt_of_le_of_lt (Real.sin_le_one t) hY⟩
+    · change -1 / 2 < _ ∧ 1 < _ ∧ 0 < _ ∧ _ < Y
+      have ht' : Real.sqrt 3 / 2 < t ∧ t < Y := ht
+      refine ⟨by norm_num [outerPath], by simpa [outerPath] using hside _ (Or.inr rfl) t ht'.1, ?_, ?_⟩
+      · simpa [outerPath] using lt_trans (by positivity : (0 : ℝ) < Real.sqrt 3 / 2) ht'.1
+      · simpa [outerPath] using ht'.2
+    · have ht' : -1 / 2 < t ∧ t < 1 / 2 := ht
+      have hy : 0 < Y := lt_trans zero_lt_one hY
+      have hn : Y ≤ ‖(t : ℂ) + (Y : ℂ) * Complex.I‖ := by
+        simpa only [Complex.add_im, Complex.ofReal_im, Complex.mul_im, Complex.ofReal_re,
+          Complex.I_im, Complex.I_re, mul_one, mul_zero, add_zero, zero_add,
+          abs_of_pos hy] using Complex.abs_im_le_norm ((t : ℂ) + (Y : ℂ) * Complex.I)
+      refine ⟨?_, lt_of_lt_of_le hY hn, ?_⟩
+      · have habs : |t| < 1 / 2 := abs_lt.mpr ⟨by linarith only [ht'.1], ht'.2⟩
+        simpa [outerPath] using habs
+      · simpa [outerPath] using hy
+    · have ht' : Real.sqrt 3 / 2 < t ∧ t < Y := ht
+      refine ⟨by norm_num [outerPath], by simpa [outerPath] using hside _ (Or.inl rfl) t ht'.1, ?_, ?_⟩
+      · simpa [outerPath] using lt_trans (by positivity : (0 : ℝ) < Real.sqrt 3 / 2) ht'.1
+      · simpa [outerPath] using ht'.2
+
+  have houterWindowUnique (j : Fin 4) (z : ℂ) (hz : z ∈ outerWindow j)
+      (k : Fin 4) (hzk : z ∈ outerSupport k) : k = j := by
+    fin_cases j <;> fin_cases k <;> try rfl
+    all_goals
+      norm_num [outerWindow, outerSupport, abs_lt] at hz hzk
+      exfalso
+      linarith only [hz, hzk]
+  let outerSide : Fin 4 → ℂ → Prop := fun j z =>
+    ![1 < ‖z‖, z.re < 1 / 2, z.im < Y, -1 / 2 < z.re] j
+  have houterWindowSide (j : Fin 4) (z : ℂ) (hz : z ∈ outerWindow j) :
+      z ∈ O ↔ outerSide j z := by
+    fin_cases j <;> norm_num [outerWindow, outerSide, O, abs_lt] at hz ⊢ <;> tauto
+  let outerNormal : Fin 4 → ℂ → ℂ → ℝ := fun j z u =>
+    ![z.re * u.re + z.im * u.im, -u.re, -u.im, u.re] j
+  have houterDet (j : Fin 4) (s : ℝ) (u : ℂ) :
+      (deriv (outerPath j) s * star u).im =
+        if j = 1 then -outerNormal j (outerPath j s) u
+        else outerNormal j (outerPath j s) u := by
+    fin_cases j
+    · change (deriv (outerPath 0) s * star u).im = outerNormal 0 (outerPath 0 s) u
+      rw [(houterDeriv s).1]
+      simp [outerNormal, outerPath, Complex.mul_im, Complex.mul_re]
+      ring
+    · change (deriv (outerPath 1) s * star u).im = -outerNormal 1 (outerPath 1 s) u
+      rw [(houterDeriv s).2.1]
+      simp [outerNormal]
+    · change (deriv (outerPath 2) s * star u).im = outerNormal 2 (outerPath 2 s) u
+      rw [(houterDeriv s).2.2.1]
+      simp [outerNormal]
+    · change (deriv (outerPath 3) s * star u).im = outerNormal 3 (outerPath 3 s) u
+      rw [(houterDeriv s).2.2.2]
+      simp [outerNormal]
+
   have htopNotRemoved (t : ℝ) : outerPath 2 t ∉ removed ε := by
     intro hmem
     obtain ⟨v, hv, htv⟩ := Set.mem_iUnion₂.mp hmem
@@ -5931,6 +6152,77 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
   choose outerGridCuts outerGridPieces outerGridCell houterGridCertificate using
     (fun (j : Fin 4) (p : {p // p ∈ outerRetained j}) =>
       houterGridSubdivision j p.1 p.2)
+  have houterEndCorners (j : Fin 4) :
+      outerPath j (outerLo j) ∈ gridCorners ∧ outerPath j (outerHi j) ∈ gridCorners := by
+    have hbase : ({ρ, ρ + 1, (-1 / 2 : ℂ) + (Y : ℂ) * Complex.I,
+        (1 / 2 : ℂ) + (Y : ℂ) * Complex.I} : Set ℂ) ⊆ gridCorners :=
+      fun _ hz => Or.inl (Or.inl hz)
+    constructor
+    · apply hbase
+      rw [(houterPathEnds j).1]
+      fin_cases j <;> simp
+    · apply hbase
+      rw [(houterPathEnds j).2]
+      fin_cases j <;> simp
+  have hgridPointNotCorner (z : ℂ)
+      (hz : ∃ n : ℤ, z.re = a.re + n * d ∨ z.im = a.im + n * d) : z ∉ gridCorners := by
+    intro hcorner
+    obtain ⟨n, hn | hn⟩ := hz
+    · exact (hgridCorners z hcorner n).1 hn.symm
+    · exact (hgridCorners z hcorner n).2 hn.symm
+  have hgridCrossingNotCorner (z : ℂ) (hz : z ∈ gridCrossings) : z ∉ gridCorners := by
+    apply hgridPointNotCorner z
+    obtain ⟨i, _, hz⟩ := Set.mem_iUnion₂.mp hz
+    rcases hz with (h | h) | (h | h)
+    · exact ⟨i.1, Or.inl h.2⟩
+    · exact ⟨i.1 + 1, Or.inl h.2⟩
+    · exact ⟨i.2, Or.inr h.2⟩
+    · exact ⟨i.2 + 1, Or.inr h.2⟩
+  have houterRemovedCorner (j : Fin 4) (z : ℂ) (hz : z ∈ frontier V)
+      (hzj : z ∈ outerSupport j) (hm : z ∈ removed ε) : z ∈ gridCorners := by
+    have hcl : z ∈ closure (Ω ε) :=
+      closure_mono (show V ⊆ Ω ε from fun _ hw => hw.1) (frontier_subset_closure hz)
+    have houtside : closure (Ω ε) ⊆ (interior (removed ε))ᶜ := by
+      apply closure_minimal _ isOpen_interior.isClosed_compl
+      exact fun _ hw hi => hw.2 (interior_subset hi)
+    have hf : z ∈ frontier (removed ε) := ⟨subset_closure hm, houtside hcl⟩
+    obtain ⟨v, hv, hzv⟩ := Set.mem_iUnion₂.mp (hremovedFrontier hf)
+    have hparam : z ∈ γ v ε '' Set.Icc (cutEnd v) (cutStart v) := by
+      rw [← hboundaryCircleCoverage v hv]
+      exact ⟨hcl, hzv⟩
+    obtain ⟨t, ht, heq⟩ := hparam
+    rcases eq_or_lt_of_le ht.1 with hlo | hlo
+    · rw [← heq, ← hlo]
+      exact Or.inr ⟨v, hv, rfl⟩
+    · rcases eq_or_lt_of_le ht.2 with hhi | hhi
+      · rw [← heq, hhi]
+        exact Or.inl (Or.inr ⟨v, hv, rfl⟩)
+      · exact False.elim (houterNotO j z hzj (heq ▸ hboundaryArcInterior v hv t ⟨hlo, hhi⟩))
+  have houterCoarseEndpointCorner (j : Fin 4) (p : {p // p ∈ outerRetained j})
+      (t : ℝ) (ht : t = p.1.1 ∨ t = p.1.2) : outerPath j t ∈ gridCorners := by
+    have hpp : p.1 ∈ outerPieces j := by
+      have hp := (congrArg (fun s : Finset (ℝ × ℝ) => p.1 ∈ s)
+        (houterCertificate j).2.2.2.2.2.1).mp p.2
+      exact (Finset.mem_filter.mp hp).1
+    have hb := (houterCertificate j).2.2.2.2.1 p.1 hpp
+    have hpair := hpp
+    rw [(houterCertificate j).2.2.2.1] at hpair
+    have hpairs := Finset.mem_product.mp (Finset.mem_filter.mp hpair).1
+    have hcut : t ∈ outerCuts j := by rcases ht with rfl | rfl <;> tauto
+    have htclosed : t ∈ Set.Icc p.1.1 p.1.2 := by
+      rcases ht with rfl | rfl
+      · exact ⟨le_rfl, hb.2.1.le⟩
+      · exact ⟨hb.2.1.le, le_rfl⟩
+    rcases ((houterCertificate j).2.2.2.2.2.2.2.2.1 t).mp hcut with h | h | h
+    · rw [h]
+      exact (houterEndCorners j).1
+    · rw [h]
+      exact (houterEndCorners j).2
+    · exact houterRemovedCorner j (outerPath j t)
+        ((houterCertificate j).2.2.2.2.2.2.1 p.1 p.2 t htclosed)
+        (houterPathMem j t ⟨le_trans hb.1 htclosed.1, le_trans htclosed.2 hb.2.2⟩).2
+        ((hremovedClosed ε hε.1 hε.2).closure_subset h.2.1)
+
   let outerEndpoints : ℂ := ∑ j : Fin 4, outerSign j *
     ∑ p : {p // p ∈ outerRetained j}, ∑ q ∈ outerGridPieces j p,
       (cellPrimitive (outerGridCell j p q) (outerPath j q.2) -
@@ -6828,16 +7120,715 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
             (2 * Real.pi) 0 MeasureTheory.volume) =
         -(∑ e ∈ retainedGridPieces, retainedIntegral e) by
     rw [hboundaryAssembly, hretainedGridCancellation, neg_zero]
+  have houterLocalSide (j : Fin 4) (s : ℝ)
+      (hs : s ∈ Set.Ioo (outerLo j) (outerHi j)) (hm : outerPath j s ∉ removed ε) :
+      ∀ᶠ w in nhds (outerPath j s), w ∈ V ↔ outerSide j w := by
+    have hnot : outerPath j s ∉ Ω ε := fun h =>
+      houterNotO j _ (houterPathMem j s ⟨hs.1.le, hs.2.le⟩).2 h.1
+    filter_upwards [(houterWindowOpen j).mem_nhds (houterPathWindow j s hs),
+      (hremovedClosed ε hε.1 hε.2).isOpen_compl.mem_nhds hm,
+      hexcisionAway (outerPath j s) hnot] with w hw hn heq
+    rw [heq]
+    exact ⟨fun h => (houterWindowSide j w hw).mp h.1,
+      fun h => ⟨(houterWindowSide j w hw).mpr h, hn⟩⟩
+  have hcellVelocityCoordinates (i : ℤ × ℤ) (j : Fin 4) : cellVelocity i j =
+      ![(d : ℂ), (d : ℂ) * Complex.I, -(d : ℂ), -(d : ℂ) * Complex.I] j := by
+    fin_cases j <;> norm_num [cellVelocity, cellVertex, cellNext, Equiv.addRight,
+      gridVertex, Fin.add_def] <;> ring
+  have houterNormalNe (j : Fin 4) (s : ℝ) (i : ℤ × ℤ) (l : Fin 4) (t : ℝ)
+      (heq : outerPath j s = cellEdge i l t) :
+      outerNormal j (outerPath j s) (cellVelocity i l) ≠ 0 := by
+    fin_cases j
+    · change outerPath 0 s = cellEdge i l t at heq
+      change (outerPath 0 s).re * (cellVelocity i l).re +
+        (outerPath 0 s).im * (cellVelocity i l).im ≠ 0
+      have hz : cellEdge i l t ∈ Metric.sphere 0 1 := by
+        rw [← heq]
+        change circleMap 0 1 s ∈ Metric.sphere 0 1
+        exact circleMap_mem_sphere 0 (by norm_num) s
+      rw [heq]
+      simpa only [sub_zero] using
+        hcellCircleNormalNe i l t (0, 1) (Or.inl (Or.inl rfl)) hz
+    · change outerPath 1 s = cellEdge i l t at heq
+      change -(cellVelocity i l).re ≠ 0
+      have hre : (cellEdge i l t).re = 1 / 2 := by rw [← heq]; simp [outerPath]
+      rw [(hcellEdgeCoordinates i l t).1] at hre
+      rw [hcellVelocityCoordinates]
+      fin_cases l
+      · simpa using neg_ne_zero.mpr hd.ne'
+      · exact False.elim (hgridVerticalRight (i.1 + 1)
+          (by simpa [Int.cast_add] using hre))
+      · simpa using hd.ne'
+      · exact False.elim (hgridVerticalRight i.1 (by simpa using hre))
+    · change outerPath 2 s = cellEdge i l t at heq
+      change -(cellVelocity i l).im ≠ 0
+      have him : (cellEdge i l t).im = Y := by rw [← heq]; simp [outerPath]
+      rw [(hcellEdgeCoordinates i l t).2] at him
+      rw [hcellVelocityCoordinates]
+      fin_cases l
+      · exact False.elim (hgridHorizontalTop i.2 (by simpa using him))
+      · simpa using neg_ne_zero.mpr hd.ne'
+      · exact False.elim (hgridHorizontalTop (i.2 + 1)
+          (by simpa [Int.cast_add] using him))
+      · simpa using hd.ne'
+    · change outerPath 3 s = cellEdge i l t at heq
+      change (cellVelocity i l).re ≠ 0
+      have hre : (cellEdge i l t).re = -1 / 2 := by rw [← heq]; simp [outerPath]
+      rw [(hcellEdgeCoordinates i l t).1] at hre
+      rw [hcellVelocityCoordinates]
+      fin_cases l
+      · simpa using hd.ne'
+      · exact False.elim (hgridVerticalLeft (i.1 + 1)
+          (by simpa [Int.cast_add] using hre))
+      · simpa using neg_ne_zero.mpr hd.ne'
+      · exact False.elim (hgridVerticalLeft i.1 (by simpa using hre))
+  have houterEdgeCrossing (j : Fin 4) (s : ℝ)
+      (hs : s ∈ Set.Ioo (outerLo j) (outerHi j)) (hm : outerPath j s ∉ removed ε)
+      (i : ℤ × ℤ) (l : Fin 4) (t : ℝ) (heq : outerPath j s = cellEdge i l t) :
+      ∀ᶠ x in nhds t, cellEdge i l x ∈ V ↔
+        0 < (x - t) * outerNormal j (outerPath j s) (cellVelocity i l) := by
+    have hlocal := houterLocalSide j s hs hm
+    rw [heq] at hlocal
+    have hlinear (x : ℝ) : cellEdge i l x =
+        cellEdge i l t + ((x - t : ℝ) : ℂ) * cellVelocity i l := by
+      dsimp only [cellEdge, cellVelocity]
+      push_cast
+      ring
+    fin_cases j
+    · change outerPath 0 s = cellEdge i l t at heq
+      change ∀ᶠ w in nhds (cellEdge i l t), w ∈ V ↔ outerSide 0 w at hlocal
+      change ∀ᶠ x in nhds t, cellEdge i l x ∈ V ↔
+        0 < (x - t) * outerNormal 0 (outerPath 0 s) (cellVelocity i l)
+      have hz : cellEdge i l t ∈ Metric.sphere 0 1 := by
+        rw [← heq]
+        change circleMap 0 1 s ∈ Metric.sphere 0 1
+        exact circleMap_mem_sphere 0 (by norm_num) s
+      have hout : ∀ᶠ w in nhds (cellEdge i l t), w ∈ V ↔ (1 : ℝ) < ‖w - 0‖ := by
+        simpa only [outerSide, Matrix.cons_val_zero, sub_zero] using hlocal
+      have hcross := hcircleEdgeCrossing i l t (0, 1) (Or.inl (Or.inl rfl))
+        (by norm_num) hz hout
+      simpa only [outerNormal, Matrix.cons_val_zero, heq, sub_zero] using hcross
+    · have hre : (cellEdge i l t).re = 1 / 2 := by rw [← heq]; simp [outerPath]
+      filter_upwards [(hcellEdgeContinuous i l).continuousAt.eventually hlocal] with x hx
+      rw [hx]
+      change (cellEdge i l x).re < 1 / 2 ↔ 0 < (x - t) * -(cellVelocity i l).re
+      rw [hlinear]
+      simp only [Complex.add_re, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im,
+        zero_mul, sub_zero, hre]
+      constructor <;> intro h <;> nlinarith only [h]
+    · have him : (cellEdge i l t).im = Y := by rw [← heq]; simp [outerPath]
+      filter_upwards [(hcellEdgeContinuous i l).continuousAt.eventually hlocal] with x hx
+      rw [hx]
+      change (cellEdge i l x).im < Y ↔ 0 < (x - t) * -(cellVelocity i l).im
+      rw [hlinear]
+      simp only [Complex.add_im, Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im,
+        zero_mul, add_zero, him]
+      constructor <;> intro h <;> nlinarith only [h]
+    · have hre : (cellEdge i l t).re = -1 / 2 := by rw [← heq]; simp [outerPath]
+      filter_upwards [(hcellEdgeContinuous i l).continuousAt.eventually hlocal] with x hx
+      rw [hx]
+      change -1 / 2 < (cellEdge i l x).re ↔ 0 < (x - t) * (cellVelocity i l).re
+      rw [hlinear]
+      simp only [Complex.add_re, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im,
+        zero_mul, sub_zero, hre]
+      constructor <;> intro h <;> nlinarith only [h]
+
+  have houterCoarseBounds (j : Fin 4) (p : {p // p ∈ outerRetained j}) :
+      outerLo j ≤ p.1.1 ∧ p.1.1 < p.1.2 ∧ p.1.2 ≤ outerHi j := by
+    have hp := (congrArg (fun s : Finset (ℝ × ℝ) => p.1 ∈ s)
+      (houterCertificate j).2.2.2.2.2.1).mp p.2
+    exact (houterCertificate j).2.2.2.2.1 p.1 (Finset.mem_filter.mp hp).1
+  have houterCoarseInterior (j : Fin 4) (p : {p // p ∈ outerRetained j}) (s : ℝ)
+      (hs : s ∈ Set.Ioo p.1.1 p.1.2) :
+      s ∈ Set.Ioo (outerLo j) (outerHi j) ∧ outerPath j s ∉ removed ε := by
+    have hb := houterCoarseBounds j p
+    exact ⟨⟨lt_of_le_of_lt hb.1 hs.1, lt_of_lt_of_le hs.2 hb.2.2⟩,
+      (houterCertificate j).2.2.2.2.2.2.2.2.2 p.1 p.2 s hs⟩
+  have hgridEdgeCrossing (i : ℤ × ℤ) (l : Fin 4) (t : ℝ)
+      (hz : cellEdge i l t ∈ frontier V) : cellEdge i l t ∈ gridCrossings := by
+    fin_cases l
+    · exact hgridCrossingContains _ hz i.2
+        (Or.inr (by simpa using (hcellEdgeCoordinates i 0 t).2))
+    · exact hgridCrossingContains _ hz (i.1 + 1)
+        (Or.inl (by simpa using (hcellEdgeCoordinates i 1 t).1))
+    · exact hgridCrossingContains _ hz (i.2 + 1)
+        (Or.inr (by simpa using (hcellEdgeCoordinates i 2 t).2))
+    · exact hgridCrossingContains _ hz i.1
+        (Or.inl (by simpa using (hcellEdgeCoordinates i 3 t).1))
+  let outerPieceBool (j : Fin 4) (b : Bool) : Bool := if j = 1 then !b else b
+  have houterArtificialIncidence (j : Fin 4) (p : {p // p ∈ outerRetained j})
+      (q : ℝ × ℝ) (hq : q ∈ outerGridPieces j p) (l : Fin 4) (s t : ℝ)
+      (ht : t ∈ Set.Ioo (0 : ℝ) 1) (hs : s ∈ Set.Ioo p.1.1 p.1.2)
+      (heq : outerPath j s = cellEdge (outerGridCell j p q) l t) (b : Bool)
+      (hqs : pieceEndpoint (outerPieceBool j b) q = s) :
+      ∃! e : ℝ × ℝ, e ∈ retainedPieces (outerGridCell j p q) l ∧ pieceEndpoint b e = t := by
+    let i := outerGridCell j p q
+    have hglobal := houterCoarseInterior j p s hs
+    have hfront : cellEdge i l t ∈ frontier V := by
+      rw [← heq]
+      exact (houterCertificate j).2.2.2.2.2.2.1 p.1 p.2 s ⟨hs.1.le, hs.2.le⟩
+    have hcut : t ∈ edgeCuts i l :=
+      (hedgeCutsMem i l t).mpr (Or.inr (Or.inr ⟨⟨ht.1.le, ht.2.le⟩, hfront⟩))
+    let normal := outerNormal j (outerPath j s) (cellVelocity i l)
+    have hnormal : normal ≠ 0 := houterNormalNe j s i l t heq
+    have hdet : (deriv (outerPath j) s * star (cellVelocity i l)).im =
+        if j = 1 then -normal else normal := houterDet j s (cellVelocity i l)
+    have hpair := hq
+    rw [(houterGridCertificate j p).2.2.2.1] at hpair
+    have hlt := (Finset.mem_filter.mp hpair).2.1
+    have hsign := hcellPathEndpointSigns (outerPath j) s _
+      (((houterSmooth j).differentiable (by norm_num)) s).hasDerivAt i l t heq q.1 q.2 hlt
+      (fun x hx => ((houterGridCertificate j p).2.2.2.2.1 q hq).2.1 x ⟨hx.1.le, hx.2.le⟩)
+      (by rw [hdet]; split_ifs <;> simpa only [neg_ne_zero] using hnormal)
+    rw [hdet] at hsign
+    have hincidence := hfiniteRetainedEndpointIncidence
+      (edgeCuts i l) (edgePieces i l) (retainedPieces i l) (hedgePieceMem i l)
+      (fun _ he => (Finset.mem_filter.mp he).1) (cellEdge i l) V
+      (hretainedPieceInterior i l)
+      (fun e he hn x hx hz => hunretainedPieceExterior i l e he hn x hx (subset_closure hz))
+      0 1 t normal ((hedgeCutsMem i l 0).mpr (Or.inl rfl))
+      ((hedgeCutsMem i l 1).mpr (Or.inr (Or.inl rfl))) hcut ht.1 ht.2
+      (houterEdgeCrossing j s hglobal.1 hglobal.2 i l t heq)
+    cases b
+    · apply hincidence.1.mpr
+      by_cases hj : j = 1
+      · have hqend : q.2 = s := by simpa [outerPieceBool, pieceEndpoint, hj] using hqs
+        have hn := hsign.2 hqend
+        rw [if_pos hj] at hn
+        linarith only [hn]
+      · have hqstart : q.1 = s := by simpa [outerPieceBool, pieceEndpoint, hj] using hqs
+        simpa only [if_neg hj] using hsign.1 hqstart
+    · apply hincidence.2.mpr
+      by_cases hj : j = 1
+      · have hqstart : q.1 = s := by simpa [outerPieceBool, pieceEndpoint, hj] using hqs
+        have hn := hsign.1 hqstart
+        rw [if_pos hj] at hn
+        linarith only [hn]
+      · have hqend : q.2 = s := by simpa [outerPieceBool, pieceEndpoint, hj] using hqs
+        simpa only [if_neg hj] using hsign.2 hqend
+  have houterGenuineIncidence (i : ℤ × ℤ) (l : Fin 4) (e : ℝ × ℝ)
+      (he : e ∈ retainedPieces i l) (t : ℝ) (ht : t ∈ Set.Ioo (0 : ℝ) 1)
+      (j : Fin 4) (p : {p // p ∈ outerRetained j}) (s : ℝ)
+      (hs : s ∈ Set.Ioo p.1.1 p.1.2) (heq : cellEdge i l t = outerPath j s)
+      (b : Bool) (het : pieceEndpoint b e = t) :
+      ∃! q : ℝ × ℝ, q ∈ outerGridPieces j p ∧
+        pieceEndpoint (outerPieceBool j b) q = s ∧ outerGridCell j p q = i := by
+    have hglobal := houterCoarseInterior j p s hs
+    have hfront : cellEdge i l t ∈ frontier V := by
+      rw [heq]
+      exact (houterCertificate j).2.2.2.2.2.2.1 p.1 p.2 s ⟨hs.1.le, hs.2.le⟩
+    have hcross := hgridEdgeCrossing i l t hfront
+    have hcut : s ∈ outerGridCuts j p :=
+      ((houterGridCertificate j p).2.2.2.2.2.2 s).mpr
+        (Or.inr (Or.inr ⟨hs, heq ▸ hcross⟩))
+    have hpieces : ∀ q, q ∈ outerGridPieces j p ↔ q.1 ∈ outerGridCuts j p ∧
+        q.2 ∈ outerGridCuts j p ∧ q.1 < q.2 ∧
+          ∀ t ∈ outerGridCuts j p, t ≤ q.1 ∨ q.2 ≤ t := by
+      intro q
+      rw [(houterGridCertificate j p).2.2.2.1]
+      simp only [Finset.mem_filter, Finset.mem_product, and_assoc]
+    have hincidence := hfinitePieceIncidence (outerGridCuts j p) (outerGridPieces j p)
+      hpieces s hcut
+    have hlt := ((hedgePieceMem i l e).mp (Finset.mem_filter.mp he).1).2.2.1
+    have hsign := hoccupiedEndpointSigns (cellEdge i l) V t _ e.1 e.2 hlt
+      (hretainedPieceInterior i l e he)
+      (houterEdgeCrossing j s hglobal.1 hglobal.2 i l t heq.symm)
+    have hdet := houterDet j s (cellVelocity i l)
+    have hchoose (c : Bool)
+        (hsign : if c then (deriv (outerPath j) s * star (cellVelocity i l)).im < 0
+          else 0 < (deriv (outerPath j) s * star (cellVelocity i l)).im) :
+        ∃! q : ℝ × ℝ, q ∈ outerGridPieces j p ∧
+          pieceEndpoint c q = s ∧ outerGridCell j p q = i := by
+      cases c
+      · obtain ⟨q, hq, hu⟩ := hincidence.1 ⟨p.1.2, (houterGridCertificate j p).2.1, hs.2⟩
+        refine ⟨q, ⟨hq.1, hq.2, ?_⟩, fun w hw => hu w ⟨hw.1, hw.2.1⟩⟩
+        exact hcellPathEndpointCell (outerPath j) s _
+          (((houterSmooth j).differentiable (by norm_num)) s).hasDerivAt i l t ht heq.symm
+          (outerGridCell j p q) q.1 q.2 ((hpieces q).mp hq.1).2.2.1
+          ((houterGridCertificate j p).2.2.2.2.1 q hq.1).2.1 (Or.inl ⟨hq.2, hsign⟩)
+      · obtain ⟨q, hq, hu⟩ := hincidence.2 ⟨p.1.1, (houterGridCertificate j p).1, hs.1⟩
+        refine ⟨q, ⟨hq.1, hq.2, ?_⟩, fun w hw => hu w ⟨hw.1, hw.2.1⟩⟩
+        exact hcellPathEndpointCell (outerPath j) s _
+          (((houterSmooth j).differentiable (by norm_num)) s).hasDerivAt i l t ht heq.symm
+          (outerGridCell j p q) q.1 q.2 ((hpieces q).mp hq.1).2.2.1
+          ((houterGridCertificate j p).2.2.2.2.1 q hq.1).2.1 (Or.inr ⟨hq.2, hsign⟩)
+    apply hchoose (outerPieceBool j b)
+    cases b
+    · have hn := hsign.1 het
+      by_cases hj : j = 1
+      · simp only [outerPieceBool, if_pos hj, Bool.not_false, ↓reduceIte]
+        rw [hdet, if_pos hj]
+        linarith only [hn]
+      · simp only [outerPieceBool, if_neg hj, Bool.false_eq_true, ↓reduceIte]
+        simpa only [hdet, if_neg hj] using hn
+    · have hn := hsign.2 het
+      by_cases hj : j = 1
+      · simp only [outerPieceBool, if_pos hj, Bool.not_true, Bool.false_eq_true, ↓reduceIte]
+        rw [hdet, if_pos hj]
+        linarith only [hn]
+      · simp only [outerPieceBool, if_neg hj, ↓reduceIte]
+        simpa only [hdet, if_neg hj] using hn
+
+  let outerEndpointPieces (u : Σ j : Fin 4, {p // p ∈ outerRetained j}) (b : Bool) :=
+    (outerGridPieces u.1 u.2).filter (fun q =>
+      pieceEndpoint (outerPieceBool u.1 b) q ≠ pieceEndpoint (outerPieceBool u.1 b) u.2.1)
+  let outerFamily (u : Σ j : Fin 4, {p // p ∈ outerRetained j}) (b : Bool) :=
+    retainedGridPieces.filter (fun e => pieceEndpoint b e.2.2 ∈ Set.Ioo (0 : ℝ) 1 ∧
+      ∃ s ∈ Set.Ioo u.2.1.1 u.2.1.2,
+        cellEdge e.1 e.2.1 (pieceEndpoint b e.2.2) = outerPath u.1 s)
+  have houterEndpointInterior (u : Σ j : Fin 4, {p // p ∈ outerRetained j}) (b : Bool)
+      (q : ℝ × ℝ) (hq : q ∈ outerEndpointPieces u b) :
+      pieceEndpoint (outerPieceBool u.1 b) q ∈ Set.Ioo u.2.1.1 u.2.1.2 ∧
+        outerPath u.1 (pieceEndpoint (outerPieceBool u.1 b) q) ∈ gridCrossings := by
+    obtain ⟨hqq, hne⟩ := Finset.mem_filter.mp hq
+    have hpairs := hqq
+    rw [(houterGridCertificate u.1 u.2).2.2.2.1] at hpairs
+    obtain ⟨h₁, h₂⟩ := Finset.mem_product.mp (Finset.mem_filter.mp hpairs).1
+    have hlt := (Finset.mem_filter.mp hpairs).2.1
+    have hb₁ := (houterGridCertificate u.1 u.2).2.2.1 q.1 h₁
+    have hb₂ := (houterGridCertificate u.1 u.2).2.2.1 q.2 h₂
+    have hmem : pieceEndpoint (outerPieceBool u.1 b) q ∈ outerGridCuts u.1 u.2 := by
+      cases h : outerPieceBool u.1 b <;> simp only [pieceEndpoint, Bool.false_eq_true,
+        ↓reduceIte] <;> assumption
+    have hstrict : pieceEndpoint (outerPieceBool u.1 b) q ∈ Set.Ioo u.2.1.1 u.2.1.2 := by
+      cases h : outerPieceBool u.1 b
+      · simp only [h, pieceEndpoint, Bool.false_eq_true, ↓reduceIte] at hne ⊢
+        exact ⟨lt_of_le_of_ne hb₁.1 hne.symm, lt_of_lt_of_le hlt hb₂.2⟩
+      · simp only [h, pieceEndpoint, ↓reduceIte] at hne ⊢
+        exact ⟨lt_of_le_of_lt hb₁.1 hlt, lt_of_le_of_ne hb₂.2 hne⟩
+    refine ⟨hstrict, ?_⟩
+    rcases ((houterGridCertificate u.1 u.2).2.2.2.2.2.2 _).mp hmem with h | h | h
+    · exact (ne_of_gt hstrict.1 h).elim
+    · exact (ne_of_lt hstrict.2 h).elim
+    · exact h.2
+  let outerEndpointMatch (u : Σ j : Fin 4, {p // p ∈ outerRetained j}) (b : Bool)
+      (q : ℝ × ℝ) (e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ)) : Prop :=
+    outerGridCell u.1 u.2 q = e.1 ∧
+      outerPath u.1 (pieceEndpoint (outerPieceBool u.1 b) q) =
+        cellEdge e.1 e.2.1 (pieceEndpoint b e.2.2)
+  have houterEndpointRow (u : Σ j : Fin 4, {p // p ∈ outerRetained j}) (b : Bool)
+      (q : ℝ × ℝ) (hq : q ∈ outerEndpointPieces u b) :
+      ∃! e, e ∈ outerFamily u b ∧ outerEndpointMatch u b q e := by
+    have hqq := (Finset.mem_filter.mp hq).1
+    obtain ⟨hs, hcross⟩ := houterEndpointInterior u b q hq
+    have hpairs := hqq
+    rw [(houterGridCertificate u.1 u.2).2.2.2.1] at hpairs
+    have hlt := (Finset.mem_filter.mp hpairs).2.1
+    have hbound : pieceEndpoint (outerPieceBool u.1 b) q ∈ Set.Icc q.1 q.2 := by
+      cases h : outerPieceBool u.1 b
+      · exact ⟨le_rfl, hlt.le⟩
+      · exact ⟨hlt.le, le_rfl⟩
+    have hcell := ((houterGridCertificate u.1 u.2).2.2.2.2.1 q hqq).2.1 _ hbound
+    obtain ⟨l, t, ht, hpoint⟩ := hcrossingCellEdge _ hcross (outerGridCell u.1 u.2 q) hcell
+    obtain ⟨p, ⟨hp, hpt⟩, hpunique⟩ := houterArtificialIncidence u.1 u.2 q hqq l
+      (pieceEndpoint (outerPieceBool u.1 b) q) t ht hs hpoint.symm b rfl
+    let e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ) := (outerGridCell u.1 u.2 q, l, p)
+    have he : e ∈ outerFamily u b := by
+      refine Finset.mem_filter.mpr ⟨(hretainedGridMem e).mpr
+        ⟨((houterGridCertificate u.1 u.2).2.2.2.2.1 q hqq).1, hp⟩, ?_⟩
+      exact ⟨hpt.symm ▸ ht, pieceEndpoint (outerPieceBool u.1 b) q, hs,
+        by simpa only [e, hpt] using hpoint⟩
+    refine ⟨e, ⟨he, rfl, by simpa only [e, hpt] using hpoint.symm⟩, ?_⟩
+    intro e' he'
+    obtain ⟨he'mem, he'cell, he'point⟩ := he'
+    have ht' := (Finset.mem_filter.mp he'mem).2.1
+    have hp' := ((hretainedGridMem e').mp (Finset.mem_filter.mp he'mem).1).2
+    have hpath : cellEdge (outerGridCell u.1 u.2 q) l t =
+        cellEdge (outerGridCell u.1 u.2 q) e'.2.1 (pieceEndpoint b e'.2.2) := by
+      simpa only [he'cell] using hpoint.trans he'point
+    obtain ⟨hl, hparam⟩ := hcellEdgeInteriorUnique _ _ _ _ _ ht ht' hpath
+    have hpq : e'.2.2 = p := hpunique e'.2.2
+      ⟨by simpa only [he'cell, hl] using hp', hparam.symm⟩
+    exact Prod.ext he'cell.symm (Prod.ext hl.symm hpq)
+  have houterEndpointColumn (u : Σ j : Fin 4, {p // p ∈ outerRetained j}) (b : Bool)
+      (e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ)) (he : e ∈ outerFamily u b) :
+      ∃! q, q ∈ outerEndpointPieces u b ∧ outerEndpointMatch u b q e := by
+    obtain ⟨hemem, ht, s, hs, heq⟩ := Finset.mem_filter.mp he
+    have hp := ((hretainedGridMem e).mp hemem).2
+    obtain ⟨q, ⟨hqq, hqs, hcell⟩, hqunique⟩ := houterGenuineIncidence e.1 e.2.1 e.2.2 hp
+      (pieceEndpoint b e.2.2) ht u.1 u.2 s hs heq b rfl
+    have hq : q ∈ outerEndpointPieces u b := by
+      refine Finset.mem_filter.mpr ⟨hqq, ?_⟩
+      rw [hqs]
+      cases h : outerPieceBool u.1 b
+      · exact ne_of_gt hs.1
+      · exact ne_of_lt hs.2
+    refine ⟨q, ⟨hq, hcell, by rw [hqs]; exact heq.symm⟩, ?_⟩
+    intro w hw
+    obtain ⟨hwmem, hwcell, hwpoint⟩ := hw
+    have hsw := (houterEndpointInterior u b w hwmem).1
+    have hparam : pieceEndpoint (outerPieceBool u.1 b) w = s :=
+      houterInjective u.1 (houterCoarseInterior u.1 u.2 _ hsw).1
+        (houterCoarseInterior u.1 u.2 s hs).1 (hwpoint.trans heq)
+    exact hqunique w ⟨(Finset.mem_filter.mp hwmem).1, hparam, hwcell⟩
+  have houterEndpointSumReindex (u : Σ j : Fin 4, {p // p ∈ outerRetained j}) (b : Bool) :
+      (∑ q ∈ outerEndpointPieces u b,
+        cellPrimitive (outerGridCell u.1 u.2 q)
+          (outerPath u.1 (pieceEndpoint (outerPieceBool u.1 b) q))) =
+      ∑ e ∈ outerFamily u b,
+        cellPrimitive e.1 (cellEdge e.1 e.2.1 (pieceEndpoint b e.2.2)) := by
+    let f := fun q => cellPrimitive (outerGridCell u.1 u.2 q)
+      (outerPath u.1 (pieceEndpoint (outerPieceBool u.1 b) q))
+    let g := fun e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ) =>
+      cellPrimitive e.1 (cellEdge e.1 e.2.1 (pieceEndpoint b e.2.2))
+    have hrow (q : ℝ × ℝ) (hq : q ∈ outerEndpointPieces u b) :
+        f q = ∑ e ∈ outerFamily u b, if outerEndpointMatch u b q e then f q else 0 := by
+      obtain ⟨e, ⟨he, hrel⟩, hu⟩ := houterEndpointRow u b q hq
+      rw [Finset.sum_eq_single e, if_pos hrel]
+      · intro e' he' hne
+        exact if_neg (fun h => hne (hu e' ⟨he', h⟩))
+      · exact fun h => (h he).elim
+    have hcolumn (e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ)) (he : e ∈ outerFamily u b) :
+        (∑ q ∈ outerEndpointPieces u b, if outerEndpointMatch u b q e then f q else 0) = g e := by
+      obtain ⟨q, ⟨hq, hrel⟩, hu⟩ := houterEndpointColumn u b e he
+      rw [Finset.sum_eq_single q, if_pos hrel]
+      · exact congrArg₂ cellPrimitive hrel.1 hrel.2
+      · intro q' hq' hne
+        exact if_neg (fun h => hne (hu q' ⟨hq', h⟩))
+      · exact fun h => (h hq).elim
+    calc
+      _ = ∑ q ∈ outerEndpointPieces u b, ∑ e ∈ outerFamily u b,
+          if outerEndpointMatch u b q e then f q else 0 := Finset.sum_congr rfl hrow
+      _ = ∑ e ∈ outerFamily u b, ∑ q ∈ outerEndpointPieces u b,
+          if outerEndpointMatch u b q e then f q else 0 := Finset.sum_comm
+      _ = _ := Finset.sum_congr rfl hcolumn
+
+  have houterCoarseMem (j : Fin 4) (p : {p // p ∈ outerRetained j}) :
+      p.1.1 ∈ outerCuts j ∧ p.1.2 ∈ outerCuts j ∧ p.1.1 < p.1.2 ∧
+        ∀ t ∈ outerCuts j, t ≤ p.1.1 ∨ p.1.2 ≤ t := by
+    have hp := (congrArg (fun s : Finset (ℝ × ℝ) => p.1 ∈ s)
+      (houterCertificate j).2.2.2.2.2.1).mp p.2
+    have hpiece := (Finset.mem_filter.mp hp).1
+    rw [(houterCertificate j).2.2.2.1] at hpiece
+    simpa only [Finset.mem_filter, Finset.mem_product, and_assoc] using hpiece
+  have houterCoarseUnique (j : Fin 4) (p q : {p // p ∈ outerRetained j}) (s : ℝ)
+      (hp : s ∈ Set.Ioo p.1.1 p.1.2) (hq : s ∈ Set.Ioo q.1.1 q.1.2) : p = q := by
+    have hpc := houterCoarseMem j p
+    have hqc := houterCoarseMem j q
+    apply Subtype.ext
+    apply Prod.ext
+    · apply le_antisymm
+      · rcases hqc.2.2.2 p.1.1 hpc.1 with h | h
+        · exact h
+        · linarith only [h, hp.1, hq.2]
+      · rcases hpc.2.2.2 q.1.1 hqc.1 with h | h
+        · exact h
+        · linarith only [h, hq.1, hp.2]
+    · apply le_antisymm
+      · rcases hpc.2.2.2 q.1.2 hqc.2.1 with h | h
+        · linarith only [h, hp.1, hq.2]
+        · exact h
+      · rcases hqc.2.2.2 p.1.2 hpc.2.1 with h | h
+        · linarith only [h, hq.1, hp.2]
+        · exact h
+  have houterRetainedAt (j : Fin 4) (p : ℝ × ℝ) (hp : p ∈ outerPieces j)
+      (s : ℝ) (hs : s ∈ Set.Ioo p.1 p.2) (hsout : outerPath j s ∉ removed ε) :
+      p ∈ outerRetained j := by
+    have hb := (houterCertificate j).2.2.2.2.1 p hp
+    have hpair := hp
+    rw [(houterCertificate j).2.2.2.1] at hpair
+    have hgap := (Finset.mem_filter.mp hpair).2.2
+    have havoid : ∀ t ∈ Set.Ioo p.1 p.2, outerPath j t ∉ frontier (removed ε) := by
+      intro t ht hf
+      have hcut := ((houterCertificate j).2.2.2.2.2.2.2.2.1 t).mpr
+        (Or.inr (Or.inr ⟨⟨lt_of_le_of_lt hb.1 ht.1, lt_of_lt_of_le ht.2 hb.2.2⟩, hf⟩))
+      rcases hgap t hcut with h | h <;> linarith only [h, ht.1, ht.2]
+    have hcover : outerPath j '' Set.Ioo p.1 p.2 ⊆
+        (removed ε)ᶜ ∪ interior (removed ε) := by
+      rintro _ ⟨t, ht, rfl⟩
+      by_cases hm : outerPath j t ∈ removed ε
+      · exact Or.inr (by_contra (fun hn => havoid t ht ⟨subset_closure hm, hn⟩))
+      · exact Or.inl hm
+    have hdisjoint : Disjoint (removed ε)ᶜ (interior (removed ε)) :=
+      Set.disjoint_left.mpr (fun _ hc hi => hc (interior_subset hi))
+    have hout : ∀ t ∈ Set.Ioo p.1 p.2, outerPath j t ∉ removed ε := by
+      rcases (isPreconnected_Ioo.image _ (houterSmooth j).continuous.continuousOn).subset_or_subset
+        (hremovedClosed ε hε.1 hε.2).isOpen_compl isOpen_interior hdisjoint hcover with h | h
+      · exact fun t ht => h ⟨t, ht, rfl⟩
+      · exact False.elim (hsout (interior_subset (h ⟨s, hs, rfl⟩)))
+    rw [(houterCertificate j).2.2.2.2.2.1]
+    exact Finset.mem_filter.mpr ⟨hp, hout ((p.1 + p.2) / 2)
+      ⟨by linarith only [hb.2.1], by linarith only [hb.2.1]⟩⟩
+  have houterCoarseCover (j : Fin 4) (s : ℝ)
+      (hs : s ∈ Set.Ioo (outerLo j) (outerHi j))
+      (hsout : outerPath j s ∉ removed ε) :
+      ∃ p : {p // p ∈ outerRetained j}, s ∈ Set.Ioo p.1.1 p.1.2 := by
+    have hsnot : s ∉ outerCuts j := by
+      intro hsCut
+      rcases ((houterCertificate j).2.2.2.2.2.2.2.2.1 s).mp hsCut with h | h | h
+      · exact (ne_of_gt hs.1) h
+      · exact (ne_of_lt hs.2) h
+      · exact hsout ((hremovedClosed ε hε.1 hε.2).closure_subset h.2.1)
+    let below := (outerCuts j).filter (fun t => t < s)
+    let above := (outerCuts j).filter (fun t => s < t)
+    have hl : below.Nonempty := ⟨outerLo j, Finset.mem_filter.mpr ⟨(houterCertificate j).1, hs.1⟩⟩
+    have hu : above.Nonempty := ⟨outerHi j, Finset.mem_filter.mpr ⟨(houterCertificate j).2.1, hs.2⟩⟩
+    let x := below.max' hl
+    let y := above.min' hu
+    have hx := Finset.mem_filter.mp (below.max'_mem hl)
+    have hy := Finset.mem_filter.mp (above.min'_mem hu)
+    have hp : (x, y) ∈ outerPieces j := by
+      rw [(houterCertificate j).2.2.2.1]
+      refine Finset.mem_filter.mpr ⟨Finset.mem_product.mpr ⟨hx.1, hy.1⟩,
+        lt_trans hx.2 hy.2, ?_⟩
+      intro t ht
+      have hts : t ≠ s := fun heq => hsnot (heq ▸ ht)
+      rcases lt_or_gt_of_ne hts with h | h
+      · exact Or.inl (below.le_max' t (Finset.mem_filter.mpr ⟨ht, h⟩))
+      · exact Or.inr (above.min'_le t (Finset.mem_filter.mpr ⟨ht, h⟩))
+    exact ⟨⟨(x, y), houterRetainedAt j (x, y) hp s ⟨hx.2, hy.2⟩ hsout⟩, hx.2, hy.2⟩
+  have hgridEdgeLine (i : ℤ × ℤ) (l : Fin 4) (t : ℝ) :
+      ∃ n : ℤ, (cellEdge i l t).re = a.re + n * d ∨
+        (cellEdge i l t).im = a.im + n * d := by
+    fin_cases l
+    · exact ⟨i.2, Or.inr (by simpa using (hcellEdgeCoordinates i 0 t).2)⟩
+    · exact ⟨i.1 + 1, Or.inl (by simpa using (hcellEdgeCoordinates i 1 t).1)⟩
+    · exact ⟨i.2 + 1, Or.inr (by simpa using (hcellEdgeCoordinates i 2 t).2)⟩
+    · exact ⟨i.1, Or.inl (by simpa using (hcellEdgeCoordinates i 3 t).1)⟩
+  have hallGridEndpointFacts (b : Bool) (e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ))
+      (he : e ∈ allGridEndpoints b) :
+      pieceEndpoint b e.2.2 ∈ Set.Ioo (0 : ℝ) 1 ∧
+        cellEdge e.1 e.2.1 (pieceEndpoint b e.2.2) ∈ frontier V := by
+    obtain ⟨hemem, hne⟩ := Finset.mem_filter.mp he
+    have hp := ((hretainedGridMem e).mp hemem).2
+    obtain ⟨h₁, h₂, hlt, _⟩ := (hedgePieceMem e.1 e.2.1 e.2.2).mp (Finset.mem_filter.mp hp).1
+    have hb₁ := hedgeCutsBounds e.1 e.2.1 h₁
+    have hb₂ := hedgeCutsBounds e.1 e.2.1 h₂
+    have hf := hretainedPieceEndpoints e.1 e.2.1 e.2.2 hp
+    cases b
+    · change e.2.2.1 ≠ 0 at hne
+      exact ⟨⟨lt_of_le_of_ne hb₁.1 hne.symm, lt_of_lt_of_le hlt hb₂.2⟩,
+        hf.1.resolve_left (fun h => hne h.1)⟩
+    · change e.2.2.2 ≠ 1 at hne
+      exact ⟨⟨lt_of_le_of_lt hb₁.1 hlt, lt_of_le_of_ne hb₂.2 hne⟩,
+        hf.2.resolve_left (fun h => hne h.1)⟩
+  have houterFamilySubset (u : Σ j : Fin 4, {p // p ∈ outerRetained j}) (b : Bool) :
+      outerFamily u b ⊆ outerGridEndpoints b := by
+    intro e he
+    obtain ⟨hemem, ht, s, hs, heq⟩ := Finset.mem_filter.mp he
+    have hglobal := houterCoarseInterior u.1 u.2 s hs
+    have hnO : cellEdge e.1 e.2.1 (pieceEndpoint b e.2.2) ∉ O := by
+      rw [heq]
+      exact houterNotO u.1 _ (houterPathMem u.1 s ⟨hglobal.1.1.le, hglobal.1.2.le⟩).2
+    refine Finset.mem_filter.mpr ⟨Finset.mem_filter.mpr ⟨hemem, ?_⟩, ?_⟩
+    · cases b
+      · exact ne_of_gt ht.1
+      · exact ne_of_lt ht.2
+    · intro v hv
+      cases v with
+      | inl v => exact hnO (hexcisionInside v.1 v.2 (hexcisionGridPoint b v e hv)).1
+      | inr v =>
+        apply hglobal.2
+        rw [← heq]
+        exact Set.mem_iUnion₂.mpr ⟨v.1, v.2, hindentationGridPoint b v e hv⟩
+  have houterFamilyUnique (b : Bool) (e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ))
+      (u v : Σ j : Fin 4, {p // p ∈ outerRetained j})
+      (hu : e ∈ outerFamily u b) (hv : e ∈ outerFamily v b) : u = v := by
+    rcases u with ⟨j, p⟩
+    rcases v with ⟨k, q⟩
+    obtain ⟨_, _, s, hs, heq⟩ := Finset.mem_filter.mp hu
+    obtain ⟨_, _, t, ht, heq'⟩ := Finset.mem_filter.mp hv
+    have hglobal := houterCoarseInterior j p s hs
+    have hglobal' := houterCoarseInterior k q t ht
+    have hpoint : outerPath j s = outerPath k t := heq.symm.trans heq'
+    have hkj : k = j := houterWindowUnique j (outerPath j s) (houterPathWindow j s hglobal.1) k
+      (by rw [hpoint]; exact (houterPathMem k t ⟨hglobal'.1.1.le, hglobal'.1.2.le⟩).2)
+    subst k
+    have hst : s = t := houterInjective j hglobal.1 hglobal'.1 hpoint
+    subst t
+    have hpq : p = q := houterCoarseUnique j p q s hs ht
+    subst q
+    rfl
+
+  have houterFamilyCover (b : Bool) (e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ))
+      (he : e ∈ outerGridEndpoints b) :
+      ∃ u : Σ j : Fin 4, {p // p ∈ outerRetained j}, e ∈ outerFamily u b := by
+    obtain ⟨hall, hholes⟩ := Finset.mem_filter.mp he
+    have hemem := (Finset.mem_filter.mp hall).1
+    obtain ⟨ht, hfront⟩ := hallGridEndpointFacts b e hall
+    let z := cellEdge e.1 e.2.1 (pieceEndpoint b e.2.2)
+    have hline := hgridEdgeLine e.1 e.2.1 (pieceEndpoint b e.2.2)
+    have hncorner : z ∉ gridCorners := hgridPointNotCorner z hline
+    have houter : ∃ j : Fin 4, z ∈ closure (Ω ε) ∧ z ∈ outerSupport j := by
+      have hclassified := hfront
+      rw [hfullVFrontier] at hclassified
+      rcases hclassified with (hout | hind) | hexc
+      · exact Set.mem_iUnion.mp hout
+      · obtain ⟨v, hv, s, hs, heq⟩ := Set.mem_iUnion₂.mp hind
+        change γ v ε s = z at heq
+        have hlo : s ≠ cutEnd v := by
+          intro h
+          apply hncorner
+          rw [← heq, h]
+          exact Or.inr ⟨v, hv, rfl⟩
+        have hhi : s ≠ cutStart v := by
+          intro h
+          apply hncorner
+          rw [← heq, h]
+          exact Or.inl (Or.inr ⟨v, hv, rfl⟩)
+        have hs' : s ∈ Set.Ioo (cutEnd v) (cutStart v) :=
+          ⟨lt_of_le_of_ne hs.1 hlo.symm, lt_of_le_of_ne hs.2 hhi⟩
+        exact False.elim (hholes (Sum.inr ⟨v, hv⟩)
+          (Finset.mem_filter.mpr ⟨hemem, ht, s, hs', heq.symm⟩))
+      · obtain ⟨v, hv, hzv⟩ := Set.mem_iUnion₂.mp hexc
+        have hnseam : z ≠ circleMap v r 0 := by
+          intro h
+          obtain ⟨n, hn | hn⟩ := hline
+          · exact (hgridCircleSeams v hv n).1 (by simpa only [← h] using hn.symm)
+          · exact (hgridCircleSeams v hv n).2 (by simpa only [← h] using hn.symm)
+        have hparam : z ∈ circleMap v r '' Set.Ioc 0 (2 * Real.pi) := by
+          rw [image_circleMap_Ioc, abs_of_pos hr]
+          exact hzv
+        obtain ⟨s, hs, heq⟩ := hparam
+        have hsne : s ≠ 2 * Real.pi := by
+          intro h
+          apply hnseam
+          rw [← heq, h]
+          simpa only [zero_add] using periodic_circleMap v r 0
+        exact False.elim (hholes (Sum.inl ⟨v, hv⟩)
+          (Finset.mem_filter.mpr ⟨hemem, ht, s,
+            ⟨hs.1, lt_of_le_of_ne hs.2 hsne⟩, heq.symm⟩))
+    obtain ⟨j, hzcl, hzj⟩ := houter
+    have hnremoved : z ∉ removed ε :=
+      fun hm => hncorner (houterRemovedCorner j z hfront hzj hm)
+    obtain ⟨s, hs, heq⟩ := houterRepresentation j z (hcutClosureK ε hzcl) hzj
+    have hlo : s ≠ outerLo j := by
+      intro h
+      apply hncorner
+      rw [← heq, h]
+      exact (houterEndCorners j).1
+    have hhi : s ≠ outerHi j := by
+      intro h
+      apply hncorner
+      rw [← heq, h]
+      exact (houterEndCorners j).2
+    have hs' : s ∈ Set.Ioo (outerLo j) (outerHi j) :=
+      ⟨lt_of_le_of_ne hs.1 hlo.symm, lt_of_le_of_ne hs.2 hhi⟩
+    obtain ⟨p, hp⟩ := houterCoarseCover j s hs' (heq.symm ▸ hnremoved)
+    exact ⟨⟨j, p⟩, Finset.mem_filter.mpr ⟨hemem, ht, s, hp, heq.symm⟩⟩
+  have houterFamilySum (b : Bool) (f : ((ℤ × ℤ) × Fin 4 × (ℝ × ℝ)) → ℂ) :
+      (∑ e ∈ outerGridEndpoints b, f e) =
+        ∑ u : Σ j : Fin 4, {p // p ∈ outerRetained j}, ∑ e ∈ outerFamily u b, f e := by
+    have hrow (e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ)) (he : e ∈ outerGridEndpoints b) :
+        f e = ∑ u : Σ j : Fin 4, {p // p ∈ outerRetained j},
+          if e ∈ outerFamily u b then f e else 0 := by
+      obtain ⟨u, hu⟩ := houterFamilyCover b e he
+      rw [Finset.sum_eq_single u, if_pos hu]
+      · intro v _ hne
+        exact if_neg (fun hv => hne (houterFamilyUnique b e v u hv hu))
+      · exact fun h => (h (Finset.mem_univ u)).elim
+    calc
+      _ = ∑ e ∈ outerGridEndpoints b, ∑ u : Σ j : Fin 4, {p // p ∈ outerRetained j},
+          if e ∈ outerFamily u b then f e else 0 := Finset.sum_congr rfl hrow
+      _ = ∑ u : Σ j : Fin 4, {p // p ∈ outerRetained j}, ∑ e ∈ outerGridEndpoints b,
+          if e ∈ outerFamily u b then f e else 0 := Finset.sum_comm
+      _ = _ := by
+        apply Finset.sum_congr rfl
+        intro u _
+        rw [← Finset.sum_filter]
+        congr 1
+        ext e
+        simp only [Finset.mem_filter]
+        exact ⟨fun h => h.2, fun h => ⟨houterFamilySubset u b h, h⟩⟩
+
+  have hindentationJoinZero : indentationJoinEndpoints = 0 := by
+    change -(∑ v : {v // v ∈ B}, ∑ p ∈ indentationPieces v, _) = 0
+    rw [neg_eq_zero]
+    apply Finset.sum_eq_zero
+    intro v _
+    apply Finset.sum_eq_zero
+    intro p hp
+    have hpair := hp
+    rw [(hindentationCertificate v).2.2.2.1] at hpair
+    have hlt := (Finset.mem_filter.mp hpair).2.1
+    have hpath := ((hindentationCertificate v).2.2.2.2.1 p hp).2.1
+    have hstart : p.1 = cutEnd v.1 →
+        cellPrimitive (indentationCell v p) (γ v.1 ε p.1) = 0 := by
+      intro heq
+      apply hcellPrimitiveJoin
+      · rw [heq]
+        exact Or.inr ⟨v.1, v.2, rfl⟩
+      · exact hpath p.1 ⟨le_rfl, hlt.le⟩
+    have hend : p.2 = cutStart v.1 →
+        cellPrimitive (indentationCell v p) (γ v.1 ε p.2) = 0 := by
+      intro heq
+      apply hcellPrimitiveJoin
+      · rw [heq]
+        exact Or.inl (Or.inr ⟨v.1, v.2, rfl⟩)
+      · exact hpath p.2 ⟨hlt.le, le_rfl⟩
+    split_ifs with h₂ h₁ h₁
+    · rw [hend h₂, hstart h₁, sub_self]
+    · rw [hend h₂, sub_self]
+    · rw [hstart h₁, sub_self]
+    · exact sub_self 0
+  let outerCrossingEndpoints : ℂ := ∑ j : Fin 4, outerSign j *
+    ∑ p : {p // p ∈ outerRetained j}, ∑ q ∈ outerGridPieces j p,
+      ((if q.2 = p.1.2 then 0 else cellPrimitive (outerGridCell j p q) (outerPath j q.2)) -
+        (if q.1 = p.1.1 then 0 else cellPrimitive (outerGridCell j p q) (outerPath j q.1)))
+  have houterEndpointReduction : outerEndpoints = outerCrossingEndpoints := by
+    apply Finset.sum_congr rfl
+    intro j _
+    apply congrArg (outerSign j * ·)
+    apply Finset.sum_congr rfl
+    intro p _
+    apply Finset.sum_congr rfl
+    intro q hq
+    have hpair := hq
+    rw [(houterGridCertificate j p).2.2.2.1] at hpair
+    have hlt := (Finset.mem_filter.mp hpair).2.1
+    have hpath := ((houterGridCertificate j p).2.2.2.2.1 q hq).2.1
+    have hstart : q.1 = p.1.1 →
+        cellPrimitive (outerGridCell j p q) (outerPath j q.1) = 0 := by
+      intro heq
+      exact hcellPrimitiveJoin _ _ (houterCoarseEndpointCorner j p q.1 (Or.inl heq))
+        (hpath q.1 ⟨le_rfl, hlt.le⟩)
+    have hend : q.2 = p.1.2 →
+        cellPrimitive (outerGridCell j p q) (outerPath j q.2) = 0 := by
+      intro heq
+      exact hcellPrimitiveJoin _ _ (houterCoarseEndpointCorner j p q.2 (Or.inr heq))
+        (hpath q.2 ⟨hlt.le, le_rfl⟩)
+    split_ifs with h₂ h₁ h₁
+    · rw [hend h₂, hstart h₁]
+    · rw [hend h₂]
+    · rw [hstart h₁]
+    · rfl
+
+  have houterGridCancellation : outerCrossingEndpoints = -outerGridContribution := by
+    have hsplit (u : Σ j : Fin 4, {p // p ∈ outerRetained j}) (b : Bool) :
+        (∑ q ∈ outerGridPieces u.1 u.2,
+          if pieceEndpoint (outerPieceBool u.1 b) q = pieceEndpoint (outerPieceBool u.1 b) u.2.1
+          then 0 else cellPrimitive (outerGridCell u.1 u.2 q)
+            (outerPath u.1 (pieceEndpoint (outerPieceBool u.1 b) q))) =
+        ∑ e ∈ outerFamily u b,
+          cellPrimitive e.1 (cellEdge e.1 e.2.1 (pieceEndpoint b e.2.2)) := by
+      rw [← houterEndpointSumReindex u b]
+      simp only [outerEndpointPieces, Finset.sum_filter, ite_not]
+    have hsign (j : Fin 4) : outerSign j = if j = 1 then 1 else -1 := by
+      fin_cases j <;> norm_num [outerSign]
+    dsimp only [outerCrossingEndpoints, outerGridContribution]
+    rw [houterFamilySum true, houterFamilySum false, ← Finset.sum_sub_distrib,
+      Fintype.sum_sigma, ← Finset.sum_neg_distrib]
+    apply Finset.sum_congr rfl
+    intro j _
+    rw [Finset.mul_sum, ← Finset.sum_neg_distrib]
+    apply Finset.sum_congr rfl
+    intro p _
+    rw [Finset.sum_sub_distrib]
+    have h₀ := hsplit ⟨j, p⟩ false
+    have h₁ := hsplit ⟨j, p⟩ true
+    by_cases hj : j = 1
+    · simp only [outerPieceBool, if_pos hj, Bool.not_false, Bool.not_true,
+        pieceEndpoint, Bool.false_eq_true, ↓reduceIte] at h₀ h₁
+      rw [hsign j, if_pos hj, h₀, h₁]
+      ring
+    · simp only [outerPieceBool, if_neg hj, pieceEndpoint, Bool.false_eq_true, ↓reduceIte] at h₀ h₁
+      rw [hsign j, if_neg hj, h₁, h₀]
+      ring
+
   rw [houterEndpointSum, hindentationEndpointSum, hexcisionEndpointSum, hgridEndpointSum,
     hgridEndpointReduction, hexcisionEndpointReduction, hexcisionGridCancellation,
-    hindentationEndpointReduction, hindentationGridCancellation, hgridBoundaryPartition]
-  suffices hremainingBoundary :
-      outerEndpoints + indentationJoinEndpoints =
-        -outerGridContribution by
-    linear_combination hremainingBoundary
-  /- Remaining formal obligation: identify the remaining outer-boundary grid
-  endpoints with the subdivided outer paths, and cancel their contour joins
-  against indentationJoinEndpoints. The disjoint grid partition and both
-  excision and indentation crossing consumers have been applied above. -/
+    hindentationEndpointReduction, hindentationGridCancellation, hgridBoundaryPartition,
+    hindentationJoinZero, houterEndpointReduction, houterGridCancellation]
+  ring
 
 end Submission
