@@ -10773,3 +10773,326 @@ theorem p10_17ae7b7d_valence_indentation_limit
         (norm_nonneg _) hM)
 
 end Submission
+
+
+namespace Submission
+
+/-- The level-one valence inequality, with the orders at the two elliptic points
+and the cusp. The contour computation follows the frozen parent-supplied proof. -/
+theorem p10_17ae7b7d_level_one_valence_inequality :
+    ∀ (k : ℕ) (F A : ℂ → ℂ), Even k →
+      DifferentiableOn ℂ F {z : ℂ | 0 < z.im} →
+      (∃ z : ℂ, 0 < z.im ∧ F z ≠ 0) →
+      (∀ z : ℂ, 0 < z.im → F (z + 1) = F z) →
+      (∀ z : ℂ, 0 < z.im → F (-1 / z) = z ^ k * F z) →
+      AnalyticAt ℂ A 0 →
+      (∃ Y : ℝ, ∀ z : ℂ, 0 < z.im → Y ≤ z.im →
+        F z = A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z))) →
+      (analyticOrderNatAt A 0 : ℝ) + (analyticOrderNatAt F Complex.I : ℝ) / 2 +
+        (analyticOrderNatAt F ((-1 + (Real.sqrt 3 : ℂ) * Complex.I) / 2) : ℝ) / 3 ≤
+          (k : ℝ) / 12 := by
+  classical
+  intro k F A hk hF hnonzero hT hS hA hq
+  let H : Set ℂ := {z : ℂ | 0 < z.im}
+  let ρ : ℂ := (-1 + (Real.sqrt 3 : ℂ) * Complex.I) / 2
+  let L : ℂ → ℂ := fun z => deriv F z / F z
+  have hH : IsOpen H := isOpen_lt continuous_const Complex.continuous_im
+  have hHconn : IsPreconnected H := (convex_halfSpace_im_gt 0).isPreconnected
+  have hFan : AnalyticOnNhd ℂ F H := hF.analyticOnNhd hH
+  -- Steps 1–2: the identity principle makes every order in the half-plane finite.
+  have hFfinite : ∀ z ∈ H, analyticOrderAt F z ≠ ⊤ := by
+    obtain ⟨w, hw, hwF⟩ := hnonzero
+    intro z hz
+    apply hFan.analyticOrderAt_ne_top_of_isPreconnected hHconn hw hz
+    rw [(hFan w hw).analyticOrderAt_eq_zero.mpr hwF]
+    exact ENat.zero_ne_top
+  have hfactor : ∀ z ∈ H, ∃ g : ℂ → ℂ,
+      AnalyticAt ℂ g z ∧ g z ≠ 0 ∧
+        ∀ᶠ w in nhds z, F w = (w - z) ^ analyticOrderNatAt F z * g w := by
+    intro z hz
+    simpa only [Filter.EventuallyEq, smul_eq_mul] using
+      (hFan z hz).analyticOrderAt_ne_top.mp (hFfinite z hz)
+  have hisolated : ∀ v ∈ H, ∃ r : ℝ, 0 < r ∧ Metric.ball v r ⊆ H ∧
+      ∀ z ∈ Metric.ball v r, z ≠ v → F z ≠ 0 := by
+    intro v hv
+    have hp := (hFan v hv).eventually_eq_zero_or_eventually_ne_zero.resolve_left
+      (fun hzero => hFfinite v hv (analyticOrderAt_eq_top.mpr hzero))
+    have hn : ∀ᶠ z in nhds v, z ≠ v → F z ≠ 0 :=
+      eventually_nhdsWithin_iff.mp hp
+    obtain ⟨r, hr, hball⟩ := Metric.mem_nhds_iff.mp (Filter.inter_mem (hH.mem_nhds hv) hn)
+    exact ⟨r, hr, fun z hz => (hball hz).1, fun z hz => (hball hz).2⟩
+  have hzeros : ∀ᶠ z in Filter.codiscreteWithin H, F z ≠ 0 := by
+    rcases hFan.eqOn_zero_or_eventually_ne_zero_of_preconnected hHconn with hzero | hzero
+    · obtain ⟨w, hw, hwF⟩ := hnonzero
+      exact False.elim (hwF (hzero hw))
+    · exact hzero
+  have hfiniteZeros : ∀ K : Set ℂ, IsCompact K → K ⊆ H →
+      {z ∈ K | F z = 0}.Finite := by
+    intro K hK hKH
+    have hz := hK.finite_sdiff_of_mem_codiscreteWithin
+      (Filter.codiscreteWithin_mono hKH hzeros)
+    exact hz.subset (fun _ hz => ⟨hz.1, not_not.mpr hz.2⟩)
+  obtain ⟨hAfin, Y₀, C, hY₀, hC, hcusp⟩ :=
+    p10_17ae7b7d_valence_cusp_log_derivative F A hF hnonzero hA hq
+  let Y : ℝ := max Y₀ 2
+  have hYY₀ : Y₀ ≤ Y := le_max_left _ _
+  have hY : 1 < Y := lt_of_lt_of_le (by norm_num) (le_max_right Y₀ 2)
+  have hupper : ∀ z : ℂ, Y ≤ z.im → F z ≠ 0 :=
+    fun z hz => (hcusp z (hYY₀.trans hz)).1
+  -- Step 3: express the truncated region with a positive closed lower height bound.
+  let K : Set ℂ := {z : ℂ |
+    |z.re| ≤ 1 / 2 ∧ 1 ≤ ‖z‖ ∧ 0 < z.im ∧ z.im ≤ Y}
+  have hKlower : ∀ z ∈ K, Real.sqrt 3 / 2 ≤ z.im := by
+    intro z hz
+    have hre := (abs_le.mp hz.1)
+    have hre2 : z.re ^ 2 ≤ 1 / 4 := by
+      nlinarith [mul_nonneg (sub_nonneg.mpr hre.2) (sub_nonneg.mpr hre.1)]
+    have hnorm2 : 1 ≤ ‖z‖ ^ 2 := by
+      nlinarith [sq_nonneg (‖z‖ - 1), hz.2.1]
+    have him2 : 3 / 4 ≤ z.im ^ 2 := by
+      nlinarith [Complex.sq_norm_sub_sq_re z]
+    have hsqrt : (Real.sqrt 3) ^ 2 = 3 := Real.sq_sqrt (by norm_num)
+    have hpos := hz.2.2.1
+    nlinarith [Real.sqrt_nonneg 3]
+  have hKclosed : IsClosed K := by
+    have heq : K = {z : ℂ | |z.re| ≤ 1 / 2 ∧ 1 ≤ ‖z‖ ∧
+        Real.sqrt 3 / 2 ≤ z.im ∧ z.im ≤ Y} := by
+      ext z
+      constructor
+      · intro hz
+        exact ⟨hz.1, hz.2.1, hKlower z hz, hz.2.2.2⟩
+      · intro hz
+        exact ⟨hz.1, hz.2.1, lt_of_lt_of_le (by positivity) hz.2.2.1, hz.2.2.2⟩
+    rw [heq]
+    exact (isClosed_le Complex.continuous_re.abs continuous_const).inter
+      ((isClosed_le continuous_const continuous_norm).inter
+        ((isClosed_le continuous_const Complex.continuous_im).inter
+          (isClosed_le Complex.continuous_im continuous_const)))
+  have hKbounded : Bornology.IsBounded K := by
+    apply isBounded_iff_forall_norm_le.mpr
+    refine ⟨1 / 2 + Y, ?_⟩
+    intro z hz
+    calc
+      ‖z‖ ≤ |z.re| + |z.im| := Complex.norm_le_abs_re_add_abs_im z
+      _ ≤ 1 / 2 + Y := by
+        rw [abs_of_pos hz.2.2.1]
+        exact add_le_add hz.1 hz.2.2.2
+  have hKcompact : IsCompact K := Metric.isCompact_iff_isClosed_bounded.mpr ⟨hKclosed, hKbounded⟩
+  have hKH : K ⊆ H := fun _ hz => hz.2.2.1
+  have hKzeros : {z ∈ K | F z = 0}.Finite := hfiniteZeros K hKcompact hKH
+  have hKtop : ∀ z ∈ K, z.im = Y → F z ≠ 0 := by
+    intro z _ hz
+    exact hupper z (le_of_eq hz.symm)
+  have hLan : ∀ z ∈ H, F z ≠ 0 → AnalyticAt ℂ L z := by
+    intro z hz hne
+    exact (hFan z hz).deriv.div (hFan z hz) hne
+  have hlocalPrimitive : ∀ z ∈ H, F z ≠ 0 →
+      ∃ r : ℝ, 0 < r ∧ Complex.IsExactOn L (Metric.ball z r) := by
+    intro z hz hne
+    obtain ⟨r, hr, han⟩ := (hLan z hz hne).exists_ball_analyticOnNhd
+    exact ⟨r, hr, han.differentiableOn.isExactOn_ball⟩
+  have htopBound : ∀ (y : ℝ), Y ≤ y → ∀ x : ℝ,
+      ‖L ((x : ℂ) + (y : ℂ) * Complex.I) -
+        2 * (Real.pi : ℂ) * Complex.I * (analyticOrderNatAt A 0 : ℂ)‖ ≤
+          C * Real.exp (-2 * Real.pi * y) := by
+    intro y hy x
+    simpa only [L, Complex.add_im, Complex.ofReal_im, Complex.mul_im,
+      Complex.ofReal_re, Complex.I_im, Complex.I_re, mul_one, mul_zero, add_zero,
+      zero_add] using
+      (hcusp ((x : ℂ) + (y : ℂ) * Complex.I) (by simpa using hYY₀.trans hy)).2
+  -- Step 13: the top is oriented from right to left and has displacement -1.
+  let cInf : ℂ := 2 * (Real.pi : ℂ) * Complex.I * (analyticOrderNatAt A 0 : ℂ)
+  let top : ℝ → ℂ := fun y => intervalIntegral
+    (fun x : ℝ => L ((x : ℂ) + (y : ℂ) * Complex.I))
+    (1 / 2 : ℝ) (-1 / 2 : ℝ) MeasureTheory.volume
+  have htopContinuous : ∀ y : ℝ, Y ≤ y →
+      Continuous (fun x : ℝ => L ((x : ℂ) + (y : ℂ) * Complex.I)) := by
+    intro y hy
+    apply continuous_iff_continuousAt.mpr
+    intro x
+    have hz : (x : ℂ) + (y : ℂ) * Complex.I ∈ H := by
+      change 0 < ((x : ℂ) + (y : ℂ) * Complex.I).im
+      simpa using (lt_of_lt_of_le (lt_trans zero_lt_one hY) hy)
+    exact (hLan _ hz (hupper _ (by simpa using hy))).continuousAt.comp
+      (f := fun x : ℝ => (x : ℂ) + (y : ℂ) * Complex.I)
+      (show ContinuousAt (fun x : ℝ => (x : ℂ) + (y : ℂ) * Complex.I) x by fun_prop)
+  have htopError : ∀ y : ℝ, Y ≤ y →
+      ‖top y + cInf‖ ≤ C * Real.exp (-2 * Real.pi * y) := by
+    intro y hy
+    have hint := (htopContinuous y hy).intervalIntegrable
+      (μ := MeasureTheory.volume) (1 / 2 : ℝ) (-1 / 2 : ℝ)
+    have hid : (intervalIntegral (fun x : ℝ =>
+        L ((x : ℂ) + (y : ℂ) * Complex.I) - cInf)
+        (1 / 2 : ℝ) (-1 / 2 : ℝ) MeasureTheory.volume) = top y + cInf := by
+      rw [intervalIntegral.integral_sub hint intervalIntegrable_const,
+        intervalIntegral.integral_const]
+      norm_num [top]
+    rw [← hid]
+    simpa only [cInf, show |(-1 / 2 : ℝ) - 1 / 2| = 1 by norm_num, mul_one] using
+      intervalIntegral.norm_integral_le_of_norm_le_const
+      (a := (1 / 2 : ℝ)) (b := (-1 / 2 : ℝ)) (fun x _ => htopBound y hy x)
+  have hdecay : Filter.Tendsto (fun y : ℝ => C * Real.exp (-2 * Real.pi * y))
+      Filter.atTop (nhds 0) := by
+    simpa only [mul_zero, Function.comp_apply, id_eq] using
+      (Real.tendsto_exp_atBot.comp
+        (Filter.tendsto_id.const_mul_atTop_of_neg
+          (show -2 * Real.pi < 0 from
+            mul_neg_of_neg_of_pos (by norm_num) Real.pi_pos))).const_mul C
+  have htopLimit : Filter.Tendsto top Filter.atTop (nhds (-cInf)) := by
+    have herr : Filter.Tendsto (fun y : ℝ => top y + cInf) Filter.atTop (nhds 0) :=
+      squeeze_zero_norm' (Filter.eventually_atTop.mpr ⟨Y, htopError⟩) hdecay
+    simpa only [add_sub_cancel_right, zero_sub] using herr.sub_const cInf
+  -- Step 12: paired orders and logarithmic derivatives use the frozen child interface.
+  have hmod := p10_17ae7b7d_valence_modular_log_derivative k F hF hT hS
+  have hperiod : ∀ z ∈ H, F z ≠ 0 → L (z + 1) = L z := by
+    intro z hz hne
+    exact ((hmod z hz).2.2 hne).1
+  have hvertical : ∀ a b : ℝ,
+      (∀ t ∈ Set.uIcc a b, 0 < t ∧ F ((-1 / 2 : ℂ) + (t : ℂ) * Complex.I) ≠ 0) →
+      (intervalIntegral (fun t : ℝ => L ((1 / 2 : ℂ) + (t : ℂ) * Complex.I) * Complex.I)
+        a b MeasureTheory.volume) +
+      (intervalIntegral (fun t : ℝ => L ((-1 / 2 : ℂ) + (t : ℂ) * Complex.I) * Complex.I)
+        b a MeasureTheory.volume) = 0 := by
+    intro a b hab
+    have hp : (intervalIntegral
+        (fun t : ℝ => L ((1 / 2 : ℂ) + (t : ℂ) * Complex.I) * Complex.I)
+        a b MeasureTheory.volume) =
+        (intervalIntegral
+          (fun t : ℝ => L ((-1 / 2 : ℂ) + (t : ℂ) * Complex.I) * Complex.I)
+          a b MeasureTheory.volume) := by
+      apply intervalIntegral.integral_congr
+      intro t ht
+      have h := hperiod ((-1 / 2 : ℂ) + (t : ℂ) * Complex.I)
+        (by simpa [H] using (hab t ht).1) (hab t ht).2
+      have heq : (-1 / 2 : ℂ) + (t : ℂ) * Complex.I + 1 =
+          (1 / 2 : ℂ) + (t : ℂ) * Complex.I := by ring
+      rw [heq] at h
+      exact congrArg (fun w : ℂ => w * Complex.I) h
+    rw [hp, intervalIntegral.integral_symm, neg_add_cancel]
+  -- Step 14: pair first, so no separate singular arc integral is asserted.
+  have harcPair : ∀ z ∈ H, F z ≠ 0 →
+      (L z - L (-1 / z) / z ^ 2) * (Complex.I * z) = -(k : ℂ) * Complex.I := by
+    intro z hz hne
+    have hz0 : z ≠ 0 := by
+      intro heq
+      have hzpos : 0 < z.im := hz
+      simp [heq] at hzpos
+    change (L z - (deriv F (-1 / z) / F (-1 / z)) / z ^ 2) *
+      (Complex.I * z) = -(k : ℂ) * Complex.I
+    rw [((hmod z hz).2.2 hne).2]
+    dsimp only [L]
+    field_simp
+    <;> ring
+  have hI : Complex.I ∈ H := by simp [H]
+  have hρ : ρ ∈ H := by
+    change 0 < ρ.im
+    simp only [ρ, Complex.div_ofNat_im, Complex.add_im, Complex.neg_im,
+      Complex.one_im, neg_zero, Complex.mul_im, Complex.ofReal_re,
+      Complex.I_im, Complex.ofReal_im, Complex.I_re, mul_one, mul_zero, add_zero,
+      zero_add]
+    positivity
+  have hρT : analyticOrderNatAt F (ρ + 1) = analyticOrderNatAt F ρ :=
+    (hmod ρ hρ).1
+  let D : ℂ → ℝ → Set ℂ :=
+    fun v ε => {z : ℂ | 0 < z.im ∧ ‖(z - v) / (z - star v)‖ ≤ ε}
+  have hdisks := p10_17ae7b7d_valence_pseudohyperbolic_disks
+  -- Step 8: every prescribed neighborhood eventually contains the entire cut disk.
+  have hdiskShrink : ∀ v ∈ H, ∀ r : ℝ, 0 < r →
+      ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0), D v ε ⊆ Metric.ball v r := by
+    intro v hv r hr
+    let center : ℝ → ℂ := fun ε => (v.re : ℂ) +
+      ((v.im * (1 + ε ^ 2) / (1 - ε ^ 2) : ℝ) : ℂ) * Complex.I
+    let radius : ℝ → ℝ := fun ε => 2 * v.im * ε / (1 - ε ^ 2)
+    have hc : Filter.Tendsto center (nhds 0) (nhds v) := by
+      have hcont : ContinuousAt center 0 := by
+        dsimp [center]
+        fun_prop (disch := norm_num)
+      simpa [center, Complex.re_add_im] using hcont.tendsto
+    have hradius : Filter.Tendsto radius (nhds 0) (nhds 0) := by
+      have hcont : ContinuousAt radius 0 := by
+        dsimp [radius]
+        fun_prop (disch := norm_num)
+      simpa [radius] using hcont.tendsto
+    have hsize : Filter.Tendsto (fun ε => dist (center ε) v + radius ε)
+        (nhds 0) (nhds 0) := by
+      simpa only [dist_self, zero_add] using
+        (hc.dist (tendsto_const_nhds :
+          Filter.Tendsto (fun _ : ℝ => v) (nhds 0) (nhds v))).add hradius
+    have hsmall : ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0),
+        dist (center ε) v + radius ε < r :=
+      ((tendsto_order.mp hsize).2 r hr).filter_mono nhdsWithin_le_nhds
+    have hlessOne : ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0), ε < 1 :=
+      (eventually_lt_nhds (show (0 : ℝ) < 1 by norm_num)).filter_mono nhdsWithin_le_nhds
+    filter_upwards [self_mem_nhdsWithin, hlessOne, hsmall] with ε hε hε1 hsizeε
+    intro z hz
+    rw [show D v ε = _ from (hdisks v ε hv hε hε1).1] at hz
+    change dist z (center ε) ≤ radius ε at hz
+    change dist z v < r
+    calc
+      dist z v ≤ dist z (center ε) + dist (center ε) v := dist_triangle _ _ _
+      _ ≤ radius ε + dist (center ε) v := add_le_add hz le_rfl
+      _ < r := by linarith
+  have hcutNoOtherZeros : ∀ v ∈ H,
+      ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0),
+        ∀ z ∈ D v ε, z ≠ v → F z ≠ 0 := by
+    intro v hv
+    obtain ⟨r, hr, _, hzero⟩ := hisolated v hv
+    filter_upwards [hdiskShrink v hv r hr] with ε hε
+    exact fun z hz hne => hzero z (hε hz) hne
+  have hcutsNoOtherZeros : ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0),
+      ∀ v ∈ {z ∈ K | F z = 0}, ∀ z ∈ D v ε, z ≠ v → F z ≠ 0 :=
+    (Filter.eventually_all_finite hKzeros).mpr
+      (fun v hv => hcutNoOtherZeros v (hKH hv.1))
+  have htranslateDisks : ∀ v ∈ H, ∀ ε : ℝ, 0 < ε → ε < 1 →
+      (fun z : ℂ => z + 1) '' D v ε = D (v + 1) ε := by
+    intro v hv ε hε hε1
+    simpa only [Complex.ofReal_one, Complex.ofReal_zero, one_mul, zero_mul,
+      zero_add, div_one] using (hdisks v ε hv hε hε1).2 1 1 0 1 (by norm_num)
+  have hinvertDisks : ∀ v ∈ H, ∀ ε : ℝ, 0 < ε → ε < 1 →
+      (fun z : ℂ => -1 / z) '' D v ε = D (-1 / v) ε := by
+    intro v hv ε hε hε1
+    simpa only [Complex.ofReal_one, Complex.ofReal_zero, Complex.ofReal_neg,
+      one_mul, zero_mul, zero_add, add_zero] using
+      (hdisks v ε hv hε hε1).2 0 (-1) 1 0 (by norm_num)
+  -- Steps 15–16: retain the endpoint functions; their limits come from the cut geometry.
+  let γ : ℂ → ℝ → ℝ → ℂ := fun v ε t =>
+    (v - star v * ((ε : ℂ) * Complex.exp ((t : ℂ) * Complex.I))) /
+      (1 - (ε : ℂ) * Complex.exp ((t : ℂ) * Complex.I))
+  let indent : ℂ → (ℝ → ℝ) → (ℝ → ℝ) → ℝ → ℂ := fun v α β ε =>
+    intervalIntegral (fun t : ℝ => L (γ v ε t) * deriv (γ v ε) t)
+      (α ε) (β ε) MeasureTheory.volume
+  have hindent : ∀ v ∈ H, ∀ (α β : ℝ → ℝ) (a b : ℝ),
+      Filter.Tendsto α (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds a) →
+      Filter.Tendsto β (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds b) →
+      Filter.Tendsto (indent v α β) (nhdsWithin (0 : ℝ) (Set.Ioi 0))
+        (nhds (Complex.I * (analyticOrderNatAt F v : ℂ) * ((b - a : ℝ) : ℂ))) := by
+    intro v hv α β a b hα hβ
+    exact p10_17ae7b7d_valence_indentation_limit F v hv (hFan v hv)
+      (hFfinite v hv) α β a b hα hβ
+  have hclockwise : ∀ v ∈ H, ∀ (α β : ℝ → ℝ) (a θ : ℝ),
+      Filter.Tendsto α (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds a) →
+      Filter.Tendsto β (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds (a - θ)) →
+      Filter.Tendsto (indent v α β) (nhdsWithin (0 : ℝ) (Set.Ioi 0))
+        (nhds (-Complex.I * (analyticOrderNatAt F v : ℂ) * (θ : ℂ))) := by
+    intro v hv α β a θ hα hβ
+    convert hindent v hv α β a (a - θ) hα hβ using 1
+    congr 1
+    push_cast
+    ring
+  -- Steps 17–18: the contour identity leaves only nonnegative zero orders.
+  suffices hcount : ∃ R : ℝ, 0 ≤ R ∧
+      (analyticOrderNatAt A 0 : ℝ) + (analyticOrderNatAt F Complex.I : ℝ) / 2 +
+        (analyticOrderNatAt F ρ : ℝ) / 3 + R = (k : ℝ) / 12 by
+    obtain ⟨R, hR, hcount⟩ := hcount
+    change (analyticOrderNatAt A 0 : ℝ) + (analyticOrderNatAt F Complex.I : ℝ) / 2 +
+      (analyticOrderNatAt F ρ : ℝ) / 3 ≤ (k : ℝ) / 12
+    linarith
+  /- Remaining formal obligation: assemble the cut contour and prove the count
+  identity above. In the accepted proof, steps 4–7 justify the global argument
+  principle by finite subdivision into primitive domains. Steps 9–11 construct
+  the oriented cut boundary and the endpoint functions required by hclockwise;
+  step 17 sums the boundary integrals and takes the two limits. The facts above
+  establish local primitives and local boundary calculations, but do not yet
+  supply that global contour identity. -/
+
+end Submission
