@@ -1,0 +1,33 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'dedekindPsi|nuTwo|nuThree|cuspCount|gamma0_coset_counts' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f --glob '*.lean' --glob '!Mathlib/**' | head -100",
+        "rg -n 'gamma0_coset_counts' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_X0.lean"
+      ],
+      "conclusion": "The numeric definitions match the frozen statement. No gamma0_coset_counts declaration was found in the pinned project snapshot. Project and mathlib checkouts are clean and match the manifest revisions; comparator dependency and transitive-axiom checks passed."
+    }
+  ],
+  "comparison_identity": "5b51f923ed55ec80baccd850799e26559a6b2f22b70e839951181bb53000120e",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_gamma0_coset_counts",
+      "statement": "∀ (N : ℕ) [NeZero N], let Q := (Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 N; Finite Q ∧ Nat.card Q = ModularCurve.dedekindPsi N ∧ Nat.card {q : Q // ModularGroup.S • q = q} = ModularCurve.nuTwo N ∧ Nat.card {q : Q // (ModularGroup.S * ModularGroup.T) • q = q} = ModularCurve.nuThree N ∧ Nat.card (Quotient (MulAction.orbitRel (Subgroup.zpowers ModularGroup.T) Q)) = ModularCurve.cuspCount N",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Assembles the accepted coset-index, elliptic-fixed-point, and translation-orbit results into the required conjunction."
+    }
+  ]
+}
