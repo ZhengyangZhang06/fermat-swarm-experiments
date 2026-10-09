@@ -598,3 +598,50 @@ theorem Submission.p09_af497904fe_luf_valuation_extension :
     rcases hn with hz | hn
     · exact (inv_ne_zero hx0) (i.injective (by simpa using hz))
     · exact hn (by simpa only [map_inv₀, inv_inv] using hx)
+theorem Submission.p09_af497904fe_ffe_prime_frobenius_congruence :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ))
+      [FiniteDimensional ℚ E] [IsGalois ℚ E] (ℓ : ℕ), ℓ.Prime →
+      ∀ q : Ideal (NumberField.RingOfIntegers E), q.IsPrime →
+        (ℓ : NumberField.RingOfIntegers E) ∈ q →
+        Finite (NumberField.RingOfIntegers E ⧸ q) →
+        ∃ g : E ≃ₐ[ℚ] E, ∀ a : NumberField.RingOfIntegers E,
+          NumberField.RingOfIntegers.mapRingEquiv g.toRingEquiv a - a ^ ℓ ∈ q := by
+  intro E _ _ ℓ hℓ q hq hℓq hfin
+  let : q.IsPrime := hq
+  let : Finite (NumberField.RingOfIntegers E ⧸ q) := hfin
+  let : Fact ℓ.Prime := ⟨hℓ⟩
+  let : CharP (NumberField.RingOfIntegers E ⧸ q) ℓ :=
+    (CharP.charP_iff_prime_eq_zero hℓ).mpr (by
+      simpa only [map_natCast] using (Ideal.Quotient.eq_zero_iff_mem.mpr hℓq))
+  -- A fixed algebraic integer descends to an integral rational, hence an integer.
+  let : Algebra.IsInvariant ℤ (NumberField.RingOfIntegers E) (E ≃ₐ[ℚ] E) := by
+    constructor
+    intro a ha
+    obtain ⟨r, hr⟩ := (IsGalois.mem_range_algebraMap_iff_fixed (F := ℚ) (a : E)).mpr
+      (fun g ↦ congrArg (fun b : NumberField.RingOfIntegers E ↦ (b : E)) (ha g))
+    have hi : IsIntegral ℤ r :=
+      (isIntegral_algebraMap_iff (algebraMap ℚ E).injective).mp
+        (hr.symm ▸ NumberField.RingOfIntegers.isIntegral_coe a)
+    obtain ⟨z, hz⟩ := IsIntegrallyClosed.algebraMap_eq_of_integral hi
+    refine ⟨z, NumberField.RingOfIntegers.ext ?_⟩
+    change algebraMap ℤ E z = (a : E)
+    rw [← hr, ← hz, IsScalarTower.algebraMap_apply ℤ ℚ E]
+  -- Frobenius fixes the quotient of the integers and lifts through the stabilizer.
+  let P : Ideal ℤ := q.under ℤ
+  let φ : (NumberField.RingOfIntegers E ⧸ q) ≃ₐ[ℤ ⧸ P]
+      (NumberField.RingOfIntegers E ⧸ q) :=
+    AlgEquiv.ofRingEquiv (f := frobeniusEquiv (NumberField.RingOfIntegers E ⧸ q) ℓ) (by
+      intro z
+      obtain ⟨z, rfl⟩ := Ideal.Quotient.mk_surjective z
+      change (frobeniusEquiv (NumberField.RingOfIntegers E ⧸ q) ℓ)
+        (z : NumberField.RingOfIntegers E ⧸ q) = (z : NumberField.RingOfIntegers E ⧸ q)
+      exact map_intCast _ z)
+  obtain ⟨g, hg⟩ := Ideal.Quotient.stabilizerHom_surjective (E ≃ₐ[ℚ] E) P q φ
+  refine ⟨g.val, fun a ↦ ?_⟩
+  have h := congrArg (fun σ : (NumberField.RingOfIntegers E ⧸ q) ≃ₐ[ℤ ⧸ P]
+    (NumberField.RingOfIntegers E ⧸ q) ↦ σ (Ideal.Quotient.mk q a)) hg
+  change Ideal.Quotient.mk q
+      (NumberField.RingOfIntegers.mapRingEquiv g.val.toRingEquiv a) =
+    (Ideal.Quotient.mk q a) ^ ℓ at h
+  rw [← map_pow] at h
+  exact Ideal.Quotient.eq.mp h
