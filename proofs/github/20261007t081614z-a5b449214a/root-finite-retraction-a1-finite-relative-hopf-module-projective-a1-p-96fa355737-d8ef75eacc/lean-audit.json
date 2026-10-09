@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "48b39ee4cc89f35af4abb6cff6fa89bd65540d6191e6e1f93b623522c4d37938",
+  "git_delta": {
+    "base_commit": "ece9f4a43483cf83ab2a417a07107d2da5436ffa",
+    "candidate_commit": "80579b56b054ce6a12272a8b83109b9da72e1e21",
+    "target": "Submission.lean",
+    "declaration": "p05_ibs_extend_minor_a5b449214a",
+    "diff_sha256": "5c40558fadfdbf3bf00e2516bfc6f7d30f7e56498c0c43c63209ab677a74fbea",
+    "source_sha256": "db11ddf834ed3c4581b28f94a87a63644ff795fa6e097a19452637280ee4d21a",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_ibs_extend_minor_a5b449214a",
+      "statement": "∀ {R : Type*} [CommRing R] (n p t s : ℕ) (P : Matrix (Fin n) (Fin p) R) (rows : Fin s ↪ Fin n) (cols : Fin s ↪ Fin p), ∃ (rows' : Fin (s + t) ↪ (Fin n ⊕ Fin t)) (cols' : Fin (s + t) ↪ (Fin p ⊕ Fin t)), Matrix.det ((Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R)).submatrix rows' cols') = Matrix.det (P.submatrix rows cols)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
