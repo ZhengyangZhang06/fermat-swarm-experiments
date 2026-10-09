@@ -1,0 +1,33 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'structure Rigidification|def IsPullbackVia|def quotientMap|def IsIsogenyPair|exists_ptR_eq' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMRigidification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFormalModuleOf.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMIsogeny.lean"
+      ],
+      "conclusion": "Located the frozen rigidification, pullback, isogeny-pair, and level-preservation definitions and verified their source identity. The manifest pins project 73257f1e32d99b75813b037f28a5cf45a2db886d and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; comparator dependency checks agree."
+    }
+  ],
+  "comparison_identity": "3c3d4947c60633382ac2e4b14b4de0810613218572e4d7be1928c22ca9d0c912",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p07_rigidification_reduction_857cd4d38c",
+      "statement": "∀ {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (r N : ℕ) (𝒪 : Type) [CommRing 𝒪] (π : 𝒪) (Onr : Type) [CommRing Onr] [Algebra 𝒪 Onr] (A₀ : CerednikDrinfeld.QM.FakeEllipticCurve Λ N (Onr ⧸ Ideal.span {algebraMap 𝒪 Onr π})) (S : Type) [CommRing S] [Algebra 𝒪 S] (ψ : Onr →ₐ[𝒪] S) (E : CerednikDrinfeld.QM.FakeEllipticCurve Λ N S) (V : CerednikDrinfeld.QM.FakeEllipticCurve Λ N (S ⧸ Ideal.span {algebraMap 𝒪 S π})) (g : Quiver.Hom V.A E.A) (hg : CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia (Ideal.Quotient.mk (Ideal.span {algebraMap 𝒪 S π})) E V g) (σ : CerednikDrinfeld.QM.FakeEllipticCurve.Rigidification r π A₀ ((Ideal.Quotient.mkₐ 𝒪 (Ideal.span {algebraMap 𝒪 S π})).comp ψ) V), ∃ ρ : CerednikDrinfeld.QM.FakeEllipticCurve.Rigidification r π A₀ ψ E, ρ.d = σ.d ∧ CerednikDrinfeld.QM.FakeEllipticCurve.Rigidification.IsPullbackVia (Ideal.Quotient.mkₐ 𝒪 (Ideal.span {algebraMap 𝒪 S π})) g hg ρ σ",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Uses the quotient-by-zero equivalence and approved curve transport, pullback composition, and isogeny-level transport prerequisites to construct the required rigidification."
+    }
+  ]
+}
