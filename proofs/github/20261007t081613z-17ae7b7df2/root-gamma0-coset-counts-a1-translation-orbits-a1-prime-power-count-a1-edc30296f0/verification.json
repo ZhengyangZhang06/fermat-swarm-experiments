@@ -1,0 +1,19 @@
+{
+  "node_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/452",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "1332772514c1adf27f1cdb30e99d87559c993fad",
+  "integrated_commit": "f56ae7f86c4543588b3752206b226d31b35d348a",
+  "proof_base_commit": "c77074cc2682d4bf219f2909b6b4767445f7f7bc",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.gamma0_coset_counts-a1.translation_orbits-a1",
+  "requires": [
+    "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1.translation_charts-a1",
+    "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1.fractional_iterates-a1",
+    "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1.stratum_card-a1"
+  ]
+}
