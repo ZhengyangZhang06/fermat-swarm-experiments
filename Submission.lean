@@ -2047,3 +2047,19 @@ theorem Submission.p09_af497904fe_csr_prime_residue_descent :
   change R.ramificationIdx ℤ * R.inertiaDeg ℤ =
     Module.finrank ℤ (NumberField.RingOfIntegers D) at hsum
   simpa only [hRdeg, mul_one, NumberField.RingOfIntegers.rank] using hsum
+
+
+theorem Submission.p09_af497904fe_ci_cyclotomic_subfield_ramification :
+    ∀ (q : ℕ) (ζ : AlgebraicClosure ℚ), q.Prime → IsPrimitiveRoot ζ q →
+      ∀ (D : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ D],
+        D ≤ IntermediateField.adjoin ℚ ({ζ} : Set (AlgebraicClosure ℚ)) →
+          ∃ R : Ideal (NumberField.RingOfIntegers D),
+            R.IsPrime ∧ R.LiesOver (Ideal.span {(q : ℤ)}) ∧
+              Ideal.ramificationIdx R ℤ = Module.finrank ℚ D := by
+  intro q ζ hq hζ D _ hDC
+  let C := IntermediateField.adjoin ℚ ({ζ} : Set (AlgebraicClosure ℚ))
+  obtain ⟨hC, A, hA, hAq, hcard, huniq⟩ :=
+    Submission.p09_af497904fe_csr_cyclotomic_prime_residue q ζ hq hζ
+  let : FiniteDimensional ℚ C := hC
+  exact Submission.p09_af497904fe_csr_prime_residue_descent
+    C D q A hq hDC hA hAq hcard huniq
