@@ -14,389 +14,6 @@ universe u v w
 
 open scoped TensorProduct
 
-namespace Submission
-
-set_option maxHeartbeats 4000000 in
-set_option synthInstance.maxHeartbeats 400000 in
-set_option backward.isDefEq.respectTransparency.types false in
-theorem p05_finite_retraction_a5b449214a
-    {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
-    (A : Subalgebra k H) [Algebra.FiniteType k A]
-    (hΔ : ∀ x ∈ A, Coalgebra.comul (R := k) x ∈
-      Submodule.span k {t : TensorProduct k H H | ∃ a ∈ A, ∃ b ∈ A,
-        t = TensorProduct.tmul k a b})
-    (hS : ∀ x ∈ A, HopfAlgebra.antipode k x ∈ A)
-    (V : Submodule k H) [FiniteDimensional k V] (h1 : (1 : H) ∈ V)
-    (hV : ∀ x ∈ V, Coalgebra.comul (R := k) x ∈
-      Submodule.span k {t : TensorProduct k H H | ∃ a ∈ V, ∃ b : H,
-        t = TensorProduct.tmul k a b}) :
-    ∃ r : (Submodule.span A (V : Set H)) →ₗ[A] A,
-      ∀ (a : A) (ha : (a : H) ∈ Submodule.span A (V : Set H)),
-        r ⟨(a : H), ha⟩ = a := by
-  classical
-  -- Restrict the Hopf structure along the injective tensor inclusions (proof step 1).
-  let i : A →ₗ[k] H := A.val.toLinearMap
-  have hi : Function.Injective i := Subtype.val_injective
-  obtain ⟨p, hp⟩ := i.exists_leftInverse_of_injective (LinearMap.ker_eq_bot.mpr hi)
-  have hpi (a : A) : p (i a) = a := LinearMap.congr_fun hp a
-  let δ : A →ₗ[k] A ⊗[k] A :=
-    (TensorProduct.map p p).comp ((Coalgebra.comul (R := k)).comp i)
-  have hδ (a : A) : TensorProduct.map i i (δ a) = Coalgebra.comul (R := k) (i a) := by
-    change TensorProduct.map i i (TensorProduct.map p p (Coalgebra.comul (R := k) (i a))) = _
-    have hz := hΔ (i a) a.property
-    generalize Coalgebra.comul (R := k) (i a) = z at hz ⊢
-    induction hz using Submodule.span_induction with
-    | mem z hz =>
-      obtain ⟨x, hx, y, hy, rfl⟩ := hz
-      change i (p (i ⟨x, hx⟩)) ⊗ₜ[k] i (p (i ⟨y, hy⟩)) = _
-      rw [hpi, hpi]
-      rfl
-    | zero => simp
-    | add x y _ _ hx hy => simp only [map_add, hx, hy]
-    | smul c x _ hx => simp only [map_smul, hx]
-  have hδmap : (TensorProduct.map i i).comp δ = (Coalgebra.comul (R := k)).comp i :=
-    LinearMap.ext hδ
-  have ht : Function.Injective (TensorProduct.map i i) :=
-    TensorProduct.map_injective_of_flat_flat _ _ hi hi
-  let ε : A →ₗ[k] k := (Coalgebra.counit (R := k)).comp i
-  let : Coalgebra k A :=
-    { comul := δ
-      counit := ε
-      coassoc := by
-        ext a : 1
-        apply TensorProduct.map_injective_of_flat_flat i (TensorProduct.map i i) hi ht
-        change TensorProduct.map i (TensorProduct.map i i)
-          (TensorProduct.assoc k A A A (TensorProduct.map δ LinearMap.id (δ a))) =
-          TensorProduct.map i (TensorProduct.map i i) (TensorProduct.map LinearMap.id δ (δ a))
-        rw [TensorProduct.map_map_assoc]
-        simp only [TensorProduct.map_map, LinearMap.comp_id, hδmap]
-        have he : TensorProduct.map ((Coalgebra.comul (R := k)).comp i) i =
-            (TensorProduct.map (Coalgebra.comul (R := k)) LinearMap.id).comp
-              (TensorProduct.map i i) := by
-          ext a b
-          rfl
-        have he' : TensorProduct.map i ((Coalgebra.comul (R := k)).comp i) =
-            (TensorProduct.map LinearMap.id (Coalgebra.comul (R := k))).comp
-              (TensorProduct.map i i) := by
-          ext a b
-          rfl
-        rw [he, he']
-        simp only [LinearMap.comp_apply, hδ]
-        exact Coalgebra.coassoc_apply (R := k) (i a)
-      rTensor_counit_comp_comul := by
-        ext a : 1
-        apply TensorProduct.map_injective_of_flat_flat (LinearMap.id : k →ₗ[k] k) i
-          Function.injective_id hi
-        change TensorProduct.map LinearMap.id i (TensorProduct.map ε LinearMap.id (δ a)) = _
-        simp only [TensorProduct.map_map, LinearMap.id_comp, LinearMap.comp_id]
-        change TensorProduct.map ((Coalgebra.counit (R := k)).comp i) i (δ a) = _
-        rw [show i = (LinearMap.id : H →ₗ[k] H).comp i from rfl, TensorProduct.map_comp]
-        simp only [LinearMap.comp_apply, LinearMap.id_comp, hδ,
-          TensorProduct.map_tmul, LinearMap.id_apply, TensorProduct.mk_apply]
-        exact Coalgebra.rTensor_counit_comul (i a)
-      lTensor_counit_comp_comul := by
-        ext a : 1
-        apply TensorProduct.map_injective_of_flat_flat i (LinearMap.id : k →ₗ[k] k)
-          hi Function.injective_id
-        change TensorProduct.map i LinearMap.id (TensorProduct.map LinearMap.id ε (δ a)) = _
-        simp only [TensorProduct.map_map, LinearMap.id_comp, LinearMap.comp_id]
-        change TensorProduct.map i ((Coalgebra.counit (R := k)).comp i) (δ a) = _
-        rw [show i = (LinearMap.id : H →ₗ[k] H).comp i from rfl, TensorProduct.map_comp]
-        simp only [LinearMap.comp_apply, LinearMap.id_comp, hδ,
-          TensorProduct.map_tmul, LinearMap.id_apply, TensorProduct.mk_apply, LinearMap.flip_apply]
-        exact Coalgebra.lTensor_counit_comul (i a) }
-  let : Bialgebra k A := Bialgebra.mk' k A
-    (by change Coalgebra.counit (R := k) (1 : H) = 1; simp)
-    (by intros a b; exact Bialgebra.counit_mul (i a) (i b))
-    (by
-      change δ 1 = 1
-      apply ht
-      rw [hδ]
-      change Coalgebra.comul (R := k) (1 : H) =
-        Algebra.TensorProduct.map A.val A.val 1
-      simp)
-    (by
-      intros a b
-      change δ (a * b) = δ a * δ b
-      apply ht
-      rw [hδ]
-      change Coalgebra.comul (R := k) (i a * i b) =
-        Algebra.TensorProduct.map A.val A.val (δ a * δ b)
-      rw [map_mul (Algebra.TensorProduct.map A.val A.val)]
-      change _ = TensorProduct.map i i (δ a) * TensorProduct.map i i (δ b)
-      rw [hδ, hδ, Bialgebra.comul_mul])
-  let sA : A →ₗ[k] A := ((HopfAlgebra.antipode k).comp i).codRestrict A.toSubmodule
-    (fun a => hS (i a) a.property)
-  have hsA (a : A) : i (sA a) = HopfAlgebra.antipode k (i a) := rfl
-  let : HopfAlgebra k A :=
-    { antipode := sA
-      mul_antipode_rTensor_comul := by
-        have he : i.comp ((LinearMap.mul' k A).comp (sA.rTensor A)) =
-            ((LinearMap.mul' k H).comp ((HopfAlgebra.antipode k).rTensor H)).comp
-              (TensorProduct.map i i) := by
-          ext a b
-          rfl
-        ext a : 1
-        apply hi
-        change (i.comp ((LinearMap.mul' k A).comp (sA.rTensor A))) (δ a) = _
-        rw [he]
-        simp only [LinearMap.comp_apply, hδ, HopfAlgebra.mul_antipode_rTensor_comul_apply]
-        rfl
-      mul_antipode_lTensor_comul := by
-        have he : i.comp ((LinearMap.mul' k A).comp (sA.lTensor A)) =
-            ((LinearMap.mul' k H).comp ((HopfAlgebra.antipode k).lTensor H)).comp
-              (TensorProduct.map i i) := by
-          ext a b
-          rfl
-        ext a : 1
-        apply hi
-        change (i.comp ((LinearMap.mul' k A).comp (sA.lTensor A))) (δ a) = _
-        rw [he]
-        simp only [LinearMap.comp_apply, hδ, HopfAlgebra.mul_antipode_lTensor_comul_apply]
-        rfl }
-  let ι : BialgHom k A H :=
-    { toLinearMap := i, counit_comp := rfl, map_comp_comul := hδmap,
-      map_one' := A.val.map_one, map_mul' := A.val.map_mul }
-  -- Restrict the coaction to the finite A-span of V (proof step 3).
-  let N : Submodule A H := Submodule.span A (V : Set H)
-  let : Module.Finite A N := Module.Finite.of_fg (Module.Finite.iff_fg.mp
-    (inferInstance : Module.Finite k V)).span
-  have hAN (a : A) : i a ∈ N := by
-    have h := N.smul_mem a (Submodule.subset_span h1)
-    change (a : H) * 1 ∈ N at h
-    change (a : H) ∈ N
-    simpa only [mul_one] using h
-  let j : A →ₗ[A] N := (Algebra.linearMap A H).codRestrict N hAN
-  let v : N →ₗ[k] H := N.subtype.restrictScalars k
-  have hv : Function.Injective v := Subtype.val_injective
-  let t : N ⊗[k] H →ₗ[k] H ⊗[k] H := v.rTensor H
-  have htN : Function.Injective t :=
-    Module.Flat.rTensor_preserves_injective_linearMap v hv
-  -- The comultiplication of a scalar acts on the restricted tensor product.
-  have hact (a : A) (z : N ⊗[k] H) :
-      let d := Coalgebra.Repr.arbitrary k a
-      t (∑ b ∈ d.index, TensorProduct.map ((Algebra.lsmul k k N) (d.left b))
-        (LinearMap.mulLeft k (ι (d.right b))) z) =
-        Coalgebra.comul (R := k) (i a) * t z := by
-    dsimp only
-    let d := Coalgebra.Repr.arbitrary k a
-    have hd : Coalgebra.comul (R := k) (i a) =
-        ∑ b ∈ d.index, i (d.left b) ⊗ₜ[k] i (d.right b) := by
-      rw [← hδ]
-      change TensorProduct.map i i (Coalgebra.comul (R := k) a) = _
-      rw [← d.eq]
-      simp only [map_sum, TensorProduct.map_tmul]
-    induction z using TensorProduct.induction_on with
-    | zero => simp [t]
-    | tmul n h =>
-      rw [hd, Finset.sum_mul]
-      simp only [map_sum]
-      apply Finset.sum_congr rfl
-      intro b hb
-      change (↑((d.left b) • n) : H) ⊗ₜ[k] (i (d.right b) * h) =
-        (i (d.left b) ⊗ₜ[k] i (d.right b)) * ((n : H) ⊗ₜ[k] h)
-      rw [Algebra.TensorProduct.tmul_mul_tmul]
-      rfl
-    | add x y hx hy =>
-      simp only [map_add, Finset.sum_add_distrib, hx, hy, mul_add]
-  have hN (n : H) (hn : n ∈ N) : Coalgebra.comul (R := k) n ∈ LinearMap.range t := by
-    induction hn using Submodule.span_induction with
-    | mem x hx =>
-      have hz := hV x hx
-      generalize Coalgebra.comul (R := k) x = z at hz ⊢
-      induction hz using Submodule.span_induction with
-      | mem z hz =>
-        obtain ⟨a, ha, b, rfl⟩ := hz
-        exact ⟨(⟨a, Submodule.subset_span ha⟩ : N) ⊗ₜ[k] b, rfl⟩
-      | zero => exact (LinearMap.range t).zero_mem
-      | add x y _ _ hx hy => exact (LinearMap.range t).add_mem hx hy
-      | smul c x _ hx => exact (LinearMap.range t).smul_mem c hx
-    | zero => simp
-    | add x y _ _ hx hy => simpa only [map_add] using (LinearMap.range t).add_mem hx hy
-    | smul a x _ hx =>
-      obtain ⟨z, hz⟩ := hx
-      refine ⟨∑ b ∈ (Coalgebra.Repr.arbitrary k a).index,
-        TensorProduct.map ((Algebra.lsmul k k N) ((Coalgebra.Repr.arbitrary k a).left b))
-          (LinearMap.mulLeft k (ι ((Coalgebra.Repr.arbitrary k a).right b))) z, ?_⟩
-      rw [hact, hz]
-      exact (Bialgebra.comul_mul (i a) x).symm
-  obtain ⟨pN, hpN⟩ := v.exists_leftInverse_of_injective (LinearMap.ker_eq_bot.mpr hv)
-  let μN : N →ₗ[k] N ⊗[k] H :=
-    (pN.rTensor H).comp ((Coalgebra.comul (R := k)).comp v)
-  have hμN (n : N) : t (μN n) = Coalgebra.comul (R := k) (v n) := by
-    obtain ⟨z, hz⟩ := hN (v n) n.property
-    change t (pN.rTensor H (Coalgebra.comul (R := k) (v n))) = _
-    rw [← hz]
-    have he : (pN.rTensor H).comp t = LinearMap.id := by
-      dsimp only [t]
-      rw [← LinearMap.rTensor_comp, hpN, LinearMap.rTensor_id]
-    exact congrArg t (LinearMap.congr_fun he z)
-  have hμmap : t.comp μN = (Coalgebra.comul (R := k)).comp v := LinearMap.ext hμN
-  have hNcoassoc (n : N) :
-      TensorProduct.assoc k N H H (TensorProduct.map μN LinearMap.id (μN n)) =
-        TensorProduct.map LinearMap.id (Coalgebra.comul (R := k)) (μN n) := by
-    apply TensorProduct.map_injective_of_flat_flat v (LinearMap.id : H ⊗[k] H →ₗ[k] _)
-      hv Function.injective_id
-    rw [← TensorProduct.map_id (R := k) (M := H) (N := H), TensorProduct.map_map_assoc]
-    simp only [TensorProduct.map_map, LinearMap.comp_id, LinearMap.id_comp,
-      TensorProduct.map_id]
-    change TensorProduct.assoc k H H H (TensorProduct.map (t.comp μN) LinearMap.id (μN n)) = _
-    rw [hμmap]
-    have he : TensorProduct.map ((Coalgebra.comul (R := k)).comp v)
-        (LinearMap.id : H →ₗ[k] H) =
-        (TensorProduct.map (Coalgebra.comul (R := k)) LinearMap.id).comp t := by
-      ext n h
-      rfl
-    have he' : TensorProduct.map v (Coalgebra.comul (R := k)) =
-        (TensorProduct.map LinearMap.id (Coalgebra.comul (R := k))).comp t := by
-      ext n h
-      rfl
-    rw [he, he']
-    simp only [LinearMap.comp_apply, hμN]
-    exact Coalgebra.coassoc_apply (R := k) (v n)
-  have hNcounit (n : N) :
-      TensorProduct.rid k N (TensorProduct.map LinearMap.id (Coalgebra.counit (R := k))
-        (μN n)) = n := by
-    apply hv
-    have he : v.comp ((TensorProduct.rid k N).toLinearMap.comp
-        (TensorProduct.map LinearMap.id (Coalgebra.counit (R := k)))) =
-        ((TensorProduct.rid k H).toLinearMap.comp
-          (TensorProduct.map LinearMap.id (Coalgebra.counit (R := k)))).comp t := by
-      ext n h
-      simp [t]
-    calc
-      _ = TensorProduct.rid k H
-          (TensorProduct.map LinearMap.id (Coalgebra.counit (R := k)) (t (μN n))) :=
-        LinearMap.congr_fun he _
-      _ = v n := by
-        rw [hμN]
-        simpa only [LinearMap.lTensor, TensorProduct.rid_tmul, one_smul] using
-          congrArg (TensorProduct.rid k H) (Coalgebra.lTensor_counit_comul (v n))
-  have hNcompat (a : A) (n : N) :
-      let d := Coalgebra.Repr.arbitrary k a
-      μN (a • n) = ∑ b ∈ d.index,
-        TensorProduct.map ((Algebra.lsmul k k N) (d.left b))
-          (LinearMap.mulLeft k (ι (d.right b))) (μN n) := by
-    apply htN
-    rw [hμN, hact, hμN]
-    exact Bialgebra.comul_mul (i a) (v n)
-  -- The image of A is a subcomodule, so the coaction descends to N/A.
-  let L : Submodule A N := LinearMap.range j
-  let Q := N ⧸ L
-  let q : N →ₗ[k] Q := L.mkQ.restrictScalars k
-  have hq : Function.Surjective q := L.mkQ_surjective
-  have hμj (a : A) : μN (j a) =
-      TensorProduct.map (j.restrictScalars k) i (Coalgebra.comul (R := k) a) := by
-    apply htN
-    rw [hμN]
-    change Coalgebra.comul (R := k) (i a) =
-      TensorProduct.map v LinearMap.id
-        (TensorProduct.map (j.restrictScalars k) i (δ a))
-    rw [TensorProduct.map_map]
-    change Coalgebra.comul (R := k) (i a) = TensorProduct.map i i (δ a)
-    exact (hδ a).symm
-  have hqj (a : A) : q (j a) = 0 :=
-    (Submodule.Quotient.mk_eq_zero L).mpr ⟨a, rfl⟩
-  have hkill : L.restrictScalars k ≤ LinearMap.ker ((q.rTensor H).comp μN) := by
-    rintro _ ⟨a, rfl⟩
-    change q.rTensor H (μN (j a)) = 0
-    rw [hμj]
-    have he : (q.rTensor H).comp (TensorProduct.map (j.restrictScalars k) i) = 0 := by
-      ext a h
-      simp [hqj]
-    exact LinearMap.congr_fun he _
-  let μ : Q →ₗ[k] Q ⊗[k] H :=
-    ((L.restrictScalars k).liftQ ((q.rTensor H).comp μN) hkill).comp
-      (Submodule.Quotient.restrictScalarsEquiv k L).symm.toLinearMap
-  have hμq (n : N) : μ (q n) = q.rTensor H (μN n) := rfl
-  have hμqmap : μ.comp q = (q.rTensor H).comp μN := LinearMap.ext hμq
-  have hQcoassoc (m : Q) :
-      TensorProduct.assoc k Q H H (TensorProduct.map μ LinearMap.id (μ m)) =
-        TensorProduct.map LinearMap.id (Coalgebra.comul (R := k)) (μ m) := by
-    obtain ⟨n, rfl⟩ := hq m
-    rw [hμq]
-    have he : (TensorProduct.map μ (LinearMap.id : H →ₗ[k] H)).comp (q.rTensor H) =
-        (TensorProduct.map (q.rTensor H) LinearMap.id).comp
-          (TensorProduct.map μN LinearMap.id) := by
-      apply TensorProduct.ext'
-      intro n h
-      rfl
-    rw [← LinearMap.comp_apply, he, LinearMap.comp_apply]
-    change TensorProduct.assoc k Q H H
-      (TensorProduct.map (TensorProduct.map q LinearMap.id) LinearMap.id
-        (TensorProduct.map μN LinearMap.id (μN n))) = _
-    rw [← TensorProduct.map_map_assoc]
-    simp only [TensorProduct.map_id]
-    rw [hNcoassoc]
-    have he' : (TensorProduct.map q (LinearMap.id : H ⊗[k] H →ₗ[k] _)).comp
-        (TensorProduct.map LinearMap.id (Coalgebra.comul (R := k))) =
-        (TensorProduct.map LinearMap.id (Coalgebra.comul (R := k))).comp (q.rTensor H) := by
-      ext n h
-      rfl
-    exact LinearMap.congr_fun he' (μN n)
-  have hQcounit (m : Q) :
-      TensorProduct.rid k Q (TensorProduct.map LinearMap.id (Coalgebra.counit (R := k))
-        (μ m)) = m := by
-    obtain ⟨n, rfl⟩ := hq m
-    rw [hμq]
-    have he : ((TensorProduct.rid k Q).toLinearMap.comp
-        (TensorProduct.map LinearMap.id (Coalgebra.counit (R := k)))).comp (q.rTensor H) =
-        q.comp ((TensorProduct.rid k N).toLinearMap.comp
-          (TensorProduct.map LinearMap.id (Coalgebra.counit (R := k)))) := by
-      ext n h
-      simp
-    calc
-      _ = q (TensorProduct.rid k N
-          (TensorProduct.map LinearMap.id (Coalgebra.counit (R := k)) (μN n))) :=
-        LinearMap.congr_fun he _
-      _ = q n := congrArg q (hNcounit n)
-  have hQcompat (a : A) (m : Q) :
-      let d := Coalgebra.Repr.arbitrary k a
-      μ (a • m) = ∑ b ∈ d.index,
-        TensorProduct.map ((Algebra.lsmul k k Q) (d.left b))
-          (LinearMap.mulLeft k (ι (d.right b))) (μ m) := by
-    obtain ⟨n, rfl⟩ := hq m
-    change μ (q (a • n)) = _
-    rw [hμq, hNcompat]
-    simp only [map_sum, hμq]
-    apply Finset.sum_congr rfl
-    intro b hb
-    have he : (q.rTensor H).comp
-        (TensorProduct.map ((Algebra.lsmul k k N) ((Coalgebra.Repr.arbitrary k a).left b))
-          (LinearMap.mulLeft k (ι ((Coalgebra.Repr.arbitrary k a).right b)))) =
-        (TensorProduct.map ((Algebra.lsmul k k Q) ((Coalgebra.Repr.arbitrary k a).left b))
-          (LinearMap.mulLeft k (ι ((Coalgebra.Repr.arbitrary k a).right b)))).comp
-            (q.rTensor H) := by
-      apply TensorProduct.ext'
-      intro n h
-      change L.mkQ ((Coalgebra.Repr.arbitrary k a).left b • n) ⊗ₜ[k] _ =
-        ((Coalgebra.Repr.arbitrary k a).left b • L.mkQ n) ⊗ₜ[k] _
-      rw [map_smul]
-      rfl
-    exact LinearMap.congr_fun he (μN n)
-  -- Apply the supplied projectivity interface, then split the quotient (proof step 14).
-  let : Module.Projective A Q :=
-    p05_fr_finite_relative_hopf_module_projective_a5b449214a ι hi μ
-      hQcoassoc hQcounit hQcompat
-  obtain ⟨σ, hσ⟩ := Module.projective_lifting_property L.mkQ
-    (LinearMap.id : Q →ₗ[A] Q) L.mkQ_surjective
-  let e := LinearEquiv.ofInjective j (fun a b hab => hi (congrArg v hab))
-  let rL : N →ₗ[A] L := (LinearMap.id - σ.comp L.mkQ).codRestrict L (by
-    intro n
-    apply (Submodule.Quotient.mk_eq_zero L).mp
-    change L.mkQ (n - σ (L.mkQ n)) = 0
-    rw [map_sub, show L.mkQ (σ (L.mkQ n)) = L.mkQ n from LinearMap.congr_fun hσ _, sub_self])
-  refine ⟨e.symm.toLinearMap.comp rL, ?_⟩
-  intro a ha
-  apply e.injective
-  simp only [LinearMap.comp_apply, LinearEquiv.coe_toLinearMap, LinearEquiv.apply_symm_apply]
-  apply Subtype.ext
-  change (⟨(a : H), ha⟩ : N) - σ (L.mkQ ⟨(a : H), ha⟩) = j a
-  have hzero : L.mkQ (⟨(a : H), ha⟩ : N) = 0 := hqj a
-  rw [hzero, map_zero, sub_zero]
-  rfl
-
-end Submission
 
 theorem HopfAlgebra.hopfKer_eq_of_surjective_of_ker_eq_span
     {k : Type u} [Field k] {H : Type v} [CommRing H] [HopfAlgebra k H] [Algebra.FiniteType k H]
@@ -4037,113 +3654,6 @@ theorem Submission.p05_pie_successive_minor_containment_a5b449214a
   exact Ideal.subset_span
     ⟨(Fin.succEmb d).trans rows, j.succAboveEmb.trans cols, rfl⟩
 
-namespace Submission
-
-theorem p05_fhe_stable_subspace_a5b449214a :
-    ∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
-      (F : Finset H), ∃ V : Submodule k H, FiniteDimensional k V ∧ (1 : H) ∈ V ∧
-      (∀ x ∈ F, x ∈ V) ∧ (∀ x ∈ V, Coalgebra.comul (R := k) x ∈
-        Submodule.span k {t : TensorProduct k H H |
-          ∃ a ∈ V, ∃ b : H, t = TensorProduct.tmul k a b}) := by
-  intro k _ H _ _ F
-  classical
-  -- The two children supply the stable coefficient span for each element.
-  have hsingle (x : H) : ∃ V : Submodule k H,
-      FiniteDimensional k V ∧ x ∈ V ∧ (∀ y ∈ V, Coalgebra.comul (R := k) y ∈
-        Submodule.span k {t : TensorProduct k H H |
-          ∃ a ∈ V, ∃ b : H, t = TensorProduct.tmul k a b}) := by
-    obtain ⟨n, v, w, hw, hΔ⟩ :=
-      p05_fhess_tensor_independent_right_a5b449214a (Coalgebra.comul (R := k) x)
-    exact ⟨Submodule.span k (Set.range v),
-      p05_fhess_coefficient_span_stable_a5b449214a x n v w hw hΔ⟩
-  have hmono {U V : Submodule k H} (hUV : U ≤ V) :
-      Submodule.span k {t : TensorProduct k H H |
-        ∃ a ∈ U, ∃ b : H, t = TensorProduct.tmul k a b} ≤
-      Submodule.span k {t : TensorProduct k H H |
-        ∃ a ∈ V, ∃ b : H, t = TensorProduct.tmul k a b} := by
-    apply Submodule.span_mono
-    rintro t ⟨a, ha, b, rfl⟩
-    exact ⟨a, hUV ha, b, rfl⟩
-  -- Start with the span for 1 and add the spans for the elements of F.
-  induction F using Finset.induction_on with
-  | empty =>
-      obtain ⟨V, hV, h1, hΔ⟩ := hsingle 1
-      exact ⟨V, hV, h1, by simp, hΔ⟩
-  | @insert x F _ ih =>
-      obtain ⟨V, hV, h1, hF, hVΔ⟩ := ih
-      obtain ⟨U, hU, hx, hUΔ⟩ := hsingle x
-      let : FiniteDimensional k U := hU
-      let : FiniteDimensional k V := hV
-      refine ⟨U ⊔ V, inferInstance, Submodule.mem_sup_right h1, ?_, ?_⟩
-      · intro y hy
-        rcases Finset.mem_insert.mp hy with rfl | hy
-        · exact Submodule.mem_sup_left hx
-        · exact Submodule.mem_sup_right (hF y hy)
-      · intro y hy
-        obtain ⟨a, ha, b, hb, rfl⟩ := Submodule.mem_sup.mp hy
-        rw [map_add]
-        exact Submodule.add_mem _ (hmono le_sup_left (hUΔ a ha))
-          (hmono le_sup_right (hVΔ b hb))
-
-end Submission
-
-theorem Submission.p05_hte_fss_coefficient_span_a5b449214a
-    {k : Type*} [Field k] {C : Type*} [AddCommGroup C] [Module k C] [Coalgebra k C]
-    (f : C) (n : ℕ) (v w : Fin n → C) (ell : Fin n → C →ₗ[k] k)
-    (hΔ : Coalgebra.comul (R := k) f =
-      ∑ i : Fin n, TensorProduct.tmul k (v i) (w i))
-    (hdual : ∀ i j : Fin n, ell i (w j) = if i = j then (1 : k) else 0) :
-    let V : Submodule k C := Submodule.span k (Set.range v)
-    FiniteDimensional k V ∧ f ∈ V ∧ ∀ x ∈ V, Coalgebra.comul (R := k) x ∈
-      Submodule.span k {t : TensorProduct k C C |
-        ∃ a ∈ V, ∃ b : C, t = TensorProduct.tmul k a b} := by
-  classical
-  let V : Submodule k C := Submodule.span k (Set.range v)
-  let S : Submodule k (C ⊗[k] C) :=
-    Submodule.span k {t : C ⊗[k] C | ∃ a ∈ V, ∃ b : C, t = a ⊗ₜ[k] b}
-  change FiniteDimensional k V ∧ f ∈ V ∧
-    ∀ x ∈ V, Coalgebra.comul (R := k) x ∈ S
-  have hv (i : Fin n) : v i ∈ V := Submodule.subset_span ⟨i, rfl⟩
-  refine ⟨FiniteDimensional.span_of_finite k (Set.finite_range v), ?_, ?_⟩
-  · have hε := congrArg (TensorProduct.rid k C)
-      (Coalgebra.lTensor_counit_comul (R := k) f)
-    rw [hΔ] at hε
-    have hf : (∑ i : Fin n, Coalgebra.counit (R := k) (w i) • v i) = f := by
-      simpa only [map_sum, LinearMap.lTensor_tmul, TensorProduct.rid_tmul, one_smul]
-        using hε
-    rw [← hf]
-    exact Submodule.sum_mem V fun i _ => V.smul_mem _ (hv i)
-  · have hstable : V ≤ S.comap (Coalgebra.comul (R := k)) := by
-      apply Submodule.span_le.mpr
-      rintro _ ⟨i, rfl⟩
-      change Coalgebra.comul (R := k) (v i) ∈ S
-      let R : C ⊗[k] C →ₗ[k] C :=
-        (TensorProduct.rid k C).toLinearMap ∘ₗ (ell i).lTensor C
-      let T : (C ⊗[k] C) ⊗[k] C →ₗ[k] C ⊗[k] C :=
-        (TensorProduct.rid k (C ⊗[k] C)).toLinearMap ∘ₗ
-          (ell i).lTensor (C ⊗[k] C)
-      have hT (a : C) (t : C ⊗[k] C) :
-          T ((TensorProduct.assoc k C C C).symm (a ⊗ₜ[k] t)) = a ⊗ₜ[k] R t := by
-        induction t using TensorProduct.induction_on with
-        | zero => simp [R, T]
-        | tmul b c => simp [R, T, TensorProduct.tmul_smul]
-        | add t u ht hu =>
-          simp only [TensorProduct.tmul_add, map_add, ht, hu]
-      have hc := Coalgebra.coassoc_symm_apply (R := k) f
-      rw [hΔ] at hc
-      have hcontract := congrArg T hc
-      have hformula : (∑ j : Fin n, v j ⊗ₜ[k] R (Coalgebra.comul (R := k) (w j))) =
-          Coalgebra.comul (R := k) (v i) := by
-        simpa only [map_sum, LinearMap.lTensor_tmul, LinearMap.rTensor_tmul, hT,
-          T, LinearMap.comp_apply, LinearEquiv.coe_coe, TensorProduct.rid_tmul,
-          hdual, ite_smul, one_smul, zero_smul, Finset.sum_ite_eq, Finset.mem_univ,
-          if_true] using hcontract
-      rw [← hformula]
-      apply Submodule.sum_mem
-      intro j _
-      exact Submodule.subset_span ⟨v j, hv j, R (Coalgebra.comul (R := k) (w j)), rfl⟩
-    intro x hx
-    exact hstable hx
 theorem Submission.p05_hte_fss_tensor_dual_expansion_a5b449214a :
     ∀ {k : Type*} [Field k] {C : Type*} [AddCommGroup C] [Module k C]
       (z : TensorProduct k C C),
@@ -5264,366 +4774,6 @@ theorem p05_fr_rhm_coaction_twist_a5b449214a :
 
 end Submission
 
-theorem Submission.p05_umgi_minor_reconstruction_a5b449214a
-    {R : Type*} [CommRing R] (n p d : ℕ) (P : Matrix (Fin n) (Fin p) R)
-    (rows : Fin d ↪ Fin n) (cols : Fin d ↪ Fin p)
-    (_hunit : IsUnit (Matrix.det (P.submatrix rows cols)))
-    (_hnext : ∀ (rows' : Fin (d + 1) ↪ Fin n) (cols' : Fin (d + 1) ↪ Fin p),
-      Matrix.det (P.submatrix rows' cols') = 0) :
-    P = (P.submatrix id cols) * (P.submatrix rows cols)⁻¹ * (P.submatrix rows id) := by
-  classical
-  let B := P.submatrix rows cols
-  let L := P.submatrix id cols
-  let H := P.submatrix rows id
-  ext i j
-  by_cases hi : i ∈ Set.range rows
-  · obtain ⟨a, rfl⟩ := hi
-    change P (rows a) j = (B * B⁻¹ * H) a j
-    rw [Matrix.mul_nonsing_inv B _hunit, Matrix.one_mul]
-    rfl
-  by_cases hj : j ∈ Set.range cols
-  · obtain ⟨b, rfl⟩ := hj
-    change P i (cols b) = (L * B⁻¹ * B) i b
-    rw [Matrix.nonsing_inv_mul_cancel_right B L _hunit]
-    rfl
-  let er : Fin d ⊕ Fin 1 ↪ Fin n :=
-    { toFun := Sum.elim rows (fun _ => i)
-      inj' := by
-        intro a b hab
-        rcases a with a | a <;> rcases b with b | b
-        · exact congrArg Sum.inl (rows.injective hab)
-        · exact (hi ⟨a, hab⟩).elim
-        · exact (hi ⟨b, hab.symm⟩).elim
-        · exact congrArg Sum.inr (Subsingleton.elim _ _) }
-  let ec : Fin d ⊕ Fin 1 ↪ Fin p :=
-    { toFun := Sum.elim cols (fun _ => j)
-      inj' := by
-        intro a b hab
-        rcases a with a | a <;> rcases b with b | b
-        · exact congrArg Sum.inl (cols.injective hab)
-        · exact (hj ⟨a, hab⟩).elim
-        · exact (hj ⟨b, hab.symm⟩).elim
-        · exact congrArg Sum.inr (Subsingleton.elim _ _) }
-  let e : Fin d ⊕ Fin 1 ≃ Fin (d + 1) := finSumFinEquiv
-  have hz : Matrix.det (P.submatrix er ec) = 0 := by
-    rw [← Matrix.det_submatrix_equiv_self e.symm (P.submatrix er ec)]
-    exact _hnext (e.symm.toEmbedding.trans er) (e.symm.toEmbedding.trans ec)
-  let c : Matrix (Fin d) (Fin 1) R := fun a _ => P (rows a) j
-  let r : Matrix (Fin 1) (Fin d) R := fun _ b => P i (cols b)
-  let z : Matrix (Fin 1) (Fin 1) R := fun _ _ => P i j
-  have hblock : P.submatrix er ec = Matrix.fromBlocks B c r z := by
-    ext a b
-    cases a <;> cases b <;> rfl
-  let : Invertible B := Matrix.invertibleOfIsUnitDet B _hunit
-  rw [hblock, Matrix.det_fromBlocks₁₁, Matrix.invOf_eq_nonsing_inv] at hz
-  have hcorner := _hunit.mul_right_eq_zero.mp hz
-  rw [Matrix.det_fin_one] at hcorner
-  exact sub_eq_zero.mp hcorner
-theorem Submission.p05_umgi_inner_inverse_of_reconstruction_a5b449214a :
-    ∀ {R : Type*} [CommRing R] (n p d : ℕ) (P : Matrix (Fin n) (Fin p) R)
-      (rows : Fin d ↪ Fin n) (cols : Fin d ↪ Fin p)
-      (T : Matrix (Fin d) (Fin d) R)
-      (_hfactor : P = (P.submatrix id cols) * T * (P.submatrix rows id)),
-      ∃ Q : Matrix (Fin p) (Fin n) R, P * Q * P = P := by
-  intro R _ n p d P rows cols T hfactor
-  let U : Matrix (Fin p) (Fin d) R := (1 : Matrix (Fin p) (Fin p) R).submatrix id cols
-  let V : Matrix (Fin d) (Fin n) R := (1 : Matrix (Fin n) (Fin n) R).submatrix rows id
-  have hU : P * U = P.submatrix id cols :=
-    Matrix.mul_submatrix_one (Equiv.refl (Fin p)) cols P
-  have hV : V * P = P.submatrix rows id :=
-    Matrix.one_submatrix_mul rows (Equiv.refl (Fin n)) P
-  refine ⟨U * T * V, ?_⟩
-  calc
-    P * (U * T * V) * P = (P * U) * T * (V * P) := by
-      simp only [Matrix.mul_assoc]
-    _ = (P.submatrix id cols) * T * (P.submatrix rows id) := by rw [hU, hV]
-    _ = P := hfactor.symm
-
-
-theorem Submission.p05_ums_inner_inverse_of_minors_a5b449214a
-    {R : Type*} [CommRing R] (n p d : ℕ)
-    (P : Matrix (Fin n) (Fin p) R)
-    (rows : Fin d ↪ Fin n) (cols : Fin d ↪ Fin p)
-    (_hunit : IsUnit (Matrix.det (P.submatrix rows cols)))
-    (_hnext : ∀ (rows' : Fin (d + 1) ↪ Fin n) (cols' : Fin (d + 1) ↪ Fin p),
-      Matrix.det (P.submatrix rows' cols') = 0) :
-    ∃ Q : Matrix (Fin p) (Fin n) R, P * Q * P = P := by
-  exact Submission.p05_umgi_inner_inverse_of_reconstruction_a5b449214a
-    n p d P rows cols (P.submatrix rows cols)⁻¹
-    (Submission.p05_umgi_minor_reconstruction_a5b449214a
-      n p d P rows cols _hunit _hnext)
-theorem Submission.p05_ums_section_of_inner_inverse_a5b449214a
-    {R : Type*} [CommRing R]
-    {F : Type*} [AddCommGroup F] [Module R F]
-    {G : Type*} [AddCommGroup G] [Module R G]
-    {M : Type*} [AddCommGroup M] [Module R M]
-    (f : G →ₗ[R] F) (g : F →ₗ[R] G) (π : F →ₗ[R] M)
-    (_hinner : (f.comp g).comp f = f) (_hπ : Function.Surjective π)
-    (_hker : LinearMap.ker π = LinearMap.range f) :
-    ∃ s : M →ₗ[R] F, π.comp s = LinearMap.id := by
-  classical
-  let r : F →ₗ[R] F := LinearMap.id - f.comp g
-  have hπf (y : G) : π (f y) = 0 := by
-    apply LinearMap.mem_ker.mp
-    rw [_hker]
-    exact LinearMap.mem_range_self f y
-  have hfiber (x y : F) (h : π x = π y) : r x = r y := by
-    apply sub_eq_zero.mp
-    rw [← map_sub]
-    have hmem : x - y ∈ LinearMap.ker π := by
-      rw [LinearMap.mem_ker, map_sub, h, sub_self]
-    rw [_hker] at hmem
-    obtain ⟨z, hz⟩ := hmem
-    rw [← hz]
-    change f z - f (g (f z)) = 0
-    rw [show f (g (f z)) = f z from LinearMap.congr_fun _hinner z, sub_self]
-  choose t ht using _hπ
-  let s : M →ₗ[R] F :=
-    { toFun := fun m => r (t m)
-      map_add' := by
-        intro m n
-        rw [← map_add]
-        apply hfiber
-        rw [ht, map_add, ht, ht]
-      map_smul' := by
-        intro a m
-        change r (t (a • m)) = a • r (t m)
-        rw [← map_smul]
-        apply hfiber
-        rw [ht, map_smul, ht] }
-  refine ⟨s, ?_⟩
-  ext m
-  change π (t m - f (g (t m))) = m
-  rw [map_sub, hπf, sub_zero, ht]
-
-
-namespace Submission
-
-theorem p05_ptm_split_of_unit_minor_a5b449214a
-    {R : Type*} [CommRing R] {M : Type*} [AddCommGroup M] [Module R M]
-    (n p d : ℕ) (P : Matrix (Fin n) (Fin p) R) (π : (Fin n → R) →ₗ[R] M)
-    (_hπ : Function.Surjective π) (_hker : LinearMap.ker π = LinearMap.range P.mulVecLin)
-    (rows : Fin d ↪ Fin n) (cols : Fin d ↪ Fin p)
-    (_hunit : IsUnit (Matrix.det (P.submatrix rows cols)))
-    (_hnext : ∀ (rows' : Fin (d + 1) ↪ Fin n) (cols' : Fin (d + 1) ↪ Fin p),
-      Matrix.det (P.submatrix rows' cols') = 0) :
-    ∃ s : M →ₗ[R] (Fin n → R), π.comp s = LinearMap.id := by
-  obtain ⟨Q, hQ⟩ := Submission.p05_ums_inner_inverse_of_minors_a5b449214a
-    n p d P rows cols _hunit _hnext
-  refine Submission.p05_ums_section_of_inner_inverse_a5b449214a
-    P.mulVecLin Q.mulVecLin π ?_ _hπ _hker
-  simpa only [Matrix.mulVecLin_mul] using
-    congrArg (fun A : Matrix (Fin n) (Fin p) R => A.mulVecLin) hQ
-
-end Submission
-theorem Submission.p05_pcs_clear_away_section_a5b449214a
-    {R : Type*} [CommRing R] {M : Type*} [AddCommGroup M] [Module R M]
-    (n p : ℕ) (P : Matrix (Fin n) (Fin p) R) (π : (Fin n → R) →ₗ[R] M)
-    (_hπ : Function.Surjective π)
-    (_hker : LinearMap.ker π = LinearMap.range P.mulVecLin) (f : R)
-    (_hlocal : ∃ σ : LocalizedModule (Submonoid.powers f) M →ₗ[Localization.Away f]
-      LocalizedModule (Submonoid.powers f) (Fin n → R),
-      (LocalizedModule.map (Submonoid.powers f) π).comp σ = LinearMap.id) :
-    ∃ N : ℕ, 0 < N ∧ ∃ t : M →ₗ[R] (Fin n → R),
-      π.comp t = f ^ N • (LinearMap.id : M →ₗ[R] M) := by
-  have : Module.FinitePresentation R M :=
-    Module.finitePresentation_of_free_of_surjective π _hπ
-      (_hker.symm ▸ Submodule.fg_range P.mulVecLin)
-  obtain ⟨σ, hσ⟩ := _hlocal
-  let S := Submonoid.powers f
-  let iM := LocalizedModule.mkLinearMap S M
-  let iF := LocalizedModule.mkLinearMap S (Fin n → R)
-  obtain ⟨u, s, hu⟩ := Module.FinitePresentation.exists_lift_of_isLocalizedModule
-    S iF ((σ.restrictScalars R).comp iM)
-  have hcomp : iM.comp (π.comp u) = iM.comp ((s : R) • LinearMap.id) := by
-    ext x
-    have hx := LinearMap.congr_fun hu x
-    have hσx := LinearMap.congr_fun hσ (iM x)
-    change iF (u x) = (s : R) • σ (iM x) at hx
-    change (LocalizedModule.map S π) (σ (iM x)) = iM x at hσx
-    change iM (π (u x)) = iM ((s : R) • x)
-    calc
-      iM (π (u x)) = (LocalizedModule.map S π) (iF (u x)) := by
-        simp [iM, iF]
-      _ = (s : R) • iM x := by
-        rw [hx, LinearMap.map_smul_of_tower, hσx]
-      _ = iM ((s : R) • x) := (map_smul iM _ _).symm
-  obtain ⟨c, hc⟩ := Module.Finite.exists_smul_of_comp_eq_of_isLocalizedModule
-    S iM _ _ hcomp
-  obtain ⟨a, ha⟩ := s.property
-  obtain ⟨b, hb⟩ := c.property
-  have heq : f ^ b • π.comp u = f ^ b • (f ^ a • (LinearMap.id : M →ₗ[R] M)) := by
-    simpa only [Submonoid.smul_def, ← ha, ← hb] using hc
-  refine ⟨b + a + 1, by omega, f • (f ^ b • u), ?_⟩
-  rw [LinearMap.comp_smul, LinearMap.comp_smul, heq]
-  simp only [smul_smul, ← pow_add]
-  congr 1
-  rw [pow_succ, mul_comm]
-
-theorem Submission.p05_pcs_patch_power_sections_a5b449214a
-    {R : Type*} [CommRing R] {M : Type*} [AddCommGroup M] [Module R M]
-    {F : Type*} [AddCommGroup F] [Module R F]
-    (π : F →ₗ[R] M) (q : ℕ) (f : Fin q → R)
-    (_hcover : Ideal.span (Set.range f) = ⊤) (N : Fin q → ℕ)
-    (_hN : ∀ i, 0 < N i) (t : Fin q → M →ₗ[R] F)
-    (_ht : ∀ i, π.comp (t i) = (f i) ^ (N i) • (LinearMap.id : M →ₗ[R] M)) :
-    ∃ s : M →ₗ[R] F, π.comp s = LinearMap.id := by
-  classical
-  let j : Set.range f → Fin q := fun x => Classical.choose x.property
-  have hj (x : Set.range f) : f (j x) = x := Classical.choose_spec x.property
-  have hpow : Ideal.span (Set.range fun i => f i ^ N i) = ⊤ := by
-    have htop := Ideal.span_range_pow_eq_top (Set.range f) _hcover (fun x => N (j x))
-    apply top_unique
-    rw [← htop]
-    apply Ideal.span_mono
-    rintro _ ⟨x, rfl⟩
-    exact ⟨j x, congrArg (fun r : R => r ^ N (j x)) (hj x)⟩
-  obtain ⟨b, hb⟩ := Ideal.mem_span_range_iff_exists_fun.mp
-    ((Ideal.eq_top_iff_one _).mp hpow)
-  refine ⟨∑ i, b i • t i, ?_⟩
-  ext m
-  simp only [LinearMap.comp_apply, LinearMap.sum_apply, LinearMap.smul_apply,
-    map_sum, map_smul]
-  have ht (i : Fin q) : π (t i m) = f i ^ N i • m :=
-    LinearMap.congr_fun (_ht i) m
-  simp only [ht, smul_smul, ← Finset.sum_smul, hb, one_smul, LinearMap.id_apply]
-
-
-namespace Submission
-
-theorem p05_ptm_split_of_away_splits_a5b449214a
-    {R : Type*} [CommRing R] {M : Type*} [AddCommGroup M] [Module R M]
-    (n p q : ℕ) (P : Matrix (Fin n) (Fin p) R) (π : (Fin n → R) →ₗ[R] M)
-    (_hπ : Function.Surjective π) (_hker : LinearMap.ker π = LinearMap.range P.mulVecLin)
-    (f : Fin q → R) (_hcover : Ideal.span (Set.range f) = ⊤)
-    (_hlocal : ∀ i : Fin q,
-      ∃ s : LocalizedModule (Submonoid.powers (f i)) M →ₗ[Localization.Away (f i)]
-        LocalizedModule (Submonoid.powers (f i)) (Fin n → R),
-        (LocalizedModule.map (Submonoid.powers (f i)) π).comp s = LinearMap.id) :
-    ∃ s : M →ₗ[R] (Fin n → R), π.comp s = LinearMap.id := by
-  classical
-  have hpower : ∀ i : Fin q, ∃ N : ℕ, 0 < N ∧
-      ∃ t : M →ₗ[R] (Fin n → R),
-        π.comp t = (f i) ^ N • (LinearMap.id : M →ₗ[R] M) := by
-    intro i
-    exact Submission.p05_pcs_clear_away_section_a5b449214a
-      n p P π _hπ _hker (f i) (_hlocal i)
-  choose N hN t ht using hpower
-  exact Submission.p05_pcs_patch_power_sections_a5b449214a π q f _hcover N hN t ht
-
-end Submission
-
-
-namespace Submission
-
-theorem p05_fr_projective_of_trivial_minors_a5b449214a
-    {R : Type*} [CommRing R] {M : Type*} [AddCommGroup M] [Module R M]
-    (n p : ℕ) (P : Matrix (Fin n) (Fin p) R) (π : (Fin n → R) →ₗ[R] M)
-    (_hπ : Function.Surjective π)
-    (_hker : LinearMap.ker π = LinearMap.range P.mulVecLin)
-    (_hminor : ∀ d : ℕ,
-      let J : Ideal R := Ideal.span
-        {x : R | ∃ (rows : Fin d ↪ Fin n) (cols : Fin d ↪ Fin p),
-          x = Matrix.det (P.submatrix rows cols)}
-      J = ⊥ ∨ J = ⊤) :
-    Module.Projective R M := by
-  classical
-  -- Choose a maximal size whose minors generate the unit ideal.
-  let J : ℕ → Ideal R := fun d ↦ Ideal.span
-    {x : R | ∃ (rows : Fin d ↪ Fin n) (cols : Fin d ↪ Fin p),
-      x = Matrix.det (P.submatrix rows cols)}
-  have hzero : J 0 = ⊤ := by
-    apply (Ideal.eq_top_iff_one _).mpr
-    apply Ideal.subset_span
-    exact ⟨Function.Embedding.ofIsEmpty, Function.Embedding.ofIsEmpty,
-      Matrix.det_isEmpty.symm⟩
-  let d := Nat.findGreatest (fun k ↦ J k = ⊤) n
-  have hd : J d = ⊤ :=
-    Nat.findGreatest_spec (P := fun k ↦ J k = ⊤) (Nat.zero_le n) hzero
-  have hnext : ∀ (rows : Fin (d + 1) ↪ Fin n) (cols : Fin (d + 1) ↪ Fin p),
-      Matrix.det (P.submatrix rows cols) = 0 := by
-    intro rows cols
-    have hbound : d + 1 ≤ n := by
-      simpa using Fintype.card_le_of_injective rows rows.injective
-    have hnot : J (d + 1) ≠ ⊤ :=
-      Nat.findGreatest_is_greatest (P := fun k ↦ J k = ⊤) (Nat.lt_succ_self d) hbound
-    have hbot : J (d + 1) = ⊥ := (_hminor (d + 1)).resolve_right hnot
-    have hmem : Matrix.det (P.submatrix rows cols) ∈ J (d + 1) :=
-      Ideal.subset_span ⟨rows, cols, rfl⟩
-    simpa only [hbot, Ideal.mem_bot] using hmem
-  -- Enumerate all minors of this size, including the unique empty minor.
-  let I := (Fin d ↪ Fin n) × (Fin d ↪ Fin p)
-  let q := Fintype.card I
-  let e : Fin q ≃ I := (Fintype.equivFin I).symm
-  let f : Fin q → R := fun i ↦ Matrix.det (P.submatrix (e i).1 (e i).2)
-  have hcover : Ideal.span (Set.range f) = ⊤ := by
-    convert hd using 1
-    congr 1
-    ext x
-    constructor
-    · rintro ⟨i, rfl⟩
-      exact ⟨(e i).1, (e i).2, rfl⟩
-    · rintro ⟨rows, cols, rfl⟩
-      exact ⟨e.symm (rows, cols), by simp [f]⟩
-  obtain ⟨s, hs⟩ := p05_ptm_split_of_away_splits_a5b449214a
-    n p q P π _hπ _hker f hcover (by
-      intro i
-      let S := Submonoid.powers (f i)
-      let A := Localization.Away (f i)
-      let loc (k : ℕ) : (Fin k → R) →ₗ[R] (Fin k → A) :=
-        LinearMap.pi fun j ↦ (Algebra.linearMap R A).comp (LinearMap.proj j)
-      let mloc := LocalizedModule.mkLinearMap S M
-      let PA : Matrix (Fin n) (Fin p) A := P.map (algebraMap R A)
-      let πA : (Fin n → A) →ₗ[A] LocalizedModule S M :=
-        IsLocalizedModule.mapExtendScalars S (loc n) mloc A π
-      have hπA : Function.Surjective πA :=
-        IsLocalizedModule.map_surjective S (loc n) mloc π _hπ
-      -- Localization of the matrix map is entrywise localization of the matrix.
-      have hP : IsLocalizedModule.map S (loc p) (loc n) P.mulVecLin =
-          PA.mulVecLin.restrictScalars R := by
-        apply IsLocalizedModule.linearMap_ext S (loc p) (loc n)
-        rw [IsLocalizedModule.map_comp]
-        apply LinearMap.ext
-        intro x
-        funext j
-        simp [loc, PA, Matrix.mulVec, dotProduct]
-      have hex := IsLocalizedModule.map_exact S (loc p) (loc n) mloc
-        P.mulVecLin π (LinearMap.exact_iff.mpr _hker)
-      have hkerA : LinearMap.ker πA = LinearMap.range PA.mulVecLin := by
-        apply LinearMap.exact_iff.mp
-        rw [hP] at hex
-        exact hex
-      have hunit : IsUnit (Matrix.det (PA.submatrix (e i).1 (e i).2)) := by
-        change IsUnit (Matrix.det ((algebraMap R A).mapMatrix
-          (P.submatrix (e i).1 (e i).2)))
-        rw [← RingHom.map_det]
-        exact IsLocalization.map_units A ⟨f i, Submonoid.mem_powers (f i)⟩
-      have hnextA : ∀ (rows : Fin (d + 1) ↪ Fin n) (cols : Fin (d + 1) ↪ Fin p),
-          Matrix.det (PA.submatrix rows cols) = 0 := by
-        intro rows cols
-        change Matrix.det ((algebraMap R A).mapMatrix (P.submatrix rows cols)) = 0
-        rw [← RingHom.map_det, hnext, map_zero]
-      obtain ⟨sA, hsA⟩ := p05_ptm_split_of_unit_minor_a5b449214a
-        n p d PA πA hπA hkerA (e i).1 (e i).2 hunit hnextA
-      -- Identify localized finite free modules with tuples over the localized ring.
-      let E : (Fin n → A) ≃ₗ[A] LocalizedModule S (Fin n → R) :=
-        (IsLocalizedModule.linearEquiv S (loc n)
-          (LocalizedModule.mkLinearMap S (Fin n → R))).extendScalarsOfIsLocalization S A
-      have hπE : (LocalizedModule.map S π).comp E.toLinearMap = πA := by
-        apply LinearMap.restrictScalars_injective R
-        apply IsLocalizedModule.linearMap_ext S (loc n) mloc
-        apply LinearMap.ext
-        intro x
-        simp [E, πA, mloc, IsLocalizedModule.mapExtendScalars,
-          LocalizedModule.mkLinearMap_apply]
-        exact LocalizedModule.map_mk S π x 1
-      refine ⟨E.toLinearMap.comp sA, ?_⟩
-      rw [← LinearMap.comp_assoc, hπE, hsA])
-  exact Module.Projective.of_split s π hs
-
-end Submission
-
-
 namespace Submission
 
 /-- A finite relative Hopf module is projective over the finite type Hopf algebra. -/
@@ -5731,5 +4881,387 @@ theorem p05_fr_finite_relative_hopf_module_projective_a5b449214a
       exact hd (by simpa only [Fintype.card_fin] using
         Fintype.card_le_of_injective rows rows.injective)
     rw [hempty, Ideal.span_empty]
+
+end Submission
+
+namespace Submission
+
+set_option maxHeartbeats 4000000 in
+set_option synthInstance.maxHeartbeats 400000 in
+set_option backward.isDefEq.respectTransparency.types false in
+theorem p05_finite_retraction_a5b449214a
+    {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H]
+    (A : Subalgebra k H) [Algebra.FiniteType k A]
+    (hΔ : ∀ x ∈ A, Coalgebra.comul (R := k) x ∈
+      Submodule.span k {t : TensorProduct k H H | ∃ a ∈ A, ∃ b ∈ A,
+        t = TensorProduct.tmul k a b})
+    (hS : ∀ x ∈ A, HopfAlgebra.antipode k x ∈ A)
+    (V : Submodule k H) [FiniteDimensional k V] (h1 : (1 : H) ∈ V)
+    (hV : ∀ x ∈ V, Coalgebra.comul (R := k) x ∈
+      Submodule.span k {t : TensorProduct k H H | ∃ a ∈ V, ∃ b : H,
+        t = TensorProduct.tmul k a b}) :
+    ∃ r : (Submodule.span A (V : Set H)) →ₗ[A] A,
+      ∀ (a : A) (ha : (a : H) ∈ Submodule.span A (V : Set H)),
+        r ⟨(a : H), ha⟩ = a := by
+  classical
+  -- Restrict the Hopf structure along the injective tensor inclusions (proof step 1).
+  let i : A →ₗ[k] H := A.val.toLinearMap
+  have hi : Function.Injective i := Subtype.val_injective
+  obtain ⟨p, hp⟩ := i.exists_leftInverse_of_injective (LinearMap.ker_eq_bot.mpr hi)
+  have hpi (a : A) : p (i a) = a := LinearMap.congr_fun hp a
+  let δ : A →ₗ[k] A ⊗[k] A :=
+    (TensorProduct.map p p).comp ((Coalgebra.comul (R := k)).comp i)
+  have hδ (a : A) : TensorProduct.map i i (δ a) = Coalgebra.comul (R := k) (i a) := by
+    change TensorProduct.map i i (TensorProduct.map p p (Coalgebra.comul (R := k) (i a))) = _
+    have hz := hΔ (i a) a.property
+    generalize Coalgebra.comul (R := k) (i a) = z at hz ⊢
+    induction hz using Submodule.span_induction with
+    | mem z hz =>
+      obtain ⟨x, hx, y, hy, rfl⟩ := hz
+      change i (p (i ⟨x, hx⟩)) ⊗ₜ[k] i (p (i ⟨y, hy⟩)) = _
+      rw [hpi, hpi]
+      rfl
+    | zero => simp
+    | add x y _ _ hx hy => simp only [map_add, hx, hy]
+    | smul c x _ hx => simp only [map_smul, hx]
+  have hδmap : (TensorProduct.map i i).comp δ = (Coalgebra.comul (R := k)).comp i :=
+    LinearMap.ext hδ
+  have ht : Function.Injective (TensorProduct.map i i) :=
+    TensorProduct.map_injective_of_flat_flat _ _ hi hi
+  let ε : A →ₗ[k] k := (Coalgebra.counit (R := k)).comp i
+  let : Coalgebra k A :=
+    { comul := δ
+      counit := ε
+      coassoc := by
+        ext a : 1
+        apply TensorProduct.map_injective_of_flat_flat i (TensorProduct.map i i) hi ht
+        change TensorProduct.map i (TensorProduct.map i i)
+          (TensorProduct.assoc k A A A (TensorProduct.map δ LinearMap.id (δ a))) =
+          TensorProduct.map i (TensorProduct.map i i) (TensorProduct.map LinearMap.id δ (δ a))
+        rw [TensorProduct.map_map_assoc]
+        simp only [TensorProduct.map_map, LinearMap.comp_id, hδmap]
+        have he : TensorProduct.map ((Coalgebra.comul (R := k)).comp i) i =
+            (TensorProduct.map (Coalgebra.comul (R := k)) LinearMap.id).comp
+              (TensorProduct.map i i) := by
+          ext a b
+          rfl
+        have he' : TensorProduct.map i ((Coalgebra.comul (R := k)).comp i) =
+            (TensorProduct.map LinearMap.id (Coalgebra.comul (R := k))).comp
+              (TensorProduct.map i i) := by
+          ext a b
+          rfl
+        rw [he, he']
+        simp only [LinearMap.comp_apply, hδ]
+        exact Coalgebra.coassoc_apply (R := k) (i a)
+      rTensor_counit_comp_comul := by
+        ext a : 1
+        apply TensorProduct.map_injective_of_flat_flat (LinearMap.id : k →ₗ[k] k) i
+          Function.injective_id hi
+        change TensorProduct.map LinearMap.id i (TensorProduct.map ε LinearMap.id (δ a)) = _
+        simp only [TensorProduct.map_map, LinearMap.id_comp, LinearMap.comp_id]
+        change TensorProduct.map ((Coalgebra.counit (R := k)).comp i) i (δ a) = _
+        rw [show i = (LinearMap.id : H →ₗ[k] H).comp i from rfl, TensorProduct.map_comp]
+        simp only [LinearMap.comp_apply, LinearMap.id_comp, hδ,
+          TensorProduct.map_tmul, LinearMap.id_apply, TensorProduct.mk_apply]
+        exact Coalgebra.rTensor_counit_comul (i a)
+      lTensor_counit_comp_comul := by
+        ext a : 1
+        apply TensorProduct.map_injective_of_flat_flat i (LinearMap.id : k →ₗ[k] k)
+          hi Function.injective_id
+        change TensorProduct.map i LinearMap.id (TensorProduct.map LinearMap.id ε (δ a)) = _
+        simp only [TensorProduct.map_map, LinearMap.id_comp, LinearMap.comp_id]
+        change TensorProduct.map i ((Coalgebra.counit (R := k)).comp i) (δ a) = _
+        rw [show i = (LinearMap.id : H →ₗ[k] H).comp i from rfl, TensorProduct.map_comp]
+        simp only [LinearMap.comp_apply, LinearMap.id_comp, hδ,
+          TensorProduct.map_tmul, LinearMap.id_apply, TensorProduct.mk_apply, LinearMap.flip_apply]
+        exact Coalgebra.lTensor_counit_comul (i a) }
+  let : Bialgebra k A := Bialgebra.mk' k A
+    (by change Coalgebra.counit (R := k) (1 : H) = 1; simp)
+    (by intros a b; exact Bialgebra.counit_mul (i a) (i b))
+    (by
+      change δ 1 = 1
+      apply ht
+      rw [hδ]
+      change Coalgebra.comul (R := k) (1 : H) =
+        Algebra.TensorProduct.map A.val A.val 1
+      simp)
+    (by
+      intros a b
+      change δ (a * b) = δ a * δ b
+      apply ht
+      rw [hδ]
+      change Coalgebra.comul (R := k) (i a * i b) =
+        Algebra.TensorProduct.map A.val A.val (δ a * δ b)
+      rw [map_mul (Algebra.TensorProduct.map A.val A.val)]
+      change _ = TensorProduct.map i i (δ a) * TensorProduct.map i i (δ b)
+      rw [hδ, hδ, Bialgebra.comul_mul])
+  let sA : A →ₗ[k] A := ((HopfAlgebra.antipode k).comp i).codRestrict A.toSubmodule
+    (fun a => hS (i a) a.property)
+  let : HopfAlgebra k A :=
+    { antipode := sA
+      mul_antipode_rTensor_comul := by
+        have he : i.comp ((LinearMap.mul' k A).comp (sA.rTensor A)) =
+            ((LinearMap.mul' k H).comp ((HopfAlgebra.antipode k).rTensor H)).comp
+              (TensorProduct.map i i) := by
+          ext a b
+          rfl
+        ext a : 1
+        apply hi
+        change (i.comp ((LinearMap.mul' k A).comp (sA.rTensor A))) (δ a) = _
+        rw [he]
+        simp only [LinearMap.comp_apply, hδ, HopfAlgebra.mul_antipode_rTensor_comul_apply]
+        rfl
+      mul_antipode_lTensor_comul := by
+        have he : i.comp ((LinearMap.mul' k A).comp (sA.lTensor A)) =
+            ((LinearMap.mul' k H).comp ((HopfAlgebra.antipode k).lTensor H)).comp
+              (TensorProduct.map i i) := by
+          ext a b
+          rfl
+        ext a : 1
+        apply hi
+        change (i.comp ((LinearMap.mul' k A).comp (sA.lTensor A))) (δ a) = _
+        rw [he]
+        simp only [LinearMap.comp_apply, hδ, HopfAlgebra.mul_antipode_lTensor_comul_apply]
+        rfl }
+  let ι : BialgHom k A H :=
+    { toLinearMap := i, counit_comp := rfl, map_comp_comul := hδmap,
+      map_one' := A.val.map_one, map_mul' := A.val.map_mul }
+  -- Restrict the coaction to the finite A-span of V (proof step 3).
+  let N : Submodule A H := Submodule.span A (V : Set H)
+  let : Module.Finite A N := Module.Finite.of_fg (Module.Finite.iff_fg.mp
+    (inferInstance : Module.Finite k V)).span
+  have hAN (a : A) : i a ∈ N := by
+    have h := N.smul_mem a (Submodule.subset_span h1)
+    change (a : H) * 1 ∈ N at h
+    change (a : H) ∈ N
+    simpa only [mul_one] using h
+  let j : A →ₗ[A] N := (Algebra.linearMap A H).codRestrict N hAN
+  let v : N →ₗ[k] H := N.subtype.restrictScalars k
+  have hv : Function.Injective v := Subtype.val_injective
+  let t : N ⊗[k] H →ₗ[k] H ⊗[k] H := v.rTensor H
+  have htN : Function.Injective t :=
+    Module.Flat.rTensor_preserves_injective_linearMap v hv
+  -- The comultiplication of a scalar acts on the restricted tensor product.
+  have hact (a : A) (z : N ⊗[k] H) :
+      let d := Coalgebra.Repr.arbitrary k a
+      t (∑ b ∈ d.index, TensorProduct.map ((Algebra.lsmul k k N) (d.left b))
+        (LinearMap.mulLeft k (ι (d.right b))) z) =
+        Coalgebra.comul (R := k) (i a) * t z := by
+    dsimp only
+    let d := Coalgebra.Repr.arbitrary k a
+    have hd : Coalgebra.comul (R := k) (i a) =
+        ∑ b ∈ d.index, i (d.left b) ⊗ₜ[k] i (d.right b) := by
+      rw [← hδ]
+      change TensorProduct.map i i (Coalgebra.comul (R := k) a) = _
+      rw [← d.eq]
+      simp only [map_sum, TensorProduct.map_tmul]
+    induction z using TensorProduct.induction_on with
+    | zero => simp [t]
+    | tmul n h =>
+      rw [hd, Finset.sum_mul]
+      simp only [map_sum]
+      apply Finset.sum_congr rfl
+      intro b hb
+      change (↑((d.left b) • n) : H) ⊗ₜ[k] (i (d.right b) * h) =
+        (i (d.left b) ⊗ₜ[k] i (d.right b)) * ((n : H) ⊗ₜ[k] h)
+      rw [Algebra.TensorProduct.tmul_mul_tmul]
+      rfl
+    | add x y hx hy =>
+      simp only [map_add, Finset.sum_add_distrib, hx, hy, mul_add]
+  have hN (n : H) (hn : n ∈ N) : Coalgebra.comul (R := k) n ∈ LinearMap.range t := by
+    induction hn using Submodule.span_induction with
+    | mem x hx =>
+      have hz := hV x hx
+      generalize Coalgebra.comul (R := k) x = z at hz ⊢
+      induction hz using Submodule.span_induction with
+      | mem z hz =>
+        obtain ⟨a, ha, b, rfl⟩ := hz
+        exact ⟨(⟨a, Submodule.subset_span ha⟩ : N) ⊗ₜ[k] b, rfl⟩
+      | zero => exact (LinearMap.range t).zero_mem
+      | add x y _ _ hx hy => exact (LinearMap.range t).add_mem hx hy
+      | smul c x _ hx => exact (LinearMap.range t).smul_mem c hx
+    | zero => simp
+    | add x y _ _ hx hy => simpa only [map_add] using (LinearMap.range t).add_mem hx hy
+    | smul a x _ hx =>
+      obtain ⟨z, hz⟩ := hx
+      refine ⟨∑ b ∈ (Coalgebra.Repr.arbitrary k a).index,
+        TensorProduct.map ((Algebra.lsmul k k N) ((Coalgebra.Repr.arbitrary k a).left b))
+          (LinearMap.mulLeft k (ι ((Coalgebra.Repr.arbitrary k a).right b))) z, ?_⟩
+      rw [hact, hz]
+      exact (Bialgebra.comul_mul (i a) x).symm
+  obtain ⟨pN, hpN⟩ := v.exists_leftInverse_of_injective (LinearMap.ker_eq_bot.mpr hv)
+  let μN : N →ₗ[k] N ⊗[k] H :=
+    (pN.rTensor H).comp ((Coalgebra.comul (R := k)).comp v)
+  have hμN (n : N) : t (μN n) = Coalgebra.comul (R := k) (v n) := by
+    obtain ⟨z, hz⟩ := hN (v n) n.property
+    change t (pN.rTensor H (Coalgebra.comul (R := k) (v n))) = _
+    rw [← hz]
+    have he : (pN.rTensor H).comp t = LinearMap.id := by
+      dsimp only [t]
+      rw [← LinearMap.rTensor_comp, hpN, LinearMap.rTensor_id]
+    exact congrArg t (LinearMap.congr_fun he z)
+  have hμmap : t.comp μN = (Coalgebra.comul (R := k)).comp v := LinearMap.ext hμN
+  have hNcoassoc (n : N) :
+      TensorProduct.assoc k N H H (TensorProduct.map μN LinearMap.id (μN n)) =
+        TensorProduct.map LinearMap.id (Coalgebra.comul (R := k)) (μN n) := by
+    apply TensorProduct.map_injective_of_flat_flat v (LinearMap.id : H ⊗[k] H →ₗ[k] _)
+      hv Function.injective_id
+    rw [← TensorProduct.map_id (R := k) (M := H) (N := H), TensorProduct.map_map_assoc]
+    simp only [TensorProduct.map_map, LinearMap.comp_id, LinearMap.id_comp,
+      TensorProduct.map_id]
+    change TensorProduct.assoc k H H H (TensorProduct.map (t.comp μN) LinearMap.id (μN n)) = _
+    rw [hμmap]
+    have he : TensorProduct.map ((Coalgebra.comul (R := k)).comp v)
+        (LinearMap.id : H →ₗ[k] H) =
+        (TensorProduct.map (Coalgebra.comul (R := k)) LinearMap.id).comp t := by
+      ext n h
+      rfl
+    have he' : TensorProduct.map v (Coalgebra.comul (R := k)) =
+        (TensorProduct.map LinearMap.id (Coalgebra.comul (R := k))).comp t := by
+      ext n h
+      rfl
+    rw [he, he']
+    simp only [LinearMap.comp_apply, hμN]
+    exact Coalgebra.coassoc_apply (R := k) (v n)
+  have hNcounit (n : N) :
+      TensorProduct.rid k N (TensorProduct.map LinearMap.id (Coalgebra.counit (R := k))
+        (μN n)) = n := by
+    apply hv
+    have he : v.comp ((TensorProduct.rid k N).toLinearMap.comp
+        (TensorProduct.map LinearMap.id (Coalgebra.counit (R := k)))) =
+        ((TensorProduct.rid k H).toLinearMap.comp
+          (TensorProduct.map LinearMap.id (Coalgebra.counit (R := k)))).comp t := by
+      ext n h
+      simp [t]
+    calc
+      _ = TensorProduct.rid k H
+          (TensorProduct.map LinearMap.id (Coalgebra.counit (R := k)) (t (μN n))) :=
+        LinearMap.congr_fun he _
+      _ = v n := by
+        rw [hμN]
+        simpa only [LinearMap.lTensor, TensorProduct.rid_tmul, one_smul] using
+          congrArg (TensorProduct.rid k H) (Coalgebra.lTensor_counit_comul (v n))
+  have hNcompat (a : A) (n : N) :
+      let d := Coalgebra.Repr.arbitrary k a
+      μN (a • n) = ∑ b ∈ d.index,
+        TensorProduct.map ((Algebra.lsmul k k N) (d.left b))
+          (LinearMap.mulLeft k (ι (d.right b))) (μN n) := by
+    apply htN
+    rw [hμN, hact, hμN]
+    exact Bialgebra.comul_mul (i a) (v n)
+  -- The image of A is a subcomodule, so the coaction descends to N/A.
+  let L : Submodule A N := LinearMap.range j
+  let Q := N ⧸ L
+  let q : N →ₗ[k] Q := L.mkQ.restrictScalars k
+  have hq : Function.Surjective q := L.mkQ_surjective
+  have hμj (a : A) : μN (j a) =
+      TensorProduct.map (j.restrictScalars k) i (Coalgebra.comul (R := k) a) := by
+    apply htN
+    rw [hμN]
+    change Coalgebra.comul (R := k) (i a) =
+      TensorProduct.map v LinearMap.id
+        (TensorProduct.map (j.restrictScalars k) i (δ a))
+    rw [TensorProduct.map_map]
+    change Coalgebra.comul (R := k) (i a) = TensorProduct.map i i (δ a)
+    exact (hδ a).symm
+  have hqj (a : A) : q (j a) = 0 :=
+    (Submodule.Quotient.mk_eq_zero L).mpr ⟨a, rfl⟩
+  have hkill : L.restrictScalars k ≤ LinearMap.ker ((q.rTensor H).comp μN) := by
+    rintro _ ⟨a, rfl⟩
+    change q.rTensor H (μN (j a)) = 0
+    rw [hμj]
+    have he : (q.rTensor H).comp (TensorProduct.map (j.restrictScalars k) i) = 0 := by
+      ext a h
+      simp [hqj]
+    exact LinearMap.congr_fun he _
+  let μ : Q →ₗ[k] Q ⊗[k] H :=
+    ((L.restrictScalars k).liftQ ((q.rTensor H).comp μN) hkill).comp
+      (Submodule.Quotient.restrictScalarsEquiv k L).symm.toLinearMap
+  have hμq (n : N) : μ (q n) = q.rTensor H (μN n) := rfl
+  have hQcoassoc (m : Q) :
+      TensorProduct.assoc k Q H H (TensorProduct.map μ LinearMap.id (μ m)) =
+        TensorProduct.map LinearMap.id (Coalgebra.comul (R := k)) (μ m) := by
+    obtain ⟨n, rfl⟩ := hq m
+    rw [hμq]
+    have he : (TensorProduct.map μ (LinearMap.id : H →ₗ[k] H)).comp (q.rTensor H) =
+        (TensorProduct.map (q.rTensor H) LinearMap.id).comp
+          (TensorProduct.map μN LinearMap.id) := by
+      apply TensorProduct.ext'
+      intro n h
+      rfl
+    rw [← LinearMap.comp_apply, he, LinearMap.comp_apply]
+    change TensorProduct.assoc k Q H H
+      (TensorProduct.map (TensorProduct.map q LinearMap.id) LinearMap.id
+        (TensorProduct.map μN LinearMap.id (μN n))) = _
+    rw [← TensorProduct.map_map_assoc]
+    simp only [TensorProduct.map_id]
+    rw [hNcoassoc]
+    have he' : (TensorProduct.map q (LinearMap.id : H ⊗[k] H →ₗ[k] _)).comp
+        (TensorProduct.map LinearMap.id (Coalgebra.comul (R := k))) =
+        (TensorProduct.map LinearMap.id (Coalgebra.comul (R := k))).comp (q.rTensor H) := by
+      ext n h
+      rfl
+    exact LinearMap.congr_fun he' (μN n)
+  have hQcounit (m : Q) :
+      TensorProduct.rid k Q (TensorProduct.map LinearMap.id (Coalgebra.counit (R := k))
+        (μ m)) = m := by
+    obtain ⟨n, rfl⟩ := hq m
+    rw [hμq]
+    have he : ((TensorProduct.rid k Q).toLinearMap.comp
+        (TensorProduct.map LinearMap.id (Coalgebra.counit (R := k)))).comp (q.rTensor H) =
+        q.comp ((TensorProduct.rid k N).toLinearMap.comp
+          (TensorProduct.map LinearMap.id (Coalgebra.counit (R := k)))) := by
+      ext n h
+      simp
+    calc
+      _ = q (TensorProduct.rid k N
+          (TensorProduct.map LinearMap.id (Coalgebra.counit (R := k)) (μN n))) :=
+        LinearMap.congr_fun he _
+      _ = q n := congrArg q (hNcounit n)
+  have hQcompat (a : A) (m : Q) :
+      let d := Coalgebra.Repr.arbitrary k a
+      μ (a • m) = ∑ b ∈ d.index,
+        TensorProduct.map ((Algebra.lsmul k k Q) (d.left b))
+          (LinearMap.mulLeft k (ι (d.right b))) (μ m) := by
+    obtain ⟨n, rfl⟩ := hq m
+    change μ (q (a • n)) = _
+    rw [hμq, hNcompat]
+    simp only [map_sum, hμq]
+    apply Finset.sum_congr rfl
+    intro b hb
+    have he : (q.rTensor H).comp
+        (TensorProduct.map ((Algebra.lsmul k k N) ((Coalgebra.Repr.arbitrary k a).left b))
+          (LinearMap.mulLeft k (ι ((Coalgebra.Repr.arbitrary k a).right b)))) =
+        (TensorProduct.map ((Algebra.lsmul k k Q) ((Coalgebra.Repr.arbitrary k a).left b))
+          (LinearMap.mulLeft k (ι ((Coalgebra.Repr.arbitrary k a).right b)))).comp
+            (q.rTensor H) := by
+      apply TensorProduct.ext'
+      intro n h
+      change L.mkQ ((Coalgebra.Repr.arbitrary k a).left b • n) ⊗ₜ[k] _ =
+        ((Coalgebra.Repr.arbitrary k a).left b • L.mkQ n) ⊗ₜ[k] _
+      rw [map_smul]
+      rfl
+    exact LinearMap.congr_fun he (μN n)
+  -- Apply the supplied projectivity interface, then split the quotient (proof step 14).
+  let : Module.Projective A Q :=
+    p05_fr_finite_relative_hopf_module_projective_a5b449214a ι hi μ
+      hQcoassoc hQcounit hQcompat
+  obtain ⟨σ, hσ⟩ := Module.projective_lifting_property L.mkQ
+    (LinearMap.id : Q →ₗ[A] Q) L.mkQ_surjective
+  let e := LinearEquiv.ofInjective j (fun a b hab => hi (congrArg v hab))
+  let rL : N →ₗ[A] L := (LinearMap.id - σ.comp L.mkQ).codRestrict L (by
+    intro n
+    apply (Submodule.Quotient.mk_eq_zero L).mp
+    change L.mkQ (n - σ (L.mkQ n)) = 0
+    rw [map_sub, show L.mkQ (σ (L.mkQ n)) = L.mkQ n from LinearMap.congr_fun hσ _, sub_self])
+  refine ⟨e.symm.toLinearMap.comp rL, ?_⟩
+  intro a ha
+  apply e.injective
+  simp only [LinearMap.comp_apply, LinearEquiv.coe_toLinearMap, LinearEquiv.apply_symm_apply]
+  apply Subtype.ext
+  change (⟨(a : H), ha⟩ : N) - σ (L.mkQ ⟨(a : H), ha⟩) = j a
+  have hzero : L.mkQ (⟨(a : H), ha⟩ : N) = 0 := hqj a
+  rw [hzero, map_zero, sub_zero]
+  rfl
 
 end Submission
