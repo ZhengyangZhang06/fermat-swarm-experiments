@@ -4903,6 +4903,231 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
         have hnorm := (Complex.norm_le_abs_re_add_abs_im (w - z)).trans (add_le_add hre him)
         dsimp [d] at hnorm
         linarith
+  -- Step 6: choose a translated grid in general position and retain its local primitives.
+  have hcircleVerticalFinite (c : ℂ) (r x : ℝ) :
+      {z : ℂ | ‖z - c‖ = r ∧ z.re = x}.Finite := by
+    classical
+    let y := Real.sqrt (r ^ 2 - (x - c.re) ^ 2)
+    apply (Set.toFinite ({(x : ℂ) + ((c.im + y : ℝ) : ℂ) * Complex.I,
+      (x : ℂ) + ((c.im - y : ℝ) : ℂ) * Complex.I} : Set ℂ)).subset
+    intro z hz
+    have hs := Complex.sq_norm_sub_sq_re (z - c)
+    rw [hz.1, Complex.sub_re, Complex.sub_im, hz.2] at hs
+    have hsqrt : y = |z.im - c.im| := by
+      dsimp [y]
+      rw [hs, Real.sqrt_sq_eq_abs]
+    by_cases h : 0 ≤ z.im - c.im
+    · rw [abs_of_nonneg h] at hsqrt
+      apply Or.inl
+      apply Complex.ext
+      · simpa using hz.2
+      · simp only [Complex.add_im, Complex.ofReal_im, Complex.mul_im, Complex.ofReal_re,
+          Complex.I_im, Complex.I_re, mul_one, mul_zero, add_zero, zero_add]
+        linarith
+    · rw [abs_of_neg (lt_of_not_ge h)] at hsqrt
+      apply Or.inr
+      apply Complex.ext
+      · simpa using hz.2
+      · simp only [Complex.add_im, Complex.ofReal_im, Complex.mul_im, Complex.ofReal_re,
+          Complex.I_im, Complex.I_re, mul_one, mul_zero, add_zero, zero_add]
+        linarith
+
+  have hcircleHorizontalFinite (c : ℂ) (r y : ℝ) :
+      {z : ℂ | ‖z - c‖ = r ∧ z.im = y}.Finite := by
+    classical
+    let x := Real.sqrt (r ^ 2 - (y - c.im) ^ 2)
+    apply (Set.toFinite ({((c.re + x : ℝ) : ℂ) + (y : ℂ) * Complex.I,
+      ((c.re - x : ℝ) : ℂ) + (y : ℂ) * Complex.I} : Set ℂ)).subset
+    intro z hz
+    have hs := Complex.sq_norm_sub_sq_re (z - c)
+    rw [hz.1, Complex.sub_re, Complex.sub_im, hz.2] at hs
+    have hs' : r ^ 2 - (y - c.im) ^ 2 = (z.re - c.re) ^ 2 := by linarith
+    have hsqrt : x = |z.re - c.re| := by
+      dsimp [x]
+      rw [hs', Real.sqrt_sq_eq_abs]
+    by_cases h : 0 ≤ z.re - c.re
+    · rw [abs_of_nonneg h] at hsqrt
+      apply Or.inl
+      apply Complex.ext
+      · simp only [Complex.add_re, Complex.ofReal_re, Complex.mul_re, Complex.ofReal_im,
+          Complex.I_re, mul_zero]
+        linarith
+      · simpa using hz.2
+    · rw [abs_of_neg (lt_of_not_ge h)] at hsqrt
+      apply Or.inr
+      apply Complex.ext
+      · simp only [Complex.add_re, Complex.ofReal_re, Complex.mul_re, Complex.ofReal_im,
+          Complex.I_re, mul_zero]
+        linarith
+      · simpa using hz.2
+
+  have hcircleTransverse (c z : ℂ) (r : ℝ) (hz : ‖z - c‖ = r) :
+      (z.re ≠ c.re + r → z.re ≠ c.re - r → z.im ≠ c.im) ∧
+      (z.im ≠ c.im + r → z.im ≠ c.im - r → z.re ≠ c.re) := by
+    have hs := Complex.sq_norm_sub_sq_re (z - c)
+    rw [hz, Complex.sub_re, Complex.sub_im] at hs
+    constructor
+    · intro hplus hminus heq
+      have he : (z.re - c.re) ^ 2 = r ^ 2 := by rw [heq] at hs; nlinarith [hs]
+      rcases sq_eq_sq_iff_eq_or_eq_neg.mp he with h | h
+      · exact hplus (by linarith)
+      · exact hminus (by linarith)
+    · intro hplus hminus heq
+      have he : (z.im - c.im) ^ 2 = r ^ 2 := by rw [heq] at hs; nlinarith [hs]
+      rcases sq_eq_sq_iff_eq_or_eq_neg.mp he with h | h
+      · exact hplus (by linarith)
+      · exact hminus (by linarith)
+  have hgridChoice (d : ℝ) (P : Set ℂ) (C : Set (ℂ × ℝ))
+      (hP : P.Countable) (hC : C.Countable) :
+      ∃ a : ℂ,
+        (∀ p ∈ P, ∀ n : ℤ, a.re + n * d ≠ p.re ∧ a.im + n * d ≠ p.im) ∧
+        (∀ c ∈ C, ∀ n : ℤ,
+          a.re + n * d ≠ c.1.re + c.2 ∧ a.re + n * d ≠ c.1.re - c.2 ∧
+          a.im + n * d ≠ c.1.im + c.2 ∧ a.im + n * d ≠ c.1.im - c.2) ∧
+        (∀ c ∈ C, ∀ n m : ℤ,
+          ‖((a.re + n * d : ℝ) : ℂ) + ((a.im + m * d : ℝ) : ℂ) * Complex.I - c.1‖ ≠
+            c.2) := by
+    classical
+    have havoid : ∀ S : Set ℝ, S.Countable → ∃ x : ℝ, x ∉ S := by
+      intro S hS
+      by_contra! h
+      exact Set.not_countable_univ (hS.mono (fun x _ => h x))
+    let X : Set ℝ :=
+      (⋃ p ∈ P, ⋃ n : ℤ, {p.re - n * d}) ∪
+      (⋃ c ∈ C, ⋃ n : ℤ, {c.1.re + c.2 - n * d, c.1.re - c.2 - n * d})
+    have hX : X.Countable :=
+      (hP.biUnion (fun _ _ => Set.countable_iUnion (fun _ => Set.countable_singleton _))).union
+        (hC.biUnion (fun _ _ => Set.countable_iUnion (fun _ => Set.to_countable _)))
+    obtain ⟨x, hx⟩ := havoid X hX
+    let W : Set ℝ :=
+      (⋃ p ∈ P, ⋃ n : ℤ, {p.im - n * d}) ∪
+      (⋃ c ∈ C, ⋃ n : ℤ, {c.1.im + c.2 - n * d, c.1.im - c.2 - n * d}) ∪
+      (⋃ c ∈ C, ⋃ n : ℤ, ⋃ m : ℤ,
+        {c.1.im + Real.sqrt (c.2 ^ 2 - (x + n * d - c.1.re) ^ 2) - m * d,
+         c.1.im - Real.sqrt (c.2 ^ 2 - (x + n * d - c.1.re) ^ 2) - m * d})
+    have hW : W.Countable :=
+      ((hP.biUnion (fun _ _ => Set.countable_iUnion (fun _ => Set.countable_singleton _))).union
+        (hC.biUnion (fun _ _ => Set.countable_iUnion (fun _ => Set.to_countable _)))).union
+        (hC.biUnion (fun _ _ => Set.countable_iUnion (fun _ =>
+          Set.countable_iUnion (fun _ => Set.to_countable _))))
+    obtain ⟨y, hy⟩ := havoid W hW
+    refine ⟨(x : ℂ) + (y : ℂ) * Complex.I, ?_, ?_, ?_⟩
+    · intro p hp n
+      simp only [Complex.add_re, Complex.ofReal_re, Complex.mul_re, Complex.ofReal_im,
+        Complex.I_re, Complex.I_im, mul_zero, sub_zero, add_zero,
+        Complex.add_im, Complex.mul_im, mul_one, zero_add]
+      constructor
+      · intro heq
+        apply hx
+        exact Or.inl (Set.mem_iUnion₂.mpr ⟨p, hp,
+          Set.mem_iUnion.mpr ⟨n, by simp only [Set.mem_singleton_iff]; linarith⟩⟩)
+      · intro heq
+        apply hy
+        exact Or.inl (Or.inl (Set.mem_iUnion₂.mpr ⟨p, hp,
+          Set.mem_iUnion.mpr ⟨n, by simp only [Set.mem_singleton_iff]; linarith⟩⟩))
+    · intro c hc n
+      simp only [Complex.add_re, Complex.ofReal_re, Complex.mul_re, Complex.ofReal_im,
+        Complex.I_re, Complex.I_im, mul_zero, sub_zero, add_zero,
+        Complex.add_im, Complex.mul_im, mul_one, zero_add]
+      refine ⟨?_, ?_, ?_, ?_⟩
+      · intro heq
+        apply hx
+        exact Or.inr (Set.mem_iUnion₂.mpr ⟨c, hc,
+          Set.mem_iUnion.mpr ⟨n, Or.inl (by linarith)⟩⟩)
+      · intro heq
+        apply hx
+        exact Or.inr (Set.mem_iUnion₂.mpr ⟨c, hc,
+          Set.mem_iUnion.mpr ⟨n, Or.inr (by simp only [Set.mem_singleton_iff]; linarith)⟩⟩)
+      · intro heq
+        apply hy
+        exact Or.inl (Or.inr (Set.mem_iUnion₂.mpr ⟨c, hc,
+          Set.mem_iUnion.mpr ⟨n, Or.inl (by linarith)⟩⟩))
+      · intro heq
+        apply hy
+        exact Or.inl (Or.inr (Set.mem_iUnion₂.mpr ⟨c, hc,
+          Set.mem_iUnion.mpr ⟨n, Or.inr (by simp only [Set.mem_singleton_iff]; linarith)⟩⟩))
+    · intro c hc n m
+      simp only [Complex.add_re, Complex.ofReal_re, Complex.mul_re, Complex.ofReal_im,
+        Complex.I_re, Complex.I_im, mul_zero, sub_zero, add_zero,
+        Complex.add_im, Complex.mul_im, mul_one, zero_add]
+      intro heq
+      have hs := Complex.sq_norm_sub_sq_re
+        ((((x + n * d : ℝ) : ℂ) + ((y + m * d : ℝ) : ℂ) * Complex.I) - c.1)
+      rw [heq] at hs
+      simp only [Complex.sub_re, Complex.sub_im, Complex.add_re, Complex.ofReal_re,
+        Complex.add_im, Complex.ofReal_im, Complex.mul_re, Complex.mul_im,
+        Complex.I_re, Complex.I_im, mul_zero, mul_one, sub_zero, add_zero, zero_add] at hs
+      have hsqrt : Real.sqrt (c.2 ^ 2 - (x + n * d - c.1.re) ^ 2) =
+          |y + m * d - c.1.im| := by
+        rw [hs, Real.sqrt_sq_eq_abs]
+      apply hy
+      apply Or.inr
+      refine Set.mem_iUnion₂.mpr ⟨c, hc, Set.mem_iUnion.mpr ⟨n,
+        Set.mem_iUnion.mpr ⟨m, ?_⟩⟩⟩
+      by_cases h : 0 ≤ y + m * d - c.1.im
+      · rw [abs_of_nonneg h] at hsqrt
+        exact Or.inl (by linarith)
+      · rw [abs_of_neg (lt_of_not_ge h)] at hsqrt
+        exact Or.inr (by simp only [Set.mem_singleton_iff]; linarith)
+  have htranslatedMesh (Q : Set ℂ) (hQ : IsCompact Q) (δ d : ℝ)
+      (hd : 0 < d) (hdδ : 2 * d < δ)
+      (hmesh : ∀ z ∈ Q, Complex.IsExactOn L (Metric.ball z δ)) :
+      let square : ℂ → ℤ × ℤ → Set ℂ := fun a i => {z |
+        a.re + (i.1 : ℝ) * d ≤ z.re ∧ z.re ≤ a.re + ((i.1 : ℝ) + 1) * d ∧
+        a.im + (i.2 : ℝ) * d ≤ z.im ∧ z.im ≤ a.im + ((i.2 : ℝ) + 1) * d}
+      ∀ a : ℂ,
+        let cells : Set (ℤ × ℤ) := {i | (Q ∩ square a i).Nonempty}
+        cells.Finite ∧ Q ⊆ ⋃ i ∈ cells, square a i ∧
+          ∀ i ∈ cells, Complex.IsExactOn L (square a i) := by
+    classical
+    intro square a cells
+    have hcover : ∀ z : ℂ, ∃ i : ℤ × ℤ, z ∈ square a i := by
+      intro z
+      refine ⟨(⌊(z.re - a.re) / d⌋, ⌊(z.im - a.im) / d⌋), ?_⟩
+      have hlo (x : ℝ) : (⌊x / d⌋ : ℝ) * d ≤ x := by
+        simpa only [div_mul_cancel₀ _ hd.ne'] using
+          mul_le_mul_of_nonneg_right (Int.floor_le (x / d)) hd.le
+      have hhi (x : ℝ) : x ≤ ((⌊x / d⌋ : ℝ) + 1) * d := by
+        simpa only [div_mul_cancel₀ _ hd.ne'] using
+          mul_le_mul_of_nonneg_right (Int.lt_floor_add_one (x / d)).le hd.le
+      exact ⟨by linarith [hlo (z.re - a.re)], by linarith [hhi (z.re - a.re)],
+        by linarith [hlo (z.im - a.im)], by linarith [hhi (z.im - a.im)]⟩
+    have hfinite : cells.Finite := by
+      obtain ⟨R, hR⟩ := isBounded_iff_forall_norm_le.mp hQ.isBounded
+      obtain ⟨N, hN⟩ := exists_nat_gt ((R + ‖a‖ + d) / d)
+      have hNd : R + ‖a‖ + d < (N : ℝ) * d := by
+        simpa only [div_mul_cancel₀ _ hd.ne'] using mul_lt_mul_of_pos_right hN hd
+      apply (Set.finite_Icc ((-(N : ℤ), -(N : ℤ))) ((N : ℤ), (N : ℤ))).subset
+      intro i hi
+      obtain ⟨z, hz, hzi⟩ := hi
+      have hzre := abs_le.mp ((Complex.abs_re_le_norm z).trans (hR z hz))
+      have hzim := abs_le.mp ((Complex.abs_im_le_norm z).trans (hR z hz))
+      have hare := abs_le.mp (Complex.abs_re_le_norm a)
+      have haim := abs_le.mp (Complex.abs_im_le_norm a)
+      have hi1lo : -(N : ℝ) ≤ (i.1 : ℝ) := by nlinarith [hzi.2.1]
+      have hi1hi : (i.1 : ℝ) ≤ (N : ℝ) := by nlinarith [hzi.1]
+      have hi2lo : -(N : ℝ) ≤ (i.2 : ℝ) := by nlinarith [hzi.2.2.2]
+      have hi2hi : (i.2 : ℝ) ≤ (N : ℝ) := by nlinarith [hzi.2.2.1]
+      exact ⟨⟨by exact_mod_cast hi1lo, by exact_mod_cast hi2lo⟩,
+        ⟨by exact_mod_cast hi1hi, by exact_mod_cast hi2hi⟩⟩
+    refine ⟨hfinite, ?_, ?_⟩
+    · intro z hz
+      obtain ⟨i, hzi⟩ := hcover z
+      exact Set.mem_iUnion₂.mpr ⟨i, ⟨z, hz, hzi⟩, hzi⟩
+    · intro i hi
+      obtain ⟨z, hz, hzi⟩ := hi
+      obtain ⟨g, hg⟩ := hmesh z hz
+      refine ⟨g, fun w hwi => hg w ?_⟩
+      have hre : |(w - z).re| ≤ d := by
+        rw [Complex.sub_re, abs_le]
+        constructor <;> linarith [hzi.1, hzi.2.1, hwi.1, hwi.2.1]
+      have him : |(w - z).im| ≤ d := by
+        rw [Complex.sub_im, abs_le]
+        constructor <;> linarith [hzi.2.2.1, hzi.2.2.2, hwi.2.2.1, hwi.2.2.2]
+      rw [Metric.mem_ball, dist_eq_norm]
+      exact lt_of_le_of_lt
+        ((Complex.norm_le_abs_re_add_abs_im (w - z)).trans (add_le_add hre him))
+        (by linarith)
   have htranslateDisks : ∀ v ∈ H, ∀ ε : ℝ, 0 < ε → ε < 1 →
       (fun z : ℂ => z + 1) '' D v ε = D (v + 1) ε := by
     intro v hv ε hε hε1
@@ -6077,7 +6302,7 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     apply Complex.ofReal_injective
     push_cast at hresult ⊢
     exact hresult
-  filter_upwards [hcutZeros, hparametrizedExcisionBoundary] with ε hzeros hexc
+  filter_upwards [hsmallCuts, hcutZeros, hparametrizedExcisionBoundary] with ε hε hzeros hexc
   obtain ⟨r, δ, hr, hδ, hVopen, hVcompact, hVzeroFree, hVfrontier,
     hcircles, hmesh, hcells⟩ := hexc
   have hexcisionSum :
@@ -6105,11 +6330,151 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
           intervalIntegral (fun t => L (circleMap v r t) * deriv (circleMap v r) t)
             (2 * Real.pi) 0 MeasureTheory.volume) = 0 by
     simpa only [hexcisionSum, add_neg_eq_zero] using hclosedContour
+  -- Instantiate the general-position grid for the actual excised boundary.
+  let S : Set ℂ := {z ∈ Ω ε | F z = 0}
+  let V : Set ℂ := Ω ε \ ⋃ v ∈ S, Metric.closedBall v r
+  let d : ℝ := δ / 4
+  have hd : 0 < d := by dsimp [d]; positivity
+  have hdδ : 2 * d < δ := by dsimp [d]; linarith
+  let gridCorners : Set ℂ :=
+    {ρ, ρ + 1, (-1 / 2 : ℂ) + (Y : ℂ) * Complex.I,
+      (1 / 2 : ℂ) + (Y : ℂ) * Complex.I} ∪
+    (fun v => γ v ε (cutStart v)) '' B ∪ (fun v => γ v ε (cutEnd v)) '' B
+  let gridCircles : Set (ℂ × ℝ) :=
+    {(0, 1)} ∪ (fun v => (cutCenter v ε, cutRadius v ε)) '' B ∪
+      (fun v => (v, r)) '' S
+  have hSfinite : S.Finite := by
+    simpa only [S, hzeros] using hOzerosFinite
+  have hgridCornersCountable : gridCorners.Countable :=
+    ((Set.to_countable _).union (hBfinite.countable.image _)).union
+      (hBfinite.countable.image _)
+  have hgridCirclesFinite : gridCircles.Finite :=
+    ((Set.finite_singleton _).union (hBfinite.image _)).union (hSfinite.image _)
+  obtain ⟨a, hgridCorners, hgridTangencies, hgridVertices⟩ :=
+    hgridChoice d gridCorners gridCircles hgridCornersCountable hgridCirclesFinite.countable
+  let gridSquare : ℤ × ℤ → Set ℂ := fun i => {z |
+    a.re + (i.1 : ℝ) * d ≤ z.re ∧ z.re ≤ a.re + ((i.1 : ℝ) + 1) * d ∧
+    a.im + (i.2 : ℝ) * d ≤ z.im ∧ z.im ≤ a.im + ((i.2 : ℝ) + 1) * d}
+  let gridCells : Set (ℤ × ℤ) := {i | (closure V ∩ gridSquare i).Nonempty}
+  obtain ⟨hgridFinite, hgridCover, hgridPrimitives⟩ :
+      gridCells.Finite ∧ closure V ⊆ ⋃ i ∈ gridCells, gridSquare i ∧
+        ∀ i ∈ gridCells, Complex.IsExactOn L (gridSquare i) :=
+    htranslatedMesh (closure V) hVcompact δ d hd hdδ hmesh a
+  let gridVertex : ℤ × ℤ → ℂ := fun i =>
+    ((a.re + i.1 * d : ℝ) : ℂ) + ((a.im + i.2 * d : ℝ) : ℂ) * Complex.I
+  have hgridVerticalLeft : ∀ n : ℤ, a.re + n * d ≠ -1 / 2 := by
+    intro n
+    simpa only [hρre] using
+      (hgridCorners ρ (Or.inl (Or.inl (by simp))) n).1
+  have hgridVerticalRight : ∀ n : ℤ, a.re + n * d ≠ 1 / 2 := by
+    intro n
+    have hp := (hgridCorners (ρ + 1) (Or.inl (Or.inl (by simp))) n).1
+    have hre : (ρ + 1).re = 1 / 2 := by rw [Complex.add_re, hρre, Complex.one_re]; ring
+    simpa only [hre] using hp
+  have hgridHorizontalTop : ∀ n : ℤ, a.im + n * d ≠ Y := by
+    intro n
+    simpa using
+      (hgridCorners ((1 / 2 : ℂ) + (Y : ℂ) * Complex.I)
+        (Or.inl (Or.inl (by simp))) n).2
+  have hgridBoundarySupport : frontier V ⊆
+      (({z : ℂ | z.re = -1 / 2} ∪ {z : ℂ | z.re = 1 / 2}) ∪ {z : ℂ | z.im = Y}) ∪
+        ⋃ c ∈ gridCircles, {z : ℂ | ‖z - c.1‖ = c.2} := by
+    intro z hi
+    have hfront : frontier V =
+        ((⋃ i : Fin 4, closure (Ω ε) ∩ outerSupport i) ∪
+          ⋃ v ∈ B, γ v ε '' Set.Icc (cutEnd v) (cutStart v)) ∪
+        ⋃ v ∈ S, Metric.sphere v r := by
+      simpa only [V, S, Set.mem_ofPred_eq] using hVfrontier
+    rw [hfront] at hi
+    rcases hi with (hi | hi) | hi
+    · obtain ⟨j, hj⟩ := Set.mem_iUnion.mp hi
+      fin_cases j
+      · exact Or.inr (Set.mem_iUnion₂.mpr ⟨(0, 1), Or.inl (Or.inl (by simp)),
+          by simpa only [Set.mem_ofPred_eq, sub_zero] using (show ‖z‖ = 1 from hj.2)⟩)
+      · exact Or.inl (Or.inl (Or.inr hj.2))
+      · exact Or.inl (Or.inr hj.2)
+      · exact Or.inl (Or.inl (Or.inl hj.2))
+    · obtain ⟨v, hv, t, _, ht⟩ := Set.mem_iUnion₂.mp hi
+      have hsphere := hgammaSphere v (hKH hv.1.1) ε hε.1 hε.2 t
+      rw [ht] at hsphere
+      exact Or.inr (Set.mem_iUnion₂.mpr ⟨(cutCenter v ε, cutRadius v ε),
+        Or.inl (Or.inr ⟨v, hv, rfl⟩),
+        by simpa only [Set.mem_ofPred_eq, Metric.mem_sphere, dist_eq_norm] using hsphere⟩)
+    · obtain ⟨v, hv, hsphere⟩ := Set.mem_iUnion₂.mp hi
+      exact Or.inr (Set.mem_iUnion₂.mpr ⟨(v, r), Or.inr ⟨v, hv, rfl⟩,
+        by simpa only [Set.mem_ofPred_eq, Metric.mem_sphere, dist_eq_norm] using hsphere⟩)
+  have hgridVerticesAvoidFrontier : ∀ i : ℤ × ℤ, gridVertex i ∉ frontier V := by
+    intro i hi
+    rcases hgridBoundarySupport hi with ((hi | hi) | hi) | hi
+    · exact hgridVerticalLeft i.1 (by simpa [gridVertex] using hi)
+    · exact hgridVerticalRight i.1 (by simpa [gridVertex] using hi)
+    · exact hgridHorizontalTop i.2 (by simpa [gridVertex] using hi)
+    · obtain ⟨c, hc, hi⟩ := Set.mem_iUnion₂.mp hi
+      exact hgridVertices c hc i.1 i.2 hi
+  have hgridTransverse : ∀ c ∈ gridCircles, ∀ n : ℤ, ∀ z ∈ Metric.sphere c.1 c.2,
+      (z.re = a.re + n * d → z.im ≠ c.1.im) ∧
+      (z.im = a.im + n * d → z.re ≠ c.1.re) := by
+    intro c hc n z hz
+    have ht := hgridTangencies c hc n
+    have hs := hcircleTransverse c.1 z c.2
+      (by simpa only [Metric.mem_sphere, dist_eq_norm] using hz)
+    constructor
+    · intro heq
+      exact hs.1 (by simpa only [heq] using ht.1) (by simpa only [heq] using ht.2.1)
+    · intro heq
+      exact hs.2 (by simpa only [heq] using ht.2.2.1) (by simpa only [heq] using ht.2.2.2)
+  have hgridVerticalIntersections : ∀ n : ℤ,
+      {z ∈ frontier V | z.re = a.re + n * d}.Finite := by
+    intro n
+    let x := a.re + n * d
+    have htop : {z : ℂ | z.im = Y ∧ z.re = x}.Finite := by
+      apply (Set.finite_singleton ((x : ℂ) + (Y : ℂ) * Complex.I)).subset
+      intro z hz
+      apply Complex.ext
+      · simpa using hz.2
+      · simpa using hz.1
+    apply (htop.union (hgridCirclesFinite.biUnion
+      (fun c _ => hcircleVerticalFinite c.1 c.2 x))).subset
+    rintro z ⟨hz, hzx⟩
+    rcases hgridBoundarySupport hz with ((hl | hr) | ht) | hc
+    · exact False.elim (hgridVerticalLeft n (hzx ▸ hl))
+    · exact False.elim (hgridVerticalRight n (hzx ▸ hr))
+    · exact Or.inl ⟨ht, hzx⟩
+    · obtain ⟨c, hc, hzc⟩ := Set.mem_iUnion₂.mp hc
+      exact Or.inr (Set.mem_iUnion₂.mpr ⟨c, hc, hzc, hzx⟩)
+  have hgridHorizontalIntersections : ∀ n : ℤ,
+      {z ∈ frontier V | z.im = a.im + n * d}.Finite := by
+    intro n
+    let y := a.im + n * d
+    have hside (x : ℝ) : {z : ℂ | z.re = x ∧ z.im = y}.Finite := by
+      apply (Set.finite_singleton ((x : ℂ) + (y : ℂ) * Complex.I)).subset
+      intro z hz
+      apply Complex.ext
+      · simpa using hz.1
+      · simpa using hz.2
+    apply (((hside (-1 / 2)).union (hside (1 / 2))).union
+      (hgridCirclesFinite.biUnion (fun c _ => hcircleHorizontalFinite c.1 c.2 y))).subset
+    rintro z ⟨hz, hzy⟩
+    rcases hgridBoundarySupport hz with ((hl | hr) | ht) | hc
+    · exact Or.inl (Or.inl ⟨hl, hzy⟩)
+    · exact Or.inl (Or.inr ⟨hr, hzy⟩)
+    · exact False.elim (hgridHorizontalTop n (hzy ▸ ht))
+    · obtain ⟨c, hc, hzc⟩ := Set.mem_iUnion₂.mp hc
+      exact Or.inr (Set.mem_iUnion₂.mpr ⟨c, hc, hzc, hzy⟩)
+  have hgridCrossingsFinite : (⋃ i ∈ gridCells,
+      ({z ∈ frontier V | z.re = a.re + (i.1 : ℝ) * d} ∪
+       {z ∈ frontier V | z.re = a.re + ((i.1 + 1 : ℤ) : ℝ) * d}) ∪
+      ({z ∈ frontier V | z.im = a.im + (i.2 : ℝ) * d} ∪
+       {z ∈ frontier V | z.im = a.im + ((i.2 + 1 : ℤ) : ℝ) * d})).Finite :=
+    hgridFinite.biUnion (fun i _ =>
+      ((hgridVerticalIntersections i.1).union (hgridVerticalIntersections (i.1 + 1))).union
+        ((hgridHorizontalIntersections i.2).union (hgridHorizontalIntersections (i.2 + 1))))
   /- Remaining formal obligation: construct directed cell boundaries for the
   zero-free excised domain and cancel their primitive integrals. hVfrontier now
   identifies the actual cut arcs and excision circles; hcircles supplies their
   clockwise residue integrals. The finite cover and primitive-cycle cancellation
-  do not yet construct the directed cell boundaries needed for hclosedContour.
+  now include a translated grid avoiding corners, tangencies, and boundary vertices,
+  but do not yet construct the directed cell boundaries needed for hclosedContour.
   No global contour equality is assumed. -/
 
 end Submission
