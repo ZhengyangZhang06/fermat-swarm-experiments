@@ -13923,6 +13923,125 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
           rw [hone, (hcellEdgeEndpoints i j).2]
         exact Or.inl ⟨hone, heq, hvertexMem (cellNext j) (heq ▸ hendcl)⟩
       · exact Or.inr hfront.2
+  have hfiniteEdgeVertexSums (η : ℝ → ℂ) (hη : Continuous η)
+      (cuts : Finset ℝ) (h0 : 0 ∈ cuts) (h1 : 1 ∈ cuts)
+      (pieces retained : Finset (ℝ × ℝ))
+      (hpiece : ∀ p, p ∈ pieces ↔ p.1 ∈ cuts ∧ p.2 ∈ cuts ∧
+        p.1 < p.2 ∧ ∀ t ∈ cuts, t ≤ p.1 ∨ p.2 ≤ t)
+      (hretained : retained ⊆ pieces)
+      (hclosure : ∀ p ∈ retained, ∀ t ∈ Set.Icc p.1 p.2, η t ∈ closure V)
+      (hexterior : ∀ p ∈ pieces, p ∉ retained → ∀ t ∈ Set.Ioo p.1 p.2,
+        η t ∉ closure V)
+      (havoid0 : η 0 ∉ frontier V) (havoid1 : η 1 ∉ frontier V) :
+      ∀ G : ℂ → ℂ,
+        (∑ p ∈ retained, if p.1 = 0 then G (η p.1) else 0) =
+          (if η 0 ∈ V then G (η 0) else 0) ∧
+        (∑ p ∈ retained, if p.2 = 1 then G (η p.2) else 0) =
+          (if η 1 ∈ V then G (η 1) else 0) := by
+    classical
+    have hendpointRetained (p : ℝ × ℝ) (hp : p ∈ pieces) (t : ℝ)
+        (ht : t ∈ Set.Icc p.1 p.2) (havoid : η t ∉ frontier V) :
+        p ∈ retained ↔ η t ∈ V := by
+      constructor
+      · intro hret
+        by_contra hnot
+        exact havoid ⟨hclosure p hret t ht, fun hint => hnot (interior_subset hint)⟩
+      · intro hmem
+        by_contra hnot
+        have hsub : Set.Ioo p.1 p.2 ⊆ η ⁻¹' Vᶜ := by
+          intro u hu hVu
+          exact hexterior p hp hnot u hu (subset_closure hVu)
+        have hc := closure_minimal hsub (hVopen.isClosed_compl.preimage hη)
+        rw [closure_Ioo ((hpiece p).mp hp).2.2.1.ne] at hc
+        exact hc ht hmem
+    have hfirst : ∃! p : ℝ × ℝ, p ∈ pieces ∧ p.1 = 0 := by
+      let positive := cuts.filter (fun t => 0 < t)
+      have hpos : positive.Nonempty := ⟨1, Finset.mem_filter.mpr ⟨h1, zero_lt_one⟩⟩
+      let v := positive.min' hpos
+      have hv := Finset.mem_filter.mp (positive.min'_mem hpos)
+      refine ⟨(0, v), ⟨(hpiece (0, v)).mpr ⟨h0, hv.1, hv.2, ?_⟩, rfl⟩, ?_⟩
+      · intro t ht
+        by_cases ht0 : t ≤ 0
+        · exact Or.inl ht0
+        · exact Or.inr (positive.min'_le t (Finset.mem_filter.mpr ⟨ht, lt_of_not_ge ht0⟩))
+      · rintro q ⟨hq, hq0⟩
+        obtain ⟨_, hq2, hqLt, hqGap⟩ := (hpiece q).mp hq
+        apply Prod.ext hq0
+        apply le_antisymm
+        · rcases hqGap v hv.1 with h | h
+          · rw [hq0] at h
+            exact (not_le_of_gt hv.2 h).elim
+          · exact h
+        · exact positive.min'_le q.2 (Finset.mem_filter.mpr ⟨hq2, hq0 ▸ hqLt⟩)
+    have hlast : ∃! p : ℝ × ℝ, p ∈ pieces ∧ p.2 = 1 := by
+      let below := cuts.filter (fun t => t < 1)
+      have hbelow : below.Nonempty := ⟨0, Finset.mem_filter.mpr ⟨h0, zero_lt_one⟩⟩
+      let u := below.max' hbelow
+      have hu := Finset.mem_filter.mp (below.max'_mem hbelow)
+      refine ⟨(u, 1), ⟨(hpiece (u, 1)).mpr ⟨hu.1, h1, hu.2, ?_⟩, rfl⟩, ?_⟩
+      · intro t ht
+        by_cases ht1 : 1 ≤ t
+        · exact Or.inr ht1
+        · exact Or.inl (below.le_max' t (Finset.mem_filter.mpr ⟨ht, lt_of_not_ge ht1⟩))
+      · rintro q ⟨hq, hq1⟩
+        obtain ⟨hq0, _, hqLt, hqGap⟩ := (hpiece q).mp hq
+        refine Prod.ext (le_antisymm ?_ ?_) hq1
+        · exact below.le_max' q.1 (Finset.mem_filter.mpr ⟨hq0, hq1 ▸ hqLt⟩)
+        · rcases hqGap u hu.1 with h | h
+          · exact h
+          · rw [hq1] at h
+            exact (not_le_of_gt hu.2 h).elim
+    intro G
+    obtain ⟨p, ⟨hp, hp0⟩, hpu⟩ := hfirst
+    obtain ⟨q, ⟨hq, hq1⟩, hqu⟩ := hlast
+    have hpRet : p ∈ retained ↔ η 0 ∈ V :=
+      hendpointRetained p hp 0 ⟨hp0.le, hp0 ▸ ((hpiece p).mp hp).2.2.1.le⟩ havoid0
+    have hqRet : q ∈ retained ↔ η 1 ∈ V :=
+      hendpointRetained q hq 1 ⟨hq1 ▸ ((hpiece q).mp hq).2.2.1.le, hq1.ge⟩ havoid1
+    constructor
+    · by_cases hmem : η 0 ∈ V
+      · rw [if_pos hmem, Finset.sum_eq_single p]
+        · rw [if_pos hp0, hp0]
+        · intro x hx hxp
+          exact if_neg (fun hx0 => hxp (hpu x ⟨hretained hx, hx0⟩))
+        · intro hn
+          exact (hn (hpRet.mpr hmem)).elim
+      · rw [if_neg hmem]
+        apply Finset.sum_eq_zero
+        intro x hx
+        apply if_neg
+        intro hx0
+        have hxp := hpu x ⟨hretained hx, hx0⟩
+        exact hmem (hpRet.mp (hxp ▸ hx))
+    · by_cases hmem : η 1 ∈ V
+      · rw [if_pos hmem, Finset.sum_eq_single q]
+        · rw [if_pos hq1, hq1]
+        · intro x hx hxq
+          exact if_neg (fun hx1 => hxq (hqu x ⟨hretained hx, hx1⟩))
+        · intro hn
+          exact (hn (hqRet.mpr hmem)).elim
+      · rw [if_neg hmem]
+        apply Finset.sum_eq_zero
+        intro x hx
+        apply if_neg
+        intro hx1
+        have hxq := hqu x ⟨hretained hx, hx1⟩
+        exact hmem (hqRet.mp (hxq ▸ hx))
+  have hgridCellVertexSums (i : ℤ × ℤ) (j : Fin 4) (G : ℂ → ℂ) :
+      (∑ p ∈ retainedPieces i j, if p.1 = 0 then G (cellEdge i j p.1) else 0) =
+        (if cellVertex i j ∈ V then G (cellVertex i j) else 0) ∧
+      (∑ p ∈ retainedPieces i j, if p.2 = 1 then G (cellEdge i j p.2) else 0) =
+        (if cellVertex i (cellNext j) ∈ V then G (cellVertex i (cellNext j)) else 0) := by
+    have h := hfiniteEdgeVertexSums (cellEdge i j) (hcellEdgeContinuous i j)
+      (edgeCuts i j) ((hedgeCutsMem i j 0).mpr (Or.inl rfl))
+      ((hedgeCutsMem i j 1).mpr (Or.inr (Or.inl rfl)))
+      (edgePieces i j) (retainedPieces i j) (hedgePieceMem i j)
+      (fun _ hp => (Finset.mem_filter.mp hp).1)
+      (hretainedPieceClosure i j) (hunretainedPieceExterior i j)
+      (by simpa only [(hcellEdgeEndpoints i j).1] using hcellVertexAvoidsFrontier i j)
+      (by simpa only [(hcellEdgeEndpoints i j).2] using
+        hcellVertexAvoidsFrontier i (cellNext j)) G
+    simpa only [(hcellEdgeEndpoints i j).1, (hcellEdgeEndpoints i j).2] using h
   have hfiniteSubdivision (s : Finset ℝ) (a b : ℝ) (ha : a ∈ s) (hb : b ∈ s)
       (hs : ∀ x ∈ s, a ≤ x ∧ x ≤ b) (f : ℝ → ℂ)
       (hf : IntervalIntegrable f MeasureTheory.volume a b) :
@@ -14767,6 +14886,77 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
   have hgridEndpointSum :
       (∑ e ∈ retainedGridPieces, retainedIntegral e) = gridEndpoints :=
     Finset.sum_congr rfl hretainedIntegralEndpoint
+  have hdisjointGridSum (cells : Finset (ℤ × ℤ)) (pieces : (ℤ × ℤ) → Fin 4 → Finset (ℝ × ℝ))
+      (f : ((ℤ × ℤ) × Fin 4 × (ℝ × ℝ)) → ℂ) :
+      (∑ e ∈ cells.biUnion (fun i => Finset.univ.biUnion (fun j : Fin 4 =>
+        (pieces i j).image (fun p => (i, j, p)))), f e) =
+        ∑ i ∈ cells, ∑ j : Fin 4, ∑ p ∈ pieces i j, f (i, j, p) := by
+    classical
+    rw [Finset.sum_biUnion]
+    · apply Finset.sum_congr rfl
+      intro i _
+      rw [Finset.sum_biUnion]
+      · apply Finset.sum_congr rfl
+        intro j _
+        apply Finset.sum_image
+        intro p _ q _ hpq
+        exact congrArg (fun e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ) => e.2.2) hpq
+      · intro j _ k _ hne
+        apply Finset.disjoint_left.mpr
+        intro e he hek
+        obtain ⟨p, _, rfl⟩ := Finset.mem_image.mp he
+        obtain ⟨q, _, heq⟩ := Finset.mem_image.mp hek
+        exact hne (congrArg (fun e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ) => e.2.1) heq).symm
+    · intro i _ k _ hne
+      apply Finset.disjoint_left.mpr
+      intro e he hek
+      obtain ⟨j, _, he⟩ := Finset.mem_biUnion.mp he
+      obtain ⟨p, _, rfl⟩ := Finset.mem_image.mp he
+      obtain ⟨l, _, hek⟩ := Finset.mem_biUnion.mp hek
+      obtain ⟨q, _, heq⟩ := Finset.mem_image.mp hek
+      exact hne (congrArg (fun e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ) => e.1) heq).symm
+  -- In each cell the four vertex terms cancel cyclically. Only the
+  -- retained edge endpoints on the genuine frontier remain.
+  have hgridCellEndpointReduction (i : ℤ × ℤ) :
+      (∑ j : Fin 4, ∑ p ∈ retainedPieces i j,
+        (cellPrimitive i (cellEdge i j p.2) - cellPrimitive i (cellEdge i j p.1))) =
+      ∑ j : Fin 4, ∑ p ∈ retainedPieces i j,
+        ((if p.2 = 1 then 0 else cellPrimitive i (cellEdge i j p.2)) -
+          (if p.1 = 0 then 0 else cellPrimitive i (cellEdge i j p.1))) := by
+    have hbalance :
+        (∑ j : Fin 4, ∑ p ∈ retainedPieces i j,
+          if p.2 = 1 then cellPrimitive i (cellEdge i j p.2) else 0) =
+        ∑ j : Fin 4, ∑ p ∈ retainedPieces i j,
+          if p.1 = 0 then cellPrimitive i (cellEdge i j p.1) else 0 := by
+      simp_rw [(hgridCellVertexSums i _ (cellPrimitive i)).2,
+        (hgridCellVertexSums i _ (cellPrimitive i)).1]
+      exact Equiv.sum_comp cellNext
+        (fun j => if cellVertex i j ∈ V then cellPrimitive i (cellVertex i j) else 0)
+    have hsplit (j : Fin 4) (p : ℝ × ℝ) :
+        cellPrimitive i (cellEdge i j p.2) - cellPrimitive i (cellEdge i j p.1) =
+        ((if p.2 = 1 then 0 else cellPrimitive i (cellEdge i j p.2)) -
+          (if p.1 = 0 then 0 else cellPrimitive i (cellEdge i j p.1))) +
+        ((if p.2 = 1 then cellPrimitive i (cellEdge i j p.2) else 0) -
+          (if p.1 = 0 then cellPrimitive i (cellEdge i j p.1) else 0)) := by
+      split_ifs <;> ring
+    calc
+      _ = (∑ j : Fin 4, ∑ p ∈ retainedPieces i j,
+          ((if p.2 = 1 then 0 else cellPrimitive i (cellEdge i j p.2)) -
+            (if p.1 = 0 then 0 else cellPrimitive i (cellEdge i j p.1)))) +
+        ((∑ j : Fin 4, ∑ p ∈ retainedPieces i j,
+          if p.2 = 1 then cellPrimitive i (cellEdge i j p.2) else 0) -
+          ∑ j : Fin 4, ∑ p ∈ retainedPieces i j,
+            if p.1 = 0 then cellPrimitive i (cellEdge i j p.1) else 0) := by
+        simp_rw [hsplit, Finset.sum_add_distrib, Finset.sum_sub_distrib]
+      _ = _ := by rw [hbalance, sub_self, add_zero]
+  let gridCrossingEndpoints : ℂ := ∑ i ∈ hgridFinite.toFinset,
+    ∑ j : Fin 4, ∑ p ∈ retainedPieces i j,
+      ((if p.2 = 1 then 0 else cellPrimitive i (cellEdge i j p.2)) -
+        (if p.1 = 0 then 0 else cellPrimitive i (cellEdge i j p.1)))
+  have hgridEndpointReduction : gridEndpoints = gridCrossingEndpoints := by
+    dsimp only [gridEndpoints, gridCrossingEndpoints, retainedGridPieces]
+    rw [hdisjointGridSum]
+    exact Finset.sum_congr rfl (fun i _ => hgridCellEndpointReduction i)
   suffices hboundaryAssembly :
       intervalIntegral (retainedArc ε) (2 * Real.pi / 3) (Real.pi / 3)
           MeasureTheory.volume + verticalContribution ε + top Y +
@@ -14776,11 +14966,13 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
             (2 * Real.pi) 0 MeasureTheory.volume) =
         -(∑ e ∈ retainedGridPieces, retainedIntegral e) by
     rw [hboundaryAssembly, hretainedGridCancellation, neg_zero]
-  rw [houterEndpointSum, hindentationEndpointSum, hexcisionEndpointSum, hgridEndpointSum]
+  rw [houterEndpointSum, hindentationEndpointSum, hexcisionEndpointSum, hgridEndpointSum,
+    hgridEndpointReduction]
   /- Remaining formal obligation: prove the directed endpoint incidence for
   these concrete finite families. Every term now uses the fixed primitive
   of its cell, with the actual outer, indentation, excision and artificial
-  edge orientations. The required balance of genuine and artificial endpoint
-  occurrences in each crossed cell is still unproved. -/
+  edge orientations. Artificial grid-vertex occurrences have been cancelled
+  cyclically in each cell. The required balance between the remaining genuine
+  and artificial frontier-crossing occurrences is still unproved. -/
 
 end Submission
