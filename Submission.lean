@@ -282,3 +282,69 @@ theorem Submission.p10_17ae7b7d_efp_unimodular_eigenrow_iff :
       calc
         k * s - r = t * s - r * (t ^ 2 - k * t + 1) := by rw [hs]; ring
         _ = t * s := by rw [hpoly, mul_zero, sub_zero]
+
+theorem Submission.p10_17ae7b7d_phdisk_euclidean :
+    ∀ (v : ℂ) (ε : ℝ), 0 < v.im → 0 < ε → ε < 1 →
+      {z : ℂ | 0 < z.im ∧ ‖(z - v) / (z - star v)‖ ≤ ε} =
+        Metric.closedBall
+          ((v.re : ℂ) + ((v.im * (1 + ε ^ 2) / (1 - ε ^ 2) : ℝ) : ℂ) * Complex.I)
+          (2 * v.im * ε / (1 - ε ^ 2)) := by
+  intro v ε hv hε hε1
+  have hΔ : 0 < 1 - ε ^ 2 := by
+    nlinarith [mul_pos (sub_pos.mpr hε1) (show 0 < 1 + ε by linarith)]
+  let Y : ℝ := v.im * (1 + ε ^ 2) / (1 - ε ^ 2)
+  let R : ℝ := 2 * v.im * ε / (1 - ε ^ 2)
+  let C : ℂ := (v.re : ℂ) + (Y : ℂ) * Complex.I
+  have hR : 0 < R := div_pos (mul_pos (mul_pos (by norm_num) hv) hε) hΔ
+  have hYR : 0 < Y - R := by
+    have heq : Y - R = v.im * (1 - ε) ^ 2 / (1 - ε ^ 2) := by
+      dsimp [Y, R]
+      ring
+    rw [heq]
+    exact div_pos (mul_pos hv (sq_pos_of_pos (sub_pos.mpr hε1))) hΔ
+  have hsq (w : ℂ) : ‖w‖ ^ 2 = w.re ^ 2 + w.im ^ 2 := by
+    rw [Complex.sq_norm, Complex.normSq_apply]
+    ring
+  ext z
+  change (0 < z.im ∧ ‖(z - v) / (z - star v)‖ ≤ ε) ↔ dist z C ≤ R
+  rw [dist_eq_norm]
+  have hidentity : (1 - ε ^ 2) * (‖z - C‖ ^ 2 - R ^ 2) =
+      ‖z - v‖ ^ 2 - ε ^ 2 * ‖z - star v‖ ^ 2 := by
+    simp only [hsq, C, Complex.sub_re, Complex.sub_im, Complex.add_re,
+      Complex.add_im, Complex.mul_re, Complex.mul_im, Complex.ofReal_re,
+      Complex.ofReal_im, Complex.I_re, Complex.I_im, Complex.star_def,
+      Complex.conj_re, Complex.conj_im, mul_zero, mul_one,
+      sub_zero, add_zero, zero_add, sub_neg_eq_add]
+    dsimp [Y, R]
+    field_simp [hΔ.ne']
+    ring
+  have hshape : ‖z - C‖ ≤ R ↔
+      ‖z - v‖ ^ 2 ≤ ε ^ 2 * ‖z - star v‖ ^ 2 := by
+    calc
+      ‖z - C‖ ≤ R ↔ ‖z - C‖ ^ 2 - R ^ 2 ≤ 0 := by
+        rw [sub_nonpos, sq_le_sq₀ (norm_nonneg _) hR.le]
+      _ ↔ (1 - ε ^ 2) * (‖z - C‖ ^ 2 - R ^ 2) ≤ 0 := by
+        simpa only [mul_zero] using
+          (mul_le_mul_iff_right₀ hΔ (b := ‖z - C‖ ^ 2 - R ^ 2) (c := 0)).symm
+      _ ↔ ‖z - v‖ ^ 2 ≤ ε ^ 2 * ‖z - star v‖ ^ 2 := by
+        rw [hidentity, sub_nonpos]
+  have hratio (hz : 0 < z.im) : ‖(z - v) / (z - star v)‖ ≤ ε ↔
+      ‖z - v‖ ^ 2 ≤ ε ^ 2 * ‖z - star v‖ ^ 2 := by
+    have hden : z - star v ≠ 0 := by
+      intro heq
+      have him := congrArg Complex.im heq
+      simp only [Complex.sub_im, Complex.star_def, Complex.conj_im,
+        Complex.zero_im] at him
+      linarith
+    rw [norm_div, div_le_iff₀ (norm_pos_iff.mpr hden),
+      ← sq_le_sq₀ (norm_nonneg _) (mul_nonneg hε.le (norm_nonneg _)), mul_pow]
+  constructor
+  · rintro ⟨hz, hnorm⟩
+    exact hshape.mpr ((hratio hz).mp hnorm)
+  · intro hball
+    have him : |z.im - Y| ≤ R := by
+      simpa [C] using (Complex.abs_im_le_norm (z - C)).trans hball
+    have hz : 0 < z.im := by
+      have hlower := (abs_le.mp him).1
+      linarith
+    exact ⟨hz, (hratio hz).mpr (hshape.mp hball)⟩
