@@ -2157,10 +2157,116 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
   let N : ι → ℕ := fun v => Ideal.absNorm v.asIdeal
   let D : Set ι := {v | ¬ (N v).Prime ∨ N v ∈ insert q B}
   have hN (v : ι) : 2 ≤ N v := NumberField.HeightOneSpectrum.one_lt_absNorm v
-  -- Step 11: group the ordinary ideal series by norm, then restrict to prime ideals.
-  have hsum : ∀ s : ℝ, 1 < s →
-      Summable (fun v : ι => Real.rpow (N v : ℝ) (-s)) := by
-    intro s hs
+  -- Steps 11 and 20: ideal Euler products and the ordinary Dedekind-zeta series.
+  have hEulerIdeal (R : Type) [CommRing R] [IsDedekindDomain R]
+      (f : Ideal R →*₀ ℂ) (hf : Summable (fun I => ‖f I‖))
+      (hsmall : ∀ v : IsDedekindDomain.HeightOneSpectrum R, 1 - f v.asIdeal ≠ 0) :
+      Complex.exp (∑' v : IsDedekindDomain.HeightOneSpectrum R, -Complex.log (1 - f v.asIdeal)) =
+        ∑' I : Ideal R, f I := by
+    classical
+    let a : Finset (IsDedekindDomain.HeightOneSpectrum R) → Ideal R → ℂ := fun S I =>
+      if ∀ v ∈ S, ¬ v.asIdeal ∣ I then f I else 0
+    have ha (S : Finset (IsDedekindDomain.HeightOneSpectrum R)) : Summable (a S) := by
+      apply hf.of_norm_bounded
+      intro I
+      dsimp [a]
+      split_ifs <;> simp
+    have haway (p v : IsDedekindDomain.HeightOneSpectrum R) (hvp : v ≠ p) (I : Ideal R) :
+        v.asIdeal ∣ p.asIdeal * I ↔ v.asIdeal ∣ I := by
+      rw [v.prime.dvd_mul]
+      apply or_iff_right
+      intro h
+      apply hvp
+      apply IsDedekindDomain.HeightOneSpectrum.asIdeal_injective
+      exact (p.isMaximal.eq_of_le v.isPrime.ne_top (Ideal.dvd_iff_le.mp h)).symm
+    have hsieve (S : Finset (IsDedekindDomain.HeightOneSpectrum R)) :
+        (∏ v ∈ S, (1 - f v.asIdeal)) * (∑' I, f I) = ∑' I, a S I := by
+      induction S using Finset.induction_on with
+      | empty => simp [a]
+      | @insert p S hp ih =>
+        have hmul (I : Ideal R) : a S (p.asIdeal * I) = f p.asIdeal * a S I := by
+          have hiff : (∀ v ∈ S, ¬ v.asIdeal ∣ p.asIdeal * I) ↔
+              (∀ v ∈ S, ¬ v.asIdeal ∣ I) := by
+            apply forall_congr'
+            intro v
+            apply forall_congr'
+            intro hv
+            rw [haway p v (fun h => hp (h ▸ hv))]
+          simp only [a, hiff, map_mul]
+          split_ifs <;> simp
+        let e : Ideal R ≃ {I : Ideal R // p.asIdeal ∣ I} :=
+          Equiv.ofBijective (fun I => ⟨p.asIdeal * I, dvd_mul_right _ _⟩)
+            ⟨fun I J h => mul_left_cancel₀ p.ne_bot (congrArg Subtype.val h), by
+              rintro ⟨I, J, hJ⟩
+              exact ⟨J, Subtype.ext hJ.symm⟩⟩
+        have hdiv : (∑' I : {I : Ideal R // p.asIdeal ∣ I}, a S I.1) =
+            f p.asIdeal * ∑' I, a S I := by
+          rw [← e.tsum_eq]
+          change (∑' I, a S (p.asIdeal * I)) = _
+          simp_rw [hmul]
+          exact tsum_mul_left
+        have hrest : (∑' I : {I : Ideal R // ¬ p.asIdeal ∣ I}, a S I.1) =
+            ∑' I, a (insert p S) I := by
+          have hsub := tsum_subtype {I : Ideal R | ¬ p.asIdeal ∣ I} (a S)
+          simp only [Set.coe_eq_subtype, Set.mem_ofPred_eq] at hsub
+          rw [hsub]
+          apply tsum_congr
+          intro I
+          by_cases hpI : p.asIdeal ∣ I <;> simp [Set.indicator, a, hpI]
+        have hsplit := (ha S).tsum_subtype_add_tsum_subtype_compl
+          {I : Ideal R | p.asIdeal ∣ I}
+        change (∑' I : {I : Ideal R // p.asIdeal ∣ I}, a S I.1) +
+          (∑' I : {I : Ideal R // ¬ p.asIdeal ∣ I}, a S I.1) = _ at hsplit
+        rw [hdiv, hrest] at hsplit
+        rw [Finset.prod_insert hp, mul_assoc, ih]
+        linear_combination - hsplit
+    have hpoint (I : Ideal R) :
+        Tendsto (fun S : Finset (IsDedekindDomain.HeightOneSpectrum R) => a S I) atTop
+          (𝓝 (if I = 1 then (1 : ℂ) else 0)) := by
+      by_cases hIone : I = 1
+      · subst I
+        have hno (v : IsDedekindDomain.HeightOneSpectrum R) : ¬ v.asIdeal ∣ (1 : Ideal R) :=
+          fun h => v.irreducible.not_isUnit (isUnit_of_dvd_one h)
+        simpa only [a, hno, not_false_eq_true, implies_true, if_true, map_one] using
+          (tendsto_const_nhds : Tendsto (fun _ : Finset (IsDedekindDomain.HeightOneSpectrum R) => (1 : ℂ))
+            atTop (𝓝 1))
+      by_cases hIzero : I = 0
+      · simp only [hIone, if_false]
+        simpa only [a, hIzero, map_zero, ite_self] using
+          (tendsto_const_nhds : Tendsto (fun _ : Finset (IsDedekindDomain.HeightOneSpectrum R) => (0 : ℂ))
+            atTop (𝓝 0))
+      obtain ⟨P, hP, hPI⟩ := WfDvdMonoid.exists_irreducible_factor
+        (fun h => hIone (by simpa only [Ideal.one_eq_top] using Ideal.isUnit_iff.mp h)) hIzero
+      let v : IsDedekindDomain.HeightOneSpectrum R := IsDedekindDomain.HeightOneSpectrum.ofPrime hP.prime
+      apply tendsto_const_nhds.congr'
+      filter_upwards [eventually_ge_atTop ({v} : Finset (IsDedekindDomain.HeightOneSpectrum R))] with S hS
+      have hv : v ∈ S := hS (Finset.mem_singleton_self v)
+      have hnot : ¬ (∀ w ∈ S, ¬ w.asIdeal ∣ I) := fun h => h v hv hPI
+      simp only [a, if_neg hnot, if_neg hIone]
+    have hlimit : Tendsto (fun S : Finset (IsDedekindDomain.HeightOneSpectrum R) => ∑' I, a S I)
+        atTop (𝓝 (1 : ℂ)) := by
+      convert tendsto_tsum_of_dominated_convergence hf hpoint
+        (Filter.Eventually.of_forall (fun S I => ?_)) using 1
+      · simp
+      · dsimp [a]
+        split_ifs <;> simp
+    have hlogs : Summable (fun v : IsDedekindDomain.HeightOneSpectrum R => Complex.log (1 - f v.asIdeal)) :=
+      (hf.of_norm.comp_injective IsDedekindDomain.HeightOneSpectrum.asIdeal_injective).clog_one_sub
+    have hprod : HasProd (fun v : IsDedekindDomain.HeightOneSpectrum R => 1 - f v.asIdeal)
+        (Complex.exp (∑' v : IsDedekindDomain.HeightOneSpectrum R, Complex.log (1 - f v.asIdeal))) := by
+      simpa only [Function.comp_def, Complex.exp_log (hsmall _)] using hlogs.hasSum.cexp
+    have hid : Complex.exp (∑' v : IsDedekindDomain.HeightOneSpectrum R, Complex.log (1 - f v.asIdeal)) *
+        (∑' I, f I) = 1 := by
+      apply tendsto_nhds_unique (hprod.mul_const (∑' I, f I))
+      exact hlimit.congr (fun S => (hsieve S).symm)
+    rw [tsum_neg, Complex.exp_neg]
+    exact inv_eq_of_mul_eq_one_right hid
+  have hIdealSeries (s : ℝ) (hs : 1 < s) :
+      Summable (fun I : Ideal (NumberField.RingOfIntegers F) =>
+        Real.rpow (absNorm I : ℝ) (-s)) ∧
+      NumberField.dedekindZeta F (s : ℂ) = ∑' I : Ideal (NumberField.RingOfIntegers F),
+        (Real.rpow (absNorm I : ℝ) (-s) : ℂ) := by
+    classical
     let a : ℕ → ℝ := fun n => Nat.card {I : Ideal (NumberField.RingOfIntegers F) // absNorm I = n}
     have hlim : Tendsto (fun n : ℕ => (∑ k ∈ Finset.Icc 1 n, a k) / (n : ℝ))
         atTop (𝓝 (NumberField.dedekindZeta_residue F)) := by
@@ -2211,7 +2317,37 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
           funext fun I => by rw [I.property]
         rw [heq, tsum_fintype]
         simp [a, Nat.card_eq_fintype_card]
-    exact hideals.comp_injective IsDedekindDomain.HeightOneSpectrum.asIdeal_injective
+    refine ⟨hideals, ?_⟩
+    have hgroup : (∑' n : ℕ, a n * Real.rpow (n : ℝ) (-s)) =
+        ∑' I : Ideal (NumberField.RingOfIntegers F), Real.rpow (absNorm I : ℝ) (-s) := by
+      have h := (hideals.hasSum.tsum_fiberwise
+        (fun I : Ideal (NumberField.RingOfIntegers F) => absNorm I)).tsum_eq
+      rw [← h]
+      apply tsum_congr
+      intro n
+      change a n * Real.rpow (n : ℝ) (-s) =
+        ∑' I : {I : Ideal (NumberField.RingOfIntegers F) // absNorm I = n},
+          Real.rpow (absNorm I.1 : ℝ) (-s)
+      let : Fintype {I : Ideal (NumberField.RingOfIntegers F) // absNorm I = n} :=
+        (finite_setOfPred_absNorm_eq n).fintype
+      have heq : (fun I : {I : Ideal (NumberField.RingOfIntegers F) // absNorm I = n} =>
+          Real.rpow (absNorm I.1 : ℝ) (-s)) = fun _ => Real.rpow (n : ℝ) (-s) :=
+        funext fun I => by rw [I.property]
+      rw [heq, tsum_fintype]
+      simp [a, Nat.card_eq_fintype_card]
+    change (∑' n, LSeries.term (fun n => (a n : ℂ)) (s : ℂ) n) = _
+    rw [← Complex.ofReal_tsum, ← hgroup, Complex.ofReal_tsum]
+    apply tsum_congr
+    intro n
+    rw [LSeries.term_of_ne_zero' (Complex.ofReal_ne_zero.mpr (by linarith))]
+    rw [Complex.ofReal_mul, Real.rpow_eq_pow, Complex.ofReal_cpow (Nat.cast_nonneg n),
+      Complex.ofReal_neg, Complex.ofReal_natCast, Complex.cpow_neg, div_eq_mul_inv]
+    norm_cast
+  have hsum : ∀ s : ℝ, 1 < s →
+      Summable (fun v : ι => Real.rpow (N v : ℝ) (-s)) := by
+    intro s hs
+    exact (hIdealSeries s hs).1.comp_injective
+      IsDedekindDomain.HeightOneSpectrum.asIdeal_injective
   -- Step 26: uniformly control the Euler logarithm beyond its linear terms.
   have hEulerTail (χ : ι → ℂ) (hχ : ∀ v, ‖χ v‖ = 1) :
       ∃ R : ℝ, 0 ≤ R ∧ ∀ s : ℝ, 1 < s →
@@ -2656,7 +2792,69 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
         rw [heq]
         exact htail s hs)
     exact ⟨C, hC, ε, hε, hbound⟩
-  -- Still to formalize from the accepted argument: ray-class counting, the
-  -- cyclotomic Artin map, its Euler products and nonvanishing. No extra
-  -- assumption is introduced for these arithmetic constructions.
-  fail "Unfinished arithmetic input: extend normalized cyclotomic Euler products continuously and nonvanishingly at one."
+  by_cases hk : k.val = 0
+  · have hprincipal :
+        ∃ L : ℝ → ℂ, ContinuousWithinAt L (Set.Ici 1) 1 ∧ L 1 ≠ 0 ∧
+          ∀ s : ℝ, s ∈ Set.Ioo 1 2 →
+            Complex.exp ((∑' v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers F),
+              -Complex.log (1 - (Real.rpow (absNorm v.asIdeal : ℝ) (-s) : ℂ))) -
+                (Real.log (1 / (s - 1)) : ℂ)) = L s := by
+      classical
+      let L : ℝ → ℂ := Function.update
+        (fun s : ℝ => ((s : ℂ) - 1) * NumberField.dedekindZeta F (s : ℂ))
+        1 (NumberField.dedekindZeta_residue F : ℂ)
+      have hLone : L 1 = (NumberField.dedekindZeta_residue F : ℂ) := Function.update_self ..
+      refine ⟨L, ?_, ?_, ?_⟩
+      · apply continuousWithinAt_Ioi_iff_Ici.mp
+        change Tendsto L (𝓝[>] (1 : ℝ)) (𝓝 (L 1))
+        rw [hLone]
+        apply (NumberField.tendsto_sub_one_mul_dedekindZeta_nhdsGT F).congr'
+        filter_upwards [self_mem_nhdsWithin] with s hs
+        change 1 < s at hs
+        simp only [L, Function.update_of_ne (ne_of_gt hs)]
+      · rw [hLone, Complex.ofReal_ne_zero]
+        exact NumberField.dedekindZeta_residue_ne_zero F
+      · intro s hs
+        let f : Ideal (NumberField.RingOfIntegers F) →*₀ ℂ :=
+          { toFun := fun I => (Real.rpow (absNorm I : ℝ) (-s) : ℂ)
+            map_zero' := by
+              rw [map_zero, Nat.cast_zero, Real.rpow_eq_pow,
+                Real.zero_rpow (by linarith [hs.1]), Complex.ofReal_zero]
+            map_one' := by
+              rw [map_one, Nat.cast_one, Real.rpow_eq_pow, Real.one_rpow, Complex.ofReal_one]
+            map_mul' := fun I J => by
+              simp only [map_mul, Nat.cast_mul, Real.rpow_eq_pow,
+                Real.mul_rpow (Nat.cast_nonneg _) (Nat.cast_nonneg _), Complex.ofReal_mul] }
+        have hf : Summable (fun I => ‖f I‖) := by
+          apply (hIdealSeries s hs.1).1.congr
+          intro I
+          dsimp [f]
+          rw [Complex.norm_real, Real.norm_eq_abs,
+            abs_of_nonneg (Real.rpow_nonneg (Nat.cast_nonneg _) _)]
+        have hsmall (v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers F)) :
+            1 - f v.asIdeal ≠ 0 := by
+          intro hz
+          have hnorm : Real.rpow (absNorm v.asIdeal : ℝ) (-s) < 1 := by
+            rw [Real.rpow_eq_pow]
+            exact Real.rpow_lt_one_of_one_lt_of_neg
+              (by exact_mod_cast NumberField.HeightOneSpectrum.one_lt_absNorm v)
+              (by linarith [hs.1])
+          have heq := congrArg Complex.re (sub_eq_zero.mp hz)
+          change (1 : ℝ) = Real.rpow (absNorm v.asIdeal : ℝ) (-s) at heq
+          linarith
+        have heuler := (hEulerIdeal (NumberField.RingOfIntegers F) f hf hsmall).trans (hIdealSeries s hs.1).2.symm
+        change Complex.exp ((∑' v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers F),
+          -Complex.log (1 - f v.asIdeal)) - (Real.log (1 / (s - 1)) : ℂ)) = L s
+        rw [Complex.exp_sub, heuler]
+        have hexp : Complex.exp (Real.log (1 / (s - 1)) : ℂ) =
+            (1 / (s - 1) : ℝ) := by
+          rw [← Complex.ofReal_exp, Real.exp_log (one_div_pos.mpr (sub_pos.mpr hs.1))]
+        rw [hexp]
+        simp only [L, Function.update_of_ne (ne_of_gt hs.1), Complex.ofReal_div,
+          Complex.ofReal_one, Complex.ofReal_sub]
+        rw [div_div_eq_mul_div, div_one]
+        exact mul_comm _ _
+    simpa only [E, d, χ, hk, if_true, zero_mul, pow_zero, one_mul] using hprincipal
+  · -- The nontrivial-character input still requires the accepted ray-class
+    -- counting, character identities, and nonvanishing constructions.
+    fail "Unfinished arithmetic input: extend nontrivial cyclotomic Euler products continuously and nonvanishingly at one."
