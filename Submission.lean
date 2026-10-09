@@ -13389,7 +13389,8 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
   have hboundaryCutLocalExterior (v : ℂ) (hv : v ∈ B) (z : ℂ) (hzO : z ∈ O)
       (hz : z ∈ Metric.sphere (cutCenter v ε) (cutRadius v ε)) :
       ∀ᶠ w in nhds z, (w ∈ V ↔ cutRadius v ε < ‖w - cutCenter v ε‖) := by
-    have hdisk := (hdisks v ε (hKH hv.1.1) hε.1 hε.2).1
+    have hdisk : D v ε = Metric.closedBall (cutCenter v ε) (cutRadius v ε) :=
+      (hdisks v ε (hKH hv.1.1) hε.1 hε.2).1
     have hzD : z ∈ D v ε := by
       rw [hdisk]
       exact Metric.sphere_subset_closedBall hz
@@ -13399,7 +13400,8 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
       apply hOopen.sdiff
       apply (hBfinite.sdiff : (B \ {v}).Finite).isClosed_biUnion
       intro w hw
-      rw [(hdisks w ε (hKH hw.1.1.1) hε.1 hε.2).1]
+      rw [show D w ε = Metric.closedBall (cutCenter w ε) (cutRadius w ε) from
+        (hdisks w ε (hKH hw.1.1.1) hε.1 hε.2).1]
       exact Metric.isClosed_closedBall
     have hzW : z ∈ W := by
       refine ⟨hzO, ?_⟩
