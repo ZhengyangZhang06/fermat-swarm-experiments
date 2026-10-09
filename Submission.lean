@@ -15685,6 +15685,225 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
   have hexcisionEndpointReduction : excisionEndpoints = excisionCrossingEndpoints := by
     apply congrArg Neg.neg
     exact Finset.sum_congr rfl (fun v _ => hexcisionSeamReduction v)
+  -- Reindex the excision endpoints by the actual retained grid endpoints.
+  have hgridLineBoundary (z : ℂ) (i : ℤ × ℤ) (hi : z ∈ gridSquare i)
+      (hn : ∃ n : ℤ, z.re = a.re + n * d ∨ z.im = a.im + n * d) :
+      z.re = a.re + (i.1 : ℝ) * d ∨ z.re = a.re + ((i.1 : ℝ) + 1) * d ∨
+        z.im = a.im + (i.2 : ℝ) * d ∨ z.im = a.im + ((i.2 : ℝ) + 1) * d := by
+    obtain ⟨n, hn | hn⟩ := hn
+    · have hlo : i.1 ≤ n := by
+        exact_mod_cast (le_of_mul_le_mul_right (by linarith only [hi.1, hn]) hd :
+          (i.1 : ℝ) ≤ n)
+      have hhi : n ≤ i.1 + 1 := by
+        exact_mod_cast (le_of_mul_le_mul_right (by linarith only [hi.2.1, hn]) hd :
+          (n : ℝ) ≤ (i.1 : ℝ) + 1)
+      have heq : n = i.1 ∨ n = i.1 + 1 := by omega
+      rcases heq with rfl | rfl
+      · exact Or.inl hn
+      · exact Or.inr (Or.inl (by simpa only [Int.cast_add, Int.cast_one] using hn))
+    · have hlo : i.2 ≤ n := by
+        exact_mod_cast (le_of_mul_le_mul_right (by linarith only [hi.2.2.1, hn]) hd :
+          (i.2 : ℝ) ≤ n)
+      have hhi : n ≤ i.2 + 1 := by
+        exact_mod_cast (le_of_mul_le_mul_right (by linarith only [hi.2.2.2, hn]) hd :
+          (n : ℝ) ≤ (i.2 : ℝ) + 1)
+      have heq : n = i.2 ∨ n = i.2 + 1 := by omega
+      rcases heq with rfl | rfl
+      · exact Or.inr (Or.inr (Or.inl hn))
+      · exact Or.inr (Or.inr (Or.inr (by simpa only [Int.cast_add, Int.cast_one] using hn)))
+  have hcrossingCellEdge (z : ℂ) (hz : z ∈ gridCrossings) (i : ℤ × ℤ)
+      (hi : z ∈ gridSquare i) :
+      ∃ j : Fin 4, ∃ t ∈ Set.Ioo (0 : ℝ) 1, cellEdge i j t = z := by
+    obtain ⟨l, _, hz⟩ := Set.mem_iUnion₂.mp hz
+    have hfront : z ∈ frontier V := by
+      rcases hz with (h | h) | (h | h) <;> exact h.1
+    have hline : ∃ n : ℤ, z.re = a.re + n * d ∨ z.im = a.im + n * d := by
+      rcases hz with (h | h) | (h | h)
+      · exact ⟨l.1, Or.inl h.2⟩
+      · exact ⟨l.1 + 1, Or.inl h.2⟩
+      · exact ⟨l.2, Or.inr h.2⟩
+      · exact ⟨l.2 + 1, Or.inr h.2⟩
+    have hedge : z ∈ ⋃ j : Fin 4, cellEdge i j '' Set.Icc 0 1 := by
+      rw [hcellBoundarySides]
+      exact ⟨hi, hgridLineBoundary z i hi hline⟩
+    obtain ⟨j, t, ht, heq⟩ := Set.mem_iUnion.mp hedge
+    have ht0 : t ≠ 0 := by
+      intro h
+      rw [h, (hcellEdgeEndpoints i j).1] at heq
+      exact hcellVertexAvoidsFrontier i j (heq.symm ▸ hfront)
+    have ht1 : t ≠ 1 := by
+      intro h
+      rw [h, (hcellEdgeEndpoints i j).2] at heq
+      exact hcellVertexAvoidsFrontier i (cellNext j) (heq.symm ▸ hfront)
+    exact ⟨j, t, ⟨lt_of_le_of_ne ht.1 ht0.symm, lt_of_le_of_ne ht.2 ht1⟩, heq⟩
+  have hcellEdgeInteriorUnique (i : ℤ × ℤ) (j l : Fin 4) (t u : ℝ)
+      (ht : t ∈ Set.Ioo (0 : ℝ) 1) (hu : u ∈ Set.Ioo (0 : ℝ) 1)
+      (heq : cellEdge i j t = cellEdge i l u) : j = l ∧ t = u := by
+    have htd : 0 < t * d ∧ t * d < d :=
+      ⟨mul_pos ht.1 hd, by simpa only [one_mul] using mul_lt_mul_of_pos_right ht.2 hd⟩
+    have hud : 0 < u * d ∧ u * d < d :=
+      ⟨mul_pos hu.1 hd, by simpa only [one_mul] using mul_lt_mul_of_pos_right hu.2 hd⟩
+    have hx := congrArg Complex.re heq
+    have hy := congrArg Complex.im heq
+    rw [(hcellEdgeCoordinates i j t).1, (hcellEdgeCoordinates i l u).1] at hx
+    rw [(hcellEdgeCoordinates i j t).2, (hcellEdgeCoordinates i l u).2] at hy
+    have hindices : j = l := by
+      fin_cases j <;> fin_cases l <;> norm_num at hx hy ⊢ <;>
+        linarith only [htd.1, htd.2, hud.1, hud.2, hd, hx, hy]
+    subst l
+    exact ⟨rfl, hcellEdgeInjective i j heq⟩
+  let pieceEndpoint : Bool → (ℝ × ℝ) → ℝ := fun b p => if b then p.2 else p.1
+  let circleSeam : Bool → ℝ := fun b => if b then 2 * Real.pi else 0
+  let excisionEndpointPieces (v : {v // v ∈ S}) (b : Bool) :=
+    (excisionPieces v).filter (fun p => pieceEndpoint b p ≠ circleSeam b)
+  let excisionGridEndpoints (v : {v // v ∈ S}) (b : Bool) :=
+    retainedGridPieces.filter (fun e => pieceEndpoint b e.2.2 ∈ Set.Ioo (0 : ℝ) 1 ∧
+      ∃ s ∈ Set.Ioo (0 : ℝ) (2 * Real.pi),
+        cellEdge e.1 e.2.1 (pieceEndpoint b e.2.2) = circleMap v.1 r s)
+  have hexcisionEndpointInterior (v : {v // v ∈ S}) (b : Bool) (p : ℝ × ℝ)
+      (hp : p ∈ excisionEndpointPieces v b) :
+      pieceEndpoint b p ∈ Set.Ioo (0 : ℝ) (2 * Real.pi) ∧
+        circleMap v.1 r (pieceEndpoint b p) ∈ gridCrossings := by
+    obtain ⟨hpp, hpne⟩ := Finset.mem_filter.mp hp
+    have hpairs := hpp
+    rw [(hexcisionCertificate v).2.2.2.1] at hpairs
+    obtain ⟨hp₁, hp₂⟩ := Finset.mem_product.mp (Finset.mem_filter.mp hpairs).1
+    have hlt := (Finset.mem_filter.mp hpairs).2.1
+    have h₁ := (hexcisionCertificate v).2.2.1 p.1 hp₁
+    have h₂ := (hexcisionCertificate v).2.2.1 p.2 hp₂
+    have hmem : pieceEndpoint b p ∈ excisionCuts v := by
+      cases b <;> assumption
+    have hstrict : pieceEndpoint b p ∈ Set.Ioo (0 : ℝ) (2 * Real.pi) := by
+      cases b
+      · exact ⟨lt_of_le_of_ne h₁.1 hpne.symm, lt_of_lt_of_le hlt h₂.2⟩
+      · exact ⟨lt_of_le_of_lt h₁.1 hlt, lt_of_le_of_ne h₂.2 hpne⟩
+    refine ⟨hstrict, ?_⟩
+    rcases ((hexcisionCertificate v).2.2.2.2.2.2 _).mp hmem with h | h | h
+    · exact (ne_of_gt hstrict.1 h).elim
+    · exact (ne_of_lt hstrict.2 h).elim
+    · exact h.2
+  let excisionEndpointMatch (v : {v // v ∈ S}) (b : Bool)
+      (p : ℝ × ℝ) (e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ)) : Prop :=
+    excisionCell v p = e.1 ∧
+      circleMap v.1 r (pieceEndpoint b p) = cellEdge e.1 e.2.1 (pieceEndpoint b e.2.2)
+  have hexcisionEndpointRow (v : {v // v ∈ S}) (b : Bool) (p : ℝ × ℝ)
+      (hp : p ∈ excisionEndpointPieces v b) :
+      ∃! e, e ∈ excisionGridEndpoints v b ∧ excisionEndpointMatch v b p e := by
+    have hpp := (Finset.mem_filter.mp hp).1
+    obtain ⟨hs, hcross⟩ := hexcisionEndpointInterior v b p hp
+    have hpairs := hpp
+    rw [(hexcisionCertificate v).2.2.2.1] at hpairs
+    have hlt := (Finset.mem_filter.mp hpairs).2.1
+    have hbound : pieceEndpoint b p ∈ Set.Icc p.1 p.2 := by
+      cases b
+      · exact ⟨le_rfl, hlt.le⟩
+      · exact ⟨hlt.le, le_rfl⟩
+    have hcell := ((hexcisionCertificate v).2.2.2.2.1 p hpp).2.1 _ hbound
+    obtain ⟨j, t, ht, hpoint⟩ := hcrossingCellEdge _ hcross (excisionCell v p) hcell
+    have hinc := hexcisionArtificialIncidence v p hpp j (pieceEndpoint b p) t ht hpoint.symm
+    have hq : ∃! q, q ∈ retainedPieces (excisionCell v p) j ∧ pieceEndpoint b q = t := by
+      cases b
+      · exact hinc.1 rfl
+      · exact hinc.2 rfl
+    obtain ⟨q, ⟨hq, hqt⟩, hqunique⟩ := hq
+    let e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ) := (excisionCell v p, j, q)
+    have he : e ∈ excisionGridEndpoints v b := by
+      refine Finset.mem_filter.mpr ⟨(hretainedGridMem e).mpr
+        ⟨((hexcisionCertificate v).2.2.2.2.1 p hpp).1, hq⟩, ?_⟩
+      exact ⟨hqt.symm ▸ ht, pieceEndpoint b p, hs, by simpa only [e, hqt] using hpoint⟩
+    refine ⟨e, ⟨he, rfl, by simpa only [e, hqt] using hpoint.symm⟩, ?_⟩
+    intro e' he'
+    obtain ⟨he'mem, he'cell, he'point⟩ := he'
+    have ht' := (Finset.mem_filter.mp he'mem).2.1
+    have hq' := ((hretainedGridMem e').mp (Finset.mem_filter.mp he'mem).1).2
+    have hpath : cellEdge (excisionCell v p) j t =
+        cellEdge (excisionCell v p) e'.2.1 (pieceEndpoint b e'.2.2) := by
+      simpa only [he'cell] using hpoint.trans he'point
+    obtain ⟨hj, hparam⟩ := hcellEdgeInteriorUnique _ _ _ _ _ ht ht' hpath
+    have hpq : e'.2.2 = q := hqunique e'.2.2
+      ⟨by simpa only [he'cell, hj] using hq', hparam.symm⟩
+    exact Prod.ext he'cell.symm (Prod.ext hj.symm hpq)
+  have hexcisionEndpointColumn (v : {v // v ∈ S}) (b : Bool)
+      (e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ)) (he : e ∈ excisionGridEndpoints v b) :
+      ∃! p, p ∈ excisionEndpointPieces v b ∧ excisionEndpointMatch v b p e := by
+    obtain ⟨hemem, ht, s, hs, heq⟩ := Finset.mem_filter.mp he
+    have hq := ((hretainedGridMem e).mp hemem).2
+    have hinc := hexcisionGenuineIncidence e.1 e.2.1 e.2.2 hq
+      (pieceEndpoint b e.2.2) ht v s hs heq
+    have hp : ∃! p, p ∈ excisionPieces v ∧ pieceEndpoint b p = s ∧ excisionCell v p = e.1 := by
+      cases b
+      · exact hinc.1 rfl
+      · exact hinc.2 rfl
+    obtain ⟨p, ⟨hpp, hps, hcell⟩, hpunique⟩ := hp
+    have hp : p ∈ excisionEndpointPieces v b := by
+      refine Finset.mem_filter.mpr ⟨hpp, ?_⟩
+      rw [hps]
+      cases b
+      · exact ne_of_gt hs.1
+      · exact ne_of_lt hs.2
+    refine ⟨p, ⟨hp, hcell, by rw [hps]; exact heq.symm⟩, ?_⟩
+    intro q hq
+    obtain ⟨hqmem, hqcell, hqpoint⟩ := hq
+    have hsq := (hexcisionEndpointInterior v b q hqmem).1
+    have hparam : pieceEndpoint b q = s := by
+      apply eq_of_circleMap_eq hr.ne' _ (hqpoint.trans heq)
+      rw [abs_lt]
+      constructor <;> linarith only [hs.1, hs.2, hsq.1, hsq.2]
+    exact hpunique q ⟨(Finset.mem_filter.mp hqmem).1, hparam, hqcell⟩
+  have hexcisionEndpointSumReindex (v : {v // v ∈ S}) (b : Bool) :
+      (∑ p ∈ excisionEndpointPieces v b,
+        cellPrimitive (excisionCell v p) (circleMap v.1 r (pieceEndpoint b p))) =
+      ∑ e ∈ excisionGridEndpoints v b,
+        cellPrimitive e.1 (cellEdge e.1 e.2.1 (pieceEndpoint b e.2.2)) := by
+    let f := fun p => cellPrimitive (excisionCell v p) (circleMap v.1 r (pieceEndpoint b p))
+    let g := fun e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ) =>
+      cellPrimitive e.1 (cellEdge e.1 e.2.1 (pieceEndpoint b e.2.2))
+    have hrow (p : ℝ × ℝ) (hp : p ∈ excisionEndpointPieces v b) :
+        f p = ∑ e ∈ excisionGridEndpoints v b,
+          if excisionEndpointMatch v b p e then f p else 0 := by
+      obtain ⟨e, ⟨he, hrel⟩, hu⟩ := hexcisionEndpointRow v b p hp
+      rw [Finset.sum_eq_single e, if_pos hrel]
+      · intro e' he' hne
+        exact if_neg (fun h => hne (hu e' ⟨he', h⟩))
+      · exact fun h => (h he).elim
+    have hcolumn (e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ)) (he : e ∈ excisionGridEndpoints v b) :
+        (∑ p ∈ excisionEndpointPieces v b,
+          if excisionEndpointMatch v b p e then f p else 0) = g e := by
+      obtain ⟨p, ⟨hp, hrel⟩, hu⟩ := hexcisionEndpointColumn v b e he
+      rw [Finset.sum_eq_single p, if_pos hrel]
+      · exact congrArg₂ cellPrimitive hrel.1 hrel.2
+      · intro p' hp' hne
+        exact if_neg (fun h => hne (hu p' ⟨hp', h⟩))
+      · exact fun h => (h hp).elim
+    calc
+      _ = ∑ p ∈ excisionEndpointPieces v b, ∑ e ∈ excisionGridEndpoints v b,
+          if excisionEndpointMatch v b p e then f p else 0 := Finset.sum_congr rfl hrow
+      _ = ∑ e ∈ excisionGridEndpoints v b, ∑ p ∈ excisionEndpointPieces v b,
+          if excisionEndpointMatch v b p e then f p else 0 := Finset.sum_comm
+      _ = _ := Finset.sum_congr rfl hcolumn
+  let excisionGridContribution : ℂ := ∑ v : {v // v ∈ S},
+    ((∑ e ∈ excisionGridEndpoints v true,
+      cellPrimitive e.1 (cellEdge e.1 e.2.1 e.2.2.2)) -
+      ∑ e ∈ excisionGridEndpoints v false,
+        cellPrimitive e.1 (cellEdge e.1 e.2.1 e.2.2.1))
+  have hexcisionGridCancellation : excisionCrossingEndpoints = -excisionGridContribution := by
+    apply congrArg Neg.neg
+    apply Finset.sum_congr rfl
+    intro v _
+    rw [Finset.sum_sub_distrib]
+    have hsplit (b : Bool) :
+        (∑ p ∈ excisionPieces v,
+          if pieceEndpoint b p = circleSeam b then 0 else
+            cellPrimitive (excisionCell v p) (circleMap v.1 r (pieceEndpoint b p))) =
+        ∑ e ∈ excisionGridEndpoints v b,
+          cellPrimitive e.1 (cellEdge e.1 e.2.1 (pieceEndpoint b e.2.2)) := by
+      rw [← hexcisionEndpointSumReindex v b]
+      simp only [excisionEndpointPieces, Finset.sum_filter]
+      apply Finset.sum_congr rfl
+      intro p _
+      by_cases h : pieceEndpoint b p = circleSeam b <;> simp [h]
+    exact congrArg₂ (· - ·) (hsplit true) (hsplit false)
+
   have hretainedIntegralEndpoint (e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ))
       (he : e ∈ retainedGridPieces) :
       retainedIntegral e =
@@ -15795,15 +16014,16 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
         -(∑ e ∈ retainedGridPieces, retainedIntegral e) by
     rw [hboundaryAssembly, hretainedGridCancellation, neg_zero]
   rw [houterEndpointSum, hindentationEndpointSum, hexcisionEndpointSum, hgridEndpointSum,
-    hgridEndpointReduction, hexcisionEndpointReduction]
-  /- Remaining formal obligation: prove the directed endpoint incidence for
-  these concrete finite families. Every term now uses the fixed primitive
-  of its cell, with the actual outer, indentation, excision and artificial
-  edge orientations. Artificial grid-vertex occurrences have been cancelled
-  cyclically in each cell, and excision-circle seam occurrences now cancel
-  using the actual subdivision and common cell primitive. Circular crossings
-  have local occupied-side and tangent-sign certificates. Attaching the genuine subarcs to their
-  incident cells and pairing the contour joins must still establish the
-  balance of the remaining signed endpoint occurrences. -/
+    hgridEndpointReduction, hexcisionEndpointReduction, hexcisionGridCancellation]
+  suffices hremainingBoundary :
+      outerEndpoints + indentationEndpoints =
+        -gridCrossingEndpoints + excisionGridContribution by
+    linear_combination hremainingBoundary
+  /- Remaining formal obligation: assemble the outer and indentation endpoint
+  families, including their contour joins. The excision-circle endpoints have
+  been reindexed by their actual retained grid endpoint occurrences above and
+  removed from this identity; each matched pair uses the same cell primitive.
+  The remaining grid contribution must be partitioned among the outer and
+  indentation crossings, and their non-grid joins must cancel. -/
 
 end Submission
