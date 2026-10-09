@@ -1,0 +1,44 @@
+# Parent-supplied natural-language proof
+
+- Parent DAG node: `root.frobenius_approximation-a1.lift_unique_frobenius-a1.valuation_localization-a1.integral_center-a1`
+- Child DAG node: `root.frobenius_approximation-a1.lift_unique_frobenius-a1.valuation_localization-a1.integral_center-a1.integer_mem_valuation-a1`
+- Review gate: accepted as part of the parent's decomposition audit
+
+## Proof
+
+1. Fix E, V and a ∈ O, where O = NumberField.RingOfIntegers E, and put α = (a : E). By NumberField.RingOfIntegers.isIntegral_coe, there is a monic polynomial P ∈ ℤ[X] with P(α) = 0. Write n for its degree. If n = 0, monicity gives P = 1, contradicting P(α) = 0 in the nontrivial field E. Thus n > 0, and the polynomial equation has the form α^n + ∑_{i<n} c_i α^i = 0 with c_i ∈ ℤ.
+2. Suppose α ∉ V. Since 0 ∈ V, α ≠ 0. The valuation-subring property gives α⁻¹ ∈ V. Let y be this inverse regarded as an element of V, and let m be the maximal ideal of the local ring V.
+3. The element y is not a unit in V. Indeed, an inverse z ∈ V would give α⁻¹z = 1 in E; multiplication by α would give z = α, contradicting α ∉ V. Since the maximal ideal of a local ring consists of its nonunits, y ∈ m.
+4. Multiply the polynomial equation in E by (α⁻¹)^n. Because α ≠ 0 and i < n, its leading term becomes 1 and each α^i(α⁻¹)^n becomes (α⁻¹)^(n-i). Hence 1 + ∑_{i<n} c_i y^(n-i) = 0 after embedding V into E. Every integer belongs to the unital subring V, so all terms already lie in V. Injectivity of V → E gives the same equality in V.
+5. For each i < n, the exponent n-i is positive. Therefore y^(n-i) = y · y^(n-i-1) belongs to m. Multiplication by c_i and addition of the finitely many terms preserve membership in m. Their negative is also in m, but the equality in step 4 identifies that negative with 1. This contradicts the properness of m.
+6. Thus α ∈ V. Since a was arbitrary, every element of O has its image in V.
+
+## Key steps
+
+1. Use integrality to obtain a monic vanishing polynomial of positive degree.
+2. If the element is outside the valuation ring, its nonzero inverse belongs to the ring.
+3. That inverse is a nonunit and hence belongs to the maximal ideal.
+4. Multiply the polynomial equation by the inverse raised to its degree.
+5. Every remaining term lies in the maximal ideal, forcing 1 into a proper ideal.
+6. Conclude universal integral containment.
+
+## Reference use
+
+### local-project
+
+Queries:
+- `LiesOverPrime|coe_mem_nonunits_iff|of_module_finite|finite.*quotient|quotient.*finite|IsIntegrallyClosed|isIntegral.*mem`
+- `coe_mem_nonunits_iff|isIntegrallyClosed|isIntegral|mem_or_inv_mem`
+- `of_module_finite|basis|isIntegral|finite|HasFiniteQuotients`
+- `theorem comap_isPrime|lemma comap_isPrime|instance comap_isPrime`
+
+Files inspected:
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/Integral.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/Quotient/HasFiniteQuotients.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/Maps.lean`
+
+Confirmed the pinned project revision 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d. LiesOverPrime is precisely natural-cast membership in V.nonunits. NumberField.Basic supplies NumberField.of_module_finite, integrality of ring-of-integers elements, and a finite integral basis. ValuationSubring supplies mem_or_inv_mem and coe_mem_nonunits_iff; Ideal.Maps supplies comap_isPrime. HasFiniteQuotients also provides quotient finiteness for domains finite over ℤ. The supporting declarations checked in Lean use only propext, Classical.choice and Quot.sound.
