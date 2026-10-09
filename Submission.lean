@@ -15,6 +15,8 @@ import Mathlib.RingTheory.DedekindDomain.Ideal.Lemmas
 import Mathlib.RingTheory.SimpleModule.Basic
 import Mathlib.RingTheory.Localization.Module
 
+set_option warningAsError true
+
 namespace Submission
 
 open AlgebraicCurve
