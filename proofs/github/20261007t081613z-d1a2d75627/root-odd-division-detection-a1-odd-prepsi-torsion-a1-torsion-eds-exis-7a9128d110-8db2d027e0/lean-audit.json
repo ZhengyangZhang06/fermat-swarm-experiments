@@ -1,0 +1,36 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "instAddCommGroup|neg_some|neg_zero|add_self_of_Y_eq",
+        "AddCommGroup W.Point|AddCommGroup.*Point|addCommGroup",
+        "p03_eds_torsion_kernel_sum_68cf3476_d4|torsion_kernel_sum|two_torsion_four_sum"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Point.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Definitions/Def_GaloisRep_Residual.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve"
+      ],
+      "conclusion": "The manifest pins project 81f093181fd6c58dc887fcae5ec8b896996f1885 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d, matching verifier provenance. Point.lean supplies the canonical point-group instance and negation. The tracked-theorem search returned no matches in the searched project and elliptic-curve sources."
+    }
+  ],
+  "comparison_identity": "1fbf86af87d5cbccca5b0564fd81af7bc4da539496be9988f6a7be038280c693",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p03_eds_torsion_kernel_sum_68cf3476_d4",
+      "statement": "∀ (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k] (W : WeierstrassCurve k), W.Δ ≠ 0 → ∀ n : ℕ, 0 < n → ∀ S : Finset W.toAffine.Point, (∀ P : W.toAffine.Point, P ∈ S ↔ n • P = 0) → S.sum (fun P => P) = 0",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Uses accepted negation-cancellation and two-torsion lemmas, splitting on the parity of n."
+    }
+  ]
+}

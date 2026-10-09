@@ -1,0 +1,19 @@
+{
+  "node_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_sum_zero-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/408",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "40826d85a255637ff189598e8cd4ac3bb51a38ca",
+  "integrated_commit": "6b79f7db7fdcaf43ac6e9a3fe445ebabe47ea316",
+  "proof_base_commit": "3faf7ece669acd01820d0d4ce378f0b98a1944a6",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1",
+  "requires": [
+    "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_cardinality-a1",
+    "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_sum_zero-a1.negation_fixed_sum-a1",
+    "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_sum_zero-a1.two_torsion_four_sum-a1"
+  ]
+}
