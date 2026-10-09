@@ -2169,3 +2169,111 @@ theorem Submission.p09_af497904fe_ff_finite_inertia_exclusion :
   intro x hx
   obtain rfl := Set.mem_singleton_iff.mp hx
   exact hfix
+
+
+/-- A finite rational Galois automorphism is the restriction of an automorphism
+of a prime cyclotomic extension of a suitable fixed field. -/
+theorem Submission.p09_af497904fe_ff_cyclotomic_envelope :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ))
+      [FiniteDimensional ℚ E] [IsGalois ℚ E] (g : E ≃ₐ[ℚ] E),
+      ∃ M : IntermediateField ℚ (AlgebraicClosure ℚ),
+        FiniteDimensional ℚ M ∧ IsGalois ℚ M ∧
+        ∃ (ι : E →ₐ[ℚ] M) (F : IntermediateField ℚ M) (q : ℕ) (ζ : M)
+          (h : M ≃ₐ[F] M), q.Prime ∧ IsPrimitiveRoot ζ q ∧
+          IntermediateField.adjoin F ({ζ} : Set M) = ⊤ ∧
+          ∀ x : E, h (ι x) = ι (g x) := by
+  classical
+  intro E _ _ g
+  -- Choose an unramified prime whose cyclotomic group contains an element
+  -- of the same order as g.
+  obtain ⟨S, hS⟩ := Submission.p09_af497904fe_ff_finite_inertia_exclusion E
+  obtain ⟨q, hq, hqS, hqm⟩ :=
+    Nat.exists_prime_gt_modEq_one (S.sup id + 2) (orderOf_pos g).ne'
+  have hqnot : q ∉ S := by
+    intro h
+    have hle : q ≤ S.sup id := Finset.le_sup (f := id) h
+    omega
+  have hmdvd : orderOf g ∣ q - 1 :=
+    (Nat.modEq_iff_dvd' hq.pos).mp hqm.symm
+  let : Fact q.Prime := ⟨hq⟩
+  let : NeZero q := ⟨hq.ne_zero⟩
+  obtain ⟨ζ₀, hζ₀⟩ :=
+    HasEnoughRootsOfUnity.exists_primitiveRoot (AlgebraicClosure ℚ) q
+  let : Algebra.IsIntegral ℚ (AlgebraicClosure ℚ) :=
+    Algebra.isAlgebraic_iff_isIntegral.mp (AlgebraicClosure.isAlgebraic ℚ)
+  let C := IntermediateField.adjoin ℚ ({ζ₀} : Set (AlgebraicClosure ℚ))
+  let : IsCyclotomicExtension {q} ℚ C :=
+    hζ₀.intermediateField_adjoin_isCyclotomicExtension ℚ
+  let : FiniteDimensional ℚ C := IsCyclotomicExtension.finiteDimensional {q} ℚ C
+  let : IsGalois ℚ C := IsCyclotomicExtension.isGalois {q} ℚ C
+  have hEC : E ⊓ C = ⊥ :=
+    Submission.p09_af497904fe_ce_cyclotomic_intersection E q ζ₀ hq hζ₀
+      (hS q hq hqnot)
+  let ζC : C := ⟨ζ₀, IntermediateField.mem_adjoin_simple_self ℚ ζ₀⟩
+  have hζC : IsPrimitiveRoot ζC q :=
+    (IsPrimitiveRoot.coe_submonoidClass_iff).mp hζ₀
+  let e : (C ≃ₐ[ℚ] C) ≃* (ZMod q)ˣ :=
+    IsCyclotomicExtension.autEquivPow C (Polynomial.cyclotomic.irreducible_rat hq.pos)
+  obtain ⟨b, hb⟩ := IsCyclic.exists_ofOrder_eq_natCard (α := (ZMod q)ˣ)
+  have hbq : orderOf b = q - 1 := by
+    simpa only [Nat.card_eq_fintype_card, ZMod.card_units] using hb
+  let a : C ≃ₐ[ℚ] C := e.symm (b ^ (orderOf b / orderOf g))
+  have ha : orderOf a = orderOf g := by
+    rw [show orderOf a = orderOf (b ^ (orderOf b / orderOf g)) from
+      e.symm.orderOf_eq _]
+    exact orderOf_pow_orderOf_div (orderOf_pos b).ne' (by simpa only [hbq] using hmdvd)
+  -- The disjoint compositum permits the prescribed pair of restrictions.
+  let M := E ⊔ C
+  let : IsGalois ℚ M := by
+    have hnE : Normal ℚ E := IsGalois.to_normal
+    have hnC : Normal ℚ C := IsGalois.to_normal
+    exact { to_normal :=
+      @IntermediateField.normal_sup ℚ (AlgebraicClosure ℚ) _ _ _ E C hnE hnC }
+  let ι : E →ₐ[ℚ] M := IntermediateField.inclusion le_sup_left
+  let j : C →ₐ[ℚ] M := IntermediateField.inclusion le_sup_right
+  obtain ⟨u, hu, _⟩ := Submission.p09_af497904fe_ce_compositum_pair E C hEC g a
+  have huE (x : E) : u (ι x) = ι (g x) := hu.1 x
+  have huC (x : C) : u (j x) = j (a x) := hu.2 x
+  have hpowE (n : ℕ) (x : E) : (u ^ n) (ι x) = ι ((g ^ n) x) := by
+    induction n generalizing x with
+    | zero => rfl
+    | succ n ih =>
+        rw [pow_succ', AlgEquiv.mul_apply, ih, huE, pow_succ', AlgEquiv.mul_apply]
+  have hpowC (n : ℕ) (x : C) : (u ^ n) (j x) = j ((a ^ n) x) := by
+    induction n generalizing x with
+    | zero => rfl
+    | succ n ih =>
+        rw [pow_succ', AlgEquiv.mul_apply, ih, huC, pow_succ', AlgEquiv.mul_apply]
+  let ζ : M := j ζC
+  have hζ : IsPrimitiveRoot ζ q := hζC.map_of_injective j.injective
+  -- Fixing ζ forces the cyclotomic restriction, then the E restriction,
+  -- and finally the entire compositum automorphism to be trivial.
+  have hfaithful (n : ℕ) (hn : (u ^ n) ζ = ζ) : u ^ n = 1 := by
+    have hanζ : (a ^ n) ζC = ζC := by
+      apply j.injective
+      exact (hpowC n ζC).symm.trans hn
+    have han : a ^ n = 1 := by
+      apply AlgEquiv.coe_toAlgHom_injective
+      apply IntermediateField.adjoin_algHom_ext ℚ
+      intro x hx
+      obtain rfl : x = ζ₀ := Set.mem_singleton_iff.mp hx
+      exact hanζ
+    have hgn : g ^ n = 1 := by
+      apply orderOf_dvd_iff_pow_eq_one.mp
+      rw [← ha]
+      exact orderOf_dvd_of_pow_eq_one han
+    obtain ⟨v, _, hv⟩ :=
+      Submission.p09_af497904fe_ce_compositum_pair E C hEC 1 1
+    have hun : u ^ n = v := by
+      apply hv
+      constructor
+      · intro x
+        simpa only [hgn, AlgEquiv.one_apply, ι] using! hpowE n x
+      · intro x
+        simpa only [han, AlgEquiv.one_apply, j] using! hpowC n x
+    have hvone : (1 : M ≃ₐ[ℚ] M) = v := hv 1 ⟨fun _ => rfl, fun _ => rfl⟩
+    exact hun.trans hvone.symm
+  obtain ⟨F, h, hgen, hh⟩ :=
+    Submission.p09_af497904fe_ce_fixed_field_generator M u ζ hfaithful
+  exact ⟨M, inferInstance, inferInstance, ι, F, q, ζ, h, hq, hζ, hgen,
+    fun x => (hh (ι x)).trans (huE x)⟩
