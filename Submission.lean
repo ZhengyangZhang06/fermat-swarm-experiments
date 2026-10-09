@@ -598,3 +598,21 @@ theorem Submission.p10_17ae7b7d_rd_sparse_series_descent :
         intro n
         simp only [B, FormalMultilinearSeries.apply_eq_pow_smul_coeff,
           FormalMultilinearSeries.coeff_ofScalars, pow_mul]
+
+
+theorem Submission.p10_17ae7b7d_crcard_quot_eq_unit :
+    ∀ (R : Type) [CommRing R],
+      let U := {v : R × R // ∃ x y : R, x * v.1 + y * v.2 = 1}
+      let rel : U → U → Prop := fun v w =>
+        ∃ u : Rˣ, (u : R) * v.1.1 = w.1.1 ∧ (u : R) * v.1.2 = w.1.2
+      ∀ v w : U, Quot.mk rel v = Quot.mk rel w ↔ rel v w := by
+  intro R _ U rel v w
+  have hequiv : Equivalence rel := by
+    refine ⟨fun a => ⟨1, by simp, by simp⟩, ?_, ?_⟩
+    · rintro a b ⟨u, h1, h2⟩
+      exact ⟨u⁻¹, by rw [← h1, Units.inv_mul_cancel_left],
+        by rw [← h2, Units.inv_mul_cancel_left]⟩
+    · rintro a b c ⟨u, h1, h2⟩ ⟨t, h1', h2'⟩
+      exact ⟨t * u, by rw [Units.val_mul, mul_assoc, h1, h1'],
+        by rw [Units.val_mul, mul_assoc, h2, h2']⟩
+  exact hequiv.quot_mk_eq_iff v w
