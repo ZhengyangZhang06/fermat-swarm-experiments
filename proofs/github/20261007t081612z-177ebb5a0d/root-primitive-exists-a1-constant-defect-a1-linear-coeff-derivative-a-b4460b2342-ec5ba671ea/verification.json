@@ -1,0 +1,17 @@
+{
+  "node_id": "root.primitive_exists-a1.constant_defect-a1.linear_coeff_derivative-a1.linear_map_coefficient_expansion-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/94",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/188",
+  "candidate_commit": "742c4fcae6f89c6597ee191f3e223f2217ec21d6",
+  "integrated_commit": "ac8cb0dfe398e6893458ece2fcd7e6696dbc02f5",
+  "proof_base_commit": "d45c979aa21cb24d4f5e5694252daa3fa9266741",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.primitive_exists-a1.constant_defect-a1.linear_coeff_derivative-a1",
+  "requires": [
+    "root.primitive_exists-a1.constant_defect-a1.linear_coeff_derivative-a1.binary_form_monomial_expansion-a1"
+  ]
+}

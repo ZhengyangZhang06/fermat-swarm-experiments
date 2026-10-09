@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "98061da2a81fd447c5082f7e46f5b7854833e68e6cb8a3bf9a1cbdc6c7447f5b",
+  "git_delta": {
+    "base_commit": "9b14c9870e2648fb86e4a6823339c8222f5dd1c1",
+    "candidate_commit": "440ccd16ab4ca8260dfaebcd455d579fc86a3604",
+    "target": "Submission.lean",
+    "declaration": "p02_es_177ebb5a_sm_all_cusps",
+    "diff_sha256": "73f87b2b619eea80cbd7138e5de552d4c68bd9c5d888925503bc4333f8b5b48d",
+    "source_sha256": "9b4d367ee124c6e4a3dae68c7d09a26cd9d704589db0718070c4abf6fc60e7c5",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_sm_all_cusps",
+      "statement": "∀ (N : ℕ) [NeZero N] (n : ℕ) (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2)) (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.IsEichlerIntegral n (fun τ => f τ) E → (∀ (γ : CongruenceSubgroup.Gamma0 N) (τ : UpperHalfPlane), E ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • τ) = ((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype) γ (E τ)) → ∀ c : OnePoint ℝ, IsCusp c ((CongruenceSubgroup.Gamma0 N).map (Matrix.SpecialLinearGroup.mapGL ℝ)) → OnePoint.IsBoundedAt c (fun τ : UpperHalfPlane => MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -(τ : ℂ)) (E τ).val) (-(n : ℤ))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

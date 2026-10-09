@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "pcl_scalar_common_ray_limit|tendsto_limUnder_of_hasDerivAt_of_integrableOn_Ioi|tendsto_rpow_mul_exp_neg_mul_atTop_nhds_zero|integrableOn_rpow_mul_exp_neg_mul_rpow",
+        "pcl_scalar_common_ray_limit"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Fermat/Thm_HeckeEis_eichlerShimuraMap_injective.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/SpecialFunctions/Pow/Asymptotics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/SpecialFunctions/Gaussian/GaussianIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/MeasureTheory/Integral/IntegralEqImproper.lean"
+      ],
+      "conclusion": "Snapshot HEADs match the pinned project and mathlib revisions and have no tracked modifications. The inspected mathlib files supply the existing analysis lemmas used by accepted children; no snapshot match exists for pcl_scalar_common_ray_limit. The frozen contract, imports, context, and inherited root placeholder are unchanged. Overlay declarations match accepted candidates. My exact comparator rerun exited zero with the required marker and only propext, Classical.choice, and Quot.sound. All 222 artifact hashes in /runtime/review-evidence/041b35858c8347e0a3da393a335da1ec match the inspected inputs and candidate 6e16719a65c9ae970bf7d32323966677228dd49e."
+    }
+  ],
+  "comparison_identity": "ba3c07fe1055dee9b7c23f67261756b1da1b66e9b440d7143995682a568a8fa1",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_pcl_scalar_common_ray_limit",
+      "statement": "∀ (n : ℕ) (a : ℝ) (H G : ℂ → ℂ), 0 < a → ContinuousOn G {z : ℂ | 0 < z.im} → (∀ z : ℂ, 0 < z.im → HasDerivAt H (G z) z) → (∀ B : ℝ, 0 < B → ∃ C Y : ℝ, 0 ≤ C ∧ 1 ≤ Y ∧ ∀ z : ℂ, |z.re| ≤ B → Y ≤ z.im → ‖G z‖ ≤ C * (1 + z.im) ^ n * Real.exp (-a * z.im)) → ∃ A : ℂ, ∀ x : ℝ, Filter.Tendsto (fun y : ℝ => H ((x : ℂ) + (y : ℂ) * Complex.I)) Filter.atTop (nhds A)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines the accepted imaginary-ray limit and horizontal-difference limit to obtain one common limit for every vertical ray."
+    }
+  ]
+}

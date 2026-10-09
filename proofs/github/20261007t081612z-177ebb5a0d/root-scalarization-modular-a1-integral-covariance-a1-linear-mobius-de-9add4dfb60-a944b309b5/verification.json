@@ -1,0 +1,18 @@
+{
+  "node_id": "root.scalarization_modular-a1.integral_covariance-a1.linear_mobius_derivative-a1.linear_coefficient_transport-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/115",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/333",
+  "candidate_commit": "b30b5b9cf83fdbd6d820ad84dcd6b22600040b6e",
+  "integrated_commit": "921a37198cb45842ae067d74a502ccbaadaf97e4",
+  "proof_base_commit": "fc75890604c44db91782bc61a951d9a6e1c88eea",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.scalarization_modular-a1.integral_covariance-a1.linear_mobius_derivative-a1",
+  "requires": [
+    "root.scalarization_modular-a1.integral_covariance-a1.linear_mobius_derivative-a1.linear_coefficient_transport-a1.lct_monomial_expansion-a1",
+    "root.scalarization_modular-a1.integral_covariance-a1.linear_mobius_derivative-a1.linear_coefficient_transport-a1.lct_coefficient_expansion-a1"
+  ]
+}

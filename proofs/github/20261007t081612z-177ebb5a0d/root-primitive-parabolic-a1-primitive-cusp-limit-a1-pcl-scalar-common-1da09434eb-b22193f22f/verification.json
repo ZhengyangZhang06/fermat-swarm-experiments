@@ -1,0 +1,18 @@
+{
+  "node_id": "root.primitive_parabolic-a1.primitive_cusp_limit-a1.pcl_scalar_common_ray_limit-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/163",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/227",
+  "candidate_commit": "6e16719a65c9ae970bf7d32323966677228dd49e",
+  "integrated_commit": "a26ba6633c512825b42c9602549ea7aee00a51fb",
+  "proof_base_commit": "338c4976a85d9d84cae0524610de25a4922a3279",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.primitive_parabolic-a1.primitive_cusp_limit-a1",
+  "requires": [
+    "root.primitive_parabolic-a1.primitive_cusp_limit-a1.pcl_scalar_common_ray_limit-a1.crl_imaginary_ray_limit-a1",
+    "root.primitive_parabolic-a1.primitive_cusp_limit-a1.pcl_scalar_common_ray_limit-a1.crl_horizontal_difference_limit-a1"
+  ]
+}

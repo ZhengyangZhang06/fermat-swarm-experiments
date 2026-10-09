@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'p02_es_177ebb5a_sd_jet_recurrence|jet_recurrence|IsEichlerIntegral|eichlerShimuraMap_injective' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b",
+        "rg -n 'p02_es_177ebb5a_sd_jet_recurrence|jet_recurrence' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Fermat/Thm_HeckeEis_eichlerShimuraMap_injective.lean"
+      ],
+      "conclusion": "Confirmed clean project revision 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d. BinaryForm is the homogeneous polynomial submodule; IsEichlerIntegral specifies coefficientwise derivatives. Inspected definitions and the frozen root contract are byte-identical to the candidate. No jet_recurrence declaration was found in the project snapshot. The exact comparator rerun verified the tracked theorem with only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "8dcbf0c91029e7c8746a30ba31e7433a1afcae82aa352f7b7a3b8e81001de2d7",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_sd_jet_recurrence",
+      "statement": "∀ (n : ℕ) (h : UpperHalfPlane → ℂ) (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.IsEichlerIntegral n h E → ∀ (r : ℕ), r ≤ n → ∀ τ : UpperHalfPlane, HasDerivAt (fun z : ℂ => MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z) ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r] (E (UpperHalfPlane.ofComplex z)).val)) (if r = n then (Nat.factorial n : ℂ) * h τ else -MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -(τ : ℂ)) ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r + 1] (E τ).val)) (τ : ℂ)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Applies the accepted moving-evaluation derivative, line-power evaluation, and homogeneous nilpotence lemmas, then separates the cases r = n and r ≠ n."
+    }
+  ]
+}

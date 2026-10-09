@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "eichlerShimuraMap_injective|eichlerShimuraMap|coboundary|IsEichlerIntegral",
+        "eichlerShimuraMap|IsEichlerIntegral|scalarization"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_Gamma0CoeffCohomology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib"
+      ],
+      "conclusion": "Pinned project definitions and quotient lemmas match the candidate byte-for-byte. The targeted mathlib search returned no matches. The exact comparator rerun exited zero with the required marker; its exported inputs match the inspected commit and all 56 frozen child interfaces. Transitive axioms are limited to propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "7776dfdcbde2c337454f13e0d4fa1020712086f9103d68d19ffdd37b117634ce",
+  "publication_proof_reviewed": true,
+  "publication_proof_blob": "131917b3299bb53ed2c6dd05647877198223a7a3",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "HeckeEis.eichlerShimuraMap_injective",
+      "statement": "∀ (N : ℕ) [NeZero N] (n : ℕ), Function.Injective (fun f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2) ↦ HeckeEis.eichlerShimuraMap n N f)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Equality of cocycle classes yields a constant correction making the difference primitive equivariant. The accepted vanishing lemma then gives equality of the cusp forms."
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n --glob '*.lean' 'IsEichlerIntegral|jFactor_ne_zero|jFactor_eq_denom|binaryFormRepSL_linePow|modular_pullback_derivative' project/Definitions project/Fermat",
+        "rg -n --glob '*.lean' 'hasStrictDerivAt_smul|slash_action_eqn_SL\\x27\\x27' mathlib/Mathlib/Analysis/Complex/UpperHalfPlane mathlib/Mathlib/NumberTheory/ModularForms",
+        "rg -n --glob '*.lean' 'p02_es_177ebb5a_cd_modular_pullback_derivative' project mathlib/Mathlib"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Manifold.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Comp.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/SlashInvariantForms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/ArithmeticSubgroups.lean"
+      ],
+      "conclusion": "Queries ran from the snapshot root. The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Inspected definitions supply coefficientwise IsEichlerIntegral, nonvanishing jFactor and binaryFormRepSL_linePow; mathlib supplies the modular derivative, chain rule, coordinate identity, slash invariance and mapGL subgroup coercion. No occurrence of the tracked theorem name was found in the searched snapshot. All installed dependencies are clean and match their pins; six imported project definition files match the frozen base and snapshot. The exact comparator rerun exited 0 with 'Your solution is okay!' and only propext, Classical.choice and Quot.sound as transitive axioms. Reviewed commit 793aefc856466820ff796c8352f1a27747cd3ad2 remains clean; its sole change adds the tracked theorem while preserving imports and the root placeholder verbatim."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_cd_modular_pullback_derivative",
+      "statement": "∀ (N : ℕ) [NeZero N] (n : ℕ) (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2)) (F : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.IsEichlerIntegral n (fun τ => f τ) F → ∀ (γ : CongruenceSubgroup.Gamma0 N) (e : Fin 2 →₀ ℕ) (τ : UpperHalfPlane), HasDerivAt (fun z : ℂ => MvPolynomial.coeff e (F ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • UpperHalfPlane.ofComplex z)).val) (f τ * MvPolynomial.coeff e ((((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype) γ) (HeckeEis.linePow n (τ : ℂ))).val) (τ : ℂ)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Compose the coefficientwise Eichler derivative with the modular action, whose derivative is 1/j(τ)². Slash invariance supplies j(τ)^(n+2); nonvanishing permits cancellation of j(τ)². The existing binaryFormRepSL_linePow identity identifies the remaining coefficient with that of ρ(γ)L(τ)."
+    }
+  ]
+}

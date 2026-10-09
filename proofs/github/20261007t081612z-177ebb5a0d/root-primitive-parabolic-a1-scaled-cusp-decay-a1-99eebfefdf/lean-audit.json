@@ -1,0 +1,45 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "exp_decay_atImInfty|def translate|IsArithmetic.conj|jFactor_eq_denom|def jFactor",
+        "translate|zero_at_infty",
+        "SL_slash_apply",
+        "atImInfty_mem",
+        "IsArithmetic|DiscreteTopology|HasDetPlusMinusOne|IsCusp",
+        "IsBigO.exists_nonneg|theorem IsBigOWith.bound",
+        "rg -n --glob '*.lean' 'p02_es_177ebb5a_pp_scaled_cusp_decay|scaled_cusp_decay' project mathlib/Mathlib"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Fermat/Thm_HeckeEis_eichlerShimuraMap_injective.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/QExpansion.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/ArithmeticSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/SlashActions.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/FunctionsBoundedAtInfty.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Asymptotics/Defs.lean"
+      ],
+      "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. All nine installed dependencies are clean and match their pinned revisions; compared reused sources match the snapshot. Existing library results supply arithmeticity under rational conjugation, cusp-form translation, exponential decay, and extraction of a uniform height bound. The frozen project supplies jFactor_eq_denom. Searching project and mathlib/Mathlib found no prior declaration matching this node's name. Candidate ea12bfbd3424fa037e679543c466ae1bb33afa9a adds only the tracked theorem and preserves the frozen imports, challenge, root placeholder, and base helper. The proof agrees with the supplied mathematical argument and exact type. My exact comparator rerun, request 16fc3a7b457449599aebbd0a6570ba2d, exited 0 with 'Your solution is okay!'; the kernel accepted the solution and reported only propext, Classical.choice, and Quot.sound as transitive axioms."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_pp_scaled_cusp_decay",
+      "statement": "∀ (N : ℕ) [NeZero N] (n : ℕ) (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2)) (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ), ∃ (a C Y : ℝ), 0 < a ∧ 0 ≤ C ∧ ∀ τ : UpperHalfPlane, Y ≤ τ.im → ‖(HeckeEis.jFactor σ τ) ^ (-((n : ℤ) + 2)) * f (σ • τ)‖ ≤ C * Real.exp (-a * τ.im)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Translate f by σ to a cusp form on the conjugate arithmetic subgroup. Apply the pinned Mathlib exponential-decay theorem, then extract a nonnegative constant and a uniform height threshold from its big-O bound. The SL₂ slash formula and jFactor_eq_denom identify the translated function with the required expression; positivity of the real exponential removes its norm."
+    }
+  ]
+}

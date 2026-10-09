@@ -1,0 +1,18 @@
+{
+  "node_id": "root.primitive_exists-a1.scalar_primitive-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/37",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/179",
+  "candidate_commit": "23422d7aeb6535f2707ad93a896ff6cbe796fb00",
+  "integrated_commit": "1690b05fc226d7b9898bf11c0914f6bbedb3605c",
+  "proof_base_commit": "531eaf66b4aac3b693e0e37f34c828c611543131",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.primitive_exists-a1",
+  "requires": [
+    "root.primitive_exists-a1.scalar_primitive-a1.cayley_equivalence-a1",
+    "root.primitive_exists-a1.scalar_primitive-a1.cayley_derivatives-a1"
+  ]
+}

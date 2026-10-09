@@ -1,0 +1,18 @@
+{
+  "node_id": "root.scalarization_derivative-a1.jet_recurrence-a1.moving_eval_derivative-a1.binary_form_jet_expansion-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/177",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/322",
+  "candidate_commit": "7c79071329566e831767e8f22d429c21dc8de9ef",
+  "integrated_commit": "1a5045d37443d2c4693d6994e361d5b79d1ca5ad",
+  "proof_base_commit": "7bca94c663d55d87a3fe7c9230a48821d0f7e5aa",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.scalarization_derivative-a1.jet_recurrence-a1.moving_eval_derivative-a1",
+  "requires": [
+    "root.primitive_exists-a1.constant_defect-a1.linear_coeff_derivative-a1.binary_form_monomial_expansion-a1",
+    "root.scalarization_derivative-a1.jet_recurrence-a1.moving_eval_derivative-a1.binary_form_jet_expansion-a1.iterated_binary_monomial_pderiv-a1"
+  ]
+}

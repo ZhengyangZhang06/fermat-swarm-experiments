@@ -1,0 +1,38 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "exists_gcd_one|isCoprime_iff_gcd_eq_one|gcd_pos_iff|def IsCoprime|theorem det_fin_two",
+        "primitive_kernel|pnf_primitive_kernel",
+        "mulVec_apply_eq_sum|def mulVec"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Data/Int/GCD.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/Coprime/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/Coprime/Lemmas.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Data/Matrix/Mul.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b"
+      ],
+      "conclusion": "Confirmed the upstream gcd normalization, Bézout coprimality, determinant, and matrix-vector identities. No primitive_kernel or pnf_primitive_kernel match exists in the searched snapshot. Project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d snapshots are clean; installed dependencies match their pins. The four inspected gcd/coprimality/determinant source files match installed mathlib byte-for-byte. The exact comparator independently passed for d3a7795577dd795452e427ba65739832206645b1 with exit code 0 and 'Your solution is okay!'; transitive axioms are only propext, Classical.choice, and Quot.sound. The diff adds only the tracked theorem and preserves baseline declarations, imports, and the inherited root placeholder."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_pnf_primitive_kernel",
+      "statement": "∀ M : Matrix (Fin 2) (Fin 2) ℤ, M.det = 0 → ∃ p q : ℤ, IsCoprime p q ∧ M.mulVec ![p, q] = 0",
+      "lean_file": "Submission.lean",
+      "natural_summary": "For the zero matrix choose (1,0). Otherwise, a vector perpendicular to a nonzero row is nonzero and lies in the kernel because the determinant vanishes. Divide its coordinates by their positive gcd to obtain coprime integers, then cancel that gcd in both kernel equations."
+    }
+  ]
+}

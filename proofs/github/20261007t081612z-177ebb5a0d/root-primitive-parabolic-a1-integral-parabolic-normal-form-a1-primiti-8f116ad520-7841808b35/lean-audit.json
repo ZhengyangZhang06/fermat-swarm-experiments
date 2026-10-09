@@ -1,0 +1,37 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "exists_SL2_col|primitive_eigenvector_triangular",
+        "primitive_eigenvector_triangular|parabolic.*conjug|conjug.*parabolic",
+        "theorem mulVec_mulVec|theorem mulVec_smul|theorem one_mulVec|theorem det_fin_two|theorem coe_mul|theorem coe_one|def SpecialLinearGroup"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Data/Matrix/Mul.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/Cusps.lean"
+      ],
+      "conclusion": "Verified clean snapshot revisions project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; installed dependencies are clean and match their pins. IsCoprime.exists_SL2_col supplies the existing Bézout completion lemma, with supporting matrix identities and determinant formula inspected. The project search found no matching triangularization or parabolic-conjugacy theorem. My exact comparator rerun fef8fd7f3daa4a0fb64e07ecef35adc5 exited zero with 'Your solution is okay!' and reported only propext, Classical.choice, and Quot.sound. Candidate 096b8bd6ed796a700a04fac001602d1eb4daddb4 remains clean; its sole addition is the tracked theorem, preserving all baseline content and imports."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_pnf_primitive_eigenvector_triangular",
+      "statement": "∀ (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (ε p q : ℤ), ε ^ 2 = 1 → IsCoprime p q → (γ : Matrix (Fin 2) (Fin 2) ℤ).mulVec ![p, q] = ![ε * p, ε * q] → ∃ (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (b : ℤ), (σ⁻¹ * γ * σ : Matrix.SpecialLinearGroup (Fin 2) ℤ).val = Matrix.of ![![ε, b], ![0, ε]]",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Use the pinned Bézout completion lemma to choose σ with first column (p,q). Conjugation transports the eigenvector equation to give first column (ε,0). Determinant one yields εd=1, and ε²=1 forces d=ε; choose the upper-right entry as b. This matches the accepted parent-supplied proof."
+    }
+  ]
+}

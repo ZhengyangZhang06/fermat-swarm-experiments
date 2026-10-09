@@ -1,0 +1,44 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "BinaryForm|homogeneousSubmodule",
+        "coeff_eq_zero|def IsHomogeneous|homogeneousSubmodule",
+        "degree_eq_sum|degree_single",
+        "degree_eq_sum|degree_single|degree_add",
+        "theorem coeff_sum|theorem coeff_smul|theorem coeff_monomial|theorem ext ",
+        "def IsWeightedHomogeneous|theorem coeff_eq_zero",
+        "p02_es_177ebb5a_ic_lct_monomial_expansion|lct_monomial_expansion"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/WeightedHomogeneous.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Data/Finsupp/Weight.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MonoidAlgebra/Degree.lean"
+      ],
+      "conclusion": "Verified snapshot revisions: project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. BinaryForm is the homogeneous polynomial submodule; inspected library proofs supply coefficient extensionality, linearity, monomial coefficients, and off-degree vanishing. Degree identities occur in Data/Finsupp/Weight.lean; the query found no matches in Algebra/MonoidAlgebra/Degree.lean. Neither searched theorem identifier occurs in the snapshot's Lean sources. All nine installed dependencies match their pins with clean tracked sources; six transitive project definition files and four inspected mathlib files match the snapshot. The exact comparator independently exited zero with 'Your solution is okay!' for commit 930a86aff3cd7d4cfa69c47ba1982589786a7ed4 and reported only propext, Classical.choice, and Quot.sound. The clean candidate adds only the tracked theorem and preserves the root placeholder and imports."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_ic_lct_monomial_expansion",
+      "statement": "∀ (n : ℕ) (Q : ↥(HeckeEis.BinaryForm ℂ n)), Q.val = ∑ r : Fin (n + 1), MvPolynomial.coeff (Finsupp.single (0 : Fin 2) r.val + Finsupp.single (1 : Fin 2) (n - r.val)) Q.val • MvPolynomial.monomial (Finsupp.single (0 : Fin 2) r.val + Finsupp.single (1 : Fin 2) (n - r.val)) (1 : ℂ)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Compare coefficients at each exponent d. Homogeneity makes both sides vanish when d has degree different from n. Otherwise d uniquely equals the indexed exponent with r.val = d 0, so the sum reduces to the matching coefficient. Coefficient extensionality proves the equality, including n = 0."
+    }
+  ]
+}

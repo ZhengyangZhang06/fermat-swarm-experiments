@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "5c6b3b2d4aa181dba32d104c1297198f79f5e1867f8773d3dd24a947f2c04044",
+  "git_delta": {
+    "base_commit": "17601a12097f48a5c5208bb64c6f4ec793943ff4",
+    "candidate_commit": "746af6ff664949e865284b710573f734ef71f83d",
+    "target": "Submission.lean",
+    "declaration": "p02_es_177ebb5a_ic_lct_coeff_linear_combination",
+    "diff_sha256": "4cb0ade9a878a9f2c675c021278469a4c72257fb2a71b3a5944613ff8466dd97",
+    "source_sha256": "20170a674eb03889216d646281dbe297966835c2cba17132e9f2bbcbf785f12f",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_ic_lct_coeff_linear_combination",
+      "statement": "∀ (n : ℕ) (A : ↥(HeckeEis.BinaryForm ℂ n) →ₗ[ℂ] ↥(HeckeEis.BinaryForm ℂ n)) (e : Fin 2 →₀ ℕ), ∃ c : Fin (n + 1) → ℂ, ∀ Q : ↥(HeckeEis.BinaryForm ℂ n), MvPolynomial.coeff e (A Q).val = ∑ r : Fin (n + 1), c r * MvPolynomial.coeff (Finsupp.single (0 : Fin 2) r.val + Finsupp.single (1 : Fin 2) (n - r.val)) Q.val",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

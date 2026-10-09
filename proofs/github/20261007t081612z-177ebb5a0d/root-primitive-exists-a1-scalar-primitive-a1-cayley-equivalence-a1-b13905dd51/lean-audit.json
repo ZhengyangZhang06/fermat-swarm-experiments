@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n -i 'cayley' project/Definitions project/P2M project/Theorems mathlib/Mathlib/Analysis/Complex mathlib/Mathlib/Analysis/SpecialFunctions/Complex",
+        "rg -n 'normSq_lt_one|normSq_lt_normSq|normSq_pos|div_im|normSq_apply|norm_div|normSq_eq_norm_sq' mathlib/Mathlib/Analysis/Complex/Norm.lean mathlib/Mathlib/Data/Complex/Basic.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Fermat/Thm_HeckeEis_eichlerShimuraMap_injective.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Data/Complex/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/Norm.lean"
+      ],
+      "conclusion": "Queries ran from the listed snapshot root. The targeted Cayley search returned no matches. Basic.lean supplies Complex.div_im, normSq_apply and normSq_pos; Norm.lean supplies normSq_eq_norm_sq and norm identities. Snapshot revisions match the manifest: project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. All installed dependencies are clean and match their pins; consulted mathlib files match the snapshot byte-for-byte. The exact comparator independently exited zero with 'Your solution is okay!' for unchanged commit 0b2304b58f98c0cf68e214c99930158bdf03c595 under Lean 4.33.1. Target axioms are only propext, Classical.choice and Quot.sound. The diff adds only the tracked theorem and preserves imports, baseline declarations and the inherited root placeholder."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_sp_cayley_equivalence",
+      "statement": "(∀ w : ℂ, ‖w‖ < 1 → 0 < (Complex.I * (1 + w) / (1 - w)).im) ∧ (∀ z : ℂ, 0 < z.im → ‖(z - Complex.I) / (z + Complex.I)‖ < 1) ∧ (∀ z : ℂ, 0 < z.im → Complex.I * (1 + (z - Complex.I) / (z + Complex.I)) / (1 - (z - Complex.I) / (z + Complex.I)) = z) ∧ (∀ w : ℂ, ‖w‖ < 1 → (Complex.I * (1 + w) / (1 - w) - Complex.I) / (Complex.I * (1 + w) / (1 - w) + Complex.I) = w)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Prove denominator nonvanishing on each domain. Expanding the imaginary part gives Im φ(w) = (1 − ‖w‖²)/‖1 − w‖² > 0. The squared-norm difference ‖z+i‖² − ‖z−i‖² = 4 Im z > 0 proves ‖ψ(z)‖ < 1. Clearing the proven nonzero denominators establishes both inverse identities."
+    }
+  ]
+}

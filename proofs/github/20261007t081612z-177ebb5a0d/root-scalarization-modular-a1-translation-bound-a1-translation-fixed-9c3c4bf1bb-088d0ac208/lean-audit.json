@@ -1,0 +1,41 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'def BinaryForm|abbrev BinaryForm|constant_dehomogenization|degree_eq_sum_deg_support|isHomogeneous_C_mul_X_pow|theorem eval₂_eq\\x27|coeff_C_mul_X_pow' project/Definitions/Def_HeckeEis_BinaryFormRep.lean mathlib/Mathlib/Algebra/MvPolynomial mathlib/Mathlib/Algebra/Polynomial",
+        "rg -n 'degree_eq_sum_deg_support|isHomogeneous_C_mul_X_pow|theorem coeff_eq_zero|C_mul_X_pow_eq_monomial' mathlib/Mathlib/RingTheory/MvPolynomial mathlib/Mathlib/Algebra/MvPolynomial",
+        "rg -n 'constant_dehomogenization|p02_es_177ebb5a_tff_constant_dehomogenization' project mathlib/Mathlib -g '*.lean'",
+        "git -C project rev-parse HEAD",
+        "git -C project status --porcelain=v1 --untracked-files=no",
+        "git -C mathlib rev-parse HEAD",
+        "git -C mathlib status --porcelain=v1 --untracked-files=no"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Eval.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/Polynomial/Coeff.lean"
+      ],
+      "conclusion": "Queries ran from the supplied snapshot. Project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d match the manifest and have clean tracked files. BinaryForm is the homogeneous submodule; the inspected library lemmas justify support degrees, evaluation expansion, and coefficient reconstruction. The node-name search returned no matches. Installed dependencies also match their pins. Compatibility and transitive axiom safety were confirmed by my exact comparator rerun 958a2f440f5a40e7b8b657af484213b7: exit zero, required success marker, and only propext, Classical.choice, Quot.sound. Commit 70789934e28306e29fc99b0c644c0c62f37baa75 adds only the tracked theorem; imports, challenge content, and the inherited root placeholder remain unchanged."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_tff_constant_dehomogenization",
+      "statement": "∀ (n : ℕ) (A : ↥(HeckeEis.BinaryForm ℂ n)) (α : ℂ), MvPolynomial.eval₂ Polynomial.C (fun j : Fin 2 => if j = 0 then 1 else Polynomial.X) A.val = Polynomial.C α → A.val = MvPolynomial.C α * MvPolynomial.X (0 : Fin 2) ^ n",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Homogeneity restricts nonzero coefficients to exponent vectors totaling n. On those vectors, the exponent of X₁ uniquely determines the monomial, so dehomogenization preserves its corresponding coefficient. Comparing with C α eliminates every positive X₁ exponent and leaves coefficient α at X₀^n. Coefficients outside total degree n vanish on both sides. This also covers n = 0."
+    }
+  ]
+}

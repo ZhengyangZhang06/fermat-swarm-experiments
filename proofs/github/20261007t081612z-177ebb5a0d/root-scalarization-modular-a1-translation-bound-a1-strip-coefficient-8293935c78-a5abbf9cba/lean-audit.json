@@ -1,0 +1,42 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n '^(theorem isLittleO_pow_exp_pos_mul_atTop|theorem integrable_of_isBigO_exp_neg|theorem setIntegral_mono_set|nonrec theorem integral_comp_add_left)|polynomial_exp_tail|polynomial_exponential_tail' mathlib/Mathlib project -g '*.lean'",
+        "rg -n 'polynomial_exp_tail|polynomial_exponential_tail' project mathlib/Mathlib -g '*.lean'",
+        "rg -n 'integral_mono_on|integral_const_mul|integral_of_le|setIntegral_nonneg' mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/Basic.lean mathlib/Mathlib/MeasureTheory/Integral/Bochner/Set.lean",
+        "git -C project rev-parse HEAD",
+        "git -C mathlib rev-parse HEAD",
+        "git -C project status --short --untracked-files=no",
+        "git -C mathlib status --short --untracked-files=no"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Fermat/Thm_HeckeEis_eichlerShimuraMap_injective.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/SpecialFunctions/Pow/Asymptotics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/MeasureTheory/Integral/ExpDecay.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/MeasureTheory/Integral/Bochner/Set.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/Basic.lean"
+      ],
+      "conclusion": "Searches were run from the snapshot root. Found pinned upstream lemmas for polynomial/exponential domination, exponential integrability, translation, and integral monotonicity; no polynomial_exp_tail or polynomial_exponential_tail match was found. Snapshots are clean at project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Installed dependencies match their pins and are clean; the four reused mathlib files match the snapshot byte-for-byte. Independent exact comparator run d8028f7272c04179bc65420c9fb76030 exited zero with 'Your solution is okay!' for candidate 6d481074465c0fa3eec933d9aabed7828ee1e4a1. Transitive axioms are only propext, Classical.choice, and Quot.sound. The diff adds only the tracked theorem, preserving imports, existing declarations, and the frozen root placeholder."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_scl_polynomial_exp_tail",
+      "statement": "∀ (n : ℕ) (a : ℝ), 0 < a → MeasureTheory.IntegrableOn (fun s : ℝ => (1 + s) ^ n * Real.exp (-a * s)) (Set.Ioi 0) ∧ 0 ≤ (∫ s in Set.Ioi (0 : ℝ), (1 + s) ^ n * Real.exp (-a * s)) ∧ (∀ (y t : ℝ), 0 ≤ y → y ≤ t → (∫ s in y..t, (1 + s) ^ n * Real.exp (-a * s)) ≤ (∫ s in Set.Ioi (0 : ℝ), (1 + s) ^ n * Real.exp (-a * s)) * (1 + y) ^ n * Real.exp (-a * y)) ∧ Filter.Tendsto (fun y : ℝ => (1 + y) ^ n * Real.exp (-a * y)) Filter.atTop (nhds 0)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Polynomial growth is dominated by every positive exponential rate, giving decay and integrability by comparison with exp(−as/2). Nonnegativity gives J≥0. For y,v≥0, 1+y+v≤(1+y)(1+v) implies w(y+v)≤w(y)w(v). Translate the interval and bound its nonnegative integral by J to obtain the stated tail estimate."
+    }
+  ]
+}

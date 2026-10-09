@@ -1,0 +1,19 @@
+{
+  "node_id": "root.primitive_exists-a1.holomorphic_integral-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/38",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/370",
+  "candidate_commit": "7473accc179bf7892819fcbf9e83bdf792a43cf6",
+  "integrated_commit": "77610fbf270ea43f7e307ba3c7483ee4aedd46d4",
+  "proof_base_commit": "531eaf66b4aac3b693e0e37f34c828c611543131",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.primitive_exists-a1",
+  "requires": [
+    "root.primitive_exists-a1.scalar_primitive-a1",
+    "root.primitive_exists-a1.holomorphic_integral-a1.prescribed_binary_coefficients-a1",
+    "root.primitive_exists-a1.holomorphic_integral-a1.linepow_coefficient_formula-a1"
+  ]
+}

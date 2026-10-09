@@ -1,0 +1,20 @@
+{
+  "node_id": "root.primitive_parabolic-a1.primitive_cusp_limit-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/71",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/398",
+  "candidate_commit": "1f72d3239f1dfccd7500ce29a6f1485b029ca0bd",
+  "integrated_commit": "77826307da2638dc42a7517a3d802f6c2b0c38fc",
+  "proof_base_commit": "3ee8b4747cdfcdc8835a5e09215c6e25755e1b07",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.primitive_parabolic-a1",
+  "requires": [
+    "root.primitive_parabolic-a1.scaled_cusp_decay-a1",
+    "root.primitive_parabolic-a1.primitive_cusp_limit-a1.pcl_scaled_pullback_derivative-a1",
+    "root.primitive_parabolic-a1.primitive_cusp_limit-a1.pcl_linear_linepow_growth-a1",
+    "root.primitive_parabolic-a1.primitive_cusp_limit-a1.pcl_scalar_common_ray_limit-a1"
+  ]
+}

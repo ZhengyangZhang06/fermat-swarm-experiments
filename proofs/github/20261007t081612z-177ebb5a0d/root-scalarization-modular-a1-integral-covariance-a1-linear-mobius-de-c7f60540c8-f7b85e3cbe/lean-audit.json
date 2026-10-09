@@ -1,0 +1,39 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "hasStrictDerivAt_smul|jFactor_eq_denom|theorem HasDerivAt.comp_of_eq|ofComplex_apply",
+        "p02_es_177ebb5a_ic_lmd_scalar_pullback",
+        "mapGL|specialLinearGroup.*[Ss]mul|denom_ne_zero"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Manifold.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Comp.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib"
+      ],
+      "conclusion": "Verified clean snapshot revisions: project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Inspected sources provide jFactor_eq_denom, the Möbius derivative formula, ofComplex_apply, and the scalar chain rule; reused files match installed sources byte-for-byte. All nine installed dependencies are clean at their pinned revisions. No occurrence of the tracked declaration was found in either reference tree. My exact comparator rerun, request 8dbde5a86b5044df8a73a36e0e3d9ab6, accepted commit a497ba270417aa667d5d9a834de13e9c8cc969ed with exit code 0 and marker 'Your solution is okay!'. Its transitive axioms are exactly propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_ic_lmd_scalar_pullback",
+      "statement": "∀ (h : UpperHalfPlane → ℂ) (v : ℂ) (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (τ : UpperHalfPlane), HasDerivAt (fun z : ℂ => h (UpperHalfPlane.ofComplex z)) v ((σ • τ : UpperHalfPlane) : ℂ) → HasDerivAt (fun z : ℂ => h (σ • UpperHalfPlane.ofComplex z)) (v / (HeckeEis.jFactor σ τ) ^ 2) (τ : ℂ)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Specialize the pinned upstream Möbius derivative theorem to the real general-linear image of σ. Its determinant is one, and jFactor_eq_denom identifies the derivative as 1/jFactor². Apply the scalar chain rule to the hypothesis, then use ofComplex_apply to identify the composite and simplify its derivative to v/jFactor²."
+    }
+  ]
+}
