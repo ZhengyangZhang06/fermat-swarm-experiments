@@ -1,0 +1,36 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'LiesOverPrime|IsFrobeniusAt' project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "rg -n -A12 -B4 'def IsFrobeniusAt' project/Definitions",
+        "rg -n 'autToPow|autToPow_spec' mathlib/Mathlib/RingTheory/RootsOfUnity",
+        "rg -n 'finite_cyclotomic_character' project/Definitions mathlib/Mathlib/NumberTheory/Cyclotomic"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RootsOfUnity/PrimitiveRoots.lean"
+      ],
+      "conclusion": "Queries ran from the specified snapshot root. Clean project and mathlib revisions match the manifest. The valuation and arithmetic Frobenius predicates match the committed and compiler inputs byte-for-byte. autToPow and autToPow_spec are pinned upstream infrastructure. The finite_cyclotomic_character search returned no matches in the searched subtrees."
+    }
+  ],
+  "comparison_identity": "9fb4e6b69e93b571c14f9d517f214396ad9ba60e8299cc5aa5df32d654b2ccef",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_finite_cyclotomic_character",
+      "statement": "∀ (N : ℕ) [NeZero N], ∃ (χ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) →* (ZMod N)ˣ) (F : IntermediateField ℚ (AlgebraicClosure ℚ)), FiniteDimensional ℚ F ∧ (∀ σ τ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ), (∀ x ∈ F, σ x = τ x) → χ σ = χ τ) ∧ (∀ (σ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)) (ζ : AlgebraicClosure ℚ), ζ ^ N = 1 → σ ζ = ζ ^ ((χ σ : ZMod N).val)) ∧ (∀ (ℓ : ℕ) (hℓ : ℓ.Prime) (hℓN : ¬ ℓ ∣ N) (P : ValuationSubring (AlgebraicClosure ℚ)), P.LiesOverPrime ℓ → ∀ σ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ), P.IsFrobeniusAt σ ℓ → χ σ = ZMod.unitOfCoprime ℓ ((Nat.Prime.coprime_iff_not_dvd hℓ).mpr hℓN))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines the accepted finite-action character and Frobenius-on-roots lemmas, identifying the required unit through exponents on a primitive root."
+    }
+  ]
+}
