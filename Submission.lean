@@ -4932,3 +4932,18 @@ theorem Submission.p10_17ae7b7d_cc_translation_orbits :
     count N = count (N.primeFactors.prod (fun p => p ^ N.factorization p)) :=
       congrArg count (Nat.prod_primeFactors_pow_factorization (NeZero.ne N))
     _ = _ := hProduct N.primeFactors (Finset.Subset.refl _)
+
+
+theorem Submission.p10_17ae7b7d_gamma0_coset_counts :
+    ∀ (N : ℕ) [NeZero N],
+      let Q := (Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 N
+      Finite Q ∧ Nat.card Q = ModularCurve.dedekindPsi N ∧
+        Nat.card {q : Q // ModularGroup.S • q = q} = ModularCurve.nuTwo N ∧
+        Nat.card {q : Q // (ModularGroup.S * ModularGroup.T) • q = q} =
+          ModularCurve.nuThree N ∧
+        Nat.card (Quotient (MulAction.orbitRel (Subgroup.zpowers ModularGroup.T) Q)) =
+          ModularCurve.cuspCount N := by
+  intro N _
+  obtain ⟨hfinite, hindex⟩ := Submission.p10_17ae7b7d_cc_index N
+  obtain ⟨htwo, hthree⟩ := Submission.p10_17ae7b7d_cc_elliptic_fixed_points N
+  exact ⟨hfinite, hindex, htwo, hthree, Submission.p10_17ae7b7d_cc_translation_orbits N⟩
