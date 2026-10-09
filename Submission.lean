@@ -1225,6 +1225,9 @@ theorem f036cc6b1f_pic_translated_integrable
   convert hint using 1
   ext z
   exact (petersson_slash_SL 2 f g r z).symm
+
+end Submission
+
 open scoped ModularForm
 
 namespace Submission
