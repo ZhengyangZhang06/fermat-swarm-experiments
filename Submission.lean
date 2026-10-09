@@ -1629,3 +1629,40 @@ theorem Submission.p09_af497904fe_cwi_infinite_diff_of_log_lower_bound :
   have hu : C + r + K < u * c := (div_lt_iff₀ hc).mp hu₁
   have hb := hupper s hs hsε
   nlinarith
+
+
+theorem Submission.p09_af497904fe_cmc_40fde013_floor_remainder :
+    ∀ (a : ℕ → ℝ) (κ α C : ℝ), 0 ≤ α → 0 ≤ C →
+      (∀ n : ℕ, 1 ≤ n →
+        |(∑ k ∈ Finset.Icc 1 n, a k) - κ * (n : ℝ)| ≤ C * (n : ℝ) ^ α) →
+      Measurable (fun t : ℝ => (∑ k ∈ Finset.Icc 1 (Nat.floor t), a k) - κ * t) ∧
+        ∀ t : ℝ, 1 ≤ t →
+          |(∑ k ∈ Finset.Icc 1 (Nat.floor t), a k) - κ * t| ≤ (C + |κ|) * t ^ α := by
+  intro a κ α C hα hC hcount
+  constructor
+  · exact ((measurable_of_countable (fun n : ℕ => ∑ k ∈ Finset.Icc 1 n, a k)).comp
+      Nat.measurable_floor).sub (measurable_const.mul measurable_id)
+  · intro t ht
+    have ht0 : 0 ≤ t := le_trans zero_le_one ht
+    have hn : 1 ≤ Nat.floor t := Nat.le_floor (by simpa using ht)
+    have hfloor : (Nat.floor t : ℝ) ≤ t := Nat.floor_le ht0
+    have hpow : (Nat.floor t : ℝ) ^ α ≤ t ^ α :=
+      Real.rpow_le_rpow (Nat.cast_nonneg _) hfloor hα
+    have hone : 1 ≤ t ^ α := Real.one_le_rpow ht hα
+    have herror : |κ * ((Nat.floor t : ℝ) - t)| ≤ |κ| := by
+      rw [abs_mul]
+      calc
+        |κ| * |(Nat.floor t : ℝ) - t| ≤ |κ| * 1 :=
+          mul_le_mul_of_nonneg_left (Nat.abs_floor_sub_le ht0) (abs_nonneg κ)
+        _ = |κ| := mul_one _
+    calc
+      |(∑ k ∈ Finset.Icc 1 (Nat.floor t), a k) - κ * t| =
+          |((∑ k ∈ Finset.Icc 1 (Nat.floor t), a k) - κ * (Nat.floor t : ℝ)) +
+            κ * ((Nat.floor t : ℝ) - t)| := by congr 1; ring
+      _ ≤ |(∑ k ∈ Finset.Icc 1 (Nat.floor t), a k) - κ * (Nat.floor t : ℝ)| +
+          |κ * ((Nat.floor t : ℝ) - t)| := abs_add_le _ _
+      _ ≤ C * (Nat.floor t : ℝ) ^ α + |κ| := add_le_add (hcount _ hn) herror
+      _ ≤ C * t ^ α + |κ| * t ^ α := by
+        exact add_le_add (mul_le_mul_of_nonneg_left hpow hC)
+          (by simpa only [mul_one] using mul_le_mul_of_nonneg_left hone (abs_nonneg κ))
+      _ = (C + |κ|) * t ^ α := (add_mul _ _ _).symm
