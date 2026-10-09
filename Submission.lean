@@ -11939,6 +11939,72 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
       simp only [circleMap, zero_add]
     convert! (contDiff_const.sub (contDiff_const.mul hw)).mul
       ((contDiff_const.sub hw).inv (hphaseDen ε hε hε1)) using 1
+  -- The cut coordinate parametrizes the entire Euclidean cut circle.
+  have hgammaSphere : ∀ v ∈ H, ∀ ε : ℝ, 0 < ε → ε < 1 → ∀ t : ℝ,
+      γ v ε t ∈ Metric.sphere (cutCenter v ε) (cutRadius v ε) := by
+    intro v hv ε hε hε1 t
+    have hball : D v ε = Metric.closedBall (cutCenter v ε) (cutRadius v ε) :=
+      (hdisks v ε hv hε hε1).1
+    have hmem := (hgammaOnCut v hv ε hε hε1 t).1
+    rw [hball] at hmem
+    change dist (γ v ε t) (cutCenter v ε) = cutRadius v ε
+    apply le_antisymm (Metric.mem_closedBall.mp hmem)
+    by_contra! hlt
+    have hvar : ContinuousAt (fun η : ℝ => γ v η t) ε := by
+      dsimp only [γ]
+      fun_prop (disch := exact hphaseDen ε hε hε1 t)
+    have hnear : ∀ᶠ η in nhdsWithin ε (Set.Ioi ε),
+        γ v η t ∈ Metric.ball (cutCenter v ε) (cutRadius v ε) ∧ η < 1 :=
+      ((hvar.tendsto.eventually (Metric.isOpen_ball.mem_nhds hlt)).and
+        (eventually_lt_nhds hε1)).filter_mono nhdsWithin_le_nhds
+    have hlarge : ∀ᶠ η in nhdsWithin ε (Set.Ioi ε), ε < η := self_mem_nhdsWithin
+    obtain ⟨η, hη, hηball, hη1⟩ := (hlarge.and hnear).exists
+    have hηmem : γ v η t ∈ D v ε := hball ▸ Metric.ball_subset_closedBall hηball
+    have hratio := (hgammaOnCut v hv η (hε.trans hη) hη1 t).2.1
+    have hle := hηmem.2
+    rw [hratio] at hle
+    exact (not_le_of_gt hη) hle
+  have hcutCircleRepresentation : ∀ v ∈ H, ∀ ε : ℝ, 0 < ε → ε < 1 →
+      ∀ z ∈ Metric.sphere (cutCenter v ε) (cutRadius v ε),
+        ∃ t : ℝ, -Real.pi < t ∧ t ≤ Real.pi ∧ γ v ε t = z := by
+    intro v hv ε hε hε1 z hz
+    have hball : D v ε = Metric.closedBall (cutCenter v ε) (cutRadius v ε) :=
+      (hdisks v ε hv hε hε1).1
+    have hzD : z ∈ D v ε := hball ▸ Metric.sphere_subset_closedBall hz
+    have hden : z - star v ≠ 0 := by
+      intro heq
+      have hi := congrArg Complex.im heq
+      have hvpos : 0 < v.im := hv
+      have hzpos : 0 < z.im := hzD.1
+      simp only [Complex.sub_im, Complex.star_def, Complex.conj_im, Complex.zero_im] at hi
+      linarith
+    let w : ℂ := (z - v) / (z - star v)
+    have hw : ‖w‖ = ε := by
+      apply le_antisymm hzD.2
+      by_contra! hlt
+      have hcont : ContinuousAt (fun x : ℂ => ‖(x - v) / (x - star v)‖) z := by
+        fun_prop
+      have hnear : ∀ᶠ x in nhds z, x ∈ D v ε := by
+        filter_upwards [hH.mem_nhds hzD.1,
+          hcont.tendsto.eventually (eventually_lt_nhds hlt)] with x hx hxnorm
+        exact ⟨hx, hxnorm.le⟩
+      have hzint : z ∈ interior (D v ε) := mem_interior_iff_mem_nhds.mpr hnear
+      rw [hball, interior_closedBall'] at hzint
+      exact (not_lt_of_ge (Metric.mem_sphere.mp hz).ge) hzint
+    have hphase : (ε : ℂ) * Complex.exp ((w.arg : ℂ) * Complex.I) = w := by
+      simpa only [hw] using Complex.norm_mul_exp_arg_mul_I w
+    refine ⟨w.arg, Complex.neg_pi_lt_arg w, Complex.arg_le_pi w, ?_⟩
+    dsimp only [γ]
+    rw [hphase]
+    have hwden : 1 - w ≠ 0 := by
+      intro heq
+      have hw1 : w = 1 := (sub_eq_zero.mp heq).symm
+      rw [hw1, norm_one] at hw
+      linarith
+    apply (div_eq_iff hwden).mpr
+    dsimp only [w]
+    field_simp
+    ring
   -- Small cuts meet none of the original boundary pieces not incident at their center.
   have hcutInactive : ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0),
       ∀ v ∈ B, ∀ z ∈ D v ε,
@@ -12389,6 +12455,118 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     exact ⟨hclosure, fun t => ((hγsmooth.differentiable (by norm_num)) t).hasDerivAt,
       (hLcont.mul hγsmooth.continuous_deriv_one).intervalIntegrable
         (cutStart v) (cutEnd v)⟩
+  have hcutCircleCoverage : ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0),
+      ∀ v ∈ B,
+        closure (Ω ε) ∩ Metric.sphere (cutCenter v ε) (cutRadius v ε) =
+          γ v ε '' Set.Icc (cutEnd v) (cutStart v) := by
+    filter_upwards [hsmallCuts, hcutArcs] with ε hε harcs
+    intro v hv
+    have hvH := hKH hv.1.1
+    apply Set.Subset.antisymm
+    · intro z hz
+      have hzK := hcutClosureK ε hz.1
+      obtain ⟨s, hs0, hsπ, hsz⟩ := hcutCircleRepresentation v hvH ε hε.1 hε.2 z hz.2
+      have hends : γ v ε (-Real.pi) = γ v ε Real.pi := by
+        simp [γ, neg_mul, Complex.exp_neg, Complex.exp_pi_mul_I]
+      obtain ⟨t, ht0, htπ, htz, hleftπ, hright0⟩ :
+          ∃ t : ℝ, -Real.pi ≤ t ∧ t ≤ Real.pi ∧ γ v ε t = z ∧
+            (v.re = -1 / 2 → t < Real.pi) ∧
+            (v.re = 1 / 2 → -Real.pi < t) := by
+        by_cases he : v.re = -1 / 2 ∧ s = Real.pi
+        · refine ⟨-Real.pi, le_rfl, by linarith [Real.pi_pos], ?_, ?_, ?_⟩
+          · rw [hends, ← he.2, hsz]
+          · intro _
+            linarith [Real.pi_pos]
+          · intro hright
+            linarith [he.1]
+        · refine ⟨s, hs0.le, hsπ, hsz, ?_, fun _ => hs0⟩
+          intro hleft
+          exact lt_of_le_of_ne hsπ (fun hs => he ⟨hleft, hs⟩)
+      have hleft : v.re = -1 / 2 → t ≤ 0 := by
+        intro hvL
+        by_contra! htpos
+        have hsin := Real.sin_pos_of_pos_of_lt_pi htpos (hleftπ hvL)
+        have hlt := (hgammaSides v hvH ε hε.1 hε.2 t).1.mpr hsin
+        rw [htz, hvL] at hlt
+        have hlow := (abs_le.mp hzK.1).1
+        linarith
+      have hright : v.re = 1 / 2 → 0 ≤ t := by
+        intro hvR
+        by_contra! htneg
+        have hsin := Real.sin_neg_of_neg_of_neg_pi_lt htneg (hright0 hvR)
+        have hlt := (hgammaSides v hvH ε hε.1 hε.2 t).2.1.mpr hsin
+        rw [htz, hvR] at hlt
+        have hhigh := (abs_le.mp hzK.1).2
+        linarith
+      have hunit : ‖v‖ = 1 → v.arg - Real.pi ≤ t ∧ t ≤ v.arg := by
+        intro hvN
+        have hvim : 0 < v.im := hvH
+        have harg0 : 0 < v.arg := by
+          apply lt_of_le_of_ne (Complex.arg_nonneg_iff.mpr hvim.le)
+          intro heq
+          have him := Complex.norm_mul_sin_arg v
+          rw [← heq, Real.sin_zero, mul_zero] at him
+          linarith
+        have hargπ : v.arg < Real.pi := Complex.arg_lt_pi_iff.mpr (Or.inr hvim.ne')
+        have hcross : 0 ≤ v.im * Real.cos t - v.re * Real.sin t := by
+          rcases eq_or_lt_of_le hzK.2.1 with heq | hlt
+          · exact ((hgammaUnitCircle v hvH hvN ε hε.1 hε.2 t).2.mp
+              (htz ▸ heq.symm)).ge
+          · exact ((hgammaUnitCircle v hvH hvN ε hε.1 hε.2 t).1.mp
+              (htz ▸ hlt)).le
+        have hvre : v.re = Real.cos v.arg := by
+          simpa only [hvN, one_mul] using (Complex.norm_mul_cos_arg v).symm
+        have hvim' : v.im = Real.sin v.arg := by
+          simpa only [hvN, one_mul] using (Complex.norm_mul_sin_arg v).symm
+        rw [hvre, hvim', ← Real.sin_sub] at hcross
+        have hupper : t ≤ v.arg := by
+          by_contra! hn
+          have hsneg := Real.sin_neg_of_neg_of_neg_pi_lt
+            (by linarith : v.arg - t < 0) (by linarith : -Real.pi < v.arg - t)
+          linarith
+        have hlower : v.arg - Real.pi ≤ t := by
+          by_contra! hn
+          have hp : 0 < Real.sin (v.arg - t - Real.pi) :=
+            Real.sin_pos_of_pos_of_lt_pi (by linarith) (by linarith)
+          rw [Real.sin_sub_pi] at hp
+          linarith
+        exact ⟨hlower, hupper⟩
+      refine ⟨t, ⟨?_, ?_⟩, htz⟩
+      · dsimp only [cutEnd]
+        split_ifs with hvR hvN
+        · exact hright hvR
+        · exact (hunit hvN).1
+        · exact ht0
+      · dsimp only [cutStart]
+        split_ifs with hvL hvN
+        · exact hleft hvL
+        · exact (hunit hvN).2
+        · exact htπ
+    · rintro z ⟨t, ht, rfl⟩
+      exact ⟨frontier_subset_closure ((harcs v hv).1 ht),
+        hgammaSphere v hvH ε hε.1 hε.2 t⟩
+  have hparametrizedCutFrontier : ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0),
+      frontier (Ω ε) =
+        (⋃ i : Fin 4, closure (Ω ε) ∩ outerSupport i) ∪
+          ⋃ v ∈ B, γ v ε '' Set.Icc (cutEnd v) (cutStart v) := by
+    filter_upwards [hsmallCuts, hcutCircleCoverage] with ε hε hcoverage
+    rw [hcutFrontier ε hε.1 hε.2]
+    ext z
+    constructor
+    · intro hz
+      obtain ⟨i, hi⟩ := Set.mem_iUnion.mp hz
+      rcases i with i | v
+      · exact Or.inl (Set.mem_iUnion.mpr ⟨i, hi⟩)
+      · exact Or.inr (Set.mem_iUnion₂.mpr ⟨v, v.property, (hcoverage v v.property) ▸ hi⟩)
+    · rintro (hz | hz)
+      · obtain ⟨i, hi⟩ := Set.mem_iUnion.mp hz
+        exact Set.mem_iUnion.mpr ⟨Sum.inl i, hi⟩
+      · obtain ⟨v, hv, hzv⟩ := Set.mem_iUnion₂.mp hz
+        exact Set.mem_iUnion.mpr ⟨Sum.inr ⟨v, hv⟩, (hcoverage v hv).symm ▸ hzv⟩
+  have hparametrizedExcisionBoundary :=
+    (hsmallCuts.and (hparametrizedCutFrontier.and hfixedExcisionBoundary)).mono
+      (fun ε h => by
+        simpa only [← hcutFrontier ε h.1.1 h.1.2, h.2.1] using h.2.2)
   let indent : ℂ → (ℝ → ℝ) → (ℝ → ℝ) → ℝ → ℂ := fun v α β ε =>
     intervalIntegral (fun t : ℝ => L (γ v ε t) * deriv (γ v ε) t)
       (α ε) (β ε) MeasureTheory.volume
@@ -12610,12 +12788,39 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     apply Complex.ofReal_injective
     push_cast at hresult ⊢
     exact hresult
-  /- Remaining formal obligation: assemble the actual oriented cut contour and
-  derive hcontour by summing primitive-domain boundary integrals, including the
-  clockwise excision circles. The finite cell cover and primitive-cycle
-  cancellation above do not yet construct those directed cell boundaries.
-  The retained lower-arc and vertical integrals, their cancellation and limits,
-  the exact top integral, all indentation limits, and the final count reduction
-  have been expressed above. No global contour equality is assumed. -/
+  filter_upwards [hcutZeros, hparametrizedExcisionBoundary] with ε hzeros hexc
+  obtain ⟨r, δ, hr, hδ, hVopen, hVcompact, hVzeroFree, hVfrontier,
+    hcircles, hmesh, hcells⟩ := hexc
+  have hexcisionSum :
+      (∑ v ∈ hOzerosFinite.toFinset,
+        intervalIntegral (fun t => L (circleMap v r t) * deriv (circleMap v r) t)
+          (2 * Real.pi) 0 MeasureTheory.volume) =
+      -(2 * (Real.pi : ℂ) * Complex.I *
+        ((∑ v ∈ hOzerosFinite.toFinset, (analyticOrderNatAt F v : ℝ) : ℝ) : ℂ)) := by
+    calc
+      _ = ∑ v ∈ hOzerosFinite.toFinset,
+          -(2 * (Real.pi : ℂ) * Complex.I * (analyticOrderNatAt F v : ℂ)) := by
+        apply Finset.sum_congr rfl
+        intro v hv
+        have hvzero : v ∈ {z ∈ Ω ε | F z = 0} := by
+          rw [hzeros]
+          exact hOzerosFinite.mem_toFinset.mp hv
+        exact (hcircles v hvzero).2.2
+      _ = _ := by
+        push_cast
+        simp only [Finset.mul_sum, Finset.sum_neg_distrib]
+  suffices hclosedContour :
+      pairedLower ε + verticalContribution ε + top Y +
+        (∑ v ∈ hBfinite.toFinset, indent v (fun _ => cutStart v) (fun _ => cutEnd v) ε) +
+        (∑ v ∈ hOzerosFinite.toFinset,
+          intervalIntegral (fun t => L (circleMap v r t) * deriv (circleMap v r) t)
+            (2 * Real.pi) 0 MeasureTheory.volume) = 0 by
+    simpa only [hexcisionSum, add_neg_eq_zero] using hclosedContour
+  /- Remaining formal obligation: construct directed cell boundaries for the
+  zero-free excised domain and cancel their primitive integrals. hVfrontier now
+  identifies the actual cut arcs and excision circles; hcircles supplies their
+  clockwise residue integrals. The finite cover and primitive-cycle cancellation
+  do not yet construct the directed cell boundaries needed for hclosedContour.
+  No global contour equality is assumed. -/
 
 end Submission
