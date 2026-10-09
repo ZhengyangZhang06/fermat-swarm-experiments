@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "626be8f31f23d4fe8f89229287f280bdfeac3da188d4f8a104a09c5e33ebd0a9",
+  "git_delta": {
+    "base_commit": "7517d5c976b73808021bb01b2b4b89bb77647612",
+    "candidate_commit": "62f34abb9256ee593262957ad1eebf57447d49a8",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_luf_valuation_extension",
+    "diff_sha256": "67a213700e1d1fba61a229cb8ba5ea687681649d725918272b2d5794b88ecc65",
+    "source_sha256": "075d387f068ba3e110f051ffa5fd22fdd8a835293a529dc094339872ab035699",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_luf_valuation_extension",
+      "statement": "∀ (E F : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [FiniteDimensional ℚ F] (hEF : E ≤ F) (ℓ : ℕ), ℓ.Prime → ∀ (V : ValuationSubring E), V.LiesOverPrime ℓ → ∃ W : ValuationSubring F, W.LiesOverPrime ℓ ∧ ∀ x : E, IntermediateField.inclusion hEF x ∈ W ↔ x ∈ V",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
