@@ -1,0 +1,42 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "finrank_pullback_snd|theorem of_bot|lemma of_bot|p07_cq_level_geometry_pullback_857cd4d38c",
+        "of_isPullback|pullback_snd|IsStableUnderBaseChange|isStableUnderBaseChange",
+        "rg -n --glob '*.lean' 'p07_cq_level_geometry_pullback_857cd4d38c|finrank_pullback_snd|IsPullback.of_bot' project",
+        "noncomputable def lift|def lift|theorem lift_snd|lemma lift_snd|of_hasPullback"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/CategoryTheory/Limits/Shapes/Pullback/IsPullback/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/CategoryTheory/Limits/Shapes/Pullback/IsPullback/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/CategoryTheory/MorphismProperty/Limits.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/ClosedImmersion.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Finite.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Flat.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/FinitePresentation.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/FlatRank.lean"
+      ],
+      "conclusion": "The project search returned no matches for the tracked theorem or the two searched pullback lemmas. Pinned mathlib supplies pullback cancellation (Basic.lean:213), universal lifts (Defs.lean:106–118), base-change transfer (Limits.lean:110,221), stability of closed immersion, finiteness, flatness and local finite presentation (respective files:382,60,81,85), and the exact finite-flat rank formula (FlatRank.lean:157). Project 73257f1e32d99b75813b037f28a5cf45a2db886d and mathlib db584cd6d46c92f209a44c0f1c829460d327499d are clean; all nine dependency checkouts match their pins. The diff adds only the tracked theorem, preserving the complete frozen root placeholder and imports. No new placeholders, axioms, shadowing, or weakened statement were found. The inherited prose matches the Lean argument. My exact comparator rerun, request 478568ea20884de98cea8cf9608133ef, exited 0 with 'Your solution is okay!' for candidate 44cb70289a45a52de30bf46702810989164327d9. Its transitive axioms are exactly propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p07_cq_level_geometry_pullback_857cd4d38c",
+      "statement": "∀ (S T : Type) [CommRing S] [CommRing T] (φ : S →+* T) (A C : AlgebraicGeometry.Scheme.{0}) (f : Quiver.Hom A (AlgebraicGeometry.Spec (CommRingCat.of S))) (ℓ : Quiver.Hom C A), AlgebraicGeometry.IsClosedImmersion ℓ → AlgebraicGeometry.IsFinite (CategoryTheory.CategoryStruct.comp ℓ f) → AlgebraicGeometry.Flat (CategoryTheory.CategoryStruct.comp ℓ f) → AlgebraicGeometry.LocallyOfFinitePresentation (CategoryTheory.CategoryStruct.comp ℓ f) → let β := AlgebraicGeometry.Spec.map (CommRingCat.ofHom φ); let c := CategoryTheory.CategoryStruct.comp ℓ f; let p := CategoryTheory.Limits.pullback.snd f β; let g := CategoryTheory.Limits.pullback.fst f β; let r := CategoryTheory.Limits.pullback.fst c β; let d := CategoryTheory.Limits.pullback.snd c β; ∃ ℓT : Quiver.Hom (CategoryTheory.Limits.pullback c β) (CategoryTheory.Limits.pullback f β), CategoryTheory.IsPullback r ℓT ℓ g ∧ CategoryTheory.CategoryStruct.comp ℓT p = d ∧ AlgebraicGeometry.IsClosedImmersion ℓT ∧ AlgebraicGeometry.IsFinite d ∧ AlgebraicGeometry.Flat d ∧ AlgebraicGeometry.LocallyOfFinitePresentation d ∧ (∀ t : ↥(AlgebraicGeometry.Spec (CommRingCat.of T)), AlgebraicGeometry.Scheme.Hom.finrank d t = AlgebraicGeometry.Scheme.Hom.finrank c (β t)) ∧ (∀ (W : AlgebraicGeometry.Scheme.{0}) (Q : Quiver.Hom W (CategoryTheory.Limits.pullback f β)), (∃ R : Quiver.Hom W (CategoryTheory.Limits.pullback c β), CategoryTheory.CategoryStruct.comp R ℓT = Q) ↔ (∃ R : Quiver.Hom W C, CategoryTheory.CategoryStruct.comp R ℓ = CategoryTheory.CategoryStruct.comp Q g))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Construct ℓT by lifting the compatible projections r ≫ ℓ and d. Pullback cancellation proves its square is cartesian, and the universal property gives both factorization directions. Base-change stability transfers closed immersion, finiteness, flatness, and local finite presentation; the pinned finite-flat rank formula gives the required pointwise equality."
+    }
+  ]
+}

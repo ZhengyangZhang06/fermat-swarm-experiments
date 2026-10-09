@@ -1,0 +1,38 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "def IsPullbackVia|def nsmulPt|abbrev pushPt|def mapPt|structure RelativeGroupLaw|def SchemeHomOver",
+        "lift_fst|lift_snd|theorem hom_ext|noncomputable def lift",
+        "rg -n 'p07_flp_point_equiv|pullback_point_equiv|nsmulPt.*natural' project --glob '*.lean'"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFormalModuleOf.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMModuli.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_AlgebraicGeometry_RelativeGroupLaw.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_AlgebraicGeometry_NeronModelPropertyBundleCarrier.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/CategoryTheory/Limits/Shapes/Pullback/IsPullback/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project"
+      ],
+      "conclusion": "Verified clean snapshots at project 73257f1e32d99b75813b037f28a5cf45a2db886d and mathlib db584cd6d46c92f209a44c0f1c829460d327499d, plus all nine clean pinned dependencies. IsPullbackVia supplies the pullback, multiplication and action hypotheses; the inspected definitions and pullback lemmas justify every proof step. The final search returned no matches. Personally reran the exact node comparator for bb49c42e0308a3144001dc50ad20ee2f776939cb: exit zero, required success marker, kernel acceptance, and only propext, Classical.choice and Quot.sound. Verified all 223 exported hashes and the frozen-type challenge. The configured baseline header repair removes only absent-target attribute lines; the committed frozen prefix, imports and root placeholder remain unchanged. No additional named theorem, shadowing, new axiom or placeholder was introduced."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p07_flp_point_equiv_857cd4d38c",
+      "statement": "∀ {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N : ℕ) (S T : Type) [CommRing S] [CommRing T] (φ : S →+* T) (E : CerednikDrinfeld.QM.FakeEllipticCurve Λ N S) (ET : CerednikDrinfeld.QM.FakeEllipticCurve Λ N T) (g : Quiver.Hom ET.A E.A), CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia φ E ET g → ∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))), let tS := CategoryTheory.CategoryStruct.comp t (AlgebraicGeometry.Spec.map (CommRingCat.ofHom φ)); ∃ B : NeronModelInfra.SchemeHomOver t ET.f ≃ NeronModelInfra.SchemeHomOver tS E.f, (∀ P : NeronModelInfra.SchemeHomOver t ET.f, (B P).1 = CategoryTheory.CategoryStruct.comp P.1 g) ∧ (∀ P Q : NeronModelInfra.SchemeHomOver t ET.f, B (ET.L.mul t P Q) = E.L.mul tS (B P) (B Q)) ∧ B (ET.L.one t) = E.L.one tS ∧ (∀ (k : ℕ) (P : NeronModelInfra.SchemeHomOver t ET.f), B (CerednikDrinfeld.QM.nsmulPt ET.L t k P) = CerednikDrinfeld.QM.nsmulPt E.L tS k (B P)) ∧ (∀ (x : ↥Λ) (P : NeronModelInfra.SchemeHomOver t ET.f), B (CerednikDrinfeld.QM.pushPt (ET.act x) (ET.act_over x) P) = CerednikDrinfeld.QM.pushPt (E.act x) (E.act_over x) (B P))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Composition with g and pullback lifting are inverse by the projection equations and pullback uniqueness. Multiplication compatibility follows from IsPullbackVia. The image of identity is idempotent, hence identity by the target group laws. Induction proves preservation of repeated sums; associativity and the action compatibility equation prove preservation of the order action."
+    }
+  ]
+}

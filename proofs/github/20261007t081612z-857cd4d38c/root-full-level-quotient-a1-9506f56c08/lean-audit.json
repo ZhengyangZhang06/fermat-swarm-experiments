@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "def WithFullLevel|structure FullLevel|def IsPullbackVia|def nsmulPt|one_natural",
+        "p07_full_level_quotient_857cd4d38c|p07_flq_curve_quotient_857cd4d38c|p07_flq_full_level_pullback_857cd4d38c"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFineModuli.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFormalModuleOf.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project"
+      ],
+      "conclusion": "Verified clean project and mathlib snapshots at their manifest revisions. Inspected FullLevel, WithFullLevel, and IsPullbackVia definitions; exported definitions match the frozen source. The selected theorem and its two directly composed prerequisites have no matches in the reference project (rg exit 1). All seven prerequisite overlays match accepted candidate declarations."
+    }
+  ],
+  "comparison_identity": "bd9bcf2baad1d4b3170addd0c261e81a5455af74b4f8b3301686b80ee60138e7",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p07_full_level_quotient_857cd4d38c",
+      "statement": "∀ {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N n : ℕ) (S : Type) [CommRing S] (J : Ideal S) (u : CerednikDrinfeld.QM.FakeEllipticCurve.WithFullLevel Λ N n S), ∃ (v : CerednikDrinfeld.QM.FakeEllipticCurve.WithFullLevel Λ N n (S ⧸ J)) (g : Quiver.Hom v.1.A u.1.A), CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia (Ideal.Quotient.mk J) u.1 v.1 g ∧ CategoryTheory.CategoryStruct.comp v.2.P.1 g = CategoryTheory.CategoryStruct.comp (AlgebraicGeometry.Spec.map (CommRingCat.ofHom (Ideal.Quotient.mk J))) u.2.P.1",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines the accepted curve-quotient and full-level pullback prerequisites, preserving the pullback morphism and distinguished-section equation."
+    }
+  ]
+}

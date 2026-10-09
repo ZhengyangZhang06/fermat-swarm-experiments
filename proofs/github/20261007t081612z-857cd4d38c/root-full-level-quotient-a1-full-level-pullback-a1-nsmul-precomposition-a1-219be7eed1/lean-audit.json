@@ -1,0 +1,36 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "nsmulPt|one_natural|mul_natural|def schemeHomOverComp",
+        "def SchemeHomOver|abbrev SchemeHomOver",
+        "p07_flp_nsmul_precomp_857cd4d38c|nsmulPt.*natural|theorem.*nsmulPt|lemma.*nsmulPt"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_AlgebraicGeometry_RelativeGroupLaw.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMModuli.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_AlgebraicGeometry_NeronModelPropertyBundleCarrier.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89"
+      ],
+      "conclusion": "Found the precomposition definition, multiplication naturality field, proved identity naturality lemma, and nsmulPt recursion. These reused sources match the frozen proof base byte for byte. No existing selected declaration or nsmulPt naturality theorem matched the final search. Project 73257f1e32d99b75813b037f28a5cf45a2db886d, mathlib db584cd6d46c92f209a44c0f1c829460d327499d, and installed dependencies are clean and pinned. My exact comparator rerun 300b592d1830443ab826efc5f0dcc9e9 exited zero with 'Your solution is okay!' under Lean 4.33.1; the theorem's transitive axioms are only propext, Classical.choice, and Quot.sound. The diff adds only the tracked theorem and preserves the frozen root placeholder and imports. Exported input hashes and the comparator's absence-checked baseline attribute repair were verified."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p07_flp_nsmul_precomp_857cd4d38c",
+      "statement": "∀ (R : Type) [CommRing R] (A W W' : AlgebraicGeometry.Scheme.{0}) (f : Quiver.Hom A (AlgebraicGeometry.Spec (CommRingCat.of R))) (L : GoodReductionJacobian.RelativeGroupLaw R f) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of R))) (t' : Quiver.Hom W' (AlgebraicGeometry.Spec (CommRingCat.of R))) (ψ : Quiver.Hom W' W) (hψ : CategoryTheory.CategoryStruct.comp ψ t = t') (k : ℕ) (P : NeronModelInfra.SchemeHomOver t f), GoodReductionJacobian.schemeHomOverComp ψ hψ (CerednikDrinfeld.QM.nsmulPt L t k P) = CerednikDrinfeld.QM.nsmulPt L t' k (GoodReductionJacobian.schemeHomOverComp ψ hψ P)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Induct on k. At zero, the existing RelativeGroupLaw.one_natural lemma preserves the identity point. At the successor step, unfold nsmulPt, apply multiplication naturality, and rewrite using the induction hypothesis. This matches the parent-supplied prose proof."
+    }
+  ]
+}
