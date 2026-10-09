@@ -43,8 +43,8 @@
 <div class="legend"><span><i class="dot"></i>Waiting / no active worker observed</span><span>Gold: active worker · Blue: verification job · Purple: queued check · Green: verified and merged · Red: failed or reconciliation needed</span><span>A → B means B uses A. Children from one split are created together; their later stages proceed independently. Saved stages are checkpoints, not current execution.</span></div>
 <nav id="problem-nav" class="problem-nav" aria-label="Jump to a problem graph"></nav></section>
 <div id="problem-graphs" class="problem-graphs"></div>
-<section class="panel"><h2>Theorem ledger</h2><p>Issue state is read from GitHub. A closed issue alone is not evidence of a verified proof.</p><div id="problems" class="list"></div></section>
-<footer><span id="observed">No observation loaded.</span><br>GitHub state refreshes every two minutes. Observation failures remain visible; they never imply completion.</footer>
+<section class="panel"><h2>Theorem ledger</h2><p>Issue and PR states come from the published workflow observation. A closed issue alone is not evidence of a verified proof.</p><div id="problems" class="list"></div></section>
+<footer><span id="observed">No observation loaded.</span><br>Published observations refresh every two minutes. Observation failures remain visible; they never imply completion.</footer>
 </main>
 <script type="module">
 const repo='ZhengyangZhang06/fermat-swarm-experiments';
@@ -195,16 +195,16 @@ function drawGraph(){
  }
  put('graph-note',`${campaign.problems.length} separate problem graphs · ${totalNodes} observed theorem nodes · ${totalEdges} dependencies. Choose a problem below to jump to its graph.`);
 }
-function ledger(issues){
+function ledger(){
  const list=document.getElementById('problems');list.replaceChildren();
  const allNodes=new Map((status.problems||[]).flatMap(p=>p.nodes||[]).map(n=>[n.id,n]));
- for(const p of campaign.problems){const issue=issues.find(i=>i.number===p.issue_number);
+ for(const p of campaign.problems){
   const row=document.createElement('div');row.className='problem';
   const id=document.createElement('span');id.className='id';id.textContent=p.id.replace('fermat-','');
   const link=document.createElement('a');link.href=p.issue_url;link.textContent=p.theorem;
   const proof=status.problems?.find(r=>r.id===p.id)?.nodes.find(n=>n.local_id==='root');
-  const state=document.createElement('span');state.className='state';state.textContent=proof?`${workflowActivity(proof,allNodes)} · prose ${proof.prose_status}`:(issue?`Issue ${issue.state}`:'Issue state unavailable');
-  state.title=issue?`GitHub issue ${issue.state}; PR ${proof?.pr_state||'not opened'}`:'GitHub issue state unavailable';
+  const state=document.createElement('span');state.className='state';state.textContent=proof?`${workflowActivity(proof,allNodes)} · prose ${proof.prose_status}`:'Workflow observation unavailable';
+  state.title=`Published issue state: ${proof?.issue_state||'not checked'}; PR ${proof?.pr_state||'not opened'}`;
   row.append(id,link,state);list.append(row);
  }
 }
@@ -227,11 +227,10 @@ async function refresh(){
   const age=Date.now()-Date.parse(status.observed_at);
   put('notice',status.message+(age>300000?' The deployment observation is older than five minutes.':''));
   put('observed',`Deployment observation: ${status.observed_at}. Readiness is not proof work.`);
-  drawGraph();ledger([]);
-  const issues=[];let complete=false;
-  for(let page=1;page<=10;page++){const batch=await get(`https://api.github.com/repos/${repo}/issues?state=all&per_page=100&page=${page}`);issues.push(...batch);if(batch.length<100){complete=true;break}}
-  if(!complete)throw Error('Issue listing exceeded the page limit; refusing a partial status');
-  ledger(issues);
+  // Render the ledger from the same timestamped observation as the graphs.
+  // Anonymous REST pagination can exhaust a visitor's GitHub quota and replace
+  // a healthy dashboard with HTTP 403 even though live snapshots are available.
+  drawGraph();ledger();
  }catch(error){put('notice',`Status refresh incomplete: ${error.message}. Last displayed data may be stale; no completion is inferred.`);showVerificationSummary();if(campaign&&status)drawGraph()}
 }
 window.addEventListener('resize',()=>{if(campaign&&status)drawGraph()});refresh();setInterval(refresh,120000);

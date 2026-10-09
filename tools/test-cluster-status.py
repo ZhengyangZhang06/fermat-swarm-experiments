@@ -46,6 +46,16 @@ class ProofFeedTests(unittest.TestCase):
         self.dag([dict(id='root', status='planning', github_pr_state='merged', github_merge_commit='abc')])
         self.assertFalse(self.report()['root_integrated'])
 
+    def test_published_issue_state_does_not_imply_proof_acceptance(self):
+        for recorded, expected in [('open', 'open'), ('closed', 'closed'),
+                                   ('', 'not checked'), ('private-canary', 'not checked')]:
+            with self.subTest(recorded=recorded):
+                self.dag([dict(id='root', status='planning', github_issue_state=recorded)])
+                report = self.report()
+                self.assertEqual(report['nodes'][0]['issue_state'], expected)
+                self.assertFalse(report['root_integrated'])
+                self.assertFalse(report['nodes'][0]['accepted'])
+
     def test_verified_without_merge_does_not_count_integrated(self):
         self.dag([dict(id='root', status='proved', integrated_commit='abc')])
         self.assertTrue(self.report()['nodes'][0]['lean_verified'])

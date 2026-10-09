@@ -39,7 +39,8 @@ def proof_records(config):
         registration = registered[problem['id']]
         frozen = dict(id=problem['id'] + '/root', problem=problem['id'], local_id='root',
                       title=problem['theorem'], status='queued', requires=[], active=True,
-                      issue_url=problem['issue_url'], pr_url='', pr_state='', merge_commit='',
+                      issue_url=problem['issue_url'], issue_state='not checked',
+                      pr_url='', pr_state='', merge_commit='',
                       lean_verified=False, accepted=False, integrated=False, prose_status='pending')
         report = dict(id=problem['id'], enabled=bool(registration.get('enabled')), nodes=[frozen],
                       graph_ok=True, root_integrated=False, natural_proof_reviewed=False)
@@ -105,6 +106,7 @@ def proof_records(config):
                 title=node.get('lean_name') or node.get('title') or key, status=node.get('status', 'queued'),
                 requires=[problem['id'] + '/' + d for d in dict.fromkeys(node.get('children', []) + node.get('depends_on', []))],
                 active=True, issue_url=problem['issue_url'] if key == 'root' else link('github_issue_url', 'issues'),
+                issue_state=node.get('github_issue_state') if node.get('github_issue_state') in ('open', 'closed') else 'not checked',
                 pr_url=link('github_pr_url', 'pull'),
                 pr_state=node.get('github_pr_state', ''), merge_commit=node.get('github_merge_commit', ''),
                 lean_verified=verified, integrated=integrated, prose_status=prose,

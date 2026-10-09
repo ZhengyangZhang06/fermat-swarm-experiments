@@ -41,7 +41,8 @@ class StatusBrowserTests(unittest.TestCase):
         if url.endswith("/campaign.json"):
             return route.fulfill(content_type="application/json", body=(ROOT / "campaign.json").read_text())
         if "api.github.com" in url:
-            return route.fulfill(content_type="application/json", body="[]")
+            return route.fulfill(status=403, content_type="application/json",
+                                 body='{"message":"API rate limit exceeded"}')
         minute = int(datetime.now(timezone.utc).timestamp() // 60)
         if self.mode != "offline" and f"/ticks/{minute-1}/" in url:
             observed = datetime.fromtimestamp((minute-1)*60, timezone.utc)
@@ -79,6 +80,22 @@ class StatusBrowserTests(unittest.TestCase):
         self.page.set_viewport_size({"width": 420, "height": 844})
         self.assertEqual(self.page.locator(".problem-dag a").count(), 0)
         self.assertEqual(self.page.locator("#resolvers").inner_text(), "—")
+        self.assertEqual(self.errors, [])
+
+    def test_api_forbidden_does_not_break_dashboard_or_ledger(self):
+        root = self.problems[0]['nodes'][0]
+        root.update(issue_state='open', pr_state='open')
+        self.page.goto('https://status.test/index.html')
+        self.page.wait_for_function("document.querySelectorAll('#problems .problem').length === 10")
+        self.page.evaluate('window.testRefresh()')
+        self.assertEqual(self.page.locator('#notice').inner_text(), 'Live proof work')
+        self.assertIn('Published issue state: open', self.page.locator('#problems .state').first.get_attribute('title'))
+        root.update(issue_state='closed', pr_state='merged')
+        self.page.evaluate('window.testRefresh()')
+        self.assertIn('Published issue state: closed; PR merged',
+                      self.page.locator('#problems .state').first.get_attribute('title'))
+        self.assertEqual(self.page.locator('#verified').inner_text(), '0')
+        self.assertFalse(any('api.github.com' in url for url in self.requests))
         self.assertEqual(self.errors, [])
 
     def add_graphs(self):
