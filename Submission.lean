@@ -2264,3 +2264,95 @@ theorem Submission.p09_af497904fe_ff_finite_inertia_exclusion :
   intro x hx
   obtain rfl := Set.mem_singleton_iff.mp hx
   exact hfix
+
+theorem Submission.p09_af497904fe_rhc_20261009_adic_cyclotomic_character :
+    ∀ {𝒪 : Type} [CommRing 𝒪] [IsDomain 𝒪] [IsDiscreteValuationRing 𝒪]
+      [IsAdicComplete (IsLocalRing.maximalIdeal 𝒪) 𝒪] [CharZero 𝒪]
+      (p : ℕ) [Fact p.Prime], (p : 𝒪) ∈ IsLocalRing.maximalIdeal 𝒪 →
+      ∀ {R : Type} [CommRing R] [IsLocalRing R] [Algebra 𝒪 R],
+      IsLocalHom (algebraMap 𝒪 R) →
+      ∃ c : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) →* Rˣ,
+        (∀ n : ℕ, ∃ F : IntermediateField ℚ (AlgebraicClosure ℚ),
+          FiniteDimensional ℚ F ∧
+          ∀ σ τ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ),
+            (∀ x ∈ F, σ x = τ x) →
+            ((c σ : Rˣ) : R) - ((c τ : Rˣ) : R) ∈ IsLocalRing.maximalIdeal R ^ n) ∧
+        (∀ (ℓ : ℕ), ℓ.Prime → ℓ ≠ p →
+          ∀ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ →
+          ∀ σ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ),
+            P.IsFrobeniusAt σ ℓ → ((c σ : Rˣ) : R) = (ℓ : R)) := by
+  classical
+  intro 𝒪 _ _ _ _ _ p _ hp𝒪 R _ _ _ hl
+  have hp : p.Prime := Fact.out
+  have : NeZero p := ⟨hp.ne_zero⟩
+  choose χ F hF hagree haction hfrob using
+    fun n : ℕ => Submission.p09_af497904fe_finite_cyclotomic_character (p ^ n)
+  let A (n : ℕ) (g : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) : ℕ :=
+    (χ n g : ZMod (p ^ n)).val
+  let a (n : ℕ) (g : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) : 𝒪 := A n g
+  have hdivmem (n : ℕ) (z : ℤ) (hz : (z : ZMod (p ^ n)) = 0) :
+      (z : 𝒪) ∈ maximalIdeal 𝒪 ^ n := by
+    obtain ⟨k, hk⟩ := (ZMod.intCast_zmod_eq_zero_iff_dvd z (p ^ n)).mp hz
+    rw [hk, Int.cast_mul, Int.cast_natCast, Nat.cast_pow]
+    exact (maximalIdeal 𝒪 ^ n).mul_mem_right _ (Ideal.pow_mem_pow hp𝒪 n)
+  have hcong (n i j : ℕ) (hij : (i : ZMod (p ^ n)) = (j : ZMod (p ^ n))) :
+      (i : 𝒪) - (j : 𝒪) ∈ maximalIdeal 𝒪 ^ n := by
+    simpa only [Int.cast_sub, Int.cast_natCast] using
+      hdivmem n ((i : ℤ) - (j : ℤ)) (by
+        simpa only [Int.cast_sub, Int.cast_natCast, sub_eq_zero] using hij)
+  have hcompat (n m : ℕ) (hnm : n ≤ m)
+      (g : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) :
+      a m g - a n g ∈ maximalIdeal 𝒪 ^ n := by
+    apply hcong n (A m g) (A n g)
+    obtain ⟨ζ, hζ⟩ :=
+      HasEnoughRootsOfUnity.exists_primitiveRoot (AlgebraicClosure ℚ) (p ^ n)
+    have hζm : ζ ^ (p ^ m) = 1 :=
+      (hζ.pow_eq_one_iff_dvd _).mpr (pow_dvd_pow p hnm)
+    have he : ζ ^ A m g = ζ ^ A n g :=
+      (haction m g ζ hζm).symm.trans (haction n g ζ hζ.pow_eq_one)
+    apply (ZMod.natCast_eq_natCast_iff _ _ _).mpr
+    rw [hζ.eq_orderOf]
+    exact (hζ.isOfFinOrder (NeZero.ne (p ^ n))).pow_eq_pow_iff_modEq.mp he
+  have hone (n : ℕ) : a n 1 - 1 ∈ maximalIdeal 𝒪 ^ n := by
+    simpa only [a, Nat.cast_one] using hcong n (A n 1) 1 (by
+      simp [A])
+  have hmul (n : ℕ) (g h : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) :
+      a n (g * h) - a n g * a n h ∈ maximalIdeal 𝒪 ^ n := by
+    simpa only [a, Nat.cast_mul] using hcong n (A n (g * h)) (A n g * A n h) (by
+      simp [A])
+  obtain ⟨b, hb, _⟩ :=
+    Submission.p09_af497904fe_adic_character_lift (maximalIdeal 𝒪) a hcompat hone hmul
+  let c := (Units.map (algebraMap 𝒪 R).toMonoidHom).comp b
+  have hmap (n : ℕ) :
+      (maximalIdeal 𝒪 ^ n).map (algebraMap 𝒪 R) ≤ maximalIdeal R ^ n := by
+    rw [Ideal.map_pow]
+    exact Ideal.pow_right_mono (Ideal.map_le_iff_le_comap.mpr fun x hx =>
+      Ideal.mem_comap.mpr (haveI := hl; map_nonunit (algebraMap 𝒪 R) x hx)) n
+  refine ⟨c, ?_, ?_⟩
+  · intro n
+    refine ⟨F n, hF n, ?_⟩
+    intro σ τ hστ
+    have ha : a n σ = a n τ := by
+      simp only [a, A, hagree n σ τ hστ]
+    have hd : (b σ : 𝒪) - (b τ : 𝒪) ∈ maximalIdeal 𝒪 ^ n := by
+      convert (maximalIdeal 𝒪 ^ n).sub_mem (hb n σ) (hb n τ) using 1
+      rw [ha]
+      ring
+    change algebraMap 𝒪 R (b σ : 𝒪) - algebraMap 𝒪 R (b τ : 𝒪) ∈ maximalIdeal R ^ n
+    rw [← map_sub]
+    exact hmap n (Ideal.mem_map_of_mem (algebraMap 𝒪 R) hd)
+  · intro ℓ hℓ hℓp P hP σ hσ
+    have he : (b σ : 𝒪) = (ℓ : 𝒪) := by
+      apply (IsHausdorff.eq_iff_smodEq (I := maximalIdeal 𝒪)).mpr
+      intro n
+      rw [SModEq.sub_mem, Ideal.smul_eq_mul, Ideal.mul_top]
+      have hℓn : ¬ ℓ ∣ p ^ n := fun h =>
+        hℓp (Nat.prime_eq_prime_of_dvd_pow hℓ hp h)
+      have hf : a n σ - (ℓ : 𝒪) ∈ maximalIdeal 𝒪 ^ n := by
+        apply hcong n (A n σ) ℓ
+        simp only [A, ZMod.natCast_zmod_val, hfrob n ℓ hℓ hℓn P hP σ hσ,
+          ZMod.coe_unitOfCoprime]
+      convert (maximalIdeal 𝒪 ^ n).add_mem (hb n σ) hf using 1
+      ring
+    change algebraMap 𝒪 R (b σ : 𝒪) = (ℓ : R)
+    rw [he, map_natCast]
