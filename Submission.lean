@@ -1663,3 +1663,86 @@ theorem Submission.p09_af497904fe_cmc_40fde013_floor_remainder :
         exact add_le_add (mul_le_mul_of_nonneg_left hpow hC)
           (by simpa only [mul_one] using mul_le_mul_of_nonneg_left hone (abs_nonneg κ))
       _ = (C + |κ|) * t ^ α := (add_mul _ _ _).symm
+theorem Submission.p09_af497904fe_cmc_40fde013_mellin_tail_holomorphic :
+    ∀ (R : ℝ → ℝ) (α M : ℝ), Measurable R → 0 ≤ M →
+      (∀ t : ℝ, 1 ≤ t → |R t| ≤ M * t ^ α) →
+      (∀ s : ℂ, α < s.re → MeasureTheory.IntegrableOn
+        (fun t : ℝ => (R t : ℂ) * (t : ℂ) ^ (-(s + 1))) (Set.Ioi (1 : ℝ))) ∧
+      DifferentiableOn ℂ (fun s : ℂ => MeasureTheory.integral
+        (μ := MeasureTheory.volume.restrict (Set.Ioi (1 : ℝ)))
+        (fun t : ℝ => (R t : ℂ) * (t : ℂ) ^ (-(s + 1)))) {s : ℂ | α < s.re} := by
+  intro R α M hR hM hbound
+  let μ := MeasureTheory.volume.restrict (Set.Ioi (1 : ℝ))
+  let F : ℂ → ℝ → ℂ := fun s t => (R t : ℂ) * (t : ℂ) ^ (-(s + 1))
+  have hmeas (s : ℂ) : MeasureTheory.AEStronglyMeasurable (F s) μ := by
+    refine (Complex.continuous_ofReal.measurable.comp hR).aestronglyMeasurable.mul ?_
+    refine ContinuousOn.aestronglyMeasurable ?_ measurableSet_Ioi
+    intro t ht
+    exact (Complex.continuousAt_ofReal_cpow_const t (-(s + 1))
+      (Or.inr (ne_of_gt (lt_trans zero_lt_one ht)))).continuousWithinAt
+  have hnorm (s : ℂ) (t : ℝ) (ht : 1 < t) :
+      ‖F s t‖ ≤ M * t ^ (α - s.re - 1) := by
+    have ht0 : 0 < t := lt_trans zero_lt_one ht
+    dsimp [F]
+    rw [norm_mul, Complex.norm_real, Real.norm_eq_abs,
+      Complex.norm_cpow_eq_rpow_re_of_pos ht0]
+    calc
+      |R t| * t ^ (-(s + 1)).re ≤ (M * t ^ α) * t ^ (-(s + 1)).re :=
+        mul_le_mul_of_nonneg_right (hbound t ht.le) (Real.rpow_nonneg ht0.le _)
+      _ = M * t ^ (α - s.re - 1) := by
+        rw [mul_assoc, ← Real.rpow_add ht0]
+        congr 2
+        simp only [Complex.neg_re, Complex.add_re, Complex.one_re]
+        ring
+  have hint (s : ℂ) (hs : α < s.re) : MeasureTheory.Integrable (F s) μ := by
+    refine ((integrableOn_Ioi_rpow_of_lt (by linarith : α - s.re - 1 < -1)
+      zero_lt_one).const_mul M).mono' (hmeas s) ?_
+    exact (MeasureTheory.ae_restrict_mem measurableSet_Ioi).mono fun t ht => hnorm s t ht
+  refine ⟨hint, ?_⟩
+  intro s hs
+  have hs' : α < s.re := hs
+  let ε : ℝ := (s.re - α) / 4
+  have hε : 0 < ε := by dsimp [ε]; linarith
+  let F' : ℂ → ℝ → ℂ := fun z t => -((Real.log t : ℂ) * F z t)
+  let bound : ℝ → ℝ := fun t => (M / ε) * t ^ (α - s.re + 2 * ε - 1)
+  have hmeas' : MeasureTheory.AEStronglyMeasurable (F' s) μ := by
+    exact ((Complex.continuous_ofReal.measurable.comp Real.measurable_log).aestronglyMeasurable.mul (hmeas s)).neg
+  have hbound' : ∀ᵐ t : ℝ ∂μ, ∀ z ∈ Metric.ball s ε, ‖F' z t‖ ≤ bound t := by
+    refine (MeasureTheory.ae_restrict_mem measurableSet_Ioi).mono fun t ht z hz => ?_
+    have ht0 : 0 < t := lt_trans zero_lt_one ht
+    have hzre : s.re - ε ≤ z.re := by
+      have hzn := Complex.re_le_norm (s - z)
+      rw [Complex.sub_re] at hzn
+      rw [Metric.mem_ball, dist_comm, dist_eq_norm] at hz
+      linarith
+    have hp : ‖F z t‖ ≤ M * t ^ (α - s.re + ε - 1) :=
+      (hnorm z t ht).trans (mul_le_mul_of_nonneg_left
+        (Real.rpow_le_rpow_of_exponent_le ht.le (by linarith)) hM)
+    dsimp [F', bound]
+    rw [norm_neg, norm_mul, Complex.norm_real, Real.norm_eq_abs,
+      abs_of_nonneg (Real.log_nonneg ht.le)]
+    calc
+      Real.log t * ‖F z t‖ ≤ (t ^ ε / ε) * (M * t ^ (α - s.re + ε - 1)) :=
+        mul_le_mul (Real.log_le_rpow_div ht0.le hε) hp (norm_nonneg _)
+          (by positivity)
+      _ = (M / ε) * t ^ (α - s.re + 2 * ε - 1) := by
+        calc
+          _ = (M / ε) * (t ^ ε * t ^ (α - s.re + ε - 1)) := by ring
+          _ = _ := by rw [← Real.rpow_add ht0]; congr 2; ring
+  have hbound_int : MeasureTheory.Integrable bound μ := by
+    exact (integrableOn_Ioi_rpow_of_lt
+      (by dsimp [ε]; linarith : α - s.re + 2 * ε - 1 < -1)
+      zero_lt_one).const_mul (M / ε)
+  have hderiv : ∀ᵐ t : ℝ ∂μ, ∀ z ∈ Metric.ball s ε,
+      HasDerivAt (fun w => F w t) (F' z t) z := by
+    refine (MeasureTheory.ae_restrict_mem measurableSet_Ioi).mono fun t ht z _ => ?_
+    have ht0 : 0 < t := lt_trans zero_lt_one ht
+    have hd := (((hasDerivAt_id z).add_const 1).neg.const_cpow
+      (Or.inl (Complex.ofReal_ne_zero.mpr ht0.ne'))).const_mul (R t : ℂ)
+    convert! hd using 1
+    dsimp [F', F]
+    rw [← Complex.ofReal_log ht0.le]
+    ring
+  exact (hasDerivAt_integral_of_dominated_loc_of_deriv_le
+    (Metric.ball_mem_nhds s hε) (Filter.Eventually.of_forall hmeas)
+    (hint s hs') hmeas' hbound' hbound_int hderiv).2.differentiableAt.differentiableWithinAt
