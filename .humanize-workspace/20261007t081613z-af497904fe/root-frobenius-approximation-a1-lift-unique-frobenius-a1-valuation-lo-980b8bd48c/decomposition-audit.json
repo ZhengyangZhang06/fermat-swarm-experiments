@@ -1,0 +1,40 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "LiesOverPrime|coe_mem_nonunits_iff|mem_or_inv_mem|of_module_finite|isIntegral_coe|basis|comap_isPrime|finiteQuotient|HasFiniteQuotients",
+        "IsIntegrallyClosed|isIntegral|integralClosure",
+        "p09_af497904fe_ic_integer_mem_valuation|p09_af497904fe_ic_prime_center_of_containment"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/Integral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/Maps.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/Quotient/HasFiniteQuotients.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/ic-independent-audit-z1u7_3n0/report.json"
+      ],
+      "conclusion": "Verified clean project revision 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d. Sources confirm integrality, a finite integer basis, valuation nonunits/maximal-ideal membership, and prime comaps. Neither proposed name matched the DAG or snapshots; both are valid bare identifiers. The existing DAG is acyclic. Fresh Lean checks passed both exact propositions, relevant instances and parent composition under frozen imports and imported Submission. Interface and supporting-declaration axioms are limited to propext, Classical.choice and Quot.sound. Verified the specified policy digest, reversible omission of lines 10–11 and absence of all eight targets. A concurrent unrelated Submission-body update preserved the frozen header, contract, problem and handoffs. These are decomposition diagnostics, not child-proof comparator acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "integer_mem_valuation",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose includes every hypothesis and matches the standalone one-line Lean proposition. The proof correctly obtains a positive-degree monic equation, makes the inverse of an excluded element a maximal-ideal member, and multiplies the equation to force 1 into that proper ideal. Integer coefficients, positive exponents and injectivity justify every step. No circular reliance or deferred proof search occurs. Integral containment is a genuine separate obligation, and the checked parent composition confirms the split is sufficient."
+    },
+    {
+      "key": "prime_center_of_containment",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and standalone Lean proposition agree, including containment, primality, LiesOverPrime and every conclusion. Containment constructs the ring homomorphism; contraction gives a proper prime ideal and the exact nonunit equivalence. Primality of ℓ and characteristic zero establish nonzeroness. Finite-basis coefficient reduction supplies the stated surjection and quotient finiteness. All steps are complete and non-circular. Empty sibling dependencies are correct because containment is an explicit hypothesis; the parent supplies it using the first child."
+    }
+  ],
+  "required_changes": []
+}

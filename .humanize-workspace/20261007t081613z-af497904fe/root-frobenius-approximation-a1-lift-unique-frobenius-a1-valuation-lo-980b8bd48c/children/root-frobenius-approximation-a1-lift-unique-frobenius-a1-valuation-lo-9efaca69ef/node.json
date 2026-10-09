@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.valuation_localization-a1.integral_center-a1.integer_mem_valuation-a1",
+  "parent_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.valuation_localization-a1.integral_center-a1",
+  "depth": 5,
+  "title": "Algebraic integers belong to every valuation subring",
+  "statement": "Let E be an intermediate field of AlgebraicClosure ℚ over ℚ with FiniteDimensional ℚ E, and let V be any valuation subring of E. Then every a ∈ NumberField.RingOfIntegers E has its canonical image in V.",
+  "lean_statement": "∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] (V : ValuationSubring E), ∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V",
+  "lean_name": "p09_af497904fe_ic_integer_mem_valuation",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-9efaca69ef-a1"
+}

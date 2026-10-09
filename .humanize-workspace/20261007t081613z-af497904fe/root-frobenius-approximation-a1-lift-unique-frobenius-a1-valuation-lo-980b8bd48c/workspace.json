@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081613Z-af497904fe",
+  "parent_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.valuation_localization-a1.integral_center-a1",
+  "dispatch_branch": "proof-workspace/fermat-p09/20261007t081613z-af497904fe/dispatch/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-980b8bd48c",
+  "source_commit": "82caffebb07ba5932c3421ca16deae4e3e65d376",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.valuation_localization-a1.integral_center-a1.integer_mem_valuation-a1",
+      "key": "integer_mem_valuation",
+      "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-9efaca69ef-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-980b8bd48c/children/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-9efaca69ef",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "LiesOverPrime|coe_mem_nonunits_iff|of_module_finite|finite.*quotient|quotient.*finite|IsIntegrallyClosed|isIntegral.*mem",
+              "coe_mem_nonunits_iff|isIntegrallyClosed|isIntegral|mem_or_inv_mem",
+              "of_module_finite|basis|isIntegral|finite|HasFiniteQuotients",
+              "theorem comap_isPrime|lemma comap_isPrime|instance comap_isPrime"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/Integral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/Quotient/HasFiniteQuotients.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/Maps.lean"
+            ],
+            "conclusion": "Confirmed the pinned project revision 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d. LiesOverPrime is precisely natural-cast membership in V.nonunits. NumberField.Basic supplies NumberField.of_module_finite, integrality of ring-of-integers elements, and a finite integral basis. ValuationSubring supplies mem_or_inv_mem and coe_mem_nonunits_iff; Ideal.Maps supplies comap_isPrime. HasFiniteQuotients also provides quotient finiteness for domains finite over ℤ. The supporting declarations checked in Lean use only propext, Classical.choice and Quot.sound."
+          }
+        ],
+        "parent_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.valuation_localization-a1.integral_center-a1",
+        "child_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.valuation_localization-a1.integral_center-a1.integer_mem_valuation-a1",
+        "subproblem": {
+          "key": "integer_mem_valuation",
+          "title": "Algebraic integers belong to every valuation subring",
+          "statement": "Let E be an intermediate field of AlgebraicClosure ℚ over ℚ with FiniteDimensional ℚ E, and let V be any valuation subring of E. Then every a ∈ NumberField.RingOfIntegers E has its canonical image in V.",
+          "lean_statement": "∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] (V : ValuationSubring E), ∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V",
+          "lean_name": "p09_af497904fe_ic_integer_mem_valuation",
+          "depends_on": [],
+          "natural_proof": "1. Fix E, V and a ∈ O, where O = NumberField.RingOfIntegers E, and put α = (a : E). By NumberField.RingOfIntegers.isIntegral_coe, there is a monic polynomial P ∈ ℤ[X] with P(α) = 0. Write n for its degree. If n = 0, monicity gives P = 1, contradicting P(α) = 0 in the nontrivial field E. Thus n > 0, and the polynomial equation has the form α^n + ∑_{i<n} c_i α^i = 0 with c_i ∈ ℤ.\n2. Suppose α ∉ V. Since 0 ∈ V, α ≠ 0. The valuation-subring property gives α⁻¹ ∈ V. Let y be this inverse regarded as an element of V, and let m be the maximal ideal of the local ring V.\n3. The element y is not a unit in V. Indeed, an inverse z ∈ V would give α⁻¹z = 1 in E; multiplication by α would give z = α, contradicting α ∉ V. Since the maximal ideal of a local ring consists of its nonunits, y ∈ m.\n4. Multiply the polynomial equation in E by (α⁻¹)^n. Because α ≠ 0 and i < n, its leading term becomes 1 and each α^i(α⁻¹)^n becomes (α⁻¹)^(n-i). Hence 1 + ∑_{i<n} c_i y^(n-i) = 0 after embedding V into E. Every integer belongs to the unital subring V, so all terms already lie in V. Injectivity of V → E gives the same equality in V.\n5. For each i < n, the exponent n-i is positive. Therefore y^(n-i) = y · y^(n-i-1) belongs to m. Multiplication by c_i and addition of the finitely many terms preserve membership in m. Their negative is also in m, but the equality in step 4 identifies that negative with 1. This contradicts the properness of m.\n6. Thus α ∈ V. Since a was arbitrary, every element of O has its image in V.",
+          "proof_key_steps": [
+            "Use integrality to obtain a monic vanishing polynomial of positive degree.",
+            "If the element is outside the valuation ring, its nonzero inverse belongs to the ring.",
+            "That inverse is a nonunit and hence belongs to the maximal ideal.",
+            "Multiply the polynomial equation by the inverse raised to its degree.",
+            "Every remaining term lies in the maximal ideal, forcing 1 into a proper ideal.",
+            "Conclude universal integral containment."
+          ]
+        },
+        "audit": {
+          "key": "integer_mem_valuation",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The prose includes every hypothesis and matches the standalone one-line Lean proposition. The proof correctly obtains a positive-degree monic equation, makes the inverse of an excluded element a maximal-ideal member, and multiplies the equation to force 1 into that proper ideal. Integer coefficients, positive exponents and injectivity justify every step. No circular reliance or deferred proof search occurs. Integral containment is a genuine separate obligation, and the checked parent composition confirms the split is sufficient."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-9efaca69ef/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-9efaca69ef/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-9efaca69ef/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.valuation_localization-a1.integral_center-a1.prime_center_of_containment-a1",
+      "key": "prime_center_of_containment",
+      "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-29231635e4-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-980b8bd48c/children/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-29231635e4",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "LiesOverPrime|coe_mem_nonunits_iff|of_module_finite|finite.*quotient|quotient.*finite|IsIntegrallyClosed|isIntegral.*mem",
+              "coe_mem_nonunits_iff|isIntegrallyClosed|isIntegral|mem_or_inv_mem",
+              "of_module_finite|basis|isIntegral|finite|HasFiniteQuotients",
+              "theorem comap_isPrime|lemma comap_isPrime|instance comap_isPrime"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/Integral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/Quotient/HasFiniteQuotients.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/Maps.lean"
+            ],
+            "conclusion": "Confirmed the pinned project revision 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d. LiesOverPrime is precisely natural-cast membership in V.nonunits. NumberField.Basic supplies NumberField.of_module_finite, integrality of ring-of-integers elements, and a finite integral basis. ValuationSubring supplies mem_or_inv_mem and coe_mem_nonunits_iff; Ideal.Maps supplies comap_isPrime. HasFiniteQuotients also provides quotient finiteness for domains finite over ℤ. The supporting declarations checked in Lean use only propext, Classical.choice and Quot.sound."
+          }
+        ],
+        "parent_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.valuation_localization-a1.integral_center-a1",
+        "child_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.valuation_localization-a1.integral_center-a1.prime_center_of_containment-a1",
+        "subproblem": {
+          "key": "prime_center_of_containment",
+          "title": "Integral containment gives a nonzero prime center with finite quotient",
+          "statement": "Let E be an intermediate field of AlgebraicClosure ℚ over ℚ with FiniteDimensional ℚ E. Let ℓ be a natural prime and V a valuation subring of E satisfying V.LiesOverPrime ℓ, meaning (ℓ : E) ∈ V.nonunits. Assume every element of O = NumberField.RingOfIntegers E has its image in V. Then there exists an ideal q of O such that q.IsPrime, q ≠ ⊥, (ℓ : O) ∈ q, O/q is finite, and for every a ∈ O, (a : E) ∈ V.nonunits if and only if a ∈ q.",
+          "lean_statement": "∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] (ℓ : ℕ), ℓ.Prime → ∀ (V : ValuationSubring E), V.LiesOverPrime ℓ → (∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V) → ∃ q : Ideal (NumberField.RingOfIntegers E), q.IsPrime ∧ q ≠ ⊥ ∧ (ℓ : NumberField.RingOfIntegers E) ∈ q ∧ Finite (NumberField.RingOfIntegers E ⧸ q) ∧ (∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V.nonunits ↔ a ∈ q)",
+          "lean_name": "p09_af497904fe_ic_prime_center_of_containment",
+          "depends_on": [],
+          "natural_proof": "1. Fix E, ℓ, V and the stated containment hypothesis, and write O = NumberField.RingOfIntegers E. The field E inherits characteristic zero from AlgebraicClosure ℚ. Its finite dimension over ℚ gives NumberField E, using NumberField.of_module_finite ℚ E.\n2. Define f : O → V by sending a to its canonical image (a : E), with membership supplied by the containment hypothesis. The canonical map O → E preserves zero, one, addition and multiplication. Injectivity of the subtype map V → E therefore proves that f preserves these operations too. Thus f is a unital ring homomorphism.\n3. Let m be the maximal ideal of V and put q = Ideal.comap f m. This is an ideal of O. Since f(1) = 1 ∉ m, it is proper. If ab ∈ q, then f(a)f(b) ∈ m. The maximal ideal m is prime, so f(a) ∈ m or f(b) ∈ m, giving a ∈ q or b ∈ q. Hence q.IsPrime.\n4. For every a ∈ O, the definition of comap gives a ∈ q if and only if f(a) ∈ m. By ValuationSubring.coe_mem_nonunits_iff, the latter is equivalent to (a : E) ∈ V.nonunits. Reversing this equivalence gives exactly the required nonunit-membership condition.\n5. The hypothesis V.LiesOverPrime ℓ says (ℓ : E) ∈ V.nonunits. The canonical maps preserve natural-number casts, so step 4 implies (ℓ : O) ∈ q. Since ℓ is prime, ℓ ≥ 2 and thus ℓ ≠ 0. Characteristic zero gives (ℓ : O) ≠ 0. If q = ⊥, its membership would imply (ℓ : O) = 0, a contradiction. Therefore q ≠ ⊥.\n6. Choose a ℤ-basis (e_i) of O indexed by a finite set I, using NumberField.RingOfIntegers.basis and the finite ℤ-module instance. Every a ∈ O can be written a = ∑_{i∈I} c_i e_i with c_i ∈ ℤ. Since ℓ > 0, Euclidean division gives integers t_i and r_i with c_i = ℓt_i + r_i and 0 ≤ r_i < ℓ. Consequently a - ∑_{i∈I} r_i e_i = (ℓ : O) · ∑_{i∈I} t_i e_i belongs to q.\n7. Map the finite set of tuples I → Fin ℓ to O/q by sending a tuple to the class of the corresponding sum of residue coefficients times e_i. Every quotient class has a representative a. The remainders from step 6 form such a tuple and yield the same class as a. This map is therefore surjective. A surjective image of a finite set is finite, so O/q is finite.\n8. The ideal q satisfies primality by step 3, the required equivalence by step 4, nonzeroness and membership of ℓ by step 5, and quotient finiteness by step 7. These are all the asserted conclusions.",
+          "proof_key_steps": [
+            "Equip E with its number-field structure.",
+            "Factor the canonical integer-ring embedding through V using the containment hypothesis.",
+            "Contract the maximal ideal of V and prove the contraction is proper and prime.",
+            "Identify contraction membership with membership in V.nonunits.",
+            "Use LiesOverPrime and characteristic zero to obtain membership of ℓ and nonzeroness.",
+            "Reduce finite integral-basis coefficients modulo ℓ.",
+            "Construct a surjection from a finite set of residue tuples onto O/q.",
+            "Assemble the ideal's required properties."
+          ]
+        },
+        "audit": {
+          "key": "prime_center_of_containment",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The prose and standalone Lean proposition agree, including containment, primality, LiesOverPrime and every conclusion. Containment constructs the ring homomorphism; contraction gives a proper prime ideal and the exact nonunit equivalence. Primality of ℓ and characteristic zero establish nonzeroness. Finite-basis coefficient reduction supplies the stated surjection and quotient finiteness. All steps are complete and non-circular. Empty sibling dependencies are correct because containment is an explicit hypothesis; the parent supplies it using the first child."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-29231635e4/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-29231635e4/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-29231635e4/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-980b8bd48c/task.md": "d1097f34a9dcda1e8cd40a21e7f0ee81cabd7d3772d3eff410ef433f9adf18c0",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-980b8bd48c/problem.md": "0500482283c7cf686c90505c2e668aae51a3829d556ca24b402d320ba3f840fd",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-980b8bd48c/problem.json": "0a505890f14c1e4a40b2d68435dac1a45d795b4cadd800289fbb395cab0114df",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-980b8bd48c/reference-manifest.json": "024395eb16744a67c062d4787284abe3f4cdebfec9609217ede4bc773b8bcef0",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-980b8bd48c/decomposition.json": "d7b7f5819e9c7ebc3703d5822a50f5d253c7622faa3e8d8e304983a6ac72eaf5",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-980b8bd48c/decomposition-audit.json": "9f8d41d29902da1cc48e0d0111f53e01b365a04d9fe1ce13728b83b37e6c92e6",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-980b8bd48c/controller-contract.json": "15abb5b197a06e4feb0c79eda2d53e3a24a12bfa8f753bace11ccc2ff0aaee11",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-980b8bd48c/children/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-9efaca69ef/parent-child-handoff.json": "5cfb42f415c43d96ba6960141c3797327e3311ced90aa68024fe71094dabfb00",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-980b8bd48c/children/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-9efaca69ef/parent-supplied-plan.md": "deaa9479de1f175746eecda99e5aaf35e95e97f8b6a0e6450360aca90627960d",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-980b8bd48c/children/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-9efaca69ef/parent-supplied-natural-proof.md": "ab6c63238c722638feed9b48421a1614097edc8540ab9234b7145ab35a26abe0",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-980b8bd48c/children/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-9efaca69ef/parent-supplied-natural-proof.json": "fdd841d191b450160c93a6d9f2298e24c747f93dd5115877e1cd7e282b514a6d",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-980b8bd48c/children/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-9efaca69ef/node.json": "6b122c774d679620608644accf049d11987c5c6e9dc903cf5c38cb8b1d6a58e1",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-980b8bd48c/children/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-29231635e4/parent-child-handoff.json": "5fe0074ab6389747c60bcf6f4eacf24a1819895264b779aa885cb5269e479909",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-980b8bd48c/children/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-29231635e4/parent-supplied-plan.md": "a86d1d5027c81017227fab5ce15e723d7e257ab264ac6dde34b41993ca50744c",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-980b8bd48c/children/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-29231635e4/parent-supplied-natural-proof.md": "c59bba576ff139d16a0ccb4d587fb8a8cee176aca978790ca3cad67d73babb3d",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-980b8bd48c/children/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-29231635e4/parent-supplied-natural-proof.json": "d116720d101a1491998f3ceee95c0501708bfaccd59aa8edf68804559f3a998a",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-980b8bd48c/children/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-29231635e4/node.json": "7a5201ee0b5c020a1965dec0ecc40b81b456aec285668e686aa9a9b6161541e1"
+  }
+}
