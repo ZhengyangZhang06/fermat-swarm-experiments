@@ -1749,54 +1749,6 @@ theorem Submission.p10_17ae7b7d_uce_normalized_quot_eq_iff :
     · simpa only [hu, one_mul] using h₁
     · simpa only [hu, one_mul] using h₂
   · exact congrArg (Quot.mk rel)
-theorem Submission.p10_17ae7b7d_fi_unit_mul_dvd_val :
-    ∀ (M d : ℕ), 0 < M → d ∣ M → ∀ (x u : ZMod M), IsUnit u →
-      (d ∣ (x * u).val ↔ d ∣ x.val) := by
-  intro M d hM hd x u hu
-  let : NeZero M := ⟨Nat.ne_of_gt hM⟩
-  let ρ : ZMod M →+* ZMod d := ZMod.castHom hd (ZMod d)
-  have hval (y : ZMod M) : ρ y = 0 ↔ d ∣ y.val := by
-    change (ZMod.cast y : ZMod d) = 0 ↔ d ∣ y.val
-    rw [ZMod.cast_eq_val, ZMod.natCast_eq_zero_iff]
-  have hinv : ρ u * ρ (u⁻¹) = 1 := by
-    rw [← map_mul, ZMod.mul_inv_of_unit u hu, map_one]
-  rw [← hval (x * u), ← hval x, map_mul]
-  constructor
-  · intro h
-    calc
-      ρ x = (ρ x * ρ u) * ρ (u⁻¹) := by rw [mul_assoc, hinv, mul_one]
-      _ = 0 := by rw [h, zero_mul]
-  · intro h
-    rw [h, zero_mul]
-theorem Submission.p10_17ae7b7d_fi_square_annihilation :
-    ∀ (p a j : ℕ), Nat.Prime p → j < a → ∀ z : ZMod (p ^ a),
-      p ^ j ∣ z.val → ¬ p ^ (j + 1) ∣ z.val → ∀ n : ℕ,
-      ((n : ZMod (p ^ a)) * z ^ 2 = 0 ↔ p ^ (a - 2 * j) ∣ n) := by
-  intro p a j hp _hja z hz hznext n
-  have : NeZero (p ^ a) := ⟨pow_ne_zero _ hp.ne_zero⟩
-  obtain ⟨v, hv⟩ := hz
-  have hpv : ¬ p ∣ v := by
-    rintro ⟨w, hw⟩
-    apply hznext
-    refine ⟨w, ?_⟩
-    rw [hv, hw, pow_succ, mul_assoc]
-  have hcop : (p ^ a).Coprime (v ^ 2) :=
-    (hp.coprime_pow_of_not_dvd hpv).symm.pow_right 2
-  have hcast : ((n * z.val ^ 2 : ℕ) : ZMod (p ^ a)) =
-      (n : ZMod (p ^ a)) * z ^ 2 := by
-    simp only [Nat.cast_mul, Nat.cast_pow, ZMod.natCast_zmod_val]
-  rw [← hcast, ZMod.natCast_eq_zero_iff, hv, mul_pow, ← pow_mul,
-    Nat.mul_comm j 2, ← mul_assoc, hcop.dvd_mul_right]
-  by_cases h : 2 * j ≤ a
-  · have hpow : p ^ a = p ^ (2 * j) * p ^ (a - 2 * j) := by
-      rw [← pow_add]
-      congr 1
-      omega
-    rw [hpow, mul_comm n (p ^ (2 * j)),
-      Nat.mul_dvd_mul_iff_left (pow_pos hp.pos _)]
-  · have ha : a ≤ 2 * j := by omega
-    exact iff_of_true (dvd_mul_of_dvd_right (pow_dvd_pow p ha) n)
-      (by simp [Nat.sub_eq_zero_of_le ha])
 
 
 theorem Submission.p10_17ae7b7d_pp_fractional_iterates :
