@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "structure Place|toValuationSubring|algebraMap_mem|hasPrincipalDivisors_of_transcendental|valuation_fraction_characterization",
+        "rg -n 'valuation_fraction_characterization|vfc_polynomial_unit_criterion|vfc_unit_power_quotient_exponents' project --glob '*.lean'"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Fermat/Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean"
+      ],
+      "conclusion": "Confirmed the frozen Place definition, valuation-subring algebra structure, imports, and root contract. No matching node or child declarations occur in the pinned project snapshot. Project revision 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d match the verifier's frozen dependencies."
+    }
+  ],
+  "comparison_identity": "98cabbae687aea578fb0ef2382a606ca1bb15719c489175e39b7c24b552cdd83",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_inf_valuation_fraction_characterization",
+      "statement": "∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (s : F), Transcendental K s → (∀ f : F, ∃ a b : Polynomial K, b ≠ 0 ∧ f = Polynomial.aeval s a / Polynomial.aeval s b) → ∀ w : AlgebraicCurve.Place K F, s⁻¹ ∉ w.toValuationSubring → ∀ f : F, f ∈ w.toValuationSubring ↔ ∃ a b : Polynomial K, ¬ (Polynomial.X : Polynomial K) ∣ b ∧ f = Polynomial.aeval s a / Polynomial.aeval s b",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines the accepted polynomial-unit criterion and exponent bound to characterize membership by fractions whose denominator is not divisible by X."
+    }
+  ]
+}
