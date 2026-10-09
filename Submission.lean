@@ -279,3 +279,127 @@ theorem Submission.p09_af497904fe_fcc_fra_roots_mem_inv :
   refine ⟨hmem, ?_⟩
   rw [← hinv]
   exact pow_mem hmem (N - 1)
+
+theorem Submission.p09_af497904fe_fcc_fra_residue_injective :
+    ∀ (N : ℕ) [NeZero N] (ℓ : ℕ), ℓ.Prime → ¬ ℓ ∣ N →
+      ∀ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ →
+        ∀ x y : P, x ^ N = 1 → y ^ N = 1 →
+          IsLocalRing.residue P x = IsLocalRing.residue P y → x = y := by
+  intro N _ ℓ hℓ hN P hP x y hx hy hxy
+  have hℓP : (ℓ : P) ∈ IsLocalRing.maximalIdeal P :=
+    ValuationSubring.coe_mem_nonunits_iff.mp (by simpa [ValuationSubring.LiesOverPrime] using hP)
+  have hℓk : (ℓ : IsLocalRing.ResidueField P) = 0 := by
+    rw [← map_natCast (IsLocalRing.residue P) ℓ]
+    exact (IsLocalRing.residue_eq_zero_iff _).mpr hℓP
+  have : CharP (IsLocalRing.ResidueField P) ℓ :=
+    (CharP.charP_iff_prime_eq_zero hℓ).mpr hℓk
+  have hNk : (N : IsLocalRing.ResidueField P) ≠ 0 :=
+    fun h => hN ((CharP.cast_eq_zero_iff (IsLocalRing.ResidueField P) ℓ N).mp h)
+  have hone (t : P) (ht : t ^ N = 1)
+      (hred : IsLocalRing.residue P t = 1) : t = 1 := by
+    by_contra h
+    have hs : (∑ i ∈ Finset.range N, t ^ i) = 0 :=
+      (mul_eq_zero.mp ((geom_sum_mul t N).trans (by rw [ht, sub_self]))).resolve_right
+        (sub_ne_zero.mpr h)
+    have hr := congrArg (IsLocalRing.residue P) hs
+    apply hNk
+    simpa [map_sum, map_pow, hred] using hr
+  have hpos : 1 ≤ N := Nat.one_le_iff_ne_zero.mpr (NeZero.ne N)
+  let v : P := y ^ (N - 1)
+  have hyv : y * v = 1 := by
+    dsimp [v]
+    rw [← pow_succ', Nat.sub_add_cancel hpos, hy]
+  have hvy : v * y = 1 := by rw [mul_comm, hyv]
+  have hv : v ^ N = 1 := by
+    dsimp [v]
+    rw [← pow_mul, Nat.mul_comm, pow_mul, hy, one_pow]
+  have htv : x * v = 1 := by
+    apply hone
+    · rw [mul_pow, hx, hv, one_mul]
+    · rw [map_mul, hxy, ← map_mul, hyv, map_one]
+  calc
+    x = x * (v * y) := by rw [hvy, mul_one]
+    _ = (x * v) * y := (mul_assoc x v y).symm
+    _ = y := by rw [htv, one_mul]
+
+
+theorem Submission.p09_af497904fe_fcc_frobenius_roots_action :
+    ∀ (N : ℕ) [NeZero N] (ℓ : ℕ), ℓ.Prime → ¬ ℓ ∣ N →
+      ∀ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ →
+        ∀ σ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ), P.IsFrobeniusAt σ ℓ →
+          ∀ ζ : AlgebraicClosure ℚ, ζ ^ N = 1 → σ ζ = ζ ^ ℓ := by
+  intro N _ ℓ hℓ hℓN P hP σ hσ ζ hζ
+  obtain ⟨hσ, hfrob⟩ := hσ
+  let g : P.decompositionSubgroup ℚ := ⟨σ, hσ⟩
+  let z : P := ⟨ζ, (Submission.p09_af497904fe_fcc_fra_roots_mem_inv N P ζ hζ).1⟩
+  have hx : (g • z : P) ^ N = 1 := by
+    apply Subtype.ext
+    change (σ ζ) ^ N = 1
+    rw [← map_pow, hζ, map_one]
+  have hy : (z ^ ℓ) ^ N = 1 := by
+    apply Subtype.ext
+    change (ζ ^ ℓ) ^ N = 1
+    rw [pow_right_comm, hζ, one_pow]
+  have hred : residue P (g • z) = residue P (z ^ ℓ) := by
+    calc
+      residue P (g • z) = g • residue P z :=
+        ResidueField.residue_smul (P.decompositionSubgroup ℚ) g z
+      _ = residue P z ^ ℓ := hfrob (residue P z)
+      _ = residue P (z ^ ℓ) := (map_pow (residue P) z ℓ).symm
+  exact congrArg Subtype.val
+    (Submission.p09_af497904fe_fcc_fra_residue_injective
+      N ℓ hℓ hℓN P hP (g • z) (z ^ ℓ) hx hy hred)
+
+theorem Submission.p09_af497904fe_ic_integer_mem_valuation :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E]
+      (V : ValuationSubring E), ∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V := by
+  intro E _ V a
+  apply (Subring.isIntegrallyClosed_iff (S := V)).mp inferInstance
+  exact (NumberField.RingOfIntegers.isIntegral_coe a).tower_top
+theorem Submission.p09_af497904fe_ic_prime_center_of_containment :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E]
+      (ℓ : ℕ), ℓ.Prime → ∀ (V : ValuationSubring E), V.LiesOverPrime ℓ →
+      (∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V) →
+      ∃ q : Ideal (NumberField.RingOfIntegers E),
+        q.IsPrime ∧ q ≠ ⊥ ∧ (ℓ : NumberField.RingOfIntegers E) ∈ q ∧
+        Finite (NumberField.RingOfIntegers E ⧸ q) ∧
+        (∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V.nonunits ↔ a ∈ q) := by
+  intro E _ ℓ hℓ V hV hcontain
+  let : NumberField E := NumberField.of_module_finite ℚ E
+  let f : NumberField.RingOfIntegers E →+* V :=
+    { toFun := fun a => ⟨(a : E), hcontain a⟩
+      map_zero' := Subtype.ext (map_zero (algebraMap (NumberField.RingOfIntegers E) E))
+      map_one' := Subtype.ext (map_one (algebraMap (NumberField.RingOfIntegers E) E))
+      map_add' := fun a b =>
+        Subtype.ext (map_add (algebraMap (NumberField.RingOfIntegers E) E) a b)
+      map_mul' := fun a b =>
+        Subtype.ext (map_mul (algebraMap (NumberField.RingOfIntegers E) E) a b) }
+  let q : Ideal (NumberField.RingOfIntegers E) :=
+    Ideal.comap f (IsLocalRing.maximalIdeal V)
+  have hprime : q.IsPrime := (IsLocalRing.maximalIdeal V).comap_isPrime f
+  have hmem (a : NumberField.RingOfIntegers E) :
+      (a : E) ∈ V.nonunits ↔ a ∈ q :=
+    ValuationSubring.coe_mem_nonunits_iff (a := f a)
+  have hℓq : (ℓ : NumberField.RingOfIntegers E) ∈ q := by
+    apply (hmem _).mp
+    simpa only [ValuationSubring.LiesOverPrime, NumberField.RingOfIntegers.val,
+      map_natCast] using hV
+  have hne : q ≠ ⊥ := by
+    intro hq
+    have hz : (ℓ : NumberField.RingOfIntegers E) = 0 := by
+      simpa only [hq, Ideal.mem_bot] using hℓq
+    exact hℓ.ne_zero (Nat.cast_eq_zero.mp hz)
+  exact ⟨q, hprime, hne, hℓq, Ring.HasFiniteQuotients.finiteQuotient hne, hmem⟩
+
+
+theorem Submission.p09_af497904fe_vloc_integral_center :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E]
+      (ℓ : ℕ), ℓ.Prime → ∀ (V : ValuationSubring E), V.LiesOverPrime ℓ →
+      (∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V) ∧
+        ∃ q : Ideal (NumberField.RingOfIntegers E),
+          q.IsPrime ∧ q ≠ ⊥ ∧ (ℓ : NumberField.RingOfIntegers E) ∈ q ∧
+            Finite (NumberField.RingOfIntegers E ⧸ q) ∧
+            (∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V.nonunits ↔ a ∈ q) := by
+  intro E _ ℓ hℓ V hV
+  have hmem := Submission.p09_af497904fe_ic_integer_mem_valuation E V
+  exact ⟨hmem, Submission.p09_af497904fe_ic_prime_center_of_containment E ℓ hℓ V hV hmem⟩
