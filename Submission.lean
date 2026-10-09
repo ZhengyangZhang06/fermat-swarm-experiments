@@ -13,58 +13,6 @@ set_option autoImplicit false
 universe u
 open CategoryTheory Rep
 
-namespace Submission
-
-/-- Restriction to a subgroup with zero Tate cohomology makes its index annihilate
-the ambient Tate cohomology. -/
-theorem p04_index_nsmul_zero_of_restriction_isZero
-    {k G : Type u} [CommRing k] [Group G] [Fintype G]
-    (A : Rep.{u} k G) (H : Subgroup G) [Fintype H] (q : ℤ)
-    (h : CategoryTheory.Limits.IsZero ((Rep.res H.subtype A).tateCohomology q)) :
-    ∀ x : A.tateCohomology q, H.index • x = 0 := by
-  cases q with
-  | ofNat n =>
-    cases n with
-    | zero =>
-      change ∀ x : A.tateH0, H.index • x = 0
-      have : Subsingleton ((Rep.res H.subtype A).tateH0) :=
-        ModuleCat.subsingleton_of_isZero h
-      intro x
-      obtain ⟨R, C, hCR⟩ := Submission.p04_tia_tate_zero_transfer A H
-      rw [← hCR x, Subsingleton.elim (R x) 0, map_zero]
-    | succ n =>
-      change ∀ x : groupCohomology A (n + 1), H.index • x = 0
-      have : Subsingleton (groupCohomology (Rep.res H.subtype A) (n + 1)) :=
-        ModuleCat.subsingleton_of_isZero h
-      intro x
-      obtain ⟨R, C, hCR⟩ := Submission.p04_tia_cohomology_transfer A H (n + 1)
-      rw [← hCR x, Subsingleton.elim (R x) 0, map_zero]
-  | negSucc n =>
-    cases n with
-    | zero =>
-      change ∀ x : A.tateHneg1, H.index • x = 0
-      have : Subsingleton ((Rep.res H.subtype A).tateHneg1) :=
-        ModuleCat.subsingleton_of_isZero h
-      intro x
-      obtain ⟨T, P, hPT⟩ := Submission.p04_tia_tate_neg_one_transfer A H
-      rw [← hPT x, Subsingleton.elim (T x) 0, map_zero]
-    | succ n =>
-      change ∀ x : groupHomology A (n + 1), H.index • x = 0
-      have : Subsingleton (groupHomology (Rep.res H.subtype A) (n + 1)) :=
-        ModuleCat.subsingleton_of_isZero h
-      intro x
-      obtain ⟨T, P, hPT⟩ := Submission.p04_tia_homology_transfer A H (n + 1)
-      rw [← hPT x, Subsingleton.elim (T x) 0, map_zero]
-
-end Submission
-
-theorem Rep.isZero_tateCohomology_of_forall_sylow {k G : Type u} [CommRing k] [Group G] [Fintype G]
-    (A : Rep.{u} k G) (q : ℤ)
-    (h : ∀ (p : ℕ) [Fact p.Prime] (P : Sylow p G) [Fintype (P : Subgroup G)],
-      CategoryTheory.Limits.IsZero ((Rep.res (P : Subgroup G).subtype A).tateCohomology q)) :
-    CategoryTheory.Limits.IsZero (A.tateCohomology q) := by
-  sorry
-
 theorem Rep.isZero_tateCohomology_of_forall_sylow {k G : Type u} [CommRing k] [Group G] [Fintype G]
     (A : Rep.{u} k G) (q : ℤ)
     (h : ∀ (p : ℕ) [Fact p.Prime] (P : Sylow p G) [Fintype (P : Subgroup G)],
@@ -2111,6 +2059,8 @@ theorem p04_tia_cohomology_transfer :
   refine ⟨R.hom, C.hom, fun x => ?_⟩
   exact congrArg (fun f : groupCohomology A n ⟶ groupCohomology A n => f.hom x) hRC
 
+end Submission
+
 open CategoryTheory Rep Representation MonoidalCategory
 
 namespace Submission
@@ -2431,6 +2381,8 @@ theorem p04_tia_tate_zero_transfer :
   simp only [Submodule.mapQ_apply, hc_index a (j a) (hj a)]
   exact map_nsmul (LinearMap.range A.ρ.normBar).mkQ H.index a
 
+end Submission
+
 namespace Submission
 
 open Representation
@@ -2538,5 +2490,52 @@ theorem p04_tia_tate_neg_one_transfer
     (π ∘ₗ (LinearMap.ker B.ρ.normBar).subtype).codRestrict _ hπker
   refine ⟨T, P, fun x => Subtype.ext ?_⟩
   exact hcomp x.val
+
+end Submission
+
+namespace Submission
+
+set_option warningAsError true in
+/-- Restriction to a subgroup with zero Tate cohomology makes its index annihilate
+the ambient Tate cohomology. The four branches are those of `Rep.tateCohomology`
+in `Definitions/Def_GroupCohomology_TateCohomology.lean`. -/
+theorem p04_index_nsmul_zero_of_restriction_isZero
+    {k G : Type u} [CommRing k] [Group G] [Fintype G]
+    (A : Rep.{u} k G) (H : Subgroup G) [Fintype H] (q : ℤ)
+    (h : CategoryTheory.Limits.IsZero ((Rep.res H.subtype A).tateCohomology q)) :
+    ∀ x : A.tateCohomology q, H.index • x = 0 := by
+  cases q with
+  | ofNat n =>
+    cases n with
+    | zero =>
+      change ∀ x : A.tateH0, H.index • x = 0
+      have : Subsingleton ((Rep.res H.subtype A).tateH0) :=
+        ModuleCat.subsingleton_of_isZero h
+      intro x
+      obtain ⟨R, C, hCR⟩ := Submission.p04_tia_tate_zero_transfer A H
+      rw [← hCR x, Subsingleton.elim (R x) 0, map_zero]
+    | succ n =>
+      change ∀ x : groupCohomology A (n + 1), H.index • x = 0
+      have : Subsingleton (groupCohomology (Rep.res H.subtype A) (n + 1)) :=
+        ModuleCat.subsingleton_of_isZero h
+      intro x
+      obtain ⟨R, C, hCR⟩ := Submission.p04_tia_cohomology_transfer A H (n + 1)
+      rw [← hCR x, Subsingleton.elim (R x) 0, map_zero]
+  | negSucc n =>
+    cases n with
+    | zero =>
+      change ∀ x : A.tateHneg1, H.index • x = 0
+      have : Subsingleton ((Rep.res H.subtype A).tateHneg1) :=
+        ModuleCat.subsingleton_of_isZero h
+      intro x
+      obtain ⟨T, P, hPT⟩ := Submission.p04_tia_tate_neg_one_transfer A H
+      rw [← hPT x, Subsingleton.elim (T x) 0, map_zero]
+    | succ n =>
+      change ∀ x : groupHomology A (n + 1), H.index • x = 0
+      have : Subsingleton (groupHomology (Rep.res H.subtype A) (n + 1)) :=
+        ModuleCat.subsingleton_of_isZero h
+      intro x
+      obtain ⟨T, P, hPT⟩ := Submission.p04_tia_homology_transfer A H (n + 1)
+      rw [← hPT x, Subsingleton.elim (T x) 0, map_zero]
 
 end Submission
