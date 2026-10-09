@@ -1241,3 +1241,24 @@ theorem Submission.p09_af497904fe_ce_inertia_ramification :
   rw [← Submission.p09_af497904fe_ir_inertia_cardinality E q hq P hP hPq,
     htrivial]
   exact Subgroup.card_bot
+
+
+theorem Submission.p09_af497904fe_ce_cyclotomic_intersection :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ))
+      [FiniteDimensional ℚ E] [IsGalois ℚ E] (q : ℕ) (ζ : AlgebraicClosure ℚ),
+      q.Prime → IsPrimitiveRoot ζ q →
+      (∀ V : ValuationSubring E, V.LiesOverPrime q →
+        ∀ τ : E ≃ₐ[ℚ] E, τ ∈ V.inertiaSubgroupIn ℚ → τ = 1) →
+      E ⊓ IntermediateField.adjoin ℚ ({ζ} : Set (AlgebraicClosure ℚ)) = ⊥ := by
+  intro E _ _ q ζ hq hζ hinertia
+  let D := E ⊓ IntermediateField.adjoin ℚ ({ζ} : Set (AlgebraicClosure ℚ))
+  have hDE : D ≤ E := inf_le_left
+  have : FiniteDimensional ℚ D :=
+    FiniteDimensional.of_injective (IntermediateField.inclusion hDE).toLinearMap
+      (IntermediateField.inclusion_injective hDE)
+  have hE := Submission.p09_af497904fe_ce_inertia_ramification E q hq hinertia
+  obtain ⟨R, hRprime, hRover, hRdegree⟩ :=
+    Submission.p09_af497904fe_ci_cyclotomic_subfield_ramification q ζ hq hζ D inf_le_right
+  have hRone := Submission.p09_af497904fe_ci_unramified_subfield
+    E D q hq hDE hE R hRprime hRover
+  exact IntermediateField.finrank_eq_one_iff.mp (hRdegree.symm.trans hRone)
