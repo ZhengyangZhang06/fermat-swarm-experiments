@@ -9,18 +9,6 @@ import Definitions.Def_AlgebraicCurve_PlacesOverDVR
 attribute [-instance] AlgebraicCurve.IsCurveOver.instNontrivialKaehler AlgebraicCurve.IsCurveOver.instFreeKaehler AlgebraicCurve.IsCurveOver.toHasPrincipalDivisors AlgebraicCurve.IsCurveOver.instFiniteResidue AlgebraicCurve.Place.instIsRankOneDiscreteWithZeroMultiplicativeIntAdicValuation AlgebraicCurve.Place.instIsTrivialOnWithZeroMultiplicativeIntAdicValuation AlgebraicCurve.SemilinearAut.instDistribMulActionSubtypeProdRingAutMemSubgroupPic0 AlgebraicCurve.SemilinearAut.instDistribMulActionSubtypeProdRingAutMemSubgroupDivisor AlgebraicCurve.Pic0.instModuleZModTorsion AlgebraicCurve.SemilinearAut.instSMulSubtypeProdRingAutMemSubgroupPlace AlgebraicCurve.SemilinearAut.instDistribMulActionTorsion AlgebraicCurve.SemilinearAut.instSMulSubtypeProdRingAutMemSubgroupPic0 AlgebraicCurve.SemilinearAut.instSMulTorsion AlgebraicCurve.SemilinearAut.instMulActionSubtypeProdRingAutMemSubgroupPlace AlgebraicCurve.SemilinearAut.instSMulCommClassZModTorsion AlgebraicCurve.SemilinearAut.instMulSemiringActionSubtypeProdRingAutMemSubgroup instDecEqAlgebraicClosureRat WeierstrassCurve.Affine.Point.instDistribMulActionAlgEquiv WeierstrassCurve.Affine.Point.instModuleZModTorsionBy WeierstrassCurve.Affine.Point.instSMulTorsionBy WeierstrassCurve.Affine.Point.instDistribMulActionTorsionBy WeierstrassCurve.Affine.Point.instSMulAlgEquiv WeierstrassCurve.Affine.Point.instSMulCommClassAlgEquivZModTorsionBy
 attribute [-simp] AlgebraicCurve.IsFrobeniusEndo.frobNormRingHom_apply ModularCurve.frobeniusPushforwardGeomLevelPic0_mk ModularCurve.coe_frobeniusGeomLevelEquiv_apply ModularCurve.coe_frobeniusPushforwardGeomLevelDegZero ModularCurve.heckeFibreGeomLevelPic0OfIsCurveOver_mk ModularCurve.frobeniusGeomLevel_apply_coe ModularCurve.frobeniusPullbackGeomLevelPic0OfIsCurveOver_mk ModularCurve.coe_heckeFibreGeomLevelDegZero ModularCurve.coe_frobeniusPullbackGeomLevelDegZero ModularCurve.frobeniusPullbackGeomLevelPic0_mk ModularCurve.frobeniusPullbackGeomLevel_single ModularCurve.heckeFibreGeomLevelPic0_mk ModularCurve.frobeniusPushforwardGeomLevelPic0OfIsCurveOver_mk ModularCurve.frobeniusPushforwardGeomLevel_single ModularCurve.qExpandAlgC_apply AlgebraicCurve.Place.congrEquiv_symm_apply AlgebraicCurve.RationalFunctionField.heightOneSpectrumOfIrreducible_asIdeal AlgebraicCurve.Place.congrRingEquiv_toValuationSubring AlgebraicCurve.Place.congrEquiv_apply AlgebraicCurve.Place.coe_comapSymmRingEquiv_apply AlgebraicCurve.RationalFunctionField.deg_placeOfPoint AlgebraicCurve.Divisor.degree_pushforwardAlong AlgebraicCurve.Pic0.coe_degZeroCorrespondence AlgebraicCurve.Place.mem_fiberAlong AlgebraicCurve.SemilinearAut.toRingAut_inv AlgebraicCurve.SemilinearAut.smul_def AlgebraicCurve.SemilinearAut.smul_single AlgebraicCurve.SemilinearAut.smul_toValuationSubring AlgebraicCurve.SemilinearAut.baseAut_inv AlgebraicCurve.SemilinearAut.baseAut_ofAlgAut AlgebraicCurve.SemilinearAut.toRingAut_ofAlgAut AlgebraicCurve.SemilinearAut.torsionRep_apply AlgebraicCurve.SemilinearAut.toRingAut_one AlgebraicCurve.SemilinearAut.deg_smul AlgebraicCurve.SemilinearAut.degree_smul AlgebraicCurve.SemilinearAut.coe_degZeroSMulHom AlgebraicCurve.SemilinearAut.baseAut_mul AlgebraicCurve.SemilinearAut.coe_smulValuationSubringEquiv_apply AlgebraicCurve.SemilinearAut.baseAut_one AlgebraicCurve.SemilinearAut.ofAlgAut_smul
 attribute [-simp] AlgebraicCurve.SemilinearAut.coe_torsion_smul AlgebraicCurve.SemilinearAut.toRingAut_mul AlgebraicCurve.coe_frobeniusPushforwardDegZero AlgebraicCurve.IsFrobeniusEndo.coe_frobeniusPullbackDegZero ModularCurve.jqNModC_one ModularCurve.qExpand_coeff_mul ModularCurve.qExpandₐ_apply ModularCurve.jqN_one ModularCurve.qExpand_single ModularCurve.dedekindPsi_one ModularCurve.ModularPolynomialData.mk.sizeOf_spec ModularCurve.evalAtJ_X ModularCurve.ModularPolynomialData.mk.injEq ModularCurve.constantCoeff_jNum ModularCurve.constantCoeff_eisenstein4 ModularCurve.qExpand_C ModularCurve.coeff_jq_neg_one ModularCurve.constantCoeff_jNumQ ModularCurve.reduceModBivar_C_X ModularCurve.laurentMap_coeff ModularCurve.reduceModBivar_X ModularCurve.laurentMap_single ModularCurve.evalAtJInt_X ModularCurve.evalAtJMod_X ModularCurve.jqNMod_one ModularCurve.aeval_heckeGen ModularCurve.coe_mTorsionGaloisRep_apply ModularCurve.eisensteinSystem_of_dvd ModularCurve.eisensteinSystem_of_not_dvd FreyPackage.mk.sizeOf_spec FreyPackage.mk.injEq WeierstrassCurve.Affine.Point.galoisRepModuleEnd_apply
-
-open AlgebraicCurve
-
-theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
-    [Algebra K F] (x : F) (hx : Transcendental K x)
-    [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
-  sorry
-
-import Definitions.Def_AlgebraicCurve_PlacesOverDVR
-attribute [-instance] AlgebraicCurve.IsCurveOver.instNontrivialKaehler AlgebraicCurve.IsCurveOver.instFreeKaehler AlgebraicCurve.IsCurveOver.toHasPrincipalDivisors AlgebraicCurve.IsCurveOver.instFiniteResidue AlgebraicCurve.Place.instIsRankOneDiscreteWithZeroMultiplicativeIntAdicValuation AlgebraicCurve.Place.instIsTrivialOnWithZeroMultiplicativeIntAdicValuation AlgebraicCurve.SemilinearAut.instDistribMulActionSubtypeProdRingAutMemSubgroupPic0 AlgebraicCurve.SemilinearAut.instDistribMulActionSubtypeProdRingAutMemSubgroupDivisor AlgebraicCurve.Pic0.instModuleZModTorsion AlgebraicCurve.SemilinearAut.instSMulSubtypeProdRingAutMemSubgroupPlace AlgebraicCurve.SemilinearAut.instDistribMulActionTorsion AlgebraicCurve.SemilinearAut.instSMulSubtypeProdRingAutMemSubgroupPic0 AlgebraicCurve.SemilinearAut.instSMulTorsion AlgebraicCurve.SemilinearAut.instMulActionSubtypeProdRingAutMemSubgroupPlace AlgebraicCurve.SemilinearAut.instSMulCommClassZModTorsion AlgebraicCurve.SemilinearAut.instMulSemiringActionSubtypeProdRingAutMemSubgroup instDecEqAlgebraicClosureRat WeierstrassCurve.Affine.Point.instDistribMulActionAlgEquiv WeierstrassCurve.Affine.Point.instModuleZModTorsionBy WeierstrassCurve.Affine.Point.instSMulTorsionBy WeierstrassCurve.Affine.Point.instDistribMulActionTorsionBy WeierstrassCurve.Affine.Point.instSMulAlgEquiv WeierstrassCurve.Affine.Point.instSMulCommClassAlgEquivZModTorsionBy
-attribute [-simp] AlgebraicCurve.IsFrobeniusEndo.frobNormRingHom_apply ModularCurve.frobeniusPushforwardGeomLevelPic0_mk ModularCurve.coe_frobeniusGeomLevelEquiv_apply ModularCurve.coe_frobeniusPushforwardGeomLevelDegZero ModularCurve.heckeFibreGeomLevelPic0OfIsCurveOver_mk ModularCurve.frobeniusGeomLevel_apply_coe ModularCurve.frobeniusPullbackGeomLevelPic0OfIsCurveOver_mk ModularCurve.coe_heckeFibreGeomLevelDegZero ModularCurve.coe_frobeniusPullbackGeomLevelDegZero ModularCurve.frobeniusPullbackGeomLevelPic0_mk ModularCurve.frobeniusPullbackGeomLevel_single ModularCurve.heckeFibreGeomLevelPic0_mk ModularCurve.frobeniusPushforwardGeomLevelPic0OfIsCurveOver_mk ModularCurve.frobeniusPushforwardGeomLevel_single ModularCurve.qExpandAlgC_apply AlgebraicCurve.Place.congrEquiv_symm_apply AlgebraicCurve.RationalFunctionField.heightOneSpectrumOfIrreducible_asIdeal AlgebraicCurve.Place.congrRingEquiv_toValuationSubring AlgebraicCurve.Place.congrEquiv_apply AlgebraicCurve.Place.coe_comapSymmRingEquiv_apply AlgebraicCurve.RationalFunctionField.deg_placeOfPoint AlgebraicCurve.Divisor.degree_pushforwardAlong AlgebraicCurve.Pic0.coe_degZeroCorrespondence AlgebraicCurve.Place.mem_fiberAlong AlgebraicCurve.SemilinearAut.toRingAut_inv AlgebraicCurve.SemilinearAut.smul_def AlgebraicCurve.SemilinearAut.smul_single AlgebraicCurve.SemilinearAut.smul_toValuationSubring AlgebraicCurve.SemilinearAut.baseAut_inv AlgebraicCurve.SemilinearAut.baseAut_ofAlgAut AlgebraicCurve.SemilinearAut.toRingAut_ofAlgAut AlgebraicCurve.SemilinearAut.torsionRep_apply AlgebraicCurve.SemilinearAut.toRingAut_one AlgebraicCurve.SemilinearAut.deg_smul AlgebraicCurve.SemilinearAut.degree_smul AlgebraicCurve.SemilinearAut.coe_degZeroSMulHom AlgebraicCurve.SemilinearAut.baseAut_mul AlgebraicCurve.SemilinearAut.coe_smulValuationSubringEquiv_apply AlgebraicCurve.SemilinearAut.baseAut_one AlgebraicCurve.SemilinearAut.ofAlgAut_smul
-attribute [-simp] AlgebraicCurve.SemilinearAut.coe_torsion_smul AlgebraicCurve.SemilinearAut.toRingAut_mul AlgebraicCurve.coe_frobeniusPushforwardDegZero AlgebraicCurve.IsFrobeniusEndo.coe_frobeniusPullbackDegZero ModularCurve.jqNModC_one ModularCurve.qExpand_coeff_mul ModularCurve.qExpandₐ_apply ModularCurve.jqN_one ModularCurve.qExpand_single ModularCurve.dedekindPsi_one ModularCurve.ModularPolynomialData.mk.sizeOf_spec ModularCurve.evalAtJ_X ModularCurve.ModularPolynomialData.mk.injEq ModularCurve.constantCoeff_jNum ModularCurve.constantCoeff_eisenstein4 ModularCurve.qExpand_C ModularCurve.coeff_jq_neg_one ModularCurve.constantCoeff_jNumQ ModularCurve.reduceModBivar_C_X ModularCurve.laurentMap_coeff ModularCurve.reduceModBivar_X ModularCurve.laurentMap_single ModularCurve.evalAtJInt_X ModularCurve.evalAtJMod_X ModularCurve.jqNMod_one ModularCurve.aeval_heckeGen ModularCurve.coe_mTorsionGaloisRep_apply ModularCurve.eisensteinSystem_of_dvd ModularCurve.eisensteinSystem_of_not_dvd FreyPackage.mk.sizeOf_spec FreyPackage.mk.injEq WeierstrassCurve.Affine.Point.galoisRepModuleEnd_apply
 import Mathlib.LinearAlgebra.Matrix.ToLinearEquiv
 import Mathlib.LinearAlgebra.Quotient.Basic
 import Mathlib.RingTheory.DedekindDomain.Ideal.Lemmas
@@ -729,8 +717,6 @@ theorem Submission.p06_9e0f5043ff_inf_reciprocal_polynomial_order :
 
 namespace Submission
 
-namespace Submission
-
 /-- Fractions with denominators not divisible by an irreducible polynomial form a subalgebra. -/
 theorem p06_9e0f5043ff_elp_fraction_subalgebra
     (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F)
@@ -747,11 +733,6 @@ theorem p06_9e0f5043ff_elp_fraction_subalgebra
     have hb0 : b = 0 := transcendental_iff.mp hx b heval
     exact hb (hb0 ▸ dvd_zero q)
   -- Subalgebra obtains negation closure by multiplying by the included constant -1.
-  have hprime : Prime q := hq.prime
-  -- A permitted denominator cannot evaluate to zero at a transcendental element.
-  have hden : ∀ b : Polynomial K, ¬ q ∣ b → Polynomial.aeval x b ≠ 0 := by
-    intro b hb heval
-    exact hb (transcendental_iff.mp hx b heval ▸ dvd_zero q)
   refine ⟨{
     carrier := {f | ∃ a b : Polynomial K, ¬ q ∣ b ∧
       f = Polynomial.aeval x a / Polynomial.aeval x b}
@@ -760,8 +741,6 @@ theorem p06_9e0f5043ff_elp_fraction_subalgebra
       intro c
       exact ⟨Polynomial.C c, 1, hprime.not_dvd_one, by
         simp only [Polynomial.aeval_C, map_one, div_one]⟩
-      intro c
-      exact ⟨Polynomial.C c, 1, hprime.not_dvd_one, by simp⟩
     add_mem' := by
       rintro _ _ ⟨a, b, hb, rfl⟩ ⟨c, d, hd, rfl⟩
       refine ⟨a * d + b * c, b * d, hprime.not_dvd_mul hb hd, ?_⟩
@@ -772,92 +751,6 @@ theorem p06_9e0f5043ff_elp_fraction_subalgebra
       refine ⟨a * c, b * d, hprime.not_dvd_mul hb hd, ?_⟩
       simp only [map_mul, div_mul_div_comm]
   }, fun _ => Iff.rfl⟩
-/-- The exponent of an irreducible polynomial, realized by the pinned library's `multiplicity`.
-The monicity hypothesis is retained from the frozen contract; irreducibility suffices for the proof. -/
-theorem p06_9e0f5043ff_io_polynomial_exponent :
-    ∀ (K : Type*) [Field K] (q : Polynomial K), q.Monic → Irreducible q →
-      ∃ μ : Polynomial K → ℕ, μ 1 = 0 ∧ μ q = 1 ∧
-        (∀ a b : Polynomial K, a ≠ 0 → b ≠ 0 → μ (a * b) = μ a + μ b) ∧
-        (∀ a : Polynomial K, a ≠ 0 → (μ a = 0 ↔ ¬ q ∣ a)) ∧
-        (∀ a : Polynomial K, a ≠ 0 → ∃ a₀ : Polynomial K,
-          a₀ ≠ 0 ∧ ¬ q ∣ a₀ ∧ a = q ^ μ a * a₀) := by
-  intro K _ q _ hq
-  -- The library's degree-based well-founded divisibility supplies finite power extraction.
-  have hfin (a : Polynomial K) (ha : a ≠ 0) : FiniteMultiplicity q a :=
-    FiniteMultiplicity.of_not_isUnit hq.not_isUnit ha
-  -- The frozen contract leaves μ 0 unconstrained, so the library's default value is admissible.
-  refine ⟨multiplicity q, multiplicity_of_one_right hq.not_isUnit,
-    multiplicity_self, ?_, ?_, ?_⟩
-  · intro a b ha hb
-    exact multiplicity_mul hq.prime (hfin (a * b) (mul_ne_zero ha hb))
-  · intro a _
-    exact multiplicity_eq_zero
-  · intro a ha
-    obtain ⟨a₀, hfactor, hfree⟩ := (hfin a ha).exists_eq_pow_mul_and_not_dvd
-    exact ⟨a₀, right_ne_zero_of_mul (hfactor ▸ ha), hfree, hfactor⟩
-
-end Submission
-
-namespace Submission
-
-/-- Extend an additive exponent on nonzero polynomials to integer orders on a field
-represented by fractions of their evaluations at a transcendental element. -/
-theorem p06_9e0f5043ff_io_fraction_extension :
-    ∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F),
-      Transcendental K x →
-      (∀ f : F, ∃ a b : Polynomial K, b ≠ 0 ∧
-        f = Polynomial.aeval x a / Polynomial.aeval x b) →
-      ∀ μ : Polynomial K → ℕ,
-        (∀ a b : Polynomial K, a ≠ 0 → b ≠ 0 → μ (a * b) = μ a + μ b) →
-        ∃ ν : F → ℤ, ν 0 = 0 ∧
-          (∀ a b : Polynomial K, a ≠ 0 → b ≠ 0 →
-            ν (Polynomial.aeval x a / Polynomial.aeval x b) =
-              (μ a : ℤ) - (μ b : ℤ)) ∧
-          (∀ f g : F, f ≠ 0 → g ≠ 0 → ν (f / g) = ν f - ν g) := by
-  intro K F _ _ _ x hx hrepr μ hμ
-  classical
-  let e := Polynomial.aeval (R := K) x
-  have hinj : Function.Injective e := transcendental_iff_injective.mp hx
-  have hne (a : Polynomial K) (ha : a ≠ 0) : e a ≠ 0 := by
-    intro h
-    exact ha (hinj (h.trans (map_zero e).symm))
-  choose a b hb hab using hrepr
-  have ha (f : F) (hf : f ≠ 0) : a f ≠ 0 := by
-    intro h
-    apply hf
-    simpa [h] using hab f
-  -- Equal nonzero fractions have the same integer difference.
-  have hwell (p q r s : Polynomial K) (hp : p ≠ 0) (hq : q ≠ 0)
-      (hr : r ≠ 0) (hs : s ≠ 0) (h : e p / e q = e r / e s) :
-      (μ p : ℤ) - (μ q : ℤ) = (μ r : ℤ) - (μ s : ℤ) := by
-    have hcross : p * s = r * q := by
-      apply hinj
-      simpa only [map_mul] using (div_eq_div_iff (hne q hq) (hne s hs)).mp h
-    have hsum := congrArg μ hcross
-    rw [hμ p s hp hs, hμ r q hr hq] at hsum
-    omega
-  -- The exponent at the zero polynomial is unrestricted, so define the value at zero separately.
-  let ν : F → ℤ := fun f => if f = 0 then 0 else (μ (a f) : ℤ) - (μ (b f) : ℤ)
-  have hformula (p q : Polynomial K) (hp : p ≠ 0) (hq : q ≠ 0) :
-      ν (e p / e q) = (μ p : ℤ) - (μ q : ℤ) := by
-    have hf : e p / e q ≠ 0 := div_ne_zero (hne p hp) (hne q hq)
-    dsimp only [ν]
-    rw [if_neg hf]
-    exact hwell _ _ p q (ha _ hf) (hb _) hp hq (hab _).symm
-  refine ⟨ν, ?_, hformula, ?_⟩
-  · simp [ν]
-  · intro f g hf hg
-    have hquot : f / g = e (a f * b g) / e (b f * a g) := by
-      calc
-        f / g = (e (a f) / e (b f)) / (e (a g) / e (b g)) :=
-          congrArg₂ (fun u v : F => u / v) (hab f) (hab g)
-        _ = e (a f * b g) / e (b f * a g) := by
-          simp only [map_mul, div_div_div_eq]
-    rw [hquot, hformula _ _ (mul_ne_zero (ha f hf) (hb g))
-      (mul_ne_zero (hb f) (ha g hg)), hμ _ _ (ha f hf) (hb g),
-      hμ _ _ (hb f) (ha g hg)]
-    simp only [ν, if_neg hf, if_neg hg, Nat.cast_add]
-    ring
 
 end Submission
 
@@ -1776,46 +1669,6 @@ theorem p06_9e0f5043ff_elp_integer_order :
         rw [hrep, ha, map_zero, zero_div]
       rw [hrep, hνfraction a b ha hb, (hμzero b hb).2 hqb, Nat.cast_zero, sub_zero]
       exact Nat.cast_nonneg _
-/-- An integer order characterizing subring membership makes every ideal principal. -/
-theorem p06_9e0f5043ff_elp_principal_ideals_of_order :
-    ∀ (F : Type*) [Field F] (A : Subring F) (ν : F → ℤ),
-      (∀ f g : F, f ≠ 0 → g ≠ 0 → ν (f / g) = ν f - ν g) →
-      (∀ f : F, f ≠ 0 → (f ∈ A ↔ 0 ≤ ν f)) → IsPrincipalIdealRing A := by
-  intro F _ A ν hdiv hmem
-  classical
-  constructor
-  intro I
-  by_cases hI : I = ⊥
-  · subst I
-    infer_instance
-  obtain ⟨z, hzI, hz⟩ := Submodule.exists_mem_ne_zero_of_ne_bot hI
-  -- Minimize natural orders; subring membership will recover their integer values.
-  have hex : ∃ n : ℕ, ∃ h : A, h ∈ I ∧ (h : F) ≠ 0 ∧ (ν (h : F)).toNat = n :=
-    ⟨_, z, hzI, fun h => hz (Subtype.ext h), rfl⟩
-  obtain ⟨h, hhI, hh, hν⟩ := Nat.find_spec hex
-  refine ⟨⟨h, le_antisymm ?_ ((Ideal.span_singleton_le_iff_mem I).mpr hhI)⟩⟩
-  intro z hzI
-  by_cases hz : (z : F) = 0
-  · have hz' : z = 0 := Subtype.ext hz
-    rw [hz']
-    exact Ideal.zero_mem _
-  have hh_nonneg : 0 ≤ ν (h : F) := (hmem _ hh).mp h.property
-  have hz_nonneg : 0 ≤ ν (z : F) := (hmem _ hz).mp z.property
-  have hmin : (ν (h : F)).toNat ≤ (ν (z : F)).toNat := by
-    rw [hν]
-    exact Nat.find_min' hex ⟨z, hzI, hz, rfl⟩
-  have horder : ν (h : F) ≤ ν (z : F) := by
-    simpa only [Int.toNat_of_nonneg hh_nonneg, Int.toNat_of_nonneg hz_nonneg] using
-      (Int.ofNat_le.mpr hmin)
-  -- Leastness makes the quotient an element of A, giving the required multiple of h.
-  have hquot : (z : F) / (h : F) ∈ A := by
-    apply (hmem _ (div_ne_zero hz hh)).mpr
-    rw [hdiv _ _ hz hh]
-    exact sub_nonneg.mpr horder
-  apply Ideal.mem_span_singleton'.mpr
-  refine ⟨⟨(z : F) / (h : F), hquot⟩, ?_⟩
-  apply Subtype.ext
-  exact div_mul_cancel₀ _ hh
 
 /-- Over a place DVR, the cokernel length equals the order of the determinant. -/
 theorem p06_9e0f5043ff_lno_dvr_determinant_length
