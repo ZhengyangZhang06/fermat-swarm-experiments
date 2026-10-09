@@ -3854,6 +3854,122 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
     have hmap := congrArg A hmul
     rw [map_mul, map_mul, hAprincipal a c b ha hb0 hb (hnormSign a (fun φ => (haPos φ).le)) hab] at hmap
     exact mul_left_cancel hmap
+  -- Step 16: the congruence and positivity conditions define a finite-index unit subgroup.
+  obtain ⟨rayUnits, hrayUnitsIndex, hrayUnits⟩ :
+      ∃ U : Subgroup Oˣ, U.FiniteIndex ∧
+        ∀ u : Oˣ, u ∈ U ↔
+          (∃ c : O, (u : O) = 1 + (q : O) * c) ∧
+            ∀ φ : F →+* ℝ, 0 < φ (u : O) := by
+    let f₀ : Ideal O := Ideal.span {(q : O)}
+    have hf₀ : f₀ ≠ ⊥ :=
+      Ideal.span_singleton_eq_bot.not.mpr (Nat.cast_ne_zero.mpr hq.ne_zero)
+    let : Finite (O ⧸ f₀) := Ring.HasFiniteQuotients.finiteQuotient hf₀
+    let residueUnit : Oˣ →* (O ⧸ f₀)ˣ := Units.map (Ideal.Quotient.mk f₀).toMonoidHom
+    let signUnit (φ : F →+* ℝ) : Oˣ →* SignTypeˣ :=
+      Units.map (signHom.toMonoidHom.comp (φ.comp (algebraMap O F)).toMonoidHom)
+    let rayMap : Oˣ →* (O ⧸ f₀)ˣ × ((F →+* ℝ) → SignTypeˣ) :=
+      residueUnit.prod (MonoidHom.pi signUnit)
+    let U := rayMap.ker
+    refine ⟨U, inferInstance, ?_⟩
+    intro u
+    change rayMap u = 1 ↔ _
+    rw [Prod.ext_iff]
+    change residueUnit u = 1 ∧ (fun φ => signUnit φ u) = 1 ↔ _
+    rw [Units.ext_iff, funext_iff]
+    have hresidue : ((residueUnit u : (O ⧸ f₀)ˣ) : O ⧸ f₀) = 1 ↔
+        ∃ c : O, (u : O) = 1 + (q : O) * c := by
+      change Ideal.Quotient.mk f₀ (u : O) = Ideal.Quotient.mk f₀ 1 ↔ _
+      rw [Ideal.Quotient.eq, Ideal.mem_span_singleton, dvd_def]
+      exact exists_congr fun c => sub_eq_iff_eq_add'
+    simp only [Units.val_one, Pi.one_apply]
+    rw [hresidue]
+    apply and_congr Iff.rfl
+    apply forall_congr'
+    intro φ
+    rw [Units.ext_iff]
+    change SignType.sign (φ ((u : O) : F)) = 1 ↔ _
+    exact sign_eq_one_iff
+  let : rayUnits.FiniteIndex := hrayUnitsIndex
+  -- Steps 16–17: the ray-unit logarithms form a full lattice, hence a fundamental cone.
+  obtain ⟨rayCone, hrayConeMeasurable, hrayConeReduce, hrayConeTorsion⟩ :
+      ∃ C : Set (NumberField.mixedEmbedding.mixedSpace F), MeasurableSet C ∧
+        (∀ x : NumberField.mixedEmbedding.mixedSpace F, NumberField.mixedEmbedding.norm x ≠ 0 →
+          ∃ u : rayUnits, (u : Oˣ) • x ∈ C) ∧
+        (∀ x ∈ C, ∀ u : rayUnits,
+          (u : Oˣ) • x ∈ C ↔ (u : Oˣ) ∈ NumberField.Units.torsion F) :=
+      open NumberField NumberField.Units NumberField.Units.dirichletUnitTheorem
+        NumberField.mixedEmbedding in by
+    let L := (rayUnits.toAddSubgroup.map (logEmbedding F)).toIntSubmodule
+    have hle : L ≤ unitLattice F := by
+      rintro x ⟨u, _, rfl⟩
+      exact ⟨u, Submodule.mem_top, rfl⟩
+    let : DiscreteTopology L := by
+      rw [← SetLike.isDiscrete_iff_discreteTopology]
+      exact (inferInstance : DiscreteTopology (unitLattice F)).isDiscrete.mono hle
+    have hspan : Submodule.span ℝ (L : Set (logSpace F)) = ⊤ := by
+      rw [eq_top_iff, ← unitLattice_span_eq_top F]
+      apply Submodule.span_le.mpr
+      rintro x ⟨u, _, rfl⟩
+      obtain ⟨n, hn, _, hun⟩ := rayUnits.exists_pow_mem_of_index_ne_zero
+        Subgroup.FiniteIndex.index_ne_zero u.toMul
+      have hlogmem : logEmbedding F (Additive.ofMul (u.toMul ^ n)) ∈ L :=
+        ⟨Additive.ofMul (u.toMul ^ n), hun, rfl⟩
+      have hlogpow : logEmbedding F (Additive.ofMul (u.toMul ^ n)) =
+          (n : ℝ) • logEmbedding F u := by
+        change logEmbedding F (n • u) = _
+        rw [map_nsmul, Nat.cast_smul_eq_nsmul]
+      have hmem := Submodule.subset_span (R := ℝ) hlogmem
+      rw [hlogpow] at hmem
+      exact (Submodule.smul_mem_iff _ (Nat.cast_ne_zero.mpr hn.ne')).mp hmem
+    let : IsZLattice ℝ L := ⟨hspan⟩
+    let basis := (IsZLattice.basis L).ofZLatticeBasis ℝ
+    let C : Set (mixedSpace F) := logMap ⁻¹' ZSpan.fundamentalDomain basis \
+      {x | mixedEmbedding.norm x = 0}
+    refine ⟨C, ?_, ?_, ?_⟩
+    · refine MeasurableSet.diff ?_ ?_
+      · unfold logMap
+        refine MeasurableSet.preimage (ZSpan.fundamentalDomain_measurableSet _) <|
+          measurable_pi_iff.mpr fun w => measurable_const.mul ?_
+        exact (continuous_normAtPlace _).measurable.log.sub <|
+          (mixedEmbedding.continuous_norm _).measurable.log.mul measurable_const
+      · exact measurableSet_eq_fun (mixedEmbedding.continuous_norm F).measurable measurable_const
+    · intro x hx
+      obtain ⟨⟨e, he⟩, hmem, _⟩ :=
+        ZSpan.exist_unique_vadd_mem_fundamentalDomain basis (logMap x)
+      have heL : e ∈ L := by
+        rwa [← Module.Basis.ofZLatticeBasis_span ℝ L]
+      obtain ⟨v, hv, rfl⟩ := heL
+      refine ⟨⟨v.toMul, hv⟩, ?_, ?_⟩
+      · change logMap (v.toMul • x) ∈ ZSpan.fundamentalDomain basis
+        rw [logMap_unit_smul _ hx]
+        exact hmem
+      · change mixedEmbedding.norm (v.toMul • x) ≠ 0
+        simpa only [norm_unit_smul] using hx
+    · intro x hx u
+      constructor
+      · intro hux
+        rw [← logEmbedding_eq_zero_iff]
+        refine (Subtype.mk_eq_mk (h := ?_) (h' := Submodule.zero_mem _)).mp <|
+          (ZSpan.exist_unique_vadd_mem_fundamentalDomain basis (logMap x)).unique ?_ ?_
+        · rw [Module.Basis.ofZLatticeBasis_span ℝ L]
+          exact ⟨Additive.ofMul (u : Oˣ), u.property, rfl⟩
+        · rw [AddSubmonoid.mk_vadd, vadd_eq_add, ← logMap_unit_smul _ hx.2]
+          exact hux.1
+        · rw [AddSubmonoid.mk_vadd, vadd_eq_add, zero_add]
+          exact hx.1
+      · intro hu
+        refine ⟨?_, ?_⟩
+        · change logMap ((u : Oˣ) • x) ∈ ZSpan.fundamentalDomain basis
+          rw [logMap_torsion_smul _ hu]
+          exact hx.1
+        · change mixedEmbedding.norm ((u : Oˣ) • x) ≠ 0
+          rw [norm_unit_smul]
+          exact hx.2
+  have hrayTorsion :
+      (rayUnits ⊓ NumberField.Units.torsion F : Set Oˣ).Finite := by
+    have ht : (NumberField.Units.torsion F : Set Oˣ).Finite :=
+      Set.finite_coe_iff.mp (inferInstance : Finite (NumberField.Units.torsion F))
+    exact ht.subset Set.inter_subset_right
   -- Step 22: the primes above q are finite, and avoiding them is norm coprimality.
   have hfiniteBad : {v : ι | (q : O) ∈ v.asIdeal}.Finite := by
     exact (Ring.HasFiniteQuotients.finite_setOfPred_mem (q : O)
