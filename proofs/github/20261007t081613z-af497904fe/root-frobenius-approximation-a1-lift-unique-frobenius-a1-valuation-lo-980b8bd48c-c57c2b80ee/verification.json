@@ -1,0 +1,18 @@
+{
+  "node_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.valuation_localization-a1.integral_center-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/668",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "cf6da0a8aba35fa7c1bea85204d8c7e13d02202e",
+  "integrated_commit": "10197fe484bd99bd4f9be7f7d81bc2b1b5a28483",
+  "proof_base_commit": "1f571d31217cb55066e93e5c0fe68a7fcba5f537",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.valuation_localization-a1",
+  "requires": [
+    "root.frobenius_approximation-a1.lift_unique_frobenius-a1.valuation_localization-a1.integral_center-a1.integer_mem_valuation-a1",
+    "root.frobenius_approximation-a1.lift_unique_frobenius-a1.valuation_localization-a1.integral_center-a1.prime_center_of_containment-a1"
+  ]
+}
