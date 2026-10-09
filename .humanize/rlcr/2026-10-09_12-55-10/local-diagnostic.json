@@ -1,0 +1,51 @@
+{
+  "kind": "local diagnostic only; not a trusted verifier receipt",
+  "revision": "b6181c719e1ec803aaec7ada799a0b405990a266",
+  "policy_sha256": "96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96",
+  "matching_policy_entry": {
+    "contract_file": "Fermat/Thm_GaloisRepAdic_exists_quadraticRelation_forall_of_frobenius.lean",
+    "contract_sha256": "2993a4945ac2f815dda3914a396a5c2fe5c121dcebfd8cfa0518fe8906ce1215",
+    "header": "/-\nCopyright 2026 Anthropic, PBC. Licensed under Apache-2.0; see LICENSE.\nSource: https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_GaloisRepAdic_exists_quadraticRelation_forall_of_frobenius.lean\nModified: replaced the proof with sorry and removed P2M proof imports.\nRequires the upstream Definitions modules and their dependencies.\n-/\n\nimport Mathlib\nimport Definitions.Def_GaloisRep_Adic\nattribute [-instance] AlgebraicClosure.Rat.isGalois FrobeniusDensity.liesOver_ratBelow FrobeniusDensity.isMaximal_ratPrimeIdeal Deep.NTSupply.instNormalRayClassSubgroup NumberField.NormResidueChar.fintype_G NumberField.NormResidueChar.finite_G\nattribute [-simp] TaylorWiles.Seed.mk.injEq TaylorWiles.Seed.mk.sizeOf_spec\n",
+    "remove_lines": [
+      10,
+      11
+    ],
+    "root_name": "GaloisRepAdic.exists_quadraticRelation_forall_of_frobenius",
+    "source_commit": "20574e45daf714e745af8e649c7b61b21eed5644"
+  },
+  "source_sha256": "36b4abbb3bfa9b37553cab19e35669b27f4d2125839d3cc8f148c0a8dba94a85",
+  "compiler_copy_sha256": "d27dba58813bb5568975ca62d26dfadbfe4f898be3880c600083ac80b8ffcf1d",
+  "reconstruction_byte_exact": true,
+  "omitted_lines": [
+    {
+      "number": 10,
+      "text": "attribute [-instance] AlgebraicClosure.Rat.isGalois FrobeniusDensity.liesOver_ratBelow FrobeniusDensity.isMaximal_ratPrimeIdeal Deep.NTSupply.instNormalRayClassSubgroup NumberField.NormResidueChar.fintype_G NumberField.NormResidueChar.finite_G\n"
+    },
+    {
+      "number": 11,
+      "text": "attribute [-simp] TaylorWiles.Seed.mk.injEq TaylorWiles.Seed.mk.sizeOf_spec\n"
+    }
+  ],
+  "direct_dependencies": [
+    "Submission.p09_af497904fe_cfs_bounded_euler_logarithm",
+    "Submission.p09_af497904fe_cfs_counting_mellin_continuation",
+    "Submission.p09_af497904fe_cfs_cyclic_weighted_infinitude"
+  ],
+  "declaration_closure": [
+    "Submission.p09_af497904fe_cfs_bounded_euler_logarithm",
+    "Submission.p09_af497904fe_cfs_counting_mellin_continuation",
+    "Submission.p09_af497904fe_cfs_cyclic_weighted_infinitude",
+    "Submission.p09_af497904fe_cmc_40fde013_floor_remainder",
+    "Submission.p09_af497904fe_cmc_40fde013_mellin_tail_holomorphic",
+    "Submission.p09_af497904fe_cwi_character_orthogonality",
+    "Submission.p09_af497904fe_cwi_fiber_log_estimate",
+    "Submission.p09_af497904fe_cwi_infinite_diff_of_log_lower_bound",
+    "Submission.p09_af497904fe_ff_cyclotomic_supply"
+  ],
+  "scratch": "/tmp/p09-selected-125510-12ngllrn",
+  "inputs": {
+    "HeaderAbsence.lean": "3524c33c8d1e1b9d733f376b7d9bb7c99ff1def807bc9b7fcf10301dcdb81c21",
+    "SelectedNode.lean": "171567b73fc5e8b00d436670ecb0e51bdbd462d01fe350711127f4701fba83d3",
+    "CompilerCopy.lean": "d27dba58813bb5568975ca62d26dfadbfe4f898be3880c600083ac80b8ffcf1d"
+  }
+}
