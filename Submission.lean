@@ -25642,3 +25642,132 @@ theorem Submission.p03_tkc_two_torsion_card_68cf3476_d5
     · refine ⟨T, ?_⟩
       simpa only [add_nsmul, mul_nsmul, hT2, nsmul_zero, one_nsmul,
         zero_add] using hT
+
+/-
+Incomplete speculative implementation of the frozen torsion-cardinality recurrence.
+The finite-kernel construction, coefficient calculations, and final degree reduction
+are formalized below. The accepted proof's rational-function and local-order argument
+is still needed to close the last goal, `degree D = 0`; this is not a completed proof.
+-/
+theorem Submission.p03_tkc_torsion_card_recurrence_68cf3476_d5 :
+    ∀ (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k]
+      (W : WeierstrassCurve k), W.Δ ≠ 0 → ∀ m : ℕ, 2 ≤ m →
+        Nat.card {P : W.toAffine.Point // (m + 1) • P = 0} +
+            Nat.card {P : W.toAffine.Point // (m - 1) • P = 0} =
+          2 * Nat.card {P : W.toAffine.Point // m • P = 0} + 2 := by
+  intro k _ _ _ _ W hΔ m hm
+  classical
+  have hm₀ : 0 < m := by omega
+  have hprev : 0 < m - 1 := by omega
+  have hnext : 0 < m + 1 := by omega
+  -- Step 1: finite reduced kernel divisors, represented on the k-points.
+  let K (j : ℕ) (hj : 0 < j) : W.toAffine.Point →₀ ℤ := by
+    let := Submission.p03_tkc_positive_torsion_finite_68cf3476_d5 k W hΔ j hj
+    let := Fintype.ofFinite {P : W.toAffine.Point // j • P = 0}
+    exact ∑ P : {P : W.toAffine.Point // j • P = 0}, Finsupp.single P.val 1
+  let degree : (W.toAffine.Point →₀ ℤ) →+ ℤ :=
+    Finsupp.liftAddHom (fun _ => AddMonoidHom.id ℤ)
+  have hdegree_single (P : W.toAffine.Point) (a : ℤ) :
+      degree (Finsupp.single P a) = a := by
+    exact Finsupp.liftAddHom_apply_single (fun _ => AddMonoidHom.id ℤ) P a
+  have hdegree_K (j : ℕ) (hj : 0 < j) :
+      degree (K j hj) = (Nat.card {P : W.toAffine.Point // j • P = 0} : ℤ) := by
+    let := Submission.p03_tkc_positive_torsion_finite_68cf3476_d5 k W hΔ j hj
+    let := Fintype.ofFinite {P : W.toAffine.Point // j • P = 0}
+    change degree (∑ P : {P : W.toAffine.Point // j • P = 0},
+      Finsupp.single P.val 1) = _
+    simp only [map_sum, hdegree_single, Finset.sum_const, Finset.card_univ,
+      nsmul_eq_mul, mul_one, Nat.card_eq_fintype_card]
+  have hK (j : ℕ) (hj : 0 < j) (P : W.toAffine.Point) :
+      K j hj P = if j • P = 0 then 1 else 0 := by
+    let := Submission.p03_tkc_positive_torsion_finite_68cf3476_d5 k W hΔ j hj
+    let := Fintype.ofFinite {P : W.toAffine.Point // j • P = 0}
+    change (∑ Q : {P : W.toAffine.Point // j • P = 0},
+      Finsupp.single Q.val (1 : ℤ)) P = _
+    rw [Finsupp.finsetSum_apply]
+    by_cases hP : j • P = 0
+    · rw [if_pos hP]
+      rw [Finset.sum_eq_single (⟨P, hP⟩ : {P : W.toAffine.Point // j • P = 0})]
+      · exact Finsupp.single_eq_same
+      · intro Q _ hQ
+        exact Finsupp.single_eq_of_ne (by
+          intro h
+          apply hQ
+          exact Subtype.ext h.symm)
+      · simp
+    · rw [if_neg hP]
+      apply Finset.sum_eq_zero
+      intro Q _
+      exact Finsupp.single_eq_of_ne (by
+        intro h
+        apply hP
+        rw [h]
+        exact Q.property)
+  -- The two neighboring kernels are the fixed and anti-fixed points of [m].
+  have hminus (P : W.toAffine.Point) : (m - 1) • P = 0 ↔ m • P = P := by
+    have hsub : (m - 1) • P = m • P - P := by
+      simpa only [one_nsmul, sub_eq_add_neg] using sub_nsmul P (by omega : 1 ≤ m)
+    rw [hsub, sub_eq_zero]
+  have hplus (P : W.toAffine.Point) : (m + 1) • P = 0 ↔ m • P = -P := by
+    rw [add_nsmul, one_nsmul, add_eq_zero_iff_eq_neg]
+  let D : W.toAffine.Point →₀ ℤ :=
+    K (m + 1) hnext + K (m - 1) hprev - 2 • K m hm₀ - 2 • Finsupp.single 0 1
+  have hD (P : W.toAffine.Point) : D P =
+      (if m • P = -P then 1 else 0) + (if m • P = P then 1 else 0) -
+        2 * (if m • P = 0 then 1 else 0) - 2 * (if P = 0 then 1 else 0) := by
+    simp only [D, Finsupp.sub_apply, Finsupp.add_apply, Finsupp.smul_apply,
+      hK, hminus, hplus, nsmul_eq_mul, Nat.cast_ofNat, Finsupp.single_apply,
+      eq_comm (a := (0 : W.toAffine.Point)) (b := P)]
+  have hD_zero : D 0 = -2 := by simp [hD]
+  have hD_pole (P : W.toAffine.Point) (hP : P ≠ 0) (hPm : m • P = 0) :
+      D P = -2 := by
+    rw [hD]
+    simp [hPm, hP, eq_comm (a := (0 : W.toAffine.Point))]
+  have hD_fixed (P : W.toAffine.Point) (hP : P ≠ 0)
+      (hfix : m • P = P) (htwo : P ≠ -P) : D P = 1 := by
+    simp [hD, hfix, htwo, hP]
+  have hD_antifixed (P : W.toAffine.Point) (hP : P ≠ 0)
+      (hfix : m • P = -P) (htwo : P ≠ -P) : D P = 1 := by
+    have hne : -P ≠ P := Ne.symm htwo
+    simp [hD, hfix, hne, hP]
+  have hD_two (P : W.toAffine.Point) (hP : P ≠ 0)
+      (hfix : m • P = P) (htwo : P = -P) : D P = 2 := by
+    rw [hD]
+    simp only [hfix, if_pos htwo, if_neg hP]
+    norm_num
+  have hD_other (P : W.toAffine.Point) (hP : P ≠ 0)
+      (hpole : m • P ≠ 0) (hfix : m • P ≠ P) (hanti : m • P ≠ -P) :
+      D P = 0 := by
+    simp [hD, hpole, hfix, hanti, hP]
+  have hX (P : W.toAffine.Point) :
+      (m • P).xRep = P.xRep ↔ (m + 1) • P = 0 ∨ (m - 1) • P = 0 := by
+    rw [xRep_eq_xRep_iff, hplus, hminus, or_comm]
+  -- The characteristic-zero coefficients occurring in steps 3 and 5.
+  have hm_cast : (m : k) ≠ 0 := Nat.cast_ne_zero.mpr (by omega)
+  have hprev_cast : (m : k) - 1 ≠ 0 := by
+    exact sub_ne_zero.mpr (by exact_mod_cast (show m ≠ 1 by omega))
+  have hnext_cast : (m : k) + 1 ≠ 0 := by
+    exact_mod_cast (show m + 1 ≠ 0 by omega)
+  have hm_sq : (m : k) ^ 2 - 1 ≠ 0 := by
+    apply sub_ne_zero.mpr
+    exact_mod_cast (show m ^ 2 ≠ 1 by nlinarith)
+  -- Step 8: taking degree of the required principal-divisor identity suffices.
+  have finish (hdegree : degree D = 0) :
+      Nat.card {P : W.toAffine.Point // (m + 1) • P = 0} +
+          Nat.card {P : W.toAffine.Point // (m - 1) • P = 0} =
+        2 * Nat.card {P : W.toAffine.Point // m • P = 0} + 2 := by
+    have hbalance :
+        (Nat.card {P : W.toAffine.Point // (m + 1) • P = 0} : ℤ) +
+            (Nat.card {P : W.toAffine.Point // (m - 1) • P = 0} : ℤ) =
+          2 * (Nat.card {P : W.toAffine.Point // m • P = 0} : ℤ) + 2 := by
+      dsimp only [D] at hdegree
+      rw [map_sub, map_sub, map_add, map_nsmul, map_nsmul,
+        hdegree_K (m + 1) hnext, hdegree_K (m - 1) hprev,
+        hdegree_K m hm₀, hdegree_single] at hdegree
+      simpa only [nsmul_eq_mul, Nat.cast_ofNat, mul_one, sub_sub, sub_eq_zero] using hdegree
+    exact_mod_cast hbalance
+  apply finish
+  -- Remaining: construct H = x ∘ [m] - x as a nonzero rational function,
+  -- prove its orders equal hD by accepted proof steps 2--7, and use the
+  -- degree-zero theorem for principal divisors on the smooth projective curve.
+  change degree D = 0
