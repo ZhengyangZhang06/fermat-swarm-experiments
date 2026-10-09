@@ -1,0 +1,40 @@
+# Parent-supplied natural-language proof
+
+- Parent DAG node: `root.transfer_theta-a1.cup_pairings-a1.cup_one_one-a1`
+- Child DAG node: `root.transfer_theta-a1.cup_pairings-a1.cup_one_one-a1.right_level_boundary-a1`
+- Review gate: accepted as part of the parent's decomposition audit
+
+## Proof
+
+1. Fix the stated data and choose a finite-dimensional witness field Ff for f. Define u:G→N by u(s)=φ(f(s),s·b), and put F=E₀⊔Ff. The theorem IntermediateField.finiteDimensional_sup proves that F is finite-dimensional over ℚ.
+2. If r(h) fixes F, it fixes both E₀ and Ff. Thus f(sh)=f(s) and h·b=b. By the representation law, u(sh)=φ(f(sh),(sh)·b)=φ(f(s),s·(h·b))=φ(f(s),s·b)=u(s). Hence u is level with witness F. The cochain v=−u is level with the same witness, since v(sh)=−u(sh)=−u(s)=v(s).
+3. For any s,t∈G, equivariance and the representation law give s·u(t)=φ(s·f(t),(st)·b). Using f(st)=s·f(t)+f(s) yields d₁u(s,t)=φ(s·f(t),(st)·b)−φ(s·f(t)+f(s),(st)·b)+φ(f(s),s·b)=−φ(f(s),(st)·b)+φ(f(s),s·b).
+4. Since (st)·b=s·(t·b) and the action of s and the map φ(f(s),−) are linear, the last expression equals −φ(f(s),s·(t·b−b)). This is the negative of cupCochain φ f (fun t↦t·b−b) at (s,t). Linearity of the differential now gives d₁v=d₁(−u)=−d₁u=cupCochain φ f (fun t↦t·b−b).
+5. The cochain v is level by Step 2 and has the required differential by Step 4. By the defining image description of levelCoboundaries₂ r N, this proves that the specified cup cochain belongs to levelCoboundaries₂ r N.
+
+## Key steps
+
+1. Define u(s)=φ(f(s),s·b) and refine the level field to E₀⊔Ff.
+2. Use trivial action on b and the level property of f to show u and −u are level.
+3. Compute d₁u=−cupCochain φ f (d₀b).
+4. Take the level primitive −u and apply the image definition of levelCoboundaries₂.
+
+## Reference use
+
+### local-project
+
+Queries:
+- `rg -n 'cupCochain|levelCocycles₁|levelCocycles₂|continuousH2π|H1π_eq_iff' .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36 --glob '*.lean'`
+- `rg -n 'finiteDimensional.*sup|finiteDimensional_sup|fixingSubgroup_antitone' .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/FieldTheory`
+- `rg -n 'continuous.*[Cc]up|[Cc]up.*continuous' .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions .humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory`
+
+Files inspected:
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/manifest.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_CupProduct.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH1.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/project/Definitions/Def_GroupCohomology_ContinuousH2.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/LowDegree.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/FieldTheory/IntermediateField/Adjoin/Basic.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p08/.humanize/github-theorem-prover/runs/20261007T081613Z-7d1ff633a4/local-references/f1203ade877a7c36/mathlib/Mathlib/FieldTheory/Galois/Basic.lean`
+
+The manifest pins project 9db4b2bea94e42612c675170cfe30ec626166658 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. CupProduct provides the ordinary bilinear cup and both boundary-primitive calculations. ContinuousH1 is an image of level one-cocycles; ContinuousH2 uses the image of level one-cochains as its boundary denominator. H1π_eq_iff, finiteDimensional_sup, and fixingSubgroup_antitone support descent and common level fields. The focused continuous-cup search found no matching theorem. The three project definition files match the snapshot byte-for-byte, and the local mathlib checkout is clean at the pinned commit. Diagnostic axiom checks of the three proposed types and cited declarations found only propext, Classical.choice, and Quot.sound.
