@@ -1,0 +1,36 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'hom_comm_apply|theorem self_inv_apply|protected theorem eq' mathlib/Mathlib/RepresentationTheory/Rep/Basic.lean mathlib/Mathlib/RepresentationTheory/Basic.lean mathlib/Mathlib/GroupTheory/Coset/Defs.lean",
+        "rg -n --glob '*.lean' 'p04_hca_bc7c754a4b_summand_eq_of_coset_eq' project mathlib"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/Coset/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Fermat/Thm_Rep_isZero_tateCohomology_of_forall_sylow.lean"
+      ],
+      "conclusion": "Searches ran from the snapshot root. Found existing upstream Rep.hom_comm_apply, Representation.self_inv_apply, and QuotientGroup.eq; no existing tracked-node declaration matched. Both snapshot checkouts were clean at their manifest revisions. The exact comparator rerun confirmed compatibility and permitted transitive axioms."
+    }
+  ],
+  "comparison_identity": "6a8a639d291b48f1914f77bfd481fcbeb538998ecdfc1b53eea21e142ec378b2",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p04_hca_bc7c754a4b_summand_eq_of_coset_eq",
+      "statement": "∀ {k G : Type _} [CommRing k] [Group G] (A B : Rep k G) (H : Subgroup G) (F : Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) (s t : G), (QuotientGroup.mk s : G ⧸ H) = QuotientGroup.mk t → ∀ x : B, A.ρ s (F.hom (B.ρ s⁻¹ x)) = A.ρ t (F.hom (B.ρ t⁻¹ x))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Equal cosets supply a subgroup element; H-equivariance and inverse-action cancellation identify the two conjugated evaluations."
+    }
+  ]
+}

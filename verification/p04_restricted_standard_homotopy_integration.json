@@ -1,0 +1,151 @@
+{
+  "kind": "integration-only-source-audit",
+  "canonical_parent": "3de63095d76a4133bedce21a04ef565f0af17290",
+  "intact_canonical_source": "27e94ae8af8fea643d129fe1f85d096e9b7ad045",
+  "reviewed_parent": "b1f45fc8a67e9903bec2768068d180c2653a7dcf",
+  "reviewed_commits": [
+    "c6140957291b0a841be4849e3fe36a3e74c1f5dc",
+    "2cd8a42a9b6d1b807388b34942f29ccec5accc97",
+    "2d809043e1f8563dca21c9bbf8f72eeec24ed17a",
+    "353386385b0e75d0bf610f49d3f2106596213472",
+    "f89f573898d9205a087a2dfdad6a7e38d8924b04",
+    "1e3f5b4115c4c7c6d4fd087efac0cfe0d1074aa5",
+    "92d40aa0c63afdb9156f8b4254f8a8b7db8dd597",
+    "5cf38e45745730592605b7f05c737782190f83d9",
+    "02dca9bd294d2fff5460cdd52331924ee2e9899e",
+    "bfc18daba110c195ac96287953fdc2aa21ff9845",
+    "9f2861fa97d0fb664e832f46a84cad32c1c59346",
+    "eaf9ff1dd0bf2ee008d5ce7cd9a03ac7f1e49a6d",
+    "a19d55389fe7ec9e5025bc64f54c0c5b781ad7fc",
+    "0eae4cc9b48b2ffad787ee9d41fc0c17cc64367b",
+    "6b14a313dd08e488b7984ebfa2e1f232df979c23",
+    "1424057d94dff8948885160fbf1f593c9a505c40",
+    "b35420eca805915fc299949a2fad98db262cccb2",
+    "50fa32ca1e19b4084163197047e8f806d93a5916",
+    "cc0927959c05e8aa79fefd6e03c6e814575d0b06",
+    "a3f4c2a6496898a8a4529d824203552488b7941e",
+    "9e664cddc4190a76199c73cb782f46327cc82273",
+    "5e3581ceb830fdf2f627a3a4b38b55f826d6cbdf",
+    "2ed34b350297dbf41ce96538d8156cd260dd2a8d",
+    "b4bd160e1e39cdde22f27b04c573b58dc3c7402a",
+    "e182d372f9dd2737d72e3b46232fd85cff611a25",
+    "150a156690b9ee78c11c34e7fdccc9c9cfcde5da",
+    "7f8072f9a02b163efca0f4d43541fddb93620447",
+    "40130ceeecf9b5a07d82b4859384508a23f3fe4d",
+    "4fde5ca237376b9addb036be0c7172e117487905",
+    "3f75101e74784c46d99210d38290b702562d6b29",
+    "eaa712b52063c39ef771bee91ffc6157ee5635af",
+    "79ad259d182d1191212dad11795e76c243de241e",
+    "9f0ca1b43cb98c9c9fd2b32048774e4d108113f4",
+    "3674441cd271fdc7798fed05a557ab090cb96b21",
+    "8bb8022391f8a19894949bca882444c608aad856",
+    "66128bd5000ebd9c152d435884e7fb64c84ac7bd",
+    "6f25863efc1d2866ef083d55e553e8ca26534c3a",
+    "b1f45fc8a67e9903bec2768068d180c2653a7dcf"
+  ],
+  "node_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1",
+  "reconciliation": [
+    "Normal two-parent merge preserves the canonical history and all 38 reviewed candidate commits.",
+    "Restore the intact canonical Submission.lean byte-for-byte as a prefix; partial replay had duplicated three declarations, nested namespaces, truncated a proof, and removed the frozen header.",
+    "Append the final reviewed homotopy-equivalence declaration with its comment and local elaboration option byte-for-byte inside Submission.",
+    "All seven shared declarations have identical statements and proofs; retain one copy of each.",
+    "Every existing non-Submission tracked file remains byte-identical; all 11 verification records added by the reviewed history already match its final tree.",
+    "Keep the disputed verification record unchanged: the complete b35420eca805 version is retained as a prefix of the final reviewed record.",
+    "No mathematical argument, frozen statement, reviewed handoff, plan, challenge, comparator, or .humanize file was edited."
+  ],
+  "canonical_declarations_preserved": 20,
+  "reviewed_declarations_preserved": 8,
+  "integrated_declarations": [
+    "Rep.isZero_tateCohomology_of_forall_sylow",
+    "p04_hca_bc7c754a4b_summand_eq_of_coset_eq",
+    "p04_ht_restricted_standard_comparison",
+    "p04_tz91_invariant_restriction_norm_range",
+    "p04_tz91_invariant_transfer_norm_index",
+    "p04_hca_bc7c754a4b_sum_equivariant",
+    "p04_hct139_coset_average_laws",
+    "p04_rsh_82a013d1d0_equivariant_retraction",
+    "p04_pb_60221840b0_noncentral_cancellation",
+    "p04_prism_a8325b9888_equivariant_components",
+    "p04_ht_coinvariant_complex_transfer",
+    "p04_tia_homology_transfer",
+    "p04_tia_tate_zero_transfer",
+    "p04_hct139_coset_average_exists",
+    "p04_pb_60221840b0_central_telescoping",
+    "p04_tia_tate_neg_one_transfer",
+    "p04_tia_coh_hom_complex_transfer",
+    "p04_prism_a8325b9888_boundary_identity",
+    "p04_eq_zero_of_prime_avoiding_annihilators",
+    "p04_rsh_82a013d1d0_prism_homotopy",
+    "p04_tia_coh_restricted_standard_homotopy_equiv"
+  ],
+  "declaration_sha256": {
+    "Rep.isZero_tateCohomology_of_forall_sylow": "caac2d0470b0516a72c2e56cebf5d698d076c5a2e6d7b689aa53888d39f61bef",
+    "p04_hca_bc7c754a4b_summand_eq_of_coset_eq": "4687f9ad5c4721b0034b0c1e6b75f0ad0828664b453a6332d578aa69167c79df",
+    "p04_ht_restricted_standard_comparison": "6ec644566f94c6301fe4b717929af52b9232f5780f99052b51ed06c8275d45c1",
+    "p04_tz91_invariant_restriction_norm_range": "5d491d503f1e7ca08947d44b2750f32f4ef2a52bbcbe06e453fa7fd204ade3b9",
+    "p04_tz91_invariant_transfer_norm_index": "f9e4a0aab13c5fc901393d7ab2016e9d3ebcea60d13df949e47b192741f8fb76",
+    "p04_hca_bc7c754a4b_sum_equivariant": "52b27334c40cdb67309bca12fd093080fabfc0c5429de88bfa9e793ac03fc5b8",
+    "p04_hct139_coset_average_laws": "730201af1dd2acac63e391c7d783a1dd4339eedf1fc946e883467c90542a9b6b",
+    "p04_rsh_82a013d1d0_equivariant_retraction": "c7e12502c44e2e266a16860110cac9391b21a1681e36b830e7d06912f1b02791",
+    "p04_pb_60221840b0_noncentral_cancellation": "307c71ba1725e3d774d615bef2b17150d9f439a17dabf2fe9901f9c692c3f333",
+    "p04_prism_a8325b9888_equivariant_components": "5d3cbef3da6960b4eabe339ce1344262bf091621e4d4ba0b6f0a149b8e36898e",
+    "p04_ht_coinvariant_complex_transfer": "ad170a32ce7a8c9812ff31d902efbe7f442ce2bb9197ce3ae7deddc16fb407d7",
+    "p04_tia_homology_transfer": "07727bef533a8f5c95a9db264f99c11e5301970cfba7f57fe78ad940c236d4ec",
+    "p04_tia_tate_zero_transfer": "dc048a84e26f85ccc5fcbca3bac62c3bc196c1d903b7312860cef78dad3030f9",
+    "p04_hct139_coset_average_exists": "d95c1e8cbeaea4d03c63e88e56e790cde0c2e823caec11b3d39c28f72b40ee7e",
+    "p04_pb_60221840b0_central_telescoping": "12e85e5718c7d14bb2b6c3df135f0adb5bf2b50f813ecfb0846cf7bacf3cbe53",
+    "p04_tia_tate_neg_one_transfer": "2d944cb232028a63e8966a8a2821bc973e5a9a6c43af386c60695693b05c98ba",
+    "p04_tia_coh_hom_complex_transfer": "c88653ac8d2ba0985b9017e131bf8bf6c1db6a750626a3e224566140c17bc083",
+    "p04_prism_a8325b9888_boundary_identity": "d424d3697963a27c256114555b1a3ccb956b9e0b5cf879971baba581332344cd",
+    "p04_eq_zero_of_prime_avoiding_annihilators": "8aa9df2b90e0b48cf748b87315dafd0f4b5bbdbc7b96b84f5af337d012bbba30",
+    "p04_rsh_82a013d1d0_prism_homotopy": "42e8b858abb22e50294e964f210dd9ae291cefbabb2ffb4cf87976b61c59bf9a",
+    "p04_tia_coh_restricted_standard_homotopy_equiv": "b2bf2df521a6af78d4a4e8088b1db6c55f024dbcfb69c6b17cdaee95148aff60"
+  },
+  "submission_sha256": "4c08b8c744bca7affc41cb585e6e9ee22200e35604136bcf510ba0d58603d9ce",
+  "unchanged_existing_non_submission_files": 214,
+  "frozen_contract_sha256": "42953c937798c4a4ff8c5a5266936d11cb7f7836ede7175b49e6d157bd9e9551",
+  "frozen_header_policy_sha256": "96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96",
+  "compiler_copy_policy": {
+    "source_commit": "2475a3790d7ba0c3b10be8086001b154a45be597",
+    "contract_file": "Fermat/Thm_Rep_isZero_tateCohomology_of_forall_sylow.lean",
+    "remove_lines": [
+      10
+    ],
+    "original_header_preserved": true
+  },
+  "verification_status": "Source reconciliation only. The exact configured comparator must verify the committed merge; this audit is not acceptance evidence.",
+  "reference_use": [
+    {
+      "source": "local-project",
+      "snapshot": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8",
+      "manifest": {
+        "mode": "local-project",
+        "project_commit": "2475a3790d7ba0c3b10be8086001b154a45be597",
+        "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d"
+      },
+      "queries": [
+        {
+          "query": "restricted_standard_homotopy|equivariantPrism|standardComplex|HomotopyEquiv",
+          "scope": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project",
+          "result": "No matches in project Lean files (rg exit 1)."
+        },
+        {
+          "query": "standardComplex|d_of",
+          "scope": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/Resolution.lean",
+          "result": "Rep.standardComplex at line 170; alternating deletion differential at line 180; d_of at line 189; inspected lines 160-198."
+        },
+        {
+          "query": "structure HomotopyEquiv|def ofEq",
+          "scope": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/Homology/Homotopy.lean",
+          "result": "Homotopy.ofEq at line 151; HomotopyEquiv at line 697; inspected its forward/backward maps and both composition homotopies at lines 688-715."
+        },
+        {
+          "query": "def mapDomainLinearMap|mapDomainLinearMap_single",
+          "scope": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/MonoidAlgebra",
+          "result": "Module.lean lines 79 and 88 give coordinatewise linear extension and its singleton equation."
+        }
+      ],
+      "compatibility": "All three inspected mathlib source files are byte-identical to installed pinned sources. No new proof or external implementation was copied; only the accepted theorem was integrated. Transitive axiom and exact-type checks remain the configured comparator responsibility."
+    }
+  ]
+}

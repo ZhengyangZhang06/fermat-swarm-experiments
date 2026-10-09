@@ -1,0 +1,51 @@
+# Parent-supplied natural-language proof
+
+- Parent DAG node: `root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1`
+- Child DAG node: `root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1.equivariant_prism_components-a1`
+- Review gate: accepted as part of the parent's decomposition audit
+
+## Proof
+
+1. Fix k, G, H, u, v and the two equivariance hypotheses. The underlying module of Cₙ is MonoidAlgebra k (Fin(n+1) → G), the free k-module on these tuples. Write e_c=single c 1. Restriction changes only the acting group, and its action satisfies h·e_c=e_{hc}, where (hc)(i)=(h:G)c(i).
+2. For j ∈ Fin(n+1), let Qₙ,ⱼ(c)=Fin.insertNth j.castSucc (u(c j)) (fun i => if i<j then u(c i) else v(c i)). Before position j this tuple has entries u(c i); position j is the inserted u(c j); after position j its entry at position a is v(c(a−1)). Hence Qₙ,ⱼ(c) is exactly (ug₀,…,ugⱼ,vgⱼ,…,vgₙ). Define Pₙ(c)=Σⱼ single Qₙ,ⱼ(c) ((−1:k)ʲ). Since a·single t 1=single t a, this is the prism sum in the statement.
+3. The universal property of the free k-module gives a k-linear map Dₙ with Dₙ(e_c)=Pₙ(c). Explicitly, if x=Σ_c a_c e_c is its finite coefficient expansion, set Dₙ(x)=Σ_c a_c Pₙ(c). The uniquely determined coefficients make this well-defined; coefficientwise addition and scalar multiplication show it is k-linear, including when k is the zero ring.
+4. For h ∈ H, Qₙ,ⱼ(hc)=hQₙ,ⱼ(c). Indeed, before and at the inserted position this follows from u((h:G)g)=(h:G)u(g); after that position it follows from the corresponding identity for v. The comparison i<j depends only on indices and is unchanged by h.
+5. The action on the target free module sends single t a to single (ht) a and is k-linear. Applying step 4 termwise therefore gives Pₙ(hc)=h·Pₙ(c). On each generator, Dₙ(h·e_c)=Dₙ(e_{hc})=Pₙ(hc)=h·Dₙ(e_c). Both sides are k-linear functions of the input, so this identity holds on every finite coefficient expansion and thus on every element of Cₙ.
+6. Consequently Dₙ is H-equivariant and defines a morphism Cₙ → Cₙ₊₁ in Rep k H. Carrying out this construction for each natural number n gives the required family, with its generator formula supplied by step 3.
+
+## Key steps
+
+1. Identify the restricted complex objects as free modules with diagonal H-action.
+2. Express each prism tuple using Fin.insertNth and form its signed sum.
+3. Extend the generator assignment k-linearly.
+4. Use equivariance of u and v to prove equivariance of every prism tuple.
+5. Extend equivariance from generators to all elements and obtain the family of Rep morphisms.
+
+## Reference use
+
+### local-project
+
+Queries:
+- `standardComplex|prism|Homotopy`
+- `prism|homotopy.*equivariant|equivariant.*homotopy`
+- `def insertNth|theorem insertNth|predAbove`
+- `def res|abbrev res|def ofMulAction|ofMulAction.*single|def of|structure Hom|def lift`
+- `lhom_ext|lift.*single`
+- `linearizeMap_single|def linearize|ofMulAction.*single|def ofMulAction`
+- `p04_prism_a8325b9888_(equivariant_components|boundary_identity)`
+
+Files inspected:
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/Resolution.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Basic.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Basic.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/MonoidAlgebra/Module.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Data/Fin/Tuple/Basic.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/Homology/Homotopy.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/dag.json`
+- `/tmp/p04-prism-a8325b9888-contracts/ContractTypes.lean`
+- `/tmp/p04-prism-a8325b9888-contracts/ContractTypes.log`
+
+The manifest pins project 2475a3790d7ba0c3b10be8086001b154a45be597 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Resolution.lean supplies the free tuple modules and alternating differential through d_of and d_apply; restriction preserves underlying linear maps; ofMulAction_single describes the diagonal action. Fin.insertNth expresses the prism tuple without index-bound proof terms. Homotopy supplies the required degree-zero and successor component identities. No existing prism theorem was found in the searched project Definitions and mathlib RepresentationTheory directories. Both proposed names are absent from the active DAG. Both exact propositions elaborated after import Submission using the existing cached Submission module, and the coefficient scalar action was checked by proving a • single x 1 = single x a. Checked library declarations depend only on propext, Classical.choice, and Quot.sound; local dependency revisions match their pins and have no tracked modifications. Validation limitation: rebuilding the unchanged frozen Submission itself fails on its existing attribute reference to the missing constant Representation.TateResCor.cosetDecomp_apply. The frozen source was not changed, and these checks do not constitute comparator acceptance.

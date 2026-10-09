@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T080920Z-a816f3fa20",
+  "parent_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1",
+  "dispatch_branch": "proof-workspace/fermat-p04/20261007t080920z-a816f3fa20/dispatch/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0",
+  "source_commit": "2475a3790d7ba0c3b10be8086001b154a45be597",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1",
+      "key": "equivariant_prism_homotopy",
+      "result_branch": "humanize-recursive/fermat-p04/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888-a1",
+      "bundle_path": ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "standardComplex|HomotopyEquiv|coset.*[Rr]epr|[Rr]epr.*coset",
+              "rightTransversal|RightTransversal|right.*[Rr]epresent|exists.*transversal|leftTransversal",
+              "def res|resFunctor",
+              "restricted.*standard.*[Hh]omotopy|standard.*[Hh]omotopy.*restrict|standardComplex.*resFunctor",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/p04_rsh_82a013d1d0_types/TypesMathlib.lean",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/p04_rsh_82a013d1d0_types/TypesSubmission.lean",
+              "#print axioms Rep.standardComplex.d_eq",
+              "#print axioms Rep.standardComplex.d_single",
+              "#print axioms Representation.linearizeMap_single"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/Resolution.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/Complement.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Action.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/Homology/Homotopy.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/AlgebraicTopology/SimplicialObject/ChainHomotopy.lean"
+            ],
+            "conclusion": "The manifest pins project 2475a3790d7ba0c3b10be8086001b154a45be597 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Resolution.lean identifies degree-n generators and supplies the alternating deletion formulas d_eq and d_single. Complement.lean provides right transversals without finiteness assumptions. Res.lean and Action.lean confirm restriction and equivariant linearization. Homotopy.lean uses the convention f = dD + Dd + g, so the positive prism gives Homotopy V U. ChainHomotopy.lean provides related simplicial-to-chain infrastructure. The targeted restricted-standard-homotopy search returned no matches in the snapshot's RepresentationTheory and project/Definitions trees. All six inspected library files match the clean pinned mathlib checkout. The three queried library lemmas depend only on propext, Classical.choice, and Quot.sound. Both proposed types elaborated with Lean 4.33.1 independently under import Mathlib and under import Submission from the cached local p04 worktree; neither expression uses a candidate theorem. The elaborated component maps are Rep.Hom.hom, retaining H-equivariance. Both proposed identifiers are absent from the inspected DAG and handoff metadata. These checks establish type compatibility, not proof acceptance."
+          }
+        ],
+        "parent_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1",
+        "child_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1",
+        "subproblem": {
+          "key": "equivariant_prism_homotopy",
+          "title": "Coordinatewise equivariant endomaps induce homotopic standard-complex maps",
+          "statement": "Let k be a commutative ring and G a group in the same universe, and let H ≤ G. Set C = Res_H(Rep.standardComplex k G). Let u,v : G → G satisfy u(hg) = h u(g) and v(hg) = h v(g) for every h ∈ H and g ∈ G. Suppose U,V : C → C are chain maps in Rep k H such that, for every n ≥ 0 and tuple c : Fin(n+1) → G, U_n sends the free generator [c] to [u ∘ c] and V_n sends [c] to [v ∘ c]. Then there exists a chain homotopy from V to U, with convention V − U = ∂D + D∂. No finiteness or normality assumption is required.",
+          "lean_statement": "∀ {k G : Type _} [CommRing k] [Group G] (H : Subgroup G) (u v : G → G), (∀ (h : H) (g : G), u ((h : G) * g) = (h : G) * u g) → (∀ (h : H) (g : G), v ((h : G) * g) = (h : G) * v g) → let C := ((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj (Rep.standardComplex k G); ∀ U V : CategoryTheory.End C, (∀ (n : ℕ) (c : Fin (n + 1) → G), (U.f n).hom (MonoidAlgebra.single c (1 : k)) = MonoidAlgebra.single (u ∘ c) (1 : k)) → (∀ (n : ℕ) (c : Fin (n + 1) → G), (V.f n).hom (MonoidAlgebra.single c (1 : k)) = MonoidAlgebra.single (v ∘ c) (1 : k)) → Nonempty (Homotopy V U)",
+          "lean_name": "p04_rsh_82a013d1d0_prism_homotopy",
+          "depends_on": [],
+          "natural_proof": "1. Fix all the stated data. Write [g₀,…,gₙ] for the generator MonoidAlgebra.single c 1 of C_n. Restriction preserves the underlying modules and differentials. In positive degree the differential is the alternating sum of vertex deletions, and the outgoing differential in degree zero is zero.\n2. For n ≥ 0 define D_n on generators by D_n[g₀,…,gₙ] = Σ_{j=0}^n (−1)^j[ug₀,…,ug_j,vg_j,…,vgₙ], and extend k-linearly. This extension exists because C_n is the free k-module on these tuples. For h ∈ H, equivariance of u and v makes each displayed prism tuple for (hg₀,…,hgₙ) the simultaneous h-translate of the corresponding tuple for (g₀,…,gₙ). The action on the free module is k-linear, so D_n is H-equivariant. It is consequently a morphism C_n → C_{n+1} in Rep k H.\n3. Fix n ≥ 1 and a generator c = [g₀,…,gₙ]. Expand ∂_{n+1}D_n(c) and D_{n−1}∂_n(c). In the j-th prism summand, delete a position a < j. Its coefficient is (−1)^{j+a}. The resulting tuple equals the tuple obtained by first deleting original vertex a and then taking prism position j−1: both tuples omit ug_a from the initial u-segment and have duplicated transition vertex g_j. The coefficient of the latter term in D_{n−1}∂_n(c) is (−1)^{a+j−1}. These coefficients are additive inverses, so the terms cancel.\n4. In the j-th prism summand, delete a position a > j+1. Its coefficient is (−1)^{j+a}. This produces the same tuple as first deleting original vertex a−1 and then taking prism position j: both omit vg_{a−1} from the final v-segment and retain transition vertex g_j. The coefficient in D_{n−1}∂_n(c) is (−1)^{a−1+j}, so these terms cancel as well.\n5. These cancellations account for every term of D_{n−1}∂_n(c) exactly once. Indeed, such a term is indexed by an original deleted position b with 0 ≤ b ≤ n and a subsequent prism position t with 0 ≤ t ≤ n−1. If b ≤ t, it pairs with j = t+1 and a = b from step 3. If b > t, it pairs with j = t and a = b+1 from step 4. These cases are disjoint and exhaustive, and the formulas invert the respective pairings.\n6. The remaining terms in ∂_{n+1}D_n(c) delete positions j and j+1 of the j-th prism. Deleting j has coefficient (−1)^{2j} = 1 and yields A_j = [ug₀,…,ug_{j−1},vg_j,…,vgₙ]. Deleting j+1 has coefficient (−1)^{2j+1} = −1 and yields −B_j, where B_j = [ug₀,…,ug_j,vg_{j+1},…,vgₙ]. For 0 ≤ j < n, B_j = A_{j+1}, so their sum telescopes to A₀ − Bₙ = [vg₀,…,vgₙ] − [ug₀,…,ugₙ]. Thus ∂_{n+1}D_n(c) + D_{n−1}∂_n(c) = V_n(c) − U_n(c), using the assumed formulas for U and V.\n7. In degree zero, D₀[g] = [ug,vg], and its boundary is [vg] − [ug] = V₀[g] − U₀[g]. There is no contribution from an outgoing degree-zero differential. This proves the required identity in that degree also. Since generators span and every map involved is k-linear, the identities hold on every element in every degree.\n8. Define the two-index homotopy component from C_i to C_j to be D_i when j = i+1, using the corresponding equality of degrees, and zero otherwise. The components vanish outside the required chain-homotopy shape. Steps 6 and 7 give V_i = dNext_i(D) + prevD_i(D) + U_i, precisely the commutation condition in Homotopy V U. Together with H-equivariance from step 2, these components define such a homotopy and hence a witness to Nonempty (Homotopy V U).",
+          "proof_key_steps": [
+            "Identify the restricted standard complex with free tuple modules and alternating deletion differentials.",
+            "Define the signed prism operators and prove their H-equivariance.",
+            "Cancel deletions before the transition against D∂ terms.",
+            "Cancel deletions after the transition against D∂ terms.",
+            "Verify the pairings exhaust D∂ without duplication.",
+            "Telescope the transition deletions to the all-v tuple minus the all-u tuple.",
+            "Check degree zero separately and extend the identities by linearity.",
+            "Package the operators as a chain homotopy from V to U."
+          ]
+        },
+        "audit": {
+          "key": "equivariant_prism_homotopy",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The independently elaborated one-line proposition includes the common universe, both equivariance hypotheses, chain endomorphisms in Rep k H, and both generator formulas, with exactly Nonempty (Homotopy V U) as conclusion. Its local let-expression does not depend on a candidate declaration, and its bare identifier is unreserved. The proof constructs equivariant linear prism operators, explicitly pairs every off-transition deletion with an opposite-sign term, proves those pairings exhaustive and unique, telescopes the remaining terms to V−U, checks degree zero, and packages the correctly shaped homotopy. It is complete, non-circular, and independent of the retraction child; no dependency is missing."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/nodes/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/nodes/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/nodes/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.normalized_equivariant_retraction-a1",
+      "key": "normalized_equivariant_retraction",
+      "result_branch": "humanize-recursive/fermat-p04/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-9d9bd0492a-a1",
+      "bundle_path": ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-9d9bd0492a",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "standardComplex|HomotopyEquiv|coset.*[Rr]epr|[Rr]epr.*coset",
+              "rightTransversal|RightTransversal|right.*[Rr]epresent|exists.*transversal|leftTransversal",
+              "def res|resFunctor",
+              "restricted.*standard.*[Hh]omotopy|standard.*[Hh]omotopy.*restrict|standardComplex.*resFunctor",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/p04_rsh_82a013d1d0_types/TypesMathlib.lean",
+              "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/p04_rsh_82a013d1d0_types/TypesSubmission.lean",
+              "#print axioms Rep.standardComplex.d_eq",
+              "#print axioms Rep.standardComplex.d_single",
+              "#print axioms Representation.linearizeMap_single"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/problem.md",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/dag.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/Resolution.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/Complement.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Action.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/Homology/Homotopy.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/AlgebraicTopology/SimplicialObject/ChainHomotopy.lean"
+            ],
+            "conclusion": "The manifest pins project 2475a3790d7ba0c3b10be8086001b154a45be597 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Resolution.lean identifies degree-n generators and supplies the alternating deletion formulas d_eq and d_single. Complement.lean provides right transversals without finiteness assumptions. Res.lean and Action.lean confirm restriction and equivariant linearization. Homotopy.lean uses the convention f = dD + Dd + g, so the positive prism gives Homotopy V U. ChainHomotopy.lean provides related simplicial-to-chain infrastructure. The targeted restricted-standard-homotopy search returned no matches in the snapshot's RepresentationTheory and project/Definitions trees. All six inspected library files match the clean pinned mathlib checkout. The three queried library lemmas depend only on propext, Classical.choice, and Quot.sound. Both proposed types elaborated with Lean 4.33.1 independently under import Mathlib and under import Submission from the cached local p04 worktree; neither expression uses a candidate theorem. The elaborated component maps are Rep.Hom.hom, retaining H-equivariance. Both proposed identifiers are absent from the inspected DAG and handoff metadata. These checks establish type compatibility, not proof acceptance."
+          }
+        ],
+        "parent_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1",
+        "child_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.normalized_equivariant_retraction-a1",
+        "subproblem": {
+          "key": "normalized_equivariant_retraction",
+          "title": "A subgroup inclusion admits an equivariant set retraction",
+          "statement": "Let G be any group and H any subgroup. There exists a function r : G → H such that r(hg) = h r(g) for every h ∈ H and g ∈ G, and r(h) = h for every h ∈ H, where elements of H are included in G when necessary. No finiteness or normality assumption is imposed, and r is not required to be a group homomorphism.",
+          "lean_statement": "∀ {G : Type _} [Group G] (H : Subgroup G), ∃ r : G → H, (∀ (h : H) (g : G), r ((h : G) * g) = h * r g) ∧ ∀ h : H, r (h : G) = h",
+          "lean_name": "p04_rsh_82a013d1d0_equivariant_retraction",
+          "depends_on": [],
+          "natural_proof": "1. Fix G and H. Consider the set of right cosets Hs. Each coset is nonempty. Choose one representative s(C) in each coset C, prescribing s(H) = 1 for the distinguished coset H and using choice for the remaining cosets.\n2. For g ∈ G, let C = Hg. Since s(C) belongs to C, the right cosets Hs(C) and Hg coincide. Thus g = a s(C) for some a ∈ H. For this fixed representative, a is unique: if a s(C) = b s(C), right cancellation gives a = b, including equality as elements of the subgroup H.\n3. Define r(g) to be this unique a ∈ H. Consequently g = r(g) s(Hg).\n4. Let h ∈ H and g ∈ G. The right cosets H(hg) and Hg coincide: left multiplication of g by an element of H does not change its right coset. Their chosen representatives therefore coincide. If g = r(g)s(Hg), then hg = (h r(g))s(Hg). The product h r(g) belongs to H, so uniqueness in step 2 gives r(hg) = h r(g).\n5. Let h ∈ H. Its right coset is H, whose chosen representative is 1. The factorization h = h · 1 therefore shows r(h) = h. The function r satisfies both required properties.",
+          "proof_key_steps": [
+            "Choose representatives of right cosets, with representative 1 for H.",
+            "Obtain the unique subgroup coefficient in g = a s(Hg).",
+            "Define r(g) as that coefficient.",
+            "Use unchanged right cosets and uniqueness to prove H-equivariance.",
+            "Use the normalized representative to prove r restricts to the identity on H."
+          ]
+        },
+        "audit": {
+          "key": "normalized_equivariant_retraction",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly matches the arbitrary-group and arbitrary-subgroup statement. The bare identifier is unreserved, and the contract is independently usable without either child or parent declaration. Choosing normalized right-coset representatives, obtaining the unique subgroup coefficient by cancellation, and using invariance of Hg under left H-multiplication proves equivariance and the identity on H. Every step is justified without finiteness, normality, or circular reliance. Its empty dependency list is correct."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/nodes/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-9d9bd0492a/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/nodes/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-9d9bd0492a/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/nodes/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-9d9bd0492a/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/task.md": "c526f0b7615b60eae279b5561607c97de6dde7eaed997c0d86efcc0ba18988c1",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/problem.md": "e8a185db32b7970bfb531df6ac346f5d6e87d21826d4795296f450038092455d",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/problem.json": "60048ff4c739e0e2fe19753d722fc5764e6acae8c538554e765b06ebba561f43",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/reference-manifest.json": "5719e035ae23f5683c154f28ac6798802cfe5b0a4e0c2aff8128dcaa150abc38",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/decomposition.json": "cc15e20e8a7acb606749809988bc4fa2f5ae3b16369c92cef9b01edeee5a6e20",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/decomposition-audit.json": "2337d13363b2a1e77a809292597f5b16b99b2eaeb744a5ed6dac2e3db8e7c859",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/controller-contract.json": "a92e29980ddf5ae5530cacc63198932d50a8eb62c3eacb3758c5613724605b7e",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/parent-child-handoff.json": "9fddee74c5ea0d2b26a708bbb2712dd106d48f54b25cf4ad35d92efc1a68ace1",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/parent-supplied-plan.md": "c50dade512490fe13c63f52f6c2a6b943551142835e0a5194c98e30146cac44b",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/parent-supplied-natural-proof.md": "af988dad4fe514062a603a01f80f4022267c297f4fa9e240ce6c7cb9aa54aee9",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/parent-supplied-natural-proof.json": "e4e3b6243ed6f04cbeb7acfc4e0a19058ab3a7fae8077bc827517a2d382bec43",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/node.json": "be68c2d6b8f0e3387e1a65c62b4a728d922545d52590eb196b8b229096b2dd51",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-9d9bd0492a/parent-child-handoff.json": "b2a1a8a9ca50c49bae807275f165ce7a4e1f769702e2cf6c7c0e473bdfc35723",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-9d9bd0492a/parent-supplied-plan.md": "14f04b76eaaa5ff3c567a000a0a93147121d373d9642854aeac349c867a26a31",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-9d9bd0492a/parent-supplied-natural-proof.md": "ed5d1c8e30d9a54342891cd8ee8c05f7d9a0a3515aa2af2ccb73451777c15b5e",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-9d9bd0492a/parent-supplied-natural-proof.json": "0d316cef483b7eae8fc64e8f7d82f3649647a348691b0bc6ca7a37750f9bb076",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-9d9bd0492a/node.json": "4902a7626fd3b36b22e6db521ad206fc0a6d16496e78028e9b30d81ac8fd1713"
+  }
+}

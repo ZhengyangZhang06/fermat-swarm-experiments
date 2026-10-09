@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1",
+  "parent_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1",
+  "depth": 3,
+  "title": "Restriction of the standard resolution is homotopy equivalent to the subgroup standard resolution",
+  "statement": "Let k be a commutative ring and G a group, both in one universe, and let H be any subgroup of G. Write B(L) = Rep.standardComplex k L: its degree-m term is the free k-module on L^(m+1), with diagonal left L-action and alternating vertex-deletion differential. There exists an H-equivariant chain homotopy equivalence between B(G) restricted to H and B(H). No finiteness or normality assumption is required.",
+  "lean_statement": "∀ {k G : Type _} [CommRing k] [Group G] (H : Subgroup G), Nonempty (HomotopyEquiv (((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj (Rep.standardComplex k G)) (Rep.standardComplex k H))",
+  "lean_name": "p04_tia_coh_restricted_standard_homotopy_equiv",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p04/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0-a1"
+}

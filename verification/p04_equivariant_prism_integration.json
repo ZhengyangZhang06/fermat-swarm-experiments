@@ -1,0 +1,208 @@
+{
+  "kind": "integration-only-source-audit",
+  "canonical_parent": "92dd3591fa8867230458827391fb8612e3d04036",
+  "intact_canonical_source": "e504ab9b6b9ce0038ea610d6a9459486953911fa",
+  "reviewed_parent": "ee9ff9030124dc1e8d5b1482247bb78651d5d172",
+  "reviewed_commits": [
+    "334de2536fbe8594b79be9ede03fabb41192fc4f",
+    "9adf01b433a2776debd3eb03595eb45aa3c339db",
+    "5e1f15bc79d159b831d2ae621a0122279a67eb03",
+    "9adf3bb797aa869222031e3b958a236557eed1d1",
+    "fd339068b974bb5131ffb342c4e6a436ec728c54",
+    "4c1b4955ffceaa6e019592530aa472236bf02b88",
+    "47728435ed9c4c8a1d559a22ef487b440562a15c",
+    "5f03296a4b5a7e45b7e898d96956a3e5afc5b8fe",
+    "a44dbb33c742c3f5ec4e115659c67f63f68f6827",
+    "18b30004375962d5cddb9d67e31f9cd5d6500425",
+    "ba4adb4bff81f9070c30c0685f5531c9c8e8d1ed",
+    "d6252babd1c9d1949c9966b74e7e103799e075fa",
+    "cd057495eb8f117affeab6b85e122e7aa3798e1b",
+    "4b509444ec37fb4b801ff7347e267a0e7c6ca575",
+    "77f9d5f58fdcf2b20217d2c3513773e67f26c09c",
+    "f751b717f6ee9a58fd44462e1198819b83f13757",
+    "bb9d9127d792ec49b8581d891569e5914e211039",
+    "3f2897397bbab1185ec7aa02d5ebc0532f0eb98d",
+    "c86a5991be9660fd895e19cd4503aebc86944f1f",
+    "133d5301cb20b91e9ad142e70c24e0e2ff452b26",
+    "87fca715de079ed73be558d184255f62bab26518",
+    "776ec08d5773af9316bdcd29f2ed066b42eac8ef",
+    "447bb9d1a91afd07bef5945af1405a68e4dcc2f0",
+    "c7847d8f21f7b79181321823093472b6c2eff118",
+    "a8db5da34bb3e3dc9f449b3699f97726ba6746f7",
+    "101825ab3e579fe9f8a19b97f3f5cff8147fb6cb",
+    "7cc7b0aa0b82dba520a835133754e414c952ef3a",
+    "5d381cdf2a085b714b5eecc14e386548917d55e1",
+    "ee9ff9030124dc1e8d5b1482247bb78651d5d172"
+  ],
+  "node_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1",
+  "reconciliation": [
+    "Preserve both histories with a normal merge; all 29 requested reviewed commits are ancestors of the reviewed merge parent.",
+    "Restore the intact canonical Submission.lean from e504ab9, including all 19 declarations and the exact frozen header. Subsequent partial replays had duplicated the component and noncentral declarations, left incomplete syntax and nested namespaces, and removed the header.",
+    "Append the complete final namespace block from ee9ff903 byte-for-byte, including the reviewed homotopy theorem and its local elaboration options.",
+    "The four shared helper declarations and frozen root are byte-identical in the intact canonical source and final reviewed candidate; keep one copy of each.",
+    "Keep every existing non-Submission tracked file unchanged. Retain the 18 missing reviewed handoff files byte-for-byte from the reviewed history.",
+    "Keep the disputed verification record unchanged: it equals the final reviewed record and contains the complete 18b3000 version as a prefix."
+  ],
+  "canonical_declarations_preserved": 19,
+  "reviewed_declarations_preserved": 6,
+  "integrated_declarations": [
+    "Rep.isZero_tateCohomology_of_forall_sylow",
+    "p04_hca_bc7c754a4b_summand_eq_of_coset_eq",
+    "p04_ht_restricted_standard_comparison",
+    "p04_tz91_invariant_restriction_norm_range",
+    "p04_tz91_invariant_transfer_norm_index",
+    "Submission.p04_hca_bc7c754a4b_sum_equivariant",
+    "p04_hct139_coset_average_laws",
+    "p04_rsh_82a013d1d0_equivariant_retraction",
+    "p04_pb_60221840b0_noncentral_cancellation",
+    "p04_prism_a8325b9888_equivariant_components",
+    "p04_ht_coinvariant_complex_transfer",
+    "p04_tia_homology_transfer",
+    "p04_tia_tate_zero_transfer",
+    "p04_hct139_coset_average_exists",
+    "p04_pb_60221840b0_central_telescoping",
+    "p04_tia_tate_neg_one_transfer",
+    "Submission.p04_tia_coh_hom_complex_transfer",
+    "p04_prism_a8325b9888_boundary_identity",
+    "p04_eq_zero_of_prime_avoiding_annihilators",
+    "p04_rsh_82a013d1d0_prism_homotopy"
+  ],
+  "submission_sha256": "5526be760842d46ebb3a1cba099a9c8d20c5ee8ab8fc0cc51a61c06edcf1c22d",
+  "operator_policy_sha256": "96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96",
+  "contract_sha256": "42953c937798c4a4ff8c5a5266936d11cb7f7836ede7175b49e6d157bd9e9551",
+  "added_reviewed_handoffs": [
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-9d9bd0492a/node.json",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-9d9bd0492a/parent-child-handoff.json",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-9d9bd0492a/parent-supplied-natural-proof.json",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-9d9bd0492a/parent-supplied-natural-proof.md",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-9d9bd0492a/parent-supplied-plan.md",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/node.json",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/parent-child-handoff.json",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/parent-supplied-natural-proof.json",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/parent-supplied-natural-proof.md",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/children/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888/parent-supplied-plan.md",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/controller-contract.json",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/decomposition-audit.json",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/decomposition.json",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/problem.json",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/problem.md",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/reference-manifest.json",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/task.md",
+    ".humanize-workspace/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-82a013d1d0/workspace.json"
+  ],
+  "dependency_pins": [
+    {
+      "name": "mathlib",
+      "revision": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "tracked_sources_clean": true
+    },
+    {
+      "name": "plausible",
+      "revision": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "tracked_sources_clean": true
+    },
+    {
+      "name": "LeanSearchClient",
+      "revision": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "tracked_sources_clean": true
+    },
+    {
+      "name": "importGraph",
+      "revision": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "tracked_sources_clean": true
+    },
+    {
+      "name": "proofwidgets",
+      "revision": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "tracked_sources_clean": true
+    },
+    {
+      "name": "aesop",
+      "revision": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "tracked_sources_clean": true
+    },
+    {
+      "name": "Qq",
+      "revision": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "tracked_sources_clean": true
+    },
+    {
+      "name": "batteries",
+      "revision": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "tracked_sources_clean": true
+    },
+    {
+      "name": "Cli",
+      "revision": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "tracked_sources_clean": true
+    }
+  ],
+  "reference_use": [
+    {
+      "source": "local-project",
+      "snapshot": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8",
+      "manifest": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+      "mode": "local-project",
+      "project_commit": "2475a3790d7ba0c3b10be8086001b154a45be597",
+      "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "queries": [
+        {
+          "query": "prism_boundary|prismBoundary|equivariant_prism_homotopy|p04_prism_a8325b9888",
+          "paths": [
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions",
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory",
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/AlgebraicTopology"
+          ],
+          "exit_code": 1,
+          "finding": "No matches; no replacement proof imported."
+        },
+        {
+          "query": "def d |d_single|standardComplex",
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/Resolution.lean",
+          "exit_code": 0,
+          "finding": "Inspected lines 170-215. The standard differential is the alternating sum of deletions (180-184), with generator formulas d_of (189-191) and d_single (193-197)."
+        },
+        {
+          "query": "mkInductive|mk \\(|structure Homotopy",
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/Homology/Homotopy.lean",
+          "exit_code": 0,
+          "finding": "Inspected lines 45-110, 115-141 and 355-383. Homotopy (126-129) has components, support and equation f = dNext + prevD + g, matching the unchanged accepted theorem orientation."
+        }
+      ],
+      "compatibility": [
+        {
+          "snapshot_file": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/lean-toolchain",
+          "installed_file": "lean-toolchain",
+          "sha256": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+          "byte_identical": true
+        },
+        {
+          "snapshot_file": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/lake-manifest.json",
+          "installed_file": "lake-manifest.json",
+          "sha256": "435fe2ab2550e2b82c0a93fd421c96d197d6dd55bc739481e2a4a07e04b979bf",
+          "byte_identical": true
+        },
+        {
+          "snapshot_file": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+          "installed_file": "Definitions/Def_GroupCohomology_TateCohomology.lean",
+          "sha256": "e9fe2119399354d446f25bad2407a330ae5c5eee0cd6ef3d1a2c131364724b24",
+          "byte_identical": true
+        },
+        {
+          "snapshot_file": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/Resolution.lean",
+          "installed_file": ".lake/packages/mathlib/Mathlib/RepresentationTheory/Homological/Resolution.lean",
+          "sha256": "8a4e2a76265a7b70159e6aaae6bfde0462ccf38340f21fc15a9f9d998688d36b",
+          "byte_identical": true
+        },
+        {
+          "snapshot_file": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/Homology/Homotopy.lean",
+          "installed_file": ".lake/packages/mathlib/Mathlib/Algebra/Homology/Homotopy.lean",
+          "sha256": "dd5a4a601a364d63b0859dcdc3a50ed358544fe78e5d60b92e190a3dc6d1693c",
+          "byte_identical": true
+        }
+      ],
+      "reuse": "Only previously reviewed Lean declarations are integrated unchanged. Transitive axiom checks and exact-type checking remain required from the configured comparator."
+    }
+  ],
+  "validation_scope": "Source-preservation audit only. No local Lean executable is available on PATH. The exact configured comparator must check this committed merge, including frozen_header_repair, identity, exact type, kernel and transitive axioms. Independent integration acceptance remains the controller gate."
+}

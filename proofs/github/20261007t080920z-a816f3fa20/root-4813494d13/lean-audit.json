@@ -1,0 +1,39 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "isZero_tateCohomology_of_forall_sylow|def tateCohomology|def tateH0|def tateHneg1",
+        "instance nonempty|theorem not_dvd_index",
+        "index_ne_zero_of_finite|finiteIndex_of_finite",
+        "isZero_iff_subsingleton",
+        "isZero_tateCohomology_of_forall_sylow"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/Sylow.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/Index.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/Category/ModuleCat/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory"
+      ],
+      "conclusion": "Confirmed the frozen Tate definition and cited Sylow, index, and ModuleCat interfaces. Inspected source bytes match project revision 2475a3790d7ba0c3b10be8086001b154a45be597 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d. No target-theorem match in mathlib/Mathlib/RepresentationTheory."
+    }
+  ],
+  "comparison_identity": "0574972c4dff689e7062f5066a2016945e1ac020c6e804d58997321b3a301edf",
+  "publication_proof_reviewed": true,
+  "publication_proof_blob": "892177618e988521e948d04b68adae173723f026",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Rep.isZero_tateCohomology_of_forall_sylow",
+      "statement": "∀ {k G : Type u} [CommRing k] [Group G] [Fintype G] (A : Rep.{u} k G) (q : ℤ) (h : ∀ (p : ℕ) [Fact p.Prime] (P : Sylow p G) [Fintype (P : Subgroup G)], CategoryTheory.Limits.IsZero ((Rep.res (P : Subgroup G).subtype A).tateCohomology q)), CategoryTheory.Limits.IsZero (A.tateCohomology q)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "The accepted index-annihilation lemma supplies positive annihilators avoiding each prime via Sylow indices. The accepted arithmetic lemma makes every element zero; ModuleCat.isZero_iff_subsingleton gives the conclusion."
+    }
+  ]
+}

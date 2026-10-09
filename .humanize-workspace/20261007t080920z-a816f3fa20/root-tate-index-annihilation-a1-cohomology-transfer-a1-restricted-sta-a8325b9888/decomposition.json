@@ -1,0 +1,69 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "standardComplex|prism|Homotopy",
+        "prism|homotopy.*equivariant|equivariant.*homotopy",
+        "def insertNth|theorem insertNth|predAbove",
+        "def res|abbrev res|def ofMulAction|ofMulAction.*single|def of|structure Hom|def lift",
+        "lhom_ext|lift.*single",
+        "linearizeMap_single|def linearize|ofMulAction.*single|def ofMulAction",
+        "p04_prism_a8325b9888_(equivariant_components|boundary_identity)"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/Resolution.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/MonoidAlgebra/Module.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Data/Fin/Tuple/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/Homology/Homotopy.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/dag.json",
+        "/tmp/p04-prism-a8325b9888-contracts/ContractTypes.lean",
+        "/tmp/p04-prism-a8325b9888-contracts/ContractTypes.log"
+      ],
+      "conclusion": "The manifest pins project 2475a3790d7ba0c3b10be8086001b154a45be597 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Resolution.lean supplies the free tuple modules and alternating differential through d_of and d_apply; restriction preserves underlying linear maps; ofMulAction_single describes the diagonal action. Fin.insertNth expresses the prism tuple without index-bound proof terms. Homotopy supplies the required degree-zero and successor component identities. No existing prism theorem was found in the searched project Definitions and mathlib RepresentationTheory directories. Both proposed names are absent from the active DAG. Both exact propositions elaborated after import Submission using the existing cached Submission module, and the coefficient scalar action was checked by proving a • single x 1 = single x a. Checked library declarations depend only on propext, Classical.choice, and Quot.sound; local dependency revisions match their pins and have no tracked modifications. Validation limitation: rebuilding the unchanged frozen Submission itself fails on its existing attribute reference to the missing constant Representation.TateResCor.cosetDecomp_apply. The frozen source was not changed, and these checks do not constitute comparator acceptance."
+    }
+  ],
+  "should_split": true,
+  "rationale": "Split into two independent mathematical obligations: existence of equivariant prism components and the alternating-boundary identity. The latter is reusable for tuples in any type and requires no group action. Together they supply the parent homotopy by linearity and the existing Homotopy component API; that final assembly needs no additional child. Depth 4 is below the limit of 6.",
+  "subproblems": [
+    {
+      "key": "equivariant_prism_components",
+      "title": "Equivariant prism sums extend to representation morphisms",
+      "statement": "Let k be a commutative ring and G a group in the same universe, H ≤ G, and u,v : G → G satisfy u(hg)=h u(g) and v(hg)=h v(g) for all h ∈ H and g ∈ G. Let C be Rep.standardComplex k G restricted to H. For n ≥ 0 and c=(g₀,…,gₙ), define Pₙ(c)=Σⱼ₌₀ⁿ (−1)ʲ[ug₀,…,ugⱼ,vgⱼ,…,vgₙ] in the free k-module on (n+2)-tuples, where [t]=MonoidAlgebra.single t 1. Precisely, the j-th tuple is Fin.insertNth j.castSucc (u(c j)) (fun i => if i < j then u(c i) else v(c i)). There exists a family of morphisms Dₙ : Cₙ → Cₙ₊₁ in Rep k H such that Dₙ([c])=Pₙ(c) for every n and c. No finiteness or normality assumption is imposed.",
+      "lean_statement": "∀ {k G : Type _} [CommRing k] [Group G] (H : Subgroup G) (u v : G → G), (∀ (h : H) (g : G), u ((h : G) * g) = (h : G) * u g) → (∀ (h : H) (g : G), v ((h : G) * g) = (h : G) * v g) → let P : ∀ n : ℕ, (Fin (n + 1) → G) → MonoidAlgebra k (Fin (n + 2) → G) := fun n c => ∑ j : Fin (n + 1), MonoidAlgebra.single (Fin.insertNth j.castSucc (u (c j)) (fun i : Fin (n + 1) => if i < j then u (c i) else v (c i))) ((-1 : k) ^ j.val); let C := ((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj (Rep.standardComplex k G); ∃ D : ∀ n : ℕ, C.X n ⟶ C.X (n + 1), ∀ (n : ℕ) (c : Fin (n + 1) → G), (D n).hom (MonoidAlgebra.single c (1 : k)) = P n c",
+      "lean_name": "p04_prism_a8325b9888_equivariant_components",
+      "depends_on": [],
+      "natural_proof": "1. Fix k, G, H, u, v and the two equivariance hypotheses. The underlying module of Cₙ is MonoidAlgebra k (Fin(n+1) → G), the free k-module on these tuples. Write e_c=single c 1. Restriction changes only the acting group, and its action satisfies h·e_c=e_{hc}, where (hc)(i)=(h:G)c(i).\n2. For j ∈ Fin(n+1), let Qₙ,ⱼ(c)=Fin.insertNth j.castSucc (u(c j)) (fun i => if i<j then u(c i) else v(c i)). Before position j this tuple has entries u(c i); position j is the inserted u(c j); after position j its entry at position a is v(c(a−1)). Hence Qₙ,ⱼ(c) is exactly (ug₀,…,ugⱼ,vgⱼ,…,vgₙ). Define Pₙ(c)=Σⱼ single Qₙ,ⱼ(c) ((−1:k)ʲ). Since a·single t 1=single t a, this is the prism sum in the statement.\n3. The universal property of the free k-module gives a k-linear map Dₙ with Dₙ(e_c)=Pₙ(c). Explicitly, if x=Σ_c a_c e_c is its finite coefficient expansion, set Dₙ(x)=Σ_c a_c Pₙ(c). The uniquely determined coefficients make this well-defined; coefficientwise addition and scalar multiplication show it is k-linear, including when k is the zero ring.\n4. For h ∈ H, Qₙ,ⱼ(hc)=hQₙ,ⱼ(c). Indeed, before and at the inserted position this follows from u((h:G)g)=(h:G)u(g); after that position it follows from the corresponding identity for v. The comparison i<j depends only on indices and is unchanged by h.\n5. The action on the target free module sends single t a to single (ht) a and is k-linear. Applying step 4 termwise therefore gives Pₙ(hc)=h·Pₙ(c). On each generator, Dₙ(h·e_c)=Dₙ(e_{hc})=Pₙ(hc)=h·Dₙ(e_c). Both sides are k-linear functions of the input, so this identity holds on every finite coefficient expansion and thus on every element of Cₙ.\n6. Consequently Dₙ is H-equivariant and defines a morphism Cₙ → Cₙ₊₁ in Rep k H. Carrying out this construction for each natural number n gives the required family, with its generator formula supplied by step 3.",
+      "proof_key_steps": [
+        "Identify the restricted complex objects as free modules with diagonal H-action.",
+        "Express each prism tuple using Fin.insertNth and form its signed sum.",
+        "Extend the generator assignment k-linearly.",
+        "Use equivariance of u and v to prove equivariance of every prism tuple.",
+        "Extend equivariance from generators to all elements and obtain the family of Rep morphisms."
+      ]
+    },
+    {
+      "key": "prism_boundary_identity",
+      "title": "The prism boundary identity on free tuple modules",
+      "statement": "Let k be a commutative ring and X a type in the same universe, and let u,v : X → X be arbitrary functions. Write [c]=MonoidAlgebra.single c 1. Define Pₘ(c)=Σⱼ₌₀ᵐ (−1)ʲ[uc₀,…,ucⱼ,vcⱼ,…,vcₘ], with the j-th tuple precisely Fin.insertNth j.castSucc (u(c j)) (fun i => if i<j then u(c i) else v(c i)). For r≥1, let ∂ᵣ=Rep.standardComplex.d k X r, the k-linear alternating-deletion map on (r+1)-tuples, and let δ_b c=c ∘ b.succAbove. Then ∂₁P₀(c)=[v∘c]−[u∘c] for every one-entry tuple c. Moreover, for every n≥0 and c : Fin(n+2) → X, ∂ₙ₊₂Pₙ₊₁(c)+Σ_b∈Fin(n+2) (−1)ᵇPₙ(δ_b c)=[v∘c]−[u∘c]. No group structure or equivariance hypothesis on X, u, or v is required.",
+      "lean_statement": "∀ {k X : Type _} [CommRing k] (u v : X → X), let P : ∀ n : ℕ, (Fin (n + 1) → X) → MonoidAlgebra k (Fin (n + 2) → X) := fun n c => ∑ j : Fin (n + 1), MonoidAlgebra.single (Fin.insertNth j.castSucc (u (c j)) (fun i : Fin (n + 1) => if i < j then u (c i) else v (c i))) ((-1 : k) ^ j.val); (∀ c : Fin 1 → X, Rep.standardComplex.d k X 1 (P 0 c) = MonoidAlgebra.single (v ∘ c) (1 : k) - MonoidAlgebra.single (u ∘ c) (1 : k)) ∧ ∀ (n : ℕ) (c : Fin (n + 2) → X), Rep.standardComplex.d k X (n + 2) (P (n + 1) c) + ∑ b : Fin (n + 2), ((-1 : k) ^ b.val) • P n (c ∘ b.succAbove) = MonoidAlgebra.single (v ∘ c) (1 : k) - MonoidAlgebra.single (u ∘ c) (1 : k)",
+      "lean_name": "p04_prism_a8325b9888_boundary_identity",
+      "depends_on": [],
+      "natural_proof": "1. Fix k, X, u and v. Denote the j-th prism tuple of a degree-m tuple c by Qₘ,ⱼ(c). Inserting u(c j) at position j into the tuple whose entries are u(c i) for i<j and v(c i) for i≥j gives exactly (uc₀,…,ucⱼ,vcⱼ,…,vcₘ). Thus the Lean definition of P is Σⱼ(−1)ʲ[Qₘ,ⱼ(c)]. The map ∂ᵣ is k-linear and satisfies ∂ᵣ[t]=Σₐ₌₀ʳ(−1)ᵃ[δₐt], by its defining alternating-deletion formula.\n2. If c has one entry x, then P₀(c)=[ux,vx]. Its boundary is [vx]−[ux], proving the degree-zero assertion, including its stated sign.\n3. For the positive-degree assertion, first fix any N≥1 and c=(x₀,…,x_N). Expand ∂ₙ with N as the degree: specifically, ∂_{N+1}P_N(c) is the sum indexed by 0≤j≤N and 0≤a≤N+1 whose term is (−1)^{j+a}[δₐQ_{N,j}(c)]. The second expression Σ_b(−1)ᵇP_{N−1}(δ_b c) is the sum indexed by 0≤b≤N and 0≤t≤N−1 whose term is (−1)^{b+t}[Q_{N−1,t}(δ_b c)]. These expansions follow from linearity and multiplication of powers of −1.\n4. Suppose a<j in the first sum. Deleting position a removes u(x_a) before the transition. The resulting tuple is Q_{N−1,j−1}(δ_a c): deleting original vertex a shifts the transition vertex x_j to position j−1 and preserves every other entry in order. The matching term in the second sum has b=a and t=j−1, with coefficient (−1)^{a+j−1}. This coefficient is the additive inverse of (−1)^{j+a}, so the paired terms sum to zero.\n5. Suppose a>j+1 in the first sum. Deleting position a removes v(x_{a−1}) after the transition. The resulting tuple is Q_{N−1,j}(δ_{a−1}c): deletion occurs after x_j and leaves its transition position unchanged. Here j≤N−1 follows from a≤N+1 and a>j+1. The matching second-sum term has b=a−1 and t=j, with coefficient (−1)^{a−1+j}, again the additive inverse of (−1)^{j+a}.\n6. Every second-sum term has exactly one of these pairings. If b≤t, take j=t+1 and a=b; these satisfy a<j and recover step 4. If b>t, take j=t and a=b+1; these satisfy a>j+1 and recover step 5. These cases are disjoint and exhaustive, and their formulas invert the pairings in steps 4 and 5. Thus all second-sum terms cancel with exactly the noncentral first-sum terms. This is cancellation of indexed terms, so it does not require distinct tuples or injectivity of either function.\n7. The remaining first-sum terms have a=j or a=j+1. For a=j the coefficient is (−1)^{2j}=1 and the tuple is A_j=(ux₀,…,ux_{j−1},vx_j,…,vx_N). For a=j+1 the coefficient is (−1)^{2j+1}=−1 and the tuple is B_j=(ux₀,…,ux_j,vx_{j+1},…,vx_N). For j<N, B_j=A_{j+1}; hence Σ_{j=0}^N([A_j]−[B_j])=[A₀]−[B_N]=[v∘c]−[u∘c]. Combined with step 6, this proves ∂_{N+1}P_N(c)+Σ_b(−1)ᵇP_{N−1}(δ_b c)=[v∘c]−[u∘c].\n8. Given n in the stated positive-degree formula, put N=n+1. Then c has N+1=n+2 entries, ∂_{N+1}=∂_{n+2}, and P_{N−1}=P_n. Step 7 is exactly the required formula. Together with step 2, it proves both conjuncts.",
+      "proof_key_steps": [
+        "Identify the inserted tuples and expand the alternating differential.",
+        "Compute the degree-zero boundary directly.",
+        "Cancel deletions before the transition against the preceding prism position.",
+        "Cancel deletions after the transition against the unchanged prism position.",
+        "Prove the two pairings exhaust the lower-degree prism sum.",
+        "Telescope the two central deletions to the v-endpoint minus the u-endpoint.",
+        "Substitute N=n+1 to obtain the exact positive-degree formula."
+      ]
+    }
+  ]
+}

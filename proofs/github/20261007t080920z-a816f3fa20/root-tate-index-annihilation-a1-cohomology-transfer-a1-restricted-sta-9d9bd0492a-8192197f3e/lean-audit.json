@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "exists_isComplement_right|equiv_mul_left|equiv_fst_eq_self_of_mem_of_one_mem|noncomputable def equiv",
+        "p04_rsh_82a013d1d0_equivariant_retraction|normalized_equivariant_retraction|exists_isComplement_right"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/Complement.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Fermat/Thm_Rep_isZero_tateCohomology_of_forall_sylow.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project"
+      ],
+      "conclusion": "Both snapshot checkouts are clean at the manifest-pinned revisions. Complement.lean supplies the cited upstream APIs; the project search returned no matches. Frozen project context matches comparator inputs. The exact comparator rerun passed under Lean 4.33.1 with only propext, Classical.choice, and Quot.sound. All 223 fresh exported file hashes verified, including 221 Lean inputs identical to the inspected packet; the sole header transformation matches the pinned operator policy."
+    }
+  ],
+  "comparison_identity": "5116377eb1216c92857e52d46fa4c4df199c4b7968dbff2e29836455e98e6325",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p04_rsh_82a013d1d0_equivariant_retraction",
+      "statement": "∀ {G : Type _} [Group G] (H : Subgroup G), ∃ r : G → H, (∀ (h : H) (g : G), r ((h : G) * g) = h * r g) ∧ ∀ h : H, r (h : G) = h",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Projects the pinned mathlib normalized transversal equivalence to its subgroup component, using its equivariance and normalization lemmas."
+    }
+  ]
+}

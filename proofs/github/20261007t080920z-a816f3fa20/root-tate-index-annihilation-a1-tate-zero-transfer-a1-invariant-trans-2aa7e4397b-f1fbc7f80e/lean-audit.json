@@ -1,0 +1,44 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "normToInvariants|cosetNormInvariants|invariant_transfer_norm_index",
+        "mk_out_eq_mul|mk_mul_of_mem|out_eq.|theorem eq ",
+        "mk_smul_out",
+        "index_eq_card",
+        "def norm|def invariants|mem_invariants",
+        "def norm|abbrev norm",
+        "p04_tz91_invariant_transfer_norm_index|cosetNormInvariants"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Submission.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/Coset/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/GroupAction/Quotient.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/Index.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Invariants.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean"
+      ],
+      "conclusion": "Confirmed normToInvariants is the group-action sum restricted to invariants, restriction preserves the underlying module, left-coset multiplication requires no normality, and index equals coset cardinality. No matching transfer declaration was found in project/Definitions or mathlib/Mathlib/RepresentationTheory. Snapshot revisions match the manifest; all nine installed dependencies are clean and pinned. The exact comparator rerun df82deeb4902409d88522bf3c1f37ecc exited 0 with 'Your solution is okay!' for commit ffdcaea94792b32b672b6b8fb4fc00f91a0db56c. Its transitive axiom report contains only propext, Classical.choice, and Quot.sound; exported input hashes were independently verified."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p04_tz91_invariant_transfer_norm_index",
+      "statement": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H], ∃ c : (Rep.res H.subtype A).ρ.invariants →ₗ[k] A.ρ.invariants, (∀ v : A, c ((Rep.res H.subtype A).ρ.normToInvariants v) = A.ρ.normToInvariants v) ∧ ∀ (a : A.ρ.invariants) (b : (Rep.res H.subtype A).ρ.invariants), (b : A) = (a : A) → c b = H.index • a",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Sum translates over representatives of left cosets. Subgroup invariance makes each summand independent of its representative; left multiplication permutes cosets, making the linear sum ambient-invariant. The bijection (G/H) × H → G identifies transfer of the subgroup norm with the ambient norm. On ambient-invariant vectors every summand equals the original vector, giving repeated addition by H.index."
+    }
+  ]
+}

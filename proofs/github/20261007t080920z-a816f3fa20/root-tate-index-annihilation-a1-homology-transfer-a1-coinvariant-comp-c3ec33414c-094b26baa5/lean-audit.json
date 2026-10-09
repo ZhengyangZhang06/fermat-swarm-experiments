@@ -1,0 +1,43 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "coinvariantsTensorObj|coinvariantsTransfer|quotientRightRelEquivQuotientLeftRel|p04_ht_coinvariant_complex_transfer",
+        "homologyFunctor.*Additive|map_nsmul|def coinvariantsTensorObj|def res|def resMap",
+        "p04_ht_coinvariant_complex_transfer",
+        "index_eq_card|def index",
+        "tensorObj|tensorHom|whiskerLeft|MonoidalCategory"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Submission.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Coinvariants.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/Coset/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/Index.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/Homology/ShortComplex/HomologicalComplex.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/CategoryTheory/Preadditive/AdditiveFunctor.lean"
+      ],
+      "conclusion": "The clean snapshots match project 2475a3790d7ba0c3b10be8086001b154a45be597 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The inspected APIs establish coinvariant descent, diagonal tensor action, restriction, right-coset cardinality, and additive homology. Searching project and mathlib Lean sources found no occurrence of the tracked theorem name. All nine installed dependencies are clean at their pinned revisions. My exact comparator rerun d91495f9cf524848bc32a6281c56e450 exited 0 with 'Your solution is okay!' and reported only propext, Classical.choice, and Quot.sound. Exported hashes and the explicit frozen challenge type were verified against candidate 08f04c475d98d12e5ca13707afbcb1dc448ba2a6. The sole source change adds this theorem; the frozen root placeholder and imports remain preserved. The verifier's configured header repair only removes the baseline attribute line targeting absent declarations."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p04_ht_coinvariant_complex_transfer",
+      "statement": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H] (C : ChainComplex (Rep k G) ℕ) (n : ℕ), ∃ T : (C.coinvariantsTensorObj A).homology n →ₗ[k] ((((Rep.resFunctor (k := k) H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj C).coinvariantsTensorObj (Rep.res H.subtype A)).homology n, ∃ P : ((((Rep.resFunctor (k := k) H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj C).coinvariantsTensorObj (Rep.res H.subtype A)).homology n →ₗ[k] (C.coinvariantsTensorObj A).homology n, ∀ x : (C.coinvariantsTensorObj A).homology n, P (T x) = H.index • x",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Sum over right cosets to construct transfer on coinvariants, proving representative independence and invariance under right multiplication. The quotient projection composed with transfer equals the subgroup index times identity. Naturality gives chain maps on the diagonal tensor complex, and additive homology preserves this composite in every degree."
+    }
+  ]
+}

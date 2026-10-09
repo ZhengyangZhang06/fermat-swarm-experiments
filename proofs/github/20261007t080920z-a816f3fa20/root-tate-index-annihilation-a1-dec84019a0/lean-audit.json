@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "p04_index_nsmul_zero_of_restriction_isZero|def tateCohomology|normBar|tateH0|tateHneg1",
+        "p04_index_nsmul_zero_of_restriction_isZero|TateResCor",
+        "subsingleton_of_isZero|isZero_iff_subsingleton"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Fermat/Thm_Rep_isZero_tateCohomology_of_forall_sylow.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/Category/ModuleCat/Basic.lean"
+      ],
+      "conclusion": "Snapshot revisions match the manifest and both source trees are clean. Inspected the frozen contract, four Tate degree definitions, and ModuleCat.subsingleton_of_isZero. No tracked theorem or TateResCor declaration matched in the searched Definitions and RepresentationTheory directories. The exact comparator rerun verified compatibility and permitted transitive axioms."
+    }
+  ],
+  "comparison_identity": "b3ac088c4beb7530f8b3044be798e39d161456cc272cc047fe72fcc7ab7a7eb2",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p04_index_nsmul_zero_of_restriction_isZero",
+      "statement": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H] (q : ℤ), CategoryTheory.Limits.IsZero ((Rep.res H.subtype A).tateCohomology q) → ∀ x : A.tateCohomology q, H.index • x = 0",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Uses the accepted transfer identities in each Tate degree: the index composite factors through the zero restricted module and therefore vanishes."
+    }
+  ]
+}

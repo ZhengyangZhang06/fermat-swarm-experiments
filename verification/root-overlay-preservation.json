@@ -1,0 +1,192 @@
+{
+  "initial_candidate": "fb6b80f0a1d8d377b3c3af999c97857302155667",
+  "contract_source": "2475a3790d7ba0c3b10be8086001b154a45be597",
+  "contract_file": "Fermat/Thm_Rep_isZero_tateCohomology_of_forall_sylow.lean",
+  "contract_sha256": "42953c937798c4a4ff8c5a5266936d11cb7f7836ede7175b49e6d157bd9e9551",
+  "header_restored_to_frozen_bytes": true,
+  "restored_namespace_openings": {
+    "Submission.p04_ht_coinvariant_complex_transfer": ["Representation", "MonoidalCategory"],
+    "Submission.p04_tia_tate_neg_one_transfer": ["Representation"]
+  },
+  "new_declarations": [
+    "Rep.isZero_tateCohomology_of_forall_sylow"
+  ],
+  "preserved_children": [
+    {
+      "name": "Submission.p04_eq_zero_of_prime_avoiding_annihilators",
+      "node": "root.prime_avoiding_annihilators-a1",
+      "accepted_candidate": "6d94ada56f3b333d660fa4207e7f2cbc365d8c8f",
+      "frozen_type": "∀ {V : Type*} [AddCommGroup V], (∀ p : ℕ, p.Prime → ∃ m : ℕ, 0 < m ∧ ¬ p ∣ m ∧ ∀ v : V, m • v = 0) → ∀ v : V, v = 0",
+      "declaration_sha256": "6efb286fb995b1772140ac5332b1662ea19cd63f76eb1e119d28291083c44166",
+      "identical_body_present_in_initial_overlay": true
+    },
+    {
+      "name": "Submission.p04_index_nsmul_zero_of_restriction_isZero",
+      "node": "root.tate_index_annihilation-a1",
+      "accepted_candidate": "100a5f6431970924f6f5e939cd799591c35d69ee",
+      "frozen_type": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H] (q : ℤ), CategoryTheory.Limits.IsZero ((Rep.res H.subtype A).tateCohomology q) → ∀ x : A.tateCohomology q, H.index • x = 0",
+      "declaration_sha256": "ed77bd7efef250eaf677ee57b3453222afcb3cf94e6d107bdb5b77387af27ab6",
+      "identical_body_present_in_initial_overlay": true
+    },
+    {
+      "name": "Submission.p04_tia_cohomology_transfer",
+      "node": "root.tate_index_annihilation-a1.cohomology_transfer-a1",
+      "accepted_candidate": "be4d3c5120876cd2b557801157a3f9405a7075d1",
+      "frozen_type": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H] (n : ℕ), ∃ R : groupCohomology A n →ₗ[k] groupCohomology (Rep.res H.subtype A) n, ∃ C : groupCohomology (Rep.res H.subtype A) n →ₗ[k] groupCohomology A n, ∀ x : groupCohomology A n, C (R x) = H.index • x",
+      "declaration_sha256": "ccb9506c59b78c63bb222827e20cbe30ea9bd0668f159227761a972b86d327f2",
+      "identical_body_present_in_initial_overlay": true
+    },
+    {
+      "name": "Submission.p04_tia_homology_transfer",
+      "node": "root.tate_index_annihilation-a1.homology_transfer-a1",
+      "accepted_candidate": "044581c8b4784d5ba52b7d96dc1e2d33a519ba81",
+      "frozen_type": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H] (n : ℕ), ∃ T : groupHomology A n →ₗ[k] groupHomology (Rep.res H.subtype A) n, ∃ P : groupHomology (Rep.res H.subtype A) n →ₗ[k] groupHomology A n, ∀ x : groupHomology A n, P (T x) = H.index • x",
+      "declaration_sha256": "625fd4f8bf72a2da6b7e821d7a2dd31216bcfaa9edf7cf8d363be50a0099c45d",
+      "identical_body_present_in_initial_overlay": true
+    },
+    {
+      "name": "Submission.p04_tia_tate_neg_one_transfer",
+      "node": "root.tate_index_annihilation-a1.tate_neg_one_transfer-a1",
+      "accepted_candidate": "a95cd9457f31722aa715ac3a3ccc2f3ada11d8fb",
+      "frozen_type": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H], ∃ T : A.tateHneg1 →ₗ[k] (Rep.res H.subtype A).tateHneg1, ∃ P : (Rep.res H.subtype A).tateHneg1 →ₗ[k] A.tateHneg1, ∀ x : A.tateHneg1, P (T x) = H.index • x",
+      "declaration_sha256": "06afdbddf16de427a90e491e677c62231348439bd018cacfabbb7096095e8110",
+      "identical_body_present_in_initial_overlay": true
+    },
+    {
+      "name": "Submission.p04_tia_tate_zero_transfer",
+      "node": "root.tate_index_annihilation-a1.tate_zero_transfer-a1",
+      "accepted_candidate": "2e0d9524ba4c56a2b6d21efce98bf8ab073f1eda",
+      "frozen_type": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H], ∃ R : A.tateH0 →ₗ[k] (Rep.res H.subtype A).tateH0, ∃ C : (Rep.res H.subtype A).tateH0 →ₗ[k] A.tateH0, ∀ x : A.tateH0, C (R x) = H.index • x",
+      "declaration_sha256": "8d281747a94056cdb391569c247651eaa4a8757f7c323a2a64819fe80f1cbb88",
+      "identical_body_present_in_initial_overlay": true
+    },
+    {
+      "name": "Submission.p04_tia_coh_hom_complex_transfer",
+      "node": "root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1",
+      "accepted_candidate": "0e109a7176c3a69f2d9f57aced24766ee8e1f55f",
+      "frozen_type": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H] (X : ChainComplex (Rep k G) ℕ), ∃ R : Quiver.Hom (X.linearYonedaObj k A) (ChainComplex.linearYonedaObj (((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj X) k (Rep.res H.subtype A)), ∃ C : Quiver.Hom (ChainComplex.linearYonedaObj (((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj X) k (Rep.res H.subtype A)) (X.linearYonedaObj k A), CategoryTheory.CategoryStruct.comp R C = H.index • CategoryTheory.CategoryStruct.id (X.linearYonedaObj k A)",
+      "declaration_sha256": "b82db61d31de6939c0ed7ebfc7e76943925773ca10c81d85b175b196aed453ed",
+      "identical_body_present_in_initial_overlay": true
+    },
+    {
+      "name": "Submission.p04_tia_coh_restricted_standard_homotopy_equiv",
+      "node": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1",
+      "accepted_candidate": "b1f45fc8a67e9903bec2768068d180c2653a7dcf",
+      "frozen_type": "∀ {k G : Type _} [CommRing k] [Group G] (H : Subgroup G), Nonempty (HomotopyEquiv (((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj (Rep.standardComplex k G)) (Rep.standardComplex k H))",
+      "declaration_sha256": "1934be15e1c9ff0b8de9398f8bed9449aabc9d257617622c8d6ef9511bfa2a92",
+      "identical_body_present_in_initial_overlay": true
+    },
+    {
+      "name": "Submission.p04_ht_coinvariant_complex_transfer",
+      "node": "root.tate_index_annihilation-a1.homology_transfer-a1.coinvariant_complex_transfer-a1",
+      "accepted_candidate": "08f04c475d98d12e5ca13707afbcb1dc448ba2a6",
+      "frozen_type": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H] (C : ChainComplex (Rep k G) ℕ) (n : ℕ), ∃ T : (C.coinvariantsTensorObj A).homology n →ₗ[k] ((((Rep.resFunctor (k := k) H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj C).coinvariantsTensorObj (Rep.res H.subtype A)).homology n, ∃ P : ((((Rep.resFunctor (k := k) H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj C).coinvariantsTensorObj (Rep.res H.subtype A)).homology n →ₗ[k] (C.coinvariantsTensorObj A).homology n, ∀ x : (C.coinvariantsTensorObj A).homology n, P (T x) = H.index • x",
+      "declaration_sha256": "2981a61f116385dd5c52ee1203a9a82b60e47ba3eff894f5da4ef4856995014f",
+      "identical_body_present_in_initial_overlay": true
+    },
+    {
+      "name": "Submission.p04_ht_restricted_standard_comparison",
+      "node": "root.tate_index_annihilation-a1.homology_transfer-a1.restricted_standard_comparison-a1",
+      "accepted_candidate": "0d063c0ae1dc0f02d91f4d78f1e517a76bfd2e45",
+      "frozen_type": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H] (n : ℕ), Nonempty (((((Rep.resFunctor (k := k) H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj (Rep.standardComplex k G)).coinvariantsTensorObj (Rep.res H.subtype A)).homology n ≃ₗ[k] groupHomology (Rep.res H.subtype A) n)",
+      "declaration_sha256": "cae0b5c6a64962482703fd4ff41e906e7956330015531987809c755a87a3dfa4",
+      "identical_body_present_in_initial_overlay": true
+    },
+    {
+      "name": "Submission.p04_tz91_invariant_restriction_norm_range",
+      "node": "root.tate_index_annihilation-a1.tate_zero_transfer-a1.invariant_restriction_norm_range-a1",
+      "accepted_candidate": "a8a23b5586b1702e0a6e877dc867e2d47d93515e",
+      "frozen_type": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H], ∃ j : A.ρ.invariants →ₗ[k] (Rep.res H.subtype A).ρ.invariants, (∀ a : A.ρ.invariants, (j a : A) = (a : A)) ∧ LinearMap.range A.ρ.normBar ≤ (LinearMap.range (Rep.res H.subtype A).ρ.normBar).comap j",
+      "declaration_sha256": "63d77492f74290151f647981885b22c17e6d28f276768fa385146706cf1154a4",
+      "identical_body_present_in_initial_overlay": true
+    },
+    {
+      "name": "Submission.p04_tz91_invariant_transfer_norm_index",
+      "node": "root.tate_index_annihilation-a1.tate_zero_transfer-a1.invariant_transfer_norm_index-a1",
+      "accepted_candidate": "ffdcaea94792b32b672b6b8fb4fc00f91a0db56c",
+      "frozen_type": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H], ∃ c : (Rep.res H.subtype A).ρ.invariants →ₗ[k] A.ρ.invariants, (∀ v : A, c ((Rep.res H.subtype A).ρ.normToInvariants v) = A.ρ.normToInvariants v) ∧ ∀ (a : A.ρ.invariants) (b : (Rep.res H.subtype A).ρ.invariants), (b : A) = (a : A) → c b = H.index • a",
+      "declaration_sha256": "b6425294a22045c0b88dd1ae1d2fb60f8ac41283d73e9e249e80bf504dc5b897",
+      "identical_body_present_in_initial_overlay": true
+    },
+    {
+      "name": "Submission.p04_hct139_coset_average_exists",
+      "node": "root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1.hom_coset_average_exists-a1",
+      "accepted_candidate": "16175f03981e9bd078566f473caa80f48c84b470",
+      "frozen_type": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A B : Rep k G) (H : Subgroup G) [Fintype H] [Fintype (G ⧸ H)], ∃ C : (Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) →ₗ[k] (Quiver.Hom B A), ∀ (F : Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) (x : B), (C F).hom x = ∑ q : G ⧸ H, A.ρ q.out (F.hom (B.ρ q.out⁻¹ x))",
+      "declaration_sha256": "330e5d3f3c7fbd8ab251e2741d02f207182b09c2f5c269b83e7ba2383b728f33",
+      "identical_body_present_in_initial_overlay": true
+    },
+    {
+      "name": "Submission.p04_hct139_coset_average_laws",
+      "node": "root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1.hom_coset_average_laws-a1",
+      "accepted_candidate": "30552c78b5e467adc606bb35c4b36ae19693c4e6",
+      "frozen_type": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H] [Fintype (G ⧸ H)] (C : ∀ B : Rep k G, (Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) →ₗ[k] (Quiver.Hom B A)), (∀ (B : Rep k G) (F : Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) (x : B), (C B F).hom x = ∑ q : G ⧸ H, A.ρ q.out (F.hom (B.ρ q.out⁻¹ x))) → (∀ (B D : Rep k G) (f : Quiver.Hom D B) (F : Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)), C D (CategoryTheory.CategoryStruct.comp ((Rep.resFunctor H.subtype).map f) F) = CategoryTheory.CategoryStruct.comp f (C B F)) ∧ (∀ (B : Rep k G) (F : Quiver.Hom B A), C B ((Rep.resFunctor H.subtype).map F) = H.index • F)",
+      "declaration_sha256": "f7f37a9f0f86463e99264f471434b64850862a9dc88aa29013d7c4a219fdd0b4",
+      "identical_body_present_in_initial_overlay": true
+    },
+    {
+      "name": "Submission.p04_rsh_82a013d1d0_prism_homotopy",
+      "node": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1",
+      "accepted_candidate": "ee9ff9030124dc1e8d5b1482247bb78651d5d172",
+      "frozen_type": "∀ {k G : Type _} [CommRing k] [Group G] (H : Subgroup G) (u v : G → G), (∀ (h : H) (g : G), u ((h : G) * g) = (h : G) * u g) → (∀ (h : H) (g : G), v ((h : G) * g) = (h : G) * v g) → let C := ((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj (Rep.standardComplex k G); ∀ U V : CategoryTheory.End C, (∀ (n : ℕ) (c : Fin (n + 1) → G), (U.f n).hom (MonoidAlgebra.single c (1 : k)) = MonoidAlgebra.single (u ∘ c) (1 : k)) → (∀ (n : ℕ) (c : Fin (n + 1) → G), (V.f n).hom (MonoidAlgebra.single c (1 : k)) = MonoidAlgebra.single (v ∘ c) (1 : k)) → Nonempty (Homotopy V U)",
+      "declaration_sha256": "db191bee357b5c59d3a643167fd48f61c4015a1bd3e77e005eb6c76dc40978df",
+      "identical_body_present_in_initial_overlay": true
+    },
+    {
+      "name": "Submission.p04_rsh_82a013d1d0_equivariant_retraction",
+      "node": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.normalized_equivariant_retraction-a1",
+      "accepted_candidate": "05d9cdd077540227d2785052410582bfe95455b9",
+      "frozen_type": "∀ {G : Type _} [Group G] (H : Subgroup G), ∃ r : G → H, (∀ (h : H) (g : G), r ((h : G) * g) = h * r g) ∧ ∀ h : H, r (h : G) = h",
+      "declaration_sha256": "871073e00f38e2c2190a97f230f39d151de4c0714c6190fa311581d1cd1c2021",
+      "identical_body_present_in_initial_overlay": true
+    },
+    {
+      "name": "Submission.p04_hca_bc7c754a4b_sum_equivariant",
+      "node": "root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1.hom_coset_average_exists-a1.coset_sum_equivariance-a1",
+      "accepted_candidate": "5264809b9d2fcfe7495c6c98fe256415c326bf94",
+      "frozen_type": "∀ {k G : Type _} [CommRing k] [Group G] (A B : Rep k G) (H : Subgroup G) [Fintype (G ⧸ H)] (F : Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) (g : G) (x : B), (∑ q : G ⧸ H, A.ρ q.out (F.hom (B.ρ q.out⁻¹ (B.ρ g x)))) = A.ρ g (∑ q : G ⧸ H, A.ρ q.out (F.hom (B.ρ q.out⁻¹ x)))",
+      "declaration_sha256": "75869b568d5046c445b4a493d64312d37dc8c20df2f1ac3324b5ca8b9195f40d",
+      "identical_body_present_in_initial_overlay": true
+    },
+    {
+      "name": "Submission.p04_hca_bc7c754a4b_summand_eq_of_coset_eq",
+      "node": "root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1.hom_coset_average_exists-a1.coset_summand_independence-a1",
+      "accepted_candidate": "76bd88249cfbcfe4df090c5e2e4f55d27bd45645",
+      "frozen_type": "∀ {k G : Type _} [CommRing k] [Group G] (A B : Rep k G) (H : Subgroup G) (F : Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) (s t : G), (QuotientGroup.mk s : G ⧸ H) = QuotientGroup.mk t → ∀ x : B, A.ρ s (F.hom (B.ρ s⁻¹ x)) = A.ρ t (F.hom (B.ρ t⁻¹ x))",
+      "declaration_sha256": "17f73e7216be4bfd7faecd2690d32a693e9ecfd9f2b5dc0310c9c4eedc94f3af",
+      "identical_body_present_in_initial_overlay": true
+    },
+    {
+      "name": "Submission.p04_prism_a8325b9888_equivariant_components",
+      "node": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1.equivariant_prism_components-a1",
+      "accepted_candidate": "a50f3807f31da09c544b20eddb076bfe58596e45",
+      "frozen_type": "∀ {k G : Type _} [CommRing k] [Group G] (H : Subgroup G) (u v : G → G), (∀ (h : H) (g : G), u ((h : G) * g) = (h : G) * u g) → (∀ (h : H) (g : G), v ((h : G) * g) = (h : G) * v g) → let P : ∀ n : ℕ, (Fin (n + 1) → G) → MonoidAlgebra k (Fin (n + 2) → G) := fun n c => ∑ j : Fin (n + 1), MonoidAlgebra.single (Fin.insertNth j.castSucc (u (c j)) (fun i : Fin (n + 1) => if i < j then u (c i) else v (c i))) ((-1 : k) ^ j.val); let C := ((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj (Rep.standardComplex k G); ∃ D : ∀ n : ℕ, C.X n ⟶ C.X (n + 1), ∀ (n : ℕ) (c : Fin (n + 1) → G), (D n).hom (MonoidAlgebra.single c (1 : k)) = P n c",
+      "declaration_sha256": "fcfcfe5fb5f32faaa5393bc63a33e3cce16c77b26b9755c2b5b1892e84c1b8a5",
+      "identical_body_present_in_initial_overlay": true
+    },
+    {
+      "name": "Submission.p04_prism_a8325b9888_boundary_identity",
+      "node": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1.prism_boundary_identity-a1",
+      "accepted_candidate": "1649108983402b0f093177b30b311b203bfd3144",
+      "frozen_type": "∀ {k X : Type _} [CommRing k] (u v : X → X), let P : ∀ n : ℕ, (Fin (n + 1) → X) → MonoidAlgebra k (Fin (n + 2) → X) := fun n c => ∑ j : Fin (n + 1), MonoidAlgebra.single (Fin.insertNth j.castSucc (u (c j)) (fun i : Fin (n + 1) => if i < j then u (c i) else v (c i))) ((-1 : k) ^ j.val); (∀ c : Fin 1 → X, Rep.standardComplex.d k X 1 (P 0 c) = MonoidAlgebra.single (v ∘ c) (1 : k) - MonoidAlgebra.single (u ∘ c) (1 : k)) ∧ ∀ (n : ℕ) (c : Fin (n + 2) → X), Rep.standardComplex.d k X (n + 2) (P (n + 1) c) + ∑ b : Fin (n + 2), ((-1 : k) ^ b.val) • P n (c ∘ b.succAbove) = MonoidAlgebra.single (v ∘ c) (1 : k) - MonoidAlgebra.single (u ∘ c) (1 : k)",
+      "declaration_sha256": "e139499fc73d67485a633fda351207452d0be6635acbcbf4cffc801a4077b194",
+      "identical_body_present_in_initial_overlay": true
+    },
+    {
+      "name": "Submission.p04_pb_60221840b0_central_telescoping",
+      "node": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1.prism_boundary_identity-a1.central_telescoping-a1",
+      "accepted_candidate": "4731873fbd6d8738e5282ef963ae84f04d3253f3",
+      "frozen_type": "∀ {k X : Type _} [CommRing k] (u v : X → X) (m : ℕ) (c : Fin (m + 1) → X), let Q : Fin (m + 1) → (Fin (m + 2) → X) := fun j => Fin.insertNth j.castSucc (u (c j)) (fun i : Fin (m + 1) => if i < j then u (c i) else v (c i)); (∑ j : Fin (m + 1), (MonoidAlgebra.single (Q j ∘ j.castSucc.succAbove) (1 : k) - MonoidAlgebra.single (Q j ∘ j.succ.succAbove) (1 : k))) = MonoidAlgebra.single (v ∘ c) (1 : k) - MonoidAlgebra.single (u ∘ c) (1 : k)",
+      "declaration_sha256": "be0236b7679bf6bbe1a88a585b369ff87e97fee03515ca06672aa14db8ccc0b9",
+      "identical_body_present_in_initial_overlay": true
+    },
+    {
+      "name": "Submission.p04_pb_60221840b0_noncentral_cancellation",
+      "node": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1.prism_boundary_identity-a1.noncentral_cancellation-a1",
+      "accepted_candidate": "9cf8f961b0231ea7baaa72679ce78a76895f7d3c",
+      "frozen_type": "∀ {k X : Type _} [CommRing k] (u v : X → X) (n : ℕ) (c : Fin (n + 2) → X), let Q : ∀ m : ℕ, (Fin (m + 1) → X) → Fin (m + 1) → (Fin (m + 2) → X) := fun m d j => Fin.insertNth j.castSucc (u (d j)) (fun i : Fin (m + 1) => if i < j then u (d i) else v (d i)); (∑ j : Fin (n + 2), ∑ a : Fin (n + 3) with a.val < j.val ∨ j.val + 1 < a.val, MonoidAlgebra.single (Q (n + 1) c j ∘ a.succAbove) ((-1 : k) ^ (j.val + a.val))) + (∑ b : Fin (n + 2), ∑ t : Fin (n + 1), MonoidAlgebra.single (Q n (c ∘ b.succAbove) t) ((-1 : k) ^ (b.val + t.val))) = 0",
+      "declaration_sha256": "7fb5cc3456b20f60bdebbaaeace2501e70c793cf38c84a94b14c48091e75cfa1",
+      "identical_body_present_in_initial_overlay": true
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1",
+  "parent_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1",
+  "depth": 4,
+  "title": "Coordinatewise equivariant endomaps induce homotopic standard-complex maps",
+  "statement": "Let k be a commutative ring and G a group in the same universe, and let H ≤ G. Set C = Res_H(Rep.standardComplex k G). Let u,v : G → G satisfy u(hg) = h u(g) and v(hg) = h v(g) for every h ∈ H and g ∈ G. Suppose U,V : C → C are chain maps in Rep k H such that, for every n ≥ 0 and tuple c : Fin(n+1) → G, U_n sends the free generator [c] to [u ∘ c] and V_n sends [c] to [v ∘ c]. Then there exists a chain homotopy from V to U, with convention V − U = ∂D + D∂. No finiteness or normality assumption is required.",
+  "lean_statement": "∀ {k G : Type _} [CommRing k] [Group G] (H : Subgroup G) (u v : G → G), (∀ (h : H) (g : G), u ((h : G) * g) = (h : G) * u g) → (∀ (h : H) (g : G), v ((h : G) * g) = (h : G) * v g) → let C := ((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj (Rep.standardComplex k G); ∀ U V : CategoryTheory.End C, (∀ (n : ℕ) (c : Fin (n + 1) → G), (U.f n).hom (MonoidAlgebra.single c (1 : k)) = MonoidAlgebra.single (u ∘ c) (1 : k)) → (∀ (n : ℕ) (c : Fin (n + 1) → G), (V.f n).hom (MonoidAlgebra.single c (1 : k)) = MonoidAlgebra.single (v ∘ c) (1 : k)) → Nonempty (Homotopy V U)",
+  "lean_name": "p04_rsh_82a013d1d0_prism_homotopy",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p04/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-a8325b9888-a1"
+}

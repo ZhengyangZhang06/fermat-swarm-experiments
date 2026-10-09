@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "coset_average|cosetDecomp_apply|hom_comm_apply|def res|def tateCohomology",
+        "p04_hct139_coset_average_exists|coset_average_exists"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8"
+      ],
+      "conclusion": "Inspected the frozen Tate definitions, equivariant morphism API, and restriction definitions; consulted files match the pinned compiler sources byte-for-byte. No matching coset_average_exists declaration was found in the snapshot. All nine dependencies are clean and pinned. Exact comparator rerun 9d10d743353a49bd87229beda0102455 passed; its 223 exported file hashes match the inspected inputs, and transitive axioms are only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "e24fc75e0fe24e43d4801c43ed0e11e230559f559f1c72efd53e19439f6601e1",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p04_hct139_coset_average_exists",
+      "statement": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A B : Rep k G) (H : Subgroup G) [Fintype H] [Fintype (G ⧸ H)], ∃ C : (Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) →ₗ[k] (Quiver.Hom B A), ∀ (F : Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) (x : B), (C F).hom x = ∑ q : G ⧸ H, A.ρ q.out (F.hom (B.ρ q.out⁻¹ x))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Packages the finite coset sum as a linear map on equivariant Hom spaces using the accepted coset-sum equivariance prerequisite."
+    }
+  ]
+}

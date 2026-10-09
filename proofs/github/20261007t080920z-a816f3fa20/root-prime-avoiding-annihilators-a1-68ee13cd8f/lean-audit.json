@@ -1,0 +1,36 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "nsmul_eq_mod_nsmul|exists_prime_and_dvd|theorem find_spec|theorem find_min|p04_eq_zero_of_prime_avoiding_annihilators|prime_avoiding_annihilators",
+        "rg -n --glob '*.lean' 'p04_eq_zero_of_prime_avoiding_annihilators|prime_avoiding_annihilators' project mathlib"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Data/Nat/Find.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/Group/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Data/Nat/Prime/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Fermat/Thm_Rep_isZero_tateCohomology_of_forall_sylow.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8"
+      ],
+      "conclusion": "Verified clean snapshot revisions: project 2475a3790d7ba0c3b10be8086001b154a45be597 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Nat.find_spec/find_min, nsmul_eq_mod_nsmul, and Nat.exists_prime_and_dvd supply the cited upstream infrastructure; their files match the installed dependency. No existing node theorem matched the snapshot search. All nine installed dependencies are clean and match their pins. Personally reran the exact node comparator: request 5bb6248296d447b7b730de94aed5c486 exited 0 with 'Your solution is okay!'. The kernel accepted the theorem with only propext, Classical.choice, and Quot.sound. Fresh evidence matches candidate 6d94ada56f3b333d660fa4207e7f2cbc365d8c8f; all 221 Lean input hashes match. The sole candidate change adds the tracked theorem, preserving the complete baseline root placeholder and imports."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p04_eq_zero_of_prime_avoiding_annihilators",
+      "statement": "∀ {V : Type*} [AddCommGroup V], (∀ p : ℕ, p.Prime → ∃ m : ℕ, 0 < m ∧ ¬ p ∣ m ∧ ∀ v : V, m • v = 0) → ∀ v : V, v = 0",
+      "lean_file": "Submission.lean",
+      "natural_summary": "For each element, the hypothesis at prime 2 supplies a positive annihilator. Choose the least such annihilator n. Euclidean division and minimality show that n divides every annihilator. If n ≠ 1, a prime divisor p of n contradicts the supplied p-avoiding annihilator. Thus n = 1 and the element is zero. No finiteness assumption is used."
+    }
+  ]
+}

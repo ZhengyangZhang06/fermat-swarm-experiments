@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1.equivariant_prism_components-a1",
+  "parent_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.equivariant_prism_homotopy-a1",
+  "depth": 5,
+  "title": "Equivariant prism sums extend to representation morphisms",
+  "statement": "Let k be a commutative ring and G a group in the same universe, H ≤ G, and u,v : G → G satisfy u(hg)=h u(g) and v(hg)=h v(g) for all h ∈ H and g ∈ G. Let C be Rep.standardComplex k G restricted to H. For n ≥ 0 and c=(g₀,…,gₙ), define Pₙ(c)=Σⱼ₌₀ⁿ (−1)ʲ[ug₀,…,ugⱼ,vgⱼ,…,vgₙ] in the free k-module on (n+2)-tuples, where [t]=MonoidAlgebra.single t 1. Precisely, the j-th tuple is Fin.insertNth j.castSucc (u(c j)) (fun i => if i < j then u(c i) else v(c i)). There exists a family of morphisms Dₙ : Cₙ → Cₙ₊₁ in Rep k H such that Dₙ([c])=Pₙ(c) for every n and c. No finiteness or normality assumption is imposed.",
+  "lean_statement": "∀ {k G : Type _} [CommRing k] [Group G] (H : Subgroup G) (u v : G → G), (∀ (h : H) (g : G), u ((h : G) * g) = (h : G) * u g) → (∀ (h : H) (g : G), v ((h : G) * g) = (h : G) * v g) → let P : ∀ n : ℕ, (Fin (n + 1) → G) → MonoidAlgebra k (Fin (n + 2) → G) := fun n c => ∑ j : Fin (n + 1), MonoidAlgebra.single (Fin.insertNth j.castSucc (u (c j)) (fun i : Fin (n + 1) => if i < j then u (c i) else v (c i))) ((-1 : k) ^ j.val); let C := ((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj (Rep.standardComplex k G); ∃ D : ∀ n : ℕ, C.X n ⟶ C.X (n + 1), ∀ (n : ℕ) (c : Fin (n + 1) → G), (D n).hom (MonoidAlgebra.single c (1 : k)) = P n c",
+  "lean_name": "p04_prism_a8325b9888_equivariant_components",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p04/20261007t080920z-a816f3fa20/root-tate-index-annihilation-a1-cohomology-transfer-a1-restricted-sta-69b9372d13-a1"
+}
