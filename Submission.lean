@@ -1248,3 +1248,21 @@ theorem Submission.p09_af497904fe_vloc_fraction_characterization :
   · apply (hA x).mpr
     refine ⟨b, a, haq, ?_⟩
     simpa only [inv_inv, inv_div] using congrArg Inv.inv hab
+
+
+theorem Submission.p09_af497904fe_luf_valuation_localization :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] (ℓ : ℕ),
+      ℓ.Prime → ∀ (V : ValuationSubring E), V.LiesOverPrime ℓ →
+      ∃ q : Ideal (NumberField.RingOfIntegers E),
+        q.IsPrime ∧ q ≠ ⊥ ∧ (ℓ : NumberField.RingOfIntegers E) ∈ q ∧
+        Finite (NumberField.RingOfIntegers E ⧸ q) ∧
+        (∀ x : E, x ∈ V ↔ ∃ a b : NumberField.RingOfIntegers E,
+          b ∉ q ∧ x = (a : E) / (b : E)) ∧
+        (∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V.nonunits ↔ a ∈ q) := by
+  intro E _ ℓ hℓ V hV
+  obtain ⟨hints, q, hq, hqne, hℓq, hfinite, hcenter⟩ :=
+    Submission.p09_af497904fe_vloc_integral_center E ℓ hℓ V hV
+  exact ⟨q, hq, hqne, hℓq, hfinite,
+    Submission.p09_af497904fe_vloc_fraction_characterization
+      E V q hq hqne hints hcenter,
+    hcenter⟩
