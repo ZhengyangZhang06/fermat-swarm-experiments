@@ -1637,8 +1637,6 @@ theorem Submission.p10_17ae7b7d_ccf_prime_power :
     exact Nat.gcd_eq_right (pow_dvd_pow p h)
 
 theorem Submission.p10_17ae7b7d_crcard_quot_eq_unit :
-
-theorem Submission.p10_17ae7b7d_uce_normalized_quot_eq_iff :
     ∀ (R : Type) [CommRing R],
       let U := {v : R × R // ∃ x y : R, x * v.1 + y * v.2 = 1}
       let rel : U → U → Prop := fun v w =>
@@ -1712,6 +1710,13 @@ theorem Submission.p10_17ae7b7d_phdisk_mobius_ratio_norm :
     rw [norm_div, Complex.star_def, Complex.norm_conj,
       div_self (norm_ne_zero_iff.mpr hQv)]
   rw [hratio, norm_mul, hunit, mul_one]
+
+
+theorem Submission.p10_17ae7b7d_uce_normalized_quot_eq_iff :
+    ∀ (R : Type) [CommRing R],
+      let U := {v : R × R // ∃ x y : R, x * v.1 + y * v.2 = 1}
+      let rel : U → U → Prop := fun v w =>
+        ∃ u : Rˣ, (u : R) * v.1.1 = w.1.1 ∧ (u : R) * v.1.2 = w.1.2
       ∀ v w : U,
         (v.1.1 = 1 ∨ (¬ IsUnit v.1.1 ∧ v.1.2 = 1)) →
         (w.1.1 = 1 ∨ (¬ IsUnit w.1.1 ∧ w.1.2 = 1)) →
