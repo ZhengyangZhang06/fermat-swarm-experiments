@@ -1,0 +1,70 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "snapshot": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596",
+      "project_commit": "20574e45daf714e745af8e649c7b61b21eed5644",
+      "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "queries": [
+        {
+          "query": "def IsFrobeniusAt|def LiesOverPrime|exists.*[Ff]robenius|[Cc]hebotarev",
+          "roots": [
+            "project/Definitions",
+            "mathlib/Mathlib/NumberTheory"
+          ],
+          "finding": "Exact valuation predicates found; no applicable Frobenius distribution theorem. FrobeniusNumber result is unrelated."
+        },
+        {
+          "query": "ray.?class|partial.?zeta|cyclotomic.*frobenius|frobenius.*supply (case-insensitive)",
+          "roots": [
+            "project/Definitions",
+            "mathlib/Mathlib/NumberTheory"
+          ],
+          "finding": "No matches (rg exit 1)."
+        },
+        {
+          "query": "ray.?class|[Cc]hebotarev|frobenius.*(exists|infinite)|exists.*[Ff]robenius|nonvanish.*[Ll][Ss]eries (case-insensitive)",
+          "roots": [
+            "project",
+            "mathlib/Mathlib"
+          ],
+          "finding": "No applicable ray-class or distribution theorem; matches include frozen incomplete root source and local arithmetic Frobenius existence, not prescribed Frobenius infinitude."
+        },
+        {
+          "query": "partial|congr|error|IsBigO|isBigO|ray|tendsto|ClassGroup",
+          "roots": [
+            "mathlib/Mathlib/NumberTheory/NumberField/Ideal/Asymptotics.lean"
+          ],
+          "finding": "Ordinary ClassGroup counting limit only; no quantitative ray-class bound in this file."
+        }
+      ],
+      "files_inspected": [
+        {
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+          "finding": "Pins match project and mathlib revisions."
+        },
+        {
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+          "lines": "51-64",
+          "finding": "IsFrobeniusAt requires decomposition-group membership and actual prime-power action on residue field."
+        },
+        {
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+          "lines": "16-23",
+          "finding": "LiesOverPrime means rational prime belongs to valuation nonunits; inertiaSubgroupIn is the mapped inertia subgroup."
+        },
+        {
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/DedekindZeta.lean",
+          "lines": "47-89",
+          "finding": "Ordinary ideal L-series, positive residue, and simple-pole limit; does not supply nontrivial ray-character continuation/nonvanishing."
+        },
+        {
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Ideal/Asymptotics.lean",
+          "lines": "78-121",
+          "finding": "Limit for ideals in an ordinary class; cannot directly discharge hrayContinuation counting hypotheses."
+        }
+      ],
+      "reuse": "No new Lean source reused this round. All nine installed package sources are clean and pinned. Full selected-node kernel/axiom acceptance remains unavailable because its proof fails."
+    }
+  ]
+}
