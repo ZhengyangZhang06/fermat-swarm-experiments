@@ -11098,6 +11098,49 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
   have hperiod : ∀ z ∈ H, F z ≠ 0 → L (z + 1) = L z := by
     intro z hz hne
     exact ((hmod z hz).2.2 hne).1
+  have htopStable : ∀ y : ℝ, Y ≤ y → top y = top Y := by
+    intro y hy
+    have hdiff : DifferentiableOn ℂ L
+        (Set.uIcc (-1 / 2 : ℝ) (1 / 2 : ℝ) ×ℂ Set.uIcc Y y) := by
+      intro z hz
+      have hzY : Y ≤ z.im := by
+        have hm := (Complex.mem_reProdIm.mp hz).2
+        rw [Set.uIcc_of_le hy] at hm
+        exact hm.1
+      exact (hLan z (lt_of_lt_of_le (by linarith [hY] : (0 : ℝ) < Y) hzY)
+        (hupper z hzY)).differentiableAt.differentiableWithinAt
+    have hrect := Complex.integral_boundary_rect_eq_zero_of_differentiableOn
+      L (⟨-1 / 2, Y⟩ : ℂ) (⟨1 / 2, y⟩ : ℂ) hdiff
+    have hpair : intervalIntegral
+        (fun t : ℝ => L ((1 / 2 : ℂ) + (t : ℂ) * Complex.I)) Y y MeasureTheory.volume =
+      intervalIntegral
+        (fun t : ℝ => L ((-1 / 2 : ℂ) + (t : ℂ) * Complex.I)) Y y MeasureTheory.volume := by
+      apply intervalIntegral.integral_congr
+      intro t ht
+      have htY : Y ≤ t := by
+        rw [Set.uIcc_of_le hy] at ht
+        exact ht.1
+      have hpos : 0 < ((-1 / 2 : ℂ) + (t : ℂ) * Complex.I).im := by
+        simp only [Complex.add_im, Complex.div_ofNat_im, Complex.neg_im,
+          Complex.one_im, neg_zero, zero_div, Complex.mul_im, Complex.ofReal_re,
+          Complex.I_im, Complex.ofReal_im, Complex.I_re, mul_one, mul_zero, add_zero,
+          zero_add]
+        linarith [hY]
+      have heq := hperiod ((-1 / 2 : ℂ) + (t : ℂ) * Complex.I) hpos
+        (hupper _ (by simpa using htY))
+      convert heq using 2
+      ring
+    dsimp only at hrect
+    push_cast at hrect
+    rw [hpair, add_sub_cancel_right] at hrect
+    have heq := sub_eq_zero.mp hrect
+    dsimp only [top]
+    simpa only [intervalIntegral.integral_symm (-1 / 2 : ℝ) (1 / 2 : ℝ)] using
+      congrArg Neg.neg heq.symm
+  have htopExact : top Y = -cInf := by
+    have heventually : (fun _ : ℝ => top Y) =ᶠ[Filter.atTop] top :=
+      Filter.eventually_atTop.mpr ⟨Y, fun y hy => (htopStable y hy).symm⟩
+    exact tendsto_nhds_unique (tendsto_const_nhds.congr' heventually) htopLimit
   have hvertical : ∀ a b : ℝ,
       (∀ t ∈ Set.uIcc a b, 0 < t ∧ F ((-1 / 2 : ℂ) + (t : ℂ) * Complex.I) ≠ 0) →
       (intervalIntegral (fun t : ℝ => L ((1 / 2 : ℂ) + (t : ℂ) * Complex.I) * Complex.I)
@@ -12326,23 +12369,47 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
       ((analyticOrderNatAt F Complex.I : ℝ) / 2 + (analyticOrderNatAt F ρ : ℝ) / 3),
       sub_nonneg.mpr hboundaryWeightBound, ?_⟩
     ring
+  have hboundaryIndentationLimit :
+      Filter.Tendsto (fun ε : ℝ => ∑ v ∈ hBfinite.toFinset,
+        indent v (fun _ => cutStart v) (fun _ => cutEnd v) ε)
+        (nhdsWithin (0 : ℝ) (Set.Ioi 0))
+        (nhds (-(2 * (Real.pi : ℂ) * Complex.I) *
+          ((∑ v ∈ hBfinite.toFinset, boundaryWeight v : ℝ) : ℂ))) := by
+    have hlim := tendsto_finsetSum hBfinite.toFinset
+      (fun v hv => hcutArcLimits v (hBfinite.mem_toFinset.mp hv))
+    have heach : ∀ v : ℂ,
+        -Complex.I * (analyticOrderNatAt F v : ℂ) *
+          ((cutStart v - cutEnd v : ℝ) : ℂ) =
+        -(2 * (Real.pi : ℂ) * Complex.I) * (boundaryWeight v : ℂ) := by
+      intro v
+      dsimp only [boundaryWeight]
+      push_cast
+      field_simp
+    simp_rw [heach] at hlim
+    simpa only [Finset.mul_sum, Complex.ofReal_sum] using hlim
   -- Steps 17–18: the contour identity leaves only nonnegative zero orders.
-  suffices hcount : ∃ R : ℝ, 0 ≤ R ∧
-      (analyticOrderNatAt A 0 : ℝ) + (analyticOrderNatAt F Complex.I : ℝ) / 2 +
-        (analyticOrderNatAt F ρ : ℝ) / 3 + R = (k : ℝ) / 12 by
-    obtain ⟨R, hR, hcount⟩ := hcount
+  have hOzerosFinite : {z ∈ O | F z = 0}.Finite :=
+    hKzeros.subset (fun _ hz => ⟨hOK hz.1, hz.2⟩)
+  suffices hcount :
+      (analyticOrderNatAt A 0 : ℝ) + (∑ v ∈ hBfinite.toFinset, boundaryWeight v) +
+        (∑ v ∈ hOzerosFinite.toFinset, (analyticOrderNatAt F v : ℝ)) = (k : ℝ) / 12 by
+    have hnonneg : 0 ≤ ∑ v ∈ hOzerosFinite.toFinset, (analyticOrderNatAt F v : ℝ) :=
+      Finset.sum_nonneg (fun _ _ => Nat.cast_nonneg _)
     change (analyticOrderNatAt A 0 : ℝ) + (analyticOrderNatAt F Complex.I : ℝ) / 2 +
       (analyticOrderNatAt F ρ : ℝ) / 3 ≤ (k : ℝ) / 12
-    linarith
+    linarith [hboundaryWeightBound]
   /- Remaining formal obligation: assemble the cut contour and prove the count
   identity above. In the accepted proof, steps 4–7 justify the global argument
   principle by finite subdivision into primitive domains. Steps 9–11 construct
   the oriented cut boundary and the endpoint functions required by hclockwise;
-  step 17 sums the boundary integrals and takes the two limits. The facts above
+  step 17 sums the boundary integrals and takes their limits. The facts above
   construct the compact retained region with a zero-free boundary and preserved
   interior zeros, separate the cuts, and excise the interior zeros with exact circle
   contributions and a nonempty zero-free remaining closure. They also establish
-  exact cut-coordinate identities and cancel finite walks in primitive domains.
+  exact cut-coordinate identities, paired removed sides, the exact top integral,
+  boundary indentation limits, and the nonnegative elliptic-order remainder.
+  They cancel finite walks within a primitive domain, but the actual cells and
+  their directed boundaries have not yet been assembled.
   The oriented boundary parametrization, subdivision, and global contour identity
   remain. -/
 
