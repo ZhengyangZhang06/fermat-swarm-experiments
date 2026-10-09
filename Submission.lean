@@ -3799,3 +3799,20 @@ theorem Submission.p10_17ae7b7d_phdisk_mobius_image :
     rw [Submission.p10_17ae7b7d_phdisk_mobius_ratio_norm a b c d z v hdet hz hv]
       at hbound
     exact hbound
+
+
+theorem Submission.p10_17ae7b7d_valence_pseudohyperbolic_disks :
+    let D : ℂ → ℝ → Set ℂ :=
+      fun v ε => {z : ℂ | 0 < z.im ∧ ‖(z - v) / (z - star v)‖ ≤ ε}
+    ∀ (v : ℂ) (ε : ℝ), 0 < v.im → 0 < ε → ε < 1 →
+      D v ε = Metric.closedBall
+        ((v.re : ℂ) + ((v.im * (1 + ε ^ 2) / (1 - ε ^ 2) : ℝ) : ℂ) * Complex.I)
+        (2 * v.im * ε / (1 - ε ^ 2)) ∧
+      ∀ a b c d : ℝ, a * d - b * c = 1 →
+        let M : ℂ → ℂ :=
+          fun z => ((a : ℂ) * z + (b : ℂ)) / ((c : ℂ) * z + (d : ℂ))
+        M '' (D v ε) = D (M v) ε := by
+  dsimp only
+  intro v ε hv hε hε_one
+  exact ⟨Submission.p10_17ae7b7d_phdisk_euclidean v ε hv hε hε_one,
+    Submission.p10_17ae7b7d_phdisk_mobius_image v ε hv hε hε_one⟩
