@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'def LiesOverPrime|def inertiaSubgroupIn|def inertiaSubgroup|mem_inertiaSubgroup|def decompositionSubgroup' project/Definitions mathlib/Mathlib/RingTheory/Valuation",
+        "rg -n 'p09_af497904fe_ff_finite_inertia_exclusion|p09_af497904fe_fie_conjugate_separation' project mathlib/Mathlib"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean"
+      ],
+      "conclusion": "Manifest pins project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. LiesOverPrime means nonunit membership; inertiaSubgroupIn embeds the residue-action kernel. Inspected project definitions match frozen and comparator inputs byte-for-byte. The declaration-name search found no matches."
+    }
+  ],
+  "comparison_identity": "7b0b5948ede1b8dd23a46c14db698704f3d86a6c8bf2f8920822499426f0f46d",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_ff_finite_inertia_exclusion",
+      "statement": "∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [IsGalois ℚ E], ∃ S : Finset ℕ, ∀ ℓ : ℕ, ℓ.Prime → ℓ ∉ S → ∀ V : ValuationSubring E, V.LiesOverPrime ℓ → ∀ τ : E ≃ₐ[ℚ] E, τ ∈ V.inertiaSubgroupIn ℚ → τ = 1",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines accepted integral primitive generation and conjugate separation: outside finitely many primes, inertia fixes the primitive generator and hence the entire field."
+    }
+  ]
+}
