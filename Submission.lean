@@ -9,236 +9,6 @@ import Definitions.Def_ModularForm_HeckeOperatorForms
 attribute [-instance] FLT.HyperbolicMeasure.instSMulInvariantMeasureSpecialLinearGroupFinOfNatNatIntUpperHalfPlaneVolume_definitions FLT.HyperbolicMeasure.instIsOpenPosMeasureUpperHalfPlaneVolume_definitions FLT.Gamma0FundamentalSet.instContinuousConstSMulSpecialLinearGroupFinOfNatNatIntUpperHalfPlane_definitions FLT.L2ProductionInstance.isFiniteMeasure_gamma0 FLT.L2ProductionInstance.countable_SL2Z FLT.L2ProductionInstance.countable_quotient FLT.L2ProductionInstance.nontrivial_gamma0L2
 attribute [-simp] FreyPackage.ModMCarrier.coe_rescaleLin_apply ModularForm.AtkinLehnerDatum.mk.injEq ModularForm.AtkinLehnerDatum.alGL_coe ModularForm.AtkinLehnerDatum.mk.sizeOf_spec ModularForm.AtkinLehnerDatum.sqUnitSL_coe ModularForm.AtkinLehnerDatum.det_sqUnit ModularForm.AtkinLehnerDatum.det_mat FLT.TruncatedDomainPartition.unipotentDiagonalSum_zero
 
-theorem Submission.f036cc6b1f_petersson_core (M : ℕ) [NeZero M] :
-    ∃ B : InnerProductSpace.Core ℂ (CuspForm (CongruenceSubgroup.Gamma0 M) 2),
-      ∀ (p : ℕ) (hp : p.Prime) (hpM : ¬ p ∣ M)
-        (f g : CuspForm (CongruenceSubgroup.Gamma0 M) 2),
-        B.inner (CuspForm.heckeTLin 2 hp hpM f) g =
-          B.inner f (CuspForm.heckeTLin 2 hp hpM g) := by
-  have hneg : (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈
-      CongruenceSubgroup.Gamma0 M := by
-    simp [CongruenceSubgroup.Gamma0_mem]
-  obtain ⟨R, hF_meas, hF_unique⟩ :=
-    Submission.f036cc6b1f_pc_effective_domain (CongruenceSubgroup.Gamma0 M) hneg
-  obtain ⟨B, hB⟩ :=
-    Submission.f036cc6b1f_pc_integral_core (CongruenceSubgroup.Gamma0 M) hneg
-  refine ⟨B, ?_⟩
-  intro p hp hpM f g
-  rw [(hB _ hF_meas hF_unique (CuspForm.heckeTLin 2 hp hpM f) g).2,
-    (hB _ hF_meas hF_unique f (CuspForm.heckeTLin 2 hp hpM g)).2]
-  exact Submission.f036cc6b1f_pc_hecke_integral M _ hF_meas hF_unique p hp hpM f g
-
-theorem CuspForm.span_heckeTLin_eigen_eq_top (M : ℕ) [NeZero M] :
-    Submodule.span ℂ {v : CuspForm (CongruenceSubgroup.Gamma0 M) 2 |
-      ∀ (ℓ : ℕ) (hℓ : ℓ.Prime) (hℓM : ¬ ℓ ∣ M), ∃ c : ℂ,
-        CuspForm.heckeTLin 2 hℓ hℓM v = c • v} = ⊤ := by
-  sorry
-theorem Submission.f036cc6b1f_pic_dd_ae_orbit_zero :
-    ∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (E : Set UpperHalfPlane) (A : UpperHalfPlane → ℝ), MeasurableSet E → Measurable A → (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ E) → (∀ (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ), γ ∈ Δ → ∀ z : UpperHalfPlane, A (γ • z) = A z) → (∀ᵐ z ∂((MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane).restrict E), A z = 0) → ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), A z = 0 := by
-  intro Δ E A hE _hA hcover hinv hzero
-  have : Countable (Matrix (Fin 2) (Fin 2) ℤ) :=
-    inferInstanceAs (Countable (Fin 2 → Fin 2 → ℤ))
-  have : Countable (Matrix.SpecialLinearGroup (Fin 2) ℤ) :=
-    inferInstanceAs (Countable {g : Matrix (Fin 2) (Fin 2) ℤ // g.det = 1})
-  have hzero' : ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
-      z ∈ E → A z = 0 :=
-    (MeasureTheory.ae_restrict_iff' hE).mp hzero
-  have htranslate : ∀ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
-      ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
-        γ • z ∈ E → A (γ • z) = 0 := by
-    intro γ
-    exact (MeasureTheory.measurePreserving_smul (Matrix.SpecialLinearGroup.mapGL ℝ γ)
-      (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane)).quasiMeasurePreserving.ae
-        hzero'
-  have hall : ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
-      ∀ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ • z ∈ E → A (γ • z) = 0 :=
-    MeasureTheory.ae_all_iff.mpr htranslate
-  filter_upwards [hcover, hall] with z hz hzall
-  obtain ⟨γ, hγ, hzE⟩ := hz
-  exact (hinv γ hγ z).symm.trans (hzall γ hzE)
-theorem Submission.f036cc6b1f_pic_dd_open_pos :
-    MeasureTheory.Measure.IsOpenPosMeasure
-      (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) := by
-  let : MeasureTheory.Measure.IsOpenPosMeasure
-      ((MeasureTheory.volume : MeasureTheory.Measure ℂ).comap UpperHalfPlane.coe) :=
-    MeasureTheory.Measure.IsOpenPosMeasure.comap _ UpperHalfPlane.isOpenEmbedding_coe
-  rw [UpperHalfPlane.volume_def]
-  apply MeasureTheory.Measure.AbsolutelyContinuous.isOpenPosMeasure
-    (μ := (MeasureTheory.volume : MeasureTheory.Measure ℂ).comap UpperHalfPlane.coe)
-  apply MeasureTheory.withDensity_absolutelyContinuous'
-  · have hw : Continuous (fun z : UpperHalfPlane ↦
-        (1 / NNReal.mk z.im z.im_pos.le : NNReal) ^ 2) := by
-      refine .pow (.div₀ continuous_const ?_ ?_) _
-      · exact UpperHalfPlane.continuous_im.subtype_mk _
-      · exact fun z ↦ NNReal.ne_iff.mp z.im_ne_zero
-    exact hw.measurable.coe_nnreal_ennreal.aemeasurable
-  · exact Filter.Eventually.of_forall fun z ↦
-      ENNReal.coe_ne_zero.mpr (pow_ne_zero 2
-        (div_ne_zero one_ne_zero (NNReal.ne_iff.mp z.im_ne_zero)))
-
-namespace Submission
-
-open MeasureTheory
-
-theorem f036cc6b1f_pic_diagonal_definite :
-    ∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (E : Set UpperHalfPlane),
-      MeasurableSet E →
-      (∀ᵐ z ∂(volume : Measure UpperHalfPlane),
-        ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ E) →
-      ∀ f : CuspForm Δ 2,
-        IntegrableOn (UpperHalfPlane.petersson 2 f f) E (volume : Measure UpperHalfPlane) →
-        integral ((volume : Measure UpperHalfPlane).restrict E)
-          (UpperHalfPlane.petersson 2 f f) = 0 → f = 0 := by
-  intro Δ E hE hcover f hf hzero
-  let A : UpperHalfPlane → ℝ := fun z => (UpperHalfPlane.petersson 2 f f z).re
-  have hA (z : UpperHalfPlane) : A z = Complex.normSq (f z) * z.im ^ 2 := by
-    simp [A, UpperHalfPlane.petersson, ← Complex.normSq_eq_conj_mul_self,
-      ← Complex.ofReal_pow]
-  have hcont : Continuous A :=
-    Complex.continuous_re.comp (UpperHalfPlane.petersson_continuous 2
-      (CuspFormClass.holo f).continuous (CuspFormClass.holo f).continuous)
-  have hnonneg : 0 ≤ A := by
-    intro z
-    rw [Pi.zero_apply, hA]
-    exact mul_nonneg (Complex.normSq_nonneg _) (sq_nonneg _)
-  have hint : Integrable A ((volume : Measure UpperHalfPlane).restrict E) := hf.re
-  have hint_zero : integral ((volume : Measure UpperHalfPlane).restrict E) A = 0 := by
-    calc
-      _ = (integral ((volume : Measure UpperHalfPlane).restrict E)
-          (UpperHalfPlane.petersson 2 f f)).re := integral_re hf
-      _ = 0 := by rw [hzero]; rfl
-  have hzero_E : ∀ᵐ z ∂((volume : Measure UpperHalfPlane).restrict E), A z = 0 :=
-    (integral_eq_zero_iff_of_nonneg hnonneg hint).mp hint_zero
-  have hinv (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (hγ : γ ∈ Δ)
-      (z : UpperHalfPlane) : A (γ • z) = A z := by
-    have hγ' : (γ : Matrix.GeneralLinearGroup (Fin 2) ℝ) ∈
-        (Δ : Subgroup (Matrix.GeneralLinearGroup (Fin 2) ℝ)) :=
-      Subgroup.mem_map.mpr ⟨γ, hγ, rfl⟩
-    exact congrArg Complex.re
-      (SlashInvariantFormClass.petersson_smul (f := f) (f' := f) (τ := z) hγ')
-  have hzero_ae : ∀ᵐ z ∂(volume : Measure UpperHalfPlane), A z = 0 :=
-    f036cc6b1f_pic_dd_ae_orbit_zero Δ E A hE hcont.measurable hcover hinv hzero_E
-  have : Measure.IsOpenPosMeasure (volume : Measure UpperHalfPlane) :=
-    f036cc6b1f_pic_dd_open_pos
-  have hzero_all : A = 0 := Measure.eq_of_ae_eq hzero_ae hcont continuous_const
-  apply CuspForm.ext
-  intro z
-  change f z = 0
-  apply Complex.normSq_eq_zero.mp
-  have hz : Complex.normSq (f z) * z.im ^ 2 = 0 := by
-    rw [← hA, hzero_all]
-    rfl
-  exact (mul_eq_zero.mp hz).resolve_right (pow_ne_zero _ z.im_ne_zero)
-
-end Submission
-
-theorem Submission.f036cc6b1f_tdi_planar_exp_integrable_fd :
-    ∀ (a : ℝ), 0 < a → MeasureTheory.IntegrableOn
-      (fun z : UpperHalfPlane => Real.exp (-a * z.im)) ModularGroup.fd
-      ((MeasureTheory.volume : MeasureTheory.Measure ℂ).comap UpperHalfPlane.coe) := by
-  intro a ha
-  let b : ℝ := Real.sqrt 3 / 2
-  have hy : MeasureTheory.IntegrableOn (fun y : ℝ => Real.exp (-a * y))
-      (Set.Ici b) :=
-    (integrableOn_Ici_iff_integrableOn_Ioi (by finiteness)).mpr
-      (exp_neg_integrableOn_Ioi b ha)
-  have hx : MeasureTheory.IntegrableOn (fun _ : ℝ => (1 : ℝ))
-      (Set.Icc (-(1 / 2 : ℝ)) (1 / 2)) :=
-    MeasureTheory.integrableOn_const (by
-      rw [Real.volume_Icc]
-      exact ENNReal.ofReal_ne_top)
-  have hprod : MeasureTheory.IntegrableOn (fun p : ℝ × ℝ => Real.exp (-a * p.2))
-      (Set.Icc (-(1 / 2 : ℝ)) (1 / 2) ×ˢ Set.Ici b) := by
-    change MeasureTheory.Integrable _
-      (((MeasureTheory.volume : MeasureTheory.Measure ℝ).prod MeasureTheory.volume).restrict _)
-    rw [← MeasureTheory.Measure.prod_restrict]
-    simpa only [one_mul] using hx.mul_prod hy
-  have hc : MeasureTheory.IntegrableOn (fun z : ℂ => Real.exp (-a * z.im))
-      (Complex.measurableEquivRealProd ⁻¹'
-        (Set.Icc (-(1 / 2 : ℝ)) (1 / 2) ×ˢ Set.Ici b)) :=
-    (Complex.volume_preserving_equiv_real_prod.integrableOn_comp_preimage
-      Complex.measurableEquivRealProd.measurableEmbedding).mpr hprod
-  have hi : MeasureTheory.IntegrableOn (fun z : ℂ => Real.exp (-a * z.im))
-      (UpperHalfPlane.coe '' ModularGroup.fd) := by
-    apply hc.mono_set
-    rintro _ ⟨z, hz, rfl⟩
-    change z.re ∈ Set.Icc (-(1 / 2 : ℝ)) (1 / 2) ∧ b ≤ z.im
-    constructor
-    · exact abs_le.mp hz.2
-    · dsimp [b]
-      have hsq := ModularGroup.three_le_four_mul_im_sq_of_mem_fd hz
-      have hpos := z.im_pos
-      nlinarith [Real.sq_sqrt (show (0 : ℝ) ≤ 3 by norm_num), Real.sqrt_nonneg (3 : ℝ)]
-  have ht := (UpperHalfPlane.measurableEmbedding_coe.integrableOn_iff_comap
-    (Set.image_subset_range UpperHalfPlane.coe ModularGroup.fd)).mp hi
-  simpa only [Set.preimage_image_eq _ UpperHalfPlane.coe_injective, Function.comp_def,
-    UpperHalfPlane.coe_im] using ht
-
-theorem Submission.f036cc6b1f_tdi_petersson_integrable_of_exp_product_bound
-    (u v : UpperHalfPlane → ℂ) (a C Y : ℝ)
-    (hu : Continuous u) (hv : Continuous v) (ha : 0 < a) (_hC : 0 ≤ C)
-    (hbound : ∀ z : UpperHalfPlane, Y ≤ z.im →
-      ‖u z * v z‖ ≤ C * Real.exp (-a * z.im)) :
-    MeasureTheory.IntegrableOn (UpperHalfPlane.petersson 2 u v) ModularGroup.fd
-      (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) := by
-  let ν : MeasureTheory.Measure UpperHalfPlane :=
-    (MeasureTheory.volume : MeasureTheory.Measure ℂ).comap UpperHalfPlane.coe
-  let W : UpperHalfPlane → ℂ := fun z ↦ (starRingEnd ℂ) (u z) * v z
-  let L : ℝ := max 1 Y
-  let D := ModularGroup.truncatedFundamentalDomain L
-  let E := ModularGroup.fd ∩ {z : UpperHalfPlane | L < z.im}
-  have hW : Continuous W := (Complex.continuous_conj.comp hu).mul hv
-  -- The lower truncation is compact and planar measure is finite on compact sets.
-  have hD : MeasureTheory.IntegrableOn W D ν :=
-    hW.continuousOn.integrableOn_compact
-      (ModularGroup.isCompact_truncatedFundamentalDomain L)
-  have hEmeas : MeasurableSet E :=
-    ModularGroup.isClosed_fd.measurableSet.inter
-      (isOpen_lt continuous_const UpperHalfPlane.continuous_im).measurableSet
-  -- On the tail, use precisely the supplied planar exponential-integrability interface.
-  have hmajor : MeasureTheory.IntegrableOn
-      (fun z : UpperHalfPlane ↦ C * Real.exp (-a * z.im)) E ν :=
-    ((Submission.f036cc6b1f_tdi_planar_exp_integrable_fd a ha).mono_set
-      Set.inter_subset_left).const_mul C
-  have hE : MeasureTheory.IntegrableOn W E ν := by
-    refine hmajor.mono' hW.aestronglyMeasurable ?_
-    filter_upwards [MeasureTheory.ae_restrict_mem hEmeas] with z hz
-    have hY : Y ≤ z.im := (le_max_right 1 Y).trans hz.2.le
-    simpa only [W, norm_mul, Complex.norm_conj] using hbound z hY
-  have hpartition : D ∪ E = ModularGroup.fd := by
-    ext z
-    change (z ∈ ModularGroup.fd ∧ z.im ≤ L) ∨
-      (z ∈ ModularGroup.fd ∧ L < z.im) ↔ z ∈ ModularGroup.fd
-    constructor
-    · rintro (hz | hz) <;> exact hz.1
-    · intro hz
-      rcases le_or_gt z.im L with h | h
-      · exact Or.inl ⟨hz, h⟩
-      · exact Or.inr ⟨hz, h⟩
-  have hplanar : MeasureTheory.IntegrableOn W ModularGroup.fd ν := by
-    rw [← hpartition]
-    exact hD.union hE
-  -- Multiplication by the hyperbolic density cancels the weight-two factor.
-  rw [MeasureTheory.IntegrableOn, UpperHalfPlane.volume_def,
-    MeasureTheory.restrict_withDensity ModularGroup.isClosed_fd.measurableSet]
-  have hdensity : Measurable (fun z : UpperHalfPlane ↦
-      (1 / NNReal.mk z.im z.im_pos.le : NNReal) ^ 2) := by
-    fun_prop
-  rw [MeasureTheory.integrable_withDensity_iff_integrable_coe_smul hdensity]
-  have hcancel : (fun z : UpperHalfPlane ↦
-      (((1 / NNReal.mk z.im z.im_pos.le : NNReal) ^ 2 : NNReal) : ℝ) •
-        UpperHalfPlane.petersson 2 u v z) = W := by
-    funext z
-    simp only [UpperHalfPlane.petersson, zpow_ofNat, NNReal.coe_pow,
-      NNReal.coe_div, NNReal.coe_one, NNReal.coe_mk, Complex.real_smul,
-      Complex.ofReal_pow, Complex.ofReal_div, Complex.ofReal_one, W]
-    have hz : (z.im : ℂ) ≠ 0 := by exact_mod_cast z.im_ne_zero
-    field_simp
-  rw [hcancel]
-  exact hplanar
-
-namespace Submission
-
 theorem CuspForm.span_heckeTLin_eigen_eq_top (M : ℕ) [NeZero M] :
     Submodule.span ℂ {v : CuspForm (CongruenceSubgroup.Gamma0 M) 2 |
       ∀ (ℓ : ℕ) (hℓ : ℓ.Prime) (hℓM : ¬ ℓ ∣ M), ∃ c : ℂ,
@@ -3147,88 +2917,163 @@ end Submission
 namespace Submission
 
 open MeasureTheory
-open scoped ComplexConjugate
 
-theorem f036cc6b1f_pc_integral_core
-    (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) [Δ.FiniteIndex]
-    (hneg : (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ) :
-    ∃ B : InnerProductSpace.Core ℂ (CuspForm Δ 2),
-      ∀ (F : Set UpperHalfPlane), MeasurableSet F →
-        (∀ᵐ z ∂(volume : Measure UpperHalfPlane),
-          ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
-            γ ∈ Δ ∧ γ • z ∈ F ∧
-              ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ,
-                δ ∈ Δ → δ • z ∈ F → δ = γ ∨ δ = -γ) →
-        ∀ f g : CuspForm Δ 2,
-          IntegrableOn (UpperHalfPlane.petersson 2 f g) F
-              (volume : Measure UpperHalfPlane) ∧
-            B.inner f g = integral ((volume : Measure UpperHalfPlane).restrict F)
-              (UpperHalfPlane.petersson 2 f g) := by
-  classical
-  obtain ⟨R, hEmeas, hErep⟩ := f036cc6b1f_pc_effective_domain Δ hneg
-  let E : Set UpperHalfPlane :=
-    ⋃ r ∈ R, (fun z : UpperHalfPlane => r • z) '' ModularGroup.fd
-  have hEint (f g : CuspForm Δ 2) :
-      IntegrableOn (UpperHalfPlane.petersson 2 f g) E
-        (volume : Measure UpperHalfPlane) := by
-    exact integrableOn_finset_iUnion.mpr
-      (fun r _ => f036cc6b1f_pic_translated_integrable Δ r f g)
-  have hEcover : ∀ᵐ z ∂(volume : Measure UpperHalfPlane),
-      ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ E := by
-    filter_upwards [hErep] with z hz
-    obtain ⟨γ, hγ, hz, _⟩ := hz
-    exact ⟨γ, hγ, hz⟩
-  let B : InnerProductSpace.Core ℂ (CuspForm Δ 2) :=
-    { inner := fun f g => integral ((volume : Measure UpperHalfPlane).restrict E)
-        (UpperHalfPlane.petersson 2 f g)
-      conj_inner_symm := by
-        intro f g
-        rw [← integral_conj]
-        exact integral_congr_ae (Filter.Eventually.of_forall fun z =>
-          (UpperHalfPlane.petersson_symm 2 g f z).symm)
-      re_inner_nonneg := by
-        intro f
-        rw [← integral_re (hEint f f)]
-        apply integral_nonneg
-        intro z
-        simp only [UpperHalfPlane.petersson, ← Complex.normSq_eq_conj_mul_self,
-          zpow_ofNat, ← Complex.ofReal_pow, ← Complex.ofReal_mul]
-        exact mul_nonneg (Complex.normSq_nonneg (f z)) (sq_nonneg z.im)
-      add_left := by
-        intro f g h
-        calc
-          _ = integral ((volume : Measure UpperHalfPlane).restrict E)
-              (fun z => UpperHalfPlane.petersson 2 f h z +
-                UpperHalfPlane.petersson 2 g h z) := by
-            apply integral_congr_ae
-            filter_upwards [] with z
-            simp [UpperHalfPlane.petersson, map_add, add_mul]
-          _ = _ := integral_add (hEint f h) (hEint g h)
-      smul_left := by
-        intro f g c
-        calc
-          _ = integral ((volume : Measure UpperHalfPlane).restrict E)
-              (fun z => conj c * UpperHalfPlane.petersson 2 f g z) := by
-            apply integral_congr_ae
-            filter_upwards [] with z
-            simp [UpperHalfPlane.petersson, map_mul, mul_assoc]
-          _ = _ := integral_const_mul _ _
-      definite := fun f hf =>
-        f036cc6b1f_pic_diagonal_definite Δ E hEmeas hEcover f (hEint f f) hf }
-  refine ⟨B, ?_⟩
-  intro F hFmeas hFrep f g
-  apply f036cc6b1f_pic_domain_transfer Δ E F hneg hEmeas hFmeas hErep hFrep
-    (UpperHalfPlane.petersson 2 f g)
-  · exact UpperHalfPlane.petersson_continuous 2
-      (CuspFormClass.holo f).continuous (CuspFormClass.holo g).continuous
-  · intro γ hγ z
-    exact SlashInvariantFormClass.petersson_smul
-      (f := f) (f' := g) (τ := z) (Subgroup.mem_map.mpr ⟨γ, hγ, rfl⟩)
-  · exact hEint f g
+theorem f036cc6b1f_pic_diagonal_definite :
+    ∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (E : Set UpperHalfPlane),
+      MeasurableSet E →
+      (∀ᵐ z ∂(volume : Measure UpperHalfPlane),
+        ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ E) →
+      ∀ f : CuspForm Δ 2,
+        IntegrableOn (UpperHalfPlane.petersson 2 f f) E (volume : Measure UpperHalfPlane) →
+        integral ((volume : Measure UpperHalfPlane).restrict E)
+          (UpperHalfPlane.petersson 2 f f) = 0 → f = 0 := by
+  intro Δ E hE hcover f hf hzero
+  let A : UpperHalfPlane → ℝ := fun z => (UpperHalfPlane.petersson 2 f f z).re
+  have hA (z : UpperHalfPlane) : A z = Complex.normSq (f z) * z.im ^ 2 := by
+    simp [A, UpperHalfPlane.petersson, ← Complex.normSq_eq_conj_mul_self,
+      ← Complex.ofReal_pow]
+  have hcont : Continuous A :=
+    Complex.continuous_re.comp (UpperHalfPlane.petersson_continuous 2
+      (CuspFormClass.holo f).continuous (CuspFormClass.holo f).continuous)
+  have hnonneg : 0 ≤ A := by
+    intro z
+    rw [Pi.zero_apply, hA]
+    exact mul_nonneg (Complex.normSq_nonneg _) (sq_nonneg _)
+  have hint : Integrable A ((volume : Measure UpperHalfPlane).restrict E) := hf.re
+  have hint_zero : integral ((volume : Measure UpperHalfPlane).restrict E) A = 0 := by
+    calc
+      _ = (integral ((volume : Measure UpperHalfPlane).restrict E)
+          (UpperHalfPlane.petersson 2 f f)).re := integral_re hf
+      _ = 0 := by rw [hzero]; rfl
+  have hzero_E : ∀ᵐ z ∂((volume : Measure UpperHalfPlane).restrict E), A z = 0 :=
+    (integral_eq_zero_iff_of_nonneg hnonneg hint).mp hint_zero
+  have hinv (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (hγ : γ ∈ Δ)
+      (z : UpperHalfPlane) : A (γ • z) = A z := by
+    have hγ' : (γ : Matrix.GeneralLinearGroup (Fin 2) ℝ) ∈
+        (Δ : Subgroup (Matrix.GeneralLinearGroup (Fin 2) ℝ)) :=
+      Subgroup.mem_map.mpr ⟨γ, hγ, rfl⟩
+    exact congrArg Complex.re
+      (SlashInvariantFormClass.petersson_smul (f := f) (f' := f) (τ := z) hγ')
+  have hzero_ae : ∀ᵐ z ∂(volume : Measure UpperHalfPlane), A z = 0 :=
+    f036cc6b1f_pic_dd_ae_orbit_zero Δ E A hE hcont.measurable hcover hinv hzero_E
+  have : Measure.IsOpenPosMeasure (volume : Measure UpperHalfPlane) :=
+    f036cc6b1f_pic_dd_open_pos
+  have hzero_all : A = 0 := Measure.eq_of_ae_eq hzero_ae hcont continuous_const
+  apply CuspForm.ext
+  intro z
+  change f z = 0
+  apply Complex.normSq_eq_zero.mp
+  have hz : Complex.normSq (f z) * z.im ^ 2 = 0 := by
+    rw [← hA, hzero_all]
+    rfl
+  exact (mul_eq_zero.mp hz).resolve_right (pow_ne_zero _ z.im_ne_zero)
 
 end Submission
-open UpperHalfPlane MeasureTheory Matrix.SpecialLinearGroup
-open scoped MatrixGroups ModularForm Pointwise
+
+theorem Submission.f036cc6b1f_tdi_planar_exp_integrable_fd :
+    ∀ (a : ℝ), 0 < a → MeasureTheory.IntegrableOn
+      (fun z : UpperHalfPlane => Real.exp (-a * z.im)) ModularGroup.fd
+      ((MeasureTheory.volume : MeasureTheory.Measure ℂ).comap UpperHalfPlane.coe) := by
+  intro a ha
+  let b : ℝ := Real.sqrt 3 / 2
+  have hy : MeasureTheory.IntegrableOn (fun y : ℝ => Real.exp (-a * y))
+      (Set.Ici b) :=
+    (integrableOn_Ici_iff_integrableOn_Ioi (by finiteness)).mpr
+      (exp_neg_integrableOn_Ioi b ha)
+  have hx : MeasureTheory.IntegrableOn (fun _ : ℝ => (1 : ℝ))
+      (Set.Icc (-(1 / 2 : ℝ)) (1 / 2)) :=
+    MeasureTheory.integrableOn_const (by
+      rw [Real.volume_Icc]
+      exact ENNReal.ofReal_ne_top)
+  have hprod : MeasureTheory.IntegrableOn (fun p : ℝ × ℝ => Real.exp (-a * p.2))
+      (Set.Icc (-(1 / 2 : ℝ)) (1 / 2) ×ˢ Set.Ici b) := by
+    change MeasureTheory.Integrable _
+      (((MeasureTheory.volume : MeasureTheory.Measure ℝ).prod MeasureTheory.volume).restrict _)
+    rw [← MeasureTheory.Measure.prod_restrict]
+    simpa only [one_mul] using hx.mul_prod hy
+  have hc : MeasureTheory.IntegrableOn (fun z : ℂ => Real.exp (-a * z.im))
+      (Complex.measurableEquivRealProd ⁻¹'
+        (Set.Icc (-(1 / 2 : ℝ)) (1 / 2) ×ˢ Set.Ici b)) :=
+    (Complex.volume_preserving_equiv_real_prod.integrableOn_comp_preimage
+      Complex.measurableEquivRealProd.measurableEmbedding).mpr hprod
+  have hi : MeasureTheory.IntegrableOn (fun z : ℂ => Real.exp (-a * z.im))
+      (UpperHalfPlane.coe '' ModularGroup.fd) := by
+    apply hc.mono_set
+    rintro _ ⟨z, hz, rfl⟩
+    change z.re ∈ Set.Icc (-(1 / 2 : ℝ)) (1 / 2) ∧ b ≤ z.im
+    constructor
+    · exact abs_le.mp hz.2
+    · dsimp [b]
+      have hsq := ModularGroup.three_le_four_mul_im_sq_of_mem_fd hz
+      have hpos := z.im_pos
+      nlinarith [Real.sq_sqrt (show (0 : ℝ) ≤ 3 by norm_num), Real.sqrt_nonneg (3 : ℝ)]
+  have ht := (UpperHalfPlane.measurableEmbedding_coe.integrableOn_iff_comap
+    (Set.image_subset_range UpperHalfPlane.coe ModularGroup.fd)).mp hi
+  simpa only [Set.preimage_image_eq _ UpperHalfPlane.coe_injective, Function.comp_def,
+    UpperHalfPlane.coe_im] using ht
+
+theorem Submission.f036cc6b1f_tdi_petersson_integrable_of_exp_product_bound
+    (u v : UpperHalfPlane → ℂ) (a C Y : ℝ)
+    (hu : Continuous u) (hv : Continuous v) (ha : 0 < a) (_hC : 0 ≤ C)
+    (hbound : ∀ z : UpperHalfPlane, Y ≤ z.im →
+      ‖u z * v z‖ ≤ C * Real.exp (-a * z.im)) :
+    MeasureTheory.IntegrableOn (UpperHalfPlane.petersson 2 u v) ModularGroup.fd
+      (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) := by
+  let ν : MeasureTheory.Measure UpperHalfPlane :=
+    (MeasureTheory.volume : MeasureTheory.Measure ℂ).comap UpperHalfPlane.coe
+  let W : UpperHalfPlane → ℂ := fun z ↦ (starRingEnd ℂ) (u z) * v z
+  let L : ℝ := max 1 Y
+  let D := ModularGroup.truncatedFundamentalDomain L
+  let E := ModularGroup.fd ∩ {z : UpperHalfPlane | L < z.im}
+  have hW : Continuous W := (Complex.continuous_conj.comp hu).mul hv
+  -- The lower truncation is compact and planar measure is finite on compact sets.
+  have hD : MeasureTheory.IntegrableOn W D ν :=
+    hW.continuousOn.integrableOn_compact
+      (ModularGroup.isCompact_truncatedFundamentalDomain L)
+  have hEmeas : MeasurableSet E :=
+    ModularGroup.isClosed_fd.measurableSet.inter
+      (isOpen_lt continuous_const UpperHalfPlane.continuous_im).measurableSet
+  -- On the tail, use precisely the supplied planar exponential-integrability interface.
+  have hmajor : MeasureTheory.IntegrableOn
+      (fun z : UpperHalfPlane ↦ C * Real.exp (-a * z.im)) E ν :=
+    ((Submission.f036cc6b1f_tdi_planar_exp_integrable_fd a ha).mono_set
+      Set.inter_subset_left).const_mul C
+  have hE : MeasureTheory.IntegrableOn W E ν := by
+    refine hmajor.mono' hW.aestronglyMeasurable ?_
+    filter_upwards [MeasureTheory.ae_restrict_mem hEmeas] with z hz
+    have hY : Y ≤ z.im := (le_max_right 1 Y).trans hz.2.le
+    simpa only [W, norm_mul, Complex.norm_conj] using hbound z hY
+  have hpartition : D ∪ E = ModularGroup.fd := by
+    ext z
+    change (z ∈ ModularGroup.fd ∧ z.im ≤ L) ∨
+      (z ∈ ModularGroup.fd ∧ L < z.im) ↔ z ∈ ModularGroup.fd
+    constructor
+    · rintro (hz | hz) <;> exact hz.1
+    · intro hz
+      rcases le_or_gt z.im L with h | h
+      · exact Or.inl ⟨hz, h⟩
+      · exact Or.inr ⟨hz, h⟩
+  have hplanar : MeasureTheory.IntegrableOn W ModularGroup.fd ν := by
+    rw [← hpartition]
+    exact hD.union hE
+  -- Multiplication by the hyperbolic density cancels the weight-two factor.
+  rw [MeasureTheory.IntegrableOn, UpperHalfPlane.volume_def,
+    MeasureTheory.restrict_withDensity ModularGroup.isClosed_fd.measurableSet]
+  have hdensity : Measurable (fun z : UpperHalfPlane ↦
+      (1 / NNReal.mk z.im z.im_pos.le : NNReal) ^ 2) := by
+    fun_prop
+  rw [MeasureTheory.integrable_withDensity_iff_integrable_coe_smul hdensity]
+  have hcancel : (fun z : UpperHalfPlane ↦
+      (((1 / NNReal.mk z.im z.im_pos.le : NNReal) ^ 2 : NNReal) : ℝ) •
+        UpperHalfPlane.petersson 2 u v z) = W := by
+    funext z
+    simp only [UpperHalfPlane.petersson, zpow_ofNat, NNReal.coe_pow,
+      NNReal.coe_div, NNReal.coe_one, NNReal.coe_mk, Complex.real_smul,
+      Complex.ofReal_pow, Complex.ofReal_div, Complex.ofReal_one, W]
+    have hz : (z.im : ℂ) ≠ 0 := by exact_mod_cast z.im_ne_zero
+    field_simp
+  rw [hcancel]
+  exact hplanar
 
 theorem Submission.f036cc6b1f_pc_hi_rational_slash
     (Γ Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ))
@@ -4705,3 +4550,23 @@ theorem f036cc6b1f_pc_hecke_integral :
     _ = _ := hreverse.symm
 
 end Submission
+
+
+theorem Submission.f036cc6b1f_petersson_core (M : ℕ) [NeZero M] :
+    ∃ B : InnerProductSpace.Core ℂ (CuspForm (CongruenceSubgroup.Gamma0 M) 2),
+      ∀ (p : ℕ) (hp : p.Prime) (hpM : ¬ p ∣ M)
+        (f g : CuspForm (CongruenceSubgroup.Gamma0 M) 2),
+        B.inner (CuspForm.heckeTLin 2 hp hpM f) g =
+          B.inner f (CuspForm.heckeTLin 2 hp hpM g) := by
+  have hneg : (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈
+      CongruenceSubgroup.Gamma0 M := by
+    simp [CongruenceSubgroup.Gamma0_mem]
+  obtain ⟨R, hFmeas, hFdom⟩ :=
+    Submission.f036cc6b1f_pc_effective_domain (CongruenceSubgroup.Gamma0 M) hneg
+  obtain ⟨B, hB⟩ :=
+    Submission.f036cc6b1f_pc_integral_core (CongruenceSubgroup.Gamma0 M) hneg
+  refine ⟨B, ?_⟩
+  intro p hp hpM f g
+  exact ((hB _ hFmeas hFdom (CuspForm.heckeTLin 2 hp hpM f) g).2).trans
+    ((Submission.f036cc6b1f_pc_hecke_integral M _ hFmeas hFdom p hp hpM f g).trans
+      ((hB _ hFmeas hFdom f (CuspForm.heckeTLin 2 hp hpM g)).2).symm)
