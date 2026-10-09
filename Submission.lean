@@ -673,3 +673,47 @@ theorem Submission.p08_7d1ff633a4_tt26_cp_one_one :
   change Q (R A (π A ⟨f, hf⟩)) (R B (π B ⟨g, hg⟩)) = Q ⟨f, hf⟩ ⟨g, hg⟩
   exact (hQl _ _ _ (hR A (π A ⟨f, hf⟩))).trans
     (hQr _ _ _ (hR B (π B ⟨g, hg⟩)))
+
+
+theorem Submission.p08_7d1ff633a4_tt26_cup_pairings :
+    ∀ {k G : Type} [Field k] [Group G]
+      (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ))
+      (A B N : Rep.{0} k G) (E₀ : IntermediateField ℚ (AlgebraicClosure ℚ)),
+      FiniteDimensional ℚ E₀ →
+      (∀ g : G, r g ∈ E₀.fixingSubgroup → ∀ b : B, B.ρ g b = b) →
+      ∀ φ : A →ₗ[k] B →ₗ[k] N,
+      (∀ (g : G) (a : A) (b : B), φ (A.ρ g a) (B.ρ g b) = N.ρ g (φ a b)) →
+      let X : Fin 3 → ModuleCat k :=
+        ![ModuleCat.of k A.ρ.invariants, ModuleCat.of k (continuousH1 r A),
+          ModuleCat.of k (continuousH2 r A)];
+      let Y : Fin 3 → ModuleCat k :=
+        ![ModuleCat.of k (continuousH2 r B), ModuleCat.of k (continuousH1 r B),
+          ModuleCat.of k B.ρ.invariants];
+      ∃ (P : ∀ i : Fin 3, X i →ₗ[k] Y i →ₗ[k] continuousH2 r N),
+        ((∀ (m : A.ρ.invariants) (z : levelCocycles₂ r B),
+          ∃ e : levelCocycles₂ r N,
+            (∀ st : G × G, (e : G × G → N) st = φ (m : A) ((z : G × G → B) st)) ∧
+              P 0 m (continuousH2π r B z) = continuousH2π r N e) ∧
+        (∀ (f : cocycles₁ A) (hf : IsLevelConstant₁ r (⇑f))
+          (g : cocycles₁ B) (hg : IsLevelConstant₁ r (⇑g)),
+          ∃ e : levelCocycles₂ r N,
+            (∀ st : G × G, (e : G × G → N) st = cupCochain φ (⇑f) (⇑g) st) ∧
+              P 1 ⟨(H1π A).hom f, H1π_mem_continuousH1 r A hf⟩
+                ⟨(H1π B).hom g, H1π_mem_continuousH1 r B hg⟩ = continuousH2π r N e) ∧
+        (∀ (z : levelCocycles₂ r A) (d : B.ρ.invariants),
+          ∃ e : levelCocycles₂ r N,
+            (∀ st : G × G, (e : G × G → N) st = φ ((z : G × G → A) st) (d : B)) ∧
+              P 2 (continuousH2π r A z) d = continuousH2π r N e)) := by
+  intro k G _ _ r A B N E₀ hE₀ hB φ hφ
+  obtain ⟨P₀, hP₀⟩ := Submission.p08_7d1ff633a4_tt26_cp_zero_two r A B N φ hφ
+  obtain ⟨P₁, hP₁⟩ :=
+    Submission.p08_7d1ff633a4_tt26_cp_one_one r A B N E₀ hE₀ hB φ hφ
+  -- Reverse both inputs to the endpoint child to obtain the (2,0) pairing.
+  obtain ⟨P₂, hP₂⟩ :=
+    Submission.p08_7d1ff633a4_tt26_cp_zero_two r B A N φ.flip (fun s b a => hφ s a b)
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · exact Fin.cases P₀ (Fin.cases P₁ (Fin.cases P₂.flip (fun i => Fin.elim0 i)))
+  · exact hP₀
+  · exact hP₁
+  · intro z d
+    exact hP₂ d z
