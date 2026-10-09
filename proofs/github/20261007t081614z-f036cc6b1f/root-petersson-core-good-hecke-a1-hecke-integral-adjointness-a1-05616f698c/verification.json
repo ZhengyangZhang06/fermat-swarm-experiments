@@ -1,0 +1,21 @@
+{
+  "node_id": "root.petersson_core_good_hecke-a1.hecke_integral_adjointness-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/33",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "96a82fb616a44a430ff49c127ff1375fce247709",
+  "integrated_commit": "8b5674e9397a5a5f6b8657ac58e48c5c0364b9ec",
+  "proof_base_commit": "80624543d3feebc1eb9ab5b97ceac4a9529d1ac8",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.petersson_core_good_hecke-a1",
+  "requires": [
+    "root.petersson_core_good_hecke-a1.petersson_integral_core-a1",
+    "root.petersson_core_good_hecke-a1.hecke_integral_adjointness-a1.rational_slash_transfer-a1",
+    "root.petersson_core_good_hecke-a1.hecke_integral_adjointness-a1.good_prime_transversal-a1",
+    "root.petersson_core_good_hecke-a1.hecke_integral_adjointness-a1.effective_domain_lift-a1",
+    "root.petersson_core_good_hecke-a1.hecke_integral_adjointness-a1.finite_trace_unfolding-a1"
+  ]
+}
