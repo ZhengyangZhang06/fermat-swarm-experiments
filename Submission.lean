@@ -1991,3 +1991,22 @@ theorem Submission.p09_af497904fe_irp_integer_discriminant :
   intro hzero
   apply hnonzero
   rw [← hD, hzero, Int.cast_zero]
+
+
+theorem Submission.p09_af497904fe_cs_integer_root_product :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ))
+      [FiniteDimensional ℚ E] [IsGalois ℚ E] (α : E),
+      IsIntegral ℤ α → ∃ (n : ℕ) (β : Fin n → E) (D : ℤ),
+        Function.Injective β ∧
+        (∀ i : Fin n, IsIntegral ℤ (β i)) ∧
+        (∀ σ : E ≃ₐ[ℚ] E, ∃ i : Fin n, β i = σ α) ∧
+        D ≠ 0 ∧
+        (D : E) = (Finset.univ.filter (fun ij : Fin n × Fin n => ij.1 < ij.2)).prod
+          (fun ij => (β ij.1 - β ij.2) ^ 2) := by
+  intro E _ _ α hα
+  obtain ⟨n, β, hβinj, hβint, hβconj, hfactor⟩ :=
+    Submission.p09_af497904fe_irp_minpoly_roots E α hα
+  obtain ⟨D, hDne, hDprod⟩ :=
+    Submission.p09_af497904fe_irp_integer_discriminant E (minpoly ℤ α) n β
+      (minpoly.monic hα) hβinj hfactor
+  exact ⟨n, β, D, hβinj, hβint, hβconj, hDne, hDprod⟩
