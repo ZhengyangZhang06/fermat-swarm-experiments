@@ -1,0 +1,106 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "inertiaSubgroupIn|LiesOverPrime",
+        "card.*inertia|inertia.*card|ramificationIdx.*eq|equiv.*inertia",
+        "ramificationIdx_tower",
+        "isDiscreteValuationRing_of_dedekind_domain",
+        "exists_ideal_over_prime_of_isIntegral_of_isDomain",
+        "restrict.*(Equiv|equiv)|inf_eq_bot|linearDisjoint|sup.*finrank|fixedField.*fixing|fixing.*fixedField",
+        "Gal.*×.*Gal|≃\\*.*×|prod.*restrictNormal|restrictNormal.*prod|exists.*algEquiv.*(sup|compositum)|exists.*prime.*(one|modEq)",
+        "rg -n 'theorem|lemma' Mathlib/NumberTheory/LSeries/PrimesInAP.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Cyclotomic/Ideal.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/Cyclotomic/Gal.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/LSeries/PrimesInAP.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/RamificationInertia/Galois.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RamificationInertia/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RamificationInertia/Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/DedekindDomain/Dvr.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/GoingUp.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/Pointwise.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/Galois/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/IntermediateField/Adjoin/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/Normal/Basic.lean"
+      ],
+      "conclusion": "Confirmed clean snapshots at project revision 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d. LiesOverPrime means that the rational prime is a nonunit; inertiaSubgroupIn is the image of the residue-action kernel in the rational automorphism group. Found Ideal.card_inertia_eq_ramificationIdxIn, Ideal.ramificationIdxIn_eq_ramificationIdx, the ramification tower and degree formulas, prime lifting, prime-cyclotomic total ramification, restriction-map injectivity and surjectivity, and finite Galois correspondence. Nat.forall_exists_prime_gt_and_modEq and IsCyclotomicExtension.autEquivPow cover the prime-choice and cyclotomic-group infrastructure. The searched FieldTheory modules did not provide the exact unique paired-restriction interface proposed below. Supporting declarations audited by the diagnostic depend only on propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "should_split": true,
+  "rationale": "The current node is at depth 3, below the limit 6. Four reusable obligations separate the valuation-to-ideal bridge, cyclotomic intersection, simultaneous extension of automorphisms, and fixed-field generation. Only cyclotomic_intersection depends on a sibling. The parent retains prime selection and assembly: choose q outside the exceptional set with orderOf g dividing q−1, choose a cyclotomic automorphism a of that order, and extend (g,a) uniquely to u. Uniqueness gives u^(orderOf g)=1. If u^n fixes the primitive root, a^n fixes its generating field, so orderOf g divides n and u^n=1; fixed_field_generator then supplies F and h. All four exact types elaborate after import Submission from frozen proof base 8679bbe437345709189f0cb651bea4e87b62c5c4. Explicit compositum coercions, canonical inclusions, automorphism composition and powers, and the F-to-M algebra map were checked. No proposed name collides with the active DAG or imported declarations. The diagnostic receipt is /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/ce-split-diagnostic-bk8itcuj/report.json: it records the matching policy digest, eight-target absence check, reversible omission of precisely lines 10–11, and unchanged protected files. These are interface diagnostics, not comparator acceptance.",
+  "subproblems": [
+    {
+      "key": "inertia_ramification",
+      "title": "Trivial valuation inertia forces ramification index one",
+      "statement": "Let Ω = AlgebraicClosure ℚ, and let E be a finite-dimensional Galois intermediate field of Ω/ℚ. Let q be a natural prime. Assume that, for every valuation subring V of E in which q is a nonunit, every rational automorphism belonging to V.inertiaSubgroupIn ℚ is the identity. Then every prime ideal P of the ring of integers of E lying over the integer ideal (q) has ramification index one over ℤ.",
+      "lean_statement": "∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [IsGalois ℚ E] (q : ℕ), q.Prime → (∀ V : ValuationSubring E, V.LiesOverPrime q → ∀ τ : E ≃ₐ[ℚ] E, τ ∈ V.inertiaSubgroupIn ℚ → τ = 1) → ∀ P : Ideal (NumberField.RingOfIntegers E), P.IsPrime → P.LiesOver (Ideal.span {(q : ℤ)}) → Ideal.ramificationIdx P ℤ = 1",
+      "lean_name": "p09_af497904fe_ce_inertia_ramification",
+      "depends_on": [],
+      "natural_proof": "1. Fix E, q, the stated inertia hypothesis, and a prime ideal P above (q). Write O for the ring of integers of E and G for Gal(E/ℚ). The number-field integer-ring theorems apply because E is finite over ℚ: O is a Dedekind domain, is finite free over ℤ, and has fraction field E. Since q belongs to P and is nonzero in E, P is nonzero and hence maximal.\n2. Realize the localization O_P inside E as V = {a/b : a,b ∈ O and b ∉ P}. The localization theorem for a nonzero prime of a Dedekind domain makes V a discrete valuation ring, hence a valuation subring of E. Its maximal ideal consists of the fractions with numerator in P. Consequently q is a nonunit in V, so V.LiesOverPrime q holds. Its residue field is canonically O/P: the residue of a/b is the residue of a divided by the nonzero residue of b. This identification is surjective since every residue class has a representative in O.\n3. Let I be the ordinary ideal inertia subgroup at P inside G. Every σ ∈ I preserves P and acts trivially on O/P. Rational automorphisms preserve O because they preserve monic equations with integer coefficients. Thus σ sends a/b ∈ V to σ(a)/σ(b) ∈ V, and its inverse does likewise. Under the residue identification in step 2, this action sends the residue of a divided by the residue of b to itself. Therefore σ preserves V and acts trivially on its residue field.\n4. By the definitions of the valuation decomposition subgroup and its residue-action kernel, step 3 says precisely that σ belongs to V.inertiaSubgroupIn ℚ. The assumed triviality of valuation inertia therefore gives σ = 1. Since σ was arbitrary, I is the trivial subgroup and has cardinality one.\n5. Apply the finite Galois inertia-cardinality theorem, formalized by Ideal.card_inertia_eq_ramificationIdxIn, to ℤ ⊆ O and G. Its hypotheses hold: O is finite free, hence finite flat, over ℤ; both rings are domains; the residue field at (q) is the perfect finite field 𝔽_q; and the action is the Galois action. In particular, its invariant ring is ℤ, because an invariant element lies in E^G = ℚ and a rational algebraic integer is an integer. The action on O is faithful because O has fraction field E.\n6. This theorem identifies |I| with the common ramification index above (q). Ideal.ramificationIdxIn_eq_ramificationIdx identifies that common index with the index of the chosen P. Step 4 therefore yields Ideal.ramificationIdx P ℤ = 1, as required.",
+      "proof_key_steps": [
+        "Localize the ring of integers at a prime above q and realize the localization as a valuation subring of E.",
+        "Identify its residue field with the original prime quotient and show q is a nonunit.",
+        "Show every ideal inertia automorphism belongs to the valuation inertia subgroup.",
+        "Apply the hypothesis to make ideal inertia trivial.",
+        "Use the finite Galois inertia-cardinality formula to conclude ramification index one."
+      ]
+    },
+    {
+      "key": "cyclotomic_intersection",
+      "title": "Trivial inertia gives trivial intersection with a prime-cyclotomic field",
+      "statement": "Let Ω = AlgebraicClosure ℚ, let E be a finite-dimensional Galois intermediate field of Ω/ℚ, let q be a natural prime, and let ζ ∈ Ω be a primitive qth root of unity. Assume that every valuation subring V of E in which q is a nonunit has trivial rational inertia subgroup. Then E ∩ ℚ(ζ) = ℚ, equivalently E ⊓ IntermediateField.adjoin ℚ {ζ} = ⊥.",
+      "lean_statement": "∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [IsGalois ℚ E] (q : ℕ) (ζ : AlgebraicClosure ℚ), q.Prime → IsPrimitiveRoot ζ q → (∀ V : ValuationSubring E, V.LiesOverPrime q → ∀ τ : E ≃ₐ[ℚ] E, τ ∈ V.inertiaSubgroupIn ℚ → τ = 1) → E ⊓ IntermediateField.adjoin ℚ ({ζ} : Set (AlgebraicClosure ℚ)) = ⊥",
+      "lean_name": "p09_af497904fe_ce_cyclotomic_intersection",
+      "depends_on": [
+        "inertia_ramification"
+      ],
+      "natural_proof": "1. Fix the stated data and put C = ℚ(ζ). Apply inertia_ramification to E and q. It follows that every prime of the ring of integers of E above q has ramification index one.\n2. The polynomial Φ_q(X) = 1 + X + ⋯ + X^(q−1) vanishes at ζ. Its translate Φ_q(X+1) is monic, has constant coefficient q, and all other nonleading coefficients are divisible by q, by the binomial coefficients of (X+1)^q. It is irreducible by Eisenstein: Gauss's lemma would turn a proper rational factorization into monic integer factors; reduction modulo q would make both nonconstant factors powers of X, forcing both constant coefficients to be divisible by q, whereas their product is q. Thus [C:ℚ] = q−1. Its conjugates are the distinct ζ^i for 1 ≤ i < q, all lying in C, so C/ℚ is finite Galois.\n3. The element ζ is integral, and N_{C/ℚ}(1−ζ) = ∏_{i=1}^{q−1}(1−ζ^i) = Φ_q(1) = q. For each i in that range, u_i = (1−ζ^i)/(1−ζ) = 1 + ζ + ⋯ + ζ^(i−1) is integral. The numerator is a conjugate of the denominator, so N(u_i) = 1. Multiplication by u_i on an integral basis has an integer matrix of determinant one. Its adjugate gives an integer inverse matrix; applying this inverse to 1 shows u_i^(-1) is integral. Hence each u_i is a unit of O_C.\n4. Put A = (1−ζ)O_C. The norm-index formula for principal ideals gives |O_C/A| = q, so A is maximal with residue field 𝔽_q. Multiplying the identities 1−ζ^i = u_i(1−ζ) gives qO_C = A^(q−1). Every prime above q therefore contains A and equals A. Thus C has exactly one prime above q, with residue degree one. These conclusions also hold for q = 2; no odd-prime assumption was used.\n5. Let D = E ∩ C and let R be the contraction of A to O_D. Every prime of O_D above q lifts to a prime of O_C, because O_C is integral over O_D. Step 4 forces every such lifted prime to be A, so R is the unique prime of D above q. The injection O_D/R → O_C/A identifies O_D/R with a subfield of 𝔽_q containing its prime field 𝔽_q. Consequently its residue degree over q is one.\n6. Apply the number-field degree formula ∑ e f = [D:ℚ], formalized by the ramification-inertia degree theorem. There is only the prime R in this sum and its residue degree is one, so e(R/q) = [D:ℚ]. The formula applies to D without a Galois assumption: D is finite over ℚ, and its ring of integers is finite free over ℤ.\n7. Lift R to a prime P of O_E using integrality of O_E over O_D. Ramification indices multiply in this tower, so e(P/q) = e(P/R)e(R/q). The left side is one by step 1. Both factors are positive integers for primes in finite number-field extensions; hence e(R/q) = 1.\n8. Steps 6 and 7 give [D:ℚ] = 1. The rational subfield of D already has dimension one, so it is all of D. Therefore D is the bottom intermediate field of Ω/ℚ, proving the stated intersection equality.",
+      "proof_key_steps": [
+        "Use inertia_ramification to obtain ramification index one throughout E above q.",
+        "Establish the degree and conjugates of the prime-cyclotomic field by Eisenstein.",
+        "Use norms and cyclotomic units to prove qO_C = ((1−ζ)O_C)^(q−1).",
+        "Show every intermediate field of C has one prime above q with residue degree one.",
+        "Apply the degree formula to D = E ∩ C.",
+        "Use prime lifting and multiplicativity through E to force [D:ℚ] = 1."
+      ]
+    },
+    {
+      "key": "compositum_pair",
+      "title": "Extend a pair of automorphisms uniquely to a disjoint Galois compositum",
+      "statement": "Let Ω = AlgebraicClosure ℚ. Let E and C be finite-dimensional Galois intermediate fields of Ω/ℚ with E ∩ C = ℚ. For every g ∈ Gal(E/ℚ) and a ∈ Gal(C/ℚ), there exists a unique rational automorphism h of M = E ⊔ C such that h ∘ ι_E = ι_E ∘ g and h ∘ ι_C = ι_C ∘ a, where ι_E and ι_C are the canonical inclusions into M.",
+      "lean_statement": "∀ (E C : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [IsGalois ℚ E] [FiniteDimensional ℚ C] [IsGalois ℚ C], E ⊓ C = ⊥ → ∀ (g : E ≃ₐ[ℚ] E) (a : C ≃ₐ[ℚ] C), ∃! h : ↥(E ⊔ C) ≃ₐ[ℚ] ↥(E ⊔ C), (∀ x : E, h (IntermediateField.inclusion (show E ≤ E ⊔ C from le_sup_left) x) = IntermediateField.inclusion (show E ≤ E ⊔ C from le_sup_left) (g x)) ∧ (∀ y : C, h (IntermediateField.inclusion (show C ≤ E ⊔ C from le_sup_right) y) = IntermediateField.inclusion (show C ≤ E ⊔ C from le_sup_right) (a y))",
+      "lean_name": "p09_af497904fe_ce_compositum_pair",
+      "depends_on": [],
+      "natural_proof": "1. Fix E, C, g, and a, and put M = EC inside Ω. The products of elements from finite rational bases of E and C span a finite-dimensional subalgebra containing both fields. A finite-dimensional domain over a field is a field, so this subalgebra is M and M is finite-dimensional. Both E and C are splitting fields of separable polynomials over ℚ; the union of these sets of roots generates M. Thus M/ℚ is normal and separable, hence Galois. Also M/C is finite Galois.\n2. Restriction defines a homomorphism r : Gal(M/C) → Gal(E/ℚ). It is well-defined because E/ℚ is normal. It is injective: an element in its kernel fixes E and C, and therefore fixes the field they generate, namely M.\n3. Write J for the image of r. An element x of E is fixed by J exactly when it is fixed by every element of Gal(M/C). By finite Galois correspondence for M/C, this is equivalent to x belonging to C. Thus the fixed field E^J is E ∩ C = ℚ. Finite Galois correspondence for E/ℚ now gives J = Gal(E/ℚ). Hence r is bijective, and [M:C] = |Gal(M/C)| = |Gal(E/ℚ)| = [E:ℚ].\n4. Simultaneous restriction gives R : Gal(M/ℚ) → Gal(E/ℚ) × Gal(C/ℚ). Both restrictions are well-defined by normality. If two automorphisms have the same restrictions, their equalizer is an intermediate field containing E and C, so it is M; therefore R is injective. The degree formula and step 3 give |Gal(M/ℚ)| = [M:ℚ] = [M:C][C:ℚ] = [E:ℚ][C:ℚ], equal to the cardinality of the product target. Consequently R is bijective.\n5. Let h be the unique inverse image under R of (g,a). The two coordinates of R(h) = (g,a), expressed through the canonical inclusions of E and C into M, are exactly the two families of equations in the statement. Injectivity of R proves uniqueness.",
+      "proof_key_steps": [
+        "Show the compositum is finite Galois over ℚ and Galois over C.",
+        "Restrict Gal(M/C) injectively to Gal(E/ℚ).",
+        "Identify the fixed field of the restriction image with E ∩ C and conclude surjectivity.",
+        "Use the resulting degree equality to make simultaneous restriction bijective.",
+        "Take the unique inverse image of the prescribed pair."
+      ]
+    },
+    {
+      "key": "fixed_field_generator",
+      "title": "A faithful cyclic orbit supplies a generating fixed-field extension",
+      "statement": "Let Ω = AlgebraicClosure ℚ, let M be a finite-dimensional Galois intermediate field of Ω/ℚ, let u be a rational automorphism of M, and let ζ ∈ M. Assume that for every natural number n, if u^n fixes ζ then u^n is the identity automorphism. Then there exist an intermediate field F of M/ℚ and an F-automorphism h of M such that F(ζ) = M and h(x) = u(x) for every x ∈ M.",
+      "lean_statement": "∀ (M : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ M] [IsGalois ℚ M] (u : M ≃ₐ[ℚ] M) (ζ : M), (∀ n : ℕ, (u ^ n) ζ = ζ → u ^ n = 1) → ∃ (F : IntermediateField ℚ M) (h : M ≃ₐ[F] M), IntermediateField.adjoin F ({ζ} : Set M) = ⊤ ∧ ∀ x : M, h x = u x",
+      "lean_name": "p09_af497904fe_ce_fixed_field_generator",
+      "depends_on": [],
+      "natural_proof": "1. Fix M, u, ζ, and the stated hypothesis. The group Gal(M/ℚ) is finite. Let H be the cyclic subgroup generated by u and let F = M^H. If m is the positive order of u, every element of H is u^n for some natural n with 0 ≤ n < m, since any integer exponent can be reduced modulo m.\n2. The fixed field F is an intermediate field of M/ℚ. Finite Galois correspondence gives Gal(M/F) = H under the identification that forgets F-linearity. In particular M/F is finite Galois. Because u belongs to H, it fixes F pointwise; its existing field automorphism therefore defines an F-algebra automorphism h of M. By construction h(x) = u(x) for every x ∈ M.\n3. Let K = F(ζ), the intermediate field generated over F by ζ. Every K-automorphism σ of M fixes F, so its underlying rational automorphism belongs to H. By step 1, it equals u^n for some natural n. It also fixes ζ because ζ belongs to K. The hypothesis therefore gives u^n = 1, and hence σ is the identity. Thus Gal(M/K) is trivial.\n4. Since M/F is finite Galois and K is intermediate, M/K is finite Galois. Its degree equals its automorphism-group cardinality, which is one by step 3. Hence K = M, or IntermediateField.adjoin F {ζ} = ⊤.\n5. The field F and automorphism h constructed in step 2 satisfy this adjoin equality by step 4 and satisfy the required pointwise equality by construction. They are the desired witnesses.",
+      "proof_key_steps": [
+        "Form the finite cyclic subgroup generated by u and its fixed field F.",
+        "Regard u as an F-automorphism h with the same underlying function.",
+        "Show every automorphism fixing F and ζ is a nonnegative power of u and hence the identity.",
+        "Use finite Galois correspondence to conclude F(ζ) = M."
+      ]
+    }
+  ]
+}

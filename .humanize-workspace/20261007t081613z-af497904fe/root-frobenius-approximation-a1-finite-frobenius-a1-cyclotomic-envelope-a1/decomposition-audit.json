@@ -1,0 +1,70 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "LiesOverPrime|inertiaSubgroupIn|decompositionSubgroupIn|inertiaSubgroup",
+        "card_inertia_eq_ramificationIdxIn|ramificationIdxIn_eq_ramificationIdx|ramificationIdx_tower|sum.*ramification|sum.*inertia",
+        "isDiscreteValuationRing_of_dedekind_domain|exists_ideal_over_prime_of_isIntegral_of_isDomain",
+        "fixedField.*fixing|fixing.*fixedField|restrictNormal|card_aut|finrank.*fixedField",
+        "Gal.*×.*Gal|prod.*restrictNormal|restrictNormal.*prod|exists.*algEquiv.*(sup|compositum)",
+        "autEquivPow|forall_exists_prime_gt_and_modEq",
+        "class IsGaloisGroup|structure IsGaloisGroup|def IsGaloisGroup",
+        "git show 8679bbe437345709189f0cb651bea4e87b62c5c4:Submission.lean",
+        "git rev-parse HEAD",
+        "git status --porcelain --untracked-files=no"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/RamificationInertia/Galois.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RamificationInertia/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RamificationInertia/Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/DedekindDomain/Dvr.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/GoingUp.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Cyclotomic/Ideal.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/Galois/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/PolynomialGaloisGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/Cyclotomic/Gal.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/LSeries/PrimesInAP.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/ce-split-diagnostic-bk8itcuj/report.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/ce-independent-review-mqn348o_/report.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/ce-independent-review-mqn348o_/Types.lean.log"
+      ],
+      "conclusion": "Verified clean pinned project 20574e45daf714e745af8e649c7b61b21eed5644, mathlib db584cd6d46c92f209a44c0f1c829460d327499d, and package revisions. The inspected definitions and theorems support the valuation bridge, ramification formulas, cyclotomic argument, and Galois correspondence. No exact unique paired-restriction contract was found; Polynomial.Gal.restrictProd supplies a related injective map. Fresh Lean diagnostics elaborated all four literal propositions without their implementations, confirmed canonical inclusions, automorphism composition/powers and F-algebra maps, and found only propext, Classical.choice and Quot.sound in the checked transitive axioms. All names are bare, distinct, absent from the imported environment and unreserved in the active DAG. Both dependency graphs are acyclic. Verified the policy digest, reversible omission of exactly lines 10–11, original/build hashes, and a fresh successful eight-target absence probe; protected files remained unchanged. The four-way split appropriately isolates genuine obligations and leaves valid parent assembly using its existing finite_inertia_exclusion prerequisite. This approves the decomposition and supplied prose; implementation acceptance still requires the configured comparator."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "inertia_ramification",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly includes the prose hypotheses and conclusion. The proof constructs the localization valuation, identifies its residue field, embeds ideal inertia into valuation inertia, and correctly applies the inertia-cardinality formula. Finiteness, flatness, perfect residue field, invariant ring and faithful action are justified. It is complete and independent of the parent and other children."
+    },
+    {
+      "key": "cyclotomic_intersection",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The proposition exactly matches the stated intersection claim and hypotheses. Eisenstein, the norm/unit calculation, unique prime and residue degree, and the degree formula establish total ramification in the intersection. Prime lifting and tower multiplicativity then force degree one. The argument also covers q = 2. Its sole child dependency correctly points to inertia_ramification, with no circular reliance."
+    },
+    {
+      "key": "compositum_pair",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact proposition expresses existence and uniqueness with the canonical inclusions; their inferred types were independently checked. The proof establishes finite Galoisness, identifies the fixed field of the restriction image, proves restriction surjectivity, and uses equal finite cardinalities to obtain unique simultaneous extension. All hypotheses are present and the argument is non-circular."
+    },
+    {
+      "key": "fixed_field_generator",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The proposition matches the natural-power stabilizer hypothesis and both required conclusions. Finite cyclicity supplies nonnegative powers, the fixed field makes u F-linear, and the hypothesis makes every automorphism fixing F and ζ trivial. Finite Galois correspondence then gives F(ζ) = M. The canonical algebra structure and automorphism powers were checked; the proof is complete and independent."
+    }
+  ],
+  "required_changes": []
+}

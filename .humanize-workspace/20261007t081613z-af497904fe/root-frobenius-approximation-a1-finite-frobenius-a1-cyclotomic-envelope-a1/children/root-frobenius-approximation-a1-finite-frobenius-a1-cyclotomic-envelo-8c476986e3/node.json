@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.compositum_pair-a1",
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1",
+  "depth": 4,
+  "title": "Extend a pair of automorphisms uniquely to a disjoint Galois compositum",
+  "statement": "Let Ω = AlgebraicClosure ℚ. Let E and C be finite-dimensional Galois intermediate fields of Ω/ℚ with E ∩ C = ℚ. For every g ∈ Gal(E/ℚ) and a ∈ Gal(C/ℚ), there exists a unique rational automorphism h of M = E ⊔ C such that h ∘ ι_E = ι_E ∘ g and h ∘ ι_C = ι_C ∘ a, where ι_E and ι_C are the canonical inclusions into M.",
+  "lean_statement": "∀ (E C : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [IsGalois ℚ E] [FiniteDimensional ℚ C] [IsGalois ℚ C], E ⊓ C = ⊥ → ∀ (g : E ≃ₐ[ℚ] E) (a : C ≃ₐ[ℚ] C), ∃! h : ↥(E ⊔ C) ≃ₐ[ℚ] ↥(E ⊔ C), (∀ x : E, h (IntermediateField.inclusion (show E ≤ E ⊔ C from le_sup_left) x) = IntermediateField.inclusion (show E ≤ E ⊔ C from le_sup_left) (g x)) ∧ (∀ y : C, h (IntermediateField.inclusion (show C ≤ E ⊔ C from le_sup_right) y) = IntermediateField.inclusion (show C ≤ E ⊔ C from le_sup_right) (a y))",
+  "lean_name": "p09_af497904fe_ce_compositum_pair",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-8c476986e3-a1"
+}

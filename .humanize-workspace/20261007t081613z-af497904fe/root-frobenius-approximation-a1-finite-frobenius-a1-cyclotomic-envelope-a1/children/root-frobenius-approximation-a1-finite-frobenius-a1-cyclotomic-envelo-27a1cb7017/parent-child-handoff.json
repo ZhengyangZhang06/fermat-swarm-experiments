@@ -1,0 +1,69 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "inertiaSubgroupIn|LiesOverPrime",
+        "card.*inertia|inertia.*card|ramificationIdx.*eq|equiv.*inertia",
+        "ramificationIdx_tower",
+        "isDiscreteValuationRing_of_dedekind_domain",
+        "exists_ideal_over_prime_of_isIntegral_of_isDomain",
+        "restrict.*(Equiv|equiv)|inf_eq_bot|linearDisjoint|sup.*finrank|fixedField.*fixing|fixing.*fixedField",
+        "Gal.*×.*Gal|≃\\*.*×|prod.*restrictNormal|restrictNormal.*prod|exists.*algEquiv.*(sup|compositum)|exists.*prime.*(one|modEq)",
+        "rg -n 'theorem|lemma' Mathlib/NumberTheory/LSeries/PrimesInAP.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Cyclotomic/Ideal.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/Cyclotomic/Gal.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/LSeries/PrimesInAP.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/RamificationInertia/Galois.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RamificationInertia/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RamificationInertia/Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/DedekindDomain/Dvr.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/GoingUp.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/Pointwise.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/Galois/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/IntermediateField/Adjoin/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/Normal/Basic.lean"
+      ],
+      "conclusion": "Confirmed clean snapshots at project revision 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d. LiesOverPrime means that the rational prime is a nonunit; inertiaSubgroupIn is the image of the residue-action kernel in the rational automorphism group. Found Ideal.card_inertia_eq_ramificationIdxIn, Ideal.ramificationIdxIn_eq_ramificationIdx, the ramification tower and degree formulas, prime lifting, prime-cyclotomic total ramification, restriction-map injectivity and surjectivity, and finite Galois correspondence. Nat.forall_exists_prime_gt_and_modEq and IsCyclotomicExtension.autEquivPow cover the prime-choice and cyclotomic-group infrastructure. The searched FieldTheory modules did not provide the exact unique paired-restriction interface proposed below. Supporting declarations audited by the diagnostic depend only on propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1",
+  "child_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.cyclotomic_intersection-a1",
+  "subproblem": {
+    "key": "cyclotomic_intersection",
+    "title": "Trivial inertia gives trivial intersection with a prime-cyclotomic field",
+    "statement": "Let Ω = AlgebraicClosure ℚ, let E be a finite-dimensional Galois intermediate field of Ω/ℚ, let q be a natural prime, and let ζ ∈ Ω be a primitive qth root of unity. Assume that every valuation subring V of E in which q is a nonunit has trivial rational inertia subgroup. Then E ∩ ℚ(ζ) = ℚ, equivalently E ⊓ IntermediateField.adjoin ℚ {ζ} = ⊥.",
+    "lean_statement": "∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [IsGalois ℚ E] (q : ℕ) (ζ : AlgebraicClosure ℚ), q.Prime → IsPrimitiveRoot ζ q → (∀ V : ValuationSubring E, V.LiesOverPrime q → ∀ τ : E ≃ₐ[ℚ] E, τ ∈ V.inertiaSubgroupIn ℚ → τ = 1) → E ⊓ IntermediateField.adjoin ℚ ({ζ} : Set (AlgebraicClosure ℚ)) = ⊥",
+    "lean_name": "p09_af497904fe_ce_cyclotomic_intersection",
+    "depends_on": [
+      "inertia_ramification"
+    ],
+    "natural_proof": "1. Fix the stated data and put C = ℚ(ζ). Apply inertia_ramification to E and q. It follows that every prime of the ring of integers of E above q has ramification index one.\n2. The polynomial Φ_q(X) = 1 + X + ⋯ + X^(q−1) vanishes at ζ. Its translate Φ_q(X+1) is monic, has constant coefficient q, and all other nonleading coefficients are divisible by q, by the binomial coefficients of (X+1)^q. It is irreducible by Eisenstein: Gauss's lemma would turn a proper rational factorization into monic integer factors; reduction modulo q would make both nonconstant factors powers of X, forcing both constant coefficients to be divisible by q, whereas their product is q. Thus [C:ℚ] = q−1. Its conjugates are the distinct ζ^i for 1 ≤ i < q, all lying in C, so C/ℚ is finite Galois.\n3. The element ζ is integral, and N_{C/ℚ}(1−ζ) = ∏_{i=1}^{q−1}(1−ζ^i) = Φ_q(1) = q. For each i in that range, u_i = (1−ζ^i)/(1−ζ) = 1 + ζ + ⋯ + ζ^(i−1) is integral. The numerator is a conjugate of the denominator, so N(u_i) = 1. Multiplication by u_i on an integral basis has an integer matrix of determinant one. Its adjugate gives an integer inverse matrix; applying this inverse to 1 shows u_i^(-1) is integral. Hence each u_i is a unit of O_C.\n4. Put A = (1−ζ)O_C. The norm-index formula for principal ideals gives |O_C/A| = q, so A is maximal with residue field 𝔽_q. Multiplying the identities 1−ζ^i = u_i(1−ζ) gives qO_C = A^(q−1). Every prime above q therefore contains A and equals A. Thus C has exactly one prime above q, with residue degree one. These conclusions also hold for q = 2; no odd-prime assumption was used.\n5. Let D = E ∩ C and let R be the contraction of A to O_D. Every prime of O_D above q lifts to a prime of O_C, because O_C is integral over O_D. Step 4 forces every such lifted prime to be A, so R is the unique prime of D above q. The injection O_D/R → O_C/A identifies O_D/R with a subfield of 𝔽_q containing its prime field 𝔽_q. Consequently its residue degree over q is one.\n6. Apply the number-field degree formula ∑ e f = [D:ℚ], formalized by the ramification-inertia degree theorem. There is only the prime R in this sum and its residue degree is one, so e(R/q) = [D:ℚ]. The formula applies to D without a Galois assumption: D is finite over ℚ, and its ring of integers is finite free over ℤ.\n7. Lift R to a prime P of O_E using integrality of O_E over O_D. Ramification indices multiply in this tower, so e(P/q) = e(P/R)e(R/q). The left side is one by step 1. Both factors are positive integers for primes in finite number-field extensions; hence e(R/q) = 1.\n8. Steps 6 and 7 give [D:ℚ] = 1. The rational subfield of D already has dimension one, so it is all of D. Therefore D is the bottom intermediate field of Ω/ℚ, proving the stated intersection equality.",
+    "proof_key_steps": [
+      "Use inertia_ramification to obtain ramification index one throughout E above q.",
+      "Establish the degree and conjugates of the prime-cyclotomic field by Eisenstein.",
+      "Use norms and cyclotomic units to prove qO_C = ((1−ζ)O_C)^(q−1).",
+      "Show every intermediate field of C has one prime above q with residue degree one.",
+      "Apply the degree formula to D = E ∩ C.",
+      "Use prime lifting and multiplicativity through E to force [D:ℚ] = 1."
+    ]
+  },
+  "audit": {
+    "key": "cyclotomic_intersection",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "The proposition exactly matches the stated intersection claim and hypotheses. Eisenstein, the norm/unit calculation, unique prime and residue degree, and the degree formula establish total ramification in the intersection. Prime lifting and tower multiplicativity then force degree one. The argument also covers q = 2. Its sole child dependency correctly points to inertia_ramification, with no circular reliance."
+  },
+  "resolved_dependencies": [
+    "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.inertia_ramification-a1"
+  ],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-27a1cb7017/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-27a1cb7017/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-27a1cb7017/parent-supplied-natural-proof.json"
+}

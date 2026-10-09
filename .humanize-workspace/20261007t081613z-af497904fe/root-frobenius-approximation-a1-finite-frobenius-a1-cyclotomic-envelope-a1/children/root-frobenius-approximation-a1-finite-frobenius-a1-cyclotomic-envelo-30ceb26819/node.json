@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.fixed_field_generator-a1",
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1",
+  "depth": 4,
+  "title": "A faithful cyclic orbit supplies a generating fixed-field extension",
+  "statement": "Let Ω = AlgebraicClosure ℚ, let M be a finite-dimensional Galois intermediate field of Ω/ℚ, let u be a rational automorphism of M, and let ζ ∈ M. Assume that for every natural number n, if u^n fixes ζ then u^n is the identity automorphism. Then there exist an intermediate field F of M/ℚ and an F-automorphism h of M such that F(ζ) = M and h(x) = u(x) for every x ∈ M.",
+  "lean_statement": "∀ (M : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ M] [IsGalois ℚ M] (u : M ≃ₐ[ℚ] M) (ζ : M), (∀ n : ℕ, (u ^ n) ζ = ζ → u ^ n = 1) → ∃ (F : IntermediateField ℚ M) (h : M ≃ₐ[F] M), IntermediateField.adjoin F ({ζ} : Set M) = ⊤ ∧ ∀ x : M, h x = u x",
+  "lean_name": "p09_af497904fe_ce_fixed_field_generator",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-30ceb26819-a1"
+}

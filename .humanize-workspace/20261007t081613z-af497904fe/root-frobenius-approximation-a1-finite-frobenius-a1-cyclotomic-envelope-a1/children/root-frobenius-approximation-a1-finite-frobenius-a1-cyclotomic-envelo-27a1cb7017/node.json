@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.cyclotomic_intersection-a1",
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1",
+  "depth": 4,
+  "title": "Trivial inertia gives trivial intersection with a prime-cyclotomic field",
+  "statement": "Let Ω = AlgebraicClosure ℚ, let E be a finite-dimensional Galois intermediate field of Ω/ℚ, let q be a natural prime, and let ζ ∈ Ω be a primitive qth root of unity. Assume that every valuation subring V of E in which q is a nonunit has trivial rational inertia subgroup. Then E ∩ ℚ(ζ) = ℚ, equivalently E ⊓ IntermediateField.adjoin ℚ {ζ} = ⊥.",
+  "lean_statement": "∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [IsGalois ℚ E] (q : ℕ) (ζ : AlgebraicClosure ℚ), q.Prime → IsPrimitiveRoot ζ q → (∀ V : ValuationSubring E, V.LiesOverPrime q → ∀ τ : E ≃ₐ[ℚ] E, τ ∈ V.inertiaSubgroupIn ℚ → τ = 1) → E ⊓ IntermediateField.adjoin ℚ ({ζ} : Set (AlgebraicClosure ℚ)) = ⊥",
+  "lean_name": "p09_af497904fe_ce_cyclotomic_intersection",
+  "depends_on": [
+    "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.inertia_ramification-a1"
+  ],
+  "dependency_workspaces": [
+    {
+      "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.inertia_ramification-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    }
+  ],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-27a1cb7017-a1"
+}
