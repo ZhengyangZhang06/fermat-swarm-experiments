@@ -1850,7 +1850,7 @@ theorem Submission.p10_17ae7b7d_cc_translation_orbits :
               count (p ^ N.factorization p) *
                 count (s.prod (fun q => q ^ N.factorization q)) :=
             Submission.p10_17ae7b7d_to_coprime_count_mul _ _ hCoprime
-          _ = _ := congrArg₂ (fun a b : ℕ => a * b)
+          _ = _ := congrArg₂ Nat.mul
             (Submission.p10_17ae7b7d_to_prime_power_count p (N.factorization p)
               hPrime hExponent) (ih hsN)
   change count N = ModularCurve.cuspCount N
