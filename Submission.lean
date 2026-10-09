@@ -26250,6 +26250,166 @@ theorem Submission.p03_tkc_torsion_card_recurrence_68cf3476_d5 :
     · rw [map_div₀, originValuation.map_neg, map_one, horigin_value_s, one_div,
         zpow_neg]
       rfl
+  -- Identify the affine coordinate functions in the identity-chart fraction field.
+  let originConstants : k →+* originLocalRing := originMap.comp
+    ((AdjoinRoot.mk originPolynomial).comp (Polynomial.C.comp Polynomial.C))
+  let originFieldConstants : k →+* originField := originInclusion.comp originConstants
+  let originX : originField := originInclusion t / originInclusion s
+  let originY : originField := -1 / originInclusion s
+  have h_origin_equation :
+      originY ^ 2 + originFieldConstants W.a₁ * originX * originY +
+          originFieldConstants W.a₃ * originY =
+        originX ^ 3 + originFieldConstants W.a₂ * originX ^ 2 +
+          originFieldConstants W.a₄ * originX + originFieldConstants W.a₆ := by
+    have hrel : s - t ^ 3 - originConstants W.a₁ * t * s -
+        originConstants W.a₂ * t ^ 2 * s - originConstants W.a₃ * s ^ 2 -
+        originConstants W.a₄ * t * s ^ 2 - originConstants W.a₆ * s ^ 3 = 0 := by
+      have he : originMap (AdjoinRoot.mk originPolynomial originPolynomial) = 0 := by simp
+      dsimp only [originPolynomial] at he
+      simp only [map_sub, map_mul, map_pow] at he
+      exact he
+    have he := congrArg originInclusion hrel
+    simp only [map_sub, map_mul, map_pow, _root_.map_zero] at he
+    have hs : originInclusion s ≠ 0 :=
+      (map_ne_zero_iff _ (IsFractionRing.injective originLocalRing originField)).mpr hs_nonzero
+    dsimp only [originX, originY, originFieldConstants, RingHom.comp_apply]
+    let : Field originField := inferInstance
+    let : CommGroupWithZero originField := inferInstance
+    field_simp [hs]
+    linear_combination he
+  have h_originX_value : 1 < originValuation originX := by
+    rw [horigin_poles.1]
+    rw [zpow_neg, zpow_ofNat]
+    exact (one_lt_inv₀ (pow_pos (pos_iff_ne_zero.mpr horigin_value_t.1) 2)).mpr
+      (pow_lt_one₀ zero_le horigin_value_t.2 (by decide))
+  have h_origin_polynomial_injective :
+      Function.Injective (Polynomial.eval₂RingHom originFieldConstants originX) := by
+    apply (injective_iff_map_eq_zero _).mpr
+    intro p hp
+    by_contra hp₀
+    have hx : (p.map originFieldConstants).IsRoot originX := by
+      simpa only [Polynomial.IsRoot, Polynomial.eval_map, Polynomial.coe_eval₂RingHom] using hp
+    obtain ⟨c, hc⟩ := (IsAlgClosed.splits p).mem_range_of_isRoot hp₀ hx
+    have hv : originValuation (originFieldConstants c) ≤ 1 :=
+      horigin_integers.map_le_one (originConstants c)
+    rw [hc] at hv
+    exact (not_lt_of_ge hv) h_originX_value
+  let affineAtOrigin : W.toAffine.CoordinateRing →+* originField :=
+    AdjoinRoot.lift (Polynomial.eval₂RingHom originFieldConstants originX) originY (by
+      simpa only [WeierstrassCurve.Affine.polynomial, Polynomial.eval₂_sub,
+        Polynomial.eval₂_add, Polynomial.eval₂_mul, Polynomial.eval₂_pow,
+        Polynomial.eval₂_C, Polynomial.eval₂_X, Polynomial.coe_eval₂RingHom,
+        sub_eq_zero, add_mul, mul_assoc, add_assoc] using h_origin_equation)
+  have h_affineAtOrigin_mk (p : Polynomial (Polynomial k)) :
+      affineAtOrigin (CoordinateRing.mk W.toAffine p) =
+        p.eval₂ (Polynomial.eval₂RingHom originFieldConstants originX) originY :=
+    AdjoinRoot.lift_mk _ _
+  have h_affineAtOrigin_injective : Function.Injective affineAtOrigin := by
+    apply (injective_iff_map_eq_zero _).mpr
+    intro z hz
+    obtain ⟨p, q, rfl⟩ := CoordinateRing.exists_smul_basis_eq z
+    let z : W.toAffine.CoordinateRing :=
+      p • 1 + q • CoordinateRing.mk W.toAffine Polynomial.X
+    have hz' :
+        (Polynomial.eval₂RingHom originFieldConstants originX) p +
+          (Polynomial.eval₂RingHom originFieldConstants originX) q * originY = 0 := by
+      simpa only [CoordinateRing.smul, map_add, map_mul, map_one,
+        h_affineAtOrigin_mk, Polynomial.eval₂_C, Polynomial.eval₂_X, mul_one] using hz
+    have hn : (Polynomial.eval₂RingHom originFieldConstants originX)
+        (Algebra.norm (Polynomial k) z) = 0 := by
+      rw [CoordinateRing.norm_smul_basis]
+      simp only [map_sub, map_add, map_mul, map_pow, Polynomial.coe_eval₂RingHom,
+        Polynomial.eval₂_C, Polynomial.eval₂_X] at hz' ⊢
+      linear_combination
+        (p.eval₂ originFieldConstants originX -
+          q.eval₂ originFieldConstants originX *
+            (originY + originFieldConstants W.a₁ * originX + originFieldConstants W.a₃)) * hz' +
+          (q.eval₂ originFieldConstants originX) ^ 2 * h_origin_equation
+    have hn₀ : Algebra.norm (Polynomial k) z = 0 :=
+      h_origin_polynomial_injective (by simpa only [_root_.map_zero] using hn)
+    let : Module.Finite (Polynomial k) W.toAffine.CoordinateRing :=
+      Module.Finite.of_basis (CoordinateRing.basis W.toAffine)
+    exact Algebra.norm_eq_zero_iff.mp hn₀
+  let functionFieldAtOrigin : W.toAffine.FunctionField →+* originField :=
+    IsFractionRing.lift h_affineAtOrigin_injective
+  have h_functionFieldAtOrigin (z : W.toAffine.CoordinateRing) :
+      functionFieldAtOrigin (algebraMap _ W.toAffine.FunctionField z) = affineAtOrigin z :=
+    IsFractionRing.lift_algebraMap h_affineAtOrigin_injective z
+  let infinityValuation := originValuation.comap functionFieldAtOrigin
+  have h_infinity_coordinate_poles :
+      infinityValuation (algebraMap _ W.toAffine.FunctionField
+          (CoordinateRing.mk W.toAffine (Polynomial.C Polynomial.X))) =
+        originValuation (originInclusion t) ^ (-2 : ℤ) ∧
+      infinityValuation (algebraMap _ W.toAffine.FunctionField
+          (CoordinateRing.mk W.toAffine Polynomial.X)) =
+        originValuation (originInclusion t) ^ (-3 : ℤ) := by
+    change originValuation (functionFieldAtOrigin _) = _ ∧
+      originValuation (functionFieldAtOrigin _) = _
+    simp only [h_functionFieldAtOrigin, h_affineAtOrigin_mk,
+      Polynomial.eval₂_C, Polynomial.eval₂_X, Polynomial.coe_eval₂RingHom]
+    exact horigin_poles
+  have h_functionFieldAtOrigin_surjective : Function.Surjective functionFieldAtOrigin := by
+    let : Field originField := inferInstance
+    let : CommGroupWithZero originField := inferInstance
+    let F := functionFieldAtOrigin.fieldRange
+    have hC (c : k) : originFieldConstants c ∈ F := by
+      refine ⟨algebraMap _ W.toAffine.FunctionField
+        (CoordinateRing.mk W.toAffine (Polynomial.C (Polynomial.C c))), ?_⟩
+      simp only [h_functionFieldAtOrigin, h_affineAtOrigin_mk,
+        Polynomial.eval₂_C, Polynomial.coe_eval₂RingHom]
+    have hx : originX ∈ F := by
+      refine ⟨algebraMap _ W.toAffine.FunctionField
+        (CoordinateRing.mk W.toAffine (Polynomial.C Polynomial.X)), ?_⟩
+      simp only [h_functionFieldAtOrigin, h_affineAtOrigin_mk,
+        Polynomial.eval₂_C, Polynomial.coe_eval₂RingHom, Polynomial.eval₂_X]
+    have hy : originY ∈ F := by
+      refine ⟨algebraMap _ W.toAffine.FunctionField
+        (CoordinateRing.mk W.toAffine Polynomial.X), ?_⟩
+      simp only [h_functionFieldAtOrigin, h_affineAtOrigin_mk, Polynomial.eval₂_X]
+    have hs : originInclusion s ≠ 0 :=
+      (map_ne_zero_iff _ (IsFractionRing.injective originLocalRing originField)).mpr hs_nonzero
+    have htmem : originInclusion t ∈ F := by
+      have he : -originX / originY = originInclusion t := by
+        dsimp only [originX, originY]
+        rw [← neg_div, div_div_div_cancel_right₀ hs, neg_div_neg_eq, div_one]
+      rw [← he]
+      exact F.div_mem (F.neg_mem hx) hy
+    have hsmem : originInclusion s ∈ F := by
+      have he : -1 / originY = originInclusion s := by
+        dsimp only [originY]
+        field_simp
+      rw [← he]
+      exact F.div_mem (F.neg_mem F.one_mem) hy
+    have hring (z : originRing) : originInclusion (originMap z) ∈ F := by
+      obtain ⟨p, rfl⟩ := AdjoinRoot.mk_surjective z
+      induction p using Polynomial.induction_on' with
+      | add p q hp hq => simpa only [map_add] using F.add_mem hp hq
+      | monomial n p =>
+        rw [← Polynomial.C_mul_X_pow_eq_monomial, map_mul, map_mul, map_mul,
+          map_pow, map_pow, map_pow]
+        apply F.mul_mem ?_ (F.pow_mem hsmem n)
+        induction p using Polynomial.induction_on' with
+        | add p q hp hq => simpa only [map_add] using F.add_mem hp hq
+        | monomial n c =>
+          rw [← Polynomial.C_mul_X_pow_eq_monomial, map_mul, map_mul, map_mul,
+            map_mul, map_pow, map_pow, map_pow, map_pow]
+          exact F.mul_mem (hC c) (F.pow_mem htmem n)
+    have hlocal (z : originLocalRing) : originInclusion z ∈ F := by
+      obtain ⟨⟨a, b⟩, h⟩ := IsLocalization.surj originIdeal.primeCompl z
+      have hne : originInclusion (originMap b.val) ≠ 0 :=
+        ((IsLocalization.map_units originLocalRing b).map originInclusion).ne_zero
+      have he : originInclusion z = originInclusion (originMap a) /
+          originInclusion (originMap b.val) := by
+        apply (eq_div_iff hne).mpr
+        exact (map_mul originInclusion _ _).symm.trans (congrArg originInclusion h)
+      rw [he]
+      exact F.div_mem (hring a) (hring b.val)
+    intro z
+    obtain ⟨a, b, _hb, rfl⟩ := IsFractionRing.div_surjective originLocalRing z
+    exact F.div_mem (hlocal a) (hlocal b)
+  let originFieldEquiv : W.toAffine.FunctionField ≃+* originField :=
+    RingEquiv.ofBijective functionFieldAtOrigin
+      ⟨functionFieldAtOrigin.injective, h_functionFieldAtOrigin_surjective⟩
   apply finish
   -- Remaining: prove the orders of the nonzero rational function H equal hD
   -- by accepted proof steps 2--7, and use the
