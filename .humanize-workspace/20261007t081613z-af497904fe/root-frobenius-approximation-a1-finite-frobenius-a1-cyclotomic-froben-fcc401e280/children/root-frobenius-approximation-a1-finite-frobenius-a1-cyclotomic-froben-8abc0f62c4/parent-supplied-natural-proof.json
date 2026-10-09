@@ -1,0 +1,37 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "IsFrobeniusAt|LiesOverPrime|rayClass|RayClass|Chebotarev|chebotarev|dedekindZeta|DedekindZeta",
+        "ray.class|RayClass|rayClass|partial.zeta|partialZeta|[Cc]hebotarev",
+        "sum.*rpow|differentiable.*LSeries|LSeries.*differentiable|abscissaOfAbsConv|sumCoeff|sum.*cpow",
+        "exp_log|exp_eq_one_iff|continuousAt_log|hasDerivAt_log|sum.*eq_zero|norm.*eq_one|geom_sum"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/LSeries/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/LSeries/SumCoeff.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/DedekindZeta.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/SpecialFunctions/Complex/Log.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RootsOfUnity/PrimitiveRoots.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions"
+      ],
+      "conclusion": "The manifest pins project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The inspected Frobenius definition uses the actual decomposition-subgroup action on the residue field. SumCoeff supplies absolute summability from nonnegative coefficient sums and Abel's integral representation; DedekindZeta supplies positive residue limits. Complex.exp_log and Complex.exp_eq_one_iff supply logarithm normalization and its discrete ambiguity, and PrimitiveRoots supplies geometric-sum facts. No ray-class, partial-zeta, or Chebotarev implementation matched in the searched NumberTheory and Definitions roots. The proposed interfaces and inspected library declarations were checked with the pinned toolchain; their transitive axiom reports contain only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "proof": "1. Fix the stated data and choose the constant C. Put A_n = Σ_{k=1}^n a(k) and K = |κ| + C. Nonnegativity gives A_n ≥ 0. Since n^α ≤ n for n ≥ 1, the counting hypothesis gives A_n ≤ K n.\n2. For real t ≥ 1 define A(t) = A_{⌊t⌋} and R(t) = A(t) − κt. The function A is a locally bounded measurable step function. Since ⌊t⌋ ≥ 1, 0 ≤ t−⌊t⌋ < 1, and α ≥ 0, we obtain |R(t)| ≤ C⌊t⌋^α + |κ| ≤ (C+|κ|)t^α. Also 0 ≤ A(t) ≤ Kt.\n3. Fix s ∈ ℂ with σ = Re(s) > 1. For each j ≥ 0, nonnegativity and the bound for A_n give Σ_{2^j ≤ n < 2^{j+1}} |a(n)n^(−s)| ≤ 2^(−jσ) A_{2^{j+1}} ≤ 2K·2^{j(1−σ)}. The resulting geometric series converges. Thus the Dirichlet series is absolutely convergent and equals the specified LSeries; its n = 0 term is zero by definition.\n4. Finite summation by parts gives Σ_{n=1}^N a(n)n^(−s) = A_N N^(−s) + s∫₁ᴺ A(t)t^(−s−1)dt. The boundary term tends to zero because its norm is at most K N^(1−σ). The integral converges absolutely because |A(t)t^(−s−1)| ≤ Kt^(−σ). Passing to the limit therefore gives LSeries(a)(s) = s∫₁∞ A(t)t^(−s−1)dt.\n5. For Re(s) > α, define I(s) = ∫₁∞ R(t)t^(−s−1)dt, viewing R(t) as complex. The integral is absolutely convergent by the bound in step 2. To verify complex differentiability, fix s₀ in this half-plane and choose η > 0 and a disk about s₀ on which Re(s) ≥ α+η. The integrand and its jth derivative in s have norms bounded by (C+|κ|)t^(−1−η)(log t)^j. These functions are integrable for j = 0 and j = 1: substituting u = log t reduces their integrals to integrals of e^(−ηu) and u e^(−ηu) on [0,∞). On finite integration intervals differentiation is justified by the same bounds, and dominated convergence passes both integrals and derivatives to the infinite interval. Hence I is holomorphic throughout Re(s) > α.\n6. Define H(s) = κ+sI(s) on Re(s) > α, and define H(s) = 0 elsewhere. The half-plane is open, so step 5 proves the required DifferentiableOn assertion. For Re(s) > 1, substitute A(t) = κt+R(t) into step 4. The antiderivative t^(1−s)/(1−s), whose limit at infinity is zero, gives ∫₁∞ t^(−s)dt = 1/(s−1). Consequently LSeries(a)(s) = κs/(s−1)+sI(s) = κ/(s−1)+H(s), as required.",
+  "key_steps": [
+    "Use nonnegative coefficients and the counting estimate to bound cumulative sums linearly.",
+    "Extend cumulative sums to real arguments and bound the remainder by a constant times t^α.",
+    "Prove absolute convergence for Re(s) > 1 using dyadic intervals.",
+    "Apply finite summation by parts and pass to the improper integral.",
+    "Differentiate the remainder integral using integrable uniform bounds.",
+    "Separate κs/(s−1) into the prescribed pole and a holomorphic remainder."
+  ],
+  "unresolved": [],
+  "validation_notes": []
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.bounded_euler_logarithm-a1",
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1",
+  "depth": 4,
+  "title": "Boundedness of a continuous logarithm near a nonzero limit",
+  "statement": "Let E,L : ℝ → ℂ. Assume E is continuous on (1,2), L is continuous at 1 within [1,∞), L(1) ≠ 0, and exp(E(s)) = L(s) for every 1 < s < 2. Then there exist 0 < ε ≤ 1 and C ≥ 0 such that ‖E(s)‖ ≤ C whenever 1 < s < 1+ε.",
+  "lean_statement": "∀ (E L : ℝ → ℂ), ContinuousOn E (Set.Ioo 1 2) → ContinuousWithinAt L (Set.Ici 1) 1 → L 1 ≠ 0 → (∀ s : ℝ, s ∈ Set.Ioo 1 2 → Complex.exp (E s) = L s) → ∃ ε : ℝ, 0 < ε ∧ ε ≤ 1 ∧ ∃ C : ℝ, 0 ≤ C ∧ ∀ s : ℝ, 1 < s → s < 1 + ε → ‖E s‖ ≤ C",
+  "lean_name": "p09_af497904fe_cfs_bounded_euler_logarithm",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-54cf36aad5-a1"
+}

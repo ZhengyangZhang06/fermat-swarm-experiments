@@ -1,0 +1,56 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "def LSeries|def term|term_zero|summable.*sum|LSeries_eq|integral",
+        "exp_log|exp_eq_one_iff|norm_eq_one|geom_sum|pow_inj|pow_eq_one",
+        "hasDerivAt_integral|hasFDerivAt_integral|differentiable.*integral",
+        "ray.class|RayClass|rayClass|partial.zeta|partialZeta|[Cc]hebotarev",
+        "def IsFrobeniusAt|def LiesOverPrime|decompositionSubgroup|residueField|dedekindZeta_residue_pos|tendsto_sub_one_mul_dedekindZeta_nhdsGT",
+        "p09_af497904fe_cfs_(counting_mellin_continuation|bounded_euler_logarithm|cyclic_weighted_infinitude)"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/LSeries/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/LSeries/SumCoeff.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/Calculus/ParametricIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/SpecialFunctions/Complex/Log.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RootsOfUnity/PrimitiveRoots.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/DedekindZeta.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/cfs-split-diagnostic-20261009/report.json",
+        "/tmp/p09-cfs-independent-audit-xwt7piio/report.json"
+      ],
+      "conclusion": "Verified clean snapshot revisions project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d, together with clean pinned dependencies. LSeries explicitly omits n=0; the inspected files provide Abel integration, dominated differentiation, exponential-kernel identities, primitive-root facts, and positive zeta residue limits. Frobenius uses the actual decomposition-subgroup residue action. The ray-class/partial-zeta/Chebotarev search returned no matches in the searched roots. Independently elaborated all three exact propositions under both frozen imports and a disposable Submission copy before any child declaration existed. Checked proposition and supporting-library axiom reports contain only propext, Classical.choice, and Quot.sound. Verified policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, exact permitted omissions at lines 10–11, reversible hashes, and a successful fresh Lean absence probe for all eight targets. Protected sources remained unchanged. The three bare names are unreserved; adding parent-to-child edges preserves acyclicity. This approves decomposition and prose only, not child implementations or comparator acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "counting_mellin_continuation",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "Appropriate independent extraction of step 20. The one-line proposition exactly includes the prose hypotheses and conclusion. The proof establishes linear cumulative bounds, controls the floor-function remainder, proves absolute convergence, applies Abel summation, and supplies integrable local derivative bounds. H(s)=κ+sI(s) gives precisely the stated pole decomposition and is complex differentiable on the required open half-plane. No circular reliance or deferred proof discovery occurs."
+    },
+    {
+      "key": "bounded_euler_logarithm",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "Appropriate independent extraction from step 26; prose and exact type agree. Right continuity provides the normalization disk. Interior continuity of L follows from exp(E)=L, so no stronger continuity hypothesis is silently assumed. The power-series logarithm is constructed and bounded, and connectedness makes its difference from E constant in the discrete exponential kernel. The explicit witness C proves the exact bound without depending on another child."
+    },
+    {
+      "key": "cyclic_weighted_infinitude",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "Appropriate independent extraction of step 27. The exact type matches all summability, character-estimate, excluded-set, and positivity hypotheses; weights explicitly use Real.rpow. The proof derives orthogonality from primitivity, justifies finite-sum/tsum interchange, obtains a common-interval lower bound, bounds a hypothetically finite remaining fiber, and gives an explicit contradictory choice of s. Arbitrary index types and m=1 are covered. No parent or sibling theorem is assumed."
+    }
+  ],
+  "required_changes": []
+}

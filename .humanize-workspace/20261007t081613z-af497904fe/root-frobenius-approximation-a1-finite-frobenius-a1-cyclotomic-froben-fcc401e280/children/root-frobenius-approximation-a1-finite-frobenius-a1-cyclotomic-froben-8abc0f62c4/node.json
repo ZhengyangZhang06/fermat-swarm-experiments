@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.counting_mellin_continuation-a1",
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1",
+  "depth": 4,
+  "title": "Holomorphic remainder from a power-saving counting estimate",
+  "statement": "Let a : ℕ → ℝ have nonnegative values, and let κ, α ∈ ℝ with 0 ≤ α < 1. Suppose there is C ≥ 0 such that, for every integer n ≥ 1, |Σ_{k=1}^n a(k) − κn| ≤ C n^α. Then there exists H : ℂ → ℂ, holomorphic on Re(s) > α, such that for every Re(s) > 1, LSeries(a)(s) = κ/(s−1) + H(s). Here LSeries(a)(s) uses the complex coefficients a(n) and omits n = 0.",
+  "lean_statement": "∀ (a : ℕ → ℝ) (κ α : ℝ), (∀ n : ℕ, 0 ≤ a n) → 0 ≤ α → α < 1 → (∃ C : ℝ, 0 ≤ C ∧ ∀ n : ℕ, 1 ≤ n → |(∑ k ∈ Finset.Icc 1 n, a k) - κ * (n : ℝ)| ≤ C * (n : ℝ) ^ α) → ∃ H : ℂ → ℂ, DifferentiableOn ℂ H {s : ℂ | α < s.re} ∧ ∀ s : ℂ, 1 < s.re → LSeries (fun n : ℕ => (a n : ℂ)) s = (κ : ℂ) / (s - 1) + H s",
+  "lean_name": "p09_af497904fe_cfs_counting_mellin_continuation",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8abc0f62c4-a1"
+}

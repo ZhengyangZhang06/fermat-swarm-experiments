@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.cyclic_weighted_infinitude-a1",
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1",
+  "depth": 4,
+  "title": "Cyclic character estimates imply infinite fibers outside a bounded contribution",
+  "statement": "Let ι be a type, m a positive natural number, ω ∈ ℂ a primitive mth root of unity, N : ι → ℕ with N(i) ≥ 2, g : ι → ZMod m, and D ⊆ ι. Write w_i(s) = N(i)^(−s) for real s, and let val denote the representative in {0,…,m−1}. Assume Σ_i w_i(s) is summable for every s > 1. For each k ∈ {0,…,m−1}, define F_k(s) = Σ_i ω^(k·val(g(i)))w_i(s), and assume there exist C_k ≥ 0 and ε_k > 0 such that ‖F_k(s) − δ_{k,0} log(1/(s−1))‖ ≤ C_k for 1 < s < 1+ε_k. Finally, assume there is C_D ≥ 0 such that Σ_{i∈D} w_i(s) ≤ C_D for every 1 < s < 2. Then, for every a ∈ ZMod m, the set {i ∈ ι : i ∉ D and g(i) = a} is infinite.",
+  "lean_statement": "∀ (ι : Type) (m : ℕ) (ω : ℂ) (N : ι → ℕ) (g : ι → ZMod m) (D : Set ι), 0 < m → IsPrimitiveRoot ω m → (∀ i : ι, 2 ≤ N i) → (∀ s : ℝ, 1 < s → Summable (fun i : ι => Real.rpow (N i : ℝ) (-s))) → (∀ k : Fin m, ∃ C : ℝ, 0 ≤ C ∧ ∃ ε : ℝ, 0 < ε ∧ ∀ s : ℝ, 1 < s → s < 1 + ε → ‖(∑' i : ι, ω ^ (k.val * (g i).val) * Complex.ofReal (Real.rpow (N i : ℝ) (-s))) - (if k.val = 0 then (Real.log (1 / (s - 1)) : ℂ) else 0)‖ ≤ C) → (∃ C : ℝ, 0 ≤ C ∧ ∀ s : ℝ, 1 < s → s < 2 → (∑' i : {i : ι // i ∈ D}, Real.rpow (N i.1 : ℝ) (-s)) ≤ C) → ∀ a : ZMod m, Set.Infinite {i : ι | i ∉ D ∧ g i = a}",
+  "lean_name": "p09_af497904fe_cfs_cyclic_weighted_infinitude",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8a95b15042-a1"
+}
