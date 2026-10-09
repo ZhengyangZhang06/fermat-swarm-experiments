@@ -7359,3 +7359,36 @@ theorem Submission.p03_tkc_torsion_card_recurrence_68cf3476_d5 :
       zpow_right_injective₀ (pos_iff_ne_zero.mpr horigin_value_t.1)
         (ne_of_lt horigin_value_t.2) he
     simpa only [hD, hprincipalH_affine, if_neg (some_ne_zero h), mul_zero, sub_zero] using heq
+
+
+theorem Submission.p03_eds_torsion_kernel_card_68cf3476_d4 :
+    ∀ (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k]
+      (W : WeierstrassCurve k), W.Δ ≠ 0 → ∀ n : ℕ, 0 < n →
+      Finite {P : W.toAffine.Point // n • P = 0} ∧
+        Nat.card {P : W.toAffine.Point // n • P = 0} = n ^ 2 := by
+  intro k _ _ _ _ W hΔ n hn
+  refine ⟨Submission.p03_tkc_positive_torsion_finite_68cf3476_d5 k W hΔ n hn, ?_⟩
+  have h₁ : Nat.card {P : W.toAffine.Point // (1 : ℕ) • P = 0} = 1 := by
+    apply Nat.card_eq_one_iff_exists.mpr
+    refine ⟨⟨0, by simp⟩, ?_⟩
+    intro P
+    apply Subtype.ext
+    simpa only [one_nsmul] using P.property
+  have h₂ := Submission.p03_tkc_two_torsion_card_68cf3476_d5 k W hΔ
+  -- Carry two consecutive values so the recurrence never uses the zero kernel.
+  have hcard : ∀ m : ℕ,
+      Nat.card {P : W.toAffine.Point // (m + 1) • P = 0} = (m + 1) ^ 2 ∧
+      Nat.card {P : W.toAffine.Point // (m + 2) • P = 0} = (m + 2) ^ 2 := by
+    intro m
+    induction m with
+    | zero => exact ⟨h₁, h₂⟩
+    | succ m ih =>
+      refine ⟨ih.2, ?_⟩
+      have hrec := Submission.p03_tkc_torsion_card_recurrence_68cf3476_d5
+        k W hΔ (m + 2) (by omega)
+      have hindex : m + 2 - 1 = m + 1 := by omega
+      rw [hindex, ih.1, ih.2] at hrec
+      nlinarith [hrec]
+  rcases n with _ | n
+  · omega
+  · exact (hcard n).1
