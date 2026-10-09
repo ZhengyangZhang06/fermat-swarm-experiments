@@ -1,0 +1,137 @@
+<!-- theorem-id: fermat-p05/root.finite_hopf_envelope-a1 -->
+
+## Theorem `Submission.p05_finite_hopf_envelope_a5b449214a`
+
+Let k be a field and H a commutative Hopf k-algebra, with comultiplication Δ and antipode S. For every finite set F of elements of H, there exists a k-subalgebra A of H containing F, finitely generated as a k-algebra, such that Δ(x) belongs to the k-linear span of tensors a⊗b with a,b∈A whenever x∈A, and S(x)∈A whenever x∈A.
+
+Node: `root.finite_hopf_envelope-a1`
+
+Root: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/5
+
+Parent: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/5
+
+Prerequisites: None
+
+Decomposition children: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/246, https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/247, https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/248
+
+## Lean problem
+
+Declaration: `Submission.p05_finite_hopf_envelope_a5b449214a`
+
+```lean
+∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (F : Finset H), ∃ A : Subalgebra k H, (∀ x ∈ F, x ∈ A) ∧ Algebra.FiniteType k A ∧ (∀ x ∈ A, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ A, ∃ b ∈ A, t = TensorProduct.tmul k a b}) ∧ (∀ x ∈ A, HopfAlgebra.antipode k x ∈ A)
+```
+
+### Frozen project context
+
+`Fermat/Thm_HopfAlgebra_hopfKer_eq_of_surjective_of_ker_eq_span.lean` at `2fdd42759f4ab17640ac773289b521dd69d4b26e` supplies the original imports, definitions and root contract. Child hypotheses are stated above; prerequisite declarations are linked in their issues.
+
+```lean
+/-
+Copyright 2026 Anthropic, PBC. Licensed under Apache-2.0; see LICENSE.
+Source: https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_HopfAlgebra_hopfKer_eq_of_surjective_of_ker_eq_span.lean
+Modified: replaced the proof with sorry and removed P2M proof imports.
+Requires the upstream Definitions modules and their dependencies.
+-/
+
+import Mathlib
+import Definitions.Def_HopfAlgebra_HopfKer
+attribute [-instance] HopfAlgebra.HopfKerHopf.instHopfAlgebra HopfAlgebra.HopfKerHopf.instCoalgebra HopfAlgebra.HopfKerHopf.instIsCocomm HopfAlgebra.HopfKerHopf.instBialgebra
+attribute [-simp] HopfAlgebra.HopfKerHopf.ι₂_comulK HopfAlgebra.HopfKerHopf.ι₃_tmul HopfAlgebra.HopfKerHopf.counitK_apply HopfAlgebra.HopfKerHopf.coe_antipodeK HopfAlgebra.HopfKerHopf.ι₂_tmul HopfAlgebra.HopfKerHopf.coe_antipode HopfAlgebra.HopfKerHopf.hopfKerVal_apply HopfAlgebra.HopfKerHopf.valL_apply HopfAlgebra.HopfKerHopf.ι₂_comul
+
+universe u v w
+
+open scoped TensorProduct
+
+theorem HopfAlgebra.hopfKer_eq_of_surjective_of_ker_eq_span
+    {k : Type u} [Field k] {H : Type v} [CommRing H] [HopfAlgebra k H] [Algebra.FiniteType k H]
+    (K : Subalgebra k H)
+    (hΔ : ∀ x ∈ K, Coalgebra.comul (R := k) x ∈
+      Submodule.span k {t : H ⊗[k] H | ∃ a ∈ K, ∃ b ∈ K, t = a ⊗ₜ[k] b})
+    (hS : ∀ x ∈ K, HopfAlgebra.antipode k x ∈ K)
+    {B : Type w} [CommRing B] [Bialgebra k B] (q : H →ₐc[k] B) (hq : Function.Surjective q)
+    (hker : RingHom.ker (q : H →+* B) =
+      Ideal.span {x : H | x ∈ K ∧ Coalgebra.counit (R := k) x = 0}) :
+    HopfAlgebra.hopfKer q = K := by
+  sorry
+```
+
+## Natural-language proof
+
+Reviewed mathematical argument; formal verification state: `proved`.
+
+# Parent-supplied natural-language proof
+
+- Parent DAG node: `root`
+- Child DAG node: `root.finite_hopf_envelope-a1`
+- Review gate: accepted as part of the parent's decomposition audit
+
+## Proof
+
+1. Write Δ, ε and S for the Hopf operations; all tensor products in this proof are over k. Every vector-space inclusion has a linear retraction: extend a basis of the smaller space to a basis of the larger space and send the added vectors to zero. Basis extension follows from the maximality principle: a chain of independent sets has independent union, and a maximal independent set spans. Tensoring the retractions proves injectivity of tensor products of inclusions. Basis extension also extends linear functionals.
+2. For each f∈F∪{1}, express Δ(f)=Σ_i v_i⊗w_i with independent second factors w_i. Choose a basis of the span of the second factors in any finite tensor expression and collect coefficients to obtain this expression. Coassociativity gives Σ_i Δ(v_i)⊗w_i=Σ_i v_i⊗Δ(w_i). Extend the coordinate functional selecting w_j to H and apply it to the third tensor factor. The result shows Δ(v_j)∈span_k{v_i}⊗H. The right counit identity gives f=Σ_i ε(w_i)v_i. Sum these finite-dimensional stable spans over F∪{1}; their sum V contains F and 1 and satisfies Δ(V)⊂V⊗H.
+3. Choose a basis v_1,…,v_n of V and write Δ(v_j)=Σ_i v_i⊗c_ij. Comparing first-factor coefficients in coassociativity gives Δ(c_ij)=Σ_l c_il⊗c_lj. Comparing coefficients in the right counit identity gives ε(c_ij)=δ_ij. Applying the left counit identity gives v_j=Σ_i ε(v_i)c_ij.
+4. The antipode is a k-algebra homomorphism. Its linearity is part of the Hopf structure, and the antipode identity at 1 gives S(1)=1. For multiplicativity, define convolution of linear maps H⊗H→H by (f*g)(a⊗b)=Σ f(a_1⊗b_1)g(a_2⊗b_2). Coassociativity and associativity make convolution associative; the counit identities give its identity e(a⊗b)=ε(a)ε(b)1. Let f(a⊗b)=ab, g(a⊗b)=S(ab), and h(a⊗b)=S(a)S(b). These formulas are bilinear. Multiplicativity of Δ and ε and the antipode identity for ab give g*f=e. Commutativity and the antipode identities for a and b give f*h=e. Hence g=g*(f*h)=(g*f)*h=h, proving S(ab)=S(a)S(b).
+5. Let P be the ordinary square matrix with entries c_ij, and let S(P) denote entrywise application of S. Step 3 and the antipode identities give S(P)P=I=PS(P). Consequently d=det(P) has inverse u=det(S(P)). The matrix with entries Δ(c_ij) is the product of the matrices with entries c_ij⊗1 and 1⊗c_ij. Taking determinants gives Δ(d)=d⊗d. Also ε(P)=I, so ε(d)=1.
+6. The determinant identities just used hold over every commutative ring. The permutation formula is multilinear in columns and commutes with ring homomorphisms. Terms involving repeated selected columns cancel by pairing permutations differing by the corresponding transposition, in every characteristic. Expanding det(XY) in columns and grouping the distinct selections proves det(XY)=det(X)det(Y). Cofactor expansion gives P adj(P)=adj(P)P=dI. The empty determinant is 1. Since Δ preserves multiplication and du=1, Δ(u) is the inverse of d⊗d. That inverse is u⊗u, so Δ(u)=u⊗u.
+7. Let A be the k-subalgebra generated by the finitely many c_ij and u. Step 3 puts every v_j in A, hence F⊂A. The span of tensors with both factors in A is a subalgebra of H⊗H: it contains 1⊗1, and products of its pure-tensor generators again have both factors in A. The formulas for Δ(c_ij) and Δ(u) therefore put the comultiplication of every algebra generator in this subalgebra. Since Δ is an algebra homomorphism, Δ(A) lies in the required span.
+8. The adjugate identity and uniqueness of matrix inverses give S(P)=u adj(P), so every S(c_ij) belongs to A. The antipode identity for d gives S(d)d=1, hence S(d)=u. Applying S to du=1 gives uS(u)=1. Since ud=1, uniqueness of inverses gives S(u)=d∈A. Thus S sends every generator of A into A, and its linearity and multiplicativity imply S(A)⊆A. The finite generating set, containment of F, and the two stability conditions establish all conjuncts of the conclusion.
+
+## Key steps
+
+1. Construct a finite-dimensional right subcomodule containing F and 1.
+2. Derive the coefficient matrix's comultiplication and counit identities.
+3. Prove antipode multiplicativity using convolution inverses.
+4. Invert the coefficient matrix and prove its determinant is group-like.
+5. Generate A by the coefficient entries and the inverse determinant.
+6. Verify finite generation, containment and both Hopf stability conditions.
+
+## Reference use
+
+### local-project
+
+Queries:
+- `HopfKerHopf|ι₂_comulK|def coaction|def hopfKer|mem_hopfKer`
+- `antipode_mul_distrib|antipodeAlgHom|isNoetherianRing_of_fg|finitePresentation_of_finite|one_tmul_eq_zero_iff|eqLocus_includeLeft_includeRight|of_faithfullyFlat`
+- `p05_finite_hopf_envelope_a5b449214a|p05_finite_retraction_a5b449214a|p05_hopf_tensor_equalizer_a5b449214a|p05_subalgebra_coinvariant_a5b449214a|p05_canonical_map_injective_a5b449214a`
+- `rg --files -uu -g dag.json /mnt/data/zhengyang-workspace/fermat-swarm-projects`
+- `rg --files /runtime -g 'policy.json' -g '*header*policy*' -g '*authorization*' -g '*repair*receipt*' -g '*repair*report*'`
+- `python3 .humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/validate.py`
+
+Files inspected:
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/problem.md`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Fermat/Thm_HopfAlgebra_hopfKer_eq_of_surjective_of_ker_eq_span.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Convolution.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Adjoin/FG.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Module/FinitePresentation.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Defs.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/TensorProduct/IncludeLeftSubRight.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Flat/FaithfullyFlat/Basic.lean`
+- `/runtime/operator-header-policy-v1/policy.json`
+- `/runtime/flows/math-lean-flow-header-policy-v4/docs/frozen-header-policy.md`
+- `/runtime/flows/math-lean-flow-header-policy-v4/scripts/verify-frozen-node.py`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/report.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/header-input-binding.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/challenge/CheckTypes.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/challenge/CheckInstances.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/challenge/InfrastructureAxioms.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/challenge-header-absence.log`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/challenge-infrastructure-axioms.log`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/solution-infrastructure-axioms.log`
+
+The pinned definition identifies Hopf-kernel membership with coaction(q,x)=x⊗1. The inspected library provides antipode multiplicativity and Noetherian finite-presentation infrastructure; its generic tensor equalizer and zero-detection results require effectiveness or faithful flatness, which these proofs establish directly instead of assuming. Searches found neither the orphan HopfKerHopf declarations nor the proposed helper names in the pinned Definitions/mathlib trees; no competing local DAG reservations were found. The project and mathlib snapshots are clean at 2fdd42759f4ab17640ac773289b521dd69d4b26e and db584cd6d46c92f209a44c0f1c829460d327499d, and all nine dependency checkouts match their clean pins. A newly published controller policy with SHA-256 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96 authorizes omitting only frozen lines 10–11 in shared derived compiler copies. Fresh validation replayed the controller preparation functions, checked reversible source hashes, built both Submission contexts and the independent Challenge, and passed all five unchanged literal propositions after import Submission, inclusion/scalar/tensor probes, the 13-name absence probe, and nine transitive infrastructure axiom checks in both contexts. Only propext, Classical.choice and Quot.sound occur in those infrastructure closures. No child type constructs a matrix. Original frozen files and dependencies remain unchanged. These are decomposition-context checks, not acceptance of the still-unproved root or any child proof.
+
+
+## Acceptance
+
+The exact contract must pass the machine comparator and an independent reviewer's comparator rerun, without changed assumptions or proof holes. Local integration must pass before publication. Every decomposition child has its own issue and verified solution PR.
+
+Solution PR: Pending
+
+Current user-authorized lifecycle: merge the exact verified PR, validate its remote tree, then close this proved issue. This supersedes historical no-auto-merge instructions in the original experiment brief.
+
+Remote merge status is recorded by GitHub; local `proved` does not mean merged.
