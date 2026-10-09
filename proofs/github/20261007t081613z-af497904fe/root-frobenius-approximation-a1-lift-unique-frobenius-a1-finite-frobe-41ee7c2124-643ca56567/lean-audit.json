@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "b35ac1cd959731740f7956192a5cb236608571e0889f7ced898b3c56df9a5ac5",
+  "git_delta": {
+    "base_commit": "b2703c55f3c9849b10d03c545467cf4bf67384b2",
+    "candidate_commit": "5df90395ba65d19d7d01b9fcd2732549517b5b46",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_ffe_prime_frobenius_congruence",
+    "diff_sha256": "f84b35f6d3cc7c643fe9d033c0d255e94a4ffa63094b32bdf92bb680a54d090e",
+    "source_sha256": "c27cbf62c91d9ada5e70270a39c14123425ea953e739fac6f8e3144eb2244807",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_ffe_prime_frobenius_congruence",
+      "statement": "∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [IsGalois ℚ E] (ℓ : ℕ), ℓ.Prime → ∀ q : Ideal (NumberField.RingOfIntegers E), q.IsPrime → (ℓ : NumberField.RingOfIntegers E) ∈ q → Finite (NumberField.RingOfIntegers E ⧸ q) → ∃ g : E ≃ₐ[ℚ] E, ∀ a : NumberField.RingOfIntegers E, NumberField.RingOfIntegers.mapRingEquiv g.toRingEquiv a - a ^ ℓ ∈ q",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
