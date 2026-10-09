@@ -2262,3 +2262,33 @@ theorem Submission.p09_af497904fe_cwi_infinite_diff_of_log_lower_bound :
   have hu : C + r + K < u * c := (div_lt_iff₀ hc).mp hu₁
   have hb := hupper s hs hsε
   nlinarith
+
+
+theorem Submission.p09_af497904fe_cfs_cyclic_weighted_infinitude :
+    ∀ (ι : Type) (m : ℕ) (ω : ℂ) (N : ι → ℕ) (g : ι → ZMod m) (D : Set ι),
+      0 < m → IsPrimitiveRoot ω m → (∀ i : ι, 2 ≤ N i) →
+      (∀ s : ℝ, 1 < s → Summable (fun i : ι => Real.rpow (N i : ℝ) (-s))) →
+      (∀ k : Fin m, ∃ C : ℝ, 0 ≤ C ∧ ∃ ε : ℝ, 0 < ε ∧
+        ∀ s : ℝ, 1 < s → s < 1 + ε →
+          ‖(∑' i : ι, ω ^ (k.val * (g i).val) *
+              Complex.ofReal (Real.rpow (N i : ℝ) (-s))) -
+            (if k.val = 0 then (Real.log (1 / (s - 1)) : ℂ) else 0)‖ ≤ C) →
+      (∃ C : ℝ, 0 ≤ C ∧ ∀ s : ℝ, 1 < s → s < 2 →
+        (∑' i : {i : ι // i ∈ D}, Real.rpow (N i.1 : ℝ) (-s)) ≤ C) →
+      ∀ a : ZMod m, Set.Infinite {i : ι | i ∉ D ∧ g i = a} := by
+  intro ι m ω N g D hm hω hN hsum hF hD a
+  obtain ⟨K, _, ε, hε, hεone, hestimate⟩ :=
+    Submission.p09_af497904fe_cwi_fiber_log_estimate ι m ω N g hm hω hN hsum hF
+  obtain ⟨C, _, hD⟩ := hD
+  have hmR : (0 : ℝ) < (m : ℝ) := Nat.cast_pos.mpr hm
+  have hlower (s : ℝ) (hs : 1 < s) (hsε : s < 1 + ε) :
+      (1 / (m : ℝ)) * Real.log (1 / (s - 1)) - K ≤
+        ∑' i : {i : ι // g i = a}, Real.rpow (N i.1 : ℝ) (-s) := by
+    have h := (abs_le.mp (hestimate a s hs hsε)).1
+    rw [one_div, mul_comm, ← div_eq_mul_inv]
+    linarith only [h]
+  have hinfinite := Submission.p09_af497904fe_cwi_infinite_diff_of_log_lower_bound
+    ι N {i : ι | g i = a} D (1 / (m : ℝ)) K ε C hN hsum
+    (one_div_pos.mpr hmR) hε hεone hlower hD
+  change Set.Infinite {i : ι | g i = a ∧ i ∉ D} at hinfinite
+  simpa only [and_comm] using hinfinite
