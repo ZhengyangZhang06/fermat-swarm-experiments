@@ -1368,3 +1368,4 @@ theorem Submission.p09_af497904fe_ftl_compatible_automorphisms_glue :
   · intro r
     change t ((algebraMap ℚ (F 0) r : F 0) : AlgebraicClosure ℚ) = _
     rw [ht, (g 0).commutes]
+    rfl
