@@ -2569,3 +2569,94 @@ theorem Submission.p09_af497904fe_ftl_compatible_automorphisms_glue :
     change t ((algebraMap ℚ (F 0) r : F 0) : AlgebraicClosure ℚ) = _
     rw [ht, (g 0).commutes]
     rfl
+
+theorem Submission.p09_af497904fe_fcc_frobenius_roots_action :
+    ∀ (N : ℕ) [NeZero N] (ℓ : ℕ), ℓ.Prime → ¬ ℓ ∣ N →
+      ∀ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ →
+        ∀ σ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ), P.IsFrobeniusAt σ ℓ →
+          ∀ ζ : AlgebraicClosure ℚ, ζ ^ N = 1 → σ ζ = ζ ^ ℓ := by
+  intro N _ ℓ hℓ hℓN P hP σ hσ ζ hζ
+  obtain ⟨hσ, hfrob⟩ := hσ
+  let g : P.decompositionSubgroup ℚ := ⟨σ, hσ⟩
+  let z : P := ⟨ζ, (Submission.p09_af497904fe_fcc_fra_roots_mem_inv N P ζ hζ).1⟩
+  have hx : (g • z : P) ^ N = 1 := by
+    apply Subtype.ext
+    change (σ ζ) ^ N = 1
+    rw [← map_pow, hζ, map_one]
+  have hy : (z ^ ℓ) ^ N = 1 := by
+    apply Subtype.ext
+    change (ζ ^ ℓ) ^ N = 1
+    rw [pow_right_comm, hζ, one_pow]
+  have hred : residue P (g • z) = residue P (z ^ ℓ) := by
+    calc
+      residue P (g • z) = g • residue P z :=
+        ResidueField.residue_smul (P.decompositionSubgroup ℚ) g z
+      _ = residue P z ^ ℓ := hfrob (residue P z)
+      _ = residue P (z ^ ℓ) := (map_pow (residue P) z ℓ).symm
+  exact congrArg Subtype.val
+    (Submission.p09_af497904fe_fcc_fra_residue_injective
+      N ℓ hℓ hℓN P hP (g • z) (z ^ ℓ) hx hy hred)
+
+theorem Submission.p09_af497904fe_fvu_compatible_valuation_gluing :
+    ∀ (F : ℕ → IntermediateField ℚ (AlgebraicClosure ℚ)) (hmono : Monotone F),
+      (∀ x : AlgebraicClosure ℚ, ∃ i : ℕ, x ∈ F i) →
+      ∀ (V : (i : ℕ) → ValuationSubring (F i)) (ℓ : ℕ),
+        (∀ i : ℕ, (V i).LiesOverPrime ℓ) →
+        (∀ (i j : ℕ) (hij : i ≤ j) (x : F i),
+          IntermediateField.inclusion (hmono hij) x ∈ V j ↔ x ∈ V i) →
+        ∃ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ ∧
+          (∀ (i : ℕ) (x : F i), (x : AlgebraicClosure ℚ) ∈ P ↔ x ∈ V i) := by
+  intro F hmono hexhaust V ℓ hprime hcompat
+  let P : ValuationSubring (AlgebraicClosure ℚ) :=
+    { carrier := {z | ∃ (i : ℕ) (x : F i), x ∈ V i ∧ (x : AlgebraicClosure ℚ) = z}
+      zero_mem' := ⟨0, 0, (V 0).zero_mem, rfl⟩
+      one_mem' := ⟨0, 1, (V 0).one_mem, rfl⟩
+      add_mem' := by
+        rintro a b ⟨i, x, hx, rfl⟩ ⟨j, y, hy, rfl⟩
+        refine ⟨max i j,
+          IntermediateField.inclusion (hmono (le_max_left i j)) x +
+            IntermediateField.inclusion (hmono (le_max_right i j)) y, ?_, rfl⟩
+        exact (V (max i j)).add_mem _ _
+          ((hcompat i (max i j) (le_max_left i j) x).mpr hx)
+          ((hcompat j (max i j) (le_max_right i j) y).mpr hy)
+      mul_mem' := by
+        rintro a b ⟨i, x, hx, rfl⟩ ⟨j, y, hy, rfl⟩
+        refine ⟨max i j,
+          IntermediateField.inclusion (hmono (le_max_left i j)) x *
+            IntermediateField.inclusion (hmono (le_max_right i j)) y, ?_, rfl⟩
+        exact (V (max i j)).mul_mem _ _
+          ((hcompat i (max i j) (le_max_left i j) x).mpr hx)
+          ((hcompat j (max i j) (le_max_right i j) y).mpr hy)
+      neg_mem' := by
+        rintro a ⟨i, x, hx, rfl⟩
+        exact ⟨i, -x, (V i).neg_mem x hx, rfl⟩
+      mem_or_inv_mem' := by
+        intro z
+        obtain ⟨i, hi⟩ := hexhaust z
+        rcases (V i).mem_or_inv_mem ⟨z, hi⟩ with hz | hz
+        · exact Or.inl ⟨i, ⟨z, hi⟩, hz, rfl⟩
+        · exact Or.inr ⟨i, (⟨z, hi⟩ : F i)⁻¹, hz, rfl⟩ }
+  have hrestrict (i : ℕ) (x : F i) :
+      (x : AlgebraicClosure ℚ) ∈ P ↔ x ∈ V i := by
+    change (∃ (j : ℕ) (y : F j), y ∈ V j ∧
+      (y : AlgebraicClosure ℚ) = (x : AlgebraicClosure ℚ)) ↔ x ∈ V i
+    constructor
+    · rintro ⟨j, y, hy, heq⟩
+      have heq' : IntermediateField.inclusion (hmono (le_max_left i j)) x =
+          IntermediateField.inclusion (hmono (le_max_right i j)) y :=
+        Subtype.ext heq.symm
+      apply (hcompat i (max i j) (le_max_left i j) x).mp
+      rw [heq']
+      exact (hcompat j (max i j) (le_max_right i j) y).mpr hy
+    · intro hx
+      exact ⟨i, x, hx, rfl⟩
+  have hnonunits (i : ℕ) (x : F i) :
+      (x : AlgebraicClosure ℚ) ∈ P.nonunits ↔ x ∈ (V i).nonunits := by
+    rw [ValuationSubring.mem_nonunits_iff_or, ValuationSubring.mem_nonunits_iff_or]
+    change ((x : AlgebraicClosure ℚ) = 0 ∨ ((x⁻¹ : F i) : AlgebraicClosure ℚ) ∉ P) ↔
+      x = 0 ∨ x⁻¹ ∉ V i
+    rw [hrestrict]
+    exact or_congr (by exact_mod_cast (Iff.rfl : x = 0 ↔ x = 0)) Iff.rfl
+  refine ⟨P, ?_, hrestrict⟩
+  change (ℓ : AlgebraicClosure ℚ) ∈ P.nonunits
+  exact (hnonunits 0 (ℓ : F 0)).mpr (hprime 0)
