@@ -2159,11 +2159,11 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
   let D : Set ι := {v | ¬ (N v).Prime ∨ N v ∈ insert q B}
   have hN (v : ι) : 2 ≤ N v := NumberField.HeightOneSpectrum.one_lt_absNorm v
   -- Steps 11 and 20: ideal Euler products and the ordinary Dedekind-zeta series.
-  have hEulerIdeal (R : Type) [CommRing R] [IsDedekindDomain R]
+  have hIdealSieve (R : Type) [CommRing R] [IsDedekindDomain R]
       (f : Ideal R →*₀ ℂ) (hf : Summable (fun I => ‖f I‖))
-      (hsmall : ∀ v : IsDedekindDomain.HeightOneSpectrum R, 1 - f v.asIdeal ≠ 0) :
-      Complex.exp (∑' v : IsDedekindDomain.HeightOneSpectrum R, -Complex.log (1 - f v.asIdeal)) =
-        ∑' I : Ideal R, f I := by
+      (S : Finset (IsDedekindDomain.HeightOneSpectrum R)) :
+      (∏ v ∈ S, (1 - f v.asIdeal)) * (∑' I : Ideal R, f I) =
+        ∑' I : Ideal R, if ∀ v ∈ S, ¬ v.asIdeal ∣ I then f I else 0 := by
     classical
     let a : Finset (IsDedekindDomain.HeightOneSpectrum R) → Ideal R → ℂ := fun S I =>
       if ∀ v ∈ S, ¬ v.asIdeal ∣ I then f I else 0
@@ -2221,6 +2221,23 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
         rw [hdiv, hrest] at hsplit
         rw [Finset.prod_insert hp, mul_assoc, ih]
         linear_combination - hsplit
+    exact hsieve S
+  have hEulerIdeal (R : Type) [CommRing R] [IsDedekindDomain R]
+      (f : Ideal R →*₀ ℂ) (hf : Summable (fun I => ‖f I‖))
+      (hsmall : ∀ v : IsDedekindDomain.HeightOneSpectrum R, 1 - f v.asIdeal ≠ 0) :
+      Complex.exp (∑' v : IsDedekindDomain.HeightOneSpectrum R, -Complex.log (1 - f v.asIdeal)) =
+        ∑' I : Ideal R, f I := by
+    classical
+    let a : Finset (IsDedekindDomain.HeightOneSpectrum R) → Ideal R → ℂ := fun S I =>
+      if ∀ v ∈ S, ¬ v.asIdeal ∣ I then f I else 0
+    have ha (S : Finset (IsDedekindDomain.HeightOneSpectrum R)) : Summable (a S) := by
+      apply hf.of_norm_bounded
+      intro I
+      dsimp [a]
+      split_ifs <;> simp
+    have hsieve (S : Finset (IsDedekindDomain.HeightOneSpectrum R)) :
+        (∏ v ∈ S, (1 - f v.asIdeal)) * (∑' I, f I) = ∑' I, a S I :=
+      hIdealSieve R f hf S
     have hpoint (I : Ideal R) :
         Tendsto (fun S : Finset (IsDedekindDomain.HeightOneSpectrum R) => a S I) atTop
           (𝓝 (if I = 1 then (1 : ℂ) else 0)) := by
@@ -2899,6 +2916,38 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
     have hmap := congrArg A hmul
     rw [map_mul, map_mul, hAprincipal a c b ha hb0 hb (hnormSign a (fun φ => (haPos φ).le)) hab] at hmap
     exact mul_left_cancel hmap
+  -- Step 22: the primes above q are finite, and avoiding them is norm coprimality.
+  have hfiniteBad : {v : ι | (q : O) ∈ v.asIdeal}.Finite := by
+    exact (Ring.HasFiniteQuotients.finite_setOfPred_mem (q : O)
+      (Nat.cast_ne_zero.mpr hq.ne_zero)).preimage
+        IsDedekindDomain.HeightOneSpectrum.asIdeal_injective.injOn
+  let T : Finset ι := hfiniteBad.toFinset
+  have hT (v : ι) : v ∈ T ↔ (q : O) ∈ v.asIdeal := hfiniteBad.mem_toFinset
+  have hcoprimeI (I : Ideal O) :
+      (∀ v ∈ T, ¬ v.asIdeal ∣ I) ↔ (absNorm I).Coprime q := by
+    constructor
+    · intro havoid
+      rw [Nat.coprime_comm, hq.coprime_iff_not_dvd]
+      intro hdiv
+      obtain ⟨Q, hQ, hQunder, hQI⟩ :=
+        Ideal.exists_isMaximal_dvd_of_dvd_absNorm' hq I hdiv
+      let : Q.IsMaximal := hQ
+      let v : ι := ⟨Q, hQ.isPrime, Ideal.IsMaximal.ne_bot_of_isIntegral_int Q⟩
+      have hqQ : (q : ℤ) ∈ Q.under ℤ := by
+        rw [hQunder]
+        exact Ideal.subset_span (Set.mem_singleton _)
+      have hqv : (q : O) ∈ v.asIdeal := by
+        simpa only [Ideal.mem_under, map_natCast, Int.cast_natCast] using hqQ
+      exact havoid v ((hT v).mpr hqv) hQI
+    · intro hcop v hv hdiv
+      obtain ⟨a, b, hab⟩ := hcop.cast (R := O)
+      have hnorm : (absNorm I : O) ∈ v.asIdeal :=
+        (Ideal.dvd_iff_le.mp hdiv) I.absNorm_mem
+      have hone : (1 : O) ∈ v.asIdeal := by
+        rw [← hab]
+        exact v.asIdeal.add_mem (v.asIdeal.mul_mem_left a hnorm)
+          (v.asIdeal.mul_mem_left b ((hT v).mp hv))
+      exact v.isPrime.ne_top (Ideal.eq_top_of_isUnit_mem v.asIdeal hone isUnit_one)
   suffices hcharacters :
       ∀ k : Fin m, ∃ C : ℝ, 0 ≤ C ∧ ∃ ε : ℝ, 0 < ε ∧
         ∀ s : ℝ, 1 < s → s < 1 + ε →
@@ -3058,27 +3107,31 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
       exact congrArg ψ (hAray I K a c b ha hb0 hb haPos hab hIK)
     let S : ℝ → ℂ := fun s => ∑' I : Ideal O,
       w I * Complex.ofReal (Real.rpow (absNorm I : ℝ) (-s))
+    let weighted (s : ℝ) : Ideal O →*₀ ℂ :=
+      { toFun := fun I => w I * Complex.ofReal (Real.rpow (absNorm I : ℝ) (-s))
+        map_zero' := by simp only [map_zero, zero_mul]
+        map_one' := by
+          rw [map_one, map_one, Nat.cast_one, Real.rpow_eq_pow,
+            Real.one_rpow, Complex.ofReal_one, one_mul]
+        map_mul' := fun I K => by
+          simp only [map_mul, Nat.cast_mul, Real.rpow_eq_pow,
+            Real.mul_rpow (Nat.cast_nonneg _) (Nat.cast_nonneg _), Complex.ofReal_mul]
+          ring }
+    have hweightedNorm (s : ℝ) (hs : 1 < s) (I : Ideal O) : ‖weighted s I‖ = Real.rpow (absNorm I : ℝ) (-s) := by
+      by_cases hI : I = 0
+      · subst I
+        rw [map_zero, norm_zero, map_zero, Nat.cast_zero, Real.rpow_eq_pow,
+          Real.zero_rpow (by linarith : -s ≠ 0)]
+      · change ‖w I * Complex.ofReal (Real.rpow (absNorm I : ℝ) (-s))‖ = _
+        rw [norm_mul, hw I hI, one_mul, Complex.norm_real, Real.norm_eq_abs, Real.rpow_eq_pow,
+          abs_of_nonneg (Real.rpow_nonneg (Nat.cast_nonneg _) _)]
+    have hweightedSummable (s : ℝ) (hs : 1 < s) :
+        Summable (fun I : Ideal O => ‖weighted s I‖) :=
+      (hIdealSeries s hs).1.congr (fun I => (hweightedNorm s hs I).symm)
     have hseries (s : ℝ) (hs : 1 < s) : Complex.exp (E s) = S s := by
-      let f : Ideal O →*₀ ℂ :=
-        { toFun := fun I => w I * Complex.ofReal (Real.rpow (absNorm I : ℝ) (-s))
-          map_zero' := by simp only [map_zero, zero_mul]
-          map_one' := by
-            rw [map_one, map_one, Nat.cast_one, Real.rpow_eq_pow,
-              Real.one_rpow, Complex.ofReal_one, one_mul]
-          map_mul' := fun I K => by
-            simp only [map_mul, Nat.cast_mul, Real.rpow_eq_pow,
-              Real.mul_rpow (Nat.cast_nonneg _) (Nat.cast_nonneg _), Complex.ofReal_mul]
-            ring }
-      have hnorm (I : Ideal O) : ‖f I‖ = Real.rpow (absNorm I : ℝ) (-s) := by
-        by_cases hI : I = 0
-        · subst I
-          rw [map_zero, norm_zero, map_zero, Nat.cast_zero, Real.rpow_eq_pow,
-            Real.zero_rpow (by linarith : -s ≠ 0)]
-        · change ‖w I * Complex.ofReal (Real.rpow (absNorm I : ℝ) (-s))‖ = _
-          rw [norm_mul, hw I hI, one_mul, Complex.norm_real, Real.norm_eq_abs, Real.rpow_eq_pow,
-            abs_of_nonneg (Real.rpow_nonneg (Nat.cast_nonneg _) _)]
-      have hf : Summable (fun I => ‖f I‖) :=
-        (hIdealSeries s hs).1.congr (fun I => (hnorm I).symm)
+      let f := weighted s
+      have hnorm := hweightedNorm s hs
+      have hf := hweightedSummable s hs
       have hsmall (v : ι) : 1 - f v.asIdeal ≠ 0 := by
         intro hz
         have hlt : Real.rpow (absNorm v.asIdeal : ℝ) (-s) < 1 :=
@@ -3102,5 +3155,52 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
       refine ⟨L, hL, hLone, ?_⟩
       intro s hs
       simpa only [d, hk, if_false, sub_zero] using (hseries s hs.1).trans (hSL s hs)
+    -- Steps 22–25: remove precisely the Euler factors above the cyclotomic modulus.
+    let Sgood : ℝ → ℂ := fun s => ∑' I : Ideal O,
+      if (absNorm I).Coprime q then
+        w I * Complex.ofReal (Real.rpow (absNorm I : ℝ) (-s)) else 0
+    let factor : ℝ → ℂ := fun s => ∏ v ∈ T,
+      (1 - w v.asIdeal * Complex.ofReal (Real.rpow (N v : ℝ) (-s)))
+    have hfactorContinuous : Continuous factor := by
+      apply continuous_finsetProd T
+      intro v _
+      apply continuous_const.sub
+      apply continuous_const.mul
+      apply Complex.continuous_ofReal.comp
+      exact (Real.continuous_const_rpow (by
+        exact_mod_cast (show N v ≠ 0 by have := hN v; omega))).comp continuous_neg
+    have hfactorNonzero (s : ℝ) (hs : 1 ≤ s) : factor s ≠ 0 := by
+      apply Finset.prod_ne_zero_iff.mpr
+      intro v _ hz
+      have heq := congrArg norm (sub_eq_zero.mp hz)
+      rw [norm_one, norm_mul, hw _ v.ne_bot, one_mul, Complex.norm_real,
+        Real.norm_eq_abs, Real.rpow_eq_pow,
+        abs_of_nonneg (Real.rpow_nonneg (Nat.cast_nonneg _) _)] at heq
+      have hlt : Real.rpow (N v : ℝ) (-s) < 1 :=
+        Real.rpow_lt_one_of_one_lt_of_neg
+          (by exact_mod_cast (hN v))
+          (neg_lt_zero.mpr (lt_of_lt_of_le zero_lt_one hs))
+      rw [Real.rpow_eq_pow] at hlt
+      exact hlt.ne heq.symm
+    have hSgood (s : ℝ) (hs : 1 < s) : factor s * S s = Sgood s := by
+      let f := weighted s
+      have hf := hweightedSummable s hs
+      change (∏ v ∈ T, (1 - f v.asIdeal)) * (∑' I : Ideal O, f I) = _
+      rw [hIdealSieve O f hf T]
+      exact tsum_congr (fun I => if_congr (hcoprimeI I) rfl rfl)
+    have hrecover :
+        (∃ Lgood : ℝ → ℂ, ContinuousWithinAt Lgood (Set.Ici 1) 1 ∧ Lgood 1 ≠ 0 ∧
+          ∀ s : ℝ, s ∈ Set.Ioo 1 2 → Sgood s = Lgood s) →
+        ∃ L : ℝ → ℂ, ContinuousWithinAt L (Set.Ici 1) 1 ∧ L 1 ≠ 0 ∧
+          ∀ s : ℝ, s ∈ Set.Ioo 1 2 → S s = L s := by
+      rintro ⟨Lgood, hLgood, hLgoodOne, heq⟩
+      refine ⟨fun s => Lgood s / factor s,
+        hLgood.div hfactorContinuous.continuousWithinAt (hfactorNonzero 1 le_rfl),
+        div_ne_zero hLgoodOne (hfactorNonzero 1 le_rfl), ?_⟩
+      intro s hs
+      apply (eq_div_iff (hfactorNonzero s hs.1.le)).mpr
+      rw [mul_comm, hSgood s hs.1]
+      exact heq s hs
+    apply hrecover
     -- Steps 15–25 still require ray-class counting and the nonvanishing argument.
-    fail "Unfinished arithmetic input: continuously extend the nontrivial ideal character series S with nonzero value at one."
+    fail "Unfinished arithmetic input: continuously extend the prime-to-q ideal character series Sgood with nonzero value at one."
