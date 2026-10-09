@@ -1,0 +1,171 @@
+{
+  "node": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1",
+  "integration_parent": "ebb668dfd4da90e21d4bd9e8614cd99e30d48746",
+  "reviewed_candidate_commits": [
+    "bad574c70f13eb8d82b163f8e7e0ab5869b786ce",
+    "9ce3333988ee36c03135040f768c60f03a349957",
+    "14d3d9692a3f587fd8646ec765d3a26e50251db4",
+    "a87f8d51acfe3b2dfa25ffe884299126264a3ae5",
+    "a0c8e7f46fdb8716ec770999199c677b9c0cfdea",
+    "99deac8c41b85e27086077be1127bdc3edefec12",
+    "d9e3da4f144cbe4a06f1903bf5ce7ee50209c9de",
+    "b8d6989914637ac6043a8648c6cf5e59a2bc6d0a",
+    "3cc71666a9f998bda86f58054eff66474aa01763"
+  ],
+  "repair": "Retain the earlier byte-identical copies of five helper declarations and remove their repeated later copies, eliminating both redeclarations and the eta notation collision after open ModularForm. Restore end Submission after coefficient decay and remove the redundant nested frozen-root copy; retain the original top-level frozen root and header byte-exact. All distinct theorem statements and proof bodies remain byte-identical.",
+  "history": {
+    "bad574c70f13eb8d82b163f8e7e0ab5869b786ce": {
+      "replayed_commit": "6767af3f42a5f649546e78d2fa3cd531df8aea78",
+      "retained_declaration": "Submission.f036cc6b1f_pic_mec_invariant_conull_core",
+      "identical_declaration_sha256": "70093c06cd1757c14f6c48469f707caa61b1bf312d569e0931101a1e681134ad",
+      "note": "The declaration is byte-identical; the canonical replay repaired surrounding namespace layout."
+    },
+    "9ce3333988ee36c03135040f768c60f03a349957": {
+      "represented_by": [
+        "acf281739696c8476592406100e1191be11b3f32",
+        "00a1036a53b159efe052e7a5927cd2afb0bda22d",
+        "ce77ba11299a2b935e660eace306812aa1d3dbc3"
+      ],
+      "identical_changed_lines_sha256": "59624dfd6ff0fc1fccbdc7b81ea43a898a842ec3ae262ce66595001ebef6271e"
+    },
+    "14d3d9692a3f587fd8646ec765d3a26e50251db4": {
+      "represented_by": [
+        "9d5110530403a4a294d5ba0aca7b5e71252b0263",
+        "a2bf9233059f1c892c85a8e44715fa217cc11386",
+        "968f3a61133a212be8891c08c973ba7a1ef01e2d",
+        "697959b39514c1190104f68695a4b3d2d0eb2d2d"
+      ],
+      "identical_changed_lines_sha256": "e01080ac19029d1f0305fc2dddef6da11792da9e005249994aad9d1c4c5f279e"
+    },
+    "a87f8d51acfe3b2dfa25ffe884299126264a3ae5": {
+      "represented_by": [
+        "ca8701c6a1631f906236ebb04c5bac2f26e3409e",
+        "861338c58d56d1029409583ea136ae284dc42127",
+        "1712894ab6e47f6b0b3c812e7b7d6bf3a0d41cdf"
+      ],
+      "identical_changed_lines_sha256": "1a3bf03f34ba5f5938f0ac8b686c2b1aa77ed5cccb2d3368e835fb9250b797ff"
+    },
+    "a0c8e7f46fdb8716ec770999199c677b9c0cfdea": {
+      "represented_by": [
+        "c7a1c4d4b16549a3b2eed5b014bb5e7bc83c14ae",
+        "076515b77177bb6061a13456d8d76851a4532a4f",
+        "9e6c9e3fd4cc5732e27e81f67e8e660b02d7118b"
+      ],
+      "identical_changed_lines_sha256": "96d16252955de89f6dbd4d63e050f69158e91dacdafe355075b2fa9d6985c33d"
+    },
+    "99deac8c41b85e27086077be1127bdc3edefec12": {
+      "represented_by": [
+        "082538d14d35521a62e51dac457575b9042aa1ae",
+        "55e0ff1b18813d27408ab24cad3296d52935f900"
+      ],
+      "identical_changed_lines_sha256": "af044292238d102fd01c23d9c1754022da11f0023ea136347e906b1d6b6e4d23"
+    },
+    "d9e3da4f144cbe4a06f1903bf5ce7ee50209c9de": {
+      "represented_by": [
+        "56fd19a146e9cfc57c97ceeffd7903a32c5ad3e8",
+        "1c8be1b13e5ccea9ed8055124dc362d3df35e972"
+      ],
+      "identical_changed_lines_sha256": "76352cb8b8fcc7df053faa80acb926f7b649e5c7d8116ae1fd983dca87e5866e"
+    },
+    "b8d6989914637ac6043a8648c6cf5e59a2bc6d0a": {
+      "represented_by": [
+        "8a461980753333b533cb8336e2330a05510385a5",
+        "5abde15dce47d4e5769c4ebfcdeee5f30a4d1962"
+      ],
+      "identical_changed_lines_sha256": "0db8f01620714b8c184b7d1cdf21c26b359a8411ad916507cfc6b9e384778d56"
+    },
+    "3cc71666a9f998bda86f58054eff66474aa01763": {
+      "represented_by": [
+        "ebb668dfd4da90e21d4bd9e8614cd99e30d48746"
+      ],
+      "identical_changed_lines_sha256": "9dca1d525877926d977c487294730fb44c7934641782509a14601a50a0d77504"
+    }
+  },
+  "checks": {
+    "distinct_declarations_preserved": 26,
+    "accepted_final_candidate_declarations_preserved": 8,
+    "duplicate_helpers_removed": [
+      "Submission.f036cc6b1f_pic_psp_sign_transversal",
+      "Submission.f036cc6b1f_pic_psp_measurable_slice_partition",
+      "f036cc6b1f_pic_mec_pointwise_sign_partition",
+      "f036cc6b1f_pic_dt_measurable_equidecomposition",
+      "Submission.f036cc6b1f_pic_dt_integral_of_equidecomposition"
+    ],
+    "retained_declaration_sha256": {
+      "CuspForm.span_heckeTLin_eigen_eq_top": "7a5392bf82ec7f9117cdbf585b5111fa7dfc1614bd327dcb63707e771337cd9f",
+      "f036cc6b1f_fd_coeff_decay": "b5cd7afd6f43dce5caa2acc8d546bb599310e6dcd6be2bfb7c50760f8997ac29",
+      "Submission.f036cc6b1f_pic_dd_ae_orbit_zero": "b09d5607a34a27cde53cbe81bed31d71cec3f82584bce1787f6557f6a7b0b293",
+      "Submission.f036cc6b1f_pic_dd_open_pos": "c59ef7853b7e46dd30f9bad2006578abaef4708a51505026ddf67eba06d7692b",
+      "f036cc6b1f_pic_diagonal_definite": "b8cfa2ad5cc955a5ebe9e496c91adab117ff215c41602bc303501a43e16b3f46",
+      "Submission.f036cc6b1f_pic_psp_measurable_slice_partition": "49d55c1e639146619da35cba366097afb433fa3fcd219b429765de0104771e26",
+      "Submission.f036cc6b1f_pic_dt_integral_of_equidecomposition": "40d6f9bba1a10725733dc29ab89d918dc8cbaad367aaedfe689d257a021847c2",
+      "Submission.f036cc6b1f_pic_psp_sign_transversal": "6c0773c55ed1985e2f53b561a968cb57b2609aaca03b45ae33e947a892802dab",
+      "f036cc6b1f_pic_mec_pointwise_sign_partition": "96778e689c527f17125707b76b5bc31644f3afae222ef0da856448309c256fe8",
+      "Submission.f036cc6b1f_pc_hi_effective_domain_lift": "a8b7d0edea391c5ce6d51c4ed851847ea9c46b53d133f9c217a592758dbd21b3",
+      "Submission.f036cc6b1f_pc_hi_gpt_bezout_lift": "f0505b112b55e2bbadb369a54a5587d9ddae7cd2f5d923891e920a20dd1e3561",
+      "Submission.f036cc6b1f_pc_hi_rational_slash": "a3d603aa96a7a4e1c189c9fae2719c7fafb9b36c45044c0231950cfde230182d",
+      "Submission.f036cc6b1f_tdi_planar_exp_integrable_fd": "7ed55c5a8ef20259f747b93aa7d166b8e30d938cbfbdf97b2234d968414e8465",
+      "f036cc6b1f_pc_ed_aoi_null_orbit": "4c99f0db57cee5ada772ef484105837aa0e8848b38a175b6b986787b1c2a330e",
+      "Submission.f036cc6b1f_pc_hi_gpt_unique_projective_index": "1d08ff8f89dbad42386460f8b75afbd7b9d42543370018097f722837ad6142d1",
+      "f036cc6b1f_hecke_commute": "c3065d4eaf1ca3f1dbc55836d2aac678b09a7f144f998639d0fa482c2458ac59",
+      "Submission.f036cc6b1f_pic_mec_invariant_conull_core": "70093c06cd1757c14f6c48469f707caa61b1bf312d569e0931101a1e681134ad",
+      "f036cc6b1f_pc_ed_transversal_unique": "923ec7be4a3e61cd64e451661a6ca82148f9f45d0815345103a7eb0c3bbaf505",
+      "f036cc6b1f_pc_hi_good_prime_transversal": "baaa2a53df25fd0236e013dff2a5e9e3e75313b37fed5137d8cc0c1bbec30d25",
+      "Submission.f036cc6b1f_pc_hi_finite_trace_unfolding": "936a01f3268bd71faeda8a581f7d03f6ee88cf411639b9640be6309e8db72f8d",
+      "Submission.f036cc6b1f_tdi_petersson_integrable_of_exp_product_bound": "a7947fee839b1721baa758d1fe705ec5cbefa363466309213e379b2335211a6f",
+      "f036cc6b1f_pc_ed_aoi_boundary_null": "4d16cd8059ac8bda1b820f320566e8a52fce85298bd2fdbeefcfded36def4fc7",
+      "f036cc6b1f_pic_dt_measurable_equidecomposition": "c678484253ec3fb686168b25bd25e0fe8d4314416ad2c060ac4f9b2d42064301",
+      "f036cc6b1f_pic_translated_integrable": "06f06e2bb52c5d67f7bcfb16e3d4327999aa747c12e45f04103c4e2bd8db7c7c",
+      "f036cc6b1f_fd_norm_bound": "5ae176809b1f1af6b3ec1e9078f9e3620d6f63ee064ad49ca0f950d60a592cd2",
+      "f036cc6b1f_pic_domain_transfer": "bd985e0cbfd58eab84714cdbefa24a966335e5f3e608d721339fa4d8f77caf74"
+    },
+    "submission_before_sha256": "d560a1512cca6c89749e31fb45f2ed3a033668425e3253e3f9f1b5f91a914c3e",
+    "submission_after_sha256": "aef9692681e177341b4c09f435df8b7fb581f2b779c8eea237ebacd0913c98dc",
+    "frozen_header_and_root_declaration_preserved": true,
+    "contract_sha256": "365510742cf45daae091fcbb675dc22f4df855f4f5e522aa065b65339f379bbe",
+    "operator_policy_sha256": "96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96",
+    "protected_artifact_sha256": {
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md": "0929eb9ca2ad7ea30f1aafc2c1446aaf06dcdc301374ffe2ca7f4b56816d2cc8",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json": "509f4932b6d1c571a2a1434f97319ae47791212dabf986cc6faad0e84a6d9346",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/parent-child-handoff.json": "ef3dec0c9b94e36c86cddb74506aee1ded0ca4681d48270c4d98a9100686a835",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/parent-supplied-natural-proof.json": "1d52044c575b53dcf14db1104ad5adacaf72db26d1420e918d18ac31461e1c8c",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/parent-supplied-natural-proof.md": "d74bf16c1ef45c2fea894a7826f569f8aa62b8c913b743af5a5ea0c0c39e0a4c",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/parent-supplied-plan.md": "f491dbf4a4819d279e0c5ed0edc88fc950923a8a01cd7a5fecaf149dc2de8d07",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/rlcr-plan-v1.md": "c37159d98ad1f5b1b128598fa8e540172dc8b23a02fc88efa00a09d5311fa75b",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/decomposition-v1.json": "b6f98baa19a7104d138ab9ce9c518a32b869f2c6dd0d9cab0468d10ccf3e746f",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/decomposition-audit-v1.json": "7c38e67352fad4eca0a9fccd328755a27b285ff255fb1d5c6b842a56d783a687",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-petersson-integral-core-a1-effectiv-202b24e1b4/lean-audit-v1.json": "bdc782f8640f5688a9c8042ff135371df5a22a81ed22ae98e01bf88b6651d580"
+    },
+    "verification_requirement": "Run the configured comparator against this committed tree; review Git identity, exact frozen type, kernel, transitive axioms, clean pinned dependencies, and frozen_header_repair evidence. These preservation checks alone are not proof acceptance."
+  },
+  "reference_use": [
+    {
+      "source": "local-project",
+      "manifest": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+      "project_commit": "61b5f85556ac71631ccad822e0694511234f7132",
+      "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "queries": [
+        {
+          "query": "f036cc6b1f_pic_(psp|mec|dt)|f036cc6b1f_pic_domain_transfer",
+          "scopes": [
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project",
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib"
+          ],
+          "finding": "No matches in either scope (separate rg exit codes 1). The accepted helpers belong to later reviewed histories."
+        },
+        {
+          "query": "notation.*\"\u03b7\"",
+          "scopes": [
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory"
+          ],
+          "finding": "DedekindEta.lean:63 declares scoped[ModularForm] notation \u03b7, activated by the existing open ModularForm before the repeated helper copies. Other matches are local notations in FLT/Three.lean:155 and NumberField/Cyclotomic/Three.lean:40."
+        }
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/DedekindEta.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean"
+      ],
+      "compatibility": "Both snapshot Git HEADs match the manifest and have clean tracked files. The original Definitions import is unchanged; lakefile.lean pins the same mathlib revision and lean-toolchain pins Lean 4.33.1. No reference proof is copied or revised. Transitive-axiom acceptance remains subject to the configured comparator."
+    }
+  ]
+}
