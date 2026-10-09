@@ -7956,6 +7956,8 @@ theorem p03_odd_prepsi_torsion_68cf3476 :
 end Submission
 
 
+/-- Combine the odd division polynomial's degree and leading coefficient with its
+vanishing criterion for torsion points. -/
 theorem Submission.p03_odd_division_detection_68cf3476 :
     ∀ (F : Type) [Field F] [CharZero F] [DecidableEq F] (W : WeierstrassCurve F),
       W.Δ ≠ 0 → ∀ (n : ℕ), 3 ≤ n → Odd n →
