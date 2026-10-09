@@ -1,0 +1,19 @@
+{
+  "node_id": "root.scalarization_modular-a1.all_cusps-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/49",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "440ccd16ab4ca8260dfaebcd455d579fc86a3604",
+  "integrated_commit": "630edb81edaaf49bf312f747c4e9239f1d64efb4",
+  "proof_base_commit": "f433f505e209a0721abf52e908d34801732a2e70",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "machine-leaf",
+  "reviewer_comparator_passed": null,
+  "parent": "root.scalarization_modular-a1",
+  "requires": [
+    "root.scalarization_modular-a1.scalar_slash_covariance-a1",
+    "root.scalarization_modular-a1.integral_covariance-a1",
+    "root.scalarization_modular-a1.translation_bound-a1"
+  ]
+}
