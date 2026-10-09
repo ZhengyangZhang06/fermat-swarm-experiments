@@ -644,11 +644,6 @@ theorem p07_cq_group_law_pullback_857cd4d38c :
           (by rw [← Category.assoc, hh]) (B W t P) :=
     Subtype.ext (Category.assoc h P.1 g)
   -- Transport the operations; injectivity reduces their laws to those of G.
-          (by rw [← Category.assoc, hh]) (B W t P) := by
-    exact Subtype.ext (Category.assoc h P.1 g)
-  -- Transport the operations; injectivity reduces their laws to those of G.
-    apply Subtype.ext
-    exact Category.assoc h P.1 g
   let H : RelativeGroupLaw T p :=
     { mul := fun {W} t P Q =>
         (B W t).symm (G.mul (t ≫ β) (B W t P) (B W t Q))
@@ -804,77 +799,6 @@ theorem p07_cq_abelian_surface_quotient_857cd4d38c
   refine ⟨⟨?_, ?_, fun t => (hfibres t).1, ⟨H⟩⟩, fun t => (hfibres t).2⟩
   · exact MorphismProperty.pullback_snd _ _ h.smooth
   · infer_instance
-open CategoryTheory.Limits
-
-/-- The level immersion and its finite flat structure morphism commute with base change.
-
-The cartesian square follows from `IsPullback.of_bot`
-(`Mathlib/CategoryTheory/Limits/Shapes/Pullback/IsPullback/Basic.lean`), which packages
-the existence and uniqueness argument in steps 3–4 of the accepted natural proof.
-The rank formula is `Scheme.Hom.finrank_pullback_snd`
-(`Mathlib/AlgebraicGeometry/Morphisms/FlatRank.lean`). Closed immersion transfers via
-`MorphismProperty.of_isPullback` (`Mathlib/CategoryTheory/MorphismProperty/Limits.lean`)
-and `IsClosedImmersion.isStableUnderBaseChange`
-(`Mathlib/AlgebraicGeometry/Morphisms/ClosedImmersion.lean`). The three structure-map
-instances are in `Mathlib/AlgebraicGeometry/Morphisms/{Finite,Flat,FinitePresentation}.lean`.
-All these results are from the pinned mathlib revision
-`db584cd6d46c92f209a44c0f1c829460d327499d`. -/
-theorem p07_cq_level_geometry_pullback_857cd4d38c :
-    ∀ (S T : Type) [CommRing S] [CommRing T] (φ : S →+* T)
-      (A C : AlgebraicGeometry.Scheme.{0})
-      (f : A ⟶ AlgebraicGeometry.Spec (CommRingCat.of S)) (ℓ : C ⟶ A),
-      AlgebraicGeometry.IsClosedImmersion ℓ →
-      AlgebraicGeometry.IsFinite (ℓ ≫ f) →
-      AlgebraicGeometry.Flat (ℓ ≫ f) →
-      AlgebraicGeometry.LocallyOfFinitePresentation (ℓ ≫ f) →
-      let β := AlgebraicGeometry.Spec.map (CommRingCat.ofHom φ)
-      let c := ℓ ≫ f
-      let p := pullback.snd f β
-      let g := pullback.fst f β
-      let r := pullback.fst c β
-      let d := pullback.snd c β
-      ∃ ℓT : pullback c β ⟶ pullback f β,
-        CategoryTheory.IsPullback r ℓT ℓ g ∧ ℓT ≫ p = d ∧
-        AlgebraicGeometry.IsClosedImmersion ℓT ∧ AlgebraicGeometry.IsFinite d ∧
-        AlgebraicGeometry.Flat d ∧ AlgebraicGeometry.LocallyOfFinitePresentation d ∧
-        (∀ t : AlgebraicGeometry.Spec (CommRingCat.of T),
-          AlgebraicGeometry.Scheme.Hom.finrank d t =
-            AlgebraicGeometry.Scheme.Hom.finrank c (β t)) ∧
-        (∀ (W : AlgebraicGeometry.Scheme.{0}) (Q : W ⟶ pullback f β),
-          (∃ R : W ⟶ pullback c β, R ≫ ℓT = Q) ↔
-            (∃ R : W ⟶ C, R ≫ ℓ = Q ≫ g)) := by
-  intro S T _ _ φ A C f ℓ hℓ hfinite hflat hfp
-  dsimp only
-  let β := AlgebraicGeometry.Spec.map (CommRingCat.ofHom φ)
-  let c := ℓ ≫ f
-  let ℓT : pullback c β ⟶ pullback f β :=
-    pullback.lift (pullback.fst c β ≫ ℓ) (pullback.snd c β) (by
-      rw [Category.assoc]
-      exact pullback.condition)
-  have hfst : ℓT ≫ pullback.fst f β = pullback.fst c β ≫ ℓ :=
-    pullback.lift_fst _ _ _
-  have hsnd : ℓT ≫ pullback.snd f β = pullback.snd c β :=
-    pullback.lift_snd _ _ _
-  -- Cancel the lower pullback square from the outer square for c = ℓ ≫ f.
-  have hpb : IsPullback (pullback.fst c β) ℓT ℓ (pullback.fst f β) := by
-    apply IsPullback.of_bot (s := ?_) hfst.symm (IsPullback.of_hasPullback f β)
-    rw [hsnd]
-    exact IsPullback.of_hasPullback c β
-  -- The structure morphism is the canonical base change of the finite flat c.
-  refine ⟨ℓT, hpb, hsnd, ?_, ?_, ?_, ?_, ?_, ?_⟩
-  · exact MorphismProperty.of_isPullback hpb hℓ
-  · exact MorphismProperty.pullback_snd c β hfinite
-  · exact MorphismProperty.pullback_snd c β hflat
-  · exact MorphismProperty.pullback_snd c β hfp
-  · exact Scheme.Hom.finrank_pullback_snd c β
-  · intro W Q
-    constructor
-    · rintro ⟨U, hU⟩
-      refine ⟨U ≫ pullback.fst c β, ?_⟩
-      rw [Category.assoc, hpb.w, ← Category.assoc, hU]
-    · rintro ⟨R, hR⟩
-      -- A factorization through ℓ supplies exactly the compatibility for this lift.
-      exact ⟨hpb.lift R Q hR, hpb.lift_snd R Q hR⟩
 
 end Submission
 
@@ -903,6 +827,8 @@ theorem p07_cre_finite_flat_rank_857cd4d38c
     MorphismProperty.of_isPullback hpb hflat,
     MorphismProperty.of_isPullback hpb hpresentation,
     fun s => Scheme.Hom.finrank_of_isPullback (𝟙 C) (q ≫ e.inv) q e.hom hpb s⟩
+
+end Submission
 
 namespace Submission
 
