@@ -3205,3 +3205,20 @@ theorem Submission.p10_17ae7b7d_idx_dedekind_psi_product :
       apply Finset.prod_congr rfl
       intro p _
       exact Nat.add_comm _ _
+
+
+theorem Submission.p10_17ae7b7d_cc_index :
+    ∀ (N : ℕ) [NeZero N],
+      let Q := (Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 N
+      Finite Q ∧ Nat.card Q = ModularCurve.dedekindPsi N := by
+  intro N _
+  obtain ⟨hfinite, hcard⟩ := Submission.p10_17ae7b7d_idx_coset_row_card N
+    (Submission.p10_17ae7b7d_cc_lift_unimodular_row N)
+  refine ⟨hfinite, ?_⟩
+  rw [hcard, Submission.p10_17ae7b7d_idx_crt_row_card N,
+    Submission.p10_17ae7b7d_idx_dedekind_psi_product N]
+  apply Finset.prod_congr rfl
+  intro p hp
+  have hpPrime := Nat.prime_of_mem_primeFactors hp
+  exact Submission.p10_17ae7b7d_idx_prime_power_row_card p (N.factorization p) hpPrime
+    (hpPrime.factorization_pos_of_dvd (NeZero.ne N) (Nat.dvd_of_mem_primeFactors hp))
