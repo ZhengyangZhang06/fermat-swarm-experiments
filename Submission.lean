@@ -26538,8 +26538,331 @@ theorem Submission.p03_tkc_torsion_card_recurrence_68cf3476_d5 :
       ← zpow_sub₀ horigin_value_t.1]
     congr 1
     ring
+  -- A polynomial in x has its root multiplicity multiplied by the simple or
+  -- double order of x - x(P). This makes the quadratic norm usable for the
+  -- finite-point part of the degree calculation in accepted proof step 8.
+  have hlocalPolynomialOrder (α β : k) (h : W.toAffine.Nonsingular α β) :
+      let p : Ideal A := RingHom.ker (AdjoinRoot.evalEval h.1)
+      let : p.IsPrime := RingHom.ker_isPrime _
+      let B := Localization.AtPrime p
+      let ι : Polynomial k →+* B := (algebraMap A B).comp
+        ((CoordinateRing.mk W.toAffine).comp Polynomial.C)
+      ∃ t : B, Ideal.span {t} = IsLocalRing.maximalIdeal B ∧ Prime t ∧
+        ∀ f : Polynomial k, f ≠ 0 →
+          emultiplicity t (ι f) = (f.rootMultiplicity α : ENat) *
+            (if β = W.toAffine.negY α β then 2 else 1) := by
+    let ev : A →+* k := AdjoinRoot.evalEval h.1
+    let p : Ideal A := RingHom.ker ev
+    let : p.IsPrime := RingHom.ker_isPrime ev
+    let B := Localization.AtPrime p
+    let ι : Polynomial k →+* B := (algebraMap A B).comp
+      ((CoordinateRing.mk W.toAffine).comp Polynomial.C)
+    obtain ⟨t, ht, hirr, hx⟩ := hlocalOrder α β h
+    have hprime : Prime t := by
+      apply (Ideal.span_singleton_prime hirr.ne_zero).mp
+      rw [ht]
+      infer_instance
+    refine ⟨t, ht, hprime, ?_⟩
+    intro f hf
+    obtain ⟨q, hq, hnot⟩ := f.exists_eq_pow_rootMultiplicity_mul_and_not_dvd hf α
+    have hqeval : q.eval α ≠ 0 := by
+      simpa only [Polynomial.dvd_iff_isRoot, Polynomial.IsRoot] using hnot
+    have hunit : IsUnit (ι q) := by
+      apply (IsLocalization.AtPrime.isUnit_to_map_iff B p _).mpr
+      change ev (CoordinateRing.mk W.toAffine (Polynomial.C q)) ≠ 0
+      change AdjoinRoot.evalEval h.1
+        (AdjoinRoot.mk W.toAffine.polynomial (Polynomial.C q)) ≠ 0
+      rwa [AdjoinRoot.evalEval_mk, Polynomial.evalEval_C]
+    have hx' : emultiplicity t (ι (Polynomial.X - Polynomial.C α)) =
+        if β = W.toAffine.negY α β then (2 : ENat) else 1 := hx
+    conv_lhs => rw [hq, map_mul, map_pow]
+    rw [emultiplicity_mul hprime, emultiplicity_pow hprime,
+      emultiplicity_of_isUnit_right hprime.not_isUnit hunit, add_zero, hx']
+  -- Negation on the curve induces the conjugation of its quadratic coordinate
+  -- ring over k[x]. It identifies the two local contributions in the norm.
+  obtain ⟨conjugation, hconjugation_mk, hconjugation_norm, hconjugation_eval⟩ :
+      ∃ σ : A ≃+* A,
+        (∀ p : Polynomial (Polynomial k),
+          σ (CoordinateRing.mk W.toAffine p) =
+            CoordinateRing.mk W.toAffine (p.comp W.toAffine.negPolynomial)) ∧
+        (∀ z : A, algebraMap (Polynomial k) A (Algebra.norm (Polynomial k) z) = z * σ z) ∧
+        (∀ (α β : k) (h : W.toAffine.Nonsingular α β) (z : A),
+          AdjoinRoot.evalEval h.1 (σ z) =
+            AdjoinRoot.evalEval ((nonsingular_neg α β).mpr h).1 z) := by
+    have hsub : W.toAffine.polynomial.comp W.toAffine.negPolynomial =
+        W.toAffine.polynomial := by
+      simp only [polynomial, negPolynomial, Polynomial.add_comp, Polynomial.sub_comp,
+        Polynomial.mul_comp, Polynomial.pow_comp, Polynomial.C_comp, Polynomial.X_comp]
+      ring
+    let σ : A →+* A := Ideal.Quotient.lift (Ideal.span {W.toAffine.polynomial})
+      ((CoordinateRing.mk W.toAffine).comp
+        (Polynomial.compRingHom W.toAffine.negPolynomial)) (by
+          intro p hp
+          obtain ⟨q, rfl⟩ := Ideal.mem_span_singleton.mp hp
+          change CoordinateRing.mk W.toAffine
+            ((W.toAffine.polynomial * q).comp W.toAffine.negPolynomial) = 0
+          rw [Polynomial.mul_comp, hsub, map_mul, AdjoinRoot.mk_self, zero_mul])
+    have hσ (p : Polynomial (Polynomial k)) : σ (CoordinateRing.mk W.toAffine p) =
+        CoordinateRing.mk W.toAffine (p.comp W.toAffine.negPolynomial) := rfl
+    have hself : W.toAffine.negPolynomial.comp W.toAffine.negPolynomial = Polynomial.X := by
+      simp only [negPolynomial, Polynomial.sub_comp, Polynomial.neg_comp,
+        Polynomial.X_comp, Polynomial.C_comp]
+      ring
+    have hinvol : Function.Involutive σ := by
+      intro z
+      obtain ⟨p, rfl⟩ := AdjoinRoot.mk_surjective z
+      rw [hσ, hσ, Polynomial.comp_assoc, hself, Polynomial.comp_X]
+    let e : A ≃+* A := { σ with invFun := σ, left_inv := hinvol, right_inv := hinvol }
+    refine ⟨e, hσ, ?_, ?_⟩
+    · intro z
+      obtain ⟨p, q, rfl⟩ := CoordinateRing.exists_smul_basis_eq z
+      have hb : p • (1 : A) + q • CoordinateRing.mk W.toAffine Polynomial.X =
+          CoordinateRing.mk W.toAffine
+            (Polynomial.C p + Polynomial.C q * Polynomial.X) := by
+        rw [CoordinateRing.smul (W' := W.toAffine) p (1 : W.toAffine.CoordinateRing),
+          CoordinateRing.smul (W' := W.toAffine) q
+            (CoordinateRing.mk W.toAffine Polynomial.X), mul_one, map_add, map_mul]
+      have he : e (p • (1 : A) + q • CoordinateRing.mk W.toAffine Polynomial.X) =
+          CoordinateRing.mk W.toAffine
+            (Polynomial.C p + Polynomial.C q * W.toAffine.negPolynomial) := by
+        rw [hb]
+        change σ (CoordinateRing.mk W.toAffine
+          (Polynomial.C p + Polynomial.C q * Polynomial.X)) = _
+        rw [hσ, Polynomial.add_comp, Polynomial.mul_comp,
+          Polynomial.C_comp, Polynomial.C_comp, Polynomial.X_comp]
+      rw [he]
+      change AdjoinRoot.of W.toAffine.polynomial
+        (Algebra.norm (Polynomial k) (p • (1 : A) +
+          q • CoordinateRing.mk W.toAffine Polynomial.X)) = _
+      rw [CoordinateRing.coe_norm_smul_basis, map_mul, hb]
+      rfl
+    · intro α β h z
+      obtain ⟨p, rfl⟩ := AdjoinRoot.mk_surjective z
+      change AdjoinRoot.evalEval h.1 (σ (CoordinateRing.mk W.toAffine p)) = _
+      rw [hσ, AdjoinRoot.evalEval_mk, AdjoinRoot.evalEval_mk]
+      rw [← Polynomial.eval₂_evalRingHom, Polynomial.eval₂_comp,
+        Polynomial.eval₂_evalRingHom, evalEval_negPolynomial]
+  have hlocalConjugation (α β : k) (h : W.toAffine.Nonsingular α β) :
+      let hneg := (nonsingular_neg α β).mpr h
+      let p : Ideal A := RingHom.ker (AdjoinRoot.evalEval h.1)
+      let q : Ideal A := RingHom.ker (AdjoinRoot.evalEval hneg.1)
+      let : p.IsPrime := RingHom.ker_isPrime _
+      let : q.IsPrime := RingHom.ker_isPrime _
+      let B := Localization.AtPrime p
+      let C := Localization.AtPrime q
+      ∀ (t : B) (u : C), Ideal.span {t} = IsLocalRing.maximalIdeal B →
+        Ideal.span {u} = IsLocalRing.maximalIdeal C → ∀ z : A,
+          emultiplicity t (algebraMap A B (conjugation z)) =
+            emultiplicity u (algebraMap A C z) := by
+    let hneg := (nonsingular_neg α β).mpr h
+    let p : Ideal A := RingHom.ker (AdjoinRoot.evalEval h.1)
+    let q : Ideal A := RingHom.ker (AdjoinRoot.evalEval hneg.1)
+    let : p.IsPrime := RingHom.ker_isPrime _
+    let : q.IsPrime := RingHom.ker_isPrime _
+    let B := Localization.AtPrime p
+    let C := Localization.AtPrime q
+    dsimp only
+    intro t u ht hu z
+    have hpq : q = p.comap conjugation.toRingHom := by
+      ext v
+      change AdjoinRoot.evalEval hneg.1 v = 0 ↔
+        AdjoinRoot.evalEval h.1 (conjugation v) = 0
+      rw [hconjugation_eval α β h v]
+    let e : C ≃+* B := Localization.localRingEquiv q p conjugation hpq
+    have he (v : A) : e (algebraMap A C v) = algebraMap A B (conjugation v) :=
+      Localization.localRingHom_to_map q p conjugation.toRingHom hpq v
+    have hassoc : Associated (e u) t := by
+      apply Ideal.span_singleton_eq_span_singleton.mp
+      calc
+        Ideal.span {e u} = Ideal.map e.toRingHom (Ideal.span {u}) := by
+          rw [Ideal.map_span, Set.image_singleton]
+          rfl
+        _ = IsLocalRing.maximalIdeal B := by
+          rw [hu]
+          exact IsLocalRing.map_ringEquiv_maximalIdeal e
+        _ = Ideal.span {t} := ht.symm
+    rw [← he z, emultiplicity_eq_of_associated_left hassoc, emultiplicity_map_eq e]
+  let affineOrder (α β : k) (h : W.toAffine.Nonsingular α β) (z : A) : ℕ := by
+    let p : Ideal A := RingHom.ker (AdjoinRoot.evalEval h.1)
+    let : p.IsPrime := RingHom.ker_isPrime _
+    exact multiplicity (Classical.choose (hlocalPolynomialOrder α β h))
+      (algebraMap A (Localization.AtPrime p) z)
+  have haffineOrder_emultiplicity (α β : k) (h : W.toAffine.Nonsingular α β)
+      (z : A) (hz : z ≠ 0) :
+      let p : Ideal A := RingHom.ker (AdjoinRoot.evalEval h.1)
+      let : p.IsPrime := RingHom.ker_isPrime _
+      emultiplicity (Classical.choose (hlocalPolynomialOrder α β h))
+          (algebraMap A (Localization.AtPrime p) z) = affineOrder α β h z := by
+    let p : Ideal A := RingHom.ker (AdjoinRoot.evalEval h.1)
+    let : p.IsPrime := RingHom.ker_isPrime _
+    have hprime := (Classical.choose_spec (hlocalPolynomialOrder α β h)).2.1
+    apply FiniteMultiplicity.emultiplicity_eq_multiplicity
+    apply FiniteMultiplicity.of_prime_left hprime
+    exact (map_ne_zero_iff _
+      (IsLocalization.injective (Localization.AtPrime p) p.primeCompl_le_nonZeroDivisors)).mpr hz
+  have haffineOrder_norm (α β : k) (h : W.toAffine.Nonsingular α β)
+      (z : A) (hz : z ≠ 0) :
+      affineOrder α β h z +
+          affineOrder α (W.toAffine.negY α β) ((nonsingular_neg α β).mpr h) z =
+        (Algebra.norm (Polynomial k) z).rootMultiplicity α *
+          (if β = W.toAffine.negY α β then 2 else 1) := by
+    let hneg := (nonsingular_neg α β).mpr h
+    let p : Ideal A := RingHom.ker (AdjoinRoot.evalEval h.1)
+    let q : Ideal A := RingHom.ker (AdjoinRoot.evalEval hneg.1)
+    let : p.IsPrime := RingHom.ker_isPrime _
+    let : q.IsPrime := RingHom.ker_isPrime _
+    let B := Localization.AtPrime p
+    let C := Localization.AtPrime q
+    let t := Classical.choose (hlocalPolynomialOrder α β h)
+    let u := Classical.choose (hlocalPolynomialOrder α (W.toAffine.negY α β) hneg)
+    have ht := Classical.choose_spec (hlocalPolynomialOrder α β h)
+    have hu := Classical.choose_spec (hlocalPolynomialOrder α (W.toAffine.negY α β) hneg)
+    let : Module.Finite (Polynomial k) A :=
+      Module.Finite.of_basis (CoordinateRing.basis W.toAffine)
+    have hn := ht.2.2 (Algebra.norm (Polynomial k) z) (Algebra.norm_ne_zero_iff.mpr hz)
+    change emultiplicity t (algebraMap A B
+      (algebraMap (Polynomial k) A (Algebra.norm (Polynomial k) z))) = _ at hn
+    rw [hconjugation_norm, map_mul, emultiplicity_mul ht.2.1,
+      hlocalConjugation α β h t u ht.1 hu.1 z,
+      haffineOrder_emultiplicity α β h z hz,
+      haffineOrder_emultiplicity α (W.toAffine.negY α β) hneg z hz] at hn
+    have he : (if β = W.toAffine.negY α β then (2 : ENat) else 1) =
+        ((if β = W.toAffine.negY α β then 2 else 1 : ℕ) : ENat) := by
+      split_ifs <;> rfl
+    rw [he] at hn
+    exact_mod_cast hn
+  have hxpoint (α : k) : ∃ β : k, W.toAffine.Nonsingular α β := by
+    let f : Polynomial k := W.toAffine.polynomial.map (Polynomial.evalRingHom α)
+    have hd : f.degree = 2 := by
+      rw [Polynomial.Monic.degree_map monic_polynomial, degree_polynomial]
+    obtain ⟨β, hβ⟩ := IsAlgClosed.exists_root f (by rw [hd]; norm_num)
+    refine ⟨β, (W.toAffine.equation_iff_nonsingular_of_Δ_ne_zero hΔ).mp ?_⟩
+    change W.toAffine.polynomial.evalEval α β = 0
+    change f.eval β = 0 at hβ
+    simpa only [f, Polynomial.eval_map, Polynomial.eval₂_evalRingHom] using hβ
+  choose fiberY hfiberY using hxpoint
+  let xFiber (α : k) : Finset W.toAffine.Point :=
+    {Point.some α (fiberY α) (hfiberY α), -Point.some α (fiberY α) (hfiberY α)}
+  have hxFiber (α : k) (P : W.toAffine.Point) :
+      P ∈ xFiber α ↔ P ≠ 0 ∧ P.xRep 0 = α := by
+    simp only [xFiber, Finset.mem_insert, Finset.mem_singleton]
+    constructor
+    · rintro (rfl | rfl)
+      · exact ⟨some_ne_zero _, rfl⟩
+      · exact ⟨neg_ne_zero.mpr (some_ne_zero _), by rw [xRep_neg]; rfl⟩
+    · rintro ⟨hP, hx⟩
+      cases P with
+      | zero => exact (hP rfl).elim
+      | some x y h =>
+        exact (X_eq_iff (h₁ := h) (h₂ := hfiberY α)).mp hx
+  let pointOrder (z : A) : W.toAffine.Point → ℕ := fun P => match P with
+    | .zero => 0
+    | .some α β h => affineOrder α β h z
+  have hxFiber_order (z : A) (hz : z ≠ 0) (α : k) :
+      ∑ P ∈ xFiber α, pointOrder z P =
+        (Algebra.norm (Polynomial k) z).rootMultiplicity α := by
+    have hn := haffineOrder_norm α (fiberY α) (hfiberY α) z hz
+    by_cases ht : fiberY α = W.toAffine.negY α (fiberY α)
+    · have he : -Point.some α (fiberY α) (hfiberY α) =
+          Point.some α (fiberY α) (hfiberY α) := by
+        rw [neg_some]
+        congr 1
+        exact ht.symm
+      change pointOrder z (Point.some α (fiberY α) (hfiberY α)) +
+        pointOrder z (-Point.some α (fiberY α) (hfiberY α)) = _ at hn
+      rw [he, if_pos ht] at hn
+      simp only [xFiber, he, Finset.insert_eq_of_mem (Finset.mem_singleton_self _),
+        Finset.sum_singleton]
+      omega
+    · have he : Point.some α (fiberY α) (hfiberY α) ≠
+          -Point.some α (fiberY α) (hfiberY α) := by
+        intro he
+        apply ht
+        rw [neg_some, some.injEq] at he
+        exact he.2
+      rw [if_neg ht, mul_one] at hn
+      change (∑ P ∈ {Point.some α (fiberY α) (hfiberY α),
+        -Point.some α (fiberY α) (hfiberY α)}, pointOrder z P) = _
+      rw [Finset.sum_pair he]
+      exact hn
+  have hnormDivisor (z : A) (hz : z ≠ 0) :
+      ∃ Dz : W.toAffine.Point →₀ ℤ,
+        (∀ P, Dz P = (pointOrder z P : ℤ)) ∧
+        degree Dz = (Algebra.norm (Polynomial k) z).natDegree := by
+    let S := (Algebra.norm (Polynomial k) z).roots.toFinset.biUnion xFiber
+    have hS (P : W.toAffine.Point) (hP : P ∉ S) : pointOrder z P = 0 := by
+      cases P with
+      | zero => rfl
+      | some α β h =>
+        have hr : α ∉ (Algebra.norm (Polynomial k) z).roots := by
+          intro hr
+          apply hP
+          apply Finset.mem_biUnion.mpr
+          exact ⟨α, Multiset.mem_toFinset.mpr hr, (hxFiber α _).mpr ⟨some_ne_zero _, rfl⟩⟩
+        have hn := haffineOrder_norm α β h z hz
+        have hzero : (Algebra.norm (Polynomial k) z).rootMultiplicity α = 0 := by
+          rw [← Polynomial.count_roots]
+          exact Multiset.count_eq_zero.mpr hr
+        rw [hzero, zero_mul] at hn
+        exact Nat.eq_zero_of_add_eq_zero_right hn
+    let Dz : W.toAffine.Point →₀ ℤ := ∑ P ∈ S, Finsupp.single P (pointOrder z P : ℤ)
+    refine ⟨Dz, ?_, ?_⟩
+    · intro P
+      by_cases hP : P ∈ S
+      · simp only [Dz, Finsupp.finsetSum_apply, Finsupp.single_apply,
+          Finset.sum_ite_eq', if_pos hP]
+      · simp only [Dz, Finsupp.finsetSum_apply, Finsupp.single_apply,
+          Finset.sum_ite_eq', if_neg hP, hS P hP, Nat.cast_zero]
+    · change degree (∑ P ∈ S, Finsupp.single P (pointOrder z P : ℤ)) = _
+      rw [map_sum]
+      simp only [hdegree_single]
+      have hdisjoint : Set.PairwiseDisjoint
+          (↑(Algebra.norm (Polynomial k) z).roots.toFinset) xFiber := by
+        intro α _ γ _ hne
+        apply Finset.disjoint_left.mpr
+        intro P hα hγ
+        exact hne (((hxFiber α P).mp hα).2.symm.trans ((hxFiber γ P).mp hγ).2)
+      have hsum : ∑ P ∈ S, pointOrder z P = (Algebra.norm (Polynomial k) z).natDegree := by
+        rw [Finset.sum_biUnion hdisjoint]
+        simp_rw [hxFiber_order z hz, ← Polynomial.count_roots]
+        rw [Multiset.toFinset_sum_count_eq, IsAlgClosed.card_roots_eq_natDegree]
+      exact_mod_cast hsum
+  -- The norm counts all finite orders, while the identity-chart calculation
+  -- gives the opposite norm-degree difference at infinity. Consequently the
+  -- divisor of H has degree zero without assuming a curve/divisor interface.
+  obtain ⟨divA, hdivA, hdegreeA⟩ := hnormDivisor a ha
+  obtain ⟨divB, hdivB, hdegreeB⟩ := hnormDivisor b hb
+  let principalH : W.toAffine.Point →₀ ℤ := divA - divB + Finsupp.single 0
+    ((Algebra.norm (Polynomial k) b).natDegree -
+      (Algebra.norm (Polynomial k) a).natDegree : ℤ)
+  have hprincipalH_degree : degree principalH = 0 := by
+    rw [show principalH = divA - divB + Finsupp.single 0
+      ((Algebra.norm (Polynomial k) b).natDegree -
+        (Algebra.norm (Polynomial k) a).natDegree : ℤ) from rfl,
+      map_add, map_sub, hdegreeA, hdegreeB, hdegree_single]
+    ring
+  have hprincipalH_zero : principalH 0 =
+      ((Algebra.norm (Polynomial k) b).natDegree -
+        (Algebra.norm (Polynomial k) a).natDegree : ℤ) := by
+    simp only [principalH, Finsupp.add_apply, Finsupp.sub_apply, hdivA, hdivB,
+      Finsupp.single_eq_same]
+    change (0 : ℤ) - 0 + _ = _
+    ring
+  have hprincipalH_affine (α β : k) (h : W.toAffine.Nonsingular α β) :
+      principalH (.some α β h) =
+        (affineOrder α β h a : ℤ) - (affineOrder α β h b : ℤ) := by
+    simp only [principalH, Finsupp.add_apply, Finsupp.sub_apply, hdivA, hdivB]
+    rw [Finsupp.single_eq_of_ne (some_ne_zero h), add_zero]
+  have hprincipalH_infinity : infinityValuation H =
+      originValuation (originInclusion t) ^ (principalH 0) := by
+    rw [hprincipalH_zero]
+    exact hH_infinity_value
   apply finish
-  -- Remaining: prove the orders of the nonzero rational function H equal hD
-  -- by accepted proof steps 2--7, and use the
-  -- degree-zero theorem for principal divisors on the smooth projective curve.
-  change degree D = 0
+  suffices hdiv : D = principalH by
+    rw [hdiv]
+    exact hprincipalH_degree
+  -- Remaining: identify these finite orders and the identity order of H with
+  -- hD using the multiplication-map and translation expansions in accepted
+  -- proof steps 2--7. The finite/infinite degree balance is proved above.
+  apply Finsupp.ext
+  intro P
