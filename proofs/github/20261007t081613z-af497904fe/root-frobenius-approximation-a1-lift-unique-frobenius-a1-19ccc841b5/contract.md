@@ -1,0 +1,146 @@
+<!-- theorem-id: fermat-p09/root.frobenius_approximation-a1.lift_unique_frobenius-a1 -->
+
+## Theorem `Submission.p09_af497904fe_fa_lift_unique_frobenius`
+
+Let Ω = AlgebraicClosure ℚ and let E be an intermediate field of Ω/ℚ that is finite-dimensional and Galois over ℚ. Let ℓ be a natural prime, V a valuation subring of E in which ℓ is a nonunit, and g ∈ Autℚ(E). Assume g preserves V and induces the ℓ-power residue map, and assume every rational automorphism of E with that property equals g. Then there exist a valuation subring P of Ω and τ ∈ Autℚ(Ω) such that ℓ is a nonunit of P, P restricts to V on E, τ preserves P and induces its ℓ-power residue map, and τ restricts to g on E.
+
+Node: `root.frobenius_approximation-a1.lift_unique_frobenius-a1`
+
+Root: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/9
+
+Parent: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/385
+
+Prerequisites: None
+
+Decomposition children: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/658, https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/659, https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/660, https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/661
+
+## Lean problem
+
+Declaration: `Submission.p09_af497904fe_fa_lift_unique_frobenius`
+
+```lean
+∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [IsGalois ℚ E] (ℓ : ℕ), ℓ.Prime → ∀ (V : ValuationSubring E), V.LiesOverPrime ℓ → ∀ (g : E ≃ₐ[ℚ] E), V.IsFrobeniusAt g ℓ → (∀ g' : E ≃ₐ[ℚ] E, V.IsFrobeniusAt g' ℓ → g' = g) → ∃ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ ∧ (∀ x : E, (x : AlgebraicClosure ℚ) ∈ P ↔ x ∈ V) ∧ ∃ τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ, P.IsFrobeniusAt τ ℓ ∧ ∀ x : E, τ (x : AlgebraicClosure ℚ) = ((g x : E) : AlgebraicClosure ℚ)
+```
+
+### Frozen project context
+
+`Fermat/Thm_GaloisRepAdic_exists_quadraticRelation_forall_of_frobenius.lean` at `20574e45daf714e745af8e649c7b61b21eed5644` supplies the original imports, definitions and root contract. Child hypotheses are stated above; prerequisite declarations are linked in their issues.
+
+```lean
+/-
+Copyright 2026 Anthropic, PBC. Licensed under Apache-2.0; see LICENSE.
+Source: https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_GaloisRepAdic_exists_quadraticRelation_forall_of_frobenius.lean
+Modified: replaced the proof with sorry and removed P2M proof imports.
+Requires the upstream Definitions modules and their dependencies.
+-/
+
+import Mathlib
+import Definitions.Def_GaloisRep_Adic
+attribute [-instance] AlgebraicClosure.Rat.isGalois FrobeniusDensity.liesOver_ratBelow FrobeniusDensity.isMaximal_ratPrimeIdeal Deep.NTSupply.instNormalRayClassSubgroup NumberField.NormResidueChar.fintype_G NumberField.NormResidueChar.finite_G
+attribute [-simp] TaylorWiles.Seed.mk.injEq TaylorWiles.Seed.mk.sizeOf_spec
+
+set_option autoImplicit false
+
+open IsLocalRing
+
+theorem GaloisRepAdic.exists_quadraticRelation_forall_of_frobenius
+    {𝒪 : Type} [CommRing 𝒪] [IsDomain 𝒪] [IsDiscreteValuationRing 𝒪]
+    [IsAdicComplete (maximalIdeal 𝒪) 𝒪] [CharZero 𝒪]
+    (p : ℕ) [Fact p.Prime] (hp𝒪 : (p : 𝒪) ∈ maximalIdeal 𝒪)
+    {R : Type} [CommRing R] [IsLocalRing R] [Algebra 𝒪 R] [Module.Finite 𝒪 R]
+    (hl : IsLocalHom (algebraMap 𝒪 R))
+    (ρ : GaloisRepAdic R)
+    {Y : Type} [AddCommGroup Y] [Module R Y] [Module 𝒪 Y] [IsScalarTower 𝒪 R Y] [Module.Finite 𝒪 Y]
+    (ρY : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) →* Module.End R Y)
+    (hcont : ∀ n : ℕ, ∃ F : IntermediateField ℚ (AlgebraicClosure ℚ), FiniteDimensional ℚ F ∧
+      ∀ σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ, (∀ x ∈ F, σ x = x) →
+        ∀ y : Y, ρY σ y - y ∈ (Ideal.span {(p : R)} ^ n • (⊤ : Submodule R Y)))
+    (L : ℕ) [NeZero L] (D : (ZMod L)ˣ →* Module.End R Y)
+    (hD : ∀ (u : (ZMod L)ˣ) (σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ), D u * ρY σ = ρY σ * D u)
+    (S₀ : Finset ℕ)
+    (hES : ∀ (ℓ : ℕ) (hℓ : ℓ.Prime), ℓ ∉ S₀ → ∀ (hℓL : ¬ ℓ ∣ L), ℓ ≠ p →
+      ∀ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ →
+        ∀ σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ, P.IsFrobeniusAt σ ℓ →
+          ρY σ * ρY σ - (ρ.trace σ) • ρY σ
+            + (ℓ : R) • D (ZMod.unitOfCoprime ℓ ((Nat.Prime.coprime_iff_not_dvd hℓ).mpr hℓL)) = 0) :
+    ∃ (c : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) →* Rˣ)
+      (χ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) →* (ZMod L)ˣ),
+      ∀ σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ,
+        ρY σ * ρY σ - (ρ.trace σ) • ρY σ + ((c σ : Rˣ) : R) • D (χ σ) = 0 := by
+  sorry
+```
+
+## Natural-language proof
+
+Reviewed mathematical argument; formal verification state: `proved`.
+
+# Parent-supplied natural-language proof
+
+- Parent DAG node: `root.frobenius_approximation-a1`
+- Child DAG node: `root.frobenius_approximation-a1.lift_unique_frobenius-a1`
+- Review gate: accepted as part of the parent's decomposition audit
+
+## Proof
+
+1. Fix Ω = AlgebraicClosure ℚ, a finite Galois intermediate field E, a prime ℓ, a valuation subring V of E in which ℓ is a nonunit, and g ∈ Gal(E/ℚ). Assume V.IsFrobeniusAt g ℓ and that every rational automorphism of E satisfying this predicate equals g. We use the usual ring of integers O_K for each number field K. The pinned Mathlib/NumberTheory/NumberField/Basic.lean supplies that O_K is a finite free ℤ-module, is integrally closed, has fraction field K, and is Dedekind. The pinned theorem IsLocalization.AtPrime.isDiscreteValuationRing_of_dedekind_domain in Mathlib/RingTheory/DedekindDomain/Dvr.lean then makes (O_K)_𝔮 a valuation ring for every nonzero prime 𝔮. Its maximal ideal is 𝔮(O_K)_𝔮, and its residue field is O_K/𝔮. This field is finite: a nonzero a ∈ 𝔮 has an integral minimal polynomial whose nonzero constant term belongs to 𝔮, so 𝔮 contains a rational prime r; O_K/rO_K is finite because O_K is finite free over ℤ. These standard library facts are applied only to the finite characteristic-zero fields constructed below.
+2. Identify the given V with such a localization. Every element a of O_E belongs to V. Otherwise a ≠ 0 and a⁻¹ belongs to the maximal ideal of V; dividing a monic integral equation for a by its highest power expresses 1 as a sum of elements of that maximal ideal, a contradiction. Let 𝔮₀ be the inverse image in O_E of the maximal ideal of V. This is a proper prime containing ℓ, hence is nonzero. Every element of O_E outside 𝔮₀ is a unit of V, so A = (O_E)_{𝔮₀} embeds in V. Its maximal ideal maps into that of V: its elements are fractions with numerator in 𝔮₀ and denominator outside 𝔮₀. If x ∈ E is outside A, then x ≠ 0 and x⁻¹ is in the maximal ideal of A, because A is a valuation ring. Hence x⁻¹ is a nonunit of V and x cannot belong to V. This proves V = A, including equality of their maximal ideals and identification of their residue fields.
+3. Enumerate the nonzero polynomials in ℚ[T] as f₀,f₁,…; this set is countable since ℚ is countable and each polynomial has finitely many coefficients. Set E₀ = E and let E_{i+1} be generated over E_i by every root of f_i in Ω. A nonzero polynomial has finitely many roots, and every element of Ω is algebraic over ℚ, so each step is finite. Every rational embedding of E_{i+1} into Ω preserves E_i by induction and permutes the full root set of f_i. Thus E_{i+1}/ℚ is normal; characteristic zero makes it separable, so it is Galois. Every element of Ω is a root of some nonzero rational polynomial and belongs to one of these stages. Consequently the E_i form a nested sequence of finite rational Galois fields with union Ω.
+4. Recursively choose a prime 𝔮_{i+1} of O_{E_{i+1}} over 𝔮_i. Here prime lifting follows directly from integrality. The upper integer ring is integral over the lower one, since each upper integer satisfies a monic equation over ℤ. Localize both rings by the lower elements outside 𝔮_i and choose a maximal ideal of the upper localization, which is a nonzero ring. Its contraction is maximal in the lower local ring: a field integral over a domain forces that domain to be a field, since a monic equation for the inverse of a nonzero element expresses that inverse in the domain. The lower local ring has the unique maximal ideal specified by 𝔮_i. Contracting back gives the required upper prime. All these primes contain ℓ and are nonzero.
+5. View V_i = (O_{E_i})_{𝔮_i} as subrings of Ω and denote their maximal ideals by 𝔪_i. The rings and maximal ideals are nested, since denominators outside a lower prime remain outside an upper prime. For j ≥ i the inverse image of 𝔪_j in V_i is exactly 𝔪_i: write a lower element as a/b with b outside 𝔮_i and use contraction of the primes on its numerator. Also V_j ∩ E_i = V_i. Indeed, if a nonzero x ∈ E_i is outside V_i, then x⁻¹ ∈ 𝔪_i ⊆ 𝔪_j, preventing x from belonging to V_j. The residue fields k_i therefore embed compatibly into k_j. Each is finite and has characteristic ℓ; the contraction to ℤ is the proper prime containing the rational prime ℓ, hence is (ℓ).
+6. At each stage, the decomposition group at 𝔮_i surjects onto Aut(k_i/𝔽_ℓ). This is precisely the specialization of Ideal.Quotient.stabilizerHom_surjective in the pinned Mathlib/RingTheory/Invariant/Basic.lean to the finite group Gal(E_i/ℚ) acting on O_{E_i}, with base ring ℤ and primes (ℓ),𝔮_i. The fixed integer ring is ℤ: an element fixed by the full Galois group lies in ℚ, and a rational algebraic integer is an integer. Thus the invariant-ring hypothesis is satisfied; the action respects the inclusion of ℤ, the primes contract as required, and the group is finite. The ℓ-power map is an automorphism of k_i fixing 𝔽_ℓ, because in characteristic ℓ it is an injective ring homomorphism and the field is finite. Surjectivity therefore provides a rational automorphism of E_i preserving 𝔮_i and inducing this map. Preserving 𝔮_i is equivalent to preserving V_i, and the residue action agrees under k_i = O_{E_i}/𝔮_i. Hence the finite set X_i = {a ∈ Gal(E_i/ℚ) : V_i.IsFrobeniusAt a ℓ} is nonempty.
+7. Restriction defines maps r_{ij}: X_j → X_i for i ≤ j. Normality of E_i over ℚ ensures that an automorphism of E_j restricts to an automorphism of E_i. The equality V_j ∩ E_i = V_i ensures preservation of the lower valuation ring, and contraction of maximal ideals ensures that the induced residue action restricts to the ℓ-power map. These maps satisfy r_{ii} = id and r_{ik} = r_{ij} ∘ r_{jk}. By step 2 and the hypotheses on g, X₀ is exactly {g}.
+8. These finite nonempty sets admit a compatible family, without requiring the restriction maps to be surjective. For completeness, choose y_j ∈ X_j for every j. Starting with the infinite index set ℕ, successively discard indices j < i and select an infinite fiber of the finite-valued map j ↦ r_{ij}(y_j). Let S_i be that infinite fiber, nested inside the previously retained set, and let g_i ∈ X_i be its constant value. An infinite fiber exists because a finite union of finite sets is finite. For i ≤ k, choose j ∈ S_k; then j ≥ k and j ∈ S_i, and compatibility of restriction gives r_{ik}(g_k) = r_{ik}(r_{kj}(y_j)) = r_{ij}(y_j) = g_i. Thus the g_i are compatible and g₀ = g. This is the finite-inverse-limit argument already present in the parent proof; it introduces no additional named theorem.
+9. Define τ(x) = g_i(x) whenever x ∈ E_i. Compatibility makes this independent of the stage. Any finite collection of arguments lies in a common stage, so τ respects addition, multiplication, 1, and rational scalars. The inverses g_i⁻¹ are also compatible: for x ∈ E_i, the unique preimage g_i⁻¹(x) is in E_i and is also its preimage under g_j for j ≥ i. Their union is an inverse to τ. Hence τ is a rational field automorphism of Ω and τ(x) = g(x) for every x ∈ E.
+10. Put P = ⋃_i V_i and 𝔪 = ⋃_i 𝔪_i, as subsets of Ω. The nested union P is a subring. For nonzero x ∈ Ω, choose i with x ∈ E_i; either x or x⁻¹ belongs to V_i, so P is a valuation subring. The nested union 𝔪 is a proper ideal of P, since addition and multiplication by an element of P can be checked at one common finite stage, and 1 belongs to none of the 𝔪_i. An element of 𝔪_i never acquires an inverse at a later stage: such an inverse would contradict its membership in that later maximal ideal. Thus every element of 𝔪 is a nonunit of P. Conversely, if x ∈ P is outside 𝔪, choose a stage containing it; there it is outside the maximal ideal and its inverse lies in that stage. Therefore 𝔪 is exactly the set of nonunits of P. Since ℓ ∈ 𝔪₀, P.LiesOverPrime ℓ follows. Step 5 also gives P ∩ E = V, because an element of E belonging to the union lies in some V_i and hence in V₀.
+11. Every g_i and its inverse preserves V_i, so τ and τ⁻¹ preserve P; equivalently τ belongs to P.decompositionSubgroup ℚ. For x ∈ V_i, the defining property of g_i says that g_i(x) − x^ℓ belongs to 𝔪_i. Its image in Ω is τ(x) − x^ℓ and belongs to 𝔪. Every element of P occurs in a finite stage, and every residue class has a representative in P. Thus the action of τ on the residue field of P is exactly the ℓ-power map, proving P.IsFrobeniusAt τ ℓ with the action specified in the frozen definition. Together with step 9, the restriction equality from step 10, and P.LiesOverPrime ℓ, this proves every conjunct of the stated conclusion.
+
+## Key steps
+
+1. Identify the given valuation subring with the localization of O_E at its contracted nonzero prime.
+2. Exhaust the algebraic closure by a nested sequence of finite rational Galois fields and lift the prime successively.
+3. Prove contraction of valuation rings and maximal ideals, yielding compatible embeddings of finite residue fields.
+4. Use residue-action surjectivity to obtain finite nonempty Frobenius sets with coherent restriction maps; uniqueness makes the initial set a singleton.
+5. Choose a compatible family by the finite-inverse-limit argument and unite its automorphisms and inverses.
+6. Unite the valuation rings and their maximal ideals, identifying the latter union with the nonunits and preserving the restriction to E.
+7. Pass the finite residue congruences to the union to establish the exact absolute Frobenius predicate.
+
+## Reference use
+
+### local-project
+
+Queries:
+- `IsFrobeniusAt|LiesOverPrime|decompositionSubgroup`
+- `chebotarev|frobenius.*(density|approximation)|density.*frobenius|exists.*frobenius`
+- `ray.?class`
+- `stabilizerHom_surjective|stabilizerQuotientInertiaEquiv|isDiscreteValuationRing_of_dedekind_domain`
+- `git rev-parse HEAD and git status --porcelain --untracked-files=no in both snapshot repositories`
+- `python3 .humanize/fa-split-diagnostic-20261009/check.py`
+
+Files inspected:
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_GaloisRep_Adic.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/DedekindZeta.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/RamificationInertia/Galois.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Invariant/Basic.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/DedekindDomain/Dvr.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Frobenius.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/Complex/Polynomial/Basic.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/fa-split-diagnostic-20261009/Types.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/fa-split-diagnostic-20261009/report.json`
+
+Both snapshots are clean at project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The Frobenius predicates are generic in the valued field, so they apply directly to E. Existing results supply integer-ring arithmetic, DVR localizations, residue-action surjectivity, Frobenius existence at a specified prime, and the positive Dedekind-zeta residue. The searches found no Chebotarev or ray-class distribution theorem. Both proposed types elaborated after import Submission; additional checks verified the residue action, automorphism composition, and field coercions. Checked types and supporting declarations depend only on propext, Classical.choice, and Quot.sound. The disposable compiler copy omitted exactly policy-listed lines 10–11 under policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96; Lean confirmed all eight omitted targets absent. The receipt records reversible original/build hashes and unchanged protected files. These are interface diagnostics, not comparator acceptance.
+
+
+## Acceptance
+
+The exact contract must pass the machine comparator and an independent reviewer's comparator rerun, without changed assumptions or proof holes. Local integration must pass before publication. Every decomposition child has its own issue and verified solution PR.
+
+Solution PR: Pending
+
+Current user-authorized lifecycle: merge the exact verified PR, validate its remote tree, then close this proved issue. This supersedes historical no-auto-merge instructions in the original experiment brief.
+
+Remote merge status is recorded by GitHub; local `proved` does not mean merged.
