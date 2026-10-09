@@ -115,6 +115,8 @@ accepted candidate commits, and hashes of their exact declaration bodies.
 The inherited overlay contained duplicates, root placeholders, an unfinished
 namespace block, and a detached root proof. Reconciliation retains one exact
 accepted body per child in dependency order and places the root afterward.
+The original `Representation` and `MonoidalCategory` namespace openings are
+retained locally where the accepted child bodies need their names or notation.
 No additional named theorem is introduced.
 
 The frozen Git contract and its header are the source authority. Submission's
