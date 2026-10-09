@@ -1,0 +1,18 @@
+{
+  "node_id": "root.petersson_core_good_hecke-a1.effective_domain-a1.ae_orbit_interior-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/102",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "00dbd30445d41fc2a8b86601ac476da039bd7e35",
+  "integrated_commit": "5795b1242193e50ccb8a6568216f64f4d2720d49",
+  "proof_base_commit": "13feeb1af9b340108747ecdbd93901086d427154",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.petersson_core_good_hecke-a1.effective_domain-a1",
+  "requires": [
+    "root.petersson_core_good_hecke-a1.effective_domain-a1.ae_orbit_interior-a1.standard_boundary_null-a1",
+    "root.petersson_core_good_hecke-a1.effective_domain-a1.ae_orbit_interior-a1.measurable_null_orbit_avoidance-a1"
+  ]
+}
