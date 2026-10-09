@@ -133,7 +133,8 @@ theorem Submission.p09_af497904fe_adic_character_lift :
   have hβone : β 1 = 1 := by
     apply hsep
     intro n
-    convert (J ^ n).add_mem (hβ 1 n) (hone n) using 1 <;> ring
+    convert (J ^ n).add_mem (hβ 1 n) (hone n) using 1
+    ring
   have hβmul (g h : G) : β (g * h) = β g * β h := by
     apply hsep
     intro n
@@ -141,7 +142,8 @@ theorem Submission.p09_af497904fe_adic_character_lift :
       ((J ^ n).add_mem (hβ (g * h) n) (hmul n g h))
       ((J ^ n).add_mem
         (Ideal.mul_mem_right (a n h) (J ^ n) (hβ g n))
-        ((J ^ n).mul_mem_left (β g) (hβ h n))) using 1 <;> ring
+        ((J ^ n).mul_mem_left (β g) (hβ h n))) using 1
+    ring
   let b : G →* Cˣ :=
     { toFun := fun g =>
         { val := β g
@@ -164,4 +166,5 @@ theorem Submission.p09_af497904fe_adic_character_lift :
     apply hsep
     intro n
     change (b' g : C) - β g ∈ J ^ n
-    convert (J ^ n).sub_mem (hb' n g) (hβ g n) using 1 <;> ring
+    convert (J ^ n).sub_mem (hb' n g) (hβ g n) using 1
+    ring
