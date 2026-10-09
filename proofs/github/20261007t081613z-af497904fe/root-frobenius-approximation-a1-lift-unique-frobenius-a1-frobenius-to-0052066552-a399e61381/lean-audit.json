@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "a59d901732ec96f81e954104172df4668ddffaa9b1774f088fa45abfd4b33418",
+  "git_delta": {
+    "base_commit": "7d040aadc9b7ebf99e3b36c7125b3e0d9941c5cc",
+    "candidate_commit": "2fd9e28c242006030137bf348e2336824975cc9e",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_fvu_frobenius_from_exhaustive_restrictions",
+    "diff_sha256": "3e54de3b3fad14ee6802e6c7d05320317bd3cf38d98232143eff9441decaff91",
+    "source_sha256": "9630aba41282628eb9b0cf8ee7523f9df9e0e2b36ccab62edd9c72d5fd67d9ff",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_fvu_frobenius_from_exhaustive_restrictions",
+      "statement": "∀ (F : ℕ → IntermediateField ℚ (AlgebraicClosure ℚ)), (∀ x : AlgebraicClosure ℚ, ∃ i : ℕ, x ∈ F i) → ∀ (V : (i : ℕ) → ValuationSubring (F i)) (P : ValuationSubring (AlgebraicClosure ℚ)), (∀ (i : ℕ) (x : F i), (x : AlgebraicClosure ℚ) ∈ P ↔ x ∈ V i) → ∀ (ℓ : ℕ) (τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ), (∀ i : ℕ, ∃ g : F i ≃ₐ[ℚ] F i, (V i).IsFrobeniusAt g ℓ ∧ ∀ x : F i, τ (x : AlgebraicClosure ℚ) = ((g x : F i) : AlgebraicClosure ℚ)) → P.IsFrobeniusAt τ ℓ",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
