@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "ba7c0e12e1e665725f2b116dfb5974162eaf9feeb5676e31863e0e8e060a1fa3",
+  "git_delta": {
+    "base_commit": "6134a09ac36170885efc4ca0bfae953f03a4e698",
+    "candidate_commit": "88e2ecba8cae7c6bb596873ea0cc6fd431ab0a14",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_ppr_nonunit_card",
+    "diff_sha256": "9b12f8aa6acd2d369d1d73063b15e804c51ea8ee78522f81803d9a6abab08936",
+    "source_sha256": "2fbc00c1b9c315b3ab36c249b6752f76966bb4e92fe53cc5eede1410125af1a6",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_ppr_nonunit_card",
+      "statement": "∀ (p a : ℕ), p.Prime → 0 < a → Nat.card {z : ZMod (p ^ a) // ¬ IsUnit z} = p ^ (a - 1)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

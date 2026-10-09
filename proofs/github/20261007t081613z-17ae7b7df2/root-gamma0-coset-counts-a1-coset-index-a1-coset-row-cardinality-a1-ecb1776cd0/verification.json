@@ -1,0 +1,18 @@
+{
+  "node_id": "root.gamma0_coset_counts-a1.coset_index-a1.coset_row_cardinality-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/464",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/655",
+  "candidate_commit": "3434c54b8766b233c738799fd7658e6ec9e67043",
+  "integrated_commit": "abdaec5fa8a88e002fd33d01bc959fde27db451c",
+  "proof_base_commit": "1e115a452fbc98bff8aaa6728679030b19690b46",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.gamma0_coset_counts-a1.coset_index-a1",
+  "requires": [
+    "root.gamma0_coset_counts-a1.coset_index-a1.coset_row_cardinality-a1.row_quotient_equality-a1",
+    "root.gamma0_coset_counts-a1.coset_index-a1.coset_row_cardinality-a1.gamma0_bottom_row_criterion-a1"
+  ]
+}

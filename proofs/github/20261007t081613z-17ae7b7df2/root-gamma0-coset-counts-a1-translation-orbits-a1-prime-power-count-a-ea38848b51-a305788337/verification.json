@@ -1,0 +1,19 @@
+{
+  "node_id": "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1.fractional_iterates-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/483",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/618",
+  "candidate_commit": "24b098744d9bdaa2a14fab7a66822c8791e8cd78",
+  "integrated_commit": "f584cf1cdf47f4dcba5cdb215aab8b04e011b09f",
+  "proof_base_commit": "81e439ead62e72b45d1f96dd998a9b47a5b90960",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1",
+  "requires": [
+    "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1.fractional_iterates-a1.unit_iterate_formula-a1",
+    "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1.fractional_iterates-a1.unit_mul_dvd_val-a1",
+    "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1.fractional_iterates-a1.square_annihilation-a1"
+  ]
+}

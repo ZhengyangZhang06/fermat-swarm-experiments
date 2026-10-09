@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "72701383447eabdfae0ee737f1bc3e76735f347301fc17bf1987deae7351842f",
+  "git_delta": {
+    "base_commit": "932f45cdbd7b20b1a7f6bc71905c15b639e63198",
+    "candidate_commit": "670c863828af5c7091c79dc7f9d199e281aacddf",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_ccm_coset_crt_equivariant",
+    "diff_sha256": "f1efa1bd7a48f9c961ee15177a848fc06989c720fb70ef62b76e4ad4083779b9",
+    "source_sha256": "fa9b0147232e5aa8317ce5af4a9e7ea650fa6abbd23578cdc4f5259fbc520c48",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_ccm_coset_crt_equivariant",
+      "statement": "∀ (m n : ℕ) [NeZero m] [NeZero n], Nat.Coprime m n → let G := Matrix.SpecialLinearGroup (Fin 2) ℤ; let Q := fun k : ℕ => G ⧸ CongruenceSubgroup.Gamma0 k; ∃ e : Q (m * n) ≃ (Q m × Q n), ∀ (g : G) (q : Q (m * n)), e (g • q) = g • e q",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

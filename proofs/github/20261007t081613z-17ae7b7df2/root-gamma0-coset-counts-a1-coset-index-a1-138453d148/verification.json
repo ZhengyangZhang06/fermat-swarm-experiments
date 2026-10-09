@@ -1,0 +1,21 @@
+{
+  "node_id": "root.gamma0_coset_counts-a1.coset_index-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/418",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/743",
+  "candidate_commit": "fdbb59c19f18bb000339d7c919ae89e6435d9810",
+  "integrated_commit": "c502bed6bd31165c487c7adb4f88dfd5cb6ab6f5",
+  "proof_base_commit": "8bda679fe638815d2ba318c4cdd5799ba8275181",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.gamma0_coset_counts-a1",
+  "requires": [
+    "root.gamma0_coset_counts-a1.lift_unimodular_row-a1",
+    "root.gamma0_coset_counts-a1.coset_index-a1.coset_row_cardinality-a1",
+    "root.gamma0_coset_counts-a1.coset_index-a1.prime_power_row_cardinality-a1",
+    "root.gamma0_coset_counts-a1.coset_index-a1.crt_row_cardinality-a1",
+    "root.gamma0_coset_counts-a1.coset_index-a1.dedekind_psi_product-a1"
+  ]
+}

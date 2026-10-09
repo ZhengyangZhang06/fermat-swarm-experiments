@@ -1,0 +1,19 @@
+{
+  "node_id": "root.periodic_disk_extension-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/374",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/495",
+  "candidate_commit": "7d3ff175284ccf2dc5f97848dc05968797f799c5",
+  "integrated_commit": "63464b1ab6f7f4507d045d8c7ec49e5ccd014f7a",
+  "proof_base_commit": "9bd84dc4a4a032b7780d0eb662d2566dff038412",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root",
+  "requires": [
+    "root.periodic_disk_extension-a1.bounded_periodic_holomorphic_extension-a1",
+    "root.periodic_disk_extension-a1.nonzero_disk_finite_order-a1",
+    "root.periodic_disk_extension-a1.decay_forces_extension_zero-a1"
+  ]
+}

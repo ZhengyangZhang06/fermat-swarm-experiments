@@ -1,0 +1,18 @@
+{
+  "node_id": "root.gamma0_norm_vanishing-a1.cyclic_product_descent-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/403",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/751",
+  "candidate_commit": "d9aa54efcdc789bedf9866d660328ab8d9220761",
+  "integrated_commit": "acb4a21ffedfc0abccabc3a659e0291c2ea5b38d",
+  "proof_base_commit": "d92f34b23948547b83060c71d6dce61babc6cfd0",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.gamma0_norm_vanishing-a1",
+  "requires": [
+    "root.gamma0_norm_vanishing-a1.cyclic_product_descent-a1.orbit_product_order-a1",
+    "root.gamma0_norm_vanishing-a1.cyclic_product_descent-a1.rotation_descent-a1"
+  ]
+}

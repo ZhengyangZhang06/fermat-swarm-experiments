@@ -1,0 +1,20 @@
+{
+  "node_id": "root.gamma0_coset_counts-a1.translation_orbits-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/420",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/760",
+  "candidate_commit": "c9d5580c4c750ef9e9dec895cbc6059e6352cd9f",
+  "integrated_commit": "16b4d5633b79f217688b8acbf55d5b1babe2a42f",
+  "proof_base_commit": "8bda679fe638815d2ba318c4cdd5799ba8275181",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.gamma0_coset_counts-a1",
+  "requires": [
+    "root.gamma0_coset_counts-a1.lift_unimodular_row-a1",
+    "root.gamma0_coset_counts-a1.translation_orbits-a1.prime_power_count-a1",
+    "root.gamma0_coset_counts-a1.translation_orbits-a1.coprime_count_mul-a1",
+    "root.gamma0_coset_counts-a1.translation_orbits-a1.cusp_count_factorization-a1"
+  ]
+}

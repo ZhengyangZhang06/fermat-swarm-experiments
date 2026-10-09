@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "8e5bb53f7b70959b1502842e5d5bc5ea09f35fde59f895692be63b9a3c1a8cd0",
+  "git_delta": {
+    "base_commit": "994f15dc7f394064c7dcd4c100ff9d41ee67ce15",
+    "candidate_commit": "b0657c6a9ec5963b2e0abb0ffe3b2bc06953650d",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_indent_logderiv_remainder",
+    "diff_sha256": "725cb33d85b7af6fed681905b25afd5adf38c954bffa59ec5052915eca8dbc80",
+    "source_sha256": "dfb2bacae7930df621b72f1af08985efe2af27521b8e98fa9b7b349ba89fc1be",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_indent_logderiv_remainder",
+      "statement": "∀ (f : ℂ → ℂ) (v : ℂ), AnalyticAt ℂ f v → analyticOrderAt f v ≠ ⊤ → ∃ (r M : ℝ) (G : ℂ → ℂ), 0 < r ∧ 0 ≤ M ∧ AnalyticOnNhd ℂ G (Metric.closedBall v r) ∧ (∀ z ∈ Metric.closedBall v r, ‖G z‖ ≤ M) ∧ ∀ z ∈ Metric.ball v r, z ≠ v → f z ≠ 0 ∧ deriv f z / f z = (analyticOrderNatAt f v : ℂ) / (z - v) + G z",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

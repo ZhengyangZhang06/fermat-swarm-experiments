@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "76a1b6bef634c542b411b383a9f407fac5f2c1e84748ebfd6e0bd6bd32a63c77",
+  "git_delta": {
+    "base_commit": "b4ff37aac322c66612cb8df5edb6a2d6a3a2dd6c",
+    "candidate_commit": "78402a5cbb3cd42119b8bd903d9a0528c58a097c",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_phdisk_euclidean",
+    "diff_sha256": "b72d0ab2d4c38aa65cd1c2043c516ab21224e7ae3a0e37dd36a51004beff817b",
+    "source_sha256": "6ca249d813967800b402f9bd1b5f7af6b095ddcd3ba44dd790ace3d7ed669042",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_phdisk_euclidean",
+      "statement": "∀ (v : ℂ) (ε : ℝ), 0 < v.im → 0 < ε → ε < 1 → {z : ℂ | 0 < z.im ∧ ‖(z - v) / (z - star v)‖ ≤ ε} = Metric.closedBall ((v.re : ℂ) + ((v.im * (1 + ε ^ 2) / (1 - ε ^ 2) : ℝ) : ℂ) * Complex.I) (2 * v.im * ε / (1 - ε ^ 2))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

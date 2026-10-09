@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "2cdabbf2405737784c07cb445ab5face359720932a3a1013492946477bbe7e20",
+  "git_delta": {
+    "base_commit": "053d6edb8e1246d6c8b75a1f70dd59c0b91cb51c",
+    "candidate_commit": "a77efdc454eabd2089d23dc43b626d62fbca6831",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_cld_local_logderiv_bound",
+    "diff_sha256": "04b6023d393f6a8779a93a1bee4959a96b6bb885aa711827bcce0b52687d0316",
+    "source_sha256": "29c45a8fa3623644d705fa5fb0d0fa81f5aa3bcd127511eacc439d83872563d4",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_cld_local_logderiv_bound",
+      "statement": "∀ (A : ℂ → ℂ), AnalyticAt ℂ A 0 → analyticOrderAt A 0 ≠ ⊤ → ∃ r M : ℝ, 0 < r ∧ 0 ≤ M ∧ DifferentiableOn ℂ A (Metric.ball (0 : ℂ) r) ∧ ∀ q : ℂ, q ≠ 0 → ‖q‖ < r → A q ≠ 0 ∧ ‖q * deriv A q / A q - (analyticOrderNatAt A 0 : ℂ)‖ ≤ M * ‖q‖",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

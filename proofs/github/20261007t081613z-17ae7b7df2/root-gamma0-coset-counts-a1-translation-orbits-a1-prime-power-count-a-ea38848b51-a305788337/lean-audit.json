@@ -1,0 +1,33 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'isUnit_natCast_iff_not_dvd_pow|inv_coe_unit|mul_inv_of_unit|inv_mul_of_unit|natCast_eq_zero_iff' mathlib/Mathlib/Data/ZMod/Basic.lean",
+        "rg -n 'fractional_iterates|fi_square_annihilation|fi_unit_iterate_formula|fi_unit_mul_dvd_val' project mathlib/Mathlib"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean"
+      ],
+      "conclusion": "Both snapshots are clean at their manifest-pinned revisions. Found the cited ZMod unit, inverse, and divisibility infrastructure; no matching node or helper declaration names were found. The comparator verified pinned dependencies and permitted transitive axioms."
+    }
+  ],
+  "comparison_identity": "4b12a5fa1147b78f50566a5dd07415138bd30366f472c6d5e953362e5b3918bd",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_pp_fractional_iterates",
+      "statement": "∀ (p a j : ℕ), Nat.Prime p → 1 ≤ j → j < a → ∀ z : ZMod (p ^ a), p ^ j ∣ z.val → ¬ p ^ (j + 1) ∣ z.val → let F : ZMod (p ^ a) → ZMod (p ^ a) := fun w => w * (1 + w)⁻¹; ∀ n : ℕ, IsUnit (1 + (n : ZMod (p ^ a)) * z) ∧ (F^[n]) z = z * (1 + (n : ZMod (p ^ a)) * z)⁻¹ ∧ ((F^[n]) z = z ↔ p ^ (a - 2 * j) ∣ n) ∧ p ^ j ∣ ((F^[n]) z).val ∧ ¬ p ^ (j + 1) ∣ ((F^[n]) z).val",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines accepted iterate-formula, unit-divisibility, and square-annihilation prerequisites to establish the period and preservation of exact valuation."
+    }
+  ]
+}

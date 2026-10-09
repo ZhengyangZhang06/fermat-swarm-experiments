@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "71901a0aa4bdd4300be366a4c826e63e0371764e45ac62f415d8ad3ddb716485",
+  "git_delta": {
+    "base_commit": "99cf364e220ed53f0b24da5f897f25bff718c5cb",
+    "candidate_commit": "eda578e26ff186117136fda9e043c988ebd1a575",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_rd_coeff_support",
+    "diff_sha256": "45962d1dd2569571e5eca7c6de403e4182d72be572d1d6602b12a04d55c1a825",
+    "source_sha256": "3b7775f1aaae543a576259386278e40809fd73b0b4cf6be46b53178ab5997c36",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_rd_coeff_support",
+      "statement": "∀ (w : ℕ) (P : ℂ → ℂ) (p : FormalMultilinearSeries ℂ ℂ ℂ), 0 < w → HasFPowerSeriesAt P p 0 → (∃ s : ℝ, 0 < s ∧ ∀ t : ℂ, ‖t‖ < s → P (Complex.exp (2 * (Real.pi : ℂ) * Complex.I / (w : ℂ)) * t) = P t) → ∀ n : ℕ, ¬ w ∣ n → p.coeff n = 0",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

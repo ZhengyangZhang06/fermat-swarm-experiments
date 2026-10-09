@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "ec5706564812e3d59e4cea88102c210b5962faeb5de1ecd79521abe9df1b3b0b",
+  "git_delta": {
+    "base_commit": "b6da36f19d5b70df291992328e6ade9dfcdcf0a7",
+    "candidate_commit": "5f0ad61664fd83bf66ec9e05bade4b10b18e89a5",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_valence_modular_log_derivative",
+    "diff_sha256": "1cfac52d472bce1663553ac97756de9f8fbff56efbe2d1233ea4f54647c8b11b",
+    "source_sha256": "c1f1712e85d30324bf360f55c2c917154374825fa777cc78aaa678e54ec81e81",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_valence_modular_log_derivative",
+      "statement": "∀ (k : ℕ) (F : ℂ → ℂ), DifferentiableOn ℂ F {z : ℂ | 0 < z.im} → (∀ z : ℂ, 0 < z.im → F (z + 1) = F z) → (∀ z : ℂ, 0 < z.im → F (-1 / z) = z ^ k * F z) → ∀ z : ℂ, 0 < z.im → analyticOrderNatAt F (z + 1) = analyticOrderNatAt F z ∧ analyticOrderNatAt F (-1 / z) = analyticOrderNatAt F z ∧ (F z ≠ 0 → deriv F (z + 1) / F (z + 1) = deriv F z / F z ∧ (deriv F (-1 / z) / F (-1 / z)) / z ^ 2 = (k : ℂ) / z + deriv F z / F z)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

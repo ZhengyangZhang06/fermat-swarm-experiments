@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "093f2b3d01e4eaeed71ab3f8438befad3283faf06035b590f2b9f5ac83edc795",
+  "git_delta": {
+    "base_commit": "932f45cdbd7b20b1a7f6bc71905c15b639e63198",
+    "candidate_commit": "80ba39336b1e0d22acdee768e24498f4e3582384",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_ccm_coprime_orbit_product",
+    "diff_sha256": "04dc484620b93fddaf0f2d60402358241765b97ef2fb9b1525b888b35e22932a",
+    "source_sha256": "4357f226c668cc0ebf04bf96b35a3b1c21ab7a7bd56f383ddc887cc7d0871f6a",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_ccm_coprime_orbit_product",
+      "statement": "∀ (G X Y : Type) [Group G] [MulAction G X] [MulAction G Y] (g : G) (m n : ℕ) [NeZero m] [NeZero n], Nat.Coprime m n → (∀ x : X, (g ^ m) • x = x) → (∀ y : Y, (g ^ n) • y = y) → Nat.card (Quotient (MulAction.orbitRel (Subgroup.zpowers g) (X × Y))) = Nat.card (Quotient (MulAction.orbitRel (Subgroup.zpowers g) X)) * Nat.card (Quotient (MulAction.orbitRel (Subgroup.zpowers g) Y))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

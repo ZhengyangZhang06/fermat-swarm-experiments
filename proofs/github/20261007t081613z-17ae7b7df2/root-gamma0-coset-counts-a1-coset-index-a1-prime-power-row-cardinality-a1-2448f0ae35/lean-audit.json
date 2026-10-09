@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "unimodularRow|ProjectiveLine|isUnit_natCast_iff_not_dvd_pow",
+        "p10_17ae7b7d_idx_prime_power_row_card"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f"
+      ],
+      "conclusion": "Snapshot checkouts are clean at the manifest revisions. Inspected the unimodular-row scaling relation and prime-power unit criterion. No occurrence of the selected declaration was found in either snapshot source tree."
+    }
+  ],
+  "comparison_identity": "a32bcf61662df71bb968703c91f230b29f56553b4ce9c0804a041d357f5e0be2",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_idx_prime_power_row_card",
+      "statement": "∀ (p a : ℕ), p.Prime → 0 < a → Nat.card (Quot (fun v w : {v : ZMod (p ^ a) × ZMod (p ^ a) // ∃ x y : ZMod (p ^ a), x * v.1 + y * v.2 = 1} => ∃ u : (ZMod (p ^ a))ˣ, (u : ZMod (p ^ a)) * v.1.1 = w.1.1 ∧ (u : ZMod (p ^ a)) * v.1.2 = w.1.2)) = p ^ a + p ^ (a - 1)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Applies the accepted two-chart equivalence, then adds the residue-ring cardinality and the accepted nonunit cardinality."
+    }
+  ]
+}

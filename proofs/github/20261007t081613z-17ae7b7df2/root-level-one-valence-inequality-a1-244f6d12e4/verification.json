@@ -1,0 +1,20 @@
+{
+  "node_id": "root.level_one_valence_inequality-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/376",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/805",
+  "candidate_commit": "b470b6ee977f16b23db91878fcc3e7fb12f5e830",
+  "integrated_commit": "0d978a1913b9d713b3417056f15f4f74ae7b70b5",
+  "proof_base_commit": "9bd84dc4a4a032b7780d0eb662d2566dff038412",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root",
+  "requires": [
+    "root.level_one_valence_inequality-a1.cusp_log_derivative-a1",
+    "root.level_one_valence_inequality-a1.modular_log_derivative-a1",
+    "root.level_one_valence_inequality-a1.pseudohyperbolic_disks-a1",
+    "root.level_one_valence_inequality-a1.indentation_limit-a1"
+  ]
+}

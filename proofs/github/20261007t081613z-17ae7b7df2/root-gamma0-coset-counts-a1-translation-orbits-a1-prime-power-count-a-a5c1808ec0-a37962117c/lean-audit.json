@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "4b05a5b6886dc1d6cbdb1ed9abaa3a0bfd69d60c7c4f65113be48cd0dadda0ef",
+  "git_delta": {
+    "base_commit": "c754bcd6bc1c674e1cceeba842e3bfc393a50dc9",
+    "candidate_commit": "bb715fedfffeb444c1d548bd0151592944b017e3",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_tchart_unique_row",
+    "diff_sha256": "a458960ab1d6c508c99699ad3d825601a488ae0853c9b781b4324ded589e198b",
+    "source_sha256": "4306afc3843cc9f0edf47bd6bc80ceb8cd70130ca8100cfe6df1d2975219dc7e",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_tchart_unique_row",
+      "statement": "∀ (p a : ℕ), Nat.Prime p → 1 ≤ a → let R := ZMod (p ^ a); ∀ r s : R, (∃ x y : R, x * r + y * s = 1) → ∃! c : R ⊕ {z : R // p ∣ z.val}, match c with | Sum.inl t => ∃ u : Rˣ, r = (u : R) ∧ s = (u : R) * t | Sum.inr z => ∃ u : Rˣ, r = (u : R) * z.1 ∧ s = (u : R)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

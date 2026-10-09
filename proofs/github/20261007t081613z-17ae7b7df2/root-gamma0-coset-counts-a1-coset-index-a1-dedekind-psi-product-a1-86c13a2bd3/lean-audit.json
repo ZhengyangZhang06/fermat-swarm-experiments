@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "4468b251f50b19750c1c0414a6eafed746b22e04fc9650f5dbb11d200f00c253",
+  "git_delta": {
+    "base_commit": "1e115a452fbc98bff8aaa6728679030b19690b46",
+    "candidate_commit": "3c5517e92f3aedc124042fc6f9e6bd46d2129a6f",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_idx_dedekind_psi_product",
+    "diff_sha256": "2aa68626e9bc8a307e8c3c0d1a097d1f86cc1f94f8939e4c8c0b63a6de51430f",
+    "source_sha256": "84d9e7c1aa6f61fb75deda8203e9a2bb4ab42c5f89f1aaaa1855e5185fd2cd3d",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_idx_dedekind_psi_product",
+      "statement": "∀ (N : ℕ) [NeZero N], ModularCurve.dedekindPsi N = N.primeFactors.prod (fun p => p ^ N.factorization p + p ^ (N.factorization p - 1))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

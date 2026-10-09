@@ -1,0 +1,37 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "phdisk_mobius_image|pseudohyperbolic|pseudo_hyperbolic|pseudoHyperbolic",
+        "genusFormula|^import",
+        "theorem (div_im|normSq_pos|norm_conj)|denom_ne_zero"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Complex/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/Norm.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean"
+      ],
+      "conclusion": "Manifest pins project a97febc53b1c4d489edc54ca44132af7a21279b3 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d, matching verifier provenance. Inspected frozen genus definitions and existing norm/conjugation/Möbius declarations. No matching pseudohyperbolic terminology or tracked theorem was found in the snapshot. No source was copied or changed."
+    }
+  ],
+  "comparison_identity": "8a63a20747333898a3f2500ceabf636646f7300a7c32f3fb397f922b9fc02fa3",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_phdisk_mobius_image",
+      "statement": "let D : ℂ → ℝ → Set ℂ := fun v ε => {z : ℂ | 0 < z.im ∧ ‖(z - v) / (z - star v)‖ ≤ ε}; ∀ (v : ℂ) (ε : ℝ), 0 < v.im → 0 < ε → ε < 1 → ∀ a b c d : ℝ, a * d - b * c = 1 → let M : ℂ → ℂ := fun z => ((a : ℂ) * z + (b : ℂ)) / ((c : ℂ) * z + (d : ℂ)); M '' (D v ε) = D (M v) ε",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines the accepted upper-half-plane bijection and ratio-norm invariance lemmas to establish both set inclusions."
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "nuTwo|nuThree|Gamma0_mem|p10_17ae7b7d_cc_elliptic_fixed_points|unimodular_eigenrow|inverse_coset_eq_iff",
+        "p10_17ae7b7d_cc_elliptic_fixed_points|unimodular_eigenrow|inverse_coset_eq_iff"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f"
+      ],
+      "conclusion": "Pinned definitions confirm the two polynomial-root cardinalities and Gamma0 membership condition. No matching tracked theorem or named eigenrow/coset helpers were found in the snapshot. Project and mathlib revisions match the frozen verifier inputs."
+    }
+  ],
+  "comparison_identity": "73886935e8a958adf809190b52c8bd50b024f11604348c608fb2100e02a1b3f7",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_cc_elliptic_fixed_points",
+      "statement": "∀ (N : ℕ) [NeZero N], let Q := (Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 N; Nat.card {q : Q // ModularGroup.S • q = q} = ModularCurve.nuTwo N ∧ Nat.card {q : Q // (ModularGroup.S * ModularGroup.T) • q = q} = ModularCurve.nuThree N",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Normalized bottom rows identify fixed cosets with polynomial roots; negation converts the ST polynomial to the polynomial defining nuThree."
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "unit_chart|unimodular|normalized_quot|isUnit_natCast_iff_not_dvd_pow|gamma0_weight_two_eq_zero",
+        "p10_17ae7b7d_ppr_unit_chart_equiv|normalized_quot"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Basic.lean"
+      ],
+      "conclusion": "Both snapshot checkouts are clean at the manifest revisions. Inspected the unimodular-row scaling relation and the pinned prime-power unit criterion. No matching tracked chart-equivalence or normalized-quotient declaration was found."
+    }
+  ],
+  "comparison_identity": "7988d9b9f1990fc76fb9df8fe4a5fe3a94a4ef2437288e07dce1ac5c56695fcf",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_ppr_unit_chart_equiv",
+      "statement": "∀ (p a : ℕ), p.Prime → 0 < a → let R := ZMod (p ^ a); Nonempty ((Quot (fun v w : {v : R × R // ∃ x y : R, x * v.1 + y * v.2 = 1} => ∃ u : Rˣ, (u : R) * v.1.1 = w.1.1 ∧ (u : R) * v.1.2 = w.1.2)) ≃ (R ⊕ {z : R // ¬ IsUnit z}))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Uses the accepted unit-coordinate criterion and normalized-row rigidity to construct a bijection from the two charts to quotient classes, then reverses it."
+    }
+  ]
+}
