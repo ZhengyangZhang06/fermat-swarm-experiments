@@ -7406,12 +7406,11 @@ theorem Submission.p03_eds_torsion_kernel_sum_68cf3476_d4 :
       rw [Finset.mem_filter]
       refine ⟨And.right, fun hP => ⟨(hS P).2 ?_, hP⟩⟩
       rw [heven, mul_nsmul, hP, smul_zero]
-    have hcard := (Submission.p03_eds_torsion_kernel_card_68cf3476_d4
-      k W hΔ 2 (by decide)).2
+    -- The filtered set is all of E[2], whose cardinality is 2^2 = 4.
     apply Submission.p03_eds_two_torsion_four_sum_68cf3476_d5
       W.toAffine.Point _ hT
-    rw [← Nat.subtype_card _ hT, hcard]
-    rfl
+    exact (Nat.subtype_card _ hT).symm.trans
+      (Submission.p03_eds_torsion_kernel_card_68cf3476_d4 k W hΔ 2 (by decide)).2
   · apply Finset.sum_eq_zero
     intro P hP
     obtain ⟨hPS, hP2⟩ := Finset.mem_filter.mp hP
