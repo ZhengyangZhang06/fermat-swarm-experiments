@@ -28363,9 +28363,9 @@ namespace Submission
 open scoped nonZeroDivisors BigOperators
 
 /-- Speculative draft for the frozen torsion-EDS existence node.
-The local constructions below compile individually. The final principal-ideal
-identification is still an open formalization obligation, explicitly reported
-by the last tactic; this declaration is not an accepted proof. -/
+The local degree and ideal constructions and the initial torsion cases compile
+individually. General torsion vanishing remains an open obligation, explicitly
+reported by the last tactic; this declaration is not an accepted proof. -/
 theorem p03_torsion_eds_exists_68cf3476_d2
     (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k]
     (W : WeierstrassCurve k) (hΔ : W.Δ ≠ 0) :
@@ -28479,6 +28479,607 @@ theorem p03_torsion_eds_exists_68cf3476_d2
       exact (hpoint_le P x y hP).mp hle ▸ hPS
     · intro hPS
       exact ⟨Point.some x y hP, hPS, le_rfl⟩
+  have hconstant_of_degree_zero (u : W.toAffine.CoordinateRing) (hu : u ≠ 0)
+      (hn : (Algebra.norm (Polynomial k) u).degree = 0) :
+      ∃ c : k, c ≠ 0 ∧ u = algebraMap k W.toAffine.CoordinateRing c := by
+    obtain ⟨p, q, hpq⟩ := CoordinateRing.exists_smul_basis_eq u
+    have hd := CoordinateRing.degree_norm_smul_basis (W' := W.toAffine) p q
+    rw [hpq, hn] at hd
+    have hq : q = 0 := by
+      by_contra hq
+      have hle : 2 • q.degree + 3 ≤ (0 : WithBot ℕ) := by
+        rw [hd]
+        exact le_max_right _ _
+      rw [Polynomial.degree_eq_natDegree hq] at hle
+      have hle' : q.natDegree + q.natDegree + 3 ≤ 0 := by
+        exact_mod_cast (show (↑q.natDegree : WithBot ℕ) + ↑q.natDegree + 3 ≤ 0 by simpa only [two_nsmul] using hle)
+      omega
+    have hp : p ≠ 0 := by
+      intro hp
+      apply hu
+      simpa only [hp, hq, zero_smul, zero_add] using hpq.symm
+    have hle : 2 • p.degree ≤ (0 : WithBot ℕ) := by
+      rw [hd]
+      exact le_max_left _ _
+    rw [Polynomial.degree_eq_natDegree hp] at hle
+    have hle' : p.natDegree + p.natDegree ≤ 0 := by
+      exact_mod_cast (show (↑p.natDegree : WithBot ℕ) + ↑p.natDegree ≤ 0 by simpa only [two_nsmul] using hle)
+    have hpdeg : p.natDegree = 0 := by omega
+    have hpc := Polynomial.eq_C_of_natDegree_eq_zero hpdeg
+    have hu_eq : u = algebraMap k W.toAffine.CoordinateRing (p.coeff 0) := by
+      rw [← hpq, hq, zero_smul, add_zero, CoordinateRing.smul, hpc, mul_one]
+      simp only [Polynomial.coeff_C_zero]
+      rfl
+    refine ⟨p.coeff 0, ?_, hu_eq⟩
+    intro hc
+    apply hu
+    rw [hu_eq, hc, _root_.map_zero]
+  have hpoint_finite (P : W.toAffine.Point) :
+      Module.Finite k (W.toAffine.CoordinateRing ⧸ pointIdeal P) := by
+    cases P with
+    | zero =>
+      change Module.Finite k (W.toAffine.CoordinateRing ⧸ (⊤ : Ideal _))
+      infer_instance
+    | some x y h =>
+      exact Module.Finite.of_injective
+        (CoordinateRing.quotientXYIdealEquiv h.1).toLinearMap
+        (CoordinateRing.quotientXYIdealEquiv h.1).injective
+  have hpoint_dimension (P : W.toAffine.Point) :
+      Module.finrank k (W.toAffine.CoordinateRing ⧸ pointIdeal P) =
+        if P = 0 then 0 else 1 := by
+    cases P with
+    | zero =>
+      change Module.finrank k (W.toAffine.CoordinateRing ⧸ (⊤ : Ideal _)) = 0
+      exact Module.finrank_zero_of_subsingleton
+    | some x y h =>
+      rw [if_neg (some_ne_zero h)]
+      exact (CoordinateRing.quotientXYIdealEquiv h.1).toLinearEquiv.finrank_eq.trans
+        (Module.finrank_self k)
+  have hpoint_coprime (P Q : W.toAffine.Point) (hne : P ≠ Q) :
+      IsCoprime (pointIdeal P) (pointIdeal Q) := by
+    cases P with
+    | zero =>
+      change IsCoprime (⊤ : Ideal W.toAffine.CoordinateRing) (pointIdeal Q)
+      simpa only [Ideal.one_eq_top] using (isCoprime_one_left (x := pointIdeal Q))
+    | some x y h =>
+      cases Q with
+      | zero =>
+        change IsCoprime (pointIdeal (.some x y h)) (⊤ : Ideal W.toAffine.CoordinateRing)
+        simpa only [Ideal.one_eq_top] using (isCoprime_one_right (x := pointIdeal (.some x y h)))
+      | some x' y' h' =>
+        let := hmax x y h
+        let := hmax x' y' h'
+        apply Ideal.isCoprime_of_isMaximal
+        intro heq
+        apply hne
+        exact (hpoint_le (.some x y h) x' y' h').mp (le_of_eq heq)
+  have hproduct_dimension (S : Finset W.toAffine.Point) :
+      Module.finrank k (W.toAffine.CoordinateRing ⧸ S.prod pointIdeal) =
+        (S.erase 0).card := by
+    let I : S → Ideal W.toAffine.CoordinateRing := fun P => pointIdeal P.val
+    have hI : Pairwise (fun P Q => IsCoprime (I P) (I Q)) := by
+      intro P Q hne
+      exact hpoint_coprime P Q (fun h => hne (Subtype.ext h))
+    let e : (W.toAffine.CoordinateRing ⧸ ⨅ P : S, I P) ≃ₐ[k]
+        (∀ P : S, W.toAffine.CoordinateRing ⧸ I P) :=
+      { Ideal.quotientInfRingEquivPiQuotient I hI with
+        commutes' := fun _ => rfl }
+    have hprod : S.prod pointIdeal = ⨅ P : S, I P := by
+      rw [Ideal.prod_eq_iInf_of_pairwise_isCoprime (fun P _ Q _ h => hpoint_coprime P Q h)]
+      exact (iInf_subtype (f := I)).symm
+    rw [hprod, e.toLinearEquiv.finrank_eq]
+    let (P : S) : Module.Finite k (W.toAffine.CoordinateRing ⧸ I P) := hpoint_finite P
+    rw [Module.finrank_pi_fintype]
+    simp only [I, hpoint_dimension]
+    rw [← Finset.sum_subtype S (fun _ => Iff.rfl) (fun P => if P = 0 then 0 else 1)]
+    simp [Finset.sum_ite, Finset.filter_ne']
+  have hgenerator_degree (n : ℕ) (S : Finset W.toAffine.Point)
+      (hS : ∀ P, P ∈ S ↔ n • P = 0) (hcard : S.card = n ^ 2)
+      (g : W.toAffine.CoordinateRing) (hg : g ≠ 0)
+      (hgen : S.prod pointIdeal = Ideal.span {g}) :
+      (Algebra.norm (Polynomial k) g).natDegree = n ^ 2 - 1 := by
+    rw [← finrank_quotient_span_eq_natDegree_norm (CoordinateRing.basis W.toAffine) hg,
+      ← hgen, hproduct_dimension, Finset.card_erase_of_mem ((hS 0).mpr (nsmul_zero n)), hcard]
+  -- Local specialization of DivisionPolynomial/Degree.lean at the pinned mathlib
+  -- revision db584cd6d46c92f209a44c0f1c829460d327499d (David Kurniadi Angdinata,
+  -- Apache 2.0). Its public formulas are not exported by the frozen imports.
+  have degree₂ : W.Ψ₂Sq.natDegree ≤ 3 := by
+    rw [Ψ₂Sq]
+    compute_degree
+  have coeff₂ : W.Ψ₂Sq.coeff 3 = 4 := by
+    rw [Ψ₂Sq]
+    compute_degree!
+  have degree₃ : W.Ψ₃.natDegree ≤ 4 := by
+    rw [Ψ₃]
+    compute_degree
+  have coeff₃ : W.Ψ₃.coeff 4 = 3 := by
+    rw [Ψ₃]
+    compute_degree!
+  have degree₄ : W.preΨ₄.natDegree ≤ 6 := by
+    rw [preΨ₄]
+    compute_degree
+  have coeff₄ : W.preΨ₄.coeff 6 = 2 := by
+    rw [preΨ₄]
+    compute_degree!
+  let expDegree (j : ℕ) : ℕ := (j ^ 2 - if Even j then 4 else 1) / 2
+  have expDegree_cast {j : ℕ} (hk : j ≠ 0) :
+      2 * (expDegree j : ℤ) = j ^ 2 - if Even j then 4 else 1 := by
+    rcases j.even_or_odd' with ⟨j, rfl | rfl⟩
+    · rcases j with _ | j
+      · contradiction
+      push_cast [expDegree, show (2 * (j + 1)) ^ 2 = 2 * (2 * j * (j + 2)) + 4 by ring1,
+        even_two_mul, Nat.add_sub_cancel, Nat.mul_div_cancel_left _ two_pos]
+      ring1
+    · push_cast [expDegree, show (2 * j + 1) ^ 2 = 2 * (2 * j * (j + 1)) + 1 by ring1,
+        j.not_even_two_mul_add_one, Nat.add_sub_cancel, Nat.mul_div_cancel_left _ two_pos]
+      ring1
+  have expDegree_rec (m : ℕ) :
+      (expDegree (2 * (m + 3)) =
+        2 * expDegree (m + 2) + expDegree (m + 3) + expDegree (m + 5) ∧
+      expDegree (2 * (m + 3)) =
+        expDegree (m + 1) + expDegree (m + 3) + 2 * expDegree (m + 4)) ∧
+      (expDegree (2 * (m + 2) + 1) =
+        expDegree (m + 4) + 3 * expDegree (m + 2) + (if Even m then 2 * 3 else 0) ∧
+      expDegree (2 * (m + 2) + 1) =
+        expDegree (m + 1) + 3 * expDegree (m + 3) + (if Even m then 0 else 2 * 3)) := by
+    push_cast [← @Nat.cast_inj ℤ,
+      ← mul_left_cancel_iff_of_pos (b := (expDegree _ : ℤ)) two_pos,
+      mul_add, mul_left_comm (2 : ℤ)]
+    repeat rw [expDegree_cast <| by lia]
+    push_cast [Nat.even_add_one, ite_not, even_two_mul]
+    constructor <;> constructor <;> split_ifs <;> ring1
+  let expCoeff (j : ℕ) : ℤ := if Even j then j / 2 else j
+  have expCoeff_cast (j : ℕ) :
+      (expCoeff j : ℚ) = if Even j then (j / 2 : ℚ) else j := by
+    rcases j.even_or_odd' with ⟨j, rfl | rfl⟩ <;> simp [expCoeff, j.not_even_two_mul_add_one]
+  have expCoeff_rec (m : ℕ) :
+      (expCoeff (2 * (m + 3)) =
+        expCoeff (m + 2) ^ 2 * expCoeff (m + 3) * expCoeff (m + 5) -
+          expCoeff (m + 1) * expCoeff (m + 3) * expCoeff (m + 4) ^ 2) ∧
+      (expCoeff (2 * (m + 2) + 1) =
+        expCoeff (m + 4) * expCoeff (m + 2) ^ 3 * (if Even m then 4 ^ 2 else 1) -
+          expCoeff (m + 1) * expCoeff (m + 3) ^ 3 * (if Even m then 1 else 4 ^ 2)) := by
+    push_cast [← @Int.cast_inj ℚ, expCoeff_cast, even_two_mul, m.not_even_two_mul_add_one,
+      Nat.even_add_one, ite_not]
+    constructor <;> split_ifs <;> ring1
+  have degree_coeff (j : ℕ) :
+      (W.preΨ' j).natDegree ≤ expDegree j ∧
+        (W.preΨ' j).coeff (expDegree j) = (expCoeff j : k) := by
+    let dm {i j : ℕ} {p q : Polynomial k} :
+        p.natDegree ≤ i → q.natDegree ≤ j → (p * q).natDegree ≤ i + j :=
+      Polynomial.natDegree_mul_le_of_le
+    let dp {i j : ℕ} {p : Polynomial k} :
+        p.natDegree ≤ i → (p ^ j).natDegree ≤ j * i :=
+      Polynomial.natDegree_pow_le_of_le j
+    let cm {i j : ℕ} {p q : Polynomial k} :
+        p.natDegree ≤ i → q.natDegree ≤ j → (p * q).coeff (i + j) = p.coeff i * q.coeff j :=
+      Polynomial.coeff_mul_add_eq_of_natDegree_le
+    let cp {i j : ℕ} {p : Polynomial k} :
+        p.natDegree ≤ j → (p ^ i).coeff (i * j) = p.coeff j ^ i :=
+      Polynomial.coeff_pow_of_natDegree_le
+    induction j using normEDSRec with
+    | zero => simpa only [preΨ'_zero] using ⟨Polynomial.natDegree_zero.le, Int.cast_zero.symm⟩
+    | one => simpa only [preΨ'_one] using
+        ⟨Polynomial.natDegree_one.le, Polynomial.coeff_one_zero.trans Int.cast_one.symm⟩
+    | two => simpa only [preΨ'_two] using
+        ⟨Polynomial.natDegree_one.le, Polynomial.coeff_one_zero.trans Int.cast_one.symm⟩
+    | three => simpa only [preΨ'_three] using ⟨degree₃, coeff₃ ▸ Int.cast_three.symm⟩
+    | four => simpa only [preΨ'_four] using ⟨degree₄, coeff₄ ▸ Int.cast_two.symm⟩
+    | even m h₁ h₂ h₃ h₄ h₅ =>
+      constructor
+      · nth_rw 1 [preΨ'_even, ← max_self <| expDegree _,
+          (expDegree_rec m).1.1, (expDegree_rec m).1.2]
+        exact Polynomial.natDegree_sub_le_of_le
+          (dm (dm (dp h₂.1) h₃.1) h₅.1) (dm (dm h₁.1 h₃.1) (dp h₄.1))
+      · nth_rw 1 [preΨ'_even, Polynomial.coeff_sub, (expDegree_rec m).1.1,
+          cm (dm (dp h₂.1) h₃.1) h₅.1, cm (dp h₂.1) h₃.1, cp h₂.1,
+          h₂.2, h₃.2, h₅.2, (expDegree_rec m).1.2,
+          cm (dm h₁.1 h₃.1) (dp h₄.1), cm h₁.1 h₃.1, h₁.2, cp h₄.1,
+          h₃.2, h₄.2, (expCoeff_rec m).1]
+        norm_cast
+    | odd m h₁ h₂ h₃ h₄ =>
+      rw [preΨ'_odd]
+      constructor
+      · nth_rw 1 [← max_self <| expDegree _, (expDegree_rec m).2.1, (expDegree_rec m).2.2]
+        refine Polynomial.natDegree_sub_le_of_le
+          (dm (dm h₄.1 (dp h₂.1)) ?_) (dm (dm h₁.1 (dp h₃.1)) ?_) <;>
+          split_ifs <;> simp only [Polynomial.natDegree_one.le, dp degree₂]
+      · nth_rw 1 [Polynomial.coeff_sub, (expDegree_rec m).2.1, cm (dm h₄.1 (dp h₂.1)),
+          cm h₄.1 (dp h₂.1), h₄.2, cp h₂.1, h₂.2, apply_ite₂ Polynomial.coeff,
+          cp degree₂, coeff₂, Polynomial.coeff_one_zero, (expDegree_rec m).2.2,
+          cm (dm h₁.1 (dp h₃.1)), cm h₁.1 (dp h₃.1), h₁.2, cp h₃.1, h₃.2,
+          apply_ite₂ Polynomial.coeff, cp degree₂, Polynomial.coeff_one_zero,
+          coeff₂, (expCoeff_rec m).2]
+        · norm_cast
+        all_goals split_ifs <;> simp only [Polynomial.natDegree_one.le, dp degree₂]
+  have hpre_coeff_nonzero (n : ℕ) (hn : 0 < n) :
+      (W.preΨ' n).coeff (expDegree n) ≠ 0 := by
+    rw [(degree_coeff n).2]
+    apply Int.cast_ne_zero.mpr
+    rw [← @Int.cast_ne_zero ℚ, expCoeff_cast]
+    split_ifs
+    · exact div_ne_zero (Nat.cast_ne_zero.mpr hn.ne') (by norm_num)
+    · exact Nat.cast_ne_zero.mpr hn.ne'
+  have hpre_nonzero (n : ℕ) (hn : 0 < n) : W.preΨ' n ≠ 0 := by
+    intro hz
+    exact hpre_coeff_nonzero n hn (by rw [hz, Polynomial.coeff_zero])
+  have hpre_degree (n : ℕ) (hn : 0 < n) :
+      (W.preΨ' n).natDegree = expDegree n :=
+    Polynomial.natDegree_eq_of_le_of_coeff_ne_zero (degree_coeff n).1 (hpre_coeff_nonzero n hn)
+  have hnormC (p : Polynomial k) :
+      Algebra.norm (Polynomial k) (q (Polynomial.C p)) = p ^ 2 := by
+    simpa only [CoordinateRing.smul, mul_one, zero_smul, add_zero,
+      mul_zero, zero_mul, zero_pow two_ne_zero, sub_zero] using
+      (CoordinateRing.norm_smul_basis (W' := W.toAffine) p 0)
+  have htwo_nonzero : W.Ψ₂Sq ≠ 0 := by
+    intro hz
+    have he := coeff₂
+    rw [hz, Polynomial.coeff_zero] at he
+    exact (by norm_num : (4 : k) ≠ 0) he.symm
+  have htwo_degree : W.Ψ₂Sq.natDegree = 3 :=
+    Polynomial.natDegree_eq_of_le_of_coeff_ne_zero degree₂
+      (coeff₂ ▸ (by norm_num : (4 : k) ≠ 0))
+  have hnormtwo_sq : Algebra.norm (Polynomial k) (q W.ψ₂) ^ 2 = W.Ψ₂Sq ^ 2 := by
+    have he := congrArg (Algebra.norm (Polynomial k))
+      (show q W.ψ₂ ^ 2 = q (Polynomial.C W.Ψ₂Sq) from CoordinateRing.mk_ψ₂_sq W.toAffine)
+    simpa only [map_pow, hnormC] using he
+  have hnormtwo_nonzero : Algebra.norm (Polynomial k) (q W.ψ₂) ≠ 0 := by
+    intro hz
+    rw [hz, zero_pow two_ne_zero] at hnormtwo_sq
+    exact (pow_ne_zero 2 htwo_nonzero) hnormtwo_sq.symm
+  have hnormtwo_degree : (Algebra.norm (Polynomial k) (q W.ψ₂)).natDegree = 3 := by
+    have he := congrArg Polynomial.natDegree hnormtwo_sq
+    rw [Polynomial.natDegree_pow, Polynomial.natDegree_pow, htwo_degree] at he
+    omega
+  have hf_nonzero (n : ℕ) (hn : 0 < n) : f n ≠ 0 := by
+    apply (Algebra.norm_ne_zero_iff_of_basis (CoordinateRing.basis W.toAffine)).mp
+    change Algebra.norm (Polynomial k) (q (W.Ψ (n : ℤ))) ≠ 0
+    rw [WeierstrassCurve.Ψ_ofNat, map_mul, map_mul, hnormC]
+    split_ifs
+    · exact mul_ne_zero (pow_ne_zero 2 (hpre_nonzero n hn)) hnormtwo_nonzero
+    · simpa only [map_one, mul_one] using pow_ne_zero 2 (hpre_nonzero n hn)
+  have hf_degree (n : ℕ) (hn : 0 < n) :
+      (Algebra.norm (Polynomial k) (f n)).natDegree = n ^ 2 - 1 := by
+    change (Algebra.norm (Polynomial k) (q (W.Ψ (n : ℤ)))).natDegree = _
+    rw [WeierstrassCurve.Ψ_ofNat, map_mul, map_mul, hnormC]
+    split_ifs with he
+    · rw [Polynomial.natDegree_mul (pow_ne_zero 2 (hpre_nonzero n hn)) hnormtwo_nonzero,
+        Polynomial.natDegree_pow, hpre_degree n hn, hnormtwo_degree]
+      have hd := expDegree_cast hn.ne'
+      rw [if_pos he] at hd
+      have hd' : 2 * expDegree n + 4 = n ^ 2 := by
+        exact_mod_cast (show (2 : ℤ) * expDegree n + 4 = (n : ℤ) ^ 2 by linarith)
+      omega
+    · rw [map_one, map_one, mul_one, Polynomial.natDegree_pow, hpre_degree n hn]
+      have hd := expDegree_cast hn.ne'
+      rw [if_neg he] at hd
+      have hd' : 2 * expDegree n + 1 = n ^ 2 := by
+        exact_mod_cast (show (2 : ℤ) * expDegree n + 1 = (n : ℤ) ^ 2 by linarith)
+      omega
+  have hspan_of_vanishing (n : ℕ) (hn : 0 < n) (S : Finset W.toAffine.Point)
+      (hS : ∀ P, P ∈ S ↔ n • P = 0) (hcard : S.card = n ^ 2)
+      (g : W.toAffine.CoordinateRing) (hg : g ≠ 0)
+      (hgen : S.prod pointIdeal = Ideal.span {g})
+      (hv : ∀ (x y : k) (hP : W.toAffine.Nonsingular x y),
+        n • Point.some x y hP = 0 →
+          f n ∈ CoordinateRing.XYIdeal W.toAffine x (Polynomial.C y)) :
+      Ideal.span {f n} = Ideal.span {g} := by
+    have hle : Ideal.span {f n} ≤ S.prod pointIdeal := by
+      rw [Ideal.prod_eq_iInf_of_pairwise_isCoprime (fun P _ Q _ h => hpoint_coprime P Q h)]
+      refine le_iInf fun P => le_iInf fun hPS => ?_
+      cases P with
+      | zero => exact le_top
+      | some x y hP =>
+        exact (Ideal.span_singleton_le_iff_mem _).mpr (hv x y hP ((hS _).mp hPS))
+    rw [hgen] at hle
+    obtain ⟨a, ha⟩ := Ideal.span_singleton_le_span_singleton.mp hle
+    have ha0 : a ≠ 0 := by
+      intro hz
+      exact hf_nonzero n hn (by rw [ha, hz, mul_zero])
+    have hng : Algebra.norm (Polynomial k) g ≠ 0 :=
+      (Algebra.norm_ne_zero_iff_of_basis (CoordinateRing.basis W.toAffine)).mpr hg
+    have hna : Algebra.norm (Polynomial k) a ≠ 0 :=
+      (Algebra.norm_ne_zero_iff_of_basis (CoordinateRing.basis W.toAffine)).mpr ha0
+    have hdeg : (Algebra.norm (Polynomial k) a).natDegree = 0 := by
+      have he := hf_degree n hn
+      rw [ha, map_mul, Polynomial.natDegree_mul hng hna,
+        hgenerator_degree n S hS hcard g hg hgen] at he
+      omega
+    obtain ⟨c, hc, hac⟩ := hconstant_of_degree_zero a ha0 (by
+      rw [Polynomial.degree_eq_natDegree hna, hdeg]
+      rfl)
+    have hunit : IsUnit a := by
+      rw [hac]
+      exact (isUnit_iff_ne_zero.mpr hc).map (algebraMap k W.toAffine.CoordinateRing)
+    obtain ⟨u, hu⟩ := hunit
+    apply Eq.symm
+    apply Ideal.span_singleton_eq_span_singleton.mpr
+    exact ⟨u, by rw [hu]; exact ha.symm⟩
+  have hmem_of_eval (p : Polynomial (Polynomial k)) (x y : k)
+      (hp : p.evalEval x y = 0) :
+      q p ∈ CoordinateRing.XYIdeal W.toAffine x (Polynomial.C y) := by
+    have hp' : p ∈ Ideal.span
+        {Polynomial.C (Polynomial.X - Polynomial.C x),
+          Polynomial.X - Polynomial.C (Polynomial.C y)} := by
+      apply Polynomial.mem_span_C_X_sub_C_X_sub_C_iff_eval_eval_eq_zero.mpr
+      simpa only [Polynomial.evalEval, Polynomial.eval_C] using hp
+    simpa only [Ideal.map_span, Set.image_pair, CoordinateRing.XYIdeal,
+      CoordinateRing.XClass, CoordinateRing.YClass] using Ideal.mem_map_of_mem q hp'
+  have htwo_vanishing (x y : k) (hP : W.toAffine.Nonsingular x y)
+      (hT : 2 • Point.some x y hP = 0) :
+      q W.ψ₂ ∈ CoordinateRing.XYIdeal W.toAffine x (Polynomial.C y) := by
+    have hy : y = W.toAffine.negY x y := by
+      have he : Point.some x y hP = -Point.some x y hP :=
+        eq_neg_of_add_eq_zero_left (by simpa only [two_nsmul] using hT)
+      exact (some.inj he).2
+    apply hmem_of_eval
+    rw [WeierstrassCurve.ψ₂, evalEval_polynomialY]
+    change y = -y - W.a₁ * x - W.a₃ at hy
+    linear_combination hy
+  have hthree_vanishing (x y : k) (hP : W.toAffine.Nonsingular x y)
+      (hT : 3 • Point.some x y hP = 0) :
+      f 3 ∈ CoordinateRing.XYIdeal W.toAffine x (Polynomial.C y) := by
+    have hy : y ≠ W.toAffine.negY x y := by
+      intro hy
+      have he := add_self_of_Y_eq (h₁ := hP) hy
+      have hh : Point.some x y hP = 0 := by
+        simpa only [show 3 = 2 + 1 by decide, add_nsmul, two_nsmul,
+          one_nsmul, he, zero_add] using hT
+      exact some_ne_zero hP hh
+    have hd : Point.some x y hP + Point.some x y hP = -Point.some x y hP :=
+      eq_neg_of_add_eq_zero_left (by
+        simpa only [show 3 = 2 + 1 by decide, add_nsmul, two_nsmul, one_nsmul] using hT)
+    rw [add_self_of_Y_ne hy, neg_some] at hd
+    have hx := (some.inj hd).1
+    let t := y - W.toAffine.negY x y
+    let B := 3 * x ^ 2 + 2 * W.a₂ * x + W.a₄ - W.a₁ * y
+    have ht : t ≠ 0 := sub_ne_zero.mpr hy
+    rw [slope_of_Y_ne rfl hy, addX] at hx
+    change (B / t) ^ 2 + W.a₁ * (B / t) - W.a₂ - x - x = x at hx
+    have hxmul : B ^ 2 + W.a₁ * B * t - (W.a₂ + 3 * x) * t ^ 2 = 0 := by
+      calc
+        _ = ((B / t) ^ 2 + W.a₁ * (B / t) - W.a₂ - x - x - x) * t ^ 2 := by
+          field_simp [ht]
+          ring
+        _ = 0 := by rw [hx, sub_self, zero_mul]
+    have heq := (equation_iff' x y).mp hP.1
+    change q (W.Ψ 3) ∈ _
+    rw [WeierstrassCurve.Ψ_three]
+    apply hmem_of_eval
+    simp only [Polynomial.evalEval_C]
+    rw [WeierstrassCurve.Ψ₃]
+    simp only [Polynomial.eval_add, Polynomial.eval_mul, Polynomial.eval_pow,
+      Polynomial.eval_C, Polynomial.eval_X, Polynomial.eval_ofNat]
+    dsimp only [B, t, negY] at hxmul
+    dsimp only [WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+      WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+    linear_combination -hxmul - (W.a₁ ^ 2 + 4 * W.a₂ + 12 * x) * heq
+  have hfour_vanishing (x y : k) (hP : W.toAffine.Nonsingular x y)
+      (hT : 4 • Point.some x y hP = 0) :
+      f 4 ∈ CoordinateRing.XYIdeal W.toAffine x (Polynomial.C y) := by
+    change q (W.Ψ 4) ∈ _
+    rw [WeierstrassCurve.Ψ_four, map_mul]
+    by_cases hy : y = W.toAffine.negY x y
+    · exact Ideal.mul_mem_left _ _ (htwo_vanishing x y hP (by
+        simpa only [two_nsmul] using add_self_of_Y_eq (h₁ := hP) hy))
+    let t := y - W.toAffine.negY x y
+    let B := 3 * x ^ 2 + 2 * W.a₂ * x + W.a₄ - W.a₁ * y
+    let ℓ := W.toAffine.slope x x y y
+    let u := W.toAffine.addX x x ℓ
+    let v := W.toAffine.addY x x y ℓ
+    have ht : t ≠ 0 := sub_ne_zero.mpr hy
+    have hℓ : ℓ = B / t := slope_of_Y_ne rfl hy
+    have hQ : W.toAffine.Nonsingular u v := nonsingular_add hP hP (fun hxy => hy hxy.2)
+    have hd : 2 • Point.some x y hP = Point.some u v hQ := by
+      rw [two_nsmul, add_self_of_Y_ne hy]
+    have hTQ : 2 • Point.some u v hQ = 0 := by
+      rw [← hd, ← mul_nsmul]
+      exact hT
+    have hyQ : v = W.toAffine.negY u v :=
+      (some.inj (eq_neg_of_add_eq_zero_left (by
+        simpa only [two_nsmul] using hTQ))).2
+    have hzQ : 2 * v + W.a₁ * u + W.a₃ = 0 := by
+      change v = -v - W.a₁ * u - W.a₃ at hyQ
+      linear_combination hyQ
+    have hdouble :
+        -(2 * B + W.a₁ * t) * (B ^ 2 + W.a₁ * B * t - (W.a₂ + 2 * x) * t ^ 2) +
+          (2 * B * x - (2 * y + W.a₃) * t) * t ^ 2 = 0 := by
+      calc
+        _ = (2 * v + W.a₁ * u + W.a₃) * t ^ 3 := by
+          dsimp only [v, u, addY, negAddY, negY, addX]
+          rw [hℓ]
+          field_simp [ht]
+          ring
+        _ = 0 := by rw [hzQ, zero_mul]
+    apply Ideal.mul_mem_right
+    apply hmem_of_eval
+    rw [Polynomial.evalEval_C, WeierstrassCurve.preΨ₄]
+    simp only [Polynomial.eval_add, Polynomial.eval_mul,
+      Polynomial.eval_pow, Polynomial.eval_C, Polynomial.eval_X, Polynomial.eval_ofNat]
+    have heq := (equation_iff' x y).mp hP.1
+    dsimp only [B, t, negY] at hdouble
+    dsimp only [WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+      WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+    linear_combination hdouble -
+      ((6 * x ^ 2 + (W.a₁ ^ 2 + 4 * W.a₂) * x + (2 * W.a₄ + W.a₁ * W.a₃)) *
+        (W.a₁ ^ 2 + 4 * W.a₂ + 12 * x) -
+        8 * (4 * x ^ 3 + (W.a₁ ^ 2 + 4 * W.a₂) * x ^ 2 +
+          2 * (2 * W.a₄ + W.a₁ * W.a₃) * x + (W.a₃ ^ 2 + 4 * W.a₆)) -
+        16 * (y ^ 2 + W.a₁ * x * y + W.a₃ * y -
+          (x ^ 3 + W.a₂ * x ^ 2 + W.a₄ * x + W.a₆))) * heq
+  have hdouble_coordinate (x y : k) (hP : W.toAffine.Nonsingular x y)
+      (hy : y ≠ W.toAffine.negY x y) :
+      (2 • Point.some x y hP).xRep 0 = x -
+        AdjoinRoot.evalEval hP.1 (f 3) * AdjoinRoot.evalEval hP.1 (f 1) /
+          AdjoinRoot.evalEval hP.1 (f 2) ^ 2 := by
+    let t := y - W.toAffine.negY x y
+    let B := 3 * x ^ 2 + 2 * W.a₂ * x + W.a₄ - W.a₁ * y
+    have ht : t ≠ 0 := sub_ne_zero.mpr hy
+    have hf1 : AdjoinRoot.evalEval hP.1 (f 1) = 1 := by
+      simp only [f, Nat.cast_one, WeierstrassCurve.Ψ_one, map_one]
+    have hf2 : AdjoinRoot.evalEval hP.1 (f 2) = t := by
+      change AdjoinRoot.evalEval hP.1 (q (W.Ψ 2)) = t
+      rw [WeierstrassCurve.Ψ_two]
+      change AdjoinRoot.evalEval hP.1 (CoordinateRing.mk W.toAffine W.ψ₂) = t
+      rw [AdjoinRoot.evalEval_mk, WeierstrassCurve.ψ₂, evalEval_polynomialY]
+      dsimp only [t, negY]
+      ring
+    have hf3 : AdjoinRoot.evalEval hP.1 (f 3) = W.Ψ₃.eval x := by
+      change AdjoinRoot.evalEval hP.1 (q (W.Ψ 3)) = _
+      rw [WeierstrassCurve.Ψ_three]
+      change AdjoinRoot.evalEval hP.1 (CoordinateRing.mk W.toAffine (Polynomial.C W.Ψ₃)) = _
+      rw [AdjoinRoot.evalEval_mk, Polynomial.evalEval_C]
+    have heq := (equation_iff' x y).mp hP.1
+    have hpoly : W.Ψ₃.eval x = (3 * x + W.a₂) * t ^ 2 - B ^ 2 - W.a₁ * B * t := by
+      rw [WeierstrassCurve.Ψ₃]
+      simp only [Polynomial.eval_add, Polynomial.eval_mul, Polynomial.eval_pow,
+        Polynomial.eval_C, Polynomial.eval_X, Polynomial.eval_ofNat]
+      dsimp only [B, t, negY, WeierstrassCurve.b₂, WeierstrassCurve.b₄,
+        WeierstrassCurve.b₆, WeierstrassCurve.b₈]
+      linear_combination -(W.a₁ ^ 2 + 4 * W.a₂ + 12 * x) * heq
+    rw [hf1, hf2, hf3, mul_one, two_nsmul, add_self_of_Y_ne hy]
+    change W.toAffine.addX x x (W.toAffine.slope x x y y) = x - W.Ψ₃.eval x / t ^ 2
+    rw [slope_of_Y_ne rfl hy, addX]
+    change (B / t) ^ 2 + W.a₁ * (B / t) - W.a₂ - x - x = x - W.Ψ₃.eval x / t ^ 2
+    rw [hpoly]
+    field_simp [ht]
+    ring
+  have hfodd (r : ℕ) (hr : 2 ≤ r) :
+      f (2 * r + 1) = f (r + 2) * f r ^ 3 - f (r - 1) * f (r + 1) ^ 3 := by
+    have hr1 : 1 ≤ r := by omega
+    have hc := congrArg q (W.Ψ_odd (r : ℤ))
+    have hq : q W.toAffine.polynomial = 0 := AdjoinRoot.mk_self
+    simpa only [f, Nat.cast_add, Nat.cast_mul, Nat.cast_ofNat, Nat.cast_one,
+      Nat.cast_sub hr1, map_add, map_sub, map_mul, map_pow, hq, zero_mul,
+      add_zero] using hc
+  have hfeven (r : ℕ) (hr : 3 ≤ r) :
+      q W.ψ₂ * f (2 * r) =
+        f r * (f (r + 2) * f (r - 1) ^ 2 - f (r - 2) * f (r + 1) ^ 2) := by
+    have hr1 : 1 ≤ r := by omega
+    have hr2 : 2 ≤ r := by omega
+    have hc := congrArg q (W.Ψ_even (r : ℤ))
+    have hc' : f (2 * r) * q W.ψ₂ =
+        f (r - 1) ^ 2 * f r * f (r + 2) -
+        f (r - 2) * f r * f (r + 1) ^ 2 := by
+      simpa only [f, Nat.cast_add, Nat.cast_mul, Nat.cast_ofNat, Nat.cast_one,
+        Nat.cast_sub hr1, Nat.cast_sub hr2, map_sub, map_mul, map_pow] using hc
+    calc
+      q W.ψ₂ * f (2 * r) = f (2 * r) * q W.ψ₂ := mul_comm _ _
+      _ = _ := hc'
+      _ = _ := by ring
+  have hmem_eval (z : W.toAffine.CoordinateRing) (x y : k)
+      (hP : W.toAffine.Nonsingular x y) :
+      z ∈ CoordinateRing.XYIdeal W.toAffine x (Polynomial.C y) ↔
+        AdjoinRoot.evalEval hP.1 z = 0 := by
+    constructor
+    · intro hz
+      have hi : CoordinateRing.XYIdeal W.toAffine x (Polynomial.C y) ≤
+          RingHom.ker (AdjoinRoot.evalEval hP.1) := by
+        rw [CoordinateRing.XYIdeal, Ideal.span_le]
+        intro z hz
+        rcases hz with rfl | hz
+        · change AdjoinRoot.evalEval hP.1 (CoordinateRing.XClass W.toAffine x) = 0
+          rw [CoordinateRing.XClass, AdjoinRoot.evalEval_mk]
+          simp only [Polynomial.evalEval_C, Polynomial.eval_sub,
+            Polynomial.eval_X, Polynomial.eval_C, sub_self]
+        · have he : z = CoordinateRing.YClass W.toAffine (Polynomial.C y) := hz
+          rw [he]
+          change AdjoinRoot.evalEval hP.1 (CoordinateRing.YClass W.toAffine (Polynomial.C y)) = 0
+          rw [CoordinateRing.YClass, AdjoinRoot.evalEval_mk]
+          simp only [Polynomial.evalEval_sub, Polynomial.evalEval_X,
+            Polynomial.evalEval_C, Polynomial.eval_C, sub_self]
+      exact hi hz
+    · intro hz
+      obtain ⟨p, rfl⟩ := AdjoinRoot.mk_surjective z
+      apply hmem_of_eval
+      simpa only [AdjoinRoot.evalEval_mk] using hz
+  have hvanishing_of_coordinates (n : ℕ) (hn : 5 ≤ n) (x y : k)
+      (hP : W.toAffine.Nonsingular x y) (hT : n • Point.some x y hP = 0)
+      (htwo : 2 • Point.some x y hP ≠ 0)
+      (hsmall : ∀ j : ℕ, 0 < j → j < n → j • Point.some x y hP ≠ 0 →
+        AdjoinRoot.evalEval hP.1 (f j) ≠ 0)
+      (hcoord : ∀ j : ℕ, 0 < j → j + 1 < n → j • Point.some x y hP ≠ 0 →
+        (j • Point.some x y hP).xRep 0 = x -
+          AdjoinRoot.evalEval hP.1 (f (j + 1)) * AdjoinRoot.evalEval hP.1 (f (j - 1)) /
+            AdjoinRoot.evalEval hP.1 (f j) ^ 2) :
+      f n ∈ CoordinateRing.XYIdeal W.toAffine x (Polynomial.C y) := by
+    let P : W.toAffine.Point := Point.some x y hP
+    let ev : W.toAffine.CoordinateRing →+* k := AdjoinRoot.evalEval hP.1
+    let e (j : ℕ) : k := ev (f j)
+    apply (hmem_eval (f n) x y hP).mpr
+    change e n = 0
+    obtain ⟨r, hnr | hnr⟩ := n.even_or_odd'
+    · have hr : 3 ≤ r := by omega
+      have hs : (r + 1) • P = -((r - 1) • P) := by
+        apply eq_neg_of_add_eq_zero_left
+        rw [← add_nsmul, show r + 1 + (r - 1) = n by omega]
+        exact hT
+      have hminus : (r - 1) • P ≠ 0 := by
+        intro hz
+        have hp : (r + 1) • P = 0 := by rw [hs, hz, _root_.neg_zero]
+        have he : 2 • P = 0 := by
+          rw [show r + 1 = (r - 1) + 2 by omega, add_nsmul, hz, zero_add] at hp
+          exact hp
+        exact htwo he
+      have hplus : (r + 1) • P ≠ 0 := by
+        intro hz
+        exact hminus (neg_eq_zero.mp (hs.symm.trans hz))
+      have hm : e (r - 1) ≠ 0 := hsmall _ (by omega) (by omega) hminus
+      have hp : e (r + 1) ≠ 0 := hsmall _ (by omega) (by omega) hplus
+      have hxm := hcoord (r - 1) (by omega) (by omega) hminus
+      have hxp := hcoord (r + 1) (by omega) (by omega) hplus
+      have hx : ((r + 1) • P).xRep 0 = ((r - 1) • P).xRep 0 := by rw [hs, xRep_neg]
+      rw [hxp, hxm] at hx
+      have hdiv : e (r + 2) * e r / e (r + 1) ^ 2 =
+          e r * e (r - 2) / e (r - 1) ^ 2 := by
+        change x - e (r + 1 + 1) * e (r + 1 - 1) / e (r + 1) ^ 2 =
+          x - e (r - 1 + 1) * e (r - 1 - 1) / e (r - 1) ^ 2 at hx
+        rw [show r + 1 + 1 = r + 2 by omega, show r + 1 - 1 = r by omega,
+          show r - 1 + 1 = r by omega, show r - 1 - 1 = r - 2 by omega] at hx
+        linear_combination -hx
+      have hcross := (div_eq_div_iff (pow_ne_zero 2 hp) (pow_ne_zero 2 hm)).mp hdiv
+      have he : e 2 * e (2 * r) =
+          e r * (e (r + 2) * e (r - 1) ^ 2 - e (r - 2) * e (r + 1) ^ 2) := by
+        have hrec := congrArg ev (hfeven r hr)
+        have hf2 : f 2 = q W.ψ₂ := by change q (W.Ψ 2) = _; rw [WeierstrassCurve.Ψ_two]
+        simpa only [← hf2, map_mul, map_sub, map_pow] using hrec
+      have hz : e 2 * e n = 0 := by
+        rw [hnr, he]
+        linear_combination hcross
+      exact (mul_eq_zero.mp hz).resolve_left (hsmall 2 (by omega) (by omega) htwo)
+    · have hr : 2 ≤ r := by omega
+      have hs : (r + 1) • P = -(r • P) := by
+        apply eq_neg_of_add_eq_zero_left
+        rw [← add_nsmul, show r + 1 + r = n by omega]
+        exact hT
+      have hm : r • P ≠ 0 := by
+        intro hz
+        have he : P = 0 := by
+          have he := hT
+          rw [show n = r * 2 + 1 by omega, add_nsmul, mul_nsmul, hz,
+            nsmul_zero, one_nsmul, zero_add] at he
+          exact he
+        exact some_ne_zero hP he
+      have hp : (r + 1) • P ≠ 0 := by
+        intro hz
+        exact hm (neg_eq_zero.mp (hs.symm.trans hz))
+      have hem : e r ≠ 0 := hsmall _ (by omega) (by omega) hm
+      have hep : e (r + 1) ≠ 0 := hsmall _ (by omega) (by omega) hp
+      have hxm := hcoord r (by omega) (by omega) hm
+      have hxp := hcoord (r + 1) (by omega) (by omega) hp
+      have hx : ((r + 1) • P).xRep 0 = (r • P).xRep 0 := by rw [hs, xRep_neg]
+      rw [hxp, hxm] at hx
+      have hdiv : e (r + 2) * e r / e (r + 1) ^ 2 =
+          e (r + 1) * e (r - 1) / e r ^ 2 := by
+        change x - e (r + 1 + 1) * e (r + 1 - 1) / e (r + 1) ^ 2 =
+          x - e (r + 1) * e (r - 1) / e r ^ 2 at hx
+        rw [show r + 1 + 1 = r + 2 by omega, show r + 1 - 1 = r by omega] at hx
+        linear_combination -hx
+      have hcross := (div_eq_div_iff (pow_ne_zero 2 hep) (pow_ne_zero 2 hem)).mp hdiv
+      have he : e (2 * r + 1) = e (r + 2) * e r ^ 3 - e (r - 1) * e (r + 1) ^ 3 := by
+        simpa only [map_sub, map_mul, map_pow] using congrArg ev (hfodd r hr)
+      rw [hnr, he]
+      linear_combination hcross
   refine ⟨f, ?_, ?_⟩
   · refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
     · change q (W.Ψ 0) = 0
@@ -28491,35 +29092,64 @@ theorem p03_torsion_eds_exists_68cf3476_d2
       rw [WeierstrassCurve.Ψ_three]
     · change q (W.Ψ 4) = q W.ψ₂ * q (Polynomial.C W.preΨ₄)
       rw [WeierstrassCurve.Ψ_four, map_mul, mul_comm]
-    · intro r hr
-      have hr1 : 1 ≤ r := by omega
-      have hc := congrArg q (W.Ψ_odd (r : ℤ))
-      have hq : q W.toAffine.polynomial = 0 := AdjoinRoot.mk_self
-      simpa only [f, Nat.cast_add, Nat.cast_mul, Nat.cast_ofNat, Nat.cast_one,
-        Nat.cast_sub hr1, map_add, map_sub, map_mul, map_pow, hq, zero_mul,
-        add_zero] using hc
-    · intro r hr
-      have hr1 : 1 ≤ r := by omega
-      have hr2 : 2 ≤ r := by omega
-      have hc := congrArg q (W.Ψ_even (r : ℤ))
-      have hc' : f (2 * r) * q W.ψ₂ =
-          f (r - 1) ^ 2 * f r * f (r + 2) -
-          f (r - 2) * f r * f (r + 1) ^ 2 := by
-        simpa only [f, Nat.cast_add, Nat.cast_mul, Nat.cast_ofNat, Nat.cast_one,
-          Nat.cast_sub hr1, Nat.cast_sub hr2, map_sub, map_mul, map_pow] using hc
-      calc
-        q W.ψ₂ * f (2 * r) = f (2 * r) * q W.ψ₂ := mul_comm _ _
-        _ = _ := hc'
-        _ = _ := by ring
-  · intro n hn x y hP
-    obtain ⟨S, hS, hcard, hsum⟩ := hkernel n hn
-    obtain ⟨g, hg, hgen⟩ := hprincipal S hsum
-    suffices hspan : Ideal.span {f n} = Ideal.span {g} by
-      rw [← Ideal.span_singleton_le_iff_mem, hspan, Ideal.span_singleton_le_iff_mem]
-      exact (hvanish S g hgen x y hP).trans (hS _)
-    -- Remaining accepted-proof steps: construct the normalized torsion-divisor
-    -- functions and compare them with the explicit recurrence sequence. The
-    -- ideal equality forgets the harmless nonzero normalization scalar.
-    fail "Unfinished torsion-divisor identification: span {q (W.Ψ n)} = the torsion-kernel ideal product."
+    · exact hfodd
+    · exact hfeven
+  · intro n
+    induction n using Nat.strong_induction_on with
+    | h n ih =>
+      intro hn x y hP
+      obtain ⟨S, hS, hcard, hsum⟩ := hkernel n hn
+      obtain ⟨g, hg, hgen⟩ := hprincipal S hsum
+      suffices hspan : Ideal.span {f n} = Ideal.span {g} by
+        rw [← Ideal.span_singleton_le_iff_mem, hspan, Ideal.span_singleton_le_iff_mem]
+        exact (hvanish S g hgen x y hP).trans (hS _)
+      apply hspan_of_vanishing n hn S hS hcard g hg hgen
+      intro α β hQ hT
+      by_cases htwo : 2 • Point.some α β hQ = 0
+      · have heven : Even n := by
+          rcases n.even_or_odd with heven | hodd
+          · exact heven
+          obtain ⟨r, hr⟩ := hodd
+          have hv : n • Point.some α β hQ = Point.some α β hQ := by
+            rw [show n = 2 * r + 1 by omega, add_nsmul, mul_nsmul, htwo,
+              nsmul_zero, one_nsmul, zero_add]
+          exact (some_ne_zero hQ (hv.symm.trans hT)).elim
+        change q (W.Ψ (n : ℤ)) ∈ _
+        rw [WeierstrassCurve.Ψ_ofNat, if_pos heven, map_mul]
+        exact Ideal.mul_mem_left _ _ (htwo_vanishing α β hQ htwo)
+      by_cases hn1 : n = 1
+      · subst n
+        exact (some_ne_zero hQ (by simpa only [one_nsmul] using hT)).elim
+      by_cases hn3 : n = 3
+      · subst n
+        exact hthree_vanishing α β hQ hT
+      by_cases hn4 : n = 4
+      · subst n
+        exact hfour_vanishing α β hQ hT
+      have hn5 : 5 ≤ n := by
+        have hn2 : n ≠ 2 := by
+          intro heq
+          exact htwo (heq ▸ hT)
+        omega
+      refine hvanishing_of_coordinates n hn5 α β hQ hT htwo ?_ ?_
+      · intro j hj hjn hjP
+        intro hz
+        exact hjP ((ih j hjn hj α β hQ).mp ((hmem_eval (f j) α β hQ).mpr hz))
+      · intro j hj hjn hjP
+        by_cases hj1 : j = 1
+        · subst j
+          simp only [one_nsmul, xRep_some, Matrix.cons_val_zero, f,
+            show (1 : ℕ) - 1 = 0 by decide, Nat.cast_zero, WeierstrassCurve.Ψ_zero,
+            _root_.map_zero, mul_zero, zero_div, sub_zero]
+        by_cases hj2 : j = 2
+        · subst j
+          apply hdouble_coordinate α β hQ
+          intro heq
+          exact htwo (by rw [two_nsmul, add_self_of_Y_eq heq])
+        have hj3 : 3 ≤ j := by omega
+        -- Accepted proof step 8 identifies the normalized divisor quotient
+        -- with the multiplication x-coordinate. The degree comparison and
+        -- recurrence induction above close the theorem once this holds.
+        fail "Remaining multiplication-coordinate identity for normalized torsion divisors."
 
 end Submission
