@@ -20,16 +20,6 @@ theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field
 namespace Submission
 
 open AlgebraicCurve
-open scoped IntermediateField.algebraAdjoinAdjoin in
-theorem p06_9e0f5043ff_rational_adjoin_principal
-    (K : Type*) [Field K] {F : Type*} [Field F] [Algebra K F]
-    (x : F) (hx : Transcendental K x) :
-    HasPrincipalDivisors K (IntermediateField.adjoin K ({x} : Set F)) := by
-  let e : FractionRing (Polynomial K) ≃ₐ[K] IntermediateField.adjoin K ({x} : Set F) :=
-    IsFractionRing.algEquivOfAlgEquiv (Polynomial.algEquivOfTranscendental K x hx)
-  exact Submission.p06_9e0f5043ff_principal_alg_equiv K (FractionRing (Polynomial K))
-    (IntermediateField.adjoin K ({x} : Set F)) e
-    (Submission.p06_9e0f5043ff_rational_model_principal K)
 
 theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
     [Algebra K F] (x : F) (hx : Transcendental K x)
@@ -3512,6 +3502,9 @@ theorem p06_9e0f5043ff_rational_model_principal (K : Type*) [Field K] :
     rw [Finsupp.sub_apply, hD v, hE v, div_eq_mul_inv,
       v.ord_mul (hιne a ha) (inv_ne_zero (hιne b hb)), v.ord_inv, sub_eq_add_neg]
   · rw [map_sub, hDdeg, hEdeg, sub_self]
+
+end Submission
+
 namespace Submission
 
 /-- An algebra equivalence transports places and preserves their residue degrees.
@@ -3652,5 +3645,20 @@ theorem p06_9e0f5043ff_principal_alg_equiv
     rw [Finsupp.sum_equivMapDomain]
     change D.sum (fun v n => n * (v.deg : ℤ)) = 0 at hDdeg
     simpa only [hdeg] using hDdeg
+
+end Submission
+
+namespace Submission
+
+open scoped IntermediateField.algebraAdjoinAdjoin in
+theorem p06_9e0f5043ff_rational_adjoin_principal
+    (K : Type*) [Field K] {F : Type*} [Field F] [Algebra K F]
+    (x : F) (hx : Transcendental K x) :
+    HasPrincipalDivisors K (IntermediateField.adjoin K ({x} : Set F)) := by
+  let e : FractionRing (Polynomial K) ≃ₐ[K] IntermediateField.adjoin K ({x} : Set F) :=
+    IsFractionRing.algEquivOfAlgEquiv (Polynomial.algEquivOfTranscendental K x hx)
+  exact Submission.p06_9e0f5043ff_principal_alg_equiv K (FractionRing (Polynomial K))
+    (IntermediateField.adjoin K ({x} : Set F)) e
+    (Submission.p06_9e0f5043ff_rational_model_principal K)
 
 end Submission
