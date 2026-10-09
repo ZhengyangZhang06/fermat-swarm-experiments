@@ -1,0 +1,36 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "Gamma0|Unimodular|unimodular|ProjectiveLine|idx_coset_row_card",
+        "quotientRightRelEquivQuotientLeftRel|isCoprime_row",
+        "p10_17ae7b7d_idx_coset_row_card"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/Coset/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean"
+      ],
+      "conclusion": "The pinned snapshot supplies the unimodular-row relation, Gamma0 definition, coset inversion equivalence and isCoprime_row library lemma. No occurrence of the selected theorem was found. Project and mathlib revisions match the frozen manifest and comparator evidence."
+    }
+  ],
+  "comparison_identity": "cdfb49b2efe81d98cdb4c575380907f7af3fea95ad17161f1d4b729804c30580",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_idx_coset_row_card",
+      "statement": "∀ (N : ℕ) [NeZero N], (∀ r s : ZMod N, (∃ x y : ZMod N, x * r + y * s = 1) → ∃ A : Matrix.SpecialLinearGroup (Fin 2) ℤ, (A 1 0 : ZMod N) = r ∧ (A 1 1 : ZMod N) = s) → let P := Quot (fun v w : {v : ZMod (N) × ZMod (N) // ∃ x y : ZMod (N), x * v.1 + y * v.2 = 1} => ∃ u : (ZMod (N))ˣ, (u : ZMod (N)) * v.1.1 = w.1.1 ∧ (u : ZMod (N)) * v.1.2 = w.1.2); let Q := (Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 N; Finite Q ∧ Nat.card Q = Nat.card P",
+      "lean_file": "Submission.lean",
+      "natural_summary": "The bottom-row map identifies right cosets with unit-scaling classes. Coset inversion transfers this equivalence to left cosets, yielding finiteness and equal cardinality."
+    }
+  ]
+}
