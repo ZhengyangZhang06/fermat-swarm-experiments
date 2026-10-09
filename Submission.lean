@@ -2068,12 +2068,411 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     intro heq
     rw [heq, sub_self, zero_div, norm_zero] at hratio
     linarith
+  -- Exact side tests in the cut coordinate identify the retained angular sectors.
+  have hgammaSides : ∀ v ∈ H, ∀ ε : ℝ, 0 < ε → ε < 1 → ∀ t : ℝ,
+      ((γ v ε t).re < v.re ↔ 0 < Real.sin t) ∧
+      (v.re < (γ v ε t).re ↔ Real.sin t < 0) ∧
+      ((γ v ε t).re = v.re ↔ Real.sin t = 0) ∧
+      (Complex.normSq v < Complex.normSq (γ v ε t) ↔
+        0 < v.im * Real.cos t - v.re * Real.sin t) ∧
+      (Complex.normSq (γ v ε t) = Complex.normSq v ↔
+        v.im * Real.cos t - v.re * Real.sin t = 0) := by
+    intro v hv ε hε hε1 t
+    let w : ℂ := (ε : ℂ) * Complex.exp ((t : ℂ) * Complex.I)
+    have hnorm : ‖w‖ = ε := by
+      simp [w, Complex.norm_exp, abs_of_pos hε]
+    have hwsq : Complex.normSq w < 1 := by
+      rw [Complex.normSq_eq_norm_sq, hnorm]
+      nlinarith
+    have hden : 1 - w ≠ 0 := by
+      intro h
+      have hw : w = 1 := (sub_eq_zero.mp h).symm
+      rw [hw, norm_one] at hnorm
+      linarith
+    have hD : 0 < Complex.normSq (1 - w) := Complex.normSq_pos.mpr hden
+    have hre : w.re = ε * Real.cos t := by
+      simp [w, Complex.exp_mul_I, ← Complex.ofReal_cos, ← Complex.ofReal_sin]
+    have him : w.im = ε * Real.sin t := by
+      simp [w, Complex.exp_mul_I, ← Complex.ofReal_cos, ← Complex.ofReal_sin]
+    have hcross : (v * star w).im = ε * (v.im * Real.cos t - v.re * Real.sin t) := by
+      simp only [Complex.mul_im, Complex.star_def, Complex.conj_re, Complex.conj_im,
+        hre, him]
+      ring
+    have hc := hcutCoordinates v hv w hwsq
+    have hx : ((γ v ε t).re - v.re) * Complex.normSq (1 - w) =
+        -(2 * v.im * ε) * Real.sin t := by
+      change (((v - star v * w) / (1 - w)).re - v.re) * Complex.normSq (1 - w) = _
+      rw [hc.2.1, him]
+      ring
+    have hn : (Complex.normSq (γ v ε t) - Complex.normSq v) * Complex.normSq (1 - w) =
+        (4 * v.im * ε) * (v.im * Real.cos t - v.re * Real.sin t) := by
+      change (Complex.normSq ((v - star v * w) / (1 - w)) - Complex.normSq v) *
+        Complex.normSq (1 - w) = _
+      rw [hc.2.2.1, hcross]
+      ring
+    have hvpos : 0 < v.im := hv
+    have hp : 0 < 2 * v.im * ε := by positivity
+    have hp4 : 0 < 4 * v.im * ε := by positivity
+    have hnegRight (x : ℝ) : x * Complex.normSq (1 - w) < 0 ↔ x < 0 := by
+      simp only [mul_neg_iff, hD, not_lt_of_ge hD.le, and_true, and_false, false_or]
+    have hnegLeft (x : ℝ) : (2 * v.im * ε) * x < 0 ↔ x < 0 := by
+      simp only [mul_neg_iff, hp, not_lt_of_ge hp.le, false_and, true_and, or_false]
+    refine ⟨?_, ?_, ?_, ?_, ?_⟩
+    · rw [← sub_neg, ← hnegRight, hx, neg_mul,
+        neg_neg_iff_pos, mul_pos_iff_of_pos_left hp]
+    · rw [← sub_pos, ← mul_pos_iff_of_pos_right hD, hx, neg_mul,
+        neg_pos, hnegLeft]
+    · rw [← sub_eq_zero, ← mul_eq_zero_iff_right hD.ne', hx,
+        mul_eq_zero_iff_left (neg_ne_zero.mpr hp.ne')]
+    · rw [← sub_pos, ← mul_pos_iff_of_pos_right hD, hn, mul_pos_iff_of_pos_left hp4]
+    · rw [← sub_eq_zero, ← mul_eq_zero_iff_right hD.ne', hn,
+        mul_eq_zero_iff_left hp4.ne']
+  have hgammaUnitCircle : ∀ v ∈ H, ‖v‖ = 1 → ∀ ε : ℝ, 0 < ε → ε < 1 → ∀ t : ℝ,
+      (1 < ‖γ v ε t‖ ↔ 0 < v.im * Real.cos t - v.re * Real.sin t) ∧
+      (‖γ v ε t‖ = 1 ↔ v.im * Real.cos t - v.re * Real.sin t = 0) := by
+    intro v hv hvnorm ε hε hε1 t
+    have hvSq : Complex.normSq v = 1 := by
+      rw [Complex.normSq_eq_norm_sq, hvnorm]
+      norm_num
+    have hc := (hgammaSides v hv ε hε hε1 t).2.2.2
+    rw [hvSq, Complex.normSq_eq_norm_sq] at hc
+    have hn := norm_nonneg (γ v ε t)
+    refine ⟨?_, ?_⟩
+    · have hsq : 1 < ‖γ v ε t‖ ↔ 1 < ‖γ v ε t‖ ^ 2 := by
+        constructor <;> intro h <;> nlinarith
+      exact hsq.trans hc.1
+    · have hsq : ‖γ v ε t‖ = 1 ↔ ‖γ v ε t‖ ^ 2 = 1 := by
+        constructor <;> intro h <;> nlinarith
+      exact hsq.trans hc.2
+  have hρre : ρ.re = -1 / 2 := by simp [ρ]
+  have hρim : ρ.im = Real.sqrt 3 / 2 := by simp [ρ]
+  have hρnorm : ‖ρ‖ = 1 := by
+    have hs : (Real.sqrt 3) ^ 2 = 3 := Real.sq_sqrt (by norm_num)
+    have hn : ‖ρ‖ ^ 2 = 1 := by
+      rw [← Complex.normSq_eq_norm_sq, Complex.normSq_apply, hρre, hρim]
+      nlinarith
+    nlinarith [norm_nonneg ρ]
+  have hρH : ρ ∈ H := by
+    change 0 < ρ.im
+    rw [hρim]
+    positivity
+  have hρOneH : ρ + 1 ∈ H := by simpa [H] using hρH
+  have hρOneNorm : ‖ρ + 1‖ = 1 := by
+    have hs : (Real.sqrt 3) ^ 2 = 3 := Real.sq_sqrt (by norm_num)
+    have hn : ‖ρ + 1‖ ^ 2 = 1 := by
+      rw [← Complex.normSq_eq_norm_sq, Complex.normSq_apply]
+      simp only [Complex.add_re, Complex.add_im, Complex.one_re, Complex.one_im,
+        add_zero, hρre, hρim]
+      nlinarith
+    nlinarith [norm_nonneg (ρ + 1)]
+  have hgammaEllipticEndpoints : ∀ ε : ℝ, 0 < ε → ε < 1 →
+      ‖γ Complex.I ε (Real.pi / 2)‖ = 1 ∧
+      ‖γ Complex.I ε (-Real.pi / 2)‖ = 1 ∧
+      (γ ρ ε 0).re = -1 / 2 ∧ ‖γ ρ ε (-Real.pi / 3)‖ = 1 ∧
+      ‖γ (ρ + 1) ε (Real.pi / 3)‖ = 1 ∧ (γ (ρ + 1) ε 0).re = 1 / 2 := by
+    intro ε hε hε1
+    have hIH : Complex.I ∈ H := by simp [H]
+    refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
+    · apply (hgammaUnitCircle Complex.I hIH Complex.norm_I ε hε hε1 _).2.mpr
+      simp
+    · apply (hgammaUnitCircle Complex.I hIH Complex.norm_I ε hε hε1 _).2.mpr
+      simp [neg_div]
+    · rw [← hρre]
+      exact (hgammaSides ρ hρH ε hε hε1 0).2.2.1.mpr Real.sin_zero
+    · apply (hgammaUnitCircle ρ hρH hρnorm ε hε hε1 _).2.mpr
+      rw [hρim, hρre, neg_div, Real.cos_neg, Real.sin_neg,
+        Real.cos_pi_div_three, Real.sin_pi_div_three]
+      ring
+    · apply (hgammaUnitCircle (ρ + 1) hρOneH hρOneNorm ε hε hε1 _).2.mpr
+      simp only [Complex.add_im, Complex.add_re, Complex.one_im, Complex.one_re,
+        add_zero, hρim, hρre, Real.cos_pi_div_three, Real.sin_pi_div_three]
+      ring
+    · have hc := (hgammaSides (ρ + 1) hρOneH ε hε hε1 0).2.2.1.mpr Real.sin_zero
+      simpa only [Complex.add_re, Complex.one_re, hρre, show (-1 / 2 : ℝ) + 1 = 1 / 2 by norm_num] using hc
+  have hgammaEllipticSectors : ∀ ε : ℝ, 0 < ε → ε < 1 →
+      (∀ t ∈ Set.Ioo (-Real.pi / 2) (Real.pi / 2), 1 < ‖γ Complex.I ε t‖) ∧
+      (∀ t ∈ Set.Ioo (-Real.pi / 3) 0,
+        -1 / 2 < (γ ρ ε t).re ∧ 1 < ‖γ ρ ε t‖) ∧
+      (∀ t ∈ Set.Ioo 0 (Real.pi / 3),
+        (γ (ρ + 1) ε t).re < 1 / 2 ∧ 1 < ‖γ (ρ + 1) ε t‖) := by
+    intro ε hε hε1
+    refine ⟨?_, ?_, ?_⟩
+    · intro t ht
+      apply (hgammaUnitCircle Complex.I (by simp [H]) Complex.norm_I ε hε hε1 t).1.mpr
+      simpa using Real.cos_pos_of_mem_Ioo (by simpa only [neg_div] using ht)
+    · intro t ht
+      constructor
+      · rw [← hρre]
+        apply (hgammaSides ρ hρH ε hε hε1 t).2.1.mpr
+        exact Real.sin_neg_of_neg_of_neg_pi_lt ht.2 (by linarith [ht.1, Real.pi_pos])
+      · apply (hgammaUnitCircle ρ hρH hρnorm ε hε hε1 t).1.mpr
+        have hsin : 0 < Real.sin (t + Real.pi / 3) :=
+          Real.sin_pos_of_pos_of_lt_pi (by linarith [ht.1]) (by linarith [ht.2, Real.pi_pos])
+        rw [Real.sin_add, Real.cos_pi_div_three, Real.sin_pi_div_three] at hsin
+        rw [hρim, hρre]
+        nlinarith
+    · intro t ht
+      constructor
+      · have hside := (hgammaSides (ρ + 1) hρOneH ε hε hε1 t).1.mpr
+          (Real.sin_pos_of_pos_of_lt_pi ht.1 (by linarith [ht.2, Real.pi_pos]))
+        simpa only [Complex.add_re, Complex.one_re, hρre, show (-1 / 2 : ℝ) + 1 = 1 / 2 by norm_num] using hside
+      · apply (hgammaUnitCircle (ρ + 1) hρOneH hρOneNorm ε hε hε1 t).1.mpr
+        have hsin : 0 < Real.sin (Real.pi / 3 - t) :=
+          Real.sin_pos_of_pos_of_lt_pi (by linarith [ht.2]) (by linarith [ht.1, Real.pi_pos])
+        rw [Real.sin_sub, Real.cos_pi_div_three, Real.sin_pi_div_three] at hsin
+        simp only [Complex.add_im, Complex.add_re, Complex.one_im, Complex.one_re,
+          add_zero, hρim, hρre]
+        nlinarith
   have hgammaZeroFree : ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0),
       ∀ v ∈ Z, ∀ t : ℝ, F (γ v ε t) ≠ 0 := by
     filter_upwards [hsmallCuts, hcutsNoOtherZeros] with ε hε hzero
     intro v hv t
     obtain ⟨hmem, _, hne⟩ := hgammaOnCut v (hKH hv.1) ε hε.1 hε.2 t
     exact hzero v hv (γ v ε t) hmem hne
+  -- Steps 9–10: the incident geodesics are radial in the cut coordinate.
+  -- The clockwise replacement runs from cutStart to cutEnd.
+  let cutStart : ℂ → ℝ := fun v =>
+    if v.re = -1 / 2 then 0 else if ‖v‖ = 1 then v.arg else Real.pi
+  let cutEnd : ℂ → ℝ := fun v =>
+    if v.re = 1 / 2 then 0 else if ‖v‖ = 1 then v.arg - Real.pi else -Real.pi
+  have hcutAngles : ∀ v ∈ H,
+      -Real.pi ≤ cutEnd v ∧ cutEnd v < cutStart v ∧ cutStart v ≤ Real.pi ∧
+        (v.re = -1 / 2 → cutStart v = 0) ∧
+        (v.re = 1 / 2 → cutEnd v = 0) ∧
+        (‖v‖ = 1 → cutStart v ≤ v.arg ∧ v.arg - Real.pi ≤ cutEnd v) := by
+    intro v hv
+    have hvim : 0 < v.im := hv
+    have harg0 : 0 < v.arg := by
+      apply lt_of_le_of_ne (Complex.arg_nonneg_iff.mpr hvim.le)
+      intro heq
+      have him := Complex.norm_mul_sin_arg v
+      rw [← heq, Real.sin_zero, mul_zero] at him
+      linarith
+    have hargπ : v.arg < Real.pi := Complex.arg_lt_pi_iff.mpr (Or.inr hvim.ne')
+    have hlow : -Real.pi ≤ cutEnd v := by
+      dsimp only [cutEnd]
+      split_ifs <;> linarith [Real.pi_pos]
+    have hhigh : cutStart v ≤ Real.pi := by
+      dsimp only [cutStart]
+      split_ifs <;> linarith [Real.pi_pos]
+    have horder : cutEnd v < cutStart v := by
+      dsimp only [cutStart, cutEnd]
+      split_ifs <;> linarith [Real.pi_pos]
+    refine ⟨hlow, horder, hhigh, ?_, ?_, ?_⟩
+    · intro hvL
+      simp only [cutStart, hvL, if_pos]
+    · intro hvR
+      simp only [cutEnd, hvR, if_pos]
+    · intro hvN
+      constructor
+      · simp only [cutStart, hvN, if_pos]
+        split_ifs <;> linarith
+      · simp only [cutEnd, hvN, if_pos]
+        split_ifs <;> linarith
+  have hρarg : ρ.arg = 2 * Real.pi / 3 := by
+    rw [Complex.arg_of_im_pos hρH, hρre, hρnorm, div_one]
+    have hcos : Real.cos (2 * Real.pi / 3) = -1 / 2 := by
+      rw [show 2 * Real.pi / 3 = Real.pi - Real.pi / 3 by ring,
+        Real.cos_pi_sub, Real.cos_pi_div_three]
+      norm_num
+    rw [← hcos]
+    exact Real.arccos_cos (by positivity) (by linarith [Real.pi_pos])
+  have hρOneArg : (ρ + 1).arg = Real.pi / 3 := by
+    rw [Complex.arg_of_im_pos hρOneH, Complex.add_re, Complex.one_re,
+      hρre, hρOneNorm, div_one]
+    norm_num only
+    rw [← Real.cos_pi_div_three]
+    exact Real.arccos_cos (by positivity) (by linarith [Real.pi_pos])
+  have hcutEllipticAngles :
+      cutStart Complex.I = Real.pi / 2 ∧ cutEnd Complex.I = -Real.pi / 2 ∧
+      cutStart ρ = 0 ∧ cutEnd ρ = -Real.pi / 3 ∧
+      cutStart (ρ + 1) = Real.pi / 3 ∧ cutEnd (ρ + 1) = 0 := by
+    norm_num [cutStart, cutEnd, Complex.arg_I, hρre, hρnorm, hρarg,
+      hρOneNorm, hρOneArg]
+    constructor <;> ring
+  have hphaseNorm (ε : ℝ) (hε : 0 < ε) (t : ℝ) :
+      ‖(ε : ℂ) * Complex.exp ((t : ℂ) * Complex.I)‖ = ε := by
+    simpa only [circleMap, zero_add, abs_of_pos hε] using norm_circleMap_zero ε t
+  have hphaseDen (ε : ℝ) (hε : 0 < ε) (hε1 : ε < 1) (t : ℝ) :
+      1 - (ε : ℂ) * Complex.exp ((t : ℂ) * Complex.I) ≠ 0 := by
+    intro heq
+    have hn := hphaseNorm ε hε t
+    rw [← sub_eq_zero.mp heq, norm_one] at hn
+    linarith
+  have hgammaSmooth : ∀ v : ℂ, ∀ ε : ℝ, 0 < ε → ε < 1 → ContDiff ℝ 1 (γ v ε) := by
+    intro v ε hε hε1
+    have hw : ContDiff ℝ 1 (fun t : ℝ => (ε : ℂ) * Complex.exp ((t : ℂ) * Complex.I)) := by
+      convert! (contDiff_circleMap 0 ε (n := 1)) using 1
+      funext t
+      simp only [circleMap, zero_add]
+    convert! (contDiff_const.sub (contDiff_const.mul hw)).mul
+      ((contDiff_const.sub hw).inv (hphaseDen ε hε hε1)) using 1
+  -- Small cuts meet none of the original boundary pieces not incident at their center.
+  have hcutInactive : ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0),
+      ∀ v ∈ B, ∀ z ∈ D v ε,
+        (v.re ≠ -1 / 2 → -1 / 2 < z.re) ∧
+        (v.re ≠ 1 / 2 → z.re < 1 / 2) ∧ (‖v‖ ≠ 1 → 1 < ‖z‖) := by
+    apply (Filter.eventually_all_finite hBfinite).mpr
+    intro v hv
+    have hleft : ∀ᶠ z in nhds v, v.re ≠ -1 / 2 → -1 / 2 < z.re := by
+      by_cases hvL : v.re = -1 / 2
+      · exact Filter.Eventually.of_forall (fun _ hn => (hn hvL).elim)
+      have hlt : (-1 / 2 : ℝ) < v.re := by
+        have hle := (abs_le.mp hv.1.1.1).1
+        have hne : -(1 / 2 : ℝ) ≠ v.re := by simpa only [neg_div] using Ne.symm hvL
+        simpa only [neg_div] using lt_of_le_of_ne hle hne
+      exact Filter.Eventually.mono
+        ((isOpen_lt continuous_const Complex.continuous_re).mem_nhds hlt)
+        (fun _ hz _ => hz)
+    have hright : ∀ᶠ z in nhds v, v.re ≠ 1 / 2 → z.re < 1 / 2 := by
+      by_cases hvR : v.re = 1 / 2
+      · exact Filter.Eventually.of_forall (fun _ hn => (hn hvR).elim)
+      exact Filter.Eventually.mono
+        ((isOpen_lt Complex.continuous_re continuous_const).mem_nhds
+          (lt_of_le_of_ne (abs_le.mp hv.1.1.1).2 hvR)) (fun _ hz _ => hz)
+    have hnorm : ∀ᶠ z in nhds v, ‖v‖ ≠ 1 → 1 < ‖z‖ := by
+      by_cases hvN : ‖v‖ = 1
+      · exact Filter.Eventually.of_forall (fun _ hn => (hn hvN).elim)
+      exact Filter.Eventually.mono
+        ((isOpen_lt continuous_const continuous_norm).mem_nhds
+          (lt_of_le_of_ne hv.1.1.2.1 (Ne.symm hvN))) (fun _ hz _ => hz)
+    obtain ⟨r, hr, hball⟩ := Metric.eventually_nhds_iff_ball.mp (hleft.and (hright.and hnorm))
+    filter_upwards [hdiskShrink v (hKH hv.1.1) r hr] with ε hε
+    exact fun z hz => hball z (hε hz)
+  have hcutArcInterior : ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0),
+      ∀ v ∈ B, ∀ t ∈ Set.Ioo (cutEnd v) (cutStart v), γ v ε t ∈ O := by
+    filter_upwards [hsmallCuts, hcutInactive, hcutsBelowTop] with ε hε hinactive htop
+    intro v hv t ht
+    let w : ℂ := (ε : ℂ) * Complex.exp ((t : ℂ) * Complex.I)
+    have hvH := hKH hv.1.1
+    have hvim : 0 < v.im := hvH
+    have hD : 0 < Complex.normSq (1 - w) := Complex.normSq_pos.mpr
+      (hphaseDen ε hε.1 hε.2 t)
+    have hwsq : Complex.normSq w < 1 := by
+      rw [Complex.normSq_eq_norm_sq, hphaseNorm ε hε.1 t]
+      nlinarith [hε.1, hε.2]
+    have hc := hcutCoordinates v hvH w hwsq
+    change 0 < (γ v ε t).im ∧
+      ((γ v ε t).re - v.re) * Complex.normSq (1 - w) = -2 * v.im * w.im ∧
+      (Complex.normSq (γ v ε t) - Complex.normSq v) * Complex.normSq (1 - w) =
+        4 * v.im * (v * star w).im ∧ _ at hc
+    have hmem := (hgammaOnCut v hvH ε hε.1 hε.2 t).1
+    have hkeep := hinactive v hv (γ v ε t) hmem
+    have ha := hcutAngles v hvH
+    have hwre : w.re = ε * Real.cos t := by simp [w, Complex.exp_re]
+    have hwim : w.im = ε * Real.sin t := by simp [w, Complex.exp_im]
+    have hleft : (-1 / 2 : ℝ) < (γ v ε t).re := by
+      by_cases hvL : v.re = -1 / 2
+      · have ht0 : t < 0 := by rw [ha.2.2.2.1 hvL] at ht; exact ht.2
+        have hneg : w.im < 0 := by
+          rw [hwim]
+          exact mul_neg_of_pos_of_neg hε.1
+            (Real.sin_neg_of_neg_of_neg_pi_lt ht0 (lt_of_le_of_lt ha.1 ht.1))
+        have hprod : 0 < -2 * v.im * w.im := mul_pos_of_neg_of_neg (by linarith) hneg
+        rw [← hc.2.1] at hprod
+        have hdiff := (mul_pos_iff_of_pos_right hD).mp hprod
+        rw [hvL] at hdiff
+        linarith
+      · exact hkeep.1 hvL
+    have hright : (γ v ε t).re < 1 / 2 := by
+      by_cases hvR : v.re = 1 / 2
+      · have ht0 : 0 < t := by rw [ha.2.2.2.2.1 hvR] at ht; exact ht.1
+        have hpos : 0 < w.im := by
+          rw [hwim]
+          exact mul_pos hε.1
+            (Real.sin_pos_of_pos_of_lt_pi ht0 (lt_of_lt_of_le ht.2 ha.2.2.1))
+        have hprod : -2 * v.im * w.im < 0 := mul_neg_of_neg_of_pos (by linarith) hpos
+        rw [← hc.2.1] at hprod
+        have hdiff : (γ v ε t).re - v.re < 0 := by
+          rcases mul_neg_iff.mp hprod with h | h
+          · exact (not_lt_of_ge hD.le h.2).elim
+          · exact h.1
+        rw [hvR] at hdiff
+        linarith
+      · exact hkeep.2.1 hvR
+    have hnorm : 1 < ‖γ v ε t‖ := by
+      by_cases hvN : ‖v‖ = 1
+      · have hsector := ha.2.2.2.2.2 hvN
+        have hsin : 0 < Real.sin (v.arg - t) :=
+          Real.sin_pos_of_pos_of_lt_pi (by linarith [ht.2]) (by linarith [ht.1])
+        have hv0 : v ≠ 0 := norm_ne_zero_iff.mp (by rw [hvN]; norm_num)
+        have hvre : v.re = Real.cos v.arg := by simpa only [hvN, div_one] using (Complex.cos_arg hv0).symm
+        have hvim' : v.im = Real.sin v.arg := by simpa only [hvN, div_one] using (Complex.sin_arg v).symm
+        have hcross : (v * star w).im = ε * Real.sin (v.arg - t) := by
+          rw [Complex.mul_im, Complex.star_def, Complex.conj_im, Complex.conj_re,
+            hwre, hwim, hvre, hvim', Real.sin_sub]
+          ring
+        have hprod : 0 < 4 * v.im * (v * star w).im := by
+          rw [hcross]
+          exact mul_pos (by positivity) (mul_pos hε.1 hsin)
+        rw [← hc.2.2.1] at hprod
+        have hdiff := (mul_pos_iff_of_pos_right hD).mp hprod
+        rw [Complex.normSq_eq_norm_sq, Complex.normSq_eq_norm_sq, hvN] at hdiff
+        nlinarith [norm_nonneg (γ v ε t)]
+      · exact hkeep.2.2 hvN
+    exact ⟨abs_lt.mpr ⟨by linarith, hright⟩, hnorm, hc.1, htop v hv.1 hmem⟩
+  have hcutArcs : ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0),
+      ∀ v ∈ B,
+        Set.MapsTo (γ v ε) (Set.Icc (cutEnd v) (cutStart v)) (frontier (Ω ε)) ∧
+        (∀ t : ℝ, HasDerivAt (γ v ε) (deriv (γ v ε) t) t) ∧
+        IntervalIntegrable (fun t => L (γ v ε t) * deriv (γ v ε) t)
+          MeasureTheory.volume (cutStart v) (cutEnd v) := by
+    filter_upwards [hsmallCuts, hcutArcInterior, hcutsDisjoint, hgammaZeroFree]
+      with ε hε harc hdisjoint hzero
+    intro v hv
+    have hvH := hKH hv.1.1
+    have hγsmooth := hgammaSmooth v ε hε.1 hε.2
+    let U := O \ ⋃ w ∈ B \ {v}, D w ε
+    have hUopen : IsOpen U := by
+      apply hOopen.sdiff
+      apply (hBfinite.sdiff : (B \ {v}).Finite).isClosed_biUnion
+      intro w hw
+      rw [show D w ε = _ from (hdisks w ε (hKH hw.1.1.1) hε.1 hε.2).1]
+      exact Metric.isClosed_closedBall
+    have hfrontierArc : ∀ t ∈ Set.Ioo (cutEnd v) (cutStart v), γ v ε t ∈ frontier (Ω ε) := by
+      intro t ht
+      have hzD := (hgammaOnCut v hvH ε hε.1 hε.2 t).1
+      have hzU : γ v ε t ∈ U := by
+        refine ⟨harc v hv t ht, ?_⟩
+        intro hzother
+        obtain ⟨w, hw, hzw⟩ := Set.mem_iUnion₂.mp hzother
+        exact Set.disjoint_left.mp (hdisjoint hv.1 hw.1.1 (Ne.symm hw.2)) hzD hzw
+      rw [(hcutOpen ε hε.1 hε.2).frontier_eq]
+      refine ⟨?_, fun hz => hz.2 (Set.mem_iUnion₂.mpr ⟨v, hv, hzD⟩)⟩
+      apply mem_closure_iff.mpr
+      intro W hW hzW
+      have hvar : ContinuousAt (fun η : ℝ => γ v η t) ε := by
+        dsimp only [γ]
+        fun_prop (disch := exact hphaseDen ε hε.1 hε.2 t)
+      have hnear : ∀ᶠ η in nhds ε, γ v η t ∈ W ∩ U :=
+        hvar.tendsto.eventually ((hW.inter hUopen).mem_nhds ⟨hzW, hzU⟩)
+      have hnear' : ∀ᶠ η in nhdsWithin ε (Set.Ioi ε),
+          γ v η t ∈ W ∩ U ∧ η < 1 :=
+        (hnear.and (eventually_lt_nhds hε.2)).filter_mono nhdsWithin_le_nhds
+      have hlarge : ∀ᶠ η in nhdsWithin ε (Set.Ioi ε), ε < η := self_mem_nhdsWithin
+      obtain ⟨η, hη, ⟨hηW, hηU⟩, hη1⟩ := (hlarge.and hnear').exists
+      refine ⟨γ v η t, hηW, hηU.1, ?_⟩
+      intro hcut
+      obtain ⟨w, hw, hηw⟩ := Set.mem_iUnion₂.mp hcut
+      by_cases hwv : w = v
+      · subst w
+        have hratio := (hgammaOnCut v hvH η (lt_trans hε.1 hη) hη1 t).2.1
+        have hle : ‖(γ v η t - v) / (γ v η t - star v)‖ ≤ ε := hηw.2
+        rw [hratio] at hle
+        exact (not_le_of_gt hη) hle
+      · exact hηU.2 (Set.mem_iUnion₂.mpr ⟨w, ⟨hw, hwv⟩, hηw⟩)
+    have hclosed : IsClosed {t : ℝ | γ v ε t ∈ frontier (Ω ε)} :=
+      isClosed_frontier.preimage hγsmooth.continuous
+    have hclosure := closure_minimal hfrontierArc hclosed
+    rw [closure_Ioo (hcutAngles v hvH).2.1.ne] at hclosure
+    have hLcont : Continuous (fun t : ℝ => L (γ v ε t)) := by
+      apply continuous_iff_continuousAt.mpr
+      intro t
+      exact (hLan _ (hgammaOnCut v hvH ε hε.1 hε.2 t).1.1
+        (hzero v hv.1 t)).continuousAt.comp hγsmooth.continuous.continuousAt
+    exact ⟨hclosure, fun t => ((hγsmooth.differentiable (by norm_num)) t).hasDerivAt,
+      (hLcont.mul hγsmooth.continuous_deriv_one).intervalIntegrable
+        (cutStart v) (cutEnd v)⟩
   let indent : ℂ → (ℝ → ℝ) → (ℝ → ℝ) → ℝ → ℂ := fun v α β ε =>
     intervalIntegral (fun t : ℝ => L (γ v ε t) * deriv (γ v ε) t)
       (α ε) (β ε) MeasureTheory.volume
@@ -2095,6 +2494,48 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     congr 1
     push_cast
     ring
+  have hcutArcLimits : ∀ v ∈ B,
+      Filter.Tendsto (indent v (fun _ => cutStart v) (fun _ => cutEnd v))
+        (nhdsWithin (0 : ℝ) (Set.Ioi 0))
+        (nhds (-Complex.I * (analyticOrderNatAt F v : ℂ) *
+          ((cutStart v - cutEnd v : ℝ) : ℂ))) := by
+    intro v hv
+    apply hclockwise v (hKH hv.1.1) (fun _ => cutStart v) (fun _ => cutEnd v)
+      (cutStart v) (cutStart v - cutEnd v) tendsto_const_nhds
+    simpa only [sub_sub_cancel] using
+      (tendsto_const_nhds : Filter.Tendsto (fun _ : ℝ => cutEnd v)
+        (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds (cutEnd v)))
+  -- The three elliptic indentations contribute exactly the two weighted orders.
+  have hellipticIndentationLimit :
+      Filter.Tendsto (fun ε : ℝ =>
+        indent Complex.I (fun _ => cutStart Complex.I) (fun _ => cutEnd Complex.I) ε +
+        indent ρ (fun _ => cutStart ρ) (fun _ => cutEnd ρ) ε +
+        indent (ρ + 1) (fun _ => cutStart (ρ + 1)) (fun _ => cutEnd (ρ + 1)) ε)
+        (nhdsWithin (0 : ℝ) (Set.Ioi 0))
+        (nhds (-(2 * (Real.pi : ℂ) * Complex.I) *
+          ((analyticOrderNatAt F Complex.I : ℂ) / 2 + (analyticOrderNatAt F ρ : ℂ) / 3))) := by
+    have hi := hindent Complex.I hI (fun _ => cutStart Complex.I)
+      (fun _ => cutEnd Complex.I) (cutStart Complex.I) (cutEnd Complex.I)
+      tendsto_const_nhds tendsto_const_nhds
+    have hl := hindent ρ hρH (fun _ => cutStart ρ) (fun _ => cutEnd ρ)
+      (cutStart ρ) (cutEnd ρ) tendsto_const_nhds tendsto_const_nhds
+    have hr := hindent (ρ + 1) hρOneH (fun _ => cutStart (ρ + 1))
+      (fun _ => cutEnd (ρ + 1)) (cutStart (ρ + 1)) (cutEnd (ρ + 1))
+      tendsto_const_nhds tendsto_const_nhds
+    have heq :
+        Complex.I * (analyticOrderNatAt F Complex.I : ℂ) *
+            ((cutEnd Complex.I - cutStart Complex.I : ℝ) : ℂ) +
+          Complex.I * (analyticOrderNatAt F ρ : ℂ) * ((cutEnd ρ - cutStart ρ : ℝ) : ℂ) +
+          Complex.I * (analyticOrderNatAt F (ρ + 1) : ℂ) *
+            ((cutEnd (ρ + 1) - cutStart (ρ + 1) : ℝ) : ℂ) =
+        -(2 * (Real.pi : ℂ) * Complex.I) *
+          ((analyticOrderNatAt F Complex.I : ℂ) / 2 + (analyticOrderNatAt F ρ : ℂ) / 3) := by
+      rw [hcutEllipticAngles.1, hcutEllipticAngles.2.1, hcutEllipticAngles.2.2.1,
+        hcutEllipticAngles.2.2.2.1, hcutEllipticAngles.2.2.2.2.1,
+        hcutEllipticAngles.2.2.2.2.2, hρT]
+      push_cast
+      ring
+    simpa only [heq] using (hi.add hl).add hr
   -- Steps 17–18: the contour identity leaves only nonnegative zero orders.
   suffices hcount : ∃ R : ℝ, 0 ≤ R ∧
       (analyticOrderNatAt A 0 : ℝ) + (analyticOrderNatAt F Complex.I : ℝ) / 2 +
