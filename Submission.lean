@@ -619,3 +619,16 @@ theorem Submission.p09_af497904fe_luf_valuation_localization :
     Submission.p09_af497904fe_vloc_fraction_characterization
       E V q hq hqne hints hcenter,
     hcenter⟩
+
+
+theorem Submission.p09_af497904fe_luf_finite_frobenius_exists :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E]
+      [IsGalois ℚ E] (ℓ : ℕ), ℓ.Prime → ∀ (V : ValuationSubring E),
+      V.LiesOverPrime ℓ → ∃ g : E ≃ₐ[ℚ] E, V.IsFrobeniusAt g ℓ := by
+  intro E _ _ ℓ hℓ V hV
+  obtain ⟨q, hq, _hq_ne, hℓq, hfinite, hlocal, hnonunits⟩ :=
+    Submission.p09_af497904fe_luf_valuation_localization E ℓ hℓ V hV
+  obtain ⟨g, hg⟩ :=
+    Submission.p09_af497904fe_ffe_prime_frobenius_congruence E ℓ hℓ q hq hℓq hfinite
+  exact ⟨g, Submission.p09_af497904fe_ffe_localized_frobenius
+    E ℓ hℓ V q hq hlocal hnonunits g hg⟩
