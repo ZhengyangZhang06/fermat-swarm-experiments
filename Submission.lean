@@ -789,8 +789,6 @@ theorem Submission.p03_tkc_two_torsion_card_68cf3476_d5
   rw [Nat.card_eq_fintype_card, Fintype.card_option, Fintype.card_coe, hs]
 
 theorem Submission.p03_eds_canonical_recurrences_68cf3476_d3 :
-
-theorem Submission.p03_eds_canonical_even_recurrence_68cf3476_d4 :
     ∀ (k : Type) [Field k] [CharZero k] [DecidableEq k] (W : WeierstrassCurve k),
       let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine
       let h := q W.ψ₂
@@ -813,97 +811,6 @@ theorem Submission.p03_eds_canonical_even_recurrence_68cf3476_d4 :
   · simp only [preΨ'_two, map_one, even_two, if_true, one_mul]
   · simp only [preΨ'_three, show ¬ Even (3 : ℕ) by decide, if_false, mul_one]
   · simp only [preΨ'_four, show Even (4 : ℕ) by decide, if_true, mul_comm]
-      ∀ r : ℕ, 3 ≤ r →
-        h * F (2 * r) =
-          F r * (F (r + 2) * F (r - 1) ^ 2 - F (r - 2) * F (r + 1) ^ 2) := by
-  intro k _ _ _ W q h F r hr
-  let a : ℕ → W.toAffine.CoordinateRing := fun n => q (Polynomial.C (W.preΨ' n))
-  have hi₁ : r - 3 + 1 = r - 2 := by omega
-  have hi₂ : r - 3 + 2 = r - 1 := by omega
-  have hi₃ : r - 3 + 3 = r := by omega
-  have hi₄ : r - 3 + 4 = r + 1 := by omega
-  have hi₅ : r - 3 + 5 = r + 2 := by omega
-  -- Pinned mathlib DivisionPolynomial/Basic.lean, revision
-  -- db584cd6d46c92f209a44c0f1c829460d327499d, supplies preΨ'_even.
-  have hrec := congrArg (fun p : Polynomial k => q (Polynomial.C p))
-    (W.preΨ'_even (r - 3))
-  simp only [hi₁, hi₂, hi₃, hi₄, hi₅, map_sub, map_mul, map_pow] at hrec
-  change a (2 * r) =
-    a (r - 1) ^ 2 * a r * a (r + 2) - a (r - 2) * a r * a (r + 1) ^ 2 at hrec
-  have hsub₁ : Even (r - 1) ↔ ¬Even r := by
-    rw [Nat.even_sub (by omega : 1 ≤ r)]
-    simp
-  have hsub₂ : Even (r - 2) ↔ Even r := by
-    rw [Nat.even_sub (by omega : 2 ≤ r)]
-    simp
-  have hadd₂ : Even (r + 2) ↔ Even r := by simp [Nat.even_add]
-  change h * (a (2 * r) * (if Even (2 * r) then h else 1)) =
-    (a r * (if Even r then h else 1)) *
-      ((a (r + 2) * (if Even (r + 2) then h else 1)) *
-          (a (r - 1) * (if Even (r - 1) then h else 1)) ^ 2 -
-        (a (r - 2) * (if Even (r - 2) then h else 1)) *
-          (a (r + 1) * (if Even (r + 1) then h else 1)) ^ 2)
-  rw [if_pos (even_two_mul r), hrec]
-  by_cases he : Even r <;>
-    simp only [hsub₁, hsub₂, hadd₂, Nat.even_add_one, he, not_true_eq_false,
-      not_false_eq_true, ite_true, ite_false, mul_one] <;> ring
-
-
-theorem Submission.p03_eds_canonical_recurrences_68cf3476_d3 :
-    ∀ (k : Type) [Field k] [CharZero k] [DecidableEq k] (W : WeierstrassCurve k),
-      let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine
-      let h := q W.ψ₂
-      let F : ℕ → W.toAffine.CoordinateRing :=
-        fun n => q (Polynomial.C (W.preΨ' n)) * (if Even n then h else 1)
-      F 0 = 0 ∧ F 1 = 1 ∧ F 2 = h ∧ F 3 = q (Polynomial.C W.Ψ₃) ∧
-        F 4 = h * q (Polynomial.C W.preΨ₄) ∧
-        (∀ r : ℕ, 2 ≤ r →
-          F (2 * r + 1) = F (r + 2) * F r ^ 3 - F (r - 1) * F (r + 1) ^ 3) ∧
-        (∀ r : ℕ, 3 ≤ r →
-          h * F (2 * r) =
-            F r * (F (r + 2) * F (r - 1) ^ 2 - F (r - 2) * F (r + 1) ^ 2)) := by
-  intro k _ _ _ W
-  dsimp only
-  refine ⟨?_, ?_, ?_, ?_, ?_,
-    Submission.p03_eds_canonical_odd_recurrence_68cf3476_d4 k W,
-    Submission.p03_eds_canonical_even_recurrence_68cf3476_d4 k W⟩
-  · simp only [preΨ'_zero, _root_.map_zero, zero_mul]
-  · simp only [preΨ'_one, map_one, Nat.not_even_one, if_false, one_mul]
-  · simp only [preΨ'_two, map_one, even_two, if_true, one_mul]
-  · simp only [preΨ'_three, show ¬ Even (3 : ℕ) by decide, if_false, mul_one]
-  · simp only [preΨ'_four, show Even (4 : ℕ) by decide, if_true, mul_comm]
-
-
-theorem Submission.p03_eds_recurrence_unique_68cf3476_d3 :
-    ∀ (R : Type) [CommRing R] [IsDomain R] (h : R), h ≠ 0 →
-      ∀ f g : ℕ → R,
-        (∀ n : ℕ, n ≤ 4 → f n = g n) →
-        (∀ r : ℕ, 2 ≤ r →
-          f (2 * r + 1) = f (r + 2) * f r ^ 3 - f (r - 1) * f (r + 1) ^ 3) →
-        (∀ r : ℕ, 3 ≤ r →
-          h * f (2 * r) =
-            f r * (f (r + 2) * f (r - 1) ^ 2 - f (r - 2) * f (r + 1) ^ 2)) →
-        (∀ r : ℕ, 2 ≤ r →
-          g (2 * r + 1) = g (r + 2) * g r ^ 3 - g (r - 1) * g (r + 1) ^ 3) →
-        (∀ r : ℕ, 3 ≤ r →
-          h * g (2 * r) =
-            g r * (g (r + 2) * g (r - 1) ^ 2 - g (r - 2) * g (r + 1) ^ 2)) →
-        ∀ n : ℕ, f n = g n := by
-  intro R _ _ h hh f g hinit hfodd hfeven hgodd hgeven n
-  induction n using Nat.strong_induction_on with
-  | h n ih =>
-    by_cases hn : n ≤ 4
-    · exact hinit n hn
-    · rcases n.even_or_odd' with ⟨r, rfl | rfl⟩
-      · have hr : 3 ≤ r := by omega
-        apply mul_left_cancel₀ hh
-        rw [hfeven r hr, hgeven r hr,
-          ih r (by omega), ih (r + 2) (by omega), ih (r - 1) (by omega),
-          ih (r - 2) (by omega), ih (r + 1) (by omega)]
-      · have hr : 2 ≤ r := by omega
-        rw [hfodd r hr, hgodd r hr,
-          ih (r + 2) (by omega), ih r (by omega),
-          ih (r - 1) (by omega), ih (r + 1) (by omega)]
 
 
 namespace Submission
