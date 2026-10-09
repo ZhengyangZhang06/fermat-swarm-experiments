@@ -539,3 +539,65 @@ theorem Submission.p09_af497904fe_vloc_integral_center :
   intro E _ ℓ hℓ V hV
   have hmem := Submission.p09_af497904fe_ic_integer_mem_valuation E V
   exact ⟨hmem, Submission.p09_af497904fe_ic_prime_center_of_containment E ℓ hℓ V hV hmem⟩
+theorem Submission.p09_af497904fe_vloc_fraction_characterization :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E]
+      (V : ValuationSubring E) (q : Ideal (NumberField.RingOfIntegers E)),
+      q.IsPrime → q ≠ ⊥ →
+      (∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V) →
+      (∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V.nonunits ↔ a ∈ q) →
+      ∀ x : E, x ∈ V ↔ ∃ a b : NumberField.RingOfIntegers E,
+        b ∉ q ∧ x = (a : E) / (b : E) := by
+  classical
+  intro E _ V q hq hq0 hOV hcenter
+  let : NumberField E := NumberField.of_module_finite ℚ E
+  let : q.IsPrime := hq
+  let A := Localization.subalgebra.ofField E q.primeCompl q.primeCompl_le_nonZeroDivisors
+  let : IsDiscreteValuationRing A :=
+    IsLocalization.AtPrime.isDiscreteValuationRing_of_dedekind_domain
+      (NumberField.RingOfIntegers E) hq0 A
+  have hA (x : E) : x ∈ A ↔ ∃ a b : NumberField.RingOfIntegers E,
+      b ∉ q ∧ x = (a : E) / (b : E) := by
+    change (∃ a b, ∃ _ : b ∈ q.primeCompl,
+      x = algebraMap (NumberField.RingOfIntegers E) E a *
+        (algebraMap (NumberField.RingOfIntegers E) E b)⁻¹) ↔ _
+    simp only [Ideal.mem_primeCompl_iff, exists_prop, div_eq_mul_inv]
+  have hinv (b : NumberField.RingOfIntegers E) (hb : b ∉ q) : (b : E)⁻¹ ∈ V := by
+    by_contra h
+    exact hb ((hcenter b).mp ((V.mem_nonunits_iff_or).mpr (Or.inr h)))
+  have hAV (x : E) (hx : x ∈ A) : x ∈ V := by
+    obtain ⟨a, b, hb, rfl⟩ := (hA x).mp hx
+    simpa only [div_eq_mul_inv] using mul_mem (hOV a) (hinv b hb)
+  intro x
+  rw [← hA x]
+  refine ⟨?_, hAV x⟩
+  intro hx
+  by_cases hx0 : x = 0
+  · simpa only [hx0] using A.zero_mem
+  rcases ValuationRing.isInteger_or_isInteger A x with ⟨a, ha⟩ | ⟨a, ha⟩
+  · exact ha ▸ a.property
+  have hxi : x⁻¹ ∈ A := ha ▸ a.property
+  obtain ⟨a, b, hb, hab⟩ := (hA x⁻¹).mp hxi
+  by_cases haq : a ∈ q
+  · have ha0 : (a : E) ≠ 0 := by
+      intro h
+      rw [h, zero_div] at hab
+      exact hx0 (inv_eq_zero.mp hab)
+    have hainv : (a : E)⁻¹ ∈ V := by
+      have heq : (a : E)⁻¹ = x * (b : E)⁻¹ := by
+        have hb0 : (b : E) ≠ 0 := by
+          intro h
+          have hbzero : b = 0 := NumberField.RingOfIntegers.coe_eq_zero_iff.mp h
+          apply hb
+          rw [hbzero]
+          exact q.zero_mem
+        rw [← div_eq_mul_inv, eq_div_iff hb0]
+        have h : x = (b : E) / (a : E) := by
+          simpa only [inv_inv, inv_div] using congrArg Inv.inv hab
+        simpa only [div_eq_mul_inv, mul_comm] using h.symm
+      rw [heq]
+      exact mul_mem hx (hinv b hb)
+    exact False.elim (((V.mem_nonunits_iff_or).mp ((hcenter a).mpr haq)).elim
+      ha0 (fun h => h hainv))
+  · apply (hA x).mpr
+    refine ⟨b, a, haq, ?_⟩
+    simpa only [inv_inv, inv_div] using congrArg Inv.inv hab
