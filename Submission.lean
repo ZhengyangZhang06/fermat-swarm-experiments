@@ -3090,3 +3090,211 @@ theorem Submission.p10_17ae7b7d_pp_stratum_card :
     _ = (p ^ (min j (a - j) - 1) * p ^ (a - 2 * j)) * (p - 1) := by
       rw [← pow_add, ← he]
     _ = p ^ (min j (a - j) - 1) * (p - 1) * p ^ (a - 2 * j) := by ac_rfl
+
+
+/-- Prime-power translation-orbit count, assembled from the two chart interfaces. -/
+theorem Submission.p10_17ae7b7d_to_prime_power_count :
+    ∀ (p a : ℕ), Nat.Prime p → 1 ≤ a →
+      Nat.card (Quotient (MulAction.orbitRel (Subgroup.zpowers ModularGroup.T)
+        ((Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 (p ^ a)))) =
+      (Finset.range (a + 1)).sum (fun j => Nat.totient (p ^ min j (a - j))) := by
+  classical
+  intro p a hp ha
+  let R := ZMod (p ^ a)
+  let Q := (Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 (p ^ a)
+  let H := Subgroup.zpowers ModularGroup.T
+  let O := Quotient (MulAction.orbitRel H Q)
+  let : NeZero (p ^ a) := ⟨pow_ne_zero _ hp.ne_zero⟩
+  obtain ⟨e, heL, heR⟩ := Submission.p10_17ae7b7d_pp_translation_charts p a hp ha
+  let : Fintype Q := Fintype.ofEquiv (R ⊕ {z : R // p ∣ z.val}) e.symm
+  let : Fintype O := Fintype.ofFinite O
+  let f : Q → Q := fun q => ModularGroup.T⁻¹ • q
+  let W : Q → ℚ := fun q => (Nat.card (MulAction.orbit H q) : ℚ)⁻¹
+  have hcard (q : Q) : Nat.card (MulAction.orbit H q) = Function.minimalPeriod f q := by
+    change Nat.card (MulAction.orbit (Subgroup.zpowers ModularGroup.T) q) = _
+    calc
+      _ = Nat.card (ZMod (Function.minimalPeriod (fun r : Q => ModularGroup.T • r) q)) :=
+        Nat.card_congr (MulAction.orbitZPowersEquiv ModularGroup.T q)
+      _ = Function.minimalPeriod (fun r : Q => ModularGroup.T • r) q := Nat.card_zmod _
+      _ = Function.minimalPeriod f q := (MulAction.period_inv ModularGroup.T q).symm
+  -- Summing reciprocal orbit sizes counts each orbit once.
+  have hcount : (Nat.card O : ℚ) = ∑ q : Q, W q := by
+    rw [← Fintype.sum_fiberwise (fun q : Q => (Quotient.mk'' q : O)) W]
+    calc
+      (Nat.card O : ℚ) = ∑ _o : O, (1 : ℚ) := by simp [Nat.card_eq_fintype_card]
+      _ = _ := by
+        apply Finset.sum_congr rfl
+        intro o _
+        refine Quotient.inductionOn o ?_
+        intro q
+        let E : {r : Q // (Quotient.mk'' r : O) = Quotient.mk'' q} ≃
+            MulAction.orbit H q :=
+          Equiv.subtypeEquivRight (fun r => Quotient.eq'')
+        have hw (r : {r : Q // (Quotient.mk'' r : O) = Quotient.mk'' q}) : W r = W q := by
+          have horb : MulAction.orbit H r.val = MulAction.orbit H q :=
+            MulAction.orbit_eq_iff.mpr (Quotient.exact r.property)
+          simp only [W, horb]
+        simp_rw [hw]
+        rw [Finset.sum_const, Finset.card_univ, nsmul_eq_mul,
+          Fintype.card_congr E, ← Nat.card_eq_fintype_card]
+        have hn : Nat.card (MulAction.orbit H q) ≠ 0 := by
+          let : Nonempty (MulAction.orbit H q) := ⟨⟨q, MulAction.mem_orbit_self q⟩⟩
+          exact Nat.card_pos.ne'
+        exact (mul_inv_cancel₀ (by exact_mod_cast hn)).symm
+  have hperiod (q : Q) (L : ℕ) (h : ∀ n : ℕ, (f^[n]) q = q ↔ L ∣ n) :
+      Function.minimalPeriod f q = L := by
+    apply Nat.dvd_antisymm
+    · exact Function.isPeriodicPt_iff_minimalPeriod_dvd.mp ((h L).mpr (dvd_refl L))
+    · exact (h _).mp (Function.iterate_minimalPeriod (f := f) (x := q))
+  have hstepL (t : R) : f (e.symm (Sum.inl t)) = e.symm (Sum.inl (t + 1)) := by
+    apply e.injective
+    simpa only [Equiv.apply_symm_apply] using heL t
+  have hiterL (n : ℕ) (t : R) :
+      (f^[n]) (e.symm (Sum.inl t)) = e.symm (Sum.inl (t + (n : R))) := by
+    induction n with
+    | zero => simp
+    | succ n ih =>
+      rw [Function.iterate_succ_apply', ih, hstepL]
+      simp only [Nat.cast_add, Nat.cast_one, add_assoc]
+  have hWL (t : R) : W (e.symm (Sum.inl t)) = (p ^ a : ℚ)⁻¹ := by
+    have hper : Function.minimalPeriod f (e.symm (Sum.inl t)) = p ^ a := by
+      apply hperiod
+      intro n
+      rw [hiterL, e.symm.injective.eq_iff, Sum.inl.injEq]
+      simpa only [add_eq_left] using (ZMod.natCast_eq_zero_iff n (p ^ a))
+    simp only [W, hcard, hper, Nat.cast_pow]
+  let F : R → R := fun z => z * (1 + z)⁻¹
+  have hiterR (n : ℕ) (z : {z : R // p ∣ z.val}) :
+      ∃ w : {z : R // p ∣ z.val},
+        (f^[n]) (e.symm (Sum.inr z)) = e.symm (Sum.inr w) ∧
+          w.val = (F^[n]) z.val := by
+    induction n with
+    | zero => exact ⟨z, rfl, rfl⟩
+    | succ n ih =>
+      obtain ⟨w, hw, hwv⟩ := ih
+      obtain ⟨v, hv, hvv⟩ := heR w
+      refine ⟨v, ?_, ?_⟩
+      · rw [Function.iterate_succ_apply', hw]
+        exact e.injective (hv.trans (e.apply_symm_apply _).symm)
+      · rw [Function.iterate_succ_apply', ← hwv]
+        exact hvv
+  have hreturnR (n : ℕ) (z : {z : R // p ∣ z.val}) :
+      (f^[n]) (e.symm (Sum.inr z)) = e.symm (Sum.inr z) ↔ (F^[n]) z.val = z.val := by
+    obtain ⟨w, hw, hwv⟩ := hiterR n z
+    rw [hw, e.symm.injective.eq_iff, Sum.inr.injEq, Subtype.ext_iff, hwv]
+  let z0 : {z : R // p ∣ z.val} := ⟨0, by simp⟩
+  have hW0 : W (e.symm (Sum.inr z0)) = 1 := by
+    have hfix : f (e.symm (Sum.inr z0)) = e.symm (Sum.inr z0) := by
+      exact (hreturnR 1 z0).mpr (by simp [F, z0])
+    have hper := Function.minimalPeriod_eq_one_iff_isFixedPt.mpr hfix
+    simp only [W, hcard, hper, Nat.cast_one, inv_one]
+  have hWR (j : ℕ) (hj : 1 ≤ j) (hja : j < a)
+      (z : {z : R // p ∣ z.val})
+      (hz : p ^ j ∣ z.val.val ∧ ¬ p ^ (j + 1) ∣ z.val.val) :
+      W (e.symm (Sum.inr z)) = (p ^ (a - 2 * j) : ℚ)⁻¹ := by
+    have hper : Function.minimalPeriod f (e.symm (Sum.inr z)) = p ^ (a - 2 * j) := by
+      apply hperiod
+      intro n
+      rw [hreturnR]
+      exact (Submission.p10_17ae7b7d_pp_fractional_iterates p a j hp hj hja
+        z.val hz.1 hz.2 n).2.2.1
+    simp only [W, hcard, hper, Nat.cast_pow]
+  -- A nonzero point in the second chart belongs to exactly one interior stratum.
+  have hvaluation (z : {z : R // p ∣ z.val}) (hz : z ≠ z0) :
+      ∃! j : ℕ, 1 ≤ j ∧ j < a ∧ p ^ j ∣ z.val.val ∧ ¬ p ^ (j + 1) ∣ z.val.val := by
+    have hn : z.val.val ≠ 0 := by
+      intro h
+      apply hz
+      apply Subtype.ext
+      simpa only [h, Nat.cast_zero] using (ZMod.natCast_zmod_val z.val).symm
+    let j := z.val.val.factorization p
+    have hj : 1 ≤ j := (hp.dvd_iff_one_le_factorization hn).mp z.property
+    have hja : j < a := by
+      by_contra h
+      have hd := (hp.pow_dvd_iff_le_factorization hn).mpr (Nat.le_of_not_gt h)
+      exact (not_le_of_gt (ZMod.val_lt z.val)) (Nat.le_of_dvd (Nat.pos_of_ne_zero hn) hd)
+    refine ⟨j, ⟨hj, hja, (hp.pow_dvd_iff_le_factorization hn).mpr le_rfl, ?_⟩, ?_⟩
+    · rw [hp.pow_dvd_iff_le_factorization hn]
+      omega
+    · intro k hk
+      have hk₁ := (hp.pow_dvd_iff_le_factorization hn).mp hk.2.2.1
+      have hk₂ : ¬ k + 1 ≤ j := by
+        intro h
+        exact hk.2.2.2 ((hp.pow_dvd_iff_le_factorization hn).mpr h)
+      omega
+  have hstratum (j : ℕ) (hj : j ∈ Finset.Ico 1 a) :
+      (∑ z : {z : R // p ∣ z.val},
+        if p ^ j ∣ z.val.val ∧ ¬ p ^ (j + 1) ∣ z.val.val
+        then W (e.symm (Sum.inr z)) else 0) = (Nat.totient (p ^ min j (a - j)) : ℚ) := by
+    obtain ⟨hj, hja⟩ := Finset.mem_Ico.mp hj
+    let S := {z : R // p ^ j ∣ z.val ∧ ¬ p ^ (j + 1) ∣ z.val}
+    let E : {z : {z : R // p ∣ z.val} //
+        p ^ j ∣ z.val.val ∧ ¬ p ^ (j + 1) ∣ z.val.val} ≃ S :=
+      { toFun := fun z => ⟨z.val.val, z.property⟩
+        invFun := fun z => ⟨⟨z.val, dvd_trans (by simpa using pow_dvd_pow p hj) z.property.1⟩,
+          z.property⟩
+        left_inv := fun _ => rfl
+        right_inv := fun _ => rfl }
+    rw [← Finset.sum_filter, Finset.sum_subtype _
+      (p := fun z : {z : R // p ∣ z.val} =>
+        p ^ j ∣ z.val.val ∧ ¬ p ^ (j + 1) ∣ z.val.val) (by simp)]
+    have hw (z : {z : {z : R // p ∣ z.val} //
+        p ^ j ∣ z.val.val ∧ ¬ p ^ (j + 1) ∣ z.val.val}) :
+        W (e.symm (Sum.inr z.val)) = (p ^ (a - 2 * j) : ℚ)⁻¹ :=
+      hWR j hj hja z.val z.property
+    simp_rw [hw]
+    rw [Finset.sum_const, Finset.card_univ, nsmul_eq_mul, Fintype.card_congr E,
+      ← Nat.card_eq_fintype_card]
+    have hS := Submission.p10_17ae7b7d_pp_stratum_card p a j hp hj hja
+    change Nat.card S = _ at hS
+    rw [hS, Nat.cast_mul, Nat.cast_pow, mul_assoc, mul_inv_cancel₀, mul_one]
+    exact pow_ne_zero _ (by exact_mod_cast hp.ne_zero)
+  have hsumR : (∑ z : {z : R // p ∣ z.val}, W (e.symm (Sum.inr z))) =
+      1 + ∑ j ∈ Finset.Ico 1 a, (Nat.totient (p ^ min j (a - j)) : ℚ) := by
+    have hpoint (z : {z : R // p ∣ z.val}) :
+        W (e.symm (Sum.inr z)) = (if z = z0 then 1 else 0) +
+          ∑ j ∈ Finset.Ico 1 a,
+            if p ^ j ∣ z.val.val ∧ ¬ p ^ (j + 1) ∣ z.val.val
+            then W (e.symm (Sum.inr z)) else 0 := by
+      by_cases hz : z = z0
+      · subst z
+        simp [z0, hW0]
+      · obtain ⟨j, hj, hu⟩ := hvaluation z hz
+        rw [if_neg hz, zero_add]
+        symm
+        rw [Finset.sum_eq_single j]
+        · simp [hj.2.2]
+        · intro k hk hkj
+          rw [if_neg]
+          intro h
+          exact hkj (hu k ⟨(Finset.mem_Ico.mp hk).1, (Finset.mem_Ico.mp hk).2, h⟩)
+        · intro hjnot
+          exact (hjnot (Finset.mem_Ico.mpr ⟨hj.1, hj.2.1⟩)).elim
+    calc
+      _ = ∑ z : {z : R // p ∣ z.val}, ((if z = z0 then (1 : ℚ) else 0) +
+          ∑ j ∈ Finset.Ico 1 a,
+            if p ^ j ∣ z.val.val ∧ ¬ p ^ (j + 1) ∣ z.val.val
+            then W (e.symm (Sum.inr z)) else 0) :=
+        Finset.sum_congr rfl (fun z _ => hpoint z)
+      _ = _ := by
+        rw [Finset.sum_add_distrib, Finset.sum_comm]
+        apply congrArg₂ (fun x y : ℚ => x + y)
+        · exact Fintype.sum_ite_eq' z0 (fun _ => (1 : ℚ))
+        · exact Finset.sum_congr rfl hstratum
+  have htotal : (Nat.card O : ℚ) =
+      1 + (1 + ∑ j ∈ Finset.Ico 1 a, (Nat.totient (p ^ min j (a - j)) : ℚ)) := by
+    rw [hcount, ← e.symm.sum_comp W, Fintype.sum_sum_type]
+    simp_rw [hWL]
+    rw [hsumR]
+    simp only [Finset.sum_const, Finset.card_univ, nsmul_eq_mul, ZMod.card]
+    rw [Nat.cast_pow, mul_inv_cancel₀]
+    exact pow_ne_zero _ (by exact_mod_cast hp.ne_zero)
+  have hsumN : (Finset.range (a + 1)).sum (fun j => Nat.totient (p ^ min j (a - j))) =
+      1 + (1 + ∑ j ∈ Finset.Ico 1 a, Nat.totient (p ^ min j (a - j))) := by
+    rw [Finset.sum_range_succ, Finset.range_eq_Ico,
+      Finset.sum_eq_sum_Ico_succ_bot (by omega : 0 < a)]
+    simp only [Nat.zero_min, pow_zero, Nat.totient_one, Nat.sub_self, Nat.min_zero, Nat.zero_add]
+    omega
+  change Nat.card O = _
+  rw [hsumN]
+  exact_mod_cast htotal
