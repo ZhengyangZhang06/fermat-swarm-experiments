@@ -262,3 +262,20 @@ theorem Submission.p09_af497904fe_fcc_character_finite_action :
   · intro σ ζ hζ
     obtain ⟨b, _, rfl⟩ := hζ₀.eq_pow_of_pow_eq_one hζ
     rw [map_pow, ← hζ₀.autToPow_spec ℚ σ, pow_right_comm]
+theorem Submission.p09_af497904fe_fcc_fra_roots_mem_inv :
+    ∀ (N : ℕ) [NeZero N] (P : ValuationSubring (AlgebraicClosure ℚ))
+      (ζ : AlgebraicClosure ℚ), ζ ^ N = 1 → ζ ∈ P ∧ ζ⁻¹ ∈ P := by
+  intro N _ P ζ hζ
+  have hinv : ζ ^ (N - 1) = ζ⁻¹ := by
+    apply eq_inv_of_mul_eq_one_left
+    rw [pow_sub_one_mul (NeZero.ne N), hζ]
+  have hback : (ζ⁻¹) ^ (N - 1) = ζ := by
+    rw [inv_pow, hinv, inv_inv]
+  have hmem : ζ ∈ P := by
+    rcases P.mem_or_inv_mem ζ with h | h
+    · exact h
+    · rw [← hback]
+      exact pow_mem h (N - 1)
+  refine ⟨hmem, ?_⟩
+  rw [← hinv]
+  exact pow_mem hmem (N - 1)
