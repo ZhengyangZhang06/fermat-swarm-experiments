@@ -403,3 +403,57 @@ theorem Submission.p03_tu_euler_product_powers_68cf3476 :
   refine ⟨hm.pow k, hm.tprod_pow k, ?_⟩
   rw [hm.tprod_pow k]
   exact pow_ne_zero k hz
+
+theorem Submission.p03_eds_negation_fixed_sum_68cf3476_d5 :
+    ∀ (G : Type) [AddCommGroup G] [DecidableEq G] (S : Finset G),
+      (∀ x ∈ S, -x ∈ S) →
+        S.sum (fun x => x) = (S.filter (fun x => (2 : ℕ) • x = 0)).sum (fun x => x) := by
+  intro G _ _ S
+  induction S using Finset.strongInduction with | H S ih => ?_
+  intro hS
+  by_cases hfixed : ∀ x ∈ S, (2 : ℕ) • x = 0
+  · rw [Finset.filter_eq_self.mpr hfixed]
+  push Not at hfixed
+  obtain ⟨a, ha, ha2⟩ := hfixed
+  have hna : -a ∈ S := hS a ha
+  have hne : a ≠ -a := by
+    intro h
+    apply ha2
+    simpa only [two_nsmul] using (eq_neg_iff_add_eq_zero.mp h)
+  have hna2 : (2 : ℕ) • (-a) ≠ 0 := by
+    intro h
+    apply ha2
+    simpa only [smul_neg, neg_neg, _root_.neg_zero] using congrArg Neg.neg h
+  let R := S \ {a, -a}
+  have hpair : ({a, -a} : Finset G) ⊆ S := by
+    simp only [Finset.insert_subset_iff, Finset.singleton_subset_iff]
+    exact ⟨ha, hna⟩
+  have hRlt : R ⊂ S :=
+    Finset.sdiff_ssubset hpair (by simp)
+  have hR : ∀ x ∈ R, -x ∈ R := by
+    intro x hx
+    rcases Finset.mem_sdiff.mp hx with ⟨hxS, hxpair⟩
+    have hxne : x ≠ a ∧ x ≠ -a := by simpa using hxpair
+    apply Finset.mem_sdiff.mpr
+    refine ⟨hS x hxS, ?_⟩
+    simp only [Finset.mem_insert, Finset.mem_singleton, not_or]
+    constructor
+    · intro h
+      exact hxne.2 (by simpa only [neg_neg] using congrArg Neg.neg h)
+    · intro h
+      exact hxne.1 (neg_injective h)
+  have hfilter : R.filter (fun x => (2 : ℕ) • x = 0) =
+      S.filter (fun x => (2 : ℕ) • x = 0) := by
+    ext x
+    simp only [Finset.mem_filter]
+    constructor
+    · rintro ⟨hx, hx2⟩
+      exact ⟨Finset.sdiff_subset hx, hx2⟩
+    · rintro ⟨hx, hx2⟩
+      refine ⟨Finset.mem_sdiff.mpr ⟨hx, ?_⟩, hx2⟩
+      simp only [Finset.mem_insert, Finset.mem_singleton, not_or]
+      exact ⟨fun h => ha2 (h ▸ hx2), fun h => hna2 (h ▸ hx2)⟩
+  have hsum : S.sum (fun x => x) = R.sum (fun x => x) := by
+    rw [← Finset.sum_sdiff hpair]
+    simp only [Finset.sum_pair hne, add_neg_cancel, add_zero, R]
+  rw [hsum, ih R hRlt hR, hfilter]
