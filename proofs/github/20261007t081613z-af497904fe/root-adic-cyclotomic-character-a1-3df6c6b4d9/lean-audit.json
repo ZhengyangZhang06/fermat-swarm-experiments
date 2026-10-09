@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "e4d58aed9c0ed57d225bd705d578f5082c75f56a8a137430295e78258416a941",
+  "git_delta": {
+    "base_commit": "c4f49c9c95f096cdf0590846d4c655b5bd3989d7",
+    "candidate_commit": "9ee77341b2c6da980053ba352c97b9271a2176d3",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_adic_cyclotomic_character",
+    "diff_sha256": "ee9dfd8c9f1b1c75cda6d64a35626fda2561847ebf9af0160104b3d2089faa7e",
+    "source_sha256": "625a0512a7560b3d8915aa62c6c99f4ef0bc23a1047199a882aa891726089125",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_adic_cyclotomic_character",
+      "statement": "∀ {𝒪 : Type} [CommRing 𝒪] [IsDomain 𝒪] [IsDiscreteValuationRing 𝒪] [IsAdicComplete (IsLocalRing.maximalIdeal 𝒪) 𝒪] [CharZero 𝒪] (p : ℕ) [Fact p.Prime], (p : 𝒪) ∈ IsLocalRing.maximalIdeal 𝒪 → ∀ {R : Type} [CommRing R] [IsLocalRing R] [Algebra 𝒪 R], IsLocalHom (algebraMap 𝒪 R) → ∃ c : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) →* Rˣ, (∀ n : ℕ, ∃ F : IntermediateField ℚ (AlgebraicClosure ℚ), FiniteDimensional ℚ F ∧ ∀ σ τ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ), (∀ x ∈ F, σ x = τ x) → ((c σ : Rˣ) : R) - ((c τ : Rˣ) : R) ∈ IsLocalRing.maximalIdeal R ^ n) ∧ (∀ (ℓ : ℕ), ℓ.Prime → ℓ ≠ p → ∀ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ → ∀ σ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ), P.IsFrobeniusAt σ ℓ → ((c σ : Rˣ) : R) = (ℓ : R))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
