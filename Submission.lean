@@ -2936,7 +2936,8 @@ theorem Submission.p09_af497904fe_cfs_cyclic_weighted_infinitude :
     (one_div_pos.mpr hmR) hε hεone hlower hD
   change Set.Infinite {i : ι | g i = a ∧ i ∉ D} at hinfinite
   simpa only [and_comm] using hinfinite
-open Filter Topology Ideal Asymptotics in
+open scoped nonZeroDivisors in
+open Filter Topology Ideal Asymptotics UniqueFactorizationMonoid in
 /-- Speculative parent draft. The arithmetic input obligation at the end is still open. -/
 theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
     ∀ (M : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ M]
@@ -3687,6 +3688,55 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
   choose frob val hval hfrob using hprimeRealize
   have hnormAction (v : ι) (hv : (N v).Coprime q) : frob v ζ = ζ ^ N v :=
     hfrobroot (val v) (N v) (hval v) hv (frob v) (hfrob v)
+  -- Step 22: extend the actual prime Frobenius assignment multiplicatively.
+  let O := NumberField.RingOfIntegers F
+  let : CommGroup J := IsCyclic.commGroup
+  let primeAction : Ideal O → J := fun P =>
+    if hp : P.IsPrime ∧ P ≠ ⊥ then frob ⟨P, hp.1, hp.2⟩ else 1
+  let A : (Ideal O)⁰ →* J :=
+    { toFun := fun I => ((normalizedFactors (I : Ideal O)).map primeAction).prod
+      map_one' := by
+        change ((normalizedFactors (1 : Ideal O)).map primeAction).prod = 1
+        rw [normalizedFactors_one, Multiset.map_zero, Multiset.prod_zero]
+      map_mul' := fun I K => by
+        change ((normalizedFactors ((I : Ideal O) * (K : Ideal O))).map primeAction).prod = _
+        rw [normalizedFactors_mul (nonZeroDivisors.coe_ne_zero I)
+          (nonZeroDivisors.coe_ne_zero K), Multiset.map_add, Multiset.prod_add] }
+  have hprimeAction (v : ι) : primeAction v.asIdeal = frob v := by
+    dsimp [primeAction]
+    rw [dif_pos ⟨v.isPrime, v.ne_bot⟩]
+  have hAprime (v : ι) :
+      A ⟨v.asIdeal, mem_nonZeroDivisors_iff_ne_zero.mpr v.ne_bot⟩ = frob v := by
+    change ((normalizedFactors v.asIdeal).map primeAction).prod = frob v
+    rw [normalizedFactors_irreducible v.irreducible, normalize_eq,
+      Multiset.map_singleton, Multiset.prod_singleton, hprimeAction]
+  have hAnorm (I : (Ideal O)⁰) (hI : (absNorm (I : Ideal O)).Coprime q) :
+      A I ζ = ζ ^ absNorm (I : Ideal O) := by
+    have hfactor (P : Ideal O) (hP : P ∈ normalizedFactors (I : Ideal O)) :
+        primeAction P ζ = ζ ^ absNorm P := by
+      have hp := prime_of_normalized_factor P hP
+      let v : ι := ⟨P, Ideal.isPrime_of_prime hp, hp.ne_zero⟩
+      change primeAction v.asIdeal ζ = ζ ^ absNorm v.asIdeal
+      rw [hprimeAction]
+      exact hnormAction v (hI.of_dvd_left (absNorm.map_dvd (dvd_of_mem_normalizedFactors hP)))
+    have hprod (s : Multiset (Ideal O))
+        (hs : ∀ P ∈ s, primeAction P ζ = ζ ^ absNorm P) :
+        (s.map primeAction).prod ζ = ζ ^ (s.map absNorm).prod := by
+      induction s using Multiset.induction_on with
+      | empty =>
+        change (1 : M ≃ₐ[F] M) ζ = ζ ^ 1
+        exact (AlgEquiv.one_apply ζ).trans (pow_one ζ).symm
+      | cons P s ih =>
+        have hPs := hs P (Multiset.mem_cons_self P s)
+        have hss : ∀ K ∈ s, primeAction K ζ = ζ ^ absNorm K :=
+          fun K hK => hs K (Multiset.mem_cons_of_mem hK)
+        simp only [Multiset.map_cons, Multiset.prod_cons]
+        change primeAction P (((s.map primeAction).prod) ζ) =
+          ζ ^ (absNorm P * (s.map absNorm).prod)
+        rw [ih hss, map_pow, hPs, pow_mul]
+    change ((normalizedFactors (I : Ideal O)).map primeAction).prod ζ = _
+    rw [hprod _ hfactor, ← map_multiset_prod,
+      prod_normalizedFactors_eq (nonZeroDivisors.coe_ne_zero I), normalize_eq]
   suffices hcharacters :
       ∀ k : Fin m, ∃ C : ℝ, 0 ≤ C ∧ ∃ ε : ℝ, 0 < ε ∧
         ∀ s : ℝ, 1 < s → s < 1 + ε →
@@ -3793,6 +3843,94 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
         rw [div_div_eq_mul_div, div_one]
         exact mul_comm _ _
     simpa only [E, d, χ, hk, if_true, zero_mul, pow_zero, one_mul] using hprincipal
-  · -- The nontrivial-character input still requires the accepted ray-class
-    -- counting, character identities, and nonvanishing constructions.
-    fail "Unfinished arithmetic input: extend nontrivial cyclotomic Euler products continuously and nonvanishingly at one."
+  · -- Step 24: identify the actual Euler product with its ideal character series.
+    let : NeZero m := ⟨hm.ne'⟩
+    let ψ : J →* ℂ :=
+      { toFun := fun σ => ω ^ (k.val * (code σ).val)
+        map_one' := by simp [code]
+        map_mul' := fun σ τ => by
+          have hcodeMul : code (σ * τ) = code σ + code τ :=
+            congrArg Multiplicative.toAdd (map_mul e.symm σ τ)
+          have hmod : ω ^ (((code σ).val + (code τ).val) % m) =
+              ω ^ ((code σ).val + (code τ).val) := by
+            simpa only [← hω.eq_orderOf] using
+              pow_mod_orderOf ω ((code σ).val + (code τ).val)
+          rw [hcodeMul, ZMod.val_add, Nat.mul_comm k.val, pow_mul, hmod,
+            ← pow_mul, Nat.mul_comm _ k.val, Nat.mul_add, pow_add] }
+    have hψ (σ : J) : ‖ψ σ‖ = 1 := by
+      change ‖ω ^ (k.val * (code σ).val)‖ = 1
+      rw [norm_pow, hω.norm'_eq_one hm.ne', one_pow]
+    let w : Ideal O →*₀ ℂ :=
+      { toFun := fun I => if hI : I = 0 then 0 else
+          ψ (A ⟨I, mem_nonZeroDivisors_iff_ne_zero.mpr hI⟩)
+        map_zero' := by exact dif_pos rfl
+        map_one' := by
+          rw [dif_neg one_ne_zero]
+          change ψ (A 1) = 1
+          rw [map_one, map_one]
+        map_mul' := fun I K => by
+          by_cases hI : I = 0
+          · subst I
+            rw [zero_mul, dif_pos rfl, zero_mul]
+          by_cases hK : K = 0
+          · subst K
+            rw [mul_zero, dif_pos rfl, mul_zero]
+          rw [dif_neg (mul_ne_zero hI hK), dif_neg hI, dif_neg hK]
+          change ψ (A ((⟨I, mem_nonZeroDivisors_iff_ne_zero.mpr hI⟩ : (Ideal O)⁰) *
+            ⟨K, mem_nonZeroDivisors_iff_ne_zero.mpr hK⟩)) = _
+          rw [map_mul, map_mul] }
+    have hwval (I : Ideal O) (hI : I ≠ 0) :
+        w I = ψ (A ⟨I, mem_nonZeroDivisors_iff_ne_zero.mpr hI⟩) := dif_neg hI
+    have hw (I : Ideal O) (hI : I ≠ 0) : ‖w I‖ = 1 := by
+      rw [hwval I hI, hψ]
+    have hwprime (v : ι) : w v.asIdeal = χ v := by
+      rw [hwval _ v.ne_bot, hAprime]
+      rfl
+    let S : ℝ → ℂ := fun s => ∑' I : Ideal O,
+      w I * Complex.ofReal (Real.rpow (absNorm I : ℝ) (-s))
+    have hseries (s : ℝ) (hs : 1 < s) : Complex.exp (E s) = S s := by
+      let f : Ideal O →*₀ ℂ :=
+        { toFun := fun I => w I * Complex.ofReal (Real.rpow (absNorm I : ℝ) (-s))
+          map_zero' := by simp only [map_zero, zero_mul]
+          map_one' := by
+            rw [map_one, map_one, Nat.cast_one, Real.rpow_eq_pow,
+              Real.one_rpow, Complex.ofReal_one, one_mul]
+          map_mul' := fun I K => by
+            simp only [map_mul, Nat.cast_mul, Real.rpow_eq_pow,
+              Real.mul_rpow (Nat.cast_nonneg _) (Nat.cast_nonneg _), Complex.ofReal_mul]
+            ring }
+      have hnorm (I : Ideal O) : ‖f I‖ = Real.rpow (absNorm I : ℝ) (-s) := by
+        by_cases hI : I = 0
+        · subst I
+          rw [map_zero, norm_zero, map_zero, Nat.cast_zero, Real.rpow_eq_pow,
+            Real.zero_rpow (by linarith : -s ≠ 0)]
+        · change ‖w I * Complex.ofReal (Real.rpow (absNorm I : ℝ) (-s))‖ = _
+          rw [norm_mul, hw I hI, one_mul, Complex.norm_real, Real.norm_eq_abs, Real.rpow_eq_pow,
+            abs_of_nonneg (Real.rpow_nonneg (Nat.cast_nonneg _) _)]
+      have hf : Summable (fun I => ‖f I‖) :=
+        (hIdealSeries s hs).1.congr (fun I => (hnorm I).symm)
+      have hsmall (v : ι) : 1 - f v.asIdeal ≠ 0 := by
+        intro hz
+        have hlt : Real.rpow (absNorm v.asIdeal : ℝ) (-s) < 1 :=
+          Real.rpow_lt_one_of_one_lt_of_neg
+            (by exact_mod_cast NumberField.HeightOneSpectrum.one_lt_absNorm v)
+            (by linarith)
+        have heq := congrArg norm (sub_eq_zero.mp hz)
+        rw [norm_one, hnorm] at heq
+        linarith
+      have heuler := hEulerIdeal O f hf hsmall
+      have hfprime (v : ι) :
+          f v.asIdeal = χ v * Complex.ofReal (Real.rpow (N v : ℝ) (-s)) := by
+        change w v.asIdeal * Complex.ofReal (Real.rpow (N v : ℝ) (-s)) = _
+        rw [hwprime]
+      change Complex.exp (∑' v : ι, -Complex.log (1 - f v.asIdeal)) = S s at heuler
+      simpa only [hfprime] using heuler
+    suffices hcontinuation : ∃ L : ℝ → ℂ,
+        ContinuousWithinAt L (Set.Ici 1) 1 ∧ L 1 ≠ 0 ∧
+          ∀ s : ℝ, s ∈ Set.Ioo 1 2 → S s = L s by
+      obtain ⟨L, hL, hLone, hSL⟩ := hcontinuation
+      refine ⟨L, hL, hLone, ?_⟩
+      intro s hs
+      simpa only [d, hk, if_false, sub_zero] using (hseries s hs.1).trans (hSL s hs)
+    -- Steps 15–25 still require ray-class counting and the nonvanishing argument.
+    fail "Unfinished arithmetic input: continuously extend the nontrivial ideal character series S with nonzero value at one."
