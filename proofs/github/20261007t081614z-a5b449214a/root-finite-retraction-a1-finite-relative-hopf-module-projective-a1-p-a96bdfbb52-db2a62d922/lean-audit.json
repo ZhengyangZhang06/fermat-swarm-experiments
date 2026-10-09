@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "f8d1d6ae961d6c342a15c7f46539bd4715ce56835c17097f1e76150eacb1f41c",
+  "git_delta": {
+    "base_commit": "f49505fc2e8c38ec6332e4f1cc71a955e9005fb6",
+    "candidate_commit": "40ebcc1ec52aa45f202b2d82a044d88ffe966e6b",
+    "target": "Submission.lean",
+    "declaration": "p05_ibsrm_mismatched_support_zero_a5b449214a",
+    "diff_sha256": "1e2ea41444effdf8dbcea648e950d15ae33712699b11c8bee21b9776f3e91020",
+    "source_sha256": "ed624e6c830a4f384804cd0bb35ecc6999b53c5285d7d7c3778e6661c830c184",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_ibsrm_mismatched_support_zero_a5b449214a",
+      "statement": "∀ {R : Type*} [CommRing R] (n p t d : ℕ) (P : Matrix (Fin n) (Fin p) R) (rows : Fin d ↪ (Fin n ⊕ Fin t)) (cols : Fin d ↪ (Fin p ⊕ Fin t)) (_h : ¬ (∀ a : Fin t, (∃ i : Fin d, rows i = Sum.inr a) ↔ (∃ j : Fin d, cols j = Sum.inr a))), Matrix.det ((Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R)).submatrix rows cols) = 0",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
