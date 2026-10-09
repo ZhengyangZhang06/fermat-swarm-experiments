@@ -1,0 +1,36 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "IsEichlerIntegral|eichlerShimuraMap_injective|eval_smul_of_isHomogeneous",
+        "structure ModularForm|bdd_at_cusps|holo|slash_action_eq",
+        "p02_es_177ebb5a_scalarization_modular|p02_es_177ebb5a_sd_jr_linepow_eval"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project"
+      ],
+      "conclusion": "Both snapshots are clean at the manifest-pinned revisions. Inspected definitions preserve coefficientwise Eichler differentiation, the binary-form representation, and ModularForm's holomorphy and full cusp-boundedness fields. Neither searched submission identifier occurs in the project snapshot. The exact comparator rerun exited zero with the required marker and only propext, Classical.choice, and Quot.sound; its 220 hashed Lean inputs equal the inspected inputs, including the committed candidate and frozen challenge."
+    }
+  ],
+  "comparison_identity": "8d63ac699cd04e46e63eab4e12314f39b1e768cff879e70429f5855270bcd8fe",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_scalarization_modular",
+      "statement": "∀ (N : ℕ) [NeZero N] (n : ℕ) (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2)) (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.IsEichlerIntegral n (fun τ => f τ) E → (∀ (γ : CongruenceSubgroup.Gamma0 N) (τ : UpperHalfPlane), E ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • τ) = ((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype) γ (E τ)) → ∃ p : ModularForm (CongruenceSubgroup.Gamma0 N) (-(n : ℤ)), ∀ τ : UpperHalfPlane, p τ = MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -(τ : ℂ)) (E τ).val",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Bundles scalar evaluation using accepted holomorphy, slash-covariance, and all-cusps boundedness lemmas."
+    }
+  ]
+}

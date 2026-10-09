@@ -1,0 +1,19 @@
+{
+  "node_id": "root.scalarization_derivative-a1.jet_recurrence-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/68",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/566",
+  "candidate_commit": "a038365928a727f4bdd421624d8de6d1f08f5496",
+  "integrated_commit": "77e62cef8a526b03b390e649a88d4d18676477be",
+  "proof_base_commit": "1eaaa15cd98090e9bd8f8579ea3fc4034ea954ac",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.scalarization_derivative-a1",
+  "requires": [
+    "root.scalarization_derivative-a1.jet_recurrence-a1.homogeneous_nilpotence-a1",
+    "root.scalarization_derivative-a1.jet_recurrence-a1.linepow_jet_evaluation-a1",
+    "root.scalarization_derivative-a1.jet_recurrence-a1.moving_eval_derivative-a1"
+  ]
+}

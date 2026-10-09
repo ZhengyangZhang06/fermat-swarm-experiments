@@ -1,0 +1,18 @@
+{
+  "node_id": "root.scalarization_modular-a1.translation_bound-a1.translation_fixed_form-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/105",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/321",
+  "candidate_commit": "3a3756f449f7c4e50fa621982f5b8bd5aab8b1e1",
+  "integrated_commit": "f73f9b857e291d9e44ef29ed9fb922359234c34f",
+  "proof_base_commit": "0d6c692a12dbfa4c2d29b6eeec922d793d009335",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.scalarization_modular-a1.translation_bound-a1",
+  "requires": [
+    "root.scalarization_modular-a1.translation_bound-a1.translation_fixed_form-a1.periodic_polynomial_constant-a1",
+    "root.scalarization_modular-a1.translation_bound-a1.translation_fixed_form-a1.constant_dehomogenization-a1"
+  ]
+}

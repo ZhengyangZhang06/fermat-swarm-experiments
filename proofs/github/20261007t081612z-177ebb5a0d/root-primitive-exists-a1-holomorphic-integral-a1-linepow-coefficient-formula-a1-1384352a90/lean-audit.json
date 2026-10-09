@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "17407ee502df0f435942bc0865f16157dfeaecb68b68b32b923f4ebc8a294c85",
+  "git_delta": {
+    "base_commit": "98c9b6f7e6d776ce7cb707a606fdd9332a3144c5",
+    "candidate_commit": "ac24139d80a0d37076e4256f57285b0316d17fb9",
+    "target": "Submission.lean",
+    "declaration": "p02_es_177ebb5a_hi_linepow_coefficients",
+    "diff_sha256": "1699c65c08fee5d99a31c46cbca7ef8a8783cdae9068b9bb694dca7ef7d47b75",
+    "source_sha256": "66f78f46babcf60d2773a845304ee0b7ef7213e76a4974a26d5f36bebbd3533c",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_hi_linepow_coefficients",
+      "statement": "∀ (n : ℕ) (z : ℂ) (d : Fin 2 →₀ ℕ), MvPolynomial.coeff d (HeckeEis.linePow n z).val = if d 0 + d 1 = n then (Nat.choose n (d 0) : ℂ) * z ^ (d 0) else 0",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

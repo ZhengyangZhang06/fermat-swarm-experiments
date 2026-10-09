@@ -1,0 +1,19 @@
+{
+  "node_id": "root.primitive_parabolic-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/27",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/515",
+  "candidate_commit": "73e0acc68417decb2417d40faed23dc698a4f259",
+  "integrated_commit": "b4eb2bf8cefa67a2290999489e7fdeaab132ba58",
+  "proof_base_commit": "7e1271e6bc2abf6bb7f0c67f94efa0492aaf551b",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root",
+  "requires": [
+    "root.primitive_parabolic-a1.scaled_cusp_decay-a1",
+    "root.primitive_parabolic-a1.primitive_cusp_limit-a1",
+    "root.primitive_parabolic-a1.integral_parabolic_normal_form-a1"
+  ]
+}

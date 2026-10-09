@@ -1,0 +1,44 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "def BinaryForm|abbrev BinaryForm|homogeneousSubmodule",
+        "def IsHomogeneous|def IsWeightedHomogeneous|def homogeneousSubmodule|mem_homogeneousSubmodule|weight_eq_sum",
+        "theorem eval_eq'|card_le_card_of_injOn|norm_sum_le",
+        "rg -n 'p02_es_177ebb5a_tb_eval_bound|homogeneous_evaluation_bound|norm_eval|eval.*norm|norm.*eval' project/Definitions mathlib/Mathlib/Algebra/MvPolynomial mathlib/Mathlib/RingTheory/MvPolynomial",
+        "theorem norm_sum_le|lemma norm_sum_le",
+        "theorem pow_le_pow_left₀|lemma pow_le_pow_left₀|theorem pow_le_pow_right₀|lemma pow_le_pow_right₀"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/WeightedHomogeneous.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Data/Finsupp/Weight.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Eval.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Data/Finset/Card.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Normed/Group/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/Order/GroupWithZero/Basic.lean"
+      ],
+      "conclusion": "Verified clean snapshot revisions: project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. BinaryForm is the homogeneous polynomial submodule; inspected library lemmas justify the degree identity, support-cardinality bound, evaluation expansion, triangle inequality, and power bounds. The evaluation-estimate search returned no matches in the searched directories. Imported project definitions match the snapshot, and all local Lake dependencies are clean at their pinned revisions. The exact comparator independently passed on candidate 81cec7b85abf4e435c0eab0ab8585fea9955a2c4 with exit code 0 and 'Your solution is okay!'; transitive axioms are only propext, Classical.choice, and Quot.sound. The sole change adds the tracked theorem, preserving imports, inherited declarations, and the root placeholder."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_tb_eval_bound",
+      "statement": "∀ (n : ℕ) (R : ↥(HeckeEis.BinaryForm ℂ n)) (z : ℂ) (b : ℝ), 0 ≤ b → (∀ d : Fin 2 →₀ ℕ, ‖MvPolynomial.coeff d R.val‖ ≤ b) → ‖MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z) R.val‖ ≤ ((n + 1 : ℕ) : ℝ) * (max 1 ‖z‖) ^ n * b",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Homogeneity gives d 0 + d 1 = n on the support. Mapping each exponent pair to d 1 injects the support into {0,…,n}, so there are at most n+1 terms. Each evaluated term has norm at most b·max(1,‖z‖)^n. Expanding evaluation and applying the triangle inequality gives the claimed bound, including n=0."
+    }
+  ]
+}

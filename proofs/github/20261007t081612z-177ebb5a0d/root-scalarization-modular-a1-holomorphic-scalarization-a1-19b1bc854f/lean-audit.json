@@ -1,0 +1,45 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "/runtime/bin/rg -n 'IsEichlerIntegral|abbrev BinaryForm' project/Definitions",
+        "/runtime/bin/rg -n 'finite_of_degree_eq|degree_eq_weight_one' mathlib/Mathlib/Data/Finsupp/Weight.lean",
+        "/runtime/bin/rg -n \"theorem eval_eq'\" mathlib/Mathlib/Algebra/MvPolynomial/Eval.lean",
+        "/runtime/bin/rg -n 'p02_es_177ebb5a_sm_holomorphic|holomorphic_scalarization' project --glob '*.lean'",
+        "/runtime/bin/rg -n 'sorry|admit|axiom|unsafe|implemented_by|elab|macro' project/Definitions/Def_HeckeEis_EichlerIntegral.lean project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/runtime/bin/rg -n 'theorem DifferentiableOn.fun_sum|theorem HasDerivAt.differentiableAt' mathlib/Mathlib/Analysis/Calculus"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_Gamma0CoeffCohomology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Data/Finsupp/Weight.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Eval.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/FDeriv/Add.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/lean-toolchain"
+      ],
+      "conclusion": "The snapshot confirms coefficientwise derivatives in IsEichlerIntegral, homogeneous binary forms, finite degree-n support, polynomial evaluation, and differentiability of finite sums. Searches found no existing proof under this node's names and no proof escapes in the two searched definition modules. Relevant source blobs match project revision 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d; all nine installed dependencies are clean and pinned. The exact comparator independently exited 0 with 'Your solution is okay!' under request 4edce24fdb124c73b1b49469f0fac33a, reporting only propext, Classical.choice, and Quot.sound. Candidate 2ced4d3abd9f318f5490841e5e6ce28d9dfb7944 remains clean. Its diff preserves the root placeholder and imports byte-for-byte and adds only the tracked theorem plus a benign Git ignore entry."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_sm_holomorphic",
+      "statement": "∀ (n : ℕ) (h : UpperHalfPlane → ℂ) (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.IsEichlerIntegral n h E → DifferentiableOn ℂ (fun z : ℂ => MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z) (E (UpperHalfPlane.ofComplex z)).val) {z : ℂ | 0 < z.im}",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Homogeneity expands the evaluation into a fixed finite sum of degree-n coefficients multiplied by powers of −z. IsEichlerIntegral supplies differentiability of each coefficient on the upper half-plane; products and finite sums give the conclusion, including n = 0, without regularity assumptions on h."
+    }
+  ]
+}

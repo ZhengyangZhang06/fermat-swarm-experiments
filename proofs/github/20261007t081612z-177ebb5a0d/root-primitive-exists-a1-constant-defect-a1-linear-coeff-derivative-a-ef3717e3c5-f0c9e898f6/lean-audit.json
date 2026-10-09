@@ -1,0 +1,38 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "abbrev BinaryForm|def BinaryForm|p02_es_177ebb5a_lcd_monomial_expansion|binaryForm.*(basis|[Ee]xpan|[Cc]oeff)|BinaryForm.*(basis|[Ee]xpan)",
+        "coeff_eq_zero|coeff_monomial|coeff_smul|coeff_sum|theorem ext|def IsHomogeneous|homogeneousSubmodule",
+        "theorem coeff_eq_zero|def IsHomogeneous|def homogeneousSubmodule|theorem degree_eq_sum|lemma degree_eq_sum",
+        "p02_es_177ebb5a_lcd_monomial_expansion"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Data/Finsupp/Weight.lean"
+      ],
+      "conclusion": "The snapshot pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. BinaryForm is the homogeneous polynomial submodule; mathlib supplies coefficient extensionality, coefficient formulas, off-degree vanishing, and degree_eq_sum. Project searches found no matching expansion helper or target declaration. All nine installed dependencies are clean and match their pins; six imported project definitions and three inspected mathlib sources byte-match the snapshot. Independent type and transitive-axiom checks passed, using only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_lcd_monomial_expansion",
+      "statement": "∀ (n : ℕ) (Q : ↥(HeckeEis.BinaryForm ℂ n)), Q.val = ∑ r : Fin (n + 1), MvPolynomial.coeff (Finsupp.single (0 : Fin 2) r.val + Finsupp.single (1 : Fin 2) (n - r.val)) Q.val • MvPolynomial.monomial (Finsupp.single (0 : Fin 2) r.val + Finsupp.single (1 : Fin 2) (n - r.val)) (1 : ℂ)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Compare coefficients. Homogeneity makes coefficients outside degree n vanish on both sides. Every degree-n exponent is uniquely determined by r = d(0), with d(1) = n − r, so the sum has exactly one potentially nonzero matching term. Coefficient extensionality concludes the equality, including n = 0."
+    }
+  ]
+}

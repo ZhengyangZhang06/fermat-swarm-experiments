@@ -1,0 +1,37 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'iteratedDeriv_succ|HasDerivAt\\.congr_of_eventuallyEq|HasDerivAt\\.const_mul' mathlib/Mathlib/Analysis/Calculus",
+        "rg -n 'p02_es_177ebb5a_sd_open_ladder|open_derivative_ladder' --glob '*.lean' .",
+        "git -C project rev-parse HEAD",
+        "git -C mathlib rev-parse HEAD"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/IteratedDeriv/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Mul.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b"
+      ],
+      "conclusion": "Queries ran from the snapshot root. Found the standard iterated-derivative successor, constant-multiplication, and neighborhood-congruence lemmas; no prior node declaration matched the snapshot-wide search. Snapshot revisions match project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Inspected calculus files match installed mathlib byte-for-byte; installed dependencies match their pins with clean tracked sources. The exact comparator independently exited 0 with 'Your solution is okay!' and transitive axioms [propext, Classical.choice, Quot.sound]. Reviewed commit 6c7d76df419c333e15eddfd9e563ce3b426be6fa remained unchanged and clean. Its diff adds only the tracked theorem, preserving imports, definitions, and the frozen root placeholder; no additional named helpers, placeholders, axioms, or declaration shadowing were introduced."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_sd_open_ladder",
+      "statement": "∀ (U : Set ℂ) (n : ℕ) (Q : ℕ → ℂ → ℂ) (g : ℂ → ℂ), IsOpen U → (∀ (r : ℕ), r < n → ∀ z ∈ U, HasDerivAt (Q r) (-Q (r + 1) z) z) → (∀ z ∈ U, HasDerivAt (Q n) (g z) z) → ∀ z ∈ U, iteratedDeriv (n + 1) (Q 0) z = (-1 : ℂ) ^ n * g z",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Inductively identify the r-th iterated derivative with (−1)^r Q_r on U for r≤n. Openness supplies neighborhood equality, allowing derivative transfer at each step. Apply the terminal derivative hypothesis at r=n. This matches the supplied prose, includes n=0, and imposes no assumptions outside U."
+    }
+  ]
+}

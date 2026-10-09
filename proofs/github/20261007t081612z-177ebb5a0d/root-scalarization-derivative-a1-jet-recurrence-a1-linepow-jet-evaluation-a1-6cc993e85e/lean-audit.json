@@ -1,0 +1,37 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'linePow' project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "rg -n 'pderiv_pow|pderiv_C_mul|pderiv_X|pderiv_add|pderiv_mul' mathlib/Mathlib/Algebra/MvPolynomial/PDeriv.lean",
+        "rg -n 'descFactorial_succ|descFactorial_self' mathlib/Mathlib/Data/Nat/Factorial/Basic.lean",
+        "rg -n 'linepow_eval|linepow_jet|p02_es_177ebb5a_sd_jr_linepow_eval' project --glob '*.lean'"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/PDeriv.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Data/Nat/Factorial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project"
+      ],
+      "conclusion": "Searches ran from the snapshot root. The sources define linePow n t as (C t * X 0 + X 1)^n and prove the partial-derivative and descending-factorial identities used by the candidate. The final identifier search returned no matches. Snapshot revisions match the manifest; installed dependencies are clean and pinned, and inspected library sources match the snapshot. My exact comparator rerun for d9a490d8a20ce5d9825469623b3d16dd387ec00a exited zero with 'Your solution is okay!' and reported only propext, Classical.choice, and Quot.sound as transitive axioms. The diff adds only the tracked theorem and preserves the root placeholder, imports, and existing declarations."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_sd_jr_linepow_eval",
+      "statement": "∀ (n r : ℕ), r ≤ n → ∀ t : ℂ, MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -t) ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r] (HeckeEis.linePow n t).val) = (if r = n then (Nat.factorial n : ℂ) else 0)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Set L = C(t)X₀ + X₁. Since ∂₁L = 1, induction gives ∂₁ʳ(Lⁿ) = C(n.descFactorial r)L^(n−r). Evaluation at (1,−t) sends L to zero. For r<n the result vanishes; for r=n it equals n!, including n=r=0."
+    }
+  ]
+}

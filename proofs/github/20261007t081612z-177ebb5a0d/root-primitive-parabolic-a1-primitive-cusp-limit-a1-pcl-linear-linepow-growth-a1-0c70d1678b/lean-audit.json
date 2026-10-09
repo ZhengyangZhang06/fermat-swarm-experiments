@@ -1,0 +1,37 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "def (BinaryForm|linePow)|theorem coe_linePow|eichlerShimuraMap_injective|pcl_linear_linepow_growth",
+        "linear_linepow_growth|pcl_linear_linepow_growth",
+        "isHomogeneous_X_pow|theorem coeff_smul|theorem coeff_sum|notMem_support_iff"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Fermat/Thm_HeckeEis_eichlerShimuraMap_injective.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean"
+      ],
+      "conclusion": "Verified the snapshot's BinaryForm and linePow definitions and frozen root contract against candidate bytes. Polynomial coefficient and homogeneity lemmas are pinned upstream infrastructure; no prior linear_linepow_growth theorem matched. All nine dependency checkouts are clean at their pinned revisions, including mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The exact comparator rerun passed kernel and transitive-axiom checks using only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "967df8b720ed92fd17b69fcf5ee6a149dca38519ed302bf96ff132b3bedfa816",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_pcl_linear_linepow_growth",
+      "statement": "∀ (n : ℕ) (T : ↥(HeckeEis.BinaryForm ℂ n) →ₗ[ℂ] ↥(HeckeEis.BinaryForm ℂ n)), ∃ K : ℝ, 0 ≤ K ∧ ∀ (z : ℂ) (d : Fin 2 →₀ ℕ), ‖MvPolynomial.coeff d (T (HeckeEis.linePow n z)).val‖ ≤ K * (1 + ‖z‖) ^ n",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Binomial expansion, linearity, and finite-support coefficient bounds provide one nonnegative constant uniform in z and d."
+    }
+  ]
+}

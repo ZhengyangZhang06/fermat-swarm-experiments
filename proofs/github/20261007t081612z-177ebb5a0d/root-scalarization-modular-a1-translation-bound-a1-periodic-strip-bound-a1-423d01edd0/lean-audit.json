@@ -1,0 +1,40 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "isBoundedAtImInfty_iff|modular_T_zpow_smul|sub_floor_div_mul_(nonneg|lt)|theorem int_mul_eq|lemma int_mul_eq|vadd_re|vadd_im",
+        "periodic_strip_bound|IsBoundedAtImInfty|isBoundedAtImInfty_iff",
+        "int_mul_eq|def Periodic|theorem.*int_mul|lemma.*int_mul"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Fermat/Thm_HeckeEis_eichlerShimuraMap_injective.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/FunctionsBoundedAtInfty.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/Ring/Periodic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/Order/Floor/Ring.lean"
+      ],
+      "conclusion": "The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Snapshot sources establish the exact eventual-bound criterion, translation action, integer periodicity, and floor remainder inequalities used by the proof. The inspected dependency files match the clean pinned checkout; every package revision matches lake-manifest.json. No matches for the boundedness search occurred in project/Submission.lean, project/Definitions, or project/Fermat. The exact comparator rerun for candidate 11eb0a8d821be8e69ed954dce250960c151ff7d0 exited 0 with 'Your solution is okay!' and reported only propext, Classical.choice, and Quot.sound. The diff adds only the tracked theorem, preserving imports, existing declarations, and the inherited root placeholder; no weakening, shadowing, new axioms, or additional named helpers were found."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_tb_periodic_strip_bound",
+      "statement": "∀ (N : ℕ) [NeZero N] (q : UpperHalfPlane → ℂ), (∀ τ : UpperHalfPlane, q ((ModularGroup.T ^ N) • τ) = q τ) → (∃ M Y : ℝ, ∀ τ : UpperHalfPlane, 0 ≤ τ.re → τ.re ≤ (N : ℝ) → Y ≤ τ.im → ‖q τ‖ ≤ M) → UpperHalfPlane.IsBoundedAtImInfty q",
+      "lean_file": "Submission.lean",
+      "natural_summary": "For any τ above height Y, let m = floor(τ.re/N). Integer periodicity preserves q under translation by −mN. This translation preserves imaginary height and places the real part in [0,N), so the strip bound applies. The same M and Y then witness boundedness at imaginary infinity."
+    }
+  ]
+}

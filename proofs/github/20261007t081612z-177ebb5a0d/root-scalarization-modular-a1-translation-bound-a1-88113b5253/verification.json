@@ -1,0 +1,20 @@
+{
+  "node_id": "root.scalarization_modular-a1.translation_bound-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/48",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/613",
+  "candidate_commit": "3a62c677a9628b9472a8ffb4973375d3c46a4d11",
+  "integrated_commit": "19aea0b157ff30655aa81f5adaacee93deeb9280",
+  "proof_base_commit": "f433f505e209a0721abf52e908d34801732a2e70",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.scalarization_modular-a1",
+  "requires": [
+    "root.scalarization_modular-a1.translation_bound-a1.strip_coefficient_limit-a1",
+    "root.scalarization_modular-a1.translation_bound-a1.translation_fixed_form-a1",
+    "root.scalarization_modular-a1.translation_bound-a1.homogeneous_evaluation_bound-a1",
+    "root.scalarization_modular-a1.translation_bound-a1.periodic_strip_bound-a1"
+  ]
+}

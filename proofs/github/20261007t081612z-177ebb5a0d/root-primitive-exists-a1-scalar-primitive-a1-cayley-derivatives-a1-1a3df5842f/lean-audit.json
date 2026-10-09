@@ -1,0 +1,39 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "cayley|HasDerivAt|eichlerShimuraMap_injective",
+        "cayley",
+        "HasDerivAt\\.(fun_div|div|const_add|const_sub|const_mul|sub_const|add_const)|theorem hasDerivAt_id|theorem HasDerivAt.congr_deriv"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Fermat/Thm_HeckeEis_eichlerShimuraMap_injective.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Inv.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Add.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/Deriv/Mul.lean"
+      ],
+      "conclusion": "Used rg to search the snapshot. No Cayley match occurred in project Lean sources. The pinned derivative files provide the quotient rule, affine derivative rules, and derivative congruence used here; inspected files match installed sources. Project revision is 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib revision is db584cd6d46c92f209a44c0f1c829460d327499d. All nine installed dependencies match their pins and have clean tracked sources. The exact comparator independently exited 0 with the required marker and reported only propext, Classical.choice, and Quot.sound for the target. The candidate adds only the tracked theorem; imports, inherited declarations, and the root placeholder remain unchanged."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_sp_cayley_derivatives",
+      "statement": "(∀ w : ℂ, ‖w‖ < 1 → HasDerivAt (fun u : ℂ => Complex.I * (1 + u) / (1 - u)) (2 * Complex.I / (1 - w) ^ 2) w) ∧ (∀ z : ℂ, 0 < z.im → HasDerivAt (fun u : ℂ => (u - Complex.I) / (u + Complex.I)) (2 * Complex.I / (z + Complex.I) ^ 2) z) ∧ (∀ z : ℂ, 0 < z.im → (2 * Complex.I / (1 - (z - Complex.I) / (z + Complex.I)) ^ 2) * (2 * Complex.I / (z + Complex.I) ^ 2) = 1)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "The norm and imaginary-part hypotheses ensure nonzero denominators. Applying the quotient rule gives both derivative formulas after ring simplification. The identity 1 − (z − i)/(z + i) = 2i/(z + i) then proves the reciprocal product by field cancellation."
+    }
+  ]
+}

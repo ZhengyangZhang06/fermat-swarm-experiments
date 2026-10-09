@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "binaryFormRepSL_linePow|jFactor_ne_zero|def linePow|def jFactor|inv_self_apply|ic_inverse_linepow",
+        "rg -n 'p02_es_177ebb5a_ic_inverse_linepow' project mathlib"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RepresentationTheory/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b"
+      ],
+      "conclusion": "Found the existing forward line-power identity, nonvanishing automorphy factor, binary-form representation, and representation inverse cancellation. No occurrence of the tracked theorem name was found in the snapshot. Project revision 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d match the manifest; all nine installed dependencies are clean and pinned. Reused project sources match both the snapshot and frozen proof base. Candidate 8c54972d7f527c76d9c1bec0e95f2fb29c82c1d6 adds only the tracked theorem, preserving imports and the inherited root placeholder. Personal exact-node comparator rerun 632ddcac04f348139002fd6d0894190e exited zero with 'Your solution is okay!' and reported only propext, Classical.choice, and Quot.sound as transitive axioms."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_ic_inverse_linepow",
+      "statement": "∀ (n : ℕ) (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (τ : UpperHalfPlane), (HeckeEis.binaryFormRepSL ℂ n) σ⁻¹ (HeckeEis.linePow n ((σ • τ : UpperHalfPlane) : ℂ)) = ((HeckeEis.jFactor σ τ) ^ n)⁻¹ • HeckeEis.linePow n (τ : ℂ)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Apply the inverse representation to the pinned forward line-power identity. Cancel the representation factors, move the scalar through the linear map, and multiply by its reciprocal. Nonvanishing of jFactor ensures cancellation for every n, including zero."
+    }
+  ]
+}

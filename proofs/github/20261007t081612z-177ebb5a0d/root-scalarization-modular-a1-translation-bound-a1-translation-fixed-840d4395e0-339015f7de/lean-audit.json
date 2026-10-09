@@ -1,0 +1,41 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'theorem (taylor_apply|taylor_coeff|hasseDeriv_coeff|natDegree_hasseDeriv_le|eq_X_add_C_of_natDegree_le_one|eq_C_of_natDegree_eq_zero)|lemma (taylor_apply|taylor_coeff|hasseDeriv_coeff|natDegree_hasseDeriv_le|eq_X_add_C_of_natDegree_le_one|eq_C_of_natDegree_eq_zero)' mathlib/Mathlib/Algebra/Polynomial",
+        "rg -n -i 'periodic_polynomial_constant|polynomial.*periodic|periodic.*polynomial' project --glob '*.lean'",
+        "git -C project rev-parse HEAD",
+        "git -C project status --porcelain=v1 --untracked-files=no",
+        "git -C mathlib rev-parse HEAD",
+        "git -C mathlib status --porcelain=v1 --untracked-files=no"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Fermat/Thm_HeckeEis_eichlerShimuraMap_injective.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/Polynomial/Taylor.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/Polynomial/HasseDeriv.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/Polynomial/Degree/SmallDegree.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/Polynomial/Degree/Operations.lean"
+      ],
+      "conclusion": "Queries ran from the snapshot root. Confirmed clean snapshot revisions: project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The project periodic-polynomial search returned no matches. Inspected existing upstream Taylor, Hasse derivative and degree lemmas supporting the coefficient calculation. All installed dependencies are clean and match their pinned revisions. Personally reran the exact node comparator for candidate 352ae7c07fedb6d6571c4a45c0d1629deeb741b5: exit 0 with 'Your solution is okay!'; transitive axioms are only propext, Classical.choice and Quot.sound. Exported inputs match their hashes, the challenge has the frozen type, and the solution source equals the reviewed candidate. The diff adds only the tracked theorem; imports, inherited declarations and root placeholder are unchanged."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_tff_periodic_polynomial_constant",
+      "statement": "∀ (p : Polynomial ℂ) (c : ℂ), c ≠ 0 → p.comp (Polynomial.X + Polynomial.C c) = p → p = Polynomial.C (p.coeff 0)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "If p has positive degree d+1, Taylor coefficients and the dth Hasse derivative show that translation invariance forces (d+1)·p.coeff(d+1)·c = 0. Characteristic zero, the nonzero leading coefficient and c ≠ 0 contradict this. Thus p has natural degree zero and equals C(p.coeff 0), also covering the zero polynomial."
+    }
+  ]
+}

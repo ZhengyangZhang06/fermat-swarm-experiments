@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "8fabc7273c194fd003ac3009626233ce7dabf40ed39f9bdb28aa45a97ac3b89f",
+  "git_delta": {
+    "base_commit": "a7f058d652c15d1a053181891a3f28aafc270e5a",
+    "candidate_commit": "7668bbad8bbbcd6ef53fc59801f96717e3abac76",
+    "target": "Submission.lean",
+    "declaration": "p02_es_177ebb5a_med_js_iterated_monomial",
+    "diff_sha256": "b1635d6ccc8cf46cd4d63545ebefd0d833bb9f4078f8966bfb8ee04ae3e52b55",
+    "source_sha256": "159925a39d19cf3818faaff3cccb649467b47ba8abc6ded794cd550828cdc296",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_med_js_iterated_monomial",
+      "statement": "∀ (d : Fin 2 →₀ ℕ) (a : ℂ) (r : ℕ), ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r] (MvPolynomial.monomial d a)) = MvPolynomial.monomial (d - Finsupp.single (1 : Fin 2) r) (a * (Nat.descFactorial (d 1) r : ℂ))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

@@ -1,0 +1,33 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "def BinaryForm|abbrev BinaryForm|theorem pderiv_monomial|theorem descFactorial_succ|p02_es_177ebb5a_med_js_iterated_monomial|p02_es_177ebb5a_med_jet_sum"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/PDeriv.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Data/Nat/Factorial/Basic.lean"
+      ],
+      "conclusion": "Found BinaryForm as the homogeneous-polynomial submodule, pderiv_monomial, and descFactorial_succ with natural subtraction. Neither node-specific declaration occurs in the snapshot. Inspected sources match the candidate's dependencies; all nine dependency checkouts are clean at their pinned revisions. The exact comparator rerun reported only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "40c5df557d1ac96c5d18160997c5b565084d527c95ac22d67475ffaaac6b4d67",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_med_jet_sum",
+      "statement": "∀ (n : ℕ) (P : ↥(HeckeEis.BinaryForm ℂ n)) (r : ℕ) (z : ℂ), MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z) ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r] P.val) = ∑ k : Fin (n + 1), MvPolynomial.coeff (Finsupp.single (0 : Fin 2) (n - k.val) + Finsupp.single (1 : Fin 2) k.val) P.val * (Nat.descFactorial k.val r : ℂ) * (-z) ^ (k.val - r)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Expands the homogeneous binary form into monomials, applies the accepted iterated-derivative formula termwise, and evaluates at (1, −z)."
+    }
+  ]
+}

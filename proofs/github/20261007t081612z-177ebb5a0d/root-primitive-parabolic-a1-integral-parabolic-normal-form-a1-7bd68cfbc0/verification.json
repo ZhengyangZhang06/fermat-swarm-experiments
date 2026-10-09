@@ -1,0 +1,18 @@
+{
+  "node_id": "root.primitive_parabolic-a1.integral_parabolic_normal_form-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/72",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/197",
+  "candidate_commit": "c9b47e8ddc9b43871fcd1521afe5abedbe2ebaef",
+  "integrated_commit": "c022ab75bbde2111bc5500bba462713efa9b8213",
+  "proof_base_commit": "3ee8b4747cdfcdc8835a5e09215c6e25755e1b07",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.primitive_parabolic-a1",
+  "requires": [
+    "root.primitive_parabolic-a1.integral_parabolic_normal_form-a1.primitive_kernel-a1",
+    "root.primitive_parabolic-a1.integral_parabolic_normal_form-a1.primitive_eigenvector_triangular-a1"
+  ]
+}

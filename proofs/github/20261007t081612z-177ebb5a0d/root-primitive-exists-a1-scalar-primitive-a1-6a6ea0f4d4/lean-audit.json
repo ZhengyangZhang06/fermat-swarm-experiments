@@ -1,0 +1,33 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n --glob '*.lean' 'isExactOn_ball|eichlerShimuraMap_injective|p02_es_177ebb5a_primitive_exists_scalar_primitive' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b",
+        "rg -n --glob '*.lean' 'def IsExactOn|p02_es_177ebb5a_primitive_exists_scalar_primitive|isExactOn_upperHalfPlane' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Fermat/Thm_HeckeEis_eichlerShimuraMap_injective.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/HasPrimitives.lean"
+      ],
+      "conclusion": "Verified clean snapshot revisions: project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The frozen root contract is unchanged. HasPrimitives.lean:115 defines primitives using ordinary HasDerivAt; :290 provides the reused upstream DifferentiableOn.isExactOn_ball. No snapshot matches for this node's declaration or isExactOn_upperHalfPlane. Installed dependencies are clean and pinned; the reused source matches the snapshot. The exact comparator rerun passed with only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "97a27ba9603a34d15f5416f585cef6016236041587d7902d287207905311aabf",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_primitive_exists_scalar_primitive",
+      "statement": "∀ (a : ℂ → ℂ), DifferentiableOn ℂ a {z : ℂ | 0 < z.im} → ∃ A : ℂ → ℂ, ∀ z : ℂ, 0 < z.im → HasDerivAt A (a z) z",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Uses the accepted Cayley-map lemmas and the pinned disk-primitive theorem to transport a primitive to the upper half-plane."
+    }
+  ]
+}

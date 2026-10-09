@@ -1,0 +1,37 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "IsEichlerIntegral|binaryFormRepSL_linePow|jFactor_eq_denom|p02_es_177ebb5a_sm_transformed_integral|p02_es_177ebb5a_ic_",
+        "hasStrictDerivAt_smul|SL_slash_apply",
+        "p02_es_177ebb5a_sm_transformed_integral|p02_es_177ebb5a_ic_"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Manifold.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/NumberTheory/ModularForms/SlashActions.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b"
+      ],
+      "conclusion": "Confirmed the frozen coefficientwise predicate, representation definitions, and upstream derivative/slash interfaces. Project definitions match the snapshot; all nine dependencies are clean at their pinned revisions, including mathlib db584cd6d46c92f209a44c0f1c829460d327499d. No node-specific declarations matched in the snapshot. Candidate prerequisites match accepted declarations. The exact comparator rerun exited zero, bound candidate c1c8e383c6a8ce5cc25a724d70016e44aba9f48a to input packet 31b9aa9013f056f4c29fb2f17f5fc15d2015bb85bc5f75dfe973f9e05358119d, and reported only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "deeb80407be1ae0a340f20d123b6bb2aae7a8ca889cbe620b11249281f332c1e",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_sm_transformed_integral",
+      "statement": "∀ (n : ℕ) (h : UpperHalfPlane → ℂ) (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)) (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ), HeckeEis.IsEichlerIntegral n h E → HeckeEis.IsEichlerIntegral n (SlashAction.map ((n : ℤ) + 2) σ h) (fun τ : UpperHalfPlane => ((HeckeEis.binaryFormRepSL ℂ n) σ⁻¹) (E (σ • τ)))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines accepted Möbius derivative and inverse line-power transport lemmas, then identifies the weight n+2 slash factor."
+    }
+  ]
+}

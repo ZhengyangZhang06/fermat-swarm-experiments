@@ -1,0 +1,44 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "BinaryForm|homogeneousSubmodule",
+        "pderiv_monomial|support_sum_monomial_coeff|def IsHomogeneous|def homogeneousSubmodule",
+        "theorem le_degree|degree_eq_weight_one",
+        "theorem pow_apply|lemma pow_apply",
+        "def IsWeightedHomogeneous|coeff.*≠ 0|weight.*= n",
+        "homogeneous_nilpotence",
+        "iterate.*pderiv|pderiv.*iterate|iterated.*pderiv|pderiv.*iterated"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/PDeriv.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/MvPolynomial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/Homogeneous.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/RingTheory/MvPolynomial/WeightedHomogeneous.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Data/Finsupp/Weight.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Algebra/Module/LinearMap/End.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b"
+      ],
+      "conclusion": "BinaryForm is exactly the homogeneous polynomial submodule. Pinned library declarations provide monomial differentiation, finite monomial expansion, coordinate-degree bounds, and the identification of endomorphism powers with iteration. No homogeneous_nilpotence match occurred in project/Definitions, project/P2M, or project/Theorems; the iteration-pattern search also found no matches there or in the searched mathlib polynomial directories. Snapshot HEADs match project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. All nine installed dependencies match their pins with clean tracked sources, and relevant installed sources match the snapshot. Independent comparator request aeb6ab72007e42ea961a880108c6dee4 verified candidate efd9615fafca4b32f6f281344f67313adc8e70f7, exited zero, and printed 'Your solution is okay!'. Its transitive axiom check returned only propext, Classical.choice, and Quot.sound. The diff adds only the tracked theorem; imports, definitions, baseline helper, and inherited root placeholder remain unchanged."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_sd_jr_homogeneous_nilpotence",
+      "statement": "∀ (n : ℕ) (P : ↥(HeckeEis.BinaryForm ℂ n)), ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[n + 1] P.val) = 0",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Induction shows that k Y-derivatives annihilate any monomial whose Y-exponent is less than k. Homogeneity bounds every supported monomial’s Y-exponent by n. Expand P into its finite monomial sum and distribute the iterated linear derivative; every summand vanishes after n+1 derivatives, including when n=0."
+    }
+  ]
+}
