@@ -183,7 +183,7 @@ Six final warning-fatal Lean checks exited zero: the two anonymous examples, the
 
 All four printed transitive-axiom sets are exactly `[propext, Classical.choice, Quot.sound]`. The generic statement matches the supplied contract after whitespace normalization; the private probes reuse the exact proof bodies. The local block is embedded byte-for-byte in both its wrapper and the Laurent specialization. Source scanning found no placeholders, new solution declarations, new axioms, or unsafe mechanisms.
 
-The separate requested code simplifier reviewed the final source hashes and numbered prose, found no issue, and recommended retaining the proof. This review is internal and does not constitute selected-node acceptance. Outside RLCR verification remains pending.
+The separate requested code simplifier reviewed the final source hashes and numbered prose, found no issue, and recommended retaining the proof. Subsequent independent Round 0 RLCR review and re-review verified all three milestone criteria; their evidence is recorded in `.humanize/rlcr/2026-10-09_00-00-14/round-0-review-result.md` and `round-0-review-validation/`. These reviews verify the internal milestone and do not constitute selected-node acceptance.
 
 Compiler: Lean 4.33.1, commit `819816b2e0a3bf405af45ae5c7af2491d8f5bee6`. Flags:
 
@@ -201,14 +201,14 @@ The initial Lean attempt failed only on the obsolete spelling `Finset.not_mem_er
 
 ## Scope and external-state observation
 
-All 240 monitored files other than the shared external DAG were byte-identical at final inspection, including tracked inputs, Submission, frozen problem/proof/plan records, the stopped loop, and this loop's controller state. This work did not edit controller files. The shared DAG's digest nevertheless changed externally during execution:
+All 240 monitored files other than the shared external DAG were byte-identical at the implementation-stage inspection, including tracked inputs, Submission, frozen problem/proof/plan records, the stopped loop, and this loop's controller state. The implementation recorded no controller writes. The shared DAG's digest changed during execution:
 
 ```text
 before: f38b92e279002cc660be5c9a2670401b3a0ea546f0df43d5f84ff4826d9c8ab2
 first observed after: 76c86e7dfb48cfef495393ca7e47e8a204fae48b731c44847aeecbcdea42ec81
 ```
 
-The DAG continued to change on subsequent reads; these are point-in-time hashes, not a claim of stable external state. Its cause and semantic delta were not established. This is queued for outside review (analyze / codex); no restoration, takeover, or controller action was attempted. The independent proposition and its checks have no DAG dependency, so it does not block this internal milestone. This note does not claim that the shared DAG remained byte-identical.
+The DAG continued to change on subsequent reads; these are point-in-time hashes, not a claim of stable external state. Historical DAG bodies were not archived, so the hashes alone do not establish the writer or historical semantic delta. Independent reviewers confirmed that the selected Lean name and statement matched the frozen dispatch at their inspections. Controller-integrity follow-up remains queued (analyze / codex) for later theorem work; no restoration, takeover, or controller action was attempted here. The independent proposition and its checks have no DAG dependency, so this observation does not block the internal milestone. This note does not claim that the shared DAG remained byte-identical.
 
 Full annular zero counting, the four remaining selected-theorem obligations, old comparator provenance, assembly optimization, publication and final selected-node acceptance remain outside this round.
 
@@ -222,4 +222,14 @@ Full annular zero counting, the four remaining selected-theorem obligations, old
 
 Archive `SHA256SUMS` digest: `3540947216c620e684ffc0a4a2baa73db4250adc84d2eb1984b1511ef653f476`. It covers the exact sources, full logs, settings, replay instructions, compatibility evidence, safety audit, scope audit and simplifier review.
 
-Round tracker digest: `96248b3d5885bdcfaa6b74ef203413dfa4a9b9e190f9529c67a57fe6d73ed78d`. Round contract digest: `fd9d12c067e8850953dbd2fd2f523b581311d55136b2e6a1c1282637711e1610`.
+Implementation-stage tracker digest: `96248b3d5885bdcfaa6b74ef203413dfa4a9b9e190f9529c67a57fe6d73ed78d`; that version is preserved in `round-0-review-validation/goal-tracker-before-review.md` under the loop directory. The live tracker's mutable section records the later reviews. Round contract digest: `fd9d12c067e8850953dbd2fd2f523b581311d55136b2e6a1c1282637711e1610`.
+
+## Manual finalize verification
+
+The separate finalize code-review phase was skipped because no `base_branch` was configured. The existing independent RLCR reviews remain valid records; they were not replaced by this manual pass. Manual comparison used implementation commit `227c37e6520da16e3cb9ff09fe7facab2e40e490` against its direct parent because no configured branch base was available.
+
+A fresh disposable directory reproduced all six warning-fatal Lean checks from the archived sources. All four transitive-axiom reports contain only `propext`, `Classical.choice`, and `Quot.sound`. All 48 original archive entries, compiler and frozen-context hashes, and 11 clean pinned repositories were verified. The generic statement, embedded local proof and private probe bodies match; the three committed proof blocks remain byte-identical to the archived deliverables. No proof refactor was needed.
+
+This finalize change updates documentation of completed reviews, qualifies the historical DAG attribution, and identifies the preserved implementation-stage tracker hash. It changes no Lean source, import, hypothesis, conclusion, dependency, or runtime behavior. The selected theorem is still incomplete, and no configured comparator was run.
+
+Fresh logs, exact compiler settings, checked source copies and audits are in `.humanize/rlcr/2026-10-09_00-00-14/finalize-validation/`. Its `SHA256SUMS` digest is `ba36ee052e7d595b3687e590643e0f6b1df257e8588a09df922f97ddca316919`.
