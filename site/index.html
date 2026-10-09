@@ -40,7 +40,7 @@
 <div class="notice" id="notice" role="status">Loading the latest published observation…</div>
 <p id="verification-summary">Verification activity has not been observed.</p>
 <section class="panel"><h2>One problem, one dependency graph</h2><p id="graph-note">Loading the published theorem graphs.</p>
-<div class="legend"><span><i class="dot"></i>Waiting / no active worker observed</span><span>Gold: active worker · Blue: verification job · Purple: queued check · Green: verified and merged · Red: failed or reconciliation needed</span><span>A → B means B uses A. Children from one split are created together; their later stages proceed independently. Saved stages are checkpoints, not current execution.</span></div>
+<div class="legend"><span><i class="dot"></i>Waiting / no active worker observed</span><span>Gold: active worker · Blue: verification job · Purple: queued check · Green: verified and merged · Red: failed or reconciliation needed</span><span>A → B means B uses A. Children from one split are created together; their later stages proceed independently. Saved stages are checkpoints, not current execution. A proved theorem may still have a worker completing publication and merge.</span></div>
 <nav id="problem-nav" class="problem-nav" aria-label="Jump to a problem graph"></nav></section>
 <div id="problem-graphs" class="problem-graphs"></div>
 <section class="panel"><h2>Theorem ledger</h2><p>Issue and PR states come from the published workflow observation. A closed issue alone is not evidence of a verified proof.</p><div id="problems" class="list"></div></section>
@@ -83,6 +83,11 @@ function workflowActivity(n,allNodes){
  if(n.publication_pending)return 'Pending issue publication';
  const check=verificationState(n);
  if(['verification-running','waiting-verification','starting','needs-reconciliation'].includes(check))return verificationLabel(n);
+ if((n.saved_status||n.status)==='proved'){
+  if(n.pr_state==='closed')return 'Verified; PR closed unmerged';
+  if(n.pr_state==='merged')return 'Verified; confirming merge';
+  return n.pr_url?'Verified; merge pending':'Verified; publication pending';
+ }
  if(n.observed_running){
   const stages={'decomposing':'Decomposing','rlcr-lean':'Writing Lean proof','speculative-lean':'Writing provisional proof','speculative-ready':'Provisional draft ready','natural-proof':'Writing prose proof','natural-review':'Reviewing prose','lean-review':'Checking proof integrity','integrating':'Integrating proof'};
   return stages[n.saved_status||n.status]||'Worker active';

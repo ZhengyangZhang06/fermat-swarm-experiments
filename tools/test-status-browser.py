@@ -253,6 +253,49 @@ class StatusBrowserTests(unittest.TestCase):
         self.page.wait_for_function("document.querySelector('#graph-fermat-p01').textContent.includes('Draft ready; waiting on')")
         self.assertEqual(self.errors, [])
 
+    def test_proved_active_job_shows_publication_then_merge_without_reproving(self):
+        self.add_graphs()
+        child = self.problems[0]['nodes'][1]
+        child.update(status='proved', saved_status='proved', accepted=True,
+                     lean_verified=True, integrated=False, observed_running=True,
+                     worker_node='hoa93', activity_state='executing', pr_url='', pr_state='')
+        self.open_graphs()
+        node = self.page.locator('a[data-node-id="fermat-p01/child-a"]')
+        self.assertEqual(node.locator('.node-activity').text_content(), 'Verified; publication pending')
+        self.assertEqual(node.locator('.node-saved').text_content(), 'Saved: proved')
+        self.assertIn('worker hoa93', node.text_content())
+        self.assertNotIn('Worker active', node.text_content())
+        child.update(pr_url='https://github.com/o/r/pull/632', pr_state='open')
+        self.page.evaluate('window.testRefresh()')
+        self.assertEqual(node.locator('.node-activity').text_content(), 'Verified; merge pending')
+        child.update(pr_state='merged', merge_commit='a'*40, integrated=True)
+        self.page.evaluate('window.testRefresh()')
+        self.assertEqual(node.locator('.node-activity').text_content(), 'Verified and merged')
+        self.assertIn('worker hoa93', node.text_content())  # Finishing a job is still observable.
+        child.update(observed_running=False, worker_node='')
+        self.page.evaluate('window.testRefresh()')
+        self.assertEqual(node.locator('.node-activity').text_content(), 'Verified and merged')
+        self.assertNotIn('worker hoa93', node.text_content())
+        self.assertEqual(self.errors, [])
+
+    def test_proved_without_worker_or_with_closed_pr_does_not_invent_completion(self):
+        self.add_graphs()
+        root = self.problems[0]['nodes'][0]
+        root.update(status='proved', observed_running=False, integrated=False, pr_url='')
+        self.open_graphs()
+        node = self.page.locator('a[data-node-id="fermat-p01/root"]')
+        self.assertEqual(node.locator('.node-activity').text_content(), 'Verified; publication pending')
+        self.assertIn('Verified; publication pending', self.page.locator('#problems .state').first.inner_text())
+        root.update(pr_url='https://github.com/o/r/pull/2', pr_state='closed')
+        self.page.evaluate('window.testRefresh()')
+        self.assertEqual(node.locator('.node-activity').text_content(), 'Verified; PR closed unmerged')
+        self.assertNotIn('Verified and merged', node.text_content())
+        self.mode = 'offline'
+        self.page.evaluate('Date.now = () => ' + str(int((datetime.now(timezone.utc).timestamp()+181)*1000)))
+        self.page.evaluate('window.testRefresh()')
+        self.assertEqual(node.locator('.node-activity').text_content(), 'Activity observation stale')
+        self.assertEqual(self.errors, [])
+
     def test_comparing_distinguishes_queued_running_and_unobserved_checks(self):
         self.add_graphs()
         observed = datetime.now(timezone.utc).timestamp()
