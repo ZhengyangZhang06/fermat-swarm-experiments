@@ -1,0 +1,32 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "class HopfAlgebra|structure HopfAlgebra|def hopfKer|def coaction|HopfKerHopf|p05_hte_stable_subalgebra_hopf_structure"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Basic.lean"
+      ],
+      "conclusion": "Inspected the frozen coaction, hopfKer, and HopfAlgebra definitions. No HopfKerHopf declarations or tracked-name collision appeared in the inspected files. Project and mathlib checkouts were clean at the manifest revisions; the project definition matched the candidate exactly. The comparator confirmed pinned dependencies and permitted transitive axioms."
+    }
+  ],
+  "comparison_identity": "3fd3be367dfb43ad7eda6774b70fa5d1cdb1b47b354145db69ea0689e0b2496b",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p05_hte_stable_subalgebra_hopf_structure_a5b449214a",
+      "statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (D : Subalgebra k H) (hΔ : ∀ x ∈ D, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ D, ∃ b ∈ D, t = TensorProduct.tmul k a b}) (hS : ∀ x ∈ D, HopfAlgebra.antipode k x ∈ D), ∃ hD : HopfAlgebra k D, hD.toHopfAlgebraStruct.toBialgebra.toAlgebra = (inferInstance : Algebra k D) ∧ (letI : Algebra k D := hD.toHopfAlgebraStruct.toBialgebra.toAlgebra; letI : Module k D := Algebra.toModule; letI : HopfAlgebra k D := hD; ∃ ι : BialgHom k D H, (∀ d : D, ι d = (d : H)) ∧ ∀ d : D, ((HopfAlgebra.antipode k d : D) : H) = HopfAlgebra.antipode k (d : H))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Composes the accepted bialgebra-restriction and antipode-lift declarations, preserving the existing algebra structure and inclusion."
+    }
+  ]
+}
