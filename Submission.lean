@@ -3071,6 +3071,21 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
     have hψ (σ : J) : ‖ψ σ‖ = 1 := by
       change ‖ω ^ (k.val * (code σ).val)‖ = 1
       rw [norm_pow, hω.norm'_eq_one hm.ne', one_pow]
+    have hψsum : ∑ σ : J, ψ σ = 0 := by
+      have hmone : m ≠ 1 := by
+        have := k.isLt
+        omega
+      let t : J := e (Multiplicative.ofAdd (1 : ZMod m))
+      have ht : ψ t ≠ 1 := by
+        change ω ^ (k.val * (code t).val) ≠ 1
+        have hcodeT : code t = 1 := by simp [code, t]
+        rw [hcodeT, ZMod.val_one'' hmone, mul_one]
+        exact hω.pow_ne_one_of_pos_of_lt hk k.isLt
+      have hshift : (∑ σ : J, ψ (t * σ)) = ∑ σ : J, ψ σ :=
+        Fintype.sum_equiv (Equiv.mulLeft t) _ _ (fun _ => rfl)
+      simp_rw [map_mul] at hshift
+      rw [← Finset.mul_sum] at hshift
+      exact (mul_left_eq_self₀.mp hshift).resolve_left ht
     let w : Ideal O →*₀ ℂ :=
       { toFun := fun I => if hI : I = 0 then 0 else
           ψ (A ⟨I, mem_nonZeroDivisors_iff_ne_zero.mpr hI⟩)
@@ -3159,6 +3174,107 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
     let Sgood : ℝ → ℂ := fun s => ∑' I : Ideal O,
       if (absNorm I).Coprime q then
         w I * Complex.ofReal (Real.rpow (absNorm I : ℝ) (-s)) else 0
+    -- Step 24: group the prime-to-q ideal series by its finite class and norm.
+    have hClassSeries (C : Type) [Fintype C] (cls : Ideal O → C)
+        (good : Ideal O → Prop) (θ : C → ℂ) (s : ℝ) (hs : 1 < s) :
+        (∑' I : Ideal O, if good I then
+          θ (cls I) * Complex.ofReal (Real.rpow (absNorm I : ℝ) (-s)) else 0) =
+        ∑ c : C, θ c * LSeries
+          (fun n => (Nat.card {I : {I : Ideal O // good I ∧ cls I = c} //
+            absNorm I.1 = n} : ℂ)) (s : ℂ) := by
+      let weight : Ideal O → ℂ := fun I =>
+        Complex.ofReal (Real.rpow (absNorm I : ℝ) (-s))
+      have hweight : Summable weight := Complex.summable_ofReal.mpr (hIdealSeries s hs).1
+      let piece : C → Ideal O → ℂ := fun c I =>
+        if good I ∧ cls I = c then weight I else 0
+      have hpiece (c : C) : Summable (piece c) := by
+        apply (hweight.indicator {I | good I ∧ cls I = c}).congr
+        intro I
+        simp [piece, Set.indicator_apply]
+      have hclass (c : C) : (∑' I : Ideal O, piece c I) = LSeries
+          (fun n => (Nat.card {I : {I : Ideal O // good I ∧ cls I = c} //
+            absNorm I.1 = n} : ℂ)) (s : ℂ) := by
+        let X := {I : Ideal O // good I ∧ cls I = c}
+        have hsub : Summable (fun I : X => weight I.1) :=
+          hweight.subtype _
+        have hfinite (n : ℕ) : Finite {I : X // absNorm I.1 = n} := by
+          let : Fintype {I : Ideal O // absNorm I = n} :=
+            (finite_setOfPred_absNorm_eq n).fintype
+          apply Finite.of_injective
+            (fun I => (⟨I.1.1, I.2⟩ : {I : Ideal O // absNorm I = n}))
+          intro I K h
+          apply Subtype.ext
+          apply Subtype.ext
+          exact congrArg (fun I : {I : Ideal O // absNorm I = n} => I.1) h
+        have hgroup := (hsub.hasSum.tsum_fiberwise (fun I : X => absNorm I.1)).tsum_eq
+        have hrestrict : (∑' I : Ideal O, piece c I) = ∑' I : X, weight I.1 := by
+          simpa [piece, Set.indicator_apply, X, Set.coe_eq_subtype] using
+            (tsum_subtype {I : Ideal O | good I ∧ cls I = c} weight).symm
+        rw [hrestrict, ← hgroup]
+        apply tsum_congr
+        intro n
+        change (∑' I : {I : X // absNorm I.1 = n}, weight I.1.1) = _
+        let : Fintype {I : X // absNorm I.1 = n} := Fintype.ofFinite _
+        have hconstant : (fun I : {I : X // absNorm I.1 = n} => weight I.1.1) =
+            fun _ => Complex.ofReal (Real.rpow (n : ℝ) (-s)) := by
+          funext I
+          simp only [weight, I.2]
+        rw [hconstant, tsum_fintype, Finset.sum_const, Finset.card_univ, nsmul_eq_mul]
+        rw [LSeries.term_of_ne_zero' (Complex.ofReal_ne_zero.mpr (by linarith))]
+        rw [Real.rpow_eq_pow, Complex.ofReal_cpow (Nat.cast_nonneg n),
+          Complex.ofReal_neg, Complex.ofReal_natCast, Complex.cpow_neg,
+          div_eq_mul_inv, Nat.card_eq_fintype_card]
+      simp_rw [← hclass, ← tsum_mul_left]
+      rw [← Summable.tsum_finsetSum (fun c _ => (hpiece c).mul_left (θ c))]
+      apply tsum_congr
+      intro I
+      by_cases hI : good I
+      · simp [piece, hI, weight]
+      · simp [piece, hI]
+    let classOf : Ideal O → J := fun I =>
+      if hI : I = 0 then 1 else A ⟨I, mem_nonZeroDivisors_iff_ne_zero.mpr hI⟩
+    let classCount : J → ℕ → ℝ := fun σ n =>
+      Nat.card {I : {I : Ideal O // (absNorm I).Coprime q ∧ classOf I = σ} //
+        absNorm I.1 = n}
+    have hclassExpansion (s : ℝ) (hs : 1 < s) :
+        Sgood s = ∑ σ : J, ψ σ * LSeries (fun n => (classCount σ n : ℂ)) (s : ℂ) := by
+      have hexpand := hClassSeries J classOf (fun I => (absNorm I).Coprime q) ψ s hs
+      have hweights (I : Ideal O) (hI : (absNorm I).Coprime q) : w I = ψ (classOf I) := by
+        have hIzero : I ≠ 0 := by
+          intro hzero
+          exact hq.ne_one (by simpa [hzero] using hI)
+        simpa only [classOf, dif_neg hIzero] using hwval I hIzero
+      calc
+        Sgood s = ∑' I : Ideal O, if (absNorm I).Coprime q then
+            ψ (classOf I) * Complex.ofReal (Real.rpow (absNorm I : ℝ) (-s)) else 0 := by
+          apply tsum_congr
+          intro I
+          split_ifs with hI
+          · rw [hweights I hI]
+          · rfl
+        _ = _ := by
+          convert hexpand using 1
+          · apply tsum_congr
+            intro I
+            split_ifs <;> rfl
+          · simp only [classCount, Complex.ofReal_natCast]
+    have hcontinuationOfCount (κ α : ℝ) (hα₀ : 0 ≤ α) (hα₁ : α < 1)
+        (hcount : ∀ σ : J, ∃ R : ℝ, 0 ≤ R ∧ ∀ n : ℕ, 1 ≤ n →
+          |(∑ j ∈ Finset.Icc 1 n, classCount σ j) - κ * (n : ℝ)| ≤
+            R * (n : ℝ) ^ α) :
+        ∃ H : ℂ → ℂ, DifferentiableOn ℂ H {z : ℂ | α < z.re} ∧
+          ContinuousWithinAt (fun s : ℝ => H s) (Set.Ici 1) 1 ∧
+          ∀ s : ℝ, 1 < s → Sgood s = H s := by
+      obtain ⟨H, hH, heq⟩ := hrayContinuation J classCount κ α
+        (fun _ _ => Nat.cast_nonneg _) hα₀ hα₁ hcount ψ hψsum
+      refine ⟨H, hH, ?_, ?_⟩
+      · have hHone : ContinuousAt H 1 :=
+          (hH.differentiableAt (IsOpen.mem_nhds
+            (isOpen_lt continuous_const Complex.continuous_re) hα₁)).continuousAt
+        exact (ContinuousAt.comp_of_eq (f := Complex.ofReal) (x := (1 : ℝ))
+          hHone Complex.continuous_ofReal.continuousAt Complex.ofReal_one).continuousWithinAt
+      · intro s hs
+        exact (hclassExpansion s hs).trans (heq (s : ℂ) hs)
     let factor : ℝ → ℂ := fun s => ∏ v ∈ T,
       (1 - w v.asIdeal * Complex.ofReal (Real.rpow (N v : ℝ) (-s)))
     have hfactorContinuous : Continuous factor := by
