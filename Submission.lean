@@ -1244,3 +1244,12 @@ theorem Submission.p03_ptf_finite_kernel_of_nsmul_nonzero_c5b7b5ed_d6 :
     · refine ⟨T, ?_⟩
       simpa only [add_nsmul, mul_nsmul, hT2, nsmul_zero, one_nsmul,
         zero_add] using hT
+
+
+theorem Submission.p03_tkc_positive_torsion_finite_68cf3476_d5 :
+    ∀ (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k]
+      (W : WeierstrassCurve k), W.Δ ≠ 0 → ∀ n : ℕ, 0 < n →
+        Finite {P : W.toAffine.Point // n • P = 0} := by
+  intro k _ _ _ _ W hΔ n hn
+  exact Submission.p03_ptf_finite_kernel_of_nsmul_nonzero_c5b7b5ed_d6 k W hΔ n
+    (Submission.p03_ptf_positive_nsmul_nonzero_c5b7b5ed_d6 k W hΔ n hn)
