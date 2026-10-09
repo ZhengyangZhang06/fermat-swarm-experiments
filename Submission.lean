@@ -4621,3 +4621,72 @@ theorem Submission.p10_17ae7b7d_to_cusp_count_factorization :
       intro p hp
       exact Submission.p10_17ae7b7d_ccf_prime_power p (N.factorization p)
         (Nat.prime_of_mem_primeFactors hp)
+
+
+theorem Submission.p10_17ae7b7d_cc_translation_orbits :
+    ∀ (N : ℕ) [NeZero N],
+      let Q := (Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 N
+      Nat.card (Quotient (MulAction.orbitRel (Subgroup.zpowers ModularGroup.T) Q)) =
+        ModularCurve.cuspCount N := by
+  intro N _
+  classical
+  let count := fun n : ℕ =>
+    Nat.card (Quotient (MulAction.orbitRel (Subgroup.zpowers ModularGroup.T)
+      ((Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 n)))
+  -- The empty prime-power product has a single coset and hence a single orbit.
+  have hOne : count 1 = 1 := by
+    have hGamma : CongruenceSubgroup.Gamma0 1 = ⊤ := by
+      ext A
+      simp only [CongruenceSubgroup.Gamma0_mem, Subgroup.mem_top, iff_true]
+      exact Subsingleton.elim _ _
+    dsimp [count]
+    rw [hGamma]
+    have : Subsingleton ((Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸
+        (⊤ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ))) :=
+      QuotientGroup.subsingleton_quotient_top
+    exact Nat.card_unique
+  -- Assemble the local counts over any subset of the prime factors of N.
+  have hProduct : ∀ s : Finset ℕ, s ⊆ N.primeFactors →
+      count (s.prod (fun p => p ^ N.factorization p)) =
+        s.prod (fun p => (Finset.range (N.factorization p + 1)).sum
+          (fun j => Nat.totient (p ^ min j (N.factorization p - j)))) := by
+    intro s
+    induction s using Finset.induction_on with
+    | empty =>
+        intro _
+        simpa only [Finset.prod_empty] using hOne
+    | @insert p s hp ih =>
+        intro hs
+        have hpN : p ∈ N.primeFactors := hs (Finset.mem_insert_self p s)
+        have hsN : s ⊆ N.primeFactors := fun q hq => hs (Finset.mem_insert_of_mem hq)
+        have hPrime : p.Prime := Nat.prime_of_mem_primeFactors hpN
+        have hExponent : 1 ≤ N.factorization p :=
+          hPrime.factorization_pos_of_dvd (NeZero.ne N)
+            (Nat.dvd_of_mem_primeFactors hpN)
+        have : NeZero (p ^ N.factorization p) := ⟨pow_ne_zero _ hPrime.ne_zero⟩
+        have : NeZero (s.prod (fun q => q ^ N.factorization q)) :=
+          ⟨Finset.prod_ne_zero_iff.mpr (fun q hq =>
+            pow_ne_zero _ (Nat.prime_of_mem_primeFactors (hsN hq)).ne_zero)⟩
+        have hCoprime : Nat.Coprime (p ^ N.factorization p)
+            (s.prod (fun q => q ^ N.factorization q)) := by
+          apply Nat.coprime_prod_right_iff.mpr
+          intro q hq
+          apply Nat.Coprime.pow
+          apply (Nat.coprime_primes hPrime (Nat.prime_of_mem_primeFactors (hsN hq))).mpr
+          intro hpq
+          exact hp (hpq.symm ▸ hq)
+        rw [Finset.prod_insert hp, Finset.prod_insert hp]
+        calc
+          count (p ^ N.factorization p * s.prod (fun q => q ^ N.factorization q)) =
+              count (p ^ N.factorization p) *
+                count (s.prod (fun q => q ^ N.factorization q)) :=
+            Submission.p10_17ae7b7d_to_coprime_count_mul _ _ hCoprime
+          _ = _ := congrArg₂ (fun a b : ℕ => a * b)
+            (Submission.p10_17ae7b7d_to_prime_power_count p (N.factorization p)
+              hPrime hExponent) (ih hsN)
+  change count N = ModularCurve.cuspCount N
+  rw [Submission.p10_17ae7b7d_to_cusp_count_factorization N]
+  calc
+    count N = count (N.primeFactors.prod (fun p => p ^ N.factorization p)) :=
+      congrArg count (Nat.prod_primeFactors_pow_factorization (NeZero.ne N))
+    _ = _ := hProduct N.primeFactors (Finset.Subset.refl _)
