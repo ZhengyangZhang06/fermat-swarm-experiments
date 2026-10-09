@@ -13138,8 +13138,8 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     apply Complex.ofReal_injective
     push_cast at hresult ⊢
     exact hresult
-  filter_upwards [hsmallCuts, hcutZeros, hparametrizedExcisionBoundary, hpairedLowerIntegral]
-    with ε hε hzeros hexc hlower
+  filter_upwards [hsmallCuts, hcutZeros, hparametrizedExcisionBoundary, hpairedLowerIntegral,
+    hcutsBelowTop] with ε hε hzeros hexc hlower hbelowTop
   obtain ⟨r, δ, hr, hδ, hVopen, hVcompact, hVzeroFree, hVfrontier,
     hcircles, hmesh, hcells⟩ := hexc
   have hexcisionSum :
@@ -13198,6 +13198,13 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
       gridCells.Finite ∧ closure V ⊆ ⋃ i ∈ gridCells, gridSquare i ∧
         ∀ i ∈ gridCells, Complex.IsExactOn L (gridSquare i) :=
     htranslatedMesh (closure V) hVcompact δ d hd hdδ hmesh a
+  -- Fix one primitive in each occupied cell so all incident pieces use
+  -- the same endpoint values when the finite boundary sums are assembled.
+  let cellPrimitive : (ℤ × ℤ) → ℂ → ℂ := fun i =>
+    if hi : i ∈ gridCells then Classical.choose (hgridPrimitives i hi) else fun _ => 0
+  have hcellPrimitive (i : ℤ × ℤ) (hi : i ∈ gridCells) :
+      ∀ z ∈ gridSquare i, HasDerivAt (cellPrimitive i) (L z) z := by
+    simpa only [cellPrimitive, dif_pos hi] using Classical.choose_spec (hgridPrimitives i hi)
   let gridVertex : ℤ × ℤ → ℂ := fun i =>
     ((a.re + i.1 * d : ℝ) : ℂ) + ((a.im + i.2 * d : ℝ) : ℂ) * Complex.I
   have hgridVerticalLeft : ∀ n : ℤ, a.re + n * d ≠ -1 / 2 := by
@@ -14146,17 +14153,17 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
       (hfront : ∀ t ∈ Set.Icc u v, η t ∈ frontier V)
       (hinj : Set.InjOn η (Set.Ioo u v)) :
       ∃ (cuts : Finset ℝ) (pieces : Finset (ℝ × ℝ))
-        (cell : (ℝ × ℝ) → ℤ × ℤ) (g : (ℝ × ℝ) → ℂ → ℂ),
+        (cell : (ℝ × ℝ) → ℤ × ℤ),
         u ∈ cuts ∧ v ∈ cuts ∧ (∀ t ∈ cuts, t ∈ Set.Icc u v) ∧
         pieces = (cuts ×ˢ cuts).filter
           (fun p => p.1 < p.2 ∧ ∀ t ∈ cuts, t ≤ p.1 ∨ p.2 ≤ t) ∧
         (∀ p ∈ pieces, cell p ∈ gridCells ∧
           (∀ t ∈ Set.Icc p.1 p.2, η t ∈ gridSquare (cell p)) ∧
-          (∀ z ∈ gridSquare (cell p), HasDerivAt (g p) (L z) z) ∧
+          (∀ z ∈ gridSquare (cell p), HasDerivAt (cellPrimitive (cell p)) (L z) z) ∧
           intervalIntegral (fun t => L (η t) * deriv η t) p.1 p.2 MeasureTheory.volume =
-            g p (η p.2) - g p (η p.1)) ∧
+            cellPrimitive (cell p) (η p.2) - cellPrimitive (cell p) (η p.1)) ∧
         intervalIntegral (fun t => L (η t) * deriv η t) u v MeasureTheory.volume =
-          ∑ p ∈ pieces, (g p (η p.2) - g p (η p.1)) := by
+          ∑ p ∈ pieces, (cellPrimitive (cell p) (η p.2) - cellPrimitive (cell p) (η p.1)) := by
     have hfinite : {t ∈ Set.Ioo u v | η t ∈ gridCrossings}.Finite := by
       have himage : (η '' {t ∈ Set.Ioo u v | η t ∈ gridCrossings}).Finite := by
         apply hgridCrossingsFinite'.subset
@@ -14183,11 +14190,11 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
       exact (((hLan _ (hKH hK) (hVzeroFree _ hcl)).continuousAt.comp
         hη.continuous.continuousAt).mul
           hη.continuous_deriv_one.continuousAt).continuousWithinAt
-    have hcert : ∀ p : ℝ × ℝ, ∃ (i : ℤ × ℤ) (g : ℂ → ℂ), p ∈ pieces →
+    have hcert : ∀ p : ℝ × ℝ, ∃ i : ℤ × ℤ, p ∈ pieces →
         i ∈ gridCells ∧ (∀ t ∈ Set.Icc p.1 p.2, η t ∈ gridSquare i) ∧
-        (∀ z ∈ gridSquare i, HasDerivAt g (L z) z) ∧
+        (∀ z ∈ gridSquare i, HasDerivAt (cellPrimitive i) (L z) z) ∧
         intervalIntegral (fun t => L (η t) * deriv η t) p.1 p.2 MeasureTheory.volume =
-          g (η p.2) - g (η p.1) := by
+          cellPrimitive i (η p.2) - cellPrimitive i (η p.1) := by
       intro p
       by_cases hp : p ∈ pieces
       · obtain ⟨hpp, hlt, hgap⟩ := Finset.mem_filter.mp hp
@@ -14202,17 +14209,17 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
           rcases hgap t hcut with h | h <;> linarith only [h, ht.1, ht.2]
         obtain ⟨i, hi, hpath⟩ := hpathOneCell η hη.continuous p.1 p.2 hlt
           (fun t ht => hfront t (hsub ht)) havoid
-        obtain ⟨g, hg⟩ := hgridPrimitives i hi
-        refine ⟨i, g, fun _ => ⟨hi, hpath, hg, ?_⟩⟩
-        apply hprimitiveIntegral (gridSquare i) g hg η (deriv η) p.1 p.2
+        refine ⟨i, fun _ => ⟨hi, hpath, hcellPrimitive i hi, ?_⟩⟩
+        apply hprimitiveIntegral (gridSquare i) (cellPrimitive i) (hcellPrimitive i hi)
+          η (deriv η) p.1 p.2
         · intro t ht
           exact hpath t (by simpa only [Set.uIcc_of_le hlt.le] using ht)
         · intro t _
           exact ((hη.differentiable (by norm_num)) t).hasDerivAt
         · exact hint.mono_set (by simpa only [Set.uIcc_of_le hlt.le, Set.uIcc_of_le huv.le] using hsub)
-      · exact ⟨(0, 0), fun _ => 0, fun h => (hp h).elim⟩
-    choose cell g hcert using hcert
-    refine ⟨cuts, pieces, cell, g, (hcuts u).mpr (Or.inl rfl),
+      · exact ⟨(0, 0), fun h => (hp h).elim⟩
+    choose cell hcert using hcert
+    refine ⟨cuts, pieces, cell, (hcuts u).mpr (Or.inl rfl),
       (hcuts v).mpr (Or.inr (Or.inl rfl)), hbounds, rfl, hcert, ?_⟩
     calc
       _ = ∑ p ∈ pieces, intervalIntegral (fun t => L (η t) * deriv η t)
@@ -14594,6 +14601,172 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     exact hgenuineSubdivision (outerPath j) (houterSmooth j) p.1 p.2 hb.2.1
       ((houterCertificate j).2.2.2.2.2.2.1 p hp)
       ((houterInjective j).mono (Set.Ioo_subset_Ioo hb.1 hb.2.2))
+  -- Express the actual four outer contour terms with their positive-boundary
+  -- orientations: clockwise lower arc, upward right side, leftward top,
+  -- and downward left side.
+  let outerSign : Fin 4 → ℂ := ![-1, 1, -1, -1]
+  let outerIntegral : Fin 4 → ℂ := fun j =>
+    intervalIntegral (fun t => if outerPath j t ∈ removed ε then 0 else
+      L (outerPath j t) * deriv (outerPath j) t)
+      (outerLo j) (outerHi j) MeasureTheory.volume
+  have houterIntegralSubdivision (j : Fin 4) :
+      outerIntegral j = ∑ p ∈ outerRetained j,
+        intervalIntegral (fun t => L (outerPath j t) * deriv (outerPath j) t)
+          p.1 p.2 MeasureTheory.volume :=
+    (houterCertificate j).2.2.2.2.2.2.2
+  have houterDeriv (t : ℝ) :
+      deriv (outerPath 0) t = Complex.I * circleMap 0 1 t ∧
+      deriv (outerPath 1) t = Complex.I ∧
+      deriv (outerPath 2) t = 1 ∧
+      deriv (outerPath 3) t = Complex.I := by
+    have hvertical (x : ℂ) :
+        HasDerivAt (fun t : ℝ => x + (t : ℂ) * Complex.I) Complex.I t := by
+      simpa using (((hasDerivAt_id t).ofReal_comp).mul_const Complex.I).const_add x
+    have htop : HasDerivAt (fun t : ℝ => (t : ℂ) + (Y : ℂ) * Complex.I) 1 t := by
+      simpa using ((hasDerivAt_id t).ofReal_comp).add_const ((Y : ℂ) * Complex.I)
+    refine ⟨?_, (hvertical _).deriv, htop.deriv, (hvertical _).deriv⟩
+    change deriv (circleMap 0 1) t = _
+    simp [mul_comm]
+  have htopNotRemoved (t : ℝ) : outerPath 2 t ∉ removed ε := by
+    intro hmem
+    obtain ⟨v, hv, htv⟩ := Set.mem_iUnion₂.mp hmem
+    have hlt := hbelowTop v hv.1 htv
+    change (outerPath 2 t).im < Y at hlt
+    simp [outerPath] at hlt
+  have houterContour :
+      intervalIntegral (retainedArc ε) (2 * Real.pi / 3) (Real.pi / 3)
+          MeasureTheory.volume + verticalContribution ε + top Y =
+        ∑ j : Fin 4, outerSign j * outerIntegral j := by
+    have hbottom : intervalIntegral (retainedArc ε)
+        (2 * Real.pi / 3) (Real.pi / 3) MeasureTheory.volume = -outerIntegral 0 := by
+      rw [intervalIntegral.integral_symm]
+      congr 1
+      apply intervalIntegral.integral_congr
+      intro t _
+      change (if outerPath 0 t ∈ removed ε then 0 else
+        L (outerPath 0 t) * (Complex.I * circleMap 0 1 t)) =
+          (if outerPath 0 t ∈ removed ε then 0 else
+            L (outerPath 0 t) * deriv (outerPath 0) t)
+      rw [(houterDeriv t).1]
+    have hright : outerIntegral 1 = intervalIntegral (fun t : ℝ =>
+        if ((1 / 2 : ℂ) + (t : ℂ) * Complex.I) ∈ removed ε then 0 else
+          L ((1 / 2 : ℂ) + (t : ℂ) * Complex.I) * Complex.I)
+        (Real.sqrt 3 / 2) Y MeasureTheory.volume := by
+      apply intervalIntegral.integral_congr
+      intro t _
+      dsimp only
+      rw [(houterDeriv t).2.1]
+      rfl
+    have hleft : intervalIntegral (fun t : ℝ =>
+        if ((-1 / 2 : ℂ) + (t : ℂ) * Complex.I) ∈ removed ε then 0 else
+          L ((-1 / 2 : ℂ) + (t : ℂ) * Complex.I) * Complex.I)
+        Y (Real.sqrt 3 / 2) MeasureTheory.volume = -outerIntegral 3 := by
+      rw [intervalIntegral.integral_symm]
+      congr 1
+      apply intervalIntegral.integral_congr
+      intro t _
+      dsimp only
+      rw [(houterDeriv t).2.2.2]
+      rfl
+    have htop : top Y = -outerIntegral 2 := by
+      rw [show top Y = -intervalIntegral
+          (fun t : ℝ => L ((t : ℂ) + (Y : ℂ) * Complex.I))
+          (-1 / 2) (1 / 2) MeasureTheory.volume from intervalIntegral.integral_symm _ _]
+      congr 1
+      apply intervalIntegral.integral_congr
+      intro t _
+      dsimp only
+      rw [if_neg (htopNotRemoved t), (houterDeriv t).2.2.1, mul_one]
+      rfl
+    rw [hbottom, htop]
+    change -outerIntegral 0 + (_ + _) + -outerIntegral 2 = _
+    rw [← hright, hleft]
+    simp only [Fin.sum_univ_succ, outerSign, Matrix.cons_val_zero,
+      Matrix.cons_val_succ, Fin.sum_univ_zero, add_zero, neg_one_mul, one_mul]
+    change -outerIntegral 0 + (outerIntegral 1 + -outerIntegral 3) + -outerIntegral 2 =
+      -outerIntegral 0 + (outerIntegral 1 + (-outerIntegral 2 + -outerIntegral 3))
+    ring
+  choose outerGridCuts outerGridPieces outerGridCell houterGridCertificate using
+    (fun (j : Fin 4) (p : {p // p ∈ outerRetained j}) =>
+      houterGridSubdivision j p.1 p.2)
+  let outerEndpoints : ℂ := ∑ j : Fin 4, outerSign j *
+    ∑ p : {p // p ∈ outerRetained j}, ∑ q ∈ outerGridPieces j p,
+      (cellPrimitive (outerGridCell j p q) (outerPath j q.2) -
+        cellPrimitive (outerGridCell j p q) (outerPath j q.1))
+  have houterEndpointSum :
+      intervalIntegral (retainedArc ε) (2 * Real.pi / 3) (Real.pi / 3)
+          MeasureTheory.volume + verticalContribution ε + top Y = outerEndpoints := by
+    rw [houterContour]
+    apply Finset.sum_congr rfl
+    intro j _
+    apply congrArg (outerSign j * ·)
+    rw [houterIntegralSubdivision, ← Finset.sum_coe_sort]
+    apply Finset.sum_congr rfl
+    intro p _
+    exact (houterGridCertificate j p).2.2.2.2.2
+  let : Fintype {v // v ∈ B} := hBfinite.fintype
+  choose indentationCuts indentationPieces indentationCell hindentationCertificate using
+    (fun v : {v // v ∈ B} => hindentationSubdivision v.1 v.2)
+  let indentationEndpoints : ℂ := -∑ v : {v // v ∈ B}, ∑ p ∈ indentationPieces v,
+    (cellPrimitive (indentationCell v p) (γ v.1 ε p.2) -
+      cellPrimitive (indentationCell v p) (γ v.1 ε p.1))
+  have hindentationEndpointSum :
+      (∑ v ∈ hBfinite.toFinset, indent v (fun _ => cutStart v) (fun _ => cutEnd v) ε) =
+        indentationEndpoints := by
+    rw [Finset.sum_subtype hBfinite.toFinset (fun v => hBfinite.mem_toFinset)]
+    change _ = -(∑ v : {v // v ∈ B}, _)
+    rw [← Finset.sum_neg_distrib]
+    apply Finset.sum_congr rfl
+    intro v _
+    change intervalIntegral _ (cutStart v.1) (cutEnd v.1) MeasureTheory.volume = _
+    rw [intervalIntegral.integral_symm, (hindentationCertificate v).2.2.2.2.2]
+  let : Fintype {v // v ∈ S} := hSfinite.fintype
+  choose excisionCuts excisionPieces excisionCell hexcisionCertificate using
+    (fun v : {v // v ∈ S} => hcircleSubdivision v.1 v.2)
+  let excisionEndpoints : ℂ := -∑ v : {v // v ∈ S}, ∑ p ∈ excisionPieces v,
+    (cellPrimitive (excisionCell v p) (circleMap v.1 r p.2) -
+      cellPrimitive (excisionCell v p) (circleMap v.1 r p.1))
+  have hexcisionEndpointSum :
+      (∑ v ∈ hOzerosFinite.toFinset,
+        intervalIntegral (fun t => L (circleMap v r t) * deriv (circleMap v r) t)
+          (2 * Real.pi) 0 MeasureTheory.volume) = excisionEndpoints := by
+    rw [Finset.sum_subtype hOzerosFinite.toFinset (fun v =>
+      show v ∈ hOzerosFinite.toFinset ↔ v ∈ S by
+        simp only [S, hzeros, Set.Finite.mem_toFinset])]
+    change _ = -(∑ v : {v // v ∈ S}, _)
+    rw [← Finset.sum_neg_distrib]
+    apply Finset.sum_congr rfl
+    intro v _
+    rw [intervalIntegral.integral_symm, (hexcisionCertificate v).2.2.2.2.2]
+  have hretainedIntegralEndpoint (e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ))
+      (he : e ∈ retainedGridPieces) :
+      retainedIntegral e =
+        cellPrimitive e.1 (cellEdge e.1 e.2.1 e.2.2.2) -
+          cellPrimitive e.1 (cellEdge e.1 e.2.1 e.2.2.1) := by
+    obtain ⟨hi, hp⟩ := (hretainedGridMem e).mp he
+    have hb := (hedgePieceMem e.1 e.2.1 e.2.2).mp (Finset.mem_filter.mp hp).1
+    have hbound : Set.Icc e.2.2.1 e.2.2.2 ⊆ Set.Icc (0 : ℝ) 1 :=
+      Set.Icc_subset_Icc (hedgeCutsBounds e.1 e.2.1 hb.1).1
+        (hedgeCutsBounds e.1 e.2.1 hb.2.1).2
+    apply hprimitiveIntegral (gridSquare e.1) (cellPrimitive e.1) (hcellPrimitive e.1 hi)
+      (cellEdge e.1 e.2.1) (fun _ => cellVelocity e.1 e.2.1) e.2.2.1 e.2.2.2
+    · intro t ht
+      exact hcellEdgeMem e.1 e.2.1 t (hbound
+        (by simpa only [Set.uIcc_of_le hb.2.2.1.le] using ht))
+    · intro t _
+      exact hcellEdgeDeriv e.1 e.2.1 t
+    · apply ContinuousOn.intervalIntegrable_of_Icc hb.2.2.1.le
+      intro t ht
+      have hcl := hretainedPieceClosure e.1 e.2.1 e.2.2 hp t ht
+      have hK := hcutClosureK ε ((closure_mono (show V ⊆ Ω ε from fun _ hz => hz.1)) hcl)
+      exact (((hLan _ (hKH hK) (hVzeroFree _ hcl)).continuousAt.comp
+        (hcellEdgeContinuous e.1 e.2.1).continuousAt).mul continuousAt_const).continuousWithinAt
+  let gridEndpoints : ℂ := ∑ e ∈ retainedGridPieces,
+    (cellPrimitive e.1 (cellEdge e.1 e.2.1 e.2.2.2) -
+      cellPrimitive e.1 (cellEdge e.1 e.2.1 e.2.2.1))
+  have hgridEndpointSum :
+      (∑ e ∈ retainedGridPieces, retainedIntegral e) = gridEndpoints :=
+    Finset.sum_congr rfl hretainedIntegralEndpoint
   suffices hboundaryAssembly :
       intervalIntegral (retainedArc ε) (2 * Real.pi / 3) (Real.pi / 3)
           MeasureTheory.volume + verticalContribution ε + top Y +
@@ -14603,13 +14776,11 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
             (2 * Real.pi) 0 MeasureTheory.volume) =
         -(∑ e ∈ retainedGridPieces, retainedIntegral e) by
     rw [hboundaryAssembly, hretainedGridCancellation, neg_zero]
-  /- Remaining formal obligation: assemble the genuine subarcs with the
-  orientations of the actual contour terms and match their endpoints with
-  the occupied artificial edges. The finite retainedGridPieces family has
-  exact occupancy classification and cancels by reversal. The circle,
-  indentation and retained outer-arc subdivisions each have cell containment
-  and primitive endpoint formulas. Their oriented endpoint incidence and the
-  resulting equality hboundaryAssembly are still unproved. No contour
-  equality is assumed. -/
+  rw [houterEndpointSum, hindentationEndpointSum, hexcisionEndpointSum, hgridEndpointSum]
+  /- Remaining formal obligation: prove the directed endpoint incidence for
+  these concrete finite families. Every term now uses the fixed primitive
+  of its cell, with the actual outer, indentation, excision and artificial
+  edge orientations. The required balance of genuine and artificial endpoint
+  occurrences in each crossed cell is still unproved. -/
 
 end Submission
