@@ -2407,6 +2407,8 @@ theorem Submission.p09_af497904fe_csr_cyclotomic_prime_residue :
     let : B.IsPrime := hB
     let : B.LiesOver (Ideal.span {(q : ℤ)}) := hBq
     exact IsCyclotomicExtension.Rat.eq_span_zeta_sub_one_of_liesOver q 0 C hξ B
+
+
 theorem Submission.p09_af497904fe_cs_integer_root_product :
     ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ))
       [FiniteDimensional ℚ E] [IsGalois ℚ E] (α : E),
