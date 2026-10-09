@@ -1,0 +1,141 @@
+<!-- theorem-id: fermat-p09/root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1 -->
+
+## Theorem `Submission.p09_af497904fe_ff_cyclotomic_envelope`
+
+Let Ω = AlgebraicClosure ℚ. Let E be an intermediate field of Ω/ℚ, finite-dimensional and Galois over ℚ, and let g be a rational automorphism of E. There exist a finite-dimensional rational Galois intermediate field M of Ω, a rational algebra embedding ι : E → M, an intermediate field F of M/ℚ, a natural prime q, a primitive qth root ζ ∈ M, and an F-automorphism h of M such that M = F(ζ) and h(ι(x)) = ι(g(x)) for every x ∈ E.
+
+Node: `root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1`
+
+Root: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/9
+
+Parent: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/642
+
+Prerequisites: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/677
+
+Decomposition children: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/690, https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/691, https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/692, https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/693
+
+## Lean problem
+
+Declaration: `Submission.p09_af497904fe_ff_cyclotomic_envelope`
+
+```lean
+∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [IsGalois ℚ E] (g : E ≃ₐ[ℚ] E), ∃ M : IntermediateField ℚ (AlgebraicClosure ℚ), FiniteDimensional ℚ M ∧ IsGalois ℚ M ∧ ∃ (ι : E →ₐ[ℚ] M) (F : IntermediateField ℚ M) (q : ℕ) (ζ : M) (h : M ≃ₐ[F] M), q.Prime ∧ IsPrimitiveRoot ζ q ∧ IntermediateField.adjoin F ({ζ} : Set M) = ⊤ ∧ ∀ x : E, h (ι x) = ι (g x)
+```
+
+### Frozen project context
+
+`Fermat/Thm_GaloisRepAdic_exists_quadraticRelation_forall_of_frobenius.lean` at `20574e45daf714e745af8e649c7b61b21eed5644` supplies the original imports, definitions and root contract. Child hypotheses are stated above; prerequisite declarations are linked in their issues.
+
+```lean
+/-
+Copyright 2026 Anthropic, PBC. Licensed under Apache-2.0; see LICENSE.
+Source: https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_GaloisRepAdic_exists_quadraticRelation_forall_of_frobenius.lean
+Modified: replaced the proof with sorry and removed P2M proof imports.
+Requires the upstream Definitions modules and their dependencies.
+-/
+
+import Mathlib
+import Definitions.Def_GaloisRep_Adic
+attribute [-instance] AlgebraicClosure.Rat.isGalois FrobeniusDensity.liesOver_ratBelow FrobeniusDensity.isMaximal_ratPrimeIdeal Deep.NTSupply.instNormalRayClassSubgroup NumberField.NormResidueChar.fintype_G NumberField.NormResidueChar.finite_G
+attribute [-simp] TaylorWiles.Seed.mk.injEq TaylorWiles.Seed.mk.sizeOf_spec
+
+set_option autoImplicit false
+
+open IsLocalRing
+
+theorem GaloisRepAdic.exists_quadraticRelation_forall_of_frobenius
+    {𝒪 : Type} [CommRing 𝒪] [IsDomain 𝒪] [IsDiscreteValuationRing 𝒪]
+    [IsAdicComplete (maximalIdeal 𝒪) 𝒪] [CharZero 𝒪]
+    (p : ℕ) [Fact p.Prime] (hp𝒪 : (p : 𝒪) ∈ maximalIdeal 𝒪)
+    {R : Type} [CommRing R] [IsLocalRing R] [Algebra 𝒪 R] [Module.Finite 𝒪 R]
+    (hl : IsLocalHom (algebraMap 𝒪 R))
+    (ρ : GaloisRepAdic R)
+    {Y : Type} [AddCommGroup Y] [Module R Y] [Module 𝒪 Y] [IsScalarTower 𝒪 R Y] [Module.Finite 𝒪 Y]
+    (ρY : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) →* Module.End R Y)
+    (hcont : ∀ n : ℕ, ∃ F : IntermediateField ℚ (AlgebraicClosure ℚ), FiniteDimensional ℚ F ∧
+      ∀ σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ, (∀ x ∈ F, σ x = x) →
+        ∀ y : Y, ρY σ y - y ∈ (Ideal.span {(p : R)} ^ n • (⊤ : Submodule R Y)))
+    (L : ℕ) [NeZero L] (D : (ZMod L)ˣ →* Module.End R Y)
+    (hD : ∀ (u : (ZMod L)ˣ) (σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ), D u * ρY σ = ρY σ * D u)
+    (S₀ : Finset ℕ)
+    (hES : ∀ (ℓ : ℕ) (hℓ : ℓ.Prime), ℓ ∉ S₀ → ∀ (hℓL : ¬ ℓ ∣ L), ℓ ≠ p →
+      ∀ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ →
+        ∀ σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ, P.IsFrobeniusAt σ ℓ →
+          ρY σ * ρY σ - (ρ.trace σ) • ρY σ
+            + (ℓ : R) • D (ZMod.unitOfCoprime ℓ ((Nat.Prime.coprime_iff_not_dvd hℓ).mpr hℓL)) = 0) :
+    ∃ (c : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) →* Rˣ)
+      (χ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) →* (ZMod L)ˣ),
+      ∀ σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ,
+        ρY σ * ρY σ - (ρ.trace σ) • ρY σ + ((c σ : Rˣ) : R) • D (χ σ) = 0 := by
+  sorry
+```
+
+## Natural-language proof
+
+Reviewed mathematical argument; formal verification state: `proved`.
+
+# Parent-supplied natural-language proof
+
+- Parent DAG node: `root.frobenius_approximation-a1.finite_frobenius-a1`
+- Child DAG node: `root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1`
+- Review gate: accepted as part of the parent's decomposition audit
+
+## Proof
+
+1. Fix E and g. We use finite Galois correspondence with its degree assertions. These follow from separability, primitive elements, and orbit polynomials as follows. In characteristic zero, an irreducible polynomial is relatively prime to its nonzero derivative. Extending embeddings successively across algebraic generators gives as many embeddings as the degree. For two generators a,b, distinct embeddings agree on a + rb for at most one rational r unless their b-images agree, in which case they never agree there. Avoiding finitely many rational values and inducting gives a primitive element. In a finite Galois extension K/L, the |H| distinct translates of a primitive element under a subgroup H are roots of its minimal polynomial over K^H, while their orbit polynomial has coefficients in K^H. Thus [K:K^H] = |H|. Normality supplies [K:L′] automorphisms over each intermediate field L′, whose fixed field is therefore L′. Restriction and extension of embeddings give the usual correspondence. In particular Gal(E/ℚ) is finite; let m ≥ 1 be the order of g.
+2. Every finite multiplicative subgroup of a field is cyclic. Let d be the least common multiple of element orders. Powers of suitable elements give each maximal prime-power order dividing d, and their product has order d, since commuting elements of coprime orders have cyclic subgroups with trivial intersection. All group elements are roots of X^d−1, so the polynomial root bound gives at most d elements, exactly the number of powers of this product. In Ω, X^n−1 has n distinct roots for n > 0, so these roots form a cyclic group of order n. This also proves that (ℤ/qℤ)ˣ is cyclic for a prime q.
+3. The finite arithmetic needed to compare ramification can be obtained directly from integer rings. For a number field K, finitely many integral elements generate a finite ℤ-module algebra by reduction of powers using monic equations. Conversely, preservation of a nonzero finite module by multiplication by x gives a monic equation for x through the adjugate identity for its multiplication-relations matrix. This proves transitivity of integrality and integral closedness of O_K. A scaled rational basis consists of integral elements. The trace pairing is nondegenerate, since on a primitive power basis its determinant is the square of a nonzero conjugate Vandermonde determinant. Traces of integral elements are rational integers. Consequently O_K lies between the scaled-basis lattice and its trace-dual lattice. Subgroups of ℤ^d are finite free by projection to a coordinate and induction on its kernel. Hence O_K is finite free of rank [K:ℚ], is Noetherian, and has fraction field K by denominator clearing. A nonzero prime contains a nonzero rational integer, obtained from the constant term of an integral element's minimal polynomial, and therefore contains a rational prime. Its quotient is a finite domain and hence a field.
+4. Localization at a nonzero prime of O_K is a discrete valuation ring. It is a one-dimensional Noetherian integrally closed local domain A. Integral closedness localizes by clearing denominators in a monic equation. For its maximal ideal 𝔪 and 0 ≠ a ∈ 𝔪, the radical of (a) is 𝔪. Finite generation gives a least n with 𝔪^n ⊆ (a). If n = 1, 𝔪 = (a). Otherwise choose b ∈ 𝔪^(n−1) outside (a), and set x = b/a. Then x𝔪 ⊆ A but x ∉ A. Preservation of 𝔪 would make x integral by the determinant argument, so xy is a unit for some y ∈ 𝔪. For every z ∈ 𝔪, z/y = (xz)/(xy) lies in A, proving 𝔪 = (y). A nonzero element cannot be divisible by every power of y, since the ascending ideals generated by successive quotients would stabilize and make y a unit. Thus the local ring is a discrete valuation ring. Minima of the valuations of finite ideal generators give prime factorization of ideals: only finitely many primes occur, because the quotient by any nonzero principal ideal is finite, and equality follows from equality at every maximal localization. Indeed, if x ∉ I, a maximal ideal containing {r : rx ∈ I} detects the failure. Localization of the ideal inverse shows invertibility; clearing denominators gives fractional ideal factorization. The index of a nonzero principal ideal (a) equals |N_{K/ℚ}(a)|, by integer matrix reduction of multiplication by a on an integral basis.
+5. Primes lift in finite number-field extensions. Localize the integral extension of integer rings at the complement of the lower prime and take a maximal ideal upstairs. Its contraction is maximal, since a domain integral inside a field is a field: a monic equation for the inverse of a nonzero element expresses that inverse in the domain. For K/L and a lower prime 𝔭, localizing O_K over the discrete valuation ring (O_L)_𝔭 gives a finite torsion-free module of rank [K:L]. Such a module is free: project its fraction vector space to a nonzero coordinate, whose finite image is a principal fractional ideal, lift its generator, split off this summand, and induct. Reduction modulo 𝔭 and prime-power filtrations, separated by Chinese remaindering, yield [K:L] = Σ_{𝔓|𝔭} e_𝔓 f_𝔓. Here each successive local prime-power quotient has residue dimension one, because multiplication by a uniformizer identifies it with the residue field. Normalized local valuations show that ramification indices multiply in towers.
+6. For finite Galois K/L with group J, primes over a lower prime form one orbit: otherwise choose by Chinese remaindering an integral a with residue zero on one orbit and one on another. The product of its J-translates lies in O_L and gives contradictory residues below. The decomposition group surjects onto the residue automorphism group. To see this, suppose b̄ is fixed by its image, and choose a with residue b̄ at the chosen upper prime and zero at the other upper primes. The orbit polynomial over O_L reduces to T^(|J|−D)(T−b̄)^D, where D is the decomposition-group order. In residue characteristic r write D = r^v u with r not dividing u. Its coefficient of degree |J|−r^v is −u b̄^(r^v); hence b̄^(r^v), and then b̄, belongs to the lower finite field. A finite extension of fields of sizes Q and Q^f has cyclic automorphism group of order f, generated by x ↦ x^Q: the root bound proves that this automorphism has order f, and a multiplicative generator bounds the number of automorphisms by f. Any proper subgroup fixes the Q^d roots of X^(Q^d)−X for some divisor d > 1 of f; this polynomial divides X^(Q^f)−X and has distinct roots. Thus the residue-image subgroup cannot be proper. Transitivity and the degree formula give decomposition-group order ef, so its inertia kernel has order e. Localizing the integer ring does not change the residue field or this action; hence this kernel is precisely the inertia group of the localization valuation. In particular trivial valuation inertia implies ramification index one.
+7. For every positive integer m and finite set S₁ of rational primes, there is a prime q outside S₁ with m dividing q−1. For m > 1, let Φ_m be the product of X−ξ over primitive mth roots in Ω. The identities X^n−1 = ∏_{d|n} Φ_d(X), induction, and division by monic integer polynomials give Φ_m ∈ ℤ[X]. Evaluating at zero gives Φ_m(0) = 1 for m > 1, and step 2 gives positive degree. Choose a sufficiently large positive integer t divisible by m and all members of S₁, with |Φ_m(t)| > 1. A prime divisor q of Φ_m(t) divides neither t nor m and is outside S₁, since Φ_m(t) is one modulo each prime divisor of t. In characteristic q the polynomial X^m−1 is squarefree, so its reduced cyclotomic factors have disjoint roots. The residue of t is a root of Φ_m and cannot have proper-divisor order: such an order would make it a root of another factor. Its order in (ℤ/qℤ)ˣ is m, so m divides q−1. For m = 1, a prime divisor of 1+k∏_{r∈S₁}r, with k positive and the number greater than one, suffices.
+8. Apply the sibling finite_inertia_exclusion to E and obtain its exceptional finite set S. Apply step 7 with S₁ the prime members of S together with 2. Choose the resulting q. Thus q > 2, q ∉ S, and m divides q−1. Every prime of E above q gives a localization valuation in which q is a nonunit. The sibling theorem makes its inertia trivial, so step 6 shows that E/ℚ is unramified at every prime above q.
+9. Choose a primitive qth root ζ_q in Ω and put C = ℚ(ζ_q). The polynomial Φ_q(X) = 1+X+⋯+X^(q−1) has degree q−1, and Φ_q(X+1) is Eisenstein at q. For completeness, products of primitive integer polynomials are primitive by reduction modulo primes, so a monic rational factorization would give monic integral factors. Modulo q both nonconstant factors of the shifted polynomial would be powers of X; both constant terms would therefore be divisible by q, contradicting their product q. This proves irreducibility. Its q−1 primitive roots are its conjugates and lie in C. Hence C/ℚ is Galois of degree q−1, and the exponent action identifies its Galois group with (ℤ/qℤ)ˣ, a cyclic group.
+10. The prime q is totally ramified in C and every intermediate field of C/ℚ. Indeed, N_{C/ℚ}(1−ζ_q) = Φ_q(1) = q. For 1 ≤ i < q, the quotient (1−ζ_q^i)/(1−ζ_q) is integral by geometric summation. Its norm is one, since numerator and denominator are conjugate; its integral multiplication matrix therefore has determinant one, and the adjugate gives an integral inverse. Thus these quotients are units. Taking the product over i gives the ideal identity qO_C = (1−ζ_q)^(q−1). The ideal (1−ζ_q) has norm q by step 4, so it is maximal, has residue field of size q, and is the unique prime above q. Prime lifting and residue inclusion show that every intermediate field D has exactly one prime above q with residue degree one. The degree formula gives its ramification index [D:ℚ].
+11. Let D = E ∩ C inside Ω. Since E is unramified at q, prime lifting and multiplicativity of ramification indices imply that D is unramified at q. Since D is a subfield of C, step 10 gives ramification index [D:ℚ] there. Hence [D:ℚ] = 1 and D = ℚ.
+12. Let M = EC inside Ω. It is finite over ℚ because it is generated by the two finite extensions; it is Galois because both E and C are normal and separable. Also M/C is Galois. Restriction embeds Gal(M/C) into Gal(E/ℚ), because E is rationally normal and E,C generate M. The elements of E fixed by this image are exactly E ∩ C: the fixed field of Gal(M/C) inside M is C. By step 11 and Galois correspondence, the image is all of Gal(E/ℚ). Thus [M:C] = [E:ℚ]. Restriction to E and C is injective on Gal(M/ℚ), and the domain and product target have the same finite order [E:ℚ][C:ℚ]. It therefore identifies Gal(M/ℚ) with Gal(E/ℚ) × Gal(C/ℚ).
+13. Since Gal(C/ℚ) is cyclic of order q−1 and m divides q−1, choose a ∈ Gal(C/ℚ) of order m. Under the product identification choose h₀ corresponding to (g,a). It has order m. Let H be its cyclic subgroup and let F = M^H, viewed as an intermediate field of M/ℚ. Then Gal(M/F) = H. Projection of H to Gal(C/ℚ) is injective: a power h₀^j projecting to one has m dividing j, hence is itself one. Therefore H ∩ Gal(M/C) is trivial.
+14. The subgroup fixing both F and C is Gal(M/F) ∩ Gal(M/C), which step 13 makes trivial. Its fixed field is the compositum FC, so Galois correspondence gives FC = M. Because C = ℚ(ζ_q), this is M = F(ζ_q). Let ι : E →ₐ[ℚ] M be inclusion, let ζ be ζ_q regarded as an element of M, and let h be h₀ regarded as an F-automorphism. The prime q and primitive-root property are unchanged by this embedding; FC = M gives IntermediateField.adjoin F {ζ} = ⊤. The construction of h₀ gives h(ι(x)) = ι(g(x)) for every x ∈ E. The field M is finite-dimensional and rationally Galois by step 12, so these objects satisfy every conjunct of the exact statement.
+
+## Key steps
+
+1. Establish the finite Galois and ramification facts needed for the construction.
+2. Construct arbitrarily excluded primes q with orderOf(g) dividing q−1.
+3. Use finite inertia exclusion to choose such a q unramified in E.
+4. Prove that the prime cyclotomic field has cyclic Galois group and is totally ramified at q in every subfield.
+5. Deduce E ∩ ℚ(ζ_q) = ℚ and identify the compositum Galois group with the product.
+6. Pair g with a cyclotomic automorphism of the same order and take the fixed field of the generated cyclic subgroup.
+7. Use injectivity of its cyclotomic projection to show M = F(ζ_q), and obtain the required intertwining automorphism.
+
+## Reference use
+
+### local-project
+
+Queries:
+- `def IsFrobeniusAt|def LiesOverPrime|inertiaSubgroupIn|exists.*[Ff]robenius|[Cc]hebotarev`
+- `ray.class|RayClass|rayClass|partial.zeta|partialZeta`
+- `exp_log|log_exp|norm_log|continuous.*log|tendsto|residue|pole`
+
+Files inspected:
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/SpecialFunctions/Complex/Log.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/Complex/Polynomial/Basic.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/DedekindZeta.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions`
+
+The snapshot pins project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The inspected definitions identify IsFrobeniusAt with the actual decomposition-subgroup residue action and inertiaSubgroupIn with its embedded kernel. Complex.exp_log supplies the missing normalization constant, and Complex.exp_eq_one_iff identifies the discrete logarithm ambiguity. The snapshot contains Complex.exists_root and positive Dedekind-zeta residue results. The ray-class/partial-zeta search found no matches in the listed NumberTheory and Definitions roots; the child proof supplies that argument. Rechecked interface, instance and logarithm-fact diagnostics use only propext, Classical.choice and Quot.sound.
+
+
+## Acceptance
+
+The exact contract must pass the machine comparator and an independent reviewer's comparator rerun, without changed assumptions or proof holes. Local integration must pass before publication. Every decomposition child has its own issue and verified solution PR.
+
+Solution PR: Pending
+
+Current user-authorized lifecycle: merge the exact verified PR, validate its remote tree, then close this proved issue. This supersedes historical no-auto-merge instructions in the original experiment brief.
+
+Remote merge status is recorded by GitHub; local `proved` does not mean merged.
