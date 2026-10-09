@@ -365,7 +365,7 @@ theorem Submission.p09_af497904fe_ic_prime_center_of_containment :
         Finite (NumberField.RingOfIntegers E ⧸ q) ∧
         (∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V.nonunits ↔ a ∈ q) := by
   intro E _ ℓ hℓ V hV hcontain
-  letI : NumberField E := NumberField.of_module_finite ℚ E
+  let : NumberField E := NumberField.of_module_finite ℚ E
   let f : NumberField.RingOfIntegers E →+* V :=
     { toFun := fun a => ⟨(a : E), hcontain a⟩
       map_zero' := Subtype.ext (map_zero (algebraMap (NumberField.RingOfIntegers E) E))
@@ -382,7 +382,8 @@ theorem Submission.p09_af497904fe_ic_prime_center_of_containment :
     ValuationSubring.coe_mem_nonunits_iff (a := f a)
   have hℓq : (ℓ : NumberField.RingOfIntegers E) ∈ q := by
     apply (hmem _).mp
-    simpa only [NumberField.RingOfIntegers.val, map_natCast] using hV
+    simpa only [ValuationSubring.LiesOverPrime, NumberField.RingOfIntegers.val,
+      map_natCast] using hV
   have hne : q ≠ ⊥ := by
     intro hq
     have hz : (ℓ : NumberField.RingOfIntegers E) = 0 := by
