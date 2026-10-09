@@ -606,3 +606,420 @@ theorem Submission.p09_af497904fe_ftl_compatible_automorphisms_glue :
     change t ((algebraMap ℚ (F 0) r : F 0) : AlgebraicClosure ℚ) = _
     rw [ht, (g 0).commutes]
     rfl
+theorem Submission.p09_af497904fe_ftl_normal_frobenius_restriction :
+    ∀ (E F : IntermediateField ℚ (AlgebraicClosure ℚ)) [IsGalois ℚ E]
+      (hEF : E ≤ F) (V : ValuationSubring E) (W : ValuationSubring F) (ℓ : ℕ),
+      (∀ x : E, IntermediateField.inclusion hEF x ∈ W ↔ x ∈ V) →
+      ∀ g : F ≃ₐ[ℚ] F, W.IsFrobeniusAt g ℓ →
+        ∃! e : E ≃ₐ[ℚ] E, V.IsFrobeniusAt e ℓ ∧
+          ∀ x : E, IntermediateField.inclusion hEF (e x) =
+            g (IntermediateField.inclusion hEF x) := by
+  intro E F _ hEF V W ℓ hVW g hg
+  let : Algebra E F := (IntermediateField.inclusion hEF).toRingHom.toAlgebra
+  let : IsScalarTower ℚ E F := IsScalarTower.of_algHom (IntermediateField.inclusion hEF)
+  let e : E ≃ₐ[ℚ] E := g.restrictNormal E
+  have he (x : E) : IntermediateField.inclusion hEF (e x) =
+      g (IntermediateField.inclusion hEF x) := g.restrictNormal_commutes E x
+  let d : W.decompositionSubgroup ℚ := ⟨g, hg.mem_decompositionSubgroup⟩
+  have hgmem (x : F) : g x ∈ W ↔ x ∈ W := by
+    constructor
+    · intro hx
+      have h := (d⁻¹ • (⟨g x, hx⟩ : W)).property
+      change g.symm (g x) ∈ W at h
+      simpa only [g.symm_apply_apply] using h
+    · intro hx
+      exact (d • (⟨x, hx⟩ : W)).property
+  have hemem (x : E) : e x ∈ V ↔ x ∈ V := by
+    rw [← hVW, he, hgmem, hVW]
+  have heV : e ∈ V.decompositionSubgroup ℚ := by
+    apply SetLike.ext
+    intro x
+    change (∃ y : E, y ∈ V ∧ e y = x) ↔ x ∈ V
+    constructor
+    · rintro ⟨y, hy, rfl⟩
+      exact (hemem y).mpr hy
+    · intro hx
+      refine ⟨e.symm x, (hemem _).mp ?_, e.apply_symm_apply x⟩
+      simpa only [e.apply_symm_apply] using hx
+  have hnon (x : E) : IntermediateField.inclusion hEF x ∈ W.nonunits ↔
+      x ∈ V.nonunits := by
+    rw [ValuationSubring.mem_nonunits_iff_or, ValuationSubring.mem_nonunits_iff_or,
+      map_eq_zero_iff _ (IntermediateField.inclusion_injective hEF), ← map_inv₀, hVW]
+  refine ⟨e, ⟨⟨heV, ?_⟩, he⟩, ?_⟩
+  · intro z
+    obtain ⟨x, rfl⟩ := IsLocalRing.residue_surjective z
+    rw [← IsLocalRing.ResidueField.residue_smul, ← map_pow, ← sub_eq_zero, ← map_sub,
+      IsLocalRing.residue_eq_zero_iff]
+    apply ValuationSubring.coe_mem_nonunits_iff.mp
+    apply (hnon _).mp
+    let y : W := ⟨IntermediateField.inclusion hEF (x : E), (hVW _).mpr x.property⟩
+    have hy : IsLocalRing.residue W (d • y - y ^ ℓ) = 0 := by
+      rw [map_sub, map_pow, IsLocalRing.ResidueField.residue_smul]
+      exact sub_eq_zero.mpr (hg.smul_residue_eq _)
+    have hy' := ValuationSubring.coe_mem_nonunits_iff.mpr
+      ((IsLocalRing.residue_eq_zero_iff _).mp hy)
+    change g (IntermediateField.inclusion hEF (x : E)) -
+      (IntermediateField.inclusion hEF (x : E)) ^ ℓ ∈ W.nonunits at hy'
+    change IntermediateField.inclusion hEF (e (x : E) - (x : E) ^ ℓ) ∈ W.nonunits
+    simpa only [map_sub, map_pow, he] using hy'
+  · intro e' he'
+    apply AlgEquiv.ext
+    intro x
+    apply IntermediateField.inclusion_injective hEF
+    exact (he'.2 x).trans (he x).symm
+theorem Submission.p09_af497904fe_ffe_prime_frobenius_congruence :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ))
+      [FiniteDimensional ℚ E] [IsGalois ℚ E] (ℓ : ℕ), ℓ.Prime →
+      ∀ q : Ideal (NumberField.RingOfIntegers E), q.IsPrime →
+        (ℓ : NumberField.RingOfIntegers E) ∈ q →
+        Finite (NumberField.RingOfIntegers E ⧸ q) →
+        ∃ g : E ≃ₐ[ℚ] E, ∀ a : NumberField.RingOfIntegers E,
+          NumberField.RingOfIntegers.mapRingEquiv g.toRingEquiv a - a ^ ℓ ∈ q := by
+  intro E _ _ ℓ hℓ q hq hℓq hfin
+  let : q.IsPrime := hq
+  let : Finite (NumberField.RingOfIntegers E ⧸ q) := hfin
+  let : Fact ℓ.Prime := ⟨hℓ⟩
+  let : CharP (NumberField.RingOfIntegers E ⧸ q) ℓ :=
+    (CharP.charP_iff_prime_eq_zero hℓ).mpr (by
+      simpa only [map_natCast] using (Ideal.Quotient.eq_zero_iff_mem.mpr hℓq))
+  -- A fixed algebraic integer descends to an integral rational, hence an integer.
+  let : Algebra.IsInvariant ℤ (NumberField.RingOfIntegers E) (E ≃ₐ[ℚ] E) := by
+    constructor
+    intro a ha
+    obtain ⟨r, hr⟩ := (IsGalois.mem_range_algebraMap_iff_fixed (F := ℚ) (a : E)).mpr
+      (fun g ↦ congrArg (fun b : NumberField.RingOfIntegers E ↦ (b : E)) (ha g))
+    have hi : IsIntegral ℤ r :=
+      (isIntegral_algebraMap_iff (algebraMap ℚ E).injective).mp
+        (hr.symm ▸ NumberField.RingOfIntegers.isIntegral_coe a)
+    obtain ⟨z, hz⟩ := IsIntegrallyClosed.algebraMap_eq_of_integral hi
+    refine ⟨z, NumberField.RingOfIntegers.ext ?_⟩
+    change algebraMap ℤ E z = (a : E)
+    rw [← hr, ← hz, IsScalarTower.algebraMap_apply ℤ ℚ E]
+  -- Frobenius fixes the quotient of the integers and lifts through the stabilizer.
+  let P : Ideal ℤ := q.under ℤ
+  let φ : (NumberField.RingOfIntegers E ⧸ q) ≃ₐ[ℤ ⧸ P]
+      (NumberField.RingOfIntegers E ⧸ q) :=
+    AlgEquiv.ofRingEquiv (f := frobeniusEquiv (NumberField.RingOfIntegers E ⧸ q) ℓ) (by
+      intro z
+      obtain ⟨z, rfl⟩ := Ideal.Quotient.mk_surjective z
+      change (frobeniusEquiv (NumberField.RingOfIntegers E ⧸ q) ℓ)
+        (z : NumberField.RingOfIntegers E ⧸ q) = (z : NumberField.RingOfIntegers E ⧸ q)
+      exact map_intCast _ z)
+  obtain ⟨g, hg⟩ := Ideal.Quotient.stabilizerHom_surjective (E ≃ₐ[ℚ] E) P q φ
+  refine ⟨g.val, fun a ↦ ?_⟩
+  have h := congrArg (fun σ : (NumberField.RingOfIntegers E ⧸ q) ≃ₐ[ℤ ⧸ P]
+    (NumberField.RingOfIntegers E ⧸ q) ↦ σ (Ideal.Quotient.mk q a)) hg
+  change Ideal.Quotient.mk q
+      (NumberField.RingOfIntegers.mapRingEquiv g.val.toRingEquiv a) =
+    (Ideal.Quotient.mk q a) ^ ℓ at h
+  rw [← map_pow] at h
+  exact Ideal.Quotient.eq.mp h
+theorem Submission.p09_af497904fe_ic_integer_mem_valuation :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E]
+      (V : ValuationSubring E), ∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V := by
+  intro E _ V a
+  apply (Subring.isIntegrallyClosed_iff (S := V)).mp inferInstance
+  exact (NumberField.RingOfIntegers.isIntegral_coe a).tower_top
+theorem Submission.p09_af497904fe_ic_prime_center_of_containment :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E]
+      (ℓ : ℕ), ℓ.Prime → ∀ (V : ValuationSubring E), V.LiesOverPrime ℓ →
+      (∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V) →
+      ∃ q : Ideal (NumberField.RingOfIntegers E),
+        q.IsPrime ∧ q ≠ ⊥ ∧ (ℓ : NumberField.RingOfIntegers E) ∈ q ∧
+        Finite (NumberField.RingOfIntegers E ⧸ q) ∧
+        (∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V.nonunits ↔ a ∈ q) := by
+  intro E _ ℓ hℓ V hV hcontain
+  let : NumberField E := NumberField.of_module_finite ℚ E
+  let f : NumberField.RingOfIntegers E →+* V :=
+    { toFun := fun a => ⟨(a : E), hcontain a⟩
+      map_zero' := Subtype.ext (map_zero (algebraMap (NumberField.RingOfIntegers E) E))
+      map_one' := Subtype.ext (map_one (algebraMap (NumberField.RingOfIntegers E) E))
+      map_add' := fun a b =>
+        Subtype.ext (map_add (algebraMap (NumberField.RingOfIntegers E) E) a b)
+      map_mul' := fun a b =>
+        Subtype.ext (map_mul (algebraMap (NumberField.RingOfIntegers E) E) a b) }
+  let q : Ideal (NumberField.RingOfIntegers E) :=
+    Ideal.comap f (IsLocalRing.maximalIdeal V)
+  have hprime : q.IsPrime := (IsLocalRing.maximalIdeal V).comap_isPrime f
+  have hmem (a : NumberField.RingOfIntegers E) :
+      (a : E) ∈ V.nonunits ↔ a ∈ q :=
+    ValuationSubring.coe_mem_nonunits_iff (a := f a)
+  have hℓq : (ℓ : NumberField.RingOfIntegers E) ∈ q := by
+    apply (hmem _).mp
+    simpa only [ValuationSubring.LiesOverPrime, NumberField.RingOfIntegers.val,
+      map_natCast] using hV
+  have hne : q ≠ ⊥ := by
+    intro hq
+    have hz : (ℓ : NumberField.RingOfIntegers E) = 0 := by
+      simpa only [hq, Ideal.mem_bot] using hℓq
+    exact hℓ.ne_zero (Nat.cast_eq_zero.mp hz)
+  exact ⟨q, hprime, hne, hℓq, Ring.HasFiniteQuotients.finiteQuotient hne, hmem⟩
+theorem Submission.p09_af497904fe_fvu_compatible_valuation_gluing :
+    ∀ (F : ℕ → IntermediateField ℚ (AlgebraicClosure ℚ)) (hmono : Monotone F),
+      (∀ x : AlgebraicClosure ℚ, ∃ i : ℕ, x ∈ F i) →
+      ∀ (V : (i : ℕ) → ValuationSubring (F i)) (ℓ : ℕ),
+        (∀ i : ℕ, (V i).LiesOverPrime ℓ) →
+        (∀ (i j : ℕ) (hij : i ≤ j) (x : F i),
+          IntermediateField.inclusion (hmono hij) x ∈ V j ↔ x ∈ V i) →
+        ∃ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ ∧
+          (∀ (i : ℕ) (x : F i), (x : AlgebraicClosure ℚ) ∈ P ↔ x ∈ V i) := by
+  intro F hmono hexhaust V ℓ hprime hcompat
+  let P : ValuationSubring (AlgebraicClosure ℚ) :=
+    { carrier := {z | ∃ (i : ℕ) (x : F i), x ∈ V i ∧ (x : AlgebraicClosure ℚ) = z}
+      zero_mem' := ⟨0, 0, (V 0).zero_mem, rfl⟩
+      one_mem' := ⟨0, 1, (V 0).one_mem, rfl⟩
+      add_mem' := by
+        rintro a b ⟨i, x, hx, rfl⟩ ⟨j, y, hy, rfl⟩
+        refine ⟨max i j,
+          IntermediateField.inclusion (hmono (le_max_left i j)) x +
+            IntermediateField.inclusion (hmono (le_max_right i j)) y, ?_, rfl⟩
+        exact (V (max i j)).add_mem _ _
+          ((hcompat i (max i j) (le_max_left i j) x).mpr hx)
+          ((hcompat j (max i j) (le_max_right i j) y).mpr hy)
+      mul_mem' := by
+        rintro a b ⟨i, x, hx, rfl⟩ ⟨j, y, hy, rfl⟩
+        refine ⟨max i j,
+          IntermediateField.inclusion (hmono (le_max_left i j)) x *
+            IntermediateField.inclusion (hmono (le_max_right i j)) y, ?_, rfl⟩
+        exact (V (max i j)).mul_mem _ _
+          ((hcompat i (max i j) (le_max_left i j) x).mpr hx)
+          ((hcompat j (max i j) (le_max_right i j) y).mpr hy)
+      neg_mem' := by
+        rintro a ⟨i, x, hx, rfl⟩
+        exact ⟨i, -x, (V i).neg_mem x hx, rfl⟩
+      mem_or_inv_mem' := by
+        intro z
+        obtain ⟨i, hi⟩ := hexhaust z
+        rcases (V i).mem_or_inv_mem ⟨z, hi⟩ with hz | hz
+        · exact Or.inl ⟨i, ⟨z, hi⟩, hz, rfl⟩
+        · exact Or.inr ⟨i, (⟨z, hi⟩ : F i)⁻¹, hz, rfl⟩ }
+  have hrestrict (i : ℕ) (x : F i) :
+      (x : AlgebraicClosure ℚ) ∈ P ↔ x ∈ V i := by
+    change (∃ (j : ℕ) (y : F j), y ∈ V j ∧
+      (y : AlgebraicClosure ℚ) = (x : AlgebraicClosure ℚ)) ↔ x ∈ V i
+    constructor
+    · rintro ⟨j, y, hy, heq⟩
+      have heq' : IntermediateField.inclusion (hmono (le_max_left i j)) x =
+          IntermediateField.inclusion (hmono (le_max_right i j)) y :=
+        Subtype.ext heq.symm
+      apply (hcompat i (max i j) (le_max_left i j) x).mp
+      rw [heq']
+      exact (hcompat j (max i j) (le_max_right i j) y).mpr hy
+    · intro hx
+      exact ⟨i, x, hx, rfl⟩
+  have hnonunits (i : ℕ) (x : F i) :
+      (x : AlgebraicClosure ℚ) ∈ P.nonunits ↔ x ∈ (V i).nonunits := by
+    rw [ValuationSubring.mem_nonunits_iff_or, ValuationSubring.mem_nonunits_iff_or]
+    change ((x : AlgebraicClosure ℚ) = 0 ∨ ((x⁻¹ : F i) : AlgebraicClosure ℚ) ∉ P) ↔
+      x = 0 ∨ x⁻¹ ∉ V i
+    rw [hrestrict]
+    exact or_congr (by exact_mod_cast (Iff.rfl : x = 0 ↔ x = 0)) Iff.rfl
+  refine ⟨P, ?_, hrestrict⟩
+  change (ℓ : AlgebraicClosure ℚ) ∈ P.nonunits
+  exact (hnonunits 0 (ℓ : F 0)).mpr (hprime 0)
+theorem Submission.p09_af497904fe_ce_fixed_field_generator :
+    ∀ (M : IntermediateField ℚ (AlgebraicClosure ℚ))
+      [FiniteDimensional ℚ M] [IsGalois ℚ M] (u : M ≃ₐ[ℚ] M) (ζ : M),
+      (∀ n : ℕ, (u ^ n) ζ = ζ → u ^ n = 1) →
+      ∃ (F : IntermediateField ℚ M) (h : M ≃ₐ[F] M),
+        IntermediateField.adjoin F ({ζ} : Set M) = ⊤ ∧ ∀ x : M, h x = u x := by
+  intro M _ _ u ζ hu
+  let F := IntermediateField.fixedField (Subgroup.zpowers u)
+  let h : M ≃ₐ[F] M :=
+    { u.toRingEquiv with
+      commutes' := fun x =>
+        (IntermediateField.mem_fixedField_iff _ _).mp x.property u (Subgroup.mem_zpowers u) }
+  let K := IntermediateField.adjoin F ({ζ} : Set M)
+  have hfix : (K.restrictScalars ℚ).fixingSubgroup = ⊥ := by
+    apply le_antisymm ?_ bot_le
+    intro σ hσ
+    rw [Subgroup.mem_bot]
+    have hσF : σ ∈ F.fixingSubgroup := by
+      rw [IntermediateField.mem_fixingSubgroup_iff] at hσ ⊢
+      intro x hx
+      exact hσ x (K.algebraMap_mem ⟨x, hx⟩)
+    have hσH : σ ∈ Subgroup.zpowers u := by
+      simpa only [F, IntermediateField.fixingSubgroup_fixedField] using hσF
+    obtain ⟨n, hn⟩ := (Submonoid.mem_powers_iff _ _).mp
+      (mem_powers_iff_mem_zpowers.mpr hσH)
+    have hσζ := (IntermediateField.mem_fixingSubgroup_iff _ _).mp hσ ζ
+      (IntermediateField.mem_adjoin_simple_self F ζ)
+    rw [← hn] at hσζ ⊢
+    exact hu n hσζ
+  refine ⟨F, h, ?_, fun _ => rfl⟩
+  apply (IntermediateField.restrictScalars_eq_top_iff (K := ℚ)).mp
+  change K.restrictScalars ℚ = ⊤
+  rw [← IsGalois.fixedField_fixingSubgroup (K.restrictScalars ℚ), hfix,
+    IntermediateField.fixedField_bot]
+
+theorem Submission.p09_af497904fe_irp_minpoly_roots :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ))
+      [FiniteDimensional ℚ E] [IsGalois ℚ E] (α : E),
+      IsIntegral ℤ α → ∃ (n : ℕ) (β : Fin n → E),
+        Function.Injective β ∧ (∀ i : Fin n, IsIntegral ℤ (β i)) ∧
+        (∀ σ : E ≃ₐ[ℚ] E, ∃ i : Fin n, β i = σ α) ∧
+        (minpoly ℤ α).map (Int.castRingHom E) =
+          Finset.univ.prod (fun i : Fin n => Polynomial.X - Polynomial.C (β i)) := by
+  intro E _ _ α hα
+  classical
+  have hαQ : IsIntegral ℚ α := Algebra.IsIntegral.isIntegral α
+  have hmap : (minpoly ℤ α).map (Int.castRingHom E) =
+      (minpoly ℚ α).map (algebraMap ℚ E) := by
+    calc
+      _ = ((minpoly ℤ α).map (algebraMap ℤ ℚ)).map (algebraMap ℚ E) := by
+        rw [Polynomial.map_map]
+        exact congrArg (fun f : ℤ →+* E => (minpoly ℤ α).map f)
+          (Subsingleton.elim _ _)
+      _ = _ := congrArg (Polynomial.map (algebraMap ℚ E))
+        (minpoly.isIntegrallyClosed_eq_field_fractions' ℚ hα).symm
+  obtain ⟨s, hs⟩ := Polynomial.exists_finset_of_splits (algebraMap ℚ E)
+    (Algebra.IsSeparable.isSeparable ℚ α)
+    (Normal.splits (inferInstance : Normal ℚ E) α)
+  have hprod : (minpoly ℤ α).map (Int.castRingHom E) =
+      s.prod (fun b => Polynomial.X - Polynomial.C b) := by
+    rw [hmap, hs, (minpoly.monic hαQ).leadingCoeff, map_one, Polynomial.C_1, one_mul]
+  let n := Fintype.card s
+  let e : Fin n ≃ s := (Fintype.equivFin s).symm
+  let β : Fin n → E := fun i => (e i).val
+  have hfac : (minpoly ℤ α).map (Int.castRingHom E) =
+      Finset.univ.prod (fun i : Fin n => Polynomial.X - Polynomial.C (β i)) := by
+    calc
+      _ = s.prod (fun b => Polynomial.X - Polynomial.C b) := hprod
+      _ = ∏ b : s, (Polynomial.X - Polynomial.C (b : E)) :=
+        (Finset.prod_coe_sort s (fun b => Polynomial.X - Polynomial.C b)).symm
+      _ = _ := (e.prod_comp (fun b : s => Polynomial.X - Polynomial.C (b : E))).symm
+  refine ⟨n, β, Subtype.val_injective.comp e.injective, ?_, ?_, hfac⟩
+  · intro i
+    refine ⟨minpoly ℤ α, minpoly.monic hα, ?_⟩
+    change Polynomial.eval₂ (Int.castRingHom E) (β i) (minpoly ℤ α) = 0
+    rw [Polynomial.eval₂_eq_eval_map, hfac, Polynomial.eval_prod]
+    apply Finset.prod_eq_zero (Finset.mem_univ i)
+    simp
+  · intro σ
+    have hzero : ((minpoly ℤ α).map (Int.castRingHom E)).eval (σ α) = 0 := by
+      rw [hmap, Polynomial.eval_map_algebraMap, Polynomial.aeval_algHom_apply,
+        minpoly.aeval, map_zero]
+    rw [hfac, Polynomial.eval_prod] at hzero
+    obtain ⟨i, _, hi⟩ := Finset.prod_eq_zero_iff.mp hzero
+    exact ⟨i, (sub_eq_zero.mp (by simpa using hi)).symm⟩
+theorem Submission.p09_af497904fe_irp_squared_vandermonde_symmetric :
+    ∀ n : ℕ, MvPolynomial.IsSymmetric
+      ((Finset.univ.filter (fun ij : Fin n × Fin n => ij.1 < ij.2)).prod
+        (fun ij => ((MvPolynomial.X ij.1 : MvPolynomial (Fin n) ℤ) -
+          MvPolynomial.X ij.2) ^ 2)) := by
+  classical
+  intro n π
+  let T := Finset.univ.filter (fun ij : Fin n × Fin n => ij.1 < ij.2)
+  let B (e : Equiv.Perm (Fin n)) (ij : Fin n × Fin n) :=
+    if e ij.1 < e ij.2 then (e ij.1, e ij.2) else (e ij.2, e ij.1)
+  have hmem (e : Equiv.Perm (Fin n)) (ij : Fin n × Fin n) (hij : ij ∈ T) :
+      B e ij ∈ T := by
+    have hlt : ij.1 < ij.2 := (Finset.mem_filter.mp hij).2
+    apply Finset.mem_filter.mpr
+    refine ⟨Finset.mem_univ _, ?_⟩
+    by_cases h : e ij.1 < e ij.2
+    · simpa only [B, if_pos h] using h
+    · have hne : e ij.2 ≠ e ij.1 := fun heq =>
+        (ne_of_lt hlt) (e.injective heq.symm)
+      simpa only [B, if_neg h] using lt_of_le_of_ne (le_of_not_gt h) hne
+  have hinv (e : Equiv.Perm (Fin n)) (ij : Fin n × Fin n) (hij : ij ∈ T) :
+      B e.symm (B e ij) = ij := by
+    have hlt : ij.1 < ij.2 := (Finset.mem_filter.mp hij).2
+    by_cases h : e ij.1 < e ij.2
+    · simp [B, h, hlt]
+    · simp [B, h, not_lt_of_gt hlt]
+  simp only [map_prod, map_pow, map_sub, MvPolynomial.rename_X]
+  refine Finset.prod_nbij' (B π) (B π.symm) (hmem π) (hmem π.symm)
+    (hinv π) ?_ ?_
+  · intro ij hij
+    simpa only [Equiv.symm_symm] using hinv π.symm ij hij
+  · intro ij _
+    by_cases h : π ij.1 < π ij.2
+    · simp only [B, if_pos h]
+    · simp only [B, if_neg h]
+      ring
+
+
+theorem Submission.p09_af497904fe_irp_integer_discriminant :
+    ∀ (K : Type) [Field K] (f : Polynomial ℤ) (n : ℕ) (β : Fin n → K),
+      f.Monic → Function.Injective β →
+      f.map (Int.castRingHom K) = Finset.univ.prod
+        (fun i : Fin n => Polynomial.X - Polynomial.C (β i)) →
+      ∃ D : ℤ, D ≠ 0 ∧ (D : K) =
+        (Finset.univ.filter (fun ij : Fin n × Fin n => ij.1 < ij.2)).prod
+          (fun ij => (β ij.1 - β ij.2) ^ 2) := by
+  classical
+  intro K _ f n β _hf hβ hfac
+  let P : MvPolynomial (Fin n) ℤ :=
+    (Finset.univ.filter (fun ij : Fin n × Fin n => ij.1 < ij.2)).prod
+      (fun ij => (MvPolynomial.X ij.1 - MvPolynomial.X ij.2) ^ 2)
+  have hP : MvPolynomial.IsSymmetric P :=
+    Submission.p09_af497904fe_irp_squared_vandermonde_symmetric n
+  obtain ⟨Q, hQ⟩ := MvPolynomial.esymmAlgHom_surjective ℤ
+    (σ := Fin n) (n := n) (by simp) ⟨P, hP⟩
+  have hQval : MvPolynomial.aeval
+      (fun i : Fin n => MvPolynomial.esymm (Fin n) ℤ (i.val + 1)) Q = P := by
+    simpa only [MvPolynomial.esymmAlgHom_apply] using congrArg Subtype.val hQ
+  -- Vieta identifies the elementary symmetric values with signed integer coefficients.
+  let c : Fin n → ℤ := fun i => (-1) ^ (i.val + 1) * f.coeff (n - (i.val + 1))
+  let s : Multiset K := Finset.univ.val.map β
+  have hcard : s.card = n := by simp [s]
+  have hprod : (s.map (fun b => Polynomial.X - Polynomial.C b)).prod =
+      Finset.univ.prod (fun i : Fin n => Polynomial.X - Polynomial.C (β i)) := by
+    simp [s, Finset.prod_eq_multiset_prod, Function.comp_def]
+  have hc (i : Fin n) : (c i : K) =
+      MvPolynomial.aeval β (MvPolynomial.esymm (Fin n) ℤ (i.val + 1)) := by
+    have hi : i.val + 1 ≤ n := i.isLt
+    have hv := Multiset.prod_X_sub_C_coeff s
+      (k := n - (i.val + 1)) (by rw [hcard]; exact Nat.sub_le _ _)
+    rw [hcard, Nat.sub_sub_self hi, hprod, ← hfac, Polynomial.coeff_map] at hv
+    change (f.coeff (n - (i.val + 1)) : K) = _ at hv
+    rw [MvPolynomial.aeval_esymm_eq_multiset_esymm]
+    change (((-1 : ℤ) ^ (i.val + 1) * f.coeff (n - (i.val + 1)) : ℤ) : K) =
+      s.esymm (i.val + 1)
+    push_cast
+    rw [hv, ← mul_assoc, ← mul_pow]
+    simp
+  let D : ℤ := MvPolynomial.aeval c Q
+  have hD : (D : K) =
+      (Finset.univ.filter (fun ij : Fin n × Fin n => ij.1 < ij.2)).prod
+        (fun ij => (β ij.1 - β ij.2) ^ 2) := by
+    calc
+      (D : K) = MvPolynomial.aeval (fun i => (c i : K)) Q := by
+        exact MvPolynomial.comp_aeval_apply c (Algebra.ofId ℤ K) Q
+      _ = MvPolynomial.aeval
+          (fun i : Fin n => MvPolynomial.aeval β
+            (MvPolynomial.esymm (Fin n) ℤ (i.val + 1))) Q := by
+        simp_rw [hc]
+      _ = MvPolynomial.aeval β P := by
+        rw [← MvPolynomial.comp_aeval_apply, hQval]
+      _ = _ := by simp [P]
+  refine ⟨D, ?_, hD⟩
+  have hnonzero :
+      (Finset.univ.filter (fun ij : Fin n × Fin n => ij.1 < ij.2)).prod
+        (fun ij => (β ij.1 - β ij.2) ^ 2) ≠ 0 := by
+    apply Finset.prod_ne_zero_iff.mpr
+    intro ij hij
+    exact pow_ne_zero _ (sub_ne_zero.mpr (hβ.ne (ne_of_lt (Finset.mem_filter.mp hij).2)))
+  intro hzero
+  apply hnonzero
+  rw [← hD, hzero, Int.cast_zero]
+
+
+theorem Submission.p09_af497904fe_cs_integer_root_product :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ))
+      [FiniteDimensional ℚ E] [IsGalois ℚ E] (α : E),
+      IsIntegral ℤ α → ∃ (n : ℕ) (β : Fin n → E) (D : ℤ),
+        Function.Injective β ∧
+        (∀ i : Fin n, IsIntegral ℤ (β i)) ∧
+        (∀ σ : E ≃ₐ[ℚ] E, ∃ i : Fin n, β i = σ α) ∧
+        D ≠ 0 ∧
+        (D : E) = (Finset.univ.filter (fun ij : Fin n × Fin n => ij.1 < ij.2)).prod
+          (fun ij => (β ij.1 - β ij.2) ^ 2) := by
+  intro E _ _ α hα
+  obtain ⟨n, β, hβinj, hβint, hβconj, hfactor⟩ :=
+    Submission.p09_af497904fe_irp_minpoly_roots E α hα
+  obtain ⟨D, hDne, hDprod⟩ :=
+    Submission.p09_af497904fe_irp_integer_discriminant E (minpoly ℤ α) n β
+      (minpoly.monic hα) hβinj hfactor
+  exact ⟨n, β, D, hβinj, hβint, hβconj, hDne, hDprod⟩
