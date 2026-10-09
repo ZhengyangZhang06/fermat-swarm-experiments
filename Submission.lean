@@ -125,3 +125,172 @@ theorem p06_9e0f5043ff_sdp_clear_first_column
     simp [sub_mul, hmul, c, ha i, mul_comm]
 
 end Submission
+
+/-- Polynomial evaluation at a nonunit of a place is a unit exactly away from `(X)`. -/
+theorem Submission.p06_9e0f5043ff_vfc_polynomial_unit_criterion :
+    ∀ (K F : Type*) [Field K] [Field F] [Algebra K F]
+      (s : F) (w : AlgebraicCurve.Place K F),
+      s⁻¹ ∉ w.toValuationSubring → ∀ p : Polynomial K,
+        (∃ u : Units w.toValuationSubring,
+          ((u : w.toValuationSubring) : F) = Polynomial.aeval s p) ↔
+        ¬ (Polynomial.X : Polynomial K) ∣ p := by
+  intro K F _ _ _ s w hinv p
+  have hs : s ∈ w.toValuationSubring :=
+    (w.toValuationSubring.mem_or_inv_mem s).resolve_right hinv
+  let t : w.toValuationSubring := ⟨s, hs⟩
+  have ht : ¬ IsUnit t := by
+    rintro ⟨u, hu⟩
+    have hmul : s * (((u⁻¹ : Units w.toValuationSubring) : w.toValuationSubring) : F) = 1 := by
+      change (t : F) * _ = 1
+      rw [← hu]
+      exact congrArg (fun x : w.toValuationSubring => (x : F)) u.val_inv
+    have hi : (((u⁻¹ : Units w.toValuationSubring) : w.toValuationSubring) : F) = s⁻¹ :=
+      eq_inv_of_mul_eq_one_right hmul
+    exact hinv (hi ▸ (u⁻¹).val.property)
+  -- Evaluate inside the valuation subring using its inherited K-algebra structure.
+  let E : Polynomial K →+* w.toValuationSubring := (Polynomial.aeval t).toRingHom
+  have hE (q : Polynomial K) : (E q : F) = Polynomial.aeval s q := by
+    exact (Polynomial.aeval_algHom_apply
+      (IsScalarTower.toAlgHom K w.toValuationSubring F) t q).symm
+  let J : Ideal (Polynomial K) := (IsLocalRing.maximalIdeal w.toValuationSubring).comap E
+  have hJ : J ≠ ⊤ :=
+    Ideal.comap_ne_top E (IsLocalRing.maximalIdeal.isMaximal w.toValuationSubring).ne_top
+  have hX : (Polynomial.X : Polynomial K) ∈ J := by
+    change E Polynomial.X ∈ IsLocalRing.maximalIdeal w.toValuationSubring
+    change Polynomial.aeval t Polynomial.X ∈ IsLocalRing.maximalIdeal w.toValuationSubring
+    rw [Polynomial.aeval_X, IsLocalRing.mem_maximalIdeal, mem_nonunits_iff]
+    exact ht
+  -- The proper contraction contains the maximal ideal (X), so they coincide.
+  have hspan : Ideal.span ({Polynomial.X} : Set (Polynomial K)) = J :=
+    (PrincipalIdealRing.isMaximal_of_irreducible Polynomial.irreducible_X).eq_of_le hJ
+      (Ideal.span_le.mpr (Set.singleton_subset_iff.mpr hX))
+  have hunit : IsUnit (E p) ↔ ¬ (Polynomial.X : Polynomial K) ∣ p := by
+    rw [← IsLocalRing.notMem_maximalIdeal]
+    change p ∉ J ↔ ¬ (Polynomial.X : Polynomial K) ∣ p
+    rw [← hspan, Ideal.mem_span_singleton]
+  constructor
+  · rintro ⟨u, hu⟩
+    apply hunit.mp
+    refine ⟨u, ?_⟩
+    exact Subtype.ext (hu.trans (hE p).symm)
+  · intro hp
+    obtain ⟨u, hu⟩ := hunit.mpr hp
+    exact ⟨u, (congrArg (fun x : w.toValuationSubring => (x : F)) hu).trans (hE p)⟩
+/-- Membership of a unit times a parameter-power quotient forces nonnegative exponent. -/
+theorem Submission.p06_9e0f5043ff_vfc_unit_power_quotient_exponents :
+    ∀ (F : Type*) [Field F] (W : Subring F) (s : F), s ∈ W → s⁻¹ ∉ W →
+      ∀ (u : Units W) (r k : ℕ), ((u : W) : F) * s ^ r / s ^ k ∈ W → k ≤ r := by
+  intro F _ W s hs hsinv u r k hquot
+  have hs0 : s ≠ 0 := by
+    intro h
+    apply hsinv
+    simp [h]
+  have hu : ((u : W) : F) * ((↑(u⁻¹) : W) : F) = 1 := by
+    exact_mod_cast u.mul_inv
+  by_contra hle
+  let n := k - r - 1
+  have hk : k = r + n + 1 := by
+    dsimp [n]
+    omega
+  have hprod :
+      (((u : W) : F) * s ^ r / s ^ k) * ((↑(u⁻¹) : W) : F) * s ^ n ∈ W :=
+    W.mul_mem (W.mul_mem hquot (↑(u⁻¹) : W).property) (W.pow_mem hs n)
+  have heq :
+      (((u : W) : F) * s ^ r / s ^ k) * ((↑(u⁻¹) : W) : F) * s ^ n = s⁻¹ := by
+    calc
+      _ = (((u : W) : F) * ((↑(u⁻¹) : W) : F)) * (s ^ r * s ^ n) / s ^ k := by
+        ring
+      _ = s ^ (r + n) / s ^ (r + n + 1) := by
+        rw [hu, one_mul, ← pow_add, hk]
+      _ = s⁻¹ := by
+        rw [pow_succ, div_mul_eq_div_div, div_self (pow_ne_zero _ hs0), one_div]
+  exact hsinv (heq ▸ hprod)
+
+
+namespace Submission
+/-- The valuation ring in which the parameter is a nonunit consists exactly of
+fractions whose denominator is not divisible by `X`. -/
+theorem p06_9e0f5043ff_inf_valuation_fraction_characterization :
+    ∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (s : F),
+      Transcendental K s →
+      (∀ f : F, ∃ a b : Polynomial K, b ≠ 0 ∧
+        f = Polynomial.aeval s a / Polynomial.aeval s b) →
+      ∀ w : AlgebraicCurve.Place K F, s⁻¹ ∉ w.toValuationSubring →
+      ∀ f : F, f ∈ w.toValuationSubring ↔
+        ∃ a b : Polynomial K, ¬ (Polynomial.X : Polynomial K) ∣ b ∧
+          f = Polynomial.aeval s a / Polynomial.aeval s b := by
+  intro K F _ _ _ s hs hfrac w hsinv f
+  classical
+  let W : Subring F := w.toValuationSubring.toSubring
+  have hsW : s ∈ W := (w.toValuationSubring.mem_or_inv_mem s).resolve_right hsinv
+  have hs0 : s ≠ 0 := by
+    intro h
+    apply hsinv
+    simp [h]
+  have heval_mem (p : Polynomial K) : Polynomial.aeval s p ∈ W := by
+    induction p using Polynomial.induction_on' with
+    | add p q hp hq => simpa only [map_add] using W.add_mem hp hq
+    | monomial n a =>
+      rw [Polynomial.aeval_monomial]
+      exact W.mul_mem (w.algebraMap_mem' a) (W.pow_mem hsW n)
+  have hunit_inv (u : Units W) :
+      (((u⁻¹ : Units W) : W) : F) = (((u : W) : F))⁻¹ := by
+    exact (Units.map W.subtype.toMonoidHom u).val_inv_eq_inv_val
+  have heval_ne (p : Polynomial K) (hp : p ≠ 0) : Polynomial.aeval s p ≠ 0 := by
+    intro h
+    apply hp
+    exact (transcendental_iff_injective.mp hs) (h.trans (map_zero _).symm)
+  constructor
+  · intro hf
+    by_cases hf0 : f = 0
+    · exact ⟨0, 1, by simp [Polynomial.X_dvd_iff], by simp [hf0]⟩
+    obtain ⟨a, b, hb, hfab⟩ := hfrac f
+    have ha : a ≠ 0 := by
+      intro h
+      apply hf0
+      simpa [h] using hfab
+    -- Remove all factors of X, leaving polynomials that evaluate to units.
+    obtain ⟨a₀, ha_factor, ha₀⟩ :=
+      Polynomial.exists_eq_pow_rootMultiplicity_mul_and_not_dvd a ha 0
+    obtain ⟨b₀, hb_factor, hb₀⟩ :=
+      Polynomial.exists_eq_pow_rootMultiplicity_mul_and_not_dvd b hb 0
+    simp only [map_zero, sub_zero] at ha_factor ha₀ hb_factor hb₀
+    obtain ⟨ua, hua⟩ :=
+      (p06_9e0f5043ff_vfc_polynomial_unit_criterion K F s w hsinv a₀).mpr ha₀
+    obtain ⟨ub, hub⟩ :=
+      (p06_9e0f5043ff_vfc_polynomial_unit_criterion K F s w hsinv b₀).mpr hb₀
+    let r := a.rootMultiplicity 0
+    let k := b.rootMultiplicity 0
+    let u : Units W := ua * ub⁻¹
+    have hu : ((u : W) : F) = Polynomial.aeval s a₀ / Polynomial.aeval s b₀ := by
+      change ((ua : W) : F) * (((ub⁻¹ : Units W) : W) : F) = _
+      rw [hunit_inv, hua, hub, div_eq_mul_inv]
+    have hnormalized : f = ((u : W) : F) * s ^ r / s ^ k := by
+      rw [hfab, ha_factor, hb_factor, hu]
+      simp only [map_mul, map_pow, Polynomial.aeval_X]
+      dsimp only [r, k]
+      simp only [div_eq_mul_inv, mul_inv_rev]
+      ring
+    -- Membership rules out a negative exponent of the nonunit parameter.
+    have hkr : k ≤ r :=
+      p06_9e0f5043ff_vfc_unit_power_quotient_exponents F W s hsW hsinv u r k
+        (hnormalized ▸ hf)
+    refine ⟨Polynomial.X ^ (r - k) * a₀, b₀, hb₀, ?_⟩
+    have hb₀_ne : Polynomial.aeval s b₀ ≠ 0 :=
+      heval_ne b₀ (fun h => hb₀ (by simp [h]))
+    have hpow : s ^ r = s ^ (r - k) * s ^ k := by
+      rw [← pow_add, Nat.sub_add_cancel hkr]
+    rw [hnormalized, hu]
+    simp only [map_mul, map_pow, Polynomial.aeval_X]
+    rw [hpow]
+    field_simp [hs0, hb₀_ne]
+  · rintro ⟨a, b, hb, rfl⟩
+    obtain ⟨u, hu⟩ :=
+      (p06_9e0f5043ff_vfc_polynomial_unit_criterion K F s w hsinv b).mpr hb
+    have hinv : (Polynomial.aeval s b)⁻¹ ∈ W := by
+      rw [← hu, ← hunit_inv]
+      exact ((u⁻¹ : Units W) : W).property
+    change Polynomial.aeval s a / Polynomial.aeval s b ∈ W
+    rw [div_eq_mul_inv]
+    exact W.mul_mem (heval_mem a) hinv
+end Submission
