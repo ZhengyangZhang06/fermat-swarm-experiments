@@ -279,6 +279,7 @@ theorem Submission.p09_af497904fe_fcc_fra_roots_mem_inv :
   refine ⟨hmem, ?_⟩
   rw [← hinv]
   exact pow_mem hmem (N - 1)
+
 theorem Submission.p09_af497904fe_fcc_fra_residue_injective :
     ∀ (N : ℕ) [NeZero N] (ℓ : ℕ), ℓ.Prime → ¬ ℓ ∣ N →
       ∀ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ →
