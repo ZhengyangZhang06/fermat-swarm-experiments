@@ -2654,7 +2654,6 @@ theorem Submission.p09_af497904fe_cfs_counting_mellin_continuation :
   dsimp only
   field_simp [hs1]
   ring
-    convert (J ^ n).sub_mem (hb' n g) (hβ g n) using 1 <;> ring
 
 
 namespace Submission
