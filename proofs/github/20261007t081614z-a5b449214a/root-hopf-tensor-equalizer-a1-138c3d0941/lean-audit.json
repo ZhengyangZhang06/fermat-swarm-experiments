@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'hopf_tensor_equalizer|tensor_equalizer|def hopfKer|def coaction' <snapshot> --glob '*.lean'",
+        "rg -n 'p05_hopf_tensor_equalizer_a5b449214a|HopfKerHopf' project/Definitions mathlib/Mathlib",
+        "rg -n 'def lid|lid_tmul|def tmul|def TensorProduct' mathlib/Mathlib/LinearAlgebra/TensorProduct/Defs.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Fermat/Thm_HopfAlgebra_hopfKer_eq_of_surjective_of_ker_eq_span.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Defs.lean"
+      ],
+      "conclusion": "Both snapshots are clean at their manifest revisions. Inspected the frozen contract, Hopf-kernel definitions, and tensor-product definitions. No target helper or HopfKerHopf declarations matched in project/Definitions or mathlib/Mathlib."
+    }
+  ],
+  "comparison_identity": "0e9f8615317d8fba3a7e640a33f7420954f649c725323c92be8a0d17b26deaf0",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p05_hopf_tensor_equalizer_a5b449214a",
+      "statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (K : Subalgebra k H) (hΔ : (∀ x ∈ K, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ K, ∃ b ∈ K, t = TensorProduct.tmul k a b})) (hS : (∀ x ∈ K, HopfAlgebra.antipode k x ∈ K)) (x : H), (TensorProduct.tmul K x (1 : H) : TensorProduct K H H) = TensorProduct.tmul K (1 : H) x → x ∈ K",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Applies the tensor relation to H/K, then uses accepted finite-witness, Hopf-envelope, stable-subspace, and retraction lemmas to show the quotient class vanishes."
+    }
+  ]
+}
