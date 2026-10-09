@@ -1,0 +1,637 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "manifest": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+      "revisions": {
+        "mode": "local-project",
+        "project_commit": "956e8c600d8b95b46948ae5e37b13930b5f3d06b",
+        "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d"
+      },
+      "queries": [
+        {
+          "argv": [
+            "rg",
+            "-n",
+            "def inertiaDeg|instAlgebraResidueFieldRestrictPushforward",
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorPushPull.lean"
+          ],
+          "exit_code": 0,
+          "result": "407:instance instAlgebraResidueFieldRestrictPushforward :\n427:def inertiaDeg : ℕ := Module.finrank (w.restrict F).ResidueField w.ResidueField\n"
+        },
+        {
+          "argv": [
+            "rg",
+            "-n",
+            "def fiberOver|theorem mem_fiberOver",
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean"
+          ],
+          "exit_code": 0,
+          "result": "453:def fiberOver : Finset (Place K F') :=\n457:theorem mem_fiberOver {w : Place K F'} : w ∈ v.fiberOver F' ↔ w.restrict F = v := by\n"
+        },
+        {
+          "argv": [
+            "rg",
+            "-n",
+            "theorem norm_inv",
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Norm/Basic.lean"
+          ],
+          "exit_code": 0,
+          "result": "136:theorem norm_inv (x : L) : Algebra.norm K x⁻¹ = (Algebra.norm K x)⁻¹ := by\n"
+        },
+        {
+          "argv": [
+            "rg",
+            "-n",
+            "p06_9e0f5043ff_local_norm_order|ord_norm_eq_sum",
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions",
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib"
+          ],
+          "exit_code": 1,
+          "result": "No matches."
+        }
+      ],
+      "inspected_files": [
+        {
+          "path": "Definitions/Def_AlgebraicCurve_DivisorPushPull.lean",
+          "sha256": "ca80a6139646c59cd06c3ba8f3f6368fd53a9d72aadd763458b3efb66e36240b",
+          "snapshot_equal": true
+        },
+        {
+          "path": "Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+          "sha256": "4786895eaa0b7f27ba9fec56a58a787f1d1d3ec8be0e893436e6b1f8293ac7b7",
+          "snapshot_equal": true
+        },
+        {
+          "path": ".lake/packages/mathlib/Mathlib/RingTheory/Norm/Basic.lean",
+          "sha256": "01e502fe91c52759ca94dcbd0244e7e045e60d16a07b0180ee1059c3907de14b",
+          "snapshot_equal": true
+        }
+      ],
+      "conclusion": "Canonical residue algebra and natural-number inertia degree, finite place fibers, and pinned norm inverse identity match current imports byte-for-byte. The norm-order-name query has no matches. No proof regenerated or copied from other corpora; acceptance still requires the exact comparator and transitive axiom checks."
+    }
+  ],
+  "node_id": "root.local_norm_order-a1",
+  "canonical_parent": "6e593a1145b6873c79260edc21248c86b6b70146",
+  "reviewed_parent": "592a1266a44d78db435db86efe7cffa5e8987121",
+  "reviewed_commits": [
+    "3e6f575b1cbf978544f620a0fc6b60f404da63d4",
+    "c144ed63ef9c2bd7aa824956299c6344ea772d7b",
+    "8c6f00fcb66e0cfd891ada1becc23e63adbabd78",
+    "27270552c35cc4f1bc22d895e146f4a421918d90",
+    "e390a69dd913e7cf80e0c0703eebb4778e923760",
+    "ca97cfa802bcbd1118d8f2976b2531f5ef647662",
+    "dedbf959da46739c354d5a68ace76f54320faf49",
+    "a3af25d522d535831dc8dc275ca147256bc1608a",
+    "d0125a8eab88d3da301c35a0fde5201df2fd7bbb",
+    "3c691d3f09dd05200b1113b7dedd692bfbf11037",
+    "64df39cac6a99c97728c09beec5a4d0e6bdcb941",
+    "2f7d8abbfc0c900b831237159c96f0738dec030a",
+    "8eaf09ed3a37c4321003f86a0a5aa71a82f1f580",
+    "2e675c6aac76ddaf36a1af465cf172b4793fa415",
+    "2aed6c5f9900361a7c6b688f75f79e66ec40468b",
+    "0bd725096a3ffba92f5bdfce329826df892d1237",
+    "f39bae1afec518d121085974f9b11906a6fdb165",
+    "7501a22c083c43b350da2234aef1e51a709ef3a2",
+    "c5ad70dcd01068ae1b11103a1c07452644f9eae3",
+    "be7439da4bf220c0747665edd4c57253164b30ff",
+    "b0223aacb8e16b62a5414a4ca944c6e2065cb3a9",
+    "fb9268015445865a0924116f44b06e51f921fd42",
+    "392da5ed6a993e78e3d93ae5b92f404ca171bd1a",
+    "8af6fbfe0fc74e2382bf47bbffd7a7821cee4c4f",
+    "2b12f3296ebe6a90635dbcf555b4b3613cc4c2b1",
+    "5a8ab082a3be010d42925e5ecc9706c1c3dd87e8",
+    "04d4b298e99599701704fe207bf88c1279a7adb3",
+    "72b60ecb35f9ec9b838ef1842ff301de317ec29f",
+    "34438bf9a0df310af64c7d001edebb98f1302c29",
+    "c106309f9a2d613e65b95b1c8d3f0e713829426a",
+    "7ac6ba3d801ed91d9a1b97cabd5bb2e454428449",
+    "2be38381b24fed50109fa05a3949229283633cc8",
+    "0dec5870e76f121e4bb8e1ac5c5d6327ad4573a4",
+    "fe32f90956a491a54ca07673e6f30c8e351b9f35",
+    "64ebaa8a416a955988e56cef13ba6187353fc69f",
+    "979256c71f7af1391c502d543b4997ed35888a7a",
+    "86438737ea053ccb6a53faf40d2df48af76406c3",
+    "5b65fbff585e3d191577d62fd4c83c4ec846abc5",
+    "33b1a5736d805beead203993ba6c5ad09d76840c",
+    "87af2ee9d305c6232b31d065041a826f7afca6ee",
+    "df859ed946110c3cf137289542730adc3882d107",
+    "0d4d0fabf893cf346e1ea5ce59c9f70ed23cffc4",
+    "95e606e6fbf64ffdc68f72f1f6ced2b9b0c82fc1",
+    "0397e707f3183e107d679a61c66ffd9761890374",
+    "53297ed9672cd8ee9d5cff55b53a047a10aeab3e",
+    "b75fd095f829e8131cadc3817cb33fa66b112af2",
+    "255789d55a58245b1575e08d842cc79c210a30c9",
+    "c90c56a81c01b5bde537699b6e99c44977a92b69",
+    "c2f4cb91c44851510229a3e591443f776f2b2141",
+    "f3dd8b557fff55c6e247d215e2e7c318cf3855b5",
+    "60febec1e9714f21df09fa431340c8acd013c078",
+    "72b7789149906e23c3983ac6d74c068f4f9fb9c2",
+    "6204f8649f7205db3a3134ff0f6cc6d53a70cb75",
+    "6e443a31bd0f330ea949d9a6e7ceb9c0ad0655ec",
+    "c2f808bb40ee0221be5703c374aa430d05aa2273",
+    "ff97976017f8e50a6883c7cb2145f695b1e69f56",
+    "053c6ec4f35e8dd281aa341681f91c0ea52fdc49",
+    "1a6b6031887513158272f69a10f52c1c7f55ea9a",
+    "8565ef6dc51e2369f46ec1107b3c23704267e014",
+    "97aea67af1a36f39ce00bced191fa931cb7a8694",
+    "34b061ac78b5a882628bf7f6441a6dcb87cb4cec",
+    "46c16cf995ae7af5b51f2841c950ca43872da071",
+    "8517c53dce020c09116deed308b6c184a7bb82b1",
+    "941b59d24798396bc6fe3d2747f223f65e7811fe",
+    "b94f683d00975d5211c8af35ba4d232060e775ad",
+    "f9fb7b7775b64dd8711c34b098f82baeb779492f",
+    "9ce50ce8f8250fcd1f2505caff9181f663a0cc7c",
+    "ef8c1d45c5b2800837dcdaa8d41c919c9b4de791",
+    "bba2c4f3384c024c6783704eae0b637deac0e7c8",
+    "0ab1581a3f6f5121487a5094e522d538a3fb2cbf",
+    "4586bd4417fbb8f38e31a1eced21201c17231d1c",
+    "80f0b4487b9da001669bff7abdd7346335fa54dd",
+    "87f211cf6fe8bdd7e2807a805676b00379773cd0",
+    "2674d9de964fb6bdc1daddb98abecfa06af6333e",
+    "c8c5ffe84d22e63eff2464bbee2fdc0b5c2b210f",
+    "f16d6e9cf742266231cfe5fa315d583f9dfec5b5",
+    "4e23455253242e2942b36609c9b0ce24cf041caf",
+    "e31f1d37da6c089c0398ae602effe9dd9b6b6ebf",
+    "60088398c79fc9faa79fba2c7c9d6d9f89031c4b",
+    "d0805c9043fc161738fa1acf2797204d083cc0fd",
+    "d8e87e270a4ddacd88343a22237ea645dd8d28c3",
+    "31cf950a6b289d9f8e560e0755761d4ff3323ec1",
+    "0579c933456cf8f80b02ec5c7f866abcb0ceaa36",
+    "48aa5ab018c00c93f0690e060eaf067cd7efb51a",
+    "386d2ae3804661ea691922b34b84fb67b82e97c2",
+    "bef99a6e97cc17c76b496e411f38a3035c91fd94",
+    "c837723f1808d886c74075a627f55d99ddf748d7",
+    "0749dfd2ec667f10afbeb4f43f57feba8b603169",
+    "58625104b624b643894155ba80d9f60908d4404e",
+    "7f7cb2edca9b4426a39f7bf96f4c597a0f45a429",
+    "895ff137c1b98ff2945e61517c1b72837ecb41ff",
+    "bf06c3e09413cdc2af39ceb47a435098b734f3e7",
+    "9967092db96a2a58da313239bc9f4f8c8706bf10",
+    "a39d5c2c03c380bd545fd97c9ca4d895d7068ef1",
+    "ccf36259a66a122fd85b7900eff565b85914f182",
+    "e007ad7a060c24b89c299021df000b2c688c5bcb",
+    "a37027c0f7c60ae6769ca14f46ae44fa01fbd917",
+    "74348b97007bb73b144dc8790d302f132f212441",
+    "2603ffab7a35e89bf8ea7a899af9504e76f42282",
+    "789729a8cb93ea895e630efb7d798b39770aae5a",
+    "1fe5671aa9a5a45526346cb24614af7beb021c45",
+    "89541b0ed110440822f6028c7d306d2b2247c1b6",
+    "aec9a70cc3aa89b3089c2ecf04e1618ff3509cb1",
+    "9f9389083eeed5c4306fa618ddc6d25d24d79ac0",
+    "1c649ac6259cfd88e39a835ee38ecb37dff8b9bf",
+    "c9bd7004e803eaa99c01ebf8bfd3eff5cd07e97f",
+    "aa74d39f6419db237ce8bc65cdc593dc60f8423b",
+    "cc51c3df9a256a07cd3d5d66b377553c3fc67366",
+    "b681e6cb59b0824752af0a6485647b6ffc594c7a",
+    "9ee79368e887d68747735595389a6ac2190df279",
+    "dfaf6db3b9bfa45ea206bdf25a0804ab34533344",
+    "65ac8783d977a402606238cd1753b90781224dee",
+    "8b1c01a358ffd7baff1803a80ad00783b08a3b11",
+    "7be21f4bd2a434765c15a30bf0be433fb606a546",
+    "42bf0bc98c4cd85944812731a2419f38c09f4967",
+    "a1ce0a086a96636c1f523a98bc486d0fd0a922e6",
+    "20e5eb3994be99da3088e2e1f9eabc3ed8ab6495",
+    "7a47d17eeebe77104fabe01ccb142ce7f5146afe",
+    "e2a7ede32d1620bd10b83b80854a81982e2ea1d2",
+    "371fb6673b9b0580de4b52a563203e55f1294d9c",
+    "3a1f447486427ed98342ed71ebef0fe457a8e52c",
+    "773c5cabba688434918cce5841d59118db3782e3",
+    "aa893bfc253a651e43a7c366d55790ec69cafff4",
+    "6b09201aebacee5c5f93c1d70f0bd994cd161c81",
+    "031888cdd1d64ad9484fbc901c3ad54fbaa27112",
+    "40647bd27d58174588dec4bc05f46adc241e5e3a",
+    "2c92bc9eb6c6857543ebf9fba8d6f79f934b22e4",
+    "94e74d0c7ac37b922082290ce9770aba8b2bd3d4",
+    "3224e48881ec797709d62bdcfe5435cf1e379c66",
+    "2abb50e0bcff60658c7fa4e5b01da83351233c18",
+    "00bdae55d403a9fdbd311171d2c14e670a4f5323",
+    "26879d0454a9b3aa40b3ee9f2d0edf5264003a62",
+    "41eeff5a0bfaea78ad34fd3158391158c324104c",
+    "3d1759b7ca0f8f13105d7d45d9853b5b2b4cefb4",
+    "5078c0a3f521ffe93cb6f09e27de703e2221ccf2",
+    "592a1266a44d78db435db86efe7cffa5e8987121"
+  ],
+  "reconciliation": "Keep the canonical prefix containing every distinct existing declaration, remove repeated imported modules and malformed duplicate assembly, close its namespace, and append the exact reviewed norm-order namespace block. All 46 canonical declarations and all 22 reviewed declarations survive byte-exact in the union of 47. The final controller handoff and all other reviewed non-Lean changes already equal the canonical versions. Preserve both histories as merge parents. Discard only the local workspace files recreated by the merge, retaining their prior canonical removal. No mathematical or frozen source changed.",
+  "preserved_declarations": [
+    {
+      "name": "AlgebraicCurve.hasPrincipalDivisors_of_transcendental",
+      "sha256": "04eaa2d4ec905d9032c5eea9d72edb4decf5df66abb8fda4e55e12f77c4134fc",
+      "canonical": true,
+      "reviewed": true
+    },
+    {
+      "name": "p06_9e0f5043ff_wll_residue_composition_series",
+      "sha256": "2018b2aaa79dd6bcb826b890eaec56f58e807de5821bcacc848651a73230e030",
+      "canonical": true,
+      "reviewed": true
+    },
+    {
+      "name": "p06_9e0f5043ff_wll_length_sum_factors",
+      "sha256": "fcc2f1bab95c340a52008e38b2be683fdadf8427c1d88ecc2bd81d6fe0d65ec0",
+      "canonical": true,
+      "reviewed": true
+    },
+    {
+      "name": "p06_9e0f5043ff_elp_principal_ideals_of_order",
+      "sha256": "92e3b4d8fdc81a6994951a7f1977b04d1373ada06b0fd2967c2ecf4d0a28d0ab",
+      "canonical": true,
+      "reviewed": false
+    },
+    {
+      "name": "p06_9e0f5043ff_sdp_clear_first_row",
+      "sha256": "347903df2a4569a3986804cae905e1739a055820a36cc77fd5929733387d2ce6",
+      "canonical": true,
+      "reviewed": true
+    },
+    {
+      "name": "p06_9e0f5043ff_sdp_clear_first_column",
+      "sha256": "ab50a1eafce797a97ea06b3f065d1a72a51a784291f627eae6f7ad64c08f8580",
+      "canonical": true,
+      "reviewed": true
+    },
+    {
+      "name": "p06_9e0f5043ff_dmd_finite_family_dividing_member",
+      "sha256": "a250bdb221fab417bce11e65b63ddfe38bcf69cd26a4a976a20b1e8905c5c3f5",
+      "canonical": true,
+      "reviewed": true
+    },
+    {
+      "name": "p06_9e0f5043ff_fpm_rd_eval_kernel",
+      "sha256": "ba997611e723578883ef6809af7d4986109718e7284c8ad05ebf4cc1e47ae2d1",
+      "canonical": true,
+      "reviewed": false
+    },
+    {
+      "name": "p06_9e0f5043ff_llm_localized_series_sum",
+      "sha256": "2291197590dde16c7e953498a9e8f3435450e6a2a89542bec819d9b43b3f6ac4",
+      "canonical": true,
+      "reviewed": true
+    },
+    {
+      "name": "p06_9e0f5043ff_dlen_scalar_quotient",
+      "sha256": "0fa4865d37e69e8bcfb98b90768e259f4db807bd9d40c55dbf81e3c2ee0a4f76",
+      "canonical": true,
+      "reviewed": true
+    },
+    {
+      "name": "p06_9e0f5043ff_dmc_diagonal_quotient",
+      "sha256": "59e9ae20c3d308ef21e212f3c7f0687975b02348ea6320c3710215c9dafd4b28",
+      "canonical": true,
+      "reviewed": true
+    },
+    {
+      "name": "p06_9e0f5043ff_fpm_rd_residue_surjective",
+      "sha256": "b7cdd9762bd329dcb1468773068486c657786d72f07a26089713f86707172e2f",
+      "canonical": true,
+      "reviewed": false
+    },
+    {
+      "name": "p06_9e0f5043ff_fpm_residue_degree",
+      "sha256": "3871ac1be382c8fad44089f2213018295d58fac04939622623aebe9864525ba5",
+      "canonical": true,
+      "reviewed": false
+    },
+    {
+      "name": "p06_9e0f5043ff_fno_fraction_isunit",
+      "sha256": "f56193b5cc0023cff81ca4b159ed7fb81de080abec3c174b3d5214bcef834368",
+      "canonical": true,
+      "reviewed": false
+    },
+    {
+      "name": "p06_9e0f5043ff_fno_irreducible_aeval",
+      "sha256": "c4acec90b82d9a4f00123fc86d39e3f54445ccfa322e0a91e967adb66b401761",
+      "canonical": true,
+      "reviewed": false
+    },
+    {
+      "name": "p06_9e0f5043ff_inf_reciprocal_presentation",
+      "sha256": "d6ca734a115ccb669b1a58fd994c14f915c375e270d3f383d0f1f72cf2a8fef3",
+      "canonical": true,
+      "reviewed": false
+    },
+    {
+      "name": "p06_9e0f5043ff_inf_reciprocal_polynomial_order",
+      "sha256": "07fe47c9e6664384343f6c2c2de7b8cd17e6dcd35aef85f8430ebb84e66fe8c7",
+      "canonical": true,
+      "reviewed": false
+    },
+    {
+      "name": "p06_9e0f5043ff_elp_fraction_subalgebra",
+      "sha256": "b1e383fc2f9ea9120ac29239b226e788e10692f019fc916bac68d73d17a8e33c",
+      "canonical": true,
+      "reviewed": false
+    },
+    {
+      "name": "p06_9e0f5043ff_io_polynomial_exponent",
+      "sha256": "f68c11ceadb1811915f072cbecaacc3c14a50145c4e35bb593c79d8a8bf870d1",
+      "canonical": true,
+      "reviewed": false
+    },
+    {
+      "name": "p06_9e0f5043ff_io_fraction_extension",
+      "sha256": "d34a67e867a5d3bae1324e2701fcb1edcca5b3bcd280e2c35c8972ea281a0f35",
+      "canonical": true,
+      "reviewed": false
+    },
+    {
+      "name": "p06_9e0f5043ff_fosa_ord_zero_of_monic_pair",
+      "sha256": "72ce4ee38333060296c8c04cf0d4c08885d3400a631e6fd995b7b4978736ba40",
+      "canonical": true,
+      "reviewed": false
+    },
+    {
+      "name": "p06_9e0f5043ff_ifl_local_length_order",
+      "sha256": "eb8f17d0e2078247b4ca5909c6344ac824fe88efd33e885c0c3d2979edce71ce",
+      "canonical": true,
+      "reviewed": true
+    },
+    {
+      "name": "p06_9e0f5043ff_fosa_coefficients_integral_off_finite",
+      "sha256": "da54a24f2b31c57b068a086e65e9717d74633e270d908cf2871b86391505a221",
+      "canonical": true,
+      "reviewed": false
+    },
+    {
+      "name": "p06_9e0f5043ff_finite_order_support_ascent",
+      "sha256": "05cde71c644e22a8e6df4b3ba2bd045482e11add194b32b05c27e25ee4157c7f",
+      "canonical": true,
+      "reviewed": false
+    },
+    {
+      "name": "p06_9e0f5043ff_vfc_polynomial_unit_criterion",
+      "sha256": "3573f8807b9443abd9952898ad40d22f78888028365a775b543ba1c22a3d615a",
+      "canonical": true,
+      "reviewed": false
+    },
+    {
+      "name": "p06_9e0f5043ff_vfc_unit_power_quotient_exponents",
+      "sha256": "a25c89d15e760f01a781ee0e4abd74c82221cd90c2864e7d347cdec80f5f4ee6",
+      "canonical": true,
+      "reviewed": false
+    },
+    {
+      "name": "p06_9e0f5043ff_dmd_split_divisible_pivot",
+      "sha256": "c63a6324d7ac96dc9204547edc7c4364504935b8a194c0173551ec9f1673081b",
+      "canonical": true,
+      "reviewed": true
+    },
+    {
+      "name": "p06_9e0f5043ff_llm_localized_residue_factors",
+      "sha256": "fa173f5e355dbe72fd75db577a3b169769a482cc1142c98d5da211b13827d6fd",
+      "canonical": true,
+      "reviewed": true
+    },
+    {
+      "name": "p06_9e0f5043ff_dlen_matrix_diagonalization",
+      "sha256": "67b39ed931502392b3c4d65db3169e8ce2fadf29787908422ee2e278ff9fee94",
+      "canonical": true,
+      "reviewed": true
+    },
+    {
+      "name": "p06_9e0f5043ff_inf_valuation_fraction_characterization",
+      "sha256": "b5e23e0e00fb158a5225dc4fae457164770f510cc65ea64d20ec0e5b977176d6",
+      "canonical": true,
+      "reviewed": false
+    },
+    {
+      "name": "p06_9e0f5043ff_dmc_cokernel_units",
+      "sha256": "2586f36115793ed36ac7537a47d82dd4ed7b7f36d3dd66a54828cb50afac5810",
+      "canonical": true,
+      "reviewed": true
+    },
+    {
+      "name": "p06_9e0f5043ff_wll_local_length_multiplicity",
+      "sha256": "e6c284d07795a1c4bdf62d7d2d604583377473870f4b9edf7dd9db48f12a5dbf",
+      "canonical": true,
+      "reviewed": true
+    },
+    {
+      "name": "p06_9e0f5043ff_fpm_normalized_orders",
+      "sha256": "326f5f57121eddb52fa0bfee747f6b42e6d242f3d862cbae7e3d89162c053e1b",
+      "canonical": true,
+      "reviewed": false
+    },
+    {
+      "name": "p06_9e0f5043ff_dlen_diagonal_cokernel",
+      "sha256": "7591674c388cc3494d6283c058dc9b95a7321eaa6d9d054b7a65884441dc084b",
+      "canonical": true,
+      "reviewed": true
+    },
+    {
+      "name": "p06_9e0f5043ff_ifl_residue_length_inertia",
+      "sha256": "0181dba380dde1ad81b062283afb093095cb7a4e5ea95da5488d73784a43e822",
+      "canonical": true,
+      "reviewed": true
+    },
+    {
+      "name": "p06_9e0f5043ff_ifl_weighted_local_lengths",
+      "sha256": "d7acba7147846a91b4a25a4c6e8585757565ea17b99a4aba6d8a154880196890",
+      "canonical": true,
+      "reviewed": true
+    },
+    {
+      "name": "p06_9e0f5043ff_elp_integer_order",
+      "sha256": "7d3d1c38cd75985cd5773dea940a177063d1c197b0607ce8d5b1c2e058db28d4",
+      "canonical": true,
+      "reviewed": false
+    },
+    {
+      "name": "p06_9e0f5043ff_lno_dvr_determinant_length",
+      "sha256": "2ce72b946873046baa2132fe3a2683bda065000167ad0c83bce14e90a5ca1705",
+      "canonical": true,
+      "reviewed": true
+    },
+    {
+      "name": "p06_9e0f5043ff_pae_compatible_order_invariance",
+      "sha256": "3a9041a4d811fa7139ea1b0b770b501d5f04372e87d2167b7be27734220fc629",
+      "canonical": true,
+      "reviewed": false
+    },
+    {
+      "name": "p06_9e0f5043ff_lno_integral_fiber_length",
+      "sha256": "d08fe2b61fdf933630c2843c3b16f6ba1f9636e9ade4c14b97b74f8c4f3436da",
+      "canonical": true,
+      "reviewed": true
+    },
+    {
+      "name": "p06_9e0f5043ff_fpm_exists_local_place",
+      "sha256": "d2ef263ad2f0944e392ba1692420749892e86a59fd3568c57b5cccef30491d44",
+      "canonical": true,
+      "reviewed": false
+    },
+    {
+      "name": "p06_9e0f5043ff_lno_integral_norm_length",
+      "sha256": "bc7eb776522528ad7e5b02b44982fe5be9a7a1a43fb73e79fd101759b998709f",
+      "canonical": true,
+      "reviewed": true
+    },
+    {
+      "name": "p06_9e0f5043ff_pae_place_equivalence_degree",
+      "sha256": "fe09351a9ab585c291c230fd4d5cb0107fa34db7097de74d1dffae901fa0e9b3",
+      "canonical": true,
+      "reviewed": false
+    },
+    {
+      "name": "p06_9e0f5043ff_principal_alg_equiv",
+      "sha256": "9a8e63218da01d1a9a1af9d5c8a17853db5087dc65f49a23f11f6eb0b3271db0",
+      "canonical": true,
+      "reviewed": false
+    },
+    {
+      "name": "p06_9e0f5043ff_rmp_finite_place_classification",
+      "sha256": "57984b2afd446aaa0968b4bc3b209f88452e933f7c63f8794762498cd9947df0",
+      "canonical": true,
+      "reviewed": false
+    },
+    {
+      "name": "p06_9e0f5043ff_rmp_finite_place_model",
+      "sha256": "430588fc9295c02842db1e54b22bef354d2919782c8bc37810b434341ac42ea4",
+      "canonical": true,
+      "reviewed": false
+    },
+    {
+      "name": "p06_9e0f5043ff_local_norm_order",
+      "sha256": "21d0cbb8594881b4e928814fec3442aa1666f8956452a21766bf0c1864d745d2",
+      "canonical": false,
+      "reviewed": true
+    }
+  ],
+  "submission_sha256": "f11243446b7b139afec542dcb23ffbc30f7a97b716d63d5efbd4684e68caafdc",
+  "frozen_contract": {
+    "contract_file": "Fermat/Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean",
+    "contract_sha256": "b004dca1496ade3fb13e18207639dd199dcb7aeb7df210061bf8c375960870bc",
+    "remove_lines": [
+      9,
+      10,
+      11
+    ],
+    "root_name": "AlgebraicCurve.hasPrincipalDivisors_of_transcendental",
+    "source_commit": "956e8c600d8b95b46948ae5e37b13930b5f3d06b"
+  },
+  "frozen_header_sha256": "6279fa3f11b4d3b8d4e5089f9d70e2f2e3fa3d3dd9e30f1e2dd3e02f6bd53177",
+  "compiler_copy_policy": {
+    "path": "/runtime/operator-header-policy-v1/policy.json",
+    "sha256": "96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96",
+    "allowed_omitted_lines": [
+      9,
+      10,
+      11
+    ],
+    "source_header_preserved": true,
+    "evidence_path": "/runtime/review-evidence/79182ff916fe4c27814fec8e05cd1646/evidence.json",
+    "evidence_sha256": "79599dc4517584cec63de377d3862d2510118bdb4453b0e7e2cd90f242e1993b",
+    "exact_omitted_lines_verified": true,
+    "original_and_build_hashes": {
+      "challenge/Submission.lean": {
+        "original_sha256": "b004dca1496ade3fb13e18207639dd199dcb7aeb7df210061bf8c375960870bc",
+        "build_sha256": "613967cd1739b9969d86f24a0171e99a52c9448401e3666ff2cc9b78913b0158"
+      },
+      "solution/Submission.lean": {
+        "original_sha256": "f11243446b7b139afec542dcb23ffbc30f7a97b716d63d5efbd4684e68caafdc",
+        "build_sha256": "916ee6b836859a07c01c9eda9d0f3ec6526c98106981f6be01b7a0ad77166f2a"
+      }
+    },
+    "transformation_reversible": true,
+    "probe_sha256": "bd5699b7cf3f286269e1ce33c5d00ea1f2023e2d6af5bd4519abc934af952fd0",
+    "probe_absent_targets": 95,
+    "target_set_matches_policy": true
+  },
+  "dependencies": [
+    {
+      "name": "mathlib",
+      "commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "clean": true
+    },
+    {
+      "name": "plausible",
+      "commit": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "clean": true
+    },
+    {
+      "name": "LeanSearchClient",
+      "commit": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "clean": true
+    },
+    {
+      "name": "importGraph",
+      "commit": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "clean": true
+    },
+    {
+      "name": "proofwidgets",
+      "commit": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "clean": true
+    },
+    {
+      "name": "aesop",
+      "commit": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "clean": true
+    },
+    {
+      "name": "Qq",
+      "commit": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "clean": true
+    },
+    {
+      "name": "batteries",
+      "commit": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "clean": true
+    },
+    {
+      "name": "Cli",
+      "commit": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "clean": true
+    }
+  ],
+  "protected_artifacts": [
+    {
+      "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/problem.md",
+      "sha256": "789e1ee8f9e22e1ad8bb71a38c175e66a6bcc4caaf162eedaa432c1a5a5a4aa8"
+    },
+    {
+      "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-local-norm-order-a1/parent-child-handoff.json",
+      "sha256": "0e23b37c7ae1c2215cd03cbdd313f5c581533fa1bb214f88e9e77e8e1226ab6c"
+    },
+    {
+      "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-local-norm-order-a1/parent-supplied-natural-proof.md",
+      "sha256": "f5b51c442f9b701a952560f7856f4aa026fe17c90417ee2947e83581c8eb4b5e"
+    },
+    {
+      "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-local-norm-order-a1/parent-supplied-plan.md",
+      "sha256": "325fceb36decccf37cd4eaae807687e5e60e52b55aedb97428ef189c0a4ffa7a"
+    }
+  ],
+  "controller_note_sha256": "c9f8b5baddb0398fe08024f20788c407cb196c708040df3960b8aeb5201ee4be",
+  "verification": {
+    "author_comparator": {
+      "candidate_commit": "f3ee8510a1917b06766cbde434ac295ada869bc2",
+      "request_id": "79182ff916fe4c27814fec8e05cd1646",
+      "packet_digest": "aeed4b096803d19ac13c651869ff1cdfdee7417ba6d6602790ea9b6f221f8765",
+      "exit_code": 0,
+      "success_marker": "Your solution is okay!",
+      "kernel": "Lean default kernel accepts the solution",
+      "status": "verified",
+      "checked_theorems": [
+        "Submission.p06_9e0f5043ff_local_norm_order"
+      ],
+      "transitive_axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "exact_frozen_type_wrapper_verified": true,
+      "exported_files_hash_checked": 223,
+      "log": "verification/local-norm-order-author-comparator.json",
+      "log_sha256": "60ac1b6756c585541f95e24e28276055407325477bb68b7a812e4184f3b4cc83",
+      "receipt": "/runtime/review-evidence/79182ff916fe4c27814fec8e05cd1646/evidence.json",
+      "output_sha256": "c89ff7413fbfa83bbf0ab6f3b51fe97f32beb4547e4741c5618d1e12554506f3"
+    },
+    "independent_source_review": {
+      "candidate_commit": "f3ee8510a1917b06766cbde434ac295ada869bc2",
+      "passed": true,
+      "findings": "Independent reviewer checked all 47 byte-preserved declaration bodies, the exact reviewed selected theorem, all 136 ancestors, frozen inputs, unchanged controller note, all nine clean dependency pins and the local-project searches including no-match."
+    },
+    "final_revision_rule": "The final revision has the same verified Lean bytes. Its independent exact-comparator receipt is external to this commit so verification cannot advance its own tested revision."
+  }
+}
