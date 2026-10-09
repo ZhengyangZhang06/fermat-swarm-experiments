@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "mk.|ofAlgHom|class Bialgebra",
+        "p05_hte_sshs_bialgebra_restriction_a5b449214a|p05_hte_sshs_br_comul_alg_lift_a5b449214a|p05_hte_sshs_br_coalgebra_laws_a5b449214a"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Bialgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Bialgebra/Hom.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae"
+      ],
+      "conclusion": "Confirmed clean pinned project and mathlib revisions and inspected Bialgebra.mk', BialgHom.ofAlgHom, and the unchanged Hopf-kernel definitions. No matching node or child declaration names occur in the searched snapshot. The exact comparator rerun passed; its exported inputs match the inspected committed candidate, and its transitive axiom closure contains only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "cc0d7c4f73ff4979ee85092bd8b326ff3c536e02cf8b256248999a6747ddfde8",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p05_hte_sshs_bialgebra_restriction_a5b449214a",
+      "statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [Bialgebra k H] (D : Subalgebra k H) (hΔ : ∀ x ∈ D, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ D, ∃ b ∈ D, t = TensorProduct.tmul k a b}), ∃ bD : Bialgebra k D, bD.toAlgebra = (inferInstance : Algebra k D) ∧ (letI : Algebra k D := bD.toAlgebra; letI : Module k D := Algebra.toModule; letI : Bialgebra k D := bD; ∃ ι : BialgHom k D H, ∀ d : D, ι d = (d : H))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Packages the accepted coproduct lift and coalgebra-law descent into a bialgebra preserving the existing algebra structure, with the inclusion as a bialgebra homomorphism."
+    }
+  ]
+}
