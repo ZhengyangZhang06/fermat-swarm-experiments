@@ -1,0 +1,18 @@
+{
+  "node_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/86",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "be4d3c5120876cd2b557801157a3f9405a7075d1",
+  "integrated_commit": "21b6e9e4e327769a850ec711e4914c5f6d9c6aad",
+  "proof_base_commit": "c0dd6cb08405fb573a8de527261617cc0fa3ce33",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.tate_index_annihilation-a1",
+  "requires": [
+    "root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1",
+    "root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1"
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "schema": 1,
+  "kind": "failed-request-export-access-audit",
+  "request_id": "10cb226b397b4480a3aa198129ff68fd",
+  "candidate_commit": "e99290cc6b8b3c7b9e121c2890a1eb1e624458dd",
+  "packet_digest": "a9f540599491f43bd52bc74f7b986a526e02daef3de3a2714b98d3e070ddb959",
+  "theorems": [
+    "Submission.p04_hct139_coset_average_laws"
+  ],
+  "terminal_result": {
+    "request_id": "10cb226b397b4480a3aa198129ff68fd",
+    "revision": "e99290cc6b8b3c7b9e121c2890a1eb1e624458dd",
+    "state": "finished",
+    "returncode": 1,
+    "response_fields": [
+      "output",
+      "request_id",
+      "returncode",
+      "revision",
+      "state"
+    ],
+    "output_sha256": "3bcb79227b9cc5e39c762279624242225dcf876174f538b49505251280da9f75",
+    "artifact_location_lines": [],
+    "new_request_created": false
+  },
+  "terminal_output_matches_original_log_suffix": true,
+  "original_failed_verdict_preserved": true,
+  "candidate_source_sha256": "400b459f4e5853500ca1d89e524d3776e681be24b05419d91eacb430ad06a739",
+  "original_contract_sha256": "42953c937798c4a4ff8c5a5266936d11cb7f7836ede7175b49e6d157bd9e9551",
+  "protected_inputs_unchanged": true,
+  "artifact_search": [
+    {
+      "root": "/runtime/review-evidence",
+      "include_ignored": true,
+      "records_examined": 519,
+      "matches": [],
+      "rg_exit_code": 0
+    },
+    {
+      "root": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize",
+      "include_ignored": true,
+      "records_examined": 0,
+      "matches": [],
+      "rg_exit_code": 1
+    }
+  ],
+  "inspected_local_sources_sha256": {
+    "/runtime/operator-review-evidence-3155d2fa0d3e/export-review-evidence.py": "3155d2fa0d3ee19b460df4a9391d9c46a03ff73ebc59673abf21d2b4c6c5e863",
+    "/runtime/operator-review-evidence-f116f3cae2f8/export-review-evidence.py": "f116f3cae2f8a8397c6e0cbbb4030804133b8b1c7807fd2b9941be86721d6ec7",
+    "/runtime/flows/math-lean-flow-fleet-verifiers-v2/_recursive_lean/swarm_broker.py": "dba947dc9a09982a556b3ff2c9c8a4eb7c1f84f97740f42c7de0996afe516519",
+    "/runtime/flows/math-lean-flow-fleet-verifiers-v2/_recursive_lean/remote_verification.py": "84f360640e06eea77a87e001e98a3a531871e419940ee067addc131b623af2ad",
+    "/runtime/flows/math-lean-flow-machine-leaves-v5/docs/review-evidence-export.md": "e46dfeba3d455e4bba3ff9b9f768c96395533adc125315ac84f2d1501ac8ec99"
+  },
+  "findings": [
+    "Neither mounted export relay accepts a failed verification: terminal returncode must be zero and the operation must be verified.",
+    "Available export documentation labels the relay controller-only and requires the private ledger and operation directories to remain inaccessible to proof workers.",
+    "The inspected broker exposes GET /issues and /health and POST lifecycle routes plus /verify; no artifact download route is provided.",
+    "Polling the existing request returned the same finished failure with no appended review-artifact export location.",
+    "No new verification was requested; no change to the input failure or authenticated checker identity was established."
+  ],
+  "authority_limit": "Hashes identify inspected mounted source copies only; they do not authenticate the checker executed for the failed request.",
+  "required_external_action": {
+    "owner": "recursive controller/operator",
+    "request_id": "10cb226b397b4480a3aa198129ff68fd",
+    "preserve_returncode": 1,
+    "export_read_only": [
+      "request-bound operation receipt including packet_digest, candidate_commit, service/task, code_sha256 and toolchain/reference-cache identities",
+      "prepared.json and any retained evidence.json without relabeling checking/failed status as verified",
+      "all challenge/solution sources covered by source_sha256",
+      "exact executed checker, packet launcher, sandbox launcher and configuration files bound by receipt digests",
+      "retained terminal output/result metadata"
+    ],
+    "next_step": "Authenticate the export, reconcile the reported challenge construction failure without modifying the frozen contract, then run the prescribed exact-node author comparator."
+  },
+  "analyze_question": "Which controller-provided read-only export path or supported failed-request export interface supplies the required evidence? Both mounted relays reject failure, and the existing broker response provides no artifact location.",
+  "reference_use": [
+    {
+      "source": "local-project",
+      "snapshot": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8",
+      "manifest": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+      "project_commit": "2475a3790d7ba0c3b10be8086001b154a45be597",
+      "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "queries": [
+        {
+          "query": "cosetDecomp_apply|namespace TateResCor|cosetDecomp",
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+          "finding": "No matches; inspected lines 1-65. Installed definition matches snapshot byte for byte."
+        }
+      ],
+      "reuse": "No new Lean code or reuse introduced. Prior warning-fatal and axiom evidence retained, not rerun or claimed as new acceptance."
+    }
+  ],
+  "bitlesson": {
+    "action": "none",
+    "lesson_ids": [
+      "NONE"
+    ]
+  },
+  "acceptance": false,
+  "simplifier_review": {
+    "bitlesson_ids": [
+      "NONE"
+    ],
+    "code_optimization_applicable": false,
+    "scope": "read-only evidence wording; no mathematics or comparator review",
+    "finding": "Use reported challenge construction failure until executed checker/input identities are authenticated."
+  }
+}
