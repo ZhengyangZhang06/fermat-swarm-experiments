@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "eichlerShimuraMap_injective|IsEichlerIntegral|strip_coefficient_limit|linePow|polynomial_exp_tail|scalar_strip_limit",
+        "p02_es_177ebb5a_tb_strip_coefficient_limit|p02_es_177ebb5a_scl_scalar_strip_limit|p02_es_177ebb5a_scl_polynomial_exp_tail"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Fermat/Thm_HeckeEis_eichlerShimuraMap_injective.lean"
+      ],
+      "conclusion": "The inspected definitions and frozen root contract match comparator inputs byte-for-byte. The manifest pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; comparator dependencies match. The named strip-limit helpers have no matches in the reference snapshot. All additional candidate declarations come from accepted dependency history. Rerun d98b52764c634ec2bbc35ff8d1e08712 exited zero with the required marker; its exported packet and all 220 Lean input hashes match the inspected inputs. Transitive axioms are only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "d4a83f7ca0ad5a59244aea529f7ad2e0e96938ea1598e44c066bffc2898d37ee",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_tb_strip_coefficient_limit",
+      "statement": "∀ (n : ℕ) (u : UpperHalfPlane → ℂ) (G : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)) (a C Y L : ℝ), 0 < a → 0 ≤ C → 0 ≤ L → Continuous u → HeckeEis.IsEichlerIntegral n u G → (∀ τ : UpperHalfPlane, Y ≤ τ.im → ‖u τ‖ ≤ C * Real.exp (-a * τ.im)) → ∃ (A : ↥(HeckeEis.BinaryForm ℂ n)) (K : ℝ), 0 ≤ K ∧ ∀ τ : UpperHalfPlane, 0 ≤ τ.re → τ.re ≤ L → max 1 Y ≤ τ.im → ∀ d : Fin 2 →₀ ℕ, ‖MvPolynomial.coeff d ((G τ).val - A.val)‖ ≤ K * (1 + τ.im) ^ n * Real.exp (-a * τ.im)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Applies accepted coefficient and scalar-strip bounds, then assembles the limiting homogeneous form; off-degree coefficients vanish."
+    }
+  ]
+}

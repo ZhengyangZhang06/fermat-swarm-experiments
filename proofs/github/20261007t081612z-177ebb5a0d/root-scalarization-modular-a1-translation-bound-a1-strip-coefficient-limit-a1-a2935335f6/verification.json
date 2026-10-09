@@ -1,0 +1,19 @@
+{
+  "node_id": "root.scalarization_modular-a1.translation_bound-a1.strip_coefficient_limit-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/104",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "8e8384a95c408a4027532dbbb58cae8e754829ac",
+  "integrated_commit": "76ffbe083f61ef8a39440c23ef5dbe27f541ba1d",
+  "proof_base_commit": "0d6c692a12dbfa4c2d29b6eeec922d793d009335",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.scalarization_modular-a1.translation_bound-a1",
+  "requires": [
+    "root.scalarization_modular-a1.translation_bound-a1.strip_coefficient_limit-a1.linepow_coefficient_bound-a1",
+    "root.scalarization_modular-a1.translation_bound-a1.strip_coefficient_limit-a1.polynomial_exponential_tail-a1",
+    "root.scalarization_modular-a1.translation_bound-a1.strip_coefficient_limit-a1.scalar_strip_limit-a1"
+  ]
+}
