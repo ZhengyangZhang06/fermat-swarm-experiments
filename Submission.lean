@@ -857,6 +857,8 @@ end Submission
 
 namespace Submission
 
+open Representation MonoidalCategory
+
 /-- Transfer and projection on tensor coinvariant homology have composite the subgroup index.
 
 Transfer is the sum over right cosets, with each summand descended through representative
@@ -1048,6 +1050,8 @@ theorem p04_tia_homology_transfer {k G : Type _} [CommRing k] [Group G] [Fintype
 end Submission
 
 namespace Submission
+
+open Representation
 
 /-- Transfer and projection on the kernels of the coinvariant norm maps. -/
 theorem p04_tia_tate_neg_one_transfer
