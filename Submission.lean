@@ -2339,6 +2339,116 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     obtain ⟨r, hr, hball⟩ := Metric.eventually_nhds_iff_ball.mp (hleft.and (hright.and hnorm))
     filter_upwards [hdiskShrink v (hKH hv.1.1) r hr] with ε hε
     exact fun z hz => hball z (hε hz)
+  have hunitInversion : ∀ v : ℂ, ‖v‖ = 1 → -1 / v = -star v := by
+    intro v hv
+    simp only [div_eq_mul_inv, Complex.inv_eq_conj hv, neg_mul, one_mul,
+      Complex.star_def]
+  have hboundaryCenterS : ∀ v ∈ B, ‖v‖ = 1 → -1 / v ∈ B := by
+    intro v hv hvnorm
+    have him : (-1 / v).im = v.im := by
+      rw [hunitInversion v hvnorm]
+      simp only [Complex.neg_im, Complex.star_def, Complex.conj_im, neg_neg]
+    have hre : (-1 / v).re = -v.re := by
+      rw [hunitInversion v hvnorm]
+      simp only [Complex.neg_re, Complex.star_def, Complex.conj_re]
+    have hn : ‖-1 / v‖ = 1 := by rw [norm_div]; simp [hvnorm]
+    refine ⟨⟨⟨?_, hn.ge, him ▸ hv.1.1.2.2.1, ?_⟩, ?_⟩, ?_⟩
+    · simpa only [hre, abs_neg] using hv.1.1.1
+    · simpa only [him] using hv.1.1.2.2.2
+    · rw [hS v hv.1.1.2.2.1, hv.1.2, mul_zero]
+    · intro hO
+      exact (lt_irrefl (1 : ℝ)) (hn ▸ hO.2.1)
+  have hboundaryCenterT : ∀ v ∈ B, v.re = -1 / 2 → v + 1 ∈ B := by
+    intro v hv hvre
+    have hre : (v + 1).re = 1 / 2 := by simp only [Complex.add_re, Complex.one_re, hvre]; norm_num
+    have him : (v + 1).im = v.im := by simp
+    have hn : ‖v + 1‖ = ‖v‖ := by
+      apply (sq_eq_sq₀ (norm_nonneg _) (norm_nonneg _)).mp
+      rw [← Complex.normSq_eq_norm_sq, ← Complex.normSq_eq_norm_sq]
+      simp only [Complex.normSq_apply, hre, him, hvre]
+      ring
+    refine ⟨⟨⟨?_, hn ▸ hv.1.1.2.1, him ▸ hv.1.1.2.2.1, ?_⟩, ?_⟩, ?_⟩
+    · rw [hre, abs_of_nonneg (by norm_num : (0 : ℝ) ≤ 1 / 2)]
+    · simpa only [him] using hv.1.1.2.2.2
+    · rw [hT v hv.1.1.2.2.1, hv.1.2]
+    · intro hO
+      have hlt := (abs_lt.mp hO.1).2
+      rw [hre] at hlt
+      exact lt_irrefl _ hlt
+  have hboundaryCenterTinv : ∀ v ∈ B, v.re = 1 / 2 → v - 1 ∈ B := by
+    intro v hv hvre
+    have hre : (v - 1).re = -1 / 2 := by simp only [Complex.sub_re, Complex.one_re, hvre]; norm_num
+    have him : (v - 1).im = v.im := by simp
+    have hn : ‖v - 1‖ = ‖v‖ := by
+      apply (sq_eq_sq₀ (norm_nonneg _) (norm_nonneg _)).mp
+      rw [← Complex.normSq_eq_norm_sq, ← Complex.normSq_eq_norm_sq]
+      simp only [Complex.normSq_apply, hre, him, hvre]
+      ring
+    refine ⟨⟨⟨?_, hn ▸ hv.1.1.2.1, him ▸ hv.1.1.2.2.1, ?_⟩, ?_⟩, ?_⟩
+    · norm_num [hre]
+    · simpa only [him] using hv.1.1.2.2.2
+    · have heq := hT (v - 1) (him ▸ hv.1.1.2.2.1)
+      rw [sub_add_cancel, hv.1.2] at heq
+      exact heq.symm
+    · intro hO
+      have hlt := (abs_lt.mp hO.1).1
+      rw [hre] at hlt
+      norm_num at hlt
+  -- The same cut parameter removes matching portions of the paired outer sides.
+  have hpairedRemoved : ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0),
+      (∀ z : ℂ, ‖z‖ = 1 →
+        (z ∈ ⋃ v ∈ B, D v ε ↔ -1 / z ∈ ⋃ v ∈ B, D v ε)) ∧
+      (∀ z : ℂ, z.re = -1 / 2 →
+        (z ∈ ⋃ v ∈ B, D v ε ↔ z + 1 ∈ ⋃ v ∈ B, D v ε)) := by
+    filter_upwards [hsmallCuts, hcutInactive] with ε hε hinactive
+    have hs : ∀ z : ℂ, ‖z‖ = 1 →
+        z ∈ ⋃ v ∈ B, D v ε → -1 / z ∈ ⋃ v ∈ B, D v ε := by
+      intro z hzn hz
+      obtain ⟨v, hv, hzv⟩ := Set.mem_iUnion₂.mp hz
+      have hvn : ‖v‖ = 1 := by
+        by_contra hn
+        have hlt := (hinactive v hv z hzv).2.2 hn
+        rw [hzn] at hlt
+        exact lt_irrefl _ hlt
+      refine Set.mem_iUnion₂.mpr ⟨-1 / v, hboundaryCenterS v hv hvn, ?_⟩
+      rw [← hinvertDisks v (hKH hv.1.1) ε hε.1 hε.2]
+      exact Set.mem_image_of_mem _ hzv
+    constructor
+    · intro z hzn
+      refine ⟨hs z hzn, fun hz => ?_⟩
+      have hn : ‖-1 / z‖ = 1 := by rw [norm_div]; simp [hzn]
+      simpa only [div_eq_mul_inv, mul_inv_rev, inv_neg, inv_one, inv_inv,
+        mul_neg, mul_one, neg_mul, one_mul, neg_neg] using hs (-1 / z) hn hz
+    · intro z hzre
+      constructor
+      · intro hz
+        obtain ⟨v, hv, hzv⟩ := Set.mem_iUnion₂.mp hz
+        have hvre : v.re = -1 / 2 := by
+          by_contra hn
+          have hlt := (hinactive v hv z hzv).1 hn
+          rw [hzre] at hlt
+          exact lt_irrefl _ hlt
+        refine Set.mem_iUnion₂.mpr ⟨v + 1, hboundaryCenterT v hv hvre, ?_⟩
+        rw [← htranslateDisks v (hKH hv.1.1) ε hε.1 hε.2]
+        exact Set.mem_image_of_mem _ hzv
+      · intro hz
+        obtain ⟨v, hv, hzv⟩ := Set.mem_iUnion₂.mp hz
+        have hzr : (z + 1).re = 1 / 2 := by
+          simp only [Complex.add_re, Complex.one_re, hzre]
+          norm_num
+        have hvre : v.re = 1 / 2 := by
+          by_contra hn
+          have hlt := (hinactive v hv (z + 1) hzv).2.1 hn
+          rw [hzr] at hlt
+          exact lt_irrefl _ hlt
+        have hv' := hboundaryCenterTinv v hv hvre
+        refine Set.mem_iUnion₂.mpr ⟨v - 1, hv', ?_⟩
+        have himage := htranslateDisks (v - 1) (hKH hv'.1.1) ε hε.1 hε.2
+        rw [sub_add_cancel] at himage
+        rw [← himage] at hzv
+        obtain ⟨w, hw, heq⟩ := hzv
+        have hwz : w = z := add_right_cancel heq
+        exact hwz ▸ hw
   have hcutArcInterior : ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0),
       ∀ v ∈ B, ∀ t ∈ Set.Ioo (cutEnd v) (cutStart v), γ v ε t ∈ O := by
     filter_upwards [hsmallCuts, hcutInactive, hcutsBelowTop] with ε hε hinactive htop
@@ -2536,6 +2646,97 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
       push_cast
       ring
     simpa only [heq] using (hi.add hl).add hr
+  let boundaryWeight : ℂ → ℝ := fun v =>
+    (analyticOrderNatAt F v : ℝ) * (cutStart v - cutEnd v) / (2 * Real.pi)
+  have hboundaryWeightNonneg : ∀ v ∈ H, 0 ≤ boundaryWeight v := by
+    intro v hv
+    exact div_nonneg (mul_nonneg (Nat.cast_nonneg _)
+      (sub_nonneg.mpr (hcutAngles v hv).2.1.le)) (by positivity)
+  have hboundaryWeightZero : ∀ v ∈ K, v ∉ O → v ∉ B → boundaryWeight v = 0 := by
+    intro v hv hvO hvB
+    have horder : analyticOrderNatAt F v = 0 := by
+      by_contra hn
+      exact hvB ⟨⟨hv, apply_eq_zero_of_analyticOrderNatAt_ne_zero hn⟩, hvO⟩
+    simp only [boundaryWeight, horder, Nat.cast_zero, zero_mul, zero_div]
+  have hellipticBoundary : ∀ v ∈ ({Complex.I, ρ, ρ + 1} : Finset ℂ), v ∈ K ∧ v ∉ O := by
+    have hrY : Real.sqrt 3 / 2 < Y := by
+      have hs := Real.sq_sqrt (show (0 : ℝ) ≤ 3 by norm_num)
+      have hp := Real.sqrt_nonneg 3
+      nlinarith [hY]
+    intro v hv
+    simp only [Finset.mem_insert, Finset.mem_singleton] at hv
+    rcases hv with rfl | rfl | rfl
+    · refine ⟨⟨?_, ?_, hI, hY.le⟩, ?_⟩
+      · norm_num
+      · simp
+      · intro hO
+        simpa only [Complex.norm_I, lt_self_iff_false] using hO.2.1
+    · refine ⟨⟨?_, hρnorm.ge, hρH, ?_⟩, ?_⟩
+      · norm_num [hρre]
+      · simpa only [hρim] using hrY.le
+      · intro hO
+        exact (lt_irrefl (1 : ℝ)) (hρnorm ▸ hO.2.1)
+    · refine ⟨⟨?_, hρOneNorm.ge, hρOneH, ?_⟩, ?_⟩
+      · norm_num [Complex.add_re, hρre]
+      · simpa only [Complex.add_im, Complex.one_im, add_zero, hρim] using hrY.le
+      · intro hO
+        exact (lt_irrefl (1 : ℝ)) (hρOneNorm ▸ hO.2.1)
+  have hellipticWeight :
+      boundaryWeight Complex.I = (analyticOrderNatAt F Complex.I : ℝ) / 2 ∧
+      boundaryWeight ρ = (analyticOrderNatAt F ρ : ℝ) / 6 ∧
+      boundaryWeight (ρ + 1) = (analyticOrderNatAt F ρ : ℝ) / 6 := by
+    dsimp only [boundaryWeight]
+    rw [hcutEllipticAngles.1, hcutEllipticAngles.2.1,
+      hcutEllipticAngles.2.2.1, hcutEllipticAngles.2.2.2.1,
+      hcutEllipticAngles.2.2.2.2.1, hcutEllipticAngles.2.2.2.2.2, hρT]
+    constructor
+    · field_simp
+      ring
+    constructor <;> field_simp <;> ring
+  have hboundaryWeightBound :
+      (analyticOrderNatAt F Complex.I : ℝ) / 2 + (analyticOrderNatAt F ρ : ℝ) / 3 ≤
+        ∑ v ∈ hBfinite.toFinset, boundaryWeight v := by
+    let E : Finset ℂ := {Complex.I, ρ, ρ + 1}
+    have hIρ : Complex.I ≠ ρ := by
+      intro heq
+      have hre := congrArg Complex.re heq
+      rw [Complex.I_re, hρre] at hre
+      norm_num at hre
+    have hIρOne : Complex.I ≠ ρ + 1 := by
+      intro heq
+      have hre := congrArg Complex.re heq
+      rw [Complex.I_re, Complex.add_re, hρre, Complex.one_re] at hre
+      norm_num at hre
+    have hρρOne : ρ ≠ ρ + 1 := by
+      intro heq
+      have hre := congrArg Complex.re heq
+      simp only [Complex.add_re, Complex.one_re] at hre
+      linarith
+    have hEsum : ∑ v ∈ E, boundaryWeight v =
+        (analyticOrderNatAt F Complex.I : ℝ) / 2 + (analyticOrderNatAt F ρ : ℝ) / 3 := by
+      simp only [E, Finset.sum_insert, Finset.mem_insert, Finset.mem_singleton,
+        hIρ, hIρOne, hρρOne, or_self, not_false_eq_true, Finset.sum_singleton,
+        hellipticWeight.1, hellipticWeight.2.1, hellipticWeight.2.2]
+      ring
+    have hext : ∑ v ∈ hBfinite.toFinset, boundaryWeight v =
+        ∑ v ∈ hBfinite.toFinset ∪ E, boundaryWeight v := by
+      apply Finset.sum_subset Finset.subset_union_left
+      intro v hv hvB
+      have hvE : v ∈ E := (Finset.mem_union.mp hv).resolve_left hvB
+      exact hboundaryWeightZero v (hellipticBoundary v hvE).1
+        (hellipticBoundary v hvE).2 (by simpa only [Set.Finite.mem_toFinset] using hvB)
+    rw [← hEsum, hext]
+    apply Finset.sum_le_sum_of_subset_of_nonneg Finset.subset_union_right
+    intro v hv hvE
+    have hvB := (Finset.mem_union.mp hv).resolve_right hvE
+    exact hboundaryWeightNonneg v (hKH (hBfinite.mem_toFinset.mp hvB).1.1)
+  have hboundaryRemainder : ∃ R : ℝ, 0 ≤ R ∧
+      ∑ v ∈ hBfinite.toFinset, boundaryWeight v =
+        (analyticOrderNatAt F Complex.I : ℝ) / 2 + (analyticOrderNatAt F ρ : ℝ) / 3 + R := by
+    refine ⟨(∑ v ∈ hBfinite.toFinset, boundaryWeight v) -
+      ((analyticOrderNatAt F Complex.I : ℝ) / 2 + (analyticOrderNatAt F ρ : ℝ) / 3),
+      sub_nonneg.mpr hboundaryWeightBound, ?_⟩
+    ring
   -- Steps 17–18: the contour identity leaves only nonnegative zero orders.
   suffices hcount : ∃ R : ℝ, 0 ≤ R ∧
       (analyticOrderNatAt A 0 : ℝ) + (analyticOrderNatAt F Complex.I : ℝ) / 2 +
