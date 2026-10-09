@@ -2004,9 +2004,6 @@ theorem Submission.p10_17ae7b7d_ccf_coprime_mul :
   unfold ModularCurve.cuspCount
   rw [Nat.divisors_mul, Finset.mul_def, Finset.sum_image hmn.mul_injOn_divisors,
     Finset.sum_product, Finset.sum_mul_sum]
-  rw [hmn.divisors_mul, Finset.sum_map]
-  simp only [Function.Embedding.coeFn_mk]
-  rw [Finset.sum_attach, Finset.sum_product, Finset.sum_mul_sum]
   apply Finset.sum_congr rfl
   intro a ha
   apply Finset.sum_congr rfl
@@ -2217,23 +2214,6 @@ theorem Submission.p10_17ae7b7d_phdisk_mobius_image :
     rw [Submission.p10_17ae7b7d_phdisk_mobius_ratio_norm a b c d z v hdet hz hv]
       at hbound
     exact hbound
-theorem Submission.p10_17ae7b7d_ccf_prime_power :
-    ∀ (p a : ℕ), Nat.Prime p →
-      ModularCurve.cuspCount (p ^ a) =
-        (Finset.range (a + 1)).sum (fun j => Nat.totient (p ^ min j (a - j))) := by
-  intro p a hp
-  unfold ModularCurve.cuspCount
-  rw [Nat.sum_divisors_prime_pow hp]
-  apply Finset.sum_congr rfl
-  intro j hj
-  have hja : j ≤ a := Nat.le_of_lt_succ (Finset.mem_range.mp hj)
-  rw [Nat.pow_div hja hp.pos]
-  congr 1
-  rcases le_total j (a - j) with h | h
-  · rw [min_eq_left h]
-    exact Nat.gcd_eq_left (pow_dvd_pow p h)
-  · rw [min_eq_right h]
-    exact Nat.gcd_eq_right (pow_dvd_pow p h)
 
 
 theorem Submission.p10_17ae7b7d_to_cusp_count_factorization :
