@@ -1,0 +1,296 @@
+{
+  "base_commit": "9e313cc49b2623aa6123fe9ad3f8317727bfc422",
+  "scope": "Repair speculative overlays by deduplicating accepted children, restoring two corrupted child blocks from their recorded accepted commits, balancing namespaces, and completing the exact root declaration.",
+  "root_statement_byte_exact": true,
+  "frozen_header_byte_exact": true,
+  "protected_input_sha256": {
+    "Fermat/Thm_CerednikDrinfeld_QM_RigidifiedPairClass_exists_ptR_eq.lean": "2d5df12b49d873c6d197054989c5bc5613b213fa67a795a3a15e62b644c52a86",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/problem.md": "5f0871c2e93d5288092a1f00902e3f8add02d0e21d6e142ac2ea7d6dfbe7d1ce",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root/natural-proof-v4.md": "1d55dd07b67a52651ba62e6c13c5965cdbf51a71aa49e3d1d0ce081e2763dc4d",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root/plan-draft-v1.md": "1198e5bb56391d9272e0bc106e9f4a14b0d6472257970edce77900762f78a6f8",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json": "7a693667f3887c9ad53914a2f2caec85a3d20f69d227f2adb18f4be2c4924603",
+    "/runtime/operator-header-policy-v1/policy.json": "96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96"
+  },
+  "frozen_child_type_sha256": {
+    "Submission.p07_curve_ring_equiv_857cd4d38c": "fdfe22f9aad0a5ffdc8211961b0dca7c7d8a63aa353e5c1f137b1203ce1c0220",
+    "Submission.p07_full_level_quotient_857cd4d38c": "c33883627515cfb15cd50d636af595d1f7f8fe5f450b10fb723c5dd78573e778",
+    "Submission.p07_rigidification_reduction_857cd4d38c": "eb574ceb374e6e448891e2c66a364e477c9bd56fec1bb2cac0ad395382f16f87",
+    "Submission.p07_cre_abelian_surface_857cd4d38c": "c8d5ffb90f74e2fdd56cc11151bedb82f352f1b3e10a2886095a21089edb8ec2",
+    "Submission.p07_cre_finite_flat_rank_857cd4d38c": "9ce545f4e46116fcb383e3cd874040bde5be82dbd9fb893ddd2975dcdf92c1df",
+    "Submission.p07_cre_group_law_857cd4d38c": "39a9c6dd43ec9aa10abbe2596f7a7745e1fb923a5f5b61f14afb19e7ecb8047e",
+    "Submission.p07_flq_curve_quotient_857cd4d38c": "4adaa6903dda6347f36aea0511a7668c3052d0811e5de385d1a2599b38f0dceb",
+    "Submission.p07_flq_full_level_pullback_857cd4d38c": "354dc8d931acfafdfcd345a22cda24232ab095ece824f1b232a02a0bb6ad0b16",
+    "Submission.p07_rr_pullback_comp_857cd4d38c": "e71d0ceeeb78d144ad03154250d1f15e10546bf8ecd5df72928c6a506366b496",
+    "Submission.p07_rr_isogeny_transport_857cd4d38c": "e351353401dc718aec23210de3fad0a8ca04875d57e9feaa809d2dbf5028b183",
+    "Submission.p07_cq_abelian_surface_quotient_857cd4d38c": "a5a84f087b1c6f2111b15bf5d56ee3e7ee8a09f25b9fc9cf59048be52af39ad0",
+    "Submission.p07_cq_group_law_pullback_857cd4d38c": "bee9f25a308bddad79d6d23896357ad7dc202765fc5a1caca758a66fd5cbe6fe",
+    "Submission.p07_cq_level_geometry_pullback_857cd4d38c": "a5a4f9fed6976078ce1fe7937d2de7902e4d390911211fb6fe242868a2639640",
+    "Submission.p07_flp_nsmul_precomp_857cd4d38c": "284b7283df76c13100c1d36ff7f21a8225cdff6bc28a700747cd5ca999eb45e7",
+    "Submission.p07_flp_point_equiv_857cd4d38c": "7f13b6f6cc692a2580dce4235bc03731763862148f900d6ed26cbe02ea208f28"
+  },
+  "simplifier_review": {
+    "status": "no changes recommended after follow-up",
+    "scope": "Read-only mechanical source and simplification review; not a mathematical proof or comparator review.",
+    "findings": "Independently compared all 15 child blocks with audit-listed accepted commits; both restored blocks match; root statement unchanged; no remaining mechanical integration issue."
+  },
+  "local_build_notes": [
+    "Unmodified frozen dependencies emit existing overlapping-instance linter warnings under warningAsError. Dependencies are built with ordinary settings; Submission and diagnostic checks use warningAsError=true.",
+    "Private compiler copy omits only policy lines 13,14,15; original Git header is unchanged. Kernel absence probe and configured comparator remain required."
+  ],
+  "dependency_source_precheck": [
+    {
+      "name": "mathlib",
+      "revision": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "tracked_clean": true
+    },
+    {
+      "name": "plausible",
+      "revision": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "tracked_clean": true
+    },
+    {
+      "name": "LeanSearchClient",
+      "revision": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "tracked_clean": true
+    },
+    {
+      "name": "importGraph",
+      "revision": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "tracked_clean": true
+    },
+    {
+      "name": "proofwidgets",
+      "revision": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "tracked_clean": true
+    },
+    {
+      "name": "aesop",
+      "revision": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "tracked_clean": true
+    },
+    {
+      "name": "Qq",
+      "revision": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "tracked_clean": true
+    },
+    {
+      "name": "batteries",
+      "revision": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "tracked_clean": true
+    },
+    {
+      "name": "Cli",
+      "revision": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "tracked_clean": true
+    }
+  ],
+  "restored_child_blocks": [
+    {
+      "name": "Submission.p07_rr_pullback_comp_857cd4d38c",
+      "accepted_commit": "a69d3bd7f38fde1cfabd9e0083ca4e5e40a23aa0",
+      "inherited_block_sha256": "9de2f794c73316cdac885e6259f147bcc3953e7eca0d27e54a0f36d4b1bd3043",
+      "restored_block_sha256": "b892527deadbe9abff85377a1cfde1ecdee8748354d4e8a076de782d275dfed5",
+      "reason": "Remove duplicated tactic fragments introduced by prior speculative overlays; restore exact accepted declaration."
+    },
+    {
+      "name": "Submission.p07_cq_group_law_pullback_857cd4d38c",
+      "accepted_commit": "0874e9962dc0b87aa8772bf84bfe16e318baf39e",
+      "inherited_block_sha256": "ecb1b2ce627182e4b084c85273cf29b83cb792b61b0ca95a5e65960ee7157308",
+      "restored_block_sha256": "3f49faaddf474a0d18cf7a455525a4099165aab9070b2e7e45ac977462a9a411",
+      "reason": "Remove duplicated tactic fragments introduced by prior speculative overlays; restore exact accepted declaration."
+    }
+  ],
+  "accepted_child_source_identity": [
+    {
+      "name": "Submission.p07_curve_ring_equiv_857cd4d38c",
+      "accepted_commit": "13bc17d49bfdae6b23863256370c07092d5a58b6",
+      "normalized_declaration_sha256": "daa49fc4f4dcd5fd7478cf558800883c84d1693b7471260091fd26e67712e5ce"
+    },
+    {
+      "name": "Submission.p07_full_level_quotient_857cd4d38c",
+      "accepted_commit": "7d0c1523385ebdecde784b02202c2629e21b9d1f",
+      "normalized_declaration_sha256": "79c0a07d3b0d5a5b1fad4f7c7a836db3dc62bb17f7a799b4fdaf394865370156"
+    },
+    {
+      "name": "Submission.p07_rigidification_reduction_857cd4d38c",
+      "accepted_commit": "25e87ac262216fa150c47205315a7d3d86bdd86b",
+      "normalized_declaration_sha256": "60e5eeb145f12dc288ff36eaca1cce752706b1f5fd7cd265d54cb4034d95d948"
+    },
+    {
+      "name": "Submission.p07_cre_abelian_surface_857cd4d38c",
+      "accepted_commit": "6c2d9bd17e30737468214dec931ec78e3c3840dd",
+      "normalized_declaration_sha256": "624b060bc592096c466747b14e6c51265a77b9300e5a1851dccc277eae51f859"
+    },
+    {
+      "name": "Submission.p07_cre_finite_flat_rank_857cd4d38c",
+      "accepted_commit": "ce92415d8140cbdcc1966e76034692681bc0ab7f",
+      "normalized_declaration_sha256": "f94c087958a728f4bfd83d6e41b4b7218e1495e7c7e34eb03e9a5d62f7a79516"
+    },
+    {
+      "name": "Submission.p07_cre_group_law_857cd4d38c",
+      "accepted_commit": "07995ec00b85458daf241f70f5cbd73a12b5a76e",
+      "normalized_declaration_sha256": "957c54724f73bcc700a70de93d31a5fbb0a476c8b9605f608ae4529d61a03f8e"
+    },
+    {
+      "name": "Submission.p07_flq_curve_quotient_857cd4d38c",
+      "accepted_commit": "3e3fb7cf45bc309029255b19332400b0c970cbf9",
+      "normalized_declaration_sha256": "655ef50796703e6dc4204f12c56461b81cdd66cd2bac2d4b3bfe04a061961791"
+    },
+    {
+      "name": "Submission.p07_flq_full_level_pullback_857cd4d38c",
+      "accepted_commit": "686858d28621704891fc5a88a67a417bd612a74b",
+      "normalized_declaration_sha256": "cd60e4b862ae151aab3f477a1eee426371e2ea15015f62ae41892a2816a33ae0"
+    },
+    {
+      "name": "Submission.p07_rr_pullback_comp_857cd4d38c",
+      "accepted_commit": "a69d3bd7f38fde1cfabd9e0083ca4e5e40a23aa0",
+      "normalized_declaration_sha256": "b892527deadbe9abff85377a1cfde1ecdee8748354d4e8a076de782d275dfed5"
+    },
+    {
+      "name": "Submission.p07_rr_isogeny_transport_857cd4d38c",
+      "accepted_commit": "b293f1a1963e56f78e30893f5c4b9fb171c9753a",
+      "normalized_declaration_sha256": "af6ab41d3603140951268ffad4b59bad3d5e67a224a199ad01c0bc9b1e0d65c0"
+    },
+    {
+      "name": "Submission.p07_cq_abelian_surface_quotient_857cd4d38c",
+      "accepted_commit": "bc00b1aa9f6d9a13439fe1cf62894bf593b8359b",
+      "normalized_declaration_sha256": "3bb763616d51f8dc2e42d888e538976c47830432e92f0db55e51a16bc35b1c32"
+    },
+    {
+      "name": "Submission.p07_cq_group_law_pullback_857cd4d38c",
+      "accepted_commit": "0874e9962dc0b87aa8772bf84bfe16e318baf39e",
+      "normalized_declaration_sha256": "3f49faaddf474a0d18cf7a455525a4099165aab9070b2e7e45ac977462a9a411"
+    },
+    {
+      "name": "Submission.p07_cq_level_geometry_pullback_857cd4d38c",
+      "accepted_commit": "44cb70289a45a52de30bf46702810989164327d9",
+      "normalized_declaration_sha256": "6f3f55386a936467bfbec97d1ac1cceb50f1c198945c0315d370e85b7ae7dcac"
+    },
+    {
+      "name": "Submission.p07_flp_nsmul_precomp_857cd4d38c",
+      "accepted_commit": "cc9a81580bf90e340798b0dee59db318f36bc078",
+      "normalized_declaration_sha256": "f330217a7b6a89a97fae4f620c559a472dd4f88df40d5d2b58f89c2538819749"
+    },
+    {
+      "name": "Submission.p07_flp_point_equiv_857cd4d38c",
+      "accepted_commit": "bb49c42e0308a3144001dc50ad20ee2f776939cb",
+      "normalized_declaration_sha256": "1b38f811eda8bd0cdf1f5a4a775e7f1377efe494a3057d7f7eec74bf18476452"
+    }
+  ],
+  "inherited_child_blocks": [
+    {
+      "name": "Submission.p07_rr_isogeny_transport_857cd4d38c",
+      "original_copies": 2,
+      "normalized_declaration_sha256": "af6ab41d3603140951268ffad4b59bad3d5e67a224a199ad01c0bc9b1e0d65c0"
+    },
+    {
+      "name": "Submission.p07_flp_point_equiv_857cd4d38c",
+      "original_copies": 2,
+      "normalized_declaration_sha256": "1b38f811eda8bd0cdf1f5a4a775e7f1377efe494a3057d7f7eec74bf18476452"
+    },
+    {
+      "name": "Submission.p07_rr_pullback_comp_857cd4d38c",
+      "original_copies": 1,
+      "normalized_declaration_sha256": "9de2f794c73316cdac885e6259f147bcc3953e7eca0d27e54a0f36d4b1bd3043"
+    },
+    {
+      "name": "Submission.p07_cq_level_geometry_pullback_857cd4d38c",
+      "original_copies": 2,
+      "normalized_declaration_sha256": "6f3f55386a936467bfbec97d1ac1cceb50f1c198945c0315d370e85b7ae7dcac"
+    },
+    {
+      "name": "Submission.p07_cre_group_law_857cd4d38c",
+      "original_copies": 2,
+      "normalized_declaration_sha256": "957c54724f73bcc700a70de93d31a5fbb0a476c8b9605f608ae4529d61a03f8e"
+    },
+    {
+      "name": "Submission.p07_cq_group_law_pullback_857cd4d38c",
+      "original_copies": 1,
+      "normalized_declaration_sha256": "ecb1b2ce627182e4b084c85273cf29b83cb792b61b0ca95a5e65960ee7157308"
+    },
+    {
+      "name": "Submission.p07_cre_abelian_surface_857cd4d38c",
+      "original_copies": 2,
+      "normalized_declaration_sha256": "624b060bc592096c466747b14e6c51265a77b9300e5a1851dccc277eae51f859"
+    },
+    {
+      "name": "Submission.p07_cre_finite_flat_rank_857cd4d38c",
+      "original_copies": 2,
+      "normalized_declaration_sha256": "f94c087958a728f4bfd83d6e41b4b7218e1495e7c7e34eb03e9a5d62f7a79516"
+    },
+    {
+      "name": "Submission.p07_curve_ring_equiv_857cd4d38c",
+      "original_copies": 2,
+      "normalized_declaration_sha256": "daa49fc4f4dcd5fd7478cf558800883c84d1693b7471260091fd26e67712e5ce"
+    },
+    {
+      "name": "Submission.p07_flp_nsmul_precomp_857cd4d38c",
+      "original_copies": 2,
+      "normalized_declaration_sha256": "f330217a7b6a89a97fae4f620c559a472dd4f88df40d5d2b58f89c2538819749"
+    },
+    {
+      "name": "Submission.p07_cq_abelian_surface_quotient_857cd4d38c",
+      "original_copies": 1,
+      "normalized_declaration_sha256": "3bb763616d51f8dc2e42d888e538976c47830432e92f0db55e51a16bc35b1c32"
+    },
+    {
+      "name": "Submission.p07_flq_curve_quotient_857cd4d38c",
+      "original_copies": 1,
+      "normalized_declaration_sha256": "655ef50796703e6dc4204f12c56461b81cdd66cd2bac2d4b3bfe04a061961791"
+    },
+    {
+      "name": "Submission.p07_flq_full_level_pullback_857cd4d38c",
+      "original_copies": 1,
+      "normalized_declaration_sha256": "cd60e4b862ae151aab3f477a1eee426371e2ea15015f62ae41892a2816a33ae0"
+    },
+    {
+      "name": "Submission.p07_full_level_quotient_857cd4d38c",
+      "original_copies": 1,
+      "normalized_declaration_sha256": "79c0a07d3b0d5a5b1fad4f7c7a836db3dc62bb17f7a799b4fdaf394865370156"
+    },
+    {
+      "name": "Submission.p07_rigidification_reduction_857cd4d38c",
+      "original_copies": 1,
+      "normalized_declaration_sha256": "60e5eeb145f12dc288ff36eaca1cce752706b1f5fd7cd265d54cb4034d95d948"
+    }
+  ],
+  "local_warning_fatal_candidate_build": {
+    "exit_code": 0,
+    "compiler": "Lean 4.33.1",
+    "options": [
+      "-DautoImplicit=false",
+      "-DmaxHeartbeats=4000000",
+      "-DsynthInstance.maxHeartbeats=400000",
+      "-Dbackward.isDefEq.respectTransparency.types=false",
+      "-DwarningAsError=true"
+    ],
+    "original_source_sha256": "7655614b397d0543d8e5522d6631907d00a43d16d1fd2903f70038ec8c8aa69f",
+    "compiler_copy_sha256": "e6ae7204a0fa389dab00f3aa629e9e66c7251c87114f3f465f863fde0aefa4c9",
+    "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "diagnostic_directory": "/tmp/p07-root-round0-diagnostics"
+  },
+  "local_header_absence_probe": {
+    "exit_code": 0,
+    "target_count": 100,
+    "output": "All 100 policy targets are absent.",
+    "probe_sha256": "f53eaa568542b0c12b5a5b2bf98c97c6aa03bdcd85e5478247fcaa95d72cf14e",
+    "omitted_original_lines": [
+      13,
+      14,
+      15
+    ],
+    "policy_sha256": "96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96"
+  },
+  "local_frozen_interfaces": {
+    "exit_code": 0,
+    "checked_theorems": 16,
+    "root_and_all_children": true,
+    "transitive_axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "output_sha256": "2ffb326813345ad47612a38b9e6d90e8d71a1d9f4a181fd7389b9863b2266fc6",
+    "note": "Typed terms checked against all frozen DAG expressions. unusedVariables lint disabled only for copied forall-type syntax in this disposable diagnostic wrapper; Submission passed warningAsError with all linters enabled. The configured comparator remains authoritative."
+  }
+}
