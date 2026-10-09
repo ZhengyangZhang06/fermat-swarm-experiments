@@ -74,3 +74,87 @@ theorem Submission.p09_af497904fe_quadratic_congruence :
   exact Submodule.add_mem _
     (Submodule.sub_mem _ (Submodule.sub_mem _ (Submodule.add_mem _ ha (hab (b y))) hs) hsb)
     hud
+
+open scoped Pointwise in
+/-- Finite Frobenius supply, with uniqueness obtained by excluding nontrivial inertia. -/
+theorem Submission.p09_af497904fe_fa_finite_frobenius :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E]
+      [IsGalois ℚ E] (g : E ≃ₐ[ℚ] E) (B : Finset ℕ),
+      ∃ ℓ : ℕ, ℓ.Prime ∧ ℓ ∉ B ∧ ∃ V : ValuationSubring E,
+        V.LiesOverPrime ℓ ∧ V.IsFrobeniusAt g ℓ ∧
+        ∀ g' : E ≃ₐ[ℚ] E, V.IsFrobeniusAt g' ℓ → g' = g := by
+  classical
+  intro E _ _ g B
+  obtain ⟨S, hS⟩ := Submission.p09_af497904fe_ff_finite_inertia_exclusion E
+  obtain ⟨M, hMfin, _hMgal, ι, F, q, ζ, h, hq, hζ, hgen, hι⟩ :=
+    Submission.p09_af497904fe_ff_cyclotomic_envelope E g
+  have : FiniteDimensional ℚ M := hMfin
+  obtain ⟨ℓ, hℓ, hℓBS, W, hWℓ, hWfrob⟩ :=
+    Submission.p09_af497904fe_ff_cyclotomic_supply M F q ζ hq hζ hgen h (B ∪ S)
+  have hℓB : ℓ ∉ B := fun hB => hℓBS (Finset.mem_union_left S hB)
+  have hℓS : ℓ ∉ S := fun hS => hℓBS (Finset.mem_union_right B hS)
+  -- Contract the supplied place along the equivariant embedding of E into M.
+  let V : ValuationSubring E := W.comap ι.toRingHom
+  have hnonunit (x : E) : x ∈ V.nonunits ↔ ι x ∈ W.nonunits := by
+    simp only [ValuationSubring.mem_nonunits_iff_or, V,
+      ValuationSubring.mem_comap, map_inv₀, map_eq_zero]
+    rfl
+  have hVℓ : V.LiesOverPrime ℓ := by
+    apply (hnonunit (ℓ : E)).mpr
+    change (ℓ : M) ∈ W.nonunits at hWℓ
+    simpa only [map_natCast] using hWℓ
+  have hWmem (x : M) : h x ∈ W ↔ x ∈ W := by
+    have hstable : h • W = W := hWfrob.mem_decompositionSubgroup
+    simpa only [hstable, AlgEquiv.smul_def] using
+      (ValuationSubring.smul_mem_pointwise_smul_iff (g := h) (S := W) (x := x))
+  have hgmem (x : E) : g x ∈ V ↔ x ∈ V := by
+    change ι (g x) ∈ W ↔ ι x ∈ W
+    rw [← hι x]
+    exact hWmem (ι x)
+  have hgdec : g ∈ V.decompositionSubgroup ℚ := by
+    change g • V = V
+    apply ValuationSubring.ext
+    intro x
+    rw [ValuationSubring.mem_pointwise_smul_iff_inv_smul_mem]
+    change g.symm x ∈ V ↔ x ∈ V
+    simpa only [AlgEquiv.apply_symm_apply] using (hgmem (g.symm x)).symm
+  have hVfrob : V.IsFrobeniusAt g ℓ := by
+    refine ⟨hgdec, ?_⟩
+    intro z
+    obtain ⟨x, rfl⟩ := IsLocalRing.residue_surjective z
+    let gd : V.decompositionSubgroup ℚ := ⟨g, hgdec⟩
+    let hd : W.decompositionSubgroup F := ⟨h, hWfrob.mem_decompositionSubgroup⟩
+    let y : W := ⟨ι (x : E), x.property⟩
+    -- Vanishing upstairs descends because nonunits contract along field embeddings.
+    have hres : IsLocalRing.residue W (hd • y - y ^ ℓ) = 0 := by
+      rw [map_sub, map_pow, IsLocalRing.ResidueField.residue_smul]
+      exact sub_eq_zero.mpr (hWfrob.smul_residue_eq (IsLocalRing.residue W y))
+    have hnM : ((hd • y - y ^ ℓ : W) : M) ∈ W.nonunits :=
+      ValuationSubring.coe_mem_nonunits_iff.mpr ((IsLocalRing.residue_eq_zero_iff _).mp hres)
+    have hnE : ((gd • x - x ^ ℓ : V) : E) ∈ V.nonunits := by
+      apply (hnonunit _).mpr
+      change ι (g (x : E) - (x : E) ^ ℓ) ∈ W.nonunits
+      change h (ι (x : E)) - ι (x : E) ^ ℓ ∈ W.nonunits at hnM
+      simpa only [map_sub, map_pow, ← hι (x : E)] using hnM
+    have hz : IsLocalRing.residue V (gd • x - x ^ ℓ) = 0 :=
+      (IsLocalRing.residue_eq_zero_iff _).mpr (ValuationSubring.coe_mem_nonunits_iff.mp hnE)
+    rw [map_sub, map_pow, IsLocalRing.ResidueField.residue_smul] at hz
+    exact sub_eq_zero.mp hz
+  refine ⟨ℓ, hℓ, hℓB, V, hVℓ, hVfrob, ?_⟩
+  intro g' hg'
+  -- Equal Frobenius actions differ by an inertia element, which is trivial here.
+  let gd : V.decompositionSubgroup ℚ := ⟨g, hVfrob.mem_decompositionSubgroup⟩
+  let gd' : V.decompositionSubgroup ℚ := ⟨g', hg'.mem_decompositionSubgroup⟩
+  have hinertia : gd⁻¹ * gd' ∈ V.inertiaSubgroup ℚ := by
+    change MulSemiringAction.toRingAut (V.decompositionSubgroup ℚ)
+      (IsLocalRing.ResidueField V) (gd⁻¹ * gd') = 1
+    ext z
+    change (gd⁻¹ * gd') • z = z
+    rw [mul_smul]
+    have heq : gd' • z = gd • z :=
+      (hg'.smul_residue_eq z).trans (hVfrob.smul_residue_eq z).symm
+    rw [heq, inv_smul_smul]
+  have hinertiaIn : g⁻¹ * g' ∈ V.inertiaSubgroupIn ℚ :=
+    ⟨gd⁻¹ * gd', hinertia, rfl⟩
+  have heq : g⁻¹ * g' = 1 := hS ℓ hℓ hℓS V hVℓ _ hinertiaIn
+  exact (inv_mul_eq_one.mp heq).symm
