@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "def cuspCount|cuspCount_one|orbitRel|def Gamma0|Gamma0_mem|def T|coe_T_zpow",
+        "cc_translation_orbits|translation.*cuspCount|cuspCount.*translation"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/GroupAction/Quotient.lean"
+      ],
+      "conclusion": "Verified clean snapshot revisions against the manifest. Inspected the divisor-sum definition of cuspCount, Gamma0, and left quotient action; no matching translation-orbit counting declaration was found. The independent comparator rerun passed for the inspected commit. All 223 exported file hashes matched; compiler-copy omissions were exactly policy lines 10–12, with reversible hashes and the 56-target absence probe. Transitive axioms were only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "f94fac10f04916e209cf4e99d27f869abcda9a4b862e5eeb6c17711af5c75f9b",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_cc_translation_orbits",
+      "statement": "∀ (N : ℕ) [NeZero N], let Q := (Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 N; Nat.card (Quotient (MulAction.orbitRel (Subgroup.zpowers ModularGroup.T) Q)) = ModularCurve.cuspCount N",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines accepted prime-power orbit counts through coprime multiplicativity and the accepted cusp-count factorization, including the singleton case N = 1."
+    }
+  ]
+}
