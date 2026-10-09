@@ -1,0 +1,18 @@
+{
+  "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.translated_domain_integrability-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/199",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "2b66498b6a6266defc86e8bf3ba96dc5a8922c15",
+  "integrated_commit": "0a81cd08389e7343791167fe1c465e0171abea57",
+  "proof_base_commit": "b8c1e42fbc073bdbfabd9535bd93b62a6363cebe",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1",
+  "requires": [
+    "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.translated_domain_integrability-a1.planar_exp_integrable_fd-a1",
+    "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.translated_domain_integrability-a1.petersson_integrable_of_exp_product-a1"
+  ]
+}
