@@ -208,8 +208,8 @@ theorem Submission.p09_af497904fe_finite_inverse_limit
         apply CategoryTheory.ConcreteCategory.ext_apply
         exact hcomp k.unop j.unop i.unop
           (CategoryTheory.leOfHom g.unop) (CategoryTheory.leOfHom f.unop) }
-  haveI : ∀ n, Finite (F.obj n) := fun n => inferInstanceAs (Finite (X n.unop))
-  haveI : ∀ n, Nonempty (F.obj n) := fun n => inferInstanceAs (Nonempty (X n.unop))
+  have : ∀ n, Finite (F.obj n) := fun n => inferInstanceAs (Finite (X n.unop))
+  have : ∀ n, Nonempty (F.obj n) := fun n => inferInstanceAs (Nonempty (X n.unop))
   -- Finite transition images stabilize; their intersections are nonempty.
   have hstable : F.IsMittagLeffler :=
     F.isMittagLeffler_of_exists_finite_range fun j =>
