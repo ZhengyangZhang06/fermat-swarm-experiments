@@ -1,0 +1,47 @@
+# Parent-supplied natural-language proof
+
+- Parent DAG node: `root.odd_division_detection-a1`
+- Child DAG node: `root.odd_division_detection-a1.odd_prepsi_degree_lc-a1`
+- Review gate: accepted as part of the parent's decomposition audit
+
+## Proof
+
+1. Fix F, W and n satisfying the hypotheses. Since 3 ≤ n, n is nonzero. Characteristic zero makes the natural-number map into F injective, so (n : F) ≠ 0.
+2. The pinned theorem WeierstrassCurve.natDegree_preΨ' applies to any Weierstrass equation over a commutative ring whenever (n : R) ≠ 0. Applied here, it gives (W.preΨ' n).natDegree = (n² − (if Even n then 4 else 1))/2. Its hypotheses hold because F is a field and step 1 supplies the required nonzero cast.
+3. An odd natural number is not even. Consequently the conditional in step 2 selects 1, giving (W.preΨ' n).natDegree = (n² − 1)/2.
+4. The pinned theorem WeierstrassCurve.leadingCoeff_preΨ', with the same nonzero-cast hypothesis, gives the leading coefficient as the natural-number cast of n/2 when n is even and the cast of n otherwise. Since n is odd, the latter case applies and (W.preΨ' n).leadingCoeff = (n : F).
+5. Combining steps 3 and 4 proves the asserted conjunction. Both invoked results concern the exact preΨ' sequence in the frozen Basic.lean definition; their pinned proofs are in DivisionPolynomial/Degree.lean and do not assume a nonzero discriminant.
+
+## Key steps
+
+1. Use 3 ≤ n and characteristic zero to show (n : F) ≠ 0.
+2. Apply the pinned exact natDegree_preΨ' formula.
+3. Use oddness to eliminate the even branch.
+4. Apply leadingCoeff_preΨ' and combine the two equalities.
+
+## Reference use
+
+### local-project
+
+Queries:
+- `rg -n 'preΨ.*(degree|natDegree|leadingCoeff)|[[:alnum:]_]*(degree|natDegree|leadingCoeff).*preΨ|preΨ.*(smul|torsion)|map_preΨ' .humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481`
+- `rg -n 'preΨ.*(torsion|nsmul|smul.*zero)|(?:torsion|nsmul).*preΨ' .humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib .humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Definitions`
+- `rg -n 'p03_odd_prepsi_degree_lc_68cf3476|p03_odd_prepsi_torsion_68cf3476' --hidden --glob '*.lean' --glob 'dag.json' /mnt/data/zhengyang-workspace/fermat-swarm-projects`
+- `python3 /tmp/p03_odd_split_probe.py`
+
+Files inspected:
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/problem.md`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/Basic.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/Degree.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Point.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/dag.json`
+- `/runtime/operator-header-policy-v1/policy.json`
+- `/tmp/p03-odd-split-vk58ilpb/results.json`
+- `/tmp/p03-odd-split-vk58ilpb/TypesAfterSubmission.lean`
+- `/tmp/p03-odd-split-vk58ilpb/TypesAfterSubmission.lean.log`
+- `/tmp/p03-odd-split-vk58ilpb/InstancesAfterSubmission.lean.log`
+- `/tmp/p03-odd-split-vk58ilpb/LibraryAxioms.lean.log`
+- `/tmp/p03-odd-split-vk58ilpb/TargetAbsence.lean`
+
+Basic.lean supplies the exact initial values, even and odd recurrences, and map_preΨ'. Degree.lean supplies natDegree_preΨ' and leadingCoeff_preΨ' under the hypothesis that the natural-number cast is nonzero. Affine/Point.lean supplies the intended additive group and injective coordinatewise base-change homomorphism. The torsion search found no relevant matching theorem; the identifier search and DAG inspection found no collisions. Fresh diagnostics confirmed clean project revision 81f093181fd6c58dc887fcae5ec8b896996f1885, mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d, and matching pinned dependencies. Both exact child types elaborate after import Submission in a disposable compiler copy. Instance inspection confirms that natural scalar multiplication uses WeierstrassCurve.Affine.Point.instAddCommGroup. The type definitions and inspected library declarations transitively use only propext, Classical.choice, and Quot.sound. The recorded header repair verifies policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, exact omitted lines 10 and 11, original hash dd8891addb75e48583885c932518af8bc6d34438aec4e3ccd76ce6aa765e423f, derived hash 81502485ae6796527a5c4e210837b198322b438244a2f58054b94b98aef9dda9, reversible reconstruction, and successful Lean absence checks for all 37 targets. Original files remain unchanged. These checks establish interface compatibility, not comparator acceptance of either proposed theorem.
