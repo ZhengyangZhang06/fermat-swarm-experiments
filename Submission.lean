@@ -3373,3 +3373,114 @@ theorem p05_fr_projective_of_trivial_minors_a5b449214a
   exact Module.Projective.of_split s π hs
 
 end Submission
+
+
+namespace Submission
+
+/-- A finite relative Hopf module is projective over the finite type Hopf algebra. -/
+theorem p05_fr_finite_relative_hopf_module_projective_a5b449214a
+    {k : Type*} [Field k] {A : Type*} [CommRing A] [HopfAlgebra k A]
+    [Algebra.FiniteType k A] {H : Type*} [CommRing H] [HopfAlgebra k H]
+    (ι : BialgHom k A H) (hι : Function.Injective ι)
+    {M : Type*} [AddCommGroup M] [Module k M] [Module A M]
+    [IsScalarTower k A M] [Module.Finite A M]
+    (μ : M →ₗ[k] TensorProduct k M H)
+    (hcoassoc : ∀ m : M,
+      TensorProduct.assoc k M H H
+          ((TensorProduct.map μ (LinearMap.id : H →ₗ[k] H)) (μ m)) =
+        (TensorProduct.map (LinearMap.id : M →ₗ[k] M)
+          (Coalgebra.comul (R := k))) (μ m))
+    (hcounit : ∀ m : M,
+      TensorProduct.rid k M
+        ((TensorProduct.map (LinearMap.id : M →ₗ[k] M)
+          (Coalgebra.counit (R := k))) (μ m)) = m)
+    (hcompat : ∀ (a : A) (m : M),
+      let d := Coalgebra.Repr.arbitrary k a
+      μ (a • m) = ∑ i ∈ d.index,
+        TensorProduct.map ((Algebra.lsmul k k M) (d.left i))
+          (LinearMap.mulLeft k (ι (d.right i))) (μ m)) :
+    Module.Projective A M := by
+  classical
+  -- Choose a finite presentation over the Noetherian ring A.
+  let : IsNoetherianRing A := Algebra.FiniteType.isNoetherianRing k A
+  let : Module.FinitePresentation A M := Module.finitePresentation_of_finite A M
+  obtain ⟨n, p, π, L, hπ, hL⟩ := Module.FinitePresentation.exists_fin' A M
+  let P : Matrix (Fin n) (Fin p) A := LinearMap.toMatrix' L
+  have hker : LinearMap.ker π = LinearMap.range P.mulVecLin := by
+    have hP : P.mulVecLin = L := Matrix.toLin'_toMatrix' L
+    rw [hP]
+    exact LinearMap.exact_iff.mp hL
+  -- Transport scalar extension to M ⊗ H, with its pure-tensor action.
+  let e : TensorProduct A (TensorProduct k A H) M ≃ₗ[A] TensorProduct k M H :=
+    (TensorProduct.comm A (TensorProduct k A H) M).trans
+      (TensorProduct.AlgebraTensorModule.cancelBaseChange k A A M H)
+  let : Module (TensorProduct k A H) (TensorProduct k M H) :=
+    e.symm.toAddEquiv.module (TensorProduct k A H)
+  have he (s : TensorProduct k A H) (x : TensorProduct A (TensorProduct k A H) M) :
+      e (s • x) = s • e x := by
+    change e (s • x) = e (s • e.symm (e x))
+    rw [e.symm_apply_apply]
+  have hact (a : A) (h : H) (m : M) (g : H) :
+      (TensorProduct.tmul k a h) • (TensorProduct.tmul k m g) =
+        TensorProduct.tmul k (a • m) (h * g) := by
+    change e ((TensorProduct.tmul k a h) • e.symm (TensorProduct.tmul k m g)) = _
+    simp [e, TensorProduct.smul_tmul', Algebra.TensorProduct.tmul_mul_tmul]
+  obtain ⟨θ, T, hθ, _hTmul, hT⟩ :=
+    p05_fr_rhm_coaction_twist_a5b449214a ι hact μ hcoassoc hcounit hcompat
+  let T' : TensorProduct A (TensorProduct k A H) M ≃+
+      TensorProduct A (TensorProduct k A H) M :=
+    e.toAddEquiv.trans (T.toAddEquiv.trans e.symm.toAddEquiv)
+  have hT' (s : TensorProduct k A H) (x : TensorProduct A (TensorProduct k A H) M) :
+      T' (s • x) = θ s • T' x := by
+    change e.symm (T (e (s • x))) = θ s • e.symm (T (e x))
+    apply e.injective
+    rw [e.apply_symm_apply, he, hT, he, e.apply_symm_apply]
+  -- Each presentation ideal is a coideal, hence zero or the unit ideal.
+  have hF (r : ℕ) :
+      let J : Ideal A := Ideal.span {x : A | ∃
+        (rows : Fin (n - r) ↪ Fin n) (cols : Fin (n - r) ↪ Fin p),
+        x = Matrix.det (P.submatrix rows cols)}
+      J = ⊥ ∨ J = ⊤ := by
+    dsimp only
+    let J : Ideal A := Ideal.span {x : A | ∃
+      (rows : Fin (n - r) ↪ Fin n) (cols : Fin (n - r) ↪ Fin p),
+      x = Matrix.det (P.submatrix rows cols)}
+    have hstable : Ideal.map θ.toRingEquiv.toRingHom
+        (Ideal.map (algebraMap A (TensorProduct k A H)) J) =
+        Ideal.map (algebraMap A (TensorProduct k A H)) J :=
+      p05_fr_rhm_base_change_semilinear_invariance_a5b449214a
+        n p P π hπ hker θ.toRingEquiv T' hT' r
+    apply p05_fr_coideal_ideal_dichotomy_a5b449214a (k := k) J
+    intro a ha
+    apply p05_fr_rhm_tensor_ideal_descent_a5b449214a ι.toLinearMap hι J
+    have halg : algebraMap A (TensorProduct k A H) =
+        (Algebra.TensorProduct.includeLeft : A →ₐ[k] TensorProduct k A H).toRingHom := by
+      ext b
+      simp
+    rw [← halg]
+    have ha' : algebraMap A (TensorProduct k A H) a ∈
+        Ideal.map (algebraMap A (TensorProduct k A H)) J :=
+      Ideal.mem_map_of_mem _ ha
+    have hθa := Ideal.mem_map_of_mem θ.toRingEquiv.toRingHom ha'
+    rw [hstable] at hθa
+    simpa [Algebra.TensorProduct.algebraMap_apply, hθ,
+      ← Algebra.TensorProduct.one_def] using hθa
+  apply p05_fr_projective_of_trivial_minors_a5b449214a n p P π hπ hker
+  intro d
+  dsimp only
+  by_cases hd : d ≤ n
+  · have hnd : n - (n - d) = d := by omega
+    have hf := hF (n - d)
+    dsimp only at hf
+    rw [hnd] at hf
+    exact hf
+  · left
+    have hempty : {x : A | ∃ (rows : Fin d ↪ Fin n) (cols : Fin d ↪ Fin p),
+        x = Matrix.det (P.submatrix rows cols)} = ∅ := by
+      apply Set.eq_empty_iff_forall_notMem.mpr
+      rintro x ⟨rows, cols, hx⟩
+      exact hd (by simpa only [Fintype.card_fin] using
+        Fintype.card_le_of_injective rows rows.injective)
+    rw [hempty, Ideal.span_empty]
+
+end Submission
