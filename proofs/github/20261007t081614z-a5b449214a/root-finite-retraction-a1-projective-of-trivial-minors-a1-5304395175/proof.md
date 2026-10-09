@@ -1,0 +1,68 @@
+# Parent-supplied natural-language proof
+
+- Parent DAG node: `root.finite_retraction-a1`
+- Child DAG node: `root.finite_retraction-a1.projective_of_trivial_minors-a1`
+- Review gate: accepted as part of the parent's decomposition audit
+
+## Proof
+
+1. If R is the zero ring, every unital R-module is zero and therefore projective. If n=0, surjectivity of π similarly implies M=0. These cases are settled. Assume R is nonzero and n>0. Write D_d for the ideal in the statement. The unique empty minor gives D_0=R.
+2. Choose the least r in {0,…,n} such that D_(n−r)=R, and put d=n−r. If r>0, minimality and the zero-or-unit hypothesis give D_(d+1)=0. There are finitely many d-minors because their row and column index sets are finite. List these minors as f_1,…,f_q. They generate R, so q is positive. When d=0, use the single empty minor f_1=1.
+3. We record the determinant identities needed for elimination. Multilinearly expanding a minor of UPV, with U,V invertible square matrices, expresses it as a linear combination of same-size minors of P: terms with repeated selected rows or columns vanish, and the remaining terms group according to injective selections. Applying this observation to U⁻¹ and V⁻¹ proves equality of the corresponding minor ideals. These expansions follow directly from the determinant permutation formula. That formula also shows that determinants commute with ring maps. Finally, cofactor expansion gives B adj(B)=adj(B)B=det(B)I: diagonal entries are expansions of det(B), and off-diagonal entries are determinants with repeated rows or columns. Thus a square block with unit determinant has inverse det(B)⁻¹adj(B).
+4. Fix i and localize R at powers of f_i, obtaining S_i. Localization preserves the displayed presentation. Indeed, if π(x)/f_i^e=0, some power f_i^t annihilates π(x), so f_i^t x lies in im(P); this expresses x/f_i^e in the localized image of P. Lifting numerators proves localized surjectivity. Hence M_i is the cokernel of the image matrix P_i. If S_i is zero, M_i is zero and free of rank r.
+5. Suppose S_i is nonzero. The selected d-by-d block has unit determinant. Permute rows and columns to place it first, writing the matrix in blocks as [[B,C],[D,E]]. Multiplication on the left by [[B⁻¹,0],[−DB⁻¹,I]] and on the right by [[I,−B⁻¹C],[0,I]] gives diag(I_d,Q), where Q=E−DB⁻¹C. Both multiplying matrices are invertible. When d=0 this operation simply leaves Q=P_i. If r>0, each entry of Q is the determinant of the (d+1)-square submatrix consisting of the identity block and that entry. Step 3 and D_(d+1)=0 show every such entry is zero. If there are no remaining columns this assertion is vacuous. If r=0 there are no remaining rows. In every case the cokernel is S_i^r. Thus M_i is free of rank r.
+6. The localized surjection π_i:S_i^n→M_i has a linear section s_i: choose preimages of a basis of M_i and extend linearly. Use the zero section if S_i is zero. Let m_j=π(e_j), where e_j are the standard basis vectors of R^n. Choose a common denominator and write s_i(m_j/1)=v_j/f_i^e with v_j∈R^n. Each column (P_jℓ)_j is a relation among the m_j. Applying s_i shows that the vector Σ_j P_jℓ v_j vanishes after localization. A fraction z/1 vanishes precisely when some power of f_i annihilates z. Since there are finitely many columns, one power f_i^t annihilates all these vectors.
+7. Assign m_j↦f_i^t v_j. This kills every column relation and hence the whole kernel im(P), so it defines an R-linear map u_i:M→R^n. Its localization is f_i^(e+t)s_i, as can be checked on the generating elements m_j/1. Therefore πu_i−f_i^(e+t)id_M vanishes after localization. A common power f_i^c annihilates its values on the finitely many generators m_j, and thus annihilates the entire map. Replacing u_i by f_i^c u_i gives πu_i=f_i^(e+t+c)id_M. If this exponent is zero, multiply u_i once more by f_i. We obtain a positive integer N_i and a map t_i with πt_i=f_i^N_i id_M.
+8. Choose a_i∈R with 1=Σ_i a_i f_i. Raise this equality to L=1+Σ_i(N_i−1). In each term of the expansion, some index i occurs at least N_i times; otherwise the total number of factors would be at most L−1. Each term is consequently divisible by some f_i^N_i. Grouping the finitely many terms gives coefficients b_i with 1=Σ_i b_i f_i^N_i.
+9. Set s=Σ_i b_i t_i. Then πs=(Σ_i b_i f_i^N_i)id_M=id_M. Thus M is a direct summand of the finite free module R^n.
+10. Explicitly, given a surjective R-linear map f:E→Y and an R-linear map g:M→Y, choose a preimage in E of each g(π(e_j)). Extending these choices linearly gives L:R^n→E with fL=gπ. Consequently f(Ls)=g. This is the projective lifting property, and proves Module.Projective R M.
+
+## Key steps
+
+1. Choose adjacent determinantal ideals D_d=R and, when needed, D_(d+1)=0.
+2. Establish minor invariance under invertible row and column operations and the adjugate inverse formula.
+3. Localize at finitely many d-minors generating the unit ideal.
+4. Reduce each localized presentation to diag(I_d,0), giving a free cokernel.
+5. Clear denominators using the finite lists of generators and relations to obtain πt_i=f_i^N_i id.
+6. Show the powers f_i^N_i still generate the unit ideal and patch a global section.
+7. Use the section of a finite free presentation to prove the projective lifting property.
+
+## Reference use
+
+### local-project
+
+Queries:
+- `class.*[Cc]omodule|structure.*[Cc]omodule|fittingIdeal|fitting_ideal|Fitting ideal`
+- `Fitting|fittingIdeal|fitting_ideal|class.*[Cc]omodule|structure.*[Cc]omodule|antipode_mul|antipodeAlgHom`
+- `isNoetherianRing_of_fg|finitePresentation_of_finite|exists.*[Ss]ection|exists.*[Ll]eftInverse|projective.*iff`
+- `def mulVecLin|mulVecLin_apply|def lsmul|def mulLeft|submatrix`
+- `p05_fr_coideal_ideal_dichotomy_a5b449214a|p05_fr_projective_of_trivial_minors_a5b449214a|p05_fr_finite_relative_hopf_module_projective_a5b449214a`
+- `rg --files -uu /mnt/data/zhengyang-workspace/fermat-swarm-projects -g dag.json`
+- `/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean CheckTypes.lean > ../literal-types.log 2>&1`
+- `/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean CheckInstances.lean > ../instances-axioms.log 2>&1`
+- `/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lake env lean HeaderPolicyCheck.lean > ../header-absence.log 2>&1`
+
+Files inspected:
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/problem.md`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root-finite-retraction-a1/parent-child-handoff.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/dag.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Basic.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Convolution.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Coalgebra/Basic.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Adjoin/FG.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Module/FinitePresentation.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Module/Projective.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/ToLin.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Algebra/Tower.lean`
+- `/runtime/operator-header-policy-v1/policy.json`
+- `/tmp/p05-fr-decomp-mgjv880w/challenge/CheckTypes.lean`
+- `/tmp/p05-fr-decomp-mgjv880w/challenge/CheckInstances.lean`
+- `/tmp/p05-fr-decomp-mgjv880w/header-input-binding.json`
+- `/tmp/p05-fr-decomp-mgjv880w/header-absence.log`
+- `/tmp/p05-fr-decomp-mgjv880w/instances-axioms.log`
+- `/tmp/p05-fr-decomp-mgjv880w/report.json`
+
+The project and mathlib snapshots are clean at 2fdd42759f4ab17640ac773289b521dd69d4b26e and db584cd6d46c92f209a44c0f1c829460d327499d; all nine dependency checkouts match their clean pins. The snapshot supplies antipode multiplicativity, finite-presentation infrastructure, matrix presentation maps, and projective lifting. No Fitting-ideal or general comodule declaration matched the targeted search. The three proposed names have no active-DAG collision. All three literal types elaborate warning-clean after import Submission. Anonymous proofs verify the tensor action and matrix-vector semantics; nine inspected infrastructure axiom closures contain only propext, Classical.choice, and Quot.sound. Disposable compiler copies follow policy SHA256 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, omitting exactly lines 10–11; Lean confirms all 13 targets absent. Reversible original/build hashes are retained in header-input-binding.json. Protected sources and handoffs were not edited. These are interface diagnostics; theorem acceptance still requires the configured exact-contract comparator and independent review.
