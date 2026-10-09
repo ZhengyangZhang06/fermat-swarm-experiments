@@ -2068,3 +2068,306 @@ theorem Submission.p09_af497904fe_cfs_cyclic_weighted_infinitude :
     (one_div_pos.mpr hmR) hε hεone hlower hD
   change Set.Infinite {i : ι | g i = a ∧ i ∉ D} at hinfinite
   simpa only [and_comm] using hinfinite
+open Filter Topology Ideal Asymptotics in
+/-- Speculative parent draft. The arithmetic input obligation at the end is still open. -/
+theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
+    ∀ (M : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ M]
+      (F : IntermediateField ℚ M) (q : ℕ) (ζ : M), q.Prime →
+      IsPrimitiveRoot ζ q → IntermediateField.adjoin F ({ζ} : Set M) = ⊤ →
+      ∀ (h : M ≃ₐ[F] M) (B : Finset ℕ),
+        ∃ ℓ : ℕ, ℓ.Prime ∧ ℓ ∉ B ∧ ∃ W : ValuationSubring M,
+          W.LiesOverPrime ℓ ∧ W.IsFrobeniusAt h ℓ := by
+  classical
+  intro M _ F q ζ hq hζ hadjoin h B
+  -- Steps 1, 2, and 21: the cyclotomic group and its actual residue action.
+  let : Fact q.Prime := ⟨hq⟩
+  let : NeZero q := ⟨hq.ne_zero⟩
+  let : NumberField M := ⟨⟩
+  let : NumberField F := inferInstance
+  let : IsCyclotomicExtension {q} F (⊤ : IntermediateField F M) :=
+    hadjoin ▸ hζ.intermediateField_adjoin_isCyclotomicExtension F
+  let : IsCyclotomicExtension {q} F M :=
+    IsCyclotomicExtension.equiv {q} F (⊤ : IntermediateField F M)
+      IntermediateField.topEquiv
+  let : IsGalois F M := IsCyclotomicExtension.isGalois {q} F M
+  let J := M ≃ₐ[F] M
+  have hexponent : Function.Injective (hζ.autToPow F) := hζ.autToPow_injective F
+  let : IsCyclic J := isCyclic_of_injective (hζ.autToPow F) hexponent
+  let m := Nat.card J
+  have hm : 0 < m := Nat.card_pos
+  let e : Multiplicative (ZMod m) ≃* J := zmodCyclicMulEquiv (inferInstance : IsCyclic J)
+  let code : J → ZMod m := fun σ => Multiplicative.toAdd (e.symm σ)
+  have hcode : Function.Injective code := by
+    intro σ τ heq
+    apply e.symm.injective
+    exact heq
+  let ω : ℂ := Complex.exp (2 * Real.pi * Complex.I / m)
+  have hω : IsPrimitiveRoot ω m := Complex.isPrimitiveRoot_exp m hm.ne'
+  have hrootmem (W : ValuationSubring M) (x : M) (hx : x ^ q = 1) :
+      x ∈ W ∧ x⁻¹ ∈ W := by
+    have hi : x ^ (q - 1) = x⁻¹ := by
+      apply eq_inv_of_mul_eq_one_left
+      rw [pow_sub_one_mul hq.ne_zero, hx]
+    have hback : (x⁻¹) ^ (q - 1) = x := by rw [inv_pow, hi, inv_inv]
+    have hmem : x ∈ W := by
+      rcases W.mem_or_inv_mem x with h | h
+      · exact h
+      · rw [← hback]
+        exact pow_mem h (q - 1)
+    exact ⟨hmem, hi ▸ pow_mem hmem (q - 1)⟩
+  have hrootinj (W : ValuationSubring M) (ℓ : ℕ) (hℓ : ℓ.Prime)
+      (hW : W.LiesOverPrime ℓ) (hℓq : ¬ ℓ ∣ q) (x y : W)
+      (hx : x ^ q = 1) (hy : y ^ q = 1)
+      (hxy : residue W x = residue W y) : x = y := by
+    have hℓW : (ℓ : W) ∈ maximalIdeal W :=
+      ValuationSubring.coe_mem_nonunits_iff.mp (by
+        simpa [ValuationSubring.LiesOverPrime] using hW)
+    have hℓk : (ℓ : ResidueField W) = 0 := by
+      rw [← map_natCast (residue W) ℓ]
+      exact (residue_eq_zero_iff _).mpr hℓW
+    let : CharP (ResidueField W) ℓ := (CharP.charP_iff_prime_eq_zero hℓ).mpr hℓk
+    have hqk : (q : ResidueField W) ≠ 0 :=
+      fun h => hℓq ((CharP.cast_eq_zero_iff (ResidueField W) ℓ q).mp h)
+    have hone (t : W) (ht : t ^ q = 1) (hred : residue W t = 1) : t = 1 := by
+      by_contra h
+      have hs : (∑ i ∈ Finset.range q, t ^ i) = 0 :=
+        (mul_eq_zero.mp ((geom_sum_mul t q).trans (by rw [ht, sub_self]))).resolve_right
+          (sub_ne_zero.mpr h)
+      have hr := congrArg (residue W) hs
+      apply hqk
+      simpa [map_sum, map_pow, hred] using hr
+    let v : W := y ^ (q - 1)
+    have hyv : y * v = 1 := by
+      dsimp [v]
+      rw [← pow_succ', Nat.sub_add_cancel hq.one_le, hy]
+    have hvy : v * y = 1 := by rw [mul_comm, hyv]
+    have hv : v ^ q = 1 := by
+      dsimp [v]
+      rw [← pow_mul, Nat.mul_comm, pow_mul, hy, one_pow]
+    have htv : x * v = 1 := by
+      apply hone
+      · rw [mul_pow, hx, hv, one_mul]
+      · rw [map_mul, hxy, ← map_mul, hyv, map_one]
+    calc
+      x = x * (v * y) := by rw [hvy, mul_one]
+      _ = (x * v) * y := (mul_assoc x v y).symm
+      _ = y := by rw [htv, one_mul]
+  have hrootext (σ τ : J) (heq : σ ζ = τ ζ) : σ = τ := by
+    apply AlgEquiv.coe_toAlgHom_injective
+    apply (hζ.powerBasis F).algHom_ext
+    simpa only [IsPrimitiveRoot.powerBasis_gen, AlgEquiv.coe_toAlgHom] using heq
+  have hfrobroot (W : ValuationSubring M) (ℓ : ℕ) (hℓ : ℓ.Prime)
+      (hW : W.LiesOverPrime ℓ) (hℓq : ¬ ℓ ∣ q) (σ : J)
+      (hσ : W.IsFrobeniusAt σ ℓ) : σ ζ = ζ ^ ℓ := by
+    let z : W := ⟨ζ, (hrootmem W ζ hζ.pow_eq_one).1⟩
+    let d : W.decompositionSubgroup F := ⟨σ, hσ.mem_decompositionSubgroup⟩
+    have hz : z ^ q = 1 := Subtype.ext hζ.pow_eq_one
+    have heq : d • z = z ^ ℓ := by
+      apply hrootinj W ℓ hℓ hW hℓq
+      · rw [← smul_pow', hz, smul_one]
+      · rw [← pow_mul, Nat.mul_comm, pow_mul, hz, one_pow]
+      · rw [IsLocalRing.ResidueField.residue_smul, map_pow]
+        exact hσ.smul_residue_eq (residue W z)
+    exact congrArg Subtype.val heq
+  have hinertia (W : ValuationSubring M) (ℓ : ℕ) (hℓ : ℓ.Prime)
+      (hW : W.LiesOverPrime ℓ) (hℓq : ¬ ℓ ∣ q) :
+      W.inertiaSubgroupIn F = ⊥ := by
+    apply le_antisymm _ bot_le
+    rintro σ ⟨d, hd, rfl⟩
+    have hred : ∀ x : ResidueField W, d • x = x := by
+      have hd' : MulSemiringAction.toRingAut (W.decompositionSubgroup F)
+          (ResidueField W) d = 1 := hd
+      intro x
+      exact congrArg (fun f : RingAut (ResidueField W) => f x) hd'
+    apply Subgroup.mem_bot.mpr
+    apply hrootext
+    let z : W := ⟨ζ, (hrootmem W ζ hζ.pow_eq_one).1⟩
+    have hz : z ^ q = 1 := Subtype.ext hζ.pow_eq_one
+    have heq : d • z = z := by
+      refine hrootinj W ℓ hℓ hW hℓq _ _ ?_ hz ?_
+      · rw [← smul_pow', hz, smul_one]
+      · rw [IsLocalRing.ResidueField.residue_smul, hred]
+    exact congrArg Subtype.val heq
+  -- Steps 20 and 24: cancellation of the common ray-class pole.
+  have hrayContinuation (C : Type) [Fintype C] (a : C → ℕ → ℝ)
+      (κ α : ℝ) (ha : ∀ c n, 0 ≤ a c n) (hα₀ : 0 ≤ α) (hα₁ : α < 1)
+      (hcount : ∀ c, ∃ R : ℝ, 0 ≤ R ∧ ∀ n : ℕ, 1 ≤ n →
+        |(∑ k ∈ Finset.Icc 1 n, a c k) - κ * (n : ℝ)| ≤ R * (n : ℝ) ^ α)
+      (θ : C → ℂ) (hθ : ∑ c, θ c = 0) :
+      ∃ H : ℂ → ℂ, DifferentiableOn ℂ H {s : ℂ | α < s.re} ∧
+        ∀ s : ℂ, 1 < s.re →
+          (∑ c, θ c * LSeries (fun n : ℕ => (a c n : ℂ)) s) = H s := by
+    choose H hH hseries using fun c =>
+      Submission.p09_af497904fe_cfs_counting_mellin_continuation
+        (a c) κ α (ha c) hα₀ hα₁ (hcount c)
+    refine ⟨fun s => ∑ c, θ c * H c s, ?_, ?_⟩
+    · exact DifferentiableOn.fun_sum fun c _ => (hH c).const_mul (θ c)
+    · intro s hs
+      simp_rw [hseries _ s hs, mul_add, Finset.sum_add_distrib]
+      rw [← Finset.sum_mul, hθ, zero_mul, zero_add]
+  have hprimeBound (E L P : ℝ → ℂ)
+      (hE : ContinuousOn E (Set.Ioo 1 2))
+      (hL : ContinuousWithinAt L (Set.Ici 1) 1) (hL₁ : L 1 ≠ 0)
+      (hexp : ∀ s, s ∈ Set.Ioo 1 2 → Complex.exp (E s) = L s)
+      (R : ℝ) (hR : 0 ≤ R)
+      (htail : ∀ s : ℝ, 1 < s → s < 2 → ‖P s - E s‖ ≤ R) :
+      ∃ C : ℝ, 0 ≤ C ∧ ∃ ε : ℝ, 0 < ε ∧ ε ≤ 1 ∧
+        ∀ s : ℝ, 1 < s → s < 1 + ε → ‖P s‖ ≤ C := by
+    obtain ⟨ε, hε, hε₁, C, hC, hbound⟩ :=
+      Submission.p09_af497904fe_cfs_bounded_euler_logarithm E L hE hL hL₁ hexp
+    refine ⟨R + C, add_nonneg hR hC, ε, hε, hε₁, ?_⟩
+    intro s hs hsε
+    calc
+      ‖P s‖ = ‖(P s - E s) + E s‖ := by rw [sub_add_cancel]
+      _ ≤ ‖P s - E s‖ + ‖E s‖ := norm_add_le _ _
+      _ ≤ R + C := add_le_add (htail s hs (by linarith)) (hbound s hs hsε)
+  -- Steps 27 and 28: weighted infinitude supplies the requested prime and valuation.
+  let ι := IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers F)
+  let N : ι → ℕ := fun v => Ideal.absNorm v.asIdeal
+  let D : Set ι := {v | ¬ (N v).Prime ∨ N v ∈ insert q B}
+  have hN (v : ι) : 2 ≤ N v := NumberField.HeightOneSpectrum.one_lt_absNorm v
+  -- Step 11: group the ordinary ideal series by norm, then restrict to prime ideals.
+  have hsum : ∀ s : ℝ, 1 < s →
+      Summable (fun v : ι => Real.rpow (N v : ℝ) (-s)) := by
+    intro s hs
+    let a : ℕ → ℝ := fun n => Nat.card {I : Ideal (NumberField.RingOfIntegers F) // absNorm I = n}
+    have hlim : Tendsto (fun n : ℕ => (∑ k ∈ Finset.Icc 1 n, a k) / (n : ℝ))
+        atTop (𝓝 (NumberField.dedekindZeta_residue F)) := by
+      refine ((NumberField.Ideal.tendsto_norm_le_div_atTop₀ F).comp
+        tendsto_natCast_atTop_atTop).congr fun n => ?_
+      dsimp [a]
+      simp only [Nat.cast_le, ← Nat.cast_sum]
+      congr
+      rw [← add_left_inj 1, ← card_norm_le_eq_card_norm_le_add_one,
+        show Finset.Icc 1 n = Finset.Ioc 0 n from Finset.Icc_succ_left_eq_Ioc _ _,
+        show 1 = Nat.card {I : Ideal (NumberField.RingOfIntegers F) // absNorm I = 0} by
+          simp [Ideal.absNorm_eq_zero_iff],
+        Finset.sum_Ioc_add_eq_sum_Icc (n.zero_le),
+        ← Finset.card_preimage_eq_sum_card_image_eq (fun k _ => finite_setOfPred_absNorm_eq k)]
+      simp [Set.coe_eq_subtype]
+    have hls : LSeriesSummable (fun n => (a n : ℂ)) (s : ℂ) := by
+      apply LSeriesSummable_of_sum_norm_bigO_and_nonneg
+        (r := 1) _ (fun n => Nat.cast_nonneg _) zero_le_one hs
+      exact isBigO_atTop_natCast_rpow_of_tendsto_div_rpow (by simpa using hlim)
+    have hnorm : Summable (fun n : ℕ => a n * Real.rpow (n : ℝ) (-s)) := by
+      refine hls.norm.congr fun n => ?_
+      rw [LSeries.norm_term_eq]
+      by_cases hn : n = 0
+      · subst n
+        simp [ne_of_lt (neg_lt_zero.mpr (lt_trans zero_lt_one hs))]
+      · simp [hn, Complex.norm_real, abs_of_nonneg (show 0 ≤ a n from Nat.cast_nonneg _),
+          Real.rpow_neg (Nat.cast_nonneg n), div_eq_mul_inv]
+    have hideals : Summable (fun I : Ideal (NumberField.RingOfIntegers F) =>
+        Real.rpow (absNorm I : ℝ) (-s)) := by
+      refine (summable_partition (fun I => Real.rpow_nonneg (Nat.cast_nonneg _) _)
+        (s := fun n => {I : Ideal (NumberField.RingOfIntegers F) | absNorm I = n})
+        (fun I => ⟨absNorm I, rfl, fun n hn => hn.symm⟩)).mpr ⟨?_, ?_⟩
+      · intro n
+        change Summable (fun I : {I : Ideal (NumberField.RingOfIntegers F) // absNorm I = n} =>
+          Real.rpow (absNorm I.1 : ℝ) (-s))
+        let : Fintype {I : Ideal (NumberField.RingOfIntegers F) // absNorm I = n} :=
+          (finite_setOfPred_absNorm_eq n).fintype
+        exact Summable.of_finite
+      · apply hnorm.congr
+        intro n
+        change a n * Real.rpow (n : ℝ) (-s) =
+          ∑' I : {I : Ideal (NumberField.RingOfIntegers F) // absNorm I = n},
+            Real.rpow (absNorm I.1 : ℝ) (-s)
+        let : Fintype {I : Ideal (NumberField.RingOfIntegers F) // absNorm I = n} :=
+          (finite_setOfPred_absNorm_eq n).fintype
+        have heq : (fun I : {I : Ideal (NumberField.RingOfIntegers F) // absNorm I = n} =>
+            Real.rpow (absNorm I.1 : ℝ) (-s)) = fun _ => Real.rpow (n : ℝ) (-s) :=
+          funext fun I => by rw [I.property]
+        rw [heq, tsum_fintype]
+        simp [a, Nat.card_eq_fintype_card]
+    exact hideals.comp_injective IsDedekindDomain.HeightOneSpectrum.asIdeal_injective
+  have hfiniteNorm (n : ℕ) : {v : ι | N v = n}.Finite :=
+    Set.Finite.preimage IsDedekindDomain.HeightOneSpectrum.asIdeal_injective.injOn
+      (Ideal.finite_setOfPred_absNorm_eq n)
+  have hfiniteExcluded : {v : ι | N v ∈ insert q B}.Finite := by
+    have hfinite := (insert q B).finite_toSet.biUnion (fun n _ => hfiniteNorm n)
+    apply hfinite.subset
+    intro v hv
+    exact Set.mem_iUnion.mpr ⟨N v, Set.mem_iUnion.mpr ⟨hv, rfl⟩⟩
+  have hexcludedBound : ∃ C : ℝ, 0 ≤ C ∧ ∀ s : ℝ, 1 < s → s < 2 →
+      (∑' v : {v : ι // N v ∈ insert q B}, Real.rpow (N v.1 : ℝ) (-s)) ≤ C := by
+    let : Fintype {v : ι // N v ∈ insert q B} := hfiniteExcluded.fintype
+    refine ⟨Fintype.card {v : ι // N v ∈ insert q B}, Nat.cast_nonneg _, ?_⟩
+    intro s hs _
+    rw [tsum_fintype]
+    calc
+      (∑ v : {v : ι // N v ∈ insert q B}, Real.rpow (N v.1 : ℝ) (-s)) ≤
+          ∑ _ : {v : ι // N v ∈ insert q B}, (1 : ℝ) := by
+        apply Finset.sum_le_sum
+        intro v _
+        apply Real.rpow_le_one_of_one_le_of_nonpos
+        · exact_mod_cast (le_trans (by norm_num : 1 ≤ 2) (hN v.1))
+        · linarith
+      _ = _ := by simp
+  have hbadFromHigher
+      (hsum : ∀ s : ℝ, 1 < s → Summable (fun v : ι => Real.rpow (N v : ℝ) (-s)))
+      (hhigher : ∃ C : ℝ, 0 ≤ C ∧ ∀ s : ℝ, 1 < s → s < 2 →
+        (∑' v : {v : ι // ¬ (N v).Prime}, Real.rpow (N v.1 : ℝ) (-s)) ≤ C) :
+      ∃ C : ℝ, 0 ≤ C ∧ ∀ s : ℝ, 1 < s → s < 2 →
+        (∑' v : {v : ι // v ∈ D}, Real.rpow (N v.1 : ℝ) (-s)) ≤ C := by
+    obtain ⟨C₁, hC₁, hbound₁⟩ := hhigher
+    obtain ⟨C₂, hC₂, hbound₂⟩ := hexcludedBound
+    refine ⟨C₁ + C₂, add_nonneg hC₁ hC₂, ?_⟩
+    intro s hs hs₂
+    let f : ι → ℝ := fun v => Real.rpow (N v : ℝ) (-s)
+    let U : Set ι := {v | ¬ (N v).Prime}
+    let V : Set ι := {v | N v ∈ insert q B}
+    have hf : Summable f := hsum s hs
+    have hle : D.indicator f ≤ U.indicator f + V.indicator f := by
+      intro v
+      have hfv : 0 ≤ f v := Real.rpow_nonneg (Nat.cast_nonneg _) _
+      by_cases hU : v ∈ U <;> by_cases hV : v ∈ V <;>
+        simp_all [Set.indicator, D, U, V]
+    calc
+      (∑' v : {v : ι // v ∈ D}, f v.1) = ∑' v, D.indicator f v := tsum_subtype D f
+      _ ≤ ∑' v, (U.indicator f + V.indicator f) v :=
+        (hf.indicator D).tsum_le_tsum hle ((hf.indicator U).add (hf.indicator V))
+      _ = (∑' v : U, f v.1) + ∑' v : V, f v.1 := by
+        simp only [Pi.add_apply]
+        rw [Summable.tsum_add (hf.indicator U) (hf.indicator V),
+          ← tsum_subtype U f, ← tsum_subtype V f]
+      _ ≤ C₁ + C₂ := add_le_add (hbound₁ s hs hs₂) (hbound₂ s hs hs₂)
+  have hfinish
+      (frob : ι → J)
+      (hsum : ∀ s : ℝ, 1 < s → Summable (fun v : ι => Real.rpow (N v : ℝ) (-s)))
+      (hcharacters : ∀ k : Fin m, ∃ C : ℝ, 0 ≤ C ∧ ∃ ε : ℝ, 0 < ε ∧
+        ∀ s : ℝ, 1 < s → s < 1 + ε →
+          ‖(∑' v : ι, ω ^ (k.val * (code (frob v)).val) *
+            Complex.ofReal (Real.rpow (N v : ℝ) (-s))) -
+              (if k.val = 0 then (Real.log (1 / (s - 1)) : ℂ) else 0)‖ ≤ C)
+      (hbad : ∃ C : ℝ, 0 ≤ C ∧ ∀ s : ℝ, 1 < s → s < 2 →
+        (∑' v : {v : ι // v ∈ D}, Real.rpow (N v.1 : ℝ) (-s)) ≤ C)
+      (hrealize : ∀ v : ι, v ∉ D → ∃ W : ValuationSubring M,
+        W.LiesOverPrime (N v) ∧ W.IsFrobeniusAt (frob v) (N v)) :
+      ∃ ℓ : ℕ, ℓ.Prime ∧ ℓ ∉ B ∧ ∃ W : ValuationSubring M,
+        W.LiesOverPrime ℓ ∧ W.IsFrobeniusAt h ℓ := by
+    obtain ⟨v, hv⟩ := (Submission.p09_af497904fe_cfs_cyclic_weighted_infinitude
+      ι m ω N (fun v => code (frob v)) D hm hω hN hsum hcharacters hbad (code h)).nonempty
+    have hvD : ¬ (¬ (N v).Prime ∨ N v ∈ insert q B) := hv.1
+    have hvprime : (N v).Prime := not_not.mp (not_or.mp hvD).1
+    have hvB : N v ∉ B := fun hvB => (not_or.mp hvD).2 (Finset.mem_insert_of_mem hvB)
+    obtain ⟨W, hW, hFrob⟩ := hrealize v hv.1
+    have hvh : frob v = h := hcode hv.2
+    exact ⟨N v, hvprime, hvB, W, hW, hvh ▸ hFrob⟩
+  suffices hdata : ∃ frob : ι → J,
+      (∀ k : Fin m, ∃ C : ℝ, 0 ≤ C ∧ ∃ ε : ℝ, 0 < ε ∧
+        ∀ s : ℝ, 1 < s → s < 1 + ε →
+          ‖(∑' v : ι, ω ^ (k.val * (code (frob v)).val) *
+            Complex.ofReal (Real.rpow (N v : ℝ) (-s))) -
+              (if k.val = 0 then (Real.log (1 / (s - 1)) : ℂ) else 0)‖ ≤ C) ∧
+      (∃ C : ℝ, 0 ≤ C ∧ ∀ s : ℝ, 1 < s → s < 2 →
+        (∑' v : {v : ι // ¬ (N v).Prime}, Real.rpow (N v.1 : ℝ) (-s)) ≤ C) ∧
+      (∀ v : ι, v ∉ D → ∃ W : ValuationSubring M,
+        W.LiesOverPrime (N v) ∧ W.IsFrobeniusAt (frob v) (N v)) by
+    obtain ⟨frob, hcharacters, hhigher, hrealize⟩ := hdata
+    exact hfinish frob hsum hcharacters (hbadFromHigher hsum hhigher) hrealize
+  -- Still to formalize from the accepted argument: ray-class counting, the
+  -- cyclotomic Artin map, its Euler products and nonvanishing, and the bounded
+  -- contribution of primes of higher rational residue degree. No extra
+  -- assumption is introduced for these arithmetic constructions.
+  fail "Unfinished arithmetic input: construct the Frobenius-indexed prime-ideal data."
