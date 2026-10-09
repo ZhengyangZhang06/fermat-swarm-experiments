@@ -1649,3 +1649,40 @@ theorem Submission.p09_af497904fe_ce_inertia_ramification :
   rw [← Submission.p09_af497904fe_ir_inertia_cardinality E q hq P hP hPq,
     htrivial]
   exact Subgroup.card_bot
+
+theorem Submission.p09_af497904fe_irp_squared_vandermonde_symmetric :
+    ∀ n : ℕ, MvPolynomial.IsSymmetric
+      ((Finset.univ.filter (fun ij : Fin n × Fin n => ij.1 < ij.2)).prod
+        (fun ij => ((MvPolynomial.X ij.1 : MvPolynomial (Fin n) ℤ) -
+          MvPolynomial.X ij.2) ^ 2)) := by
+  classical
+  intro n π
+  let T := Finset.univ.filter (fun ij : Fin n × Fin n => ij.1 < ij.2)
+  let B (e : Equiv.Perm (Fin n)) (ij : Fin n × Fin n) :=
+    if e ij.1 < e ij.2 then (e ij.1, e ij.2) else (e ij.2, e ij.1)
+  have hmem (e : Equiv.Perm (Fin n)) (ij : Fin n × Fin n) (hij : ij ∈ T) :
+      B e ij ∈ T := by
+    have hlt : ij.1 < ij.2 := (Finset.mem_filter.mp hij).2
+    apply Finset.mem_filter.mpr
+    refine ⟨Finset.mem_univ _, ?_⟩
+    by_cases h : e ij.1 < e ij.2
+    · simpa only [B, if_pos h] using h
+    · have hne : e ij.2 ≠ e ij.1 := fun heq =>
+        (ne_of_lt hlt) (e.injective heq.symm)
+      simpa only [B, if_neg h] using lt_of_le_of_ne (le_of_not_gt h) hne
+  have hinv (e : Equiv.Perm (Fin n)) (ij : Fin n × Fin n) (hij : ij ∈ T) :
+      B e.symm (B e ij) = ij := by
+    have hlt : ij.1 < ij.2 := (Finset.mem_filter.mp hij).2
+    by_cases h : e ij.1 < e ij.2
+    · simp [B, h, hlt]
+    · simp [B, h, not_lt_of_gt hlt]
+  simp only [map_prod, map_pow, map_sub, MvPolynomial.rename_X]
+  refine Finset.prod_nbij' (B π) (B π.symm) (hmem π) (hmem π.symm)
+    (hinv π) ?_ ?_
+  · intro ij hij
+    simpa only [Equiv.symm_symm] using hinv π.symm ij hij
+  · intro ij _
+    by_cases h : π ij.1 < π ij.2
+    · simp only [B, if_pos h]
+    · simp only [B, if_neg h]
+      ring
