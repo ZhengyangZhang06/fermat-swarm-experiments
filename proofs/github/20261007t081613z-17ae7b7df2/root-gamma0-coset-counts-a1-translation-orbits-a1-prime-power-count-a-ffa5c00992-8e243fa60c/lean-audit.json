@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "pp_translation_charts|tchart_unique_row|efp_inverse_coset_eq_iff",
+        "isUnit_natCast_iff_not_dvd_pow|inv_coe_unit",
+        "def Gamma0|Gamma0_mem"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean"
+      ],
+      "conclusion": "Both snapshots are clean at the manifest-pinned revisions. Confirmed the frozen genus definition, Gamma0 membership definition, prime-power unit criterion, and ZMod unit-inverse identity. No matching node or helper declarations were found in the reference snapshot."
+    }
+  ],
+  "comparison_identity": "864b16d6d235c82862632553f05f9b7162af9c9058950c8175cc6d25eea10ec0",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_pp_translation_charts",
+      "statement": "∀ (p a : ℕ), Nat.Prime p → 1 ≤ a → let R := ZMod (p ^ a); let Q := (Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 (p ^ a); ∃ e : Q ≃ (R ⊕ {z : R // p ∣ z.val}), (∀ t : R, e (ModularGroup.T⁻¹ • e.symm (Sum.inl t)) = Sum.inl (t + 1)) ∧ (∀ z : {z : R // p ∣ z.val}, ∃ w : {z : R // p ∣ z.val}, e (ModularGroup.T⁻¹ • e.symm (Sum.inr z)) = Sum.inr w ∧ w.1 = z.1 * (1 + z.1)⁻¹)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Uses accepted row-normalization and inverse-coset lemmas to construct the equivalence and compute the translation action."
+    }
+  ]
+}
