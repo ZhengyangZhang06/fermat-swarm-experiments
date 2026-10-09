@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'f036cc6b1f_pc_integral_core' project mathlib/Mathlib --glob '*.lean'",
+        "rg -n 'def petersson|lemma SlashInvariantFormClass.petersson_smul' mathlib/Mathlib/NumberTheory/ModularForms/Petersson.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Petersson.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb"
+      ],
+      "conclusion": "No selected-declaration match in the snapshot. Inspected Petersson and hyperbolic-volume definitions match the pinned sources byte-for-byte. Project revision is 61b5f85556ac71631ccad822e0694511234f7132; mathlib revision is db584cd6d46c92f209a44c0f1c829460d327499d. All nine dependencies are clean and pinned."
+    }
+  ],
+  "comparison_identity": "a4373147647035f8c8cf5586cf08c12ae16525254435d26d7d3225005ed4cdfa",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.f036cc6b1f_pc_integral_core",
+      "statement": "∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) [Δ.FiniteIndex], (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ → ∃ B : InnerProductSpace.Core ℂ (CuspForm Δ 2), ∀ (F : Set UpperHalfPlane), MeasurableSet F → (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ F ∧ ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ, δ ∈ Δ → δ • z ∈ F → δ = γ ∨ δ = -γ) → ∀ f g : CuspForm Δ 2, MeasureTheory.IntegrableOn (UpperHalfPlane.petersson 2 f g) F (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) ∧ B.inner f g = MeasureTheory.integral ((MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane).restrict F) (UpperHalfPlane.petersson 2 f g)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines accepted effective-domain, integrability, domain-transfer, and definiteness dependencies to construct one Petersson core valid for every admissible domain."
+    }
+  ]
+}
