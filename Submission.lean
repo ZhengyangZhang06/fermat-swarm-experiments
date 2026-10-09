@@ -6719,7 +6719,7 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
       by_cases hzV : z ∈ V
       · exact Or.inl hzV
       · exact Or.inr (fun hzcl => Set.disjoint_left.mp havoid hz
-          (by rw [hVopen.frontier_eq]; exact ⟨hzcl, hzV⟩))
+          ⟨hzcl, fun hzint => hzV (interior_subset hzint)⟩)
     have hdisjoint : Disjoint V (closure V)ᶜ :=
       Set.disjoint_left.mpr (fun _ hz hn => hn (subset_closure hz))
     rcases (hcellConvex i).isPreconnected.subset_or_subset hVopen
