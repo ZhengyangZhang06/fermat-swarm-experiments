@@ -1,0 +1,20 @@
+{
+  "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/32",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "481dab2be474bfae906e78a1a9e6c3b2660530c3",
+  "integrated_commit": "2b59808af229b578c5e48ba3d6e6fe5fd6de7145",
+  "proof_base_commit": "80624543d3feebc1eb9ab5b97ceac4a9529d1ac8",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.petersson_core_good_hecke-a1",
+  "requires": [
+    "root.petersson_core_good_hecke-a1.effective_domain-a1",
+    "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.translated_domain_integrability-a1",
+    "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1",
+    "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.diagonal_integral_definite-a1"
+  ]
+}
