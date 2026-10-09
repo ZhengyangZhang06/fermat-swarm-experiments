@@ -2760,3 +2760,38 @@ theorem p09_af497904fe_adic_cyclotomic_character
     rw [hvalue, map_natCast]
 
 end Submission
+theorem Submission.p09_af497904fe_cwi_character_orthogonality :
+    ∀ (m : ℕ) (ω : ℂ), 0 < m → IsPrimitiveRoot ω m → ∀ a b : ZMod m,
+      (∑ k : Fin m, star (ω ^ (k.val * a.val)) * ω ^ (k.val * b.val)) =
+        (if b = a then (m : ℂ) else 0) := by
+  intro m ω hm hω a b
+  have : NeZero m := ⟨Nat.ne_of_gt hm⟩
+  have hω0 : ω ≠ 0 := hω.ne_zero (Nat.ne_of_gt hm)
+  have hstar : (starRingEnd ℂ) ω = ω⁻¹ :=
+    (Complex.inv_eq_conj (hω.norm'_eq_one (Nat.ne_of_gt hm))).symm
+  let u : ℂ := ω ^ b.val / ω ^ a.val
+  have hu : u ^ m = 1 := by
+    dsimp [u]
+    rw [div_pow, pow_right_comm ω b.val m, pow_right_comm ω a.val m,
+      hω.pow_eq_one, one_pow, one_pow, div_self one_ne_zero]
+  have hterm (k : ℕ) :
+      star (ω ^ (k * a.val)) * ω ^ (k * b.val) = u ^ k := by
+    dsimp [u]
+    rw [Nat.mul_comm k a.val, Nat.mul_comm k b.val, pow_mul, pow_mul,
+      map_pow, map_pow, hstar, inv_pow, div_pow, div_eq_mul_inv, inv_pow]
+    exact mul_comm _ _
+  simp_rw [hterm]
+  by_cases hba : b = a
+  · have hu1 : u = 1 := by
+      dsimp [u]
+      rw [hba, div_self (pow_ne_zero _ hω0)]
+    simp [hba, hu1]
+  · have hu1 : u ≠ 1 := by
+      intro h
+      apply hba
+      apply ZMod.val_injective
+      apply hω.pow_inj (ZMod.val_lt _) (ZMod.val_lt _)
+      exact (div_eq_one_iff_eq (pow_ne_zero _ hω0)).mp h
+    rw [if_neg hba, Fin.sum_univ_eq_sum_range]
+    exact (mul_eq_zero.mp ((geom_sum_mul u m).trans (by rw [hu, sub_self]))).resolve_right
+      (sub_ne_zero.mpr hu1)
