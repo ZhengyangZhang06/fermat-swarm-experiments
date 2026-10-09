@@ -28623,3 +28623,37 @@ theorem Submission.p03_eds_torsion_kernel_card_68cf3476_d4 :
   rcases n with _ | n
   · omega
   · exact (hcard n).1
+
+
+theorem Submission.p03_eds_torsion_kernel_sum_68cf3476_d4 :
+    ∀ (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k]
+      (W : WeierstrassCurve k), W.Δ ≠ 0 → ∀ n : ℕ, 0 < n →
+      ∀ S : Finset W.toAffine.Point,
+        (∀ P : W.toAffine.Point, P ∈ S ↔ n • P = 0) →
+          S.sum (fun P => P) = 0 := by
+  intro k _ _ _ _ W hΔ n _hn S hS
+  classical
+  have hneg : ∀ P ∈ S, -P ∈ S := by
+    intro P hP
+    apply (hS (-P)).2
+    rw [smul_neg, (hS P).1 hP, _root_.neg_zero]
+  rw [Submission.p03_eds_negation_fixed_sum_68cf3476_d5 W.toAffine.Point S hneg]
+  obtain ⟨r, heven | hodd⟩ := n.even_or_odd'
+  · have hT : ∀ P : W.toAffine.Point,
+        P ∈ S.filter (fun P => (2 : ℕ) • P = 0) ↔ (2 : ℕ) • P = 0 := by
+      intro P
+      rw [Finset.mem_filter]
+      refine ⟨And.right, fun hP => ⟨(hS P).2 ?_, hP⟩⟩
+      rw [heven, mul_nsmul, hP, smul_zero]
+    have hcard := (Submission.p03_eds_torsion_kernel_card_68cf3476_d4
+      k W hΔ 2 (by decide)).2
+    apply Submission.p03_eds_two_torsion_four_sum_68cf3476_d5
+      W.toAffine.Point _ hT
+    rw [← Nat.subtype_card _ hT, hcard]
+    rfl
+  · apply Finset.sum_eq_zero
+    intro P hP
+    obtain ⟨hPS, hP2⟩ := Finset.mem_filter.mp hP
+    have hPn := (hS P).1 hPS
+    rw [hodd, add_nsmul, mul_nsmul, hP2, smul_zero, one_nsmul, zero_add] at hPn
+    exact hPn
