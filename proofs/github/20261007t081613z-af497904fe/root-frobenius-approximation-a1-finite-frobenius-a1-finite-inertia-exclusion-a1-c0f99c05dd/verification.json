@@ -1,0 +1,18 @@
+{
+  "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.finite_inertia_exclusion-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/677",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "f5ef4927ac70bcb64235292d603068f5befda6a3",
+  "integrated_commit": "2bf474a57e5845a5f720ebe3be9d3a5e99551dda",
+  "proof_base_commit": "8679bbe437345709189f0cb651bea4e87b62c5c4",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.frobenius_approximation-a1.finite_frobenius-a1",
+  "requires": [
+    "root.frobenius_approximation-a1.finite_frobenius-a1.finite_inertia_exclusion-a1.integral_primitive-a1",
+    "root.frobenius_approximation-a1.finite_frobenius-a1.finite_inertia_exclusion-a1.conjugate_separation-a1"
+  ]
+}
