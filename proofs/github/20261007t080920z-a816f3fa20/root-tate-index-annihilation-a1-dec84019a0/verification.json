@@ -1,0 +1,20 @@
+{
+  "node_id": "root.tate_index_annihilation-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/21",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "100a5f6431970924f6f5e939cd799591c35d69ee",
+  "integrated_commit": "ae28d345ea94852f9c821e2a53bcc6c9a79aa9f3",
+  "proof_base_commit": "36e4d56b77ed55d4a80d3c8377d9ff2ff311de9d",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root",
+  "requires": [
+    "root.tate_index_annihilation-a1.cohomology_transfer-a1",
+    "root.tate_index_annihilation-a1.homology_transfer-a1",
+    "root.tate_index_annihilation-a1.tate_zero_transfer-a1",
+    "root.tate_index_annihilation-a1.tate_neg_one_transfer-a1"
+  ]
+}
