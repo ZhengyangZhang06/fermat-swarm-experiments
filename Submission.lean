@@ -412,3 +412,75 @@ theorem Submission.p09_af497904fe_fvu_compatible_valuation_gluing :
   refine ⟨P, ?_, hrestrict⟩
   change (ℓ : AlgebraicClosure ℚ) ∈ P.nonunits
   exact (hnonunits 0 (ℓ : F 0)).mpr (hprime 0)
+theorem Submission.p09_af497904fe_fvu_frobenius_from_exhaustive_restrictions :
+    ∀ (F : ℕ → IntermediateField ℚ (AlgebraicClosure ℚ)),
+      (∀ x : AlgebraicClosure ℚ, ∃ i : ℕ, x ∈ F i) →
+      ∀ (V : (i : ℕ) → ValuationSubring (F i))
+        (P : ValuationSubring (AlgebraicClosure ℚ)),
+      (∀ (i : ℕ) (x : F i), (x : AlgebraicClosure ℚ) ∈ P ↔ x ∈ V i) →
+      ∀ (ℓ : ℕ) (τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ),
+      (∀ i : ℕ, ∃ g : F i ≃ₐ[ℚ] F i, (V i).IsFrobeniusAt g ℓ ∧
+        ∀ x : F i, τ (x : AlgebraicClosure ℚ) =
+          ((g x : F i) : AlgebraicClosure ℚ)) → P.IsFrobeniusAt τ ℓ := by
+  intro F hF V P hV ℓ τ h
+  classical
+  choose g hg hagree using h
+  let d (i : ℕ) : (V i).decompositionSubgroup ℚ :=
+    ⟨g i, (hg i).mem_decompositionSubgroup⟩
+  have hinv (i : ℕ) (x : F i) :
+      τ.symm (x : AlgebraicClosure ℚ) =
+        ((g i).symm x : AlgebraicClosure ℚ) := by
+    apply τ.injective
+    rw [τ.apply_symm_apply, hagree, (g i).apply_symm_apply]
+  have hforward (z : AlgebraicClosure ℚ) (hz : z ∈ P) : τ z ∈ P := by
+    obtain ⟨i, hi⟩ := hF z
+    let x : F i := ⟨z, hi⟩
+    rw [hagree i x]
+    apply (hV i (g i x)).mpr
+    exact (d i • (⟨x, (hV i x).mp hz⟩ : V i) : V i).property
+  have hbackward (z : AlgebraicClosure ℚ) (hz : z ∈ P) : τ.symm z ∈ P := by
+    obtain ⟨i, hi⟩ := hF z
+    let x : F i := ⟨z, hi⟩
+    rw [hinv i x]
+    apply (hV i ((g i).symm x)).mpr
+    exact ((d i)⁻¹ • (⟨x, (hV i x).mp hz⟩ : V i) : V i).property
+  have hτ : τ ∈ P.decompositionSubgroup ℚ := by
+    let : MulAction (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)
+        (ValuationSubring (AlgebraicClosure ℚ)) := ValuationSubring.pointwiseMulAction
+    apply MulAction.mem_stabilizer_iff.mpr
+    apply le_antisymm
+    · intro z hz
+      obtain ⟨x, hx, rfl⟩ := (ValuationSubring.mem_smul_pointwise_iff_exists τ z P).mp hz
+      exact hforward x hx
+    · intro z hz
+      apply (ValuationSubring.mem_smul_pointwise_iff_exists τ z P).mpr
+      exact ⟨τ.symm z, hbackward z hz, τ.apply_symm_apply z⟩
+  have hnonunits (i : ℕ) (x : F i) :
+      (x : AlgebraicClosure ℚ) ∈ P.nonunits ↔ x ∈ (V i).nonunits := by
+    rw [P.mem_nonunits_iff_or, (V i).mem_nonunits_iff_or]
+    apply or_congr
+    · exact ⟨fun hx => Subtype.ext hx, fun hx => congrArg Subtype.val hx⟩
+    · exact not_congr (hV i (x⁻¹))
+  have hdifference (z : P) : τ (z : AlgebraicClosure ℚ) -
+      (z : AlgebraicClosure ℚ) ^ ℓ ∈ P.nonunits := by
+    obtain ⟨i, hi⟩ := hF (z : AlgebraicClosure ℚ)
+    let x : F i := ⟨z, hi⟩
+    let y : V i := ⟨x, (hV i x).mp z.property⟩
+    have hres : residue (V i) (d i • y - y ^ ℓ) = 0 := by
+      rw [map_sub, ResidueField.residue_smul, map_pow]
+      exact sub_eq_zero.mpr ((hg i).smul_residue_eq (residue (V i) y))
+    have hnon : (g i x - x ^ ℓ : F i) ∈ (V i).nonunits :=
+      ValuationSubring.coe_mem_nonunits_iff.mpr ((residue_eq_zero_iff _).mp hres)
+    have htransport := (hnonunits i (g i x - x ^ ℓ)).mpr hnon
+    change (g i x : AlgebraicClosure ℚ) - (x : AlgebraicClosure ℚ) ^ ℓ ∈
+      P.nonunits at htransport
+    rw [← hagree i x] at htransport
+    exact htransport
+  refine ⟨hτ, ?_⟩
+  intro a
+  obtain ⟨z, rfl⟩ := residue_surjective a
+  let t : P.decompositionSubgroup ℚ := ⟨τ, hτ⟩
+  have hzero : residue P (t • z - z ^ ℓ) = 0 :=
+    (residue_eq_zero_iff _).mpr (ValuationSubring.coe_mem_nonunits_iff.mp (hdifference z))
+  rw [map_sub, ResidueField.residue_smul, map_pow] at hzero
+  exact sub_eq_zero.mp hzero
