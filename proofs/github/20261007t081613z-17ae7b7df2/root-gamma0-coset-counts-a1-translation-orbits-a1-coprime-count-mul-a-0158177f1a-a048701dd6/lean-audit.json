@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "274b2858b21fb33eb18a5242f46fd8dba0322b39104ac03309f04932a717f88c",
+  "git_delta": {
+    "base_commit": "932f45cdbd7b20b1a7f6bc71905c15b639e63198",
+    "candidate_commit": "45076cf24a2529d4531318b7b0d5a1ddc02e30c8",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_ccm_translation_period",
+    "diff_sha256": "ded793159095e17a4776b3fad5ddcc47eb9b1bea8f866423dca13fe76ba2f090",
+    "source_sha256": "05e27d34284d63f2d3a7e007a87147fb4c2c161bde3c13c56a2f9357e69af4bb",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_ccm_translation_period",
+      "statement": "∀ (N : ℕ) [NeZero N] (q : (Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 N), (ModularGroup.T ^ N) • q = q",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
