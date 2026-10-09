@@ -1,0 +1,40 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "def fd|def fdo|isClosed_fd|isOpen_fdo",
+        "theorem volume_eq_lintegral|def fd |def fdo |theorem isClosed_fd|theorem isOpen_fdo|theorem measure_prod_null_of_ae_null|theorem volume_preserving_equiv_real_prod|instance.*(Volume|MeasurableSpace|BorelSpace)",
+        "fd.*fdo|fdo.*fd|boundary.*(null|zero)|volume.*fd|fd.*volume",
+        "f036cc6b1f_pc_ed_aoi_boundary_null|standard_boundary_null"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/Modular.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Measure/Prod.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Measure/Lebesgue/Complex.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib"
+      ],
+      "conclusion": "Confirmed clean snapshot revisions project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; all nine installed dependencies are clean and pinned. Inspected sources match installed files and establish the exact domain definitions, closed/open measurability, null-section theorem, measure-preserving complex coordinates, and hyperbolic density formula. Boundary-null searches in project/Definitions and project/P2M returned no matches; neither node identifier occurred in the searched snapshot Lean sources. Personally reran the exact node comparator on ef234e077abba272917490ebbdcf2f96ccf86534: exit 0, required marker 'Your solution is okay!', and transitive axioms only [propext, Classical.choice, Quot.sound]. The clean candidate changes only Submission.lean, preserving the frozen root placeholder and imports and adding only the tracked theorem."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.f036cc6b1f_pc_ed_aoi_boundary_null",
+      "statement": "MeasurableSet (ModularGroup.fd \\ ModularGroup.fdo) ∧ (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) (ModularGroup.fd \\ ModularGroup.fdo) = 0",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Closedness of fd and openness of fdo give measurability. Their difference lies in the unit circle and two vertical lines. Finite vertical sections prove circle nullity; product measure proves line nullity. The complex-coordinate equivalence transfers planar nullity, and the hyperbolic density integral over this null set vanishes. This matches the frozen six-step prose proof."
+    }
+  ]
+}

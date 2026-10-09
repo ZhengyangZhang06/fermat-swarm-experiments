@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "5467c5ba28a868b31e702f65982e8c81e184a58067b8bb2951fc74acd49a779c",
+  "git_delta": {
+    "base_commit": "75b0083a67ab1567b2154a8f53d5c04573e9904b",
+    "candidate_commit": "88072e428cc26754f3cedadbf5b99d86d1c17442",
+    "target": "Submission.lean",
+    "declaration": "f036cc6b1f_pc_hi_rational_slash",
+    "diff_sha256": "e90a946f7dec6b7ea4d8c1aa30ad636435fd24a7c7ae1ece7c4e5c95034ec43e",
+    "source_sha256": "90db5369f23719189cfca60980e000f1c5f628dfe74ed9dfe8ec931ff79c36fe",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.f036cc6b1f_pc_hi_rational_slash",
+      "statement": "∀ (Γ Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) [Γ.FiniteIndex] [Δ.FiniteIndex] (A : Matrix.GeneralLinearGroup (Fin 2) ℝ), 0 < (A.det : ℝ) → (∀ i j : Fin 2, ∃ q : ℚ, A i j = (q : ℝ)) → (∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ, δ ∈ Δ → A * Matrix.SpecialLinearGroup.mapGL ℝ δ * A⁻¹ ∈ (Γ : Subgroup (Matrix.GeneralLinearGroup (Fin 2) ℝ))) → ∀ f : CuspForm Γ 2, ∃ g : CuspForm Δ 2, (g : UpperHalfPlane → ℂ) = SlashAction.map (2 : ℤ) A (f : UpperHalfPlane → ℂ)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

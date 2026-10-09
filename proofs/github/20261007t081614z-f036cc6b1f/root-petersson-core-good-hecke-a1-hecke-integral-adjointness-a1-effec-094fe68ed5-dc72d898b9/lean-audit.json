@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "73458de0c016f3b1f2833ce86c5a870a7ed65a02286093d92ece3efcfb3ca4a8",
+  "git_delta": {
+    "base_commit": "75b0083a67ab1567b2154a8f53d5c04573e9904b",
+    "candidate_commit": "1cf15ad31b4ca4803587990a0676c506bfcf61fa",
+    "target": "Submission.lean",
+    "declaration": "f036cc6b1f_pc_hi_effective_domain_lift",
+    "diff_sha256": "9a6357dff2f878664f1f0d55def465c1d7538429bd522b71b24aa0baf25faa23",
+    "source_sha256": "80b765da6fef5fa7b9b45941deafc79542fc13f723762047654995f5641bcf46",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.f036cc6b1f_pc_hi_effective_domain_lift",
+      "statement": "∀ (Γ Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (R : Finset (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (F : Set UpperHalfPlane), Δ ≤ Γ → (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ → (∀ r ∈ R, r ∈ Γ) → (∀ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Γ → ∃ r ∈ R, γ * r⁻¹ ∈ Δ) → (∀ r ∈ R, ∀ s ∈ R, s * r⁻¹ ∈ Δ → s = r) → MeasurableSet F → (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Γ ∧ γ • z ∈ F ∧ ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ, δ ∈ Γ → δ • z ∈ F → δ = γ ∨ δ = -γ) → let E : Set UpperHalfPlane := ⋃ r ∈ R, (fun z : UpperHalfPlane => r • z) '' F; MeasurableSet E ∧ (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ E ∧ ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ, δ ∈ Δ → δ • z ∈ E → δ = γ ∨ δ = -γ) ∧ (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∀ r ∈ R, ∀ s ∈ R, z ∈ (fun w : UpperHalfPlane => r • w) '' F → z ∈ (fun w : UpperHalfPlane => s • w) '' F → r = s)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

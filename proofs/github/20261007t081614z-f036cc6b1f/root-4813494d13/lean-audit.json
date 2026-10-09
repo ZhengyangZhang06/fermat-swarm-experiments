@@ -1,0 +1,38 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "heckeTLin|span_heckeTLin_eigen_eq_top",
+        "iSup_iInf_eq_top_of_commute",
+        "span_heckeTLin_eigen_eq_top"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Theorems/Thm_ModularForm_mdifferentiable_heckeT.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/InnerProductSpace/JointEigenspace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/InnerProductSpace/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/LinearAlgebra/Eigenspace/Basic.lean"
+      ],
+      "conclusion": "Confirmed clean snapshot revisions and pinned library provenance. Located the unchanged Hecke definition and joint-eigenspace interface; no target-name match in project/Definitions. The exact comparator rerun exited zero with the required marker. Fresh evidence binds all 221 Lean inputs to the inspected commits, preserves all 32 child interfaces, validates the reversible header repair and absence probe, and reports only permitted transitive axioms."
+    }
+  ],
+  "comparison_identity": "5cba4c2a5994a5670f19cac9717169dac704687093725a632ddf20d05f74c947",
+  "publication_proof_reviewed": true,
+  "publication_proof_blob": "45142f818a6fc21ba3119367aaeffc47e1190761",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "CuspForm.span_heckeTLin_eigen_eq_top",
+      "statement": "∀ (M : ℕ) [NeZero M], Submodule.span ℂ {v : CuspForm (CongruenceSubgroup.Gamma0 M) 2 | ∀ (ℓ : ℕ) (hℓ : ℓ.Prime) (hℓM : ¬ ℓ ∣ M), ∃ c : ℂ, CuspForm.heckeTLin 2 hℓ hℓM v = c • v} = ⊤",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Uses accepted finite-dimensionality, Petersson symmetry, and Hecke commutation with the pinned joint-eigenspace theorem, then includes every joint eigenspace in the required span."
+    }
+  ]
+}

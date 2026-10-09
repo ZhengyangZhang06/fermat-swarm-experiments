@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "21d7c63b6f126eaf7b8b65b09b96e34b2f18b8802857db6992edc4143217067b",
+  "git_delta": {
+    "base_commit": "fade8319d398a64500dd52a93531f528ac7a0891",
+    "candidate_commit": "147051f7a6400ba5c8901066160d47f09b740481",
+    "target": "Submission.lean",
+    "declaration": "f036cc6b1f_tdi_planar_exp_integrable_fd",
+    "diff_sha256": "babc83689cdfbf55704502fd51861ae4e7fefe3b6ca23d3e46efd16d5f185154",
+    "source_sha256": "be61b29b7814bcaf5f8ab67f49b0b61d1669f36f80e778029b2838101abb469d",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.f036cc6b1f_tdi_planar_exp_integrable_fd",
+      "statement": "∀ (a : ℝ), 0 < a → MeasureTheory.IntegrableOn (fun z : UpperHalfPlane => Real.exp (-a * z.im)) ModularGroup.fd ((MeasureTheory.volume : MeasureTheory.Measure ℂ).comap UpperHalfPlane.coe)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

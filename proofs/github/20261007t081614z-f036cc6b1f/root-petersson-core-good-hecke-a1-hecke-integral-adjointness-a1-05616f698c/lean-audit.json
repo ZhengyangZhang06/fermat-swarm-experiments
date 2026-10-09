@@ -1,0 +1,38 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "heckeTLin|petersson",
+        "f036cc6b1f_pc_hecke_integral|hecke.*adjoint",
+        "def petersson|theorem petersson_slash|theorem petersson_symm",
+        "heckeMatrix_mul_of_eq"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/P2M/Sol/S_ModularForm_heckeT_slash_eq_self_of_mem_Gamma0.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Petersson.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib"
+      ],
+      "conclusion": "Confirmed the pinned Hecke operator, Petersson definition, and reused upstream matrix lemma. No matches for the selected declaration or hecke.*adjoint in the searched snapshot trees. All 98 project library files match both comparator inputs; all nine installed dependencies are clean and pinned."
+    }
+  ],
+  "comparison_identity": "71945e2d5e07f59064542de99f34e5ab93f9f75246bfc5f49e3001d9f14160f8",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.f036cc6b1f_pc_hecke_integral",
+      "statement": "∀ (M : ℕ) [NeZero M] (F : Set UpperHalfPlane), MeasurableSet F → (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ (CongruenceSubgroup.Gamma0 M) ∧ γ • z ∈ F ∧ ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ, δ ∈ (CongruenceSubgroup.Gamma0 M) → δ • z ∈ F → δ = γ ∨ δ = -γ) → ∀ (p : ℕ) (hp : p.Prime) (hpM : ¬ p ∣ M) (f g : CuspForm (CongruenceSubgroup.Gamma0 M) 2), MeasureTheory.integral ((MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane).restrict F) (UpperHalfPlane.petersson 2 (CuspForm.heckeTLin 2 hp hpM f) g) = MeasureTheory.integral ((MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane).restrict F) (UpperHalfPlane.petersson 2 f (CuspForm.heckeTLin 2 hp hpM g))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Uses accepted slash-transfer, transversal, domain-lift, trace-unfolding, and Petersson-core results to exchange and refold the two integrals."
+    }
+  ]
+}

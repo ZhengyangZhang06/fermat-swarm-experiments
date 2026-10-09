@@ -1,0 +1,242 @@
+{
+  "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1",
+  "integration_input": "7638c20f4ea6eebe237471cc9fb232006ab98e5b",
+  "reviewed_candidate": "481dab2be474bfae906e78a1a9e6c3b2660530c3",
+  "reviewed_histories": [
+    "4e126706f89fc89958cca507559db435f6117de6",
+    "8086f7aa7d23374c44b0df4bdbd34bfe65cb709d",
+    "fdc478284440b16314e63b7683252b4c89975bfb",
+    "a8f82032ebc93c04c9c35d4f50a29e2f8a09fb06",
+    "fa6d7a04916106eefa16060b4274ed134a0630ef",
+    "c40e3309d6f94e161fd7637df744abca35e1d619",
+    "5a054072f1564f28690c381c321099f20b45ed45",
+    "07beea7e60d14f8bc2b6d22b187c40da631b465c",
+    "5799bada067ac44da632cd8d803011554a23c021",
+    "bd54c7dc5c5c7efffb3ee219c92941e84e58e008",
+    "8df54eca11a9dc85aff502fdc547a08fd3b79ce4",
+    "bcf3ba2b724f9fc83a136ab76b08293ef19a80d3",
+    "c489b1e7cb5481c875422ed45716cf7a503c2aea",
+    "dff1bbf32837fa025a051cbf0f1a81cc622db3a5",
+    "f21fecd84182699bef4e99a6d1318e702d31cf8a",
+    "260b90f013272f4dafbb211c6ad6fd2e5b8bdafb",
+    "347f5d0151ed16e9b5782fda43c8fa4640e89b23",
+    "89f5736a5aaa14df19754cf286184856a11c77e6",
+    "53f530207edeeea94c3ae8225c5eec1f42c35c91",
+    "3043f4dc3162ec86209f6d93c4ee8c56fd3683d2",
+    "1a638516e354b5747a3fccbdf20ef0b2fb6bb20c",
+    "d25b6e09172f8b5ff27ef6ba9afe7409322fd561",
+    "9c06738911b8e76285655f5575850dc2cc5cbb6f",
+    "ed07269f6047e510da62c9385a75844b5c85feb0",
+    "87fa60cde592fd3f677f5239203ca9b77c77c1d3",
+    "c575f450a5336a9d3e63c732c60be06b47f8d115",
+    "e4f0233fbf0c79f8d31d5665947a8c79c3650b81",
+    "328e35ec0a9612c1074eba41d13f2533fff54c0d",
+    "ba37d9542beada38877933e55afacf58f93e71c6",
+    "8acf52eb8889641f1a3d3333aae98c77749bc6c1",
+    "0e9ea275f332f62be825d6bc1515cf374c834a1b",
+    "421658c5721352261967159729adb978a811469e",
+    "8a4d78d01058325d0e769d183e61052331cf759d",
+    "2072b1929a220d4e13db0a9e2de9b1b11a110716",
+    "007b14dab2a921beafe4e9e1b488c385a4b21e1c",
+    "bd2de994d3cda0d9178aa8e50e43a7d3f3af663b",
+    "b34fde98642950b2556497937e2d4e879889a270",
+    "fda0c0f50a275e63bd91162efa6c505ac7b5f1fd",
+    "485afbe72bcdc8cf02dbd9d2f2ceeddafc9e6741",
+    "acbf16685b184cbf3df528a2f63bf2d6bc89652b",
+    "678b69741268a290ac1adb1335ba34b9e7c9a13c",
+    "e59b2c690ce1c1ade0fda044fc77701d2d822641",
+    "a7c6005ba41e1823f672fa3d80e71855f5b64727",
+    "ffe42160ee6d40ff13e29c6abe3d23337057550d",
+    "0913e1736d3523d5c41a48f950c65a9e5c80b045",
+    "2ea38f509992d370a99bccf8a05d5feb34d34aa4",
+    "1dbd46ca3e4feff255a417247afb9d260f7541b1",
+    "522b4e3eee3127555664a4b0efb428dc222c36f3",
+    "481dab2be474bfae906e78a1a9e6c3b2660530c3"
+  ],
+  "repair": [
+    "Remove repeated theorem copies, retaining every distinct theorem and its unchanged statement and proof.",
+    "Discard the interleaved duplicate planar-integrability block and its orphaned trailing tactic; retain the intact accepted copy.",
+    "Remove the accidental enclosing Submission namespace.",
+    "Restrict ModularForm opens to avoid reserving eta in unrelated theorem binders."
+  ],
+  "checks": {
+    "all_reviewed_history_theorem_names_retained": true,
+    "all_isolated_candidate_theorem_blocks_byte_exact": true,
+    "all_29_helper_theorem_blocks_byte_exact": true,
+    "frozen_header_and_root_declaration_byte_exact": true,
+    "frozen_contract_sha256": "365510742cf45daae091fcbb675dc22f4df855f4f5e522aa065b65339f379bbe",
+    "operator_policy_sha256": "96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96",
+    "all_9_dependencies_clean_and_pinned": true,
+    "no_new_imports_or_declarations": true
+  },
+  "retained_declarations": [
+    {
+      "name": "CuspForm.span_heckeTLin_eigen_eq_top",
+      "declaration_and_proof_sha256": "7a5392bf82ec7f9117cdbf585b5111fa7dfc1614bd327dcb63707e771337cd9f",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_pic_dd_ae_orbit_zero",
+      "declaration_and_proof_sha256": "b09d5607a34a27cde53cbe81bed31d71cec3f82584bce1787f6557f6a7b0b293",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_pic_dd_open_pos",
+      "declaration_and_proof_sha256": "c59ef7853b7e46dd30f9bad2006578abaef4708a51505026ddf67eba06d7692b",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_pic_diagonal_definite",
+      "declaration_and_proof_sha256": "b8cfa2ad5cc955a5ebe9e496c91adab117ff215c41602bc303501a43e16b3f46",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_tdi_planar_exp_integrable_fd",
+      "declaration_and_proof_sha256": "7ed55c5a8ef20259f747b93aa7d166b8e30d938cbfbdf97b2234d968414e8465",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_tdi_petersson_integrable_of_exp_product_bound",
+      "declaration_and_proof_sha256": "a7947fee839b1721baa758d1fe705ec5cbefa363466309213e379b2335211a6f",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_fd_coeff_decay",
+      "declaration_and_proof_sha256": "b5cd7afd6f43dce5caa2acc8d546bb599310e6dcd6be2bfb7c50760f8997ac29",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_pic_psp_measurable_slice_partition",
+      "declaration_and_proof_sha256": "49d55c1e639146619da35cba366097afb433fa3fcd219b429765de0104771e26",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_pic_dt_integral_of_equidecomposition",
+      "declaration_and_proof_sha256": "40d6f9bba1a10725733dc29ab89d918dc8cbaad367aaedfe689d257a021847c2",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_pic_psp_sign_transversal",
+      "declaration_and_proof_sha256": "6c0773c55ed1985e2f53b561a968cb57b2609aaca03b45ae33e947a892802dab",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_pic_mec_pointwise_sign_partition",
+      "declaration_and_proof_sha256": "96778e689c527f17125707b76b5bc31644f3afae222ef0da856448309c256fe8",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_pc_hi_effective_domain_lift",
+      "declaration_and_proof_sha256": "a8b7d0edea391c5ce6d51c4ed851847ea9c46b53d133f9c217a592758dbd21b3",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_pc_hi_gpt_bezout_lift",
+      "declaration_and_proof_sha256": "f0505b112b55e2bbadb369a54a5587d9ddae7cd2f5d923891e920a20dd1e3561",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_pc_hi_rational_slash",
+      "declaration_and_proof_sha256": "a3d603aa96a7a4e1c189c9fae2719c7fafb9b36c45044c0231950cfde230182d",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_pc_ed_aoi_null_orbit",
+      "declaration_and_proof_sha256": "4c99f0db57cee5ada772ef484105837aa0e8848b38a175b6b986787b1c2a330e",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_pc_hi_gpt_unique_projective_index",
+      "declaration_and_proof_sha256": "1d08ff8f89dbad42386460f8b75afbd7b9d42543370018097f722837ad6142d1",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_hecke_commute",
+      "declaration_and_proof_sha256": "c3065d4eaf1ca3f1dbc55836d2aac678b09a7f144f998639d0fa482c2458ac59",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_pic_mec_invariant_conull_core",
+      "declaration_and_proof_sha256": "70093c06cd1757c14f6c48469f707caa61b1bf312d569e0931101a1e681134ad",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_pc_ed_transversal_unique",
+      "declaration_and_proof_sha256": "923ec7be4a3e61cd64e451661a6ca82148f9f45d0815345103a7eb0c3bbaf505",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_pc_hi_good_prime_transversal",
+      "declaration_and_proof_sha256": "baaa2a53df25fd0236e013dff2a5e9e3e75313b37fed5137d8cc0c1bbec30d25",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_pc_hi_finite_trace_unfolding",
+      "declaration_and_proof_sha256": "936a01f3268bd71faeda8a581f7d03f6ee88cf411639b9640be6309e8db72f8d",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_pc_ed_aoi_boundary_null",
+      "declaration_and_proof_sha256": "4d16cd8059ac8bda1b820f320566e8a52fce85298bd2fdbeefcfded36def4fc7",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_pc_ed_ae_orbit_interior",
+      "declaration_and_proof_sha256": "c97ae20d4f36e0e36a3441f75a3bfa2d3b7d5036ed13069d27b4591f5a974d5a",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_pic_dt_measurable_equidecomposition",
+      "declaration_and_proof_sha256": "c678484253ec3fb686168b25bd25e0fe8d4314416ad2c060ac4f9b2d42064301",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_pic_translated_integrable",
+      "declaration_and_proof_sha256": "06f06e2bb52c5d67f7bcfb16e3d4327999aa747c12e45f04103c4e2bd8db7c7c",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_fd_norm_bound",
+      "declaration_and_proof_sha256": "5ae176809b1f1af6b3ec1e9078f9e3620d6f63ee064ad49ca0f950d60a592cd2",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_pic_domain_transfer",
+      "declaration_and_proof_sha256": "bd985e0cbfd58eab84714cdbefa24a966335e5f3e608d721339fa4d8f77caf74",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_fd_sturm",
+      "declaration_and_proof_sha256": "e118afac4c925afc7c39069952f0cf6a3b82eef7bb48cebbca372543847e35d3",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_pc_effective_domain",
+      "declaration_and_proof_sha256": "fb388c7541cc5d19b1bdf05d8e8b52a8b56177a99ee0e16f872b1758507a74e8",
+      "unchanged_from_integration_input": true
+    },
+    {
+      "name": "Submission.f036cc6b1f_pc_integral_core",
+      "declaration_and_proof_sha256": "da537d2ed325eab18987409ccf4a4069ca1982fe227df8511f5d3ce3aee015cc",
+      "unchanged_from_integration_input": true
+    }
+  ],
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'petersson|span_heckeTLin_eigen_eq_top|notation.*η' <snapshot> --glob '*.lean' --max-count 12",
+        "rg -n 'f036cc6b1f_pc_integral_core' <snapshot>/project <snapshot>/mathlib/Mathlib --glob '*.lean'"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Fermat/Thm_CuspForm_span_heckeTLin_eigen_eq_top.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Petersson.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/DedekindEta.lean"
+      ],
+      "conclusion": "The frozen root is in project/Fermat/Thm_CuspForm_span_heckeTLin_eigen_eq_top.lean:12. Petersson.lean:31 defines the integrand and :91 supplies invariance. DedekindEta.lean:63 reserves η when ModularForm is open, explaining the combined-build parser failure. No match for f036cc6b1f_pc_integral_core in the snapshot. The inspected project import and both mathlib files are byte-identical to the installed pinned sources. Project revision: 61b5f85556ac71631ccad822e0694511234f7132; mathlib revision: db584cd6d46c92f209a44c0f1c829460d327499d. No reference proof was imported."
+    }
+  ],
+  "acceptance": "This source-preservation record is not proof acceptance. The exact configured comparator must pass on the committed integration tree; its Git identity, frozen_header_repair, exact-type, kernel, and transitive-axiom evidence remain authoritative."
+}

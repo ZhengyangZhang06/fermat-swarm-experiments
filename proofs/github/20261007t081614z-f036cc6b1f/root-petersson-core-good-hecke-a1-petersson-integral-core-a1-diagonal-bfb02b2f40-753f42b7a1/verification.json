@@ -1,0 +1,18 @@
+{
+  "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.diagonal_integral_definite-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/201",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/449",
+  "candidate_commit": "0c8121e32d9d02ad49942a0118d8ca3baff1d68f",
+  "integrated_commit": "3cfdbfde5a42c6c8cd864043fbaaab0cf4d56d36",
+  "proof_base_commit": "b8c1e42fbc073bdbfabd9535bd93b62a6363cebe",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1",
+  "requires": [
+    "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.diagonal_integral_definite-a1.ae_vanishing_from_orbit_cover-a1",
+    "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.diagonal_integral_definite-a1.hyperbolic_volume_open_positive-a1"
+  ]
+}

@@ -1,0 +1,675 @@
+{
+  "node": "root.gamma0_finite_dimensional-a1",
+  "integration_parent": "2831e3cde25114496075bd51413a21e9e50b9b93",
+  "canonical_base": "2b59808af229b578c5e48ba3d6e6fe5fd6de7145",
+  "reviewed_candidate_commits": [
+    "d7c97a1dd78f53451d825ac60706da5bc999c4c5",
+    "dfa5daa9ec70c73af6bd9e70fdeeec21804a5da5",
+    "8e7888ea61602d8542bcf7179a9b92034bba4e3b",
+    "92e2403943921b2c071cabe2124bf980a7b88323",
+    "f9b21902260361b8ea144f06c21b171dd0ef33cb",
+    "4662f97dd43b03df5201b2146d7c7893e1f52aee",
+    "8507d07daf8f8fde542c4d3da4e617c525c87f68",
+    "c5cee58494068e2bdf092da96825537cf262121b",
+    "f37ef35ea41101c7d1d834845595d806637e8585",
+    "7e43f095798e0ff7748b14f5b6803983dd5d08af",
+    "d9399d5d8836225becdd1b990b455ca00a17fb13",
+    "9f6827adfd8f74931790f24b2a5be03fee9d9215",
+    "c17dff102c7a885e76819fd727fd86f049d56af2",
+    "ec23d26bbda7d057811539719b4e3bd09f4ca810",
+    "5353b3860de00f5413a2addcdbea5a11ebd95fed",
+    "0de252efd8feed9b3c3f49d9961f6ca2c8614447",
+    "e9a7d00ea2647b7ee287d4a2b3967b4f33940345",
+    "d531570696580824eb17e3b0de64ec6e33e7400d",
+    "309f85fabcfbecffcc493b312aea2d4560d5dc43",
+    "8137b9b3d96c6d2c286c2fdf62a5da4c9eb3ebae",
+    "c12ae2a9bb2dbaf140b702b1ddf89c5402ed6c0c",
+    "e19af1d2e6799e7ecffe54f0aecbfaaf6f54f80d",
+    "aa392ed5c023ebf7f09a0af4c911852040be0e75",
+    "d723be0cb3f290fe113bf02aa1ac8618c3f3cebe",
+    "25c0161e75e5a7b287f17e2692cc1a691138c046",
+    "ccfbdfd772e3cd388d01125d1219232f3a2c6892",
+    "ae61d7e18cdcdfd5908e08fc742ea487d7092946",
+    "baaf7531bbf8cff49b4c201050fb21cc4864a6a0",
+    "ce0c19348930fb826da7c582f01feb35bb07d29c",
+    "3d3981f7d70f175c613bad3450af3370535b2df6",
+    "64c100c2274e47457dbc931edc648e91d495c579",
+    "87a7c0f02d7f8abecb39b84a238d6689d8eba942",
+    "a00597604229e2aaefd9f6d17c233b72e872b4df",
+    "368a69be5a6b3bfa71a331cc684ae572426fb364",
+    "cb4279be568ffd0abb387203157679f5fbe0e41e",
+    "10f7009417043ade8e40b37401b9212fdf17aa8c",
+    "20a6352f177dffdc07472701bf1fdf7f98905787",
+    "6fc3a0875ac8a3a067fe0afdfce110ced9e590f8",
+    "124a0c18eab64500f9098a0a483ef136195a90c6",
+    "821b5314504797a084b5be03318c37262593bddc",
+    "ee351b3c66c310050f90bcebd8f46ab95caeb2d8",
+    "46df4ecf4874856dc3c1fc4c96bddbe7fd04dfa4",
+    "faf4837518924ab00572e34e4e636c6ef1027738",
+    "e38e992739f218e5b42b95efc4fd2249c841b683",
+    "7ce8c5eb30071287ed90d747f36c3863506a952c",
+    "7629c1eb8e215e602a94cd40f64e7825704350e9",
+    "b6ebdc97e6aa5548fa0bf2ecc21b147d7a801749",
+    "6ae8588b50ed3a599887770ad1695f5345d9e028",
+    "6fa7a8923a490800dc7e19b3c71df7e37d29979a",
+    "a7d4d6f75e980b40c4a8288c5d71d6b5867e2dd5"
+  ],
+  "repair": "Remove seven byte-identical duplicate theorem blocks and their unmatched namespace wrappers. Retain the canonical base Submission.lean byte-for-byte as a prefix, then append only the approved finite-dimensionality theorem and docstring inside a balanced Submission namespace. All 31 distinct declarations retain byte-identical statements and proof bodies, including all five declarations in the accepted final candidate. Original header, root contract, imports, accepted proofs, plans, handoffs and comparator are unchanged. The inherited unsolved root specification remains byte-exact and is not claimed solved by this child integration.",
+  "history": {
+    "d7c97a1dd78f53451d825ac60706da5bc999c4c5": {
+      "subject": "Prove q-expansion coefficient vanishing iff exponential decay",
+      "identical_changed_lines_sha256": "d89449ae6a2da83e1a03069b8a007f42d723ae861be1e37a0b33b27c87582506",
+      "represented_by_identical_delta": [],
+      "same_subject_replays": [
+        "4a569696660f8a2586a860cf7b7bea4c00ecbaa3",
+        "08542c0cc223be825a1682f2560dde3a74dc8874",
+        "5bd0cd8bc837d10680211acc45ee6766de8173f1",
+        "86befc64120fbc2518001de837884740bf93dc98"
+      ],
+      "final_content_check": "The coefficient-decay declaration, including its accepted subsequent clarifications, is byte-identical to the approved final candidate a7d4d6f75e980b40c4a8288c5d71d6b5867e2dd5 and canonical base 2b59808af229b578c5e48ba3d6e6fe5fd6de7145. The restored frozen header and root are retained. All same-subject replays remain in the existing ancestry."
+    },
+    "dfa5daa9ec70c73af6bd9e70fdeeec21804a5da5": {
+      "subject": "Document and verify the coefficient decay node proof",
+      "identical_changed_lines_sha256": "c4bd2092ccb8c2232d6a2b844dd15b486f8fd0171d881cb855e1fc69fd914cf7",
+      "represented_by_identical_delta": [
+        "19046e20b81ddbd8a6eb4cf47c3706693c38b864",
+        "12ff029aaa3cba03135827b0e5f489083ec53ba3",
+        "6d3fcad50867c17082af2e052d7e16f9cf436c7c",
+        "0b715634d5b9774fdf5cc123656c92b84afc3c21"
+      ]
+    },
+    "8e7888ea61602d8542bcf7179a9b92034bba4e3b": {
+      "subject": "Clarify and validate the exact coefficient-decay proof",
+      "identical_changed_lines_sha256": "4038fae4c696180100a895e732a941c553c07adf5449adb4c3dddaa1d271bbea",
+      "represented_by_identical_delta": [
+        "509bb878ce61bb1e7866ec820d0e76acbd2ffbda",
+        "972cbe33085191acb9616c6f4cd269c6d654dd9f",
+        "0ba8aefa871cbde74b368824eba8e92db2f4a084",
+        "71571d3898a0462e02ba129d25197a5bcda744cc"
+      ]
+    },
+    "92e2403943921b2c071cabe2124bf980a7b88323": {
+      "subject": "fix(lean): restore frozen coefficient-decay submission header",
+      "identical_changed_lines_sha256": "df1c88d56641fad10c7fc9bfe627e53c5590988739f0f4ba1c25617d1e4688f5",
+      "represented_by_identical_delta": [
+        "f8351414c20b2fe484fdee58713753b9aa089b7e",
+        "4a0c614757367400216a474fe24b6c524f3552a7",
+        "e39852c5c93845c0621a79b2bbfe0774be26cd5d",
+        "3a83ddee4cad859dadbb6508292f04c938536a45"
+      ]
+    },
+    "f9b21902260361b8ea144f06c21b171dd0ef33cb": {
+      "subject": "fix(lean): preserve frozen root declaration in coefficient-decay candidate",
+      "identical_changed_lines_sha256": "c7f5f172b30a3134104e78e5acb38e28f3793dfcaf04282ac961cf923524f6ca",
+      "represented_by_identical_delta": [
+        "87b6882d1128167ddbe9f8ecb06d11713d59fbe2",
+        "4798cf6d74a66b9ec9b9627aecafbf1211e4e4cd",
+        "b2d04dfee10ae715611007c817a5b43dd5b8e24d",
+        "67fcf64f12b5d2606933eff20a735c8ca75d577a"
+      ]
+    },
+    "4662f97dd43b03df5201b2146d7c7893e1f52aee": {
+      "subject": "feat(proof): bound the finite coset norm by the cusp form",
+      "identical_changed_lines_sha256": "82f36b6ffbe89f2c31fe0fbd81723bfeb642e0a81f992300f1393fe4356cc2d1",
+      "represented_by_identical_delta": [
+        "330f9eefd75c8cc3c4cada33f96d0767b45d7ca6",
+        "d7bdf803ff69924066bba68372c52c3fd9d5f5ae",
+        "e2b36ce29e7f8edf5daf8eb6191a8b5b21ec8dee",
+        "3c6986b876a1768049326b9b1abd78737a220e39"
+      ]
+    },
+    "8507d07daf8f8fde542c4d3da4e617c525c87f68": {
+      "subject": "chore: ignore runtime-provided proof skill",
+      "identical_changed_lines_sha256": "d381fa58b307d5bcbe6578b945282363fbb3f0c1cb487e6e98af4043b61169c0",
+      "represented_by_identical_delta": [
+        "6cf6ae422350e32c74c10f40bfec4c66293fd598"
+      ]
+    },
+    "c5cee58494068e2bdf092da96825537cf262121b": {
+      "subject": "docs(proof): clarify finite coset norm bound argument",
+      "identical_changed_lines_sha256": "553390b2e2a4503f6b904e2ac5e95f3cf4c57305bb9429477e405a4791f1be99",
+      "represented_by_identical_delta": [
+        "24f7739b5a47fa91f7f893668c67547585a60505",
+        "e736bcd98a1e0abecedc9b042ddfd628c08ccf07",
+        "148215b70eb37595efaa25685e997eaa2e83c71e",
+        "7edf1300ead4fde0e8271b8a9aca8b10a3cd0e38"
+      ]
+    },
+    "f37ef35ea41101c7d1d834845595d806637e8585": {
+      "subject": "docs(proof): record frozen-context blocker for coset norm bound",
+      "identical_changed_lines_sha256": "159721f84c03280a9fd2f2e29bc0ce9fc57ed3351ad3f6458dcb4587441e0701",
+      "represented_by_identical_delta": [
+        "92f766b3799243dec8e229a155ee9e7d6cc0a3b2",
+        "da5f904d7bd99cca8d6bc6887de35f4e270d2a08",
+        "7a958286fd1b1a5b7ac6665b20822ecb1fdb232e",
+        "0726935bc4a963303451bc6418b5e92650f3cbb5"
+      ]
+    },
+    "7e43f095798e0ff7748b14f5b6803983dd5d08af": {
+      "subject": "docs(proof): retain active gates and hand off all frozen import failures",
+      "identical_changed_lines_sha256": "85166db87c4122d844f2af14535a6fff59e1daf3f223709abfc0fc75d2fdd474",
+      "represented_by_identical_delta": [
+        "d3bdc2ddd9a847f0d20a1c863261fd1391d0c9fd",
+        "65a0639f257dd5be511b54424ede82d414c559e3",
+        "a2e1e51480124c0b1370d207be24a8fb2b991000",
+        "31198a641584c0a5f577ab68111d68ce490d41ed"
+      ]
+    },
+    "d9399d5d8836225becdd1b990b455ca00a17fb13": {
+      "subject": "chore: stop tracking local Humanize state",
+      "identical_changed_lines_sha256": "d6b018c45e74adb7068c5c05caa0ff697b611b0532ed45344099397d2676c782",
+      "represented_by_identical_delta": [
+        "6e75399ff3ff4345384f641a58fc61d5eb9f957f",
+        "abe9ce079f84fd33726ba3c1369909acf4e7e52d",
+        "c215e1677753827e6b8d63f52013276846143caa",
+        "8baa4623b3ccfd26ad80bceb27cc231bc1db12b4"
+      ]
+    },
+    "9f6827adfd8f74931790f24b2a5be03fee9d9215": {
+      "subject": "docs(proof): audit coset norm bound and frozen-context blocker",
+      "identical_changed_lines_sha256": "38fbe124155f461234843eb62f9f5bccb5d0a7e8345ce2e1ce1f9755f67b0f73",
+      "represented_by_identical_delta": [
+        "1467f3eb5002d403665816ba26732a2e9a3eb300"
+      ]
+    },
+    "c17dff102c7a885e76819fd727fd86f049d56af2": {
+      "subject": "docs(proof): revalidate exact coset norm bound and frozen context",
+      "identical_changed_lines_sha256": "5a411bbfc1f8aa4081c6d658bc8e23dc814819ddf5f303d2b67241d0c0e50f5e",
+      "represented_by_identical_delta": [
+        "5faac85f550dfacf0fad1cdfc6592a36d868d04f"
+      ]
+    },
+    "ec23d26bbda7d057811539719b4e3bd09f4ca810": {
+      "subject": "docs(proof): verify selected norm bound and record frozen context failure",
+      "identical_changed_lines_sha256": "3d9e2b7cb3d3643eb2f812e668fc7e245c3dae195b0d714aa0ac4667bdf811ff",
+      "represented_by_identical_delta": [
+        "adfc7126374d7b11ab4c8b30f92e9655d6a05b31"
+      ]
+    },
+    "5353b3860de00f5413a2addcdbea5a11ebd95fed": {
+      "subject": "docs(proof): recheck atomic norm bound and frozen context blocker",
+      "identical_changed_lines_sha256": "343ac0225e41cb37e7847d0e0463bea1477d2e6df4c3b6e0b6cb60cae2f36d91",
+      "represented_by_identical_delta": [
+        "1d84cad20c98ccb155278f3bb5a17884ebb2a5ca"
+      ]
+    },
+    "0de252efd8feed9b3c3f49d9961f6ca2c8614447": {
+      "subject": "docs(proof): verify atomic norm bound and preserve frozen-context blocker",
+      "identical_changed_lines_sha256": "86a4cd7c3976ac70839bc736082af070ae043bcb25b7ac9e48e8b06ced14c202",
+      "represented_by_identical_delta": [
+        "1a35daa846b52f3582e2d7bc0d43a93e6dd015cd"
+      ]
+    },
+    "e9a7d00ea2647b7ee287d4a2b3967b4f33940345": {
+      "subject": "docs(proof): audit exact coset norm bound and frozen context",
+      "identical_changed_lines_sha256": "d0a132995493c87ab926def15abf9b97de8622428050ab9b3d6c552b725fd661",
+      "represented_by_identical_delta": [
+        "c4389337888f356da1690f5301408667b7d10db5"
+      ]
+    },
+    "d531570696580824eb17e3b0de64ec6e33e7400d": {
+      "subject": "docs(proof): record fresh norm-bound checks and frozen context blocker",
+      "identical_changed_lines_sha256": "6a09ac8e3790340831e3886428a28d2b12752074529d2c7814a7348708cbd1ed",
+      "represented_by_identical_delta": [
+        "631a34f03eeab131417888e193b7109510c7c790"
+      ]
+    },
+    "309f85fabcfbecffcc493b312aea2d4560d5dc43": {
+      "subject": "docs(proof): refresh atomic norm-bound audit and context failure evidence",
+      "identical_changed_lines_sha256": "6e47b37066959cb0edded68f96803f25f93e824bce7a225af504b1c30c115bc5",
+      "represented_by_identical_delta": [
+        "fa6f816dc91659fea7400b94830758bb2ce6150d"
+      ]
+    },
+    "8137b9b3d96c6d2c286c2fdf62a5da4c9eb3ebae": {
+      "subject": "docs(proof): record fresh selected-node audit and frozen context failure",
+      "identical_changed_lines_sha256": "0500bf95f4187dc6498360b09004d9a8e96bd72fddede577ab95117c0aa04535",
+      "represented_by_identical_delta": [
+        "4a4dd4be450221ca851b4fcea7b6346c872b88ef"
+      ]
+    },
+    "c12ae2a9bb2dbaf140b702b1ddf89c5402ed6c0c": {
+      "subject": "docs(proof): refresh exact norm-bound validation and context blocker",
+      "identical_changed_lines_sha256": "30a8c5942b0e90c224ad9259f0f55992b13c268ce214eeba800fa33ebcb7c5e0",
+      "represented_by_identical_delta": [
+        "8ef91778d9d4a1de92f5e4daa2276ac5a1ab71f3"
+      ]
+    },
+    "e19af1d2e6799e7ecffe54f0aecbfaaf6f54f80d": {
+      "subject": "docs(proof): isolate frozen challenge blocker for norm bound",
+      "identical_changed_lines_sha256": "188d448df1eed4944901247e5a0d9d586450c57d6c7a506758c20a6937a04626",
+      "represented_by_identical_delta": [
+        "b17e0d50bb54266a9ed4bf013bdefc79180a1c23"
+      ]
+    },
+    "aa392ed5c023ebf7f09a0af4c911852040be0e75": {
+      "subject": "docs(proof): verify norm-bound contract and preserve header failure evidence",
+      "identical_changed_lines_sha256": "769355d15bcf3eaec4804492c12acc35a66cd60496bdf2752445ab82536d0db7",
+      "represented_by_identical_delta": [
+        "0bc0a8742ee6bfe93ac7398351730221d3b654a4"
+      ]
+    },
+    "d723be0cb3f290fe113bf02aa1ac8618c3f3cebe": {
+      "subject": "Prove q-expansion coefficient vanishing iff exponential decay",
+      "identical_changed_lines_sha256": "10aa164957cdbb9bd042e808ce17f7a50dc43ee62b272ea24d69f0dbb8e690ff",
+      "represented_by_identical_delta": [
+        "4a569696660f8a2586a860cf7b7bea4c00ecbaa3",
+        "08542c0cc223be825a1682f2560dde3a74dc8874",
+        "5bd0cd8bc837d10680211acc45ee6766de8173f1",
+        "86befc64120fbc2518001de837884740bf93dc98"
+      ]
+    },
+    "25c0161e75e5a7b287f17e2692cc1a691138c046": {
+      "subject": "Document and verify the coefficient decay node proof",
+      "identical_changed_lines_sha256": "c4bd2092ccb8c2232d6a2b844dd15b486f8fd0171d881cb855e1fc69fd914cf7",
+      "represented_by_identical_delta": [
+        "19046e20b81ddbd8a6eb4cf47c3706693c38b864",
+        "12ff029aaa3cba03135827b0e5f489083ec53ba3",
+        "6d3fcad50867c17082af2e052d7e16f9cf436c7c",
+        "0b715634d5b9774fdf5cc123656c92b84afc3c21"
+      ]
+    },
+    "ccfbdfd772e3cd388d01125d1219232f3a2c6892": {
+      "subject": "Clarify and validate the exact coefficient-decay proof",
+      "identical_changed_lines_sha256": "4038fae4c696180100a895e732a941c553c07adf5449adb4c3dddaa1d271bbea",
+      "represented_by_identical_delta": [
+        "509bb878ce61bb1e7866ec820d0e76acbd2ffbda",
+        "972cbe33085191acb9616c6f4cd269c6d654dd9f",
+        "0ba8aefa871cbde74b368824eba8e92db2f4a084",
+        "71571d3898a0462e02ba129d25197a5bcda744cc"
+      ]
+    },
+    "ae61d7e18cdcdfd5908e08fc742ea487d7092946": {
+      "subject": "fix(lean): restore frozen coefficient-decay submission header",
+      "identical_changed_lines_sha256": "df1c88d56641fad10c7fc9bfe627e53c5590988739f0f4ba1c25617d1e4688f5",
+      "represented_by_identical_delta": [
+        "f8351414c20b2fe484fdee58713753b9aa089b7e",
+        "4a0c614757367400216a474fe24b6c524f3552a7",
+        "e39852c5c93845c0621a79b2bbfe0774be26cd5d",
+        "3a83ddee4cad859dadbb6508292f04c938536a45"
+      ]
+    },
+    "baaf7531bbf8cff49b4c201050fb21cc4864a6a0": {
+      "subject": "fix(lean): preserve frozen root declaration in coefficient-decay candidate",
+      "identical_changed_lines_sha256": "c7f5f172b30a3134104e78e5acb38e28f3793dfcaf04282ac961cf923524f6ca",
+      "represented_by_identical_delta": [
+        "87b6882d1128167ddbe9f8ecb06d11713d59fbe2",
+        "4798cf6d74a66b9ec9b9627aecafbf1211e4e4cd",
+        "b2d04dfee10ae715611007c817a5b43dd5b8e24d",
+        "67fcf64f12b5d2606933eff20a735c8ca75d577a"
+      ]
+    },
+    "ce0c19348930fb826da7c582f01feb35bb07d29c": {
+      "subject": "feat(proof): bound the finite coset norm by the cusp form",
+      "identical_changed_lines_sha256": "82f36b6ffbe89f2c31fe0fbd81723bfeb642e0a81f992300f1393fe4356cc2d1",
+      "represented_by_identical_delta": [
+        "330f9eefd75c8cc3c4cada33f96d0767b45d7ca6",
+        "d7bdf803ff69924066bba68372c52c3fd9d5f5ae",
+        "e2b36ce29e7f8edf5daf8eb6191a8b5b21ec8dee",
+        "3c6986b876a1768049326b9b1abd78737a220e39"
+      ]
+    },
+    "3d3981f7d70f175c613bad3450af3370535b2df6": {
+      "subject": "docs(proof): clarify finite coset norm bound argument",
+      "identical_changed_lines_sha256": "553390b2e2a4503f6b904e2ac5e95f3cf4c57305bb9429477e405a4791f1be99",
+      "represented_by_identical_delta": [
+        "24f7739b5a47fa91f7f893668c67547585a60505",
+        "e736bcd98a1e0abecedc9b042ddfd628c08ccf07",
+        "148215b70eb37595efaa25685e997eaa2e83c71e",
+        "7edf1300ead4fde0e8271b8a9aca8b10a3cd0e38"
+      ]
+    },
+    "64c100c2274e47457dbc931edc648e91d495c579": {
+      "subject": "docs(proof): record frozen-context blocker for coset norm bound",
+      "identical_changed_lines_sha256": "159721f84c03280a9fd2f2e29bc0ce9fc57ed3351ad3f6458dcb4587441e0701",
+      "represented_by_identical_delta": [
+        "92f766b3799243dec8e229a155ee9e7d6cc0a3b2",
+        "da5f904d7bd99cca8d6bc6887de35f4e270d2a08",
+        "7a958286fd1b1a5b7ac6665b20822ecb1fdb232e",
+        "0726935bc4a963303451bc6418b5e92650f3cbb5"
+      ]
+    },
+    "87a7c0f02d7f8abecb39b84a238d6689d8eba942": {
+      "subject": "docs(proof): retain active gates and hand off all frozen import failures",
+      "identical_changed_lines_sha256": "85166db87c4122d844f2af14535a6fff59e1daf3f223709abfc0fc75d2fdd474",
+      "represented_by_identical_delta": [
+        "d3bdc2ddd9a847f0d20a1c863261fd1391d0c9fd",
+        "65a0639f257dd5be511b54424ede82d414c559e3",
+        "a2e1e51480124c0b1370d207be24a8fb2b991000",
+        "31198a641584c0a5f577ab68111d68ce490d41ed"
+      ]
+    },
+    "a00597604229e2aaefd9f6d17c233b72e872b4df": {
+      "subject": "chore: stop tracking local Humanize state",
+      "identical_changed_lines_sha256": "d6b018c45e74adb7068c5c05caa0ff697b611b0532ed45344099397d2676c782",
+      "represented_by_identical_delta": [
+        "6e75399ff3ff4345384f641a58fc61d5eb9f957f",
+        "abe9ce079f84fd33726ba3c1369909acf4e7e52d",
+        "c215e1677753827e6b8d63f52013276846143caa",
+        "8baa4623b3ccfd26ad80bceb27cc231bc1db12b4"
+      ]
+    },
+    "368a69be5a6b3bfa71a331cc684ae572426fb364": {
+      "subject": "docs(proof): audit coset norm bound and frozen-context blocker",
+      "identical_changed_lines_sha256": "2e403824f9eeddb626bb7a5be6b296552d618f8ce977c0c8056acc7fdcf98dd6",
+      "represented_by_identical_delta": [
+        "b15a92c8b28d6c6d0d1b9d902e0460cad5535552",
+        "1a3f20d721c7f7ac1e88e0c935e0da06183c0f47"
+      ]
+    },
+    "cb4279be568ffd0abb387203157679f5fbe0e41e": {
+      "subject": "docs(proof): revalidate exact coset norm bound and frozen context",
+      "identical_changed_lines_sha256": "0e2487d00b9d13afa54636c0c35a2aed30be38258c5b9146b727dce9b3831182",
+      "represented_by_identical_delta": [
+        "15d6fc8293eaee714942c12717be2cd4b1a8121c",
+        "ee218af0418901fc93e10c02518e9c5b66a339dc"
+      ]
+    },
+    "10f7009417043ade8e40b37401b9212fdf17aa8c": {
+      "subject": "docs(proof): verify selected norm bound and record frozen context failure",
+      "identical_changed_lines_sha256": "deda94b0515ff1beffccde58343cd215716ed88ab508129c805ed3ed2e1a7eb2",
+      "represented_by_identical_delta": [
+        "56325b4b78ee7eeb8f4809487d2c320cf343c70e",
+        "7260d5b4d9f1ab88da42166f65746e987bc64763"
+      ]
+    },
+    "20a6352f177dffdc07472701bf1fdf7f98905787": {
+      "subject": "docs(proof): recheck atomic norm bound and frozen context blocker",
+      "identical_changed_lines_sha256": "1e836e49c34748825ad8bf573114d9be2e1f98cc81332b752a7f804f2bc382d0",
+      "represented_by_identical_delta": [
+        "ee8c4f03ee6677692dc80cfaeb3ab3a2bdb2bf81",
+        "66ac1df2bf436f9757f38491d6f243b5a60ae4c1"
+      ]
+    },
+    "6fc3a0875ac8a3a067fe0afdfce110ced9e590f8": {
+      "subject": "docs(proof): verify atomic norm bound and preserve frozen-context blocker",
+      "identical_changed_lines_sha256": "aef5aba4e69299046594afd941014d15977bedc82d4de45178f1d143484c39f7",
+      "represented_by_identical_delta": [
+        "ef93b6ab41743b96c68a33ecb2028d6a921804fe",
+        "19d0f5024310f2bd6f0a7c37e1234a28479690d8"
+      ]
+    },
+    "124a0c18eab64500f9098a0a483ef136195a90c6": {
+      "subject": "docs(proof): audit exact coset norm bound and frozen context",
+      "identical_changed_lines_sha256": "f4ec915b956ac565e5aeab9b428df717843c0bb5df825df4305daafe237a4063",
+      "represented_by_identical_delta": [
+        "a412bdfa601e2c673e50330de3511ec6da9f26f4",
+        "8df47c046572a676e96a716be06fb40f1518206c"
+      ]
+    },
+    "821b5314504797a084b5be03318c37262593bddc": {
+      "subject": "docs(proof): record fresh norm-bound checks and frozen context blocker",
+      "identical_changed_lines_sha256": "65a6b3c17dfaaf5e09993328130f2e33e424a0a63596d2653dcc435bf4550108",
+      "represented_by_identical_delta": [
+        "9956542993f162bdc5185e3f81189cb1a5a8446c",
+        "0e18cebd86cdb77d030db27ef767eb175591d4d6"
+      ]
+    },
+    "ee351b3c66c310050f90bcebd8f46ab95caeb2d8": {
+      "subject": "docs(proof): refresh atomic norm-bound audit and context failure evidence",
+      "identical_changed_lines_sha256": "2d0b3a20489f9b5e7c5f7aeead4c116f73e7032c2769f74c637cfc4fd6d50a3d",
+      "represented_by_identical_delta": [
+        "66192270e2cb0a105e837439139a303c079e5651",
+        "d1e86323d64255c4bc27164355bfc6c962f4633e"
+      ]
+    },
+    "46df4ecf4874856dc3c1fc4c96bddbe7fd04dfa4": {
+      "subject": "docs(proof): record fresh selected-node audit and frozen context failure",
+      "identical_changed_lines_sha256": "ec4d08a4265d8aeffd0b007c169b5389bd3b28d201fc0fa0dee3844355c0bbc5",
+      "represented_by_identical_delta": [
+        "325ac1a66b2ff38f40bafab533e1bbe11f0ea505",
+        "624a12ccc3efa436abe331fabe8a65de51b4bae0"
+      ]
+    },
+    "faf4837518924ab00572e34e4e636c6ef1027738": {
+      "subject": "docs(proof): refresh exact norm-bound validation and context blocker",
+      "identical_changed_lines_sha256": "1ba4f9293fb388e28025d7ac7ccde32642a02739159c94f49025b4f90980a388",
+      "represented_by_identical_delta": [
+        "5f28c758b94cd963837899b5e52c0c4892d8b528",
+        "805bf52b96634eb9d6fadc58e77df51558f0a266"
+      ]
+    },
+    "e38e992739f218e5b42b95efc4fd2249c841b683": {
+      "subject": "docs(proof): isolate frozen challenge blocker for norm bound",
+      "identical_changed_lines_sha256": "4cdcbe5995665207bd3bb44f27ad69021ff9d20f1057da3e52dbef68c65d4bff",
+      "represented_by_identical_delta": [
+        "f0bef9ef11de8c90450674de260f08fdd4318124",
+        "b59c8192b1d84a64bcbc6f048bf61b06e1f44d7c"
+      ]
+    },
+    "7ce8c5eb30071287ed90d747f36c3863506a952c": {
+      "subject": "wip(speculative): draft root-gamma0-finite-dimensional-a1-gamma0-sturm-vanishing-a1",
+      "identical_changed_lines_sha256": "a20af7f5032989002f6f814fc1525855cf420d93b0dd544237e6b71d14cb3d72",
+      "represented_by_identical_delta": [
+        "e18c7e1a0badbba0b0c49ff45f359dcba90cf078",
+        "458aa02b4c3ab3f2cb2f0b7235d4a89d8284e95f"
+      ]
+    },
+    "7629c1eb8e215e602a94cd40f64e7825704350e9": {
+      "subject": "proof: implement the exact Gamma0 weight-two Sturm leaf",
+      "identical_changed_lines_sha256": "775428e84dbe3153724fd9a3b48d1fd561c4d99840efa665827d4c4ee6cd976b",
+      "represented_by_identical_delta": [
+        "f0493245cc5a6ebdd5660ec98ecbdb4b10abbd71",
+        "3f7e01af47fabba0c36e512e488dce3d498292f3"
+      ]
+    },
+    "b6ebdc97e6aa5548fa0bf2ecc21b147d7a801749": {
+      "subject": "wip(speculative): draft root-gamma0-finite-dimensional-a1",
+      "identical_changed_lines_sha256": "ba7a2ecd1dc7d1f8383a8449d41454384b6e09701421324cc3dae637ab3c0b0e",
+      "represented_by_identical_delta": [
+        "71795302e8715cf2901b4975a6cea011d6bf1653"
+      ]
+    },
+    "6ae8588b50ed3a599887770ad1695f5345d9e028": {
+      "subject": "proof: finalize Gamma0 finite dimensionality from the approved Sturm bound",
+      "identical_changed_lines_sha256": "1b18bcf08bd30b6460ccaa185e19687a7a022ac1ec44b45d04676081d80a3be1",
+      "represented_by_identical_delta": [],
+      "same_subject_replays": [
+        "8c18be559f11f4c34ea689958ba2a126c92ff975"
+      ],
+      "final_content_check": "All five declaration blocks at the approved final candidate a7d4d6f75e980b40c4a8288c5d71d6b5867e2dd5 are byte-identical in the repaired file. The finite-dimensionality theorem and its final docstring are copied byte-for-byte; existing canonical theorems remain in place."
+    },
+    "6fa7a8923a490800dc7e19b3c71df7e37d29979a": {
+      "subject": "proof: restore the frozen Submission header for node verification",
+      "identical_changed_lines_sha256": "d6c7fbb8c0e8085bc68853ca55079e310a796646517785284a7d0a3d886a8947",
+      "represented_by_identical_delta": [
+        "22713ef14ba99f1f6f9503a7315fca1d86171303"
+      ]
+    },
+    "a7d4d6f75e980b40c4a8288c5d71d6b5867e2dd5": {
+      "subject": "proof: clarify the finite coefficient embedding for Gamma0 cusp forms",
+      "identical_changed_lines_sha256": "a7064fbdb25e6280f5322fcde520ec5a4720e0c4520a643c60a5f28e1489e105",
+      "represented_by_identical_delta": [
+        "2831e3cde25114496075bd51413a21e9e50b9b93"
+      ]
+    }
+  },
+  "checks": {
+    "integration_parent": "2831e3cde25114496075bd51413a21e9e50b9b93",
+    "canonical_base": "2b59808af229b578c5e48ba3d6e6fe5fd6de7145",
+    "accepted_candidate": "a7d4d6f75e980b40c4a8288c5d71d6b5867e2dd5",
+    "submission_before_sha256": "7f8a915bc1442cbe14d4eb2ce28af1d725b8f9351efc4668b178d522649fe102",
+    "submission_after_sha256": "82b269f109e3f5787e23629f8c6048220c0cf467c7e4e5a3ebca0935e72428dd",
+    "canonical_declarations": 30,
+    "accepted_candidate_declarations": 5,
+    "distinct_declarations_preserved": 31,
+    "declaration_sha256": {
+      "CuspForm.span_heckeTLin_eigen_eq_top": "7a5392bf82ec7f9117cdbf585b5111fa7dfc1614bd327dcb63707e771337cd9f",
+      "f036cc6b1f_pic_dd_ae_orbit_zero": "b09d5607a34a27cde53cbe81bed31d71cec3f82584bce1787f6557f6a7b0b293",
+      "f036cc6b1f_pic_dd_open_pos": "c59ef7853b7e46dd30f9bad2006578abaef4708a51505026ddf67eba06d7692b",
+      "f036cc6b1f_pic_diagonal_definite": "b8cfa2ad5cc955a5ebe9e496c91adab117ff215c41602bc303501a43e16b3f46",
+      "f036cc6b1f_tdi_planar_exp_integrable_fd": "7ed55c5a8ef20259f747b93aa7d166b8e30d938cbfbdf97b2234d968414e8465",
+      "f036cc6b1f_tdi_petersson_integrable_of_exp_product_bound": "a7947fee839b1721baa758d1fe705ec5cbefa363466309213e379b2335211a6f",
+      "f036cc6b1f_fd_coeff_decay": "b5cd7afd6f43dce5caa2acc8d546bb599310e6dcd6be2bfb7c50760f8997ac29",
+      "f036cc6b1f_pic_psp_measurable_slice_partition": "49d55c1e639146619da35cba366097afb433fa3fcd219b429765de0104771e26",
+      "f036cc6b1f_pic_dt_integral_of_equidecomposition": "40d6f9bba1a10725733dc29ab89d918dc8cbaad367aaedfe689d257a021847c2",
+      "f036cc6b1f_pic_psp_sign_transversal": "6c0773c55ed1985e2f53b561a968cb57b2609aaca03b45ae33e947a892802dab",
+      "f036cc6b1f_pic_mec_pointwise_sign_partition": "96778e689c527f17125707b76b5bc31644f3afae222ef0da856448309c256fe8",
+      "f036cc6b1f_pc_hi_effective_domain_lift": "a8b7d0edea391c5ce6d51c4ed851847ea9c46b53d133f9c217a592758dbd21b3",
+      "f036cc6b1f_pc_hi_gpt_bezout_lift": "f0505b112b55e2bbadb369a54a5587d9ddae7cd2f5d923891e920a20dd1e3561",
+      "f036cc6b1f_pc_hi_rational_slash": "a3d603aa96a7a4e1c189c9fae2719c7fafb9b36c45044c0231950cfde230182d",
+      "f036cc6b1f_pc_ed_aoi_null_orbit": "4c99f0db57cee5ada772ef484105837aa0e8848b38a175b6b986787b1c2a330e",
+      "f036cc6b1f_pc_hi_gpt_unique_projective_index": "1d08ff8f89dbad42386460f8b75afbd7b9d42543370018097f722837ad6142d1",
+      "f036cc6b1f_hecke_commute": "c3065d4eaf1ca3f1dbc55836d2aac678b09a7f144f998639d0fa482c2458ac59",
+      "f036cc6b1f_pic_mec_invariant_conull_core": "70093c06cd1757c14f6c48469f707caa61b1bf312d569e0931101a1e681134ad",
+      "f036cc6b1f_pc_ed_transversal_unique": "923ec7be4a3e61cd64e451661a6ca82148f9f45d0815345103a7eb0c3bbaf505",
+      "f036cc6b1f_pc_hi_good_prime_transversal": "baaa2a53df25fd0236e013dff2a5e9e3e75313b37fed5137d8cc0c1bbec30d25",
+      "f036cc6b1f_pc_hi_finite_trace_unfolding": "936a01f3268bd71faeda8a581f7d03f6ee88cf411639b9640be6309e8db72f8d",
+      "f036cc6b1f_pc_ed_aoi_boundary_null": "4d16cd8059ac8bda1b820f320566e8a52fce85298bd2fdbeefcfded36def4fc7",
+      "f036cc6b1f_pc_ed_ae_orbit_interior": "c97ae20d4f36e0e36a3441f75a3bfa2d3b7d5036ed13069d27b4591f5a974d5a",
+      "f036cc6b1f_pic_dt_measurable_equidecomposition": "c678484253ec3fb686168b25bd25e0fe8d4314416ad2c060ac4f9b2d42064301",
+      "f036cc6b1f_pic_translated_integrable": "06f06e2bb52c5d67f7bcfb16e3d4327999aa747c12e45f04103c4e2bd8db7c7c",
+      "f036cc6b1f_fd_norm_bound": "5ae176809b1f1af6b3ec1e9078f9e3620d6f63ee064ad49ca0f950d60a592cd2",
+      "f036cc6b1f_pic_domain_transfer": "bd985e0cbfd58eab84714cdbefa24a966335e5f3e608d721339fa4d8f77caf74",
+      "f036cc6b1f_fd_sturm": "e118afac4c925afc7c39069952f0cf6a3b82eef7bb48cebbca372543847e35d3",
+      "f036cc6b1f_pc_effective_domain": "fb388c7541cc5d19b1bdf05d8e8b52a8b56177a99ee0e16f872b1758507a74e8",
+      "f036cc6b1f_pc_integral_core": "da537d2ed325eab18987409ccf4a4069ca1982fe227df8511f5d3ce3aee015cc",
+      "f036cc6b1f_finite_dimensional": "aa145ce78352e435deaf15533083906961171877e00ee80779f15f7959b29d85"
+    },
+    "protected_artifact_sha256": {
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md": "0929eb9ca2ad7ea30f1aafc2c1446aaf06dcdc301374ffe2ca7f4b56816d2cc8",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json": "509f4932b6d1c571a2a1434f97319ae47791212dabf986cc6faad0e84a6d9346",
+      "/runtime/operator-header-policy-v1/policy.json": "96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v78.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v39.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v30.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v63.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v77.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/parent-supplied-natural-proof.json": "b1390dfced40ab4dd3f15c082057699da569d09f64dff05953483e7b853e6e0d",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v29.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v59.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v73.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v61.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v5.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/decomposition-v1.json": "be9336bdffb9b257ef13a01501b9f0e4d5a88b7aaa53f624596c0c6e5c319d0a",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v62.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v14.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v45.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v70.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v67.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v36.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v35.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v18.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v72.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v27.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v65.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v82.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v69.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v85.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/parent-supplied-natural-proof.md": "50033a71ba7063dbc5807772bf966d6af6ae651fa9d6110205c3996ab1920d33",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v76.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v13.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v50.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v52.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v47.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v23.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v79.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v43.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v95.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v91.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v60.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v64.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v48.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v54.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v89.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v20.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v4.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v84.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v93.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v88.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v11.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v1.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v68.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v22.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v15.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v57.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v41.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v28.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v80.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v34.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v32.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v83.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v86.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v26.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v6.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v53.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v16.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v75.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v56.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v33.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v90.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v7.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v94.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v55.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v19.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v66.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v2.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v92.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v38.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v42.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/parent-supplied-plan.md": "2eb7c3c1055c62c1639867701372cc7836a3b3da6acab92207d80395ee53e79f",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v12.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v8.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v3.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v81.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v49.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v87.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v9.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v10.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v71.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v58.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v21.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/parent-child-handoff.json": "eb268dbf455cfcb82b211f0153a9aeae5804a64a6205610064fab272ce00af42",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v44.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v46.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v51.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v40.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v25.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/decomposition-audit-v1.json": "ad3907e78fae13f93f868b4c5be9f5d701238037da7fe31165b738a40c57df06",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v24.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v74.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v17.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v31.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-gamma0-finite-dimensional-a1/rlcr-plan-v37.md": "f5d9894e09474c26e7df4ca2ee5cae7f236d19655b7f7614c260dacb950cd009"
+    },
+    "contract_sha256": "365510742cf45daae091fcbb675dc22f4df855f4f5e522aa065b65339f379bbe",
+    "operator_policy_sha256": "96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96",
+    "verification_requirement": "Run the exact configured comparator against the committed integration tree, require exit zero and Your solution is okay!, and inspect Git identity, clean pinned dependencies, exact type, kernel, transitive axioms, and frozen_header_repair policy digest/omitted lines/reversible hashes/Lean target-absence probe. This preservation record is not proof-acceptance evidence."
+  },
+  "reference_use": [
+    {
+      "source": "local-project",
+      "manifest": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+      "project_commit": "61b5f85556ac71631ccad822e0694511234f7132",
+      "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "queries": [
+        {
+          "query": "qExpansion_(add|smul)|levelOne.*[Ss]turm|eq_zero_of.*coeff|notation.*η",
+          "scope": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms",
+          "finding": "Inspected QExpansion.lean:576-588 (the exact q-expansion scalar/additive interfaces used by the accepted finite coefficient map) and DedekindEta.lean:63 (the ModularForm-scoped η notation). The leaked open scoped ModularForm in the malformed overlay explains the binder parse errors; retaining the canonical namespace scopes contains the notation."
+        },
+        {
+          "query": "sturm_bound_levelOne_nat",
+          "scope": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib",
+          "finding": "Inspected LevelOne/DimensionFormula.lean:284-293. The pinned natural-weight Sturm theorem has the existing strict q-expansion order premise used by the retained accepted Sturm proof."
+        },
+        {
+          "query": "namespace Submission|f036cc6b1f_finite_dimensional",
+          "scope": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project",
+          "finding": "No matches (rg exit code 1). The accepted node-specific declarations belong to later reviewed histories."
+        },
+        {
+          "query": "f036cc6b1f_(finite_dimensional|fd_sturm)",
+          "scope": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib",
+          "finding": "No matches (rg exit code 1). No alternate node proof was acquired."
+        }
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/QExpansion.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/DedekindEta.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/LevelOne/DimensionFormula.lean"
+      ],
+      "compatibility": "Both snapshot Git HEADs match the manifest and both have clean tracked status. The current lakefile pins the same mathlib revision and lean-toolchain pins Lean 4.33.1. No new reference proof or import is introduced. The exact configured comparator must verify the committed tree, including its transitive axioms."
+    }
+  ]
+}

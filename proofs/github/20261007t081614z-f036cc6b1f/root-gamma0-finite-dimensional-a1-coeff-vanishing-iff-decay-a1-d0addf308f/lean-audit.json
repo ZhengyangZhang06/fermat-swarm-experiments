@@ -1,0 +1,44 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'analyticAt_cuspFunction_zero|qExpansion_coeff|natCast_le_analyticOrderAt|qParam_right_inv|invQParam_tendsto|norm_qParam' mathlib/Mathlib/Analysis/Analytic/Order.lean mathlib/Mathlib/NumberTheory/ModularForms mathlib/Mathlib/Analysis/Complex/Periodic.lean",
+        "rg -n 'f036cc6b1f_fd_coeff_decay|coeff_vanishing_iff_decay' project --glob '*.lean'",
+        "rg -n 'qParam_tendsto_atImInfty|atImInfty_mem' mathlib/Mathlib/Analysis/Complex/UpperHalfPlane",
+        "rg -n 'lemma isLittleO_pow_pow|theorem isLittleO_pow_pow' mathlib/Mathlib",
+        "git -C mathlib rev-parse HEAD",
+        "git -C mathlib status --porcelain --untracked-files=no",
+        "git -C project rev-parse HEAD",
+        "git -C project status --porcelain --untracked-files=no"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/QExpansion.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Analytic/Order.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/Periodic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Asymptotics/Lemmas.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/FunctionsBoundedAtInfty.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project"
+      ],
+      "conclusion": "Queries ran from the snapshot root. Clean snapshots match project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The inspected upstream lemmas supply cusp-function analyticity, Taylor coefficients, analytic-order factorization, q-parameter identities, and asymptotic estimates. No matching node declaration was found in the project snapshot or frozen proof base. Relevant installed mathlib sources match the snapshot byte-for-byte; all dependency checkouts match their pins and are clean. My exact comparator rerun exited zero with 'Your solution is okay!' and reported only propext, Classical.choice, and Quot.sound. Its hashed artifacts bind the reviewed proof to commit 703d58260b7ef9af10b1ee1365cab2549bfe0dba. Only the tracked theorem is added; frozen imports and the inherited root placeholder are preserved."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.f036cc6b1f_fd_coeff_decay",
+      "statement": "∀ (Γ : Subgroup (Matrix.GeneralLinearGroup (Fin 2) ℝ)) (k : ℤ) (f : ModularForm Γ k), (1 : ℝ) ∈ Γ.strictPeriods → ∀ b : ℕ, (∀ n : ℕ, n ≤ b → (UpperHalfPlane.qExpansion 1 f).coeff n = 0) ↔ ∃ C Y : ℝ, 0 ≤ C ∧ ∀ z : UpperHalfPlane, Y ≤ z.im → ‖f z‖ ≤ C * Real.exp (-2 * Real.pi * ((b + 1 : ℕ) : ℝ) * z.im)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "The analytic cusp function has vanishing coefficients through b exactly when its order is at least b+1. Factoring out q^(b+1) and bounding the remaining analytic factor gives uniform exponential decay. Conversely, the inverse q-parameter transfers decay to a punctured neighborhood of zero; a smaller finite order would force its nonzero leading factor to tend to zero, a contradiction."
+    }
+  ]
+}

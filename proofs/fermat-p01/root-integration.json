@@ -1,0 +1,444 @@
+{
+  "node": "root",
+  "integration_parent": "96a7628cb0eaf8271b82a5715815c6f47f06c6c7",
+  "accepted_candidate": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b",
+  "repair": "Restore the byte-exact approved Submission.lean layout: all 33 distinct theorem statements and proofs already occur in the combined input. Remove duplicate and interleaved copies, restore balanced namespaces and reviewed declaration order, and replace the redundant inherited root stub with the already accepted root proof. No proof, import, header, challenge, plan, prose, or handoff changes.",
+  "history_preservation": "The repair merge retains the integration input and the exact accepted candidate as parents; all listed reviewed commits are ancestors. Canonical-only documentation remains unchanged.",
+  "reviewed_candidate_commits": [
+    "8b0e78540caf3fd67a22bf82be0109a5da4c9a9d",
+    "0e2834e8041290c3bf77107c87b0021868909973",
+    "4e9aeba9b8f56544e940b921c4a1ad8c9b2693ee",
+    "87d8f59bae4b79b14f18c42520cd498207484066",
+    "30c0fc699805f5bc0f1359333650d0fc149e4485",
+    "9a939252daf58d4e3de622a54e6adaee34673fee",
+    "0b4881ea80a3c234d7fbe68240f3e3af9d9666f3",
+    "61ebda136b84e9dbf8cde1276b4210b328735dd1",
+    "d81675970f9ce01b6597b72e095ed88a27146c76",
+    "5bc4dc18dea8c2a6221071fafacb06e06b216c81",
+    "ae8edc546175212c69c62b5cffa970cf4bbce17b",
+    "498e784c01efef1d3cfc57cda1825894217536cf",
+    "17bbe53fa4d7638f72463310f0b7c8d7d602db66",
+    "34cf7ea3a428d3a8bfaecdd6adf436861fd2bc82",
+    "4c1bdc21bfabaaf4923e775fc289692e19310d6c",
+    "d31e9d522654f64a0009c0b90f7f0482fa99547f",
+    "5352db3c1d397af28866eab8d10eb9588fc71055",
+    "4307e3282193adc975b9b19e49ccfa5903daef10",
+    "c0d1126cea02d33b1c19a8ac9b76ec57477d27a3",
+    "f9c84741d2fef32e780aefcfbc8ce8a66ee069a4",
+    "01b9eddc0ccdae3dedfead4ce20baa75ae0a4f31",
+    "2a48872f56f1f2df9772368c7e07aa18241474f4",
+    "b97a62b5f4aa157dc3bf954d29a05e765549602d",
+    "6eb8558cdfe1d692fc547b1fbb799dbf060aeccf",
+    "744fc0884bb164f024bd97cd3e6fa221f1b254a3",
+    "9824082074bc55f93d899e5d28b5c33aae06a25e",
+    "230ec9d1ed57907f1a2403b3b93459fb57012c2f",
+    "1e2710d4e36ebe4a170a9ffb07088137245cb6c0",
+    "2569bb730f152720a4f03bde48b9368620af5bd9",
+    "b07d93b4c70570dd1ce18d2d60912145f34df4a6",
+    "b82445afdad5dfaaef66c5e5f11b66d9f4dcf795",
+    "c9f665bb810ea8c2381e8f8c089ff77df152a98e",
+    "da38f4ae234acaecfadef58dc5b77b2be4514b5c",
+    "500ff227423e5160be9782b0b88741630dc3d493",
+    "05ca8fbd9a4d018b361fe382254f3b5f619db1e9",
+    "61bb8e97932e345e22d4abe7224b2e2ef0e77d5f",
+    "448029fa2608dc5fa9e419149f886defa7e58a5a",
+    "c339149b15372a3ea3029679d05eb1f59b4548b1",
+    "192d2f5cc4a014f22666311a2abb3887c2f12e96",
+    "5da49a1c0c40620bd2df02b4bacde69fbf219a78",
+    "6cd444ef14ce6f9064652f021d90acb27567928b",
+    "c99c55525f495d92946294d957a813b694903698",
+    "3e3859afda87c977c09773a178dfd009275d9575",
+    "d5a0e09b8209f0c74dc8d05319df4e7f02a467c1",
+    "8bdfbd1469ecd5a6eb5eed101d85a9ac9b2a9548",
+    "9bd19690fa78cbe53691445515313cd5f92fce0c",
+    "b9af9d478eb8d4ce60d42527a6b3556ca4b1b940",
+    "7909d3386b0346c4511e353c67fb3bb6cd153c7e",
+    "eb4c4cdd348676f8f2a5ecc56648913903f0cc6b",
+    "fde24dc633a877e665685cfefd7da7a465bc7aa5",
+    "00b31675716be73c052ea602fd8d40a3c5cc9d72",
+    "6c446dd0dbfd06388876f80976ea9b973472ac2c",
+    "46227e5f2ffe768078316b38180bbee382926f31",
+    "32cbfd19ef2c295f85cc023122c2760d0d913cfe",
+    "70fa058cbad99978a8bb3078648fa00358b864ad",
+    "6f8a25d4ceb1671345498deb3923c71dbf0d236a",
+    "d2f3a61414b9a8bb1f9310746b43f2ef0bd2c95c",
+    "3f2d9d8a50b3695cd9faafbdcebf137f80a2c47f",
+    "e833141708bdb3f275b1c4c1c6e1bed5b2f8f044",
+    "371ab4c22bb6e7a9127ee307902a3a47a66706f3",
+    "e5de4a6f16a312ce6136179fda560c205352b301",
+    "c61687d30319a612a7822746bce6ee81a0fc36b4",
+    "e3785863dd39a8b3340a37dad5bd117c3de56f78",
+    "6cafa97e1bd9c8cf06a7b11e094399e69e164b3d",
+    "6ddf1625ccb0955eed209d2375080ce442377a9b",
+    "27777a1d6471b7b5fb830c098c615c289c079567",
+    "e47d5bbcb5867a4427ae027b5bf84fe122edd29b",
+    "5822545bf59aa6f1d6fc587e9ee87942d6aef80b",
+    "a6329bafefc1a5b5f673879bc4958bdfa547301a",
+    "cb7d6f4f5d0aef833438541e738111c0d590dc95",
+    "3804d12c8e23dc49372f253a50da1d7a26c4c82d",
+    "643b17f82380c3d2357d8a97156509925708f49c",
+    "8a2f5206d579cdb85847b9782703787d7882e87a",
+    "7dcb0c02d200a439cb0654590e47ab9bb7662972",
+    "3d8c1d7b3cd526996df93498f3ba9367c2a2925b",
+    "001dbf155427d277816ab5acea7eb2693b8e4be2",
+    "22033f3ccbff50c5c2900975f6e91bf8ea4c2578",
+    "3c91c129e9cc9cff48854c5518f16f6afa3ebdb0",
+    "55b66c22989b95ae1cb79a628ed153391a839273",
+    "ca6e11c6cc74a6ead9c7bc1389becd95055847d3",
+    "08b3f7d7a6d7ba628b306274c2c549cd381311a4",
+    "e1061a733288f28fb6b0a91450e61010e3733981",
+    "2df28b77e04491d154e0fd708fb6ca8f4ad23df2",
+    "e7f8b3b1caa77d4bf6c8fa9dd6d67687906ec828",
+    "65a0bccd7bb87a4f77e8946cece114c9592cd6b8",
+    "600ea9959b424fc18b3f7aee4e0faa1b6122b0f4",
+    "7b1c0141f0538a5d682f3d523e0e303c71406a1e",
+    "17f79104e25438c04570b0d28984741614cb8e6e",
+    "d12084b5feae6c76e3d67ccef32b48b865a31c3c",
+    "90a775a092c622b79180f4d047bf6c110ac03c87",
+    "cfa56f84336d79479bc13dc59c4df4fda1545416",
+    "ac40c10c12280475eb93b7b75fdc46c7b31e40a6",
+    "56bd4c4e383793612e6d35366ea8297914ab3d28",
+    "88b5b87168f67a3544aaabd9af52df6758e9760d",
+    "a8848d44f663cefcd0c83e7842120d87bf32590c",
+    "59679e725ab059c7ec9177499bf2e1661c9c1cfb",
+    "dac322cddf8aabc1282b36c35ecb9ee243ff4038",
+    "c7f7b1f6eed6cb1141320aff242ce8f0d849d5ac",
+    "9f84f78a64e5c862eba972e7e3b67254ff3ca9fe",
+    "db604ad7970f6c17652d62d0fba3156d792d9e79",
+    "2c404da34c1a3d697aa353010b06266f9f2ebd76",
+    "7c1c9d7fdf540f276c6a321ac275bdc9a6151c01",
+    "6064f5c195debfa745597f9b1be2b9dac0ed79d9",
+    "8219ef9def240d96ddc27f0c1718c52ed0e58ddd",
+    "f006e0de0b4ef930989a02c054ee948ef19e6ae8",
+    "269d65ef71ff1327532ea36b44191062182a89ca",
+    "ae7361657fa3a85a12d35a728f0a00128f2742ef",
+    "99e4b7f72e746c30df59855d2d058b2e8b80cea0",
+    "94a0dfa18c99cf65567545b8345e4620cb9deb41",
+    "943e896ef36f7d6c4fcbe33a00799c33f4f6d26c",
+    "fa2a61da2f65fd64901c16b3b5bed33e760699bc",
+    "00b7cc3c3e0c767069ed3dee44a85b878a01a769",
+    "eb29d98d6559cb781eb5c5e8d718bbc83ca9ba85",
+    "7b35dc720015edae544acf4fab0cab347dddf1ba",
+    "9ea7228ad9850edf23b24fee6a642a43c791352d",
+    "6077cbad846be95d39c13184b9635afe4775c36e",
+    "bca1683468b228683788bb5a3b4e2f69457302ad",
+    "edd107fea59e7ce791e2de438dfa7b008ea383f3",
+    "2c20394fce24319128225162a6f86054463137fd",
+    "6b621bd993354603c8a58bb641c7f624c5173e7c",
+    "e8c709c4222cbec39a771f666befed4590a117cb",
+    "20a41a90605267b13339d9bbeb6125aaf19fe869",
+    "fb7b99b17d8737cb97f684980357bfe1631a85c4",
+    "f2706ae077673aac4d491408e56b5c6addf0b340",
+    "bb200157ff1f3aabfd83ecfe5d846907dfad5d63",
+    "4b91189e8baa8d6cf7734b60b010b8e0011a721b",
+    "0e34d742102ff5594f82349633542861f64437ff",
+    "0613445b24f16da7c2f525b1e45c95f092d63c8c",
+    "1980535ae95ed4c26d3ad4b8bcbdaa2e606ef5c0",
+    "2b9d9265a3495006d3e4b64cbb34365f7b3a0309",
+    "8e6b1e569b52677be4c90c7ee5d9427489eb9c34",
+    "72a557760a4c15d13020b9cbf17310b6c850466a",
+    "8797b9d4ed893fe7a4f8a76788a693ff88290c83",
+    "0844ba8d455dc0870b9275da538d014de0a458a7",
+    "be6d398edee790afad16620dbac1d359764e38fb",
+    "217446b9a4189709fadf628adec84f7bce2d8805",
+    "096ee085c49c6fb0ca25791f5f4491dc99666062",
+    "b668892ef70142835eb14a8b65ac2e481c15bb05",
+    "64f60a3b94d11d15f4b6c7b166ef5ac55206be27",
+    "56dd488fc11162bafec032be8eedf24b8df16294",
+    "b2beb4f87f2fb43b363574e541d2e3aade0d39fc",
+    "7fc34182414a20ebed890603e2d37c87179cc152",
+    "099ac88aeffd645b5033af4a1146379bf563b491",
+    "13fe6da71aa1125ac1ff203ac6d14506b69997fe",
+    "a24ddaf519bd98b166b32e3444e1918686fa9437",
+    "61fecd41b9c714d5debdc9b539396e8aeb782fd3",
+    "6396ad42ce7046487cfbacfe4ad49f64ca91dde6",
+    "f4f0b1e6dfb75ba095f9da8cdbf039a8028272b3",
+    "26986d358b629ee563f45d720d70558e1aca6c0d",
+    "c3af90ebebaec49fa7b69203e69f356d6dfc458e",
+    "624623a8257f326e87f748a7e44a6af8209f7e5d",
+    "1308bfccb5dbbb2e4c03e875a8b746c500759879",
+    "0f6550a168374a875481ef14488a8f33d1b429fb",
+    "c6fa266a97d12788755f2f1a88ed8513e1208b46",
+    "d9c702eb828c25bf2c2b81a843a0a738a53741ce",
+    "693a7d1a7d03ad09f3e7d61e66a34ede02c140ac",
+    "c8230de00f70e122ff69f9222460c4d3265a7e5f",
+    "f3306dc7de92cbb1e8b4201c927f9ba9a0f10362",
+    "10ddbb7e11747afeebd27ba52ea5bebb7cec0b3f",
+    "3fc86680179630ea77bf1a100f6def3c465cdee3",
+    "6b0a5a91261af0b3ac08142854fe36ff545fdd16",
+    "b0631679ebad9c0f199348e109d07556dfd6b211",
+    "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+  ],
+  "checks": {
+    "combined_theorem_occurrences": 96,
+    "distinct_theorems_before": 33,
+    "distinct_theorems_after": 33,
+    "missing_theorems": [],
+    "all_retained_declarations_present_in_input": true,
+    "approved_submission_restored_byte_exact": true,
+    "submission_sha256": "0c581e4638be4626d6f7ecda9985e127aa6ef0d4bdf51d98b645cfdf1f6a5424",
+    "header_sha256": "3c16114aa5849bcd6d47a5396b17073d93a191697a880e769bf94e5b7c13dde7",
+    "root_statement_and_proof_byte_exact": true,
+    "no_placeholder_or_axiom_in_retained_declarations": true
+  },
+  "retained_declarations": [
+    {
+      "name": "Submission.f036cc6b1f_hecke_commute",
+      "statement_and_proof_sha256": "c3065d4eaf1ca3f1dbc55836d2aac678b09a7f144f998639d0fa482c2458ac59",
+      "input_occurrences": 2,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_fd_coeff_decay",
+      "statement_and_proof_sha256": "b5cd7afd6f43dce5caa2acc8d546bb599310e6dcd6be2bfb7c50760f8997ac29",
+      "input_occurrences": 2,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_fd_norm_bound",
+      "statement_and_proof_sha256": "5ae176809b1f1af6b3ec1e9078f9e3620d6f63ee064ad49ca0f950d60a592cd2",
+      "input_occurrences": 2,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_pc_ed_transversal_unique",
+      "statement_and_proof_sha256": "923ec7be4a3e61cd64e451661a6ca82148f9f45d0815345103a7eb0c3bbaf505",
+      "input_occurrences": 4,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_pc_hi_effective_domain_lift",
+      "statement_and_proof_sha256": "3b98cad0ef1d2ee2566e5be8009d349362683219852d4315d15f435d0025f092",
+      "input_occurrences": 3,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_pc_hi_rational_slash",
+      "statement_and_proof_sha256": "534a32fd708d12e581a65dec8bf0b55b6174173fb4db965af35badc9bfc7f727",
+      "input_occurrences": 3,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_pc_ed_aoi_null_orbit",
+      "statement_and_proof_sha256": "4c99f0db57cee5ada772ef484105837aa0e8848b38a175b6b986787b1c2a330e",
+      "input_occurrences": 4,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_pc_ed_aoi_boundary_null",
+      "statement_and_proof_sha256": "4d16cd8059ac8bda1b820f320566e8a52fce85298bd2fdbeefcfded36def4fc7",
+      "input_occurrences": 3,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_pc_hi_gpt_bezout_lift",
+      "statement_and_proof_sha256": "c62d2e36edb56925d3a1c63ffef18f718018ba872722c685fa4091487f689a22",
+      "input_occurrences": 3,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_pc_hi_gpt_unique_projective_index",
+      "statement_and_proof_sha256": "bd7f651a1382a2de09f0f4be6cabbad09748e2731055c343a829b189ff3bfb59",
+      "input_occurrences": 2,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_pic_dd_ae_orbit_zero",
+      "statement_and_proof_sha256": "05947af40d875250c874280c89779d262ced25be5ddfd2192b6bd9bc5d1d0408",
+      "input_occurrences": 2,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_pic_dd_open_pos",
+      "statement_and_proof_sha256": "0712814d051c4c8204d88c635a3e0b06e2e825121cac123b9636470bcaf8760b",
+      "input_occurrences": 2,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_pic_dt_integral_of_equidecomposition",
+      "statement_and_proof_sha256": "6bae6ba46ef6f3537b33b7fbfdcf69b82ad43901a208a8432dc40c9be9ceaec8",
+      "input_occurrences": 3,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_tdi_planar_exp_integrable_fd",
+      "statement_and_proof_sha256": "fb7d9e8b2d38c53b1c1404dcc7b60485d57a7bac246da80f7701c115e4c04f10",
+      "input_occurrences": 4,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_pic_mec_invariant_conull_core",
+      "statement_and_proof_sha256": "b1da0129fefb94f951121009ca5cc5cad45aed2119da522aa9cac86598c0618c",
+      "input_occurrences": 4,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_pic_psp_measurable_slice_partition",
+      "statement_and_proof_sha256": "e2ac126d3af0853feb4008a8485d36755ccf3b4e4e7ee970771f5eae132901a9",
+      "input_occurrences": 4,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_pic_psp_sign_transversal",
+      "statement_and_proof_sha256": "15eadbfe20ae574da493f8343f58dd2064c7c509b8b6d9d5cd3fc93d65b7c3bb",
+      "input_occurrences": 4,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_fd_sturm",
+      "statement_and_proof_sha256": "e118afac4c925afc7c39069952f0cf6a3b82eef7bb48cebbca372543847e35d3",
+      "input_occurrences": 3,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_pc_ed_ae_orbit_interior",
+      "statement_and_proof_sha256": "c97ae20d4f36e0e36a3441f75a3bfa2d3b7d5036ed13069d27b4591f5a974d5a",
+      "input_occurrences": 4,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_pc_hi_finite_trace_unfolding",
+      "statement_and_proof_sha256": "ea4c52337f52071a1fc1d61d755f5ba6945d597925e8e1d6142c1087b22816e5",
+      "input_occurrences": 3,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_pc_hi_good_prime_transversal",
+      "statement_and_proof_sha256": "baaa2a53df25fd0236e013dff2a5e9e3e75313b37fed5137d8cc0c1bbec30d25",
+      "input_occurrences": 1,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_pic_diagonal_definite",
+      "statement_and_proof_sha256": "b8cfa2ad5cc955a5ebe9e496c91adab117ff215c41602bc303501a43e16b3f46",
+      "input_occurrences": 2,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_tdi_petersson_integrable_of_exp_product_bound",
+      "statement_and_proof_sha256": "fc179fe2e1f41c43bcd078e5a26e36a15df517df0e276326c1ed1821ea87dd0f",
+      "input_occurrences": 3,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_pic_mec_pointwise_sign_partition",
+      "statement_and_proof_sha256": "96778e689c527f17125707b76b5bc31644f3afae222ef0da856448309c256fe8",
+      "input_occurrences": 4,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_finite_dimensional",
+      "statement_and_proof_sha256": "aa145ce78352e435deaf15533083906961171877e00ee80779f15f7959b29d85",
+      "input_occurrences": 3,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_pc_effective_domain",
+      "statement_and_proof_sha256": "fb388c7541cc5d19b1bdf05d8e8b52a8b56177a99ee0e16f872b1758507a74e8",
+      "input_occurrences": 4,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_pic_translated_integrable",
+      "statement_and_proof_sha256": "06f06e2bb52c5d67f7bcfb16e3d4327999aa747c12e45f04103c4e2bd8db7c7c",
+      "input_occurrences": 4,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_pic_dt_measurable_equidecomposition",
+      "statement_and_proof_sha256": "c678484253ec3fb686168b25bd25e0fe8d4314416ad2c060ac4f9b2d42064301",
+      "input_occurrences": 3,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_pic_domain_transfer",
+      "statement_and_proof_sha256": "bd985e0cbfd58eab84714cdbefa24a966335e5f3e608d721339fa4d8f77caf74",
+      "input_occurrences": 3,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_pc_integral_core",
+      "statement_and_proof_sha256": "da537d2ed325eab18987409ccf4a4069ca1982fe227df8511f5d3ce3aee015cc",
+      "input_occurrences": 2,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_pc_hecke_integral",
+      "statement_and_proof_sha256": "12f3d9a11758c622bbcfdf17e77d7f8190f8006ad98644c7ae9e7421f3b48961",
+      "input_occurrences": 2,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "Submission.f036cc6b1f_petersson_core",
+      "statement_and_proof_sha256": "4d354a7f0363781aad5c0432a4f307188a7fd95cef5d89dbfdf6d01a397e3e7d",
+      "input_occurrences": 2,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    },
+    {
+      "name": "CuspForm.span_heckeTLin_eigen_eq_top",
+      "statement_and_proof_sha256": "603ec457dfa4038abc2e8c08a63f747906ebc559a504c1450e4b4e3882fbf171",
+      "input_occurrences": 2,
+      "source_commit": "f3df63acd126e85f6dc9bd6ba8018756a51aa05b"
+    }
+  ],
+  "compiler_copy_policy": {
+    "path": "/runtime/operator-header-policy-v1/policy.json",
+    "sha256": "96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96",
+    "source_commit": "61b5f85556ac71631ccad822e0694511234f7132",
+    "contract_file": "Fermat/Thm_CuspForm_span_heckeTLin_eigen_eq_top.lean",
+    "contract_sha256": "365510742cf45daae091fcbb675dc22f4df855f4f5e522aa065b65339f379bbe",
+    "permitted_private_copy_omissions": [
+      9,
+      10
+    ],
+    "submission_header_unchanged": true,
+    "local_header_edits": false,
+    "acceptance_evidence_required": "Configured comparator must verify target absence and reversible original/build hashes, exact type, kernel, transitive axioms, Git identity and pinned dependencies."
+  },
+  "reference_use": [
+    {
+      "source": "local-project",
+      "manifest": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+      "mode": "local-project",
+      "project_commit": "61b5f85556ac71631ccad822e0694511234f7132",
+      "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "queries": [
+        "rg -n 'f036cc6b1f_|span_heckeTLin_eigen_eq_top|def heckeTLin' SNAPSHOT --glob '*.lean'",
+        "rg -n 'f036cc6b1f_' SNAPSHOT --glob '*.lean'",
+        "rg -n 'iSup_iInf_eq_top_of_commute' SNAPSHOT/mathlib/Mathlib"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Fermat/Thm_CuspForm_span_heckeTLin_eigen_eq_top.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/InnerProductSpace/JointEigenspace.lean"
+      ],
+      "findings": [
+        "Frozen challenge remains at project/Fermat/Thm_CuspForm_span_heckeTLin_eigen_eq_top.lean:12.",
+        "The helper-name query f036cc6b1f_ returned no matches (rg exit 1); no helper or target proof was acquired from the snapshot.",
+        "CuspForm.heckeTLin at project/Definitions/Def_ModularForm_HeckeOperatorForms.lean:69 retains its bundled complex linear-map definition.",
+        "The existing root proof uses the joint-eigenspace theorem at mathlib/Mathlib/Analysis/InnerProductSpace/JointEigenspace.lean:121. No replacement argument is introduced."
+      ],
+      "compatibility": [
+        {
+          "snapshot_file": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Fermat/Thm_CuspForm_span_heckeTLin_eigen_eq_top.lean",
+          "local_file": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/.recursive-lean-integration-worktrees/root-fg6wph29/fermat-p01/Fermat/Thm_CuspForm_span_heckeTLin_eigen_eq_top.lean",
+          "sha256": "365510742cf45daae091fcbb675dc22f4df855f4f5e522aa065b65339f379bbe",
+          "byte_identical": true
+        },
+        {
+          "snapshot_file": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+          "local_file": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/.recursive-lean-integration-worktrees/root-fg6wph29/fermat-p01/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+          "sha256": "82c7706e587a9fabaa704406ae22fae1a347d3fd4c36c3a96775540cc8eb6683",
+          "byte_identical": true
+        },
+        {
+          "snapshot_file": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/InnerProductSpace/JointEigenspace.lean",
+          "local_file": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/.recursive-lean-integration-worktrees/root-fg6wph29/fermat-p01/.lake/packages/mathlib/Mathlib/Analysis/InnerProductSpace/JointEigenspace.lean",
+          "sha256": "31b7d9333b17eb1a770c89e773c52faf71b801eb89b8ccb94c6b7d8d763a76c2",
+          "byte_identical": true
+        }
+      ]
+    }
+  ],
+  "verification_requirement": "Run the exact controller comparator on this committed tree; compilation or this preservation audit alone is not proof acceptance. The outer controller retains the independent integration-review and publication gates."
+}

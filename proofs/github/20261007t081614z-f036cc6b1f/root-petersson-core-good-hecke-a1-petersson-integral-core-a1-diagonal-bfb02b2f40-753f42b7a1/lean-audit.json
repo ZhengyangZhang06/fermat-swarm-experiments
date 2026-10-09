@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "petersson_smul|def petersson|petersson_continuous|f036cc6b1f_pic_diagonal_definite|integral_eq_zero_iff_of_nonneg",
+        "f036cc6b1f_pic_diagonal_definite"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Petersson.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Integral/Bochner/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb"
+      ],
+      "conclusion": "Confirmed frozen import provenance and existing Petersson continuity, invariance, and nonnegative-integral declarations under project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. No selected-node declaration occurs in the snapshot. The exact comparator rerun passed compatibility, kernel, and transitive-axiom checks."
+    }
+  ],
+  "comparison_identity": "2280ce1c9ceb13f21cddac0a9b3b5ca0912163dc3258ad09bb8fccba1d80afb6",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.f036cc6b1f_pic_diagonal_definite",
+      "statement": "∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (E : Set UpperHalfPlane), MeasurableSet E → (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ E) → ∀ f : CuspForm Δ 2, MeasureTheory.IntegrableOn (UpperHalfPlane.petersson 2 f f) E (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) → MeasureTheory.integral ((MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane).restrict E) (UpperHalfPlane.petersson 2 f f) = 0 → f = 0",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Nonnegativity gives almost-everywhere vanishing on E; the accepted orbit-cover and open-positivity dependencies extend this to pointwise vanishing, yielding f = 0."
+    }
+  ]
+}

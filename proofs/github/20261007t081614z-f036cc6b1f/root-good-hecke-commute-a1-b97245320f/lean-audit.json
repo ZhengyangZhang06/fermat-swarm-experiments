@@ -1,0 +1,38 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "qCoeff_heckeT_class|eq_of_forall_qCoeff_eq|coeffHeckeT|def heckeTLin",
+        "hasSum_qExpansion|qExpansion_coeff_unique",
+        "heckeTLin.*commut|commut.*heckeTLin",
+        "def qCoeff|qCoeff_eq"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperator.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_FLTPrelim_Modularity.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/P2M/Sol/S_ModularForm_mdifferentiable_heckeT.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/QExpansion.lean"
+      ],
+      "conclusion": "Searched with rg. The snapshot supplies the exact bundled Hecke normalization, coefficient formula, and coefficient uniqueness; the reused P2M lemmas occur at lines 340 and 172. The bundled-commutation search found no matches in project or mathlib/Mathlib/NumberTheory/ModularForms. Project revision 61b5f85556ac71631ccad822e0694511234f7132 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d are compatible with Lean 4.33.1. All 98 infrastructure Lean files match the snapshot and frozen base; all nine installed dependencies are clean and pinned. My exact comparator rerun exited 0 with 'Your solution is okay!' and reported only propext, Classical.choice, and Quot.sound. Its 223 exported file hashes verified and bind the result to candidate 10d8ede77769076cd2a05b10ec37b7dee89461f6. The candidate preserves the frozen imports, header, and root placeholder and introduces only the tracked theorem."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.f036cc6b1f_hecke_commute",
+      "statement": "∀ (M : ℕ) [NeZero M] (p r : ℕ) (hp : p.Prime) (hr : r.Prime) (hpM : ¬ p ∣ M) (hrM : ¬ r ∣ M), (CuspForm.heckeTLin 2 hp hpM).comp (CuspForm.heckeTLin 2 hr hrM) = (CuspForm.heckeTLin 2 hr hrM).comp (CuspForm.heckeTLin 2 hp hpM)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Equal primes give identical operators by proof irrelevance. For distinct primes, apply the existing exact Hecke coefficient formula twice. Coprimality and four divisibility cases give equal coefficients, including index zero. Existing q-expansion uniqueness and linear-map extensionality yield equality of the compositions."
+    }
+  ]
+}

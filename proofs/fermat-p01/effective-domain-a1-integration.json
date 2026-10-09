@@ -1,0 +1,291 @@
+{
+  "node": "root.petersson_core_good_hecke-a1.effective_domain-a1",
+  "integration_parent": "55897ca7a08ceb595d505796572a6078be45243e",
+  "reviewed_candidate_commits": [
+    "3a02f61b5291b6130de189b710e7657819b140b9",
+    "fb010276e5cae0ecb4af63ab09d588edaba84a66",
+    "edb78b24b1a6a7fd980591b51c7e6378612dee11",
+    "cd879a09219b4c014ae7aa85e0f1ce2d40000bdf",
+    "5c394bb82725648de93ada2fb88bbbb67275049f",
+    "9a4f3a6ed33911ddce51a02e9863e9609c9fdbda",
+    "58dddac64648f856ae80f14ebef547be06fa0108",
+    "7eca1bf4a84302e9d258cd5128db78bc4e2fb4a3",
+    "1dd1c5daa25f43894d73e95ff2cfc3bedcebc600",
+    "61d49fb4d1a8693cd0b2dd89ddda8f19c5689814",
+    "1c06688faf37ef9883dbffbf0ae96211004df645",
+    "3d264bc80968cc9a65a92879e6b3c6d179bdee26",
+    "24c5478f2bd4a0c6d1bea89d649d7cedebea465e",
+    "249cf2ef63f55016a92253de0257e61f35916e59",
+    "87f2107ba9cf639d0481b4d8517dbcf0de94d417",
+    "b4350f46517d59cde46efc4c0a87b10d29a5c406",
+    "328ce2797b5410382729ef99dde7193f4c0b8d52",
+    "2f3a6f72148afffba2651639e0f3568ab7259e0d",
+    "afae5f7b719ad5b512b061ffb0084293c6dcd4f4",
+    "926cc52df11ad2ec6008cb3a158fb3aeb2747529",
+    "98d1e3c0c93c4008fe6ec1c9f12ef8e97d5d4cb1",
+    "574db86e5f02a48b0b1e11c70aaf0ce28c6f2163"
+  ],
+  "repair": "Remove the later byte-identical duplicate copies of null-orbit avoidance, transversal uniqueness, and orbit-interior declarations. Remove the repeated already-completed case split in boundary nullity, restoring its exact reviewed body. All 29 distinct declarations remain; all six declarations in the accepted final candidate are byte-identical. The frozen header and root, imports, theorem types, plans, natural-language proofs, handoffs, challenge files, and comparator are unchanged.",
+  "history": {
+    "3a02f61b5291b6130de189b710e7657819b140b9": {
+      "subject": "Prove nullity of the standard modular fundamental-domain boundary",
+      "identical_changed_lines_sha256": "4464f27175622487e298fa6161767d5225d294be3b6aae394b9188452e47f758",
+      "represented_by_identical_delta": [],
+      "same_subject_replays": [
+        "caf378b66ac130ac58ec9be1aa7d76184ad3cb0d",
+        "70d2f10eb15948cde0f31c2a2a665ec55764bf6b",
+        "b7f8eeef231500eac4407f9677eca12a63629931"
+      ],
+      "final_content_check": "The reviewed boundary-null declaration, after its approved simplification, is byte-identical to the declaration at accepted candidate 574db86e5f02a48b0b1e11c70aaf0ce28c6f2163. Replayed surrounding root/header deletions are superseded by the reviewed restorations."
+    },
+    "fb010276e5cae0ecb4af63ab09d588edaba84a66": {
+      "subject": "Simplify finite-section proof of modular boundary nullity",
+      "identical_changed_lines_sha256": "e3b8a29bf02ad80bb723982f22a5dd5d159c2c41cde762df07cfe6f9ab50fa1d",
+      "represented_by_identical_delta": [
+        "a34938ad5159c12f8b4e9549650d358c60d4493d"
+      ]
+    },
+    "edb78b24b1a6a7fd980591b51c7e6378612dee11": {
+      "subject": "docs(lean): document standard modular boundary nullity",
+      "identical_changed_lines_sha256": "42317f38b8890d93fedda7301672134dc90f0cc2032796dd483366d623ae58c8",
+      "represented_by_identical_delta": [
+        "917b841e6a23b33c1440057b5486a64b294fd0f9",
+        "e655ac0d7d13eaec6c107428e21f82ab80a8308e"
+      ]
+    },
+    "cd879a09219b4c014ae7aa85e0f1ce2d40000bdf": {
+      "subject": "fix(lean): preserve frozen header for boundary-null verification",
+      "identical_changed_lines_sha256": "97914193d918317b69ba9d6abbb57fe26e997de78802b7b08ce56ba0940ea77d",
+      "represented_by_identical_delta": [
+        "e621486b3c83959af0c7a8d88fd17ee7ebe58294",
+        "bc3baec297561fbf3bd7dc4b428f845ba585548d",
+        "975871f60df5f48150b2ec0d4a99c0289280bed0"
+      ]
+    },
+    "5c394bb82725648de93ada2fb88bbbb67275049f": {
+      "subject": "fix(lean): restore frozen parent declaration alongside boundary-null theorem",
+      "identical_changed_lines_sha256": "0f4e8993b64e85f1f9fa1b844da1d04fab9cb74bf3ee62cb5a809780672fe16f",
+      "represented_by_identical_delta": [],
+      "same_subject_replays": [],
+      "final_content_check": "The restored root declaration and header are retained byte-exact as the prefix of Submission.lean; the frozen contract is unchanged."
+    },
+    "9a4f3a6ed33911ddce51a02e9863e9609c9fdbda": {
+      "subject": "Prove almost-everywhere modular orbit avoidance of null sets",
+      "identical_changed_lines_sha256": "7bb3f17fa7f170260e90b9d13c298a06d5fe31fffad9de67eed1b92ec63d6bf1",
+      "represented_by_identical_delta": [
+        "37f2db2e68c79b8baa273b2adbce919677fbdc1f",
+        "61d0af9cd7adb9d40232ef0bf482d783e9adaec9"
+      ]
+    },
+    "58dddac64648f856ae80f14ebef547be06fa0108": {
+      "subject": "Document and verify the exact modular null-orbit theorem",
+      "identical_changed_lines_sha256": "e63b04592d0b06d294e0673ffb8a7ef585306c86461d9f6df8ac6d3f1e9fbf78",
+      "represented_by_identical_delta": [
+        "7aa440c9dfb5e926fdb87dcda16dfe7a90871fe0",
+        "bbf0a3b9ec6da0c86866ff93950db5f3dcfbcc0c",
+        "28b842cb49b2387a1bf4663897636de55a4e40e5"
+      ]
+    },
+    "7eca1bf4a84302e9d258cd5128db78bc4e2fb4a3": {
+      "subject": "Clarify countability and invariance in the null-orbit proof",
+      "identical_changed_lines_sha256": "d03e6b75d505a0fb00210e581fe525b92cea84ecf655f6e624ebab5fcab02b04",
+      "represented_by_identical_delta": [
+        "e506b0199e7a57835a3fd7ee6cd2b42029e4cf28",
+        "0d514033cc05e57a0a373180435dde171d1e9f79",
+        "0164ba162eae0f2ac487b45fa886e20652c5570e"
+      ]
+    },
+    "1dd1c5daa25f43894d73e95ff2cfc3bedcebc600": {
+      "subject": "Document exact null-orbit proof audit and frozen-context validation",
+      "identical_changed_lines_sha256": "cfa1bbd2e19abec8d83d5868a55eda069bc7acdb360e441ee65cb77bca52b1e6",
+      "represented_by_identical_delta": [
+        "512e286711a6a90fb7eb02df43f62044f9fb1a5a"
+      ]
+    },
+    "61d49fb4d1a8693cd0b2dd89ddda8f19c5689814": {
+      "subject": "Record fresh null-orbit provenance and frozen-context build audit",
+      "identical_changed_lines_sha256": "46a318514b0f4557b25f115aea307554b4a67034e4af4d5afaefc1a69fc06195",
+      "represented_by_identical_delta": [
+        "6e587a5401c001c5796b5438e2719fdd02be824f"
+      ]
+    },
+    "1c06688faf37ef9883dbffbf0ae96211004df645": {
+      "subject": "Audit null-orbit proof against immutable handoff and pinned sources",
+      "identical_changed_lines_sha256": "00e08c1155241722fcef377f8b4212925edf9ad3af14d9818045755fbe143965",
+      "represented_by_identical_delta": [
+        "c89dd53d817fcd81dc9eab1146a0c0c036c0c5d2"
+      ]
+    },
+    "3d264bc80968cc9a65a92879e6b3c6d179bdee26": {
+      "subject": "Record complete frozen-context blockers and controller prerequisite",
+      "identical_changed_lines_sha256": "e1c35bc745de24e77d1588243c53c7c10a3ad042b26b58b67072e78296290b78",
+      "represented_by_identical_delta": [
+        "3c62ff918519dd713c19bf36e02db9ef33402919"
+      ]
+    },
+    "24c5478f2bd4a0c6d1bea89d649d7cedebea465e": {
+      "subject": "Revalidate exact null-orbit node and record frozen-context failures",
+      "identical_changed_lines_sha256": "434424013144921b34c0b762e063e054367e5c5a846892057f9d045d24bf4545",
+      "represented_by_identical_delta": [
+        "56ba9f40f4686a71c3c2a7bade3fda1e06917371"
+      ]
+    },
+    "249cf2ef63f55016a92253de0257e61f35916e59": {
+      "subject": "wip(speculative): draft root-petersson-core-good-hecke-a1-effective-domain-a1-ae-orbit-interior-a1",
+      "identical_changed_lines_sha256": "d849e494c7ecbca5f2583b23f0d094ac42e57630444fd4571bfa5ff9261ae748",
+      "represented_by_identical_delta": [
+        "c7433e433f4841716ff0916a9caf52eef63492b9",
+        "5144be4139ad749adeec254f66a3e4c1efd2ed58"
+      ]
+    },
+    "87f2107ba9cf639d0481b4d8517dbcf0de94d417": {
+      "subject": "Fix orbit-interior declaration order and dependency namespace",
+      "identical_changed_lines_sha256": "976a30747d56d4d8a0280c4b4f1e3307fa49eebb34dfdb7221713a4d29546d6f",
+      "represented_by_identical_delta": [
+        "c05b152c3643294b30ce57d3c9e1e83f37100bce",
+        "9c4b66a5b8d331e0c9d5ada6de49cc6ed3e7ade4"
+      ]
+    },
+    "b4350f46517d59cde46efc4c0a87b10d29a5c406": {
+      "subject": "feat(proof): establish transversal uniqueness modulo sign",
+      "identical_changed_lines_sha256": "e1e8f495ac1fb80c165487dc022b12796ad707d550dca7499cefc7014f2fb044",
+      "represented_by_identical_delta": [
+        "79b74e2281b06eba453d8eefaf1f23d0a5d74ac5"
+      ]
+    },
+    "328ce2797b5410382729ef99dde7193f4c0b8d52": {
+      "subject": "refactor(proof): clarify transversal uniqueness argument",
+      "identical_changed_lines_sha256": "375b8ecf91707b3ec3a183e20d6863d0db93205a0b3a76e1104f6aec66dcfdc6",
+      "represented_by_identical_delta": [
+        "0e549558a1069227eb417ceea9c4c808f7398e83",
+        "3d26819cc55ee98d5750ffa37ae77816299bbdeb"
+      ]
+    },
+    "2f3a6f72148afffba2651639e0f3568ab7259e0d": {
+      "subject": "fix(proof): restore pinned-import compatibility for transversal uniqueness",
+      "identical_changed_lines_sha256": "a500ba0b4ad2d41e799b32850af3ce8730f160d5c169af9dde2b44bc51fb2897",
+      "represented_by_identical_delta": [
+        "5d04cc459a27e28b58da4646789b310db2695d9a",
+        "85ee06b4e82e23e179eed3a489c86ad9e82445e7"
+      ]
+    },
+    "afae5f7b719ad5b512b061ffb0084293c6dcd4f4": {
+      "subject": "docs(proof): document verified transversal uniqueness argument",
+      "identical_changed_lines_sha256": "0bb8c7a80f42cc3ad91e96d0017723fecfd7f7051a61553ead9b8b0d7e9d4f1a",
+      "represented_by_identical_delta": [
+        "6783c9b108ec5bf169d94833b5d315168e97625e",
+        "b23fae9d5facb49a5acc747042e353d2817f10f2"
+      ]
+    },
+    "926cc52df11ad2ec6008cb3a158fb3aeb2747529": {
+      "subject": "fix(proof): restore frozen header for transversal verification",
+      "identical_changed_lines_sha256": "8fc0aa0f15de37f7bcb37deea901d24ba670bda55c8d2a5a7eb92c5a94c7f16b",
+      "represented_by_identical_delta": [
+        "4edb9e43f5cf9635ffb146c3cafe7461833f1a83",
+        "795b284fac5239c6f45a3881d37d8118c12a8917"
+      ]
+    },
+    "98d1e3c0c93c4008fe6ec1c9f12ef8e97d5d4cb1": {
+      "subject": "wip(speculative): draft root-petersson-core-good-hecke-a1-effective-domain-a1",
+      "identical_changed_lines_sha256": "e11bb3f4e4039510ee15339763ed7cc7720c4d9cc7435ae6fc3929d483b3294e",
+      "represented_by_identical_delta": [
+        "88c2467adb816dd611ae00a90e9c00b549c104f2"
+      ]
+    },
+    "574db86e5f02a48b0b1e11c70aaf0ce28c6f2163": {
+      "subject": "fix(proof): integrate effective domain after verified dependencies",
+      "identical_changed_lines_sha256": "0e70ce34543f3b2558e4a86a05746863a96ef8ce67794d64728fe28710d3c793",
+      "represented_by_identical_delta": [],
+      "same_subject_replays": [
+        "55897ca7a08ceb595d505796572a6078be45243e"
+      ],
+      "final_content_check": "All six final candidate declarations, including the five effective-domain cone declarations and frozen root, are byte-identical in the repaired combined file. The final effective-domain theorem body is unchanged by this repair."
+    }
+  },
+  "checks": {
+    "distinct_declarations_preserved": 29,
+    "accepted_final_candidate_declarations_preserved": 6,
+    "declaration_sha256": {
+      "CuspForm.span_heckeTLin_eigen_eq_top": "7a5392bf82ec7f9117cdbf585b5111fa7dfc1614bd327dcb63707e771337cd9f",
+      "f036cc6b1f_fd_coeff_decay": "b5cd7afd6f43dce5caa2acc8d546bb599310e6dcd6be2bfb7c50760f8997ac29",
+      "Submission.f036cc6b1f_pic_dd_ae_orbit_zero": "b09d5607a34a27cde53cbe81bed31d71cec3f82584bce1787f6557f6a7b0b293",
+      "Submission.f036cc6b1f_pic_dd_open_pos": "c59ef7853b7e46dd30f9bad2006578abaef4708a51505026ddf67eba06d7692b",
+      "f036cc6b1f_pic_diagonal_definite": "b8cfa2ad5cc955a5ebe9e496c91adab117ff215c41602bc303501a43e16b3f46",
+      "Submission.f036cc6b1f_pic_psp_measurable_slice_partition": "49d55c1e639146619da35cba366097afb433fa3fcd219b429765de0104771e26",
+      "Submission.f036cc6b1f_pic_dt_integral_of_equidecomposition": "40d6f9bba1a10725733dc29ab89d918dc8cbaad367aaedfe689d257a021847c2",
+      "Submission.f036cc6b1f_pic_psp_sign_transversal": "6c0773c55ed1985e2f53b561a968cb57b2609aaca03b45ae33e947a892802dab",
+      "f036cc6b1f_pic_mec_pointwise_sign_partition": "96778e689c527f17125707b76b5bc31644f3afae222ef0da856448309c256fe8",
+      "Submission.f036cc6b1f_pc_hi_effective_domain_lift": "a8b7d0edea391c5ce6d51c4ed851847ea9c46b53d133f9c217a592758dbd21b3",
+      "Submission.f036cc6b1f_pc_hi_gpt_bezout_lift": "f0505b112b55e2bbadb369a54a5587d9ddae7cd2f5d923891e920a20dd1e3561",
+      "Submission.f036cc6b1f_pc_hi_rational_slash": "a3d603aa96a7a4e1c189c9fae2719c7fafb9b36c45044c0231950cfde230182d",
+      "Submission.f036cc6b1f_tdi_planar_exp_integrable_fd": "7ed55c5a8ef20259f747b93aa7d166b8e30d938cbfbdf97b2234d968414e8465",
+      "f036cc6b1f_pc_ed_aoi_null_orbit": "4c99f0db57cee5ada772ef484105837aa0e8848b38a175b6b986787b1c2a330e",
+      "Submission.f036cc6b1f_pc_hi_gpt_unique_projective_index": "1d08ff8f89dbad42386460f8b75afbd7b9d42543370018097f722837ad6142d1",
+      "f036cc6b1f_hecke_commute": "c3065d4eaf1ca3f1dbc55836d2aac678b09a7f144f998639d0fa482c2458ac59",
+      "Submission.f036cc6b1f_pic_mec_invariant_conull_core": "70093c06cd1757c14f6c48469f707caa61b1bf312d569e0931101a1e681134ad",
+      "f036cc6b1f_pc_ed_transversal_unique": "923ec7be4a3e61cd64e451661a6ca82148f9f45d0815345103a7eb0c3bbaf505",
+      "f036cc6b1f_pc_hi_good_prime_transversal": "baaa2a53df25fd0236e013dff2a5e9e3e75313b37fed5137d8cc0c1bbec30d25",
+      "Submission.f036cc6b1f_pc_hi_finite_trace_unfolding": "936a01f3268bd71faeda8a581f7d03f6ee88cf411639b9640be6309e8db72f8d",
+      "Submission.f036cc6b1f_tdi_petersson_integrable_of_exp_product_bound": "a7947fee839b1721baa758d1fe705ec5cbefa363466309213e379b2335211a6f",
+      "f036cc6b1f_pc_ed_aoi_boundary_null": "4d16cd8059ac8bda1b820f320566e8a52fce85298bd2fdbeefcfded36def4fc7",
+      "f036cc6b1f_pc_ed_ae_orbit_interior": "c97ae20d4f36e0e36a3441f75a3bfa2d3b7d5036ed13069d27b4591f5a974d5a",
+      "f036cc6b1f_pic_dt_measurable_equidecomposition": "c678484253ec3fb686168b25bd25e0fe8d4314416ad2c060ac4f9b2d42064301",
+      "f036cc6b1f_pic_translated_integrable": "06f06e2bb52c5d67f7bcfb16e3d4327999aa747c12e45f04103c4e2bd8db7c7c",
+      "f036cc6b1f_fd_norm_bound": "5ae176809b1f1af6b3ec1e9078f9e3620d6f63ee064ad49ca0f950d60a592cd2",
+      "f036cc6b1f_pic_domain_transfer": "bd985e0cbfd58eab84714cdbefa24a966335e5f3e608d721339fa4d8f77caf74",
+      "f036cc6b1f_fd_sturm": "e118afac4c925afc7c39069952f0cf6a3b82eef7bb48cebbca372543847e35d3",
+      "f036cc6b1f_pc_effective_domain": "fb388c7541cc5d19b1bdf05d8e8b52a8b56177a99ee0e16f872b1758507a74e8"
+    },
+    "submission_before_sha256": "c8d01091ea1363dce60b6dca5c9286222760fb70c109874b1cea8737da901b2d",
+    "submission_after_sha256": "c1779fcee3cb5f121895b2c42fb39b0dcfc7093fe50d08eb8faebd33e6b49e8d",
+    "protected_artifact_sha256": {
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/problem.md": "0929eb9ca2ad7ea30f1aafc2c1446aaf06dcdc301374ffe2ca7f4b56816d2cc8",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json": "509f4932b6d1c571a2a1434f97319ae47791212dabf986cc6faad0e84a6d9346",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1/parent-supplied-natural-proof.json": "18554358d88f090ad4149449beadb44d36dc7bc7c16988ffa1cd15aaf8c2dd1b",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1/decomposition-v1.json": "56d014a95d2ae1bfafa18a227fe0d85a6b7ea4cb332f5fe02d864473ce391ad2",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1/parent-supplied-natural-proof.md": "ae17e40344b334b54e8d86064e175d79453c38f702f4ef329e214cc62c66b17f",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1/decomposition-v2.json": "40d33b471f237d6780239b870ca96417919024c13af6fa8321373d8762dfbfef",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1/rlcr-plan-v1.md": "a2aae2b0d46b1cfb6ca128cd8f0d8d0d3784a0107c48cc15a05a0231de6fa5f0",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1/lean-audit-v1.json": "1b964be7444953c436fec40b37f2a9f170263b13ff1b9438fcd914c039cf5769",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1/decomposition-audit-v2.json": "fe65bdd3fc7a59dd27a520fc3fc3c38d77398baa4be31c53ae9ec0fa75a2e720",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1/parent-supplied-plan.md": "bc9d49b01cafc73379dbc1e1b8405138ad423b365fa4ae8d15d649f9b0ca9acb",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1/parent-child-handoff.json": "8927b87780206981f976825813d9933628494ad3d3fe38a065450e684e164550",
+      "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/nodes/root-petersson-core-good-hecke-a1-effective-domain-a1/decomposition-audit-v1.json": "5d50ca521d5b647b1086d9f7c50d2bbe070254f99c8c81c65cbca503abb45f6e"
+    },
+    "contract_sha256": "365510742cf45daae091fcbb675dc22f4df855f4f5e522aa065b65339f379bbe",
+    "operator_policy_sha256": "96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96",
+    "reviewed_documentation_unchanged": {
+      "path": "proofs/fermat-p01/measurable-null-orbit-avoidance.md",
+      "sha256": "17356dd8dabdc8bb95c7f93b8ebd44e8a4491e861e051edbcca275aa42abeeec"
+    },
+    "verification_requirement": "Run the exact configured comparator on this committed tree and review the bound Git identity, clean pinned dependencies, exact type, kernel, transitive axioms and frozen_header_repair policy/lines/reversible hashes/Lean target-absence probe. Preservation checks alone are not proof acceptance."
+  },
+  "reference_use": [
+    {
+      "source": "local-project",
+      "manifest": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+      "mode": "local-project",
+      "project_commit": "61b5f85556ac71631ccad822e0694511234f7132",
+      "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "queries": [
+        {
+          "query": "f036cc6b1f_pc_ed_(aoi_null_orbit|transversal_unique|ae_orbit_interior)",
+          "scopes": [
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project",
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib"
+          ],
+          "finding": "No matches in either scope (separate rg exit codes 1). These accepted helpers belong to later reviewed histories."
+        },
+        {
+          "query": "eq_one_or_neg_one_of_mem_fdo_mem_fd|exists_smul_mem_fd|def fd|def fdo|isClosed_fd",
+          "scope": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/Modular.lean",
+          "finding": "Definitions fd/fdo at lines 367/371, orbit covering at 426, interior uniqueness modulo sign at 778, and closedness at 812. Inspected the uniqueness declaration and its proof at 776-786; it is the existing library interface used by the retained accepted transversal proof."
+        }
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/Modular.lean"
+      ],
+      "compatibility": "Both snapshot Git HEADs match the manifest and have clean tracked files. lakefile.lean pins the same mathlib commit; lean-toolchain pins Lean 4.33.1. No new reference proof was copied. The configured comparator must establish exact type, kernel and transitive-axiom acceptance for the committed integrated tree."
+    }
+  ]
+}
