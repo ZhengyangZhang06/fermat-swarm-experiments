@@ -606,3 +606,59 @@ theorem Submission.p09_af497904fe_ftl_compatible_automorphisms_glue :
     change t ((algebraMap ℚ (F 0) r : F 0) : AlgebraicClosure ℚ) = _
     rw [ht, (g 0).commutes]
     rfl
+
+
+theorem Submission.p09_af497904fe_cs_valuation_product_separation :
+    ∀ {K : Type} [Field K] (n : ℕ) (β : Fin n → K) (D : ℤ),
+      (∀ i : Fin n, IsIntegral ℤ (β i)) →
+      (D : K) = (Finset.univ.filter (fun ij : Fin n × Fin n => ij.1 < ij.2)).prod
+        (fun ij => (β ij.1 - β ij.2) ^ 2) →
+      ∀ ℓ : ℕ, ℓ.Prime → ¬ ℓ ∣ D.natAbs →
+      ∀ V : ValuationSubring K, V.LiesOverPrime ℓ →
+        (∀ i : Fin n, β i ∈ V) ∧
+        ∀ i j : Fin n, β i - β j ∈ V.nonunits → β i = β j := by
+  classical
+  intro K _ n β D hβ hprod ℓ hℓ hℓD V hV
+  have hmem (i : Fin n) : β i ∈ V := by
+    obtain ⟨x, hx⟩ := IsIntegrallyClosed.algebraMap_eq_of_integral
+      ((hβ i).tower_top : IsIntegral V (β i))
+    exact hx ▸ x.property
+  let b (i : Fin n) : V := ⟨β i, hmem i⟩
+  have hℓV : (ℓ : V) ∈ maximalIdeal V :=
+    ValuationSubring.coe_mem_nonunits_iff.mp (by
+      simpa [ValuationSubring.LiesOverPrime] using hV)
+  have hcop : IsCoprime D (ℓ : ℤ) := by
+    apply Int.isCoprime_iff_gcd_eq_one.mpr
+    simpa only [Int.gcd_def, Int.natAbs_natCast] using
+      ((hℓ.coprime_iff_not_dvd.mpr hℓD).symm).gcd_eq_one
+  obtain ⟨u, v, huv⟩ := hcop
+  have hD : (D : V) ∉ maximalIdeal V := by
+    intro hD
+    have hcast : (u : V) * (D : V) + (v : V) * (ℓ : V) = 1 := by
+      simpa using congrArg (Int.castRingHom V) huv
+    have hone : (1 : V) ∈ maximalIdeal V := by
+      rw [← hcast]
+      exact (maximalIdeal V).add_mem
+        ((maximalIdeal V).mul_mem_left _ hD) ((maximalIdeal V).mul_mem_left _ hℓV)
+    exact (maximalIdeal.isMaximal V).ne_top (Ideal.eq_top_of_isUnit_mem _ hone isUnit_one)
+  have hprodV : (D : V) =
+      (Finset.univ.filter (fun ij : Fin n × Fin n => ij.1 < ij.2)).prod
+        (fun ij => (b ij.1 - b ij.2) ^ 2) := by
+    apply Subtype.ext
+    change V.subtype (D : V) = V.subtype _
+    simpa [b] using hprod
+  have hsep (i j : Fin n) (hij : i < j) : β i - β j ∉ V.nonunits := by
+    intro hdiff
+    have hdiffV : b i - b j ∈ maximalIdeal V :=
+      ValuationSubring.coe_mem_nonunits_iff.mp hdiff
+    apply hD
+    rw [hprodV]
+    apply (maximalIdeal V).prod_mem (i := (i, j)) (by simp only [Finset.mem_filter,
+      Finset.mem_univ, true_and, hij])
+    simpa only [pow_two] using (maximalIdeal V).mul_mem_left (b i - b j) hdiffV
+  refine ⟨hmem, ?_⟩
+  intro i j hdiff
+  rcases lt_trichotomy i j with hij | hij | hij
+  · exact (hsep i j hij hdiff).elim
+  · exact congrArg β hij
+  · exact (hsep j i hij (by simpa only [neg_sub] using V.nonunits.neg_mem hdiff)).elim
