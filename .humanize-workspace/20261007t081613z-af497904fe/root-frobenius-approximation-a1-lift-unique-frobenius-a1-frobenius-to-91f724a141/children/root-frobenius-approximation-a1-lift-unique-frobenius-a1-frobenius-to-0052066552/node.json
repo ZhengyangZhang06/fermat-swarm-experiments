@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.frobenius_tower_limit-a1.frobenius_valuation_union-a1.frobenius_from_exhaustive_restrictions-a1",
+  "parent_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.frobenius_tower_limit-a1.frobenius_valuation_union-a1",
+  "depth": 5,
+  "title": "Ascend Frobenius from exhaustive field restrictions",
+  "statement": "Let Ω = AlgebraicClosure ℚ and let F : ℕ → IntermediateField ℚ Ω be exhaustive: every element of Ω lies in some F_i. Let V_i be a valuation subring of F_i for every i and let P be a valuation subring of Ω. Assume that for every i and x ∈ F_i, the image of x in Ω belongs to P if and only if x ∈ V_i. Let ℓ ∈ ℕ and τ ∈ Autℚ(Ω). Suppose that for every i there exists g ∈ Autℚ(F_i) such that V_i.IsFrobeniusAt g ℓ and τ agrees with g after embedding F_i into Ω. Then P.IsFrobeniusAt τ ℓ.",
+  "lean_statement": "∀ (F : ℕ → IntermediateField ℚ (AlgebraicClosure ℚ)), (∀ x : AlgebraicClosure ℚ, ∃ i : ℕ, x ∈ F i) → ∀ (V : (i : ℕ) → ValuationSubring (F i)) (P : ValuationSubring (AlgebraicClosure ℚ)), (∀ (i : ℕ) (x : F i), (x : AlgebraicClosure ℚ) ∈ P ↔ x ∈ V i) → ∀ (ℓ : ℕ) (τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ), (∀ i : ℕ, ∃ g : F i ≃ₐ[ℚ] F i, (V i).IsFrobeniusAt g ℓ ∧ ∀ x : F i, τ (x : AlgebraicClosure ℚ) = ((g x : F i) : AlgebraicClosure ℚ)) → P.IsFrobeniusAt τ ℓ",
+  "lean_name": "p09_af497904fe_fvu_frobenius_from_exhaustive_restrictions",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-0052066552-a1"
+}

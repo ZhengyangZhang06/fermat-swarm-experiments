@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.frobenius_tower_limit-a1.frobenius_valuation_union-a1.compatible_valuation_gluing-a1",
+  "parent_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.frobenius_tower_limit-a1.frobenius_valuation_union-a1",
+  "depth": 5,
+  "title": "Gluing compatible valuation rings",
+  "statement": "Let Ω = AlgebraicClosure ℚ, let F : ℕ → IntermediateField ℚ Ω be increasing and exhaustive, let V_i be a valuation subring of F_i for every i, and let ℓ ∈ ℕ. Assume V_i.LiesOverPrime ℓ for every i. Assume also that for all i ≤ j and x ∈ F_i, the image of x in F_j belongs to V_j if and only if x ∈ V_i. Then there exists a valuation subring P of Ω such that P.LiesOverPrime ℓ and, for every i and x ∈ F_i, the image of x in Ω belongs to P if and only if x ∈ V_i.",
+  "lean_statement": "∀ (F : ℕ → IntermediateField ℚ (AlgebraicClosure ℚ)) (hmono : Monotone F), (∀ x : AlgebraicClosure ℚ, ∃ i : ℕ, x ∈ F i) → ∀ (V : (i : ℕ) → ValuationSubring (F i)) (ℓ : ℕ), (∀ i : ℕ, (V i).LiesOverPrime ℓ) → (∀ (i j : ℕ) (hij : i ≤ j) (x : F i), IntermediateField.inclusion (hmono hij) x ∈ V j ↔ x ∈ V i) → ∃ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ ∧ (∀ (i : ℕ) (x : F i), (x : AlgebraicClosure ℚ) ∈ P ↔ x ∈ V i)",
+  "lean_name": "p09_af497904fe_fvu_compatible_valuation_gluing",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-8be74f8a2a-a1"
+}

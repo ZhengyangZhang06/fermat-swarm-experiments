@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081613Z-af497904fe",
+  "parent_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.frobenius_tower_limit-a1.frobenius_valuation_union-a1",
+  "dispatch_branch": "proof-workspace/fermat-p09/20261007t081613z-af497904fe/dispatch/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-91f724a141",
+  "source_commit": "82caffebb07ba5932c3421ca16deae4e3e65d376",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.frobenius_tower_limit-a1.frobenius_valuation_union-a1.compatible_valuation_gluing-a1",
+      "key": "compatible_valuation_gluing",
+      "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-8be74f8a2a-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-91f724a141/children/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-8be74f8a2a",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "IsFrobeniusAt|LiesOverPrime|mem_nonunits_iff_or|decompositionSubgroup|residueFieldAut",
+              "nonunits_comap|comap_nonunits|mem_nonunits.*comap|exists.*ValuationSubring|iUnion|directed|residue_surjective|residue.*smul|smul.*residue|residue_eq_zero_iff",
+              "IsFrobeniusAt.*(iUnion|iSup|union)|(?:iUnion|iSup|union).*IsFrobeniusAt|nonunits_comap|comap_nonunits"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/LocalRing/ResidueField/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/fvu-decomposition-rnthom8q/final-report.json"
+            ],
+            "conclusion": "The snapshot pins project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. LiesOverPrime is nonunit membership; IsFrobeniusAt is decomposition-subgroup membership together with the residue power equation. The inspected nonunit criterion, maximal-ideal identification, residue surjectivity, and residue_smul support the proofs below. The final targeted search found no matching Frobenius-union or nonunit-comap lemma. Both exact child types elaborated after import Submission at frozen proof-base commit 97f32c2abc9205b480ae0c2cb521b382a16c3df0; inclusion and residue-action instance checks passed. Type and cited-library axiom checks found only propext, Classical.choice, and Quot.sound. The diagnostic report records clean pinned dependencies, authorized header omissions, their reversibility, and all eight target-absence checks. It separately records concurrent advancement of the working branch. These are interface diagnostics, not comparator acceptance."
+          }
+        ],
+        "parent_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.frobenius_tower_limit-a1.frobenius_valuation_union-a1",
+        "child_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.frobenius_tower_limit-a1.frobenius_valuation_union-a1.compatible_valuation_gluing-a1",
+        "subproblem": {
+          "key": "compatible_valuation_gluing",
+          "title": "Gluing compatible valuation rings",
+          "statement": "Let Ω = AlgebraicClosure ℚ, let F : ℕ → IntermediateField ℚ Ω be increasing and exhaustive, let V_i be a valuation subring of F_i for every i, and let ℓ ∈ ℕ. Assume V_i.LiesOverPrime ℓ for every i. Assume also that for all i ≤ j and x ∈ F_i, the image of x in F_j belongs to V_j if and only if x ∈ V_i. Then there exists a valuation subring P of Ω such that P.LiesOverPrime ℓ and, for every i and x ∈ F_i, the image of x in Ω belongs to P if and only if x ∈ V_i.",
+          "lean_statement": "∀ (F : ℕ → IntermediateField ℚ (AlgebraicClosure ℚ)) (hmono : Monotone F), (∀ x : AlgebraicClosure ℚ, ∃ i : ℕ, x ∈ F i) → ∀ (V : (i : ℕ) → ValuationSubring (F i)) (ℓ : ℕ), (∀ i : ℕ, (V i).LiesOverPrime ℓ) → (∀ (i j : ℕ) (hij : i ≤ j) (x : F i), IntermediateField.inclusion (hmono hij) x ∈ V j ↔ x ∈ V i) → ∃ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ ∧ (∀ (i : ℕ) (x : F i), (x : AlgebraicClosure ℚ) ∈ P ↔ x ∈ V i)",
+          "lean_name": "p09_af497904fe_fvu_compatible_valuation_gluing",
+          "depends_on": [],
+          "natural_proof": "1. Write Ω = AlgebraicClosure ℚ and let ι_i : F_i → Ω be the inclusion. For each i put U_i = {ι_i(x) | x ∈ V_i}, and put P = ⋃_i U_i. Each ι_i is an injective field homomorphism. For i ≤ j, exact contraction implies that the inclusion F_i → F_j sends every x ∈ V_i into V_j. Its composite with ι_j is ι_i, so U_i ⊆ U_j.\n2. Both 0 and 1 belong to U_0. If z = ι_i(x) with x ∈ V_i, then −z = ι_i(−x) belongs to U_i. If z ∈ U_i and w ∈ U_j, set k = max(i,j). By step 1 both elements belong to U_k. Since U_k is the image of the subring V_k under a ring homomorphism, z+w and zw belong to U_k. Thus P is a subring of Ω.\n3. For any z ∈ Ω, exhaustion gives i with z ∈ F_i. Regard z as x ∈ F_i. The valuation-ring property gives x ∈ V_i or x⁻¹ ∈ V_i. The inclusion preserves inverses, so z ∈ P or z⁻¹ ∈ P. Together with step 2 this makes P a valuation subring of Ω.\n4. Fix i and x ∈ F_i. If x ∈ V_i, then ι_i(x) ∈ U_i ⊆ P. Conversely, suppose ι_i(x) ∈ P. Choose j and y ∈ V_j with ι_j(y) = ι_i(x), and put k = max(i,j). Let x_k and y_k be the images of x and y in F_k. Their images in Ω are equal, so injectivity of ι_k gives x_k = y_k. Exact contraction for j ≤ k implies y_k ∈ V_k, hence x_k ∈ V_k. Exact contraction for i ≤ k then yields x ∈ V_i. Thus ι_i(x) ∈ P if and only if x ∈ V_i.\n5. For every i and x ∈ F_i, ValuationSubring.mem_nonunits_iff_or gives ι_i(x) ∈ P.nonunits if and only if ι_i(x) = 0 or ι_i(x)⁻¹ ∉ P. Injectivity identifies the zero condition with x = 0. Preservation of inverses and step 4 identify the other condition with x⁻¹ ∉ V_i. Applying the same nonunit criterion in F_i proves ι_i(x) ∈ P.nonunits if and only if x ∈ V_i.nonunits.\n6. The hypothesis V_0.LiesOverPrime ℓ means (ℓ : F_0) ∈ V_0.nonunits. Step 5 sends this to (ℓ : Ω) ∈ P.nonunits because ι_0 preserves natural-number casts. By definition this is P.LiesOverPrime ℓ. This assertion and the equivalence in step 4 are precisely the required conjunction.",
+          "proof_key_steps": [
+            "Form the increasing images of the compatible valuation rings.",
+            "Show their union is a subring and satisfies the valuation dichotomy by exhaustion.",
+            "Use a common larger stage and injectivity to prove exact restriction.",
+            "Transfer the nonunit criterion through the inclusions.",
+            "Use the prime-below hypothesis at stage zero."
+          ]
+        },
+        "audit": {
+          "key": "compatible_valuation_gluing",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly matches the prose and includes every hypothesis. Its bare name is unreserved, and its type elaborates without an implementation. All six proof steps are sound: contraction makes the images increasing; common stages establish subring closure; exhaustion supplies the valuation dichotomy; injectivity and contraction establish exact restriction; the inverse/zero criterion transfers nonunits; stage zero supplies LiesOverPrime. No primality assumption is needed. The proof is complete, independently formalizable, and invokes neither child nor parent."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-8be74f8a2a/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-8be74f8a2a/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-8be74f8a2a/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.frobenius_tower_limit-a1.frobenius_valuation_union-a1.frobenius_from_exhaustive_restrictions-a1",
+      "key": "frobenius_from_exhaustive_restrictions",
+      "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-0052066552-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-91f724a141/children/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-0052066552",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "IsFrobeniusAt|LiesOverPrime|mem_nonunits_iff_or|decompositionSubgroup|residueFieldAut",
+              "nonunits_comap|comap_nonunits|mem_nonunits.*comap|exists.*ValuationSubring|iUnion|directed|residue_surjective|residue.*smul|smul.*residue|residue_eq_zero_iff",
+              "IsFrobeniusAt.*(iUnion|iSup|union)|(?:iUnion|iSup|union).*IsFrobeniusAt|nonunits_comap|comap_nonunits"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/LocalRing/ResidueField/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/fvu-decomposition-rnthom8q/final-report.json"
+            ],
+            "conclusion": "The snapshot pins project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. LiesOverPrime is nonunit membership; IsFrobeniusAt is decomposition-subgroup membership together with the residue power equation. The inspected nonunit criterion, maximal-ideal identification, residue surjectivity, and residue_smul support the proofs below. The final targeted search found no matching Frobenius-union or nonunit-comap lemma. Both exact child types elaborated after import Submission at frozen proof-base commit 97f32c2abc9205b480ae0c2cb521b382a16c3df0; inclusion and residue-action instance checks passed. Type and cited-library axiom checks found only propext, Classical.choice, and Quot.sound. The diagnostic report records clean pinned dependencies, authorized header omissions, their reversibility, and all eight target-absence checks. It separately records concurrent advancement of the working branch. These are interface diagnostics, not comparator acceptance."
+          }
+        ],
+        "parent_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.frobenius_tower_limit-a1.frobenius_valuation_union-a1",
+        "child_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.frobenius_tower_limit-a1.frobenius_valuation_union-a1.frobenius_from_exhaustive_restrictions-a1",
+        "subproblem": {
+          "key": "frobenius_from_exhaustive_restrictions",
+          "title": "Ascend Frobenius from exhaustive field restrictions",
+          "statement": "Let Ω = AlgebraicClosure ℚ and let F : ℕ → IntermediateField ℚ Ω be exhaustive: every element of Ω lies in some F_i. Let V_i be a valuation subring of F_i for every i and let P be a valuation subring of Ω. Assume that for every i and x ∈ F_i, the image of x in Ω belongs to P if and only if x ∈ V_i. Let ℓ ∈ ℕ and τ ∈ Autℚ(Ω). Suppose that for every i there exists g ∈ Autℚ(F_i) such that V_i.IsFrobeniusAt g ℓ and τ agrees with g after embedding F_i into Ω. Then P.IsFrobeniusAt τ ℓ.",
+          "lean_statement": "∀ (F : ℕ → IntermediateField ℚ (AlgebraicClosure ℚ)), (∀ x : AlgebraicClosure ℚ, ∃ i : ℕ, x ∈ F i) → ∀ (V : (i : ℕ) → ValuationSubring (F i)) (P : ValuationSubring (AlgebraicClosure ℚ)), (∀ (i : ℕ) (x : F i), (x : AlgebraicClosure ℚ) ∈ P ↔ x ∈ V i) → ∀ (ℓ : ℕ) (τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ), (∀ i : ℕ, ∃ g : F i ≃ₐ[ℚ] F i, (V i).IsFrobeniusAt g ℓ ∧ ∀ x : F i, τ (x : AlgebraicClosure ℚ) = ((g x : F i) : AlgebraicClosure ℚ)) → P.IsFrobeniusAt τ ℓ",
+          "lean_name": "p09_af497904fe_fvu_frobenius_from_exhaustive_restrictions",
+          "depends_on": [],
+          "natural_proof": "1. Write Ω = AlgebraicClosure ℚ and let ι_i : F_i → Ω be the inclusion. For each i choose g_i from the hypothesis. By the definition of IsFrobeniusAt, g_i belongs to the decomposition subgroup of V_i, so g_i maps V_i onto V_i. Consequently both g_i and g_i⁻¹ send elements of V_i into V_i.\n2. For x ∈ F_i, agreement applied to g_i⁻¹(x) gives τ(ι_i(g_i⁻¹(x))) = ι_i(x). Applying τ⁻¹ proves τ⁻¹(ι_i(x)) = ι_i(g_i⁻¹(x)). Thus the given agreement also holds for the inverse automorphisms.\n3. If z ∈ P, exhaustion gives i and x ∈ F_i with ι_i(x) = z. Exact restriction gives x ∈ V_i. Step 1 and agreement imply τ(z) ∈ P. Steps 1 and 2 imply τ⁻¹(z) ∈ P as well. The first inclusion gives τ(P) ⊆ P; for z ∈ P the second inclusion gives z = τ(τ⁻¹(z)) ∈ τ(P). Hence τ(P) = P, which means τ belongs to P.decompositionSubgroup ℚ. Denote this membership proof by hτ.\n4. Exact restriction also identifies nonunits. Indeed, for x ∈ F_i, the criterion ValuationSubring.mem_nonunits_iff_or says that ι_i(x) ∈ P.nonunits if and only if ι_i(x) = 0 or ι_i(x)⁻¹ ∉ P. Injectivity and inverse preservation of ι_i, followed by exact restriction for x⁻¹, turn this into x = 0 or x⁻¹ ∉ V_i. Applying the criterion in V_i shows that this is equivalent to x ∈ V_i.nonunits.\n5. Fix i and x ∈ V_i, with x viewed as an element of F_i when evaluating g_i. Let q_i be the residue homomorphism V_i → IsLocalRing.ResidueField V_i. The decomposition-group action on V_i is the restriction of g_i, and IsLocalRing.ResidueField.residue_smul identifies its residue action with q_i applied after this restriction. Thus the Frobenius hypothesis gives q_i(g_i(x)) = q_i(x)^ℓ = q_i(x^ℓ). Both g_i(x) and x^ℓ belong to V_i. Their difference d = g_i(x) − x^ℓ lies in V_i and satisfies q_i(d) = 0. The kernel of q_i is the maximal ideal, and ValuationSubring.coe_mem_nonunits_iff identifies its ambient image with V_i.nonunits. Hence d ∈ V_i.nonunits as an element of F_i.\n6. For z ∈ P choose i and x ∈ V_i with ι_i(x) = z, using exhaustion and exact restriction as in step 3. Apply step 5 and then step 4 to obtain ι_i(g_i(x) − x^ℓ) ∈ P.nonunits. Since ι_i preserves subtraction and powers and τ(ι_i(x)) = ι_i(g_i(x)), this element equals τ(z) − z^ℓ. Consequently τ(z) − z^ℓ ∈ P.nonunits for every z ∈ P.\n7. Let q_P : P → IsLocalRing.ResidueField P be the residue map. It is surjective, so any residue class a can be written q_P(z) for z ∈ P. By step 3, τ(z) defines an element of P. Step 6 and ValuationSubring.coe_mem_nonunits_iff put τ(z) − z^ℓ in the maximal ideal of P. Applying q_P gives q_P(τ(z)) = q_P(z)^ℓ. Compatibility of the residue map with the decomposition-group action identifies the left side with (τ,hτ) acting on a. Therefore (τ,hτ) acts by a ↦ a^ℓ on every residue class. Together with hτ this is exactly P.IsFrobeniusAt τ ℓ.",
+          "proof_key_steps": [
+            "Choose the stage Frobenius automorphisms and establish inverse agreement.",
+            "Use exhaustion and exact restriction to show τ stabilizes P.",
+            "Identify nonunits under each field inclusion.",
+            "Translate each stage residue equation into a nonunit difference.",
+            "Transfer that difference to P and descend using residue-map surjectivity."
+          ]
+        },
+        "audit": {
+          "key": "frobenius_from_exhaustive_restrictions",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The one-line proposition exactly matches the exhaustive-family statement; monotonicity and LiesOverPrime are unnecessary. Its bare name is unreserved, and its type elaborates independently. All seven steps are justified: stage stabilization gives preservation by each automorphism and inverse; agreement transfers to inverses; exhaustion proves stabilization of P; exact restriction transfers nonunits; the stage residue equation gives a nonunit difference; inclusion transports that difference; residue surjectivity proves the required power action. The action instances were independently checked. This proof uses only its own hypotheses and library facts, so its empty dependency list is correct."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-0052066552/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-0052066552/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-0052066552/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-91f724a141/task.md": "d1097f34a9dcda1e8cd40a21e7f0ee81cabd7d3772d3eff410ef433f9adf18c0",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-91f724a141/problem.md": "0500482283c7cf686c90505c2e668aae51a3829d556ca24b402d320ba3f840fd",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-91f724a141/problem.json": "0a505890f14c1e4a40b2d68435dac1a45d795b4cadd800289fbb395cab0114df",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-91f724a141/reference-manifest.json": "024395eb16744a67c062d4787284abe3f4cdebfec9609217ede4bc773b8bcef0",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-91f724a141/decomposition.json": "f894df6660ebfb0dfd8d4e012798ec63e4b05c18b24d1d7b2545386435304ada",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-91f724a141/decomposition-audit.json": "b315fa578132f81dc1ea510da23ee12a622299a51786bd268be6eb046ee934fc",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-91f724a141/controller-contract.json": "15abb5b197a06e4feb0c79eda2d53e3a24a12bfa8f753bace11ccc2ff0aaee11",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-91f724a141/children/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-8be74f8a2a/parent-child-handoff.json": "df1b5cca4be015696cefca46573d3529de1f6729d5eecf9092c403f5dda637e1",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-91f724a141/children/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-8be74f8a2a/parent-supplied-plan.md": "5419ef07164069c80e9946fefbec4440a4c61490ae3a4ae618dd54f8fd37bf03",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-91f724a141/children/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-8be74f8a2a/parent-supplied-natural-proof.md": "02e7534d7dd1ce551f9c5309caa60984ad37178a27ad9e5da8f236c21465eaf0",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-91f724a141/children/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-8be74f8a2a/parent-supplied-natural-proof.json": "c996acd0242e727a29c35c8a3980f08c602d0b89d1866b6a540584a330ecaf27",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-91f724a141/children/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-8be74f8a2a/node.json": "230d3ae0bded4706c0e5fb5f0b46223d6c7087b0ad3a5330676c3d6234c04e14",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-91f724a141/children/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-0052066552/parent-child-handoff.json": "3bc0e87a065d06128c435acea5f4cbb35d6869f3fe776870e29d170bb3318879",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-91f724a141/children/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-0052066552/parent-supplied-plan.md": "c8d0d1de39f472b66d224b2f2842224c6a8e4318224fcc5a62b53182faf1b760",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-91f724a141/children/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-0052066552/parent-supplied-natural-proof.md": "b38fb0aadb73fbe1c83326580870ec630a09d59364db707e36aa17dc68f06fde",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-91f724a141/children/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-0052066552/parent-supplied-natural-proof.json": "c5171d12aecfdcaf794ebac0c736b075537b95612b5d45bdf64da8d6622092f8",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-91f724a141/children/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-0052066552/node.json": "b4651c8dd1e126c9c28d6b480d9615cfb8e907f5e9e51d26008f0f98babe929b"
+  }
+}

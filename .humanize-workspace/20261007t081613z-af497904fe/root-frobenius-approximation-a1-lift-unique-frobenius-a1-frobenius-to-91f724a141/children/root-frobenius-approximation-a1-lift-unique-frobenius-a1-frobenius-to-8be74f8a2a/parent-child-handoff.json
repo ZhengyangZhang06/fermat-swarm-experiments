@@ -1,0 +1,50 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "IsFrobeniusAt|LiesOverPrime|mem_nonunits_iff_or|decompositionSubgroup|residueFieldAut",
+        "nonunits_comap|comap_nonunits|mem_nonunits.*comap|exists.*ValuationSubring|iUnion|directed|residue_surjective|residue.*smul|smul.*residue|residue_eq_zero_iff",
+        "IsFrobeniusAt.*(iUnion|iSup|union)|(?:iUnion|iSup|union).*IsFrobeniusAt|nonunits_comap|comap_nonunits"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/LocalRing/ResidueField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/fvu-decomposition-rnthom8q/final-report.json"
+      ],
+      "conclusion": "The snapshot pins project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. LiesOverPrime is nonunit membership; IsFrobeniusAt is decomposition-subgroup membership together with the residue power equation. The inspected nonunit criterion, maximal-ideal identification, residue surjectivity, and residue_smul support the proofs below. The final targeted search found no matching Frobenius-union or nonunit-comap lemma. Both exact child types elaborated after import Submission at frozen proof-base commit 97f32c2abc9205b480ae0c2cb521b382a16c3df0; inclusion and residue-action instance checks passed. Type and cited-library axiom checks found only propext, Classical.choice, and Quot.sound. The diagnostic report records clean pinned dependencies, authorized header omissions, their reversibility, and all eight target-absence checks. It separately records concurrent advancement of the working branch. These are interface diagnostics, not comparator acceptance."
+    }
+  ],
+  "parent_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.frobenius_tower_limit-a1.frobenius_valuation_union-a1",
+  "child_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.frobenius_tower_limit-a1.frobenius_valuation_union-a1.compatible_valuation_gluing-a1",
+  "subproblem": {
+    "key": "compatible_valuation_gluing",
+    "title": "Gluing compatible valuation rings",
+    "statement": "Let Ω = AlgebraicClosure ℚ, let F : ℕ → IntermediateField ℚ Ω be increasing and exhaustive, let V_i be a valuation subring of F_i for every i, and let ℓ ∈ ℕ. Assume V_i.LiesOverPrime ℓ for every i. Assume also that for all i ≤ j and x ∈ F_i, the image of x in F_j belongs to V_j if and only if x ∈ V_i. Then there exists a valuation subring P of Ω such that P.LiesOverPrime ℓ and, for every i and x ∈ F_i, the image of x in Ω belongs to P if and only if x ∈ V_i.",
+    "lean_statement": "∀ (F : ℕ → IntermediateField ℚ (AlgebraicClosure ℚ)) (hmono : Monotone F), (∀ x : AlgebraicClosure ℚ, ∃ i : ℕ, x ∈ F i) → ∀ (V : (i : ℕ) → ValuationSubring (F i)) (ℓ : ℕ), (∀ i : ℕ, (V i).LiesOverPrime ℓ) → (∀ (i j : ℕ) (hij : i ≤ j) (x : F i), IntermediateField.inclusion (hmono hij) x ∈ V j ↔ x ∈ V i) → ∃ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ ∧ (∀ (i : ℕ) (x : F i), (x : AlgebraicClosure ℚ) ∈ P ↔ x ∈ V i)",
+    "lean_name": "p09_af497904fe_fvu_compatible_valuation_gluing",
+    "depends_on": [],
+    "natural_proof": "1. Write Ω = AlgebraicClosure ℚ and let ι_i : F_i → Ω be the inclusion. For each i put U_i = {ι_i(x) | x ∈ V_i}, and put P = ⋃_i U_i. Each ι_i is an injective field homomorphism. For i ≤ j, exact contraction implies that the inclusion F_i → F_j sends every x ∈ V_i into V_j. Its composite with ι_j is ι_i, so U_i ⊆ U_j.\n2. Both 0 and 1 belong to U_0. If z = ι_i(x) with x ∈ V_i, then −z = ι_i(−x) belongs to U_i. If z ∈ U_i and w ∈ U_j, set k = max(i,j). By step 1 both elements belong to U_k. Since U_k is the image of the subring V_k under a ring homomorphism, z+w and zw belong to U_k. Thus P is a subring of Ω.\n3. For any z ∈ Ω, exhaustion gives i with z ∈ F_i. Regard z as x ∈ F_i. The valuation-ring property gives x ∈ V_i or x⁻¹ ∈ V_i. The inclusion preserves inverses, so z ∈ P or z⁻¹ ∈ P. Together with step 2 this makes P a valuation subring of Ω.\n4. Fix i and x ∈ F_i. If x ∈ V_i, then ι_i(x) ∈ U_i ⊆ P. Conversely, suppose ι_i(x) ∈ P. Choose j and y ∈ V_j with ι_j(y) = ι_i(x), and put k = max(i,j). Let x_k and y_k be the images of x and y in F_k. Their images in Ω are equal, so injectivity of ι_k gives x_k = y_k. Exact contraction for j ≤ k implies y_k ∈ V_k, hence x_k ∈ V_k. Exact contraction for i ≤ k then yields x ∈ V_i. Thus ι_i(x) ∈ P if and only if x ∈ V_i.\n5. For every i and x ∈ F_i, ValuationSubring.mem_nonunits_iff_or gives ι_i(x) ∈ P.nonunits if and only if ι_i(x) = 0 or ι_i(x)⁻¹ ∉ P. Injectivity identifies the zero condition with x = 0. Preservation of inverses and step 4 identify the other condition with x⁻¹ ∉ V_i. Applying the same nonunit criterion in F_i proves ι_i(x) ∈ P.nonunits if and only if x ∈ V_i.nonunits.\n6. The hypothesis V_0.LiesOverPrime ℓ means (ℓ : F_0) ∈ V_0.nonunits. Step 5 sends this to (ℓ : Ω) ∈ P.nonunits because ι_0 preserves natural-number casts. By definition this is P.LiesOverPrime ℓ. This assertion and the equivalence in step 4 are precisely the required conjunction.",
+    "proof_key_steps": [
+      "Form the increasing images of the compatible valuation rings.",
+      "Show their union is a subring and satisfies the valuation dichotomy by exhaustion.",
+      "Use a common larger stage and injectivity to prove exact restriction.",
+      "Transfer the nonunit criterion through the inclusions.",
+      "Use the prime-below hypothesis at stage zero."
+    ]
+  },
+  "audit": {
+    "key": "compatible_valuation_gluing",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "The one-line proposition exactly matches the prose and includes every hypothesis. Its bare name is unreserved, and its type elaborates without an implementation. All six proof steps are sound: contraction makes the images increasing; common stages establish subring closure; exhaustion supplies the valuation dichotomy; injectivity and contraction establish exact restriction; the inverse/zero criterion transfers nonunits; stage zero supplies LiesOverPrime. No primality assumption is needed. The proof is complete, independently formalizable, and invokes neither child nor parent."
+  },
+  "resolved_dependencies": [],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-8be74f8a2a/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-8be74f8a2a/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-8be74f8a2a/parent-supplied-natural-proof.json"
+}

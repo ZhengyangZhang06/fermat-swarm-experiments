@@ -1,0 +1,44 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "IsFrobeniusAt.*(iUnion|iSup|union)|(iUnion|iSup|union).*IsFrobeniusAt|nonunits_comap|comap_nonunits",
+        "residue_surjective|residue_eq_zero_iff|residue_smul",
+        "decompositionSubgroup|smul_def|coe_smul|mem_decomposition",
+        "p09_af497904fe_fvu_compatible_valuation_gluing|p09_af497904fe_fvu_frobenius_from_exhaustive_restrictions"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/IntermediateField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/LocalRing/ResidueField/Basic.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/fvu-independent-audit-2gn33nuk/report.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/fvu-independent-audit-2gn33nuk/Types.lean.log"
+      ],
+      "conclusion": "Verified clean snapshot revisions: project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The definitions and nonunit, stabilizer, and residue lemmas support both proofs. The targeted search found no Frobenius-union or nonunit-comap match. Independent Lean checks passed for both exact propositions, inclusion and residue-action instances, name absence, and assembly of the exact parent from the two child contracts. Both names are unreserved in the current DAG. Checked type/library axioms contain only propext, Classical.choice, and Quot.sound. Independently verified the policy digest, exact omissions of lines 10–11, reversible original/build hashes, and absence of all eight targets under frozen imports. Protected files remained unchanged. The depth-4 split separates two genuine obligations with acyclic, correctly empty sibling dependencies. This accepts the decomposition and supplied prose proofs; eventual Lean solutions still require comparator acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "compatible_valuation_gluing",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose and includes every hypothesis. Its bare name is unreserved, and its type elaborates without an implementation. All six proof steps are sound: contraction makes the images increasing; common stages establish subring closure; exhaustion supplies the valuation dichotomy; injectivity and contraction establish exact restriction; the inverse/zero criterion transfers nonunits; stage zero supplies LiesOverPrime. No primality assumption is needed. The proof is complete, independently formalizable, and invokes neither child nor parent."
+    },
+    {
+      "key": "frobenius_from_exhaustive_restrictions",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the exhaustive-family statement; monotonicity and LiesOverPrime are unnecessary. Its bare name is unreserved, and its type elaborates independently. All seven steps are justified: stage stabilization gives preservation by each automorphism and inverse; agreement transfers to inverses; exhaustion proves stabilization of P; exact restriction transfers nonunits; the stage residue equation gives a nonunit difference; inclusion transports that difference; residue surjectivity proves the required power action. The action instances were independently checked. This proof uses only its own hypotheses and library facts, so its empty dependency list is correct."
+    }
+  ],
+  "required_changes": []
+}
