@@ -1650,6 +1650,24 @@ theorem Submission.p09_af497904fe_ce_inertia_ramification :
     htrivial]
   exact Subgroup.card_bot
 
+      _ = s.prod (fun b => Polynomial.X - Polynomial.C b) := hprod
+      _ = ∏ b : s, (Polynomial.X - Polynomial.C (b : E)) :=
+        (Finset.prod_coe_sort s (fun b => Polynomial.X - Polynomial.C b)).symm
+      _ = _ := (e.prod_comp (fun b : s => Polynomial.X - Polynomial.C (b : E))).symm
+  refine ⟨n, β, Subtype.val_injective.comp e.injective, ?_, ?_, hfac⟩
+  · intro i
+    refine ⟨minpoly ℤ α, minpoly.monic hα, ?_⟩
+    change Polynomial.eval₂ (Int.castRingHom E) (β i) (minpoly ℤ α) = 0
+    rw [Polynomial.eval₂_eq_eval_map, hfac, Polynomial.eval_prod]
+    apply Finset.prod_eq_zero (Finset.mem_univ i)
+    simp
+  · intro σ
+    have hzero : ((minpoly ℤ α).map (Int.castRingHom E)).eval (σ α) = 0 := by
+      rw [hmap, Polynomial.eval_map_algebraMap, Polynomial.aeval_algHom_apply,
+        minpoly.aeval, map_zero]
+    rw [hfac, Polynomial.eval_prod] at hzero
+    obtain ⟨i, _, hi⟩ := Finset.prod_eq_zero_iff.mp hzero
+    exact ⟨i, (sub_eq_zero.mp (by simpa using hi)).symm⟩
 theorem Submission.p09_af497904fe_irp_squared_vandermonde_symmetric :
     ∀ n : ℕ, MvPolynomial.IsSymmetric
       ((Finset.univ.filter (fun ij : Fin n × Fin n => ij.1 < ij.2)).prod
