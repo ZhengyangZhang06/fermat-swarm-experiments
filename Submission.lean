@@ -349,3 +349,38 @@ theorem Submission.p09_af497904fe_fcc_frobenius_roots_action :
   exact congrArg Subtype.val
     (Submission.p09_af497904fe_fcc_fra_residue_injective
       N ℓ hℓ hℓN P hP (g • z) (z ^ ℓ) hx hy hred)
+
+theorem Submission.p09_af497904fe_ce_fixed_field_generator :
+    ∀ (M : IntermediateField ℚ (AlgebraicClosure ℚ))
+      [FiniteDimensional ℚ M] [IsGalois ℚ M] (u : M ≃ₐ[ℚ] M) (ζ : M),
+      (∀ n : ℕ, (u ^ n) ζ = ζ → u ^ n = 1) →
+      ∃ (F : IntermediateField ℚ M) (h : M ≃ₐ[F] M),
+        IntermediateField.adjoin F ({ζ} : Set M) = ⊤ ∧ ∀ x : M, h x = u x := by
+  intro M _ _ u ζ hu
+  let F := IntermediateField.fixedField (Subgroup.zpowers u)
+  let h : M ≃ₐ[F] M :=
+    { u.toRingEquiv with
+      commutes' := fun x =>
+        (IntermediateField.mem_fixedField_iff _ _).mp x.property u (Subgroup.mem_zpowers u) }
+  let K := IntermediateField.adjoin F ({ζ} : Set M)
+  have hfix : (K.restrictScalars ℚ).fixingSubgroup = ⊥ := by
+    apply le_antisymm ?_ bot_le
+    intro σ hσ
+    rw [Subgroup.mem_bot]
+    have hσF : σ ∈ F.fixingSubgroup := by
+      rw [IntermediateField.mem_fixingSubgroup_iff] at hσ ⊢
+      intro x hx
+      exact hσ x (K.algebraMap_mem ⟨x, hx⟩)
+    have hσH : σ ∈ Subgroup.zpowers u := by
+      simpa only [F, IntermediateField.fixingSubgroup_fixedField] using hσF
+    obtain ⟨n, hn⟩ := (Submonoid.mem_powers_iff _ _).mp
+      (mem_powers_iff_mem_zpowers.mpr hσH)
+    have hσζ := (IntermediateField.mem_fixingSubgroup_iff _ _).mp hσ ζ
+      (IntermediateField.mem_adjoin_simple_self F ζ)
+    rw [← hn] at hσζ ⊢
+    exact hu n hσζ
+  refine ⟨F, h, ?_, fun _ => rfl⟩
+  apply (IntermediateField.restrictScalars_eq_top_iff (K := ℚ)).mp
+  change K.restrictScalars ℚ = ⊤
+  rw [← IsGalois.fixedField_fixingSubgroup (K.restrictScalars ℚ), hfix,
+    IntermediateField.fixedField_bot]
