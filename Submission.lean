@@ -2756,3 +2756,85 @@ theorem Submission.p09_af497904fe_ftl_frobenius_valuation_union :
   exact ⟨P, hPprime, hrestrict,
     Submission.p09_af497904fe_fvu_frobenius_from_exhaustive_restrictions
       F hexhaust V P hrestrict ℓ τ hfrob⟩
+
+
+theorem Submission.p09_af497904fe_luf_frobenius_tower_limit :
+    ∀ (F : ℕ → IntermediateField ℚ (AlgebraicClosure ℚ)) (hmono : Monotone F),
+      (∀ i : ℕ, FiniteDimensional ℚ (F i)) →
+      (∀ i : ℕ, IsGalois ℚ (F i)) →
+      (∀ x : AlgebraicClosure ℚ, ∃ i : ℕ, x ∈ F i) →
+      ∀ (V : (i : ℕ) → ValuationSubring (F i)) (ℓ : ℕ),
+      (∀ i : ℕ, (V i).LiesOverPrime ℓ) →
+      (∀ (i j : ℕ) (hij : i ≤ j) (x : F i),
+        IntermediateField.inclusion (hmono hij) x ∈ V j ↔ x ∈ V i) →
+      (∀ i : ℕ, ∃ g : F i ≃ₐ[ℚ] F i, (V i).IsFrobeniusAt g ℓ) →
+      ∃ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ ∧
+        (∀ (i : ℕ) (x : F i), (x : AlgebraicClosure ℚ) ∈ P ↔ x ∈ V i) ∧
+        ∃ τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ,
+          P.IsFrobeniusAt τ ℓ ∧ ∀ i : ℕ, ∃ g : F i ≃ₐ[ℚ] F i,
+            (V i).IsFrobeniusAt g ℓ ∧ ∀ x : F i,
+              τ (x : AlgebraicClosure ℚ) = ((g x : F i) : AlgebraicClosure ℚ) := by
+  intro F hmono hfin hgal hexhaust V ℓ hprime hV hnonempty
+  classical
+  let : ∀ i : ℕ, FiniteDimensional ℚ (F i) := hfin
+  let : ∀ i : ℕ, IsGalois ℚ (F i) := hgal
+  let X : ℕ → Type := fun i => {g : F i ≃ₐ[ℚ] F i // (V i).IsFrobeniusAt g ℓ}
+  have : ∀ i : ℕ, Finite (X i) := fun i =>
+    inferInstanceAs (Finite {g : F i ≃ₐ[ℚ] F i // (V i).IsFrobeniusAt g ℓ})
+  have : ∀ i : ℕ, Nonempty (X i) := fun i => by
+    obtain ⟨g, hg⟩ := hnonempty i
+    exact ⟨⟨g, hg⟩⟩
+  -- Normal restriction supplies transition maps on the finite Frobenius sets.
+  have hrestrict (i j : ℕ) (hij : i ≤ j) (g : X j) :
+      ∃ e : X i, ∀ x : F i,
+        IntermediateField.inclusion (hmono hij) (e.val x) =
+          g.val (IntermediateField.inclusion (hmono hij) x) := by
+    obtain ⟨e, he, _⟩ := Submission.p09_af497904fe_ftl_normal_frobenius_restriction
+      (F i) (F j) (hmono hij) (V i) (V j) ℓ (hV i j hij) g.val g.property
+    exact ⟨⟨e, he.1⟩, he.2⟩
+  let r : ∀ i j : ℕ, i ≤ j → X j → X i :=
+    fun i j hij g => (hrestrict i j hij g).choose
+  have hr (i j : ℕ) (hij : i ≤ j) (g : X j) (x : F i) :
+      IntermediateField.inclusion (hmono hij) ((r i j hij g).val x) =
+        g.val (IntermediateField.inclusion (hmono hij) x) :=
+    (hrestrict i j hij g).choose_spec x
+  have hself (i : ℕ) (g : X i) : r i i (Nat.le_refl i) g = g := by
+    apply Subtype.ext
+    apply AlgEquiv.ext
+    intro x
+    simpa only [IntermediateField.inclusion_self, AlgHom.id_apply] using
+      hr i i (Nat.le_refl i) g x
+  have hcomp (i j k : ℕ) (hij : i ≤ j) (hjk : j ≤ k) (g : X k) :
+      r i k (Nat.le_trans hij hjk) g = r i j hij (r j k hjk g) := by
+    apply Subtype.ext
+    apply AlgEquiv.ext
+    intro x
+    apply IntermediateField.inclusion_injective (hmono (Nat.le_trans hij hjk))
+    calc
+      IntermediateField.inclusion (hmono (Nat.le_trans hij hjk))
+          ((r i k (Nat.le_trans hij hjk) g).val x) =
+          g.val (IntermediateField.inclusion (hmono (Nat.le_trans hij hjk)) x) :=
+        hr i k (Nat.le_trans hij hjk) g x
+      _ = IntermediateField.inclusion (hmono hjk)
+          ((r j k hjk g).val (IntermediateField.inclusion (hmono hij) x)) :=
+        (hr j k hjk g (IntermediateField.inclusion (hmono hij) x)).symm
+      _ = IntermediateField.inclusion (hmono (Nat.le_trans hij hjk))
+          ((r i j hij (r j k hjk g)).val x) :=
+        congrArg (IntermediateField.inclusion (hmono hjk))
+          (hr i j hij (r j k hjk g) x).symm
+  -- Finiteness and nonemptiness suffice; the transition maps need not be surjective.
+  obtain ⟨g, hg⟩ := Submission.p09_af497904fe_finite_inverse_limit X r hself hcomp
+  have hcompat (i j : ℕ) (hij : i ≤ j) (x : F i) :
+      IntermediateField.inclusion (hmono hij) ((g i).val x) =
+        (g j).val (IntermediateField.inclusion (hmono hij) x) := by
+    rw [← hg i j hij]
+    exact hr i j hij (g j) x
+  obtain ⟨τ, hτ⟩ := Submission.p09_af497904fe_ftl_compatible_automorphisms_glue
+    F hmono hexhaust (fun i => (g i).val) hcompat
+  have hstages : ∀ i : ℕ, ∃ e : F i ≃ₐ[ℚ] F i,
+      (V i).IsFrobeniusAt e ℓ ∧ ∀ x : F i,
+        τ (x : AlgebraicClosure ℚ) = ((e x : F i) : AlgebraicClosure ℚ) :=
+    fun i => ⟨(g i).val, (g i).property, hτ i⟩
+  obtain ⟨P, hPprime, hPV, hPfrob⟩ := Submission.p09_af497904fe_ftl_frobenius_valuation_union
+    F hmono hexhaust V ℓ hprime hV τ hstages
+  exact ⟨P, hPprime, hPV, τ, hPfrob, hstages⟩
