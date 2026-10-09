@@ -19,61 +19,6 @@ set_option autoImplicit false
 open scoped TensorProduct Quaternion NumberField
 open CategoryTheory AlgebraicGeometry QuaternionAlgebra CerednikDrinfeld CerednikDrinfeld.QM NeronModelInfra GoodReductionJacobian
 
-theorem CerednikDrinfeld.QM.RigidifiedPairClass.exists_ptR_eq
-    {r N : ℕ} [Fact r.Prime] [NeZero N] (hrN : ¬ r ∣ N) {rbar : ℕ} [Fact rbar.Prime] (hrr : rbar ≠ r)
-
-    (𝒪 : Type) [CommRing 𝒪] (π : 𝒪) (hunr : Ideal.span {((r : ℕ) : 𝒪)} = Ideal.span {π}) (Onr : Type) [CommRing Onr] [Algebra 𝒪 Onr]
-    {a b : ℚ} (hBq : IsIndefiniteRamifiedExactlyAt a b r rbar)
-    (Λ : Submodule ℤ ℍ[ℚ, a, b]) (hΛ : IsMaximalOrder Λ) (hΛℤ : ∀ m : ℤ, ((m : ℚ) : ℍ[ℚ, a, b]) ∈ Λ)
-
-    (coord : ↥Λ → Zp2 r × Zp2 r) (hcoord : IsOrderCoord Λ r coord)
-    (A₀ : FakeEllipticCurve Λ N (Onr ⧸ Ideal.span {algebraMap 𝒪 Onr π}))
-
-    (n : ℕ) (hn : 3 ≤ n) (hrn : ¬ r ∣ n) (M : Scheme.{0}) (fM : M ⟶ Spec (CommRingCat.of 𝒪))
-    (ptF : ∀ (S : Type) [CommRing S] (s : Spec (CommRingCat.of S) ⟶ Spec (CommRingCat.of 𝒪)),
-      FakeEllipticCurve.WithFullLevel Λ N n S → SchemeHomOver s fM)
-    (hM : IsFineModuli Λ N n M fM ptF)
-
-    (C : Type) [CommRing C] [IsNoetherianRing C] [Algebra 𝒪 C] (hC : IsNilpotent (algebraMap 𝒪 C π)) (ψ : Onr →ₐ[𝒪] C)
-
-    (X : ℕ → Scheme.{0}) (ξ : ∀ d, X d ⟶ Limits.pullback fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C))))
-    (tM : ∀ (T : Type) [CommRing T] [Algebra C T],
-      FakeEllipticCurve.WithFullLevel Λ N n T → SchemeHomOver (Spec.map (CommRingCat.ofHom (algebraMap C T))) (Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))))
-    (xOf : ∀ (T : Type) [CommRing T] [Algebra C T] [Algebra 𝒪 T] [IsScalarTower 𝒪 C T]
-      (ψT : Onr →ₐ[𝒪] T) (_ : ψT = (IsScalarTower.toAlgHom 𝒪 C T).comp ψ)
-      (u : FakeEllipticCurve.WithFullLevel Λ N n T) (ρ : FakeEllipticCurve.Rigidification r π A₀ ψT u.1),
-      { x : Spec (CommRingCat.of (T ⧸ Ideal.span {algebraMap C T (algebraMap 𝒪 C π)})) ⟶ X ρ.d //
-        x ≫ ξ ρ.d = Spec.map (CommRingCat.ofHom (Ideal.Quotient.mk (Ideal.span {algebraMap C T (algebraMap 𝒪 C π)}))) ≫ (tM T u).1 })
-    (hmap : RigidifiedPairClass.MapCompat 𝒪 π Onr Λ hΛℤ A₀ n C ψ (Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))) X ξ tM xOf)
-
-    (htM : ∀ (T : Type) [CommRing T] [Algebra C T] [Algebra 𝒪 T] [IsScalarTower 𝒪 C T]
-        (u : FakeEllipticCurve.WithFullLevel Λ N n T),
-        (tM T u).1 ≫ Limits.pullback.fst fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C))) = (ptF T (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 T))) u).1)
-
-    (hx3 : (∀ (d : ℕ) (T : Type) [CommRing T] [Algebra C T] [Algebra 𝒪 T] [IsScalarTower 𝒪 C T]
-                (ψT : Onr →ₐ[𝒪] T) (hψT : ψT = (IsScalarTower.toAlgHom 𝒪 C T).comp ψ)
-                (h0 : algebraMap C T (algebraMap 𝒪 C π) = 0) (x : SchemeHomOver (Spec.map (CommRingCat.ofHom (algebraMap C T))) (ξ d ≫ Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C))))),
-                ∃ (u : FakeEllipticCurve.WithFullLevel Λ N n T) (ρ : FakeEllipticCurve.Rigidification r π A₀ ψT u.1) (hd : ρ.d = d),
-                  (RigidifiedPairClass.ptX 𝒪 π Onr Λ A₀ n C ψ (Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))) X ξ tM xOf) d T ψT hψT u ρ hd h0 = x))
-
-    (hxOf : ∀ (S S' : Type) [CommRing S] [Algebra C S] [Algebra 𝒪 S] [IsScalarTower 𝒪 C S]
-        [CommRing S'] [Algebra C S'] [Algebra 𝒪 S'] [IsScalarTower 𝒪 C S'] (φ : S →ₐ[C] S')
-        (ψS : Onr →ₐ[𝒪] S) (hψS : ψS = (IsScalarTower.toAlgHom 𝒪 C S).comp ψ)
-        (hψS' : (φ.restrictScalars 𝒪).comp ψS = (IsScalarTower.toAlgHom 𝒪 C S').comp ψ)
-        (u : FakeEllipticCurve.WithFullLevel Λ N n S) (u' : FakeEllipticCurve.WithFullLevel Λ N n S')
-        (ρ : FakeEllipticCurve.Rigidification r π A₀ ψS u.1)
-        (ρ' : FakeEllipticCurve.Rigidification r π A₀ ((φ.restrictScalars 𝒪).comp ψS) u'.1)
-        (g : u'.1.A ⟶ u.1.A) (hg : FakeEllipticCurve.IsPullbackVia (φ : S →+* S') u.1 u'.1 g),
-        (u'.2.P).1 ≫ g = Spec.map (CommRingCat.ofHom (φ : S →+* S')) ≫ (u.2.P).1 →
-        FakeEllipticCurve.Rigidification.IsPullbackVia (φ.restrictScalars 𝒪) g hg ρ ρ' →
-          ∃ hd : ρ'.d = ρ.d, (xOf S' ((φ.restrictScalars 𝒪).comp ψS) hψS' u' ρ').1 ≫ eqToHom (congrArg X hd) =
-            Spec.map (CommRingCat.ofHom (RigidifiedPairClass.qmap (algebraMap 𝒪 C π) φ)) ≫ (xOf S ψS hψS u ρ).1) :
-    (∀ (S : Type) [CommRing S] [Algebra C S] [Algebra 𝒪 S] [IsScalarTower 𝒪 C S]
-          (ψS : Onr →ₐ[𝒪] S) (hψS : ψS = (IsScalarTower.toAlgHom 𝒪 C S).comp ψ) (z : (RigidifiedPairClass.PR 𝒪 π Onr Λ hΛℤ A₀ n C ψ (Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))) X ξ tM xOf hmap).obj S),
-          ∃ (u : FakeEllipticCurve.WithFullLevel Λ N n S) (ρ : FakeEllipticCurve.Rigidification r π A₀ ψS u.1), (RigidifiedPairClass.ptR 𝒪 π Onr Λ hΛℤ A₀ n C ψ (Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))) X ξ tM xOf hmap) S ψS hψS u ρ = z) := by
-  sorry
-
-
 theorem Submission.p07_rr_isogeny_transport_857cd4d38c :
     ∀ {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N d : ℕ) (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U) (E F : CerednikDrinfeld.QM.FakeEllipticCurve Λ N T) (D H : CerednikDrinfeld.QM.FakeEllipticCurve Λ N U) (i : CategoryTheory.Iso D.A E.A) (j : CategoryTheory.Iso H.A F.A), CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia k.toRingHom E D i.hom → CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia k.symm.toRingHom D E i.inv → CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia k.toRingHom F H j.hom → CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia k.symm.toRingHom H F j.inv → ∀ (φ : Quiver.Hom D.A H.A) (ψ : Quiver.Hom H.A D.A) (hφ : CategoryTheory.CategoryStruct.comp φ H.f = D.f), CerednikDrinfeld.QM.FakeEllipticCurve.IsIsogenyPair d D H φ ψ → CerednikDrinfeld.QM.FakeEllipticCurve.PreservesLevel D H φ hφ → CerednikDrinfeld.QM.FakeEllipticCurve.IsIsogenyPair d E F (CategoryTheory.CategoryStruct.comp i.inv (CategoryTheory.CategoryStruct.comp φ j.hom)) (CategoryTheory.CategoryStruct.comp j.inv (CategoryTheory.CategoryStruct.comp ψ i.hom)) ∧ ∃ hΦ : CategoryTheory.CategoryStruct.comp (CategoryTheory.CategoryStruct.comp i.inv (CategoryTheory.CategoryStruct.comp φ j.hom)) F.f = E.f, CerednikDrinfeld.QM.FakeEllipticCurve.PreservesLevel E F (CategoryTheory.CategoryStruct.comp i.inv (CategoryTheory.CategoryStruct.comp φ j.hom)) hΦ := by
   intro a b Λ N d T U _ _ k E F D H i j hi hv hj hw φ ψ hφ hiso hlevel
@@ -192,9 +137,6 @@ theorem Submission.p07_rr_pullback_comp_857cd4d38c
     rw [hspec]
     exact hg₁₂.paste_horiz hg₀₁
   refine ⟨hg, ?_, ?_, ?_⟩
-  unfold FakeEllipticCurve.IsPullbackVia
-  rw [hspec]
-  refine ⟨hg₁₂.paste_horiz hg₀₁, ?_, ?_, ?_⟩
   · intro T t P Q
     let P₁ : SchemeHomOver (t ≫ Spec.map (CommRingCat.ofHom h)) E₁.f :=
       ⟨P.1 ≫ g₁₂, by rw [Category.assoc, hg₁₂.w, ← Category.assoc, P.2]⟩
@@ -215,7 +157,6 @@ theorem Submission.p07_rr_pullback_comp_857cd4d38c
     · rw [hspec, Category.assoc]
     · exact Category.assoc _ _ _
     · exact Category.assoc _ _ _
-    simpa only [P₁, Q₁, Category.assoc] using hmul
   · intro x
     rw [← Category.assoc, hact₁₂, Category.assoc, hact₀₁, ← Category.assoc]
   · intro T t P hP
@@ -228,8 +169,6 @@ namespace Submission
 
 /-- Transport a relative group law along a ring equivalence. The equivalences of
 relative points preserve their underlying scheme morphisms and all group operations. -/
-namespace Submission
-
 theorem p07_cre_group_law_857cd4d38c :
     ∀ (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U)
       (A : AlgebraicGeometry.Scheme.{0})
@@ -389,11 +328,6 @@ theorem p07_cq_group_law_pullback_857cd4d38c :
           (by rw [← Category.assoc, hh]) (B W t P) :=
     Subtype.ext (Category.assoc h P.1 g)
   -- Transport the operations; injectivity reduces their laws to those of G.
-          (by rw [← Category.assoc, hh]) (B W t P) := by
-    exact Subtype.ext (Category.assoc h P.1 g)
-  -- Transport the operations; injectivity reduces their laws to those of G.
-    apply Subtype.ext
-    exact Category.assoc h P.1 g
   let H : RelativeGroupLaw T p :=
     { mul := fun {W} t P Q =>
         (B W t).symm (G.mul (t ≫ β) (B W t P) (B W t Q))
@@ -436,7 +370,6 @@ theorem p07_cq_group_law_pullback_857cd4d38c :
     exact (B W t).apply_symm_apply _
 
 end Submission
-
 
 namespace Submission
 
@@ -1075,7 +1008,6 @@ theorem p07_cq_level_geometry_pullback_857cd4d38c :
 
 end Submission
 
-
 namespace Submission
 
 /-- Quotient base change of a fake elliptic curve, using the three curve-quotient
@@ -1296,99 +1228,10 @@ theorem p07_flq_curve_quotient_857cd4d38c
     rw [← hcoe W t, hmul, hP, hQ]
   · intro W t P hP
     exact (hfactor W P.1).mp hP
-/-- A pullback of fake elliptic curves induces an equivalence on points that
-preserves multiplication, identity, repeated sums, and the order action. -/
-theorem p07_flp_point_equiv_857cd4d38c
-    {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N : ℕ)
-    (S T : Type) [CommRing S] [CommRing T] (φ : S →+* T)
-    (E : FakeEllipticCurve Λ N S) (ET : FakeEllipticCurve Λ N T)
-    (g : ET.A ⟶ E.A) (hg : FakeEllipticCurve.IsPullbackVia φ E ET g)
-    (W : Scheme.{0}) (t : W ⟶ Spec (CommRingCat.of T)) :
-    let tS := t ≫ Spec.map (CommRingCat.ofHom φ)
-    ∃ B : SchemeHomOver t ET.f ≃ SchemeHomOver tS E.f,
-      (∀ P : SchemeHomOver t ET.f, (B P).1 = P.1 ≫ g) ∧
-      (∀ P Q : SchemeHomOver t ET.f,
-        B (ET.L.mul t P Q) = E.L.mul tS (B P) (B Q)) ∧
-      B (ET.L.one t) = E.L.one tS ∧
-      (∀ (k : ℕ) (P : SchemeHomOver t ET.f),
-        B (nsmulPt ET.L t k P) = nsmulPt E.L tS k (B P)) ∧
-      (∀ (x : ↥Λ) (P : SchemeHomOver t ET.f),
-        B (pushPt (ET.act x) (ET.act_over x) P) =
-          pushPt (E.act x) (E.act_over x) (B P)) := by
-  classical
-  dsimp only
-  rcases hg with ⟨h, hmul, hact, _⟩
-  let tS := t ≫ Spec.map (CommRingCat.ofHom φ)
-  let F : SchemeHomOver t ET.f → SchemeHomOver tS E.f := fun P =>
-    ⟨P.1 ≫ g, by rw [Category.assoc, h.w, ← Category.assoc, P.2]⟩
-  let I : SchemeHomOver tS E.f → SchemeHomOver t ET.f := fun R =>
-    ⟨h.lift R.1 t R.2, h.lift_snd R.1 t R.2⟩
-  let B : SchemeHomOver t ET.f ≃ SchemeHomOver tS E.f :=
-    { toFun := F
-      invFun := I
-      left_inv := by
-        intro P
-        apply Subtype.ext
-        apply h.hom_ext
-        · exact h.lift_fst (F P).1 t (F P).2
-        · exact (h.lift_snd (F P).1 t (F P).2).trans P.2.symm
-      right_inv := by
-        intro R
-        apply Subtype.ext
-        exact h.lift_fst R.1 t R.2 }
-  have map_mul (P Q : SchemeHomOver t ET.f) :
-      B (ET.L.mul t P Q) = E.L.mul tS (B P) (B Q) :=
-    Subtype.ext (hmul t P Q)
-  have map_one : B (ET.L.one t) = E.L.one tS := by
-    let H := B (ET.L.one t)
-    have hH : E.L.mul tS H H = H := by
-      rw [← map_mul, ET.L.one_mul]
-    calc
-      H = E.L.mul tS (E.L.one tS) H := (E.L.one_mul tS H).symm
-      _ = E.L.mul tS (E.L.mul tS (E.L.inv tS H) H) H := by
-        rw [E.L.inv_mul_cancel]
-      _ = E.L.mul tS (E.L.inv tS H) (E.L.mul tS H H) :=
-        E.L.mul_assoc tS _ _ _
-      _ = E.L.mul tS (E.L.inv tS H) H := by rw [hH]
-      _ = E.L.one tS := E.L.inv_mul_cancel tS H
-  refine ⟨B, fun _ => rfl, map_mul, map_one, ?_, ?_⟩
-  · intro k P
-    induction k with
-    | zero => exact map_one
-    | succ k ih =>
-      change B (ET.L.mul t (nsmulPt ET.L t k P) P) =
-        E.L.mul tS (nsmulPt E.L tS k (B P)) (B P)
-      rw [map_mul, ih]
-  · intro x P
-    apply Subtype.ext
-    change (P.1 ≫ ET.act x) ≫ g = (P.1 ≫ g) ≫ E.act x
-    rw [Category.assoc, hact, Category.assoc]
 
 end Submission
 
 namespace Submission
-
-/-- Repeated addition commutes with compatible precomposition of points.
-The induction uses the existing `RelativeGroupLaw.one_natural` theorem and `mul_natural`
-field from `Definitions.Def_AlgebraicGeometry_RelativeGroupLaw`, with the recursion in
-`Definitions.Def_CerednikDrinfeld_QMModuli`. -/
-theorem p07_flp_nsmul_precomp_857cd4d38c :
-    ∀ (R : Type) [CommRing R] (A W W' : AlgebraicGeometry.Scheme.{0})
-      (f : Quiver.Hom A (AlgebraicGeometry.Spec (CommRingCat.of R)))
-      (L : GoodReductionJacobian.RelativeGroupLaw R f)
-      (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of R)))
-      (t' : Quiver.Hom W' (AlgebraicGeometry.Spec (CommRingCat.of R)))
-      (ψ : Quiver.Hom W' W) (hψ : CategoryTheory.CategoryStruct.comp ψ t = t')
-      (k : ℕ) (P : NeronModelInfra.SchemeHomOver t f),
-      GoodReductionJacobian.schemeHomOverComp ψ hψ (CerednikDrinfeld.QM.nsmulPt L t k P) =
-        CerednikDrinfeld.QM.nsmulPt L t' k (GoodReductionJacobian.schemeHomOverComp ψ hψ P) := by
-  intro R _ A W W' f L t t' ψ hψ k P
-  induction k with
-  -- At zero, precomposition preserves the identity point.
-  | zero => exact L.one_natural t t' ψ hψ
-  | succ k ih =>
-      -- The recursive step commutes with precomposition by multiplication naturality.
-      rw [CerednikDrinfeld.QM.nsmulPt, CerednikDrinfeld.QM.nsmulPt, L.mul_natural, ih]
 
 /-- Full level structures pull back along any pullback of fake elliptic curves. -/
 theorem p07_flq_full_level_pullback_857cd4d38c
@@ -2292,8 +2135,70 @@ theorem p07_rigidification_reduction_857cd4d38c
     simp only [Iso.hom_inv_id_assoc]
 
 end Submission
+
+theorem CerednikDrinfeld.QM.RigidifiedPairClass.exists_ptR_eq
+    {r N : ℕ} [Fact r.Prime] [NeZero N] (hrN : ¬ r ∣ N) {rbar : ℕ} [Fact rbar.Prime] (hrr : rbar ≠ r)
+
+    (𝒪 : Type) [CommRing 𝒪] (π : 𝒪) (hunr : Ideal.span {((r : ℕ) : 𝒪)} = Ideal.span {π}) (Onr : Type) [CommRing Onr] [Algebra 𝒪 Onr]
+    {a b : ℚ} (hBq : IsIndefiniteRamifiedExactlyAt a b r rbar)
+    (Λ : Submodule ℤ ℍ[ℚ, a, b]) (hΛ : IsMaximalOrder Λ) (hΛℤ : ∀ m : ℤ, ((m : ℚ) : ℍ[ℚ, a, b]) ∈ Λ)
+
+    (coord : ↥Λ → Zp2 r × Zp2 r) (hcoord : IsOrderCoord Λ r coord)
+    (A₀ : FakeEllipticCurve Λ N (Onr ⧸ Ideal.span {algebraMap 𝒪 Onr π}))
+
+    (n : ℕ) (hn : 3 ≤ n) (hrn : ¬ r ∣ n) (M : Scheme.{0}) (fM : M ⟶ Spec (CommRingCat.of 𝒪))
+    (ptF : ∀ (S : Type) [CommRing S] (s : Spec (CommRingCat.of S) ⟶ Spec (CommRingCat.of 𝒪)),
+      FakeEllipticCurve.WithFullLevel Λ N n S → SchemeHomOver s fM)
+    (hM : IsFineModuli Λ N n M fM ptF)
+
+    (C : Type) [CommRing C] [IsNoetherianRing C] [Algebra 𝒪 C] (hC : IsNilpotent (algebraMap 𝒪 C π)) (ψ : Onr →ₐ[𝒪] C)
+
+    (X : ℕ → Scheme.{0}) (ξ : ∀ d, X d ⟶ Limits.pullback fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C))))
+    (tM : ∀ (T : Type) [CommRing T] [Algebra C T],
+      FakeEllipticCurve.WithFullLevel Λ N n T → SchemeHomOver (Spec.map (CommRingCat.ofHom (algebraMap C T))) (Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))))
+    (xOf : ∀ (T : Type) [CommRing T] [Algebra C T] [Algebra 𝒪 T] [IsScalarTower 𝒪 C T]
+      (ψT : Onr →ₐ[𝒪] T) (_ : ψT = (IsScalarTower.toAlgHom 𝒪 C T).comp ψ)
+      (u : FakeEllipticCurve.WithFullLevel Λ N n T) (ρ : FakeEllipticCurve.Rigidification r π A₀ ψT u.1),
+      { x : Spec (CommRingCat.of (T ⧸ Ideal.span {algebraMap C T (algebraMap 𝒪 C π)})) ⟶ X ρ.d //
+        x ≫ ξ ρ.d = Spec.map (CommRingCat.ofHom (Ideal.Quotient.mk (Ideal.span {algebraMap C T (algebraMap 𝒪 C π)}))) ≫ (tM T u).1 })
+    (hmap : RigidifiedPairClass.MapCompat 𝒪 π Onr Λ hΛℤ A₀ n C ψ (Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))) X ξ tM xOf)
+
+    (htM : ∀ (T : Type) [CommRing T] [Algebra C T] [Algebra 𝒪 T] [IsScalarTower 𝒪 C T]
+        (u : FakeEllipticCurve.WithFullLevel Λ N n T),
+        (tM T u).1 ≫ Limits.pullback.fst fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C))) = (ptF T (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 T))) u).1)
+
+    (hx3 : (∀ (d : ℕ) (T : Type) [CommRing T] [Algebra C T] [Algebra 𝒪 T] [IsScalarTower 𝒪 C T]
+                (ψT : Onr →ₐ[𝒪] T) (hψT : ψT = (IsScalarTower.toAlgHom 𝒪 C T).comp ψ)
+                (h0 : algebraMap C T (algebraMap 𝒪 C π) = 0) (x : SchemeHomOver (Spec.map (CommRingCat.ofHom (algebraMap C T))) (ξ d ≫ Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C))))),
+                ∃ (u : FakeEllipticCurve.WithFullLevel Λ N n T) (ρ : FakeEllipticCurve.Rigidification r π A₀ ψT u.1) (hd : ρ.d = d),
+                  (RigidifiedPairClass.ptX 𝒪 π Onr Λ A₀ n C ψ (Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))) X ξ tM xOf) d T ψT hψT u ρ hd h0 = x))
+
+    (hxOf : ∀ (S S' : Type) [CommRing S] [Algebra C S] [Algebra 𝒪 S] [IsScalarTower 𝒪 C S]
+        [CommRing S'] [Algebra C S'] [Algebra 𝒪 S'] [IsScalarTower 𝒪 C S'] (φ : S →ₐ[C] S')
+        (ψS : Onr →ₐ[𝒪] S) (hψS : ψS = (IsScalarTower.toAlgHom 𝒪 C S).comp ψ)
+        (hψS' : (φ.restrictScalars 𝒪).comp ψS = (IsScalarTower.toAlgHom 𝒪 C S').comp ψ)
+        (u : FakeEllipticCurve.WithFullLevel Λ N n S) (u' : FakeEllipticCurve.WithFullLevel Λ N n S')
+        (ρ : FakeEllipticCurve.Rigidification r π A₀ ψS u.1)
+        (ρ' : FakeEllipticCurve.Rigidification r π A₀ ((φ.restrictScalars 𝒪).comp ψS) u'.1)
+        (g : u'.1.A ⟶ u.1.A) (hg : FakeEllipticCurve.IsPullbackVia (φ : S →+* S') u.1 u'.1 g),
+        (u'.2.P).1 ≫ g = Spec.map (CommRingCat.ofHom (φ : S →+* S')) ≫ (u.2.P).1 →
+        FakeEllipticCurve.Rigidification.IsPullbackVia (φ.restrictScalars 𝒪) g hg ρ ρ' →
+          ∃ hd : ρ'.d = ρ.d, (xOf S' ((φ.restrictScalars 𝒪).comp ψS) hψS' u' ρ').1 ≫ eqToHom (congrArg X hd) =
+            Spec.map (CommRingCat.ofHom (RigidifiedPairClass.qmap (algebraMap 𝒪 C π) φ)) ≫ (xOf S ψS hψS u ρ).1) :
+    (∀ (S : Type) [CommRing S] [Algebra C S] [Algebra 𝒪 S] [IsScalarTower 𝒪 C S]
+          (ψS : Onr →ₐ[𝒪] S) (hψS : ψS = (IsScalarTower.toAlgHom 𝒪 C S).comp ψ) (z : (RigidifiedPairClass.PR 𝒪 π Onr Λ hΛℤ A₀ n C ψ (Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))) X ξ tM xOf hmap).obj S),
+          ∃ (u : FakeEllipticCurve.WithFullLevel Λ N n S) (ρ : FakeEllipticCurve.Rigidification r π A₀ ψS u.1), (RigidifiedPairClass.ptR 𝒪 π Onr Λ hΛℤ A₀ n C ψ (Limits.pullback.snd fM (Spec.map (CommRingCat.ofHom (algebraMap 𝒪 C)))) X ξ tM xOf hmap) S ψS hψS u ρ = z) := by
   classical
-  clear hrN hrr hunr hBq hΛ hcoord hn hrn hC
+  -- Reference the retained frozen hypotheses without changing the contract.
+  have _ := hrN
+  have _ := hrr
+  have _ := hunr
+  have _ := hBq
+  have _ := hΛ
+  have _ := hcoord
+  have _ := hn
+  have _ := hrn
+  have _ := hC
   intro S _ _ _ _ ψS hψS z
   induction z using Quot.ind with
   | mk p =>
