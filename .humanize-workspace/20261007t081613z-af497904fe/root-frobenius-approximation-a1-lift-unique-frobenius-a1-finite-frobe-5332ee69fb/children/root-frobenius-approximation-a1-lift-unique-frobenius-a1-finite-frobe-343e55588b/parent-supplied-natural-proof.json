@@ -1,0 +1,40 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "valuation_localization|stabilizerHom_surjective|mem_range_algebraMap_iff_fixed|def IsFrobeniusAt|def decompositionSubgroup",
+        "RingOfIntegers|map|equiv|smul|IsInvariant",
+        "ResidueField|residue|smul|nonunits",
+        "rg -n '\"lean_name\"|\"status\"|\"proof_worktree\"|\"worktree\"' .humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/dag.json",
+        "/usr/bin/python3 .humanize/ffe-split-diagnostic-lnp4jtq3/check.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/Galois/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Invariant/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Invariant/Galois.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Frobenius.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/LocalRing/ResidueField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/ffe-split-diagnostic-lnp4jtq3/report.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/ffe-split-diagnostic-lnp4jtq3/types.json"
+      ],
+      "conclusion": "The snapshot pins project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. It supplies the integer-ring restriction map, fixed-field criterion, stabilizer-surjectivity theorem, and exact decomposition-group residue action. No valuation_localization declaration was found in the snapshot; the active DAG already reserves that obligation as p09_af497904fe_luf_valuation_localization. Both proposed types elaborated after literal import Submission in a disposable compiler copy, and neither proposed name collided with the inspected DAG or imported environment. Definitional checks confirmed that mapRingEquiv restricts the field automorphism and agrees with the canonical integer-ring action. The types and checked library results have only propext, Classical.choice, and Quot.sound as transitive axioms. Diagnostics verified the specified policy digest, absence of all eight omitted targets, reversible removal of exactly lines 10 and 11, and preservation of protected sources and handoffs. These are interface diagnostics, not comparator acceptance."
+    }
+  ],
+  "proof": "1. Fix all the stated data and hypotheses, and write γ for NumberField.RingOfIntegers.mapRingEquiv g.toRingEquiv. This is a ring automorphism of O whose value on a, viewed in E, is g(a). Its inverse is the restriction of g⁻¹. Since q is prime, it is proper, so 1 ∉ q. The fraction characterization applied to a/1 shows that every a ∈ O belongs to V. Thus inclusion defines a ring homomorphism i : O → V.\n2. The congruence hypothesis gives γ(a) − a^ℓ ∈ q. Consequently γ(a) ∈ q if and only if a^ℓ ∈ q, by closure of q under addition and subtraction. Since ℓ > 0 and q is prime, a^ℓ ∈ q if and only if a ∈ q: one direction follows from ideal closure and the other from repeated application of primality to the product a^ℓ. Therefore γ(a) ∈ q if and only if a ∈ q. Applying this equivalence to γ⁻¹(a) shows that γ⁻¹ also preserves q and its complement.\n3. If x ∈ V, write x = a/b with a,b ∈ O and b ∉ q using the fraction hypothesis. The equality g(x) = γ(a)/γ(b), together with γ(b) ∉ q, shows that g(x) ∈ V. The same argument using γ⁻¹ shows that g⁻¹ maps V into V. Hence g maps V onto itself. The decomposition subgroup is the stabilizer of V under the field-automorphism action, so this supplies hg : g ∈ V.decompositionSubgroup ℚ.\n4. Let K_V = IsLocalRing.ResidueField V, let r : V → K_V be reduction, and put κ = r ∘ i : O → K_V. For any a ∈ O, κ(a) = 0 if and only if i(a) belongs to the maximal ideal of V. For a valuation ring this is equivalent to the image of a in E belonging to V.nonunits, which by hypothesis is equivalent to a ∈ q. Thus ker κ = q. In particular, b ∉ q implies κ(b) ≠ 0. Applying κ to the congruence hypothesis now gives κ(γ(a)) = κ(a)^ℓ for every a ∈ O.\n5. Take any v ∈ V and write its image in E as a/b with b ∉ q. Since 0 ∈ q, b is nonzero in O, and hence in E. Multiplication of the fraction equality by b gives v · i(b) = i(a) in V. Reducing this equality gives r(v)κ(b) = κ(a). Since κ(b) ≠ 0, it follows that r(v) = κ(a)/κ(b).\n6. The automorphism of V induced by hg sends v to an element whose image in E is γ(a)/γ(b). We have γ(b) ∉ q by step 2. Applying the calculation of step 5 to this fraction gives r(g(v)) = κ(γ(a))/κ(γ(b)). By step 4 this equals κ(a)^ℓ/κ(b)^ℓ = (κ(a)/κ(b))^ℓ = r(v)^ℓ. Here g(v) denotes the restriction of g to V; its existence was established in step 3.\n7. The induced residue action satisfies (⟨g,hg⟩ : V.decompositionSubgroup ℚ) • r(v) = r(g(v)). This is exactly the action defined in Mathlib/RingTheory/Valuation/RamificationGroup.lean and Mathlib/RingTheory/LocalRing/ResidueField/Basic.lean, where residue_smul expresses compatibility with reduction. Every element z of K_V is r(v) for some v, because the residue map is surjective. Step 6 therefore gives (⟨g,hg⟩ : V.decompositionSubgroup ℚ) • z = z^ℓ for every z ∈ K_V.\n8. The witness hg from step 3 and the equality from step 7 satisfy precisely the definition of V.IsFrobeniusAt g ℓ in the pinned Definitions/Def_EllipticCurve_FrobeniusTrace.lean. This proves the conclusion.",
+  "key_steps": [
+    "Embed O into V using fractions with denominator 1.",
+    "Use the congruence and primality to prove that γ and γ⁻¹ preserve q and its complement.",
+    "Use the fraction description to prove that g stabilizes V.",
+    "Identify the kernel of O → ResidueField V with q and reduce the integer congruences.",
+    "Compute residues of a/b and g(a/b), obtaining the ℓ-power equality.",
+    "Use surjectivity of reduction and the canonical residue action to establish IsFrobeniusAt."
+  ],
+  "unresolved": [],
+  "validation_notes": []
+}

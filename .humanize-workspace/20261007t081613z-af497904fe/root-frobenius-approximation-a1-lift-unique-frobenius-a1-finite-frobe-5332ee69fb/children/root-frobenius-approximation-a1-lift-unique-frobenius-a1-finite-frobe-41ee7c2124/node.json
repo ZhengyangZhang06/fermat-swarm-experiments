@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.finite_frobenius_exists-a1.prime_frobenius_congruence-a1",
+  "parent_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.finite_frobenius_exists-a1",
+  "depth": 4,
+  "title": "Frobenius congruences at a prime of the integer ring",
+  "statement": "Let Ω = AlgebraicClosure ℚ and let E be an intermediate field of Ω/ℚ with E/ℚ finite-dimensional and Galois. Let ℓ be a natural prime. Write O = NumberField.RingOfIntegers E. If q is a prime ideal of O containing ℓ and O/q is finite, then there exists g ∈ Autℚ(E) such that γg(a) − a^ℓ ∈ q for every a ∈ O, where γg is the ring automorphism of O obtained by restricting g.",
+  "lean_statement": "∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [IsGalois ℚ E] (ℓ : ℕ), ℓ.Prime → ∀ q : Ideal (NumberField.RingOfIntegers E), q.IsPrime → (ℓ : NumberField.RingOfIntegers E) ∈ q → Finite (NumberField.RingOfIntegers E ⧸ q) → ∃ g : E ≃ₐ[ℚ] E, ∀ a : NumberField.RingOfIntegers E, NumberField.RingOfIntegers.mapRingEquiv g.toRingEquiv a - a ^ ℓ ∈ q",
+  "lean_name": "p09_af497904fe_ffe_prime_frobenius_congruence",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-finite-frobe-41ee7c2124-a1"
+}

@@ -1,0 +1,51 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "valuation_localization|stabilizerHom_surjective|mem_range_algebraMap_iff_fixed|def IsFrobeniusAt|def decompositionSubgroup",
+        "mapRingEquiv|MulSemiringAction|IsInvariant|smul|integralClosure|def RingOfIntegers",
+        "residue_smul|residue_surjective|ker_residue|residue_eq_zero",
+        "def nonunits|mem_nonunits_iff|maximalIdeal|nonunits",
+        "python3 .humanize/ffe-independent-audit-b30d41g0/check.py",
+        "git diff --quiet 20574e45daf714e745af8e649c7b61b21eed5644 -- Fermat/Thm_GaloisRepAdic_exists_quadraticRelation_forall_of_frobenius.lean Definitions lakefile.toml lakefile.lean lake-manifest.json lean-toolchain"
+      ],
+      "files": [
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/problem.md",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/dag.json",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/Galois/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Invariant/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Invariant/Galois.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Frobenius.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/LocalRing/ResidueField/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        ".humanize/ffe-independent-audit-b30d41g0/report.json",
+        ".humanize/ffe-independent-audit-b30d41g0/Assembly.lean",
+        ".humanize/ffe-independent-audit-b30d41g0/Assembly.lean.log",
+        ".humanize/ffe-independent-audit-b30d41g0/dag-audit.json"
+      ],
+      "conclusion": "Verified the pinned project and mathlib revisions and tracked dependency cleanliness. The cited sources support the restriction action, fixed-field criterion, stabilizer surjectivity, nonunit characterization, and exact residue action. No valuation_localization declaration occurs in the snapshot; its existing DAG contract supplies precisely the parent's required data. The split is appropriate and preserves that dependency. Both standalone types elaborated, action/coercion checks passed, and an anonymous Lean proof assembled the two contracts and localization contract into the exact parent type. Both bare names remain unreserved, and the DAG is acyclic. Checked types and library declarations use only propext, Classical.choice, and Quot.sound. Independently reran the header-policy diagnostics: the specified policy digest matched, only listed lines 10 and 11 were omitted reversibly, all eight target-absence probes passed, and protected files remained unchanged. Original/build hashes are recorded in report.json. These are contract diagnostics, not comparator acceptance of future implementations."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "prime_frobenius_congruence",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition matches every prose hypothesis and conclusion and is independently usable without implementing the child. The proof establishes the finite quotient field, characteristic ℓ, finite automorphism action, and invariant-ring hypothesis before applying the cited surjectivity theorem. The rational-integrality argument is complete, and evaluating the lifted quotient automorphism gives exactly the requested congruences. No parent or sibling result is assumed. The bare Lean name is available."
+    },
+    {
+      "key": "localized_frobenius",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition matches the prose, including its intentionally absent finiteness and Galois assumptions. The proof derives preservation of q and its complement from primality and ℓ > 0, proves stabilization of V in both directions, identifies the reduction kernel, and computes residues of fractions with nonzero reduced denominators. Surjectivity of reduction then gives precisely the frozen IsFrobeniusAt action. The canonical actions and coercions were independently checked. Congruences are an explicit hypothesis, so no dependency on the first child is required. The bare Lean name is available."
+    }
+  ],
+  "required_changes": []
+}
