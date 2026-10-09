@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "ff876568b5057e15d64b2cd5a09a8ff12d666424a44080b568a048e977583a32",
+  "git_delta": {
+    "base_commit": "906ba2b66af645b1f122676273ff572d04195f0a",
+    "candidate_commit": "fa674629edaac39a8283b2ebb22a85ab28fd1279",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_fcc_character_finite_action",
+    "diff_sha256": "10b74e502eafd7eafc2f36f4f6882c328ac80fdd5a25c0b099e987b5bf3b4828",
+    "source_sha256": "ef1008eda46cc89a3c6cdb0339ff762625092dcfb6cb6bec6dae462bfd7e2202",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_fcc_character_finite_action",
+      "statement": "∀ (N : ℕ) [NeZero N], ∃ (χ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) →* (ZMod N)ˣ) (F : IntermediateField ℚ (AlgebraicClosure ℚ)), FiniteDimensional ℚ F ∧ (∀ σ τ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ), (∀ x ∈ F, σ x = τ x) → χ σ = χ τ) ∧ (∀ (σ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)) (ζ : AlgebraicClosure ℚ), ζ ^ N = 1 → σ ζ = ζ ^ ((χ σ : ZMod N).val))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
