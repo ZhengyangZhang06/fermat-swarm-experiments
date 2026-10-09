@@ -1959,3 +1959,69 @@ theorem Submission.p09_af497904fe_irp_squared_vandermonde_symmetric :
     · simp only [B, if_pos h]
     · simp only [B, if_neg h]
       ring
+
+
+theorem Submission.p09_af497904fe_irp_integer_discriminant :
+    ∀ (K : Type) [Field K] (f : Polynomial ℤ) (n : ℕ) (β : Fin n → K),
+      f.Monic → Function.Injective β →
+      f.map (Int.castRingHom K) = Finset.univ.prod
+        (fun i : Fin n => Polynomial.X - Polynomial.C (β i)) →
+      ∃ D : ℤ, D ≠ 0 ∧ (D : K) =
+        (Finset.univ.filter (fun ij : Fin n × Fin n => ij.1 < ij.2)).prod
+          (fun ij => (β ij.1 - β ij.2) ^ 2) := by
+  classical
+  intro K _ f n β _hf hβ hfac
+  let P : MvPolynomial (Fin n) ℤ :=
+    (Finset.univ.filter (fun ij : Fin n × Fin n => ij.1 < ij.2)).prod
+      (fun ij => (MvPolynomial.X ij.1 - MvPolynomial.X ij.2) ^ 2)
+  have hP : MvPolynomial.IsSymmetric P :=
+    Submission.p09_af497904fe_irp_squared_vandermonde_symmetric n
+  obtain ⟨Q, hQ⟩ := MvPolynomial.esymmAlgHom_surjective ℤ
+    (σ := Fin n) (n := n) (by simp) ⟨P, hP⟩
+  have hQval : MvPolynomial.aeval
+      (fun i : Fin n => MvPolynomial.esymm (Fin n) ℤ (i.val + 1)) Q = P := by
+    simpa only [MvPolynomial.esymmAlgHom_apply] using congrArg Subtype.val hQ
+  -- Vieta identifies the elementary symmetric values with signed integer coefficients.
+  let c : Fin n → ℤ := fun i => (-1) ^ (i.val + 1) * f.coeff (n - (i.val + 1))
+  let s : Multiset K := Finset.univ.val.map β
+  have hcard : s.card = n := by simp [s]
+  have hprod : (s.map (fun b => Polynomial.X - Polynomial.C b)).prod =
+      Finset.univ.prod (fun i : Fin n => Polynomial.X - Polynomial.C (β i)) := by
+    simp [s, Finset.prod_eq_multiset_prod, Function.comp_def]
+  have hc (i : Fin n) : (c i : K) =
+      MvPolynomial.aeval β (MvPolynomial.esymm (Fin n) ℤ (i.val + 1)) := by
+    have hi : i.val + 1 ≤ n := i.isLt
+    have hv := Multiset.prod_X_sub_C_coeff s
+      (k := n - (i.val + 1)) (by rw [hcard]; exact Nat.sub_le _ _)
+    rw [hcard, Nat.sub_sub_self hi, hprod, ← hfac, Polynomial.coeff_map] at hv
+    change (f.coeff (n - (i.val + 1)) : K) = _ at hv
+    rw [MvPolynomial.aeval_esymm_eq_multiset_esymm]
+    change (((-1 : ℤ) ^ (i.val + 1) * f.coeff (n - (i.val + 1)) : ℤ) : K) =
+      s.esymm (i.val + 1)
+    push_cast
+    rw [hv, ← mul_assoc, ← mul_pow]
+    simp
+  let D : ℤ := MvPolynomial.aeval c Q
+  have hD : (D : K) =
+      (Finset.univ.filter (fun ij : Fin n × Fin n => ij.1 < ij.2)).prod
+        (fun ij => (β ij.1 - β ij.2) ^ 2) := by
+    calc
+      (D : K) = MvPolynomial.aeval (fun i => (c i : K)) Q := by
+        exact MvPolynomial.comp_aeval_apply c (Algebra.ofId ℤ K) Q
+      _ = MvPolynomial.aeval
+          (fun i : Fin n => MvPolynomial.aeval β
+            (MvPolynomial.esymm (Fin n) ℤ (i.val + 1))) Q := by
+        simp_rw [hc]
+      _ = MvPolynomial.aeval β P := by
+        rw [← MvPolynomial.comp_aeval_apply, hQval]
+      _ = _ := by simp [P]
+  refine ⟨D, ?_, hD⟩
+  have hnonzero :
+      (Finset.univ.filter (fun ij : Fin n × Fin n => ij.1 < ij.2)).prod
+        (fun ij => (β ij.1 - β ij.2) ^ 2) ≠ 0 := by
+    apply Finset.prod_ne_zero_iff.mpr
+    intro ij hij
+    exact pow_ne_zero _ (sub_ne_zero.mpr (hβ.ne (ne_of_lt (Finset.mem_filter.mp hij).2)))
+  intro hzero
+  apply hnonzero
+  rw [← hD, hzero, Int.cast_zero]
