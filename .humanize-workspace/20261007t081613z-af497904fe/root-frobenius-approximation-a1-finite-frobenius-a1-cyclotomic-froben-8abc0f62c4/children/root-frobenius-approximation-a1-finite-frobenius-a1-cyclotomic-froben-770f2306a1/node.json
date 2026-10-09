@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.counting_mellin_continuation-a1.floor_remainder_bound-a1",
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.counting_mellin_continuation-a1",
+  "depth": 5,
+  "title": "Measurability and power bound for the floor-counting remainder",
+  "statement": "Let a : ℕ → ℝ and κ, α, C : ℝ satisfy 0 ≤ α and 0 ≤ C. Suppose that for every integer n ≥ 1, |Σ_{k=1}^n a(k) − κn| ≤ C n^α. Define R(t) = Σ_{k=1}^{Nat.floor(t)} a(k) − κt for every real t, where Nat.floor is the natural-number floor, equal to zero on negative inputs. Then R is measurable for the Borel structures on ℝ, and for every t ≥ 1, |R(t)| ≤ (C + |κ|)t^α. No sign condition on a and no upper bound on α are needed.",
+  "lean_statement": "∀ (a : ℕ → ℝ) (κ α C : ℝ), 0 ≤ α → 0 ≤ C → (∀ n : ℕ, 1 ≤ n → |(∑ k ∈ Finset.Icc 1 n, a k) - κ * (n : ℝ)| ≤ C * (n : ℝ) ^ α) → Measurable (fun t : ℝ => (∑ k ∈ Finset.Icc 1 (Nat.floor t), a k) - κ * t) ∧ ∀ t : ℝ, 1 ≤ t → |(∑ k ∈ Finset.Icc 1 (Nat.floor t), a k) - κ * t| ≤ (C + |κ|) * t ^ α",
+  "lean_name": "p09_af497904fe_cmc_40fde013_floor_remainder",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-770f2306a1-a1"
+}

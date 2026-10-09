@@ -1,0 +1,42 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "Nat.measurable_floor|measurable_floor|integrableOn_Ioi_cpow_of_lt|integral_Ioi_cpow_of_lt|norm_ofReal_cpow|hasDerivAt_integral_of_dominated_loc_of_deriv_le|def term|def LSeries|term_zero|term_def",
+        "counting_mellin|mellin_tail|floor_remainder",
+        "mellin_differentiableAt_of_isBigO_rpow|hasDerivAt_integral_of_dominated_loc_of_deriv_le|norm_cpow_eq_rpow_re_of_pos",
+        "sed -n '1,280p' .humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/LSeries/SumCoeff.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/LSeries/SumCoeff.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/LSeries/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/MeasureTheory/Function/Floor.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/SpecialFunctions/ImproperIntegrals.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/Calculus/ParametricIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/MellinTransform.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/independent-cmc-audit-4igd_e6h/Types.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/independent-cmc-audit-4igd_e6h/Types.lean.log"
+      ],
+      "conclusion": "Confirmed project revision 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d; both snapshots and all nine build dependencies are tracked-clean. The inspected library supplies natural-floor measurability, nonnegative LSeries summability and Abel representation at exponent 1, omission of the zero term, complex power-tail integration, and differentiation under an integrable local derivative bound. No counting_mellin, mellin_tail, or floor_remainder declaration matched in the searched Definitions, LSeries, and MellinTransform sources. Independent compilation confirmed both exact propositions and the real-power, complex-power, Borel-space, and restricted-Lebesgue instances. Their types and the inspected supporting lemmas use only propext, Classical.choice, and Quot.sound. Both proposed names are absent from 23 DAG registries and the checked compiler environment. Approved header omissions were independently checked for target absence and reversible reconstruction. These checks establish interface validity, not comparator acceptance of implemented child proofs."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "floor_remainder_bound",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The self-contained one-line proposition exactly matches all prose hypotheses and both conclusions. Steps 1–2 establish global measurability using the natural-floor fibers and measurability of every sequence on discrete ℕ. Step 3 correctly applies the counting hypothesis at n = Nat.floor(t) ≥ 1 and bounds the floor error by 1. Step 4 uses C ≥ 0 and α ≥ 0 to obtain precisely (C + |κ|)t^α. Neither coefficient nonnegativity nor α < 1 is required. The proof is complete and non-circular. The bare lean_name is unreserved, and the empty dependency list is correct."
+    },
+    {
+      "key": "mellin_tail_holomorphic",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The self-contained one-line proposition exactly expresses the stated integrability and complex differentiability, with independently verified power and measure instances. Steps 1–2 prove measurable kernels and absolute integrability for Re(s) > α. Step 3 supplies integrable uniform kernel and derivative bounds on a disk strictly inside that half-plane. Steps 4–5 correctly control complex difference quotients by the segment fundamental theorem of calculus, apply dominated convergence, and identify the derivative through integral linearity. No continuity or sign hypothesis on R, or sign restriction on α, is silently used. The proof is complete and non-circular; the bare name is unreserved. Both children are independently provable, so their empty dependency lists are acyclic and correctly directed. The split is appropriate: combining their conclusions with the parent's linear counting bound, the pinned Abel formula, and the evaluated main-term integral gives H(s) = κ + sI(s) on Re(s) > α and exactly the selected parent's pole decomposition."
+    }
+  ],
+  "required_changes": []
+}

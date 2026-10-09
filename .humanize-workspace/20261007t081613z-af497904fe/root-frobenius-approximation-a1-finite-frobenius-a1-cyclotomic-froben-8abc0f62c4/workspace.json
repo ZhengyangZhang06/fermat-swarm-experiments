@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081613Z-af497904fe",
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.counting_mellin_continuation-a1",
+  "dispatch_branch": "proof-workspace/fermat-p09/20261007t081613z-af497904fe/dispatch/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8abc0f62c4-recovery-596547428ae00eb1",
+  "source_commit": "c01f57ec35c04ee55b54e9ff7a46eec3f9c6cf3f",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.counting_mellin_continuation-a1.floor_remainder_bound-a1",
+      "key": "floor_remainder_bound",
+      "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-770f2306a1-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8abc0f62c4/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-770f2306a1",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "summable|integral|sumCoeff|cpow|nonneg",
+              "differentiable.*[Mm]ellin|[Mm]ellin.*differentiable|hasDerivAt_integral|hasDerivAt.*[Mm]ellin",
+              "measurable.*(floor|nat_floor)|measurable_to_countable",
+              "integrableOn_Ioi_cpow_of_lt|integral_Ioi_cpow_of_lt|norm_ofReal_cpow",
+              "def term|def LSeries|term_zero|term_def",
+              "counting_mellin|mellin_tail|floor_remainder"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/LSeries/SumCoeff.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/LSeries/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/MellinTransform.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/Calculus/ParametricIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/SpecialFunctions/ImproperIntegrals.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/MeasureTheory/Function/Floor.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions"
+            ],
+            "conclusion": "The manifest pins project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. SumCoeff supplies LSeriesSummable_of_sum_norm_bigO_and_nonneg and LSeries_eq_mul_integral_of_nonneg; at exponent 1 these discharge the parent’s convergence and Abel-representation steps. Basic confirms that LSeries.term at n = 0 is zero. Floor supplies Nat.measurable_floor. ImproperIntegrals supplies integrableOn_Ioi_cpow_of_lt and integral_Ioi_cpow_of_lt for the main term. ParametricIntegral supplies differentiation under an integrable local derivative bound, also used in MellinTransform. The search for counting_mellin, mellin_tail, and floor_remainder found no matching declaration in project/Definitions, NumberTheory/LSeries, or Analysis/MellinTransform.lean. The local interfaces and cited library support passed the pinned compiler and transitive-axiom checks; only propext, Classical.choice, and Quot.sound occur."
+          }
+        ],
+        "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.counting_mellin_continuation-a1",
+        "child_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.counting_mellin_continuation-a1.floor_remainder_bound-a1",
+        "subproblem": {
+          "key": "floor_remainder_bound",
+          "title": "Measurability and power bound for the floor-counting remainder",
+          "statement": "Let a : ℕ → ℝ and κ, α, C : ℝ satisfy 0 ≤ α and 0 ≤ C. Suppose that for every integer n ≥ 1, |Σ_{k=1}^n a(k) − κn| ≤ C n^α. Define R(t) = Σ_{k=1}^{Nat.floor(t)} a(k) − κt for every real t, where Nat.floor is the natural-number floor, equal to zero on negative inputs. Then R is measurable for the Borel structures on ℝ, and for every t ≥ 1, |R(t)| ≤ (C + |κ|)t^α. No sign condition on a and no upper bound on α are needed.",
+          "lean_statement": "∀ (a : ℕ → ℝ) (κ α C : ℝ), 0 ≤ α → 0 ≤ C → (∀ n : ℕ, 1 ≤ n → |(∑ k ∈ Finset.Icc 1 n, a k) - κ * (n : ℝ)| ≤ C * (n : ℝ) ^ α) → Measurable (fun t : ℝ => (∑ k ∈ Finset.Icc 1 (Nat.floor t), a k) - κ * t) ∧ ∀ t : ℝ, 1 ≤ t → |(∑ k ∈ Finset.Icc 1 (Nat.floor t), a k) - κ * t| ≤ (C + |κ|) * t ^ α",
+          "lean_name": "p09_af497904fe_cmc_40fde013_floor_remainder",
+          "depends_on": [],
+          "natural_proof": "1. Fix a, κ, α, C and the stated hypotheses. For n ∈ ℕ put A_n = Σ_{k=1}^n a(k), with A_0 = 0, and for t ∈ ℝ put R(t) = A_{Nat.floor(t)} − κt.\n2. The map Nat.floor : ℝ → ℕ is measurable: the inverse image of {0} is (−∞,1), and for n ≥ 1 the inverse image of {n} is [n,n+1); these are Borel sets. Every subset of ℕ is a countable union of singletons, so all its inverse images are Borel. The map n ↦ A_n from the discrete measurable space ℕ to ℝ is measurable. Therefore t ↦ A_{Nat.floor(t)} is measurable. Subtracting the continuous function t ↦ κt proves measurability of R on all of ℝ.\n3. Fix t ≥ 1 and put n = Nat.floor(t). The floor inequalities give n ≥ 1 and 0 ≤ t − (n : ℝ) < 1. In particular 1 ≤ (n : ℝ) ≤ t. The identity R(t) = (A_n − κ(n : ℝ)) + κ((n : ℝ) − t), the triangle inequality, and the counting hypothesis imply |R(t)| ≤ C(n : ℝ)^α + |κ|(t − (n : ℝ)) ≤ C(n : ℝ)^α + |κ|.\n4. Because α ≥ 0 and 1 ≤ (n : ℝ) ≤ t, monotonicity of real powers on positive bases gives (n : ℝ)^α ≤ t^α and 1 ≤ t^α. Multiplying these inequalities by C ≥ 0 and |κ| ≥ 0 respectively yields |R(t)| ≤ Ct^α + |κ|t^α = (C + |κ|)t^α. This proves the claimed bound for every t ≥ 1 and completes both conclusions.",
+          "proof_key_steps": [
+            "Prove natural-floor measurability from its Borel level sets and compose with the sequence of finite sums.",
+            "Subtract κt to obtain a globally measurable remainder.",
+            "Use n = Nat.floor(t) ≥ 1 and 0 ≤ t − n < 1 to compare the real remainder with the integer error.",
+            "Use α ≥ 0 to bound n^α and 1 by t^α."
+          ]
+        },
+        "audit": {
+          "key": "floor_remainder_bound",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The self-contained one-line proposition exactly matches all prose hypotheses and both conclusions. Steps 1–2 establish global measurability using the natural-floor fibers and measurability of every sequence on discrete ℕ. Step 3 correctly applies the counting hypothesis at n = Nat.floor(t) ≥ 1 and bounds the floor error by 1. Step 4 uses C ≥ 0 and α ≥ 0 to obtain precisely (C + |κ|)t^α. Neither coefficient nonnegativity nor α < 1 is required. The proof is complete and non-circular. The bare lean_name is unreserved, and the empty dependency list is correct."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-770f2306a1/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-770f2306a1/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-770f2306a1/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.counting_mellin_continuation-a1.mellin_tail_holomorphic-a1",
+      "key": "mellin_tail_holomorphic",
+      "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-2b914784f7-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8abc0f62c4/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-2b914784f7",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "summable|integral|sumCoeff|cpow|nonneg",
+              "differentiable.*[Mm]ellin|[Mm]ellin.*differentiable|hasDerivAt_integral|hasDerivAt.*[Mm]ellin",
+              "measurable.*(floor|nat_floor)|measurable_to_countable",
+              "integrableOn_Ioi_cpow_of_lt|integral_Ioi_cpow_of_lt|norm_ofReal_cpow",
+              "def term|def LSeries|term_zero|term_def",
+              "counting_mellin|mellin_tail|floor_remainder"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/LSeries/SumCoeff.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/LSeries/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/MellinTransform.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/Calculus/ParametricIntegral.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/SpecialFunctions/ImproperIntegrals.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/MeasureTheory/Function/Floor.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions"
+            ],
+            "conclusion": "The manifest pins project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. SumCoeff supplies LSeriesSummable_of_sum_norm_bigO_and_nonneg and LSeries_eq_mul_integral_of_nonneg; at exponent 1 these discharge the parent’s convergence and Abel-representation steps. Basic confirms that LSeries.term at n = 0 is zero. Floor supplies Nat.measurable_floor. ImproperIntegrals supplies integrableOn_Ioi_cpow_of_lt and integral_Ioi_cpow_of_lt for the main term. ParametricIntegral supplies differentiation under an integrable local derivative bound, also used in MellinTransform. The search for counting_mellin, mellin_tail, and floor_remainder found no matching declaration in project/Definitions, NumberTheory/LSeries, or Analysis/MellinTransform.lean. The local interfaces and cited library support passed the pinned compiler and transitive-axiom checks; only propext, Classical.choice, and Quot.sound occur."
+          }
+        ],
+        "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.counting_mellin_continuation-a1",
+        "child_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.counting_mellin_continuation-a1.mellin_tail_holomorphic-a1",
+        "subproblem": {
+          "key": "mellin_tail_holomorphic",
+          "title": "Holomorphy of a Mellin tail with a measurable power-bounded coefficient",
+          "statement": "Let R : ℝ → ℝ be Borel measurable, and let α, M : ℝ satisfy M ≥ 0 and |R(t)| ≤ Mt^α for every real t ≥ 1. For s ∈ ℂ let I(s) be the complex Lebesgue integral over (1,∞) of R(t)(t : ℂ)^(−(s+1)), using the principal complex power. Then the integrand is Bochner integrable on (1,∞) whenever α < Re(s), and I is complex differentiable on the open half-plane {s : α < Re(s)}. There is no sign restriction on α or R.",
+          "lean_statement": "∀ (R : ℝ → ℝ) (α M : ℝ), Measurable R → 0 ≤ M → (∀ t : ℝ, 1 ≤ t → |R t| ≤ M * t ^ α) → (∀ s : ℂ, α < s.re → MeasureTheory.IntegrableOn (fun t : ℝ => (R t : ℂ) * (t : ℂ) ^ (-(s + 1))) (Set.Ioi (1 : ℝ))) ∧ DifferentiableOn ℂ (fun s : ℂ => MeasureTheory.integral (μ := MeasureTheory.volume.restrict (Set.Ioi (1 : ℝ))) (fun t : ℝ => (R t : ℂ) * (t : ℂ) ^ (-(s + 1)))) {s : ℂ | α < s.re}",
+          "lean_name": "p09_af497904fe_cmc_40fde013_mellin_tail_holomorphic",
+          "depends_on": [],
+          "natural_proof": "1. Fix R, α, M and the stated hypotheses. Let μ be Lebesgue measure restricted to (1,∞). For t > 1 and s ∈ ℂ put f_s(t) = R(t)(t : ℂ)^(−(s+1)). Since t is positive, this complex power is exp(−(s+1)log t), with the real logarithm embedded in ℂ. Thus f_s is μ-measurable and, for σ = Re(s), its norm is |R(t)|t^(−σ−1) ≤ Mt^(α−σ−1). Complex-valued Borel measurable functions are strongly measurable here.\n2. If σ > α, put δ = σ − α > 0. The dominating function Mt^(−1−δ) is integrable on (1,∞): substituting u = log t gives integral M∫_0^∞ exp(−δu)du = M/δ. Norm domination therefore proves Bochner integrability of f_s. Define I(s) by the stated Lebesgue integral; on this half-plane it is an absolutely convergent integral.\n3. Fix s₀ with σ₀ = Re(s₀) > α, and put η = (σ₀ − α)/2 > 0. For |s−s₀| < η we have Re(s) > α + η. For each t > 1, s ↦ f_s(t) is entire, with derivative g_s(t) = −(log t)f_s(t). Throughout this disk the bounds |f_s(t)| ≤ Mt^(−1−η) and |g_s(t)| ≤ M(log t)t^(−1−η) hold. Both bounding functions are integrable. Indeed, u = log t transforms their integrals into M∫_0^∞ exp(−ηu)du = M/η and M∫_0^∞ u exp(−ηu)du = M/η². The latter evaluation follows by integration by parts, with antiderivative −(u/η + 1/η²)exp(−ηu); both terms tend to zero at infinity. For example, exp(ηu) ≥ (ηu)²/2 implies u exp(−ηu) → 0.\n4. For a nonzero complex h with |h| < η, the segment s₀+vh, 0 ≤ v ≤ 1, stays in that disk. The ordinary fundamental theorem of calculus along this segment gives (f_{s₀+h}(t)−f_{s₀}(t))/h = ∫_0^1 g_{s₀+vh}(t)dv. Consequently every such difference quotient has norm at most M(log t)t^(−1−η). It is μ-measurable and converges pointwise, as complex h tends to zero, to g_{s₀}(t). Dominated convergence, applied to any sequence of nonzero complex increments tending to zero, gives convergence of the integrals of these quotients to ∫ g_{s₀} dμ. Since ℂ is a metric space, this sequential conclusion is the full limit as h → 0.\n5. By step 2 both f_{s₀+h} and f_{s₀} are integrable. Linearity of their integrals identifies the integrated quotient in step 4 with (I(s₀+h)−I(s₀))/h. Hence I has complex derivative ∫ g_{s₀} dμ at s₀. The point s₀ was arbitrary in the open half-plane, so I is DifferentiableOn ℂ there. Together with step 2 this proves both asserted conclusions.",
+          "proof_key_steps": [
+            "Rewrite the positive-real complex power as an exponential and obtain measurable kernels with norm bound Mt^(α−Re(s)−1).",
+            "Integrate the power bound to prove absolute Bochner integrability for Re(s) > α.",
+            "Choose a disk strictly inside the half-plane and uniformly dominate kernels and parameter derivatives by integrable power-log functions.",
+            "Bound complex difference quotients by integrating the derivative along each segment.",
+            "Apply dominated convergence and integral linearity to obtain the complex derivative at every point of the half-plane."
+          ]
+        },
+        "audit": {
+          "key": "mellin_tail_holomorphic",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The self-contained one-line proposition exactly expresses the stated integrability and complex differentiability, with independently verified power and measure instances. Steps 1–2 prove measurable kernels and absolute integrability for Re(s) > α. Step 3 supplies integrable uniform kernel and derivative bounds on a disk strictly inside that half-plane. Steps 4–5 correctly control complex difference quotients by the segment fundamental theorem of calculus, apply dominated convergence, and identify the derivative through integral linearity. No continuity or sign hypothesis on R, or sign restriction on α, is silently used. The proof is complete and non-circular; the bare name is unreserved. Both children are independently provable, so their empty dependency lists are acyclic and correctly directed. The split is appropriate: combining their conclusions with the parent's linear counting bound, the pinned Abel formula, and the evaluated main-term integral gives H(s) = κ + sI(s) on Re(s) > α and exactly the selected parent's pole decomposition."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-2b914784f7/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-2b914784f7/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-2b914784f7/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8abc0f62c4/task.md": "d1097f34a9dcda1e8cd40a21e7f0ee81cabd7d3772d3eff410ef433f9adf18c0",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8abc0f62c4/problem.md": "0500482283c7cf686c90505c2e668aae51a3829d556ca24b402d320ba3f840fd",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8abc0f62c4/problem.json": "0a505890f14c1e4a40b2d68435dac1a45d795b4cadd800289fbb395cab0114df",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8abc0f62c4/reference-manifest.json": "024395eb16744a67c062d4787284abe3f4cdebfec9609217ede4bc773b8bcef0",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8abc0f62c4/decomposition.json": "5a837eaeb138ca49edfd7114e4e565373d04e5e2e04e7ca9ee11dd2596af81b2",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8abc0f62c4/decomposition-audit.json": "289f99b73c3489de37edf1d808f6024467e729dd573736e54f708ebddf61af47",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8abc0f62c4/controller-contract.json": "15abb5b197a06e4feb0c79eda2d53e3a24a12bfa8f753bace11ccc2ff0aaee11",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8abc0f62c4/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-770f2306a1/parent-child-handoff.json": "f09cc18bbe3ed9ffb3ec4a39001f72ffbaec2788a13fa844ae75f81c850c9f57",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8abc0f62c4/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-770f2306a1/parent-supplied-plan.md": "bd1cc0130d24785b44684a0f323cbdb72e1dd9476424f47dbddb6cee8e23260a",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8abc0f62c4/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-770f2306a1/parent-supplied-natural-proof.md": "d39a0d269179706d93c0d695db61ae3d658606d495f6070e887e212fefce887a",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8abc0f62c4/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-770f2306a1/parent-supplied-natural-proof.json": "86f5303388ae44a5a4e19f5101eb48b0ed7424f2a1d15180c527b78fb06a6e43",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8abc0f62c4/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-770f2306a1/node.json": "9d94e301297553d015e8c2e7ac22d7205fc8caeb953f67d3c193ad2ce263345b",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8abc0f62c4/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-2b914784f7/parent-child-handoff.json": "859c25278e0c8431018207f8bc135f38181a8e3d9261fc139776016c47a5a9a3",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8abc0f62c4/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-2b914784f7/parent-supplied-plan.md": "b2ae36e2b53ed6f15c13476c0568d19432e95ea0dfeb340d7ffb5a5487d45890",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8abc0f62c4/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-2b914784f7/parent-supplied-natural-proof.md": "98503ae98b63c36934e9b7a6b6143559866bcd3eed73987b846656fe6684bc31",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8abc0f62c4/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-2b914784f7/parent-supplied-natural-proof.json": "75fd86d2a78db7eb08273d4c0e6dae32ac33aaeba7d433749494710b57367f38",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8abc0f62c4/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-2b914784f7/node.json": "af6d89702700dd226521ac30dc6827e09953acd867789bbb5ac59dface4441a1"
+  }
+}

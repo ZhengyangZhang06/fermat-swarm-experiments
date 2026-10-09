@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.counting_mellin_continuation-a1.mellin_tail_holomorphic-a1",
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.counting_mellin_continuation-a1",
+  "depth": 5,
+  "title": "Holomorphy of a Mellin tail with a measurable power-bounded coefficient",
+  "statement": "Let R : ℝ → ℝ be Borel measurable, and let α, M : ℝ satisfy M ≥ 0 and |R(t)| ≤ Mt^α for every real t ≥ 1. For s ∈ ℂ let I(s) be the complex Lebesgue integral over (1,∞) of R(t)(t : ℂ)^(−(s+1)), using the principal complex power. Then the integrand is Bochner integrable on (1,∞) whenever α < Re(s), and I is complex differentiable on the open half-plane {s : α < Re(s)}. There is no sign restriction on α or R.",
+  "lean_statement": "∀ (R : ℝ → ℝ) (α M : ℝ), Measurable R → 0 ≤ M → (∀ t : ℝ, 1 ≤ t → |R t| ≤ M * t ^ α) → (∀ s : ℂ, α < s.re → MeasureTheory.IntegrableOn (fun t : ℝ => (R t : ℂ) * (t : ℂ) ^ (-(s + 1))) (Set.Ioi (1 : ℝ))) ∧ DifferentiableOn ℂ (fun s : ℂ => MeasureTheory.integral (μ := MeasureTheory.volume.restrict (Set.Ioi (1 : ℝ))) (fun t : ℝ => (R t : ℂ) * (t : ℂ) ^ (-(s + 1)))) {s : ℂ | α < s.re}",
+  "lean_name": "p09_af497904fe_cmc_40fde013_mellin_tail_holomorphic",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-2b914784f7-a1"
+}
