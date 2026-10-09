@@ -10199,69 +10199,6 @@ theorem p10_17ae7b7d_periodic_disk_extension :
     hAg hdecay
 
 end Submission
-theorem Submission.p10_17ae7b7d_valence_modular_log_derivative :
-    ∀ (k : ℕ) (F : ℂ → ℂ),
-      DifferentiableOn ℂ F {z : ℂ | 0 < z.im} →
-      (∀ z : ℂ, 0 < z.im → F (z + 1) = F z) →
-      (∀ z : ℂ, 0 < z.im → F (-1 / z) = z ^ k * F z) →
-      ∀ z : ℂ, 0 < z.im →
-        analyticOrderNatAt F (z + 1) = analyticOrderNatAt F z ∧
-        analyticOrderNatAt F (-1 / z) = analyticOrderNatAt F z ∧
-        (F z ≠ 0 →
-          deriv F (z + 1) / F (z + 1) = deriv F z / F z ∧
-          (deriv F (-1 / z) / F (-1 / z)) / z ^ 2 =
-            (k : ℂ) / z + deriv F z / F z) := by
-  intro k F hF hT hS z hz
-  have hU : IsOpen {w : ℂ | 0 < w.im} :=
-    isOpen_lt continuous_const Complex.continuous_im
-  have hA (w : ℂ) (hw : 0 < w.im) : AnalyticAt ℂ F w :=
-    hF.analyticAt (hU.mem_nhds hw)
-  have hz0 : z ≠ 0 := by
-    intro h
-    simp [h] at hz
-  have hzT : 0 < (z + 1).im := by simpa using hz
-  have hzS : 0 < (-1 / z).im := by
-    simpa [Complex.div_im, neg_div] using div_pos hz (Complex.normSq_pos.mpr hz0)
-  have aT : AnalyticAt ℂ (fun w : ℂ => w + 1) z := by fun_prop
-  have aS : AnalyticAt ℂ (fun w : ℂ => -1 / w) z := by fun_prop
-  have dT : deriv (fun w : ℂ => w + 1) z = 1 := by simp
-  have dS : deriv (fun w : ℂ => -1 / w) z = 1 / z ^ 2 := by simp
-  have eT : Filter.EventuallyEq (nhds z) (F ∘ fun w : ℂ => w + 1) F :=
-    Filter.eventually_of_mem (hU.mem_nhds hz) fun w hw => hT w hw
-  have eS : Filter.EventuallyEq (nhds z) (F ∘ fun w : ℂ => -1 / w)
-      (fun w => w ^ k * F w) :=
-    Filter.eventually_of_mem (hU.mem_nhds hz) fun w hw => hS w hw
-  have oT : analyticOrderAt F (z + 1) = analyticOrderAt F z := by
-    calc
-      analyticOrderAt F (z + 1) =
-          analyticOrderAt (F ∘ fun w : ℂ => w + 1) z :=
-        (analyticOrderAt_comp_of_deriv_ne_zero aT (by simp [dT])).symm
-      _ = analyticOrderAt F z := analyticOrderAt_congr eT
-  have aP : AnalyticAt ℂ (fun w : ℂ => w ^ k) z := by fun_prop
-  have oS : analyticOrderAt F (-1 / z) = analyticOrderAt F z := by
-    calc
-      analyticOrderAt F (-1 / z) =
-          analyticOrderAt (F ∘ fun w : ℂ => -1 / w) z :=
-        (analyticOrderAt_comp_of_deriv_ne_zero aS (by simp [dS, hz0])).symm
-      _ = analyticOrderAt (fun w => w ^ k * F w) z := analyticOrderAt_congr eS
-      _ = analyticOrderAt (fun w : ℂ => w ^ k) z + analyticOrderAt F z :=
-        analyticOrderAt_mul aP (hA z hz)
-      _ = analyticOrderAt F z := by
-        rw [aP.analyticOrderAt_eq_zero.mpr (pow_ne_zero k hz0), zero_add]
-  refine ⟨congrArg ENat.toNat oT, congrArg ENat.toNat oS, ?_⟩
-  intro hFz
-  constructor
-  · have h := (logDeriv_congr_nhds eT).self_of_nhds
-    rw [logDeriv_comp (g := fun w : ℂ => w + 1) (hA (z + 1) hzT).differentiableAt aT.differentiableAt,
-      dT, mul_one] at h
-    exact h
-  · have h := (logDeriv_congr_nhds eS).self_of_nhds
-    rw [logDeriv_comp (g := fun w : ℂ => -1 / w) (hA (-1 / z) hzS).differentiableAt aS.differentiableAt,
-      dS, logDeriv_mul (f := fun w : ℂ => w ^ k) (g := F) z (pow_ne_zero k hz0) hFz aP.differentiableAt
-        (hA z hz).differentiableAt, logDeriv_pow] at h
-    simpa only [logDeriv_apply, mul_one_div] using h
-
-
 theorem Submission.p10_17ae7b7d_efp_inverse_coset_eq_iff :
     ∀ (N : ℕ) [NeZero N] (A B : Matrix.SpecialLinearGroup (Fin 2) ℤ),
       (QuotientGroup.mk (A⁻¹) :
@@ -10891,6 +10828,38 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     intro z hz hne
     obtain ⟨r, hr, han⟩ := (hLan z hz hne).exists_ball_analyticOnNhd
     exact ⟨r, hr, han.differentiableOn.isExactOn_ball⟩
+  -- Steps 5–6: compactness gives a common size for primitive neighborhoods.
+  have hprimitiveMesh : ∀ Q : Set ℂ, IsCompact Q → Q ⊆ H →
+      (∀ z ∈ Q, F z ≠ 0) → ∃ δ : ℝ, 0 < δ ∧
+        ∀ z ∈ Q, Complex.IsExactOn L (Metric.ball z δ) := by
+    intro Q hQ hQH hQF
+    let cover : Set (Set ℂ) := {U | IsOpen U ∧ Complex.IsExactOn L U}
+    have hcover : Q ⊆ ⋃₀ cover := by
+      intro z hz
+      obtain ⟨r, hr, hprimitive⟩ := hlocalPrimitive z (hQH hz) (hQF z hz)
+      exact Set.mem_sUnion.mpr
+        ⟨Metric.ball z r, ⟨Metric.isOpen_ball, hprimitive⟩, Metric.mem_ball_self hr⟩
+    obtain ⟨δ, hδ, hsub⟩ := lebesgue_number_lemma_of_metric_sUnion hQ
+      (fun U hU => hU.1) hcover
+    refine ⟨δ, hδ, ?_⟩
+    intro z hz
+    obtain ⟨U, hU, hzU⟩ := hsub z hz
+    obtain ⟨g, hg⟩ := hU.2
+    exact ⟨g, fun w hw => hg w (hzU hw)⟩
+  -- Step 6: each regular piece in a primitive domain contributes its endpoint difference.
+  have hprimitiveIntegral : ∀ (U : Set ℂ) (g : ℂ → ℂ),
+      (∀ z ∈ U, HasDerivAt g (L z) z) →
+      ∀ (η η' : ℝ → ℂ) (a b : ℝ),
+        (∀ t ∈ Set.uIcc a b, η t ∈ U) →
+        (∀ t ∈ Set.uIcc a b, HasDerivAt η (η' t) t) →
+        IntervalIntegrable (fun t => L (η t) * η' t) MeasureTheory.volume a b →
+        intervalIntegral (fun t => L (η t) * η' t) a b MeasureTheory.volume =
+          g (η b) - g (η a) := by
+    intro U g hg η η' a b hηU hη hηint
+    apply intervalIntegral.integral_eq_sub_of_hasDerivAt _ hηint
+    intro t ht
+    simpa only [Function.comp_def, smul_eq_mul, mul_comm] using
+      (hg (η t) (hηU t ht)).scomp t (hη t ht)
   have htopBound : ∀ (y : ℝ), Y ≤ y → ∀ x : ℝ,
       ‖L ((x : ℂ) + (y : ℂ) * Complex.I) -
         2 * (Real.pi : ℂ) * Complex.I * (analyticOrderNatAt A 0 : ℂ)‖ ≤
