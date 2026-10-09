@@ -1888,7 +1888,9 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
           ∃ d : ℝ, 0 < d ∧
             let cells : Set (ℤ × ℤ) := {i | (closure V ∩ square d i).Nonempty}
             cells.Finite ∧ closure V ⊆ ⋃ i ∈ cells, square d i ∧
-              ∀ i ∈ cells, Complex.IsExactOn L (square d i) := by
+              (∀ i ∈ cells, Complex.IsExactOn L (square d i)) ∧
+              S.Pairwise (fun v w => Disjoint (Metric.closedBall v r) (Metric.closedBall w r)) ∧
+              ∀ v ∈ S, Metric.closedBall v r ⊆ Ω ε := by
     filter_upwards [hsmallCuts, hcutExcision] with ε hε hexc
     let S : Set ℂ := {z ∈ Ω ε | F z = 0}
     obtain ⟨r, p, hr, _, _, hpairs, hcircles, hpV, hVopen, hVc, hVF, δ, hδ, hmesh⟩ := hexc
@@ -2007,7 +2009,7 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
           nlinarith [hzi.2.2.1]
         exact ⟨⟨by exact_mod_cast hi1lo, by exact_mod_cast hi2lo⟩,
           ⟨by exact_mod_cast hi1hi, by exact_mod_cast hi2hi⟩⟩
-      refine ⟨d, hd, hfiniteCells, ?_, ?_⟩
+      refine ⟨d, hd, hfiniteCells, ?_, ?_, hpairs, fun v hv => (hcircles v hv).1⟩
       · intro z hz
         obtain ⟨i, hzi⟩ := hcover z
         exact Set.mem_iUnion₂.mpr ⟨i, ⟨z, hz, hzi⟩, hzi⟩
@@ -2099,6 +2101,108 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
       rcases sq_eq_sq_iff_eq_or_eq_neg.mp he with h | h
       · exact hplus (by linarith)
       · exact hminus (by linarith)
+  -- Transverse circle crossings determine the occupied side and endpoint sign.
+  have hlineCircleCrossing : ∀ (p c u : ℂ) (r : ℝ), 0 ≤ r → ‖p - c‖ = r →
+      (p - c).re * u.re + (p - c).im * u.im ≠ 0 →
+      ∀ᶠ s : ℝ in nhds 0,
+        (r < ‖p + (s : ℂ) * u - c‖ ↔
+          0 < s * ((p - c).re * u.re + (p - c).im * u.im)) := by
+    classical
+    have hrealSignedCrossing (f : ℝ → ℝ) (t d : ℝ)
+        (hf : HasDerivAt f d t) (hd : d ≠ 0) :
+        ∀ᶠ x in nhds t, (0 < f x - f t ↔ 0 < (x - t) * d) := by
+      let q : ℝ → ℝ := Function.update (fun x => (f x - f t) / (x - t)) t d
+      have hq : ContinuousAt q t := hf.continuousAt_div
+      have hpos : ∀ᶠ x in nhds t, 0 < d * q x := by
+        apply (continuousAt_const.mul hq).tendsto.eventually (isOpen_Ioi.mem_nhds _)
+        simpa [q] using mul_self_pos.mpr hd
+      filter_upwards [hpos] with x hx
+      have heq : f x - f t = (x - t) * q x := by
+        by_cases hxt : x = t
+        · simp [hxt]
+        · simp only [q, Function.update_of_ne hxt]
+          field_simp
+      rw [heq]
+      rcases mul_pos_iff.mp hx with ⟨hdp, hqp⟩ | ⟨hdn, hqn⟩
+      · simp only [mul_pos_iff_of_pos_right hqp, mul_pos_iff_of_pos_right hdp]
+      · simp only [mul_pos_iff, not_lt.mpr hqn.le, not_lt.mpr hdn.le, hqn, hdn,
+          and_false, and_true, false_or]
+    intro p c u r hr hpr htrans
+    let D : ℝ := (p - c).re * u.re + (p - c).im * u.im
+    let f : ℝ → ℝ := fun s => 2 * D * s + Complex.normSq u * s ^ 2
+    have hf : HasDerivAt f (2 * D) 0 := by
+      convert! (((hasDerivAt_id (0 : ℝ)).const_mul (2 * D)).add
+        (((hasDerivAt_id (0 : ℝ)).pow 2).const_mul (Complex.normSq u))) using 1
+      norm_num
+    have hD : 2 * D ≠ 0 := mul_ne_zero (by norm_num) htrans
+    filter_upwards [hrealSignedCrossing f 0 (2 * D) hf hD] with s hs
+    have hnorm : ‖p + (s : ℂ) * u - c‖ ^ 2 - r ^ 2 = f s := by
+      rw [← hpr]
+      simp only [Complex.sq_norm, Complex.normSq_apply, Complex.add_re, Complex.sub_re,
+        Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im, zero_mul, sub_zero,
+        Complex.add_im, Complex.sub_im, Complex.mul_im, f, D]
+      ring
+    have hsq : r < ‖p + (s : ℂ) * u - c‖ ↔ 0 < f s := by
+      constructor
+      · intro h
+        nlinarith only [hnorm, hr, h]
+      · intro h
+        nlinarith only [hnorm, hr, norm_nonneg (p + (s : ℂ) * u - c), h]
+    rw [hsq]
+    have hf0 : f 0 = 0 := by simp [f]
+    rw [hf0, sub_zero, sub_zero] at hs
+    rw [hs]
+    change 0 < s * (2 * D) ↔ 0 < s * D
+    rw [show s * (2 * D) = 2 * (s * D) by ring, mul_pos_iff_of_pos_left (by norm_num : (0 : ℝ) < 2)]
+  have hpuncturedExterior (U : Set ℂ) (hU : IsOpen U) (S : Set ℂ) (hS : S.Finite) (r : ℝ)
+      (hballs : ∀ v ∈ S, Metric.closedBall v r ⊆ U)
+      (hpairs : S.Pairwise (fun v w => Disjoint (Metric.closedBall v r) (Metric.closedBall w r)))
+      (v : ℂ) (hv : v ∈ S) (z : ℂ) (hz : z ∈ Metric.sphere v r) :
+      ∀ᶠ w in nhds z, (w ∈ U \ ⋃ c ∈ S, Metric.closedBall c r ↔ r < ‖w - v‖) := by
+    have hzball := Metric.sphere_subset_closedBall hz
+    have hopen : IsOpen (U \ ⋃ c ∈ S \ {v}, Metric.closedBall c r) :=
+      hU.sdiff ((hS.sdiff : (S \ {v}).Finite).isClosed_biUnion
+        (fun _ _ => Metric.isClosed_closedBall))
+    have hzother : z ∈ U \ ⋃ c ∈ S \ {v}, Metric.closedBall c r := by
+      refine ⟨hballs v hv hzball, ?_⟩
+      intro hmem
+      obtain ⟨c, hc, hzc⟩ := Set.mem_iUnion₂.mp hmem
+      exact Set.disjoint_left.mp (hpairs hv hc.1 (Ne.symm hc.2)) hzball hzc
+    filter_upwards [hopen.mem_nhds hzother] with w hw
+    constructor
+    · intro hmem
+      have hn : w ∉ Metric.closedBall v r := fun h =>
+        hmem.2 (Set.mem_iUnion₂.mpr ⟨v, hv, h⟩)
+      simpa only [Metric.mem_closedBall, dist_eq_norm, not_le] using hn
+    · intro hnorm
+      refine ⟨hw.1, ?_⟩
+      intro hmem
+      obtain ⟨c, hc, hwc⟩ := Set.mem_iUnion₂.mp hmem
+      by_cases hcv : c = v
+      · subst c
+        exact (not_le_of_gt hnorm) (by simpa only [Metric.mem_closedBall, dist_eq_norm] using hwc)
+      · exact hw.2 (Set.mem_iUnion₂.mpr ⟨c, ⟨hc, hcv⟩, hwc⟩)
+  have hoccupiedEndpointSigns (η : ℝ → ℂ) (V : Set ℂ) (t D : ℝ) (a b : ℝ) (hab : a < b)
+      (hmem : ∀ x ∈ Set.Ioo a b, η x ∈ V)
+      (hcross : ∀ᶠ x in nhds t, (η x ∈ V ↔ 0 < (x - t) * D)) :
+      (a = t → 0 < D) ∧ (b = t → D < 0) := by
+    constructor
+    · rintro rfl
+      have hnear : ∀ᶠ x in nhdsWithin a (Set.Ioi a),
+          (η x ∈ V ↔ 0 < (x - a) * D) ∧ x < b :=
+        (hcross.and (eventually_lt_nhds hab)).filter_mono nhdsWithin_le_nhds
+      have hside : ∀ᶠ x in nhdsWithin a (Set.Ioi a), a < x := self_mem_nhdsWithin
+      obtain ⟨x, hx, hsign, hxb⟩ := (hside.and hnear).exists
+      have hpos := hsign.mp (hmem x ⟨hx, hxb⟩)
+      exact (mul_pos_iff_of_pos_left (sub_pos.mpr hx)).mp hpos
+    · rintro rfl
+      have hnear : ∀ᶠ x in nhdsWithin b (Set.Iio b),
+          (η x ∈ V ↔ 0 < (x - b) * D) ∧ a < x :=
+        (hcross.and (eventually_gt_nhds hab)).filter_mono nhdsWithin_le_nhds
+      have hside : ∀ᶠ x in nhdsWithin b (Set.Iio b), x < b := self_mem_nhdsWithin
+      obtain ⟨x, hx, hsign, hax⟩ := (hside.and hnear).exists
+      have hpos := hsign.mp (hmem x ⟨hax, hx⟩)
+      exact neg_of_mul_pos_right hpos (sub_nonpos.mpr hx.le)
   have hgridChoice (d : ℝ) (P : Set ℂ) (C : Set (ℂ × ℝ))
       (hP : P.Countable) (hC : C.Countable) :
       ∃ a : ℂ,
@@ -2576,6 +2680,88 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     convert! (contDiff_const.sub (contDiff_const.mul hw)).mul
       ((contDiff_const.sub hw).inv (hphaseDen ε hε hε1)) using 1
   -- The cut coordinate parametrizes the entire Euclidean cut circle.
+  have hcircleTangent (v u : ℂ) (r s : ℝ) :
+      (deriv (circleMap v r) s * star u).im =
+        (circleMap v r s - v).re * u.re + (circleMap v r s - v).im * u.im := by
+    rw [deriv_circleMap, circleMap_sub_center]
+    simp [Complex.mul_im, Complex.mul_re]
+    ring
+  have hmobiusTangent (v w : ℂ) (e : ℝ) (he : 0 < e) (he1 : e < 1) (hw : ‖w‖ = e) :
+      (v - star v) * Complex.I * w / (1 - w) ^ 2 =
+        (((1 - e ^ 2) / Complex.normSq (1 - w) : ℝ) : ℂ) * Complex.I *
+          ((v - star v * w) / (1 - w) -
+            (v - star v * (e : ℂ) ^ 2) / (1 - (e : ℂ) ^ 2)) := by
+    have hden : 1 - w ≠ 0 := by
+      intro h
+      have hw1 : w = 1 := (sub_eq_zero.mp h).symm
+      rw [hw1, norm_one] at hw
+      linarith
+    have hnorm : Complex.normSq (1 - w) ≠ 0 :=
+      mt Complex.normSq_eq_zero.mp hden
+    have ha : (1 : ℂ) - (e : ℂ) ^ 2 ≠ 0 := by
+      have hreal : (1 : ℝ) - e ^ 2 ≠ 0 := ne_of_gt (by nlinarith only [he, he1])
+      exact_mod_cast hreal
+    have hwstar : w * star w = (e : ℂ) ^ 2 := by
+      simpa only [Complex.star_def, Complex.normSq_eq_norm_sq, hw, Complex.ofReal_pow]
+        using Complex.mul_conj w
+    have hn : (Complex.normSq (1 - w) : ℂ) = (1 - w) * (1 - star w) := by
+      simpa using (Complex.mul_conj (1 - w)).symm
+    push_cast
+    field_simp [hden, ha, Complex.ofReal_ne_zero.mpr hnorm]
+    rw [hn, ← hwstar]
+    ring
+  have hgammaDerivative (v : ℂ) (e : ℝ) (he : 0 < e) (he1 : e < 1) (t : ℝ) :
+      deriv (fun s : ℝ =>
+        (v - star v * ((e : ℂ) * Complex.exp ((s : ℂ) * Complex.I))) /
+          (1 - (e : ℂ) * Complex.exp ((s : ℂ) * Complex.I))) t =
+        (v - star v) * Complex.I * ((e : ℂ) * Complex.exp ((t : ℂ) * Complex.I)) /
+          (1 - (e : ℂ) * Complex.exp ((t : ℂ) * Complex.I)) ^ 2 := by
+    let w : ℝ → ℂ := fun s => (e : ℂ) * Complex.exp ((s : ℂ) * Complex.I)
+    have hw : HasDerivAt w (Complex.I * w t) t := by
+      convert hasDerivAt_circleMap 0 e t using 1
+      · ext s
+        simp [w, circleMap]
+      · simp [w, circleMap, mul_comm]
+    have hn : ‖w t‖ = e := by
+      rw [show w = circleMap 0 e from by ext s; simp [w, circleMap]]
+      simp [norm_circleMap_zero, abs_of_pos he]
+    have hden : 1 - w t ≠ 0 := by
+      intro hz
+      have hw1 : w t = 1 := (sub_eq_zero.mp hz).symm
+      rw [hw1, norm_one] at hn
+      linarith
+    have hquot := (((hw.const_mul (star v)).const_sub v).div (hw.const_sub 1) hden).deriv
+    change deriv (fun s : ℝ => (v - star v * w s) / (1 - w s)) t = _
+    calc
+      _ = (-(star v * (Complex.I * w t)) * (1 - w t) -
+          (v - star v * w t) * -(Complex.I * w t)) / (1 - w t) ^ 2 := by
+        convert! hquot using 1
+      _ = (v - star v) * Complex.I * w t / (1 - w t) ^ 2 := by
+        congr 1
+        ring
+  have hgammaCenter (v : ℂ) (e : ℝ) (he : 0 < e) (he1 : e < 1) :
+      (v.re : ℂ) + ((v.im * (1 + e ^ 2) / (1 - e ^ 2) : ℝ) : ℂ) * Complex.I =
+        (v - star v * (e : ℂ) ^ 2) / (1 - (e : ℂ) ^ 2) := by
+    have ha : (1 : ℂ) - (e : ℂ) ^ 2 ≠ 0 := by
+      have hreal : (1 : ℝ) - e ^ 2 ≠ 0 := ne_of_gt (by nlinarith only [he, he1])
+      exact_mod_cast hreal
+    push_cast
+    field_simp [ha]
+    apply Complex.ext <;> simp [Complex.mul_re, Complex.mul_im] <;> ring
+  have hgammaTangent (v : ℂ) (ε : ℝ) (hε : 0 < ε) (hε1 : ε < 1) (t : ℝ) :
+      ∃ speed : ℝ, 0 < speed ∧ deriv (γ v ε) t =
+        (speed : ℂ) * Complex.I * (γ v ε t - cutCenter v ε) := by
+    let w : ℂ := (ε : ℂ) * Complex.exp ((t : ℂ) * Complex.I)
+    refine ⟨(1 - ε ^ 2) / Complex.normSq (1 - w),
+      div_pos (by nlinarith only [hε, hε1])
+        (Complex.normSq_pos.mpr (hphaseDen ε hε hε1 t)), ?_⟩
+    have hcenter : cutCenter v ε =
+        (v - star v * (ε : ℂ) ^ 2) / (1 - (ε : ℂ) ^ 2) := hgammaCenter v ε hε hε1
+    rw [hcenter]
+    change deriv (fun s : ℝ => (v - star v * ((ε : ℂ) * Complex.exp ((s : ℂ) * Complex.I))) /
+      (1 - (ε : ℂ) * Complex.exp ((s : ℂ) * Complex.I))) t = _
+    rw [hgammaDerivative v ε hε hε1 t]
+    exact hmobiusTangent v w ε hε hε1 (hphaseNorm ε hε t)
   have hgammaSphere : ∀ v ∈ H, ∀ ε : ℝ, 0 < ε → ε < 1 → ∀ t : ℝ,
       γ v ε t ∈ Metric.sphere (cutCenter v ε) (cutRadius v ε) := by
     intro v hv ε hε hε1 t
@@ -3550,7 +3736,8 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     push_cast at hresult ⊢
     exact hresult
   filter_upwards [hsmallCuts, hcutZeros, hparametrizedExcisionBoundary, hpairedLowerIntegral,
-    hcutsBelowTop] with ε hε hzeros hexc hlower hbelowTop
+    hcutsBelowTop, hcutsDisjoint, hcutArcInterior] with ε hε hzeros hexc hlower hbelowTop
+      hboundaryDisjoint hboundaryArcInterior
   obtain ⟨r, δ, hr, hδ, hVopen, hVcompact, hVzeroFree, hVfrontier,
     hcircles, hmesh, hcells⟩ := hexc
   have hexcisionSum :
@@ -3594,6 +3781,58 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
       (fun v => (v, r)) '' S
   have hSfinite : S.Finite := by
     simpa only [S, hzeros] using hOzerosFinite
+  obtain ⟨_, _, _, _, _, hexcisionDisjoint, hexcisionInside⟩ := hcells
+  have hexcisionLocalExterior (v : ℂ) (hv : v ∈ S) (z : ℂ)
+      (hz : z ∈ Metric.sphere v r) :
+      ∀ᶠ w in nhds z, (w ∈ V ↔ r < ‖w - v‖) :=
+    hpuncturedExterior (Ω ε) (hcutOpen ε hε.1 hε.2) S hSfinite r
+      hexcisionInside hexcisionDisjoint v hv z hz
+  have hexcisionAway (z : ℂ) (hz : z ∉ Ω ε) :
+      ∀ᶠ w in nhds z, (w ∈ V ↔ w ∈ Ω ε) := by
+    have hopen : IsOpen (⋃ v ∈ S, Metric.closedBall v r)ᶜ :=
+      (hSfinite.isClosed_biUnion (fun _ _ => Metric.isClosed_closedBall)).isOpen_compl
+    have hzout : z ∈ (⋃ v ∈ S, Metric.closedBall v r)ᶜ := by
+      intro hzmem
+      obtain ⟨v, hv, hzv⟩ := Set.mem_iUnion₂.mp hzmem
+      exact hz (hexcisionInside v hv hzv)
+    filter_upwards [hopen.mem_nhds hzout] with w hw
+    exact ⟨fun h => h.1, fun h => ⟨h, hw⟩⟩
+  have hboundaryCutLocalExterior (v : ℂ) (hv : v ∈ B) (z : ℂ) (hzO : z ∈ O)
+      (hz : z ∈ Metric.sphere (cutCenter v ε) (cutRadius v ε)) :
+      ∀ᶠ w in nhds z, (w ∈ V ↔ cutRadius v ε < ‖w - cutCenter v ε‖) := by
+    have hdisk := (hdisks v ε (hKH hv.1.1) hε.1 hε.2).1
+    have hzD : z ∈ D v ε := by
+      rw [hdisk]
+      exact Metric.sphere_subset_closedBall hz
+    have hznot : z ∉ Ω ε := fun h => h.2 (Set.mem_iUnion₂.mpr ⟨v, hv, hzD⟩)
+    let W := O \ ⋃ w ∈ B \ {v}, D w ε
+    have hWopen : IsOpen W := by
+      apply hOopen.sdiff
+      apply (hBfinite.sdiff : (B \ {v}).Finite).isClosed_biUnion
+      intro w hw
+      rw [(hdisks w ε (hKH hw.1.1.1) hε.1 hε.2).1]
+      exact Metric.isClosed_closedBall
+    have hzW : z ∈ W := by
+      refine ⟨hzO, ?_⟩
+      intro hzother
+      obtain ⟨w, hw, hzw⟩ := Set.mem_iUnion₂.mp hzother
+      exact Set.disjoint_left.mp
+        (hboundaryDisjoint hv.1 hw.1.1 (Ne.symm hw.2)) hzD hzw
+    filter_upwards [hWopen.mem_nhds hzW, hexcisionAway z hznot] with w hw haw
+    rw [haw]
+    constructor
+    · intro hmem
+      have hn : w ∉ D v ε := fun h => hmem.2 (Set.mem_iUnion₂.mpr ⟨v, hv, h⟩)
+      simpa only [hdisk, Metric.mem_closedBall, dist_eq_norm, not_le] using hn
+    · intro hnorm
+      refine ⟨hw.1, ?_⟩
+      intro hmem
+      obtain ⟨c, hc, hwc⟩ := Set.mem_iUnion₂.mp hmem
+      by_cases hcv : c = v
+      · subst c
+        exact (not_le_of_gt hnorm)
+          (by simpa only [hdisk, Metric.mem_closedBall, dist_eq_norm] using hwc)
+      · exact hw.2 (Set.mem_iUnion₂.mpr ⟨c, ⟨hc, hcv⟩, hwc⟩)
   have hgridCornersCountable : gridCorners.Countable :=
     ((Set.to_countable _).union (hBfinite.countable.image _)).union
       (hBfinite.countable.image _)
@@ -4026,6 +4265,79 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     exact mul_right_cancel₀ (hcellVelocityNe i j) (add_left_cancel hst)
   have hcellEdgeContinuous (i : ℤ × ℤ) (j : Fin 4) : Continuous (cellEdge i j) :=
     continuous_iff_continuousAt.mpr (fun t => (hcellEdgeDeriv i j t).continuousAt)
+  have hcellCircleNormalNe (i : ℤ × ℤ) (j : Fin 4) (t : ℝ)
+      (c : ℂ × ℝ) (hc : c ∈ gridCircles)
+      (hz : cellEdge i j t ∈ Metric.sphere c.1 c.2) :
+      (cellEdge i j t - c.1).re * (cellVelocity i j).re +
+        (cellEdge i j t - c.1).im * (cellVelocity i j).im ≠ 0 := by
+    have hvelocity : cellVelocity i j =
+        ![(d : ℂ), (d : ℂ) * Complex.I, -(d : ℂ), -(d : ℂ) * Complex.I] j := by
+      fin_cases j <;> norm_num [cellVelocity, cellVertex, cellNext, Equiv.addRight,
+        gridVertex, Fin.add_def] <;> ring
+    rw [hvelocity]
+    fin_cases j
+    · have hline : (cellEdge i 0 t).im = a.im + (i.2 : ℝ) * d := by
+        norm_num [cellEdge, cellVertex, cellNext, Equiv.addRight, gridVertex, Fin.add_def]
+      have hne := (hgridTransverse c hc i.2 (cellEdge i 0 t) hz).2 hline
+      simpa using mul_ne_zero (sub_ne_zero.mpr hne) hd.ne'
+    · have hline : (cellEdge i 1 t).re = a.re + ((i.1 + 1 : ℤ) : ℝ) * d := by
+        norm_num [cellEdge, cellVertex, cellNext, Equiv.addRight, gridVertex, Fin.add_def]
+      have hne := (hgridTransverse c hc (i.1 + 1) (cellEdge i 1 t) hz).1 hline
+      simpa using mul_ne_zero (sub_ne_zero.mpr hne) hd.ne'
+    · have hline : (cellEdge i 2 t).im = a.im + ((i.2 + 1 : ℤ) : ℝ) * d := by
+        norm_num [cellEdge, cellVertex, cellNext, Equiv.addRight, gridVertex, Fin.add_def,
+          Matrix.cons_val_two]
+      have hne := (hgridTransverse c hc (i.2 + 1) (cellEdge i 2 t) hz).2 hline
+      simpa [Matrix.cons_val_two] using mul_ne_zero (sub_ne_zero.mpr hne) (neg_ne_zero.mpr hd.ne')
+    · have hline : (cellEdge i 3 t).re = a.re + (i.1 : ℝ) * d := by
+        norm_num [cellEdge, cellVertex, cellNext, Equiv.addRight, gridVertex, Fin.add_def,
+          Matrix.cons_val_three]
+      have hne := (hgridTransverse c hc i.1 (cellEdge i 3 t) hz).1 hline
+      simpa [Matrix.cons_val_three] using mul_ne_zero (sub_ne_zero.mpr hne) (neg_ne_zero.mpr hd.ne')
+  have hcircleEdgeCrossing (i : ℤ × ℤ) (j : Fin 4) (t : ℝ)
+      (c : ℂ × ℝ) (hc : c ∈ gridCircles) (hcpos : 0 ≤ c.2)
+      (hz : cellEdge i j t ∈ Metric.sphere c.1 c.2)
+      (hexterior : ∀ᶠ w in nhds (cellEdge i j t), (w ∈ V ↔ c.2 < ‖w - c.1‖)) :
+      ∀ᶠ x in nhds t, (cellEdge i j x ∈ V ↔ 0 < (x - t) *
+        ((cellEdge i j t - c.1).re * (cellVelocity i j).re +
+          (cellEdge i j t - c.1).im * (cellVelocity i j).im)) := by
+    have hnormal := hcellCircleNormalNe i j t c hc hz
+    have hcircle := hlineCircleCrossing (cellEdge i j t) c.1 (cellVelocity i j) c.2 hcpos
+      (by simpa only [Metric.mem_sphere, dist_eq_norm] using hz) hnormal
+    have hshift : Filter.Tendsto (fun x : ℝ => x - t) (nhds t) (nhds 0) := by
+      simpa only [sub_self, id_eq] using (Filter.tendsto_id.sub_const t :
+        Filter.Tendsto (fun x : ℝ => x - t) (nhds t) (nhds (t - t)))
+    have hlocal := ((hcellEdgeContinuous i j).continuousAt (x := t)).tendsto.eventually
+      hexterior
+    filter_upwards [hlocal, hshift.eventually hcircle] with x hx hsign
+    rw [hx]
+    have heq : cellEdge i j t + ((x - t : ℝ) : ℂ) * cellVelocity i j = cellEdge i j x := by
+      simp only [cellEdge, cellVelocity, Complex.ofReal_sub]
+      ring
+    simpa only [heq] using hsign
+  have hexcisionEdgeCrossing (i : ℤ × ℤ) (j : Fin 4) (t : ℝ)
+      (v : ℂ) (hv : v ∈ S) (hz : cellEdge i j t ∈ Metric.sphere v r) :
+      ∀ᶠ x in nhds t, (cellEdge i j x ∈ V ↔ 0 < (x - t) *
+        ((cellEdge i j t - v).re * (cellVelocity i j).re +
+          (cellEdge i j t - v).im * (cellVelocity i j).im)) :=
+    hcircleEdgeCrossing i j t (v, r) (Or.inr ⟨v, hv, rfl⟩) hr.le hz
+      (hexcisionLocalExterior v hv (cellEdge i j t) hz)
+  have hindentationEdgeCrossing (i : ℤ × ℤ) (j : Fin 4) (t : ℝ)
+      (v : ℂ) (hv : v ∈ B) (s : ℝ) (hs : s ∈ Set.Ioo (cutEnd v) (cutStart v))
+      (heq : cellEdge i j t = γ v ε s) :
+      ∀ᶠ x in nhds t, (cellEdge i j x ∈ V ↔ 0 < (x - t) *
+        ((cellEdge i j t - cutCenter v ε).re * (cellVelocity i j).re +
+          (cellEdge i j t - cutCenter v ε).im * (cellVelocity i j).im)) := by
+    have hrad : 0 ≤ cutRadius v ε := by
+      dsimp only [cutRadius]
+      exact div_nonneg (mul_nonneg (mul_nonneg (by norm_num) (hKH hv.1.1).le) hε.1.le)
+        (by nlinarith only [hε.1, hε.2])
+    have hz : cellEdge i j t ∈ Metric.sphere (cutCenter v ε) (cutRadius v ε) := by
+      rw [heq]
+      exact hgammaSphere v (hKH hv.1.1) ε hε.1 hε.2 s
+    exact hcircleEdgeCrossing i j t (cutCenter v ε, cutRadius v ε)
+      (Or.inl (Or.inr ⟨v, hv, rfl⟩)) hrad hz
+      (hboundaryCutLocalExterior v hv _ (by rw [heq]; exact hboundaryArcInterior v hv s hs) hz)
   have hedgeCrossingsFinite (i : ℤ × ℤ) (j : Fin 4) :
       {t ∈ Set.Icc (0 : ℝ) 1 | cellEdge i j t ∈ frontier V}.Finite := by
     have hf := ((hgridVerticalIntersections i.1).union
@@ -4103,6 +4415,43 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     · exact hin
     · have hlt := ((hedgePieceMem i j p).mp hpiece).2.2.1
       exact False.elim (hout _ ⟨by linarith, by linarith⟩ (subset_closure hmid))
+  have hexcisionRetainedEndpointSigns (i : ℤ × ℤ) (j : Fin 4) (p : ℝ × ℝ)
+      (hp : p ∈ retainedPieces i j) (t : ℝ) (v : ℂ) (hv : v ∈ S)
+      (hz : cellEdge i j t ∈ Metric.sphere v r) :
+      (p.1 = t → 0 < (cellEdge i j t - v).re * (cellVelocity i j).re +
+        (cellEdge i j t - v).im * (cellVelocity i j).im) ∧
+      (p.2 = t → (cellEdge i j t - v).re * (cellVelocity i j).re +
+        (cellEdge i j t - v).im * (cellVelocity i j).im < 0) := by
+    have hlt := ((hedgePieceMem i j p).mp (Finset.mem_filter.mp hp).1).2.2.1
+    exact hoccupiedEndpointSigns (cellEdge i j) V t _ p.1 p.2 hlt
+      (hretainedPieceInterior i j p hp) (hexcisionEdgeCrossing i j t v hv hz)
+  have hexcisionEndpointOrientation (i : ℤ × ℤ) (j : Fin 4) (p : ℝ × ℝ)
+      (hp : p ∈ retainedPieces i j) (t : ℝ) (v : ℂ) (hv : v ∈ S) (s : ℝ)
+      (heq : cellEdge i j t = circleMap v r s) :
+      (p.1 = t → 0 < (deriv (circleMap v r) s * star (cellVelocity i j)).im) ∧
+      (p.2 = t → (deriv (circleMap v r) s * star (cellVelocity i j)).im < 0) := by
+    have hz : cellEdge i j t ∈ Metric.sphere v r := by
+      rw [heq]
+      exact circleMap_mem_sphere v hr.le s
+    have hsign := hexcisionRetainedEndpointSigns i j p hp t v hv hz
+    simpa only [hcircleTangent, heq] using hsign
+  have hindentationEndpointOrientation (i : ℤ × ℤ) (j : Fin 4) (p : ℝ × ℝ)
+      (hp : p ∈ retainedPieces i j) (t : ℝ) (v : ℂ) (hv : v ∈ B) (s : ℝ)
+      (hs : s ∈ Set.Ioo (cutEnd v) (cutStart v)) (heq : cellEdge i j t = γ v ε s) :
+      (p.1 = t → 0 < (deriv (γ v ε) s * star (cellVelocity i j)).im) ∧
+      (p.2 = t → (deriv (γ v ε) s * star (cellVelocity i j)).im < 0) := by
+    have hlt := ((hedgePieceMem i j p).mp (Finset.mem_filter.mp hp).1).2.2.1
+    have hsign := hoccupiedEndpointSigns (cellEdge i j) V t _ p.1 p.2 hlt
+      (hretainedPieceInterior i j p hp) (hindentationEdgeCrossing i j t v hv s hs heq)
+    obtain ⟨speed, hspeed, hderiv⟩ := hgammaTangent v ε hε.1 hε.2 s
+    have hdet : (deriv (γ v ε) s * star (cellVelocity i j)).im =
+        speed * ((cellEdge i j t - cutCenter v ε).re * (cellVelocity i j).re +
+          (cellEdge i j t - cutCenter v ε).im * (cellVelocity i j).im) := by
+      rw [hderiv, heq]
+      simp [Complex.mul_im, Complex.mul_re]
+      ring
+    rw [hdet]
+    exact ⟨fun h => mul_pos hspeed (hsign.1 h), fun h => mul_neg_of_pos_of_neg hspeed (hsign.2 h)⟩
   have hretainedPieceClosure (i : ℤ × ℤ) (j : Fin 4) (p : ℝ × ℝ)
       (hp : p ∈ retainedPieces i j) :
       ∀ t ∈ Set.Icc p.1 p.2, cellEdge i j t ∈ closure V := by
@@ -4692,8 +5041,10 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
           (∀ z ∈ gridSquare (cell p), HasDerivAt (cellPrimitive (cell p)) (L z) z) ∧
           intervalIntegral (fun t => L (η t) * deriv η t) p.1 p.2 MeasureTheory.volume =
             cellPrimitive (cell p) (η p.2) - cellPrimitive (cell p) (η p.1)) ∧
-        intervalIntegral (fun t => L (η t) * deriv η t) u v MeasureTheory.volume =
-          ∑ p ∈ pieces, (cellPrimitive (cell p) (η p.2) - cellPrimitive (cell p) (η p.1)) := by
+        (intervalIntegral (fun t => L (η t) * deriv η t) u v MeasureTheory.volume =
+          ∑ p ∈ pieces, (cellPrimitive (cell p) (η p.2) - cellPrimitive (cell p) (η p.1))) ∧
+        ∀ t : ℝ, t ∈ cuts ↔ t = u ∨ t = v ∨
+          t ∈ Set.Ioo u v ∧ η t ∈ gridCrossings := by
     have hfinite : {t ∈ Set.Ioo u v | η t ∈ gridCrossings}.Finite := by
       have himage : (η '' {t ∈ Set.Ioo u v | η t ∈ gridCrossings}).Finite := by
         apply hgridCrossingsFinite'.subset
@@ -4750,7 +5101,7 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
       · exact ⟨(0, 0), fun h => (hp h).elim⟩
     choose cell hcert using hcert
     refine ⟨cuts, pieces, cell, (hcuts u).mpr (Or.inl rfl),
-      (hcuts v).mpr (Or.inr (Or.inl rfl)), hbounds, rfl, hcert, ?_⟩
+      (hcuts v).mpr (Or.inr (Or.inl rfl)), hbounds, rfl, hcert, ?_, hcuts⟩
     calc
       _ = ∑ p ∈ pieces, intervalIntegral (fun t => L (η t) * deriv η t)
           p.1 p.2 MeasureTheory.volume :=
@@ -5233,7 +5584,7 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     rw [houterIntegralSubdivision, ← Finset.sum_coe_sort]
     apply Finset.sum_congr rfl
     intro p _
-    exact (houterGridCertificate j p).2.2.2.2.2
+    exact (houterGridCertificate j p).2.2.2.2.2.1
   let : Fintype {v // v ∈ B} := hBfinite.fintype
   choose indentationCuts indentationPieces indentationCell hindentationCertificate using
     (fun v : {v // v ∈ B} => hindentationSubdivision v.1 v.2)
@@ -5249,7 +5600,7 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     apply Finset.sum_congr rfl
     intro v _
     change intervalIntegral _ (cutStart v.1) (cutEnd v.1) MeasureTheory.volume = _
-    rw [intervalIntegral.integral_symm, (hindentationCertificate v).2.2.2.2.2]
+    rw [intervalIntegral.integral_symm, (hindentationCertificate v).2.2.2.2.2.1]
   let : Fintype {v // v ∈ S} := hSfinite.fintype
   choose excisionCuts excisionPieces excisionCell hexcisionCertificate using
     (fun v : {v // v ∈ S} => hcircleSubdivision v.1 v.2)
@@ -5267,7 +5618,7 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     rw [← Finset.sum_neg_distrib]
     apply Finset.sum_congr rfl
     intro v _
-    rw [intervalIntegral.integral_symm, (hexcisionCertificate v).2.2.2.2.2]
+    rw [intervalIntegral.integral_symm, (hexcisionCertificate v).2.2.2.2.2.1]
   have hretainedIntegralEndpoint (e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ))
       (he : e ∈ retainedGridPieces) :
       retainedIntegral e =
@@ -5383,7 +5734,9 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
   these concrete finite families. Every term now uses the fixed primitive
   of its cell, with the actual outer, indentation, excision and artificial
   edge orientations. Artificial grid-vertex occurrences have been cancelled
-  cyclically in each cell. The required balance between the remaining genuine
-  and artificial frontier-crossing occurrences is still unproved. -/
+  cyclically in each cell. Circular crossings now have local occupied-side
+  and tangent-sign certificates. Attaching the genuine subarcs to their
+  incident cells and pairing the contour joins must still establish the
+  balance of the remaining signed endpoint occurrences. -/
 
 end Submission
