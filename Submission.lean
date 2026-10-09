@@ -5370,6 +5370,180 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
         obtain ⟨w, hw, heq⟩ := hzv
         have hwz : w = z := add_right_cancel heq
         exact hwz ▸ hw
+  -- Step 14: the paired integrand is bounded even as the cuts shrink to zeros.
+  let removed : ℝ → Set ℂ := fun ε => ⋃ v ∈ B, D v ε
+  have hremovedClosed : ∀ ε : ℝ, 0 < ε → ε < 1 → IsClosed (removed ε) := by
+    intro ε hε hε1
+    apply hBfinite.isClosed_biUnion
+    intro v hv
+    rw [show D v ε = _ from (hdisks v ε (hKH hv.1.1) hε hε1).1]
+    exact Metric.isClosed_closedBall
+  have hremovedAvoid : ∀ z : ℂ, z ∉ B →
+      ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0), z ∉ removed ε := by
+    intro z hz
+    have havoid : ∀ v ∈ B,
+        ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0), z ∉ D v ε := by
+      intro v hv
+      have hne : z ≠ v := fun heq => hz (heq ▸ hv)
+      filter_upwards [hdiskShrink v (hKH hv.1.1) (dist z v) (dist_pos.mpr hne)]
+        with ε hε
+      exact fun hmem => (lt_irrefl (dist z v)) (hε hmem)
+    filter_upwards [(Filter.eventually_all_finite hBfinite).mpr havoid] with ε hε
+    intro hmem
+    obtain ⟨v, hv, hzv⟩ := Set.mem_iUnion₂.mp hmem
+    exact hε v hv hzv
+  have hretainedCircleLimit : ∀ (a b : ℝ) (c : ℂ),
+      Filter.Tendsto (fun ε : ℝ => intervalIntegral
+        (fun t : ℝ => if circleMap 0 1 t ∈ removed ε then 0 else c)
+        a b MeasureTheory.volume)
+        (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds (((b - a : ℝ) : ℂ) * c)) := by
+    intro a b c
+    have hcount : (circleMap 0 1 ⁻¹' B).Countable :=
+      hBfinite.countable.preimage_circleMap 0 (by norm_num)
+    have hae : ∀ᵐ t : ℝ ∂MeasureTheory.volume, circleMap 0 1 t ∉ B :=
+      hcount.ae_notMem MeasureTheory.volume
+    have hlim := intervalIntegral.tendsto_integral_filter_of_dominated_convergence
+      (a := a) (b := b) (μ := MeasureTheory.volume)
+      (l := nhdsWithin (0 : ℝ) (Set.Ioi 0))
+      (F := fun ε t => if circleMap 0 1 t ∈ removed ε then (0 : ℂ) else c)
+      (f := fun _ => c) (fun _ => ‖c‖) ?_ ?_ intervalIntegrable_const ?_
+    · simpa only [intervalIntegral.integral_const, smul_eq_mul, Complex.real_smul]
+        using hlim
+    · filter_upwards [hsmallCuts] with ε hε
+      have hm : MeasurableSet {t : ℝ | circleMap 0 1 t ∈ removed ε} :=
+        (hremovedClosed ε hε.1 hε.2).measurableSet.preimage (by fun_prop)
+      exact ((MeasureTheory.stronglyMeasurable_const.piecewise hm
+          MeasureTheory.stronglyMeasurable_const)
+        : MeasureTheory.StronglyMeasurable (fun t : ℝ =>
+          if circleMap 0 1 t ∈ removed ε then (0 : ℂ) else c)).aestronglyMeasurable
+    · exact Filter.Eventually.of_forall (fun ε => Filter.Eventually.of_forall
+        (fun t _ => by split_ifs <;> simp))
+    · filter_upwards [hae] with t ht
+      intro _
+      apply tendsto_const_nhds.congr'
+      filter_upwards [hremovedAvoid (circleMap 0 1 t) ht] with ε hε
+      simp only [if_neg hε]
+  have hleftArcMem : ∀ t ∈ Set.Icc (Real.pi / 2) (2 * Real.pi / 3),
+      circleMap 0 1 t ∈ K ∧ circleMap 0 1 t ∉ O := by
+    intro t ht
+    have ht0 : 0 < t := lt_of_lt_of_le (by positivity) ht.1
+    have htπ : t < Real.pi := by linarith only [ht.2, Real.pi_pos]
+    have hcos : Real.cos (2 * Real.pi / 3) = -1 / 2 := by
+      rw [show 2 * Real.pi / 3 = Real.pi - Real.pi / 3 by ring,
+        Real.cos_pi_sub, Real.cos_pi_div_three]
+      norm_num
+    have hlo := Real.cos_le_cos_of_nonneg_of_le_pi ht0.le
+      (show 2 * Real.pi / 3 ≤ Real.pi by linarith [Real.pi_pos]) ht.2
+    have hhi := Real.cos_le_cos_of_nonneg_of_le_pi (by positivity : 0 ≤ Real.pi / 2)
+      htπ.le ht.1
+    rw [hcos] at hlo
+    rw [Real.cos_pi_div_two] at hhi
+    have hnorm : ‖circleMap 0 1 t‖ = 1 := by
+      simp only [norm_circleMap_zero, abs_one]
+    have him : (circleMap 0 1 t).im = Real.sin t := by simp [circleMap_zero_im]
+    have hre : (circleMap 0 1 t).re = Real.cos t := by simp [circleMap_zero_re]
+    refine ⟨⟨?_, hnorm.ge, ?_, ?_⟩, ?_⟩
+    · rw [hre, abs_le]
+      constructor <;> linarith
+    · rw [him]
+      exact Real.sin_pos_of_pos_of_lt_pi ht0 htπ
+    · rw [him]
+      exact (Real.sin_le_one t).trans hY.le
+    · intro hmem
+      simpa only [hnorm, lt_self_iff_false] using hmem.2.1
+  let pairedLower : ℝ → ℂ := fun ε => intervalIntegral
+    (fun t : ℝ => if circleMap 0 1 t ∈ removed ε then 0 else
+      (L (circleMap 0 1 t) - L (-1 / circleMap 0 1 t) / (circleMap 0 1 t) ^ 2) *
+        (Complex.I * circleMap 0 1 t))
+    (2 * Real.pi / 3) (Real.pi / 2) MeasureTheory.volume
+  have hpairedLowerEq : ∀ ε : ℝ, 0 < ε → pairedLower ε = intervalIntegral
+      (fun t : ℝ => if circleMap 0 1 t ∈ removed ε then 0 else -(k : ℂ) * Complex.I)
+      (2 * Real.pi / 3) (Real.pi / 2) MeasureTheory.volume := by
+    intro ε hε
+    dsimp only [pairedLower]
+    apply intervalIntegral.integral_congr
+    intro t ht
+    rw [Set.uIcc_of_ge (by linarith [Real.pi_pos] : Real.pi / 2 ≤ 2 * Real.pi / 3)] at ht
+    dsimp only
+    split_ifs with hmem
+    · rfl
+    · have hz := hleftArcMem t ht
+      have hne : F (circleMap 0 1 t) ≠ 0 := by
+        intro hzero
+        exact hmem (Set.mem_iUnion₂.mpr
+          ⟨circleMap 0 1 t, ⟨⟨hz.1, hzero⟩, hz.2⟩,
+            interior_subset (hcenterInterior _ (hKH hz.1) ε hε)⟩)
+      exact harcPair _ (hKH hz.1) hne
+  have hpairedLowerLimit : Filter.Tendsto pairedLower
+      (nhdsWithin (0 : ℝ) (Set.Ioi 0))
+      (nhds (2 * (Real.pi : ℂ) * Complex.I * ((k : ℂ) / 12))) := by
+    have hlim := hretainedCircleLimit (2 * Real.pi / 3) (Real.pi / 2)
+      (-(k : ℂ) * Complex.I)
+    have heq : (((Real.pi / 2 - 2 * Real.pi / 3 : ℝ) : ℂ) * (-(k : ℂ) * Complex.I)) =
+        2 * (Real.pi : ℂ) * Complex.I * ((k : ℂ) / 12) := by
+      push_cast
+      ring
+    rw [heq] at hlim
+    apply hlim.congr'
+    filter_upwards [hsmallCuts] with ε hε
+    exact (hpairedLowerEq ε hε.1).symm
+  let verticalContribution : ℝ → ℂ := fun ε =>
+    intervalIntegral (fun t : ℝ =>
+      if ((1 / 2 : ℂ) + (t : ℂ) * Complex.I) ∈ removed ε then 0 else
+        L ((1 / 2 : ℂ) + (t : ℂ) * Complex.I) * Complex.I)
+      (Real.sqrt 3 / 2) Y MeasureTheory.volume +
+    intervalIntegral (fun t : ℝ =>
+      if ((-1 / 2 : ℂ) + (t : ℂ) * Complex.I) ∈ removed ε then 0 else
+        L ((-1 / 2 : ℂ) + (t : ℂ) * Complex.I) * Complex.I)
+      Y (Real.sqrt 3 / 2) MeasureTheory.volume
+  have hretainedVertical : ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0),
+      verticalContribution ε = 0 := by
+    have hbottom : Real.sqrt 3 / 2 < Y := by
+      nlinarith [Real.sq_sqrt (show (0 : ℝ) ≤ 3 by norm_num), Real.sqrt_nonneg 3, hY]
+    filter_upwards [hsmallCuts, hpairedRemoved] with ε hε hpaired
+    have hp : intervalIntegral (fun t : ℝ =>
+        if ((1 / 2 : ℂ) + (t : ℂ) * Complex.I) ∈ removed ε then 0 else
+          L ((1 / 2 : ℂ) + (t : ℂ) * Complex.I) * Complex.I)
+        (Real.sqrt 3 / 2) Y MeasureTheory.volume =
+      intervalIntegral (fun t : ℝ =>
+        if ((-1 / 2 : ℂ) + (t : ℂ) * Complex.I) ∈ removed ε then 0 else
+          L ((-1 / 2 : ℂ) + (t : ℂ) * Complex.I) * Complex.I)
+        (Real.sqrt 3 / 2) Y MeasureTheory.volume := by
+      apply intervalIntegral.integral_congr
+      intro t ht
+      rw [Set.uIcc_of_le hbottom.le] at ht
+      let z : ℂ := (-1 / 2 : ℂ) + (t : ℂ) * Complex.I
+      have hre : z.re = -1 / 2 := by simp [z]
+      have him : z.im = t := by simp [z]
+      have hpos : 0 < z.im := by rw [him]; exact lt_of_lt_of_le (by positivity) ht.1
+      have hn : 1 ≤ ‖z‖ := by
+        have hs := Real.sq_sqrt (show (0 : ℝ) ≤ 3 by norm_num)
+        have heq := Complex.sq_norm_sub_sq_re z
+        rw [hre, him] at heq
+        nlinarith [norm_nonneg z, Real.sqrt_nonneg 3, ht.1]
+      have hzK : z ∈ K :=
+        ⟨by rw [hre]; norm_num, hn, hpos, by simpa only [him] using ht.2⟩
+      have hzO : z ∉ O := by
+        intro hmem
+        have h := (abs_lt.mp hmem.1).1
+        rw [hre] at h
+        linarith
+      have hzT : z + 1 = (1 / 2 : ℂ) + (t : ℂ) * Complex.I := by dsimp [z]; ring
+      have hcut : z + 1 ∈ removed ε ↔ z ∈ removed ε := (hpaired.2 z hre).symm
+      dsimp only
+      rw [← hzT]
+      change (if z + 1 ∈ removed ε then 0 else L (z + 1) * Complex.I) =
+        (if z ∈ removed ε then 0 else L z * Complex.I)
+      rw [hcut]
+      by_cases hmem : z ∈ removed ε
+      · simp only [hmem, if_true]
+      · have hne : F z ≠ 0 := by
+          intro hzero
+          exact hmem (Set.mem_iUnion₂.mpr
+            ⟨z, ⟨⟨hzK, hzero⟩, hzO⟩, interior_subset (hcenterInterior z hpos ε hε.1)⟩)
+        simp only [if_neg hmem, hperiod z hpos hne]
+    dsimp only [verticalContribution]
+    rw [hp, intervalIntegral.integral_symm Y (Real.sqrt 3 / 2), neg_add_cancel]
   have hcutArcInterior : ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0),
       ∀ v ∈ B, ∀ t ∈ Set.Ioo (cutEnd v) (cutStart v), γ v ε t ∈ O := by
     filter_upwards [hsmallCuts, hcutInactive, hcutsBelowTop] with ε hε hinactive htop
@@ -5687,19 +5861,50 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     change (analyticOrderNatAt A 0 : ℝ) + (analyticOrderNatAt F Complex.I : ℝ) / 2 +
       (analyticOrderNatAt F ρ : ℝ) / 3 ≤ (k : ℝ) / 12
     linarith [hboundaryWeightBound]
-  /- Remaining formal obligation: assemble the cut contour and prove the count
-  identity above. In the accepted proof, steps 4–7 justify the global argument
-  principle by finite subdivision into primitive domains. Steps 9–11 construct
-  the oriented cut boundary and the endpoint functions required by hclockwise;
-  step 17 sums the boundary integrals and takes their limits. The facts above
-  construct the compact retained region with a zero-free boundary and preserved
-  interior zeros, separate the cuts, and excise the interior zeros with exact circle
-  contributions and a nonempty zero-free remaining closure. They also establish
-  exact cut-coordinate identities, paired removed sides, the exact top integral,
-  boundary indentation limits, and the nonnegative elliptic-order remainder.
-  They cancel finite walks within a primitive domain, but the actual cells and
-  their directed boundaries have not yet been assembled.
-  The oriented boundary parametrization, subdivision, and global contour identity
-  remain. -/
+  suffices hcontour : ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0),
+      pairedLower ε + verticalContribution ε + top Y +
+        (∑ v ∈ hBfinite.toFinset, indent v (fun _ => cutStart v) (fun _ => cutEnd v) ε) =
+      2 * (Real.pi : ℂ) * Complex.I *
+        ((∑ v ∈ hOzerosFinite.toFinset, (analyticOrderNatAt F v : ℝ) : ℝ) : ℂ) by
+    have hverticalLimit : Filter.Tendsto verticalContribution
+        (nhdsWithin (0 : ℝ) (Set.Ioi 0)) (nhds 0) :=
+      tendsto_const_nhds.congr' (hretainedVertical.mono (fun _ h => h.symm))
+    have hlim := ((hpairedLowerLimit.add hverticalLimit).add_const (top Y)).add
+      hboundaryIndentationLimit
+    have hconstant : Filter.Tendsto (fun ε =>
+        pairedLower ε + verticalContribution ε + top Y +
+          ∑ v ∈ hBfinite.toFinset, indent v (fun _ => cutStart v) (fun _ => cutEnd v) ε)
+        (nhdsWithin (0 : ℝ) (Set.Ioi 0))
+        (nhds (2 * (Real.pi : ℂ) * Complex.I *
+          ((∑ v ∈ hOzerosFinite.toFinset, (analyticOrderNatAt F v : ℝ) : ℝ) : ℂ))) :=
+      tendsto_const_nhds.congr' (hcontour.mono (fun _ h => h.symm))
+    have heq := tendsto_nhds_unique hlim hconstant
+    rw [add_zero, htopExact] at heq
+    dsimp only [cInf] at heq
+    have hprod : (2 * (Real.pi : ℂ) * Complex.I) *
+        ((k : ℂ) / 12 - (analyticOrderNatAt A 0 : ℂ) -
+          ((∑ v ∈ hBfinite.toFinset, boundaryWeight v : ℝ) : ℂ)) =
+        (2 * (Real.pi : ℂ) * Complex.I) *
+          ((∑ v ∈ hOzerosFinite.toFinset, (analyticOrderNatAt F v : ℝ) : ℝ) : ℂ) := by
+      linear_combination heq
+    have hne : 2 * (Real.pi : ℂ) * Complex.I ≠ 0 :=
+      mul_ne_zero (mul_ne_zero (by norm_num)
+        (Complex.ofReal_ne_zero.mpr Real.pi_ne_zero)) Complex.I_ne_zero
+    have hz := mul_left_cancel₀ hne hprod
+    have hresult : (analyticOrderNatAt A 0 : ℂ) +
+        ((∑ v ∈ hBfinite.toFinset, boundaryWeight v : ℝ) : ℂ) +
+        ((∑ v ∈ hOzerosFinite.toFinset, (analyticOrderNatAt F v : ℝ) : ℝ) : ℂ) =
+        (k : ℂ) / 12 := by
+      linear_combination -hz
+    apply Complex.ofReal_injective
+    push_cast at hresult ⊢
+    exact hresult
+  /- Remaining formal obligation: assemble the actual oriented cut contour and
+  derive hcontour by summing primitive-domain boundary integrals, including the
+  clockwise excision circles. The finite cell cover and primitive-cycle
+  cancellation above do not yet construct those directed cell boundaries.
+  The retained lower-arc and vertical integrals, their cancellation and limits,
+  the exact top integral, all indentation limits, and the final count reduction
+  have been expressed above. No global contour equality is assumed. -/
 
 end Submission
