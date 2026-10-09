@@ -714,3 +714,9 @@ theorem Submission.p09_af497904fe_ffe_prime_frobenius_congruence :
     (Ideal.Quotient.mk q a) ^ ℓ at h
   rw [← map_pow] at h
   exact Ideal.Quotient.eq.mp h
+theorem Submission.p09_af497904fe_ic_integer_mem_valuation :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E]
+      (V : ValuationSubring E), ∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V := by
+  intro E _ V a
+  apply (Subring.isIntegrallyClosed_iff (S := V)).mp inferInstance
+  exact (NumberField.RingOfIntegers.isIntegral_coe a).tower_top
