@@ -320,3 +320,53 @@ theorem Submission.p09_af497904fe_fcc_fra_residue_injective :
     x = x * (v * y) := by rw [hvy, mul_one]
     _ = (x * v) * y := (mul_assoc x v y).symm
     _ = y := by rw [htv, one_mul]
+
+
+theorem Submission.p09_af497904fe_fcc_frobenius_roots_action :
+    ∀ (N : ℕ) [NeZero N] (ℓ : ℕ), ℓ.Prime → ¬ ℓ ∣ N →
+      ∀ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ →
+        ∀ σ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ), P.IsFrobeniusAt σ ℓ →
+          ∀ ζ : AlgebraicClosure ℚ, ζ ^ N = 1 → σ ζ = ζ ^ ℓ := by
+  intro N _ ℓ hℓ hℓN P hP σ hσ ζ hζ
+  obtain ⟨hσ, hfrob⟩ := hσ
+  let g : P.decompositionSubgroup ℚ := ⟨σ, hσ⟩
+  let z : P := ⟨ζ, (Submission.p09_af497904fe_fcc_fra_roots_mem_inv N P ζ hζ).1⟩
+  have hx : (g • z : P) ^ N = 1 := by
+    apply Subtype.ext
+    change (σ ζ) ^ N = 1
+    rw [← map_pow, hζ, map_one]
+  have hy : (z ^ ℓ) ^ N = 1 := by
+    apply Subtype.ext
+    change (ζ ^ ℓ) ^ N = 1
+    rw [pow_right_comm, hζ, one_pow]
+  have hred : residue P (g • z) = residue P (z ^ ℓ) := by
+    calc
+      residue P (g • z) = g • residue P z :=
+        ResidueField.residue_smul (P.decompositionSubgroup ℚ) g z
+      _ = residue P z ^ ℓ := hfrob (residue P z)
+      _ = residue P (z ^ ℓ) := (map_pow (residue P) z ℓ).symm
+  exact congrArg Subtype.val
+    (Submission.p09_af497904fe_fcc_fra_residue_injective
+      N ℓ hℓ hℓN P hP (g • z) (z ^ ℓ) hx hy hred)
+
+theorem Submission.p09_af497904fe_fie_integral_primitive :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ))
+      [FiniteDimensional ℚ E] [IsGalois ℚ E],
+      ∃ α : E, IsIntegral ℤ α ∧ IntermediateField.adjoin ℚ ({α} : Set E) = ⊤ := by
+  intro E _ _
+  obtain ⟨θ, hθ⟩ := Field.exists_primitive_element ℚ E
+  obtain ⟨m, hm⟩ := IsIntegral.exists_multiple_integral_of_isLocalization
+    (nonZeroDivisors ℤ) θ (IsIntegral.of_finite ℚ θ)
+  refine ⟨(m : ℤ) • θ, hm, ?_⟩
+  apply top_unique
+  rw [← hθ]
+  apply IntermediateField.adjoin_simple_le_iff.mpr
+  let F := IntermediateField.adjoin ℚ ({(m : ℤ) • θ} : Set E)
+  have hm0 : ((m : ℤ) : E) ≠ 0 :=
+    Int.cast_ne_zero.mpr (nonZeroDivisors.coe_ne_zero m)
+  have hrecover : ((m : ℤ) : E)⁻¹ * ((m : ℤ) • θ) = θ := by
+    rw [zsmul_eq_mul, inv_mul_cancel_left₀ hm0]
+  change θ ∈ F
+  rw [← hrecover]
+  exact F.mul_mem (F.inv_mem (F.intCast_mem (m : ℤ)))
+    (IntermediateField.mem_adjoin_simple_self ℚ ((m : ℤ) • θ))
