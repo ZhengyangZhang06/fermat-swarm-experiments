@@ -1,0 +1,45 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "LiesOverPrime|inertiaSubgroupIn|decompositionSubgroupIn|residue",
+        "exists_primitive_element|isIntegrallyClosed_eq_field_fractions|esymmAlgHom_surjective|coe_mem_nonunits_iff|mem_or_inv_mem",
+        "inertiaSubgroup|decompositionSubgroup|residueField",
+        "integral.*primitive|primitive.*integral",
+        "\"lean_name\": \"p09_af497904fe_fie_(integral_primitive|conjugate_separation)\""
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/PrimitiveElement.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/Minpoly/IsIntegrallyClosed.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/MvPolynomial/Symmetric/FundamentalTheorem.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/dag.json",
+        "/tmp/p09-fie-independent-audit-nj9tpu64/Interfaces.lean",
+        "/tmp/p09-fie-independent-audit-nj9tpu64/report.json"
+      ],
+      "conclusion": "Verified the pinned project and mathlib revisions and clean dependencies. The sources support primitive generation, integral/rational minimal-polynomial compatibility, symmetric-polynomial surjectivity over ℤ, and the identification of ambient valuation nonunits with the maximal ideal. The scoped integral-primitive search found no match in PrimitiveElement.lean or NumberField/Basic.lean. Inertia is the embedded kernel of the residue action. Both exact propositions independently elaborated under Lean 4.33.1 using freshly compiled frozen definitions and the parent's frozen proof base. The report records the matching policy digest, exact authorized omissions, reversible original/build hashes, and successful Lean absence checks for all eight targets. Supporting declarations have only propext, Classical.choice and Quot.sound as transitive axioms. Both names are unreserved bare identifiers; adding the children preserves acyclicity. The split is appropriate: the parent combines primitive generation and conjugate separation to eliminate inertia outside the prime divisors of D.natAbs. Original records remain unedited. These diagnostics establish interface validity, not comparator acceptance of future child implementations."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "integral_primitive",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose includes every hypothesis and matches the standalone one-line Lean proposition. Steps 1–4 establish primitive generation through finite-basis generation, separable embedding counting, and avoidance of finitely many rational parameters. Steps 5–6 correctly clear denominators and preserve generation using a nonzero scaling integer. The proof is complete, non-circular, and independent of its sibling. The bare Lean name is unreserved."
+    },
+    {
+      "key": "conjugate_separation",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and independently elaborated proposition agree, including the uniform choice of D before ℓ and V and the ambient meaning of V.nonunits. Minimal-polynomial compatibility, normality, separability, and symmetric-polynomial surjectivity produce a nonzero integer discriminant. The inverse-element argument proves integral containment; Bézout and maximal-ideal closure then prove separation of distinct conjugates. All seven steps are complete without circular reliance or deferred proof discovery. The bare name is unreserved and the empty dependency list is correct."
+    }
+  ],
+  "required_changes": []
+}

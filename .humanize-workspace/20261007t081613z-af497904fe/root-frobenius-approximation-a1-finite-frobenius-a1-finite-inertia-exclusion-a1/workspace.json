@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081613Z-af497904fe",
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.finite_inertia_exclusion-a1",
+  "dispatch_branch": "proof-workspace/fermat-p09/20261007t081613z-af497904fe/dispatch/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-exclusion-a1",
+  "source_commit": "82caffebb07ba5932c3421ca16deae4e3e65d376",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.finite_inertia_exclusion-a1.conjugate_separation-a1",
+      "key": "conjugate_separation",
+      "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-ex-bbbc8f8ea4-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-exclusion-a1/children/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-ex-bbbc8f8ea4",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "inertiaSubgroupIn|LiesOverPrime|primitive|discrim",
+              "integral|nonunits|inertia|residue|decomposition",
+              "theorem|lemma",
+              "integral.*primitive|primitive.*integral"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/PrimitiveElement.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/Minpoly/IsIntegrallyClosed.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/MvPolynomial/Symmetric/FundamentalTheorem.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean",
+              "/tmp/p09-fie-decomposition-cq2vidxw/Interfaces.lean",
+              "/tmp/p09-fie-decomposition-cq2vidxw/report.json"
+            ],
+            "conclusion": "The snapshot pins project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Field.exists_primitive_element supplies primitive generation; the scoped integral-primitive search found no match in PrimitiveElement.lean or NumberField/Basic.lean. minpoly.isIntegrallyClosed_eq_field_fractions' identifies the integral and rational minimal polynomials. MvPolynomial.esymmAlgHom_surjective supplies the integral symmetric-polynomial argument. ValuationSubring.coe_mem_nonunits_iff identifies ambient nonunits with the maximal ideal, while the project definition embeds the inertia kernel into rational automorphisms. Both proposed types elaborated after import Submission using Lean 4.33.1 and freshly compiled frozen Definitions. The inspected supporting declarations depend only on propext, Classical.choice and Quot.sound. The diagnostic records clean pinned dependencies, the matching header-policy digest, exact omitted lines, reversible original/build hashes, and successful absence checks for all eight targets. Original sources remained unchanged; these checks do not constitute proof acceptance."
+          }
+        ],
+        "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.finite_inertia_exclusion-a1",
+        "child_id": "root.frobenius_approximation-a1.finite_frobenius-a1.finite_inertia_exclusion-a1.conjugate_separation-a1",
+        "subproblem": {
+          "key": "conjugate_separation",
+          "title": "One nonzero integer controls separation of integral conjugates",
+          "statement": "Let Ω = AlgebraicClosure ℚ, let E be an intermediate field of Ω/ℚ that is finite-dimensional and Galois over ℚ, and let α ∈ E be integral over ℤ. There exists a nonzero integer D such that, for every natural prime ℓ not dividing D.natAbs and every valuation subring V of E with V.LiesOverPrime ℓ, every rational conjugate σ(α) belongs to V, and for all rational automorphisms σ,τ of E, membership σ(α)−τ(α) ∈ V.nonunits implies σ(α)=τ(α). Here V.LiesOverPrime ℓ means that the image of ℓ is a nonunit of V, and V.nonunits is viewed as a subset of E.",
+          "lean_statement": "∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [IsGalois ℚ E] (α : E), IsIntegral ℤ α → ∃ D : ℤ, D ≠ 0 ∧ ∀ ℓ : ℕ, ℓ.Prime → ¬ ℓ ∣ D.natAbs → ∀ V : ValuationSubring E, V.LiesOverPrime ℓ → (∀ σ : E ≃ₐ[ℚ] E, σ α ∈ V) ∧ ∀ σ τ : E ≃ₐ[ℚ] E, σ α - τ α ∈ V.nonunits → σ α = τ α",
+          "lean_name": "p09_af497904fe_fie_conjugate_separation",
+          "depends_on": [],
+          "natural_proof": "1. Fix E and an integral element α. Let f ∈ ℤ[X] be its monic minimal polynomial. Since ℤ is integrally closed and ℚ is its fraction field, the coefficient extension of f to ℚ is the rational minimal polynomial of α; this is the compatibility statement minpoly.isIntegrallyClosed_eq_field_fractions'. In particular its degree n is positive. Normality of E/ℚ makes this polynomial split in E, and separability makes its roots distinct. Enumerate them as β₁,…,βₙ. Every βᵢ is integral over ℤ because it satisfies the monic polynomial f. Every rational automorphism σ sends α to one of these roots, since it fixes the coefficients of f.\n2. Form δ=∏_{i<j}(βᵢ−βⱼ)^2 in E. Every factor is nonzero, so δ≠0. The polynomial ∏_{i<j}(Xᵢ−Xⱼ)^2 has integer coefficients and is invariant under every permutation of its variables: permutations only reorder unordered pairs and possibly reverse differences, whose squares are unchanged. The fundamental theorem of symmetric polynomials over ℤ, supplied by MvPolynomial.esymmAlgHom_surjective, expresses it as an integer polynomial in the elementary symmetric polynomials.\n3. The elementary symmetric functions of β₁,…,βₙ are, with alternating signs, the coefficients of f, hence are integers. Evaluating the expression from step 2 therefore gives an integer D whose image in E equals δ. Since δ≠0, D≠0. When n=1, the product is empty and D=1. This construction depends only on α and E.\n4. Every element x of E integral over ℤ belongs to every valuation subring V of E. Indeed, suppose x∉V. Then x≠0, and the valuation property gives t=x⁻¹∈V. The element t cannot be a unit of V, since its inverse in E is x; a V-inverse would put x in V. Thus t lies in the maximal ideal m of V. Take a monic integral equation x^r+∑_{i<r} a_i x^i=0, with r≥1. Every integer belongs to V. Dividing the equation by x^r yields 1+∑_{i<r} a_i t^(r−i)=0. Each exponent r−i is positive, so every summand lies in m. The equation would imply 1∈m, contradicting that m is proper. This proves the claim, and in particular all βᵢ and all σ(α) belong to V.\n5. Now fix a natural prime ℓ with ℓ∤D.natAbs and a valuation subring V satisfying V.LiesOverPrime ℓ. Primality and nondivisibility imply that D and ℓ are relatively prime as integers. Bézout's identity gives integers u,v with uD+vℓ=1. The element ℓ lies in the maximal ideal m of V by the LiesOverPrime hypothesis. If D were a nonunit of V, then D would also lie in m. Since u and v belong to V, the displayed identity would put 1 in m. Therefore D is a unit of V.\n6. The equality D=∏_{i<j}(βᵢ−βⱼ)^2 holds in V, since all roots belong to V and V embeds injectively into E. If any difference between distinct roots were a nonunit of V, its square would lie in m. Multiplying by the remaining factors, which belong to V, would put D in m, contradicting step 5. Thus every difference between distinct roots is a unit of V.\n7. For arbitrary rational automorphisms σ and τ, step 4 gives σ(α),τ(α)∈V. If these values were unequal, they would be distinct roots of f, and step 6 would make their difference a unit of V. Such a difference cannot belong to V.nonunits. Consequently σ(α)−τ(α)∈V.nonunits implies σ(α)=τ(α). Together with the containment conclusion of step 4, this proves both assertions uniformly for every permitted ℓ and V, using the nonzero integer D constructed above.",
+          "proof_key_steps": [
+            "Use the integral minimal polynomial and Galois hypotheses to enumerate distinct integral roots in E.",
+            "Express the squared root-difference product as an integer using symmetric polynomials.",
+            "Show that this integer is nonzero, including the degree-one case.",
+            "Prove directly that every valuation subring contains every integral element.",
+            "Use Bézout's identity to make D a unit whenever ℓ does not divide its absolute value.",
+            "Deduce that differences between distinct roots are units of the valuation subring.",
+            "Conclude containment and separation for all rational conjugates."
+          ]
+        },
+        "audit": {
+          "key": "conjugate_separation",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The prose and independently elaborated proposition agree, including the uniform choice of D before ℓ and V and the ambient meaning of V.nonunits. Minimal-polynomial compatibility, normality, separability, and symmetric-polynomial surjectivity produce a nonzero integer discriminant. The inverse-element argument proves integral containment; Bézout and maximal-ideal closure then prove separation of distinct conjugates. All seven steps are complete without circular reliance or deferred proof discovery. The bare name is unreserved and the empty dependency list is correct."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-ex-bbbc8f8ea4/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-ex-bbbc8f8ea4/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-ex-bbbc8f8ea4/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.finite_inertia_exclusion-a1.integral_primitive-a1",
+      "key": "integral_primitive",
+      "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-ex-dbfc6bbfe2-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-exclusion-a1/children/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-ex-dbfc6bbfe2",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "inertiaSubgroupIn|LiesOverPrime|primitive|discrim",
+              "integral|nonunits|inertia|residue|decomposition",
+              "theorem|lemma",
+              "integral.*primitive|primitive.*integral"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/PrimitiveElement.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/Minpoly/IsIntegrallyClosed.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/MvPolynomial/Symmetric/FundamentalTheorem.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean",
+              "/tmp/p09-fie-decomposition-cq2vidxw/Interfaces.lean",
+              "/tmp/p09-fie-decomposition-cq2vidxw/report.json"
+            ],
+            "conclusion": "The snapshot pins project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Field.exists_primitive_element supplies primitive generation; the scoped integral-primitive search found no match in PrimitiveElement.lean or NumberField/Basic.lean. minpoly.isIntegrallyClosed_eq_field_fractions' identifies the integral and rational minimal polynomials. MvPolynomial.esymmAlgHom_surjective supplies the integral symmetric-polynomial argument. ValuationSubring.coe_mem_nonunits_iff identifies ambient nonunits with the maximal ideal, while the project definition embeds the inertia kernel into rational automorphisms. Both proposed types elaborated after import Submission using Lean 4.33.1 and freshly compiled frozen Definitions. The inspected supporting declarations depend only on propext, Classical.choice and Quot.sound. The diagnostic records clean pinned dependencies, the matching header-policy digest, exact omitted lines, reversible original/build hashes, and successful absence checks for all eight targets. Original sources remained unchanged; these checks do not constitute proof acceptance."
+          }
+        ],
+        "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.finite_inertia_exclusion-a1",
+        "child_id": "root.frobenius_approximation-a1.finite_frobenius-a1.finite_inertia_exclusion-a1.integral_primitive-a1",
+        "subproblem": {
+          "key": "integral_primitive",
+          "title": "An integral primitive element for a finite rational Galois extension",
+          "statement": "Let Ω = AlgebraicClosure ℚ. For every intermediate field E of Ω/ℚ that is finite-dimensional and Galois over ℚ, there exists α ∈ E integral over ℤ such that the intermediate field of E/ℚ generated by α is all of E.",
+          "lean_statement": "∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [IsGalois ℚ E], ∃ α : E, IsIntegral ℤ α ∧ IntermediateField.adjoin ℚ ({α} : Set E) = ⊤",
+          "lean_name": "p09_af497904fe_fie_integral_primitive",
+          "depends_on": [],
+          "natural_proof": "1. Fix E with the stated hypotheses. A finite ℚ-basis of E generates E as a field: the field containing the basis contains every rational linear combination of its elements. Every algebraic extension involved is separable. Indeed, an irreducible polynomial in characteristic zero has nonzero derivative of smaller degree, so it is relatively prime to its derivative.\n2. We first show that two algebraic generators can be replaced by one. Let F = ℚ(a,b) ⊆ E and n = [F:ℚ]. There are exactly n rational embeddings F → Ω. To see this, extend embeddings along ℚ ⊆ ℚ(a) ⊆ ℚ(a,b). At each simple adjunction, an extension is determined by the image of the generator, which can be any root of the transported minimal polynomial. The quotient presentation by that minimal polynomial gives an embedding for each root. Separability gives exactly as many distinct choices as the degree, and multiplication of the two degrees gives n.\n3. For two distinct such embeddings σ and τ, the equality σ(a+rb)=τ(a+rb), with r ∈ ℚ, has at most one solution if σ(b)≠τ(b). If σ(b)=τ(b), then σ(a)≠τ(a), since a and b generate F, so there is no solution. There are finitely many pairs of embeddings. Since ℚ is infinite, choose r outside all their exceptional values. Then c=a+rb has n distinct embedding images. All are roots of its rational minimal polynomial, so [ℚ(c):ℚ]≥n. The inclusion ℚ(c)⊆F gives the reverse inequality. The tower-degree formula therefore gives [F:ℚ(c)]=1, hence F=ℚ(c).\n4. Repeatedly apply the preceding two-generator argument to a finite generating family for E. This produces θ ∈ E with ℚ(θ)=E. For the initial field ℚ one may take θ=0. Let p(X)=X^m+∑_{i<m} c_i X^i be the rational minimal polynomial of θ, where m≥1.\n5. Choose a positive integer N divisible by the denominators of every c_i. Thus N c_i is an integer. For i<m, the coefficient N^(m−i)c_i is also an integer, because m−i≥1. Consequently g(X)=X^m+∑_{i<m} N^(m−i)c_i X^i belongs to ℤ[X] and is monic. With α=Nθ, direct substitution gives g(α)=N^m p(θ)=0. Thus α is integral over ℤ.\n6. Since N is a nonzero rational number, α=Nθ lies in ℚ(θ), and θ=N⁻¹α lies in ℚ(α). Therefore ℚ(α)=ℚ(θ)=E. This α satisfies both required conclusions.",
+          "proof_key_steps": [
+            "Obtain a finite generating family from a rational basis.",
+            "Count embeddings using separability and successive simple adjunctions.",
+            "Avoid finitely many rational parameters to replace two generators by one.",
+            "Inductively obtain a primitive element.",
+            "Clear denominators to make a nonzero integer multiple integral.",
+            "Use invertibility of the scaling rational number to preserve the generated field."
+          ]
+        },
+        "audit": {
+          "key": "integral_primitive",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The prose includes every hypothesis and matches the standalone one-line Lean proposition. Steps 1–4 establish primitive generation through finite-basis generation, separable embedding counting, and avoidance of finitely many rational parameters. Steps 5–6 correctly clear denominators and preserve generation using a nonzero scaling integer. The proof is complete, non-circular, and independent of its sibling. The bare Lean name is unreserved."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-ex-dbfc6bbfe2/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-ex-dbfc6bbfe2/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-ex-dbfc6bbfe2/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-exclusion-a1/task.md": "d1097f34a9dcda1e8cd40a21e7f0ee81cabd7d3772d3eff410ef433f9adf18c0",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-exclusion-a1/problem.md": "0500482283c7cf686c90505c2e668aae51a3829d556ca24b402d320ba3f840fd",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-exclusion-a1/problem.json": "0a505890f14c1e4a40b2d68435dac1a45d795b4cadd800289fbb395cab0114df",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-exclusion-a1/reference-manifest.json": "024395eb16744a67c062d4787284abe3f4cdebfec9609217ede4bc773b8bcef0",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-exclusion-a1/decomposition.json": "586137c3da74fbe41ab16eb6182e9fc9a4535fe49ab108c47bcb9666283f437a",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-exclusion-a1/decomposition-audit.json": "9aa04c67a126fee26401c82abd6ea2a89b348dc9615bede771d33161ca8308b9",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-exclusion-a1/controller-contract.json": "15abb5b197a06e4feb0c79eda2d53e3a24a12bfa8f753bace11ccc2ff0aaee11",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-exclusion-a1/children/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-ex-bbbc8f8ea4/parent-child-handoff.json": "92b7ec78c93ef0512099df511fbdce77a4ceb0bac3a78a413327a0be37df8b50",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-exclusion-a1/children/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-ex-bbbc8f8ea4/parent-supplied-plan.md": "db6e871200a52bc6593890cc85728e79c464dc52a450310fffbbb5683e650cef",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-exclusion-a1/children/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-ex-bbbc8f8ea4/parent-supplied-natural-proof.md": "68742d37420265ddfc55f1eb4239bd437868a88f47cd07972704719d82a8f150",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-exclusion-a1/children/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-ex-bbbc8f8ea4/parent-supplied-natural-proof.json": "a0f63932780bf6dd5d634c052c3b477e463571df8546fe94f319a7d6779ae74c",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-exclusion-a1/children/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-ex-bbbc8f8ea4/node.json": "b1604f039b943556c2cad45c36d1cd04772fe03f3c6f07c4396e79f7f4de0ba3",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-exclusion-a1/children/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-ex-dbfc6bbfe2/parent-child-handoff.json": "3e0d7b05244d7963b8d54bdbf12ebbe8a55ca25f4c91b94e1bf87d86aa4a821b",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-exclusion-a1/children/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-ex-dbfc6bbfe2/parent-supplied-plan.md": "7bcc2fc648dd123ce4aca1c890c1901c8fea4f36bf6cf15b2e87786b10a7107e",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-exclusion-a1/children/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-ex-dbfc6bbfe2/parent-supplied-natural-proof.md": "a3143a2196b9b052c1b6da3a82e3cbef67431194c736ceba8bd4d6442467aed3",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-exclusion-a1/children/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-ex-dbfc6bbfe2/parent-supplied-natural-proof.json": "7c5b68fa1e126732efeb01ec9af09919de819328f9013c58e63cc7dfa8fbfdf1",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-exclusion-a1/children/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-ex-dbfc6bbfe2/node.json": "c58789839aea7c79a3b7450dfcb68bd3846e38b218a22b7db77280b9c47a55c4"
+  }
+}
