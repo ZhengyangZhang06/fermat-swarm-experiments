@@ -1,0 +1,60 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "IsFrobeniusAt|LiesOverPrime|decompositionSubgroup|residueField",
+        "pow|IsUnit|isUnit|nonunits|mem_or",
+        "rootsOfUnity.*(inject|residue)|(inject|residue).*rootsOfUnity|IsPrimitiveRoot.*(residue|inject)|pow_eq_one.*(residue|mem)|mem.*pow_eq_one",
+        "geom_sum_mul|mul_geom_sum|geom_sum_eq"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/LocalRing/ResidueField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Algebra/CharP/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Algebra/Ring/GeomSum.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Ideal/Basic.lean"
+      ],
+      "conclusion": "The manifest pins project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. LiesOverPrime is exactly ambient membership in P.nonunits. IsFrobeniusAt.smul_residue_eq and IsLocalRing.ResidueField.residue_smul already supply residue-action compatibility. ValuationSubring.mem_or_inv_mem, coe_mem_nonunits_iff, residue_eq_zero_iff, CharP.charP_iff_prime_eq_zero, and geom_sum_mul support the extracted arguments. The search found Ideal.rootsOfUnityMapQuot_injective for number-field integer rings, but no directly applicable reduction-injectivity theorem for the present valuation ring. The consulted infrastructure passed transitive axiom diagnostics with only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "should_split": true,
+  "rationale": "At depth 2, below limit 6, two reusable obligations warrant separate theorems: valuation-ring membership of roots and injectivity of reduction on prime-to-residue-characteristic roots. They are independent because the second constructs inverses inside P using powers. The parent then combines them with existing residue-action compatibility and preservation of powers by σ. Both exact child types elaborate after import Submission; subtype ring operations and decomposition-group actions were checked. Names are unreserved. Policy-compliant diagnostic evidence is recorded in /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/fcc-fra-split-pf5rjs1r/refresh/report.json, including reversible header-copy hashes and the successful eight-target absence probe. These are interface checks, not comparator acceptance of child proofs.",
+  "subproblems": [
+    {
+      "key": "roots_mem_inv",
+      "title": "Roots of unity and their inverses belong to the valuation ring",
+      "statement": "Let Ω = AlgebraicClosure ℚ, let N be a nonzero natural number, let P be a valuation subring of Ω, and let ζ ∈ Ω satisfy ζ^N = 1. Then ζ ∈ P and ζ⁻¹ ∈ P.",
+      "lean_statement": "∀ (N : ℕ) [NeZero N] (P : ValuationSubring (AlgebraicClosure ℚ)) (ζ : AlgebraicClosure ℚ), ζ ^ N = 1 → ζ ∈ P ∧ ζ⁻¹ ∈ P",
+      "lean_name": "p09_af497904fe_fcc_fra_roots_mem_inv",
+      "depends_on": [],
+      "natural_proof": "1. Fix N, P and ζ with the stated hypotheses. Since N is a nonzero natural number, N ≥ 1. The equation ζ^N = 1 implies ζ ≠ 0, since otherwise its left side would be zero.\n2. Because (N−1)+1 = N, we have ζ^(N−1)ζ = ζ^N = 1. Multiplying by ζ⁻¹ gives ζ^(N−1) = ζ⁻¹. Also (ζ⁻¹)^N = (ζ^N)⁻¹ = 1. Applying the same calculation to ζ⁻¹ gives (ζ⁻¹)^(N−1) = ζ.\n3. By the defining valuation-subring property, either ζ ∈ P or ζ⁻¹ ∈ P. In the first case ζ already belongs to P. In the second case closure of P under natural powers gives (ζ⁻¹)^(N−1) ∈ P, and the identity from step 2 therefore gives ζ ∈ P.\n4. Now closure under powers gives ζ^(N−1) ∈ P. By step 2 this is ζ⁻¹ ∈ P. Thus both required memberships hold. This argument includes N = 1, since the zeroth power is 1 and every subring contains 1.",
+      "proof_key_steps": [
+        "Use N > 0 and ζ^N = 1 to obtain ζ ≠ 0.",
+        "Express ζ⁻¹ as ζ^(N−1) and ζ as (ζ⁻¹)^(N−1).",
+        "Apply the valuation-subring alternative and power closure to obtain ζ ∈ P.",
+        "Use power closure once more to obtain ζ⁻¹ ∈ P."
+      ]
+    },
+    {
+      "key": "residue_injective",
+      "title": "Reduction is injective on roots of unity of order prime to the residue characteristic",
+      "statement": "Let Ω = AlgebraicClosure ℚ, let N be a nonzero natural number, let ℓ be a prime natural number with ℓ not dividing N, and let P be a valuation subring of Ω with (ℓ : Ω) ∈ P.nonunits. Write red : P → IsLocalRing.ResidueField P for the residue homomorphism. For any x,y ∈ P satisfying x^N = 1 and y^N = 1 in P, if red(x) = red(y), then x = y in P.",
+      "lean_statement": "∀ (N : ℕ) [NeZero N] (ℓ : ℕ), ℓ.Prime → ¬ ℓ ∣ N → ∀ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ → ∀ x y : P, x ^ N = 1 → y ^ N = 1 → IsLocalRing.residue P x = IsLocalRing.residue P y → x = y",
+      "lean_name": "p09_af497904fe_fcc_fra_residue_injective",
+      "depends_on": [],
+      "natural_proof": "1. Fix all the stated data. Set k = IsLocalRing.ResidueField P and let red : P → k be the residue map. The ring P is a domain because it is a subring of the field Ω, and k is a nontrivial field. Also N ≥ 1.\n2. The natural-number element ℓ belongs to P. The hypothesis that its image in Ω lies in P.nonunits says precisely that (ℓ : P) lies in the maximal ideal of P. That ideal is the kernel of red. Consequently red(ℓ) = 0, or equivalently (ℓ : k) = 0.\n3. The kernel of the unital homomorphism ℤ → k is exactly ℓℤ. Indeed, step 2 puts every multiple of ℓ in the kernel. If an integer m in the kernel were not divisible by ℓ, primality of ℓ would give gcd(ℓ,m) = 1. Bézout supplies integers a,b with aℓ + bm = 1; applying ℤ → k would yield 0 = 1, a contradiction. Thus k has characteristic ℓ. In particular (N : k) ≠ 0, because otherwise ℓ would divide N, contrary to hypothesis.\n4. We first prove that any t ∈ P satisfying t^N = 1 and red(t) = 1 equals 1. If t ≠ 1, form S = ∑_{i=0}^{N−1} t^i in P. Telescoping gives (t−1)S = ∑_{i=0}^{N−1}(t^(i+1)−t^i) = t^N−1 = 0. Since P is a domain and t−1 ≠ 0, this forces S = 0. Applying red gives 0 = ∑_{i=0}^{N−1} red(t)^i = ∑_{i=0}^{N−1} 1 = (N : k), contradicting step 3. Hence t = 1.\n5. Now take the x and y in the statement and set v = y^(N−1) in P. Since N ≥ 1, yv = vy = y^N = 1. Also v^N = y^((N−1)N) = (y^N)^(N−1) = 1. This constructs the needed inverse inside P using only its ring operations.\n6. Set t = xv. Commutativity gives t^N = x^N v^N = 1. The equal-residue hypothesis and step 5 give red(t) = red(x)red(v) = red(y)red(v) = red(yv) = 1. Step 4 therefore implies xv = 1.\n7. Finally x = x(vy) = (xv)y = y. All operations in these steps take place in P, so the conclusion is equality in P, as required. When N = 1 the same identities hold, with v = 1; no separate exclusion is needed.",
+      "proof_key_steps": [
+        "Identify the residue of ℓ as zero using the nonunit hypothesis and the maximal ideal.",
+        "Use primality and Bézout to show the residue field has characteristic ℓ and the residue of N is nonzero.",
+        "Use the geometric-sum identity to prove that an N-th root with residue 1 is 1.",
+        "Construct the inverse of y inside P as y^(N−1).",
+        "Apply the residue-one result to x y^(N−1), then multiply by y."
+      ]
+    }
+  ]
+}

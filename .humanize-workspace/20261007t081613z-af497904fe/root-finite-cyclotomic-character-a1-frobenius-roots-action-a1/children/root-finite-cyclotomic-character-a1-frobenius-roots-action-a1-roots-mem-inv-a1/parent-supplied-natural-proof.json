@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "IsFrobeniusAt|LiesOverPrime|decompositionSubgroup|residueField",
+        "pow|IsUnit|isUnit|nonunits|mem_or",
+        "rootsOfUnity.*(inject|residue)|(inject|residue).*rootsOfUnity|IsPrimitiveRoot.*(residue|inject)|pow_eq_one.*(residue|mem)|mem.*pow_eq_one",
+        "geom_sum_mul|mul_geom_sum|geom_sum_eq"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/LocalRing/ResidueField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Algebra/CharP/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Algebra/Ring/GeomSum.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Ideal/Basic.lean"
+      ],
+      "conclusion": "The manifest pins project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. LiesOverPrime is exactly ambient membership in P.nonunits. IsFrobeniusAt.smul_residue_eq and IsLocalRing.ResidueField.residue_smul already supply residue-action compatibility. ValuationSubring.mem_or_inv_mem, coe_mem_nonunits_iff, residue_eq_zero_iff, CharP.charP_iff_prime_eq_zero, and geom_sum_mul support the extracted arguments. The search found Ideal.rootsOfUnityMapQuot_injective for number-field integer rings, but no directly applicable reduction-injectivity theorem for the present valuation ring. The consulted infrastructure passed transitive axiom diagnostics with only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "proof": "1. Fix N, P and ζ with the stated hypotheses. Since N is a nonzero natural number, N ≥ 1. The equation ζ^N = 1 implies ζ ≠ 0, since otherwise its left side would be zero.\n2. Because (N−1)+1 = N, we have ζ^(N−1)ζ = ζ^N = 1. Multiplying by ζ⁻¹ gives ζ^(N−1) = ζ⁻¹. Also (ζ⁻¹)^N = (ζ^N)⁻¹ = 1. Applying the same calculation to ζ⁻¹ gives (ζ⁻¹)^(N−1) = ζ.\n3. By the defining valuation-subring property, either ζ ∈ P or ζ⁻¹ ∈ P. In the first case ζ already belongs to P. In the second case closure of P under natural powers gives (ζ⁻¹)^(N−1) ∈ P, and the identity from step 2 therefore gives ζ ∈ P.\n4. Now closure under powers gives ζ^(N−1) ∈ P. By step 2 this is ζ⁻¹ ∈ P. Thus both required memberships hold. This argument includes N = 1, since the zeroth power is 1 and every subring contains 1.",
+  "key_steps": [
+    "Use N > 0 and ζ^N = 1 to obtain ζ ≠ 0.",
+    "Express ζ⁻¹ as ζ^(N−1) and ζ as (ζ⁻¹)^(N−1).",
+    "Apply the valuation-subring alternative and power closure to obtain ζ ∈ P.",
+    "Use power closure once more to obtain ζ⁻¹ ∈ P."
+  ],
+  "unresolved": [],
+  "validation_notes": []
+}

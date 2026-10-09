@@ -1,0 +1,47 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "IsFrobeniusAt|LiesOverPrime|decompositionSubgroup|smul_residue_eq",
+        "mem_or_inv_mem|coe_mem_nonunits_iff|residue_eq_zero_iff|residue_smul|charP_iff_prime_eq_zero|geom_sum_mul",
+        "rootsOfUnity.*(inject|residue)|(inject|residue).*rootsOfUnity|IsPrimitiveRoot.*(residue|inject)|pow_eq_one.*(residue|mem)|mem.*pow_eq_one",
+        "p09_af497904fe_fcc_fra_roots_mem_inv|p09_af497904fe_fcc_fra_residue_injective"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/LocalRing/ResidueField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Algebra/CharP/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Algebra/Ring/GeomSum.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Ideal/Basic.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/fcc-fra-split-pf5rjs1r/refresh/report.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/fcc-fra-independent-audit-ofu39hk0/report.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/fcc-fra-independent-audit-ofu39hk0/TypesFrozen.lean.log"
+      ],
+      "conclusion": "Verified the snapshot revisions, clean pinned dependencies, and compatibility of the consulted sources. LiesOverPrime is exactly ambient membership in P.nonunits; the valuation, residue, characteristic, geometric-sum, and Frobenius-action infrastructure supports the supplied arguments. No directly applicable valuation-ring reduction-injectivity theorem was found; Ideal.rootsOfUnityMapQuot_injective concerns number-field integer rings. The split isolates two genuine, narrower obligations. Adding parent-to-child dependency edges preserves acyclicity, and neither child needs a sibling dependency. Both exact propositions independently elaborate under frozen imports and after importing the disposable Submission copy, without either child declaration existing. Ring operations, residue-field instances, and decomposition-group actions were checked. Transitive axiom diagnostics contain only propext, Classical.choice, and Quot.sound. Independently verified the specified policy digest, exact omissions of lines 10–11, reversible original/build hashes, and successful eight-target absence probe. Protected originals remained unchanged during these checks. This accepts the decomposition and supplied prose proofs; it does not constitute comparator acceptance of Lean implementations."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "roots_mem_inv",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches all prose hypotheses and both membership conclusions. NeZero N supplies positivity; the root equation gives nonzeroness and both inverse-as-power identities. The valuation dichotomy and power closure then establish both memberships, including N = 1. Every step is justified without appealing to either proposed child or the parent theorem. The proof is ready for formalization. The bare identifier is unreserved, and the empty dependency list is correct."
+    },
+    {
+      "key": "residue_injective",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly states equality in P for roots in P with equal residues and includes every prose hypothesis. The nonunit hypothesis gives residue(ℓ) = 0; primality and Bézout establish characteristic ℓ, and ℓ ∤ N gives nonzero residue of N. Domain cancellation in the geometric-sum identity proves the residue-one case. Constructing v = y^(N−1) inside P establishes yv = vy = 1 and v^N = 1; applying that case to xv and multiplying by y proves x = y. This includes N = 1 and requires neither the membership child nor the parent theorem. The proof is complete, the bare identifier is unreserved, and the empty dependency list is correct."
+    }
+  ],
+  "required_changes": []
+}

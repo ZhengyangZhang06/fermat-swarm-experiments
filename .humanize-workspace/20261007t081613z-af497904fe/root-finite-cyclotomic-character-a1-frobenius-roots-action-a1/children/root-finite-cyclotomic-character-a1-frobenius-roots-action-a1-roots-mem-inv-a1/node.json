@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_cyclotomic_character-a1.frobenius_roots_action-a1.roots_mem_inv-a1",
+  "parent_id": "root.finite_cyclotomic_character-a1.frobenius_roots_action-a1",
+  "depth": 3,
+  "title": "Roots of unity and their inverses belong to the valuation ring",
+  "statement": "Let Ω = AlgebraicClosure ℚ, let N be a nonzero natural number, let P be a valuation subring of Ω, and let ζ ∈ Ω satisfy ζ^N = 1. Then ζ ∈ P and ζ⁻¹ ∈ P.",
+  "lean_statement": "∀ (N : ℕ) [NeZero N] (P : ValuationSubring (AlgebraicClosure ℚ)) (ζ : AlgebraicClosure ℚ), ζ ^ N = 1 → ζ ∈ P ∧ ζ⁻¹ ∈ P",
+  "lean_name": "p09_af497904fe_fcc_fra_roots_mem_inv",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-finite-cyclotomic-character-a1-frobenius-roots-action-a1-roots-mem-inv-a1-a1"
+}
