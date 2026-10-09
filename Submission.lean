@@ -2827,3 +2827,43 @@ theorem Submission.p09_af497904fe_fie_conjugate_separation :
     obtain ⟨j, hj⟩ := hβConjugates τ
     rw [← hi, ← hj] at hστ ⊢
     exact hβSep i j hστ
+
+
+theorem Submission.p09_af497904fe_ff_finite_inertia_exclusion :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E]
+      [IsGalois ℚ E], ∃ S : Finset ℕ, ∀ ℓ : ℕ, ℓ.Prime → ℓ ∉ S →
+      ∀ V : ValuationSubring E, V.LiesOverPrime ℓ → ∀ τ : E ≃ₐ[ℚ] E,
+        τ ∈ V.inertiaSubgroupIn ℚ → τ = 1 := by
+  classical
+  intro E _ _
+  obtain ⟨α, hαint, hαgen⟩ := Submission.p09_af497904fe_fie_integral_primitive E
+  obtain ⟨D, hD, hsep⟩ := Submission.p09_af497904fe_fie_conjugate_separation E α hαint
+  refine ⟨D.natAbs.primeFactors, ?_⟩
+  intro ℓ hℓ hℓS V hV τ hτ
+  have hℓD : ¬ ℓ ∣ D.natAbs := by
+    intro hdvd
+    exact hℓS (hℓ.mem_primeFactors hdvd (Int.natAbs_ne_zero.mpr hD))
+  obtain ⟨hmem, hseparate⟩ := hsep ℓ hℓ hℓD V hV
+  -- Lift inertia membership to the kernel of the residue-field action.
+  obtain ⟨g, hg, rfl⟩ := Subgroup.mem_map.mp hτ
+  have hgtriv : MulSemiringAction.toRingAut (V.decompositionSubgroup ℚ)
+      (IsLocalRing.ResidueField V) g = 1 := hg
+  let a : V := ⟨α, by simpa using hmem 1⟩
+  have hresidue : IsLocalRing.residue V (g • a) = IsLocalRing.residue V a := by
+    change (MulSemiringAction.toRingAut (V.decompositionSubgroup ℚ)
+      (IsLocalRing.ResidueField V) g) (IsLocalRing.residue V a) = _
+    rw [hgtriv]
+    rfl
+  have hdiff : (g : E ≃ₐ[ℚ] E) α - α ∈ V.nonunits := by
+    change ((g • a - a : V) : E) ∈ V.nonunits
+    apply ValuationSubring.coe_mem_nonunits_iff.mpr
+    apply (IsLocalRing.residue_eq_zero_iff _).mp
+    rw [map_sub, hresidue, sub_self]
+  have hfix : (g : E ≃ₐ[ℚ] E) α = α := by
+    simpa using hseparate (g : E ≃ₐ[ℚ] E) 1 hdiff
+  -- Agreement on the primitive element determines the rational automorphism.
+  apply AlgEquiv.coe_toAlgHom_injective
+  apply AlgHom.ext_of_adjoin_eq_top (IntermediateField.adjoin_eq_top_iff.mp hαgen)
+  intro x hx
+  obtain rfl := Set.mem_singleton_iff.mp hx
+  exact hfix
