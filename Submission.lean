@@ -28627,7 +28627,7 @@ theorem Submission.p03_eds_torsion_kernel_card_68cf3476_d4 :
         k W hΔ (m + 2) (by omega)
       have hindex : m + 2 - 1 = m + 1 := by omega
       rw [hindex, ih.1, ih.2] at hrec
-      nlinarith [hrec]
+      nlinarith
   rcases n with _ | n
   · omega
   · exact (hcard n).1
