@@ -2436,3 +2436,64 @@ theorem Submission.p09_af497904fe_luf_finite_frobenius_exists :
     Submission.p09_af497904fe_ffe_prime_frobenius_congruence E ℓ hℓ q hq hℓq hfinite
   exact ⟨g, Submission.p09_af497904fe_ffe_localized_frobenius
     E ℓ hℓ V q hq hlocal hnonunits g hg⟩
+theorem Submission.p09_af497904fe_ftl_normal_frobenius_restriction :
+    ∀ (E F : IntermediateField ℚ (AlgebraicClosure ℚ)) [IsGalois ℚ E]
+      (hEF : E ≤ F) (V : ValuationSubring E) (W : ValuationSubring F) (ℓ : ℕ),
+      (∀ x : E, IntermediateField.inclusion hEF x ∈ W ↔ x ∈ V) →
+      ∀ g : F ≃ₐ[ℚ] F, W.IsFrobeniusAt g ℓ →
+        ∃! e : E ≃ₐ[ℚ] E, V.IsFrobeniusAt e ℓ ∧
+          ∀ x : E, IntermediateField.inclusion hEF (e x) =
+            g (IntermediateField.inclusion hEF x) := by
+  intro E F _ hEF V W ℓ hVW g hg
+  let : Algebra E F := (IntermediateField.inclusion hEF).toRingHom.toAlgebra
+  let : IsScalarTower ℚ E F := IsScalarTower.of_algHom (IntermediateField.inclusion hEF)
+  let e : E ≃ₐ[ℚ] E := g.restrictNormal E
+  have he (x : E) : IntermediateField.inclusion hEF (e x) =
+      g (IntermediateField.inclusion hEF x) := g.restrictNormal_commutes E x
+  let d : W.decompositionSubgroup ℚ := ⟨g, hg.mem_decompositionSubgroup⟩
+  have hgmem (x : F) : g x ∈ W ↔ x ∈ W := by
+    constructor
+    · intro hx
+      have h := (d⁻¹ • (⟨g x, hx⟩ : W)).property
+      change g.symm (g x) ∈ W at h
+      simpa only [g.symm_apply_apply] using h
+    · intro hx
+      exact (d • (⟨x, hx⟩ : W)).property
+  have hemem (x : E) : e x ∈ V ↔ x ∈ V := by
+    rw [← hVW, he, hgmem, hVW]
+  have heV : e ∈ V.decompositionSubgroup ℚ := by
+    apply SetLike.ext
+    intro x
+    change (∃ y : E, y ∈ V ∧ e y = x) ↔ x ∈ V
+    constructor
+    · rintro ⟨y, hy, rfl⟩
+      exact (hemem y).mpr hy
+    · intro hx
+      refine ⟨e.symm x, (hemem _).mp ?_, e.apply_symm_apply x⟩
+      simpa only [e.apply_symm_apply] using hx
+  have hnon (x : E) : IntermediateField.inclusion hEF x ∈ W.nonunits ↔
+      x ∈ V.nonunits := by
+    rw [ValuationSubring.mem_nonunits_iff_or, ValuationSubring.mem_nonunits_iff_or,
+      map_eq_zero_iff _ (IntermediateField.inclusion_injective hEF), ← map_inv₀, hVW]
+  refine ⟨e, ⟨⟨heV, ?_⟩, he⟩, ?_⟩
+  · intro z
+    obtain ⟨x, rfl⟩ := IsLocalRing.residue_surjective z
+    rw [← IsLocalRing.ResidueField.residue_smul, ← map_pow, ← sub_eq_zero, ← map_sub,
+      IsLocalRing.residue_eq_zero_iff]
+    apply ValuationSubring.coe_mem_nonunits_iff.mp
+    apply (hnon _).mp
+    let y : W := ⟨IntermediateField.inclusion hEF (x : E), (hVW _).mpr x.property⟩
+    have hy : IsLocalRing.residue W (d • y - y ^ ℓ) = 0 := by
+      rw [map_sub, map_pow, IsLocalRing.ResidueField.residue_smul]
+      exact sub_eq_zero.mpr (hg.smul_residue_eq _)
+    have hy' := ValuationSubring.coe_mem_nonunits_iff.mpr
+      ((IsLocalRing.residue_eq_zero_iff _).mp hy)
+    change g (IntermediateField.inclusion hEF (x : E)) -
+      (IntermediateField.inclusion hEF (x : E)) ^ ℓ ∈ W.nonunits at hy'
+    change IntermediateField.inclusion hEF (e (x : E) - (x : E) ^ ℓ) ∈ W.nonunits
+    simpa only [map_sub, map_pow, he] using hy'
+  · intro e' he'
+    apply AlgEquiv.ext
+    intro x
+    apply IntermediateField.inclusion_injective hEF
+    exact (he'.2 x).trans (he x).symm
