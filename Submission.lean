@@ -1082,3 +1082,32 @@ theorem Submission.p09_af497904fe_ci_cyclotomic_subfield_ramification :
   let : FiniteDimensional ℚ C := hC
   exact Submission.p09_af497904fe_csr_prime_residue_descent
     C D q A hq hDC hA hAq hcard huniq
+
+
+theorem Submission.p09_af497904fe_ci_unramified_subfield :
+    ∀ (E D : IntermediateField ℚ (AlgebraicClosure ℚ))
+      [FiniteDimensional ℚ E] [FiniteDimensional ℚ D] (q : ℕ),
+      q.Prime → D ≤ E →
+      (∀ P : Ideal (NumberField.RingOfIntegers E), P.IsPrime →
+        P.LiesOver (Ideal.span {(q : ℤ)}) → Ideal.ramificationIdx P ℤ = 1) →
+      ∀ R : Ideal (NumberField.RingOfIntegers D), R.IsPrime →
+        R.LiesOver (Ideal.span {(q : ℤ)}) → Ideal.ramificationIdx R ℤ = 1 := by
+  intro E D _ _ q _ hDE hE R hR hRq
+  letI : NumberField E := NumberField.of_module_finite ℚ E
+  letI : NumberField D := NumberField.of_module_finite ℚ D
+  letI : Algebra D E := (IntermediateField.inclusion hDE).toRingHom.toAlgebra
+  letI : R.IsPrime := hR
+  letI : R.LiesOver (Ideal.span {(q : ℤ)}) := hRq
+  obtain ⟨P, hP, hPR⟩ :=
+    Ideal.exists_ideal_over_prime_of_isIntegral_of_isDomain
+      (S := NumberField.RingOfIntegers E) R (by
+        rw [NumberField.RingOfIntegers.ker_algebraMap_eq_bot D E]
+        exact bot_le)
+  letI : P.IsPrime := hP
+  letI : P.LiesOver R := ⟨hPR.symm⟩
+  have hPq : P.LiesOver (Ideal.span {(q : ℤ)}) :=
+    Ideal.LiesOver.trans P R (Ideal.span {(q : ℤ)})
+  have hprod : Ideal.ramificationIdx R ℤ *
+      Ideal.ramificationIdx P (NumberField.RingOfIntegers D) = 1 :=
+    (Ideal.ramificationIdx_tower (R := ℤ) R P).symm.trans (hE P hP hPq)
+  exact (Nat.mul_eq_one.mp hprod).1
