@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "structure Place|ne_top.|isPrincipalIdealRing.|toValuationSubring",
+        "p06_9e0f5043ff_fpm_exists_local_place",
+        "hasPrincipalDivisors_of_transcendental"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Submission.lean"
+      ],
+      "conclusion": "The snapshot pins project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Place requires a proper valuation subring containing K with principal ideals. The root contract is present; no tracked child declaration was found in the snapshot. Comparator evidence confirms pinned dependencies and only permitted transitive axioms."
+    }
+  ],
+  "comparison_identity": "d238b1c0c8a9472ff363826415145a970643a3be09fa130bc360fb0ca1cda603",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_fpm_exists_local_place",
+      "statement": "∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F), Transcendental K x → (∀ f : F, ∃ a b : Polynomial K, b ≠ 0 ∧ f = Polynomial.aeval x a / Polynomial.aeval x b) → ∀ q : Polynomial K, q.Monic → Irreducible q → ∃ v : AlgebraicCurve.Place K F, (∀ f : F, f ∈ v.toValuationSubring ↔ ∃ a b : Polynomial K, ¬ q ∣ b ∧ f = Polynomial.aeval x a / Polynomial.aeval x b)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Uses accepted fraction-subalgebra, integer-order, and principal-ideal dependencies to construct the place with the prescribed membership characterization."
+    }
+  ]
+}
