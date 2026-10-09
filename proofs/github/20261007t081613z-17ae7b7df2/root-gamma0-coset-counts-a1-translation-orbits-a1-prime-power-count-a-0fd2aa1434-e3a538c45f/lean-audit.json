@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "4953c9ff573bf700167e9263416128030a04ba504dfadd7b06adb1a98f9899e4",
+  "git_delta": {
+    "base_commit": "54164f801090063adac2740503eedb19a5615348",
+    "candidate_commit": "785f23a5b31d778a9b67ffa6a832b85a4baf631f",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_fi_unit_mul_dvd_val",
+    "diff_sha256": "7fb86d9d392bda48b63415ada281b366ac055da73e89e120bcbbfff33aa0b4d5",
+    "source_sha256": "b328e50a210c310c3928c57dc140025d31d3a9281a1ac1d6bc28bee9e0ad1154",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_fi_unit_mul_dvd_val",
+      "statement": "∀ (M d : ℕ), 0 < M → d ∣ M → ∀ (x u : ZMod M), IsUnit u → (d ∣ (x * u).val ↔ d ∣ x.val)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
