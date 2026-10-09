@@ -880,3 +880,12 @@ theorem Submission.p03_ptf_finite_kernel_of_nsmul_nonzero_c5b7b5ed_d6 :
       exact some_ne_zero h
     exact (show Set.Finite {P : G | n • P = 0} from
       by simpa only [Filter.eventually_cofinite, not_not] using hne).to_subtype
+
+
+theorem Submission.p03_tkc_positive_torsion_finite_68cf3476_d5 :
+    ∀ (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k]
+      (W : WeierstrassCurve k), W.Δ ≠ 0 → ∀ n : ℕ, 0 < n →
+        Finite {P : W.toAffine.Point // n • P = 0} := by
+  intro k _ _ _ _ W hΔ n hn
+  exact Submission.p03_ptf_finite_kernel_of_nsmul_nonzero_c5b7b5ed_d6 k W hΔ n
+    (Submission.p03_ptf_positive_nsmul_nonzero_c5b7b5ed_d6 k W hΔ n hn)
