@@ -1,0 +1,41 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'length_quotient_pow_maximalIdeal|ord_unit_smul_zpow|valuationSubringAtPrime|def integralClosureAt|def placeOfPrime|eq_unit_mul_pow_irreducible' project mathlib",
+        "rg -n 'p06_9e0f5043ff_ifl_local_length_order' project mathlib",
+        "rg -n 'isDiscreteValuationRing_of_dedekind_domain' mathlib/Mathlib/RingTheory/DedekindDomain/Dvr.lean",
+        "rg -n '^noncomputable def algEquiv|^def algEquiv|length_quotient ' mathlib/Mathlib/RingTheory/Localization/Basic.lean mathlib/Mathlib/RingTheory/Length.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DiscreteValuationRing/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DedekindDomain/AdicValuation.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DedekindDomain/Dvr.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Localization/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Length.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f"
+      ],
+      "conclusion": "Queries ran from the snapshot root. Found the Dedekind normalization instances, canonical localization equivalence, uniformizer factorization, quotient-length theorem, and normalized place-order formula. The tracked declaration name had no matches in either snapshot repository. Project revision 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d match the manifest; inspected reused sources match the snapshot, and all nine dependencies are clean and pinned. Personally reran the exact node comparator: request 3ec20bd47dac4e37b74f135be7c20d0e exited 0 with 'Your solution is okay!'. Its verified exports bind the frozen challenge and reviewed candidate b2f1f701ed6e62fff29da5df64420dbc4dab12d8. Transitive axioms are only propext, Classical.choice, and Quot.sound. The diff adds only the tracked theorem, preserving the complete frozen root placeholder and imports."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_ifl_local_length_order",
+      "statement": "∀ (K E L : Type*) [Field K] [Field E] [Field L] [Algebra K E] [Algebra K L] [Algebra E L] [IsScalarTower K E L] [FiniteDimensional E L] [Algebra.IsSeparable E L] (v : AlgebraicCurve.Place K E) (q : IsDedekindDomain.HeightOneSpectrum (AlgebraicCurve.Place.integralClosureAt L v)) (R : Type*) [CommRing R] [IsDomain R] [Algebra (AlgebraicCurve.Place.integralClosureAt L v) R] [IsLocalization.AtPrime R q.asIdeal] (b : AlgebraicCurve.Place.integralClosureAt L v), b ≠ 0 → ∃ m : ℕ, Module.length R (R ⧸ Ideal.span ({algebraMap (AlgebraicCurve.Place.integralClosureAt L v) R b} : Set R)) = (m : ℕ∞) ∧ (AlgebraicCurve.Place.placeOfPrime q).ord (algebraMap (AlgebraicCurve.Place.integralClosureAt L v) L b) = (m : ℤ)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "The localization R is a DVR, and the nonzero image of b factors as a unit times a uniformizer to a natural power m. The existing pinned DVR quotient-length theorem gives length m, including m = 0. The canonical B-algebra equivalence with the place’s valuation ring transports this factorization; the normalized unit and uniformizer order formulas give order m. No principal-divisor hypothesis is used."
+    }
+  ]
+}

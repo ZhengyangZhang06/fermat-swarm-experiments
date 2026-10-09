@@ -1,0 +1,37 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'HasPrincipalDivisors|degree_pushforward|pushforward_apply' project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean project/Definitions/Def_AlgebraicCurve_DivisorPushPull.lean",
+        "rg -n 'finite_setOf_restrict_eq|def fiberOver|theorem mem_fiberOver' project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "rg --files project/P2M project/Theorems | rg 'hasPrincipalDivisors_of_transcendental'"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorPushPull.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/P2M",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Theorems"
+      ],
+      "conclusion": "Queries ran from the snapshot root. Found the frozen principal-divisor definition, pushforward interfaces, and finite-fiber interfaces; inspected files match committed compiler inputs byte-for-byte. Project and mathlib revisions match the manifest. No target solution module matched in P2M or Theorems. The independent comparator rerun passed exact-type, kernel, and permitted-axiom checks for the root and all 49 prerequisites."
+    }
+  ],
+  "comparison_identity": "1c88d54ace3ff42464c2ba30ff380310b2951c521e0ff8765621f5452ce09e85",
+  "publication_proof_reviewed": true,
+  "publication_proof_blob": "448ceffb64652b6cc69e38eebeaa8d80d6e52f01",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "AlgebraicCurve.hasPrincipalDivisors_of_transcendental",
+      "statement": "∀ (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F] [Algebra K F] (x : F) (hx : Transcendental K x) [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F], HasPrincipalDivisors K F",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines the accepted rational-adjoin, finite-support-ascent, and local-norm-order dependencies, then uses degree preservation under divisor pushforward."
+    }
+  ]
+}

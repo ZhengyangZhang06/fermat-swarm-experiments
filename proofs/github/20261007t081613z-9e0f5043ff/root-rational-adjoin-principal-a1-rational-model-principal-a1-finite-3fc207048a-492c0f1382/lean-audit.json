@@ -1,0 +1,36 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "p06_9e0f5043ff_fno_fraction_isunit|fraction_isunit",
+        "structure Place|def toValuationSubring|def Place|abbrev Place",
+        "theorem transcendental_iff_injective",
+        "transcendental_iff_injective|theorem isUnit_iff_exists_inv"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Algebraic/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Group/Units/Defs.lean"
+      ],
+      "conclusion": "Verified clean project and mathlib snapshots at the manifest revisions. Inspected Place.toValuationSubring and the existing evaluation-injectivity and unit-inverse declarations. No matching fraction_isunit declaration exists in the snapshot. The exact comparator rerun passed with matching committed inputs and only the permitted transitive axioms."
+    }
+  ],
+  "comparison_identity": "a029fb998f3ec2b9415b40f312f9c8903164be96b7444c8f32fb0bf12bc23e23",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_fno_fraction_isunit",
+      "statement": "∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F), Transcendental K x → ∀ q : Polynomial K, q.Monic → Irreducible q → ∀ v : AlgebraicCurve.Place K F, (∀ f : F, f ∈ v.toValuationSubring ↔ ∃ a b : Polynomial K, ¬ q ∣ b ∧ f = Polynomial.aeval x a / Polynomial.aeval x b) → ∀ (a b : Polynomial K) (z : v.toValuationSubring), ¬ q ∣ b → (z : F) = Polynomial.aeval x a / Polynomial.aeval x b → (IsUnit z ↔ ¬ q ∣ a)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "The implementation uses evaluation injectivity, primality of q, and reciprocal fractions to characterize units."
+    }
+  ]
+}

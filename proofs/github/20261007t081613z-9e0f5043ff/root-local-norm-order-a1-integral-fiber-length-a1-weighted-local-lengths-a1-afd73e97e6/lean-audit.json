@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'p06_9e0f5043ff_ifl_weighted_local_lengths' project mathlib/Mathlib",
+        "rg -n 'length_eq_add_of_exact' mathlib/Mathlib/RingTheory/Length.lean",
+        "rg -n \"prod_fiberwise'\" mathlib/Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Length.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean"
+      ],
+      "conclusion": "Queries ran from the snapshot root. No existing selected declaration was found. The snapshot supplies length additivity and additive fiberwise summation. Inspected sources match the candidate's pinned dependencies; all nine dependency checkouts are clean at their recorded revisions."
+    }
+  ],
+  "comparison_identity": "9f451f8742e112efc11e7cfdecaff44cfc61e8c55f3440ff90ce271094f2fee7",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_ifl_weighted_local_lengths",
+      "statement": "∀ (A B : Type*) [CommRing A] [CommRing B] [IsDedekindDomain B] [Algebra A B] [Fintype (IsDedekindDomain.HeightOneSpectrum B)] (b : B), b ≠ 0 → ∀ n : ℕ, Module.length A (B ⧸ Ideal.span ({b} : Set B)) = (n : ℕ∞) → Finset.sum Finset.univ (fun q : IsDedekindDomain.HeightOneSpectrum B => Module.length A (B ⧸ q.asIdeal) * Module.length (Localization.AtPrime q.asIdeal) (Localization.AtPrime q.asIdeal ⧸ Ideal.span ({algebraMap B (Localization.AtPrime q.asIdeal) b} : Set (Localization.AtPrime q.asIdeal)))) = (n : ℕ∞)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines accepted composition-series, factor-length, and local-multiplicity lemmas, then regroups the finite sum by primes."
+    }
+  ]
+}

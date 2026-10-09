@@ -1,0 +1,36 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "class HasPrincipalDivisors|def degree|def ord|algEquivOfTranscendental|algEquivOfAlgEquiv|rational_adjoin_principal",
+        "def algEquivOfTranscendental",
+        "algebraAdjoinAdjoin"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Algebraic/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Localization/FractionRing.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/FieldTheory/IntermediateField/Adjoin/Algebra.lean"
+      ],
+      "conclusion": "Confirmed the frozen divisor definitions and existing polynomial/fraction-field equivalence interfaces. Project and mathlib snapshots are clean at their manifest revisions. The fresh comparator receipt ce69c516eee54234afc9bb42441a1bc1 binds the inspected candidate and exact frozen type; all 221 prepared source hashes match. Authorized header omissions are reversible and all 95 omitted targets passed the absence probe. Kernel and transitive-axiom checks passed with only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "3ed4c5acaa8b6e701787c9537d825ef6b02d9ed8430387a8cf2e74dc850e0028",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_rational_adjoin_principal",
+      "statement": "∀ (K : Type*) [Field K] {F : Type*} [Field F] [Algebra K F] (x : F), Transcendental K x → AlgebraicCurve.HasPrincipalDivisors K (IntermediateField.adjoin K ({x} : Set F))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Uses the pinned polynomial and fraction-field equivalences to identify the generated field, then applies the accepted rational-model principal-divisor theorem and algebra-equivalence transport theorem."
+    }
+  ]
+}

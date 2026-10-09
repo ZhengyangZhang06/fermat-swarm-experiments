@@ -1,0 +1,39 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "mem_of_eval_monic_eq_zero|mem_restrict_iff|ord_coe_unit|p06_9e0f5043ff_fosa_ord_zero_of_monic_pair",
+        "theorem (Monic.map|coeff_map|eval_map)|lemma (Monic.map|coeff_map|eval_map)",
+        "p06_9e0f5043ff_fosa_ord_zero_of_monic_pair"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorPushPull.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Polynomial/Monic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Polynomial/Eval/Coeff.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Polynomial/Eval/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f"
+      ],
+      "conclusion": "Used rg to locate and inspect ord_coe_unit (DivisorClassGroup:141), mem_restrict_iff (DivisorPushPull:289), mem_of_eval_monic_eq_zero (PlacesOverDVR:58), and the polynomial mapping lemmas. These are existing pinned library declarations. Project sources match both the frozen base and snapshot revision 956e8c600d8b95b46948ae5e37b13930b5f3d06b; inspected mathlib sources match db584cd6d46c92f209a44c0f1c829460d327499d. All nine dependencies are clean at their pins. No matching node declaration occurs in the snapshot or frozen base. The diff adds only the tracked theorem, preserving the frozen root placeholder, imports, and assumptions. Independent exact comparator rerun 47a4dfd4ba724cf8aa1a501a2f63f685 exited 0 with 'Your solution is okay!' for unchanged commit be02d8d4dc76ebf1a9409eaea718e8d91579b13c. Its transitive axiom report contains only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_fosa_ord_zero_of_monic_pair",
+      "statement": "∀ (K E L : Type*) [Field K] [Field E] [Field L] [Algebra K E] [Algebra K L] [Algebra E L] [IsScalarTower K E L] [Algebra.IsIntegral E L] (w : AlgebraicCurve.Place K L) (f : L) (P Q : Polynomial E), f ≠ 0 → P.Monic → Q.Monic → Polynomial.eval₂ (algebraMap E L) f P = 0 → Polynomial.eval₂ (algebraMap E L) (f⁻¹) Q = 0 → (∀ i : ℕ, P.coeff i ∈ (w.restrict E).toValuationSubring) → (∀ i : ℕ, Q.coeff i ∈ (w.restrict E).toValuationSubring) → w.ord f = 0",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Map both monic polynomials to L and transfer coefficient membership using mem_restrict_iff. The existing monic-root lemma puts f and its inverse in the valuation subring. Nonzeroness supplies the inverse identities, yielding a unit; ord_coe_unit then gives w.ord f = 0. This matches the frozen parent-supplied proof."
+    }
+  ]
+}

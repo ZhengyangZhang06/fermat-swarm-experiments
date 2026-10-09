@@ -1,0 +1,38 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "clear_first_column|split_divisible_pivot",
+        "theorem mul_apply|def mul |theorem of_apply|def of ",
+        "def Matrix|def of|of_apply",
+        "git rev-parse HEAD",
+        "git status --porcelain"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Fermat/Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Data/Matrix/Mul.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Matrix/Defs.lean"
+      ],
+      "conclusion": "The snapshot search found no clear_first_column or split_divisible_pivot matches. Matrix.mul_apply and the matrix ring instances confirm ordinary matrix multiplication; Matrix.of preserves the intended matrix instances. Both snapshots are clean at project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. All installed dependencies are clean and match their pins. The exact comparator rerun accepted candidate b2e4037a4de55f141d89be6fc06ffbd7ec766601, exited zero with 'Your solution is okay!', and reported only propext, Classical.choice, and Quot.sound as transitive axioms. The diff adds only the tracked theorem, preserving imports and the frozen root placeholder."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_sdp_clear_first_column",
+      "statement": "∀ (R : Type*) [CommRing R] (m : ℕ) (B : Matrix (Fin (m + 1)) (Fin (m + 1)) R), (∀ i : Fin m, B 0 0 ∣ B i.succ 0) → ∃ U : Matrix (Fin (m + 1)) (Fin (m + 1)) R, IsUnit U ∧ (∀ j : Fin (m + 1), (U * B) 0 j = B 0 j) ∧ (∀ i : Fin m, (U * B) i.succ 0 = 0)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Choose divisibility witnesses a(i), and put them below the first entry of column zero in a matrix N with all other entries zero. Its zeroth row vanishes, so N² = 0. Thus U = 1 − N has two-sided inverse 1 + N. Multiplication preserves row zero and subtracts a(i) times that row from row i.succ, clearing the required entries. The construction also covers m = 0 and zero pivots."
+    }
+  ]
+}

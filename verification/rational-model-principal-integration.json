@@ -1,0 +1,575 @@
+{
+  "node_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1",
+  "integration_parent": "cb3ca9a06fc515cbe9f0a27680ac24c87f85062c",
+  "canonical_verified_source": "f3ee8510a1917b06766cbde434ac295ada869bc2",
+  "reviewed_source": "814634d4f2cd13b180f96112b294ddfb7a1a0a27",
+  "repair": "Restore the approved canonical module layout; union its helpers with the reviewed infinity-place and rational-model declarations. Remove duplicated headers, namespaces, declarations, and merge-spliced proof fragments. Retain fatal warnings. No mathematical proof or frozen interface changed.",
+  "reference_use": [
+    {
+      "source": "local-project",
+      "manifest": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+      "revisions": {
+        "mode": "local-project",
+        "project_commit": "956e8c600d8b95b46948ae5e37b13930b5f3d06b",
+        "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d"
+      },
+      "queries": [
+        {
+          "argv": [
+            "rg",
+            "-n",
+            "HasPrincipalDivisors|def degree",
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean"
+          ],
+          "exit_code": 0,
+          "result": "185:def degree : Divisor K F →+ ℤ :=\n217:class HasPrincipalDivisors : Prop where\n"
+        },
+        {
+          "argv": [
+            "rg",
+            "-n",
+            "natDegree_multiset_prod|factorization|sum.*natDegree",
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Polynomial/Degree/Operations.lean"
+          ],
+          "exit_code": 0,
+          "result": "287:      refine Finset.sum_eq_single (natDegree p, natDegree q) ?_ ?_\n"
+        },
+        {
+          "argv": [
+            "rg",
+            "-n",
+            "p06_9e0f5043ff_rational_model_principal",
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project",
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib"
+          ],
+          "exit_code": 1,
+          "result": "No matches."
+        }
+      ],
+      "inspected_files": [
+        {
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+          "sha256": "0dc870b7f0be4e97313d3333986ba5e61f6916ab6f7e16ab5058bb9eb2f1f1fe",
+          "candidate_equal": true
+        },
+        {
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorPushPull.lean",
+          "sha256": "ca80a6139646c59cd06c3ba8f3f6368fd53a9d72aadd763458b3efb66e36240b",
+          "candidate_equal": true
+        },
+        {
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+          "sha256": "4786895eaa0b7f27ba9fec56a58a787f1d1d3ec8be0e893436e6b1f8293ac7b7",
+          "candidate_equal": true
+        }
+      ],
+      "conclusion": "Frozen divisor degree and HasPrincipalDivisors definitions agree byte-for-byte. The polynomial coefficient lemma was inspected; no reference proof was copied. The selected theorem name has no matches in either snapshot tree. Compatibility, kernel and transitive axioms remain subject to the configured comparator."
+    }
+  ],
+  "declarations": [
+    {
+      "name": "p06_9e0f5043ff_wll_residue_composition_series",
+      "sha256": "d9f712fb67b0cc1c8ebf12f00bbcfec5a3ac109da5af8978589d435769c3b55f",
+      "canonical": true,
+      "reviewed": false,
+      "source": "f3ee8510a1917b06766cbde434ac295ada869bc2"
+    },
+    {
+      "name": "p06_9e0f5043ff_wll_length_sum_factors",
+      "sha256": "5595aaf697193cd5bed2fb9857b85e97c8d0c091b05540472e5ad2fa21faddc1",
+      "canonical": true,
+      "reviewed": false,
+      "source": "f3ee8510a1917b06766cbde434ac295ada869bc2"
+    },
+    {
+      "name": "p06_9e0f5043ff_elp_principal_ideals_of_order",
+      "sha256": "126c68eadfdf76d0fb8182653270b5c69947d4ce915760eacfb940bcfceb2e6b",
+      "canonical": true,
+      "reviewed": true,
+      "source": "814634d4f2cd13b180f96112b294ddfb7a1a0a27"
+    },
+    {
+      "name": "p06_9e0f5043ff_sdp_clear_first_row",
+      "sha256": "6a3e472d459c0c5cc466bc00bdeb45e03a742b12aa2fa2b15783683d8cb276cb",
+      "canonical": true,
+      "reviewed": true,
+      "source": "814634d4f2cd13b180f96112b294ddfb7a1a0a27"
+    },
+    {
+      "name": "p06_9e0f5043ff_sdp_clear_first_column",
+      "sha256": "fb456953e64ae9b123bcdbbb86baf6e7aa96492d657f894f8b2e5ade68a1defd",
+      "canonical": true,
+      "reviewed": true,
+      "source": "814634d4f2cd13b180f96112b294ddfb7a1a0a27"
+    },
+    {
+      "name": "p06_9e0f5043ff_dmd_finite_family_dividing_member",
+      "sha256": "4cbc58855ed98fd875f01714dacd0e65d72b4fd1d801cae01059e4c9af982601",
+      "canonical": true,
+      "reviewed": false,
+      "source": "f3ee8510a1917b06766cbde434ac295ada869bc2"
+    },
+    {
+      "name": "p06_9e0f5043ff_fpm_rd_eval_kernel",
+      "sha256": "9443355820ebc563191c881fd94bedd00135409885c762781fd9c852525f8d46",
+      "canonical": true,
+      "reviewed": true,
+      "source": "814634d4f2cd13b180f96112b294ddfb7a1a0a27"
+    },
+    {
+      "name": "p06_9e0f5043ff_llm_localized_series_sum",
+      "sha256": "6c8354a33b160596f24adc19e98b4d2d72b2fcbd784ffa59fd969c82c807751f",
+      "canonical": true,
+      "reviewed": false,
+      "source": "f3ee8510a1917b06766cbde434ac295ada869bc2"
+    },
+    {
+      "name": "p06_9e0f5043ff_dlen_scalar_quotient",
+      "sha256": "5913d978f503a64d2ea25cc3b8865c545e11738ec2a9674c129e9677c085e652",
+      "canonical": true,
+      "reviewed": false,
+      "source": "f3ee8510a1917b06766cbde434ac295ada869bc2"
+    },
+    {
+      "name": "p06_9e0f5043ff_dmc_diagonal_quotient",
+      "sha256": "dbba0fc8ca586094eefe4dd8b1b50ffeed465cf0ab2a742b5ea6d163b68a1bd7",
+      "canonical": true,
+      "reviewed": false,
+      "source": "f3ee8510a1917b06766cbde434ac295ada869bc2"
+    },
+    {
+      "name": "p06_9e0f5043ff_fpm_rd_residue_surjective",
+      "sha256": "6fd3248fca0a6fc9286ea4e3845a53829f373070fc06efa30bdc9ec7c5afa898",
+      "canonical": true,
+      "reviewed": true,
+      "source": "814634d4f2cd13b180f96112b294ddfb7a1a0a27"
+    },
+    {
+      "name": "p06_9e0f5043ff_fpm_residue_degree",
+      "sha256": "396fc2f2bcc531d1fe88a03b16ffabee04f7fd09eb1c8de7789acf64a5bd034f",
+      "canonical": true,
+      "reviewed": true,
+      "source": "814634d4f2cd13b180f96112b294ddfb7a1a0a27"
+    },
+    {
+      "name": "p06_9e0f5043ff_fno_fraction_isunit",
+      "sha256": "b7ca605873ed54055ad2cc415930bc7d3153b97b0dc27a689982d825914002ac",
+      "canonical": true,
+      "reviewed": true,
+      "source": "814634d4f2cd13b180f96112b294ddfb7a1a0a27"
+    },
+    {
+      "name": "p06_9e0f5043ff_fno_irreducible_aeval",
+      "sha256": "dc517373bdca088aa091e62e6d7af2fda903317194dfc55ac5d52176427c96af",
+      "canonical": true,
+      "reviewed": true,
+      "source": "814634d4f2cd13b180f96112b294ddfb7a1a0a27"
+    },
+    {
+      "name": "p06_9e0f5043ff_inf_reciprocal_presentation",
+      "sha256": "58e2523523b14dc6e836b1d9a24921696b6f731ac01b155f1337ee1bcda2a71e",
+      "canonical": true,
+      "reviewed": true,
+      "source": "814634d4f2cd13b180f96112b294ddfb7a1a0a27"
+    },
+    {
+      "name": "p06_9e0f5043ff_inf_reciprocal_polynomial_order",
+      "sha256": "69f070460abede6a128f050f5f6a954dc8884de68bfaf49994472b9ab34bf8e2",
+      "canonical": true,
+      "reviewed": true,
+      "source": "814634d4f2cd13b180f96112b294ddfb7a1a0a27"
+    },
+    {
+      "name": "p06_9e0f5043ff_elp_fraction_subalgebra",
+      "sha256": "2b4dd52ff42275ece96f499f20f97fdefc79defff8caba0db5206979d2d4ff32",
+      "canonical": true,
+      "reviewed": true,
+      "source": "814634d4f2cd13b180f96112b294ddfb7a1a0a27"
+    },
+    {
+      "name": "p06_9e0f5043ff_io_polynomial_exponent",
+      "sha256": "f46d50d58e298d8a865cc22e3f966967f52f97c808781e018aaea6d6edfedab7",
+      "canonical": true,
+      "reviewed": true,
+      "source": "814634d4f2cd13b180f96112b294ddfb7a1a0a27"
+    },
+    {
+      "name": "p06_9e0f5043ff_io_fraction_extension",
+      "sha256": "96b8b7f4f8374e15db5c862d51f90a01605c6c11e7046df54f2c596f42e57681",
+      "canonical": true,
+      "reviewed": true,
+      "source": "814634d4f2cd13b180f96112b294ddfb7a1a0a27"
+    },
+    {
+      "name": "p06_9e0f5043ff_fosa_ord_zero_of_monic_pair",
+      "sha256": "7861414fbff863b470cd44816194ddd61279886cfb7841f55562f53f92befbc7",
+      "canonical": true,
+      "reviewed": false,
+      "source": "f3ee8510a1917b06766cbde434ac295ada869bc2"
+    },
+    {
+      "name": "p06_9e0f5043ff_ifl_local_length_order",
+      "sha256": "bdb1497d5c7bf4a2bdd55fefed4fdb0e8406bc7596a362e872401abb23f06cfa",
+      "canonical": true,
+      "reviewed": false,
+      "source": "f3ee8510a1917b06766cbde434ac295ada869bc2"
+    },
+    {
+      "name": "p06_9e0f5043ff_fosa_coefficients_integral_off_finite",
+      "sha256": "de6908461da46bc608fa433ac9806834e606cd68eda2d037520a203edbfbff3a",
+      "canonical": true,
+      "reviewed": false,
+      "source": "f3ee8510a1917b06766cbde434ac295ada869bc2"
+    },
+    {
+      "name": "p06_9e0f5043ff_finite_order_support_ascent",
+      "sha256": "ca086c078cd8bbdcdd322286d752e13726af31673c68bde25ce16b516a33033e",
+      "canonical": true,
+      "reviewed": false,
+      "source": "f3ee8510a1917b06766cbde434ac295ada869bc2"
+    },
+    {
+      "name": "p06_9e0f5043ff_vfc_polynomial_unit_criterion",
+      "sha256": "d9f80b1100ff14303135d8e7f1f8681a68075c39b191fcbc90551a8734ad4bf2",
+      "canonical": true,
+      "reviewed": true,
+      "source": "814634d4f2cd13b180f96112b294ddfb7a1a0a27"
+    },
+    {
+      "name": "p06_9e0f5043ff_vfc_unit_power_quotient_exponents",
+      "sha256": "ded9620d6e800948af83a699595a14ae48bdd811f7acf8bc8e622dc5cfc716a1",
+      "canonical": true,
+      "reviewed": true,
+      "source": "814634d4f2cd13b180f96112b294ddfb7a1a0a27"
+    },
+    {
+      "name": "p06_9e0f5043ff_dmd_split_divisible_pivot",
+      "sha256": "7cb4c8ea8c75c3fc2c311bed0a6d3dc0d7216fddc5a7e8c87bde550d86722155",
+      "canonical": true,
+      "reviewed": false,
+      "source": "f3ee8510a1917b06766cbde434ac295ada869bc2"
+    },
+    {
+      "name": "p06_9e0f5043ff_llm_localized_residue_factors",
+      "sha256": "d8948c58d701af4480cb25d984c1103460242f97f7eef707a0acd4655d3bd97b",
+      "canonical": true,
+      "reviewed": false,
+      "source": "f3ee8510a1917b06766cbde434ac295ada869bc2"
+    },
+    {
+      "name": "p06_9e0f5043ff_dlen_matrix_diagonalization",
+      "sha256": "6e74b47760696ffb6d6ab8c6f0bee79cf1e97b27c35895a758fc3e71812fcbf5",
+      "canonical": true,
+      "reviewed": false,
+      "source": "f3ee8510a1917b06766cbde434ac295ada869bc2"
+    },
+    {
+      "name": "p06_9e0f5043ff_inf_valuation_fraction_characterization",
+      "sha256": "ec6a6f4acde1c28edc94be0eb534c62b8df7740c9565e2b790cd032b197a5189",
+      "canonical": true,
+      "reviewed": true,
+      "source": "814634d4f2cd13b180f96112b294ddfb7a1a0a27"
+    },
+    {
+      "name": "p06_9e0f5043ff_dmc_cokernel_units",
+      "sha256": "b33d971429d3fc81e0de2469daf0a9cb1d2d0d1e71c8e0c5d972aba912d16c12",
+      "canonical": true,
+      "reviewed": false,
+      "source": "f3ee8510a1917b06766cbde434ac295ada869bc2"
+    },
+    {
+      "name": "p06_9e0f5043ff_wll_local_length_multiplicity",
+      "sha256": "bd7e5ac3e23cac0e818738f9892a93a50f4da6484b700d9c612ac09731b11ea6",
+      "canonical": true,
+      "reviewed": false,
+      "source": "f3ee8510a1917b06766cbde434ac295ada869bc2"
+    },
+    {
+      "name": "p06_9e0f5043ff_fpm_normalized_orders",
+      "sha256": "dfcccedfe0a95cbfccfb9bec7b68056fd071ab284513ee2034f40afe2a74e71f",
+      "canonical": true,
+      "reviewed": true,
+      "source": "814634d4f2cd13b180f96112b294ddfb7a1a0a27"
+    },
+    {
+      "name": "p06_9e0f5043ff_dlen_diagonal_cokernel",
+      "sha256": "9787506edf46c816fad9be1b445179c2e714161e482e9ddcf9a6c9797db0dc22",
+      "canonical": true,
+      "reviewed": false,
+      "source": "f3ee8510a1917b06766cbde434ac295ada869bc2"
+    },
+    {
+      "name": "p06_9e0f5043ff_ifl_residue_length_inertia",
+      "sha256": "d664b0ed025439e997ec1a90969edbb9ebea3dba67ac7f2f0cadbf0eef57703c",
+      "canonical": true,
+      "reviewed": false,
+      "source": "f3ee8510a1917b06766cbde434ac295ada869bc2"
+    },
+    {
+      "name": "p06_9e0f5043ff_ifl_weighted_local_lengths",
+      "sha256": "11fb38bcd42eb4998ea74da3330a06159e64c49ec250864f8a535bbb9e1cf74a",
+      "canonical": true,
+      "reviewed": false,
+      "source": "f3ee8510a1917b06766cbde434ac295ada869bc2"
+    },
+    {
+      "name": "p06_9e0f5043ff_elp_integer_order",
+      "sha256": "a24f722a7e7cb1a9ba0cc0673b63bff4107164a9fc49e674666e2e1b02c99d25",
+      "canonical": true,
+      "reviewed": true,
+      "source": "814634d4f2cd13b180f96112b294ddfb7a1a0a27"
+    },
+    {
+      "name": "p06_9e0f5043ff_lno_dvr_determinant_length",
+      "sha256": "35ce2de023cc63389f94f40094085a1ee7796c50adde97dadc3cb8e8d824a624",
+      "canonical": true,
+      "reviewed": false,
+      "source": "f3ee8510a1917b06766cbde434ac295ada869bc2"
+    },
+    {
+      "name": "p06_9e0f5043ff_pae_compatible_order_invariance",
+      "sha256": "e2902cfb9e028a3ef31554a566fe351913947b2f9d6ad91e5525ec246a7ca987",
+      "canonical": true,
+      "reviewed": false,
+      "source": "f3ee8510a1917b06766cbde434ac295ada869bc2"
+    },
+    {
+      "name": "p06_9e0f5043ff_lno_integral_fiber_length",
+      "sha256": "34a4252aafe5331d9c356d8b4dd763ba901938ad428427c9abe732a3fe4e9a96",
+      "canonical": true,
+      "reviewed": false,
+      "source": "f3ee8510a1917b06766cbde434ac295ada869bc2"
+    },
+    {
+      "name": "p06_9e0f5043ff_fpm_exists_local_place",
+      "sha256": "f1fc63e32248de46831bc8c0793bd19df4c7f52678e1969ab70afb9e5815f0fa",
+      "canonical": true,
+      "reviewed": true,
+      "source": "814634d4f2cd13b180f96112b294ddfb7a1a0a27"
+    },
+    {
+      "name": "p06_9e0f5043ff_lno_integral_norm_length",
+      "sha256": "38c2bc4e31c2a8d89d154bead1cc4272ff80fdc9db4f5d8499ebed76d2a71392",
+      "canonical": true,
+      "reviewed": false,
+      "source": "f3ee8510a1917b06766cbde434ac295ada869bc2"
+    },
+    {
+      "name": "p06_9e0f5043ff_pae_place_equivalence_degree",
+      "sha256": "5897d203f7711cced92f323b06fcec0b17a1b8161827cd92586f8937453963f9",
+      "canonical": true,
+      "reviewed": false,
+      "source": "f3ee8510a1917b06766cbde434ac295ada869bc2"
+    },
+    {
+      "name": "p06_9e0f5043ff_principal_alg_equiv",
+      "sha256": "a3715345811c8a03b11aa22fd194d4f9394baa625fe1fbd3b63f685589e4f2f5",
+      "canonical": true,
+      "reviewed": false,
+      "source": "f3ee8510a1917b06766cbde434ac295ada869bc2"
+    },
+    {
+      "name": "p06_9e0f5043ff_rmp_finite_place_classification",
+      "sha256": "e131a691859b08bfb24b79a87cc85ed3366d7e25a4aca3e103d7416128f1b6b5",
+      "canonical": true,
+      "reviewed": true,
+      "source": "814634d4f2cd13b180f96112b294ddfb7a1a0a27"
+    },
+    {
+      "name": "p06_9e0f5043ff_rmp_finite_place_model",
+      "sha256": "d0a3df2aa38b066dc81f36844343fd55d0f225cf2fb39c29d69b94d6a854f8e8",
+      "canonical": true,
+      "reviewed": true,
+      "source": "814634d4f2cd13b180f96112b294ddfb7a1a0a27"
+    },
+    {
+      "name": "p06_9e0f5043ff_local_norm_order",
+      "sha256": "cc8327352d90795b3841425eeb9e5daa3f34871ae0bc8fb7a9e01cc1a3815693",
+      "canonical": true,
+      "reviewed": false,
+      "source": "f3ee8510a1917b06766cbde434ac295ada869bc2"
+    },
+    {
+      "name": "p06_9e0f5043ff_rmp_infinity_place",
+      "sha256": "5c4dd520dc218208ee62fe49b6fb0a9ee28f8f8bff6e69f673b96cbbb5deebac",
+      "canonical": false,
+      "reviewed": true,
+      "source": "814634d4f2cd13b180f96112b294ddfb7a1a0a27"
+    },
+    {
+      "name": "p06_9e0f5043ff_rational_model_principal",
+      "sha256": "833112446fb596b7a125d15cf72253a43e08f0c571982b77d650acbff38ba11e",
+      "canonical": false,
+      "reviewed": true,
+      "source": "814634d4f2cd13b180f96112b294ddfb7a1a0a27"
+    }
+  ],
+  "history": {
+    "patch_equivalent_commits": [
+      "b842b83e2782965c786b2b7fae0d1042ebd2a4ef",
+      "26e33700ee35e65c745cd48a757ee812afeca23b",
+      "626867053624c601e6c110e48cfba5a02c012d4d",
+      "ad7f4781372b7c6045b2017f57f72a390db59477",
+      "71fb750e65482eefc1fc0535a6af6192cf30a379",
+      "4fa74319715351e97e1c67a54790cdad20a287e8",
+      "1c4c7d939d5832b77e0c514ad0731fe8d387bcf9",
+      "08cf7dfe93ee54898a13d28e30eba68c4f45f900",
+      "94e69c65ce27d21d515f0410ed05b1727609774c",
+      "2fab102767be4c9aee8ce46660963ab5a6ff59c6",
+      "ade2587d15dfb66a8e6b4f62292014f2319e92f5",
+      "8317cc2454b5790a3058964145fe8b2f11fbb4dd",
+      "158a49573d85e76f7a58259ed5e16dff1c2c8381",
+      "a1d7518335df4230a2935749f87f8e096343bd00",
+      "f6af9e1e74ce68cedff898aa6117c38451a2f89b",
+      "1e97d1180a3975ad991fdc0df960d9e07d7a85c6",
+      "39edd91b0071c7c0c192bf53bc8e2668fbc07194",
+      "e3008d79f7b14ff8fccef98b06cc02c2dbeba04d",
+      "50d45dd37a3fc03715be233f49787270b8135671",
+      "c2f5e7f05922ffc9290abf34c4b586737bc1ad4a",
+      "8b9d5c3be95d8fdb6b5987fdc2eb093f17178527",
+      "74b499696f4cf4ad277d261ab3c0172f42f8897f",
+      "f5f4243fdea44fda1bf72a62ecf1e11b7adf5bd9",
+      "6373d2002d72f6bfe384ed8679f0ddf683f20e47",
+      "01006a382000306534f46bea318c9194888de3b1",
+      "9bc9aaa5f8a286283ae494a71f4615c226c736bf",
+      "eb4459214d18abf56fa396e15ffa8e10e163fbed",
+      "a4809cdbdb290546f5bb4faa5c5769a1f8028483",
+      "4932ccd19840b0b291751be9951d4d7fc259ef1c",
+      "d78a2c1e7e2d6615cefbb1581c265e3b511bc86c",
+      "5855e0167a27fcf8562ad6eb7c2387e8589b0eb2",
+      "b6979eb08520a08a87a1d2d86b0c0b5d101e2751",
+      "9169ebfaf6bc44b128a368d83974dcc141b263a7",
+      "ad292f148efe52dc264a9f2d8be1652ef60ba9f1",
+      "0af2dc4182fdfc8bbaf08ec1697a44076eec9e6d",
+      "b353a5bf6bb227ed0dc82e2ae3b1db1a4ef7173e",
+      "29516a2c516cd99c930e6f2dc4622f42d64d026b",
+      "0543ac56a308a712b4a56f6f01bab4c8a663b701",
+      "956ce6a36a8e5e92a4bc07f327f1a16327de6a38",
+      "6bc5e85e80a06d12c1e3b12111b4e029216f5e75",
+      "a0b21b456058e00303803934c76073dc17085b35",
+      "ed8ea9a12f190b758e351cb972c6deb6b0ec8f90",
+      "174c0556759cc22822bf92214599a199aae47af4",
+      "898db18674b1b04967498cfec1e3ac6c99c04760",
+      "3ac241b63ecb2310df0e963b9f91d081942491ee",
+      "0b0cf78f8d671de658200bc657ea790ce9d5b36c",
+      "f3b7d60f0f8c70b4222f1e8b7e2913338d75af25",
+      "0bedd294d5937577db26cec717f9af8ff9c6bdd1",
+      "52584ffe881fb5f8ead309e0b0c0fd7accbe4a59",
+      "e4ca2318e90ea3985516a65db6ac4269f16a7fa2",
+      "7a3f84dc9f9de314162a68cdb97a12509fc3709a",
+      "ac55d00925a72cb5b57797b2e1b7568ebb54e4e6",
+      "ee683f44a74e6877093d203837f3cbdb8882ce78",
+      "4459f54c4e101a90e4fa164bb0eba50bd4ac6162",
+      "8516e607d9ea7fed361233235abc237223523cc1",
+      "b30b805be501fbbcd9db79fa441d906a1161f807",
+      "a0b98dab603823e9dc63a231edb74f11e8025835",
+      "993f504f018b888bbe8fe2a35a9468a2ba3b45f4",
+      "9557884bc519c0861a6b6cfdb59637ab67555357",
+      "7518dba0aa0ad5ec2e3389ce2e7ab334c1af9482",
+      "37e8bff069c1551e9dbf8b663bec70b4e775b2eb",
+      "b7ba9a814a98afa61c6570e3c75b07ecd9bae07f",
+      "d47d200e4b356ed2da43260dbc519ed885782092",
+      "3af785cebb5391df1e1bc0d9a075a101642e6532",
+      "c50f1b8225b8031e5bdc1fe849d88970f9e9e1f7",
+      "382701f51475d8dd7fe5ed3c2ed031e9f0789d56",
+      "b265a0c5a977879e535198d1c2efbbcf4ec8cb56",
+      "ce265a414f85b9f0b4c39071cb02a1a7c9030683",
+      "01a613e65a0845e72df7e441205cb9255de8d8c8",
+      "b622b25d6a246d3c5245dff1179dba7eb77c4e65",
+      "a66a319ad495adb3513c25904cdc38e5a76f9309",
+      "52600b2df8b414ccb2952c8e19abbf440fc4e781",
+      "1fac8bcb712f03c0b3af9400660c301b683e7a4a",
+      "c994bb29c528b960fedcdc54a333fc2520516784",
+      "799ab7b9eb4b521e18798757d1d17d63c2cdb9a8",
+      "a26326c65e7d04088f1ad012e82434a9d383c00c",
+      "00d31ac350c24ac02700f4205446f561d20f4bd8",
+      "2b9139ec5d16446c1728514008f74746e79bda61",
+      "0c8a0aa8a07a5064755d3e4d350e9dee3418e2c0",
+      "359dec4165aea36478901b4282575fa3434e7ff3",
+      "5f51225291a71866bd00eaa53605f58492d02366",
+      "d1f0f410b979b5d9cc109434329bc5e078b691a7",
+      "5255a4cbfc0f074ffcc92d4ad3b8361e92790e8f",
+      "d70cf103387f977a9af1e66f923a188da992ede6",
+      "c5c3391c03957b8b3d4a17db92b3997d8d404222",
+      "34eb92c2774ae0fa6d1098eebec17c47b3b7b5ba",
+      "5939753bd1a258fc46225220470ae8cf92b88c9c",
+      "f5f64e3e5632900474fdad3fb7711838e69d33bb",
+      "e10eb0909005aed279be572d5c56026421045c3a",
+      "90b7384c9d92696d7a85df4d987c14ddcccb44d8",
+      "8dd0a8b6d541a37865987b3426c5858a33d1690c",
+      "6ba4cc4d5d4c130ffdd26c50aadfecc83e0b4354",
+      "4f84d6b28d41d816678fd2a3ff22488fcb08e457",
+      "d8deb9e18283275b9454489dbd66d9905def1373",
+      "852185c97207bcd44117e369318ea9d29b241029",
+      "51548d69fae0a76d779302470e67fceb4186f0cb",
+      "500fb03dde33afeebf9c0e7be766b2a8f8016df5",
+      "1e49475a75185a0c2612903b070e781c634e7e1b",
+      "72516ec461f20b698aa10999b536d84ea2ee9c56",
+      "0538f218e4811632abb0695669f349558a9b9735",
+      "91f5cd0c16921242ccdb7eb2e13e31a87f89bf3f",
+      "fef1817582ab3f3470a08a8dc4f3af00a997b7ea",
+      "612a2608ce4d29b839ac03f7f72a2f1cddfa6ad3",
+      "9b986c31c7613cae83d5e1b62890da0d12f89b83",
+      "cbf6e2e5ff27a8e5d38e255549185563d2881219",
+      "d72daa9db0b1fa94ae48bc37da37b9a122f0ed30",
+      "814634d4f2cd13b180f96112b294ddfb7a1a0a27"
+    ],
+    "nonidentical_patches": [
+      "d5b630b7a6da66014de139b21b78e093782023ee",
+      "7ddb833e41aa16d9016c2b888aeeab722daad5ac",
+      "d65ee8496754d899697ab16d83c9e100e1a01d80",
+      "abae27785d5ee0eb05f38561a4fe76cb8fb298d3"
+    ],
+    "explanation": "The nonidentical patches are the frozen dispatch base, two versions of the fraction-subalgebra addition, and the infinity integration cleanup. The final reviewed fraction-subalgebra and infinity proofs are retained byte-exact, including fatal-warning enforcement; dispatch metadata and frozen artifacts are not overwritten."
+  },
+  "frozen_contract": {
+    "contract_file": "Fermat/Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean",
+    "contract_sha256": "b004dca1496ade3fb13e18207639dd199dcb7aeb7df210061bf8c375960870bc",
+    "remove_lines": [
+      9,
+      10,
+      11
+    ],
+    "root_name": "AlgebraicCurve.hasPrincipalDivisors_of_transcendental",
+    "source_commit": "956e8c600d8b95b46948ae5e37b13930b5f3d06b"
+  },
+  "frozen_header_sha256": "6279fa3f11b4d3b8d4e5089f9d70e2f2e3fa3d3dd9e30f1e2dd3e02f6bd53177",
+  "compiler_copy_policy": {
+    "path": "/runtime/operator-header-policy-v1/policy.json",
+    "sha256": "96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96",
+    "source_header_preserved": true,
+    "omitted_lines_in_private_compiler_copies_only": [
+      9,
+      10,
+      11
+    ]
+  },
+  "protected_artifacts": [
+    {
+      "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/problem.md",
+      "sha256": "789e1ee8f9e22e1ad8bb71a38c175e66a6bcc4caaf162eedaa432c1a5a5a4aa8"
+    },
+    {
+      "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1/parent-child-handoff.json",
+      "sha256": "0e3e6221fac3a301cf6f57bed164817aeefcfbf7d784a318a9e1b22c562a1e01"
+    },
+    {
+      "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1/parent-supplied-plan.md",
+      "sha256": "99893d13b35d2c00d189202a75a57b8d7fe1d580db45aeac3407b01b2c50823f"
+    },
+    {
+      "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1/parent-supplied-natural-proof.md",
+      "sha256": "631aa7d546a6c020e346f3e3fc265ffa13ad2fb7f4b87b75b077be0a31682770"
+    },
+    {
+      "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1/parent-supplied-natural-proof.json",
+      "sha256": "a5fa9b5dff65fbb6e845a5e8857f35b7ad0c6e3eca13899534e7dd4b2ddfbf64"
+    },
+    {
+      "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1/lean-audit-v1.json",
+      "sha256": "97aa726c5aa5ec09255c549da592d7be7afac62b4d03a72078bbcfb55c05ae00"
+    }
+  ],
+  "submission_sha256": "830f28ec4192e63fa134003675a8fc790863d5fa42e537ed7699dd86989961ee",
+  "verification_rule": "Acceptance requires the exact comparator on the committed candidate and independent integration review. Receipts remain external to avoid advancing the verified revision."
+}

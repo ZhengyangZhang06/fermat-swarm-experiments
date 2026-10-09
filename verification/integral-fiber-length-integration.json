@@ -1,0 +1,339 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "manifest": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+      "revisions": {
+        "mode": "local-project",
+        "project_commit": "956e8c600d8b95b46948ae5e37b13930b5f3d06b",
+        "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d"
+      },
+      "searches": [
+        {
+          "query": [
+            "rg",
+            "-n",
+            "^abbrev integralClosureAt|^def fiberOver|^def fiberEquiv|^theorem mem_fiberOver",
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean"
+          ],
+          "exit_code": 0,
+          "findings": "220:abbrev integralClosureAt : Type _ := integralClosure v.toValuationSubring F'\n422:def fiberEquiv :\n453:def fiberOver : Finset (Place K F') :=\n457:theorem mem_fiberOver {w : Place K F'} : w ∈ v.fiberOver F' ↔ w.restrict F = v := by"
+        },
+        {
+          "query": [
+            "rg",
+            "-n",
+            "^def restrictResidueMap|^instance restrictResidueAlgebra|^def inertiaDeg",
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorPushPull.lean"
+          ],
+          "exit_code": 0,
+          "findings": "398:def restrictResidueMap : (w.restrict F).ResidueField →+* w.ResidueField :=\n427:def inertiaDeg : ℕ := Module.finrank (w.restrict F).ResidueField w.ResidueField"
+        },
+        {
+          "query": [
+            "rg",
+            "-n",
+            "^theorem length_eq_add_of_exact|^lemma length_eq_add_of_exact|length_compositionSeries",
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Length.lean"
+          ],
+          "exit_code": 0,
+          "findings": "68:lemma Module.length_compositionSeries (s : CompositionSeries (Submodule R M)) (h₁ : s.head = ⊥)\n103:    rw [← length_compositionSeries s hs₁ hs₂]\n184:      rw [← Module.length_compositionSeries s hs₁ hs₂,\n185:        ← Module.length_compositionSeries t ht₁ ht₂,\n186:        ← Module.length_compositionSeries r"
+        },
+        {
+          "query": [
+            "rg",
+            "-n",
+            "p06_9e0f5043ff_lno_integral_fiber_length|p06_9e0f5043ff_ifl",
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project",
+            "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib"
+          ],
+          "exit_code": 1,
+          "findings": "No matches."
+        }
+      ],
+      "inspected_files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorPushPull.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Length.lean"
+      ],
+      "compatibility": "All three inspected sources are byte-identical to the working project or pinned mathlib. All nine dependencies are clean at their manifest revisions. Exact-type and transitive-axiom validation is delegated to the configured comparator."
+    }
+  ],
+  "node_id": "root.local_norm_order-a1.integral_fiber_length-a1",
+  "canonical_parent": "184411f428b213321a97c07317fc9318943ebf19",
+  "clean_integration_boundary": "26b3f35bea15c83c99c9fa3df6a9f59c2102b702",
+  "reviewed_parent": "b685369d455e6b18f0e0c170eeb991f57f7f8f7c",
+  "reviewed_commits": [
+    "c604742f65c41851120137fd6f732fea995c1be9",
+    "a207e8a0f587fd564993d354219380d26030abd9",
+    "72a1ade4adf4ab7fa956d5be6866ba5a624879af",
+    "a66a4bd8c836c4d63c6cbcd49a0a3fabf6f8b6a2",
+    "39ae3ddfd1015d3deb32e8f2d7a5a311cee84868",
+    "b93a20ae0719cbee30bd526515015f3f35c55f05",
+    "15e1a310c58175440f1e02b90cc8a6b139ecbfee",
+    "234e4554a5424cd483426616bac7899b7a1fc56a",
+    "5dc25ff033a414765bbe7b8d618bb8297611ff84",
+    "ec502ebf39756fc0377da5a5924ae77a6be93128",
+    "1d9ede4f37cc71b023a21350df7a6ce86efd63d3",
+    "97950e245eba45725345a206b3bdd194b9bc84c5",
+    "a7c8aebaf9389f3fbbc9d89fbcbde59718992dfc",
+    "e82b7d67adf179c698140117ec056e80a4fc1fb7",
+    "15f5c4035bea1eec3aa48ec60eedbd30700f3539",
+    "0dd16cd0d6af1bae856962328432a847134ba24c",
+    "87b0d3235b1c859a93793e90978ae55f1f82a250",
+    "5a5c0345b84995333c05d80a8dd5cf3e02ea0a54",
+    "d5ec4cc22254a556baa60748bf134f4f2528cbaa",
+    "d888a33962380853ec3ae1261628d5b051374029",
+    "e96c8a9d73650fc4d4e1d8ff86a1261bf249f993",
+    "aa8f21e9d0c407eec0e813d17d35e6ddc0fc8577",
+    "64c624fd9eceb87d02f7102888a32dae3d34d5c6",
+    "e9d9fa61e1faf0ef047641b11909a1e98173512f",
+    "ecf1932bfaa23751686e608847da688b08097619",
+    "d504f87078c591a23adba68658d309746b711951",
+    "27c5a2591bbcbf2571217447f2e88d77501289f7",
+    "3f699747351d01b941ce9613589eb5d56bc07d9e",
+    "1728f64d91c4a7971b88aa7900ecfaeb5c2aaebc",
+    "3edb327f252ffb4fe89588a5ffd0610898937f62",
+    "f7579841e9094fb8aff27413551605e3abe80786",
+    "6a066bc2d409b3a5ea39dd8a8116fea09ecac764",
+    "92f12ddf7dc3a6d0cab63361661bf314f1324ede",
+    "d95167d6886786242a6042196aab06de7d3881e8",
+    "3c41830ada3231fc96909dd995b0c89a9354c4b2",
+    "bd83e9edd7369227cbf19824bdaeca6c253eda1b",
+    "d6cd17499a5f4e1b7d38baa9913f1d1eb9f91c37",
+    "0e9c87ea926ae3a77da4815a262de23a72a64262",
+    "7227eac4c379e9441524149189fb0e62ca1fc416",
+    "675c7d84d983a8d35eca059d13cbfcefe9139052",
+    "fb6d4f6ee161ab20e87cf8f08e4d639e95470088",
+    "0c683c311c34bd8cd3ea82a31625198f2e60bdb4",
+    "7716ba0032298b73debc15e9bb02f5d9df5d33c0",
+    "587db11255053f49d5b7d5cb9e0bc10428a82be9",
+    "4bbb4812c3e6bb5d59ac83abe486c4762866d166",
+    "7e4e85d9f513962463c7f70ed9bfec166cd9f086",
+    "02315cb06e3f405da0a6406c1eab7d6678b14f0f",
+    "d25f4a7025df10b34be3294fc86f90b88d5f0315",
+    "54b75a3c4cbcadbe4ddfd4acf6518b69946930bd",
+    "024ed35c76f4d3a336fd80d319d347b6d21cb890",
+    "9b1e147b215b9adbd552bb0453969e101a800f4d",
+    "b685369d455e6b18f0e0c170eeb991f57f7f8f7c"
+  ],
+  "reconciliation": "Restore the clean integration boundary verbatim, then append the exact reviewed integral-fiber-length theorem in namespace Submission. All 39 prior distinct declarations and all 10 declarations in the reviewed candidate are byte-identical, including nine shared declarations. The inherited root placeholder is unchanged; this is a child-node integration, not a root proof. The three original header directives remain byte-exact. The existing controller repair note already equals the reviewed final note. Preserve all other canonical files; retain the complete reviewed history as a merge parent.",
+  "submission_sha256": "aaed03080b85446e09bd458c1a5b875d1013be67cb283dc58692c4ee8fab5bcf",
+  "preserved_declarations": [
+    {
+      "name": "AlgebraicCurve.hasPrincipalDivisors_of_transcendental",
+      "sha256": "04eaa2d4ec905d9032c5eea9d72edb4decf5df66abb8fda4e55e12f77c4134fc",
+      "source": "canonical-and-reviewed"
+    },
+    {
+      "name": "p06_9e0f5043ff_wll_residue_composition_series",
+      "sha256": "2018b2aaa79dd6bcb826b890eaec56f58e807de5821bcacc848651a73230e030",
+      "source": "canonical-and-reviewed"
+    },
+    {
+      "name": "p06_9e0f5043ff_wll_length_sum_factors",
+      "sha256": "fcc2f1bab95c340a52008e38b2be683fdadf8427c1d88ecc2bd81d6fe0d65ec0",
+      "source": "canonical-and-reviewed"
+    },
+    {
+      "name": "p06_9e0f5043ff_elp_principal_ideals_of_order",
+      "sha256": "92e3b4d8fdc81a6994951a7f1977b04d1373ada06b0fd2967c2ecf4d0a28d0ab",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_sdp_clear_first_row",
+      "sha256": "347903df2a4569a3986804cae905e1739a055820a36cc77fd5929733387d2ce6",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_sdp_clear_first_column",
+      "sha256": "ab50a1eafce797a97ea06b3f065d1a72a51a784291f627eae6f7ad64c08f8580",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_dmd_finite_family_dividing_member",
+      "sha256": "a250bdb221fab417bce11e65b63ddfe38bcf69cd26a4a976a20b1e8905c5c3f5",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_fpm_rd_eval_kernel",
+      "sha256": "ba997611e723578883ef6809af7d4986109718e7284c8ad05ebf4cc1e47ae2d1",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_llm_localized_series_sum",
+      "sha256": "2291197590dde16c7e953498a9e8f3435450e6a2a89542bec819d9b43b3f6ac4",
+      "source": "canonical-and-reviewed"
+    },
+    {
+      "name": "p06_9e0f5043ff_dlen_scalar_quotient",
+      "sha256": "0fa4865d37e69e8bcfb98b90768e259f4db807bd9d40c55dbf81e3c2ee0a4f76",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_dmc_diagonal_quotient",
+      "sha256": "59e9ae20c3d308ef21e212f3c7f0687975b02348ea6320c3710215c9dafd4b28",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_fpm_rd_residue_surjective",
+      "sha256": "b7cdd9762bd329dcb1468773068486c657786d72f07a26089713f86707172e2f",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_fpm_residue_degree",
+      "sha256": "3871ac1be382c8fad44089f2213018295d58fac04939622623aebe9864525ba5",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_fno_fraction_isunit",
+      "sha256": "f56193b5cc0023cff81ca4b159ed7fb81de080abec3c174b3d5214bcef834368",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_fno_irreducible_aeval",
+      "sha256": "c4acec90b82d9a4f00123fc86d39e3f54445ccfa322e0a91e967adb66b401761",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_inf_reciprocal_presentation",
+      "sha256": "d6ca734a115ccb669b1a58fd994c14f915c375e270d3f383d0f1f72cf2a8fef3",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_inf_reciprocal_polynomial_order",
+      "sha256": "07fe47c9e6664384343f6c2c2de7b8cd17e6dcd35aef85f8430ebb84e66fe8c7",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_elp_fraction_subalgebra",
+      "sha256": "b1e383fc2f9ea9120ac29239b226e788e10692f019fc916bac68d73d17a8e33c",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_fosa_ord_zero_of_monic_pair",
+      "sha256": "72ce4ee38333060296c8c04cf0d4c08885d3400a631e6fd995b7b4978736ba40",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_ifl_local_length_order",
+      "sha256": "eb8f17d0e2078247b4ca5909c6344ac824fe88efd33e885c0c3d2979edce71ce",
+      "source": "canonical-and-reviewed"
+    },
+    {
+      "name": "p06_9e0f5043ff_io_fraction_extension",
+      "sha256": "d34a67e867a5d3bae1324e2701fcb1edcca5b3bcd280e2c35c8972ea281a0f35",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_fosa_coefficients_integral_off_finite",
+      "sha256": "da54a24f2b31c57b068a086e65e9717d74633e270d908cf2871b86391505a221",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_finite_order_support_ascent",
+      "sha256": "05cde71c644e22a8e6df4b3ba2bd045482e11add194b32b05c27e25ee4157c7f",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_vfc_polynomial_unit_criterion",
+      "sha256": "3573f8807b9443abd9952898ad40d22f78888028365a775b543ba1c22a3d615a",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_vfc_unit_power_quotient_exponents",
+      "sha256": "a25c89d15e760f01a781ee0e4abd74c82221cd90c2864e7d347cdec80f5f4ee6",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_dmd_split_divisible_pivot",
+      "sha256": "c63a6324d7ac96dc9204547edc7c4364504935b8a194c0173551ec9f1673081b",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_llm_localized_residue_factors",
+      "sha256": "fa173f5e355dbe72fd75db577a3b169769a482cc1142c98d5da211b13827d6fd",
+      "source": "canonical-and-reviewed"
+    },
+    {
+      "name": "p06_9e0f5043ff_dlen_matrix_diagonalization",
+      "sha256": "67b39ed931502392b3c4d65db3169e8ce2fadf29787908422ee2e278ff9fee94",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_inf_valuation_fraction_characterization",
+      "sha256": "b5e23e0e00fb158a5225dc4fae457164770f510cc65ea64d20ec0e5b977176d6",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_dmc_cokernel_units",
+      "sha256": "2586f36115793ed36ac7537a47d82dd4ed7b7f36d3dd66a54828cb50afac5810",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_wll_local_length_multiplicity",
+      "sha256": "e6c284d07795a1c4bdf62d7d2d604583377473870f4b9edf7dd9db48f12a5dbf",
+      "source": "canonical-and-reviewed"
+    },
+    {
+      "name": "p06_9e0f5043ff_fpm_normalized_orders",
+      "sha256": "326f5f57121eddb52fa0bfee747f6b42e6d242f3d862cbae7e3d89162c053e1b",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_dlen_diagonal_cokernel",
+      "sha256": "7591674c388cc3494d6283c058dc9b95a7321eaa6d9d054b7a65884441dc084b",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_io_polynomial_exponent",
+      "sha256": "f68c11ceadb1811915f072cbecaacc3c14a50145c4e35bb593c79d8a8bf870d1",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_ifl_residue_length_inertia",
+      "sha256": "0181dba380dde1ad81b062283afb093095cb7a4e5ea95da5488d73784a43e822",
+      "source": "canonical-and-reviewed"
+    },
+    {
+      "name": "p06_9e0f5043ff_ifl_weighted_local_lengths",
+      "sha256": "d7acba7147846a91b4a25a4c6e8585757565ea17b99a4aba6d8a154880196890",
+      "source": "canonical-and-reviewed"
+    },
+    {
+      "name": "p06_9e0f5043ff_elp_integer_order",
+      "sha256": "7d3d1c38cd75985cd5773dea940a177063d1c197b0607ce8d5b1c2e058db28d4",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_lno_dvr_determinant_length",
+      "sha256": "2ce72b946873046baa2132fe3a2683bda065000167ad0c83bce14e90a5ca1705",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_pae_compatible_order_invariance",
+      "sha256": "3a9041a4d811fa7139ea1b0b770b501d5f04372e87d2167b7be27734220fc629",
+      "source": "canonical"
+    },
+    {
+      "name": "p06_9e0f5043ff_lno_integral_fiber_length",
+      "sha256": "d08fe2b61fdf933630c2843c3b16f6ba1f9636e9ade4c14b97b74f8c4f3436da",
+      "source": "reviewed"
+    }
+  ],
+  "frozen_contract": {
+    "path": "Fermat/Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean",
+    "sha256": "b004dca1496ade3fb13e18207639dd199dcb7aeb7df210061bf8c375960870bc"
+  },
+  "compiler_copy_policy": {
+    "path": "/runtime/operator-header-policy-v1/policy.json",
+    "sha256": "96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96",
+    "omittable_lines": [
+      9,
+      10,
+      11
+    ],
+    "note": "Policy binding only; no compiler-copy header edit is committed. Comparator evidence must independently confirm target absence, reversible hashes, exact type, kernel, and transitive axioms."
+  },
+  "verification": "The exact configured comparator must run against the resulting committed tree. This provenance record does not claim proof acceptance."
+}

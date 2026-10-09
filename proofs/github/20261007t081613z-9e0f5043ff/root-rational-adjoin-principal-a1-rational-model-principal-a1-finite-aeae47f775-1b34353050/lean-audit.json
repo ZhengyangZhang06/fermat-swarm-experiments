@@ -1,0 +1,38 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'transcendental_iff_injective|theorem div_eq_div_iff|theorem div_div_div_eq|p06_9e0f5043ff_io_fraction_extension' mathlib/Mathlib project -g '*.lean'",
+        "rg -n 'div_eq_div_iff|div_div_div_eq' mathlib/Mathlib/Algebra/GroupWithZero -g '*.lean'",
+        "rg -n 'p06_9e0f5043ff_io_fraction_extension|fraction_extension|integer_order' project -g '*.lean'"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Algebraic/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Algebraic/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Group/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/GroupWithZero/Units/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project"
+      ],
+      "conclusion": "Confirmed clean snapshot revisions: project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Inspected transcendental_iff_injective, div_eq_div_iff, and div_div_div_eq; these are existing library facts, and their source files match the installed pinned dependency. The project search found no fraction_extension or integer_order matches. All nine installed dependencies are clean at their pins. My exact comparator rerun, request 00398f8fd7db42ce9b9e268374e23c09, exited 0 with 'Your solution is okay!' under Lean 4.33.1. The target's transitive axioms are exactly propext, Classical.choice, and Quot.sound. Verified exported hashes and unchanged candidate a9f60b3da475ec82adc1e0d492a92f8decc493d5. The diff adds only the tracked theorem, preserves the entire frozen baseline byte-for-byte, and introduces no placeholders, shadowing, or extra named theorems."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_io_fraction_extension",
+      "statement": "∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F), Transcendental K x → (∀ f : F, ∃ a b : Polynomial K, b ≠ 0 ∧ f = Polynomial.aeval x a / Polynomial.aeval x b) → ∀ μ : Polynomial K → ℕ, (∀ a b : Polynomial K, a ≠ 0 → b ≠ 0 → μ (a * b) = μ a + μ b) → ∃ ν : F → ℤ, ν 0 = 0 ∧ (∀ a b : Polynomial K, a ≠ 0 → b ≠ 0 → ν (Polynomial.aeval x a / Polynomial.aeval x b) = (μ a : ℤ) - (μ b : ℤ)) ∧ (∀ f g : F, f ≠ 0 → g ≠ 0 → ν (f / g) = ν f - ν g)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Transcendence makes evaluation injective. Cross-multiplication and additivity of μ show that the integer difference μ(a)−μ(b) is independent of each nonzero fraction's representation. Choose representations, define ν(0)=0 separately, and use the fraction formula and additivity to prove the quotient law. This matches the frozen five-step prose proof."
+    }
+  ]
+}

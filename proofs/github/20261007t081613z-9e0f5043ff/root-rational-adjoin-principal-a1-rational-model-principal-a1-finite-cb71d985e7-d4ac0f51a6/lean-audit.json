@@ -1,0 +1,38 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'p06_9e0f5043ff_fpm_rd_eval_kernel|residue_evaluation_kernel' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f",
+        "rg -n 'residue_ne_zero_iff_isUnit|transcendental_iff_injective|theorem mem_span_singleton|theorem isUnit_iff_exists_inv' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib",
+        "rg -n 'structure Place|def Place|toValuationSubring|ResidueField|residue' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/LocalRing/ResidueField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Algebraic/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Ideal/Span.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Group/Units/Defs.lean"
+      ],
+      "conclusion": "The node-name search returned no matches. Inspected existing infrastructure supplies the canonical Place algebra and residue field, injective transcendental evaluation, the residue/unit criterion, inverse witnesses, and principal-ideal membership. The manifest pins project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Inspected sources match the snapshot; all nine dependency checkouts are clean at their pinned revisions. The diff adds only the tracked theorem and preserves the frozen root placeholder and imports byte-for-byte. The proof matches the frozen type and parent-supplied prose. My exact-node comparator rerun 0bae8079962443ccb8316699f06a0edc verified commit 818d7504efbfff44eb0631baac834f801e3b908d, exited 0, printed 'Your solution is okay!', and reported only propext, Classical.choice, and Quot.sound as transitive axioms."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_fpm_rd_eval_kernel",
+      "statement": "∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F), Transcendental K x → ∀ q : Polynomial K, Irreducible q → ∀ v : AlgebraicCurve.Place K F, (∀ f : F, f ∈ v.toValuationSubring ↔ ∃ a b : Polynomial K, ¬ q ∣ b ∧ f = Polynomial.aeval x a / Polynomial.aeval x b) → ∃ e : Polynomial K →ₐ[K] v.toValuationSubring, (∀ a : Polynomial K, (e a : F) = Polynomial.aeval x a) ∧ RingHom.ker ((IsLocalRing.residue v.toValuationSubring).comp e.toRingHom) = Ideal.span ({q} : Set (Polynomial K))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Denominator 1 lifts evaluation into the valuation ring. Transcendence makes evaluation injective, and permitted inverse fractions make e(a) a unit whenever q does not divide a. An inverse for e(q), expressed as an allowed fraction, would imply b = q*a, contradicting the denominator condition. Thus e(q) has zero residue, while evaluations of polynomials not divisible by q have nonzero residue. Kernel membership therefore coincides exactly with divisibility by q."
+    }
+  ]
+}

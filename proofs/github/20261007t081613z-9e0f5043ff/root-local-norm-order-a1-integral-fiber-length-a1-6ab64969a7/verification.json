@@ -1,0 +1,19 @@
+{
+  "node_id": "root.local_norm_order-a1.integral_fiber_length-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/59",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/700",
+  "candidate_commit": "b685369d455e6b18f0e0c170eeb991f57f7f8f7c",
+  "integrated_commit": "79eae4a620788388f498cec258ec268dd5d36a74",
+  "proof_base_commit": "f68ddd970cc8aae7a55a0191b8ff492c64b36275",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.local_norm_order-a1",
+  "requires": [
+    "root.local_norm_order-a1.integral_fiber_length-a1.weighted_local_lengths-a1",
+    "root.local_norm_order-a1.integral_fiber_length-a1.residue_length_inertia-a1",
+    "root.local_norm_order-a1.integral_fiber_length-a1.local_length_order-a1"
+  ]
+}

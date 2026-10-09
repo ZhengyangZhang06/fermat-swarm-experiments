@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "657a2498f28ff28bfe06179fd60a835a506c5e42cb4902795f8c1164cc9bee5f",
+  "git_delta": {
+    "base_commit": "222630c29b51ef7e3ca766ef2d7da5db69856eba",
+    "candidate_commit": "02d126d2da32f683a640d5626b177f5142185c22",
+    "target": "Submission.lean",
+    "declaration": "p06_9e0f5043ff_fno_irreducible_aeval",
+    "diff_sha256": "af6d416c872fcbcda89f116e348151c7d2b5d303987bcf88b27b3c84031835cd",
+    "source_sha256": "d8aa4992c25db611f85e659e1fbd195539ab9ed4da7ae28a9a8e881ec353e184",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_fno_irreducible_aeval",
+      "statement": "∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F), Transcendental K x → ∀ q : Polynomial K, q.Monic → Irreducible q → ∀ v : AlgebraicCurve.Place K F, (∀ f : F, f ∈ v.toValuationSubring ↔ ∃ a b : Polynomial K, ¬ q ∣ b ∧ f = Polynomial.aeval x a / Polynomial.aeval x b) → ∃ π : v.toValuationSubring, (π : F) = Polynomial.aeval x q ∧ Irreducible π",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

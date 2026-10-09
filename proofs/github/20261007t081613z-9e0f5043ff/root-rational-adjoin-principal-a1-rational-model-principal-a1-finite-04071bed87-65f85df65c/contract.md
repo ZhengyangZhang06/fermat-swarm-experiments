@@ -1,0 +1,120 @@
+<!-- theorem-id: fermat-p06/root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1 -->
+
+## Theorem `Submission.p06_9e0f5043ff_fpm_exists_local_place`
+
+Let K and F be fields with a K-algebra structure on F. Let x ∈ F be transcendental over K, and suppose every f ∈ F has a representation a(x)/b(x) with a,b ∈ K[T] and b ≠ 0. For every monic irreducible q ∈ K[T], there exists v : AlgebraicCurve.Place K F such that, for every f ∈ F, f belongs to v.toValuationSubring if and only if f = a(x)/b(x) for some a,b ∈ K[T] with q not dividing b.
+
+Node: `root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1`
+
+Root: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/6
+
+Parent: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/73
+
+Prerequisites: None
+
+Decomposition children: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/123, https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/124, https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/125
+
+## Lean problem
+
+Declaration: `Submission.p06_9e0f5043ff_fpm_exists_local_place`
+
+```lean
+∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F), Transcendental K x → (∀ f : F, ∃ a b : Polynomial K, b ≠ 0 ∧ f = Polynomial.aeval x a / Polynomial.aeval x b) → ∀ q : Polynomial K, q.Monic → Irreducible q → ∃ v : AlgebraicCurve.Place K F, (∀ f : F, f ∈ v.toValuationSubring ↔ ∃ a b : Polynomial K, ¬ q ∣ b ∧ f = Polynomial.aeval x a / Polynomial.aeval x b)
+```
+
+### Frozen project context
+
+`Fermat/Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean` at `956e8c600d8b95b46948ae5e37b13930b5f3d06b` supplies the original imports, definitions and root contract. Child hypotheses are stated above; prerequisite declarations are linked in their issues.
+
+```lean
+/-
+Copyright 2026 Anthropic, PBC. Licensed under Apache-2.0; see LICENSE.
+Source: https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean
+Modified: replaced the proof with sorry and removed P2M proof imports.
+Requires the upstream Definitions modules and their dependencies.
+-/
+
+import Definitions.Def_AlgebraicCurve_PlacesOverDVR
+attribute [-instance] AlgebraicCurve.IsCurveOver.instNontrivialKaehler AlgebraicCurve.IsCurveOver.instFreeKaehler AlgebraicCurve.IsCurveOver.toHasPrincipalDivisors AlgebraicCurve.IsCurveOver.instFiniteResidue AlgebraicCurve.Place.instIsRankOneDiscreteWithZeroMultiplicativeIntAdicValuation AlgebraicCurve.Place.instIsTrivialOnWithZeroMultiplicativeIntAdicValuation AlgebraicCurve.SemilinearAut.instDistribMulActionSubtypeProdRingAutMemSubgroupPic0 AlgebraicCurve.SemilinearAut.instDistribMulActionSubtypeProdRingAutMemSubgroupDivisor AlgebraicCurve.Pic0.instModuleZModTorsion AlgebraicCurve.SemilinearAut.instSMulSubtypeProdRingAutMemSubgroupPlace AlgebraicCurve.SemilinearAut.instDistribMulActionTorsion AlgebraicCurve.SemilinearAut.instSMulSubtypeProdRingAutMemSubgroupPic0 AlgebraicCurve.SemilinearAut.instSMulTorsion AlgebraicCurve.SemilinearAut.instMulActionSubtypeProdRingAutMemSubgroupPlace AlgebraicCurve.SemilinearAut.instSMulCommClassZModTorsion AlgebraicCurve.SemilinearAut.instMulSemiringActionSubtypeProdRingAutMemSubgroup instDecEqAlgebraicClosureRat WeierstrassCurve.Affine.Point.instDistribMulActionAlgEquiv WeierstrassCurve.Affine.Point.instModuleZModTorsionBy WeierstrassCurve.Affine.Point.instSMulTorsionBy WeierstrassCurve.Affine.Point.instDistribMulActionTorsionBy WeierstrassCurve.Affine.Point.instSMulAlgEquiv WeierstrassCurve.Affine.Point.instSMulCommClassAlgEquivZModTorsionBy
+attribute [-simp] AlgebraicCurve.IsFrobeniusEndo.frobNormRingHom_apply ModularCurve.frobeniusPushforwardGeomLevelPic0_mk ModularCurve.coe_frobeniusGeomLevelEquiv_apply ModularCurve.coe_frobeniusPushforwardGeomLevelDegZero ModularCurve.heckeFibreGeomLevelPic0OfIsCurveOver_mk ModularCurve.frobeniusGeomLevel_apply_coe ModularCurve.frobeniusPullbackGeomLevelPic0OfIsCurveOver_mk ModularCurve.coe_heckeFibreGeomLevelDegZero ModularCurve.coe_frobeniusPullbackGeomLevelDegZero ModularCurve.frobeniusPullbackGeomLevelPic0_mk ModularCurve.frobeniusPullbackGeomLevel_single ModularCurve.heckeFibreGeomLevelPic0_mk ModularCurve.frobeniusPushforwardGeomLevelPic0OfIsCurveOver_mk ModularCurve.frobeniusPushforwardGeomLevel_single ModularCurve.qExpandAlgC_apply AlgebraicCurve.Place.congrEquiv_symm_apply AlgebraicCurve.RationalFunctionField.heightOneSpectrumOfIrreducible_asIdeal AlgebraicCurve.Place.congrRingEquiv_toValuationSubring AlgebraicCurve.Place.congrEquiv_apply AlgebraicCurve.Place.coe_comapSymmRingEquiv_apply AlgebraicCurve.RationalFunctionField.deg_placeOfPoint AlgebraicCurve.Divisor.degree_pushforwardAlong AlgebraicCurve.Pic0.coe_degZeroCorrespondence AlgebraicCurve.Place.mem_fiberAlong AlgebraicCurve.SemilinearAut.toRingAut_inv AlgebraicCurve.SemilinearAut.smul_def AlgebraicCurve.SemilinearAut.smul_single AlgebraicCurve.SemilinearAut.smul_toValuationSubring AlgebraicCurve.SemilinearAut.baseAut_inv AlgebraicCurve.SemilinearAut.baseAut_ofAlgAut AlgebraicCurve.SemilinearAut.toRingAut_ofAlgAut AlgebraicCurve.SemilinearAut.torsionRep_apply AlgebraicCurve.SemilinearAut.toRingAut_one AlgebraicCurve.SemilinearAut.deg_smul AlgebraicCurve.SemilinearAut.degree_smul AlgebraicCurve.SemilinearAut.coe_degZeroSMulHom AlgebraicCurve.SemilinearAut.baseAut_mul AlgebraicCurve.SemilinearAut.coe_smulValuationSubringEquiv_apply AlgebraicCurve.SemilinearAut.baseAut_one AlgebraicCurve.SemilinearAut.ofAlgAut_smul
+attribute [-simp] AlgebraicCurve.SemilinearAut.coe_torsion_smul AlgebraicCurve.SemilinearAut.toRingAut_mul AlgebraicCurve.coe_frobeniusPushforwardDegZero AlgebraicCurve.IsFrobeniusEndo.coe_frobeniusPullbackDegZero ModularCurve.jqNModC_one ModularCurve.qExpand_coeff_mul ModularCurve.qExpandₐ_apply ModularCurve.jqN_one ModularCurve.qExpand_single ModularCurve.dedekindPsi_one ModularCurve.ModularPolynomialData.mk.sizeOf_spec ModularCurve.evalAtJ_X ModularCurve.ModularPolynomialData.mk.injEq ModularCurve.constantCoeff_jNum ModularCurve.constantCoeff_eisenstein4 ModularCurve.qExpand_C ModularCurve.coeff_jq_neg_one ModularCurve.constantCoeff_jNumQ ModularCurve.reduceModBivar_C_X ModularCurve.laurentMap_coeff ModularCurve.reduceModBivar_X ModularCurve.laurentMap_single ModularCurve.evalAtJInt_X ModularCurve.evalAtJMod_X ModularCurve.jqNMod_one ModularCurve.aeval_heckeGen ModularCurve.coe_mTorsionGaloisRep_apply ModularCurve.eisensteinSystem_of_dvd ModularCurve.eisensteinSystem_of_not_dvd FreyPackage.mk.sizeOf_spec FreyPackage.mk.injEq WeierstrassCurve.Affine.Point.galoisRepModuleEnd_apply
+
+open AlgebraicCurve
+theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
+    [Algebra K F] (x : F) (hx : Transcendental K x)
+    [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
+  sorry
+```
+
+## Natural-language proof
+
+Reviewed mathematical argument; formal verification state: `proved`.
+
+# Parent-supplied natural-language proof
+
+- Parent DAG node: `root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1`
+- Child DAG node: `root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.exists_local_place-a1`
+- Review gate: accepted as part of the parent's decomposition audit
+
+## Proof
+
+1. Fix all the hypotheses and put R = K[T]. Write e(a) = a(x). Transcendence makes the K-algebra homomorphism e injective, so e(a) ≠ 0 whenever a ≠ 0. Irreducibility gives q ≠ 0 and says q is not a unit. A nonzero constant polynomial over a field is a unit, so d = q.natDegree is positive. In particular q does not divide 1. If q does not divide a, any greatest common divisor of q and a must be a unit: a nonunit divisor of the irreducible q is associated to q and would force q to divide a. The Euclidean algorithm therefore gives u q + v a = 1. If q divides ab and does not divide a, multiplying this identity by b shows q divides b. Thus q is prime.
+2. For each nonzero a ∈ R, repeatedly remove a factor q whenever q divides the current polynomial. If a = q c with a nonzero, then c is nonzero and natDegree a = d + natDegree c; hence this process terminates. It gives a = q^m a₀ with q not dividing a₀. The exponent is unique: if q^m a₀ = q^n b₀ and m < n, cancellation in the domain R gives a₀ = q^(n-m) b₀, contradicting q not dividing a₀; the case n < m is symmetric. Denote the exponent by μ(a). Primality implies that the product of two factors not divisible by q is again not divisible by q. Consequently μ(ab) = μ(a) + μ(b) for nonzero a,b. Also μ(1) = 0 and μ(q) = 1.
+3. For f ≠ 0 choose the assumed representation f = e(a)/e(b), b ≠ 0. Then a ≠ 0. Set ν(f) = μ(a) − μ(b), taking the difference in ℤ, and set ν(0) = 0. If f = e(c)/e(t) is another representation with t ≠ 0, then c ≠ 0 and cross multiplication followed by injectivity gives at = cb. Applying additivity of μ proves that the integer difference is independent of the representation. Representing a product by the products of its numerators and denominators proves ν(fg) = ν(f) + ν(g) for nonzero f,g. Swapping numerator and denominator proves ν(f⁻¹) = −ν(f). Thus ν(f/g) = ν(f) − ν(g) for nonzero f,g.
+4. Define A ⊆ F to consist of all e(a)/e(b) with q not dividing b. Every permitted b is nonzero, since q divides 0. Denominator 1 gives 0, 1, every e(a), and every constant from K. Negation changes only the numerator. The sum of e(a)/e(b) and e(c)/e(t) is e(at+cb)/e(bt), and their product is e(ac)/e(bt). Since q is prime and divides neither b nor t, it does not divide bt. These formulas show that A is a subring containing the image of K.
+5. For nonzero f ∈ A, a permitted representation has μ(b) = 0, so ν(f) = μ(a) ≥ 0. Conversely, suppose f ≠ 0 and ν(f) ≥ 0. Factor a = q^m a₀ and b = q^n b₀ in any nonzero-denominator representation. The inequality says n ≤ m. Cancelling e(q)^n, which is nonzero, yields f = e(q^(m-n) a₀)/e(b₀), whose denominator is not divisible by q. Therefore f ∈ A. We have proved the membership criterion f ∈ A iff ν(f) ≥ 0 for nonzero f, and 0 ∈ A separately.
+6. For nonzero f, either ν(f) ≥ 0 or ν(f⁻¹) = −ν(f) ≥ 0. Thus either f or f⁻¹ belongs to A; zero belongs to A already. This makes A a valuation subring of F. Moreover e(q) ≠ 0 and ν(e(q)⁻¹) = −1, so e(q)⁻¹ does not belong to A. Hence A is proper.
+7. Let I be any ideal of A. If I has no nonzero element, I is the zero ideal and is generated by zero. Otherwise, the nonnegative integer values ν(h), for nonzero h ∈ I, form a nonempty subset of ℕ. Choose h attaining its least member. For any nonzero z ∈ I, minimality gives ν(z/h) = ν(z) − ν(h) ≥ 0, so z/h belongs to A. The equality z = h(z/h) shows z is in the ideal generated by h; zero is in that ideal as well. Conversely, since h ∈ I and I is an ideal, every A-multiple of h belongs to I. Thus I is generated by h. Every ideal of A is principal.
+8. Construct v using A as its valuation subring, the containment of K from step 4, properness from step 6, and the principal-ideal property from step 7. These are exactly the fields required by AlgebraicCurve.Place. Its membership characterization is the definition of A, which proves the statement.
+
+## Key steps
+
+1. Use transcendence for injective evaluation and the Euclidean algorithm for primality of q.
+2. Factor nonzero polynomials into a unique q-power and a factor not divisible by q.
+3. Define the representation-independent integer exponent on nonzero fractions.
+4. Show fractions with permitted denominators form a subring containing K.
+5. Identify nonzero membership with a nonnegative exponent.
+6. Prove the valuation-subring property and properness.
+7. Generate each nonzero ideal by an element of least exponent.
+8. Package the resulting ring as a project place.
+
+## Reference use
+
+### local-project
+
+Queries:
+- `structure Place|def deg|def ord|ord_coe_unit|ord.*uniformizer|ord.*irreducible|hasPrincipalDivisors_of_transcendental|finite.*[Pp]lace|placeOfIrreducible|ResidueField|heightOneSpectrumOfIrreducible`
+- `placeOfIrreducible|heightOneSpectrumOfIrreducible|residue.*[Aa]dj|finrank.*[Aa]djoinRoot|IsLocalization.*AtPrime|exists.*pow.*dvd`
+- `finrank|basis|quotient|Quotient`
+- `exists.*pow.*dvd|pow.*not_dvd|multiplicity.*finite|FiniteMultiplicity`
+- `residue_eq_zero_iff|mem_maximalIdeal|surjective`
+- `theorem.*prime|irreducible_iff_prime`
+- `p06_9e0f5043ff_fpm_(exists_local_place|normalized_orders|residue_degree)`
+
+Files inspected:
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Submission.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/P2M`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Multiplicity.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/AdjoinRoot.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/PrincipalIdealDomain.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/LocalRing/ResidueField/Basic.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/dag.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-ff0d532bf4/decomposition-typecheck/CheckTypes.interface-check.log`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-ff0d532bf4/decomposition-typecheck/InspectLibrary.log`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-ff0d532bf4/decomposition-typecheck/provenance-check.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1-rational-model-principal-a1-finite-ff0d532bf4/decomposition-typecheck/Submission.frozen-source-check.log`
+
+The snapshot pins project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Place requires a proper valuation subring containing K and an IsPrincipalIdealRing proof; its degree is the canonical residue-field finrank. Place.ord_coe_irreducible and Place.ord_coe_unit provide the required normalization. Multiplicity.lean supplies finite prime-power factorization and multiplicity additivity; AdjoinRoot.lean supplies finrank_quotient_span_eq_natDegree; ResidueField/Basic.lean identifies the residue kernel and supplies surjectivity. The targeted P2M search found no matching finite-place construction. Proposed names have no active-DAG or searched-source collisions. All nine installed dependencies match their pinned revisions and have clean tracked files. Audited supporting declarations depend only on propext, Classical.choice and Quot.sound. All proposed types elaborate against the existing isolated import-only Submission interface, whose project definitions match the snapshot byte-for-byte; definitional-equality checks verify the intended subring and residue-field algebra structures. The unchanged actual Submission still fails on three pre-existing unknown attribute targets, so actual import validation remains outstanding. These checks are not comparator acceptance.
+
+
+## Acceptance
+
+The exact contract must pass the machine comparator and an independent reviewer's comparator rerun, without changed assumptions or proof holes. Local integration must pass before publication. Every decomposition child has its own issue and verified solution PR.
+
+Solution PR: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/711
+
+Current user-authorized lifecycle: merge the exact verified PR, validate its remote tree, then close this proved issue. This supersedes historical no-auto-merge instructions in the original experiment brief.
+
+Remote merge status is recorded by GitHub; local `proved` does not mean merged.

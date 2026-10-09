@@ -1,0 +1,39 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "principal_ideals_of_order",
+        "class IsPrincipalIdealRing|class IsPrincipal|theorem mem_span_singleton|theorem span_singleton_le_iff_mem|instance.*bot|def find|theorem find_min",
+        "exists_mem_ne_zero_of_ne_bot",
+        "IsPrincipalIdealRing|hasPrincipalDivisors_of_transcendental"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Ideal/Span.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/PrincipalIdealDomain.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Module/Submodule/Lattice.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Data/Nat/Find.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Fermat/Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean"
+      ],
+      "conclusion": "Both snapshots are clean at project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The inspected library supplies natural-number minimization, nonzero ideal witnesses, principality of the zero ideal, and singleton-span characterizations; these sources match the installed dependency. Searching for principal_ideals_of_order returned no matches. All nine dependency checkouts match their pins and have clean tracked files. The exact comparator rerun 63b59b3c9eff479a86db652a4e1f68df exited zero with 'Your solution is okay!' for candidate a75fbf6c1f1a06afb28f328163ac14160d17dcc0; transitive axioms are only propext, Classical.choice, and Quot.sound. The diff adds only the tracked theorem, preserving imports and the inherited root placeholder. No additional named helpers, new placeholders, axioms, shadowing, or statement weakening were found."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_elp_principal_ideals_of_order",
+      "statement": "∀ (F : Type*) [Field F] (A : Subring F) (ν : F → ℤ), (∀ f g : F, f ≠ 0 → g ≠ 0 → ν (f / g) = ν f - ν g) → (∀ f : F, f ≠ 0 → (f ∈ A ↔ 0 ≤ ν f)) → IsPrincipalIdealRing A",
+      "lean_file": "Submission.lean",
+      "natural_summary": "The zero ideal is principal. For a nonzero ideal, choose a nonzero element h minimizing its order converted to a natural number. Membership in A ensures these orders are nonnegative, so minimality also holds for integer orders. Every nonzero ideal element z then has ν(z/h) ≥ 0, hence z/h belongs to A and z is a multiple of h. Both ideal containments give I = (h). This matches the frozen parent-supplied proof."
+    }
+  ]
+}

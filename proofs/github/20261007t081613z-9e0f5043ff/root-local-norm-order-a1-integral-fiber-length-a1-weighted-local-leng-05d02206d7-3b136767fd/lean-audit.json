@@ -1,0 +1,37 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "length_eq_add_of_exact|localized_series_sum",
+        "length|CompositionSeries|LocalizedModule",
+        "def mapEquiv|lemma map_injective|lemma map_surjective|def LocalizedModule.map|namespace LocalizedModule",
+        "localized_series_sum"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Length.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Localization/Module.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Module/LocalizedModule/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean"
+      ],
+      "conclusion": "The pinned library supplies length additivity without finiteness assumptions, canonical localization-linear maps, preservation of injectivity/surjectivity, fraction identities, and localized equivalences. No localized_series_sum declaration occurs in the snapshot; the targeted project-file search also found no matching length/localization declarations. Snapshot revisions match the manifest, inspected files match installed sources, and all nine dependencies are clean and pinned. The exact comparator rerun cd9ffd8cb81747aea0129e9b6d2cfee8 exited 0 with the required marker for unchanged commit 57fe277a698f23bfc85e10975341cacdc37e42dc; transitive axioms are only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_llm_localized_series_sum",
+      "statement": "∀ (B M : Type*) [CommRing B] [AddCommGroup M] [Module B M] (T : Submonoid B) (s : CompositionSeries (Submodule B M)), s.head = ⊥ → s.last = ⊤ → Module.length (Localization T) (LocalizedModule T M) = Finset.sum Finset.univ (fun i : Fin s.length => Module.length (Localization T) (LocalizedModule T (↥(s i.succ) ⧸ (s i.castSucc).comap (s i.succ).subtype)))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Localize each successive short exact sequence, proving middle exactness by clearing denominators. Apply length additivity and sum the recurrences inductively in ℕ∞ without cancellation. The zero endpoint contributes zero, and the top endpoint localizes to a module linearly equivalent to LocalizedModule T M."
+    }
+  ]
+}

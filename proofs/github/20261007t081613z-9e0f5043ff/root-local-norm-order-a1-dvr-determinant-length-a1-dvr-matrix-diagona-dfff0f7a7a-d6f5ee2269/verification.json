@@ -1,0 +1,18 @@
+{
+  "node_id": "root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1.split_divisible_pivot-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/133",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/516",
+  "candidate_commit": "abf327aea5693f0d7242d8a9474d993db797b854",
+  "integrated_commit": "855173028e186a9d1777f3818d7161d684f615dd",
+  "proof_base_commit": "5f542f2f71f58de3d404f37e9b704acc736c254a",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1",
+  "requires": [
+    "root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1.split_divisible_pivot-a1.clear_first_column-a1",
+    "root.local_norm_order-a1.dvr_determinant_length-a1.dvr_matrix_diagonalization-a1.split_divisible_pivot-a1.clear_first_row-a1"
+  ]
+}

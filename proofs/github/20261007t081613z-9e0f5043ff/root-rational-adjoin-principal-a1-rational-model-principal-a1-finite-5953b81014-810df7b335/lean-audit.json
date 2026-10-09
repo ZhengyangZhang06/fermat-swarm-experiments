@@ -1,0 +1,40 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "theorem transcendental_iff |theorem Irreducible.prime|theorem Prime.not_dvd_mul|theorem Prime.not_dvd_one|theorem div_add_div |theorem div_mul_div_comm|structure Subalgebra|theorem aeval_C",
+        "p06_9e0f5043ff_elp_fraction_subalgebra|fraction_subalgebra",
+        "neg_mem|toSubring",
+        "^theorem (not_dvd_one|not_dvd_mul)|theorem Irreducible.prime"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Algebraic/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Prime/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Algebra/Subalgebra/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Field/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Group/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Polynomial/AlgebraMap.lean"
+      ],
+      "conclusion": "Verified clean snapshot revisions: project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The inspected library supplies transcendental evaluation nonvanishing, irreducible-to-prime conversion, denominator-product closure, fraction arithmetic, and Subalgebra negation closure. These are existing upstream declarations. The project search found no matching prior fraction_subalgebra declaration. All nine installed dependencies are clean and match their pins; the six inspected mathlib sources match the snapshot byte-for-byte. My exact comparator rerun, request 187e2224fc6c4044b453f6a1e83ae120, exited 0 with 'Your solution is okay!' for commit 4ea3ef59cb5bdeb885927e0a0e8e7a41d6828bf5. Its transitive axiom report contains only propext, Classical.choice, and Quot.sound. Export hashes and the explicit frozen challenge type were verified. The candidate preserves the complete baseline Submission prefix, including imports and the root placeholder, and adds only the tracked theorem. The verifier's recorded header compatibility transformation was checked on both challenge and solution."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_elp_fraction_subalgebra",
+      "statement": "∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F), Transcendental K x → ∀ q : Polynomial K, q.Monic → Irreducible q → ∃ A : Subalgebra K F, ∀ f : F, f ∈ A ↔ ∃ a b : Polynomial K, ¬ q ∣ b ∧ f = Polynomial.aeval x a / Polynomial.aeval x b",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Define A by the stated fraction predicate. Irreducibility makes q prime, so permitted denominators include 1 and are closed under multiplication. Transcendence ensures their evaluations are nonzero. Constants use denominator 1; common-denominator addition and fraction multiplication establish closure. These properties define a K-subalgebra, whose membership equivalence is definitional. No rational-generation assumption is used."
+    }
+  ]
+}

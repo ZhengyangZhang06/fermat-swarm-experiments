@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n '^(def ord|def inertiaDeg|def fiberOver|instance instAlgebraResidueFieldRestrictPushforward)' project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean project/Definitions/Def_AlgebraicCurve_DivisorPushPull.lean project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "rg -n 'p06_9e0f5043ff_local_norm_order|local_norm_order' project mathlib/Mathlib --glob '*.lean'"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorPushPull.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean"
+      ],
+      "conclusion": "Queries ran in the pinned snapshot. Order, canonical residue algebra, inertia degree and fiber definitions match the frozen and candidate sources byte-for-byte. No local_norm_order declaration matched. All nine dependency checkouts match their clean frozen pins. The exact comparator rerun passed with only propext, Classical.choice and Quot.sound."
+    }
+  ],
+  "comparison_identity": "0f467fb5d3f4e28060716a9766ba7707b3a5975330ecca2d65d15a6c6911eb0b",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_local_norm_order",
+      "statement": "∀ (K E L : Type*) [Field K] [Field E] [Field L] [Algebra K E] [Algebra K L] [Algebra E L] [IsScalarTower K E L] [FiniteDimensional E L] [Algebra.IsSeparable E L] (v : AlgebraicCurve.Place K E) (f : L), f ≠ 0 → v.ord (Algebra.norm E f) = Finset.sum (v.fiberOver L) (fun w => (w.inertiaDeg E : ℤ) * w.ord f)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines the accepted integral norm-length and fiber-length identities, then extends to nonzero fractions using norm multiplicativity and order additivity."
+    }
+  ]
+}

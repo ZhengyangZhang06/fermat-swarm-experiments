@@ -1,0 +1,36 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "ord_coe_unit|ord_unit_smul_zpow|structure Place|def ord",
+        "length_pi_of_fintype|length_quotient_pow_maximalIdeal",
+        "det.*length|length.*det"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DiscreteValuationRing/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Length.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory"
+      ],
+      "conclusion": "Located the frozen place/order definitions and existing scalar-quotient and finite-product length lemmas. Inspected files match the pinned project and clean mathlib revisions. The determinant/length search returned no matches. The exact comparator rerun passed; its exported inputs match the committed candidate, and its transitive axioms are only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "4db219451b0f12799a7cd7f9a59501b6f3e864d821cc1c0ed0837b8ddddb2fec",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_lno_dvr_determinant_length",
+      "statement": "∀ (K E : Type*) [Field K] [Field E] [Algebra K E] (v : AlgebraicCurve.Place K E) (M : Type*) [AddCommGroup M] [Module v.toValuationSubring M] [Module.Free v.toValuationSubring M] [Module.Finite v.toValuationSubring M] (T : M →ₗ[v.toValuationSubring] M), LinearMap.det T ≠ 0 → ∃ n : ℕ, Module.length v.toValuationSubring (M ⧸ LinearMap.range T) = (n : ℕ∞) ∧ v.ord (algebraMap v.toValuationSubring E (LinearMap.det T)) = (n : ℤ)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Uses accepted diagonalization, cokernel equivalence, and scalar-quotient lemmas to express both quantities as the same sum of natural-number exponents."
+    }
+  ]
+}

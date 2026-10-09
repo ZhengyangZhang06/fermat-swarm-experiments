@@ -1,0 +1,19 @@
+{
+  "node_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/43",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/775",
+  "candidate_commit": "814634d4f2cd13b180f96112b294ddfb7a1a0a27",
+  "integrated_commit": "294b3d6b58f7efe3350da47d4ac05ae9da8abe1b",
+  "proof_base_commit": "d5b630b7a6da66014de139b21b78e093782023ee",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.rational_adjoin_principal-a1",
+  "requires": [
+    "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1",
+    "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_classification-a1",
+    "root.rational_adjoin_principal-a1.rational_model_principal-a1.infinity_place-a1"
+  ]
+}
