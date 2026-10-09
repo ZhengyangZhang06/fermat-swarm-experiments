@@ -5299,6 +5299,114 @@ theorem Submission.p03_tkc_torsion_card_recurrence_68cf3476_d5 :
       c W.a₆ * (↑u : originLocalRing) ^ 3 * t ^ 5, ?_⟩
     rw [hu] at hrel ⊢
     linear_combination hrel
+  -- Noetherian induction upgrades the regular parameter to factorization of
+  -- every nonzero element of the identity local ring into a unit times t^n.
+  have horigin_noetherian : IsNoetherianRing originLocalRing := inferInstance
+  have horigin_factor (z : originLocalRing) (hz : z ≠ 0) :
+      ∃ (n : ℕ) (u : originLocalRingˣ), z = t ^ n * ↑u := by
+    suffices h : ∀ I : Ideal originLocalRing, ∀ z : originLocalRing,
+        Ideal.span {z} = I → z ≠ 0 →
+        ∃ (n : ℕ) (u : originLocalRingˣ), z = t ^ n * ↑u from h _ z rfl hz
+    intro I
+    induction I using (wellFounded_gt (α := Ideal originLocalRing)).induction with
+    | h I ih =>
+      intro z hzI hz
+      by_cases hu : IsUnit z
+      · exact ⟨0, hu.unit, by simp only [pow_zero, one_mul, hu.unit_spec]⟩
+      have hdiv : t ∣ z := by
+        apply Ideal.mem_span_singleton.mp
+        rw [horigin_parameter.1]
+        exact (IsLocalRing.mem_maximalIdeal z).mpr hu
+      obtain ⟨v, hv⟩ := hdiv
+      have hvne : v ≠ 0 := by
+        rintro rfl
+        exact hz (by simpa only [mul_zero] using hv)
+      have hlt : I < Ideal.span {v} := by
+        rw [← hzI]
+        apply lt_of_le_of_ne
+        · apply Ideal.span_singleton_le_span_singleton.mpr
+          exact ⟨t, by rw [hv]; ring⟩
+        · intro he
+          have hvz : z ∣ v := Ideal.mem_span_singleton.mp
+            (he ▸ Ideal.subset_span (Set.mem_singleton v))
+          obtain ⟨c, hc⟩ := hvz
+          have htc : ¬ IsUnit (t * c) := fun hunit => horigin_order.2.1 (isUnit_of_mul_isUnit_left hunit)
+          have hunit : IsUnit (1 - t * c) :=
+            IsLocalRing.isUnit_one_sub_self_of_mem_nonunits _ htc
+          apply hvne
+          apply hunit.isRegular.left
+          change (1 - t * c) * v = (1 - t * c) * 0
+          linear_combination hc + c * hv
+      obtain ⟨n, u, hu⟩ := ih _ hlt v rfl hvne
+      refine ⟨n + 1, u, ?_⟩
+      rw [hv, hu, pow_succ]
+      ring
+  have horigin_regular (z : originLocalRing) (hz : z ≠ 0) : IsRegular z := by
+    obtain ⟨n, u, rfl⟩ := horigin_factor z hz
+    exact (horigin_order.1.pow n).mul u.isUnit.isRegular
+  let : NoZeroDivisors originLocalRing := ⟨by
+    intro x y hxy
+    by_cases hx : x = 0
+    · exact Or.inl hx
+    · exact Or.inr ((horigin_regular x hx).left (by simpa only [mul_zero] using hxy))⟩
+  have horigin_domain : IsDomain originLocalRing := NoZeroDivisors.to_isDomain originLocalRing
+  have horigin_valuationRing : ValuationRing originLocalRing := by
+    apply ValuationRing.iff_dvd_total.mpr
+    constructor
+    intro x y
+    by_cases hx : x = 0
+    · exact Or.inr (hx ▸ dvd_zero y)
+    by_cases hy : y = 0
+    · exact Or.inl (hy ▸ dvd_zero x)
+    obtain ⟨n, u, rfl⟩ := horigin_factor x hx
+    obtain ⟨l, v, rfl⟩ := horigin_factor y hy
+    simp only [Units.mul_right_dvd, Units.dvd_mul_right]
+    exact (le_total n l).imp (pow_dvd_pow t) (pow_dvd_pow t)
+  let originField := FractionRing originLocalRing
+  let originInclusion : originLocalRing →+* originField := algebraMap _ _
+  let originValuation := ValuationRing.valuation originLocalRing originField
+  have horigin_integers : originValuation.Integers originLocalRing := by
+    refine ⟨IsFractionRing.injective _ _, ?_, ?_⟩
+    · intro x
+      exact (ValuationRing.mem_integer_iff _ _ _).mpr ⟨x, rfl⟩
+    · intro r hr
+      exact (ValuationRing.mem_integer_iff _ _ r).mp hr
+  have ht_nonzero : t ≠ 0 := by
+    intro hz
+    have h := horigin_order.1.left (show t * 1 = t * 0 by rw [hz]; simp)
+    exact one_ne_zero h
+  have hs_nonzero : s ≠ 0 := by
+    obtain ⟨u, hu⟩ := horigin_parameter.2
+    rw [hu]
+    exact mul_ne_zero u.ne_zero (pow_ne_zero 3 ht_nonzero)
+  have horigin_value_t : originValuation (originInclusion t) ≠ 0 ∧
+      originValuation (originInclusion t) < 1 := by
+    refine ⟨originValuation.ne_zero_iff.mpr ((map_ne_zero_iff _
+      (IsFractionRing.injective originLocalRing originField)).mpr ht_nonzero), ?_⟩
+    exact lt_of_le_of_ne (horigin_integers.map_le_one t)
+      (mt horigin_integers.isUnit_iff_valuation_eq_one.mpr horigin_order.2.1)
+  have horigin_value_s : originValuation (originInclusion s) =
+      originValuation (originInclusion t) ^ 3 := by
+    obtain ⟨u, hu⟩ := horigin_parameter.2
+    rw [hu, map_mul, map_pow, map_mul, map_pow,
+      horigin_integers.one_of_isUnit u.isUnit, one_mul]
+  have horigin_poles :
+      originValuation (originInclusion t / originInclusion s) =
+        originValuation (originInclusion t) ^ (-2 : ℤ) ∧
+      originValuation (-1 / originInclusion s) =
+        originValuation (originInclusion t) ^ (-3 : ℤ) := by
+    constructor
+    · rw [map_div₀, horigin_value_s]
+      calc
+        originValuation (originInclusion t) / originValuation (originInclusion t) ^ 3 =
+            originValuation (originInclusion t) ^ (1 : ℤ) /
+              originValuation (originInclusion t) ^ (3 : ℤ) := by simp
+        _ = originValuation (originInclusion t) ^ (-2 : ℤ) := by
+          rw [← zpow_sub₀ horigin_value_t.1]
+          norm_num
+    · rw [map_div₀, originValuation.map_neg, map_one, horigin_value_s, one_div,
+        zpow_neg]
+      rfl
   apply finish
   -- Remaining: prove the orders of the nonzero rational function H equal hD
   -- by accepted proof steps 2--7, and use the
