@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081613Z-af497904fe",
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.inertia_ramification-a1",
+  "dispatch_branch": "proof-workspace/fermat-p09/20261007t081613z-af497904fe/dispatch/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-65665ba94d",
+  "source_commit": "014d32ed88f977c291bb921dc424bbe59f84685a",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.inertia_ramification-a1.ideal_inertia_to_valuation-a1",
+      "key": "ideal_inertia_to_valuation",
+      "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-adf4f3584a-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-65665ba94d/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-adf4f3584a",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "card_inertia_eq_ramificationIdxIn|ramificationIdxIn_eq_ramificationIdx|inertiaSubgroupIn|def LiesOverPrime",
+              "IsGaloisGroup|IsInvariant|FaithfulSMul|MulSemiringAction|IsFractionRing|Module.Free",
+              "inertia.*(local|valuation)|ValuationSubring.*inertia|inertia.*ValuationSubring",
+              "isDiscreteValuationRing_of_dedekind_domain|valuationSubring|ValuationSubring|ofField|localization",
+              "class IsGaloisGroup|of_isFractionRing|IsGaloisGroup.*RingOfIntegers|IsGaloisGroup.*integralClosure",
+              "python3 .humanize/ir-split-diagnostic-zj_ybmya/check.py"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/RamificationInertia/Galois.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/DedekindDomain/Dvr.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/DiscreteValuationRing/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/Defs.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/Pointwise.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/Galois/IsGaloisGroup.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/Int.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/ir-split-diagnostic-zj_ybmya/Types.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/ir-split-diagnostic-zj_ybmya/report.json"
+            ],
+            "conclusion": "Verified the clean reference snapshots at project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Found the localization-to-DVR theorem, canonical action on rings of integers, ideal inertia definition, valuation residue-action kernel, and both ramification-cardinality formulas. The targeted search found no direct ideal-to-valuation inertia comparison. Both proposed types elaborate after import Submission in a disposable copy of the node's frozen proof base d73bc79fcfa5dc2c71792c1de4c27cc5acae0675. Reflexivity checks confirm that the inferred action on integers is restriction of the field automorphism. NumberField.of_module_finite ℚ E supplies the NumberField instance needed for the finite-module and Galois-group instances. Checked supporting theorem axioms are limited to propext, Classical.choice, and Quot.sound. The diagnostic records policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, exactly omitted lines 10 and 11, reversible original/build hashes, and a successful Lean absence probe for all eight targets. Protected sources and handoffs remained unchanged. These are interface diagnostics, not comparator acceptance."
+          }
+        ],
+        "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.inertia_ramification-a1",
+        "child_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.inertia_ramification-a1.ideal_inertia_to_valuation-a1",
+        "subproblem": {
+          "key": "ideal_inertia_to_valuation",
+          "title": "Ideal inertia embeds into inertia of a valuation above the same prime",
+          "statement": "Let Ω = AlgebraicClosure ℚ and let E be a finite-dimensional intermediate field of Ω/ℚ. Let q be a natural prime, put O = NumberField.RingOfIntegers E, and let P be a prime ideal of O whose contraction to ℤ is (q). Under the canonical action of G = Autℚ(E) on O, write I = {σ ∈ G : σ(a) − a ∈ P for every a ∈ O}. There exists a valuation subring V of E such that q is a nonunit in V and I ≤ V.inertiaSubgroupIn ℚ. No Galois hypothesis on E/ℚ is required.",
+          "lean_statement": "∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] (q : ℕ), q.Prime → ∀ P : Ideal (NumberField.RingOfIntegers E), P.IsPrime → P.LiesOver (Ideal.span {(q : ℤ)}) → ∃ V : ValuationSubring E, V.LiesOverPrime q ∧ P.inertia (E ≃ₐ[ℚ] E) ≤ V.inertiaSubgroupIn ℚ",
+          "lean_name": "p09_af497904fe_ir_ideal_inertia_to_valuation",
+          "depends_on": [],
+          "natural_proof": "1. Fix E, q, and P satisfying the hypotheses, and put O = NumberField.RingOfIntegers E. Since E is finite-dimensional over ℚ, it is a number field; the corresponding structure is supplied by NumberField.of_module_finite ℚ E. Consequently O is a Dedekind domain with fraction field E. The contraction hypothesis implies q ∈ P. Since q is prime and E has characteristic zero, its image in O is nonzero. Thus P is nonzero, and a nonzero prime ideal of the Dedekind domain O is maximal.\n2. Let S = O \\ P. Since P is prime, S is multiplicatively closed and does not contain zero. The localization S⁻¹O embeds in E by a/b ↦ a/b. This map is injective because O embeds in its fraction field E. Its image is the subring V = {a/b : a,b ∈ O and b ∉ P}. The theorem IsLocalization.AtPrime.isDiscreteValuationRing_of_dedekind_domain makes S⁻¹O, and hence V, a discrete valuation ring. Moreover E is the fraction field of V: O is contained in V, and every element of E is a quotient of elements of O. A discrete valuation ring is a valuation ring of its fraction field, so V defines a valuation subring of E.\n3. Since P is maximal, O/P is a field. Define φ : V → O/P by φ(a/b) = ā/b̄. Here b̄ is nonzero because b ∉ P. This is well-defined: equality a/b = c/d in E implies ad = cb in O, hence ā d̄ = c̄ b̄ in O/P. The usual common-denominator identities show that φ is a ring homomorphism. It is surjective because every class ā is φ(a/1). Its kernel consists precisely of the fractions with numerator in P. Therefore its kernel is a maximal ideal; since V is local, this is the unique maximal ideal of V. In particular, q/1 lies in that maximal ideal, so q is a nonunit in V and V.LiesOverPrime q holds. The induced isomorphism V/ker φ ≅ O/P identifies the residue field of V with O/P.\n4. Let σ ∈ I = P.inertia G, where G = Autℚ(E). Rational automorphisms preserve O: applying σ to a monic integer polynomial equation preserves that equation, and the same argument applies to σ⁻¹. By the definition of I, σ(a) − a ∈ P for every a ∈ O. Hence σ sends P into P. Since I is a subgroup, σ⁻¹ also belongs to I and sends P into P; consequently σ(P) = P. In particular, σ and σ⁻¹ both preserve O \\ P. Thus σ(a/b) = σ(a)/σ(b) belongs to V whenever a/b belongs to V, and the inverse automorphism has the same property. It follows that σ stabilizes V and determines an element of V.decompositionSubgroup ℚ.\n5. For a/b ∈ V, the inertia congruences give overline(σ(a)) = ā and overline(σ(b)) = b̄. Therefore φ(σ(a/b)) = overline(σ(a))/overline(σ(b)) = ā/b̄ = φ(a/b). Under the residue-field identification from step 3, the induced action of σ on the residue field of V is the identity.\n6. By definition, V.inertiaSubgroup ℚ is the kernel of the residue action of V.decompositionSubgroup ℚ. Steps 4 and 5 put the decomposition-group element represented by σ in this kernel. The definition of V.inertiaSubgroupIn ℚ maps that kernel into G, so σ ∈ V.inertiaSubgroupIn ℚ. Since σ was arbitrary in I, I ≤ V.inertiaSubgroupIn ℚ. Together with V.LiesOverPrime q from step 3, this proves the required existential statement.",
+          "proof_key_steps": [
+            "Use finite-dimensionality to obtain a number field and show P is a nonzero maximal ideal.",
+            "Embed the localization O_P in E and use the Dedekind-domain localization theorem to obtain a valuation subring V.",
+            "Construct the surjective residue map a/b ↦ ā/b̄, identify its kernel, and deduce that q is a nonunit in V.",
+            "Show that ideal inertia preserves P, its complement, and therefore V.",
+            "Compute the induced residue action and show it is the identity.",
+            "Use the kernel-and-image definitions to obtain the required inertia subgroup inclusion."
+          ]
+        },
+        "audit": {
+          "key": "ideal_inertia_to_valuation",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The exact one-line proposition matches every prose hypothesis and conclusion, including the absence of a Galois assumption. The proof establishes P is nonzero and maximal, constructs the embedded DVR localization, identifies its residue field and q's nonunit status, uses both automorphism and inverse to preserve the localization, and proves trivial residue action before applying the kernel-and-image definitions. All six steps are sound and sufficiently explicit for formalization. The bare identifier is unreserved, the type requires no child implementation, and there is no circular dependency."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-adf4f3584a/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-adf4f3584a/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-adf4f3584a/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.inertia_ramification-a1.inertia_cardinality-a1",
+      "key": "inertia_cardinality",
+      "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-35ea8cf548-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-65665ba94d/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-35ea8cf548",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "card_inertia_eq_ramificationIdxIn|ramificationIdxIn_eq_ramificationIdx|inertiaSubgroupIn|def LiesOverPrime",
+              "IsGaloisGroup|IsInvariant|FaithfulSMul|MulSemiringAction|IsFractionRing|Module.Free",
+              "inertia.*(local|valuation)|ValuationSubring.*inertia|inertia.*ValuationSubring",
+              "isDiscreteValuationRing_of_dedekind_domain|valuationSubring|ValuationSubring|ofField|localization",
+              "class IsGaloisGroup|of_isFractionRing|IsGaloisGroup.*RingOfIntegers|IsGaloisGroup.*integralClosure",
+              "python3 .humanize/ir-split-diagnostic-zj_ybmya/check.py"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/RamificationInertia/Galois.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/DedekindDomain/Dvr.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/DiscreteValuationRing/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/Defs.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/Pointwise.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/Galois/IsGaloisGroup.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/Int.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/ir-split-diagnostic-zj_ybmya/Types.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/ir-split-diagnostic-zj_ybmya/report.json"
+            ],
+            "conclusion": "Verified the clean reference snapshots at project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Found the localization-to-DVR theorem, canonical action on rings of integers, ideal inertia definition, valuation residue-action kernel, and both ramification-cardinality formulas. The targeted search found no direct ideal-to-valuation inertia comparison. Both proposed types elaborate after import Submission in a disposable copy of the node's frozen proof base d73bc79fcfa5dc2c71792c1de4c27cc5acae0675. Reflexivity checks confirm that the inferred action on integers is restriction of the field automorphism. NumberField.of_module_finite ℚ E supplies the NumberField instance needed for the finite-module and Galois-group instances. Checked supporting theorem axioms are limited to propext, Classical.choice, and Quot.sound. The diagnostic records policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, exactly omitted lines 10 and 11, reversible original/build hashes, and a successful Lean absence probe for all eight targets. Protected sources and handoffs remained unchanged. These are interface diagnostics, not comparator acceptance."
+          }
+        ],
+        "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.inertia_ramification-a1",
+        "child_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.inertia_ramification-a1.inertia_cardinality-a1",
+        "subproblem": {
+          "key": "inertia_cardinality",
+          "title": "Ideal inertia cardinality equals the ramification index in a finite Galois number field",
+          "statement": "Let Ω = AlgebraicClosure ℚ and let E be a finite-dimensional Galois intermediate field of Ω/ℚ. Let q be a natural prime, put O = NumberField.RingOfIntegers E, and let P be a prime ideal of O whose contraction to ℤ is (q). Under the canonical action of G = Gal(E/ℚ) on O, let I = {σ ∈ G : σ(a) − a ∈ P for every a ∈ O}. Then Nat.card I = Ideal.ramificationIdx P ℤ.",
+          "lean_statement": "∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [IsGalois ℚ E] (q : ℕ), q.Prime → ∀ P : Ideal (NumberField.RingOfIntegers E), P.IsPrime → P.LiesOver (Ideal.span {(q : ℤ)}) → Nat.card (P.inertia (E ≃ₐ[ℚ] E)) = Ideal.ramificationIdx P ℤ",
+          "lean_name": "p09_af497904fe_ir_inertia_cardinality",
+          "depends_on": [],
+          "natural_proof": "1. Fix E, q, and P satisfying the hypotheses, and put O = NumberField.RingOfIntegers E, G = Gal(E/ℚ), and p = (q) ⊆ ℤ. Finite-dimensionality gives the number-field structure NumberField.of_module_finite ℚ E. The integer-ring theorems then give that O is a domain, is finite free over ℤ, is integral over ℤ, and has fraction field E. In particular, O is a finite flat ℤ-module. Also G is finite because E/ℚ is finite.\n2. Every element of G restricts to an automorphism of O, since it preserves monic polynomial equations with integer coefficients. This is the canonical multiplicative semiring action on O, and it fixes the image of ℤ. The action is faithful: if two automorphisms agree on O, they agree on every fraction a/b with a,b ∈ O and b ≠ 0, hence agree on E.\n3. The invariant ring of this action is exactly ℤ. Indeed, if a ∈ O is fixed by every element of G, then its image in E belongs to the fixed field E^G = ℚ, by the Galois fixed-field theorem. This rational element is integral over ℤ. Since ℤ is integrally closed in ℚ, it is an integer. Conversely, every integer is fixed by every rational automorphism. Thus the canonical action satisfies IsGaloisGroup G ℤ O. This is also the integer-ring specialization of IsGaloisGroup.of_isFractionRing.\n4. Since q is prime, p is maximal and therefore prime. The quotient ℤ/p is isomorphic to ZMod q, as expressed by Int.quotientSpanNatEquivZMod, and is a finite field. The residue field at the maximal ideal p is this quotient field, hence is perfect. The assumptions on P supply P.IsPrime and P.LiesOver p.\n5. Apply Ideal.card_inertia_eq_ramificationIdxIn with R = ℤ, S = O, the canonical group G, the base prime p, and the chosen prime P. Its domain, finite-module, flatness, finite-group, Galois-action, primality, lying-over, and perfect-residue-field hypotheses have all been established in steps 1–4. It yields Nat.card (P.inertia G) = Ideal.ramificationIdxIn p O.\n6. Apply Ideal.ramificationIdxIn_eq_ramificationIdx to p, P, and G. The same Galois action and the given lying-over and primality conditions identify Ideal.ramificationIdxIn p O with Ideal.ramificationIdx P ℤ. Substituting this equality into step 5 proves the asserted cardinality formula.",
+          "proof_key_steps": [
+            "Obtain the number-field structure, finite free integer ring, fraction field, and finite automorphism group.",
+            "Verify that the canonical Galois action preserves integers and is faithful.",
+            "Identify the invariant ring with ℤ using the Galois fixed field and integral closedness.",
+            "Identify the residue field at (q) with the perfect finite field ZMod q.",
+            "Apply Ideal.card_inertia_eq_ramificationIdxIn.",
+            "Use Ideal.ramificationIdxIn_eq_ramificationIdx to obtain the chosen prime's ramification index."
+          ]
+        },
+        "audit": {
+          "key": "inertia_cardinality",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The exact one-line proposition matches the finite-dimensional Galois, prime, and lying-over hypotheses and the stated cardinality equality. The proof supplies finite flatness, finite group, faithful canonical action, integer invariants, and perfect residue field, then correctly applies both cited formulas. It is complete and independent of the other child and parent. The bare identifier is unreserved and the type is independently usable. The split is appropriate and acyclic: the parent uses the first child to make ideal inertia trivial, then this child to obtain ramification index one."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-35ea8cf548/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-35ea8cf548/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-35ea8cf548/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-65665ba94d/task.md": "d1097f34a9dcda1e8cd40a21e7f0ee81cabd7d3772d3eff410ef433f9adf18c0",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-65665ba94d/problem.md": "0500482283c7cf686c90505c2e668aae51a3829d556ca24b402d320ba3f840fd",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-65665ba94d/problem.json": "0a505890f14c1e4a40b2d68435dac1a45d795b4cadd800289fbb395cab0114df",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-65665ba94d/reference-manifest.json": "024395eb16744a67c062d4787284abe3f4cdebfec9609217ede4bc773b8bcef0",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-65665ba94d/decomposition.json": "2982f771b68130899e6f60b3cd97a251b0a65ba39065833b4677a08896b40980",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-65665ba94d/decomposition-audit.json": "72fcd4debee4e5ac41c50f259df6e62285f49f248bd07d268b21412c76af9119",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-65665ba94d/controller-contract.json": "15abb5b197a06e4feb0c79eda2d53e3a24a12bfa8f753bace11ccc2ff0aaee11",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-65665ba94d/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-adf4f3584a/parent-child-handoff.json": "5a384d8e95418826e3139486b0b799a478613061bd6d080323439178733b64a1",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-65665ba94d/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-adf4f3584a/parent-supplied-plan.md": "de0af383addb944843a2fc23386f7a8a365e88399c4c2ee7731f58334ee8bddc",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-65665ba94d/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-adf4f3584a/parent-supplied-natural-proof.md": "095e61eb0b47ef43cb6fc6b00bfcee6c4b3cd9eba0e5517c13124e81afb29378",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-65665ba94d/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-adf4f3584a/parent-supplied-natural-proof.json": "5c0a14b85f66f4f04c5fa77c41182aeb050a03ddff27a32f8f5943dc67c2e322",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-65665ba94d/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-adf4f3584a/node.json": "4eeaddd4e81d31f45a9764f593cc337004a10fabe09316d2bb2c842808d87f7a",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-65665ba94d/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-35ea8cf548/parent-child-handoff.json": "5a8cde99f0b1c6c74ed8467b1c5994f78d0702671ef49e482cc6276a06df25dc",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-65665ba94d/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-35ea8cf548/parent-supplied-plan.md": "88406372453e1f7fd3f6c697d76daaa5a1f7f37c1f9c828b5bcad8f10cb47766",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-65665ba94d/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-35ea8cf548/parent-supplied-natural-proof.md": "ef7458768240c18be4d71368776e9a26b1a644a9831a5f2ed3a2f26e009bcdb1",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-65665ba94d/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-35ea8cf548/parent-supplied-natural-proof.json": "8eef9d49973c24b52de387984b102a7e2e5e2d178ff930ba59629baa1f15c732",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-65665ba94d/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-35ea8cf548/node.json": "a772ad791f9dbbd4d33fe23d18367fd86c90c712405ec54cf5e506e0ab86604e"
+  }
+}

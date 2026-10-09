@@ -1,0 +1,60 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "card_inertia_eq_ramificationIdxIn|ramificationIdxIn_eq_ramificationIdx|inertiaSubgroupIn|def LiesOverPrime",
+        "IsGaloisGroup|IsInvariant|FaithfulSMul|MulSemiringAction|IsFractionRing|Module.Free",
+        "inertia.*(local|valuation)|ValuationSubring.*inertia|inertia.*ValuationSubring",
+        "isDiscreteValuationRing_of_dedekind_domain|valuationSubring|ValuationSubring|ofField|localization",
+        "class IsGaloisGroup|of_isFractionRing|IsGaloisGroup.*RingOfIntegers|IsGaloisGroup.*integralClosure",
+        "python3 .humanize/ir-split-diagnostic-zj_ybmya/check.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/RamificationInertia/Galois.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/DedekindDomain/Dvr.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/DiscreteValuationRing/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/Pointwise.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/Galois/IsGaloisGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/Int.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/ir-split-diagnostic-zj_ybmya/Types.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/ir-split-diagnostic-zj_ybmya/report.json"
+      ],
+      "conclusion": "Verified the clean reference snapshots at project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Found the localization-to-DVR theorem, canonical action on rings of integers, ideal inertia definition, valuation residue-action kernel, and both ramification-cardinality formulas. The targeted search found no direct ideal-to-valuation inertia comparison. Both proposed types elaborate after import Submission in a disposable copy of the node's frozen proof base d73bc79fcfa5dc2c71792c1de4c27cc5acae0675. Reflexivity checks confirm that the inferred action on integers is restriction of the field automorphism. NumberField.of_module_finite ℚ E supplies the NumberField instance needed for the finite-module and Galois-group instances. Checked supporting theorem axioms are limited to propext, Classical.choice, and Quot.sound. The diagnostic records policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, exactly omitted lines 10 and 11, reversible original/build hashes, and a successful Lean absence probe for all eight targets. Protected sources and handoffs remained unchanged. These are interface diagnostics, not comparator acceptance."
+    }
+  ],
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.inertia_ramification-a1",
+  "child_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.inertia_ramification-a1.inertia_cardinality-a1",
+  "subproblem": {
+    "key": "inertia_cardinality",
+    "title": "Ideal inertia cardinality equals the ramification index in a finite Galois number field",
+    "statement": "Let Ω = AlgebraicClosure ℚ and let E be a finite-dimensional Galois intermediate field of Ω/ℚ. Let q be a natural prime, put O = NumberField.RingOfIntegers E, and let P be a prime ideal of O whose contraction to ℤ is (q). Under the canonical action of G = Gal(E/ℚ) on O, let I = {σ ∈ G : σ(a) − a ∈ P for every a ∈ O}. Then Nat.card I = Ideal.ramificationIdx P ℤ.",
+    "lean_statement": "∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [IsGalois ℚ E] (q : ℕ), q.Prime → ∀ P : Ideal (NumberField.RingOfIntegers E), P.IsPrime → P.LiesOver (Ideal.span {(q : ℤ)}) → Nat.card (P.inertia (E ≃ₐ[ℚ] E)) = Ideal.ramificationIdx P ℤ",
+    "lean_name": "p09_af497904fe_ir_inertia_cardinality",
+    "depends_on": [],
+    "natural_proof": "1. Fix E, q, and P satisfying the hypotheses, and put O = NumberField.RingOfIntegers E, G = Gal(E/ℚ), and p = (q) ⊆ ℤ. Finite-dimensionality gives the number-field structure NumberField.of_module_finite ℚ E. The integer-ring theorems then give that O is a domain, is finite free over ℤ, is integral over ℤ, and has fraction field E. In particular, O is a finite flat ℤ-module. Also G is finite because E/ℚ is finite.\n2. Every element of G restricts to an automorphism of O, since it preserves monic polynomial equations with integer coefficients. This is the canonical multiplicative semiring action on O, and it fixes the image of ℤ. The action is faithful: if two automorphisms agree on O, they agree on every fraction a/b with a,b ∈ O and b ≠ 0, hence agree on E.\n3. The invariant ring of this action is exactly ℤ. Indeed, if a ∈ O is fixed by every element of G, then its image in E belongs to the fixed field E^G = ℚ, by the Galois fixed-field theorem. This rational element is integral over ℤ. Since ℤ is integrally closed in ℚ, it is an integer. Conversely, every integer is fixed by every rational automorphism. Thus the canonical action satisfies IsGaloisGroup G ℤ O. This is also the integer-ring specialization of IsGaloisGroup.of_isFractionRing.\n4. Since q is prime, p is maximal and therefore prime. The quotient ℤ/p is isomorphic to ZMod q, as expressed by Int.quotientSpanNatEquivZMod, and is a finite field. The residue field at the maximal ideal p is this quotient field, hence is perfect. The assumptions on P supply P.IsPrime and P.LiesOver p.\n5. Apply Ideal.card_inertia_eq_ramificationIdxIn with R = ℤ, S = O, the canonical group G, the base prime p, and the chosen prime P. Its domain, finite-module, flatness, finite-group, Galois-action, primality, lying-over, and perfect-residue-field hypotheses have all been established in steps 1–4. It yields Nat.card (P.inertia G) = Ideal.ramificationIdxIn p O.\n6. Apply Ideal.ramificationIdxIn_eq_ramificationIdx to p, P, and G. The same Galois action and the given lying-over and primality conditions identify Ideal.ramificationIdxIn p O with Ideal.ramificationIdx P ℤ. Substituting this equality into step 5 proves the asserted cardinality formula.",
+    "proof_key_steps": [
+      "Obtain the number-field structure, finite free integer ring, fraction field, and finite automorphism group.",
+      "Verify that the canonical Galois action preserves integers and is faithful.",
+      "Identify the invariant ring with ℤ using the Galois fixed field and integral closedness.",
+      "Identify the residue field at (q) with the perfect finite field ZMod q.",
+      "Apply Ideal.card_inertia_eq_ramificationIdxIn.",
+      "Use Ideal.ramificationIdxIn_eq_ramificationIdx to obtain the chosen prime's ramification index."
+    ]
+  },
+  "audit": {
+    "key": "inertia_cardinality",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "The exact one-line proposition matches the finite-dimensional Galois, prime, and lying-over hypotheses and the stated cardinality equality. The proof supplies finite flatness, finite group, faithful canonical action, integer invariants, and perfect residue field, then correctly applies both cited formulas. It is complete and independent of the other child and parent. The bare identifier is unreserved and the type is independently usable. The split is appropriate and acyclic: the parent uses the first child to make ideal inertia trivial, then this child to obtain ramification index one."
+  },
+  "resolved_dependencies": [],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-35ea8cf548/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-35ea8cf548/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-35ea8cf548/parent-supplied-natural-proof.json"
+}

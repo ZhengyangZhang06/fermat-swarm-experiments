@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.inertia_ramification-a1.inertia_cardinality-a1",
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.inertia_ramification-a1",
+  "depth": 5,
+  "title": "Ideal inertia cardinality equals the ramification index in a finite Galois number field",
+  "statement": "Let Ω = AlgebraicClosure ℚ and let E be a finite-dimensional Galois intermediate field of Ω/ℚ. Let q be a natural prime, put O = NumberField.RingOfIntegers E, and let P be a prime ideal of O whose contraction to ℤ is (q). Under the canonical action of G = Gal(E/ℚ) on O, let I = {σ ∈ G : σ(a) − a ∈ P for every a ∈ O}. Then Nat.card I = Ideal.ramificationIdx P ℤ.",
+  "lean_statement": "∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [IsGalois ℚ E] (q : ℕ), q.Prime → ∀ P : Ideal (NumberField.RingOfIntegers E), P.IsPrime → P.LiesOver (Ideal.span {(q : ℤ)}) → Nat.card (P.inertia (E ≃ₐ[ℚ] E)) = Ideal.ramificationIdx P ℤ",
+  "lean_name": "p09_af497904fe_ir_inertia_cardinality",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-35ea8cf548-a1"
+}

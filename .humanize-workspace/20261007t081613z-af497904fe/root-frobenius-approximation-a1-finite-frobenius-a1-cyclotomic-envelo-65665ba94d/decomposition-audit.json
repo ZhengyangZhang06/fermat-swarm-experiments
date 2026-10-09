@@ -1,0 +1,46 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "card_inertia_eq_ramificationIdxIn|ramificationIdxIn_eq_ramificationIdx|inertiaSubgroupIn|def LiesOverPrime|isDiscreteValuationRing_of_dedekind_domain",
+        "inertia.*(local|valuation)|ValuationSubring.*inertia|inertia.*ValuationSubring",
+        "class IsGaloisGroup|theorem of_isFractionRing|lemma of_isFractionRing|theorem IsGaloisGroup.of_isFractionRing",
+        "python3 /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/ir-independent-decomposition-audit-6e9jo0_p/check.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/RamificationInertia/Galois.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/DedekindDomain/Dvr.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/Pointwise.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/IsGaloisGroup/Basic.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/ir-independent-decomposition-audit-6e9jo0_p/Types.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/ir-independent-decomposition-audit-6e9jo0_p/report.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/ir-independent-decomposition-audit-6e9jo0_p/concurrency-check.json"
+      ],
+      "conclusion": "Confirmed clean snapshots at the manifest's project and mathlib revisions. The cited definitions and ramification formulas support both arguments; no direct ideal-to-valuation inertia comparison was found. Both exact proposed types independently elaborated against frozen base d73bc79fcfa5dc2c71792c1de4c27cc5acae0675 with the child declarations absent. Reflexivity checks confirmed the canonical action and inertia definitions. Inspected supporting results and proposition definitions use only propext, Classical.choice, and Quot.sound. Verified the policy digest, omission of exactly lines 10–11, reversible original/build hashes, and successful Lean absence checks for all eight targets. Both diagnostic runs passed every Lean check; their whole-file guards detected concurrent committed changes to live Submission.lean. Follow-up checks confirmed the frozen base, protected header, contract, problem, and existing handoffs were unchanged. These are interface diagnostics, not comparator acceptance of implemented proofs."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "ideal_inertia_to_valuation",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact one-line proposition matches every prose hypothesis and conclusion, including the absence of a Galois assumption. The proof establishes P is nonzero and maximal, constructs the embedded DVR localization, identifies its residue field and q's nonunit status, uses both automorphism and inverse to preserve the localization, and proves trivial residue action before applying the kernel-and-image definitions. All six steps are sound and sufficiently explicit for formalization. The bare identifier is unreserved, the type requires no child implementation, and there is no circular dependency."
+    },
+    {
+      "key": "inertia_cardinality",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact one-line proposition matches the finite-dimensional Galois, prime, and lying-over hypotheses and the stated cardinality equality. The proof supplies finite flatness, finite group, faithful canonical action, integer invariants, and perfect residue field, then correctly applies both cited formulas. It is complete and independent of the other child and parent. The bare identifier is unreserved and the type is independently usable. The split is appropriate and acyclic: the parent uses the first child to make ideal inertia trivial, then this child to obtain ramification index one."
+    }
+  ],
+  "required_changes": []
+}
