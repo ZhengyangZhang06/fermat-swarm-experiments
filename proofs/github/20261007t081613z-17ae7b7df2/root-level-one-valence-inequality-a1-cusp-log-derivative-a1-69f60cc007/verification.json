@@ -1,0 +1,18 @@
+{
+  "node_id": "root.level_one_valence_inequality-a1.cusp_log_derivative-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/421",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "ff9532a079afe1f0d43905982d8bdb35a4b1ae71",
+  "integrated_commit": "79804ac43f5f6d9370b0b823f214882838546578",
+  "proof_base_commit": "b6da36f19d5b70df291992328e6ade9dfcdcf0a7",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.level_one_valence_inequality-a1",
+  "requires": [
+    "root.level_one_valence_inequality-a1.cusp_log_derivative-a1.qexp_finite_order-a1",
+    "root.level_one_valence_inequality-a1.cusp_log_derivative-a1.local_logderiv_bound-a1"
+  ]
+}
