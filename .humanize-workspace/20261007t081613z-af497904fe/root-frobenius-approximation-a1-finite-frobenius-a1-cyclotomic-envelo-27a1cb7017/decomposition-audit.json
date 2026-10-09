@@ -1,0 +1,51 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "sum_ramification_inertia_eq_finrank|ramificationIdx_tower|exists_ideal_over_prime_of_isIntegral_of_isDomain|def ramificationIdx|def LiesOver",
+        "ramificationIdx_eq_of_prime|inertiaDeg_eq_of_prime|ncard_primesOver_of_prime|span.*pow|norm.*sub|sub.*norm",
+        "LiesOverPrime|inertiaSubgroupIn",
+        "absNorm_span_singleton|finrank_eq_one_iff|torsionFree_iff_flat|flat_iff_torsionFree|instance.*Flat|class LiesOver",
+        "totallyRamified|totally_ramified|ramificationIdx.*finrank",
+        "RingOfIntegers.rank|theorem.*rank|lemma.*rank|intermediateField_adjoin_isCyclotomicExtension"
+      ],
+      "files": [
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/problem.md",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/dag.json",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/Cyclotomic/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Cyclotomic/Ideal.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RamificationInertia/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RamificationInertia/Ramification.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/GoingUp.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/Over.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/Norm/AbsNorm.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Flat/TorsionFree.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/IntermediateField/Adjoin/Basic.lean",
+        ".humanize/ci-independent-audit-gcx22l69/TypesMathlib.lean.log",
+        ".humanize/ci-independent-audit-gcx22l69/TypesSubmission.lean.log",
+        ".humanize/ci-independent-audit-gcx22l69/Axioms.lean.log"
+      ],
+      "conclusion": "Verified clean snapshots at project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d, and pinned dependencies. Confirmed the non-Galois finite-flat degree formula, integer-ring rank and integrality, lying-over, tower multiplicativity, norm-index formula, and prime-cyclotomic uniqueness/residue-degree results. The targeted totallyRamified|totally_ramified|ramificationIdx.*finrank search found no match in NumberField/Cyclotomic. Both literal child propositions independently elaborated with Mathlib alone and with Submission from frozen base d73bc79fcfa5dc2c71792c1de4c27cc5acae0675; supporting declarations use only propext, Classical.choice, and Quot.sound. Independently verified policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, exact reversible omission of lines 10–11, original/build hashes, and Lean-confirmed absence of all eight targets. The audit receipt at .humanize/ci-independent-audit-gcx22l69/report.json records concurrent clean advancement of the live Submission; the frozen contract and reviewed handoffs remained unchanged. These are decomposition/interface checks, not comparator acceptance of implemented proofs."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "cyclotomic_subfield_ramification",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The single-line proposition exactly matches all prose hypotheses and the existential conclusion, without assuming D is Galois. The nine-step proof supplies the Eisenstein argument, norm and unit calculations, unique prime and residue field, contraction and lying-over, and the applicable finite-flat degree formula; it also covers q = 2. It is complete and non-circular. The bare name is unreserved, and the type elaborates without either child implemented. The split is appropriate: together with the second child and the parent's retained inertia_ramification dependency, it forces the intersection's degree to equal one."
+    },
+    {
+      "key": "unramified_subfield",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The single-line proposition exactly expresses descent for every prime above (q), with both finite-dimensional hypotheses and D ≤ E explicit. The proof establishes the injective integral integer-ring inclusion, finiteness and torsion-free flatness, lifts an arbitrary prime, verifies its contraction, and applies tower multiplicativity to obtain the conclusion from a natural-number product equal to one. No Galois hypothesis or circular dependency is needed. The bare name is unreserved, and the type is independently usable. Both children's empty dependency lists are correct; retaining the parent's inertia_ramification edge leaves the graph acyclic and correctly directed."
+    }
+  ],
+  "required_changes": []
+}

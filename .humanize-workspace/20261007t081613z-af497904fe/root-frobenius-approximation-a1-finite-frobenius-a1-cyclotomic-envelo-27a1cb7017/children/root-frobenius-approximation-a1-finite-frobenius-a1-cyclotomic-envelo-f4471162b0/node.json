@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.cyclotomic_intersection-a1.cyclotomic_subfield_ramification-a1",
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.cyclotomic_intersection-a1",
+  "depth": 5,
+  "title": "A prime-cyclotomic subfield has a prime whose ramification index equals its degree",
+  "statement": "Let Ω = AlgebraicClosure ℚ, let q be a natural prime, and let ζ ∈ Ω be a primitive qth root of unity. Let D be a finite-dimensional intermediate field of Ω/ℚ contained in ℚ(ζ). Then there exists a prime ideal R of the ring of integers O_D whose contraction to ℤ is (q) and whose ramification index over ℤ equals [D:ℚ]. No Galois assumption on D is required.",
+  "lean_statement": "∀ (q : ℕ) (ζ : AlgebraicClosure ℚ), q.Prime → IsPrimitiveRoot ζ q → ∀ (D : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ D], D ≤ IntermediateField.adjoin ℚ ({ζ} : Set (AlgebraicClosure ℚ)) → ∃ R : Ideal (NumberField.RingOfIntegers D), R.IsPrime ∧ R.LiesOver (Ideal.span {(q : ℤ)}) ∧ Ideal.ramificationIdx R ℤ = Module.finrank ℚ D",
+  "lean_name": "p09_af497904fe_ci_cyclotomic_subfield_ramification",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-f4471162b0-a1"
+}

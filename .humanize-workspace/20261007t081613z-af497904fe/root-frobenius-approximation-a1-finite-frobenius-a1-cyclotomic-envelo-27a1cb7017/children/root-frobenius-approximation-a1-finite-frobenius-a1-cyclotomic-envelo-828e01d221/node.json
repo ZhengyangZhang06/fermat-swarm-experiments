@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.cyclotomic_intersection-a1.unramified_subfield-a1",
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.cyclotomic_intersection-a1",
+  "depth": 5,
+  "title": "Ramification index one descends to finite subfields",
+  "statement": "Let Ω = AlgebraicClosure ℚ. Let E and D be finite-dimensional intermediate fields of Ω/ℚ with D contained in E, and let q be a natural prime. Suppose every prime ideal of O_E above (q) has ramification index one over ℤ. Then every prime ideal of O_D above (q) also has ramification index one over ℤ. Neither field is required to be Galois over ℚ.",
+  "lean_statement": "∀ (E D : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [FiniteDimensional ℚ D] (q : ℕ), q.Prime → D ≤ E → (∀ P : Ideal (NumberField.RingOfIntegers E), P.IsPrime → P.LiesOver (Ideal.span {(q : ℤ)}) → Ideal.ramificationIdx P ℤ = 1) → ∀ R : Ideal (NumberField.RingOfIntegers D), R.IsPrime → R.LiesOver (Ideal.span {(q : ℤ)}) → Ideal.ramificationIdx R ℤ = 1",
+  "lean_name": "p09_af497904fe_ci_unramified_subfield",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-828e01d221-a1"
+}

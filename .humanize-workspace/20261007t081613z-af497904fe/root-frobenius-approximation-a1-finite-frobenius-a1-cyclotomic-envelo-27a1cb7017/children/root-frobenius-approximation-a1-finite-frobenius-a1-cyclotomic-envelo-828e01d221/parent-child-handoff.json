@@ -1,0 +1,56 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "inertia_ramification|sum_ramification_inertia|ramificationIdx_mul|ramificationIdx.*finrank",
+        "ramif|norm_sub_one|norm_one_sub|isUnit.*sub|span.*pow|unique",
+        "ramificationIdx.*tower|ramificationIdx.*mul|ramificationIdx_algebra_tower|exists.*over|liesOver",
+        "totallyRamified|totally_ramified|ramificationIdx.*finrank",
+        "def LiesOverPrime|def inertiaSubgroupIn",
+        "finrank_eq_one_iff|eq_bot.*finrank|finrank.*eq_bot",
+        "absNorm_span_singleton|absNorm.*[Cc]ard|card.*absNorm"
+      ],
+      "files": [
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/Cyclotomic/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Cyclotomic/Ideal.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RamificationInertia/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RamificationInertia/Ramification.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/GoingUp.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/Norm/AbsNorm.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/IntermediateField/Adjoin/Basic.lean"
+      ],
+      "conclusion": "Verified the recorded project revision 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d, with clean tracked snapshot contents. Found the exact nonunit and valuation-inertia definitions, prime-cyclotomic prime uniqueness and inertia-degree-one results, integral extensions between integer rings, lying-over, Ideal.ramificationIdx_tower, the non-Galois formula Ideal.sum_ramification_inertia_eq_finrank, NumberField.RingOfIntegers.rank, Ideal.absNorm_span_singleton, and IntermediateField.finrank_eq_one_iff. The targeted totallyRamified|totally_ramified|ramificationIdx.*finrank search found no match in the NumberField/Cyclotomic directory. The supporting declarations audited in the interface diagnostic depend only on propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.cyclotomic_intersection-a1",
+  "child_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.cyclotomic_intersection-a1.unramified_subfield-a1",
+  "subproblem": {
+    "key": "unramified_subfield",
+    "title": "Ramification index one descends to finite subfields",
+    "statement": "Let Ω = AlgebraicClosure ℚ. Let E and D be finite-dimensional intermediate fields of Ω/ℚ with D contained in E, and let q be a natural prime. Suppose every prime ideal of O_E above (q) has ramification index one over ℤ. Then every prime ideal of O_D above (q) also has ramification index one over ℤ. Neither field is required to be Galois over ℚ.",
+    "lean_statement": "∀ (E D : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [FiniteDimensional ℚ D] (q : ℕ), q.Prime → D ≤ E → (∀ P : Ideal (NumberField.RingOfIntegers E), P.IsPrime → P.LiesOver (Ideal.span {(q : ℤ)}) → Ideal.ramificationIdx P ℤ = 1) → ∀ R : Ideal (NumberField.RingOfIntegers D), R.IsPrime → R.LiesOver (Ideal.span {(q : ℤ)}) → Ideal.ramificationIdx R ℤ = 1",
+    "lean_name": "p09_af497904fe_ci_unramified_subfield",
+    "depends_on": [],
+    "natural_proof": "1. Fix E, D, q, the inclusion D ⊆ E, and the assumed ramification-index-one condition in E. Both fields are number fields. Their integer rings are Dedekind domains, finite free over ℤ, and the field inclusion restricts to an injective homomorphism O_D → O_E compatible with the integer maps. Indeed, an element integral over ℤ remains integral under the field inclusion.\n2. The extension O_D ⊆ O_E is integral because every element of O_E satisfies a monic integer polynomial and ℤ is contained in O_D. It is also finite: any finite collection generating O_E as a ℤ-module generates it as an O_D-module. Moreover O_E is torsion-free over O_D, since both embed compatibly into the field E. A torsion-free module over a Dedekind domain is flat, so O_E is flat over O_D. These facts establish the hypotheses for lying-over and the ramification tower formula.\n3. Let R be any prime ideal of O_D whose contraction to ℤ is (q). The lying-over theorem for the integral injective extension O_D ⊆ O_E, formalized by Ideal.exists_ideal_over_prime_of_isIntegral_of_isDomain, gives a prime ideal P of O_E whose contraction to O_D is R. The injectivity makes the theorem's kernel-containment hypothesis automatic.\n4. Contracting P further to ℤ gives (q), because contraction along composed inclusions agrees with successive contraction. Hence the assumed condition in E applies to P and gives e(P/q) = 1.\n5. Apply Ideal.ramificationIdx_tower to ℤ ⊆ O_D ⊆ O_E and the primes R and P. Flatness was established in step 2, and P lies over R by construction. The formula gives e(P/q) = e(R/q) e(P/R). Thus e(R/q) e(P/R) = 1. Both factors are natural numbers, and a product of natural numbers is one only when both factors are one. In particular e(R/q) = 1.\n6. Since R was arbitrary among primes of O_D above (q), every such prime has ramification index one, as asserted.",
+    "proof_key_steps": [
+      "Equip the integer-ring inclusion O_D ⊆ O_E with its integral, finite, and flat extension properties.",
+      "Lift an arbitrary prime R above q to a prime P of O_E by lying-over.",
+      "Use transitivity of contraction and the hypothesis to obtain e(P/q) = 1.",
+      "Apply multiplicativity in the tower and conclude e(R/q) = 1 from the natural-number product equaling one."
+    ]
+  },
+  "audit": {
+    "key": "unramified_subfield",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "The single-line proposition exactly expresses descent for every prime above (q), with both finite-dimensional hypotheses and D ≤ E explicit. The proof establishes the injective integral integer-ring inclusion, finiteness and torsion-free flatness, lifts an arbitrary prime, verifies its contraction, and applies tower multiplicativity to obtain the conclusion from a natural-number product equal to one. No Galois hypothesis or circular dependency is needed. The bare name is unreserved, and the type is independently usable. Both children's empty dependency lists are correct; retaining the parent's inertia_ramification edge leaves the graph acyclic and correctly directed."
+  },
+  "resolved_dependencies": [],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-828e01d221/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-828e01d221/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelo-828e01d221/parent-supplied-natural-proof.json"
+}

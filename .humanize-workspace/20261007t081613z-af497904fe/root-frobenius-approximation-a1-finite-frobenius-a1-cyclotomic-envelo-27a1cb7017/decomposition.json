@@ -1,0 +1,65 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "inertia_ramification|sum_ramification_inertia|ramificationIdx_mul|ramificationIdx.*finrank",
+        "ramif|norm_sub_one|norm_one_sub|isUnit.*sub|span.*pow|unique",
+        "ramificationIdx.*tower|ramificationIdx.*mul|ramificationIdx_algebra_tower|exists.*over|liesOver",
+        "totallyRamified|totally_ramified|ramificationIdx.*finrank",
+        "def LiesOverPrime|def inertiaSubgroupIn",
+        "finrank_eq_one_iff|eq_bot.*finrank|finrank.*eq_bot",
+        "absNorm_span_singleton|absNorm.*[Cc]ard|card.*absNorm"
+      ],
+      "files": [
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/Cyclotomic/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Cyclotomic/Ideal.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RamificationInertia/Basic.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RamificationInertia/Ramification.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/GoingUp.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/Norm/AbsNorm.lean",
+        ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/IntermediateField/Adjoin/Basic.lean"
+      ],
+      "conclusion": "Verified the recorded project revision 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d, with clean tracked snapshot contents. Found the exact nonunit and valuation-inertia definitions, prime-cyclotomic prime uniqueness and inertia-degree-one results, integral extensions between integer rings, lying-over, Ideal.ramificationIdx_tower, the non-Galois formula Ideal.sum_ramification_inertia_eq_finrank, NumberField.RingOfIntegers.rank, Ideal.absNorm_span_singleton, and IntermediateField.finrank_eq_one_iff. The targeted totallyRamified|totally_ramified|ramificationIdx.*finrank search found no match in the NumberField/Cyclotomic directory. The supporting declarations audited in the interface diagnostic depend only on propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "should_split": true,
+  "rationale": "Depth 4 is below the limit 6. Two independent, reusable obligations isolate total ramification in cyclotomic subfields and descent of ramification index one. The parent retains its existing inertia_ramification dependency. For D = E ⊓ ℚ(ζ), that dependency and unramified_subfield give index one at every prime above q; cyclotomic_subfield_ramification supplies such a prime whose index equals [D:ℚ]. Thus [D:ℚ] = 1, and IntermediateField.finrank_eq_one_iff finishes. Both exact child types elaborate after import Submission at frozen proof base d73bc79fcfa5dc2c71792c1de4c27cc5acae0675. Their names are absent from the active DAG and imported environment; canonical inclusion and integer-cast behavior were checked. The diagnostic receipt is .humanize/ci-split-diagnostic-ct98d45n/report.json. It records the specified policy digest, reversible omission of precisely lines 10–11, all eight targets absent under the frozen imports, pinned dependency checks, and unchanged protected files. These are interface diagnostics, not comparator acceptance.",
+  "subproblems": [
+    {
+      "key": "cyclotomic_subfield_ramification",
+      "title": "A prime-cyclotomic subfield has a prime whose ramification index equals its degree",
+      "statement": "Let Ω = AlgebraicClosure ℚ, let q be a natural prime, and let ζ ∈ Ω be a primitive qth root of unity. Let D be a finite-dimensional intermediate field of Ω/ℚ contained in ℚ(ζ). Then there exists a prime ideal R of the ring of integers O_D whose contraction to ℤ is (q) and whose ramification index over ℤ equals [D:ℚ]. No Galois assumption on D is required.",
+      "lean_statement": "∀ (q : ℕ) (ζ : AlgebraicClosure ℚ), q.Prime → IsPrimitiveRoot ζ q → ∀ (D : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ D], D ≤ IntermediateField.adjoin ℚ ({ζ} : Set (AlgebraicClosure ℚ)) → ∃ R : Ideal (NumberField.RingOfIntegers D), R.IsPrime ∧ R.LiesOver (Ideal.span {(q : ℤ)}) ∧ Ideal.ramificationIdx R ℤ = Module.finrank ℚ D",
+      "lean_name": "p09_af497904fe_ci_cyclotomic_subfield_ramification",
+      "depends_on": [],
+      "natural_proof": "1. Fix q, ζ, and D satisfying the hypotheses, and put C = ℚ(ζ). Since q is prime, q ≥ 2. Primitivity gives ζ^q = 1 and ζ ≠ 1. Thus ζ is integral, being a root of the monic integer polynomial X^q − 1, and C is a finite extension of ℚ.\n2. Let Φ(X) = 1 + X + ⋯ + X^(q−1). The identity (X−1)Φ(X) = X^q−1 gives Φ(ζ) = 0. Moreover Φ(X+1) = ∑_{k=1}^q binomial(q,k) X^(k−1). This polynomial is monic, has constant coefficient q, and every other nonleading coefficient is divisible by q. To verify irreducibility, suppose it had a proper factorization over ℚ. Gauss's lemma for a monic integer polynomial supplies monic integer factors of positive degree. Reducing modulo q, their product is X^(q−1), so each reduced factor is a positive power of X. Both original constant coefficients are therefore divisible by q. Their product is q, contradicting q² ∤ q. Translation preserves irreducibility, so Φ is the minimal polynomial of ζ and [C:ℚ] = q−1.\n3. The q−1 elements ζ^i, for 1 ≤ i < q, are distinct primitive qth roots and are exactly the roots of Φ. They lie in C. Consequently C/ℚ is normal and separable, and its rational embeddings into Ω are the automorphisms sending ζ to these powers. Set α = 1−ζ. The norm product formula gives N_{C/ℚ}(α) = ∏_{i=1}^{q−1}(1−ζ^i) = Φ(1) = q.\n4. For 1 ≤ i < q, define u_i = (1−ζ^i)/(1−ζ). The geometric-sum identity identifies u_i with 1 + ζ + ⋯ + ζ^(i−1), so u_i belongs to O_C. The numerator is an automorphic conjugate of α; hence its norm is q, and N(u_i) = 1. Choose an integral basis of O_C. Multiplication by u_i has an integer matrix whose determinant is its field norm, namely one: the same integral basis is a rational basis of C. The adjugate matrix is therefore an integer inverse. Applied to the coordinate vector of 1, it produces v_i ∈ O_C with u_i v_i = 1. Thus every u_i is a unit of O_C.\n5. Let A = αO_C. The norm-index formula for a principal ideal, represented in the snapshot by Ideal.absNorm_span_singleton, gives |O_C/A| = |N(α)| = q. A unital ring with prime cardinality q is canonically the field ℤ/qℤ: its additive group has order q, and its nonzero identity generates that group. Thus A is maximal and contracts to (q) in ℤ. Multiplying 1−ζ^i = u_i α over 1 ≤ i < q gives q = (∏ u_i)α^(q−1). Taking ideals yields qO_C = A^(q−1). If B is any prime above (q), then A^(q−1) ⊆ B. Since q−1 is positive and B is prime, A ⊆ B; maximality of A and properness of B imply B = A. Hence A is the unique prime of C above q and its residue field is ℤ/qℤ.\n6. Use the inclusion D ⊆ C to embed O_D into O_C, and let R be the contraction of A. This inclusion is integral: every element of O_C satisfies a monic polynomial over ℤ, whose coefficients also belong to O_D. Contraction preserves primality, and contraction through ℤ shows R lies above (q).\n7. Let Q be any prime of O_D above (q). The lying-over theorem for the integral injective extension O_D ⊆ O_C, formalized by Ideal.exists_ideal_over_prime_of_isIntegral_of_isDomain, supplies a prime B of O_C contracting to Q. Its contraction to ℤ is (q), so step 5 gives B = A. Therefore Q = R. Thus R is the unique prime of O_D above q.\n8. The inclusion induces an injective ring homomorphism O_D/R → O_C/A. Its image contains every integer multiple of 1. Since O_C/A is the prime field ℤ/qℤ, these multiples exhaust the target. The injection is consequently an isomorphism compatible with the maps from ℤ/qℤ. It follows that the residue degree of R over (q) is one.\n9. The integer ring O_D is finite free over ℤ, hence finite flat, and its ℤ-rank is [D:ℚ], as recorded by NumberField.RingOfIntegers.rank. Apply Ideal.sum_ramification_inertia_eq_finrank to (q) and O_D. By step 7 the sum has exactly the prime R, and by step 8 its residue-degree factor is one. The formula therefore gives e(R/q) = [D:ℚ]. Together with step 6 this proves the required existence statement. All steps apply when q = 2 as well.",
+      "proof_key_steps": [
+        "Use the Eisenstein translate of the prime cyclotomic polynomial to compute [ℚ(ζ):ℚ] = q−1.",
+        "Compute N(1−ζ) = q and prove that each geometric-sum quotient (1−ζ^i)/(1−ζ) is an integral unit.",
+        "Deduce qO_C = ((1−ζ)O_C)^(q−1), with a unique prime above q and residue field ℤ/qℤ.",
+        "Contract that prime to O_D and use lying-over to prove uniqueness below.",
+        "Identify O_D/R with the prime residue field and obtain residue degree one.",
+        "Apply the finite-flat ramification-inertia degree formula and the integer-ring rank equality."
+      ]
+    },
+    {
+      "key": "unramified_subfield",
+      "title": "Ramification index one descends to finite subfields",
+      "statement": "Let Ω = AlgebraicClosure ℚ. Let E and D be finite-dimensional intermediate fields of Ω/ℚ with D contained in E, and let q be a natural prime. Suppose every prime ideal of O_E above (q) has ramification index one over ℤ. Then every prime ideal of O_D above (q) also has ramification index one over ℤ. Neither field is required to be Galois over ℚ.",
+      "lean_statement": "∀ (E D : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [FiniteDimensional ℚ D] (q : ℕ), q.Prime → D ≤ E → (∀ P : Ideal (NumberField.RingOfIntegers E), P.IsPrime → P.LiesOver (Ideal.span {(q : ℤ)}) → Ideal.ramificationIdx P ℤ = 1) → ∀ R : Ideal (NumberField.RingOfIntegers D), R.IsPrime → R.LiesOver (Ideal.span {(q : ℤ)}) → Ideal.ramificationIdx R ℤ = 1",
+      "lean_name": "p09_af497904fe_ci_unramified_subfield",
+      "depends_on": [],
+      "natural_proof": "1. Fix E, D, q, the inclusion D ⊆ E, and the assumed ramification-index-one condition in E. Both fields are number fields. Their integer rings are Dedekind domains, finite free over ℤ, and the field inclusion restricts to an injective homomorphism O_D → O_E compatible with the integer maps. Indeed, an element integral over ℤ remains integral under the field inclusion.\n2. The extension O_D ⊆ O_E is integral because every element of O_E satisfies a monic integer polynomial and ℤ is contained in O_D. It is also finite: any finite collection generating O_E as a ℤ-module generates it as an O_D-module. Moreover O_E is torsion-free over O_D, since both embed compatibly into the field E. A torsion-free module over a Dedekind domain is flat, so O_E is flat over O_D. These facts establish the hypotheses for lying-over and the ramification tower formula.\n3. Let R be any prime ideal of O_D whose contraction to ℤ is (q). The lying-over theorem for the integral injective extension O_D ⊆ O_E, formalized by Ideal.exists_ideal_over_prime_of_isIntegral_of_isDomain, gives a prime ideal P of O_E whose contraction to O_D is R. The injectivity makes the theorem's kernel-containment hypothesis automatic.\n4. Contracting P further to ℤ gives (q), because contraction along composed inclusions agrees with successive contraction. Hence the assumed condition in E applies to P and gives e(P/q) = 1.\n5. Apply Ideal.ramificationIdx_tower to ℤ ⊆ O_D ⊆ O_E and the primes R and P. Flatness was established in step 2, and P lies over R by construction. The formula gives e(P/q) = e(R/q) e(P/R). Thus e(R/q) e(P/R) = 1. Both factors are natural numbers, and a product of natural numbers is one only when both factors are one. In particular e(R/q) = 1.\n6. Since R was arbitrary among primes of O_D above (q), every such prime has ramification index one, as asserted.",
+      "proof_key_steps": [
+        "Equip the integer-ring inclusion O_D ⊆ O_E with its integral, finite, and flat extension properties.",
+        "Lift an arbitrary prime R above q to a prime P of O_E by lying-over.",
+        "Use transitivity of contraction and the hypothesis to obtain e(P/q) = 1.",
+        "Apply multiplicativity in the tower and conclude e(R/q) = 1 from the natural-number product equaling one."
+      ]
+    }
+  ]
+}
