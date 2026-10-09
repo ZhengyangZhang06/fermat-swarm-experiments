@@ -9,7 +9,6 @@ import Mathlib
 import Definitions.Def_HeckeEis_BinaryFormRep
 import Definitions.Def_Gamma0CoeffCohomology
 import Definitions.Def_HeckeEis_EichlerIntegral
-
 set_option autoImplicit false
 
 open scoped Manifold MatrixGroups ModularForm
@@ -1588,6 +1587,113 @@ theorem Submission.p02_es_177ebb5a_ssl_segment_estimates :
           (by simpa using hs'.1.le) (by simpa using hs'.2.trans hxL)
           (by simpa using hy))
       _ = x * w y := by rw [sub_zero, abs_of_nonneg hx, mul_comm]
+
+/-- A uniform coefficient bound for the homogeneous power `(z * X₀ + X₁) ^ n`. -/
+theorem Submission.p02_es_177ebb5a_scl_linepow_coeff_bound :
+    ∀ (n : ℕ) (z : ℂ) (d : Fin 2 →₀ ℕ),
+      ‖MvPolynomial.coeff d (HeckeEis.linePow n z).val‖ ≤
+        (2 : ℝ) ^ n * (max 1 ‖z‖) ^ n := by
+  classical
+  intro n z d
+  have hsum : d.sum (fun _ m ↦ m) = d 0 + d 1 := by
+    simp [Finsupp.sum_of_support_subset d (Finset.subset_univ d.support)]
+  have hprod : d.prod (fun j m ↦ (if j = 0 then z else (1 : ℂ)) ^ m) =
+      z ^ d 0 := by
+    rw [d.prod_fintype _ (by simp)]
+    simp
+  have hmulti : d.multinomial = (d 0 + d 1).choose (d 0) := by
+    rw [Finsupp.multinomial_eq_of_support_subset (Finset.subset_univ d.support),
+      Finset.univ_fin2, Nat.binomial_eq_choose Fin.zero_ne_one]
+  have hcoeff : MvPolynomial.coeff d (HeckeEis.linePow n z).val =
+      if d 0 + d 1 = n then (n.choose (d 0) : ℂ) * z ^ d 0 else 0 := by
+    have h := MvPolynomial.coeff_linearCombination_X_pow_of_fintype
+      (fun j : Fin 2 ↦ if j = 0 then z else (1 : ℂ)) d n
+    simp only [Fin.sum_univ_two, Fin.isValue, ite_true, one_ne_zero, ite_false,
+      MvPolynomial.smul_eq_C_mul, map_one, one_mul] at h
+    change MvPolynomial.coeff d
+      ((MvPolynomial.C z * MvPolynomial.X 0 + MvPolynomial.X 1) ^ n) = _
+    rw [h, hsum, hprod, hmulti]
+    split_ifs with hd
+    · rw [hd]
+    · rfl
+  rw [hcoeff]
+  by_cases hd : d 0 + d 1 = n
+  · rw [if_pos hd, norm_mul, Complex.norm_natCast, norm_pow]
+    have hchoose : (n.choose (d 0) : ℝ) ≤ (2 : ℝ) ^ n := by
+      exact_mod_cast Nat.choose_le_two_pow n (d 0)
+    have hpow : ‖z‖ ^ d 0 ≤ (max 1 ‖z‖) ^ n := by
+      exact (pow_le_pow_left₀ (norm_nonneg z) (le_max_right 1 ‖z‖) (d 0)).trans
+        (pow_le_pow_right₀ (le_max_left 1 ‖z‖) (by omega))
+    exact mul_le_mul hchoose hpow (pow_nonneg (norm_nonneg z) _) (by positivity)
+  · rw [if_neg hd, norm_zero]
+    positivity
+/-- Expand a homogeneous binary form in the monomials with exponents `(r, n - r)`. -/
+theorem Submission.p02_es_177ebb5a_ic_lct_monomial_expansion
+    (n : ℕ) (Q : ↥(HeckeEis.BinaryForm ℂ n)) :
+    Q.val = ∑ r : Fin (n + 1),
+      MvPolynomial.coeff (Finsupp.single (0 : Fin 2) r.val +
+        Finsupp.single (1 : Fin 2) (n - r.val)) Q.val •
+      MvPolynomial.monomial (Finsupp.single (0 : Fin 2) r.val +
+        Finsupp.single (1 : Fin 2) (n - r.val)) (1 : ℂ) := by
+  classical
+  let exponent (r : Fin (n + 1)) : Fin 2 →₀ ℕ :=
+    Finsupp.single 0 r.val + Finsupp.single 1 (n - r.val)
+  have hdegree (r : Fin (n + 1)) : (exponent r).degree = n := by
+    simp only [exponent, map_add, Finsupp.degree_single]
+    exact Nat.add_sub_of_le (Nat.le_of_lt_succ r.isLt)
+  apply MvPolynomial.ext
+  intro d
+  rw [MvPolynomial.coeff_sum]
+  simp only [MvPolynomial.coeff_smul, MvPolynomial.coeff_monomial, smul_eq_mul]
+  change MvPolynomial.coeff d Q.val = ∑ r : Fin (n + 1),
+    MvPolynomial.coeff (exponent r) Q.val * (if exponent r = d then 1 else 0)
+  by_cases hd : d.degree = n
+  · have hd01 : d 0 + d 1 = n := by
+      simpa only [Finsupp.degree_eq_sum, Fin.sum_univ_two] using hd
+    let r₀ : Fin (n + 1) := ⟨d 0, by omega⟩
+    have hr₀ : exponent r₀ = d := by
+      ext i
+      fin_cases i <;> simp [exponent, r₀]
+      omega
+    rw [Finset.sum_eq_single r₀]
+    · simp [hr₀]
+    · intro r _ hne
+      have hrd : exponent r ≠ d := by
+        intro h
+        apply hne
+        apply Fin.ext
+        have h0 := congrArg (fun e : Fin 2 →₀ ℕ => e 0) h
+        simpa [exponent, r₀] using h0
+      simp [hrd]
+    · simp
+  · have hQ : MvPolynomial.coeff d Q.val = 0 :=
+      MvPolynomial.IsHomogeneous.coeff_eq_zero Q.property hd
+    rw [hQ]
+    symm
+    apply Finset.sum_eq_zero
+    intro r _
+    have hrd : exponent r ≠ d := by
+      intro h
+      exact hd (h ▸ hdegree r)
+    simp [hrd]
+
+theorem Submission.p02_es_177ebb5a_ic_lmd_scalar_pullback
+    (h : UpperHalfPlane → ℂ) (v : ℂ)
+    (σ : Matrix.SpecialLinearGroup (Fin 2) ℤ) (τ : UpperHalfPlane)
+    (hh : HasDerivAt (fun z : ℂ => h (UpperHalfPlane.ofComplex z)) v
+      ((σ • τ : UpperHalfPlane) : ℂ)) :
+    HasDerivAt (fun z : ℂ => h (σ • UpperHalfPlane.ofComplex z))
+      (v / (HeckeEis.jFactor σ τ) ^ 2) (τ : ℂ) := by
+  have hdet : (Matrix.SpecialLinearGroup.mapGL ℝ σ).val.det = 1 :=
+    (Matrix.SpecialLinearGroup.map (algebraMap ℤ ℝ) σ).property
+  have hσ : HasDerivAt
+      (fun z : ℂ => ((σ • UpperHalfPlane.ofComplex z : UpperHalfPlane) : ℂ))
+      (1 / (HeckeEis.jFactor σ τ) ^ 2) (τ : ℂ) := by
+    simpa only [hdet, Complex.ofReal_one, ← HeckeEis.jFactor_eq_denom] using!
+      (UpperHalfPlane.hasStrictDerivAt_smul
+        (g := Matrix.SpecialLinearGroup.mapGL ℝ σ) (by rw [hdet]; exact zero_lt_one) τ).hasDerivAt
+  simpa only [Function.comp_def, UpperHalfPlane.ofComplex_apply, mul_one_div] using
+    hh.comp_of_eq (τ : ℂ) hσ (by simp only [UpperHalfPlane.ofComplex_apply])
 
 theorem Submission.p02_es_177ebb5a_sd_jr_linepow_eval :
     ∀ (n r : ℕ), r ≤ n → ∀ t : ℂ,
