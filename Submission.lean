@@ -10828,6 +10828,85 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     intro z hz hne
     obtain ⟨r, hr, han⟩ := (hLan z hz hne).exists_ball_analyticOnNhd
     exact ⟨r, hr, han.differentiableOn.isExactOn_ball⟩
+  -- Step 7: the exact counterclockwise contribution of a small circle about a zero.
+  have hlocalResidue : ∀ v ∈ H, ∃ r : ℝ, 0 < r ∧ Metric.closedBall v r ⊆ H ∧
+      ∀ s : ℝ, 0 < s → s ≤ r →
+        (∀ z ∈ Metric.sphere v s, F z ≠ 0) ∧ CircleIntegrable L v s ∧
+          circleIntegral L v s =
+            2 * (Real.pi : ℂ) * Complex.I * (analyticOrderNatAt F v : ℂ) := by
+    intro v hv
+    obtain ⟨b, hb, hbv, hFb⟩ := hfactor v hv
+    have hnear : ∀ᶠ z in nhds v, z ∈ H ∧ AnalyticAt ℂ b z ∧ b z ≠ 0 ∧
+        F z = (z - v) ^ analyticOrderNatAt F v * b z := by
+      filter_upwards [hH.mem_nhds hv, hb.eventually_analyticAt,
+        hb.continuousAt.eventually_ne hbv, hFb] with z hz hbz hbnz hFbz
+      exact ⟨hz, hbz, hbnz, hFbz⟩
+    obtain ⟨r, hr, hrprop⟩ := Metric.eventually_nhds_iff_ball.mp hnear
+    let G : ℂ → ℂ := fun z => deriv b z / b z
+    have hG : AnalyticOnNhd ℂ G (Metric.ball v r) := by
+      intro z hz
+      obtain ⟨_, hbz, hbnz, _⟩ := hrprop z hz
+      exact hbz.deriv.div hbz hbnz
+    have hlocal : ∀ z ∈ Metric.ball v r, z ≠ v →
+        F z ≠ 0 ∧ L z = (analyticOrderNatAt F v : ℂ) / (z - v) + G z := by
+      intro z hz hne
+      obtain ⟨_, hbz, hbnz, hFbz⟩ := hrprop z hz
+      have hp : (z - v) ^ analyticOrderNatAt F v ≠ 0 :=
+        pow_ne_zero _ (sub_ne_zero.mpr hne)
+      refine ⟨by rw [hFbz]; exact mul_ne_zero hp hbnz, ?_⟩
+      have heq : F =ᶠ[nhds z] fun w => (w - v) ^ analyticOrderNatAt F v * b w := by
+        filter_upwards [Metric.isOpen_ball.mem_nhds hz] with w hw
+        exact (hrprop w hw).2.2.2
+      change logDeriv F z = (analyticOrderNatAt F v : ℂ) / (z - v) + logDeriv b z
+      have hd : DifferentiableAt ℂ (fun w : ℂ => w - v) z :=
+        differentiableAt_id.sub_const v
+      have hdp : DifferentiableAt ℂ
+          (fun w : ℂ => (w - v) ^ analyticOrderNatAt F v) z := hd.pow _
+      rw [(logDeriv_congr_nhds heq).self_of_nhds,
+        logDeriv_mul z hp hbnz hdp hbz.differentiableAt,
+        logDeriv_fun_pow hd]
+      simp only [logDeriv_apply, deriv_sub_const, deriv_id'', mul_one_div]
+    have hhalf : Metric.closedBall v (r / 2) ⊆ Metric.ball v r :=
+      Metric.closedBall_subset_ball (by linarith)
+    refine ⟨r / 2, half_pos hr, fun z hz => (hrprop z (hhalf hz)).1, ?_⟩
+    intro s hs hsr
+    have hsub : Metric.closedBall v s ⊆ Metric.ball v r :=
+      (Metric.closedBall_subset_closedBall hsr).trans hhalf
+    have hsphere : ∀ z ∈ Metric.sphere v s, z ∈ Metric.ball v r ∧ z ≠ v := by
+      intro z hz
+      exact ⟨hsub (Metric.sphere_subset_closedBall hz), Metric.ne_of_mem_sphere hz hs.ne'⟩
+    have hLcont : ContinuousOn L (Metric.sphere v s) := by
+      intro z hz
+      obtain ⟨hzr, hne⟩ := hsphere z hz
+      exact (hLan z (hrprop z hzr).1 (hlocal z hzr hne).1).continuousAt.continuousWithinAt
+    have hsing : CircleIntegrable
+        (fun z : ℂ => (analyticOrderNatAt F v : ℂ) / (z - v)) v s := by
+      apply ContinuousOn.circleIntegrable hs.le
+      exact continuousOn_const.div (continuousOn_id.sub continuousOn_const)
+        (fun z hz => sub_ne_zero.mpr (hsphere z hz).2)
+    have hGcont := (hG.mono hsub).continuousOn
+    have hGzero : circleIntegral G v s = 0 := by
+      apply Complex.circleIntegral_eq_zero_of_differentiable_on_off_countable hs.le
+        Set.countable_empty hGcont
+      intro z hz
+      exact (hG z (hsub (Metric.ball_subset_closedBall hz.1))).differentiableAt
+    refine ⟨fun z hz => (hlocal z (hsphere z hz).1 (hsphere z hz).2).1,
+      hLcont.circleIntegrable hs.le, ?_⟩
+    calc
+      circleIntegral L v s = circleIntegral
+          (fun z => (analyticOrderNatAt F v : ℂ) / (z - v) + G z) v s :=
+        circleIntegral.integral_congr hs.le
+          (fun z hz => (hlocal z (hsphere z hz).1 (hsphere z hz).2).2)
+      _ = circleIntegral (fun z => (analyticOrderNatAt F v : ℂ) / (z - v)) v s := by
+        rw [circleIntegral.integral_add hsing
+          ((hGcont.mono Metric.sphere_subset_closedBall).circleIntegrable hs.le), hGzero, add_zero]
+      _ = (analyticOrderNatAt F v : ℂ) * circleIntegral (fun z => (z - v)⁻¹) v s := by
+        simpa only [div_eq_mul_inv, smul_eq_mul] using
+          circleIntegral.integral_smul (analyticOrderNatAt F v : ℂ)
+            (fun z : ℂ => (z - v)⁻¹) v s
+      _ = 2 * (Real.pi : ℂ) * Complex.I * (analyticOrderNatAt F v : ℂ) := by
+        rw [circleIntegral.integral_sub_inv_of_mem_ball (Metric.mem_ball_self hs)]
+        ring
   -- Steps 5–6: compactness gives a common size for primitive neighborhoods.
   have hprimitiveMesh : ∀ Q : Set ℂ, IsCompact Q → Q ⊆ H →
       (∀ z ∈ Q, F z ≠ 0) → ∃ δ : ℝ, 0 < δ ∧
@@ -10883,6 +10962,86 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
       _ = 0 := by
         simp_rw [hnext]
         rw [Equiv.sum_comp next (fun i => g (η i (a i))), sub_self]
+  -- Steps 5–7: simultaneously excise the interior zeros and retain a primitive mesh.
+  have hinteriorExcision : ∀ U : Set ℂ, IsOpen U → U.Nonempty →
+      IsCompact (closure U) → closure U ⊆ H → (∀ z ∈ frontier U, F z ≠ 0) →
+      let S : Set ℂ := {z ∈ U | F z = 0}
+      ∃ (r : ℝ) (p : ℂ), 0 < r ∧ p ∈ U ∧ F p ≠ 0 ∧
+        S.Pairwise (fun v w => Disjoint (Metric.closedBall v r) (Metric.closedBall w r)) ∧
+        (∀ v ∈ S, Metric.closedBall v r ⊆ U ∧ CircleIntegrable L v r ∧
+          circleIntegral L v r =
+            2 * (Real.pi : ℂ) * Complex.I * (analyticOrderNatAt F v : ℂ)) ∧
+        let V := U \ ⋃ v ∈ S, Metric.closedBall v r
+        p ∈ V ∧ IsOpen V ∧ IsCompact (closure V) ∧
+          (∀ z ∈ closure V, F z ≠ 0) ∧
+          ∃ δ : ℝ, 0 < δ ∧ ∀ z ∈ closure V, Complex.IsExactOn L (Metric.ball z δ) := by
+    intro U hU hUne hUc hUH hUF
+    let S : Set ℂ := {z ∈ U | F z = 0}
+    have hS : S.Finite := (hfiniteZeros (closure U) hUc hUH).subset
+      (fun z hz => ⟨subset_closure hz.1, hz.2⟩)
+    obtain ⟨p, hpU, hpF⟩ : ∃ p ∈ U, F p ≠ 0 := by
+      by_contra! hzero
+      obtain ⟨p, hp⟩ := hUne
+      apply hFfinite p (hUH (subset_closure hp))
+      apply analyticOrderAt_eq_top.mpr
+      filter_upwards [hU.mem_nhds hp] with z hz
+      exact hzero z hz
+    have hsmall : ∀ v ∈ S, ∀ᶠ r in nhdsWithin (0 : ℝ) (Set.Ioi 0),
+        Metric.closedBall v r ⊆ U ∧ p ∉ Metric.closedBall v r ∧ CircleIntegrable L v r ∧
+          circleIntegral L v r =
+            2 * (Real.pi : ℂ) * Complex.I * (analyticOrderNatAt F v : ℂ) := by
+      intro v hv
+      obtain ⟨a, ha, haU⟩ := Metric.mem_nhds_iff.mp (hU.mem_nhds hv.1)
+      obtain ⟨b, hb, _, hbint⟩ := hlocalResidue v (hUH (subset_closure hv.1))
+      have hpv : p ≠ v := by rintro rfl; exact hpF hv.2
+      have hlt (c : ℝ) (hc : 0 < c) :
+          ∀ᶠ r in nhdsWithin (0 : ℝ) (Set.Ioi 0), r < c :=
+        (eventually_lt_nhds hc).filter_mono nhdsWithin_le_nhds
+      filter_upwards [self_mem_nhdsWithin, hlt a ha, hlt b hb,
+        hlt (dist p v) (dist_pos.mpr hpv)] with r hr hra hrb hrpv
+      refine ⟨(Metric.closedBall_subset_ball hra).trans haU, ?_, (hbint r hr hrb.le).2⟩
+      intro hp
+      exact (not_le_of_gt hrpv) (Metric.mem_closedBall.mp hp)
+    have hpairs : ∀ v ∈ S, ∀ w ∈ S,
+        ∀ᶠ r in nhdsWithin (0 : ℝ) (Set.Ioi 0),
+          v ≠ w → Disjoint (Metric.closedBall v r) (Metric.closedBall w r) := by
+      intro v _ w _
+      by_cases hvw : v = w
+      · exact Filter.Eventually.of_forall (fun _ hne => (hne hvw).elim)
+      have hlt : ∀ᶠ r in nhdsWithin (0 : ℝ) (Set.Ioi 0), r < dist v w / 2 :=
+        (eventually_lt_nhds (half_pos (dist_pos.mpr hvw))).filter_mono nhdsWithin_le_nhds
+      filter_upwards [hlt] with r hr
+      intro _
+      exact Metric.closedBall_disjoint_closedBall (by linarith)
+    have hall := (Filter.eventually_all_finite hS).mpr hsmall
+    have hallpairs := (Filter.eventually_all_finite hS).mpr
+      (fun v hv => (Filter.eventually_all_finite hS).mpr (hpairs v hv))
+    have hpos : ∀ᶠ r in nhdsWithin (0 : ℝ) (Set.Ioi 0), 0 < r := self_mem_nhdsWithin
+    obtain ⟨r, hr, hrsmall, hrpairs⟩ :=
+      (hpos.and (hall.and hallpairs)).exists
+    let V : Set ℂ := U \ ⋃ v ∈ S, Metric.closedBall v r
+    have hVopen : IsOpen V := hU.sdiff
+      (hS.isClosed_biUnion (fun _ _ => Metric.isClosed_closedBall))
+    have hVU : closure V ⊆ closure U := closure_mono (fun _ hz => hz.1)
+    have hVc : IsCompact (closure V) := hUc.of_isClosed_subset isClosed_closure hVU
+    have hVF : ∀ z ∈ closure V, F z ≠ 0 := by
+      intro z hz hzero
+      have hzU : z ∈ U := by
+        by_contra hznot
+        exact hUF z (by rw [hU.frontier_eq]; exact ⟨hVU hz, hznot⟩) hzero
+      have hsub : V ⊆ (Metric.ball z r)ᶜ := by
+        intro w hw hwz
+        exact hw.2 (Set.mem_iUnion₂.mpr
+          ⟨z, ⟨hzU, hzero⟩, Metric.ball_subset_closedBall hwz⟩)
+      exact (closure_minimal hsub Metric.isOpen_ball.isClosed_compl) hz
+        (Metric.mem_ball_self hr)
+    refine ⟨r, p, hr, hpU, hpF, fun v hv w hw hne => hrpairs v hv w hw hne,
+      fun v hv => ⟨(hrsmall v hv).1, (hrsmall v hv).2.2⟩, ?_⟩
+    refine ⟨⟨hpU, ?_⟩, hVopen, hVc, hVF,
+      hprimitiveMesh (closure V) hVc (hVU.trans hUH) hVF⟩
+    intro hp
+    obtain ⟨v, hv, hpv⟩ := Set.mem_iUnion₂.mp hp
+    exact (hrsmall v hv).2.1 hpv
   have htopBound : ∀ (y : ℝ), Y ≤ y → ∀ x : ℝ,
       ‖L ((x : ℂ) + (y : ℂ) * Complex.I) -
         2 * (Real.pi : ℂ) * Complex.I * (analyticOrderNatAt A 0 : ℂ)‖ ≤
@@ -11181,6 +11340,13 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     intro hp
     obtain ⟨v, hv, hpv⟩ := Set.mem_iUnion₂.mp hp
     exact hε v hv hpv
+  have hsmallCuts : ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0), 0 < ε ∧ ε < 1 :=
+    (show ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0), 0 < ε from self_mem_nhdsWithin).and
+      ((eventually_lt_nhds (show (0 : ℝ) < 1 by norm_num)).filter_mono nhdsWithin_le_nhds)
+  have hcutExcision :=
+    (hsmallCuts.and (hcutNonempty.and hcutBoundaryZeroFree)).mono (fun ε hε =>
+      hinteriorExcision (Ω ε) (hcutOpen ε hε.1.1 hε.1.2) hε.2.1
+        (hcutCompact ε) ((hcutClosureK ε).trans hKH) hε.2.2)
   have htranslateDisks : ∀ v ∈ H, ∀ ε : ℝ, 0 < ε → ε < 1 →
       (fun z : ℂ => z + 1) '' D v ε = D (v + 1) ε := by
     intro v hv ε hε hε1
@@ -11196,6 +11362,83 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
   let γ : ℂ → ℝ → ℝ → ℂ := fun v ε t =>
     (v - star v * ((ε : ℂ) * Complex.exp ((t : ℂ) * Complex.I))) /
       (1 - (ε : ℂ) * Complex.exp ((t : ℂ) * Complex.I))
+  -- Steps 9–11: exact coordinates for the cut map and its incident geodesics.
+  have hcutCoordinates : ∀ v ∈ H, ∀ w : ℂ, Complex.normSq w < 1 →
+      let z := (v - star v * w) / (1 - w)
+      0 < z.im ∧
+        (z.re - v.re) * Complex.normSq (1 - w) = -2 * v.im * w.im ∧
+        (Complex.normSq z - Complex.normSq v) * Complex.normSq (1 - w) =
+          4 * v.im * (v * star w).im ∧
+        (z - v) / (z - star v) = w := by
+    intro v hv w hw
+    let z := (v - star v * w) / (1 - w)
+    have hden : 1 - w ≠ 0 := by
+      intro heq
+      have hw1 : w = 1 := (sub_eq_zero.mp heq).symm
+      simp only [hw1, Complex.normSq_one, lt_self_iff_false] at hw
+    have hD : 0 < Complex.normSq (1 - w) := Complex.normSq_pos.mpr hden
+    have hvbar : v - star v ≠ 0 := by
+      intro heq
+      have him := congrArg Complex.im heq
+      have hvpos : 0 < v.im := hv
+      simp only [Complex.sub_im, Complex.star_def, Complex.conj_im, Complex.zero_im] at him
+      linarith
+    have him : z.im * Complex.normSq (1 - w) = v.im * (1 - Complex.normSq w) := by
+      dsimp only [z]
+      rw [Complex.div_im, ← sub_div, div_mul_cancel₀ _ hD.ne']
+      simp only [Complex.sub_re, Complex.sub_im, Complex.mul_re, Complex.mul_im,
+        Complex.one_re, Complex.one_im, Complex.star_def, Complex.conj_re,
+        Complex.conj_im, Complex.normSq_apply]
+      ring
+    refine ⟨(mul_pos_iff_of_pos_right hD).mp
+      (him.symm ▸ mul_pos hv (sub_pos.mpr hw)), ?_, ?_, ?_⟩
+    · rw [Complex.div_re, ← add_div, sub_mul, div_mul_cancel₀ _ hD.ne']
+      simp only [Complex.sub_re, Complex.sub_im, Complex.mul_re, Complex.mul_im,
+        Complex.one_re, Complex.one_im, Complex.star_def, Complex.conj_re,
+        Complex.conj_im, Complex.normSq_apply]
+      ring
+    · rw [Complex.normSq_div, sub_mul, div_mul_cancel₀ _ hD.ne']
+      simp only [Complex.normSq_apply, Complex.sub_re, Complex.sub_im,
+        Complex.mul_re, Complex.mul_im, Complex.one_re, Complex.one_im,
+        Complex.star_def, Complex.conj_re, Complex.conj_im]
+      ring
+    · change (z - v) / (z - star v) = w
+      have hsub : z - v = (v - star v) * w / (1 - w) := by
+        dsimp only [z]
+        field_simp [hden]
+        ring
+      have hsubbar : z - star v = (v - star v) / (1 - w) := by
+        dsimp only [z]
+        field_simp [hden]
+        ring
+      rw [hsub, hsubbar]
+      field_simp [hden, hvbar]
+  have hgammaOnCut : ∀ v ∈ H, ∀ ε : ℝ, 0 < ε → ε < 1 → ∀ t : ℝ,
+      γ v ε t ∈ D v ε ∧
+        ‖(γ v ε t - v) / (γ v ε t - star v)‖ = ε ∧ γ v ε t ≠ v := by
+    intro v hv ε hε hε1 t
+    let w : ℂ := (ε : ℂ) * Complex.exp ((t : ℂ) * Complex.I)
+    have hnorm : ‖w‖ = ε := by
+      simpa only [w, circleMap, zero_add, abs_of_pos hε] using norm_circleMap_zero ε t
+    have hwsq : Complex.normSq w < 1 := by
+      rw [Complex.normSq_eq_norm_sq, hnorm]
+      nlinarith
+    have hc := hcutCoordinates v hv w hwsq
+    have hratio : ‖(γ v ε t - v) / (γ v ε t - star v)‖ = ε := by
+      change ‖((v - star v * w) / (1 - w) - v) /
+        ((v - star v * w) / (1 - w) - star v)‖ = ε
+      rw [hc.2.2.2]
+      exact hnorm
+    refine ⟨⟨hc.1, hratio.le⟩, hratio, ?_⟩
+    intro heq
+    rw [heq, sub_self, zero_div, norm_zero] at hratio
+    linarith
+  have hgammaZeroFree : ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0),
+      ∀ v ∈ Z, ∀ t : ℝ, F (γ v ε t) ≠ 0 := by
+    filter_upwards [hsmallCuts, hcutsNoOtherZeros] with ε hε hzero
+    intro v hv t
+    obtain ⟨hmem, _, hne⟩ := hgammaOnCut v (hKH hv.1) ε hε.1 hε.2 t
+    exact hzero v hv (γ v ε t) hmem hne
   let indent : ℂ → (ℝ → ℝ) → (ℝ → ℝ) → ℝ → ℂ := fun v α β ε =>
     intervalIntegral (fun t : ℝ => L (γ v ε t) * deriv (γ v ε) t)
       (α ε) (β ε) MeasureTheory.volume
@@ -11231,7 +11474,10 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
   the oriented cut boundary and the endpoint functions required by hclockwise;
   step 17 sums the boundary integrals and takes the two limits. The facts above
   construct the compact retained region with a zero-free boundary and preserved
-  interior zeros, separate the cuts, and cancel finite walks in primitive domains.
-  The oriented boundary parametrization and global contour identity remain. -/
+  interior zeros, separate the cuts, and excise the interior zeros with exact circle
+  contributions and a nonempty zero-free remaining closure. They also establish
+  exact cut-coordinate identities and cancel finite walks in primitive domains.
+  The oriented boundary parametrization, subdivision, and global contour identity
+  remain. -/
 
 end Submission
