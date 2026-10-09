@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "b2dc759ee3c21fb0ccc1e1b3d03768a2c596db5feb7b351d43a71b8cd5857401",
+  "git_delta": {
+    "base_commit": "34a1c75ad294352f27456c6b9310c30b101f95fe",
+    "candidate_commit": "9ecaaa7bd186656c7004a6ebd55ce78e13191cba",
+    "target": "Submission.lean",
+    "declaration": "p08_7d1ff633a4_cp11_left_level_boundary",
+    "diff_sha256": "da1aeb63e25ca43ec18769d98fa3a4e0d17a82c020c70c3ffb4437b2253f018f",
+    "source_sha256": "d56618e3a4f57181814956d25a7c814396a1b31f63eb54f6d92d0cc1da893289",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p08_7d1ff633a4_cp11_left_level_boundary",
+      "statement": "∀ {k G : Type} [Field k] [Group G] (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)) (A B N : Rep.{0} k G) (φ : A →ₗ[k] B →ₗ[k] N), (∀ (s : G) (a : A) (b : B), φ (A.ρ s a) (B.ρ s b) = N.ρ s (φ a b)) → ∀ (a : A) (g : groupCohomology.cocycles₁ B), groupCohomology.IsLevelConstant₁ r (⇑g) → groupCohomology.cupCochain φ (fun s : G => A.ρ s a - a) (⇑g) ∈ groupCohomology.levelCoboundaries₂ r N",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
