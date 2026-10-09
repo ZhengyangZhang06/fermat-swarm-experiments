@@ -1,0 +1,297 @@
+{
+  "scope": "Integration-only restoration of accepted Lean declarations; no proof, contract, plan or handoff revision.",
+  "integration_start": "ada38b611d87bbc9bb7f8722e81b9e192ab225f3",
+  "accepted_tip": "190f98289252529100ce267e9d8928e2796914aa",
+  "canonical_helper_source": "d182bd1cc3b0303d7abb94ca8ad817d36a2a511c",
+  "reviewed_commits": [
+    "e3987a3d6ecbd46f78e1dfc9c4bc1aec16ec1966",
+    "3985403846783bdde475d1679c89280a944c6fa5",
+    "9b67bdeb2b43825ce91582fb6300e154ad0d462c",
+    "61f8d38161eafc478733f2903b44341c825fa924",
+    "e3f5ae89f1dec4b547de596e68a727d23bac3cc0",
+    "4e42a9ea44261a5ee93232944e1142da908082f3",
+    "44e58ff6381a75aa85a43a96f337e93ee544732c",
+    "8f82b00f0993e48282f4ef7d2ed458efe8d271a6",
+    "ffa47a0e770d2e4db25cb9f368ae95ca172498b7",
+    "9c077f4ec3801347d4ee1fd0734e2fa657ecd1e2",
+    "42dea9a72a669ef24eaf5dd18cbc41b4f37ff87f",
+    "87db581f5084c0ea5dd3c557fff09cfe538f412b",
+    "14784fdb6ff24742c529e672c4f3ba9fb1c96237",
+    "603351b4a4e168a0aee45493a8349b234a2a210e",
+    "a19e02d76f6ca12f2a040174065ff36de7f8f67b",
+    "af04ab8944b47d774ba5ab83f83c8abfab03c810",
+    "29187b4b36c8ccd82d5e9da7500f10f29cde655c",
+    "7e1f6695992fa3d4c01d3482a39a0039a9a73bec",
+    "f27e559249dcab623e84b409e160322c5a255426",
+    "75cc54718f6620600647050408b7ff1f9e08d0ce",
+    "e0b17fb73b996dd30ec90e37f06fc764cc39f850",
+    "e2e4f4308c30d31166b5c935077ad46aacf303d3",
+    "08cadbb50aabd2c6b80e907b63ae8d704f9be3d3",
+    "3f70b528e496642c229d1d521ace68968b7b0717",
+    "67e36ba374f956d93c0000795a22ad6cfd6ef82b",
+    "f3aa1b42556e533ff285f197d52fde723a14eec0",
+    "7a0067e163bf9882590ebebd83f0557494cd4c8c",
+    "462d43b24555c1883e74c34cfe1b7b25d23e4aac",
+    "746346cb3fa5d2b707a2ab76e2be8fa55ca4ea4b",
+    "105fd979e79e3fe17120ebaf0654e8d1b806b845",
+    "af58f172431760c5eee5ee31ec99497b16d7163a",
+    "1e3373aa90a77bc6bc32cb811a2cfe4a38b15093",
+    "b457cf50e32818413845583a2f62819076595394",
+    "7dc83141139d04b673106d975df1ef0017a87dd3",
+    "c663dacba934fdf28ca7b6f627bddb16af6de0fb",
+    "024be96f98a16b1affcc114ce243265b43c9331a",
+    "64c0f0589c47a3561b09f4523137e717b63f6772",
+    "a306a8afdc8cf37939bf103f125533741d3c9d3b",
+    "8abfaa55ad87553249d340b684408444af6460d0",
+    "e23c4d37a8e1573c8434d56305164efb50f59192",
+    "25eaeb2be0e6c6c604c3e68662c87df03bd127b3",
+    "bf1486cb6e69c8981247a3f72b76168947bb81f0",
+    "f98ff241eb51c7691784cb96a725de4e85f39c1c",
+    "3a5c92eee4c0ef69a3f62d73508d1204415d1f11",
+    "a07facf92e6b9a5584cea46276065c71123765ac",
+    "1a39e08d2b33e8899709b591fba1d0492576795d",
+    "d31c4a52e403f977e85ee1e88abb4945f4354128",
+    "a48c679dcefe8c0498c5008d4fefe8dd195d920e",
+    "28fa415b4ce0447d3c301c5ab68a3f0407f4e48e",
+    "24850c729d726ce06ef383ab79f08e9db912d660",
+    "e32323071a37355970ab5ed91e026d876b43bb6e",
+    "012d10f0be387c769dda918ab21c78c21579c594",
+    "2cc8a485366a3e92bd0a0719bcc2e1ecc7ee1de5",
+    "061084b3c4b80f21b18f158d752f1324401b9235",
+    "523d909c7ee77a02e7dd89cd0236d7815b35050d",
+    "5010dc0a8de3dae2c1f15d8eec99fd0acac4b140",
+    "f939c14f06874cefea543cb4240b367d7dab729e",
+    "42b1395cf4582fa3eac50414013e2bd13e85a0e3",
+    "8d80b56479aa4ae321797effee93d4225064f7d3",
+    "d9088d53d263432096045e54f50b028c91a52fe3",
+    "da5c5424eef09c26e174af2d71319bd5a2ae58d5",
+    "5ff18a50d68141cfa90dd30c5d835b9d652fe60a",
+    "9ade0226f5e03ca686bc1101bc30062c6a9b61ec",
+    "470632252653347ec3599870348c10e83ce11225",
+    "80c99b5edeebc62e4c09f0ed608e0f97fb81a521",
+    "47937d27fa01d24462b9f10a3526f5e9f5919765",
+    "f42efdab7ebc6aba8b0dede02e4b5f7db557eff9",
+    "659dc6a799d225d1876d3562d6a74511b4981796",
+    "0632c11f1d46a28cfb502e0f261b9f326485db4f",
+    "1a456e7452ce9686a449eb433d298837297972a4",
+    "b03444ab6f17f81aa10fc5b1d09002408f835f44",
+    "246822bee513ee41680fd27bb8e336db600db5b0",
+    "9e313cc49b2623aa6123fe9ad3f8317727bfc422",
+    "190f98289252529100ce267e9d8928e2796914aa"
+  ],
+  "history_reconciliation": "Keep the integration start as first parent and accepted tip as second parent. All 74 reviewed commits become ancestors. Preserve all canonical non-Submission files, including the three canonical audit differences.",
+  "repair": {
+    "file": "Submission.lean",
+    "before_sha256": "25b9232aa3b1c5449287525564045eef4d09904e9df6646e052467d9e6d21ca6",
+    "after_sha256": "7655614b397d0543d8e5522d6631907d00a43d16d1fd2903f70038ec8c8aa69f",
+    "accepted_file_byte_exact": true,
+    "root_declaration_and_proof_byte_exact_with_integration_start": true,
+    "frozen_header_byte_exact": true,
+    "declarations": 16,
+    "helpers": [
+      {
+        "name": "Submission.p07_rr_isogeny_transport_857cd4d38c",
+        "canonical_declaration_byte_exact": true,
+        "declaration_sha256": "3c99b8a54bb9a8b4ab429f42a0c5e73ab063ba3c846212e7c14b7a838bc5e108"
+      },
+      {
+        "name": "Submission.p07_flp_point_equiv_857cd4d38c",
+        "canonical_declaration_byte_exact": true,
+        "declaration_sha256": "df133f16a439559c69c6f364d417c9ed66f219d91dea14e874a1cd9a5dbf6482"
+      },
+      {
+        "name": "Submission.p07_rr_pullback_comp_857cd4d38c",
+        "canonical_declaration_byte_exact": true,
+        "declaration_sha256": "85e055196f81b5a8bf90a39c6a5e766fb12ef2ce04583cd9db80b3bed1b8dc8d"
+      },
+      {
+        "name": "Submission.p07_cq_level_geometry_pullback_857cd4d38c",
+        "canonical_declaration_byte_exact": true,
+        "declaration_sha256": "9c5aa3cd80e39927deee8e5bf68dfeff5f9d26f12e1ec0ed8fe3dc3a14b8d0d6"
+      },
+      {
+        "name": "Submission.p07_cre_group_law_857cd4d38c",
+        "canonical_declaration_byte_exact": true,
+        "declaration_sha256": "e378769af16c8323555fd4b6fb1a3f359dc1253d7c7282c3cd7d5d4458b15efe"
+      },
+      {
+        "name": "Submission.p07_cq_group_law_pullback_857cd4d38c",
+        "canonical_declaration_byte_exact": true,
+        "declaration_sha256": "d5d5ebc2439b88594e5fac10b014655285a13fa4236da1fa4fb04f9c289e9f67"
+      },
+      {
+        "name": "Submission.p07_cre_abelian_surface_857cd4d38c",
+        "canonical_declaration_byte_exact": true,
+        "declaration_sha256": "628a5b1f08982e5832426fc7392caf9b81ae3aa720399ae998ce87970b1eef5e"
+      },
+      {
+        "name": "Submission.p07_cre_finite_flat_rank_857cd4d38c",
+        "canonical_declaration_byte_exact": true,
+        "declaration_sha256": "bb7f5e86a2646843b91bb6fdbf1102ce1ae8ecad58a32da8340c83ee5a7510ee"
+      },
+      {
+        "name": "Submission.p07_curve_ring_equiv_857cd4d38c",
+        "canonical_declaration_byte_exact": true,
+        "declaration_sha256": "c7468a22b419154b1056e924e12d57e6aa7182ac7750348c64a20a9744407549"
+      },
+      {
+        "name": "Submission.p07_flp_nsmul_precomp_857cd4d38c",
+        "canonical_declaration_byte_exact": true,
+        "declaration_sha256": "a1b7764817f061d8d601b3f896d8ea72558dd5726711c50df084f632c8bbaed3"
+      },
+      {
+        "name": "Submission.p07_cq_abelian_surface_quotient_857cd4d38c",
+        "canonical_declaration_byte_exact": true,
+        "declaration_sha256": "53611c9be73b5107620ff0ddd3113b631ae79ae0993223581dc97a3c6dcb2ee1"
+      },
+      {
+        "name": "Submission.p07_flq_curve_quotient_857cd4d38c",
+        "canonical_declaration_byte_exact": true,
+        "declaration_sha256": "41d556411dbba2da814ea2fe0c452710f5560a9bb2508be0fa9ec0c0ca42db94"
+      },
+      {
+        "name": "Submission.p07_flq_full_level_pullback_857cd4d38c",
+        "canonical_declaration_byte_exact": true,
+        "declaration_sha256": "a018c36b5d6b3d8053b5f616a9c4886d01b63e39ba46a69b8bf1c90d1bf2d84e"
+      },
+      {
+        "name": "Submission.p07_full_level_quotient_857cd4d38c",
+        "canonical_declaration_byte_exact": true,
+        "declaration_sha256": "e172c783a3adbe67147d324d8472a907db5c84f089fb2aaab835ad4436d7c54e"
+      },
+      {
+        "name": "Submission.p07_rigidification_reduction_857cd4d38c",
+        "canonical_declaration_byte_exact": true,
+        "declaration_sha256": "43a4b7e57cc5399f385901085595c75f40268bf840edce3895e8fbae2ca2a06b"
+      }
+    ],
+    "reason": "Replay interleaved tactic and comment fragments, duplicated eight declaration occurrences, and omitted the accepted point-equivalence helper. Restore the exact reviewed source with all 15 canonical helpers in dependency order."
+  },
+  "retained_canonical_audit_files": [
+    "proofs/fermat-p07/finite-flat-rank-integration-audit.json",
+    "proofs/fermat-p07/pullback-point-equivalence-audit.md",
+    "proofs/fermat-p07/rigidification-reduction-integration-audit.json"
+  ],
+  "protected_input_sha256": {
+    "Fermat/Thm_CerednikDrinfeld_QM_RigidifiedPairClass_exists_ptR_eq.lean": "2d5df12b49d873c6d197054989c5bc5613b213fa67a795a3a15e62b644c52a86",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/problem.md": "5f0871c2e93d5288092a1f00902e3f8add02d0e21d6e142ac2ea7d6dfbe7d1ce",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root/natural-proof-v4.md": "1d55dd07b67a52651ba62e6c13c5965cdbf51a71aa49e3d1d0ce081e2763dc4d",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root/plan-draft-v1.md": "1198e5bb56391d9272e0bc106e9f4a14b0d6472257970edce77900762f78a6f8",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json": "7a693667f3887c9ad53914a2f2caec85a3d20f69d227f2adb18f4be2c4924603",
+    "/runtime/operator-header-policy-v1/policy.json": "96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96"
+  },
+  "dependency_source_precheck": [
+    {
+      "name": "mathlib",
+      "revision": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "tracked_clean": true
+    },
+    {
+      "name": "plausible",
+      "revision": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "tracked_clean": true
+    },
+    {
+      "name": "LeanSearchClient",
+      "revision": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "tracked_clean": true
+    },
+    {
+      "name": "importGraph",
+      "revision": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "tracked_clean": true
+    },
+    {
+      "name": "proofwidgets",
+      "revision": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "tracked_clean": true
+    },
+    {
+      "name": "aesop",
+      "revision": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "tracked_clean": true
+    },
+    {
+      "name": "Qq",
+      "revision": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "tracked_clean": true
+    },
+    {
+      "name": "batteries",
+      "revision": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "tracked_clean": true
+    },
+    {
+      "name": "Cli",
+      "revision": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "tracked_clean": true
+    }
+  ],
+  "compiler_copy_policy": {
+    "path": "/runtime/operator-header-policy-v1/policy.json",
+    "sha256": "96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96",
+    "source_commit": "73257f1e32d99b75813b037f28a5cf45a2db886d",
+    "contract_file": "Fermat/Thm_CerednikDrinfeld_QM_RigidifiedPairClass_exists_ptR_eq.lean",
+    "contract_sha256": "2d5df12b49d873c6d197054989c5bc5613b213fa67a795a3a15e62b644c52a86",
+    "remove_lines": [
+      13,
+      14,
+      15
+    ],
+    "tracked_header_unchanged": true,
+    "acceptance": "Only the configured comparator may certify the private compiler-copy repair, target-absence probe, exact type, kernel and transitive axioms."
+  },
+  "reference_use": [
+    {
+      "source": "local-project",
+      "snapshot": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89",
+      "manifest": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+      "mode": "local-project",
+      "project_commit": "73257f1e32d99b75813b037f28a5cf45a2db886d",
+      "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "queries": [
+        {
+          "command": "rg -n opensMapFinal|baseChangePointToBase_ofBase|dualNumberFst_apply project/Definitions mathlib/Mathlib",
+          "exit_code": 1,
+          "output": "",
+          "finding": "No matches."
+        },
+        {
+          "command": "rg -n finrank_pullback_snd|finrank_of_isPullback mathlib/Mathlib/AlgebraicGeometry/Morphisms/FlatRank.lean",
+          "exit_code": 0,
+          "output": "61:private lemma IsAffine.finrank_of_isPullback [IsAffine S] [IsAffine T]\n76:  finrank_of_isPullback f _ _ _ (.of_hasPullback _ _) _ _ rfl\n82:  apply finrank_of_isPullback g (f ≫ g) f (𝟙 _) _ _ _ rfl\n101:  · refine (IsAffine.finrank_of_isPullback _ _ ?_ ?_ ?_ _ _ ?_).symm\n157:lemma Scheme.Hom.finrank_pullback_snd {Z : Scheme.{u}} (f : X ⟶ Z) (g : Y ⟶ Z)\n165:lemma Scheme.Hom.finrank_of_isPullback {P X Y Z : Scheme.{u}} (fst : P ⟶ X) (snd : P ⟶ Y)\n168:  rw [← h.isoPullback_hom_snd, finrank_comp_left_of_isIso, finrank_pullback_snd]\n173:  finrank_of_isPullback (pullback.snd g f) _ _ _ (.flip <| .of_hasPullback _ _) y\n179:    rw [← hy, ← finrank_pullback_snd]\n209:      rw [finrank_pullback_snd]\n242:    rw [← finrank_pullback_snd _ g, ← finrank_pullback_snd _ g]\n263:  rw [← finrank_pullback_snd, ← Category.comp_id (pullback.snd f g), finrank_comp_left_of_isIso,\n282:    rw [finrank_pullback_snd, h, Pi.one_apply, Pi.one_apply]\n",
+          "finding": "See matched declarations and lines."
+        },
+        {
+          "command": "rg -n def IsPullbackVia|structure IsPullbackVia|IsPullbackVia|nsmulPt project/Definitions/Def_CerednikDrinfeld_QMModuliProps.lean project/Definitions/Def_CerednikDrinfeld_QMModuli.lean",
+          "exit_code": 0,
+          "output": "project/Definitions/Def_CerednikDrinfeld_QMModuli.lean:45:def nsmulPt {A : Scheme.{u}} {f : A ⟶ Spec (CommRingCat.of R)} (L : RelativeGroupLaw R f)\nproject/Definitions/Def_CerednikDrinfeld_QMModuli.lean:48:  | n + 1, P => L.mul t (nsmulPt L t n P) P\nproject/Definitions/Def_CerednikDrinfeld_QMModuli.lean:129:    FactorsThrough lev P → nsmulPt L t N P = L.one t\nproject/Definitions/Def_CerednikDrinfeld_QMModuliProps.lean:31:    FactorsThrough levK P → nsmulPt E.L t ℓ P = E.L.one t\n",
+          "finding": "See matched declarations and lines."
+        }
+      ],
+      "inspected_files": [
+        {
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/FlatRank.lean",
+          "lines": [
+            157,
+            165
+          ],
+          "finding": "Both finrank lemmas use Flat and IsFinite and supply the equalities used by the unchanged accepted geometry helpers."
+        },
+        {
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMModuli.lean",
+          "line": 45,
+          "finding": "nsmulPt recurses using the identity and group multiplication, as used by the unchanged accepted precomposition helper."
+        },
+        {
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMModuliProps.lean",
+          "line": 17,
+          "finding": "ExtraLevel uses nsmulPt; the exact IsPullbackVia search has no match in this file."
+        }
+      ],
+      "compatibility": "Project and mathlib snapshots have clean tracked trees at the manifest revisions; all nine installed dependencies are clean and pinned. No library source or import was changed.",
+      "axiom_check": "The configured comparator must freshly verify this committed integration; prior receipts and compilation alone are not acceptance."
+    }
+  ],
+  "verification_requirement": "Run the exact user-supplied controller comparator on this committed tree and require exit 0, Your solution is okay!, and valid frozen_header_repair, Git identity, exact-type, kernel and transitive-axiom evidence. Controller independent integration review remains required before PR merge or issue closure."
+}

@@ -1,0 +1,18 @@
+{
+  "node_id": "root.full_level_quotient-a1.full_level_pullback-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/64",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/617",
+  "candidate_commit": "686858d28621704891fc5a88a67a417bd612a74b",
+  "integrated_commit": "16d2817c58440fe04cef5d13e9cc27cc85ac449a",
+  "proof_base_commit": "6a1f2f757e1142ffaadb29ff77085bc712493a58",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.full_level_quotient-a1",
+  "requires": [
+    "root.full_level_quotient-a1.full_level_pullback-a1.pullback_point_equivalence-a1",
+    "root.full_level_quotient-a1.full_level_pullback-a1.nsmul_precomposition-a1"
+  ]
+}

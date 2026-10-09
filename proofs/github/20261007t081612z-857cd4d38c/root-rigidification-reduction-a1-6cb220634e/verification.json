@@ -1,0 +1,19 @@
+{
+  "node_id": "root.rigidification_reduction-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/56",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/741",
+  "candidate_commit": "25e87ac262216fa150c47205315a7d3d86bdd86b",
+  "integrated_commit": "d182bd1cc3b0303d7abb94ca8ad817d36a2a511c",
+  "proof_base_commit": "b2004eef5d632f734b7c6c59355dd000a0093b6e",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root",
+  "requires": [
+    "root.curve_ring_equiv-a1",
+    "root.rigidification_reduction-a1.curve_pullback_composition-a1",
+    "root.rigidification_reduction-a1.isogeny_level_transport-a1"
+  ]
+}

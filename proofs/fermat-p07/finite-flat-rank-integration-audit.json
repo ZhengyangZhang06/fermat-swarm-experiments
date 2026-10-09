@@ -1,0 +1,79 @@
+{
+  "scope": "Integration-only reconciliation of accepted histories; no new theorem or proof attempt.",
+  "node": "root.curve_ring_equiv-a1.finite_flat_rank_rebase-a1",
+  "theorem": "Submission.p07_cre_finite_flat_rank_857cd4d38c",
+  "integration_start": "7bf5348fbed2a22bddfc091b150a6f558ca793bb",
+  "canonical_source_commit": "b5fde2d8e8f6fb594c2d9d38fd8c68f66c43fd8d",
+  "accepted_tip": "ce92415d8140cbdcc1966e76034692681bc0ab7f",
+  "reviewed_commits": [
+    "960a5ad3e5bc4f9e1378a6a4ca169fce47f80b41",
+    "67d5649082a6365ec7903056bcfdfa28343be943",
+    "74c43b778f88ae7d7ba292f862fcd28cf65b88e3",
+    "76f78adbf69974f2e057d236d53f570e8432cd07",
+    "b9b1f49719020d6958f397eadd528e2957607ad8",
+    "27ec002d56b4cd849961914c242d6e8539b9da4e",
+    "75f99aa9c1547facb5a7fa7982a484658fcef784",
+    "87b69dbc54f9faaab6e5c3615835d66f45c0a004",
+    "09867ed06acc72f77e583e889768bdf310af6672",
+    "4861f12ef3aab142980b23f3317420f41c40acef",
+    "a1c23ff54611726cb3124ce77949d85db7ae4483",
+    "f83b59171e783fcb17a040202357bf80ed2a5266",
+    "ce92415d8140cbdcc1966e76034692681bc0ab7f"
+  ],
+  "history_reconciliation": "Retain all thirteen reviewed commits, including unchanged-tree verification checkpoints, through the accepted tip as second merge parent. Their final Lean source and existing .gitignore change are represented; controller-owned historical files are not restored.",
+  "repair": {
+    "file": "Submission.lean",
+    "finding": "The replay inserted the finite-flat-rank header inside the ring-equivalence group-law proof, nested later namespaces, and left superseded rank tactics after the quotient abelian-surface proof.",
+    "change": "Restore the complete canonical source from b5fde2d and append the complete accepted finite-flat-rank namespace block from ce92415d, byte-for-byte.",
+    "canonical_sha256": "6965be4a79eadf2b2a0d3e45b0d5a6aa3c5f9c782440e8287bbcb34747d7ec68",
+    "accepted_namespace_sha256": "77bee8fc30e3bf635d20e5c90715721836bf56a1af13b6c716352799af8e5422",
+    "repaired_submission_sha256": "ad953a6bceeffbcd319ff5e6f38746a4c20f31ca26c151786b46aaa78c9af78b",
+    "preservation": "All ten canonical declaration statements and bodies, the accepted eleventh declaration, imports, attributes, challenge, plan, natural proof and comparator are unchanged."
+  },
+  "protected_checkpoint_sha256": {
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/problem.md": "5f0871c2e93d5288092a1f00902e3f8add02d0e21d6e142ac2ea7d6dfbe7d1ce",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json": "7a693667f3887c9ad53914a2f2caec85a3d20f69d227f2adb18f4be2c4924603",
+    "/runtime/flows/math-lean-flow/scripts/swarm-compare.py": "f3202ba84d3096d6e05a494f073e454e5aa82c4383a08b171832acbc28c5d9b2",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-curve-ring-equiv-a1-finite-flat-rank-rebase-a1/parent-supplied-natural-proof.json": "6ad43854b16f2838154c9abe6b4732c7be4a74732b9aeeeac682c6ce38e7b269",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-curve-ring-equiv-a1-finite-flat-rank-rebase-a1/parent-supplied-natural-proof.md": "07d66130739314f2db0316763ab02e64fa04e082913ae2e297c35cf389130573",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-curve-ring-equiv-a1-finite-flat-rank-rebase-a1/parent-supplied-plan.md": "9749c3bd9f73dc3d7af26b5541bafa4a47c23fcfe7d6a6a6498facfb9d6c9918",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-curve-ring-equiv-a1-finite-flat-rank-rebase-a1/parent-child-handoff.json": "634249d015577c52f872252e94d21c621514c46074b43d7ec613227c29b677f7"
+  },
+  "reference_use": [
+    {
+      "source": "local-project",
+      "snapshot": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89",
+      "manifest": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+      "mode": "local-project",
+      "project_commit": "73257f1e32d99b75813b037f28a5cf45a2db886d",
+      "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "queries": [
+        {
+          "query": "rg -n 'finrank_of_isPullback|finrank_pullback_snd' mathlib/Mathlib/AlgebraicGeometry/Morphisms/FlatRank.lean",
+          "finding": "Matches at lines 157 and 165; inspected lines 145-168. The pullback rank identity has exactly the Flat and IsFinite assumptions supplied by the unchanged accepted proof."
+        },
+        {
+          "query": "rg -n 'structure RelativeGroupLaw|def IsCommutative|mul_natural|one_natural' project/Definitions/Def_AlgebraicGeometry_RelativeGroupLaw.lean",
+          "finding": "Matches at lines 78, 101, 109 and 149; inspected lines 68-115. The restored canonical group-law body uses this structure and point-precomposition operation."
+        },
+        {
+          "query": "rg -n 'p07_cre_finite_flat_rank_857cd4d38c|p07_cre_group_law_857cd4d38c' . --glob '*.lean'",
+          "exit_code": 1,
+          "finding": "No matches in the pinned snapshot. Accepted theorem bodies are recovered only from their approved Git histories."
+        }
+      ],
+      "files_inspected": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/FlatRank.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_AlgebraicGeometry_RelativeGroupLaw.lean"
+      ],
+      "compatibility": "Pinned project and mathlib revisions, clean tracked dependency trees, and byte identity of toolchain, Lake files, root challenge and relevant project definition are checked locally before comparator submission.",
+      "axiom_check": "The configured comparator must perform fresh transitive axiom checks on the committed integration tree; source identity and compilation alone are not acceptance."
+    }
+  ],
+  "verification_contract": {
+    "command": "Exact user-supplied env -u HF_TOKEN command invoking /runtime/flows/math-lean-flow/scripts/swarm-compare.py with the frozen node, run, wiki, problem and manifest paths.",
+    "required_result": "Exit zero and Your solution is okay!, followed by a fresh independent integration reviewer comparator on the same commit.",
+    "evidence": "Controller-owned revision-bound evidence under /runtime/review-evidence; this record does not preemptively claim verification success."
+  },
+  "root_scope": "The inherited unsolved root specification is byte-identical to the canonical and accepted histories. No placeholder is introduced, and this child integration does not claim to solve the root."
+}

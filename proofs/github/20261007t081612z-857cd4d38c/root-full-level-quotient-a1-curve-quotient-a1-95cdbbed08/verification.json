@@ -1,0 +1,19 @@
+{
+  "node_id": "root.full_level_quotient-a1.curve_quotient-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/63",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/638",
+  "candidate_commit": "3e3fb7cf45bc309029255b19332400b0c970cbf9",
+  "integrated_commit": "7fbeb73cc03d45c6e5f7f680f89a6968d26b0278",
+  "proof_base_commit": "6a1f2f757e1142ffaadb29ff77085bc712493a58",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.full_level_quotient-a1",
+  "requires": [
+    "root.full_level_quotient-a1.curve_quotient-a1.group_law_pullback-a1",
+    "root.full_level_quotient-a1.curve_quotient-a1.abelian_surface_quotient-a1",
+    "root.full_level_quotient-a1.curve_quotient-a1.level_geometry_pullback-a1"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "structure RelativeGroupLaw|def SchemeHomOver|def schemeHomOverComp|def IsCommutative|^.*(def|theorem|lemma) baseChange",
+        "theorem (pullback\\.)?(condition|lift_fst|lift_snd|hom_ext)",
+        "p07_cq_group_law_pullback_857cd4d38c|^(noncomputable )?(def|theorem|lemma) baseChange",
+        "p07_cq_group_law_pullback_857cd4d38c"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_AlgebraicGeometry_RelativeGroupLaw.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_AlgebraicGeometry_NeronModelPropertyBundleCarrier.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/CategoryTheory/Limits/Shapes/Pullback/HasPullback.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89"
+      ],
+      "conclusion": "The definitions confirm the point subtype, precomposition, group-law fields, and commutativity predicate. HasPullback.lean supplies the projection, lifting, and uniqueness lemmas used. No prior declaration with this node's name was found in the snapshot; no baseChange declaration was found in RelativeGroupLaw.lean. Project 73257f1e32d99b75813b037f28a5cf45a2db886d and mathlib db584cd6d46c92f209a44c0f1c829460d327499d are clean and match the manifest; all nine dependencies match their pins. All 108 exported library files match the snapshot and frozen proof base. The exact comparator rerun exited zero with the required marker and reported only propext, Classical.choice, and Quot.sound. Its verified artifacts bind to reviewed commit 0874e9962dc0b87aa8772bf84bfe16e318baf39e."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p07_cq_group_law_pullback_857cd4d38c",
+      "statement": "∀ (S T : Type) [CommRing S] [CommRing T] (φ : S →+* T) (A : AlgebraicGeometry.Scheme.{0}) (f : Quiver.Hom A (AlgebraicGeometry.Spec (CommRingCat.of S))) (G : GoodReductionJacobian.RelativeGroupLaw S f), let β := AlgebraicGeometry.Spec.map (CommRingCat.ofHom φ); let p := CategoryTheory.Limits.pullback.snd f β; let g := CategoryTheory.Limits.pullback.fst f β; ∃ (H : GoodReductionJacobian.RelativeGroupLaw T p) (B : ∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))), NeronModelInfra.SchemeHomOver t p ≃ NeronModelInfra.SchemeHomOver (CategoryTheory.CategoryStruct.comp t β) f), (G.IsCommutative → H.IsCommutative) ∧ (∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))) (P : NeronModelInfra.SchemeHomOver t p), (B W t P).1 = CategoryTheory.CategoryStruct.comp P.1 g) ∧ (∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))) (P Q : NeronModelInfra.SchemeHomOver t p), B W t (H.mul t P Q) = G.mul (CategoryTheory.CategoryStruct.comp t β) (B W t P) (B W t Q)) ∧ (∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))), B W t (H.one t) = G.one (CategoryTheory.CategoryStruct.comp t β)) ∧ (∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))) (P : NeronModelInfra.SchemeHomOver t p), B W t (H.inv t P) = G.inv (CategoryTheory.CategoryStruct.comp t β) (B W t P))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Pullback projection and universal lifting give inverse equivalences of points, natural under precomposition by associativity. Transport the three operations through these equivalences; injectivity reduces the group laws, multiplication naturality, and conditional commutativity to those of G. The preservation equations follow from the equivalence identities."
+    }
+  ]
+}

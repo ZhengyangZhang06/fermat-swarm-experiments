@@ -1,0 +1,18 @@
+{
+  "node_id": "root.full_level_quotient-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/54",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/670",
+  "candidate_commit": "7d0c1523385ebdecde784b02202c2629e21b9d1f",
+  "integrated_commit": "740ef161bffd5793ab274dadcadefcdcea82ed55",
+  "proof_base_commit": "b2004eef5d632f734b7c6c59355dd000a0093b6e",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root",
+  "requires": [
+    "root.full_level_quotient-a1.curve_quotient-a1",
+    "root.full_level_quotient-a1.full_level_pullback-a1"
+  ]
+}

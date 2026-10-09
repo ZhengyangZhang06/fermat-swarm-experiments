@@ -1,0 +1,87 @@
+{
+  "scope": "Integration-only namespace repair; accepted statements, proof bodies, natural-language proof, plan, challenge files, imports, definitions and comparator remain unchanged.",
+  "node": "root.full_level_quotient-a1.full_level_pullback-a1.nsmul_precomposition-a1",
+  "theorem": "Submission.p07_flp_nsmul_precomp_857cd4d38c",
+  "integration_start": "771b01d45fd48d72a2ba912f2124a071dff97979",
+  "accepted_tip": "cc9a81580bf90e340798b0dee59db318f36bc078",
+  "reviewed_commits": [
+    "22c8f0ee1396a2766353b5fe65c6cf8fa37852ac",
+    "2baa5597f2c7f61504e3047088ddfa666e4ede44",
+    "e1bfb8e8544e6903d62629be74b54d1a0f46f36a",
+    "a735c2b21a3287f9fa5b6472bede4f760e62e98c",
+    "c7faaeae143b8a0a07466ab5249c39e427b3dc00",
+    "24fb9dbccee992a4bd240e3125f7d3ce85ec65c6",
+    "e182c28cfbdb7eba3feb79ec86ba36b6b67c0759",
+    "7d864601859b09ff16ef5fa35ca4a8f0c1c35953",
+    "194210598ef96cb938baeda2d349cbe7f83c430f",
+    "cc9a81580bf90e340798b0dee59db318f36bc078"
+  ],
+  "history_reconciliation": "All reviewed commits are ancestors of the accepted tip. The repair retains this tip as its second merge parent. Its source changes were already present in the combined tree; the accepted namespace block and root specification are byte-identical. No controller handoff files are restored.",
+  "repair": {
+    "file": "Submission.lean",
+    "change": "Insert end Submission with separating whitespace after the abelian-surface theorem and before the intact nsmul namespace block. This restores Submission.p07_flp_nsmul_precomp_857cd4d38c instead of Submission.Submission.p07_flp_nsmul_precomp_857cd4d38c.",
+    "source_identity": "The complete starting Submission.lean is retained, with only one namespace terminator and two blank lines inserted.",
+    "accepted_namespace_sha256": "5f8e01889a3b4314c59b1127deced77e41b60769236c5a2650cef5f6f89cfe8a",
+    "repaired_submission_sha256": "2b4f6ece8d76dbcc05bbff179fd3982dd64266b138f99508e8181f1b422c4ecb"
+  },
+  "retained_declarations": [
+    "CerednikDrinfeld.QM.RigidifiedPairClass.exists_ptR_eq",
+    "Submission.p07_rr_isogeny_transport_857cd4d38c",
+    "Submission.p07_flp_point_equiv_857cd4d38c",
+    "Submission.p07_rr_pullback_comp_857cd4d38c",
+    "Submission.p07_cq_level_geometry_pullback_857cd4d38c",
+    "Submission.p07_cre_group_law_857cd4d38c",
+    "Submission.p07_cre_abelian_surface_857cd4d38c",
+    "Submission.p07_flp_nsmul_precomp_857cd4d38c"
+  ],
+  "protected_checkpoint_sha256": {
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/problem.md": "5f0871c2e93d5288092a1f00902e3f8add02d0e21d6e142ac2ea7d6dfbe7d1ce",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json": "7a693667f3887c9ad53914a2f2caec85a3d20f69d227f2adb18f4be2c4924603",
+    "/runtime/flows/math-lean-flow/scripts/swarm-compare.py": "f3202ba84d3096d6e05a494f073e454e5aa82c4383a08b171832acbc28c5d9b2",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-full-level-quotient-a1-full-level-pullback-a1-nsmul-precomposition-a1/parent-supplied-natural-proof.json": "661b67bc4db429f8626b9756efc81131a12f829ef30daf7188c8410eeb52cd71",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-full-level-quotient-a1-full-level-pullback-a1-nsmul-precomposition-a1/parent-supplied-natural-proof.md": "0dcb770789dd40a089eb65d5c04c7db7118842f3ab73a46552818d0404b0182d",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-full-level-quotient-a1-full-level-pullback-a1-nsmul-precomposition-a1/parent-supplied-plan.md": "0e43754ae1bb2c7be832594143333856253ed0f83df75597d052772f9eeb71be",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-full-level-quotient-a1-full-level-pullback-a1-nsmul-precomposition-a1/parent-child-handoff.json": "0b5f00ee27051cc381443a3e1ee2a21bb84ab145006f0cce9f691a62a12ed8d4"
+  },
+  "reference_use": [
+    {
+      "source": "local-project",
+      "snapshot": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89",
+      "manifest": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+      "project_commit": "73257f1e32d99b75813b037f28a5cf45a2db886d",
+      "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "queries": [
+        {
+          "query": "rg -n 'nsmulPt|schemeHomOverComp|exists_ptR_eq|p07_flp_nsmul_precomp_857cd4d38c' <snapshot> -g '*.lean'",
+          "findings": [
+            {
+              "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMModuli.lean:45",
+              "finding": "nsmulPt recurses from the identity using L.mul."
+            },
+            {
+              "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_AlgebraicGeometry_RelativeGroupLaw.lean:68",
+              "finding": "schemeHomOverComp precomposes the underlying scheme morphism; mul_natural at line 101 and one_natural at line 149 provide the unchanged accepted proof dependencies."
+            },
+            {
+              "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Fermat/Thm_CerednikDrinfeld_QM_RigidifiedPairClass_exists_ptR_eq.lean:22",
+              "finding": "Frozen root declaration, not a completed root proof; its file and the inherited declaration remain unchanged."
+            }
+          ]
+        },
+        {
+          "query": "rg -n 'p07_flp_nsmul_precomp_857cd4d38c|nsmulPt.*(precomp|natural)|(precomp|natural).*nsmulPt' <snapshot> -g '*.lean'",
+          "exit_code": 1,
+          "finding": "No matches. No replacement theorem or proof is taken from the snapshot."
+        }
+      ],
+      "compatibility": "Snapshot project and mathlib have clean tracked trees at the manifest revisions. lean-toolchain (Lean 4.33.1), lake-manifest.json, lakefile.lean, both inspected definition files and the root challenge match the snapshot byte-for-byte. All nine installed dependencies have clean tracked trees at their lake-manifest.json revisions.",
+      "axiom_check": "Fresh transitive axiom acceptance is delegated to the exact configured comparator on the committed tree; source identity and a successful build are not proof acceptance."
+    }
+  ],
+  "verification_contract": {
+    "command": "User-supplied exact environment and /runtime/flows/math-lean-flow/scripts/swarm-compare.py command, after committing this repair.",
+    "required_result": "Exit zero and Your solution is okay!, with exact frozen type comparison, clean pinned dependencies and permitted transitive axioms.",
+    "evidence": "Revision-bound comparator evidence is produced by the controller under /runtime/review-evidence/<request_id>. This audit records preservation checks, not a preemptive claim of comparator or independent reviewer acceptance."
+  },
+  "root_scope": "Only the accepted child integration is repaired. The inherited unsolved root specification is unchanged; this is not a root-proof claim."
+}

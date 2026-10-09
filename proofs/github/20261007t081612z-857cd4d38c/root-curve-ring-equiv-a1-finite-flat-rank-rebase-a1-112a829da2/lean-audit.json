@@ -1,0 +1,40 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "finrank_of_isPullback|theorem of_isPullback|lemma of_isPullback|theorem of_horiz_isIso|lemma of_horiz_isIso",
+        "IsStableUnderBaseChange|class IsFinite|class Flat|class LocallyOfFinitePresentation",
+        "rg -n 'p07_cre_finite_flat_rank_857cd4d38c' project mathlib -g '*.lean'",
+        "git -C project rev-parse HEAD; git -C project status --porcelain; git -C mathlib rev-parse HEAD; git -C mathlib status --porcelain"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/FlatRank.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Finite.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/Flat.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Morphisms/FinitePresentation.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/CategoryTheory/Limits/Shapes/Pullback/IsPullback/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/CategoryTheory/MorphismProperty/Limits.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMModuli.lean"
+      ],
+      "conclusion": "The snapshots are clean at project 73257f1e32d99b75813b037f28a5cf45a2db886d and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; installed dependencies match their pins. The cited upstream files provide the pullback construction, all three base-change instances, and finrank_of_isPullback with precisely the available hypotheses. QMModuli imports FlatRank. Searching both snapshot trees found no existing declaration with this node's name. The exact comparator independently exited 0 with 'Your solution is okay!' for commit ce92415d8140cbdcc1966e76034692681bc0ab7f. Its transitive axiom report contains only propext, Classical.choice, and Quot.sound. Exported input hashes and the frozen challenge type were verified. The candidate preserves the baseline root placeholder and imports; the comparator applies its recorded, absence-checked header normalization."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p07_cre_finite_flat_rank_857cd4d38c",
+      "statement": "∀ (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U) (C : AlgebraicGeometry.Scheme.{0}) (q : Quiver.Hom C (AlgebraicGeometry.Spec (CommRingCat.of U))), AlgebraicGeometry.IsFinite q → AlgebraicGeometry.Flat q → AlgebraicGeometry.LocallyOfFinitePresentation q → let ε := AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.symm.toRingHom); let qT := CategoryTheory.CategoryStruct.comp q (AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.toRingHom)); AlgebraicGeometry.IsFinite qT ∧ AlgebraicGeometry.Flat qT ∧ AlgebraicGeometry.LocallyOfFinitePresentation qT ∧ (∀ s : ↥(AlgebraicGeometry.Spec (CommRingCat.of T)), AlgebraicGeometry.Scheme.Hom.finrank qT s = AlgebraicGeometry.Scheme.Hom.finrank q (ε s))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "The inverse Spec morphisms make the square with top arrow id_C, left arrow qT, right arrow q, and bottom arrow ε a pullback. Existing base-change instances transfer finiteness, flatness, and local finite presentation. The upstream finrank_of_isPullback lemma gives the required rank equality at every point."
+    }
+  ]
+}

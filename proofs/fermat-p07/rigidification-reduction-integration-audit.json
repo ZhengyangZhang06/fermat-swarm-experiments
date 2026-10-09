@@ -1,0 +1,133 @@
+{
+  "scope": "Integration-only reconciliation of already approved histories; no new proof or named helper.",
+  "node": "root.rigidification_reduction-a1",
+  "theorem": "Submission.p07_rigidification_reduction_857cd4d38c",
+  "integration_start": "fdc8380942978513ee9f2760d2386f6150fc9c37",
+  "canonical_source_commit": "60fa88271cfbce624365f09b515b57aa7578a957",
+  "accepted_tip": "25e87ac262216fa150c47205315a7d3d86bdd86b",
+  "reviewed_commits": [
+    "208004205586c7c698e2758118374434611d5c1e",
+    "4b56fb44a01a05819388d92d04dce4dd1ee5f728",
+    "e99fc543cd8aded07391a69264bbaf733cefefc7",
+    "d2d382c5a31a07ea93d66360126718a20e188fa4",
+    "f9c1aa6829991a2bf1a530b28cf2c39c911f4263",
+    "ae5bffbbe9877135219bf2b2d8ed787da89fa614",
+    "4b5f6f1629e5d9668c12794130020e6371385ee5",
+    "5a96868b580afa1f3cbc0790c078a04338d5a0c1",
+    "8a5257ba03e2cabeb21185207dce6e55e8776b33",
+    "144f741caf302c01aa60fe578fdc2bad2b0e3b36",
+    "05ac305009b6f999a8a12cdbcfadeafd53e1986c",
+    "32a299c0d6291bd477bae988686e10709f45a209",
+    "34601ee94fa8e084d3edc03c749a0d09d9811706",
+    "def25e36284d86b8f68d5aa5291c43df4694aeca",
+    "a9fa0aa86be4fc8364014ca906d7b694fbb6de34",
+    "caa2a1ac531d5c1664064611b206d03e86d78947",
+    "2cb0e9459b7c8ce9b765494521b7a02c12fff76a",
+    "3860eb78e34715fdca5a5fe5211ecbf3a0a76e0b",
+    "fce8689b7f6a0d6c91112e68b62445051669a413",
+    "d24427f2a87ea659ec21ec14c86ca958739d8659",
+    "ba4d91005827feec9202c2d5c8269489e2892a6e",
+    "f558d796528df15c8cc62827327eaf32ce964e27",
+    "25e87ac262216fa150c47205315a7d3d86bdd86b"
+  ],
+  "history_reconciliation": "The accepted tip is retained as the second local merge parent, preserving all 23 reviewed commits. Non-Submission files from the integration start are unchanged; reviewed controller handoffs are not replayed or edited.",
+  "repair": {
+    "file": "Submission.lean",
+    "finding": "The combined replay duplicated five declarations and interleaved superseded pullback-composition tactics with the accepted proof.",
+    "change": "Restore the entire canonical module byte-for-byte, then append the final namespace block containing the unchanged accepted rigidification-reduction theorem.",
+    "canonical_sha256": "e5cb56a480041883e36cf9a278cac8a003ae68bca9e6a4f59b85143e44cdb629",
+    "accepted_namespace_sha256": "f94fe9747548db6ddbc4f998a2bb39fd043100c5df9b260aa3140a0cf3dfbc6d",
+    "repaired_submission_sha256": "324045b6a82bd9261cd376cda16cb35268518de2a53639f763887d853f81099a",
+    "preservation": "All 16 distinct declarations survive. Each canonical and accepted declaration statement and proof body is identical to its source history; the canonical file is an exact prefix. All imports, original negative attributes, frozen root specification and isolated candidate stay unchanged.",
+    "deduplicated_declarations": [
+      "p07_rr_isogeny_transport_857cd4d38c",
+      "p07_cre_group_law_857cd4d38c",
+      "p07_cre_abelian_surface_857cd4d38c",
+      "p07_cre_finite_flat_rank_857cd4d38c",
+      "p07_curve_ring_equiv_857cd4d38c"
+    ],
+    "retained_declarations": [
+      "CerednikDrinfeld.QM.RigidifiedPairClass.exists_ptR_eq",
+      "p07_rr_isogeny_transport_857cd4d38c",
+      "p07_rr_pullback_comp_857cd4d38c",
+      "p07_cre_group_law_857cd4d38c",
+      "p07_cq_group_law_pullback_857cd4d38c",
+      "p07_cre_abelian_surface_857cd4d38c",
+      "p07_cre_finite_flat_rank_857cd4d38c",
+      "p07_curve_ring_equiv_857cd4d38c",
+      "p07_cq_abelian_surface_quotient_857cd4d38c",
+      "p07_cq_level_geometry_pullback_857cd4d38c",
+      "p07_flq_curve_quotient_857cd4d38c",
+      "p07_flp_point_equiv_857cd4d38c",
+      "p07_flp_nsmul_precomp_857cd4d38c",
+      "p07_flq_full_level_pullback_857cd4d38c",
+      "p07_full_level_quotient_857cd4d38c",
+      "p07_rigidification_reduction_857cd4d38c"
+    ]
+  },
+  "protected_checkpoint_sha256": {
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/problem.md": "5f0871c2e93d5288092a1f00902e3f8add02d0e21d6e142ac2ea7d6dfbe7d1ce",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json": "7a693667f3887c9ad53914a2f2caec85a3d20f69d227f2adb18f4be2c4924603",
+    "/runtime/flows/math-lean-flow/scripts/swarm-compare.py": "f3202ba84d3096d6e05a494f073e454e5aa82c4383a08b171832acbc28c5d9b2",
+    "/runtime/operator-header-policy-v1/policy.json": "96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-rigidification-reduction-a1/parent-supplied-natural-proof.json": "8b4cabd10acd3dc93d772eb9a34a81094d8a78debe91fe944cc3a58d8f4f5e52",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-rigidification-reduction-a1/parent-supplied-natural-proof.md": "15ba498113c098d62d6c265c673d3340297bf820b3c63f0003584cc53fac36d2",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-rigidification-reduction-a1/rlcr-plan-v1.md": "48274eef52bd796bac01ad64aaf05da707ec29a97e47595aa976e70ba62669e9",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-rigidification-reduction-a1/lean-audit-v1.json": "6275e5593f5ae50e9ec929bb8c954c38d4db484c99735d81047cbac1efd121fa",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-rigidification-reduction-a1/parent-supplied-plan.md": "41bbea4f38aeaf867fa133a2959fb9cd23100aa734856939f2b5bc0cfc17704b",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-rigidification-reduction-a1/parent-child-handoff.json": "996493ce5433de4c17a86e139e57e85a2398b35ff31d74726328624e91c29e87",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-rigidification-reduction-a1/decomposition-audit-v1.json": "1dfe631467f1c3b62a4406d5c3aa74d6eb8d7cd73607940b7b92fb38b0420dde"
+  },
+  "compiler_copy_policy": {
+    "path": "/runtime/operator-header-policy-v1/policy.json",
+    "sha256": "96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96",
+    "source_commit": "73257f1e32d99b75813b037f28a5cf45a2db886d",
+    "contract_file": "Fermat/Thm_CerednikDrinfeld_QM_RigidifiedPairClass_exists_ptR_eq.lean",
+    "contract_sha256": "2d5df12b49d873c6d197054989c5bc5613b213fa67a795a3a15e62b644c52a86",
+    "permitted_omitted_lines": [
+      13,
+      14,
+      15
+    ],
+    "source_header_identity": true,
+    "evidence_requirement": "Inspect fresh comparator frozen_header_repair evidence for the exact policy digest, omitted lines, reversible original/build hashes and Lean target-absence probe. The policy notice is not a verification receipt.",
+    "skill_evidence_availability": "The installed frozen-header-policy-evidence skill has no evidence.json or diagnostic.json beside SKILL.md. No diagnostic claim is taken from that skill; verification relies on the supplied policy and fresh trusted comparator evidence."
+  },
+  "reference_use": [
+    {
+      "source": "local-project",
+      "snapshot": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89",
+      "manifest": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+      "project_commit": "73257f1e32d99b75813b037f28a5cf45a2db886d",
+      "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "queries": [
+        {
+          "query": "rg -n 'def IsPullbackVia|structure Rigidification|def IsIsogenyPair|theorem.*exists_ptR_eq|p07_rr_pullback_comp_857cd4d38c|p07_rigidification_reduction_857cd4d38c' <snapshot> --glob '*.lean'",
+          "finding": "IsPullbackVia is defined in project/Definitions/Def_CerednikDrinfeld_QMFormalModuleOf.lean:31. Rigidification and its pullback predicate occur in project/Definitions/Def_CerednikDrinfeld_QMRigidification.lean:63 and :115. The frozen root specification is in project/Submission.lean:22 and its Fermat contract."
+        },
+        {
+          "query": "rg -n 'p07_rr_pullback_comp_857cd4d38c|p07_rigidification_reduction_857cd4d38c' <snapshot> --glob '*.lean'",
+          "exit_code": 1,
+          "finding": "No matches. Accepted proof bodies are recovered from their reviewed Git histories, not regenerated from the snapshot."
+        },
+        {
+          "query": "rg -n 'paste_horiz' <snapshot>/mathlib/Mathlib/CategoryTheory/Limits/Shapes/Pullback/IsPullback/Basic.lean",
+          "finding": "Theorem IsPullback.paste_horiz at line 191 composes two pullback squares with the exact composite maps used by the accepted composition proof; inspected lines 185-208."
+        }
+      ],
+      "files_inspected": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFormalModuleOf.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMRigidification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/CategoryTheory/Limits/Shapes/Pullback/IsPullback/Basic.lean"
+      ],
+      "compatibility": "All nine Lake dependencies match their pinned revisions and have clean tracked trees. Toolchain, Lake configuration and manifest, frozen contract, and relevant project definitions match the snapshot byte-for-byte.",
+      "axiom_check": "Fresh exact comparator transitive-axiom and kernel checks are required on the committed integration tree."
+    }
+  ],
+  "verification_contract": {
+    "command": "Exact user-supplied env -u HF_TOKEN command invoking /runtime/flows/math-lean-flow/scripts/swarm-compare.py with root.rigidification_reduction-a1 and the supplied immutable run/wiki/problem/manifest paths.",
+    "required_result": "Exit zero and Your solution is okay!, then the skill-required independent integration review and comparator rerun on the same commit.",
+    "evidence": "Fresh revision-bound controller evidence under /runtime/review-evidence. This pre-verification record does not claim a pass."
+  },
+  "root_scope": "The inherited unsolved root specification is unchanged byte-for-byte. No placeholder is introduced; this integration verifies the selected child, without claiming the root theorem is solved."
+}

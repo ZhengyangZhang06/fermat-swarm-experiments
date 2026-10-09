@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "680680cfef6c628115811ac02ba33610d36961e7a9e02c1b20e966d21e13a9b6",
+  "git_delta": {
+    "base_commit": "5e1b8834c0ab3ba5fdd668cf7ec69975c39de01c",
+    "candidate_commit": "bc00b1aa9f6d9a13439fe1cf62894bf593b8359b",
+    "target": "Submission.lean",
+    "declaration": "p07_cq_abelian_surface_quotient_857cd4d38c",
+    "diff_sha256": "105b7114a0e1b855d73de531d67f8a53791dc0f0d333445cc9f9200df2725b9d",
+    "source_sha256": "2261c66a04395b8f0800582663e3e3ae8635e7ffd134a663fe8bf28e70e4fb13",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p07_cq_abelian_surface_quotient_857cd4d38c",
+      "statement": "∀ (S : Type) [CommRing S] (J : Ideal S) (A : AlgebraicGeometry.Scheme.{0}) (f : Quiver.Hom A (AlgebraicGeometry.Spec (CommRingCat.of S))), GoodReductionJacobian.AbelianSchemePropertyBundle S f → (∀ s : ↥(AlgebraicGeometry.Spec (CommRingCat.of S)), topologicalKrullDim ↥(f.base ⁻¹' {s}) = 2) → let β := AlgebraicGeometry.Spec.map (CommRingCat.ofHom (Ideal.Quotient.mk J)); let p := CategoryTheory.Limits.pullback.snd f β; GoodReductionJacobian.AbelianSchemePropertyBundle (S ⧸ J) p ∧ (∀ t : ↥(AlgebraicGeometry.Spec (CommRingCat.of (S ⧸ J))), topologicalKrullDim ↥(p.base ⁻¹' {t}) = 2)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

@@ -1,0 +1,36 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "structure RelativeGroupLaw|def IsCommutative|def schemeHomOverComp|def SchemeHomOver|abbrev SchemeHomOver",
+        "p07_cre_group_law_857cd4d38c|group_law_rebase",
+        "theorem Spec.map_comp|lemma Spec.map_comp|theorem Spec.map_id|lemma Spec.map_id"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_AlgebraicGeometry_RelativeGroupLaw.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_AlgebraicGeometry_NeronModelPropertyBundleCarrier.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/AlgebraicGeometry/Scheme.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project"
+      ],
+      "conclusion": "RelativeGroupLaw.lean:68–113 supplies precomposition, the group-law fields, and commutativity; NeronModelPropertyBundleCarrier.lean:23 defines relative points as a subtype; Scheme.lean:483–490 proves Spec identity and contravariant composition. No match for the tracked theorem name or group_law_rebase occurred in the project snapshot. Project revision 73257f1e32d99b75813b037f28a5cf45a2db886d, mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d, and all nine installed dependencies were clean and matched their pins. Relevant project definitions match the frozen base byte-for-byte. The exact comparator rerun exited zero with 'Your solution is okay!' for candidate 07995ec00b85458daf241f70f5cbd73a12b5a76e; transitive axioms were only propext, Classical.choice, and Quot.sound. The frozen root placeholder and imports remain unchanged; only the tracked theorem is newly declared."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p07_cre_group_law_857cd4d38c",
+      "statement": "∀ (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U) (A : AlgebraicGeometry.Scheme.{0}) (f : Quiver.Hom A (AlgebraicGeometry.Spec (CommRingCat.of U))) (G : GoodReductionJacobian.RelativeGroupLaw U f), let κ := AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.toRingHom); let ε := AlgebraicGeometry.Spec.map (CommRingCat.ofHom k.symm.toRingHom); let fT := CategoryTheory.CategoryStruct.comp f κ; ∃ (H : GoodReductionJacobian.RelativeGroupLaw T fT) (B : ∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))), NeronModelInfra.SchemeHomOver t fT ≃ NeronModelInfra.SchemeHomOver (CategoryTheory.CategoryStruct.comp t ε) f), (G.IsCommutative → H.IsCommutative) ∧ (∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))) (P : NeronModelInfra.SchemeHomOver t fT), (B W t P).1 = P.1) ∧ (∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))) (P Q : NeronModelInfra.SchemeHomOver t fT), B W t (H.mul t P Q) = G.mul (CategoryTheory.CategoryStruct.comp t ε) (B W t P) (B W t Q)) ∧ (∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))), B W t (H.one t) = G.one (CategoryTheory.CategoryStruct.comp t ε)) ∧ (∀ (W : AlgebraicGeometry.Scheme.{0}) (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of T))) (P : NeronModelInfra.SchemeHomOver t fT), B W t (H.inv t P) = G.inv (CategoryTheory.CategoryStruct.comp t ε) (B W t P))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Spec sends the ring equivalence and its inverse to inverse base morphisms. Keeping underlying morphisms unchanged gives equivalences of relative points compatible with precomposition. Transport multiplication, identity, and inverse through these equivalences; injectivity transfers the group identities, multiplication naturality, and commutativity. The argument matches the frozen seven-step proof."
+    }
+  ]
+}

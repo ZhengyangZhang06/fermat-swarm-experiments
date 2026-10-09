@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "structure FakeEllipticCurve|def IsPullbackVia|structure IsPullbackVia|p07_flq_curve_quotient_857cd4d38c",
+        "p07_flq_curve_quotient_857cd4d38c"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMModuli.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFormalModuleOf.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89"
+      ],
+      "conclusion": "Inspected FakeEllipticCurve and IsPullbackVia definitions and verified their bytes against the frozen project revision. No declaration matching the tracked theorem occurs in the snapshot. Project and mathlib pins match comparator evidence; the independent rerun passed exact-type, kernel, dependency-integrity, and transitive-axiom checks."
+    }
+  ],
+  "comparison_identity": "35a753df38d94d8b147b4523ac5a0da929129e69843e52f874377a2becc0c1dc",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p07_flq_curve_quotient_857cd4d38c",
+      "statement": "∀ {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N : ℕ) (S : Type) [CommRing S] (J : Ideal S) (E : CerednikDrinfeld.QM.FakeEllipticCurve Λ N S), ∃ (EJ : CerednikDrinfeld.QM.FakeEllipticCurve Λ N (S ⧸ J)) (g : Quiver.Hom EJ.A E.A), CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia (Ideal.Quotient.mk J) E EJ g",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Constructs the quotient pullback using the accepted group-law, abelian-surface, and level-geometry prerequisites."
+    }
+  ]
+}

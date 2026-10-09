@@ -1,0 +1,96 @@
+{
+  "scope": "Integration-only restoration of accepted proof blocks and namespace boundaries; no mathematical changes or new named helpers.",
+  "node": "root.full_level_quotient-a1.curve_quotient-a1.group_law_pullback-a1",
+  "theorem": "Submission.p07_cq_group_law_pullback_857cd4d38c",
+  "integration_start": "5fe22cab55a7df46bc877fc81fcc4f0f05108a38",
+  "canonical_source_commit": "e1f24bab659fba94f571c7d53ae5431ce4497c72",
+  "accepted_tip": "0874e9962dc0b87aa8772bf84bfe16e318baf39e",
+  "reviewed_commits": [
+    "64741a09dd21eecd946a801064bbf3ad16e126bd",
+    "3128eaa90adb72c0de4da475f80bb82553373830",
+    "92578c42ef546d8c0a5829a5f26c9cedeea304d4",
+    "7df4ea5f398de0bbab15d42b4e1db6488d5d62e7",
+    "0874e9962dc0b87aa8772bf84bfe16e318baf39e"
+  ],
+  "history_reconciliation": "The five reviewed commits are ancestors of the accepted tip, retained as the second merge parent. The prior replay inserted the pullback theorem inside the unfinished ring-equivalence theorem and mixed their closing tactics. The repaired tree restores the canonical closing proof and end Submission, and restores the pullback closing proof exactly from the accepted tip. The merge records existing source reconciliation; it does not restore controller handoff files.",
+  "preservation_checks": {
+    "accepted_namespace_identity": "The complete pullback namespace block is byte-identical to the accepted tip.",
+    "canonical_identity": "Removing only that complete block and its separating newline from repaired Submission.lean recovers e1f24ba:Submission.lean byte-for-byte.",
+    "accepted_namespace_sha256": "2ef1ff9def10d189d280a8a2410cb59043ad0558f1947f084e1edde911679390",
+    "repaired_submission_sha256": "7c714d9f6dbf9866594c427f2b67be5cd4dc099d23cd603835da5490537a8d73",
+    "unchanged": "All prior theorem statements and proof bodies, frozen root specification, imports, attributes, challenge files, dependencies, plan, natural-language proof and comparator.",
+    "retained_declarations": [
+      "CerednikDrinfeld.QM.RigidifiedPairClass.exists_ptR_eq",
+      "Submission.p07_rr_isogeny_transport_857cd4d38c",
+      "Submission.p07_flp_point_equiv_857cd4d38c",
+      "Submission.p07_rr_pullback_comp_857cd4d38c",
+      "Submission.p07_cq_level_geometry_pullback_857cd4d38c",
+      "Submission.p07_cre_group_law_857cd4d38c",
+      "Submission.p07_cq_group_law_pullback_857cd4d38c",
+      "Submission.p07_cre_abelian_surface_857cd4d38c",
+      "Submission.p07_flp_nsmul_precomp_857cd4d38c"
+    ]
+  },
+  "protected_checkpoint_sha256": {
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/problem.md": "5f0871c2e93d5288092a1f00902e3f8add02d0e21d6e142ac2ea7d6dfbe7d1ce",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json": "7a693667f3887c9ad53914a2f2caec85a3d20f69d227f2adb18f4be2c4924603",
+    "/runtime/flows/math-lean-flow/scripts/swarm-compare.py": "f3202ba84d3096d6e05a494f073e454e5aa82c4383a08b171832acbc28c5d9b2",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-full-level-quotient-a1-curve-quotient-a1-group-law-pullback-a1/parent-supplied-plan.md": "ed832370f6aeb5c1c2758d2ff38b52901f7979a4790d3666a12d8d6d1bdf4988",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-full-level-quotient-a1-curve-quotient-a1-group-law-pullback-a1/parent-supplied-natural-proof.md": "7f2870b2236b2fab1d6d620e3e761a249d904e2adbae3dd3216ba8bc95631490",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-full-level-quotient-a1-curve-quotient-a1-group-law-pullback-a1/parent-supplied-natural-proof.json": "73c0a5b3fe0ba172604f65e3056bd0a4bedeb85a4407dbac0ae8421925a322cd",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-full-level-quotient-a1-curve-quotient-a1-group-law-pullback-a1/parent-child-handoff.json": "958ba265350f1c919c11d0fd5bead8e6a48c6fb1331b1c995e642eafccd45859",
+    "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/nodes/root-full-level-quotient-a1-curve-quotient-a1-group-law-pullback-a1/lean-audit-v1.json": "32d6e5597b9d755bc7aa03a7d24123178416da298be65b9342e0a14dddc5f1aa"
+  },
+  "reference_use": [
+    {
+      "source": "local-project",
+      "snapshot": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89",
+      "manifest": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+      "mode": "local-project",
+      "project_commit": "73257f1e32d99b75813b037f28a5cf45a2db886d",
+      "mathlib_commit": "db584cd6d46c92f209a44c0f1c829460d327499d",
+      "queries": [
+        {
+          "query": "rg -n 'baseChangePoint|baseChange_mul|structure RelativeGroupLaw|def SchemeHomOver' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89 --glob '*.lean'",
+          "finding": "RelativeGroupLaw is defined at project/Definitions/Def_AlgebraicGeometry_RelativeGroupLaw.lean:78. Other baseChange matches are frozen attribute references or unrelated linear algebra; no replacement proof is imported."
+        },
+        {
+          "query": "rg -n 'p07_cq_group_law_pullback_857cd4d38c|p07_cre_group_law_857cd4d38c' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89 --glob '*.lean'",
+          "exit_code": 1,
+          "finding": "No matches: neither accepted theorem is present in the reference snapshot."
+        },
+        {
+          "query": "rg -n 'theorem (hom_ext|lift_fst|lift_snd)|def lift ' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/CategoryTheory/Limits/Shapes/Pullback/HasPullback.lean",
+          "exit_code": 1,
+          "finding": "No matches for unqualified declaration names; the definitions use pullback-qualified names."
+        },
+        {
+          "query": "rg -n 'hom_ext|lift_fst|lift_snd' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/CategoryTheory/Limits/Shapes/Pullback/HasPullback.lean",
+          "finding": "pullback.lift_fst:175, pullback.lift_snd:180 and pullback.hom_ext:223 have the projection and uniqueness contracts used by the unchanged accepted proof."
+        }
+      ],
+      "files_inspected": [
+        {
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_AlgebraicGeometry_RelativeGroupLaw.lean",
+          "finding": "Lines 68, 78, 101 and 111 define precomposition, the group-law structure, multiplication naturality and commutativity."
+        },
+        {
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_AlgebraicGeometry_NeronModelPropertyBundleCarrier.lean",
+          "finding": "Line 23 defines SchemeHomOver as the subtype of scheme morphisms satisfying the base equation."
+        },
+        {
+          "path": "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/mathlib/Mathlib/CategoryTheory/Limits/Shapes/Pullback/HasPullback.lean",
+          "finding": "Inspected the lift projection equalities and hom_ext used by the accepted point equivalence."
+        }
+      ],
+      "compatibility": "Both snapshot tracked trees are clean at the manifest revisions. Current lean-toolchain, lakefile.lean, lake-manifest.json, both inspected project definitions and the root challenge are byte-identical to the snapshot. All nine installed dependencies have clean tracked trees at their manifest pins; Lean is 4.33.1.",
+      "axiom_check": "Fresh transitive axiom validation is required from the configured exact comparator on the committed integration tree. Source identity and compilation alone are not acceptance."
+    }
+  ],
+  "verification_contract": {
+    "command": "The exact user-supplied env -u HF_TOKEN command invoking /runtime/flows/math-lean-flow/scripts/swarm-compare.py for this node and frozen run.",
+    "required_result": "Exit zero and Your solution is okay!, including exact frozen type and transitive axiom checks, followed by a fresh independent integration reviewer comparator.",
+    "evidence": "Revision-bound evidence is produced by the controller under /runtime/review-evidence/<request_id>. This committed record does not preemptively assert verification success."
+  },
+  "root_scope": "The inherited unsolved root specification remains unchanged. This repair certifies the accepted child integration, not completion of the root theorem."
+}

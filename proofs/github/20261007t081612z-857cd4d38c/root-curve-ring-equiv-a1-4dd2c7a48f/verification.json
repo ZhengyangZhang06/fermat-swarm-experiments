@@ -1,0 +1,19 @@
+{
+  "node_id": "root.curve_ring_equiv-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/55",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/704",
+  "candidate_commit": "13bc17d49bfdae6b23863256370c07092d5a58b6",
+  "integrated_commit": "60fa88271cfbce624365f09b515b57aa7578a957",
+  "proof_base_commit": "b2004eef5d632f734b7c6c59355dd000a0093b6e",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root",
+  "requires": [
+    "root.curve_ring_equiv-a1.group_law_rebase-a1",
+    "root.curve_ring_equiv-a1.abelian_surface_rebase-a1",
+    "root.curve_ring_equiv-a1.finite_flat_rank_rebase-a1"
+  ]
+}
