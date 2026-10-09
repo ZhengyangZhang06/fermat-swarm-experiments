@@ -1,0 +1,18 @@
+{
+  "node_id": "root.finite_order_support_ascent-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/35",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/624",
+  "candidate_commit": "a1b7fb19b80cf6e078ebe180a6ffc102ad6caa2b",
+  "integrated_commit": "eba5bdd4322f5e4ec66d25a3230478c737bb08c5",
+  "proof_base_commit": "0aa7ea42c9f3f43ade5eb231fe895b4e53af0d41",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root",
+  "requires": [
+    "root.finite_order_support_ascent-a1.polynomial_coefficients_integral_off_fa-a1",
+    "root.finite_order_support_ascent-a1.order_zero_from_monic_pair-a1"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "node_id": "root.rational_adjoin_principal-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/34",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/781",
+  "candidate_commit": "d77bd4e38f9b8295ddc3d32f3bc98d299addf2f4",
+  "integrated_commit": "134c67911596351e995ec159d921129697501a2d",
+  "proof_base_commit": "0aa7ea42c9f3f43ade5eb231fe895b4e53af0d41",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root",
+  "requires": [
+    "root.rational_adjoin_principal-a1.rational_model_principal-a1",
+    "root.rational_adjoin_principal-a1.principal_alg_equiv-a1"
+  ]
+}

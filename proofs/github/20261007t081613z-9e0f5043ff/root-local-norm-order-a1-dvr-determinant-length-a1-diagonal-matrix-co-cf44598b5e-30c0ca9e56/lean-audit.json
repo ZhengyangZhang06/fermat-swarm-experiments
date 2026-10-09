@@ -1,0 +1,38 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n --glob '*.lean' 'quotKerEquivOfSurjective|def quotEquivOfEq|theorem mkQ_surjective|theorem mk_eq_zero|theorem mem_span_singleton|theorem mulVec_diagonal' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib",
+        "rg -n --glob '*.lean' 'cokernel.*(isUnit|IsUnit|diagonal)|[Dd]iagonal.*[Cc]okernel|[Cc]okernel.*[Dd]iagonal|range_mulVecLin.*pi|mulVecLin.*quot' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Isomorphisms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Quotient/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Ideal/Span.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Data/Matrix/Mul.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Matrix/ToLin.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f"
+      ],
+      "conclusion": "The targeted cokernel search returned no matches. Inspected pinned infrastructure supplies the first isomorphism theorem (Isomorphisms.lean:47), quotient zero membership, surjectivity and transport (Quotient/Defs.lean:98,236,252), principal-ideal membership (Ideal/Span.lean:181), and diagonal column multiplication (Matrix/Mul.lean:752; Matrix/ToLin.lean:286). The four core reused library files and direct project import match the snapshot byte-for-byte. All nine installed dependencies are clean and match their pins, including mathlib db584cd6d46c92f209a44c0f1c829460d327499d. My exact comparator rerun for candidate 95e22b9c6a6ab679e1c25cd6c3cf3c4912d7d72c exited 0 with 'Your solution is okay!'; transitive axioms are only propext, Classical.choice and Quot.sound. Exported evidence hashes all match. The candidate preserves the frozen root placeholder, imports and header; comparator preprocessing only removes its policy-checked absent attribute targets."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_dmc_diagonal_quotient",
+      "statement": "∀ (R : Type*) [CommRing R] (m : ℕ) (d : Fin m → R), Nonempty (((Fin m → R) ⧸ LinearMap.range (Matrix.mulVecLin (Matrix.diagonal d))) ≃ₗ[R] ((i : Fin m) → R ⧸ Ideal.span ({d i} : Set R)))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Reduce each coordinate modulo its principal ideal. Principal-ideal membership identifies the kernel with the diagonal matrix image, and choosing coordinate representatives proves surjectivity. The first isomorphism theorem gives the required linear equivalence, including zero diagonal entries and m = 0."
+    }
+  ]
+}

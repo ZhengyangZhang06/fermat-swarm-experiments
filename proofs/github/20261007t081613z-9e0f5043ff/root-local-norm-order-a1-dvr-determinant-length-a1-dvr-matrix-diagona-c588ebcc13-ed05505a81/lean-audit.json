@@ -1,0 +1,37 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n --glob '*.lean' 'finite_family_dividing_member|eq_unit_mul_pow_irreducible|exists_min_image|theorem exists_irreducible|lemma exists_irreducible' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f",
+        "rg -n 'theorem (mul_left_dvd|dvd_mul_left)|lemma (mul_left_dvd|dvd_mul_left)|theorem pow_dvd_pow |lemma pow_dvd_pow ' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra",
+        "rg -n --glob '*.lean' 'finite_family_dividing_member' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DiscreteValuationRing/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Data/Finset/Max.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Divisibility/Units.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Divisibility/Basic.lean"
+      ],
+      "conclusion": "Verified snapshot revisions: project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. DVR Basic supplies uniformizer existence and unit-times-power factorization; Finset/Max supplies minimum attainment; the divisibility files supply unit cancellation and pow_dvd_pow. PlacesOverDVR demonstrates the same factorization API. No finite_family_dividing_member declaration was found in the snapshot. All installed dependencies are clean and pinned; the four inspected mathlib files match the snapshot byte-for-byte. The exact comparator rerun exited zero with 'Your solution is okay!' and reported only propext, Classical.choice, and Quot.sound. Fresh evidence at /runtime/review-evidence/17576641eb4d4e77aab866a7e1ebda45 binds the verified inputs to candidate 42b50cb11d6f0d99d22593fae839187f93fa571f. The diff adds only the tracked theorem and preserves the complete frozen root placeholder and imports."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_dmd_finite_family_dividing_member",
+      "statement": "∀ (A : Type*) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A] (ι : Type*) [Fintype ι] (a : ι → A), (∃ i, a i ≠ 0) → ∃ i, a i ≠ 0 ∧ ∀ j, a i ∣ a j",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Factor each nonzero entry as a unit times a power of a fixed uniformizer. Choose an entry attaining the minimum exponent on the finite nonempty support. Its power divides every other power, unit factors preserve divisibility, and it also divides every zero entry."
+    }
+  ]
+}

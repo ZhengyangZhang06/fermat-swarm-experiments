@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "0dc5e6f9561f050574ef0a644bac4e36374355e84e3dfc75cf306c803b8cb0df",
+  "git_delta": {
+    "base_commit": "ccd52282b2ec3bb3f697ed809a02989601285531",
+    "candidate_commit": "313985504ebcd498bd88afd9759978de2a4d51e6",
+    "target": "Submission.lean",
+    "declaration": "p06_9e0f5043ff_vfc_unit_power_quotient_exponents",
+    "diff_sha256": "e0ac0c02a38e9899f4f183e973d9ecd031cbc066d8f8a181657d90fa2c440fab",
+    "source_sha256": "ede1d38b889cc62779c2a4918c07f9213de01ada06953f6055d3e667b6df9712",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_vfc_unit_power_quotient_exponents",
+      "statement": "∀ (F : Type*) [Field F] (W : Subring F) (s : F), s ∈ W → s⁻¹ ∉ W → ∀ (u : Units W) (r k : ℕ), ((u : W) : F) * s ^ r / s ^ k ∈ W → k ≤ r",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

@@ -1,0 +1,39 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n --glob '*.lean' 'length_eq_add_of_exact|comapSubtypeEquivOfLe|length_sum_factors' project mathlib/Mathlib",
+        "rg -n 'sum_univ_castSucc|prod_univ_castSucc' mathlib/Mathlib/Algebra/BigOperators/Fin.lean",
+        "rg -n --glob '*.lean' 'length_sum_factors|p06_9e0f5043ff_wll_length_sum_factors' project mathlib/Mathlib"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Length.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/LocalRing/Length.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Module/Submodule/Map.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/BigOperators/Fin.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Exact/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Quotient/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f"
+      ],
+      "conclusion": "Queries ran from the snapshot root. Found unrestricted ℕ∞ length additivity, length invariance under linear equivalence, the canonical comap-subtype equivalence, quotient scalar-tower instances, and finite-sum induction. The node-name search returned no matches. Inspected library sources match pinned mathlib db584cd6d46c92f209a44c0f1c829460d327499d; all nine installed dependencies are clean at their recorded revisions. My exact comparator rerun, request 1cbc0c659960487a9cb796cd5dfa33ad, verified commit 44876c10983d1fb0b5caf595093177cfb37dbd42 and exited 0 with 'Your solution is okay!'. The theorem's transitive axioms are only propext, Classical.choice, and Quot.sound. The diff adds only the tracked theorem; the frozen header, imports, root placeholder, and other files remain unchanged. No additional named theorem, new placeholder, declaration shadowing, or weakened statement was found."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_wll_length_sum_factors",
+      "statement": "∀ (A B M : Type*) [CommRing A] [CommRing B] [IsDedekindDomain B] [Algebra A B] [AddCommGroup M] [Module A M] [Module B M] [IsScalarTower A B M] (s : CompositionSeries (Submodule B M)) (p : Fin s.length → IsDedekindDomain.HeightOneSpectrum B), s.head = ⊥ → s.last = ⊤ → (∀ i : Fin s.length, Nonempty ((↥(s i.succ) ⧸ (s i.castSucc).comap (s i.succ).subtype) ≃ₗ[B] (B ⧸ (p i).asIdeal))) → Module.length A M = Finset.sum Finset.univ (fun i : Fin s.length => Module.length A (B ⧸ (p i).asIdeal))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Restrict each canonical short exact sequence and residue-factor equivalence to A. Length additivity gives the successive length identities. Sum them by induction in ℕ∞, then identify the bottom endpoint with zero and the top endpoint with M. This matches the parent-supplied proof, includes the empty series, and requires no finiteness or cancellation."
+    }
+  ]
+}

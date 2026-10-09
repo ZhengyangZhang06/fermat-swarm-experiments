@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "hasPrincipalDivisors_of_transcendental|dlen_matrix_diagonalization",
+        "theorem (det_succ_row_zero|isUnit_iff_isUnit_det|eq_unit_mul_pow_irreducible)|exists_irreducible"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Fermat/Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DiscreteValuationRing/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Matrix/NonsingularInverse.lean"
+      ],
+      "conclusion": "Both snapshots are clean at their manifest revisions. The frozen root contract matches byte-for-byte; no tracked diagonalization declaration was found in the project snapshot. The cited mathlib files contain the reused DVR factorization, determinant expansion, and matrix-unit declarations. The exact comparator rerun verified compatibility and reported only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "0ca34a41daabff64156762bf2b6a0e3f8ecd5eeaa35e11ed4cc811428b3b705b",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_dlen_matrix_diagonalization",
+      "statement": "∀ (A : Type*) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A] (m : ℕ) (D : Matrix (Fin m) (Fin m) A), D.det ≠ 0 → ∃ (P Q : Matrix (Fin m) (Fin m) A) (d : Fin m → A), IsUnit P ∧ IsUnit Q ∧ (∀ i, d i ≠ 0) ∧ P * D * Q = Matrix.diagonal d",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Induction on matrix size using accepted dividing-member and pivot-splitting dependencies, followed by composition of block transformations."
+    }
+  ]
+}

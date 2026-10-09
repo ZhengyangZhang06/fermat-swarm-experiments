@@ -1,0 +1,36 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "structure Place|def deg|def ord",
+        "p06_9e0f5043ff_rmp_infinity_place|namespace RationalFunctionField|def placeOfPoint",
+        "theorem eq_of_le_of_ne_top|theorem mem_or_inv_mem"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean"
+      ],
+      "conclusion": "Confirmed clean snapshot revisions match the manifest. Place, deg, ord and imported project definitions are unchanged. Found valuation-subring infrastructure; no matching selected theorem or RationalFunctionField construction in project Definitions. All prerequisite declarations match accepted overlays. The independent comparator rerun verified the exact candidate inputs, authorized reversible header repair, kernel acceptance and permitted transitive axioms."
+    }
+  ],
+  "comparison_identity": "125b60420be97d297403a3f142efb52e23710ce3f859779f12692b7cf7dc07a5",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_rmp_infinity_place",
+      "statement": "∀ (K : Type*) [Field K], ∃ v : AlgebraicCurve.Place K (FractionRing (Polynomial K)), algebraMap (Polynomial K) (FractionRing (Polynomial K)) Polynomial.X ∉ v.toValuationSubring ∧ v.deg = 1 ∧ (∀ a : Polynomial K, a ≠ 0 → v.ord (algebraMap (Polynomial K) (FractionRing (Polynomial K)) a) = -(a.natDegree : ℤ)) ∧ (∀ w : AlgebraicCurve.Place K (FractionRing (Polynomial K)), algebraMap (Polynomial K) (FractionRing (Polynomial K)) Polynomial.X ∉ w.toValuationSubring → w = v)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines accepted reciprocal-presentation, finite-place, polynomial-order and valuation-characterization lemmas to construct and uniquely characterize the place at infinity."
+    }
+  ]
+}

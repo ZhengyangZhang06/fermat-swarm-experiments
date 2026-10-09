@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "def deg|abbrev ResidueField|def ResidueField|finrank_quotient_span_eq_natDegree|quotientKerAlgEquivOfSurjective|quotientEquivAlgOfEq",
+        "p06_9e0f5043ff_fpm_residue_degree|p06_9e0f5043ff_fpm_rd_eval_kernel|p06_9e0f5043ff_fpm_rd_residue_surjective"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/AdjoinRoot.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Ideal/Quotient/Operations.lean"
+      ],
+      "conclusion": "Found the existing residue-degree definition, quotient algebra equivalences, and polynomial quotient finrank theorem; no matches for the three node-specific names. Snapshots and all nine dependencies are clean at pinned revisions. The exact diff preserves frozen context and the root placeholder; prerequisite bodies match accepted child commits. My exact comparator rerun d621f39ab7e0444d941c39541d6cdab3 exited 0 with 'Your solution is okay!', kernel acceptance, and only propext, Classical.choice, and Quot.sound. All 221 fresh input hashes match the inspected packet and committed candidate. Policy digest, reversible removal of lines 9–11, and the absence probe for all 95 omitted targets were verified."
+    }
+  ],
+  "comparison_identity": "8f733cbbece36942d59dd8e15fb69c360eb3ba7c6bd99a2ef0c2c97b8ce0935a",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_fpm_residue_degree",
+      "statement": "∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F), Transcendental K x → ∀ q : Polynomial K, q.Monic → Irreducible q → ∀ v : AlgebraicCurve.Place K F, (∀ f : F, f ∈ v.toValuationSubring ↔ ∃ a b : Polynomial K, ¬ q ∣ b ∧ f = Polynomial.aeval x a / Polynomial.aeval x b) → v.deg = q.natDegree",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines the accepted evaluation-kernel and residue-surjectivity dependencies, then transports finrank through the quotient algebra equivalence."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "node_id": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.normalized_orders-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/108",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/597",
+  "candidate_commit": "8d128959a4ced9a0d175fd1ab15b9559d3041e42",
+  "integrated_commit": "5c859f13f965ddab2c45aaf7eb6528835aa4986a",
+  "proof_base_commit": "10426258e3035b4fdc45630c6b60b313f29ce455",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1",
+  "requires": [
+    "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.normalized_orders-a1.fraction_unit_criterion-a1",
+    "root.rational_adjoin_principal-a1.rational_model_principal-a1.finite_place_model-a1.normalized_orders-a1.irreducible_evaluation-a1"
+  ]
+}

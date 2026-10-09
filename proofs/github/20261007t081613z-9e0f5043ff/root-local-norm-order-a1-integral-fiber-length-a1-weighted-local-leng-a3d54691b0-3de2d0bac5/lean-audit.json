@@ -1,0 +1,42 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "exists_compositionSeries_of_isNoetherian_isArtinian|isSimpleModule_iff_quot_maximal|covBy_iff_quot_is_simple|length_ne_top_iff|structure HeightOneSpectrum",
+        "theorem isNoetherian_of_tower|theorem isArtinian_of_tower|annihilator_le_of_injective|annihilator_le_of_surjective|theorem.*annihilator_eq|theorem annihilator_quotient|lemma annihilator_quotient",
+        "annihilator_quotient",
+        "p06_9e0f5043ff_wll_residue_composition_series|residue_composition_series"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Length.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/FiniteLength.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/SimpleModule/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DedekindDomain/Ideal/Lemmas.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Noetherian/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Artinian/Module.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Ideal/Maps.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Ideal/Colon.lean"
+      ],
+      "conclusion": "Searched the snapshot with rg and inspected the library proofs supporting finite length, scalar restriction, composition-series existence, simple-module classification, and annihilator transport. No matching node declaration was found in the project or mathlib snapshot. Snapshot revisions match project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; inspected sources match the working dependencies, and all nine dependency checkouts are clean and pinned. The exact comparator rerun c5268810c2f94b248d6eae92b0b608bc exited 0 with 'Your solution is okay!' and reported only propext, Classical.choice, and Quot.sound. Exported hashes bind the result to reviewed commit c0d2c3ea86c25d88da083604a3660589e7777c35. The candidate preserves the entire frozen baseline, including its root placeholder, and adds only the tracked theorem."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_wll_residue_composition_series",
+      "statement": "∀ (A B : Type*) [CommRing A] [CommRing B] [IsDedekindDomain B] [Algebra A B] (b : B), b ≠ 0 → ∀ n : ℕ, Module.length A (B ⧸ Ideal.span ({b} : Set B)) = (n : ℕ∞) → ∃ s : CompositionSeries (Submodule B (B ⧸ Ideal.span ({b} : Set B))), s.head = ⊥ ∧ s.last = ⊤ ∧ ∃ p : Fin s.length → IsDedekindDomain.HeightOneSpectrum B, ∀ i : Fin s.length, Nonempty ((↥(s i.succ) ⧸ (s i.castSucc).comap (s i.succ).subtype) ≃ₗ[B] (B ⧸ (p i).asIdeal))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Finite A-length implies the quotient is Noetherian and Artinian over B, yielding a composition series from zero to the whole module. Each covering quotient is simple and therefore isomorphic to B modulo a maximal ideal. The nonzero element b annihilates every factor, so each such ideal contains b and is nonzero, defining a height-one prime. Choosing these primes gives the required labeling and isomorphisms."
+    }
+  ]
+}

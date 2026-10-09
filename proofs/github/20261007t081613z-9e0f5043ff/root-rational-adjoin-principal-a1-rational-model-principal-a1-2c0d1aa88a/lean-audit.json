@@ -1,0 +1,33 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "HasPrincipalDivisors|def degree|def Divisor|class Place|structure Place",
+        "rational_model_principal"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project"
+      ],
+      "conclusion": "Confirmed the frozen place, divisor, degree and HasPrincipalDivisors definitions. No existing rational_model_principal declaration matched. Snapshot revisions match the manifest; imported definitions are byte-identical to the candidate."
+    }
+  ],
+  "comparison_identity": "debc2bd2fcb1bcf275c597e4410ab64185eaf1dcd73ebf6f4d88a8f09eed58f5",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_rational_model_principal",
+      "statement": "∀ (K : Type*) [Field K], AlgebraicCurve.HasPrincipalDivisors K (FractionRing (Polynomial K))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines accepted finite-place and infinity-place results, assembles polynomial divisors by factorization, and subtracts denominator divisors."
+    }
+  ]
+}

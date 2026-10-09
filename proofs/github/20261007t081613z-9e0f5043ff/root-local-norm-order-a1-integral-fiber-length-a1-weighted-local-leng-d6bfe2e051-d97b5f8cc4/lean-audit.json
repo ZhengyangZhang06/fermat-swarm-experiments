@@ -1,0 +1,39 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "isSimpleModule_iff_toSpanSingleton_surjective|isSimpleModule_iff_isCoatom|theorem IsSimpleModule.congr|lemma IsSimpleModule.congr|class IsSimpleModule",
+        "subsingleton_iff|class IsLocalizedModule|moduleLocalization|instance.*Module|linearEquiv",
+        "asIdeal_injective",
+        "LocalizedModule|IsSimpleModule",
+        "p06_9e0f5043ff_llm_localized_residue_factors"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Module/LocalizedModule/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/SimpleModule/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DedekindDomain/Ideal/Lemmas.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorPushPull.lean"
+      ],
+      "conclusion": "rg searches located the existing localization equivalence, canonical scalar tower, subsingleton criterion, simplicity criteria including nontriviality, and maximality/extensionality of height-one primes. No LocalizedModule/IsSimpleModule matches occurred in the two project definition files; no prior target declaration occurred anywhere in the snapshot's project or mathlib Lean sources. Inspected files match pinned project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. All nine dependency checkouts are clean and pinned. Independent comparator run 51bbd1d2636b4961816367d03eb4caf3 exited zero with 'Your solution is okay!' and reported only propext, Classical.choice, and Quot.sound. Its hashed inputs match reviewed candidate 0cd55c8cbd0a0d08b6e7c5f09908f276388fad3b."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_llm_localized_residue_factors",
+      "statement": "∀ (B : Type*) [CommRing B] [IsDedekindDomain B] (p q : IsDedekindDomain.HeightOneSpectrum B), (p = q → IsSimpleModule (Localization.AtPrime q.asIdeal) (LocalizedModule q.asIdeal.primeCompl (B ⧸ p.asIdeal))) ∧ (p ≠ q → Subsingleton (LocalizedModule q.asIdeal.primeCompl (B ⧸ p.asIdeal)))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "When p = q, every denominator acts invertibly on the residue field. The localization equivalence transfers its nonzero simplicity over B, and the canonical scalar tower transfers simplicity to the localized ring. When p ≠ q, maximality supplies an element of p outside q that annihilates the residue module; the localization subsingleton criterion finishes."
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'exists_unit_mul_zpow|structure Place|def ord|coefficients_integral_off_finite|coeff.*toValuationSubring' project/Definitions project/Submission.lean",
+        "rg -n 'theorem exists_irreducible|lemma exists_irreducible' mathlib/Mathlib/RingTheory/DiscreteValuationRing",
+        "rg -n 'theorem mem_support_iff|lemma mem_support_iff' mathlib/Mathlib/Algebra/Polynomial",
+        "rg -n 'theorem.*biUnion|lemma.*biUnion' mathlib/Mathlib/Data/Set/Finite",
+        "rg -n 'p06_9e0f5043ff_fosa_coefficients_integral_off_finite|polynomial_coefficients_integral_off' project mathlib/Mathlib"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorPushPull.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DiscreteValuationRing/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Polynomial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Data/Set/Finite/Lattice.lean"
+      ],
+      "conclusion": "Queries ran from the specified snapshot root. Found the existing DVR instance, Place.exists_unit_mul_zpow, uniformizer existence, Polynomial.mem_support_iff, and Set.Finite.biUnion. No matching prior declaration was found by the final query. Snapshot revisions match project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; all nine installed dependencies are clean and pinned. Reused project sources match the frozen base. The exact comparator rerun a08fa50d5a2b43feb888dcda12e70cb4 exited 0 with 'Your solution is okay!' for unchanged candidate 1e6beef1100d663b0cee2c772fc76a1117503b70. Transitive axioms are only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_fosa_coefficients_integral_off_finite",
+      "statement": "∀ (K E : Type*) [Field K] [Field E] [Algebra K E], (∀ a : E, a ≠ 0 → {v : AlgebraicCurve.Place K E | v.ord a ≠ 0}.Finite) → ∀ P : Polynomial E, ∃ T : Set (AlgebraicCurve.Place K E), T.Finite ∧ ∀ v : AlgebraicCurve.Place K E, v ∉ T → ∀ i : ℕ, P.coeff i ∈ v.toValuationSubring",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Take the finite union of the order supports of the polynomial's nonzero coefficients. Outside this union, each nonzero coefficient has order zero, so the existing unit–uniformizer factorization identifies it with a valuation-subring unit. Zero coefficients belong to every valuation subring."
+    }
+  ]
+}

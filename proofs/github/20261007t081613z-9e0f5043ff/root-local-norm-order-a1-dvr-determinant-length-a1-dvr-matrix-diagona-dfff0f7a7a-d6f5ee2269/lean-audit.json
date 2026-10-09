@@ -1,0 +1,33 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "one_submatrix_mul|mul_submatrix_one",
+        "p06_9e0f5043ff_dmd_split_divisible_pivot|sdp_clear_first_column|sdp_clear_first_row"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Data/Matrix/Mul.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean"
+      ],
+      "conclusion": "Located the reused matrix lemmas in pinned mathlib and inspected the frozen import context. No matching node or clearing-helper declarations occur in the project snapshot. Comparator dependency revisions match the pinned manifest; the transitive axiom report contains only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "b424e6c3cd7eb88963f49fc031f3173a334021762e4ed0092875961498d2c0a6",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_dmd_split_divisible_pivot",
+      "statement": "∀ (R : Type*) [CommRing R] (m : ℕ) (D : Matrix (Fin (m + 1)) (Fin (m + 1)) R) (r c : Fin (m + 1)), (∀ i j, D r c ∣ D i j) → ∃ (P Q : Matrix (Fin (m + 1)) (Fin (m + 1)) R) (C : Matrix (Fin m) (Fin m) R), IsUnit P ∧ IsUnit Q ∧ P * D * Q = Matrix.of (fun i j => Fin.cases (Fin.cases (D r c) (fun _ => 0) j) (fun i' => Fin.cases 0 (fun j' => C i' j') j) i)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Moves the pivot using permutation matrices, then composes the accepted first-column and first-row clearing lemmas."
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "71565679c9b96564392143a34111a820e06a4b7f08320ea9f0302cccafbcea83",
+  "git_delta": {
+    "base_commit": "6c1cdf90055b6818a20c88246780dde67c42bae3",
+    "candidate_commit": "311f84a15fae64590ec145030fa75dbecc7a0ef2",
+    "target": "Submission.lean",
+    "declaration": "p06_9e0f5043ff_inf_reciprocal_polynomial_order",
+    "diff_sha256": "b069ea888b2b5909aed2268ae3307423a276b839de3e62afc1768b8131624ec4",
+    "source_sha256": "26568740335d49bdc76cfb2708fdf62ddde6ca57b70498efa914fd91b23bc72d",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_inf_reciprocal_polynomial_order",
+      "statement": "∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (s : F), Transcendental K s → ∀ v : AlgebraicCurve.Place K F, v.ord s = 1 → (∀ c : Polynomial K, ¬ (Polynomial.X : Polynomial K) ∣ c → v.ord (Polynomial.aeval s c) = 0) → ∀ a : Polynomial K, a ≠ 0 → v.ord (Polynomial.aeval s⁻¹ a) = -(a.natDegree : ℤ)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

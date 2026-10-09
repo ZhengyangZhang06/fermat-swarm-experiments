@@ -1,0 +1,37 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n --glob '*.lean' 'p06_9e0f5043ff_dmc_cokernel_units|cokernel_invariant_under_units' .",
+        "rg -n \"toLinearEquiv'|mulVecLin_mul|def Quotient.equiv|theorem range_comp \" mathlib/Mathlib/LinearAlgebra/Matrix/ToLinearEquiv.lean mathlib/Mathlib/LinearAlgebra/Matrix/ToLin.lean mathlib/Mathlib/LinearAlgebra/Quotient/Basic.lean mathlib/Mathlib/Algebra/Module/Submodule/Equiv.lean mathlib/Mathlib/Algebra/Module/Submodule/Range.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Matrix/ToLinearEquiv.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Matrix/ToLin.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Quotient/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Module/Submodule/Equiv.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Module/Submodule/Range.lean"
+      ],
+      "conclusion": "Queries ran from the snapshot root. No occurrence of the target declaration or node name was found. Inspected pinned upstream infrastructure: Matrix.toLinearEquiv' (line 57), Matrix.mulVecLin_mul (334), Submodule.Quotient.equiv (331), LinearEquiv.range_comp (131), and LinearMap.range_comp (82). Snapshot project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d are clean; all nine installed dependencies match their pins and are clean. The exact comparator independently passed on Lean 4.33.1 with exit 0 and 'Your solution is okay!' for candidate afe733433cf00e3ddaf0c8d4cc7736f6a5799bbe, request e80fcf317f1a4fcaa9f2d37b719b3e3d. Transitive axioms are only propext, Classical.choice, and Quot.sound. The diff adds only the tracked theorem and two standard mathlib imports; the frozen header and root placeholder are preserved, with no additional named helpers, shadowing, or new placeholders."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_dmc_cokernel_units",
+      "statement": "∀ (R : Type*) [CommRing R] (m : ℕ) (D P Q : Matrix (Fin m) (Fin m) R), IsUnit P → IsUnit Q → Nonempty (((Fin m → R) ⧸ LinearMap.range (Matrix.mulVecLin D)) ≃ₗ[R] ((Fin m → R) ⧸ LinearMap.range (Matrix.mulVecLin (P * D * Q))))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "The unit matrices P and Q induce linear automorphisms. Surjectivity of Q gives image(PDQ) = image(PD) = P(image(D)). The automorphism P therefore descends to the required quotient linear equivalence, with inverse induced by P⁻¹. This matches the supplied prose and also covers m = 0 and the zero ring."
+    }
+  ]
+}
