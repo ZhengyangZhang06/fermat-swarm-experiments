@@ -1,0 +1,33 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "structure FakeEllipticCurve|def IsPullbackVia|p07_curve_ring_equiv|p07_cre_",
+        "p07_curve_ring_equiv|p07_cre_"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMModuli.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p07/.humanize/github-theorem-prover/runs/20261007T081612Z-857cd4d38c/local-references/9bdf6c711efc6a89/project/Definitions/Def_CerednikDrinfeld_QMFormalModuleOf.lean"
+      ],
+      "conclusion": "Inspected FakeEllipticCurve and IsPullbackVia; both files match the comparator inputs byte-for-byte. Project and mathlib snapshots are clean at their manifest revisions. No matching p07_curve_ring_equiv or p07_cre_ declarations occur in the pinned project snapshot."
+    }
+  ],
+  "comparison_identity": "3653fd5d3f1cc22017039cfc672027985cbf5d9fd7313e7bf9b40601815dad38",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p07_curve_ring_equiv_857cd4d38c",
+      "statement": "∀ {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N : ℕ) (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U) (D : CerednikDrinfeld.QM.FakeEllipticCurve Λ N U), ∃ (E : CerednikDrinfeld.QM.FakeEllipticCurve Λ N T) (i : CategoryTheory.Iso D.A E.A), CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia k.toRingHom E D i.hom ∧ CerednikDrinfeld.QM.FakeEllipticCurve.IsPullbackVia k.symm.toRingHom D E i.inv",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Uses the three accepted rebase dependencies to transport the curve across the ring isomorphism and establish both pullback predicates with the identity isomorphism on its underlying scheme."
+    }
+  ]
+}
