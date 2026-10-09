@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "heckeTLin",
+        "structure Core|class Core|class InnerProductSpace.Core|structure InnerProductSpace.Core",
+        "f036cc6b1f_petersson_core|pc_hecke_integral"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/InnerProductSpace/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb"
+      ],
+      "conclusion": "Pinned Hecke and InnerProductSpace.Core definitions match the build libraries byte-for-byte. No matching node declaration was found in the snapshot. The exact comparator rerun passed; all 223 exported hashes and 221 prepared-input hashes were independently checked, and authorized header omissions reversed to the exact committed blobs."
+    }
+  ],
+  "comparison_identity": "d042310f775547fe307ee04d4b5f4c1c12b18b196ba1e0d6780748109f0d3739",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.f036cc6b1f_petersson_core",
+      "statement": "∀ (M : ℕ) [NeZero M], ∃ B : InnerProductSpace.Core ℂ (CuspForm (CongruenceSubgroup.Gamma0 M) 2), ∀ (p : ℕ) (hp : p.Prime) (hpM : ¬ p ∣ M) (f g : CuspForm (CongruenceSubgroup.Gamma0 M) 2), B.inner (CuspForm.heckeTLin 2 hp hpM f) g = B.inner f (CuspForm.heckeTLin 2 hp hpM g)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines accepted effective-domain, Petersson-integral-core, and Hecke-adjointness declarations to obtain one Core symmetric for every good prime."
+    }
+  ]
+}

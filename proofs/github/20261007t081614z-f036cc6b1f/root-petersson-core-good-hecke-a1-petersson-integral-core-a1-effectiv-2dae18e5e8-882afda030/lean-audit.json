@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "9e361551ab057d771b1265607fcc3dd57755bf75ae5850d3d8988802b389bf93",
+  "git_delta": {
+    "base_commit": "83504ecb0b786a8d8f9c07a6ca5bec357540defe",
+    "candidate_commit": "638b30264243242c57a1f09fde6865ff0a09cc93",
+    "target": "Submission.lean",
+    "declaration": "f036cc6b1f_pic_mec_invariant_conull_core",
+    "diff_sha256": "621db446904d89e057d7defe664642e3e0b6b70345c68272255be715a5a3f657",
+    "source_sha256": "14038fef46dc045698659d8957a7b905779c986072e99902af9dc2e028df2d1e",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.f036cc6b1f_pic_mec_invariant_conull_core",
+      "statement": "∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (S : Set UpperHalfPlane), MeasurableSet S → (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), z ∈ S) → ∃ X : Set UpperHalfPlane, MeasurableSet X ∧ (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), z ∈ X) ∧ X ⊆ S ∧ (∀ (γ : Δ) (z : UpperHalfPlane), (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • z ∈ X ↔ z ∈ X)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

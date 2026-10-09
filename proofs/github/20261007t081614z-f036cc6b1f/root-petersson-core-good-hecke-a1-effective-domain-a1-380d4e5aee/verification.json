@@ -1,0 +1,18 @@
+{
+  "node_id": "root.petersson_core_good_hecke-a1.effective_domain-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/31",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/652",
+  "candidate_commit": "574db86e5f02a48b0b1e11c70aaf0ce28c6f2163",
+  "integrated_commit": "dc43026adf0ba5932c03da4075c7013b09a20b72",
+  "proof_base_commit": "80624543d3feebc1eb9ab5b97ceac4a9529d1ac8",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.petersson_core_good_hecke-a1",
+  "requires": [
+    "root.petersson_core_good_hecke-a1.effective_domain-a1.ae_orbit_interior-a1",
+    "root.petersson_core_good_hecke-a1.effective_domain-a1.transversal_unique_mod_sign-a1"
+  ]
+}

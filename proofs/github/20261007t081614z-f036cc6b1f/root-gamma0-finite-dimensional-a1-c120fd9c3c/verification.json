@@ -1,0 +1,19 @@
+{
+  "node_id": "root.gamma0_finite_dimensional-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/23",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/709",
+  "candidate_commit": "a7d4d6f75e980b40c4a8288c5d71d6b5867e2dd5",
+  "integrated_commit": "94bf93909e0b9d9540db4eabbbacca071f7b82c3",
+  "proof_base_commit": "674e47109a2c121849b48a3754cad6d3c648d80e",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root",
+  "requires": [
+    "root.gamma0_finite_dimensional-a1.coeff_vanishing_iff_decay-a1",
+    "root.gamma0_finite_dimensional-a1.coset_norm_bound-a1",
+    "root.gamma0_finite_dimensional-a1.gamma0_sturm_vanishing-a1"
+  ]
+}

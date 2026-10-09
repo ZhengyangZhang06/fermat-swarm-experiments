@@ -1,0 +1,48 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "SMulInvariantMeasure|volume_eq|instance|withDensity",
+        "SLAction|mapGL|mulAction",
+        "ae_all_iff|measure_eq_zero_iff_ae_notMem",
+        "class SMulInvariantMeasure|measure_preimage_smul",
+        "def SpecialLinearGroup|def mapGL",
+        "Subtype|Countable.*→|Pi.countable",
+        "rg -n 'f036cc6b1f_pc_ed_aoi_null_orbit|ae_all_iff|measure_preimage_smul' project/Definitions project/P2M",
+        "rg -n 'f036cc6b1f_pc_ed_aoi_null_orbit' project mathlib/Mathlib",
+        "rg -n 'instSMulInvariantMeasureSpecialLinearGroupFinOfNatNatIntUpperHalfPlaneVolume_definitions|coe_rescaleLin_apply' project/Definitions project/P2M"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/MoebiusAction.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Topology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/Group/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/MeasureTheory/OuterMeasure/AE.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Data/Countable/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Data/Countable/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib"
+      ],
+      "conclusion": "The snapshot pins project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Inspected sources establish Borel hyperbolic volume dx dy/y², GL₂(ℝ) invariance, the restricted Möbius action, countability, and countable AE quantification. No target declaration occurs in the snapshot; the targeted project infrastructure and absent-attribute searches also returned no matches. All nine dependencies are clean and pinned; 98 project sources and eight inspected mathlib sources match the snapshot. The exact comparator rerun exited 0 with 'Your solution is okay!' and reported only propext, Classical.choice, and Quot.sound. Evidence at /runtime/review-evidence/1f91685f7a974e32b7c0a02a9e79970d matches reviewed commit 30304003efc01f8beb0751243f59d416dcce0c58, with all 223 input hashes verified. The candidate preserves the frozen prefix; the comparator's recorded build-only repair removes directives targeting absent declarations."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.f036cc6b1f_pc_ed_aoi_null_orbit",
+      "statement": "∀ s : Set UpperHalfPlane, MeasurableSet s → (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) s = 0 → ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∀ a : Matrix.SpecialLinearGroup (Fin 2) ℤ, a • z ∉ s",
+      "lean_file": "Submission.lean",
+      "natural_summary": "SL₂(ℤ) is countable as a subtype of four integer entries. Invariance of hyperbolic measure makes each action-preimage of the measurable null set null. Countable almost-everywhere quantification gives simultaneous avoidance for every group element."
+    }
+  ]
+}

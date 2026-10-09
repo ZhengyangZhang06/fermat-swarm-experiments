@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "f67dce9f120d964ff45ec5c4d1685c616ddb50c8a4a757766fd5dbbf76884356",
+  "git_delta": {
+    "base_commit": "cb3cfb069277c4e7499dbbf9709d52af3405e0fe",
+    "candidate_commit": "a81695310473fdcf38b4adc544b4cb442c3dd853",
+    "target": "Submission.lean",
+    "declaration": "f036cc6b1f_tdi_petersson_integrable_of_exp_product_bound",
+    "diff_sha256": "4029ca7c40e0fc071fa338ae38475b05fa997120b482965cc98abd1e94afdc6e",
+    "source_sha256": "98136bd33d388656d796c9b33eef2319e914aa6f08e216c83e52f16f5ae9eebe",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.f036cc6b1f_tdi_petersson_integrable_of_exp_product_bound",
+      "statement": "∀ (u v : UpperHalfPlane → ℂ) (a C Y : ℝ), Continuous u → Continuous v → 0 < a → 0 ≤ C → (∀ z : UpperHalfPlane, Y ≤ z.im → ‖u z * v z‖ ≤ C * Real.exp (-a * z.im)) → MeasureTheory.IntegrableOn (UpperHalfPlane.petersson 2 u v) ModularGroup.fd (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

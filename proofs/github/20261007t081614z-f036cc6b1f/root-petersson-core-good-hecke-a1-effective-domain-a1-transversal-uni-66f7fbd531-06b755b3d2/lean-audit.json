@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "eq_one_or_neg_one_of_mem_fdo_mem_fd|def fdo|def fd |f036cc6b1f_pc_ed_transversal_unique|transversal_unique",
+        "f036cc6b1f_pc_ed_transversal_unique|transversal_unique"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/Modular.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb"
+      ],
+      "conclusion": "Modular.lean lines 367–372 define exactly the stated closed and open domains; lines 778–787 prove the reused interior uniqueness theorem modulo sign. No match for this node’s identifier or transversal_unique was found in the snapshot. Project revision 61b5f85556ac71631ccad822e0694511234f7132 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d match the manifest; both snapshots are clean, and all nine installed dependencies match their pins with clean tracked files. The personally rerun exact comparator exited 0 with 'Your solution is okay!' for candidate 606cd121c8bddaec302708008cc7b22aa332d634, reporting only propext, Classical.choice, and Quot.sound. The diff adds only the tracked theorem and preserves the complete frozen baseline, including the root placeholder and imports."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.f036cc6b1f_pc_ed_transversal_unique",
+      "statement": "∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (R : Finset (Matrix.SpecialLinearGroup (Fin 2) ℤ)), (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ → (∀ r ∈ R, ∀ s ∈ R, s * r⁻¹ ∈ Δ → s = r) → ∀ z : UpperHalfPlane, (∀ a : Matrix.SpecialLinearGroup (Fin 2) ℤ, a • z ∈ ModularGroup.fd → a • z ∈ ModularGroup.fdo) → let F : Set UpperHalfPlane := ⋃ r ∈ R, (fun w : UpperHalfPlane => r • w) '' ModularGroup.fd; ∀ γ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ → δ ∈ Δ → γ • z ∈ F → δ • z ∈ F → δ = γ ∨ δ = -γ",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Choose witnesses γz = rw and δz = sv in the translated domains. The orbit hypothesis makes w interior, so the pinned modular-domain uniqueness theorem forces s⁻¹δγ⁻¹r = ±I. Subgroup closure and −I ∈ Δ give sr⁻¹ ∈ Δ in either case. Representative separation forces s = r, and cancellation yields δ = γ or δ = −γ. No finite-index or coverage assumption is used."
+    }
+  ]
+}

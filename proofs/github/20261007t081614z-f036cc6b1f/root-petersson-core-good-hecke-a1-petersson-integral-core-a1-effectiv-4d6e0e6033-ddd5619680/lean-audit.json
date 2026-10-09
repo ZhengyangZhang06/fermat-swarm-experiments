@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "39560ac8c2ee573c10ee53a54d3630eb77a26db505319c38403b14b76ad9d672",
+  "git_delta": {
+    "base_commit": "b25a9f896a48fdaeb9bd288168a13fd316d7c53b",
+    "candidate_commit": "6fa9210d092f8833593b5299d9ccafd753293c36",
+    "target": "Submission.lean",
+    "declaration": "f036cc6b1f_pic_psp_sign_transversal",
+    "diff_sha256": "704023bbcb3563b4409415c847e947071fa1f189eff72076e5950c3682aef4d5",
+    "source_sha256": "2595b70fc04b9f38b0bcc0017a0717ac233a0439d23befd1b36095fc9e8d5707",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.f036cc6b1f_pic_psp_sign_transversal",
+      "statement": "∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)), (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ → ∃ L : Set Δ, (∀ δ : Δ, ∃ γ : Δ, γ ∈ L ∧ ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) = (δ : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∨ (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) = -(δ : Matrix.SpecialLinearGroup (Fin 2) ℤ))) ∧ (∀ γ : Δ, γ ∈ L → ∀ η : Δ, η ∈ L → ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) = (η : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∨ (γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) = -(η : Matrix.SpecialLinearGroup (Fin 2) ℤ)) → γ = η)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

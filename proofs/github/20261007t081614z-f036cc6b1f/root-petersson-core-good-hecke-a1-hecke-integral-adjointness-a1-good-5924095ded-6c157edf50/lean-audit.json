@@ -1,0 +1,37 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "good_prime_transversal|gpt_unique_projective_index|gpt_bezout_lift",
+        "def heckeMatrix|def heckeDiagMatrix|theorem val_heckeMatrix|theorem val_heckeDiagMatrix",
+        "def Gamma0|theorem Gamma0_mem|lemma Gamma0_mem",
+        "def mapGL|mapGL_coe_matrix"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperator.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/LinearAlgebra/Matrix/GeneralLinearGroup/Defs.lean"
+      ],
+      "conclusion": "Manifest pins project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Inspected the frozen Hecke matrices, import chain, Gamma0 membership and mapGL definitions; project definition files match candidate Git bytes. No node or prerequisite theorem-name matches occur in the reference snapshot."
+    }
+  ],
+  "comparison_identity": "a3dd29f4569b74feb825422ed2954abcf4f27bb2f409c58a1b2b8f828674e262",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.f036cc6b1f_pc_hi_good_prime_transversal",
+      "statement": "∀ (M : ℕ) [NeZero M] (p : ℕ), p.Prime → ¬ p ∣ M → ∃ r : Fin (p + 1) → Matrix.SpecialLinearGroup (Fin 2) ℤ, (∀ i, r i ∈ CongruenceSubgroup.Gamma0 M) ∧ (∀ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ CongruenceSubgroup.Gamma0 M → ∃! i : Fin (p + 1), (p : ℤ) ∣ (γ * (r i)⁻¹) 0 1) ∧ (∀ i : Fin p, ModularForm.heckeMatrix p 0 * Matrix.SpecialLinearGroup.mapGL ℝ (r i.castSucc) = ModularForm.heckeMatrix p i.val) ∧ (∃ β : Matrix.SpecialLinearGroup (Fin 2) ℤ, β ∈ CongruenceSubgroup.Gamma0 M ∧ ModularForm.heckeMatrix p 0 * Matrix.SpecialLinearGroup.mapGL ℝ (r (Fin.last p)) = Matrix.SpecialLinearGroup.mapGL ℝ β * ModularForm.heckeDiagMatrix p)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines the accepted Bézout-lift and unique-projective-index prerequisites with local matrix identities to assemble the representatives."
+    }
+  ]
+}

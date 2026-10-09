@@ -1,0 +1,18 @@
+{
+  "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1.measurable_equidecomposition-a1.pointwise_sign_partition-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/218",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/489",
+  "candidate_commit": "d0cb1af40880b8b753caeabf6f6d1fc2c1db1f57",
+  "integrated_commit": "d76f91ca979409049a12270c6bf8b48b704cc57d",
+  "proof_base_commit": "83504ecb0b786a8d8f9c07a6ca5bec357540defe",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1.measurable_equidecomposition-a1",
+  "requires": [
+    "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1.measurable_equidecomposition-a1.pointwise_sign_partition-a1.sign_transversal-a1",
+    "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1.measurable_equidecomposition-a1.pointwise_sign_partition-a1.measurable_slice_partition-a1"
+  ]
+}

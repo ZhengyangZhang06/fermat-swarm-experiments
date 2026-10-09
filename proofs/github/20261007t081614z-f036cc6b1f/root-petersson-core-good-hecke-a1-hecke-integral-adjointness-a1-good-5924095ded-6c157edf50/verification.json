@@ -1,0 +1,18 @@
+{
+  "node_id": "root.petersson_core_good_hecke-a1.hecke_integral_adjointness-a1.good_prime_transversal-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/205",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/369",
+  "candidate_commit": "fbe30ff169860d824e1b180fbb0ad8a862d9e748",
+  "integrated_commit": "a3ea4033961f92c4d0c19690ec2d6bd35f14dd55",
+  "proof_base_commit": "75b0083a67ab1567b2154a8f53d5c04573e9904b",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.petersson_core_good_hecke-a1.hecke_integral_adjointness-a1",
+  "requires": [
+    "root.petersson_core_good_hecke-a1.hecke_integral_adjointness-a1.good_prime_transversal-a1.unique_projective_index-a1",
+    "root.petersson_core_good_hecke-a1.hecke_integral_adjointness-a1.good_prime_transversal-a1.bezout_exceptional_lift-a1"
+  ]
+}
