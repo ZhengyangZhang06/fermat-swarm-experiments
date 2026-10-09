@@ -445,7 +445,7 @@ theorem Submission.p03_ptf_positive_nsmul_nonzero_c5b7b5ed_d6 :
     simp only [p, Polynomial.eval_add, Polynomial.eval_mul, Polynomial.eval_pow,
       Polynomial.eval_X, Polynomial.eval_C] at hx
     have ht : 2 * y + W.a₁ * x + W.a₃ = 0 := by
-      apply pow_eq_zero (n := 2)
+      apply eq_zero_of_pow_eq_zero (n := 2)
       exact (disc x y hxy).trans hx
     have hy : y = W.toAffine.negY x y := by
       dsimp only [negY]
@@ -455,7 +455,10 @@ theorem Submission.p03_ptf_positive_nsmul_nonzero_c5b7b5ed_d6 :
   have half (P : W.toAffine.Point) :
       ∃ Q : W.toAffine.Point, 2 • Q = P ∨ 2 • Q = -P := by
     cases P with
-    | zero => exact ⟨0, Or.inl (by simp [zero_def])⟩
+    | zero =>
+      refine ⟨0, Or.inl ?_⟩
+      change (2 : ℕ) • (0 : W.toAffine.Point) = 0
+      exact nsmul_zero 2
     | some u v huv =>
       let p : Polynomial k := Polynomial.X ^ 4 -
         Polynomial.C W.b₄ * Polynomial.X ^ 2 -
@@ -477,7 +480,7 @@ theorem Submission.p03_ptf_positive_nsmul_nonzero_c5b7b5ed_d6 :
       have ht : t ≠ 0 := by
         intro ht
         have hz0 : z = 0 := by
-          apply pow_eq_zero (n := 2)
+          apply eq_zero_of_pow_eq_zero (n := 2)
           simpa only [ht, mul_zero, zero_pow (by omega : 2 ≠ 0), add_zero,
             sub_zero] using hz
         rcases ((nonsingular_iff' x y).mp hxy).2 with h | h
@@ -491,13 +494,16 @@ theorem Submission.p03_ptf_positive_nsmul_nonzero_c5b7b5ed_d6 :
         dsimp only [t, negY] at *
         linear_combination hy
       have hx' : W.toAffine.addX x x (W.toAffine.slope x x y y) = u := by
-        rw [slope_of_Y_ne rfl hy, addX]
+        have htdef : y - W.toAffine.negY x y = t := by
+          dsimp [negY, t]
+          ring
+        rw [slope_of_Y_ne rfl hy, addX, htdef]
         change (z / t) ^ 2 + W.a₁ * (z / t) - W.a₂ - x - x = u
         have hmul : ((z / t) ^ 2 + W.a₁ * (z / t) - W.a₂ - x - x - u) *
             t ^ 2 = 0 := by
           calc
             _ = z ^ 2 + W.a₁ * z * t - (W.a₂ + 2 * x + u) * t ^ 2 := by
-              field_simp
+              field_simp [ht]
               <;> ring
             _ = 0 := hz
         exact sub_eq_zero.mp ((mul_eq_zero.mp hmul).resolve_right (pow_ne_zero 2 ht))
@@ -515,7 +521,7 @@ theorem Submission.p03_ptf_positive_nsmul_nonzero_c5b7b5ed_d6 :
       · refine ⟨Q, ?_⟩
         simpa only [mul_nsmul, hQ] using hP
       · refine ⟨Q, ?_⟩
-        simpa only [mul_nsmul, hQ, nsmul_neg, neg_ne_zero] using hP
+        simpa only [mul_nsmul, hQ, smul_neg, neg_ne_zero] using hP
     · refine ⟨T, ?_⟩
       simpa only [add_nsmul, mul_nsmul, hT2, nsmul_zero, one_nsmul,
         zero_add] using hT
