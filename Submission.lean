@@ -2372,3 +2372,23 @@ theorem Submission.p09_af497904fe_ir_inertia_cardinality :
   exact (Ideal.card_inertia_eq_ramificationIdxIn (G := E ≃ₐ[ℚ] E)
     (Ideal.span {(q : ℤ)}) P).trans
     (Ideal.ramificationIdxIn_eq_ramificationIdx (Ideal.span {(q : ℤ)}) P (E ≃ₐ[ℚ] E))
+
+
+theorem Submission.p09_af497904fe_ce_inertia_ramification :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ))
+      [FiniteDimensional ℚ E] [IsGalois ℚ E] (q : ℕ),
+      q.Prime →
+      (∀ V : ValuationSubring E, V.LiesOverPrime q →
+        ∀ τ : E ≃ₐ[ℚ] E, τ ∈ V.inertiaSubgroupIn ℚ → τ = 1) →
+      ∀ P : Ideal (NumberField.RingOfIntegers E), P.IsPrime →
+        P.LiesOver (Ideal.span {(q : ℤ)}) → Ideal.ramificationIdx P ℤ = 1 := by
+  intro E _ _ q hq hI P hP hPq
+  obtain ⟨V, hV, hPV⟩ :=
+    Submission.p09_af497904fe_ir_ideal_inertia_to_valuation E q hq P hP hPq
+  have htrivial : P.inertia (E ≃ₐ[ℚ] E) = ⊥ := by
+    apply (Subgroup.eq_bot_iff_forall _).mpr
+    intro τ hτ
+    exact hI V hV τ (hPV hτ)
+  rw [← Submission.p09_af497904fe_ir_inertia_cardinality E q hq P hP hPq,
+    htrivial]
+  exact Subgroup.card_bot
