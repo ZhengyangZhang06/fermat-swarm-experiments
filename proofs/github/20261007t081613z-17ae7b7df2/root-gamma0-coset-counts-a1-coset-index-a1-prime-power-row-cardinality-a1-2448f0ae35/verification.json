@@ -1,0 +1,18 @@
+{
+  "node_id": "root.gamma0_coset_counts-a1.coset_index-a1.prime_power_row_cardinality-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/465",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "c647ab78b7e77d5c2eb7acc6a51d99e5bfe1951d",
+  "integrated_commit": "57fd34810dc7d7091a3c3216258e94d7737dc768",
+  "proof_base_commit": "1e115a452fbc98bff8aaa6728679030b19690b46",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.gamma0_coset_counts-a1.coset_index-a1",
+  "requires": [
+    "root.gamma0_coset_counts-a1.coset_index-a1.prime_power_row_cardinality-a1.unit_chart_equivalence-a1",
+    "root.gamma0_coset_counts-a1.coset_index-a1.prime_power_row_cardinality-a1.nonunit_cardinality-a1"
+  ]
+}
