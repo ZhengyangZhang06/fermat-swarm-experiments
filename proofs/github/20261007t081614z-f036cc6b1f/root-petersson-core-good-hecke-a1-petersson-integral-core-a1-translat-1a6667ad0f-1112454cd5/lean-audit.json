@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "def petersson|theorem petersson_slash_SL|exp_decay_atImInfty|def translate|instance.*SMulInvariantMeasure|measurePreserving_smul",
+        "f036cc6b1f_pic_translated_integrable|f036cc6b1f_tdi_planar_exp_integrable_fd|f036cc6b1f_tdi_petersson_integrable_of_exp_product_bound"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/Petersson.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/ModularForms/QExpansion.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean"
+      ],
+      "conclusion": "The snapshot pins project 61b5f85556ac71631ccad822e0694511234f7132 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Inspected sources provide the unchanged Petersson definition, covariance, cusp-form exponential decay, and invariant hyperbolic measure. Their bytes match the pinned inputs; all nine dependency checkouts are clean. No declarations matching the three node-specific names occur in the snapshot. The exact comparator rerun passed kernel and transitive-axiom checks."
+    }
+  ],
+  "comparison_identity": "7ddf3138e532b45b3b41aedccf45ce08286ad87a5d5b387a57b5e3c4cb00c95e",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.f036cc6b1f_pic_translated_integrable",
+      "statement": "∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) [Δ.FiniteIndex] (r : Matrix.SpecialLinearGroup (Fin 2) ℤ) (f g : CuspForm Δ 2), MeasureTheory.IntegrableOn (UpperHalfPlane.petersson 2 f g) ((fun z : UpperHalfPlane => r • z) '' ModularGroup.fd) (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Uses the accepted exponential-product integrability dependency for translated cusp forms, then transports integrability using Petersson covariance and invariant volume."
+    }
+  ]
+}
