@@ -1559,8 +1559,6 @@ theorem Submission.p10_17ae7b7d_rd_coeff_support :
       (fun q : FormalMultilinearSeries ℂ ℂ ℂ => q n (fun _ => (1 : ℂ))) heq
     rw [FormalMultilinearSeries.compContinuousLinearMap_apply] at h
     simpa [Function.comp_def, L, smul_eq_mul] using h
-    simpa [FormalMultilinearSeries.compContinuousLinearMap_apply, Function.comp_def,
-      L, FormalMultilinearSeries.apply_eq_pow_smul_coeff, smul_eq_mul] using h
   have hroot : ζ ^ n ≠ 1 := by
     intro h
     have hexp : Complex.exp (2 * (Real.pi : ℂ) * Complex.I * (n : ℂ) / (w : ℂ)) = 1 := by
@@ -1568,7 +1566,6 @@ theorem Submission.p10_17ae7b7d_rd_coeff_support :
         _ = Complex.exp ((n : ℂ) * (2 * (Real.pi : ℂ) * Complex.I / (w : ℂ))) := by
           congr 1
           ring
-          congr 1 <;> ring
         _ = ζ ^ n := Complex.exp_nat_mul _ _
         _ = 1 := h
     exact hn ((Complex.exp_two_pi_mul_I_mul_div_eq_one_iff (Nat.ne_of_gt hw)).mp hexp)
@@ -2514,63 +2511,6 @@ theorem Submission.p10_17ae7b7d_cc_index :
   have hpPrime := Nat.prime_of_mem_primeFactors hp
   exact Submission.p10_17ae7b7d_idx_prime_power_row_card p (N.factorization p) hpPrime
     (hpPrime.factorization_pos_of_dvd (NeZero.ne N) (Nat.dvd_of_mem_primeFactors hp))
-theorem Submission.p10_17ae7b7d_rd_sparse_series_descent :
-    ∀ (w : ℕ) (P : ℂ → ℂ) (p : FormalMultilinearSeries ℂ ℂ ℂ),
-      0 < w → HasFPowerSeriesAt P p 0 →
-      (∀ n : ℕ, ¬ w ∣ n → p.coeff n = 0) →
-      ∃ C : ℂ → ℂ, AnalyticAt ℂ C 0 ∧
-        ∃ r : ℝ, 0 < r ∧ ∀ t : ℂ, ‖t‖ < r → P t = C (t ^ w) := by
-  intro w P p hw ⟨R, hR⟩ hsparse
-  obtain ⟨r, hr, hrR⟩ := ENNReal.lt_iff_exists_nnreal_btwn.mp hR.r_pos
-  have hrpos : 0 < r := by exact_mod_cast hr
-  have hinj : Function.Injective (fun n : ℕ => w * n) := mul_right_injective₀ hw.ne'
-  let B : FormalMultilinearSeries ℂ ℂ ℂ :=
-    FormalMultilinearSeries.ofScalars ℂ (fun n => p.coeff (w * n))
-  have hsub := (p.summable_norm_mul_pow (hrR.trans_le hR.r_le)).comp_injective hinj
-  have hBrad : ((r ^ w : NNReal) : ENNReal) ≤ B.radius := by
-    apply B.le_radius_of_summable
-    simpa only [B, FormalMultilinearSeries.norm_apply_eq_norm_coef,
-      FormalMultilinearSeries.coeff_ofScalars, Function.comp_def,
-      NNReal.coe_pow, pow_mul] using hsub
-  have hBpos : 0 < B.radius :=
-    lt_of_lt_of_le (by exact_mod_cast pow_pos hrpos w) hBrad
-  refine ⟨B.sum, (B.hasFPowerSeriesOnBall hBpos).analyticAt, (r : ℝ), ?_, ?_⟩
-  · exact_mod_cast hrpos
-  · intro t ht
-    have htR : t ∈ Metric.eball (0 : ℂ) R := by
-      apply mem_eball_zero_iff.mpr
-      exact lt_trans (by exact_mod_cast ht) hrR
-    have hsupport : Function.support (fun n : ℕ => p n (fun _ => t)) ⊆
-        Set.range (fun n : ℕ => w * n) := by
-      intro n hn
-      by_contra hnot
-      have hnd : ¬ w ∣ n := by
-        rintro ⟨k, hk⟩
-        exact hnot ⟨k, hk.symm⟩
-      apply hn
-      change p n (fun _ => t) = 0
-      rw [FormalMultilinearSeries.apply_eq_pow_smul_coeff, hsparse n hnd, smul_zero]
-    calc
-      P t = p.sum t := by simpa only [zero_add] using hR.sum htR
-      _ = ∑' n : ℕ, p (w * n) (fun _ => t) := (hinj.tsum_eq hsupport).symm
-      _ = B.sum (t ^ w) := by
-        apply tsum_congr
-        intro n
-        simp only [B, FormalMultilinearSeries.apply_eq_pow_smul_coeff,
-          FormalMultilinearSeries.coeff_ofScalars, pow_mul]
-
-
-theorem Submission.p10_17ae7b7d_cpd_rotation_descent :
-    ∀ (w : ℕ) (P : ℂ → ℂ), 0 < w → AnalyticAt ℂ P 0 →
-      (∃ s : ℝ, 0 < s ∧ ∀ t : ℂ, ‖t‖ < s →
-        P (Complex.exp (2 * (Real.pi : ℂ) * Complex.I / (w : ℂ)) * t) = P t) →
-      ∃ C : ℂ → ℂ, AnalyticAt ℂ C 0 ∧
-        ∃ r : ℝ, 0 < r ∧ ∀ t : ℂ, ‖t‖ < r → P t = C (t ^ w) := by
-  intro w P hw hP hrotation
-  obtain ⟨p, hp⟩ := hP
-  exact Submission.p10_17ae7b7d_rd_sparse_series_descent w P p hw hp
-    (Submission.p10_17ae7b7d_rd_coeff_support w P p hw hp hrotation)
-
 namespace Submission
 
 open Filter
