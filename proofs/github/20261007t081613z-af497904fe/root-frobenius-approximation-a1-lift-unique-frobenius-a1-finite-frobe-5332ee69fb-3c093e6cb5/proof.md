@@ -1,0 +1,56 @@
+# Parent-supplied natural-language proof
+
+- Parent DAG node: `root.frobenius_approximation-a1.lift_unique_frobenius-a1`
+- Child DAG node: `root.frobenius_approximation-a1.lift_unique_frobenius-a1.finite_frobenius_exists-a1`
+- Review gate: accepted as part of the parent's decomposition audit
+
+## Proof
+
+1. Fix E, ℓ, and V satisfying the hypotheses. Apply valuation_localization to obtain a nonzero prime q of O_E containing ℓ, the fraction description V = (O_E)_q, finiteness of k = O_E/q, and the equality between q and the contraction of V.nonunits. Since k is a nontrivial finite domain, it is a field.
+2. The contraction of q to ℤ is a proper prime containing (ℓ). The ideal (ℓ) is maximal because ℓ is prime, so that contraction is exactly (ℓ). Thus k has characteristic ℓ and its base residue field is ℤ/(ℓ), identified with 𝔽_ℓ.
+3. Let G = Gal(E/ℚ), a finite group because E/ℚ is finite Galois. Its action on E restricts to O_E: rational automorphisms fix the integer coefficients of monic integral equations, and the same applies to their inverses. The action fixes ℤ. Its invariant integer ring is exactly ℤ. Indeed, an integer fixed by every element of G lies in the image of ℚ by IsGalois.mem_range_algebraMap_iff_fixed in the pinned Mathlib/FieldTheory/Galois/Basic.lean. A rational number a/b in lowest terms that satisfies a monic integral equation has b dividing a^n after clearing denominators; coprimality forces the positive denominator b to equal 1. Hence it is an integer. This verifies the invariant-ring hypothesis for the canonical G-action on O_E.
+4. The map φ : k → k defined by φ(x) = x^ℓ is a ring homomorphism in characteristic ℓ. It is injective, since φ(x) = φ(y) implies (x−y)^ℓ = 0 and a field has no nonzero nilpotents. Finiteness of k makes it surjective. It fixes the prime field, because it is a unital ring homomorphism and every element of 𝔽_ℓ is represented by an integer. Thus φ is an automorphism of k over ℤ/(ℓ).
+5. Apply Ideal.Quotient.stabilizerHom_surjective from the pinned Mathlib/RingTheory/Invariant/Basic.lean with base ring ℤ, upper ring O_E, group G, base prime (ℓ), and upper prime q. The rings, finite group, invariant-ring property, prime property, and contraction condition were established above. Surjectivity produces g ∈ G stabilizing q whose action on O_E/q is φ.
+6. Both g and g⁻¹ preserve O_E and q. They therefore preserve the fractions with denominator outside q, so they preserve V. The residue map O_E → V/m_V has kernel q by the nonunit characterization from valuation_localization. It induces an injective map k → V/m_V. This map is surjective: every element of V is a/b with b ∉ q, and its residue is the image of [a]/[b] in the field k. Hence it is a residue-field isomorphism.
+7. This isomorphism intertwines the action induced by g on both residue fields. On an integer representative, both actions send its residue to the residue of its image under g; on fractions the same equality follows by preservation of division. The action on k is φ, so the action on every residue class of V is the ℓ-power map. Together with preservation of V, this gives the witness of membership in V.decompositionSubgroup ℚ and the residue-action equality required by the frozen definition of V.IsFrobeniusAt g ℓ. The resulting g proves the existential statement.
+
+## Key steps
+
+1. Identify V with an integer localization having finite residue field of characteristic ℓ.
+2. Verify that the finite rational Galois group acts on the integer ring with invariant ring ℤ.
+3. Construct the ℓ-power automorphism of the finite residue field.
+4. Lift it using Ideal.Quotient.stabilizerHom_surjective.
+5. Transfer the lifted action through the equivariant residue-field identification to the frozen valuation Frobenius predicate.
+
+## Reference use
+
+### local-project
+
+Queries:
+- `IsFrobeniusAt|LiesOverPrime|stabilizerHom_surjective|isDiscreteValuationRing_of_dedekind_domain`
+- `RingOfIntegers|isDedekindDomain|isFractionRing|finite|free`
+- `exists.*[Ff]robenius|[Ff]robenius.*exists|lift.*[Ff]robenius`
+- `nonunits|mem_nonunits|isUnit`
+- `exists.*[Ll]iesOver|exists.*[Uu]nder|exists_ideal_over|liesOver`
+- `fixedField.*bot|fixed_by_all|mem_bot|mem_range|fixedField_top|isInvariant`
+- `p09_af497904fe_luf_`
+- `python3 .humanize/luf-split-diagnostic-20261009/check.py`
+
+Files inspected:
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/DedekindDomain/Dvr.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Ideal/GoingUp.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Invariant/Basic.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Invariant/Galois.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Frobenius.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/Galois/Basic.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/luf-split-diagnostic-20261009/Types.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/luf-split-diagnostic-20261009/Types.lean.log`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/luf-split-diagnostic-20261009/report.json`
+
+The snapshots are clean at project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d; compiler dependencies also match their clean pinned revisions. The inspected files supply integer-ring finiteness and Dedekind properties, DVR localizations, integral prime lifting, fixed-ring identification, residue-action surjectivity, and the exact valuation Frobenius predicates. The targeted lifting search found no direct implementation of the supplied algebraic-closure lifting statement in the searched directories. All four proposed types elaborate after import Submission. Additional checks verify integer-ring actions, field inclusions, automorphism multiplication, and the frozen residue action. Checked types and supporting declarations depend only on propext, Classical.choice, and Quot.sound. Proposed names were absent from the active DAG and imported environment. The successful diagnostic receipt records policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, omission of precisely lines 10–11, reversible original/build hashes, a successful Lean absence probe for all eight targets, and unchanged protected files. These are interface diagnostics, not proof or comparator acceptance.
