@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "3820a67e2ae2ebaceedc568d17c72dd3357286e3034bfd8841646a3b61783a94",
+  "git_delta": {
+    "base_commit": "d73bc79fcfa5dc2c71792c1de4c27cc5acae0675",
+    "candidate_commit": "c0a19aaf18c921170c38789d283813671e76b98a",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_ce_compositum_pair",
+    "diff_sha256": "4136c8a03afae53bd9e234b8760b3a4dc76460750eda7c5bfcb2e5a6f67a59db",
+    "source_sha256": "7844f68ac73c47a4aa8f50a21563e16d6f46accd1159a74d677641674f52f3ff",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_ce_compositum_pair",
+      "statement": "∀ (E C : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [IsGalois ℚ E] [FiniteDimensional ℚ C] [IsGalois ℚ C], E ⊓ C = ⊥ → ∀ (g : E ≃ₐ[ℚ] E) (a : C ≃ₐ[ℚ] C), ∃! h : ↥(E ⊔ C) ≃ₐ[ℚ] ↥(E ⊔ C), (∀ x : E, h (IntermediateField.inclusion (show E ≤ E ⊔ C from le_sup_left) x) = IntermediateField.inclusion (show E ≤ E ⊔ C from le_sup_left) (g x)) ∧ (∀ y : C, h (IntermediateField.inclusion (show C ≤ E ⊔ C from le_sup_right) y) = IntermediateField.inclusion (show C ≤ E ⊔ C from le_sup_right) (a y))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
