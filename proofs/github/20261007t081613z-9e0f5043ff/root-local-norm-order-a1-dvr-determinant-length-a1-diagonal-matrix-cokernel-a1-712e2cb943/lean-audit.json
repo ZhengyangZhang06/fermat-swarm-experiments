@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n --glob '*.lean' 'p06_9e0f5043ff_dlen_diagonal_cokernel|p06_9e0f5043ff_dmc_cokernel_units|p06_9e0f5043ff_dmc_diagonal_quotient' project mathlib",
+        "sed -n '35,64p' mathlib/Mathlib/LinearAlgebra/Matrix/ToLinearEquiv.lean",
+        "sed -n '20,58p' mathlib/Mathlib/LinearAlgebra/Isomorphisms.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Matrix/ToLinearEquiv.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Isomorphisms.lean"
+      ],
+      "conclusion": "Queries ran from the snapshot root. No matches for the three node-specific declaration names. Inspected existing Matrix.toLinearEquiv' and LinearMap.quotKerEquivOfSurjective infrastructure. Clean snapshot revisions match the manifest: project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The exact comparator rerun confirmed kernel acceptance and only the permitted transitive axioms."
+    }
+  ],
+  "comparison_identity": "945f4272b4c45672af84ca9a57e6c0d92cf6c796abe30c84818f8385936c0f5f",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_dlen_diagonal_cokernel",
+      "statement": "∀ (R : Type*) [CommRing R] (m : ℕ) (D P Q : Matrix (Fin m) (Fin m) R) (d : Fin m → R), IsUnit P → IsUnit Q → P * D * Q = Matrix.diagonal d → Nonempty (((Fin m → R) ⧸ LinearMap.range (Matrix.mulVecLin D)) ≃ₗ[R] ((i : Fin m) → R ⧸ Ideal.span ({d i} : Set R)))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Composes the accepted unit-transformation cokernel equivalence with the accepted diagonal quotient equivalence, using the given matrix equality."
+    }
+  ]
+}

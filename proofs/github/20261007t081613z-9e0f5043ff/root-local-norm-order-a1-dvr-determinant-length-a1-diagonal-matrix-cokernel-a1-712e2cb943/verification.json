@@ -1,0 +1,18 @@
+{
+  "node_id": "root.local_norm_order-a1.dvr_determinant_length-a1.diagonal_matrix_cokernel-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/97",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "da050c88152c9f8a041f4516b89f6c83e3369486",
+  "integrated_commit": "f88b11dc6c8be11768ffe49a2e26dd6b4ec4651d",
+  "proof_base_commit": "5da12614987b5d1f0110e32890511a7094b8737f",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.local_norm_order-a1.dvr_determinant_length-a1",
+  "requires": [
+    "root.local_norm_order-a1.dvr_determinant_length-a1.diagonal_matrix_cokernel-a1.cokernel_invariant_under_units-a1",
+    "root.local_norm_order-a1.dvr_determinant_length-a1.diagonal_matrix_cokernel-a1.diagonal_cokernel_product-a1"
+  ]
+}
