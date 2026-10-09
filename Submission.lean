@@ -3718,12 +3718,305 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     hgridFinite.biUnion (fun i _ =>
       ((hgridVerticalIntersections i.1).union (hgridVerticalIntersections (i.1 + 1))).union
         ((hgridHorizontalIntersections i.2).union (hgridHorizontalIntersections (i.2 + 1))))
-  /- Remaining formal obligation: construct directed cell boundaries for the
-  zero-free excised domain and cancel their primitive integrals. hVfrontier now
-  identifies the actual cut arcs and excision circles; hcircles supplies their
-  clockwise residue integrals. The finite cover and primitive-cycle cancellation
-  now include a translated grid avoiding corners, tangencies, and boundary vertices,
-  but do not yet construct the directed cell boundaries needed for hclosedContour.
-  No global contour equality is assumed. -/
+  -- Give the translated squares their counterclockwise edge parameterizations.
+  let cellNext : Equiv.Perm (Fin 4) := Equiv.addRight 1
+  let cellVertex : (ℤ × ℤ) → Fin 4 → ℂ := fun i =>
+    ![gridVertex i, gridVertex (i.1 + 1, i.2),
+      gridVertex (i.1 + 1, i.2 + 1), gridVertex (i.1, i.2 + 1)]
+  let cellEdge : (ℤ × ℤ) → Fin 4 → ℝ → ℂ := fun i j t =>
+    cellVertex i j + (t : ℂ) * (cellVertex i (cellNext j) - cellVertex i j)
+  let cellVelocity : (ℤ × ℤ) → Fin 4 → ℂ := fun i j =>
+    cellVertex i (cellNext j) - cellVertex i j
+  have hcellConvex (i : ℤ × ℤ) : Convex ℝ (gridSquare i) :=
+    (convex_halfSpace_re_ge _).inter ((convex_halfSpace_re_le _).inter
+      ((convex_halfSpace_im_ge _).inter (convex_halfSpace_im_le _)))
+  have hcellVertices (i : ℤ × ℤ) (j : Fin 4) : cellVertex i j ∈ gridSquare i := by
+    fin_cases j <;> norm_num [cellVertex, gridVertex, gridSquare] <;>
+      (try constructor) <;> nlinarith [hd]
+  have hcellEdgeMem (i : ℤ × ℤ) (j : Fin 4) (t : ℝ) (ht : t ∈ Set.Icc 0 1) :
+      cellEdge i j t ∈ gridSquare i := by
+    have h := hcellConvex i (hcellVertices i j) (hcellVertices i (cellNext j))
+      (sub_nonneg.mpr ht.2) ht.1 (by ring : 1 - t + t = 1)
+    convert h using 1
+    simp only [cellEdge, Complex.real_smul, Complex.ofReal_sub, Complex.ofReal_one]
+    ring
+  have hcellEdgeDeriv (i : ℤ × ℤ) (j : Fin 4) (t : ℝ) :
+      HasDerivAt (cellEdge i j) (cellVelocity i j) t := by
+    simpa only [cellEdge, cellVelocity, Complex.ofReal_one, one_mul, id_eq] using
+      (((hasDerivAt_id t).ofReal_comp).mul_const
+        (cellVertex i (cellNext j) - cellVertex i j)).const_add (cellVertex i j)
+  have hcellEdgeEndpoints (i : ℤ × ℤ) (j : Fin 4) :
+      cellEdge i j 0 = cellVertex i j ∧
+        cellEdge i j 1 = cellVertex i (cellNext j) := by
+    simp [cellEdge]
+  have hcellEdgeBalance (i : ℤ × ℤ) (j : Fin 4) :
+      cellEdge i j 1 = cellEdge i (cellNext j) 0 := by
+    rw [(hcellEdgeEndpoints i j).2, (hcellEdgeEndpoints i (cellNext j)).1]
+  have hcellBoundarySides (i : ℤ × ℤ) :
+      (⋃ j : Fin 4, cellEdge i j '' Set.Icc 0 1) =
+        {z ∈ gridSquare i | z.re = a.re + (i.1 : ℝ) * d ∨
+          z.re = a.re + ((i.1 : ℝ) + 1) * d ∨
+          z.im = a.im + (i.2 : ℝ) * d ∨
+          z.im = a.im + ((i.2 : ℝ) + 1) * d} := by
+    have hedge (j : Fin 4) (t : ℝ) : cellEdge i j t =
+        ![gridVertex i + (t * d : ℝ),
+          gridVertex (i.1 + 1, i.2) + (t * d : ℝ) * Complex.I,
+          gridVertex (i.1 + 1, i.2 + 1) - (t * d : ℝ),
+          gridVertex (i.1, i.2 + 1) - (t * d : ℝ) * Complex.I] j := by
+      fin_cases j <;> norm_num [cellEdge, cellVertex, cellNext, Equiv.addRight,
+        gridVertex, Fin.add_def]
+      all_goals ring_nf
+      all_goals simp
+    ext z
+    constructor
+    · intro hz
+      obtain ⟨j, t, ht, rfl⟩ := Set.mem_iUnion.mp hz
+      refine ⟨hcellEdgeMem i j t ht, ?_⟩
+      rw [hedge]
+      fin_cases j <;> simp [gridVertex]
+    · rintro ⟨hz, hside⟩
+      have hx : a.re + (i.1 : ℝ) * d ≤ z.re ∧
+          z.re ≤ a.re + ((i.1 : ℝ) + 1) * d := ⟨hz.1, hz.2.1⟩
+      have hy : a.im + (i.2 : ℝ) * d ≤ z.im ∧
+          z.im ≤ a.im + ((i.2 : ℝ) + 1) * d := hz.2.2
+      have hquot (x l : ℝ) (hl : l ≤ x) (hu : x ≤ l + d) :
+          (x - l) / d ∈ Set.Icc 0 1 :=
+        ⟨div_nonneg (sub_nonneg.mpr hl) hd.le, (div_le_one hd).mpr (by linarith)⟩
+      rcases hside with hx0 | hx1 | hy0 | hy1
+      · refine Set.mem_iUnion.mpr ⟨3,
+          (a.im + ((i.2 : ℝ) + 1) * d - z.im) / d, ?_, ?_⟩
+        · constructor
+          · exact div_nonneg (sub_nonneg.mpr hy.2) hd.le
+          · apply (div_le_one hd).mpr
+            linarith [hy.1]
+        · rw [hedge]
+          apply Complex.ext <;> simp [gridVertex, hx0, div_mul_cancel₀ _ hd.ne']
+      · refine Set.mem_iUnion.mpr ⟨1, (z.im - (a.im + (i.2 : ℝ) * d)) / d,
+          hquot _ _ hy.1 (by nlinarith [hy.2]), ?_⟩
+        rw [hedge]
+        apply Complex.ext <;> simp [gridVertex, hx1, div_mul_cancel₀ _ hd.ne']
+      · refine Set.mem_iUnion.mpr ⟨0, (z.re - (a.re + (i.1 : ℝ) * d)) / d,
+          hquot _ _ hx.1 (by nlinarith [hx.2]), ?_⟩
+        rw [hedge]
+        apply Complex.ext <;> simp [gridVertex, hy0, div_mul_cancel₀ _ hd.ne']
+      · refine Set.mem_iUnion.mpr ⟨2,
+          (a.re + ((i.1 : ℝ) + 1) * d - z.re) / d, ?_, ?_⟩
+        · constructor
+          · exact div_nonneg (sub_nonneg.mpr hx.2) hd.le
+          · apply (div_le_one hd).mpr
+            linarith [hx.1]
+        · rw [hedge]
+          apply Complex.ext <;> simp [gridVertex, hy1, div_mul_cancel₀ _ hd.ne']
+  -- A relevant square missing the genuine boundary is wholly occupied.
+  have hcellFrontier (i : ℤ × ℤ) :
+      frontier (gridSquare i) = ⋃ j : Fin 4, cellEdge i j '' Set.Icc 0 1 := by
+    have hx : a.re + (i.1 : ℝ) * d ≤ a.re + ((i.1 : ℝ) + 1) * d := by linarith
+    have hy : a.im + (i.2 : ℝ) * d ≤ a.im + ((i.2 : ℝ) + 1) * d := by linarith
+    have hrect : gridSquare i = Complex.reProdIm
+        (Set.Icc (a.re + (i.1 : ℝ) * d) (a.re + ((i.1 : ℝ) + 1) * d))
+        (Set.Icc (a.im + (i.2 : ℝ) * d) (a.im + ((i.2 : ℝ) + 1) * d)) := by
+      ext z
+      simp only [gridSquare, Set.mem_ofPred_eq, Complex.mem_reProdIm, Set.mem_Icc]
+      tauto
+    rw [hcellBoundarySides, hrect, Complex.frontier_reProdIm,
+      closure_Icc, closure_Icc, frontier_Icc hx, frontier_Icc hy]
+    ext z
+    simp only [Set.mem_union, Complex.mem_reProdIm, Set.mem_Icc, Set.mem_insert_iff,
+      Set.mem_singleton_iff, Set.mem_ofPred_eq]
+    constructor
+    · rintro (⟨hzx, hzy | hzy⟩ | ⟨hzx | hzx, hzy⟩)
+      · exact ⟨⟨hzx, by rw [hzy]; exact ⟨le_rfl, hy⟩⟩, Or.inr (Or.inr (Or.inl hzy))⟩
+      · exact ⟨⟨hzx, by rw [hzy]; exact ⟨hy, le_rfl⟩⟩, Or.inr (Or.inr (Or.inr hzy))⟩
+      · exact ⟨⟨by rw [hzx]; exact ⟨le_rfl, hx⟩, hzy⟩, Or.inl hzx⟩
+      · exact ⟨⟨by rw [hzx]; exact ⟨hx, le_rfl⟩, hzy⟩, Or.inr (Or.inl hzx)⟩
+    · rintro ⟨⟨hzx, hzy⟩, h | h | h | h⟩
+      · exact Or.inr ⟨Or.inl h, hzy⟩
+      · exact Or.inr ⟨Or.inr h, hzy⟩
+      · exact Or.inl ⟨hzx, Or.inl h⟩
+      · exact Or.inl ⟨hzx, Or.inr h⟩
+  have hcellOccupied (i : ℤ × ℤ) (hi : i ∈ gridCells)
+      (havoid : Disjoint (gridSquare i) (frontier V)) : gridSquare i ⊆ V := by
+    have hcover : gridSquare i ⊆ V ∪ (closure V)ᶜ := by
+      intro z hz
+      by_cases hzV : z ∈ V
+      · exact Or.inl hzV
+      · exact Or.inr (fun hzcl => Set.disjoint_left.mp havoid hz
+          (by rw [hVopen.frontier_eq]; exact ⟨hzcl, hzV⟩))
+    have hdisjoint : Disjoint V (closure V)ᶜ :=
+      Set.disjoint_left.mpr (fun _ hz hn => hn (subset_closure hz))
+    rcases (hcellConvex i).isPreconnected.subset_or_subset hVopen
+      isClosed_closure.isOpen_compl hdisjoint hcover with hinside | houtside
+    · exact hinside
+    · obtain ⟨z, hzcl, hzcell⟩ := hi
+      exact False.elim (houtside hzcell hzcl)
+  have hoccupiedCellBoundary (i : ℤ × ℤ) (hi : i ∈ gridCells)
+      (havoid : Disjoint (gridSquare i) (frontier V)) :
+      frontier (V ∩ gridSquare i) = ⋃ j : Fin 4, cellEdge i j '' Set.Icc 0 1 := by
+    rw [Set.inter_eq_right.mpr (hcellOccupied i hi havoid)]
+    exact hcellFrontier i
+  have hoccupiedCellIntegral (i : ℤ × ℤ) (hi : i ∈ gridCells)
+      (havoid : Disjoint (gridSquare i) (frontier V)) :
+      (∀ j : Fin 4, ∀ t ∈ Set.Icc (0 : ℝ) 1, cellEdge i j t ∈ V) ∧
+        (∑ j : Fin 4, intervalIntegral
+          (fun t => L (cellEdge i j t) * cellVelocity i j) 0 1 MeasureTheory.volume) = 0 := by
+    have hinside := hcellOccupied i hi havoid
+    have hLc : ContinuousOn L (gridSquare i) := by
+      intro z hz
+      exact (hLan z (hKH (hcutClosureK ε (subset_closure (hinside hz).1)))
+        (hVzeroFree z (subset_closure (hinside hz)))).continuousAt.continuousWithinAt
+    have hint (j : Fin 4) : IntervalIntegrable
+        (fun t => L (cellEdge i j t) * cellVelocity i j) MeasureTheory.volume 0 1 := by
+      have hη : Continuous (cellEdge i j) :=
+        continuous_iff_continuousAt.mpr (fun t => (hcellEdgeDeriv i j t).continuousAt)
+      exact ((hLc.comp hη.continuousOn (fun t ht => hcellEdgeMem i j t ht)).mul
+        continuousOn_const).intervalIntegrable_of_Icc (by norm_num)
+    obtain ⟨g, hg⟩ := hgridPrimitives i hi
+    refine ⟨fun j t ht => hinside (hcellEdgeMem i j t ht), ?_⟩
+    exact hprimitiveCycles (gridSquare i) g hg 4 cellNext (cellEdge i)
+      (fun j _ => cellVelocity i j) (fun _ => 0) (fun _ => 1)
+      (fun j t ht => hcellEdgeMem i j t (by simpa using ht))
+      (fun j t _ => hcellEdgeDeriv i j t) hint (hcellEdgeBalance i)
+  -- Every occupied artificial grid edge has the opposite orientation in its
+  -- adjacent square, including squares crossed by the genuine boundary.
+  let cellAcross : (ℤ × ℤ) → Fin 4 → ℤ × ℤ := fun i =>
+    ![(i.1, i.2 - 1), (i.1 + 1, i.2), (i.1, i.2 + 1), (i.1 - 1, i.2)]
+  let cellOpp : Fin 4 → Fin 4 := fun j => j + 2
+  have hcellAcrossInvol (i : ℤ × ℤ) (j : Fin 4) :
+      cellAcross (cellAcross i j) (cellOpp j) = i ∧ cellOpp (cellOpp j) = j := by
+    fin_cases j <;> simp [cellAcross, cellOpp, Fin.add_def]
+  have hcellOppNe (j : Fin 4) : cellOpp j ≠ j := by
+    fin_cases j <;> decide
+  have hcellAcrossPath (i : ℤ × ℤ) (j : Fin 4) (t : ℝ) :
+      cellEdge (cellAcross i j) (cellOpp j) (1 - t) = cellEdge i j t := by
+    fin_cases j <;> norm_num [cellEdge, cellVertex, cellNext, cellAcross, cellOpp,
+      Equiv.addRight, gridVertex, Fin.add_def] <;> ring
+  have hcellAcrossVelocity (i : ℤ × ℤ) (j : Fin 4) :
+      cellVelocity (cellAcross i j) (cellOpp j) = -cellVelocity i j := by
+    fin_cases j <;> norm_num [cellVelocity, cellVertex, cellNext, cellAcross, cellOpp,
+      Equiv.addRight, gridVertex, Fin.add_def]
+  let occupiedEdge : (ℤ × ℤ) → Fin 4 → ℝ → ℂ := fun i j t =>
+    if cellEdge i j t ∈ V then L (cellEdge i j t) * cellVelocity i j else 0
+  let occupiedEdgeIntegral : (ℤ × ℤ) → Fin 4 → ℂ := fun i j =>
+    intervalIntegral (occupiedEdge i j) 0 1 MeasureTheory.volume
+  have hoccupiedEdgeIntegrable (i : ℤ × ℤ) (j : Fin 4) :
+      IntervalIntegrable (occupiedEdge i j) MeasureTheory.volume 0 1 := by
+    have hη : Continuous (cellEdge i j) :=
+      continuous_iff_continuousAt.mpr (fun t => (hcellEdgeDeriv i j t).continuousAt)
+    let R : Set ℝ := Set.Icc 0 1 ∩ cellEdge i j ⁻¹' closure V
+    have hR : IsCompact R := isCompact_Icc.inter_right (isClosed_closure.preimage hη)
+    have hcont : ContinuousOn (fun t => L (cellEdge i j t) * cellVelocity i j) R := by
+      intro t ht
+      have hK : cellEdge i j t ∈ K :=
+        hcutClosureK ε ((closure_mono (show V ⊆ Ω ε from fun _ hz => hz.1)) ht.2)
+      exact (((hLan _ (hKH hK) (hVzeroFree _ ht.2)).continuousAt.comp
+        hη.continuousAt).mul continuousAt_const).continuousWithinAt
+    let T : Set ℝ := cellEdge i j ⁻¹' V
+    have hT : MeasurableSet T := (hVopen.preimage hη).measurableSet
+    have hsub : T ∩ Set.uIcc (0 : ℝ) 1 ⊆ R := by
+      intro t ht
+      exact ⟨by simpa using ht.2, subset_closure ht.1⟩
+    have hint := (MeasureTheory.integrableOn_indicator_iff hT).mpr
+      ((hcont.integrableOn_compact (μ := MeasureTheory.volume) hR).mono_set hsub)
+    rw [intervalIntegrable_iff']
+    convert hint using 1
+    ext t
+    simp only [occupiedEdge, T, Set.indicator, Set.mem_preimage]
+  have hoccupiedEdgePair (i : ℤ × ℤ) (j : Fin 4) :
+      occupiedEdgeIntegral i j + occupiedEdgeIntegral (cellAcross i j) (cellOpp j) = 0 := by
+    have heq : (fun t => occupiedEdge (cellAcross i j) (cellOpp j) (1 - t)) =
+        fun t => -occupiedEdge i j t := by
+      funext t
+      simp only [occupiedEdge, hcellAcrossPath, hcellAcrossVelocity]
+      split_ifs <;> simp
+    have hreflect := intervalIntegral.integral_comp_sub_left
+      (occupiedEdge (cellAcross i j) (cellOpp j)) (a := (0 : ℝ)) (b := 1) 1
+    rw [heq, intervalIntegral.integral_neg] at hreflect
+    have hneg : occupiedEdgeIntegral (cellAcross i j) (cellOpp j) =
+        -occupiedEdgeIntegral i j := by
+      simpa only [occupiedEdgeIntegral, sub_self, sub_zero] using hreflect.symm
+    rw [hneg, add_neg_cancel]
+  have hoccupiedEdgeNeighbor (i : ℤ × ℤ) (j : Fin 4)
+      (hne : occupiedEdgeIntegral i j ≠ 0) : cellAcross i j ∈ gridCells := by
+    by_contra hout
+    apply hne
+    calc
+      _ = intervalIntegral (fun _ : ℝ => (0 : ℂ)) 0 1 MeasureTheory.volume := by
+        apply intervalIntegral.integral_congr
+        intro t ht
+        have ht' : t ∈ Set.Icc (0 : ℝ) 1 := by simpa using ht
+        have hnot : cellEdge i j t ∉ V := by
+          intro hv
+          apply hout
+          refine ⟨cellEdge i j t, subset_closure hv, ?_⟩
+          rw [← hcellAcrossPath i j t]
+          exact hcellEdgeMem _ _ _ ⟨by linarith [ht'.2], by linarith [ht'.1]⟩
+        simp only [if_neg hnot]
+      _ = 0 := intervalIntegral.integral_zero
+  have hartificialEdgesCancel :
+      ∑ i ∈ hgridFinite.toFinset, ∑ j : Fin 4, occupiedEdgeIntegral i j = 0 := by
+    let edges : Finset ((ℤ × ℤ) × Fin 4) := hgridFinite.toFinset ×ˢ Finset.univ
+    let value : ((ℤ × ℤ) × Fin 4) → ℂ := fun p => occupiedEdgeIntegral p.1 p.2
+    let active := edges.filter (fun p => value p ≠ 0)
+    let swapEdge : ((ℤ × ℤ) × Fin 4) → ((ℤ × ℤ) × Fin 4) :=
+      fun p => (cellAcross p.1 p.2, cellOpp p.2)
+    have hmem (p : (ℤ × ℤ) × Fin 4) (hp : p ∈ active) : swapEdge p ∈ active := by
+      obtain ⟨_, hpne⟩ := Finset.mem_filter.mp hp
+      refine Finset.mem_filter.mpr ⟨?_, ?_⟩
+      · exact Finset.mem_product.mpr
+          ⟨hgridFinite.mem_toFinset.mpr (hoccupiedEdgeNeighbor p.1 p.2 hpne), Finset.mem_univ _⟩
+      · intro hz
+        have hpair := hoccupiedEdgePair p.1 p.2
+        change value p + value (swapEdge p) = 0 at hpair
+        rw [hz, add_zero] at hpair
+        exact hpne hpair
+    have hsum : ∑ p ∈ active, value p = 0 := by
+      apply Finset.sum_involution (fun p _ => swapEdge p)
+      · intro p _
+        exact hoccupiedEdgePair p.1 p.2
+      · intro p _ _ heq
+        exact hcellOppNe p.2 (congrArg Prod.snd heq)
+      · exact hmem
+      · intro p _
+        exact Prod.ext (hcellAcrossInvol p.1 p.2).1 (hcellAcrossInvol p.1 p.2).2
+    simpa only [active, Finset.sum_filter_ne_zero, edges, Finset.sum_product, value] using hsum
+  have hoccupiedCellRetainedIntegral (i : ℤ × ℤ) (hi : i ∈ gridCells)
+      (havoid : Disjoint (gridSquare i) (frontier V)) :
+      ∑ j : Fin 4, occupiedEdgeIntegral i j = 0 := by
+    obtain ⟨hmem, hsum⟩ := hoccupiedCellIntegral i hi havoid
+    convert hsum using 1
+    apply Finset.sum_congr rfl
+    intro j _
+    apply intervalIntegral.integral_congr
+    intro t ht
+    exact if_pos (hmem j t (by simpa using ht))
+  let boundaryCells : Finset (ℤ × ℤ) :=
+    hgridFinite.toFinset.filter (fun i => ¬Disjoint (gridSquare i) (frontier V))
+  have hboundaryCellIntegralsCancel :
+      ∑ i ∈ boundaryCells, ∑ j : Fin 4, occupiedEdgeIntegral i j = 0 := by
+    calc
+      _ = ∑ i ∈ hgridFinite.toFinset, ∑ j : Fin 4, occupiedEdgeIntegral i j := by
+        apply Finset.sum_subset (Finset.filter_subset _ _)
+        intro i hi hnot
+        have havoid : Disjoint (gridSquare i) (frontier V) := by
+          by_contra hn
+          exact hnot (Finset.mem_filter.mpr ⟨hi, hn⟩)
+        exact hoccupiedCellRetainedIntegral i (hgridFinite.mem_toFinset.mp hi) havoid
+      _ = 0 := hartificialEdgesCancel
+  suffices hboundaryAssembly :
+      intervalIntegral (retainedArc ε) (2 * Real.pi / 3) (Real.pi / 3)
+          MeasureTheory.volume + verticalContribution ε + top Y +
+        (∑ v ∈ hBfinite.toFinset, indent v (fun _ => cutStart v) (fun _ => cutEnd v) ε) +
+        (∑ v ∈ hOzerosFinite.toFinset,
+          intervalIntegral (fun t => L (circleMap v r t) * deriv (circleMap v r) t)
+            (2 * Real.pi) 0 MeasureTheory.volume) =
+        -(∑ i ∈ boundaryCells, ∑ j : Fin 4, occupiedEdgeIntegral i j) by
+    rw [hboundaryAssembly, hboundaryCellIntegralsCancel, neg_zero]
+  /- Remaining formal obligation: construct the oriented genuine-boundary
+  subarcs in each boundary cell and match their endpoints with the occupied
+  artificial edges. Cells disjoint from the genuine boundary have explicit
+  four-edge boundaries and zero primitive integrals above. Occupied artificial
+  edges cancel across the entire finite grid, reducing the contour identity to
+  the boundary cells. Their geometric endpoint incidence and the resulting
+  equality hboundaryAssembly are still unproved. No contour equality is assumed. -/
 
 end Submission
