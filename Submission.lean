@@ -234,3 +234,492 @@ theorem Submission.p09_af497904fe_finite_inverse_limit
   | succ j hij ih =>
       rw [hcomp i j (j + 1) hij (Nat.le_succ j), hadj j]
       exact ih
+
+
+theorem Submission.p09_af497904fe_fcc_character_finite_action :
+    ∀ (N : ℕ) [NeZero N],
+      ∃ (χ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) →* (ZMod N)ˣ)
+        (F : IntermediateField ℚ (AlgebraicClosure ℚ)),
+        FiniteDimensional ℚ F ∧
+        (∀ σ τ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ),
+          (∀ x ∈ F, σ x = τ x) → χ σ = χ τ) ∧
+        (∀ (σ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ))
+          (ζ : AlgebraicClosure ℚ),
+          ζ ^ N = 1 → σ ζ = ζ ^ ((χ σ : ZMod N).val)) := by
+  classical
+  intro N _
+  obtain ⟨ζ₀, hζ₀⟩ :=
+    HasEnoughRootsOfUnity.exists_primitiveRoot (AlgebraicClosure ℚ) N
+  refine ⟨hζ₀.autToPow ℚ, IntermediateField.adjoin ℚ {ζ₀},
+    IntermediateField.adjoin.finiteDimensional
+      ((hζ₀.isIntegral (NeZero.pos N)).tower_top), ?_, ?_⟩
+  · intro σ τ hστ
+    apply Units.ext
+    apply ZMod.val_injective
+    apply hζ₀.pow_inj (ZMod.val_lt _) (ZMod.val_lt _)
+    rw [hζ₀.autToPow_spec ℚ σ, hζ₀.autToPow_spec ℚ τ]
+    exact hστ ζ₀ (IntermediateField.mem_adjoin_simple_self ℚ ζ₀)
+  · intro σ ζ hζ
+    obtain ⟨b, _, rfl⟩ := hζ₀.eq_pow_of_pow_eq_one hζ
+    rw [map_pow, ← hζ₀.autToPow_spec ℚ σ, pow_right_comm]
+theorem Submission.p09_af497904fe_fcc_fra_roots_mem_inv :
+    ∀ (N : ℕ) [NeZero N] (P : ValuationSubring (AlgebraicClosure ℚ))
+      (ζ : AlgebraicClosure ℚ), ζ ^ N = 1 → ζ ∈ P ∧ ζ⁻¹ ∈ P := by
+  intro N _ P ζ hζ
+  have hinv : ζ ^ (N - 1) = ζ⁻¹ := by
+    apply eq_inv_of_mul_eq_one_left
+    rw [pow_sub_one_mul (NeZero.ne N), hζ]
+  have hback : (ζ⁻¹) ^ (N - 1) = ζ := by
+    rw [inv_pow, hinv, inv_inv]
+  have hmem : ζ ∈ P := by
+    rcases P.mem_or_inv_mem ζ with h | h
+    · exact h
+    · rw [← hback]
+      exact pow_mem h (N - 1)
+  refine ⟨hmem, ?_⟩
+  rw [← hinv]
+  exact pow_mem hmem (N - 1)
+theorem Submission.p09_af497904fe_fcc_fra_residue_injective :
+    ∀ (N : ℕ) [NeZero N] (ℓ : ℕ), ℓ.Prime → ¬ ℓ ∣ N →
+      ∀ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ →
+        ∀ x y : P, x ^ N = 1 → y ^ N = 1 →
+          IsLocalRing.residue P x = IsLocalRing.residue P y → x = y := by
+  intro N _ ℓ hℓ hN P hP x y hx hy hxy
+  have hℓP : (ℓ : P) ∈ IsLocalRing.maximalIdeal P :=
+    ValuationSubring.coe_mem_nonunits_iff.mp (by simpa [ValuationSubring.LiesOverPrime] using hP)
+  have hℓk : (ℓ : IsLocalRing.ResidueField P) = 0 := by
+    rw [← map_natCast (IsLocalRing.residue P) ℓ]
+    exact (IsLocalRing.residue_eq_zero_iff _).mpr hℓP
+  have : CharP (IsLocalRing.ResidueField P) ℓ :=
+    (CharP.charP_iff_prime_eq_zero hℓ).mpr hℓk
+  have hNk : (N : IsLocalRing.ResidueField P) ≠ 0 :=
+    fun h => hN ((CharP.cast_eq_zero_iff (IsLocalRing.ResidueField P) ℓ N).mp h)
+  have hone (t : P) (ht : t ^ N = 1)
+      (hred : IsLocalRing.residue P t = 1) : t = 1 := by
+    by_contra h
+    have hs : (∑ i ∈ Finset.range N, t ^ i) = 0 :=
+      (mul_eq_zero.mp ((geom_sum_mul t N).trans (by rw [ht, sub_self]))).resolve_right
+        (sub_ne_zero.mpr h)
+    have hr := congrArg (IsLocalRing.residue P) hs
+    apply hNk
+    simpa [map_sum, map_pow, hred] using hr
+  have hpos : 1 ≤ N := Nat.one_le_iff_ne_zero.mpr (NeZero.ne N)
+  let v : P := y ^ (N - 1)
+  have hyv : y * v = 1 := by
+    dsimp [v]
+    rw [← pow_succ', Nat.sub_add_cancel hpos, hy]
+  have hvy : v * y = 1 := by rw [mul_comm, hyv]
+  have hv : v ^ N = 1 := by
+    dsimp [v]
+    rw [← pow_mul, Nat.mul_comm, pow_mul, hy, one_pow]
+  have htv : x * v = 1 := by
+    apply hone
+    · rw [mul_pow, hx, hv, one_mul]
+    · rw [map_mul, hxy, ← map_mul, hyv, map_one]
+  calc
+    x = x * (v * y) := by rw [hvy, mul_one]
+    _ = (x * v) * y := (mul_assoc x v y).symm
+    _ = y := by rw [htv, one_mul]
+
+theorem Submission.p09_af497904fe_ftl_normal_frobenius_restriction :
+    ∀ (E F : IntermediateField ℚ (AlgebraicClosure ℚ)) [IsGalois ℚ E]
+      (hEF : E ≤ F) (V : ValuationSubring E) (W : ValuationSubring F) (ℓ : ℕ),
+      (∀ x : E, IntermediateField.inclusion hEF x ∈ W ↔ x ∈ V) →
+      ∀ g : F ≃ₐ[ℚ] F, W.IsFrobeniusAt g ℓ →
+        ∃! e : E ≃ₐ[ℚ] E, V.IsFrobeniusAt e ℓ ∧
+          ∀ x : E, IntermediateField.inclusion hEF (e x) =
+            g (IntermediateField.inclusion hEF x) := by
+  intro E F _ hEF V W ℓ hVW g hg
+  let : Algebra E F := (IntermediateField.inclusion hEF).toRingHom.toAlgebra
+  let : IsScalarTower ℚ E F := IsScalarTower.of_algHom (IntermediateField.inclusion hEF)
+  let e : E ≃ₐ[ℚ] E := g.restrictNormal E
+  have he (x : E) : IntermediateField.inclusion hEF (e x) =
+      g (IntermediateField.inclusion hEF x) := g.restrictNormal_commutes E x
+  let d : W.decompositionSubgroup ℚ := ⟨g, hg.mem_decompositionSubgroup⟩
+  have hgmem (x : F) : g x ∈ W ↔ x ∈ W := by
+    constructor
+    · intro hx
+      have h := (d⁻¹ • (⟨g x, hx⟩ : W)).property
+      change g.symm (g x) ∈ W at h
+      simpa only [g.symm_apply_apply] using h
+    · intro hx
+      exact (d • (⟨x, hx⟩ : W)).property
+  have hemem (x : E) : e x ∈ V ↔ x ∈ V := by
+    rw [← hVW, he, hgmem, hVW]
+  have heV : e ∈ V.decompositionSubgroup ℚ := by
+    apply SetLike.ext
+    intro x
+    change (∃ y : E, y ∈ V ∧ e y = x) ↔ x ∈ V
+    constructor
+    · rintro ⟨y, hy, rfl⟩
+      exact (hemem y).mpr hy
+    · intro hx
+      refine ⟨e.symm x, (hemem _).mp ?_, e.apply_symm_apply x⟩
+      simpa only [e.apply_symm_apply] using hx
+  have hnon (x : E) : IntermediateField.inclusion hEF x ∈ W.nonunits ↔
+      x ∈ V.nonunits := by
+    rw [ValuationSubring.mem_nonunits_iff_or, ValuationSubring.mem_nonunits_iff_or,
+      map_eq_zero_iff _ (IntermediateField.inclusion_injective hEF), ← map_inv₀, hVW]
+  refine ⟨e, ⟨⟨heV, ?_⟩, he⟩, ?_⟩
+  · intro z
+    obtain ⟨x, rfl⟩ := IsLocalRing.residue_surjective z
+    rw [← IsLocalRing.ResidueField.residue_smul, ← map_pow, ← sub_eq_zero, ← map_sub,
+      IsLocalRing.residue_eq_zero_iff]
+    apply ValuationSubring.coe_mem_nonunits_iff.mp
+    apply (hnon _).mp
+    let y : W := ⟨IntermediateField.inclusion hEF (x : E), (hVW _).mpr x.property⟩
+    have hy : IsLocalRing.residue W (d • y - y ^ ℓ) = 0 := by
+      rw [map_sub, map_pow, IsLocalRing.ResidueField.residue_smul]
+      exact sub_eq_zero.mpr (hg.smul_residue_eq _)
+    have hy' := ValuationSubring.coe_mem_nonunits_iff.mpr
+      ((IsLocalRing.residue_eq_zero_iff _).mp hy)
+    change g (IntermediateField.inclusion hEF (x : E)) -
+      (IntermediateField.inclusion hEF (x : E)) ^ ℓ ∈ W.nonunits at hy'
+    change IntermediateField.inclusion hEF (e (x : E) - (x : E) ^ ℓ) ∈ W.nonunits
+    simpa only [map_sub, map_pow, he] using hy'
+  · intro e' he'
+    apply AlgEquiv.ext
+    intro x
+    apply IntermediateField.inclusion_injective hEF
+    exact (he'.2 x).trans (he x).symm
+theorem Submission.p09_af497904fe_ftl_compatible_automorphisms_glue :
+    ∀ (F : ℕ → IntermediateField ℚ (AlgebraicClosure ℚ)) (hmono : Monotone F),
+      (∀ x : AlgebraicClosure ℚ, ∃ i : ℕ, x ∈ F i) →
+      ∀ g : (i : ℕ) → F i ≃ₐ[ℚ] F i,
+        (∀ (i j : ℕ) (hij : i ≤ j) (x : F i),
+          IntermediateField.inclusion (hmono hij) (g i x) =
+            g j (IntermediateField.inclusion (hmono hij) x)) →
+        ∃ τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ,
+          ∀ (i : ℕ) (x : F i),
+            τ (x : AlgebraicClosure ℚ) = ((g i x : F i) : AlgebraicClosure ℚ) := by
+  classical
+  intro F hmono hcover g hcompat
+  choose stage hstage using (fun x => hcover x)
+  let lift (a : (i : ℕ) → F i ≃ₐ[ℚ] F i) (x : AlgebraicClosure ℚ) :
+      AlgebraicClosure ℚ := a (stage x) ⟨x, hstage x⟩
+  have hlift (a : (i : ℕ) → F i ≃ₐ[ℚ] F i)
+      (ha : ∀ (i j : ℕ) (hij : i ≤ j) (x : F i),
+        IntermediateField.inclusion (hmono hij) (a i x) =
+          a j (IntermediateField.inclusion (hmono hij) x))
+      (i : ℕ) (x : F i) : lift a (x : AlgebraicClosure ℚ) =
+        ((a i x : F i) : AlgebraicClosure ℚ) := by
+    let k := max (stage (x : AlgebraicClosure ℚ)) i
+    have hleft := congrArg (fun z : F k => (z : AlgebraicClosure ℚ))
+      (ha (stage (x : AlgebraicClosure ℚ)) k (Nat.le_max_left _ _)
+        ⟨(x : AlgebraicClosure ℚ), hstage (x : AlgebraicClosure ℚ)⟩)
+    have hright := congrArg (fun z : F k => (z : AlgebraicClosure ℚ))
+      (ha i k (Nat.le_max_right _ _) x)
+    exact hleft.trans hright.symm
+  have hinv (i j : ℕ) (hij : i ≤ j) (x : F i) :
+      IntermediateField.inclusion (hmono hij) ((g i).symm x) =
+        (g j).symm (IntermediateField.inclusion (hmono hij) x) := by
+    apply (g j).injective
+    simpa using (hcompat i j hij ((g i).symm x)).symm
+  let t := lift g
+  let u := lift (fun i => (g i).symm)
+  have ht (i : ℕ) (x : F i) :
+      t (x : AlgebraicClosure ℚ) = ((g i x : F i) : AlgebraicClosure ℚ) :=
+    hlift g hcompat i x
+  have hu (i : ℕ) (x : F i) :
+      u (x : AlgebraicClosure ℚ) = (((g i).symm x : F i) : AlgebraicClosure ℚ) :=
+    hlift (fun i => (g i).symm) hinv i x
+  have hleft (x : AlgebraicClosure ℚ) : u (t x) = x := by
+    obtain ⟨i, hi⟩ := hcover x
+    rw [ht i ⟨x, hi⟩, hu i (g i ⟨x, hi⟩), (g i).symm_apply_apply]
+  have hright (x : AlgebraicClosure ℚ) : t (u x) = x := by
+    obtain ⟨i, hi⟩ := hcover x
+    rw [hu i ⟨x, hi⟩, ht i ((g i).symm ⟨x, hi⟩), (g i).apply_symm_apply]
+  have hcommon (x y : AlgebraicClosure ℚ) : ∃ i, x ∈ F i ∧ y ∈ F i := by
+    obtain ⟨i, hi⟩ := hcover x
+    obtain ⟨j, hj⟩ := hcover y
+    exact ⟨max i j, hmono (Nat.le_max_left _ _) hi,
+      hmono (Nat.le_max_right _ _) hj⟩
+  refine ⟨{
+    toFun := t
+    invFun := u
+    left_inv := hleft
+    right_inv := hright
+    map_mul' := ?_
+    map_add' := ?_
+    commutes' := ?_ }, ht⟩
+  · intro x y
+    obtain ⟨i, hx, hy⟩ := hcommon x y
+    change t (((⟨x, hx⟩ : F i) * ⟨y, hy⟩ : F i) : AlgebraicClosure ℚ) = _
+    rw [ht, map_mul, IntermediateField.coe_mul, ht i ⟨x, hx⟩, ht i ⟨y, hy⟩]
+  · intro x y
+    obtain ⟨i, hx, hy⟩ := hcommon x y
+    change t (((⟨x, hx⟩ : F i) + ⟨y, hy⟩ : F i) : AlgebraicClosure ℚ) = _
+    rw [ht, map_add, IntermediateField.coe_add, ht i ⟨x, hx⟩, ht i ⟨y, hy⟩]
+  · intro r
+    change t ((algebraMap ℚ (F 0) r : F 0) : AlgebraicClosure ℚ) = _
+    rw [ht, (g 0).commutes]
+    rfl
+
+theorem Submission.p09_af497904fe_fcc_frobenius_roots_action :
+    ∀ (N : ℕ) [NeZero N] (ℓ : ℕ), ℓ.Prime → ¬ ℓ ∣ N →
+      ∀ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ →
+        ∀ σ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ), P.IsFrobeniusAt σ ℓ →
+          ∀ ζ : AlgebraicClosure ℚ, ζ ^ N = 1 → σ ζ = ζ ^ ℓ := by
+  intro N _ ℓ hℓ hℓN P hP σ hσ ζ hζ
+  obtain ⟨hσ, hfrob⟩ := hσ
+  let g : P.decompositionSubgroup ℚ := ⟨σ, hσ⟩
+  let z : P := ⟨ζ, (Submission.p09_af497904fe_fcc_fra_roots_mem_inv N P ζ hζ).1⟩
+  have hx : (g • z : P) ^ N = 1 := by
+    apply Subtype.ext
+    change (σ ζ) ^ N = 1
+    rw [← map_pow, hζ, map_one]
+  have hy : (z ^ ℓ) ^ N = 1 := by
+    apply Subtype.ext
+    change (ζ ^ ℓ) ^ N = 1
+    rw [pow_right_comm, hζ, one_pow]
+  have hred : residue P (g • z) = residue P (z ^ ℓ) := by
+    calc
+      residue P (g • z) = g • residue P z :=
+        ResidueField.residue_smul (P.decompositionSubgroup ℚ) g z
+      _ = residue P z ^ ℓ := hfrob (residue P z)
+      _ = residue P (z ^ ℓ) := (map_pow (residue P) z ℓ).symm
+  exact congrArg Subtype.val
+    (Submission.p09_af497904fe_fcc_fra_residue_injective
+      N ℓ hℓ hℓN P hP (g • z) (z ^ ℓ) hx hy hred)
+
+theorem Submission.p09_af497904fe_fvu_compatible_valuation_gluing :
+    ∀ (F : ℕ → IntermediateField ℚ (AlgebraicClosure ℚ)) (hmono : Monotone F),
+      (∀ x : AlgebraicClosure ℚ, ∃ i : ℕ, x ∈ F i) →
+      ∀ (V : (i : ℕ) → ValuationSubring (F i)) (ℓ : ℕ),
+        (∀ i : ℕ, (V i).LiesOverPrime ℓ) →
+        (∀ (i j : ℕ) (hij : i ≤ j) (x : F i),
+          IntermediateField.inclusion (hmono hij) x ∈ V j ↔ x ∈ V i) →
+        ∃ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ ∧
+          (∀ (i : ℕ) (x : F i), (x : AlgebraicClosure ℚ) ∈ P ↔ x ∈ V i) := by
+  intro F hmono hexhaust V ℓ hprime hcompat
+  let P : ValuationSubring (AlgebraicClosure ℚ) :=
+    { carrier := {z | ∃ (i : ℕ) (x : F i), x ∈ V i ∧ (x : AlgebraicClosure ℚ) = z}
+      zero_mem' := ⟨0, 0, (V 0).zero_mem, rfl⟩
+      one_mem' := ⟨0, 1, (V 0).one_mem, rfl⟩
+      add_mem' := by
+        rintro a b ⟨i, x, hx, rfl⟩ ⟨j, y, hy, rfl⟩
+        refine ⟨max i j,
+          IntermediateField.inclusion (hmono (le_max_left i j)) x +
+            IntermediateField.inclusion (hmono (le_max_right i j)) y, ?_, rfl⟩
+        exact (V (max i j)).add_mem _ _
+          ((hcompat i (max i j) (le_max_left i j) x).mpr hx)
+          ((hcompat j (max i j) (le_max_right i j) y).mpr hy)
+      mul_mem' := by
+        rintro a b ⟨i, x, hx, rfl⟩ ⟨j, y, hy, rfl⟩
+        refine ⟨max i j,
+          IntermediateField.inclusion (hmono (le_max_left i j)) x *
+            IntermediateField.inclusion (hmono (le_max_right i j)) y, ?_, rfl⟩
+        exact (V (max i j)).mul_mem _ _
+          ((hcompat i (max i j) (le_max_left i j) x).mpr hx)
+          ((hcompat j (max i j) (le_max_right i j) y).mpr hy)
+      neg_mem' := by
+        rintro a ⟨i, x, hx, rfl⟩
+        exact ⟨i, -x, (V i).neg_mem x hx, rfl⟩
+      mem_or_inv_mem' := by
+        intro z
+        obtain ⟨i, hi⟩ := hexhaust z
+        rcases (V i).mem_or_inv_mem ⟨z, hi⟩ with hz | hz
+        · exact Or.inl ⟨i, ⟨z, hi⟩, hz, rfl⟩
+        · exact Or.inr ⟨i, (⟨z, hi⟩ : F i)⁻¹, hz, rfl⟩ }
+  have hrestrict (i : ℕ) (x : F i) :
+      (x : AlgebraicClosure ℚ) ∈ P ↔ x ∈ V i := by
+    change (∃ (j : ℕ) (y : F j), y ∈ V j ∧
+      (y : AlgebraicClosure ℚ) = (x : AlgebraicClosure ℚ)) ↔ x ∈ V i
+    constructor
+    · rintro ⟨j, y, hy, heq⟩
+      have heq' : IntermediateField.inclusion (hmono (le_max_left i j)) x =
+          IntermediateField.inclusion (hmono (le_max_right i j)) y :=
+        Subtype.ext heq.symm
+      apply (hcompat i (max i j) (le_max_left i j) x).mp
+      rw [heq']
+      exact (hcompat j (max i j) (le_max_right i j) y).mpr hy
+    · intro hx
+      exact ⟨i, x, hx, rfl⟩
+  have hnonunits (i : ℕ) (x : F i) :
+      (x : AlgebraicClosure ℚ) ∈ P.nonunits ↔ x ∈ (V i).nonunits := by
+    rw [ValuationSubring.mem_nonunits_iff_or, ValuationSubring.mem_nonunits_iff_or]
+    change ((x : AlgebraicClosure ℚ) = 0 ∨ ((x⁻¹ : F i) : AlgebraicClosure ℚ) ∉ P) ↔
+      x = 0 ∨ x⁻¹ ∉ V i
+    rw [hrestrict]
+    exact or_congr (by exact_mod_cast (Iff.rfl : x = 0 ↔ x = 0)) Iff.rfl
+  refine ⟨P, ?_, hrestrict⟩
+  change (ℓ : AlgebraicClosure ℚ) ∈ P.nonunits
+  exact (hnonunits 0 (ℓ : F 0)).mpr (hprime 0)
+theorem Submission.p09_af497904fe_fvu_frobenius_from_exhaustive_restrictions :
+    ∀ (F : ℕ → IntermediateField ℚ (AlgebraicClosure ℚ)),
+      (∀ x : AlgebraicClosure ℚ, ∃ i : ℕ, x ∈ F i) →
+      ∀ (V : (i : ℕ) → ValuationSubring (F i))
+        (P : ValuationSubring (AlgebraicClosure ℚ)),
+      (∀ (i : ℕ) (x : F i), (x : AlgebraicClosure ℚ) ∈ P ↔ x ∈ V i) →
+      ∀ (ℓ : ℕ) (τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ),
+      (∀ i : ℕ, ∃ g : F i ≃ₐ[ℚ] F i, (V i).IsFrobeniusAt g ℓ ∧
+        ∀ x : F i, τ (x : AlgebraicClosure ℚ) =
+          ((g x : F i) : AlgebraicClosure ℚ)) → P.IsFrobeniusAt τ ℓ := by
+  intro F hF V P hV ℓ τ h
+  classical
+  choose g hg hagree using h
+  let d (i : ℕ) : (V i).decompositionSubgroup ℚ :=
+    ⟨g i, (hg i).mem_decompositionSubgroup⟩
+  have hinv (i : ℕ) (x : F i) :
+      τ.symm (x : AlgebraicClosure ℚ) =
+        ((g i).symm x : AlgebraicClosure ℚ) := by
+    apply τ.injective
+    rw [τ.apply_symm_apply, hagree, (g i).apply_symm_apply]
+  have hforward (z : AlgebraicClosure ℚ) (hz : z ∈ P) : τ z ∈ P := by
+    obtain ⟨i, hi⟩ := hF z
+    let x : F i := ⟨z, hi⟩
+    rw [hagree i x]
+    apply (hV i (g i x)).mpr
+    exact (d i • (⟨x, (hV i x).mp hz⟩ : V i) : V i).property
+  have hbackward (z : AlgebraicClosure ℚ) (hz : z ∈ P) : τ.symm z ∈ P := by
+    obtain ⟨i, hi⟩ := hF z
+    let x : F i := ⟨z, hi⟩
+    rw [hinv i x]
+    apply (hV i ((g i).symm x)).mpr
+    exact ((d i)⁻¹ • (⟨x, (hV i x).mp hz⟩ : V i) : V i).property
+  have hτ : τ ∈ P.decompositionSubgroup ℚ := by
+    let : MulAction (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)
+        (ValuationSubring (AlgebraicClosure ℚ)) := ValuationSubring.pointwiseMulAction
+    apply MulAction.mem_stabilizer_iff.mpr
+    apply le_antisymm
+    · intro z hz
+      obtain ⟨x, hx, rfl⟩ := (ValuationSubring.mem_smul_pointwise_iff_exists τ z P).mp hz
+      exact hforward x hx
+    · intro z hz
+      apply (ValuationSubring.mem_smul_pointwise_iff_exists τ z P).mpr
+      exact ⟨τ.symm z, hbackward z hz, τ.apply_symm_apply z⟩
+  have hnonunits (i : ℕ) (x : F i) :
+      (x : AlgebraicClosure ℚ) ∈ P.nonunits ↔ x ∈ (V i).nonunits := by
+    rw [P.mem_nonunits_iff_or, (V i).mem_nonunits_iff_or]
+    apply or_congr
+    · exact ⟨fun hx => Subtype.ext hx, fun hx => congrArg Subtype.val hx⟩
+    · exact not_congr (hV i (x⁻¹))
+  have hdifference (z : P) : τ (z : AlgebraicClosure ℚ) -
+      (z : AlgebraicClosure ℚ) ^ ℓ ∈ P.nonunits := by
+    obtain ⟨i, hi⟩ := hF (z : AlgebraicClosure ℚ)
+    let x : F i := ⟨z, hi⟩
+    let y : V i := ⟨x, (hV i x).mp z.property⟩
+    have hres : residue (V i) (d i • y - y ^ ℓ) = 0 := by
+      rw [map_sub, ResidueField.residue_smul, map_pow]
+      exact sub_eq_zero.mpr ((hg i).smul_residue_eq (residue (V i) y))
+    have hnon : (g i x - x ^ ℓ : F i) ∈ (V i).nonunits :=
+      ValuationSubring.coe_mem_nonunits_iff.mpr ((residue_eq_zero_iff _).mp hres)
+    have htransport := (hnonunits i (g i x - x ^ ℓ)).mpr hnon
+    change (g i x : AlgebraicClosure ℚ) - (x : AlgebraicClosure ℚ) ^ ℓ ∈
+      P.nonunits at htransport
+    rw [← hagree i x] at htransport
+    exact htransport
+  refine ⟨hτ, ?_⟩
+  intro a
+  obtain ⟨z, rfl⟩ := residue_surjective a
+  let t : P.decompositionSubgroup ℚ := ⟨τ, hτ⟩
+  have hzero : residue P (t • z - z ^ ℓ) = 0 :=
+    (residue_eq_zero_iff _).mpr (ValuationSubring.coe_mem_nonunits_iff.mp (hdifference z))
+  rw [map_sub, ResidueField.residue_smul, map_pow] at hzero
+  exact sub_eq_zero.mp hzero
+
+
+theorem Submission.p09_af497904fe_ftl_frobenius_valuation_union :
+    ∀ (F : ℕ → IntermediateField ℚ (AlgebraicClosure ℚ)) (hmono : Monotone F),
+      (∀ x : AlgebraicClosure ℚ, ∃ i : ℕ, x ∈ F i) →
+      ∀ (V : (i : ℕ) → ValuationSubring (F i)) (ℓ : ℕ),
+        (∀ i : ℕ, (V i).LiesOverPrime ℓ) →
+        (∀ (i j : ℕ) (hij : i ≤ j) (x : F i),
+          IntermediateField.inclusion (hmono hij) x ∈ V j ↔ x ∈ V i) →
+        ∀ τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ,
+          (∀ i : ℕ, ∃ g : F i ≃ₐ[ℚ] F i, (V i).IsFrobeniusAt g ℓ ∧
+            ∀ x : F i,
+              τ (x : AlgebraicClosure ℚ) = ((g x : F i) : AlgebraicClosure ℚ)) →
+          ∃ P : ValuationSubring (AlgebraicClosure ℚ),
+            P.LiesOverPrime ℓ ∧
+              (∀ (i : ℕ) (x : F i), (x : AlgebraicClosure ℚ) ∈ P ↔ x ∈ V i) ∧
+              P.IsFrobeniusAt τ ℓ := by
+  intro F hmono hexhaust V ℓ hprime hcompat τ hfrob
+  obtain ⟨P, hPprime, hrestrict⟩ :=
+    Submission.p09_af497904fe_fvu_compatible_valuation_gluing
+      F hmono hexhaust V ℓ hprime hcompat
+  exact ⟨P, hPprime, hrestrict,
+    Submission.p09_af497904fe_fvu_frobenius_from_exhaustive_restrictions
+      F hexhaust V P hrestrict ℓ τ hfrob⟩
+
+
+theorem Submission.p09_af497904fe_luf_frobenius_tower_limit :
+    ∀ (F : ℕ → IntermediateField ℚ (AlgebraicClosure ℚ)) (hmono : Monotone F),
+      (∀ i : ℕ, FiniteDimensional ℚ (F i)) →
+      (∀ i : ℕ, IsGalois ℚ (F i)) →
+      (∀ x : AlgebraicClosure ℚ, ∃ i : ℕ, x ∈ F i) →
+      ∀ (V : (i : ℕ) → ValuationSubring (F i)) (ℓ : ℕ),
+      (∀ i : ℕ, (V i).LiesOverPrime ℓ) →
+      (∀ (i j : ℕ) (hij : i ≤ j) (x : F i),
+        IntermediateField.inclusion (hmono hij) x ∈ V j ↔ x ∈ V i) →
+      (∀ i : ℕ, ∃ g : F i ≃ₐ[ℚ] F i, (V i).IsFrobeniusAt g ℓ) →
+      ∃ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ ∧
+        (∀ (i : ℕ) (x : F i), (x : AlgebraicClosure ℚ) ∈ P ↔ x ∈ V i) ∧
+        ∃ τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ,
+          P.IsFrobeniusAt τ ℓ ∧ ∀ i : ℕ, ∃ g : F i ≃ₐ[ℚ] F i,
+            (V i).IsFrobeniusAt g ℓ ∧ ∀ x : F i,
+              τ (x : AlgebraicClosure ℚ) = ((g x : F i) : AlgebraicClosure ℚ) := by
+  intro F hmono hfin hgal hexhaust V ℓ hprime hV hnonempty
+  classical
+  let : ∀ i : ℕ, FiniteDimensional ℚ (F i) := hfin
+  let : ∀ i : ℕ, IsGalois ℚ (F i) := hgal
+  let X : ℕ → Type := fun i => {g : F i ≃ₐ[ℚ] F i // (V i).IsFrobeniusAt g ℓ}
+  have : ∀ i : ℕ, Finite (X i) := fun i =>
+    inferInstanceAs (Finite {g : F i ≃ₐ[ℚ] F i // (V i).IsFrobeniusAt g ℓ})
+  have : ∀ i : ℕ, Nonempty (X i) := fun i => by
+    obtain ⟨g, hg⟩ := hnonempty i
+    exact ⟨⟨g, hg⟩⟩
+  -- Normal restriction supplies transition maps on the finite Frobenius sets.
+  have hrestrict (i j : ℕ) (hij : i ≤ j) (g : X j) :
+      ∃ e : X i, ∀ x : F i,
+        IntermediateField.inclusion (hmono hij) (e.val x) =
+          g.val (IntermediateField.inclusion (hmono hij) x) := by
+    obtain ⟨e, he, _⟩ := Submission.p09_af497904fe_ftl_normal_frobenius_restriction
+      (F i) (F j) (hmono hij) (V i) (V j) ℓ (hV i j hij) g.val g.property
+    exact ⟨⟨e, he.1⟩, he.2⟩
+  let r : ∀ i j : ℕ, i ≤ j → X j → X i :=
+    fun i j hij g => (hrestrict i j hij g).choose
+  have hr (i j : ℕ) (hij : i ≤ j) (g : X j) (x : F i) :
+      IntermediateField.inclusion (hmono hij) ((r i j hij g).val x) =
+        g.val (IntermediateField.inclusion (hmono hij) x) :=
+    (hrestrict i j hij g).choose_spec x
+  have hself (i : ℕ) (g : X i) : r i i (Nat.le_refl i) g = g := by
+    apply Subtype.ext
+    apply AlgEquiv.ext
+    intro x
+    simpa only [IntermediateField.inclusion_self, AlgHom.id_apply] using
+      hr i i (Nat.le_refl i) g x
+  have hcomp (i j k : ℕ) (hij : i ≤ j) (hjk : j ≤ k) (g : X k) :
+      r i k (Nat.le_trans hij hjk) g = r i j hij (r j k hjk g) := by
+    apply Subtype.ext
+    apply AlgEquiv.ext
+    intro x
+    apply IntermediateField.inclusion_injective (hmono (Nat.le_trans hij hjk))
+    calc
+      IntermediateField.inclusion (hmono (Nat.le_trans hij hjk))
+          ((r i k (Nat.le_trans hij hjk) g).val x) =
+          g.val (IntermediateField.inclusion (hmono (Nat.le_trans hij hjk)) x) :=
+        hr i k (Nat.le_trans hij hjk) g x
+      _ = IntermediateField.inclusion (hmono hjk)
+          ((r j k hjk g).val (IntermediateField.inclusion (hmono hij) x)) :=
+        (hr j k hjk g (IntermediateField.inclusion (hmono hij) x)).symm
+      _ = IntermediateField.inclusion (hmono (Nat.le_trans hij hjk))
+          ((r i j hij (r j k hjk g)).val x) :=
+        congrArg (IntermediateField.inclusion (hmono hjk))
+          (hr i j hij (r j k hjk g) x).symm
+  -- Finiteness and nonemptiness suffice; the transition maps need not be surjective.
+  obtain ⟨g, hg⟩ := Submission.p09_af497904fe_finite_inverse_limit X r hself hcomp
+  have hcompat (i j : ℕ) (hij : i ≤ j) (x : F i) :
+      IntermediateField.inclusion (hmono hij) ((g i).val x) =
+        (g j).val (IntermediateField.inclusion (hmono hij) x) := by
+    rw [← hg i j hij]
+    exact hr i j hij (g j) x
+  obtain ⟨τ, hτ⟩ := Submission.p09_af497904fe_ftl_compatible_automorphisms_glue
+    F hmono hexhaust (fun i => (g i).val) hcompat
+  have hstages : ∀ i : ℕ, ∃ e : F i ≃ₐ[ℚ] F i,
+      (V i).IsFrobeniusAt e ℓ ∧ ∀ x : F i,
+        τ (x : AlgebraicClosure ℚ) = ((e x : F i) : AlgebraicClosure ℚ) :=
+    fun i => ⟨(g i).val, (g i).property, hτ i⟩
+  obtain ⟨P, hPprime, hPV, hPfrob⟩ := Submission.p09_af497904fe_ftl_frobenius_valuation_union
+    F hmono hexhaust V ℓ hprime hV τ hstages
+  exact ⟨P, hPprime, hPV, τ, hPfrob, hstages⟩
