@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "a5af1938519a7d0996a2f99315bdfabe3401c7cdb8dfd3c3075c0807f258f473",
+  "git_delta": {
+    "base_commit": "12c6a5a28b77e9b020bfbd7acbbe30a6b6f2c0d7",
+    "candidate_commit": "1a2e709d66f443d08fe0b3da21c5e18ec7534e69",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_uce_normalized_quot_eq_iff",
+    "diff_sha256": "868d85e479622bb7d8dbc1172f4fb8d48ac6b7a23ca5164abe7e499603b2fead",
+    "source_sha256": "4a74f7cea8fdf2bbcc742f7541a2da8401d36e07567284c0a0a912f87f0f73db",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_uce_normalized_quot_eq_iff",
+      "statement": "∀ (R : Type) [CommRing R], let U := {v : R × R // ∃ x y : R, x * v.1 + y * v.2 = 1}; let rel : U → U → Prop := fun v w => ∃ u : Rˣ, (u : R) * v.1.1 = w.1.1 ∧ (u : R) * v.1.2 = w.1.2; ∀ v w : U, (v.1.1 = 1 ∨ (¬ IsUnit v.1.1 ∧ v.1.2 = 1)) → (w.1.1 = 1 ∨ (¬ IsUnit w.1.1 ∧ w.1.2 = 1)) → (Quot.mk rel v = Quot.mk rel w ↔ v = w)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
