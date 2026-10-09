@@ -1287,40 +1287,6 @@ theorem p02_es_177ebb5a_sd_jr_homogeneous_nilpotence
     simpa only [Finsupp.degree_eq_weight_one, Pi.one_def] using
       P.property (MvPolynomial.mem_support_iff.mp hd)
   exact lt_of_le_of_lt ((Finsupp.le_degree 1 d).trans_eq hdegree) (Nat.lt_succ_self n)
-theorem p02_es_177ebb5a_sd_jr_linepow_eval :
-    ∀ (n r : ℕ), r ≤ n → ∀ t : ℂ,
-      MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -t)
-        ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r]
-          (HeckeEis.linePow n t).val) =
-        (if r = n then (Nat.factorial n : ℂ) else 0) := by
-  intro n r hr t
-  let L : MvPolynomial (Fin 2) ℂ := MvPolynomial.C t * MvPolynomial.X 0 +
-    MvPolynomial.X 1
-  have hD : MvPolynomial.pderiv (1 : Fin 2) L = 1 := by
-    simp [L]
-  -- Each derivative lowers the power and contributes the next descending factor.
-  have hiter (s : ℕ) (hs : s ≤ n) :
-      (fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[s]
-        (L ^ n) = MvPolynomial.C (n.descFactorial s : ℂ) * L ^ (n - s) := by
-    induction s with
-    | zero => simp
-    | succ s ih =>
-      rw [Function.iterate_succ_apply', ih (by omega), MvPolynomial.pderiv_C_mul,
-        MvPolynomial.pderiv_pow, hD, mul_one]
-      simp only [Nat.descFactorial_succ, Nat.cast_mul, map_mul, map_natCast,
-        Nat.sub_sub]
-      ac_rfl
-  have hEval : MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -t) L = 0 := by
-    simp [L]
-  change MvPolynomial.eval _
-    ((fun p : MvPolynomial (Fin 2) ℂ => MvPolynomial.pderiv (1 : Fin 2) p)^[r]
-      (L ^ n)) = _
-  rw [hiter r hr, map_mul, MvPolynomial.eval_C, map_pow, hEval]
-  by_cases h : r = n
-  · subst r
-    simp [Nat.descFactorial_self]
-  · have hnr : n - r ≠ 0 := by omega
-    simp [h, zero_pow hnr]
 theorem p02_es_177ebb5a_lcd_monomial_expansion
     (n : ℕ) (Q : ↥(HeckeEis.BinaryForm ℂ n)) :
     Q.val = ∑ r : Fin (n + 1),
@@ -1557,57 +1523,5 @@ theorem p02_es_177ebb5a_scalarization_derivative :
     (fun z => (Nat.factorial n : ℂ) * h (UpperHalfPlane.ofComplex z))
     UpperHalfPlane.isOpen_upperHalfPlaneSet hrec htop (τ : ℂ) τ.im_pos
   simpa [Q, mul_assoc] using hresult
-
-end Submission
-
-namespace Submission
-
-theorem p02_es_177ebb5a_equivariant_primitive_vanishes
-    (N : ℕ) [NeZero N] (n : ℕ)
-    (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2))
-    (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n))
-    (hE : HeckeEis.IsEichlerIntegral n (fun τ => f τ) E)
-    (hEquiv : ∀ (γ : CongruenceSubgroup.Gamma0 N) (τ : UpperHalfPlane),
-      E ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • τ) =
-        ((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype)
-          γ (E τ)) :
-    f = 0 := by
-  obtain ⟨p, hp⟩ := p02_es_177ebb5a_scalarization_modular N n f E hE hEquiv
-  -- The finite index of Γ₀(N) supplies arithmeticity for both weight theorems.
-  have hp_const : ∃ c : ℂ, ∀ τ : UpperHalfPlane, p τ = c := by
-    by_cases hn : n = 0
-    · subst n
-      obtain ⟨c, hc⟩ := ModularForm.eq_const_of_weight_zero p
-      exact ⟨c, fun τ => congrFun hc τ⟩
-    · have hneg : -(n : ℤ) < 0 := by omega
-      have hp_zero := ModularForm.isZero_of_neg_weight hneg p
-      exact ⟨0, fun τ => by simp [hp_zero]⟩
-  obtain ⟨c, hc⟩ := hp_const
-  let P : ℂ → ℂ := fun z =>
-    MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z)
-      (E (UpperHalfPlane.ofComplex z)).val
-  -- Only the restriction to the open upper half-plane needs to be constant.
-  have hP : Set.EqOn P (fun _ : ℂ => c) {z : ℂ | 0 < z.im} := by
-    intro z hz
-    simpa only [P, UpperHalfPlane.ofComplex_apply_of_im_pos hz] using
-      (hp ⟨z, hz⟩).symm.trans (hc ⟨z, hz⟩)
-  have hf_holo : DifferentiableOn ℂ (fun z : ℂ => f (UpperHalfPlane.ofComplex z))
-      {z : ℂ | 0 < z.im} :=
-    UpperHalfPlane.mdifferentiable_iff.mp f.holo'
-  have hfactor : ((-1 : ℂ) ^ n * (Nat.factorial n : ℂ)) ≠ 0 :=
-    mul_ne_zero (pow_ne_zero _ (neg_ne_zero.mpr one_ne_zero))
-      (Nat.cast_ne_zero.mpr (Nat.factorial_ne_zero n))
-  apply CuspForm.ext
-  intro τ
-  have hP_deriv : iteratedDeriv (n + 1) P (τ : ℂ) = 0 := by
-    calc
-      iteratedDeriv (n + 1) P (τ : ℂ) =
-          iteratedDeriv (n + 1) (fun _ : ℂ => c) (τ : ℂ) :=
-        hP.iteratedDeriv_of_isOpen UpperHalfPlane.isOpen_upperHalfPlaneSet (n + 1) τ.im_pos
-      _ = 0 := by simp [iteratedDeriv_const]
-  have hderiv := p02_es_177ebb5a_scalarization_derivative n (fun τ => f τ) E hf_holo hE τ
-  change iteratedDeriv (n + 1) P (τ : ℂ) = _ at hderiv
-  rw [hP_deriv] at hderiv
-  exact (mul_eq_zero.mp hderiv.symm).resolve_left hfactor
 
 end Submission
