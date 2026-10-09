@@ -178,10 +178,6 @@ namespace Submission
 
 /-- A pullback of fake elliptic curves induces an equivalence on points that
 preserves multiplication, identity, repeated sums, and the order action. -/
-namespace Submission
-
-/-- A pullback of fake elliptic curves induces an equivalence on points that
-preserves multiplication, identity, repeated sums, and the order action. -/
 theorem p07_flp_point_equiv_857cd4d38c
     {a b : ℚ} (Λ : Submodule ℤ (QuaternionAlgebra ℚ a 0 b)) (N : ℕ)
     (S T : Type) [CommRing S] [CommRing T] (φ : S →+* T)
@@ -748,27 +744,6 @@ end Submission
 
 namespace Submission
 
-/-- Repeated addition commutes with compatible precomposition of points.
-The induction uses the existing `RelativeGroupLaw.one_natural` theorem and `mul_natural`
-field from `Definitions.Def_AlgebraicGeometry_RelativeGroupLaw`, with the recursion in
-`Definitions.Def_CerednikDrinfeld_QMModuli`. -/
-theorem p07_flp_nsmul_precomp_857cd4d38c :
-    ∀ (R : Type) [CommRing R] (A W W' : AlgebraicGeometry.Scheme.{0})
-      (f : Quiver.Hom A (AlgebraicGeometry.Spec (CommRingCat.of R)))
-      (L : GoodReductionJacobian.RelativeGroupLaw R f)
-      (t : Quiver.Hom W (AlgebraicGeometry.Spec (CommRingCat.of R)))
-      (t' : Quiver.Hom W' (AlgebraicGeometry.Spec (CommRingCat.of R)))
-      (ψ : Quiver.Hom W' W) (hψ : CategoryTheory.CategoryStruct.comp ψ t = t')
-      (k : ℕ) (P : NeronModelInfra.SchemeHomOver t f),
-      GoodReductionJacobian.schemeHomOverComp ψ hψ (CerednikDrinfeld.QM.nsmulPt L t k P) =
-        CerednikDrinfeld.QM.nsmulPt L t' k (GoodReductionJacobian.schemeHomOverComp ψ hψ P) := by
-  intro R _ A W W' f L t t' ψ hψ k P
-  induction k with
-  -- At zero, precomposition preserves the identity point.
-  | zero => exact L.one_natural t t' ψ hψ
-  | succ k ih =>
-      -- The recursive step commutes with precomposition by multiplication naturality.
-      rw [CerednikDrinfeld.QM.nsmulPt, CerednikDrinfeld.QM.nsmulPt, L.mul_natural, ih]
 /-- Quotient base change preserves the abelian-scheme bundle and two-dimensional fibres. -/
 theorem p07_cq_abelian_surface_quotient_857cd4d38c
     (S : Type) [CommRing S] (J : Ideal S) (A : Scheme.{0})
