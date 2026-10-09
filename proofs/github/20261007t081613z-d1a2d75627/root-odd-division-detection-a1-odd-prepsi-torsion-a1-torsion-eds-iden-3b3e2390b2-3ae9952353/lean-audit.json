@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "smul_basis_eq_zero|instance.*IsDomain|mk_ψ₂_sq|preΨ._even|preΨ._odd",
+        "p03_torsion_eds_identification|galoisRep_ordinaryLineAt",
+        "p03_torsion_eds_identification"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Fermat/Thm_WeierstrassCurve_galoisRep_ordinaryLineAt.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Point.lean"
+      ],
+      "conclusion": "Both snapshots are clean at their manifest-pinned revisions. The frozen root contract matches the immutable problem and candidate byte-for-byte. Relevant coordinate-ring and recurrence declarations exist in pinned mathlib; no preexisting tracked theorem was found. Prerequisite declaration blocks match accepted candidates."
+    }
+  ],
+  "comparison_identity": "373f8436beb99e7ba18524ffc6171373cb6aec438b9ccc54d05c93c32573e813",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p03_torsion_eds_identification_68cf3476_d2",
+      "statement": "∀ (k : Type) [Field k] [CharZero k] [DecidableEq k] (W : WeierstrassCurve k), let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine; let h := q W.ψ₂; ∀ f : ℕ → W.toAffine.CoordinateRing, (f 0 = 0 ∧ f 1 = 1 ∧ f 2 = h ∧ f 3 = q (Polynomial.C W.Ψ₃) ∧ f 4 = h * q (Polynomial.C W.preΨ₄) ∧ (∀ r : ℕ, 2 ≤ r → f (2 * r + 1) = f (r + 2) * f r ^ 3 - f (r - 1) * f (r + 1) ^ 3) ∧ (∀ r : ℕ, 3 ≤ r → h * f (2 * r) = f r * (f (r + 2) * f (r - 1) ^ 2 - f (r - 2) * f (r + 1) ^ 2))) → ∀ n : ℕ, f n = q (Polynomial.C (W.preΨ' n)) * (if Even n then h else 1)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines accepted canonical-recurrence and uniqueness theorems, establishing h ≠ 0 using the coordinate-ring basis."
+    }
+  ]
+}

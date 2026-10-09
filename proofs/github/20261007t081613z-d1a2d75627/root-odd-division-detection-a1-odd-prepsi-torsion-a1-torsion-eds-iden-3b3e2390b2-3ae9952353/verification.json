@@ -1,0 +1,18 @@
+{
+  "node_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_identification-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/368",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "81d8ecd59fa4d240604e288e3ccf97bb91067719",
+  "integrated_commit": "bd71288d56c4cb2169a3b98aae43b4aed1288432",
+  "proof_base_commit": "a9063640891a11fe5175964079ea0db9757dd1ea",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.odd_division_detection-a1.odd_prepsi_torsion-a1",
+  "requires": [
+    "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_identification-a1.canonical_eds_recurrences-a1",
+    "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_identification-a1.eds_recurrence_uniqueness-a1"
+  ]
+}
