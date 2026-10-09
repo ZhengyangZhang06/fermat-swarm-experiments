@@ -4055,3 +4055,136 @@ theorem Submission.p10_17ae7b7d_tchart_unique_row :
           rw [huv] at hvz
           change z.1 = (↑u⁻¹ : ZMod (p ^ a)) * r
           rw [hvz, Units.inv_mul_cancel_left]
+
+
+/-- Prime-power cosets in the two normalized bottom-row charts. -/
+theorem Submission.p10_17ae7b7d_pp_translation_charts :
+    ∀ (p a : ℕ), Nat.Prime p → 1 ≤ a →
+      let R := ZMod (p ^ a)
+      let Q := (Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 (p ^ a)
+      ∃ e : Q ≃ (R ⊕ {z : R // p ∣ z.val}),
+        (∀ t : R, e (ModularGroup.T⁻¹ • e.symm (Sum.inl t)) = Sum.inl (t + 1)) ∧
+        (∀ z : {z : R // p ∣ z.val}, ∃ w : {z : R // p ∣ z.val},
+          e (ModularGroup.T⁻¹ • e.symm (Sum.inr z)) = Sum.inr w ∧
+            w.1 = z.1 * (1 + z.1)⁻¹) := by
+  classical
+  intro p a hp ha
+  have : NeZero (p ^ a) := ⟨pow_ne_zero _ hp.ne_zero⟩
+  let R := ZMod (p ^ a)
+  let Q := (Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 (p ^ a)
+  let C := R ⊕ {z : R // p ∣ z.val}
+  let x : C → R := fun c => match c with
+    | Sum.inl _ => 1
+    | Sum.inr z => z.1
+  let y : C → R := fun c => match c with
+    | Sum.inl t => t
+    | Sum.inr _ => 1
+  -- The child supplies uniqueness of the parameter of every matrix row.
+  have hnorm (A : Matrix.SpecialLinearGroup (Fin 2) ℤ) : ∃! c : C, ∃ u : Rˣ,
+      (A 1 0 : R) = (u : R) * x c ∧ (A 1 1 : R) = (u : R) * y c := by
+    have hdet : (A 0 0 : R) * (A 1 1 : R) -
+        (A 0 1 : R) * (A 1 0 : R) = 1 := by
+      change (A 0 0 : ZMod (p ^ a)) * (A 1 1 : ZMod (p ^ a)) -
+        (A 0 1 : ZMod (p ^ a)) * (A 1 0 : ZMod (p ^ a)) = 1
+      have h := A.det_coe
+      rw [Matrix.det_fin_two] at h
+      simpa only [Int.cast_sub, Int.cast_mul, Int.cast_one] using
+        congrArg (fun z : ℤ => (z : ZMod (p ^ a))) h
+    have hrow : ∃ r s : R, r * (A 1 0 : R) + s * (A 1 1 : R) = 1 :=
+      ⟨-(A 0 1 : R), (A 0 0 : R), by linear_combination hdet⟩
+    have h := Submission.p10_17ae7b7d_tchart_unique_row p a hp ha
+      (A 1 0 : R) (A 1 1 : R) hrow
+    change ∃! c : C, _ at h
+    convert h using 1
+    ext c
+    cases c <;> simp only [x, y, mul_one] <;> rfl
+  -- Choose a lift of each normalized row, and use its inverse coset.
+  have hlift (c : C) : ∃ A : Matrix.SpecialLinearGroup (Fin 2) ℤ,
+      (A 1 0 : R) = x c ∧ (A 1 1 : R) = y c := by
+    apply Submission.p10_17ae7b7d_cc_lift_unimodular_row
+    cases c with
+    | inl t => exact ⟨1, 0, by simp [x, y]⟩
+    | inr z => exact ⟨0, 1, by simp [x, y]⟩
+  let L : C → Matrix.SpecialLinearGroup (Fin 2) ℤ := fun c => (hlift c).choose
+  have hL (c : C) : (L c 1 0 : R) = x c ∧ (L c 1 1 : R) = y c :=
+    (hlift c).choose_spec
+  let g : C → Q := fun c => QuotientGroup.mk (L c)⁻¹
+  have hclass (A : Matrix.SpecialLinearGroup (Fin 2) ℤ) (c : C)
+      (hc : ∃ u : Rˣ, (A 1 0 : R) = (u : R) * x c ∧
+        (A 1 1 : R) = (u : R) * y c) : (QuotientGroup.mk A⁻¹ : Q) = g c := by
+    apply Eq.symm
+    apply (Submission.p10_17ae7b7d_efp_inverse_coset_eq_iff (p ^ a) (L c) A).mpr
+    simpa only [(hL c).1, (hL c).2] using hc
+  have hinj : Function.Injective g := by
+    intro c d hcd
+    obtain ⟨u, hu, hv⟩ :=
+      (Submission.p10_17ae7b7d_efp_inverse_coset_eq_iff (p ^ a) (L c) (L d)).mp hcd
+    apply (hnorm (L d)).unique
+    · exact ⟨u, by simpa only [(hL c).1] using hu,
+        by simpa only [(hL c).2] using hv⟩
+    · exact ⟨1, by simpa using (hL d).1, by simpa using (hL d).2⟩
+  have hsurj : Function.Surjective g := by
+    intro q
+    refine Quotient.inductionOn q ?_
+    intro A
+    obtain ⟨c, hc, _⟩ := hnorm A⁻¹
+    refine ⟨c, ?_⟩
+    simpa only [inv_inv] using (hclass A⁻¹ c hc).symm
+  let e : Q ≃ C := (Equiv.ofBijective g ⟨hinj, hsurj⟩).symm
+  -- Left translation of an inverse coset is right translation of its row.
+  have haction (c : C) : ModularGroup.T⁻¹ • g c =
+      (QuotientGroup.mk (L c * ModularGroup.T)⁻¹ : Q) := by
+    change QuotientGroup.mk (ModularGroup.T⁻¹ * (L c)⁻¹) = _
+    rw [mul_inv_rev]
+  have hrowT (A : Matrix.SpecialLinearGroup (Fin 2) ℤ) :
+      ((A * ModularGroup.T) 1 0 : R) = (A 1 0 : R) ∧
+      ((A * ModularGroup.T) 1 1 : R) = (A 1 0 : R) + (A 1 1 : R) := by
+    change (((A.1 * ModularGroup.T.1) 1 0 : ℤ) : R) = _ ∧
+      (((A.1 * ModularGroup.T.1) 1 1 : ℤ) : R) = _
+    simp [ModularGroup.coe_T, Matrix.mul_apply, Fin.sum_univ_two]
+  refine ⟨e, ?_, ?_⟩
+  · intro t
+    apply e.symm.injective
+    rw [e.symm_apply_apply]
+    change ModularGroup.T⁻¹ • g (Sum.inl t) = g (Sum.inl (t + 1))
+    refine (haction (Sum.inl t)).trans
+      (hclass (L (Sum.inl t) * ModularGroup.T) (Sum.inl (t + 1)) ?_)
+    refine ⟨1, ?_, ?_⟩
+    · simp only [(hrowT (L (Sum.inl t))).1, (hL (Sum.inl t)).1, x,
+        Units.val_one, one_mul]
+    · simp only [(hrowT (L (Sum.inl t))).2, (hL (Sum.inl t)).1,
+        (hL (Sum.inl t)).2, x, y, Units.val_one, one_mul]
+      exact add_comm 1 t
+  · intro z
+    obtain ⟨c, ⟨u, hu, hv⟩, _⟩ := hnorm (L (Sum.inr z) * ModularGroup.T)
+    rw [(hrowT (L (Sum.inr z))).1, (hL (Sum.inr z)).1] at hu
+    rw [(hrowT (L (Sum.inr z))).2, (hL (Sum.inr z)).1, (hL (Sum.inr z)).2] at hv
+    cases c with
+    | inl t =>
+        have hz : IsUnit z.1 := by
+          have heq : z.1 = (u : R) := by simpa only [x, mul_one] using hu
+          rw [heq]
+          exact u.isUnit
+        have hnot : ¬ p ∣ z.1.val := by
+          apply (ZMod.isUnit_natCast_iff_not_dvd_pow hp (by omega : 0 < a)).mp
+          simpa only [ZMod.natCast_zmod_val] using hz
+        exact (hnot z.2).elim
+    | inr w =>
+        refine ⟨w, ?_, ?_⟩
+        · apply e.symm.injective
+          rw [e.symm_apply_apply]
+          change ModularGroup.T⁻¹ • g (Sum.inr z) = g (Sum.inr w)
+          refine (haction (Sum.inr z)).trans
+            (hclass (L (Sum.inr z) * ModularGroup.T) (Sum.inr w) ?_)
+          refine ⟨u, ?_, ?_⟩
+          · simpa only [(hrowT (L (Sum.inr z))).1, (hL (Sum.inr z)).1] using hu
+          · simpa only [(hrowT (L (Sum.inr z))).2, (hL (Sum.inr z)).1,
+              (hL (Sum.inr z)).2] using hv
+        · have hu' : z.1 = (u : R) * w.1 := hu
+          have hv' : 1 + z.1 = (u : R) := by
+            simpa only [x, y, mul_one, add_comm] using hv
+          rw [hv', hu', ZMod.inv_coe_unit]
+          calc
+            w.1 = w.1 * (u : R) * (↑(u⁻¹) : R) :=
+              (Units.mul_inv_cancel_right w.1 u).symm
+            _ = ((u : R) * w.1) * (↑(u⁻¹) : R) := by rw [mul_comm w.1 (u : R)]
