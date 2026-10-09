@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "fe541d2e5905a5b81fe31d56b1cdd5798297d86d2fa8d90fbe36ad62d4df78e1",
+  "git_delta": {
+    "base_commit": "9f9ff86cc76b1ec88a22eb49ecac4ea35fc79278",
+    "candidate_commit": "7feb987b525787c441ae6668fca9e91ced40f45b",
+    "target": "Submission.lean",
+    "declaration": "p05_pcs_clear_away_section_a5b449214a",
+    "diff_sha256": "20b73d57a7dcbf9122d16fe7c7308907eadc5a907a2003a8e05baa0f6e299e3b",
+    "source_sha256": "c5c2ca19e4ef0af316a0b48baf4bc57e7d30490e8ff40e7d61d63749b19299a5",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_pcs_clear_away_section_a5b449214a",
+      "statement": "∀ {R : Type*} [CommRing R] {M : Type*} [AddCommGroup M] [Module R M] (n p : ℕ) (P : Matrix (Fin n) (Fin p) R) (π : (Fin n → R) →ₗ[R] M) (_hπ : Function.Surjective π) (_hker : LinearMap.ker π = LinearMap.range P.mulVecLin) (f : R) (_hlocal : ∃ σ : LocalizedModule (Submonoid.powers f) M →ₗ[Localization.Away f] LocalizedModule (Submonoid.powers f) (Fin n → R), (LocalizedModule.map (Submonoid.powers f) π).comp σ = LinearMap.id), ∃ N : ℕ, 0 < N ∧ ∃ t : M →ₗ[R] (Fin n → R), π.comp t = f ^ N • (LinearMap.id : M →ₗ[R] M)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

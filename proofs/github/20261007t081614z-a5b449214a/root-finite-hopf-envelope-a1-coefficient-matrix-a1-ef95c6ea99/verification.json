@@ -1,0 +1,18 @@
+{
+  "node_id": "root.finite_hopf_envelope-a1.coefficient_matrix-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/247",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/494",
+  "candidate_commit": "764e653537bfde44aff82a6b542b400aa5c7fadd",
+  "integrated_commit": "574560e0b47f8fb7b301d1c6556bb335cc0e82a5",
+  "proof_base_commit": "5bf1233ccc33d0bdd6687069beba89e13d793141",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.finite_hopf_envelope-a1",
+  "requires": [
+    "root.finite_hopf_envelope-a1.coefficient_matrix-a1.basis_expansion-a1",
+    "root.finite_hopf_envelope-a1.coefficient_matrix-a1.coalgebra_laws-a1"
+  ]
+}

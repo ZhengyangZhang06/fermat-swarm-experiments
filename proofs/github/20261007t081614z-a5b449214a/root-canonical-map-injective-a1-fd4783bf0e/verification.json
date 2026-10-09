@@ -1,0 +1,20 @@
+{
+  "node_id": "root.canonical_map_injective-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/236",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/445",
+  "candidate_commit": "8b6b2edaa0280302bd99dbe4502e3ccd524f3baa",
+  "integrated_commit": "227d2ddecc19c3978101a19dc2f4ef02493bc71c",
+  "proof_base_commit": "d63e349328aea23423cf2be2de755effdecbc426",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root",
+  "requires": [
+    "root.subalgebra_coinvariant-a1",
+    "root.canonical_map_injective-a1.canonical_balanced_lift-a1",
+    "root.canonical_map_injective-a1.translation_descends-a1",
+    "root.canonical_map_injective-a1.translation_left_inverse-a1"
+  ]
+}

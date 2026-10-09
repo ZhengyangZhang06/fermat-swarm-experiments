@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "67a24c651f6b0b57bf3d1628f87400137883141712fcede747193457b90b65d7",
+  "git_delta": {
+    "base_commit": "2945f29458d97e8cc85e9ccc2a324b1850032da2",
+    "candidate_commit": "bb0285d72be5f1824a457c24e18cdf8b36e19d82",
+    "target": "Submission.lean",
+    "declaration": "p05_fhess_tensor_independent_right_a5b449214a",
+    "diff_sha256": "a2565399405a91d090d9040792d97e5403662832ce50148f45f97432a89da327",
+    "source_sha256": "d8c7c4a23e7d72c300192f50bb3bbbb8c129a990a365480d1443972b045da9fe",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_fhess_tensor_independent_right_a5b449214a",
+      "statement": "∀ {k : Type*} [Field k] {M : Type*} [AddCommGroup M] [Module k M] {N : Type*} [AddCommGroup N] [Module k N] (z : TensorProduct k M N), ∃ (n : ℕ) (v : Fin n → M) (w : Fin n → N), LinearIndependent k w ∧ z = ∑ i : Fin n, TensorProduct.tmul k (v i) (w i)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

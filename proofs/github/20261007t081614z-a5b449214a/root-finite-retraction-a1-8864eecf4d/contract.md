@@ -1,0 +1,145 @@
+<!-- theorem-id: fermat-p05/root.finite_retraction-a1 -->
+
+## Theorem `Submission.p05_finite_retraction_a5b449214a`
+
+Let k be a field, H a commutative Hopf k-algebra, and A a k-subalgebra finitely generated over k. Assume Δ(A) lies in the k-linear span of tensors with both factors in A, and S(A)⊆A. Let V be a finite-dimensional k-subspace of H containing 1 such that Δ(V) lies in the k-linear span of tensors v⊗h with v∈V and h∈H. Give H its A-module structure by inclusion and put N=span_A(V). Then A⊂N, and there exists an A-linear map r:N→A whose value on the inclusion of every a∈A is a.
+
+Node: `root.finite_retraction-a1`
+
+Root: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/5
+
+Parent: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/5
+
+Prerequisites: None
+
+Decomposition children: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/252, https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/253, https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/254
+
+## Lean problem
+
+Declaration: `Submission.p05_finite_retraction_a5b449214a`
+
+```lean
+∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (A : Subalgebra k H) [Algebra.FiniteType k A] (hΔ : (∀ x ∈ A, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ A, ∃ b ∈ A, t = TensorProduct.tmul k a b})) (hS : (∀ x ∈ A, HopfAlgebra.antipode k x ∈ A)) (V : Submodule k H) [FiniteDimensional k V] (h1 : (1 : H) ∈ V) (hV : ∀ x ∈ V, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ V, ∃ b : H, t = TensorProduct.tmul k a b}), ∃ r : (Submodule.span A (V : Set H)) →ₗ[A] A, ∀ (a : A) (ha : (a : H) ∈ Submodule.span A (V : Set H)), r ⟨(a : H), ha⟩ = a
+```
+
+### Frozen project context
+
+`Fermat/Thm_HopfAlgebra_hopfKer_eq_of_surjective_of_ker_eq_span.lean` at `2fdd42759f4ab17640ac773289b521dd69d4b26e` supplies the original imports, definitions and root contract. Child hypotheses are stated above; prerequisite declarations are linked in their issues.
+
+```lean
+/-
+Copyright 2026 Anthropic, PBC. Licensed under Apache-2.0; see LICENSE.
+Source: https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_HopfAlgebra_hopfKer_eq_of_surjective_of_ker_eq_span.lean
+Modified: replaced the proof with sorry and removed P2M proof imports.
+Requires the upstream Definitions modules and their dependencies.
+-/
+
+import Mathlib
+import Definitions.Def_HopfAlgebra_HopfKer
+attribute [-instance] HopfAlgebra.HopfKerHopf.instHopfAlgebra HopfAlgebra.HopfKerHopf.instCoalgebra HopfAlgebra.HopfKerHopf.instIsCocomm HopfAlgebra.HopfKerHopf.instBialgebra
+attribute [-simp] HopfAlgebra.HopfKerHopf.ι₂_comulK HopfAlgebra.HopfKerHopf.ι₃_tmul HopfAlgebra.HopfKerHopf.counitK_apply HopfAlgebra.HopfKerHopf.coe_antipodeK HopfAlgebra.HopfKerHopf.ι₂_tmul HopfAlgebra.HopfKerHopf.coe_antipode HopfAlgebra.HopfKerHopf.hopfKerVal_apply HopfAlgebra.HopfKerHopf.valL_apply HopfAlgebra.HopfKerHopf.ι₂_comul
+
+universe u v w
+
+open scoped TensorProduct
+
+theorem HopfAlgebra.hopfKer_eq_of_surjective_of_ker_eq_span
+    {k : Type u} [Field k] {H : Type v} [CommRing H] [HopfAlgebra k H] [Algebra.FiniteType k H]
+    (K : Subalgebra k H)
+    (hΔ : ∀ x ∈ K, Coalgebra.comul (R := k) x ∈
+      Submodule.span k {t : H ⊗[k] H | ∃ a ∈ K, ∃ b ∈ K, t = a ⊗ₜ[k] b})
+    (hS : ∀ x ∈ K, HopfAlgebra.antipode k x ∈ K)
+    {B : Type w} [CommRing B] [Bialgebra k B] (q : H →ₐc[k] B) (hq : Function.Surjective q)
+    (hker : RingHom.ker (q : H →+* B) =
+      Ideal.span {x : H | x ∈ K ∧ Coalgebra.counit (R := k) x = 0}) :
+    HopfAlgebra.hopfKer q = K := by
+  sorry
+```
+
+## Natural-language proof
+
+Reviewed mathematical argument; formal verification state: `proved`.
+
+# Parent-supplied natural-language proof
+
+- Parent DAG node: `root`
+- Child DAG node: `root.finite_retraction-a1`
+- Review gate: accepted as part of the parent's decomposition audit
+
+## Proof
+
+1. All unmarked tensor products are over k. Extending a basis gives a k-linear retraction for every vector-space inclusion; tensoring retractions proves injectivity of the corresponding tensor inclusions. In particular A⊗A→H⊗H is injective with image the span in hΔ. Thus Δ restricts uniquely to Δ_A:A→A⊗A. The double inclusion transfers multiplicativity and unit preservation, and the triple inclusion transfers coassociativity. Restrict ε to A and restrict S using hS. The counit and antipode identities hold after inclusion in H and hence in A. This equips A with a compatible commutative Hopf structure.
+2. In a commutative Hopf algebra S is an algebra homomorphism. For linear maps H⊗H→H define convolution by (f*g)(a⊗b)=Σ f(a_1⊗b_1)g(a_2⊗b_2). Coassociativity makes it associative, with identity e(a⊗b)=ε(a)ε(b)1. Put f(a⊗b)=ab, g(a⊗b)=S(ab), and h(a⊗b)=S(a)S(b). Multiplicativity of Δ and ε and the antipode identity for ab give g*f=e. Commutativity and the antipode identities for a and b give f*h=e. Hence g=g*(f*h)=(g*f)*h=h. Also S(1)=1 by the antipode identity at 1, and S is k-linear by definition. This argument applies to A as well as H.
+3. Set N=span_A(V). A finite k-basis of V generates N over A. Since 1∈V, every a∈A belongs to N. Multiplicativity of Δ and the hypotheses give Δ(N)⊂N⊗H. Injective tensor inclusions transfer the coaction identities, and the restricted coaction satisfies μ(an)=Σ a_1n_0⊗a_2n_1. Form the quotient A-module Q=N/A. The composite N→N⊗H→Q⊗H kills A, because Δ(A)⊂A⊗H, and therefore induces a coaction on Q. Applying the quotient in the first factor to the identities on N proves coassociativity, counitality and action compatibility on Q. The module Q is finitely generated.
+4. Every finitely generated A-module is finitely presented. Here is the required finiteness argument. If every ideal of a commutative ring R is finitely generated, every submodule of R^n is finitely generated: induct on n, generate the kernel of projection to the last coordinate, generate its image ideal, and lift generators of that image. For a nonzero ideal J⊂R[t], the ideal generated by leading coefficients is generated by finitely many original leading coefficients, since finite generators of that ideal involve only finitely many of the original coefficients. Choose corresponding f_1,…,f_s∈J and put d=max deg(f_i). The polynomials in J of degree less than d form a submodule of a finite free R-module, so have finitely many generators. For a polynomial in J of degree at least d, express its leading coefficient using those of the f_i and subtract the corresponding multiples t^(deg(f)−deg(f_i))f_i. The degree decreases. Induction proves ideal generation by these polynomials and the low-degree generators. The zero ideal and d=0 are included. A field has only the zero and unit ideals. Iteration in finitely many variables and passage to quotients proves the ideal-finiteness property for A. A surjection A^n→M then has finitely generated kernel, giving a finite presentation.
+5. For a finite presentation R^p→R^n→M→0 over a commutative ring R, with relation matrix P, define J_r(M), for 0≤r<n, as the ideal generated by the (n−r)-minors of P. Set J_r(M)=R for r≥n and J_−1(M)=0. A positive minor size exceeding a dimension contributes no generators; the size-zero minor is 1. With the module generators fixed, columns of either relation-generating matrix are linear combinations of columns of the other. Expanding determinants gives both containments of the corresponding minor ideals. The row argument is identical, so invertible row and column operations preserve same-size minor ideals. These facts follow from the permutation formula and cancellation of repeated-column terms. Cofactor expansion shows that larger minors belong to the ideal generated by smaller minors and that a square block with invertible determinant has inverse det(P)⁻¹adj(P).
+6. Adjoin a redundant generator y=Σ a_i m_i with its defining relation. Subtracting a multiple of that relation removes the y-coordinate from any relation, so the old relations and the defining relation generate the new kernel. An invertible row operation gives the matrix diag(P,1). For r<n, its minors of size n+1−r containing both the added row and column are the old (n−r)-minors up to sign. Those containing neither are larger old minors, and those containing exactly one vanish. For r=n the new 1-minors contain 1; for r>n both ideals are R. Thus adjoining a redundant generator preserves J_r. Compare two generating lists by adjoining each to the other and reordering, then apply step 5 to the relation lists. This proves presentation independence and invariance under module isomorphism.
+7. For a ring map R→R', applying it entrywise to P presents R'⊗_R M: assigning images to the generators satisfying the image relations is equivalent to an R-linear map M to an R'-module, and hence to an R'-linear map from the tensor product. Determinants commute with the ring map by their permutation formula, so J_r(R'⊗_R M)=J_r(M)R'. If θ:R→R is an automorphism and T:M→M an additive bijection satisfying T(am)=θ(a)T(m), the elements T(m_i) generate M. A tuple b is a relation among them exactly when θ⁻¹(b) is a relation among the old generators. Hence θ(P) is a relation matrix, and presentation independence gives θ(J_r(M))=J_r(M).
+8. Consider any finitely generated A-module M with a k-linear right H-coaction satisfying coassociativity, counitality and the compatibility equation of step 3. It is finitely presented by step 4. Put R'=A⊗H and W=M⊗H, with action (a⊗h)(m⊗g)=am⊗hg. The balanced inverse maps (a⊗h)⊗m↦am⊗h and m⊗h↦(1⊗h)⊗m identify W with R'⊗_A M. Define θ(a⊗h)=Σ a_1⊗a_2h and θ⁻¹(a⊗h)=Σ a_1⊗S(a_2)h, including the second coproduct factor in H. These bilinear formulas define algebra maps by multiplicativity of Δ and S. Coassociativity expresses their composites using a_2S(a_3) and S(a_2)a_3; the antipode and counit identities reduce each to a⊗h. Thus θ is an automorphism. Likewise T(m⊗h)=Σ m_0⊗m_1h has inverse U(m⊗h)=Σ m_0⊗S(m_1)h: coassociativity expresses the composites as Σ m_0⊗m_1S(m_2)h and Σ m_0⊗S(m_1)m_2h, both equal to m⊗h. Compatibility gives T(rw)=θ(r)T(w).
+9. Fix r≥0 and put J=J_r(M). Base change gives J_r(W)=JR'. Identify J⊗H with its injective image in A⊗H. This image is an ideal containing every j⊗1, and j⊗h=(j⊗1)(1⊗h), so it equals JR'. Step 7 applied to T gives θ(J⊗H)=J⊗H. Consequently Δ_A(j), viewed in A⊗H, equals θ(j⊗1) and lies in J⊗H. Apply a k-linear retraction H→A in the second factor. It fixes Δ_A(j) and sends J⊗H into J⊗A, proving Δ_A(J)⊂J⊗A.
+10. An ideal J of A satisfying that containment is zero or A. Applying multiplication after id⊗S_A to Δ_A(j) gives an element of J, because all first factors lie in J. The antipode identity identifies it with ε_A(j)1. If J is proper, ε_A(j)=0, since a nonzero scalar multiple of 1 is a unit. Thus ε_A vanishes on J. Applying ε_A⊗id to Δ_A(j) gives zero from the containment and j from the counit identity. Therefore J=0 whenever it is proper. All the presentation ideals of M are consequently zero or A.
+11. We now prove that a finitely presented module with that property is projective over any commutative ring R. Over the zero ring all unital modules vanish. Otherwise choose a presentation with n generators and the least r≥0 for which J_r=R. Then J_(r−1)=0, using the convention at r=0. Put d=n−r. The finite list of d-minors f_i generates R; if d=0 use the single empty minor 1. Localize at f_i. In a nonzero localization the chosen d-by-d block is invertible by its adjugate. Move it to the upper left and use invertible row and column operations to obtain diag(I_d,Q). If r>0, each entry of Q is a (d+1)-minor formed with the identity block, and therefore vanishes by J_(r−1)=0, base change and invariance under the operations. If r=0 there are no remaining rows. The localized cokernel is free of rank r. A zero localization has the same conclusion because all its modules vanish. This includes d=0, n=0 and absent remaining columns.
+12. The needed localization facts follow from fractions. A fraction z/f^e vanishes exactly when a power of f annihilates z. If π:R^n→M and π(x)/f^e=0, then f^t x∈ker π for some t; thus localization preserves the presentation kernel. Lifting numerators preserves surjectivity. The mutually inverse maps (a/f^e)⊗m↦am/f^e and m/f^e↦(1/f^e)⊗m identify localization with tensor base change. Since the localized M is free, localized π has a section s_i; use its zero section for a zero localization. Write the section's values on the finite generating list m_j as v_j/f_i^e with a common exponent. Each of the finitely many defining relations gives a combination of the v_j that vanishes after localization. A common power f_i^t kills all those combinations. Hence m_j↦f_i^t v_j defines t_i:M→R^n, whose localization is f_i^(e+t)s_i. The map πt_i−f_i^(e+t)id vanishes after localization. A further common power kills its values on the finite generating list, so after multiplying t_i by that power we have πt_i=f_i^(N_i)id globally. Multiply once more by f_i if necessary to make N_i positive.
+13. The powers f_i^(N_i) generate R. Write 1=Σ a_i f_i and raise this equality to an integer greater than Σ(N_i−1). Every expanded term contains some f_i at least N_i times. Grouping terms yields 1=Σ b_i f_i^(N_i). Thus s=Σ b_i t_i satisfies πs=id_M. For any surjection E→M, lift the images of the standard basis under π to E, extend linearly to R^n→E, and compose with s. This gives a section of E→M. More generally, lifting the images of that basis under a prescribed map M→Y through a surjection E→Y gives the projective lifting property.
+14. Apply steps 8–13 to Q=N/A from step 3. The quotient p:N→Q has an A-linear section s. For n∈N, the element n−s(p(n)) has zero class and therefore lies in A. Define r(n) to be this element regarded as an element of A. It is A-linear. For a∈A, p(a)=0, so r(a)=a. This equality holds for every membership witness ha used to regard a as an element of N, proving the precise Lean conclusion.
+
+## Key steps
+
+1. Restrict the Hopf structure to A using injective tensor inclusions.
+2. Give N=span_A(V) and Q=N/A compatible coactions.
+3. Prove finite presentation over the finitely generated algebra A.
+4. Establish presentation ideals and their base-change and semilinear invariance.
+5. Use the coaction twist to show every presentation ideal is a right coideal.
+6. Prove an ideal that is a right coideal is zero or the whole Hopf algebra.
+7. Localize at minors, clear denominators and patch sections to prove projectivity.
+8. Split N→Q and obtain the required A-linear retraction.
+
+## Reference use
+
+### local-project
+
+Queries:
+- `HopfKerHopf|ι₂_comulK|def coaction|def hopfKer|mem_hopfKer`
+- `antipode_mul_distrib|antipodeAlgHom|isNoetherianRing_of_fg|finitePresentation_of_finite|one_tmul_eq_zero_iff|eqLocus_includeLeft_includeRight|of_faithfullyFlat`
+- `p05_finite_hopf_envelope_a5b449214a|p05_finite_retraction_a5b449214a|p05_hopf_tensor_equalizer_a5b449214a|p05_subalgebra_coinvariant_a5b449214a|p05_canonical_map_injective_a5b449214a`
+- `rg --files -uu -g dag.json /mnt/data/zhengyang-workspace/fermat-swarm-projects`
+- `rg --files /runtime -g 'policy.json' -g '*header*policy*' -g '*authorization*' -g '*repair*receipt*' -g '*repair*report*'`
+- `python3 .humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/validate.py`
+
+Files inspected:
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/problem.md`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Fermat/Thm_HopfAlgebra_hopfKer_eq_of_surjective_of_ker_eq_span.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/Convolution.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Adjoin/FG.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Module/FinitePresentation.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Defs.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/TensorProduct/IncludeLeftSubRight.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Flat/FaithfullyFlat/Basic.lean`
+- `/runtime/operator-header-policy-v1/policy.json`
+- `/runtime/flows/math-lean-flow-header-policy-v4/docs/frozen-header-policy.md`
+- `/runtime/flows/math-lean-flow-header-policy-v4/scripts/verify-frozen-node.py`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/report.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/header-input-binding.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/challenge/CheckTypes.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/challenge/CheckInstances.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/challenge/InfrastructureAxioms.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/challenge-header-absence.log`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/challenge-infrastructure-axioms.log`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/nodes/root/decomposition-policy-validation/solution-infrastructure-axioms.log`
+
+The pinned definition identifies Hopf-kernel membership with coaction(q,x)=x⊗1. The inspected library provides antipode multiplicativity and Noetherian finite-presentation infrastructure; its generic tensor equalizer and zero-detection results require effectiveness or faithful flatness, which these proofs establish directly instead of assuming. Searches found neither the orphan HopfKerHopf declarations nor the proposed helper names in the pinned Definitions/mathlib trees; no competing local DAG reservations were found. The project and mathlib snapshots are clean at 2fdd42759f4ab17640ac773289b521dd69d4b26e and db584cd6d46c92f209a44c0f1c829460d327499d, and all nine dependency checkouts match their clean pins. A newly published controller policy with SHA-256 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96 authorizes omitting only frozen lines 10–11 in shared derived compiler copies. Fresh validation replayed the controller preparation functions, checked reversible source hashes, built both Submission contexts and the independent Challenge, and passed all five unchanged literal propositions after import Submission, inclusion/scalar/tensor probes, the 13-name absence probe, and nine transitive infrastructure axiom checks in both contexts. Only propext, Classical.choice and Quot.sound occur in those infrastructure closures. No child type constructs a matrix. Original frozen files and dependencies remain unchanged. These are decomposition-context checks, not acceptance of the still-unproved root or any child proof.
+
+
+## Acceptance
+
+The exact contract must pass the machine comparator and an independent reviewer's comparator rerun, without changed assumptions or proof holes. Local integration must pass before publication. Every decomposition child has its own issue and verified solution PR.
+
+Solution PR: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/734
+
+Current user-authorized lifecycle: merge the exact verified PR, validate its remote tree, then close this proved issue. This supersedes historical no-auto-merge instructions in the original experiment brief.
+
+Remote merge status is recorded by GitHub; local `proved` does not mean merged.

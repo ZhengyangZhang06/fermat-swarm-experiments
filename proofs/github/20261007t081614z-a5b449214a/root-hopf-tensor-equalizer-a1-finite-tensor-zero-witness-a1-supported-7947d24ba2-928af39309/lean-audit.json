@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "1a45be243b636eb5ad283ab4c444034a81ab3f84ab28a5711ab0ec1da0b4e939",
+  "git_delta": {
+    "base_commit": "a0b095cd5b1f468838925ec8bade78722e0a1bdc",
+    "candidate_commit": "099e4715f21d31109f9ba8cb820bde2f422535ca",
+    "target": "Submission.lean",
+    "declaration": "p05_ftzw_supported_relations_vanish_a5b449214a",
+    "diff_sha256": "0896797cd76b914db51008b9e970a4ed8148fdb16d5992565fe44e599893efca",
+    "source_sha256": "1d7c51e6b8374d43d02667232576f96b6d9ac00c647d33572ee48edc7c1bbad9",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_ftzw_supported_relations_vanish_a5b449214a",
+      "statement": "∀ {k : Type*} [CommRing k] {D : Type*} [CommRing D] [Algebra k D] {M : Type*} [AddCommGroup M] [Module D M] {P : Type*} [AddCommGroup P] [Module D P] (A : Subalgebra k D) (N : Submodule A M) (m : N) (p : P), let b : M → P → FreeAbelianGroup (M × P) := fun u z => FreeAbelianGroup.of (u, z); b (m : M) p ∈ AddSubgroup.closure {r : FreeAbelianGroup (M × P) | (∃ z : P, r = b 0 z) ∨ (∃ u : M, u ∈ N ∧ r = b u 0) ∨ (∃ (u v : M) (z : P), u ∈ N ∧ v ∈ N ∧ r = b (u + v) z - b u z - b v z) ∨ (∃ (u : M) (z w : P), u ∈ N ∧ r = b u (z + w) - b u z - b u w) ∨ (∃ (d : D) (u : M) (z : P), d ∈ A ∧ u ∈ N ∧ r = b (d • u) z - b u (d • z))} → (TensorProduct.tmul A m p : TensorProduct A N P) = 0",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

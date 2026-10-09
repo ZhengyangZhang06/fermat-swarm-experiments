@@ -1,0 +1,37 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "liftAddHom",
+        "closure_induction",
+        "p05_hte_finite_tensor_zero_witness_a5b449214a|p05_ftzw_tensor_relation_kernel_a5b449214a|p05_ftzw_supported_relations_vanish_a5b449214a"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Group/Subgroup/Lattice.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib"
+      ],
+      "conclusion": "Confirmed pinned upstream provenance for TensorProduct.liftAddHom and AddSubgroup.closure_induction. The imported Hopf-kernel definition matches the frozen Git source byte-for-byte. No declarations matching the three node names were found in the snapshot. Comparator dependency pins match the manifest; the target's transitive axioms are only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "33b10ae441782fe52364c5ccbab5212fe18f9b37850f5d9b82458b28b3d8ebed",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p05_hte_finite_tensor_zero_witness_a5b449214a",
+      "statement": "∀ {k : Type*} [CommRing k] {D : Type*} [CommRing D] [Algebra k D] {M : Type*} [AddCommGroup M] [Module D M] {P : Type*} [AddCommGroup P] [Module D P] (m : M) (p : P), (TensorProduct.tmul D m p : TensorProduct D M P) = 0 → ∃ S : Finset D, ∃ F : Finset M, m ∈ F ∧ ∀ (A : Subalgebra k D), (∀ d ∈ S, d ∈ A) → ∀ (N : Submodule A M), (∀ y ∈ F, y ∈ N) → ∀ hm : m ∈ N, (TensorProduct.tmul A (⟨m, hm⟩ : N) p : TensorProduct A N P) = 0",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Uses the accepted tensor-relation lemmas and closure induction to collect finite scalar and module supports, inserts m, and applies the restricted-module vanishing lemma."
+    }
+  ]
+}

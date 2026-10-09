@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "c7535bd9ff998dec8f1698d5c90f746a78bf4a05c94597b361f19a87d91853bd",
+  "git_delta": {
+    "base_commit": "a0b095cd5b1f468838925ec8bade78722e0a1bdc",
+    "candidate_commit": "0cc8128f1358bbc59814404a0e7f0158f679329f",
+    "target": "Submission.lean",
+    "declaration": "p05_ftzw_tensor_relation_kernel_a5b449214a",
+    "diff_sha256": "0937b320f24785c8431fd67b78004a5d6f7e0ef4cb9d61148fcced677e7932b5",
+    "source_sha256": "985082c3e773fdb8c400b7aab761c3d46e354b5ae2314aa95d54d21774f23063",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_ftzw_tensor_relation_kernel_a5b449214a",
+      "statement": "∀ {D : Type*} [CommRing D] {M : Type*} [AddCommGroup M] [Module D M] {P : Type*} [AddCommGroup P] [Module D P], let b : M → P → FreeAbelianGroup (M × P) := fun u z => FreeAbelianGroup.of (u, z); (FreeAbelianGroup.lift (fun x : M × P => TensorProduct.tmul D x.1 x.2)).ker = AddSubgroup.closure {r : FreeAbelianGroup (M × P) | (∃ z : P, r = b 0 z) ∨ (∃ u : M, r = b u 0) ∨ (∃ (u v : M) (z : P), r = b (u + v) z - b u z - b v z) ∨ (∃ (u : M) (z w : P), r = b u (z + w) - b u z - b u w) ∨ (∃ (d : D) (u : M) (z : P), r = b (d • u) z - b u (d • z))}",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

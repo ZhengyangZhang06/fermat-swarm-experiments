@@ -1,0 +1,33 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'det_permute|det_fromBlocks_zero₂₁|reduce_minor|hopfKer_eq_of_surjective_of_ker_eq_span' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae -g '*.lean'",
+        "rg -n 'p05_ibs_reduce_minor_a5b449214a' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae -g '*.lean'"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Fermat/Thm_HopfAlgebra_hopfKer_eq_of_surjective_of_ker_eq_span.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean"
+      ],
+      "conclusion": "Both snapshots are clean at their manifest revisions. The frozen root contract matches byte-for-byte. The pinned mathlib supplies det_reindex and det_fromBlocks_zero₂₁; no existing tracked-node declaration was found. The exact comparator rerun verified compatible dependencies and permitted transitive axioms."
+    }
+  ],
+  "comparison_identity": "ae8004c3a24019f3a4087aeeeeca70397b97c9ffc5d749d34f61a26517000720",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p05_ibs_reduce_minor_a5b449214a",
+      "statement": "∀ {R : Type*} [CommRing R] (n p t d : ℕ) (P : Matrix (Fin n) (Fin p) R) (rows : Fin d ↪ (Fin n ⊕ Fin t)) (cols : Fin d ↪ (Fin p ⊕ Fin t)), let E : Matrix (Fin n ⊕ Fin t) (Fin p ⊕ Fin t) R := Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R); Matrix.det (E.submatrix rows cols) = 0 ∨ ∃ l : ℕ, l ≤ t ∧ l ≤ d ∧ ∃ (rows' : Fin (d - l) ↪ Fin n) (cols' : Fin (d - l) ↪ Fin p), Matrix.det (E.submatrix rows cols) = Matrix.det (P.submatrix rows' cols') ∨ Matrix.det (E.submatrix rows cols) = -Matrix.det (P.submatrix rows' cols')",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines the accepted support-mismatch and block-normal-form dependencies with pinned determinant identities to obtain zero or a signed original minor."
+    }
+  ]
+}

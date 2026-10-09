@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "df5e803b970ff1a2d5b35ed1cd39129d7c55d3e4006e02fccc213537e0fac5f6",
+  "git_delta": {
+    "base_commit": "f49505fc2e8c38ec6332e4f1cc71a955e9005fb6",
+    "candidate_commit": "b07a92be426030137b8af21b75f4c8f6f7d17ac2",
+    "target": "Submission.lean",
+    "declaration": "p05_ibsrm_matching_support_blocks_a5b449214a",
+    "diff_sha256": "03b5db4f7f8575306b7d8c034c4a9069ecae8128102bf2dd732892a8b4176bcb",
+    "source_sha256": "03df20801c51012f5a634233e17ba8ea818417da4a53a92c3785808dd3c59e22",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_ibsrm_matching_support_blocks_a5b449214a",
+      "statement": "∀ {R : Type*} [CommRing R] (n p t d : ℕ) (P : Matrix (Fin n) (Fin p) R) (rows : Fin d ↪ (Fin n ⊕ Fin t)) (cols : Fin d ↪ (Fin p ⊕ Fin t)) (_h : ∀ a : Fin t, (∃ i : Fin d, rows i = Sum.inr a) ↔ (∃ j : Fin d, cols j = Sum.inr a)), ∃ l : ℕ, l ≤ t ∧ l ≤ d ∧ ∃ (rows' : Fin (d - l) ↪ Fin n) (cols' : Fin (d - l) ↪ Fin p) (er ec : (Fin (d - l) ⊕ Fin l) ≃ Fin d), ((Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R)).submatrix rows cols).submatrix er ec = Matrix.fromBlocks (P.submatrix rows' cols') 0 0 (1 : Matrix (Fin l) (Fin l) R)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

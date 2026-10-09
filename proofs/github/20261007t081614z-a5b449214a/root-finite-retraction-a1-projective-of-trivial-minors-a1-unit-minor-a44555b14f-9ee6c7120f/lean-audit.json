@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "minor_reconstruction|inner_inverse|det_fromBlocks₁₁|mul_submatrix_one|one_submatrix_mul",
+        "inner_inverse|minor_reconstruction"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/SchurComplement.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Data/Matrix/Mul.lean"
+      ],
+      "conclusion": "Both snapshots are clean at their manifest revisions. No inner_inverse or minor_reconstruction match occurs in the project snapshot. Pinned mathlib supplies the block-determinant and selection-matrix identities used by accepted dependencies. The exact node comparator rerun passed; all 221 exported Lean inputs match the inspected packet, header omissions match the operator policy, and the transitive axioms are propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "a7baefcdce023fc0e7707d7a522a0c340ac2cb5708378ad48bdc4d3c05dc0f80",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p05_ums_inner_inverse_of_minors_a5b449214a",
+      "statement": "∀ {R : Type*} [CommRing R] (n p d : ℕ) (P : Matrix (Fin n) (Fin p) R) (rows : Fin d ↪ Fin n) (cols : Fin d ↪ Fin p) (_hunit : IsUnit (Matrix.det (P.submatrix rows cols))) (_hnext : ∀ (rows' : Fin (d + 1) ↪ Fin n) (cols' : Fin (d + 1) ↪ Fin p), Matrix.det (P.submatrix rows' cols') = 0), ∃ Q : Matrix (Fin p) (Fin n) R, P * Q * P = P",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Composes the accepted minor-reconstruction theorem with the accepted construction of an inner inverse from that reconstruction."
+    }
+  ]
+}

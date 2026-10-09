@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "7e17596f803a760bfc2788390d27843e02ec833ddb5919f2acaceaf493ed828d",
+  "git_delta": {
+    "base_commit": "c66b358d016527ad0ab23061752401f3669c5054",
+    "candidate_commit": "8646cc18e11ae8b9f9911eb032744efaae91d560",
+    "target": "Submission.lean",
+    "declaration": "p05_umgi_inner_inverse_of_reconstruction_a5b449214a",
+    "diff_sha256": "b5b9a249cbc8b04dba404e7d74923e1e3aaf4eb85a615d9e7d0229c772a861ce",
+    "source_sha256": "c6d3982aa2264f6dae9833037b8cd1066150338382d1078efdf4aca156cd1fbb",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_umgi_inner_inverse_of_reconstruction_a5b449214a",
+      "statement": "∀ {R : Type*} [CommRing R] (n p d : ℕ) (P : Matrix (Fin n) (Fin p) R) (rows : Fin d ↪ Fin n) (cols : Fin d ↪ Fin p) (T : Matrix (Fin d) (Fin d) R) (_hfactor : P = (P.submatrix id cols) * T * (P.submatrix rows id)), ∃ Q : Matrix (Fin p) (Fin n) R, P * Q * P = P",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

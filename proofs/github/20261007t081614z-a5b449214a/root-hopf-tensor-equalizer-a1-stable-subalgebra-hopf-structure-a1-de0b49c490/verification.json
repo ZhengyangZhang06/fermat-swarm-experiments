@@ -1,0 +1,18 @@
+{
+  "node_id": "root.hopf_tensor_equalizer-a1.stable_subalgebra_hopf_structure-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/263",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/696",
+  "candidate_commit": "2debaf86354e08b9094ec50baf127c9f92a97347",
+  "integrated_commit": "2988af1336fc8a746021f213757ad548fce71d2c",
+  "proof_base_commit": "938a841a113b07ff305e96c141e176a831c376cc",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.hopf_tensor_equalizer-a1",
+  "requires": [
+    "root.hopf_tensor_equalizer-a1.stable_subalgebra_hopf_structure-a1.bialgebra_restriction-a1",
+    "root.hopf_tensor_equalizer-a1.stable_subalgebra_hopf_structure-a1.antipode_lift-a1"
+  ]
+}

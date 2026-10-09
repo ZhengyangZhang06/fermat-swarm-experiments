@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "70be6b830d9a78db46b14f858f960e59f21b5c69783eabc782b53e5f9aaaeb6b",
+  "git_delta": {
+    "base_commit": "d63e349328aea23423cf2be2de755effdecbc426",
+    "candidate_commit": "5ff0c0ebeed4021cb1296728b5d89977a7fd337d",
+    "target": "Submission.lean",
+    "declaration": "p05_subalgebra_coinvariant_a5b449214a",
+    "diff_sha256": "f65b722bea0ea72bf475411030577f6ae676d1526822aad8c22b959dea8edf1d",
+    "source_sha256": "b3818919843a3cc182eef5ecfc2e5cb23df7cde30e8021801729d77b64d3bf1e",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_subalgebra_coinvariant_a5b449214a",
+      "statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (K : Subalgebra k H) (hΔ : (∀ x ∈ K, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ K, ∃ b ∈ K, t = TensorProduct.tmul k a b})) {B : Type*} [CommRing B] [Bialgebra k B] (q : BialgHom k H B) (hker : (RingHom.ker (q : H →+* B) = Ideal.span {x : H | x ∈ K ∧ Coalgebra.counit (R := k) x = 0})), K ≤ HopfAlgebra.hopfKer q",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

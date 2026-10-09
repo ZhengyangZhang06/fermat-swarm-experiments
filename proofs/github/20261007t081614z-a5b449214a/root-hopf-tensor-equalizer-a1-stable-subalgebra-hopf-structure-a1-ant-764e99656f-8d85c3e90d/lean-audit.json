@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "18fb11461f7766e01faa64116055a6e0539c9e21e734963ac55dc89cde437b22",
+  "git_delta": {
+    "base_commit": "fa5616020e2f207fe87aff2fbac99b47ed2e77c5",
+    "candidate_commit": "9769c7234279989186042c5906430ea3c3e62bdd",
+    "target": "Submission.lean",
+    "declaration": "p05_hte_sshs_antipode_lift_a5b449214a",
+    "diff_sha256": "a7951de6ba50541095901f26b6fa928aa5a05873a717b9ea631b1448556352d0",
+    "source_sha256": "6b21f7d06f9e1e16c589ee6b833972126d3272bb9b37b370973447b6698cfc3e",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_hte_sshs_antipode_lift_a5b449214a",
+      "statement": "∀ {k : Type*} [Field k] {A : Type*} [CommRing A] [bA : Bialgebra k A] {H : Type*} [CommRing H] [HopfAlgebra k H] (ι : BialgHom k A H) (hι : Function.Injective ι) (hS : ∀ a : A, ∃ b : A, ι b = HopfAlgebra.antipode k (ι a)), ∃ hA : HopfAlgebra k A, hA.toHopfAlgebraStruct.toBialgebra = bA ∧ (letI : Algebra k A := hA.toHopfAlgebraStruct.toBialgebra.toAlgebra; letI : Module k A := Algebra.toModule; letI : Bialgebra k A := hA.toHopfAlgebraStruct.toBialgebra; letI : HopfAlgebra k A := hA; ∀ a : A, ι (HopfAlgebra.antipode k a) = HopfAlgebra.antipode k (ι a))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

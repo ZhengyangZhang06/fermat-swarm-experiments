@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "4e9894b85221aaba0bf08dbf338b40f937f55e16c0d9e9c57d199b6af5165cbd",
+  "git_delta": {
+    "base_commit": "9f9ff86cc76b1ec88a22eb49ecac4ea35fc79278",
+    "candidate_commit": "7ae865093e0ce5fb5396a336d22d8b51296b8095",
+    "target": "Submission.lean",
+    "declaration": "p05_pcs_patch_power_sections_a5b449214a",
+    "diff_sha256": "a8cd0055745749111ef04b649bb6d7cd0b60bb8f6536a91c926ef7405e2b8eb0",
+    "source_sha256": "805bb7360010d1d532406f83b628a28b2b41a19df65ba3f125bd9c8f6419f123",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_pcs_patch_power_sections_a5b449214a",
+      "statement": "∀ {R : Type*} [CommRing R] {M : Type*} [AddCommGroup M] [Module R M] {F : Type*} [AddCommGroup F] [Module R F] (π : F →ₗ[R] M) (q : ℕ) (f : Fin q → R) (_hcover : Ideal.span (Set.range f) = ⊤) (N : Fin q → ℕ) (_hN : ∀ i, 0 < N i) (t : Fin q → M →ₗ[R] F) (_ht : ∀ i, π.comp (t i) = (f i) ^ (N i) • (LinearMap.id : M →ₗ[R] M)), ∃ s : M →ₗ[R] F, π.comp s = LinearMap.id",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
