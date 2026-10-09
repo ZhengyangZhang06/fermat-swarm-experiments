@@ -1,0 +1,39 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "center_ne_bot|toValuationSubring_eq_of_forall_mem|def center|structure Place",
+        "exists_normalized_span_of_isPrincipal|normalize_eq_self_iff_monic|theorem span_singleton_prime",
+        "p06_9e0f5043ff_rmp_finite_place_classification|finite_place_classification",
+        "def valuationSubringAtPrime|eq_of_le_of_ne_top"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/PrincipalIdealDomain.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/Algebra/Polynomial/FieldDivision.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Ideal/Maximal.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DedekindDomain/AdicValuation.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean"
+      ],
+      "conclusion": "The snapshot supplies Place, the nonzero prime center, its localization characterization, and the normalization/primality results used by the proof. No occurrence of this node's theorem name or finite_place_classification was found in the snapshot. Project revision 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d match the manifest and have clean tracked sources; all nine candidate dependencies are clean and pinned. Reused project sources match the frozen proof base byte-for-byte. The diff introduces only the tracked theorem and preserves the root placeholder and imports. My exact comparator rerun, request dc5765be740c4f2eac7039e3e2ae4c54, exited zero with 'Your solution is okay!' and reported only propext, Classical.choice, and Quot.sound as transitive axioms."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_rmp_finite_place_classification",
+      "statement": "∀ (K : Type*) [Field K] (v : AlgebraicCurve.Place K (FractionRing (Polynomial K))), algebraMap (Polynomial K) (FractionRing (Polynomial K)) Polynomial.X ∈ v.toValuationSubring → ∃ q : Polynomial K, q.Monic ∧ Irreducible q ∧ (∀ f : FractionRing (Polynomial K), f ∈ v.toValuationSubring ↔ ∃ a b : Polynomial K, ¬ q ∣ b ∧ f = algebraMap (Polynomial K) (FractionRing (Polynomial K)) a / algebraMap (Polynomial K) (FractionRing (Polynomial K)) b)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Constants and X generate the polynomial ring inside the valuation subring. Its contracted maximal ideal is a nonzero prime ideal, whose normalized generator q is monic and irreducible. The frozen-base localization theorem identifies membership with polynomial fractions whose denominators lie outside (q), equivalently denominators not divisible by q."
+    }
+  ]
+}
