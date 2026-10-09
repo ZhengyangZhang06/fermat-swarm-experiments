@@ -1,0 +1,57 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "LiesOverPrime|IsFrobeniusAt|stabilizerHom_surjective|isDiscreteValuationRing_of_dedekind_domain|tendsto_sub_one_mul_dedekindZeta_nhdsGT|exists_root",
+        "chebotarev|ray.?class|frobenius.*density|frobenius.*approximation",
+        "IsFractionRing|IsDedekindDomain|Module.Free|Module.Finite|IsIntegralClosure|IsIntegrallyClosed",
+        "p09_af497904fe_fa_revised_6e943c8d_finite_frobenius",
+        "git rev-parse HEAD",
+        "git status --porcelain --untracked-files=no",
+        "kernel|axiom|86094f30dc004e1aa262d07bcd28657a|Your solution is okay|05aefc8b6cc93a2068026a1645e2ad9c6813e47d848d180ea21aa3940b4d75e5",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean -DautoImplicit=false -DmaxHeartbeats=4000000 -DsynthInstance.maxHeartbeats=400000 -Dbackward.isDefEq.respectTransparency.types=false HeaderPolicyCheck.lean",
+        "/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean -DautoImplicit=false -DmaxHeartbeats=4000000 -DsynthInstance.maxHeartbeats=400000 -Dbackward.isDefEq.respectTransparency.types=false Types.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/DedekindDomain/Dvr.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Invariant/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/DedekindZeta.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/Complex/Polynomial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-lift-unique-frobenius-a1/comparison-identity-v2.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-lift-unique-frobenius-a1/comparator-v1.log",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-lift-unique-frobenius-a1/lean-audit-v1.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/runtime/review-evidence/86094f30dc004e1aa262d07bcd28657a/evidence.json",
+        "/runtime/review-evidence/86094f30dc004e1aa262d07bcd28657a/review-export.json",
+        "/runtime/review-evidence/86094f30dc004e1aa262d07bcd28657a/challenge/Challenge.lean",
+        "/tmp/p09-decomposition-independent-1q0auw8v/HeaderPolicyCheck.lean",
+        "/tmp/p09-decomposition-independent-1q0auw8v/Types.lean",
+        "/tmp/p09-decomposition-independent-1q0auw8v/Types.lean.log"
+      ],
+      "conclusion": "Independently confirmed clean snapshot revisions 20574e45daf714e745af8e649c7b61b21eed5644 and db584cd6d46c92f209a44c0f1c829460d327499d, and nine clean pinned dependencies. The cited definitions and arithmetic theorems support their stated uses. No Chebotarev or ray-class distribution theorem matched; distribution-related matches were negative header attributes. Both exact child propositions elaborated under the frozen imports without importing Submission or either implementation; residue-action and coercion checks passed. The fresh finite name is unreserved. Reuse evidence matches the lifting type and candidate 0cc57222e5453541007ef422252249191b6ecebd, including independent review, comparator success, kernel acceptance, and only propext, Classical.choice and Quot.sound. All 223 exported hashes matched. Header repair matches policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96: only lines 10–11 were omitted, both compiler copies reconstruct their exact Git originals, and an independent Lean probe confirmed all eight targets absent. Frozen contract, problem and reviewed handoff hashes remain unchanged. These interface checks do not constitute implementation acceptance of the new finite theorem."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "finite_frobenius",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose includes every hypothesis and matches the standalone one-line Lean proposition, including uniqueness among all rational automorphisms. Its bare declaration name is unreserved. Independently checking steps 1–35 found a complete, non-circular argument: ray-class counting and character nonvanishing supply the cyclotomic Frobenius primes; the diagonal construction realizes g; discriminant exclusion and localization establish the exact residue predicate and uniqueness. No proof discovery is deferred. This finite arithmetic obligation is an appropriate component of the split."
+    },
+    {
+      "key": "lift_unique_frobenius",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and standalone one-line type agree on every assumption and conclusion, including P restricting exactly to V. Steps 1–11 justify localization, prime lifting, compatible finite Frobenius choices without surjective transition maps, gluing automorphisms and inverses, and the union's nonunits and residue action. No parent or sibling theorem is assumed. Empty sibling dependencies are correct because the finite datum is explicit input. The bare name validly reuses the identical comparator-accepted declaration; its existing dependency cone is acyclic. Restricting σ to E and applying the two children reconstructs the parent."
+    }
+  ],
+  "required_changes": []
+}
