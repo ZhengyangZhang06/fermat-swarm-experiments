@@ -1,0 +1,21 @@
+{
+  "node_id": "root.transfer_theta-a1.transfer_projection-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/428",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "f880fc60163bf6a7898b3ccdd15646f22ea5bff2",
+  "integrated_commit": "cb27b104a4f8f802464ca79274f9c4a51393e894",
+  "proof_base_commit": "d62e9e225d519c1ecfd07dd7c399af490117a3f9",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.transfer_theta-a1",
+  "requires": [
+    "root.transfer_theta-a1.normal_kernel-a1",
+    "root.transfer_theta-a1.transfer_projection-a1.normal_level_retraction-a1",
+    "root.transfer_theta-a1.transfer_projection-a1.low_degree_prism-a1",
+    "root.transfer_theta-a1.transfer_projection-a1.coset_averaging-a1",
+    "root.transfer_theta-a1.transfer_projection-a1.bilinear_averaging-a1"
+  ]
+}
