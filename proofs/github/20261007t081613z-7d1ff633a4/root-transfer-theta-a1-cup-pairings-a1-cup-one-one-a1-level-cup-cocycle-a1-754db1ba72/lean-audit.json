@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "7ae9c6d405d054f3dacbc004cc869053aa106bbc887854bb8a5ae3268713e0d5",
+  "git_delta": {
+    "base_commit": "34a1c75ad294352f27456c6b9310c30b101f95fe",
+    "candidate_commit": "9990e3ea6bf2f1d22ebf10e0a9c75992b588a226",
+    "target": "Submission.lean",
+    "declaration": "p08_7d1ff633a4_cp11_level_cocycle",
+    "diff_sha256": "c13e4883b31626fcb8ab61d7727b8c2b2024e6181efa3ec7e20da22804c465fd",
+    "source_sha256": "625f91b5036ae04824dfe16bf1d8b4b45a99ff7f19cd6e87da483d776f5bcb70",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p08_7d1ff633a4_cp11_level_cocycle",
+      "statement": "∀ {k G : Type} [Field k] [Group G] (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)) (A B N : Rep.{0} k G) (E₀ : IntermediateField ℚ (AlgebraicClosure ℚ)), FiniteDimensional ℚ E₀ → (∀ s : G, r s ∈ E₀.fixingSubgroup → ∀ b : B, B.ρ s b = b) → ∀ φ : A →ₗ[k] B →ₗ[k] N, (∀ (s : G) (a : A) (b : B), φ (A.ρ s a) (B.ρ s b) = N.ρ s (φ a b)) → ∀ (f : groupCohomology.cocycles₁ A) (g : groupCohomology.cocycles₁ B), groupCohomology.IsLevelConstant₁ r (⇑f) → groupCohomology.IsLevelConstant₁ r (⇑g) → groupCohomology.cupCochain φ (⇑f) (⇑g) ∈ groupCohomology.levelCocycles₂ r N",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
