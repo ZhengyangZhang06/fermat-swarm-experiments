@@ -2034,6 +2034,201 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
     exact heq
   let ω : ℂ := Complex.exp (2 * Real.pi * Complex.I / m)
   have hω : IsPrimitiveRoot ω m := Complex.isPrimitiveRoot_exp m hm.ne'
+  let : NeZero m := ⟨hm.ne'⟩
+  let character (k : Fin m) : J →* ℂ :=
+    { toFun := fun σ => ω ^ (k.val * (code σ).val)
+      map_one' := by simp [code]
+      map_mul' := fun σ τ => by
+        have hcodeMul : code (σ * τ) = code σ + code τ :=
+          congrArg Multiplicative.toAdd (map_mul e.symm σ τ)
+        have hmod : ω ^ (((code σ).val + (code τ).val) % m) =
+            ω ^ ((code σ).val + (code τ).val) := by
+          simpa only [← hω.eq_orderOf] using
+            pow_mod_orderOf ω ((code σ).val + (code τ).val)
+        rw [hcodeMul, ZMod.val_add, Nat.mul_comm k.val, pow_mul, hmod,
+          ← pow_mul, Nat.mul_comm _ k.val, Nat.mul_add, pow_add] }
+  have hcharacterNorm (k : Fin m) (σ : J) : ‖character k σ‖ = 1 := by
+    change ‖ω ^ (k.val * (code σ).val)‖ = 1
+    rw [norm_pow, hω.norm'_eq_one hm.ne', one_pow]
+  have hcharacterSum (k : Fin m) (hk : k.val ≠ 0) : ∑ σ : J, character k σ = 0 := by
+    have hmone : m ≠ 1 := by
+      have := k.isLt
+      omega
+    let t : J := e (Multiplicative.ofAdd (1 : ZMod m))
+    have ht : character k t ≠ 1 := by
+      change ω ^ (k.val * (code t).val) ≠ 1
+      have hcodeT : code t = 1 := by simp [code, t]
+      rw [hcodeT, ZMod.val_one'' hmone, mul_one]
+      exact hω.pow_ne_one_of_pos_of_lt hk k.isLt
+    have hshift : (∑ σ : J, character k (t * σ)) = ∑ σ : J, character k σ :=
+      Fintype.sum_equiv (Equiv.mulLeft t) _ _ (fun _ => rfl)
+    simp_rw [map_mul] at hshift
+    rw [← Finset.mul_sum] at hshift
+    exact (mul_left_eq_self₀.mp hshift).resolve_left ht
+  -- Steps 23–25: local cyclic factors, finite Euler products, and pole limits.
+  have hcyclicFactor (μ : ℂ) (n r : ℕ) (hn : 0 < n)
+      (hμ : IsPrimitiveRoot μ n) (x : ℂ) :
+      (∏ k ∈ Finset.range (n * r), (1 - μ ^ k * x)) = (1 - x ^ n) ^ r := by
+    have hbase : (∏ k ∈ Finset.range n, (1 - μ ^ k * x)) = 1 - x ^ n := by
+      have h := congrArg (Polynomial.eval (1 : ℂ))
+        (X_pow_sub_C_eq_prod hμ hn (rfl : x ^ n = x ^ n))
+      simpa only [Polynomial.eval_sub, Polynomial.eval_pow, Polynomial.eval_X,
+        Polynomial.eval_C, Polynomial.eval_prod, one_pow] using h.symm
+    induction r with
+    | zero => simp
+    | succ r ih =>
+      rw [Nat.mul_succ, Finset.prod_range_add, ih, pow_succ]
+      congr 1
+      have hperiod (k : ℕ) : μ ^ (n * r + k) = μ ^ k := by
+        rw [pow_add, pow_mul, hμ.pow_eq_one, one_pow, one_mul]
+      simpa only [hperiod] using hbase
+  have hcharacterFactor (J : Type) [Group J] [Finite J] [IsCyclic J]
+      (e : Multiplicative (ZMod (Nat.card J)) ≃* J) (ω : ℂ)
+      (hω : IsPrimitiveRoot ω (Nat.card J)) (σ : J) (x : ℂ) :
+      (∏ k : Fin (Nat.card J),
+        (1 - ω ^ (k.val * (Multiplicative.toAdd (e.symm σ)).val) * x)) =
+        (1 - x ^ orderOf σ) ^ (Nat.card J / orderOf σ) := by
+    classical
+    let m := Nat.card J
+    let : NeZero m := ⟨Nat.card_pos.ne'⟩
+    let code : J → ZMod m := fun τ => Multiplicative.toAdd (e.symm τ)
+    let ρ : J →* ℂ :=
+      { toFun := fun τ => ω ^ (code τ).val
+        map_one' := by simp [code]
+        map_mul' := fun τ υ => by
+          have hcode : code (τ * υ) = code τ + code υ :=
+            congrArg Multiplicative.toAdd (map_mul e.symm τ υ)
+          rw [hcode, ZMod.val_add]
+          have hmod : ω ^ (((code τ).val + (code υ).val) % m) =
+              ω ^ ((code τ).val + (code υ).val) := by
+            simpa only [← hω.eq_orderOf] using
+              pow_mod_orderOf ω ((code τ).val + (code υ).val)
+          rw [hmod, pow_add] }
+    have hρ : Function.Injective ρ := by
+      intro τ υ h
+      apply e.symm.injective
+      apply (Multiplicative.toAdd : Multiplicative (ZMod m) ≃ ZMod m).injective
+      exact ZMod.val_injective m (hω.pow_inj (ZMod.val_lt _) (ZMod.val_lt _) h)
+    have hord : orderOf (ρ σ) = orderOf σ := orderOf_injective ρ hρ σ
+    have hprimitive : IsPrimitiveRoot (ρ σ) (orderOf σ) :=
+      hord ▸ IsPrimitiveRoot.orderOf (ρ σ)
+    have hfactor := hcyclicFactor (ρ σ) (orderOf σ)
+      (m / orderOf σ) (orderOf_pos σ) hprimitive x
+    rw [Nat.mul_div_cancel' (orderOf_dvd_natCard σ)] at hfactor
+    have hconvert : (∏ k : Fin (Nat.card J),
+        (1 - ω ^ (k.val * (Multiplicative.toAdd (e.symm σ)).val) * x)) =
+        ∏ k : Fin (Nat.card J), (1 - ρ σ ^ k.val * x) := by
+      apply Finset.prod_congr rfl
+      intro k _
+      dsimp [ρ, code]
+      rw [← pow_mul, Nat.mul_comm]
+    rw [hconvert]
+    exact (Fin.prod_univ_eq_prod_range (fun k => 1 - ρ σ ^ k * x) (Nat.card J)).trans hfactor
+  have hfiniteEulerProduct (C I : Type) [Fintype C]
+      (u : C → I → ℂ) (hu : ∀ c, Summable (u c))
+      (hsmall : ∀ c i, 1 - u c i ≠ 0) :
+      HasProd (fun i => (∏ c, (1 - u c i))⁻¹)
+        (∏ c, Complex.exp (∑' i, -Complex.log (1 - u c i))) := by
+    have hc (c : C) : HasProd (fun i => (1 - u c i)⁻¹)
+        (Complex.exp (∑' i, -Complex.log (1 - u c i))) := by
+      have hlog := (hu c).clog_one_sub.neg
+      simpa only [Function.comp_def, Complex.exp_neg, Complex.exp_log (hsmall _ _)]
+        using hlog.hasSum.cexp
+    simpa only [Finset.prod_inv_distrib] using
+      (hasProd_prod (s := Finset.univ) (fun c _ => hc c))
+  have hremoveEulerFactors (I : Type) (V : Finset I) (u : I → ℂ)
+      (hu : Summable u) (hne : ∀ i, 1 - u i ≠ 0) :
+      (∏ i ∈ V, (1 - u i)) * Complex.exp (∑' i, -Complex.log (1 - u i)) =
+        Complex.exp (∑' i : {i // i ∉ V}, -Complex.log (1 - u i.1)) := by
+    classical
+    have hlog := hu.clog_one_sub.neg
+    have hsplit := hlog.sum_add_tsum_compl (s := V)
+    rw [← hsplit, Complex.exp_add]
+    have hfinite : Complex.exp (∑ i ∈ V, -Complex.log (1 - u i)) =
+        (∏ i ∈ V, (1 - u i))⁻¹ := by
+      rw [Complex.exp_sum]
+      simp only [Complex.exp_neg, Complex.exp_log (hne _), Finset.prod_inv_distrib]
+    rw [hfinite, ← mul_assoc, mul_inv_cancel₀ (Finset.prod_ne_zero_iff.mpr
+      (fun i _ => hne i)), one_mul]
+    congr 1
+  have hproductNonzero (C : Type) [Fintype C] (L : C → ℝ → ℂ)
+      (Z₀ Z₁ : ℝ → ℂ) (r₀ r₁ : ℂ)
+      (hL : ∀ c, ContinuousWithinAt (L c) (Set.Ici 1) 1)
+      (hZ₀ : Tendsto (fun s : ℝ => ((s : ℂ) - 1) * Z₀ s) (𝓝[>] 1) (𝓝 r₀))
+      (hZ₁ : Tendsto (fun s : ℝ => ((s : ℂ) - 1) * Z₁ s) (𝓝[>] 1) (𝓝 r₁))
+      (hr₁ : r₁ ≠ 0)
+      (hprod : ∀ s : ℝ, s ∈ Set.Ioo 1 2 → Z₀ s * (∏ c, L c s) = Z₁ s) :
+      ∀ c, L c 1 ≠ 0 := by
+    have hlimit : Tendsto (fun s : ℝ => ∏ c, L c s) (𝓝[>] 1) (𝓝 (∏ c, L c 1)) :=
+      tendsto_finsetProd Finset.univ (fun c _ => (hL c).mono Set.Ioi_subset_Ici_self)
+    have hidentity : r₀ * (∏ c, L c 1) = r₁ := by
+      apply tendsto_nhds_unique (hZ₀.mul hlimit)
+      apply hZ₁.congr'
+      filter_upwards [self_mem_nhdsWithin,
+        nhdsWithin_le_nhds (Iio_mem_nhds (show (1 : ℝ) < 2 by norm_num))] with s hs₁ hs₂
+      change 1 < s at hs₁
+      change s < 2 at hs₂
+      rw [mul_assoc, hprod s ⟨hs₁, hs₂⟩]
+    have hnonzero : (∏ c, L c 1) ≠ 0 := by
+      intro hzero
+      rw [hzero, mul_zero] at hidentity
+      exact hr₁ hidentity.symm
+    exact fun c => (Finset.prod_ne_zero_iff.mp hnonzero) c (Finset.mem_univ c)
+  have hpoleOrder (Z₀ Z₁ : ℝ → ℂ) (r₀ r₁ : ℂ) (d : ℕ)
+      (hd : 0 < d) (hr₀ : r₀ ≠ 0)
+      (hZ₀ : Tendsto (fun s : ℝ => ((s : ℂ) - 1) * Z₀ s) (𝓝[>] 1) (𝓝 r₀))
+      (hZ₁ : Tendsto (fun s : ℝ => ((s : ℂ) - 1) * Z₁ s) (𝓝[>] 1) (𝓝 r₁))
+      (heq : ∀ s : ℝ, s ∈ Set.Ioo 1 2 → Z₁ s = (Z₀ s) ^ d) :
+      d = 1 := by
+    by_contra hd₁
+    have hd₂ : 0 < d - 1 := by omega
+    have ht : Tendsto (fun s : ℝ => (s : ℂ) - 1) (𝓝[>] 1) (𝓝 0) := by
+      have hc : ContinuousAt (fun s : ℝ => (s : ℂ) - 1) 1 := by fun_prop
+      simpa using hc.tendsto.mono_left (show 𝓝[>] (1 : ℝ) ≤ 𝓝 1 from nhdsWithin_le_nhds)
+    have hzero : Tendsto (fun s : ℝ => ((s : ℂ) - 1) ^ (d - 1) *
+        (((s : ℂ) - 1) * Z₁ s)) (𝓝[>] 1) (𝓝 0) := by
+      simpa only [zero_pow hd₂.ne', zero_mul] using (ht.pow (d - 1)).mul hZ₁
+    have hpow : Tendsto (fun s : ℝ => (((s : ℂ) - 1) * Z₀ s) ^ d)
+        (𝓝[>] 1) (𝓝 0) := by
+      apply hzero.congr'
+      filter_upwards [self_mem_nhdsWithin,
+        nhdsWithin_le_nhds (Iio_mem_nhds (show (1 : ℝ) < 2 by norm_num))] with s hs₁ hs₂
+      change 1 < s at hs₁
+      change s < 2 at hs₂
+      rw [heq s ⟨hs₁, hs₂⟩, ← mul_assoc, ← pow_succ,
+        Nat.sub_add_cancel hd, mul_pow]
+    exact (pow_ne_zero d hr₀) (tendsto_nhds_unique (hZ₀.pow d) hpow)
+  have htruncatedZeta (K : Type) [Field K] [NumberField K]
+      (V : Finset (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K))) :
+      ∃ r : ℝ, 0 < r ∧ Tendsto (fun s : ℝ => ((s : ℂ) - 1) *
+        ((∏ v ∈ V, (1 - (Real.rpow (absNorm v.asIdeal : ℝ) (-s) : ℂ))) *
+          NumberField.dedekindZeta K (s : ℂ))) (𝓝[>] 1) (𝓝 (r : ℂ)) := by
+    classical
+    let a : ℝ → ℝ := fun s => ∏ v ∈ V, (1 - Real.rpow (absNorm v.asIdeal : ℝ) (-s))
+    have ha : Continuous a := by
+      apply continuous_finsetProd V
+      intro v _
+      apply continuous_const.sub
+      exact (Real.continuous_const_rpow (by
+        have hv := NumberField.HeightOneSpectrum.one_lt_absNorm v
+        exact_mod_cast (show absNorm v.asIdeal ≠ 0 by omega))).comp continuous_neg
+    have ha₁ : 0 < a 1 := by
+      apply Finset.prod_pos
+      intro v _
+      apply sub_pos.mpr
+      exact Real.rpow_lt_one_of_one_lt_of_neg
+        (by exact_mod_cast NumberField.HeightOneSpectrum.one_lt_absNorm v) (by norm_num)
+    refine ⟨a 1 * NumberField.dedekindZeta_residue K,
+      mul_pos ha₁ (NumberField.dedekindZeta_residue_pos K), ?_⟩
+    have hlimit : Tendsto (fun s : ℝ => (a s : ℂ)) (𝓝[>] 1) (𝓝 (a 1 : ℂ)) :=
+      ((Complex.continuous_ofReal.comp ha).continuousAt.tendsto).mono_left nhdsWithin_le_nhds
+    have h := hlimit.mul (NumberField.tendsto_sub_one_mul_dedekindZeta_nhdsGT K)
+    simp only [Complex.ofReal_mul] at ⊢
+    convert h using 1
+    funext s
+    dsimp [a]
+    push_cast
+    ring
   have hrootmem (W : ValuationSubring M) (x : M) (hx : x ^ q = 1) :
       x ∈ W ∧ x⁻¹ ∈ W := by
     have hi : x ^ (q - 1) = x⁻¹ := by
@@ -3229,6 +3424,73 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
         exact v.asIdeal.add_mem (v.asIdeal.mul_mem_left a hnorm)
           (v.asIdeal.mul_mem_left b ((hT v).mp hv))
       exact v.isPrime.ne_top (Ideal.eq_top_of_isUnit_mem v.asIdeal hone isUnit_one)
+  -- Step 25: multiply the actual prime Euler factors over all cyclic characters.
+  let EulerGood (j : Fin m) (s : ℝ) : ℂ := Complex.exp
+    (∑' v : {v : ι // v ∉ T}, -Complex.log
+      (1 - character j (frob v.1) * (Real.rpow (N v.1 : ℝ) (-s) : ℂ)))
+  have hEulerGoodProduct (s : ℝ) (hs : 1 < s) :
+      HasProd (fun v : {v : ι // v ∉ T} =>
+        ((1 - (Real.rpow (N v.1 : ℝ) (-s) : ℂ) ^ orderOf (frob v.1)) ^
+          (m / orderOf (frob v.1)))⁻¹) (∏ j : Fin m, EulerGood j s) := by
+    let u : Fin m → {v : ι // v ∉ T} → ℂ := fun j v =>
+      character j (frob v.1) * (Real.rpow (N v.1 : ℝ) (-s) : ℂ)
+    have hnorm (j : Fin m) (v : {v : ι // v ∉ T}) :
+        ‖u j v‖ = Real.rpow (N v.1 : ℝ) (-s) := by
+      dsimp [u]
+      rw [norm_mul, hcharacterNorm, one_mul, Complex.norm_real, Real.norm_eq_abs,
+        abs_of_nonneg (Real.rpow_nonneg (Nat.cast_nonneg _) _)]
+    have hu (j : Fin m) : Summable (u j) := by
+      apply ((hsum s hs).subtype (fun v => v ∉ T)).of_norm_bounded
+      intro v
+      exact (hnorm j v).le
+    have hsmall (j : Fin m) (v : {v : ι // v ∉ T}) : 1 - u j v ≠ 0 := by
+      intro hz
+      have heq := congrArg norm (sub_eq_zero.mp hz)
+      rw [norm_one, hnorm] at heq
+      exact (Real.rpow_lt_one_of_one_lt_of_neg
+        (by exact_mod_cast (hN v.1)) (by linarith : -s < 0)).ne heq.symm
+    have hp := hfiniteEulerProduct (Fin m) {v : ι // v ∉ T} u hu hsmall
+    apply hp.congr_fun
+    intro v
+    change ((1 - (Real.rpow (N v.1 : ℝ) (-s) : ℂ) ^ orderOf (frob v.1)) ^
+      (m / orderOf (frob v.1)))⁻¹ =
+      (∏ j : Fin m, (1 - ω ^ (j.val * (code (frob v.1)).val) *
+        (Real.rpow (N v.1 : ℝ) (-s) : ℂ)))⁻¹
+    rw [hcharacterFactor J e ω hω]
+  have hEulerGoodZero (s : ℝ) (hs : 1 < s) : EulerGood 0 s =
+      (∏ v ∈ T, (1 - (Real.rpow (N v : ℝ) (-s) : ℂ))) *
+        NumberField.dedekindZeta F (s : ℂ) := by
+    let f : Ideal O →*₀ ℂ :=
+      { toFun := fun I => (Real.rpow (absNorm I : ℝ) (-s) : ℂ)
+        map_zero' := by
+          rw [map_zero, Nat.cast_zero, Real.rpow_eq_pow,
+            Real.zero_rpow (by linarith : -s ≠ 0), Complex.ofReal_zero]
+        map_one' := by
+          rw [map_one, Nat.cast_one, Real.rpow_eq_pow, Real.one_rpow, Complex.ofReal_one]
+        map_mul' := fun I K => by
+          simp only [map_mul, Nat.cast_mul, Real.rpow_eq_pow,
+            Real.mul_rpow (Nat.cast_nonneg _) (Nat.cast_nonneg _), Complex.ofReal_mul] }
+    have hnorm (I : Ideal O) : ‖f I‖ = Real.rpow (absNorm I : ℝ) (-s) := by
+      dsimp [f]
+      rw [Complex.norm_real, Real.norm_eq_abs,
+        abs_of_nonneg (Real.rpow_nonneg (Nat.cast_nonneg _) _)]
+    have hf : Summable (fun I : Ideal O => ‖f I‖) :=
+      (hIdealSeries s hs).1.congr (fun I => (hnorm I).symm)
+    have hsmall (v : ι) : 1 - f v.asIdeal ≠ 0 := by
+      intro hz
+      have heq := congrArg norm (sub_eq_zero.mp hz)
+      rw [norm_one, hnorm] at heq
+      exact (Real.rpow_lt_one_of_one_lt_of_neg
+        (by exact_mod_cast (hN v)) (by linarith : -s < 0)).ne heq.symm
+    have hfull := (hEulerIdeal O f hf hsmall).trans (hIdealSeries s hs).2.symm
+    have hremoved := hremoveEulerFactors ι T (fun v => f v.asIdeal)
+      (hf.of_norm.comp_injective IsDedekindDomain.HeightOneSpectrum.asIdeal_injective) hsmall
+    rw [hfull] at hremoved
+    have hzero (σ : J) : character 0 σ = 1 := by
+      change ω ^ ((0 : Fin m).val * (code σ).val) = 1
+      simp
+    have hprime (v : ι) : f v.asIdeal = (Real.rpow (N v : ℝ) (-s) : ℂ) := rfl
+    simpa only [hprime, EulerGood, hzero, one_mul] using hremoved.symm
   suffices hcharacters :
       ∀ k : Fin m, ∃ C : ℝ, 0 ≤ C ∧ ∃ ε : ℝ, 0 < ε ∧
         ∀ s : ℝ, 1 < s → s < 1 + ε →
@@ -3336,37 +3598,9 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
         exact mul_comm _ _
     simpa only [E, d, χ, hk, if_true, zero_mul, pow_zero, one_mul] using hprincipal
   · -- Step 24: identify the actual Euler product with its ideal character series.
-    let : NeZero m := ⟨hm.ne'⟩
-    let ψ : J →* ℂ :=
-      { toFun := fun σ => ω ^ (k.val * (code σ).val)
-        map_one' := by simp [code]
-        map_mul' := fun σ τ => by
-          have hcodeMul : code (σ * τ) = code σ + code τ :=
-            congrArg Multiplicative.toAdd (map_mul e.symm σ τ)
-          have hmod : ω ^ (((code σ).val + (code τ).val) % m) =
-              ω ^ ((code σ).val + (code τ).val) := by
-            simpa only [← hω.eq_orderOf] using
-              pow_mod_orderOf ω ((code σ).val + (code τ).val)
-          rw [hcodeMul, ZMod.val_add, Nat.mul_comm k.val, pow_mul, hmod,
-            ← pow_mul, Nat.mul_comm _ k.val, Nat.mul_add, pow_add] }
-    have hψ (σ : J) : ‖ψ σ‖ = 1 := by
-      change ‖ω ^ (k.val * (code σ).val)‖ = 1
-      rw [norm_pow, hω.norm'_eq_one hm.ne', one_pow]
-    have hψsum : ∑ σ : J, ψ σ = 0 := by
-      have hmone : m ≠ 1 := by
-        have := k.isLt
-        omega
-      let t : J := e (Multiplicative.ofAdd (1 : ZMod m))
-      have ht : ψ t ≠ 1 := by
-        change ω ^ (k.val * (code t).val) ≠ 1
-        have hcodeT : code t = 1 := by simp [code, t]
-        rw [hcodeT, ZMod.val_one'' hmone, mul_one]
-        exact hω.pow_ne_one_of_pos_of_lt hk k.isLt
-      have hshift : (∑ σ : J, ψ (t * σ)) = ∑ σ : J, ψ σ :=
-        Fintype.sum_equiv (Equiv.mulLeft t) _ _ (fun _ => rfl)
-      simp_rw [map_mul] at hshift
-      rw [← Finset.mul_sum] at hshift
-      exact (mul_left_eq_self₀.mp hshift).resolve_left ht
+    let ψ : J →* ℂ := character k
+    have hψ (σ : J) : ‖ψ σ‖ = 1 := hcharacterNorm k σ
+    have hψsum : ∑ σ : J, ψ σ = 0 := hcharacterSum k hk
     let w : Ideal O →*₀ ℂ :=
       { toFun := fun I => if hI : I = 0 then 0 else
           ψ (A ⟨I, mem_nonZeroDivisors_iff_ne_zero.mpr hI⟩)
@@ -3556,6 +3790,155 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
           hHone Complex.continuous_ofReal.continuousAt Complex.ofReal_one).continuousWithinAt
       · intro s hs
         exact (hclassExpansion s hs).trans (heq (s : ℂ) hs)
+    have hclassEuler (j : Fin m) (s : ℝ) (hs : 1 < s) :
+        (∑ σ : J, character j σ *
+          LSeries (fun n => (classCount σ n : ℂ)) (s : ℂ)) = EulerGood j s := by
+      let η : Ideal O →*₀ ℂ :=
+        { toFun := fun I => if hI : I = 0 then 0 else
+            character j (A ⟨I, mem_nonZeroDivisors_iff_ne_zero.mpr hI⟩)
+          map_zero' := dif_pos rfl
+          map_one' := by
+            rw [dif_neg one_ne_zero]
+            change character j (A 1) = 1
+            rw [map_one, map_one]
+          map_mul' := fun I K => by
+            by_cases hI : I = 0
+            · subst I
+              rw [zero_mul, dif_pos rfl, zero_mul]
+            by_cases hK : K = 0
+            · subst K
+              rw [mul_zero, dif_pos rfl, mul_zero]
+            rw [dif_neg (mul_ne_zero hI hK), dif_neg hI, dif_neg hK]
+            change character j (A ((⟨I, mem_nonZeroDivisors_iff_ne_zero.mpr hI⟩ : (Ideal O)⁰) *
+              ⟨K, mem_nonZeroDivisors_iff_ne_zero.mpr hK⟩)) = _
+            rw [map_mul, map_mul] }
+      let f : Ideal O →*₀ ℂ :=
+        { toFun := fun I => η I * (Real.rpow (absNorm I : ℝ) (-s) : ℂ)
+          map_zero' := by simp only [map_zero, zero_mul]
+          map_one' := by
+            rw [map_one, map_one, Nat.cast_one, Real.rpow_eq_pow,
+              Real.one_rpow, Complex.ofReal_one, one_mul]
+          map_mul' := fun I K => by
+            simp only [map_mul, Nat.cast_mul, Real.rpow_eq_pow,
+              Real.mul_rpow (Nat.cast_nonneg _) (Nat.cast_nonneg _), Complex.ofReal_mul]
+            ring }
+      have hnorm (I : Ideal O) : ‖f I‖ = Real.rpow (absNorm I : ℝ) (-s) := by
+        by_cases hI : I = 0
+        · subst I
+          rw [map_zero, norm_zero, map_zero, Nat.cast_zero, Real.rpow_eq_pow,
+            Real.zero_rpow (by linarith : -s ≠ 0)]
+        · change ‖η I * (Real.rpow (absNorm I : ℝ) (-s) : ℂ)‖ = _
+          have hη : ‖η I‖ = 1 := by
+            change ‖if hI : I = 0 then (0 : ℂ) else
+              character j (A ⟨I, mem_nonZeroDivisors_iff_ne_zero.mpr hI⟩)‖ = 1
+            rw [dif_neg hI, hcharacterNorm]
+          rw [norm_mul, hη, one_mul, Complex.norm_real, Real.norm_eq_abs, Real.rpow_eq_pow,
+            abs_of_nonneg (Real.rpow_nonneg (Nat.cast_nonneg _) _)]
+      have hf : Summable (fun I : Ideal O => ‖f I‖) :=
+        (hIdealSeries s hs).1.congr (fun I => (hnorm I).symm)
+      have hsmall (v : ι) : 1 - f v.asIdeal ≠ 0 := by
+        intro hz
+        have heq := congrArg norm (sub_eq_zero.mp hz)
+        rw [norm_one, hnorm] at heq
+        exact (Real.rpow_lt_one_of_one_lt_of_neg
+          (by exact_mod_cast (hN v)) (by linarith : -s < 0)).ne heq.symm
+      have hprime (v : ι) : f v.asIdeal =
+          character j (frob v) * (Real.rpow (N v : ℝ) (-s) : ℂ) := by
+        change (if hI : v.asIdeal = 0 then (0 : ℂ) else
+          character j (A ⟨v.asIdeal, mem_nonZeroDivisors_iff_ne_zero.mpr hI⟩)) * _ = _
+        rw [dif_neg (show v.asIdeal ≠ 0 from v.ne_bot), hAprime]
+      have hcounted : (∑' I : Ideal O, if (absNorm I).Coprime q then f I else 0) =
+          ∑ σ : J, character j σ *
+            LSeries (fun n => (classCount σ n : ℂ)) (s : ℂ) := by
+        have h := hClassSeries J classOf (fun I => (absNorm I).Coprime q)
+          (character j) s hs
+        convert h using 1
+        · apply tsum_congr
+          intro I
+          split_ifs with hI
+          · have hIzero : I ≠ 0 := by
+              intro hzero
+              exact hq.ne_one (by simpa [hzero] using hI)
+            change (if hI : I = 0 then (0 : ℂ) else
+              character j (A ⟨I, mem_nonZeroDivisors_iff_ne_zero.mpr hI⟩)) * _ = _
+            simp only [classOf, dif_neg hIzero]
+          · rfl
+        · simp only [classCount, Complex.ofReal_natCast]
+      have hfull := hEulerIdeal O f hf hsmall
+      have hremoved := hremoveEulerFactors ι T (fun v => f v.asIdeal)
+        (hf.of_norm.comp_injective IsDedekindDomain.HeightOneSpectrum.asIdeal_injective) hsmall
+      rw [hfull, hIdealSieve O f hf T] at hremoved
+      have hsieve : (∑' I : Ideal O, if ∀ v ∈ T, ¬ v.asIdeal ∣ I then f I else 0) =
+          ∑' I : Ideal O, if (absNorm I).Coprime q then f I else 0 :=
+        tsum_congr (fun I => if_congr (hcoprimeI I) rfl rfl)
+      rw [hsieve, hcounted] at hremoved
+      simpa only [hprime, EulerGood] using hremoved
+    -- Steps 24–25: the common counting estimate and the Artin product give a nonzero endpoint.
+    have hnonvanishingOfCount (κ α : ℝ) (hα₀ : 0 ≤ α) (hα₁ : α < 1)
+        (hcount : ∀ σ : J, ∃ R : ℝ, 0 ≤ R ∧ ∀ n : ℕ, 1 ≤ n →
+          |(∑ j ∈ Finset.Icc 1 n, classCount σ j) - κ * (n : ℝ)| ≤
+            R * (n : ℝ) ^ α)
+        (V : Finset (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers M)))
+        (hsplit : ∀ s : ℝ, s ∈ Set.Ioo 1 2 →
+          HasProd (fun v : {v : ι // v ∉ T} =>
+            ((1 - (Real.rpow (N v.1 : ℝ) (-s) : ℂ) ^ orderOf (frob v.1)) ^
+              (m / orderOf (frob v.1)))⁻¹)
+            ((∏ v ∈ V, (1 - (Real.rpow (absNorm v.asIdeal : ℝ) (-s) : ℂ))) *
+              NumberField.dedekindZeta M (s : ℂ))) :
+        ∃ Lgood : ℝ → ℂ, ContinuousWithinAt Lgood (Set.Ici 1) 1 ∧ Lgood 1 ≠ 0 ∧
+          ∀ s : ℝ, s ∈ Set.Ioo 1 2 → Sgood s = Lgood s := by
+      have hprod (s : ℝ) (hs : s ∈ Set.Ioo 1 2) :
+          ((∏ v ∈ T, (1 - (Real.rpow (N v : ℝ) (-s) : ℂ))) *
+            NumberField.dedekindZeta F (s : ℂ)) *
+            (∏ j : {j : Fin m // j.val ≠ 0},
+              ∑ σ : J, character j.1 σ *
+                LSeries (fun n => (classCount σ n : ℂ)) (s : ℂ)) =
+          (∏ v ∈ V, (1 - (Real.rpow (absNorm v.asIdeal : ℝ) (-s) : ℂ))) *
+            NumberField.dedekindZeta M (s : ℂ) := by
+        have hzeroSplit : (∏ j : Fin m, EulerGood j s) = EulerGood 0 s *
+            (∏ j : {j : Fin m // j.val ≠ 0}, EulerGood j.1 s) := by
+          rw [Fintype.prod_eq_mul_prod_subtype_ne (fun j : Fin m => EulerGood j s) 0]
+          congr 1
+          exact Fintype.prod_equiv (Equiv.subtypeEquivRight (fun j : Fin m => by
+            simp only [ne_eq, Fin.ext_iff, Fin.val_zero])) _ _ (fun _ => rfl)
+        simp_rw [hclassEuler _ s hs.1]
+        rw [← hEulerGoodZero s hs.1, ← hzeroSplit]
+        exact (hEulerGoodProduct s hs.1).unique (hsplit s hs)
+      let C := {j : Fin m // j.val ≠ 0}
+      have hcontinuation (j : C) := hrayContinuation J classCount κ α
+        (fun _ _ => Nat.cast_nonneg _) hα₀ hα₁ hcount (character j.1)
+        (hcharacterSum j.1 j.2)
+      choose H hH heq using hcontinuation
+      have hcontinuous (j : C) :
+          ContinuousWithinAt (fun s : ℝ => H j s) (Set.Ici 1) 1 := by
+        have hHone : ContinuousAt (H j) 1 :=
+          ((hH j).differentiableAt (IsOpen.mem_nhds
+            (isOpen_lt continuous_const Complex.continuous_re) hα₁)).continuousAt
+        exact (ContinuousAt.comp_of_eq (f := Complex.ofReal) (x := (1 : ℝ))
+          hHone Complex.continuous_ofReal.continuousAt Complex.ofReal_one).continuousWithinAt
+      let Z₀ : ℝ → ℂ := fun s =>
+        (∏ v ∈ T, (1 - (Real.rpow (N v : ℝ) (-s) : ℂ))) *
+          NumberField.dedekindZeta F (s : ℂ)
+      let Z₁ : ℝ → ℂ := fun s =>
+        (∏ v ∈ V, (1 - (Real.rpow (absNorm v.asIdeal : ℝ) (-s) : ℂ))) *
+          NumberField.dedekindZeta M (s : ℂ)
+      obtain ⟨r₀, _, hZ₀⟩ := htruncatedZeta F T
+      obtain ⟨r₁, hr₁, hZ₁⟩ := htruncatedZeta M V
+      have hproduct (s : ℝ) (hs : s ∈ Set.Ioo 1 2) :
+          Z₀ s * (∏ j : C, H j (s : ℂ)) = Z₁ s := by
+        calc
+          Z₀ s * (∏ j : C, H j (s : ℂ)) = Z₀ s *
+              (∏ j : C, ∑ σ : J, character j.1 σ *
+                LSeries (fun n => (classCount σ n : ℂ)) (s : ℂ)) := by
+            congr 1
+            exact Finset.prod_congr rfl (fun j _ => (heq j (s : ℂ) hs.1).symm)
+          _ = Z₁ s := hprod s hs
+      have hnonzero := hproductNonzero C (fun j s => H j s) Z₀ Z₁
+        (r₀ : ℂ) (r₁ : ℂ) hcontinuous hZ₀ hZ₁
+        (Complex.ofReal_ne_zero.mpr hr₁.ne') hproduct
+      refine ⟨fun s => H ⟨k, hk⟩ s, hcontinuous ⟨k, hk⟩, hnonzero ⟨k, hk⟩, ?_⟩
+      intro s hs
+      exact (hclassExpansion s hs.1).trans (heq ⟨k, hk⟩ (s : ℂ) hs.1)
     let factor : ℝ → ℂ := fun s => ∏ v ∈ T,
       (1 - w v.asIdeal * Complex.ofReal (Real.rpow (N v : ℝ) (-s)))
     have hfactorContinuous : Continuous factor := by
@@ -3585,6 +3968,8 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
       change (∏ v ∈ T, (1 - f v.asIdeal)) * (∑' I : Ideal O, f I) = _
       rw [hIdealSieve O f hf T]
       exact tsum_congr (fun I => if_congr (hcoprimeI I) rfl rfl)
+    have hgoodEuler (s : ℝ) (hs : 1 < s) : Sgood s = EulerGood k s :=
+      (hclassExpansion s hs).trans (hclassEuler k s hs)
     have hrecover :
         (∃ Lgood : ℝ → ℂ, ContinuousWithinAt Lgood (Set.Ici 1) 1 ∧ Lgood 1 ≠ 0 ∧
           ∀ s : ℝ, s ∈ Set.Ioo 1 2 → Sgood s = Lgood s) →
@@ -3599,5 +3984,18 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
       rw [mul_comm, hSgood s hs.1]
       exact heq s hs
     apply hrecover
-    -- Steps 15–25 still require ray-class counting and the nonvanishing argument.
+    suffices harithmetic : ∃ κ α : ℝ, 0 ≤ α ∧ α < 1 ∧
+        (∀ σ : J, ∃ R : ℝ, 0 ≤ R ∧ ∀ n : ℕ, 1 ≤ n →
+          |(∑ j ∈ Finset.Icc 1 n, classCount σ j) - κ * (n : ℝ)| ≤
+            R * (n : ℝ) ^ α) ∧
+        ∃ V : Finset (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers M)),
+          ∀ s : ℝ, s ∈ Set.Ioo 1 2 →
+            HasProd (fun v : {v : ι // v ∉ T} =>
+              ((1 - (Real.rpow (N v.1 : ℝ) (-s) : ℂ) ^ orderOf (frob v.1)) ^
+                (m / orderOf (frob v.1)))⁻¹)
+              ((∏ v ∈ V, (1 - (Real.rpow (absNorm v.asIdeal : ℝ) (-s) : ℂ))) *
+                NumberField.dedekindZeta M (s : ℂ)) by
+      obtain ⟨κ, α, hα₀, hα₁, hcount, V, hsplit⟩ := harithmetic
+      exact hnonvanishingOfCount κ α hα₀ hα₁ hcount V hsplit
+    -- Steps 15–19 and 23–25 still require the count and the upper-field prime splitting identity.
     fail "Unfinished arithmetic input: continuously extend the prime-to-q ideal character series Sgood with nonzero value at one."
