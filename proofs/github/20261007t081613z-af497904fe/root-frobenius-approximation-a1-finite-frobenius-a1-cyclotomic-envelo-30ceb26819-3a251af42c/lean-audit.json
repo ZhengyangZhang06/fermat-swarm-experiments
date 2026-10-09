@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "1db4a8839ea7b20cd376bbd92f476e8c1f4652b6b251b76704cba9fa349b33ef",
+  "git_delta": {
+    "base_commit": "d73bc79fcfa5dc2c71792c1de4c27cc5acae0675",
+    "candidate_commit": "4187244897ae4d8bcc7ed3324164c4d846c131c7",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_ce_fixed_field_generator",
+    "diff_sha256": "f78cc70e5bd1bab816aab4cf39582a9fcf84c18af6d534abfd5436f18afa84fa",
+    "source_sha256": "6f47c50299bf8c158058c893acb0ea29db4cbc98f0ffafc695f3b10f7cf5b501",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_ce_fixed_field_generator",
+      "statement": "∀ (M : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ M] [IsGalois ℚ M] (u : M ≃ₐ[ℚ] M) (ζ : M), (∀ n : ℕ, (u ^ n) ζ = ζ → u ^ n = 1) → ∃ (F : IntermediateField ℚ M) (h : M ≃ₐ[F] M), IntermediateField.adjoin F ({ζ} : Set M) = ⊤ ∧ ∀ x : M, h x = u x",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
