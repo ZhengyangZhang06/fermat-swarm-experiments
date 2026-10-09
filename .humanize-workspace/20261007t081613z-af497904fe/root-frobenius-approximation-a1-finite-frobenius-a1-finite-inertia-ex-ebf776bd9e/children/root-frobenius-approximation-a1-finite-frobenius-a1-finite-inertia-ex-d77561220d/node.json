@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.finite_inertia_exclusion-a1.conjugate_separation-a1.integer_root_product-a1.minpoly_roots-a1",
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.finite_inertia_exclusion-a1.conjugate_separation-a1.integer_root_product-a1",
+  "depth": 6,
+  "title": "Enumerate integral minimal-polynomial roots covering every conjugate",
+  "statement": "Let E be an intermediate field of AlgebraicClosure ℚ over ℚ, finite-dimensional and Galois over ℚ. For every α ∈ E integral over ℤ, there exist n ∈ ℕ and an injective β : Fin n → E such that every β i is integral over ℤ, every rational automorphic conjugate σ(α) equals some β i, and the coefficient extension of minpoly ℤ α to E equals ∏ i : Fin n, (X − C(β i)).",
+  "lean_statement": "∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [IsGalois ℚ E] (α : E), IsIntegral ℤ α → ∃ (n : ℕ) (β : Fin n → E), Function.Injective β ∧ (∀ i : Fin n, IsIntegral ℤ (β i)) ∧ (∀ σ : E ≃ₐ[ℚ] E, ∃ i : Fin n, β i = σ α) ∧ (minpoly ℤ α).map (Int.castRingHom E) = Finset.univ.prod (fun i : Fin n => Polynomial.X - Polynomial.C (β i))",
+  "lean_name": "p09_af497904fe_irp_minpoly_roots",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-ex-d77561220d-a1"
+}

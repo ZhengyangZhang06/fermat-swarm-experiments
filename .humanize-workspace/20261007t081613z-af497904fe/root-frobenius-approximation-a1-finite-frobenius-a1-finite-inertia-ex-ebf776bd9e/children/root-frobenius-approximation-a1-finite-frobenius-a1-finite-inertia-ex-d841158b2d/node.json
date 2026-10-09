@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.finite_inertia_exclusion-a1.conjugate_separation-a1.integer_root_product-a1.squared_vandermonde_symmetric-a1",
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.finite_inertia_exclusion-a1.conjugate_separation-a1.integer_root_product-a1",
+  "depth": 6,
+  "title": "The squared Vandermonde polynomial is symmetric",
+  "statement": "For every n ∈ ℕ, the integer multivariate polynomial P = ∏ (i,j) ∈ Fin n × Fin n with i < j, (X_i − X_j)² is invariant under every permutation of its variables, hence is symmetric.",
+  "lean_statement": "∀ n : ℕ, MvPolynomial.IsSymmetric ((Finset.univ.filter (fun ij : Fin n × Fin n => ij.1 < ij.2)).prod (fun ij => ((MvPolynomial.X ij.1 : MvPolynomial (Fin n) ℤ) - MvPolynomial.X ij.2) ^ 2))",
+  "lean_name": "p09_af497904fe_irp_squared_vandermonde_symmetric",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-ex-d841158b2d-a1"
+}

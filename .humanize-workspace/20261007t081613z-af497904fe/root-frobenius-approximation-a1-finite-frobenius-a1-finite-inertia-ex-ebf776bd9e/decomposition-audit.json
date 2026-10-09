@@ -1,0 +1,56 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "esymmAlgHom_surjective|def esymmAlgHom|def IsSymmetric|esymmAlgHom_X|prod_X_sub_C_coeff|coeff_eq_esymm_roots_of_splits|isIntegrallyClosed_eq_field_fractions|exists_finset_of_splits|class Normal|class IsGalois",
+        "def esymm|esymm.*eval|eval.*esymm|isSeparable|separable.*minpoly",
+        "minpoly|esymm|discriminant|Vandermonde|p09_af497904fe_irp_(minpoly_roots|squared_vandermonde_symmetric|integer_discriminant)",
+        "p09_af497904fe_irp_(minpoly_roots|squared_vandermonde_symmetric|integer_discriminant)"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_GaloisRep_Adic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/Minpoly/IsIntegrallyClosed.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/Normal/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/Separable.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/Galois/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/MvPolynomial/Symmetric/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/MvPolynomial/Symmetric/FundamentalTheorem.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Polynomial/Vieta.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p09_irp_decomposition_q9zb6p3m/diagnostic.json",
+        "/tmp/p09_irp_audit_ocxxioov/reference-compatibility.json",
+        "/tmp/p09_irp_audit_ocxxioov/IndependentTypes.lean",
+        "/tmp/p09_irp_audit_ocxxioov/IndependentTypes.lean.log",
+        "/tmp/p09_irp_audit_ocxxioov/TargetAbsence.lean.log",
+        "/tmp/p09_irp_audit_ocxxioov/audit.json"
+      ],
+      "conclusion": "The split is appropriate for the DAG's depth-5 integer_root_product helper. The parent obtains roots from minpoly_roots, applies integer_discriminant with minpoly.monic, and assembles the witnesses. Only integer_discriminant depends on squared_vandermonde_symmetric; this dependency is correctly directed and acyclic. All names are bare identifiers and have no existing DAG reservation or matching local declaration. The project-definition search found no relevant polynomial helper. The snapshot pins project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Inspected sources match pinned Git blobs, and installed dependencies match their revisions with clean tracked files. Library signatures confirm splitting, separable factorization, elementary-symmetric substitution at i.val+1, and the coefficient formula. Independent Lean checks under frozen imports successfully elaborated all three exact propositions without child implementations and confirmed ordinary polynomial multiplication instances. Seven supporting library declarations have only propext, Classical.choice, and Quot.sound as transitive axioms. Verified policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, exact omission of lines 10–11, reversible original/build hashes, and fresh Lean absence probes for all eight targets. Frozen files remain unchanged. This approves the decomposition and supplied prose proofs; implementation acceptance still requires the configured comparator and remaining proof gates."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "minpoly_roots",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The closed, one-line proposition matches every prose hypothesis and conclusion. Integral minimal-polynomial coefficient extension, Galois normality and separability, and finite-set enumeration establish the injective factorization. Evaluation proves root integrality; applying each automorphism to the vanishing equation and extracting a zero factor proves conjugate coverage. The proof is complete, independent of the parent and other children, and ready for formalization."
+    },
+    {
+      "key": "squared_vandermonde_symmetric",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The proposition exactly specifies the integer polynomial and filtered pair product. Sorting permuted distinct entries defines a bijection whose inverse comes from the inverse permutation. Reversing a difference preserves its square, and renaming commutes with the product. Reindexing therefore proves the precise IsSymmetric predicate, including empty products. No dependencies, circularity, or deferred mathematical obligations occur."
+    },
+    {
+      "key": "integer_discriminant",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The closed, one-line proposition matches the stated field, polynomial, factorization, injectivity, and conclusion. Its sole dependency supplies symmetry. Surjectivity gives Q with the correct generator indexing; coefficient comparison gives the signed integer values; evaluation defines D and proves the required equality. Injectivity makes every factor nonzero, implying D ≠ 0 without requiring characteristic zero or injectivity of integer casting. The argument covers n = 0. Monicity is a harmless redundant hypothesis, and the proof contains no circular or deferred step."
+    }
+  ],
+  "required_changes": []
+}

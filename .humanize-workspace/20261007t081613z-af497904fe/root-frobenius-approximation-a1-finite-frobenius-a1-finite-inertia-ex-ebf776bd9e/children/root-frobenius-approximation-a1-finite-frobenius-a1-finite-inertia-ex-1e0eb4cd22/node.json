@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.finite_inertia_exclusion-a1.conjugate_separation-a1.integer_root_product-a1.integer_discriminant-a1",
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.finite_inertia_exclusion-a1.conjugate_separation-a1.integer_root_product-a1",
+  "depth": 6,
+  "title": "A split monic integer polynomial has a nonzero integer squared-difference product",
+  "statement": "Let K be a field, f ∈ ℤ[X] a monic polynomial, n ∈ ℕ, and β : Fin n → K an injective family. Assume that extending f's coefficients to K gives ∏ i : Fin n, (X − C(β i)). Then there exists D ∈ ℤ with D ≠ 0 whose image in K equals ∏ (i,j) ∈ Fin n × Fin n with i < j, (β i − β j)².",
+  "lean_statement": "∀ (K : Type) [Field K] (f : Polynomial ℤ) (n : ℕ) (β : Fin n → K), f.Monic → Function.Injective β → f.map (Int.castRingHom K) = Finset.univ.prod (fun i : Fin n => Polynomial.X - Polynomial.C (β i)) → ∃ D : ℤ, D ≠ 0 ∧ (D : K) = (Finset.univ.filter (fun ij : Fin n × Fin n => ij.1 < ij.2)).prod (fun ij => (β ij.1 - β ij.2) ^ 2)",
+  "lean_name": "p09_af497904fe_irp_integer_discriminant",
+  "depends_on": [
+    "root.frobenius_approximation-a1.finite_frobenius-a1.finite_inertia_exclusion-a1.conjugate_separation-a1.integer_root_product-a1.squared_vandermonde_symmetric-a1"
+  ],
+  "dependency_workspaces": [
+    {
+      "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.finite_inertia_exclusion-a1.conjugate_separation-a1.integer_root_product-a1.squared_vandermonde_symmetric-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    }
+  ],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-ex-1e0eb4cd22-a1"
+}
