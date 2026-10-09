@@ -1,0 +1,36 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "IsEichlerIntegral|def BinaryForm|linePow",
+        "scalarization_derivative",
+        "iteratedDeriv_succ|def iteratedDeriv"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Calculus/IteratedDeriv/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project"
+      ],
+      "conclusion": "Confirmed the pinned project and mathlib revisions and clean tracked sources. BinaryForm is the homogeneous polynomial submodule; IsEichlerIntegral specifies coefficientwise derivatives using linePow. Imported project definitions match the snapshot byte-for-byte. The snapshot supplies iteratedDeriv_succ; searching project Lean files for scalarization_derivative returned no matches. The exact comparator rerun confirmed compatibility and only the permitted transitive axioms propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "e337bc98a6dd092c9390bb28f67f5dc4801d070a44e89c39ceff1682c760db47",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_scalarization_derivative",
+      "statement": "∀ (n : ℕ) (h : UpperHalfPlane → ℂ) (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), DifferentiableOn ℂ (fun z : ℂ => h (UpperHalfPlane.ofComplex z)) {z : ℂ | 0 < z.im} → HeckeEis.IsEichlerIntegral n h E → ∀ τ : UpperHalfPlane, iteratedDeriv (n + 1) (fun z : ℂ => MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -z) (E (UpperHalfPlane.ofComplex z)).val) (τ : ℂ) = ((-1 : ℂ) ^ n * (Nat.factorial n : ℂ)) * h τ",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines the previously accepted jet recurrence and open-set derivative ladder to obtain the stated scalarization derivative."
+    }
+  ]
+}
