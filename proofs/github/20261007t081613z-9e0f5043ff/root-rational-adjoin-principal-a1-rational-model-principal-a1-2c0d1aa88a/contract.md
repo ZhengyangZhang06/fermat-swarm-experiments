@@ -1,0 +1,136 @@
+<!-- theorem-id: fermat-p06/root.rational_adjoin_principal-a1.rational_model_principal-a1 -->
+
+## Theorem `Submission.p06_9e0f5043ff_rational_model_principal`
+
+Let K be any field and let M = FractionRing (Polynomial K), with its canonical K-algebra structure through the constant-polynomial map. For every nonzero g in M there exists a finitely supported integer-valued divisor D on AlgebraicCurve.Place K M such that D(v) = v.ord g for every place v and AlgebraicCurve.Divisor.degree D = 0. Equivalently, AlgebraicCurve.HasPrincipalDivisors K M holds.
+
+Node: `root.rational_adjoin_principal-a1.rational_model_principal-a1`
+
+Root: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/6
+
+Parent: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/34
+
+Prerequisites: None
+
+Decomposition children: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/73, https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/74, https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/75
+
+## Lean problem
+
+Declaration: `Submission.p06_9e0f5043ff_rational_model_principal`
+
+```lean
+∀ (K : Type*) [Field K], AlgebraicCurve.HasPrincipalDivisors K (FractionRing (Polynomial K))
+```
+
+### Frozen project context
+
+`Fermat/Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean` at `956e8c600d8b95b46948ae5e37b13930b5f3d06b` supplies the original imports, definitions and root contract. Child hypotheses are stated above; prerequisite declarations are linked in their issues.
+
+```lean
+/-
+Copyright 2026 Anthropic, PBC. Licensed under Apache-2.0; see LICENSE.
+Source: https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_AlgebraicCurve_hasPrincipalDivisors_of_transcendental.lean
+Modified: replaced the proof with sorry and removed P2M proof imports.
+Requires the upstream Definitions modules and their dependencies.
+-/
+
+import Definitions.Def_AlgebraicCurve_PlacesOverDVR
+attribute [-instance] AlgebraicCurve.IsCurveOver.instNontrivialKaehler AlgebraicCurve.IsCurveOver.instFreeKaehler AlgebraicCurve.IsCurveOver.toHasPrincipalDivisors AlgebraicCurve.IsCurveOver.instFiniteResidue AlgebraicCurve.Place.instIsRankOneDiscreteWithZeroMultiplicativeIntAdicValuation AlgebraicCurve.Place.instIsTrivialOnWithZeroMultiplicativeIntAdicValuation AlgebraicCurve.SemilinearAut.instDistribMulActionSubtypeProdRingAutMemSubgroupPic0 AlgebraicCurve.SemilinearAut.instDistribMulActionSubtypeProdRingAutMemSubgroupDivisor AlgebraicCurve.Pic0.instModuleZModTorsion AlgebraicCurve.SemilinearAut.instSMulSubtypeProdRingAutMemSubgroupPlace AlgebraicCurve.SemilinearAut.instDistribMulActionTorsion AlgebraicCurve.SemilinearAut.instSMulSubtypeProdRingAutMemSubgroupPic0 AlgebraicCurve.SemilinearAut.instSMulTorsion AlgebraicCurve.SemilinearAut.instMulActionSubtypeProdRingAutMemSubgroupPlace AlgebraicCurve.SemilinearAut.instSMulCommClassZModTorsion AlgebraicCurve.SemilinearAut.instMulSemiringActionSubtypeProdRingAutMemSubgroup instDecEqAlgebraicClosureRat WeierstrassCurve.Affine.Point.instDistribMulActionAlgEquiv WeierstrassCurve.Affine.Point.instModuleZModTorsionBy WeierstrassCurve.Affine.Point.instSMulTorsionBy WeierstrassCurve.Affine.Point.instDistribMulActionTorsionBy WeierstrassCurve.Affine.Point.instSMulAlgEquiv WeierstrassCurve.Affine.Point.instSMulCommClassAlgEquivZModTorsionBy
+attribute [-simp] AlgebraicCurve.IsFrobeniusEndo.frobNormRingHom_apply ModularCurve.frobeniusPushforwardGeomLevelPic0_mk ModularCurve.coe_frobeniusGeomLevelEquiv_apply ModularCurve.coe_frobeniusPushforwardGeomLevelDegZero ModularCurve.heckeFibreGeomLevelPic0OfIsCurveOver_mk ModularCurve.frobeniusGeomLevel_apply_coe ModularCurve.frobeniusPullbackGeomLevelPic0OfIsCurveOver_mk ModularCurve.coe_heckeFibreGeomLevelDegZero ModularCurve.coe_frobeniusPullbackGeomLevelDegZero ModularCurve.frobeniusPullbackGeomLevelPic0_mk ModularCurve.frobeniusPullbackGeomLevel_single ModularCurve.heckeFibreGeomLevelPic0_mk ModularCurve.frobeniusPushforwardGeomLevelPic0OfIsCurveOver_mk ModularCurve.frobeniusPushforwardGeomLevel_single ModularCurve.qExpandAlgC_apply AlgebraicCurve.Place.congrEquiv_symm_apply AlgebraicCurve.RationalFunctionField.heightOneSpectrumOfIrreducible_asIdeal AlgebraicCurve.Place.congrRingEquiv_toValuationSubring AlgebraicCurve.Place.congrEquiv_apply AlgebraicCurve.Place.coe_comapSymmRingEquiv_apply AlgebraicCurve.RationalFunctionField.deg_placeOfPoint AlgebraicCurve.Divisor.degree_pushforwardAlong AlgebraicCurve.Pic0.coe_degZeroCorrespondence AlgebraicCurve.Place.mem_fiberAlong AlgebraicCurve.SemilinearAut.toRingAut_inv AlgebraicCurve.SemilinearAut.smul_def AlgebraicCurve.SemilinearAut.smul_single AlgebraicCurve.SemilinearAut.smul_toValuationSubring AlgebraicCurve.SemilinearAut.baseAut_inv AlgebraicCurve.SemilinearAut.baseAut_ofAlgAut AlgebraicCurve.SemilinearAut.toRingAut_ofAlgAut AlgebraicCurve.SemilinearAut.torsionRep_apply AlgebraicCurve.SemilinearAut.toRingAut_one AlgebraicCurve.SemilinearAut.deg_smul AlgebraicCurve.SemilinearAut.degree_smul AlgebraicCurve.SemilinearAut.coe_degZeroSMulHom AlgebraicCurve.SemilinearAut.baseAut_mul AlgebraicCurve.SemilinearAut.coe_smulValuationSubringEquiv_apply AlgebraicCurve.SemilinearAut.baseAut_one AlgebraicCurve.SemilinearAut.ofAlgAut_smul
+attribute [-simp] AlgebraicCurve.SemilinearAut.coe_torsion_smul AlgebraicCurve.SemilinearAut.toRingAut_mul AlgebraicCurve.coe_frobeniusPushforwardDegZero AlgebraicCurve.IsFrobeniusEndo.coe_frobeniusPullbackDegZero ModularCurve.jqNModC_one ModularCurve.qExpand_coeff_mul ModularCurve.qExpandₐ_apply ModularCurve.jqN_one ModularCurve.qExpand_single ModularCurve.dedekindPsi_one ModularCurve.ModularPolynomialData.mk.sizeOf_spec ModularCurve.evalAtJ_X ModularCurve.ModularPolynomialData.mk.injEq ModularCurve.constantCoeff_jNum ModularCurve.constantCoeff_eisenstein4 ModularCurve.qExpand_C ModularCurve.coeff_jq_neg_one ModularCurve.constantCoeff_jNumQ ModularCurve.reduceModBivar_C_X ModularCurve.laurentMap_coeff ModularCurve.reduceModBivar_X ModularCurve.laurentMap_single ModularCurve.evalAtJInt_X ModularCurve.evalAtJMod_X ModularCurve.jqNMod_one ModularCurve.aeval_heckeGen ModularCurve.coe_mTorsionGaloisRep_apply ModularCurve.eisensteinSystem_of_dvd ModularCurve.eisensteinSystem_of_not_dvd FreyPackage.mk.sizeOf_spec FreyPackage.mk.injEq WeierstrassCurve.Affine.Point.galoisRepModuleEnd_apply
+
+open AlgebraicCurve
+theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
+    [Algebra K F] (x : F) (hx : Transcendental K x)
+    [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
+  sorry
+```
+
+## Natural-language proof
+
+Reviewed mathematical argument; formal verification state: `proved`.
+
+# Parent-supplied natural-language proof
+
+- Parent DAG node: `root.rational_adjoin_principal-a1`
+- Child DAG node: `root.rational_adjoin_principal-a1.rational_model_principal-a1`
+- Review gate: accepted as part of the parent's decomposition audit
+
+## Proof
+
+1. Fix K and put R = K[T] and M = Frac(R), using the canonical embeddings. Write t for the image of T. The embedding of R is injective, so t is transcendental over K. Every nonzero g in M has a representation a(t)/b(t) with nonzero a,b in R.
+
+2. Establish the polynomial facts used below. Every nonzero ideal of R has a nonzero element q of least degree; division by q shows that every element of the ideal is divisible by q, so the ideal is principal. The zero ideal is principal as well. An irreducible q is prime: if q does not divide a, the Euclidean algorithm gives uq + va = 1, and multiplication by b shows that q divides b whenever it divides ab. Induction on degree factors every nonzero polynomial as a nonzero constant times a finite product of monic irreducibles: constants give the base case, and a reducible nonconstant polynomial splits into two nonconstant factors of smaller degree. Primality gives uniqueness of the factors and their multiplicities. Consequently, for each monic irreducible q, its multiplicity μ_q satisfies μ_q(ab) = μ_q(a) + μ_q(b), and deg a is the finite sum of μ_q(a) deg q.
+
+3. For a monic irreducible q define ν_q(a/b) = μ_q(a) − μ_q(b) on nonzero elements of M. This is independent of the representation: a/b = c/d implies ad = cb, and multiplicity additivity gives the equality of the two differences. Let A_q consist of fractions whose denominator is not divisible by q. This is a subring containing K, since products and sums of such fractions have denominators still prime to q. Factoring powers of q from a and b shows that every nonzero g has the form u q^n, where n = ν_q(g) is an integer and both u and u⁻¹ belong to A_q. It also shows that g belongs to A_q exactly when n ≥ 0. Thus either g or g⁻¹ belongs to A_q, making A_q a valuation subring. It is proper because q⁻¹ has exponent −1. An element of A_q is a unit exactly when its exponent is zero.
+
+4. Every ideal of A_q is principal. The zero ideal is generated by zero. In a nonzero ideal choose a nonzero element h having the least exponent n among its nonzero elements; these exponents are nonnegative integers. For every other nonzero element z of the ideal, ν_q(z/h) ≥ 0, so z/h belongs to A_q and h divides z. Therefore h generates the ideal. The nonunits of A_q are zero together with the positive-exponent elements, precisely the ideal generated by q. Moreover q is irreducible in A_q, since its exponent is one and exponents of nonzero ring elements are nonnegative and additive. Hence A_q defines a project place v_q. The expression u q^n and Place.ord_unit_smul_zpow show that v_q.ord(g) = ν_q(g).
+
+5. Record the overring argument for these rings. Suppose A has a uniformizer π and every nonzero element of M is uπ^n with u an A-unit, with membership in A equivalent to n ≥ 0. If a subring V containing A contains z outside A, then z = uπ^(−r) for an integer r > 0. Consequently z u⁻¹ π^(r−1) = π⁻¹ belongs to V. Since every uπ^n then belongs to V, V = M. Thus a proper subring of M containing A must equal A.
+
+6. Put s = t⁻¹. This is transcendental: for a nonzero polynomial p of degree d, t^d p(t⁻¹) is the evaluation at t of the nonzero reversed polynomial, and hence is nonzero. Also K(s) = M because t = s⁻¹. Apply the construction in steps 3–4 to K[s] and its monic irreducible polynomial s. It gives the proper principal valuation subring B = K[s]_(s), whose uniformizer is s, and hence a project place v_∞. Its nonzero elements have the same unit-times-power description. In particular t = s⁻¹ does not belong to B. The overring argument of step 5 applies to B too.
+
+7. Classify every project place v, writing V for its valuation subring. If t belongs to V, then K[t] is contained in V. Contract the maximal ideal of V to K[t], obtaining a proper prime ideal p. This ideal is nonzero: otherwise every nonzero polynomial would be outside the maximal ideal and thus a unit of V; all polynomial fractions would then belong to V, contradicting properness. Since K[t] is a PID, p has a monic irreducible generator q. Indeed a generator is nonzero and nonunit, and primality forces it to be irreducible; monic normalization makes it unique. Every polynomial not divisible by q is a unit of V, so A_q is contained in V. Step 5 gives V = A_q. If t does not belong to V, the valuation property puts s in V, and s is a nonunit because its inverse t is absent. The contracted maximal ideal in K[s] therefore contains (s). Since K[s]/(s) = K is a field, (s) is maximal, so this proper contraction equals (s). Denominators not divisible by s are units of V, giving B ⊆ V, and step 5 gives V = B. Distinct monic irreducibles give distinct contractions (q), and B differs from every A_q because it omits t. Place.ext now shows that the places are exactly the distinct v_q and v_∞.
+
+8. At a finite place q, reduction modulo q defines a homomorphism A_q → K[T]/(q): the image of each permitted denominator is nonzero and hence invertible in this field. The map is surjective because every residue class has a polynomial representative. Its kernel consists exactly of fractions with numerator divisible by q, which is qA_q, the maximal ideal. Therefore it induces a K-algebra isomorphism from the place residue field to K[T]/(q). If d = deg q, division by q shows that the classes of 1,T,…,T^(d−1) span. A linear relation is a polynomial of degree less than d divisible by q; a nonzero multiple of q has degree at least d, so the relation is zero. These classes are a basis and v_q.deg = d.
+
+9. Reduction at s = 0 maps B onto K with kernel sB. Consequently the residue field at infinity is K as a K-algebra and v_∞.deg = 1. For a nonzero polynomial a of degree d and leading coefficient a_d, the identity a(t) = s^(−d)(a_d + a_(d−1)s + ⋯ + a_0 s^d) holds. The parenthesized element belongs to B and reduces to the nonzero element a_d, so it is a unit. The normalized uniformizer formula gives v_∞.ord(a(t)) = −d. Multiplicativity of order and its inverse formula therefore give v_∞.ord(a/b) = deg b − deg a.
+
+10. Fix g = a/b ≠ 0 as in step 1. Let α_q and β_q be the irreducible multiplicities of a and b. At v_q its order is α_q − β_q by step 4. This is zero unless q divides a or b. Only finitely many such q exist by factorization, and the classification in step 7 leaves only the one additional place v_∞. Thus the function v ↦ v.ord(g) has finite support and defines a divisor D with exactly those coefficients.
+
+11. By additivity of Divisor.degree and its singleton formula, its value on D is the finite sum Σ_q (α_q − β_q) deg q + deg b − deg a, where the sum can be taken over the union of the irreducible factors of a and b and all natural-number degrees are interpreted as integers. Step 2 gives deg a = Σ_q α_q deg q and deg b = Σ_q β_q deg q. Substitution cancels every term, giving degree D = 0.
+
+12. For every nonzero g, steps 10–11 supply a finitely supported divisor with coefficient v.ord(g) at each project place and degree zero. These witnesses are precisely the defining field exists_divisor of HasPrincipalDivisors K M, proving the statement.
+
+## Key steps
+
+1. Use polynomial factorization to define additive irreducible multiplicities.
+2. Construct the finite principal valuation subrings and identify their normalized orders.
+3. Prove that each constructed discrete valuation ring has no larger proper overring.
+4. Construct the place at infinity using t⁻¹.
+5. Classify all project places without omissions or repetitions.
+6. Compute finite residue degrees and the residue degree and orders at infinity.
+7. Establish finite support of every nonzero rational function's orders.
+8. Cancel the weighted finite-place orders against the order at infinity.
+
+## Reference use
+
+### local-project
+
+Queries:
+- `rg -n 'HasPrincipalDivisors|exists_unit_mul_zpow|ord_unit_smul_zpow|algEquivOfTranscendental' .humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f`
+- `HasPrincipalDivisors|hasPrincipalDivisors_of_transcendental|exists_unit_mul_zpow|ord_unit_smul_zpow|congrEquiv`
+- `namespace RationalFunctionField|hasPrincipalDivisors|def congrEquiv|theorem.*congr|RatFunc.*adjoin|adjoin.*RatFunc`
+- `hasPrincipalDivisors|HasPrincipalDivisors`
+- `def algEquivOfTranscendental`
+- `theorem eq_of_le_of_ne_top|lemma eq_of_le_of_ne_top`
+- `p06_9e0f5043ff_rational_model_principal|p06_9e0f5043ff_principal_alg_equiv`
+
+Files inspected:
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/problem.md`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1/parent-child-handoff.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/FieldTheory/RatFunc/AsPolynomial.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/FieldTheory/IntermediateField/Adjoin/Algebra.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Algebraic/Basic.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Localization/FractionRing.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1/decomposition-typecheck/CheckTypes.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1/decomposition-typecheck/CheckTypes.interface-check.log`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1/decomposition-typecheck/CheckAssemblyLibrary.log`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1/decomposition-typecheck/provenance-check.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/nodes/root-rational-adjoin-principal-a1/decomposition-typecheck/Submission.frozen-source-check.log`
+
+The handoff confirms that the supplied theorem is the depth-1 rational-adjoin child, while the frozen root retains its characteristic-zero and finite-extension assumptions. rg was unavailable; searches therefore used grep. DivisorClassGroup supplies the exact place, normalized-order, degree and HasPrincipalDivisors definitions. No principal-divisor theorem matched the searched mathlib RatFunc directory, and no general principal-divisor transport theorem was found in the project definitions. The pinned library supplies polynomial transcendental evaluation, fraction-field equivalences and the generated intermediate field's fraction-ring structure, so evaluation needs no new wrapper theorem. Snapshot revisions and all nine dependencies match their manifests and have clean tracked files; the three imported project modules are byte-identical to the snapshot. Audited supporting declarations have only propext, Classical.choice and Quot.sound as transitive axioms. Both proposed types passed a warning-free isolated import-only Submission interface check, including a definitional check that the fraction field's K-algebra map factors through Polynomial.C. IMPORTANT: the unchanged actual Submission fails on three pre-existing unknown attribute targets. Thus actual import Submission validation remains an activation blocker; neither comparator acceptance nor completion of that gate is claimed. Proposed names have no source or active-DAG collisions.
+
+
+## Acceptance
+
+The exact contract must pass the machine comparator and an independent reviewer's comparator rerun, without changed assumptions or proof holes. Local integration must pass before publication. Every decomposition child has its own issue and verified solution PR.
+
+Solution PR: Pending
+
+Current user-authorized lifecycle: merge the exact verified PR, validate its remote tree, then close this proved issue. This supersedes historical no-auto-merge instructions in the original experiment brief.
+
+Remote merge status is recorded by GitHub; local `proved` does not mean merged.
