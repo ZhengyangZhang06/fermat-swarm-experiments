@@ -1990,3 +1990,60 @@ theorem Submission.p09_af497904fe_fa_lift_unique_frobenius :
     letI : B.IsPrime := hB
     letI : B.LiesOver (Ideal.span {(q : ℤ)}) := hBq
     exact IsCyclotomicExtension.Rat.eq_span_zeta_sub_one_of_liesOver q 0 C hξ B
+
+theorem Submission.p09_af497904fe_csr_prime_residue_descent :
+    ∀ (C D : IntermediateField ℚ (AlgebraicClosure ℚ))
+      [FiniteDimensional ℚ C] [FiniteDimensional ℚ D] (q : ℕ)
+      (A : Ideal (NumberField.RingOfIntegers C)),
+      q.Prime → D ≤ C → A.IsPrime → A.LiesOver (Ideal.span {(q : ℤ)}) →
+      Nat.card (NumberField.RingOfIntegers C ⧸ A) = q →
+      (∀ B : Ideal (NumberField.RingOfIntegers C), B.IsPrime →
+        B.LiesOver (Ideal.span {(q : ℤ)}) → B = A) →
+      ∃ R : Ideal (NumberField.RingOfIntegers D), R.IsPrime ∧
+        R.LiesOver (Ideal.span {(q : ℤ)}) ∧
+        Ideal.ramificationIdx R ℤ = Module.finrank ℚ D := by
+  intro C D _ _ q A hq hDC hA hAover hcard huniq
+  classical
+  let : NumberField C := ⟨⟩
+  let : NumberField D := ⟨⟩
+  let : Algebra D C := (IntermediateField.inclusion hDC).toRingHom.toAlgebra
+  let : Fact q.Prime := ⟨hq⟩
+  let p : Ideal ℤ := Ideal.span {(q : ℤ)}
+  let R := A.under (NumberField.RingOfIntegers D)
+  have : A.IsPrime := hA
+  have : A.LiesOver p := hAover
+  have : A.LiesOver R := Ideal.over_under _
+  have : R.IsPrime := inferInstance
+  have : R.LiesOver p := Ideal.LiesOver.tower_bot A R p
+  have hRuniq (Q : Ideal (NumberField.RingOfIntegers D))
+      (hQ : Q.IsPrime) (hQover : Q.LiesOver p) : Q = R := by
+    have := hQ
+    have := hQover
+    obtain ⟨B, hB, hBQ⟩ := Q.exists_ideal_over_prime_of_isIntegral_of_isDomain
+      (S := NumberField.RingOfIntegers C) (by
+        rw [NumberField.RingOfIntegers.ker_algebraMap_eq_bot]
+        exact bot_le)
+    have := hB
+    have : B.LiesOver Q := ⟨hBQ.symm⟩
+    have : B.LiesOver p := Ideal.LiesOver.trans B Q p
+    have hBA := huniq B hB inferInstance
+    exact hBQ.symm.trans (congrArg (fun I => I.under (NumberField.RingOfIntegers D)) hBA)
+  have hAdeg : A.inertiaDeg ℤ = 1 := by
+    apply Nat.pow_right_injective hq.two_le
+    simpa only [pow_one, Ideal.absNorm_apply, Submodule.cardQuot_apply, hcard] using
+      (Ideal.pow_inertiaDeg q A)
+  have hRdeg : R.inertiaDeg ℤ = 1 := by
+    apply Nat.dvd_one.mp
+    rw [← hAdeg]
+    exact Ideal.inertiaDeg_below_dvd (R := ℤ) R A
+  let r : p.primesOver (NumberField.RingOfIntegers D) := Ideal.primesOver.mk p R
+  let : Unique (p.primesOver (NumberField.RingOfIntegers D)) :=
+    { default := r
+      uniq := fun Q => Subtype.ext (hRuniq Q.1 Q.2.1 Q.2.2) }
+  let := Fintype.ofFinite (p.primesOver (NumberField.RingOfIntegers D))
+  refine ⟨R, inferInstance, inferInstance, ?_⟩
+  have hsum := Ideal.sum_ramification_inertia_eq_finrank p (NumberField.RingOfIntegers D)
+  rw [Finset.univ_unique, Finset.sum_singleton] at hsum
+  change R.ramificationIdx ℤ * R.inertiaDeg ℤ =
+    Module.finrank ℤ (NumberField.RingOfIntegers D) at hsum
+  simpa only [hRdeg, mul_one, NumberField.RingOfIntegers.rank] using hsum
