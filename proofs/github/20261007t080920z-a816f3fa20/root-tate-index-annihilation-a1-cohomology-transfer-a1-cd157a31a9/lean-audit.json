@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "tateCohomology|def groupCohomology|def linearYoneda|def resFunctor|def res ",
+        "cosetDecomp_apply|coe_tateHneg1Res_apply|p04_tia_cohomology_transfer"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology"
+      ],
+      "conclusion": "Both snapshots are clean and match the manifest revisions. Inspected the frozen Tate definition, groupCohomology's common-universe context, and groupCohomologyIso. The second search found no matches in the searched definition file and cohomology directory."
+    }
+  ],
+  "comparison_identity": "036596d1f8933450a593385839a3415211e9be288125298ee35f3e17660c5a48",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p04_tia_cohomology_transfer",
+      "statement": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H] (n : ℕ), ∃ R : groupCohomology A n →ₗ[k] groupCohomology (Rep.res H.subtype A) n, ∃ C : groupCohomology (Rep.res H.subtype A) n →ₗ[k] groupCohomology A n, ∀ x : groupCohomology A n, C (R x) = H.index • x",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Transports the accepted Hom-complex restriction-transfer identity through the accepted resolution comparison and pinned mathlib cohomology isomorphisms."
+    }
+  ]
+}
