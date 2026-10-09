@@ -2337,38 +2337,6 @@ theorem Submission.p08_7d1ff633a4_tp26_normal_level_retraction :
       group
     rw [heq]
     exact hK.conj_mem u hu (t (q g))
-theorem Submission.p08_7d1ff633a4_tp26_low_degree_prism :
-    ∀ {X V : Type} [AddCommGroup V] (α β : X → X),
-      (∀ F : X → X → V,
-        (∀ x y z : X, F y z - F x z + F x y = 0) →
-        ∀ x y : X, F (β x) (β y) - F (α x) (α y) =
-          F (α y) (β y) - F (α x) (β x)) ∧
-      (∀ F : X → X → X → V,
-        (∀ w x y z : X, F x y z - F w y z + F w x z - F w x y = 0) →
-        let h : X → X → V := fun x y =>
-          F (α x) (β x) (β y) - F (α x) (α y) (β y)
-        ∀ x y z : X, F (β x) (β y) (β z) - F (α x) (α y) (α z) =
-          h y z - h x z + h x y) := by
-  intro X V _ α β
-  constructor
-  · intro F hF x y
-    apply sub_eq_zero.mp
-    calc
-      _ = (F (β x) (β y) - F (α x) (β y) + F (α x) (β x)) -
-          (F (α y) (β y) - F (α x) (β y) + F (α x) (α y)) := by abel
-      _ = 0 := by simp only [hF, sub_self]
-  · intro F hF
-    dsimp only
-    intro x y z
-    apply sub_eq_zero.mp
-    calc
-      _ = (F (β x) (β y) (β z) - F (α x) (β y) (β z) +
-            F (α x) (β x) (β z) - F (α x) (β x) (β y)) -
-          (F (α y) (β y) (β z) - F (α x) (β y) (β z) +
-            F (α x) (α y) (β z) - F (α x) (α y) (β y)) +
-          (F (α y) (α z) (β z) - F (α x) (α z) (β z) +
-            F (α x) (α y) (β z) - F (α x) (α y) (α z)) := by abel
-      _ = 0 := by simp only [hF, sub_self, add_zero]
 
 theorem Submission.p08_7d1ff633a4_tp26_coset_averaging :
     ∀ {k G X : Type} [Field k] [Group G] [MulAction G X]
@@ -2436,21 +2404,6 @@ theorem Submission.p08_7d1ff633a4_tp26_coset_averaging :
     apply Finset.sum_congr rfl
     intro c _
     exact hrep F hF (t c) (u c) ((ht c).trans (hu c).symm) x
-theorem Submission.p08_7d1ff633a4_tp26_bilinear_averaging :
-    ∀ {k G X Y ι : Type} [Field k] [Group G] [MulAction G X] [MulAction G Y] [Fintype ι] (A B N : Rep.{0} k G) (φ : A →ₗ[k] B →ₗ[k] N), (∀ (s : G) (a : A) (b : B), φ (A.ρ s a) (B.ρ s b) = N.ρ s (φ a b)) → ∀ (t : ι → G) (F : X → A) (Q : Y → B), ((∀ (s : G) (x : X), F (s • x) = A.ρ s (F x)) → ∀ (x : X) (y : Y), (∑ c : ι, N.ρ (t c) (φ (F ((t c)⁻¹ • x)) (Q ((t c)⁻¹ • y)))) = φ (F x) (∑ c : ι, B.ρ (t c) (Q ((t c)⁻¹ • y)))) ∧ ((∀ (s : G) (y : Y), Q (s • y) = B.ρ s (Q y)) → ∀ (x : X) (y : Y), (∑ c : ι, N.ρ (t c) (φ (F ((t c)⁻¹ • x)) (Q ((t c)⁻¹ • y)))) = φ (∑ c : ι, A.ρ (t c) (F ((t c)⁻¹ • x))) (Q y)) := by
-  intro k G X Y ι _ _ _ _ _ A B N φ hφ t F Q
-  constructor
-  · intro hF x y
-    rw [map_sum]
-    apply Finset.sum_congr rfl
-    intro c _
-    rw [← hφ, ← hF, smul_inv_smul]
-  · intro hQ x y
-    rw [map_sum, LinearMap.sum_apply]
-    apply Finset.sum_congr rfl
-    intro c _
-    rw [← hφ, ← hQ, smul_inv_smul]
-
 
 /-- Finite-index transfer and both projection formulas on the frozen carriers. -/
 theorem Submission.p08_7d1ff633a4_tt26_transfer_projection :
