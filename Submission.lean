@@ -4259,13 +4259,16 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
           (v.asIdeal.mul_mem_left b ((hT v).mp hv))
       exact v.isPrime.ne_top (Ideal.eq_top_of_isUnit_mem v.asIdeal hone isUnit_one)
   -- Step 25: multiply the actual prime Euler factors over all cyclic characters.
+  let : MulSemiringAction J (Ideal (NumberField.RingOfIntegers M)) :=
+    Ideal.pointwiseMulSemiringAction
   have hprimeSplitting (v : ι) (hv : (N v).Coprime q)
       (hqv : (q : O) ∉ v.asIdeal)
       (Q : Ideal (NumberField.RingOfIntegers M)) [Q.IsPrime] [Q.LiesOver v.asIdeal] :
       Q.inertiaDeg O = orderOf (frob v) ∧
         absNorm Q = (N v) ^ orderOf (frob v) ∧
         Nat.card (v.asIdeal.primesOver (NumberField.RingOfIntegers M)) =
-          m / orderOf (frob v) :=
+          m / orderOf (frob v) ∧
+        MulAction.stabilizer J Q ≤ rayArtin.range :=
     by
     let S := NumberField.RingOfIntegers M
     let : MulSemiringAction J (Ideal S) := Ideal.pointwiseMulSemiringAction
@@ -4352,16 +4355,28 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
         Nat.card_congr (MulAction.orbitProdStabilizerEquivGroup J Q)
     refine ⟨hdegree, ?_, ?_⟩
     · rw [← Ideal.absNorm_pow_inertiaDeg v.asIdeal Q, hdegree]
-    · exact Nat.eq_div_of_mul_eq_right (orderOf_pos (frob v)).ne' (by rwa [mul_comm])
-  have hsplitProduct :
-      ∃ V : Finset (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers M)),
+    · refine ⟨Nat.eq_div_of_mul_eq_right (orderOf_pos (frob v)).ne'
+        (by rwa [mul_comm]), ?_⟩
+      have hgen : Subgroup.zpowers (frob v) = MulAction.stabilizer J Q :=
+        Subgroup.eq_of_le_of_card_ge (Subgroup.zpowers_le.mpr hg.mem_stabilizer)
+          (by rw [Nat.card_zpowers, hcard])
+      rw [← hgen]
+      apply Subgroup.zpowers_le.mpr
+      refine ⟨rayClass ⟨⟨v.asIdeal, mem_nonZeroDivisors_iff_ne_zero.mpr v.ne_bot⟩, hv⟩, ?_⟩
+      rw [hrayArtin, hAprime]
+  have hsplitEulerProduct (K : Type) [Field K] [NumberField K] [Algebra F K]
+      (f g : ι → ℕ)
+      (hsplit : ∀ (v : ι), (N v).Coprime q → (q : O) ∉ v.asIdeal →
+        ∀ (Q : Ideal (NumberField.RingOfIntegers K)) [Q.IsPrime] [Q.LiesOver v.asIdeal],
+          absNorm Q = (N v) ^ f v ∧
+            Nat.card (v.asIdeal.primesOver (NumberField.RingOfIntegers K)) = g v) :
+      ∃ V : Finset (IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers K)),
         ∀ s : ℝ, s ∈ Set.Ioo 1 2 →
           HasProd (fun v : {v : ι // v ∉ T} =>
-            ((1 - (Real.rpow (N v.1 : ℝ) (-s) : ℂ) ^ orderOf (frob v.1)) ^
-              (m / orderOf (frob v.1)))⁻¹)
+            ((1 - (Real.rpow (N v.1 : ℝ) (-s) : ℂ) ^ f v.1) ^ g v.1)⁻¹)
             ((∏ v ∈ V, (1 - (Real.rpow (absNorm v.asIdeal : ℝ) (-s) : ℂ))) *
-              NumberField.dedekindZeta M (s : ℂ)) := by
-    let S := NumberField.RingOfIntegers M
+              NumberField.dedekindZeta K (s : ℂ)) := by
+    let S := NumberField.RingOfIntegers K
     let I := IsDedekindDomain.HeightOneSpectrum S
     have hbad : {w : I | (q : S) ∈ w.asIdeal}.Finite :=
       (Ring.HasFiniteQuotients.finite_setOfPred_mem (q : S)
@@ -4413,24 +4428,84 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
         (v.1.asIdeal.primesOver S) (hequiv v).symm
       exact (hasProd_fintype _).multipliable
     have hprod := (((Equiv.sigmaFiberEquiv π).hasProd_iff).mpr
-      (hZetaProduct M V s hs.1)).sigma (fun v => (hfiberProd v).hasProd)
+      (hZetaProduct K V s hs.1)).sigma (fun v => (hfiberProd v).hasProd)
     apply hprod.congr_fun
     intro v
     let : Fintype (π ⁻¹' {v}) := Fintype.ofEquiv
       (v.1.asIdeal.primesOver S) (hequiv v).symm
     let Q : v.1.asIdeal.primesOver S := Classical.choice inferInstance
-    have hcard := (hprimeSplitting v.1 (hcoprime v) (havoid v) Q.1).2.2
+    have hcard := (hsplit v.1 (hcoprime v) (havoid v) Q.1).2
     have hfiber (w : π ⁻¹' {v}) :
         (1 - (Real.rpow (absNorm w.1.1.asIdeal : ℝ) (-s) : ℂ))⁻¹ =
-          (1 - (Real.rpow (N v.1 : ℝ) (-s) : ℂ) ^ orderOf (frob v.1))⁻¹ := by
+          (1 - (Real.rpow (N v.1 : ℝ) (-s) : ℂ) ^ f v.1)⁻¹ := by
       let Q := hequiv v w
-      have hnorm := (hprimeSplitting v.1 (hcoprime v) (havoid v) Q.1).2.1
-      change absNorm w.1.1.asIdeal = (N v.1) ^ orderOf (frob v.1) at hnorm
+      have hnorm := (hsplit v.1 (hcoprime v) (havoid v) Q.1).1
+      change absNorm w.1.1.asIdeal = (N v.1) ^ f v.1 at hnorm
       rw [hnorm, Nat.cast_pow, Real.rpow_eq_pow, ← Real.rpow_pow_comm (Nat.cast_nonneg _),
         Complex.ofReal_pow, Real.rpow_eq_pow]
     simp_rw [hfiber]
     rw [tprod_fintype, Finset.prod_const, Finset.card_univ,
       ← Nat.card_eq_fintype_card, Nat.card_congr (hequiv v), hcard, inv_pow]
+  have hsplitProduct := hsplitEulerProduct M (fun v => orderOf (frob v))
+    (fun v => m / orderOf (frob v)) (fun v hv hqv Q _ _ =>
+      ⟨(hprimeSplitting v hv hqv Q).2.1, (hprimeSplitting v hv hqv Q).2.2.1⟩)
+  -- Step 23: the fixed field of the Artin image splits away from q.
+  have hArtinSurjective : Function.Surjective rayArtin := by
+    let K := IntermediateField.fixedField rayArtin.range
+    let R := NumberField.RingOfIntegers K
+    let S := NumberField.RingOfIntegers M
+    have hsplit (v : ι) (hv : (N v).Coprime q) (hqv : (q : O) ∉ v.asIdeal)
+        (QK : Ideal R) [QK.IsPrime] [QK.LiesOver v.asIdeal] :
+        absNorm QK = (N v) ^ 1 ∧
+          Nat.card (v.asIdeal.primesOver R) = Module.finrank F K := by
+      let Q : QK.primesOver S := Classical.choice inferInstance
+      let : Q.1.LiesOver v.asIdeal := Ideal.LiesOver.trans Q.1 QK v.asIdeal
+      let D := IntermediateField.fixedField (MulAction.stabilizer J Q.1)
+      let : IsDecompositionField F M Q.1 D :=
+        { toIsGaloisGroup := IsGaloisGroup.subgroup J F M (MulAction.stabilizer J Q.1) }
+      have hKD : K ≤ D := IntermediateField.fixedField_le
+        (hprimeSplitting v hv hqv Q.1).2.2.2
+      let : Algebra K D := (IntermediateField.inclusion hKD).toAlgebra
+      let : IsScalarTower F K D := IsScalarTower.of_algebraMap_eq (fun _ => rfl)
+      let : IsScalarTower K D M := IsScalarTower.of_algebraMap_eq (fun _ => rfl)
+      let U := NumberField.RingOfIntegers D
+      let QD := Q.1.under U
+      let : Q.1.IsMaximal := Ideal.IsMaximal.of_liesOver_isMaximal Q.1 v.asIdeal
+      let : QD.IsMaximal := inferInstance
+      let : QK.IsMaximal := Ideal.IsMaximal.of_liesOver_isMaximal QK v.asIdeal
+      let : QD.LiesOver QK := ⟨(Ideal.over_def Q.1 QK).trans (Ideal.under_under Q.1).symm⟩
+      have he := IsDecompositionField.ramificationIdx_eq O F M Q.1 D U QD v.ne_bot
+      have hf := IsDecompositionField.inertiaDeg_eq O F M Q.1 D U QD v.ne_bot
+      have he_le : QK.ramificationIdx O ≤ QD.ramificationIdx O :=
+        Ideal.ramificationIdx_below_le QK QD
+      have hf_le : QK.inertiaDeg O ≤ QD.inertiaDeg O :=
+        Ideal.inertiaDeg_below_le QK QD
+      have hep := Ideal.ramificationIdx_pos QK O
+      have hfp := Ideal.inertiaDeg_pos QK O
+      have heK : QK.ramificationIdx O = 1 := by omega
+      have hfK : QK.inertiaDeg O = 1 := by omega
+      constructor
+      · rw [pow_one, ← Ideal.absNorm_pow_inertiaDeg v.asIdeal QK, hfK, pow_one]
+      · have hcard := Ideal.ncard_primesOver_mul_ramificationIdxIn_mul_inertiaDegIn
+          v.asIdeal R (K ≃ₐ[F] K)
+        rw [Ideal.ramificationIdxIn_eq_ramificationIdx v.asIdeal QK (K ≃ₐ[F] K),
+          Ideal.inertiaDegIn_eq_inertiaDeg v.asIdeal QK (K ≃ₐ[F] K), heK, hfK,
+          one_mul, mul_one, IsGalois.card_aut_eq_finrank] at hcard
+        exact hcard
+    obtain ⟨V, hV⟩ := hsplitEulerProduct K (fun _ => 1) (fun _ => Module.finrank F K) hsplit
+    obtain ⟨rF, hrF, hlimF⟩ := htruncatedZeta F T
+    obtain ⟨rK, _, hlimK⟩ := htruncatedZeta K V
+    have hdegree : Module.finrank F K = 1 := by
+      apply hpoleOrder _ _ (rF : ℂ) (rK : ℂ) (Module.finrank F K)
+        Module.finrank_pos (Complex.ofReal_ne_zero.mpr hrF.ne') hlimF hlimK
+      intro s hs
+      apply (hV s hs).unique
+      simpa only [pow_one, inv_pow] using (hZetaProduct F T s hs.1).pow (Module.finrank F K)
+    have hbot : K = ⊥ := IntermediateField.finrank_eq_one_iff.mp hdegree
+    apply MonoidHom.range_eq_top.mp
+    rw [← IntermediateField.fixingSubgroup_fixedField rayArtin.range,
+      show IntermediateField.fixedField rayArtin.range = ⊥ from hbot,
+      IntermediateField.fixingSubgroup_bot]
   let EulerGood (j : Fin m) (s : ℝ) : ℂ := Complex.exp
     (∑' v : {v : ι // v ∉ T}, -Complex.log
       (1 - character j (frob v.1) * (Real.rpow (N v.1 : ℝ) (-s) : ℂ)))
@@ -4997,11 +5072,10 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
             R * (n : ℝ) ^ α by
       obtain ⟨κ, α, hα₀, hα₁, hcount⟩ := hcount
       exact hnonvanishingOfCount κ α hα₀ hα₁ hcount V hsplit
-    suffices hrayInput : Function.Surjective rayArtin ∧
-        ∃ κ α : ℝ, 0 ≤ α ∧ α < 1 ∧
+    suffices hrayInput : ∃ κ α : ℝ, 0 ≤ α ∧ α < 1 ∧
           ∀ c : Ray, ∃ R : ℝ, 0 ≤ R ∧ ∀ n : ℕ, 1 ≤ n →
             |(rayCount c n : ℝ) - κ * (n : ℝ)| ≤ R * (n : ℝ) ^ α by
-      obtain ⟨hsurj, κ, α, hα₀, hα₁, hestimate⟩ := hrayInput
+      obtain ⟨κ, α, hα₀, hα₁, hestimate⟩ := hrayInput
       let : Fintype Ray := Fintype.ofFinite _
       have hfinite (n : ℕ) :
           Finite {I : rayIdeals // absNorm (I.1 : Ideal O) ≤ n} := by
@@ -5050,9 +5124,9 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
       intro σ
       obtain ⟨R, hR, hbound⟩ := hcountTransfer rayIdeals Ray J
         (fun I => absNorm (I.1 : Ideal O)) rayClass rayArtin hnormPositive hfinite
-        hsurj κ α hestimateNat σ
+        hArtinSurjective κ α hestimateNat σ
       refine ⟨R, hR, ?_⟩
       intro n hn
       simpa only [hcoeff] using hbound n hn
-    -- Steps 17–19 and 23: quantitative ray counting and Artin surjectivity remain open.
+    -- Steps 17–19: quantitative ray counting remains open.
     fail "Unfinished arithmetic input: continuously extend the prime-to-q ideal character series Sgood with nonzero value at one."
