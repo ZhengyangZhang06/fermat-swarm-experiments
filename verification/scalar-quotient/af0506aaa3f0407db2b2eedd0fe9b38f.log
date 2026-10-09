@@ -1,0 +1,93 @@
+Controller verification af0506aaa3f0407db2b2eedd0fe9b38f: running
+Controller verification af0506aaa3f0407db2b2eedd0fe9b38f: running
+Controller verification af0506aaa3f0407db2b2eedd0fe9b38f: running
+Controller verification af0506aaa3f0407db2b2eedd0fe9b38f: running
+Swarm verification af0506aaa3f0407db2b2eedd0fe9b38f: running on hoa78
+Swarm verification af0506aaa3f0407db2b2eedd0fe9b38f: running on hoa78
+Swarm verification af0506aaa3f0407db2b2eedd0fe9b38f: running on hoa78
+Swarm verification af0506aaa3f0407db2b2eedd0fe9b38f: running on hoa78
+Swarm verification af0506aaa3f0407db2b2eedd0fe9b38f: running on hoa78
+Swarm verification af0506aaa3f0407db2b2eedd0fe9b38f: running on hoa78
+Swarm verification af0506aaa3f0407db2b2eedd0fe9b38f: running on hoa78
+Swarm verification af0506aaa3f0407db2b2eedd0fe9b38f: running on hoa78
+Swarm verification af0506aaa3f0407db2b2eedd0fe9b38f: running on hoa78
+Swarm verification af0506aaa3f0407db2b2eedd0fe9b38f: running on hoa78
+Swarm verification af0506aaa3f0407db2b2eedd0fe9b38f: running on hoa78
+Swarm verification af0506aaa3f0407db2b2eedd0fe9b38f: running on hoa78
+Swarm verification af0506aaa3f0407db2b2eedd0fe9b38f: running on hoa78
+{"stage": "packet-validated", "digest": "2e37c53ce491ed5e6e33d2004900acf335e092572da67f80bd91d155b12c619f", "candidate_commit": "dbe478749afa15b2ac4a65d23df7e64ff2899735", "node": "root.local_norm_order-a1.dvr_determinant_length-a1.scalar_quotient_length_order-a1"}
+✔ [2/7] Built Definitions.Def_AlgebraicCurve_DivisorClassGroup (4.9s)
+⚠ [3/7] Built Definitions.Def_AlgebraicCurve_DivisorPushPull (6.8s)
+warning: Definitions/Def_AlgebraicCurve_DivisorPushPull.lean:77:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: Definitions/Def_AlgebraicCurve_DivisorPushPull.lean:79:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: Definitions/Def_AlgebraicCurve_DivisorPushPull.lean:524:45: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+⚠ [4/7] Built Definitions.Def_AlgebraicCurve_PlacesOverDVR (6.7s)
+warning: Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean:1:0: Use RingTheory.RamificationInertia.Basic
+'Mathlib.NumberTheory.RamificationInertia.Basic' has been deprecated: please replace this import by
+
+import Mathlib.LinearAlgebra.Dimension.DivisionRing
+import Mathlib.NumberTheory.RamificationInertia.Inertia
+import Mathlib.NumberTheory.RamificationInertia.Ramification
+import Mathlib.RingTheory.Ideal.Norm.AbsNorm
+warning: Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean:190:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean:194:8: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+warning: Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean:448:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean:458:42: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+✖ [5/7] Building Submission (2.1s)
+trace: .> LEAN_PATH=/output/result/challenge/.lake/build/lib/lean /reference/lean-4.33.1-linux/bin/lean /output/result/challenge/Submission.lean -o /output/result/challenge/.lake/build/lib/lean/Submission.olean -i /output/result/challenge/.lake/build/lib/lean/Submission.ilean -c /output/result/challenge/.lake/build/ir/Submission.c --setup /output/result/challenge/.lake/build/ir/Submission.setup.json --json
+error: Submission.lean:9:22: Unknown constant `AlgebraicCurve.IsCurveOver.instNontrivialKaehler`
+error: Submission.lean:10:18: Unknown constant `AlgebraicCurve.IsFrobeniusEndo.frobNormRingHom_apply`
+error: Submission.lean:11:18: Unknown constant `AlgebraicCurve.SemilinearAut.coe_torsion_smul`
+warning: Submission.lean:14:8: declaration uses `sorry`
+error: Lean exited with code 1
+Some required targets logged failures:
+- Submission
+error: build failed
+Traceback (most recent call last):
+  File "/verifier/swarm-verifier-packet.py", line 75, in <module>
+    execute(args.packet, args.digest, args.output)
+  File "/verifier/swarm-verifier-packet.py", line 63, in execute
+    verifier.verify_prepared(output, expected_digest)
+  File "/verifier/verify-frozen-node.py", line 621, in verify_prepared
+    compare(root, names)
+  File "/verifier/verify-frozen-node.py", line 301, in compare
+    export(challenge, "Challenge", name, root / "challenge.export")
+  File "/verifier/verify-frozen-node.py", line 282, in export
+    sandbox(directory, ["lake", "--no-cache", "build", module])
+  File "/verifier/swarm-verifier-packet.py", line 50, in <lambda>
+    verifier.sandbox = lambda directory, args, **kw: launcher.isolated_command(
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/verifier/swarm-verifier-selftest.py", line 87, in isolated_command
+    return subprocess.run(command, cwd=directory, env=environment, check=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/mnt/data/zhengyang-workspace/fermat-example/.humanize/verifier/landrun', '--best-effort', '--ro', '/etc', '--rox', '/usr', '--ro', '/output/result/challenge', '--rox', '/mnt/data/zhengyang-workspace/fermat-example/.humanize/verifier', '--rw', '/dev', '-ldd', '-add-exec', '--rwx', '/output/result/challenge/.lake', '--rox', '/reference/lean-4.33.1-linux', '--rox', '/reference/packages', '--env', 'PATH', '--env', 'HOME', '--env', 'LEAN_PATH', '--env', 'LEAN_ABORT_ON_PANIC', '--env', 'LEAN_NUM_THREADS', '--', 'lake', '--no-cache', 'build', 'Challenge']' returned non-zero exit status 1.
