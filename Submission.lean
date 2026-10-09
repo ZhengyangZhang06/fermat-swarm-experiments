@@ -2580,3 +2580,77 @@ theorem Submission.p09_af497904fe_cmc_40fde013_mellin_tail_holomorphic :
   exact (hasDerivAt_integral_of_dominated_loc_of_deriv_le
     (Metric.ball_mem_nhds s hε) (Filter.Eventually.of_forall hmeas)
     (hint s hs') hmeas' hbound' hbound_int hderiv).2.differentiableAt.differentiableWithinAt
+open Filter Asymptotics MeasureTheory in
+theorem Submission.p09_af497904fe_cfs_counting_mellin_continuation :
+    ∀ (a : ℕ → ℝ) (κ α : ℝ), (∀ n : ℕ, 0 ≤ a n) → 0 ≤ α → α < 1 →
+      (∃ C : ℝ, 0 ≤ C ∧ ∀ n : ℕ, 1 ≤ n →
+        |(∑ k ∈ Finset.Icc 1 n, a k) - κ * (n : ℝ)| ≤ C * (n : ℝ) ^ α) →
+      ∃ H : ℂ → ℂ, DifferentiableOn ℂ H {s : ℂ | α < s.re} ∧
+        ∀ s : ℂ, 1 < s.re → LSeries (fun n : ℕ => (a n : ℂ)) s =
+          (κ : ℂ) / (s - 1) + H s := by
+  intro a κ α ha hα hα1 ⟨C, hC, hcount⟩
+  -- The counting estimate and positivity give the linear bound used in Abel summation.
+  have hO : (fun n : ℕ => ∑ k ∈ Finset.Icc 1 n, a k) =O[atTop]
+      (fun n : ℕ => (n : ℝ) ^ (1 : ℝ)) := by
+    refine isBigO_iff.mpr ⟨C + |κ|, ?_⟩
+    filter_upwards [eventually_ge_atTop (1 : ℕ)] with n hn
+    have hn' : (1 : ℝ) ≤ n := by exact_mod_cast hn
+    have hsum : 0 ≤ ∑ k ∈ Finset.Icc 1 n, a k :=
+      Finset.sum_nonneg fun k _ => ha k
+    have hpow : (n : ℝ) ^ α ≤ n := by
+      simpa using Real.rpow_le_rpow_of_exponent_le hn' hα1.le
+    have hupper := (le_abs_self _).trans (hcount n hn)
+    have hκ := mul_le_mul_of_nonneg_right (le_abs_self κ) (Nat.cast_nonneg n : (0 : ℝ) ≤ n)
+    simp only [Real.norm_eq_abs, Real.rpow_one, abs_of_nonneg hsum,
+      abs_of_nonneg (Nat.cast_nonneg n : (0 : ℝ) ≤ n)]
+    nlinarith [mul_le_mul_of_nonneg_left hpow hC]
+  let R : ℝ → ℝ := fun t => (∑ k ∈ Finset.Icc 1 (Nat.floor t), a k) - κ * t
+  obtain ⟨hRm, hRb⟩ :=
+    Submission.p09_af497904fe_cmc_40fde013_floor_remainder a κ α C hα hC hcount
+  obtain ⟨hIint, hIdiff⟩ :=
+    Submission.p09_af497904fe_cmc_40fde013_mellin_tail_holomorphic R α (C + |κ|)
+      hRm (add_nonneg hC (abs_nonneg κ)) hRb
+  let I : ℂ → ℂ := fun s => ∫ t in Set.Ioi (1 : ℝ),
+    (R t : ℂ) * (t : ℂ) ^ (-(s + 1))
+  -- The total integral defines a function everywhere; only the stated half-plane is used.
+  refine ⟨fun s => (κ : ℂ) + s * I s,
+    (differentiableOn_const (κ : ℂ)).add (differentiableOn_id.mul hIdiff), ?_⟩
+  intro s hs
+  have hsα : α < s.re := hα1.trans hs
+  have hsneg : (-s).re < -1 := by simpa using neg_lt_neg hs
+  have hs1 : s - 1 ≠ 0 := by
+    apply sub_ne_zero.mpr
+    intro h
+    have := congrArg Complex.re h
+    simp only [Complex.one_re] at this
+    linarith
+  have hpint : IntegrableOn (fun t : ℝ => (t : ℂ) ^ (-s)) (Set.Ioi 1) :=
+    integrableOn_Ioi_cpow_of_lt hsneg zero_lt_one
+  have hpole : (∫ t : ℝ in Set.Ioi 1, (t : ℂ) ^ (-s)) = 1 / (s - 1) := by
+    rw [integral_Ioi_cpow_of_lt hsneg zero_lt_one, Complex.ofReal_one,
+      Complex.one_cpow, show -s + 1 = -(s - 1) by ring, neg_div_neg_eq]
+  have hsplit :
+      (∫ t in Set.Ioi (1 : ℝ),
+        (∑ k ∈ Finset.Icc 1 (Nat.floor t), (a k : ℂ)) * (t : ℂ) ^ (-(s + 1))) =
+      (κ : ℂ) / (s - 1) + I s := by
+    calc
+      _ = ∫ t in Set.Ioi (1 : ℝ),
+          ((κ : ℂ) * (t : ℂ) ^ (-s) + (R t : ℂ) * (t : ℂ) ^ (-(s + 1))) := by
+        apply setIntegral_congr_fun measurableSet_Ioi
+        intro t ht
+        have ht0 : (t : ℂ) ≠ 0 :=
+          Complex.ofReal_ne_zero.mpr (ne_of_gt (lt_trans zero_lt_one ht))
+        have hpower : (t : ℂ) * (t : ℂ) ^ (-(s + 1)) = (t : ℂ) ^ (-s) := by
+          rw [show -(s + 1) = -s - 1 by ring, Complex.cpow_sub _ _ ht0,
+            Complex.cpow_one, mul_div_cancel₀ _ ht0]
+        simp only [R, Complex.ofReal_sub, Complex.ofReal_mul, Complex.ofReal_sum]
+        rw [sub_mul, mul_assoc (κ : ℂ), hpower]
+        ring
+      _ = (κ : ℂ) / (s - 1) + I s := by
+        rw [integral_add (hpint.const_mul (κ : ℂ)) (hIint s hsα),
+          integral_const_mul, hpole]
+        simp only [I, mul_one_div]
+  rw [LSeries_eq_mul_integral_of_nonneg a zero_le_one hs hO ha, hsplit]
+  dsimp only
+  field_simp [hs1]
+  ring
