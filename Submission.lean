@@ -2032,3 +2032,116 @@ theorem Submission.p09_af497904fe_cwi_character_orthogonality :
     rw [if_neg hba, Fin.sum_univ_eq_sum_range]
     exact (mul_eq_zero.mp ((geom_sum_mul u m).trans (by rw [hu, sub_self]))).resolve_right
       (sub_ne_zero.mpr hu1)
+
+
+theorem Submission.p09_af497904fe_cwi_fiber_log_estimate :
+    ∀ (ι : Type) (m : ℕ) (ω : ℂ) (N : ι → ℕ) (g : ι → ZMod m),
+      0 < m → IsPrimitiveRoot ω m → (∀ i : ι, 2 ≤ N i) →
+      (∀ s : ℝ, 1 < s → Summable (fun i : ι => Real.rpow (N i : ℝ) (-s))) →
+      (∀ k : Fin m, ∃ C : ℝ, 0 ≤ C ∧ ∃ ε : ℝ, 0 < ε ∧
+        ∀ s : ℝ, 1 < s → s < 1 + ε →
+          ‖(∑' i : ι, ω ^ (k.val * (g i).val) *
+              Complex.ofReal (Real.rpow (N i : ℝ) (-s))) -
+            (if k.val = 0 then (Real.log (1 / (s - 1)) : ℂ) else 0)‖ ≤ C) →
+      ∃ K : ℝ, 0 ≤ K ∧ ∃ ε : ℝ, 0 < ε ∧ ε ≤ 1 ∧
+        ∀ (a : ZMod m) (s : ℝ), 1 < s → s < 1 + ε →
+          |(∑' i : {i : ι // g i = a}, Real.rpow (N i.1 : ℝ) (-s)) -
+            Real.log (1 / (s - 1)) / (m : ℝ)| ≤ K := by
+  classical
+  intro ι m ω N g hm hω _hN hsum hbound
+  have hmR : (0 : ℝ) < m := Nat.cast_pos.mpr hm
+  have hnorm : ‖ω‖ = 1 := hω.norm'_eq_one (Nat.ne_of_gt hm)
+  have hchar (k : Fin m) (b : ZMod m) : ‖ω ^ (k.val * b.val)‖ = 1 := by
+    rw [norm_pow, hnorm, one_pow]
+  choose C hC εk hεk hestimate using hbound
+  -- A common positive interval works for the finitely many characters.
+  have hinterval (t : Finset (Fin m)) :
+      ∃ ε : ℝ, 0 < ε ∧ ε ≤ 1 ∧ ∀ k ∈ t, ε ≤ εk k := by
+    induction t using Finset.induction_on with
+    | empty => exact ⟨1, zero_lt_one, le_rfl, by simp⟩
+    | @insert k t _ ih =>
+        obtain ⟨ε, hε, hεone, hεle⟩ := ih
+        refine ⟨min ε (εk k), lt_min hε (hεk k),
+          (min_le_left _ _).trans hεone, ?_⟩
+        intro j hj
+        rcases Finset.mem_insert.mp hj with rfl | hj
+        · exact min_le_right _ _
+        · exact (min_le_left _ _).trans (hεle j hj)
+  obtain ⟨ε, hε, hεone, hεle⟩ := hinterval Finset.univ
+  refine ⟨(∑ k : Fin m, C k) / (m : ℝ),
+    div_nonneg (Finset.sum_nonneg fun k _ => hC k) hmR.le,
+    ε, hε, hεone, ?_⟩
+  intro a s hs hsε
+  let w : ι → ℝ := fun i => Real.rpow (N i : ℝ) (-s)
+  let L : ℝ := Real.log (1 / (s - 1))
+  let P : ℝ := ∑' i : {i : ι // g i = a}, w i.val
+  let F : Fin m → ℂ := fun k =>
+    ∑' i : ι, ω ^ (k.val * (g i).val) * (w i : ℂ)
+  let v : Fin m → ℂ := fun k => star (ω ^ (k.val * a.val))
+  have hw (i : ι) : 0 ≤ w i := Real.rpow_nonneg (Nat.cast_nonneg _) _
+  have hseries (k : Fin m) :
+      Summable (fun i : ι => ω ^ (k.val * (g i).val) * (w i : ℂ)) := by
+    apply (hsum s hs).of_norm_bounded
+    intro i
+    simpa only [norm_mul, hchar, Complex.norm_real, Real.norm_eq_abs,
+      abs_of_nonneg (hw i), one_mul] using (le_rfl : w i ≤ w i)
+  -- Finite Fourier inversion, with all infinite series justified by summability.
+  have hfourier : (∑ k : Fin m, v k * F k) = (m : ℂ) * (P : ℂ) := by
+    calc
+      (∑ k : Fin m, v k * F k) =
+          ∑ k : Fin m, ∑' i : ι,
+            v k * (ω ^ (k.val * (g i).val) * (w i : ℂ)) := by
+        apply Finset.sum_congr rfl
+        intro k _
+        exact (tsum_mul_left (a := v k)).symm
+      _ = ∑' i : ι, ∑ k : Fin m,
+            v k * (ω ^ (k.val * (g i).val) * (w i : ℂ)) :=
+        (Summable.tsum_finsetSum (fun k _ => (hseries k).mul_left (v k))).symm
+      _ = ∑' i : ι, (if g i = a then (m : ℂ) else 0) * (w i : ℂ) := by
+        apply tsum_congr
+        intro i
+        rw [← Submission.p09_af497904fe_cwi_character_orthogonality m ω hm hω a (g i),
+          Finset.sum_mul]
+        apply Finset.sum_congr rfl
+        intro k _
+        exact (mul_assoc _ _ _).symm
+      _ = (m : ℂ) * (P : ℂ) := by
+        have hfiber : (P : ℂ) =
+            ∑' i : ι, ({i : ι | g i = a} : Set ι).indicator (fun i => (w i : ℂ)) i :=
+          (Complex.ofReal_tsum (fun i : {i : ι // g i = a} => w i.val)).trans
+            (tsum_subtype {i : ι | g i = a} (fun i => (w i : ℂ)))
+        rw [hfiber, ← tsum_mul_left]
+        apply tsum_congr
+        intro i
+        by_cases hi : g i = a <;> simp [Set.indicator, hi]
+  have hmain : (∑ k : Fin m, v k *
+      (if k.val = 0 then (L : ℂ) else 0)) = (L : ℂ) := by
+    rw [Finset.sum_eq_single (⟨0, hm⟩ : Fin m)]
+    · simp [v]
+    · intro k _ hk
+      have hk0 : k.val ≠ 0 := fun h => hk (Fin.ext h)
+      simp [hk0]
+    · simp
+  have herror : (m : ℂ) * (P : ℂ) - (L : ℂ) =
+      ∑ k : Fin m, v k * (F k - (if k.val = 0 then (L : ℂ) else 0)) := by
+    simp only [mul_sub, Finset.sum_sub_distrib, hfourier, hmain]
+  have hnormerror : ‖(m : ℂ) * (P : ℂ) - (L : ℂ)‖ ≤ ∑ k : Fin m, C k := by
+    rw [herror]
+    apply (norm_sum_le _ _).trans
+    apply Finset.sum_le_sum
+    intro k _
+    have hv : ‖v k‖ = 1 := by simpa [v] using hchar k a
+    rw [norm_mul, hv, one_mul]
+    exact hestimate k s hs (by linarith [hεle k (Finset.mem_univ k)])
+  have hreal : |(m : ℝ) * P - L| ≤ ∑ k : Fin m, C k := by
+    simpa only [← Complex.ofReal_natCast, ← Complex.ofReal_mul, ← Complex.ofReal_sub,
+      Complex.norm_real, Real.norm_eq_abs] using hnormerror
+  change |P - L / (m : ℝ)| ≤ (∑ k : Fin m, C k) / (m : ℝ)
+  apply (le_div_iff₀ hmR).mpr
+  have hid : (P - L / (m : ℝ)) * (m : ℝ) = (m : ℝ) * P - L := by
+    rw [sub_mul, div_mul_cancel₀ _ (ne_of_gt hmR), mul_comm P (m : ℝ)]
+  calc
+    |P - L / (m : ℝ)| * (m : ℝ) = |(P - L / (m : ℝ)) * (m : ℝ)| := by
+      rw [abs_mul, abs_of_pos hmR]
+    _ = |(m : ℝ) * P - L| := congrArg abs hid
+    _ ≤ ∑ k : Fin m, C k := hreal
