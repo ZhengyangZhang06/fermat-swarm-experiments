@@ -28362,10 +28362,9 @@ namespace Submission
 
 open scoped nonZeroDivisors BigOperators
 
-/-- Speculative draft for the frozen torsion-EDS existence node.
-The local degree and ideal constructions and the initial torsion cases compile
-individually. General torsion vanishing remains an open obligation, explicitly
-reported by the last tactic; this declaration is not an accepted proof. -/
+/-- A normalized elliptic divisibility sequence detects affine torsion.
+The coordinate quotient is identified by its finite orders, negation symmetry,
+and leading coefficient at the identity, using the two approved kernel facts. -/
 theorem p03_torsion_eds_exists_68cf3476_d2
     (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k]
     (W : WeierstrassCurve k) (hΔ : W.Δ ≠ 0) :
@@ -29080,6 +29079,2932 @@ theorem p03_torsion_eds_exists_68cf3476_d2
         simpa only [map_sub, map_mul, map_pow] using congrArg ev (hfodd r hr)
       rw [hnr, he]
       linear_combination hcross
+  have hcoordinate_from_detection (m : ℕ) (hm : 2 ≤ m)
+      (hdetect : ∀ j : ℕ, 0 < j → j ≤ m + 1 → ∀ (x y : k)
+        (hP : W.toAffine.Nonsingular x y),
+        f j ∈ CoordinateRing.XYIdeal W.toAffine x (Polynomial.C y) ↔
+          j • Point.some x y hP = 0) :
+      ∀ (x y : k) (hP : W.toAffine.Nonsingular x y),
+        m • Point.some x y hP ≠ 0 →
+        (m • Point.some x y hP).xRep 0 = x -
+          AdjoinRoot.evalEval hP.1 (f (m + 1)) * AdjoinRoot.evalEval hP.1 (f (m - 1)) /
+            AdjoinRoot.evalEval hP.1 (f m) ^ 2 := by
+    have hm₀ : 0 < m := by omega
+    have hprev : 0 < m - 1 := by omega
+    have hnext : 0 < m + 1 := by omega
+    -- Step 1: finite reduced kernel divisors, represented on the k-points.
+    let K (j : ℕ) (hj : 0 < j) : W.toAffine.Point →₀ ℤ := by
+      let := (Submission.p03_eds_torsion_kernel_card_68cf3476_d4 k W hΔ j hj).1
+      let := Fintype.ofFinite {P : W.toAffine.Point // j • P = 0}
+      exact ∑ P : {P : W.toAffine.Point // j • P = 0}, Finsupp.single P.val 1
+    have hK (j : ℕ) (hj : 0 < j) (P : W.toAffine.Point) :
+        K j hj P = if j • P = 0 then 1 else 0 := by
+      let := (Submission.p03_eds_torsion_kernel_card_68cf3476_d4 k W hΔ j hj).1
+      let := Fintype.ofFinite {P : W.toAffine.Point // j • P = 0}
+      change (∑ Q : {P : W.toAffine.Point // j • P = 0},
+        Finsupp.single Q.val (1 : ℤ)) P = _
+      rw [Finsupp.finsetSum_apply]
+      by_cases hP : j • P = 0
+      · rw [if_pos hP]
+        rw [Finset.sum_eq_single (⟨P, hP⟩ : {P : W.toAffine.Point // j • P = 0})]
+        · exact Finsupp.single_eq_same
+        · intro Q _ hQ
+          exact Finsupp.single_eq_of_ne (by
+            intro h
+            apply hQ
+            exact Subtype.ext h.symm)
+        · simp
+      · rw [if_neg hP]
+        apply Finset.sum_eq_zero
+        intro Q _
+        exact Finsupp.single_eq_of_ne (by
+          intro h
+          apply hP
+          rw [h]
+          exact Q.property)
+    -- The two neighboring kernels are the fixed and anti-fixed points of [m].
+    have hminus (P : W.toAffine.Point) : (m - 1) • P = 0 ↔ m • P = P := by
+      have hsub : (m - 1) • P = m • P - P := by
+        simpa only [one_nsmul, sub_eq_add_neg] using sub_nsmul P (by omega : 1 ≤ m)
+      rw [hsub, sub_eq_zero]
+    have hplus (P : W.toAffine.Point) : (m + 1) • P = 0 ↔ m • P = -P := by
+      rw [add_nsmul, one_nsmul, add_eq_zero_iff_eq_neg]
+    let D : W.toAffine.Point →₀ ℤ :=
+      K (m + 1) hnext + K (m - 1) hprev - 2 • K m hm₀ - 2 • Finsupp.single 0 1
+    have hD (P : W.toAffine.Point) : D P =
+        (if m • P = -P then 1 else 0) + (if m • P = P then 1 else 0) -
+          2 * (if m • P = 0 then 1 else 0) - 2 * (if P = 0 then 1 else 0) := by
+      simp only [D, Finsupp.sub_apply, Finsupp.add_apply, Finsupp.smul_apply,
+        hK, hminus, hplus, nsmul_eq_mul, Nat.cast_ofNat, Finsupp.single_apply,
+        eq_comm (a := (0 : W.toAffine.Point)) (b := P)]
+    have hD_pole (P : W.toAffine.Point) (hP : P ≠ 0) (hPm : m • P = 0) :
+        D P = -2 := by
+      rw [hD]
+      simp [hPm, hP, eq_comm (a := (0 : W.toAffine.Point))]
+    have hD_fixed (P : W.toAffine.Point) (hP : P ≠ 0)
+        (hfix : m • P = P) (htwo : P ≠ -P) : D P = 1 := by
+      simp [hD, hfix, htwo, hP]
+    have hD_antifixed (P : W.toAffine.Point) (hP : P ≠ 0)
+        (hfix : m • P = -P) (htwo : P ≠ -P) : D P = 1 := by
+      have hne : -P ≠ P := Ne.symm htwo
+      simp [hD, hfix, hne, hP]
+    have hD_two (P : W.toAffine.Point) (hP : P ≠ 0)
+        (hfix : m • P = P) (htwo : P = -P) : D P = 2 := by
+      rw [hD]
+      simp only [hfix, if_pos htwo, if_neg hP]
+      norm_num
+    have hD_other (P : W.toAffine.Point) (hP : P ≠ 0)
+        (hpole : m • P ≠ 0) (hfix : m • P ≠ P) (hanti : m • P ≠ -P) :
+        D P = 0 := by
+      simp [hD, hpole, hfix, hanti, hP]
+    have hX (P : W.toAffine.Point) :
+        (m • P).xRep = P.xRep ↔ (m + 1) • P = 0 ∨ (m - 1) • P = 0 := by
+      rw [xRep_eq_xRep_iff, hplus, hminus, or_comm]
+    -- The characteristic-zero coefficients occurring in steps 3 and 5.
+    have hm_cast : (m : k) ≠ 0 := Nat.cast_ne_zero.mpr (by omega)
+    have hprev_cast : (m : k) - 1 ≠ 0 := by
+      exact sub_ne_zero.mpr (by exact_mod_cast (show m ≠ 1 by omega))
+    have hnext_cast : (m : k) + 1 ≠ 0 := by
+      exact_mod_cast (show m + 1 ≠ 0 by omega)
+    have hm_sq : (m : k) ^ 2 - 1 ≠ 0 := by
+      apply sub_ne_zero.mpr
+      exact_mod_cast (show m ^ 2 ≠ 1 by nlinarith)
+    -- Construct the rational function of accepted proof step 3. The cofinite
+    -- rational-coordinate argument is the same local calculation used in the
+    -- accepted finite-kernel theorem above; it uses the pinned coordinate-ring
+    -- basis and norm formulas, without any new global helper declarations.
+    let A := W.toAffine.CoordinateRing
+    have : Infinite W.toAffine.Point := by
+      have hxpoint (α : k) : ∃ β : k, W.toAffine.Nonsingular α β := by
+        let p : Polynomial k := W.toAffine.polynomial.map (Polynomial.evalRingHom α)
+        have hd : p.degree = 2 := by
+          rw [Polynomial.Monic.degree_map monic_polynomial, degree_polynomial]
+        obtain ⟨β, hβ⟩ := IsAlgClosed.exists_root p (by rw [hd]; norm_num)
+        refine ⟨β, (W.toAffine.equation_iff_nonsingular_of_Δ_ne_zero hΔ).mp ?_⟩
+        change W.toAffine.polynomial.evalEval α β = 0
+        change p.eval β = 0 at hβ
+        simpa only [p, Polynomial.eval_map, Polynomial.eval₂_evalRingHom] using hβ
+      choose y hy using hxpoint
+      exact Infinite.of_injective (fun α => Point.some α (y α) (hy α))
+        (fun _ _ he => (some.inj he).1)
+    have away_kernel (j : ℕ) (hj : 0 < j) :
+        ∀ᶠ P : W.toAffine.Point in Filter.cofinite, j • P ≠ 0 := by
+      have hf : Set.Finite {P : W.toAffine.Point | j • P = 0} :=
+        (Submission.p03_eds_torsion_kernel_card_68cf3476_d4 k W hΔ j hj).1
+      exact hf.eventually_cofinite_notMem
+    obtain ⟨a, b, ha, hb, hH_eval⟩ : ∃ a b : A, a ≠ 0 ∧ b ≠ 0 ∧
+        ∀ᶠ P : W.toAffine.Point in Filter.cofinite,
+          ∀ (x y : k) (h : W.toAffine.Nonsingular x y),
+            P = .some x y h →
+            (m • P).xRep 0 - P.xRep 0 =
+              AdjoinRoot.evalEval h.1 a / AdjoinRoot.evalEval h.1 b := by
+      obtain ⟨Q, hQ⟩ := exists_ne (0 : W.toAffine.Point)
+      rcases Q with _ | ⟨x₀, y₀, h₀⟩
+      · exact (hQ rfl).elim
+      let G := W.toAffine.Point
+      let A := W.toAffine.CoordinateRing
+      let : Module.Finite (Polynomial k) A := Module.Finite.of_basis (CoordinateRing.basis W.toAffine)
+      let ev : G → A →+* k := fun P => match P with
+        | .zero => AdjoinRoot.evalEval h₀.1
+        | .some x y h => AdjoinRoot.evalEval h.1
+      have ev_mk (x y : k) (h : W.toAffine.Nonsingular x y)
+          (p : Polynomial (Polynomial k)) :
+          ev (.some x y h) (CoordinateRing.mk W.toAffine p) = p.evalEval x y := by
+        exact AdjoinRoot.evalEval_mk h.1 p
+      have ev_basis (x y : k) (h : W.toAffine.Nonsingular x y) (p q : Polynomial k) :
+          ev (.some x y h) (p • (1 : A) + q • CoordinateRing.mk W.toAffine Polynomial.X) =
+            p.eval x + q.eval x * y := by
+        rw [CoordinateRing.smul p (1 : A), CoordinateRing.smul q]
+        simp only [map_add, map_mul, mul_one, ev_mk x y h,
+          Polynomial.evalEval_C, Polynomial.evalEval_X]
+      have hxf (x : k) : Set.Finite {P : G | P.xRep 0 = x} := by
+        by_cases h : ∃ y, W.toAffine.Nonsingular x y
+        · obtain ⟨y, hy⟩ := h
+          apply (((Set.finite_singleton (-.some x y hy)).insert (.some x y hy)).insert 0).subset
+          intro P hp
+          cases P with
+          | zero => simp [← zero_def]
+          | some u v hv =>
+            have hu : u = x := hp
+            rcases (X_eq_iff (h₁ := hv) (h₂ := hy)).mp hu with he | he
+            · exact Or.inr (Or.inl he)
+            · exact Or.inr (Or.inr he)
+        · apply (Set.finite_singleton (0 : G)).subset
+          intro P hp
+          cases P with
+          | zero => rfl
+          | some u v hv => exact (h ⟨v, (show u = x from hp) ▸ hv⟩).elim
+      have ev_nonzero (a : A) (ha : a ≠ 0) : ∀ᶠ P in Filter.cofinite, ev P a ≠ 0 := by
+        have hn : Algebra.norm (Polynomial k) a ≠ 0 := Algebra.norm_ne_zero_iff.mpr ha
+        have hf := (Polynomial.finite_setOfPred_isRoot hn).biUnion (fun x _ => hxf x)
+        apply Filter.eventually_cofinite.mpr
+        apply ((Set.finite_singleton (0 : G)).union hf).subset
+        intro P hp
+        change ¬ ev P a ≠ 0 at hp
+        simp only [not_not] at hp
+        cases P with
+        | zero => exact Or.inl rfl
+        | some x y h =>
+          apply Or.inr
+          apply Set.mem_iUnion₂.mpr
+          refine ⟨x, ?_, rfl⟩
+          obtain ⟨p, q, he⟩ := CoordinateRing.exists_smul_basis_eq a
+          rw [← he, ev_basis x y h p q] at hp
+          change (Algebra.norm (Polynomial k) a).eval x = 0
+          rw [← he, CoordinateRing.norm_smul_basis]
+          simp only [Polynomial.eval_sub, Polynomial.eval_pow, Polynomial.eval_mul,
+            Polynomial.eval_add, Polynomial.eval_C, Polynomial.eval_X]
+          have heq := (equation_iff x y).mp h.1
+          linear_combination (p.eval x - q.eval x * y - q.eval x * (W.a₁ * x + W.a₃)) * hp +
+            q.eval x ^ 2 * heq
+      -- Rational coordinate functions are defined away from a finite set.
+      let Good : (G → k) → Prop := fun f =>
+        ∃ a b : A, b ≠ 0 ∧ ∀ᶠ P in Filter.cofinite, f P = ev P a / ev P b
+      have good_ev (a : A) : Good (fun P => ev P a) := by
+        refine ⟨a, 1, one_ne_zero, ?_⟩
+        filter_upwards [] with P
+        simp
+      have good_congr {f g : G → k} (hf : Good f)
+          (hfg : ∀ᶠ P in Filter.cofinite, f P = g P) : Good g := by
+        obtain ⟨a, b, hb, hh⟩ := hf
+        refine ⟨a, b, hb, ?_⟩
+        filter_upwards [hfg, hh] with P hP hi
+        exact hP.symm.trans hi
+      have good_const (c : k) : Good (fun _ => c) := by
+        apply good_congr (good_ev (algebraMap k A c))
+        filter_upwards [] with P
+        cases P <;>
+          simp [ev, A, AdjoinRoot.evalEval, AdjoinRoot.algebraMap_eq', AdjoinRoot.lift_of]
+      have good_add {f g : G → k} (hf : Good f) (hg : Good g) :
+          Good (fun P => f P + g P) := by
+        obtain ⟨a, b, hb, hh⟩ := hf
+        obtain ⟨c, d, hd, hi⟩ := hg
+        refine ⟨a * d + c * b, b * d, mul_ne_zero hb hd, ?_⟩
+        filter_upwards [hh, hi, ev_nonzero b hb, ev_nonzero d hd] with P hP iP hbP hdP
+        rw [hP, iP, map_add, map_mul, map_mul, map_mul]
+        simpa only [mul_comm] using div_add_div (ev P a) (ev P c) hbP hdP
+      have good_neg {f : G → k} (hf : Good f) : Good (fun P => -f P) := by
+        obtain ⟨a, b, hb, hh⟩ := hf
+        refine ⟨-a, b, hb, ?_⟩
+        filter_upwards [hh] with P hP
+        simp only [hP, map_neg, neg_div]
+      have good_sub {f g : G → k} (hf : Good f) (hg : Good g) :
+          Good (fun P => f P - g P) := by
+        simpa only [sub_eq_add_neg] using good_add hf (good_neg hg)
+      have good_mul {f g : G → k} (hf : Good f) (hg : Good g) :
+          Good (fun P => f P * g P) := by
+        obtain ⟨a, b, hb, hh⟩ := hf
+        obtain ⟨c, d, hd, hi⟩ := hg
+        refine ⟨a * c, b * d, mul_ne_zero hb hd, ?_⟩
+        filter_upwards [hh, hi] with P hP iP
+        simp only [hP, iP, map_mul, div_mul_div_comm]
+      have good_inv {f : G → k} (hf : Good f) : Good (fun P => (f P)⁻¹) := by
+        obtain ⟨a, b, hb, hh⟩ := hf
+        by_cases ha : a = 0
+        · apply good_congr (good_const 0)
+          filter_upwards [hh] with P hP
+          simp [hP, ha]
+        · refine ⟨b, a, ha, ?_⟩
+          filter_upwards [hh] with P hP
+          simp only [hP, inv_div]
+      have good_div {f g : G → k} (hf : Good f) (hg : Good g) :
+          Good (fun P => f P / g P) := by
+        simpa only [div_eq_mul_inv] using good_mul hf (good_inv hg)
+      have good_pow {f : G → k} (hf : Good f) (m : ℕ) : Good (fun P => f P ^ m) := by
+        induction m with
+        | zero => simpa only [pow_zero] using good_const 1
+        | succ m ih => simpa only [pow_succ] using good_mul ih hf
+      have good_dichotomy {f : G → k} (hf : Good f) :
+          (∀ᶠ P in Filter.cofinite, f P = 0) ∨ (∀ᶠ P in Filter.cofinite, f P ≠ 0) := by
+        obtain ⟨a, b, hb, hh⟩ := hf
+        by_cases ha : a = 0
+        · left
+          filter_upwards [hh] with P hP
+          simp [hP, ha]
+        · right
+          filter_upwards [hh, ev_nonzero a ha, ev_nonzero b hb] with P hP haP hbP
+          exact hP ▸ div_ne_zero haP hbP
+      have good_eq {f g : G → k} (hf : Good f) (hg : Good g) :
+          (∀ᶠ P in Filter.cofinite, f P = g P) ∨
+          (∀ᶠ P in Filter.cofinite, f P ≠ g P) := by
+        simpa only [sub_eq_zero, sub_ne_zero] using good_dichotomy (good_sub hf hg)
+      have good_ite {f g a b : G → k} (hf : Good f) (hg : Good g)
+          (ha : Good a) (hb : Good b) : Good (fun P => if f P = g P then a P else b P) := by
+        rcases good_eq hf hg with h | h
+        · apply good_congr ha
+          filter_upwards [h] with P hP
+          simp [hP]
+        · apply good_congr hb
+          filter_upwards [h] with P hP
+          simp [hP]
+      -- The point formulas are either zero or affine away from a finite set.
+      let GoodPoint : (G → G) → Prop := fun f =>
+        (∀ᶠ P in Filter.cofinite, f P = 0) ∨
+          ∃ x y : G → k, Good x ∧ Good y ∧
+            ∀ᶠ P in Filter.cofinite, ∃ h : W.toAffine.Nonsingular (x P) (y P),
+              f P = .some (x P) (y P) h
+      have goodPoint_congr {f g : G → G} (hf : GoodPoint f)
+          (hh : ∀ᶠ P in Filter.cofinite, f P = g P) : GoodPoint g := by
+        rcases hf with hf | ⟨x, y, hx, hy, h⟩
+        · left
+          filter_upwards [hh, hf] with P hP hi
+          exact hP.symm.trans hi
+        · right
+          refine ⟨x, y, hx, hy, ?_⟩
+          filter_upwards [hh, h] with P hP ⟨h, he⟩
+          exact ⟨h, hP.symm.trans he⟩
+      have goodPoint_id : GoodPoint (fun P => P) := by
+        let x : G → k := fun P => ev P (CoordinateRing.mk W.toAffine (Polynomial.C Polynomial.X))
+        let y : G → k := fun P => ev P (CoordinateRing.mk W.toAffine Polynomial.X)
+        refine Or.inr ⟨x, y, good_ev _, good_ev _, ?_⟩
+        filter_upwards [Filter.eventually_cofinite_ne (0 : G)] with P hP
+        cases P with
+        | zero => exact (hP rfl).elim
+        | some u v h =>
+          have hx : x (.some u v h) = u := by simp only [x, ev_mk u v h, Polynomial.evalEval_C, Polynomial.eval_X]
+          have hy : y (.some u v h) = v := by simp only [y, ev_mk u v h, Polynomial.evalEval_X]
+          simp only [hx, hy]
+          exact ⟨h, trivial⟩
+      have goodPoint_add {f g : G → G} (hf : GoodPoint f) (hg : GoodPoint g) :
+          GoodPoint (fun P => f P + g P) := by
+        rcases hf with hf | ⟨x₁, y₁, hx₁, hy₁, hf⟩
+        · apply goodPoint_congr hg
+          filter_upwards [hf] with P hP
+          simp [hP]
+        rcases hg with hg | ⟨x₂, y₂, hx₂, hy₂, hg⟩
+        · apply goodPoint_congr (Or.inr ⟨x₁, y₁, hx₁, hy₁, hf⟩)
+          filter_upwards [hg] with P hP
+          simp [hP]
+        have hneg (x y : G → k) (hx : Good x) (hy : Good y) :
+            Good (fun P => W.toAffine.negY (x P) (y P)) := by
+          exact good_sub (good_sub (good_neg hy) (good_mul (good_const W.a₁) hx))
+            (good_const W.a₃)
+        have hcase : (∀ᶠ P in Filter.cofinite,
+            x₁ P = x₂ P ∧ y₁ P = W.toAffine.negY (x₂ P) (y₂ P)) ∨
+            (∀ᶠ P in Filter.cofinite,
+            ¬(x₁ P = x₂ P ∧ y₁ P = W.toAffine.negY (x₂ P) (y₂ P))) := by
+          rcases good_eq hx₁ hx₂ with h | h
+          · rcases good_eq hy₁ (hneg x₂ y₂ hx₂ hy₂) with h' | h'
+            · exact Or.inl (h.and h')
+            · right
+              filter_upwards [h'] with P hP
+              exact fun hh => hP hh.2
+          · right
+            filter_upwards [h] with P hP
+            exact fun hh => hP hh.1
+        rcases hcase with hc | hc
+        · left
+          filter_upwards [hf, hg, hc] with P ⟨h₁, he₁⟩ ⟨h₂, he₂⟩ hP
+          rw [he₁, he₂,  add_of_Y_eq hP.1 hP.2]
+        · let s : G → k := fun P => W.toAffine.slope (x₁ P) (x₂ P) (y₁ P) (y₂ P)
+          have hs : Good s := by
+            apply good_ite hx₁ hx₂
+            · apply good_ite hy₁ (hneg x₂ y₂ hx₂ hy₂) (good_const 0)
+              exact good_div
+                (good_sub (good_add
+                  (good_add (good_mul (good_const 3) (good_pow hx₁ 2))
+                    (good_mul (good_const (2 * W.a₂)) hx₁)) (good_const W.a₄))
+                  (good_mul (good_const W.a₁) hy₁))
+                (good_sub hy₁ (hneg x₁ y₁ hx₁ hy₁))
+            · exact good_div (good_sub hy₁ hy₂) (good_sub hx₁ hx₂)
+          let x : G → k := fun P => W.toAffine.addX (x₁ P) (x₂ P) (s P)
+          let y : G → k := fun P => W.toAffine.addY (x₁ P) (x₂ P) (y₁ P) (s P)
+          have hx : Good x :=
+            good_sub (good_sub (good_sub (good_add (good_pow hs 2)
+              (good_mul (good_const W.a₁) hs)) (good_const W.a₂)) hx₁) hx₂
+          have hy : Good y :=
+            hneg x (fun P => s P * (x P - x₁ P) + y₁ P) hx
+              (good_add (good_mul hs (good_sub hx hx₁)) hy₁)
+          refine Or.inr ⟨x, y, hx, hy, ?_⟩
+          filter_upwards [hf, hg, hc] with P ⟨h₁, he₁⟩ ⟨h₂, he₂⟩ hP
+          exact ⟨nonsingular_add h₁ h₂ hP, by rw [he₁, he₂, add_some hP]⟩
+      have goodPoint_nsmul (m : ℕ) : GoodPoint (fun P => m • P) := by
+        induction m with
+        | zero => exact Or.inl (Filter.Eventually.of_forall (fun P => zero_nsmul P))
+        | succ m ih =>
+          simpa only [succ_nsmul] using goodPoint_add ih goodPoint_id
+      have good_x : Good (fun P : G => P.xRep 0) := by
+        apply good_congr
+          (good_ev (CoordinateRing.mk W.toAffine (Polynomial.C Polynomial.X)))
+        filter_upwards [Filter.eventually_cofinite_ne (0 : G)] with P hP
+        cases P with
+        | zero => exact (hP rfl).elim
+        | some x y h =>
+          simp only [ev_mk x y h, Polynomial.evalEval_C, Polynomial.eval_X, xRep_some,
+            Matrix.cons_val_zero]
+      have good_mx : Good (fun P : G => (m • P).xRep 0) := by
+        rcases goodPoint_nsmul m with hz | ⟨x, y, hx, _hy, hh⟩
+        · obtain ⟨P, he, hne⟩ := (hz.and (away_kernel m hm₀)).exists
+          exact (hne he).elim
+        · apply good_congr hx
+          filter_upwards [hh] with P ⟨h, he⟩
+          rw [he]
+          rfl
+      have hnonzero : ∀ᶠ P : G in Filter.cofinite,
+          (m • P).xRep 0 - P.xRep 0 ≠ 0 := by
+        filter_upwards [Filter.eventually_cofinite_ne (0 : G), away_kernel m hm₀,
+          away_kernel (m + 1) hnext, away_kernel (m - 1) hprev] with P hP hmP hp hn
+        intro he
+        have he0 := sub_eq_zero.mp he
+        have heq : (m • P).xRep = P.xRep := by
+          rcases P with _ | ⟨x, y, h⟩
+          · exact (hP rfl).elim
+          cases hmul : m • some x y h with
+          | zero => exact (hmP hmul).elim
+          | some u v hu =>
+            rw [hmul] at he0
+            simp only [xRep_some, Matrix.cons_val_zero] at he0 ⊢
+            rw [he0]
+        exact ((hX P).mp heq).elim hp hn
+      obtain ⟨a, b, hb, hh⟩ := good_sub good_mx good_x
+      have ha : a ≠ 0 := by
+        intro ha
+        obtain ⟨P, he, hne⟩ := (hh.and hnonzero).exists
+        exact hne (by simpa only [ha, _root_.map_zero, zero_div] using he)
+      refine ⟨a, b, ha, hb, ?_⟩
+      filter_upwards [hh] with P hP
+      intro x y h he
+      subst P
+      exact hP
+    let H : W.toAffine.FunctionField :=
+      algebraMap A W.toAffine.FunctionField a / algebraMap A W.toAffine.FunctionField b
+    -- Accepted proof step 4: completed-square coordinates and the exact local
+    -- factorization. At a two-torsion point, smoothness makes U nonzero.
+    let Z (x y : k) : k := y + (W.a₁ * x + W.a₃) / 2
+    let G (x : k) : k := 4 * x ^ 3 + W.b₂ * x ^ 2 + 2 * W.b₄ * x + W.b₆
+    let U (α x : k) : k :=
+      (4 * (x ^ 2 + x * α + α ^ 2) + W.b₂ * (x + α) + 2 * W.b₄) / 4
+    have hZ (x y : k) (h : W.toAffine.Equation x y) :
+        4 * Z x y ^ 2 = G x := by
+      have he := (equation_iff x y).mp h
+      dsimp only [Z, G, b₂, b₄, b₆]
+      linear_combination 4 * he
+    have hU (α β x y : k) (hα : W.toAffine.Equation α β)
+        (hx : W.toAffine.Equation x y) :
+        (Z x y - Z α β) * (Z x y + Z α β) = (x - α) * U α x := by
+      have h₁ := hZ α β hα
+      have h₂ := hZ x y hx
+      dsimp only [G, U] at *
+      linear_combination (h₂ - h₁) / 4
+    -- Accepted proof step 2: the equation in the identity chart t = -x/y, s = -1/y.
+    -- Local specialization of Affine/Point.lean:305 (XYIdeal_neg_mul),
+    -- pinned mathlib db584cd6d46c92f209a44c0f1c829460d327499d,
+    -- David Kurniadi Angdinata, Apache 2.0. Localize at the point.
+    -- This is the ideal-theoretic simple/double vanishing of x - x(P).
+    have hlocalX (α β : k) (h : W.toAffine.Nonsingular α β) :
+        let p : Ideal A := RingHom.ker (AdjoinRoot.evalEval h.1)
+        let : p.IsPrime := RingHom.ker_isPrime _
+        let B := Localization.AtPrime p
+        IsLocalRing.maximalIdeal B ≠ ⊥ ∧
+        Ideal.span {algebraMap A B (CoordinateRing.XClass W.toAffine α)} =
+          if β = W.toAffine.negY α β then (IsLocalRing.maximalIdeal B) ^ 2
+          else IsLocalRing.maximalIdeal B := by
+      let ev : A →+* k := AdjoinRoot.evalEval h.1
+      let p : Ideal A := RingHom.ker ev
+      let : p.IsPrime := RingHom.ker_isPrime ev
+      let B := Localization.AtPrime p
+      let f : A →+* B := algebraMap A B
+      have evmk (q : Polynomial (Polynomial k)) :
+          ev (CoordinateRing.mk W.toAffine q) = q.evalEval α β :=
+        AdjoinRoot.evalEval_mk h.1 q
+      have hker : CoordinateRing.XYIdeal W.toAffine α (Polynomial.C β) = p := by
+        apply le_antisymm
+        · rw [CoordinateRing.XYIdeal, Ideal.span_le]
+          intro z hz
+          rcases hz with rfl | hz
+          · change ev (CoordinateRing.XClass W.toAffine α) = 0
+            rw [CoordinateRing.XClass, evmk]
+            simp only [Polynomial.evalEval_C, Polynomial.eval_sub,
+              Polynomial.eval_X, Polynomial.eval_C, sub_self]
+          · have he : z = CoordinateRing.YClass W.toAffine (Polynomial.C β) := hz
+            rw [he]
+            change ev (CoordinateRing.YClass W.toAffine (Polynomial.C β)) = 0
+            rw [CoordinateRing.YClass, evmk]
+            simp only [Polynomial.evalEval_sub, Polynomial.evalEval_X,
+              Polynomial.evalEval_C, Polynomial.eval_C, sub_self]
+        · intro z hz
+          obtain ⟨q, rfl⟩ := AdjoinRoot.mk_surjective z
+          change AdjoinRoot.evalEval h.1 (CoordinateRing.mk W.toAffine q) = 0 at hz
+          rw [AdjoinRoot.evalEval_mk] at hz
+          have hq : q ∈ Ideal.span
+              {Polynomial.C (Polynomial.X - Polynomial.C α),
+                Polynomial.X - Polynomial.C (Polynomial.C β)} := by
+            apply Polynomial.mem_span_C_X_sub_C_X_sub_C_iff_eval_eval_eq_zero.mpr
+            simpa only [Polynomial.evalEval, Polynomial.eval_C] using hz
+          have hi := Ideal.mem_map_of_mem (CoordinateRing.mk W.toAffine) hq
+          simpa only [Ideal.map_span, Set.image_pair, CoordinateRing.XYIdeal,
+            CoordinateRing.XClass, CoordinateRing.YClass] using hi
+      have hpmap : Ideal.map f p = IsLocalRing.maximalIdeal B :=
+        IsLocalization.AtPrime.map_eq_maximalIdeal p B
+      have hprod := congrArg (Ideal.map f) (CoordinateRing.XYIdeal_neg_mul h)
+      rw [Ideal.map_mul, hker, hpmap] at hprod
+      have hxmap : Ideal.map f (CoordinateRing.XIdeal W.toAffine α) =
+          Ideal.span {f (CoordinateRing.XClass W.toAffine α)} := by
+        rw [CoordinateRing.XIdeal, Ideal.map_span, Set.image_singleton]
+      rw [hxmap] at hprod
+      have hxne : f (CoordinateRing.XClass W.toAffine α) ≠ 0 := by
+        apply (map_ne_zero_iff f
+          (IsLocalization.injective B p.primeCompl_le_nonZeroDivisors)).mpr
+        exact CoordinateRing.XClass_ne_zero α
+      have hxmem : f (CoordinateRing.XClass W.toAffine α) ∈
+          IsLocalRing.maximalIdeal B := by
+        apply (IsLocalization.AtPrime.to_map_mem_maximal_iff B p _).mpr
+        change ev (CoordinateRing.XClass W.toAffine α) = 0
+        rw [CoordinateRing.XClass, evmk]
+        simp only [Polynomial.evalEval_C, Polynomial.eval_sub,
+          Polynomial.eval_X, Polynomial.eval_C, sub_self]
+      have hmaxne : IsLocalRing.maximalIdeal B ≠ ⊥ := by
+        intro he
+        rw [he] at hxmem
+        exact hxne hxmem
+      refine ⟨hmaxne, ?_⟩
+      change Ideal.span {f (CoordinateRing.XClass W.toAffine α)} = _
+      by_cases ht : β = W.toAffine.negY α β
+      · rw [if_pos ht]
+        rw [← ht, hker, hpmap] at hprod
+        simpa only [pow_two] using hprod.symm
+      · rw [if_neg ht]
+        have hunit : IsUnit
+            (f (CoordinateRing.YClass W.toAffine (Polynomial.C (W.toAffine.negY α β)))) := by
+          apply (IsLocalization.AtPrime.isUnit_to_map_iff B p _).mpr
+          change ev (CoordinateRing.YClass W.toAffine
+            (Polynomial.C (W.toAffine.negY α β))) ≠ 0
+          rw [CoordinateRing.YClass, evmk]
+          simpa only [Polynomial.evalEval_sub, Polynomial.evalEval_X,
+            Polynomial.evalEval_C, Polynomial.eval_C, sub_ne_zero] using ht
+        have htop : Ideal.map f (CoordinateRing.XYIdeal W.toAffine α
+            (Polynomial.C (W.toAffine.negY α β))) = ⊤ := by
+          apply Ideal.eq_top_of_isUnit_mem _ _ hunit
+          apply Ideal.mem_map_of_mem
+          exact Ideal.subset_span (by simp)
+        rw [htop, Ideal.top_mul] at hprod
+        exact hprod.symm
+    -- At a two-torsion point the second affine coordinate is a uniformizer.
+    -- The polynomial identity is the XYIdeal_neg_mul calculation in pinned
+    -- mathlib Affine/Point.lean:305, specialized before localization.
+    have hlocalY (α β : k) (h : W.toAffine.Nonsingular α β)
+        (ht : β = W.toAffine.negY α β) :
+        let p : Ideal A := RingHom.ker (AdjoinRoot.evalEval h.1)
+        let : p.IsPrime := RingHom.ker_isPrime _
+        let B := Localization.AtPrime p
+        let x : B := algebraMap A B (CoordinateRing.XClass W.toAffine α)
+        let y : B := algebraMap A B (CoordinateRing.YClass W.toAffine (Polynomial.C β))
+        Ideal.span {y} = IsLocalRing.maximalIdeal B ∧
+          Irreducible y ∧ ∃ u : Bˣ, x = (u : B) * y ^ 2 := by
+      let ev : A →+* k := AdjoinRoot.evalEval h.1
+      let p : Ideal A := RingHom.ker ev
+      let : p.IsPrime := RingHom.ker_isPrime ev
+      let B := Localization.AtPrime p
+      let f : A →+* B := algebraMap A B
+      let x := f (CoordinateRing.XClass W.toAffine α)
+      let y := f (CoordinateRing.YClass W.toAffine (Polynomial.C β))
+      let V : Polynomial (Polynomial k) :=
+        Polynomial.C (Polynomial.X ^ 2 + Polynomial.C (α + W.a₂) * Polynomial.X +
+          Polynomial.C (α ^ 2 + W.a₂ * α + W.a₄)) -
+            Polynomial.C (Polynomial.C W.a₁) * Polynomial.X
+      have evmk (q : Polynomial (Polynomial k)) :
+          ev (CoordinateRing.mk W.toAffine q) = q.evalEval α β :=
+        AdjoinRoot.evalEval_mk h.1 q
+      have hker : CoordinateRing.XYIdeal W.toAffine α (Polynomial.C β) = p := by
+        apply le_antisymm
+        · rw [CoordinateRing.XYIdeal, Ideal.span_le]
+          intro z hz
+          rcases hz with rfl | hz
+          · change ev (CoordinateRing.XClass W.toAffine α) = 0
+            rw [CoordinateRing.XClass, evmk]
+            simp only [Polynomial.evalEval_C, Polynomial.eval_sub,
+              Polynomial.eval_X, Polynomial.eval_C, sub_self]
+          · have he : z = CoordinateRing.YClass W.toAffine (Polynomial.C β) := hz
+            rw [he]
+            change ev (CoordinateRing.YClass W.toAffine (Polynomial.C β)) = 0
+            rw [CoordinateRing.YClass, evmk]
+            simp only [Polynomial.evalEval_sub, Polynomial.evalEval_X,
+              Polynomial.evalEval_C, Polynomial.eval_C, sub_self]
+        · intro z hz
+          obtain ⟨q, rfl⟩ := AdjoinRoot.mk_surjective z
+          change AdjoinRoot.evalEval h.1 (CoordinateRing.mk W.toAffine q) = 0 at hz
+          rw [AdjoinRoot.evalEval_mk] at hz
+          have hq : q ∈ Ideal.span
+              {Polynomial.C (Polynomial.X - Polynomial.C α),
+                Polynomial.X - Polynomial.C (Polynomial.C β)} := by
+            apply Polynomial.mem_span_C_X_sub_C_X_sub_C_iff_eval_eval_eq_zero.mpr
+            simpa only [Polynomial.evalEval, Polynomial.eval_C] using hz
+          have hi := Ideal.mem_map_of_mem (CoordinateRing.mk W.toAffine) hq
+          simpa only [Ideal.map_span, Set.image_pair, CoordinateRing.XYIdeal,
+            CoordinateRing.XClass, CoordinateRing.YClass] using hi
+      have hrel : CoordinateRing.YClass W.toAffine (Polynomial.C β) ^ 2 =
+          CoordinateRing.XClass W.toAffine α * CoordinateRing.mk W.toAffine V := by
+        rw [CoordinateRing.YClass, CoordinateRing.XClass, ← map_pow, ← map_mul]
+        apply AdjoinRoot.mk_eq_mk.mpr
+        refine ⟨1, ?_⟩
+        have he := congrArg Polynomial.C (congrArg Polynomial.C ((equation_iff ..).mp h.1))
+        have hy : 2 * β + W.a₁ * α + W.a₃ = 0 := by
+          dsimp only [negY] at ht
+          linear_combination ht
+        have hy' := congrArg Polynomial.C (congrArg Polynomial.C hy)
+        dsimp only [V]
+        rw [WeierstrassCurve.Affine.polynomial]
+        linear_combination (norm := (simp only [Polynomial.C_add, Polynomial.C_sub, Polynomial.C_mul, Polynomial.C_pow, map_ofNat, Polynomial.C_0]; ring1))
+          -he - Polynomial.X * hy' + Polynomial.C (Polynomial.C β) * hy'
+      have hv : IsUnit (f (CoordinateRing.mk W.toAffine V)) := by
+        apply (IsLocalization.AtPrime.isUnit_to_map_iff B p _).mpr
+        change ev (CoordinateRing.mk W.toAffine V) ≠ 0
+        rw [evmk]
+        have hy : 2 * β + W.a₁ * α + W.a₃ = 0 := by
+          dsimp only [negY] at ht
+          linear_combination ht
+        have hx := ((nonsingular_iff' α β).mp h).2.resolve_right (not_not.mpr hy)
+        simp only [V, Polynomial.evalEval_sub, Polynomial.evalEval_mul,
+          Polynomial.evalEval_C, Polynomial.evalEval_X, Polynomial.eval_add,
+          Polynomial.eval_pow, Polynomial.eval_mul, Polynomial.eval_X, Polynomial.eval_C]
+        intro he
+        apply hx
+        linear_combination -he
+      have hmul : y ^ 2 = x * f (CoordinateRing.mk W.toAffine V) := by
+        simpa only [map_pow, map_mul] using congrArg f hrel
+      have hunit : ∃ u : Bˣ, x = (u : B) * y ^ 2 := by
+        refine ⟨hv.unit⁻¹, ?_⟩
+        have hu : f (CoordinateRing.mk W.toAffine V) * ↑(hv.unit⁻¹) = 1 := by
+          calc
+            f (CoordinateRing.mk W.toAffine V) * ↑(hv.unit⁻¹) =
+                (hv.unit : B) * ↑(hv.unit⁻¹) :=
+              congrArg (fun z : B => z * ↑(hv.unit⁻¹)) hv.unit_spec.symm
+            _ = 1 := by simp
+        calc
+          x = x * (f (CoordinateRing.mk W.toAffine V) * ↑(hv.unit⁻¹)) := by
+            rw [hu, mul_one]
+          _ = ↑(hv.unit⁻¹) * y ^ 2 := by rw [hmul]; ring
+      have hmax : Ideal.span {y} = IsLocalRing.maximalIdeal B := by
+        have hspan : Ideal.span {x, y} = IsLocalRing.maximalIdeal B := by
+          calc
+            Ideal.span {x, y} = Ideal.map f
+                (CoordinateRing.XYIdeal W.toAffine α (Polynomial.C β)) := by
+              rw [CoordinateRing.XYIdeal, Ideal.map_span, Set.image_pair]
+            _ = Ideal.map f p := by rw [hker]
+            _ = IsLocalRing.maximalIdeal B := IsLocalization.AtPrime.map_eq_maximalIdeal p B
+        rw [← hspan]
+        apply le_antisymm
+        · exact Ideal.span_mono (by intro z hz; simp only [Set.mem_singleton_iff] at hz; simp [hz])
+        · rw [Ideal.span_le]
+          intro z hz
+          rcases hz with rfl | hz
+          · obtain ⟨u, hu⟩ := hunit
+            apply Ideal.mem_span_singleton.mpr
+            exact ⟨↑u * y, by rw [hu]; ring⟩
+          · have he : z = y := hz
+            rw [he]
+            exact Ideal.subset_span (Set.mem_singleton y)
+      have hyne : y ≠ 0 := by
+        intro hy
+        have hmaxne := (hlocalX α β h).1
+        apply hmaxne
+        rw [← hmax, hy, Ideal.span_singleton_zero]
+      refine ⟨hmax, ?_, hunit⟩
+      apply Ideal.irreducible_of_isMaximal_span_singleton hyne
+      rw [hmax]
+      infer_instance
+    -- Thus the affine coordinate has exactly the simple or double order in
+    -- accepted proof step 4, measured in a generator of the local maximal ideal.
+    have hlocalOrder (α β : k) (h : W.toAffine.Nonsingular α β) :
+        let p : Ideal A := RingHom.ker (AdjoinRoot.evalEval h.1)
+        let : p.IsPrime := RingHom.ker_isPrime _
+        let B := Localization.AtPrime p
+        let x : B := algebraMap A B (CoordinateRing.XClass W.toAffine α)
+        ∃ t : B, Ideal.span {t} = IsLocalRing.maximalIdeal B ∧ Irreducible t ∧
+          emultiplicity t x = if β = W.toAffine.negY α β then (2 : ENat) else 1 := by
+      let ev : A →+* k := AdjoinRoot.evalEval h.1
+      let p : Ideal A := RingHom.ker ev
+      let : p.IsPrime := RingHom.ker_isPrime ev
+      let B := Localization.AtPrime p
+      let f : A →+* B := algebraMap A B
+      let x := f (CoordinateRing.XClass W.toAffine α)
+      by_cases ht : β = W.toAffine.negY α β
+      · obtain ⟨hspan, hirr, u, hu⟩ := hlocalY α β h ht
+        let y := f (CoordinateRing.YClass W.toAffine (Polynomial.C β))
+        change x = (u : B) * y ^ 2 at hu
+        refine ⟨y, hspan, hirr, ?_⟩
+        rw [if_pos ht]
+        have hassoc : Associated (y ^ 2) x := ⟨u, by rw [hu]; ring⟩
+        rw [← emultiplicity_eq_of_associated_right hassoc]
+        exact emultiplicity_pow_self hirr.ne_zero hirr.not_isUnit 2
+      · have hspan : Ideal.span {x} = IsLocalRing.maximalIdeal B := by
+          simpa only [if_neg ht] using (hlocalX α β h).2
+        have hxne : x ≠ 0 := by
+          apply (map_ne_zero_iff f
+            (IsLocalization.injective B p.primeCompl_le_nonZeroDivisors)).mpr
+          exact CoordinateRing.XClass_ne_zero α
+        have hirr : Irreducible x := by
+          apply Ideal.irreducible_of_isMaximal_span_singleton hxne
+          rw [hspan]
+          infer_instance
+        refine ⟨x, hspan, hirr, ?_⟩
+        rw [if_neg ht]
+        simpa only [pow_one, Nat.cast_one] using
+          emultiplicity_pow_self hxne hirr.not_isUnit 1
+    -- Identity chart of accepted proof step 2, with t = -x/y and s = -1/y.
+    -- Its equation is s * (1 - a₁*t - a₂*t² - a₃*s - a₄*t*s - a₆*s²) = t³.
+    -- The parenthesized factor is a unit in the local ring at (0,0).
+    let originPolynomial : Polynomial (Polynomial k) :=
+      Polynomial.X - Polynomial.C (Polynomial.X ^ 3) -
+        Polynomial.C (Polynomial.C W.a₁ * Polynomial.X) * Polynomial.X -
+        Polynomial.C (Polynomial.C W.a₂ * Polynomial.X ^ 2) * Polynomial.X -
+        Polynomial.C (Polynomial.C W.a₃) * Polynomial.X ^ 2 -
+        Polynomial.C (Polynomial.C W.a₄ * Polynomial.X) * Polynomial.X ^ 2 -
+        Polynomial.C (Polynomial.C W.a₆) * Polynomial.X ^ 3
+    have horigin : originPolynomial.evalEval 0 0 = 0 := by
+      simp [originPolynomial, Polynomial.evalEval]
+    let originRing := AdjoinRoot originPolynomial
+    let originEval : originRing →+* k := AdjoinRoot.evalEval horigin
+    let originIdeal : Ideal originRing := RingHom.ker originEval
+    let : originIdeal.IsPrime := RingHom.ker_isPrime originEval
+    let originLocalRing := Localization.AtPrime originIdeal
+    let originMap : originRing →+* originLocalRing := algebraMap _ _
+    let t₀ : originRing := AdjoinRoot.mk originPolynomial (Polynomial.C Polynomial.X)
+    let s₀ : originRing := AdjoinRoot.mk originPolynomial Polynomial.X
+    let t : originLocalRing := originMap t₀
+    let s : originLocalRing := originMap s₀
+    have horigin_parameter :
+        Ideal.span {t} = IsLocalRing.maximalIdeal originLocalRing ∧
+          ∃ u : originLocalRingˣ, s = (u : originLocalRing) * t ^ 3 := by
+      have heval (q : Polynomial (Polynomial k)) :
+          originEval (AdjoinRoot.mk originPolynomial q) = q.evalEval 0 0 :=
+        AdjoinRoot.evalEval_mk horigin q
+      have hker : Ideal.span {t₀, s₀} = originIdeal := by
+        apply le_antisymm
+        · rw [Ideal.span_le]
+          intro z hz
+          rcases hz with rfl | hz
+          · change originEval t₀ = 0
+            rw [heval]
+            simp [Polynomial.evalEval_C]
+          · have he : z = s₀ := hz
+            rw [he]
+            change originEval s₀ = 0
+            rw [heval]
+            simp
+        · intro z hz
+          obtain ⟨q, rfl⟩ := AdjoinRoot.mk_surjective z
+          change originEval (AdjoinRoot.mk originPolynomial q) = 0 at hz
+          rw [heval] at hz
+          have hq : q ∈ Ideal.span
+              {Polynomial.C (Polynomial.X - Polynomial.C (0 : k)),
+                Polynomial.X - Polynomial.C (Polynomial.C (0 : k))} := by
+            apply Polynomial.mem_span_C_X_sub_C_X_sub_C_iff_eval_eval_eq_zero.mpr
+            simpa only [Polynomial.evalEval, Polynomial.eval_C] using hz
+          have hi := Ideal.mem_map_of_mem (AdjoinRoot.mk originPolynomial) hq
+          simpa only [Polynomial.C_0, sub_zero, Ideal.map_span,
+            Set.image_pair, t₀, s₀] using hi
+      let v : originRing := AdjoinRoot.mk originPolynomial
+        (1 - Polynomial.C (Polynomial.C W.a₁ * Polynomial.X) -
+          Polynomial.C (Polynomial.C W.a₂ * Polynomial.X ^ 2) -
+          Polynomial.C (Polynomial.C W.a₃) * Polynomial.X -
+          Polynomial.C (Polynomial.C W.a₄ * Polynomial.X) * Polynomial.X -
+          Polynomial.C (Polynomial.C W.a₆) * Polynomial.X ^ 2)
+      have hv : IsUnit (originMap v) := by
+        apply (IsLocalization.AtPrime.isUnit_to_map_iff originLocalRing originIdeal _).mpr
+        change originEval v ≠ 0
+        rw [heval]
+        simp [Polynomial.evalEval_C]
+      have hrel : s₀ * v = t₀ ^ 3 := by
+        dsimp only [s₀, v, t₀]
+        rw [← map_mul, ← map_pow]
+        apply AdjoinRoot.mk_eq_mk.mpr
+        refine ⟨1, ?_⟩
+        dsimp only [originPolynomial]
+        simp only [Polynomial.C_pow]
+        ring
+      have hrel' : s * originMap v = t ^ 3 := by
+        simpa only [map_mul, map_pow] using congrArg originMap hrel
+      have hunit : s = (↑(hv.unit⁻¹) : originLocalRing) * t ^ 3 := by
+        have hu : originMap v * ↑(hv.unit⁻¹) = 1 := by
+          calc
+            originMap v * ↑(hv.unit⁻¹) = (hv.unit : originLocalRing) * ↑(hv.unit⁻¹) :=
+              congrArg (fun z : originLocalRing => z * ↑(hv.unit⁻¹)) hv.unit_spec.symm
+            _ = 1 := by simp
+        calc
+          s = s * (originMap v * ↑(hv.unit⁻¹)) := by rw [hu, mul_one]
+          _ = ↑(hv.unit⁻¹) * t ^ 3 := by rw [← mul_assoc, hrel']; ring
+      have hspan : Ideal.span {t, s} = IsLocalRing.maximalIdeal originLocalRing := by
+        calc
+          Ideal.span {t, s} = Ideal.map originMap (Ideal.span {t₀, s₀}) := by
+            rw [Ideal.map_span, Set.image_pair]
+          _ = Ideal.map originMap originIdeal := by rw [hker]
+          _ = IsLocalRing.maximalIdeal originLocalRing :=
+            IsLocalization.AtPrime.map_eq_maximalIdeal originIdeal originLocalRing
+      refine ⟨?_, hv.unit⁻¹, hunit⟩
+      rw [← hspan]
+      apply le_antisymm
+      · exact Ideal.span_mono (by intro z hz; simp only [Set.mem_singleton_iff] at hz; simp [hz])
+      · rw [Ideal.span_le]
+        intro z hz
+        rcases hz with rfl | hz
+        · exact Ideal.subset_span (Set.mem_singleton t)
+        · have he : z = s := hz
+          rw [he]
+          apply Ideal.mem_span_singleton.mpr
+          exact ⟨↑(hv.unit⁻¹) * t ^ 2, by rw [hunit]; ring⟩
+    have horigin_order : IsRegular t ∧ ¬IsUnit t ∧ emultiplicity t s = 3 := by
+      have hxprime : Prime (Polynomial.C (Polynomial.X : Polynomial k)) :=
+        Polynomial.prime_C_iff.mpr Polynomial.prime_X
+      have hxnot : ¬Polynomial.C (Polynomial.X : Polynomial k) ∣ originPolynomial := by
+        intro hx
+        have hc := (Polynomial.C_dvd_iff_dvd_coeff _ _).mp hx 1
+        have hz := Polynomial.X_dvd_iff.mp hc
+        simp only [originPolynomial, Polynomial.coeff_sub, Polynomial.coeff_C_mul,
+          Polynomial.coeff_C, Polynomial.coeff_X_pow, Polynomial.coeff_X] at hz
+        norm_num at hz
+      have ht₀ : t₀ ∈ nonZeroDivisors originRing := by
+        rw [mem_nonZeroDivisors_iff_left]
+        intro z hz
+        obtain ⟨q, rfl⟩ := AdjoinRoot.mk_surjective z
+        change AdjoinRoot.mk originPolynomial (Polynomial.C Polynomial.X) *
+          AdjoinRoot.mk originPolynomial q = 0 at hz
+        rw [← map_mul, AdjoinRoot.mk_eq_zero] at hz
+        obtain ⟨r, hr⟩ := hz
+        have hrdiv : Polynomial.C (Polynomial.X : Polynomial k) ∣ r := by
+          apply (hxprime.dvd_mul.mp ?_).resolve_left hxnot
+          exact ⟨q, hr.symm⟩
+        obtain ⟨v, rfl⟩ := hrdiv
+        apply AdjoinRoot.mk_eq_zero.mpr
+        refine ⟨v, ?_⟩
+        apply mul_left_cancel₀ hxprime.ne_zero
+        calc
+          Polynomial.C Polynomial.X * q = originPolynomial *
+              (Polynomial.C Polynomial.X * v) := hr
+          _ = Polynomial.C Polynomial.X * (originPolynomial * v) := by ring
+      have ht : IsRegular t := by
+        apply isRegular_iff_mem_nonZeroDivisors.mpr
+        exact IsLocalization.nonZeroDivisors_le_comap originIdeal.primeCompl originLocalRing ht₀
+      have hnonunit : ¬IsUnit t := by
+        apply (IsLocalRing.mem_maximalIdeal t).mp
+        rw [← horigin_parameter.1]
+        exact Ideal.subset_span (Set.mem_singleton t)
+      refine ⟨ht, hnonunit, ?_⟩
+      obtain ⟨u, hu⟩ := horigin_parameter.2
+      have hassoc : Associated (t ^ 3) s := ⟨u, by rw [hu]; ring⟩
+      rw [← emultiplicity_eq_of_associated_right hassoc]
+      apply emultiplicity_eq_of_dvd_of_not_dvd (dvd_refl (t ^ 3))
+      rintro ⟨v, hv⟩
+      have hone : 1 = t * v := (ht.pow 3).left (by
+        simpa only [mul_one, pow_succ, mul_assoc] using hv)
+      apply hnonunit
+      exact isUnit_iff_dvd_one.mpr ⟨v, hone⟩
+    have horigin_leading : ∃ r : originLocalRing, s = t ^ 3 + t ^ 4 * r := by
+      let c : k →+* originLocalRing := originMap.comp
+        ((AdjoinRoot.mk originPolynomial).comp (Polynomial.C.comp Polynomial.C))
+      have hrel : s - t ^ 3 - c W.a₁ * t * s - c W.a₂ * t ^ 2 * s -
+          c W.a₃ * s ^ 2 - c W.a₄ * t * s ^ 2 - c W.a₆ * s ^ 3 = 0 := by
+        have he : originMap (AdjoinRoot.mk originPolynomial originPolynomial) = 0 := by simp
+        dsimp only [originPolynomial] at he
+        simp only [map_sub, map_mul, map_pow] at he
+        exact he
+      obtain ⟨u, hu⟩ := horigin_parameter.2
+      refine ⟨c W.a₁ * ↑u + c W.a₂ * ↑u * t + c W.a₃ * (↑u : originLocalRing) ^ 2 * t ^ 2 +
+        c W.a₄ * (↑u : originLocalRing) ^ 2 * t ^ 3 +
+        c W.a₆ * (↑u : originLocalRing) ^ 3 * t ^ 5, ?_⟩
+      rw [hu] at hrel ⊢
+      linear_combination hrel
+    -- Noetherian induction upgrades the regular parameter to factorization of
+    -- every nonzero element of the identity local ring into a unit times t^n.
+    have horigin_noetherian : IsNoetherianRing originLocalRing := inferInstance
+    have horigin_factor (z : originLocalRing) (hz : z ≠ 0) :
+        ∃ (n : ℕ) (u : originLocalRingˣ), z = t ^ n * ↑u := by
+      suffices h : ∀ I : Ideal originLocalRing, ∀ z : originLocalRing,
+          Ideal.span {z} = I → z ≠ 0 →
+          ∃ (n : ℕ) (u : originLocalRingˣ), z = t ^ n * ↑u from h _ z rfl hz
+      intro I
+      induction I using (wellFounded_gt (α := Ideal originLocalRing)).induction with
+      | h I ih =>
+        intro z hzI hz
+        by_cases hu : IsUnit z
+        · exact ⟨0, hu.unit, by simp only [pow_zero, one_mul, hu.unit_spec]⟩
+        have hdiv : t ∣ z := by
+          apply Ideal.mem_span_singleton.mp
+          rw [horigin_parameter.1]
+          exact (IsLocalRing.mem_maximalIdeal z).mpr hu
+        obtain ⟨v, hv⟩ := hdiv
+        have hvne : v ≠ 0 := by
+          rintro rfl
+          exact hz (by simpa only [mul_zero] using hv)
+        have hlt : I < Ideal.span {v} := by
+          rw [← hzI]
+          apply lt_of_le_of_ne
+          · apply Ideal.span_singleton_le_span_singleton.mpr
+            exact ⟨t, by rw [hv]; ring⟩
+          · intro he
+            have hvz : z ∣ v := Ideal.mem_span_singleton.mp
+              (he ▸ Ideal.subset_span (Set.mem_singleton v))
+            obtain ⟨c, hc⟩ := hvz
+            have htc : ¬ IsUnit (t * c) := fun hunit => horigin_order.2.1 (isUnit_of_mul_isUnit_left hunit)
+            have hunit : IsUnit (1 - t * c) :=
+              IsLocalRing.isUnit_one_sub_self_of_mem_nonunits _ htc
+            apply hvne
+            apply hunit.isRegular.left
+            change (1 - t * c) * v = (1 - t * c) * 0
+            linear_combination hc + c * hv
+        obtain ⟨n, u, hu⟩ := ih _ hlt v rfl hvne
+        refine ⟨n + 1, u, ?_⟩
+        rw [hv, hu, pow_succ]
+        ring
+    have horigin_regular (z : originLocalRing) (hz : z ≠ 0) : IsRegular z := by
+      obtain ⟨n, u, rfl⟩ := horigin_factor z hz
+      exact (horigin_order.1.pow n).mul u.isUnit.isRegular
+    let : NoZeroDivisors originLocalRing := ⟨by
+      intro x y hxy
+      by_cases hx : x = 0
+      · exact Or.inl hx
+      · exact Or.inr ((horigin_regular x hx).left (by simpa only [mul_zero] using hxy))⟩
+    have horigin_domain : IsDomain originLocalRing := NoZeroDivisors.to_isDomain originLocalRing
+    have horigin_valuationRing : ValuationRing originLocalRing := by
+      apply ValuationRing.iff_dvd_total.mpr
+      constructor
+      intro x y
+      by_cases hx : x = 0
+      · exact Or.inr (hx ▸ dvd_zero y)
+      by_cases hy : y = 0
+      · exact Or.inl (hy ▸ dvd_zero x)
+      obtain ⟨n, u, rfl⟩ := horigin_factor x hx
+      obtain ⟨l, v, rfl⟩ := horigin_factor y hy
+      simp only [Units.mul_right_dvd, Units.dvd_mul_right]
+      exact (le_total n l).imp (pow_dvd_pow t) (pow_dvd_pow t)
+    let originField := FractionRing originLocalRing
+    let originInclusion : originLocalRing →+* originField := algebraMap _ _
+    let originValuation := ValuationRing.valuation originLocalRing originField
+    have horigin_integers : originValuation.Integers originLocalRing := by
+      refine ⟨IsFractionRing.injective _ _, ?_, ?_⟩
+      · intro x
+        exact (ValuationRing.mem_integer_iff _ _ _).mpr ⟨x, rfl⟩
+      · intro r hr
+        exact (ValuationRing.mem_integer_iff _ _ r).mp hr
+    have ht_nonzero : t ≠ 0 := by
+      intro hz
+      have h := horigin_order.1.left (show t * 1 = t * 0 by rw [hz]; simp)
+      exact one_ne_zero h
+    have hs_nonzero : s ≠ 0 := by
+      obtain ⟨u, hu⟩ := horigin_parameter.2
+      rw [hu]
+      exact mul_ne_zero u.ne_zero (pow_ne_zero 3 ht_nonzero)
+    have horigin_value_t : originValuation (originInclusion t) ≠ 0 ∧
+        originValuation (originInclusion t) < 1 := by
+      refine ⟨originValuation.ne_zero_iff.mpr ((map_ne_zero_iff _
+        (IsFractionRing.injective originLocalRing originField)).mpr ht_nonzero), ?_⟩
+      exact lt_of_le_of_ne (horigin_integers.map_le_one t)
+        (mt horigin_integers.isUnit_iff_valuation_eq_one.mpr horigin_order.2.1)
+    have horigin_value_s : originValuation (originInclusion s) =
+        originValuation (originInclusion t) ^ 3 := by
+      obtain ⟨u, hu⟩ := horigin_parameter.2
+      rw [hu, map_mul, map_pow, map_mul, map_pow,
+        horigin_integers.one_of_isUnit u.isUnit, one_mul]
+    have horigin_poles :
+        originValuation (originInclusion t / originInclusion s) =
+          originValuation (originInclusion t) ^ (-2 : ℤ) ∧
+        originValuation (-1 / originInclusion s) =
+          originValuation (originInclusion t) ^ (-3 : ℤ) := by
+      constructor
+      · rw [map_div₀, horigin_value_s]
+        calc
+          originValuation (originInclusion t) / originValuation (originInclusion t) ^ 3 =
+              originValuation (originInclusion t) ^ (1 : ℤ) /
+                originValuation (originInclusion t) ^ (3 : ℤ) := by simp
+          _ = originValuation (originInclusion t) ^ (-2 : ℤ) := by
+            rw [← zpow_sub₀ horigin_value_t.1]
+            norm_num
+      · rw [map_div₀, originValuation.map_neg, map_one, horigin_value_s, one_div,
+          zpow_neg]
+        rfl
+    -- Identify the affine coordinate functions in the identity-chart fraction field.
+    let originConstants : k →+* originLocalRing := originMap.comp
+      ((AdjoinRoot.mk originPolynomial).comp (Polynomial.C.comp Polynomial.C))
+    let originFieldConstants : k →+* originField := originInclusion.comp originConstants
+    let originX : originField := originInclusion t / originInclusion s
+    let originY : originField := -1 / originInclusion s
+    have h_origin_equation :
+        originY ^ 2 + originFieldConstants W.a₁ * originX * originY +
+            originFieldConstants W.a₃ * originY =
+          originX ^ 3 + originFieldConstants W.a₂ * originX ^ 2 +
+            originFieldConstants W.a₄ * originX + originFieldConstants W.a₆ := by
+      have hrel : s - t ^ 3 - originConstants W.a₁ * t * s -
+          originConstants W.a₂ * t ^ 2 * s - originConstants W.a₃ * s ^ 2 -
+          originConstants W.a₄ * t * s ^ 2 - originConstants W.a₆ * s ^ 3 = 0 := by
+        have he : originMap (AdjoinRoot.mk originPolynomial originPolynomial) = 0 := by simp
+        dsimp only [originPolynomial] at he
+        simp only [map_sub, map_mul, map_pow] at he
+        exact he
+      have he := congrArg originInclusion hrel
+      simp only [map_sub, map_mul, map_pow, _root_.map_zero] at he
+      have hs : originInclusion s ≠ 0 :=
+        (map_ne_zero_iff _ (IsFractionRing.injective originLocalRing originField)).mpr hs_nonzero
+      dsimp only [originX, originY, originFieldConstants, RingHom.comp_apply]
+      let : Field originField := inferInstance
+      let : CommGroupWithZero originField := inferInstance
+      field_simp [hs]
+      linear_combination he
+    have h_originX_value : 1 < originValuation originX := by
+      rw [horigin_poles.1]
+      rw [zpow_neg, zpow_ofNat]
+      exact (one_lt_inv₀ (pow_pos (pos_iff_ne_zero.mpr horigin_value_t.1) 2)).mpr
+        (pow_lt_one₀ zero_le horigin_value_t.2 (by decide))
+    have h_origin_polynomial_injective :
+        Function.Injective (Polynomial.eval₂RingHom originFieldConstants originX) := by
+      apply (injective_iff_map_eq_zero _).mpr
+      intro p hp
+      by_contra hp₀
+      have hx : (p.map originFieldConstants).IsRoot originX := by
+        simpa only [Polynomial.IsRoot, Polynomial.eval_map, Polynomial.coe_eval₂RingHom] using hp
+      obtain ⟨c, hc⟩ := (IsAlgClosed.splits p).mem_range_of_isRoot hp₀ hx
+      have hv : originValuation (originFieldConstants c) ≤ 1 :=
+        horigin_integers.map_le_one (originConstants c)
+      rw [hc] at hv
+      exact (not_lt_of_ge hv) h_originX_value
+    let affineAtOrigin : W.toAffine.CoordinateRing →+* originField :=
+      AdjoinRoot.lift (Polynomial.eval₂RingHom originFieldConstants originX) originY (by
+        simpa only [WeierstrassCurve.Affine.polynomial, Polynomial.eval₂_sub,
+          Polynomial.eval₂_add, Polynomial.eval₂_mul, Polynomial.eval₂_pow,
+          Polynomial.eval₂_C, Polynomial.eval₂_X, Polynomial.coe_eval₂RingHom,
+          sub_eq_zero, add_mul, mul_assoc, add_assoc] using h_origin_equation)
+    have h_affineAtOrigin_mk (p : Polynomial (Polynomial k)) :
+        affineAtOrigin (CoordinateRing.mk W.toAffine p) =
+          p.eval₂ (Polynomial.eval₂RingHom originFieldConstants originX) originY :=
+      AdjoinRoot.lift_mk _ _
+    have h_affineAtOrigin_injective : Function.Injective affineAtOrigin := by
+      apply (injective_iff_map_eq_zero _).mpr
+      intro z hz
+      obtain ⟨p, q, rfl⟩ := CoordinateRing.exists_smul_basis_eq z
+      let z : W.toAffine.CoordinateRing :=
+        p • 1 + q • CoordinateRing.mk W.toAffine Polynomial.X
+      have hz' :
+          (Polynomial.eval₂RingHom originFieldConstants originX) p +
+            (Polynomial.eval₂RingHom originFieldConstants originX) q * originY = 0 := by
+        simpa only [CoordinateRing.smul, map_add, map_mul, map_one,
+          h_affineAtOrigin_mk, Polynomial.eval₂_C, Polynomial.eval₂_X, mul_one] using hz
+      have hn : (Polynomial.eval₂RingHom originFieldConstants originX)
+          (Algebra.norm (Polynomial k) z) = 0 := by
+        rw [CoordinateRing.norm_smul_basis]
+        simp only [map_sub, map_add, map_mul, map_pow, Polynomial.coe_eval₂RingHom,
+          Polynomial.eval₂_C, Polynomial.eval₂_X] at hz' ⊢
+        linear_combination
+          (p.eval₂ originFieldConstants originX -
+            q.eval₂ originFieldConstants originX *
+              (originY + originFieldConstants W.a₁ * originX + originFieldConstants W.a₃)) * hz' +
+            (q.eval₂ originFieldConstants originX) ^ 2 * h_origin_equation
+      have hn₀ : Algebra.norm (Polynomial k) z = 0 :=
+        h_origin_polynomial_injective (by simpa only [_root_.map_zero] using hn)
+      let : Module.Finite (Polynomial k) W.toAffine.CoordinateRing :=
+        Module.Finite.of_basis (CoordinateRing.basis W.toAffine)
+      exact Algebra.norm_eq_zero_iff.mp hn₀
+    let functionFieldAtOrigin : W.toAffine.FunctionField →+* originField :=
+      IsFractionRing.lift h_affineAtOrigin_injective
+    have h_functionFieldAtOrigin (z : W.toAffine.CoordinateRing) :
+        functionFieldAtOrigin (algebraMap _ W.toAffine.FunctionField z) = affineAtOrigin z :=
+      IsFractionRing.lift_algebraMap h_affineAtOrigin_injective z
+    -- The pole order at infinity of a coordinate-ring element is the degree of
+    -- its norm to k[X]. This gives the infinity term needed in the degree formula.
+    -- A polynomial in x has its root multiplicity multiplied by the simple or
+    -- double order of x - x(P). This makes the quadratic norm usable for the
+    -- finite-point part of the degree calculation in accepted proof step 8.
+    have hlocalPolynomialOrder (α β : k) (h : W.toAffine.Nonsingular α β) :
+        let p : Ideal A := RingHom.ker (AdjoinRoot.evalEval h.1)
+        let : p.IsPrime := RingHom.ker_isPrime _
+        let B := Localization.AtPrime p
+        let ι : Polynomial k →+* B := (algebraMap A B).comp
+          ((CoordinateRing.mk W.toAffine).comp Polynomial.C)
+        ∃ t : B, Ideal.span {t} = IsLocalRing.maximalIdeal B ∧ Prime t ∧
+          ∀ f : Polynomial k, f ≠ 0 →
+            emultiplicity t (ι f) = (f.rootMultiplicity α : ENat) *
+              (if β = W.toAffine.negY α β then 2 else 1) := by
+      let ev : A →+* k := AdjoinRoot.evalEval h.1
+      let p : Ideal A := RingHom.ker ev
+      let : p.IsPrime := RingHom.ker_isPrime ev
+      let B := Localization.AtPrime p
+      let ι : Polynomial k →+* B := (algebraMap A B).comp
+        ((CoordinateRing.mk W.toAffine).comp Polynomial.C)
+      obtain ⟨t, ht, hirr, hx⟩ := hlocalOrder α β h
+      have hprime : Prime t := by
+        apply (Ideal.span_singleton_prime hirr.ne_zero).mp
+        rw [ht]
+        infer_instance
+      refine ⟨t, ht, hprime, ?_⟩
+      intro f hf
+      obtain ⟨q, hq, hnot⟩ := f.exists_eq_pow_rootMultiplicity_mul_and_not_dvd hf α
+      have hqeval : q.eval α ≠ 0 := by
+        simpa only [Polynomial.dvd_iff_isRoot, Polynomial.IsRoot] using hnot
+      have hunit : IsUnit (ι q) := by
+        apply (IsLocalization.AtPrime.isUnit_to_map_iff B p _).mpr
+        change ev (CoordinateRing.mk W.toAffine (Polynomial.C q)) ≠ 0
+        change AdjoinRoot.evalEval h.1
+          (AdjoinRoot.mk W.toAffine.polynomial (Polynomial.C q)) ≠ 0
+        rwa [AdjoinRoot.evalEval_mk, Polynomial.evalEval_C]
+      have hx' : emultiplicity t (ι (Polynomial.X - Polynomial.C α)) =
+          if β = W.toAffine.negY α β then (2 : ENat) else 1 := hx
+      conv_lhs => rw [hq, map_mul, map_pow]
+      rw [emultiplicity_mul hprime, emultiplicity_pow hprime,
+        emultiplicity_of_isUnit_right hprime.not_isUnit hunit, add_zero, hx']
+    -- Negation on the curve induces the conjugation of its quadratic coordinate
+    -- ring over k[x]. It identifies the two local contributions in the norm.
+    obtain ⟨conjugation, hconjugation_mk, hconjugation_norm, hconjugation_eval⟩ :
+        ∃ σ : A ≃+* A,
+          (∀ p : Polynomial (Polynomial k),
+            σ (CoordinateRing.mk W.toAffine p) =
+              CoordinateRing.mk W.toAffine (p.comp W.toAffine.negPolynomial)) ∧
+          (∀ z : A, algebraMap (Polynomial k) A (Algebra.norm (Polynomial k) z) = z * σ z) ∧
+          (∀ (α β : k) (h : W.toAffine.Nonsingular α β) (z : A),
+            AdjoinRoot.evalEval h.1 (σ z) =
+              AdjoinRoot.evalEval ((nonsingular_neg α β).mpr h).1 z) := by
+      have hsub : W.toAffine.polynomial.comp W.toAffine.negPolynomial =
+          W.toAffine.polynomial := by
+        simp only [polynomial, negPolynomial, Polynomial.add_comp, Polynomial.sub_comp,
+          Polynomial.mul_comp, Polynomial.pow_comp, Polynomial.C_comp, Polynomial.X_comp]
+        ring
+      let σ : A →+* A := Ideal.Quotient.lift (Ideal.span {W.toAffine.polynomial})
+        ((CoordinateRing.mk W.toAffine).comp
+          (Polynomial.compRingHom W.toAffine.negPolynomial)) (by
+            intro p hp
+            obtain ⟨q, rfl⟩ := Ideal.mem_span_singleton.mp hp
+            change CoordinateRing.mk W.toAffine
+              ((W.toAffine.polynomial * q).comp W.toAffine.negPolynomial) = 0
+            rw [Polynomial.mul_comp, hsub, map_mul, AdjoinRoot.mk_self, zero_mul])
+      have hσ (p : Polynomial (Polynomial k)) : σ (CoordinateRing.mk W.toAffine p) =
+          CoordinateRing.mk W.toAffine (p.comp W.toAffine.negPolynomial) := rfl
+      have hself : W.toAffine.negPolynomial.comp W.toAffine.negPolynomial = Polynomial.X := by
+        simp only [negPolynomial, Polynomial.sub_comp, Polynomial.neg_comp,
+          Polynomial.X_comp, Polynomial.C_comp]
+        ring
+      have hinvol : Function.Involutive σ := by
+        intro z
+        obtain ⟨p, rfl⟩ := AdjoinRoot.mk_surjective z
+        rw [hσ, hσ, Polynomial.comp_assoc, hself, Polynomial.comp_X]
+      let e : A ≃+* A := { σ with invFun := σ, left_inv := hinvol, right_inv := hinvol }
+      refine ⟨e, hσ, ?_, ?_⟩
+      · intro z
+        obtain ⟨p, q, rfl⟩ := CoordinateRing.exists_smul_basis_eq z
+        have hb : p • (1 : A) + q • CoordinateRing.mk W.toAffine Polynomial.X =
+            CoordinateRing.mk W.toAffine
+              (Polynomial.C p + Polynomial.C q * Polynomial.X) := by
+          rw [CoordinateRing.smul (W' := W.toAffine) p (1 : W.toAffine.CoordinateRing),
+            CoordinateRing.smul (W' := W.toAffine) q
+              (CoordinateRing.mk W.toAffine Polynomial.X), mul_one, map_add, map_mul]
+        have he : e (p • (1 : A) + q • CoordinateRing.mk W.toAffine Polynomial.X) =
+            CoordinateRing.mk W.toAffine
+              (Polynomial.C p + Polynomial.C q * W.toAffine.negPolynomial) := by
+          rw [hb]
+          change σ (CoordinateRing.mk W.toAffine
+            (Polynomial.C p + Polynomial.C q * Polynomial.X)) = _
+          rw [hσ, Polynomial.add_comp, Polynomial.mul_comp,
+            Polynomial.C_comp, Polynomial.C_comp, Polynomial.X_comp]
+        rw [he]
+        change AdjoinRoot.of W.toAffine.polynomial
+          (Algebra.norm (Polynomial k) (p • (1 : A) +
+            q • CoordinateRing.mk W.toAffine Polynomial.X)) = _
+        rw [CoordinateRing.coe_norm_smul_basis, map_mul, hb]
+        rfl
+      · intro α β h z
+        obtain ⟨p, rfl⟩ := AdjoinRoot.mk_surjective z
+        change AdjoinRoot.evalEval h.1 (σ (CoordinateRing.mk W.toAffine p)) = _
+        rw [hσ, AdjoinRoot.evalEval_mk, AdjoinRoot.evalEval_mk]
+        rw [← Polynomial.eval₂_evalRingHom, Polynomial.eval₂_comp,
+          Polynomial.eval₂_evalRingHom, evalEval_negPolynomial]
+    have hlocalConjugation (α β : k) (h : W.toAffine.Nonsingular α β) :
+        let hneg := (nonsingular_neg α β).mpr h
+        let p : Ideal A := RingHom.ker (AdjoinRoot.evalEval h.1)
+        let q : Ideal A := RingHom.ker (AdjoinRoot.evalEval hneg.1)
+        let : p.IsPrime := RingHom.ker_isPrime _
+        let : q.IsPrime := RingHom.ker_isPrime _
+        let B := Localization.AtPrime p
+        let C := Localization.AtPrime q
+        ∀ (t : B) (u : C), Ideal.span {t} = IsLocalRing.maximalIdeal B →
+          Ideal.span {u} = IsLocalRing.maximalIdeal C → ∀ z : A,
+            emultiplicity t (algebraMap A B (conjugation z)) =
+              emultiplicity u (algebraMap A C z) := by
+      let hneg := (nonsingular_neg α β).mpr h
+      let p : Ideal A := RingHom.ker (AdjoinRoot.evalEval h.1)
+      let q : Ideal A := RingHom.ker (AdjoinRoot.evalEval hneg.1)
+      let : p.IsPrime := RingHom.ker_isPrime _
+      let : q.IsPrime := RingHom.ker_isPrime _
+      let B := Localization.AtPrime p
+      let C := Localization.AtPrime q
+      dsimp only
+      intro t u ht hu z
+      have hpq : q = p.comap conjugation.toRingHom := by
+        ext v
+        change AdjoinRoot.evalEval hneg.1 v = 0 ↔
+          AdjoinRoot.evalEval h.1 (conjugation v) = 0
+        rw [hconjugation_eval α β h v]
+      let e : C ≃+* B := Localization.localRingEquiv q p conjugation hpq
+      have he (v : A) : e (algebraMap A C v) = algebraMap A B (conjugation v) :=
+        Localization.localRingHom_to_map q p conjugation.toRingHom hpq v
+      have hassoc : Associated (e u) t := by
+        apply Ideal.span_singleton_eq_span_singleton.mp
+        calc
+          Ideal.span {e u} = Ideal.map e.toRingHom (Ideal.span {u}) := by
+            rw [Ideal.map_span, Set.image_singleton]
+            rfl
+          _ = IsLocalRing.maximalIdeal B := by
+            rw [hu]
+            exact IsLocalRing.map_ringEquiv_maximalIdeal e
+          _ = Ideal.span {t} := ht.symm
+      rw [← he z, emultiplicity_eq_of_associated_left hassoc, emultiplicity_map_eq e]
+    let affineOrder (α β : k) (h : W.toAffine.Nonsingular α β) (z : A) : ℕ := by
+      let p : Ideal A := RingHom.ker (AdjoinRoot.evalEval h.1)
+      let : p.IsPrime := RingHom.ker_isPrime _
+      exact multiplicity (Classical.choose (hlocalPolynomialOrder α β h))
+        (algebraMap A (Localization.AtPrime p) z)
+    have haffineOrder_emultiplicity (α β : k) (h : W.toAffine.Nonsingular α β)
+        (z : A) (hz : z ≠ 0) :
+        let p : Ideal A := RingHom.ker (AdjoinRoot.evalEval h.1)
+        let : p.IsPrime := RingHom.ker_isPrime _
+        emultiplicity (Classical.choose (hlocalPolynomialOrder α β h))
+            (algebraMap A (Localization.AtPrime p) z) = affineOrder α β h z := by
+      let p : Ideal A := RingHom.ker (AdjoinRoot.evalEval h.1)
+      let : p.IsPrime := RingHom.ker_isPrime _
+      have hprime := (Classical.choose_spec (hlocalPolynomialOrder α β h)).2.1
+      apply FiniteMultiplicity.emultiplicity_eq_multiplicity
+      apply FiniteMultiplicity.of_prime_left hprime
+      exact (map_ne_zero_iff _
+        (IsLocalization.injective (Localization.AtPrime p) p.primeCompl_le_nonZeroDivisors)).mpr hz
+    have haffineOrder_norm (α β : k) (h : W.toAffine.Nonsingular α β)
+        (z : A) (hz : z ≠ 0) :
+        affineOrder α β h z +
+            affineOrder α (W.toAffine.negY α β) ((nonsingular_neg α β).mpr h) z =
+          (Algebra.norm (Polynomial k) z).rootMultiplicity α *
+            (if β = W.toAffine.negY α β then 2 else 1) := by
+      let hneg := (nonsingular_neg α β).mpr h
+      let p : Ideal A := RingHom.ker (AdjoinRoot.evalEval h.1)
+      let q : Ideal A := RingHom.ker (AdjoinRoot.evalEval hneg.1)
+      let : p.IsPrime := RingHom.ker_isPrime _
+      let : q.IsPrime := RingHom.ker_isPrime _
+      let B := Localization.AtPrime p
+      let C := Localization.AtPrime q
+      let t := Classical.choose (hlocalPolynomialOrder α β h)
+      let u := Classical.choose (hlocalPolynomialOrder α (W.toAffine.negY α β) hneg)
+      have ht := Classical.choose_spec (hlocalPolynomialOrder α β h)
+      have hu := Classical.choose_spec (hlocalPolynomialOrder α (W.toAffine.negY α β) hneg)
+      let : Module.Finite (Polynomial k) A :=
+        Module.Finite.of_basis (CoordinateRing.basis W.toAffine)
+      have hn := ht.2.2 (Algebra.norm (Polynomial k) z) (Algebra.norm_ne_zero_iff.mpr hz)
+      change emultiplicity t (algebraMap A B
+        (algebraMap (Polynomial k) A (Algebra.norm (Polynomial k) z))) = _ at hn
+      rw [hconjugation_norm, map_mul, emultiplicity_mul ht.2.1,
+        hlocalConjugation α β h t u ht.1 hu.1 z,
+        haffineOrder_emultiplicity α β h z hz,
+        haffineOrder_emultiplicity α (W.toAffine.negY α β) hneg z hz] at hn
+      have he : (if β = W.toAffine.negY α β then (2 : ENat) else 1) =
+          ((if β = W.toAffine.negY α β then 2 else 1 : ℕ) : ENat) := by
+        split_ifs <;> rfl
+      rw [he] at hn
+      exact_mod_cast hn
+    have hxpoint (α : k) : ∃ β : k, W.toAffine.Nonsingular α β := by
+      let f : Polynomial k := W.toAffine.polynomial.map (Polynomial.evalRingHom α)
+      have hd : f.degree = 2 := by
+        rw [Polynomial.Monic.degree_map monic_polynomial, degree_polynomial]
+      obtain ⟨β, hβ⟩ := IsAlgClosed.exists_root f (by rw [hd]; norm_num)
+      refine ⟨β, (W.toAffine.equation_iff_nonsingular_of_Δ_ne_zero hΔ).mp ?_⟩
+      change W.toAffine.polynomial.evalEval α β = 0
+      change f.eval β = 0 at hβ
+      simpa only [f, Polynomial.eval_map, Polynomial.eval₂_evalRingHom] using hβ
+    let principalH : W.toAffine.Point → ℤ := fun P => match P with
+      | .zero => 0
+      | .some α β h => (affineOrder α β h a : ℤ) - (affineOrder α β h b : ℤ)
+    have hprincipalH_affine (α β : k) (h : W.toAffine.Nonsingular α β) :
+        principalH (.some α β h) =
+          (affineOrder α β h a : ℤ) - (affineOrder α β h b : ℤ) := rfl
+    -- Translation of the identity parameter to an affine point. The numerator
+    -- is reduced with the identity-chart equation before its order is computed.
+    have h_origin_translate_formula (α β : k) :
+        let c := originFieldConstants
+        let T := originInclusion t
+        let S := originInclusion s
+        let l := (c β - originY) / (c α - originX)
+        l ^ 2 + c W.a₁ * l - c W.a₂ - 2 * c α - originX =
+          S * (c (2 * β + W.a₁ * α + W.a₃) +
+            c (3 * α ^ 2 + 2 * W.a₂ * α + W.a₄ - W.a₁ * β) * T +
+            c (W.a₆ + β ^ 2 + W.a₁ * α * β - W.a₂ * α ^ 2 - 2 * α ^ 3) * S) /
+              (T - c α * S) ^ 2 := by
+      have translate_algebra {F : Type} [Field F] (a₁ a₂ a₃ a₄ a₆ α β T S : F)
+          (hs : S ≠ 0) (hd : T - α * S ≠ 0)
+          (he : S - T ^ 3 - a₁ * T * S - a₂ * T ^ 2 * S - a₃ * S ^ 2 -
+            a₄ * T * S ^ 2 - a₆ * S ^ 3 = 0) :
+          ((β - -1 / S) / (α - T / S)) ^ 2 +
+            a₁ * ((β - -1 / S) / (α - T / S)) - a₂ - 2 * α - T / S =
+              S * ((2 * β + a₁ * α + a₃) +
+                (3 * α ^ 2 + 2 * a₂ * α + a₄ - a₁ * β) * T +
+                (a₆ + β ^ 2 + a₁ * α * β - a₂ * α ^ 2 - 2 * α ^ 3) * S) /
+                  (T - α * S) ^ 2 := by
+        have hl : (β - -1 / S) / (α - T / S) = -(1 + β * S) / (T - α * S) := by
+          have hn : β - -1 / S = (1 + β * S) / S := by
+            field_simp [hs]
+            ring
+          have hdv : α - T / S = -(T - α * S) / S := by
+            field_simp [hs]
+            ring
+          rw [hn, hdv, div_div_div_cancel_right₀ hs, div_neg, neg_div]
+        rw [hl]
+        field_simp (disch := first | exact hs | (convert hd using 1; all_goals ring) | (convert pow_ne_zero 2 hd using 1; all_goals ring))
+        linear_combination he
+      let : Field originField := inferInstance
+      let : CommGroupWithZero originField := inferInstance
+      let c := originFieldConstants
+      let T := originInclusion t
+      let S := originInclusion s
+      have hs : S ≠ 0 :=
+        (map_ne_zero_iff _ (IsFractionRing.injective originLocalRing originField)).mpr hs_nonzero
+      have hx : c α ≠ originX := by
+        intro he
+        have hv := horigin_integers.map_le_one (originConstants α)
+        change originValuation (c α) ≤ 1 at hv
+        rw [he] at hv
+        exact (not_lt_of_ge hv) h_originX_value
+      have hd : T - c α * S ≠ 0 := by
+        intro he
+        apply hx
+        change c α = T / S
+        apply (eq_div_iff hs).mpr
+        exact (sub_eq_zero.mp he).symm
+      have he : S - T ^ 3 - c W.a₁ * T * S - c W.a₂ * T ^ 2 * S -
+          c W.a₃ * S ^ 2 - c W.a₄ * T * S ^ 2 - c W.a₆ * S ^ 3 = 0 := by
+        have he := h_origin_equation
+        change (-1 / S) ^ 2 + c W.a₁ * (T / S) * (-1 / S) + c W.a₃ * (-1 / S) =
+          (T / S) ^ 3 + c W.a₂ * (T / S) ^ 2 + c W.a₄ * (T / S) + c W.a₆ at he
+        field_simp [hs] at he
+        linear_combination he
+      change ((c β - -1 / S) / (c α - T / S)) ^ 2 +
+        c W.a₁ * ((c β - -1 / S) / (c α - T / S)) - c W.a₂ - 2 * c α - T / S = _
+      simp only [map_add, map_mul, map_sub, map_pow, map_ofNat]
+      exact translate_algebra (c W.a₁) (c W.a₂) (c W.a₃) (c W.a₄) (c W.a₆)
+        (c α) (c β) T S hs hd he
+    have h_origin_translate_value (α β : k) (h : W.toAffine.Nonsingular α β) :
+        let c := originFieldConstants
+        let l := (c β - originY) / (c α - originX)
+        originValuation (l ^ 2 + c W.a₁ * l - c W.a₂ - 2 * c α - originX) =
+          originValuation (originInclusion t) ^
+            (if β = W.toAffine.negY α β then (2 : ℕ) else 1) := by
+      let : Field originField := inferInstance
+      let : CommGroupWithZero originField := inferInstance
+      let c := originFieldConstants
+      let T := originInclusion t
+      let S := originInclusion s
+      let v := originValuation
+      let q := v T
+      have hq0 : 0 < q := pos_iff_ne_zero.mpr horigin_value_t.1
+      have hq1 : q < 1 := horigin_value_t.2
+      have hq3 : q ^ 3 < q := by
+        calc
+          q ^ 3 = q ^ 2 * q := by rw [pow_succ]
+          _ < 1 * q := mul_lt_mul_of_pos_right (pow_lt_one₀ zero_le hq1 (by decide)) hq0
+          _ = q := one_mul q
+      have hcle (a : k) : v (c a) ≤ 1 := horigin_integers.map_le_one (originConstants a)
+      have hconst (a : k) (ha : a ≠ 0) : v (c a) = 1 :=
+        horigin_integers.one_of_isUnit ((isUnit_iff_ne_zero.mpr ha).map originConstants)
+      have hsmallS (a : k) : v (c a * S) < q := by
+        rw [map_mul, horigin_value_s]
+        exact (mul_le_of_le_one_left zero_le (hcle a)).trans_lt hq3
+      have hsmallT (a : k) : v (c a * T) < 1 := by
+        rw [map_mul]
+        exact (mul_le_of_le_one_left zero_le (hcle a)).trans_lt hq1
+      have hden : v (T - c α * S) = q :=
+        v.map_sub_eq_of_lt_left (hsmallS α)
+      let C := 2 * β + W.a₁ * α + W.a₃
+      let D := 3 * α ^ 2 + 2 * W.a₂ * α + W.a₄ - W.a₁ * β
+      let E := W.a₆ + β ^ 2 + W.a₁ * α * β - W.a₂ * α ^ 2 - 2 * α ^ 3
+      have heq := h_origin_translate_formula α β
+      change _ = S * (c C + c D * T + c E * S) / (T - c α * S) ^ 2 at heq
+      dsimp only
+      rw [heq, map_div₀, map_mul, map_pow, hden, horigin_value_s]
+      change q ^ 3 * v (c C + c D * T + c E * S) / (q ^ 2) = _
+      by_cases ht : β = W.toAffine.negY α β
+      · rw [if_pos ht]
+        have hc : C = 0 := by
+          change β = -β - W.a₁ * α - W.a₃ at ht
+          dsimp only [C]
+          linear_combination ht
+        have hd : D ≠ 0 := by
+          apply sub_ne_zero.mpr
+          exact Ne.symm (((nonsingular_iff α β).mp h).2.resolve_right (not_not.mpr ht))
+        have hvDT : v (c D * T) = q := by rw [map_mul, hconst D hd, one_mul]
+        have hnum : v (c C + c D * T + c E * S) = q := by
+          rw [hc, _root_.map_zero, zero_add]
+          exact (v.map_add_eq_of_lt_left (hvDT ▸ hsmallS E)).trans hvDT
+        rw [hnum]
+        change q ^ 3 * q / q ^ 2 = q ^ 2
+        rw [← pow_succ, div_eq_mul_inv,
+          ← pow_sub₀ q (ne_of_gt hq0) (by decide : 2 ≤ 4)]
+      · rw [if_neg ht]
+        have hc : C ≠ 0 := by
+          intro hc
+          apply ht
+          change β = -β - W.a₁ * α - W.a₃
+          dsimp only [C] at hc
+          linear_combination hc
+        have hsmall : v (c D * T + c E * S) < 1 :=
+          v.map_add_lt (hsmallT D) ((hsmallS E).trans hq1)
+        have hnum : v (c C + c D * T + c E * S) = 1 := by
+          rw [add_assoc]
+          exact (v.map_add_eq_of_lt_left ((hconst C hc).symm ▸ hsmall)).trans (hconst C hc)
+        rw [hnum]
+        change q ^ 3 * 1 / q ^ 2 = q ^ 1
+        rw [mul_one, div_eq_mul_inv,
+          ← pow_sub₀ q (ne_of_gt hq0) (by decide : 2 ≤ 3)]
+    have h_origin_point : (W.map originFieldConstants).toAffine.Nonsingular originX originY := by
+      apply (equation_iff_nonsingular_of_Δ_ne_zero ?_).mp
+      · exact (equation_iff originX originY).mpr h_origin_equation
+      · rw [WeierstrassCurve.map_Δ]
+        exact (map_ne_zero_iff _ originFieldConstants.injective).mpr hΔ
+    have h_origin_translate_point (α β : k) (h : W.toAffine.Nonsingular α β) :
+        let Q : (W.map originFieldConstants).toAffine.Point := .some
+          (originFieldConstants α) (originFieldConstants β)
+          ((W.toAffine.map_nonsingular (f := originFieldConstants) originFieldConstants.injective α β).mpr h)
+        let R : (W.map originFieldConstants).toAffine.Point := .some originX originY h_origin_point
+        originValuation ((Q + R).xRep 0 - originFieldConstants α) =
+          originValuation (originInclusion t) ^
+            (if β = W.toAffine.negY α β then (2 : ℕ) else 1) := by
+      have hx : originFieldConstants α ≠ originX := by
+        intro he
+        have hv := horigin_integers.map_le_one (originConstants α)
+        change originValuation (originFieldConstants α) ≤ 1 at hv
+        rw [he] at hv
+        exact (not_lt_of_ge hv) h_originX_value
+      dsimp only
+      rw [add_of_X_ne hx]
+      change originValuation ((W.map originFieldConstants).toAffine.addX
+        (originFieldConstants α) originX
+        ((W.map originFieldConstants).toAffine.slope
+          (originFieldConstants α) originX (originFieldConstants β) originY) -
+            originFieldConstants α) = _
+      rw [slope_of_X_ne hx]
+      convert h_origin_translate_value α β h using 1
+      congr 1
+      change _ ^ 2 + originFieldConstants W.a₁ * _ - originFieldConstants W.a₂ -
+        originFieldConstants α - originX - originFieldConstants α = _
+      ring
+    -- Normalize positive multiples by the identity parameter. Reduction in the
+    -- local residue field computes the leading coefficients n⁻² and -n⁻³.
+    have normalized_nsmul
+        (k O F : Type) [Field k] [CharZero k] [CommRing O] [IsLocalRing O] [Field F] [DecidableEq F]
+        (c : k →+* O) (ι : O →+* F) (t : O)
+        (ht : ι t ≠ 0) (htres : IsLocalRing.residue O t = 0)
+        (W : WeierstrassCurve k) (x₁ y₁ : O)
+        (hx₁ : IsLocalRing.residue O x₁ = 1)
+        (hy₁ : IsLocalRing.residue O y₁ = -1)
+        (h₁ : (W.map (ι.comp c)).toAffine.Nonsingular
+          (ι x₁ / (ι t) ^ 2) (ι y₁ / (ι t) ^ 3)) :
+        ∀ n : ℕ, 0 < n → ∃ x y : O,
+          ∃ h : (W.map (ι.comp c)).toAffine.Nonsingular
+            (ι x / (ι t) ^ 2) (ι y / (ι t) ^ 3),
+          n • (.some _ _ h₁ : (W.map (ι.comp c)).toAffine.Point) = .some _ _ h ∧
+          IsLocalRing.residue O x = (n : IsLocalRing.ResidueField O)⁻¹ ^ 2 ∧
+          IsLocalRing.residue O y = -(n : IsLocalRing.ResidueField O)⁻¹ ^ 3 := by
+      classical
+      let r := IsLocalRing.residue O
+      change r t = 0 at htres
+      change r x₁ = 1 at hx₁
+      change r y₁ = -1 at hy₁
+      let C := r.comp c
+      let : CharZero (IsLocalRing.ResidueField O) := charZero_of_injective_ringHom C.injective
+      let V := (W.map (ι.comp c)).toAffine
+      let T := ι t
+      have hT : T ≠ 0 := ht
+      let P : V.Point := .some _ _ h₁
+      have unit (d : O) (hd : r d ≠ 0) : IsUnit d :=
+        (IsLocalRing.residue_ne_zero_iff_isUnit d).mp hd
+      have inv_image (u : Oˣ) : ι (↑u⁻¹ : O) = (ι (u : O))⁻¹ := by
+        exact map_units_inv ι u
+      have inv_residue (u : Oˣ) : r (↑u⁻¹ : O) = (r (u : O))⁻¹ := by
+        exact map_units_inv r u
+      have normalized_add (x y l : O)
+          (h : V.Nonsingular (ι x / T ^ 2) (ι y / T ^ 3))
+          (hxy : ¬(ι x / T ^ 2 = ι x₁ / T ^ 2 ∧
+            ι y / T ^ 3 = V.negY (ι x₁ / T ^ 2) (ι y₁ / T ^ 3)))
+          (hl : V.slope (ι x / T ^ 2) (ι x₁ / T ^ 2)
+            (ι y / T ^ 3) (ι y₁ / T ^ 3) = ι l / T) :
+          let xx := l ^ 2 + c W.a₁ * l * t - c W.a₂ * t ^ 2 - x - x₁
+          let yy := -l * (xx - x) - y - c W.a₁ * xx * t - c W.a₃ * t ^ 3
+          ∃ hh : V.Nonsingular (ι xx / T ^ 2) (ι yy / T ^ 3),
+            (.some _ _ h : V.Point) + P = .some _ _ hh := by
+        dsimp only
+        have hx : V.addX (ι x / T ^ 2) (ι x₁ / T ^ 2) (ι l / T) =
+            ι (l ^ 2 + c W.a₁ * l * t - c W.a₂ * t ^ 2 - x - x₁) / T ^ 2 := by
+          change (ι l / T) ^ 2 + ι (c W.a₁) * (ι l / T) - ι (c W.a₂) -
+            ι x / T ^ 2 - ι x₁ / T ^ 2 = _
+          simp only [map_sub, map_add, map_mul, map_pow]
+          change _ = (ι l ^ 2 + ι (c W.a₁) * ι l * T - ι (c W.a₂) * T ^ 2 - ι x - ι x₁) / T ^ 2
+          field_simp [hT]
+        have hy : V.addY (ι x / T ^ 2) (ι x₁ / T ^ 2) (ι y / T ^ 3) (ι l / T) =
+            ι (-l * ((l ^ 2 + c W.a₁ * l * t - c W.a₂ * t ^ 2 - x - x₁) - x) - y -
+              c W.a₁ * (l ^ 2 + c W.a₁ * l * t - c W.a₂ * t ^ 2 - x - x₁) * t -
+              c W.a₃ * t ^ 3) / T ^ 3 := by
+          simp only [Affine.addY, Affine.negAddY, Affine.negY, hx]
+          simp only [map_sub, map_add, map_neg, map_mul, map_pow]
+          dsimp only [V, WeierstrassCurve.toAffine, WeierstrassCurve.map, RingHom.comp_apply]
+          dsimp only [T]
+          field_simp [ht]
+          ring
+        have hsum := nonsingular_add h h₁ hxy
+        rw [hl, hx, hy] at hsum
+        refine ⟨hsum, ?_⟩
+        dsimp only [P]
+        rw [add_some hxy, some.injEq]
+        simp only [hl, hx, hy, and_self]
+      intro n hn
+      induction n using Nat.strong_induction_on with
+      | h n ih =>
+        rcases n with _ | n
+        · omega
+        by_cases hn₀ : n = 0
+        · subst n
+          exact ⟨x₁, y₁, h₁, by exact one_nsmul _, by simpa using hx₁, by simpa using hy₁⟩
+        have hnpos : 0 < n := Nat.pos_of_ne_zero hn₀
+        obtain ⟨x, y, h, hP, hx, hy⟩ := ih n (by omega) hnpos
+        have hR : r x = (n : IsLocalRing.ResidueField O)⁻¹ ^ 2 := hx
+        have hS : r y = -(n : IsLocalRing.ResidueField O)⁻¹ ^ 3 := hy
+        have hncast : (n : IsLocalRing.ResidueField O) ≠ 0 := Nat.cast_ne_zero.mpr hn₀
+        have hnnext : (n : IsLocalRing.ResidueField O) + 1 ≠ 0 := by
+          exact_mod_cast (show n + 1 ≠ 0 by omega)
+        by_cases hn₁ : n = 1
+        · subst n
+          have hpoint : (.some _ _ h : V.Point) = P := by simpa only [one_nsmul] using hP.symm
+          have hcoords : ι x / T ^ 2 = ι x₁ / T ^ 2 ∧ ι y / T ^ 3 = ι y₁ / T ^ 3 :=
+            some.inj hpoint
+          let d := 2 * y + c W.a₁ * x * t + c W.a₃ * t ^ 3
+          have hd : r d = -2 := by simp only [d, map_add, map_mul, map_pow, map_ofNat, hS, htres]; norm_num
+          have hdu : IsUnit d := unit d (by rw [hd]; norm_num)
+          let l := (3 * x ^ 2 + 2 * c W.a₂ * x * t ^ 2 + c W.a₄ * t ^ 4 -
+            c W.a₁ * y * t) * (↑hdu.unit⁻¹ : O)
+          have hrl : r l = -3 / 2 := by
+            simp only [l, map_mul, map_sub, map_add, map_pow, map_ofNat,
+              hR, hS, htres, inv_residue, hdu.unit_spec, hd]
+            norm_num
+          have hdi : ι d ≠ 0 := (hdu.map ι).ne_zero
+          have hden : ι y / T ^ 3 - V.negY (ι x / T ^ 2) (ι y / T ^ 3) = ι d / T ^ 3 := by
+            change ι y / T ^ 3 - (- (ι y / T ^ 3) - ι (c W.a₁) * (ι x / T ^ 2) - ι (c W.a₃)) = _
+            simp only [d, map_add, map_mul, map_pow, map_ofNat]
+            change _ = (2 * ι y + ι (c W.a₁) * ι x * T + ι (c W.a₃) * T ^ 3) / T ^ 3
+            field_simp [hT]
+            ring
+          have hne : ι y / T ^ 3 ≠ V.negY (ι x / T ^ 2) (ι y / T ^ 3) := by
+            apply sub_ne_zero.mp
+            rw [hden]
+            exact div_ne_zero hdi (pow_ne_zero 3 ht)
+          have hxy : ¬(ι x / T ^ 2 = ι x₁ / T ^ 2 ∧
+              ι y / T ^ 3 = V.negY (ι x₁ / T ^ 2) (ι y₁ / T ^ 3)) := by
+            rw [← hcoords.1, ← hcoords.2]
+            exact fun hh => hne hh.2
+          have hl : V.slope (ι x / T ^ 2) (ι x₁ / T ^ 2)
+              (ι y / T ^ 3) (ι y₁ / T ^ 3) = ι l / T := by
+            rw [← hcoords.1, ← hcoords.2, slope_of_Y_ne rfl hne, hden]
+            simp only [l, map_mul, map_sub, map_add, map_pow, map_ofNat,
+              inv_image, hdu.unit_spec]
+            change (3 * (ι x / T ^ 2) ^ 2 + 2 * ι (c W.a₂) * (ι x / T ^ 2) +
+              ι (c W.a₄) - ι (c W.a₁) * (ι y / T ^ 3)) / (ι d / T ^ 3) =
+                (3 * ι x ^ 2 + 2 * ι (c W.a₂) * ι x * T ^ 2 + ι (c W.a₄) * T ^ 4 -
+                  ι (c W.a₁) * ι y * T) * (ι d)⁻¹ / T
+            field_simp [hT, hdi]
+          obtain ⟨hh, he⟩ := normalized_add x y l h hxy hl
+          refine ⟨_, _, hh, ?_, ?_, ?_⟩
+          · change (1 + 1) • P = _
+            rw [add_nsmul, one_nsmul]
+            exact (congrArg (fun Q : V.Point => Q + P) hpoint).symm.trans he
+          · change r _ = _
+            simp only [map_sub, map_add, map_mul, map_pow, hrl, hR, hx₁, htres]
+            norm_num
+          · change r _ = _
+            simp only [map_sub, map_add, map_mul, map_neg, map_pow, hrl, hR, hS, hx₁, htres]
+            norm_num
+        · have hn₂ : 2 ≤ n := by omega
+          have hnminus : (n : IsLocalRing.ResidueField O) - 1 ≠ 0 := by
+            apply sub_ne_zero.mpr
+            exact_mod_cast hn₁
+          have hdn : (n : IsLocalRing.ResidueField O)⁻¹ ^ 2 - 1 ≠ 0 := by
+            intro hz
+            have he := (sub_eq_zero.mp hz)
+            field_simp at he
+            have : (n : IsLocalRing.ResidueField O) ^ 2 - 1 = 0 := by linear_combination -he
+            have hfact : ((n : IsLocalRing.ResidueField O) - 1) * (n + 1) = 0 := by
+              linear_combination this
+            exact (mul_ne_zero hnminus hnnext) hfact
+          have hdu : IsUnit (x - x₁) := unit _ (by simpa only [map_sub, hR, hx₁] using hdn)
+          let l := (y - y₁) * (↑hdu.unit⁻¹ : O)
+          have hrl : r l = (-(n : IsLocalRing.ResidueField O)⁻¹ ^ 3 + 1) /
+              ((n : IsLocalRing.ResidueField O)⁻¹ ^ 2 - 1) := by
+            simp only [l, map_mul, map_sub, inv_residue, hdu.unit_spec, hR, hS, hy₁, hx₁,
+              sub_neg_eq_add, div_eq_mul_inv]
+          have hrl' : r l = -((n : IsLocalRing.ResidueField O) ^ 2 + n + 1) /
+              ((n : IsLocalRing.ResidueField O) * (n + 1)) := by
+            rw [hrl]
+            apply (div_eq_div_iff hdn (mul_ne_zero hncast hnnext)).mpr
+            field_simp [hncast]
+            ring
+          have hdi : ι (x - x₁) ≠ 0 := (hdu.map ι).ne_zero
+          have hxne : ι x / T ^ 2 ≠ ι x₁ / T ^ 2 := by
+            intro he
+            apply hdi
+            rw [map_sub, (div_left_inj' (pow_ne_zero 2 ht)).mp he, sub_self]
+          have hxy : ¬(ι x / T ^ 2 = ι x₁ / T ^ 2 ∧
+              ι y / T ^ 3 = V.negY (ι x₁ / T ^ 2) (ι y₁ / T ^ 3)) := fun hh => hxne hh.1
+          have hl : V.slope (ι x / T ^ 2) (ι x₁ / T ^ 2)
+              (ι y / T ^ 3) (ι y₁ / T ^ 3) = ι l / T := by
+            rw [slope_of_X_ne hxne]
+            simp only [l, map_mul, inv_image, hdu.unit_spec, map_sub]
+            have hdi' : ι x - ι x₁ ≠ 0 := by simpa only [map_sub] using hdi
+            field_simp [hT, hdi']
+          obtain ⟨hh, he⟩ := normalized_add x y l h hxy hl
+          refine ⟨_, _, hh, ?_, ?_, ?_⟩
+          · simpa only [add_nsmul, one_nsmul, hP] using he
+          · change r _ = _
+            simp only [map_sub, map_add, map_mul, map_pow, hrl', hR, hx₁, htres,
+              mul_zero, add_zero, Nat.cast_add, Nat.cast_one]
+            field_simp [hncast, hnnext]
+            ring
+          · change r _ = _
+            simp only [map_sub, map_add, map_mul, map_neg, map_pow, hrl', hR, hS, hx₁, htres,
+              mul_zero, sub_zero, add_zero, Nat.cast_add, Nat.cast_one]
+            field_simp [hncast, hnnext]
+            ring
+
+    have h_origin_multiple_coordinates (n : ℕ) (hn : 0 < n) :
+        ∃ x y : originLocalRing,
+        ∃ h : (W.map originFieldConstants).toAffine.Nonsingular
+          (originInclusion x / originInclusion t ^ 2)
+          (originInclusion y / originInclusion t ^ 3),
+        n • (.some originX originY h_origin_point : (W.map originFieldConstants).toAffine.Point) =
+          .some _ _ h ∧
+        IsLocalRing.residue originLocalRing x = (n : IsLocalRing.ResidueField originLocalRing)⁻¹ ^ 2 ∧
+        IsLocalRing.residue originLocalRing y = -(n : IsLocalRing.ResidueField originLocalRing)⁻¹ ^ 3 := by
+      let : Field originField := inferInstance
+      let r := IsLocalRing.residue originLocalRing
+      have htres : r t = 0 := by
+        apply (IsLocalRing.residue_eq_zero_iff t).mpr
+        rw [← horigin_parameter.1]
+        exact Ideal.subset_span (Set.mem_singleton t)
+      have hT : originInclusion t ≠ 0 :=
+        (map_ne_zero_iff _ (IsFractionRing.injective originLocalRing originField)).mpr ht_nonzero
+      obtain ⟨e, he⟩ := horigin_leading
+      have hu : IsUnit (1 + t * e) := by
+        apply (IsLocalRing.residue_ne_zero_iff_isUnit _).mp
+        change r (1 + t * e) ≠ 0
+        simp only [map_add, map_mul, _root_.map_one, htres, zero_mul, add_zero]
+        exact one_ne_zero
+      let u := hu.unit
+      have hur : r (u : originLocalRing) = 1 := by
+        rw [hu.unit_spec]
+        simp only [map_add, map_mul, _root_.map_one, htres, zero_mul, add_zero]
+      have hs : originInclusion s = originInclusion t ^ 3 * originInclusion (u : originLocalRing) := by
+        rw [hu.unit_spec]
+        have hes : s = t ^ 3 * (1 + t * e) := by rw [he]; ring
+        rw [hes, map_mul, map_pow]
+      have hu₀ : originInclusion (u : originLocalRing) ≠ 0 := (u.isUnit.map originInclusion).ne_zero
+      have hx : originX = originInclusion (↑u⁻¹ : originLocalRing) / originInclusion t ^ 2 := by
+        change originInclusion t / originInclusion s = _
+        rw [hs, map_units_inv]
+        field_simp [hT, hu₀]
+      have hy : originY = originInclusion (- (↑u⁻¹ : originLocalRing)) / originInclusion t ^ 3 := by
+        change -1 / originInclusion s = _
+        rw [hs, _root_.map_neg, map_units_inv]
+        field_simp [hT, hu₀]
+      have hh := h_origin_point
+      rw [hx, hy] at hh
+      have hux : r (↑u⁻¹ : originLocalRing) = 1 := by rw [map_units_inv, hur, inv_one]
+      have huy : r (- (↑u⁻¹ : originLocalRing)) = -1 := by rw [_root_.map_neg, hux]
+      obtain ⟨x, y, h, hp, hrx, hry⟩ := normalized_nsmul k originLocalRing originField
+        originConstants originInclusion t hT htres W _ _ hux huy hh n hn
+      refine ⟨x, y, h, ?_, hrx, hry⟩
+      have heq : (.some originX originY h_origin_point : (W.map originFieldConstants).toAffine.Point) =
+          .some _ _ hh := by
+        rw [some.injEq]
+        exact ⟨hx, hy⟩
+      rw [heq]
+      exact hp
+    -- Cofinite rational coordinate identities are preserved by injective
+    -- evaluation at a generic point, including all branches of point addition.
+    have generic_evaluation (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k]
+        (W : WeierstrassCurve k) (hΔ : W.Δ ≠ 0) [Infinite W.toAffine.Point]
+        (F : Type) [Field F] [DecidableEq F] (c : k →+* F) (X Y : F)
+        (hR : (W.map c).toAffine.Nonsingular X Y)
+        (φ : W.toAffine.CoordinateRing →+* F) (hφ : Function.Injective φ)
+        (hφconst : ∀ z : k, φ (algebraMap k W.toAffine.CoordinateRing z) = c z)
+        (hφx : φ (CoordinateRing.mk W.toAffine (Polynomial.C Polynomial.X)) = X)
+        (hφy : φ (CoordinateRing.mk W.toAffine Polynomial.X) = Y)
+        (m : ℕ) (a b : W.toAffine.CoordinateRing) (hb : b ≠ 0)
+        (hval : ∀ᶠ P : W.toAffine.Point in Filter.cofinite,
+          ∀ (x y : k) (h : W.toAffine.Nonsingular x y), P = .some x y h →
+          (m • P).xRep 0 - P.xRep 0 = AdjoinRoot.evalEval h.1 a / AdjoinRoot.evalEval h.1 b) :
+        φ a / φ b = (m • (.some X Y hR : (W.map c).toAffine.Point)).xRep 0 - X := by
+      classical
+      obtain ⟨Q, hQ⟩ := exists_ne (0 : W.toAffine.Point)
+      rcases Q with _ | ⟨x₀, y₀, h₀⟩
+      · exact (hQ rfl).elim
+      let G := W.toAffine.Point
+      let A := W.toAffine.CoordinateRing
+      let : Module.Finite (Polynomial k) A := Module.Finite.of_basis (CoordinateRing.basis W.toAffine)
+      let ev : G → A →+* k := fun P => match P with
+        | .zero => AdjoinRoot.evalEval h₀.1
+        | .some x y h => AdjoinRoot.evalEval h.1
+      have ev_mk (x y : k) (h : W.toAffine.Nonsingular x y)
+          (p : Polynomial (Polynomial k)) :
+          ev (.some x y h) (CoordinateRing.mk W.toAffine p) = p.evalEval x y := by
+        exact AdjoinRoot.evalEval_mk h.1 p
+      have ev_basis (x y : k) (h : W.toAffine.Nonsingular x y) (p q : Polynomial k) :
+          ev (.some x y h) (p • (1 : A) + q • CoordinateRing.mk W.toAffine Polynomial.X) =
+            p.eval x + q.eval x * y := by
+        rw [CoordinateRing.smul p (1 : A), CoordinateRing.smul q]
+        simp only [map_add, map_mul, mul_one, ev_mk x y h,
+          Polynomial.evalEval_C, Polynomial.evalEval_X]
+      have hxf (x : k) : Set.Finite {P : G | P.xRep 0 = x} := by
+        by_cases h : ∃ y, W.toAffine.Nonsingular x y
+        · obtain ⟨y, hy⟩ := h
+          apply (((Set.finite_singleton (-.some x y hy)).insert (.some x y hy)).insert 0).subset
+          intro P hp
+          cases P with
+          | zero => simp [← zero_def]
+          | some u v hv =>
+            have hu : u = x := hp
+            rcases (X_eq_iff (h₁ := hv) (h₂ := hy)).mp hu with he | he
+            · exact Or.inr (Or.inl he)
+            · exact Or.inr (Or.inr he)
+        · apply (Set.finite_singleton (0 : G)).subset
+          intro P hp
+          cases P with
+          | zero => rfl
+          | some u v hv => exact (h ⟨v, (show u = x from hp) ▸ hv⟩).elim
+      have ev_nonzero (a : A) (ha : a ≠ 0) : ∀ᶠ P in Filter.cofinite, ev P a ≠ 0 := by
+        have hn : Algebra.norm (Polynomial k) a ≠ 0 := Algebra.norm_ne_zero_iff.mpr ha
+        have hf := (Polynomial.finite_setOfPred_isRoot hn).biUnion (fun x _ => hxf x)
+        apply Filter.eventually_cofinite.mpr
+        apply ((Set.finite_singleton (0 : G)).union hf).subset
+        intro P hp
+        change ¬ ev P a ≠ 0 at hp
+        simp only [not_not] at hp
+        cases P with
+        | zero => exact Or.inl rfl
+        | some x y h =>
+          apply Or.inr
+          apply Set.mem_iUnion₂.mpr
+          refine ⟨x, ?_, rfl⟩
+          obtain ⟨p, q, he⟩ := CoordinateRing.exists_smul_basis_eq a
+          rw [← he, ev_basis x y h p q] at hp
+          change (Algebra.norm (Polynomial k) a).eval x = 0
+          rw [← he, CoordinateRing.norm_smul_basis]
+          simp only [Polynomial.eval_sub, Polynomial.eval_pow, Polynomial.eval_mul,
+            Polynomial.eval_add, Polynomial.eval_C, Polynomial.eval_X]
+          have heq := (equation_iff x y).mp h.1
+          linear_combination (p.eval x - q.eval x * y - q.eval x * (W.a₁ * x + W.a₃)) * hp +
+            q.eval x ^ 2 * heq
+      let V := (W.map c).toAffine
+      let Good : (G → k) → F → Prop := fun f v =>
+        ∃ a b : A, b ≠ 0 ∧ v = φ a / φ b ∧
+          ∀ᶠ P in Filter.cofinite, f P = ev P a / ev P b
+      have good_ev (a : A) : Good (fun P => ev P a) (φ a) := by
+        refine ⟨a, 1, one_ne_zero, by simp, ?_⟩
+        filter_upwards [] with P
+        simp
+      have good_congr {f g : G → k} {v : F} (hf : Good f v)
+          (hh : ∀ᶠ P in Filter.cofinite, f P = g P) : Good g v := by
+        obtain ⟨a,b,hb,hv,ha⟩ := hf
+        refine ⟨a,b,hb,hv,?_⟩
+        filter_upwards [hh,ha] with P hP he
+        exact hP.symm.trans he
+      have good_const (z : k) : Good (fun _ => z) (c z) := by
+        rw [← hφconst z]
+        apply good_congr (good_ev (algebraMap k A z))
+        filter_upwards [] with P
+        cases P <;>
+          simp [ev, A, AdjoinRoot.evalEval, AdjoinRoot.algebraMap_eq', AdjoinRoot.lift_of]
+      have good_add {f g : G → k} {u v : F} (hf : Good f u) (hg : Good g v) :
+          Good (fun P => f P + g P) (u + v) := by
+        obtain ⟨a,b,hb,rfl,ha⟩ := hf
+        obtain ⟨c,d,hd,rfl,hc⟩ := hg
+        refine ⟨a*d+c*b,b*d,mul_ne_zero hb hd,?_,?_⟩
+        · simp only [map_add,map_mul]
+          simpa only [mul_comm] using div_add_div (φ a) (φ c) ((map_ne_zero_iff _ hφ).mpr hb) ((map_ne_zero_iff _ hφ).mpr hd)
+        · filter_upwards [ha,hc,ev_nonzero b hb,ev_nonzero d hd] with P ha hc hb hd
+          rw [ha,hc,map_add,map_mul,map_mul,map_mul]
+          simpa only [mul_comm] using div_add_div (ev P a) (ev P c) hb hd
+      have good_neg {f : G → k} {u : F} (hf : Good f u) : Good (fun P => -f P) (-u) := by
+        obtain ⟨a,b,hb,rfl,ha⟩ := hf
+        refine ⟨-a,b,hb,by simp only [map_neg,neg_div],?_⟩
+        filter_upwards [ha] with P he
+        simp only [he,map_neg,neg_div]
+      have good_sub {f g : G → k} {u v : F} (hf : Good f u) (hg : Good g v) :
+          Good (fun P => f P - g P) (u-v) := by
+        simpa only [sub_eq_add_neg] using good_add hf (good_neg hg)
+      have good_mul {f g : G → k} {u v : F} (hf : Good f u) (hg : Good g v) :
+          Good (fun P => f P * g P) (u*v) := by
+        obtain ⟨a,b,hb,rfl,ha⟩ := hf
+        obtain ⟨c,d,hd,rfl,hc⟩ := hg
+        refine ⟨a*c,b*d,mul_ne_zero hb hd,by simp only [map_mul,div_mul_div_comm],?_⟩
+        filter_upwards [ha,hc] with P ha hc
+        simp only [ha,hc,map_mul,div_mul_div_comm]
+      have good_inv {f : G → k} {u : F} (hf : Good f u) : Good (fun P => (f P)⁻¹) u⁻¹ := by
+        obtain ⟨a,b,hb,rfl,ha⟩ := hf
+        by_cases hz : a = 0
+        · simp only [hz,_root_.map_zero,zero_div,inv_zero]
+          have hh := good_const 0
+          rw [_root_.map_zero] at hh
+          apply good_congr hh
+          filter_upwards [ha] with P he
+          simp [he,hz]
+        · refine ⟨b,a,hz,by rw [inv_div],?_⟩
+          filter_upwards [ha] with P he
+          rw [he,inv_div]
+      have good_div {f g : G → k} {u v : F} (hf : Good f u) (hg : Good g v) :
+          Good (fun P => f P / g P) (u/v) := by
+        simpa only [div_eq_mul_inv] using good_mul hf (good_inv hg)
+      have good_pow {f : G → k} {u : F} (hf : Good f u) (n : ℕ) :
+          Good (fun P => f P ^ n) (u^n) := by
+        induction n with
+        | zero => simpa only [pow_zero,_root_.map_one] using good_const 1
+        | succ n ih => simpa only [pow_succ] using good_mul ih hf
+      have good_zero {f : G → k} {v : F} (hf : Good f v) :
+          (v = 0 → ∀ᶠ P in Filter.cofinite, f P = 0) ∧
+          (v ≠ 0 → ∀ᶠ P in Filter.cofinite, f P ≠ 0) := by
+        obtain ⟨a,b,hb,rfl,ha⟩ := hf
+        have hfb : φ b ≠ 0 := (map_ne_zero_iff _ hφ).mpr hb
+        constructor
+        · intro hv
+          have haz : a = 0 := hφ (by simpa only [_root_.map_zero] using (div_eq_zero_iff.mp hv).resolve_right hfb)
+          filter_upwards [ha] with P he
+          simpa only [haz,_root_.map_zero,zero_div] using he
+        · intro hv
+          have haz : a ≠ 0 := by intro hh; simp [hh] at hv
+          filter_upwards [ha,ev_nonzero a haz,ev_nonzero b hb] with P he ha hb
+          rw [he]
+          exact div_ne_zero ha hb
+      have good_equal {f g : G → k} {u v : F} (hf : Good f u) (hg : Good g v) :
+          (u = v → ∀ᶠ P in Filter.cofinite, f P = g P) ∧
+          (u ≠ v → ∀ᶠ P in Filter.cofinite, f P ≠ g P) := by
+        simpa only [sub_eq_zero,sub_ne_zero] using good_zero (good_sub hf hg)
+      have good_ite {f g a b : G → k} {u v A B : F}
+          (hf : Good f u) (hg : Good g v) (ha : Good a A) (hb : Good b B) :
+          Good (fun P => if f P = g P then a P else b P) (if u=v then A else B) := by
+        by_cases huv : u=v
+        · rw [if_pos huv]
+          apply good_congr ha
+          filter_upwards [(good_equal hf hg).1 huv] with P he
+          simp only [if_pos he]
+        · rw [if_neg huv]
+          apply good_congr hb
+          filter_upwards [(good_equal hf hg).2 huv] with P he
+          simp only [if_neg he]
+      let GoodPoint : (G → G) → V.Point → Prop := fun f R => match R with
+        | .zero => ∀ᶠ P in Filter.cofinite, f P = 0
+        | .some X Y h => ∃ x y : G → k, Good x X ∧ Good y Y ∧
+            ∀ᶠ P in Filter.cofinite, ∃ h : W.toAffine.Nonsingular (x P) (y P),
+              f P = .some _ _ h
+      have goodPoint_congr {f g : G → G} {R : V.Point} (hf : GoodPoint f R)
+          (hh : ∀ᶠ P in Filter.cofinite, f P=g P) : GoodPoint g R := by
+        cases R with
+        | zero =>
+          filter_upwards [hf,hh] with P he hP
+          exact hP.symm.trans he
+        | some X Y h =>
+          obtain ⟨x,y,hx,hy,hv⟩ := hf
+          refine ⟨x,y,hx,hy,?_⟩
+          filter_upwards [hv,hh] with P ⟨h,he⟩ hP
+          exact ⟨h,hP.symm.trans he⟩
+      have goodPoint_id : GoodPoint (fun P => P) (.some X Y hR) := by
+        let x : G → k := fun P => ev P (CoordinateRing.mk W.toAffine (Polynomial.C Polynomial.X))
+        let y : G → k := fun P => ev P (CoordinateRing.mk W.toAffine Polynomial.X)
+        refine ⟨x,y,hφx ▸ good_ev _,hφy ▸ good_ev _,?_⟩
+        filter_upwards [Filter.eventually_cofinite_ne (0 : G)] with P hP
+        cases P with
+        | zero => exact (hP rfl).elim
+        | some u v h =>
+          have hx : x (.some u v h) = u := by simp only [x,ev_mk,Polynomial.evalEval_C,Polynomial.eval_X]
+          have hy : y (.some u v h) = v := by simp only [y,ev_mk,Polynomial.evalEval_X]
+          simp only [hx,hy]
+          exact ⟨h,trivial⟩
+      have goodPoint_add {f g : G → G} {R S : V.Point} (hf : GoodPoint f R) (hg : GoodPoint g S) :
+          GoodPoint (fun P => f P+g P) (R+S) := by
+        cases R with
+        | zero =>
+          change GoodPoint (fun P => f P+g P) (0+S)
+          rw [zero_add]
+          apply goodPoint_congr hg
+          filter_upwards [hf] with P hP
+          simp [hP]
+        | some X₁ Y₁ H₁ =>
+          cases S with
+          | zero =>
+            change GoodPoint (fun P => f P+g P) ((.some X₁ Y₁ H₁ : V.Point)+0)
+            rw [add_zero]
+            apply goodPoint_congr (R := .some X₁ Y₁ H₁) hf
+            filter_upwards [hg] with P hP
+            simp [hP]
+          | some X₂ Y₂ H₂ =>
+            obtain ⟨x₁,y₁,hx₁,hy₁,hf⟩ := hf
+            obtain ⟨x₂,y₂,hx₂,hy₂,hg⟩ := hg
+            have hneg {x y : G → k} {X Y : F} (hx : Good x X) (hy : Good y Y) :
+                Good (fun P => W.toAffine.negY (x P) (y P)) (V.negY X Y) :=
+              good_sub (good_sub (good_neg hy) (good_mul (good_const W.a₁) hx)) (good_const W.a₃)
+            by_cases hxy : X₁=X₂ ∧ Y₁=V.negY X₂ Y₂
+            · rw [add_of_Y_eq hxy.1 hxy.2]
+              filter_upwards [hf,hg,(good_equal hx₁ hx₂).1 hxy.1,
+                (good_equal hy₁ (hneg hx₂ hy₂)).1 hxy.2] with P ⟨h₁,he₁⟩ ⟨h₂,he₂⟩ he hy
+              rw [he₁,he₂,add_of_Y_eq he hy]
+            · have hc : ∀ᶠ P in Filter.cofinite,
+                  ¬(x₁ P=x₂ P ∧ y₁ P=W.toAffine.negY (x₂ P) (y₂ P)) := by
+                by_cases hxx : X₁=X₂
+                · filter_upwards [(good_equal hy₁ (hneg hx₂ hy₂)).2 (fun he => hxy ⟨hxx,he⟩)] with P he
+                  exact fun hh => he hh.2
+                · filter_upwards [(good_equal hx₁ hx₂).2 hxx] with P he
+                  exact fun hh => he hh.1
+              let s : G → k := fun P => W.toAffine.slope (x₁ P) (x₂ P) (y₁ P) (y₂ P)
+              let L := V.slope X₁ X₂ Y₁ Y₂
+              have hs : Good s L := by
+                apply good_ite hx₁ hx₂
+                · apply good_ite hy₁ (hneg hx₂ hy₂)
+                  · simpa only [_root_.map_zero] using good_const 0
+                  · convert good_div
+                      (good_sub (good_add
+                        (good_add (good_mul (good_const 3) (good_pow hx₁ 2))
+                          (good_mul (good_const (2*W.a₂)) hx₁)) (good_const W.a₄))
+                        (good_mul (good_const W.a₁) hy₁))
+                      (good_sub hy₁ (hneg hx₁ hy₁)) using 1
+                    simp only [map_ofNat,map_mul]
+                    rfl
+                · exact good_div (good_sub hy₁ hy₂) (good_sub hx₁ hx₂)
+              let x : G → k := fun P => W.toAffine.addX (x₁ P) (x₂ P) (s P)
+              let y : G → k := fun P => W.toAffine.addY (x₁ P) (x₂ P) (y₁ P) (s P)
+              have hx : Good x (V.addX X₁ X₂ L) :=
+                good_sub (good_sub (good_sub (good_add (good_pow hs 2)
+                  (good_mul (good_const W.a₁) hs)) (good_const W.a₂)) hx₁) hx₂
+              have hy : Good y (V.addY X₁ X₂ Y₁ L) :=
+                hneg hx (good_add (good_mul hs (good_sub hx hx₁)) hy₁)
+              rw [add_some hxy]
+              refine ⟨x,y,hx,hy,?_⟩
+              filter_upwards [hf,hg,hc] with P ⟨h₁,he₁⟩ ⟨h₂,he₂⟩ he
+              exact ⟨nonsingular_add h₁ h₂ he,by rw [he₁,he₂,add_some he]⟩
+      have goodPoint_nsmul (n : ℕ) : GoodPoint (fun P => n • P) (n • (.some X Y hR : V.Point)) := by
+        induction n with
+        | zero =>
+          simp only [zero_nsmul]
+          exact Filter.Eventually.of_forall (fun P => rfl)
+        | succ n ih => simpa only [succ_nsmul] using goodPoint_add ih goodPoint_id
+      have goodPoint_x {f : G → G} {R : V.Point} (hf : GoodPoint f R) :
+          Good (fun P => (f P).xRep 0) (R.xRep 0) := by
+        cases R with
+        | zero =>
+          have hh := good_const 1
+          rw [_root_.map_one] at hh
+          apply good_congr hh
+          filter_upwards [hf] with P he
+          rw [he]
+          rfl
+        | some X Y h =>
+          obtain ⟨x,y,hx,hy,hf⟩ := hf
+          apply good_congr hx
+          filter_upwards [hf] with P ⟨h,he⟩
+          rw [he]
+          rfl
+      have hh := good_sub (goodPoint_x (goodPoint_nsmul m)) (goodPoint_x (R := .some X Y hR) goodPoint_id)
+      have ha : Good (fun P : G => (m • P).xRep 0 - P.xRep 0) (φ a / φ b) := by
+        refine ⟨a,b,hb,rfl,?_⟩
+        filter_upwards [hval,Filter.eventually_cofinite_ne (0 : G)] with P he hP
+        cases P with
+        | zero => exact (hP rfl).elim
+        | some x y h => exact he x y h rfl
+      by_contra hne
+      obtain ⟨P,hP⟩ := ((good_equal ha hh).2 hne).exists
+      exact hP rfl
+
+    have hH_atOrigin : functionFieldAtOrigin H =
+        (m • (.some originX originY h_origin_point :
+          (W.map originFieldConstants).toAffine.Point)).xRep 0 - originX := by
+      let : Field originField := inferInstance
+      have hc (z : k) : affineAtOrigin (algebraMap k A z) = originFieldConstants z := by
+        change affineAtOrigin (CoordinateRing.mk W.toAffine (Polynomial.C (Polynomial.C z))) = _
+        rw [h_affineAtOrigin_mk]
+        simp only [Polynomial.eval₂_C, Polynomial.coe_eval₂RingHom]
+      have hx : affineAtOrigin (CoordinateRing.mk W.toAffine (Polynomial.C Polynomial.X)) = originX := by
+        rw [h_affineAtOrigin_mk]
+        simp only [Polynomial.eval₂_C, Polynomial.coe_eval₂RingHom, Polynomial.eval₂_X]
+      have hy : affineAtOrigin (CoordinateRing.mk W.toAffine Polynomial.X) = originY := by
+        rw [h_affineAtOrigin_mk, Polynomial.eval₂_X]
+      change functionFieldAtOrigin (algebraMap A W.toAffine.FunctionField a /
+        algebraMap A W.toAffine.FunctionField b) = _
+      rw [map_div₀, h_functionFieldAtOrigin, h_functionFieldAtOrigin]
+      exact generic_evaluation k W hΔ originField originFieldConstants originX originY
+        h_origin_point affineAtOrigin h_affineAtOrigin_injective hc hx hy m a b hb hH_eval
+    have normalized_translate
+        (k O F : Type) [Field k] [CommRing O] [IsLocalRing O] [Field F] [DecidableEq F]
+        (c : k →+* O) (ι : O →+* F) (t : O)
+        (ht : ι t ≠ 0) (htres : IsLocalRing.residue O t = 0)
+        (W : WeierstrassCurve k) (α β N : k) (hN : N ≠ 0)
+        (hQ : (W.map (ι.comp c)).toAffine.Nonsingular (ι (c α)) (ι (c β)))
+        (x y : O)
+        (hx : IsLocalRing.residue O x = (IsLocalRing.residue O (c N))⁻¹ ^ 2)
+        (hy : IsLocalRing.residue O y = -(IsLocalRing.residue O (c N))⁻¹ ^ 3)
+        (hR : (W.map (ι.comp c)).toAffine.Nonsingular (ι x / ι t ^ 2) (ι y / ι t ^ 3)) :
+        ∃ X Y L : O, ∃ h : (W.map (ι.comp c)).toAffine.Nonsingular (ι X) (ι Y),
+          (.some _ _ hQ : (W.map (ι.comp c)).toAffine.Point) + .some _ _ hR = .some _ _ h ∧
+          IsLocalRing.residue O X = IsLocalRing.residue O (c α) ∧
+          IsLocalRing.residue O Y = IsLocalRing.residue O (c β) ∧
+          X = c α + t * L ∧
+          IsLocalRing.residue O L = IsLocalRing.residue O (c ((2 * β + W.a₁ * α + W.a₃) * N)) ∧
+          (β = W.toAffine.negY α β → ∃ L₂ : O,
+            X = c α + t ^ 2 * L₂ ∧
+            IsLocalRing.residue O L₂ = IsLocalRing.residue O
+              (c ((3 * α ^ 2 + 2 * W.a₂ * α + W.a₄ - W.a₁ * β) * N ^ 2))) := by
+      classical
+      have algebra {F : Type} [Field F] (a₁ a₂ a₃ a₄ a₆ α β x y T : F)
+          (ht : T ≠ 0) (hd : x - α * T ^ 2 ≠ 0)
+          (he : (y / T ^ 3) ^ 2 + a₁ * (x / T ^ 2) * (y / T ^ 3) + a₃ * (y / T ^ 3) =
+            (x / T ^ 2) ^ 3 + a₂ * (x / T ^ 2) ^ 2 + a₄ * (x / T ^ 2) + a₆) :
+          ((β - y / T ^ 3) / (α - x / T ^ 2)) ^ 2 +
+            a₁ * ((β - y / T ^ 3) / (α - x / T ^ 2)) - a₂ - 2 * α - x / T ^ 2 =
+            T * (-y * (2 * β + a₁ * α + a₃) + x * T *
+              (3 * α ^ 2 + 2 * a₂ * α + a₄ - a₁ * β) + T ^ 3 *
+              (a₆ + β ^ 2 + a₁ * α * β - a₂ * α ^ 2 - 2 * α ^ 3)) /
+                (x - α * T ^ 2) ^ 2 := by
+        have hl : (β - y / T ^ 3) / (α - x / T ^ 2) =
+            (y - β * T ^ 3) / (T * (x - α * T ^ 2)) := by
+          have hh : α - x / T ^ 2 = -(x - α * T ^ 2) / T ^ 2 := by
+            field_simp [ht]
+            ring
+          rw [hh]
+          field_simp (disch := first | exact ht | exact hd | (convert hd using 1; all_goals ring) | (convert pow_ne_zero 2 hd using 1; all_goals ring))
+          ring
+        rw [hl]
+        field_simp [ht] at he
+        field_simp (disch := first | exact ht | exact hd | (convert hd using 1; all_goals ring) | (convert pow_ne_zero 2 hd using 1; all_goals ring))
+        linear_combination he
+      let r := IsLocalRing.residue O
+      let C := r.comp c
+      let n := C N
+      have hn : n ≠ 0 := (map_ne_zero_iff C C.injective).mpr hN
+      change r t = 0 at htres
+      change r x = n⁻¹ ^ 2 at hx
+      change r y = -n⁻¹ ^ 3 at hy
+      let V := (W.map (ι.comp c)).toAffine
+      let T := ι t
+      have hT : T ≠ 0 := ht
+      let A₀ := 2 * β + W.a₁ * α + W.a₃
+      let B₀ := 3 * α ^ 2 + 2 * W.a₂ * α + W.a₄ - W.a₁ * β
+      let E₀ := W.a₆ + β ^ 2 + W.a₁ * α * β - W.a₂ * α ^ 2 - 2 * α ^ 3
+      let d := x - c α * t ^ 2
+      have hdres : r d = n⁻¹ ^ 2 := by
+        simp only [d, map_sub, map_mul, map_pow, htres, hx, zero_pow (by decide : 2 ≠ 0),
+          mul_zero, sub_zero]
+      have hdu : IsUnit d := (IsLocalRing.residue_ne_zero_iff_isUnit d).mp
+        (hdres ▸ pow_ne_zero 2 (inv_ne_zero hn))
+      let u := hdu.unit
+      have hu : (u : O) = d := hdu.unit_spec
+      have hdi : ι d ≠ 0 := (hdu.map ι).ne_zero
+      let L := (-y * c A₀ + x * t * c B₀ + t ^ 3 * c E₀) * (↑u⁻¹ : O) ^ 2
+      let ell := (y - c β * t ^ 3) * (↑u⁻¹ : O)
+      let X := c α + t * L
+      let Y := -ell * L - c β - c W.a₁ * X - c W.a₃
+      have hL : r L = C (A₀ * N) := by
+        simp only [L, map_mul, map_add, map_neg, map_pow, map_units_inv, hu, hdres,
+          hy, hx, htres]
+        change (-(-n⁻¹ ^ 3) * C A₀ + n⁻¹ ^ 2 * 0 * C B₀ + 0 ^ 3 * C E₀) *
+          (n⁻¹ ^ 2)⁻¹ ^ 2 = C A₀ * C N
+        change _ = C A₀ * n
+        field_simp [hn]
+        ring
+      have hell : r ell = -n⁻¹ := by
+        simp only [ell, map_mul, map_sub, map_pow, map_units_inv, hu, hdres, hy, htres]
+        field_simp [hn]
+        ring
+      have hX : r X = C α := by
+        simp only [X, map_add, map_mul, htres, zero_mul, add_zero]
+        rfl
+      have hY : r Y = C β := by
+        simp only [Y, map_sub, map_mul, map_neg, hell, hL, hX]
+        change -(-n⁻¹) * (C A₀ * C N) - C β - C W.a₁ * C α - C W.a₃ = C β
+        simp only [map_mul, A₀, map_add, map_ofNat]
+        change -(-n⁻¹) * ((2 * C β + C W.a₁ * C α + C W.a₃) * n) -
+          C β - C W.a₁ * C α - C W.a₃ = C β
+        field_simp [hn]
+        ring
+      have hd : ι x - ι (c α) * T ^ 2 ≠ 0 := by
+        simpa only [d, map_sub, map_mul, map_pow, T] using hdi
+      have hxx : ι (c α) ≠ ι x / T ^ 2 := by
+        intro he
+        apply hd
+        apply sub_eq_zero.mpr
+        exact ((eq_div_iff (pow_ne_zero 2 ht)).mp he).symm
+      have hslope : V.slope (ι (c α)) (ι x / T ^ 2) (ι (c β)) (ι y / T ^ 3) =
+          ι ell / T := by
+        rw [slope_of_X_ne hxx]
+        simp only [ell, map_mul, map_sub, map_pow, map_units_inv, hu, d]
+        change (ι (c β) - ι y / T ^ 3) / (ι (c α) - ι x / T ^ 2) =
+          ((ι y - ι (c β) * T ^ 3) * (ι x - ι (c α) * T ^ 2)⁻¹) / T
+        have hh : ι (c α) - ι x / T ^ 2 = -(ι x - ι (c α) * T ^ 2) / T ^ 2 := by
+          field_simp [hT]
+          ring
+        rw [hh]
+        field_simp (disch := first | exact hT | exact hd | (convert hd using 1; all_goals ring) | (convert pow_ne_zero 2 hd using 1; all_goals ring))
+        ring
+      have hXfield : V.addX (ι (c α)) (ι x / T ^ 2)
+          (V.slope (ι (c α)) (ι x / T ^ 2) (ι (c β)) (ι y / T ^ 3)) = ι X := by
+        have he := (equation_iff _ _).mp hR.1
+        have hh := algebra (ι (c W.a₁)) (ι (c W.a₂)) (ι (c W.a₃)) (ι (c W.a₄))
+          (ι (c W.a₆)) (ι (c α)) (ι (c β)) (ι x) (ι y) T ht hd he
+        rw [slope_of_X_ne hxx]
+        change _ ^ 2 + ι (c W.a₁) * _ - ι (c W.a₂) - ι (c α) - ι x / T ^ 2 = _
+        simp only [X, L, map_add, map_mul, map_pow, map_neg, map_units_inv, hu,
+          d, map_sub, A₀, B₀, E₀, map_ofNat]
+        dsimp only [T] at hh ⊢
+        rw [inv_pow, ← div_eq_mul_inv]
+        linear_combination hh
+      have hYfield : V.addY (ι (c α)) (ι x / T ^ 2) (ι (c β))
+          (V.slope (ι (c α)) (ι x / T ^ 2) (ι (c β)) (ι y / T ^ 3)) = ι Y := by
+        simp only [Affine.addY, Affine.negAddY, Affine.negY]
+        rw [hXfield, hslope]
+        change -((ι ell / T) * (ι X - ι (c α)) + ι (c β)) -
+          ι (c W.a₁) * ι X - ι (c W.a₃) = ι Y
+        have hx' : ι X - ι (c α) = T * ι L := by
+          simp only [X, map_add, map_mul, T]
+          ring
+        rw [hx']
+        simp only [Y, map_sub, map_mul, map_neg]
+        field_simp [hT]
+        ring
+      have hsum := nonsingular_add hQ hR (fun hh => hxx hh.1)
+      rw [hXfield, hYfield] at hsum
+      refine ⟨X, Y, L, hsum, ?_, hX, hY, rfl, hL, ?_⟩
+      · rw [add_of_X_ne hxx, some.injEq]
+        exact ⟨hXfield, hYfield⟩
+      · intro hb
+        have hA : A₀ = 0 := by
+          change β = -β - W.a₁ * α - W.a₃ at hb
+          dsimp only [A₀]
+          linear_combination hb
+        let L₂ := (x * c B₀ + t ^ 2 * c E₀) * (↑u⁻¹ : O) ^ 2
+        refine ⟨L₂, ?_, ?_⟩
+        · dsimp only [X, L, L₂]
+          rw [hA, _root_.map_zero, mul_zero, zero_add]
+          ring
+        · change r L₂ = C (B₀ * N ^ 2)
+          simp only [L₂, map_mul, map_add, map_pow, map_units_inv, hu, hdres, hx, htres]
+          change (n⁻¹ ^ 2 * C B₀ + 0 ^ 2 * C E₀) * (n⁻¹ ^ 2)⁻¹ ^ 2 =
+            C B₀ * n ^ 2
+          field_simp [hn]
+          ring
+    have local_order_value
+        (B O F Γ : Type) [CommRing B] [IsDomain B] [IsNoetherianRing B] [IsLocalRing B]
+        [CommRing O] [Field F] [LinearOrderedCommGroupWithZero Γ]
+        (ψ : B →+* O) (ι : O →+* F) (v : Valuation F Γ)
+        (hvunit : ∀ u : O, IsUnit u → v (ι u) = 1)
+        (τ : B) (hτ : Prime τ) (hspan : Ideal.span {τ} = IsLocalRing.maximalIdeal B)
+        (q : Γ) (e : ℕ) (he : e ≠ 0) (z₀ : B) (hz₀ : z₀ ≠ 0)
+        (hord : multiplicity τ z₀ = e) (hval : v (ι (ψ z₀)) = q ^ e) :
+        ∀ z : B, z ≠ 0 → v (ι (ψ z)) = q ^ multiplicity τ z := by
+      have factor (z : B) (hz : z ≠ 0) :
+          ∃ u : B, z = τ ^ multiplicity τ z * u ∧ IsUnit u := by
+        obtain ⟨u, hu, hnot⟩ := (FiniteMultiplicity.of_prime_left hτ hz).exists_eq_pow_mul_and_not_dvd
+        refine ⟨u, hu, ?_⟩
+        by_contra hunit
+        apply hnot
+        apply Ideal.mem_span_singleton.mp
+        rw [hspan]
+        exact (IsLocalRing.mem_maximalIdeal u).mpr hunit
+      have value (z : B) (hz : z ≠ 0) :
+          v (ι (ψ z)) = v (ι (ψ τ)) ^ multiplicity τ z := by
+        obtain ⟨u, hu, hunit⟩ := factor z hz
+        conv_lhs => rw [hu]
+        rw [map_mul, map_pow, map_mul, map_pow, map_mul, map_pow,
+          hvunit (ψ u) (hunit.map ψ), mul_one]
+      have hτv : v (ι (ψ τ)) = q := by
+        apply (pow_left_inj₀ zero_le zero_le he).mp
+        rw [← hord, ← value z₀ hz₀, hval, hord]
+      intro z hz
+      rw [value z hz, hτv]
+    have haffineOrder_evaluation (α β : k) (h : W.toAffine.Nonsingular α β)
+        (φ : A →+* originLocalRing)
+        (hφres : ∀ z : A, IsLocalRing.residue originLocalRing (φ z) =
+          IsLocalRing.residue originLocalRing (originConstants (AdjoinRoot.evalEval h.1 z)))
+        (hφX : originValuation (originInclusion (φ (CoordinateRing.XClass W.toAffine α))) =
+          originValuation (originInclusion t) ^
+            (if β = W.toAffine.negY α β then (2 : ℕ) else 1)) :
+        Function.Injective (originInclusion.comp φ) ∧
+        ∀ z : A, z ≠ 0 → originValuation (originInclusion (φ z)) =
+          originValuation (originInclusion t) ^ affineOrder α β h z := by
+      let p : Ideal A := RingHom.ker (AdjoinRoot.evalEval h.1)
+      let : p.IsPrime := RingHom.ker_isPrime _
+      let B := Localization.AtPrime p
+      let f : A →+* B := algebraMap A B
+      let τ := Classical.choose (hlocalPolynomialOrder α β h)
+      have hτ := Classical.choose_spec (hlocalPolynomialOrder α β h)
+      let C := (IsLocalRing.residue originLocalRing).comp originConstants
+      have hunit (z : p.primeCompl) : IsUnit (φ z) := by
+        apply (IsLocalRing.residue_ne_zero_iff_isUnit _).mp
+        rw [hφres]
+        change C (AdjoinRoot.evalEval h.1 z) ≠ 0
+        apply (map_ne_zero_iff C C.injective).mpr
+        exact z.property
+      let ψ : B →+* originLocalRing := IsLocalization.lift hunit
+      have hψ (z : A) : ψ (f z) = φ z := IsLocalization.lift_eq hunit z
+      let x := f (CoordinateRing.XClass W.toAffine α)
+      have hx : x ≠ 0 :=
+        (map_ne_zero_iff f (IsLocalization.injective B p.primeCompl_le_nonZeroDivisors)).mpr
+          (CoordinateRing.XClass_ne_zero α)
+      have hem : emultiplicity τ x =
+          if β = W.toAffine.negY α β then (2 : ENat) else 1 := by
+        have hh := hτ.2.2 (Polynomial.X - Polynomial.C α) (Polynomial.X_sub_C_ne_zero α)
+        simpa only [τ, x, f, CoordinateRing.XClass, RingHom.comp_apply, Polynomial.rootMultiplicity_X_sub_C_self, Nat.cast_one, one_mul] using hh
+      have hmul : multiplicity τ x = if β = W.toAffine.negY α β then 2 else 1 := by
+        have hh := (FiniteMultiplicity.of_prime_left hτ.2.1 hx).emultiplicity_eq_multiplicity
+        rw [hem] at hh
+        dsimp only [τ]
+        split_ifs at hh ⊢ <;> exact_mod_cast hh.symm
+      have hval (z : B) (hz : z ≠ 0) : originValuation (originInclusion (ψ z)) =
+          originValuation (originInclusion t) ^ multiplicity τ z := by
+        apply local_order_value B originLocalRing originField _ ψ originInclusion originValuation
+          (fun u hu => horigin_integers.one_of_isUnit hu) τ hτ.2.1 hτ.1
+          (originValuation (originInclusion t))
+          (if β = W.toAffine.negY α β then 2 else 1) (by split_ifs <;> decide) x hx hmul
+          (by rw [hψ]; exact hφX) z hz
+      have hvalue (z : A) (hz : z ≠ 0) : originValuation (originInclusion (φ z)) =
+          originValuation (originInclusion t) ^ affineOrder α β h z := by
+        rw [← hψ]
+        exact hval (f z)
+          ((map_ne_zero_iff f (IsLocalization.injective B p.primeCompl_le_nonZeroDivisors)).mpr hz)
+      refine ⟨?_, hvalue⟩
+      apply (injective_iff_map_eq_zero _).mpr
+      intro z hz
+      by_contra hz₀
+      have hv := hvalue z hz₀
+      change originInclusion (φ z) = 0 at hz
+      rw [hz, _root_.map_zero] at hv
+      exact (pow_ne_zero _ horigin_value_t.1) hv.symm
+    have translated_evaluation
+        (k O F : Type) [Field k] [CommRing O] [IsLocalRing O] [Field F]
+        (c : k →+* O) (ι : O →+* F) (hι : Function.Injective ι)
+        (W : WeierstrassCurve k) (α β : k) (h : W.toAffine.Nonsingular α β)
+        (X Y : O) (hXY : (W.map (ι.comp c)).toAffine.Nonsingular (ι X) (ι Y))
+        (hX : IsLocalRing.residue O X = IsLocalRing.residue O (c α))
+        (hY : IsLocalRing.residue O Y = IsLocalRing.residue O (c β)) :
+        ∃ φ : W.toAffine.CoordinateRing →+* O,
+          (∀ p : Polynomial (Polynomial k), φ (CoordinateRing.mk W.toAffine p) =
+            p.eval₂ (Polynomial.eval₂RingHom c X) Y) ∧
+          ∀ z : W.toAffine.CoordinateRing, IsLocalRing.residue O (φ z) =
+            IsLocalRing.residue O (c (AdjoinRoot.evalEval h.1 z)) := by
+      have hO : Y ^ 2 + c W.a₁ * X * Y + c W.a₃ * Y =
+          X ^ 3 + c W.a₂ * X ^ 2 + c W.a₄ * X + c W.a₆ := by
+        apply hι
+        simpa only [map_add, map_mul, map_pow, WeierstrassCurve.toAffine, WeierstrassCurve.map, RingHom.comp_apply] using (equation_iff _ _).mp hXY.1
+      let φ : W.toAffine.CoordinateRing →+* O :=
+        AdjoinRoot.lift (Polynomial.eval₂RingHom c X) Y (by
+          simpa only [WeierstrassCurve.Affine.polynomial, Polynomial.eval₂_sub,
+            Polynomial.eval₂_add, Polynomial.eval₂_mul, Polynomial.eval₂_pow,
+            Polynomial.eval₂_C, Polynomial.eval₂_X, Polynomial.coe_eval₂RingHom,
+            sub_eq_zero, add_mul, mul_assoc, add_assoc] using hO)
+      have hφ (p : Polynomial (Polynomial k)) : φ (CoordinateRing.mk W.toAffine p) =
+          p.eval₂ (Polynomial.eval₂RingHom c X) Y := AdjoinRoot.lift_mk _ _
+      refine ⟨φ, hφ, ?_⟩
+      let r := IsLocalRing.residue O
+      let C := r.comp c
+      change r X = C α at hX
+      change r Y = C β at hY
+      have hpoly (p : Polynomial k) : r (p.eval₂ c X) = C (p.eval α) := by
+        induction p using Polynomial.induction_on' with
+        | add p q hp hq => simp only [Polynomial.eval₂_add, Polynomial.eval_add, map_add, hp, hq]
+        | monomial n a =>
+          simp only [Polynomial.eval₂_monomial, Polynomial.eval_monomial, map_mul, map_pow, hX]
+          rfl
+      intro z
+      obtain ⟨p, q, rfl⟩ := CoordinateRing.exists_smul_basis_eq z
+      simp only [CoordinateRing.smul, map_add, map_mul, hφ, mul_one,
+        Polynomial.eval₂_C, Polynomial.eval₂_X, Polynomial.coe_eval₂RingHom,
+        AdjoinRoot.evalEval_mk, Polynomial.evalEval_C, Polynomial.evalEval_X]
+      change r (p.eval₂ c X) + r (q.eval₂ c X) * r Y =
+        C (p.eval α) + C (q.eval α) * C β
+      rw [hpoly, hpoly, hY]
+    let originPoint : (W.map originFieldConstants).toAffine.Point :=
+      .some originX originY h_origin_point
+    have point_map (k F : Type) [Field k] [DecidableEq k] [Field F] [DecidableEq F]
+        (W : WeierstrassCurve k) (c : k →+* F) :
+        ∃ f : W.toAffine.Point →+ (W.map c).toAffine.Point,
+          ∀ (x y : k) (h : W.toAffine.Nonsingular x y),
+            f (.some x y h) = .some (c x) (c y)
+              ((W.toAffine.map_nonsingular (f := c) c.injective x y).mpr h) := by
+      let : Algebra k F := c.toAlgebra
+      let f : W.toAffine.Point →+ (W.map c).toAffine.Point :=
+        WeierstrassCurve.Affine.Point.baseChange (W' := W.toAffine) k F
+      exact ⟨f, fun x y h => rfl⟩
+    obtain ⟨pointMap, hpointMap⟩ := point_map k originField W originFieldConstants
+    have htranslated (α β : k) (h : W.toAffine.Nonsingular α β) (n : ℕ) (hn : 0 < n) :
+        ∃ X Y L : originLocalRing,
+        ∃ hXY : (W.map originFieldConstants).toAffine.Nonsingular (originInclusion X) (originInclusion Y),
+          pointMap (.some α β h) + n • originPoint = .some _ _ hXY ∧
+          IsLocalRing.residue originLocalRing X = IsLocalRing.residue originLocalRing (originConstants α) ∧
+          IsLocalRing.residue originLocalRing Y = IsLocalRing.residue originLocalRing (originConstants β) ∧
+          X = originConstants α + t * L ∧
+          IsLocalRing.residue originLocalRing L = IsLocalRing.residue originLocalRing
+            (originConstants ((2 * β + W.a₁ * α + W.a₃) * (n : k))) ∧
+          (β = W.toAffine.negY α β → ∃ L₂ : originLocalRing,
+            X = originConstants α + t ^ 2 * L₂ ∧
+            IsLocalRing.residue originLocalRing L₂ = IsLocalRing.residue originLocalRing
+              (originConstants ((3 * α ^ 2 + 2 * W.a₂ * α + W.a₄ - W.a₁ * β) * (n : k) ^ 2))) := by
+      obtain ⟨x, y, hh, hp, hx, hy⟩ := h_origin_multiple_coordinates n hn
+      have htres : IsLocalRing.residue originLocalRing t = 0 := by
+        apply (IsLocalRing.residue_eq_zero_iff t).mpr
+        rw [← horigin_parameter.1]
+        exact Ideal.subset_span (Set.mem_singleton t)
+      have hT : originInclusion t ≠ 0 :=
+        (map_ne_zero_iff _ (IsFractionRing.injective originLocalRing originField)).mpr ht_nonzero
+      obtain ⟨X, Y, L, hXY, heq, hX, hY, hL, hLres, hL₂⟩ := normalized_translate
+        k originLocalRing originField originConstants originInclusion t hT htres W α β (n : k)
+        (Nat.cast_ne_zero.mpr (by omega))
+        ((W.toAffine.map_nonsingular (f := originFieldConstants)
+          originFieldConstants.injective α β).mpr h) x y
+        (by simpa only [map_natCast] using hx) (by simpa only [map_natCast] using hy) hh
+      refine ⟨X, Y, L, hXY, ?_, hX, hY, hL, hLres, hL₂⟩
+      rw [hpointMap]
+      change _ + n • (.some originX originY h_origin_point :
+        (W.map originFieldConstants).toAffine.Point) = _
+      rw [hp]
+      exact heq
+    have htranslated_evaluation (α β : k) (h : W.toAffine.Nonsingular α β) :
+        ∃ (X Y : originLocalRing)
+          (hXY : (W.map originFieldConstants).toAffine.Nonsingular (originInclusion X) (originInclusion Y))
+          (φ : A →+* originLocalRing),
+          pointMap (.some α β h) + originPoint = .some _ _ hXY ∧
+          (∀ p : Polynomial (Polynomial k), φ (CoordinateRing.mk W.toAffine p) =
+            p.eval₂ (Polynomial.eval₂RingHom originConstants X) Y) ∧
+          Function.Injective (originInclusion.comp φ) ∧
+          (∀ z : A, z ≠ 0 → originValuation (originInclusion (φ z)) =
+            originValuation (originInclusion t) ^ affineOrder α β h z) ∧
+          IsLocalRing.residue originLocalRing X = IsLocalRing.residue originLocalRing (originConstants α) ∧
+          (∀ z : A, IsLocalRing.residue originLocalRing (φ z) =
+            IsLocalRing.residue originLocalRing (originConstants (AdjoinRoot.evalEval h.1 z))) := by
+      obtain ⟨X, Y, L, hXY, heq, hX, hY, hL, hLres, hL₂⟩ := htranslated α β h 1 (by decide)
+      rw [one_nsmul] at heq
+      obtain ⟨φ, hφmk, hφres⟩ := translated_evaluation k originLocalRing originField
+        originConstants originInclusion (IsFractionRing.injective originLocalRing originField)
+        W α β h X Y hXY hX hY
+      have hφX : originValuation (originInclusion (φ (CoordinateRing.XClass W.toAffine α))) =
+          originValuation (originInclusion t) ^
+            (if β = W.toAffine.negY α β then (2 : ℕ) else 1) := by
+        have hv := h_origin_translate_point α β h
+        rw [← hpointMap α β h] at hv
+        change originValuation ((pointMap (.some α β h) + originPoint).xRep 0 -
+          originFieldConstants α) = _ at hv
+        rw [heq] at hv
+        change originValuation (originInclusion X - originFieldConstants α) = _ at hv
+        change originValuation (originInclusion (φ (CoordinateRing.mk W.toAffine
+          (Polynomial.C (Polynomial.X - Polynomial.C α))))) = _
+        rw [hφmk]
+        simpa only [Polynomial.eval₂_C, Polynomial.coe_eval₂RingHom,
+          Polynomial.eval₂_sub, Polynomial.eval₂_X, map_sub, originFieldConstants, RingHom.comp_apply] using hv
+      obtain ⟨hinj, hvalue⟩ := haffineOrder_evaluation α β h φ hφres hφX
+      exact ⟨X, Y, hXY, φ, heq, hφmk, hinj, hvalue, hX, hφres⟩
+    have h_affineH_value (α β : k) (h : W.toAffine.Nonsingular α β) :
+        originValuation (((pointMap (m • (.some α β h : W.toAffine.Point))) +
+            m • originPoint).xRep 0 - (pointMap (.some α β h) + originPoint).xRep 0) =
+          originValuation (originInclusion t) ^ principalH (.some α β h) := by
+      obtain ⟨X, Y, hXY, φ, heq, hφmk, hinj, hvalue, _hX⟩ := htranslated_evaluation α β h
+      let ψ : A →+* originField := originInclusion.comp φ
+      have hc (z : k) : ψ (algebraMap k A z) = originFieldConstants z := by
+        change originInclusion (φ (CoordinateRing.mk W.toAffine (Polynomial.C (Polynomial.C z)))) = _
+        rw [hφmk]
+        simp only [Polynomial.eval₂_C, Polynomial.coe_eval₂RingHom]
+        rfl
+      have hx : ψ (CoordinateRing.mk W.toAffine (Polynomial.C Polynomial.X)) = originInclusion X := by
+        change originInclusion (φ _) = _
+        rw [hφmk]
+        simp only [Polynomial.eval₂_C, Polynomial.coe_eval₂RingHom, Polynomial.eval₂_X]
+      have hy : ψ (CoordinateRing.mk W.toAffine Polynomial.X) = originInclusion Y := by
+        change originInclusion (φ _) = _
+        rw [hφmk, Polynomial.eval₂_X]
+      have he := generic_evaluation k W hΔ originField originFieldConstants
+        (originInclusion X) (originInclusion Y) hXY ψ hinj hc hx hy m a b hb hH_eval
+      change ψ a / ψ b = (m • (.some _ _ hXY : (W.map originFieldConstants).toAffine.Point)).xRep 0 -
+        (.some _ _ hXY : (W.map originFieldConstants).toAffine.Point).xRep 0 at he
+      rw [← heq, nsmul_add, ← map_nsmul] at he
+      rw [← he, hprincipalH_affine α β h, map_div₀]
+      change originValuation (originInclusion (φ a)) / originValuation (originInclusion (φ b)) = _
+      rw [hvalue a ha, hvalue b hb, zpow_sub₀ horigin_value_t.1, zpow_natCast, zpow_natCast]
+    have h_affineH_order (α β : k) (h : W.toAffine.Nonsingular α β) :
+        originValuation (((pointMap (m • (.some α β h : W.toAffine.Point))) +
+            m • originPoint).xRep 0 - (pointMap (.some α β h) + originPoint).xRep 0) =
+          originValuation (originInclusion t) ^ D (.some α β h) := by
+      let r := IsLocalRing.residue originLocalRing
+      let C := r.comp originConstants
+      let q := originValuation (originInclusion t)
+      let P : W.toAffine.Point := .some α β h
+      have hP : P ≠ 0 := some_ne_zero h
+      obtain ⟨X₁, Y₁, L₁, h₁, heq₁, hX₁, _hY₁, hL₁, hrL₁, hL₂₁⟩ :=
+        htranslated α β h 1 (by decide)
+      rw [one_nsmul] at heq₁
+      change pointMap P + originPoint = .some _ _ h₁ at heq₁
+      change r X₁ = C α at hX₁
+      change r L₁ = C ((2 * β + W.a₁ * α + W.a₃) * ((1 : ℕ) : k)) at hrL₁
+      rw [Nat.cast_one, mul_one] at hrL₁
+      have htres : r t = 0 := by
+        apply (IsLocalRing.residue_eq_zero_iff t).mpr
+        rw [← horigin_parameter.1]
+        exact Ideal.subset_span (Set.mem_singleton t)
+      have hvalue_unit (z : originLocalRing) (hz : r z ≠ 0) :
+          originValuation (originInclusion z) = 1 :=
+        horigin_integers.one_of_isUnit ((IsLocalRing.residue_ne_zero_iff_isUnit z).mp hz)
+      have hvalue_diff (X L : originLocalRing) (j : ℕ)
+          (heq : X - X₁ = t ^ j * L) (hL : r L ≠ 0) :
+          originValuation (originInclusion X - originInclusion X₁) = q ^ j := by
+        rw [← map_sub, heq, map_mul, map_pow, map_mul, map_pow, hvalue_unit L hL, mul_one]
+      change originValuation ((pointMap (m • P) + m • originPoint).xRep 0 -
+        (pointMap P + originPoint).xRep 0) = q ^ D P
+      rw [heq₁]
+      cases hmP : m • P with
+      | zero =>
+        have hp0 : pointMap (Point.zero : W.toAffine.Point) = 0 := pointMap.map_zero
+        rw [hp0, zero_add, hD_pole P hP hmP]
+        obtain ⟨x, y, hh, hp, hx, _hy⟩ := h_origin_multiple_coordinates m hm₀
+        change m • originPoint = .some _ _ hh at hp
+        rw [hp]
+        change originValuation (originInclusion x / originInclusion t ^ 2 - originInclusion X₁) = q ^ (-2 : ℤ)
+        have hxunit : r (x - X₁ * t ^ 2) ≠ 0 := by
+          change r x = _ at hx
+          simp only [map_sub, map_mul, map_pow, htres, hx, zero_pow (by decide : 2 ≠ 0),
+            mul_zero, sub_zero]
+          have hn : (m : IsLocalRing.ResidueField originLocalRing) ≠ 0 := by
+            have hcn : C (m : k) = (m : IsLocalRing.ResidueField originLocalRing) := map_natCast C m
+            rw [← hcn]
+            exact (map_ne_zero_iff C C.injective).mpr hm_cast
+          exact pow_ne_zero 2 (inv_ne_zero hn)
+        have hf : originInclusion x / originInclusion t ^ 2 - originInclusion X₁ =
+            originInclusion (x - X₁ * t ^ 2) / originInclusion t ^ 2 := by
+          simp only [map_sub, map_mul, map_pow]
+          rw [sub_div, mul_div_cancel_right₀ _ (pow_ne_zero 2
+            ((map_ne_zero_iff _ (IsFractionRing.injective originLocalRing originField)).mpr ht_nonzero))]
+        rw [hf, map_div₀, map_pow, hvalue_unit _ hxunit]
+        simp only [q, zpow_neg, zpow_ofNat, one_div]
+      | some γ δ hδ =>
+        obtain ⟨Xm, Ym, Lm, hh, heqm, hXm, _hYm, hLm, hrLm, hL₂m⟩ := htranslated γ δ hδ m hm₀
+        rw [heqm]
+        change originValuation (originInclusion Xm - originInclusion X₁) = q ^ D P
+        change r Xm = C γ at hXm
+        change r Lm = C ((2 * δ + W.a₁ * γ + W.a₃) * (m : k)) at hrLm
+        by_cases hγα : γ = α
+        · subst γ
+          have hδchoice : δ = β ∨ δ = W.toAffine.negY α β := Y_eq_of_X_eq hδ.1 h.1 rfl
+          by_cases htwo : β = W.toAffine.negY α β
+          · have hδβ : δ = β := hδchoice.elim id (fun hh => hh.trans htwo.symm)
+            subst δ
+            have hmfix : m • P = P := hmP
+            have hPtwo : P = -P := by
+              change (.some α β h : W.toAffine.Point) = - .some α β h
+              rw [neg_some, some.injEq]
+              exact ⟨rfl, htwo⟩
+            rw [hD_two P hP hmfix hPtwo, zpow_ofNat]
+            obtain ⟨U₁, hU₁, hrU₁⟩ := hL₂₁ htwo
+            obtain ⟨Um, hUm, hrUm⟩ := hL₂m htwo
+            apply hvalue_diff Xm (Um - U₁) 2
+            · rw [hUm, hU₁]
+              ring
+            · let B₀ := 3 * α ^ 2 + 2 * W.a₂ * α + W.a₄ - W.a₁ * β
+              have hB : B₀ ≠ 0 := by
+                apply sub_ne_zero.mpr
+                exact Ne.symm (((nonsingular_iff α β).mp h).2.resolve_right (not_not.mpr htwo))
+              change r Um = C (B₀ * (m : k) ^ 2) at hrUm
+              change r U₁ = C (B₀ * ((1 : ℕ) : k) ^ 2) at hrU₁
+              rw [Nat.cast_one] at hrU₁
+              rw [map_sub, hrUm, hrU₁, ← map_sub]
+              apply (map_ne_zero_iff C C.injective).mpr
+              convert mul_ne_zero hB hm_sq using 1
+              ring
+          · have hPtwo : P ≠ -P := by
+              intro hh
+              exact htwo (some.inj hh).2
+            have hA : 2 * β + W.a₁ * α + W.a₃ ≠ 0 := by
+              intro hh
+              apply htwo
+              change β = -β - W.a₁ * α - W.a₃
+              linear_combination hh
+            have hLne : r (Lm - L₁) ≠ 0 := by
+              rw [map_sub, hrLm, hrL₁, ← map_sub]
+              apply (map_ne_zero_iff C C.injective).mpr
+              rcases hδchoice with hd | hd
+              · rw [hd]
+                convert mul_ne_zero hA hprev_cast using 1
+                ring
+              · rw [hd]
+                change (2 * (-β - W.a₁ * α - W.a₃) + W.a₁ * α + W.a₃) * (m : k) -
+                  (2 * β + W.a₁ * α + W.a₃) ≠ 0
+                convert neg_ne_zero.mpr (mul_ne_zero hA hnext_cast) using 1
+                ring
+            have hD1 : D P = 1 := by
+              rcases hδchoice with hd | hd
+              · have hfix : m • P = P := by simpa only [hd] using hmP
+                exact hD_fixed P hP hfix hPtwo
+              · have hfix : m • P = -P := by simpa only [hd, P, neg_some] using hmP
+                exact hD_antifixed P hP hfix hPtwo
+            rw [hD1, zpow_one]
+            simpa only [pow_one] using hvalue_diff Xm (Lm - L₁) 1 (by rw [hLm, hL₁]; ring) hLne
+        · have hpole : m • P ≠ 0 := by rw [hmP]; exact some_ne_zero hδ
+          have hfix : m • P ≠ P := by
+            rw [hmP]
+            intro hh
+            exact hγα (some.inj hh).1
+          have hanti : m • P ≠ -P := by
+            rw [hmP]
+            intro hh
+            exact hγα (some.inj hh).1
+          rw [hD_other P hP hpole hfix hanti, zpow_zero, ← map_sub]
+          apply hvalue_unit
+          rw [map_sub, hXm, hX₁, ← map_sub]
+          exact (map_ne_zero_iff C C.injective).mpr (sub_ne_zero.mpr hγα)
+    have hf_span (j : ℕ) (hj : 0 < j) (hjm : j ≤ m + 1) :
+        ∃ S : Finset W.toAffine.Point,
+          (∀ P, P ∈ S ↔ j • P = 0) ∧ Ideal.span {f j} = S.prod pointIdeal := by
+      obtain ⟨S, hS, hc, hs⟩ := hkernel j hj
+      obtain ⟨g, hg, hgen⟩ := hprincipal S hs
+      refine ⟨S, hS, ?_⟩
+      rw [hgen]
+      exact hspan_of_vanishing j hj S hS hc g hg hgen
+        (fun x y h hT => (hdetect j hj hjm x y h).mpr hT)
+    have horder_f (j : ℕ) (hj : 0 < j) (hjm : j ≤ m + 1)
+        (α β : k) (h : W.toAffine.Nonsingular α β) :
+        affineOrder α β h (f j) = if j • Point.some α β h = 0 then 1 else 0 := by
+      let p : Ideal A := RingHom.ker (AdjoinRoot.evalEval h.1)
+      let : p.IsPrime := RingHom.ker_isPrime _
+      let B := Localization.AtPrime p
+      let ι : A →+* B := algebraMap A B
+      let τ := Classical.choose (hlocalPolynomialOrder α β h)
+      have hτ := Classical.choose_spec (hlocalPolynomialOrder α β h)
+      have hp : p = CoordinateRing.XYIdeal W.toAffine α (Polynomial.C β) := by
+        ext z
+        exact (hmem_eval z α β h).symm
+      obtain ⟨S, hS, hspan⟩ := hf_span j hj hjm
+      have hmap (P : W.toAffine.Point) :
+          Ideal.map ι (pointIdeal P) =
+            if P = Point.some α β h then Ideal.span {τ} else 1 := by
+        by_cases he : P = Point.some α β h
+        · rw [if_pos he, he]
+          change Ideal.map ι (CoordinateRing.XYIdeal W.toAffine α (Polynomial.C β)) = _
+          rw [← hp, IsLocalization.AtPrime.map_eq_maximalIdeal, hτ.1]
+        · rw [if_neg he, Ideal.one_eq_top]
+          apply IsLocalization.AtPrime.map_eq_top_of_not_le (S := B) (p := p)
+          rw [hp, hpoint_le]
+          exact he
+      have hs : Ideal.span {ι (f j)} =
+          if j • Point.some α β h = 0 then Ideal.span {τ} else 1 := by
+        calc
+          Ideal.span {ι (f j)} = Ideal.map ι (Ideal.span {f j}) := by
+            rw [Ideal.map_span, Set.image_singleton]
+          _ = S.prod (fun P => Ideal.map ι (pointIdeal P)) := by
+            rw [hspan]
+            exact map_prod (Ideal.mapHom ι) pointIdeal S
+          _ = _ := by
+            simp only [hmap, Finset.prod_ite_eq', hS]
+      suffices he : (affineOrder α β h (f j) : ENat) =
+          if j • Point.some α β h = 0 then 1 else 0 by
+        split_ifs at he ⊢ <;> exact_mod_cast he
+      rw [← haffineOrder_emultiplicity α β h (f j) (hf_nonzero j hj)]
+      by_cases ht : j • Point.some α β h = 0
+      · rw [if_pos ht] at hs ⊢
+        have hassoc := Ideal.span_singleton_eq_span_singleton.mp hs
+        rw [emultiplicity_eq_of_associated_right hassoc]
+        exact (FiniteMultiplicity.of_prime_left hτ.2.1 hτ.2.1.ne_zero).emultiplicity_self
+      · rw [if_neg ht] at hs ⊢
+        have hu : IsUnit (ι (f j)) := by
+          apply Ideal.span_singleton_eq_top.mp
+          simpa only [Ideal.one_eq_top] using hs
+        exact emultiplicity_eq_zero.mpr (fun hd => hτ.2.1.not_isUnit
+          (isUnit_of_dvd_unit hd hu))
+    have horder_mul (α β : k) (h : W.toAffine.Nonsingular α β)
+        (u v : A) (hu : u ≠ 0) (hv : v ≠ 0) :
+        affineOrder α β h (u * v) = affineOrder α β h u + affineOrder α β h v := by
+      let p : Ideal A := RingHom.ker (AdjoinRoot.evalEval h.1)
+      let : p.IsPrime := RingHom.ker_isPrime _
+      have hprime := (Classical.choose_spec (hlocalPolynomialOrder α β h)).2.1
+      have he := emultiplicity_mul hprime
+        (a := algebraMap A (Localization.AtPrime p) u)
+        (b := algebraMap A (Localization.AtPrime p) v)
+      rw [← map_mul, haffineOrder_emultiplicity α β h (u * v) (mul_ne_zero hu hv),
+        haffineOrder_emultiplicity α β h u hu,
+        haffineOrder_emultiplicity α β h v hv] at he
+      exact_mod_cast he
+    let U : A := a * f m ^ 2
+    let V : A := b * (f (m + 1) * f (m - 1))
+    have hU : U ≠ 0 := mul_ne_zero ha (pow_ne_zero 2 (hf_nonzero m hm₀))
+    have hV : V ≠ 0 := mul_ne_zero hb (mul_ne_zero (hf_nonzero (m + 1) hnext)
+      (hf_nonzero (m - 1) hprev))
+    have horderUV (α β : k) (h : W.toAffine.Nonsingular α β) :
+        affineOrder α β h U = affineOrder α β h V := by
+      have he := (h_affineH_order α β h).symm.trans (h_affineH_value α β h)
+      have hd : D (.some α β h) = principalH (.some α β h) := zpow_right_injective₀ (pos_iff_ne_zero.mpr horigin_value_t.1)
+        (ne_of_lt horigin_value_t.2) he
+      rw [hD, hprincipalH_affine α β h] at hd
+      simp only [if_neg (some_ne_zero h), mul_zero, sub_zero, ← hplus, ← hminus] at hd
+      change affineOrder α β h (a * f m ^ 2) =
+        affineOrder α β h (b * (f (m + 1) * f (m - 1)))
+      rw [pow_two, horder_mul α β h a _ ha (mul_ne_zero (hf_nonzero m hm₀) (hf_nonzero m hm₀)),
+        horder_mul α β h (f m) (f m) (hf_nonzero m hm₀) (hf_nonzero m hm₀),
+        horder_mul α β h b _ hb (mul_ne_zero (hf_nonzero (m + 1) hnext) (hf_nonzero (m - 1) hprev)),
+        horder_mul α β h (f (m + 1)) (f (m - 1)) (hf_nonzero (m + 1) hnext) (hf_nonzero (m - 1) hprev),
+        horder_f m hm₀ (by omega) α β h, horder_f (m + 1) hnext (by omega) α β h,
+        horder_f (m - 1) hprev (by omega) α β h]
+      split_ifs at hd ⊢ <;> omega
+    have hnormRoots : (Algebra.norm (Polynomial k) U).roots =
+        (Algebra.norm (Polynomial k) V).roots := by
+      apply Multiset.ext.mpr
+      intro α
+      obtain ⟨β, h⟩ := hxpoint α
+      have hu := haffineOrder_norm α β h U hU
+      have hv := haffineOrder_norm α β h V hV
+      rw [horderUV α β h,
+        horderUV α (W.toAffine.negY α β) ((nonsingular_neg _ _).mpr h)] at hu
+      rw [Polynomial.count_roots, Polynomial.count_roots]
+      split_ifs at hu hv <;> omega
+    have hconjC (p : Polynomial k) :
+        conjugation (q (Polynomial.C p)) = q (Polynomial.C p) := by
+      exact (hconjugation_mk (Polynomial.C p)).trans (by rw [Polynomial.C_comp])
+    have hconjTwo : conjugation (q W.ψ₂) = -(q W.ψ₂) := by
+      rw [hconjugation_mk]
+      have hp : W.ψ₂.comp W.toAffine.negPolynomial = -W.ψ₂ := by
+        simp only [WeierstrassCurve.ψ₂, polynomialY, negPolynomial,
+          Polynomial.add_comp,
+          Polynomial.mul_comp, Polynomial.C_comp, Polynomial.X_comp, map_ofNat, Polynomial.ofNat_comp]
+        ring
+      rw [hp, map_neg]
+    have hconjF (j : ℕ) : conjugation (f j) = if Even j then -(f j) else f j := by
+      change conjugation (q (W.Ψ (j : ℤ))) = _
+      rw [WeierstrassCurve.Ψ_ofNat]
+      by_cases hj : Even j
+      · rw [if_pos hj, map_mul, map_mul, hconjC, hconjTwo, if_pos hj]
+        change _ = -(q (W.Ψ (j : ℤ)))
+        rw [WeierstrassCurve.Ψ_ofNat, if_pos hj, map_mul]
+        ring
+      · rw [if_neg hj, mul_one, hconjC, if_neg hj]
+        change _ = q (W.Ψ (j : ℤ))
+        rw [WeierstrassCurve.Ψ_ofNat, if_neg hj, mul_one]
+    have hconjF_sq : conjugation (f m ^ 2) = f m ^ 2 := by
+      rw [map_pow, hconjF]
+      split_ifs <;> ring
+    have hconjF_adj : conjugation (f (m + 1) * f (m - 1)) =
+        f (m + 1) * f (m - 1) := by
+      have hp : Even (m + 1) ↔ Even (m - 1) := by
+        rw [Nat.even_iff, Nat.even_iff]
+        omega
+      simp only [map_mul, hconjF, hp]
+      split_ifs <;> ring
+    have hH_conj : affineAtOrigin (conjugation a) / affineAtOrigin (conjugation b) =
+        affineAtOrigin a / affineAtOrigin b := by
+      let φ := affineAtOrigin.comp conjugation.toRingHom
+      let ny := (W.map originFieldConstants).toAffine.negY originX originY
+      have hn : (W.map originFieldConstants).toAffine.Nonsingular originX ny :=
+        (nonsingular_neg _ _).mpr h_origin_point
+      have hc (z : k) : φ (algebraMap k A z) = originFieldConstants z := by
+        change affineAtOrigin (conjugation (q (Polynomial.C (Polynomial.C z)))) = _
+        rw [hconjC, h_affineAtOrigin_mk]
+        simp only [Polynomial.eval₂_C, Polynomial.coe_eval₂RingHom]
+      have hx : φ (q (Polynomial.C Polynomial.X)) = originX := by
+        change affineAtOrigin (conjugation _) = _
+        rw [hconjC, h_affineAtOrigin_mk]
+        simp only [Polynomial.eval₂_C, Polynomial.coe_eval₂RingHom, Polynomial.eval₂_X]
+      have hy : φ (q Polynomial.X) = ny := by
+        change affineAtOrigin (conjugation _) = _
+        rw [hconjugation_mk, Polynomial.X_comp, h_affineAtOrigin_mk]
+        simp only [negPolynomial, Polynomial.eval₂_sub, Polynomial.eval₂_neg,
+          Polynomial.eval₂_X, Polynomial.eval₂_C, Polynomial.coe_eval₂RingHom,
+          Polynomial.eval₂_add, Polynomial.eval₂_mul, ny, negY, WeierstrassCurve.map_a₁, WeierstrassCurve.map_a₃]
+        ring
+      have he := generic_evaluation k W hΔ originField originFieldConstants originX ny hn φ
+        (h_affineAtOrigin_injective.comp conjugation.injective) hc hx hy m a b hb hH_eval
+      have hp : (Point.some originX ny hn : (W.map originFieldConstants).toAffine.Point) =
+          -Point.some originX originY h_origin_point := rfl
+      change affineAtOrigin (conjugation a) / affineAtOrigin (conjugation b) = _ at he
+      rw [hp, _root_.smul_neg, xRep_neg] at he
+      rw [he, ← hH_atOrigin]
+      change functionFieldAtOrigin (algebraMap A W.toAffine.FunctionField a /
+        algebraMap A W.toAffine.FunctionField b) = _
+      rw [map_div₀, h_functionFieldAtOrigin, h_functionFieldAtOrigin]
+    have hconjUV : affineAtOrigin (conjugation U) / affineAtOrigin (conjugation V) =
+        affineAtOrigin U / affineAtOrigin V := by
+      dsimp only [U, V]
+      rw [map_mul conjugation, map_mul conjugation, hconjF_sq, hconjF_adj,
+        map_mul affineAtOrigin (conjugation a) (f m ^ 2),
+        map_mul affineAtOrigin (conjugation b) (f (m + 1) * f (m - 1)),
+        map_mul affineAtOrigin a (f m ^ 2),
+        map_mul affineAtOrigin b (f (m + 1) * f (m - 1)),
+        mul_div_mul_comm, mul_div_mul_comm, hH_conj]
+    have hscalar : ∃ c : k, c ≠ 0 ∧ U = algebraMap k A c * V := by
+      have hnU : Algebra.norm (Polynomial k) U ≠ 0 :=
+        (Algebra.norm_ne_zero_iff_of_basis (CoordinateRing.basis W.toAffine)).mpr hU
+      have hnV : Algebra.norm (Polynomial k) V ≠ 0 :=
+        (Algebra.norm_ne_zero_iff_of_basis (CoordinateRing.basis W.toAffine)).mpr hV
+      obtain ⟨u, hu⟩ := (IsAlgClosed.associated_iff_roots_eq_roots hnV hnU).mpr hnormRoots.symm
+      obtain ⟨c, hc, he⟩ := Polynomial.isUnit_iff.mp u.isUnit
+      have hnorm : Algebra.norm (Polynomial k) U =
+          Polynomial.C c * Algebra.norm (Polynomial k) V := by
+        rw [← hu, ← he]
+        ring
+      let e := affineAtOrigin
+      let C := originFieldConstants
+      have heU : e U ≠ 0 := (map_ne_zero_iff _ h_affineAtOrigin_injective).mpr hU
+      have heV : e V ≠ 0 := (map_ne_zero_iff _ h_affineAtOrigin_injective).mpr hV
+      have heσV : e (conjugation V) ≠ 0 :=
+        (map_ne_zero_iff _ h_affineAtOrigin_injective).mpr (conjugation.map_ne_zero_iff.mpr hV)
+      have hnorm' : e U * e (conjugation U) = C c * (e V * e (conjugation V)) := by
+        rw [← map_mul, ← hconjugation_norm, hnorm, map_mul, map_mul, hconjugation_norm, map_mul]
+        congr 1
+        change affineAtOrigin (q (Polynomial.C (Polynomial.C c))) = _
+        rw [h_affineAtOrigin_mk]
+        simp only [Polynomial.eval₂_C, Polynomial.coe_eval₂RingHom]
+        rfl
+      have heq : (e U / e V) ^ 2 = C c := by
+        have hcross := (div_eq_div_iff heσV heV).mp hconjUV
+        change e (conjugation U) * e V = e U * e (conjugation V) at hcross
+        rw [div_pow]
+        apply (div_eq_iff (pow_ne_zero 2 heV)).mpr
+        apply mul_right_cancel₀ heσV
+        linear_combination e V * hnorm' - e U * hcross
+      obtain ⟨d, hd⟩ := IsAlgClosed.exists_pow_nat_eq c (by decide : 0 < 2)
+      have hd' : (C d) ^ 2 = C c := by rw [← map_pow, hd]
+      have hdchoice : e U / e V = C d ∨ e U / e V = C (-d) := by
+        rw [map_neg]
+        exact (sq_eq_sq_iff_eq_or_eq_neg).mp (heq.trans hd'.symm)
+      obtain ⟨d, hd⟩ : ∃ d : k, e U / e V = C d :=
+        hdchoice.elim (fun h => ⟨d, h⟩) (fun h => ⟨-d, h⟩)
+      have hd0 : d ≠ 0 := by
+        intro hz
+        rw [hz, _root_.map_zero] at hd
+        exact div_ne_zero heU heV hd
+      refine ⟨d, hd0, h_affineAtOrigin_injective ?_⟩
+      change e U = e (algebraMap k A d * V)
+      rw [map_mul e (algebraMap k A d) V]
+      have hc' : e (algebraMap k A d) = C d := by
+        change affineAtOrigin (q (Polynomial.C (Polynomial.C d))) = _
+        rw [h_affineAtOrigin_mk]
+        simp only [Polynomial.eval₂_C, Polynomial.coe_eval₂RingHom]
+        rfl
+      rw [hc']
+      exact (div_eq_iff heV).mp hd
+    let : Field originField := inferInstance
+    obtain ⟨c, hc, hUV⟩ := hscalar
+    let r := IsLocalRing.residue originLocalRing
+    let C := r.comp originConstants
+    let T := originInclusion t
+    have hT : T ≠ 0 :=
+      (map_ne_zero_iff _ (IsFractionRing.injective originLocalRing originField)).mpr ht_nonzero
+    have htres : r t = 0 := by
+      apply (IsLocalRing.residue_eq_zero_iff t).mpr
+      rw [← horigin_parameter.1]
+      exact Ideal.subset_span (Set.mem_singleton t)
+    obtain ⟨x₁, y₁, h₁, hp₁, hx₁, hy₁⟩ := h_origin_multiple_coordinates 1 (by decide)
+    have hxx : originX = originInclusion x₁ / T ^ 2 := by
+      have he := congrArg (fun P : (W.map originFieldConstants).toAffine.Point => P.xRep 0) hp₁
+      simpa only [one_nsmul, xRep_some, Matrix.cons_val_zero] using he
+    have hyy : originY = originInclusion y₁ / T ^ 3 := by
+      rw [one_nsmul, some.injEq] at hp₁
+      exact hp₁.2
+    have hrx : r x₁ = 1 := by simpa only [Nat.cast_one, inv_one, one_pow] using hx₁
+    have hry : r y₁ = -1 := by simpa only [Nat.cast_one, inv_one, one_pow] using hy₁
+    have hpolynomial_leading (p : Polynomial k) (d : ℕ) (hd : p.natDegree ≤ d) :
+        ∃ z : originLocalRing,
+          p.eval₂ originFieldConstants originX = originInclusion z / T ^ (2 * d) ∧
+          r z = C (p.coeff d) := by
+      let z : originLocalRing := ∑ i ∈ Finset.range (d + 1),
+        originConstants (p.coeff i) * x₁ ^ i * t ^ (2 * (d - i))
+      refine ⟨z, ?_, ?_⟩
+      · rw [Polynomial.eval₂_eq_sum_range' originFieldConstants (by omega : p.natDegree < d + 1)]
+        change _ = originInclusion (∑ i ∈ Finset.range (d + 1),
+          originConstants (p.coeff i) * x₁ ^ i * t ^ (2 * (d - i))) / T ^ (2 * d)
+        rw [map_sum, Finset.sum_div]
+        apply Finset.sum_congr rfl
+        intro i hi
+        have hi' : i ≤ d := by simpa only [Finset.mem_range, Nat.lt_succ_iff] using hi
+        rw [map_mul, map_mul, map_pow, map_pow, hxx]
+        change originFieldConstants (p.coeff i) * (originInclusion x₁ / T ^ 2) ^ i =
+          originFieldConstants (p.coeff i) * originInclusion x₁ ^ i * T ^ (2 * (d - i)) / T ^ (2 * d)
+        rw [div_pow, ← pow_mul, ← mul_div_assoc]
+        apply (eq_div_iff (pow_ne_zero _ hT)).mpr
+        rw [show 2 * d = 2 * i + 2 * (d - i) by omega, pow_add,
+          ← mul_assoc, div_mul_cancel₀ _ (pow_ne_zero _ hT)]
+      · dsimp only [z]
+        rw [map_sum, Finset.sum_eq_single d]
+        · simp only [map_mul, map_pow, hrx, one_pow, mul_one, Nat.sub_self,
+            mul_zero, pow_zero]
+          rfl
+        · intro i hi hid
+          have hdi : 0 < 2 * (d - i) := by
+            have hi' : i < d + 1 := Finset.mem_range.mp hi
+            omega
+          simp only [map_mul, map_pow, htres, zero_pow hdi.ne', mul_zero]
+        · intro hd'
+          exact (hd' (Finset.mem_range.mpr (by omega))).elim
+    have htwo_leading : ∃ z : originLocalRing,
+        affineAtOrigin (q W.ψ₂) = originInclusion z / T ^ 3 ∧ r z = -2 := by
+      refine ⟨2 * y₁ + originConstants W.a₁ * x₁ * t + originConstants W.a₃ * t ^ 3, ?_, ?_⟩
+      · rw [h_affineAtOrigin_mk]
+        simp only [WeierstrassCurve.ψ₂, polynomialY,
+          Polynomial.eval₂_add, Polynomial.eval₂_mul, Polynomial.eval₂_C,
+          Polynomial.eval₂_X, Polynomial.coe_eval₂RingHom, map_ofNat, Polynomial.eval₂_ofNat]
+        rw [hxx, hyy]
+        simp only [map_add, map_mul, map_pow, map_ofNat]
+        change 2 * (originInclusion y₁ / T ^ 3) +
+          (originFieldConstants W.a₁ * (originInclusion x₁ / T ^ 2) +
+          originFieldConstants W.a₃) = _
+        have identity {F : Type} [Field F] (a b x y t : F) (ht : t ≠ 0) :
+            2 * (y / t ^ 3) + (a * (x / t ^ 2) + b) =
+              (2 * y + a * x * t + b * t ^ 3) / t ^ 3 := by
+          field_simp [ht]
+          ring
+        exact identity (originFieldConstants W.a₁) (originFieldConstants W.a₃)
+          (originInclusion x₁) (originInclusion y₁) T hT
+      · simp only [map_add, map_mul, map_pow, map_ofNat, hry, htres,
+          mul_zero, zero_pow (by decide : 3 ≠ 0), add_zero]
+        ring
+    have hf_leading (j : ℕ) (hj : 0 < j) : ∃ z : originLocalRing,
+        affineAtOrigin (f j) = originInclusion z / T ^ (j ^ 2 - 1) ∧
+          r z = C (if Even j then -(j : k) else (j : k)) := by
+      obtain ⟨z, hz, hrz⟩ := hpolynomial_leading (W.preΨ' j) (expDegree j) (degree_coeff j).1
+      rw [(degree_coeff j).2] at hrz
+      have heval : affineAtOrigin (q (Polynomial.C (W.preΨ' j))) =
+          (W.preΨ' j).eval₂ originFieldConstants originX := by
+        rw [h_affineAtOrigin_mk, Polynomial.eval₂_C]
+        rfl
+      have hd := expDegree_cast hj.ne'
+      by_cases he : Even j
+      · obtain ⟨v, hv, hrv⟩ := htwo_leading
+        refine ⟨z * v, ?_, ?_⟩
+        · change affineAtOrigin (q (W.Ψ (j : ℤ))) = _
+          rw [WeierstrassCurve.Ψ_ofNat, if_pos he, map_mul, map_mul, heval, hz, hv, map_mul,
+            div_mul_div_comm, ← pow_add]
+          congr 2
+          rw [if_pos he] at hd
+          have hd' : 2 * expDegree j + 4 = j ^ 2 := by
+            exact_mod_cast (show (2 : ℤ) * expDegree j + 4 = (j : ℤ) ^ 2 by linarith)
+          omega
+        · rw [map_mul, hrz, hrv, if_pos he]
+          have hcoeff : (expCoeff j : k) * (-2) = -(j : k) := by
+            obtain ⟨l, hl⟩ := he
+            subst j
+            simp only [expCoeff, if_pos (show Even (l + l) from ⟨l, rfl⟩)]
+            rw [show ((l + l : ℕ) : ℤ) / 2 = (l : ℤ) by omega]
+            push_cast
+            ring
+          rw [← map_ofNat C 2, ← map_neg, ← map_mul, hcoeff]
+      · refine ⟨z, ?_, ?_⟩
+        · change affineAtOrigin (q (W.Ψ (j : ℤ))) = _
+          rw [WeierstrassCurve.Ψ_ofNat, if_neg he, mul_one, heval, hz]
+          congr 2
+          rw [if_neg he] at hd
+          have hd' : 2 * expDegree j + 1 = j ^ 2 := by
+            exact_mod_cast (show (2 : ℤ) * expDegree j + 1 = (j : ℤ) ^ 2 by linarith)
+          omega
+        · rw [hrz, if_neg he]
+          simp only [expCoeff, if_neg he, Int.cast_natCast]
+    obtain ⟨um, hum, hrum⟩ := hf_leading m hm₀
+    obtain ⟨up, hup, hrup⟩ := hf_leading (m + 1) hnext
+    obtain ⟨un, hun, hrun⟩ := hf_leading (m - 1) hprev
+    obtain ⟨xm, ym, hxy, hpm, hxm, hym⟩ := h_origin_multiple_coordinates m hm₀
+    have hH : affineAtOrigin a / affineAtOrigin b =
+        originInclusion (xm - x₁) / T ^ 2 := by
+      have he := hH_atOrigin
+      change functionFieldAtOrigin (algebraMap A W.toAffine.FunctionField a /
+        algebraMap A W.toAffine.FunctionField b) = _ at he
+      rw [map_div₀, h_functionFieldAtOrigin, h_functionFieldAtOrigin, hpm] at he
+      change affineAtOrigin a / affineAtOrigin b = originInclusion xm / T ^ 2 - originX at he
+      rw [he, hxx, ← sub_div, map_sub]
+    have hleading_eq : (xm - x₁) * um ^ 2 = originConstants c * (up * un) := by
+      have he := congrArg affineAtOrigin hUV
+      dsimp only [U, V] at he
+      rw [map_mul, map_pow, map_mul, map_mul, map_mul] at he
+      have hconst : affineAtOrigin (algebraMap k A c) = originFieldConstants c := by
+        change affineAtOrigin (q (Polynomial.C (Polynomial.C c))) = _
+        rw [h_affineAtOrigin_mk]
+        simp only [Polynomial.eval₂_C, Polynomial.coe_eval₂RingHom, originFieldConstants]
+      rw [hconst] at he
+      have hb' : affineAtOrigin b ≠ 0 :=
+        (map_ne_zero_iff _ h_affineAtOrigin_injective).mpr hb
+      have hh : (affineAtOrigin a / affineAtOrigin b) * affineAtOrigin (f m) ^ 2 =
+          originFieldConstants c * (affineAtOrigin (f (m + 1)) * affineAtOrigin (f (m - 1))) := by
+        rw [div_mul_eq_mul_div]
+        apply (div_eq_iff hb').mpr
+        linear_combination he
+      rw [hH, hum, hup, hun] at hh
+      simp only [div_pow, div_mul_div_comm, ← pow_mul, ← pow_add] at hh
+      have hexp : (m + 1) ^ 2 - 1 + ((m - 1) ^ 2 - 1) = 2 + (m ^ 2 - 1) * 2 := by
+        have h1 : 1 ≤ m ^ 2 := by nlinarith
+        have h2 : 1 ≤ (m - 1) ^ 2 := by nlinarith [show 1 ≤ m - 1 by omega]
+        have h3 : 1 ≤ (m + 1) ^ 2 := by nlinarith
+        have hm1 : m - 1 + 1 = m := by omega
+        have hs := congrArg (fun j : ℕ => j ^ 2) hm1
+        have hsum : (m + 1) ^ 2 + (m - 1) ^ 2 = 2 * m ^ 2 + 2 := by nlinarith [hs]
+        omega
+      rw [hexp, ← mul_div_assoc] at hh
+      have he' := (div_left_inj' (pow_ne_zero _ hT)).mp hh
+      apply (IsFractionRing.injective originLocalRing originField)
+      simpa only [map_mul, map_pow, originFieldConstants, RingHom.comp_apply] using he'
+    have hcneg : c = -1 := by
+      have he := congrArg r hleading_eq
+      rw [map_mul, map_sub, map_pow, hrum, map_mul, map_mul, hrup, hrun, hrx] at he
+      change r xm = (m : IsLocalRing.ResidueField originLocalRing)⁻¹ ^ 2 at hxm
+      rw [hxm, show r (originConstants c) = C c from rfl] at he
+      have hcast : (m : IsLocalRing.ResidueField originLocalRing) = C (m : k) := (map_natCast C m).symm
+      rw [hcast, ← map_inv₀, ← map_pow, ← _root_.map_one C, ← map_sub,
+        ← map_pow, ← map_mul, ← map_mul, ← map_mul] at he
+      have he' := C.injective he
+      have hp : Even (m + 1) ↔ Even (m - 1) := by
+        rw [Nat.even_iff, Nat.even_iff]
+        omega
+      simp only [hp] at he'
+      have hm1 : ((m - 1 : ℕ) : k) = (m : k) - 1 := by
+        simpa only [Nat.cast_one] using (Nat.cast_sub (R := k) (show 1 ≤ m by omega))
+      rw [Nat.cast_add, Nat.cast_one, hm1] at he'
+      split_ifs at he' <;> field_simp [hm_cast] at he' <;>
+        apply (mul_right_cancel₀ hm_sq) <;> linear_combination -he'
+    rw [hcneg, map_neg, _root_.map_one, neg_one_mul] at hUV
+    intro α β hP hmP
+    cases hmQ : m • Point.some α β hP with
+    | zero => exact (hmP hmQ).elim
+    | some γ δ hQ =>
+      obtain ⟨X, Y, hXY, φ, heq, hφmk, hinj, _hvalue, hX, hφres⟩ :=
+        htranslated_evaluation α β hP
+      obtain ⟨Xm, Ym, Lm, hh, heqm, hXm, _hYm, _hLm, _hrLm, _hL₂m⟩ :=
+        htranslated γ δ hQ m hm₀
+      let ψ : A →+* originField := originInclusion.comp φ
+      have hψc (z : k) : ψ (algebraMap k A z) = originFieldConstants z := by
+        change originInclusion (φ (q (Polynomial.C (Polynomial.C z)))) = _
+        rw [hφmk]
+        simp only [Polynomial.eval₂_C, Polynomial.coe_eval₂RingHom]
+        rfl
+      have hψx : ψ (q (Polynomial.C Polynomial.X)) = originInclusion X := by
+        change originInclusion (φ _) = _
+        rw [hφmk]
+        simp only [Polynomial.eval₂_C, Polynomial.coe_eval₂RingHom, Polynomial.eval₂_X]
+      have hψy : ψ (q Polynomial.X) = originInclusion Y := by
+        change originInclusion (φ _) = _
+        rw [hφmk, Polynomial.eval₂_X]
+      have he := generic_evaluation k W hΔ originField originFieldConstants
+        (originInclusion X) (originInclusion Y) hXY ψ hinj hψc hψx hψy m a b hb hH_eval
+      change ψ a / ψ b =
+        (m • (Point.some _ _ hXY : (W.map originFieldConstants).toAffine.Point)).xRep 0 -
+          (Point.some _ _ hXY : (W.map originFieldConstants).toAffine.Point).xRep 0 at he
+      rw [← heq, nsmul_add, ← map_nsmul, hmQ, heqm, heq] at he
+      change ψ a / ψ b = originInclusion Xm - originInclusion X at he
+      have hb' : ψ b ≠ 0 := (map_ne_zero_iff _ hinj).mpr hb
+      have hid : (Xm - X) * φ (f m) ^ 2 = -(φ (f (m + 1)) * φ (f (m - 1))) := by
+        apply (IsFractionRing.injective originLocalRing originField)
+        simp only [map_mul, map_sub, map_pow, map_neg]
+        change (originInclusion Xm - originInclusion X) * ψ (f m) ^ 2 =
+          -(ψ (f (m + 1)) * ψ (f (m - 1)))
+        rw [← he]
+        have hv := congrArg ψ hUV
+        change ψ (a * f m ^ 2) = ψ (-(b * (f (m + 1) * f (m - 1)))) at hv
+        simp only [map_mul, map_pow, map_neg] at hv
+        rw [div_mul_eq_mul_div]
+        apply (div_eq_iff hb').mpr
+        linear_combination hv
+      have hrφ (z : A) : r (φ z) = C (AdjoinRoot.evalEval hP.1 z) := hφres z
+      have hres := congrArg r hid
+      simp only [map_mul, map_sub, map_pow, map_neg, hrφ] at hres
+      change (r Xm - r X) * C (AdjoinRoot.evalEval hP.1 (f m)) ^ 2 =
+        -(C (AdjoinRoot.evalEval hP.1 (f (m + 1))) *
+          C (AdjoinRoot.evalEval hP.1 (f (m - 1)))) at hres
+      change r Xm = C γ at hXm
+      change r X = C α at hX
+      rw [hXm, hX, ← map_sub, ← map_pow, ← map_mul, ← map_mul, ← map_neg] at hres
+      have hres' := C.injective hres
+      have hfP : AdjoinRoot.evalEval hP.1 (f m) ≠ 0 := by
+        intro hz
+        exact hmP ((hdetect m hm₀ (by omega) α β hP).mp ((hmem_eval (f m) α β hP).mpr hz))
+      change γ = α - AdjoinRoot.evalEval hP.1 (f (m + 1)) *
+        AdjoinRoot.evalEval hP.1 (f (m - 1)) / AdjoinRoot.evalEval hP.1 (f m) ^ 2
+      field_simp [hfP]
+      linear_combination hres'
   refine ⟨f, ?_, ?_⟩
   · refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
     · change q (W.Ψ 0) = 0
@@ -29132,8 +32057,7 @@ theorem p03_torsion_eds_exists_68cf3476_d2
           exact htwo (heq ▸ hT)
         omega
       refine hvanishing_of_coordinates n hn5 α β hQ hT htwo ?_ ?_
-      · intro j hj hjn hjP
-        intro hz
+      · intro j hj hjn hjP hz
         exact hjP ((ih j hjn hj α β hQ).mp ((hmem_eval (f j) α β hQ).mpr hz))
       · intro j hj hjn hjP
         by_cases hj1 : j = 1
@@ -29147,9 +32071,7 @@ theorem p03_torsion_eds_exists_68cf3476_d2
           intro heq
           exact htwo (by rw [two_nsmul, add_self_of_Y_eq heq])
         have hj3 : 3 ≤ j := by omega
-        -- Accepted proof step 8 identifies the normalized divisor quotient
-        -- with the multiplication x-coordinate. The degree comparison and
-        -- recurrence induction above close the theorem once this holds.
-        fail "Remaining multiplication-coordinate identity for normalized torsion divisors."
+        exact hcoordinate_from_detection j (by omega)
+          (fun l hl hlj => ih l (by omega) hl) α β hQ hjP
 
 end Submission
