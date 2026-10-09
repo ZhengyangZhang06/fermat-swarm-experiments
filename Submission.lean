@@ -163,7 +163,6 @@ theorem Submission.p09_af497904fe_adic_character_lift :
     intro n
     convert (J ^ n).add_mem (hβ 1 n) (hone n) using 1
     ring
-    convert (J ^ n).add_mem (hβ 1 n) (hone n) using 1 <;> ring
   have hβmul (g h : G) : β (g * h) = β g * β h := by
     apply hsep
     intro n
@@ -173,7 +172,6 @@ theorem Submission.p09_af497904fe_adic_character_lift :
         (Ideal.mul_mem_right (a n h) (J ^ n) (hβ g n))
         ((J ^ n).mul_mem_left (β g) (hβ h n))) using 1
     ring
-        ((J ^ n).mul_mem_left (β g) (hβ h n))) using 1 <;> ring
   let b : G →* Cˣ :=
     { toFun := fun g =>
         { val := β g
@@ -385,110 +383,3 @@ theorem Submission.p09_af497904fe_finite_cyclotomic_character
         ((Nat.Prime.coprime_iff_not_dvd hℓ).mpr hℓN) : ZMod N).val) := by
       rw [ZMod.coe_unitOfCoprime, ZMod.val_natCast]
       exact pow_eq_pow_mod ℓ hζ.pow_eq_one
-    convert (J ^ n).sub_mem (hb' n g) (hβ g n) using 1 <;> ring
-
-
-namespace Submission
-
-theorem p09_af497904fe_adic_cyclotomic_character
-    {𝒪 : Type} [CommRing 𝒪] [IsDomain 𝒪] [IsDiscreteValuationRing 𝒪]
-    [IsAdicComplete (maximalIdeal 𝒪) 𝒪] [CharZero 𝒪]
-    (p : ℕ) [Fact p.Prime] (hp𝒪 : (p : 𝒪) ∈ maximalIdeal 𝒪)
-    {R : Type} [CommRing R] [IsLocalRing R] [Algebra 𝒪 R]
-    (hl : IsLocalHom (algebraMap 𝒪 R)) :
-    ∃ c : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) →* Rˣ,
-      (∀ n : ℕ, ∃ F : IntermediateField ℚ (AlgebraicClosure ℚ),
-        FiniteDimensional ℚ F ∧
-        ∀ σ τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ,
-          (∀ x ∈ F, σ x = τ x) →
-          ((c σ : Rˣ) : R) - ((c τ : Rˣ) : R) ∈ maximalIdeal R ^ n) ∧
-      (∀ (ℓ : ℕ), ℓ.Prime → ℓ ≠ p →
-        ∀ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ →
-        ∀ σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ,
-          P.IsFrobeniusAt σ ℓ → ((c σ : Rˣ) : R) = (ℓ : R)) := by
-  classical
-  have : NeZero p := ⟨(Fact.out : p.Prime).ne_zero⟩
-  choose χ F hF hcontrol haction hfrob using
-    fun n : ℕ => p09_af497904fe_finite_cyclotomic_character (p ^ n)
-  let A (n : ℕ) (σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) : ℕ :=
-    (χ n σ : ZMod (p ^ n)).val
-  let a (n : ℕ) (σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) : 𝒪 := A n σ
-
-  -- Divisibility by p^n becomes membership in the n-th maximal-ideal power.
-  have hcast (n : ℕ) (z : ℤ) (hz : (z : ZMod (p ^ n)) = 0) :
-      (z : 𝒪) ∈ maximalIdeal 𝒪 ^ n := by
-    obtain ⟨t, ht⟩ := (ZMod.intCast_zmod_eq_zero_iff_dvd z (p ^ n)).mp hz
-    rw [ht, Int.cast_mul, Int.cast_natCast, Nat.cast_pow]
-    exact Ideal.mul_mem_right _ _ (Ideal.pow_mem_pow hp𝒪 n)
-
-  -- A primitive root at the lower level is also a root at the higher level.
-  have hcompatible (n m : ℕ) (hnm : n ≤ m)
-      (σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) :
-      a m σ - a n σ ∈ maximalIdeal 𝒪 ^ n := by
-    obtain ⟨ζ, hζ⟩ :=
-      HasEnoughRootsOfUnity.exists_primitiveRoot (AlgebraicClosure ℚ) (p ^ n)
-    have hζm : ζ ^ (p ^ m) = 1 :=
-      (hζ.pow_eq_one_iff_dvd _).mpr (pow_dvd_pow p hnm)
-    have he : ζ ^ A m σ = ζ ^ A n σ :=
-      (haction m σ ζ hζm).symm.trans (haction n σ ζ hζ.pow_eq_one)
-    have hm : A m σ ≡ A n σ [MOD p ^ n] := by
-      rw [hζ.eq_orderOf]
-      exact (hζ.isOfFinOrder (NeZero.ne _)).pow_eq_pow_iff_modEq.mp he
-    have hz : (((A m σ : ℤ) - A n σ : ℤ) : ZMod (p ^ n)) = 0 := by
-      rw [Int.cast_sub, Int.cast_natCast, Int.cast_natCast, sub_eq_zero]
-      exact (ZMod.natCast_eq_natCast_iff _ _ _).mpr hm
-    simpa only [Int.cast_sub, Int.cast_natCast] using hcast n _ hz
-  have hone (n : ℕ) : a n 1 - 1 ∈ maximalIdeal 𝒪 ^ n := by
-    have hz : (((A n 1 : ℤ) - 1 : ℤ) : ZMod (p ^ n)) = 0 := by
-      simp [A]
-    simpa only [Int.cast_sub, Int.cast_natCast, Int.cast_one] using hcast n _ hz
-  have hmul (n : ℕ) (σ τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) :
-      a n (σ * τ) - a n σ * a n τ ∈ maximalIdeal 𝒪 ^ n := by
-    have hz : (((A n (σ * τ) : ℤ) - (A n σ : ℤ) * A n τ : ℤ) :
-        ZMod (p ^ n)) = 0 := by
-      simp [A]
-    simpa only [Int.cast_sub, Int.cast_mul, Int.cast_natCast] using hcast n _ hz
-  obtain ⟨b, hb, _⟩ := p09_af497904fe_adic_character_lift
-    (maximalIdeal 𝒪) a hcompatible hone hmul
-
-  let c : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) →* Rˣ :=
-    (Units.map (algebraMap 𝒪 R).toMonoidHom).comp b
-  have hmap (n : ℕ) : (maximalIdeal 𝒪 ^ n).map (algebraMap 𝒪 R) ≤
-      maximalIdeal R ^ n := by
-    rw [Ideal.map_pow]
-    apply Ideal.pow_right_mono _ n
-    apply Ideal.map_le_iff_le_comap.mpr
-    intro x hx
-    have := hl
-    exact map_nonunit (algebraMap 𝒪 R) x hx
-  refine ⟨c, ?_, ?_⟩
-  · intro n
-    refine ⟨F n, hF n, ?_⟩
-    intro σ τ hστ
-    have ha : a n σ = a n τ := by
-      simp only [a, A, hcontrol n σ τ hστ]
-    have hsub : (b σ : 𝒪) - (b τ : 𝒪) ∈ maximalIdeal 𝒪 ^ n := by
-      have h := (maximalIdeal 𝒪 ^ n).sub_mem (hb n σ) (hb n τ)
-      simpa only [ha, sub_sub_sub_cancel_right] using h
-    change algebraMap 𝒪 R (b σ : 𝒪) - algebraMap 𝒪 R (b τ : 𝒪) ∈ maximalIdeal R ^ n
-    rw [← map_sub]
-    exact hmap n (Ideal.mem_map_of_mem (algebraMap 𝒪 R) hsub)
-  · intro ℓ hℓ hℓp P hP σ hσ
-    have hvalue : (b σ : 𝒪) = (ℓ : 𝒪) := by
-      apply (IsHausdorff.eq_iff_smodEq (I := maximalIdeal 𝒪)).mpr
-      intro n
-      have hℓn : ¬ ℓ ∣ p ^ n := by
-        intro h
-        exact hℓp ((Nat.prime_dvd_prime_iff_eq hℓ (Fact.out : p.Prime)).mp
-          (hℓ.dvd_of_dvd_pow h))
-      have hz : (((A n σ : ℤ) - ℓ : ℤ) : ZMod (p ^ n)) = 0 := by
-        simp only [Int.cast_sub, Int.cast_natCast, A, ZMod.natCast_zmod_val,
-          hfrob n ℓ hℓ hℓn P hP σ hσ, ZMod.coe_unitOfCoprime, sub_self]
-      have ha : a n σ - (ℓ : 𝒪) ∈ maximalIdeal 𝒪 ^ n := by
-        simpa only [Int.cast_sub, Int.cast_natCast] using hcast n _ hz
-      rw [SModEq.sub_mem, smul_eq_mul, ← Ideal.one_eq_top, mul_one]
-      simpa only [sub_add_sub_cancel] using (maximalIdeal 𝒪 ^ n).add_mem (hb n σ) ha
-    change algebraMap 𝒪 R (b σ : 𝒪) = (ℓ : R)
-    rw [hvalue, map_natCast]
-
-end Submission
