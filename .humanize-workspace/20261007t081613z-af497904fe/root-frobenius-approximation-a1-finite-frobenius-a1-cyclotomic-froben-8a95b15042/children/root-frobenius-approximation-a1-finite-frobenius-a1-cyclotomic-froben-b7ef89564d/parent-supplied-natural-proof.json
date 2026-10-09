@@ -1,0 +1,40 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'cyclic_weighted|orthogonality|summable.*rpow' project/Definitions/Def_GaloisRep_Adic.lean project/Submission.lean",
+        "rg -n 'norm.*eq_one|theorem pow_inj' mathlib/Mathlib/RingTheory/RootsOfUnity/Complex.lean mathlib/Mathlib/RingTheory/RootsOfUnity/PrimitiveRoots.lean",
+        "rg -n 'geom_sum_mul|mul_geom_sum' mathlib/Mathlib/Algebra/Ring/GeomSum.lean",
+        "rg -n 'tprod_finsetProd|Multipliable.subtype|tprod_subtype|summable_norm_iff' mathlib/Mathlib/Topology/Algebra/InfiniteSum/Basic.lean mathlib/Mathlib/Topology/Algebra/InfiniteSum/Defs.lean mathlib/Mathlib/Analysis/Normed/Group/InfiniteSum.lean",
+        "rg -n 'Summable.of_nonneg_of_le|tsum_comp_le_tsum_of_inj' mathlib/Mathlib/Topology/Algebra/InfiniteSum/ENNReal.lean",
+        "rg -n 'rpow_le_one_of_one_le_of_nonpos|rpow_pos_of_pos|theorem log_exp' mathlib/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean mathlib/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean",
+        "rg -n 'orthog|sum.*eq|sum.*ite' mathlib/Mathlib/Analysis/Fourier/ZMod.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Fermat/Thm_GaloisRepAdic_exists_quadraticRelation_forall_of_frobenius.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_GaloisRep_Adic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Submission.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RootsOfUnity/Complex.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RootsOfUnity/PrimitiveRoots.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Algebra/Ring/GeomSum.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Topology/Algebra/InfiniteSum/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Topology/Algebra/InfiniteSum/ENNReal.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/Fourier/ZMod.lean"
+      ],
+      "conclusion": "Queries ran relative to the supplied snapshot root. The inspected project files contained no matching cyclic-weighted infinitude or orthogonality theorem. The pinned mathlib supplies IsPrimitiveRoot.norm'_eq_one, IsPrimitiveRoot.pow_inj, geometric-sum identities, Summable.tsum_finsetSum, tsum_subtype, nonnegative-series comparison, positive real powers, the bound for nonpositive exponents, and Real.log_exp. Fourier/ZMod.lean illustrates character orthogonality for the standard additive character; its private auxiliary declarations are not proposed dependencies. Project revision 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d matched the manifest and were tracked-clean. Lean axiom checks for the listed proposed library dependencies reported only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "proof": "1. Fix m > 0, a primitive mth root ω, and a,b ∈ ZMod m. Primitivity gives ω^m = 1. Hence ω ≠ 0 and ‖ω‖^m = 1. Since ‖ω‖ is nonnegative and m is positive, ‖ω‖ = 1: a nonnegative number strictly below or strictly above one has its positive integral power respectively below or above one.\n2. The powers ω^j with 0 ≤ j < m are distinct. Indeed, if ω^j = ω^l and j < l < m, cancellation gives ω^(l−j) = 1. Primitivity implies m divides l−j, contradicting 0 < l−j < m. The case l < j is identical with the indices exchanged. Consequently ω^val(a) = ω^val(b) exactly when a = b, because the representatives lie in this range and determine their residue classes.\n3. Put A = ω^val(a), B = ω^val(b), and u = B/A. Both A and B are nonzero and have norm one. Moreover A^m = B^m = 1, so u^m = 1. By step 2, u = 1 exactly when b = a. For every natural k, conjugate(A) = A⁻¹ and the laws of powers give conjugate(ω^(k·val(a)))·ω^(k·val(b)) = (A⁻¹B)^k = u^k.\n4. If b = a, then u = 1, and the sum of its m powers indexed by Fin m is m. If b ≠ a, let S = ∑_{k=0}^{m−1} u^k. Expanding and cancelling successive terms gives (1−u)S = 1−u^m = 0. Since 1−u ≠ 0 in ℂ, S = 0. Substitution using step 3 proves the stated identity. The argument includes m = 1.",
+  "key_steps": [
+    "Derive ω ≠ 0 and ‖ω‖ = 1 from ω^m = 1 and m > 0.",
+    "Use primitivity to distinguish powers indexed by distinct canonical representatives.",
+    "Rewrite each conjugate-character product as a power of u = ω^val(b)/ω^val(a).",
+    "Evaluate the geometric sum separately for u = 1 and u ≠ 1."
+  ],
+  "unresolved": [],
+  "validation_notes": []
+}

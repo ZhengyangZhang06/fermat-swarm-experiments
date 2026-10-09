@@ -1,0 +1,41 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'cyclic_weighted|orthogonality|summable.*rpow' project/Definitions/Def_GaloisRep_Adic.lean project/Submission.lean",
+        "rg -n 'norm.*eq_one|theorem pow_inj' mathlib/Mathlib/RingTheory/RootsOfUnity/Complex.lean mathlib/Mathlib/RingTheory/RootsOfUnity/PrimitiveRoots.lean",
+        "rg -n 'geom_sum_mul|mul_geom_sum' mathlib/Mathlib/Algebra/Ring/GeomSum.lean",
+        "rg -n 'tprod_finsetProd|Multipliable.subtype|tprod_subtype|summable_norm_iff' mathlib/Mathlib/Topology/Algebra/InfiniteSum/Basic.lean mathlib/Mathlib/Topology/Algebra/InfiniteSum/Defs.lean mathlib/Mathlib/Analysis/Normed/Group/InfiniteSum.lean",
+        "rg -n 'Summable.of_nonneg_of_le|tsum_comp_le_tsum_of_inj' mathlib/Mathlib/Topology/Algebra/InfiniteSum/ENNReal.lean",
+        "rg -n 'rpow_le_one_of_one_le_of_nonpos|rpow_pos_of_pos|theorem log_exp' mathlib/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean mathlib/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean",
+        "rg -n 'orthog|sum.*eq|sum.*ite' mathlib/Mathlib/Analysis/Fourier/ZMod.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Fermat/Thm_GaloisRepAdic_exists_quadraticRelation_forall_of_frobenius.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_GaloisRep_Adic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Submission.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RootsOfUnity/Complex.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RootsOfUnity/PrimitiveRoots.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Algebra/Ring/GeomSum.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Topology/Algebra/InfiniteSum/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Topology/Algebra/InfiniteSum/ENNReal.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/Fourier/ZMod.lean"
+      ],
+      "conclusion": "Queries ran relative to the supplied snapshot root. The inspected project files contained no matching cyclic-weighted infinitude or orthogonality theorem. The pinned mathlib supplies IsPrimitiveRoot.norm'_eq_one, IsPrimitiveRoot.pow_inj, geometric-sum identities, Summable.tsum_finsetSum, tsum_subtype, nonnegative-series comparison, positive real powers, the bound for nonpositive exponents, and Real.log_exp. Fourier/ZMod.lean illustrates character orthogonality for the standard additive character; its private auxiliary declarations are not proposed dependencies. Project revision 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d matched the manifest and were tracked-clean. Lean axiom checks for the listed proposed library dependencies reported only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "proof": "1. Fix the stated data. From ω^m = 1 and m > 0, taking norms gives ‖ω‖ = 1. Thus χ_k(b) = ω^(k.val·val(b)) and v_k(a) = conjugate(χ_k(a)) have norm one for every k,a,b. For s > 1 the weights w_i(s) are positive because N(i) ≥ 2. Consequently ‖χ_k(g(i))w_i(s)‖ = w_i(s). The assumed summability of the weights therefore proves absolute summability of every character-weighted series and of its product by the constant v_k(a). The restricted real weight series on every fiber is summable as well; denote its sum by P_a(s).\n2. Fix a and s > 1. Multiplication by a fixed complex scalar commutes with these sums. Since there are finitely many k and each series is absolutely summable, finite summation also commutes with summation over ι. Therefore ∑_k v_k(a)F_k(s) = ∑_i (∑_k v_k(a)χ_k(g(i)))w_i(s). Apply the sibling theorem character_orthogonality with the present m,ω,a and b = g(i). Its hypotheses are exactly m > 0 and the given primitivity. The inner sum is m when g(i) = a and zero otherwise. The resulting indicator series equals the sum over the fiber, so ∑_k v_k(a)F_k(s) = m·P_a(s), with real quantities embedded in ℂ.\n3. For every k choose constants C_k ≥ 0 and ε_k > 0 supplied by the hypothesis. Let ε be the minimum of the finite nonempty collection consisting of 1 and all ε_k. Then 0 < ε ≤ 1 and ε ≤ ε_k for every k. Put C_* = ∑_k C_k and K = C_*/(m : ℝ). Because every C_k is nonnegative and m > 0, K ≥ 0. These choices do not depend on a.\n4. Fix any a and any 1 < s < 1+ε, and put L = log(1/(s−1)). There is exactly one element of Fin m with value zero, namely ⟨0, m > 0⟩. For this index v_k(a) = 1. Therefore the sum of v_k(a) times the prescribed main term δ_{k.val,0}L is L. Subtracting these main terms from the identity in step 2 gives m·P_a(s)−L = ∑_k v_k(a)(F_k(s)−δ_{k.val,0}L).\n5. All character estimates apply because s < 1+ε ≤ 1+ε_k. The triangle inequality and ‖v_k(a)‖ = 1 give ‖m·P_a(s)−L‖ ≤ ∑_k C_k = C_*. The expression on the left is real embedded in ℂ, so its norm is |m·P_a(s)−L| = (m : ℝ)|P_a(s)−L/(m : ℝ)|. Divide by the positive real number m to obtain |P_a(s)−L/m| ≤ K. Since a and s were arbitrary and the constants were chosen independently of a, this proves the stated uniform estimate.",
+  "key_steps": [
+    "Establish absolute summability of the complex character series and summability on fibers.",
+    "Interchange the finite character sum with the series and apply character orthogonality.",
+    "Choose one positive interval and one nonnegative error constant for all characters.",
+    "Observe that the weighted main terms contribute exactly one logarithm.",
+    "Apply the triangle inequality and divide by m to obtain the uniform real estimate."
+  ],
+  "unresolved": [],
+  "validation_notes": []
+}

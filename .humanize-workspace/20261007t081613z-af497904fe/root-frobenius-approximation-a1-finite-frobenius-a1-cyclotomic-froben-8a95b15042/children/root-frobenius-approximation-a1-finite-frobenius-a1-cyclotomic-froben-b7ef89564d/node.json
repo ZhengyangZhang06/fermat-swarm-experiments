@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.cyclic_weighted_infinitude-a1.character_orthogonality-a1",
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.cyclic_weighted_infinitude-a1",
+  "depth": 5,
+  "title": "Orthogonality of powers of a primitive cyclic root",
+  "statement": "Let m be a positive natural number and ω a primitive mth root of unity in ℂ. For a,b ∈ ZMod m, let val denote the representative in {0,…,m−1}. Then the sum over integers 0 ≤ k < m of conjugate(ω^(k·val(a)))·ω^(k·val(b)) equals m if b = a, and equals zero otherwise.",
+  "lean_statement": "∀ (m : ℕ) (ω : ℂ), 0 < m → IsPrimitiveRoot ω m → ∀ a b : ZMod m, (∑ k : Fin m, star (ω ^ (k.val * a.val)) * ω ^ (k.val * b.val)) = (if b = a then (m : ℂ) else 0)",
+  "lean_name": "p09_af497904fe_cwi_character_orthogonality",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-b7ef89564d-a1"
+}

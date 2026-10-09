@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.cyclic_weighted_infinitude-a1.infinite_diff_of_log_lower_bound-a1",
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.cyclic_weighted_infinitude-a1",
+  "depth": 5,
+  "title": "Logarithmic growth survives deletion of a bounded contribution",
+  "statement": "Let ι be a type, N : ι → ℕ satisfy N(i) ≥ 2, and E,D ⊆ ι. Put w_i(s) = Real.rpow(N(i),−s), and assume the weights are summable over ι for every real s > 1. Let c,K,ε,C be real numbers with c > 0 and 0 < ε ≤ 1. Suppose Σ_{i∈E} w_i(s) ≥ c log(1/(s−1))−K whenever 1 < s < 1+ε, and Σ_{i∈D} w_i(s) ≤ C whenever 1 < s < 2. Then E \\ D is infinite. No sign condition on K or C is required.",
+  "lean_statement": "∀ (ι : Type) (N : ι → ℕ) (E D : Set ι) (c K ε C : ℝ), (∀ i : ι, 2 ≤ N i) → (∀ s : ℝ, 1 < s → Summable (fun i : ι => Real.rpow (N i : ℝ) (-s))) → 0 < c → 0 < ε → ε ≤ 1 → (∀ s : ℝ, 1 < s → s < 1 + ε → c * Real.log (1 / (s - 1)) - K ≤ ∑' i : {i : ι // i ∈ E}, Real.rpow (N i.1 : ℝ) (-s)) → (∀ s : ℝ, 1 < s → s < 2 → (∑' i : {i : ι // i ∈ D}, Real.rpow (N i.1 : ℝ) (-s)) ≤ C) → Set.Infinite (E \\ D)",
+  "lean_name": "p09_af497904fe_cwi_infinite_diff_of_log_lower_bound",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-2d78b4ea16-a1"
+}

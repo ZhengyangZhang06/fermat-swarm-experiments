@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.cyclic_weighted_infinitude-a1.fiber_log_estimate-a1",
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.cyclic_weighted_infinitude-a1",
+  "depth": 5,
+  "title": "Uniform logarithmic estimates for cyclic fibers",
+  "statement": "Let ι be a type, m a positive natural number, ω ∈ ℂ a primitive mth root, N : ι → ℕ with N(i) ≥ 2, and g : ι → ZMod m. Put w_i(s) = Real.rpow(N(i),−s), and assume these real weights are summable over ι for every real s > 1. For k ∈ Fin m put F_k(s) = Σ_i ω^(k.val·val(g(i)))w_i(s), with weights embedded in ℂ. Assume that for each k there exist real C_k ≥ 0 and ε_k > 0 such that ‖F_k(s) − δ_{k.val,0} log(1/(s−1))‖ ≤ C_k whenever 1 < s < 1+ε_k. Then there exist real K ≥ 0 and ε with 0 < ε ≤ 1 such that, simultaneously for every a ∈ ZMod m and every 1 < s < 1+ε, |Σ_{i:g(i)=a} w_i(s) − log(1/(s−1))/m| ≤ K.",
+  "lean_statement": "∀ (ι : Type) (m : ℕ) (ω : ℂ) (N : ι → ℕ) (g : ι → ZMod m), 0 < m → IsPrimitiveRoot ω m → (∀ i : ι, 2 ≤ N i) → (∀ s : ℝ, 1 < s → Summable (fun i : ι => Real.rpow (N i : ℝ) (-s))) → (∀ k : Fin m, ∃ C : ℝ, 0 ≤ C ∧ ∃ ε : ℝ, 0 < ε ∧ ∀ s : ℝ, 1 < s → s < 1 + ε → ‖(∑' i : ι, ω ^ (k.val * (g i).val) * Complex.ofReal (Real.rpow (N i : ℝ) (-s))) - (if k.val = 0 then (Real.log (1 / (s - 1)) : ℂ) else 0)‖ ≤ C) → ∃ K : ℝ, 0 ≤ K ∧ ∃ ε : ℝ, 0 < ε ∧ ε ≤ 1 ∧ ∀ (a : ZMod m) (s : ℝ), 1 < s → s < 1 + ε → |(∑' i : {i : ι // g i = a}, Real.rpow (N i.1 : ℝ) (-s)) - Real.log (1 / (s - 1)) / (m : ℝ)| ≤ K",
+  "lean_name": "p09_af497904fe_cwi_fiber_log_estimate",
+  "depends_on": [
+    "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.cyclic_weighted_infinitude-a1.character_orthogonality-a1"
+  ],
+  "dependency_workspaces": [
+    {
+      "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.cyclic_weighted_infinitude-a1.character_orthogonality-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    }
+  ],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-23ecfb33e8-a1"
+}

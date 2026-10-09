@@ -1,0 +1,233 @@
+{
+  "schema_version": 1,
+  "run_id": "20261007T081613Z-af497904fe",
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.cyclic_weighted_infinitude-a1",
+  "dispatch_branch": "proof-workspace/fermat-p09/20261007t081613z-af497904fe/dispatch/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8a95b15042",
+  "source_commit": "5a98056183edd45890c95dfe79bed826a7d3bcce",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "comparator_success": "Your solution is okay!",
+  "lean_target": "Submission.lean",
+  "children": [
+    {
+      "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.cyclic_weighted_infinitude-a1.character_orthogonality-a1",
+      "key": "character_orthogonality",
+      "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-b7ef89564d-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8a95b15042/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-b7ef89564d",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg -n 'cyclic_weighted|orthogonality|summable.*rpow' project/Definitions/Def_GaloisRep_Adic.lean project/Submission.lean",
+              "rg -n 'norm.*eq_one|theorem pow_inj' mathlib/Mathlib/RingTheory/RootsOfUnity/Complex.lean mathlib/Mathlib/RingTheory/RootsOfUnity/PrimitiveRoots.lean",
+              "rg -n 'geom_sum_mul|mul_geom_sum' mathlib/Mathlib/Algebra/Ring/GeomSum.lean",
+              "rg -n 'tprod_finsetProd|Multipliable.subtype|tprod_subtype|summable_norm_iff' mathlib/Mathlib/Topology/Algebra/InfiniteSum/Basic.lean mathlib/Mathlib/Topology/Algebra/InfiniteSum/Defs.lean mathlib/Mathlib/Analysis/Normed/Group/InfiniteSum.lean",
+              "rg -n 'Summable.of_nonneg_of_le|tsum_comp_le_tsum_of_inj' mathlib/Mathlib/Topology/Algebra/InfiniteSum/ENNReal.lean",
+              "rg -n 'rpow_le_one_of_one_le_of_nonpos|rpow_pos_of_pos|theorem log_exp' mathlib/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean mathlib/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean",
+              "rg -n 'orthog|sum.*eq|sum.*ite' mathlib/Mathlib/Analysis/Fourier/ZMod.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Fermat/Thm_GaloisRepAdic_exists_quadraticRelation_forall_of_frobenius.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_GaloisRep_Adic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Submission.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RootsOfUnity/Complex.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RootsOfUnity/PrimitiveRoots.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Algebra/Ring/GeomSum.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Topology/Algebra/InfiniteSum/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Topology/Algebra/InfiniteSum/ENNReal.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/Fourier/ZMod.lean"
+            ],
+            "conclusion": "Queries ran relative to the supplied snapshot root. The inspected project files contained no matching cyclic-weighted infinitude or orthogonality theorem. The pinned mathlib supplies IsPrimitiveRoot.norm'_eq_one, IsPrimitiveRoot.pow_inj, geometric-sum identities, Summable.tsum_finsetSum, tsum_subtype, nonnegative-series comparison, positive real powers, the bound for nonpositive exponents, and Real.log_exp. Fourier/ZMod.lean illustrates character orthogonality for the standard additive character; its private auxiliary declarations are not proposed dependencies. Project revision 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d matched the manifest and were tracked-clean. Lean axiom checks for the listed proposed library dependencies reported only propext, Classical.choice, and Quot.sound."
+          }
+        ],
+        "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.cyclic_weighted_infinitude-a1",
+        "child_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.cyclic_weighted_infinitude-a1.character_orthogonality-a1",
+        "subproblem": {
+          "key": "character_orthogonality",
+          "title": "Orthogonality of powers of a primitive cyclic root",
+          "statement": "Let m be a positive natural number and ω a primitive mth root of unity in ℂ. For a,b ∈ ZMod m, let val denote the representative in {0,…,m−1}. Then the sum over integers 0 ≤ k < m of conjugate(ω^(k·val(a)))·ω^(k·val(b)) equals m if b = a, and equals zero otherwise.",
+          "lean_statement": "∀ (m : ℕ) (ω : ℂ), 0 < m → IsPrimitiveRoot ω m → ∀ a b : ZMod m, (∑ k : Fin m, star (ω ^ (k.val * a.val)) * ω ^ (k.val * b.val)) = (if b = a then (m : ℂ) else 0)",
+          "lean_name": "p09_af497904fe_cwi_character_orthogonality",
+          "depends_on": [],
+          "natural_proof": "1. Fix m > 0, a primitive mth root ω, and a,b ∈ ZMod m. Primitivity gives ω^m = 1. Hence ω ≠ 0 and ‖ω‖^m = 1. Since ‖ω‖ is nonnegative and m is positive, ‖ω‖ = 1: a nonnegative number strictly below or strictly above one has its positive integral power respectively below or above one.\n2. The powers ω^j with 0 ≤ j < m are distinct. Indeed, if ω^j = ω^l and j < l < m, cancellation gives ω^(l−j) = 1. Primitivity implies m divides l−j, contradicting 0 < l−j < m. The case l < j is identical with the indices exchanged. Consequently ω^val(a) = ω^val(b) exactly when a = b, because the representatives lie in this range and determine their residue classes.\n3. Put A = ω^val(a), B = ω^val(b), and u = B/A. Both A and B are nonzero and have norm one. Moreover A^m = B^m = 1, so u^m = 1. By step 2, u = 1 exactly when b = a. For every natural k, conjugate(A) = A⁻¹ and the laws of powers give conjugate(ω^(k·val(a)))·ω^(k·val(b)) = (A⁻¹B)^k = u^k.\n4. If b = a, then u = 1, and the sum of its m powers indexed by Fin m is m. If b ≠ a, let S = ∑_{k=0}^{m−1} u^k. Expanding and cancelling successive terms gives (1−u)S = 1−u^m = 0. Since 1−u ≠ 0 in ℂ, S = 0. Substitution using step 3 proves the stated identity. The argument includes m = 1.",
+          "proof_key_steps": [
+            "Derive ω ≠ 0 and ‖ω‖ = 1 from ω^m = 1 and m > 0.",
+            "Use primitivity to distinguish powers indexed by distinct canonical representatives.",
+            "Rewrite each conjugate-character product as a power of u = ω^val(b)/ω^val(a).",
+            "Evaluate the geometric sum separately for u = 1 and u ≠ 1."
+          ]
+        },
+        "audit": {
+          "key": "character_orthogonality",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The standalone one-line proposition exactly matches the prose, and its bare name is unreserved. Each proof step is justified: positivity of m gives nonzero unit-norm roots; primitivity distinguishes canonical representatives; conjugation produces the quotient powers; geometric-sum cancellation proves the unequal case. The equal case and m = 1 are covered. No circular dependency or missing hypothesis occurs."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-b7ef89564d/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-b7ef89564d/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-b7ef89564d/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.cyclic_weighted_infinitude-a1.infinite_diff_of_log_lower_bound-a1",
+      "key": "infinite_diff_of_log_lower_bound",
+      "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-2d78b4ea16-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8a95b15042/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-2d78b4ea16",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg -n 'cyclic_weighted|orthogonality|summable.*rpow' project/Definitions/Def_GaloisRep_Adic.lean project/Submission.lean",
+              "rg -n 'norm.*eq_one|theorem pow_inj' mathlib/Mathlib/RingTheory/RootsOfUnity/Complex.lean mathlib/Mathlib/RingTheory/RootsOfUnity/PrimitiveRoots.lean",
+              "rg -n 'geom_sum_mul|mul_geom_sum' mathlib/Mathlib/Algebra/Ring/GeomSum.lean",
+              "rg -n 'tprod_finsetProd|Multipliable.subtype|tprod_subtype|summable_norm_iff' mathlib/Mathlib/Topology/Algebra/InfiniteSum/Basic.lean mathlib/Mathlib/Topology/Algebra/InfiniteSum/Defs.lean mathlib/Mathlib/Analysis/Normed/Group/InfiniteSum.lean",
+              "rg -n 'Summable.of_nonneg_of_le|tsum_comp_le_tsum_of_inj' mathlib/Mathlib/Topology/Algebra/InfiniteSum/ENNReal.lean",
+              "rg -n 'rpow_le_one_of_one_le_of_nonpos|rpow_pos_of_pos|theorem log_exp' mathlib/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean mathlib/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean",
+              "rg -n 'orthog|sum.*eq|sum.*ite' mathlib/Mathlib/Analysis/Fourier/ZMod.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Fermat/Thm_GaloisRepAdic_exists_quadraticRelation_forall_of_frobenius.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_GaloisRep_Adic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Submission.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RootsOfUnity/Complex.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RootsOfUnity/PrimitiveRoots.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Algebra/Ring/GeomSum.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Topology/Algebra/InfiniteSum/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Topology/Algebra/InfiniteSum/ENNReal.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/Fourier/ZMod.lean"
+            ],
+            "conclusion": "Queries ran relative to the supplied snapshot root. The inspected project files contained no matching cyclic-weighted infinitude or orthogonality theorem. The pinned mathlib supplies IsPrimitiveRoot.norm'_eq_one, IsPrimitiveRoot.pow_inj, geometric-sum identities, Summable.tsum_finsetSum, tsum_subtype, nonnegative-series comparison, positive real powers, the bound for nonpositive exponents, and Real.log_exp. Fourier/ZMod.lean illustrates character orthogonality for the standard additive character; its private auxiliary declarations are not proposed dependencies. Project revision 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d matched the manifest and were tracked-clean. Lean axiom checks for the listed proposed library dependencies reported only propext, Classical.choice, and Quot.sound."
+          }
+        ],
+        "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.cyclic_weighted_infinitude-a1",
+        "child_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.cyclic_weighted_infinitude-a1.infinite_diff_of_log_lower_bound-a1",
+        "subproblem": {
+          "key": "infinite_diff_of_log_lower_bound",
+          "title": "Logarithmic growth survives deletion of a bounded contribution",
+          "statement": "Let ι be a type, N : ι → ℕ satisfy N(i) ≥ 2, and E,D ⊆ ι. Put w_i(s) = Real.rpow(N(i),−s), and assume the weights are summable over ι for every real s > 1. Let c,K,ε,C be real numbers with c > 0 and 0 < ε ≤ 1. Suppose Σ_{i∈E} w_i(s) ≥ c log(1/(s−1))−K whenever 1 < s < 1+ε, and Σ_{i∈D} w_i(s) ≤ C whenever 1 < s < 2. Then E \\ D is infinite. No sign condition on K or C is required.",
+          "lean_statement": "∀ (ι : Type) (N : ι → ℕ) (E D : Set ι) (c K ε C : ℝ), (∀ i : ι, 2 ≤ N i) → (∀ s : ℝ, 1 < s → Summable (fun i : ι => Real.rpow (N i : ℝ) (-s))) → 0 < c → 0 < ε → ε ≤ 1 → (∀ s : ℝ, 1 < s → s < 1 + ε → c * Real.log (1 / (s - 1)) - K ≤ ∑' i : {i : ι // i ∈ E}, Real.rpow (N i.1 : ℝ) (-s)) → (∀ s : ℝ, 1 < s → s < 2 → (∑' i : {i : ι // i ∈ D}, Real.rpow (N i.1 : ℝ) (-s)) ≤ C) → Set.Infinite (E \\ D)",
+          "lean_name": "p09_af497904fe_cwi_infinite_diff_of_log_lower_bound",
+          "depends_on": [],
+          "natural_proof": "1. Fix the stated data. For every s > 1 and every i, N(i) ≥ 2 implies 0 < w_i(s) ≤ 1: the base is positive and at least one, while the exponent −s is negative. The assumed summability implies summability of the weight series restricted to E, D, E∩D, and E\\D.\n2. Suppose for contradiction that A = E\\D is finite, and let r be its cardinality, regarded as a real number when used in inequalities. Fix 1 < s < 1+ε. Since ε ≤ 1, we also have s < 2. The disjoint partition E = (E∩D) ∪ A and summability give Σ_{i∈E} w_i(s) = Σ_{i∈E∩D} w_i(s) + Σ_{i∈A} w_i(s). Nonnegativity and E∩D ⊆ D bound the first sum by Σ_{i∈D} w_i(s) ≤ C. The second sum is a finite sum of r terms, each at most one, and is therefore at most r. Thus Σ_{i∈E} w_i(s) ≤ C+r throughout this interval.\n3. Define u = max((C+r+K)/c, −log ε)+1. Then u > (C+r+K)/c and u > −log ε. Set s = 1+exp(−u). Positivity of the exponential gives s > 1. The second strict inequality gives exp(−u) < exp(log ε) = ε, using ε > 0. Hence s < 1+ε, so both the upper bound of step 2 and the assumed lower bound apply.\n4. Since s−1 = exp(−u), its reciprocal is exp(u), and log(1/(s−1)) = u. Because c > 0 and u > (C+r+K)/c, we have c·u−K > C+r. The lower bound now yields Σ_{i∈E} w_i(s) ≥ c·u−K > C+r, contradicting step 2. Thus E\\D is not finite and is therefore infinite.",
+          "proof_key_steps": [
+            "Bound every weight between zero and one and restrict the summable series.",
+            "Under finiteness of E \\ D, split the E-series and bound it by C plus the finite cardinality.",
+            "Choose s = 1+exp(−u) inside the prescribed interval with u sufficiently large.",
+            "Evaluate the logarithm and contradict the uniform upper bound."
+          ]
+        },
+        "audit": {
+          "key": "infinite_diff_of_log_lower_bound",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The standalone proposition matches the prose, including the absence of sign restrictions on K and C, and its bare name is unreserved. The proof correctly uses summability and nonnegativity to partition and compare the series, bounds the finite remainder by its cardinality, and uses epsilon ≤ 1 to invoke the D-bound. The explicit choice of u places s in the required interval and forces the contradiction using c > 0. No sibling or parent theorem is assumed."
+        },
+        "resolved_dependencies": [],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-2d78b4ea16/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-2d78b4ea16/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-2d78b4ea16/parent-supplied-natural-proof.json"
+      }
+    },
+    {
+      "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.cyclic_weighted_infinitude-a1.fiber_log_estimate-a1",
+      "key": "fiber_log_estimate",
+      "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-23ecfb33e8-a1",
+      "bundle_path": ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8a95b15042/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-23ecfb33e8",
+      "handoff": {
+        "reference_use": [
+          {
+            "source": "local-project",
+            "queries": [
+              "rg -n 'cyclic_weighted|orthogonality|summable.*rpow' project/Definitions/Def_GaloisRep_Adic.lean project/Submission.lean",
+              "rg -n 'norm.*eq_one|theorem pow_inj' mathlib/Mathlib/RingTheory/RootsOfUnity/Complex.lean mathlib/Mathlib/RingTheory/RootsOfUnity/PrimitiveRoots.lean",
+              "rg -n 'geom_sum_mul|mul_geom_sum' mathlib/Mathlib/Algebra/Ring/GeomSum.lean",
+              "rg -n 'tprod_finsetProd|Multipliable.subtype|tprod_subtype|summable_norm_iff' mathlib/Mathlib/Topology/Algebra/InfiniteSum/Basic.lean mathlib/Mathlib/Topology/Algebra/InfiniteSum/Defs.lean mathlib/Mathlib/Analysis/Normed/Group/InfiniteSum.lean",
+              "rg -n 'Summable.of_nonneg_of_le|tsum_comp_le_tsum_of_inj' mathlib/Mathlib/Topology/Algebra/InfiniteSum/ENNReal.lean",
+              "rg -n 'rpow_le_one_of_one_le_of_nonpos|rpow_pos_of_pos|theorem log_exp' mathlib/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean mathlib/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean",
+              "rg -n 'orthog|sum.*eq|sum.*ite' mathlib/Mathlib/Analysis/Fourier/ZMod.lean"
+            ],
+            "files": [
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Fermat/Thm_GaloisRepAdic_exists_quadraticRelation_forall_of_frobenius.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_GaloisRep_Adic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Submission.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RootsOfUnity/Complex.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RootsOfUnity/PrimitiveRoots.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Algebra/Ring/GeomSum.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Topology/Algebra/InfiniteSum/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Topology/Algebra/InfiniteSum/ENNReal.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean",
+              "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/Fourier/ZMod.lean"
+            ],
+            "conclusion": "Queries ran relative to the supplied snapshot root. The inspected project files contained no matching cyclic-weighted infinitude or orthogonality theorem. The pinned mathlib supplies IsPrimitiveRoot.norm'_eq_one, IsPrimitiveRoot.pow_inj, geometric-sum identities, Summable.tsum_finsetSum, tsum_subtype, nonnegative-series comparison, positive real powers, the bound for nonpositive exponents, and Real.log_exp. Fourier/ZMod.lean illustrates character orthogonality for the standard additive character; its private auxiliary declarations are not proposed dependencies. Project revision 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d matched the manifest and were tracked-clean. Lean axiom checks for the listed proposed library dependencies reported only propext, Classical.choice, and Quot.sound."
+          }
+        ],
+        "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.cyclic_weighted_infinitude-a1",
+        "child_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.cyclic_weighted_infinitude-a1.fiber_log_estimate-a1",
+        "subproblem": {
+          "key": "fiber_log_estimate",
+          "title": "Uniform logarithmic estimates for cyclic fibers",
+          "statement": "Let ι be a type, m a positive natural number, ω ∈ ℂ a primitive mth root, N : ι → ℕ with N(i) ≥ 2, and g : ι → ZMod m. Put w_i(s) = Real.rpow(N(i),−s), and assume these real weights are summable over ι for every real s > 1. For k ∈ Fin m put F_k(s) = Σ_i ω^(k.val·val(g(i)))w_i(s), with weights embedded in ℂ. Assume that for each k there exist real C_k ≥ 0 and ε_k > 0 such that ‖F_k(s) − δ_{k.val,0} log(1/(s−1))‖ ≤ C_k whenever 1 < s < 1+ε_k. Then there exist real K ≥ 0 and ε with 0 < ε ≤ 1 such that, simultaneously for every a ∈ ZMod m and every 1 < s < 1+ε, |Σ_{i:g(i)=a} w_i(s) − log(1/(s−1))/m| ≤ K.",
+          "lean_statement": "∀ (ι : Type) (m : ℕ) (ω : ℂ) (N : ι → ℕ) (g : ι → ZMod m), 0 < m → IsPrimitiveRoot ω m → (∀ i : ι, 2 ≤ N i) → (∀ s : ℝ, 1 < s → Summable (fun i : ι => Real.rpow (N i : ℝ) (-s))) → (∀ k : Fin m, ∃ C : ℝ, 0 ≤ C ∧ ∃ ε : ℝ, 0 < ε ∧ ∀ s : ℝ, 1 < s → s < 1 + ε → ‖(∑' i : ι, ω ^ (k.val * (g i).val) * Complex.ofReal (Real.rpow (N i : ℝ) (-s))) - (if k.val = 0 then (Real.log (1 / (s - 1)) : ℂ) else 0)‖ ≤ C) → ∃ K : ℝ, 0 ≤ K ∧ ∃ ε : ℝ, 0 < ε ∧ ε ≤ 1 ∧ ∀ (a : ZMod m) (s : ℝ), 1 < s → s < 1 + ε → |(∑' i : {i : ι // g i = a}, Real.rpow (N i.1 : ℝ) (-s)) - Real.log (1 / (s - 1)) / (m : ℝ)| ≤ K",
+          "lean_name": "p09_af497904fe_cwi_fiber_log_estimate",
+          "depends_on": [
+            "character_orthogonality"
+          ],
+          "natural_proof": "1. Fix the stated data. From ω^m = 1 and m > 0, taking norms gives ‖ω‖ = 1. Thus χ_k(b) = ω^(k.val·val(b)) and v_k(a) = conjugate(χ_k(a)) have norm one for every k,a,b. For s > 1 the weights w_i(s) are positive because N(i) ≥ 2. Consequently ‖χ_k(g(i))w_i(s)‖ = w_i(s). The assumed summability of the weights therefore proves absolute summability of every character-weighted series and of its product by the constant v_k(a). The restricted real weight series on every fiber is summable as well; denote its sum by P_a(s).\n2. Fix a and s > 1. Multiplication by a fixed complex scalar commutes with these sums. Since there are finitely many k and each series is absolutely summable, finite summation also commutes with summation over ι. Therefore ∑_k v_k(a)F_k(s) = ∑_i (∑_k v_k(a)χ_k(g(i)))w_i(s). Apply the sibling theorem character_orthogonality with the present m,ω,a and b = g(i). Its hypotheses are exactly m > 0 and the given primitivity. The inner sum is m when g(i) = a and zero otherwise. The resulting indicator series equals the sum over the fiber, so ∑_k v_k(a)F_k(s) = m·P_a(s), with real quantities embedded in ℂ.\n3. For every k choose constants C_k ≥ 0 and ε_k > 0 supplied by the hypothesis. Let ε be the minimum of the finite nonempty collection consisting of 1 and all ε_k. Then 0 < ε ≤ 1 and ε ≤ ε_k for every k. Put C_* = ∑_k C_k and K = C_*/(m : ℝ). Because every C_k is nonnegative and m > 0, K ≥ 0. These choices do not depend on a.\n4. Fix any a and any 1 < s < 1+ε, and put L = log(1/(s−1)). There is exactly one element of Fin m with value zero, namely ⟨0, m > 0⟩. For this index v_k(a) = 1. Therefore the sum of v_k(a) times the prescribed main term δ_{k.val,0}L is L. Subtracting these main terms from the identity in step 2 gives m·P_a(s)−L = ∑_k v_k(a)(F_k(s)−δ_{k.val,0}L).\n5. All character estimates apply because s < 1+ε ≤ 1+ε_k. The triangle inequality and ‖v_k(a)‖ = 1 give ‖m·P_a(s)−L‖ ≤ ∑_k C_k = C_*. The expression on the left is real embedded in ℂ, so its norm is |m·P_a(s)−L| = (m : ℝ)|P_a(s)−L/(m : ℝ)|. Divide by the positive real number m to obtain |P_a(s)−L/m| ≤ K. Since a and s were arbitrary and the constants were chosen independently of a, this proves the stated uniform estimate.",
+          "proof_key_steps": [
+            "Establish absolute summability of the complex character series and summability on fibers.",
+            "Interchange the finite character sum with the series and apply character orthogonality.",
+            "Choose one positive interval and one nonnegative error constant for all characters.",
+            "Observe that the weighted main terms contribute exactly one logarithm.",
+            "Apply the triangle inequality and divide by m to obtain the uniform real estimate."
+          ]
+        },
+        "audit": {
+          "key": "fiber_log_estimate",
+          "acceptable": true,
+          "natural_proof_acceptable": true,
+          "reason": "The independently elaborated proposition matches every hypothesis and the uniform quantifier order in the prose. Absolute summability justifies scalar multiplication, restriction, and finite-sum interchange. The sole sibling dependency is correctly directed to character_orthogonality. The common epsilon and K are independent of a; the unique zero character contributes exactly one logarithm, and division by positive m yields the stated absolute bound. The supplied proof is complete and non-circular."
+        },
+        "resolved_dependencies": [
+          "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.cyclic_weighted_infinitude-a1.character_orthogonality-a1"
+        ],
+        "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-23ecfb33e8/parent-supplied-plan.md",
+        "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-23ecfb33e8/parent-supplied-natural-proof.md",
+        "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-23ecfb33e8/parent-supplied-natural-proof.json"
+      }
+    }
+  ],
+  "files": {
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8a95b15042/task.md": "d1097f34a9dcda1e8cd40a21e7f0ee81cabd7d3772d3eff410ef433f9adf18c0",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8a95b15042/problem.md": "0500482283c7cf686c90505c2e668aae51a3829d556ca24b402d320ba3f840fd",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8a95b15042/problem.json": "0a505890f14c1e4a40b2d68435dac1a45d795b4cadd800289fbb395cab0114df",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8a95b15042/reference-manifest.json": "024395eb16744a67c062d4787284abe3f4cdebfec9609217ede4bc773b8bcef0",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8a95b15042/decomposition.json": "ab4ed07b81faf3453181a394629fe7b6b5d9ea3e865dbf73849fc0d2c193215d",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8a95b15042/decomposition-audit.json": "8d618bb1796cdbca3bca76ece822e2ade4896927aa4f105e955c7f6db984d417",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8a95b15042/controller-contract.json": "15abb5b197a06e4feb0c79eda2d53e3a24a12bfa8f753bace11ccc2ff0aaee11",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8a95b15042/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-b7ef89564d/parent-child-handoff.json": "5ce66fd9e028fc0908b90e34885685b40e68076861709df60def11a1076ada81",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8a95b15042/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-b7ef89564d/parent-supplied-plan.md": "6d334e11d90cf74444ab5549e0da6cbe9d4e57d78afb964ea7e0ce11ef0a70c5",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8a95b15042/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-b7ef89564d/parent-supplied-natural-proof.md": "0533858930da46ade58d5a5d86a4048b7eb17079a22889a44d7b394fb7208ded",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8a95b15042/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-b7ef89564d/parent-supplied-natural-proof.json": "99f8c78fe1171c7b0c39817d61867530c7ff9a3a06905b7295b77d0aa642ebca",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8a95b15042/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-b7ef89564d/node.json": "f8ccbe4cdf1955cca613633347bd9adbe4a9292f1c5c8c68ad0c0f71e8abd5e8",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8a95b15042/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-2d78b4ea16/parent-child-handoff.json": "e49a647a970f6a04a6455d224cefd88b03cb2744154208a2d0cdf68896d02dbb",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8a95b15042/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-2d78b4ea16/parent-supplied-plan.md": "a57954e476798bf2c9b49b77f1b0d60bed54e13812d4a84dcdd3b9d5168e002c",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8a95b15042/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-2d78b4ea16/parent-supplied-natural-proof.md": "b794c4924cf153531f81b3bdc7dd73e93f6aa0a45f07f99318ff6ff4b397c934",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8a95b15042/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-2d78b4ea16/parent-supplied-natural-proof.json": "cc6e8021f02b8b8877a3a9636de83035fd07533a269a86aa9bd50e3507cd2207",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8a95b15042/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-2d78b4ea16/node.json": "9113575087265f98e3bf7b304f452f09a073cad1d06f77223e010c640788c11e",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8a95b15042/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-23ecfb33e8/parent-child-handoff.json": "fa1567a9c4f67b06b32e05bf28c0ce175649bb6d51d5e9b5825968351ddafb53",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8a95b15042/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-23ecfb33e8/parent-supplied-plan.md": "e2c2bc3ff1dbfd3f1a10593cf127cc90291d6abf064ca4afd082219b2f1c990f",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8a95b15042/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-23ecfb33e8/parent-supplied-natural-proof.md": "286f2fd7a4f2a5c993fe315da4c49410bf61a5861fdc87b30b56bbae195f0fe0",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8a95b15042/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-23ecfb33e8/parent-supplied-natural-proof.json": "0c9a1c9fe7c22f4f9431e35af47cfdba21c0a56dbcc675c2ba8caaed7cf67dd1",
+    ".humanize-workspace/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-8a95b15042/children/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-23ecfb33e8/node.json": "5366359bad9bab2b7bc41de8f628f94c84ad0df747bf6ca9d1db6f3f6a46756a"
+  }
+}

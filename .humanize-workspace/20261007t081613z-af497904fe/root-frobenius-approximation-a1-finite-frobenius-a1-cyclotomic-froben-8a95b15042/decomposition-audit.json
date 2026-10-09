@@ -1,0 +1,58 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'cyclic_weighted|orthogonality|summable.*rpow' project/Definitions/Def_GaloisRep_Adic.lean project/Submission.lean",
+        "norm.*eq_one|theorem pow_inj|geom_sum_mul|mul_geom_sum|tsum_finsetSum|tprod_finsetProd|Multipliable.subtype|tsum_subtype|tprod_subtype|summable_norm_iff|Summable.of_nonneg_of_le|tsum_comp_le_tsum_of_inj|rpow_le_one_of_one_le_of_nonpos|rpow_pos_of_pos|theorem log_exp",
+        "summable_norm_iff|summable_norm_iff_summable|Multipliable.subtype|Summable.subtype|orthog|sum.*ite",
+        "summable_norm_iff|of_norm|summable_of_norm|conj_eq_inv|star_def"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Fermat/Thm_GaloisRepAdic_exists_quadraticRelation_forall_of_frobenius.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_GaloisRep_Adic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Submission.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RootsOfUnity/Complex.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RootsOfUnity/PrimitiveRoots.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Algebra/Ring/GeomSum.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Topology/Algebra/InfiniteSum/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Topology/Algebra/InfiniteSum/Group.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Topology/Algebra/InfiniteSum/ENNReal.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/Normed/Group/InfiniteSum.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/SpecialFunctions/Pow/Real.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Data/Complex/Basic.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/cwi-split-diagnostic-20261009/report.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/cwi-independent-decomposition-oupet_j3/report.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/cwi-independent-decomposition-oupet_j3/assembly-report.json"
+      ],
+      "conclusion": "Searched the supplied snapshot independently. No matching cyclic-weighted or orthogonality theorem was found in the searched project files. Inspected mathlib declarations support primitive-root norm and injectivity, geometric sums, absolute summability, subtype restriction, finite-sum interchange, nonnegative comparison, real-power bounds, and logarithmic evaluation. Project revision 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d matched the manifest and were tracked-clean; installed dependencies also matched their clean pinned revisions. Independently reran Lean checks for all three standalone types, complex conjugation, real-power coercions, name absence, and cited library axioms; only propext, Classical.choice, and Quot.sound occurred. Verified the matching header policy digest, exact reversible omission of lines 10–11, original/build hashes, and absence of all eight targets. The receipt's original Submission matches frozen proof-base commit 791b71f8b14737f3031b51902cd12d1fc384c39a. The final 48-node DAG contained no proposed-name collisions. The depth-4 split isolates three genuine obligations with an acyclic dependency graph, and Lean checked assembly of the exact frozen parent from the proposed estimate and deletion contracts. This accepts the decomposition only; completed child proofs and comparator acceptance remain separate gates."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "character_orthogonality",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition exactly matches the prose, and its bare name is unreserved. Each proof step is justified: positivity of m gives nonzero unit-norm roots; primitivity distinguishes canonical representatives; conjugation produces the quotient powers; geometric-sum cancellation proves the unequal case. The equal case and m = 1 are covered. No circular dependency or missing hypothesis occurs."
+    },
+    {
+      "key": "fiber_log_estimate",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The independently elaborated proposition matches every hypothesis and the uniform quantifier order in the prose. Absolute summability justifies scalar multiplication, restriction, and finite-sum interchange. The sole sibling dependency is correctly directed to character_orthogonality. The common epsilon and K are independent of a; the unique zero character contributes exactly one logarithm, and division by positive m yields the stated absolute bound. The supplied proof is complete and non-circular."
+    },
+    {
+      "key": "infinite_diff_of_log_lower_bound",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone proposition matches the prose, including the absence of sign restrictions on K and C, and its bare name is unreserved. The proof correctly uses summability and nonnegativity to partition and compare the series, bounds the finite remainder by its cardinality, and uses epsilon ≤ 1 to invoke the D-bound. The explicit choice of u places s in the required interval and forces the contradiction using c > 0. No sibling or parent theorem is assumed."
+    }
+  ],
+  "required_changes": []
+}
