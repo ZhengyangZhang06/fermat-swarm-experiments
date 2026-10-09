@@ -26065,6 +26065,62 @@ theorem Submission.p03_tkc_torsion_card_recurrence_68cf3476_d5 :
     exact div_ne_zero
       ((map_ne_zero_iff _ (IsFractionRing.injective A W.toAffine.FunctionField)).mpr ha)
       ((map_ne_zero_iff _ (IsFractionRing.injective A W.toAffine.FunctionField)).mpr hb)
+  -- Accepted proof step 4: completed-square coordinates and the exact local
+  -- factorization. At a two-torsion point, smoothness makes U nonzero.
+  let Z (x y : k) : k := y + (W.a₁ * x + W.a₃) / 2
+  let G (x : k) : k := 4 * x ^ 3 + W.b₂ * x ^ 2 + 2 * W.b₄ * x + W.b₆
+  let U (α x : k) : k :=
+    (4 * (x ^ 2 + x * α + α ^ 2) + W.b₂ * (x + α) + 2 * W.b₄) / 4
+  have hZ (x y : k) (h : W.toAffine.Equation x y) :
+      4 * Z x y ^ 2 = G x := by
+    have he := (equation_iff x y).mp h
+    dsimp only [Z, G, b₂, b₄, b₆]
+    linear_combination 4 * he
+  have hZ_neg (x y : k) : Z x (W.toAffine.negY x y) = -Z x y := by
+    dsimp only [Z, negY]
+    ring
+  have hZ_zero_iff (x y : k) : Z x y = 0 ↔ y = W.toAffine.negY x y := by
+    dsimp only [Z, negY]
+    constructor
+    · intro h
+      linear_combination 2 * h
+    · intro h
+      linear_combination h / 2
+  have hU (α β x y : k) (hα : W.toAffine.Equation α β)
+      (hx : W.toAffine.Equation x y) :
+      (Z x y - Z α β) * (Z x y + Z α β) = (x - α) * U α x := by
+    have h₁ := hZ α β hα
+    have h₂ := hZ x y hx
+    dsimp only [G, U] at *
+    linear_combination (h₂ - h₁) / 4
+  have hU_ne_zero (α β : k) (h : W.toAffine.Nonsingular α β)
+      (hβ : Z α β = 0) : U α α ≠ 0 := by
+    intro hU₀
+    have hy : 2 * β + W.a₁ * α + W.a₃ = 0 := by
+      dsimp only [Z] at hβ
+      linear_combination 2 * hβ
+    have hx : W.a₁ * β - (3 * α ^ 2 + 2 * W.a₂ * α + W.a₄) = 0 := by
+      dsimp only [U, b₂, b₄] at hU₀
+      linear_combination W.a₁ / 2 * hy - hU₀
+    exact ((nonsingular_iff' α β).mp h).2.elim (fun h => h hx) (fun h => h hy)
+  have hU_two (α β x y : k) (hα : W.toAffine.Nonsingular α β)
+      (hβ : Z α β = 0) (hx : W.toAffine.Equation x y) :
+      Z x y ^ 2 = (x - α) * U α x := by
+    simpa only [hβ, sub_zero, add_zero, ← pow_two] using hU α β x y hα.1 hx
+  have hZ_sum_ne_zero (α β : k) (hβ : Z α β ≠ 0) : Z α β + Z α β ≠ 0 := by
+    intro h
+    apply hβ
+    linear_combination h / 2
+  -- Accepted proof step 2: the equation in the identity chart t = -x/y, s = -1/y.
+  have h_origin_chart (x y : k) (h : W.toAffine.Equation x y) (hy : y ≠ 0) :
+      let t := -x / y
+      let s := -1 / y
+      s = t ^ 3 + W.a₁ * t * s + W.a₂ * t ^ 2 * s + W.a₃ * s ^ 2 +
+        W.a₄ * t * s ^ 2 + W.a₆ * s ^ 3 := by
+    have he := (equation_iff x y).mp h
+    dsimp only
+    field_simp
+    linear_combination -he
   apply finish
   -- Remaining: prove the orders of the nonzero rational function H equal hD
   -- by accepted proof steps 2--7, and use the
