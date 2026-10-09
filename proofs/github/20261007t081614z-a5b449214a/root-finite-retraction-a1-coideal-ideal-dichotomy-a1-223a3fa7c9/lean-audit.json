@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "9bc2db214dcf817ce6231f72dba5359b7afa01b5977416626d0ecfb7d964fa60",
+  "git_delta": {
+    "base_commit": "1d267f27a571c82fe0e6e340c82bbd5861d93194",
+    "candidate_commit": "19a008b55fb2d4c6d131a3d76aeec80762da7f6b",
+    "target": "Submission.lean",
+    "declaration": "p05_fr_coideal_ideal_dichotomy_a5b449214a",
+    "diff_sha256": "a43d4f02c0915bbd41cdae9bb2d480f524244b35ff791f485483b1d2460473f0",
+    "source_sha256": "4cd5851f91ba29ed174c40b9608234f04e88c16c203ca46998ea74586c200cc4",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_fr_coideal_ideal_dichotomy_a5b449214a",
+      "statement": "∀ {k : Type*} [Field k] {A : Type*} [CommRing A] [HopfAlgebra k A] (J : Ideal A) (_hJ : ∀ x ∈ J, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k A A | ∃ a ∈ J, ∃ b : A, t = TensorProduct.tmul k a b}), J = ⊥ ∨ J = ⊤",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

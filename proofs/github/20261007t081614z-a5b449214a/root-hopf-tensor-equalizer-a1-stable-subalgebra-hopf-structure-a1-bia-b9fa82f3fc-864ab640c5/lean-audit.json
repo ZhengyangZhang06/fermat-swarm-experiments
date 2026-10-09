@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "41a54f146a108b7c0ca754083595c0d83b9b4617ab90ba04dac625a54acb516f",
+  "git_delta": {
+    "base_commit": "e53a36956e72b437a879169887c66e8c46ed9458",
+    "candidate_commit": "606727bc6f974cde74cabb27419bc6a9b4e3a634",
+    "target": "Submission.lean",
+    "declaration": "p05_hte_sshs_br_coalgebra_laws_a5b449214a",
+    "diff_sha256": "5c5445bd45680848c7b6bb127ead5e4cac910023e2202a1ec18f672d8b1715d2",
+    "source_sha256": "b712048a17045de6b33be883ea987c1be4770cae58fb45a90795fe8725701a05",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_hte_sshs_br_coalgebra_laws_a5b449214a",
+      "statement": "∀ {k : Type*} [Field k] {C : Type*} [AddCommGroup C] [Module k C] [Coalgebra k C] {V : Type*} [AddCommGroup V] [Module k V] (i : V →ₗ[k] C) (_hi : Function.Injective i) (δ : V →ₗ[k] TensorProduct k V V) (ε : V →ₗ[k] k) (_hδ : ∀ v : V, TensorProduct.map i i (δ v) = Coalgebra.comul (R := k) (i v)) (_hε : ∀ v : V, ε v = Coalgebra.counit (R := k) (i v)), (∀ v : V, TensorProduct.assoc k V V V (TensorProduct.map δ (LinearMap.id : V →ₗ[k] V) (δ v)) = TensorProduct.map (LinearMap.id : V →ₗ[k] V) δ (δ v)) ∧ (∀ v : V, TensorProduct.map ε (LinearMap.id : V →ₗ[k] V) (δ v) = TensorProduct.tmul k (1 : k) v) ∧ (∀ v : V, TensorProduct.map (LinearMap.id : V →ₗ[k] V) ε (δ v) = TensorProduct.tmul k v (1 : k))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

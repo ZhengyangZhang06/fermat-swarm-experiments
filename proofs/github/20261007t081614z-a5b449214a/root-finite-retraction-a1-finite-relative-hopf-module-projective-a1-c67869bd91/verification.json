@@ -1,0 +1,22 @@
+{
+  "node_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/254",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/717",
+  "candidate_commit": "e87aff736c9da3ca932b342fb4af718dffbf2db0",
+  "integrated_commit": "6fab8c5223e5f3bf7ba08a4058995efd37190171",
+  "proof_base_commit": "1d267f27a571c82fe0e6e340c82bbd5861d93194",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.finite_retraction-a1",
+  "requires": [
+    "root.finite_retraction-a1.coideal_ideal_dichotomy-a1",
+    "root.finite_retraction-a1.projective_of_trivial_minors-a1",
+    "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.presentation_ideals_eq-a1",
+    "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.base_change_semilinear_invariance-a1",
+    "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.coaction_twist-a1",
+    "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.tensor_ideal_descent-a1"
+  ]
+}

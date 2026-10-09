@@ -1,0 +1,18 @@
+{
+  "node_id": "root.finite_hopf_envelope-a1.determinant_inverse-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/248",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/402",
+  "candidate_commit": "03f0279d78bffb547fc916c006082663f201da13",
+  "integrated_commit": "b1a45081804ea0cafaf762ef5a4e3d0de5966afd",
+  "proof_base_commit": "5bf1233ccc33d0bdd6687069beba89e13d793141",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.finite_hopf_envelope-a1",
+  "requires": [
+    "root.finite_hopf_envelope-a1.determinant_inverse-a1.antipode_adjugate-a1",
+    "root.finite_hopf_envelope-a1.determinant_inverse-a1.determinant_grouplike-a1"
+  ]
+}

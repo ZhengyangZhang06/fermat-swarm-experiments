@@ -1,0 +1,19 @@
+{
+  "node_id": "root.finite_retraction-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/232",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/734",
+  "candidate_commit": "15fb90e9e3c971a4cf2cbb06a1c34dfa1b371a4d",
+  "integrated_commit": "3c37df2a62324fc4d915095b5df016c9d3d094c5",
+  "proof_base_commit": "d63e349328aea23423cf2be2de755effdecbc426",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root",
+  "requires": [
+    "root.finite_retraction-a1.coideal_ideal_dichotomy-a1",
+    "root.finite_retraction-a1.projective_of_trivial_minors-a1",
+    "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1"
+  ]
+}

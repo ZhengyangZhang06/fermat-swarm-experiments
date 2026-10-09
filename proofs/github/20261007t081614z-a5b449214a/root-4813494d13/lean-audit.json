@@ -1,0 +1,37 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "hopfKer|def coaction|mem_hopfKer",
+        "HopfKerHopf|ι₂_comulK",
+        "theorem one_def",
+        "theorem map_one"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/TensorProduct/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Group/Hom/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Group/Defs.lean"
+      ],
+      "conclusion": "Confirmed unchanged coaction/equalizer definitions and cited unit identities under the pinned project and mathlib revisions. No matches for HopfKerHopf|ι₂_comulK in project/Definitions or mathlib/Mathlib. The independent comparator verified all 56 interfaces, kernel acceptance, permitted transitive axioms, and authorized header-repair evidence."
+    }
+  ],
+  "comparison_identity": "29d30345d9fdaa264090c08089c6a11526c09e34fc424f970f813407af1564c7",
+  "publication_proof_reviewed": true,
+  "publication_proof_blob": "5dc9ff7bbcbaed115607f11787164a259c02e5f3",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "HopfAlgebra.hopfKer_eq_of_surjective_of_ker_eq_span",
+      "statement": "∀ {k : Type u} [Field k] {H : Type v} [CommRing H] [HopfAlgebra k H] [Algebra.FiniteType k H] (K : Subalgebra k H) (hΔ : ∀ x ∈ K, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : H ⊗[k] H | ∃ a ∈ K, ∃ b ∈ K, t = a ⊗ₜ[k] b}) (hS : ∀ x ∈ K, HopfAlgebra.antipode k x ∈ K) {B : Type w} [CommRing B] [Bialgebra k B] (q : H →ₐc[k] B) (hq : Function.Surjective q) (hker : RingHom.ker (q : H →+* B) = Ideal.span {x : H | x ∈ K ∧ Coalgebra.counit (R := k) x = 0}), HopfAlgebra.hopfKer q = K",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines accepted coinvariance, canonical-map injectivity, and tensor-equalizer lemmas to establish both subalgebra inclusions."
+    }
+  ]
+}

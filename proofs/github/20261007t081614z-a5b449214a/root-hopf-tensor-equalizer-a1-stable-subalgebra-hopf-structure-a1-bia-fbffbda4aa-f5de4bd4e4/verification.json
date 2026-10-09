@@ -1,0 +1,18 @@
+{
+  "node_id": "root.hopf_tensor_equalizer-a1.stable_subalgebra_hopf_structure-a1.bialgebra_restriction-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/289",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/569",
+  "candidate_commit": "1282f954e460eb2dab12ca448c952ec406eedae5",
+  "integrated_commit": "93dd335d0f292672f4564d3f0b7257407b27b3e4",
+  "proof_base_commit": "fa5616020e2f207fe87aff2fbac99b47ed2e77c5",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.hopf_tensor_equalizer-a1.stable_subalgebra_hopf_structure-a1",
+  "requires": [
+    "root.hopf_tensor_equalizer-a1.stable_subalgebra_hopf_structure-a1.bialgebra_restriction-a1.comul_alg_lift-a1",
+    "root.hopf_tensor_equalizer-a1.stable_subalgebra_hopf_structure-a1.bialgebra_restriction-a1.coalgebra_law_descent-a1"
+  ]
+}

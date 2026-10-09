@@ -1,0 +1,18 @@
+{
+  "node_id": "root.hopf_tensor_equalizer-a1.finite_tensor_zero_witness-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/265",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/492",
+  "candidate_commit": "0dbf26715c07a97a5a5aa0fc0ab6c5b39ef1454b",
+  "integrated_commit": "3a3699a3bf4ba851481c1d179cb0a26e89128907",
+  "proof_base_commit": "938a841a113b07ff305e96c141e176a831c376cc",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.hopf_tensor_equalizer-a1",
+  "requires": [
+    "root.hopf_tensor_equalizer-a1.finite_tensor_zero_witness-a1.tensor_relation_kernel-a1",
+    "root.hopf_tensor_equalizer-a1.finite_tensor_zero_witness-a1.supported_relations_vanish-a1"
+  ]
+}

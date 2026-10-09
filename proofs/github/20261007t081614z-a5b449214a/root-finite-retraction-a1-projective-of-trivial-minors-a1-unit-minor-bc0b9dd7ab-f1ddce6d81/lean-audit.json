@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "c370c9fbaa45b9d016398e43c1b4f71b8a40045f1bfd8d83b39c4214441910a9",
+  "git_delta": {
+    "base_commit": "c66b358d016527ad0ab23061752401f3669c5054",
+    "candidate_commit": "d446b626c6cb786eb58713cb07101ae992661156",
+    "target": "Submission.lean",
+    "declaration": "p05_umgi_minor_reconstruction_a5b449214a",
+    "diff_sha256": "bb526f22e668487332bf59422d423d85adcc747f7901b22942c0966f22b11509",
+    "source_sha256": "4291dc3bc0a96a6a6ebeb8db15f8fe5186f27f70209fc5e7b33c96c851f25648",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_umgi_minor_reconstruction_a5b449214a",
+      "statement": "∀ {R : Type*} [CommRing R] (n p d : ℕ) (P : Matrix (Fin n) (Fin p) R) (rows : Fin d ↪ Fin n) (cols : Fin d ↪ Fin p) (_hunit : IsUnit (Matrix.det (P.submatrix rows cols))) (_hnext : ∀ (rows' : Fin (d + 1) ↪ Fin n) (cols' : Fin (d + 1) ↪ Fin p), Matrix.det (P.submatrix rows' cols') = 0), P = (P.submatrix id cols) * (P.submatrix rows cols)⁻¹ * (P.submatrix rows id)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'p05_finite_hopf_envelope|hopfKer_eq_of_surjective_of_ker_eq_span|range_map_eq_span_tmul|antipode_antipode' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae -g '*.lean'"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Fermat/Thm_HopfAlgebra_hopfKer_eq_of_surjective_of_ker_eq_span.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/TensorProduct/Map.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/GroupLike.lean"
+      ],
+      "conclusion": "Both snapshots are clean at their manifest pins. The original contract matches byte-for-byte; relevant tensor-range and group-like antipode declarations are pinned upstream infrastructure. No existing p05_finite_hopf_envelope declaration was found. The exact comparator rerun passed, with matching committed inputs, authorized reversible header omissions, successful target-absence probe, and only propext, Classical.choice and Quot.sound in the theorem's transitive axiom closure."
+    }
+  ],
+  "comparison_identity": "34ad07768776ff17503afd8a0f94f1f7e30a7559ac22e5ccd12065d471cf36c4",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p05_finite_hopf_envelope_a5b449214a",
+      "statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (F : Finset H), ∃ A : Subalgebra k H, (∀ x ∈ F, x ∈ A) ∧ Algebra.FiniteType k A ∧ (∀ x ∈ A, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ A, ∃ b ∈ A, t = TensorProduct.tmul k a b}) ∧ (∀ x ∈ A, HopfAlgebra.antipode k x ∈ A)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Uses accepted stable-subspace, coefficient-matrix and determinant-inverse dependencies to generate a finite-type subalgebra containing F and stable under comultiplication and antipode."
+    }
+  ]
+}

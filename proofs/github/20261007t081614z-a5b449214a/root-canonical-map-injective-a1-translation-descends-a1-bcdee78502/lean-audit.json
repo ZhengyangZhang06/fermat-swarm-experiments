@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "fba85cc49d7cfc58e5b0bf8ca0984a92983e6db4015b000edb04896e8927fc2d",
+  "git_delta": {
+    "base_commit": "faa5b2353a0fa7e66adeea1277f7df0bf441c35d",
+    "candidate_commit": "bfeee6c4e616972d5a2cb0f2c17acf330d78cc28",
+    "target": "Submission.lean",
+    "declaration": "p05_translation_descends_a5b449214a",
+    "diff_sha256": "1a5b23e0654fbb33fa15a2fe302ecd5e6d4369bb5db90fb87e28f80fd2091795",
+    "source_sha256": "ca6f6c38c7c47843313e5aabb9152aad092093a4db67197ab9f075b05674e5d4",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p05_translation_descends_a5b449214a",
+      "statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (K : Subalgebra k H) (hΔ : ∀ x ∈ K, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ K, ∃ b ∈ K, t = TensorProduct.tmul k a b}) (hS : ∀ x ∈ K, HopfAlgebra.antipode k x ∈ K) {B : Type*} [CommRing B] [Bialgebra k B] (q : BialgHom k H B) (hq : Function.Surjective q) (hker : RingHom.ker (q : H →+* B) = Ideal.span {x : H | x ∈ K ∧ Coalgebra.counit (R := k) x = 0}), ∃ σ : B →ₐ[k] (TensorProduct K H H), ∀ b : H, σ (q b) = Algebra.TensorProduct.mapOfCompatibleSMul K k k H H (TensorProduct.map (HopfAlgebra.antipode k) (LinearMap.id : H →ₗ[k] H) (Coalgebra.comul (R := k) b))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

@@ -1,0 +1,33 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "projective_of_trivial_minors|projective_of_split|split_surjective|of_split|class Projective|Fitting|fittingIdeal",
+        "p05_fr_projective_of_trivial_minors_a5b449214a|fittingIdeal|fitting_ideal"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Module/Projective.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean"
+      ],
+      "conclusion": "Both snapshots are clean at their manifest pins. Inspected the existing Module.Projective.of_split declaration and frozen Hopf-kernel definitions. The snapshot-wide search found no tracked theorem name or fittingIdeal/fitting_ideal match. All nine comparator dependency pins match the frozen manifest; the exact comparator rerun accepted the kernel proof with only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "a810f68264f5f1aaafdde984a395b0161ad4e1fc3d58c40a45774a6de8c6a21e",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p05_fr_projective_of_trivial_minors_a5b449214a",
+      "statement": "∀ {R : Type*} [CommRing R] {M : Type*} [AddCommGroup M] [Module R M] (n p : ℕ) (P : Matrix (Fin n) (Fin p) R) (π : (Fin n → R) →ₗ[R] M) (_hπ : Function.Surjective π) (_hker : LinearMap.ker π = LinearMap.range P.mulVecLin) (_hminor : ∀ d : ℕ, let J : Ideal R := Ideal.span {x : R | ∃ (rows : Fin d ↪ Fin n) (cols : Fin d ↪ Fin p), x = Matrix.det (P.submatrix rows cols)}; J = ⊥ ∨ J = ⊤), Module.Projective R M",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Uses accepted unit-minor splitting and principal-cover patching to obtain a section, then applies the pinned library theorem Module.Projective.of_split."
+    }
+  ]
+}

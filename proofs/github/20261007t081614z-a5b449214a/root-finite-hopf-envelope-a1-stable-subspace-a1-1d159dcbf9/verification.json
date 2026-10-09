@@ -1,0 +1,18 @@
+{
+  "node_id": "root.finite_hopf_envelope-a1.stable_subspace-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/246",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/329",
+  "candidate_commit": "24d48cc77bf88b34d7f4c5e3570ea462c00aeb2a",
+  "integrated_commit": "67776f9b9013f7ed5f618f70ef77b91b53dd1785",
+  "proof_base_commit": "5bf1233ccc33d0bdd6687069beba89e13d793141",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.finite_hopf_envelope-a1",
+  "requires": [
+    "root.finite_hopf_envelope-a1.stable_subspace-a1.tensor_independent_right-a1",
+    "root.finite_hopf_envelope-a1.stable_subspace-a1.coefficient_span_stable-a1"
+  ]
+}

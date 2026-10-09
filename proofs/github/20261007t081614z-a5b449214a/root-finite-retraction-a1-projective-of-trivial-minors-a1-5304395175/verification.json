@@ -1,0 +1,18 @@
+{
+  "node_id": "root.finite_retraction-a1.projective_of_trivial_minors-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/253",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/651",
+  "candidate_commit": "f23a50d90e90da13861f7b7effeb7f282071d325",
+  "integrated_commit": "86e57f49f7e3690e21548b5e6aa93c24a7c46c26",
+  "proof_base_commit": "1d267f27a571c82fe0e6e340c82bbd5861d93194",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.finite_retraction-a1",
+  "requires": [
+    "root.finite_retraction-a1.projective_of_trivial_minors-a1.unit_minor_splitting-a1",
+    "root.finite_retraction-a1.projective_of_trivial_minors-a1.principal_cover_splitting-a1"
+  ]
+}

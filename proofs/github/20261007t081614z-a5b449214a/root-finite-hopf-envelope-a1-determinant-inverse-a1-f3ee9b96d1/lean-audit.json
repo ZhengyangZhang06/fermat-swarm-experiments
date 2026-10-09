@@ -1,0 +1,33 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n --glob '*.lean' 'p05_fhe_determinant_inverse_a5b449214a|p05_di_antipode_adjugate_a5b449214a|p05_di_determinant_grouplike_a5b449214a|antipode_antipode|comul_eq_tmul_self|def hopfKer' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/HopfAlgebra/GroupLike.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Coalgebra/GroupLike.lean"
+      ],
+      "conclusion": "Both snapshots are clean at their manifest-pinned revisions. Located the frozen hopfKer definition and upstream group-like antipode declarations; no matches for the three candidate theorem names. The exact node comparator rerun passed, with only propext, Classical.choice and Quot.sound reported."
+    }
+  ],
+  "comparison_identity": "4dfc58e4be09b9187fa2acd5e8c10ea5f89362922a6f629710c983603fcd5816",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p05_fhe_determinant_inverse_a5b449214a",
+      "statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (n : ℕ) (c : Matrix (Fin n) (Fin n) H) (hΔ : ∀ i j : Fin n, Coalgebra.comul (R := k) (c i j) = ∑ l : Fin n, TensorProduct.tmul k (c i l) (c l j)) (hε : ∀ i j : Fin n, Coalgebra.counit (R := k) (c i j) = if i = j then (1 : k) else 0), ∃ u : H, Matrix.det c * u = 1 ∧ Coalgebra.comul (R := k) u = TensorProduct.tmul k u u ∧ HopfAlgebra.antipode k u = Matrix.det c ∧ (∀ i j : Fin n, HopfAlgebra.antipode k (c i j) = u * Matrix.adjugate c i j)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines the accepted antipode-adjugate and determinant-group-like child lemmas with pinned upstream antipode identities."
+    }
+  ]
+}
