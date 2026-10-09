@@ -2567,6 +2567,645 @@ theorem Submission.p03_tkc_torsion_card_recurrence_68cf3476_d5 :
     change _ ^ 2 + originFieldConstants W.a₁ * _ - originFieldConstants W.a₂ -
       originFieldConstants α - originX - originFieldConstants α = _
     ring
+  -- Normalize positive multiples by the identity parameter. Reduction in the
+  -- local residue field computes the leading coefficients n⁻² and -n⁻³.
+  have normalized_nsmul
+      (k O F : Type) [Field k] [CharZero k] [CommRing O] [IsLocalRing O] [Field F] [DecidableEq F]
+      (c : k →+* O) (ι : O →+* F) (t : O)
+      (ht : ι t ≠ 0) (htres : IsLocalRing.residue O t = 0)
+      (W : WeierstrassCurve k) (x₁ y₁ : O)
+      (hx₁ : IsLocalRing.residue O x₁ = 1)
+      (hy₁ : IsLocalRing.residue O y₁ = -1)
+      (h₁ : (W.map (ι.comp c)).toAffine.Nonsingular
+        (ι x₁ / (ι t) ^ 2) (ι y₁ / (ι t) ^ 3)) :
+      ∀ n : ℕ, 0 < n → ∃ x y : O,
+        ∃ h : (W.map (ι.comp c)).toAffine.Nonsingular
+          (ι x / (ι t) ^ 2) (ι y / (ι t) ^ 3),
+        n • (.some _ _ h₁ : (W.map (ι.comp c)).toAffine.Point) = .some _ _ h ∧
+        IsLocalRing.residue O x = (n : IsLocalRing.ResidueField O)⁻¹ ^ 2 ∧
+        IsLocalRing.residue O y = -(n : IsLocalRing.ResidueField O)⁻¹ ^ 3 := by
+    classical
+    let r := IsLocalRing.residue O
+    change r t = 0 at htres
+    change r x₁ = 1 at hx₁
+    change r y₁ = -1 at hy₁
+    let C := r.comp c
+    let : CharZero (IsLocalRing.ResidueField O) := charZero_of_injective_ringHom C.injective
+    let V := (W.map (ι.comp c)).toAffine
+    let T := ι t
+    have hT : T ≠ 0 := ht
+    let P : V.Point := .some _ _ h₁
+    have unit (d : O) (hd : r d ≠ 0) : IsUnit d :=
+      (IsLocalRing.residue_ne_zero_iff_isUnit d).mp hd
+    have inv_image (u : Oˣ) : ι (↑u⁻¹ : O) = (ι (u : O))⁻¹ := by
+      exact map_units_inv ι u
+    have inv_residue (u : Oˣ) : r (↑u⁻¹ : O) = (r (u : O))⁻¹ := by
+      exact map_units_inv r u
+    have normalized_add (x y l : O)
+        (h : V.Nonsingular (ι x / T ^ 2) (ι y / T ^ 3))
+        (hxy : ¬(ι x / T ^ 2 = ι x₁ / T ^ 2 ∧
+          ι y / T ^ 3 = V.negY (ι x₁ / T ^ 2) (ι y₁ / T ^ 3)))
+        (hl : V.slope (ι x / T ^ 2) (ι x₁ / T ^ 2)
+          (ι y / T ^ 3) (ι y₁ / T ^ 3) = ι l / T) :
+        let xx := l ^ 2 + c W.a₁ * l * t - c W.a₂ * t ^ 2 - x - x₁
+        let yy := -l * (xx - x) - y - c W.a₁ * xx * t - c W.a₃ * t ^ 3
+        ∃ hh : V.Nonsingular (ι xx / T ^ 2) (ι yy / T ^ 3),
+          (.some _ _ h : V.Point) + P = .some _ _ hh := by
+      dsimp only
+      have hx : V.addX (ι x / T ^ 2) (ι x₁ / T ^ 2) (ι l / T) =
+          ι (l ^ 2 + c W.a₁ * l * t - c W.a₂ * t ^ 2 - x - x₁) / T ^ 2 := by
+        change (ι l / T) ^ 2 + ι (c W.a₁) * (ι l / T) - ι (c W.a₂) -
+          ι x / T ^ 2 - ι x₁ / T ^ 2 = _
+        simp only [map_sub, map_add, map_mul, map_pow]
+        change _ = (ι l ^ 2 + ι (c W.a₁) * ι l * T - ι (c W.a₂) * T ^ 2 - ι x - ι x₁) / T ^ 2
+        field_simp [hT]
+      have hy : V.addY (ι x / T ^ 2) (ι x₁ / T ^ 2) (ι y / T ^ 3) (ι l / T) =
+          ι (-l * ((l ^ 2 + c W.a₁ * l * t - c W.a₂ * t ^ 2 - x - x₁) - x) - y -
+            c W.a₁ * (l ^ 2 + c W.a₁ * l * t - c W.a₂ * t ^ 2 - x - x₁) * t -
+            c W.a₃ * t ^ 3) / T ^ 3 := by
+        simp only [Affine.addY, Affine.negAddY, Affine.negY, hx]
+        simp only [map_sub, map_add, map_neg, map_mul, map_pow]
+        dsimp only [V, WeierstrassCurve.toAffine, WeierstrassCurve.map, RingHom.comp_apply]
+        dsimp only [T]
+        field_simp [ht]
+        ring
+      have hsum := nonsingular_add h h₁ hxy
+      rw [hl, hx, hy] at hsum
+      refine ⟨hsum, ?_⟩
+      dsimp only [P]
+      rw [add_some hxy, some.injEq]
+      simp only [hl, hx, hy, and_self]
+    intro n hn
+    induction n using Nat.strong_induction_on with
+    | h n ih =>
+      rcases n with _ | n
+      · omega
+      by_cases hn₀ : n = 0
+      · subst n
+        exact ⟨x₁, y₁, h₁, by exact one_nsmul _, by simpa using hx₁, by simpa using hy₁⟩
+      have hnpos : 0 < n := Nat.pos_of_ne_zero hn₀
+      obtain ⟨x, y, h, hP, hx, hy⟩ := ih n (by omega) hnpos
+      have hR : r x = (n : IsLocalRing.ResidueField O)⁻¹ ^ 2 := hx
+      have hS : r y = -(n : IsLocalRing.ResidueField O)⁻¹ ^ 3 := hy
+      have hncast : (n : IsLocalRing.ResidueField O) ≠ 0 := Nat.cast_ne_zero.mpr hn₀
+      have hnnext : (n : IsLocalRing.ResidueField O) + 1 ≠ 0 := by
+        exact_mod_cast (show n + 1 ≠ 0 by omega)
+      by_cases hn₁ : n = 1
+      · subst n
+        have hpoint : (.some _ _ h : V.Point) = P := by simpa only [one_nsmul] using hP.symm
+        have hcoords : ι x / T ^ 2 = ι x₁ / T ^ 2 ∧ ι y / T ^ 3 = ι y₁ / T ^ 3 :=
+          some.inj hpoint
+        let d := 2 * y + c W.a₁ * x * t + c W.a₃ * t ^ 3
+        have hd : r d = -2 := by simp only [d, map_add, map_mul, map_pow, map_ofNat, hS, htres]; norm_num
+        have hdu : IsUnit d := unit d (by rw [hd]; norm_num)
+        let l := (3 * x ^ 2 + 2 * c W.a₂ * x * t ^ 2 + c W.a₄ * t ^ 4 -
+          c W.a₁ * y * t) * (↑hdu.unit⁻¹ : O)
+        have hrl : r l = -3 / 2 := by
+          simp only [l, map_mul, map_sub, map_add, map_pow, map_ofNat,
+            hR, hS, htres, inv_residue, hdu.unit_spec, hd]
+          norm_num
+        have hdi : ι d ≠ 0 := (hdu.map ι).ne_zero
+        have hden : ι y / T ^ 3 - V.negY (ι x / T ^ 2) (ι y / T ^ 3) = ι d / T ^ 3 := by
+          change ι y / T ^ 3 - (- (ι y / T ^ 3) - ι (c W.a₁) * (ι x / T ^ 2) - ι (c W.a₃)) = _
+          simp only [d, map_add, map_mul, map_pow, map_ofNat]
+          change _ = (2 * ι y + ι (c W.a₁) * ι x * T + ι (c W.a₃) * T ^ 3) / T ^ 3
+          field_simp [hT]
+          ring
+        have hne : ι y / T ^ 3 ≠ V.negY (ι x / T ^ 2) (ι y / T ^ 3) := by
+          apply sub_ne_zero.mp
+          rw [hden]
+          exact div_ne_zero hdi (pow_ne_zero 3 ht)
+        have hxy : ¬(ι x / T ^ 2 = ι x₁ / T ^ 2 ∧
+            ι y / T ^ 3 = V.negY (ι x₁ / T ^ 2) (ι y₁ / T ^ 3)) := by
+          rw [← hcoords.1, ← hcoords.2]
+          exact fun hh => hne hh.2
+        have hl : V.slope (ι x / T ^ 2) (ι x₁ / T ^ 2)
+            (ι y / T ^ 3) (ι y₁ / T ^ 3) = ι l / T := by
+          rw [← hcoords.1, ← hcoords.2, slope_of_Y_ne rfl hne, hden]
+          simp only [l, map_mul, map_sub, map_add, map_pow, map_ofNat,
+            inv_image, hdu.unit_spec]
+          change (3 * (ι x / T ^ 2) ^ 2 + 2 * ι (c W.a₂) * (ι x / T ^ 2) +
+            ι (c W.a₄) - ι (c W.a₁) * (ι y / T ^ 3)) / (ι d / T ^ 3) =
+              (3 * ι x ^ 2 + 2 * ι (c W.a₂) * ι x * T ^ 2 + ι (c W.a₄) * T ^ 4 -
+                ι (c W.a₁) * ι y * T) * (ι d)⁻¹ / T
+          field_simp [hT, hdi]
+        obtain ⟨hh, he⟩ := normalized_add x y l h hxy hl
+        refine ⟨_, _, hh, ?_, ?_, ?_⟩
+        · change (1 + 1) • P = _
+          rw [add_nsmul, one_nsmul]
+          exact (congrArg (fun Q : V.Point => Q + P) hpoint).symm.trans he
+        · change r _ = _
+          simp only [map_sub, map_add, map_mul, map_pow, hrl, hR, hx₁, htres]
+          norm_num
+        · change r _ = _
+          simp only [map_sub, map_add, map_mul, map_neg, map_pow, hrl, hR, hS, hx₁, htres]
+          norm_num
+      · have hn₂ : 2 ≤ n := by omega
+        have hnminus : (n : IsLocalRing.ResidueField O) - 1 ≠ 0 := by
+          apply sub_ne_zero.mpr
+          exact_mod_cast hn₁
+        have hdn : (n : IsLocalRing.ResidueField O)⁻¹ ^ 2 - 1 ≠ 0 := by
+          intro hz
+          have he := (sub_eq_zero.mp hz)
+          field_simp at he
+          have : (n : IsLocalRing.ResidueField O) ^ 2 - 1 = 0 := by linear_combination -he
+          have hfact : ((n : IsLocalRing.ResidueField O) - 1) * (n + 1) = 0 := by
+            linear_combination this
+          exact (mul_ne_zero hnminus hnnext) hfact
+        have hdu : IsUnit (x - x₁) := unit _ (by simpa only [map_sub, hR, hx₁] using hdn)
+        let l := (y - y₁) * (↑hdu.unit⁻¹ : O)
+        have hrl : r l = (-(n : IsLocalRing.ResidueField O)⁻¹ ^ 3 + 1) /
+            ((n : IsLocalRing.ResidueField O)⁻¹ ^ 2 - 1) := by
+          simp only [l, map_mul, map_sub, inv_residue, hdu.unit_spec, hR, hS, hy₁, hx₁,
+            sub_neg_eq_add, div_eq_mul_inv]
+        have hrl' : r l = -((n : IsLocalRing.ResidueField O) ^ 2 + n + 1) /
+            ((n : IsLocalRing.ResidueField O) * (n + 1)) := by
+          rw [hrl]
+          apply (div_eq_div_iff hdn (mul_ne_zero hncast hnnext)).mpr
+          field_simp [hncast]
+          ring
+        have hdi : ι (x - x₁) ≠ 0 := (hdu.map ι).ne_zero
+        have hxne : ι x / T ^ 2 ≠ ι x₁ / T ^ 2 := by
+          intro he
+          apply hdi
+          rw [map_sub, (div_left_inj' (pow_ne_zero 2 ht)).mp he, sub_self]
+        have hxy : ¬(ι x / T ^ 2 = ι x₁ / T ^ 2 ∧
+            ι y / T ^ 3 = V.negY (ι x₁ / T ^ 2) (ι y₁ / T ^ 3)) := fun hh => hxne hh.1
+        have hl : V.slope (ι x / T ^ 2) (ι x₁ / T ^ 2)
+            (ι y / T ^ 3) (ι y₁ / T ^ 3) = ι l / T := by
+          rw [slope_of_X_ne hxne]
+          simp only [l, map_mul, inv_image, hdu.unit_spec, map_sub]
+          have hdi' : ι x - ι x₁ ≠ 0 := by simpa only [map_sub] using hdi
+          field_simp [hT, hdi']
+        obtain ⟨hh, he⟩ := normalized_add x y l h hxy hl
+        refine ⟨_, _, hh, ?_, ?_, ?_⟩
+        · simpa only [add_nsmul, one_nsmul, hP] using he
+        · change r _ = _
+          simp only [map_sub, map_add, map_mul, map_pow, hrl', hR, hx₁, htres,
+            mul_zero, add_zero, Nat.cast_add, Nat.cast_one]
+          field_simp [hncast, hnnext]
+          ring
+        · change r _ = _
+          simp only [map_sub, map_add, map_mul, map_neg, map_pow, hrl', hR, hS, hx₁, htres,
+            mul_zero, sub_zero, add_zero, Nat.cast_add, Nat.cast_one]
+          field_simp [hncast, hnnext]
+          ring
+
+  have h_origin_multiple_coordinates (n : ℕ) (hn : 0 < n) :
+      ∃ x y : originLocalRing,
+      ∃ h : (W.map originFieldConstants).toAffine.Nonsingular
+        (originInclusion x / originInclusion t ^ 2)
+        (originInclusion y / originInclusion t ^ 3),
+      n • (.some originX originY h_origin_point : (W.map originFieldConstants).toAffine.Point) =
+        .some _ _ h ∧
+      IsLocalRing.residue originLocalRing x = (n : IsLocalRing.ResidueField originLocalRing)⁻¹ ^ 2 ∧
+      IsLocalRing.residue originLocalRing y = -(n : IsLocalRing.ResidueField originLocalRing)⁻¹ ^ 3 := by
+    let : Field originField := inferInstance
+    let r := IsLocalRing.residue originLocalRing
+    have htres : r t = 0 := by
+      apply (IsLocalRing.residue_eq_zero_iff t).mpr
+      rw [← horigin_parameter.1]
+      exact Ideal.subset_span (Set.mem_singleton t)
+    have hT : originInclusion t ≠ 0 :=
+      (map_ne_zero_iff _ (IsFractionRing.injective originLocalRing originField)).mpr ht_nonzero
+    obtain ⟨e, he⟩ := horigin_leading
+    have hu : IsUnit (1 + t * e) := by
+      apply (IsLocalRing.residue_ne_zero_iff_isUnit _).mp
+      change r (1 + t * e) ≠ 0
+      simp only [map_add, map_mul, _root_.map_one, htres, zero_mul, add_zero]
+      exact one_ne_zero
+    let u := hu.unit
+    have hur : r (u : originLocalRing) = 1 := by
+      rw [hu.unit_spec]
+      simp only [map_add, map_mul, _root_.map_one, htres, zero_mul, add_zero]
+    have hs : originInclusion s = originInclusion t ^ 3 * originInclusion (u : originLocalRing) := by
+      rw [hu.unit_spec]
+      have hes : s = t ^ 3 * (1 + t * e) := by rw [he]; ring
+      rw [hes, map_mul, map_pow]
+    have hu₀ : originInclusion (u : originLocalRing) ≠ 0 := (u.isUnit.map originInclusion).ne_zero
+    have hx : originX = originInclusion (↑u⁻¹ : originLocalRing) / originInclusion t ^ 2 := by
+      change originInclusion t / originInclusion s = _
+      rw [hs, map_units_inv]
+      field_simp [hT, hu₀]
+    have hy : originY = originInclusion (- (↑u⁻¹ : originLocalRing)) / originInclusion t ^ 3 := by
+      change -1 / originInclusion s = _
+      rw [hs, _root_.map_neg, map_units_inv]
+      field_simp [hT, hu₀]
+    have hh := h_origin_point
+    rw [hx, hy] at hh
+    have hux : r (↑u⁻¹ : originLocalRing) = 1 := by rw [map_units_inv, hur, inv_one]
+    have huy : r (- (↑u⁻¹ : originLocalRing)) = -1 := by rw [_root_.map_neg, hux]
+    obtain ⟨x, y, h, hp, hrx, hry⟩ := normalized_nsmul k originLocalRing originField
+      originConstants originInclusion t hT htres W _ _ hux huy hh n hn
+    refine ⟨x, y, h, ?_, hrx, hry⟩
+    have heq : (.some originX originY h_origin_point : (W.map originFieldConstants).toAffine.Point) =
+        .some _ _ hh := by
+      rw [some.injEq]
+      exact ⟨hx, hy⟩
+    rw [heq]
+    exact hp
+  have h_origin_multiple_parameter (n : ℕ) (hn : 0 < n) :
+      ∃ x y : originField,
+      ∃ h : (W.map originFieldConstants).toAffine.Nonsingular x y,
+      n • (.some originX originY h_origin_point : (W.map originFieldConstants).toAffine.Point) =
+        .some x y h ∧ y ≠ 0 ∧
+      ∃ e : originLocalRing, -x / y = originFieldConstants (n : k) * originInclusion t +
+        originInclusion t ^ 2 * originInclusion e := by
+    let : Field originField := inferInstance
+    let r := IsLocalRing.residue originLocalRing
+    let C := r.comp originConstants
+    let : CharZero (IsLocalRing.ResidueField originLocalRing) :=
+      charZero_of_injective_ringHom C.injective
+    have hT : originInclusion t ≠ 0 :=
+      (map_ne_zero_iff _ (IsFractionRing.injective originLocalRing originField)).mpr ht_nonzero
+    obtain ⟨x, y, h, hp, hx, hy⟩ := h_origin_multiple_coordinates n hn
+    have hn₀ : (n : IsLocalRing.ResidueField originLocalRing) ≠ 0 := Nat.cast_ne_zero.mpr (by omega)
+    have huy : IsUnit y := by
+      apply (IsLocalRing.residue_ne_zero_iff_isUnit y).mp
+      rw [hy]
+      exact neg_ne_zero.mpr (pow_ne_zero 3 (inv_ne_zero hn₀))
+    have hy₀ : originInclusion y ≠ 0 := (huy.map originInclusion).ne_zero
+    let a := -x * (↑huy.unit⁻¹ : originLocalRing)
+    have ha : r a = (n : IsLocalRing.ResidueField originLocalRing) := by
+      change r x = _ at hx
+      change r y = _ at hy
+      change r (-x * (↑huy.unit⁻¹ : originLocalRing)) = _
+      rw [map_mul, _root_.map_neg r x, map_units_inv, huy.unit_spec, hx, hy]
+      field_simp [hn₀]
+    have hd : t ∣ a - originConstants (n : k) := by
+      apply Ideal.mem_span_singleton.mp
+      rw [horigin_parameter.1, ← IsLocalRing.residue_eq_zero_iff]
+      change r (a - originConstants (n : k)) = 0
+      rw [map_sub, ha]
+      have hcn : r (originConstants (n : k)) = (n : IsLocalRing.ResidueField originLocalRing) := by
+        simp only [map_natCast]
+      rw [hcn, sub_self]
+    obtain ⟨e, he⟩ := hd
+    refine ⟨_, _, h, hp, div_ne_zero hy₀ (pow_ne_zero 3 hT), e, ?_⟩
+    have ha' : originInclusion a = originFieldConstants (n : k) +
+        originInclusion t * originInclusion e := by
+      have hh := congrArg originInclusion he
+      simp only [map_sub, map_mul] at hh
+      change originInclusion a - originFieldConstants (n : k) =
+        originInclusion t * originInclusion e at hh
+      exact sub_eq_iff_eq_add.mp hh |>.trans (add_comm _ _)
+    have hfrac : -(originInclusion x / originInclusion t ^ 2) /
+        (originInclusion y / originInclusion t ^ 3) = originInclusion a * originInclusion t := by
+      change _ = originInclusion (-x * (↑huy.unit⁻¹ : originLocalRing)) * originInclusion t
+      rw [map_mul, _root_.map_neg originInclusion x, map_units_inv, huy.unit_spec]
+      field_simp [hT, hy₀]
+    rw [hfrac, ha']
+    ring
+  have h_origin_multiple_x_difference (n : ℕ) (hn : 2 ≤ n) :
+      originValuation ((n • (.some originX originY h_origin_point :
+        (W.map originFieldConstants).toAffine.Point)).xRep 0 - originX) =
+          originValuation (originInclusion t) ^ (-2 : ℤ) := by
+    let : Field originField := inferInstance
+    let r := IsLocalRing.residue originLocalRing
+    let C := r.comp originConstants
+    let : CharZero (IsLocalRing.ResidueField originLocalRing) :=
+      charZero_of_injective_ringHom C.injective
+    obtain ⟨x, y, h, hp, hx, hy⟩ := h_origin_multiple_coordinates n (by omega)
+    obtain ⟨x₁, y₁, h₁, hp₁, hx₁, hy₁⟩ := h_origin_multiple_coordinates 1 (by decide)
+    have hxx : originX = originInclusion x₁ / originInclusion t ^ 2 := by
+      have he := congrArg (fun P : (W.map originFieldConstants).toAffine.Point => P.xRep 0) hp₁
+      simpa only [one_nsmul, xRep_some, Matrix.cons_val_zero] using he
+    have hn₀ : (n : IsLocalRing.ResidueField originLocalRing) ≠ 0 := Nat.cast_ne_zero.mpr (by omega)
+    have hnsq : (n : IsLocalRing.ResidueField originLocalRing) ^ 2 ≠ 1 := by
+      exact_mod_cast (show n ^ 2 ≠ 1 by nlinarith)
+    have hd : IsUnit (x - x₁) := by
+      apply (IsLocalRing.residue_ne_zero_iff_isUnit _).mp
+      rw [map_sub, hx, hx₁]
+      norm_num only [Nat.cast_one, inv_one, one_pow]
+      intro he
+      have he' := sub_eq_zero.mp he
+      field_simp [hn₀] at he'
+      apply hnsq
+      linear_combination -he'
+    have hv : originValuation (originInclusion (x - x₁)) = 1 :=
+      horigin_integers.one_of_isUnit hd
+    rw [hp]
+    change originValuation (originInclusion x / originInclusion t ^ 2 - originX) = _
+    rw [hxx, ← sub_div, ← map_sub, map_div₀, map_pow, hv, one_div]
+    simp only [zpow_neg, zpow_ofNat]
+  -- Cofinite rational coordinate identities are preserved by injective
+  -- evaluation at a generic point, including all branches of point addition.
+  have generic_evaluation (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k]
+      (W : WeierstrassCurve k) (hΔ : W.Δ ≠ 0) [Infinite W.toAffine.Point]
+      (F : Type) [Field F] [DecidableEq F] (c : k →+* F) (X Y : F)
+      (hR : (W.map c).toAffine.Nonsingular X Y)
+      (φ : W.toAffine.CoordinateRing →+* F) (hφ : Function.Injective φ)
+      (hφconst : ∀ z : k, φ (algebraMap k W.toAffine.CoordinateRing z) = c z)
+      (hφx : φ (CoordinateRing.mk W.toAffine (Polynomial.C Polynomial.X)) = X)
+      (hφy : φ (CoordinateRing.mk W.toAffine Polynomial.X) = Y)
+      (m : ℕ) (a b : W.toAffine.CoordinateRing) (hb : b ≠ 0)
+      (hval : ∀ᶠ P : W.toAffine.Point in Filter.cofinite,
+        ∀ (x y : k) (h : W.toAffine.Nonsingular x y), P = .some x y h →
+        (m • P).xRep 0 - P.xRep 0 = AdjoinRoot.evalEval h.1 a / AdjoinRoot.evalEval h.1 b) :
+      φ a / φ b = (m • (.some X Y hR : (W.map c).toAffine.Point)).xRep 0 - X := by
+    classical
+    obtain ⟨Q, hQ⟩ := Submission.p03_ptf_positive_nsmul_nonzero_c5b7b5ed_d6 k W hΔ 1 (by decide)
+    simp only [one_nsmul] at hQ
+    rcases Q with _ | ⟨x₀, y₀, h₀⟩
+    · exact (hQ rfl).elim
+    let G := W.toAffine.Point
+    let A := W.toAffine.CoordinateRing
+    let : Module.Finite (Polynomial k) A := Module.Finite.of_basis (CoordinateRing.basis W.toAffine)
+    let ev : G → A →+* k := fun P => match P with
+      | .zero => AdjoinRoot.evalEval h₀.1
+      | .some x y h => AdjoinRoot.evalEval h.1
+    have ev_mk (x y : k) (h : W.toAffine.Nonsingular x y)
+        (p : Polynomial (Polynomial k)) :
+        ev (.some x y h) (CoordinateRing.mk W.toAffine p) = p.evalEval x y := by
+      exact AdjoinRoot.evalEval_mk h.1 p
+    have ev_basis (x y : k) (h : W.toAffine.Nonsingular x y) (p q : Polynomial k) :
+        ev (.some x y h) (p • (1 : A) + q • CoordinateRing.mk W.toAffine Polynomial.X) =
+          p.eval x + q.eval x * y := by
+      rw [CoordinateRing.smul p (1 : A), CoordinateRing.smul q]
+      simp only [map_add, map_mul, mul_one, ev_mk x y h,
+        Polynomial.evalEval_C, Polynomial.evalEval_X]
+    have hxf (x : k) : Set.Finite {P : G | P.xRep 0 = x} := by
+      by_cases h : ∃ y, W.toAffine.Nonsingular x y
+      · obtain ⟨y, hy⟩ := h
+        apply (((Set.finite_singleton (-.some x y hy)).insert (.some x y hy)).insert 0).subset
+        intro P hp
+        cases P with
+        | zero => simp [← zero_def]
+        | some u v hv =>
+          have hu : u = x := hp
+          rcases (X_eq_iff (h₁ := hv) (h₂ := hy)).mp hu with he | he
+          · exact Or.inr (Or.inl he)
+          · exact Or.inr (Or.inr he)
+      · apply (Set.finite_singleton (0 : G)).subset
+        intro P hp
+        cases P with
+        | zero => rfl
+        | some u v hv => exact (h ⟨v, (show u = x from hp) ▸ hv⟩).elim
+    have ev_nonzero (a : A) (ha : a ≠ 0) : ∀ᶠ P in Filter.cofinite, ev P a ≠ 0 := by
+      have hn : Algebra.norm (Polynomial k) a ≠ 0 := Algebra.norm_ne_zero_iff.mpr ha
+      have hf := (Polynomial.finite_setOfPred_isRoot hn).biUnion (fun x _ => hxf x)
+      apply Filter.eventually_cofinite.mpr
+      apply ((Set.finite_singleton (0 : G)).union hf).subset
+      intro P hp
+      change ¬ ev P a ≠ 0 at hp
+      simp only [not_not] at hp
+      cases P with
+      | zero => exact Or.inl rfl
+      | some x y h =>
+        apply Or.inr
+        apply Set.mem_iUnion₂.mpr
+        refine ⟨x, ?_, rfl⟩
+        obtain ⟨p, q, he⟩ := CoordinateRing.exists_smul_basis_eq a
+        rw [← he, ev_basis x y h p q] at hp
+        change (Algebra.norm (Polynomial k) a).eval x = 0
+        rw [← he, CoordinateRing.norm_smul_basis]
+        simp only [Polynomial.eval_sub, Polynomial.eval_pow, Polynomial.eval_mul,
+          Polynomial.eval_add, Polynomial.eval_C, Polynomial.eval_X]
+        have heq := (equation_iff x y).mp h.1
+        linear_combination (p.eval x - q.eval x * y - q.eval x * (W.a₁ * x + W.a₃)) * hp +
+          q.eval x ^ 2 * heq
+    let V := (W.map c).toAffine
+    let Good : (G → k) → F → Prop := fun f v =>
+      ∃ a b : A, b ≠ 0 ∧ v = φ a / φ b ∧
+        ∀ᶠ P in Filter.cofinite, f P = ev P a / ev P b
+    have good_ev (a : A) : Good (fun P => ev P a) (φ a) := by
+      refine ⟨a, 1, one_ne_zero, by simp, ?_⟩
+      filter_upwards [] with P
+      simp
+    have good_congr {f g : G → k} {v : F} (hf : Good f v)
+        (hh : ∀ᶠ P in Filter.cofinite, f P = g P) : Good g v := by
+      obtain ⟨a,b,hb,hv,ha⟩ := hf
+      refine ⟨a,b,hb,hv,?_⟩
+      filter_upwards [hh,ha] with P hP he
+      exact hP.symm.trans he
+    have good_const (z : k) : Good (fun _ => z) (c z) := by
+      rw [← hφconst z]
+      apply good_congr (good_ev (algebraMap k A z))
+      filter_upwards [] with P
+      cases P <;>
+        simp [ev, A, AdjoinRoot.evalEval, AdjoinRoot.algebraMap_eq', AdjoinRoot.lift_of]
+    have good_add {f g : G → k} {u v : F} (hf : Good f u) (hg : Good g v) :
+        Good (fun P => f P + g P) (u + v) := by
+      obtain ⟨a,b,hb,rfl,ha⟩ := hf
+      obtain ⟨c,d,hd,rfl,hc⟩ := hg
+      refine ⟨a*d+c*b,b*d,mul_ne_zero hb hd,?_,?_⟩
+      · simp only [map_add,map_mul]
+        simpa only [mul_comm] using div_add_div (φ a) (φ c) ((map_ne_zero_iff _ hφ).mpr hb) ((map_ne_zero_iff _ hφ).mpr hd)
+      · filter_upwards [ha,hc,ev_nonzero b hb,ev_nonzero d hd] with P ha hc hb hd
+        rw [ha,hc,map_add,map_mul,map_mul,map_mul]
+        simpa only [mul_comm] using div_add_div (ev P a) (ev P c) hb hd
+    have good_neg {f : G → k} {u : F} (hf : Good f u) : Good (fun P => -f P) (-u) := by
+      obtain ⟨a,b,hb,rfl,ha⟩ := hf
+      refine ⟨-a,b,hb,by simp only [map_neg,neg_div],?_⟩
+      filter_upwards [ha] with P he
+      simp only [he,map_neg,neg_div]
+    have good_sub {f g : G → k} {u v : F} (hf : Good f u) (hg : Good g v) :
+        Good (fun P => f P - g P) (u-v) := by
+      simpa only [sub_eq_add_neg] using good_add hf (good_neg hg)
+    have good_mul {f g : G → k} {u v : F} (hf : Good f u) (hg : Good g v) :
+        Good (fun P => f P * g P) (u*v) := by
+      obtain ⟨a,b,hb,rfl,ha⟩ := hf
+      obtain ⟨c,d,hd,rfl,hc⟩ := hg
+      refine ⟨a*c,b*d,mul_ne_zero hb hd,by simp only [map_mul,div_mul_div_comm],?_⟩
+      filter_upwards [ha,hc] with P ha hc
+      simp only [ha,hc,map_mul,div_mul_div_comm]
+    have good_inv {f : G → k} {u : F} (hf : Good f u) : Good (fun P => (f P)⁻¹) u⁻¹ := by
+      obtain ⟨a,b,hb,rfl,ha⟩ := hf
+      by_cases hz : a = 0
+      · simp only [hz,_root_.map_zero,zero_div,inv_zero]
+        have hh := good_const 0
+        rw [_root_.map_zero] at hh
+        apply good_congr hh
+        filter_upwards [ha] with P he
+        simp [he,hz]
+      · refine ⟨b,a,hz,by rw [inv_div],?_⟩
+        filter_upwards [ha] with P he
+        rw [he,inv_div]
+    have good_div {f g : G → k} {u v : F} (hf : Good f u) (hg : Good g v) :
+        Good (fun P => f P / g P) (u/v) := by
+      simpa only [div_eq_mul_inv] using good_mul hf (good_inv hg)
+    have good_pow {f : G → k} {u : F} (hf : Good f u) (n : ℕ) :
+        Good (fun P => f P ^ n) (u^n) := by
+      induction n with
+      | zero => simpa only [pow_zero,_root_.map_one] using good_const 1
+      | succ n ih => simpa only [pow_succ] using good_mul ih hf
+    have good_zero {f : G → k} {v : F} (hf : Good f v) :
+        (v = 0 → ∀ᶠ P in Filter.cofinite, f P = 0) ∧
+        (v ≠ 0 → ∀ᶠ P in Filter.cofinite, f P ≠ 0) := by
+      obtain ⟨a,b,hb,rfl,ha⟩ := hf
+      have hfb : φ b ≠ 0 := (map_ne_zero_iff _ hφ).mpr hb
+      constructor
+      · intro hv
+        have haz : a = 0 := hφ (by simpa only [_root_.map_zero] using (div_eq_zero_iff.mp hv).resolve_right hfb)
+        filter_upwards [ha] with P he
+        simpa only [haz,_root_.map_zero,zero_div] using he
+      · intro hv
+        have haz : a ≠ 0 := by intro hh; simp [hh] at hv
+        filter_upwards [ha,ev_nonzero a haz,ev_nonzero b hb] with P he ha hb
+        rw [he]
+        exact div_ne_zero ha hb
+    have good_equal {f g : G → k} {u v : F} (hf : Good f u) (hg : Good g v) :
+        (u = v → ∀ᶠ P in Filter.cofinite, f P = g P) ∧
+        (u ≠ v → ∀ᶠ P in Filter.cofinite, f P ≠ g P) := by
+      simpa only [sub_eq_zero,sub_ne_zero] using good_zero (good_sub hf hg)
+    have good_ite {f g a b : G → k} {u v A B : F}
+        (hf : Good f u) (hg : Good g v) (ha : Good a A) (hb : Good b B) :
+        Good (fun P => if f P = g P then a P else b P) (if u=v then A else B) := by
+      by_cases huv : u=v
+      · rw [if_pos huv]
+        apply good_congr ha
+        filter_upwards [(good_equal hf hg).1 huv] with P he
+        simp only [if_pos he]
+      · rw [if_neg huv]
+        apply good_congr hb
+        filter_upwards [(good_equal hf hg).2 huv] with P he
+        simp only [if_neg he]
+    let GoodPoint : (G → G) → V.Point → Prop := fun f R => match R with
+      | .zero => ∀ᶠ P in Filter.cofinite, f P = 0
+      | .some X Y h => ∃ x y : G → k, Good x X ∧ Good y Y ∧
+          ∀ᶠ P in Filter.cofinite, ∃ h : W.toAffine.Nonsingular (x P) (y P),
+            f P = .some _ _ h
+    have goodPoint_congr {f g : G → G} {R : V.Point} (hf : GoodPoint f R)
+        (hh : ∀ᶠ P in Filter.cofinite, f P=g P) : GoodPoint g R := by
+      cases R with
+      | zero =>
+        filter_upwards [hf,hh] with P he hP
+        exact hP.symm.trans he
+      | some X Y h =>
+        obtain ⟨x,y,hx,hy,hv⟩ := hf
+        refine ⟨x,y,hx,hy,?_⟩
+        filter_upwards [hv,hh] with P ⟨h,he⟩ hP
+        exact ⟨h,hP.symm.trans he⟩
+    have goodPoint_id : GoodPoint (fun P => P) (.some X Y hR) := by
+      let x : G → k := fun P => ev P (CoordinateRing.mk W.toAffine (Polynomial.C Polynomial.X))
+      let y : G → k := fun P => ev P (CoordinateRing.mk W.toAffine Polynomial.X)
+      refine ⟨x,y,hφx ▸ good_ev _,hφy ▸ good_ev _,?_⟩
+      filter_upwards [Filter.eventually_cofinite_ne (0 : G)] with P hP
+      cases P with
+      | zero => exact (hP rfl).elim
+      | some u v h =>
+        have hx : x (.some u v h) = u := by simp only [x,ev_mk,Polynomial.evalEval_C,Polynomial.eval_X]
+        have hy : y (.some u v h) = v := by simp only [y,ev_mk,Polynomial.evalEval_X]
+        simp only [hx,hy]
+        exact ⟨h,trivial⟩
+    have goodPoint_add {f g : G → G} {R S : V.Point} (hf : GoodPoint f R) (hg : GoodPoint g S) :
+        GoodPoint (fun P => f P+g P) (R+S) := by
+      cases R with
+      | zero =>
+        change GoodPoint (fun P => f P+g P) (0+S)
+        rw [zero_add]
+        apply goodPoint_congr hg
+        filter_upwards [hf] with P hP
+        simp [hP]
+      | some X₁ Y₁ H₁ =>
+        cases S with
+        | zero =>
+          change GoodPoint (fun P => f P+g P) ((.some X₁ Y₁ H₁ : V.Point)+0)
+          rw [add_zero]
+          apply goodPoint_congr (R := .some X₁ Y₁ H₁) hf
+          filter_upwards [hg] with P hP
+          simp [hP]
+        | some X₂ Y₂ H₂ =>
+          obtain ⟨x₁,y₁,hx₁,hy₁,hf⟩ := hf
+          obtain ⟨x₂,y₂,hx₂,hy₂,hg⟩ := hg
+          have hneg {x y : G → k} {X Y : F} (hx : Good x X) (hy : Good y Y) :
+              Good (fun P => W.toAffine.negY (x P) (y P)) (V.negY X Y) :=
+            good_sub (good_sub (good_neg hy) (good_mul (good_const W.a₁) hx)) (good_const W.a₃)
+          by_cases hxy : X₁=X₂ ∧ Y₁=V.negY X₂ Y₂
+          · rw [add_of_Y_eq hxy.1 hxy.2]
+            filter_upwards [hf,hg,(good_equal hx₁ hx₂).1 hxy.1,
+              (good_equal hy₁ (hneg hx₂ hy₂)).1 hxy.2] with P ⟨h₁,he₁⟩ ⟨h₂,he₂⟩ he hy
+            rw [he₁,he₂,add_of_Y_eq he hy]
+          · have hc : ∀ᶠ P in Filter.cofinite,
+                ¬(x₁ P=x₂ P ∧ y₁ P=W.toAffine.negY (x₂ P) (y₂ P)) := by
+              by_cases hxx : X₁=X₂
+              · filter_upwards [(good_equal hy₁ (hneg hx₂ hy₂)).2 (fun he => hxy ⟨hxx,he⟩)] with P he
+                exact fun hh => he hh.2
+              · filter_upwards [(good_equal hx₁ hx₂).2 hxx] with P he
+                exact fun hh => he hh.1
+            let s : G → k := fun P => W.toAffine.slope (x₁ P) (x₂ P) (y₁ P) (y₂ P)
+            let L := V.slope X₁ X₂ Y₁ Y₂
+            have hs : Good s L := by
+              apply good_ite hx₁ hx₂
+              · apply good_ite hy₁ (hneg hx₂ hy₂)
+                · simpa only [_root_.map_zero] using good_const 0
+                · convert good_div
+                    (good_sub (good_add
+                      (good_add (good_mul (good_const 3) (good_pow hx₁ 2))
+                        (good_mul (good_const (2*W.a₂)) hx₁)) (good_const W.a₄))
+                      (good_mul (good_const W.a₁) hy₁))
+                    (good_sub hy₁ (hneg hx₁ hy₁)) using 1
+                  simp only [map_ofNat,map_mul]
+                  rfl
+              · exact good_div (good_sub hy₁ hy₂) (good_sub hx₁ hx₂)
+            let x : G → k := fun P => W.toAffine.addX (x₁ P) (x₂ P) (s P)
+            let y : G → k := fun P => W.toAffine.addY (x₁ P) (x₂ P) (y₁ P) (s P)
+            have hx : Good x (V.addX X₁ X₂ L) :=
+              good_sub (good_sub (good_sub (good_add (good_pow hs 2)
+                (good_mul (good_const W.a₁) hs)) (good_const W.a₂)) hx₁) hx₂
+            have hy : Good y (V.addY X₁ X₂ Y₁ L) :=
+              hneg hx (good_add (good_mul hs (good_sub hx hx₁)) hy₁)
+            rw [add_some hxy]
+            refine ⟨x,y,hx,hy,?_⟩
+            filter_upwards [hf,hg,hc] with P ⟨h₁,he₁⟩ ⟨h₂,he₂⟩ he
+            exact ⟨nonsingular_add h₁ h₂ he,by rw [he₁,he₂,add_some he]⟩
+    have goodPoint_nsmul (n : ℕ) : GoodPoint (fun P => n • P) (n • (.some X Y hR : V.Point)) := by
+      induction n with
+      | zero =>
+        simp only [zero_nsmul]
+        exact Filter.Eventually.of_forall (fun P => rfl)
+      | succ n ih => simpa only [succ_nsmul] using goodPoint_add ih goodPoint_id
+    have goodPoint_x {f : G → G} {R : V.Point} (hf : GoodPoint f R) :
+        Good (fun P => (f P).xRep 0) (R.xRep 0) := by
+      cases R with
+      | zero =>
+        have hh := good_const 1
+        rw [_root_.map_one] at hh
+        apply good_congr hh
+        filter_upwards [hf] with P he
+        rw [he]
+        rfl
+      | some X Y h =>
+        obtain ⟨x,y,hx,hy,hf⟩ := hf
+        apply good_congr hx
+        filter_upwards [hf] with P ⟨h,he⟩
+        rw [he]
+        rfl
+    have hh := good_sub (goodPoint_x (goodPoint_nsmul m)) (goodPoint_x (R := .some X Y hR) goodPoint_id)
+    have ha : Good (fun P : G => (m • P).xRep 0 - P.xRep 0) (φ a / φ b) := by
+      refine ⟨a,b,hb,rfl,?_⟩
+      filter_upwards [hval,Filter.eventually_cofinite_ne (0 : G)] with P he hP
+      cases P with
+      | zero => exact (hP rfl).elim
+      | some x y h => exact he x y h rfl
+    by_contra hne
+    obtain ⟨P,hP⟩ := ((good_equal ha hh).2 hne).exists
+    exact hP rfl
+
+  have hH_atOrigin : functionFieldAtOrigin H =
+      (m • (.some originX originY h_origin_point :
+        (W.map originFieldConstants).toAffine.Point)).xRep 0 - originX := by
+    let : Field originField := inferInstance
+    have hc (z : k) : affineAtOrigin (algebraMap k A z) = originFieldConstants z := by
+      change affineAtOrigin (CoordinateRing.mk W.toAffine (Polynomial.C (Polynomial.C z))) = _
+      rw [h_affineAtOrigin_mk]
+      simp only [Polynomial.eval₂_C, Polynomial.coe_eval₂RingHom]
+    have hx : affineAtOrigin (CoordinateRing.mk W.toAffine (Polynomial.C Polynomial.X)) = originX := by
+      rw [h_affineAtOrigin_mk]
+      simp only [Polynomial.eval₂_C, Polynomial.coe_eval₂RingHom, Polynomial.eval₂_X]
+    have hy : affineAtOrigin (CoordinateRing.mk W.toAffine Polynomial.X) = originY := by
+      rw [h_affineAtOrigin_mk, Polynomial.eval₂_X]
+    change functionFieldAtOrigin (algebraMap A W.toAffine.FunctionField a /
+      algebraMap A W.toAffine.FunctionField b) = _
+    rw [map_div₀, h_functionFieldAtOrigin, h_functionFieldAtOrigin]
+    exact generic_evaluation k W hΔ originField originFieldConstants originX originY
+      h_origin_point affineAtOrigin h_affineAtOrigin_injective hc hx hy m a b hb hH_eval
+  have hprincipalH_at_zero : principalH 0 = -2 := by
+    have hv := hprincipalH_infinity
+    change originValuation (functionFieldAtOrigin H) = _ at hv
+    rw [hH_atOrigin, h_origin_multiple_x_difference m hm] at hv
+    exact zpow_right_injective₀ (pos_iff_ne_zero.mpr horigin_value_t.1)
+      (ne_of_lt horigin_value_t.2) hv.symm
   apply finish
   suffices hdiv : D = principalH by
     rw [hdiv]
@@ -2576,3 +3215,8 @@ theorem Submission.p03_tkc_torsion_card_recurrence_68cf3476_d5 :
   -- proof steps 2--7. The finite/infinite degree balance is proved above.
   apply Finsupp.ext
   intro P
+  cases P with
+  | zero => exact hD_zero.trans hprincipalH_at_zero.symm
+  | some α β h =>
+    rw [hD, hprincipalH_affine]
+    simp only [if_neg (some_ne_zero h), mul_zero, sub_zero]
