@@ -1,0 +1,19 @@
+{
+  "node_id": "root.common_kernel-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/348",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/517",
+  "candidate_commit": "f12371f7b5f2f3ed736ae8d58aa64ade07999b55",
+  "integrated_commit": "b5bf9ef1ec1193870391e62a46cb8d25b68f06a7",
+  "proof_base_commit": "b45259a055779d23b69d1cf73dc8d7c8b288c6c5",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root",
+  "requires": [
+    "root.normal_refinement-a1",
+    "root.common_kernel-a1.uniform_stabilizer-a1",
+    "root.common_kernel-a1.cyclotomic_kernel-a1"
+  ]
+}

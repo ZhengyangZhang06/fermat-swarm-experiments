@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "0f86b2c52f33a2163715fbfa56b5e0e40db44d571363471db01578d3bab5adb1",
+  "git_delta": {
+    "base_commit": "b45259a055779d23b69d1cf73dc8d7c8b288c6c5",
+    "candidate_commit": "01af385d0100d28d800565ed3ca7a7c593c424b1",
+    "target": "Submission.lean",
+    "declaration": "p08_7d1ff633a4_linear_descent",
+    "diff_sha256": "ebd0aa7063e6568b2d3f8c0758e89089d6e29330e29081834933f0cb7e8c7b53",
+    "source_sha256": "6d9e2fa0761f2f859c1221688745d393b27f8f1024253316a91aeac67ac1893a",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p08_7d1ff633a4_linear_descent",
+      "statement": "∀ {k X Y X' Y' : Type} [Field k] [AddCommGroup X] [Module k X] [AddCommGroup Y] [Module k Y] [AddCommGroup X'] [Module k X'] [AddCommGroup Y'] [Module k Y'] (n : k) (hn : n ≠ 0) (R_X : X →ₗ[k] X') (C_X : X' →ₗ[k] X) (R_Y : Y →ₗ[k] Y') (C_Y : Y' →ₗ[k] Y) (Θ : X →ₗ[k] Module.Dual k Y) (Θ' : X' →ₗ[k] Module.Dual k Y'), (∀ x : X, C_X (R_X x) = n • x) → (∀ y : Y, C_Y (R_Y y) = n • y) → (∀ (x : X) (y' : Y'), Θ' (R_X x) y' = Θ x (C_Y y')) → (∀ (x' : X') (y : Y), Θ' x' (R_Y y) = Θ (C_X x') y) → Function.Bijective Θ' → Function.Bijective Θ",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

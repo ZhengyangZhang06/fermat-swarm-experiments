@@ -1,0 +1,27 @@
+# Theorem solutions
+
+Local proof acceptance and GitHub merge status are separate.
+
+| Node | Issue | PR | Requires |
+| --- | --- | --- | --- |
+| root | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/8 | this PR | root.normal_refinement-a1, root.common_kernel-a1, root.transfer_theta-a1, root.rank_one_transfer-a1, root.linear_descent-a1 |
+| root.common_kernel-a1 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/348 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/517 | root.normal_refinement-a1, root.common_kernel-a1.uniform_stabilizer-a1, root.common_kernel-a1.cyclotomic_kernel-a1 |
+| root.common_kernel-a1.cyclotomic_kernel-a1 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/373 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/416 | none |
+| root.common_kernel-a1.uniform_stabilizer-a1 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/371 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/435 | none |
+| root.linear_descent-a1 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/351 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/387 | none |
+| root.normal_refinement-a1 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/347 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/399 | none |
+| root.rank_one_transfer-a1 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/350 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/395 | none |
+| root.transfer_theta-a1 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/349 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/637 | root.normal_refinement-a1, root.transfer_theta-a1.normal_kernel-a1, root.transfer_theta-a1.cup_pairings-a1, root.transfer_theta-a1.theta_from_pairings-a1, root.transfer_theta-a1.transfer_projection-a1 |
+| root.transfer_theta-a1.cup_pairings-a1 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/426 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/621 | root.transfer_theta-a1.cup_pairings-a1.cup_zero_two-a1, root.transfer_theta-a1.cup_pairings-a1.cup_one_one-a1 |
+| root.transfer_theta-a1.cup_pairings-a1.cup_one_one-a1 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/480 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/606 | root.transfer_theta-a1.cup_pairings-a1.cup_one_one-a1.level_cup_cocycle-a1, root.transfer_theta-a1.cup_pairings-a1.cup_one_one-a1.left_level_boundary-a1, root.transfer_theta-a1.cup_pairings-a1.cup_one_one-a1.right_level_boundary-a1 |
+| root.transfer_theta-a1.cup_pairings-a1.cup_one_one-a1.left_level_boundary-a1 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/536 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/567 | none |
+| root.transfer_theta-a1.cup_pairings-a1.cup_one_one-a1.level_cup_cocycle-a1 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/535 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/580 | none |
+| root.transfer_theta-a1.cup_pairings-a1.cup_one_one-a1.right_level_boundary-a1 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/539 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/576 | none |
+| root.transfer_theta-a1.cup_pairings-a1.cup_zero_two-a1 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/479 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/570 | none |
+| root.transfer_theta-a1.normal_kernel-a1 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/425 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/460 | none |
+| root.transfer_theta-a1.theta_from_pairings-a1 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/427 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/481 | none |
+| root.transfer_theta-a1.transfer_projection-a1 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/428 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/563 | root.transfer_theta-a1.normal_kernel-a1, root.transfer_theta-a1.transfer_projection-a1.normal_level_retraction-a1, root.transfer_theta-a1.transfer_projection-a1.low_degree_prism-a1, root.transfer_theta-a1.transfer_projection-a1.coset_averaging-a1, root.transfer_theta-a1.transfer_projection-a1.bilinear_averaging-a1 |
+| root.transfer_theta-a1.transfer_projection-a1.bilinear_averaging-a1 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/476 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/533 | none |
+| root.transfer_theta-a1.transfer_projection-a1.coset_averaging-a1 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/475 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/547 | none |
+| root.transfer_theta-a1.transfer_projection-a1.low_degree_prism-a1 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/474 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/528 | none |
+| root.transfer_theta-a1.transfer_projection-a1.normal_level_retraction-a1 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/472 | https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/540 | none |
