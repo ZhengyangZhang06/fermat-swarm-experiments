@@ -2575,6 +2575,174 @@ theorem Submission.p03_tkc_torsion_card_recurrence_68cf3476_d5 :
       originValuation (originInclusion t) ^ (principalH 0) := by
     rw [hprincipalH_zero]
     exact hH_infinity_value
+  -- Translation of the identity parameter to an affine point. The numerator
+  -- is reduced with the identity-chart equation before its order is computed.
+  have h_origin_translate_formula (α β : k) :
+      let c := originFieldConstants
+      let T := originInclusion t
+      let S := originInclusion s
+      let l := (c β - originY) / (c α - originX)
+      l ^ 2 + c W.a₁ * l - c W.a₂ - 2 * c α - originX =
+        S * (c (2 * β + W.a₁ * α + W.a₃) +
+          c (3 * α ^ 2 + 2 * W.a₂ * α + W.a₄ - W.a₁ * β) * T +
+          c (W.a₆ + β ^ 2 + W.a₁ * α * β - W.a₂ * α ^ 2 - 2 * α ^ 3) * S) /
+            (T - c α * S) ^ 2 := by
+    have translate_algebra {F : Type} [Field F] (a₁ a₂ a₃ a₄ a₆ α β T S : F)
+        (hs : S ≠ 0) (hd : T - α * S ≠ 0)
+        (he : S - T ^ 3 - a₁ * T * S - a₂ * T ^ 2 * S - a₃ * S ^ 2 -
+          a₄ * T * S ^ 2 - a₆ * S ^ 3 = 0) :
+        ((β - -1 / S) / (α - T / S)) ^ 2 +
+          a₁ * ((β - -1 / S) / (α - T / S)) - a₂ - 2 * α - T / S =
+            S * ((2 * β + a₁ * α + a₃) +
+              (3 * α ^ 2 + 2 * a₂ * α + a₄ - a₁ * β) * T +
+              (a₆ + β ^ 2 + a₁ * α * β - a₂ * α ^ 2 - 2 * α ^ 3) * S) /
+                (T - α * S) ^ 2 := by
+      have hl : (β - -1 / S) / (α - T / S) = -(1 + β * S) / (T - α * S) := by
+        have hn : β - -1 / S = (1 + β * S) / S := by
+          field_simp [hs]
+          ring
+        have hdv : α - T / S = -(T - α * S) / S := by
+          field_simp [hs]
+          ring
+        rw [hn, hdv, div_div_div_cancel_right₀ hs, div_neg, neg_div]
+      rw [hl]
+      field_simp (disch := first | exact hs | (convert hd using 1; all_goals ring) | (convert pow_ne_zero 2 hd using 1; all_goals ring))
+      linear_combination he
+    let : Field originField := inferInstance
+    let : CommGroupWithZero originField := inferInstance
+    let c := originFieldConstants
+    let T := originInclusion t
+    let S := originInclusion s
+    have hs : S ≠ 0 :=
+      (map_ne_zero_iff _ (IsFractionRing.injective originLocalRing originField)).mpr hs_nonzero
+    have hx : c α ≠ originX := by
+      intro he
+      have hv := horigin_integers.map_le_one (originConstants α)
+      change originValuation (c α) ≤ 1 at hv
+      rw [he] at hv
+      exact (not_lt_of_ge hv) h_originX_value
+    have hd : T - c α * S ≠ 0 := by
+      intro he
+      apply hx
+      change c α = T / S
+      apply (eq_div_iff hs).mpr
+      exact (sub_eq_zero.mp he).symm
+    have he : S - T ^ 3 - c W.a₁ * T * S - c W.a₂ * T ^ 2 * S -
+        c W.a₃ * S ^ 2 - c W.a₄ * T * S ^ 2 - c W.a₆ * S ^ 3 = 0 := by
+      have he := h_origin_equation
+      change (-1 / S) ^ 2 + c W.a₁ * (T / S) * (-1 / S) + c W.a₃ * (-1 / S) =
+        (T / S) ^ 3 + c W.a₂ * (T / S) ^ 2 + c W.a₄ * (T / S) + c W.a₆ at he
+      field_simp [hs] at he
+      linear_combination he
+    change ((c β - -1 / S) / (c α - T / S)) ^ 2 +
+      c W.a₁ * ((c β - -1 / S) / (c α - T / S)) - c W.a₂ - 2 * c α - T / S = _
+    simp only [map_add, map_mul, map_sub, map_pow, map_ofNat]
+    exact translate_algebra (c W.a₁) (c W.a₂) (c W.a₃) (c W.a₄) (c W.a₆)
+      (c α) (c β) T S hs hd he
+  have h_origin_translate_value (α β : k) (h : W.toAffine.Nonsingular α β) :
+      let c := originFieldConstants
+      let l := (c β - originY) / (c α - originX)
+      originValuation (l ^ 2 + c W.a₁ * l - c W.a₂ - 2 * c α - originX) =
+        originValuation (originInclusion t) ^
+          (if β = W.toAffine.negY α β then (2 : ℕ) else 1) := by
+    let : Field originField := inferInstance
+    let : CommGroupWithZero originField := inferInstance
+    let c := originFieldConstants
+    let T := originInclusion t
+    let S := originInclusion s
+    let v := originValuation
+    let q := v T
+    have hq0 : 0 < q := pos_iff_ne_zero.mpr horigin_value_t.1
+    have hq1 : q < 1 := horigin_value_t.2
+    have hq3 : q ^ 3 < q := by
+      calc
+        q ^ 3 = q ^ 2 * q := by rw [pow_succ]
+        _ < 1 * q := mul_lt_mul_of_pos_right (pow_lt_one₀ zero_le hq1 (by decide)) hq0
+        _ = q := one_mul q
+    have hcle (a : k) : v (c a) ≤ 1 := horigin_integers.map_le_one (originConstants a)
+    have hconst (a : k) (ha : a ≠ 0) : v (c a) = 1 :=
+      horigin_integers.one_of_isUnit ((isUnit_iff_ne_zero.mpr ha).map originConstants)
+    have hsmallS (a : k) : v (c a * S) < q := by
+      rw [map_mul, horigin_value_s]
+      exact (mul_le_of_le_one_left zero_le (hcle a)).trans_lt hq3
+    have hsmallT (a : k) : v (c a * T) < 1 := by
+      rw [map_mul]
+      exact (mul_le_of_le_one_left zero_le (hcle a)).trans_lt hq1
+    have hden : v (T - c α * S) = q :=
+      v.map_sub_eq_of_lt_left (hsmallS α)
+    let C := 2 * β + W.a₁ * α + W.a₃
+    let D := 3 * α ^ 2 + 2 * W.a₂ * α + W.a₄ - W.a₁ * β
+    let E := W.a₆ + β ^ 2 + W.a₁ * α * β - W.a₂ * α ^ 2 - 2 * α ^ 3
+    have heq := h_origin_translate_formula α β
+    change _ = S * (c C + c D * T + c E * S) / (T - c α * S) ^ 2 at heq
+    dsimp only
+    rw [heq, map_div₀, map_mul, map_pow, hden, horigin_value_s]
+    change q ^ 3 * v (c C + c D * T + c E * S) / (q ^ 2) = _
+    by_cases ht : β = W.toAffine.negY α β
+    · rw [if_pos ht]
+      have hc : C = 0 := by
+        change β = -β - W.a₁ * α - W.a₃ at ht
+        dsimp only [C]
+        linear_combination ht
+      have hd : D ≠ 0 := by
+        apply sub_ne_zero.mpr
+        exact Ne.symm (((nonsingular_iff α β).mp h).2.resolve_right (not_not.mpr ht))
+      have hvDT : v (c D * T) = q := by rw [map_mul, hconst D hd, one_mul]
+      have hnum : v (c C + c D * T + c E * S) = q := by
+        rw [hc, _root_.map_zero, zero_add]
+        exact (v.map_add_eq_of_lt_left (hvDT ▸ hsmallS E)).trans hvDT
+      rw [hnum]
+      change q ^ 3 * q / q ^ 2 = q ^ 2
+      rw [← pow_succ, div_eq_mul_inv,
+        ← pow_sub₀ q (ne_of_gt hq0) (by decide : 2 ≤ 4)]
+    · rw [if_neg ht]
+      have hc : C ≠ 0 := by
+        intro hc
+        apply ht
+        change β = -β - W.a₁ * α - W.a₃
+        dsimp only [C] at hc
+        linear_combination hc
+      have hsmall : v (c D * T + c E * S) < 1 :=
+        v.map_add_lt (hsmallT D) ((hsmallS E).trans hq1)
+      have hnum : v (c C + c D * T + c E * S) = 1 := by
+        rw [add_assoc]
+        exact (v.map_add_eq_of_lt_left ((hconst C hc).symm ▸ hsmall)).trans (hconst C hc)
+      rw [hnum]
+      change q ^ 3 * 1 / q ^ 2 = q ^ 1
+      rw [mul_one, div_eq_mul_inv,
+        ← pow_sub₀ q (ne_of_gt hq0) (by decide : 2 ≤ 3)]
+  have h_origin_point : (W.map originFieldConstants).toAffine.Nonsingular originX originY := by
+    apply (equation_iff_nonsingular_of_Δ_ne_zero ?_).mp
+    · exact (equation_iff originX originY).mpr h_origin_equation
+    · rw [WeierstrassCurve.map_Δ]
+      exact (map_ne_zero_iff _ originFieldConstants.injective).mpr hΔ
+  have h_origin_translate_point (α β : k) (h : W.toAffine.Nonsingular α β) :
+      let Q : (W.map originFieldConstants).toAffine.Point := .some
+        (originFieldConstants α) (originFieldConstants β)
+        ((W.toAffine.map_nonsingular (f := originFieldConstants) originFieldConstants.injective α β).mpr h)
+      let R : (W.map originFieldConstants).toAffine.Point := .some originX originY h_origin_point
+      originValuation ((Q + R).xRep 0 - originFieldConstants α) =
+        originValuation (originInclusion t) ^
+          (if β = W.toAffine.negY α β then (2 : ℕ) else 1) := by
+    have hx : originFieldConstants α ≠ originX := by
+      intro he
+      have hv := horigin_integers.map_le_one (originConstants α)
+      change originValuation (originFieldConstants α) ≤ 1 at hv
+      rw [he] at hv
+      exact (not_lt_of_ge hv) h_originX_value
+    dsimp only
+    rw [add_of_X_ne hx]
+    change originValuation ((W.map originFieldConstants).toAffine.addX
+      (originFieldConstants α) originX
+      ((W.map originFieldConstants).toAffine.slope
+        (originFieldConstants α) originX (originFieldConstants β) originY) -
+          originFieldConstants α) = _
+    rw [slope_of_X_ne hx]
+    convert h_origin_translate_value α β h using 1
+    congr 1
+    change _ ^ 2 + originFieldConstants W.a₁ * _ - originFieldConstants W.a₂ -
+      originFieldConstants α - originX - originFieldConstants α = _
+    ring
   apply finish
   suffices hdiv : D = principalH by
     rw [hdiv]
