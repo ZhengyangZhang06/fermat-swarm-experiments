@@ -4406,6 +4406,355 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
       refine ⟨I.add_mem ha₀ (I.mul_mem_left q b.property), ⟨-t + (b : O), ?_⟩⟩
       rw [ha₀eq]
       ring
+  -- Steps 15–16: inverse ray classes have integral representatives prime to q.
+  have hrayNormCoprime (a : O) (ha : rayGenerator a) :
+      (absNorm (span {a})).Coprime q := by
+    obtain ⟨c, hc⟩ := ha.2.1
+    have hpos := hnormSign a (fun φ => (ha.2.2 φ).le)
+    have hcast : (absNorm (span {a}) : ZMod q) = 1 := by
+      rw [absNorm_span_singleton, ← Int.cast_natCast,
+        Int.natCast_natAbs, abs_of_nonneg hpos,
+        hnormCongruence a 1 c hc, map_one, Int.cast_one]
+    rw [← ZMod.isUnit_iff_coprime, hcast]
+    exact isUnit_one
+  have hrayArtinPrincipal (a : O) (ha : rayGenerator a) :
+      A ⟨span {a}, mem_nonZeroDivisors_iff_ne_zero.mpr
+        (span_singleton_eq_bot.not.mpr ha.1)⟩ = 1 := by
+    obtain ⟨c, hc⟩ := ha.2.1
+    have h := hAprincipal a c 1 ha.1 one_ne_zero (Nat.coprime_one_left q)
+      (hnormSign a (fun φ => (ha.2.2 φ).le)) (by simpa only [Nat.cast_one] using hc)
+    have hone : (⟨span {((1 : ℕ) : O)}, mem_nonZeroDivisors_iff_ne_zero.mpr
+        (span_singleton_eq_bot.not.mpr (Nat.cast_ne_zero.mpr (one_ne_zero : (1 : ℕ) ≠ 0)))⟩ :
+          (Ideal O)⁰) = 1 := Subtype.ext (by simp)
+    rwa [hone, map_one] at h
+  have hrayInverse (I : (Ideal O)⁰) (hI : (absNorm (I : Ideal O)).Coprime q) :
+      ∃ K : (Ideal O)⁰, (absNorm (K : Ideal O)).Coprime q ∧
+        (∃ a : O, rayGenerator a ∧ (I : Ideal O) * (K : Ideal O) = span {a}) ∧
+        A K = (A I)⁻¹ := by
+    obtain ⟨a₀, ha₀, ⟨c₀, hc₀⟩, _⟩ := hrayIdealTranslate (I : Ideal O) hI
+    have hn (φ : F →+* ℝ) : ∃ n : ℕ, -φ (a₀ : F) < n := exists_nat_gt _
+    choose n hn using hn
+    let t : ℕ := ∑ φ : F →+* ℝ, n φ
+    have ht (φ : F →+* ℝ) : -φ (a₀ : F) < t :=
+      (hn φ).trans_le (by exact_mod_cast
+        (Finset.single_le_sum (fun ψ _ => Nat.zero_le (n ψ)) (Finset.mem_univ φ)))
+    let a : O := a₀ + q * (absNorm (I : Ideal O) : O) * t
+    have haI : a ∈ (I : Ideal O) := by
+      exact (I : Ideal O).add_mem ha₀
+        ((I : Ideal O).mul_mem_right (t : O)
+          ((I : Ideal O).mul_mem_left q (absNorm_mem (I : Ideal O))))
+    have hac : a = 1 + (q : O) * (c₀ + (absNorm (I : Ideal O) : O) * t) := by
+      dsimp [a]
+      rw [hc₀]
+      ring
+    have ha0 : a ≠ 0 := by
+      intro hz
+      have h := hnormCongruence a 1 _ hac
+      rw [hz, Algebra.norm_zero, map_one, Int.cast_zero, Int.cast_one] at h
+      exact zero_ne_one h
+    have ha : rayGenerator a := by
+      refine ⟨ha0, ⟨_, hac⟩, ?_⟩
+      intro φ
+      have hcoef : (1 : ℝ) ≤ (q : ℝ) * absNorm (I : Ideal O) := by
+        have hq1 : (1 : ℝ) ≤ q := by exact_mod_cast hq.one_le
+        have hI1 : (1 : ℝ) ≤ absNorm (I : Ideal O) := by
+          exact_mod_cast absNorm_pos_of_nonZeroDivisors I
+        exact one_le_mul_of_one_le_of_one_le hq1 hI1
+      have hterm : (t : ℝ) ≤ (q : ℝ) * absNorm (I : Ideal O) * t :=
+        le_mul_of_one_le_left (Nat.cast_nonneg t) hcoef
+      have hφ : φ (a : F) = φ (a₀ : F) +
+          (q : ℝ) * absNorm (I : Ideal O) * t := by
+        simp only [a, map_add, map_mul, map_natCast]
+      rw [hφ]
+      linarith [ht φ]
+    obtain ⟨K, hK⟩ := Ideal.dvd_iff_le.mpr ((span_singleton_le_iff_mem _).mpr haI)
+    have hK0 : K ≠ 0 := by
+      intro hzero
+      rw [hzero, mul_zero] at hK
+      exact ha0 (span_singleton_eq_bot.mp hK)
+    let K₀ : (Ideal O)⁰ := ⟨K, mem_nonZeroDivisors_iff_ne_zero.mpr hK0⟩
+    have hKq : (absNorm K).Coprime q := by
+      have h := hrayNormCoprime a ha
+      rw [hK, map_mul] at h
+      exact h.of_dvd_left (dvd_mul_left _ _)
+    refine ⟨K₀, hKq, ⟨a, ha, hK.symm⟩, ?_⟩
+    have hmul : A I * A K₀ = 1 := by
+      rw [← map_mul]
+      have heq : I * K₀ = ⟨span {a}, mem_nonZeroDivisors_iff_ne_zero.mpr
+          (span_singleton_eq_bot.not.mpr ha0)⟩ := Subtype.ext hK.symm
+      rw [heq]
+      exact hrayArtinPrincipal a ha
+    exact eq_inv_of_mul_eq_one_right hmul
+  have hrayCommonMultiplier (a b : O) (ha : a ≠ 0) (hb : b ≠ 0)
+      (hbq : (absNorm (span {b})).Coprime q)
+      (hab : ∃ d : O, a = b + (q : O) * d)
+      (hsign : ∀ φ : F →+* ℝ, SignType.sign (φ (a : F)) = SignType.sign (φ (b : F))) :
+      ∃ c : O, rayGenerator (c * a) ∧ rayGenerator (c * b) := by
+    obtain ⟨K, _, ⟨r, hr, hrK⟩, _⟩ :=
+      hrayInverse ⟨span {b}, mem_nonZeroDivisors_iff_ne_zero.mpr
+        (span_singleton_eq_bot.not.mpr hb)⟩ hbq
+    have hrb : r ∈ span {b} := by
+      apply (span_singleton_le_iff_mem _).mp
+      rw [← hrK]
+      exact Ideal.mul_le_left
+    obtain ⟨c, hc⟩ := Ideal.mem_span_singleton.mp hrb
+    have hcb : c * b = r := by rw [hc]; ring
+    have hc0 : c ≠ 0 := by
+      intro hzero
+      apply hr.1
+      rw [← hcb, hzero, zero_mul]
+    refine ⟨c, ⟨mul_ne_zero hc0 ha, ?_, ?_⟩, hcb.symm ▸ hr⟩
+    · obtain ⟨d, hd⟩ := hab
+      obtain ⟨e, he⟩ := hr.2.1
+      refine ⟨e + c * d, ?_⟩
+      calc
+        c * a = c * b + (q : O) * (c * d) := by rw [hd]; ring
+        _ = 1 + (q : O) * (e + c * d) := by rw [hcb, he]; ring
+    · intro φ
+      have hprod : 0 < φ (c : F) * φ (b : F) := by
+        rw [← map_mul]
+        exact (congrArg (fun x : O => φ (x : F)) hcb).symm ▸ hr.2.2 φ
+      have hsignmul : SignType.sign (φ ((c * a : O) : F)) = 1 := by
+        change SignType.sign (φ ((c : F) * (a : F))) = 1
+        rw [map_mul, sign_mul, hsign φ, ← sign_mul]
+        exact sign_eq_one_iff.mpr hprod
+      exact sign_eq_one_iff.mp hsignmul
+  have hclassGenerator (I K : (Ideal O)⁰)
+      (hI : (absNorm (I : Ideal O)).Coprime q)
+      (hK : (absNorm (K : Ideal O)).Coprime q)
+      (hclass : ClassGroup.mk0 I = ClassGroup.mk0 K) :
+      ∃ a : O, a ≠ 0 ∧ (absNorm (span {a})).Coprime q ∧
+        span {a} * (I : Ideal O) =
+          span {(absNorm (I : Ideal O) : O)} * (K : Ideal O) := by
+    obtain ⟨x, hx, hxI⟩ :=
+      (ClassGroup.mk0_eq_mk0_iff_exists_fraction_ring F).mp hclass
+    have hproduct : x * (absNorm (I : Ideal O) : F) ∈
+        ((K : Ideal O) : FractionalIdeal O⁰ F) := by
+      rw [← hxI]
+      exact FractionalIdeal.mem_singleton_mul.mpr ⟨(absNorm (I : Ideal O) : F),
+        (FractionalIdeal.mem_coeIdeal _).mpr ⟨(absNorm (I : Ideal O) : O),
+          absNorm_mem (I : Ideal O), rfl⟩, rfl⟩
+    obtain ⟨a, _, ha⟩ := (FractionalIdeal.mem_coeIdeal _).mp hproduct
+    have hN0 : (absNorm (I : Ideal O) : F) ≠ 0 :=
+      Nat.cast_ne_zero.mpr (absNorm_ne_zero_of_nonZeroDivisors I)
+    have ha0 : a ≠ 0 := by
+      intro hzero
+      have h := ha
+      rw [hzero, map_zero] at h
+      exact (mul_ne_zero hx hN0) h.symm
+    have hxfrac : x = IsLocalization.mk' F a
+        ⟨(absNorm (I : Ideal O) : O), mem_nonZeroDivisors_iff_ne_zero.mpr
+          (Nat.cast_ne_zero.mpr (absNorm_ne_zero_of_nonZeroDivisors I))⟩ := by
+      rw [IsFractionRing.mk'_eq_div]
+      change x = (a : F) / (absNorm (I : Ideal O) : F)
+      exact (eq_div_iff hN0).mpr ha.symm
+    have hscaled : span {a} * (I : Ideal O) =
+        span {(absNorm (I : Ideal O) : O)} * (K : Ideal O) := by
+      rw [hxfrac] at hxI
+      exact (FractionalIdeal.mk'_mul_coeIdeal_eq_coeIdeal F _).mp hxI
+    refine ⟨a, ha0, ?_, hscaled⟩
+    have hn := congrArg absNorm hscaled
+    rw [map_mul, map_mul, absNorm_span_natCast] at hn
+    have h := (hI.pow_left (Module.finrank ℤ O)).mul_left hK
+    rw [← hn] at h
+    exact h.of_dvd_left (dvd_mul_right _ _)
+  have hrayGeneratorOne : rayGenerator 1 := by
+    refine ⟨one_ne_zero, ⟨0, by ring⟩, ?_⟩
+    intro φ
+    simp only [map_one, zero_lt_one]
+  have hrayGeneratorProduct (a b : O) (ha : rayGenerator a) (hb : rayGenerator b) :
+      rayGenerator (a * b) := by
+    obtain ⟨c, hc⟩ := ha.2.1
+    obtain ⟨d, hd⟩ := hb.2.1
+    refine ⟨mul_ne_zero ha.1 hb.1, ⟨c + d + q * c * d, ?_⟩, ?_⟩
+    · rw [hc, hd]
+      ring
+    · intro φ
+      change 0 < φ ((a : F) * (b : F))
+      rw [map_mul]
+      exact mul_pos (ha.2.2 φ) (hb.2.2 φ)
+  let rayIdeals : Submonoid (Ideal O)⁰ :=
+    { carrier := {I | (absNorm (I : Ideal O)).Coprime q}
+      one_mem' := by simp
+      mul_mem' := fun {I K} hI hK => by
+        change (absNorm ((I : Ideal O) * (K : Ideal O))).Coprime q
+        simpa only [map_mul] using hI.mul_left hK }
+  let rayRel : Con rayIdeals :=
+    { r := fun I K => ∃ a b : O, rayGenerator a ∧ rayGenerator b ∧
+        span {a} * (I.1 : Ideal O) = span {b} * (K.1 : Ideal O)
+      iseqv := ⟨fun I => ⟨1, 1, hrayGeneratorOne, hrayGeneratorOne, rfl⟩,
+        fun ⟨a, b, ha, hb, hab⟩ => ⟨b, a, hb, ha, hab.symm⟩,
+        fun ⟨a, b, ha, hb, hab⟩ ⟨c, d, hc, hd, hcd⟩ => by
+          refine ⟨c * a, b * d, hrayGeneratorProduct c a hc ha,
+            hrayGeneratorProduct b d hb hd, ?_⟩
+          rw [← span_singleton_mul_span_singleton,
+            ← span_singleton_mul_span_singleton]
+          calc
+            (span {c} * span {a}) * _ = span {c} * (span {a} * _) := mul_assoc _ _ _
+            _ = span {c} * (span {b} * _) := congrArg (span {c} * ·) hab
+            _ = span {b} * (span {c} * _) := by ac_rfl
+            _ = span {b} * (span {d} * _) := congrArg (span {b} * ·) hcd
+            _ = _ := (mul_assoc _ _ _).symm⟩
+      mul' := fun ⟨a, b, ha, hb, hab⟩ ⟨c, d, hc, hd, hcd⟩ => by
+        refine ⟨a * c, b * d, hrayGeneratorProduct a c ha hc,
+          hrayGeneratorProduct b d hb hd, ?_⟩
+        change span {a * c} * (_ * _) = span {b * d} * (_ * _)
+        rw [← span_singleton_mul_span_singleton, ← span_singleton_mul_span_singleton]
+        calc
+          (span {a} * span {c}) * (_ * _) = (span {a} * _) * (span {c} * _) := by ac_rfl
+          _ = (span {b} * _) * (span {d} * _) := congrArg₂ (· * ·) hab hcd
+          _ = _ := by ac_rfl }
+  let Ray := rayRel.Quotient
+  let rayClass : rayIdeals →* Ray := rayRel.mk'
+  -- Step 15: a class, a residue, and real signs give finite labels separating ray classes.
+  have hrayFinite : Finite Ray := by
+    let ordinary : rayIdeals → ClassGroup O := fun I => ClassGroup.mk0 I.1
+    let C := Set.range ordinary
+    let rep : C → rayIdeals := fun c => Classical.choose c.2
+    have hrep (c : C) : ordinary (rep c) = c := Classical.choose_spec c.2
+    let cls (I : rayIdeals) : C := ⟨ordinary I, I, rfl⟩
+    have hgen (I : rayIdeals) : ∃ a : O, a ≠ 0 ∧
+        (absNorm (span {a})).Coprime q ∧
+        span {a} * ((rep (cls I)).1 : Ideal O) =
+          span {(absNorm ((rep (cls I)).1 : Ideal O) : O)} * (I.1 : Ideal O) :=
+      hclassGenerator (rep (cls I)).1 I.1 (rep (cls I)).2 I.2 (hrep (cls I))
+    choose gen hgen0 hgenq hgenEq using hgen
+    let f₀ : Ideal O := span {(q : O)}
+    let : Finite (O ⧸ f₀) := Ring.HasFiniteQuotients.finiteQuotient
+      (span_singleton_eq_bot.not.mpr (Nat.cast_ne_zero.mpr hq.ne_zero))
+    let Label := C × (O ⧸ f₀) × ((F →+* ℝ) → SignType)
+    let label : rayIdeals → Label := fun I =>
+      (cls I, Ideal.Quotient.mk f₀ (gen I), fun φ => SignType.sign (φ (gen I : F)))
+    have hlabel (I K : rayIdeals) (hIK : label I = label K) : rayRel I K := by
+      have hcls : cls I = cls K := congrArg Prod.fst hIK
+      have hres : Ideal.Quotient.mk f₀ (gen I) = Ideal.Quotient.mk f₀ (gen K) :=
+        congrArg (fun x : Label => x.2.1) hIK
+      have hsign : ∀ φ : F →+* ℝ,
+          SignType.sign (φ (gen I : F)) = SignType.sign (φ (gen K : F)) :=
+        fun φ => congrArg (fun x : Label => x.2.2 φ) hIK
+      have hcong : ∃ d : O, gen I = gen K + (q : O) * d := by
+        obtain ⟨d, hd⟩ := Ideal.mem_span_singleton.mp (Ideal.Quotient.eq.mp hres)
+        exact ⟨d, by linear_combination hd⟩
+      obtain ⟨c, hcI, hcK⟩ := hrayCommonMultiplier (gen I) (gen K)
+        (hgen0 I) (hgen0 K) (hgenq K) hcong hsign
+      refine ⟨c * gen K, c * gen I, hcK, hcI, ?_⟩
+      have hI := hgenEq I
+      have hK := hgenEq K
+      rw [← hcls] at hK
+      have hcross : span {gen K} * (I.1 : Ideal O) = span {gen I} * (K.1 : Ideal O) := by
+        apply mul_right_cancel₀ (nonZeroDivisors.coe_ne_zero (rep (cls I)).1)
+        calc
+          (span {gen K} * (I.1 : Ideal O)) * ((rep (cls I)).1 : Ideal O) =
+              (span {gen K} * ((rep (cls I)).1 : Ideal O)) * (I.1 : Ideal O) := by ac_rfl
+          _ = (span {(absNorm ((rep (cls I)).1 : Ideal O) : O)} *
+              (K.1 : Ideal O)) * (I.1 : Ideal O) := congrArg (· * (I.1 : Ideal O)) hK
+          _ = (span {(absNorm ((rep (cls I)).1 : Ideal O) : O)} *
+              (I.1 : Ideal O)) * (K.1 : Ideal O) := by ac_rfl
+          _ = (span {gen I} * ((rep (cls I)).1 : Ideal O)) * (K.1 : Ideal O) :=
+              congrArg (· * (K.1 : Ideal O)) hI.symm
+          _ = _ := by ac_rfl
+      rw [← span_singleton_mul_span_singleton, ← span_singleton_mul_span_singleton,
+        mul_assoc, mul_assoc, hcross]
+    let preimage : Set.range label → rayIdeals := fun c => Classical.choose c.2
+    have hpreimage (c : Set.range label) : label (preimage c) = c :=
+      Classical.choose_spec c.2
+    apply Finite.of_surjective (fun c : Set.range label => rayClass (preimage c))
+    intro c
+    obtain ⟨I, rfl⟩ := rayRel.mk'_surjective c
+    refine ⟨⟨label I, I, rfl⟩, ?_⟩
+    exact Quotient.sound (hlabel _ _ (hpreimage ⟨label I, I, rfl⟩))
+  let : Finite Ray := hrayFinite
+  have hrayIsUnit (c : Ray) : IsUnit c := by
+    obtain ⟨I, rfl⟩ := rayRel.mk'_surjective c
+    obtain ⟨K, hKq, ⟨a, ha, hIK⟩, _⟩ := hrayInverse I.1 I.2
+    have hmul : rayClass I * rayClass ⟨K, hKq⟩ = 1 := by
+      rw [← map_mul, ← map_one rayClass]
+      apply Quotient.sound
+      refine ⟨1, a, hrayGeneratorOne, ha, ?_⟩
+      change span {1} * ((I.1 : Ideal O) * (K : Ideal O)) = span {a} * 1
+      simpa only [span_singleton_one, Ideal.top_mul, mul_one] using hIK
+    exact isUnit_iff_exists_inv.mpr ⟨rayClass ⟨K, hKq⟩, hmul⟩
+  let : CommGroup Ray := commGroupOfIsUnit hrayIsUnit
+  have hrayGeneratorQuotient (a b t : O) (ha : rayGenerator a) (hb : rayGenerator b)
+      (ht : b = a * t) : rayGenerator t := by
+    obtain ⟨c, hc⟩ := ha.2.1
+    obtain ⟨d, hd⟩ := hb.2.1
+    refine ⟨fun ht0 => hb.1 (by rw [ht, ht0, mul_zero]), ⟨d - c * t, ?_⟩, ?_⟩
+    · calc
+        t = a * t - (q : O) * c * t := by rw [hc]; ring
+        _ = 1 + (q : O) * (d - c * t) := by rw [← ht, hd]; ring
+    · intro φ
+      have heq : φ (b : F) = φ (a : F) * φ (t : F) := by
+        simpa only [map_mul] using congrArg (fun x : O => φ (x : F)) ht
+      exact (mul_pos_iff_of_pos_left (ha.2.2 φ)).mp (heq ▸ hb.2.2 φ)
+  have hrayPrincipal (I : rayIdeals) : rayClass I = 1 ↔
+      ∃ a : O, rayGenerator a ∧ (I.1 : Ideal O) = span {a} := by
+    rw [← map_one rayClass]
+    constructor
+    · intro hI
+      obtain ⟨a, b, ha, hb, hab⟩ := rayRel.eq.mp hI
+      change span {a} * (I.1 : Ideal O) = span {b} * 1 at hab
+      rw [mul_one] at hab
+      have hba : b ∈ span {a} := by
+        apply (span_singleton_le_iff_mem _).mp
+        rw [← hab]
+        exact Ideal.mul_le_left
+      obtain ⟨t, ht⟩ := Ideal.mem_span_singleton.mp hba
+      refine ⟨t, hrayGeneratorQuotient a b t ha hb ht, ?_⟩
+      apply mul_left_cancel₀ (span_singleton_eq_bot.not.mpr ha.1)
+      rw [hab, span_singleton_mul_span_singleton, ← ht]
+    · rintro ⟨a, ha, hI⟩
+      apply Quotient.sound
+      refine ⟨1, a, hrayGeneratorOne, ha, ?_⟩
+      change span {1} * (I.1 : Ideal O) = span {a} * 1
+      simpa only [span_singleton_one, Ideal.top_mul, mul_one] using hI
+  have hrayArtinRel : rayRel ≤ Con.ker (A.comp rayIdeals.subtype) := by
+    rintro I K ⟨a, b, ha, hb, hab⟩
+    let Pa : (Ideal O)⁰ := ⟨span {a}, mem_nonZeroDivisors_iff_ne_zero.mpr
+      (span_singleton_eq_bot.not.mpr ha.1)⟩
+    let Pb : (Ideal O)⁰ := ⟨span {b}, mem_nonZeroDivisors_iff_ne_zero.mpr
+      (span_singleton_eq_bot.not.mpr hb.1)⟩
+    have heq : Pa * I.1 = Pb * K.1 := Subtype.ext hab
+    have h := congrArg A heq
+    rw [map_mul, map_mul, hrayArtinPrincipal a ha, hrayArtinPrincipal b hb,
+      one_mul, one_mul] at h
+    exact h
+  let rayArtin : Ray →* J := rayRel.lift (A.comp rayIdeals.subtype) hrayArtinRel
+  have hrayArtin (I : rayIdeals) : rayArtin (rayClass I) = A I.1 := rfl
+  have hrayInverseClass (I K : rayIdeals) : rayClass K = (rayClass I)⁻¹ ↔
+      ∃ a : O, rayGenerator a ∧ (I.1 : Ideal O) * (K.1 : Ideal O) = span {a} := by
+    rw [eq_inv_iff_mul_eq_one, ← map_mul, hrayPrincipal]
+    simp only [Submonoid.coe_mul, mul_comm]
+  have hrayClassCount (I : rayIdeals) (s : ℝ) :
+      Nat.card {K : rayIdeals // (absNorm (K.1 : Ideal O) : ℝ) ≤ s ∧
+        rayClass K = (rayClass I)⁻¹} =
+      Nat.card {K : Ideal O // (absNorm K : ℝ) ≤ s ∧
+        ∃ a : O, rayGenerator a ∧ (I.1 : Ideal O) * K = span {a}} := by
+    let X := {K : rayIdeals // (absNorm (K.1 : Ideal O) : ℝ) ≤ s ∧
+      rayClass K = (rayClass I)⁻¹}
+    let Y := {K : Ideal O // (absNorm K : ℝ) ≤ s ∧
+      ∃ a : O, rayGenerator a ∧ (I.1 : Ideal O) * K = span {a}}
+    let f : X → Y := fun K => ⟨(K.1.1 : Ideal O), K.2.1,
+      (hrayInverseClass I K.1).mp K.2.2⟩
+    have hf : Function.Bijective f := by
+      constructor
+      · intro K L hKL
+        apply Subtype.ext
+        apply Subtype.ext
+        apply Subtype.ext
+        exact congrArg (fun K : Y => K.1) hKL
+      · rintro ⟨K, hK, a, ha, hIK⟩
+        have hK0 : K ≠ 0 := by
+          intro hzero
+          rw [hzero, mul_zero] at hIK
+          exact ha.1 (span_singleton_eq_bot.mp hIK.symm)
+        have hKq : (absNorm K).Coprime q := by
+          have h := hrayNormCoprime a ha
+          rw [← hIK, map_mul] at h
+          exact h.of_dvd_left (dvd_mul_left _ _)
+        let K₀ : rayIdeals := ⟨⟨K, mem_nonZeroDivisors_iff_ne_zero.mpr hK0⟩, hKq⟩
+        refine ⟨⟨K₀, hK, (hrayInverseClass I K₀).mpr ⟨a, ha, hIK⟩⟩, rfl⟩
+    exact Nat.card_congr (Equiv.ofBijective f hf)
   have hrayGeneratorMul (u : rayUnits) (a : O) (ha : rayGenerator a) :
       rayGenerator ((u : Oˣ) * a) := by
     obtain ⟨⟨cu, hcu⟩, huPos⟩ := (hrayUnits u).mp u.property
@@ -4714,6 +5063,35 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
         · rw [← hnorm, heq]
           exact hxN
     exact (Nat.card_congr (Equiv.ofBijective f hf)).symm.trans (hcount s)
+  let rayCount (c : Ray) (s : ℝ) : ℕ :=
+    Nat.card {K : rayIdeals // (absNorm (K.1 : Ideal O) : ℝ) ≤ s ∧ rayClass K = c}
+  have hrayCountFinite (c : Ray) (s : ℝ) :
+      Finite {K : rayIdeals // (absNorm (K.1 : Ideal O) : ℝ) ≤ s ∧ rayClass K = c} := by
+    let Y := {K : Ideal O // absNorm K ≤ ⌈s⌉₊}
+    let : Finite Y := finite_setOfPred_absNorm_le ⌈s⌉₊
+    let f : {K : rayIdeals // (absNorm (K.1 : Ideal O) : ℝ) ≤ s ∧ rayClass K = c} → Y :=
+      fun K => ⟨(K.1.1 : Ideal O), by exact_mod_cast K.2.1.trans (Nat.le_ceil s)⟩
+    apply Finite.of_injective f
+    intro K L hKL
+    apply Subtype.ext
+    apply Subtype.ext
+    apply Subtype.ext
+    exact congrArg (fun K : Y => K.1) hKL
+  have hrayCountingLattice (c : Ray) : ∃ I : rayIdeals, rayClass I = c⁻¹ ∧
+      ∃ a₀ : O, a₀ ∈ (I.1 : Ideal O) ∧ (∃ d : O, a₀ = 1 + (q : O) * d) ∧
+        ∀ s : ℝ,
+          Nat.card {x : NumberField.mixedEmbedding.mixedSpace F //
+            x - NumberField.mixedEmbedding F a₀ ∈ rayLattice I.1 ∧ x ∈ rayRegion ∧
+            NumberField.mixedEmbedding.norm x ≤ s * absNorm (I.1 : Ideal O)} =
+          Nat.card ↥(rayUnits ⊓ NumberField.Units.torsion F) * rayCount c s := by
+    obtain ⟨I, hI⟩ := rayRel.mk'_surjective c⁻¹
+    obtain ⟨a₀, ha₀, ha₀q, hcount⟩ := hrayLatticeCount I.1 I.2
+    refine ⟨I, hI, a₀, ha₀, ha₀q, ?_⟩
+    intro s
+    rw [hcount s, ← hrayClassCount I s]
+    change _ = _ * Nat.card {K : rayIdeals //
+      (absNorm (K.1 : Ideal O) : ℝ) ≤ s ∧ rayClass K = c}
+    rw [show rayClass I = c⁻¹ from hI, inv_inv]
   -- Step 22: the primes above q are finite, and avoiding them is norm coprimality.
   have hfiniteBad : {v : ι | (q : O) ∈ v.asIdeal}.Finite := by
     exact (Ring.HasFiniteQuotients.finite_setOfPred_mem (q : O)
