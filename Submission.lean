@@ -234,3 +234,125 @@ theorem Submission.p09_af497904fe_finite_inverse_limit
   | succ j hij ih =>
       rw [hcomp i j (j + 1) hij (Nat.le_succ j), hadj j]
       exact ih
+
+
+theorem Submission.p09_af497904fe_fcc_character_finite_action :
+    ∀ (N : ℕ) [NeZero N],
+      ∃ (χ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) →* (ZMod N)ˣ)
+        (F : IntermediateField ℚ (AlgebraicClosure ℚ)),
+        FiniteDimensional ℚ F ∧
+        (∀ σ τ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ),
+          (∀ x ∈ F, σ x = τ x) → χ σ = χ τ) ∧
+        (∀ (σ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ))
+          (ζ : AlgebraicClosure ℚ),
+          ζ ^ N = 1 → σ ζ = ζ ^ ((χ σ : ZMod N).val)) := by
+  classical
+  intro N _
+  obtain ⟨ζ₀, hζ₀⟩ :=
+    HasEnoughRootsOfUnity.exists_primitiveRoot (AlgebraicClosure ℚ) N
+  refine ⟨hζ₀.autToPow ℚ, IntermediateField.adjoin ℚ {ζ₀},
+    IntermediateField.adjoin.finiteDimensional
+      ((hζ₀.isIntegral (NeZero.pos N)).tower_top), ?_, ?_⟩
+  · intro σ τ hστ
+    apply Units.ext
+    apply ZMod.val_injective
+    apply hζ₀.pow_inj (ZMod.val_lt _) (ZMod.val_lt _)
+    rw [hζ₀.autToPow_spec ℚ σ, hζ₀.autToPow_spec ℚ τ]
+    exact hστ ζ₀ (IntermediateField.mem_adjoin_simple_self ℚ ζ₀)
+  · intro σ ζ hζ
+    obtain ⟨b, _, rfl⟩ := hζ₀.eq_pow_of_pow_eq_one hζ
+    rw [map_pow, ← hζ₀.autToPow_spec ℚ σ, pow_right_comm]
+theorem Submission.p09_af497904fe_fcc_fra_roots_mem_inv :
+    ∀ (N : ℕ) [NeZero N] (P : ValuationSubring (AlgebraicClosure ℚ))
+      (ζ : AlgebraicClosure ℚ), ζ ^ N = 1 → ζ ∈ P ∧ ζ⁻¹ ∈ P := by
+  intro N _ P ζ hζ
+  have hinv : ζ ^ (N - 1) = ζ⁻¹ := by
+    apply eq_inv_of_mul_eq_one_left
+    rw [pow_sub_one_mul (NeZero.ne N), hζ]
+  have hback : (ζ⁻¹) ^ (N - 1) = ζ := by
+    rw [inv_pow, hinv, inv_inv]
+  have hmem : ζ ∈ P := by
+    rcases P.mem_or_inv_mem ζ with h | h
+    · exact h
+    · rw [← hback]
+      exact pow_mem h (N - 1)
+  refine ⟨hmem, ?_⟩
+  rw [← hinv]
+  exact pow_mem hmem (N - 1)
+
+theorem Submission.p09_af497904fe_fcc_fra_residue_injective :
+    ∀ (N : ℕ) [NeZero N] (ℓ : ℕ), ℓ.Prime → ¬ ℓ ∣ N →
+      ∀ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ →
+        ∀ x y : P, x ^ N = 1 → y ^ N = 1 →
+          IsLocalRing.residue P x = IsLocalRing.residue P y → x = y := by
+  intro N _ ℓ hℓ hN P hP x y hx hy hxy
+  have hℓP : (ℓ : P) ∈ IsLocalRing.maximalIdeal P :=
+    ValuationSubring.coe_mem_nonunits_iff.mp (by simpa [ValuationSubring.LiesOverPrime] using hP)
+  have hℓk : (ℓ : IsLocalRing.ResidueField P) = 0 := by
+    rw [← map_natCast (IsLocalRing.residue P) ℓ]
+    exact (IsLocalRing.residue_eq_zero_iff _).mpr hℓP
+  have : CharP (IsLocalRing.ResidueField P) ℓ :=
+    (CharP.charP_iff_prime_eq_zero hℓ).mpr hℓk
+  have hNk : (N : IsLocalRing.ResidueField P) ≠ 0 :=
+    fun h => hN ((CharP.cast_eq_zero_iff (IsLocalRing.ResidueField P) ℓ N).mp h)
+  have hone (t : P) (ht : t ^ N = 1)
+      (hred : IsLocalRing.residue P t = 1) : t = 1 := by
+    by_contra h
+    have hs : (∑ i ∈ Finset.range N, t ^ i) = 0 :=
+      (mul_eq_zero.mp ((geom_sum_mul t N).trans (by rw [ht, sub_self]))).resolve_right
+        (sub_ne_zero.mpr h)
+    have hr := congrArg (IsLocalRing.residue P) hs
+    apply hNk
+    simpa [map_sum, map_pow, hred] using hr
+  have hpos : 1 ≤ N := Nat.one_le_iff_ne_zero.mpr (NeZero.ne N)
+  let v : P := y ^ (N - 1)
+  have hyv : y * v = 1 := by
+    dsimp [v]
+    rw [← pow_succ', Nat.sub_add_cancel hpos, hy]
+  have hvy : v * y = 1 := by rw [mul_comm, hyv]
+  have hv : v ^ N = 1 := by
+    dsimp [v]
+    rw [← pow_mul, Nat.mul_comm, pow_mul, hy, one_pow]
+  have htv : x * v = 1 := by
+    apply hone
+    · rw [mul_pow, hx, hv, one_mul]
+    · rw [map_mul, hxy, ← map_mul, hyv, map_one]
+  calc
+    x = x * (v * y) := by rw [hvy, mul_one]
+    _ = (x * v) * y := (mul_assoc x v y).symm
+    _ = y := by rw [htv, one_mul]
+
+
+theorem Submission.p09_af497904fe_fcc_frobenius_roots_action :
+    ∀ (N : ℕ) [NeZero N] (ℓ : ℕ), ℓ.Prime → ¬ ℓ ∣ N →
+      ∀ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ →
+        ∀ σ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ), P.IsFrobeniusAt σ ℓ →
+          ∀ ζ : AlgebraicClosure ℚ, ζ ^ N = 1 → σ ζ = ζ ^ ℓ := by
+  intro N _ ℓ hℓ hℓN P hP σ hσ ζ hζ
+  obtain ⟨hσ, hfrob⟩ := hσ
+  let g : P.decompositionSubgroup ℚ := ⟨σ, hσ⟩
+  let z : P := ⟨ζ, (Submission.p09_af497904fe_fcc_fra_roots_mem_inv N P ζ hζ).1⟩
+  have hx : (g • z : P) ^ N = 1 := by
+    apply Subtype.ext
+    change (σ ζ) ^ N = 1
+    rw [← map_pow, hζ, map_one]
+  have hy : (z ^ ℓ) ^ N = 1 := by
+    apply Subtype.ext
+    change (ζ ^ ℓ) ^ N = 1
+    rw [pow_right_comm, hζ, one_pow]
+  have hred : residue P (g • z) = residue P (z ^ ℓ) := by
+    calc
+      residue P (g • z) = g • residue P z :=
+        ResidueField.residue_smul (P.decompositionSubgroup ℚ) g z
+      _ = residue P z ^ ℓ := hfrob (residue P z)
+      _ = residue P (z ^ ℓ) := (map_pow (residue P) z ℓ).symm
+  exact congrArg Subtype.val
+    (Submission.p09_af497904fe_fcc_fra_residue_injective
+      N ℓ hℓ hℓN P hP (g • z) (z ^ ℓ) hx hy hred)
+
+theorem Submission.p09_af497904fe_ic_integer_mem_valuation :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E]
+      (V : ValuationSubring E), ∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V := by
+  intro E _ V a
+  apply (Subring.isIntegrallyClosed_iff (S := V)).mp inferInstance
+  exact (NumberField.RingOfIntegers.isIntegral_coe a).tower_top
