@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "c20e12bbd089ccf5ef108c79d4db7d1fa847a34ed3ad54c96ef9daef912eb152",
+  "git_delta": {
+    "base_commit": "7f2ec245e823dfabe36846562f13bfe64951fa6a",
+    "candidate_commit": "4cb2d575f4803793a4b6c930f4bd2f820529c192",
+    "target": "Submission.lean",
+    "declaration": "p06_9e0f5043ff_lno_integral_norm_length",
+    "diff_sha256": "5f3f38156b93e832217cc38e7fd92aee4bd708124db6c765c270c99b187aa2cb",
+    "source_sha256": "353c03b0a1ee8d1a374061cb056972d7392af23205fa2e888cb68d9298eaf023",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_lno_integral_norm_length",
+      "statement": "∀ (K E L : Type*) [Field K] [Field E] [Field L] [Algebra K E] [Algebra K L] [Algebra E L] [IsScalarTower K E L] [FiniteDimensional E L] [Algebra.IsSeparable E L] (v : AlgebraicCurve.Place K E) (b : AlgebraicCurve.Place.integralClosureAt L v), b ≠ 0 → ∃ n : ℕ, Module.length v.toValuationSubring (AlgebraicCurve.Place.integralClosureAt L v ⧸ Ideal.span ({b} : Set (AlgebraicCurve.Place.integralClosureAt L v))) = (n : ℕ∞) ∧ v.ord (Algebra.norm E (algebraMap (AlgebraicCurve.Place.integralClosureAt L v) L b)) = (n : ℤ)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

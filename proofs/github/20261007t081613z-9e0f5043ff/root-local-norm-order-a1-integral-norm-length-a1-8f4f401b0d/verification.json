@@ -1,0 +1,17 @@
+{
+  "node_id": "root.local_norm_order-a1.integral_norm_length-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/58",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "4cb2d575f4803793a4b6c930f4bd2f820529c192",
+  "integrated_commit": "576f14de716296d65adf0f1057cfde48508e508d",
+  "proof_base_commit": "f68ddd970cc8aae7a55a0191b8ff492c64b36275",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "machine-leaf",
+  "reviewer_comparator_passed": null,
+  "parent": "root.local_norm_order-a1",
+  "requires": [
+    "root.local_norm_order-a1.dvr_determinant_length-a1"
+  ]
+}
