@@ -1,0 +1,18 @@
+{
+  "node_id": "root.finite_cyclotomic_character-a1.frobenius_roots_action-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/645",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "9d50416be21ebabe03da866a7f38606a80a76381",
+  "integrated_commit": "82caffebb07ba5932c3421ca16deae4e3e65d376",
+  "proof_base_commit": "906ba2b66af645b1f122676273ff572d04195f0a",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.finite_cyclotomic_character-a1",
+  "requires": [
+    "root.finite_cyclotomic_character-a1.frobenius_roots_action-a1.roots_mem_inv-a1",
+    "root.finite_cyclotomic_character-a1.frobenius_roots_action-a1.residue_injective-a1"
+  ]
+}
