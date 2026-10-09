@@ -3438,6 +3438,36 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
   -- Steps 16–19: pass from ray-principal ideals to their cone representatives.
   let rayGenerator (a : O) : Prop := a ≠ 0 ∧
     (∃ c : O, a = 1 + (q : O) * c) ∧ ∀ φ : F →+* ℝ, 0 < φ (a : F)
+  have hrayIdealTranslate (I : Ideal O) (hI : (absNorm I).Coprime q) :
+      ∃ a₀ : O, a₀ ∈ I ∧ (∃ c : O, a₀ = 1 + (q : O) * c) ∧
+        ∀ a : O, (a ∈ I ∧ ∃ c : O, a = 1 + (q : O) * c) ↔
+          ∃ b : I, a = a₀ + (q : O) * (b : O) := by
+    obtain ⟨r, t, hrt⟩ := hI.cast (R := O)
+    let a₀ : O := r * (absNorm I : O)
+    have ha₀ : a₀ ∈ I := I.mul_mem_left r (absNorm_mem I)
+    have ha₀eq : a₀ = 1 + (q : O) * (-t) := by
+      dsimp [a₀]
+      linear_combination hrt
+    have hcancel (b : O) (hb : (q : O) * b ∈ I) : b ∈ I := by
+      have h := I.add_mem (I.mul_mem_right b ha₀) (I.mul_mem_left t hb)
+      convert h using 1
+      dsimp [a₀]
+      linear_combination -b * hrt
+    refine ⟨a₀, ha₀, ⟨-t, ha₀eq⟩, ?_⟩
+    intro a
+    constructor
+    · rintro ⟨haI, c, hc⟩
+      have hdiff : (q : O) * (c + t) = a - a₀ := by
+        rw [hc, ha₀eq]
+        ring
+      refine ⟨⟨c + t, hcancel _ (hdiff.symm ▸ I.sub_mem haI ha₀)⟩, ?_⟩
+      change a = a₀ + (q : O) * (c + t)
+      rw [hdiff]
+      ring
+    · rintro ⟨b, rfl⟩
+      refine ⟨I.add_mem ha₀ (I.mul_mem_left q b.property), ⟨-t + (b : O), ?_⟩⟩
+      rw [ha₀eq]
+      ring
   have hrayGeneratorMul (u : rayUnits) (a : O) (ha : rayGenerator a) :
       rayGenerator ((u : Oˣ) * a) := by
     obtain ⟨⟨cu, hcu⟩, huPos⟩ := (hrayUnits u).mp u.property
@@ -3473,28 +3503,44 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
     · rintro ⟨u, hu⟩
       exact span_singleton_eq_span_singleton.mpr
         ⟨u, by simpa only [mul_comm] using hu⟩
-  have hrayPrincipalCount (s : ℝ) :
-      Nat.card {a : O // rayGenerator a ∧ NumberField.mixedEmbedding F a ∈ rayCone ∧
-        (absNorm (span {a}) : ℝ) ≤ s} =
+  have hrayIdealCount (I : (Ideal O)⁰) (s : ℝ) :
+      Nat.card {a : O // rayGenerator a ∧ a ∈ (I : Ideal O) ∧
+        NumberField.mixedEmbedding F a ∈ rayCone ∧
+        (absNorm (span {a}) : ℝ) ≤ s * absNorm (I : Ideal O)} =
       Nat.card ↥(rayUnits ⊓ NumberField.Units.torsion F) *
-        Nat.card {I : Ideal O // (absNorm I : ℝ) ≤ s ∧
-          ∃ a : O, rayGenerator a ∧ span {a} = I} := by
-    let X := {a : O // rayGenerator a ∧ NumberField.mixedEmbedding F a ∈ rayCone ∧
-      (absNorm (span {a}) : ℝ) ≤ s}
-    let Y := {I : Ideal O // (absNorm I : ℝ) ≤ s ∧
-      ∃ a : O, rayGenerator a ∧ span {a} = I}
+        Nat.card {J : Ideal O // (absNorm J : ℝ) ≤ s ∧
+          ∃ a : O, rayGenerator a ∧ (I : Ideal O) * J = span {a}} := by
+    let X := {a : O // rayGenerator a ∧ a ∈ (I : Ideal O) ∧
+      NumberField.mixedEmbedding F a ∈ rayCone ∧
+      (absNorm (span {a}) : ℝ) ≤ s * absNorm (I : Ideal O)}
+    let Y := {J : Ideal O // (absNorm J : ℝ) ≤ s ∧
+      ∃ a : O, rayGenerator a ∧ (I : Ideal O) * J = span {a}}
     have hnorm (a : O) : NumberField.mixedEmbedding.norm
         (NumberField.mixedEmbedding F a) = (absNorm (span {a}) : ℝ) := by
       rw [NumberField.mixedEmbedding.norm_eq_norm, absNorm_span_singleton,
         ← Algebra.coe_norm_int]
       simp only [Rat.cast_abs, Rat.cast_intCast, Nat.cast_natAbs, Int.cast_abs]
+    have hnormBound (a : O) (J : Ideal O) (hJ : (I : Ideal O) * J = span {a}) :
+        (absNorm (span {a}) : ℝ) ≤ s * absNorm (I : Ideal O) ↔
+          (absNorm J : ℝ) ≤ s := by
+      rw [← hJ, map_mul, Nat.cast_mul, mul_comm s]
+      exact mul_le_mul_iff_of_pos_left (Nat.cast_pos.mpr (absNorm_pos_of_nonZeroDivisors I))
     have hfinite : {a : O | rayGenerator a ∧
-        NumberField.mixedEmbedding F a ∈ rayCone ∧ (absNorm (span {a}) : ℝ) ≤ s}.Finite :=
-      (hrayConeFinite s).subset fun a ha => ⟨ha.2.1, (hnorm a).symm ▸ ha.2.2⟩
+        a ∈ (I : Ideal O) ∧ NumberField.mixedEmbedding F a ∈ rayCone ∧
+        (absNorm (span {a}) : ℝ) ≤ s * absNorm (I : Ideal O)}.Finite :=
+      (hrayConeFinite (s * absNorm (I : Ideal O))).subset
+        fun a ha => ⟨ha.2.2.1, (hnorm a).symm ▸ ha.2.2.2⟩
     let : Finite X := hfinite
-    let f : X → Y := fun a => ⟨span {a.1}, a.2.2.2, a.1, a.2.1, rfl⟩
+    have hdiv (a : X) : (I : Ideal O) ∣ span {a.1} :=
+      Ideal.dvd_iff_le.mpr ((span_singleton_le_iff_mem _).mpr a.2.2.1)
+    let quotient (a : X) : Ideal O := Classical.choose (hdiv a)
+    have hquotient (a : X) : (I : Ideal O) * quotient a = span {a.1} :=
+      (Classical.choose_spec (hdiv a)).symm
+    let f : X → Y := fun a =>
+      ⟨quotient a, (hnormBound a.1 _ (hquotient a)).mp a.2.2.2.2,
+        a.1, a.2.1, hquotient a⟩
     have hsurj : Function.Surjective f := by
-      rintro ⟨I, hI, a, ha, rfl⟩
+      rintro ⟨J, hJ, a, ha, haJ⟩
       have hn : NumberField.mixedEmbedding.norm (NumberField.mixedEmbedding F a) ≠ 0 := by
         rw [hnorm, Nat.cast_ne_zero, ne_eq, absNorm_eq_zero_iff, span_singleton_eq_bot]
         exact ha.1
@@ -3502,23 +3548,35 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
       let b : O := (u : Oˣ) * a
       have hb : rayGenerator b := hrayGeneratorMul u a ha
       have hab : span {a} = span {b} := (hrayGeneratorIdeal a b ha hb).mpr ⟨u, rfl⟩
+      have hbI : b ∈ (I : Ideal O) := by
+        apply (span_singleton_le_iff_mem _).mp
+        rw [← hab, ← haJ]
+        exact Ideal.mul_le_left
       have hbC : NumberField.mixedEmbedding F b ∈ rayCone := by
         have hmul : NumberField.mixedEmbedding F b =
             (u : Oˣ) • NumberField.mixedEmbedding F a :=
           (NumberField.mixedEmbedding.unit_smul_eq_iff_mul_eq.mpr rfl).symm
         rwa [hmul]
-      exact ⟨⟨b, hb, hbC, hab ▸ hI⟩, Subtype.ext hab.symm⟩
+      let x : X := ⟨b, hb, hbI, hbC, (hnormBound b J (haJ.trans hab)).mpr hJ⟩
+      refine ⟨x, Subtype.ext ?_⟩
+      exact mul_left_cancel₀ (nonZeroDivisors.coe_ne_zero I)
+        ((hquotient x).trans (haJ.trans hab).symm)
     let : Finite Y := Finite.of_surjective f hsurj
     let : Fintype Y := Fintype.ofFinite Y
-    have hfiber (I : Y) : Nat.card {a : X // f a = I} =
+    have hfiber (J : Y) : Nat.card {a : X // f a = J} =
         Nat.card ↥(rayUnits ⊓ NumberField.Units.torsion F) := by
-      obtain ⟨a, ha⟩ := hsurj I
+      obtain ⟨a, ha⟩ := hsurj J
       let Z := {b : O // (∃ u : rayUnits, (u : Oˣ) * a.1 = b) ∧
         NumberField.mixedEmbedding F b ∈ rayCone}
-      have hI : span {a.1} = I.1 := congrArg Subtype.val ha
-      let g : {b : X // f b = I} → Z := fun b =>
+      have hJ : (I : Ideal O) * J.1 = span {a.1} := by
+        rw [← congrArg Subtype.val ha]
+        exact hquotient a
+      have hsame (b : X) (hb : f b = J) : span {a.1} = span {b.1} := by
+        have hbq : quotient b = J.1 := congrArg Subtype.val hb
+        rw [← hquotient b, hbq, hJ]
+      let g : {b : X // f b = J} → Z := fun b =>
         ⟨b.1.1, (hrayGeneratorIdeal a.1 b.1.1 a.2.1 b.1.2.1).mp
-          (hI.trans (congrArg Subtype.val b.2).symm), b.1.2.2.1⟩
+          (hsame b.1 b.2), b.1.2.2.2.1⟩
       have hg : Function.Bijective g := by
         constructor
         · intro b c hbc
@@ -3529,17 +3587,54 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
           have hb : rayGenerator b := hub ▸ hrayGeneratorMul u a.1 a.2.1
           have hab : span {a.1} = span {b} :=
             (hrayGeneratorIdeal a.1 b a.2.1 hb).mpr ⟨u, hub⟩
-          refine ⟨⟨⟨b, hb, hbC, hab ▸ a.2.2.2⟩,
-            Subtype.ext (hab.symm.trans hI)⟩, ?_⟩
+          have hbI : b ∈ (I : Ideal O) := by
+            rw [← hub]
+            exact Ideal.mul_mem_left _ _ a.2.2.1
+          let x : X := ⟨b, hb, hbI, hbC, hab ▸ a.2.2.2.2⟩
+          have hx : f x = J := Subtype.ext <|
+            mul_left_cancel₀ (nonZeroDivisors.coe_ne_zero I)
+              ((hquotient x).trans (hJ.trans hab).symm)
+          refine ⟨⟨x, hx⟩, ?_⟩
           rfl
       exact (Nat.card_congr (Equiv.ofBijective g hg)).trans
-        (hrayOrbitCard a.1 a.2.1.1 a.2.2.1)
+        (hrayOrbitCard a.1 a.2.1.1 a.2.2.2.1)
     change Nat.card X = _ * Nat.card Y
     rw [← Nat.card_congr (Equiv.sigmaFiberEquiv f), Nat.card_sigma]
     simp_rw [hfiber]
     rw [Finset.sum_const, Finset.card_univ, nsmul_eq_mul,
       ← Nat.card_eq_fintype_card, Nat.mul_comm]
     simp
+  have hrayTranslatedCount (I : (Ideal O)⁰) (hI : (absNorm (I : Ideal O)).Coprime q) :
+      ∃ a₀ : O, a₀ ∈ (I : Ideal O) ∧ (∃ c : O, a₀ = 1 + (q : O) * c) ∧
+        ∀ s : ℝ,
+          Nat.card {b : (I : Ideal O) // rayGenerator (a₀ + (q : O) * (b : O)) ∧
+            NumberField.mixedEmbedding F (a₀ + (q : O) * (b : O)) ∈ rayCone ∧
+            (absNorm (span {a₀ + (q : O) * (b : O)}) : ℝ) ≤ s * absNorm (I : Ideal O)} =
+          Nat.card ↥(rayUnits ⊓ NumberField.Units.torsion F) *
+            Nat.card {J : Ideal O // (absNorm J : ℝ) ≤ s ∧
+              ∃ a : O, rayGenerator a ∧ (I : Ideal O) * J = span {a}} := by
+    obtain ⟨a₀, ha₀, ha₀q, htranslate⟩ := hrayIdealTranslate (I : Ideal O) hI
+    refine ⟨a₀, ha₀, ha₀q, ?_⟩
+    intro s
+    let X := {b : (I : Ideal O) // rayGenerator (a₀ + (q : O) * (b : O)) ∧
+      NumberField.mixedEmbedding F (a₀ + (q : O) * (b : O)) ∈ rayCone ∧
+      (absNorm (span {a₀ + (q : O) * (b : O)}) : ℝ) ≤ s * absNorm (I : Ideal O)}
+    let Y := {a : O // rayGenerator a ∧ a ∈ (I : Ideal O) ∧
+      NumberField.mixedEmbedding F a ∈ rayCone ∧
+      (absNorm (span {a}) : ℝ) ≤ s * absNorm (I : Ideal O)}
+    let f : X → Y := fun b => ⟨a₀ + (q : O) * (b.1 : O), b.2.1,
+      ((htranslate _).mpr ⟨b.1, rfl⟩).1, b.2.2⟩
+    have hf : Function.Bijective f := by
+      constructor
+      · intro b c hbc
+        apply Subtype.ext
+        apply Subtype.ext
+        exact mul_left_cancel₀ (Nat.cast_ne_zero.mpr hq.ne_zero)
+          (add_left_cancel (congrArg Subtype.val hbc))
+      · rintro ⟨a, ha, haI, haC, haN⟩
+        obtain ⟨b, rfl⟩ := (htranslate a).mp ⟨haI, ha.2.1⟩
+        exact ⟨⟨b, ha, haC, haN⟩, rfl⟩
+    exact (Nat.card_congr (Equiv.ofBijective f hf)).trans (hrayIdealCount I s)
   -- Step 22: the primes above q are finite, and avoiding them is norm coprimality.
   have hfiniteBad : {v : ι | (q : O) ∈ v.asIdeal}.Finite := by
     exact (Ring.HasFiniteQuotients.finite_setOfPred_mem (q : O)
