@@ -2798,3 +2798,32 @@ theorem Submission.p09_af497904fe_cs_valuation_product_separation :
   · exact (hsep i j hij hdiff).elim
   · exact congrArg β hij
   · exact (hsep j i hij (by simpa only [neg_sub] using V.nonunits.neg_mem hdiff)).elim
+
+
+theorem Submission.p09_af497904fe_fie_conjugate_separation :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ))
+      [FiniteDimensional ℚ E] [IsGalois ℚ E] (α : E),
+      IsIntegral ℤ α → ∃ D : ℤ, D ≠ 0 ∧
+        ∀ ℓ : ℕ, ℓ.Prime → ¬ ℓ ∣ D.natAbs →
+          ∀ V : ValuationSubring E, V.LiesOverPrime ℓ →
+            (∀ σ : E ≃ₐ[ℚ] E, σ α ∈ V) ∧
+              ∀ σ τ : E ≃ₐ[ℚ] E,
+                σ α - τ α ∈ V.nonunits → σ α = τ α := by
+  intro E _ _ α hα
+  obtain ⟨n, β, D, _, hβIntegral, hβConjugates, hD, hProduct⟩ :=
+    Submission.p09_af497904fe_cs_integer_root_product E α hα
+  refine ⟨D, hD, ?_⟩
+  intro ℓ hℓ hℓD V hV
+  obtain ⟨hβMem, hβSep⟩ :=
+    Submission.p09_af497904fe_cs_valuation_product_separation
+      n β D hβIntegral hProduct ℓ hℓ hℓD V hV
+  constructor
+  · intro σ
+    obtain ⟨i, hi⟩ := hβConjugates σ
+    rw [← hi]
+    exact hβMem i
+  · intro σ τ hστ
+    obtain ⟨i, hi⟩ := hβConjugates σ
+    obtain ⟨j, hj⟩ := hβConjugates τ
+    rw [← hi, ← hj] at hστ ⊢
+    exact hβSep i j hστ
