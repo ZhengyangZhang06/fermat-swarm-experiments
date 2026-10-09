@@ -1,0 +1,33 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "dedekindPsi|cuspCount|nuTwo|nuThree|gamma0_weight_two_eq_zero_of_genusFormula_eq_zero|p10_17ae7b7d_gamma0_norm_vanishing",
+        "p10_17ae7b7d_gamma0_norm_vanishing"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_X0.lean"
+      ],
+      "conclusion": "Confirmed the frozen numerical definitions and pinned project/mathlib revisions. No existing declaration matching this node was found in the snapshot. Comparator dependency revisions match the frozen manifest."
+    }
+  ],
+  "comparison_identity": "9732381893277f005f27f25e3a4d80b8bea688683efa0b793fb5b1fd8de2eaf3",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_gamma0_norm_vanishing",
+      "statement": "∀ (N : ℕ) [NeZero N] (f : CuspForm (CongruenceSubgroup.Gamma0 N) 2), f ≠ 0 → ∃ F A : ℂ → ℂ, DifferentiableOn ℂ F {z : ℂ | 0 < z.im} ∧ (∃ z : ℂ, 0 < z.im ∧ F z ≠ 0) ∧ (∀ z : ℂ, 0 < z.im → F (z + 1) = F z) ∧ (∀ z : ℂ, 0 < z.im → F (-1 / z) = z ^ (2 * ModularCurve.dedekindPsi N) * F z) ∧ AnalyticAt ℂ A 0 ∧ (∃ Y : ℝ, ∀ z : ℂ, 0 < z.im → Y ≤ z.im → F z = A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z))) ∧ ModularCurve.cuspCount N ≤ analyticOrderNatAt A 0 ∧ ModularCurve.nuTwo N ≤ analyticOrderNatAt F Complex.I ∧ 2 * ModularCurve.nuThree N ≤ analyticOrderNatAt F ((-1 + (Real.sqrt 3 : ℂ) * Complex.I) / 2)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Forms the product of slash translates; accepted coset-count, periodic-extension, and local-multiplier results supply the cusp and elliptic order bounds."
+    }
+  ]
+}
