@@ -1872,7 +1872,7 @@ theorem Submission.p09_af497904fe_csr_cyclotomic_prime_residue :
   let : Fact q.Prime := ⟨hq⟩
   let : NeZero q := ⟨hq.ne_zero⟩
   let : Algebra.IsIntegral ℚ (AlgebraicClosure ℚ) :=
-    Algebra.isAlgebraic_iff_isIntegral.mp inferInstance
+    Algebra.isAlgebraic_iff_isIntegral.mp (AlgebraicClosure.isAlgebraic ℚ)
   let : IsCyclotomicExtension {q} ℚ C :=
     hζ.intermediateField_adjoin_isCyclotomicExtension ℚ
   let : NumberField C := IsCyclotomicExtension.numberField {q} ℚ C
