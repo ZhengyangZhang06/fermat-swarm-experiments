@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "5a53f5905a52eac9405ae2fafa740e3b748823c6583470981218ea2168c27aff",
+  "git_delta": {
+    "base_commit": "f65f283c5d184f8bc5769c98e8f31e02432d4a36",
+    "candidate_commit": "a168f66f953cc615e46a00c9f7e5a9e0f77ae0c4",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_csr_cyclotomic_prime_residue",
+    "diff_sha256": "e850a17409baaf8346fc816f7ea52fcf11c52633324da8974e53194497ea2949",
+    "source_sha256": "f5baddab8e04186be9aa544e0d76a2e80ac9d1cee6a361ec37d260d7893f1c49",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_csr_cyclotomic_prime_residue",
+      "statement": "∀ (q : ℕ) (ζ : AlgebraicClosure ℚ), q.Prime → IsPrimitiveRoot ζ q → let C := IntermediateField.adjoin ℚ ({ζ} : Set (AlgebraicClosure ℚ)); FiniteDimensional ℚ C ∧ ∃ A : Ideal (NumberField.RingOfIntegers C), A.IsPrime ∧ A.LiesOver (Ideal.span {(q : ℤ)}) ∧ Nat.card (NumberField.RingOfIntegers C ⧸ A) = q ∧ ∀ B : Ideal (NumberField.RingOfIntegers C), B.IsPrime → B.LiesOver (Ideal.span {(q : ℤ)}) → B = A",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
