@@ -1,0 +1,36 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "IsEichlerIntegral|binaryFormRepSL_apply_coe|def BinaryForm|def binaryFormRepSL",
+        "IsBoundedAtImInfty|isBoundedAtImInfty_iff",
+        "p02_es_177ebb5a_sm_translation_bound"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_BinaryFormRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project/Definitions/Def_HeckeEis_EichlerIntegral.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/FunctionsBoundedAtInfty.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p02/.humanize/github-theorem-prover/runs/20261007T081612Z-177ebb5a0d/local-references/c882a7edc7dab33b/project"
+      ],
+      "conclusion": "The snapshot pins project 1f74c284b125d4c45f527f2d621597fcf1e103a9 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Inspected definitions confirm the frozen representation, coefficientwise derivative predicate, and uniform eventual boundedness target; project definitions match frozen Git bytes. No occurrence of the tracked theorem name was found in the project snapshot. The exact comparator rerun verified compatible pinned dependencies and only the permitted transitive axioms."
+    }
+  ],
+  "comparison_identity": "a1ad6155900e2d2abb285207e20267f3841a4c9548343fa070f91e9dd011f9e2",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_sm_translation_bound",
+      "statement": "∀ (N : ℕ) [NeZero N] (n : ℕ) (u : UpperHalfPlane → ℂ) (G : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), Continuous u → HeckeEis.IsEichlerIntegral n u G → (∀ τ : UpperHalfPlane, G ((ModularGroup.T ^ N) • τ) = ((HeckeEis.binaryFormRepSL ℂ n) (ModularGroup.T ^ N)) (G τ)) → (∃ (a C Y : ℝ), 0 < a ∧ 0 ≤ C ∧ ∀ τ : UpperHalfPlane, Y ≤ τ.im → ‖u τ‖ ≤ C * Real.exp (-a * τ.im)) → UpperHalfPlane.IsBoundedAtImInfty (fun τ : UpperHalfPlane => MvPolynomial.eval (fun j : Fin 2 => if j = 0 then 1 else -(τ : ℂ)) (G τ).val)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines accepted strip coefficient limits, translation-fixed form classification, homogeneous evaluation bounds, and periodic strip boundedness."
+    }
+  ]
+}
