@@ -1030,3 +1030,25 @@ theorem Submission.p09_af497904fe_cfs_bounded_euler_logarithm :
       have hbound := norm_add_le (Complex.log (L 1)) (Complex.log (N s))
       dsimp [H]
       linarith [(hsmall s hmem).2]
+theorem Submission.p09_af497904fe_ftl_frobenius_valuation_union :
+    ∀ (F : ℕ → IntermediateField ℚ (AlgebraicClosure ℚ)) (hmono : Monotone F),
+      (∀ x : AlgebraicClosure ℚ, ∃ i : ℕ, x ∈ F i) →
+      ∀ (V : (i : ℕ) → ValuationSubring (F i)) (ℓ : ℕ),
+        (∀ i : ℕ, (V i).LiesOverPrime ℓ) →
+        (∀ (i j : ℕ) (hij : i ≤ j) (x : F i),
+          IntermediateField.inclusion (hmono hij) x ∈ V j ↔ x ∈ V i) →
+        ∀ τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ,
+          (∀ i : ℕ, ∃ g : F i ≃ₐ[ℚ] F i, (V i).IsFrobeniusAt g ℓ ∧
+            ∀ x : F i,
+              τ (x : AlgebraicClosure ℚ) = ((g x : F i) : AlgebraicClosure ℚ)) →
+          ∃ P : ValuationSubring (AlgebraicClosure ℚ),
+            P.LiesOverPrime ℓ ∧
+              (∀ (i : ℕ) (x : F i), (x : AlgebraicClosure ℚ) ∈ P ↔ x ∈ V i) ∧
+              P.IsFrobeniusAt τ ℓ := by
+  intro F hmono hexhaust V ℓ hprime hcompat τ hfrob
+  obtain ⟨P, hPprime, hrestrict⟩ :=
+    Submission.p09_af497904fe_fvu_compatible_valuation_gluing
+      F hmono hexhaust V ℓ hprime hcompat
+  exact ⟨P, hPprime, hrestrict,
+    Submission.p09_af497904fe_fvu_frobenius_from_exhaustive_restrictions
+      F hexhaust V P hrestrict ℓ τ hfrob⟩
