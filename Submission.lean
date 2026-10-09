@@ -3170,3 +3170,24 @@ theorem Submission.p09_af497904fe_ce_compositum_pair :
       intro y
       apply iC.injective
       exact (hC k y).trans (hk.2 y)
+theorem Submission.p09_af497904fe_fie_integral_primitive :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ))
+      [FiniteDimensional ℚ E] [IsGalois ℚ E],
+      ∃ α : E, IsIntegral ℤ α ∧ IntermediateField.adjoin ℚ ({α} : Set E) = ⊤ := by
+  intro E _ _
+  obtain ⟨θ, hθ⟩ := Field.exists_primitive_element ℚ E
+  obtain ⟨m, hm⟩ := IsIntegral.exists_multiple_integral_of_isLocalization
+    (nonZeroDivisors ℤ) θ (IsIntegral.of_finite ℚ θ)
+  refine ⟨(m : ℤ) • θ, hm, ?_⟩
+  apply top_unique
+  rw [← hθ]
+  apply IntermediateField.adjoin_simple_le_iff.mpr
+  let F := IntermediateField.adjoin ℚ ({(m : ℤ) • θ} : Set E)
+  have hm0 : ((m : ℤ) : E) ≠ 0 :=
+    Int.cast_ne_zero.mpr (nonZeroDivisors.coe_ne_zero m)
+  have hrecover : ((m : ℤ) : E)⁻¹ * ((m : ℤ) • θ) = θ := by
+    rw [zsmul_eq_mul, inv_mul_cancel_left₀ hm0]
+  change θ ∈ F
+  rw [← hrecover]
+  exact F.mul_mem (F.inv_mem (F.intCast_mem (m : ℤ)))
+    (IntermediateField.mem_adjoin_simple_self ℚ ((m : ℤ) • θ))
