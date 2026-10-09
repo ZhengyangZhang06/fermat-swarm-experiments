@@ -39,3 +39,26 @@ theorem GaloisRepAdic.exists_quadraticRelation_forall_of_frobenius
       ∀ σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ,
         ρY σ * ρY σ - (ρ.trace σ) • ρY σ + ((c σ : Rˣ) : R) • D (χ σ) = 0 := by
   sorry
+
+
+theorem Submission.p09_af497904fe_trace_congruence :
+    ∀ {C W : Type} [CommRing C] [AddCommGroup W] [Module C W]
+      [Module.Free C W] [Module.Finite C W] (J : Ideal C) (u v : Module.End C W),
+      (∀ w : W, (u - v) w ∈ J • (⊤ : Submodule C W)) →
+        LinearMap.trace C W u - LinearMap.trace C W v ∈ J := by
+  intro C W _ _ _ _ _ J u v h
+  classical
+  let b := Module.Free.chooseBasis C W
+  rw [← map_sub, LinearMap.trace_eq_matrix_trace C b]
+  unfold Matrix.trace
+  apply J.sum_mem
+  intro i _
+  rw [Matrix.diag_apply, LinearMap.toMatrix_apply]
+  change b.coord i ((u - v) (b i)) ∈ J
+  refine Submodule.smul_induction_on (p := fun w => b.coord i w ∈ J) (h (b i)) ?_ ?_
+  · intro a ha w _
+    rw [map_smul, smul_eq_mul]
+    exact J.mul_mem_right _ ha
+  · intro x y hx hy
+    rw [map_add]
+    exact J.add_mem hx hy
