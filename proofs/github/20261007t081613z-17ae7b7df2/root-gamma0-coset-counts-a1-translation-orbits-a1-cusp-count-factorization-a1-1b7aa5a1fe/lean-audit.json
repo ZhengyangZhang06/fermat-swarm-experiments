@@ -1,0 +1,33 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "cuspCount|multiplicative_factorization|prod_factorization_eq_prod_primeFactors"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/Factorization/Induction.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Nat/Factorization/Basic.lean"
+      ],
+      "conclusion": "Confirmed the frozen cuspCount definition, cuspCount_one, and existing upstream factorization declarations. Manifest revisions match the comparator’s pinned dependencies. Independently reran the exact comparator successfully; verified all 221 exported Lean input hashes, committed-source identity, reversible authorized header omissions, target-absence evidence, and permitted transitive axioms."
+    }
+  ],
+  "comparison_identity": "631005bde716487e676ddd4815c1b37cf7d2f7fcab04619f088c8389b40648f6",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_to_cusp_count_factorization",
+      "statement": "∀ (N : ℕ) [NeZero N], ModularCurve.cuspCount N = N.primeFactors.prod (fun p => (Finset.range (N.factorization p + 1)).sum (fun j => Nat.totient (p ^ min j (N.factorization p - j))))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines accepted coprime multiplicativity and prime-power formulas using the pinned upstream multiplicative-factorization theorem and reindexing over prime factors."
+    }
+  ]
+}
