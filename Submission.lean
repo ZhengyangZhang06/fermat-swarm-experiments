@@ -1535,6 +1535,168 @@ theorem Submission.p03_tkc_torsion_card_recurrence_68cf3476_d5 :
         exact Ideal.subset_span (by simp)
       rw [htop, Ideal.top_mul] at hprod
       exact hprod.symm
+  -- At a two-torsion point the second affine coordinate is a uniformizer.
+  -- The polynomial identity is the XYIdeal_neg_mul calculation in pinned
+  -- mathlib Affine/Point.lean:305, specialized before localization.
+  have hlocalY (α β : k) (h : W.toAffine.Nonsingular α β)
+      (ht : β = W.toAffine.negY α β) :
+      let p : Ideal A := RingHom.ker (AdjoinRoot.evalEval h.1)
+      let : p.IsPrime := RingHom.ker_isPrime _
+      let B := Localization.AtPrime p
+      let x : B := algebraMap A B (CoordinateRing.XClass W.toAffine α)
+      let y : B := algebraMap A B (CoordinateRing.YClass W.toAffine (Polynomial.C β))
+      Ideal.span {y} = IsLocalRing.maximalIdeal B ∧
+        Irreducible y ∧ ∃ u : Bˣ, x = (u : B) * y ^ 2 := by
+    let ev : A →+* k := AdjoinRoot.evalEval h.1
+    let p : Ideal A := RingHom.ker ev
+    let : p.IsPrime := RingHom.ker_isPrime ev
+    let B := Localization.AtPrime p
+    let f : A →+* B := algebraMap A B
+    let x := f (CoordinateRing.XClass W.toAffine α)
+    let y := f (CoordinateRing.YClass W.toAffine (Polynomial.C β))
+    let V : Polynomial (Polynomial k) :=
+      Polynomial.C (Polynomial.X ^ 2 + Polynomial.C (α + W.a₂) * Polynomial.X +
+        Polynomial.C (α ^ 2 + W.a₂ * α + W.a₄)) -
+          Polynomial.C (Polynomial.C W.a₁) * Polynomial.X
+    have evmk (q : Polynomial (Polynomial k)) :
+        ev (CoordinateRing.mk W.toAffine q) = q.evalEval α β :=
+      AdjoinRoot.evalEval_mk h.1 q
+    have hker : CoordinateRing.XYIdeal W.toAffine α (Polynomial.C β) = p := by
+      apply le_antisymm
+      · rw [CoordinateRing.XYIdeal, Ideal.span_le]
+        intro z hz
+        rcases hz with rfl | hz
+        · change ev (CoordinateRing.XClass W.toAffine α) = 0
+          rw [CoordinateRing.XClass, evmk]
+          simp only [Polynomial.evalEval_C, Polynomial.eval_sub,
+            Polynomial.eval_X, Polynomial.eval_C, sub_self]
+        · have he : z = CoordinateRing.YClass W.toAffine (Polynomial.C β) := hz
+          rw [he]
+          change ev (CoordinateRing.YClass W.toAffine (Polynomial.C β)) = 0
+          rw [CoordinateRing.YClass, evmk]
+          simp only [Polynomial.evalEval_sub, Polynomial.evalEval_X,
+            Polynomial.evalEval_C, Polynomial.eval_C, sub_self]
+      · intro z hz
+        obtain ⟨q, rfl⟩ := AdjoinRoot.mk_surjective z
+        change AdjoinRoot.evalEval h.1 (CoordinateRing.mk W.toAffine q) = 0 at hz
+        rw [AdjoinRoot.evalEval_mk] at hz
+        have hq : q ∈ Ideal.span
+            {Polynomial.C (Polynomial.X - Polynomial.C α),
+              Polynomial.X - Polynomial.C (Polynomial.C β)} := by
+          apply Polynomial.mem_span_C_X_sub_C_X_sub_C_iff_eval_eval_eq_zero.mpr
+          simpa only [Polynomial.evalEval, Polynomial.eval_C] using hz
+        have hi := Ideal.mem_map_of_mem (CoordinateRing.mk W.toAffine) hq
+        simpa only [Ideal.map_span, Set.image_pair, CoordinateRing.XYIdeal,
+          CoordinateRing.XClass, CoordinateRing.YClass] using hi
+    have hrel : CoordinateRing.YClass W.toAffine (Polynomial.C β) ^ 2 =
+        CoordinateRing.XClass W.toAffine α * CoordinateRing.mk W.toAffine V := by
+      rw [CoordinateRing.YClass, CoordinateRing.XClass, ← map_pow, ← map_mul]
+      apply AdjoinRoot.mk_eq_mk.mpr
+      refine ⟨1, ?_⟩
+      have he := congrArg Polynomial.C (congrArg Polynomial.C ((equation_iff ..).mp h.1))
+      have hy : 2 * β + W.a₁ * α + W.a₃ = 0 := by
+        dsimp only [negY] at ht
+        linear_combination ht
+      have hy' := congrArg Polynomial.C (congrArg Polynomial.C hy)
+      dsimp only [V]
+      rw [WeierstrassCurve.Affine.polynomial]
+      linear_combination (norm := (simp only [Polynomial.C_add, Polynomial.C_sub, Polynomial.C_mul, Polynomial.C_pow, map_ofNat, Polynomial.C_0]; ring1))
+        -he - Polynomial.X * hy' + Polynomial.C (Polynomial.C β) * hy'
+    have hv : IsUnit (f (CoordinateRing.mk W.toAffine V)) := by
+      apply (IsLocalization.AtPrime.isUnit_to_map_iff B p _).mpr
+      change ev (CoordinateRing.mk W.toAffine V) ≠ 0
+      rw [evmk]
+      have hy : 2 * β + W.a₁ * α + W.a₃ = 0 := by
+        dsimp only [negY] at ht
+        linear_combination ht
+      have hx := ((nonsingular_iff' α β).mp h).2.resolve_right (not_not.mpr hy)
+      simp only [V, Polynomial.evalEval_sub, Polynomial.evalEval_mul,
+        Polynomial.evalEval_C, Polynomial.evalEval_X, Polynomial.eval_add,
+        Polynomial.eval_pow, Polynomial.eval_mul, Polynomial.eval_X, Polynomial.eval_C]
+      intro he
+      apply hx
+      linear_combination -he
+    have hmul : y ^ 2 = x * f (CoordinateRing.mk W.toAffine V) := by
+      simpa only [map_pow, map_mul] using congrArg f hrel
+    have hunit : ∃ u : Bˣ, x = (u : B) * y ^ 2 := by
+      refine ⟨hv.unit⁻¹, ?_⟩
+      have hu : f (CoordinateRing.mk W.toAffine V) * ↑(hv.unit⁻¹) = 1 := by
+        calc
+          f (CoordinateRing.mk W.toAffine V) * ↑(hv.unit⁻¹) =
+              (hv.unit : B) * ↑(hv.unit⁻¹) :=
+            congrArg (fun z : B => z * ↑(hv.unit⁻¹)) hv.unit_spec.symm
+          _ = 1 := by simp
+      calc
+        x = x * (f (CoordinateRing.mk W.toAffine V) * ↑(hv.unit⁻¹)) := by
+          rw [hu, mul_one]
+        _ = ↑(hv.unit⁻¹) * y ^ 2 := by rw [hmul]; ring
+    have hmax : Ideal.span {y} = IsLocalRing.maximalIdeal B := by
+      have hspan : Ideal.span {x, y} = IsLocalRing.maximalIdeal B := by
+        calc
+          Ideal.span {x, y} = Ideal.map f
+              (CoordinateRing.XYIdeal W.toAffine α (Polynomial.C β)) := by
+            rw [CoordinateRing.XYIdeal, Ideal.map_span, Set.image_pair]
+          _ = Ideal.map f p := by rw [hker]
+          _ = IsLocalRing.maximalIdeal B := IsLocalization.AtPrime.map_eq_maximalIdeal p B
+      rw [← hspan]
+      apply le_antisymm
+      · exact Ideal.span_mono (by intro z hz; simp only [Set.mem_singleton_iff] at hz; simp [hz])
+      · rw [Ideal.span_le]
+        intro z hz
+        rcases hz with rfl | hz
+        · obtain ⟨u, hu⟩ := hunit
+          apply Ideal.mem_span_singleton.mpr
+          exact ⟨↑u * y, by rw [hu]; ring⟩
+        · have he : z = y := hz
+          rw [he]
+          exact Ideal.subset_span (Set.mem_singleton y)
+    have hyne : y ≠ 0 := by
+      intro hy
+      have hmaxne := (hlocalX α β h).1
+      apply hmaxne
+      rw [← hmax, hy, Ideal.span_singleton_zero]
+    refine ⟨hmax, ?_, hunit⟩
+    apply Ideal.irreducible_of_isMaximal_span_singleton hyne
+    rw [hmax]
+    infer_instance
+  -- Thus the affine coordinate has exactly the simple or double order in
+  -- accepted proof step 4, measured in a generator of the local maximal ideal.
+  have hlocalOrder (α β : k) (h : W.toAffine.Nonsingular α β) :
+      let p : Ideal A := RingHom.ker (AdjoinRoot.evalEval h.1)
+      let : p.IsPrime := RingHom.ker_isPrime _
+      let B := Localization.AtPrime p
+      let x : B := algebraMap A B (CoordinateRing.XClass W.toAffine α)
+      ∃ t : B, Ideal.span {t} = IsLocalRing.maximalIdeal B ∧ Irreducible t ∧
+        emultiplicity t x = if β = W.toAffine.negY α β then (2 : ENat) else 1 := by
+    let ev : A →+* k := AdjoinRoot.evalEval h.1
+    let p : Ideal A := RingHom.ker ev
+    let : p.IsPrime := RingHom.ker_isPrime ev
+    let B := Localization.AtPrime p
+    let f : A →+* B := algebraMap A B
+    let x := f (CoordinateRing.XClass W.toAffine α)
+    by_cases ht : β = W.toAffine.negY α β
+    · obtain ⟨hspan, hirr, u, hu⟩ := hlocalY α β h ht
+      let y := f (CoordinateRing.YClass W.toAffine (Polynomial.C β))
+      change x = (u : B) * y ^ 2 at hu
+      refine ⟨y, hspan, hirr, ?_⟩
+      rw [if_pos ht]
+      have hassoc : Associated (y ^ 2) x := ⟨u, by rw [hu]; ring⟩
+      rw [← emultiplicity_eq_of_associated_right hassoc]
+      exact emultiplicity_pow_self hirr.ne_zero hirr.not_isUnit 2
+    · have hspan : Ideal.span {x} = IsLocalRing.maximalIdeal B := by
+        simpa only [if_neg ht] using (hlocalX α β h).2
+      have hxne : x ≠ 0 := by
+        apply (map_ne_zero_iff f
+          (IsLocalization.injective B p.primeCompl_le_nonZeroDivisors)).mpr
+        exact CoordinateRing.XClass_ne_zero α
+      have hirr : Irreducible x := by
+        apply Ideal.irreducible_of_isMaximal_span_singleton hxne
+        rw [hspan]
+        infer_instance
+      refine ⟨x, hspan, hirr, ?_⟩
+      rw [if_neg ht]
+      simpa only [pow_one, Nat.cast_one] using
+        emultiplicity_pow_self hxne hirr.not_isUnit 1
   apply finish
   -- Remaining: prove the orders of the nonzero rational function H equal hD
   -- by accepted proof steps 2--7, and use the
