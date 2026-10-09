@@ -25226,7 +25226,6 @@ theorem Submission.p03_ptf_positive_nsmul_nonzero_c5b7b5ed_d6 :
       Polynomial.eval_X, Polynomial.eval_C] at hx
     have ht : 2 * y + W.a₁ * x + W.a₃ = 0 := by
       apply eq_zero_of_pow_eq_zero (n := 2)
-      apply pow_eq_zero (n := 2)
       exact (disc x y hxy).trans hx
     have hy : y = W.toAffine.negY x y := by
       dsimp only [negY]
@@ -25240,7 +25239,6 @@ theorem Submission.p03_ptf_positive_nsmul_nonzero_c5b7b5ed_d6 :
       refine ⟨0, Or.inl ?_⟩
       change (2 : ℕ) • (0 : W.toAffine.Point) = 0
       exact nsmul_zero 2
-    | zero => exact ⟨0, Or.inl (by simp [zero_def])⟩
     | some u v huv =>
       let p : Polynomial k := Polynomial.X ^ 4 -
         Polynomial.C W.b₄ * Polynomial.X ^ 2 -
@@ -25263,7 +25261,6 @@ theorem Submission.p03_ptf_positive_nsmul_nonzero_c5b7b5ed_d6 :
         intro ht
         have hz0 : z = 0 := by
           apply eq_zero_of_pow_eq_zero (n := 2)
-          apply pow_eq_zero (n := 2)
           simpa only [ht, mul_zero, zero_pow (by omega : 2 ≠ 0), add_zero,
             sub_zero] using hz
         rcases ((nonsingular_iff' x y).mp hxy).2 with h | h
@@ -25281,7 +25278,6 @@ theorem Submission.p03_ptf_positive_nsmul_nonzero_c5b7b5ed_d6 :
           dsimp [negY, t]
           ring
         rw [slope_of_Y_ne rfl hy, addX, htdef]
-        rw [slope_of_Y_ne rfl hy, addX]
         change (z / t) ^ 2 + W.a₁ * (z / t) - W.a₂ - x - x = u
         have hmul : ((z / t) ^ 2 + W.a₁ * (z / t) - W.a₂ - x - x - u) *
             t ^ 2 = 0 := by
@@ -25289,8 +25285,6 @@ theorem Submission.p03_ptf_positive_nsmul_nonzero_c5b7b5ed_d6 :
             _ = z ^ 2 + W.a₁ * z * t - (W.a₂ + 2 * x + u) * t ^ 2 := by
               field_simp [ht]
               ring
-              field_simp
-              <;> ring
             _ = 0 := hz
         exact sub_eq_zero.mp ((mul_eq_zero.mp hmul).resolve_right (pow_ne_zero 2 ht))
       refine ⟨some x y hxy, ?_⟩
@@ -25311,6 +25305,8 @@ theorem Submission.p03_ptf_positive_nsmul_nonzero_c5b7b5ed_d6 :
     · refine ⟨T, ?_⟩
       simpa only [add_nsmul, mul_nsmul, hT2, nsmul_zero, one_nsmul,
         zero_add] using hT
+
+
 theorem Submission.p03_ptf_finite_kernel_of_nsmul_nonzero_c5b7b5ed_d6 :
     ∀ (k : Type) [Field k] [IsAlgClosed k] [DecidableEq k] (W : WeierstrassCurve k),
       W.Δ ≠ 0 → ∀ n : ℕ, (∃ P : W.toAffine.Point, n • P ≠ 0) →
@@ -25638,10 +25634,6 @@ theorem Submission.p03_tkc_two_torsion_card_68cf3476_d5
   rw [Nat.card_congr (e₀.trans e.optionCongr)]
   change Nat.card (Option s) = 4
   rw [Nat.card_eq_fintype_card, Fintype.card_option, Fintype.card_coe, hs]
-        simpa only [mul_nsmul, hQ, nsmul_neg, neg_ne_zero] using hP
-    · refine ⟨T, ?_⟩
-      simpa only [add_nsmul, mul_nsmul, hT2, nsmul_zero, one_nsmul,
-        zero_add] using hT
 
 /-
 Incomplete speculative implementation of the frozen torsion-cardinality recurrence.
