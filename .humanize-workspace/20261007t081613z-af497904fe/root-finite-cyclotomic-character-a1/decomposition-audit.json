@@ -1,0 +1,47 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "def (LiesOverPrime|IsFrobeniusAt)|theorem.*(LiesOverPrime|IsFrobeniusAt)|residue.*smul|smul.*residue",
+        "exists_primitiveRoot|autToPow|eq_pow_of_pow_eq_one|pow_inj|mem_or_inv_mem|def.*IsDecompositionGroup|residue.*smul|smul.*residue|def.*(residue|Residue)|modularCyclotomicCharacter",
+        "residue.*smul|smul.*residue|def nonunits|mem_nonunits|nonunits.*maximal",
+        "frobenius.*rootsOfUnity|rootsOfUnity.*frobenius|IsFrobeniusAt.*pow|FrobeniusAt.*cyclotomic|cyclotomic.*FrobeniusAt",
+        "p09_af497904fe_fcc_character_finite_action|p09_af497904fe_fcc_frobenius_roots_action"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RootsOfUnity/PrimitiveRoots.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RootsOfUnity/EnoughRootsOfUnity.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RootsOfUnity/AlgebraicallyClosed.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/Cyclotomic/CyclotomicCharacter.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/LocalRing/ResidueField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/dag.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p09_fcc_independent_audit_7d29k06d/receipt.json"
+      ],
+      "conclusion": "Verified project revision 20574e45daf714e745af8e649c7b61b21eed5644, mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d, and clean pinned dependencies. The definitions confirm the stated nonunit condition and arithmetic Frobenius action; the library supplies primitive roots, exponent uniqueness, valuation dichotomy, and residue-action compatibility. The targeted Frobenius/roots-of-unity search found no matching theorem. Independent Lean diagnostics elaborated both exact propositions without either child declaration present and checked the relevant library declarations: their transitive axioms are confined to propext, Classical.choice, and Quot.sound. The receipt records policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, exact omissions of lines 10–11, reversible original/build hashes, and successful absence probes for all eight targets. The frozen contract and Submission header remain unchanged. These are decomposition diagnostics, not implementation comparator acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "character_finite_action",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line Lean proposition exactly matches the prose; NeZero N expresses positivity for natural N. Steps 1–3 establish a generator of order N, steps 4–5 construct the unit-valued homomorphism and its action, and steps 6–7 prove finite-dimensionality and agreement control. Step 8 correctly includes N = 1. The proof is complete and non-circular. The bare identifier is unreserved. Separating this construction from the local Frobenius argument is appropriate; neither child requires the other."
+    },
+    {
+      "key": "frobenius_roots_action",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The independently elaborated one-line proposition includes every prose hypothesis and uses the intended valuation and automorphism instances. Steps 1–2 establish unit membership and residue characteristic ℓ; steps 3–4 prove reduction injective using ℓ ∤ N; steps 5–6 correctly apply residue-action compatibility and Frobenius. The argument includes N = 1 and invokes neither child nor parent. The bare identifier is unreserved. Empty child dependency lists are justified and acyclic. The parent depends on both children, whose conclusions identify the Frobenius character value by primitive-root exponent congruence and unit extensionality."
+    }
+  ],
+  "required_changes": []
+}

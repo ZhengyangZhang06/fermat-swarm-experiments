@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_cyclotomic_character-a1.frobenius_roots_action-a1",
+  "parent_id": "root.finite_cyclotomic_character-a1",
+  "depth": 2,
+  "title": "Frobenius acts by the prime power on prime-to-prime roots of unity",
+  "statement": "Let Ω = AlgebraicClosure ℚ. Let N be a positive natural number and let ℓ be prime with ℓ not dividing N. Let P be a valuation subring of Ω such that (ℓ : Ω) belongs to P.nonunits. If σ ∈ Autℚ(Ω) satisfies P.IsFrobeniusAt σ ℓ, meaning that σ preserves P and acts on its residue field by x ↦ x^ℓ, then σ(ζ) = ζ^ℓ for every ζ ∈ Ω satisfying ζ^N = 1.",
+  "lean_statement": "∀ (N : ℕ) [NeZero N] (ℓ : ℕ), ℓ.Prime → ¬ ℓ ∣ N → ∀ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ → ∀ σ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ), P.IsFrobeniusAt σ ℓ → ∀ ζ : AlgebraicClosure ℚ, ζ ^ N = 1 → σ ζ = ζ ^ ℓ",
+  "lean_name": "p09_af497904fe_fcc_frobenius_roots_action",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-finite-cyclotomic-character-a1-frobenius-roots-action-a1-a1"
+}

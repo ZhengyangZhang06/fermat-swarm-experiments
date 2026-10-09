@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_cyclotomic_character-a1.character_finite_action-a1",
+  "parent_id": "root.finite_cyclotomic_character-a1",
+  "depth": 2,
+  "title": "Cyclotomic character with finite-field control",
+  "statement": "Let Ω = AlgebraicClosure ℚ and G = Autℚ(Ω). For every positive natural number N, there exist a monoid homomorphism χ : G → (ℤ/Nℤ)ˣ and an intermediate field F of Ω/ℚ such that F is finite-dimensional over ℚ, agreement of σ and τ on every element of F implies χ(σ) = χ(τ), and σ(ζ) = ζ^a for every σ ∈ G and every ζ ∈ Ω with ζ^N = 1, where a is the least nonnegative representative of the underlying residue class of χ(σ).",
+  "lean_statement": "∀ (N : ℕ) [NeZero N], ∃ (χ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) →* (ZMod N)ˣ) (F : IntermediateField ℚ (AlgebraicClosure ℚ)), FiniteDimensional ℚ F ∧ (∀ σ τ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ), (∀ x ∈ F, σ x = τ x) → χ σ = χ τ) ∧ (∀ (σ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)) (ζ : AlgebraicClosure ℚ), ζ ^ N = 1 → σ ζ = ζ ^ ((χ σ : ZMod N).val))",
+  "lean_name": "p09_af497904fe_fcc_character_finite_action",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-finite-cyclotomic-character-a1-character-finite-action-a1-a1"
+}

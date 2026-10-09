@@ -1,0 +1,56 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "IsFrobeniusAt|LiesOverPrime|cyclotomic|Cyclotomic|rootsOfUnity|IsPrimitiveRoot",
+        "exists_primitiveRoot|natCard_rootsOfUnity|autToPow|pow_inj|pow_eq_one|mem_or_inv_mem|residue.*smul|smul.*residue",
+        "frobenius.*rootsOfUnity|rootsOfUnity.*frobenius|IsFrobeniusAt.*pow|FrobeniusAt.*cyclotomic|cyclotomic.*FrobeniusAt",
+        "IsAlgClosed|hasEnoughRootsOfUnity|HasEnoughRootsOfUnity"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/Cyclotomic/CyclotomicCharacter.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RootsOfUnity/PrimitiveRoots.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RootsOfUnity/EnoughRootsOfUnity.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RootsOfUnity/AlgebraicallyClosed.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596"
+      ],
+      "conclusion": "The manifest pins project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. LiesOverPrime means the prime is a nonunit; IsFrobeniusAt specifies membership in the decomposition subgroup and the power action on the residue field. Mathlib supplies primitive-root existence, IsPrimitiveRoot.autToPow, autToPow_spec, eq_pow_of_pow_eq_one, and modularCyclotomicCharacter.spec/unique. The valuation files supply the valuation dichotomy and decomposition-group action. The targeted search for a Frobenius roots-of-unity action theorem returned no matches. Installed dependencies were checked clean at their pinned revisions. Lean checked the proposed types and the cited primitive-root declarations; their axiom lists contain only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "parent_id": "root.finite_cyclotomic_character-a1",
+  "child_id": "root.finite_cyclotomic_character-a1.frobenius_roots_action-a1",
+  "subproblem": {
+    "key": "frobenius_roots_action",
+    "title": "Frobenius acts by the prime power on prime-to-prime roots of unity",
+    "statement": "Let Ω = AlgebraicClosure ℚ. Let N be a positive natural number and let ℓ be prime with ℓ not dividing N. Let P be a valuation subring of Ω such that (ℓ : Ω) belongs to P.nonunits. If σ ∈ Autℚ(Ω) satisfies P.IsFrobeniusAt σ ℓ, meaning that σ preserves P and acts on its residue field by x ↦ x^ℓ, then σ(ζ) = ζ^ℓ for every ζ ∈ Ω satisfying ζ^N = 1.",
+    "lean_statement": "∀ (N : ℕ) [NeZero N] (ℓ : ℕ), ℓ.Prime → ¬ ℓ ∣ N → ∀ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ → ∀ σ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ), P.IsFrobeniusAt σ ℓ → ∀ ζ : AlgebraicClosure ℚ, ζ ^ N = 1 → σ ζ = ζ ^ ℓ",
+    "lean_name": "p09_af497904fe_fcc_frobenius_roots_action",
+    "depends_on": [],
+    "natural_proof": "1. Fix N, ℓ, P and σ satisfying the hypotheses, and write μ = {η ∈ Ω : η^N = 1}. Every η ∈ μ is nonzero because N > 0. We have η⁻¹ = η^(N−1), and also η = (η⁻¹)^(N−1). The valuation-subring property gives η ∈ P or η⁻¹ ∈ P. In the second case, closure under powers and the latter identity give η ∈ P as well. The former identity then gives η⁻¹ ∈ P. Thus every element of μ belongs to P and is a unit of P.\n2. Let k be the residue field of the local ring P, and let red : P → k be the residue homomorphism. The hypothesis P.LiesOverPrime ℓ says that ℓ is a nonunit of P. Nonunits of a local ring form its maximal ideal, so red(ℓ) = 0. The kernel of the unital map ℤ → k is a proper ideal containing ℓℤ. Since ℓ is prime, ℓℤ is maximal; therefore this kernel equals ℓℤ. Consequently k has characteristic ℓ. In particular, the image of N in k is nonzero because ℓ does not divide N.\n3. Suppose ξ ∈ μ has residue one. If ξ ≠ 1, the geometric-sum identity gives (ξ − 1)(1 + ξ + ⋯ + ξ^(N−1)) = ξ^N − 1 = 0 in Ω. Since Ω is a field and ξ − 1 ≠ 0, the sum is zero. Every term belongs to P by step 1, and the inclusion P → Ω is injective, so the same sum is zero in P. Reducing it gives 1 + 1 + ⋯ + 1 = 0 with N terms, contradicting the nonvanishing of N in k established in step 2. Therefore ξ = 1.\n4. Reduction is injective on μ. Indeed, suppose η and θ belong to μ and have equal residues. Step 1 shows that θ and θ⁻¹ are units in P, so their residues are mutually inverse and nonzero. The element ξ = ηθ⁻¹ belongs to P, satisfies ξ^N = η^N(θ^N)⁻¹ = 1, and has residue red(η)red(θ)⁻¹ = 1. Step 3 gives ξ = 1, hence η = θ.\n5. Unpack P.IsFrobeniusAt σ ℓ. It supplies membership of σ in the decomposition subgroup of P and asserts that its induced action on k is x ↦ x^ℓ. Membership in the decomposition subgroup makes σ an automorphism of P. By the definition of the induced residue action, red(σ(u)) equals the action of σ on red(u) for every u ∈ P. Hence red(σ(u)) = red(u)^ℓ = red(u^ℓ).\n6. Now let ζ ∈ Ω satisfy ζ^N = 1. Step 1 allows us to apply step 5 to ζ, yielding equal residues for σ(ζ) and ζ^ℓ. Both elements lie in μ: (σ(ζ))^N = σ(ζ^N) = 1, and (ζ^ℓ)^N = (ζ^N)^ℓ = 1. Injectivity from step 4 therefore gives σ(ζ) = ζ^ℓ, as required.\n7. No step excludes N = 1. In that case ζ^N = 1 forces ζ = 1, and the conclusion is σ(1) = 1^ℓ = 1.",
+    "proof_key_steps": [
+      "Use the valuation dichotomy and root-of-unity identities to place every root and its inverse in P.",
+      "Identify the kernel of ℤ → k(P) as ℓℤ and conclude that N is nonzero in the residue field.",
+      "Use the geometric-sum identity to show that a root reducing to one equals one.",
+      "Apply this result to quotients to prove injectivity of reduction on the N-th roots of unity.",
+      "Unpack Frobenius and residue-action compatibility to obtain equal reductions of σ(ζ) and ζ^ℓ.",
+      "Check both elements remain N-th roots of unity and apply injectivity.",
+      "Include the case N = 1."
+    ]
+  },
+  "audit": {
+    "key": "frobenius_roots_action",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "The independently elaborated one-line proposition includes every prose hypothesis and uses the intended valuation and automorphism instances. Steps 1–2 establish unit membership and residue characteristic ℓ; steps 3–4 prove reduction injective using ℓ ∤ N; steps 5–6 correctly apply residue-action compatibility and Frobenius. The argument includes N = 1 and invokes neither child nor parent. The bare identifier is unreserved. Empty child dependency lists are justified and acyclic. The parent depends on both children, whose conclusions identify the Frobenius character value by primitive-root exponent congruence and unit extensionality."
+  },
+  "resolved_dependencies": [],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-finite-cyclotomic-character-a1-frobenius-roots-action-a1/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-finite-cyclotomic-character-a1-frobenius-roots-action-a1/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-finite-cyclotomic-character-a1-frobenius-roots-action-a1/parent-supplied-natural-proof.json"
+}
