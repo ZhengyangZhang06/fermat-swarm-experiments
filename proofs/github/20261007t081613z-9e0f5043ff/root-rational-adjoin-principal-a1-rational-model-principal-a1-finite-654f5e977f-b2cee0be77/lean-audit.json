@@ -1,0 +1,33 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "ord_coe_(irreducible|unit)|def ord|structure Place|fpm_normalized_orders|fno_fraction_isunit|fno_irreducible_aeval",
+        "fpm_normalized_orders|fno_fraction_isunit|fno_irreducible_aeval"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f"
+      ],
+      "conclusion": "The manifest pins project 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Inspected Place, ord, ord_coe_unit and ord_coe_irreducible; their source matches the comparator input byte-for-byte. No candidate declaration names occur in the snapshot. The independent comparator rerun confirmed kernel acceptance and only propext, Classical.choice and Quot.sound as transitive axioms."
+    }
+  ],
+  "comparison_identity": "af8f7e342ef4260c86e295bc5ea5527cb603e6e69f9eac4bfe5eaeb679efaa71",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_fpm_normalized_orders",
+      "statement": "∀ (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F), Transcendental K x → ∀ q : Polynomial K, q.Monic → Irreducible q → ∀ v : AlgebraicCurve.Place K F, (∀ f : F, f ∈ v.toValuationSubring ↔ ∃ a b : Polynomial K, ¬ q ∣ b ∧ f = Polynomial.aeval x a / Polynomial.aeval x b) → v.ord (Polynomial.aeval x q) = 1 ∧ (∀ a : Polynomial K, ¬ q ∣ a → v.ord (Polynomial.aeval x a) = 0)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines the accepted irreducible-evaluation and fraction-unit dependencies with the pinned Place order formulas."
+    }
+  ]
+}
