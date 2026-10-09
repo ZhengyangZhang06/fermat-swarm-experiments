@@ -4422,7 +4422,7 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     rw [((hmod z hz).2.2 hne).2]
     dsimp only [L]
     field_simp
-    <;> ring
+    ring
   have hI : Complex.I ∈ H := by simp [H]
   have hρ : ρ ∈ H := by
     change 0 < ρ.im
