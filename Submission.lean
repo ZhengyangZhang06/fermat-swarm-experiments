@@ -1673,9 +1673,6 @@ theorem Submission.p08_7d1ff633a4_cp11_level_cocycle :
     let := hE₀
     let := hFf
     let := hFg
-    letI := hE₀
-    letI := hFf
-    letI := hFg
     refine ⟨(E₀ ⊔ Ff) ⊔ Fg, inferInstance, ?_⟩
     intro s t h l hh hl
     have hh₀ : r h ∈ E₀.fixingSubgroup :=
@@ -1690,43 +1687,6 @@ theorem Submission.p08_7d1ff633a4_cp11_level_cocycle :
     rw [hf s h hhf, hg t l hlg, Rep.ρ_mul]
     change φ (f s) (B.ρ s (B.ρ h (g t))) = φ (f s) (B.ρ s (g t))
     rw [hB h hh₀]
-theorem Submission.p08_7d1ff633a4_cp11_left_level_boundary :
-    ∀ {k G : Type} [Field k] [Group G] (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)) (A B N : Rep.{0} k G) (φ : A →ₗ[k] B →ₗ[k] N), (∀ (s : G) (a : A) (b : B), φ (A.ρ s a) (B.ρ s b) = N.ρ s (φ a b)) → ∀ (a : A) (g : groupCohomology.cocycles₁ B), groupCohomology.IsLevelConstant₁ r (⇑g) → groupCohomology.cupCochain φ (fun s : G => A.ρ s a - a) (⇑g) ∈ groupCohomology.levelCoboundaries₂ r N := by
-  intro k G _ _ r A B N φ hφ a g hg
-  apply (groupCohomology.mem_levelCoboundaries₂_iff r N _).2
-  refine ⟨fun t => φ a (g t), hg.comp (φ a), ?_⟩
-  funext p
-  obtain ⟨s, t⟩ := p
-  rw [groupCohomology.d₁₂_hom_apply]
-  change N.ρ s (φ a (g t)) - φ a (g (s * t)) + φ a (g s) =
-    φ (A.ρ s a - a) (B.ρ s (g t))
-  rw [(groupCohomology.mem_cocycles₁_iff (⇑g)).1 g.2 s t, ← hφ s a (g t)]
-  simp only [map_add, map_sub, LinearMap.sub_apply]
-  abel
-theorem Submission.p08_7d1ff633a4_cp11_right_level_boundary :
-    ∀ {k G : Type} [Field k] [Group G] (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)) (A B N : Rep.{0} k G) (E₀ : IntermediateField ℚ (AlgebraicClosure ℚ)), FiniteDimensional ℚ E₀ → (∀ s : G, r s ∈ E₀.fixingSubgroup → ∀ b : B, B.ρ s b = b) → ∀ φ : A →ₗ[k] B →ₗ[k] N, (∀ (s : G) (a : A) (b : B), φ (A.ρ s a) (B.ρ s b) = N.ρ s (φ a b)) → ∀ (f : groupCohomology.cocycles₁ A) (b : B), groupCohomology.IsLevelConstant₁ r (⇑f) → groupCohomology.cupCochain φ (⇑f) (fun t : G => B.ρ t b - b) ∈ groupCohomology.levelCoboundaries₂ r N := by
-  intro k G _ _ r A B N E₀ hE₀ hB φ hφ f b hf
-  obtain ⟨Ff, hFf, hf⟩ := hf
-  let := hE₀
-  let := hFf
-  apply (groupCohomology.mem_levelCoboundaries₂_iff r N _).2
-  refine ⟨fun s => -(φ (f s) (B.ρ s b)), ?_, ?_⟩
-  · refine ⟨E₀ ⊔ Ff, inferInstance, ?_⟩
-    intro s t ht
-    dsimp only
-    rw [hf s t (IntermediateField.fixingSubgroup_antitone le_sup_right ht),
-      Rep.ρ_mul, LinearMap.comp_apply,
-      hB t (IntermediateField.fixingSubgroup_antitone le_sup_left ht) b]
-  · funext p
-    obtain ⟨s, t⟩ := p
-    rw [groupCohomology.d₁₂_hom_apply]
-    change N.ρ s (-(φ (f t) (B.ρ t b))) -
-        (-(φ (f (s * t)) (B.ρ (s * t) b))) + (-(φ (f s) (B.ρ s b))) =
-      φ (f s) (B.ρ s (B.ρ t b - b))
-    rw [map_neg, (groupCohomology.mem_cocycles₁_iff (⇑f)).1 f.2 s t,
-      ← hφ s (f t) (B.ρ t b), Rep.ρ_mul, LinearMap.comp_apply]
-    simp only [map_add, map_sub, LinearMap.add_apply]
-    abel
 
 
 /-- The cup product of level one-cocycles descends to the frozen continuous H¹ images. -/
