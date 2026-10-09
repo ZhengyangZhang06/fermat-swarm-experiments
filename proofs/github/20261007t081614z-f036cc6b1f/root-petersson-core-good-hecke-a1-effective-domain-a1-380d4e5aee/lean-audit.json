@@ -1,0 +1,36 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'exists_smul_mem_fd|isClosed_fd|eq_one_or_neg_one_of_mem_fdo_mem_fd|def fd|def fdo' mathlib/Mathlib/NumberTheory/Modular.lean",
+        "rg -n 'volume|SMulInvariantMeasure' mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+        "rg -n 'f036cc6b1f_pc_effective_domain|effective_domain' project/Definitions project/P2M"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/NumberTheory/Modular.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Measure.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/Definitions/Def_ModularForm_HeckeOperatorForms.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p01/.humanize/github-theorem-prover/runs/20261007T081614Z-f036cc6b1f/local-references/7c4c5c8bc05269bb/project/P2M"
+      ],
+      "conclusion": "Confirmed pinned modular-domain definitions, covering and uniqueness declarations, and hyperbolic volume. No selected-theorem match in project/Definitions or project/P2M. Inspected sources match installed pinned sources; all nine dependencies are clean. The exact comparator rerun passed with only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "277853200ea859fcb7777b363588667f5520e38b70b04e8cfd26e2aeb7a06967",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.f036cc6b1f_pc_effective_domain",
+      "statement": "∀ (Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ)) [Δ.FiniteIndex], (-1 : Matrix.SpecialLinearGroup (Fin 2) ℤ) ∈ Δ → ∃ R : Finset (Matrix.SpecialLinearGroup (Fin 2) ℤ), let F : Set UpperHalfPlane := ⋃ r ∈ R, (fun z : UpperHalfPlane => r • z) '' ModularGroup.fd; MeasurableSet F ∧ (∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane), ∃ γ : Matrix.SpecialLinearGroup (Fin 2) ℤ, γ ∈ Δ ∧ γ • z ∈ F ∧ ∀ δ : Matrix.SpecialLinearGroup (Fin 2) ℤ, δ ∈ Δ → δ • z ∈ F → δ = γ ∨ δ = -γ)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Finite right-coset representatives give measurable translates; the accepted orbit-interior and transversal-uniqueness prerequisites provide the almost-everywhere property."
+    }
+  ]
+}
