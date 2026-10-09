@@ -1309,3 +1309,78 @@ theorem Submission.p09_af497904fe_luf_frobenius_tower_limit :
   obtain ⟨P, hPprime, hPV, hPfrob⟩ := Submission.p09_af497904fe_ftl_frobenius_valuation_union
     F hmono hexhaust V ℓ hprime hV τ hstages
   exact ⟨P, hPprime, hPV, τ, hPfrob, hstages⟩
+
+
+/-- Lift the uniquely specified finite Frobenius through a countable Galois tower. -/
+theorem Submission.p09_af497904fe_fa_lift_unique_frobenius :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ))
+      [FiniteDimensional ℚ E] [IsGalois ℚ E] (ℓ : ℕ), ℓ.Prime →
+      ∀ (V : ValuationSubring E), V.LiesOverPrime ℓ →
+      ∀ (g : E ≃ₐ[ℚ] E), V.IsFrobeniusAt g ℓ →
+      (∀ g' : E ≃ₐ[ℚ] E, V.IsFrobeniusAt g' ℓ → g' = g) →
+      ∃ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ ∧
+        (∀ x : E, (x : AlgebraicClosure ℚ) ∈ P ↔ x ∈ V) ∧
+        ∃ τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ,
+          P.IsFrobeniusAt τ ℓ ∧
+          ∀ x : E, τ (x : AlgebraicClosure ℚ) = ((g x : E) : AlgebraicClosure ℚ) := by
+  classical
+  intro E hfd hgal ℓ hℓ V hV g _hg huniq
+  -- Close each successive enumerated element under its rational conjugates.
+  have : IsAlgClosure ℚ (AlgebraicClosure ℚ) :=
+    { isAlgClosed := AlgebraicClosure.isAlgClosed ℚ
+      isAlgebraic := AlgebraicClosure.isAlgebraic ℚ }
+  have : Countable (AlgebraicClosure ℚ) := Set.countable_univ_iff.mp
+    ((Algebraic.countable ℚ (AlgebraicClosure ℚ)).mono
+      (fun x _ => Algebra.IsAlgebraic.isAlgebraic x))
+  have : IsGalois ℚ (AlgebraicClosure ℚ) :=
+    { to_isSeparable := inferInstance, to_normal := IsAlgClosure.normal ℚ (AlgebraicClosure ℚ) }
+  obtain ⟨a, ha⟩ := exists_surjective_nat (AlgebraicClosure ℚ)
+  let T : ℕ → FiniteGaloisIntermediateField ℚ (AlgebraicClosure ℚ) :=
+    Nat.rec { toIntermediateField := E, finiteDimensional := hfd, isGalois := hgal }
+      (fun i K => K ⊔ FiniteGaloisIntermediateField.adjoin ℚ {a i})
+  let F : ℕ → IntermediateField ℚ (AlgebraicClosure ℚ) :=
+    fun i => (T i).toIntermediateField
+  have hmono : Monotone F := monotone_nat_of_le_succ fun i =>
+    (show T i ≤ T (i + 1) from le_sup_left)
+  have hcover : ∀ x : AlgebraicClosure ℚ, ∃ i : ℕ, x ∈ F i := by
+    intro x
+    obtain ⟨i, rfl⟩ := ha x
+    refine ⟨i + 1, ?_⟩
+    exact (show (FiniteGaloisIntermediateField.adjoin ℚ {a i}).toIntermediateField ≤
+      F (i + 1) from le_sup_right)
+      (FiniteGaloisIntermediateField.subset_adjoin ℚ {a i} (Set.mem_singleton _))
+  -- Choose extensions recursively, retaining the nonunit condition at every stage.
+  let extend (i : ℕ) (W : {W : ValuationSubring (F i) // W.LiesOverPrime ℓ}) :
+      {W : ValuationSubring (F (i + 1)) // W.LiesOverPrime ℓ} :=
+    ⟨(@Submission.p09_af497904fe_luf_valuation_extension (F i) (F (i + 1))
+        (T i).finiteDimensional (T (i + 1)).finiteDimensional
+        (hmono (Nat.le_succ i)) ℓ hℓ W.1 W.2).choose,
+      (@Submission.p09_af497904fe_luf_valuation_extension (F i) (F (i + 1))
+        (T i).finiteDimensional (T (i + 1)).finiteDimensional
+        (hmono (Nat.le_succ i)) ℓ hℓ W.1 W.2).choose_spec.1⟩
+  let W : (i : ℕ) → {W : ValuationSubring (F i) // W.LiesOverPrime ℓ} :=
+    Nat.rec ⟨V, hV⟩ extend
+  have hstep (i : ℕ) (x : F i) :
+      IntermediateField.inclusion (hmono (Nat.le_succ i)) x ∈ (W (i + 1)).1 ↔
+        x ∈ (W i).1 :=
+    (@Submission.p09_af497904fe_luf_valuation_extension (F i) (F (i + 1))
+        (T i).finiteDimensional (T (i + 1)).finiteDimensional
+      (hmono (Nat.le_succ i)) ℓ hℓ (W i).1 (W i).2).choose_spec.2 x
+  have hrestrict (i j : ℕ) (hij : i ≤ j) (x : F i) :
+      IntermediateField.inclusion (hmono hij) x ∈ (W j).1 ↔ x ∈ (W i).1 := by
+    induction j, hij using Nat.le_induction with
+    | base => rfl
+    | succ j hij ih =>
+      exact (hstep j (IntermediateField.inclusion (hmono hij) x)).trans ih
+  -- The tower lemma supplies a global Frobenius with finite Frobenius restrictions.
+  obtain ⟨P, hP, hPW, τ, hτ, hτW⟩ :=
+    Submission.p09_af497904fe_luf_frobenius_tower_limit F hmono
+      (fun i => (T i).finiteDimensional) (fun i => (T i).isGalois) hcover
+      (fun i => (W i).1) ℓ (fun i => (W i).2) hrestrict
+      (fun i => @Submission.p09_af497904fe_luf_finite_frobenius_exists
+        (F i) (T i).finiteDimensional (T i).isGalois ℓ hℓ (W i).1 (W i).2)
+  obtain ⟨g₀, hg₀, hτ₀⟩ := hτW 0
+  have hg₀_eq : g₀ = g := huniq g₀ hg₀
+  refine ⟨P, hP, hPW 0, τ, hτ, ?_⟩
+  intro x
+  simpa only [hg₀_eq] using hτ₀ x
