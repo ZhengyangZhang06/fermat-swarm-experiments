@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "9a5cbcf20fc70a7a15b7b433a87dde58d6e01aa5bf807d2867234bd6ee0d7c56",
+  "git_delta": {
+    "base_commit": "2fbb3a266ee8c3633a59382853a51793213c46a3",
+    "candidate_commit": "200f443149ffe34e544c4e91b8a51654ff9bbfd8",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_crcard_gamma0_row_criterion",
+    "diff_sha256": "2c9f9986b8906eed288d8cac10a380770a606cc197aa72b626621dd7374d72fa",
+    "source_sha256": "4224e05fe2e1eda2ddaae3f939c88096b469ef2ffe4c6588d3e7c7d35f8493b8",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_crcard_gamma0_row_criterion",
+      "statement": "∀ (N : ℕ) [NeZero N] (A B : Matrix.SpecialLinearGroup (Fin 2) ℤ), B * A⁻¹ ∈ CongruenceSubgroup.Gamma0 N ↔ ∃ u : (ZMod N)ˣ, (u : ZMod N) * (A 1 0 : ZMod N) = (B 1 0 : ZMod N) ∧ (u : ZMod N) * (A 1 1 : ZMod N) = (B 1 1 : ZMod N)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
