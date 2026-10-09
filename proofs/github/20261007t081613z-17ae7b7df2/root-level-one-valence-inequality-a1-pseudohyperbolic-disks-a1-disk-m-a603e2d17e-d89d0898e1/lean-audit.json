@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "8d27117c2b7024c5e6b5d7960f9611efa912d3fc1fb2ed830d28a1aad41d6750",
+  "git_delta": {
+    "base_commit": "f929d19feababb790c0754579b82cd27932f9729",
+    "candidate_commit": "208ad4b58f6f7d98c2fb5e1c47fd29208379b5fc",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_phdisk_mobius_ratio_norm",
+    "diff_sha256": "05862a38a663392984b52d442bf715369aa6518821bd86ea07a7380d80cd7b5c",
+    "source_sha256": "e2aadfc9cd6474dfc427198783dec5ad934c9e28c3f1163d450941e0f7702165",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_phdisk_mobius_ratio_norm",
+      "statement": "∀ (a b c d : ℝ) (z v : ℂ), a * d - b * c = 1 → 0 < z.im → 0 < v.im → let M : ℂ → ℂ := fun x => ((a : ℂ) * x + (b : ℂ)) / ((c : ℂ) * x + (d : ℂ)); ‖(M z - M v) / (M z - star (M v))‖ = ‖(z - v) / (z - star v)‖",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
