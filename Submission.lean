@@ -3635,6 +3635,147 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
         obtain ⟨b, rfl⟩ := (htranslate a).mp ⟨haI, ha.2.1⟩
         exact ⟨⟨b, ha, haC, haN⟩, rfl⟩
     exact (Nat.card_congr (Equiv.ofBijective f hf)).trans (hrayIdealCount I s)
+  -- Steps 18–19: identify the translated counting set and its lattice covolume.
+  let rayLattice (I : (Ideal O)⁰) : Submodule ℤ (NumberField.mixedEmbedding.mixedSpace F) :=
+    NumberField.mixedEmbedding.idealLattice F
+    (FractionalIdeal.mk0 F ⟨span {(q : O)} * (I : Ideal O),
+      mem_nonZeroDivisors_iff_ne_zero.mpr (mul_ne_zero
+        (span_singleton_eq_bot.not.mpr (Nat.cast_ne_zero.mpr hq.ne_zero))
+        (nonZeroDivisors.coe_ne_zero I))⟩)
+  have hrayLatticeMem (I : (Ideal O)⁰) (x : NumberField.mixedEmbedding.mixedSpace F) :
+      x ∈ rayLattice I ↔ ∃ b : (I : Ideal O),
+        NumberField.mixedEmbedding F ((q : O) * (b : O)) = x := by
+    change x ∈ NumberField.mixedEmbedding.idealLattice F _ ↔ _
+    rw [NumberField.mixedEmbedding.mem_idealLattice]
+    simp only [FractionalIdeal.coe_mk0]
+    constructor
+    · rintro ⟨y, ⟨a, ha, rfl⟩, hay⟩
+      obtain ⟨b, hb, rfl⟩ := mem_span_singleton_mul.mp ha
+      exact ⟨⟨b, hb⟩, hay⟩
+    · rintro ⟨b, rfl⟩
+      exact ⟨((q : O) * (b : O) : O),
+        ⟨(q : O) * (b : O), mem_span_singleton_mul.mpr ⟨b, b.property, rfl⟩, rfl⟩, rfl⟩
+  have hrayLatticeCovolume (I : (Ideal O)⁰) :
+      ZLattice.covolume (rayLattice I) =
+        (q : ℝ) ^ Module.finrank ℚ F * (absNorm (I : Ideal O) : ℝ) *
+          ZLattice.covolume (NumberField.mixedEmbedding.integerLattice F) := by
+    rw [NumberField.mixedEmbedding.covolume_integerLattice]
+    change ZLattice.covolume (NumberField.mixedEmbedding.idealLattice F _) = _
+    rw [NumberField.mixedEmbedding.covolume_idealLattice,
+      FractionalIdeal.coe_mk0, FractionalIdeal.coeIdeal_absNorm, Rat.cast_natCast,
+      map_mul, absNorm_span_natCast, NumberField.RingOfIntegers.rank, Nat.cast_mul,
+      Nat.cast_pow]
+    ring
+  have hrealPositive (a : F) :
+      (∀ φ : F →+* ℝ, 0 < φ a) ↔
+        ∀ w : {w : NumberField.InfinitePlace F // w.IsReal},
+          0 < (NumberField.mixedEmbedding F a).1 w := by
+    constructor
+    · exact fun ha w => ha (NumberField.InfinitePlace.embedding_of_isReal w.property)
+    · intro ha φ
+      let ψ : F →+* ℂ := Complex.ofRealHom.comp φ
+      have hψ : NumberField.ComplexEmbedding.IsReal ψ :=
+        NumberField.ComplexEmbedding.isReal_iff.mpr (by
+        ext a
+        simp [ψ])
+      have hw : (NumberField.InfinitePlace.mk ψ).IsReal := ⟨ψ, hψ, rfl⟩
+      have heq : NumberField.InfinitePlace.embedding_of_isReal hw a = φ a := by
+        apply Complex.ofReal_injective
+        rw [NumberField.InfinitePlace.embedding_of_isReal_apply,
+          NumberField.InfinitePlace.embedding_mk_eq_of_isReal hψ]
+        rfl
+      simpa only [NumberField.mixedEmbedding.mixedEmbedding_apply_isReal, heq] using
+        ha ⟨NumberField.InfinitePlace.mk ψ, hw⟩
+  let rayRegion : Set (NumberField.mixedEmbedding.mixedSpace F) :=
+    {x | x ∈ rayCone ∧ ∀ w : {w : NumberField.InfinitePlace F // w.IsReal}, 0 < x.1 w}
+  have hrayRegionMeasurable : MeasurableSet rayRegion := by
+    dsimp only [rayRegion]
+    rw [Set.ofPred_and, Set.ofPred_forall]
+    exact hrayConeMeasurable.inter (MeasurableSet.iInter fun w =>
+      measurableSet_lt measurable_const ((continuous_apply w).comp continuous_fst).measurable)
+  have hrayRegionBounded : Bornology.IsBounded
+      {x | x ∈ rayRegion ∧ NumberField.mixedEmbedding.norm x ≤ 1} :=
+    hrayConeBounded.subset (fun _ hx => ⟨hx.1.1, hx.2⟩)
+  have hrayRegionSmul (x : NumberField.mixedEmbedding.mixedSpace F) (hx : x ∈ rayRegion)
+      (r : ℝ) (hr : 0 < r) : r • x ∈ rayRegion := by
+    refine ⟨hrayConeSmul x hx.1 r hr.ne', fun w => ?_⟩
+    exact mul_pos hr (hx.2 w)
+  have hrayLeadingCoefficient (I : (Ideal O)⁰) (V : ℝ) :
+      (V * (absNorm (I : Ideal O) : ℝ)) /
+          (Nat.card ↥(rayUnits ⊓ NumberField.Units.torsion F) * ZLattice.covolume (rayLattice I)) =
+        V / (Nat.card ↥(rayUnits ⊓ NumberField.Units.torsion F) *
+          (q : ℝ) ^ Module.finrank ℚ F *
+            ZLattice.covolume (NumberField.mixedEmbedding.integerLattice F)) := by
+    rw [hrayLatticeCovolume]
+    have hden : (Nat.card ↥(rayUnits ⊓ NumberField.Units.torsion F) : ℝ) *
+        ((q : ℝ) ^ Module.finrank ℚ F * (absNorm (I : Ideal O) : ℝ) *
+          ZLattice.covolume (NumberField.mixedEmbedding.integerLattice F)) =
+        (Nat.card ↥(rayUnits ⊓ NumberField.Units.torsion F) * (q : ℝ) ^ Module.finrank ℚ F *
+          ZLattice.covolume (NumberField.mixedEmbedding.integerLattice F)) *
+            (absNorm (I : Ideal O) : ℝ) := by ring
+    rw [hden, mul_div_mul_right _ _
+      (Nat.cast_ne_zero.mpr (absNorm_ne_zero_of_nonZeroDivisors I))]
+  have hrayLatticeCount (I : (Ideal O)⁰) (hI : (absNorm (I : Ideal O)).Coprime q) :
+      ∃ a₀ : O, a₀ ∈ (I : Ideal O) ∧ (∃ c : O, a₀ = 1 + (q : O) * c) ∧
+        ∀ s : ℝ,
+          Nat.card {x : NumberField.mixedEmbedding.mixedSpace F //
+            x - NumberField.mixedEmbedding F a₀ ∈ rayLattice I ∧ x ∈ rayRegion ∧
+              NumberField.mixedEmbedding.norm x ≤ s * absNorm (I : Ideal O)} =
+          Nat.card ↥(rayUnits ⊓ NumberField.Units.torsion F) *
+            Nat.card {K : Ideal O // (absNorm K : ℝ) ≤ s ∧
+              ∃ a : O, rayGenerator a ∧ (I : Ideal O) * K = span {a}} := by
+    obtain ⟨a₀, ha₀I, ha₀q, hcount⟩ := hrayTranslatedCount I hI
+    refine ⟨a₀, ha₀I, ha₀q, ?_⟩
+    intro s
+    let X := {b : (I : Ideal O) // rayGenerator (a₀ + (q : O) * (b : O)) ∧
+      NumberField.mixedEmbedding F (a₀ + (q : O) * (b : O)) ∈ rayCone ∧
+      (absNorm (span {a₀ + (q : O) * (b : O)}) : ℝ) ≤ s * absNorm (I : Ideal O)}
+    let Y := {x : NumberField.mixedEmbedding.mixedSpace F //
+      x - NumberField.mixedEmbedding F a₀ ∈ rayLattice I ∧ x ∈ rayRegion ∧
+        NumberField.mixedEmbedding.norm x ≤ s * absNorm (I : Ideal O)}
+    have hnorm (a : O) : NumberField.mixedEmbedding.norm
+        (NumberField.mixedEmbedding F a) = (absNorm (span {a}) : ℝ) := by
+      rw [NumberField.mixedEmbedding.norm_eq_norm, absNorm_span_singleton,
+        ← Algebra.coe_norm_int]
+      simp only [Rat.cast_abs, Rat.cast_intCast, Nat.cast_natAbs, Int.cast_abs]
+    have htranslate (b : (I : Ideal O)) :
+        NumberField.mixedEmbedding F (a₀ + (q : O) * (b : O)) -
+          NumberField.mixedEmbedding F a₀ = NumberField.mixedEmbedding F ((q : O) * (b : O)) := by
+      rw [map_add, add_sub_cancel_left]
+    let f : X → Y := fun b => by
+      refine ⟨NumberField.mixedEmbedding F (a₀ + (q : O) * (b.1 : O)),
+        (hrayLatticeMem I _).mpr ⟨b.1, (htranslate b.1).symm⟩,
+        ⟨b.2.2.1, (hrealPositive _).mp b.2.1.2.2⟩, ?_⟩
+      exact (hnorm (a₀ + (q : O) * (b.1 : O))).trans_le b.2.2.2
+    have hf : Function.Bijective f := by
+      constructor
+      · intro b c hbc
+        apply Subtype.ext
+        apply Subtype.ext
+        apply mul_left_cancel₀ (Nat.cast_ne_zero.mpr hq.ne_zero : (q : O) ≠ 0)
+        apply add_left_cancel (a := a₀)
+        apply NumberField.RingOfIntegers.ext
+        exact NumberField.mixedEmbedding_injective F (congrArg Subtype.val hbc)
+      · rintro ⟨x, hxL, hxR, hxN⟩
+        obtain ⟨b, hb⟩ := (hrayLatticeMem I _).mp hxL
+        have heq : NumberField.mixedEmbedding F ((a₀ + (q : O) * (b : O) : O) : F) = x :=
+          sub_left_inj.mp ((htranslate b).trans hb)
+        have ha : rayGenerator (a₀ + (q : O) * (b : O)) := by
+          refine ⟨?_, ?_, (hrealPositive _).mpr (by rw [heq]; exact hxR.2)⟩
+          · intro hz
+            have hx0 : x = 0 := by simpa only [hz, map_zero] using heq.symm
+            exact hrayConeNonzero x hxR.1 (by rw [hx0, map_zero])
+          · obtain ⟨c, hc⟩ := ha₀q
+            refine ⟨c + (b : O), ?_⟩
+            rw [hc]
+            ring
+        refine ⟨⟨b, ha, ?_, ?_⟩, Subtype.ext heq⟩
+        · change NumberField.mixedEmbedding F ((a₀ + (q : O) * (b : O) : O) : F) ∈ rayCone
+          rw [heq]
+          exact hxR.1
+        · rw [← hnorm, heq]
+          exact hxN
+    exact (Nat.card_congr (Equiv.ofBijective f hf)).symm.trans (hcount s)
   -- Step 22: the primes above q are finite, and avoiding them is norm coprimality.
   have hfiniteBad : {v : ι | (q : O) ∈ v.asIdeal}.Finite := by
     exact (Ring.HasFiniteQuotients.finite_setOfPred_mem (q : O)
