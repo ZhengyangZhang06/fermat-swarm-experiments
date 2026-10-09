@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "37aea3e071dc44de8d438f0a4886dfa9b680a18e0ab709d0ad957ddcee1ea979",
+  "git_delta": {
+    "base_commit": "f312259d3b0a2c5ef751646dbd2e06f093c5b971",
+    "candidate_commit": "3d31cffd583c68c3fe11582091f9c1bfd05cca4a",
+    "target": "Submission.lean",
+    "declaration": "f036cc6b1f_fd_sturm",
+    "diff_sha256": "ca5aa8cffb51f909fe79d86ab40b7c08009cfde38fbb0a3c3a422984b13b3ccf",
+    "source_sha256": "c3d06479081a7db1fb31dca9463cf4aa5473e1c879b12be9517068e52c131c4e",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.f036cc6b1f_fd_sturm",
+      "statement": "∀ (M : ℕ) [NeZero M] (f : CuspForm (CongruenceSubgroup.Gamma0 M) 2), (∀ n : ℕ, n ≤ (2 * (CongruenceSubgroup.Gamma0 M).index) / 12 → (UpperHalfPlane.qExpansion 1 f).coeff n = 0) → f = 0",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
