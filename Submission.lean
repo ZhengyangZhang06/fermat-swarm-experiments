@@ -1963,11 +1963,6 @@ namespace Submission
 /-- An algebra equivalence transports places and preserves their residue degrees.
 The valuation rings are pulled back along the inverse equivalence; their induced residue
 algebra equivalences preserve `finrank` without a finite-dimensionality assumption. -/
-namespace Submission
-
-/-- An algebra equivalence transports places and preserves their residue degrees.
-The valuation rings are pulled back along the inverse equivalence; their induced residue
-algebra equivalences preserve `finrank` without a finite-dimensionality assumption. -/
 theorem p06_9e0f5043ff_pae_place_equivalence_degree :
     ∀ (K E L : Type*) [Field K] [Field E] [Field L] [Algebra K E] [Algebra K L]
       (e : E ≃ₐ[K] L),
@@ -2017,17 +2012,6 @@ theorem p06_9e0f5043ff_pae_place_equivalence_degree :
             change f.symm (f x) ∈ v.toValuationSubring at hx
             simpa using hx
           -- The pinned library transports generators through this surjective ring map.
-            apply SetLike.ext
-            intro x
-            constructor
-            · intro _
-              exact ValuationSubring.mem_top x
-            · intro _
-              have hx : f x ∈ A := by
-                rw [h]
-                exact ValuationSubring.mem_top _
-              change f.symm (f x) ∈ v.toValuationSubring at hx
-              simpa using hx
           isPrincipalIdealRing' := IsPrincipalIdealRing.of_surjective r₀ r₀.surjective }
       let := AlgebraicCurve.Place.instAlgebraSubtypeMemValuationSubringToValuationSubring w
       let r : v.toValuationSubring ≃ₐ[K] w.toValuationSubring :=
@@ -2061,32 +2045,6 @@ theorem p06_9e0f5043ff_pae_place_equivalence_degree :
 end Submission
 
 namespace Submission
-
-set_option warningAsError true in
-/-- A compatible equivalence of valuation rings preserves normalized orders.
-
-Transport a unit-times-uniformizer factorization through the two compatible equivalences,
-then evaluate its normalized order in the target valuation ring. The factorization and
-evaluation lemmas are `Place.exists_unit_mul_zpow` and `Place.ord_unit_smul_zpow`
-from `Definitions.Def_AlgebraicCurve_DivisorClassGroup`. The uniformizer is supplied by
-`IsDiscreteValuationRing.exists_irreducible`; `Irreducible.map` and `Units.map`
-transport its irreducibility and the unit through the valuation-ring equivalence. -/
-theorem p06_9e0f5043ff_pae_compatible_order_invariance
-    (K E L : Type*) [Field K] [Field E] [Field L] [Algebra K E] [Algebra K L]
-    (e : E ≃ₐ[K] L) (v : AlgebraicCurve.Place K E) (w : AlgebraicCurve.Place K L)
-    (r : v.toValuationSubring ≃ₐ[K] w.toValuationSubring)
-    (hcompat : ∀ a : v.toValuationSubring, (r a : L) = e (a : E))
-    (f : E) (hf : f ≠ 0) : w.ord (e f) = v.ord f := by
-  obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible v.toValuationSubring
-  have hπ' : Irreducible (r π) := hπ.map r
-  obtain ⟨u, hu⟩ := v.exists_unit_mul_zpow hf hπ
-  let u' : w.toValuationSubringˣ := Units.map r.toRingEquiv.toMonoidHom u
-  have hcoeu : ((u' : w.toValuationSubring) : L) =
-      e ((u : v.toValuationSubring) : E) := hcompat (u : v.toValuationSubring)
-  have hfactor : e f = ((u' : w.toValuationSubring) : L) *
-      ((r π : L) ^ v.ord f) := by
-    simpa only [map_mul, map_zpow₀, hcoeu, hcompat π] using congrArg e hu
-  rw [hfactor, w.ord_unit_smul_zpow u' hπ' (v.ord f)]
 
 set_option warningAsError true in
 /-- Transport principal divisors along an algebra equivalence using the approved
@@ -2193,8 +2151,5 @@ theorem p06_9e0f5043ff_rmp_finite_place_model
   exact ⟨v, hv,
     Submission.p06_9e0f5043ff_fpm_residue_degree K F x hx q hq hirr v hv,
     Submission.p06_9e0f5043ff_fpm_normalized_orders K F x hx q hq hirr v hv⟩
-
-end Submission
-  exact (IsLocalRing.ResidueField.mapAlgEquiv r).toLinearEquiv.finrank_eq.symm
 
 end Submission
