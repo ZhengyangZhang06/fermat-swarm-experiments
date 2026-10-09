@@ -1629,3 +1629,19 @@ theorem Submission.p09_af497904fe_cwi_infinite_diff_of_log_lower_bound :
   have hu : C + r + K < u * c := (div_lt_iff₀ hc).mp hu₁
   have hb := hupper s hs hsε
   nlinarith
+theorem Submission.p09_af497904fe_ir_inertia_cardinality :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E]
+      [IsGalois ℚ E] (q : ℕ), q.Prime →
+      ∀ P : Ideal (NumberField.RingOfIntegers E), P.IsPrime →
+      P.LiesOver (Ideal.span {(q : ℤ)}) →
+      Nat.card (P.inertia (E ≃ₐ[ℚ] E)) = Ideal.ramificationIdx P ℤ := by
+  intro E _ _ q hq P hP hPq
+  let : NumberField E := NumberField.of_module_finite ℚ E
+  let : Fact q.Prime := ⟨hq⟩
+  let : P.IsPrime := hP
+  let : P.LiesOver (Ideal.span {(q : ℤ)}) := hPq
+  let : Finite (ℤ ⧸ Ideal.span {(q : ℤ)}) :=
+    Finite.of_equiv (ZMod q) (Int.quotientSpanNatEquivZMod q).symm.toEquiv
+  exact (Ideal.card_inertia_eq_ramificationIdxIn (G := E ≃ₐ[ℚ] E)
+    (Ideal.span {(q : ℤ)}) P).trans
+    (Ideal.ramificationIdxIn_eq_ramificationIdx (Ideal.span {(q : ℤ)}) P (E ≃ₐ[ℚ] E))
