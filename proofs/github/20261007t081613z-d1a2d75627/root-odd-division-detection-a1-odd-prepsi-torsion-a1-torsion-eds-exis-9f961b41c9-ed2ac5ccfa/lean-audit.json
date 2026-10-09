@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "0d891320cd06d073efb41ab4de182f41d15f634d739b98d3cfb40febc0bc353a",
+  "git_delta": {
+    "base_commit": "96246be67fa423a24afcd5fe4955fe3b2edd7c55",
+    "candidate_commit": "673cc1377a57113829694f6eae07809647a0be59",
+    "target": "Submission.lean",
+    "declaration": "p03_ptf_finite_kernel_of_nsmul_nonzero_c5b7b5ed_d6",
+    "diff_sha256": "b628cd9d1b670caa0af079a0817a12e6cb5326f5c76dc152832b1d690bcf377c",
+    "source_sha256": "5b46915e5532380f90ac3ae67a326b2b1d3ec0582712312fbb1d6cfe92f6e55d",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p03_ptf_finite_kernel_of_nsmul_nonzero_c5b7b5ed_d6",
+      "statement": "∀ (k : Type) [Field k] [IsAlgClosed k] [DecidableEq k] (W : WeierstrassCurve k), W.Δ ≠ 0 → ∀ n : ℕ, (∃ P : W.toAffine.Point, n • P ≠ 0) → Finite {P : W.toAffine.Point // n • P = 0}",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
