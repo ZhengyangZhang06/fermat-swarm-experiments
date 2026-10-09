@@ -1422,11 +1422,7 @@ theorem p06_9e0f5043ff_dlen_diagonal_cokernel
   obtain ⟨eDiagonal⟩ := Submission.p06_9e0f5043ff_dmc_diagonal_quotient R m d
   exact ⟨eUnits.trans eDiagonal⟩
 
-open AlgebraicCurve
-theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
-    [Algebra K F] (x : F) (hx : Transcendental K x)
-    [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
-  sorry
+end Submission
 
 namespace Submission
 
