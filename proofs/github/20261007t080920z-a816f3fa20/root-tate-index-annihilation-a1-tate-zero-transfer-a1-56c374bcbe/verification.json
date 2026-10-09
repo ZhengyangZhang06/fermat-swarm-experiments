@@ -1,0 +1,18 @@
+{
+  "node_id": "root.tate_index_annihilation-a1.tate_zero_transfer-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/91",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/363",
+  "candidate_commit": "2e0d9524ba4c56a2b6d21efce98bf8ab073f1eda",
+  "integrated_commit": "918c848452d5b1e2293644a455e8bac416a45d22",
+  "proof_base_commit": "c0dd6cb08405fb573a8de527261617cc0fa3ce33",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.tate_index_annihilation-a1",
+  "requires": [
+    "root.tate_index_annihilation-a1.tate_zero_transfer-a1.invariant_restriction_norm_range-a1",
+    "root.tate_index_annihilation-a1.tate_zero_transfer-a1.invariant_transfer_norm_index-a1"
+  ]
+}

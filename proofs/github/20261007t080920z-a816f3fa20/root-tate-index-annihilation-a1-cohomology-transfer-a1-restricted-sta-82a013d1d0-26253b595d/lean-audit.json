@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'standardComplex|def resFunctor|def res ' mathlib/Mathlib/RepresentationTheory/Homological/Resolution.lean mathlib/Mathlib/RepresentationTheory/Rep/Res.lean",
+        "rg -n 'p04_tia_coh_restricted_standard_homotopy_equiv' project mathlib/Mathlib"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/Resolution.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean"
+      ],
+      "conclusion": "Queries ran from the supplied snapshot root. Inspected standard-complex, differential, restriction, and inherited Tate definitions. These files match the pinned installed or committed sources; all nine dependencies are clean and match their revisions. No tracked-theorem name matched in project or mathlib/Mathlib."
+    }
+  ],
+  "comparison_identity": "78c1256f74b3e1a52554cc61492c9a67d600494fb3d29fe79fdf3ca7d04bcd34",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p04_tia_coh_restricted_standard_homotopy_equiv",
+      "statement": "∀ {k G : Type _} [CommRing k] [Group G] (H : Subgroup G), Nonempty (HomotopyEquiv (((Rep.resFunctor H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj (Rep.standardComplex k G)) (Rep.standardComplex k H))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Packages coordinatewise retraction and inclusion using the accepted equivariant-retraction and prism-homotopy dependencies."
+    }
+  ]
+}

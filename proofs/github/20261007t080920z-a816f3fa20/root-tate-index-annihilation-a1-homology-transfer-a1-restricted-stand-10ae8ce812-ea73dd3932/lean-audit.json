@@ -1,0 +1,40 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "groupHomologyIso|mapProjectiveResolution|preservesProjectiveObjects|standardResolution|restricted_standard_comparison",
+        "rg -n 'p04_ht_restricted_standard_comparison|restricted_standard_comparison' project mathlib --glob '*.lean'",
+        "rg -n 'groupHomologyIso|standardResolution|mapProjectiveResolution|\\baxiom\\b|\\bsorry\\b|\\badmit\\b' project/Definitions/Def_GroupCohomology_TateCohomology.lean"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/project/Definitions/Def_GroupCohomology_TateCohomology.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Coinduced.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/Resolution.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Shapiro.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Coinvariants.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/CategoryTheory/Preadditive/Projective/Resolution.lean"
+      ],
+      "conclusion": "Snapshot revisions match project 2475a3790d7ba0c3b10be8086001b154a45be597 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. All nine installed dependencies are clean and pinned; reused sources match byte-for-byte. Restriction preserves exactness and projectives, and groupHomologyIso supplies the comparison without additional assumptions on A or H. Searches found no prior node theorem and no placeholders or axioms in the inspected Tate definition file. The diff adds only the tracked theorem and preserves the root placeholder and imports. My exact comparator rerun e08bdb3283614e64861275bb3c8a23c3 exited 0 with 'Your solution is okay!'; transitive axioms are only propext, Classical.choice, and Quot.sound. Export hashes bind the verified inputs to candidate 0d063c0ae1dc0f02d91f4d78f1e517a76bfd2e45."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p04_ht_restricted_standard_comparison",
+      "statement": "∀ {k G : Type _} [CommRing k] [Group G] [Fintype G] (A : Rep k G) (H : Subgroup G) [Fintype H] (n : ℕ), Nonempty (((((Rep.resFunctor (k := k) H.subtype).mapHomologicalComplex (ComplexShape.down ℕ)).obj (Rep.standardComplex k G)).coinvariantsTensorObj (Rep.res H.subtype A)).homology n ≃ₗ[k] groupHomology (Rep.res H.subtype A) n)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Restrict the standard projective resolution to H using exactness and preservation of projectives. Apply the pinned library’s groupHomologyIso to this resolution, invert the resulting isomorphism, and convert it to a k-linear equivalence. This applies in every degree without flatness or projectivity of A."
+    }
+  ]
+}

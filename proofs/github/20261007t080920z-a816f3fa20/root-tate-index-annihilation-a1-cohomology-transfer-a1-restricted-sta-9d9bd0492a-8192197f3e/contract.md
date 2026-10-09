@@ -1,0 +1,115 @@
+<!-- theorem-id: fermat-p04/root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.normalized_equivariant_retraction-a1 -->
+
+## Theorem `Submission.p04_rsh_82a013d1d0_equivariant_retraction`
+
+Let G be any group and H any subgroup. There exists a function r : G → H such that r(hg) = h r(g) for every h ∈ H and g ∈ G, and r(h) = h for every h ∈ H, where elements of H are included in G when necessary. No finiteness or normality assumption is imposed, and r is not required to be a group homomorphism.
+
+Node: `root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.normalized_equivariant_retraction-a1`
+
+Root: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/4
+
+Parent: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/138
+
+Prerequisites: None
+
+Decomposition children: None
+
+## Lean problem
+
+Declaration: `Submission.p04_rsh_82a013d1d0_equivariant_retraction`
+
+```lean
+∀ {G : Type _} [Group G] (H : Subgroup G), ∃ r : G → H, (∀ (h : H) (g : G), r ((h : G) * g) = h * r g) ∧ ∀ h : H, r (h : G) = h
+```
+
+### Frozen project context
+
+`Fermat/Thm_Rep_isZero_tateCohomology_of_forall_sylow.lean` at `2475a3790d7ba0c3b10be8086001b154a45be597` supplies the original imports, definitions and root contract. Child hypotheses are stated above; prerequisite declarations are linked in their issues.
+
+```lean
+/-
+Copyright 2026 Anthropic, PBC. Licensed under Apache-2.0; see LICENSE.
+Source: https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_Rep_isZero_tateCohomology_of_forall_sylow.lean
+Modified: replaced the proof with sorry and removed P2M proof imports.
+Requires the upstream Definitions modules and their dependencies.
+-/
+
+import Mathlib
+import Definitions.Def_GroupCohomology_TateCohomology
+attribute [-simp] Representation.TateResCor.cosetDecomp_apply Rep.coe_tateHneg1Res_apply Representation.TateResCor.coe_tateHneg1Cores_apply Representation.TateResCor.tateH0Res_mk Rep.coe_tateHneg1Cores_apply Rep.tateH0Res_mk Representation.TateResCor.coe_cosetNormInvariants_apply Rep.tateH0Cores_mk Representation.TateResCor.coinvariantsCores_mk Representation.TateResCor.coinvariantsTransfer_mk Representation.TateResCor.tateH0Cores_mk Representation.TateResCor.coe_tateHneg1Res_apply Rep.coe_tateδneg2_apply
+
+set_option autoImplicit false
+universe u
+open CategoryTheory Rep
+theorem Rep.isZero_tateCohomology_of_forall_sylow {k G : Type u} [CommRing k] [Group G] [Fintype G]
+    (A : Rep.{u} k G) (q : ℤ)
+    (h : ∀ (p : ℕ) [Fact p.Prime] (P : Sylow p G) [Fintype (P : Subgroup G)],
+      CategoryTheory.Limits.IsZero ((Rep.res (P : Subgroup G).subtype A).tateCohomology q)) :
+    CategoryTheory.Limits.IsZero (A.tateCohomology q) := by
+  sorry
+```
+
+## Natural-language proof
+
+Reviewed mathematical argument; formal verification state: `proved`.
+
+# Parent-supplied natural-language proof
+
+- Parent DAG node: `root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1`
+- Child DAG node: `root.tate_index_annihilation-a1.cohomology_transfer-a1.restricted_standard_homotopy-a1.normalized_equivariant_retraction-a1`
+- Review gate: accepted as part of the parent's decomposition audit
+
+## Proof
+
+1. Fix G and H. Consider the set of right cosets Hs. Each coset is nonempty. Choose one representative s(C) in each coset C, prescribing s(H) = 1 for the distinguished coset H and using choice for the remaining cosets.
+2. For g ∈ G, let C = Hg. Since s(C) belongs to C, the right cosets Hs(C) and Hg coincide. Thus g = a s(C) for some a ∈ H. For this fixed representative, a is unique: if a s(C) = b s(C), right cancellation gives a = b, including equality as elements of the subgroup H.
+3. Define r(g) to be this unique a ∈ H. Consequently g = r(g) s(Hg).
+4. Let h ∈ H and g ∈ G. The right cosets H(hg) and Hg coincide: left multiplication of g by an element of H does not change its right coset. Their chosen representatives therefore coincide. If g = r(g)s(Hg), then hg = (h r(g))s(Hg). The product h r(g) belongs to H, so uniqueness in step 2 gives r(hg) = h r(g).
+5. Let h ∈ H. Its right coset is H, whose chosen representative is 1. The factorization h = h · 1 therefore shows r(h) = h. The function r satisfies both required properties.
+
+## Key steps
+
+1. Choose representatives of right cosets, with representative 1 for H.
+2. Obtain the unique subgroup coefficient in g = a s(Hg).
+3. Define r(g) as that coefficient.
+4. Use unchanged right cosets and uniqueness to prove H-equivariance.
+5. Use the normalized representative to prove r restricts to the identity on H.
+
+## Reference use
+
+### local-project
+
+Queries:
+- `standardComplex|HomotopyEquiv|coset.*[Rr]epr|[Rr]epr.*coset`
+- `rightTransversal|RightTransversal|right.*[Rr]epresent|exists.*transversal|leftTransversal`
+- `def res|resFunctor`
+- `restricted.*standard.*[Hh]omotopy|standard.*[Hh]omotopy.*restrict|standardComplex.*resFunctor`
+- `/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/p04_rsh_82a013d1d0_types/TypesMathlib.lean`
+- `/mnt/data/zhengyang-workspace/fermat-example/.humanize/toolchains/lean-4.33.1-linux/bin/lean /tmp/p04_rsh_82a013d1d0_types/TypesSubmission.lean`
+- `#print axioms Rep.standardComplex.d_eq`
+- `#print axioms Rep.standardComplex.d_single`
+- `#print axioms Representation.linearizeMap_single`
+
+Files inspected:
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/problem.md`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/dag.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/manifest.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Homological/Resolution.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/GroupTheory/Complement.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Rep/Res.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/RepresentationTheory/Action.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/Algebra/Homology/Homotopy.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p04/.humanize/github-theorem-prover/runs/20261007T080920Z-a816f3fa20/local-references/3ffca5d1a6f048c8/mathlib/Mathlib/AlgebraicTopology/SimplicialObject/ChainHomotopy.lean`
+
+The manifest pins project 2475a3790d7ba0c3b10be8086001b154a45be597 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Resolution.lean identifies degree-n generators and supplies the alternating deletion formulas d_eq and d_single. Complement.lean provides right transversals without finiteness assumptions. Res.lean and Action.lean confirm restriction and equivariant linearization. Homotopy.lean uses the convention f = dD + Dd + g, so the positive prism gives Homotopy V U. ChainHomotopy.lean provides related simplicial-to-chain infrastructure. The targeted restricted-standard-homotopy search returned no matches in the snapshot's RepresentationTheory and project/Definitions trees. All six inspected library files match the clean pinned mathlib checkout. The three queried library lemmas depend only on propext, Classical.choice, and Quot.sound. Both proposed types elaborated with Lean 4.33.1 independently under import Mathlib and under import Submission from the cached local p04 worktree; neither expression uses a candidate theorem. The elaborated component maps are Rep.Hom.hom, retaining H-equivariance. Both proposed identifiers are absent from the inspected DAG and handoff metadata. These checks establish type compatibility, not proof acceptance.
+
+
+## Acceptance
+
+The exact contract must pass deterministic Git identity checks and the machine comparator, without a Lean agent review, changed assumptions or proof holes. Local integration must pass before publication. Every decomposition child has its own issue and verified solution PR.
+
+Solution PR: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/308
+
+Current user-authorized lifecycle: merge the exact verified PR, validate its remote tree, then close this proved issue. This supersedes historical no-auto-merge instructions in the original experiment brief.
+
+Remote merge status is recorded by GitHub; local `proved` does not mean merged.

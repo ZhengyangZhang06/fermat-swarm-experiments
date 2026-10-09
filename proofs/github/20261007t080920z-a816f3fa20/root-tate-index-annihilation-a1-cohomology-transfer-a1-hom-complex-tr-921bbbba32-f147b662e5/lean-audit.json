@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "44cd3a6864154848a977cd1fa57352b16340ed1069c3ae7e7a404a57e53b55df",
+  "git_delta": {
+    "base_commit": "5e553e37d677c0160b02835ed132718b7d779d6d",
+    "candidate_commit": "5264809b9d2fcfe7495c6c98fe256415c326bf94",
+    "target": "Submission.lean",
+    "declaration": "p04_hca_bc7c754a4b_sum_equivariant",
+    "diff_sha256": "5d4ca73090a996c46781cea0d630e13ecd6f755e1e6bd42eee731eb82c393097",
+    "source_sha256": "2671ea71c7a8e276fe7283ec035185b4ca2ec8f23181fdf4b8ddcc2964b37b84",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p04_hca_bc7c754a4b_sum_equivariant",
+      "statement": "∀ {k G : Type _} [CommRing k] [Group G] (A B : Rep k G) (H : Subgroup G) [Fintype (G ⧸ H)] (F : Quiver.Hom (Rep.res H.subtype B) (Rep.res H.subtype A)) (g : G) (x : B), (∑ q : G ⧸ H, A.ρ q.out (F.hom (B.ρ q.out⁻¹ (B.ρ g x)))) = A.ρ g (∑ q : G ⧸ H, A.ρ q.out (F.hom (B.ρ q.out⁻¹ x)))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

@@ -1,0 +1,18 @@
+{
+  "node_id": "root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1.hom_coset_average_exists-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/150",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/377",
+  "candidate_commit": "16175f03981e9bd078566f473caa80f48c84b470",
+  "integrated_commit": "ec9b308161e69c603ad180ed85bf995d0b506212",
+  "proof_base_commit": "bcd46b8accac96c56c6f3c3a4eba8516986e7d3f",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1",
+  "requires": [
+    "root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1.hom_coset_average_exists-a1.coset_summand_independence-a1",
+    "root.tate_index_annihilation-a1.cohomology_transfer-a1.hom_complex_transfer-a1.hom_coset_average_exists-a1.coset_sum_equivariance-a1"
+  ]
+}
