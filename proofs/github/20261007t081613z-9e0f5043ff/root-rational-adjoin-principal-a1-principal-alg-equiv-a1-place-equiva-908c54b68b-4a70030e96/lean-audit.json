@@ -1,0 +1,38 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'mapAlgEquiv|mapEquiv' mathlib/Mathlib/RingTheory/LocalRing/ResidueField",
+        "rg -n 'of_surjective' mathlib/Mathlib/RingTheory/PrincipalIdealDomain.lean",
+        "rg -n 'theorem.*finrank_eq|lemma.*finrank_eq' mathlib/Mathlib/LinearAlgebra/Dimension",
+        "rg -n 'def comap|mem_comap|instance.*IsLocalRing' mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        "rg -n 'p06_9e0f5043ff_pae_place_equivalence_degree|place_equivalence_degree' project mathlib --glob '*.lean'"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorClassGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/PrincipalIdealDomain.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/LocalRing/ResidueField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/LinearAlgebra/Dimension/Finrank.lean"
+      ],
+      "conclusion": "Commands ran from the snapshot root. Place.ext and the definition of degree as residue-field finrank match the proof. Existing pinned library declarations provide valuation-subring comap, transfer of principality through surjections, residue algebra equivalences, and finrank invariance without finiteness assumptions. The node-name search returned no matches. Snapshot project revision 956e8c600d8b95b46948ae5e37b13930b5f3d06b and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d match the manifest and have clean tracked files; all nine installed dependencies match their pins. My exact comparator rerun, request aec04a66b7144fe698db24b25942d7ad, verified candidate 6409ad7e9ff6ee2ddfa40dcec4aa713044cb6052 under Lean v4.33.1, exited zero, and printed 'Your solution is okay!'. Its transitive axiom audit reports only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_pae_place_equivalence_degree",
+      "statement": "∀ (K E L : Type*) [Field K] [Field E] [Field L] [Algebra K E] [Algebra K L] (e : E ≃ₐ[K] L), ∃ θ : AlgebraicCurve.Place K E ≃ AlgebraicCurve.Place K L, (∀ v : AlgebraicCurve.Place K E, (θ v).deg = v.deg) ∧ (∀ v : AlgebraicCurve.Place K E, ∃ r : v.toValuationSubring ≃ₐ[K] (θ v).toValuationSubring, ∀ a : v.toValuationSubring, (r a : L) = e (a : E))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Pull each valuation subring back along e.symm. Restricting e gives the required compatible algebra isomorphism and transfers principality; containment of K and properness are preserved. Transport along e.symm supplies the inverse on places, using Place.ext. The induced residue-field algebra isomorphism preserves finrank, hence degree, without finiteness assumptions."
+    }
+  ]
+}
