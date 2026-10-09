@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "c47fcc985f356c509f5a69dbac3778ffb14b6bcb877dcdeec578b634aa3f5f2e",
+  "git_delta": {
+    "base_commit": "8bda679fe638815d2ba318c4cdd5799ba8275181",
+    "candidate_commit": "8a220a75cfc1bc757acc1acfe7748be4bdf6c333",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_cc_lift_unimodular_row",
+    "diff_sha256": "33bf97dbaa171eeac9b85cec1cb6d7552acc67887e2f7fd266f882ddacc743fa",
+    "source_sha256": "6e09ec17756462ce2066d12da870e3df89228559e6b517c46b572dec2d3528fe",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_cc_lift_unimodular_row",
+      "statement": "∀ (N : ℕ) [NeZero N] (r s : ZMod N), (∃ x y : ZMod N, x * r + y * s = 1) → ∃ A : Matrix.SpecialLinearGroup (Fin 2) ℤ, (A 1 0 : ZMod N) = r ∧ (A 1 1 : ZMod N) = s",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

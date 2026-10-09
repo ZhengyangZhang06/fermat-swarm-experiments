@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n --glob '*.lean' 'gamma0_weight_two_eq_zero_of_genusFormula_eq_zero|p10_17ae7b7d_valence_cusp_log_derivative' project",
+        "rg -n --glob '*.lean' 'theorem norm_qParam|analyticOrderNatAt|analyticOrderAt_ne_top' mathlib/Mathlib/Analysis/Complex/Periodic.lean mathlib/Mathlib/Analysis/Analytic/Order.lean",
+        "rg -n --glob '*.lean' 'p10_17ae7b7d_valence_cusp_log_derivative' project mathlib/Mathlib"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Fermat/Thm_CuspForm_gamma0_weight_two_eq_zero_of_genusFormula_eq_zero.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Complex/Periodic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Order.lean"
+      ],
+      "conclusion": "Both snapshot revisions match the manifest and have clean tracked sources. The root contract matches byte-for-byte; q-parameter and analytic-order declarations are pinned upstream infrastructure. No prior declaration of this node was found."
+    }
+  ],
+  "comparison_identity": "d64e40098a84834143c0c67cf17d9443da65fed583ad1f610759d75ebfa576b4",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_valence_cusp_log_derivative",
+      "statement": "∀ (F A : ℂ → ℂ), DifferentiableOn ℂ F {z : ℂ | 0 < z.im} → (∃ z : ℂ, 0 < z.im ∧ F z ≠ 0) → AnalyticAt ℂ A 0 → (∃ Y₀ : ℝ, ∀ z : ℂ, 0 < z.im → Y₀ ≤ z.im → F z = A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z))) → analyticOrderAt A 0 ≠ ⊤ ∧ ∃ Y C : ℝ, 0 < Y ∧ 0 ≤ C ∧ ∀ z : ℂ, Y ≤ z.im → F z ≠ 0 ∧ ‖deriv F z / F z - 2 * (Real.pi : ℂ) * Complex.I * (analyticOrderNatAt A 0 : ℂ)‖ ≤ C * Real.exp (-2 * Real.pi * z.im)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines the accepted finite-order and local logarithmic-derivative bounds with the exponential parameter’s derivative and norm."
+    }
+  ]
+}

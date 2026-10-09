@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "70ee83ed085ec1b9d917ccc1c29fe69cb19686fc1f137813440bca7cfb19271b",
+  "git_delta": {
+    "base_commit": "ee62b7412bbbacc539f12b198968eab319ed3801",
+    "candidate_commit": "046256c4a7cce368b85bec526882fe9f136dd1d6",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_ccf_coprime_mul",
+    "diff_sha256": "afff4c758a9d613441cc8987f862079352098e1d96f2824955f8e7b3cb20b455",
+    "source_sha256": "4df6a81b6a713977aa30e5aebb499d852e21091e4992d62e01b368a636a496b3",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_ccf_coprime_mul",
+      "statement": "∀ (m n : ℕ), Nat.Coprime m n → ModularCurve.cuspCount (m * n) = ModularCurve.cuspCount m * ModularCurve.cuspCount n",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

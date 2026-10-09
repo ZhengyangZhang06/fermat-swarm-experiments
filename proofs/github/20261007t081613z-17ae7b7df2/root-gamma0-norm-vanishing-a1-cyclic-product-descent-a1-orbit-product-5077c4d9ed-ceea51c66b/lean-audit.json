@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "b697514278cb7866de301d521ba44e9c84165dfdb09e56f343710429bee558d3",
+  "git_delta": {
+    "base_commit": "c23c1a5cd2f881fe4e14049c313f4882b159aa69",
+    "candidate_commit": "f45d456c5f101f4c814e6228ef45658457afc5a6",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_cpo_analytic_order_nonzero",
+    "diff_sha256": "1c3f059ee6afb023fd85ea131748f9280950dd0008f48e24e4fce00b8a932598",
+    "source_sha256": "40b932708ab324f4ea0b08ac661f99b070d4b252438d378b6d4b090bf30b7ca6",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_cpo_analytic_order_nonzero",
+      "statement": "∀ (w : ℕ) (ζ : ℂ) (A : ℂ → ℂ), ζ ≠ 0 → AnalyticAt ℂ A 0 → analyticOrderAt A 0 ≠ ⊤ → let P : ℂ → ℂ := fun t => ∏ j ∈ Finset.range w, A (ζ ^ j * t); AnalyticAt ℂ P 0 ∧ analyticOrderAt P 0 ≠ ⊤ ∧ analyticOrderNatAt P 0 = w * analyticOrderNatAt A 0",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

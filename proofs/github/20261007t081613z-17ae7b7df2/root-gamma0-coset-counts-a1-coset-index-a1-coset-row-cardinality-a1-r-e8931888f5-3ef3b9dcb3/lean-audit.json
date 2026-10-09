@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "77427323b20654af8a44375bf2aa1680fb3232016525c7cc7bd4f087122c8e9c",
+  "git_delta": {
+    "base_commit": "2fbb3a266ee8c3633a59382853a51793213c46a3",
+    "candidate_commit": "5f4a80c63cca2303edb65aa31165bb5ccde4f008",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_crcard_quot_eq_unit",
+    "diff_sha256": "bdca3d2fc3dd48145fb04900b2c0851ffc1c52565835052a407085c24124244d",
+    "source_sha256": "16188b170c1718f657899f029ab1a067223d8d42a202a61ec45a72fb18a4d8b6",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_crcard_quot_eq_unit",
+      "statement": "∀ (R : Type) [CommRing R], let U := {v : R × R // ∃ x y : R, x * v.1 + y * v.2 = 1}; let rel : U → U → Prop := fun v w => ∃ u : Rˣ, (u : R) * v.1.1 = w.1.1 ∧ (u : R) * v.1.2 = w.1.2; ∀ v w : U, Quot.mk rel v = Quot.mk rel w ↔ rel v w",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

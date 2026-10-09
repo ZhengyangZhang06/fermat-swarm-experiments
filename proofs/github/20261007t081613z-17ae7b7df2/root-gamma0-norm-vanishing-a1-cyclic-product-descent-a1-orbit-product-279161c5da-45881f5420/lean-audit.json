@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "350f5767e783cff37a457602de69dc57ddffe4a5971e849dca0b4459e89572dc",
+  "git_delta": {
+    "base_commit": "c23c1a5cd2f881fe4e14049c313f4882b159aa69",
+    "candidate_commit": "c13971bbd89c0a217b4e69862f382cd99441fb64",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_cpo_rotation_invariant",
+    "diff_sha256": "a5e7dd1ff90b2b9a06462d23095643dc8774ab32172d43d5695953c5c8b54eed",
+    "source_sha256": "adb7d2eabc19a1329f243da69171dda4982f862ca2776aa9c0580d522c219cd7",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_cpo_rotation_invariant",
+      "statement": "∀ (w : ℕ) (ζ : ℂ) (A : ℂ → ℂ), 0 < w → ζ ^ w = 1 → let P : ℂ → ℂ := fun t => ∏ j ∈ Finset.range w, A (ζ ^ j * t); ∀ t : ℂ, P (ζ * t) = P t",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

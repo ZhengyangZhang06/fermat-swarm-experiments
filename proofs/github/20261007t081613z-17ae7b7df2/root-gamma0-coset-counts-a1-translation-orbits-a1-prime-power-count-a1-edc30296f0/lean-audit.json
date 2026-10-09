@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "cuspCount|genusFormula",
+        "orbitZPowersEquiv|period_inv",
+        "to_prime_power_count|pp_translation_charts|pp_stratum_card"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/GroupAction/Period.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/QuotientGroup.lean"
+      ],
+      "conclusion": "Both snapshots are clean and match their pinned revisions. Located the frozen numerical definitions and existing orbit-period infrastructure. No node-specific theorem names matched. The comparator verified compatibility and reported only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "115c9cfc6e3b7a3299cea348c803ee2ca8a19464c380ce05396271ce63d55a60",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_to_prime_power_count",
+      "statement": "∀ (p a : ℕ), Nat.Prime p → 1 ≤ a → Nat.card (Quotient (MulAction.orbitRel (Subgroup.zpowers ModularGroup.T) ((Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 (p ^ a)))) = (Finset.range (a + 1)).sum (fun j => Nat.totient (p ^ min j (a - j)))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines accepted translation-chart, fractional-iterate, and stratum-cardinality declarations to count orbits by valuation strata."
+    }
+  ]
+}

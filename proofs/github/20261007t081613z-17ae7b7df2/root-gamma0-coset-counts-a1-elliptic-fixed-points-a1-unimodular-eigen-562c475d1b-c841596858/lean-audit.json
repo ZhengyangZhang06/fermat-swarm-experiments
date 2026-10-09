@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "46866a6fcd2aedb81a2c0fb29a4ad815918fdb6e6bc5223f366bc50250a54012",
+  "git_delta": {
+    "base_commit": "9b16b59f94abfc5e98314c65c77f45544a2588f6",
+    "candidate_commit": "400d4e4d38e1794c0e6b9c7dd6377bc758a36753",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_efp_unimodular_eigenrow_iff",
+    "diff_sha256": "f25c6e4ea55a601e42ced37e12d61c3e90527048c892046d3200b03f13700216",
+    "source_sha256": "5eb10eb42532d82786e23efb99f506e9e1f3b0b639b246e3227298667d1b693a",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_efp_unimodular_eigenrow_iff",
+      "statement": "∀ (R : Type) [CommRing R] (k r s : R), (∃ x y : R, x * r + y * s = 1) → ((∃ u : Rˣ, s = (u : R) * r ∧ k * s - r = (u : R) * s) ↔ IsUnit r ∧ ∃! t : R, s = r * t ∧ t ^ 2 - k * t + 1 = 0)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

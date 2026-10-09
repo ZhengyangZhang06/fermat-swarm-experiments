@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "2e035c9068483bb58c3da82cc9924033402e8706bf863cee03a0ca3b9bf37773",
+  "git_delta": {
+    "base_commit": "54164f801090063adac2740503eedb19a5615348",
+    "candidate_commit": "049a1710ade616e41324daf665da5c789c4b34e0",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_fi_square_annihilation",
+    "diff_sha256": "55ff46818e1b345ba1b31db405dd6441f703720b9c9bf9487d401efe43d8be96",
+    "source_sha256": "999b77e3d7a933385dd58bb6173c4a241d881e5fe1edf428b8e516d4343ac710",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_fi_square_annihilation",
+      "statement": "∀ (p a j : ℕ), Nat.Prime p → j < a → ∀ z : ZMod (p ^ a), p ^ j ∣ z.val → ¬ p ^ (j + 1) ∣ z.val → ∀ n : ℕ, ((n : ZMod (p ^ a)) * z ^ 2 = 0 ↔ p ^ (a - 2 * j) ∣ n)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

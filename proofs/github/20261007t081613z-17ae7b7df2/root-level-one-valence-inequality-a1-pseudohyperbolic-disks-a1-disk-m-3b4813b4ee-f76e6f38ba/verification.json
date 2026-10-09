@@ -1,0 +1,18 @@
+{
+  "node_id": "root.level_one_valence_inequality-a1.pseudohyperbolic_disks-a1.disk_mobius_image-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/491",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/665",
+  "candidate_commit": "acf5c119e2b6efc1a4236de89c57913678383779",
+  "integrated_commit": "d3f29d94ce875730bdf39e0d1727860024f82551",
+  "proof_base_commit": "b4ff37aac322c66612cb8df5edb6a2d6a3a2dd6c",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.level_one_valence_inequality-a1.pseudohyperbolic_disks-a1",
+  "requires": [
+    "root.level_one_valence_inequality-a1.pseudohyperbolic_disks-a1.disk_mobius_image-a1.mobius_upper_half_plane_bijection-a1",
+    "root.level_one_valence_inequality-a1.pseudohyperbolic_disks-a1.disk_mobius_image-a1.mobius_ratio_norm_invariance-a1"
+  ]
+}

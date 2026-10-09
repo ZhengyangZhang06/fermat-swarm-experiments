@@ -1,0 +1,37 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "equivPi|Nat.card_pi|unimodularRowSetoid|primeFactors|genusFormula",
+        "def equivPi|theorem card_pi|lemma card_pi|prod_coe_sort",
+        "equivPi"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_ProjectiveLine.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/ZMod/QuotientRing.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/SetTheory/Cardinal/Finite.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Algebra/BigOperators/Group/Finset/Basic.lean"
+      ],
+      "conclusion": "Confirmed the pinned project and mathlib revisions and clean dependencies. Inspected the original genus and row-quotient definitions and located the reused upstream declarations ZMod.equivPi, Nat.card_pi, and Finset.prod_coe_sort. The exact comparator rerun verified compatibility and permitted transitive axioms."
+    }
+  ],
+  "comparison_identity": "a80a0c3fe6c306eacb5f2af08eb50792945904d869273ec416cbcf946d5d80b5",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_idx_crt_row_card",
+      "statement": "∀ (N : ℕ) [NeZero N], let P : ℕ → Type := fun n => Quot (fun v w : {v : ZMod (n) × ZMod (n) // ∃ x y : ZMod (n), x * v.1 + y * v.2 = 1} => ∃ u : (ZMod (n))ˣ, (u : ZMod (n)) * v.1.1 = w.1.1 ∧ (u : ZMod (n)) * v.1.2 = w.1.2); Nat.card (P N) = N.primeFactors.prod (fun p => Nat.card (P (p ^ N.factorization p)))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Composes the CRT ring equivalence with the accepted ring-transport and finite-product row-quotient equivalences, then applies cardinality preservation and the finite-product cardinality formula."
+    }
+  ]
+}

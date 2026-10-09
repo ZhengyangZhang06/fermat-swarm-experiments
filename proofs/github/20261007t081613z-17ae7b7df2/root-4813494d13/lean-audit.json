@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'gamma0_weight_two_eq_zero_of_genusFormula_eq_zero|genusFormula|weight_two.*zero|Subsingleton.*CuspForm' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f --glob '*.lean'",
+        "rg -n -i '\\bvalence\\b|weight_two_eq_zero|genusFormula' mathlib/Mathlib/NumberTheory/ModularForms"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_X0.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Algebra/Ring/Parity.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms"
+      ],
+      "conclusion": "Both reference checkouts are clean at their manifest revisions. Inspected the frozen numerical definitions and even_two_mul provenance. The second query, run from the snapshot root, returned no matches. The comparator verified compatibility and permitted transitive axioms."
+    }
+  ],
+  "comparison_identity": "a1d743a31c66cac3528a1b2ac50d83faa1d7e572ecb0173cdf10a22f9555b730",
+  "publication_proof_reviewed": true,
+  "publication_proof_blob": "fa1b47e632773d62d76a1475990e708d5361f710",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "CuspForm.gamma0_weight_two_eq_zero_of_genusFormula_eq_zero",
+      "statement": "∀ (N : ℕ) [NeZero N] (hg : ModularCurve.genusFormula N = 0) (f : CuspForm (CongruenceSubgroup.Gamma0 N) 2), f = 0",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines the accepted norm-vanishing and valence inequalities with the frozen genus-zero identity to derive a contradiction from a nonzero cusp form."
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "a0d32149bed207855c7106ff6220e6fd8d9171c5cb2f45906bffedce6a39e878",
+  "git_delta": {
+    "base_commit": "a724b18dce8f521191a7005ed4b43c4ee33d144c",
+    "candidate_commit": "8c57cc4bf11a9dc21a5f6427be32d2b894737f31",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_pde_holomorphic_extension",
+    "diff_sha256": "1335063497e21f82c19c42fb7983a3f16338f61f4c4bd9a098bfc7a669aa886f",
+    "source_sha256": "a3c22245fa37e8e22e064004452490107b8f52057ac65fe671e0b820e699ce9f",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_pde_holomorphic_extension",
+      "statement": "∀ (w : ℝ) (g : ℂ → ℂ), 0 < w → DifferentiableOn ℂ g {z : ℂ | 0 < z.im} → (∀ z : ℂ, 0 < z.im → g (z + (w : ℂ)) = g z) → (∃ C Y : ℝ, ∀ z : ℂ, 0 < z.im → Y ≤ z.im → ‖g z‖ ≤ C) → ∃ A : ℂ → ℂ, DifferentiableOn ℂ A (Metric.ball (0 : ℂ) 1) ∧ (∀ z : ℂ, 0 < z.im → g z = A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z / (w : ℂ))))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

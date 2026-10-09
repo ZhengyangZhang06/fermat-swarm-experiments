@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "dd501f61efe06b60cd865b285ae449a356936f51b81e87d102c9d0c7a12e4514",
+  "git_delta": {
+    "base_commit": "0420bb5749a9de8c8e5715ac5b73e81a9b454be7",
+    "candidate_commit": "78bc31f590dadc3a186a68d23aba18e2ff06e64a",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_crt_ring_equiv_rows",
+    "diff_sha256": "9bb0d688fadd6fcaa050071f8719bd1f346fe33c4999af54f964b28791c4fb98",
+    "source_sha256": "351200194351c84aec036ec32a7352d7e0bf330f5aa3a7dc115e1024e1490be4",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_crt_ring_equiv_rows",
+      "statement": "∀ (R S : Type) [CommRing R] [CommRing S], (R ≃+* S) → let P := fun (A : Type) [CommRing A] => Quot (fun v w : {v : A × A // ∃ x y : A, x * v.1 + y * v.2 = 1} => ∃ u : Aˣ, (u : A) * v.1.1 = w.1.1 ∧ (u : A) * v.1.2 = w.1.2); Nonempty (P R ≃ P S)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

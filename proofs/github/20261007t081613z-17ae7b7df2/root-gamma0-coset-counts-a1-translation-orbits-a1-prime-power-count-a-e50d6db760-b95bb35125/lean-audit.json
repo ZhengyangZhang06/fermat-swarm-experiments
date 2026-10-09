@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "751730dd6e858d234ea7388b5d9d87ae5555dd27b20997f83365b07737b742d0",
+  "git_delta": {
+    "base_commit": "54164f801090063adac2740503eedb19a5615348",
+    "candidate_commit": "af4060e994c63825aafed4553fe1afde338b86d8",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_fi_unit_iterate_formula",
+    "diff_sha256": "b02c495420db672c990cf7039f7b4201aa85ee8cc73e95e5e8e90919cd6cb8db",
+    "source_sha256": "ddba931bf56bd1593fe0ae874faec07ca3a91ceb515697e6b1981acaffd00ff8",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_fi_unit_iterate_formula",
+      "statement": "∀ (p a : ℕ), Nat.Prime p → 1 ≤ a → ∀ z : ZMod (p ^ a), p ∣ z.val → let F : ZMod (p ^ a) → ZMod (p ^ a) := fun w => w * (1 + w)⁻¹; ∀ n : ℕ, IsUnit (1 + (n : ZMod (p ^ a)) * z) ∧ (F^[n]) z = z * (1 + (n : ZMod (p ^ a)) * z)⁻¹",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
