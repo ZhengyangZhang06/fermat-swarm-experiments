@@ -1,0 +1,61 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "def IsFrobeniusAt|def LiesOverPrime|def decompositionSubgroup|mem_nonunits_iff_or|coe_mem_nonunits_iff|residue_smul|residue_eq_zero_iff",
+        "restrictNormal|restrict.*commutes|class Normal|minpoly.*[Ss]plits|IsAlgebraic",
+        "class IsGalois|finite.*[Aa]ut|Finite.*[Aa]ut|finite_algHom|finite_algEquiv",
+        "glue|directLimit|compatible.*[Aa]utomorphism|[Aa]utomorphism.*compatible",
+        "p09_af497904fe_ftl_(normal_frobenius_restriction|compatible_automorphisms_glue|frobenius_valuation_union)",
+        "isMittagLeffler_of_exists_finite_range|toEventualRanges_nonempty|surjective_toEventualRanges"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/LocalRing/ResidueField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/Normal/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/Galois/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/IntermediateField",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/CategoryTheory/CofilteredSystem.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/Submission.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-finite-inverse-limit-a1/integration-lean-audit-v1.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-finite-inverse-limit-a1/comparator-v1-integration.log",
+        "/runtime/review-evidence/5190b66052c64f30b33294a3056dcb3f/evidence.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p09_independent_decomp_audit_2a19mz46/TypesIndependent.lean",
+        "/tmp/p09_independent_decomp_audit_2a19mz46/TypesAfterSubmission.lean",
+        "/tmp/p09_independent_decomp_audit_2a19mz46/record.json",
+        "/tmp/p09_independent_decomp_audit_2a19mz46/reuse-check.json"
+      ],
+      "conclusion": "The split is appropriate: restriction supplies the inverse system, the already accepted finite-inverse-limit theorem selects compatible elements, and the two gluing obligations supply every parent conjunct. The children are strictly narrower and mutually independent, so their empty dependency lists are correct and acyclic. The pinned definitions confirm nonunit contraction, normal restriction, and the residue-action arguments. No directly applicable automorphism-gluing result matched the IntermediateField search. All proposed names are bare identifiers and remain unreserved in the DAG and Submission. Independently rebuilt eight frozen project modules with nine clean pinned dependencies; all three exact one-line propositions elaborated both under the frozen imports alone and after Submission. Their axiom reports contain only propext, Classical.choice and Quot.sound. The reused inverse-limit declaration has the identical frozen type and byte-identical proof across its accepted candidate, integration, and this node's frozen base; saved comparator evidence confirms exact-type, kernel and transitive-axiom checks. Verified policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, reversible original/build hashes, and omission of only lines 10 and 11; a fresh Lean probe confirmed all eight targets absent. The frozen contract, problem and Submission header remain unchanged. A concurrent committed Submission addition introduced no name conflict. These checks approve the decomposition and interfaces, not unimplemented child Lean proofs."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "normal_frobenius_restriction",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and independently elaborated proposition agree, including Galoisness of E, inclusion, exact valuation contraction, the Frobenius hypothesis, and uniqueness of the full conjunction. Steps 1–2 correctly restrict both g and its inverse using normality; finite dimensionality is unnecessary. Step 3 establishes stabilization of V. Step 4 contracts ambient nonunits using the pinned inverse criterion. Step 5 descends the residue equation through maximal-ideal membership and covers every residue class. Step 6 proves uniqueness by inclusion injectivity. The argument is complete, non-circular, and needs neither another child nor the parent theorem."
+    },
+    {
+      "key": "compatible_automorphisms_glue",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and independently elaborated proposition have exactly the same monotonicity, exhaustion, automorphism and compatibility assumptions. Step 1 proves stage independence using a maximum. Step 2 derives inverse compatibility rather than assuming it. Step 3 constructs a genuine two-sided inverse. Step 4 checks algebra operations in common stages and fixes rational scalars in stage zero. Step 5 therefore packages the required rational automorphism with the precise restriction equation. No normality or finiteness hypothesis is silently needed, and there is no circular dependency."
+    },
+    {
+      "key": "frobenius_valuation_union",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose and independently elaborated proposition agree on all assumptions and three conclusions. Steps 1–2 construct the valuation subring by an increasing union. Step 3 proves exact restriction, and step 4 correctly transfers nonunits and LiesOverPrime without assuming primality. Step 5 derives inverse agreement from the prescribed global automorphism and establishes stabilization of P. Steps 6–7 transfer local Frobenius differences into P's maximal ideal and use residue surjectivity and the pinned induced action to prove IsFrobeniusAt. The supplied stage witnesses suffice without a separate compatibility assumption. This obligation assumes τ and therefore does not circularly require the automorphism-gluing child or parent."
+    }
+  ],
+  "required_changes": []
+}

@@ -1,0 +1,62 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "IsFrobeniusAt|mem_nonunits_iff_or|exists.*compatible|inverse.*limit|restrictNormal|LiesOverPrime",
+        "def IsFrobeniusAt|def LiesOverPrime|def decompositionSubgroup|theorem.*IsFrobeniusAt",
+        "glue|iSup|directLimit|exists.*equiv",
+        "maximalIdeal|nonunits|residue.*smul|smul.*residue",
+        "p09_af497904fe_ftl_(normal_frobenius_restriction|compatible_automorphisms_glue|frobenius_valuation_union)"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/LocalRing/ResidueField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/Normal/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/IntermediateField/Adjoin/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/CategoryTheory/CofilteredSystem.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/Submission.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-finite-inverse-limit-a1/integration-lean-audit-v1.json",
+        "/runtime/review-evidence/5190b66052c64f30b33294a3056dcb3f/evidence.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p09_tower_decomposition_eui_c1e8/TypesAfterSubmission.lean",
+        "/tmp/p09_tower_decomposition_eui_c1e8/record.json"
+      ],
+      "conclusion": "The snapshot pins project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The inspected definitions identify LiesOverPrime with ambient nonunit membership and IsFrobeniusAt with decomposition-group membership plus the residue power action. ValuationSubring.mem_nonunits_iff_or and coe_mem_nonunits_iff justify nonunit contraction; residue_eq_zero_iff and residue_smul justify passing between residue equations and differences in nonunits. Normal/Defs supplies normal restriction and its commuting equation. The IntermediateField search found directed-union infrastructure but no directly applicable automorphism-gluing theorem. The inherited p09_af497904fe_finite_inverse_limit already has exact-comparator and permitted-axiom evidence, so no duplicate node is proposed. Proposed names have no matches in the inspected DAG or Submission. All three exact types compiled after literal import Submission using a disposable copy of frozen base 3915a640f981289a567a646ed42a4a5f880b9d24; their axiom reports contain only propext, Classical.choice and Quot.sound. Policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96 was checked, only original lines 10 and 11 were omitted, and Lean verified all eight omitted targets absent. Original sources remained unchanged. These are interface diagnostics, not proof acceptance."
+    }
+  ],
+  "parent_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.frobenius_tower_limit-a1",
+  "child_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.frobenius_tower_limit-a1.normal_frobenius_restriction-a1",
+  "subproblem": {
+    "key": "normal_frobenius_restriction",
+    "title": "Unique Frobenius restriction to a Galois intermediate field",
+    "statement": "Let Ω = AlgebraicClosure ℚ. Let E and F be intermediate fields of Ω/ℚ with E ⊆ F and E/ℚ Galois. Write ι : E → F for inclusion. Let V and W be valuation subrings of E and F, respectively, and let ℓ ∈ ℕ. Assume that ι(x) ∈ W if and only if x ∈ V for every x ∈ E. For every rational automorphism g of F satisfying W.IsFrobeniusAt g ℓ, there exists a unique rational automorphism e of E such that V.IsFrobeniusAt e ℓ and ι(e(x)) = g(ι(x)) for every x ∈ E.",
+    "lean_statement": "∀ (E F : IntermediateField ℚ (AlgebraicClosure ℚ)) [IsGalois ℚ E] (hEF : E ≤ F) (V : ValuationSubring E) (W : ValuationSubring F) (ℓ : ℕ), (∀ x : E, IntermediateField.inclusion hEF x ∈ W ↔ x ∈ V) → ∀ g : F ≃ₐ[ℚ] F, W.IsFrobeniusAt g ℓ → ∃! e : E ≃ₐ[ℚ] E, V.IsFrobeniusAt e ℓ ∧ ∀ x : E, IntermediateField.inclusion hEF (e x) = g (IntermediateField.inclusion hEF x)",
+    "lean_name": "p09_af497904fe_ftl_normal_frobenius_restriction",
+    "depends_on": [],
+    "natural_proof": "1. Fix all the stated data and let ι denote inclusion. Since E/ℚ is Galois, it is algebraic and normal. For x ∈ E, its minimal polynomial over ℚ splits into linear factors over E. Applying g to its vanishing at ι(x) shows that g(ι(x)) is another root, since g fixes rational coefficients. Viewing the factorization in F, one linear factor must vanish at this root. Consequently g(ι(x)) belongs to ι(E). The same argument applies to g⁻¹.\n2. Restrict g and g⁻¹ to E using step 1. Injectivity of ι shows that these restrictions preserve addition, multiplication, one and rational scalars, and that their composites are the identity. Thus the restriction e is a rational automorphism of E and satisfies ι(e(x)) = g(ι(x)); its inverse is the restriction of g⁻¹.\n3. The Frobenius hypothesis puts g in the decomposition subgroup of W, so g and g⁻¹ preserve W. If x ∈ V, contraction gives ι(x) ∈ W, hence g(ι(x)) ∈ W, hence e(x) ∈ V. Applying the same argument to the inverses shows that e⁻¹ preserves V. Therefore e maps V onto itself and belongs to V.decompositionSubgroup ℚ.\n4. For every x ∈ E, nonunits contract exactly: ι(x) ∈ W.nonunits if and only if x ∈ V.nonunits. Indeed, ValuationSubring.mem_nonunits_iff_or expresses the first assertion as ι(x) = 0 or ι(x)⁻¹ ∉ W. Inclusion is injective, preserves zero and inverses, and contracts W to V. This assertion is therefore equivalent to x = 0 or x⁻¹ ∉ V, which is precisely the second assertion.\n5. Take x ∈ V. In the residue field of W, the Frobenius property of g gives [g(ι(x))] = [ι(x)]^ℓ. The residue map is a ring homomorphism with kernel the maximal ideal, whose image in F is W.nonunits. Hence g(ι(x)) − ι(x)^ℓ belongs to W.nonunits. This difference equals ι(e(x) − x^ℓ). Step 4 implies e(x) − x^ℓ ∈ V.nonunits. Passing to the residue field of V gives [e(x)] = [x]^ℓ. Every residue class has a representative in V, and the decomposition-group action on its residue is the residue of e(x). Together with step 3 this proves V.IsFrobeniusAt e ℓ.\n6. If e′ is another rational automorphism satisfying the asserted conjunction, its commuting equation gives ι(e′(x)) = g(ι(x)) = ι(e(x)) for every x ∈ E. Injectivity of ι yields e′(x) = e(x) for all x, so e′ = e. This proves existence and uniqueness.",
+    "proof_key_steps": [
+      "Use normality and split minimal polynomials to restrict g and g⁻¹ to E.",
+      "Use contraction of valuation rings to show the restricted automorphism stabilizes V.",
+      "Contract nonunits using the zero-or-inverse criterion.",
+      "Descend the Frobenius residue equation through nonunit contraction.",
+      "Prove uniqueness by injectivity of the field inclusion."
+    ]
+  },
+  "audit": {
+    "key": "normal_frobenius_restriction",
+    "acceptable": true,
+    "natural_proof_acceptable": true,
+    "reason": "The prose and independently elaborated proposition agree, including Galoisness of E, inclusion, exact valuation contraction, the Frobenius hypothesis, and uniqueness of the full conjunction. Steps 1–2 correctly restrict both g and its inverse using normality; finite dimensionality is unnecessary. Step 3 establishes stabilization of V. Step 4 contracts ambient nonunits using the pinned inverse criterion. Step 5 descends the residue equation through maximal-ideal membership and covers every residue class. Step 6 proves uniqueness by inclusion injectivity. The argument is complete, non-circular, and needs neither another child nor the parent theorem."
+  },
+  "resolved_dependencies": [],
+  "plan_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-0469ef8c59/parent-supplied-plan.md",
+  "natural_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-0469ef8c59/parent-supplied-natural-proof.md",
+  "structured_proof_path": ".humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-0469ef8c59/parent-supplied-natural-proof.json"
+}

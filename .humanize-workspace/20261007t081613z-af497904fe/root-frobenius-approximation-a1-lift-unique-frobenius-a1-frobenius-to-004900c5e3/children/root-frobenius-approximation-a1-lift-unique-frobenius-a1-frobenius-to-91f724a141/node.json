@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.frobenius_tower_limit-a1.frobenius_valuation_union-a1",
+  "parent_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.frobenius_tower_limit-a1",
+  "depth": 4,
+  "title": "Glue valuation rings with a prescribed stagewise Frobenius automorphism",
+  "statement": "Let Ω = AlgebraicClosure ℚ and let F : ℕ → IntermediateField ℚ Ω be increasing and exhaustive. Let V_i be a valuation subring of F_i for every i and let ℓ ∈ ℕ. Assume (V_i).LiesOverPrime ℓ for every i, and that each inclusion F_i → F_j for i ≤ j contracts V_j exactly to V_i. Let τ be a rational automorphism of Ω. Assume that for every i there exists a rational automorphism g of F_i satisfying (V_i).IsFrobeniusAt g ℓ and τ(x) = g(x) in Ω for every x ∈ F_i. Then there exists a valuation subring P of Ω such that P.LiesOverPrime ℓ, P restricts exactly to V_i on every F_i, and P.IsFrobeniusAt τ ℓ.",
+  "lean_statement": "∀ (F : ℕ → IntermediateField ℚ (AlgebraicClosure ℚ)) (hmono : Monotone F), (∀ x : AlgebraicClosure ℚ, ∃ i : ℕ, x ∈ F i) → ∀ (V : (i : ℕ) → ValuationSubring (F i)) (ℓ : ℕ), (∀ i : ℕ, (V i).LiesOverPrime ℓ) → (∀ (i j : ℕ) (hij : i ≤ j) (x : F i), IntermediateField.inclusion (hmono hij) x ∈ V j ↔ x ∈ V i) → ∀ τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ, (∀ i : ℕ, ∃ g : F i ≃ₐ[ℚ] F i, (V i).IsFrobeniusAt g ℓ ∧ ∀ x : F i, τ (x : AlgebraicClosure ℚ) = ((g x : F i) : AlgebraicClosure ℚ)) → ∃ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ ∧ (∀ (i : ℕ) (x : F i), (x : AlgebraicClosure ℚ) ∈ P ↔ x ∈ V i) ∧ P.IsFrobeniusAt τ ℓ",
+  "lean_name": "p09_af497904fe_ftl_frobenius_valuation_union",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-91f724a141-a1"
+}

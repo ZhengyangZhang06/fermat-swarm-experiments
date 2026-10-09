@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.frobenius_tower_limit-a1.compatible_automorphisms_glue-a1",
+  "parent_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.frobenius_tower_limit-a1",
+  "depth": 4,
+  "title": "Glue compatible automorphisms along an exhaustive field tower",
+  "statement": "Let Ω = AlgebraicClosure ℚ and let F : ℕ → IntermediateField ℚ Ω be increasing, with every element of Ω belonging to some F_i. For i ≤ j write ι_ij : F_i → F_j for inclusion. Suppose g_i is a rational automorphism of F_i for every i and ι_ij(g_i(x)) = g_j(ι_ij(x)) for every i ≤ j and x ∈ F_i. Then there exists a rational automorphism τ of Ω whose restriction to each F_i agrees with g_i under the inclusions into Ω.",
+  "lean_statement": "∀ (F : ℕ → IntermediateField ℚ (AlgebraicClosure ℚ)) (hmono : Monotone F), (∀ x : AlgebraicClosure ℚ, ∃ i : ℕ, x ∈ F i) → ∀ g : (i : ℕ) → F i ≃ₐ[ℚ] F i, (∀ (i j : ℕ) (hij : i ≤ j) (x : F i), IntermediateField.inclusion (hmono hij) (g i x) = g j (IntermediateField.inclusion (hmono hij) x)) → ∃ τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ, ∀ (i : ℕ) (x : F i), τ (x : AlgebraicClosure ℚ) = ((g i x : F i) : AlgebraicClosure ℚ)",
+  "lean_name": "p09_af497904fe_ftl_compatible_automorphisms_glue",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-ca1f9132b3-a1"
+}

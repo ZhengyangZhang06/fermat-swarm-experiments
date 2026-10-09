@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.frobenius_tower_limit-a1.normal_frobenius_restriction-a1",
+  "parent_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.frobenius_tower_limit-a1",
+  "depth": 4,
+  "title": "Unique Frobenius restriction to a Galois intermediate field",
+  "statement": "Let Ω = AlgebraicClosure ℚ. Let E and F be intermediate fields of Ω/ℚ with E ⊆ F and E/ℚ Galois. Write ι : E → F for inclusion. Let V and W be valuation subrings of E and F, respectively, and let ℓ ∈ ℕ. Assume that ι(x) ∈ W if and only if x ∈ V for every x ∈ E. For every rational automorphism g of F satisfying W.IsFrobeniusAt g ℓ, there exists a unique rational automorphism e of E such that V.IsFrobeniusAt e ℓ and ι(e(x)) = g(ι(x)) for every x ∈ E.",
+  "lean_statement": "∀ (E F : IntermediateField ℚ (AlgebraicClosure ℚ)) [IsGalois ℚ E] (hEF : E ≤ F) (V : ValuationSubring E) (W : ValuationSubring F) (ℓ : ℕ), (∀ x : E, IntermediateField.inclusion hEF x ∈ W ↔ x ∈ V) → ∀ g : F ≃ₐ[ℚ] F, W.IsFrobeniusAt g ℓ → ∃! e : E ≃ₐ[ℚ] E, V.IsFrobeniusAt e ℓ ∧ ∀ x : E, IntermediateField.inclusion hEF (e x) = g (IntermediateField.inclusion hEF x)",
+  "lean_name": "p09_af497904fe_ftl_normal_frobenius_restriction",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-frobenius-to-0469ef8c59-a1"
+}
