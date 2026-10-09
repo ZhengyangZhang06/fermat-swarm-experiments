@@ -851,3 +851,54 @@ theorem Submission.p09_af497904fe_ce_fixed_field_generator :
   change K.restrictScalars ℚ = ⊤
   rw [← IsGalois.fixedField_fixingSubgroup (K.restrictScalars ℚ), hfix,
     IntermediateField.fixedField_bot]
+
+theorem Submission.p09_af497904fe_irp_minpoly_roots :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ))
+      [FiniteDimensional ℚ E] [IsGalois ℚ E] (α : E),
+      IsIntegral ℤ α → ∃ (n : ℕ) (β : Fin n → E),
+        Function.Injective β ∧ (∀ i : Fin n, IsIntegral ℤ (β i)) ∧
+        (∀ σ : E ≃ₐ[ℚ] E, ∃ i : Fin n, β i = σ α) ∧
+        (minpoly ℤ α).map (Int.castRingHom E) =
+          Finset.univ.prod (fun i : Fin n => Polynomial.X - Polynomial.C (β i)) := by
+  intro E _ _ α hα
+  classical
+  have hαQ : IsIntegral ℚ α := Algebra.IsIntegral.isIntegral α
+  have hmap : (minpoly ℤ α).map (Int.castRingHom E) =
+      (minpoly ℚ α).map (algebraMap ℚ E) := by
+    calc
+      _ = ((minpoly ℤ α).map (algebraMap ℤ ℚ)).map (algebraMap ℚ E) := by
+        rw [Polynomial.map_map]
+        exact congrArg (fun f : ℤ →+* E => (minpoly ℤ α).map f)
+          (Subsingleton.elim _ _)
+      _ = _ := congrArg (Polynomial.map (algebraMap ℚ E))
+        (minpoly.isIntegrallyClosed_eq_field_fractions' ℚ hα).symm
+  obtain ⟨s, hs⟩ := Polynomial.exists_finset_of_splits (algebraMap ℚ E)
+    (Algebra.IsSeparable.isSeparable ℚ α)
+    (Normal.splits (inferInstance : Normal ℚ E) α)
+  have hprod : (minpoly ℤ α).map (Int.castRingHom E) =
+      s.prod (fun b => Polynomial.X - Polynomial.C b) := by
+    rw [hmap, hs, (minpoly.monic hαQ).leadingCoeff, map_one, Polynomial.C_1, one_mul]
+  let n := Fintype.card s
+  let e : Fin n ≃ s := (Fintype.equivFin s).symm
+  let β : Fin n → E := fun i => (e i).val
+  have hfac : (minpoly ℤ α).map (Int.castRingHom E) =
+      Finset.univ.prod (fun i : Fin n => Polynomial.X - Polynomial.C (β i)) := by
+    calc
+      _ = s.prod (fun b => Polynomial.X - Polynomial.C b) := hprod
+      _ = ∏ b : s, (Polynomial.X - Polynomial.C (b : E)) :=
+        (Finset.prod_coe_sort s (fun b => Polynomial.X - Polynomial.C b)).symm
+      _ = _ := (e.prod_comp (fun b : s => Polynomial.X - Polynomial.C (b : E))).symm
+  refine ⟨n, β, Subtype.val_injective.comp e.injective, ?_, ?_, hfac⟩
+  · intro i
+    refine ⟨minpoly ℤ α, minpoly.monic hα, ?_⟩
+    change Polynomial.eval₂ (Int.castRingHom E) (β i) (minpoly ℤ α) = 0
+    rw [Polynomial.eval₂_eq_eval_map, hfac, Polynomial.eval_prod]
+    apply Finset.prod_eq_zero (Finset.mem_univ i)
+    simp
+  · intro σ
+    have hzero : ((minpoly ℤ α).map (Int.castRingHom E)).eval (σ α) = 0 := by
+      rw [hmap, Polynomial.eval_map_algebraMap, Polynomial.aeval_algHom_apply,
+        minpoly.aeval, map_zero]
+    rw [hfac, Polynomial.eval_prod] at hzero
+    obtain ⟨i, _, hi⟩ := Finset.prod_eq_zero_iff.mp hzero
+    exact ⟨i, (sub_eq_zero.mp (by simpa using hi)).symm⟩
