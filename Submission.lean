@@ -690,3 +690,410 @@ theorem Submission.p05_hte_sshs_antipode_lift_a5b449214a
       mul_antipode_rTensor_comul := hleft
       mul_antipode_lTensor_comul := hright }
   exact ⟨hA, rfl, hs⟩
+theorem Submission.p05_ftzw_supported_relations_vanish_a5b449214a :
+    ∀ {k : Type*} [CommRing k] {D : Type*} [CommRing D] [Algebra k D] {M : Type*} [AddCommGroup M] [Module D M] {P : Type*} [AddCommGroup P] [Module D P] (A : Subalgebra k D) (N : Submodule A M) (m : N) (p : P), let b : M → P → FreeAbelianGroup (M × P) := fun u z => FreeAbelianGroup.of (u, z); b (m : M) p ∈ AddSubgroup.closure {r : FreeAbelianGroup (M × P) | (∃ z : P, r = b 0 z) ∨ (∃ u : M, u ∈ N ∧ r = b u 0) ∨ (∃ (u v : M) (z : P), u ∈ N ∧ v ∈ N ∧ r = b (u + v) z - b u z - b v z) ∨ (∃ (u : M) (z w : P), u ∈ N ∧ r = b u (z + w) - b u z - b u w) ∨ (∃ (d : D) (u : M) (z : P), d ∈ A ∧ u ∈ N ∧ r = b (d • u) z - b u (d • z))} → (TensorProduct.tmul A m p : TensorProduct A N P) = 0 := by
+  classical
+  intro k _ D _ _ M _ _ P _ _ A N m p
+  dsimp only
+  intro h
+  let bN : N → P → FreeAbelianGroup (N × P) :=
+    fun n z => FreeAbelianGroup.of (n, z)
+  let J : FreeAbelianGroup (N × P) →+ FreeAbelianGroup (M × P) :=
+    FreeAbelianGroup.lift fun t : N × P => FreeAbelianGroup.of ((t.1 : M), t.2)
+  let E : FreeAbelianGroup (N × P) →+ TensorProduct A N P :=
+    FreeAbelianGroup.lift fun t : N × P => TensorProduct.tmul A t.1 t.2
+  have hcoeff (t : N × P) :
+      (FreeAbelianGroup.coeff ((t.1 : M), t.2)).comp J = FreeAbelianGroup.coeff t := by
+    rcases t with ⟨n', z'⟩
+    apply FreeAbelianGroup.lift_ext
+    rintro ⟨n, z⟩
+    change (J (FreeAbelianGroup.of (n, z))).toFinsupp ((n' : M), z') =
+      (FreeAbelianGroup.of (n, z)).toFinsupp (n', z')
+    rw [show J (FreeAbelianGroup.of (n, z)) =
+      FreeAbelianGroup.of ((n : M), z) from FreeAbelianGroup.lift_apply_of _ _,
+      FreeAbelianGroup.toFinsupp_of, FreeAbelianGroup.toFinsupp_of]
+    simp only [Finsupp.single_apply, Prod.mk.injEq, Subtype.ext_iff]
+  have hJ : Function.Injective J := by
+    intro x y hxy
+    apply (FreeAbelianGroup.equivFinsupp (N × P)).injective
+    ext t
+    change FreeAbelianGroup.coeff t x = FreeAbelianGroup.coeff t y
+    rw [← hcoeff t]
+    exact congrArg (FreeAbelianGroup.coeff ((t.1 : M), t.2)) hxy
+  have hmem : FreeAbelianGroup.of ((m : M), p) ∈ E.ker.map J := by
+    apply ((AddSubgroup.closure_le _).mpr ?_) h
+    intro r hr
+    rcases hr with ⟨z, rfl⟩ | ⟨u, hu, rfl⟩ | ⟨u, v, z, hu, hv, rfl⟩ |
+      ⟨u, z, w, hu, rfl⟩ | ⟨d, u, z, hd, hu, rfl⟩
+    · refine ⟨bN 0 z, ?_, ?_⟩
+      · change E (bN 0 z) = 0
+        simp [E, bN]
+      · simp [J, bN]
+    · refine ⟨bN ⟨u, hu⟩ 0, ?_, ?_⟩
+      · change E (bN ⟨u, hu⟩ 0) = 0
+        simp [E, bN]
+      · simp [J, bN]
+    · refine ⟨bN (⟨u, hu⟩ + ⟨v, hv⟩) z - bN ⟨u, hu⟩ z - bN ⟨v, hv⟩ z,
+        ?_, ?_⟩
+      · change E _ = 0
+        simp only [map_sub, E, bN, FreeAbelianGroup.lift_apply_of, TensorProduct.add_tmul]
+        abel
+      · simp [J, bN]
+    · refine ⟨bN ⟨u, hu⟩ (z + w) - bN ⟨u, hu⟩ z - bN ⟨u, hu⟩ w, ?_, ?_⟩
+      · change E _ = 0
+        simp only [map_sub, E, bN, FreeAbelianGroup.lift_apply_of, TensorProduct.tmul_add]
+        abel
+      · simp [J, bN]
+    · refine ⟨bN ((⟨d, hd⟩ : A) • (⟨u, hu⟩ : N)) z -
+        bN ⟨u, hu⟩ ((⟨d, hd⟩ : A) • z), ?_, ?_⟩
+      · change E _ = 0
+        simp only [map_sub, E, bN, FreeAbelianGroup.lift_apply_of,
+          TensorProduct.smul_tmul, sub_self]
+      · simp only [map_sub, J, bN, FreeAbelianGroup.lift_apply_of]
+        rfl
+  have hNm : bN m p ∈ E.ker :=
+    (AddSubgroup.mem_map_iff_mem hJ).mp hmem
+  change E (bN m p) = 0 at hNm
+  simpa only [E, bN, FreeAbelianGroup.lift_apply_of] using hNm
+theorem Submission.p05_fr_rhm_tensor_ideal_descent_a5b449214a
+    {k : Type*} [Field k] {A : Type*} [CommRing A] [Algebra k A]
+    {H : Type*} [CommRing H] [Algebra k H]
+    (f : A →ₗ[k] H) (_hf : Function.Injective f) (J : Ideal A)
+    (t : TensorProduct k A A)
+    (_ht : TensorProduct.map (LinearMap.id : A →ₗ[k] A) f t ∈
+      Ideal.map (Algebra.TensorProduct.includeLeft :
+        A →ₐ[k] TensorProduct k A H).toRingHom J) :
+    t ∈ Submodule.span k {z : TensorProduct k A A |
+      ∃ a ∈ J, ∃ b : A, z = TensorProduct.tmul k a b} := by
+  classical
+  let E : Submodule k (A ⊗[k] H) :=
+    Submodule.span k {z : A ⊗[k] H | ∃ a ∈ J, ∃ b : H, z = a ⊗ₜ[k] b}
+  have hmul (r z : A ⊗[k] H) (hz : z ∈ E) : r * z ∈ E := by
+    induction hz using Submodule.span_induction with
+    | mem z hz =>
+      rcases hz with ⟨a, ha, b, rfl⟩
+      induction r using TensorProduct.induction_on with
+      | zero => simpa only [zero_mul] using E.zero_mem
+      | tmul c d =>
+        rw [Algebra.TensorProduct.tmul_mul_tmul]
+        exact Submodule.subset_span ⟨c * a, J.mul_mem_left c ha, d * b, rfl⟩
+      | add x y hx hy =>
+        simpa only [add_mul] using E.add_mem hx hy
+    | zero => simpa only [mul_zero] using E.zero_mem
+    | add x y hx hy ihx ihy =>
+      simpa only [mul_add] using E.add_mem ihx ihy
+    | smul c x hx ih =>
+      simpa only [mul_smul_comm] using E.smul_mem c ih
+  have hE : TensorProduct.map (LinearMap.id : A →ₗ[k] A) f t ∈ E := by
+    change TensorProduct.map (LinearMap.id : A →ₗ[k] A) f t ∈
+      Submodule.span (A ⊗[k] H)
+        ((Algebra.TensorProduct.includeLeft : A →ₐ[k] A ⊗[k] H).toRingHom ''
+          (J : Set A)) at _ht
+    refine Submodule.span_induction (p := fun z _ => z ∈ E) ?_ ?_ ?_ ?_ _ht
+    · rintro z ⟨a, ha, rfl⟩
+      exact Submodule.subset_span ⟨a, ha, 1, rfl⟩
+    · exact E.zero_mem
+    · intro x y _ _ hx hy
+      exact E.add_mem hx hy
+    · intro r z _ hz
+      exact hmul r z hz
+  obtain ⟨g, hg⟩ := f.exists_leftInverse_of_injective (LinearMap.ker_eq_bot.mpr _hf)
+  let F : Submodule k (A ⊗[k] A) :=
+    Submodule.span k {z : A ⊗[k] A | ∃ a ∈ J, ∃ b : A, z = a ⊗ₜ[k] b}
+  have hdesc (z : A ⊗[k] H) (hz : z ∈ E) :
+      TensorProduct.map (LinearMap.id : A →ₗ[k] A) g z ∈ F := by
+    induction hz using Submodule.span_induction with
+    | mem z hz =>
+      rcases hz with ⟨a, ha, b, rfl⟩
+      exact Submodule.subset_span ⟨a, ha, g b, by simp⟩
+    | zero => simpa only [map_zero] using F.zero_mem
+    | add x y hx hy ihx ihy =>
+      simpa only [map_add] using F.add_mem ihx ihy
+    | smul c x hx ih =>
+      simpa only [map_smul] using F.smul_mem c ih
+  have hcomp (z : A ⊗[k] A) :
+      TensorProduct.map (LinearMap.id : A →ₗ[k] A) g
+        (TensorProduct.map (LinearMap.id : A →ₗ[k] A) f z) = z := by
+    induction z using TensorProduct.induction_on with
+    | zero => simp
+    | tmul a b =>
+      have hgf : g (f b) = b := LinearMap.congr_fun hg b
+      simp [hgf]
+    | add x y hx hy => simp only [map_add, hx, hy]
+  simpa only [hcomp] using hdesc _ hE
+theorem Submission.p05_ftzw_tensor_relation_kernel_a5b449214a :
+    ∀ {D : Type*} [CommRing D] {M : Type*} [AddCommGroup M] [Module D M]
+      {P : Type*} [AddCommGroup P] [Module D P],
+      let b : M → P → FreeAbelianGroup (M × P) := fun u z => FreeAbelianGroup.of (u, z)
+      (FreeAbelianGroup.lift (fun x : M × P => TensorProduct.tmul D x.1 x.2)).ker =
+        AddSubgroup.closure {r : FreeAbelianGroup (M × P) |
+          (∃ z : P, r = b 0 z) ∨ (∃ u : M, r = b u 0) ∨
+          (∃ (u v : M) (z : P), r = b (u + v) z - b u z - b v z) ∨
+          (∃ (u : M) (z w : P), r = b u (z + w) - b u z - b u w) ∨
+          (∃ (d : D) (u : M) (z : P), r = b (d • u) z - b u (d • z))} := by
+  intro D _ M _ _ P _ _
+  let b : M → P → FreeAbelianGroup (M × P) := fun u z => FreeAbelianGroup.of (u, z)
+  let T : Set (FreeAbelianGroup (M × P)) := {r |
+    (∃ z : P, r = b 0 z) ∨ (∃ u : M, r = b u 0) ∨
+    (∃ (u v : M) (z : P), r = b (u + v) z - b u z - b v z) ∨
+    (∃ (u : M) (z w : P), r = b u (z + w) - b u z - b u w) ∨
+    (∃ (d : D) (u : M) (z : P), r = b (d • u) z - b u (d • z))}
+  let R := AddSubgroup.closure T
+  let E := FreeAbelianGroup.lift (fun x : M × P => TensorProduct.tmul D x.1 x.2)
+  change E.ker = R
+  have hRE : R ≤ E.ker := by
+    apply (AddSubgroup.closure_le _).mpr
+    intro r hr
+    change E r = 0
+    rcases hr with ⟨z, rfl⟩ | ⟨u, rfl⟩ | ⟨u, v, z, rfl⟩ |
+      ⟨u, z, w, rfl⟩ | ⟨d, u, z, rfl⟩
+    · simp [E, b]
+    · simp [E, b]
+    · simp [E, b, TensorProduct.add_tmul]
+    · simp [E, b, TensorProduct.tmul_add]
+    · simp [E, b, TensorProduct.smul_tmul]
+  let π := QuotientAddGroup.mk' R
+  have hrel {r : FreeAbelianGroup (M × P)} (hr : r ∈ T) : π r = 0 :=
+    (QuotientAddGroup.eq_zero_iff r).mpr (AddSubgroup.subset_closure hr)
+  have hzero_left (z : P) : π (b 0 z) = 0 :=
+    hrel (Or.inl ⟨z, rfl⟩)
+  have hzero_right (u : M) : π (b u 0) = 0 :=
+    hrel (Or.inr (Or.inl ⟨u, rfl⟩))
+  have hadd_left (u v : M) (z : P) :
+      π (b (u + v) z) = π (b u z) + π (b v z) := by
+    have h := hrel (Or.inr (Or.inr (Or.inl ⟨u, v, z, rfl⟩)))
+    simpa only [map_sub, map_add, sub_sub, sub_eq_zero] using h
+  have hadd_right (u : M) (z w : P) :
+      π (b u (z + w)) = π (b u z) + π (b u w) := by
+    have h := hrel (Or.inr (Or.inr (Or.inr (Or.inl ⟨u, z, w, rfl⟩))))
+    simpa only [map_sub, map_add, sub_sub, sub_eq_zero] using h
+  have hbalance (d : D) (u : M) (z : P) :
+      π (b (d • u) z) = π (b u (d • z)) := by
+    have h := hrel (Or.inr (Or.inr (Or.inr (Or.inr ⟨d, u, z, rfl⟩))))
+    simpa only [map_sub, sub_eq_zero] using h
+  let β : M →+ P →+ FreeAbelianGroup (M × P) ⧸ R :=
+    { toFun := fun u =>
+        { toFun := fun z => π (b u z)
+          map_zero' := hzero_right u
+          map_add' := hadd_right u }
+      map_zero' := by
+        ext z
+        exact hzero_left z
+      map_add' := by
+        intro u v
+        ext z
+        exact hadd_left u v z }
+  let L : M ⊗[D] P →+ FreeAbelianGroup (M × P) ⧸ R :=
+    TensorProduct.liftAddHom β hbalance
+  have hcomp : L.comp E = π := by
+    apply FreeAbelianGroup.lift_ext
+    intro x
+    rcases x with ⟨u, z⟩
+    simp [E, L, β, b]
+  apply le_antisymm _ hRE
+  intro g hg
+  apply (QuotientAddGroup.eq_zero_iff g).mp
+  change π g = 0
+  rw [← hcomp]
+  change L (E g) = 0
+  rw [show E g = 0 from hg, map_zero]
+theorem Submission.p05_fr_rhm_bcsi_twisted_presentation_a5b449214a
+    {S : Type*} [CommRing S] {L : Type*} [AddCommGroup L] [Module S L]
+    (n p : ℕ) (P : Matrix (Fin n) (Fin p) S) (q : (Fin n → S) →ₗ[S] L)
+    (_hq : Function.Surjective q)
+    (_hker : LinearMap.ker q = LinearMap.range P.mulVecLin)
+    (θ : S ≃+* S) (T : L ≃+ L)
+    (_hT : ∀ (s : S) (x : L), T (s • x) = θ s • T x) :
+    ∃ qθ : (Fin n → S) →ₗ[S] L,
+      (∀ b : Fin n → S, qθ b = T (q (fun i => θ.symm (b i)))) ∧
+      Function.Surjective qθ ∧
+      LinearMap.ker qθ = LinearMap.range (P.map θ.toRingHom).mulVecLin := by
+  let qθ : (Fin n → S) →ₗ[S] L :=
+    { toFun := fun b => T (q (fun i => θ.symm (b i)))
+      map_add' := by
+        intro b c
+        have h : (fun i => θ.symm ((b + c) i)) =
+            (fun i => θ.symm (b i)) + (fun i => θ.symm (c i)) := by
+          ext i
+          exact map_add θ.symm (b i) (c i)
+        rw [h, map_add, map_add]
+      map_smul' := by
+        intro s b
+        have h : (fun i => θ.symm ((s • b) i)) =
+            θ.symm s • (fun i => θ.symm (b i)) := by
+          ext i
+          exact map_mul θ.symm s (b i)
+        change T (q (fun i => θ.symm ((s • b) i))) =
+          s • T (q (fun i => θ.symm (b i)))
+        rw [h, map_smul, _hT, θ.apply_symm_apply] }
+  refine ⟨qθ, fun _ => rfl, ?_, ?_⟩
+  · intro y
+    obtain ⟨a, ha⟩ := _hq (T.symm y)
+    refine ⟨fun i => θ (a i), ?_⟩
+    change T (q (fun i => θ.symm (θ (a i)))) = y
+    simpa only [θ.symm_apply_apply, ha] using T.apply_symm_apply y
+  · ext b
+    rw [LinearMap.mem_ker, LinearMap.mem_range]
+    constructor
+    · intro hb
+      change T (q (fun i => θ.symm (b i))) = 0 at hb
+      have hb0 : q (fun i => θ.symm (b i)) = 0 :=
+        T.injective (by simpa only [map_zero] using hb)
+      have hbker := LinearMap.mem_ker.mpr hb0
+      rw [_hker] at hbker
+      obtain ⟨c, hc⟩ := LinearMap.mem_range.mp hbker
+      refine ⟨fun j => θ (c j), ?_⟩
+      funext i
+      calc
+        (P.map θ.toRingHom).mulVecLin (fun j => θ (c j)) i =
+            θ (P.mulVecLin c i) := (θ.toRingHom.map_mulVec P c i).symm
+        _ = b i := by rw [congrFun hc i, θ.apply_symm_apply]
+    · rintro ⟨d, rfl⟩
+      have hA : (fun i => θ.symm ((P.map θ.toRingHom).mulVecLin d i)) =
+          P.mulVecLin (fun j => θ.symm (d j)) := by
+        ext i
+        simp [Matrix.mulVec, dotProduct, map_sum]
+      have hzero : q (P.mulVecLin (fun j => θ.symm (d j))) = 0 := by
+        apply LinearMap.mem_ker.mp
+        rw [_hker]
+        exact LinearMap.mem_range.mpr ⟨_, rfl⟩
+      change T (q (fun i => θ.symm ((P.map θ.toRingHom).mulVecLin d i))) = 0
+      rw [hA, hzero, map_zero]
+
+
+theorem Submission.p05_ibsrm_mismatched_support_zero_a5b449214a
+    {R : Type*} [CommRing R] (n p t d : ℕ)
+    (P : Matrix (Fin n) (Fin p) R)
+    (rows : Fin d ↪ (Fin n ⊕ Fin t)) (cols : Fin d ↪ (Fin p ⊕ Fin t))
+    (_h : ¬ (∀ a : Fin t, (∃ i : Fin d, rows i = Sum.inr a) ↔
+      (∃ j : Fin d, cols j = Sum.inr a))) :
+    Matrix.det ((Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R)).submatrix
+      rows cols) = 0 := by
+  classical
+  obtain ⟨a, ha⟩ := not_forall.mp _h
+  by_cases hr : ∃ i : Fin d, rows i = Sum.inr a
+  · have hc : ¬ ∃ j : Fin d, cols j = Sum.inr a :=
+      fun hc => ha ⟨fun _ => hc, fun _ => hr⟩
+    obtain ⟨i, hi⟩ := hr
+    apply Matrix.det_eq_zero_of_row_eq_zero i
+    intro j
+    rw [Matrix.submatrix_apply, hi]
+    cases hj : cols j with
+    | inl b => rfl
+    | inr b =>
+        have hab : a ≠ b := by
+          intro hab
+          exact hc ⟨j, hj.trans (congrArg Sum.inr hab.symm)⟩
+        simp only [Matrix.fromBlocks_apply₂₂, Matrix.one_apply, if_neg hab]
+  · have hc : ∃ j : Fin d, cols j = Sum.inr a := by
+      by_contra hc
+      exact ha ⟨fun h => (hr h).elim, fun h => (hc h).elim⟩
+    obtain ⟨j, hj⟩ := hc
+    apply Matrix.det_eq_zero_of_column_eq_zero j
+    intro i
+    rw [Matrix.submatrix_apply, hj]
+    cases hi : rows i with
+    | inl b => rfl
+    | inr b =>
+        have hba : b ≠ a := by
+          intro hba
+          exact hr ⟨i, hi.trans (congrArg Sum.inr hba)⟩
+        simp only [Matrix.fromBlocks_apply₂₂, Matrix.one_apply, if_neg hba]
+theorem Submission.p05_ibsrm_matching_support_blocks_a5b449214a
+    {R : Type*} [CommRing R] (n p t d : ℕ) (P : Matrix (Fin n) (Fin p) R)
+    (rows : Fin d ↪ (Fin n ⊕ Fin t)) (cols : Fin d ↪ (Fin p ⊕ Fin t))
+    (_h : ∀ a : Fin t, (∃ i : Fin d, rows i = Sum.inr a) ↔
+      (∃ j : Fin d, cols j = Sum.inr a)) :
+    ∃ l : ℕ, l ≤ t ∧ l ≤ d ∧
+      ∃ (rows' : Fin (d - l) ↪ Fin n) (cols' : Fin (d - l) ↪ Fin p)
+        (er ec : (Fin (d - l) ⊕ Fin l) ≃ Fin d),
+        ((Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R)).submatrix rows cols).submatrix er ec =
+          Matrix.fromBlocks (P.submatrix rows' cols') 0 0
+            (1 : Matrix (Fin l) (Fin l) R) := by
+  classical
+  let A := {a : Fin n // ∃ i : Fin d, rows i = Sum.inl a}
+  let B := {b : Fin p // ∃ j : Fin d, cols j = Sum.inl b}
+  let S := {a : Fin t // ∃ i : Fin d, rows i = Sum.inr a}
+  let br : Fin d ≃ A ⊕ S :=
+    (Equiv.ofInjective rows rows.injective).trans Equiv.subtypeSum
+  let bc : Fin d ≃ B ⊕ S :=
+    ((Equiv.ofInjective cols cols.injective).trans Equiv.subtypeSum).trans
+      (Equiv.sumCongr (Equiv.refl B) (Equiv.subtypeEquivRight (fun a => (_h a).symm)))
+  let l := Fintype.card S
+  have hlt : l ≤ t := by
+    simpa only [Fintype.card_fin] using
+      (Fintype.card_le_of_injective (Subtype.val : S → Fin t) Subtype.val_injective)
+  have hr : d = Fintype.card A + l := by
+    simpa only [Fintype.card_fin, Fintype.card_sum] using Fintype.card_congr br
+  have hc : d = Fintype.card B + l := by
+    simpa only [Fintype.card_fin, Fintype.card_sum] using Fintype.card_congr bc
+  have hld : l ≤ d := by omega
+  have hA : Fintype.card A = d - l := by omega
+  have hB : Fintype.card B = d - l := by omega
+  let α : Fin (d - l) ≃ A := (monoEquivOfFin A hA).toEquiv
+  let β : Fin (d - l) ≃ B := (monoEquivOfFin B hB).toEquiv
+  let γ : Fin l ≃ S := (monoEquivOfFin S rfl).toEquiv
+  let rows' : Fin (d - l) ↪ Fin n :=
+    ⟨fun i => (α i).val, Subtype.val_injective.comp α.injective⟩
+  let cols' : Fin (d - l) ↪ Fin p :=
+    ⟨fun j => (β j).val, Subtype.val_injective.comp β.injective⟩
+  let s : Fin l ↪ Fin t :=
+    ⟨fun a => (γ a).val, Subtype.val_injective.comp γ.injective⟩
+  let er : (Fin (d - l) ⊕ Fin l) ≃ Fin d := (α.sumCongr γ).trans br.symm
+  let ec : (Fin (d - l) ⊕ Fin l) ≃ Fin d := (β.sumCongr γ).trans bc.symm
+  have hr₁ (i : Fin (d - l)) : rows (er (Sum.inl i)) = Sum.inl (rows' i) := by
+    change rows ((Equiv.ofInjective rows rows.injective).symm
+      ⟨Sum.inl (α i).val, (α i).property⟩) = _
+    exact Equiv.apply_ofInjective_symm rows.injective _
+  have hr₂ (a : Fin l) : rows (er (Sum.inr a)) = Sum.inr (s a) := by
+    change rows ((Equiv.ofInjective rows rows.injective).symm
+      ⟨Sum.inr (γ a).val, (γ a).property⟩) = _
+    exact Equiv.apply_ofInjective_symm rows.injective _
+  have hc₁ (j : Fin (d - l)) : cols (ec (Sum.inl j)) = Sum.inl (cols' j) := by
+    change cols ((Equiv.ofInjective cols cols.injective).symm
+      ⟨Sum.inl (β j).val, (β j).property⟩) = _
+    exact Equiv.apply_ofInjective_symm cols.injective _
+  have hc₂ (b : Fin l) : cols (ec (Sum.inr b)) = Sum.inr (s b) := by
+    change cols ((Equiv.ofInjective cols cols.injective).symm
+      ⟨Sum.inr (γ b).val, (_h (γ b).val).mp (γ b).property⟩) = _
+    exact Equiv.apply_ofInjective_symm cols.injective _
+  refine ⟨l, hlt, hld, rows', cols', er, ec, ?_⟩
+  ext i j
+  rcases i with i | a <;> rcases j with j | b
+  · simp only [Matrix.submatrix_apply, hr₁, hc₁, Matrix.fromBlocks_apply₁₁]
+  · simp only [Matrix.submatrix_apply, hr₁, hc₂, Matrix.fromBlocks_apply₁₂,
+      Matrix.zero_apply]
+  · simp only [Matrix.submatrix_apply, hr₂, hc₁, Matrix.fromBlocks_apply₂₁,
+      Matrix.zero_apply]
+  · simp only [Matrix.submatrix_apply, hr₂, hc₂, Matrix.fromBlocks_apply₂₂,
+      Matrix.one_apply, s.injective.eq_iff]
+
+
+theorem Submission.p05_ibs_reduce_minor_a5b449214a :
+    ∀ {R : Type*} [CommRing R] (n p t d : ℕ) (P : Matrix (Fin n) (Fin p) R)
+      (rows : Fin d ↪ (Fin n ⊕ Fin t)) (cols : Fin d ↪ (Fin p ⊕ Fin t)),
+      let E : Matrix (Fin n ⊕ Fin t) (Fin p ⊕ Fin t) R :=
+        Matrix.fromBlocks P 0 0 (1 : Matrix (Fin t) (Fin t) R)
+      Matrix.det (E.submatrix rows cols) = 0 ∨
+        ∃ l : ℕ, l ≤ t ∧ l ≤ d ∧
+          ∃ (rows' : Fin (d - l) ↪ Fin n) (cols' : Fin (d - l) ↪ Fin p),
+            Matrix.det (E.submatrix rows cols) = Matrix.det (P.submatrix rows' cols') ∨
+              Matrix.det (E.submatrix rows cols) = -Matrix.det (P.submatrix rows' cols') := by
+  intro R _ n p t d P rows cols E
+  classical
+  by_cases hsupport : ∀ a : Fin t,
+      (∃ i : Fin d, rows i = Sum.inr a) ↔ (∃ j : Fin d, cols j = Sum.inr a)
+  · obtain ⟨l, hlt, hld, rows', cols', er, ec, hblocks⟩ :=
+      Submission.p05_ibsrm_matching_support_blocks_a5b449214a n p t d P rows cols hsupport
+    refine Or.inr ⟨l, hlt, hld, rows', cols', ?_⟩
+    -- The common identity block has determinant one; reindexing contributes a sign.
+    have hdet := Matrix.det_reindex er.symm ec.symm (E.submatrix rows cols)
+    simp only [Matrix.reindex_apply, Equiv.symm_symm, E, hblocks,
+      Matrix.det_fromBlocks_zero₂₁, Matrix.det_one, mul_one] at hdet
+    rcases Int.isUnit_eq_one_or (Equiv.Perm.sign (ec.symm.trans er)).isUnit with hs | hs
+    · left
+      simpa [hs] using hdet.symm
+    · right
+      simpa [hs] using congrArg (fun x : R => -x) hdet.symm
+  · exact Or.inl
+      (Submission.p05_ibsrm_mismatched_support_zero_a5b449214a n p t d P rows cols hsupport)
