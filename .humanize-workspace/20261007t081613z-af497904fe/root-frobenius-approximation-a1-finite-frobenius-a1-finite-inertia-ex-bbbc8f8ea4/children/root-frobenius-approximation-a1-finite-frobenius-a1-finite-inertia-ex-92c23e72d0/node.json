@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.finite_inertia_exclusion-a1.conjugate_separation-a1.valuation_product_separation-a1",
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1.finite_inertia_exclusion-a1.conjugate_separation-a1",
+  "depth": 5,
+  "title": "An integer root product separates integral elements at good primes",
+  "statement": "Let K be a field, n ∈ ℕ, β : Fin n → K, and D ∈ ℤ. Suppose every β i is integral over ℤ and the image of D in K equals ∏_{i<j}(β i − β j)². For every natural prime ℓ not dividing D.natAbs and every valuation subring V of K satisfying V.LiesOverPrime ℓ, every β i belongs to V, and β i − β j ∈ V.nonunits implies β i = β j for all i,j. Here V.LiesOverPrime ℓ means (ℓ : K) ∈ V.nonunits, and V.nonunits is the subset of K obtained from the nonunits of V. No characteristic-zero, injectivity, or separate nonzero-D hypothesis is required.",
+  "lean_statement": "∀ {K : Type} [Field K] (n : ℕ) (β : Fin n → K) (D : ℤ), (∀ i : Fin n, IsIntegral ℤ (β i)) → (D : K) = (Finset.univ.filter (fun ij : Fin n × Fin n => ij.1 < ij.2)).prod (fun ij => (β ij.1 - β ij.2) ^ 2) → ∀ ℓ : ℕ, ℓ.Prime → ¬ ℓ ∣ D.natAbs → ∀ V : ValuationSubring K, V.LiesOverPrime ℓ → (∀ i : Fin n, β i ∈ V) ∧ ∀ i j : Fin n, β i - β j ∈ V.nonunits → β i = β j",
+  "lean_name": "p09_af497904fe_cs_valuation_product_separation",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-finite-inertia-ex-92c23e72d0-a1"
+}

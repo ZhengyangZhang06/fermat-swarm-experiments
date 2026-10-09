@@ -1,0 +1,48 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n --glob '*.lean' 'LiesOverPrime|esymmAlgHom_surjective|isIntegrallyClosed_eq_field_fractions\\x27|coe_mem_nonunits_iff' project/Definitions/Def_FLTPrelim_Ramification.lean mathlib/Mathlib/RingTheory/Valuation mathlib/Mathlib/RingTheory/MvPolynomial mathlib/Mathlib/FieldTheory/Minpoly",
+        "rg -n 'coeff_eq_esymm_roots_of_splits|nodup_roots|separable_map|theorem separable' mathlib/Mathlib/RingTheory/Polynomial/Vieta.lean mathlib/Mathlib/FieldTheory/Separable.lean mathlib/Mathlib/FieldTheory/Perfect.lean",
+        "rg -n --glob '*.lean' 'integer_root_product|valuation_product_separation|conjugate_separation' project/Definitions project/Theorems project/Submission.lean",
+        "python3 .humanize/cs-independent-audit-20261009.py",
+        "git log -3 --format='%h %s'"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/Minpoly/IsIntegrallyClosed.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/Separable.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/Normal/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/Galois/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/MvPolynomial/Symmetric/FundamentalTheorem.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Polynomial/Vieta.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/cs-independent-audit-e5yh7h3e/Composition.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/cs-independent-audit-e5yh7h3e/LibraryAxioms.lean.log",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/cs-independent-audit-e5yh7h3e/report.json"
+      ],
+      "conclusion": "Snapshot searches confirmed the cited minimal-polynomial, splitting, separability, symmetric-polynomial, Vieta, and valuation APIs; the proposed-helper search returned no matches. Project revision 20574e45daf714e745af8e649c7b61b21eed5644, mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d, and pinned dependencies checked clean. Fourteen independent Lean checks passed, including fresh project-definition builds, both literal propositions without implemented children, their elaboration under Submission, and their implication of the exact parent contract. Casts, multiplication, powers, and ambient nonunits have the intended meanings. Audited library axioms are limited to propext, Classical.choice, and Quot.sound. The matching header-policy digest, omissions of lines 10–11, reversible hashes, and fresh eight-target absence probe were verified. The final whole-workspace preservation assertion detected concurrent committed changes to live Submission; follow-up checks confirmed the frozen proof-base inputs, contract, problem, existing handoffs, and live header were preserved. This approves the decomposition only; no child proof comparator acceptance is claimed."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "integer_root_product",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the prose and includes every hypothesis. All eight proof steps are sound: minimal-polynomial compatibility yields the monic split separable polynomial; its distinct roots give the required family and conjugate coverage; permutation invariance, elementary symmetric generators indexed by i+1, and the stated Vieta signs produce an integer D; nonzero factors prove D ≠ 0, including empty products. The argument is complete and uses neither child nor parent circularly. The bare identifier is unreserved. This is a genuine arithmetic obligation suitable for the depth-four split."
+    },
+    {
+      "key": "valuation_product_separation",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches the arbitrary-field prose statement. All six proof steps are sound: the inverse-and-monic-equation argument proves containment; integer Bézout makes D a unit; injective inclusion lifts the product equality; a nonunit difference at unequal indices forces a product factor, hence D, into the maximal ideal. Equal indices and reversal of differences are handled. Neither characteristic zero, injectivity of β, nor a separate D ≠ 0 assumption is needed. The proof is complete and independent of its sibling. The bare identifier is unreserved. Both empty dependency lists are correct and acyclic; Lean verified that the parent follows by applying this child to the first child's witnesses."
+    }
+  ],
+  "required_changes": []
+}
