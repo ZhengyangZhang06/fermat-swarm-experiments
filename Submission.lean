@@ -9193,6 +9193,272 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
       by_cases h : pieceEndpoint b p = circleSeam b <;> simp [h]
     exact congrArg₂ (· - ·) (hsplit true) (hsplit false)
 
+  -- Match the interior indentation endpoints with retained grid endpoints;
+  -- keep the two arc ends explicit for the outer-contour joins.
+  have hindentationArtificialIncidence (v : {v // v ∈ B}) (p : ℝ × ℝ)
+      (hp : p ∈ indentationPieces v) (j : Fin 4) (s t : ℝ)
+      (ht : t ∈ Set.Ioo (0 : ℝ) 1)
+      (hs : s ∈ Set.Ioo (cutEnd v.1) (cutStart v.1))
+      (heq : γ v.1 ε s = cellEdge (indentationCell v p) j t) :
+      (p.1 = s → ∃! q : ℝ × ℝ, q ∈ retainedPieces (indentationCell v p) j ∧ q.1 = t) ∧
+      (p.2 = s → ∃! q : ℝ × ℝ, q ∈ retainedPieces (indentationCell v p) j ∧ q.2 = t) := by
+    let i := indentationCell v p
+    have hsphere : cellEdge i j t ∈ Metric.sphere (cutCenter v.1 ε) (cutRadius v.1 ε) := by
+      rw [← heq]
+      exact hgammaSphere v.1 (hKH v.2.1.1) ε hε.1 hε.2 s
+    have hfront : cellEdge i j t ∈ frontier V := by
+      rw [← heq]
+      rw [hfullVFrontier]
+      exact Or.inl (Or.inr (Set.mem_iUnion₂.mpr
+        ⟨v.1, v.2, s, ⟨hs.1.le, hs.2.le⟩, rfl⟩))
+    have hcut : t ∈ edgeCuts i j :=
+      (hedgeCutsMem i j t).mpr (Or.inr (Or.inr ⟨⟨ht.1.le, ht.2.le⟩, hfront⟩))
+    let normal := (cellEdge i j t - cutCenter v.1 ε).re * (cellVelocity i j).re +
+      (cellEdge i j t - cutCenter v.1 ε).im * (cellVelocity i j).im
+    have hnormal : normal ≠ 0 :=
+      hcellCircleNormalNe i j t (cutCenter v.1 ε, cutRadius v.1 ε)
+        (Or.inl (Or.inr ⟨v.1, v.2, rfl⟩)) hsphere
+    obtain ⟨speed, hspeed, hderiv⟩ := hgammaTangent v.1 ε hε.1 hε.2 s
+    have hdet : (deriv (γ v.1 ε) s * star (cellVelocity i j)).im = speed * normal := by
+      rw [hderiv, heq]
+      simp [normal, i, Complex.mul_im, Complex.mul_re]
+      ring
+    have hlt : p.1 < p.2 := by
+      rw [(hindentationCertificate v).2.2.2.1] at hp
+      exact (Finset.mem_filter.mp hp).2.1
+    have hsign := hcellPathEndpointSigns (γ v.1 ε) s _
+      (((hgammaSmooth v.1 ε hε.1 hε.2).differentiable (by norm_num) s).hasDerivAt) i j t heq p.1 p.2 hlt
+      (fun x hx => ((hindentationCertificate v).2.2.2.2.1 p hp).2.1 x ⟨hx.1.le, hx.2.le⟩)
+      (by rw [hdet]; exact mul_ne_zero hspeed.ne' hnormal)
+    rw [hdet] at hsign
+    have hincidence := hfiniteRetainedEndpointIncidence
+      (edgeCuts i j) (edgePieces i j) (retainedPieces i j) (hedgePieceMem i j)
+      (fun _ hq => (Finset.mem_filter.mp hq).1) (cellEdge i j) V
+      (hretainedPieceInterior i j)
+      (fun q hq hn x hx hz => hunretainedPieceExterior i j q hq hn x hx (subset_closure hz))
+      0 1 t normal ((hedgeCutsMem i j 0).mpr (Or.inl rfl))
+      ((hedgeCutsMem i j 1).mpr (Or.inr (Or.inl rfl))) hcut ht.1 ht.2
+      (hindentationEdgeCrossing i j t v.1 v.2 s hs heq.symm)
+    exact ⟨fun h => hincidence.1.mpr ((mul_pos_iff_of_pos_left hspeed).mp (hsign.1 h)),
+      fun h => hincidence.2.mpr (neg_of_mul_neg_right (hsign.2 h) hspeed.le)⟩
+  have hindentationGenuineIncidence (i : ℤ × ℤ) (j : Fin 4) (q : ℝ × ℝ)
+      (hq : q ∈ retainedPieces i j) (t : ℝ) (ht : t ∈ Set.Ioo (0 : ℝ) 1)
+      (v : {v // v ∈ B}) (s : ℝ) (hs : s ∈ Set.Ioo (cutEnd v.1) (cutStart v.1))
+      (heq : cellEdge i j t = γ v.1 ε s) :
+      (q.1 = t → ∃! p : ℝ × ℝ,
+        p ∈ indentationPieces v ∧ p.1 = s ∧ indentationCell v p = i) ∧
+      (q.2 = t → ∃! p : ℝ × ℝ,
+        p ∈ indentationPieces v ∧ p.2 = s ∧ indentationCell v p = i) := by
+    have hfront : cellEdge i j t ∈ frontier V := by
+      rw [heq]
+      rw [hfullVFrontier]
+      exact Or.inl (Or.inr (Set.mem_iUnion₂.mpr
+        ⟨v.1, v.2, s, ⟨hs.1.le, hs.2.le⟩, rfl⟩))
+    have hcross : cellEdge i j t ∈ gridCrossings := by
+      fin_cases j
+      · exact hgridCrossingContains _ hfront i.2
+          (Or.inr (by simpa using (hcellEdgeCoordinates i 0 t).2))
+      · exact hgridCrossingContains _ hfront (i.1 + 1)
+          (Or.inl (by simpa using (hcellEdgeCoordinates i 1 t).1))
+      · exact hgridCrossingContains _ hfront (i.2 + 1)
+          (Or.inr (by simpa using (hcellEdgeCoordinates i 2 t).2))
+      · exact hgridCrossingContains _ hfront i.1
+          (Or.inl (by simpa using (hcellEdgeCoordinates i 3 t).1))
+    have hcut : s ∈ indentationCuts v :=
+      ((hindentationCertificate v).2.2.2.2.2.2 s).mpr
+        (Or.inr (Or.inr ⟨hs, heq ▸ hcross⟩))
+    have hpieces : ∀ p, p ∈ indentationPieces v ↔ p.1 ∈ indentationCuts v ∧
+        p.2 ∈ indentationCuts v ∧ p.1 < p.2 ∧
+          ∀ t ∈ indentationCuts v, t ≤ p.1 ∨ p.2 ≤ t := by
+      intro p
+      rw [(hindentationCertificate v).2.2.2.1]
+      simp only [Finset.mem_filter, Finset.mem_product, and_assoc]
+    have hincidence := hfinitePieceIncidence (indentationCuts v) (indentationPieces v)
+      hpieces s hcut
+    have hsign := hindentationEndpointOrientation i j q hq t v.1 v.2 s hs heq
+    constructor
+    · intro hqt
+      obtain ⟨p, hp, hunique⟩ := hincidence.1
+        ⟨cutStart v.1, (hindentationCertificate v).2.1, hs.2⟩
+      refine ⟨p, ⟨hp.1, hp.2, ?_⟩, fun w hw => hunique w ⟨hw.1, hw.2.1⟩⟩
+      exact hcellPathEndpointCell (γ v.1 ε) s _
+        ((hgammaSmooth v.1 ε hε.1 hε.2).differentiable (by norm_num) s).hasDerivAt i j t ht heq.symm
+        (indentationCell v p) p.1 p.2 ((hpieces p).mp hp.1).2.2.1
+        ((hindentationCertificate v).2.2.2.2.1 p hp.1).2.1 (Or.inl ⟨hp.2, hsign.1 hqt⟩)
+    · intro hqt
+      obtain ⟨p, hp, hunique⟩ := hincidence.2
+        ⟨cutEnd v.1, (hindentationCertificate v).1, hs.1⟩
+      refine ⟨p, ⟨hp.1, hp.2, ?_⟩, fun w hw => hunique w ⟨hw.1, hw.2.1⟩⟩
+      exact hcellPathEndpointCell (γ v.1 ε) s _
+        ((hgammaSmooth v.1 ε hε.1 hε.2).differentiable (by norm_num) s).hasDerivAt i j t ht heq.symm
+        (indentationCell v p) p.1 p.2 ((hpieces p).mp hp.1).2.2.1
+        ((hindentationCertificate v).2.2.2.2.1 p hp.1).2.1 (Or.inr ⟨hp.2, hsign.2 hqt⟩)
+  let indentationEnd (v : {v // v ∈ B}) (b : Bool) : ℝ :=
+    if b then cutStart v.1 else cutEnd v.1
+  let indentationCrossingEndpoints : ℂ := -∑ v : {v // v ∈ B}, ∑ p ∈ indentationPieces v,
+    ((if p.2 = cutStart v.1 then 0 else
+        cellPrimitive (indentationCell v p) (γ v.1 ε p.2)) -
+      (if p.1 = cutEnd v.1 then 0 else
+        cellPrimitive (indentationCell v p) (γ v.1 ε p.1)))
+  let indentationJoinEndpoints : ℂ := -∑ v : {v // v ∈ B}, ∑ p ∈ indentationPieces v,
+    ((if p.2 = cutStart v.1 then cellPrimitive (indentationCell v p) (γ v.1 ε p.2) else 0) -
+      (if p.1 = cutEnd v.1 then cellPrimitive (indentationCell v p) (γ v.1 ε p.1) else 0))
+  have hindentationEndpointReduction :
+      indentationEndpoints = indentationCrossingEndpoints + indentationJoinEndpoints := by
+    rw [← neg_add]
+    apply congrArg Neg.neg
+    rw [← Finset.sum_add_distrib]
+    apply Finset.sum_congr rfl
+    intro v _
+    rw [← Finset.sum_add_distrib]
+    apply Finset.sum_congr rfl
+    intro p _
+    split_ifs <;> ring
+  let indentationEndpointPieces (v : {v // v ∈ B}) (b : Bool) :=
+    (indentationPieces v).filter (fun p => pieceEndpoint b p ≠ indentationEnd v b)
+  let indentationGridEndpoints (v : {v // v ∈ B}) (b : Bool) :=
+    retainedGridPieces.filter (fun e => pieceEndpoint b e.2.2 ∈ Set.Ioo (0 : ℝ) 1 ∧
+      ∃ s ∈ Set.Ioo (cutEnd v.1) (cutStart v.1),
+        cellEdge e.1 e.2.1 (pieceEndpoint b e.2.2) = γ v.1 ε s)
+  have hindentationEndpointInterior (v : {v // v ∈ B}) (b : Bool) (p : ℝ × ℝ)
+      (hp : p ∈ indentationEndpointPieces v b) :
+      pieceEndpoint b p ∈ Set.Ioo (cutEnd v.1) (cutStart v.1) ∧
+        γ v.1 ε (pieceEndpoint b p) ∈ gridCrossings := by
+    obtain ⟨hpp, hpne⟩ := Finset.mem_filter.mp hp
+    have hpairs := hpp
+    rw [(hindentationCertificate v).2.2.2.1] at hpairs
+    obtain ⟨hp₁, hp₂⟩ := Finset.mem_product.mp (Finset.mem_filter.mp hpairs).1
+    have hlt := (Finset.mem_filter.mp hpairs).2.1
+    have h₁ := (hindentationCertificate v).2.2.1 p.1 hp₁
+    have h₂ := (hindentationCertificate v).2.2.1 p.2 hp₂
+    have hmem : pieceEndpoint b p ∈ indentationCuts v := by
+      cases b <;> assumption
+    have hstrict : pieceEndpoint b p ∈ Set.Ioo (cutEnd v.1) (cutStart v.1) := by
+      cases b
+      · exact ⟨lt_of_le_of_ne h₁.1 hpne.symm, lt_of_lt_of_le hlt h₂.2⟩
+      · exact ⟨lt_of_le_of_lt h₁.1 hlt, lt_of_le_of_ne h₂.2 hpne⟩
+    refine ⟨hstrict, ?_⟩
+    rcases ((hindentationCertificate v).2.2.2.2.2.2 _).mp hmem with h | h | h
+    · exact (ne_of_gt hstrict.1 h).elim
+    · exact (ne_of_lt hstrict.2 h).elim
+    · exact h.2
+  let indentationEndpointMatch (v : {v // v ∈ B}) (b : Bool)
+      (p : ℝ × ℝ) (e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ)) : Prop :=
+    indentationCell v p = e.1 ∧
+      γ v.1 ε (pieceEndpoint b p) = cellEdge e.1 e.2.1 (pieceEndpoint b e.2.2)
+  have hindentationEndpointRow (v : {v // v ∈ B}) (b : Bool) (p : ℝ × ℝ)
+      (hp : p ∈ indentationEndpointPieces v b) :
+      ∃! e, e ∈ indentationGridEndpoints v b ∧ indentationEndpointMatch v b p e := by
+    have hpp := (Finset.mem_filter.mp hp).1
+    obtain ⟨hs, hcross⟩ := hindentationEndpointInterior v b p hp
+    have hpairs := hpp
+    rw [(hindentationCertificate v).2.2.2.1] at hpairs
+    have hlt := (Finset.mem_filter.mp hpairs).2.1
+    have hbound : pieceEndpoint b p ∈ Set.Icc p.1 p.2 := by
+      cases b
+      · exact ⟨le_rfl, hlt.le⟩
+      · exact ⟨hlt.le, le_rfl⟩
+    have hcell := ((hindentationCertificate v).2.2.2.2.1 p hpp).2.1 _ hbound
+    obtain ⟨j, t, ht, hpoint⟩ := hcrossingCellEdge _ hcross (indentationCell v p) hcell
+    have hinc := hindentationArtificialIncidence v p hpp j (pieceEndpoint b p) t ht hs hpoint.symm
+    have hq : ∃! q, q ∈ retainedPieces (indentationCell v p) j ∧ pieceEndpoint b q = t := by
+      cases b
+      · exact hinc.1 rfl
+      · exact hinc.2 rfl
+    obtain ⟨q, ⟨hq, hqt⟩, hqunique⟩ := hq
+    let e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ) := (indentationCell v p, j, q)
+    have he : e ∈ indentationGridEndpoints v b := by
+      refine Finset.mem_filter.mpr ⟨(hretainedGridMem e).mpr
+        ⟨((hindentationCertificate v).2.2.2.2.1 p hpp).1, hq⟩, ?_⟩
+      exact ⟨hqt.symm ▸ ht, pieceEndpoint b p, hs, by simpa only [e, hqt] using hpoint⟩
+    refine ⟨e, ⟨he, rfl, by simpa only [e, hqt] using hpoint.symm⟩, ?_⟩
+    intro e' he'
+    obtain ⟨he'mem, he'cell, he'point⟩ := he'
+    have ht' := (Finset.mem_filter.mp he'mem).2.1
+    have hq' := ((hretainedGridMem e').mp (Finset.mem_filter.mp he'mem).1).2
+    have hpath : cellEdge (indentationCell v p) j t =
+        cellEdge (indentationCell v p) e'.2.1 (pieceEndpoint b e'.2.2) := by
+      simpa only [he'cell] using hpoint.trans he'point
+    obtain ⟨hj, hparam⟩ := hcellEdgeInteriorUnique _ _ _ _ _ ht ht' hpath
+    have hpq : e'.2.2 = q := hqunique e'.2.2
+      ⟨by simpa only [he'cell, hj] using hq', hparam.symm⟩
+    exact Prod.ext he'cell.symm (Prod.ext hj.symm hpq)
+  have hindentationEndpointColumn (v : {v // v ∈ B}) (b : Bool)
+      (e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ)) (he : e ∈ indentationGridEndpoints v b) :
+      ∃! p, p ∈ indentationEndpointPieces v b ∧ indentationEndpointMatch v b p e := by
+    obtain ⟨hemem, ht, s, hs, heq⟩ := Finset.mem_filter.mp he
+    have hq := ((hretainedGridMem e).mp hemem).2
+    have hinc := hindentationGenuineIncidence e.1 e.2.1 e.2.2 hq
+      (pieceEndpoint b e.2.2) ht v s hs heq
+    have hp : ∃! p, p ∈ indentationPieces v ∧ pieceEndpoint b p = s ∧ indentationCell v p = e.1 := by
+      cases b
+      · exact hinc.1 rfl
+      · exact hinc.2 rfl
+    obtain ⟨p, ⟨hpp, hps, hcell⟩, hpunique⟩ := hp
+    have hp : p ∈ indentationEndpointPieces v b := by
+      refine Finset.mem_filter.mpr ⟨hpp, ?_⟩
+      rw [hps]
+      cases b
+      · exact ne_of_gt hs.1
+      · exact ne_of_lt hs.2
+    refine ⟨p, ⟨hp, hcell, by rw [hps]; exact heq.symm⟩, ?_⟩
+    intro q hq
+    obtain ⟨hqmem, hqcell, hqpoint⟩ := hq
+    have hsq := (hindentationEndpointInterior v b q hqmem).1
+    have hparam : pieceEndpoint b q = s := by
+      exact hgammaInjective v.1 (hKH v.2.1.1) hsq hs (hqpoint.trans heq)
+    exact hpunique q ⟨(Finset.mem_filter.mp hqmem).1, hparam, hqcell⟩
+  have hindentationEndpointSumReindex (v : {v // v ∈ B}) (b : Bool) :
+      (∑ p ∈ indentationEndpointPieces v b,
+        cellPrimitive (indentationCell v p) (γ v.1 ε (pieceEndpoint b p))) =
+      ∑ e ∈ indentationGridEndpoints v b,
+        cellPrimitive e.1 (cellEdge e.1 e.2.1 (pieceEndpoint b e.2.2)) := by
+    let f := fun p => cellPrimitive (indentationCell v p) (γ v.1 ε (pieceEndpoint b p))
+    let g := fun e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ) =>
+      cellPrimitive e.1 (cellEdge e.1 e.2.1 (pieceEndpoint b e.2.2))
+    have hrow (p : ℝ × ℝ) (hp : p ∈ indentationEndpointPieces v b) :
+        f p = ∑ e ∈ indentationGridEndpoints v b,
+          if indentationEndpointMatch v b p e then f p else 0 := by
+      obtain ⟨e, ⟨he, hrel⟩, hu⟩ := hindentationEndpointRow v b p hp
+      rw [Finset.sum_eq_single e, if_pos hrel]
+      · intro e' he' hne
+        exact if_neg (fun h => hne (hu e' ⟨he', h⟩))
+      · exact fun h => (h he).elim
+    have hcolumn (e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ)) (he : e ∈ indentationGridEndpoints v b) :
+        (∑ p ∈ indentationEndpointPieces v b,
+          if indentationEndpointMatch v b p e then f p else 0) = g e := by
+      obtain ⟨p, ⟨hp, hrel⟩, hu⟩ := hindentationEndpointColumn v b e he
+      rw [Finset.sum_eq_single p, if_pos hrel]
+      · exact congrArg₂ cellPrimitive hrel.1 hrel.2
+      · intro p' hp' hne
+        exact if_neg (fun h => hne (hu p' ⟨hp', h⟩))
+      · exact fun h => (h hp).elim
+    calc
+      _ = ∑ p ∈ indentationEndpointPieces v b, ∑ e ∈ indentationGridEndpoints v b,
+          if indentationEndpointMatch v b p e then f p else 0 := Finset.sum_congr rfl hrow
+      _ = ∑ e ∈ indentationGridEndpoints v b, ∑ p ∈ indentationEndpointPieces v b,
+          if indentationEndpointMatch v b p e then f p else 0 := Finset.sum_comm
+      _ = _ := Finset.sum_congr rfl hcolumn
+  let indentationGridContribution : ℂ := ∑ v : {v // v ∈ B},
+    ((∑ e ∈ indentationGridEndpoints v true,
+      cellPrimitive e.1 (cellEdge e.1 e.2.1 e.2.2.2)) -
+      ∑ e ∈ indentationGridEndpoints v false,
+        cellPrimitive e.1 (cellEdge e.1 e.2.1 e.2.2.1))
+  have hindentationGridCancellation : indentationCrossingEndpoints = -indentationGridContribution := by
+    apply congrArg Neg.neg
+    apply Finset.sum_congr rfl
+    intro v _
+    rw [Finset.sum_sub_distrib]
+    have hsplit (b : Bool) :
+        (∑ p ∈ indentationPieces v,
+          if pieceEndpoint b p = indentationEnd v b then 0 else
+            cellPrimitive (indentationCell v p) (γ v.1 ε (pieceEndpoint b p))) =
+        ∑ e ∈ indentationGridEndpoints v b,
+          cellPrimitive e.1 (cellEdge e.1 e.2.1 (pieceEndpoint b e.2.2)) := by
+      rw [← hindentationEndpointSumReindex v b]
+      simp only [indentationEndpointPieces, Finset.sum_filter, ite_not]
+    exact congrArg₂ (· - ·) (hsplit true) (hsplit false)
+
   have hretainedIntegralEndpoint (e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ))
       (he : e ∈ retainedGridPieces) :
       retainedIntegral e =
@@ -9293,6 +9559,144 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     dsimp only [gridEndpoints, gridCrossingEndpoints, retainedGridPieces]
     rw [hdisjointGridSum]
     exact Finset.sum_congr rfl (fun i _ => hgridCellEndpointReduction i)
+  -- The hole disks are disjoint, so each retained grid endpoint is
+  -- charged to at most one excision or indentation component.
+  let gridSeam : Bool → ℝ := fun b => if b then 1 else 0
+  let allGridEndpoints (b : Bool) := retainedGridPieces.filter
+    (fun e => pieceEndpoint b e.2.2 ≠ gridSeam b)
+  let holeGridEndpoints (b : Bool) : Sum {v // v ∈ S} {v // v ∈ B} →
+      Finset ((ℤ × ℤ) × Fin 4 × (ℝ × ℝ)) :=
+    Sum.elim (fun v => excisionGridEndpoints v b) (fun v => indentationGridEndpoints v b)
+  have hholeGridSubset (b : Bool) (v : Sum {v // v ∈ S} {v // v ∈ B}) :
+      holeGridEndpoints b v ⊆ allGridEndpoints b := by
+    intro e he
+    have hmem : e ∈ retainedGridPieces ∧ pieceEndpoint b e.2.2 ∈ Set.Ioo (0 : ℝ) 1 := by
+      cases v with
+      | inl v => exact ⟨(Finset.mem_filter.mp he).1, (Finset.mem_filter.mp he).2.1⟩
+      | inr v => exact ⟨(Finset.mem_filter.mp he).1, (Finset.mem_filter.mp he).2.1⟩
+    refine Finset.mem_filter.mpr ⟨hmem.1, ?_⟩
+    cases b
+    · exact ne_of_gt hmem.2.1
+    · exact ne_of_lt hmem.2.2
+  have hexcisionGridPoint (b : Bool) (v : {v // v ∈ S})
+      (e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ)) (he : e ∈ excisionGridEndpoints v b) :
+      cellEdge e.1 e.2.1 (pieceEndpoint b e.2.2) ∈ Metric.closedBall v.1 r := by
+    obtain ⟨_, _, s, _, heq⟩ := Finset.mem_filter.mp he
+    rw [heq]
+    exact Metric.sphere_subset_closedBall (circleMap_mem_sphere v.1 hr.le s)
+  have hindentationGridPoint (b : Bool) (v : {v // v ∈ B})
+      (e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ)) (he : e ∈ indentationGridEndpoints v b) :
+      cellEdge e.1 e.2.1 (pieceEndpoint b e.2.2) ∈ D v.1 ε := by
+    obtain ⟨_, _, s, _, heq⟩ := Finset.mem_filter.mp he
+    rw [heq]
+    exact (hgammaOnCut v.1 (hKH v.2.1.1) ε hε.1 hε.2 s).1
+  have hholeGridUnique (b : Bool) (e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ))
+      (u v : Sum {v // v ∈ S} {v // v ∈ B})
+      (hu : e ∈ holeGridEndpoints b u) (hv : e ∈ holeGridEndpoints b v) : u = v := by
+    cases u with
+    | inl u =>
+      have hzu := hexcisionGridPoint b u e hu
+      cases v with
+      | inl v =>
+        have hzv := hexcisionGridPoint b v e hv
+        have huv : u = v := by
+          apply Subtype.ext
+          by_contra hne
+          exact Set.disjoint_left.mp (hexcisionDisjoint u.2 v.2 hne) hzu hzv
+        exact congrArg Sum.inl huv
+      | inr v =>
+        have hzv := hindentationGridPoint b v e hv
+        exact ((hexcisionInside u.1 u.2 hzu).2
+          (Set.mem_iUnion₂.mpr ⟨v.1, v.2, hzv⟩)).elim
+    | inr u =>
+      have hzu := hindentationGridPoint b u e hu
+      cases v with
+      | inl v =>
+        have hzv := hexcisionGridPoint b v e hv
+        exact ((hexcisionInside v.1 v.2 hzv).2
+          (Set.mem_iUnion₂.mpr ⟨u.1, u.2, hzu⟩)).elim
+      | inr v =>
+        have hzv := hindentationGridPoint b v e hv
+        have huv : u = v := by
+          apply Subtype.ext
+          by_contra hne
+          exact Set.disjoint_left.mp (hboundaryDisjoint u.2.1 v.2.1 hne) hzu hzv
+        exact congrArg Sum.inr huv
+  let outerGridEndpoints (b : Bool) := (allGridEndpoints b).filter
+    (fun e => ∀ v : Sum {v // v ∈ S} {v // v ∈ B}, e ∉ holeGridEndpoints b v)
+  have hgridEndpointPartition (b : Bool)
+      (f : ((ℤ × ℤ) × Fin 4 × (ℝ × ℝ)) → ℂ) :
+      (∑ e ∈ allGridEndpoints b, f e) =
+        (∑ e ∈ outerGridEndpoints b, f e) +
+          (∑ v : {v // v ∈ S}, ∑ e ∈ excisionGridEndpoints v b, f e) +
+          ∑ v : {v // v ∈ B}, ∑ e ∈ indentationGridEndpoints v b, f e := by
+    have hrow (e : (ℤ × ℤ) × Fin 4 × (ℝ × ℝ)) :
+        f e = (if ∀ v, e ∉ holeGridEndpoints b v then f e else 0) +
+          ∑ v : Sum {v // v ∈ S} {v // v ∈ B},
+            if e ∈ holeGridEndpoints b v then f e else 0 := by
+      by_cases he : ∃ v, e ∈ holeGridEndpoints b v
+      · obtain ⟨v, hv⟩ := he
+        rw [if_neg (fun h => h v hv), zero_add, Finset.sum_eq_single v, if_pos hv]
+        · intro w _ hne
+          exact if_neg (fun hw => hne (hholeGridUnique b e w v hw hv))
+        · simp
+      · have hn : ∀ v, e ∉ holeGridEndpoints b v := by simpa only [not_exists] using he
+        simp only [if_pos hn, if_neg (hn _), Finset.sum_const_zero, add_zero]
+    have hfilter (v : Sum {v // v ∈ S} {v // v ∈ B}) :
+        (allGridEndpoints b).filter (fun e => e ∈ holeGridEndpoints b v) =
+          holeGridEndpoints b v := by
+      ext e
+      exact ⟨fun h => (Finset.mem_filter.mp h).2,
+        fun h => Finset.mem_filter.mpr ⟨hholeGridSubset b v h, h⟩⟩
+    calc
+      _ = (∑ e ∈ allGridEndpoints b,
+            if ∀ v, e ∉ holeGridEndpoints b v then f e else 0) +
+          ∑ e ∈ allGridEndpoints b, ∑ v : Sum {v // v ∈ S} {v // v ∈ B},
+            if e ∈ holeGridEndpoints b v then f e else 0 := by
+        rw [← Finset.sum_add_distrib]
+        exact Finset.sum_congr rfl (fun e _ => hrow e)
+      _ = (∑ e ∈ outerGridEndpoints b, f e) +
+          ∑ v : Sum {v // v ∈ S} {v // v ∈ B}, ∑ e ∈ holeGridEndpoints b v, f e := by
+        rw [Finset.sum_comm]
+        congr 1
+        · exact (Finset.sum_filter _ _).symm
+        · apply Finset.sum_congr rfl
+          intro v _
+          rw [← Finset.sum_filter, hfilter]
+      _ = _ := by
+        rw [Fintype.sum_sum_type]
+        dsimp only [holeGridEndpoints, Sum.elim_inl, Sum.elim_inr]
+        ring
+  let outerGridContribution : ℂ :=
+    (∑ e ∈ outerGridEndpoints true, cellPrimitive e.1 (cellEdge e.1 e.2.1 e.2.2.2)) -
+      ∑ e ∈ outerGridEndpoints false, cellPrimitive e.1 (cellEdge e.1 e.2.1 e.2.2.1)
+  have hgridBoundaryPartition :
+      gridCrossingEndpoints =
+        outerGridContribution + excisionGridContribution + indentationGridContribution := by
+    have hsplit (b : Bool) :
+        (∑ e ∈ retainedGridPieces,
+          if pieceEndpoint b e.2.2 = gridSeam b then 0 else
+            cellPrimitive e.1 (cellEdge e.1 e.2.1 (pieceEndpoint b e.2.2))) =
+        ∑ e ∈ allGridEndpoints b,
+          cellPrimitive e.1 (cellEdge e.1 e.2.1 (pieceEndpoint b e.2.2)) := by
+      simp only [allGridEndpoints, Finset.sum_filter, ite_not]
+    change (∑ i ∈ hgridFinite.toFinset, ∑ j : Fin 4, ∑ p ∈ retainedPieces i j, _) = _
+    rw [← hdisjointGridSum hgridFinite.toFinset retainedPieces
+      (fun e =>
+        (if e.2.2.2 = 1 then 0 else cellPrimitive e.1 (cellEdge e.1 e.2.1 e.2.2.2)) -
+          (if e.2.2.1 = 0 then 0 else cellPrimitive e.1 (cellEdge e.1 e.2.1 e.2.2.1)))]
+    change (∑ e ∈ retainedGridPieces,
+      ((if e.2.2.2 = 1 then 0 else cellPrimitive e.1 (cellEdge e.1 e.2.1 e.2.2.2)) -
+        (if e.2.2.1 = 0 then 0 else cellPrimitive e.1 (cellEdge e.1 e.2.1 e.2.2.1)))) = _
+    have htrue := hsplit true
+    have hfalse := hsplit false
+    simp only [pieceEndpoint, gridSeam, Bool.false_eq_true, ↓reduceIte] at htrue hfalse
+    rw [Finset.sum_sub_distrib, htrue, hfalse,
+      hgridEndpointPartition true, hgridEndpointPartition false]
+    dsimp only [outerGridContribution, excisionGridContribution, indentationGridContribution]
+    simp only [Finset.sum_sub_distrib]
+    ring
+
   suffices hboundaryAssembly :
       intervalIntegral (retainedArc ε) (2 * Real.pi / 3) (Real.pi / 3)
           MeasureTheory.volume + verticalContribution ε + top Y +
@@ -9303,16 +9707,15 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
         -(∑ e ∈ retainedGridPieces, retainedIntegral e) by
     rw [hboundaryAssembly, hretainedGridCancellation, neg_zero]
   rw [houterEndpointSum, hindentationEndpointSum, hexcisionEndpointSum, hgridEndpointSum,
-    hgridEndpointReduction, hexcisionEndpointReduction, hexcisionGridCancellation]
+    hgridEndpointReduction, hexcisionEndpointReduction, hexcisionGridCancellation,
+    hindentationEndpointReduction, hindentationGridCancellation, hgridBoundaryPartition]
   suffices hremainingBoundary :
-      outerEndpoints + indentationEndpoints =
-        -gridCrossingEndpoints + excisionGridContribution by
+      outerEndpoints + indentationJoinEndpoints =
+        -outerGridContribution by
     linear_combination hremainingBoundary
-  /- Remaining formal obligation: assemble the outer and indentation endpoint
-  families, including their contour joins. The excision-circle endpoints have
-  been reindexed by their actual retained grid endpoint occurrences above and
-  removed from this identity; each matched pair uses the same cell primitive.
-  The remaining grid contribution must be partitioned among the outer and
-  indentation crossings, and their non-grid joins must cancel. -/
+  /- Remaining formal obligation: identify the remaining outer-boundary grid
+  endpoints with the subdivided outer paths, and cancel their contour joins
+  against indentationJoinEndpoints. The disjoint grid partition and both
+  excision and indentation crossing consumers have been applied above. -/
 
 end Submission
