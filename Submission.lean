@@ -1052,3 +1052,85 @@ theorem Submission.p09_af497904fe_ftl_frobenius_valuation_union :
   exact ⟨P, hPprime, hrestrict,
     Submission.p09_af497904fe_fvu_frobenius_from_exhaustive_restrictions
       F hexhaust V P hrestrict ℓ τ hfrob⟩
+theorem Submission.p09_af497904fe_ce_compositum_pair :
+    ∀ (E C : IntermediateField ℚ (AlgebraicClosure ℚ))
+      [FiniteDimensional ℚ E] [IsGalois ℚ E]
+      [FiniteDimensional ℚ C] [IsGalois ℚ C], E ⊓ C = ⊥ →
+      ∀ (g : E ≃ₐ[ℚ] E) (a : C ≃ₐ[ℚ] C),
+      ∃! h : ↥(E ⊔ C) ≃ₐ[ℚ] ↥(E ⊔ C),
+        (∀ x : E, h (IntermediateField.inclusion (show E ≤ E ⊔ C from le_sup_left) x) =
+          IntermediateField.inclusion (show E ≤ E ⊔ C from le_sup_left) (g x)) ∧
+        (∀ y : C, h (IntermediateField.inclusion (show C ≤ E ⊔ C from le_sup_right) y) =
+          IntermediateField.inclusion (show C ≤ E ⊔ C from le_sup_right) (a y)) := by
+  intro E C _ _ _ _ hEC g a
+  classical
+  let M := E ⊔ C
+  let iE : E →ₐ[ℚ] M := IntermediateField.inclusion le_sup_left
+  let iC : C →ₐ[ℚ] M := IntermediateField.inclusion le_sup_right
+  let := iE.toAlgebra
+  let := iC.toAlgebra
+  have : IsScalarTower ℚ E M := IsScalarTower.of_algHom iE
+  have : IsScalarTower ℚ C M := IsScalarTower.of_algHom iC
+  have : IsGalois ℚ M :=
+    { to_isSeparable := inferInstance, to_normal := inferInstance }
+  let R : (M ≃ₐ[ℚ] M) →* (E ≃ₐ[ℚ] E) × (C ≃ₐ[ℚ] C) :=
+    (AlgEquiv.restrictNormalHom E).prod (AlgEquiv.restrictNormalHom C)
+  have hE (h : M ≃ₐ[ℚ] M) (x : E) :
+      iE (h.restrictNormal E x) = h (iE x) := h.restrictNormal_commutes E x
+  have hC (h : M ≃ₐ[ℚ] M) (y : C) :
+      iC (h.restrictNormal C y) = h (iC y) := h.restrictNormal_commutes C y
+  let E' : IntermediateField ℚ M := E.restrict le_sup_left
+  let C' : IntermediateField ℚ M := C.restrict le_sup_right
+  have hsup : E' ⊔ C' = ⊤ := by
+    rw [← IntermediateField.lift_inj, IntermediateField.lift_top,
+      IntermediateField.lift_sup, IntermediateField.lift_restrict le_sup_left,
+      IntermediateField.lift_restrict le_sup_right]
+  -- An automorphism fixing both fields fixes their compositum.
+  have hinj : Function.Injective R := by
+    apply (injective_iff_map_eq_one R).2
+    intro h hh
+    have he : h.restrictNormal E = 1 := congrArg Prod.fst hh
+    have hc : h.restrictNormal C = 1 := congrArg Prod.snd hh
+    rw [← Subgroup.mem_bot, ← IntermediateField.fixingSubgroup_top,
+      ← hsup, IntermediateField.fixingSubgroup_sup]
+    constructor
+    · intro x
+      let z : E := ⟨x.1.1, (IntermediateField.mem_restrict le_sup_left x.1).1 x.2⟩
+      have hz : iE z = x.1 := by
+        apply Subtype.ext
+        rfl
+      simpa only [he, AlgEquiv.one_apply, hz, AlgEquiv.smul_def] using (hE h z).symm
+    · intro y
+      let z : C := ⟨y.1.1, (IntermediateField.mem_restrict le_sup_right y.1).1 y.2⟩
+      have hz : iC z = y.1 := by
+        apply Subtype.ext
+        rfl
+      simpa only [hc, AlgEquiv.one_apply, hz, AlgEquiv.smul_def] using (hC h z).symm
+  -- The disjoint Galois degree formula makes paired restriction bijective.
+  have hcard : Nat.card (M ≃ₐ[ℚ] M) = Nat.card ((E ≃ₐ[ℚ] E) × (C ≃ₐ[ℚ] C)) := by
+    rw [Nat.card_prod, IsGalois.card_aut_eq_finrank,
+      IsGalois.card_aut_eq_finrank, IsGalois.card_aut_eq_finrank]
+    exact (IntermediateField.LinearDisjoint.of_inf_eq_bot hEC).finrank_sup
+  obtain ⟨h, hh⟩ := ((Nat.bijective_iff_injective_and_card R).2 ⟨hinj, hcard⟩).2 (g, a)
+  have he : h.restrictNormal E = g := congrArg Prod.fst hh
+  have hc : h.restrictNormal C = a := congrArg Prod.snd hh
+  refine ⟨h, ⟨?_, ?_⟩, ?_⟩
+  · intro x
+    exact (hE h x).symm.trans (congrArg (fun e : E ≃ₐ[ℚ] E => iE (e x)) he)
+  · intro y
+    exact (hC h y).symm.trans (congrArg (fun e : C ≃ₐ[ℚ] C => iC (e y)) hc)
+  · intro k hk
+    apply hinj
+    apply Prod.ext
+    · change k.restrictNormal E = h.restrictNormal E
+      rw [he]
+      apply AlgEquiv.ext
+      intro x
+      apply iE.injective
+      exact (hE k x).trans (hk.1 x)
+    · change k.restrictNormal C = h.restrictNormal C
+      rw [hc]
+      apply AlgEquiv.ext
+      intro y
+      apply iC.injective
+      exact (hC k y).trans (hk.2 y)
