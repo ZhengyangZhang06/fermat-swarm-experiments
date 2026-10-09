@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "c2e2dff31fd558384e011dbca1148446e3c177f877bfb92f7a680d2973989248",
+  "git_delta": {
+    "base_commit": "a5ab47e59d6ac49247419df0815231fe7c234d58",
+    "candidate_commit": "fc7ee8a12e39c9f9169a44591e10a97cafced82b",
+    "target": "Submission.lean",
+    "declaration": "p02_es_177ebb5a_equivariant_primitive_vanishes",
+    "diff_sha256": "b94b92545f0953dfad56dfe7603a315f2ed5e3fc655f05e0ea0a432eb811b20c",
+    "source_sha256": "8283702c0ec9765901c25d77b1fd2c0cb2ab262defbfe0195c394c729041111d",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p02_es_177ebb5a_equivariant_primitive_vanishes",
+      "statement": "∀ (N : ℕ) [NeZero N] (n : ℕ) (f : CuspForm (CongruenceSubgroup.Gamma0 N) ((n : ℤ) + 2)) (E : UpperHalfPlane → ↥(HeckeEis.BinaryForm ℂ n)), HeckeEis.IsEichlerIntegral n (fun τ => f τ) E → (∀ (γ : CongruenceSubgroup.Gamma0 N) (τ : UpperHalfPlane), E ((γ : Matrix.SpecialLinearGroup (Fin 2) ℤ) • τ) = ((HeckeEis.binaryFormRepSL ℂ n).comp (CongruenceSubgroup.Gamma0 N).subtype) γ (E τ)) → f = 0",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
