@@ -1131,11 +1131,6 @@ open MeasureTheory
 namespace Submission
 
 /-- The boundary of the standard modular domain is measurable and has hyperbolic volume zero. -/
-open MeasureTheory
-
-namespace Submission
-
-/-- The boundary of the standard modular domain is measurable and has hyperbolic volume zero. -/
 theorem f036cc6b1f_pc_ed_aoi_boundary_null :
     MeasurableSet (ModularGroup.fd \ ModularGroup.fdo) ∧
       (volume : Measure UpperHalfPlane) (ModularGroup.fd \ ModularGroup.fdo) = 0 := by
@@ -1154,9 +1149,6 @@ theorem f036cc6b1f_pc_ed_aoi_boundary_null :
       change x ^ 2 + y ^ 2 = 1 at hy
       have hfactor : (y - y₀) * (y + y₀) = 0 := by nlinarith
       simp only [Set.mem_insert_iff, Set.mem_singleton_iff]
-      rcases mul_eq_zero.mp hfactor with hpos | hneg
-      · exact Or.inl (by linarith)
-      · exact Or.inr (by linarith)
       rcases mul_eq_zero.mp hfactor with hpos | hneg
       · exact Or.inl (by linarith)
       · exact Or.inr (by linarith)
@@ -1205,27 +1197,6 @@ theorem f036cc6b1f_pc_ed_aoi_boundary_null :
 end Submission
 
 namespace Submission
-
-/-- Almost every point has a modular orbit disjoint from a prescribed measurable null set. -/
-theorem f036cc6b1f_pc_ed_aoi_null_orbit :
-    ∀ s : Set UpperHalfPlane, MeasurableSet s →
-      (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane) s = 0 →
-      ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
-        ∀ a : Matrix.SpecialLinearGroup (Fin 2) ℤ, a • z ∉ s := by
-  intro s hs hnull
-  -- The determinant-one subtype of four integer entries is countable.
-  let : Countable (Matrix.SpecialLinearGroup (Fin 2) ℤ) := by
-    unfold Matrix.SpecialLinearGroup Matrix
-    infer_instance
-  apply MeasureTheory.ae_all_iff.mpr
-  intro a
-  -- The modular action is the restriction of the measure-invariant real GL action.
-  change ∀ᵐ z ∂(MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane),
-    z ∉ (fun z : UpperHalfPlane => Matrix.SpecialLinearGroup.mapGL ℝ a • z) ⁻¹' s
-  apply MeasureTheory.measure_eq_zero_iff_ae_notMem.mp
-  exact (MeasureTheory.SMulInvariantMeasure.measure_preimage_smul
-    (μ := (MeasureTheory.volume : MeasureTheory.Measure UpperHalfPlane))
-    (Matrix.SpecialLinearGroup.mapGL ℝ a) hs).trans hnull
 
 /-- Almost every modular orbit avoids the boundary of the standard fundamental domain. -/
 theorem f036cc6b1f_pc_ed_ae_orbit_interior :
