@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'galoisRep_ordinaryLineAt|p03_tkc_positive_torsion_finite|p03_ptf_positive_nsmul_nonzero|p03_ptf_finite_kernel'",
+        "rg -n 'def basis|exists_smul_basis_eq|norm_smul_basis|theorem X_eq_iff|def xRep|instance.*AddCommGroup'"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Submission.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Fermat/Thm_WeierstrassCurve_galoisRep_ordinaryLineAt.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Point.lean"
+      ],
+      "conclusion": "Pinned project and mathlib revisions match verifier evidence. The original root contract is preserved byte-exact. Point.lean supplies the standard point-group instance and coordinate-ring infrastructure; the searched original project files contain none of the three added theorem names. Both prerequisite declarations match their accepted child commits byte-exact."
+    }
+  ],
+  "comparison_identity": "02d5ec34177f2d08d4975dafb4351e2082c1c073cd18379a7897eeb2dcfc1be3",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p03_tkc_positive_torsion_finite_68cf3476_d5",
+      "statement": "∀ (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k] (W : WeierstrassCurve k), W.Δ ≠ 0 → ∀ n : ℕ, 0 < n → Finite {P : W.toAffine.Point // n • P = 0}",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines the accepted existence of a point with nonzero n-multiple with the accepted finite-kernel theorem."
+    }
+  ]
+}
