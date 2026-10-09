@@ -3891,14 +3891,18 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
     exact sign_eq_one_iff
   let : rayUnits.FiniteIndex := hrayUnitsIndex
   -- Steps 16–17: the ray-unit logarithms form a full lattice, hence a fundamental cone.
-  obtain ⟨rayCone, hrayConeMeasurable, hrayConeReduce, hrayConeTorsion⟩ :
+  obtain ⟨rayCone, hrayConeMeasurable, hrayConeReduce, hrayConeTorsion,
+      hrayConeBounded, hrayConeNonzero, hrayConeSmul⟩ :
       ∃ C : Set (NumberField.mixedEmbedding.mixedSpace F), MeasurableSet C ∧
         (∀ x : NumberField.mixedEmbedding.mixedSpace F, NumberField.mixedEmbedding.norm x ≠ 0 →
           ∃ u : rayUnits, (u : Oˣ) • x ∈ C) ∧
         (∀ x ∈ C, ∀ u : rayUnits,
-          (u : Oˣ) • x ∈ C ↔ (u : Oˣ) ∈ NumberField.Units.torsion F) :=
-      open NumberField NumberField.Units NumberField.Units.dirichletUnitTheorem
-        NumberField.mixedEmbedding in by
+          (u : Oˣ) • x ∈ C ↔ (u : Oˣ) ∈ NumberField.Units.torsion F) ∧
+        Bornology.IsBounded {x | x ∈ C ∧ NumberField.mixedEmbedding.norm x ≤ 1} ∧
+        (∀ x ∈ C, NumberField.mixedEmbedding.norm x ≠ 0) ∧
+        (∀ x ∈ C, ∀ c : ℝ, c ≠ 0 → c • x ∈ C) :=
+      open NumberField NumberField.InfinitePlace NumberField.Units
+        NumberField.Units.dirichletUnitTheorem NumberField.mixedEmbedding Finset in by
     let L := (rayUnits.toAddSubgroup.map (logEmbedding F)).toIntSubmodule
     have hle : L ≤ unitLattice F := by
       rintro x ⟨u, _, rfl⟩
@@ -3925,7 +3929,7 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
     let basis := (IsZLattice.basis L).ofZLatticeBasis ℝ
     let C : Set (mixedSpace F) := logMap ⁻¹' ZSpan.fundamentalDomain basis \
       {x | mixedEmbedding.norm x = 0}
-    refine ⟨C, ?_, ?_, ?_⟩
+    refine ⟨C, ?_, ?_, ?_, ?_, ?_, ?_⟩
     · refine MeasurableSet.diff ?_ ?_
       · unfold logMap
         refine MeasurableSet.preimage (ZSpan.fundamentalDomain_measurableSet _) <|
@@ -3965,11 +3969,172 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
         · change mixedEmbedding.norm ((u : Oˣ) • x) ≠ 0
           rw [norm_unit_smul]
           exact hx.2
+    · -- Step 17: bounded logarithms bound every archimedean coordinate.
+      have hlogTruncBound (S : Set (logSpace F)) (hS : Bornology.IsBounded S) :
+          Bornology.IsBounded {x : mixedSpace F | logMap x ∈ S ∧
+            mixedEmbedding.norm x ≠ 0 ∧ mixedEmbedding.norm x ≤ 1} := by
+        classical
+        obtain ⟨R₀, hR₀⟩ := (Metric.isBounded_iff_subset_closedBall (0 : logSpace F)).mp hS
+        let R := max R₀ 0
+        have hR : 0 ≤ R := le_max_right _ _
+        have hSbound (y : logSpace F) (hy : y ∈ S) : ‖y‖ ≤ R := by
+          have h := hR₀ hy
+          rw [Metric.mem_closedBall, dist_zero_right] at h
+          exact h.trans (le_max_left _ _)
+        refine (isBounded_iff_forall_norm_le).mpr
+          ⟨Real.exp ((Fintype.card (InfinitePlace F) : ℝ) * R), ?_⟩
+        rintro x ⟨hxS, hx0, hx1⟩
+        let δ : InfinitePlace F → ℝ := fun w => Real.log (normAtPlace w x) -
+          Real.log (mixedEmbedding.norm x) * (Module.finrank ℚ F : ℝ)⁻¹
+        have hxpos (w : InfinitePlace F) : 0 < normAtPlace w x :=
+          lt_of_le_of_ne (normAtPlace_nonneg _ _) ((mixedEmbedding.norm_ne_zero_iff.mp hx0 w).symm)
+        have hlogsum : (∑ w : InfinitePlace F, (mult w : ℝ) * Real.log (normAtPlace w x)) =
+            Real.log (mixedEmbedding.norm x) := by
+          rw [mixedEmbedding.norm_apply, Real.log_prod
+            (fun w _ => pow_ne_zero _ (hxpos w).ne')]
+          simp only [Real.log_pow]
+        have hdegree : (Module.finrank ℚ F : ℝ) ≠ 0 :=
+          Nat.cast_ne_zero.mpr Module.finrank_pos.ne'
+        have hsum : (∑ w : InfinitePlace F, (mult w : ℝ) * δ w) = 0 := by
+          simp only [δ, mul_sub, Finset.sum_sub_distrib, ← Finset.sum_mul]
+          rw [hlogsum, ← Nat.cast_sum, sum_mult_eq]
+          field_simp
+          ring
+        have hcomp (w : {w : InfinitePlace F // w ≠ w₀}) :
+            |(mult w.1 : ℝ) * δ w.1| ≤ R := by
+          change ‖logMap x w‖ ≤ R
+          exact (norm_le_pi_norm (logMap x) w).trans (hSbound _ hxS)
+        have hδ (w : InfinitePlace F) : |δ w| ≤ (Fintype.card (InfinitePlace F) : ℝ) * R := by
+          have hmult : |δ w| ≤ (mult w : ℝ) * |δ w| :=
+            le_mul_of_one_le_left (abs_nonneg _) (by exact_mod_cast one_le_mult)
+          by_cases hw : w = w₀
+          · subst w
+            rw [Fintype.sum_eq_add_sum_subtype_ne _ w₀] at hsum
+            have heq : (mult (w₀ : InfinitePlace F) : ℝ) * δ w₀ =
+                -(∑ v : {v : InfinitePlace F // v ≠ w₀}, (mult v.1 : ℝ) * δ v.1) := by
+              linarith only [hsum]
+            have h : ‖(mult (w₀ : InfinitePlace F) : ℝ) * δ w₀‖ ≤
+                ∑ v : {v : InfinitePlace F // v ≠ w₀}, ‖(mult v.1 : ℝ) * δ v.1‖ := by
+              rw [heq, norm_neg]
+              exact norm_sum_le _ _
+            simp only [norm_mul, Real.norm_eq_abs, Nat.abs_cast] at h
+            refine (hmult.trans h).trans ?_
+            calc
+              (∑ v : {v : InfinitePlace F // v ≠ w₀}, (mult v.1 : ℝ) * |δ v.1|) ≤
+                  ∑ _v : {v : InfinitePlace F // v ≠ w₀}, R := by
+                apply Finset.sum_le_sum
+                intro v _
+                simpa only [abs_mul, Nat.abs_cast] using hcomp v
+              _ ≤ (Fintype.card (InfinitePlace F) : ℝ) * R := by
+                rw [Finset.sum_const, Finset.card_univ, nsmul_eq_mul]
+                exact mul_le_mul_of_nonneg_right (by exact_mod_cast (Fintype.card_subtype_le
+                  (fun v : InfinitePlace F => v ≠ w₀))) hR
+          · have h := hcomp ⟨w, hw⟩
+            rw [abs_mul, Nat.abs_cast] at h
+            refine (hmult.trans h).trans ?_
+            exact le_mul_of_one_le_left hR (by exact_mod_cast Fintype.card_pos)
+        rw [norm_eq_sup'_normAtPlace]
+        apply Finset.sup'_le
+        intro w _
+        have hlognonpos : Real.log (mixedEmbedding.norm x) ≤ 0 :=
+          Real.log_nonpos (mixedEmbedding.norm_nonneg x) hx1
+        have hcenter : Real.log (normAtPlace w x) ≤ δ w := by
+          dsimp [δ]
+          have hterm := mul_nonpos_of_nonpos_of_nonneg hlognonpos
+            (inv_nonneg.mpr (Nat.cast_nonneg (Module.finrank ℚ F)))
+          linarith only [hterm]
+        calc
+          normAtPlace w x = Real.exp (Real.log (normAtPlace w x)) := (Real.exp_log (hxpos w)).symm
+          _ ≤ Real.exp ((Fintype.card (InfinitePlace F) : ℝ) * R) :=
+            Real.exp_le_exp.mpr (hcenter.trans ((le_abs_self _).trans (hδ w)))
+      exact (hlogTruncBound _ (ZSpan.fundamentalDomain_isBounded basis)).subset
+        (fun _ hx => ⟨hx.1.1, hx.1.2, hx.2⟩)
+    · exact fun _ hx => hx.2
+    · intro x hx c hc
+      refine ⟨?_, ?_⟩
+      · change logMap (c • x) ∈ ZSpan.fundamentalDomain basis
+        rw [logMap_real_smul hx.2 hc]
+        exact hx.1
+      · change mixedEmbedding.norm (c • x) ≠ 0
+        rw [mixedEmbedding.norm_smul]
+        exact mul_ne_zero (pow_ne_zero _ (abs_ne_zero.mpr hc)) hx.2
+  have hrayConeCutoff (s : ℝ) : Bornology.IsBounded
+      {x | x ∈ rayCone ∧ NumberField.mixedEmbedding.norm x ≤ s} :=
+      open NumberField NumberField.mixedEmbedding in by
+    classical
+    let t := max s 1
+    have ht : 0 < t := lt_of_lt_of_le zero_lt_one (le_max_right _ _)
+    have hti : 0 ≤ t⁻¹ := inv_nonneg.mpr ht.le
+    have hti1 : t⁻¹ ≤ 1 := inv_le_one_of_one_le₀ (le_max_right _ _)
+    obtain ⟨R, hR⟩ := (isBounded_iff_forall_norm_le
+      (s := {x : mixedSpace F | x ∈ rayCone ∧ mixedEmbedding.norm x ≤ 1})).mp hrayConeBounded
+    refine isBounded_iff_forall_norm_le.mpr ⟨|t| * R, ?_⟩
+    rintro x ⟨hxC, hxs⟩
+    have hxunit : mixedEmbedding.norm (t⁻¹ • x) ≤ 1 := by
+      rw [mixedEmbedding.norm_smul, abs_of_nonneg hti]
+      calc
+        t⁻¹ ^ Module.finrank ℚ F * mixedEmbedding.norm x ≤ t⁻¹ * mixedEmbedding.norm x :=
+          mul_le_mul_of_nonneg_right
+            (pow_le_of_le_one hti hti1 Module.finrank_pos.ne') (mixedEmbedding.norm_nonneg x)
+        _ ≤ t⁻¹ * t := mul_le_mul_of_nonneg_left (hxs.trans (le_max_left _ _)) hti
+        _ = 1 := inv_mul_cancel₀ ht.ne'
+    have hscaled := hR (t⁻¹ • x) ⟨hrayConeSmul x hxC t⁻¹ (inv_ne_zero ht.ne'), hxunit⟩
+    calc
+      ‖x‖ = ‖t • (t⁻¹ • x)‖ := by rw [smul_smul, mul_inv_cancel₀ ht.ne', one_smul]
+      _ = |t| * ‖t⁻¹ • x‖ := by rw [_root_.norm_smul, Real.norm_eq_abs]
+      _ ≤ |t| * R := mul_le_mul_of_nonneg_left hscaled (abs_nonneg _)
+  have hrayConeFinite (s : ℝ) :
+      {a : O | NumberField.mixedEmbedding F a ∈ rayCone ∧
+        NumberField.mixedEmbedding.norm (NumberField.mixedEmbedding F a) ≤ s}.Finite :=
+      open NumberField NumberField.mixedEmbedding in by
+    classical
+    have hfinite : ({x | x ∈ rayCone ∧ mixedEmbedding.norm x ≤ s} ∩
+        (mixedEmbedding.integerLattice F : Set (mixedSpace F))).Finite := by
+      have h := ZSpan.setFinite_inter (latticeBasis F) (hrayConeCutoff s)
+      rwa [span_latticeBasis] at h
+    let f : O → mixedSpace F := fun a => mixedEmbedding F a
+    have hf : Function.Injective f := by
+      intro a b hab
+      exact RingOfIntegers.ext ((mixedEmbedding_injective F) hab)
+    exact (hfinite.preimage hf.injOn).subset fun a ha => ⟨ha, ⟨a, rfl⟩⟩
   have hrayTorsion :
       (rayUnits ⊓ NumberField.Units.torsion F : Set Oˣ).Finite := by
     have ht : (NumberField.Units.torsion F : Set Oˣ).Finite :=
       Set.finite_coe_iff.mp (inferInstance : Finite (NumberField.Units.torsion F))
     exact ht.subset Set.inter_subset_right
+  -- Step 17: each nonzero integral ray-unit orbit has exactly the ray-torsion multiplicity.
+  have hrayOrbitCard (a : O) (ha : a ≠ 0)
+      (haC : NumberField.mixedEmbedding F a ∈ rayCone) :
+      Nat.card {b : O // (∃ u : rayUnits, (u : Oˣ) * a = b) ∧
+        NumberField.mixedEmbedding F b ∈ rayCone} =
+          Nat.card ↥(rayUnits ⊓ NumberField.Units.torsion F) :=
+      open NumberField NumberField.mixedEmbedding in by
+    classical
+    let X := {b : O //
+      (∃ u : rayUnits, (u : Oˣ) * a = b) ∧ mixedEmbedding F b ∈ rayCone}
+    have hmul (u : Oˣ) :
+        mixedEmbedding F (((u : O) * a : O) : F) = u • mixedEmbedding F a :=
+      (unit_smul_eq_iff_mul_eq.mpr rfl).symm
+    let f : ↥(rayUnits ⊓ NumberField.Units.torsion F) → X := fun u =>
+      ⟨(u : Oˣ) * a,
+        ⟨⟨⟨u, u.property.1⟩, rfl⟩, by
+          rw [hmul]
+          exact (hrayConeTorsion _ haC ⟨u, u.property.1⟩).mpr u.property.2⟩⟩
+    have hf : Function.Bijective f := by
+      constructor
+      · intro u v huv
+        apply Subtype.ext
+        apply Units.ext
+        exact mul_right_cancel₀ ha (congrArg (fun b : X => b.1) huv)
+      · rintro ⟨b, ⟨⟨u, hub⟩, hbC⟩⟩
+        have huT : (u : Oˣ) ∈ NumberField.Units.torsion F := by
+          apply (hrayConeTorsion _ haC u).mp
+          rw [← hmul, hub]
+          exact hbC
+        refine ⟨⟨u, u.property, huT⟩, ?_⟩
+        apply Subtype.ext
+        exact hub
+    exact (Nat.card_congr (Equiv.ofBijective f hf)).symm
   -- Step 22: the primes above q are finite, and avoiding them is norm coprimality.
   have hfiniteBad : {v : ι | (q : O) ∈ v.asIdeal}.Finite := by
     exact (Ring.HasFiniteQuotients.finite_setOfPred_mem (q : O)
