@@ -21,17 +21,26 @@ class StatusBrowserTests(unittest.TestCase):
         self.browser = self.playwright.chromium.launch(headless=True)
         self.addCleanup(self.browser.close)
         self.page = self.browser.new_page(viewport={"width": 390, "height": 844})
-        self.page.add_init_script("window.setInterval = fn => {window.testRefresh = fn; return 1}")
+        self.page.add_init_script("window.setInterval = (fn,ms) => {window.testRefresh = fn; window.testRefreshInterval = ms; return 1}")
         self.mode = "previous-minute"
         self.requests = []
         self.errors = []
         self.verification = None
+        self.held_routes = []
+        self.addCleanup(self.finish_held_routes)
         self.problems = [dict(id="fermat-p01", nodes=[
             dict(id="fermat-p01/root", problem="fermat-p01", local_id="root",
                  title="Theorem", requires=[], status="decomposing", prose_status="reviewed",
                  observed_running=True, worker_node="hoa3")])]
         self.page.on("pageerror", lambda error: self.errors.append(str(error)))
         self.page.route("**/*", self.route)
+
+    def finish_held_routes(self):
+        for route in self.held_routes:
+            try:
+                route.abort()
+            except Exception:
+                pass  # Aborted requests may already have left the browser.
 
     def route(self, route):
         url = route.request.url
@@ -44,14 +53,18 @@ class StatusBrowserTests(unittest.TestCase):
             return route.fulfill(status=403, content_type="application/json",
                                  body='{"message":"API rate limit exceeded"}')
         minute = int(datetime.now(timezone.utc).timestamp() // 60)
-        if self.mode != "offline" and f"/ticks/{minute-1}/" in url:
+        pointer = '/status-live/status.json?' in url
+        if self.mode == 'hung' or (self.mode == 'slow-peer' and f'/ticks/{minute}/' in url):
+            self.held_routes.append(route)
+            return
+        if (self.mode not in ('offline', 'pointer') and f"/ticks/{minute-1}/" in url) or (pointer and self.mode in ('pointer', 'stale-pointer')):
             observed = datetime.fromtimestamp((minute-1)*60, timezone.utc)
             snapshot = dict(observed_at=observed.isoformat(), message="Live proof work",
                             readiness_passed=128, running_resolvers=128,
                             verified_integrated_roots=0, problems=self.problems)
             if self.verification is not None:
                 snapshot['verification_activity'] = self.verification
-            if self.mode == "older":
+            if self.mode == "older" or (self.mode == 'stale-pointer' and pointer):
                 snapshot.update(observed_at="2026-01-01T00:00:00Z", running_resolvers=0, problems=[])
             return route.fulfill(content_type="application/json", body=json.dumps(snapshot))
         return route.fulfill(status=404, body="unavailable")
@@ -96,6 +109,64 @@ class StatusBrowserTests(unittest.TestCase):
                       self.page.locator('#problems .state').first.get_attribute('title'))
         self.assertEqual(self.page.locator('#verified').inner_text(), '0')
         self.assertFalse(any('api.github.com' in url for url in self.requests))
+        self.assertEqual(self.errors, [])
+
+    def test_recent_snapshots_bypass_mutable_pointer_and_previous_cache_keys(self):
+        self.open_graphs()
+        self.page.evaluate('window.testRefresh()')
+        self.assertEqual(self.page.evaluate('window.testRefreshInterval'), 30000)
+        previous = [u for u in self.requests if '/status-live/' in u]
+        self.assertTrue(previous)
+        self.assertTrue(all('/ticks/' in u for u in previous))
+        minute = int(datetime.now(timezone.utc).timestamp() // 60)
+        self.assertTrue(all(f'/ticks/{minute+1}/' not in u for u in previous))
+        self.problems[0]['nodes'][0]['status'] = 'lean-review'
+        self.page.evaluate('window.testRefresh()')
+        self.assertIn('Checking proof integrity', self.page.locator('#graph-fermat-p01').inner_text())
+        current = [u for u in self.requests if '/status-live/' in u]
+        self.assertEqual(len(current), len(previous) + 2)
+        self.assertEqual(len(set(current)), len(current))
+        self.assertTrue(all('?refresh=' in u for u in current))
+
+    def test_slow_fallback_cannot_hold_back_a_fresh_observation(self):
+        self.mode = 'slow-peer'
+        self.page.goto('https://status.test/index.html', wait_until='domcontentloaded')
+        self.page.wait_for_function("document.querySelector('#resolvers').textContent === '128'", timeout=3000)
+        self.assertEqual(self.page.locator('#notice').inner_text(), 'Live proof work')
+        self.assertTrue(self.held_routes)
+        self.assertEqual(self.errors, [])
+
+    def test_cached_stale_pointer_does_not_override_fresh_minute_snapshot(self):
+        self.mode = 'stale-pointer'
+        self.page.goto('https://status.test/index.html')
+        self.page.wait_for_function("document.querySelector('#resolvers').textContent === '128'")
+        self.assertNotIn('Activity observation stale', self.page.locator('#problem-graphs').inner_text())
+        self.assertTrue(any('/ticks/' in u for u in self.requests))
+
+    def test_timed_out_fetches_release_refresh_for_next_attempt(self):
+        self.mode = 'hung'
+        self.page.add_init_script("const timer=window.setTimeout;window.setTimeout=(fn,ms,...args)=>timer(fn,ms===10000?100:ms,...args)")
+        self.page.goto('https://status.test/index.html', wait_until='domcontentloaded')
+        self.page.wait_for_function("document.querySelector('#notice').textContent.includes('refresh incomplete')", timeout=3000)
+        self.assertEqual(self.page.locator('#resolvers').inner_text(), '—')
+        self.mode = 'pointer'
+        self.page.evaluate('window.testRefresh()')
+        self.assertEqual(self.page.locator('#resolvers').inner_text(), '128')
+        self.assertEqual(self.page.locator('#notice').inner_text(), 'Live proof work')
+        self.assertEqual(self.errors, [])
+
+    def test_returning_to_tab_or_network_refreshes_immediately(self):
+        self.mode = 'pointer'
+        self.open_graphs()
+        self.page.evaluate('window.testRefresh()')
+        for index, event in enumerate(('focus', 'online', 'pageshow', 'visibilitychange')):
+            status = 'lean-review' if index % 2 == 0 else 'rlcr-lean'
+            expected = 'Checking proof integrity' if index % 2 == 0 else 'Writing Lean proof'
+            self.problems[0]['nodes'][0]['status'] = status
+            target = 'document' if event == 'visibilitychange' else 'window'
+            self.page.evaluate(f"{target}.dispatchEvent(new Event('{event}'))")
+            self.page.wait_for_function("expected => document.querySelector('#graph-fermat-p01').textContent.includes(expected)", arg=expected, timeout=3000)
+            self.page.evaluate('window.testRefresh()')
         self.assertEqual(self.errors, [])
 
     def add_graphs(self):
