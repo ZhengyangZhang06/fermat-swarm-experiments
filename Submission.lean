@@ -554,7 +554,6 @@ theorem Submission.p03_tu_coordinate_symmetries_68cf3476 :
         σ ((∑' n : ℤ, B (qΩ ^ n * (u : Ω))) + algebraMap F Ω c)
       rw [hBsumMap, map_add, σ.commutes]
 theorem Submission.p03_eds_canonical_even_recurrence_68cf3476_d4 :
-theorem Submission.p03_eds_canonical_odd_recurrence_68cf3476_d4 :
     ∀ (k : Type) [Field k] [CharZero k] [DecidableEq k] (W : WeierstrassCurve k),
       let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine
       let h := q W.ψ₂
@@ -594,6 +593,13 @@ theorem Submission.p03_eds_canonical_odd_recurrence_68cf3476_d4 :
   by_cases he : Even r <;>
     simp only [hsub₁, hsub₂, hadd₂, Nat.even_add_one, he, not_true_eq_false,
       not_false_eq_true, ite_true, ite_false, mul_one] <;> ring
+
+theorem Submission.p03_eds_canonical_odd_recurrence_68cf3476_d4 :
+    ∀ (k : Type) [Field k] [CharZero k] [DecidableEq k] (W : WeierstrassCurve k),
+      let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine
+      let h := q W.ψ₂
+      let F : ℕ → W.toAffine.CoordinateRing :=
+        fun n => q (Polynomial.C (W.preΨ' n)) * (if Even n then h else 1)
       ∀ r : ℕ, 2 ≤ r →
         F (2 * r + 1) = F (r + 2) * F r ^ 3 - F (r - 1) * F (r + 1) ^ 3 := by
   intro k _ _ _ W q h F r hr
