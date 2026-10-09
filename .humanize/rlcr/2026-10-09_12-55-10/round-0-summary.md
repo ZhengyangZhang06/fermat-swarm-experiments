@@ -18,7 +18,10 @@ Only audit artifacts in `.humanize/rlcr/2026-10-09_12-55-10/`: the requested tra
 - `source-audit.json`: the selected type matches the frozen text ignoring whitespace; protected source diff against `b6181c719e1ec803aaec7ada799a0b405990a266` is empty. No new named Lean helpers, axioms, assumptions, or placeholders were added. The existing explicit failure remains.
 - `dependency-audit.json`: all nine installed package checkouts are clean and match `lake-manifest.json`; mathlib is `db584cd6d46c92f209a44c0f1c829460d327499d`.
 - The requested code-simplifier agent reviewed only the new diagnostic script. It found no concrete defect or necessary simplification, noted that its source-specific extraction is suitable only for local diagnostics, and changed no files. It did not review or accept the mathematical proof.
-- Configured selected-node comparator: pending at this pre-comparator audit checkpoint. No exact-type/kernel/transitive-axiom acceptance or success marker is claimed.
+- Configured selected-node comparator: **exit 1**, no `Your solution is okay!` marker. It ran at clean commit `dcfc977be5be77d75079a4dab25ed4d9d39100ff`, request `a079fe07d4f340f2bee9c05c204eaef8`, packet digest `79fd5bcf2b6e611710e8acb2d788ee27d01cf8c3d78af11d31ef9276b0f55c01`. Packet identity validated, then the candidate Lean build failed at private-copy line 3104 (original source line 3106), at exactly the local diagnostic's unfinished arithmetic obligation. The worktree remained clean through the run. See `comparator-result.json` and `comparator.log`.
+- Exact-type comparison, kernel replay and transitive-axiom acceptance were not reached. The returned comparator log does not expose a trusted `frozen_header_repair` receipt; the successful local absence probe must not be substituted for it. The comparator also reports inherited challenge/root placeholder and deprecated-import warnings; no benchmark source was altered to suppress them.
+
+The first commit records this round's diagnostic checkpoint. A documentation-only follow-up records the completed comparator failure and final task states; it does not change `Submission.lean` or claim verification of a later SHA. No repeat comparator is warranted without an implementation change that closes the recorded failure.
 
 ## Exact remaining obligation
 
