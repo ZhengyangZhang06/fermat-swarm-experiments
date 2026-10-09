@@ -218,11 +218,6 @@ theorem Submission.f036cc6b1f_tdi_petersson_integrable_of_exp_product_bound
   rw [hcancel]
   exact hplanar
 
-namespace Submission
-
-open UpperHalfPlane MeasureTheory Matrix.SpecialLinearGroup
-open scoped MatrixGroups ModularForm Pointwise
-
 theorem Submission.f036cc6b1f_pc_hi_rational_slash
     (Γ Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ))
     [Γ.FiniteIndex] [Δ.FiniteIndex]
@@ -273,6 +268,7 @@ theorem Submission.f036cc6b1f_pc_hi_rational_slash
     apply CuspFormClass.zero_at_cusps f
     rw [Subgroup.IsArithmetic.isCusp_iff_isCusp_SL2Z, isCusp_SL2Z_iff] at hc ⊢
     exact rational_cusp c hc
+
 
 theorem Submission.f036cc6b1f_pc_hi_gpt_unique_projective_index :
     ∀ (p : ℕ), p.Prime → ∀ (a b v : ℤ),
@@ -436,6 +432,8 @@ theorem f036cc6b1f_pc_hi_good_prime_transversal
     simpa [r] using hσβ
 
 end Submission
+
+
 theorem Submission.f036cc6b1f_pc_hi_effective_domain_lift :
     ∀ (Γ Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ))
       (R : Finset (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (F : Set UpperHalfPlane),
@@ -541,6 +539,7 @@ theorem Submission.f036cc6b1f_pc_hi_effective_domain_lift :
         exact hneg
     exact (htrans r hr s hs hsr).symm
 
+
 theorem Submission.f036cc6b1f_pc_hi_finite_trace_unfolding
     (Γ Δ : Subgroup (Matrix.SpecialLinearGroup (Fin 2) ℤ))
     (R : Finset (Matrix.SpecialLinearGroup (Fin 2) ℤ)) (F : Set UpperHalfPlane)
@@ -631,58 +630,12 @@ theorem Submission.f036cc6b1f_pc_hi_finite_trace_unfolding
       MeasureTheory.integral (MeasureTheory.volume.restrict ((fun w : UpperHalfPlane => r • w) '' F))
         (UpperHalfPlane.petersson 2 u v))]
     simpa only [hUnion, tsum_fintype] using hUnfold.symm
-theorem Submission.f036cc6b1f_tdi_planar_exp_integrable_fd :
-    ∀ (a : ℝ), 0 < a → MeasureTheory.IntegrableOn
-      (fun z : UpperHalfPlane => Real.exp (-a * z.im)) ModularGroup.fd
-      ((MeasureTheory.volume : MeasureTheory.Measure ℂ).comap UpperHalfPlane.coe) := by
-  intro a ha
-  let b : ℝ := Real.sqrt 3 / 2
-  have hy : MeasureTheory.IntegrableOn (fun y : ℝ => Real.exp (-a * y))
-      (Set.Ici b) :=
-    (integrableOn_Ici_iff_integrableOn_Ioi (by finiteness)).mpr
-      (exp_neg_integrableOn_Ioi b ha)
-  have hx : MeasureTheory.IntegrableOn (fun _ : ℝ => (1 : ℝ))
-      (Set.Icc (-(1 / 2 : ℝ)) (1 / 2)) :=
-    MeasureTheory.integrableOn_const (by
-      rw [Real.volume_Icc]
-      exact ENNReal.ofReal_ne_top)
-  have hprod : MeasureTheory.IntegrableOn (fun p : ℝ × ℝ => Real.exp (-a * p.2))
-      (Set.Icc (-(1 / 2 : ℝ)) (1 / 2) ×ˢ Set.Ici b) := by
-    MeasureTheory.integrableOn_Ici_iff_integrableOn_Ioi.mpr (exp_neg_integrableOn_Ioi b ha)
-    (MeasureTheory.integrableOn_Ici_iff_integrableOn_Ioi (by finiteness)).mpr
-      (exp_neg_integrableOn_Ioi b ha)
-  have hx : MeasureTheory.IntegrableOn (fun _ : ℝ => (1 : ℝ))
-      (Set.Icc (-(1 / 2 : ℝ)) (1 / 2)) :=
-    MeasureTheory.integrableOn_const (by simp only [Real.volume_Icc, ENNReal.ofReal_ne_top])
-  have hprod : MeasureTheory.IntegrableOn (fun p : ℝ × ℝ => Real.exp (-a * p.2))
-      (Set.Icc (-(1 / 2 : ℝ)) (1 / 2) ×ˢ Set.Ici b) := by
-    change MeasureTheory.Integrable _
-      (((MeasureTheory.volume : MeasureTheory.Measure ℝ).prod MeasureTheory.volume).restrict _)
-    rw [← MeasureTheory.Measure.prod_restrict]
-    simpa only [one_mul] using hx.mul_prod hy
-  have hc : MeasureTheory.IntegrableOn (fun z : ℂ => Real.exp (-a * z.im))
-      (Complex.measurableEquivRealProd ⁻¹'
-        (Set.Icc (-(1 / 2 : ℝ)) (1 / 2) ×ˢ Set.Ici b)) :=
-        (Set.Icc (-(1 : ℝ) / 2) (1 / 2) ×ˢ Set.Ici b)) :=
-    (Complex.volume_preserving_equiv_real_prod.integrableOn_comp_preimage
-      Complex.measurableEquivRealProd.measurableEmbedding).mpr hprod
-  have hi : MeasureTheory.IntegrableOn (fun z : ℂ => Real.exp (-a * z.im))
-      (UpperHalfPlane.coe '' ModularGroup.fd) := by
-    apply hc.mono_set
-    rintro _ ⟨z, hz, rfl⟩
-    change z.re ∈ Set.Icc (-(1 / 2 : ℝ)) (1 / 2) ∧ b ≤ z.im
-    change z.re ∈ Set.Icc (-(1 : ℝ) / 2) (1 / 2) ∧ b ≤ z.im
-    constructor
-    · exact abs_le.mp hz.2
-    · dsimp [b]
-      have hsq := ModularGroup.three_le_four_mul_im_sq_of_mem_fd hz
-      have hpos := z.im_pos
-      nlinarith [Real.sq_sqrt (show (0 : ℝ) ≤ 3 by norm_num), Real.sqrt_nonneg (3 : ℝ)]
-  have ht := (UpperHalfPlane.measurableEmbedding_coe.integrableOn_iff_comap
-    (Set.image_subset_range UpperHalfPlane.coe ModularGroup.fd)).mp hi
-  simpa only [Set.preimage_image_eq _ UpperHalfPlane.coe_injective, Function.comp_def,
-    UpperHalfPlane.coe_im] using ht
-  simpa only [Set.preimage_image_eq _ UpperHalfPlane.coe_injective, Function.comp_def] using ht
+
+namespace Submission
+
+open UpperHalfPlane MeasureTheory Matrix.SpecialLinearGroup
+open scoped MatrixGroups ModularForm Pointwise
+
 /-- The Petersson integrand of two weight-two cusp forms is integrable on each
 integral translate of the standard modular fundamental domain. -/
 theorem f036cc6b1f_pic_translated_integrable
@@ -1419,5 +1372,324 @@ theorem f036cc6b1f_pc_integral_core
     exact SlashInvariantFormClass.petersson_smul
       (f := f) (f' := g) (τ := z) (Subgroup.mem_map.mpr ⟨γ, hγ, rfl⟩)
   · exact hEint f g
+
+end Submission
+
+namespace Submission
+
+open MeasureTheory Matrix.SpecialLinearGroup
+open scoped MatrixGroups ModularForm ComplexConjugate
+
+set_option maxHeartbeats 4000000 in
+set_option synthInstance.maxHeartbeats 400000 in
+set_option autoImplicit false in
+set_option backward.isDefEq.respectTransparency.types false in
+theorem f036cc6b1f_pc_hecke_integral :
+    ∀ (M : ℕ) [NeZero M] (F : Set UpperHalfPlane), MeasurableSet F →
+      (∀ᵐ z ∂(volume : Measure UpperHalfPlane),
+        ∃ γ : SL(2, ℤ), γ ∈ CongruenceSubgroup.Gamma0 M ∧ γ • z ∈ F ∧
+          ∀ δ : SL(2, ℤ), δ ∈ CongruenceSubgroup.Gamma0 M → δ • z ∈ F →
+            δ = γ ∨ δ = -γ) →
+      ∀ (p : ℕ) (hp : p.Prime) (hpM : ¬ p ∣ M)
+        (f g : CuspForm (CongruenceSubgroup.Gamma0 M) 2),
+      integral ((volume : Measure UpperHalfPlane).restrict F)
+          (UpperHalfPlane.petersson 2 (CuspForm.heckeTLin 2 hp hpM f) g) =
+        integral ((volume : Measure UpperHalfPlane).restrict F)
+          (UpperHalfPlane.petersson 2 f (CuspForm.heckeTLin 2 hp hpM g)) := by
+  classical
+  intro M instM F hF hFdom p hp hpM f g
+  have : NeZero p := ⟨hp.ne_zero⟩
+  -- The subgroup cuts out the right cosets of the good-prime double coset.
+  let Γ := CongruenceSubgroup.Gamma0 M
+  let A := ModularForm.heckeMatrix p 0
+  let C := ModularForm.heckeDiagMatrix p
+  let ι : SL(2, ℤ) →* GL (Fin 2) ℝ := mapGL ℝ
+  let U : Subgroup SL(2, ℤ) :=
+    { carrier := {γ | (p : ℤ) ∣ γ 0 1}
+      one_mem' := by simp
+      mul_mem' := by
+        intro a b ha hb
+        change (p : ℤ) ∣ (a.1 * b.1) 0 1
+        rw [(Matrix.two_mul_expl a.1 b.1).2.1]
+        exact dvd_add (hb.mul_left _) (ha.mul_right _)
+      inv_mem' := by
+        intro a ha
+        change (p : ℤ) ∣ a⁻¹ 0 1
+        rw [SL2_inv_expl a]
+        simpa using ha }
+  have hGU : CongruenceSubgroup.Gamma p ≤ U := by
+    intro γ hγ
+    exact (ZMod.intCast_zmod_eq_zero_iff_dvd _ _).mp
+      ((CongruenceSubgroup.Gamma_mem.mp hγ).2.1)
+  have : U.FiniteIndex := Subgroup.finiteIndex_of_le hGU
+  let H := Γ ⊓ U
+  have hHΓ : H ≤ Γ := inf_le_left
+  have hneg : (-1 : SL(2, ℤ)) ∈ H := by
+    constructor
+    · simp [Γ, CongruenceSubgroup.Gamma0_mem]
+    · change (p : ℤ) ∣ (-1 : SL(2, ℤ)) 0 1
+      simp
+  have hconj (γ : SL(2, ℤ)) (hγ : γ ∈ Γ) :
+      γ ∈ H ↔ A * ι γ * A⁻¹ ∈ (Γ : Subgroup (GL (Fin 2) ℝ)) := by
+    constructor
+    · intro h
+      obtain ⟨e, he⟩ := h.2
+      obtain ⟨δ, hδ10, hδ⟩ :=
+        P2MW.S_ModularForm_heckeT_slash_eq_self_of_mem_Gamma0.ModularForm.HeckeSlashInvariance.heckeMatrix_mul_of_eq
+          hp.ne_zero γ 0 0 e (by simpa using he)
+      have hδΓ : δ ∈ Γ := by
+        rw [CongruenceSubgroup.Gamma0_mem] at hγ ⊢
+        simp [hδ10, hγ]
+      exact Subgroup.mem_map.mpr ⟨δ, hδΓ, by
+        change ι δ = A * ι γ * A⁻¹
+        rw [show A * ι γ = ι δ * A from hδ]
+        simp [mul_assoc]⟩
+    · rintro ⟨δ, hδΓ, hδ⟩
+      refine ⟨hγ, ?_⟩
+      have hm : A * ι γ = ι δ * A := by rw [hδ]; group
+      have he := congrArg (fun B : GL (Fin 2) ℝ => B 0 1) hm
+      have he' : (γ 0 1 : ℝ) = (δ 0 1 : ℝ) * (p : ℝ) := by
+        simpa [A, ι, Units.val_mul, ModularForm.val_heckeMatrix hp.ne_zero,
+          Matrix.mul_apply, Fin.sum_univ_two, mapGL_coe_matrix] using he
+      exact ⟨δ 0 1, by exact_mod_cast he'.trans (mul_comm _ _)⟩
+  obtain ⟨r, hrΓ, hruniq, hrA, β, hβΓ, hβ⟩ :=
+    f036cc6b1f_pc_hi_good_prime_transversal M p hp hpM
+  have hrinj : Function.Injective r := by
+    intro i j hij
+    obtain ⟨k, hk, huk⟩ := hruniq (r i) (hrΓ i)
+    have hi : (p : ℤ) ∣ (r i * (r i)⁻¹) 0 1 := by simp
+    have hj : (p : ℤ) ∣ (r i * (r j)⁻¹) 0 1 := by simp [← hij]
+    exact (huk i hi).trans (huk j hj).symm
+  let R := Finset.univ.image r
+  have hRΓ : ∀ γ ∈ R, γ ∈ Γ := by
+    intro γ hγ
+    obtain ⟨i, _, rfl⟩ := Finset.mem_image.mp hγ
+    exact hrΓ i
+  have hcover : ∀ γ ∈ Γ, ∃ δ ∈ R, γ * δ⁻¹ ∈ H := by
+    intro γ hγ
+    obtain ⟨i, hi, _⟩ := hruniq γ hγ
+    exact ⟨r i, Finset.mem_image.mpr ⟨i, Finset.mem_univ _, rfl⟩,
+      Γ.mul_mem hγ (Γ.inv_mem (hrΓ i)), hi⟩
+  have huniq : ∀ γ ∈ R, ∀ δ ∈ R, δ * γ⁻¹ ∈ H → δ = γ := by
+    intro γ hγ δ hδ h
+    obtain ⟨i, _, rfl⟩ := Finset.mem_image.mp hγ
+    obtain ⟨j, _, rfl⟩ := Finset.mem_image.mp hδ
+    obtain ⟨k, hk, huk⟩ := hruniq (r j) (hrΓ j)
+    have hj : (p : ℤ) ∣ (r j * (r j)⁻¹) 0 1 := by simp
+    exact congrArg r ((huk j hj).trans (huk i h.2).symm)
+  let E : Set UpperHalfPlane := ⋃ γ ∈ R, (fun z : UpperHalfPlane => γ • z) '' F
+  obtain ⟨hE, hEdom, _⟩ := f036cc6b1f_pc_hi_effective_domain_lift
+    Γ H R F hHΓ hneg hRΓ hcover huniq hF hFdom
+  have hArat : ∀ i j : Fin 2, ∃ q : ℚ, A i j = (q : ℝ) := by
+    intro i j
+    refine ⟨!![(1 : ℚ), 0; 0, (p : ℚ)] i j, ?_⟩
+    fin_cases i <;> fin_cases j <;> simp [A, ModularForm.val_heckeMatrix hp.ne_zero]
+  have hApos : 0 < (A.det : ℝ) := ModularForm.det_heckeMatrix_pos p 0
+  have hslash (v : CuspForm Γ 2) :
+      ∃ w : CuspForm H 2, (w : UpperHalfPlane → ℂ) = (v : UpperHalfPlane → ℂ) ∣[(2 : ℤ)] A :=
+    f036cc6b1f_pc_hi_rational_slash Γ H A hApos hArat
+      (fun γ hγ => (hconj γ hγ.1).mp hγ) v
+  have hrestrict (v : CuspForm Γ 2) :
+      ∃ w : CuspForm H 2, (w : UpperHalfPlane → ℂ) = (v : UpperHalfPlane → ℂ) := by
+    obtain ⟨w, hw⟩ := f036cc6b1f_pc_hi_rational_slash Γ H 1 (by simp)
+      (by intro i j; exact ⟨(1 : Matrix (Fin 2) (Fin 2) ℚ) i j, by fin_cases i <;> fin_cases j <;> simp⟩)
+      (by intro γ hγ; simpa using hγ.1) v
+    exact ⟨w, by simpa using hw⟩
+  obtain ⟨fA, hfA⟩ := hslash f
+  obtain ⟨gA, hgA⟩ := hslash g
+  obtain ⟨fH, hfH⟩ := hrestrict f
+  obtain ⟨gH, hgH⟩ := hrestrict g
+  obtain ⟨B, hB⟩ := f036cc6b1f_pc_integral_core H hneg
+  have hintegrable (v w : CuspForm H 2) :
+      IntegrableOn (UpperHalfPlane.petersson 2 v w) E (volume : Measure UpperHalfPlane) :=
+    (hB E hE hEdom v w).1
+  have hinv (v : CuspForm Γ 2) (γ : SL(2, ℤ)) (hγ : γ ∈ Γ) :
+      (v : UpperHalfPlane → ℂ) ∣[(2 : ℤ)] γ = v :=
+    SlashInvariantFormClass.slash_action_eq v (ι γ) (Subgroup.mem_map.mpr ⟨γ, hγ, rfl⟩)
+  -- The approved transversal recovers the exact normalization of heckeTLin.
+  have htrace (v : CuspForm Γ 2) :
+      R.sum (fun γ => ((v : UpperHalfPlane → ℂ) ∣[(2 : ℤ)] A) ∣[(2 : ℤ)] γ) =
+        (CuspForm.heckeTLin 2 hp hpM v : UpperHalfPlane → ℂ) := by
+    rw [Finset.sum_image (fun i _ j _ hij => hrinj hij)]
+    have hterm (γ : SL(2, ℤ)) :
+        ((v : UpperHalfPlane → ℂ) ∣[(2 : ℤ)] A) ∣[(2 : ℤ)] γ =
+          (v : UpperHalfPlane → ℂ) ∣[(2 : ℤ)] (A * ι γ) :=
+      (SlashAction.slash_mul (2 : ℤ) A (ι γ) (v : UpperHalfPlane → ℂ)).symm
+    simp_rw [hterm]
+    rw [Fin.sum_univ_castSucc]
+    simp only [A, ι, hrA, hβ]
+    rw [SlashAction.slash_mul]
+    rw [show (v : UpperHalfPlane → ℂ) ∣[(2 : ℤ)] mapGL ℝ β = v from hinv v β hβΓ]
+    rw [CuspForm.coe_heckeTLin_apply, ModularForm.heckeT_def,
+      Fin.sum_univ_eq_sum_range (fun j => (v : UpperHalfPlane → ℂ) ∣[(2 : ℤ)] ModularForm.heckeMatrix p j) p]
+  have hunfold (v w : CuspForm Γ 2) (vA wH : CuspForm H 2)
+      (hvA : (vA : UpperHalfPlane → ℂ) = (v : UpperHalfPlane → ℂ) ∣[(2 : ℤ)] A)
+      (hwH : (wH : UpperHalfPlane → ℂ) = (w : UpperHalfPlane → ℂ)) :
+      integral (volume.restrict F) (UpperHalfPlane.petersson 2 (CuspForm.heckeTLin 2 hp hpM v) w) =
+        integral (volume.restrict E) (UpperHalfPlane.petersson 2 vA wH) := by
+    have hi := hintegrable vA wH
+    rw [hvA, hwH] at hi ⊢
+    have hu := (f036cc6b1f_pc_hi_finite_trace_unfolding Γ H R F hHΓ hneg
+      hRΓ hcover huniq hF hFdom ((v : UpperHalfPlane → ℂ) ∣[(2 : ℤ)] A) w
+      (hinv w) hi).2
+    rwa [htrace v] at hu
+  -- W normalizes H and interchanges the two slash terms in the pairing.
+  let t := r (Fin.last p)
+  let s : ℝˣ := Units.mk0 (p : ℝ) (by exact_mod_cast hp.ne_zero)
+  let S : GL (Fin 2) ℝ := Matrix.GeneralLinearGroup.scalar (Fin 2) s
+  have hAC : A * C = S := by
+    ext i j
+    fin_cases i <;> fin_cases j <;>
+      simp [A, C, S, s, Units.val_mul, ModularForm.val_heckeMatrix hp.ne_zero,
+        ModularForm.val_heckeDiagMatrix hp.ne_zero, Matrix.mul_apply, Fin.sum_univ_two,
+        Matrix.natCast_apply]
+  have hScomm (X : GL (Fin 2) ℝ) : S * X = X * S :=
+    Matrix.GeneralLinearGroup.scalar_commute s X
+  have hSconj (X Y : GL (Fin 2) ℝ) :
+      (S * X) * Y * (S * X)⁻¹ = X * Y * X⁻¹ := by
+    calc
+      _ = S * (X * Y * X⁻¹) * S⁻¹ := by group
+      _ = _ := by rw [hScomm]; group
+  have hSslash (v : UpperHalfPlane → ℂ) : v ∣[(2 : ℤ)] S = v := by
+    funext z
+    have hsp : 0 < (s : ℝ) := by change 0 < (p : ℝ); exact_mod_cast hp.pos
+    have hsne : (s : ℂ) ≠ 0 := by exact_mod_cast s.ne_zero
+    simp [ModularForm.slash_apply, S, UpperHalfPlane.σ, Matrix.GeneralLinearGroup.det_scalar,
+      pow_pos hsp, abs_of_pos (pow_pos hsp 2), zpow_neg, hsne]
+  let W : GL (Fin 2) ℝ := (ι β)⁻¹ * A
+  have hW : W = C * (ι t)⁻¹ := by
+    change A * ι t = ι β * C at hβ
+    have h := congrArg (fun X : GL (Fin 2) ℝ => (ι β)⁻¹ * X * (ι t)⁻¹) hβ
+    simpa [W, mul_assoc] using h
+  have hAW : A * W = S * (ι t)⁻¹ := by rw [hW, ← mul_assoc, hAC]
+  have hWi : W⁻¹ = A⁻¹ * ι β := by simp [W]
+  have hnorm (γ : SL(2, ℤ)) (hγ : γ ∈ H) :
+      ∃ δ ∈ H, ι δ = W * ι γ * W⁻¹ := by
+    obtain ⟨δ, hδΓ, hδ⟩ := (hconj γ hγ.1).mp hγ
+    change ι δ = A * ι γ * A⁻¹ at hδ
+    let κ := β⁻¹ * δ * β
+    have hκΓ : κ ∈ Γ := Γ.mul_mem (Γ.mul_mem (Γ.inv_mem hβΓ) hδΓ) hβΓ
+    have hκ : ι κ = W * ι γ * W⁻¹ := by
+      simp only [κ, map_mul, map_inv, hδ, W]
+      group
+    refine ⟨κ, (hconj κ hκΓ).mpr ?_, hκ⟩
+    have he : A * ι κ * A⁻¹ = ι (t⁻¹ * γ * t) := by
+      calc
+        _ = (A * W) * ι γ * (A * W)⁻¹ := by rw [hκ]; group
+        _ = (S * (ι t)⁻¹) * ι γ * (S * (ι t)⁻¹)⁻¹ := by rw [hAW]
+        _ = _ := by rw [hSconj]; simp only [map_mul, map_inv, inv_inv]
+    rw [he]
+    exact Subgroup.mem_map.mpr ⟨t⁻¹ * γ * t,
+      Γ.mul_mem (Γ.mul_mem (Γ.inv_mem (hrΓ _)) hγ.1) (hrΓ _), rfl⟩
+  have hnorminv (γ : SL(2, ℤ)) (hγ : γ ∈ H) :
+      ∃ δ ∈ H, ι δ = W⁻¹ * ι γ * W := by
+    obtain ⟨δ, hδΓ, hδ⟩ := (hconj γ hγ.1).mp hγ
+    change ι δ = A * ι γ * A⁻¹ at hδ
+    let κ := t * δ * t⁻¹
+    have hκΓ : κ ∈ Γ := Γ.mul_mem (Γ.mul_mem (hrΓ _) hδΓ) (Γ.inv_mem (hrΓ _))
+    have hκ : ι κ = W⁻¹ * ι γ * W := by
+      have he : S * (ι t)⁻¹ = A * W := hAW.symm
+      have hc := hSconj (ι t)⁻¹ (ι κ)
+      rw [he] at hc
+      have hc' : (ι t)⁻¹ * ι κ * ((ι t)⁻¹)⁻¹ = A * ι γ * A⁻¹ := by
+        simp [κ, map_mul, map_inv, hδ, mul_assoc]
+      rw [hc'] at hc
+      have hh := congrArg (fun X : GL (Fin 2) ℝ => W⁻¹ * A⁻¹ * X * A * W) hc
+      simpa [mul_assoc] using hh
+    refine ⟨κ, (hconj κ hκΓ).mpr ?_, hκ⟩
+    have he : A * ι κ * A⁻¹ = ι (β * γ * β⁻¹) := by
+      rw [hκ, hWi]
+      simp [W, map_mul, map_inv, mul_assoc]
+    rw [he]
+    exact Subgroup.mem_map.mpr ⟨β * γ * β⁻¹,
+      Γ.mul_mem (Γ.mul_mem hβΓ hγ.1) (Γ.inv_mem hβΓ), rfl⟩
+  have hWpos : 0 < (W.det : ℝ) := by
+    simpa [W, ι, map_mul, map_inv] using hApos
+  have hWf (v : CuspForm Γ 2) :
+      ((v : UpperHalfPlane → ℂ) ∣[(2 : ℤ)] A) ∣[(2 : ℤ)] W⁻¹ = v := by
+    rw [← SlashAction.slash_mul, hWi]
+    simpa only [mul_inv_cancel_left] using
+      (show (v : UpperHalfPlane → ℂ) ∣[(2 : ℤ)] ι β = v from hinv v β hβΓ)
+  have hWg (v : CuspForm Γ 2) :
+      (v : UpperHalfPlane → ℂ) ∣[(2 : ℤ)] W⁻¹ = (v : UpperHalfPlane → ℂ) ∣[(2 : ℤ)] A := by
+    have hv : (v : UpperHalfPlane → ℂ) ∣[(2 : ℤ)] S⁻¹ = v := by
+      have hh := congrArg (fun u : UpperHalfPlane → ℂ => u ∣[(2 : ℤ)] S⁻¹) (hSslash v)
+      simpa only [← SlashAction.slash_mul, mul_inv_cancel, SlashAction.slash_one] using hh.symm
+    have he : W⁻¹ = ι t * S⁻¹ * A := by
+      have hh := congrArg (fun X : GL (Fin 2) ℝ => ι t * S⁻¹ * X * W⁻¹) hAW
+      simpa [mul_assoc] using hh.symm
+    rw [he, SlashAction.slash_mul, SlashAction.slash_mul]
+    rw [show (v : UpperHalfPlane → ℂ) ∣[(2 : ℤ)] ι t = v from hinv v t (hrΓ _), hv]
+  -- Transport the effective domain, retaining uniqueness modulo the central sign.
+  let E' : Set UpperHalfPlane := (fun z : UpperHalfPlane => W • z) '' E
+  have hE' : MeasurableSet E' :=
+    (Homeomorph.smul W).measurableEmbedding.measurableSet_image.mpr hE
+  have hE'dom : ∀ᵐ z ∂(volume : Measure UpperHalfPlane),
+      ∃ γ : SL(2, ℤ), γ ∈ H ∧ γ • z ∈ E' ∧
+        ∀ δ : SL(2, ℤ), δ ∈ H → δ • z ∈ E' → δ = γ ∨ δ = -γ := by
+    have hpre := (measurePreserving_smul W⁻¹ (volume : Measure UpperHalfPlane)).quasiMeasurePreserving.ae hEdom
+    filter_upwards [hpre] with z hz
+    obtain ⟨γ, hγ, hzγ, huniqγ⟩ := hz
+    obtain ⟨δ, hδ, hδeq⟩ := hnorm γ hγ
+    have hact : δ • z = W • (γ • (W⁻¹ • z)) := by
+      change ι δ • z = _
+      rw [hδeq, mul_smul, mul_smul]
+      rfl
+    refine ⟨δ, hδ, ?_, ?_⟩
+    · exact ⟨γ • (W⁻¹ • z), hzγ, hact.symm⟩
+    · intro δ' hδ' hzδ'
+      obtain ⟨γ', hγ', hγ'eq⟩ := hnorminv δ' hδ'
+      have hzγ' : γ' • (W⁻¹ • z) ∈ E := by
+        obtain ⟨w, hw, he⟩ := hzδ'
+        have ha : γ' • (W⁻¹ • z) = w := by
+          change ι γ' • (W⁻¹ • z) = w
+          rw [hγ'eq]
+          simpa [mul_smul, ι, mapGL] using congrArg (fun x : UpperHalfPlane => W⁻¹ • x) he.symm
+        rwa [ha]
+      have hδ'eq : ι δ' = W * ι γ' * W⁻¹ := by rw [hγ'eq]; group
+      rcases huniqγ γ' hγ' hzγ' with he | he
+      · left
+        apply mapGL_injective (R := ℤ) (S := ℝ)
+        change ι δ' = _
+        rw [hδ'eq, he, ← hδeq]
+      · right
+        apply mapGL_injective (R := ℤ) (S := ℝ)
+        change ι δ' = _
+        rw [hδ'eq, he]
+        change W * mapGL ℝ (-γ) * W⁻¹ = mapGL ℝ (-δ)
+        have hnegmap (a : SL(2, ℤ)) : mapGL ℝ (-a) = -(mapGL ℝ a) := by
+          apply Units.ext
+          simp
+        rw [hnegmap, hnegmap, mul_neg, neg_mul]
+        exact congrArg Neg.neg hδeq.symm
+  have hcov : (fun z : UpperHalfPlane => UpperHalfPlane.petersson 2 fH gA (W • z)) =
+      UpperHalfPlane.petersson 2 fA gH := by
+    funext z
+    have hh := UpperHalfPlane.petersson_slash 2 (fA : UpperHalfPlane → ℂ)
+      (gH : UpperHalfPlane → ℂ) W⁻¹ (W • z)
+    rw [hfA, hgH, hWf f, hWg g] at hh
+    have hsigma : UpperHalfPlane.σ W⁻¹ = ContinuousAlgEquiv.refl ℝ ℂ := by
+      apply if_pos
+      simpa only [map_inv, Units.val_inv_eq_inv_val] using inv_pos.mpr hWpos
+    simpa [hfA, hfH, hgA, hgH, hsigma] using hh
+  -- Domain independence and covariance exchange the two terms; conjugation refolds.
+  have hexchange : integral (volume.restrict E) (UpperHalfPlane.petersson 2 fA gH) =
+      integral (volume.restrict E) (UpperHalfPlane.petersson 2 fH gA) := by
+    rw [← hcov]
+    rw [← (measurePreserving_smul W (volume : Measure UpperHalfPlane)).setIntegral_image_emb
+      (Homeomorph.smul W).measurableEmbedding (UpperHalfPlane.petersson 2 fH gA) E]
+    exact ((hB E' hE' hE'dom fH gA).2).symm.trans (hB E hE hEdom fH gA).2
+  have hreverse := congrArg (starRingEnd ℂ) (hunfold g f gA fH hgA hfH)
+  have hsymm (D : Set UpperHalfPlane) (u v : UpperHalfPlane → ℂ) :
+      conj (integral (volume.restrict D) (UpperHalfPlane.petersson 2 u v)) =
+        integral (volume.restrict D) (UpperHalfPlane.petersson 2 v u) := by
+    rw [← integral_conj]
+    apply integral_congr_ae
+    exact Filter.Eventually.of_forall (fun z => (UpperHalfPlane.petersson_symm 2 u v z).symm)
+  rw [hsymm, hsymm] at hreverse
+  calc
+    _ = integral (volume.restrict E) (UpperHalfPlane.petersson 2 fA gH) := hunfold f g fA gH hfA hgH
+    _ = integral (volume.restrict E) (UpperHalfPlane.petersson 2 fH gA) := hexchange
+    _ = _ := hreverse.symm
 
 end Submission
