@@ -1257,11 +1257,12 @@ set_option warningAsError true in
 /-- Restriction to a subgroup with zero Tate cohomology makes its index annihilate
 the ambient Tate cohomology. The four branches are those of `Rep.tateCohomology`
 in `Definitions/Def_GroupCohomology_TateCohomology.lean`. -/
-theorem p04_index_nsmul_zero_of_restriction_isZero
-    {k G : Type u} [CommRing k] [Group G] [Fintype G]
-    (A : Rep.{u} k G) (H : Subgroup G) [Fintype H] (q : ℤ)
-    (h : CategoryTheory.Limits.IsZero ((Rep.res H.subtype A).tateCohomology q)) :
-    ∀ x : A.tateCohomology q, H.index • x = 0 := by
+theorem p04_index_nsmul_zero_of_restriction_isZero :
+    ∀ {k G : Type _} [CommRing k] [Group G] [Fintype G]
+      (A : Rep k G) (H : Subgroup G) [Fintype H] (q : ℤ),
+      CategoryTheory.Limits.IsZero ((Rep.res H.subtype A).tateCohomology q) →
+        ∀ x : A.tateCohomology q, H.index • x = 0 := by
+  intro k G _ _ _ A H _ q h
   cases q with
   | ofNat n =>
     cases n with
