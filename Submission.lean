@@ -517,20 +517,6 @@ set_option warningAsError true
 
 /-- In the given polynomial-fraction model of a place, a fraction is a unit exactly when
 its numerator is not divisible by the defining irreducible polynomial. -/
-
-open AlgebraicCurve
-
-theorem AlgebraicCurve.hasPrincipalDivisors_of_transcendental (K : Type*) [Field K] [CharZero K] {F : Type*} [Field F]
-    [Algebra K F] (x : F) (hx : Transcendental K x)
-    [FiniteDimensional (IntermediateField.adjoin K ({x} : Set F)) F] : HasPrincipalDivisors K F := by
-  sorry
-
-namespace Submission
-
-set_option warningAsError true
-
-/-- In the given polynomial-fraction model of a place, a fraction is a unit exactly when
-its numerator is not divisible by the defining irreducible polynomial. -/
 theorem p06_9e0f5043ff_fno_fraction_isunit
     (K F : Type*) [Field K] [Field F] [Algebra K F] (x : F)
     (hx : Transcendental K x) (q : Polynomial K) (_hqmonic : q.Monic)
@@ -1389,6 +1375,9 @@ theorem p06_9e0f5043ff_wll_local_length_multiplicity
         simp only [if_neg hi, Module.length_eq_zero]
     _ = (Nat.card {i : Fin s.length // p i = q} : ℕ∞) := by
       simp [Nat.card_eq_fintype_card, Fintype.card_subtype]
+
+end Submission
+
 namespace Submission
 
 set_option warningAsError true
