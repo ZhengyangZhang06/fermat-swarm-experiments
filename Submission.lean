@@ -801,3 +801,16 @@ theorem Submission.p09_af497904fe_ic_prime_center_of_containment :
       simpa only [hq, Ideal.mem_bot] using hℓq
     exact hℓ.ne_zero (Nat.cast_eq_zero.mp hz)
   exact ⟨q, hprime, hne, hℓq, Ring.HasFiniteQuotients.finiteQuotient hne, hmem⟩
+
+
+theorem Submission.p09_af497904fe_vloc_integral_center :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E]
+      (ℓ : ℕ), ℓ.Prime → ∀ (V : ValuationSubring E), V.LiesOverPrime ℓ →
+      (∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V) ∧
+        ∃ q : Ideal (NumberField.RingOfIntegers E),
+          q.IsPrime ∧ q ≠ ⊥ ∧ (ℓ : NumberField.RingOfIntegers E) ∈ q ∧
+            Finite (NumberField.RingOfIntegers E ⧸ q) ∧
+            (∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V.nonunits ↔ a ∈ q) := by
+  intro E _ ℓ hℓ V hV
+  have hmem := Submission.p09_af497904fe_ic_integer_mem_valuation E V
+  exact ⟨hmem, Submission.p09_af497904fe_ic_prime_center_of_containment E ℓ hℓ V hV hmem⟩
