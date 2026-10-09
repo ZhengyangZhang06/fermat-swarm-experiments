@@ -5742,11 +5742,136 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
       exact (Real.sin_le_one t).trans hY.le
     · intro hmem
       simpa only [hnorm, lt_self_iff_false] using hmem.2.1
+  -- The retained integrands are integrable although L has poles on the original
+  -- boundary: the open cut interiors contain all of those poles.
+  have hretainedIntegrable (η η' : ℝ → ℂ) (a b : ℝ)
+      (hη : Continuous η) (hη' : Continuous η')
+      (hboundary : ∀ t ∈ Set.uIcc a b, η t ∈ K ∧ η t ∉ O)
+      (ε : ℝ) (hε : 0 < ε) (hε1 : ε < 1) :
+      IntervalIntegrable (fun t => if η t ∈ removed ε then 0 else L (η t) * η' t)
+        MeasureTheory.volume a b := by
+    let W : Set ℂ := ⋃ v ∈ B, interior (D v ε)
+    let R : Set ℝ := Set.uIcc a b \ η ⁻¹' W
+    have hW : IsOpen W := isOpen_biUnion (fun _ _ => isOpen_interior)
+    have hR : IsCompact R := isCompact_uIcc.diff (hW.preimage hη)
+    have hzeroFree : ∀ t ∈ R, F (η t) ≠ 0 := by
+      intro t ht hzero
+      have hB : η t ∈ B := ⟨⟨(hboundary t ht.1).1, hzero⟩, (hboundary t ht.1).2⟩
+      exact ht.2 (Set.mem_iUnion₂.mpr
+        ⟨η t, hB, hcenterInterior (η t) (hKH hB.1.1) ε hε⟩)
+    have hcont : ContinuousOn (fun t => L (η t) * η' t) R := by
+      intro t ht
+      exact (((hLan (η t) (hKH (hboundary t ht.1).1) (hzeroFree t ht)).continuousAt.comp
+        hη.continuousAt).mul hη'.continuousAt).continuousWithinAt
+    let T : Set ℝ := (η ⁻¹' removed ε)ᶜ
+    have hT : MeasurableSet T :=
+      ((hremovedClosed ε hε hε1).preimage hη).isOpen_compl.measurableSet
+    have hsub : T ∩ Set.uIcc a b ⊆ R := by
+      intro t ht
+      refine ⟨ht.2, fun hmem => ?_⟩
+      obtain ⟨v, hv, htv⟩ := Set.mem_iUnion₂.mp hmem
+      exact ht.1 (Set.mem_iUnion₂.mpr ⟨v, hv, interior_subset htv⟩)
+    have hint := (MeasureTheory.integrableOn_indicator_iff hT).mpr
+      ((hcont.integrableOn_compact (μ := MeasureTheory.volume) hR).mono_set hsub)
+    rw [intervalIntegrable_iff']
+    convert hint using 1
+    ext t
+    simp only [T, Set.indicator, Set.mem_compl_iff, Set.mem_preimage]
+    split_ifs <;> rfl
+  have hfullArcMem : ∀ t ∈ Set.Icc (Real.pi / 3) (2 * Real.pi / 3),
+      circleMap 0 1 t ∈ K ∧ circleMap 0 1 t ∉ O := by
+    intro t ht
+    have ht0 : 0 < t := lt_of_lt_of_le (by positivity) ht.1
+    have htπ : t < Real.pi := by linarith only [ht.2, Real.pi_pos]
+    have hcos : Real.cos (2 * Real.pi / 3) = -1 / 2 := by
+      rw [show 2 * Real.pi / 3 = Real.pi - Real.pi / 3 by ring,
+        Real.cos_pi_sub, Real.cos_pi_div_three]
+      norm_num
+    have hlo := Real.cos_le_cos_of_nonneg_of_le_pi ht0.le
+      (show 2 * Real.pi / 3 ≤ Real.pi by linarith [Real.pi_pos]) ht.2
+    have hhi := Real.cos_le_cos_of_nonneg_of_le_pi (by positivity : 0 ≤ Real.pi / 3)
+      htπ.le ht.1
+    rw [hcos] at hlo
+    rw [Real.cos_pi_div_three] at hhi
+    have hnorm : ‖circleMap 0 1 t‖ = 1 := by
+      simp only [norm_circleMap_zero, abs_one]
+    have him : (circleMap 0 1 t).im = Real.sin t := by simp [circleMap_zero_im]
+    have hre : (circleMap 0 1 t).re = Real.cos t := by simp [circleMap_zero_re]
+    refine ⟨⟨?_, hnorm.ge, ?_, ?_⟩, ?_⟩
+    · rw [hre, abs_le]
+      constructor <;> linarith
+    · rw [him]
+      exact Real.sin_pos_of_pos_of_lt_pi ht0 htπ
+    · rw [him]
+      exact (Real.sin_le_one t).trans hY.le
+    · intro hmem
+      simpa only [hnorm, lt_self_iff_false] using hmem.2.1
+  let retainedArc : ℝ → ℝ → ℂ := fun ε t =>
+    if circleMap 0 1 t ∈ removed ε then 0 else
+      L (circleMap 0 1 t) * (Complex.I * circleMap 0 1 t)
+  have hretainedArcIntegrable : ∀ ε : ℝ, 0 < ε → ε < 1 →
+      IntervalIntegrable (retainedArc ε) MeasureTheory.volume
+        (2 * Real.pi / 3) (Real.pi / 3) := by
+    intro ε hε hε1
+    apply hretainedIntegrable (circleMap 0 1) (fun t => Complex.I * circleMap 0 1 t)
+      (2 * Real.pi / 3) (Real.pi / 3) (by fun_prop) (by fun_prop) _ ε hε hε1
+    simpa only [Set.uIcc_of_ge (by linarith [Real.pi_pos] : Real.pi / 3 ≤ 2 * Real.pi / 3)]
+      using hfullArcMem
   let pairedLower : ℝ → ℂ := fun ε => intervalIntegral
     (fun t : ℝ => if circleMap 0 1 t ∈ removed ε then 0 else
       (L (circleMap 0 1 t) - L (-1 / circleMap 0 1 t) / (circleMap 0 1 t) ^ 2) *
         (Complex.I * circleMap 0 1 t))
     (2 * Real.pi / 3) (Real.pi / 2) MeasureTheory.volume
+  have hpairedLowerIntegral : ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0),
+      pairedLower ε = intervalIntegral (retainedArc ε)
+        (2 * Real.pi / 3) (Real.pi / 3) MeasureTheory.volume := by
+    filter_upwards [hsmallCuts, hpairedRemoved] with ε hε hpaired
+    have hreflect (t : ℝ) : circleMap 0 1 (Real.pi - t) = -1 / circleMap 0 1 t := by
+      simp only [circleMap, Complex.ofReal_one, one_mul, zero_add,
+        Complex.ofReal_sub, sub_mul, Complex.exp_sub, Complex.exp_pi_mul_I]
+    have hint := hretainedArcIntegrable ε hε.1 hε.2
+    have hleft : IntervalIntegrable (retainedArc ε) MeasureTheory.volume
+        (2 * Real.pi / 3) (Real.pi / 2) :=
+      hint.mono_set (c := 2 * Real.pi / 3) (d := Real.pi / 2) (by
+        simp only [Set.uIcc_of_ge (by linarith [Real.pi_pos] : Real.pi / 3 ≤ 2 * Real.pi / 3),
+          Set.uIcc_of_ge (by linarith [Real.pi_pos] : Real.pi / 2 ≤ 2 * Real.pi / 3)]
+        exact Set.Icc_subset_Icc (by linarith [Real.pi_pos]) le_rfl)
+    have hright : IntervalIntegrable (retainedArc ε) MeasureTheory.volume
+        (Real.pi / 2) (Real.pi / 3) :=
+      hint.mono_set (c := Real.pi / 2) (d := Real.pi / 3) (by
+        simp only [Set.uIcc_of_ge (by linarith [Real.pi_pos] : Real.pi / 3 ≤ 2 * Real.pi / 3),
+          Set.uIcc_of_ge (by linarith [Real.pi_pos] : Real.pi / 3 ≤ Real.pi / 2)]
+        exact Set.Icc_subset_Icc le_rfl (by linarith [Real.pi_pos]))
+    have hreflectInt : IntervalIntegrable (fun t => retainedArc ε (Real.pi - t))
+        MeasureTheory.volume (2 * Real.pi / 3) (Real.pi / 2) := by
+      convert hright.symm.comp_sub_left Real.pi using 1 <;> ring
+    calc
+      pairedLower ε = intervalIntegral
+          (fun t => retainedArc ε t + retainedArc ε (Real.pi - t))
+          (2 * Real.pi / 3) (Real.pi / 2) MeasureTheory.volume := by
+        apply intervalIntegral.integral_congr
+        intro t _
+        have hnorm : ‖circleMap 0 1 t‖ = 1 := by simp [norm_circleMap_zero]
+        have hne : circleMap 0 1 t ≠ 0 := norm_ne_zero_iff.mp (by rw [hnorm]; norm_num)
+        have hcut : circleMap 0 1 t ∈ removed ε ↔
+            circleMap 0 1 (Real.pi - t) ∈ removed ε := by
+          rw [hreflect]
+          exact hpaired.1 _ hnorm
+        dsimp only [retainedArc]
+        by_cases ht : circleMap 0 1 t ∈ removed ε
+        · simp only [if_pos ht, if_pos (hcut.mp ht), add_zero]
+        · simp only [if_neg ht, if_neg (mt hcut.mpr ht)]
+          rw [hreflect]
+          field_simp [hne]
+          ring
+      _ = intervalIntegral (retainedArc ε) (2 * Real.pi / 3) (Real.pi / 2)
+            MeasureTheory.volume +
+          intervalIntegral (retainedArc ε) (Real.pi / 2) (Real.pi / 3)
+            MeasureTheory.volume := by
+        rw [intervalIntegral.integral_add hleft hreflectInt,
+          intervalIntegral.integral_comp_sub_left]
+        congr 2 <;> ring
+      _ = _ := intervalIntegral.integral_add_adjacent_intervals hleft hright
   have hpairedLowerEq : ∀ ε : ℝ, 0 < ε → pairedLower ε = intervalIntegral
       (fun t : ℝ => if circleMap 0 1 t ∈ removed ε then 0 else -(k : ℂ) * Complex.I)
       (2 * Real.pi / 3) (Real.pi / 2) MeasureTheory.volume := by
@@ -6302,7 +6427,8 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     apply Complex.ofReal_injective
     push_cast at hresult ⊢
     exact hresult
-  filter_upwards [hsmallCuts, hcutZeros, hparametrizedExcisionBoundary] with ε hε hzeros hexc
+  filter_upwards [hsmallCuts, hcutZeros, hparametrizedExcisionBoundary, hpairedLowerIntegral]
+    with ε hε hzeros hexc hlower
   obtain ⟨r, δ, hr, hδ, hVopen, hVcompact, hVzeroFree, hVfrontier,
     hcircles, hmesh, hcells⟩ := hexc
   have hexcisionSum :
@@ -6330,6 +6456,7 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
           intervalIntegral (fun t => L (circleMap v r t) * deriv (circleMap v r) t)
             (2 * Real.pi) 0 MeasureTheory.volume) = 0 by
     simpa only [hexcisionSum, add_neg_eq_zero] using hclosedContour
+  rw [hlower]
   -- Instantiate the general-position grid for the actual excised boundary.
   let S : Set ℂ := {z ∈ Ω ε | F z = 0}
   let V : Set ℂ := Ω ε \ ⋃ v ∈ S, Metric.closedBall v r
