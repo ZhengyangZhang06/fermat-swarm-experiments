@@ -403,3 +403,387 @@ theorem Submission.p03_tu_euler_product_powers_68cf3476 :
   refine ⟨hm.pow k, hm.tprod_pow k, ?_⟩
   rw [hm.tprod_pow k]
   exact pow_ne_zero k hz
+
+theorem Submission.p03_ptf_positive_nsmul_nonzero_c5b7b5ed_d6 :
+    ∀ (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k]
+      (W : WeierstrassCurve k), W.Δ ≠ 0 → ∀ n : ℕ, 0 < n →
+        ∃ P : W.toAffine.Point, n • P ≠ 0 := by
+  intro k _ _ _ _ W hΔ
+  classical
+  have root (p : Polynomial k) (m : ℕ) (hm : 0 < m) (hc : p.coeff m ≠ 0) :
+      ∃ x : k, p.eval x = 0 := by
+    apply IsAlgClosed.exists_root p
+    intro hd
+    apply hc
+    apply Polynomial.coeff_eq_zero_of_degree_lt
+    rw [hd]
+    exact WithBot.coe_lt_coe.mpr hm
+  have point (x : k) : ∃ y : k, W.toAffine.Nonsingular x y := by
+    let p : Polynomial k := Polynomial.X ^ 2 +
+      Polynomial.C (W.a₁ * x + W.a₃) * Polynomial.X -
+      Polynomial.C (x ^ 3 + W.a₂ * x ^ 2 + W.a₄ * x + W.a₆)
+    have hc : p.coeff 2 = 1 := by dsimp [p]; compute_degree!
+    obtain ⟨y, hy⟩ := root p 2 (by omega) (by rw [hc]; exact one_ne_zero)
+    refine ⟨y, (equation_iff_nonsingular_of_Δ_ne_zero hΔ).mp ?_⟩
+    rw [equation_iff]
+    simp only [p, Polynomial.eval_sub, Polynomial.eval_add, Polynomial.eval_mul,
+      Polynomial.eval_pow, Polynomial.eval_X, Polynomial.eval_C] at hy
+    linear_combination hy
+  have disc (x y : k) (h : W.toAffine.Nonsingular x y) :
+      (2 * y + W.a₁ * x + W.a₃) ^ 2 =
+        4 * x ^ 3 + W.b₂ * x ^ 2 + 2 * W.b₄ * x + W.b₆ := by
+    have he := (equation_iff x y).mp h.1
+    simp only [b₂, b₄, b₆]
+    linear_combination 4 * he
+  have torsion : ∃ T : W.toAffine.Point, T ≠ 0 ∧ 2 • T = 0 := by
+    let p : Polynomial k := Polynomial.C 4 * Polynomial.X ^ 3 +
+      Polynomial.C W.b₂ * Polynomial.X ^ 2 +
+      Polynomial.C (2 * W.b₄) * Polynomial.X + Polynomial.C W.b₆
+    have hc : p.coeff 3 = 4 := by dsimp [p]; compute_degree!
+    obtain ⟨x, hx⟩ := root p 3 (by omega) (by rw [hc]; norm_num)
+    obtain ⟨y, hxy⟩ := point x
+    simp only [p, Polynomial.eval_add, Polynomial.eval_mul, Polynomial.eval_pow,
+      Polynomial.eval_X, Polynomial.eval_C] at hx
+    have ht : 2 * y + W.a₁ * x + W.a₃ = 0 := by
+      apply eq_zero_of_pow_eq_zero (n := 2)
+      exact (disc x y hxy).trans hx
+    have hy : y = W.toAffine.negY x y := by
+      dsimp only [negY]
+      linear_combination ht
+    refine ⟨some x y hxy, some_ne_zero hxy, ?_⟩
+    rw [two_nsmul, add_self_of_Y_eq hy]
+  have half (P : W.toAffine.Point) :
+      ∃ Q : W.toAffine.Point, 2 • Q = P ∨ 2 • Q = -P := by
+    cases P with
+    | zero =>
+      refine ⟨0, Or.inl ?_⟩
+      change (2 : ℕ) • (0 : W.toAffine.Point) = 0
+      exact nsmul_zero 2
+    | some u v huv =>
+      let p : Polynomial k := Polynomial.X ^ 4 -
+        Polynomial.C W.b₄ * Polynomial.X ^ 2 -
+        Polynomial.C (2 * W.b₆) * Polynomial.X - Polynomial.C W.b₈ -
+        Polynomial.C u * (Polynomial.C 4 * Polynomial.X ^ 3 +
+          Polynomial.C W.b₂ * Polynomial.X ^ 2 +
+          Polynomial.C (2 * W.b₄) * Polynomial.X + Polynomial.C W.b₆)
+      have hc : p.coeff 4 = 1 := by dsimp [p]; compute_degree!
+      obtain ⟨x, hx⟩ := root p 4 (by omega) (by rw [hc]; exact one_ne_zero)
+      obtain ⟨y, hxy⟩ := point x
+      have he := (equation_iff x y).mp hxy.1
+      simp only [p, Polynomial.eval_sub, Polynomial.eval_add, Polynomial.eval_mul,
+        Polynomial.eval_pow, Polynomial.eval_X, Polynomial.eval_C, b₂, b₄, b₆, b₈] at hx
+      let t := 2 * y + W.a₁ * x + W.a₃
+      let z := 3 * x ^ 2 + 2 * W.a₂ * x + W.a₄ - W.a₁ * y
+      have hz : z ^ 2 + W.a₁ * z * t - (W.a₂ + 2 * x + u) * t ^ 2 = 0 := by
+        dsimp [z, t]
+        linear_combination hx - (W.a₁ ^ 2 + 4 * W.a₂ + 8 * x + 4 * u) * he
+      have ht : t ≠ 0 := by
+        intro ht
+        have hz0 : z = 0 := by
+          apply eq_zero_of_pow_eq_zero (n := 2)
+          simpa only [ht, mul_zero, zero_pow (by omega : 2 ≠ 0), add_zero,
+            sub_zero] using hz
+        rcases ((nonsingular_iff' x y).mp hxy).2 with h | h
+        · apply h
+          dsimp [z] at hz0
+          linear_combination -hz0
+        · exact h ht
+      have hy : y ≠ W.toAffine.negY x y := by
+        intro hy
+        apply ht
+        dsimp only [t, negY] at *
+        linear_combination hy
+      have hx' : W.toAffine.addX x x (W.toAffine.slope x x y y) = u := by
+        have htdef : y - W.toAffine.negY x y = t := by
+          dsimp [negY, t]
+          ring
+        rw [slope_of_Y_ne rfl hy, addX, htdef]
+        change (z / t) ^ 2 + W.a₁ * (z / t) - W.a₂ - x - x = u
+        have hmul : ((z / t) ^ 2 + W.a₁ * (z / t) - W.a₂ - x - x - u) *
+            t ^ 2 = 0 := by
+          calc
+            _ = z ^ 2 + W.a₁ * z * t - (W.a₂ + 2 * x + u) * t ^ 2 := by
+              field_simp [ht]
+              ring
+            _ = 0 := hz
+        exact sub_eq_zero.mp ((mul_eq_zero.mp hmul).resolve_right (pow_ne_zero 2 ht))
+      refine ⟨some x y hxy, ?_⟩
+      rw [two_nsmul, add_self_of_Y_ne hy]
+      exact X_eq_iff.mp hx'
+  obtain ⟨T, hT, hT2⟩ := torsion
+  intro n
+  induction n using Nat.strong_induction_on with
+  | h n ih =>
+    intro hn
+    obtain ⟨m, rfl | rfl⟩ := Nat.even_or_odd' n
+    · obtain ⟨P, hP⟩ := ih m (by omega) (by omega)
+      obtain ⟨Q, hQ | hQ⟩ := half P
+      · refine ⟨Q, ?_⟩
+        simpa only [mul_nsmul, hQ] using hP
+      · refine ⟨Q, ?_⟩
+        simpa only [mul_nsmul, hQ, smul_neg, neg_ne_zero] using hP
+    · refine ⟨T, ?_⟩
+      simpa only [add_nsmul, mul_nsmul, hT2, nsmul_zero, one_nsmul,
+        zero_add] using hT
+theorem Submission.p03_ptf_finite_kernel_of_nsmul_nonzero_c5b7b5ed_d6 :
+    ∀ (k : Type) [Field k] [IsAlgClosed k] [DecidableEq k] (W : WeierstrassCurve k),
+      W.Δ ≠ 0 → ∀ n : ℕ, (∃ P : W.toAffine.Point, n • P ≠ 0) →
+        Finite {P : W.toAffine.Point // n • P = 0} := by
+  intro k _ _ _ W _hΔ n ⟨Q, hQ⟩
+  classical
+  rcases Q with _ | ⟨x₀, y₀, h₀⟩
+  · exact False.elim (hQ (nsmul_zero n))
+  -- Use the affine coordinate ring to make the finite-fiber argument explicit.
+  -- The basis, norm, and addition formulas below are from pinned mathlib
+  -- db584cd6d46c92f209a44c0f1c829460d327499d, EllipticCurve/Affine/Point.lean.
+  let G := W.toAffine.Point
+  let A := W.toAffine.CoordinateRing
+  let : Module.Finite (Polynomial k) A := Module.Finite.of_basis (CoordinateRing.basis W.toAffine)
+  let ev : G → A →+* k := fun P => match P with
+    | .zero => AdjoinRoot.evalEval h₀.1
+    | .some x y h => AdjoinRoot.evalEval h.1
+  have ev_mk (x y : k) (h : W.toAffine.Nonsingular x y)
+      (p : Polynomial (Polynomial k)) :
+      ev (.some x y h) (CoordinateRing.mk W.toAffine p) = p.evalEval x y := by
+    exact AdjoinRoot.evalEval_mk h.1 p
+  have ev_basis (x y : k) (h : W.toAffine.Nonsingular x y) (p q : Polynomial k) :
+      ev (.some x y h) (p • (1 : A) + q • CoordinateRing.mk W.toAffine Polynomial.X) =
+        p.eval x + q.eval x * y := by
+    rw [CoordinateRing.smul p (1 : A), CoordinateRing.smul q]
+    simp only [map_add, map_mul, mul_one, ev_mk x y h,
+      Polynomial.evalEval_C, Polynomial.evalEval_X]
+  have hxf (x : k) : Set.Finite {P : G | P.xRep 0 = x} := by
+    by_cases h : ∃ y, W.toAffine.Nonsingular x y
+    · obtain ⟨y, hy⟩ := h
+      apply (((Set.finite_singleton (-.some x y hy)).insert (.some x y hy)).insert 0).subset
+      intro P hp
+      cases P with
+      | zero => simp [← zero_def]
+      | some u v hv =>
+        have hu : u = x := hp
+        rcases (X_eq_iff (h₁ := hv) (h₂ := hy)).mp hu with he | he
+        · exact Or.inr (Or.inl he)
+        · exact Or.inr (Or.inr he)
+    · apply (Set.finite_singleton (0 : G)).subset
+      intro P hp
+      cases P with
+      | zero => rfl
+      | some u v hv => exact (h ⟨v, (show u = x from hp) ▸ hv⟩).elim
+  have ev_nonzero (a : A) (ha : a ≠ 0) : ∀ᶠ P in Filter.cofinite, ev P a ≠ 0 := by
+    have hn : Algebra.norm (Polynomial k) a ≠ 0 := Algebra.norm_ne_zero_iff.mpr ha
+    have hf := (Polynomial.finite_setOfPred_isRoot hn).biUnion (fun x _ => hxf x)
+    apply Filter.eventually_cofinite.mpr
+    apply ((Set.finite_singleton (0 : G)).union hf).subset
+    intro P hp
+    change ¬ ev P a ≠ 0 at hp
+    simp only [not_not] at hp
+    cases P with
+    | zero => exact Or.inl rfl
+    | some x y h =>
+      apply Or.inr
+      apply Set.mem_iUnion₂.mpr
+      refine ⟨x, ?_, rfl⟩
+      obtain ⟨p, q, he⟩ := CoordinateRing.exists_smul_basis_eq a
+      rw [← he, ev_basis x y h p q] at hp
+      change (Algebra.norm (Polynomial k) a).eval x = 0
+      rw [← he, CoordinateRing.norm_smul_basis]
+      simp only [Polynomial.eval_sub, Polynomial.eval_pow, Polynomial.eval_mul,
+        Polynomial.eval_add, Polynomial.eval_C, Polynomial.eval_X]
+      have heq := (equation_iff x y).mp h.1
+      linear_combination (p.eval x - q.eval x * y - q.eval x * (W.a₁ * x + W.a₃)) * hp +
+        q.eval x ^ 2 * heq
+  -- Rational coordinate functions are defined away from a finite set.
+  let Good : (G → k) → Prop := fun f =>
+    ∃ a b : A, b ≠ 0 ∧ ∀ᶠ P in Filter.cofinite, f P = ev P a / ev P b
+  have good_ev (a : A) : Good (fun P => ev P a) := by
+    refine ⟨a, 1, one_ne_zero, ?_⟩
+    filter_upwards [] with P
+    simp
+  have good_congr {f g : G → k} (hf : Good f)
+      (hfg : ∀ᶠ P in Filter.cofinite, f P = g P) : Good g := by
+    obtain ⟨a, b, hb, hh⟩ := hf
+    refine ⟨a, b, hb, ?_⟩
+    filter_upwards [hfg, hh] with P hP hi
+    exact hP.symm.trans hi
+  have good_const (c : k) : Good (fun _ => c) := by
+    apply good_congr (good_ev (algebraMap k A c))
+    filter_upwards [] with P
+    cases P <;>
+      simp [ev, A, AdjoinRoot.evalEval, AdjoinRoot.algebraMap_eq', AdjoinRoot.lift_of]
+  have good_add {f g : G → k} (hf : Good f) (hg : Good g) :
+      Good (fun P => f P + g P) := by
+    obtain ⟨a, b, hb, hh⟩ := hf
+    obtain ⟨c, d, hd, hi⟩ := hg
+    refine ⟨a * d + c * b, b * d, mul_ne_zero hb hd, ?_⟩
+    filter_upwards [hh, hi, ev_nonzero b hb, ev_nonzero d hd] with P hP iP hbP hdP
+    rw [hP, iP, map_add, map_mul, map_mul, map_mul]
+    simpa only [mul_comm] using div_add_div (ev P a) (ev P c) hbP hdP
+  have good_neg {f : G → k} (hf : Good f) : Good (fun P => -f P) := by
+    obtain ⟨a, b, hb, hh⟩ := hf
+    refine ⟨-a, b, hb, ?_⟩
+    filter_upwards [hh] with P hP
+    simp only [hP, map_neg, neg_div]
+  have good_sub {f g : G → k} (hf : Good f) (hg : Good g) :
+      Good (fun P => f P - g P) := by
+    simpa only [sub_eq_add_neg] using good_add hf (good_neg hg)
+  have good_mul {f g : G → k} (hf : Good f) (hg : Good g) :
+      Good (fun P => f P * g P) := by
+    obtain ⟨a, b, hb, hh⟩ := hf
+    obtain ⟨c, d, hd, hi⟩ := hg
+    refine ⟨a * c, b * d, mul_ne_zero hb hd, ?_⟩
+    filter_upwards [hh, hi] with P hP iP
+    simp only [hP, iP, map_mul, div_mul_div_comm]
+  have good_inv {f : G → k} (hf : Good f) : Good (fun P => (f P)⁻¹) := by
+    obtain ⟨a, b, hb, hh⟩ := hf
+    by_cases ha : a = 0
+    · apply good_congr (good_const 0)
+      filter_upwards [hh] with P hP
+      simp [hP, ha]
+    · refine ⟨b, a, ha, ?_⟩
+      filter_upwards [hh] with P hP
+      simp only [hP, inv_div]
+  have good_div {f g : G → k} (hf : Good f) (hg : Good g) :
+      Good (fun P => f P / g P) := by
+    simpa only [div_eq_mul_inv] using good_mul hf (good_inv hg)
+  have good_pow {f : G → k} (hf : Good f) (m : ℕ) : Good (fun P => f P ^ m) := by
+    induction m with
+    | zero => simpa only [pow_zero] using good_const 1
+    | succ m ih => simpa only [pow_succ] using good_mul ih hf
+  have good_dichotomy {f : G → k} (hf : Good f) :
+      (∀ᶠ P in Filter.cofinite, f P = 0) ∨ (∀ᶠ P in Filter.cofinite, f P ≠ 0) := by
+    obtain ⟨a, b, hb, hh⟩ := hf
+    by_cases ha : a = 0
+    · left
+      filter_upwards [hh] with P hP
+      simp [hP, ha]
+    · right
+      filter_upwards [hh, ev_nonzero a ha, ev_nonzero b hb] with P hP haP hbP
+      exact hP ▸ div_ne_zero haP hbP
+  have good_eq {f g : G → k} (hf : Good f) (hg : Good g) :
+      (∀ᶠ P in Filter.cofinite, f P = g P) ∨
+      (∀ᶠ P in Filter.cofinite, f P ≠ g P) := by
+    simpa only [sub_eq_zero, sub_ne_zero] using good_dichotomy (good_sub hf hg)
+  have good_ite {f g a b : G → k} (hf : Good f) (hg : Good g)
+      (ha : Good a) (hb : Good b) : Good (fun P => if f P = g P then a P else b P) := by
+    rcases good_eq hf hg with h | h
+    · apply good_congr ha
+      filter_upwards [h] with P hP
+      simp [hP]
+    · apply good_congr hb
+      filter_upwards [h] with P hP
+      simp [hP]
+  -- The point formulas are either zero or affine away from a finite set.
+  let GoodPoint : (G → G) → Prop := fun f =>
+    (∀ᶠ P in Filter.cofinite, f P = 0) ∨
+      ∃ x y : G → k, Good x ∧ Good y ∧
+        ∀ᶠ P in Filter.cofinite, ∃ h : W.toAffine.Nonsingular (x P) (y P),
+          f P = .some (x P) (y P) h
+  have goodPoint_congr {f g : G → G} (hf : GoodPoint f)
+      (hh : ∀ᶠ P in Filter.cofinite, f P = g P) : GoodPoint g := by
+    rcases hf with hf | ⟨x, y, hx, hy, h⟩
+    · left
+      filter_upwards [hh, hf] with P hP hi
+      exact hP.symm.trans hi
+    · right
+      refine ⟨x, y, hx, hy, ?_⟩
+      filter_upwards [hh, h] with P hP ⟨h, he⟩
+      exact ⟨h, hP.symm.trans he⟩
+  have goodPoint_id : GoodPoint (fun P => P) := by
+    let x : G → k := fun P => ev P (CoordinateRing.mk W.toAffine (Polynomial.C Polynomial.X))
+    let y : G → k := fun P => ev P (CoordinateRing.mk W.toAffine Polynomial.X)
+    refine Or.inr ⟨x, y, good_ev _, good_ev _, ?_⟩
+    filter_upwards [Filter.eventually_cofinite_ne (0 : G)] with P hP
+    cases P with
+    | zero => exact (hP rfl).elim
+    | some u v h =>
+      have hx : x (.some u v h) = u := by simp only [x, ev_mk u v h, Polynomial.evalEval_C, Polynomial.eval_X]
+      have hy : y (.some u v h) = v := by simp only [y, ev_mk u v h, Polynomial.evalEval_X]
+      simp only [hx, hy]
+      exact ⟨h, trivial⟩
+  have goodPoint_add {f g : G → G} (hf : GoodPoint f) (hg : GoodPoint g) :
+      GoodPoint (fun P => f P + g P) := by
+    rcases hf with hf | ⟨x₁, y₁, hx₁, hy₁, hf⟩
+    · apply goodPoint_congr hg
+      filter_upwards [hf] with P hP
+      simp [hP]
+    rcases hg with hg | ⟨x₂, y₂, hx₂, hy₂, hg⟩
+    · apply goodPoint_congr (Or.inr ⟨x₁, y₁, hx₁, hy₁, hf⟩)
+      filter_upwards [hg] with P hP
+      simp [hP]
+    have hneg (x y : G → k) (hx : Good x) (hy : Good y) :
+        Good (fun P => W.toAffine.negY (x P) (y P)) := by
+      exact good_sub (good_sub (good_neg hy) (good_mul (good_const W.a₁) hx))
+        (good_const W.a₃)
+    have hcase : (∀ᶠ P in Filter.cofinite,
+        x₁ P = x₂ P ∧ y₁ P = W.toAffine.negY (x₂ P) (y₂ P)) ∨
+        (∀ᶠ P in Filter.cofinite,
+        ¬(x₁ P = x₂ P ∧ y₁ P = W.toAffine.negY (x₂ P) (y₂ P))) := by
+      rcases good_eq hx₁ hx₂ with h | h
+      · rcases good_eq hy₁ (hneg x₂ y₂ hx₂ hy₂) with h' | h'
+        · exact Or.inl (h.and h')
+        · right
+          filter_upwards [h'] with P hP
+          exact fun hh => hP hh.2
+      · right
+        filter_upwards [h] with P hP
+        exact fun hh => hP hh.1
+    rcases hcase with hc | hc
+    · left
+      filter_upwards [hf, hg, hc] with P ⟨h₁, he₁⟩ ⟨h₂, he₂⟩ hP
+      rw [he₁, he₂,  add_of_Y_eq hP.1 hP.2]
+    · let s : G → k := fun P => W.toAffine.slope (x₁ P) (x₂ P) (y₁ P) (y₂ P)
+      have hs : Good s := by
+        apply good_ite hx₁ hx₂
+        · apply good_ite hy₁ (hneg x₂ y₂ hx₂ hy₂) (good_const 0)
+          exact good_div
+            (good_sub (good_add
+              (good_add (good_mul (good_const 3) (good_pow hx₁ 2))
+                (good_mul (good_const (2 * W.a₂)) hx₁)) (good_const W.a₄))
+              (good_mul (good_const W.a₁) hy₁))
+            (good_sub hy₁ (hneg x₁ y₁ hx₁ hy₁))
+        · exact good_div (good_sub hy₁ hy₂) (good_sub hx₁ hx₂)
+      let x : G → k := fun P => W.toAffine.addX (x₁ P) (x₂ P) (s P)
+      let y : G → k := fun P => W.toAffine.addY (x₁ P) (x₂ P) (y₁ P) (s P)
+      have hx : Good x :=
+        good_sub (good_sub (good_sub (good_add (good_pow hs 2)
+          (good_mul (good_const W.a₁) hs)) (good_const W.a₂)) hx₁) hx₂
+      have hy : Good y :=
+        hneg x (fun P => s P * (x P - x₁ P) + y₁ P) hx
+          (good_add (good_mul hs (good_sub hx hx₁)) hy₁)
+      refine Or.inr ⟨x, y, hx, hy, ?_⟩
+      filter_upwards [hf, hg, hc] with P ⟨h₁, he₁⟩ ⟨h₂, he₂⟩ hP
+      exact ⟨nonsingular_add h₁ h₂ hP, by rw [he₁, he₂, add_some hP]⟩
+  have goodPoint_nsmul (m : ℕ) : GoodPoint (fun P => m • P) := by
+    induction m with
+    | zero => exact Or.inl (Filter.Eventually.of_forall (fun P => zero_nsmul P))
+    | succ m ih =>
+      simpa only [succ_nsmul] using goodPoint_add ih goodPoint_id
+  -- A subgroup with finite complement in an infinite group is the whole group.
+  -- Translation by the witness excludes that possibility for this kernel.
+  rcases goodPoint_nsmul n with hz | ⟨x,y,hx,hy,hh⟩
+  · cases finite_or_infinite G with
+    | inl h => exact inferInstance
+    | inr h =>
+      have ht : Filter.Tendsto (fun P : G => P + .some x₀ y₀ h₀)
+          Filter.cofinite Filter.cofinite :=
+        (show Function.Injective (fun P : G => P + .some x₀ y₀ h₀) from
+          fun _ _ hh => add_right_cancel hh).tendsto_cofinite
+      obtain ⟨P, hP, hPQ⟩ := (hz.and (ht.eventually hz)).exists
+      apply False.elim
+      apply hQ
+      simpa only [nsmul_add, hP, zero_add] using hPQ
+  · have hne : ∀ᶠ P : G in Filter.cofinite, n • P ≠ 0 := by
+      filter_upwards [hh] with P ⟨h, he⟩
+      rw [he]
+      exact some_ne_zero h
+    exact (show Set.Finite {P : G | n • P = 0} from
+      by simpa only [Filter.eventually_cofinite, not_not] using hne).to_subtype
+
+
+theorem Submission.p03_tkc_positive_torsion_finite_68cf3476_d5 :
+    ∀ (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k]
+      (W : WeierstrassCurve k), W.Δ ≠ 0 → ∀ n : ℕ, 0 < n →
+        Finite {P : W.toAffine.Point // n • P = 0} := by
+  intro k _ _ _ _ W hΔ n hn
+  exact Submission.p03_ptf_finite_kernel_of_nsmul_nonzero_c5b7b5ed_d6 k W hΔ n
+    (Submission.p03_ptf_positive_nsmul_nonzero_c5b7b5ed_d6 k W hΔ n hn)
