@@ -982,3 +982,97 @@ theorem Submission.p09_af497904fe_ci_unramified_subfield :
       Ideal.ramificationIdx P (NumberField.RingOfIntegers D) = 1 :=
     (Ideal.ramificationIdx_tower (R := ℤ) R P).symm.trans (hE P hP hPq)
   exact (mul_eq_one.mp hprod).1
+
+
+theorem Submission.p09_af497904fe_ir_ideal_inertia_to_valuation :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E]
+      (q : ℕ), q.Prime → ∀ P : Ideal (NumberField.RingOfIntegers E),
+      P.IsPrime → P.LiesOver (Ideal.span {(q : ℤ)}) →
+      ∃ V : ValuationSubring E, V.LiesOverPrime q ∧
+        P.inertia (E ≃ₐ[ℚ] E) ≤ V.inertiaSubgroupIn ℚ := by
+  classical
+  intro E _ q hq P hP hPQ
+  let : NumberField E := NumberField.of_module_finite ℚ E
+  let : P.IsPrime := hP
+  let : P.LiesOver (Ideal.span {(q : ℤ)}) := hPQ
+  have hqP : (q : NumberField.RingOfIntegers E) ∈ P := by
+    simpa only [map_natCast] using
+      (Ideal.mem_of_liesOver P (Ideal.span {(q : ℤ)}) (q : ℤ)).mp
+        (Ideal.subset_span (Set.mem_singleton _))
+  have hP0 : P ≠ ⊥ := by
+    intro h
+    have : (q : NumberField.RingOfIntegers E) = 0 := by simpa [h] using hqP
+    exact hq.ne_zero (Nat.cast_eq_zero.mp this)
+  let v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers E) :=
+    ⟨P, hP, hP0⟩
+  let V := v.valuationSubringAtPrime E
+  let : Algebra (NumberField.RingOfIntegers E) V :=
+    (Localization.subalgebra.ofField E P.primeCompl P.primeCompl_le_nonZeroDivisors).algebra'
+  let : IsLocalization P.primeCompl V :=
+    Localization.subalgebra.isLocalization_ofField E P.primeCompl
+      P.primeCompl_le_nonZeroDivisors
+  have hV (x : E) : x ∈ V ↔ ∃ a b : NumberField.RingOfIntegers E,
+      b ∉ P ∧ x = (a : E) / (b : E) := by
+    change (∃ a b, ∃ _ : b ∈ P.primeCompl,
+      x = algebraMap (NumberField.RingOfIntegers E) E a *
+        (algebraMap (NumberField.RingOfIntegers E) E b)⁻¹) ↔ _
+    simp only [Ideal.mem_primeCompl_iff, exists_prop, div_eq_mul_inv]
+  have hcenter (a : NumberField.RingOfIntegers E) :
+      algebraMap (NumberField.RingOfIntegers E) V a ∈ maximalIdeal V ↔ a ∈ P :=
+    IsLocalization.AtPrime.to_map_mem_maximal_iff V P a
+  refine ⟨V, ?_, ?_⟩
+  · change (q : E) ∈ V.nonunits
+    have h := (hcenter q).mpr hqP
+    have := V.coe_mem_nonunits_iff.mpr h
+    simpa only [map_natCast, SubringClass.coe_natCast] using this
+  · intro σ hσ
+    have hstable (τ : E ≃ₐ[ℚ] E) (hτ : τ ∈ P.inertia (E ≃ₐ[ℚ] E))
+        (x : E) (hx : x ∈ V) : τ x ∈ V := by
+      obtain ⟨a, b, hb, rfl⟩ := (hV x).mp hx
+      have hτb : τ • b ∉ P := by
+        intro h
+        apply hb
+        have hd : τ • b - b ∈ P := hτ b
+        simpa only [sub_sub_cancel] using P.sub_mem h hd
+      apply (hV _).mpr
+      refine ⟨τ • a, τ • b, hτb, ?_⟩
+      exact map_div₀ τ (a : E) (b : E)
+    have hσV : σ ∈ V.decompositionSubgroup ℚ := by
+      let : MulAction (E ≃ₐ[ℚ] E) (ValuationSubring E) :=
+        ValuationSubring.pointwiseMulAction
+      apply MulAction.mem_stabilizer_iff.mpr
+      apply ValuationSubring.ext
+      intro x
+      rw [ValuationSubring.mem_smul_pointwise_iff_exists]
+      constructor
+      · rintro ⟨y, hy, rfl⟩
+        exact hstable σ hσ y hy
+      · intro hx
+        refine ⟨σ⁻¹ x, hstable σ⁻¹ ((P.inertia _).inv_mem hσ) x hx, ?_⟩
+        exact σ.apply_symm_apply x
+    let g : V.decompositionSubgroup ℚ := ⟨σ, hσV⟩
+    have hres : (residue V).comp
+        (MulSemiringAction.toRingAut (V.decompositionSubgroup ℚ) V g).toRingHom =
+        residue V := by
+      apply IsLocalization.ringHom_ext P.primeCompl
+      apply RingHom.ext
+      intro a
+      change residue V (g • algebraMap (NumberField.RingOfIntegers E) V a) =
+        residue V (algebraMap (NumberField.RingOfIntegers E) V a)
+      apply sub_eq_zero.mp
+      rw [← map_sub, residue_eq_zero_iff]
+      have heq : g • algebraMap (NumberField.RingOfIntegers E) V a -
+          algebraMap (NumberField.RingOfIntegers E) V a =
+          algebraMap (NumberField.RingOfIntegers E) V (σ • a - a) := by
+        apply Subtype.ext
+        rfl
+      rw [heq]
+      exact (hcenter _).mpr (hσ a)
+    have hg : g ∈ V.inertiaSubgroup ℚ := by
+      change MulSemiringAction.toRingAut (V.decompositionSubgroup ℚ)
+        (ResidueField V) g = 1
+      apply RingEquiv.ext
+      intro x
+      obtain ⟨a, rfl⟩ := residue_surjective x
+      exact RingHom.congr_fun hres a
+    exact ⟨g, hg, rfl⟩
