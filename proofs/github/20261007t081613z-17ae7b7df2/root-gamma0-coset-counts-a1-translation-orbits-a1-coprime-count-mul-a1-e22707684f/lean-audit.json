@@ -1,0 +1,36 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'def Gamma0|Gamma0_mem|def orbitRel|orbitRel_apply|prodQuotientEquiv|theorem card_prod' mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean mathlib/Mathlib/GroupTheory/GroupAction/Defs.lean mathlib/Mathlib/Data/Setoid/Basic.lean mathlib/Mathlib/SetTheory/Cardinal/Finite.lean",
+        "rg -n 'coprime_count_mul|ccm_coprime_orbit_product' project mathlib/Mathlib"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/NumberTheory/ModularForms/CongruenceSubgroups.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/GroupTheory/GroupAction/Defs.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Data/Setoid/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/SetTheory/Cardinal/Finite.lean"
+      ],
+      "conclusion": "Confirmed the frozen Gamma0 and orbit-relation definitions and existing quotient-product/cardinality infrastructure. No matching tracked theorem names were found in the snapshot. Manifest revisions match the verifier's pinned project and mathlib context. Independent rerun 3f086819e44f4a14b0e4b0f48c26227c exited zero with the required marker; all 221 exported Lean inputs matched inspected Git sources, with only the three policy-authorized header omissions. Reversible hashes and all 56 absence-probe targets matched. Accepted prerequisite overlays were verified, and the final commit adds only the tracked theorem."
+    }
+  ],
+  "comparison_identity": "d930b1122cc89c4308af18db4a6c3d2c827e1ffbf76150c591cecced662ca0f1",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_to_coprime_count_mul",
+      "statement": "∀ (m n : ℕ) [NeZero m] [NeZero n], Nat.Coprime m n → Nat.card (Quotient (MulAction.orbitRel (Subgroup.zpowers ModularGroup.T) ((Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 (m * n)))) = Nat.card (Quotient (MulAction.orbitRel (Subgroup.zpowers ModularGroup.T) ((Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 m))) * Nat.card (Quotient (MulAction.orbitRel (Subgroup.zpowers ModularGroup.T) ((Matrix.SpecialLinearGroup (Fin 2) ℤ) ⧸ CongruenceSubgroup.Gamma0 n)))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Transports orbit cardinality through the accepted equivariant CRT equivalence, then applies the accepted translation-period and coprime-orbit-product lemmas."
+    }
+  ]
+}
