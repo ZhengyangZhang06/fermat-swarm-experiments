@@ -4149,6 +4149,29 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     intro t ht
     simpa only [Function.comp_def, smul_eq_mul, mul_comm] using
       (hg (η t) (hηU t ht)).scomp t (hη t ht)
+  have hprimitiveCycles : ∀ (U : Set ℂ) (g : ℂ → ℂ),
+      (∀ z ∈ U, HasDerivAt g (L z) z) →
+      ∀ (n : ℕ) (next : Equiv.Perm (Fin n))
+        (η η' : Fin n → ℝ → ℂ) (a b : Fin n → ℝ),
+        (∀ i t, t ∈ Set.uIcc (a i) (b i) → η i t ∈ U) →
+        (∀ i t, t ∈ Set.uIcc (a i) (b i) → HasDerivAt (η i) (η' i t) t) →
+        (∀ i, IntervalIntegrable (fun t => L (η i t) * η' i t)
+          MeasureTheory.volume (a i) (b i)) →
+        (∀ i, η i (b i) = η (next i) (a (next i))) →
+        ∑ i, intervalIntegral (fun t => L (η i t) * η' i t)
+          (a i) (b i) MeasureTheory.volume = 0 := by
+    intro U g hg n next η η' a b hηU hη hηint hnext
+    calc
+      _ = ∑ i : Fin n, (g (η i (b i)) - g (η i (a i))) := by
+        apply Finset.sum_congr rfl
+        intro i _
+        exact hprimitiveIntegral U g hg (η i) (η' i) (a i) (b i)
+          (hηU i) (hη i) (hηint i)
+      _ = (∑ i : Fin n, g (η i (b i))) - ∑ i : Fin n, g (η i (a i)) :=
+        Finset.sum_sub_distrib _ _
+      _ = 0 := by
+        simp_rw [hnext]
+        rw [Equiv.sum_comp next (fun i => g (η i (a i))), sub_self]
   have htopBound : ∀ (y : ℝ), Y ≤ y → ∀ x : ℝ,
       ‖L ((x : ℂ) + (y : ℂ) * Complex.I) -
         2 * (Real.pi : ℂ) * Complex.I * (analyticOrderNatAt A 0 : ℂ)‖ ≤
@@ -4301,6 +4324,152 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
       ∀ v ∈ {z ∈ K | F z = 0}, ∀ z ∈ D v ε, z ≠ v → F z ≠ 0 :=
     (Filter.eventually_all_finite hKzeros).mpr
       (fun v hv => hcutNoOtherZeros v (hKH hv.1))
+  -- Steps 5 and 8: one sufficiently small parameter separates every pair of cuts.
+  let Z : Set ℂ := {z ∈ K | F z = 0}
+  have hcutsDisjoint : ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0),
+      Z.Pairwise (fun v w => Disjoint (D v ε) (D w ε)) := by
+    have hpair : ∀ v ∈ Z, ∀ w ∈ Z,
+        ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0),
+          v ≠ w → Disjoint (D v ε) (D w ε) := by
+      intro v hv w hw
+      by_cases hvw : v = w
+      · exact Filter.Eventually.of_forall (fun _ hne => (hne hvw).elim)
+      have hd : 0 < dist v w / 2 := half_pos (dist_pos.mpr hvw)
+      filter_upwards [hdiskShrink v (hKH hv.1) _ hd,
+        hdiskShrink w (hKH hw.1) _ hd] with ε hvε hwε
+      intro _
+      apply Set.disjoint_left.mpr
+      intro z hzv hzw
+      have hvz : dist v z < dist v w / 2 := by
+        simpa only [Metric.mem_ball, dist_comm] using hvε hzv
+      have hzw' : dist z w < dist v w / 2 := hwε hzw
+      linarith [dist_triangle v z w]
+    have hall := (Filter.eventually_all_finite hKzeros).mpr
+      (fun v hv => (Filter.eventually_all_finite hKzeros).mpr (hpair v hv))
+    filter_upwards [hall] with ε hε
+    exact fun v hv w hw hne => hε v hv w hw hne
+  have hcenterInterior : ∀ v ∈ H, ∀ ε : ℝ, 0 < ε → v ∈ interior (D v ε) := by
+    intro v hv ε hε
+    have hden : v - star v ≠ 0 := by
+      intro heq
+      have him := congrArg Complex.im heq
+      have hvpos : 0 < v.im := hv
+      simp only [Complex.sub_im, Complex.star_def, Complex.conj_im, Complex.zero_im] at him
+      linarith
+    have hc : ContinuousAt (fun z : ℂ => ‖(z - v) / (z - star v)‖) v :=
+      ((continuousAt_id.sub continuousAt_const).div
+        (continuousAt_id.sub continuousAt_const) hden).norm
+    have hsmall : ∀ᶠ z in nhds v, ‖(z - v) / (z - star v)‖ < ε :=
+      hc.tendsto.eventually (eventually_lt_nhds (by simpa using hε))
+    apply mem_interior_iff_mem_nhds.mpr
+    filter_upwards [hH.mem_nhds hv, hsmall] with z hz hnorm
+    exact ⟨hz, hnorm.le⟩
+  -- Removing the interiors of all zero disks leaves a compact, zero-free set.
+  let Q : ℝ → Set ℂ := fun ε => K \ ⋃ v ∈ Z, interior (D v ε)
+  have hQcompact : ∀ ε : ℝ, IsCompact (Q ε) :=
+    fun ε => hKcompact.diff (isOpen_biUnion (fun _ _ => isOpen_interior))
+  have hQzeroFree : ∀ ε : ℝ, 0 < ε → ∀ z ∈ Q ε, F z ≠ 0 := by
+    intro ε hε z hz hzero
+    exact hz.2 (Set.mem_iUnion₂.mpr
+      ⟨z, ⟨hz.1, hzero⟩, hcenterInterior z (hKH hz.1) ε hε⟩)
+  have hcutPrimitiveMesh : ∀ ε : ℝ, 0 < ε → ∃ δ : ℝ, 0 < δ ∧
+      ∀ z ∈ Q ε, Complex.IsExactOn L (Metric.ball z δ) := by
+    intro ε hε
+    exact hprimitiveMesh (Q ε) (hQcompact ε) (fun _ hz => hKH hz.1)
+      (hQzeroFree ε hε)
+  -- Boundary cuts preserve every interior zero, which is needed for the count.
+  let O : Set ℂ := {z : ℂ |
+    |z.re| < 1 / 2 ∧ 1 < ‖z‖ ∧ 0 < z.im ∧ z.im < Y}
+  let B : Set ℂ := Z \ O
+  have hboundaryCutsPreserve : ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0),
+      ∀ z ∈ O, F z = 0 → z ∉ ⋃ v ∈ B, D v ε := by
+    filter_upwards [hcutsNoOtherZeros] with ε hε
+    intro z hz hzero hcut
+    obtain ⟨v, hv, hzv⟩ := Set.mem_iUnion₂.mp hcut
+    have hne : z ≠ v := by
+      intro heq
+      exact hv.2 (heq ▸ hz)
+    exact hε v hv.1 z hzv hne hzero
+  have hcutsBelowTop : ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0),
+      ∀ v ∈ Z, D v ε ⊆ {z : ℂ | z.im < Y} := by
+    apply (Filter.eventually_all_finite hKzeros).mpr
+    intro v hv
+    have hvY : v.im < Y := lt_of_le_of_ne hv.1.2.2.2
+      (fun heq => hKtop v hv.1 heq hv.2)
+    obtain ⟨r, hr, hball⟩ := Metric.mem_nhds_iff.mp
+      ((isOpen_lt Complex.continuous_im continuous_const).mem_nhds hvY)
+    filter_upwards [hdiskShrink v (hKH hv.1) r hr] with ε hε
+    exact hε.trans hball
+  -- Steps 10 and 17: construct the retained region and identify its zeros.
+  have hOopen : IsOpen O :=
+    (isOpen_lt Complex.continuous_re.abs continuous_const).inter
+      ((isOpen_lt continuous_const continuous_norm).inter
+        ((isOpen_lt continuous_const Complex.continuous_im).inter
+          (isOpen_lt Complex.continuous_im continuous_const)))
+  have hOK : O ⊆ K := fun _ hz => ⟨hz.1.le, hz.2.1.le, hz.2.2.1, hz.2.2.2.le⟩
+  have hBfinite : B.Finite := hKzeros.subset (fun _ hz => hz.1)
+  let Ω : ℝ → Set ℂ := fun ε => O \ ⋃ v ∈ B, D v ε
+  have hcutOpen : ∀ ε : ℝ, 0 < ε → ε < 1 → IsOpen (Ω ε) := by
+    intro ε hε hε1
+    apply hOopen.sdiff
+    apply hBfinite.isClosed_biUnion
+    intro v hv
+    rw [show D v ε = _ from (hdisks v ε (hKH hv.1.1) hε hε1).1]
+    exact Metric.isClosed_closedBall
+  have hcutClosureK : ∀ ε : ℝ, closure (Ω ε) ⊆ K :=
+    fun ε => closure_minimal (fun _ hz => hOK hz.1) hKclosed
+  have hcutCompact : ∀ ε : ℝ, IsCompact (closure (Ω ε)) :=
+    fun ε => hKcompact.of_isClosed_subset isClosed_closure (hcutClosureK ε)
+  have hcutClosureAvoidCenters : ∀ ε : ℝ, 0 < ε →
+      ∀ v ∈ B, v ∉ closure (Ω ε) := by
+    intro ε hε v hv hclosure
+    have hsub : Ω ε ⊆ (interior (D v ε))ᶜ := by
+      intro z hz hzv
+      exact hz.2 (Set.mem_iUnion₂.mpr ⟨v, hv, interior_subset hzv⟩)
+    exact (closure_minimal hsub isOpen_interior.isClosed_compl) hclosure
+      (hcenterInterior v (hKH hv.1.1) ε hε)
+  have hcutZeros : ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0),
+      {z ∈ Ω ε | F z = 0} = {z ∈ O | F z = 0} := by
+    filter_upwards [hboundaryCutsPreserve] with ε hε
+    ext z
+    exact ⟨fun hz => ⟨hz.1.1, hz.2⟩,
+      fun hz => ⟨⟨hz.1, hε z hz.1 hz.2⟩, hz.2⟩⟩
+  have hcutBoundaryZeroFree : ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0),
+      ∀ z ∈ frontier (Ω ε), F z ≠ 0 := by
+    have hlessOne : ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0), ε < 1 :=
+      (eventually_lt_nhds (show (0 : ℝ) < 1 by norm_num)).filter_mono nhdsWithin_le_nhds
+    filter_upwards [self_mem_nhdsWithin, hlessOne, hboundaryCutsPreserve]
+      with ε hε hε1 hkeep
+    intro z hz hzero
+    rw [(hcutOpen ε hε hε1).frontier_eq] at hz
+    have hzO : z ∈ O := by
+      by_contra hn
+      exact hcutClosureAvoidCenters ε hε z ⟨⟨hcutClosureK ε hz.1, hzero⟩, hn⟩ hz.1
+    exact hz.2 ⟨hzO, hkeep z hzO hzero⟩
+  have hcutNonempty : ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0), (Ω ε).Nonempty := by
+    let p : ℂ := (((Y + 1) / 2 : ℝ) : ℂ) * Complex.I
+    have hypos : 0 < (Y + 1) / 2 := by linarith
+    have hpim : p.im = (Y + 1) / 2 := by simp [p]
+    have hpre : p.re = 0 := by simp [p]
+    have hpnorm : ‖p‖ = (Y + 1) / 2 := by
+      change ‖(((Y + 1) / 2 : ℝ) : ℂ) * Complex.I‖ = _
+      rw [norm_mul, Complex.norm_of_nonneg hypos.le, Complex.norm_I, mul_one]
+    have hpO : p ∈ O := by
+      change |p.re| < 1 / 2 ∧ 1 < ‖p‖ ∧ 0 < p.im ∧ p.im < Y
+      rw [hpre, hpnorm, hpim, abs_zero]
+      exact ⟨by norm_num, by linarith, hypos, by linarith⟩
+    have havoid : ∀ v ∈ B,
+        ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0), p ∉ D v ε := by
+      intro v hv
+      have hpv : p ≠ v := fun heq => hv.2 (heq ▸ hpO)
+      filter_upwards [hdiskShrink v (hKH hv.1.1) _ (dist_pos.mpr hpv)] with ε hε
+      intro hp
+      exact (lt_irrefl (dist p v)) (hε hp)
+    filter_upwards [(Filter.eventually_all_finite hBfinite).mpr havoid] with ε hε
+    refine ⟨p, hpO, ?_⟩
+    intro hp
+    obtain ⟨v, hv, hpv⟩ := Set.mem_iUnion₂.mp hp
+    exact hε v hv hpv
   have htranslateDisks : ∀ v ∈ H, ∀ ε : ℝ, 0 < ε → ε < 1 →
       (fun z : ℂ => z + 1) '' D v ε = D (v + 1) ε := by
     intro v hv ε hε hε1
@@ -4350,7 +4519,8 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
   principle by finite subdivision into primitive domains. Steps 9–11 construct
   the oriented cut boundary and the endpoint functions required by hclockwise;
   step 17 sums the boundary integrals and takes the two limits. The facts above
-  establish local primitives and local boundary calculations, but do not yet
-  supply that global contour identity. -/
+  construct the compact retained region with a zero-free boundary and preserved
+  interior zeros, separate the cuts, and cancel finite walks in primitive domains.
+  The oriented boundary parametrization and global contour identity remain. -/
 
 end Submission
