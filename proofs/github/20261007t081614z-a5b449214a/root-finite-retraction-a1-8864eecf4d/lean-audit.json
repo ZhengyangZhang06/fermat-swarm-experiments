@@ -1,0 +1,36 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "hopfKer_eq_of_surjective_of_ker_eq_span|def hopfKer|def coaction|theorem.*hopfKer",
+        "p05_finite_retraction_a5b449214a",
+        "projective_lifting_property|class Projective"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Fermat/Thm_HopfAlgebra_hopfKer_eq_of_surjective_of_ker_eq_span.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/Algebra/Module/Projective.lean"
+      ],
+      "conclusion": "Both snapshots are clean at their manifest pins. Inspected the frozen contract, Hopf definitions and existing projective lifting theorem; no selected declaration occurs in the project snapshot. Integrity audit confirmed unchanged contract, imports, root placeholder and immutable handoff; all 43 prerequisite bodies match accepted candidates and bound acceptance records. The exact comparator rerun exited zero with the required marker. Fresh evidence at /runtime/review-evidence/69c085b52e744549a7a54c08d8fc01c6 matches all 223 exported hashes and 221 prepared-source hashes. Authorized header omissions are reversible and the Lean absence probe passed. Exact-type and kernel checks passed; transitive axioms are only propext, Classical.choice and Quot.sound."
+    }
+  ],
+  "comparison_identity": "ab6f7d81e9a698d4356ca7474ac7c63f729e02d2dce428b082bc033950816c38",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p05_finite_retraction_a5b449214a",
+      "statement": "∀ {k : Type*} [Field k] {H : Type*} [CommRing H] [HopfAlgebra k H] (A : Subalgebra k H) [Algebra.FiniteType k A] (hΔ : (∀ x ∈ A, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ A, ∃ b ∈ A, t = TensorProduct.tmul k a b})) (hS : (∀ x ∈ A, HopfAlgebra.antipode k x ∈ A)) (V : Submodule k H) [FiniteDimensional k V] (h1 : (1 : H) ∈ V) (hV : ∀ x ∈ V, Coalgebra.comul (R := k) x ∈ Submodule.span k {t : TensorProduct k H H | ∃ a ∈ V, ∃ b : H, t = TensorProduct.tmul k a b}), ∃ r : (Submodule.span A (V : Set H)) →ₗ[A] A, ∀ (a : A) (ha : (a : H) ∈ Submodule.span A (V : Set H)), r ⟨(a : H), ha⟩ = a",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Restricts the Hopf structure to A, applies accepted relative Hopf-module projectivity to N/A, and splits the quotient to obtain the retraction."
+    }
+  ]
+}
