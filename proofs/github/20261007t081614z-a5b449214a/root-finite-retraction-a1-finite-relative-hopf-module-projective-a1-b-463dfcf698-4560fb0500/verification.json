@@ -1,0 +1,19 @@
+{
+  "node_id": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.base_change_semilinear_invariance-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/282",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "4647b06d28ec7421d9f11a10a0adc044b7216b69",
+  "integrated_commit": "b7824a09830f598714478e32c2284561fa9ff76b",
+  "proof_base_commit": "ca1bb49d173a82f6c760dd27fdde39c92765501e",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1",
+  "requires": [
+    "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.presentation_ideals_eq-a1",
+    "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.base_change_semilinear_invariance-a1.base_changed_presentation-a1",
+    "root.finite_retraction-a1.finite_relative_hopf_module_projective-a1.base_change_semilinear_invariance-a1.twisted_presentation-a1"
+  ]
+}

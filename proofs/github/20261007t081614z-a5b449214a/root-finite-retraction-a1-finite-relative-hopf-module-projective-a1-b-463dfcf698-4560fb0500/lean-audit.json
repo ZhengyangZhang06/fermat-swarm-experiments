@@ -1,0 +1,36 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "theorem map_det|lemma map_det|theorem map_span|lemma map_span",
+        "def hopfKer|def coaction|mem_hopfKer_iff|^import",
+        "p05_fr_rhm_base_change_semilinear_invariance_a5b449214a",
+        "map_det"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/project/Definitions/Def_HopfAlgebra_HopfKer.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/LinearAlgebra/Matrix/Determinant/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p05/.humanize/github-theorem-prover/runs/20261007T081614Z-a5b449214a/local-references/29de40210f9954ae/mathlib/Mathlib/RingTheory/Ideal/Maps.lean"
+      ],
+      "conclusion": "Both snapshots are clean and match pinned project revision 2fdd42759f4ab17640ac773289b521dd69d4b26e and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d. Inspected files match their committed bytes. Located the unchanged Hopf-kernel definitions, RingHom.map_det, and Ideal.map_span. No declaration matching this node's theorem name was found in the snapshot."
+    }
+  ],
+  "comparison_identity": "f30229116f4dced9d86c17b36744f5915485dbbeb822656df5f1bd6dce52077f",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p05_fr_rhm_base_change_semilinear_invariance_a5b449214a",
+      "statement": "∀ {R : Type*} [CommRing R] {S : Type*} [CommRing S] [Algebra R S] {M : Type*} [AddCommGroup M] [Module R M] (n p : ℕ) (P : Matrix (Fin n) (Fin p) R) (π : (Fin n → R) →ₗ[R] M) (_hπ : Function.Surjective π) (_hker : LinearMap.ker π = LinearMap.range P.mulVecLin) (θ : S ≃+* S) (T : TensorProduct R S M ≃+ TensorProduct R S M) (_hT : ∀ (s : S) (x : TensorProduct R S M), T (s • x) = θ s • T x) (r : ℕ), let J : Ideal R := Ideal.span {x : R | ∃ (rows : Fin (n - r) ↪ Fin n) (cols : Fin (n - r) ↪ Fin p), x = Matrix.det (P.submatrix rows cols)}; Ideal.map θ.toRingHom (Ideal.map (algebraMap R S) J) = Ideal.map (algebraMap R S) J",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines accepted base-changed and twisted presentation theorems with presentation-ideal independence; RingHom.map_det and Ideal.map_span identify the resulting ideals."
+    }
+  ]
+}
