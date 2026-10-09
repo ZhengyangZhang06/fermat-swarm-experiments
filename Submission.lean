@@ -1272,8 +1272,12 @@ theorem Submission.p09_af497904fe_ce_compositum_pair :
           IntermediateField.inclusion (show E ≤ E ⊔ C from le_sup_left) (g x)) ∧
         (∀ y : C, h (IntermediateField.inclusion (show C ≤ E ⊔ C from le_sup_right) y) =
           IntermediateField.inclusion (show C ≤ E ⊔ C from le_sup_right) (a y)) := by
-  intro E C _ _ _ _ hEC g a
+  intro E C hfinE hgalE hfinC hgalC hEC g a
   classical
+  have hdegree : Module.finrank ℚ ↥(E ⊔ C) =
+      Module.finrank ℚ E * Module.finrank ℚ C :=
+    (@IntermediateField.LinearDisjoint.of_inf_eq_bot ℚ (AlgebraicClosure ℚ)
+      _ _ _ E C hgalE hfinE hfinC hEC).finrank_sup
   let M := E ⊔ C
   let iE : E →ₐ[ℚ] M := IntermediateField.inclusion le_sup_left
   let iC : C →ₐ[ℚ] M := IntermediateField.inclusion le_sup_right
@@ -1282,7 +1286,9 @@ theorem Submission.p09_af497904fe_ce_compositum_pair :
   have : IsScalarTower ℚ E M := IsScalarTower.of_algHom iE
   have : IsScalarTower ℚ C M := IsScalarTower.of_algHom iC
   have : IsGalois ℚ M :=
-    { to_isSeparable := inferInstance, to_normal := inferInstance }
+    { to_isSeparable := inferInstance
+      to_normal := @IntermediateField.normal_sup ℚ (AlgebraicClosure ℚ)
+        _ _ _ E C hgalE.to_normal hgalC.to_normal }
   let R : (M ≃ₐ[ℚ] M) →* (E ≃ₐ[ℚ] E) × (C ≃ₐ[ℚ] C) :=
     (AlgEquiv.restrictNormalHom E).prod (AlgEquiv.restrictNormalHom C)
   have hE (h : M ≃ₐ[ℚ] M) (x : E) :
@@ -1292,8 +1298,9 @@ theorem Submission.p09_af497904fe_ce_compositum_pair :
   let E' : IntermediateField ℚ M := E.restrict le_sup_left
   let C' : IntermediateField ℚ M := C.restrict le_sup_right
   have hsup : E' ⊔ C' = ⊤ := by
-    rw [← IntermediateField.lift_inj, IntermediateField.lift_top,
-      IntermediateField.lift_sup, IntermediateField.lift_restrict le_sup_left,
+    apply (IntermediateField.lift_inj (F := M) (E' ⊔ C') ⊤).mp
+    rw [IntermediateField.lift_sup, IntermediateField.lift_top,
+      IntermediateField.lift_restrict le_sup_left,
       IntermediateField.lift_restrict le_sup_right]
   -- An automorphism fixing both fields fixes their compositum.
   have hinj : Function.Injective R := by
@@ -1320,7 +1327,7 @@ theorem Submission.p09_af497904fe_ce_compositum_pair :
   have hcard : Nat.card (M ≃ₐ[ℚ] M) = Nat.card ((E ≃ₐ[ℚ] E) × (C ≃ₐ[ℚ] C)) := by
     rw [Nat.card_prod, IsGalois.card_aut_eq_finrank,
       IsGalois.card_aut_eq_finrank, IsGalois.card_aut_eq_finrank]
-    exact (IntermediateField.LinearDisjoint.of_inf_eq_bot hEC).finrank_sup
+    exact hdegree
   obtain ⟨h, hh⟩ := ((Nat.bijective_iff_injective_and_card R).2 ⟨hinj, hcard⟩).2 (g, a)
   have he : h.restrictNormal E = g := congrArg Prod.fst hh
   have hc : h.restrictNormal C = a := congrArg Prod.snd hh
