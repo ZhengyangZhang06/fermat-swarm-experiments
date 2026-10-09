@@ -224,8 +224,6 @@ namespace Submission
 
 /-- Transport a relative group law along a ring equivalence. The equivalences of
 relative points preserve their underlying scheme morphisms and all group operations. -/
-namespace Submission
-
 theorem p07_cre_group_law_857cd4d38c :
     ∀ (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U)
       (A : AlgebraicGeometry.Scheme.{0})
@@ -481,6 +479,8 @@ theorem p07_cre_abelian_surface_857cd4d38c
     rw [hfibre s]
     exact hdim (ε.base s)
 
+/-- Transport finiteness, flatness, local finite presentation, and fibre rank along
+an isomorphism of the base rings. -/
 theorem p07_cre_finite_flat_rank_857cd4d38c
     (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U)
     (C : Scheme.{0}) (q : C ⟶ Spec (CommRingCat.of U)) :
@@ -829,34 +829,6 @@ theorem p07_cq_level_geometry_pullback_857cd4d38c :
     · rintro ⟨R, hR⟩
       -- A factorization through ℓ supplies exactly the compatibility for this lift.
       exact ⟨hpb.lift R Q hR, hpb.lift_snd R Q hR⟩
-
-end Submission
-
-namespace Submission
-
-/-- Transport finiteness, flatness, local finite presentation, and fibre rank along
-an isomorphism of the base rings. -/
-theorem p07_cre_finite_flat_rank_857cd4d38c
-    (T U : Type) [CommRing T] [CommRing U] (k : T ≃+* U)
-    (C : Scheme.{0}) (q : C ⟶ Spec (CommRingCat.of U)) :
-    IsFinite q → Flat q → LocallyOfFinitePresentation q →
-    let ε := Spec.map (CommRingCat.ofHom k.symm.toRingHom)
-    let qT := q ≫ Spec.map (CommRingCat.ofHom k.toRingHom)
-    IsFinite qT ∧ Flat qT ∧ LocallyOfFinitePresentation qT ∧
-      (∀ s : Spec (CommRingCat.of T), qT.finrank s = q.finrank (ε s)) := by
-  intro hfinite hflat hpresentation
-  -- Contravariance gives `e.hom = Spec(k⁻¹)` and `e.inv = Spec(k)`.
-  let e := Scheme.Spec.mapIso k.symm.toCommRingCatIso.op
-  -- The identity on C identifies qT with the base change of q along e.hom.
-  have hpb : IsPullback (𝟙 C) (q ≫ e.inv) q e.hom :=
-    IsPullback.of_horiz_isIso
-      ⟨by simp only [Category.id_comp, Category.assoc, Iso.inv_hom_id, Category.comp_id]⟩
-  let : IsFinite q := hfinite
-  let : Flat q := hflat
-  exact ⟨MorphismProperty.of_isPullback hpb hfinite,
-    MorphismProperty.of_isPullback hpb hflat,
-    MorphismProperty.of_isPullback hpb hpresentation,
-    fun s => Scheme.Hom.finrank_of_isPullback (𝟙 C) (q ≫ e.inv) q e.hom hpb s⟩
 
 end Submission
 
