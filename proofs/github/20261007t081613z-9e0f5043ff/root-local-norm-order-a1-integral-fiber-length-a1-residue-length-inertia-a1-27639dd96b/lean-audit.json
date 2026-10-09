@@ -1,0 +1,40 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "integralClosureAt|fiberCenter|toValuationSubring_eq_of_restrict_eq|forall_mem_of_restrict_eq|Module.Finite|HasPrincipalDivisors",
+        "restrictResidueMap|inertiaDeg|restrictValuation",
+        "length_eq_of_surjective|length_eq_finrank|length_eq",
+        "valuationSubringAtPrime|isMaximal",
+        "of_restrictScalars_finite|theorem of_surjective|lemma of_surjective",
+        "p06_9e0f5043ff_ifl_residue_length_inertia|residue_length_inertia"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_PlacesOverDVR.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/project/Definitions/Def_AlgebraicCurve_DivisorPushPull.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Length.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/DedekindDomain/AdicValuation.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p06/.humanize/github-theorem-prover/runs/20261007T081613Z-9e0f5043ff/local-references/08e30764522e474f/mathlib/Mathlib/RingTheory/Finiteness/Basic.lean"
+      ],
+      "conclusion": "The rg searches located finite normalization and localization infrastructure, the canonical restriction residue algebra defining inertiaDeg, and the required length and finiteness lemmas. The exact theorem-name search returned no matches in snapshot project/Definitions or mathlib/Mathlib. Inspected sources match the frozen base and pinned dependencies; project revision 956e8c600d8b95b46948ae5e37b13930b5f3d06b, mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d, and all nine dependency checkouts are clean. Independent exact comparator request ae099070a8784fbb99c557d720036d30 verified candidate 725337616b6e7ba8e53bc3c15980e7d54dd6bf05 with exit 0 and 'Your solution is okay!'. Kernel replay succeeded with only propext, Classical.choice, and Quot.sound. Exported input hashes match the reviewed files."
+    }
+  ],
+  "comparison_identity": "",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p06_9e0f5043ff_ifl_residue_length_inertia",
+      "statement": "∀ (K E L : Type*) [Field K] [Field E] [Field L] [Algebra K E] [Algebra K L] [Algebra E L] [IsScalarTower K E L] [FiniteDimensional E L] [Algebra.IsSeparable E L] (v : AlgebraicCurve.Place K E) (w : AlgebraicCurve.Place K L) (hw : w.restrict E = v), Module.length v.toValuationSubring (AlgebraicCurve.Place.integralClosureAt L v ⧸ (AlgebraicCurve.Place.fiberCenter L v hw).asIdeal) = (w.inertiaDeg E : ℕ∞)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Substitute v = w.restrict E. Reduction induces a field isomorphism B/q ≃ w.ResidueField, with surjectivity obtained from the localization description of the place ring. Verify A-linearity using the canonical restrictResidueMap. Finite normalization gives finite residue dimension. Length is preserved by this isomorphism and by the surjection A → κ(v), then equals the finrank defining inertia degree. No principal-divisor hypothesis is used."
+    }
+  ]
+}
