@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n --glob '*.lean' 'galoisRep_ordinaryLineAt|p03_tate_uniformization_68cf3476|p03_tu_lambert_summable_68cf3476|ordinaryLineAt|galoisRepModuleEnd' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481",
+        "rg -n --glob '*.lean' 'p03_tate_uniformization_68cf3476|p03_tu_' /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Fermat/Thm_WeierstrassCurve_galoisRep_ordinaryLineAt.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Definitions/Def_GaloisRep_Residual.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean"
+      ],
+      "conclusion": "Inspected reference files match frozen project commit 81f093181fd6c58dc887fcae5ec8b896996f1885 byte-for-byte. The manifest pins mathlib db584cd6d46c92f209a44c0f1c829460d327499d, matching verifier evidence. The snapshot supplies the original contract and Galois-action definitions; the explicit search for this node and its helper identifiers returned no matches. All five candidate prerequisite bodies match their accepted commits. Personal comparator rerun 23b87939d45d4a37bf0ac6d61eb1ff8f exited zero with the required marker; all 223 exported files were hash-checked. Exact type, kernel, permitted axioms, and reversible policy-authorized header omissions passed."
+    }
+  ],
+  "comparison_identity": "6aaa7e3c8ee54a88949a89108ed163e7ede696b0ea7b35c00729858e56eb36af",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p03_tate_uniformization_68cf3476",
+      "statement": "∀ (F Ω : Type) [NormedField F] [CharZero F] [CompleteSpace F] [NormedField Ω] [CharZero Ω] [DecidableEq Ω] [NormedAlgebra F Ω] [IsAlgClosed Ω] [Algebra.IsAlgebraic F Ω], (∀ x y : F, ‖x + y‖ ≤ max ‖x‖ ‖y‖) → (∀ x y : Ω, ‖x + y‖ ≤ max ‖x‖ ‖y‖) → (∃ r : ℝ, 0 < r ∧ r < 1 ∧ ∀ x : F, x ≠ 0 → ∃ n : ℤ, ‖x‖ = r ^ n) → ∀ q : F, 0 < ‖q‖ → ‖q‖ < 1 → let s : ℕ → F := fun k => ∑' d : ℕ, ((d + 1 : ℕ) : F) ^ k * q ^ (d + 1) / (1 - q ^ (d + 1)); let T : WeierstrassCurve F := ⟨1, 0, 0, -5 * s 3, -(5 * s 3 + 7 * s 5) / 12⟩; let qΩ : Ω := algebraMap F Ω q; let X : Ω → Ω := fun u => (∑' n : ℤ, qΩ ^ n * u / (1 - qΩ ^ n * u) ^ 2) - 2 * algebraMap F Ω (s 1); let Y : Ω → Ω := fun u => (∑' n : ℤ, (qΩ ^ n * u) ^ 2 / (1 - qΩ ^ n * u) ^ 3) + algebraMap F Ω (s 1); (∀ k : ℕ, Summable (fun d : ℕ => ((d + 1 : ℕ) : F) ^ k * q ^ (d + 1) / (1 - q ^ (d + 1)))) ∧ Multipliable (fun d : ℕ => (1 - q ^ (d + 1)) ^ 24) ∧ T.c₄ = 1 + 240 * s 3 ∧ T.c₆ = -1 + 504 * s 5 ∧ T.Δ = q * (∏' d : ℕ, (1 - q ^ (d + 1)) ^ 24) ∧ T.Δ ≠ 0 ∧ (∀ u : Ωˣ, (¬ ∃ m : ℤ, (u : Ω) = qΩ ^ m) → Summable (fun n : ℤ => qΩ ^ n * (u : Ω) / (1 - qΩ ^ n * (u : Ω)) ^ 2) ∧ Summable (fun n : ℤ => (qΩ ^ n * (u : Ω)) ^ 2 / (1 - qΩ ^ n * (u : Ω)) ^ 3)) ∧ ∃ θ : Additive Ωˣ →+ (WeierstrassCurve.Affine.baseChange T.toAffine Ω).Point, Function.Surjective θ ∧ (∀ u : Ωˣ, θ (Additive.ofMul u) = 0 ↔ ∃ m : ℤ, (u : Ω) = qΩ ^ m) ∧ (∀ u : Ωˣ, (¬ ∃ m : ℤ, (u : Ω) = qΩ ^ m) → ∃ h : (WeierstrassCurve.Affine.baseChange T.toAffine Ω).Nonsingular (X (u : Ω)) (Y (u : Ω)), θ (Additive.ofMul u) = WeierstrassCurve.Affine.Point.some (X (u : Ω)) (Y (u : Ω)) h) ∧ ∀ (σ : Ω ≃ₐ[F] Ω) (u : Ωˣ), θ (Additive.ofMul (Units.map σ.toMonoidHom u)) = σ • θ (Additive.ofMul u)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Assembles convergence, invariant identities, and equivariant Tate uniformization using five accepted prerequisites and local proof steps. This review verified Git and comparator-input integrity only."
+    }
+  ]
+}
