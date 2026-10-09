@@ -1,0 +1,18 @@
+{
+  "node_id": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/200",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "3cc71666a9f998bda86f58054eff66474aa01763",
+  "integrated_commit": "27d5db37b5b02fcad950a17b35939e48a2928289",
+  "proof_base_commit": "b8c1e42fbc073bdbfabd9535bd93b62a6363cebe",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.petersson_core_good_hecke-a1.petersson_integral_core-a1",
+  "requires": [
+    "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1.measurable_equidecomposition-a1",
+    "root.petersson_core_good_hecke-a1.petersson_integral_core-a1.effective_domain_transfer-a1.integral_of_equidecomposition-a1"
+  ]
+}
