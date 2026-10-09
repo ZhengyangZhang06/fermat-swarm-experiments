@@ -349,3 +349,77 @@ theorem Submission.p09_af497904fe_fcc_frobenius_roots_action :
   exact congrArg Subtype.val
     (Submission.p09_af497904fe_fcc_fra_residue_injective
       N ℓ hℓ hℓN P hP (g • z) (z ^ ℓ) hx hy hred)
+
+theorem Submission.p09_af497904fe_cfs_bounded_euler_logarithm :
+    ∀ (E L : ℝ → ℂ), ContinuousOn E (Set.Ioo 1 2) →
+      ContinuousWithinAt L (Set.Ici 1) 1 → L 1 ≠ 0 →
+      (∀ s : ℝ, s ∈ Set.Ioo 1 2 → Complex.exp (E s) = L s) →
+      ∃ ε : ℝ, 0 < ε ∧ ε ≤ 1 ∧ ∃ C : ℝ, 0 ≤ C ∧
+        ∀ s : ℝ, 1 < s → s < 1 + ε → ‖E s‖ ≤ C := by
+  intro E L hE hL hL₁ hexp
+  let N : ℝ → ℂ := fun s => L s / L 1
+  have hN₁ : N 1 = 1 := div_self hL₁
+  have hN : ContinuousWithinAt N (Set.Ici 1) 1 := hL.div_const (L 1)
+  have hslit₁ : N 1 ∈ Complex.slitPlane := by rw [hN₁]; exact Complex.one_mem_slitPlane
+  have hlog : ContinuousWithinAt (fun s => Complex.log (N s)) (Set.Ici 1) 1 :=
+    hN.clog hslit₁
+  have hev : ∀ᶠ s in nhdsWithin 1 (Set.Ici 1),
+      N s ∈ Complex.slitPlane ∧ ‖Complex.log (N s)‖ < 1 := by
+    have ha := hN.preimage_mem_nhdsWithin (Complex.isOpen_slitPlane.mem_nhds hslit₁)
+    have hb := hlog.norm.eventually (gt_mem_nhds (show ‖Complex.log (N 1)‖ < 1 by
+      simp [hN₁]))
+    exact Filter.Eventually.and ha hb
+  obtain ⟨δ, hδ, hδprop⟩ := Metric.mem_nhdsWithin_iff.mp hev
+  let ε := min δ 1
+  have hε : 0 < ε := lt_min hδ zero_lt_one
+  have hε₁ : ε ≤ 1 := min_le_right _ _
+  have hsmall (s : ℝ) (hs : s ∈ Set.Ioo 1 (1 + ε)) :
+      N s ∈ Complex.slitPlane ∧ ‖Complex.log (N s)‖ < 1 := by
+    apply hδprop
+    refine ⟨?_, le_of_lt hs.1⟩
+    change dist s 1 < δ
+    rw [Real.dist_eq, abs_of_pos (sub_pos.mpr hs.1)]
+    have : ε ≤ δ := min_le_left _ _
+    linarith [hs.2]
+  have hsub : Set.Ioo 1 (1 + ε) ⊆ Set.Ioo (1 : ℝ) 2 := by
+    intro s hs
+    exact ⟨hs.1, by linarith [hs.2]⟩
+  have hLc : ContinuousOn L (Set.Ioo 1 (1 + ε)) :=
+    (Complex.continuous_exp.comp_continuousOn (hE.mono hsub)).congr
+      (fun s hs => (hexp s (hsub hs)).symm)
+  let H : ℝ → ℂ := fun s => Complex.log (L 1) + Complex.log (N s)
+  have hH : ContinuousOn H (Set.Ioo 1 (1 + ε)) :=
+    continuousOn_const.add ((hLc.div_const (L 1)).clog (fun s hs => (hsmall s hs).1))
+  have hHexp (s : ℝ) (hs : s ∈ Set.Ioo 1 (1 + ε)) : Complex.exp (H s) = L s := by
+    dsimp [H]
+    rw [Complex.exp_add, Complex.exp_log hL₁,
+      Complex.exp_log (Complex.slitPlane_ne_zero (hsmall s hs).1)]
+    dsimp [N]
+    exact mul_div_cancel₀ (L s) hL₁
+  let D : ℝ → ℂ := fun s => E s - H s
+  have hD : ContinuousOn D (Set.Ioo 1 (1 + ε)) := (hE.mono hsub).sub hH
+  have hDexp (s : ℝ) (hs : s ∈ Set.Ioo 1 (1 + ε)) : Complex.exp (D s) = 1 :=
+    Complex.exp_eq_exp_iff_exp_sub_eq_one.mp ((hexp s (hsub hs)).trans (hHexp s hs).symm)
+  have hcount : (Complex.exp ⁻¹' ({1} : Set ℂ)).Countable :=
+    (Set.countable_singleton (1 : ℂ)).preimage_cexp
+  have himage : (D '' Set.Ioo 1 (1 + ε)).Subsingleton := by
+    apply hcount.isTotallyDisconnected
+    · rintro z ⟨s, hs, rfl⟩
+      exact hDexp s hs
+    · exact isPreconnected_Ioo.image D hD
+  let s₀ : ℝ := 1 + ε / 2
+  have hs₀ : s₀ ∈ Set.Ioo 1 (1 + ε) := by
+    dsimp [s₀]
+    constructor <;> linarith
+  refine ⟨ε, hε, hε₁, ‖Complex.log (L 1)‖ + 1 + ‖D s₀‖, by positivity, ?_⟩
+  intro s hs hs'
+  have hmem : s ∈ Set.Ioo 1 (1 + ε) := ⟨hs, hs'⟩
+  have hconst : D s = D s₀ := himage ⟨s, hmem, rfl⟩ ⟨s₀, hs₀, rfl⟩
+  have hdecomp : E s = H s + D s₀ := by rw [← hconst]; dsimp [D]; ring
+  calc
+    ‖E s‖ = ‖H s + D s₀‖ := congrArg norm hdecomp
+    _ ≤ ‖H s‖ + ‖D s₀‖ := norm_add_le _ _
+    _ ≤ ‖Complex.log (L 1)‖ + 1 + ‖D s₀‖ := by
+      have hbound := norm_add_le (Complex.log (L 1)) (Complex.log (N s))
+      dsimp [H]
+      linarith [(hsmall s hmem).2]
