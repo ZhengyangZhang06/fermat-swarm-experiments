@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "77ff64466715dacd6de48c173de360245cf3152f61dfdee910deb9f2c385f872",
+  "git_delta": {
+    "base_commit": "e4a449558c44ca04dbe355fa2d0a841912a25963",
+    "candidate_commit": "8b5a4e05b1b8fc82e0509e5f9ccbcbd2a78a9617",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_ic_integer_mem_valuation",
+    "diff_sha256": "e7864fab7ac88b2c9dcd063f002eedc205e28e1d6ba0fc61468d369715abc373",
+    "source_sha256": "b6298f51f82f0548d213e6fc8e156a096e010952f4f2ea9c55d2264a3ad4a7cc",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_ic_integer_mem_valuation",
+      "statement": "∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] (V : ValuationSubring E), ∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
