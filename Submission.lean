@@ -379,3 +379,51 @@ theorem Submission.p10_17ae7b7d_valence_modular_log_derivative :
       dS, logDeriv_mul (f := fun w : ℂ => w ^ k) (g := F) z (pow_ne_zero k hz0) hFz aP.differentiableAt
         (hA z hz).differentiableAt, logDeriv_pow] at h
     simpa only [logDeriv_apply, mul_one_div] using h
+
+
+theorem Submission.p10_17ae7b7d_fi_unit_iterate_formula :
+    ∀ (p a : ℕ), Nat.Prime p → 1 ≤ a → ∀ z : ZMod (p ^ a), p ∣ z.val →
+      let F : ZMod (p ^ a) → ZMod (p ^ a) := fun w => w * (1 + w)⁻¹
+      ∀ n : ℕ, IsUnit (1 + (n : ZMod (p ^ a)) * z) ∧
+        (F^[n]) z = z * (1 + (n : ZMod (p ^ a)) * z)⁻¹ := by
+  intro p a hp ha z hz
+  have : NeZero (p ^ a) := ⟨pow_ne_zero a hp.ne_zero⟩
+  have hunit (n : ℕ) : IsUnit (1 + (n : ZMod (p ^ a)) * z) := by
+    have hnot : ¬ p ∣ 1 + n * z.val := by
+      intro h
+      apply hp.not_dvd_one
+      simpa using Nat.dvd_sub h (dvd_mul_of_dvd_right hz n)
+    have h := (ZMod.isUnit_natCast_iff_not_dvd_pow hp (show 0 < a from ha)).mpr hnot
+    simpa only [Nat.cast_add, Nat.cast_one, Nat.cast_mul, ZMod.natCast_zmod_val] using h
+  dsimp only
+  intro n
+  refine ⟨hunit n, ?_⟩
+  induction n with
+  | zero => simp
+  | succ n ih =>
+    rw [Function.iterate_succ_apply', ih]
+    let D : ZMod (p ^ a) := 1 + (n : ZMod (p ^ a)) * z
+    let E : ZMod (p ^ a) := 1 + ((n + 1 : ℕ) : ZMod (p ^ a)) * z
+    have hE : E = D + z := by
+      dsimp [D, E]
+      push_cast
+      ring
+    have hstep : 1 + z * D⁻¹ = E * D⁻¹ := by
+      calc
+        1 + z * D⁻¹ = D * D⁻¹ + z * D⁻¹ := by
+          rw [ZMod.mul_inv_of_unit D (hunit n)]
+        _ = (D + z) * D⁻¹ := by ring
+        _ = E * D⁻¹ := by rw [hE]
+    have hinv : (1 + z * D⁻¹)⁻¹ = D * E⁻¹ := by
+      apply ZMod.inv_eq_of_mul_eq_one
+      rw [hstep]
+      calc
+        E * D⁻¹ * (D * E⁻¹) = (D⁻¹ * D) * (E * E⁻¹) := by ring
+        _ = 1 := by
+          rw [ZMod.inv_mul_of_unit D (hunit n),
+            ZMod.mul_inv_of_unit E (hunit (n + 1)), one_mul]
+    change z * D⁻¹ * (1 + z * D⁻¹)⁻¹ = z * E⁻¹
+    rw [hinv]
+    calc
+      z * D⁻¹ * (D * E⁻¹) = z * (D⁻¹ * D) * E⁻¹ := by ring
+      _ = z * E⁻¹ := by rw [ZMod.inv_mul_of_unit D (hunit n), mul_one]
