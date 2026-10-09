@@ -1869,12 +1869,14 @@ theorem Submission.p09_af497904fe_csr_cyclotomic_prime_residue :
           B.LiesOver (Ideal.span {(q : ℤ)}) → B = A := by
   intro q ζ hq hζ
   let C := IntermediateField.adjoin ℚ ({ζ} : Set (AlgebraicClosure ℚ))
-  letI : Fact q.Prime := ⟨hq⟩
-  letI : NeZero q := ⟨hq.ne_zero⟩
-  letI : IsCyclotomicExtension {q} ℚ C :=
+  let : Fact q.Prime := ⟨hq⟩
+  let : NeZero q := ⟨hq.ne_zero⟩
+  let : Algebra.IsIntegral ℚ (AlgebraicClosure ℚ) :=
+    Algebra.isAlgebraic_iff_isIntegral.mp inferInstance
+  let : IsCyclotomicExtension {q} ℚ C :=
     hζ.intermediateField_adjoin_isCyclotomicExtension ℚ
-  letI : NumberField C := IsCyclotomicExtension.numberField {q} ℚ C
-  letI : IsCyclotomicExtension {q ^ (0 + 1)} ℚ C := by
+  let : NumberField C := IsCyclotomicExtension.numberField {q} ℚ C
+  let : IsCyclotomicExtension {q ^ (0 + 1)} ℚ C := by
     simpa only [zero_add, pow_one] using
       (inferInstance : IsCyclotomicExtension {q} ℚ C)
   have hξ := IsCyclotomicExtension.zeta_spec (q ^ (0 + 1)) ℚ C
@@ -1884,6 +1886,6 @@ theorem Submission.p09_af497904fe_csr_cyclotomic_prime_residue :
   · change Ideal.absNorm (Ideal.span {hξ.toInteger - 1}) = q
     exact IsCyclotomicExtension.Rat.absNorm_span_zeta_sub_one q 0 hξ
   · intro B hB hBq
-    letI : B.IsPrime := hB
-    letI : B.LiesOver (Ideal.span {(q : ℤ)}) := hBq
+    let : B.IsPrime := hB
+    let : B.LiesOver (Ideal.span {(q : ℤ)}) := hBq
     exact IsCyclotomicExtension.Rat.eq_span_zeta_sub_one_of_liesOver q 0 C hξ B
