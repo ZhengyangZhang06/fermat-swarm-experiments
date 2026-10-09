@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "18af238c0e33779dd3dcce0b6ca3b064dc04ffe9722a822260415f06879cac01",
+  "git_delta": {
+    "base_commit": "f929d19feababb790c0754579b82cd27932f9729",
+    "candidate_commit": "e33b5637c1b13345d2b3e5cb47cb06ad692792c1",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_phdisk_mobius_bijon",
+    "diff_sha256": "8b151dfa613a0b709f00e26513a91b4ef1b91ac9e0e18e5d6b905390fdabdd66",
+    "source_sha256": "92e14b5a48540430a70c7f872fe5db1c1858ed5fc015e1f6cde91c246bb75aca",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_phdisk_mobius_bijon",
+      "statement": "∀ (a b c d : ℝ), a * d - b * c = 1 → Set.BijOn (fun z : ℂ => ((a : ℂ) * z + (b : ℂ)) / ((c : ℂ) * z + (d : ℂ))) {z : ℂ | 0 < z.im} {z : ℂ | 0 < z.im}",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
