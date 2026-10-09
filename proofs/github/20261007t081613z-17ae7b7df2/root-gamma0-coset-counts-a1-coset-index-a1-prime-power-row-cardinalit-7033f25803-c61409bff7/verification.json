@@ -1,0 +1,18 @@
+{
+  "node_id": "root.gamma0_coset_counts-a1.coset_index-a1.prime_power_row_cardinality-a1.unit_chart_equivalence-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/485",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "835bb4ec83cba612fcdfddb92af5785c66bc519d",
+  "integrated_commit": "31660d663e15acae838364843bf14d667597407b",
+  "proof_base_commit": "6134a09ac36170885efc4ca0bfae953f03a4e698",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.gamma0_coset_counts-a1.coset_index-a1.prime_power_row_cardinality-a1",
+  "requires": [
+    "root.gamma0_coset_counts-a1.coset_index-a1.prime_power_row_cardinality-a1.unit_chart_equivalence-a1.unimodular_iff_unit_coordinate-a1",
+    "root.gamma0_coset_counts-a1.coset_index-a1.prime_power_row_cardinality-a1.unit_chart_equivalence-a1.normalized_quotient_rigidity-a1"
+  ]
+}
