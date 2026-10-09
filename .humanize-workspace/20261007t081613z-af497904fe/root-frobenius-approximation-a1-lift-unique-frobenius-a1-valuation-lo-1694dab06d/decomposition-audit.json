@@ -1,0 +1,56 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "LiesOverPrime|nonunits",
+        "of_module_finite|isIntegral_coe|basis|IsDedekindDomain|IsFractionRing|Module.Free|Module.Finite",
+        "isDiscreteValuationRing_of_dedekind_domain|mk._mem_maximal_iff|to_map_mem_maximal_iff",
+        "isFractionRing_ofField|isLocalization|mem_subalgebra_iff",
+        "coe_mem_nonunits_iff|inv_mem_nonunits_iff|mem_or_inv_mem|def nonunits",
+        "dvd_total|class ValuationRing|inv_mem",
+        "p09_af497904fe_vloc_integral_center|p09_af497904fe_vloc_fraction_characterization"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/DedekindDomain/Dvr.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Localization/AtPrime/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Localization/AsSubring.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/DiscreteValuationRing/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/ValuationRing.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-1694dab06d/parent-child-handoff.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/nodes/root-frobenius-approximation-a1-lift-unique-frobenius-a1-valuation-lo-1694dab06d/decomposition-v1.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/vloc-split-diagnostic-k9wikt8l/check.py",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/vloc-split-diagnostic-k9wikt8l/report.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/vloc-independent-audit-15yvke0q/Types.lean",
+        "/tmp/vloc-independent-audit-15yvke0q/Types.lean.log",
+        "/tmp/vloc-independent-audit-15yvke0q/report.json"
+      ],
+      "conclusion": "Verified clean tracked snapshots at project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d, and clean pinned compiler dependencies. The sources supply the exact LiesOverPrime definition, integral containment infrastructure, finite freeness, Dedekind and fraction-field structures, localization membership, the nonzero-prime DVR theorem, and maximal-ideal characterizations used by the proofs. Neither proposed name occurs in the reference snapshots, another active handoff/decomposition, or the imported environment. The 19-node DAG is acyclic. Independent Lean checks against frozen proof base 3915a640f981289a567a646ed42a4a5f880b9d24 validated both literal propositions, canonical coercions, nonunits interpretation, required instances, and their conditional composition into the exact parent contract. Checked types and cited supporting declarations use only propext, Classical.choice and Quot.sound. The disposable compiler copy followed policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96: only lines 10–11 were omitted, all eight targets were independently absent under the frozen imports, and reversible original/build hashes were recorded. This is decomposition and interface acceptance; configured comparator acceptance of the eventual proofs remains required."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "integral_center",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly matches every prose hypothesis and conclusion and elaborates independently of the proposed declaration. The bare identifier is unreserved. Steps 1–3 correctly establish integral containment: the inverse of an excluded nonzero integral element is a nonunit, and its monic equation forces 1 into the proper maximal ideal. Steps 4–5 contract that ideal and use LiesOverPrime and characteristic zero to obtain the required nonzero prime containing ℓ. Step 6 gives an explicit finite surjection onto the quotient by reducing basis coefficients modulo ℓ. The proof is complete, non-circular, and ready for formalization. Separating this construction from localization characterization is appropriate."
+    },
+    {
+      "key": "fraction_characterization",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition exactly states the prose contract, including primality, nonzeroness, integral containment and center compatibility. Its bare identifier is unreserved, and its field coercions and division have the intended instances. The proof embeds the localization in E, applies the cited DVR theorem with all required hypotheses, and identifies its maximal ideal by numerator membership. Containment and center compatibility then give a local inclusion into V. Total divisibility places the inverse of every excluded element in the localization's maximal ideal, yielding the stated contradiction in V. No parent or sibling theorem is used. Empty sibling dependencies are correct; the parent supplies the first child's conclusions as explicit arguments, and independent Lean checking confirms recovery of every parent conjunct."
+    }
+  ],
+  "required_changes": []
+}
