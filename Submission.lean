@@ -606,7 +606,7 @@ theorem Submission.p03_ptf_positive_nsmul_nonzero_c5b7b5ed_d6 :
           calc
             _ = z ^ 2 + W.a₁ * z * t - (W.a₂ + 2 * x + u) * t ^ 2 := by
               field_simp [ht]
-              <;> ring
+              ring
             _ = 0 := hz
         exact sub_eq_zero.mp ((mul_eq_zero.mp hmul).resolve_right (pow_ne_zero 2 ht))
       refine ⟨some x y hxy, ?_⟩
