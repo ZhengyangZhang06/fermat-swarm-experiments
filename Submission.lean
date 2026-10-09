@@ -408,3 +408,30 @@ theorem Submission.p08_7d1ff633a4_tp26_bilinear_averaging :
     apply Finset.sum_congr rfl
     intro c _
     rw [← hφ, ← hQ, smul_inv_smul]
+
+theorem Submission.p08_7d1ff633a4_cp11_level_cocycle :
+    ∀ {k G : Type} [Field k] [Group G] (r : G →* (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)) (A B N : Rep.{0} k G) (E₀ : IntermediateField ℚ (AlgebraicClosure ℚ)), FiniteDimensional ℚ E₀ → (∀ s : G, r s ∈ E₀.fixingSubgroup → ∀ b : B, B.ρ s b = b) → ∀ φ : A →ₗ[k] B →ₗ[k] N, (∀ (s : G) (a : A) (b : B), φ (A.ρ s a) (B.ρ s b) = N.ρ s (φ a b)) → ∀ (f : groupCohomology.cocycles₁ A) (g : groupCohomology.cocycles₁ B), groupCohomology.IsLevelConstant₁ r (⇑f) → groupCohomology.IsLevelConstant₁ r (⇑g) → groupCohomology.cupCochain φ (⇑f) (⇑g) ∈ groupCohomology.levelCocycles₂ r N := by
+  intro k G _ _ r A B N E₀ hE₀ hB φ hφ f g hf hg
+  rw [mem_levelCocycles₂_iff]
+  constructor
+  · rw [← cup_coe φ hφ f g]
+    exact (cup φ hφ f g).property
+  · obtain ⟨Ff, hFf, hf⟩ := hf
+    obtain ⟨Fg, hFg, hg⟩ := hg
+    let := hE₀
+    let := hFf
+    let := hFg
+    refine ⟨(E₀ ⊔ Ff) ⊔ Fg, inferInstance, ?_⟩
+    intro s t h l hh hl
+    have hh₀ : r h ∈ E₀.fixingSubgroup :=
+      IntermediateField.fixingSubgroup_antitone
+        (le_sup_left.trans le_sup_left : E₀ ≤ (E₀ ⊔ Ff) ⊔ Fg) hh
+    have hhf : r h ∈ Ff.fixingSubgroup :=
+      IntermediateField.fixingSubgroup_antitone
+        (le_sup_right.trans le_sup_left : Ff ≤ (E₀ ⊔ Ff) ⊔ Fg) hh
+    have hlg : r l ∈ Fg.fixingSubgroup :=
+      IntermediateField.fixingSubgroup_antitone le_sup_right hl
+    simp only [cupCochain_apply]
+    rw [hf s h hhf, hg t l hlg, Rep.ρ_mul]
+    change φ (f s) (B.ρ s (B.ρ h (g t))) = φ (f s) (B.ρ s (g t))
+    rw [hB h hh₀]
