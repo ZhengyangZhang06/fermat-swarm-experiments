@@ -510,3 +510,36 @@ theorem Submission.p09_af497904fe_fcc_frobenius_roots_action :
   exact congrArg Subtype.val
     (Submission.p09_af497904fe_fcc_fra_residue_injective
       N ℓ hℓ hℓN P hP (g • z) (z ^ ℓ) hx hy hred)
+
+
+theorem Submission.p09_af497904fe_finite_cyclotomic_character
+    (N : ℕ) [NeZero N] :
+    ∃ (χ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) →* (ZMod N)ˣ)
+      (F : IntermediateField ℚ (AlgebraicClosure ℚ)),
+      FiniteDimensional ℚ F ∧
+      (∀ σ τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ,
+        (∀ x ∈ F, σ x = τ x) → χ σ = χ τ) ∧
+      (∀ (σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) (ζ : AlgebraicClosure ℚ),
+        ζ ^ N = 1 → σ ζ = ζ ^ ((χ σ : ZMod N).val)) ∧
+      (∀ (ℓ : ℕ) (hℓ : ℓ.Prime) (hℓN : ¬ ℓ ∣ N)
+        (P : ValuationSubring (AlgebraicClosure ℚ)), P.LiesOverPrime ℓ →
+        ∀ σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ,
+          P.IsFrobeniusAt σ ℓ →
+          χ σ = ZMod.unitOfCoprime ℓ ((Nat.Prime.coprime_iff_not_dvd hℓ).mpr hℓN)) := by
+  obtain ⟨χ, F, hF, hagree, hχ⟩ :=
+    Submission.p09_af497904fe_fcc_character_finite_action N
+  refine ⟨χ, F, hF, hagree, hχ, ?_⟩
+  intro ℓ hℓ hℓN P hP σ hσ
+  obtain ⟨ζ, hζ⟩ := HasEnoughRootsOfUnity.exists_primitiveRoot (AlgebraicClosure ℚ) N
+  apply Units.ext
+  apply ZMod.val_injective
+  apply hζ.pow_inj (ZMod.val_lt _) (ZMod.val_lt _)
+  calc
+    ζ ^ ((χ σ : ZMod N).val) = σ ζ := (hχ σ ζ hζ.pow_eq_one).symm
+    _ = ζ ^ ℓ :=
+      Submission.p09_af497904fe_fcc_frobenius_roots_action N ℓ hℓ hℓN P hP σ hσ ζ
+        hζ.pow_eq_one
+    _ = ζ ^ ((ZMod.unitOfCoprime ℓ
+        ((Nat.Prime.coprime_iff_not_dvd hℓ).mpr hℓN) : ZMod N).val) := by
+      rw [ZMod.coe_unitOfCoprime, ZMod.val_natCast]
+      exact pow_eq_pow_mod ℓ hζ.pow_eq_one
