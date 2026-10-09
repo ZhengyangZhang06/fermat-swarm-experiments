@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "c933e6d21a64fe0ec7b242e4f9f7471ec1cbb8bcdf81e02e5f9487dbf303be72",
+  "git_delta": {
+    "base_commit": "ee62b7412bbbacc539f12b198968eab319ed3801",
+    "candidate_commit": "b582cdca21b772afc286d7fbb480687602e9a15e",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_ccf_prime_power",
+    "diff_sha256": "afd5ec70dfadc6f3c8a5e792496dbffa234f52ede27af4aefd3e8abdf19a7298",
+    "source_sha256": "37b4ee29d8322fbf3ed7dd2a3477a40176f1123aa521eaed161fd89f97f986a7",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_ccf_prime_power",
+      "statement": "∀ (p a : ℕ), Nat.Prime p → ModularCurve.cuspCount (p ^ a) = (Finset.range (a + 1)).sum (fun j => Nat.totient (p ^ min j (a - j)))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
