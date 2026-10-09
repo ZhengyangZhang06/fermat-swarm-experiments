@@ -14,378 +14,7 @@ attribute [-simp] ModularCurve.CuspSpace.cuspDenomAux_coe ModularCurve.CuspSpace
 set_option autoImplicit false
 
 
-namespace Submission
 
-open scoped MatrixGroups ModularForm Topology
-open UpperHalfPlane
-
-set_option backward.isDefEq.respectTransparency false in
-/-- The norm of a nonzero weight-two cusp form, with its cusp and elliptic orders. -/
-theorem p10_17ae7b7d_gamma0_norm_vanishing
-    (N : ℕ) [NeZero N] (f : CuspForm (CongruenceSubgroup.Gamma0 N) 2)
-    (hf : f ≠ 0) :
-    ∃ F A : ℂ → ℂ,
-      DifferentiableOn ℂ F {z : ℂ | 0 < z.im} ∧
-      (∃ z : ℂ, 0 < z.im ∧ F z ≠ 0) ∧
-      (∀ z : ℂ, 0 < z.im → F (z + 1) = F z) ∧
-      (∀ z : ℂ, 0 < z.im →
-        F (-1 / z) = z ^ (2 * ModularCurve.dedekindPsi N) * F z) ∧
-      AnalyticAt ℂ A 0 ∧
-      (∃ Y : ℝ, ∀ z : ℂ, 0 < z.im → Y ≤ z.im →
-        F z = A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z))) ∧
-      ModularCurve.cuspCount N ≤ analyticOrderNatAt A 0 ∧
-      ModularCurve.nuTwo N ≤ analyticOrderNatAt F Complex.I ∧
-      2 * ModularCurve.nuThree N ≤
-        analyticOrderNatAt F ((-1 + (Real.sqrt 3 : ℂ) * Complex.I) / 2) := by
-  classical
-  -- Inversion identifies a left coset aH with the right coset Ha⁻¹.
-  let H := CongruenceSubgroup.Gamma0 N
-  let Q := (SL(2, ℤ)) ⧸ H
-  obtain ⟨hfinite, hcard, hS_count, hU_count, hT_count⟩ :=
-    p10_17ae7b7d_gamma0_coset_counts N
-  let : Finite Q := hfinite
-  let : Fintype Q := Fintype.ofFinite Q
-  have hcard' : Fintype.card Q = ModularCurve.dedekindPsi N := by
-    simpa only [Nat.card_eq_fintype_card] using hcard
-  have hf_fun : (f : ℍ → ℂ) ≠ 0 := by
-    intro h
-    apply hf
-    exact CuspForm.ext (fun z => congrFun h z)
-  have hinvariant (a : SL(2, ℤ)) (ha : a ∈ H) :
-      (f : ℍ → ℂ) ∣[(2 : ℤ)] a = f := by
-    exact SlashInvariantForm.slash_action_eqn f _
-      (show (a : GL (Fin 2) ℝ) ∈
-          (CongruenceSubgroup.Gamma0 N : Subgroup (GL (Fin 2) ℝ)) from
-        ⟨a, ha, rfl⟩)
-  have hcoset (a b : SL(2, ℤ)) (hab : (a : Q) = (b : Q)) :
-      (f : ℍ → ℂ) ∣[(2 : ℤ)] a⁻¹ = (f : ℍ → ℂ) ∣[(2 : ℤ)] b⁻¹ := by
-    have hm : b⁻¹ * a ∈ H := by
-      simpa using H.inv_mem (QuotientGroup.eq.mp hab)
-    calc
-      (f : ℍ → ℂ) ∣[(2 : ℤ)] a⁻¹ =
-          ((f : ℍ → ℂ) ∣[(2 : ℤ)] (b⁻¹ * a)) ∣[(2 : ℤ)] a⁻¹ := by
-            rw [hinvariant _ hm]
-      _ = (f : ℍ → ℂ) ∣[(2 : ℤ)] b⁻¹ := by
-        rw [← SlashAction.slash_mul]
-        simp only [mul_inv_cancel_right]
-  let h : Q → ℍ → ℂ := fun q => (f : ℍ → ℂ) ∣[(2 : ℤ)] q.out⁻¹
-  have hmk (a : SL(2, ℤ)) : h (a : Q) = (f : ℍ → ℂ) ∣[(2 : ℤ)] a⁻¹ :=
-    hcoset _ _ (QuotientGroup.out_eq' _)
-  have hslash (q : Q) (a : SL(2, ℤ)) :
-      (h q) ∣[(2 : ℤ)] a = h (a⁻¹ • q) := by
-    induction q using Quotient.inductionOn' with
-    | h b =>
-      change (h (b : Q)) ∣[(2 : ℤ)] a = h ((a⁻¹ * b : SL(2, ℤ)) : Q)
-      rw [hmk, hmk, ← SlashAction.slash_mul]
-      congr 1
-      change b⁻¹ * a = (a⁻¹ * b)⁻¹
-      group
-  have htransform (q : Q) (a : SL(2, ℤ)) (z : ℍ) :
-      h q (a • z) = denom a z ^ (2 : ℕ) * h (a⁻¹ • q) z := by
-    have hs := congrFun (hslash q a) z
-    rw [ModularForm.SL_slash_apply] at hs
-    have hd := denom_ne_zero (a : GL (Fin 2) ℝ) z
-    rw [zpow_neg, zpow_ofNat] at hs
-    simpa only [mul_comm] using (mul_inv_eq_iff_eq_mul₀ (pow_ne_zero 2 hd)).mp hs
-  let g : Q → ℂ → ℂ := fun q => h q ∘ UpperHalfPlane.ofComplex
-  have gholo (q : Q) : DifferentiableOn ℂ (g q) {z : ℂ | 0 < z.im} :=
-    UpperHalfPlane.mdifferentiable_iff.mp
-      ((ModularFormClass.holo f).slash 2 (q.out⁻¹ : SL(2, ℤ)))
-  have gana (q : Q) : AnalyticOnNhd ℂ (g q) {z : ℂ | 0 < z.im} :=
-    (gholo q).analyticOnNhd isOpen_upperHalfPlaneSet
-  have gnonzero (q : Q) : ∃ z : ℂ, 0 < z.im ∧ g q z ≠ 0 := by
-    have hn : h q ≠ 0 :=
-      (SlashAction.slash_eq_zero_iff 2 (q.out⁻¹ : SL(2, ℤ)) (f : ℍ → ℂ)).not.mpr hf_fun
-    obtain ⟨z, hz⟩ : ∃ z : ℍ, h q z ≠ 0 := by
-      by_contra! he
-      exact hn (funext he)
-    exact ⟨z, z.im_pos, by simpa [g] using hz⟩
-  have halfplane_preconnected : IsPreconnected {z : ℂ | 0 < z.im} :=
-    (convex_halfSpace_im_gt 0).isPreconnected
-  have gfinite (q : Q) (z : ℂ) (hz : 0 < z.im) : analyticOrderAt (g q) z ≠ ⊤ := by
-    obtain ⟨w, hw, hn⟩ := gnonzero q
-    exact (gana q).analyticOrderAt_ne_top_of_isPreconnected halfplane_preconnected hw hz
-      (by rw [(gana q w hw).analyticOrderAt_eq_zero.mpr hn]; exact ENat.zero_ne_top)
-  have gdecay (q : Q) : ∀ ε : ℝ, 0 < ε → ∃ Y : ℝ,
-      ∀ z : ℂ, 0 < z.im → Y ≤ z.im → ‖g q z‖ ≤ ε := by
-    intro ε hε
-    obtain ⟨Y, hY⟩ := UpperHalfPlane.isZeroAtImInfty_iff.mp
-      (CuspFormClass.zero_at_infty_slash f (q.out⁻¹ : SL(2, ℤ))) ε hε
-    refine ⟨Y, fun z hz hYz => ?_⟩
-    simpa [g, h, UpperHalfPlane.ofComplex_apply_of_im_pos hz] using hY ⟨z, hz⟩ hYz
-  let F : ℂ → ℂ := fun z => ∏ q : Q, g q z
-  have Fana : AnalyticOnNhd ℂ F {z : ℂ | 0 < z.im} :=
-    Finset.analyticOnNhd_fun_prod _ (fun q _ => gana q)
-  have Fholo : DifferentiableOn ℂ F {z : ℂ | 0 < z.im} := Fana.differentiableOn
-  have prod_order (s : Finset Q) (z : ℂ) (hz : 0 < z.im) :
-      analyticOrderAt (fun w => ∏ q ∈ s, g q w) z =
-        ∑ q ∈ s, analyticOrderAt (g q) z := by
-    induction s using Finset.induction_on with
-    | empty => simp [analyticOrderAt_eq_zero]
-    | @insert q s hqs ih =>
-      simp only [Finset.prod_insert hqs, Finset.sum_insert hqs]
-      exact (analyticOrderAt_mul (gana q z hz)
-        (s.analyticAt_fun_prod (fun a _ => gana a z hz))).trans (congrArg _ ih)
-  have Ffinite (z : ℂ) (hz : 0 < z.im) : analyticOrderAt F z ≠ ⊤ := by
-    rw [prod_order _ z hz]
-    exact ENat.sum_ne_top.mpr (fun q _ => gfinite q z hz)
-  have Fnonzero : ∃ z : ℂ, 0 < z.im ∧ F z ≠ 0 := by
-    by_contra! he
-    apply Ffinite Complex.I (by simp)
-    apply analyticOrderAt_eq_top.mpr
-    filter_upwards [isOpen_upperHalfPlaneSet.mem_nhds (show 0 < Complex.I.im by simp)]
-      with z hz using he z hz
-  have Ftransform (a : SL(2, ℤ)) (z : ℍ) :
-      F ((a • z : ℍ) : ℂ) = denom a z ^ (2 * ModularCurve.dedekindPsi N) * F z := by
-    have hp : (∏ q : Q, h (a⁻¹ • q) z) = ∏ q : Q, h q z :=
-      Equiv.prod_comp (MulAction.toPerm a⁻¹ : Q ≃ Q) (fun q => h q z)
-    calc
-      F ((a • z : ℍ) : ℂ) = ∏ q : Q, h q (a • z) := by simp [F, g]
-      _ = ∏ q : Q, (denom a z ^ (2 : ℕ) * h (a⁻¹ • q) z) := by
-        apply Finset.prod_congr rfl
-        intro q _
-        exact htransform q a z
-      _ = denom a z ^ (2 * ModularCurve.dedekindPsi N) * F z := by
-        rw [Finset.prod_mul_distrib, Finset.prod_const, Finset.card_univ, ← pow_mul,
-          hcard', hp]
-        simp [F, g]
-  have Tcoe (z : ℍ) : ((ModularGroup.T • z : ℍ) : ℂ) = z + 1 := by
-    rw [UpperHalfPlane.modular_T_smul]
-    simp only [UpperHalfPlane.coe_vadd, Complex.ofReal_one, add_comm]
-  have Scoe (z : ℍ) : ((ModularGroup.S • z : ℍ) : ℂ) = -1 / z := by
-    rw [UpperHalfPlane.modular_S_smul]
-    simp only [inv_neg, neg_div, one_div]
-  have STcoe (z : ℍ) : (((ModularGroup.S * ModularGroup.T) • z : ℍ) : ℂ) =
-      -1 / (z + 1) := by rw [mul_smul, Scoe, Tcoe]
-  have Tdenom (z : ℍ) : denom ModularGroup.T z = 1 := by
-    norm_num [UpperHalfPlane.denom, ModularGroup.T, Matrix.SpecialLinearGroup.toGL,
-      Matrix.SpecialLinearGroup.map]
-  have STdenom (z : ℍ) :
-      denom (ModularGroup.S * ModularGroup.T : SL(2, ℤ)) z = z + 1 := by
-    norm_num [UpperHalfPlane.denom, ModularGroup.S, ModularGroup.T,
-      Matrix.SpecialLinearGroup.toGL, Matrix.SpecialLinearGroup.map,
-      Matrix.mul_apply, Fin.sum_univ_two]
-  have FT (z : ℂ) (hz : 0 < z.im) : F (z + 1) = F z := by
-    have ht := Ftransform ModularGroup.T ⟨z, hz⟩
-    rw [Tcoe, Tdenom] at ht
-    simpa only [UpperHalfPlane.coe_mk, one_pow, one_mul] using ht
-  have FS (z : ℂ) (hz : 0 < z.im) :
-      F (-1 / z) = z ^ (2 * ModularCurve.dedekindPsi N) * F z := by
-    have hs := Ftransform ModularGroup.S ⟨z, hz⟩
-    rw [Scoe, ModularGroup.denom_S] at hs
-    exact hs
-  have gtransform (q : Q) (a : SL(2, ℤ)) (z : ℍ) :
-      g q ((a • z : ℍ) : ℂ) = denom a z ^ (2 : ℕ) * g (a⁻¹ • q) z := by
-    simpa only [g, Function.comp_apply, UpperHalfPlane.ofComplex_apply] using htransform q a z
-  have Fnat_order (z : ℂ) (hz : 0 < z.im) :
-      analyticOrderNatAt F z = ∑ q : Q, analyticOrderNatAt (g q) z := by
-    dsimp only [analyticOrderNatAt, F]
-    rw [prod_order _ z hz]
-    exact ENat.toNat_sum (fun q _ => gfinite q z hz)
-  have gS (q : Q) (hq : ModularGroup.S • q = q) (z : ℂ) (hz : 0 < z.im) :
-      g q (-1 / z) = z ^ (2 : ℕ) * g q z := by
-    have hqi : ModularGroup.S⁻¹ • q = q := inv_smul_eq_iff.mpr hq.symm
-    have hh := gtransform q ModularGroup.S ⟨z, hz⟩
-    rw [hqi, Scoe, ModularGroup.denom_S] at hh
-    exact hh
-  have gS_order (q : Q) (hq : ModularGroup.S • q = q) :
-      1 ≤ analyticOrderNatAt (g q) Complex.I := by
-    have hi : 0 < Complex.I.im := by simp
-    have hd : HasDerivAt (fun z : ℂ => -1 / z) (-1) Complex.I := by
-      convert! (hasDerivAt_const Complex.I (-1 : ℂ)).div (hasDerivAt_id Complex.I)
-        Complex.I_ne_zero using 1
-      norm_num
-    have hψ : AnalyticAt ℂ (fun z : ℂ => -1 / z) Complex.I := by
-      exact analyticAt_const.div analyticAt_id Complex.I_ne_zero
-    obtain ⟨r, hr, hball⟩ := Metric.mem_nhds_iff.mp
-      (isOpen_upperHalfPlaneSet.mem_nhds hi)
-    have hm := p10_17ae7b7d_norm_local_multiplier_order
-      (g q) (fun z : ℂ => -1 / z) (fun z : ℂ => z ^ (2 : ℕ)) Complex.I
-      (gana q _ hi) (gfinite q _ hi) hψ (by norm_num)
-      (by rw [hd.deriv]; norm_num) (analyticAt_id.pow 2)
-      ⟨r, hr, fun z hz => gS q hq z (hball (by simpa [Metric.mem_ball, dist_eq_norm] using hz))⟩
-    rw [hd.deriv] at hm
-    by_contra! hn
-    have hz : analyticOrderNatAt (g q) Complex.I = 0 := by omega
-    norm_num [hz] at hm
-  have FS_order : ModularCurve.nuTwo N ≤ analyticOrderNatAt F Complex.I := by
-    rw [Fnat_order _ (by simp), ← hS_count, Nat.card_eq_fintype_card]
-    calc
-      Fintype.card {q : Q // ModularGroup.S • q = q} =
-          ∑ q : Q, if ModularGroup.S • q = q then 1 else 0 := by
-            rw [Fintype.card_subtype]
-            exact (Finset.sum_boole _ _).symm
-      _ ≤ ∑ q : Q, analyticOrderNatAt (g q) Complex.I := by
-        apply Finset.sum_le_sum
-        intro q _
-        split_ifs with hq
-        · exact gS_order q hq
-        · exact Nat.zero_le _
-  let ρ : ℂ := (-1 + (Real.sqrt 3 : ℂ) * Complex.I) / 2
-  have ρim : 0 < ρ.im := by dsimp [ρ]; simp
-  have ρne : ρ ≠ 0 := fun hρ => by simp [hρ] at ρim
-  have ρone : ρ ≠ 1 := fun hρ => by simp [hρ] at ρim
-  have ρadd : ρ + 1 ≠ 0 := by
-    intro he
-    have hh := congrArg Complex.im he
-    simp only [Complex.add_im, Complex.one_im, Complex.zero_im, add_zero] at hh
-    exact (ne_of_gt ρim) hh
-  have ρeq : ρ ^ 2 + ρ + 1 = 0 := by
-    have hs : Real.sqrt 3 ^ 2 = 3 := Real.sq_sqrt (by norm_num)
-    apply Complex.ext <;> simp [ρ, Complex.mul_re, Complex.mul_im, pow_two] <;> nlinarith
-  have ρmult : (ρ + 1) ^ 2 = ρ := by
-    linear_combination ρeq
-  have ρfix : -1 / (ρ + 1) = ρ := by
-    apply (div_eq_iff ρadd).mpr
-    linear_combination -ρeq
-  have ρderiv : HasDerivAt (fun z : ℂ => -1 / (z + 1)) (ρ ^ 2) ρ := by
-    have hd := (hasDerivAt_const ρ (-1 : ℂ)).div
-      ((hasDerivAt_id ρ).add_const 1) ρadd
-    convert! hd using 1
-    change ρ ^ 2 = (0 * (ρ + 1) - -1 * 1) / (ρ + 1) ^ 2
-    simp only [zero_mul, neg_one_mul, zero_sub, neg_neg]
-    apply (eq_div_iff (pow_ne_zero 2 ρadd)).mpr
-    linear_combination (ρ ^ 2 + ρ - 1) * ρeq
-  have gU (q : Q) (hq : (ModularGroup.S * ModularGroup.T) • q = q)
-      (z : ℂ) (hz : 0 < z.im) :
-      g q (-1 / (z + 1)) = (z + 1) ^ (2 : ℕ) * g q z := by
-    have hqi : (ModularGroup.S * ModularGroup.T)⁻¹ • q = q := inv_smul_eq_iff.mpr hq.symm
-    have hh := gtransform q (ModularGroup.S * ModularGroup.T) ⟨z, hz⟩
-    rw [hqi, STcoe, STdenom] at hh
-    exact hh
-  have gU_order (q : Q) (hq : (ModularGroup.S * ModularGroup.T) • q = q) :
-      2 ≤ analyticOrderNatAt (g q) ρ := by
-    obtain ⟨r, hr, hball⟩ := Metric.mem_nhds_iff.mp
-      (isOpen_upperHalfPlaneSet.mem_nhds ρim)
-    have hm := p10_17ae7b7d_norm_local_multiplier_order
-      (g q) (fun z : ℂ => -1 / (z + 1)) (fun z : ℂ => (z + 1) ^ (2 : ℕ)) ρ
-      (gana q _ ρim) (gfinite q _ ρim)
-      (analyticAt_const.div (analyticAt_id.add analyticAt_const) ρadd) ρfix
-      (by rw [ρderiv.deriv]; exact pow_ne_zero _ ρne)
-      ((analyticAt_id.add analyticAt_const).pow 2)
-      ⟨r, hr, fun z hz => gU q hq z (hball (by simpa [Metric.mem_ball, dist_eq_norm] using hz))⟩
-    rw [ρderiv.deriv, ρmult] at hm
-    by_contra! hn
-    interval_cases hmorder : analyticOrderNatAt (g q) ρ
-    · exact ρone (by simpa [hmorder] using hm.symm)
-    · have hρ : ρ ^ 2 = ρ := by simpa [hmorder] using hm
-      have he : ρ * (ρ - 1) = 0 := by linear_combination hρ
-      exact ρone (sub_eq_zero.mp ((mul_eq_zero.mp he).resolve_left ρne))
-  have FU_order : 2 * ModularCurve.nuThree N ≤ analyticOrderNatAt F ρ := by
-    rw [Fnat_order _ ρim, ← hU_count, Nat.card_eq_fintype_card]
-    calc
-      2 * Fintype.card {q : Q // (ModularGroup.S * ModularGroup.T) • q = q} =
-          ∑ q : Q, if (ModularGroup.S * ModularGroup.T) • q = q then 2 else 0 := by
-            rw [Fintype.card_subtype, ← Finset.sum_filter]
-            simp only [Finset.sum_const, smul_eq_mul, mul_comm]
-      _ ≤ ∑ q : Q, analyticOrderNatAt (g q) ρ := by
-        apply Finset.sum_le_sum
-        intro q _
-        split_ifs with hq
-        · exact gU_order q hq
-        · exact Nat.zero_le _
-  -- Regroup the norm by translation orbits. Each orbit product has period one
-  -- and decays at infinity, so the disk extension has positive order.
-  let O := Quotient (MulAction.orbitRel (Subgroup.zpowers ModularGroup.T) Q)
-  let π : Q → O := Quotient.mk''
-  let : Fintype O := Fintype.ofFinite O
-  let s : O → Finset Q := fun o => Finset.univ.filter (fun q => π q = o)
-  have smem (o : O) (q : Q) : q ∈ s o ↔ π q = o := by simp [s]
-  have snonempty (o : O) : (s o).Nonempty := by
-    refine ⟨o.out, (smem o _).mpr ?_⟩
-    exact Quotient.out_eq' o
-  have πT (q : Q) : π (ModularGroup.T • q) = π q := by
-    exact MulAction.orbitRel.Quotient.quotient_smul_eq
-      (g := (⟨ModularGroup.T, Subgroup.mem_zpowers _⟩ : Subgroup.zpowers ModularGroup.T))
-  have πTi (q : Q) : π (ModularGroup.T⁻¹ • q) = π q := by
-    exact MulAction.orbitRel.Quotient.quotient_smul_eq
-      (g := (⟨ModularGroup.T⁻¹, (Subgroup.zpowers _).inv_mem (Subgroup.mem_zpowers _)⟩ :
-        Subgroup.zpowers ModularGroup.T))
-  let P : O → ℂ → ℂ := fun o z => ∏ q ∈ s o, g q z
-  have Pana (o : O) : AnalyticOnNhd ℂ (P o) {z : ℂ | 0 < z.im} :=
-    (s o).analyticOnNhd_fun_prod (fun q _ => gana q)
-  have Pnonzero (o : O) : ∃ z : ℂ, 0 < z.im ∧ P o z ≠ 0 := by
-    by_contra! he
-    have hp : analyticOrderAt (P o) Complex.I ≠ ⊤ := by
-      rw [prod_order (s o) _ (by simp)]
-      exact ENat.sum_ne_top.mpr (fun q _ => gfinite q _ (by simp))
-    apply hp
-    apply analyticOrderAt_eq_top.mpr
-    filter_upwards [isOpen_upperHalfPlaneSet.mem_nhds (show 0 < Complex.I.im by simp)]
-      with z hz using he z hz
-  have gT (q : Q) (z : ℂ) (hz : 0 < z.im) :
-      g q (z + 1) = g (ModularGroup.T⁻¹ • q) z := by
-    have ht := gtransform q ModularGroup.T ⟨z, hz⟩
-    rw [Tcoe, Tdenom] at ht
-    simpa only [UpperHalfPlane.coe_mk, one_pow, one_mul] using ht
-  have PT (o : O) (z : ℂ) (hz : 0 < z.im) : P o (z + 1) = P o z := by
-    change (∏ q ∈ s o, g q (z + 1)) = ∏ q ∈ s o, g q z
-    simp_rw [gT _ z hz]
-    apply Finset.prod_bij (fun q _ => ModularGroup.T⁻¹ • q)
-    · intro q hq
-      rw [smem, πTi]
-      exact (smem o q).mp hq
-    · intro q _ q' _ he
-      exact (MulAction.injective _ he)
-    · intro q hq
-      refine ⟨ModularGroup.T • q, ?_, inv_smul_smul _ _⟩
-      rw [smem, πT]
-      exact (smem o q).mp hq
-    · intro q _
-      rfl
-  have Pdecay (o : O) : ∀ ε : ℝ, 0 < ε → ∃ Y : ℝ,
-      ∀ z : ℂ, 0 < z.im → Y ≤ z.im → ‖P o z‖ ≤ ε := by
-    intro ε hε
-    obtain ⟨q₀, hq₀⟩ := snonempty o
-    choose Y hY using fun q : Q =>
-      gdecay q (if q = q₀ then ε else 1) (by split_ifs <;> positivity)
-    refine ⟨Finset.univ.sup' Finset.univ_nonempty Y, fun z hz hYz => ?_⟩
-    calc
-      ‖P o z‖ = ∏ q ∈ s o, ‖g q z‖ := norm_prod _ _
-      _ ≤ ∏ q ∈ s o, (if q = q₀ then ε else 1) :=
-        Finset.prod_le_prod (fun _ _ => norm_nonneg _) (fun q _ =>
-          hY q z hz ((Finset.le_sup' Y (Finset.mem_univ q)).trans hYz))
-      _ = ε := Finset.prod_ite_eq_of_mem' (s o) q₀ (fun _ => ε) hq₀
-  have Pexp (o : O) : ∃ B : ℂ → ℂ, AnalyticAt ℂ B 0 ∧ analyticOrderAt B 0 ≠ ⊤ ∧
-      1 ≤ analyticOrderNatAt B 0 ∧ ∀ z : ℂ, 0 < z.im →
-        P o z = B (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z)) := by
-    obtain ⟨Y, hY⟩ := Pdecay o 1 zero_lt_one
-    obtain ⟨B, hB, he, hfin, hpos⟩ := p10_17ae7b7d_periodic_disk_extension
-      1 (P o) zero_lt_one (Pana o).differentiableOn (Pnonzero o)
-      (by simpa using PT o) ⟨1, Y, hY⟩
-    exact ⟨B, hB.analyticAt (Metric.isOpen_ball.mem_nhds (by simp)), hfin,
-      hpos (Pdecay o), fun z hz => by simpa using he z hz⟩
-  choose B Bana Bfinite Bpositive Bexp using Pexp
-  let C : ℂ → ℂ := fun z => ∏ o : O, B o z
-  have Cana : AnalyticAt ℂ C 0 := Finset.univ.analyticAt_fun_prod (fun o _ => Bana o)
-  have Cqexp (z : ℂ) (hz : 0 < z.im) :
-      F z = C (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z)) := by
-    change (∏ q : Q, g q z) = ∏ o : O, B o _
-    rw [← Finset.prod_fiberwise Finset.univ π (fun q => g q z)]
-    exact Finset.prod_congr rfl (fun o _ => Bexp o z hz)
-  have Corder (t : Finset O) : analyticOrderAt (fun z => ∏ o ∈ t, B o z) 0 =
-      ∑ o ∈ t, analyticOrderAt (B o) 0 := by
-    induction t using Finset.induction_on with
-    | empty => simp [analyticOrderAt_eq_zero]
-    | @insert o t hot ih =>
-      simp only [Finset.prod_insert hot, Finset.sum_insert hot]
-      exact (analyticOrderAt_mul (Bana o)
-        (t.analyticAt_fun_prod (fun a _ => Bana a))).trans (congrArg _ ih)
-  have Cnat_order : analyticOrderNatAt C 0 = ∑ o : O, analyticOrderNatAt (B o) 0 := by
-    dsimp only [analyticOrderNatAt, C]
-    rw [Corder Finset.univ]
-    exact ENat.toNat_sum (fun o _ => Bfinite o)
-  have Ccusp_order : ModularCurve.cuspCount N ≤ analyticOrderNatAt C 0 := by
-    rw [Cnat_order, ← hT_count]
-    change Nat.card O ≤ ∑ o : O, analyticOrderNatAt (B o) 0
-    rw [Nat.card_eq_fintype_card]
-    calc
-      Fintype.card O = ∑ _o : O, (1 : ℕ) := by simp
-      _ ≤ ∑ o : O, analyticOrderNatAt (B o) 0 := Finset.sum_le_sum (fun o _ => Bpositive o)
-  exact ⟨F, C, Fholo, Fnonzero, FT, FS, Cana,
-    ⟨0, fun z hz _ => Cqexp z hz⟩, Ccusp_order, FS_order, FU_order⟩
-
-end Submission
 
 theorem CuspForm.gamma0_weight_two_eq_zero_of_genusFormula_eq_zero (N : ℕ) [NeZero N]
     (hg : ModularCurve.genusFormula N = 0) (f : CuspForm (CongruenceSubgroup.Gamma0 N) 2) : f = 0 := by
@@ -3410,51 +3039,7 @@ theorem p10_17ae7b7d_norm_cyclic_product_descent :
     _ = w * analyticOrderNatAt A 0 := hPorder
 
 end Submission
-open Filter in
-open scoped Topology in
-theorem Submission.p10_17ae7b7d_norm_local_multiplier_order :
-    ∀ (g ψ J : ℂ → ℂ) (v : ℂ), AnalyticAt ℂ g v → analyticOrderAt g v ≠ ⊤ →
-      AnalyticAt ℂ ψ v → ψ v = v → deriv ψ v ≠ 0 → AnalyticAt ℂ J v →
-      (∃ r : ℝ, 0 < r ∧ ∀ z : ℂ, ‖z - v‖ < r → g (ψ z) = J z * g z) →
-      (deriv ψ v) ^ analyticOrderNatAt g v = J v := by
-  intro g ψ J v hg hgfin hψ hfix _hderiv hJ hequiv
-  let m := analyticOrderNatAt g v
-  obtain ⟨b, hb, hbne, hfactor⟩ := (hg.analyticOrderNatAt_eq_iff hgfin).mp rfl
-  have hfactor' : ∀ᶠ z in nhds v, g z = (z - v) ^ m * b z := by
-    simpa only [smul_eq_mul] using hfactor
-  have hψt : Filter.Tendsto ψ (nhds v) (nhds v) := by
-    simpa only [hfix] using hψ.continuousAt.tendsto
-  have hfactorψ : ∀ᶠ z in nhds v, g (ψ z) = (ψ z - v) ^ m * b (ψ z) :=
-    hψt.eventually hfactor'
-  obtain ⟨r, hr, hequiv⟩ := hequiv
-  have hequiv' : ∀ᶠ z in nhds v, g (ψ z) = J z * g z := by
-    apply Metric.eventually_nhds_iff.mpr
-    exact ⟨r, hr, fun z hz => hequiv z (by simpa only [dist_eq_norm] using hz)⟩
-  have hcancel : (fun z => dslope ψ v z ^ m * b (ψ z)) =ᶠ[nhdsWithin v {v}ᶜ]
-      (fun z => J z * b z) := by
-    filter_upwards [hfactor'.filter_mono nhdsWithin_le_nhds,
-      hfactorψ.filter_mono nhdsWithin_le_nhds,
-      hequiv'.filter_mono nhdsWithin_le_nhds, self_mem_nhdsWithin] with z hz hzψ heq hzne
-    apply mul_left_cancel₀ (pow_ne_zero m (sub_ne_zero.mpr hzne))
-    calc
-      (z - v) ^ m * (dslope ψ v z ^ m * b (ψ z)) =
-          ((z - v) * dslope ψ v z) ^ m * b (ψ z) := by rw [mul_pow, mul_assoc]
-      _ = (ψ z - v) ^ m * b (ψ z) := by
-        rw [show (z - v) * dslope ψ v z = ψ z - v from by
-          simpa only [smul_eq_mul, hfix] using sub_smul_dslope ψ v z]
-      _ = g (ψ z) := hzψ.symm
-      _ = J z * g z := heq
-      _ = (z - v) ^ m * (J z * b z) := by rw [hz]; ring
-  have hd : Filter.Tendsto (fun z => dslope ψ v z ^ m) (nhds v) (nhds (deriv ψ v ^ m)) := by
-    simpa only [dslope_same] using
-      (continuousAt_dslope_same.mpr hψ.differentiableAt).tendsto.pow m
-  have hleft : Filter.Tendsto (fun z => dslope ψ v z ^ m * b (ψ z))
-      (nhds v) (nhds (deriv ψ v ^ m * b v)) :=
-    hd.mul (hb.continuousAt.tendsto.comp hψt)
-  have hright : Filter.Tendsto (fun z => J z * b z) (nhds v) (nhds (J v * b v)) :=
-    hJ.continuousAt.tendsto.mul hb.continuousAt.tendsto
-  exact mul_right_cancel₀ hbne (tendsto_nhds_unique_of_eventuallyEq
-    (hleft.mono_left nhdsWithin_le_nhds) (hright.mono_left nhdsWithin_le_nhds) hcancel)
+
 theorem Submission.p10_17ae7b7d_crcard_quot_eq_unit :
     ∀ (R : Type) [CommRing R],
       let U := {v : R × R // ∃ x y : R, x * v.1 + y * v.2 = 1}
@@ -5225,109 +4810,375 @@ theorem Submission.p10_17ae7b7d_gamma0_coset_counts :
   obtain ⟨htwo, hthree⟩ := Submission.p10_17ae7b7d_cc_elliptic_fixed_points N
   exact ⟨hfinite, hindex, htwo, hthree, Submission.p10_17ae7b7d_cc_translation_orbits N⟩
 
-theorem Submission.p10_17ae7b7d_pde_finite_order :
-    ∀ A : ℂ → ℂ, DifferentiableOn ℂ A (Metric.ball (0 : ℂ) 1) →
-      (∃ q : ℂ, q ∈ Metric.ball (0 : ℂ) 1 ∧ A q ≠ 0) →
-      analyticOrderAt A 0 ≠ ⊤ ∧ (A 0 = 0 → 1 ≤ analyticOrderNatAt A 0) := by
-  intro A hA ⟨q, hq, hAq⟩
-  have h0 : (0 : ℂ) ∈ Metric.ball (0 : ℂ) 1 := by simp
-  have hAn : AnalyticOnNhd ℂ A (Metric.ball (0 : ℂ) 1) :=
-    hA.analyticOnNhd Metric.isOpen_ball
-  have hfinite : analyticOrderAt A 0 ≠ ⊤ := by
-    intro htop
-    have hzero := hAn.eqOn_zero_of_preconnected_of_eventuallyEq_zero
-      (convex_ball (0 : ℂ) (1 : ℝ)).isPreconnected h0
-      (analyticOrderAt_eq_top.mp htop)
-    exact hAq (hzero hq)
-  refine ⟨hfinite, fun hzero => Nat.one_le_iff_ne_zero.mpr ?_⟩
-  intro horder
-  have hz : analyticOrderAt A 0 = 0 := by
-    simpa only [horder, Nat.cast_zero] using (Nat.cast_analyticOrderNatAt hfinite).symm
-  exact ((hAn 0 h0).analyticOrderAt_eq_zero.mp hz) hzero
-
-theorem Submission.p10_17ae7b7d_pde_decay_zero :
-    ∀ (w : ℝ) (g A : ℂ → ℂ), 0 < w → ContinuousAt A 0 →
-      (∀ z : ℂ, 0 < z.im →
-        g z = A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z / (w : ℂ)))) →
-      (∀ ε : ℝ, 0 < ε → ∃ Y : ℝ, ∀ z : ℂ,
-        0 < z.im → Y ≤ z.im → ‖g z‖ ≤ ε) → A 0 = 0 := by
-  intro w g A hw hA hfactor hdecay
-  have hbound : ∀ ε : ℝ, 0 < ε →
-      ∃ r : ℝ, 0 < r ∧ ∀ q : ℂ, q ≠ 0 → ‖q‖ < r → ‖A q‖ ≤ ε := by
-    intro ε hε
-    obtain ⟨Y, hY⟩ := hdecay ε hε
-    refine ⟨Real.exp (-2 * Real.pi * max 1 Y / w), Real.exp_pos _, ?_⟩
-    intro q hq hqr
-    let z := Function.Periodic.invQParam w q
-    have heq : Function.Periodic.qParam w z = q :=
-      Function.Periodic.qParam_right_inv hw.ne' hq
-    have him : max 1 Y < z.im :=
-      (Function.Periodic.norm_qParam_lt_iff hw (max 1 Y) z).mp (by rwa [heq])
-    have hz : 0 < z.im := lt_trans (lt_of_lt_of_le zero_lt_one (le_max_left 1 Y)) him
-    have hgz : g z = A q := by
-      have h := hfactor z hz
-      change g z = A (Function.Periodic.qParam w z) at h
-      rwa [heq] at h
-    rw [← hgz]
-    exact hY z hz (le_trans (le_max_right 1 Y) him.le)
-  by_contra hzero
-  have ha : 0 < ‖A 0‖ := norm_pos_iff.mpr hzero
-  have hε : 0 < ‖A 0‖ / 3 := by positivity
-  obtain ⟨r, hr, hbound⟩ := hbound (‖A 0‖ / 3) hε
-  obtain ⟨δ, hδ, hclose⟩ := Metric.continuousAt_iff.mp hA (‖A 0‖ / 3) hε
-  let q : ℂ := (min r δ / 2 : ℝ)
-  have hqpos : 0 < min r δ / 2 := half_pos (lt_min hr hδ)
-  have hqnorm : ‖q‖ = min r δ / 2 := Complex.norm_of_nonneg hqpos.le
-  have hqr : ‖q‖ < r := by
-    rw [hqnorm]
-    linarith [min_le_left r δ]
-  have hqδ : ‖q‖ < δ := by
-    rw [hqnorm]
-    linarith [min_le_right r δ]
-  have hqne : q ≠ 0 := norm_pos_iff.mp (by rwa [hqnorm])
-  have hsmall : ‖A q‖ ≤ ‖A 0‖ / 3 := hbound q hqne hqr
-  have hnear : ‖A q - A 0‖ < ‖A 0‖ / 3 := by
-    simpa only [dist_eq_norm] using hclose (by simpa only [dist_zero_right] using hqδ)
-  have htriangle : ‖A 0‖ ≤ ‖A q - A 0‖ + ‖A q‖ := by
-    calc
-      ‖A 0‖ = ‖(A 0 - A q) + A q‖ := by rw [sub_add_cancel]
-      _ ≤ ‖A 0 - A q‖ + ‖A q‖ := norm_add_le _ _
-      _ = ‖A q - A 0‖ + ‖A q‖ := by rw [norm_sub_rev]
-  linarith
-
-
 namespace Submission
 
-theorem p10_17ae7b7d_periodic_disk_extension :
-    ∀ (w : ℝ) (g : ℂ → ℂ), 0 < w →
-      DifferentiableOn ℂ g {z : ℂ | 0 < z.im} →
-      (∃ z : ℂ, 0 < z.im ∧ g z ≠ 0) →
-      (∀ z : ℂ, 0 < z.im → g (z + (w : ℂ)) = g z) →
-      (∃ C Y : ℝ, ∀ z : ℂ, 0 < z.im → Y ≤ z.im → ‖g z‖ ≤ C) →
-      ∃ A : ℂ → ℂ, DifferentiableOn ℂ A (Metric.ball (0 : ℂ) 1) ∧
-        (∀ z : ℂ, 0 < z.im →
-          g z = A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z / (w : ℂ)))) ∧
-        analyticOrderAt A 0 ≠ ⊤ ∧
-        ((∀ ε : ℝ, 0 < ε → ∃ Y : ℝ, ∀ z : ℂ,
-          0 < z.im → Y ≤ z.im → ‖g z‖ ≤ ε) → 1 ≤ analyticOrderNatAt A 0) := by
-  intro w g hw hg hnonzero hperiodic hbounded
-  obtain ⟨A, hA, hAg⟩ :=
-    p10_17ae7b7d_pde_holomorphic_extension w g hw hg hperiodic hbounded
-  obtain ⟨z, hz, hgz⟩ := hnonzero
-  have hq : Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z / (w : ℂ)) ∈
-      Metric.ball (0 : ℂ) 1 := by
-    rw [Metric.mem_ball, dist_zero_right, Complex.norm_exp, Real.exp_lt_one_iff]
-    have hheight : 0 < 2 * Real.pi * z.im :=
-      mul_pos (mul_pos (by norm_num) Real.pi_pos) hz
-    simpa [Complex.mul_re, Complex.mul_im] using
-      div_neg_of_neg_of_pos (neg_neg_of_pos hheight) hw
-  obtain ⟨hfinite, hpositive⟩ := p10_17ae7b7d_pde_finite_order A hA
-    ⟨_, hq, by simpa only [← hAg z hz] using hgz⟩
-  refine ⟨A, hA, hAg, hfinite, ?_⟩
-  intro hdecay
-  apply hpositive
-  exact p10_17ae7b7d_pde_decay_zero w g A hw
-    (hA.differentiableAt (Metric.ball_mem_nhds _ (by norm_num))).continuousAt
-    hAg hdecay
+open scoped MatrixGroups ModularForm Topology
+open UpperHalfPlane
+
+set_option backward.isDefEq.respectTransparency false in
+/-- The norm of a nonzero weight-two cusp form, with its cusp and elliptic orders. -/
+theorem p10_17ae7b7d_gamma0_norm_vanishing
+    (N : ℕ) [NeZero N] (f : CuspForm (CongruenceSubgroup.Gamma0 N) 2)
+    (hf : f ≠ 0) :
+    ∃ F A : ℂ → ℂ,
+      DifferentiableOn ℂ F {z : ℂ | 0 < z.im} ∧
+      (∃ z : ℂ, 0 < z.im ∧ F z ≠ 0) ∧
+      (∀ z : ℂ, 0 < z.im → F (z + 1) = F z) ∧
+      (∀ z : ℂ, 0 < z.im →
+        F (-1 / z) = z ^ (2 * ModularCurve.dedekindPsi N) * F z) ∧
+      AnalyticAt ℂ A 0 ∧
+      (∃ Y : ℝ, ∀ z : ℂ, 0 < z.im → Y ≤ z.im →
+        F z = A (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z))) ∧
+      ModularCurve.cuspCount N ≤ analyticOrderNatAt A 0 ∧
+      ModularCurve.nuTwo N ≤ analyticOrderNatAt F Complex.I ∧
+      2 * ModularCurve.nuThree N ≤
+        analyticOrderNatAt F ((-1 + (Real.sqrt 3 : ℂ) * Complex.I) / 2) := by
+  classical
+  -- Inversion identifies a left coset aH with the right coset Ha⁻¹.
+  let H := CongruenceSubgroup.Gamma0 N
+  let Q := (SL(2, ℤ)) ⧸ H
+  obtain ⟨hfinite, hcard, hS_count, hU_count, hT_count⟩ :=
+    p10_17ae7b7d_gamma0_coset_counts N
+  let : Finite Q := hfinite
+  let : Fintype Q := Fintype.ofFinite Q
+  have hcard' : Fintype.card Q = ModularCurve.dedekindPsi N := by
+    simpa only [Nat.card_eq_fintype_card] using hcard
+  have hf_fun : (f : ℍ → ℂ) ≠ 0 := by
+    intro h
+    apply hf
+    exact CuspForm.ext (fun z => congrFun h z)
+  have hinvariant (a : SL(2, ℤ)) (ha : a ∈ H) :
+      (f : ℍ → ℂ) ∣[(2 : ℤ)] a = f := by
+    exact SlashInvariantForm.slash_action_eqn f _
+      (show (a : GL (Fin 2) ℝ) ∈
+          (CongruenceSubgroup.Gamma0 N : Subgroup (GL (Fin 2) ℝ)) from
+        ⟨a, ha, rfl⟩)
+  have hcoset (a b : SL(2, ℤ)) (hab : (a : Q) = (b : Q)) :
+      (f : ℍ → ℂ) ∣[(2 : ℤ)] a⁻¹ = (f : ℍ → ℂ) ∣[(2 : ℤ)] b⁻¹ := by
+    have hm : b⁻¹ * a ∈ H := by
+      simpa using H.inv_mem (QuotientGroup.eq.mp hab)
+    calc
+      (f : ℍ → ℂ) ∣[(2 : ℤ)] a⁻¹ =
+          ((f : ℍ → ℂ) ∣[(2 : ℤ)] (b⁻¹ * a)) ∣[(2 : ℤ)] a⁻¹ := by
+            rw [hinvariant _ hm]
+      _ = (f : ℍ → ℂ) ∣[(2 : ℤ)] b⁻¹ := by
+        rw [← SlashAction.slash_mul]
+        simp only [mul_inv_cancel_right]
+  let h : Q → ℍ → ℂ := fun q => (f : ℍ → ℂ) ∣[(2 : ℤ)] q.out⁻¹
+  have hmk (a : SL(2, ℤ)) : h (a : Q) = (f : ℍ → ℂ) ∣[(2 : ℤ)] a⁻¹ :=
+    hcoset _ _ (QuotientGroup.out_eq' _)
+  have hslash (q : Q) (a : SL(2, ℤ)) :
+      (h q) ∣[(2 : ℤ)] a = h (a⁻¹ • q) := by
+    induction q using Quotient.inductionOn' with
+    | h b =>
+      change (h (b : Q)) ∣[(2 : ℤ)] a = h ((a⁻¹ * b : SL(2, ℤ)) : Q)
+      rw [hmk, hmk, ← SlashAction.slash_mul]
+      congr 1
+      change b⁻¹ * a = (a⁻¹ * b)⁻¹
+      group
+  have htransform (q : Q) (a : SL(2, ℤ)) (z : ℍ) :
+      h q (a • z) = denom a z ^ (2 : ℕ) * h (a⁻¹ • q) z := by
+    have hs := congrFun (hslash q a) z
+    rw [ModularForm.SL_slash_apply] at hs
+    have hd := denom_ne_zero (a : GL (Fin 2) ℝ) z
+    rw [zpow_neg, zpow_ofNat] at hs
+    simpa only [mul_comm] using (mul_inv_eq_iff_eq_mul₀ (pow_ne_zero 2 hd)).mp hs
+  let g : Q → ℂ → ℂ := fun q => h q ∘ UpperHalfPlane.ofComplex
+  have gholo (q : Q) : DifferentiableOn ℂ (g q) {z : ℂ | 0 < z.im} :=
+    UpperHalfPlane.mdifferentiable_iff.mp
+      ((ModularFormClass.holo f).slash 2 (q.out⁻¹ : SL(2, ℤ)))
+  have gana (q : Q) : AnalyticOnNhd ℂ (g q) {z : ℂ | 0 < z.im} :=
+    (gholo q).analyticOnNhd isOpen_upperHalfPlaneSet
+  have gnonzero (q : Q) : ∃ z : ℂ, 0 < z.im ∧ g q z ≠ 0 := by
+    have hn : h q ≠ 0 :=
+      (SlashAction.slash_eq_zero_iff 2 (q.out⁻¹ : SL(2, ℤ)) (f : ℍ → ℂ)).not.mpr hf_fun
+    obtain ⟨z, hz⟩ : ∃ z : ℍ, h q z ≠ 0 := by
+      by_contra! he
+      exact hn (funext he)
+    exact ⟨z, z.im_pos, by simpa [g] using hz⟩
+  have halfplane_preconnected : IsPreconnected {z : ℂ | 0 < z.im} :=
+    (convex_halfSpace_im_gt 0).isPreconnected
+  have gfinite (q : Q) (z : ℂ) (hz : 0 < z.im) : analyticOrderAt (g q) z ≠ ⊤ := by
+    obtain ⟨w, hw, hn⟩ := gnonzero q
+    exact (gana q).analyticOrderAt_ne_top_of_isPreconnected halfplane_preconnected hw hz
+      (by rw [(gana q w hw).analyticOrderAt_eq_zero.mpr hn]; exact ENat.zero_ne_top)
+  have gdecay (q : Q) : ∀ ε : ℝ, 0 < ε → ∃ Y : ℝ,
+      ∀ z : ℂ, 0 < z.im → Y ≤ z.im → ‖g q z‖ ≤ ε := by
+    intro ε hε
+    obtain ⟨Y, hY⟩ := UpperHalfPlane.isZeroAtImInfty_iff.mp
+      (CuspFormClass.zero_at_infty_slash f (q.out⁻¹ : SL(2, ℤ))) ε hε
+    refine ⟨Y, fun z hz hYz => ?_⟩
+    simpa [g, h, UpperHalfPlane.ofComplex_apply_of_im_pos hz] using hY ⟨z, hz⟩ hYz
+  let F : ℂ → ℂ := fun z => ∏ q : Q, g q z
+  have Fana : AnalyticOnNhd ℂ F {z : ℂ | 0 < z.im} :=
+    Finset.analyticOnNhd_fun_prod _ (fun q _ => gana q)
+  have Fholo : DifferentiableOn ℂ F {z : ℂ | 0 < z.im} := Fana.differentiableOn
+  have prod_order (s : Finset Q) (z : ℂ) (hz : 0 < z.im) :
+      analyticOrderAt (fun w => ∏ q ∈ s, g q w) z =
+        ∑ q ∈ s, analyticOrderAt (g q) z := by
+    induction s using Finset.induction_on with
+    | empty => simp [analyticOrderAt_eq_zero]
+    | @insert q s hqs ih =>
+      simp only [Finset.prod_insert hqs, Finset.sum_insert hqs]
+      exact (analyticOrderAt_mul (gana q z hz)
+        (s.analyticAt_fun_prod (fun a _ => gana a z hz))).trans (congrArg _ ih)
+  have Ffinite (z : ℂ) (hz : 0 < z.im) : analyticOrderAt F z ≠ ⊤ := by
+    rw [prod_order _ z hz]
+    exact ENat.sum_ne_top.mpr (fun q _ => gfinite q z hz)
+  have Fnonzero : ∃ z : ℂ, 0 < z.im ∧ F z ≠ 0 := by
+    by_contra! he
+    apply Ffinite Complex.I (by simp)
+    apply analyticOrderAt_eq_top.mpr
+    filter_upwards [isOpen_upperHalfPlaneSet.mem_nhds (show 0 < Complex.I.im by simp)]
+      with z hz using he z hz
+  have Ftransform (a : SL(2, ℤ)) (z : ℍ) :
+      F ((a • z : ℍ) : ℂ) = denom a z ^ (2 * ModularCurve.dedekindPsi N) * F z := by
+    have hp : (∏ q : Q, h (a⁻¹ • q) z) = ∏ q : Q, h q z :=
+      Equiv.prod_comp (MulAction.toPerm a⁻¹ : Q ≃ Q) (fun q => h q z)
+    calc
+      F ((a • z : ℍ) : ℂ) = ∏ q : Q, h q (a • z) := by simp [F, g]
+      _ = ∏ q : Q, (denom a z ^ (2 : ℕ) * h (a⁻¹ • q) z) := by
+        apply Finset.prod_congr rfl
+        intro q _
+        exact htransform q a z
+      _ = denom a z ^ (2 * ModularCurve.dedekindPsi N) * F z := by
+        rw [Finset.prod_mul_distrib, Finset.prod_const, Finset.card_univ, ← pow_mul,
+          hcard', hp]
+        simp [F, g]
+  have Tcoe (z : ℍ) : ((ModularGroup.T • z : ℍ) : ℂ) = z + 1 := by
+    rw [UpperHalfPlane.modular_T_smul]
+    simp only [UpperHalfPlane.coe_vadd, Complex.ofReal_one, add_comm]
+  have Scoe (z : ℍ) : ((ModularGroup.S • z : ℍ) : ℂ) = -1 / z := by
+    rw [UpperHalfPlane.modular_S_smul]
+    simp only [inv_neg, neg_div, one_div]
+  have STcoe (z : ℍ) : (((ModularGroup.S * ModularGroup.T) • z : ℍ) : ℂ) =
+      -1 / (z + 1) := by rw [mul_smul, Scoe, Tcoe]
+  have Tdenom (z : ℍ) : denom ModularGroup.T z = 1 := by
+    norm_num [UpperHalfPlane.denom, ModularGroup.T, Matrix.SpecialLinearGroup.toGL,
+      Matrix.SpecialLinearGroup.map]
+  have STdenom (z : ℍ) :
+      denom (ModularGroup.S * ModularGroup.T : SL(2, ℤ)) z = z + 1 := by
+    norm_num [UpperHalfPlane.denom, ModularGroup.S, ModularGroup.T,
+      Matrix.SpecialLinearGroup.toGL, Matrix.SpecialLinearGroup.map,
+      Matrix.mul_apply, Fin.sum_univ_two]
+  have FT (z : ℂ) (hz : 0 < z.im) : F (z + 1) = F z := by
+    have ht := Ftransform ModularGroup.T ⟨z, hz⟩
+    rw [Tcoe, Tdenom] at ht
+    simpa only [UpperHalfPlane.coe_mk, one_pow, one_mul] using ht
+  have FS (z : ℂ) (hz : 0 < z.im) :
+      F (-1 / z) = z ^ (2 * ModularCurve.dedekindPsi N) * F z := by
+    have hs := Ftransform ModularGroup.S ⟨z, hz⟩
+    rw [Scoe, ModularGroup.denom_S] at hs
+    exact hs
+  have gtransform (q : Q) (a : SL(2, ℤ)) (z : ℍ) :
+      g q ((a • z : ℍ) : ℂ) = denom a z ^ (2 : ℕ) * g (a⁻¹ • q) z := by
+    simpa only [g, Function.comp_apply, UpperHalfPlane.ofComplex_apply] using htransform q a z
+  have Fnat_order (z : ℂ) (hz : 0 < z.im) :
+      analyticOrderNatAt F z = ∑ q : Q, analyticOrderNatAt (g q) z := by
+    dsimp only [analyticOrderNatAt, F]
+    rw [prod_order _ z hz]
+    exact ENat.toNat_sum (fun q _ => gfinite q z hz)
+  have gS (q : Q) (hq : ModularGroup.S • q = q) (z : ℂ) (hz : 0 < z.im) :
+      g q (-1 / z) = z ^ (2 : ℕ) * g q z := by
+    have hqi : ModularGroup.S⁻¹ • q = q := inv_smul_eq_iff.mpr hq.symm
+    have hh := gtransform q ModularGroup.S ⟨z, hz⟩
+    rw [hqi, Scoe, ModularGroup.denom_S] at hh
+    exact hh
+  have gS_order (q : Q) (hq : ModularGroup.S • q = q) :
+      1 ≤ analyticOrderNatAt (g q) Complex.I := by
+    have hi : 0 < Complex.I.im := by simp
+    have hd : HasDerivAt (fun z : ℂ => -1 / z) (-1) Complex.I := by
+      convert! (hasDerivAt_const Complex.I (-1 : ℂ)).div (hasDerivAt_id Complex.I)
+        Complex.I_ne_zero using 1
+      norm_num
+    have hψ : AnalyticAt ℂ (fun z : ℂ => -1 / z) Complex.I := by
+      exact analyticAt_const.div analyticAt_id Complex.I_ne_zero
+    obtain ⟨r, hr, hball⟩ := Metric.mem_nhds_iff.mp
+      (isOpen_upperHalfPlaneSet.mem_nhds hi)
+    have hm := p10_17ae7b7d_norm_local_multiplier_order
+      (g q) (fun z : ℂ => -1 / z) (fun z : ℂ => z ^ (2 : ℕ)) Complex.I
+      (gana q _ hi) (gfinite q _ hi) hψ (by norm_num)
+      (by rw [hd.deriv]; norm_num) (analyticAt_id.pow 2)
+      ⟨r, hr, fun z hz => gS q hq z (hball (by simpa [Metric.mem_ball, dist_eq_norm] using hz))⟩
+    rw [hd.deriv] at hm
+    by_contra! hn
+    have hz : analyticOrderNatAt (g q) Complex.I = 0 := by omega
+    norm_num [hz] at hm
+  have FS_order : ModularCurve.nuTwo N ≤ analyticOrderNatAt F Complex.I := by
+    rw [Fnat_order _ (by simp), ← hS_count, Nat.card_eq_fintype_card]
+    calc
+      Fintype.card {q : Q // ModularGroup.S • q = q} =
+          ∑ q : Q, if ModularGroup.S • q = q then 1 else 0 := by
+            rw [Fintype.card_subtype]
+            exact (Finset.sum_boole _ _).symm
+      _ ≤ ∑ q : Q, analyticOrderNatAt (g q) Complex.I := by
+        apply Finset.sum_le_sum
+        intro q _
+        split_ifs with hq
+        · exact gS_order q hq
+        · exact Nat.zero_le _
+  let ρ : ℂ := (-1 + (Real.sqrt 3 : ℂ) * Complex.I) / 2
+  have ρim : 0 < ρ.im := by dsimp [ρ]; simp
+  have ρne : ρ ≠ 0 := fun hρ => by simp [hρ] at ρim
+  have ρone : ρ ≠ 1 := fun hρ => by simp [hρ] at ρim
+  have ρadd : ρ + 1 ≠ 0 := by
+    intro he
+    have hh := congrArg Complex.im he
+    simp only [Complex.add_im, Complex.one_im, Complex.zero_im, add_zero] at hh
+    exact (ne_of_gt ρim) hh
+  have ρeq : ρ ^ 2 + ρ + 1 = 0 := by
+    have hs : Real.sqrt 3 ^ 2 = 3 := Real.sq_sqrt (by norm_num)
+    apply Complex.ext <;> simp [ρ, Complex.mul_re, Complex.mul_im, pow_two] <;> nlinarith
+  have ρmult : (ρ + 1) ^ 2 = ρ := by
+    linear_combination ρeq
+  have ρfix : -1 / (ρ + 1) = ρ := by
+    apply (div_eq_iff ρadd).mpr
+    linear_combination -ρeq
+  have ρderiv : HasDerivAt (fun z : ℂ => -1 / (z + 1)) (ρ ^ 2) ρ := by
+    have hd := (hasDerivAt_const ρ (-1 : ℂ)).div
+      ((hasDerivAt_id ρ).add_const 1) ρadd
+    convert! hd using 1
+    change ρ ^ 2 = (0 * (ρ + 1) - -1 * 1) / (ρ + 1) ^ 2
+    simp only [zero_mul, neg_one_mul, zero_sub, neg_neg]
+    apply (eq_div_iff (pow_ne_zero 2 ρadd)).mpr
+    linear_combination (ρ ^ 2 + ρ - 1) * ρeq
+  have gU (q : Q) (hq : (ModularGroup.S * ModularGroup.T) • q = q)
+      (z : ℂ) (hz : 0 < z.im) :
+      g q (-1 / (z + 1)) = (z + 1) ^ (2 : ℕ) * g q z := by
+    have hqi : (ModularGroup.S * ModularGroup.T)⁻¹ • q = q := inv_smul_eq_iff.mpr hq.symm
+    have hh := gtransform q (ModularGroup.S * ModularGroup.T) ⟨z, hz⟩
+    rw [hqi, STcoe, STdenom] at hh
+    exact hh
+  have gU_order (q : Q) (hq : (ModularGroup.S * ModularGroup.T) • q = q) :
+      2 ≤ analyticOrderNatAt (g q) ρ := by
+    obtain ⟨r, hr, hball⟩ := Metric.mem_nhds_iff.mp
+      (isOpen_upperHalfPlaneSet.mem_nhds ρim)
+    have hm := p10_17ae7b7d_norm_local_multiplier_order
+      (g q) (fun z : ℂ => -1 / (z + 1)) (fun z : ℂ => (z + 1) ^ (2 : ℕ)) ρ
+      (gana q _ ρim) (gfinite q _ ρim)
+      (analyticAt_const.div (analyticAt_id.add analyticAt_const) ρadd) ρfix
+      (by rw [ρderiv.deriv]; exact pow_ne_zero _ ρne)
+      ((analyticAt_id.add analyticAt_const).pow 2)
+      ⟨r, hr, fun z hz => gU q hq z (hball (by simpa [Metric.mem_ball, dist_eq_norm] using hz))⟩
+    rw [ρderiv.deriv, ρmult] at hm
+    by_contra! hn
+    interval_cases hmorder : analyticOrderNatAt (g q) ρ
+    · exact ρone (by simpa [hmorder] using hm.symm)
+    · have hρ : ρ ^ 2 = ρ := by simpa [hmorder] using hm
+      have he : ρ * (ρ - 1) = 0 := by linear_combination hρ
+      exact ρone (sub_eq_zero.mp ((mul_eq_zero.mp he).resolve_left ρne))
+  have FU_order : 2 * ModularCurve.nuThree N ≤ analyticOrderNatAt F ρ := by
+    rw [Fnat_order _ ρim, ← hU_count, Nat.card_eq_fintype_card]
+    calc
+      2 * Fintype.card {q : Q // (ModularGroup.S * ModularGroup.T) • q = q} =
+          ∑ q : Q, if (ModularGroup.S * ModularGroup.T) • q = q then 2 else 0 := by
+            rw [Fintype.card_subtype, ← Finset.sum_filter]
+            simp only [Finset.sum_const, smul_eq_mul, mul_comm]
+      _ ≤ ∑ q : Q, analyticOrderNatAt (g q) ρ := by
+        apply Finset.sum_le_sum
+        intro q _
+        split_ifs with hq
+        · exact gU_order q hq
+        · exact Nat.zero_le _
+  -- Regroup the norm by translation orbits. Each orbit product has period one
+  -- and decays at infinity, so the disk extension has positive order.
+  let O := Quotient (MulAction.orbitRel (Subgroup.zpowers ModularGroup.T) Q)
+  let π : Q → O := Quotient.mk''
+  let : Fintype O := Fintype.ofFinite O
+  let s : O → Finset Q := fun o => Finset.univ.filter (fun q => π q = o)
+  have smem (o : O) (q : Q) : q ∈ s o ↔ π q = o := by simp [s]
+  have snonempty (o : O) : (s o).Nonempty := by
+    refine ⟨o.out, (smem o _).mpr ?_⟩
+    exact Quotient.out_eq' o
+  have πT (q : Q) : π (ModularGroup.T • q) = π q := by
+    exact MulAction.orbitRel.Quotient.quotient_smul_eq
+      (g := (⟨ModularGroup.T, Subgroup.mem_zpowers _⟩ : Subgroup.zpowers ModularGroup.T))
+  have πTi (q : Q) : π (ModularGroup.T⁻¹ • q) = π q := by
+    exact MulAction.orbitRel.Quotient.quotient_smul_eq
+      (g := (⟨ModularGroup.T⁻¹, (Subgroup.zpowers _).inv_mem (Subgroup.mem_zpowers _)⟩ :
+        Subgroup.zpowers ModularGroup.T))
+  let P : O → ℂ → ℂ := fun o z => ∏ q ∈ s o, g q z
+  have Pana (o : O) : AnalyticOnNhd ℂ (P o) {z : ℂ | 0 < z.im} :=
+    (s o).analyticOnNhd_fun_prod (fun q _ => gana q)
+  have Pnonzero (o : O) : ∃ z : ℂ, 0 < z.im ∧ P o z ≠ 0 := by
+    by_contra! he
+    have hp : analyticOrderAt (P o) Complex.I ≠ ⊤ := by
+      rw [prod_order (s o) _ (by simp)]
+      exact ENat.sum_ne_top.mpr (fun q _ => gfinite q _ (by simp))
+    apply hp
+    apply analyticOrderAt_eq_top.mpr
+    filter_upwards [isOpen_upperHalfPlaneSet.mem_nhds (show 0 < Complex.I.im by simp)]
+      with z hz using he z hz
+  have gT (q : Q) (z : ℂ) (hz : 0 < z.im) :
+      g q (z + 1) = g (ModularGroup.T⁻¹ • q) z := by
+    have ht := gtransform q ModularGroup.T ⟨z, hz⟩
+    rw [Tcoe, Tdenom] at ht
+    simpa only [UpperHalfPlane.coe_mk, one_pow, one_mul] using ht
+  have PT (o : O) (z : ℂ) (hz : 0 < z.im) : P o (z + 1) = P o z := by
+    change (∏ q ∈ s o, g q (z + 1)) = ∏ q ∈ s o, g q z
+    simp_rw [gT _ z hz]
+    apply Finset.prod_bij (fun q _ => ModularGroup.T⁻¹ • q)
+    · intro q hq
+      rw [smem, πTi]
+      exact (smem o q).mp hq
+    · intro q _ q' _ he
+      exact (MulAction.injective _ he)
+    · intro q hq
+      refine ⟨ModularGroup.T • q, ?_, inv_smul_smul _ _⟩
+      rw [smem, πT]
+      exact (smem o q).mp hq
+    · intro q _
+      rfl
+  have Pdecay (o : O) : ∀ ε : ℝ, 0 < ε → ∃ Y : ℝ,
+      ∀ z : ℂ, 0 < z.im → Y ≤ z.im → ‖P o z‖ ≤ ε := by
+    intro ε hε
+    obtain ⟨q₀, hq₀⟩ := snonempty o
+    choose Y hY using fun q : Q =>
+      gdecay q (if q = q₀ then ε else 1) (by split_ifs <;> positivity)
+    refine ⟨Finset.univ.sup' Finset.univ_nonempty Y, fun z hz hYz => ?_⟩
+    calc
+      ‖P o z‖ = ∏ q ∈ s o, ‖g q z‖ := norm_prod _ _
+      _ ≤ ∏ q ∈ s o, (if q = q₀ then ε else 1) :=
+        Finset.prod_le_prod (fun _ _ => norm_nonneg _) (fun q _ =>
+          hY q z hz ((Finset.le_sup' Y (Finset.mem_univ q)).trans hYz))
+      _ = ε := Finset.prod_ite_eq_of_mem' (s o) q₀ (fun _ => ε) hq₀
+  have Pexp (o : O) : ∃ B : ℂ → ℂ, AnalyticAt ℂ B 0 ∧ analyticOrderAt B 0 ≠ ⊤ ∧
+      1 ≤ analyticOrderNatAt B 0 ∧ ∀ z : ℂ, 0 < z.im →
+        P o z = B (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z)) := by
+    obtain ⟨Y, hY⟩ := Pdecay o 1 zero_lt_one
+    obtain ⟨B, hB, he, hfin, hpos⟩ := p10_17ae7b7d_periodic_disk_extension
+      1 (P o) zero_lt_one (Pana o).differentiableOn (Pnonzero o)
+      (by simpa using PT o) ⟨1, Y, hY⟩
+    exact ⟨B, hB.analyticAt (Metric.isOpen_ball.mem_nhds (by simp)), hfin,
+      hpos (Pdecay o), fun z hz => by simpa using he z hz⟩
+  choose B Bana Bfinite Bpositive Bexp using Pexp
+  let C : ℂ → ℂ := fun z => ∏ o : O, B o z
+  have Cana : AnalyticAt ℂ C 0 := Finset.univ.analyticAt_fun_prod (fun o _ => Bana o)
+  have Cqexp (z : ℂ) (hz : 0 < z.im) :
+      F z = C (Complex.exp (2 * (Real.pi : ℂ) * Complex.I * z)) := by
+    change (∏ q : Q, g q z) = ∏ o : O, B o _
+    rw [← Finset.prod_fiberwise Finset.univ π (fun q => g q z)]
+    exact Finset.prod_congr rfl (fun o _ => Bexp o z hz)
+  have Corder (t : Finset O) : analyticOrderAt (fun z => ∏ o ∈ t, B o z) 0 =
+      ∑ o ∈ t, analyticOrderAt (B o) 0 := by
+    induction t using Finset.induction_on with
+    | empty => simp [analyticOrderAt_eq_zero]
+    | @insert o t hot ih =>
+      simp only [Finset.prod_insert hot, Finset.sum_insert hot]
+      exact (analyticOrderAt_mul (Bana o)
+        (t.analyticAt_fun_prod (fun a _ => Bana a))).trans (congrArg _ ih)
+  have Cnat_order : analyticOrderNatAt C 0 = ∑ o : O, analyticOrderNatAt (B o) 0 := by
+    dsimp only [analyticOrderNatAt, C]
+    rw [Corder Finset.univ]
+    exact ENat.toNat_sum (fun o _ => Bfinite o)
+  have Ccusp_order : ModularCurve.cuspCount N ≤ analyticOrderNatAt C 0 := by
+    rw [Cnat_order, ← hT_count]
+    change Nat.card O ≤ ∑ o : O, analyticOrderNatAt (B o) 0
+    rw [Nat.card_eq_fintype_card]
+    calc
+      Fintype.card O = ∑ _o : O, (1 : ℕ) := by simp
+      _ ≤ ∑ o : O, analyticOrderNatAt (B o) 0 := Finset.sum_le_sum (fun o _ => Bpositive o)
+  exact ⟨F, C, Fholo, Fnonzero, FT, FS, Cana,
+    ⟨0, fun z hz _ => Cqexp z hz⟩, Ccusp_order, FS_order, FU_order⟩
 
 end Submission
