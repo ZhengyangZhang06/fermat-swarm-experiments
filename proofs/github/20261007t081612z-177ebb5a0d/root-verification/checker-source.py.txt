@@ -1,0 +1,866 @@
+"""Verify a frozen theorem using isolated exports and the official Lean comparator.
+
+Challenge and candidate sources live in separate sandboxes so a candidate cannot
+change declarations shared by the frozen contract. The comparator's existing
+verifyMatch performs statement/context equality, axiom checks and kernel replay.
+"""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import os
+import re
+import stat
+import subprocess
+import tempfile
+from pathlib import Path
+
+PROJECT = Path(os.environ["FERMAT_VERIFIER_PROJECT"]).resolve()
+# These are controller-owned pinned binaries, never candidate-provided paths.
+VERIFIER_BASE = Path("/mnt/data/zhengyang-workspace/fermat-example/.humanize")
+TOOLS = VERIFIER_BASE / "verifier"
+CACHE_ROOT = os.environ.get("FERMAT_VERIFIER_REFERENCE_CACHE", "")
+CACHE_DIGEST = os.environ.get("FERMAT_VERIFIER_REFERENCE_DIGEST", "")
+if bool(CACHE_ROOT) != bool(CACHE_DIGEST):
+    raise RuntimeError("reference cache requires both operator path and digest")
+LEAN = (Path(CACHE_ROOT) / "lean-4.33.1-linux/bin" if CACHE_ROOT else
+        VERIFIER_BASE / "toolchains/lean-4.33.1-linux/bin")
+AXIOMS = ["propext", "Quot.sound", "Classical.choice"]
+PRIMITIVES = [
+    "Nat.add",
+    "Nat.sub",
+    "Nat.mul",
+    "Nat.pow",
+    "Nat.gcd",
+    "Nat.div",
+    "Nat.mod",
+    "Nat.beq",
+    "Nat.ble",
+    "Nat.land",
+    "Nat.lor",
+    "Nat.xor",
+    "Nat.shiftLeft",
+    "Nat.shiftRight",
+    "String.ofList",
+    "Char.ofNat",
+    "List",
+    "eagerReduce",
+]
+ENV = {**os.environ, "PATH": f"{LEAN}:{os.environ['PATH']}", "LEAN_NUM_THREADS": "2"}
+
+
+def run(args, cwd, *, capture=False):
+    return subprocess.run(
+        list(map(str, args)),
+        cwd=cwd,
+        env=ENV,
+        text=True,
+        check=True,
+        stdout=subprocess.PIPE if capture else None,
+    )
+
+
+def git(repo, *args):
+    return run(["git", "--no-optional-locks", "-C", repo, *args], repo, capture=True).stdout
+
+
+def reference_inventory(root):
+    """Hash the complete trusted mirror, never just its Git source revisions."""
+    root = Path(root)
+    result = {}
+    inventoried_roots = tuple(root.resolve() / name for name in ("packages", "lean-4.33.1-linux"))
+    for name in ("packages", "lean-4.33.1-linux"):
+        directory = root / name
+        if directory.is_symlink() or not directory.is_dir():
+            raise RuntimeError("reference cache tree is missing or a symlink")
+        for path in sorted(directory.rglob("*")):
+            relative = path.relative_to(root).as_posix()
+            info = path.lstat()
+            if stat.S_ISLNK(info.st_mode):
+                target = path.resolve(strict=True)
+                if not target.is_relative_to(root.resolve()):
+                    raise RuntimeError("reference cache symlink escapes the mirror")
+                if not any(target.is_relative_to(tree) for tree in inventoried_roots):
+                    raise RuntimeError("reference cache symlink targets an uninventoried path")
+                result[relative] = {"link": os.readlink(path)}
+            elif stat.S_ISREG(info.st_mode):
+                digest = hashlib.sha256()
+                with path.open("rb") as handle:
+                    for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+                        digest.update(chunk)
+                result[relative] = {"sha256": digest.hexdigest(),
+                                    "mode": stat.S_IMODE(info.st_mode)}
+            elif not stat.S_ISDIR(info.st_mode):
+                raise RuntimeError("reference cache contains a special file")
+    return result
+
+
+def private_reference_root(value):
+    root = Path(value)
+    if (not root.is_absolute() or root.is_symlink() or root.resolve() != root
+            or root.is_relative_to(PROJECT.parent)):
+        raise RuntimeError("reference cache must be private and outside worker projects")
+    info = root.stat()
+    if (not stat.S_ISDIR(info.st_mode) or info.st_uid != os.geteuid()
+            or stat.S_IMODE(info.st_mode) != 0o700):
+        raise RuntimeError("reference cache must be operator-owned and mode 0700")
+    return root
+
+
+def seal_reference_cache(value):
+    """Operator attestation AFTER byte-comparing a mirror with trusted originals.
+
+    This does not establish provenance by itself. Only the controller may supply
+    the printed digest to future jobs; never accept a worker's self-signed cache.
+    """
+    root = private_reference_root(value)
+    record = {"schema": 1, "toolchain": "v4.33.1", "files": reference_inventory(root)}
+    encoded = json.dumps(record, sort_keys=True, separators=(",", ":")).encode()
+    with (root / "reference.json").open("xb") as handle:
+        handle.write(encoded)
+    print(f"Reference cache digest: {hashlib.sha256(encoded).hexdigest()}")
+
+
+def validate_reference_cache(*, contents=False):
+    if not CACHE_ROOT:
+        if CACHE_DIGEST:
+            raise RuntimeError("reference cache digest has no operator path")
+        return None
+    if not re.fullmatch(r"[a-f0-9]{64}", CACHE_DIGEST):
+        raise RuntimeError("invalid operator reference cache digest")
+    root = private_reference_root(CACHE_ROOT)
+    path = root / "reference.json"
+    if path.is_symlink():
+        raise RuntimeError("reference cache manifest is a symlink")
+    encoded = path.read_bytes()
+    if hashlib.sha256(encoded).hexdigest() != CACHE_DIGEST:
+        raise RuntimeError("reference cache differs from operator digest")
+    record = json.loads(encoded)
+    if record.get("schema") != 1 or record.get("toolchain") != "v4.33.1":
+        raise RuntimeError("unsupported reference cache manifest")
+    if contents and reference_inventory(root) != record.get("files"):
+        raise RuntimeError("reference cache artifacts changed")
+    return CACHE_DIGEST
+
+
+def compiled_packages():
+    return Path(CACHE_ROOT) / "packages" if CACHE_ROOT else PROJECT / ".lake/packages"
+
+
+def write(path, value):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(value, encoding="utf-8")
+
+
+def copy_revision(repo, revision, target):
+    for name in git(repo, "ls-tree", "-r", "--name-only", revision).splitlines():
+        if name.endswith(".lean") and name != "lakefile.lean":
+            write(target / name, git(repo, "show", f"{revision}:{name}"))
+
+
+def check_dependency_sources(packages_dir, manifest):
+    """Check pinned source revisions; generated ignored build artifacts are allowed."""
+    revisions = {}
+    for package in manifest["packages"]:
+        name = package["name"]
+        if package["type"] != "git" or not re.fullmatch(r"[A-Za-z0-9_-]+", name):
+            raise RuntimeError(f"unsupported frozen dependency: {name}")
+        checkout = packages_dir / name
+        actual = git(checkout, "rev-parse", "HEAD").strip()
+        if actual != package["rev"]:
+            raise RuntimeError(f"dependency revision changed: {name}")
+        if git(checkout, "status", "--porcelain").strip():
+            raise RuntimeError(f"dependency source checkout is not clean: {name}")
+        revisions[name] = actual
+    return revisions
+
+
+def configure(directory, *, mathlib=True):
+    roots = sorted(
+        {
+            p.relative_to(directory).parts[0].removesuffix(".lean")
+            for p in directory.rglob("*.lean")
+            if ".lake" not in p.parts
+        }
+    )
+    if any(not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", root) for root in roots):
+        raise RuntimeError("unsupported Lean module name in verifier input")
+    write(
+        directory / "lakefile.lean",
+        # These are the frozen project's elaboration options, not candidate input.
+        "import Lake\nopen Lake DSL\npackage verification where\n"
+        "  leanOptions := #[\n"
+        "    ⟨`autoImplicit, false⟩,\n"
+        "    ⟨`maxHeartbeats, (4000000 : Nat)⟩,\n"
+        "    ⟨`synthInstance.maxHeartbeats, (400000 : Nat)⟩,\n"
+        "    ⟨`backward.isDefEq.respectTransparency.types, false⟩\n"
+        "  ]\n\n" + "".join(f"lean_lib {root}\n" for root in roots),
+    )
+    write(directory / "lean-toolchain", "leanprover/lean4:v4.33.1\n")
+    write(
+        directory / "lake-manifest.json",
+        json.dumps(
+            {
+                "version": "1.2.0",
+                "packagesDir": ".lake/packages",
+                "packages": [],
+                "name": "verification",
+                "lakeDir": ".lake",
+            }
+        ),
+    )
+    lib = directory / ".lake/build/lib/lean"
+    lib.mkdir(parents=True, exist_ok=True)
+    if mathlib:
+        build_roots = [compiled_packages() / "mathlib/.lake/build/lib/lean"]
+        build_roots += sorted(
+            compiled_packages().glob("*/.lake/build/lib/lean")
+        )
+        for root in build_roots:
+            for child in root.iterdir():
+                if not (lib / child.name).exists():
+                    (lib / child.name).symlink_to(child.resolve())
+
+
+def sandbox(directory, args, *, lean_path="", capture=False):
+    command = [
+        "systemd-run",
+        "--user",
+        "--quiet",
+        "--wait",
+        "--pipe",
+        "--collect",
+        "--property=RestrictAddressFamilies=~AF_UNIX",
+        f"--working-directory={directory}",
+        f"--setenv=PATH={ENV['PATH']}",
+        "--setenv=LEAN_ABORT_ON_PANIC=1",
+        "--setenv=LEAN_NUM_THREADS=2",
+    ]
+    if lean_path:
+        command.append(f"--setenv=LEAN_PATH={lean_path}")
+    command += [
+        str(TOOLS / "landrun"),
+        "--best-effort",
+        "--ro",
+        "/etc",
+        "--rox",
+        "/usr",
+        "--ro",
+        str(directory),
+        "--rox",
+        str(TOOLS),
+        "--rox",
+        str(compiled_packages().resolve()),
+        "--rw",
+        "/dev",
+        "-ldd",
+        "-add-exec",
+        "--rwx",
+        str(directory / ".lake"),
+        "--rox",
+        str(LEAN.parent),
+        "--env",
+        "PATH",
+        "--env",
+        "HOME",
+        "--env",
+        "LEAN_PATH",
+        "--env",
+        "LEAN_ABORT_ON_PANIC",
+        "--env",
+        "LEAN_NUM_THREADS",
+        "--",
+        *map(str, args),
+    ]
+    return run(command, directory, capture=capture)
+
+
+def export(directory, module, name, destination):
+    names = [name] if isinstance(name, str) else name
+    sandbox(directory, ["lake", "--no-cache", "build", module])
+    lean_path = run(
+        ["lake", "env", "printenv", "LEAN_PATH"], directory, capture=True
+    ).stdout.strip()
+    exporter = TOOLS / "lean4export/.lake/build/bin/lean4export"
+    exported = sandbox(
+        directory,
+        [exporter, module, "--", *names, *AXIOMS, *PRIMITIVES],
+        lean_path=lean_path,
+        capture=True,
+    ).stdout
+    write(destination, exported)
+
+
+def compare(root, name, *, mathlib=True):
+    names = [name] if isinstance(name, str) else name
+    challenge, solution = root / "challenge", root / "solution"
+    configure(challenge, mathlib=mathlib)
+    configure(solution, mathlib=mathlib)
+    export(challenge, "Challenge", name, root / "challenge.export")
+    export(solution, "Solution", name, root / "solution.export")
+    config = {
+        "challenge_module": "Challenge",
+        "solution_module": "Solution",
+        "theorem_names": names,
+        "permitted_axioms": AXIOMS,
+        "enable_nanoda": False,
+    }
+    write(root / "config.json", json.dumps(config, indent=2))
+    run(
+        [
+            TOOLS / "comparator/.lake/build/bin/comparator",
+            root / "config.json",
+            "--exports",
+            root / "challenge.export",
+            root / "solution.export",
+        ],
+        solution,
+    )
+
+
+def self_test():
+    ordinary_challenge = "theorem toy : True := by sorry\n"
+    for title, challenge, candidate, accepted in [
+        ("valid", ordinary_challenge, "theorem toy : True := True.intro", True),
+        (
+            "changed-type",
+            ordinary_challenge,
+            "theorem toy : False → False := fun h => h",
+            False,
+        ),
+        ("sorry", ordinary_challenge, "theorem toy : True := by sorry", False),
+        (
+            "extra-axiom",
+            ordinary_challenge,
+            "axiom assumed : True\ntheorem toy : True := assumed",
+            False,
+        ),
+        (
+            "shared-definition",
+            "def ContractProp : Prop := True\ntheorem toy : ContractProp := by sorry",
+            "def ContractProp : Prop := True\ntheorem toy : ContractProp := True.intro",
+            True,
+        ),
+        (
+            "changed-definition",
+            "def ContractProp : Prop := False\ntheorem toy : ContractProp := by sorry",
+            "def ContractProp : Prop := True\ntheorem toy : ContractProp := True.intro",
+            False,
+        ),
+    ]:
+        with tempfile.TemporaryDirectory(prefix="deuring-comparator-test-") as tmp:
+            root = Path(tmp)
+            write(root / "challenge/Challenge.lean", challenge + "\n")
+            write(root / "solution/Solution.lean", candidate + "\n")
+            try:
+                compare(root, "toy", mathlib=False)
+                result = True
+            except subprocess.CalledProcessError:
+                result = False
+            if result != accepted:
+                raise RuntimeError(f"comparator self-test failed: {title}")
+            print(
+                f"SELF-TEST {title}: {'accepted' if result else 'rejected'}", flush=True
+            )
+    # A valid root cannot hide a missing/renamed or unproved child interface.
+    for title, child, accepted in [
+        ("combined-valid", "theorem Child : True := True.intro", True),
+        ("combined-renamed", "theorem Wrong.Child : True := True.intro", False),
+        ("combined-sorry", "theorem Child : True := by sorry", False),
+        ("combined-changed-type", "theorem Child : False → False := fun h => h", False),
+    ]:
+        with tempfile.TemporaryDirectory(prefix="deuring-combined-test-") as tmp:
+            root = Path(tmp)
+            write(root / "challenge/Challenge.lean", ordinary_challenge + "theorem Child : True := by sorry\n")
+            write(root / "solution/Solution.lean", "theorem toy : True := True.intro\n" + child + "\n")
+            try:
+                compare(root, ["toy", "Child"], mathlib=False)
+                result = True
+            except subprocess.CalledProcessError:
+                result = False
+            if result != accepted:
+                raise RuntimeError(f"comparator self-test failed: {title}")
+            print(f"SELF-TEST {title}: {'accepted' if result else 'rejected'}", flush=True)
+
+
+def sandbox_self_test():
+    """Prove the checker cannot read a file outside its explicit sandbox roots."""
+    with tempfile.TemporaryDirectory(prefix="fermat-sandbox-test-") as tmp:
+        root = Path(tmp)
+        outside = root / "private-canary"
+        write(outside, "must not be visible to candidate code")
+        candidate = root / "candidate"
+        configure(candidate, mathlib=False)
+        command = ["/usr/bin/python3", "-c",
+                   "import pathlib,sys\n"
+                   "try: pathlib.Path(sys.argv[1]).read_text()\n"
+                   "except PermissionError: print('SANDBOX_CANARY_DENIED'); sys.exit(0)\n"
+                   "raise SystemExit('sandbox exposed private canary')\n", str(outside)]
+        result = sandbox(candidate, command, capture=True)
+        if "SANDBOX_CANARY_DENIED" not in result.stdout:
+            raise RuntimeError("sandbox canary check did not produce rejection evidence")
+        print("SELF-TEST private-files: denied", flush=True)
+
+
+def root_child_contracts(dag, root_id):
+    """Collect the frozen interfaces of every retained prerequisite in the DAG."""
+    nodes = {one["id"]: one for one in dag["nodes"]}
+    found = {}
+    pending = [root_id]
+    visited = set()
+    while pending:
+        node_id = pending.pop()
+        if node_id in visited:
+            continue
+        visited.add(node_id)
+        record = nodes[node_id]
+        pending.extend(record.get("children", []))
+        pending.extend(record.get("depends_on", []))
+        if node_id == root_id:
+            continue
+        if record["status"] not in ("proved", "integrating"):
+            raise RuntimeError(f"root prerequisite is not accepted: {node_id}")
+        name = f"Submission.{record['lean_name']}"
+        if not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_'.]*", name):
+            raise RuntimeError("invalid frozen child Lean name")
+        if name in found:
+            raise RuntimeError(f"duplicate child interface: {name}")
+        found[name] = record["lean_statement"]
+    return dict(sorted(found.items()))
+
+
+def child_challenge(contract, name, statement):
+    """Restore declared universe names, which do not cross Lean import boundaries.
+
+    Use only declarations from the controller-validated frozen source, never
+    candidate options or assumptions. This does not normalize build directives.
+    """
+    universes = []
+    for line in contract.splitlines():
+        if line.startswith("universe "):
+            if not re.fullmatch(r"universe(?: [A-Za-z_][A-Za-z0-9_']*)+\s*", line):
+                raise RuntimeError("unsupported frozen universe declaration")
+            universes.append(line.strip())
+    prefix = "import Submission\n"
+    if universes:
+        prefix += "\n".join(universes) + "\n"
+    return prefix + f"theorem {name} : {statement} := by\n  sorry"
+
+
+def source_hashes(root):
+    """Hash the complete prepared Lean source trees, before generated build files.
+
+    Preparation writes regular files only. Refuse links instead of following
+    them across the controller's input boundary. Build outputs are deliberately
+    not an input to this digest and must not be accepted as source evidence.
+    """
+    result = {}
+    for side in ("challenge", "solution"):
+        directory = root / side
+        if directory.is_symlink() or not directory.is_dir():
+            raise RuntimeError("prepared source directory is missing or a link")
+        for path in sorted(directory.rglob("*")):
+            relative = path.relative_to(directory)
+            if ".lake" in relative.parts:
+                continue
+            if path.is_symlink():
+                raise RuntimeError("prepared source contains a symlink")
+            if path.is_file() and path.suffix == ".lean" and relative != Path("lakefile.lean"):
+                result[path.relative_to(root).as_posix()] = hashlib.sha256(path.read_bytes()).hexdigest()
+    if "challenge/Challenge.lean" not in result or "solution/Solution.lean" not in result:
+        raise RuntimeError("prepared theorem entrypoints are missing")
+    return result
+
+
+def repair_header(entry):
+    """Validate an explicit, frozen header prefix and its exact omitted lines."""
+    header, selected = entry.get('header'), entry.get('remove_lines')
+    if (not isinstance(header, str) or not header.endswith('\n')
+            or not isinstance(selected, list) or not selected
+            or any(type(number) is not int for number in selected)
+            or selected != sorted(set(selected))):
+        raise RuntimeError('invalid frozen header repair description')
+    lines = header.splitlines(keepends=True)
+    if selected[0] < 1 or selected[-1] != len(lines):
+        raise RuntimeError('repair prefix must end at its last omitted directive')
+    name = r"[^\W\d][\w']*(?:\.[^\W\d][\w']*)*"
+    erasure = re.compile(r'attribute[ \t]+\[-(?:simp|instance)\][ \t]+(' + name + r'(?:[ \t]+' + name + r')*)')
+    depth, targets, output = 0, [], []
+    for number, line in enumerate(lines, 1):
+        visible, at = [], 0
+        while at < len(line):
+            pair = line[at:at + 2]
+            if pair == '/-':
+                depth += 1
+                at += 2
+            elif depth:
+                if pair == '-/':
+                    depth -= 1
+                    at += 2
+                else:
+                    at += 1
+            elif pair == '--':
+                break
+            else:
+                visible.append(line[at])
+                at += 1
+        command = ''.join(visible).strip()
+        if command and (not re.match(r'^(?:import|set_option|universe|open|attribute)\b', command)
+                        or '"' in command or ';' in command):
+            raise RuntimeError('repair prefix contains a declaration or unsupported command')
+        if number in selected:
+            match = erasure.fullmatch(command)
+            if not match or command != line.strip():
+                raise RuntimeError('repair may omit only standalone negative simp/instance directives')
+            targets.extend(match[1].split())
+        else:
+            output.append(line)
+    if depth:
+        raise RuntimeError('repair prefix contains an unterminated comment')
+    return header, ''.join(output), sorted(set(targets))
+
+
+def header_absence_probe(entry):
+    _, derived, targets = repair_header(entry)
+    literals = ', '.join(json.dumps(name, ensure_ascii=False) for name in targets)
+    # Importing Lean can only make this absence check more conservative. It
+    # supplies trusted command APIs, never a proof or an assumption for the goal.
+    return ('import Lean\n' + derived + '\nrun_cmd do\n'
+            f'  for target in ([{literals}] : List String) do\n'
+            '    let candidates ← Lean.resolveGlobalName target.toName\n'
+            '    if candidates.any (fun candidate => candidate.2.isEmpty) then\n'
+            '      throwError "header repair target exists: {target}"\n'
+            '  Lean.logInfo "FROZEN_HEADER_TARGETS_ABSENT"\n')
+
+
+def selected_header_policy(expected_contract):
+    """Select a controller-pinned policy; worker requests cannot enable repair."""
+    location = os.environ.get('FERMAT_FROZEN_HEADER_POLICY', '')
+    digest = os.environ.get('FERMAT_FROZEN_HEADER_POLICY_SHA256', '')
+    if not location and not digest:
+        return None
+    if not location or not re.fullmatch(r'[a-f0-9]{64}', digest):
+        raise RuntimeError('header repair requires an operator policy and digest')
+    path = Path(location)
+    if (not path.is_absolute() or path.resolve() != path or path.is_symlink()
+            or path.is_relative_to(PROJECT.parent)):
+        raise RuntimeError('header policy must be outside worker projects at a fixed operator path')
+    info = path.stat()
+    parent = path.parent.stat()
+    if (not stat.S_ISREG(info.st_mode) or info.st_uid != os.geteuid()
+            or info.st_mode & 0o077 or not stat.S_ISDIR(parent.st_mode)
+            or parent.st_uid != os.geteuid() or stat.S_IMODE(parent.st_mode) != 0o700):
+        raise RuntimeError('header policy must be private and operator-owned')
+    encoded = path.read_bytes()
+    if hashlib.sha256(encoded).hexdigest() != digest:
+        raise RuntimeError('header policy differs from its operator digest')
+    policy = json.loads(encoded)
+    if policy.get('schema') != 1 or not isinstance(policy.get('entries'), list):
+        raise RuntimeError('unsupported frozen header policy')
+    matches = [entry for entry in policy['entries']
+               if entry.get('source_commit') == os.environ['FERMAT_FROZEN_SOURCE']
+               and entry.get('contract_file') == os.environ['FERMAT_CONTRACT_FILE']]
+    if not matches:
+        return None  # Unlisted frozen problems retain the original behavior.
+    if len(matches) != 1:
+        raise RuntimeError('ambiguous frozen header policy')
+    entry = matches[0]
+    if (entry.get('contract_sha256') != hashlib.sha256(expected_contract.encode()).hexdigest()
+            or entry.get('root_name') != os.environ['FERMAT_ROOT_NAME']):
+        raise RuntimeError('header policy does not match the exact frozen contract')
+    header, _, _ = repair_header(entry)
+    if not expected_contract.startswith(header):
+        raise RuntimeError('header policy prefix differs from the frozen source')
+    return {**entry, 'policy_sha256': digest}
+
+
+def derive_header_inputs(root, entry, *, root_node):
+    """Change private compiler copies only, retaining reversible byte evidence."""
+    if entry is None:
+        return None
+    header, derived, targets = repair_header(entry)
+    names = ['challenge/Submission.lean', 'solution/Submission.lean']
+    if root_node:
+        names.append('challenge/Challenge.lean')
+    changes = {}
+    for name in names:
+        path = root / name
+        original = path.read_bytes()
+        if not original.startswith(header.encode()):
+            raise RuntimeError(f'frozen header changed before derived-copy preparation: {name}')
+        candidate = derived.encode() + original[len(header.encode()):]
+        path.write_bytes(candidate)
+        changes[name] = {'original_sha256': hashlib.sha256(original).hexdigest(),
+                         'build_sha256': hashlib.sha256(candidate).hexdigest()}
+    probe = root / 'challenge/HeaderPolicyCheck.lean'
+    if probe.exists():
+        raise RuntimeError('header-policy probe path is already occupied')
+    probe.write_text(header_absence_probe(entry), encoding='utf-8')
+    return {'schema': 1, 'policy_sha256': entry['policy_sha256'],
+            'contract_sha256': entry['contract_sha256'], 'header': header,
+            'remove_lines': entry['remove_lines'], 'missing_targets': targets,
+            'files': changes, 'probe_sha256': hashlib.sha256(probe.read_bytes()).hexdigest()}
+
+
+def validate_header_inputs(root, packet):
+    repair = packet['evidence'].get('frozen_header_repair')
+    if repair is None:
+        return
+    if repair.get('schema') != 1 or any(not re.fullmatch(r'[a-f0-9]{64}', repair.get(key, ''))
+            for key in ('policy_sha256', 'contract_sha256', 'probe_sha256')):
+        raise RuntimeError('invalid frozen header repair evidence')
+    original, derived, targets = repair_header(repair)
+    expected = {'challenge/Submission.lean', 'solution/Submission.lean'}
+    if packet['evidence']['node'] == 'root':
+        expected.add('challenge/Challenge.lean')
+    if set(repair['files']) != expected or repair['missing_targets'] != targets:
+        raise RuntimeError('header repair input scope changed')
+    for name, hashes in repair['files'].items():
+        content = (root / name).read_bytes()
+        if not content.startswith(derived.encode()):
+            raise RuntimeError('derived header prefix changed')
+        restored = original.encode() + content[len(derived.encode()):]
+        if (hashlib.sha256(restored).hexdigest() != hashes['original_sha256']
+                or hashlib.sha256(content).hexdigest() != hashes['build_sha256']
+                or packet['source_sha256'].get(name) != hashes['build_sha256']):
+            raise RuntimeError('derived source differs from its retained original binding')
+    probe = (root / 'challenge/HeaderPolicyCheck.lean').read_bytes()
+    if (probe != header_absence_probe(repair).encode()
+            or hashlib.sha256(probe).hexdigest() != repair['probe_sha256']
+            or packet['source_sha256'].get('challenge/HeaderPolicyCheck.lean') != repair['probe_sha256']):
+        raise RuntimeError('header target absence check changed')
+
+
+def header_policy_self_test():
+    """Exercise the actual comparator and absence gate with derived inputs."""
+    for title, target, candidate, accepted in [
+        ('valid', 'FrozenMissing.lemma', 'theorem toy : True := True.intro', True),
+        ('changed-type', 'FrozenMissing.lemma', 'theorem toy : False → False := fun h => h', False),
+        ('sorry', 'FrozenMissing.lemma', 'theorem toy : True := by sorry', False),
+        ('extra-axiom', 'FrozenMissing.lemma', 'axiom assumed : True\ntheorem toy : True := assumed', False),
+        ('present-target', 'True.intro', 'theorem toy : True := True.intro', False),
+        ('opened-target', 'intro', 'theorem toy : True := True.intro', False),
+    ]:
+        with tempfile.TemporaryDirectory(prefix='fermat-header-policy-test-') as tmp:
+            root = Path(tmp)
+            header = 'import Init\n' + ('open True\n' if title == 'opened-target' else '')
+            header += f'attribute [-simp] {target}\n'
+            contract = header + 'theorem toy : True := by sorry\n'
+            for name in ('challenge/Challenge.lean', 'challenge/Submission.lean'):
+                write(root / name, contract)
+            write(root / 'solution/Submission.lean', header + candidate + '\n')
+            write(root / 'solution/Solution.lean', 'import Submission\n')
+            entry = dict(header=header, remove_lines=[len(header.splitlines())], policy_sha256='a' * 64,
+                         contract_sha256=hashlib.sha256(contract.encode()).hexdigest())
+            derive_header_inputs(root, entry, root_node=True)
+            try:
+                compare(root, 'toy', mathlib=False)
+                sandbox(root / 'challenge', ['lake', 'env', 'lean', 'HeaderPolicyCheck.lean'])
+                result = True
+            except subprocess.CalledProcessError:
+                result = False
+            if result != accepted:
+                raise RuntimeError(f'header policy self-test failed: {title}')
+            print(f'HEADER-SELF-TEST {title}: {"accepted" if result else "rejected"}', flush=True)
+
+
+def prepared_digest(packet):
+    return hashlib.sha256(json.dumps(packet, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+
+
+def validate_prepared(root, expected_digest):
+    """Validate a controller-pinned packet; a digest supplied by a worker is not trust.
+
+    This checks transport integrity only, not proof correctness. The caller must
+    still run compare(), axiom reporting, and dependency/tool integrity checks.
+    """
+    root = Path(root)
+    packet_path = root / "prepared.json"
+    if packet_path.is_symlink():
+        raise RuntimeError("prepared packet is a symlink")
+    packet = json.loads(packet_path.read_text())
+    if packet.get("schema") != 1 or prepared_digest(packet) != expected_digest:
+        raise RuntimeError("prepared packet differs from controller digest")
+    if source_hashes(root) != packet["source_sha256"]:
+        raise RuntimeError("prepared sources differ from controller snapshot")
+    if hashlib.sha256(Path(__file__).read_bytes()).hexdigest() != packet["evidence"]["verifier_sha256"]:
+        raise RuntimeError("prepared verifier identity changed")
+    if packet["evidence"]["status"] != "checking":
+        raise RuntimeError("prepared packet is not an unverified input")
+    if packet["evidence"].get("reference_cache_digest") != validate_reference_cache():
+        raise RuntimeError("prepared reference cache binding changed")
+    validate_header_inputs(root, packet)
+    evidence_path = root / "evidence.json"
+    if evidence_path.is_symlink() or json.loads(evidence_path.read_text()) != packet["evidence"]:
+        raise RuntimeError("prepared evidence differs from controller snapshot")
+    return packet
+
+
+def prepare_verification():
+    """Freeze controller-validated inputs without compiling or accepting a proof.
+
+    The existing local entrypoint immediately verifies this packet. A future
+    dispatcher may transport it with its controller-retained digest; nothing
+    calls that remote path yet. Frozen originals are never written; an explicit
+    operator policy may derive private compiler copies with reversible evidence.
+    """
+    run_root = Path(os.environ["HUMANIZE_RUN_DIR"]).resolve()
+    if not run_root.is_relative_to(PROJECT / ".humanize"):
+        raise RuntimeError("run directory is outside the registered project")
+    node_id = os.environ["HUMANIZE_NODE_ID"]
+    context = json.loads((run_root / "github-workflow.json").read_text())
+    # The service supplies these from its private operator-owned registry, not
+    # from a worker request or editable problem config. They pin the original goal.
+    if context["source_commit"] != os.environ["FERMAT_FROZEN_SOURCE"]:
+        raise RuntimeError("original frozen source revision changed")
+    if context["root_lean_name"] != os.environ["FERMAT_ROOT_NAME"]:
+        raise RuntimeError("original theorem identity changed")
+    expected_contract = git(PROJECT, "show", f"{context['source_commit']}:{os.environ['FERMAT_CONTRACT_FILE']}")
+    if context["contract"].strip() != expected_contract.strip():
+        raise RuntimeError("original frozen Lean contract changed")
+    header_policy = selected_header_policy(expected_contract)
+    manifest = json.loads(
+        git(PROJECT, "show", f"{context['source_commit']}:lake-manifest.json")
+    )
+    dependencies = check_dependency_sources(PROJECT / ".lake/packages", manifest)
+    # Preparation copies Git sources and binds the operator's cache manifest; it
+    # does not execute Lean or consume compiled artifacts. The actual verifier
+    # inventories its local cache in full before compilation and again before
+    # acceptance. Rehashing the controller's entire mirror here duplicates those
+    # gates and serializes fleet throughput through controller disk/page cache.
+    reference_digest = validate_reference_cache()
+    if CACHE_ROOT and check_dependency_sources(compiled_packages(), manifest) != dependencies:
+        raise RuntimeError("cached dependency revisions differ from frozen manifest")
+    verifier_digest = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+    dag = json.loads((run_root / "dag.json").read_text())
+    node = next(n for n in dag["nodes"] if n["id"] == node_id)
+    candidate = Path.cwd()
+    revision = git(candidate, "rev-parse", "HEAD").strip()
+    if revision != os.environ["FERMAT_CANDIDATE_REVISION"]:
+        raise RuntimeError("candidate HEAD differs from the requested immutable revision")
+    run(["git", "merge-base", "--is-ancestor", context["source_commit"], revision], candidate)
+    if git(candidate, "status", "--porcelain", "--untracked-files=no").strip():
+        raise RuntimeError("commit the candidate before verification")
+    base = node.get("proof_base_commit") or context["source_commit"]
+    name = (
+        context["root_lean_name"]
+        if node_id == "root"
+        else f"Submission.{node['lean_name']}"
+    )
+    if not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_'.]*", name):
+        raise RuntimeError("invalid frozen Lean name")
+    # Candidates may write their own project worktree, never the verifier's
+    # challenge/candidate snapshots or controller evidence while checking.
+    output = Path(os.environ["FERMAT_VERIFIER_OUTPUT"]).resolve()
+    if output.is_relative_to(PROJECT.parent):
+        raise RuntimeError("verifier output must be outside worker-writable projects")
+    output.mkdir(parents=True, exist_ok=True)
+    root = Path(tempfile.mkdtemp(prefix=f"{node_id.replace('.', '-')}-", dir=output))
+    copy_revision(PROJECT, base, root / "challenge")
+    copy_revision(candidate, revision, root / "solution")
+    if node_id == "root":
+        # The exact supplied source ends at the conclusion, without a proof body.
+        contract = context["contract"].rstrip()
+        if ":=" not in contract:
+            contract += " := by\n  sorry"
+        children = root_child_contracts(dag, node_id)
+        for child_name, child_statement in children.items():
+            contract += f"\n\ntheorem {child_name} : {child_statement} := by\n  sorry"
+    else:
+        contract = child_challenge(context["contract"], name, node['lean_statement'])
+    names = [name, *children] if node_id == "root" else [name]
+    write(root / "challenge/Challenge.lean", contract + "\n")
+    write(root / "solution/Solution.lean", "import Submission\n")
+    header_repair = derive_header_inputs(root, header_policy, root_node=node_id == 'root')
+    write(
+        root / "evidence.json",
+        json.dumps(
+            {
+                "node": node_id,
+                "theorem": name,
+                "checked_theorems": names,
+                "candidate_commit": revision,
+                "base_commit": base,
+                "root_contract_commit": context["source_commit"],
+                "lean_toolchain": "v4.33.1",
+                "permitted_axioms": AXIOMS,
+                "dependency_revisions": dependencies,
+                "verifier_sha256": verifier_digest,
+                "reference_cache_digest": reference_digest,
+                "status": "checking",
+                **({'frozen_header_repair': header_repair} if header_repair else {}),
+            },
+            indent=2,
+        ),
+    )
+    evidence = json.loads((root / "evidence.json").read_text())
+    packet = {"schema": 1, "evidence": evidence, "dependency_manifest": manifest,
+              "source_sha256": source_hashes(root)}
+    write(root / "prepared.json", json.dumps(packet, sort_keys=True, indent=2))
+    # Detect dependency/checker changes during snapshot creation as well as
+    # during the later compiler/comparator run.
+    if check_dependency_sources(PROJECT / ".lake/packages", manifest) != dependencies:
+        raise RuntimeError("dependency revisions changed during preparation")
+    digest = prepared_digest(packet)
+    validate_prepared(root, digest)
+    return root, digest
+
+
+def verify_prepared(root, digest):
+    """Run the original proof gates on the exact controller-prepared input."""
+    root = Path(root)
+    packet = validate_prepared(root, digest)
+    evidence = packet["evidence"]
+    manifest, dependencies = packet["dependency_manifest"], evidence["dependency_revisions"]
+    validate_reference_cache(contents=True)
+    if CACHE_ROOT and check_dependency_sources(compiled_packages(), manifest) != dependencies:
+        raise RuntimeError("cached dependency revisions changed")
+    if check_dependency_sources(PROJECT / ".lake/packages", manifest) != dependencies:
+        raise RuntimeError("prepared dependency revisions changed")
+    names = evidence["checked_theorems"]
+    compare(root, names)
+    if evidence.get('frozen_header_repair'):
+        sandbox(root / 'challenge', ['lake', 'env', 'lean', 'HeaderPolicyCheck.lean'])
+    # configure() generates only lakefile.lean and .lake content, excluded from
+    # source_hashes. Original Lean inputs must still be byte-exact afterward.
+    validate_prepared(root, digest)
+    write(
+        root / "solution/AxiomReport.lean",
+        "import Solution\n" + "".join(f"#print axioms {one}\n" for one in names),
+    )
+    sandbox(root / "solution", ["lake", "env", "lean", "AxiomReport.lean"])
+    if check_dependency_sources(PROJECT / ".lake/packages", manifest) != dependencies:
+        raise RuntimeError("dependency revisions changed during verification")
+    if hashlib.sha256(Path(__file__).read_bytes()).hexdigest() != evidence["verifier_sha256"]:
+        raise RuntimeError("verifier source changed during verification")
+    validate_reference_cache(contents=True)
+    evidence = json.loads((root / "evidence.json").read_text())
+    evidence["status"] = "verified"
+    write(root / "evidence.json", json.dumps(evidence, indent=2))
+    print(f"Verification evidence: {root}")
+
+
+def verify():
+    root, digest = prepare_verification()
+    verify_prepared(root, digest)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--self-test", action="store_true")
+    parser.add_argument("--sandbox-self-test", action="store_true")
+    parser.add_argument("--seal-verified-reference-cache", type=Path,
+                        help="operator only: attest a mirror already byte-compared with trusted originals")
+    args = parser.parse_args()
+    if args.seal_verified_reference_cache:
+        seal_reference_cache(args.seal_verified_reference_cache)
+    elif args.sandbox_self_test:
+        validate_reference_cache(contents=True)
+        sandbox_self_test()
+    elif args.self_test:
+        validate_reference_cache(contents=True)
+        self_test()
+    else:
+        verify()
