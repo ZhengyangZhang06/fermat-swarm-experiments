@@ -320,3 +320,75 @@ theorem Submission.p09_af497904fe_fcc_fra_residue_injective :
     x = x * (v * y) := by rw [hvy, mul_one]
     _ = (x * v) * y := (mul_assoc x v y).symm
     _ = y := by rw [htv, one_mul]
+
+theorem Submission.p09_af497904fe_ftl_compatible_automorphisms_glue :
+    ∀ (F : ℕ → IntermediateField ℚ (AlgebraicClosure ℚ)) (hmono : Monotone F),
+      (∀ x : AlgebraicClosure ℚ, ∃ i : ℕ, x ∈ F i) →
+      ∀ g : (i : ℕ) → F i ≃ₐ[ℚ] F i,
+        (∀ (i j : ℕ) (hij : i ≤ j) (x : F i),
+          IntermediateField.inclusion (hmono hij) (g i x) =
+            g j (IntermediateField.inclusion (hmono hij) x)) →
+        ∃ τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ,
+          ∀ (i : ℕ) (x : F i),
+            τ (x : AlgebraicClosure ℚ) = ((g i x : F i) : AlgebraicClosure ℚ) := by
+  classical
+  intro F hmono hcover g hcompat
+  choose stage hstage using (fun x => hcover x)
+  let lift (a : (i : ℕ) → F i ≃ₐ[ℚ] F i) (x : AlgebraicClosure ℚ) :
+      AlgebraicClosure ℚ := a (stage x) ⟨x, hstage x⟩
+  have hlift (a : (i : ℕ) → F i ≃ₐ[ℚ] F i)
+      (ha : ∀ (i j : ℕ) (hij : i ≤ j) (x : F i),
+        IntermediateField.inclusion (hmono hij) (a i x) =
+          a j (IntermediateField.inclusion (hmono hij) x))
+      (i : ℕ) (x : F i) : lift a (x : AlgebraicClosure ℚ) =
+        ((a i x : F i) : AlgebraicClosure ℚ) := by
+    let k := max (stage (x : AlgebraicClosure ℚ)) i
+    have hleft := congrArg (fun z : F k => (z : AlgebraicClosure ℚ))
+      (ha (stage (x : AlgebraicClosure ℚ)) k (Nat.le_max_left _ _)
+        ⟨(x : AlgebraicClosure ℚ), hstage (x : AlgebraicClosure ℚ)⟩)
+    have hright := congrArg (fun z : F k => (z : AlgebraicClosure ℚ))
+      (ha i k (Nat.le_max_right _ _) x)
+    exact hleft.trans hright.symm
+  have hinv (i j : ℕ) (hij : i ≤ j) (x : F i) :
+      IntermediateField.inclusion (hmono hij) ((g i).symm x) =
+        (g j).symm (IntermediateField.inclusion (hmono hij) x) := by
+    apply (g j).injective
+    simpa using (hcompat i j hij ((g i).symm x)).symm
+  let t := lift g
+  let u := lift (fun i => (g i).symm)
+  have ht (i : ℕ) (x : F i) :
+      t (x : AlgebraicClosure ℚ) = ((g i x : F i) : AlgebraicClosure ℚ) :=
+    hlift g hcompat i x
+  have hu (i : ℕ) (x : F i) :
+      u (x : AlgebraicClosure ℚ) = (((g i).symm x : F i) : AlgebraicClosure ℚ) :=
+    hlift (fun i => (g i).symm) hinv i x
+  have hleft (x : AlgebraicClosure ℚ) : u (t x) = x := by
+    obtain ⟨i, hi⟩ := hcover x
+    rw [ht i ⟨x, hi⟩, hu i (g i ⟨x, hi⟩), (g i).symm_apply_apply]
+  have hright (x : AlgebraicClosure ℚ) : t (u x) = x := by
+    obtain ⟨i, hi⟩ := hcover x
+    rw [hu i ⟨x, hi⟩, ht i ((g i).symm ⟨x, hi⟩), (g i).apply_symm_apply]
+  have hcommon (x y : AlgebraicClosure ℚ) : ∃ i, x ∈ F i ∧ y ∈ F i := by
+    obtain ⟨i, hi⟩ := hcover x
+    obtain ⟨j, hj⟩ := hcover y
+    exact ⟨max i j, hmono (Nat.le_max_left _ _) hi,
+      hmono (Nat.le_max_right _ _) hj⟩
+  refine ⟨{
+    toFun := t
+    invFun := u
+    left_inv := hleft
+    right_inv := hright
+    map_mul' := ?_
+    map_add' := ?_
+    commutes' := ?_ }, ht⟩
+  · intro x y
+    obtain ⟨i, hx, hy⟩ := hcommon x y
+    change t (((⟨x, hx⟩ : F i) * ⟨y, hy⟩ : F i) : AlgebraicClosure ℚ) = _
+    rw [ht, map_mul, IntermediateField.coe_mul, ht i ⟨x, hx⟩, ht i ⟨y, hy⟩]
+  · intro x y
+    obtain ⟨i, hx, hy⟩ := hcommon x y
+    change t (((⟨x, hx⟩ : F i) + ⟨y, hy⟩ : F i) : AlgebraicClosure ℚ) = _
+    rw [ht, map_add, IntermediateField.coe_add, ht i ⟨x, hx⟩, ht i ⟨y, hy⟩]
+  · intro r
+    change t ((algebraMap ℚ (F 0) r : F 0) : AlgebraicClosure ℚ) = _
+    rw [ht, (g 0).commutes]
