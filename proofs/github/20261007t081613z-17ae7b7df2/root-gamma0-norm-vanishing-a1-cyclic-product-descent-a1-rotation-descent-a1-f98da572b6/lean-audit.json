@@ -1,0 +1,36 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "exp_two_pi_mul_I_mul_div_eq_one_iff|le_radius_of_summable|eq_formalMultilinearSeries_of_eventually|coeff_ofScalars",
+        "rotation_descent|rd_coeff_support|rd_sparse_series_descent"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/project/Definitions/Def_ModularCurve_GenusNumerics.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/Uniqueness.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/ConvergenceRadius.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/Analytic/OfScalars.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p10/.humanize/github-theorem-prover/runs/20261007T081613Z-17ae7b7df2/local-references/a3694b60efa3c29f/mathlib/Mathlib/Analysis/SpecialFunctions/Complex/Log.lean"
+      ],
+      "conclusion": "Both snapshots are clean and match manifest revisions. Located upstream coefficient uniqueness, scalar-series, convergence-radius, and exponential-divisibility declarations. No tracked rotation-descent or child declaration names occur in the snapshot. The exact comparator rerun passed with only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "6cc728ac99de55825e003f46672fbd2047692da229ca7ea1f7570f838aeb4b49",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_cpd_rotation_descent",
+      "statement": "∀ (w : ℕ) (P : ℂ → ℂ), 0 < w → AnalyticAt ℂ P 0 → (∃ s : ℝ, 0 < s ∧ ∀ t : ℂ, ‖t‖ < s → P (Complex.exp (2 * (Real.pi : ℂ) * Complex.I / (w : ℂ)) * t) = P t) → ∃ C : ℂ → ℂ, AnalyticAt ℂ C 0 ∧ ∃ r : ℝ, 0 < r ∧ ∀ t : ℂ, ‖t‖ < r → P t = C (t ^ w)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Composes the accepted coefficient-support and sparse-series-descent theorems."
+    }
+  ]
+}
