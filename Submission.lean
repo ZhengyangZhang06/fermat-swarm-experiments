@@ -1758,6 +1758,230 @@ theorem p10_17ae7b7d_level_one_valence_inequality :
     (hsmallCuts.and (hcutNonempty.and hcutBoundaryZeroFree)).mono (fun ε hε =>
       hinteriorExcision (Ω ε) (hcutOpen ε hε.1.1 hε.1.2) hε.2.1
         (hcutCompact ε) ((hcutClosureK ε).trans hKH) hε.2.2)
+  -- Step 10: identify the supports of the genuine retained boundary.
+  -- Intersecting with the actual closure discards the removed portions of each support.
+  let cutCenter : ℂ → ℝ → ℂ := fun v ε => (v.re : ℂ) +
+    ((v.im * (1 + ε ^ 2) / (1 - ε ^ 2) : ℝ) : ℂ) * Complex.I
+  let cutRadius : ℂ → ℝ → ℝ := fun v ε => 2 * v.im * ε / (1 - ε ^ 2)
+  let outerSupport : Fin 4 → Set ℂ :=
+    ![{z | ‖z‖ = 1}, {z | z.re = 1 / 2}, {z | z.im = Y}, {z | z.re = -1 / 2}]
+  let boundarySupport : ℝ → Fin 4 ⊕ B → Set ℂ := fun ε =>
+    Sum.elim outerSupport (fun v => Metric.sphere (cutCenter v ε) (cutRadius v ε))
+  have hcutFrontier : ∀ ε : ℝ, 0 < ε → ε < 1 →
+      frontier (Ω ε) = ⋃ i, closure (Ω ε) ∩ boundarySupport ε i := by
+    intro ε hε hε1
+    rw [(hcutOpen ε hε hε1).frontier_eq]
+    ext z
+    constructor
+    · rintro ⟨hzcl, hznot⟩
+      have hzK := hcutClosureK ε hzcl
+      by_cases hzO : z ∈ O
+      · have hzcut : z ∈ ⋃ v ∈ B, D v ε := by
+          by_contra hn
+          exact hznot ⟨hzO, hn⟩
+        obtain ⟨v, hv, hzv⟩ := Set.mem_iUnion₂.mp hzcut
+        have hball : D v ε = Metric.closedBall (cutCenter v ε) (cutRadius v ε) :=
+          (hdisks v ε (hKH hv.1.1) hε hε1).1
+        have hsub : Ω ε ⊆ (Metric.ball (cutCenter v ε) (cutRadius v ε))ᶜ := by
+          intro w hw hwb
+          apply hw.2
+          exact Set.mem_iUnion₂.mpr ⟨v, hv, hball.symm ▸ Metric.ball_subset_closedBall hwb⟩
+        have hnball := (closure_minimal hsub Metric.isOpen_ball.isClosed_compl) hzcl
+        have hdist : dist z (cutCenter v ε) = cutRadius v ε := by
+          apply le_antisymm
+          · exact Metric.mem_closedBall.mp (hball ▸ hzv)
+          · exact le_of_not_gt hnball
+        exact Set.mem_iUnion.mpr ⟨Sum.inr ⟨v, hv⟩, hzcl, hdist⟩
+      · have hcases : ‖z‖ = 1 ∨ z.re = 1 / 2 ∨ z.im = Y ∨ z.re = -1 / 2 := by
+          by_contra! hn
+          apply hzO
+          refine ⟨?_, lt_of_le_of_ne hzK.2.1 (Ne.symm hn.1), hzK.2.2.1,
+            lt_of_le_of_ne hzK.2.2.2 hn.2.2.1⟩
+          apply abs_lt.mpr
+          exact ⟨lt_of_le_of_ne (abs_le.mp hzK.1).1
+              (by simpa only [neg_div] using Ne.symm hn.2.2.2),
+            lt_of_le_of_ne (abs_le.mp hzK.1).2 hn.2.1⟩
+        rcases hcases with hz | hz | hz | hz
+        · exact Set.mem_iUnion.mpr ⟨Sum.inl 0, hzcl, hz⟩
+        · exact Set.mem_iUnion.mpr ⟨Sum.inl 1, hzcl, hz⟩
+        · exact Set.mem_iUnion.mpr ⟨Sum.inl 2, hzcl, hz⟩
+        · exact Set.mem_iUnion.mpr ⟨Sum.inl 3, hzcl, hz⟩
+    · intro hz
+      obtain ⟨i, hzcl, hzi⟩ := Set.mem_iUnion.mp hz
+      refine ⟨hzcl, ?_⟩
+      intro hzΩ
+      rcases i with i | v
+      · fin_cases i
+        · exact (ne_of_gt hzΩ.1.2.1) hzi
+        · have heq : z.re = 1 / 2 := hzi
+          exact (ne_of_lt (abs_lt.mp hzΩ.1.1).2) heq
+        · exact (ne_of_lt hzΩ.1.2.2.2) hzi
+        · have heq : z.re = -1 / 2 := hzi
+          have hlt := (abs_lt.mp hzΩ.1.1).1
+          linarith
+      · apply hzΩ.2
+        refine Set.mem_iUnion₂.mpr ⟨v, v.property, ?_⟩
+        rw [show D v ε = _ from (hdisks v ε (hKH v.property.1.1) hε hε1).1]
+        exact Metric.sphere_subset_closedBall hzi
+  -- Steps 5–7 for this cut domain: the new boundary components are exactly the
+  -- excision circles. Their clockwise parametrizations carry the negative residues.
+  let square : ℝ → ℤ × ℤ → Set ℂ := fun d i => {z |
+    (i.1 : ℝ) * d ≤ z.re ∧ z.re ≤ ((i.1 : ℝ) + 1) * d ∧
+    (i.2 : ℝ) * d ≤ z.im ∧ z.im ≤ ((i.2 : ℝ) + 1) * d}
+  have hfixedExcisionBoundary : ∀ᶠ ε in nhdsWithin (0 : ℝ) (Set.Ioi 0),
+      ∃ r δ : ℝ, 0 < r ∧ 0 < δ ∧
+        let S : Set ℂ := {z ∈ Ω ε | F z = 0}
+        let V := Ω ε \ ⋃ v ∈ S, Metric.closedBall v r
+        IsOpen V ∧ IsCompact (closure V) ∧ (∀ z ∈ closure V, F z ≠ 0) ∧
+          frontier V = (⋃ i, closure (Ω ε) ∩ boundarySupport ε i) ∪
+            ⋃ v ∈ S, Metric.sphere v r ∧
+          (∀ v ∈ S, Set.range (circleMap v r) ⊆ frontier V ∧
+            IntervalIntegrable (fun t => L (circleMap v r t) * deriv (circleMap v r) t)
+              MeasureTheory.volume (2 * Real.pi) 0 ∧
+            intervalIntegral (fun t => L (circleMap v r t) * deriv (circleMap v r) t)
+              (2 * Real.pi) 0 MeasureTheory.volume =
+                -(2 * (Real.pi : ℂ) * Complex.I * (analyticOrderNatAt F v : ℂ))) ∧
+          (∀ z ∈ closure V, Complex.IsExactOn L (Metric.ball z δ)) ∧
+          ∃ d : ℝ, 0 < d ∧
+            let cells : Set (ℤ × ℤ) := {i | (closure V ∩ square d i).Nonempty}
+            cells.Finite ∧ closure V ⊆ ⋃ i ∈ cells, square d i ∧
+              ∀ i ∈ cells, Complex.IsExactOn L (square d i) := by
+    filter_upwards [hsmallCuts, hcutExcision] with ε hε hexc
+    let S : Set ℂ := {z ∈ Ω ε | F z = 0}
+    obtain ⟨r, p, hr, _, _, hpairs, hcircles, hpV, hVopen, hVc, hVF, δ, hδ, hmesh⟩ := hexc
+    let V := Ω ε \ ⋃ v ∈ S, Metric.closedBall v r
+    have hS : S.Finite := hKzeros.subset (fun z hz => ⟨hOK hz.1.1, hz.2⟩)
+    have hballsClosed : IsClosed (⋃ v ∈ S, Metric.closedBall v r) :=
+      hS.isClosed_biUnion (fun _ _ => Metric.isClosed_closedBall)
+    have hfrontier : frontier V = frontier (Ω ε) ∪ ⋃ v ∈ S, Metric.sphere v r := by
+      ext z
+      rw [hVopen.frontier_eq, (hcutOpen ε hε.1 hε.2).frontier_eq]
+      constructor
+      · rintro ⟨hzcl, hznot⟩
+        have hzΩcl : z ∈ closure (Ω ε) :=
+          (closure_mono (show V ⊆ Ω ε from fun _ hw => hw.1)) hzcl
+        by_cases hzΩ : z ∈ Ω ε
+        · right
+          have hzball : z ∈ ⋃ v ∈ S, Metric.closedBall v r := by
+            by_contra hn
+            exact hznot ⟨hzΩ, hn⟩
+          obtain ⟨v, hv, hzv⟩ := Set.mem_iUnion₂.mp hzball
+          have hsub : V ⊆ (Metric.ball v r)ᶜ := by
+            intro w hw hwb
+            exact hw.2 (Set.mem_iUnion₂.mpr ⟨v, hv, Metric.ball_subset_closedBall hwb⟩)
+          have hnball := (closure_minimal hsub Metric.isOpen_ball.isClosed_compl) hzcl
+          exact Set.mem_iUnion₂.mpr ⟨v, hv,
+            le_antisymm (Metric.mem_closedBall.mp hzv) (le_of_not_gt hnball)⟩
+        · exact Or.inl ⟨hzΩcl, hzΩ⟩
+      · intro hz
+        rcases hz with ⟨hzcl, hznot⟩ | hz
+        · have hzout : z ∉ ⋃ v ∈ S, Metric.closedBall v r := by
+            intro hzball
+            obtain ⟨v, hv, hzv⟩ := Set.mem_iUnion₂.mp hzball
+            exact hznot ((hcircles v hv).1 hzv)
+          refine ⟨?_, fun hzV => hznot hzV.1⟩
+          apply mem_closure_iff.mpr
+          intro U hU hzU
+          obtain ⟨w, ⟨hwU, hwout⟩, hwΩ⟩ := mem_closure_iff.mp hzcl
+            (U ∩ (⋃ v ∈ S, Metric.closedBall v r)ᶜ)
+            (hU.inter hballsClosed.isOpen_compl) ⟨hzU, hzout⟩
+          exact ⟨w, hwU, hwΩ, hwout⟩
+        · obtain ⟨v, hv, hzv⟩ := Set.mem_iUnion₂.mp hz
+          have hzball := Metric.sphere_subset_closedBall hzv
+          have hzΩ := (hcircles v hv).1 hzball
+          let W := Ω ε \ ⋃ w ∈ S \ {v}, Metric.closedBall w r
+          have hWopen : IsOpen W := (hcutOpen ε hε.1 hε.2).sdiff
+            ((hS.sdiff : (S \ {v}).Finite).isClosed_biUnion
+              (fun _ _ => Metric.isClosed_closedBall))
+          have hzW : z ∈ W := by
+            refine ⟨hzΩ, ?_⟩
+            intro hzother
+            obtain ⟨w, hw, hzw⟩ := Set.mem_iUnion₂.mp hzother
+            exact Set.disjoint_left.mp (hpairs hv hw.1 (Ne.symm hw.2)) hzball hzw
+          have hzoutcl : z ∈ closure (Metric.closedBall v r)ᶜ := by
+            have hzf : z ∈ frontier (Metric.closedBall v r) := by
+              rwa [frontier_closedBall v hr.ne']
+            rw [frontier_eq_closure_inter_closure] at hzf
+            exact hzf.2
+          refine ⟨?_, fun hzV => hzV.2 (Set.mem_iUnion₂.mpr ⟨v, hv, hzball⟩)⟩
+          apply mem_closure_iff.mpr
+          intro U hU hzU
+          obtain ⟨w, ⟨hwU, hwW⟩, hwout⟩ := mem_closure_iff.mp hzoutcl
+            (U ∩ W) (hU.inter hWopen) ⟨hzU, hzW⟩
+          refine ⟨w, hwU, hwW.1, ?_⟩
+          intro hwball
+          obtain ⟨a, ha, hwa⟩ := Set.mem_iUnion₂.mp hwball
+          by_cases hav : a = v
+          · exact hwout (hav ▸ hwa)
+          · exact hwW.2 (Set.mem_iUnion₂.mpr ⟨a, ⟨ha, hav⟩, hwa⟩)
+    refine ⟨r, δ, hr, hδ, hVopen, hVc, hVF, ?_, ?_, hmesh, ?_⟩
+    · rw [hfrontier, hcutFrontier ε hε.1 hε.2]
+    · intro v hv
+      refine ⟨?_, ?_, ?_⟩
+      · rw [range_circleMap, abs_of_pos hr, hfrontier]
+        exact fun z hz => Or.inr (Set.mem_iUnion₂.mpr ⟨v, hv, hz⟩)
+      · simpa only [smul_eq_mul, mul_comm] using (hcircles v hv).2.1.out.symm
+      · rw [intervalIntegral.integral_symm]
+        have hcw : intervalIntegral
+            (fun t => L (circleMap v r t) * deriv (circleMap v r) t)
+            0 (2 * Real.pi) MeasureTheory.volume = circleIntegral L v r := by
+          simp only [circleIntegral, smul_eq_mul, mul_comm]
+        rw [hcw, (hcircles v hv).2.2]
+    · let d : ℝ := δ / 4
+      have hd : 0 < d := by dsimp [d]; positivity
+      let cells : Set (ℤ × ℤ) := {i | (closure V ∩ square d i).Nonempty}
+      have hVK : closure V ⊆ K :=
+        (closure_mono (show V ⊆ Ω ε from fun _ hz => hz.1)).trans (hcutClosureK ε)
+      have hcover : ∀ z : ℂ, ∃ i : ℤ × ℤ, z ∈ square d i := by
+        intro z
+        refine ⟨(⌊z.re / d⌋, ⌊z.im / d⌋), ?_⟩
+        have hlo (x : ℝ) : (⌊x / d⌋ : ℝ) * d ≤ x := by
+          simpa only [div_mul_cancel₀ _ hd.ne'] using
+            mul_le_mul_of_nonneg_right (Int.floor_le (x / d)) hd.le
+        have hhi (x : ℝ) : x ≤ ((⌊x / d⌋ : ℝ) + 1) * d := by
+          simpa only [div_mul_cancel₀ _ hd.ne'] using
+            mul_le_mul_of_nonneg_right (Int.lt_floor_add_one (x / d)).le hd.le
+        exact ⟨hlo _, hhi _, hlo _, hhi _⟩
+      have hfiniteCells : cells.Finite := by
+        obtain ⟨N, hN⟩ := exists_nat_gt ((Y + 1) / d + 1)
+        have hNd : Y + 1 + d < (N : ℝ) * d := by
+          have hm := mul_lt_mul_of_pos_right hN hd
+          rw [add_mul, div_mul_cancel₀ _ hd.ne', one_mul] at hm
+          exact hm
+        apply (Set.finite_Icc ((-(N : ℤ), -(N : ℤ))) ((N : ℤ), (N : ℤ))).subset
+        intro i hi
+        obtain ⟨z, hzV, hzi⟩ := hi
+        have hzK := hVK hzV
+        have hzre := abs_le.mp hzK.1
+        have him := hzK.2.2
+        have hi1lo : -(N : ℝ) ≤ (i.1 : ℝ) := by
+          nlinarith [hzi.2.1]
+        have hi1hi : (i.1 : ℝ) ≤ (N : ℝ) := by
+          nlinarith [hzi.1]
+        have hi2lo : -(N : ℝ) ≤ (i.2 : ℝ) := by
+          nlinarith [hzi.2.2.2]
+        have hi2hi : (i.2 : ℝ) ≤ (N : ℝ) := by
+          nlinarith [hzi.2.2.1]
+        exact ⟨⟨by exact_mod_cast hi1lo, by exact_mod_cast hi2lo⟩,
+          ⟨by exact_mod_cast hi1hi, by exact_mod_cast hi2hi⟩⟩
+      refine ⟨d, hd, hfiniteCells, ?_, ?_⟩
+      · intro z hz
+        obtain ⟨i, hzi⟩ := hcover z
+        exact Set.mem_iUnion₂.mpr ⟨i, ⟨z, hz, hzi⟩, hzi⟩
+      · intro i hi
+        obtain ⟨z, hzV, hzi⟩ := hi
+        obtain ⟨g, hg⟩ := hmesh z hzV
+        refine ⟨g, fun w hwi => hg w ?_⟩
+        have hre : |(w - z).re| ≤ d := by
+          rw [Complex.sub_re, abs_le]
+          constructor <;> linarith [hzi.1, hzi.2.1, hwi.1, hwi.2.1]
+        have him : |(w - z).im| ≤ d := by
+          rw [Complex.sub_im, abs_le]
+          constructor <;> linarith [hzi.2.2.1, hzi.2.2.2, hwi.2.2.1, hwi.2.2.2]
+        rw [Metric.mem_ball, dist_eq_norm]
+        have hnorm := (Complex.norm_le_abs_re_add_abs_im (w - z)).trans (add_le_add hre him)
+        dsimp [d] at hnorm
+        linarith
   have htranslateDisks : ∀ v ∈ H, ∀ ε : ℝ, 0 < ε → ε < 1 →
       (fun z : ℂ => z + 1) '' D v ε = D (v + 1) ε := by
     intro v hv ε hε hε1
