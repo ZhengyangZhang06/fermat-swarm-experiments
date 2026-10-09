@@ -369,3 +369,92 @@ theorem Submission.p09_af497904fe_ffe_prime_frobenius_congruence :
     (Ideal.Quotient.mk q a) ^ ℓ at h
   rw [← map_pow] at h
   exact Ideal.Quotient.eq.mp h
+theorem Submission.p09_af497904fe_ffe_localized_frobenius :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) (ℓ : ℕ), ℓ.Prime →
+      ∀ (V : ValuationSubring E) (q : Ideal (NumberField.RingOfIntegers E)),
+      q.IsPrime →
+      (∀ x : E, x ∈ V ↔ ∃ a b : NumberField.RingOfIntegers E,
+        b ∉ q ∧ x = (a : E) / (b : E)) →
+      (∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V.nonunits ↔ a ∈ q) →
+      ∀ g : E ≃ₐ[ℚ] E,
+      (∀ a : NumberField.RingOfIntegers E,
+        NumberField.RingOfIntegers.mapRingEquiv g.toRingEquiv a - a ^ ℓ ∈ q) →
+      V.IsFrobeniusAt g ℓ := by
+  intro E ℓ hℓ V q hq hloc hnon g hcong
+  let γ := NumberField.RingOfIntegers.mapRingEquiv g.toRingEquiv
+  have hγ (a : NumberField.RingOfIntegers E) : γ a ∈ q ↔ a ∈ q := by
+    constructor
+    · intro ha
+      apply hq.mem_of_pow_mem ℓ
+      simpa only [γ, sub_sub_cancel] using q.sub_mem ha (hcong a)
+    · intro ha
+      simpa only [sub_add_cancel] using
+        q.add_mem (hcong a) (q.pow_mem_of_mem ha ℓ hℓ.pos)
+  have hγinv (a : NumberField.RingOfIntegers E) : γ.symm a ∈ q ↔ a ∈ q := by
+    simpa only [RingEquiv.apply_symm_apply] using (hγ (γ.symm a)).symm
+  have hforward (x : E) (hx : x ∈ V) : g x ∈ V := by
+    obtain ⟨a, b, hb, rfl⟩ := (hloc x).mp hx
+    apply (hloc _).mpr
+    refine ⟨γ a, γ b, fun h => hb ((hγ b).mp h), ?_⟩
+    exact map_div₀ g _ _
+  have hbackward (x : E) (hx : x ∈ V) : g.symm x ∈ V := by
+    obtain ⟨a, b, hb, rfl⟩ := (hloc x).mp hx
+    apply (hloc _).mpr
+    refine ⟨γ.symm a, γ.symm b, fun h => hb ((hγinv b).mp h), ?_⟩
+    exact map_div₀ g.symm _ _
+  have hg : g ∈ V.decompositionSubgroup ℚ := by
+    let := ValuationSubring.pointwiseMulAction (G := E ≃ₐ[ℚ] E) (K := E)
+    rw [MulAction.mem_stabilizer_iff]
+    ext x
+    rw [ValuationSubring.mem_smul_pointwise_iff_exists]
+    constructor
+    · rintro ⟨y, hy, rfl⟩
+      exact hforward y hy
+    · intro hx
+      exact ⟨g.symm x, hbackward x hx, g.apply_symm_apply x⟩
+  have hint (a : NumberField.RingOfIntegers E) : (a : E) ∈ V :=
+    (hloc _).mpr ⟨a, 1, hq.one_notMem, by simp⟩
+  let i : NumberField.RingOfIntegers E →+* V :=
+    { toFun := fun a => ⟨(a : E), hint a⟩
+      map_one' := by apply Subtype.ext; exact map_one (algebraMap _ _)
+      map_mul' := fun a b => by apply Subtype.ext; exact map_mul (algebraMap _ _) a b
+      map_zero' := by apply Subtype.ext; exact map_zero (algebraMap _ _)
+      map_add' := fun a b => by apply Subtype.ext; exact map_add (algebraMap _ _) a b }
+  let κ : NumberField.RingOfIntegers E →+* IsLocalRing.ResidueField V :=
+    (IsLocalRing.residue V).comp i
+  have hker (a : NumberField.RingOfIntegers E) : κ a = 0 ↔ a ∈ q := by
+    change IsLocalRing.residue V (i a) = 0 ↔ a ∈ q
+    rw [IsLocalRing.residue_eq_zero_iff, ← ValuationSubring.coe_mem_nonunits_iff]
+    exact hnon a
+  have hκ (a : NumberField.RingOfIntegers E) : κ (γ a) = κ a ^ ℓ := by
+    have h := (hker (γ a - a ^ ℓ)).mpr (hcong a)
+    rw [map_sub, map_pow, sub_eq_zero] at h
+    exact h
+  have hfrac (v : V) (a b : NumberField.RingOfIntegers E) (hb : b ∉ q)
+      (hv : (v : E) = (a : E) / (b : E)) :
+      IsLocalRing.residue V v = κ a / κ b := by
+    have hbE : (b : E) ≠ 0 := by
+      intro hb0
+      apply hb
+      have : b = 0 := by
+        apply NumberField.RingOfIntegers.ext
+        exact hb0
+      simpa only [this] using q.zero_mem
+    have hmul : v * i b = i a := by
+      apply Subtype.ext
+      change (v : E) * (b : E) = (a : E)
+      exact (eq_div_iff hbE).mp hv
+    apply (eq_div_iff (fun h => hb ((hker b).mp h))).mpr
+    exact (map_mul (IsLocalRing.residue V) v (i b)).symm.trans
+      (congrArg (IsLocalRing.residue V) hmul)
+  refine ⟨hg, ?_⟩
+  intro z
+  obtain ⟨v, rfl⟩ := IsLocalRing.residue_surjective (R := V) z
+  obtain ⟨a, b, hb, hv⟩ := (hloc (v : E)).mp v.property
+  rw [← IsLocalRing.ResidueField.residue_smul]
+  have hgv : (((⟨g, hg⟩ : V.decompositionSubgroup ℚ) • v : V) : E) =
+      (γ a : E) / (γ b : E) := by
+    change g (v : E) = g (a : E) / g (b : E)
+    rw [hv, map_div₀]
+  rw [hfrac _ (γ a) (γ b) (fun h => hb ((hγ b).mp h)) hgv,
+    hfrac v a b hb hv, hκ a, hκ b, div_pow]
