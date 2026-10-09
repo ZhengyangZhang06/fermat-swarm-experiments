@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "7f604645f56a95a7a316d82b01377453e0a7ce2b2f986dcef9f79185c6348cc5",
+  "git_delta": {
+    "base_commit": "12c6a5a28b77e9b020bfbd7acbbe30a6b6f2c0d7",
+    "candidate_commit": "55956e852943cd5ebbfefeb2d7366f8c8e2fee91",
+    "target": "Submission.lean",
+    "declaration": "p10_17ae7b7d_uce_unimodular_iff_unit_coord",
+    "diff_sha256": "385e41f8e73825ceff3ba7bcf3e8291df9ab14322ceb270907777ca9ac013448",
+    "source_sha256": "3ba4d7678b963ae2bb24b1f5a578b734337779e83d0e12a87b209e18e570c885",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p10_17ae7b7d_uce_unimodular_iff_unit_coord",
+      "statement": "∀ (p a : ℕ), p.Prime → 0 < a → ∀ r s : ZMod (p ^ a), (∃ x y : ZMod (p ^ a), x * r + y * s = 1) ↔ IsUnit r ∨ IsUnit s",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
