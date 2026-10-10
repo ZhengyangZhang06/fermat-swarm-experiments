@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "d427622984c28809a06a6139ec480c41c1527f22eccc82a2081c0cf18106e572",
+  "git_delta": {
+    "base_commit": "666132e4fe0168076d4c78cf0511021eabc60a04",
+    "candidate_commit": "4561f6226a2b3ca0da3e4428a0b590df2165bbde",
+    "target": "Submission.lean",
+    "declaration": "p03_eds_two_torsion_four_sum_68cf3476_d5",
+    "diff_sha256": "f2ceafdac1933b006bff5fb826d3b0826d90f47680be8b7c3308f99bba9273a3",
+    "source_sha256": "4a7f9920e958cbaddf4cb8d5322b5eecf13ddb6b1b593e7acfd7c8a0688214ba",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p03_eds_two_torsion_four_sum_68cf3476_d5",
+      "statement": "∀ (G : Type) [AddCommGroup G] [DecidableEq G] (T : Finset G), (∀ x : G, x ∈ T ↔ (2 : ℕ) • x = 0) → T.card = 4 → T.sum (fun x => x) = 0",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

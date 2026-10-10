@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "78a5d2da5e3cb6afede507160b0928f47a4ec8615cf2dc4824456ff77ec98971",
+  "git_delta": {
+    "base_commit": "969b9088cf9ac582b5c3553169074a76c0cce733",
+    "candidate_commit": "5be050529068805b9ab21749a1060a7439903f16",
+    "target": "Submission.lean",
+    "declaration": "p03_odd_prepsi_degree_lc_68cf3476",
+    "diff_sha256": "93bb744ed590bfd131ed6b2e9d272951de7a9f4c2f65ded357dd932f3256d60e",
+    "source_sha256": "2cac24f883f483444067c345dbb29d4430f50aedcf87430929243c775e424255",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p03_odd_prepsi_degree_lc_68cf3476",
+      "statement": "∀ (F : Type) [Field F] [CharZero F] [DecidableEq F] (W : WeierstrassCurve F) (n : ℕ), 3 ≤ n → Odd n → (W.preΨ' n).natDegree = (n ^ 2 - 1) / 2 ∧ (W.preΨ' n).leadingCoeff = (n : F)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

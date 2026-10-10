@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "accf28cf50430fe0ae4f6dedd9ed212b6f17b546aca83ccc8b62d826f39e155d",
+  "git_delta": {
+    "base_commit": "76a5a13631ccb5437823224ae790d5515f6426cb",
+    "candidate_commit": "949f35d3fc35b1d52b53f678040a1cd49b732f43",
+    "target": "Submission.lean",
+    "declaration": "p03_tu_lambert_summable_68cf3476",
+    "diff_sha256": "e470764ba07772f1b4248fe1c26a143dd5903efe09663359678fff348a87625b",
+    "source_sha256": "d45de8db2d56253d16dae39d3c9a326aefb4a062b742070c8e6ab8edde41427a",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p03_tu_lambert_summable_68cf3476",
+      "statement": "∀ (F : Type) [NormedField F] [CompleteSpace F], (∀ x y : F, ‖x + y‖ ≤ max ‖x‖ ‖y‖) → ∀ q : F, ‖q‖ < 1 → ∀ k : ℕ, Summable (fun d : ℕ => ((d + 1 : ℕ) : F) ^ k * q ^ (d + 1) / (1 - q ^ (d + 1)))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

@@ -1,0 +1,36 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "galoisRep_ordinaryLineAt|IsSemistableModel|LiesOverPrime|galoisRepModuleEnd",
+        "ordinaryLine|tate.uniform|specialization|reductionHom|reductionMap"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Definitions/Def_GaloisRep_Residual.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Definitions/Def_FLTPrelim_Modularity.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve"
+      ],
+      "conclusion": "Confirmed frozen semistability, prime, inertia and Galois-action definitions. Project and mathlib snapshots are clean at their manifest revisions. The second query found no matches in the elliptic-curve directory. All 221 comparator Lean inputs were hash-checked; the independent rerun preserved the root and all 24 child interfaces, passed kernel checking, and reported only permitted transitive axioms."
+    }
+  ],
+  "comparison_identity": "b926dc13471d2a038b4bd92187ec6b9a9ae6ec71f9edb4303efe437042794eeb",
+  "publication_proof_reviewed": true,
+  "publication_proof_blob": "7fac68b5a017556a4720524d3619efaa3731ac5d",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "WeierstrassCurve.galoisRep_ordinaryLineAt",
+      "statement": "∀ (W : WeierstrassCurve ℤ) (p : ℕ) [Fact p.Prime] (hp2 : p ≠ 2) (hΔ : W.Δ ≠ 0) (hW : W.IsSemistableModel) (hord : (p : ℤ) ∣ W.Δ ∨ ∃ i, 1 ≤ i ∧ i < (p ^ 2 - 1) / 2 ∧ ¬ (p : ℤ) ∣ (W.preΨ' p).coeff i) (A : ValuationSubring (AlgebraicClosure ℚ)) (hA : A.LiesOverPrime p), ∃ L : Submodule (ZMod p) (Submodule.torsionBy ℤ ((W.map (Int.castRingHom ℚ))⁄(AlgebraicClosure ℚ)).Point p), L ≠ ⊤ ∧ ∀ σ ∈ A.inertiaSubgroupIn ℚ, ∀ v : Submodule.torsionBy ℤ ((W.map (Int.castRingHom ℚ))⁄(AlgebraicClosure ℚ)).Point p, WeierstrassCurve.Affine.Point.galoisRepModuleEnd (K := AlgebraicClosure ℚ) ℚ (W.map (Int.castRingHom ℚ)) p σ v - v ∈ L",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Construct a nonzero inertia-invariant additive map using specialization in good reduction and the accepted Tate uniformization in multiplicative reduction. Its kernel is the required proper submodule."
+    }
+  ]
+}

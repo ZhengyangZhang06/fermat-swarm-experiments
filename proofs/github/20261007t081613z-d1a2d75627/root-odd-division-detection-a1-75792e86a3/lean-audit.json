@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n \"preΨ'|p03_odd_division_detection_68cf3476\" mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/Degree.lean project/Fermat/Thm_WeierstrassCurve_galoisRep_ordinaryLineAt.lean",
+        "sed -n '240,280p' mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/Degree.lean",
+        "rg -n 'p03_odd_division_detection_68cf3476' project mathlib/Mathlib"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/Degree.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Fermat/Thm_WeierstrassCurve_galoisRep_ordinaryLineAt.lean"
+      ],
+      "conclusion": "Confirmed clean pinned project and mathlib revisions. Degree.lean supplies existing degree and leading-coefficient formulas; the tracked theorem name has no snapshot match. The original root contract matches the frozen Git source byte-for-byte."
+    }
+  ],
+  "comparison_identity": "5ef709812cb149ecb78019c5299f4522603a7cfdb2043005216b495f355257bf",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p03_odd_division_detection_68cf3476",
+      "statement": "∀ (F : Type) [Field F] [CharZero F] [DecidableEq F] (W : WeierstrassCurve F), W.Δ ≠ 0 → ∀ (n : ℕ), 3 ≤ n → Odd n → (W.preΨ' n).natDegree = (n ^ 2 - 1) / 2 ∧ (W.preΨ' n).leadingCoeff = (n : F) ∧ ∀ (x y : F) (h : W.toAffine.Nonsingular x y), n • WeierstrassCurve.Affine.Point.some x y h = 0 ↔ (W.preΨ' n).eval x = 0",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines the accepted degree-and-leading-coefficient theorem with the accepted odd predivision-polynomial torsion criterion."
+    }
+  ]
+}

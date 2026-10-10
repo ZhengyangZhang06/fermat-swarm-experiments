@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "abd1a3c4583f87b7eb085b8d3e018119bcb9f94f40cb8ba03607433c91afc843",
+  "git_delta": {
+    "base_commit": "76a5a13631ccb5437823224ae790d5515f6426cb",
+    "candidate_commit": "3c40c88802b7d428c9c1270948458631b205d8d8",
+    "target": "Submission.lean",
+    "declaration": "p03_tu_euler_product_powers_68cf3476",
+    "diff_sha256": "9db0d315c56a4627aa0fca4bc3e0b5d8174749a4e670409f49f0798a6943ce2e",
+    "source_sha256": "f06f2b54e2efb94d95482676963892ab418a215986fb10265266bf937c25afe9",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p03_tu_euler_product_powers_68cf3476",
+      "statement": "∀ (F : Type) [NormedField F] [CompleteSpace F], (∀ x y : F, ‖x + y‖ ≤ max ‖x‖ ‖y‖) → ∀ q : F, ‖q‖ < 1 → Multipliable (fun d : ℕ => 1 - q ^ (d + 1)) ∧ (∏' d : ℕ, (1 - q ^ (d + 1))) ≠ 0 ∧ ∀ k : ℕ, Multipliable (fun d : ℕ => (1 - q ^ (d + 1)) ^ k) ∧ (∏' d : ℕ, (1 - q ^ (d + 1)) ^ k) = (∏' d : ℕ, (1 - q ^ (d + 1))) ^ k ∧ (∏' d : ℕ, (1 - q ^ (d + 1)) ^ k) ≠ 0",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

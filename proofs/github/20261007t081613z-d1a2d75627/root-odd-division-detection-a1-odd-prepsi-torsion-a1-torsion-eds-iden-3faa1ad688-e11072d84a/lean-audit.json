@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "dda9a4fa01ab4e47c432afadaab7382b5399af6edafe4f21a695175b138c0d10",
+  "git_delta": {
+    "base_commit": "64243de3ca2ccedc5cb24b663cdc53ba9d6ff1a7",
+    "candidate_commit": "099d9769298bac4d1f26b27f6fbf1c2a73da8452",
+    "target": "Submission.lean",
+    "declaration": "p03_eds_canonical_even_recurrence_68cf3476_d4",
+    "diff_sha256": "764821d2a00828c53cdf3e80add1589ddd546041af8b7e5b91dfadc22e4343a7",
+    "source_sha256": "b488776dbf1e44ed98dbb94528806058f6947ceec7af5367825a425799420b43",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p03_eds_canonical_even_recurrence_68cf3476_d4",
+      "statement": "∀ (k : Type) [Field k] [CharZero k] [DecidableEq k] (W : WeierstrassCurve k), let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine; let h := q W.ψ₂; let F : ℕ → W.toAffine.CoordinateRing := fun n => q (Polynomial.C (W.preΨ' n)) * (if Even n then h else 1); ∀ r : ℕ, 3 ≤ r → h * F (2 * r) = F r * (F (r + 2) * F (r - 1) ^ 2 - F (r - 2) * F (r + 1) ^ 2)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

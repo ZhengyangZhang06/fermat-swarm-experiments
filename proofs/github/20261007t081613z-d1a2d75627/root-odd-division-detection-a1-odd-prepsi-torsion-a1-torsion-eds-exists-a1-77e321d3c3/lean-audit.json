@@ -1,0 +1,36 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "galoisRep_ordinaryLineAt|galoisRepModuleEnd",
+        "def Ψ|lemma Ψ_(zero|one|two|three|four|even|odd)|XYIdeal|quotientXYIdealEquiv",
+        "p03_torsion_eds_exists_68cf3476_d2"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Fermat/Thm_WeierstrassCurve_galoisRep_ordinaryLineAt.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Definitions/Def_GaloisRep_Residual.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Point.lean"
+      ],
+      "conclusion": "Confirmed clean pinned project and mathlib revisions, byte-identical frozen contract, and existing division-polynomial and point-ideal infrastructure. No occurrence of the tracked child declaration in the snapshot. Independent comparator run e56b15c43b8c4aa38f6b042e95cde654 passed; all 221 exported Lean inputs matched the audited Git-derived inputs, including reversible policy-authorized header deletions. Transitive axioms were only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "57da714fa7cf9dfdb948ec3b4cf7cd0920f9ac78686deb22ea2d59a8c14ae847",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p03_torsion_eds_exists_68cf3476_d2",
+      "statement": "∀ (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k] (W : WeierstrassCurve k), W.Δ ≠ 0 → let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine; let h := q W.ψ₂; ∃ f : ℕ → W.toAffine.CoordinateRing, (f 0 = 0 ∧ f 1 = 1 ∧ f 2 = h ∧ f 3 = q (Polynomial.C W.Ψ₃) ∧ f 4 = h * q (Polynomial.C W.preΨ₄) ∧ (∀ r : ℕ, 2 ≤ r → f (2 * r + 1) = f (r + 2) * f r ^ 3 - f (r - 1) * f (r + 1) ^ 3) ∧ (∀ r : ℕ, 3 ≤ r → h * f (2 * r) = f r * (f (r + 2) * f (r - 1) ^ 2 - f (r - 2) * f (r + 1) ^ 2))) ∧ ∀ n : ℕ, 0 < n → ∀ (x y : k) (hP : W.toAffine.Nonsingular x y), f n ∈ WeierstrassCurve.Affine.CoordinateRing.XYIdeal W.toAffine x (Polynomial.C y) ↔ n • WeierstrassCurve.Affine.Point.some x y hP = 0",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Uses the coordinate-ring images of division polynomials, their recurrences, and accepted torsion-kernel facts to establish the specified initial values and torsion vanishing criterion."
+    }
+  ]
+}

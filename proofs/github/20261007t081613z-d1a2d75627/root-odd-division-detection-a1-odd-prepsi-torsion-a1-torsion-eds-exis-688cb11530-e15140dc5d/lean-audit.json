@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "8ff5cafb73e01e5702b5fa78f8ff86e8cbf4d325c85982876a0f702bb3f99eb5",
+  "git_delta": {
+    "base_commit": "adae8afec901619961ae1b5b1c73338837b271da",
+    "candidate_commit": "afd66a74566e059d6a1826521b19d5cc54212715",
+    "target": "Submission.lean",
+    "declaration": "p03_tkc_two_torsion_card_68cf3476_d5",
+    "diff_sha256": "6be10bc8ed62827b2d543880dde2092333b09068f19daae1505ef39aa3f19404",
+    "source_sha256": "e4c9e195c53b1b9c213e5995f8425ff14e572acf8c9f37bbce560947cf1c10a7",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p03_tkc_two_torsion_card_68cf3476_d5",
+      "statement": "∀ (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k] (W : WeierstrassCurve k), W.Δ ≠ 0 → Nat.card {P : W.toAffine.Point // (2 : ℕ) • P = 0} = 4",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
