@@ -28970,3 +28970,19 @@ theorem p03_odd_prepsi_torsion_68cf3476 :
   exact map_eq_zero_iff ι ι.injective
 
 end Submission
+
+
+/-- Combine the odd division polynomial's degree and leading coefficient with its
+vanishing criterion for torsion points. -/
+theorem Submission.p03_odd_division_detection_68cf3476 :
+    ∀ (F : Type) [Field F] [CharZero F] [DecidableEq F] (W : WeierstrassCurve F),
+      W.Δ ≠ 0 → ∀ (n : ℕ), 3 ≤ n → Odd n →
+        (W.preΨ' n).natDegree = (n ^ 2 - 1) / 2 ∧
+        (W.preΨ' n).leadingCoeff = (n : F) ∧
+        ∀ (x y : F) (h : W.toAffine.Nonsingular x y),
+          n • WeierstrassCurve.Affine.Point.some x y h = 0 ↔ (W.preΨ' n).eval x = 0 := by
+  intro F _ _ _ W hΔ n hn hodd
+  obtain ⟨hdegree, hleadingCoeff⟩ :=
+    Submission.p03_odd_prepsi_degree_lc_68cf3476 F W n hn hodd
+  exact ⟨hdegree, hleadingCoeff,
+    Submission.p03_odd_prepsi_torsion_68cf3476 F W hΔ n hn hodd⟩
