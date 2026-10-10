@@ -1,0 +1,36 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "def (IsFrobeniusAt|LiesOverPrime)|structure IsFrobeniusAt|p09_af497904fe_ff_cyclotomic_supply|exists_quadraticRelation_forall_of_frobenius",
+        "p09_af497904fe_ff_cyclotomic_supply"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_GaloisRep_Adic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib"
+      ],
+      "conclusion": "The manifest pins project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Inspected definitions match frozen Git bytes: LiesOverPrime means nonunit membership, and IsFrobeniusAt specifies decomposition-subgroup membership and the residue power action. No pre-existing tracked declaration matched in either searched source root."
+    }
+  ],
+  "comparison_identity": "d9ad088877bd4cacbb86a6606870a076e999331810fc0020e1f0e6f8ab449d15",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_ff_cyclotomic_supply",
+      "statement": "∀ (M : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ M] (F : IntermediateField ℚ M) (q : ℕ) (ζ : M), q.Prime → IsPrimitiveRoot ζ q → IntermediateField.adjoin F ({ζ} : Set M) = ⊤ → ∀ (h : M ≃ₐ[F] M) (B : Finset ℕ), ∃ ℓ : ℕ, ℓ.Prime ∧ ℓ ∉ B ∧ ∃ W : ValuationSubring M, W.LiesOverPrime ℓ ∧ W.IsFrobeniusAt h ℓ",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines accepted analytic counting prerequisites with local cyclotomic and ray-class arguments to obtain the prescribed Frobenius prime and valuation."
+    }
+  ]
+}
