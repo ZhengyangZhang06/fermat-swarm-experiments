@@ -6907,3 +6907,25 @@ theorem Submission.p09_af497904fe_fa_lift_unique_frobenius :
   refine ⟨P, hP, hPW 0, τ, hτ, ?_⟩
   intro x
   simpa only [hg₀_eq] using hτ₀ x
+
+
+namespace Submission
+
+theorem p09_af497904fe_frobenius_approximation
+    (E : IntermediateField ℚ (AlgebraicClosure ℚ))
+    [FiniteDimensional ℚ E] [IsGalois ℚ E]
+    (σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) (B : Finset ℕ) :
+    ∃ ℓ : ℕ, ℓ.Prime ∧ ℓ ∉ B ∧
+      ∃ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ ∧
+        ∃ τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ,
+          P.IsFrobeniusAt τ ℓ ∧ ∀ x ∈ E, τ x = σ x := by
+  let g : E ≃ₐ[ℚ] E := σ.restrictNormal E
+  obtain ⟨ℓ, hℓ, hℓB, V, hV, hg, hunique⟩ :=
+    p09_af497904fe_fa_finite_frobenius E g B
+  obtain ⟨P, hP, _, τ, hτ, hagree⟩ :=
+    p09_af497904fe_fa_lift_unique_frobenius E ℓ hℓ V hV g hg hunique
+  refine ⟨ℓ, hℓ, hℓB, P, hP, τ, hτ, ?_⟩
+  intro x hx
+  exact (hagree ⟨x, hx⟩).trans (σ.restrictNormal_commutes E ⟨x, hx⟩)
+
+end Submission
