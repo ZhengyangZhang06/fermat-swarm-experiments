@@ -158,6 +158,77 @@ no matches. The specialization proof above is implemented locally rather
 than attributed to a nonexistent library declaration. The shared
 integral-root proof is retained once, with the valuation ring made explicit.
 
+## Specified valuation and completion
+
+The new local `specified_completion` step constructs a complete ultrametric
+field `C` of characteristic zero and a dense injective ring map
+`e : AlgebraicClosure ℚ →+* C`. It proves both
+`‖e x‖ ≤ 1 ↔ x ∈ A` and `‖e x‖ < 1 ↔ x ∈ A.nonunits`.
+The norm of `e p` lies strictly between zero and one, and every nonzero
+rational element has norm an integer power of that norm. Each element of the
+exact frozen inertia subgroup extends to an isometric ring automorphism of
+`C` which changes every integral element by an element of norm less than one.
+This step does not assert that `C` is algebraically closed.
+
+First construct the absolute value on the specified algebraic closure.
+For a nonzero root of a nonzero polynomial over a subfield, choose a term of
+maximal valuation. If it were the unique maximum, the valuation of the sum
+would equal that nonzero term's valuation, contradicting the polynomial
+relation. Two terms therefore have equal valuation. Dividing their
+coefficients and subtracting their distinct exponents expresses a positive
+power of the root's valuation as the valuation of a nonzero coefficient-field
+element. Algebraicity over `ℚ` supplies the polynomial relation here.
+Prime-power factorization and the integer-unit criterion express the value
+of every nonzero rational as an integer power of the value of `p`.
+
+Consequently every element of the nonzero value group is commensurable with
+the inverse value of `p`, which is greater than one. For
+`x^n = r^m`, with `n > 0`, define its real logarithmic value as `m/n`.
+Raising two such relations to common powers proves independence of the
+relation, strict order preservation, and additivity under multiplication.
+Exponentiation gives an order-preserving multiplicative map to positive
+reals. Assign zero the value zero. Composing with `A.valuation` gives the
+absolute value and both asserted unit-ball identifications. Stabilizing `A`
+preserves its units; applying a decomposition automorphism to the power
+relation therefore proves invariance of the value, hence of the norm.
+
+Complete the resulting normed field. The local proof reuses the pinned
+argument that inversion maps a Cauchy filter bounded away from zero to a
+Cauchy filter: inverse norms are bounded, and
+`x⁻¹-y⁻¹ = x⁻¹*(y-x)*y⁻¹`. The existing uniform-field completion then supplies
+the field. Multiplicativity and the ultrametric inequality extend from the
+dense original field by closedness. Existing completion ring-map interfaces
+extend each isometric automorphism and its inverse; density proves that the
+extension remains isometric.
+
+Finally let an inertia element act on an integral element of `C`. Approximate
+that element by `e a` with error of norm less than one. Ultrametricity makes
+`a` integral. The original residue action fixes its residue, so the middle
+difference at `e a` has norm less than one. Isometry bounds the error at the
+transformed endpoint as well. Applying the ultrametric inequality twice to
+these three differences proves the asserted residue invariance in `C`.
+
+The multiplicative branch now obtains this data and proves that the embedded
+discriminant is nonzero and has norm less than one, while embedded `c₄` has
+norm one. These are concrete consequences of `hΔ`, `hbad`, and semistability;
+the subsequent Tate-family construction remains the root's placeholder.
+
+New pinned-library provenance is
+`RingTheory/Valuation/Basic.lean:314` (`map_sum_eq_of_lt`),
+`RingTheory/Valuation/ValuationSubring.lean` (the canonical valuation and unit criteria),
+`Data/Nat/Factorization/Basic.lean:275`
+(`Nat.exists_eq_pow_mul_and_not_dvd`),
+`FieldTheory/IsAlgClosed/AlgebraicClosure.lean:179` (algebraicity),
+`Analysis/Normed/Field/Basic.lean:365` (`AbsoluteValue.toNormedField`),
+`Analysis/Normed/Field/Instances.lean:23` (the local inversion/Cauchy argument),
+`Topology/Algebra/UniformField.lean` (completion as a field),
+`Topology/Algebra/UniformRing.lean:184` (`Completion.mapRingEquiv`), and
+`Topology/MetricSpace/Pseudo/Defs.lean:933`
+(`DenseRange.exists_dist_lt`). All these paths are under the same pinned
+`mathlib/Mathlib` snapshot. The named rank-one embedding and algebraically
+closed completion interfaces inspected elsewhere are unavailable under the
+frozen imports and are not cited as used declarations.
+
 ## Dependency and library provenance
 
 The only accepted child called by these new local steps is
@@ -208,9 +279,9 @@ complete transitive-axiom certificate for the root.
 ## Remaining implementation
 
 The good-reduction branch is now implemented using the specialization
-homomorphism above. The multiplicative branch still needs the specified
-valuation/completion and inertia-fixed splitting-field construction,
-conversion of the curve to the
+homomorphism above. The multiplicative branch now has the specified complete
+valued field and extended inertia action. It still needs algebraic closedness
+and the appropriate complete discrete base field, conversion of the curve to the
 explicit Tate family, and application of the checked torsion-descent and
 exponent constructions to the resulting compatible inertia action. These
 are the existing accepted natural-proof route, not new decomposition nodes or

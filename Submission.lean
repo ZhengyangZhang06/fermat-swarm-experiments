@@ -29996,6 +29996,408 @@ theorem WeierstrassCurve.galoisRep_ordinaryLineAt (W : WeierstrassCurve ℤ) (p 
         rw [← map_pow, hm, map_zpow, hφ]
       apply representative w (φ (u v)) (m v) ?_ hp'
       rw [← hcomm, hu, hvw]
+  have specified_completion (p : ℕ) [Fact p.Prime]
+      (A : ValuationSubring (AlgebraicClosure ℚ)) (hA : A.LiesOverPrime p) :
+      ∃ (C : Type) (_ : NormedField C) (_ : CharZero C) (_ : CompleteSpace C)
+        (e : AlgebraicClosure ℚ →+* C),
+        Function.Injective e ∧ DenseRange e ∧
+        (∀ x y : C, ‖x + y‖ ≤ max ‖x‖ ‖y‖) ∧
+        (∀ x, ‖e x‖ ≤ 1 ↔ x ∈ A) ∧ (∀ x, ‖e x‖ < 1 ↔ x ∈ A.nonunits) ∧
+        0 < ‖e (p : AlgebraicClosure ℚ)‖ ∧ ‖e (p : AlgebraicClosure ℚ)‖ < 1 ∧
+        (∀ q : ℚ, q ≠ 0 → ∃ m : ℤ, ‖e (algebraMap ℚ (AlgebraicClosure ℚ) q)‖ =
+          ‖e (p : AlgebraicClosure ℚ)‖ ^ m) ∧
+        ∀ σ ∈ A.inertiaSubgroupIn ℚ, ∃ τ : C ≃+* C, Isometry τ ∧
+          (∀ x, τ (e x) = e (σ x)) ∧ (∀ x : C, ‖x‖ ≤ 1 → ‖τ x - x‖ < 1) := open Polynomial SeminormedAddGroup IsUniformAddGroup Filter UniformSpace in by
+    have specified_norm (p : ℕ) [Fact p.Prime]
+        (A : ValuationSubring (AlgebraicClosure ℚ)) (hA : A.LiesOverPrime p) :
+        ∃ v : AbsoluteValue (AlgebraicClosure ℚ) ℝ,
+          (∀ x y, v (x + y) ≤ max (v x) (v y)) ∧
+          (∀ x, v x ≤ 1 ↔ x ∈ A) ∧
+          (∀ x, v x < 1 ↔ x ∈ A.nonunits) ∧
+          0 < v (p : AlgebraicClosure ℚ) ∧ v (p : AlgebraicClosure ℚ) < 1 ∧
+          (∀ q : ℚ, q ≠ 0 → ∃ m : ℤ,
+            v (algebraMap ℚ (AlgebraicClosure ℚ) q) = v (p : AlgebraicClosure ℚ) ^ m) ∧
+          ∀ (σ : A.decompositionSubgroup ℚ) x, v (σ.val x) = v x := by
+      have specified_valuation (p : ℕ) [Fact p.Prime]
+          (A : ValuationSubring (AlgebraicClosure ℚ)) (hA : A.LiesOverPrime p) :
+          (∀ x : AlgebraicClosure ℚ, x ≠ 0 → ∃ (n : ℕ) (m : ℤ), 0 < n ∧
+            A.valuation x ^ n = A.valuation (p : AlgebraicClosure ℚ) ^ m) ∧
+          (∀ q : ℚ, q ≠ 0 → ∃ m : ℤ,
+            A.valuation (algebraMap ℚ (AlgebraicClosure ℚ) q) =
+              A.valuation (p : AlgebraicClosure ℚ) ^ m) ∧
+          (∀ (σ : A.decompositionSubgroup ℚ) (x : AlgebraicClosure ℚ),
+            A.valuation (σ.val x) = A.valuation x) := by
+        have algebraic_value (F K Γ : Type) [Field F] [Field K]
+            [Algebra F K] [LinearOrderedCommGroupWithZero Γ] (v : Valuation K Γ)
+            (f : Polynomial F) (hf : f ≠ 0) (x : K) (hx : x ≠ 0)
+            (hroot : f.eval₂ (algebraMap F K) x = 0) :
+            ∃ (n : ℕ) (a : F), 0 < n ∧ a ≠ 0 ∧ v x ^ n = v (algebraMap F K a) := by
+          let term : ℕ → K := fun i => algebraMap F K (f.coeff i) * x ^ i
+          have hn (i : ℕ) (hi : i ∈ f.support) : term i ≠ 0 := by
+            apply mul_ne_zero
+            · exact (_root_.map_ne_zero (algebraMap F K)).mpr (mem_support_iff.mp hi)
+            · exact pow_ne_zero i hx
+          have hs : ∑ i ∈ f.support, term i = 0 := by
+            simpa only [eval₂_eq_sum, Polynomial.sum] using hroot
+          obtain ⟨i, hi, hmax⟩ := Finset.exists_max_image f.support (fun i => v (term i))
+            (support_nonempty.mpr hf)
+          have htwo : ∃ j ∈ f.support, j ≠ i ∧ v (term j) = v (term i) := by
+            by_contra h
+            have hlt (j : ℕ) (hj : j ∈ f.support \ {i}) : v (term j) < v (term i) := by
+              obtain ⟨hj, hji⟩ := Finset.mem_sdiff.mp hj
+              apply lt_of_le_of_ne (hmax j hj)
+              intro he
+              exact h ⟨j, hj, by simpa using hji, he⟩
+            have he := v.map_sum_eq_of_lt hi hlt
+            rw [hs, _root_.map_zero] at he
+            exact (v.ne_zero_iff.mpr (hn i hi)) he.symm
+          obtain ⟨j, hj, hji, he⟩ := htwo
+          have relation (i j : ℕ) (hi : i ∈ f.support) (hj : j ∈ f.support)
+              (hij : i < j) (he : v (term i) = v (term j)) :
+              ∃ (n : ℕ) (a : F), 0 < n ∧ a ≠ 0 ∧ v x ^ n = v (algebraMap F K a) := by
+            refine ⟨j - i, f.coeff i / f.coeff j, Nat.sub_pos_of_lt hij,
+              div_ne_zero (mem_support_iff.mp hi) (mem_support_iff.mp hj), ?_⟩
+            have hxi : v x ≠ 0 := v.ne_zero_iff.mpr hx
+            have haj : v (algebraMap F K (f.coeff j)) ≠ 0 :=
+              v.ne_zero_iff.mpr ((_root_.map_ne_zero (algebraMap F K)).mpr (mem_support_iff.mp hj))
+            rw [map_div₀, map_div₀, pow_sub₀ (v x) hxi hij.le]
+            rw [← div_eq_mul_inv]
+            apply (div_eq_div_iff (pow_ne_zero i hxi) haj).mpr
+            simpa only [term, map_mul, map_pow, mul_comm] using he.symm
+          rcases lt_or_gt_of_ne hji with hlt | hlt
+          · exact relation j i hj hi hlt he
+          · exact relation i j hi hj hlt he.symm
+        have rational_value (p : ℕ) [Fact p.Prime]
+            (A : ValuationSubring (AlgebraicClosure ℚ)) (hA : A.LiesOverPrime p) :
+            ∀ q : ℚ, q ≠ 0 → ∃ m : ℤ,
+              A.valuation (algebraMap ℚ (AlgebraicClosure ℚ) q) =
+                A.valuation (p : AlgebraicClosure ℚ) ^ m := by
+          have hchar : CharP (IsLocalRing.ResidueField A) p := by
+            apply (CharP.charP_iff_prime_eq_zero (Fact.out : p.Prime)).2
+            rw [← map_natCast (IsLocalRing.residue A), IsLocalRing.residue_eq_zero_iff]
+            exact A.coe_mem_nonunits_iff.mp (by simpa [ValuationSubring.LiesOverPrime] using hA)
+          have hunit (n : ℤ) : IsUnit (n : A) ↔ ¬ (p : ℤ) ∣ n := by
+            rw [← IsLocalRing.residue_ne_zero_iff_isUnit, map_intCast]
+            exact not_congr (CharP.intCast_eq_zero_iff (IsLocalRing.ResidueField A) p n)
+          have natval (n : ℕ) (hn : n ≠ 0) : ∃ k : ℕ,
+              A.valuation (n : AlgebraicClosure ℚ) =
+                A.valuation (p : AlgebraicClosure ℚ) ^ k := by
+            obtain ⟨k, m, hmp, hm⟩ := Nat.exists_eq_pow_mul_and_not_dvd hn p
+              (Fact.out : p.Prime).ne_one
+            have hum : IsUnit (m : A) := (hunit m).mpr (by exact_mod_cast hmp)
+            have hvm : A.valuation (m : AlgebraicClosure ℚ) = 1 := by
+              simpa using (A.valuation_eq_one_iff (m : A)).mp hum
+            refine ⟨k, ?_⟩
+            rw [hm, Nat.cast_mul, Nat.cast_pow, map_mul, map_pow, hvm, mul_one]
+          have intval (n : ℤ) (hn : n ≠ 0) : ∃ k : ℕ,
+              A.valuation (n : AlgebraicClosure ℚ) =
+                A.valuation (p : AlgebraicClosure ℚ) ^ k := by
+            cases n with
+            | ofNat n => exact natval n (by intro h; apply hn; simp [h])
+            | negSucc n =>
+              obtain ⟨k, hk⟩ := natval (n + 1) (Nat.succ_ne_zero n)
+              refine ⟨k, ?_⟩
+              have he : (Int.negSucc n : AlgebraicClosure ℚ) =
+                  -((n + 1 : ℕ) : AlgebraicClosure ℚ) := by
+                simp only [Int.cast_negSucc, Nat.cast_add, Nat.cast_one]
+              rw [he, Valuation.map_neg]
+              exact hk
+          intro q hq
+          obtain ⟨a, ha⟩ := intval q.num (by simpa using hq)
+          obtain ⟨b, hb⟩ := natval q.den q.den_ne_zero
+          have hp0 : A.valuation (p : AlgebraicClosure ℚ) ≠ 0 :=
+            A.valuation.ne_zero_iff.mpr (by exact_mod_cast (Fact.out : p.Prime).ne_zero)
+          refine ⟨(a : ℤ) - b, ?_⟩
+          change A.valuation (q : AlgebraicClosure ℚ) = _
+          rw [Rat.cast_def, map_div₀, ha, hb, zpow_sub₀ hp0, zpow_natCast, zpow_natCast]
+        have power_relation (x : AlgebraicClosure ℚ) (hx : x ≠ 0) :
+            ∃ (n : ℕ) (m : ℤ), 0 < n ∧
+              A.valuation x ^ n = A.valuation (p : AlgebraicClosure ℚ) ^ m := by
+          let : Algebra.IsAlgebraic ℚ (AlgebraicClosure ℚ) := AlgebraicClosure.isAlgebraic ℚ
+          obtain ⟨f, hf, hfx⟩ := Algebra.IsAlgebraic.isAlgebraic (R := ℚ) x
+          obtain ⟨n, a, hn, ha, he⟩ := algebraic_value ℚ (AlgebraicClosure ℚ)
+            A.ValueGroup A.valuation f hf x hx hfx
+          obtain ⟨m, hm⟩ := rational_value p A hA a ha
+          exact ⟨n, m, hn, he.trans hm⟩
+        refine ⟨power_relation, rational_value p A hA, ?_⟩
+        intro σ x
+        by_cases hx : x = 0
+        · simp [hx]
+        obtain ⟨n, m, hn, he⟩ := power_relation x hx
+        apply (pow_left_inj₀ zero_le zero_le hn.ne').mp
+        have he' : A.valuation (x ^ n) = A.valuation ((p : AlgebraicClosure ℚ) ^ m) := by
+          simpa only [map_pow, map_zpow₀] using he
+        rw [he, ← map_pow, ← map_zpow₀]
+        obtain ⟨a, ha⟩ := (A.valuation_eq_iff _ _).mp he'
+        apply (A.valuation_eq_iff _ _).mpr
+        let b : Aˣ := Units.map
+          (MulSemiringAction.toRingAut (A.decompositionSubgroup ℚ) A σ).toMonoidHom a
+        refine ⟨b, ?_⟩
+        have hb : (b : AlgebraicClosure ℚ) = σ.val (a : AlgebraicClosure ℚ) := rfl
+        rw [hb]
+        simpa only [map_mul, map_pow, map_zpow₀, map_natCast] using congrArg σ.val ha
+      have commensurable_log (G : Type) [CommGroup G] [LinearOrder G]
+          [IsOrderedMonoid G] (r : G) (hr : 1 < r)
+          (h : ∀ x : G, ∃ (n : ℕ) (m : ℤ), 0 < n ∧ x ^ n = r ^ m) :
+          ∃ f : G → ℝ, StrictMono f ∧ f 1 = 0 ∧ f r = 1 ∧
+            ∀ x y, f (x * y) = f x + f y := by
+        choose n m hn he using h
+        let f : G → ℝ := fun x => (m x : ℝ) / (n x : ℝ)
+        have relation (x : G) (N : ℕ) (M : ℤ) (hN : 0 < N)
+            (hrel : x ^ N = r ^ M) : f x = (M : ℝ) / (N : ℝ) := by
+          have heq : r ^ (m x * (N : ℤ)) = r ^ (M * (n x : ℤ)) := by
+            calc
+              _ = (x ^ n x) ^ N := by rw [he]; simp [zpow_mul]
+              _ = (x ^ N) ^ n x := by simp only [← pow_mul, Nat.mul_comm]
+              _ = _ := by rw [hrel]; simp [zpow_mul]
+          have heq' := (zpow_right_strictMono hr).injective heq
+          change (m x : ℝ) / (n x : ℝ) = (M : ℝ) / (N : ℝ)
+          apply (div_eq_div_iff (by exact_mod_cast (hn x).ne') (by exact_mod_cast hN.ne')).mpr
+          exact_mod_cast heq'
+        have mono : StrictMono f := by
+          intro x y hxy
+          have hpow : r ^ (m x * (n y : ℤ)) < r ^ (m y * (n x : ℤ)) := by
+            calc
+              _ = (x ^ n x) ^ n y := by rw [he]; simp [zpow_mul]
+              _ < (y ^ n x) ^ n y := pow_lt_pow_left' (hn y).ne' (pow_lt_pow_left' (hn x).ne' hxy)
+              _ = (y ^ n y) ^ n x := by simp only [← pow_mul, Nat.mul_comm]
+              _ = _ := by rw [he]; simp [zpow_mul]
+          have hlt := (zpow_lt_zpow_iff_right hr).mp hpow
+          change (m x : ℝ) / (n x : ℝ) < (m y : ℝ) / (n y : ℝ)
+          apply (div_lt_div_iff₀ (by exact_mod_cast hn x) (by exact_mod_cast hn y)).mpr
+          exact_mod_cast hlt
+        refine ⟨f, mono, ?_, ?_, ?_⟩
+        · simpa using relation 1 1 0 (by decide) (by simp)
+        · simpa using relation r 1 1 (by decide) (by simp)
+        · intro x y
+          have hrel : (x * y) ^ (n x * n y) =
+              r ^ (m x * (n y : ℤ) + m y * (n x : ℤ)) := by
+            rw [mul_pow, zpow_add]
+            congr 1
+            · rw [pow_mul, he]; simp [zpow_mul]
+            · rw [Nat.mul_comm, pow_mul, he]; simp [zpow_mul]
+          rw [relation (x * y) (n x * n y) _ (Nat.mul_pos (hn x) (hn y)) hrel]
+          dsimp [f]
+          push_cast
+          have hx : (n x : ℝ) ≠ 0 := by exact_mod_cast (hn x).ne'
+          have hy : (n y : ℝ) ≠ 0 := by exact_mod_cast (hn y).ne'
+          field_simp
+      obtain ⟨power_relation, rational_relation, invariant⟩ := specified_valuation p A hA
+      have hp0 : A.valuation (p : AlgebraicClosure ℚ) ≠ 0 :=
+        A.valuation.ne_zero_iff.mpr (by exact_mod_cast (Fact.out : p.Prime).ne_zero)
+      have hp1 : A.valuation (p : AlgebraicClosure ℚ) < 1 :=
+        A.mem_nonunits_iff.mp (by simpa [ValuationSubring.LiesOverPrime] using hA)
+      let u : A.ValueGroupˣ := Units.mk0 (A.valuation (p : AlgebraicClosure ℚ)) hp0
+      have hu : u < 1 := hp1
+      have hrel (x : A.ValueGroupˣ) : ∃ (n : ℕ) (m : ℤ), 0 < n ∧ x ^ n = (u⁻¹) ^ m := by
+        obtain ⟨a, ha⟩ := A.valuation_surjective (x : A.ValueGroup)
+        have ha0 : a ≠ 0 := by
+          intro hz
+          rw [hz, _root_.map_zero] at ha
+          exact x.ne_zero ha.symm
+        obtain ⟨n, m, hn, he⟩ := power_relation a ha0
+        refine ⟨n, -m, hn, ?_⟩
+        apply Units.ext
+        simpa [u, ha] using he
+      obtain ⟨f, hf, hf1, _, hfmul⟩ := commensurable_log A.ValueGroupˣ u⁻¹
+        (one_lt_inv'.mpr hu) hrel
+      let φ : A.ValueGroup → ℝ := fun x => if hx : x = 0 then 0
+        else Real.exp (f (Units.mk0 x hx))
+      have φzero : φ 0 = 0 := by simp [φ]
+      have φone : φ 1 = 1 := by simp [φ, hf1]
+      have φmono : StrictMono φ := by
+        intro x y hxy
+        by_cases hx : x = 0
+        · subst x
+          have hy : y ≠ 0 := ne_of_gt hxy
+          simp [φ, hy, Real.exp_pos]
+        have hy : y ≠ 0 := by
+          intro hy
+          subst y
+          exact (not_lt_of_ge zero_le) hxy
+        simp only [φ, dif_neg hx, dif_neg hy, Real.exp_lt_exp]
+        exact hf hxy
+      have φmul (x y : A.ValueGroup) : φ (x * y) = φ x * φ y := by
+        by_cases hx : x = 0
+        · simp [hx, φzero]
+        by_cases hy : y = 0
+        · simp [hy, φzero]
+        have hxy : x * y ≠ 0 := mul_ne_zero hx hy
+        have hu : Units.mk0 (x * y) hxy = Units.mk0 x hx * Units.mk0 y hy := by
+          ext
+          rfl
+        simp only [φ, dif_neg hx, dif_neg hy, dif_neg hxy, hu, hfmul, Real.exp_add]
+      let vfun : AlgebraicClosure ℚ → ℝ := fun x => φ (A.valuation x)
+      have vnonneg (x) : 0 ≤ vfun x := by
+        rw [← φzero]
+        exact φmono.monotone zero_le
+      have vultra (x y) : vfun (x + y) ≤ max (vfun x) (vfun y) := by
+        change φ (A.valuation (x + y)) ≤ max (φ (A.valuation x)) (φ (A.valuation y))
+        rw [← φmono.monotone.map_max]
+        exact φmono.monotone (A.valuation.map_add x y)
+      let v : AbsoluteValue (AlgebraicClosure ℚ) ℝ := {
+        toFun := vfun
+        map_mul' := fun x y => by dsimp [vfun]; rw [map_mul, φmul]
+        nonneg' := vnonneg
+        eq_zero' := fun x => by
+          change φ (A.valuation x) = 0 ↔ x = 0
+          rw [← φzero, φmono.injective.eq_iff, A.valuation.zero_iff]
+        add_le' := fun x y => (vultra x y).trans
+          (max_le (le_add_of_nonneg_right (vnonneg y)) (le_add_of_nonneg_left (vnonneg x))) }
+      refine ⟨v, vultra, ?_, ?_, ?_, ?_, ?_, ?_⟩
+      · intro x
+        change φ (A.valuation x) ≤ 1 ↔ x ∈ A
+        rw [← φone, φmono.le_iff_le, A.valuation_le_one_iff]
+      · intro x
+        change φ (A.valuation x) < 1 ↔ x ∈ A.nonunits
+        rw [← φone, φmono.lt_iff_lt]
+        exact A.mem_nonunits_iff.symm
+      · change 0 < φ (A.valuation (p : AlgebraicClosure ℚ))
+        rw [← φzero]
+        exact φmono (pos_iff_ne_zero.mpr hp0)
+      · change φ (A.valuation (p : AlgebraicClosure ℚ)) < 1
+        rw [← φone]
+        exact φmono hp1
+      · intro q hq
+        obtain ⟨m, hm⟩ := rational_relation q hq
+        refine ⟨m, ?_⟩
+        have he : v (algebraMap ℚ (AlgebraicClosure ℚ) q) = v ((p : AlgebraicClosure ℚ) ^ m) := by
+          change φ (A.valuation _) = φ (A.valuation _)
+          simpa only [map_zpow₀] using congrArg φ hm
+        simpa only [map_zpow₀] using he
+      · intro σ x
+        exact congrArg φ (invariant σ x)
+    have normed_completion (K : Type) [NormedField K]
+        (hK : ∀ x y : K, ‖x + y‖ ≤ max ‖x‖ ‖y‖) :
+        ∃ (C : Type) (_ : NormedField C) (_ : CompleteSpace C) (e : K →+* C),
+          Isometry e ∧ DenseRange e ∧ (∀ x y : C, ‖x + y‖ ≤ max ‖x‖ ‖y‖) ∧
+          ∀ σ : K ≃+* K, Isometry σ → ∃ τ : C ≃+* C,
+            Isometry τ ∧ ∀ x, τ (e x) = e (σ x) := by
+      -- Local reuse of Mathlib/Analysis/Normed/Field/Instances.lean:23–36.
+      let : CompletableTopField K := {
+        nice := by
+          intro f hc hn
+          obtain ⟨δ, δ_pos, hδ⟩ := (disjoint_nhds_zero ..).mp <| disjoint_iff.mpr hn
+          have f_bdd : f.IsBoundedUnder (· ≤ ·) (‖·⁻¹‖) :=
+            ⟨δ⁻¹, hδ.mono fun y hy => le_inv_of_le_inv₀ δ_pos (by simpa using hy)⟩
+          have h₀ : ∀ᶠ y in f, y ≠ 0 := hδ.mono fun y hy => by simpa using δ_pos.trans_le hy
+          have : ∀ᶠ p in f ×ˢ f, p.1⁻¹ - p.2⁻¹ = p.1⁻¹ * (p.2 - p.1) * p.2⁻¹ :=
+            h₀.prod_mk h₀ |>.mono fun ⟨x, y⟩ ⟨hx, hy⟩ => by simp [mul_sub, sub_mul, hx, hy]
+          rw [cauchy_iff_tendsto_swapped] at hc
+          rw [cauchy_map_iff_tendsto, tendsto_congr' this]
+          refine ⟨hc.1, .zero_mul_isBoundedUnder_le ?_ <| tendsto_snd.isBoundedUnder_comp f_bdd⟩
+          exact isBoundedUnder_le_mul_tendsto_zero (tendsto_fst.isBoundedUnder_comp f_bdd) hc.2 }
+      let C := Completion K
+      have nmul (x y : C) : ‖x * y‖ = ‖x‖ * ‖y‖ := by
+        induction x, y using Completion.induction_on₂
+        · exact isClosed_eq (continuous_norm.comp (continuous_fst.mul continuous_snd))
+            ((continuous_norm.comp continuous_fst).mul (continuous_norm.comp continuous_snd))
+        · rename_i x y
+          rw [← Completion.coe_mul, Completion.norm_coe, Completion.norm_coe,
+            Completion.norm_coe, norm_mul]
+      let nf : NormedField C := {
+        toField := inferInstance
+        toMetricSpace := inferInstance
+        toNorm := inferInstance
+        dist_eq := dist_eq_norm_neg_add
+        norm_mul := nmul }
+      let := nf
+      refine ⟨C, nf, inferInstance, Completion.coeRingHom, ?_, Completion.denseRange_coe, ?_, ?_⟩
+      · exact isometry_iff_dist_eq.mpr (fun x y => Completion.dist_eq x y)
+      · intro x y
+        induction x, y using Completion.induction_on₂
+        · exact isClosed_le (continuous_norm.comp (continuous_fst.add continuous_snd))
+            ((continuous_norm.comp continuous_fst).max (continuous_norm.comp continuous_snd))
+        · rename_i x y
+          erw [← Completion.coe_add, Completion.norm_coe, Completion.norm_coe, Completion.norm_coe]
+          exact hK x y
+      · intro σ hσ
+        have hi : Isometry σ.symm := by
+          apply isometry_iff_dist_eq.mpr
+          intro x y
+          simpa using (hσ.dist_eq (σ.symm x) (σ.symm y)).symm
+        let τ : C ≃+* C := Completion.mapRingEquiv σ hσ.continuous hi.continuous
+        have hc : ∀ x : K, τ (x : C) = ((σ x : K) : C) := by
+          intro x
+          exact Completion.mapRingHom_coe (f := σ.toRingHom) hσ.continuous x
+        have ht : Continuous τ := Completion.continuous_map
+        refine ⟨τ, ?_, hc⟩
+        apply isometry_iff_dist_eq.mpr
+        intro x y
+        induction x, y using Completion.induction_on₂
+        · exact isClosed_eq ((ht.comp continuous_fst).dist (ht.comp continuous_snd)) continuous_dist
+        · rename_i x y
+          rw [hc, hc, Completion.dist_eq, Completion.dist_eq]
+          exact hσ.dist_eq x y
+    have dense_residue (K C : Type) [NormedField K] [NormedField C]
+        (hC : ∀ x y : C, ‖x + y‖ ≤ max ‖x‖ ‖y‖)
+        (e : K →+* C) (he : Isometry e) (hd : DenseRange e)
+        (σ : K ≃+* K) (τ : C ≃+* C) (hτ : Isometry τ)
+        (hc : ∀ x, τ (e x) = e (σ x))
+        (hσ : ∀ x : K, ‖x‖ ≤ 1 → ‖σ x - x‖ < 1) :
+        ∀ x : C, ‖x‖ ≤ 1 → ‖τ x - x‖ < 1 := by
+      intro x hx
+      have hen (a : K) : ‖e a‖ = ‖a‖ := he.norm_map_of_map_zero e.map_zero a
+      obtain ⟨a, ha⟩ := hd.exists_dist_lt x (by norm_num : (0 : ℝ) < 1)
+      rw [dist_eq_norm] at ha
+      have hea : ‖e a‖ ≤ 1 := by
+        have h := hC (e a - x) x
+        rw [sub_add_cancel, norm_sub_rev] at h
+        exact h.trans (max_le ha.le hx)
+      have h₁ : ‖τ x - τ (e a)‖ < 1 := by
+        simpa only [← dist_eq_norm, hτ.dist_eq] using ha
+      have h₂ : ‖τ (e a) - e a‖ < 1 := by
+        rw [hc, ← map_sub, hen]
+        exact hσ a (by rwa [hen] at hea)
+      have h₃ : ‖e a - x‖ < 1 := by rwa [norm_sub_rev]
+      have hb := hC (τ x - τ (e a)) (τ (e a) - e a)
+      have hb' : ‖τ x - e a‖ < 1 := by
+        rw [sub_add_sub_cancel] at hb
+        exact hb.trans_lt (max_lt h₁ h₂)
+      have hf := hC (τ x - e a) (e a - x)
+      rw [sub_add_sub_cancel] at hf
+      exact hf.trans_lt (max_lt hb' h₃)
+    obtain ⟨v, hvultra, hvring, hvsmall, hp0, hp1, hrat, hinvariant⟩ := specified_norm p A hA
+    let : NormedField (AlgebraicClosure ℚ) := v.toNormedField
+    obtain ⟨C, nC, cC, e, he, hd, hC, hext⟩ := normed_completion (AlgebraicClosure ℚ) hvultra
+    let : CharZero C := ⟨fun m n h => by
+      apply Nat.cast_injective (R := AlgebraicClosure ℚ)
+      apply e.injective
+      simpa only [map_natCast] using h⟩
+    have hen (x : AlgebraicClosure ℚ) : ‖e x‖ = v x := he.norm_map_of_map_zero e.map_zero x
+    refine ⟨C, nC, inferInstance, cC, e, e.injective, hd, hC,
+      ?_, ?_, ?_, ?_, ?_, ?_⟩
+    · intro x
+      rw [hen]
+      exact hvring x
+    · intro x
+      rw [hen]
+      exact hvsmall x
+    · rwa [hen]
+    · rwa [hen]
+    · intro q hq
+      simpa only [hen] using hrat q hq
+    · intro σ hσ
+      obtain ⟨δ, hδ, rfl⟩ := hσ
+      have hδiso : Isometry δ.val.toRingEquiv := by
+        apply isometry_iff_dist_eq.mpr
+        intro x y
+        rw [dist_eq_norm, dist_eq_norm, ← map_sub]
+        exact hinvariant δ (x - y)
+      obtain ⟨τ, hτ, hcomm⟩ := hext δ.val.toRingEquiv hδiso
+      refine ⟨τ, hτ, hcomm, ?_⟩
+      apply dense_residue (AlgebraicClosure ℚ) C hC e he hd δ.val.toRingEquiv τ hτ hcomm
+      intro x hx
+      let a : A := ⟨x, (hvring x).mp hx⟩
+      have hres : IsLocalRing.residue A (δ • a) = IsLocalRing.residue A a := by
+        have ht : MulSemiringAction.toRingAut (A.decompositionSubgroup ℚ)
+            (IsLocalRing.ResidueField A) δ = 1 := hδ
+        exact DFunLike.congr_fun ht (IsLocalRing.residue A a)
+      have hsmall : (δ.val x - x) ∈ A.nonunits := by
+        apply (A.coe_mem_nonunits_iff (a := δ • a - a)).mpr
+        apply (IsLocalRing.residue_eq_zero_iff _).mp
+        rw [map_sub, hres, sub_self]
+      exact (hvsmall _).mpr hsmall
   have multiplicative_unit (hbad : (p : ℤ) ∣ W.Δ) : IsUnit (W.c₄ : A) :=
     (hunit _).2 (hW p (Fact.out : p.Prime) hbad)
   suffices hquotient : ∃ (M : Type) (_ : AddCommGroup M),
@@ -30007,7 +30409,27 @@ theorem WeierstrassCurve.galoisRep_ordinaryLineAt (W : WeierstrassCurve ℤ) (p 
     obtain ⟨M, hM, f, hf, hI⟩ := hquotient
     exact finish M f hf hI
   by_cases hbad : (p : ℤ) ∣ W.Δ
-  · sorry
+  · obtain ⟨C, nC, hcharC, cC, e, he, hd, hultra, hring, hsmall, hp0, hp1, hrat, hI⟩ :=
+      specified_completion p A hA
+    have hΔe : e (W.Δ : AlgebraicClosure ℚ) ≠ 0 := by
+      intro h
+      have hzero : (W.Δ : AlgebraicClosure ℚ) = 0 := by
+        apply e.injective
+        simpa only [_root_.map_zero] using h
+      exact hΔ (by exact_mod_cast hzero)
+    have hΔsmall : ‖e (W.Δ : AlgebraicClosure ℚ)‖ < 1 := by
+      apply (hsmall _).mpr
+      apply (A.coe_mem_nonunits_iff (a := (W.Δ : A))).mpr
+      change ¬ IsUnit (W.Δ : A)
+      exact fun hu => (hunit W.Δ).mp hu hbad
+    have hc4norm : ‖e (W.c₄ : AlgebraicClosure ℚ)‖ = 1 := by
+      apply le_antisymm ((hring _).mpr (show (W.c₄ : AlgebraicClosure ℚ) ∈ A from (W.c₄ : A).property))
+      apply le_of_not_gt
+      intro h
+      have hnu : ¬ IsUnit (W.c₄ : A) :=
+        (A.coe_mem_nonunits_iff (a := (W.c₄ : A))).mp ((hsmall _).mp h)
+      exact hnu (multiplicative_unit hbad)
+    sorry
   · obtain ⟨r, hr, hI⟩ := good_reduction hbad
     let f := r.comp (Submodule.torsionBy ℤ
       ((W.map (Int.castRingHom ℚ))⁄(AlgebraicClosure ℚ)).Point p).subtype.toAddMonoidHom
