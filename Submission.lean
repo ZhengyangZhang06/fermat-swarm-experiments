@@ -12,19 +12,6 @@ attribute [-simp] compl₂EDSAux_neg_two compl₂EDSAux_zero WeierstrassCurve.ω
 
 open WeierstrassCurve WeierstrassCurve.Affine WeierstrassCurve.Affine.Point
 
-theorem WeierstrassCurve.galoisRep_ordinaryLineAt (W : WeierstrassCurve ℤ) (p : ℕ) [Fact p.Prime] (hp2 : p ≠ 2) (hΔ : W.Δ ≠ 0)
-    (hW : W.IsSemistableModel)
-    (hord : (p : ℤ) ∣ W.Δ ∨ ∃ i, 1 ≤ i ∧ i < (p ^ 2 - 1) / 2 ∧ ¬ (p : ℤ) ∣ (W.preΨ' p).coeff i)
-    (A : ValuationSubring (AlgebraicClosure ℚ)) (hA : A.LiesOverPrime p) :
-    ∃ L : Submodule (ZMod p)
-        (Submodule.torsionBy ℤ ((W.map (Int.castRingHom ℚ))⁄(AlgebraicClosure ℚ)).Point p),
-      L ≠ ⊤ ∧ ∀ σ ∈ A.inertiaSubgroupIn ℚ,
-        ∀ v : Submodule.torsionBy ℤ ((W.map (Int.castRingHom ℚ))⁄(AlgebraicClosure ℚ)).Point p,
-          WeierstrassCurve.Affine.Point.galoisRepModuleEnd (K := AlgebraicClosure ℚ) ℚ
-            (W.map (Int.castRingHom ℚ)) p σ v - v ∈ L := by
-  sorry
-
-
 theorem Submission.p03_odd_prepsi_degree_lc_68cf3476
     (F : Type) [Field F] [CharZero F] [DecidableEq F]
     (W : WeierstrassCurve F) (n : ℕ) (hn : 3 ≤ n) (hodd : Odd n) :
@@ -554,311 +541,6 @@ theorem Submission.p03_tu_coordinate_symmetries_68cf3476 :
     · change (∑' n : ℤ, B (qΩ ^ n * σ (u : Ω))) + algebraMap F Ω c =
         σ ((∑' n : ℤ, B (qΩ ^ n * (u : Ω))) + algebraMap F Ω c)
       rw [hBsumMap, map_add, σ.commutes]
-theorem Submission.p03_eds_canonical_even_recurrence_68cf3476_d4 :
-    ∀ (k : Type) [Field k] [CharZero k] [DecidableEq k] (W : WeierstrassCurve k),
-      let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine
-      let h := q W.ψ₂
-      let F : ℕ → W.toAffine.CoordinateRing :=
-        fun n => q (Polynomial.C (W.preΨ' n)) * (if Even n then h else 1)
-      ∀ r : ℕ, 3 ≤ r →
-        h * F (2 * r) =
-          F r * (F (r + 2) * F (r - 1) ^ 2 - F (r - 2) * F (r + 1) ^ 2) := by
-  intro k _ _ _ W q h F r hr
-  let a : ℕ → W.toAffine.CoordinateRing := fun n => q (Polynomial.C (W.preΨ' n))
-  have hi₁ : r - 3 + 1 = r - 2 := by omega
-  have hi₂ : r - 3 + 2 = r - 1 := by omega
-  have hi₃ : r - 3 + 3 = r := by omega
-  have hi₄ : r - 3 + 4 = r + 1 := by omega
-  have hi₅ : r - 3 + 5 = r + 2 := by omega
-  -- Pinned mathlib DivisionPolynomial/Basic.lean, revision
-  -- db584cd6d46c92f209a44c0f1c829460d327499d, supplies preΨ'_even.
-  have hrec := congrArg (fun p : Polynomial k => q (Polynomial.C p))
-    (W.preΨ'_even (r - 3))
-  simp only [hi₁, hi₂, hi₃, hi₄, hi₅, map_sub, map_mul, map_pow] at hrec
-  change a (2 * r) =
-    a (r - 1) ^ 2 * a r * a (r + 2) - a (r - 2) * a r * a (r + 1) ^ 2 at hrec
-  have hsub₁ : Even (r - 1) ↔ ¬Even r := by
-    rw [Nat.even_sub (by omega : 1 ≤ r)]
-    simp
-  have hsub₂ : Even (r - 2) ↔ Even r := by
-    rw [Nat.even_sub (by omega : 2 ≤ r)]
-    simp
-  have hadd₂ : Even (r + 2) ↔ Even r := by simp [Nat.even_add]
-  change h * (a (2 * r) * (if Even (2 * r) then h else 1)) =
-    (a r * (if Even r then h else 1)) *
-      ((a (r + 2) * (if Even (r + 2) then h else 1)) *
-          (a (r - 1) * (if Even (r - 1) then h else 1)) ^ 2 -
-        (a (r - 2) * (if Even (r - 2) then h else 1)) *
-          (a (r + 1) * (if Even (r + 1) then h else 1)) ^ 2)
-  rw [if_pos (even_two_mul r), hrec]
-  by_cases he : Even r <;>
-    simp only [hsub₁, hsub₂, hadd₂, Nat.even_add_one, he, not_true_eq_false,
-      not_false_eq_true, ite_true, ite_false, mul_one] <;> ring
-
-theorem Submission.p03_eds_canonical_odd_recurrence_68cf3476_d4 :
-    ∀ (k : Type) [Field k] [CharZero k] [DecidableEq k] (W : WeierstrassCurve k),
-      let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine
-      let h := q W.ψ₂
-      let F : ℕ → W.toAffine.CoordinateRing :=
-        fun n => q (Polynomial.C (W.preΨ' n)) * (if Even n then h else 1)
-      ∀ r : ℕ, 2 ≤ r →
-        F (2 * r + 1) = F (r + 2) * F r ^ 3 - F (r - 1) * F (r + 1) ^ 3 := by
-  intro k _ _ _ W q h F r hr
-  have hs : h ^ 2 = q (Polynomial.C W.Ψ₂Sq) := CoordinateRing.mk_ψ₂_sq W
-  have hfour : h ^ 4 = q (Polynomial.C W.Ψ₂Sq) ^ 2 := by
-    rw [show 4 = 2 * 2 by rfl, pow_mul, hs]
-  obtain ⟨m, rfl⟩ : ∃ m, r = m + 2 := ⟨r - 2, by omega⟩
-  have hrec := congrArg (fun p : Polynomial k => q (Polynomial.C p)) (W.preΨ'_odd m)
-  have hsub : m + 2 - 1 = m + 1 := by omega
-  by_cases he : Even m
-  · simp only [if_pos he, map_sub, map_mul, map_pow, mul_one] at hrec
-    simp only [F, hsub, Nat.add_assoc]
-    simp [Nat.even_add, he, show Even (4 : ℕ) by decide,
-      show ¬ Even (3 : ℕ) by decide]
-    rw [hrec, ← hfour]
-    ring
-  · simp only [if_neg he, map_sub, map_mul, map_pow, mul_one] at hrec
-    simp only [F, hsub, Nat.add_assoc]
-    simp [Nat.even_add, he, show Even (4 : ℕ) by decide,
-      show ¬ Even (3 : ℕ) by decide]
-    rw [hrec, ← hfour]
-    ring
-theorem Submission.p03_eds_two_torsion_four_sum_68cf3476_d5 :
-    ∀ (G : Type) [AddCommGroup G] [DecidableEq G] (T : Finset G),
-      (∀ x : G, x ∈ T ↔ (2 : ℕ) • x = 0) → T.card = 4 →
-        T.sum (fun x => x) = 0 := by
-  intro G _ _ T hT hcard
-  have hzero : (0 : G) ∈ T := (hT 0).2 (smul_zero 2)
-  obtain ⟨u, hu, hu_not⟩ := Finset.exists_mem_notMem_of_card_lt_card
-    (s := ({0} : Finset G)) (t := T) (by simp [hcard])
-  have hu0 : u ≠ 0 := by simpa only [Finset.mem_singleton] using hu_not
-  obtain ⟨v, hv, hv_not⟩ := Finset.exists_mem_notMem_of_card_lt_card
-    (s := ({0, u} : Finset G)) (t := T)
-    (lt_of_le_of_lt Finset.card_le_two (by omega))
-  have hv_ne : v ≠ 0 ∧ v ≠ u := by
-    simpa only [Finset.mem_insert, Finset.mem_singleton, not_or] using hv_not
-  have huu : u + u = 0 := by simpa only [two_nsmul] using (hT u).1 hu
-  have hvv : v + v = 0 := by simpa only [two_nsmul] using (hT v).1 hv
-  have huv_mem : u + v ∈ T := by
-    apply (hT (u + v)).2
-    rw [smul_add, (hT u).1 hu, (hT v).1 hv, add_zero]
-  have huv0 : u + v ≠ 0 := by
-    intro h
-    apply hv_ne.2
-    calc
-      v = u + (u + v) := by rw [← add_assoc, huu, zero_add]
-      _ = u := by rw [h, add_zero]
-  have huv_u : u + v ≠ u := by
-    intro h
-    exact hv_ne.1 (add_left_cancel (h.trans (add_zero u).symm))
-  have huv_v : u + v ≠ v := by
-    intro h
-    exact hu0 (add_right_cancel (h.trans (zero_add v).symm))
-  have hset : ({u + v, v, u, 0} : Finset G) = T := by
-    apply Finset.eq_of_subset_of_card_le
-    · intro x hx
-      simp only [Finset.mem_insert, Finset.mem_singleton] at hx
-      rcases hx with rfl | rfl | rfl | rfl
-      · exact huv_mem
-      · exact hv
-      · exact hu
-      · exact hzero
-    · simp [hcard, Finset.card_insert_of_notMem, huv_v, huv_u, huv0,
-        hv_ne.2, hv_ne.1, hu0]
-  calc
-    T.sum (fun x => x) = (u + v) + (v + u) := by
-      rw [← hset]
-      simp [huv_v, huv_u, huv0, hv_ne.2, hv_ne.1, hu0]
-    _ = (u + u) + (v + v) := by abel
-    _ = 0 := by rw [huu, hvv, add_zero]
-theorem Submission.p03_eds_negation_fixed_sum_68cf3476_d5 :
-    ∀ (G : Type) [AddCommGroup G] [DecidableEq G] (S : Finset G),
-      (∀ x ∈ S, -x ∈ S) →
-        S.sum (fun x => x) = (S.filter (fun x => (2 : ℕ) • x = 0)).sum (fun x => x) := by
-  intro G _ _ S
-  induction S using Finset.strongInduction with | H S ih => ?_
-  intro hS
-  by_cases hfixed : ∀ x ∈ S, (2 : ℕ) • x = 0
-  · rw [Finset.filter_eq_self.mpr hfixed]
-  push Not at hfixed
-  obtain ⟨a, ha, ha2⟩ := hfixed
-  have hna : -a ∈ S := hS a ha
-  have hne : a ≠ -a := by
-    intro h
-    apply ha2
-    simpa only [two_nsmul] using (eq_neg_iff_add_eq_zero.mp h)
-  have hna2 : (2 : ℕ) • (-a) ≠ 0 := by
-    intro h
-    apply ha2
-    simpa only [smul_neg, neg_neg, _root_.neg_zero] using congrArg Neg.neg h
-  let R := S \ {a, -a}
-  have hpair : ({a, -a} : Finset G) ⊆ S := by
-    simp only [Finset.insert_subset_iff, Finset.singleton_subset_iff]
-    exact ⟨ha, hna⟩
-  have hRlt : R ⊂ S :=
-    Finset.sdiff_ssubset hpair (by simp)
-  have hR : ∀ x ∈ R, -x ∈ R := by
-    intro x hx
-    rcases Finset.mem_sdiff.mp hx with ⟨hxS, hxpair⟩
-    have hxne : x ≠ a ∧ x ≠ -a := by simpa using hxpair
-    apply Finset.mem_sdiff.mpr
-    refine ⟨hS x hxS, ?_⟩
-    simp only [Finset.mem_insert, Finset.mem_singleton, not_or]
-    constructor
-    · intro h
-      exact hxne.2 (by simpa only [neg_neg] using congrArg Neg.neg h)
-    · intro h
-      exact hxne.1 (neg_injective h)
-  have hfilter : R.filter (fun x => (2 : ℕ) • x = 0) =
-      S.filter (fun x => (2 : ℕ) • x = 0) := by
-    ext x
-    simp only [Finset.mem_filter]
-    constructor
-    · rintro ⟨hx, hx2⟩
-      exact ⟨Finset.sdiff_subset hx, hx2⟩
-    · rintro ⟨hx, hx2⟩
-      refine ⟨Finset.mem_sdiff.mpr ⟨hx, ?_⟩, hx2⟩
-      simp only [Finset.mem_insert, Finset.mem_singleton, not_or]
-      exact ⟨fun h => ha2 (h ▸ hx2), fun h => hna2 (h ▸ hx2)⟩
-  have hsum : S.sum (fun x => x) = R.sum (fun x => x) := by
-    rw [← Finset.sum_sdiff hpair]
-    simp only [Finset.sum_pair hne, add_neg_cancel, add_zero, R]
-  rw [hsum, ih R hRlt hR, hfilter]
-theorem Submission.p03_tkc_two_torsion_card_68cf3476_d5
-    (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k]
-    (W : WeierstrassCurve k) (hΔ : W.Δ ≠ 0) :
-    Nat.card {P : W.toAffine.Point // (2 : ℕ) • P = 0} = 4 := by
-  classical
-  -- Pinned mathlib: Cubic.card_roots_of_discr_ne_zero and
-  -- WeierstrassCurve.twoTorsionPolynomial_discr count the three affine roots.
-  let s := W.twoTorsionPolynomial.roots.toFinset
-  have ha : W.twoTorsionPolynomial.a ≠ 0 := by
-    change (4 : k) ≠ 0
-    norm_num
-  have hd : W.twoTorsionPolynomial.discr ≠ 0 := by
-    rw [W.twoTorsionPolynomial_discr]
-    exact mul_ne_zero (by norm_num) hΔ
-  have hs : s.card = 3 := by
-    simpa [Cubic.map, s] using
-      (Cubic.card_roots_of_discr_ne_zero (φ := RingHom.id k) ha
-        (IsAlgClosed.splits _) hd)
-  have hroot (x : k) : x ∈ s ↔
-      4 * x ^ 3 + W.b₂ * x ^ 2 + 2 * W.b₄ * x + W.b₆ = 0 := by
-    rw [Multiset.mem_toFinset, Cubic.mem_roots_iff (Cubic.ne_zero_of_a_ne_zero ha)]
-    rfl
-  let y₀ : k → k := fun x => -(W.a₁ * x + W.a₃) / 2
-  have heq (x : k) : W.toAffine.Equation x (y₀ x) ↔ x ∈ s := by
-    rw [hroot, equation_iff']
-    dsimp [y₀, b₂, b₄, b₆]
-    constructor
-    · intro h
-      linear_combination -4 * h
-    · intro h
-      linear_combination -(1 / 4 : k) * h
-  have htwo (x y : k) (h : W.toAffine.Nonsingular x y) :
-      (2 : ℕ) • (Point.some x y h) = 0 ↔ y = y₀ x := by
-    rw [two_nsmul, add_eq_zero_iff_eq_neg, neg_some, Point.some.injEq]
-    simp only [true_and, negY]
-    dsimp [y₀]
-    constructor
-    · intro hy
-      linear_combination (1 / 2 : k) * hy
-    · intro hy
-      linear_combination 2 * hy
-  let e : {xy : k × k // ∃ h : W.toAffine.Nonsingular xy.1 xy.2,
-      (2 : ℕ) • Point.some xy.1 xy.2 h = 0} ≃ s :=
-    { toFun := fun xy => ⟨xy.val.1, by
-        obtain ⟨h, ht⟩ := xy.property
-        have hy := (htwo _ _ h).mp ht
-        exact (heq _).mp (hy ▸ h.1)⟩
-      invFun := fun x => ⟨(x.val, y₀ x.val), by
-        have h := (W.toAffine.equation_iff_nonsingular_of_Δ_ne_zero hΔ).mp
-          ((heq _).mpr x.property)
-        exact ⟨h, (htwo _ _ h).mpr rfl⟩⟩
-      left_inv := by
-        intro xy
-        apply Subtype.ext
-        apply Prod.ext
-        · rfl
-        · exact ((htwo _ _ xy.property.choose).mp xy.property.choose_spec).symm
-      right_inv := by intro x; rfl }
-  have e₀ := nonsingularPointEquivSubtype
-    (p := fun P : W.toAffine.Point => (2 : ℕ) • P = 0)
-    (show (2 : ℕ) • (Point.zero : W.toAffine.Point) = 0 by exact nsmul_zero 2)
-  rw [Nat.card_congr (e₀.trans e.optionCongr)]
-  change Nat.card (Option s) = 4
-  rw [Nat.card_eq_fintype_card, Fintype.card_option, Fintype.card_coe, hs]
-
-theorem Submission.p03_eds_canonical_recurrences_68cf3476_d3 :
-    ∀ (k : Type) [Field k] [CharZero k] [DecidableEq k] (W : WeierstrassCurve k),
-      let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine
-      let h := q W.ψ₂
-      let F : ℕ → W.toAffine.CoordinateRing :=
-        fun n => q (Polynomial.C (W.preΨ' n)) * (if Even n then h else 1)
-      F 0 = 0 ∧ F 1 = 1 ∧ F 2 = h ∧ F 3 = q (Polynomial.C W.Ψ₃) ∧
-        F 4 = h * q (Polynomial.C W.preΨ₄) ∧
-        (∀ r : ℕ, 2 ≤ r →
-          F (2 * r + 1) = F (r + 2) * F r ^ 3 - F (r - 1) * F (r + 1) ^ 3) ∧
-        (∀ r : ℕ, 3 ≤ r →
-          h * F (2 * r) =
-            F r * (F (r + 2) * F (r - 1) ^ 2 - F (r - 2) * F (r + 1) ^ 2)) := by
-  intro k _ _ _ W
-  dsimp only
-  refine ⟨?_, ?_, ?_, ?_, ?_,
-    Submission.p03_eds_canonical_odd_recurrence_68cf3476_d4 k W,
-    Submission.p03_eds_canonical_even_recurrence_68cf3476_d4 k W⟩
-  · simp only [preΨ'_zero, _root_.map_zero, zero_mul]
-  · simp only [preΨ'_one, map_one, Nat.not_even_one, if_false, one_mul]
-  · simp only [preΨ'_two, map_one, even_two, if_true, one_mul]
-  · simp only [preΨ'_three, show ¬ Even (3 : ℕ) by decide, if_false, mul_one]
-  · simp only [preΨ'_four, show Even (4 : ℕ) by decide, if_true, mul_comm]
-
-
-namespace Submission
-
-theorem p03_torsion_eds_identification_68cf3476_d2 :
-    ∀ (k : Type) [Field k] [CharZero k] [DecidableEq k] (W : WeierstrassCurve k),
-      let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine
-      let h := q W.ψ₂
-      ∀ f : ℕ → W.toAffine.CoordinateRing,
-        (f 0 = 0 ∧ f 1 = 1 ∧ f 2 = h ∧ f 3 = q (Polynomial.C W.Ψ₃) ∧
-          f 4 = h * q (Polynomial.C W.preΨ₄) ∧
-          (∀ r : ℕ, 2 ≤ r →
-            f (2 * r + 1) = f (r + 2) * f r ^ 3 - f (r - 1) * f (r + 1) ^ 3) ∧
-          (∀ r : ℕ, 3 ≤ r →
-            h * f (2 * r) =
-              f r * (f (r + 2) * f (r - 1) ^ 2 - f (r - 2) * f (r + 1) ^ 2))) →
-        ∀ n : ℕ, f n = q (Polynomial.C (W.preΨ' n)) * (if Even n then h else 1) := by
-  intro k _ _ _ W q h f hf
-  let F : ℕ → W.toAffine.CoordinateRing :=
-    fun n => q (Polynomial.C (W.preΨ' n)) * (if Even n then h else 1)
-  -- In the free basis {1, Y}, the Y coefficient of h is 2.
-  have hh : h ≠ 0 := by
-    intro hh
-    have hb :
-        (Polynomial.C W.a₁ * Polynomial.X + Polynomial.C W.a₃) •
-            (1 : W.toAffine.CoordinateRing) +
-          Polynomial.C (2 : k) • q Polynomial.X = 0 := by
-      simpa only [h, q, WeierstrassCurve.ψ₂, WeierstrassCurve.Affine.polynomialY,
-        map_add, map_mul, WeierstrassCurve.Affine.CoordinateRing.smul, mul_one,
-        add_comm] using hh
-    have htwo : Polynomial.C (2 : k) = 0 :=
-      (WeierstrassCurve.Affine.CoordinateRing.smul_basis_eq_zero hb).2
-    exact (two_ne_zero : (2 : k) ≠ 0) (Polynomial.C_eq_zero.mp htwo)
-  obtain ⟨hf0, hf1, hf2, hf3, hf4, hfodd, hfeven⟩ := hf
-  obtain ⟨hF0, hF1, hF2, hF3, hF4, hFodd, hFeven⟩ :=
-    Submission.p03_eds_canonical_recurrences_68cf3476_d3 k W
-  have hinitial : ∀ n : ℕ, n ≤ 4 → f n = F n := by
-    intro n hn
-    interval_cases n
-    · exact hf0.trans hF0.symm
-    · exact hf1.trans hF1.symm
-    · exact hf2.trans hF2.symm
-    · exact hf3.trans hF3.symm
-    · exact hf4.trans hF4.symm
-  -- The coordinate ring is a domain even for singular Weierstrass equations.
-  exact Submission.p03_eds_recurrence_unique_68cf3476_d3
-    W.toAffine.CoordinateRing h hh f F hinitial hfodd hfeven hFodd hFeven
 
 end Submission
 theorem Submission.p03_ptf_positive_nsmul_nonzero_c5b7b5ed_d6 :
@@ -1246,6 +928,7 @@ theorem Submission.p03_tkc_positive_torsion_finite_68cf3476_d5 :
   intro k _ _ _ _ W hΔ n hn
   exact Submission.p03_ptf_finite_kernel_of_nsmul_nonzero_c5b7b5ed_d6 k W hΔ n
     (Submission.p03_ptf_positive_nsmul_nonzero_c5b7b5ed_d6 k W hΔ n hn)
+
 set_option maxHeartbeats 32000000 in
 set_option warningAsError true in
 theorem Submission.p03_tate_uniformization_68cf3476 : ∀ (F Ω : Type) [NormedField F] [CharZero F] [CompleteSpace F] [NormedField Ω] [CharZero Ω] [DecidableEq Ω] [NormedAlgebra F Ω] [IsAlgClosed Ω] [Algebra.IsAlgebraic F Ω], (∀ x y : F, ‖x + y‖ ≤ max ‖x‖ ‖y‖) → (∀ x y : Ω, ‖x + y‖ ≤ max ‖x‖ ‖y‖) → (∃ r : ℝ, 0 < r ∧ r < 1 ∧ ∀ x : F, x ≠ 0 → ∃ n : ℤ, ‖x‖ = r ^ n) → ∀ q : F, 0 < ‖q‖ → ‖q‖ < 1 → let s : ℕ → F := fun k => ∑' d : ℕ, ((d + 1 : ℕ) : F) ^ k * q ^ (d + 1) / (1 - q ^ (d + 1)); let T : WeierstrassCurve F := ⟨1, 0, 0, -5 * s 3, -(5 * s 3 + 7 * s 5) / 12⟩; let qΩ : Ω := algebraMap F Ω q; let X : Ω → Ω := fun u => (∑' n : ℤ, qΩ ^ n * u / (1 - qΩ ^ n * u) ^ 2) - 2 * algebraMap F Ω (s 1); let Y : Ω → Ω := fun u => (∑' n : ℤ, (qΩ ^ n * u) ^ 2 / (1 - qΩ ^ n * u) ^ 3) + algebraMap F Ω (s 1); (∀ k : ℕ, Summable (fun d : ℕ => ((d + 1 : ℕ) : F) ^ k * q ^ (d + 1) / (1 - q ^ (d + 1)))) ∧ Multipliable (fun d : ℕ => (1 - q ^ (d + 1)) ^ 24) ∧ T.c₄ = 1 + 240 * s 3 ∧ T.c₆ = -1 + 504 * s 5 ∧ T.Δ = q * (∏' d : ℕ, (1 - q ^ (d + 1)) ^ 24) ∧ T.Δ ≠ 0 ∧ (∀ u : Ωˣ, (¬ ∃ m : ℤ, (u : Ω) = qΩ ^ m) → Summable (fun n : ℤ => qΩ ^ n * (u : Ω) / (1 - qΩ ^ n * (u : Ω)) ^ 2) ∧ Summable (fun n : ℤ => (qΩ ^ n * (u : Ω)) ^ 2 / (1 - qΩ ^ n * (u : Ω)) ^ 3)) ∧ ∃ θ : Additive Ωˣ →+ (WeierstrassCurve.Affine.baseChange T.toAffine Ω).Point, Function.Surjective θ ∧ (∀ u : Ωˣ, θ (Additive.ofMul u) = 0 ↔ ∃ m : ℤ, (u : Ω) = qΩ ^ m) ∧ (∀ u : Ωˣ, (¬ ∃ m : ℤ, (u : Ω) = qΩ ^ m) → ∃ h : (WeierstrassCurve.Affine.baseChange T.toAffine Ω).Nonsingular (X (u : Ω)) (Y (u : Ω)), θ (Additive.ofMul u) = WeierstrassCurve.Affine.Point.some (X (u : Ω)) (Y (u : Ω)) h) ∧ ∀ (σ : Ω ≃ₐ[F] Ω) (u : Ωˣ), θ (Additive.ofMul (Units.map σ.toMonoidHom u)) = σ • θ (Additive.ofMul u) := by
@@ -22147,6 +21830,70 @@ theorem Submission.p03_tate_uniformization_68cf3476 : ∀ (F Ω : Type) [NormedF
       WeierstrassCurve.Affine.Point.map_some, WeierstrassCurve.Affine.Point.some.injEq]
     exact ⟨hx, hy⟩
 
+theorem Submission.p03_tkc_two_torsion_card_68cf3476_d5
+    (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k]
+    (W : WeierstrassCurve k) (hΔ : W.Δ ≠ 0) :
+    Nat.card {P : W.toAffine.Point // (2 : ℕ) • P = 0} = 4 := by
+  classical
+  -- Pinned mathlib: Cubic.card_roots_of_discr_ne_zero and
+  -- WeierstrassCurve.twoTorsionPolynomial_discr count the three affine roots.
+  let s := W.twoTorsionPolynomial.roots.toFinset
+  have ha : W.twoTorsionPolynomial.a ≠ 0 := by
+    change (4 : k) ≠ 0
+    norm_num
+  have hd : W.twoTorsionPolynomial.discr ≠ 0 := by
+    rw [W.twoTorsionPolynomial_discr]
+    exact mul_ne_zero (by norm_num) hΔ
+  have hs : s.card = 3 := by
+    simpa [Cubic.map, s] using
+      (Cubic.card_roots_of_discr_ne_zero (φ := RingHom.id k) ha
+        (IsAlgClosed.splits _) hd)
+  have hroot (x : k) : x ∈ s ↔
+      4 * x ^ 3 + W.b₂ * x ^ 2 + 2 * W.b₄ * x + W.b₆ = 0 := by
+    rw [Multiset.mem_toFinset, Cubic.mem_roots_iff (Cubic.ne_zero_of_a_ne_zero ha)]
+    rfl
+  let y₀ : k → k := fun x => -(W.a₁ * x + W.a₃) / 2
+  have heq (x : k) : W.toAffine.Equation x (y₀ x) ↔ x ∈ s := by
+    rw [hroot, equation_iff']
+    dsimp [y₀, b₂, b₄, b₆]
+    constructor
+    · intro h
+      linear_combination -4 * h
+    · intro h
+      linear_combination -(1 / 4 : k) * h
+  have htwo (x y : k) (h : W.toAffine.Nonsingular x y) :
+      (2 : ℕ) • (Point.some x y h) = 0 ↔ y = y₀ x := by
+    rw [two_nsmul, add_eq_zero_iff_eq_neg, neg_some, Point.some.injEq]
+    simp only [true_and, negY]
+    dsimp [y₀]
+    constructor
+    · intro hy
+      linear_combination (1 / 2 : k) * hy
+    · intro hy
+      linear_combination 2 * hy
+  let e : {xy : k × k // ∃ h : W.toAffine.Nonsingular xy.1 xy.2,
+      (2 : ℕ) • Point.some xy.1 xy.2 h = 0} ≃ s :=
+    { toFun := fun xy => ⟨xy.val.1, by
+        obtain ⟨h, ht⟩ := xy.property
+        have hy := (htwo _ _ h).mp ht
+        exact (heq _).mp (hy ▸ h.1)⟩
+      invFun := fun x => ⟨(x.val, y₀ x.val), by
+        have h := (W.toAffine.equation_iff_nonsingular_of_Δ_ne_zero hΔ).mp
+          ((heq _).mpr x.property)
+        exact ⟨h, (htwo _ _ h).mpr rfl⟩⟩
+      left_inv := by
+        intro xy
+        apply Subtype.ext
+        apply Prod.ext
+        · rfl
+        · exact ((htwo _ _ xy.property.choose).mp xy.property.choose_spec).symm
+      right_inv := by intro x; rfl }
+  have e₀ := nonsingularPointEquivSubtype
+    (p := fun P : W.toAffine.Point => (2 : ℕ) • P = 0)
+    (show (2 : ℕ) • (Point.zero : W.toAffine.Point) = 0 by exact nsmul_zero 2)
+  rw [Nat.card_congr (e₀.trans e.optionCongr)]
+  change Nat.card (Option s) = 4
+  rw [Nat.card_eq_fintype_card, Fintype.card_option, Fintype.card_coe, hs]
 
 /-
 Incomplete speculative implementation of the frozen torsion-cardinality recurrence.
@@ -25137,6 +24884,108 @@ theorem Submission.p03_eds_torsion_kernel_card_68cf3476_d4 :
   · omega
   · exact (hcard n).1
 
+theorem Submission.p03_eds_negation_fixed_sum_68cf3476_d5 :
+    ∀ (G : Type) [AddCommGroup G] [DecidableEq G] (S : Finset G),
+      (∀ x ∈ S, -x ∈ S) →
+        S.sum (fun x => x) = (S.filter (fun x => (2 : ℕ) • x = 0)).sum (fun x => x) := by
+  intro G _ _ S
+  induction S using Finset.strongInduction with | H S ih => ?_
+  intro hS
+  by_cases hfixed : ∀ x ∈ S, (2 : ℕ) • x = 0
+  · rw [Finset.filter_eq_self.mpr hfixed]
+  push Not at hfixed
+  obtain ⟨a, ha, ha2⟩ := hfixed
+  have hna : -a ∈ S := hS a ha
+  have hne : a ≠ -a := by
+    intro h
+    apply ha2
+    simpa only [two_nsmul] using (eq_neg_iff_add_eq_zero.mp h)
+  have hna2 : (2 : ℕ) • (-a) ≠ 0 := by
+    intro h
+    apply ha2
+    simpa only [smul_neg, neg_neg, _root_.neg_zero] using congrArg Neg.neg h
+  let R := S \ {a, -a}
+  have hpair : ({a, -a} : Finset G) ⊆ S := by
+    simp only [Finset.insert_subset_iff, Finset.singleton_subset_iff]
+    exact ⟨ha, hna⟩
+  have hRlt : R ⊂ S :=
+    Finset.sdiff_ssubset hpair (by simp)
+  have hR : ∀ x ∈ R, -x ∈ R := by
+    intro x hx
+    rcases Finset.mem_sdiff.mp hx with ⟨hxS, hxpair⟩
+    have hxne : x ≠ a ∧ x ≠ -a := by simpa using hxpair
+    apply Finset.mem_sdiff.mpr
+    refine ⟨hS x hxS, ?_⟩
+    simp only [Finset.mem_insert, Finset.mem_singleton, not_or]
+    constructor
+    · intro h
+      exact hxne.2 (by simpa only [neg_neg] using congrArg Neg.neg h)
+    · intro h
+      exact hxne.1 (neg_injective h)
+  have hfilter : R.filter (fun x => (2 : ℕ) • x = 0) =
+      S.filter (fun x => (2 : ℕ) • x = 0) := by
+    ext x
+    simp only [Finset.mem_filter]
+    constructor
+    · rintro ⟨hx, hx2⟩
+      exact ⟨Finset.sdiff_subset hx, hx2⟩
+    · rintro ⟨hx, hx2⟩
+      refine ⟨Finset.mem_sdiff.mpr ⟨hx, ?_⟩, hx2⟩
+      simp only [Finset.mem_insert, Finset.mem_singleton, not_or]
+      exact ⟨fun h => ha2 (h ▸ hx2), fun h => hna2 (h ▸ hx2)⟩
+  have hsum : S.sum (fun x => x) = R.sum (fun x => x) := by
+    rw [← Finset.sum_sdiff hpair]
+    simp only [Finset.sum_pair hne, add_neg_cancel, add_zero, R]
+  rw [hsum, ih R hRlt hR, hfilter]
+
+theorem Submission.p03_eds_two_torsion_four_sum_68cf3476_d5 :
+    ∀ (G : Type) [AddCommGroup G] [DecidableEq G] (T : Finset G),
+      (∀ x : G, x ∈ T ↔ (2 : ℕ) • x = 0) → T.card = 4 →
+        T.sum (fun x => x) = 0 := by
+  intro G _ _ T hT hcard
+  have hzero : (0 : G) ∈ T := (hT 0).2 (smul_zero 2)
+  obtain ⟨u, hu, hu_not⟩ := Finset.exists_mem_notMem_of_card_lt_card
+    (s := ({0} : Finset G)) (t := T) (by simp [hcard])
+  have hu0 : u ≠ 0 := by simpa only [Finset.mem_singleton] using hu_not
+  obtain ⟨v, hv, hv_not⟩ := Finset.exists_mem_notMem_of_card_lt_card
+    (s := ({0, u} : Finset G)) (t := T)
+    (lt_of_le_of_lt Finset.card_le_two (by omega))
+  have hv_ne : v ≠ 0 ∧ v ≠ u := by
+    simpa only [Finset.mem_insert, Finset.mem_singleton, not_or] using hv_not
+  have huu : u + u = 0 := by simpa only [two_nsmul] using (hT u).1 hu
+  have hvv : v + v = 0 := by simpa only [two_nsmul] using (hT v).1 hv
+  have huv_mem : u + v ∈ T := by
+    apply (hT (u + v)).2
+    rw [smul_add, (hT u).1 hu, (hT v).1 hv, add_zero]
+  have huv0 : u + v ≠ 0 := by
+    intro h
+    apply hv_ne.2
+    calc
+      v = u + (u + v) := by rw [← add_assoc, huu, zero_add]
+      _ = u := by rw [h, add_zero]
+  have huv_u : u + v ≠ u := by
+    intro h
+    exact hv_ne.1 (add_left_cancel (h.trans (add_zero u).symm))
+  have huv_v : u + v ≠ v := by
+    intro h
+    exact hu0 (add_right_cancel (h.trans (zero_add v).symm))
+  have hset : ({u + v, v, u, 0} : Finset G) = T := by
+    apply Finset.eq_of_subset_of_card_le
+    · intro x hx
+      simp only [Finset.mem_insert, Finset.mem_singleton] at hx
+      rcases hx with rfl | rfl | rfl | rfl
+      · exact huv_mem
+      · exact hv
+      · exact hu
+      · exact hzero
+    · simp [hcard, Finset.card_insert_of_notMem, huv_v, huv_u, huv0,
+        hv_ne.2, hv_ne.1, hu0]
+  calc
+    T.sum (fun x => x) = (u + v) + (v + u) := by
+      rw [← hset]
+      simp [huv_v, huv_u, huv0, hv_ne.2, hv_ne.1, hu0]
+    _ = (u + u) + (v + v) := by abel
+    _ = 0 := by rw [huu, hvv, add_zero]
 theorem Submission.p03_eds_torsion_kernel_sum_68cf3476_d4 :
     ∀ (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k]
       (W : WeierstrassCurve k), W.Δ ≠ 0 → ∀ n : ℕ, 0 < n →
@@ -28887,6 +28736,182 @@ theorem p03_torsion_eds_exists_68cf3476_d2
 
 end Submission
 
+theorem Submission.p03_eds_canonical_odd_recurrence_68cf3476_d4 :
+    ∀ (k : Type) [Field k] [CharZero k] [DecidableEq k] (W : WeierstrassCurve k),
+      let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine
+      let h := q W.ψ₂
+      let F : ℕ → W.toAffine.CoordinateRing :=
+        fun n => q (Polynomial.C (W.preΨ' n)) * (if Even n then h else 1)
+      ∀ r : ℕ, 2 ≤ r →
+        F (2 * r + 1) = F (r + 2) * F r ^ 3 - F (r - 1) * F (r + 1) ^ 3 := by
+  intro k _ _ _ W q h F r hr
+  have hs : h ^ 2 = q (Polynomial.C W.Ψ₂Sq) := CoordinateRing.mk_ψ₂_sq W
+  have hfour : h ^ 4 = q (Polynomial.C W.Ψ₂Sq) ^ 2 := by
+    rw [show 4 = 2 * 2 by rfl, pow_mul, hs]
+  obtain ⟨m, rfl⟩ : ∃ m, r = m + 2 := ⟨r - 2, by omega⟩
+  have hrec := congrArg (fun p : Polynomial k => q (Polynomial.C p)) (W.preΨ'_odd m)
+  have hsub : m + 2 - 1 = m + 1 := by omega
+  by_cases he : Even m
+  · simp only [if_pos he, map_sub, map_mul, map_pow, mul_one] at hrec
+    simp only [F, hsub, Nat.add_assoc]
+    simp [Nat.even_add, he, show Even (4 : ℕ) by decide,
+      show ¬ Even (3 : ℕ) by decide]
+    rw [hrec, ← hfour]
+    ring
+  · simp only [if_neg he, map_sub, map_mul, map_pow, mul_one] at hrec
+    simp only [F, hsub, Nat.add_assoc]
+    simp [Nat.even_add, he, show Even (4 : ℕ) by decide,
+      show ¬ Even (3 : ℕ) by decide]
+    rw [hrec, ← hfour]
+    ring
+
+theorem Submission.p03_eds_canonical_even_recurrence_68cf3476_d4 :
+    ∀ (k : Type) [Field k] [CharZero k] [DecidableEq k] (W : WeierstrassCurve k),
+      let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine
+      let h := q W.ψ₂
+      let F : ℕ → W.toAffine.CoordinateRing :=
+        fun n => q (Polynomial.C (W.preΨ' n)) * (if Even n then h else 1)
+      ∀ r : ℕ, 3 ≤ r →
+        h * F (2 * r) =
+          F r * (F (r + 2) * F (r - 1) ^ 2 - F (r - 2) * F (r + 1) ^ 2) := by
+  intro k _ _ _ W q h F r hr
+  let a : ℕ → W.toAffine.CoordinateRing := fun n => q (Polynomial.C (W.preΨ' n))
+  have hi₁ : r - 3 + 1 = r - 2 := by omega
+  have hi₂ : r - 3 + 2 = r - 1 := by omega
+  have hi₃ : r - 3 + 3 = r := by omega
+  have hi₄ : r - 3 + 4 = r + 1 := by omega
+  have hi₅ : r - 3 + 5 = r + 2 := by omega
+  -- Pinned mathlib DivisionPolynomial/Basic.lean, revision
+  -- db584cd6d46c92f209a44c0f1c829460d327499d, supplies preΨ'_even.
+  have hrec := congrArg (fun p : Polynomial k => q (Polynomial.C p))
+    (W.preΨ'_even (r - 3))
+  simp only [hi₁, hi₂, hi₃, hi₄, hi₅, map_sub, map_mul, map_pow] at hrec
+  change a (2 * r) =
+    a (r - 1) ^ 2 * a r * a (r + 2) - a (r - 2) * a r * a (r + 1) ^ 2 at hrec
+  have hsub₁ : Even (r - 1) ↔ ¬Even r := by
+    rw [Nat.even_sub (by omega : 1 ≤ r)]
+    simp
+  have hsub₂ : Even (r - 2) ↔ Even r := by
+    rw [Nat.even_sub (by omega : 2 ≤ r)]
+    simp
+  have hadd₂ : Even (r + 2) ↔ Even r := by simp [Nat.even_add]
+  change h * (a (2 * r) * (if Even (2 * r) then h else 1)) =
+    (a r * (if Even r then h else 1)) *
+      ((a (r + 2) * (if Even (r + 2) then h else 1)) *
+          (a (r - 1) * (if Even (r - 1) then h else 1)) ^ 2 -
+        (a (r - 2) * (if Even (r - 2) then h else 1)) *
+          (a (r + 1) * (if Even (r + 1) then h else 1)) ^ 2)
+  rw [if_pos (even_two_mul r), hrec]
+  by_cases he : Even r <;>
+    simp only [hsub₁, hsub₂, hadd₂, Nat.even_add_one, he, not_true_eq_false,
+      not_false_eq_true, ite_true, ite_false, mul_one] <;> ring
+
+
+theorem Submission.p03_eds_canonical_recurrences_68cf3476_d3 :
+    ∀ (k : Type) [Field k] [CharZero k] [DecidableEq k] (W : WeierstrassCurve k),
+      let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine
+      let h := q W.ψ₂
+      let F : ℕ → W.toAffine.CoordinateRing :=
+        fun n => q (Polynomial.C (W.preΨ' n)) * (if Even n then h else 1)
+      F 0 = 0 ∧ F 1 = 1 ∧ F 2 = h ∧ F 3 = q (Polynomial.C W.Ψ₃) ∧
+        F 4 = h * q (Polynomial.C W.preΨ₄) ∧
+        (∀ r : ℕ, 2 ≤ r →
+          F (2 * r + 1) = F (r + 2) * F r ^ 3 - F (r - 1) * F (r + 1) ^ 3) ∧
+        (∀ r : ℕ, 3 ≤ r →
+          h * F (2 * r) =
+            F r * (F (r + 2) * F (r - 1) ^ 2 - F (r - 2) * F (r + 1) ^ 2)) := by
+  intro k _ _ _ W
+  dsimp only
+  refine ⟨?_, ?_, ?_, ?_, ?_,
+    Submission.p03_eds_canonical_odd_recurrence_68cf3476_d4 k W,
+    Submission.p03_eds_canonical_even_recurrence_68cf3476_d4 k W⟩
+  · simp only [preΨ'_zero, _root_.map_zero, zero_mul]
+  · simp only [preΨ'_one, map_one, Nat.not_even_one, if_false, one_mul]
+  · simp only [preΨ'_two, map_one, even_two, if_true, one_mul]
+  · simp only [preΨ'_three, show ¬ Even (3 : ℕ) by decide, if_false, mul_one]
+  · simp only [preΨ'_four, show Even (4 : ℕ) by decide, if_true, mul_comm]
+
+
+theorem Submission.p03_eds_recurrence_unique_68cf3476_d3 :
+    ∀ (R : Type) [CommRing R] [IsDomain R] (h : R), h ≠ 0 →
+      ∀ f g : ℕ → R,
+        (∀ n : ℕ, n ≤ 4 → f n = g n) →
+        (∀ r : ℕ, 2 ≤ r →
+          f (2 * r + 1) = f (r + 2) * f r ^ 3 - f (r - 1) * f (r + 1) ^ 3) →
+        (∀ r : ℕ, 3 ≤ r →
+          h * f (2 * r) =
+            f r * (f (r + 2) * f (r - 1) ^ 2 - f (r - 2) * f (r + 1) ^ 2)) →
+        (∀ r : ℕ, 2 ≤ r →
+          g (2 * r + 1) = g (r + 2) * g r ^ 3 - g (r - 1) * g (r + 1) ^ 3) →
+        (∀ r : ℕ, 3 ≤ r →
+          h * g (2 * r) =
+            g r * (g (r + 2) * g (r - 1) ^ 2 - g (r - 2) * g (r + 1) ^ 2)) →
+        ∀ n : ℕ, f n = g n := by
+  intro R _ _ h hh f g hinit hfodd hfeven hgodd hgeven n
+  induction n using Nat.strong_induction_on with
+  | h n ih =>
+    by_cases hn : n ≤ 4
+    · exact hinit n hn
+    · rcases n.even_or_odd' with ⟨r, rfl | rfl⟩
+      · have hr : 3 ≤ r := by omega
+        apply mul_left_cancel₀ hh
+        rw [hfeven r hr, hgeven r hr,
+          ih r (by omega), ih (r + 2) (by omega), ih (r - 1) (by omega),
+          ih (r - 2) (by omega), ih (r + 1) (by omega)]
+      · have hr : 2 ≤ r := by omega
+        rw [hfodd r hr, hgodd r hr,
+          ih (r + 2) (by omega), ih r (by omega),
+          ih (r - 1) (by omega), ih (r + 1) (by omega)]
+
+
+namespace Submission
+
+theorem p03_torsion_eds_identification_68cf3476_d2 :
+    ∀ (k : Type) [Field k] [CharZero k] [DecidableEq k] (W : WeierstrassCurve k),
+      let q := WeierstrassCurve.Affine.CoordinateRing.mk W.toAffine
+      let h := q W.ψ₂
+      ∀ f : ℕ → W.toAffine.CoordinateRing,
+        (f 0 = 0 ∧ f 1 = 1 ∧ f 2 = h ∧ f 3 = q (Polynomial.C W.Ψ₃) ∧
+          f 4 = h * q (Polynomial.C W.preΨ₄) ∧
+          (∀ r : ℕ, 2 ≤ r →
+            f (2 * r + 1) = f (r + 2) * f r ^ 3 - f (r - 1) * f (r + 1) ^ 3) ∧
+          (∀ r : ℕ, 3 ≤ r →
+            h * f (2 * r) =
+              f r * (f (r + 2) * f (r - 1) ^ 2 - f (r - 2) * f (r + 1) ^ 2))) →
+        ∀ n : ℕ, f n = q (Polynomial.C (W.preΨ' n)) * (if Even n then h else 1) := by
+  intro k _ _ _ W q h f hf
+  let F : ℕ → W.toAffine.CoordinateRing :=
+    fun n => q (Polynomial.C (W.preΨ' n)) * (if Even n then h else 1)
+  -- In the free basis {1, Y}, the Y coefficient of h is 2.
+  have hh : h ≠ 0 := by
+    intro hh
+    have hb :
+        (Polynomial.C W.a₁ * Polynomial.X + Polynomial.C W.a₃) •
+            (1 : W.toAffine.CoordinateRing) +
+          Polynomial.C (2 : k) • q Polynomial.X = 0 := by
+      simpa only [h, q, WeierstrassCurve.ψ₂, WeierstrassCurve.Affine.polynomialY,
+        map_add, map_mul, WeierstrassCurve.Affine.CoordinateRing.smul, mul_one,
+        add_comm] using hh
+    have htwo : Polynomial.C (2 : k) = 0 :=
+      (WeierstrassCurve.Affine.CoordinateRing.smul_basis_eq_zero hb).2
+    exact (two_ne_zero : (2 : k) ≠ 0) (Polynomial.C_eq_zero.mp htwo)
+  obtain ⟨hf0, hf1, hf2, hf3, hf4, hfodd, hfeven⟩ := hf
+  obtain ⟨hF0, hF1, hF2, hF3, hF4, hFodd, hFeven⟩ :=
+    Submission.p03_eds_canonical_recurrences_68cf3476_d3 k W
+  have hinitial : ∀ n : ℕ, n ≤ 4 → f n = F n := by
+    intro n hn
+    interval_cases n
+    · exact hf0.trans hF0.symm
+    · exact hf1.trans hF1.symm
+    · exact hf2.trans hF2.symm
+    · exact hf3.trans hF3.symm
+    · exact hf4.trans hF4.symm
+  -- The coordinate ring is a domain even for singular Weierstrass equations.
+  exact Submission.p03_eds_recurrence_unique_68cf3476_d3
+    W.toAffine.CoordinateRing h hh f F hinitial hfodd hfeven hFodd hFeven
+
+end Submission
+
 namespace Submission
 
 theorem p03_odd_prepsi_torsion_68cf3476 :
@@ -28986,3 +29011,2708 @@ theorem Submission.p03_odd_division_detection_68cf3476 :
     Submission.p03_odd_prepsi_degree_lc_68cf3476 F W n hn hodd
   exact ⟨hdegree, hleadingCoeff,
     Submission.p03_odd_prepsi_torsion_68cf3476 F W hΔ n hn hodd⟩
+
+theorem WeierstrassCurve.galoisRep_ordinaryLineAt (W : WeierstrassCurve ℤ) (p : ℕ) [Fact p.Prime] (hp2 : p ≠ 2) (hΔ : W.Δ ≠ 0)
+    (hW : W.IsSemistableModel)
+    (hord : (p : ℤ) ∣ W.Δ ∨ ∃ i, 1 ≤ i ∧ i < (p ^ 2 - 1) / 2 ∧ ¬ (p : ℤ) ∣ (W.preΨ' p).coeff i)
+    (A : ValuationSubring (AlgebraicClosure ℚ)) (hA : A.LiesOverPrime p) :
+    ∃ L : Submodule (ZMod p)
+        (Submodule.torsionBy ℤ ((W.map (Int.castRingHom ℚ))⁄(AlgebraicClosure ℚ)).Point p),
+      L ≠ ⊤ ∧ ∀ σ ∈ A.inertiaSubgroupIn ℚ,
+        ∀ v : Submodule.torsionBy ℤ ((W.map (Int.castRingHom ℚ))⁄(AlgebraicClosure ℚ)).Point p,
+          WeierstrassCurve.Affine.Point.galoisRepModuleEnd (K := AlgebraicClosure ℚ) ℚ
+            (W.map (Int.castRingHom ℚ)) p σ v - v ∈ L := by
+  classical
+  have prelim :
+    3 ≤ p ∧ Odd p ∧ CharP (IsLocalRing.ResidueField A) p ∧
+    ∀ n : ℤ, IsUnit (n : A) ↔ ¬ (p : ℤ) ∣ n := by
+    have hp : p.Prime := Fact.out
+    have hp3 : 3 ≤ p := by have := hp.two_le; omega
+    have hpodd : Odd p := hp.odd_of_ne_two hp2
+    have hchar : CharP (IsLocalRing.ResidueField A) p := by
+      apply (CharP.charP_iff_prime_eq_zero hp).2
+      rw [← map_natCast (IsLocalRing.residue A), IsLocalRing.residue_eq_zero_iff]
+      exact (A.coe_mem_nonunits_iff).1 (by simpa [ValuationSubring.LiesOverPrime] using hA)
+    refine ⟨hp3, hpodd, hchar, ?_⟩
+    intro n
+    rw [← IsLocalRing.residue_ne_zero_iff_isUnit, map_intCast]
+    exact not_congr (CharP.intCast_eq_zero_iff (IsLocalRing.ResidueField A) p n)
+  obtain ⟨hp3, hpodd, hchar, hunit⟩ := prelim
+  have finish (M : Type) [AddCommGroup M]
+      (f : Submodule.torsionBy ℤ ((W.map (Int.castRingHom ℚ))⁄(AlgebraicClosure ℚ)).Point p →+ M)
+      (hf : ∃ v, f v ≠ 0)
+      (hI : ∀ σ ∈ A.inertiaSubgroupIn ℚ, ∀ v,
+        f (WeierstrassCurve.Affine.Point.galoisRepModuleEnd (K := AlgebraicClosure ℚ) ℚ
+          (W.map (Int.castRingHom ℚ)) p σ v) = f v) :
+    ∃ L : Submodule (ZMod p)
+        (Submodule.torsionBy ℤ ((W.map (Int.castRingHom ℚ))⁄(AlgebraicClosure ℚ)).Point p),
+      L ≠ ⊤ ∧ ∀ σ ∈ A.inertiaSubgroupIn ℚ, ∀ v,
+        WeierstrassCurve.Affine.Point.galoisRepModuleEnd (K := AlgebraicClosure ℚ) ℚ
+          (W.map (Int.castRingHom ℚ)) p σ v - v ∈ L := by
+    refine ⟨AddSubgroup.toZModSubmodule p f.ker, ?_, ?_⟩
+    · intro htop
+      obtain ⟨v, hv⟩ := hf
+      have hvker : v ∈ AddSubgroup.toZModSubmodule p f.ker := by
+        rw [htop]
+        trivial
+      exact hv hvker
+    · intro σ hσ v
+      change f (_ - v) = 0
+      rw [map_sub, hI σ hσ v, sub_self]
+  have inertia_residue
+      (σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)
+      (hσ : σ ∈ A.inertiaSubgroupIn ℚ) :
+    ∃ τ : A.decompositionSubgroup ℚ,
+      (τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) = σ ∧
+      ∀ x : A, IsLocalRing.residue A (τ • x) = IsLocalRing.residue A x := by
+    obtain ⟨τ, hτ, rfl⟩ := hσ
+    refine ⟨τ, rfl, ?_⟩
+    intro x
+    have hact : MulSemiringAction.toRingAut (A.decompositionSubgroup ℚ)
+        (IsLocalRing.ResidueField A) τ = 1 := hτ
+    exact DFunLike.congr_fun hact (IsLocalRing.residue A x)
+  have integral_root (A : ValuationSubring (AlgebraicClosure ℚ))
+      (f : Polynomial A) (i : ℕ) (hi : 1 ≤ i) (hc : IsUnit (f.coeff i)) :
+    ∃ x : A, f.eval x = 0 := by
+    let F := f.map A.subtype
+    have hf : f ≠ 0 := by
+      intro h
+      simp [h] at hc
+    have hF : F ≠ 0 := (Polynomial.map_ne_zero_iff (Subtype.val_injective)).2 hf
+    by_contra hroot
+    have hout (r : AlgebraicClosure ℚ) (hr : r ∈ F.roots) : r ∉ A := by
+      intro hmem
+      apply hroot
+      refine ⟨⟨r, hmem⟩, ?_⟩
+      apply Subtype.val_injective
+      have h := (Polynomial.mem_roots hF).1 hr
+      change A.subtype (f.eval ⟨r, hmem⟩) = A.subtype 0
+      rw [← Polynomial.eval_map_apply]
+      exact h
+    have hinv (r : AlgebraicClosure ℚ) (hr : r ∈ F.roots) : r⁻¹ ∈ A.nonunits :=
+      A.inv_mem_nonunits_iff.2 (Or.inr (hout r hr))
+    let g : Polynomial A := (F.roots.attach.map fun r =>
+      1 - Polynomial.C (⟨r.val⁻¹, A.nonunits_subset (hinv r.val r.property)⟩ : A) * Polynomial.X).prod
+    have gmap : g.map A.subtype =
+        (F.roots.map fun r => (1 - Polynomial.C r⁻¹ * Polynomial.X)).prod := by
+      simp [g, Polynomial.map_multiset_prod, Multiset.map_map]
+      exact congrArg Multiset.prod
+        (Multiset.attach_map_val' F.roots (fun r => 1 - Polynomial.C r⁻¹ * Polynomial.X))
+    have gzero : (g.map A.subtype).eval 0 = 1 := by
+      rw [gmap, Polynomial.eval_multiset_prod]
+      simp
+    have factor (r : AlgebraicClosure ℚ) (hr : r ∈ F.roots) :
+        Polynomial.X - Polynomial.C r = Polynomial.C (-r) * (1 - Polynomial.C r⁻¹ * Polynomial.X) := by
+      have hr0 : r ≠ 0 := by
+        intro h
+        exact hout r hr (h ▸ A.zero_mem)
+      rw [mul_sub, mul_one, ← mul_assoc, ← Polynomial.C_mul]
+      simp [hr0, sub_eq_add_neg, add_comm]
+    have hfactor : F = Polynomial.C (F.leadingCoeff * (F.roots.map fun r => -r).prod) *
+        g.map A.subtype := by
+      rw [gmap, Polynomial.C_mul, map_multiset_prod, Multiset.map_map, mul_assoc,
+        ← Multiset.prod_map_mul]
+      simp only [Function.comp_apply]
+      rw [← Multiset.map_congr rfl factor]
+      exact (IsAlgClosed.splits F).eq_prod_roots
+    have hconst : F.leadingCoeff * (F.roots.map fun r => -r).prod = F.coeff 0 := by
+      have h := congrArg (fun P : Polynomial (AlgebraicClosure ℚ) => P.eval 0) hfactor
+      simpa [gzero, ← Polynomial.coeff_zero_eq_eval_zero] using h.symm
+    have flift : f = Polynomial.C (f.coeff 0) * g := by
+      apply Polynomial.map_injective A.subtype Subtype.val_injective
+      rw [hconst] at hfactor
+      simpa only [F, Polynomial.coeff_map, Polynomial.map_mul, Polynomial.map_C] using hfactor
+    have greduce : g.map (IsLocalRing.residue A) = 1 := by
+      simp only [g, Polynomial.map_multiset_prod, Multiset.map_map]
+      have hterm : ∀ r : {r // r ∈ F.roots},
+          (1 - Polynomial.C (⟨r.val⁻¹, A.nonunits_subset (hinv r.val r.property)⟩ : A) * Polynomial.X).map
+            (IsLocalRing.residue A) = 1 := by
+        intro r
+        have hz : IsLocalRing.residue A
+            (⟨r.val⁻¹, A.nonunits_subset (hinv r.val r.property)⟩ : A) = 0 := by
+          rw [IsLocalRing.residue_eq_zero_iff]
+          exact A.coe_mem_nonunits_iff.1 (hinv r.val r.property)
+        simp [hz]
+      simp [hterm]
+    have hreduce : f.map (IsLocalRing.residue A) =
+        Polynomial.C (IsLocalRing.residue A (f.coeff 0)) := by
+      conv_lhs => rw [flift, Polynomial.map_mul, greduce, mul_one, Polynomial.map_C]
+    have hz : IsLocalRing.residue A (f.coeff i) = 0 := by
+      have h := congrArg (fun P : Polynomial (IsLocalRing.ResidueField A) => P.coeff i) hreduce
+      simpa only [Polynomial.coeff_map, Polynomial.coeff_C, if_neg (show i ≠ 0 by omega)] using h
+    exact (IsLocalRing.residue_ne_zero_iff_isUnit _).2 hc hz
+  have integral_point
+      (ho : ∃ i, 1 ≤ i ∧ i < (p ^ 2 - 1) / 2 ∧ ¬ (p : ℤ) ∣ (W.preΨ' p).coeff i) :
+    ∃ x y : A, (W.map (Int.castRingHom A)).toAffine.Equation x y ∧
+      ((W.preΨ' p).map (Int.castRingHom A)).eval x = 0 := by
+    obtain ⟨i, hi, _, hcoeff⟩ := ho
+    obtain ⟨x, hx⟩ := integral_root A ((W.preΨ' p).map (Int.castRingHom A)) i hi (by
+      simpa only [Polynomial.coeff_map, Int.coe_castRingHom] using (hunit _).2 hcoeff)
+    let U := W.map (Int.castRingHom A)
+    let b : A := U.a₁ * x + U.a₃
+    let c : A := x ^ 3 + U.a₂ * x ^ 2 + U.a₄ * x + U.a₆
+    let q : Polynomial A := Polynomial.X ^ 2 + Polynomial.C b * Polynomial.X - Polynomial.C c
+    have hq : IsUnit (q.coeff 2) := by
+      have hcoeff : q.coeff 2 = 1 := by dsimp [q]; compute_degree!
+      rw [hcoeff]
+      exact isUnit_one
+    obtain ⟨y, hy⟩ := integral_root A q 2 (by decide) hq
+    refine ⟨x, y, ?_, hx⟩
+    rw [WeierstrassCurve.Affine.equation_iff]
+    simp only [q, Polynomial.eval_sub, Polynomial.eval_add, Polynomial.eval_pow,
+      Polynomial.eval_X, Polynomial.eval_mul, Polynomial.eval_C, sub_eq_zero] at hy
+    dsimp [b, c] at hy
+    linear_combination hy
+  have ordinary_witness
+      (ho : ∃ i, 1 ≤ i ∧ i < (p ^ 2 - 1) / 2 ∧ ¬ (p : ℤ) ∣ (W.preΨ' p).coeff i) :
+    ∃ x y : A, (W.map (Int.castRingHom A)).toAffine.Equation x y ∧
+      ∃ h : ((W.map (Int.castRingHom ℚ))⁄(AlgebraicClosure ℚ)).Nonsingular
+      (x : AlgebraicClosure ℚ) (y : AlgebraicClosure ℚ),
+      p • WeierstrassCurve.Affine.Point.some (x : AlgebraicClosure ℚ)
+        (y : AlgebraicClosure ℚ) h = 0 := by
+    let E : WeierstrassCurve (AlgebraicClosure ℚ) :=
+      (W.map (Int.castRingHom ℚ))⁄(AlgebraicClosure ℚ)
+    have hE : E = W.map (Int.castRingHom (AlgebraicClosure ℚ)) := by
+      simp only [E, WeierstrassCurve.baseChange, WeierstrassCurve.map_map]
+      congr 1
+    have hEΔ : E.Δ ≠ 0 := by
+      rw [hE, WeierstrassCurve.map_Δ]
+      change (W.Δ : AlgebraicClosure ℚ) ≠ 0
+      exact_mod_cast hΔ
+    obtain ⟨x, y, hxy, hx⟩ := integral_point ho
+    have heq : E.toAffine.Equation (x : AlgebraicClosure ℚ) (y : AlgebraicClosure ℚ) := by
+      rw [hE, WeierstrassCurve.Affine.equation_iff]
+      rw [WeierstrassCurve.Affine.equation_iff] at hxy
+      simpa using congrArg A.subtype hxy
+    have hns := (E.toAffine.equation_iff_nonsingular_of_Δ_ne_zero hEΔ).1 heq
+    refine ⟨x, y, hxy, hns, ?_⟩
+    apply (Submission.p03_odd_division_detection_68cf3476
+      (AlgebraicClosure ℚ) E hEΔ p hp3 hpodd).2.2 _ _ hns |>.2
+    have h := congrArg A.subtype hx
+    rw [hE, WeierstrassCurve.map_preΨ']
+    simp only [← Polynomial.eval_map_apply, Polynomial.map_map,
+      RingHom.eq_intCast', _root_.map_zero] at h
+    convert! h using 1
+  have good_reduction_witness (hgood : ¬ (p : ℤ) ∣ W.Δ) :
+      ∃ x y : A, ∃ h : ((W.map (Int.castRingHom ℚ))⁄(AlgebraicClosure ℚ)).Nonsingular
+        (x : AlgebraicClosure ℚ) (y : AlgebraicClosure ℚ),
+        p • WeierstrassCurve.Affine.Point.some (x : AlgebraicClosure ℚ)
+          (y : AlgebraicClosure ℚ) h = 0 ∧
+        (W.map (Int.castRingHom (IsLocalRing.ResidueField A))).toAffine.Nonsingular
+          (IsLocalRing.residue A x) (IsLocalRing.residue A y) := by
+    obtain ⟨x, y, hxy, hns, ht⟩ := ordinary_witness (hord.resolve_left hgood)
+    refine ⟨x, y, hns, ht, ?_⟩
+    have hΔk : (W.map (Int.castRingHom (IsLocalRing.ResidueField A))).Δ ≠ 0 := by
+      rw [WeierstrassCurve.map_Δ]
+      change (W.Δ : IsLocalRing.ResidueField A) ≠ 0
+      rw [← map_intCast (IsLocalRing.residue A)]
+      exact (IsLocalRing.residue_ne_zero_iff_isUnit _).2 ((hunit _).2 hgood)
+    apply (WeierstrassCurve.Affine.equation_iff_nonsingular_of_Δ_ne_zero hΔk).1
+    rw [WeierstrassCurve.Affine.equation_iff]
+    rw [WeierstrassCurve.Affine.equation_iff] at hxy
+    simpa using congrArg (IsLocalRing.residue A) hxy
+  have good_reduction (hgood : ¬ (p : ℤ) ∣ W.Δ) :
+    ∃ r : ((W.map (Int.castRingHom ℚ))⁄(AlgebraicClosure ℚ)).Point →+
+        (W.map (Int.castRingHom (IsLocalRing.ResidueField A))).toAffine.Point,
+      (∃ v : Submodule.torsionBy ℤ ((W.map (Int.castRingHom ℚ))⁄(AlgebraicClosure ℚ)).Point p,
+        r v ≠ 0) ∧ (∀ σ ∈ A.inertiaSubgroupIn ℚ, ∀ P, r (σ • P) = r P) := open Polynomial in by
+    have triple_reduction (W : WeierstrassCurve ℤ) (A : ValuationSubring (AlgebraicClosure ℚ))
+        [DecidableEq (IsLocalRing.ResidueField A)]
+        (E : WeierstrassCurve (AlgebraicClosure ℚ))
+        (hE : E = W.map (Int.castRingHom (AlgebraicClosure ℚ)))
+        (r : E.toAffine.Point →
+          (W.map (Int.castRingHom (IsLocalRing.ResidueField A))).toAffine.Point)
+        (resNs : ∀ (x y : A), E.toAffine.Nonsingular x y →
+          (W.map (Int.castRingHom (IsLocalRing.ResidueField A))).toAffine.Nonsingular
+            (IsLocalRing.residue A x) (IsLocalRing.residue A y))
+        (r_int : ∀ (x y : A) (h : E.toAffine.Nonsingular x y),
+          r (.some (x : AlgebraicClosure ℚ) (y : AlgebraicClosure ℚ) h) =
+            .some (IsLocalRing.residue A x) (IsLocalRing.residue A y) (resNs x y h))
+        (r_out : ∀ (x y : AlgebraicClosure ℚ) (h : E.toAffine.Nonsingular x y),
+          x ∉ A → r (.some x y h) = 0)
+        (x₁ y₁ x₂ y₂ x₃ y₃ l : AlgebraicClosure ℚ)
+        (h₁ : E.toAffine.Nonsingular x₁ y₁)
+        (h₂ : E.toAffine.Nonsingular x₂ y₂)
+        (h₃ : E.toAffine.Nonsingular x₃ y₃)
+        (hl₂ : y₂ = l * (x₂ - x₁) + y₁) (hl₃ : y₃ = l * (x₃ - x₁) + y₁)
+        (hpoly : E.toAffine.addPolynomial x₁ y₁ l =
+          -((X - C x₁) * (X - C x₂) * (X - C x₃))) :
+        r (.some x₁ y₁ h₁) + r (.some x₂ y₂ h₂) = -r (.some x₃ y₃ h₃) := by
+      subst E
+      classical
+      have integral_coordinates (W : WeierstrassCurve ℤ) (A : ValuationSubring (AlgebraicClosure ℚ))
+          (x y : AlgebraicClosure ℚ)
+          (h : (W.map (Int.castRingHom (AlgebraicClosure ℚ))).toAffine.Equation x y) :
+          x ∈ A ↔ y ∈ A := by
+        classical
+        constructor
+        · intro hx
+          by_contra hy
+          have hy0 : y ≠ 0 := by rintro rfl; exact hy A.zero_mem
+          have hni := A.inv_mem_nonunits_iff.2 (Or.inr hy)
+          let t : A := ⟨y⁻¹, A.nonunits_subset hni⟩
+          let a : A := ⟨x, hx⟩
+          have ht : IsLocalRing.residue A t = 0 := by
+            rw [IsLocalRing.residue_eq_zero_iff]
+            exact A.coe_mem_nonunits_iff.1 hni
+          have heq : (1 : A) + ((W.a₁ : A) * a + (W.a₃ : A)) * t =
+              (a ^ 3 + (W.a₂ : A) * a ^ 2 + (W.a₄ : A) * a + (W.a₆ : A)) * t ^ 2 := by
+            apply Subtype.val_injective
+            rw [WeierstrassCurve.Affine.equation_iff] at h
+            dsimp [a, t]
+            dsimp [WeierstrassCurve.map] at h
+            field_simp
+            linear_combination h
+          have hr := congrArg (IsLocalRing.residue A) heq
+          simp [ht] at hr
+        · intro hy
+          by_contra hx
+          have hx0 : x ≠ 0 := by rintro rfl; exact hx A.zero_mem
+          have hni := A.inv_mem_nonunits_iff.2 (Or.inr hx)
+          let t : A := ⟨x⁻¹, A.nonunits_subset hni⟩
+          let b : A := ⟨y, hy⟩
+          have ht : IsLocalRing.residue A t = 0 := by
+            rw [IsLocalRing.residue_eq_zero_iff]
+            exact A.coe_mem_nonunits_iff.1 hni
+          have heq : (1 : A) =
+              (b ^ 2 + (W.a₃ : A) * b - (W.a₆ : A)) * t ^ 3 +
+                ((W.a₁ : A) * b - (W.a₄ : A)) * t ^ 2 - (W.a₂ : A) * t := by
+            apply Subtype.val_injective
+            rw [WeierstrassCurve.Affine.equation_iff] at h
+            dsimp [b, t]
+            dsimp [WeierstrassCurve.map] at h
+            field_simp
+            linear_combination -h
+          have hr := congrArg (IsLocalRing.residue A) heq
+          simp [ht] at hr
+      have integral_line (W : WeierstrassCurve ℤ) (A : ValuationSubring (AlgebraicClosure ℚ))
+          (l n : A) (x y : AlgebraicClosure ℚ)
+          (heq : (W.map (Int.castRingHom (AlgebraicClosure ℚ))).toAffine.Equation x y)
+          (hline : y = (l : AlgebraicClosure ℚ) * x + n) : x ∈ A ∧ y ∈ A := by
+        have cubic_integral (A : ValuationSubring (AlgebraicClosure ℚ)) (a b c : A) (x : AlgebraicClosure ℚ)
+            (h : x ^ 3 + (a : AlgebraicClosure ℚ) * x ^ 2 + (b : AlgebraicClosure ℚ) * x + c = 0) :
+            x ∈ A := by
+          by_contra hx
+          have hx0 : x ≠ 0 := by rintro rfl; exact hx A.zero_mem
+          have hni := A.inv_mem_nonunits_iff.2 (Or.inr hx)
+          let t : A := ⟨x⁻¹, A.nonunits_subset hni⟩
+          have ht : IsLocalRing.residue A t = 0 := by
+            rw [IsLocalRing.residue_eq_zero_iff]
+            exact A.coe_mem_nonunits_iff.1 hni
+          have heq : (1 : A) + a * t + b * t ^ 2 + c * t ^ 3 = 0 := by
+            apply Subtype.val_injective
+            dsimp [t]
+            field_simp
+            linear_combination h
+          have hr := congrArg (IsLocalRing.residue A) heq
+          simp [ht] at hr
+        let a : A := (W.a₂ : A) - l ^ 2 - (W.a₁ : A) * l
+        let b : A := (W.a₄ : A) - (2 * l * n + (W.a₁ : A) * n + (W.a₃ : A) * l)
+        let c : A := (W.a₆ : A) - (n ^ 2 + (W.a₃ : A) * n)
+        have heqx : x ^ 3 + (a : AlgebraicClosure ℚ) * x ^ 2 + (b : AlgebraicClosure ℚ) * x + c = 0 := by
+          rw [WeierstrassCurve.Affine.equation_iff] at heq
+          dsimp [WeierstrassCurve.map] at heq
+          rw [hline] at heq
+          change x ^ 3 + ((W.a₂ : AlgebraicClosure ℚ) - (l : AlgebraicClosure ℚ) ^ 2 -
+            (W.a₁ : AlgebraicClosure ℚ) * l) * x ^ 2 +
+            ((W.a₄ : AlgebraicClosure ℚ) - (2 * (l : AlgebraicClosure ℚ) * n +
+              (W.a₁ : AlgebraicClosure ℚ) * n + (W.a₃ : AlgebraicClosure ℚ) * l)) * x +
+            ((W.a₆ : AlgebraicClosure ℚ) - ((n : AlgebraicClosure ℚ) ^ 2 + (W.a₃ : AlgebraicClosure ℚ) * n)) = 0
+          linear_combination -heq
+        have hx := cubic_integral A a b c x heqx
+        refine ⟨hx, ?_⟩
+        rw [hline]
+        exact A.toSubring.add_mem (A.toSubring.mul_mem l.property hx) n.property
+      have integral_chord (A : ValuationSubring (AlgebraicClosure ℚ)) [DecidableEq (IsLocalRing.ResidueField A)]
+          (U : WeierstrassCurve A)
+          (Ek : WeierstrassCurve (IsLocalRing.ResidueField A))
+          (hEk : Ek = U.map (IsLocalRing.residue A))
+          (x₁ y₁ x₂ y₂ x₃ y₃ l : A)
+          (h₁ : Ek.toAffine.Nonsingular
+            (IsLocalRing.residue A x₁) (IsLocalRing.residue A y₁))
+          (h₂ : Ek.toAffine.Nonsingular
+            (IsLocalRing.residue A x₂) (IsLocalRing.residue A y₂))
+          (h₃ : Ek.toAffine.Nonsingular
+            (IsLocalRing.residue A x₃) (IsLocalRing.residue A y₃))
+          (hl₂ : y₂ = l * (x₂ - x₁) + y₁) (hl₃ : y₃ = l * (x₃ - x₁) + y₁)
+          (hpoly : (U.map A.subtype).toAffine.addPolynomial (x₁ : AlgebraicClosure ℚ) y₁ l =
+            -((X - C (x₁ : AlgebraicClosure ℚ)) * (X - C (x₂ : AlgebraicClosure ℚ)) *
+              (X - C (x₃ : AlgebraicClosure ℚ)))) :
+          Point.some _ _ h₁ + Point.some _ _ h₂ = -Point.some _ _ h₃ := by
+        classical
+        subst Ek
+        have chord_triple (K : Type) [Field K] [DecidableEq K] (E : WeierstrassCurve K)
+            (x₁ y₁ x₂ y₂ x₃ y₃ l : K)
+            (h₁ : E.toAffine.Nonsingular x₁ y₁) (h₂ : E.toAffine.Nonsingular x₂ y₂)
+            (h₃ : E.toAffine.Nonsingular x₃ y₃)
+            (hl₂ : y₂ = l * (x₂ - x₁) + y₁) (hl₃ : y₃ = l * (x₃ - x₁) + y₁)
+            (hpoly : E.toAffine.addPolynomial x₁ y₁ l =
+              -((X - C x₁) * (X - C x₂) * (X - C x₃))) :
+            Point.some x₁ y₁ h₁ + Point.some x₂ y₂ h₂ = -Point.some x₃ y₃ h₃ := by
+          have hsum : E.toAffine.addX x₁ x₂ l = x₃ := by
+            have hh := hpoly
+            rw [addPolynomial_eq, neg_inj, Cubic.prod_X_sub_C_eq, Cubic.toPoly_injective] at hh
+            have hb := congrArg Cubic.b hh
+            dsimp at hb
+            dsimp [addX]
+            linear_combination -hb
+          have hdouble (hx : x₁ = x₂) :
+              y₁ ≠ E.toAffine.negY x₂ y₂ ∧ E.toAffine.slope x₁ x₂ y₁ y₂ = l := by
+            subst x₂
+            have hy : y₂ = y₁ := by simpa using hl₂
+            clear hl₂
+            subst y₂
+            have hd : (E.toAffine.addPolynomial x₁ y₁ l).derivative.eval x₁ = 0 := by
+              rw [hpoly]
+              simp
+            have hd' :
+                (E.a₁ * y₁ - (3 * x₁ ^ 2 + 2 * E.a₂ * x₁ + E.a₄)) +
+                  l * (2 * y₁ + E.a₁ * x₁ + E.a₃) = 0 := by
+              rw [addPolynomial_eq] at hd
+              simp only [Cubic.toPoly, derivative_neg, derivative_add, derivative_mul,
+                derivative_C, derivative_X_pow, derivative_X, eval_neg, eval_add,
+                eval_mul, eval_C, eval_pow, eval_X, zero_mul, zero_add,
+                add_zero, mul_one, one_mul] at hd
+              linear_combination hd
+            have hn : y₁ ≠ E.toAffine.negY x₁ y₁ := by
+              intro he
+              have he' : 2 * y₁ + E.a₁ * x₁ + E.a₃ = 0 := by
+                dsimp [negY] at he
+                linear_combination he
+              have hns := (E.toAffine.nonsingular_iff' _ _).1 h₁
+              rcases hns.2 with hx | hy
+              · apply hx
+                linear_combination hd' - l * he'
+              · exact hy he'
+            refine ⟨hn, ?_⟩
+            rw [slope_of_Y_ne rfl hn, div_eq_iff]
+            · dsimp [negY]
+              linear_combination -hd'
+            · exact sub_ne_zero.mpr hn
+          have hxy : ¬ (x₁ = x₂ ∧ y₁ = E.toAffine.negY x₂ y₂) := by
+            rintro ⟨hx, hy⟩
+            exact (hdouble hx).1 hy
+          have hslope : E.toAffine.slope x₁ x₂ y₁ y₂ = l := by
+            by_cases hx : x₁ = x₂
+            · exact (hdouble hx).2
+            · rw [slope_of_X_ne hx, div_eq_iff (sub_ne_zero.mpr hx)]
+              linear_combination -hl₂
+          rw [Point.add_some hxy, Point.neg_some]
+          simp only [addY, negAddY, hslope, hsum, ← hl₃]
+        have hpA : U.toAffine.addPolynomial x₁ y₁ l = -((X - C x₁) * (X - C x₂) * (X - C x₃)) := by
+          apply Polynomial.map_injective A.subtype Subtype.val_injective
+          rw [← WeierstrassCurve.Affine.map_addPolynomial]
+          simpa only [Polynomial.map_neg, Polynomial.map_mul, Polynomial.map_sub,
+            Polynomial.map_X, Polynomial.map_C, ValuationSubring.subtype_apply] using hpoly
+        have hpk : (U.map (IsLocalRing.residue A)).toAffine.addPolynomial
+            (IsLocalRing.residue A x₁) (IsLocalRing.residue A y₁) (IsLocalRing.residue A l) =
+              -((X - C (IsLocalRing.residue A x₁)) * (X - C (IsLocalRing.residue A x₂)) *
+                (X - C (IsLocalRing.residue A x₃))) := by
+          have hh := congrArg (Polynomial.map (IsLocalRing.residue A)) hpA
+          rw [← WeierstrassCurve.Affine.map_addPolynomial] at hh
+          simpa only [Polynomial.map_neg, Polynomial.map_mul, Polynomial.map_sub,
+            Polynomial.map_X, Polynomial.map_C] using hh
+        apply chord_triple (IsLocalRing.ResidueField A) (U.map (IsLocalRing.residue A))
+          _ _ _ _ _ _ (IsLocalRing.residue A l) h₁ h₂ h₃ _ _ hpk
+        · simpa only [map_add, map_mul, map_sub] using congrArg (IsLocalRing.residue A) hl₂
+        · simpa only [map_add, map_mul, map_sub] using congrArg (IsLocalRing.residue A) hl₃
+      have inverse_chord (A : ValuationSubring (AlgebraicClosure ℚ)) (U : WeierstrassCurve A)
+          (t n : A) (ht : IsLocalRing.residue A t = 0)
+          (x₁ y₁ x₂ y₂ x₃ y₃ l : AlgebraicClosure ℚ)
+          (hlt : l * (t : AlgebraicClosure ℚ) = 1)
+          (h₁ : x₁ = (t : AlgebraicClosure ℚ) * y₁ + n)
+          (h₂ : x₂ = (t : AlgebraicClosure ℚ) * y₂ + n)
+          (h₃ : x₃ = (t : AlgebraicClosure ℚ) * y₃ + n)
+          (hpoly : (U.map A.subtype).toAffine.addPolynomial x₁ y₁ l =
+            -((X - C x₁) * (X - C x₂) * (X - C x₃))) :
+          ∃ f : Polynomial A,
+            f.map A.subtype = C (-(t : AlgebraicClosure ℚ) ^ 3) *
+              ((X - C y₁) * (X - C y₂) * (X - C y₃)) ∧
+            IsLocalRing.residue A (f.coeff 2) = 1 ∧
+            IsLocalRing.residue A (f.coeff 1) =
+              IsLocalRing.residue A U.a₁ * IsLocalRing.residue A n + IsLocalRing.residue A U.a₃ := by
+        let g : Polynomial (AlgebraicClosure ℚ) := C (t : AlgebraicClosure ℚ) * X + C (n : AlgebraicClosure ℚ)
+        let f : Polynomial A := X ^ 2 + (C U.a₁ * (C t * X + C n) + C U.a₃) * X -
+          ((C t * X + C n) ^ 3 + C U.a₂ * (C t * X + C n) ^ 2 +
+            C U.a₄ * (C t * X + C n) + C U.a₆)
+        have hg (x y : AlgebraicClosure ℚ) (hx : x = (t : AlgebraicClosure ℚ) * y + n) :
+            g - C x = C (t : AlgebraicClosure ℚ) * (X - C y) := by
+          simp only [g, hx, C_add, C_mul]
+          ring
+        have hl : (linePolynomial x₁ y₁ l).comp g = X := by
+          simp only [linePolynomial, Polynomial.add_comp, Polynomial.mul_comp,
+            Polynomial.sub_comp, Polynomial.C_comp, Polynomial.X_comp]
+          rw [hg x₁ y₁ h₁, ← mul_assoc, ← C_mul, hlt]
+          simp
+        have hcomp : f.map A.subtype = ((U.map A.subtype).toAffine.addPolynomial x₁ y₁ l).comp g := by
+          simp only [addPolynomial, polynomial, eval_sub, eval_add, eval_mul,
+            eval_pow, eval_X, eval_C, Polynomial.sub_comp, Polynomial.add_comp,
+            Polynomial.mul_comp, Polynomial.pow_comp, Polynomial.C_comp, Polynomial.X_comp, hl]
+          simp only [f, Polynomial.map_sub, Polynomial.map_add, Polynomial.map_mul,
+            Polynomial.map_pow, Polynomial.map_X, Polynomial.map_C]
+          rfl
+        have hfac : f.map A.subtype = C (-(t : AlgebraicClosure ℚ) ^ 3) *
+            ((X - C y₁) * (X - C y₂) * (X - C y₃)) := by
+          rw [hcomp, hpoly]
+          simp only [Polynomial.neg_comp, Polynomial.mul_comp, Polynomial.sub_comp,
+            Polynomial.X_comp, Polynomial.C_comp, hg x₁ y₁ h₁, hg x₂ y₂ h₂, hg x₃ y₃ h₃,
+            C_neg, C_pow]
+          ring
+        have hred : f.map (IsLocalRing.residue A) =
+            X ^ 2 + C (IsLocalRing.residue A U.a₁ * IsLocalRing.residue A n + IsLocalRing.residue A U.a₃) * X -
+              C ((IsLocalRing.residue A n) ^ 3 + IsLocalRing.residue A U.a₂ * (IsLocalRing.residue A n) ^ 2 +
+                IsLocalRing.residue A U.a₄ * IsLocalRing.residue A n + IsLocalRing.residue A U.a₆) := by
+          simp only [f, Polynomial.map_sub, Polynomial.map_add, Polynomial.map_mul,
+            Polynomial.map_pow, Polynomial.map_X, Polynomial.map_C, ht, C_0, zero_mul, zero_add]
+          simp only [← C_pow, ← C_mul, ← C_add]
+        refine ⟨f, hfac, ?_, ?_⟩
+        · have hh := congrArg (fun q : Polynomial (IsLocalRing.ResidueField A) => q.coeff 2) hred
+          simp only [Polynomial.coeff_map, coeff_sub, coeff_add, coeff_C_mul_X,
+            coeff_X_pow, coeff_C] at hh
+          norm_num at hh
+          exact hh
+        · have hh := congrArg (fun q : Polynomial (IsLocalRing.ResidueField A) => q.coeff 1) hred
+          simp only [Polynomial.coeff_map, coeff_sub, coeff_add, coeff_C_mul_X,
+            coeff_X_pow, coeff_C] at hh
+          norm_num at hh
+          exact hh
+      have two_integral (A : ValuationSubring (AlgebraicClosure ℚ))
+          (f : Polynomial A) (c r₁ r₂ r₃ : AlgebraicClosure ℚ)
+          (hf : f.map A.subtype = Polynomial.C c *
+            ((Polynomial.X - Polynomial.C r₁) * (Polynomial.X - Polynomial.C r₂) *
+              (Polynomial.X - Polynomial.C r₃)))
+          (hc : c ∈ A.nonunits) (hu : IsUnit (f.coeff 2)) :
+          (r₁ ∈ A ∧ r₂ ∈ A) ∨ (r₁ ∈ A ∧ r₃ ∈ A) ∨ (r₂ ∈ A ∧ r₃ ∈ A) := by
+        classical
+        have hc0 : c ≠ 0 := by
+          intro hz
+          have hzero : f = 0 := by
+            apply Polynomial.map_injective A.subtype Subtype.val_injective
+            simpa [hz] using hf
+          simp [hzero] at hu
+        have second (a b d : AlgebraicClosure ℚ) (ha : a ∈ A)
+            (hfac : f.map A.subtype = Polynomial.C c *
+              ((Polynomial.X - Polynomial.C a) * (Polynomial.X - Polynomial.C b) *
+                (Polynomial.X - Polynomial.C d))) : b ∈ A ∨ d ∈ A := by
+          let aa : A := ⟨a, ha⟩
+          have haroot : f.IsRoot aa := by
+            apply Subtype.val_injective
+            change A.subtype (f.eval aa) = A.subtype 0
+            rw [← Polynomial.eval_map_apply, hfac]
+            simp [aa]
+          obtain ⟨g, hg⟩ := (Polynomial.dvd_iff_isRoot).2 haroot
+          have hcancel : (Polynomial.X - Polynomial.C a) * g.map A.subtype =
+              (Polynomial.X - Polynomial.C a) *
+                (Polynomial.C c * ((Polynomial.X - Polynomial.C b) * (Polynomial.X - Polynomial.C d))) := by
+            have hm := congrArg (Polynomial.map A.subtype) hg
+            simp only [Polynomial.map_mul, Polynomial.map_sub, Polynomial.map_X, Polynomial.map_C] at hm
+            change f.map A.subtype = (Polynomial.X - Polynomial.C a) * g.map A.subtype at hm
+            rw [← hm, hfac]
+            ring
+          have hgm : g.map A.subtype =
+              Polynomial.C c * ((Polynomial.X - Polynomial.C b) * (Polynomial.X - Polynomial.C d)) :=
+            mul_left_cancel₀ (Polynomial.X_sub_C_ne_zero a) hcancel
+          have hg2 : (g.coeff 2 : AlgebraicClosure ℚ) = c := by
+            change A.subtype (g.coeff 2) = c
+            have h := congrArg (fun q : Polynomial (AlgebraicClosure ℚ) => q.coeff 2) hgm
+            have hcoeff : (Polynomial.C c * ((Polynomial.X - Polynomial.C b) *
+                (Polynomial.X - Polynomial.C d))).coeff 2 = c := by
+              rw [Polynomial.coeff_C_mul]
+              have hh : ((Polynomial.X - Polynomial.C b) * (Polynomial.X - Polynomial.C d)).coeff 2 = 1 := by
+                compute_degree!
+              rw [hh, mul_one]
+            simpa only [Polynomial.coeff_map, hcoeff] using h
+          have hg2m : IsLocalRing.residue A (g.coeff 2) = 0 := by
+            rw [IsLocalRing.residue_eq_zero_iff]
+            apply A.coe_mem_nonunits_iff.1
+            rw [hg2]
+            exact hc
+          have hcoef : f.coeff 2 = g.coeff 1 - aa * g.coeff 2 := by
+            rw [hg, sub_mul]
+            simp
+          have hg1u : IsUnit (g.coeff 1) := by
+            apply (IsLocalRing.residue_ne_zero_iff_isUnit _).1
+            have hh := (IsLocalRing.residue_ne_zero_iff_isUnit _).2 hu
+            rw [hcoef, map_sub, map_mul, hg2m, mul_zero, sub_zero] at hh
+            exact hh
+          obtain ⟨z, hz⟩ := integral_root A g 1 (by decide) hg1u
+          have hz' := congrArg A.subtype hz
+          rw [← Polynomial.eval_map_apply, hgm] at hz'
+          simp only [Polynomial.eval_mul, Polynomial.eval_C, Polynomial.eval_sub,
+            Polynomial.eval_X, _root_.map_zero, mul_eq_zero, hc0, false_or, sub_eq_zero] at hz'
+          rcases hz' with hb | hd
+          · exact Or.inl (hb ▸ z.property)
+          · exact Or.inr (hd ▸ z.property)
+        obtain ⟨z, hz⟩ := integral_root A f 2 (by decide) hu
+        have hz' := congrArg A.subtype hz
+        rw [← Polynomial.eval_map_apply, hf] at hz'
+        simp only [Polynomial.eval_mul, Polynomial.eval_C, Polynomial.eval_sub,
+          Polynomial.eval_X, _root_.map_zero, mul_eq_zero, hc0, false_or, sub_eq_zero] at hz'
+        rcases hz' with (h₁ | h₂) | h₃
+        · have ha : r₁ ∈ A := h₁ ▸ z.property
+          rcases second r₁ r₂ r₃ ha hf with hb | hc
+          · exact Or.inl ⟨ha, hb⟩
+          · exact Or.inr (Or.inl ⟨ha, hc⟩)
+        · have hb : r₂ ∈ A := h₂ ▸ z.property
+          have hfac : f.map A.subtype = Polynomial.C c *
+              ((Polynomial.X - Polynomial.C r₂) * (Polynomial.X - Polynomial.C r₁) *
+                (Polynomial.X - Polynomial.C r₃)) := by rw [hf]; ring
+          rcases second r₂ r₁ r₃ hb hfac with ha | hc
+          · exact Or.inl ⟨ha, hb⟩
+          · exact Or.inr (Or.inr ⟨hb, hc⟩)
+        · have hc : r₃ ∈ A := h₃ ▸ z.property
+          have hfac : f.map A.subtype = Polynomial.C c *
+              ((Polynomial.X - Polynomial.C r₃) * (Polynomial.X - Polynomial.C r₁) *
+                (Polynomial.X - Polynomial.C r₂)) := by rw [hf]; ring
+          rcases second r₃ r₁ r₂ hc hfac with ha | hb
+          · exact Or.inr (Or.inl ⟨ha, hc⟩)
+          · exact Or.inr (Or.inr ⟨hb, hc⟩)
+      have pair_residue (A : ValuationSubring (AlgebraicClosure ℚ))
+          (f : Polynomial A) (c a : AlgebraicClosure ℚ) (b d : A)
+          (hf : f.map A.subtype = C c *
+            ((X - C a) * (X - C (b : AlgebraicClosure ℚ)) * (X - C (d : AlgebraicClosure ℚ))))
+          (hc : c ∈ A.nonunits) :
+          IsLocalRing.residue A (f.coeff 1) + IsLocalRing.residue A (f.coeff 2) *
+            (IsLocalRing.residue A b + IsLocalRing.residue A d) = 0 := by
+        let cc : A := ⟨c, A.nonunits_subset hc⟩
+        have hc0 : IsLocalRing.residue A cc = 0 := by
+          rw [IsLocalRing.residue_eq_zero_iff]
+          exact A.coe_mem_nonunits_iff.1 hc
+        have h₁ := congrArg (fun q : Polynomial (AlgebraicClosure ℚ) => q.coeff 1) hf
+        have h₂ := congrArg (fun q : Polynomial (AlgebraicClosure ℚ) => q.coeff 2) hf
+        simp [Cubic.prod_X_sub_C_eq, Cubic.toPoly] at h₁ h₂
+        simp only [← Polynomial.C_neg, ← Polynomial.C_add, Polynomial.coeff_C_mul_X_pow] at h₁ h₂
+        norm_num at h₁ h₂
+        have heq : f.coeff 1 + f.coeff 2 * (b + d) + cc * (b ^ 2 + b * d + d ^ 2) = 0 := by
+          apply Subtype.val_injective
+          change (f.coeff 1 : AlgebraicClosure ℚ) + (f.coeff 2 : AlgebraicClosure ℚ) *
+            ((b : AlgebraicClosure ℚ) + d) + c * ((b : AlgebraicClosure ℚ) ^ 2 + b * d + d ^ 2) = 0
+          linear_combination h₁ + ((b : AlgebraicClosure ℚ) + d) * h₂
+        have hh := congrArg (IsLocalRing.residue A) heq
+        simpa only [map_add, map_mul, hc0, zero_mul, add_zero, _root_.map_zero] using hh
+      have not_all_integral (A : ValuationSubring (AlgebraicClosure ℚ))
+          (f : Polynomial A) (c : AlgebraicClosure ℚ) (a b d : A)
+          (hf : f.map A.subtype = C c *
+            ((X - C (a : AlgebraicClosure ℚ)) * (X - C (b : AlgebraicClosure ℚ)) *
+              (X - C (d : AlgebraicClosure ℚ))))
+          (hc : c ∈ A.nonunits) (hu : IsUnit (f.coeff 2)) : False := by
+        let cc : A := ⟨c, A.nonunits_subset hc⟩
+        have hc0 : IsLocalRing.residue A cc = 0 := by
+          rw [IsLocalRing.residue_eq_zero_iff]
+          exact A.coe_mem_nonunits_iff.1 hc
+        have h₂ := congrArg (fun q : Polynomial (AlgebraicClosure ℚ) => q.coeff 2) hf
+        simp [Cubic.prod_X_sub_C_eq, Cubic.toPoly] at h₂
+        simp only [← Polynomial.C_neg, ← Polynomial.C_add, Polynomial.coeff_C_mul_X_pow] at h₂
+        norm_num at h₂
+        have heq : f.coeff 2 = cc * (-a - b - d) := by
+          apply Subtype.val_injective
+          change (f.coeff 2 : AlgebraicClosure ℚ) = c * (-(a : AlgebraicClosure ℚ) - b - d)
+          linear_combination h₂
+        have hh := (IsLocalRing.residue_ne_zero_iff_isUnit _).2 hu
+        rw [heq, map_mul, hc0, zero_mul] at hh
+        exact hh rfl
+      let U := W.map (Int.castRingHom A)
+      have hU : U.map A.subtype = W.map (Int.castRingHom (AlgebraicClosure ℚ)) := by
+        simp only [U, WeierstrassCurve.map_map, RingHom.eq_intCast']
+      have hUk : U.map (IsLocalRing.residue A) = W.map (Int.castRingHom (IsLocalRing.ResidueField A)) := by
+        simp only [U, WeierstrassCurve.map_map, RingHom.eq_intCast']
+      by_cases hl : l ∈ A
+      · let n := y₁ - l * x₁
+        have hn₁ : y₁ = l * x₁ + n := by dsimp [n]; ring
+        have hn₂ : y₂ = l * x₂ + n := by dsimp [n]; linear_combination hl₂
+        have hn₃ : y₃ = l * x₃ + n := by dsimp [n]; linear_combination hl₃
+        by_cases hn : n ∈ A
+        · obtain ⟨hx₁, hy₁⟩ := integral_line W A ⟨l, hl⟩ ⟨n, hn⟩ x₁ y₁ h₁.1 hn₁
+          obtain ⟨hx₂, hy₂⟩ := integral_line W A ⟨l, hl⟩ ⟨n, hn⟩ x₂ y₂ h₂.1 hn₂
+          obtain ⟨hx₃, hy₃⟩ := integral_line W A ⟨l, hl⟩ ⟨n, hn⟩ x₃ y₃ h₃.1 hn₃
+          rw [r_int ⟨x₁, hx₁⟩ ⟨y₁, hy₁⟩ h₁, r_int ⟨x₂, hx₂⟩ ⟨y₂, hy₂⟩ h₂,
+            r_int ⟨x₃, hx₃⟩ ⟨y₃, hy₃⟩ h₃]
+          have hh := integral_chord A U (W.map (Int.castRingHom (IsLocalRing.ResidueField A))) hUk.symm
+            ⟨x₁, hx₁⟩ ⟨y₁, hy₁⟩ ⟨x₂, hx₂⟩ ⟨y₂, hy₂⟩
+            ⟨x₃, hx₃⟩ ⟨y₃, hy₃⟩ ⟨l, hl⟩
+            (resNs ⟨x₁, hx₁⟩ ⟨y₁, hy₁⟩ h₁)
+            (resNs ⟨x₂, hx₂⟩ ⟨y₂, hy₂⟩ h₂)
+            (resNs ⟨x₃, hx₃⟩ ⟨y₃, hy₃⟩ h₃)
+            (Subtype.val_injective hl₂) (Subtype.val_injective hl₃)
+            (by simpa only [hU] using hpoly)
+          exact hh
+        · have hout (x y : AlgebraicClosure ℚ)
+              (h : (W.map (Int.castRingHom (AlgebraicClosure ℚ))).toAffine.Nonsingular x y)
+              (hline : y = l * x + n) : r (.some x y h) = 0 := by
+            apply r_out
+            intro hx
+            have hy := (integral_coordinates W A x y h.1).1 hx
+            apply hn
+            have hh := A.toSubring.sub_mem hy (A.toSubring.mul_mem hl hx)
+            have hn' : n = y - l * x := by linear_combination -hline
+            rw [hn']
+            exact hh
+          rw [hout x₁ y₁ h₁ hn₁, hout x₂ y₂ h₂ hn₂, hout x₃ y₃ h₃ hn₃]
+          simp
+      · have hl0 : l ≠ 0 := by rintro rfl; exact hl A.zero_mem
+        have htm := A.inv_mem_nonunits_iff.2 (Or.inr hl)
+        let t : A := ⟨l⁻¹, A.nonunits_subset htm⟩
+        have ht : IsLocalRing.residue A t = 0 := by
+          rw [IsLocalRing.residue_eq_zero_iff]
+          exact A.coe_mem_nonunits_iff.1 htm
+        have hlt : l * (t : AlgebraicClosure ℚ) = 1 := mul_inv_cancel₀ hl0
+        let n := x₁ - (t : AlgebraicClosure ℚ) * y₁
+        have hn₁ : x₁ = (t : AlgebraicClosure ℚ) * y₁ + n := by dsimp [n]; ring
+        have hn₂ : x₂ = (t : AlgebraicClosure ℚ) * y₂ + n := by
+          dsimp [n]
+          linear_combination -(t : AlgebraicClosure ℚ) * hl₂ - (x₂ - x₁) * hlt
+        have hn₃ : x₃ = (t : AlgebraicClosure ℚ) * y₃ + n := by
+          dsimp [n]
+          linear_combination -(t : AlgebraicClosure ℚ) * hl₃ - (x₃ - x₁) * hlt
+        by_cases hn : n ∈ A
+        · obtain ⟨f, hf, hf2, hf1⟩ := inverse_chord A U t ⟨n, hn⟩ ht
+            x₁ y₁ x₂ y₂ x₃ y₃ l hlt hn₁ hn₂ hn₃ (by simpa only [hU] using hpoly)
+          have hc : -(t : AlgebraicClosure ℚ) ^ 3 ∈ A.nonunits := by
+            have hh : ((-t ^ 3 : A) : AlgebraicClosure ℚ) ∈ A.nonunits := by
+              apply (A.coe_mem_nonunits_iff (a := -t ^ 3)).2
+              rw [← IsLocalRing.residue_eq_zero_iff]
+              simp only [map_neg, map_pow, ht, zero_pow (by decide : 3 ≠ 0), _root_.neg_zero]
+            simpa using hh
+          have hu : IsUnit (f.coeff 2) := (IsLocalRing.residue_ne_zero_iff_isUnit _).1 (by rw [hf2]; exact one_ne_zero)
+          have notall (hy₁ : y₁ ∈ A) (hy₂ : y₂ ∈ A) (hy₃ : y₃ ∈ A) : False :=
+            not_all_integral A f (-(t : AlgebraicClosure ℚ) ^ 3)
+              ⟨y₁, hy₁⟩ ⟨y₂, hy₂⟩ ⟨y₃, hy₃⟩ hf hc hu
+          have pair (xa ya xb yb xc yc : AlgebraicClosure ℚ)
+              (ha : (W.map (Int.castRingHom (AlgebraicClosure ℚ))).toAffine.Nonsingular xa ya)
+              (hb : (W.map (Int.castRingHom (AlgebraicClosure ℚ))).toAffine.Nonsingular xb yb)
+              (hcc : (W.map (Int.castRingHom (AlgebraicClosure ℚ))).toAffine.Nonsingular xc yc)
+              (hla : xa = (t : AlgebraicClosure ℚ) * ya + n)
+              (hlb : xb = (t : AlgebraicClosure ℚ) * yb + n)
+              (hya : ya ∈ A) (hyb : yb ∈ A) (hyc : yc ∉ A)
+              (hfac : f.map A.subtype = C (-(t : AlgebraicClosure ℚ) ^ 3) *
+                ((X - C yc) * (X - C ya) * (X - C yb))) :
+              r (.some xa ya ha) + r (.some xb yb hb) = 0 ∧ r (.some xc yc hcc) = 0 := by
+            have hxa := (integral_coordinates W A xa ya ha.1).2 hya
+            have hxb := (integral_coordinates W A xb yb hb.1).2 hyb
+            have hxc : xc ∉ A := fun hh => hyc ((integral_coordinates W A xc yc hcc.1).1 hh)
+            refine ⟨?_, r_out xc yc hcc hxc⟩
+            rw [r_int ⟨xa, hxa⟩ ⟨ya, hya⟩ ha, r_int ⟨xb, hxb⟩ ⟨yb, hyb⟩ hb]
+            have hxa0 : IsLocalRing.residue A ⟨xa, hxa⟩ = IsLocalRing.residue A ⟨n, hn⟩ := by
+              have hh : (⟨xa, hxa⟩ : A) = t * ⟨ya, hya⟩ + ⟨n, hn⟩ := Subtype.val_injective hla
+              rw [hh, map_add, map_mul, ht, zero_mul, zero_add]
+            have hxb0 : IsLocalRing.residue A ⟨xb, hxb⟩ = IsLocalRing.residue A ⟨n, hn⟩ := by
+              have hh : (⟨xb, hxb⟩ : A) = t * ⟨yb, hyb⟩ + ⟨n, hn⟩ := Subtype.val_injective hlb
+              rw [hh, map_add, map_mul, ht, zero_mul, zero_add]
+            have hpair := pair_residue A f (-(t : AlgebraicClosure ℚ) ^ 3) yc ⟨ya, hya⟩ ⟨yb, hyb⟩ hfac hc
+            rw [hf2, hf1, one_mul] at hpair
+            apply Point.add_of_Y_eq
+            · exact hxa0.trans hxb0.symm
+            · rw [negY, hxb0]
+              change IsLocalRing.residue A ⟨ya, hya⟩ =
+                -IsLocalRing.residue A ⟨yb, hyb⟩ - (W.a₁ : IsLocalRing.ResidueField A) *
+                  IsLocalRing.residue A ⟨n, hn⟩ - (W.a₃ : IsLocalRing.ResidueField A)
+              change IsLocalRing.residue A (W.a₁ : A) * IsLocalRing.residue A ⟨n, hn⟩ +
+                IsLocalRing.residue A (W.a₃ : A) +
+                  (IsLocalRing.residue A ⟨ya, hya⟩ + IsLocalRing.residue A ⟨yb, hyb⟩) = 0 at hpair
+              simp only [map_intCast] at hpair
+              linear_combination hpair
+          rcases two_integral A f (-(t : AlgebraicClosure ℚ) ^ 3) y₁ y₂ y₃ hf hc hu with
+            ⟨hy₁, hy₂⟩ | ⟨hy₁, hy₃⟩ | ⟨hy₂, hy₃⟩
+          · obtain ⟨hab, hc0⟩ := pair x₁ y₁ x₂ y₂ x₃ y₃ h₁ h₂ h₃ hn₁ hn₂ hy₁ hy₂
+              (notall hy₁ hy₂) (by rw [hf]; ring)
+            rw [hab, hc0, _root_.neg_zero]
+          · obtain ⟨hac, hb0⟩ := pair x₁ y₁ x₃ y₃ x₂ y₂ h₁ h₃ h₂ hn₁ hn₃ hy₁ hy₃
+              (fun hy₂ => notall hy₁ hy₂ hy₃) (by rw [hf]; ring)
+            rw [hb0, add_zero]
+            exact eq_neg_iff_add_eq_zero.mpr hac
+          · obtain ⟨hbc, ha0⟩ := pair x₂ y₂ x₃ y₃ x₁ y₁ h₂ h₃ h₁ hn₂ hn₃ hy₂ hy₃
+              (fun hy₁ => notall hy₁ hy₂ hy₃) hf
+            rw [ha0, zero_add]
+            exact eq_neg_iff_add_eq_zero.mpr hbc
+        · have hout (x y : AlgebraicClosure ℚ)
+              (h : (W.map (Int.castRingHom (AlgebraicClosure ℚ))).toAffine.Nonsingular x y)
+              (hline : x = (t : AlgebraicClosure ℚ) * y + n) : r (.some x y h) = 0 := by
+            apply r_out
+            intro hx
+            have hy := (integral_coordinates W A x y h.1).1 hx
+            apply hn
+            have hh := A.toSubring.sub_mem hx (A.toSubring.mul_mem t.property hy)
+            have hn' : n = x - (t : AlgebraicClosure ℚ) * y := by linear_combination -hline
+            rw [hn']
+            exact hh
+          rw [hout x₁ y₁ h₁ hn₁, hout x₂ y₂ h₂ hn₂, hout x₃ y₃ h₃ hn₃]
+          simp
+
+    have additive_from_chords (K G : Type) [Field K] [DecidableEq K] [AddCommGroup G]
+        (E : WeierstrassCurve K) (r : E.toAffine.Point → G)
+        (rzero : r 0 = 0) (rneg : ∀ P, r (-P) = -r P)
+        (rtriple : ∀ (x₁ y₁ x₂ y₂ x₃ y₃ l : K)
+          (h₁ : E.toAffine.Nonsingular x₁ y₁) (h₂ : E.toAffine.Nonsingular x₂ y₂)
+          (h₃ : E.toAffine.Nonsingular x₃ y₃),
+          y₂ = l * (x₂ - x₁) + y₁ → y₃ = l * (x₃ - x₁) + y₁ →
+          E.toAffine.addPolynomial x₁ y₁ l = -((X - C x₁) * (X - C x₂) * (X - C x₃)) →
+          r (.some x₁ y₁ h₁) + r (.some x₂ y₂ h₂) = -r (.some x₃ y₃ h₃)) :
+        ∀ P Q : E.toAffine.Point, r (P + Q) = r P + r Q := by
+      intro P Q
+      cases P with
+      | zero =>
+        change r (0 + Q) = r 0 + r Q
+        rw [zero_add, rzero, zero_add]
+      | some x₁ y₁ h₁ =>
+        cases Q with
+        | zero =>
+          change r (Point.some x₁ y₁ h₁ + 0) = r (Point.some x₁ y₁ h₁) + r 0
+          rw [add_zero, rzero, add_zero]
+        | some x₂ y₂ h₂ =>
+          by_cases hxy : x₁ = x₂ ∧ y₁ = E.toAffine.negY x₂ y₂
+          · have hP : Point.some x₁ y₁ h₁ = -Point.some x₂ y₂ h₂ := by
+              rw [Point.neg_some]
+              congr 1
+              · exact hxy.1
+              · exact hxy.2
+            rw [hP, neg_add_cancel, rzero, rneg, neg_add_cancel]
+          · have h₃ := nonsingular_negAdd h₁ h₂ hxy
+            have hsum : Point.some x₁ y₁ h₁ + Point.some x₂ y₂ h₂ = -Point.some _ _ h₃ :=
+              Point.add_some hxy
+            rw [hsum, rneg]
+            symm
+            apply rtriple _ _ _ _ _ _ (E.toAffine.slope x₁ x₂ y₁ y₂) h₁ h₂ h₃
+            · by_cases hx : x₁ = x₂
+              · have hy := Y_eq_of_Y_ne h₁.1 h₂.1 hx (fun hy => hxy ⟨hx, hy⟩)
+                simp only [hx, hy, sub_self, mul_zero, zero_add]
+              · rw [slope_of_X_ne hx]
+                field_simp
+                ring
+            · rfl
+            · exact addPolynomial_slope h₁.1 h₂.1 hxy
+    let E : WeierstrassCurve (AlgebraicClosure ℚ) :=
+      (W.map (Int.castRingHom ℚ))⁄(AlgebraicClosure ℚ)
+    let Ek := W.map (Int.castRingHom (IsLocalRing.ResidueField A))
+    have hE : E = W.map (Int.castRingHom (AlgebraicClosure ℚ)) := by
+      simp only [E, WeierstrassCurve.baseChange, WeierstrassCurve.map_map]
+      congr 1
+    have hEkΔ : Ek.Δ ≠ 0 := by
+      rw [WeierstrassCurve.map_Δ]
+      change (W.Δ : IsLocalRing.ResidueField A) ≠ 0
+      rw [← map_intCast (IsLocalRing.residue A)]
+      exact (IsLocalRing.residue_ne_zero_iff_isUnit _).2 ((hunit _).2 hgood)
+    have reduce_ns (x y : AlgebraicClosure ℚ) (h : E.toAffine.Nonsingular x y)
+        (hx : x ∈ A) (hy : y ∈ A) :
+        Ek.toAffine.Nonsingular (IsLocalRing.residue A ⟨x, hx⟩) (IsLocalRing.residue A ⟨y, hy⟩) := by
+      apply (WeierstrassCurve.Affine.equation_iff_nonsingular_of_Δ_ne_zero hEkΔ).1
+      have heq : (W.map (Int.castRingHom A)).toAffine.Equation ⟨x, hx⟩ ⟨y, hy⟩ := by
+        rw [WeierstrassCurve.Affine.equation_iff]
+        apply Subtype.val_injective
+        have hh := h.1
+        rw [hE, WeierstrassCurve.Affine.equation_iff] at hh
+        exact hh
+      rw [WeierstrassCurve.Affine.equation_iff] at heq ⊢
+      simpa only [Ek, WeierstrassCurve.map, Int.coe_castRingHom, map_add, map_mul, map_pow, map_intCast] using congrArg (IsLocalRing.residue A) heq
+    let red : E.toAffine.Point → Ek.toAffine.Point := fun P =>
+      match P with
+      | .zero => 0
+      | .some x y h => if hx : x ∈ A then
+          if hy : y ∈ A then .some _ _ (reduce_ns x y h hx hy) else 0
+        else 0
+    have red_zero : red 0 = 0 := rfl
+    have red_some (x y : A) (h : E.toAffine.Nonsingular x y) :
+        red (.some (x : AlgebraicClosure ℚ) (y : AlgebraicClosure ℚ) h) =
+          .some (IsLocalRing.residue A x) (IsLocalRing.residue A y)
+            (reduce_ns x y h x.property y.property) := by
+      simp only [red, dif_pos x.property, dif_pos y.property]
+    have red_neg (P : E.toAffine.Point) : red (-P) = -red P := by
+      have hEa₁ : E.a₁ = (W.a₁ : AlgebraicClosure ℚ) := by rw [hE]; rfl
+      have hEa₃ : E.a₃ = (W.a₃ : AlgebraicClosure ℚ) := by rw [hE]; rfl
+      have hnegmem (x y : AlgebraicClosure ℚ) (hx : x ∈ A) :
+          E.toAffine.negY x y ∈ A ↔ y ∈ A := by
+        have h1 : (W.a₁ : AlgebraicClosure ℚ) ∈ A := (W.a₁ : A).property
+        have hm := A.toSubring.mul_mem h1 hx
+        have h3 : (W.a₃ : AlgebraicClosure ℚ) ∈ A := (W.a₃ : A).property
+        constructor
+        · intro hy
+          have hh := A.toSubring.neg_mem (A.toSubring.add_mem (A.toSubring.add_mem hy hm) h3)
+          rw [negY, hEa₁, hEa₃] at hh
+          change -(-y - (W.a₁ : AlgebraicClosure ℚ) * x - (W.a₃ : AlgebraicClosure ℚ) +
+            (W.a₁ : AlgebraicClosure ℚ) * x + (W.a₃ : AlgebraicClosure ℚ)) ∈ A at hh
+          convert hh using 1
+          ring
+        · intro hy
+          rw [negY, hEa₁, hEa₃]
+          exact A.toSubring.sub_mem (A.toSubring.sub_mem (A.toSubring.neg_mem hy) hm) h3
+      cases P with
+      | zero => rfl
+      | some x y h =>
+        rw [Point.neg_some]
+        by_cases hx : x ∈ A
+        · by_cases hy : y ∈ A
+          · have hny := (hnegmem x y hx).2 hy
+            simp only [red, dif_pos hx, dif_pos hy, dif_pos hny, Point.neg_some]
+            have heq : (⟨E.toAffine.negY x y, hny⟩ : A) =
+                -(⟨y, hy⟩ : A) - (W.a₁ : A) * ⟨x, hx⟩ - (W.a₃ : A) := by
+              apply Subtype.val_injective
+              change E.toAffine.negY x y = -y - (W.a₁ : AlgebraicClosure ℚ) * x - (W.a₃ : AlgebraicClosure ℚ)
+              rw [negY, hEa₁, hEa₃]
+            congr 1
+          · simp only [red, dif_pos hx, dif_neg hy,
+              dif_neg (not_congr (hnegmem x y hx) |>.2 hy), Point.neg_zero]
+        · simp only [red, dif_neg hx, Point.neg_zero]
+    have red_inertia (σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)
+        (hσ : σ ∈ A.inertiaSubgroupIn ℚ) (P : E.toAffine.Point) : red (σ • P) = red P := by
+      obtain ⟨τ, rfl, hτ⟩ := inertia_residue σ hσ
+      have hmem (x : AlgebraicClosure ℚ) : (τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) x ∈ A ↔ x ∈ A := by
+        constructor
+        · intro hx
+          have hx' := (τ⁻¹ • (⟨(τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) x, hx⟩ : A)).property
+          change (τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ).symm
+            ((τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) x) ∈ A at hx'
+          simpa only [AlgEquiv.symm_apply_apply] using hx'
+        · intro hx
+          exact (τ • (⟨x, hx⟩ : A)).property
+      cases P with
+      | zero => rfl
+      | some x y h =>
+        change red (Point.map (W' := (W.map (Int.castRingHom ℚ)).toAffine)
+          (τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ).toAlgHom (.some x y h)) = red (.some x y h)
+        rw [Point.map_some]
+        simp only [AlgEquiv.coe_toAlgHom]
+        by_cases hx : x ∈ A
+        · by_cases hy : y ∈ A
+          · simp only [red, dif_pos hx, dif_pos hy, dif_pos ((hmem x).2 hx), dif_pos ((hmem y).2 hy)]
+            have htx := hτ ⟨x, hx⟩
+            have hty := hτ ⟨y, hy⟩
+            congr 1
+          · simp only [red, dif_pos hx, dif_pos ((hmem x).2 hx), dif_neg hy,
+              dif_neg (not_congr (hmem y) |>.2 hy)]
+        · simp only [red, dif_neg hx, dif_neg (not_congr (hmem x) |>.2 hx)]
+    have red_add : ∀ P Q : E.toAffine.Point, red (P + Q) = red P + red Q := by
+      apply additive_from_chords (AlgebraicClosure ℚ) Ek.toAffine.Point E red red_zero red_neg
+      intro x₁ y₁ x₂ y₂ x₃ y₃ l h₁ h₂ h₃ hl₂ hl₃ hpoly
+      exact triple_reduction W A E hE red
+        (fun x y h => reduce_ns x y h x.property y.property) red_some
+        (fun x y h hx => by simp only [red, dif_neg hx])
+        x₁ y₁ x₂ y₂ x₃ y₃ l h₁ h₂ h₃ hl₂ hl₃ hpoly
+    let ρ : E.toAffine.Point →+ Ek.toAffine.Point :=
+      { toFun := red, map_zero' := red_zero, map_add' := red_add }
+    refine ⟨ρ, ?_, ?_⟩
+    ·
+      obtain ⟨x, y, h, ht, hk⟩ := good_reduction_witness hgood
+      let v : Submodule.torsionBy ℤ E.toAffine.Point p := ⟨.some _ _ h, by
+        simpa only [Submodule.mem_torsionBy_iff, Nat.cast_smul_eq_nsmul] using ht⟩
+      refine ⟨v, ?_⟩
+      change red (.some _ _ h) ≠ 0
+      rw [red_some x y h]
+      exact WeierstrassCurve.Affine.Point.some_ne_zero _
+    · intro σ hσ P
+      exact red_inertia σ hσ P
+  have torsion_coordinates (Ω : Type) [Field Ω] [CharZero Ω] [DecidableEq Ω]
+      [Algebra (AlgebraicClosure ℚ) Ω]
+      (E : WeierstrassCurve (AlgebraicClosure ℚ)) (hEΔ : E.Δ ≠ 0)
+      (x y : Ω) (h : (E.map (algebraMap (AlgebraicClosure ℚ) Ω)).toAffine.Nonsingular x y)
+      (ht : p • WeierstrassCurve.Affine.Point.some x y h = 0) :
+      ∃ x₀ y₀ : AlgebraicClosure ℚ,
+        algebraMap (AlgebraicClosure ℚ) Ω x₀ = x ∧
+        algebraMap (AlgebraicClosure ℚ) Ω y₀ = y := by
+    have hd := Submission.p03_odd_division_detection_68cf3476
+      (AlgebraicClosure ℚ) E hEΔ p hp3 hpodd
+    have hf : E.preΨ' p ≠ 0 := by
+      apply Polynomial.leadingCoeff_ne_zero.1
+      rw [hd.2.1]
+      exact Nat.cast_ne_zero.mpr (by omega)
+    have hΩΔ : (E.map (algebraMap (AlgebraicClosure ℚ) Ω)).Δ ≠ 0 := by
+      rw [WeierstrassCurve.map_Δ]
+      exact (map_ne_zero (algebraMap (AlgebraicClosure ℚ) Ω)).2 hEΔ
+    have hxroot := (Submission.p03_odd_division_detection_68cf3476
+      Ω (E.map (algebraMap (AlgebraicClosure ℚ) Ω)) hΩΔ p hp3 hpodd).2.2 x y h |>.1 ht
+    rw [WeierstrassCurve.map_preΨ'] at hxroot
+    obtain ⟨x₀, rfl⟩ := (IsAlgClosed.splits (E.preΨ' p)).mem_range_of_isRoot hf hxroot
+    let b := E.a₁ * x₀ + E.a₃
+    let c := x₀ ^ 3 + E.a₂ * x₀ ^ 2 + E.a₄ * x₀ + E.a₆
+    let q : Polynomial (AlgebraicClosure ℚ) := Polynomial.X ^ 2 + Polynomial.C b * Polynomial.X - Polynomial.C c
+    have hq : q ≠ 0 := by
+      have hcoeff : q.coeff 2 = 1 := by dsimp [q]; compute_degree!
+      intro hz
+      simp [hz] at hcoeff
+    have hyroot : (q.map (algebraMap (AlgebraicClosure ℚ) Ω)).IsRoot y := by
+      have heq := h.1
+      rw [WeierstrassCurve.Affine.equation_iff] at heq
+      dsimp [WeierstrassCurve.map] at heq
+      simp only [Polynomial.IsRoot, q, Polynomial.map_sub, Polynomial.map_add,
+        Polynomial.map_pow, Polynomial.map_X, Polynomial.map_mul, Polynomial.map_C,
+        Polynomial.eval_sub, Polynomial.eval_add, Polynomial.eval_pow, Polynomial.eval_X,
+        Polynomial.eval_mul, Polynomial.eval_C, b, c, map_add, map_mul, map_pow]
+      linear_combination heq
+    obtain ⟨y₀, hy₀⟩ := (IsAlgClosed.splits q).mem_range_of_isRoot hq hyroot
+    exact ⟨x₀, y₀, rfl, hy₀⟩
+  have torsion_descent (Ω : Type) [Field Ω] [CharZero Ω] [DecidableEq Ω]
+      [Algebra (AlgebraicClosure ℚ) Ω]
+      (E : WeierstrassCurve (AlgebraicClosure ℚ))
+      (hEΔ : E.Δ ≠ 0)
+      (P : (E.map (algebraMap (AlgebraicClosure ℚ) Ω)).toAffine.Point)
+      (ht : p • P = 0) :
+      ∃ Q : E.toAffine.Point, p • Q = 0 ∧
+        WeierstrassCurve.Affine.Point.map (W' := E.toAffine)
+          (Algebra.ofId (AlgebraicClosure ℚ) Ω) Q = P := by
+    cases P with
+    | zero => exact ⟨0, nsmul_zero p, rfl⟩
+    | some x y h =>
+      obtain ⟨x₀, y₀, rfl, rfl⟩ := torsion_coordinates Ω E hEΔ x y h ht
+      have hns := (E.toAffine.map_nonsingular
+        (algebraMap (AlgebraicClosure ℚ) Ω).injective x₀ y₀).1 h
+      refine ⟨WeierstrassCurve.Affine.Point.some x₀ y₀ hns, ?_, rfl⟩
+      apply WeierstrassCurve.Affine.Point.map_injective
+        (W' := E.toAffine) (Algebra.ofId (AlgebraicClosure ℚ) Ω)
+      change (WeierstrassCurve.Affine.Point.map (W' := E.toAffine)
+        (Algebra.ofId (AlgebraicClosure ℚ) Ω))
+          (p • (WeierstrassCurve.Affine.Point.some x₀ y₀ hns :
+            (E.toAffine⁄(AlgebraicClosure ℚ)).Point)) = 0
+      rw [map_nsmul]
+      exact ht
+  have tate_ambient (p : ℕ) [Fact p.Prime]
+      (A : ValuationSubring (AlgebraicClosure ℚ)) (hA : A.LiesOverPrime p) :
+      ∃ (F Ω : Type) (_ : NormedField F) (_ : CharZero F) (_ : CompleteSpace F)
+        (_ : NormedField Ω) (_ : CharZero Ω) (_ : NormedAlgebra F Ω)
+        (_ : IsAlgClosed Ω) (_ : Algebra.IsAlgebraic F Ω)
+        (ι : AlgebraicClosure ℚ →+* Ω),
+        (∀ x y : F, ‖x + y‖ ≤ max ‖x‖ ‖y‖) ∧
+        (∀ x y : Ω, ‖x + y‖ ≤ max ‖x‖ ‖y‖) ∧
+        (∃ r : ℝ, 0 < r ∧ r < 1 ∧ ∀ x : F, x ≠ 0 → ∃ n : ℤ, ‖x‖ = r ^ n) ∧
+        (∀ x, ‖ι x‖ ≤ 1 ↔ x ∈ A) ∧ (∀ x, ‖ι x‖ < 1 ↔ x ∈ A.nonunits) ∧
+        0 < ‖ι (p : AlgebraicClosure ℚ)‖ ∧ ‖ι (p : AlgebraicClosure ℚ)‖ < 1 ∧
+        ∀ σ ∈ A.inertiaSubgroupIn ℚ, ∃ υ : Ω ≃ₐ[F] Ω, Isometry υ ∧
+          (∀ x, υ (ι x) = ι (σ x)) ∧ (∀ x : Ω, ‖x‖ ≤ 1 → ‖υ x - x‖ < 1) := open Polynomial SeminormedAddGroup IsUniformAddGroup Filter UniformSpace in by
+    have specified_completion (p : ℕ) [Fact p.Prime]
+        (A : ValuationSubring (AlgebraicClosure ℚ)) (hA : A.LiesOverPrime p) :
+        ∃ (C : Type) (_ : NormedField C) (_ : CharZero C) (_ : CompleteSpace C)
+          (e : AlgebraicClosure ℚ →+* C),
+          Function.Injective e ∧ DenseRange e ∧
+          (∀ x y : C, ‖x + y‖ ≤ max ‖x‖ ‖y‖) ∧
+          (∀ x, ‖e x‖ ≤ 1 ↔ x ∈ A) ∧ (∀ x, ‖e x‖ < 1 ↔ x ∈ A.nonunits) ∧
+          0 < ‖e (p : AlgebraicClosure ℚ)‖ ∧ ‖e (p : AlgebraicClosure ℚ)‖ < 1 ∧
+          (∀ q : ℚ, q ≠ 0 → ∃ m : ℤ, ‖e (algebraMap ℚ (AlgebraicClosure ℚ) q)‖ =
+            ‖e (p : AlgebraicClosure ℚ)‖ ^ m) ∧
+          ∀ σ ∈ A.inertiaSubgroupIn ℚ, ∃ τ : C ≃+* C, Isometry τ ∧
+            (∀ x, τ (e x) = e (σ x)) ∧ (∀ x : C, ‖x‖ ≤ 1 → ‖τ x - x‖ < 1) := by
+      have specified_norm (p : ℕ) [Fact p.Prime]
+          (A : ValuationSubring (AlgebraicClosure ℚ)) (hA : A.LiesOverPrime p) :
+          ∃ v : AbsoluteValue (AlgebraicClosure ℚ) ℝ,
+            (∀ x y, v (x + y) ≤ max (v x) (v y)) ∧
+            (∀ x, v x ≤ 1 ↔ x ∈ A) ∧
+            (∀ x, v x < 1 ↔ x ∈ A.nonunits) ∧
+            0 < v (p : AlgebraicClosure ℚ) ∧ v (p : AlgebraicClosure ℚ) < 1 ∧
+            (∀ q : ℚ, q ≠ 0 → ∃ m : ℤ,
+              v (algebraMap ℚ (AlgebraicClosure ℚ) q) = v (p : AlgebraicClosure ℚ) ^ m) ∧
+            ∀ (σ : A.decompositionSubgroup ℚ) x, v (σ.val x) = v x := by
+        have specified_valuation (p : ℕ) [Fact p.Prime]
+            (A : ValuationSubring (AlgebraicClosure ℚ)) (hA : A.LiesOverPrime p) :
+            (∀ x : AlgebraicClosure ℚ, x ≠ 0 → ∃ (n : ℕ) (m : ℤ), 0 < n ∧
+              A.valuation x ^ n = A.valuation (p : AlgebraicClosure ℚ) ^ m) ∧
+            (∀ q : ℚ, q ≠ 0 → ∃ m : ℤ,
+              A.valuation (algebraMap ℚ (AlgebraicClosure ℚ) q) =
+                A.valuation (p : AlgebraicClosure ℚ) ^ m) ∧
+            (∀ (σ : A.decompositionSubgroup ℚ) (x : AlgebraicClosure ℚ),
+              A.valuation (σ.val x) = A.valuation x) := by
+          have algebraic_value (F K Γ : Type) [Field F] [Field K]
+              [Algebra F K] [LinearOrderedCommGroupWithZero Γ] (v : Valuation K Γ)
+              (f : Polynomial F) (hf : f ≠ 0) (x : K) (hx : x ≠ 0)
+              (hroot : f.eval₂ (algebraMap F K) x = 0) :
+              ∃ (n : ℕ) (a : F), 0 < n ∧ a ≠ 0 ∧ v x ^ n = v (algebraMap F K a) := by
+            let term : ℕ → K := fun i => algebraMap F K (f.coeff i) * x ^ i
+            have hn (i : ℕ) (hi : i ∈ f.support) : term i ≠ 0 := by
+              apply mul_ne_zero
+              · exact (_root_.map_ne_zero (algebraMap F K)).mpr (mem_support_iff.mp hi)
+              · exact pow_ne_zero i hx
+            have hs : ∑ i ∈ f.support, term i = 0 := by
+              simpa only [eval₂_eq_sum, Polynomial.sum] using hroot
+            obtain ⟨i, hi, hmax⟩ := Finset.exists_max_image f.support (fun i => v (term i))
+              (support_nonempty.mpr hf)
+            have htwo : ∃ j ∈ f.support, j ≠ i ∧ v (term j) = v (term i) := by
+              by_contra h
+              have hlt (j : ℕ) (hj : j ∈ f.support \ {i}) : v (term j) < v (term i) := by
+                obtain ⟨hj, hji⟩ := Finset.mem_sdiff.mp hj
+                apply lt_of_le_of_ne (hmax j hj)
+                intro he
+                exact h ⟨j, hj, by simpa using hji, he⟩
+              have he := v.map_sum_eq_of_lt hi hlt
+              rw [hs, _root_.map_zero] at he
+              exact (v.ne_zero_iff.mpr (hn i hi)) he.symm
+            obtain ⟨j, hj, hji, he⟩ := htwo
+            have relation (i j : ℕ) (hi : i ∈ f.support) (hj : j ∈ f.support)
+                (hij : i < j) (he : v (term i) = v (term j)) :
+                ∃ (n : ℕ) (a : F), 0 < n ∧ a ≠ 0 ∧ v x ^ n = v (algebraMap F K a) := by
+              refine ⟨j - i, f.coeff i / f.coeff j, Nat.sub_pos_of_lt hij,
+                div_ne_zero (mem_support_iff.mp hi) (mem_support_iff.mp hj), ?_⟩
+              have hxi : v x ≠ 0 := v.ne_zero_iff.mpr hx
+              have haj : v (algebraMap F K (f.coeff j)) ≠ 0 :=
+                v.ne_zero_iff.mpr ((_root_.map_ne_zero (algebraMap F K)).mpr (mem_support_iff.mp hj))
+              rw [map_div₀, map_div₀, pow_sub₀ (v x) hxi hij.le]
+              rw [← div_eq_mul_inv]
+              apply (div_eq_div_iff (pow_ne_zero i hxi) haj).mpr
+              simpa only [term, map_mul, map_pow, mul_comm] using he.symm
+            rcases lt_or_gt_of_ne hji with hlt | hlt
+            · exact relation j i hj hi hlt he
+            · exact relation i j hi hj hlt he.symm
+          have rational_value (p : ℕ) [Fact p.Prime]
+              (A : ValuationSubring (AlgebraicClosure ℚ)) (hA : A.LiesOverPrime p) :
+              ∀ q : ℚ, q ≠ 0 → ∃ m : ℤ,
+                A.valuation (algebraMap ℚ (AlgebraicClosure ℚ) q) =
+                  A.valuation (p : AlgebraicClosure ℚ) ^ m := by
+            have hchar : CharP (IsLocalRing.ResidueField A) p := by
+              apply (CharP.charP_iff_prime_eq_zero (Fact.out : p.Prime)).2
+              rw [← map_natCast (IsLocalRing.residue A), IsLocalRing.residue_eq_zero_iff]
+              exact A.coe_mem_nonunits_iff.mp (by simpa [ValuationSubring.LiesOverPrime] using hA)
+            have hunit (n : ℤ) : IsUnit (n : A) ↔ ¬ (p : ℤ) ∣ n := by
+              rw [← IsLocalRing.residue_ne_zero_iff_isUnit, map_intCast]
+              exact not_congr (CharP.intCast_eq_zero_iff (IsLocalRing.ResidueField A) p n)
+            have natval (n : ℕ) (hn : n ≠ 0) : ∃ k : ℕ,
+                A.valuation (n : AlgebraicClosure ℚ) =
+                  A.valuation (p : AlgebraicClosure ℚ) ^ k := by
+              obtain ⟨k, m, hmp, hm⟩ := Nat.exists_eq_pow_mul_and_not_dvd hn p
+                (Fact.out : p.Prime).ne_one
+              have hum : IsUnit (m : A) := (hunit m).mpr (by exact_mod_cast hmp)
+              have hvm : A.valuation (m : AlgebraicClosure ℚ) = 1 := by
+                simpa using (A.valuation_eq_one_iff (m : A)).mp hum
+              refine ⟨k, ?_⟩
+              rw [hm, Nat.cast_mul, Nat.cast_pow, map_mul, map_pow, hvm, mul_one]
+            have intval (n : ℤ) (hn : n ≠ 0) : ∃ k : ℕ,
+                A.valuation (n : AlgebraicClosure ℚ) =
+                  A.valuation (p : AlgebraicClosure ℚ) ^ k := by
+              cases n with
+              | ofNat n => exact natval n (by intro h; apply hn; simp [h])
+              | negSucc n =>
+                obtain ⟨k, hk⟩ := natval (n + 1) (Nat.succ_ne_zero n)
+                refine ⟨k, ?_⟩
+                have he : (Int.negSucc n : AlgebraicClosure ℚ) =
+                    -((n + 1 : ℕ) : AlgebraicClosure ℚ) := by
+                  simp only [Int.cast_negSucc, Nat.cast_add, Nat.cast_one]
+                rw [he, Valuation.map_neg]
+                exact hk
+            intro q hq
+            obtain ⟨a, ha⟩ := intval q.num (by simpa using hq)
+            obtain ⟨b, hb⟩ := natval q.den q.den_ne_zero
+            have hp0 : A.valuation (p : AlgebraicClosure ℚ) ≠ 0 :=
+              A.valuation.ne_zero_iff.mpr (by exact_mod_cast (Fact.out : p.Prime).ne_zero)
+            refine ⟨(a : ℤ) - b, ?_⟩
+            change A.valuation (q : AlgebraicClosure ℚ) = _
+            rw [Rat.cast_def, map_div₀, ha, hb, zpow_sub₀ hp0, zpow_natCast, zpow_natCast]
+          have power_relation (x : AlgebraicClosure ℚ) (hx : x ≠ 0) :
+              ∃ (n : ℕ) (m : ℤ), 0 < n ∧
+                A.valuation x ^ n = A.valuation (p : AlgebraicClosure ℚ) ^ m := by
+            let : Algebra.IsAlgebraic ℚ (AlgebraicClosure ℚ) := AlgebraicClosure.isAlgebraic ℚ
+            obtain ⟨f, hf, hfx⟩ := Algebra.IsAlgebraic.isAlgebraic (R := ℚ) x
+            obtain ⟨n, a, hn, ha, he⟩ := algebraic_value ℚ (AlgebraicClosure ℚ)
+              A.ValueGroup A.valuation f hf x hx hfx
+            obtain ⟨m, hm⟩ := rational_value p A hA a ha
+            exact ⟨n, m, hn, he.trans hm⟩
+          refine ⟨power_relation, rational_value p A hA, ?_⟩
+          intro σ x
+          by_cases hx : x = 0
+          · simp [hx]
+          obtain ⟨n, m, hn, he⟩ := power_relation x hx
+          apply (pow_left_inj₀ zero_le zero_le hn.ne').mp
+          have he' : A.valuation (x ^ n) = A.valuation ((p : AlgebraicClosure ℚ) ^ m) := by
+            simpa only [map_pow, map_zpow₀] using he
+          rw [he, ← map_pow, ← map_zpow₀]
+          obtain ⟨a, ha⟩ := (A.valuation_eq_iff _ _).mp he'
+          apply (A.valuation_eq_iff _ _).mpr
+          let b : Aˣ := Units.map
+            (MulSemiringAction.toRingAut (A.decompositionSubgroup ℚ) A σ).toMonoidHom a
+          refine ⟨b, ?_⟩
+          have hb : (b : AlgebraicClosure ℚ) = σ.val (a : AlgebraicClosure ℚ) := rfl
+          rw [hb]
+          simpa only [map_mul, map_pow, map_zpow₀, map_natCast] using congrArg σ.val ha
+        have commensurable_log (G : Type) [CommGroup G] [LinearOrder G]
+            [IsOrderedMonoid G] (r : G) (hr : 1 < r)
+            (h : ∀ x : G, ∃ (n : ℕ) (m : ℤ), 0 < n ∧ x ^ n = r ^ m) :
+            ∃ f : G → ℝ, StrictMono f ∧ f 1 = 0 ∧ f r = 1 ∧
+              ∀ x y, f (x * y) = f x + f y := by
+          choose n m hn he using h
+          let f : G → ℝ := fun x => (m x : ℝ) / (n x : ℝ)
+          have relation (x : G) (N : ℕ) (M : ℤ) (hN : 0 < N)
+              (hrel : x ^ N = r ^ M) : f x = (M : ℝ) / (N : ℝ) := by
+            have heq : r ^ (m x * (N : ℤ)) = r ^ (M * (n x : ℤ)) := by
+              calc
+                _ = (x ^ n x) ^ N := by rw [he]; simp [zpow_mul]
+                _ = (x ^ N) ^ n x := by simp only [← pow_mul, Nat.mul_comm]
+                _ = _ := by rw [hrel]; simp [zpow_mul]
+            have heq' := (zpow_right_strictMono hr).injective heq
+            change (m x : ℝ) / (n x : ℝ) = (M : ℝ) / (N : ℝ)
+            apply (div_eq_div_iff (by exact_mod_cast (hn x).ne') (by exact_mod_cast hN.ne')).mpr
+            exact_mod_cast heq'
+          have mono : StrictMono f := by
+            intro x y hxy
+            have hpow : r ^ (m x * (n y : ℤ)) < r ^ (m y * (n x : ℤ)) := by
+              calc
+                _ = (x ^ n x) ^ n y := by rw [he]; simp [zpow_mul]
+                _ < (y ^ n x) ^ n y := pow_lt_pow_left' (hn y).ne' (pow_lt_pow_left' (hn x).ne' hxy)
+                _ = (y ^ n y) ^ n x := by simp only [← pow_mul, Nat.mul_comm]
+                _ = _ := by rw [he]; simp [zpow_mul]
+            have hlt := (zpow_lt_zpow_iff_right hr).mp hpow
+            change (m x : ℝ) / (n x : ℝ) < (m y : ℝ) / (n y : ℝ)
+            apply (div_lt_div_iff₀ (by exact_mod_cast hn x) (by exact_mod_cast hn y)).mpr
+            exact_mod_cast hlt
+          refine ⟨f, mono, ?_, ?_, ?_⟩
+          · simpa using relation 1 1 0 (by decide) (by simp)
+          · simpa using relation r 1 1 (by decide) (by simp)
+          · intro x y
+            have hrel : (x * y) ^ (n x * n y) =
+                r ^ (m x * (n y : ℤ) + m y * (n x : ℤ)) := by
+              rw [mul_pow, zpow_add]
+              congr 1
+              · rw [pow_mul, he]; simp [zpow_mul]
+              · rw [Nat.mul_comm, pow_mul, he]; simp [zpow_mul]
+            rw [relation (x * y) (n x * n y) _ (Nat.mul_pos (hn x) (hn y)) hrel]
+            dsimp [f]
+            push_cast
+            have hx : (n x : ℝ) ≠ 0 := by exact_mod_cast (hn x).ne'
+            have hy : (n y : ℝ) ≠ 0 := by exact_mod_cast (hn y).ne'
+            field_simp
+        obtain ⟨power_relation, rational_relation, invariant⟩ := specified_valuation p A hA
+        have hp0 : A.valuation (p : AlgebraicClosure ℚ) ≠ 0 :=
+          A.valuation.ne_zero_iff.mpr (by exact_mod_cast (Fact.out : p.Prime).ne_zero)
+        have hp1 : A.valuation (p : AlgebraicClosure ℚ) < 1 :=
+          A.mem_nonunits_iff.mp (by simpa [ValuationSubring.LiesOverPrime] using hA)
+        let u : A.ValueGroupˣ := Units.mk0 (A.valuation (p : AlgebraicClosure ℚ)) hp0
+        have hu : u < 1 := hp1
+        have hrel (x : A.ValueGroupˣ) : ∃ (n : ℕ) (m : ℤ), 0 < n ∧ x ^ n = (u⁻¹) ^ m := by
+          obtain ⟨a, ha⟩ := A.valuation_surjective (x : A.ValueGroup)
+          have ha0 : a ≠ 0 := by
+            intro hz
+            rw [hz, _root_.map_zero] at ha
+            exact x.ne_zero ha.symm
+          obtain ⟨n, m, hn, he⟩ := power_relation a ha0
+          refine ⟨n, -m, hn, ?_⟩
+          apply Units.ext
+          simpa [u, ha] using he
+        obtain ⟨f, hf, hf1, _, hfmul⟩ := commensurable_log A.ValueGroupˣ u⁻¹
+          (one_lt_inv'.mpr hu) hrel
+        let φ : A.ValueGroup → ℝ := fun x => if hx : x = 0 then 0
+          else Real.exp (f (Units.mk0 x hx))
+        have φzero : φ 0 = 0 := by simp [φ]
+        have φone : φ 1 = 1 := by simp [φ, hf1]
+        have φmono : StrictMono φ := by
+          intro x y hxy
+          by_cases hx : x = 0
+          · subst x
+            have hy : y ≠ 0 := ne_of_gt hxy
+            simp [φ, hy, Real.exp_pos]
+          have hy : y ≠ 0 := by
+            intro hy
+            subst y
+            exact (not_lt_of_ge zero_le) hxy
+          simp only [φ, dif_neg hx, dif_neg hy, Real.exp_lt_exp]
+          exact hf hxy
+        have φmul (x y : A.ValueGroup) : φ (x * y) = φ x * φ y := by
+          by_cases hx : x = 0
+          · simp [hx, φzero]
+          by_cases hy : y = 0
+          · simp [hy, φzero]
+          have hxy : x * y ≠ 0 := mul_ne_zero hx hy
+          have hu : Units.mk0 (x * y) hxy = Units.mk0 x hx * Units.mk0 y hy := by
+            ext
+            rfl
+          simp only [φ, dif_neg hx, dif_neg hy, dif_neg hxy, hu, hfmul, Real.exp_add]
+        let vfun : AlgebraicClosure ℚ → ℝ := fun x => φ (A.valuation x)
+        have vnonneg (x) : 0 ≤ vfun x := by
+          rw [← φzero]
+          exact φmono.monotone zero_le
+        have vultra (x y) : vfun (x + y) ≤ max (vfun x) (vfun y) := by
+          change φ (A.valuation (x + y)) ≤ max (φ (A.valuation x)) (φ (A.valuation y))
+          rw [← φmono.monotone.map_max]
+          exact φmono.monotone (A.valuation.map_add x y)
+        let v : AbsoluteValue (AlgebraicClosure ℚ) ℝ := {
+          toFun := vfun
+          map_mul' := fun x y => by dsimp [vfun]; rw [map_mul, φmul]
+          nonneg' := vnonneg
+          eq_zero' := fun x => by
+            change φ (A.valuation x) = 0 ↔ x = 0
+            rw [← φzero, φmono.injective.eq_iff, A.valuation.zero_iff]
+          add_le' := fun x y => (vultra x y).trans
+            (max_le (le_add_of_nonneg_right (vnonneg y)) (le_add_of_nonneg_left (vnonneg x))) }
+        refine ⟨v, vultra, ?_, ?_, ?_, ?_, ?_, ?_⟩
+        · intro x
+          change φ (A.valuation x) ≤ 1 ↔ x ∈ A
+          rw [← φone, φmono.le_iff_le, A.valuation_le_one_iff]
+        · intro x
+          change φ (A.valuation x) < 1 ↔ x ∈ A.nonunits
+          rw [← φone, φmono.lt_iff_lt]
+          exact A.mem_nonunits_iff.symm
+        · change 0 < φ (A.valuation (p : AlgebraicClosure ℚ))
+          rw [← φzero]
+          exact φmono (pos_iff_ne_zero.mpr hp0)
+        · change φ (A.valuation (p : AlgebraicClosure ℚ)) < 1
+          rw [← φone]
+          exact φmono hp1
+        · intro q hq
+          obtain ⟨m, hm⟩ := rational_relation q hq
+          refine ⟨m, ?_⟩
+          have he : v (algebraMap ℚ (AlgebraicClosure ℚ) q) = v ((p : AlgebraicClosure ℚ) ^ m) := by
+            change φ (A.valuation _) = φ (A.valuation _)
+            simpa only [map_zpow₀] using congrArg φ hm
+          simpa only [map_zpow₀] using he
+        · intro σ x
+          exact congrArg φ (invariant σ x)
+      have normed_completion (K : Type) [NormedField K]
+          (hK : ∀ x y : K, ‖x + y‖ ≤ max ‖x‖ ‖y‖) :
+          ∃ (C : Type) (_ : NormedField C) (_ : CompleteSpace C) (e : K →+* C),
+            Isometry e ∧ DenseRange e ∧ (∀ x y : C, ‖x + y‖ ≤ max ‖x‖ ‖y‖) ∧
+            ∀ σ : K ≃+* K, Isometry σ → ∃ τ : C ≃+* C,
+              Isometry τ ∧ ∀ x, τ (e x) = e (σ x) := by
+        -- Local reuse of Mathlib/Analysis/Normed/Field/Instances.lean:23–36.
+        let : CompletableTopField K := {
+          nice := by
+            intro f hc hn
+            obtain ⟨δ, δ_pos, hδ⟩ := (disjoint_nhds_zero ..).mp <| disjoint_iff.mpr hn
+            have f_bdd : f.IsBoundedUnder (· ≤ ·) (‖·⁻¹‖) :=
+              ⟨δ⁻¹, hδ.mono fun y hy => le_inv_of_le_inv₀ δ_pos (by simpa using hy)⟩
+            have h₀ : ∀ᶠ y in f, y ≠ 0 := hδ.mono fun y hy => by simpa using δ_pos.trans_le hy
+            have : ∀ᶠ p in f ×ˢ f, p.1⁻¹ - p.2⁻¹ = p.1⁻¹ * (p.2 - p.1) * p.2⁻¹ :=
+              h₀.prod_mk h₀ |>.mono fun ⟨x, y⟩ ⟨hx, hy⟩ => by simp [mul_sub, sub_mul, hx, hy]
+            rw [cauchy_iff_tendsto_swapped] at hc
+            rw [cauchy_map_iff_tendsto, tendsto_congr' this]
+            refine ⟨hc.1, .zero_mul_isBoundedUnder_le ?_ <| tendsto_snd.isBoundedUnder_comp f_bdd⟩
+            exact isBoundedUnder_le_mul_tendsto_zero (tendsto_fst.isBoundedUnder_comp f_bdd) hc.2 }
+        let C := Completion K
+        have nmul (x y : C) : ‖x * y‖ = ‖x‖ * ‖y‖ := by
+          induction x, y using Completion.induction_on₂
+          · exact isClosed_eq (continuous_norm.comp (continuous_fst.mul continuous_snd))
+              ((continuous_norm.comp continuous_fst).mul (continuous_norm.comp continuous_snd))
+          · rename_i x y
+            rw [← Completion.coe_mul, Completion.norm_coe, Completion.norm_coe,
+              Completion.norm_coe, norm_mul]
+        let nf : NormedField C := {
+          toField := inferInstance
+          toMetricSpace := inferInstance
+          toNorm := inferInstance
+          dist_eq := dist_eq_norm_neg_add
+          norm_mul := nmul }
+        let := nf
+        refine ⟨C, nf, inferInstance, Completion.coeRingHom, ?_, Completion.denseRange_coe, ?_, ?_⟩
+        · exact isometry_iff_dist_eq.mpr (fun x y => Completion.dist_eq x y)
+        · intro x y
+          induction x, y using Completion.induction_on₂
+          · exact isClosed_le (continuous_norm.comp (continuous_fst.add continuous_snd))
+              ((continuous_norm.comp continuous_fst).max (continuous_norm.comp continuous_snd))
+          · rename_i x y
+            erw [← Completion.coe_add, Completion.norm_coe, Completion.norm_coe, Completion.norm_coe]
+            exact hK x y
+        · intro σ hσ
+          have hi : Isometry σ.symm := by
+            apply isometry_iff_dist_eq.mpr
+            intro x y
+            simpa using (hσ.dist_eq (σ.symm x) (σ.symm y)).symm
+          let τ : C ≃+* C := Completion.mapRingEquiv σ hσ.continuous hi.continuous
+          have hc : ∀ x : K, τ (x : C) = ((σ x : K) : C) := by
+            intro x
+            exact Completion.mapRingHom_coe (f := σ.toRingHom) hσ.continuous x
+          have ht : Continuous τ := Completion.continuous_map
+          refine ⟨τ, ?_, hc⟩
+          apply isometry_iff_dist_eq.mpr
+          intro x y
+          induction x, y using Completion.induction_on₂
+          · exact isClosed_eq ((ht.comp continuous_fst).dist (ht.comp continuous_snd)) continuous_dist
+          · rename_i x y
+            rw [hc, hc, Completion.dist_eq, Completion.dist_eq]
+            exact hσ.dist_eq x y
+      have dense_residue (K C : Type) [NormedField K] [NormedField C]
+          (hC : ∀ x y : C, ‖x + y‖ ≤ max ‖x‖ ‖y‖)
+          (e : K →+* C) (he : Isometry e) (hd : DenseRange e)
+          (σ : K ≃+* K) (τ : C ≃+* C) (hτ : Isometry τ)
+          (hc : ∀ x, τ (e x) = e (σ x))
+          (hσ : ∀ x : K, ‖x‖ ≤ 1 → ‖σ x - x‖ < 1) :
+          ∀ x : C, ‖x‖ ≤ 1 → ‖τ x - x‖ < 1 := by
+        intro x hx
+        have hen (a : K) : ‖e a‖ = ‖a‖ := he.norm_map_of_map_zero e.map_zero a
+        obtain ⟨a, ha⟩ := hd.exists_dist_lt x (by norm_num : (0 : ℝ) < 1)
+        rw [dist_eq_norm] at ha
+        have hea : ‖e a‖ ≤ 1 := by
+          have h := hC (e a - x) x
+          rw [sub_add_cancel, norm_sub_rev] at h
+          exact h.trans (max_le ha.le hx)
+        have h₁ : ‖τ x - τ (e a)‖ < 1 := by
+          simpa only [← dist_eq_norm, hτ.dist_eq] using ha
+        have h₂ : ‖τ (e a) - e a‖ < 1 := by
+          rw [hc, ← map_sub, hen]
+          exact hσ a (by rwa [hen] at hea)
+        have h₃ : ‖e a - x‖ < 1 := by rwa [norm_sub_rev]
+        have hb := hC (τ x - τ (e a)) (τ (e a) - e a)
+        have hb' : ‖τ x - e a‖ < 1 := by
+          rw [sub_add_sub_cancel] at hb
+          exact hb.trans_lt (max_lt h₁ h₂)
+        have hf := hC (τ x - e a) (e a - x)
+        rw [sub_add_sub_cancel] at hf
+        exact hf.trans_lt (max_lt hb' h₃)
+      obtain ⟨v, hvultra, hvring, hvsmall, hp0, hp1, hrat, hinvariant⟩ := specified_norm p A hA
+      let : NormedField (AlgebraicClosure ℚ) := v.toNormedField
+      obtain ⟨C, nC, cC, e, he, hd, hC, hext⟩ := normed_completion (AlgebraicClosure ℚ) hvultra
+      let : CharZero C := ⟨fun m n h => by
+        apply Nat.cast_injective (R := AlgebraicClosure ℚ)
+        apply e.injective
+        simpa only [map_natCast] using h⟩
+      have hen (x : AlgebraicClosure ℚ) : ‖e x‖ = v x := he.norm_map_of_map_zero e.map_zero x
+      refine ⟨C, nC, inferInstance, cC, e, e.injective, hd, hC,
+        ?_, ?_, ?_, ?_, ?_, ?_⟩
+      · intro x
+        rw [hen]
+        exact hvring x
+      · intro x
+        rw [hen]
+        exact hvsmall x
+      · rwa [hen]
+      · rwa [hen]
+      · intro q hq
+        simpa only [hen] using hrat q hq
+      · intro σ hσ
+        obtain ⟨δ, hδ, rfl⟩ := hσ
+        have hδiso : Isometry δ.val.toRingEquiv := by
+          apply isometry_iff_dist_eq.mpr
+          intro x y
+          rw [dist_eq_norm, dist_eq_norm, ← map_sub]
+          exact hinvariant δ (x - y)
+        obtain ⟨τ, hτ, hcomm⟩ := hext δ.val.toRingEquiv hδiso
+        refine ⟨τ, hτ, hcomm, ?_⟩
+        apply dense_residue (AlgebraicClosure ℚ) C hC e he hd δ.val.toRingEquiv τ hτ hcomm
+        intro x hx
+        let a : A := ⟨x, (hvring x).mp hx⟩
+        have hres : IsLocalRing.residue A (δ • a) = IsLocalRing.residue A a := by
+          have ht : MulSemiringAction.toRingAut (A.decompositionSubgroup ℚ)
+              (IsLocalRing.ResidueField A) δ = 1 := hδ
+          exact DFunLike.congr_fun ht (IsLocalRing.residue A a)
+        have hsmall : (δ.val x - x) ∈ A.nonunits := by
+          apply (A.coe_mem_nonunits_iff (a := δ • a - a)).mpr
+          apply (IsLocalRing.residue_eq_zero_iff _).mp
+          rw [map_sub, hres, sub_self]
+        exact (hvsmall _).mpr hsmall
+    have dense_algclosed (K C : Type) [Field K] [IsAlgClosed K]
+        [NormedField C] [CompleteSpace C] (e : K →+* C) (he : DenseRange e)
+        (hC : ∀ x y : C, ‖x + y‖ ≤ max ‖x‖ ‖y‖) : IsAlgClosed C := by
+      have approx (K L : Type) [Field K] [NormedField L]
+          (e : K →+* L) (hd : DenseRange e) (f : Polynomial L) (hf : f.Monic)
+          (ε : ℝ) (hε : 0 < ε) :
+          ∃ g : Polynomial K, g.Monic ∧ f.natDegree = g.natDegree ∧
+            ∀ n : ℕ, ‖(g.map e).coeff n - f.coeff n‖ < ε := by
+        by_cases h : f.natDegree = 0
+        · use 1
+          rw [hf.natDegree_eq_zero.mp h]
+          simp only [monic_one, natDegree_one, Polynomial.map_one, sub_self, norm_zero,
+            hε, implies_true, and_self]
+        choose c hc using fun i => Metric.denseRange_iff.mp hd (f.coeff i) ε hε
+        have hdeg : (Polynomial.C 1 * X ^ f.natDegree + ∑ i < f.natDegree, Polynomial.C (c i) * X ^ i).natDegree
+            = f.natDegree := by
+          calc
+            _ = (Polynomial.C (1 : K) * X ^ f.natDegree).natDegree := by
+              apply Polynomial.natDegree_add_eq_left_of_natDegree_lt
+              simp only [map_one, one_mul, natDegree_pow, natDegree_X, mul_one]
+              rw [← Nat.le_sub_one_iff_lt (Nat.pos_of_ne_zero h)]
+              apply Polynomial.natDegree_sum_le_of_forall_le
+              refine fun i hi => (Polynomial.natDegree_C_mul_X_pow_le _ _).trans ?_
+              simpa [Nat.le_sub_one_iff_lt (Nat.pos_of_ne_zero h)] using hi
+            _ = f.natDegree := by simp
+        use Polynomial.C 1 * X ^ f.natDegree + ∑ i < f.natDegree, Polynomial.C (c i) * X ^ i
+        refine ⟨?_, hdeg.symm, fun n => ?_⟩
+        · rw [Monic, leadingCoeff, hdeg]
+          simp
+        · rcases lt_trichotomy n f.natDegree with h | h | h
+          · simpa [h, ne_of_lt h, ← dist_eq_norm_sub'] using hc n
+          · simp [h, hf, hε]
+          · simp [not_lt_of_gt h, ne_of_gt h, coeff_eq_zero_of_natDegree_lt h, hε]
+      have root_bound (F : Type) [NormedField F]
+          (hF : ∀ x y : F, ‖x + y‖ ≤ max ‖x‖ ‖y‖)
+          (P : Polynomial F) (hP : P.Monic) (M : ℝ) (hM : 1 ≤ M)
+          (hcoeff : ∀ i < P.natDegree, ‖P.coeff i‖ ≤ M)
+          (x : F) (hx : P.eval x = 0) : ‖x‖ ≤ M := by
+        let v : Valuation F NNReal := {
+          toFun := fun x => ‖x‖₊
+          map_zero' := nnnorm_zero
+          map_one' := nnnorm_one
+          map_mul' := nnnorm_mul
+          map_add_le_max' := fun x y => by exact_mod_cast hF x y }
+        by_contra h
+        have hxM : M < ‖x‖ := lt_of_not_ge h
+        have hx1 : 1 < ‖x‖ := hM.trans_lt hxM
+        have hx0 : x ≠ 0 := norm_pos_iff.mp (lt_trans zero_lt_one hx1)
+        let term : ℕ → F := fun i => P.coeff i * x ^ i
+        have ht : term P.natDegree = x ^ P.natDegree := by
+          simp only [term, coeff_natDegree, hP.leadingCoeff, one_mul]
+        have hi : P.natDegree ∈ P.support := by
+          rw [mem_support_iff, coeff_natDegree, hP.leadingCoeff]
+          exact one_ne_zero
+        have hs : ∑ i ∈ P.support, term i = 0 := by
+          simpa only [eval_eq_sum, Polynomial.sum] using hx
+        have hlt (j : ℕ) (hj : j ∈ P.support \ {P.natDegree}) :
+            v (term j) < v (term P.natDegree) := by
+          obtain ⟨hj, hne⟩ := Finset.mem_sdiff.mp hj
+          have hjd : j < P.natDegree := lt_of_le_of_ne
+            (le_natDegree_of_ne_zero (mem_support_iff.mp hj)) (by simpa using hne)
+          have hb : ‖term j‖ < ‖x‖ ^ P.natDegree := by
+            calc
+              _ = ‖P.coeff j‖ * ‖x‖ ^ j := by simp only [term, norm_mul, norm_pow]
+              _ ≤ M * ‖x‖ ^ j := mul_le_mul_of_nonneg_right (hcoeff j hjd) (by positivity)
+              _ < ‖x‖ * ‖x‖ ^ j := mul_lt_mul_of_pos_right hxM (by positivity)
+              _ = ‖x‖ ^ (j + 1) := by rw [pow_succ']
+              _ ≤ ‖x‖ ^ P.natDegree := pow_le_pow_right₀ hx1.le hjd
+          rw [ht]
+          change ‖term j‖₊ < ‖x ^ P.natDegree‖₊
+          rw [nnnorm_pow]
+          exact_mod_cast hb
+        have he := v.map_sum_eq_of_lt hi hlt
+        rw [hs, _root_.map_zero, ht] at he
+        exact (v.ne_zero_iff.mpr (pow_ne_zero P.natDegree hx0)) he.symm
+      have eval_bound (F : Type) [NormedField F]
+          (hF : ∀ x y : F, ‖x + y‖ ≤ max ‖x‖ ‖y‖)
+          (P : Polynomial F) (d : ℕ) (hdeg : P.natDegree ≤ d)
+          (M ε : ℝ) (hM : 1 ≤ M) (hε : 0 ≤ ε)
+          (hcoeff : ∀ i, ‖P.coeff i‖ ≤ ε)
+          (x : F) (hx : ‖x‖ ≤ M) : ‖P.eval x‖ ≤ ε * M ^ d := by
+        have hs (s : Finset ℕ) (f : ℕ → F) (B : ℝ) (hB : 0 ≤ B)
+            (hb : ∀ i ∈ s, ‖f i‖ ≤ B) : ‖∑ i ∈ s, f i‖ ≤ B := by
+          induction s using Finset.induction_on with
+          | empty => simpa using hB
+          | @insert a s ha ih =>
+            rw [Finset.sum_insert ha]
+            apply (hF _ _).trans
+            exact max_le (hb a (Finset.mem_insert_self _ _))
+              (ih (fun i hi => hb i (Finset.mem_insert_of_mem hi)))
+        rw [eval_eq_sum, Polynomial.sum]
+        apply hs _ _ _ (mul_nonneg hε (pow_nonneg (zero_le_one.trans hM) d))
+        intro i hi
+        rw [norm_mul, norm_pow]
+        apply mul_le_mul (hcoeff i) ?_ (pow_nonneg (norm_nonneg _) _) hε
+        exact (pow_le_pow_left₀ (norm_nonneg x) hx i).trans
+          (pow_le_pow_right₀ hM ((le_natDegree_of_ne_zero (mem_support_iff.mp hi)).trans hdeg))
+      have root_near (F : Type) [NormedField F]
+          (g : Polynomial F) (hg : g.Monic) (hs : g.Splits) (a : F) (r : ℝ)
+          (hr : 0 ≤ r) (hsmall : ‖g.eval a‖ < r ^ g.natDegree) :
+          ∃ b, g.eval b = 0 ∧ ‖a - b‖ < r := by
+        have prodnorm (s : Multiset F) :
+            ‖s.prod‖ = (s.map (fun x => ‖x‖)).prod := by
+          induction s using Multiset.induction_on with
+          | empty => simp
+          | cons x s ih => simp [norm_mul, ih]
+        have he : ‖g.eval a‖ = (g.roots.map (fun b => ‖a - b‖)).prod := by
+          rw [hs.eval_eq_prod_roots_of_monic hg, prodnorm, Multiset.map_map]
+          rfl
+        by_contra h
+        have hb (b : F) (hb : b ∈ g.roots) : r ≤ ‖a - b‖ := by
+          apply le_of_not_gt
+          intro hbr
+          exact h ⟨b, (mem_roots hg.ne_zero).mp hb, hbr⟩
+        have hp := Multiset.prod_map_le_prod_map₀ (fun _ : F => r) (fun b => ‖a - b‖)
+          (fun _ _ => hr) hb
+        simp only [Multiset.map_const', Multiset.prod_replicate, ← hs.natDegree_eq_card_roots] at hp
+        rw [← he] at hp
+        exact (not_lt_of_ge hp) hsmall
+      apply IsAlgClosed.of_exists_root
+      intro P hP hPi
+      have hd : 0 < P.natDegree := hPi.natDegree_pos
+      let M : ℝ := 1 + ∑ i ∈ P.support, ‖P.coeff i‖
+      have hM : 1 ≤ M := le_add_of_nonneg_right
+        (Finset.sum_nonneg (fun i _ => norm_nonneg (P.coeff i)))
+      have hM0 : 0 < M := zero_lt_one.trans_le hM
+      have hcM (i : ℕ) : ‖P.coeff i‖ ≤ M - 1 := by
+        dsimp [M]
+        rw [add_sub_cancel_left]
+        by_cases hi : i ∈ P.support
+        · exact Finset.single_le_sum (fun j _ => norm_nonneg (P.coeff j)) hi
+        · simp only [mem_support_iff, not_not] at hi
+          rw [hi, norm_zero]
+          positivity
+      let δ : ℕ → ℝ := fun n => ((1 / 2 : ℝ) ^ n) ^ P.natDegree / (4 * M ^ P.natDegree)
+      have hδpos (n : ℕ) : 0 < δ n := by dsimp [δ]; positivity
+      have hδone (n : ℕ) : δ n ≤ 1 := by
+        apply (div_le_one (by positivity : 0 < 4 * M ^ P.natDegree)).mpr
+        have hp : ((1 / 2 : ℝ) ^ n) ^ P.natDegree ≤ 1 :=
+          pow_le_one₀ (by positivity) (pow_le_one₀ (by norm_num) (by norm_num))
+        have hMpow : 1 ≤ M ^ P.natDegree := one_le_pow₀ hM
+        linarith
+      have hδnext (n : ℕ) : δ (n + 1) ≤ δ n := by
+        apply div_le_div_of_nonneg_right ?_ (by positivity)
+        apply pow_le_pow_left₀ (by positivity)
+        rw [pow_succ]
+        nlinarith [pow_nonneg (by norm_num : (0 : ℝ) ≤ 1 / 2) n]
+      choose G hG hGdeg hGcoeff using fun n => approx K C e he P hP (δ n) (hδpos n)
+      let g : ℕ → Polynomial C := fun n => (G n).map e
+      have hg (n : ℕ) : (g n).Monic := (hG n).map e
+      have hgdeg (n : ℕ) : (g n).natDegree = P.natDegree := by
+        dsimp [g]
+        rw [natDegree_map, ← hGdeg n]
+      have hgs (n : ℕ) : (g n).Splits := (IsAlgClosed.splits (G n)).map e
+      have hgc (n i : ℕ) : ‖(g n).coeff i - P.coeff i‖ < δ n := hGcoeff n i
+      have rootnorm (n : ℕ) (x : C) (hx : (g n).eval x = 0) : ‖x‖ ≤ M := by
+        apply root_bound C hC (g n) (hg n) M hM ?_ x hx
+        intro i _
+        have hb := norm_add_le ((g n).coeff i - P.coeff i) (P.coeff i)
+        rw [sub_add_cancel] at hb
+        exact hb.trans (by linarith [hgc n i, hδone n, hcM i])
+      have nextroot (n : ℕ) (x : C) (hx : (g n).eval x = 0) :
+          ∃ y, (g (n + 1)).eval y = 0 ∧ ‖x - y‖ < (1 / 2 : ℝ) ^ n := by
+        apply root_near C (g (n + 1)) (hg (n + 1)) (hgs (n + 1)) x _ (by positivity)
+        have hcoeff (i : ℕ) : ‖((g (n + 1) - g n).coeff i)‖ ≤ 2 * δ n := by
+          rw [coeff_sub]
+          have hb := norm_add_le ((g (n + 1)).coeff i - P.coeff i)
+            (P.coeff i - (g n).coeff i)
+          rw [sub_add_sub_cancel, norm_sub_rev (P.coeff i)] at hb
+          linarith [hgc (n + 1) i, hgc n i, hδnext n]
+        have hb := eval_bound C hC (g (n + 1) - g n) P.natDegree
+          (by simpa only [hgdeg, max_self] using (g (n + 1)).natDegree_sub_le (g n))
+          M (2 * δ n) hM (by positivity) hcoeff x (rootnorm n x hx)
+        rw [eval_sub, hx, sub_zero] at hb
+        apply hb.trans_lt
+        rw [hgdeg]
+        dsimp [δ]
+        have hm : M ^ P.natDegree ≠ 0 := (pow_pos hM0 _).ne'
+        have hp : 0 < ((1 / 2 : ℝ) ^ n) ^ P.natDegree := by positivity
+        field_simp
+        nlinarith
+      obtain ⟨x₀, hx₀⟩ := (hgs 0).exists_eval_eq_zero
+        (degree_ne_of_natDegree_ne (by rw [hgdeg]; exact hd.ne'))
+      have hn : ∀ n, ∀ x : {x : C // (g n).eval x = 0},
+          ∃ y : {y : C // (g (n + 1)).eval y = 0}, ‖x.val - y.val‖ < (1 / 2 : ℝ) ^ n := by
+        intro n x
+        obtain ⟨y, hy, hxy⟩ := nextroot n x.val x.property
+        exact ⟨⟨y, hy⟩, hxy⟩
+      choose next hnxt using hn
+      let x : (n : ℕ) → {x : C // (g n).eval x = 0} :=
+        fun n => Nat.rec ⟨x₀, hx₀⟩ (fun n z => next n z) n
+      have hstep (n : ℕ) : ‖(x n).val - (x (n + 1)).val‖ < (1 / 2 : ℝ) ^ n := hnxt n (x n)
+      have hcauchy : CauchySeq (fun n => (x n).val) := by
+        apply cauchySeq_of_le_geometric (1 / 2) 1 (by norm_num)
+        intro n
+        simpa only [dist_eq_norm, one_mul] using (hstep n).le
+      obtain ⟨a, ha⟩ := cauchySeq_tendsto_of_complete hcauchy
+      have hPeval (n : ℕ) : ‖P.eval (x n).val‖ ≤ δ n * M ^ P.natDegree := by
+        have hcoeff (i : ℕ) : ‖(P - g n).coeff i‖ ≤ δ n := by
+          rw [coeff_sub, norm_sub_rev]
+          exact (hgc n i).le
+        have hb := eval_bound C hC (P - g n) P.natDegree
+          (by simpa only [hgdeg, max_self] using P.natDegree_sub_le (g n))
+          M (δ n) hM (hδpos n).le hcoeff (x n).val (rootnorm n _ (x n).property)
+        simpa only [eval_sub, (x n).property, sub_zero] using hb
+      have hδlim : Filter.Tendsto (fun n => δ n * M ^ P.natDegree) Filter.atTop (nhds 0) := by
+        have ht := (tendsto_pow_atTop_nhds_zero_of_lt_one
+          (by norm_num : (0 : ℝ) ≤ 1 / 2) (by norm_num : (1 / 2 : ℝ) < 1)).pow P.natDegree
+        have ht' := (ht.div_const (4 * M ^ P.natDegree)).mul_const (M ^ P.natDegree)
+        simpa [δ, hd.ne'] using ht'
+      have hzero : Filter.Tendsto (fun n => P.eval (x n).val) Filter.atTop (nhds 0) := by
+        apply tendsto_zero_iff_norm_tendsto_zero.mpr
+        exact squeeze_zero (fun _ => norm_nonneg _) hPeval hδlim
+      have hcont : Continuous (fun x : C => P.eval x) := by
+        simp only [eval_eq_sum, Polynomial.sum]
+        apply continuous_finsetSum
+        intro i _
+        exact continuous_const.mul (continuous_id.pow i)
+      exact ⟨a, tendsto_nhds_unique (hcont.tendsto a |>.comp ha) hzero⟩
+    have closed_base (C : Type) [NormedField C] [CharZero C]
+        (hC : ∀ x y : C, ‖x + y‖ ≤ max ‖x‖ ‖y‖) (r : ℝ)
+        (hr : ∀ q : ℚ, q ≠ 0 → ∃ m : ℤ, ‖(q : C)‖ = r ^ m) :
+        ∃ F : Subfield C, IsClosed (F : Set C) ∧ DenseRange (algebraMap ℚ F) ∧
+          (∀ x : F, x ≠ 0 → ∃ m : ℤ, ‖x‖ = r ^ m) ∧
+          ∀ τ : C ≃+* C, Continuous τ → ∀ x : F, τ (x : C) = x := by
+      let B : Subfield C := (algebraMap ℚ C).fieldRange
+      let F : Subfield C := B.topologicalClosure
+      have hF : IsClosed (F : Set C) := B.isClosed_topologicalClosure
+      have hd : DenseRange (algebraMap ℚ F) := by
+        rw [Metric.denseRange_iff]
+        intro x ε hε
+        obtain ⟨y, hy, hxy⟩ := Metric.mem_closure_iff.mp x.property ε hε
+        obtain ⟨q, rfl⟩ := hy
+        refine ⟨q, ?_⟩
+        exact hxy
+      refine ⟨F, hF, hd, ?_, ?_⟩
+      · intro x hx
+        have hxpos : 0 < ‖x‖ := norm_pos_iff.mpr hx
+        obtain ⟨q, hq⟩ := hd.exists_dist_lt x hxpos
+        rw [dist_eq_norm] at hq
+        have hn : ‖(algebraMap ℚ F) q‖ = ‖x‖ := by
+          apply le_antisymm
+          · have h := hC ((q : C) - x) x
+            rw [sub_add_cancel, norm_sub_rev] at h
+            exact h.trans (max_le hq.le le_rfl)
+          · by_contra hlt
+            have h := hC ((x : C) - q) q
+            rw [sub_add_cancel] at h
+            exact (not_lt_of_ge h) (max_lt hq (lt_of_not_ge hlt))
+        have hq0 : q ≠ 0 := by
+          intro he
+          rw [he, _root_.map_zero, norm_zero] at hn
+          exact hxpos.ne' hn.symm
+        obtain ⟨m, hm⟩ := hr q hq0
+        exact ⟨m, hn.symm.trans hm⟩
+      · intro τ hτ x
+        have hclosed : IsClosed {x : C | τ x = x} := isClosed_eq hτ continuous_id
+        apply closure_minimal (t := {x : C | τ x = x}) ?_ hclosed x.property
+        intro y hy
+        obtain ⟨q, rfl⟩ := hy
+        exact map_ratCast τ q
+    have relative_closure (C : Type) [NormedField C] [CharZero C]
+        [IsAlgClosed C] (F : Subfield C) (e : AlgebraicClosure ℚ →+* C) :
+        ∃ (Ω : Type) (_ : NormedField Ω) (_ : CharZero Ω) (_ : NormedAlgebra F Ω)
+          (_ : IsAlgClosed Ω) (_ : Algebra.IsAlgebraic F Ω)
+          (j : Ω →ₐ[F] C) (ι : AlgebraicClosure ℚ →+* Ω),
+          Isometry j ∧ (∀ x, j (ι x) = e x) ∧
+          ∀ (σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) (τ : C ≃+* C),
+            Isometry τ → (∀ x : F, τ (x : C) = x) →
+            (∀ x, τ (e x) = e (σ x)) → (∀ x : C, ‖x‖ ≤ 1 → ‖τ x - x‖ < 1) →
+            ∃ υ : Ω ≃ₐ[F] Ω, Isometry υ ∧ (∀ x, υ (ι x) = ι (σ x)) ∧
+              (∀ x : Ω, ‖x‖ ≤ 1 → ‖υ x - x‖ < 1) := by
+      let Ω := algebraicClosure F C
+      let : NormedAlgebra F Ω := {
+        toAlgebra := inferInstance
+        norm_smul_le := fun r x => show ‖(r : C) * (x : C)‖ ≤ ‖(r : C)‖ * ‖(x : C)‖
+          from norm_mul_le _ _ }
+      let : IsAlgClosed Ω := IsAlgClosure.isAlgClosed F
+      let ea : AlgebraicClosure ℚ →ₐ[ℚ] C := {
+        toRingHom := e
+        commutes' := fun q => map_ratCast e q }
+      have healg (x : AlgebraicClosure ℚ) : IsAlgebraic F (e x) := by
+        let : Algebra.IsAlgebraic ℚ (AlgebraicClosure ℚ) := AlgebraicClosure.isAlgebraic ℚ
+        apply IsAlgebraic.extendScalars (R := ℚ) (algebraMap ℚ F).injective
+        exact (isAlgebraic_algHom_iff ea ea.injective).mpr (Algebra.IsAlgebraic.isAlgebraic x)
+      let ι : AlgebraicClosure ℚ →+* Ω := {
+        toFun := fun x => ⟨e x, mem_algebraicClosure_iff.mpr (healg x)⟩
+        map_zero' := Subtype.ext e.map_zero
+        map_one' := Subtype.ext e.map_one
+        map_add' := fun x y => Subtype.ext (e.map_add x y)
+        map_mul' := fun x y => Subtype.ext (e.map_mul x y) }
+      let j : Ω →ₐ[F] C := (algebraicClosure F C).val
+      have hj : Isometry j := isometry_subtype_coe
+      refine ⟨Ω, inferInstance, inferInstance, inferInstance, inferInstance,
+        inferInstance, j, ι, hj, (fun _ => rfl), ?_⟩
+      intro σ τ hτ hF hcomm hsmall
+      let τa : C ≃ₐ[F] C := { τ with commutes' := hF }
+      let υ : Ω ≃ₐ[F] Ω := τa.algebraicClosure
+      have hu (x : Ω) : j (υ x) = τ (j x) := rfl
+      refine ⟨υ, ?_, ?_, ?_⟩
+      · apply isometry_iff_dist_eq.mpr
+        intro x y
+        rw [← hj.dist_eq, hu, hu, hτ.dist_eq, hj.dist_eq]
+      · intro x
+        apply j.injective
+        exact hcomm x
+      · intro x hx
+        exact hsmall (j x) hx
+    obtain ⟨C, nC, chC, cC, e, _, hd, hC, hring, hsmall, hp0, hp1, hrat, hext⟩ :=
+      specified_completion p A hA
+    let : IsAlgClosed C := dense_algclosed (AlgebraicClosure ℚ) C e hd hC
+    have hrat' : ∀ q : ℚ, q ≠ 0 → ∃ m : ℤ, ‖(q : C)‖ = ‖e (p : AlgebraicClosure ℚ)‖ ^ m := by
+      intro q hq
+      obtain ⟨m, hm⟩ := hrat q hq
+      change ‖e (q : AlgebraicClosure ℚ)‖ = _ at hm
+      exact ⟨m, by simpa only [map_ratCast] using hm⟩
+    obtain ⟨F, hFclosed, _, hFdiscrete, hFfix⟩ := closed_base C hC _ hrat'
+    let : CompleteSpace F := completeSpace_coe_iff_isComplete.mpr hFclosed.isComplete
+    obtain ⟨Ω, nΩ, chΩ, aΩ, acΩ, algΩ, j, ι, hj, hji, hi⟩ := relative_closure C F e
+    have hnorm (x : AlgebraicClosure ℚ) : ‖ι x‖ = ‖e x‖ := by
+      rw [← hji]
+      exact (hj.norm_map_of_map_zero j.map_zero (ι x)).symm
+    have hΩ (x y : Ω) : ‖x + y‖ ≤ max ‖x‖ ‖y‖ := by
+      have hn (z : Ω) : ‖j z‖ = ‖z‖ := hj.norm_map_of_map_zero j.map_zero z
+      have hh := hC (j x) (j y)
+      rwa [← map_add, hn, hn, hn] at hh
+    refine ⟨F, Ω, inferInstance, inferInstance, inferInstance, nΩ, chΩ, aΩ, acΩ, algΩ,
+      ι, (fun x y => hC (x : C) (y : C)), hΩ,
+      ⟨‖e (p : AlgebraicClosure ℚ)‖, hp0, hp1, hFdiscrete⟩, ?_, ?_, ?_, ?_, ?_⟩
+    · intro x
+      rw [hnorm]
+      exact hring x
+    · intro x
+      rw [hnorm]
+      exact hsmall x
+    · rwa [hnorm]
+    · rwa [hnorm]
+    · intro σ hσ
+      obtain ⟨τ, hτ, hc, hs⟩ := hext σ hσ
+      exact hi σ τ hτ (hFfix τ hτ.continuous) hc hs
+  have local_multiplicative_quotient (p : ℕ) [Fact p.Prime]
+      (F Ω : Type) [NormedField F] [CharZero F] [CompleteSpace F]
+      [NormedField Ω] [CharZero Ω] [DecidableEq Ω]
+      [NormedAlgebra F Ω] [IsAlgClosed Ω] [Algebra.IsAlgebraic F Ω]
+      (hF : ∀ x y : F, ‖x + y‖ ≤ max ‖x‖ ‖y‖)
+      (hΩ : ∀ x y : Ω, ‖x + y‖ ≤ max ‖x‖ ‖y‖)
+      (hdiscrete : ∃ r : ℝ, 0 < r ∧ r < 1 ∧ ∀ x : F, x ≠ 0 → ∃ n : ℤ, ‖x‖ = r ^ n)
+      (h2 : ‖(2 : Ω)‖ = 1) (W : WeierstrassCurve F)
+      (hΔ0 : W.Δ ≠ 0) (h4 : ‖W.c₄‖ = 1) (hΔ : ‖W.Δ‖ < 1) :
+      ∃ B : Submodule.torsionBy ℤ (W.toAffine⁄Ω).Point p →+ ZMod p,
+        (∃ v, B v ≠ 0) ∧ ∀ σ : Ω ≃ₐ[F] Ω,
+          (∀ x : Ω, ‖x‖ ≤ 1 → ‖σ x - x‖ < 1) →
+          ∀ v, B (galoisRepModuleEnd (K := Ω) F W p σ v) = B v := open Filter in by
+    have tate_parameter (F Ω : Type)
+        [NormedField F] [CharZero F] [CompleteSpace F]
+        [NormedField Ω] [CharZero Ω] [DecidableEq Ω]
+        [NormedAlgebra F Ω] [IsAlgClosed Ω] [Algebra.IsAlgebraic F Ω]
+        (hF : ∀ x y : F, ‖x + y‖ ≤ max ‖x‖ ‖y‖)
+        (hΩ : ∀ x y : Ω, ‖x + y‖ ≤ max ‖x‖ ‖y‖)
+        (hdiscrete : ∃ r : ℝ, 0 < r ∧ r < 1 ∧ ∀ x : F, x ≠ 0 → ∃ n : ℤ, ‖x‖ = r ^ n)
+        (w : F) (hw0 : 0 < ‖w‖) (hw1 : ‖w‖ < 1) :
+        ∃ q : F, ‖q‖ = ‖w‖ ∧
+          let s : ℕ → F := fun k => ∑' d : ℕ,
+            ((d + 1 : ℕ) : F) ^ k * q ^ (d + 1) / (1 - q ^ (d + 1))
+          let T : WeierstrassCurve F := ⟨1, 0, 0, -5 * s 3, -(5 * s 3 + 7 * s 5) / 12⟩
+          T.Δ / T.c₄ ^ 3 = w ∧ ‖T.c₄‖ = 1 ∧ ‖T.Δ‖ = ‖w‖ := by
+      have estimates (F : Type) [NormedField F]
+          (hF : ∀ x y : F, ‖x + y‖ ≤ max ‖x‖ ‖y‖)
+          (hs : ∀ q : F, ‖q‖ < 1 → ∀ k : ℕ, Summable
+            (fun d : ℕ => ((d + 1 : ℕ) : F) ^ k * q ^ (d + 1) / (1 - q ^ (d + 1))))
+          (hp : ∀ q : F, ‖q‖ < 1 → Multipliable (fun d : ℕ => (1 - q ^ (d + 1)) ^ 24)) :
+          let s : F → ℕ → F := fun q k => ∑' d : ℕ,
+            ((d + 1 : ℕ) : F) ^ k * q ^ (d + 1) / (1 - q ^ (d + 1))
+          let P : F → F := fun q => ∏' d : ℕ, (1 - q ^ (d + 1)) ^ 24
+          (∀ q : F, ‖q‖ < 1 → ∀ k : ℕ, ‖s q k‖ ≤ ‖q‖) ∧
+          (∀ q r : F, ‖q‖ < 1 → ‖r‖ < 1 → ∀ k : ℕ, ‖s q k - s r k‖ ≤ ‖q - r‖) ∧
+          (∀ q : F, ‖q‖ < 1 → ‖P q‖ = 1) ∧
+          (∀ q : F, ‖q‖ < 1 → ‖P q - 1‖ ≤ ‖q‖) ∧
+          (∀ q r : F, ‖q‖ < 1 → ‖r‖ < 1 → ‖P q - P r‖ ≤ ‖q - r‖) ∧
+          (∀ q : F, ‖q‖ < 1 → ‖1 + 240 * s q 3‖ = 1) ∧
+          (∀ q r : F, ‖q‖ < 1 → ‖r‖ < 1 →
+            ‖(1 + 240 * s q 3) - (1 + 240 * s r 3)‖ ≤ ‖q - r‖) := by
+        intro s P
+        have series_bounds (F : Type) [NormedField F]
+            (hF : ∀ x y : F, ‖x + y‖ ≤ max ‖x‖ ‖y‖) :
+            (∀ n : ℕ, ‖(n : F)‖ ≤ 1) ∧
+            (∀ x : F, ‖x‖ < 1 → ‖1 - x‖ = 1) ∧
+            (∀ (f : ℕ → F), Summable f → ∀ B : ℝ, 0 ≤ B →
+              (∀ n, ‖f n‖ ≤ B) → ‖∑' n, f n‖ ≤ B) ∧
+            (∀ (f : ℕ → F), Multipliable f → (∀ n, ‖f n‖ = 1) → ‖∏' n, f n‖ = 1) ∧
+            (∀ (f g : ℕ → F), Multipliable f → Multipliable g →
+              (∀ n, ‖f n‖ = 1) → (∀ n, ‖g n‖ = 1) →
+              ∀ B : ℝ, 0 ≤ B → (∀ n, ‖f n - g n‖ ≤ B) →
+                ‖(∏' n, f n) - ∏' n, g n‖ ≤ B) := by
+          have hsum (f : ℕ → F) (B : ℝ) (hB : 0 ≤ B) (hb : ∀ n, ‖f n‖ ≤ B)
+              (s : Finset ℕ) : ‖∑ i ∈ s, f i‖ ≤ B := by
+            induction s using Finset.induction_on with
+            | empty => simpa using hB
+            | @insert a s ha ih =>
+              rw [Finset.sum_insert ha]
+              exact (hF _ _).trans (max_le (hb a) ih)
+          have hprod (f : ℕ → F) (hf : ∀ n, ‖f n‖ = 1) (s : Finset ℕ) :
+              ‖∏ i ∈ s, f i‖ = 1 := by simp [norm_prod, hf]
+          refine ⟨?_, ?_, ?_, ?_, ?_⟩
+          · intro n
+            induction n with
+            | zero => simp
+            | succ n ih =>
+              rw [Nat.cast_succ]
+              exact (hF _ _).trans (max_le ih (by simp))
+          · intro x hx
+            apply le_antisymm
+            · have h := hF 1 (-x)
+              simpa only [← sub_eq_add_neg, norm_one, norm_neg, max_eq_left hx.le] using h
+            · by_contra h
+              have hsum := hF (1 - x) x
+              rw [sub_add_cancel, norm_one] at hsum
+              exact (not_lt_of_ge hsum) (max_lt (lt_of_not_ge h) hx)
+          · intro f hf B hB hb
+            exact le_of_tendsto (continuous_norm.tendsto _ |>.comp hf.hasSum)
+              (Eventually.of_forall (hsum f B hB hb))
+          · intro f hf hn
+            apply tendsto_nhds_unique (continuous_norm.tendsto _ |>.comp hf.hasProd)
+            have he : (fun s : Finset ℕ => ‖∏ i ∈ s, f i‖) = fun _ => (1 : ℝ) := funext (hprod f hn)
+            simp only [Function.comp_def]
+            rw [he]
+            exact tendsto_const_nhds
+          · intro f g hf hg hn gn B hB hb
+            have hp (s : Finset ℕ) : ‖(∏ i ∈ s, f i) - ∏ i ∈ s, g i‖ ≤ B := by
+              induction s using Finset.induction_on with
+              | empty => simpa using hB
+              | @insert a s ha ih =>
+                rw [Finset.prod_insert ha, Finset.prod_insert ha]
+                have he : f a * (∏ i ∈ s, f i) - g a * (∏ i ∈ s, g i) =
+                    (f a - g a) * (∏ i ∈ s, f i) +
+                      g a * ((∏ i ∈ s, f i) - ∏ i ∈ s, g i) := by ring
+                rw [he]
+                apply (hF _ _).trans
+                rw [norm_mul, norm_mul, hprod f hn, gn, mul_one, one_mul]
+                exact max_le (hb a) ih
+            exact le_of_tendsto (continuous_norm.tendsto _ |>.comp (hf.hasProd.sub hg.hasProd))
+              (Eventually.of_forall hp)
+        obtain ⟨hnat, hone, hsum, hprod, hprodsub⟩ := series_bounds F hF
+        have powdiff (x y : F) (hx : ‖x‖ ≤ 1) (hy : ‖y‖ ≤ 1) (n : ℕ) :
+            ‖x ^ n - y ^ n‖ ≤ ‖x - y‖ := by
+          induction n with
+          | zero => simp
+          | succ n ih =>
+            have he : x ^ (n + 1) - y ^ (n + 1) =
+                (x - y) * x ^ n + y * (x ^ n - y ^ n) := by ring
+            rw [he]
+            apply (hF _ _).trans
+            apply max_le
+            · rw [norm_mul, norm_pow]
+              exact mul_le_of_le_one_right (norm_nonneg _) (pow_le_one₀ (norm_nonneg _) hx)
+            · rw [norm_mul]
+              exact (mul_le_mul_of_nonneg_left ih (norm_nonneg _)).trans
+                (mul_le_of_le_one_left (norm_nonneg _) hy)
+        have hpow (q : F) (hq : ‖q‖ < 1) (d : ℕ) : ‖q ^ (d + 1)‖ ≤ ‖q‖ := by
+          rw [norm_pow, pow_succ]
+          exact mul_le_of_le_one_left (norm_nonneg _) (pow_le_one₀ (norm_nonneg _) hq.le)
+        have hden (q : F) (hq : ‖q‖ < 1) (d : ℕ) : ‖1 - q ^ (d + 1)‖ = 1 :=
+          hone _ ((hpow q hq d).trans_lt hq)
+        have hden0 (q : F) (hq : ‖q‖ < 1) (d : ℕ) : 1 - q ^ (d + 1) ≠ 0 := by
+          apply norm_ne_zero_iff.mp
+          rw [hden q hq d]
+          norm_num
+        have hsbound (q : F) (hq : ‖q‖ < 1) (k : ℕ) : ‖s q k‖ ≤ ‖q‖ := by
+          apply hsum _ (hs q hq k) _ (norm_nonneg _)
+          intro d
+          rw [norm_div, norm_mul, norm_pow, hden q hq d, div_one]
+          exact (mul_le_of_le_one_left (norm_nonneg _)
+            (pow_le_one₀ (norm_nonneg _) (hnat (d + 1)))).trans (hpow q hq d)
+        have hslip (q r : F) (hq : ‖q‖ < 1) (hr : ‖r‖ < 1) (k : ℕ) :
+            ‖s q k - s r k‖ ≤ ‖q - r‖ := by
+          rw [← (hs q hq k).tsum_sub (hs r hr k)]
+          apply hsum _ ((hs q hq k).sub (hs r hr k)) _ (norm_nonneg _)
+          intro d
+          have he : ((d + 1 : ℕ) : F) ^ k * q ^ (d + 1) / (1 - q ^ (d + 1)) -
+              ((d + 1 : ℕ) : F) ^ k * r ^ (d + 1) / (1 - r ^ (d + 1)) =
+              ((d + 1 : ℕ) : F) ^ k * (q ^ (d + 1) - r ^ (d + 1)) /
+                ((1 - q ^ (d + 1)) * (1 - r ^ (d + 1))) := by
+            field_simp [hden0 q hq d, hden0 r hr d]
+            ring
+          rw [he, norm_div, norm_mul, norm_mul, hden q hq d, hden r hr d, one_mul,
+            div_one, norm_pow]
+          exact (mul_le_of_le_one_left (norm_nonneg _)
+            (pow_le_one₀ (norm_nonneg _) (hnat (d + 1)))).trans (powdiff q r hq.le hr.le _)
+        have hfunit (q : F) (hq : ‖q‖ < 1) (d : ℕ) : ‖(1 - q ^ (d + 1)) ^ 24‖ = 1 := by
+          rw [norm_pow, hden q hq d, one_pow]
+        have hplip (q r : F) (hq : ‖q‖ < 1) (hr : ‖r‖ < 1) : ‖P q - P r‖ ≤ ‖q - r‖ := by
+          apply hprodsub _ _ (hp q hq) (hp r hr) (hfunit q hq) (hfunit r hr) _ (norm_nonneg _)
+          intro d
+          apply (powdiff _ _ (hden q hq d).le (hden r hr d).le 24).trans
+          have he : (1 - q ^ (d + 1)) - (1 - r ^ (d + 1)) =
+              -(q ^ (d + 1) - r ^ (d + 1)) := by ring
+          rw [he, norm_neg]
+          exact powdiff q r hq.le hr.le _
+        have hP0 : P 0 = 1 := by simp [P]
+        refine ⟨hsbound, hslip, ?_, ?_, hplip, ?_, ?_⟩
+        · intro q hq
+          exact hprod _ (hp q hq) (hfunit q hq)
+        · intro q hq
+          simpa only [hP0, sub_zero] using hplip q 0 hq (by simp)
+        · intro q hq
+          simpa only [neg_mul, sub_neg_eq_add] using (hone (-240 * s q 3) (by
+            rw [norm_mul, norm_neg]
+            exact (mul_le_of_le_one_left (norm_nonneg _) (hnat 240)).trans_lt
+              ((hsbound q hq 3).trans_lt hq)))
+        · intro q r hq hr
+          have he : (1 + 240 * s q 3) - (1 + 240 * s r 3) = 240 * (s q 3 - s r 3) := by ring
+          rw [he, norm_mul]
+          exact (mul_le_of_le_one_left (norm_nonneg _) (hnat 240)).trans (hslip q r hq hr 3)
+      have unit_quotient (F : Type) [NormedField F]
+          (hF : ∀ x y : F, ‖x + y‖ ≤ max ‖x‖ ‖y‖) :
+          (∀ a b : F, ‖a‖ = 1 → ‖b‖ = 1 → ‖a / b ^ 3‖ = 1) ∧
+          (∀ a b c d : F, ‖a‖ = 1 → ‖b‖ = 1 → ‖c‖ = 1 → ‖d‖ = 1 →
+            ∀ B : ℝ, ‖a - c‖ ≤ B → ‖b - d‖ ≤ B →
+              ‖a / b ^ 3 - c / d ^ 3‖ ≤ B) := by
+        have powdiff (x y : F) (hx : ‖x‖ ≤ 1) (hy : ‖y‖ ≤ 1) (n : ℕ) :
+            ‖x ^ n - y ^ n‖ ≤ ‖x - y‖ := by
+          induction n with
+          | zero => simp
+          | succ n ih =>
+            have he : x ^ (n + 1) - y ^ (n + 1) =
+                (x - y) * x ^ n + y * (x ^ n - y ^ n) := by ring
+            rw [he]
+            apply (hF _ _).trans
+            apply max_le
+            · rw [norm_mul, norm_pow]
+              exact mul_le_of_le_one_right (norm_nonneg _) (pow_le_one₀ (norm_nonneg _) hx)
+            · rw [norm_mul]
+              exact (mul_le_mul_of_nonneg_left ih (norm_nonneg _)).trans
+                (mul_le_of_le_one_left (norm_nonneg _) hy)
+        refine ⟨?_, ?_⟩
+        · intro a b ha hb
+          rw [norm_div, norm_pow, ha, hb, one_pow, div_one]
+        · intro a b c d _ hb hc hd B hac hbd
+          have hb0 : b ≠ 0 := norm_ne_zero_iff.mp (by rw [hb]; norm_num)
+          have hd0 : d ≠ 0 := norm_ne_zero_iff.mp (by rw [hd]; norm_num)
+          have he : a / b ^ 3 - c / d ^ 3 =
+              ((a - c) * d ^ 3 + c * (d ^ 3 - b ^ 3)) / (b ^ 3 * d ^ 3) := by
+            field_simp
+            ring
+          rw [he, norm_div, norm_mul, norm_pow, norm_pow, hb, hd, one_pow, one_mul, div_one]
+          apply (hF _ _).trans
+          rw [norm_mul, norm_mul, norm_pow, hd, one_pow, hc, mul_one, one_mul]
+          apply max_le hac
+          rw [norm_sub_rev]
+          exact (powdiff b d hb.le hd.le 3).trans hbd
+      have near_inverse (F : Type) [NormedField F] [CompleteSpace F]
+          (hF : ∀ x y : F, ‖x + y‖ ≤ max ‖x‖ ‖y‖)
+          (ρ : ℝ) (hρ0 : 0 ≤ ρ) (hρ1 : ρ < 1) (U : F → F)
+          (hU : ∀ x : F, ‖x‖ ≤ ρ → ‖U x‖ = 1)
+          (hsmall : ∀ x : F, ‖x‖ ≤ ρ → ‖U x - 1‖ ≤ ρ)
+          (hlip : ∀ x y : F, ‖x‖ ≤ ρ → ‖y‖ ≤ ρ → ‖U x - U y‖ ≤ ‖x - y‖)
+          (w : F) (hw : ‖w‖ ≤ ρ) :
+          ∃ q : F, ‖q‖ = ‖w‖ ∧ q * U q = w := by
+        let f : F → F := fun x => w - x * (U x - 1)
+        have hball (x : F) (hx : ‖x‖ ≤ ρ) : ‖f x‖ ≤ ρ := by
+          have hh := hF w (-(x * (U x - 1)))
+          rw [← sub_eq_add_neg, norm_neg, norm_mul] at hh
+          apply hh.trans
+          apply max_le hw
+          exact (mul_le_mul hx (hsmall x hx) (norm_nonneg _) hρ0).trans
+            (mul_le_of_le_one_right hρ0 hρ1.le)
+        have hcontract (x y : F) (hx : ‖x‖ ≤ ρ) (hy : ‖y‖ ≤ ρ) :
+            ‖f x - f y‖ ≤ ρ * ‖x - y‖ := by
+          have he : f x - f y = -((x - y) * (U x - 1) + y * (U x - U y)) := by
+            dsimp [f]
+            ring
+          rw [he, norm_neg]
+          apply (hF _ _).trans
+          rw [norm_mul, norm_mul]
+          exact max_le (by simpa only [mul_comm] using
+            mul_le_mul_of_nonneg_left (hsmall x hx) (norm_nonneg (x - y)))
+            (mul_le_mul hy (hlip x y hx hy) (norm_nonneg _) hρ0)
+        let x : ℕ → F := fun n => f^[n] 0
+        have hx (n : ℕ) : ‖x n‖ ≤ ρ := by
+          induction n with
+          | zero => simpa [x] using hρ0
+          | succ n ih =>
+            simpa only [x, Function.iterate_succ_apply'] using hball (x n) ih
+        have hstep (n : ℕ) : dist (x n) (x (n + 1)) ≤ ‖w‖ * ρ ^ n := by
+          induction n with
+          | zero => simp [x, f, dist_eq_norm]
+          | succ n ih =>
+            rw [dist_eq_norm] at ih
+            have he : ‖f (x n) - f (x (n + 1))‖ ≤ ρ * ‖x n - x (n + 1)‖ :=
+              hcontract _ _ (hx n) (hx (n + 1))
+            have hh := he.trans (mul_le_mul_of_nonneg_left ih hρ0)
+            simpa only [x, Function.iterate_succ_apply', dist_eq_norm, pow_succ, mul_assoc,
+              mul_left_comm, mul_comm] using hh
+        obtain ⟨a, ha⟩ := cauchySeq_tendsto_of_complete
+          (cauchySeq_of_le_geometric ρ ‖w‖ hρ1 hstep)
+        have haball : ‖a‖ ≤ ρ := le_of_tendsto (continuous_norm.tendsto _ |>.comp ha)
+          (Eventually.of_forall hx)
+        have haf : Tendsto (fun n => f (x n)) atTop (nhds (f a)) := by
+          rw [tendsto_iff_norm_sub_tendsto_zero]
+          apply squeeze_zero (fun _ => norm_nonneg _)
+            (fun n => hcontract (x n) a (hx n) haball)
+          have ht := (tendsto_iff_norm_sub_tendsto_zero.mp ha).const_mul ρ
+          simpa only [mul_zero] using ht
+        have hashift : Tendsto (fun n => f (x n)) atTop (nhds a) := by
+          have ht := ha.comp (tendsto_add_atTop_nat 1)
+          simpa only [Function.comp_def, x, Function.iterate_succ_apply'] using ht
+        have hafix : f a = a := tendsto_nhds_unique haf hashift
+        have haeq : a * U a = w := by
+          dsimp [f] at hafix
+          linear_combination -hafix
+        refine ⟨a, ?_, haeq⟩
+        have hn := congrArg norm haeq
+        rwa [norm_mul, hU a haball, mul_one] at hn
+      have hs : ∀ q : F, ‖q‖ < 1 → ∀ k : ℕ, Summable
+          (fun d : ℕ => ((d + 1 : ℕ) : F) ^ k * q ^ (d + 1) / (1 - q ^ (d + 1))) := by
+        intro q hq k
+        by_cases hq0 : q = 0
+        · simp [hq0]
+        exact (Submission.p03_tate_uniformization_68cf3476 F Ω hF hΩ hdiscrete q
+          (norm_pos_iff.mpr hq0) hq).1 k
+      have hp : ∀ q : F, ‖q‖ < 1 → Multipliable (fun d : ℕ => (1 - q ^ (d + 1)) ^ 24) := by
+        intro q hq
+        by_cases hq0 : q = 0
+        · simp [hq0]
+        exact (Submission.p03_tate_uniformization_68cf3476 F Ω hF hΩ hdiscrete q
+          (norm_pos_iff.mpr hq0) hq).2.1
+      let s : F → ℕ → F := fun q k => ∑' d : ℕ,
+        ((d + 1 : ℕ) : F) ^ k * q ^ (d + 1) / (1 - q ^ (d + 1))
+      let P : F → F := fun q => ∏' d : ℕ, (1 - q ^ (d + 1)) ^ 24
+      let A : F → F := fun q => 1 + 240 * s q 3
+      let U : F → F := fun q => P q / (A q) ^ 3
+      obtain ⟨hsbound, _, hPunit, hPsmall, hPlip, hAunit, hAlip⟩ := estimates F hF hs hp
+      have hnat (n : ℕ) : ‖(n : F)‖ ≤ 1 := by
+        induction n with
+        | zero => simp
+        | succ n ih =>
+          rw [Nat.cast_succ]
+          exact (hF _ _).trans (max_le ih (by simp))
+      have hAsmall (q : F) (hq : ‖q‖ < 1) : ‖A q - 1‖ ≤ ‖q‖ := by
+        dsimp [A]
+        rw [add_sub_cancel_left, norm_mul]
+        exact (mul_le_of_le_one_left (norm_nonneg _) (hnat 240)).trans (hsbound q hq 3)
+      obtain ⟨hqnorm, hquot⟩ := unit_quotient F hF
+      have hUunit (q : F) (hq : ‖q‖ < 1) : ‖U q‖ = 1 := hqnorm _ _ (hPunit q hq) (hAunit q hq)
+      have hUsmall (q : F) (hq : ‖q‖ < 1) : ‖U q - 1‖ ≤ ‖q‖ := by
+        have hh := hquot (P q) (A q) 1 1 (hPunit q hq) (hAunit q hq)
+          (norm_one) (norm_one) ‖q‖ (hPsmall q hq) (hAsmall q hq)
+        simpa only [one_pow, div_one] using hh
+      have hUlip (q r : F) (hq : ‖q‖ < 1) (hr : ‖r‖ < 1) : ‖U q - U r‖ ≤ ‖q - r‖ :=
+        hquot _ _ _ _ (hPunit q hq) (hAunit q hq) (hPunit r hr) (hAunit r hr)
+          _ (hPlip q r hq hr) (hAlip q r hq hr)
+      obtain ⟨q, hqn, hqe⟩ := near_inverse F hF ‖w‖ hw0.le hw1 U
+        (fun q hq => hUunit q (hq.trans_lt hw1))
+        (fun q hq => (hUsmall q (hq.trans_lt hw1)).trans hq)
+        (fun q r hq hr => hUlip q r (hq.trans_lt hw1) (hr.trans_lt hw1)) w le_rfl
+      have hq0 : 0 < ‖q‖ := by rwa [hqn]
+      have hq1 : ‖q‖ < 1 := by rwa [hqn]
+      obtain ⟨_, _, hc4, _, hΔ, _⟩ :=
+        Submission.p03_tate_uniformization_68cf3476 F Ω hF hΩ hdiscrete q hq0 hq1
+      refine ⟨q, hqn, ?_⟩
+      dsimp only
+      refine ⟨?_, ?_, ?_⟩
+      · rw [hΔ, hc4]
+        simpa only [U, A, P, s, mul_div_assoc] using hqe
+      · rw [hc4]
+        exact hAunit q hq1
+      · rw [hΔ, norm_mul, hPunit q hq1, mul_one, hqn]
+    have scaling_iso (F Ω : Type)
+        [NormedField F] [CharZero F] [NormedField Ω] [CharZero Ω]
+        [NormedAlgebra F Ω] [IsAlgClosed Ω] [DecidableEq Ω]
+        (hF : ∀ x y : F, ‖x + y‖ ≤ max ‖x‖ ‖y‖) (h2 : ‖(2 : Ω)‖ = 1)
+        (W T : WeierstrassCurve F) [W.IsElliptic]
+        (hW4n : ‖W.c₄‖ = 1) (hWΔ : ‖W.Δ‖ < 1)
+        (hT4n : ‖T.c₄‖ = 1) (hTΔ : ‖T.Δ‖ < 1)
+        (hj : T.Δ / T.c₄ ^ 3 = W.Δ / W.c₄ ^ 3) :
+        ∃ f : (T.toAffine⁄Ω).Point →+ (W.toAffine⁄Ω).Point,
+          Function.Bijective f ∧ ∀ σ : Ω ≃ₐ[F] Ω,
+            (∀ x : Ω, ‖x‖ ≤ 1 → ‖σ x - x‖ < 1) →
+            ∀ P : (T.toAffine⁄Ω).Point, f (σ • P) = σ • f P := by
+      have invariant_norm (F : Type) [NormedField F]
+          (hF : ∀ x y : F, ‖x + y‖ ≤ max ‖x‖ ‖y‖)
+          (W : WeierstrassCurve F) (h4 : ‖W.c₄‖ = 1) (hΔ : ‖W.Δ‖ < 1) : ‖W.c₆‖ = 1 := by
+        have hnat (n : ℕ) : ‖(n : F)‖ ≤ 1 := by
+          induction n with
+          | zero => simp
+          | succ n ih =>
+            rw [Nat.cast_succ]
+            exact (hF _ _).trans (max_le ih (by simp))
+        have hdiff : ‖W.c₄ ^ 3 - W.c₆ ^ 2‖ < 1 := by
+          rw [← W.c_relation, norm_mul]
+          exact (mul_le_of_le_one_left (norm_nonneg _) (hnat 1728)).trans_lt hΔ
+        have hx : ‖W.c₄ ^ 3‖ = 1 := by rw [norm_pow, h4, one_pow]
+        have hy : ‖W.c₆ ^ 2‖ = 1 := by
+          apply le_antisymm
+          · have hh := hF (W.c₆ ^ 2 - W.c₄ ^ 3) (W.c₄ ^ 3)
+            rw [sub_add_cancel, norm_sub_rev, hx] at hh
+            exact hh.trans (max_le hdiff.le le_rfl)
+          · by_contra h
+            have hh := hF (W.c₄ ^ 3 - W.c₆ ^ 2) (W.c₆ ^ 2)
+            rw [sub_add_cancel, hx] at hh
+            exact (not_lt_of_ge hh) (max_lt hdiff (lt_of_not_ge h))
+        rw [norm_pow] at hy
+        nlinarith [norm_nonneg W.c₆]
+      have square_scaling (F : Type) [Field F] [CharZero F]
+          (W T : WeierstrassCurve F)
+          (hW4 : W.c₄ ≠ 0) (hW6 : W.c₆ ≠ 0) (hT4 : T.c₄ ≠ 0) (hT6 : T.c₆ ≠ 0)
+          (hj : T.Δ / T.c₄ ^ 3 = W.Δ / W.c₄ ^ 3) :
+          ∃ d : F, d ≠ 0 ∧ d ^ 2 * T.c₄ = W.c₄ ∧ d ^ 3 * T.c₆ = W.c₆ := by
+        let a : F := W.c₄ / T.c₄
+        let b : F := W.c₆ / T.c₆
+        have ha : a ≠ 0 := div_ne_zero hW4 hT4
+        have hb : b ≠ 0 := div_ne_zero hW6 hT6
+        have hrel : b ^ 2 = a ^ 3 := by
+          have hcross := (div_eq_div_iff (pow_ne_zero 3 hT4) (pow_ne_zero 3 hW4)).mp hj
+          have hw := W.c_relation
+          have ht := T.c_relation
+          dsimp [a, b]
+          field_simp
+          linear_combination T.c₄ ^ 3 * hw - W.c₄ ^ 3 * ht + 1728 * hcross
+        refine ⟨b / a, div_ne_zero hb ha, ?_, ?_⟩
+        · have hd : (b / a) ^ 2 = a := by
+            rw [div_pow, hrel]
+            field_simp
+          rw [hd]
+          exact div_mul_cancel₀ W.c₄ hT4
+        · have hd : (b / a) ^ 3 = b := by
+            rw [div_pow, ← hrel]
+            field_simp
+          rw [hd]
+          exact div_mul_cancel₀ W.c₆ hT6
+      have coordinate_parameters (F : Type) [Field F] [CharZero F]
+          (W T : WeierstrassCurve F) (u : Fˣ)
+          (h4 : (u : F) ^ 4 * T.c₄ = W.c₄)
+          (h6 : (u : F) ^ 6 * T.c₆ = W.c₆) :
+          ∃ C : WeierstrassCurve.VariableChange F, C.u = u ∧
+            C.r = ((u : F) ^ 2 * T.b₂ - W.b₂) / 12 ∧
+            C.s = ((u : F) * T.a₁ - W.a₁) / 2 ∧
+            C.t = ((u : F) ^ 3 * T.a₃ - W.a₃ - C.r * W.a₁) / 2 ∧ C • W = T := by
+        have unique (U V : WeierstrassCurve F) (h1 : U.a₁ = V.a₁)
+            (h3 : U.a₃ = V.a₃) (hb2 : U.b₂ = V.b₂)
+            (hc4 : U.c₄ = V.c₄) (hc6 : U.c₆ = V.c₆) : U = V := by
+          have ha2 : U.a₂ = V.a₂ := by
+            dsimp [b₂] at hb2
+            rw [h1] at hb2
+            linear_combination hb2 / 4
+          have hb4 : U.b₄ = V.b₄ := by
+            dsimp [c₄] at hc4
+            rw [hb2] at hc4
+            linear_combination -hc4 / 24
+          have ha4 : U.a₄ = V.a₄ := by
+            dsimp [b₄] at hb4
+            rw [h1, h3] at hb4
+            linear_combination hb4 / 2
+          have hb6 : U.b₆ = V.b₆ := by
+            dsimp [c₆] at hc6
+            rw [hb2, hb4] at hc6
+            linear_combination -hc6 / 216
+          have ha6 : U.a₆ = V.a₆ := by
+            dsimp [b₆] at hb6
+            rw [h3] at hb6
+            linear_combination hb6 / 4
+          exact WeierstrassCurve.ext h1 ha2 h3 ha4 ha6
+        let r : F := ((u : F) ^ 2 * T.b₂ - W.b₂) / 12
+        let s : F := ((u : F) * T.a₁ - W.a₁) / 2
+        let t : F := ((u : F) ^ 3 * T.a₃ - W.a₃ - r * W.a₁) / 2
+        let C : WeierstrassCurve.VariableChange F := ⟨u, r, s, t⟩
+        refine ⟨C, rfl, rfl, rfl, rfl, unique (C • W) T ?_ ?_ ?_ ?_ ?_⟩
+        · simp only [variableChange_a₁, C, s, Units.val_inv_eq_inv_val]
+          field_simp
+          ring
+        · simp only [variableChange_a₃, C, t, Units.val_inv_eq_inv_val]
+          field_simp
+          ring
+        · simp only [variableChange_b₂, C, r, Units.val_inv_eq_inv_val]
+          field_simp
+          ring
+        · rw [variableChange_c₄, ← h4]
+          simp [C, Units.val_inv_eq_inv_val]
+        · rw [variableChange_c₆, ← h6]
+          simp [C, Units.val_inv_eq_inv_val]
+      have coordinate_fixed (F Ω : Type) [Field F] [Field Ω]
+          [Algebra F Ω] [DecidableEq Ω] (W T : WeierstrassCurve F) [W.IsElliptic]
+          (V : WeierstrassCurve.VariableChange Ω)
+          (hV : V • W.map (algebraMap F Ω) = T.map (algebraMap F Ω)) :
+          ∃ f : (T.toAffine⁄Ω).Point →+ (W.toAffine⁄Ω).Point,
+            Function.Bijective f ∧ ∀ (σ : Ω ≃ₐ[F] Ω),
+              σ (V.u : Ω) = V.u → σ V.r = V.r → σ V.s = V.s → σ V.t = V.t →
+              ∀ P : (T.toAffine⁄Ω).Point, f (σ • P) = σ • f P := by
+        have coordinate_change (F : Type) [Field F] [DecidableEq F] (W : WeierstrassCurve F)
+            [W.IsElliptic] (C : WeierstrassCurve.VariableChange F) :
+            ∃ f : (C • W).toAffine.Point →+ W.toAffine.Point,
+              Function.Bijective f ∧ ∀ (x y : F) (h : (C • W).toAffine.Nonsingular x y),
+                ∃ h', f (.some x y h) =
+                  .some ((C.u : F) ^ 2 * x + C.r)
+                    ((C.u : F) ^ 3 * y + (C.u : F) ^ 2 * C.s * x + C.t) h' := by
+          have ns (W : WeierstrassCurve F) [W.IsElliptic]
+              (C : WeierstrassCurve.VariableChange F) (x y : F)
+              (h : (C • W).toAffine.Nonsingular x y) :
+              W.toAffine.Nonsingular ((C.u : F) ^ 2 * x + C.r)
+                ((C.u : F) ^ 3 * y + (C.u : F) ^ 2 * C.s * x + C.t) := by
+            apply equation_iff_nonsingular.mp
+            rw [equation_iff']
+            have he := h.1
+            rw [equation_iff'] at he
+            simp only [variableChange_a₁, variableChange_a₂, variableChange_a₃,
+              variableChange_a₄, variableChange_a₆, Units.val_inv_eq_inv_val] at he
+            have hu : (C.u : F) ≠ 0 := C.u.ne_zero
+            field_simp at he
+            linear_combination he
+          let V := C • W
+          let fx : F → F := fun x => (C.u : F) ^ 2 * x + C.r
+          let fy : F → F → F := fun x y =>
+            (C.u : F) ^ 3 * y + (C.u : F) ^ 2 * C.s * x + C.t
+          have hu : (C.u : F) ≠ 0 := C.u.ne_zero
+          have fxi : Function.Injective fx := by
+            intro x y h
+            exact mul_left_cancel₀ (pow_ne_zero 2 hu) (add_right_cancel h)
+          have fyi (x : F) : Function.Injective (fy x) := by
+            intro y z h
+            exact mul_left_cancel₀ (pow_ne_zero 3 hu)
+              (add_right_cancel (add_right_cancel h))
+          have hn (x y : F) : W.toAffine.negY (fx x) (fy x y) =
+              fy x (V.toAffine.negY x y) := by
+            dsimp [fx, fy, V, negY]
+            simp only [variableChange_a₁, variableChange_a₃, Units.val_inv_eq_inv_val]
+            field_simp [hu]
+            ring
+          have hp (x₁ x₂ y₁ y₂ : F) :
+              (fx x₁ = fx x₂ ∧ fy x₁ y₁ = W.toAffine.negY (fx x₂) (fy x₂ y₂)) ↔
+              (x₁ = x₂ ∧ y₁ = V.toAffine.negY x₂ y₂) := by
+            constructor
+            · rintro ⟨hx, hy⟩
+              have he := fxi hx
+              subst x₂
+              exact ⟨rfl, fyi x₁ (by simpa only [hn] using hy)⟩
+            · rintro ⟨rfl, rfl⟩
+              exact ⟨rfl, (hn _ _).symm⟩
+          have hs (x₁ x₂ y₁ y₂ : F) (h₁ : V.toAffine.Nonsingular x₁ y₁)
+              (h₂ : V.toAffine.Nonsingular x₂ y₂)
+              (hxy : ¬(x₁ = x₂ ∧ y₁ = V.toAffine.negY x₂ y₂)) :
+              W.toAffine.slope (fx x₁) (fx x₂) (fy x₁ y₁) (fy x₂ y₂) =
+                (C.u : F) * V.toAffine.slope x₁ x₂ y₁ y₂ + C.s := by
+            have hxy' := mt (hp x₁ x₂ y₁ y₂).mp hxy
+            by_cases hx : x₁ = x₂
+            · have hy : y₁ ≠ V.toAffine.negY x₂ y₂ := fun hy => hxy ⟨hx, hy⟩
+              have he := Y_eq_of_Y_ne h₁.1 h₂.1 hx hy
+              subst x₂
+              subst y₂
+              have hy' : fy x₁ y₁ ≠ W.toAffine.negY (fx x₁) (fy x₁ y₁) :=
+                fun hy => hxy' ⟨rfl, hy⟩
+              rw [slope_of_Y_ne rfl hy', slope_of_Y_ne rfl hy]
+              have hd := sub_ne_zero.mpr hy
+              have hd' := sub_ne_zero.mpr hy'
+              field_simp [hd, hd']
+              dsimp [fx, fy, V, negY] at hd hd' ⊢
+              simp only [variableChange_a₁, variableChange_a₂, variableChange_a₃,
+                variableChange_a₄, Units.val_inv_eq_inv_val]
+              field_simp [hu]
+              ring
+            · have hx' : fx x₁ ≠ fx x₂ := fun h => hx (fxi h)
+              rw [slope_of_X_ne hx', slope_of_X_ne hx]
+              field_simp [sub_ne_zero.mpr hx', sub_ne_zero.mpr hx]
+              dsimp [fx, fy]
+              ring
+          let f : V.toAffine.Point → W.toAffine.Point := fun P => match P with
+            | .zero => .zero
+            | .some x y h => .some (fx x) (fy x y) (ns W C x y h)
+          have f0 : f 0 = 0 := rfl
+          have fa (P Q : V.toAffine.Point) : f (P + Q) = f P + f Q := by
+            rcases P with _ | ⟨x₁, y₁, h₁⟩
+            · simp only [← zero_def, zero_add, f0]
+            rcases Q with _ | ⟨x₂, y₂, h₂⟩
+            · simp only [← zero_def, add_zero, f0]
+            by_cases hxy : x₁ = x₂ ∧ y₁ = V.toAffine.negY x₂ y₂
+            · have hxy' := (hp x₁ x₂ y₁ y₂).mpr hxy
+              rw [add_of_Y_eq hxy.1 hxy.2, f0]
+              simp only [f]
+              rw [add_of_Y_eq hxy'.1 hxy'.2]
+            · have hxy' := mt (hp x₁ x₂ y₁ y₂).mp hxy
+              rw [add_some hxy]
+              simp only [f]
+              rw [add_some hxy', some.injEq]
+              have hsl := hs x₁ x₂ y₁ y₂ h₁ h₂ hxy
+              simp only [hsl]
+              constructor
+              · dsimp [fx, fy, V, addX]
+                simp only [variableChange_a₁, variableChange_a₂, Units.val_inv_eq_inv_val]
+                field_simp [hu]
+                ring
+              · dsimp [fx, fy, V, addY, negAddY, addX, negY]
+                simp only [variableChange_a₁, variableChange_a₂, variableChange_a₃,
+                  Units.val_inv_eq_inv_val]
+                field_simp [hu]
+                ring
+          let fhom : V.toAffine.Point →+ W.toAffine.Point :=
+            { toFun := f, map_zero' := f0, map_add' := fa }
+          have fi : Function.Injective f := by
+            rintro (_ | ⟨x₁, y₁, h₁⟩) (_ | ⟨x₂, y₂, h₂⟩) h
+            · rfl
+            · cases h
+            · cases h
+            · simp only [f, some.injEq] at h
+              have hx := fxi h.1
+              subst x₂
+              have hy := fyi x₁ h.2
+              subst y₂
+              rfl
+          have fsur : Function.Surjective f := by
+            rintro (_ | ⟨x, y, h⟩)
+            · exact ⟨0, f0⟩
+            · have he : (C⁻¹ • V) = W := by simp [V, smul_smul]
+              have hh : (C⁻¹ • V).toAffine.Nonsingular x y := by simpa only [he] using h
+              have hi := ns V C⁻¹ x y hh
+              refine ⟨.some _ _ hi, ?_⟩
+              simp only [f, some.injEq]
+              constructor
+              · dsimp [fx, VariableChange.inv_def]
+                simp only [Units.val_inv_eq_inv_val]
+                field_simp [hu]
+                ring
+              · dsimp [fy, VariableChange.inv_def]
+                simp only [Units.val_inv_eq_inv_val]
+                field_simp [hu]
+                ring
+          exact ⟨fhom, ⟨fi, fsur⟩, fun x y h => ⟨ns W C x y h, rfl⟩⟩
+        have hc := coordinate_change Ω (W.map (algebraMap F Ω)) V
+        rw [hV] at hc
+        obtain ⟨f, hbij, hf⟩ := hc
+        change (T.toAffine⁄Ω).Point →+ (W.toAffine⁄Ω).Point at f
+        refine ⟨f, hbij, ?_⟩
+        intro σ hu hr hs ht P
+        rcases P with _ | ⟨x, y, h⟩
+        · simp only [← zero_def, smul_zero, _root_.map_zero]
+        · obtain ⟨h', he⟩ := hf x y h
+          simp only [algEquiv_smul_def, Point.map_some]
+          erw [he, Point.map_some]
+          have hσ := (T.toAffine.baseChange_nonsingular σ.toAlgHom.injective x y).mpr h
+          obtain ⟨h'', he'⟩ := hf (σ x) (σ y) hσ
+          erw [he', some.injEq]
+          change ((V.u : Ω) ^ 2 * σ x + V.r = σ ((V.u : Ω) ^ 2 * x + V.r)) ∧
+            ((V.u : Ω) ^ 3 * σ y + (V.u : Ω) ^ 2 * V.s * σ x + V.t =
+              σ ((V.u : Ω) ^ 3 * y + (V.u : Ω) ^ 2 * V.s * x + V.t))
+          simp only [map_add, map_mul, map_pow, hu, hr, hs, ht, and_self]
+      have norm_quadratic (C : Type) [NormedField C]
+          (h2 : ‖(2 : C)‖ = 1) (τ : C ≃+* C)
+          (hτ : ∀ x : C, ‖x‖ ≤ 1 → ‖τ x - x‖ < 1)
+          (d u : C) (hd : τ d = d) (hu : u ^ 2 = d) (hun : ‖u‖ = 1) : τ u = u := by
+        have hs : (τ u) ^ 2 = u ^ 2 := by rw [← map_pow, hu, hd]
+        rcases (sq_eq_sq_iff_eq_or_eq_neg).mp hs with h | h
+        · exact h
+        have hb := hτ u (le_of_eq hun)
+        rw [h] at hb
+        have he : -u - u = -((2 : C) * u) := by ring
+        rw [he, norm_neg, norm_mul, h2, hun, one_mul] at hb
+        exact (lt_irrefl (1 : ℝ) hb).elim
+      have hW6n : ‖W.c₆‖ = 1 := invariant_norm F hF W hW4n hWΔ
+      have hT6n : ‖T.c₆‖ = 1 := invariant_norm F hF T hT4n hTΔ
+      have hW4 : W.c₄ ≠ 0 := norm_ne_zero_iff.mp (by rw [hW4n]; norm_num)
+      have hW6 : W.c₆ ≠ 0 := norm_ne_zero_iff.mp (by rw [hW6n]; norm_num)
+      have hT4 : T.c₄ ≠ 0 := norm_ne_zero_iff.mp (by rw [hT4n]; norm_num)
+      have hT6 : T.c₆ ≠ 0 := norm_ne_zero_iff.mp (by rw [hT6n]; norm_num)
+      obtain ⟨d, hd, hd4, hd6⟩ := square_scaling F W T hW4 hW6 hT4 hT6 hj
+      obtain ⟨u, hu2⟩ := IsAlgClosed.exists_pow_nat_eq (algebraMap F Ω d) (by decide : 0 < (2 : ℕ))
+      have hu0 : u ≠ 0 := by
+        intro hz
+        rw [hz, zero_pow (by decide : (2 : ℕ) ≠ 0)] at hu2
+        exact ((_root_.map_ne_zero (algebraMap F Ω)).mpr hd) hu2.symm
+      let uu : Ωˣ := Units.mk0 u hu0
+      have h4 : (uu : Ω) ^ 4 * (T.map (algebraMap F Ω)).c₄ =
+          (W.map (algebraMap F Ω)).c₄ := by
+        have he := congrArg (algebraMap F Ω) hd4
+        simp only [map_mul, map_pow] at he
+        rw [← hu2] at he
+        simpa only [WeierstrassCurve.map_c₄, uu, Units.val_mk0, ← pow_mul] using he
+      have h6 : (uu : Ω) ^ 6 * (T.map (algebraMap F Ω)).c₆ =
+          (W.map (algebraMap F Ω)).c₆ := by
+        have he := congrArg (algebraMap F Ω) hd6
+        simp only [map_mul, map_pow] at he
+        rw [← hu2] at he
+        simpa only [WeierstrassCurve.map_c₆, uu, Units.val_mk0, ← pow_mul] using he
+      have hun : ‖u‖ = 1 := by
+        have he := congrArg norm h4
+        simp only [uu, Units.val_mk0, norm_mul, norm_pow, WeierstrassCurve.map_c₄,
+          norm_algebraMap', hW4n, hT4n, mul_one] at he
+        exact (pow_left_inj₀ (norm_nonneg u) zero_le_one (by decide : (4 : ℕ) ≠ 0)).mp
+          (by simpa only [one_pow] using he)
+      obtain ⟨V, hVu, hVr, hVs, hVt, hV⟩ := coordinate_parameters Ω
+        (W.map (algebraMap F Ω)) (T.map (algebraMap F Ω)) uu h4 h6
+      obtain ⟨f, hf, hequiv⟩ := coordinate_fixed F Ω W T V hV
+      refine ⟨f, hf, ?_⟩
+      intro σ hres
+      have hufix : σ u = u := norm_quadratic Ω h2 σ.toRingEquiv hres
+        (algebraMap F Ω d) u (σ.commutes d) hu2 hun
+      have huu : σ (uu : Ω) = uu := hufix
+      have hrf : σ V.r = V.r := by
+        rw [hVr]
+        simp [huu, map_ofNat]
+      have hsf : σ V.s = V.s := by
+        rw [hVs]
+        simp [huu, map_ofNat]
+      have htf : σ V.t = V.t := by
+        rw [hVt]
+        simp [huu, hrf, map_ofNat]
+      exact hequiv σ (by simpa only [hVu] using huu) hrf hsf htf
+    have transport (p : ℕ) (F Ω : Type)
+        [Field F] [Field Ω] [Algebra F Ω] [DecidableEq Ω]
+        (W T : WeierstrassCurve F)
+        (f : (T.toAffine⁄Ω).Point →+ (W.toAffine⁄Ω).Point) (hf : Function.Bijective f)
+        (b : Submodule.torsionBy ℤ (T.toAffine⁄Ω).Point p →+ ZMod p) (hb : ∃ v, b v ≠ 0) :
+        ∃ B : Submodule.torsionBy ℤ (W.toAffine⁄Ω).Point p →+ ZMod p,
+          (∃ v, B v ≠ 0) ∧ ∀ σ : Ω ≃ₐ[F] Ω,
+            (∀ P : (T.toAffine⁄Ω).Point, f (σ • P) = σ • f P) →
+            (∀ v, b (galoisRepModuleEnd (K := Ω) F T p σ v) = b v) →
+            ∀ v, B (galoisRepModuleEnd (K := Ω) F W p σ v) = B v := by
+      let e : (T.toAffine⁄Ω).Point ≃+ (W.toAffine⁄Ω).Point := AddEquiv.ofBijective f hf
+      let g : Submodule.torsionBy ℤ (W.toAffine⁄Ω).Point p →+
+          Submodule.torsionBy ℤ (T.toAffine⁄Ω).Point p := {
+        toFun := fun v => ⟨e.symm v, by
+          have hv : p • (v : (W.toAffine⁄Ω).Point) = 0 := by
+            simpa only [Submodule.mem_torsionBy_iff, Nat.cast_smul_eq_nsmul] using v.property
+          rw [Submodule.mem_torsionBy_iff, Nat.cast_smul_eq_nsmul, ← map_nsmul, hv, _root_.map_zero]⟩
+        map_zero' := Subtype.ext e.symm.map_zero
+        map_add' := fun v w => Subtype.ext (e.symm.map_add v w) }
+      refine ⟨b.comp g, ?_, ?_⟩
+      · obtain ⟨v, hv⟩ := hb
+        let w : Submodule.torsionBy ℤ (W.toAffine⁄Ω).Point p := ⟨e v, by
+          have ht : p • (v : (T.toAffine⁄Ω).Point) = 0 := by
+            simpa only [Submodule.mem_torsionBy_iff, Nat.cast_smul_eq_nsmul] using v.property
+          rw [Submodule.mem_torsionBy_iff, Nat.cast_smul_eq_nsmul, ← map_nsmul, ht, _root_.map_zero]⟩
+        have hg : g w = v := Subtype.ext (e.symm_apply_apply v)
+        exact ⟨w, by simpa only [AddMonoidHom.comp_apply, hg] using hv⟩
+      · intro σ heq hbinv v
+        have hg : g (galoisRepModuleEnd (K := Ω) F W p σ v) =
+            galoisRepModuleEnd (K := Ω) F T p σ (g v) := by
+          apply Subtype.ext
+          change e.symm (σ • (v : (W.toAffine⁄Ω).Point)) = σ • e.symm v
+          apply e.injective
+          rw [e.apply_symm_apply]
+          change σ • (v : (W.toAffine⁄Ω).Point) = f (σ • e.symm v)
+          rw [heq]
+          change σ • (v : (W.toAffine⁄Ω).Point) = σ • e (e.symm v)
+          rw [e.apply_symm_apply]
+        change b (g _) = b (g v)
+        rw [hg]
+        exact hbinv (g v)
+    have tate_family (p : ℕ) [Fact p.Prime]
+        (F Ω : Type) [NormedField F] [CharZero F] [CompleteSpace F]
+        [NormedField Ω] [CharZero Ω] [DecidableEq Ω]
+        [NormedAlgebra F Ω] [IsAlgClosed Ω] [Algebra.IsAlgebraic F Ω]
+        (hF : ∀ x y : F, ‖x + y‖ ≤ max ‖x‖ ‖y‖)
+        (hΩ : ∀ x y : Ω, ‖x + y‖ ≤ max ‖x‖ ‖y‖)
+        (hdiscrete : ∃ r : ℝ, 0 < r ∧ r < 1 ∧ ∀ x : F, x ≠ 0 → ∃ n : ℤ, ‖x‖ = r ^ n)
+        (q : F) (hq0 : 0 < ‖q‖) (hq1 : ‖q‖ < 1) :
+        let s : ℕ → F := fun k => ∑' d : ℕ, ((d + 1 : ℕ) : F) ^ k * q ^ (d + 1) / (1 - q ^ (d + 1))
+        let T : WeierstrassCurve F := ⟨1, 0, 0, -5 * s 3, -(5 * s 3 + 7 * s 5) / 12⟩
+        ∃ b : Submodule.torsionBy ℤ (WeierstrassCurve.Affine.baseChange T.toAffine Ω).Point p →+ ZMod p,
+          (∃ v, b v ≠ 0) ∧ ∀ (σ : Ω ≃ₐ[F] Ω) v,
+            b (WeierstrassCurve.Affine.Point.galoisRepModuleEnd (K := Ω) F T p σ v) = b v := by
+      intro s T
+      have tate_exponent (G E : Type) [CommGroup G] [AddCommGroup E]
+          (q : G) (hq : Function.Injective (fun n : ℤ => q ^ n))
+          (θ : Additive G →+ E) (hθ : Function.Surjective θ)
+          (hker : ∀ u : G, θ (Additive.ofMul u) = 0 ↔ ∃ n : ℤ, u = q ^ n)
+          (hqroot : ∃ u : G, u ^ p = q) :
+          ∃ b : Submodule.torsionBy ℤ E p →+ ZMod p,
+            (∃ v, b v ≠ 0) ∧
+            (∀ (v : Submodule.torsionBy ℤ E p) (u : G) (n : ℤ),
+              θ (Additive.ofMul u) = (v : E) → u ^ p = q ^ n → b v = (n : ZMod p)) ∧
+            ∀ (φ : G →* G) (ψ : E →+ E), φ q = q →
+              (∀ u : G, ψ (θ (Additive.ofMul u)) = θ (Additive.ofMul (φ u))) →
+              ∀ v w : Submodule.torsionBy ℤ E p, ψ (v : E) = (w : E) → b w = b v := by
+        have lifts (v : Submodule.torsionBy ℤ E p) :
+            ∃ (u : G) (n : ℤ), θ (Additive.ofMul u) = (v : E) ∧ u ^ p = q ^ n := by
+          obtain ⟨a, ha⟩ := hθ (v : E)
+          have hv : p • (v : E) = 0 := by
+            simpa only [Submodule.mem_torsionBy_iff, Nat.cast_smul_eq_nsmul] using v.property
+          have hap : θ (Additive.ofMul (a.toMul ^ p)) = 0 := by
+            rw [ofMul_pow, map_nsmul]
+            change p • θ a = 0
+            rw [ha]
+            exact hv
+          obtain ⟨n, hn⟩ := (hker _).1 hap
+          exact ⟨a.toMul, n, ha, hn⟩
+        choose u m hu hm using lifts
+        have representative (v : Submodule.torsionBy ℤ E p) (a : G) (n : ℤ)
+            (ha : θ (Additive.ofMul a) = (v : E)) (han : a ^ p = q ^ n) :
+            (m v : ZMod p) = (n : ZMod p) := by
+          have hdiv : θ (Additive.ofMul (a / u v)) = 0 := by
+            rw [ofMul_div, map_sub, ha, hu, sub_self]
+          obtain ⟨k, hk⟩ := (hker _).1 hdiv
+          have hak : a = q ^ k * u v := by
+            rw [← hk, div_mul_cancel]
+          have he : q ^ n = q ^ (k * (p : ℤ) + m v) := by
+            rw [zpow_add, zpow_mul, zpow_natCast, ← hm, ← mul_pow, ← hak]
+            exact han.symm
+          have he' := congrArg (fun z : ℤ => (z : ZMod p)) (hq he)
+          symm
+          simpa using he'
+        let b : Submodule.torsionBy ℤ E p →+ ZMod p :=
+          { toFun := fun v => (m v : ZMod p)
+            map_zero' := by
+              simpa only [Int.cast_zero] using representative 0 1 0 (by simp) (by simp)
+            map_add' := by
+              intro v w
+              have hadd : θ (Additive.ofMul (u v * u w)) = ((v + w : Submodule.torsionBy ℤ E p) : E) := by
+                rw [ofMul_mul, map_add, hu, hu]
+                rfl
+              have hpow : (u v * u w) ^ p = q ^ (m v + m w) := by
+                rw [mul_pow, hm, hm, zpow_add]
+              simpa only [Int.cast_add] using representative (v + w) (u v * u w) (m v + m w) hadd hpow }
+        obtain ⟨a, ha⟩ := hqroot
+        have hap : p • θ (Additive.ofMul a) = 0 := by
+          rw [← map_nsmul, ← ofMul_pow, ha]
+          exact (hker q).2 ⟨1, (zpow_one q).symm⟩
+        let v : Submodule.torsionBy ℤ E p := ⟨θ (Additive.ofMul a), by
+          simpa only [Submodule.mem_torsionBy_iff, Nat.cast_smul_eq_nsmul] using hap⟩
+        have hb : b v = 1 := by
+          change (m v : ZMod p) = 1
+          simpa only [Int.cast_one] using representative v a 1 rfl (by simpa only [zpow_one] using ha)
+        refine ⟨b, ⟨v, ?_⟩, representative, ?_⟩
+        · rw [hb]
+          exact one_ne_zero
+        · intro φ ψ hφ hcomm v w hvw
+          change (m w : ZMod p) = (m v : ZMod p)
+          have hp' : (φ (u v)) ^ p = q ^ (m v) := by
+            rw [← map_pow, hm, map_zpow, hφ]
+          apply representative w (φ (u v)) (m v) ?_ hp'
+          rw [← hcomm, hu, hvw]
+      obtain ⟨_, _, _, _, _, _, _, θ, hθ, hker, _, hequiv⟩ :=
+        Submission.p03_tate_uniformization_68cf3476 F Ω hF hΩ hdiscrete q hq0 hq1
+      let qΩ : Ω := algebraMap F Ω q
+      have hqΩnorm : ‖qΩ‖ = ‖q‖ := norm_algebraMap' Ω q
+      have hqΩ0 : qΩ ≠ 0 := by
+        apply norm_pos_iff.mp
+        rw [hqΩnorm]
+        exact hq0
+      let qu : Ωˣ := Units.mk0 qΩ hqΩ0
+      have hqu (n : ℤ) : ((qu ^ n : Ωˣ) : Ω) = qΩ ^ n := by
+        simp only [Units.val_zpow_eq_zpow_val, Units.val_mk0, qu]
+      have hqinj : Function.Injective (fun n : ℤ => qu ^ n) := by
+        intro m n h
+        have hh := congrArg (fun u : Ωˣ => ‖(u : Ω)‖) h
+        simp only [hqu, norm_zpow, hqΩnorm] at hh
+        exact (zpow_right_strictAnti₀ hq0 hq1).injective hh
+      have hker' (u : Ωˣ) : θ (Additive.ofMul u) = 0 ↔ ∃ n : ℤ, u = qu ^ n := by
+        rw [hker]
+        constructor
+        · rintro ⟨n, hn⟩
+          refine ⟨n, ?_⟩
+          apply Units.ext
+          simpa only [hqu] using hn
+        · rintro ⟨n, rfl⟩
+          exact ⟨n, hqu n⟩
+      have hroot : ∃ u : Ωˣ, u ^ p = qu := by
+        obtain ⟨z, hz⟩ := IsAlgClosed.exists_pow_nat_eq qΩ (Fact.out : p.Prime).pos
+        have hz0 : z ≠ 0 := by
+          intro he
+          apply hqΩ0
+          rw [← hz, he, zero_pow (Fact.out : p.Prime).ne_zero]
+        refine ⟨Units.mk0 z hz0, ?_⟩
+        apply Units.ext
+        exact hz
+      obtain ⟨b, hb, _, hinvariant⟩ := tate_exponent Ωˣ (WeierstrassCurve.Affine.baseChange T.toAffine Ω).Point
+        qu hqinj θ hθ hker' hroot
+      refine ⟨b, hb, ?_⟩
+      intro σ v
+      let φ : Ωˣ →* Ωˣ := Units.map σ.toMonoidHom
+      let ψ := WeierstrassCurve.Affine.Point.map (W' := T.toAffine) σ.toAlgHom
+      apply hinvariant φ ψ ?_ ?_ v _ rfl
+      · apply Units.ext
+        change σ (algebraMap F Ω q) = algebraMap F Ω q
+        exact σ.commutes q
+      · intro u
+        exact (hequiv σ u).symm
+    let : W.IsElliptic := ⟨isUnit_iff_ne_zero.mpr hΔ0⟩
+    let w : F := W.Δ / W.c₄ ^ 3
+    have hwn : ‖w‖ = ‖W.Δ‖ := by simp only [w, norm_div, norm_pow, h4, one_pow, div_one]
+    obtain ⟨q, hqn, hj, hT4, hTΔ⟩ := tate_parameter F Ω hF hΩ hdiscrete w
+      (by rw [hwn]; exact norm_pos_iff.mpr hΔ0) (by rwa [hwn])
+    let s : ℕ → F := fun k => ∑' d : ℕ,
+      ((d + 1 : ℕ) : F) ^ k * q ^ (d + 1) / (1 - q ^ (d + 1))
+    let T : WeierstrassCurve F := ⟨1, 0, 0, -5 * s 3, -(5 * s 3 + 7 * s 5) / 12⟩
+    have hq0 : 0 < ‖q‖ := by rw [hqn, hwn]; exact norm_pos_iff.mpr hΔ0
+    have hq1 : ‖q‖ < 1 := by rwa [hqn, hwn]
+    obtain ⟨b, hb, hbinv⟩ := tate_family p F Ω hF hΩ hdiscrete q hq0 hq1
+    obtain ⟨f, hf, hequiv⟩ := scaling_iso F Ω hF h2 W T h4 hΔ hT4 (by rwa [hTΔ, hwn]) hj
+    obtain ⟨B, hB, hBinv⟩ := transport p F Ω W T f hf b hb
+    exact ⟨B, hB, fun σ hres => hBinv σ (hequiv σ hres) (hbinv σ)⟩
+  have global_local_quotient (p : ℕ) (W : WeierstrassCurve ℤ) (hΔ : W.Δ ≠ 0)
+      (F Ω : Type) [Field F] [CharZero F] [Field Ω] [CharZero Ω] [DecidableEq Ω]
+      [Algebra F Ω] [Algebra (AlgebraicClosure ℚ) Ω]
+      (desc : ∀ (E : WeierstrassCurve (AlgebraicClosure ℚ)), E.Δ ≠ 0 →
+        ∀ P : (E.map (algebraMap (AlgebraicClosure ℚ) Ω)).toAffine.Point, p • P = 0 →
+          ∃ Q : E.toAffine.Point, p • Q = 0 ∧
+            Point.map (W' := E.toAffine) (Algebra.ofId (AlgebraicClosure ℚ) Ω) Q = P)
+      (B : Submodule.torsionBy ℤ ((W.map (Int.castRingHom F)).toAffine⁄Ω).Point p →+ ZMod p)
+      (hB : ∃ v, B v ≠ 0) :
+      ∃ b : Submodule.torsionBy ℤ ((W.map (Int.castRingHom ℚ)).toAffine⁄(AlgebraicClosure ℚ)).Point p →+ ZMod p,
+        (∃ v, b v ≠ 0) ∧
+        ∀ (σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) (υ : Ω ≃ₐ[F] Ω),
+          (∀ x, υ (algebraMap (AlgebraicClosure ℚ) Ω x) = algebraMap (AlgebraicClosure ℚ) Ω (σ x)) →
+          (∀ v, B (galoisRepModuleEnd (K := Ω) F (W.map (Int.castRingHom F)) p υ v) = B v) →
+          ∀ v, b (galoisRepModuleEnd (K := AlgebraicClosure ℚ) ℚ (W.map (Int.castRingHom ℚ)) p σ v) = b v := by
+    have eq_curve (E D : WeierstrassCurve Ω) (h : E = D) :
+        ∃ f : E.toAffine.Point →+ D.toAffine.Point, Function.Bijective f ∧
+          ∀ (x y : Ω) (h : E.toAffine.Nonsingular x y),
+            ∃ h', f (.some x y h) = .some x y h' := by
+      subst D
+      exact ⟨AddMonoidHom.id _, Function.bijective_id, fun _ _ h => ⟨h, rfl⟩⟩
+    let Wq := W.map (Int.castRingHom ℚ)
+    let E := Wq.map (algebraMap ℚ (AlgebraicClosure ℚ))
+    let WF := W.map (Int.castRingHom F)
+    have hEΔ : E.Δ ≠ 0 := by
+      simp only [E, Wq, WeierstrassCurve.map_Δ, Int.coe_castRingHom, map_intCast]
+      exact_mod_cast hΔ
+    have hcurves : E.map (algebraMap (AlgebraicClosure ℚ) Ω) = WF.map (algebraMap F Ω) := by
+      ext <;> simp [E, Wq, WF, WeierstrassCurve.map]
+    obtain ⟨f, hf, hfc⟩ := eq_curve _ _ hcurves
+    let e : (E.map (algebraMap (AlgebraicClosure ℚ) Ω)).toAffine.Point ≃+
+        (WF.toAffine⁄Ω).Point := AddEquiv.ofBijective f hf
+    let φ₀ : E.toAffine.Point →+ (E.map (algebraMap (AlgebraicClosure ℚ) Ω)).toAffine.Point :=
+      Point.map (W' := E.toAffine) (Algebra.ofId (AlgebraicClosure ℚ) Ω)
+    let φ : E.toAffine.Point →+ (WF.toAffine⁄Ω).Point := f.comp φ₀
+    have hφc (x y : AlgebraicClosure ℚ) (h : E.toAffine.Nonsingular x y) :
+        ∃ h', φ (.some x y h) = .some (algebraMap (AlgebraicClosure ℚ) Ω x)
+          (algebraMap (AlgebraicClosure ℚ) Ω y) h' := by
+      exact hfc _ _ _
+    let ψ : Submodule.torsionBy ℤ E.toAffine.Point p →+
+        Submodule.torsionBy ℤ (WF.toAffine⁄Ω).Point p := {
+      toFun := fun v => ⟨φ v, by
+        have hv : p • (v : E.toAffine.Point) = 0 := by
+          simpa only [Submodule.mem_torsionBy_iff, Nat.cast_smul_eq_nsmul] using v.property
+        rw [Submodule.mem_torsionBy_iff, Nat.cast_smul_eq_nsmul, ← map_nsmul, hv, _root_.map_zero]⟩
+      map_zero' := Subtype.ext φ.map_zero
+      map_add' := fun v w => Subtype.ext (φ.map_add v w) }
+    have hψsur : Function.Surjective ψ := by
+      intro v
+      have hv : p • (v : (WF.toAffine⁄Ω).Point) = 0 := by
+        simpa only [Submodule.mem_torsionBy_iff, Nat.cast_smul_eq_nsmul] using v.property
+      have ht : p • e.symm (v : (WF.toAffine⁄Ω).Point) = 0 := by rw [← map_nsmul, hv, _root_.map_zero]
+      obtain ⟨Q, hQ, hmap⟩ := desc E hEΔ (e.symm (v : (WF.toAffine⁄Ω).Point)) ht
+      refine ⟨⟨Q, by simpa only [Submodule.mem_torsionBy_iff, Nat.cast_smul_eq_nsmul] using hQ⟩, ?_⟩
+      apply Subtype.ext
+      change f (φ₀ Q) = (v : (WF.toAffine⁄Ω).Point)
+      change f (Point.map (W' := E.toAffine) (Algebra.ofId (AlgebraicClosure ℚ) Ω) Q) = _
+      rw [hmap]
+      exact e.apply_symm_apply (v : (WF.toAffine⁄Ω).Point)
+    refine ⟨B.comp ψ, ?_, ?_⟩
+    · obtain ⟨v, hv⟩ := hB
+      obtain ⟨w, rfl⟩ := hψsur v
+      exact ⟨w, hv⟩
+    · intro σ υ hcomm hBinv v
+      have hφσ (P : (Wq.toAffine⁄(AlgebraicClosure ℚ)).Point) : φ (σ • P) = υ • φ P := by
+        rcases P with _ | ⟨x, y, h⟩
+        · change φ 0 = υ • φ 0
+          rw [φ.map_zero, smul_zero]
+        · obtain ⟨h', he⟩ := hφc x y h
+          have hσ := (Wq.toAffine.baseChange_nonsingular σ.toAlgHom.injective x y).mpr h
+          obtain ⟨h'', he'⟩ := hφc (σ x) (σ y) hσ
+          simp only [algEquiv_smul_def]
+          erw [he', he, Point.map_some, some.injEq]
+          change (algebraMap (AlgebraicClosure ℚ) Ω (σ x) = υ (algebraMap (AlgebraicClosure ℚ) Ω x)) ∧
+            (algebraMap (AlgebraicClosure ℚ) Ω (σ y) = υ (algebraMap (AlgebraicClosure ℚ) Ω y))
+          exact ⟨(hcomm x).symm, (hcomm y).symm⟩
+      have he : ψ (galoisRepModuleEnd (K := AlgebraicClosure ℚ) ℚ Wq p σ v) =
+          galoisRepModuleEnd (K := Ω) F WF p υ (ψ v) := Subtype.ext (hφσ (v : (Wq.toAffine⁄(AlgebraicClosure ℚ)).Point))
+      change B (ψ _) = B (ψ v)
+      rw [he]
+      exact hBinv (ψ v)
+  have multiplicative_unit (hbad : (p : ℤ) ∣ W.Δ) : IsUnit (W.c₄ : A) :=
+    (hunit _).2 (hW p (Fact.out : p.Prime) hbad)
+  suffices hquotient : ∃ (M : Type) (_ : AddCommGroup M),
+      ∃ f : Submodule.torsionBy ℤ
+          ((W.map (Int.castRingHom ℚ))⁄(AlgebraicClosure ℚ)).Point p →+ M,
+        (∃ v, f v ≠ 0) ∧ ∀ σ ∈ A.inertiaSubgroupIn ℚ, ∀ v,
+          f (WeierstrassCurve.Affine.Point.galoisRepModuleEnd (K := AlgebraicClosure ℚ) ℚ
+            (W.map (Int.castRingHom ℚ)) p σ v) = f v by
+    obtain ⟨M, hM, f, hf, hI⟩ := hquotient
+    exact finish M f hf hI
+  by_cases hbad : (p : ℤ) ∣ W.Δ
+  · obtain ⟨F, Ω, nF, chF, cF, nΩ, chΩ, aΩ, acΩ, algΩ, ι, hF, hΩ,
+      hdiscrete, hring, hsmall, hp0, hp1, hI⟩ := tate_ambient p A hA
+    have hΔe : ι (W.Δ : AlgebraicClosure ℚ) ≠ 0 := by
+      intro h
+      have hzero : (W.Δ : AlgebraicClosure ℚ) = 0 := by
+        apply ι.injective
+        simpa only [_root_.map_zero] using h
+      exact hΔ (by exact_mod_cast hzero)
+    have hΔsmall : ‖ι (W.Δ : AlgebraicClosure ℚ)‖ < 1 := by
+      apply (hsmall _).mpr
+      apply (A.coe_mem_nonunits_iff (a := (W.Δ : A))).mpr
+      change ¬ IsUnit (W.Δ : A)
+      exact fun hu => (hunit W.Δ).mp hu hbad
+    have hc4norm : ‖ι (W.c₄ : AlgebraicClosure ℚ)‖ = 1 := by
+      apply le_antisymm ((hring _).mpr (show (W.c₄ : AlgebraicClosure ℚ) ∈ A from (W.c₄ : A).property))
+      apply le_of_not_gt
+      intro h
+      have hnu : ¬ IsUnit (W.c₄ : A) :=
+        (A.coe_mem_nonunits_iff (a := (W.c₄ : A))).mp ((hsmall _).mp h)
+      exact hnu (multiplicative_unit hbad)
+    have h2unit : IsUnit (2 : A) := (hunit 2).mpr (by
+      intro hd
+      have hd' : p ∣ 2 := by exact_mod_cast hd
+      have := Nat.le_of_dvd (by decide : 0 < 2) hd'
+      omega)
+    have h2norm : ‖(2 : Ω)‖ = 1 := by
+      have he : ι (2 : AlgebraicClosure ℚ) = (2 : Ω) := map_ofNat ι 2
+      rw [← he]
+      apply le_antisymm ((hring _).mpr (show (2 : AlgebraicClosure ℚ) ∈ A from (2 : A).property))
+      apply le_of_not_gt
+      intro h
+      exact ((A.coe_mem_nonunits_iff (a := (2 : A))).mp ((hsmall _).mp h)) h2unit
+    have hnorm_int (n : ℤ) : ‖(n : F)‖ = ‖ι (n : AlgebraicClosure ℚ)‖ := by
+      rw [map_intCast, ← norm_algebraMap' Ω (n : F), map_intCast]
+    let WF := W.map (Int.castRingHom F)
+    have hWFΔ : WF.Δ ≠ 0 := by
+      change (W.map (Int.castRingHom F)).Δ ≠ 0
+      rw [WeierstrassCurve.map_Δ]
+      change (W.Δ : F) ≠ 0
+      exact_mod_cast hΔ
+    have hWF4 : ‖WF.c₄‖ = 1 := by
+      change ‖(W.map (Int.castRingHom F)).c₄‖ = 1
+      simpa only [WeierstrassCurve.map_c₄, Int.coe_castRingHom, hnorm_int] using hc4norm
+    have hWFsmall : ‖WF.Δ‖ < 1 := by
+      change ‖(W.map (Int.castRingHom F)).Δ‖ < 1
+      simpa only [WeierstrassCurve.map_Δ, Int.coe_castRingHom, hnorm_int] using hΔsmall
+    let : Algebra (AlgebraicClosure ℚ) Ω := ι.toAlgebra
+    obtain ⟨B, hB, hBI⟩ := local_multiplicative_quotient p F Ω hF hΩ hdiscrete h2norm WF hWFΔ hWF4 hWFsmall
+    obtain ⟨b, hb, hbI⟩ := global_local_quotient p W hΔ F Ω (torsion_descent Ω) B hB
+    refine ⟨ZMod p, inferInstance, b, hb, ?_⟩
+    intro σ hσ
+    obtain ⟨υ, _, hcomm, hres⟩ := hI σ hσ
+    exact hbI σ υ hcomm (hBI υ hres)
+  · obtain ⟨r, hr, hI⟩ := good_reduction hbad
+    let f := r.comp (Submodule.torsionBy ℤ
+      ((W.map (Int.castRingHom ℚ))⁄(AlgebraicClosure ℚ)).Point p).subtype.toAddMonoidHom
+    refine ⟨_, inferInstance, f, hr, ?_⟩
+    intro σ hσ v
+    exact hI σ hσ v
