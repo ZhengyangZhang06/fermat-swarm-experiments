@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1",
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1",
+  "depth": 3,
+  "title": "Embed a prescribed automorphism in a prime-cyclotomic extension",
+  "statement": "Let Ω = AlgebraicClosure ℚ. Let E be an intermediate field of Ω/ℚ, finite-dimensional and Galois over ℚ, and let g be a rational automorphism of E. There exist a finite-dimensional rational Galois intermediate field M of Ω, a rational algebra embedding ι : E → M, an intermediate field F of M/ℚ, a natural prime q, a primitive qth root ζ ∈ M, and an F-automorphism h of M such that M = F(ζ) and h(ι(x)) = ι(g(x)) for every x ∈ E.",
+  "lean_statement": "∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [IsGalois ℚ E] (g : E ≃ₐ[ℚ] E), ∃ M : IntermediateField ℚ (AlgebraicClosure ℚ), FiniteDimensional ℚ M ∧ IsGalois ℚ M ∧ ∃ (ι : E →ₐ[ℚ] M) (F : IntermediateField ℚ M) (q : ℕ) (ζ : M) (h : M ≃ₐ[F] M), q.Prime ∧ IsPrimitiveRoot ζ q ∧ IntermediateField.adjoin F ({ζ} : Set M) = ⊤ ∧ ∀ x : E, h (ι x) = ι (g x)",
+  "lean_name": "p09_af497904fe_ff_cyclotomic_envelope",
+  "depends_on": [
+    "root.frobenius_approximation-a1.finite_frobenius-a1.finite_inertia_exclusion-a1"
+  ],
+  "dependency_workspaces": [
+    {
+      "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.finite_inertia_exclusion-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    }
+  ],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-envelope-a1-a1"
+}
