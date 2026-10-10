@@ -1,0 +1,48 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "IsFrobeniusAt|LiesOverPrime|decompositionSubgroup",
+        "rg -n -i 'chebotarev|frobenius.*(density|approximation)|density.*frobenius|ray.?class' project/Definitions mathlib/Mathlib",
+        "stabilizerHom_surjective|stabilizerQuotientInertiaEquiv|isDiscreteValuationRing_of_dedekind_domain|exists_root|tendsto_sub_one_mul_dedekindZeta_nhdsGT|IsDedekindDomain|Module.Free|Module.Finite|IsFractionRing",
+        "python3 /mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/fa-independent-audit-144wxnde/check.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_GaloisRep_Adic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/DedekindZeta.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Invariant/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/DedekindDomain/Dvr.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/RamificationInertia/Galois.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/Complex/Polynomial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/fa-split-diagnostic-20261009/Types.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/fa-independent-audit-144wxnde/report.json",
+        "/runtime/operator-header-policy-v1/policy.json"
+      ],
+      "conclusion": "Verified clean snapshot revisions 20574e45daf714e745af8e649c7b61b21eed5644 and db584cd6d46c92f209a44c0f1c829460d327499d. The definitions express precisely nonunit membership and arithmetic Frobenius through the decomposition-subgroup residue action. The cited arithmetic, DVR, invariant-ring surjectivity, zeta-residue and complex-root results have compatible hypotheses. No Chebotarev or ray-class distribution result matched the searched Definitions and Mathlib trees. Independently reran both literal child-type elaborations and action/coercion probes; checked declarations depend only on propext, Classical.choice and Quot.sound. Verified clean pinned packages, policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, exact omission of lines 10–11, Lean-confirmed absence of all eight targets, reversible original/build hashes, and unchanged protected sources. These are interface diagnostics, not comparator acceptance of child implementations."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "finite_frobenius",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line proposition matches every prose hypothesis and conclusion, including uniqueness among rational automorphisms at the chosen valuation subring. Its bare identifier is unreserved and its type does not depend on its implementation. Independently checked all 35 proof steps: finite arithmetic and ramification support the ray-class counting argument; equal residues, the cyclotomic norm map and nonvanishing yield the required degree-one primes; the diagonal cyclotomic construction realizes g; discriminant exclusion supplies trivial inertia and hence uniqueness. No parent theorem or unproved distribution assertion is assumed. This is a genuine finite arithmetic obligation. The split composes correctly by restricting σ to E and passing these witnesses to the lifting child."
+    },
+    {
+      "key": "lift_unique_frobenius",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The standalone one-line proposition exactly includes primality, nonunit membership, Frobenius and uniqueness assumptions, valuation restriction, and automorphism restriction. Its bare identifier is unreserved. Independently checked all 11 proof steps: the arbitrary input valuation is identified with an integer-ring localization; prime lifting and contraction give compatible residue embeddings; the cited surjectivity theorem's invariant-ring hypotheses hold; the infinite-fiber construction supplies compatible automorphisms without assuming surjective transition maps. Uniqueness forces the initial automorphism to be g. The unions preserve the valuation, its nonunits, and the precise residue action, proving every conjunct. The proof supplies its inverse-limit argument internally and needs no sibling theorem. All proposed and existing dependency edges remain acyclic and correctly directed."
+    }
+  ],
+  "required_changes": []
+}

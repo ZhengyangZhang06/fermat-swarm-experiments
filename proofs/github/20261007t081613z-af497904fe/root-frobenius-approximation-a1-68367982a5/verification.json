@@ -1,0 +1,19 @@
+{
+  "node_id": "root.frobenius_approximation-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/385",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "7569f2ad8d83b09c379257e466710395cd5b80c1",
+  "integrated_commit": "4ae77bd6b9790df627747d437accc8ba081578de",
+  "proof_base_commit": "ec4eb8f6a7c7f6fc745b6fbfca2de9c4c533d64c",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root",
+  "requires": [
+    "root.finite_inverse_limit-a1",
+    "root.frobenius_approximation-a1.finite_frobenius-a1",
+    "root.frobenius_approximation-a1.lift_unique_frobenius-a1"
+  ]
+}
