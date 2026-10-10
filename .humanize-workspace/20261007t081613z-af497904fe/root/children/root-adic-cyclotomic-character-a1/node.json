@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "node_id": "root.adic_cyclotomic_character-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "Adic cyclotomic character over a local coefficient algebra",
+  "statement": "Let 𝒪 be a characteristic-zero commutative discrete valuation domain, complete and separated for its maximal ideal 𝔫. Let p be prime with p ∈ 𝔫. Let R be a commutative local 𝒪-algebra whose structural map is local, and let 𝔪 be its maximal ideal. There exists a homomorphism c : Autℚ(AlgebraicClosure ℚ) → Rˣ such that, for each n ≥ 0, agreement on some intermediate field finite-dimensional over ℚ implies c(σ)−c(τ) ∈ 𝔪^n. Moreover, for every prime ℓ ≠ p, every valuation subring P lying over ℓ, and every arithmetic Frobenius σ at P above ℓ, the underlying value of c(σ) equals ℓ in R.",
+  "lean_statement": "∀ {𝒪 : Type} [CommRing 𝒪] [IsDomain 𝒪] [IsDiscreteValuationRing 𝒪] [IsAdicComplete (IsLocalRing.maximalIdeal 𝒪) 𝒪] [CharZero 𝒪] (p : ℕ) [Fact p.Prime], (p : 𝒪) ∈ IsLocalRing.maximalIdeal 𝒪 → ∀ {R : Type} [CommRing R] [IsLocalRing R] [Algebra 𝒪 R], IsLocalHom (algebraMap 𝒪 R) → ∃ c : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) →* Rˣ, (∀ n : ℕ, ∃ F : IntermediateField ℚ (AlgebraicClosure ℚ), FiniteDimensional ℚ F ∧ ∀ σ τ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ), (∀ x ∈ F, σ x = τ x) → ((c σ : Rˣ) : R) - ((c τ : Rˣ) : R) ∈ IsLocalRing.maximalIdeal R ^ n) ∧ (∀ (ℓ : ℕ), ℓ.Prime → ℓ ≠ p → ∀ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ → ∀ σ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ), P.IsFrobeniusAt σ ℓ → ((c σ : Rˣ) : R) = (ℓ : R))",
+  "lean_name": "p09_af497904fe_adic_cyclotomic_character",
+  "depends_on": [
+    "root.finite_cyclotomic_character-a1",
+    "root.adic_character_lift-a1"
+  ],
+  "dependency_workspaces": [
+    {
+      "node_id": "root.finite_cyclotomic_character-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    },
+    {
+      "node_id": "root.adic_character_lift-a1",
+      "result_branch": "",
+      "result_commit": "",
+      "integrated_commit": ""
+    }
+  ],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-adic-cyclotomic-character-a1-a1"
+}

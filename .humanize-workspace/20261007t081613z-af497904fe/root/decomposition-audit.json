@@ -1,0 +1,87 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "modularCyclotomicCharacter|theorem spec|theorem unique|TODO|IsAdicComplete|exists_pow_inf_eq_pow_smul|iInf_pow_smul_eq_bot_of_isLocalRing|trace_eq_matrix_trace",
+        "rg -n 'Chebotarev|chebotarev|FrobeniusDensity' project/Definitions mathlib/Mathlib/NumberTheory mathlib/Mathlib/RingTheory",
+        "smul_eq_mul|smul_mem_smul|smul_induction_on|mul_apply|theorem sub_apply|theorem smul_apply|decomposition|isFrobenius|def frobenius",
+        "rg --files --hidden --no-ignore -g dag.json -g '!.git/**' /mnt/data/zhengyang-workspace/fermat-swarm-projects"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_GaloisRep_Adic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/Cyclotomic/CyclotomicCharacter.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/AdicCompletion/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Filtration.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/LinearAlgebra/Trace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Algebra/Algebra/Operations.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Algebra/Module/LinearMap/End.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/Complex/Polynomial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/DedekindZeta.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Frobenius.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/independent-decomposition-review-fsu1kc6h/report.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/independent-decomposition-review-fsu1kc6h/name-reservations.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/independent-decomposition-review-fsu1kc6h/structure-checks.json"
+      ],
+      "conclusion": "Verified clean snapshot revisions: project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Definitions confirm the stated continuity, trace and arithmetic Frobenius semantics. The density search returned no matches in the three searched subtrees; Frobenius.lean supplies existence at a given prime, not prime distribution. The split appropriately separates character construction, arithmetic approximation and congruence algebra. Dependencies are acyclic and correctly directed. All eight names are bare identifiers, with no occurrences in 23 independently searched DAG registries. Fresh Lean 4.33.1 diagnostics checked all eight unchanged literal propositions after both derived Submission and Challenge imports, without child implementations, and verified composition, scalar action and ideal-action instances. No matrix-unit construction occurs. The matching header policy digest was verified; only lines 10–11 were omitted, all eight targets were independently confirmed absent, and original/build/reconstructed hashes are recorded. Protected sources remained unchanged. The 24 inspected type/support declarations use only propext, Classical.choice and Quot.sound, or subsets. This accepts the decomposition and supplied prose proofs; the diagnostics do not constitute comparator acceptance of any implementation."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "finite_cyclotomic_character",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The one-line type includes every stated hypothesis and conclusion. Cyclicity constructs the character, the generated finite field controls it, and injective reduction identifies the exact Frobenius unit. The proof includes N = 1 and has no circular dependency."
+    },
+    {
+      "key": "adic_character_lift",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The type exactly states unique existence. Precompleteness supplies scalar limits; separatedness proves their identity and multiplication laws; inverse group elements supply unit inverses. The uniqueness argument proves the full stated conclusion, including precision zero."
+    },
+    {
+      "key": "adic_cyclotomic_character",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "All coefficient and locality hypotheses match the type. Primitive-root comparison establishes compatibility without assuming an unstated sibling conclusion. The two declared dependencies suffice; locality transfers congruences and separatedness gives exact Frobenius values."
+    },
+    {
+      "key": "finite_inverse_limit",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The type precisely records finite nonempty levels and coherent transition maps. Stabilization gives nonempty stable images with surjective adjacent restrictions; recursive lifting and coherence prove all required equalities without assuming the original maps are surjective."
+    },
+    {
+      "key": "frobenius_approximation",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The type matches finite Galois approximation with finite exclusions and the exact valuation predicates. The supplied proof derives ray-class counting, cyclotomic prime supply and prescribed finite Frobenius independently, then uses finite_inverse_limit to construct the absolute automorphism and valuation ring. Its internal cyclotomic arguments are supplied explicitly, so no additional sibling dependency is hidden. This is a genuine arithmetic obligation independent of the parent quadratic relation."
+    },
+    {
+      "key": "action_congruence",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The hypotheses and pointwise conclusion match exactly. The proof correctly uses δ = τ⁻¹σ, preservation of ideal multiples and composition in Module.End; it requires no omitted finiteness or normality assumption."
+    },
+    {
+      "key": "trace_congruence",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "Finite freeness and all module hypotheses are explicit. The proof handles the zero ring, establishes a finite basis, sends ideal multiples into the ideal through coordinates, and identifies the diagonal sum with the stated trace difference."
+    },
+    {
+      "key": "quadratic_congruence",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The literal proposition matches the prose and uses ordinary endomorphism composition. The ordered expansion is correct, and each term has image in the ideal multiple under precisely the supplied hypotheses. No commutation assumption or circular appeal is needed."
+    }
+  ],
+  "required_changes": []
+}
