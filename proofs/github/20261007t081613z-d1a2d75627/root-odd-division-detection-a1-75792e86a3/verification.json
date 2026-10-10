@@ -1,0 +1,18 @@
+{
+  "node_id": "root.odd_division_detection-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/331",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "88b840e4507fb875bba1a42f1c9e863386e8a021",
+  "integrated_commit": "59a2a5098f4ed6de44fa25edf79ecfe2b96a92fb",
+  "proof_base_commit": "d87436625a4f0f53775a47ba49d55e9cfcd8247f",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root",
+  "requires": [
+    "root.odd_division_detection-a1.odd_prepsi_degree_lc-a1",
+    "root.odd_division_detection-a1.odd_prepsi_torsion-a1"
+  ]
+}
