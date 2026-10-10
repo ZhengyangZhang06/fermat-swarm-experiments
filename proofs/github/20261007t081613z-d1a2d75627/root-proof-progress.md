@@ -3,8 +3,9 @@
 This records the local steps implemented inside the frozen theorem
 `WeierstrassCurve.galoisRep_ordinaryLineAt`. It is not the required final proof
 and must not be published as a solution. The root retains one inherited proof
-placeholder: construction of a nonzero inertia-invariant additive homomorphism.
-Neither reduction case is complete.
+placeholder: construction of a nonzero inertia-invariant additive homomorphism
+in the multiplicative-reduction case. The good-reduction branch is complete in
+the local Lean diagnostics. The whole root remains unproved and unaccepted.
 
 ## Implemented argument
 
@@ -39,8 +40,8 @@ Neither reduction case is complete.
 5. In the good-reduction case `p ∤ Δ`, step 1 makes the discriminant a unit in
    `A`. Reducing the integral equation gives nonsingular residue coordinates.
    This supplies a p-torsion point on the original curve whose residue
-   coordinates are nonsingular. It does not yet construct specialization as a
-   homomorphism or prove that its residue point is p-torsion.
+   coordinates are nonsingular. The continuation below constructs specialization
+   as a homomorphism and uses this point to prove its restriction is nonzero.
 
 6. Unpack membership in the frozen `inertiaSubgroupIn` as membership in the
    image of the inertia subgroup of the decomposition group. Its defining
@@ -76,8 +77,86 @@ Neither reduction case is complete.
    exact inertia action. Its additive kernel is a `ZMod p` submodule under the
    existing scalar action. A nonzero value proves the kernel is proper.
    Additivity and invariance show `f(σv − v) = 0`, giving the frozen conclusion.
-   The root is reduced to constructing this homomorphism; that construction
-   remains the single proof gap.
+   The good-reduction branch now supplies this homomorphism. Its construction
+   for the multiplicative-reduction branch remains the single proof gap.
+
+## Good-reduction construction added in the continuation
+
+For `p ∤ W.Δ`, the implementation now constructs the entire specialization
+homomorphism and uses it to prove the frozen conclusion in that branch. All
+steps are local to the tracked root declaration. The argument uses the pinned
+affine point formulas directly; it does not assume a projective-specialization
+theorem or introduce a geometric axiom.
+
+For an affine point satisfying the integral Weierstrass equation, its
+x-coordinate belongs to `A` if and only if its y-coordinate does. If one
+coordinate were outside `A` and the other inside, divide the equation by the
+appropriate power of the outside coordinate. Its inverse lies in the maximal
+ideal, and reduction gives `1 = 0`. Define reduction to send a point with
+integral coordinates to its residue coordinates, and every other point,
+including the identity, to the identity. The discriminant is a unit by the
+integer-unit criterion, so the reduced affine points are nonsingular.
+The integral negation formula proves compatibility with negation.
+
+To prove additivity, take the three affine intersections of a nonvertical
+secant or tangent, counted with multiplicities. Write its slope as `l`, and
+use the exact factorization of `addPolynomial` supplied by the pinned affine
+formulas. There are two cases.
+
+* If `l` is integral, write the line as `y = l*x + n`. If `n` is integral,
+  substitution into the Weierstrass equation gives a monic cubic for every
+  x-coordinate. A root outside `A` would again give `1 = 0` after dividing
+  by its cube and reducing, so all three points have integral coordinates.
+  Reduce both the line equations and the cubic factorization. Comparing the
+  quadratic coefficient gives the third x-coordinate in the affine addition
+  formula. When the first two reduced points coincide, differentiation of
+  the factorization and nonsingularity prove that the reduced line has the
+  required tangent slope. Thus the three reduced points sum to zero, also
+  when roots coalesce. If `n` is not integral, no point of this line can have
+  integral coordinates, and all three reduce to zero.
+
+* If `l` is not integral, let `t = l⁻¹`, which belongs to the maximal ideal,
+  and write the line as `x = t*y + n`. A nonintegral `n` again forces all
+  three points to reduce to zero. For integral `n`, substitute into the curve
+  equation to obtain a polynomial `f` over `A`. Its factorization is
+  `-t³*(Y-y₁)*(Y-y₂)*(Y-y₃)`. Its reduction is a monic quadratic, with linear
+  coefficient `a₁*n + a₃`. The positive unit-coefficient root lemma gives
+  one integral root. Divide by its monic linear factor; the quotient has
+  nonunit quadratic coefficient and unit linear coefficient, so the same
+  lemma gives a second integral root. The three roots cannot all be
+  integral, since their sum times `-t³` would make `f`'s quadratic
+  coefficient a nonunit. Thus exactly two roots, counting multiplicities,
+  are integral. For these roots `b,d`, coefficient comparison gives
+  `f₁ + f₂*(b+d) + (-t³)*(b²+b*d+d²) = 0`. Reducing shows that their
+  y-coordinates sum to `-a₁*n-a₃`; their x-coordinates both reduce to `n`.
+  The two finite reductions are therefore negatives, and the third point
+  reduces to zero.
+
+These computations give the chord identity for all affine pairs that are
+not negatives. The pinned `nonsingular_negAdd` and `addPolynomial_slope`
+lemmas identify the third intersection for the actual point addition law.
+Pairs involving zero or two opposite points follow from preservation of
+zero and negation. This proves additivity without excluding tangencies,
+coincident reductions, or lines that become vertical after reduction.
+
+An inertia element lifts to the decomposition subgroup, preserves membership
+in `A`, and fixes residue coordinates by its kernel condition. Hence it
+fixes the reduction of every point. The already constructed integral
+p-torsion witness reduces to an affine point and is therefore nonzero.
+Restrict the reduction homomorphism to the exact `torsionBy` module and apply
+the previously proved proper-kernel construction. This closes the
+good-reduction branch of the exact root theorem.
+
+Additional pinned library reuse occurs in
+`mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Formula.lean`
+(`addPolynomial_slope`, `nonsingular_negAdd`, `map_addPolynomial`, slope and
+negation formulas), `Affine/Point.lean` (`add_some`, `add_of_Y_eq`, `neg_some`),
+and the polynomial coefficient, derivative, and cubic factorization APIs.
+A search of the pinned elliptic-curve directory for `specialization`,
+`reductionHom`, `reductionMap`, `tate.uniform`, and `ordinaryLine` returned
+no matches. The specialization proof above is implemented locally rather
+than attributed to a nonexistent library declaration. The shared
+integral-root proof is retained once, with the valuation ring made explicit.
 
 ## Dependency and library provenance
 
@@ -118,15 +197,20 @@ The local-project manifest pins project revision
 
 The auxiliary harnesses passed warning-fatal checks for the completed local
 steps. The integrated root harness fails with `declaration uses sorry`.
+The continuation's complete good-reduction construction passed, and a separate
+diagnostic proving the exact root conclusion with the additional assumption
+`p ∤ W.Δ` passed with only `propext`, `Classical.choice`, and `Quot.sound`.
+That diagnostic declaration exists only in a disposable test file; no new
+global helper is added to the solution.
 These checks are diagnostics, not configured-comparator acceptance or a
 complete transitive-axiom certificate for the root.
 
 ## Remaining implementation
 
-The good-reduction branch still needs the specialization homomorphism and its
-invariance, so that the integral witness makes its kernel proper. The
-multiplicative branch still needs the specified valuation/completion and
-inertia-fixed splitting-field construction, conversion of the curve to the
+The good-reduction branch is now implemented using the specialization
+homomorphism above. The multiplicative branch still needs the specified
+valuation/completion and inertia-fixed splitting-field construction,
+conversion of the curve to the
 explicit Tate family, and application of the checked torsion-descent and
 exponent constructions to the resulting compatible inertia action. These
 are the existing accepted natural-proof route, not new decomposition nodes or

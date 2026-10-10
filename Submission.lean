@@ -29036,7 +29036,7 @@ theorem WeierstrassCurve.galoisRep_ordinaryLineAt (W : WeierstrassCurve ℤ) (p 
     have hact : MulSemiringAction.toRingAut (A.decompositionSubgroup ℚ)
         (IsLocalRing.ResidueField A) τ = 1 := hτ
     exact DFunLike.congr_fun hact (IsLocalRing.residue A x)
-  have integral_root
+  have integral_root (A : ValuationSubring (AlgebraicClosure ℚ))
       (f : Polynomial A) (i : ℕ) (hi : 1 ≤ i) (hc : IsUnit (f.coeff i)) :
     ∃ x : A, f.eval x = 0 := by
     let F := f.map A.subtype
@@ -29111,7 +29111,7 @@ theorem WeierstrassCurve.galoisRep_ordinaryLineAt (W : WeierstrassCurve ℤ) (p 
     ∃ x y : A, (W.map (Int.castRingHom A)).toAffine.Equation x y ∧
       ((W.preΨ' p).map (Int.castRingHom A)).eval x = 0 := by
     obtain ⟨i, hi, _, hcoeff⟩ := ho
-    obtain ⟨x, hx⟩ := integral_root ((W.preΨ' p).map (Int.castRingHom A)) i hi (by
+    obtain ⟨x, hx⟩ := integral_root A ((W.preΨ' p).map (Int.castRingHom A)) i hi (by
       simpa only [Polynomial.coeff_map, Int.coe_castRingHom] using (hunit _).2 hcoeff)
     let U := W.map (Int.castRingHom A)
     let b : A := U.a₁ * x + U.a₃
@@ -29121,7 +29121,7 @@ theorem WeierstrassCurve.galoisRep_ordinaryLineAt (W : WeierstrassCurve ℤ) (p 
       have hcoeff : q.coeff 2 = 1 := by dsimp [q]; compute_degree!
       rw [hcoeff]
       exact isUnit_one
-    obtain ⟨y, hy⟩ := integral_root q 2 (by decide) hq
+    obtain ⟨y, hy⟩ := integral_root A q 2 (by decide) hq
     refine ⟨x, y, ?_, hx⟩
     rw [WeierstrassCurve.Affine.equation_iff]
     simp only [q, Polynomial.eval_sub, Polynomial.eval_add, Polynomial.eval_pow,
@@ -29176,6 +29176,694 @@ theorem WeierstrassCurve.galoisRep_ordinaryLineAt (W : WeierstrassCurve ℤ) (p 
     rw [WeierstrassCurve.Affine.equation_iff]
     rw [WeierstrassCurve.Affine.equation_iff] at hxy
     simpa using congrArg (IsLocalRing.residue A) hxy
+  have good_reduction (hgood : ¬ (p : ℤ) ∣ W.Δ) :
+    ∃ r : ((W.map (Int.castRingHom ℚ))⁄(AlgebraicClosure ℚ)).Point →+
+        (W.map (Int.castRingHom (IsLocalRing.ResidueField A))).toAffine.Point,
+      (∃ v : Submodule.torsionBy ℤ ((W.map (Int.castRingHom ℚ))⁄(AlgebraicClosure ℚ)).Point p,
+        r v ≠ 0) ∧ (∀ σ ∈ A.inertiaSubgroupIn ℚ, ∀ P, r (σ • P) = r P) := open Polynomial in by
+    have triple_reduction (W : WeierstrassCurve ℤ) (A : ValuationSubring (AlgebraicClosure ℚ))
+        [DecidableEq (IsLocalRing.ResidueField A)]
+        (E : WeierstrassCurve (AlgebraicClosure ℚ))
+        (hE : E = W.map (Int.castRingHom (AlgebraicClosure ℚ)))
+        (r : E.toAffine.Point →
+          (W.map (Int.castRingHom (IsLocalRing.ResidueField A))).toAffine.Point)
+        (resNs : ∀ (x y : A), E.toAffine.Nonsingular x y →
+          (W.map (Int.castRingHom (IsLocalRing.ResidueField A))).toAffine.Nonsingular
+            (IsLocalRing.residue A x) (IsLocalRing.residue A y))
+        (r_int : ∀ (x y : A) (h : E.toAffine.Nonsingular x y),
+          r (.some (x : AlgebraicClosure ℚ) (y : AlgebraicClosure ℚ) h) =
+            .some (IsLocalRing.residue A x) (IsLocalRing.residue A y) (resNs x y h))
+        (r_out : ∀ (x y : AlgebraicClosure ℚ) (h : E.toAffine.Nonsingular x y),
+          x ∉ A → r (.some x y h) = 0)
+        (x₁ y₁ x₂ y₂ x₃ y₃ l : AlgebraicClosure ℚ)
+        (h₁ : E.toAffine.Nonsingular x₁ y₁)
+        (h₂ : E.toAffine.Nonsingular x₂ y₂)
+        (h₃ : E.toAffine.Nonsingular x₃ y₃)
+        (hl₂ : y₂ = l * (x₂ - x₁) + y₁) (hl₃ : y₃ = l * (x₃ - x₁) + y₁)
+        (hpoly : E.toAffine.addPolynomial x₁ y₁ l =
+          -((X - C x₁) * (X - C x₂) * (X - C x₃))) :
+        r (.some x₁ y₁ h₁) + r (.some x₂ y₂ h₂) = -r (.some x₃ y₃ h₃) := by
+      subst E
+      classical
+      have integral_coordinates (W : WeierstrassCurve ℤ) (A : ValuationSubring (AlgebraicClosure ℚ))
+          (x y : AlgebraicClosure ℚ)
+          (h : (W.map (Int.castRingHom (AlgebraicClosure ℚ))).toAffine.Equation x y) :
+          x ∈ A ↔ y ∈ A := by
+        classical
+        constructor
+        · intro hx
+          by_contra hy
+          have hy0 : y ≠ 0 := by rintro rfl; exact hy A.zero_mem
+          have hni := A.inv_mem_nonunits_iff.2 (Or.inr hy)
+          let t : A := ⟨y⁻¹, A.nonunits_subset hni⟩
+          let a : A := ⟨x, hx⟩
+          have ht : IsLocalRing.residue A t = 0 := by
+            rw [IsLocalRing.residue_eq_zero_iff]
+            exact A.coe_mem_nonunits_iff.1 hni
+          have heq : (1 : A) + ((W.a₁ : A) * a + (W.a₃ : A)) * t =
+              (a ^ 3 + (W.a₂ : A) * a ^ 2 + (W.a₄ : A) * a + (W.a₆ : A)) * t ^ 2 := by
+            apply Subtype.val_injective
+            rw [WeierstrassCurve.Affine.equation_iff] at h
+            dsimp [a, t]
+            dsimp [WeierstrassCurve.map] at h
+            field_simp
+            linear_combination h
+          have hr := congrArg (IsLocalRing.residue A) heq
+          simp [ht] at hr
+        · intro hy
+          by_contra hx
+          have hx0 : x ≠ 0 := by rintro rfl; exact hx A.zero_mem
+          have hni := A.inv_mem_nonunits_iff.2 (Or.inr hx)
+          let t : A := ⟨x⁻¹, A.nonunits_subset hni⟩
+          let b : A := ⟨y, hy⟩
+          have ht : IsLocalRing.residue A t = 0 := by
+            rw [IsLocalRing.residue_eq_zero_iff]
+            exact A.coe_mem_nonunits_iff.1 hni
+          have heq : (1 : A) =
+              (b ^ 2 + (W.a₃ : A) * b - (W.a₆ : A)) * t ^ 3 +
+                ((W.a₁ : A) * b - (W.a₄ : A)) * t ^ 2 - (W.a₂ : A) * t := by
+            apply Subtype.val_injective
+            rw [WeierstrassCurve.Affine.equation_iff] at h
+            dsimp [b, t]
+            dsimp [WeierstrassCurve.map] at h
+            field_simp
+            linear_combination -h
+          have hr := congrArg (IsLocalRing.residue A) heq
+          simp [ht] at hr
+      have integral_line (W : WeierstrassCurve ℤ) (A : ValuationSubring (AlgebraicClosure ℚ))
+          (l n : A) (x y : AlgebraicClosure ℚ)
+          (heq : (W.map (Int.castRingHom (AlgebraicClosure ℚ))).toAffine.Equation x y)
+          (hline : y = (l : AlgebraicClosure ℚ) * x + n) : x ∈ A ∧ y ∈ A := by
+        have cubic_integral (A : ValuationSubring (AlgebraicClosure ℚ)) (a b c : A) (x : AlgebraicClosure ℚ)
+            (h : x ^ 3 + (a : AlgebraicClosure ℚ) * x ^ 2 + (b : AlgebraicClosure ℚ) * x + c = 0) :
+            x ∈ A := by
+          by_contra hx
+          have hx0 : x ≠ 0 := by rintro rfl; exact hx A.zero_mem
+          have hni := A.inv_mem_nonunits_iff.2 (Or.inr hx)
+          let t : A := ⟨x⁻¹, A.nonunits_subset hni⟩
+          have ht : IsLocalRing.residue A t = 0 := by
+            rw [IsLocalRing.residue_eq_zero_iff]
+            exact A.coe_mem_nonunits_iff.1 hni
+          have heq : (1 : A) + a * t + b * t ^ 2 + c * t ^ 3 = 0 := by
+            apply Subtype.val_injective
+            dsimp [t]
+            field_simp
+            linear_combination h
+          have hr := congrArg (IsLocalRing.residue A) heq
+          simp [ht] at hr
+        let a : A := (W.a₂ : A) - l ^ 2 - (W.a₁ : A) * l
+        let b : A := (W.a₄ : A) - (2 * l * n + (W.a₁ : A) * n + (W.a₃ : A) * l)
+        let c : A := (W.a₆ : A) - (n ^ 2 + (W.a₃ : A) * n)
+        have heqx : x ^ 3 + (a : AlgebraicClosure ℚ) * x ^ 2 + (b : AlgebraicClosure ℚ) * x + c = 0 := by
+          rw [WeierstrassCurve.Affine.equation_iff] at heq
+          dsimp [WeierstrassCurve.map] at heq
+          rw [hline] at heq
+          change x ^ 3 + ((W.a₂ : AlgebraicClosure ℚ) - (l : AlgebraicClosure ℚ) ^ 2 -
+            (W.a₁ : AlgebraicClosure ℚ) * l) * x ^ 2 +
+            ((W.a₄ : AlgebraicClosure ℚ) - (2 * (l : AlgebraicClosure ℚ) * n +
+              (W.a₁ : AlgebraicClosure ℚ) * n + (W.a₃ : AlgebraicClosure ℚ) * l)) * x +
+            ((W.a₆ : AlgebraicClosure ℚ) - ((n : AlgebraicClosure ℚ) ^ 2 + (W.a₃ : AlgebraicClosure ℚ) * n)) = 0
+          linear_combination -heq
+        have hx := cubic_integral A a b c x heqx
+        refine ⟨hx, ?_⟩
+        rw [hline]
+        exact A.toSubring.add_mem (A.toSubring.mul_mem l.property hx) n.property
+      have integral_chord (A : ValuationSubring (AlgebraicClosure ℚ)) [DecidableEq (IsLocalRing.ResidueField A)]
+          (U : WeierstrassCurve A)
+          (Ek : WeierstrassCurve (IsLocalRing.ResidueField A))
+          (hEk : Ek = U.map (IsLocalRing.residue A))
+          (x₁ y₁ x₂ y₂ x₃ y₃ l : A)
+          (h₁ : Ek.toAffine.Nonsingular
+            (IsLocalRing.residue A x₁) (IsLocalRing.residue A y₁))
+          (h₂ : Ek.toAffine.Nonsingular
+            (IsLocalRing.residue A x₂) (IsLocalRing.residue A y₂))
+          (h₃ : Ek.toAffine.Nonsingular
+            (IsLocalRing.residue A x₃) (IsLocalRing.residue A y₃))
+          (hl₂ : y₂ = l * (x₂ - x₁) + y₁) (hl₃ : y₃ = l * (x₃ - x₁) + y₁)
+          (hpoly : (U.map A.subtype).toAffine.addPolynomial (x₁ : AlgebraicClosure ℚ) y₁ l =
+            -((X - C (x₁ : AlgebraicClosure ℚ)) * (X - C (x₂ : AlgebraicClosure ℚ)) *
+              (X - C (x₃ : AlgebraicClosure ℚ)))) :
+          Point.some _ _ h₁ + Point.some _ _ h₂ = -Point.some _ _ h₃ := by
+        classical
+        subst Ek
+        have chord_triple (K : Type) [Field K] [DecidableEq K] (E : WeierstrassCurve K)
+            (x₁ y₁ x₂ y₂ x₃ y₃ l : K)
+            (h₁ : E.toAffine.Nonsingular x₁ y₁) (h₂ : E.toAffine.Nonsingular x₂ y₂)
+            (h₃ : E.toAffine.Nonsingular x₃ y₃)
+            (hl₂ : y₂ = l * (x₂ - x₁) + y₁) (hl₃ : y₃ = l * (x₃ - x₁) + y₁)
+            (hpoly : E.toAffine.addPolynomial x₁ y₁ l =
+              -((X - C x₁) * (X - C x₂) * (X - C x₃))) :
+            Point.some x₁ y₁ h₁ + Point.some x₂ y₂ h₂ = -Point.some x₃ y₃ h₃ := by
+          have hsum : E.toAffine.addX x₁ x₂ l = x₃ := by
+            have hh := hpoly
+            rw [addPolynomial_eq, neg_inj, Cubic.prod_X_sub_C_eq, Cubic.toPoly_injective] at hh
+            have hb := congrArg Cubic.b hh
+            dsimp at hb
+            dsimp [addX]
+            linear_combination -hb
+          have hdouble (hx : x₁ = x₂) :
+              y₁ ≠ E.toAffine.negY x₂ y₂ ∧ E.toAffine.slope x₁ x₂ y₁ y₂ = l := by
+            subst x₂
+            have hy : y₂ = y₁ := by simpa using hl₂
+            clear hl₂
+            subst y₂
+            have hd : (E.toAffine.addPolynomial x₁ y₁ l).derivative.eval x₁ = 0 := by
+              rw [hpoly]
+              simp
+            have hd' :
+                (E.a₁ * y₁ - (3 * x₁ ^ 2 + 2 * E.a₂ * x₁ + E.a₄)) +
+                  l * (2 * y₁ + E.a₁ * x₁ + E.a₃) = 0 := by
+              rw [addPolynomial_eq] at hd
+              simp only [Cubic.toPoly, derivative_neg, derivative_add, derivative_mul,
+                derivative_C, derivative_X_pow, derivative_X, eval_neg, eval_add,
+                eval_mul, eval_C, eval_pow, eval_X, zero_mul, zero_add,
+                add_zero, mul_one, one_mul] at hd
+              linear_combination hd
+            have hn : y₁ ≠ E.toAffine.negY x₁ y₁ := by
+              intro he
+              have he' : 2 * y₁ + E.a₁ * x₁ + E.a₃ = 0 := by
+                dsimp [negY] at he
+                linear_combination he
+              have hns := (E.toAffine.nonsingular_iff' _ _).1 h₁
+              rcases hns.2 with hx | hy
+              · apply hx
+                linear_combination hd' - l * he'
+              · exact hy he'
+            refine ⟨hn, ?_⟩
+            rw [slope_of_Y_ne rfl hn, div_eq_iff]
+            · dsimp [negY]
+              linear_combination -hd'
+            · exact sub_ne_zero.mpr hn
+          have hxy : ¬ (x₁ = x₂ ∧ y₁ = E.toAffine.negY x₂ y₂) := by
+            rintro ⟨hx, hy⟩
+            exact (hdouble hx).1 hy
+          have hslope : E.toAffine.slope x₁ x₂ y₁ y₂ = l := by
+            by_cases hx : x₁ = x₂
+            · exact (hdouble hx).2
+            · rw [slope_of_X_ne hx, div_eq_iff (sub_ne_zero.mpr hx)]
+              linear_combination -hl₂
+          rw [Point.add_some hxy, Point.neg_some]
+          simp only [addY, negAddY, hslope, hsum, ← hl₃]
+        have hpA : U.toAffine.addPolynomial x₁ y₁ l = -((X - C x₁) * (X - C x₂) * (X - C x₃)) := by
+          apply Polynomial.map_injective A.subtype Subtype.val_injective
+          rw [← WeierstrassCurve.Affine.map_addPolynomial]
+          simpa only [Polynomial.map_neg, Polynomial.map_mul, Polynomial.map_sub,
+            Polynomial.map_X, Polynomial.map_C, ValuationSubring.subtype_apply] using hpoly
+        have hpk : (U.map (IsLocalRing.residue A)).toAffine.addPolynomial
+            (IsLocalRing.residue A x₁) (IsLocalRing.residue A y₁) (IsLocalRing.residue A l) =
+              -((X - C (IsLocalRing.residue A x₁)) * (X - C (IsLocalRing.residue A x₂)) *
+                (X - C (IsLocalRing.residue A x₃))) := by
+          have hh := congrArg (Polynomial.map (IsLocalRing.residue A)) hpA
+          rw [← WeierstrassCurve.Affine.map_addPolynomial] at hh
+          simpa only [Polynomial.map_neg, Polynomial.map_mul, Polynomial.map_sub,
+            Polynomial.map_X, Polynomial.map_C] using hh
+        apply chord_triple (IsLocalRing.ResidueField A) (U.map (IsLocalRing.residue A))
+          _ _ _ _ _ _ (IsLocalRing.residue A l) h₁ h₂ h₃ _ _ hpk
+        · simpa only [map_add, map_mul, map_sub] using congrArg (IsLocalRing.residue A) hl₂
+        · simpa only [map_add, map_mul, map_sub] using congrArg (IsLocalRing.residue A) hl₃
+      have inverse_chord (A : ValuationSubring (AlgebraicClosure ℚ)) (U : WeierstrassCurve A)
+          (t n : A) (ht : IsLocalRing.residue A t = 0)
+          (x₁ y₁ x₂ y₂ x₃ y₃ l : AlgebraicClosure ℚ)
+          (hlt : l * (t : AlgebraicClosure ℚ) = 1)
+          (h₁ : x₁ = (t : AlgebraicClosure ℚ) * y₁ + n)
+          (h₂ : x₂ = (t : AlgebraicClosure ℚ) * y₂ + n)
+          (h₃ : x₃ = (t : AlgebraicClosure ℚ) * y₃ + n)
+          (hpoly : (U.map A.subtype).toAffine.addPolynomial x₁ y₁ l =
+            -((X - C x₁) * (X - C x₂) * (X - C x₃))) :
+          ∃ f : Polynomial A,
+            f.map A.subtype = C (-(t : AlgebraicClosure ℚ) ^ 3) *
+              ((X - C y₁) * (X - C y₂) * (X - C y₃)) ∧
+            IsLocalRing.residue A (f.coeff 2) = 1 ∧
+            IsLocalRing.residue A (f.coeff 1) =
+              IsLocalRing.residue A U.a₁ * IsLocalRing.residue A n + IsLocalRing.residue A U.a₃ := by
+        let g : Polynomial (AlgebraicClosure ℚ) := C (t : AlgebraicClosure ℚ) * X + C (n : AlgebraicClosure ℚ)
+        let f : Polynomial A := X ^ 2 + (C U.a₁ * (C t * X + C n) + C U.a₃) * X -
+          ((C t * X + C n) ^ 3 + C U.a₂ * (C t * X + C n) ^ 2 +
+            C U.a₄ * (C t * X + C n) + C U.a₆)
+        have hg (x y : AlgebraicClosure ℚ) (hx : x = (t : AlgebraicClosure ℚ) * y + n) :
+            g - C x = C (t : AlgebraicClosure ℚ) * (X - C y) := by
+          simp only [g, hx, C_add, C_mul]
+          ring
+        have hl : (linePolynomial x₁ y₁ l).comp g = X := by
+          simp only [linePolynomial, Polynomial.add_comp, Polynomial.mul_comp,
+            Polynomial.sub_comp, Polynomial.C_comp, Polynomial.X_comp]
+          rw [hg x₁ y₁ h₁, ← mul_assoc, ← C_mul, hlt]
+          simp
+        have hcomp : f.map A.subtype = ((U.map A.subtype).toAffine.addPolynomial x₁ y₁ l).comp g := by
+          simp only [addPolynomial, polynomial, eval_sub, eval_add, eval_mul,
+            eval_pow, eval_X, eval_C, Polynomial.sub_comp, Polynomial.add_comp,
+            Polynomial.mul_comp, Polynomial.pow_comp, Polynomial.C_comp, Polynomial.X_comp, hl]
+          simp only [f, Polynomial.map_sub, Polynomial.map_add, Polynomial.map_mul,
+            Polynomial.map_pow, Polynomial.map_X, Polynomial.map_C]
+          rfl
+        have hfac : f.map A.subtype = C (-(t : AlgebraicClosure ℚ) ^ 3) *
+            ((X - C y₁) * (X - C y₂) * (X - C y₃)) := by
+          rw [hcomp, hpoly]
+          simp only [Polynomial.neg_comp, Polynomial.mul_comp, Polynomial.sub_comp,
+            Polynomial.X_comp, Polynomial.C_comp, hg x₁ y₁ h₁, hg x₂ y₂ h₂, hg x₃ y₃ h₃,
+            C_neg, C_pow]
+          ring
+        have hred : f.map (IsLocalRing.residue A) =
+            X ^ 2 + C (IsLocalRing.residue A U.a₁ * IsLocalRing.residue A n + IsLocalRing.residue A U.a₃) * X -
+              C ((IsLocalRing.residue A n) ^ 3 + IsLocalRing.residue A U.a₂ * (IsLocalRing.residue A n) ^ 2 +
+                IsLocalRing.residue A U.a₄ * IsLocalRing.residue A n + IsLocalRing.residue A U.a₆) := by
+          simp only [f, Polynomial.map_sub, Polynomial.map_add, Polynomial.map_mul,
+            Polynomial.map_pow, Polynomial.map_X, Polynomial.map_C, ht, C_0, zero_mul, zero_add]
+          simp only [← C_pow, ← C_mul, ← C_add]
+        refine ⟨f, hfac, ?_, ?_⟩
+        · have hh := congrArg (fun q : Polynomial (IsLocalRing.ResidueField A) => q.coeff 2) hred
+          simp only [Polynomial.coeff_map, coeff_sub, coeff_add, coeff_C_mul_X,
+            coeff_X_pow, coeff_C] at hh
+          norm_num at hh
+          exact hh
+        · have hh := congrArg (fun q : Polynomial (IsLocalRing.ResidueField A) => q.coeff 1) hred
+          simp only [Polynomial.coeff_map, coeff_sub, coeff_add, coeff_C_mul_X,
+            coeff_X_pow, coeff_C] at hh
+          norm_num at hh
+          exact hh
+      have two_integral (A : ValuationSubring (AlgebraicClosure ℚ))
+          (f : Polynomial A) (c r₁ r₂ r₃ : AlgebraicClosure ℚ)
+          (hf : f.map A.subtype = Polynomial.C c *
+            ((Polynomial.X - Polynomial.C r₁) * (Polynomial.X - Polynomial.C r₂) *
+              (Polynomial.X - Polynomial.C r₃)))
+          (hc : c ∈ A.nonunits) (hu : IsUnit (f.coeff 2)) :
+          (r₁ ∈ A ∧ r₂ ∈ A) ∨ (r₁ ∈ A ∧ r₃ ∈ A) ∨ (r₂ ∈ A ∧ r₃ ∈ A) := by
+        classical
+        have hc0 : c ≠ 0 := by
+          intro hz
+          have hzero : f = 0 := by
+            apply Polynomial.map_injective A.subtype Subtype.val_injective
+            simpa [hz] using hf
+          simp [hzero] at hu
+        have second (a b d : AlgebraicClosure ℚ) (ha : a ∈ A)
+            (hfac : f.map A.subtype = Polynomial.C c *
+              ((Polynomial.X - Polynomial.C a) * (Polynomial.X - Polynomial.C b) *
+                (Polynomial.X - Polynomial.C d))) : b ∈ A ∨ d ∈ A := by
+          let aa : A := ⟨a, ha⟩
+          have haroot : f.IsRoot aa := by
+            apply Subtype.val_injective
+            change A.subtype (f.eval aa) = A.subtype 0
+            rw [← Polynomial.eval_map_apply, hfac]
+            simp [aa]
+          obtain ⟨g, hg⟩ := (Polynomial.dvd_iff_isRoot).2 haroot
+          have hcancel : (Polynomial.X - Polynomial.C a) * g.map A.subtype =
+              (Polynomial.X - Polynomial.C a) *
+                (Polynomial.C c * ((Polynomial.X - Polynomial.C b) * (Polynomial.X - Polynomial.C d))) := by
+            have hm := congrArg (Polynomial.map A.subtype) hg
+            simp only [Polynomial.map_mul, Polynomial.map_sub, Polynomial.map_X, Polynomial.map_C] at hm
+            change f.map A.subtype = (Polynomial.X - Polynomial.C a) * g.map A.subtype at hm
+            rw [← hm, hfac]
+            ring
+          have hgm : g.map A.subtype =
+              Polynomial.C c * ((Polynomial.X - Polynomial.C b) * (Polynomial.X - Polynomial.C d)) :=
+            mul_left_cancel₀ (Polynomial.X_sub_C_ne_zero a) hcancel
+          have hg2 : (g.coeff 2 : AlgebraicClosure ℚ) = c := by
+            change A.subtype (g.coeff 2) = c
+            have h := congrArg (fun q : Polynomial (AlgebraicClosure ℚ) => q.coeff 2) hgm
+            have hcoeff : (Polynomial.C c * ((Polynomial.X - Polynomial.C b) *
+                (Polynomial.X - Polynomial.C d))).coeff 2 = c := by
+              rw [Polynomial.coeff_C_mul]
+              have hh : ((Polynomial.X - Polynomial.C b) * (Polynomial.X - Polynomial.C d)).coeff 2 = 1 := by
+                compute_degree!
+              rw [hh, mul_one]
+            simpa only [Polynomial.coeff_map, hcoeff] using h
+          have hg2m : IsLocalRing.residue A (g.coeff 2) = 0 := by
+            rw [IsLocalRing.residue_eq_zero_iff]
+            apply A.coe_mem_nonunits_iff.1
+            rw [hg2]
+            exact hc
+          have hcoef : f.coeff 2 = g.coeff 1 - aa * g.coeff 2 := by
+            rw [hg, sub_mul]
+            simp
+          have hg1u : IsUnit (g.coeff 1) := by
+            apply (IsLocalRing.residue_ne_zero_iff_isUnit _).1
+            have hh := (IsLocalRing.residue_ne_zero_iff_isUnit _).2 hu
+            rw [hcoef, map_sub, map_mul, hg2m, mul_zero, sub_zero] at hh
+            exact hh
+          obtain ⟨z, hz⟩ := integral_root A g 1 (by decide) hg1u
+          have hz' := congrArg A.subtype hz
+          rw [← Polynomial.eval_map_apply, hgm] at hz'
+          simp only [Polynomial.eval_mul, Polynomial.eval_C, Polynomial.eval_sub,
+            Polynomial.eval_X, _root_.map_zero, mul_eq_zero, hc0, false_or, sub_eq_zero] at hz'
+          rcases hz' with hb | hd
+          · exact Or.inl (hb ▸ z.property)
+          · exact Or.inr (hd ▸ z.property)
+        obtain ⟨z, hz⟩ := integral_root A f 2 (by decide) hu
+        have hz' := congrArg A.subtype hz
+        rw [← Polynomial.eval_map_apply, hf] at hz'
+        simp only [Polynomial.eval_mul, Polynomial.eval_C, Polynomial.eval_sub,
+          Polynomial.eval_X, _root_.map_zero, mul_eq_zero, hc0, false_or, sub_eq_zero] at hz'
+        rcases hz' with (h₁ | h₂) | h₃
+        · have ha : r₁ ∈ A := h₁ ▸ z.property
+          rcases second r₁ r₂ r₃ ha hf with hb | hc
+          · exact Or.inl ⟨ha, hb⟩
+          · exact Or.inr (Or.inl ⟨ha, hc⟩)
+        · have hb : r₂ ∈ A := h₂ ▸ z.property
+          have hfac : f.map A.subtype = Polynomial.C c *
+              ((Polynomial.X - Polynomial.C r₂) * (Polynomial.X - Polynomial.C r₁) *
+                (Polynomial.X - Polynomial.C r₃)) := by rw [hf]; ring
+          rcases second r₂ r₁ r₃ hb hfac with ha | hc
+          · exact Or.inl ⟨ha, hb⟩
+          · exact Or.inr (Or.inr ⟨hb, hc⟩)
+        · have hc : r₃ ∈ A := h₃ ▸ z.property
+          have hfac : f.map A.subtype = Polynomial.C c *
+              ((Polynomial.X - Polynomial.C r₃) * (Polynomial.X - Polynomial.C r₁) *
+                (Polynomial.X - Polynomial.C r₂)) := by rw [hf]; ring
+          rcases second r₃ r₁ r₂ hc hfac with ha | hb
+          · exact Or.inr (Or.inl ⟨ha, hc⟩)
+          · exact Or.inr (Or.inr ⟨hb, hc⟩)
+      have pair_residue (A : ValuationSubring (AlgebraicClosure ℚ))
+          (f : Polynomial A) (c a : AlgebraicClosure ℚ) (b d : A)
+          (hf : f.map A.subtype = C c *
+            ((X - C a) * (X - C (b : AlgebraicClosure ℚ)) * (X - C (d : AlgebraicClosure ℚ))))
+          (hc : c ∈ A.nonunits) :
+          IsLocalRing.residue A (f.coeff 1) + IsLocalRing.residue A (f.coeff 2) *
+            (IsLocalRing.residue A b + IsLocalRing.residue A d) = 0 := by
+        let cc : A := ⟨c, A.nonunits_subset hc⟩
+        have hc0 : IsLocalRing.residue A cc = 0 := by
+          rw [IsLocalRing.residue_eq_zero_iff]
+          exact A.coe_mem_nonunits_iff.1 hc
+        have h₁ := congrArg (fun q : Polynomial (AlgebraicClosure ℚ) => q.coeff 1) hf
+        have h₂ := congrArg (fun q : Polynomial (AlgebraicClosure ℚ) => q.coeff 2) hf
+        simp [Cubic.prod_X_sub_C_eq, Cubic.toPoly] at h₁ h₂
+        simp only [← Polynomial.C_neg, ← Polynomial.C_add, Polynomial.coeff_C_mul_X_pow] at h₁ h₂
+        norm_num at h₁ h₂
+        have heq : f.coeff 1 + f.coeff 2 * (b + d) + cc * (b ^ 2 + b * d + d ^ 2) = 0 := by
+          apply Subtype.val_injective
+          change (f.coeff 1 : AlgebraicClosure ℚ) + (f.coeff 2 : AlgebraicClosure ℚ) *
+            ((b : AlgebraicClosure ℚ) + d) + c * ((b : AlgebraicClosure ℚ) ^ 2 + b * d + d ^ 2) = 0
+          linear_combination h₁ + ((b : AlgebraicClosure ℚ) + d) * h₂
+        have hh := congrArg (IsLocalRing.residue A) heq
+        simpa only [map_add, map_mul, hc0, zero_mul, add_zero, _root_.map_zero] using hh
+      have not_all_integral (A : ValuationSubring (AlgebraicClosure ℚ))
+          (f : Polynomial A) (c : AlgebraicClosure ℚ) (a b d : A)
+          (hf : f.map A.subtype = C c *
+            ((X - C (a : AlgebraicClosure ℚ)) * (X - C (b : AlgebraicClosure ℚ)) *
+              (X - C (d : AlgebraicClosure ℚ))))
+          (hc : c ∈ A.nonunits) (hu : IsUnit (f.coeff 2)) : False := by
+        let cc : A := ⟨c, A.nonunits_subset hc⟩
+        have hc0 : IsLocalRing.residue A cc = 0 := by
+          rw [IsLocalRing.residue_eq_zero_iff]
+          exact A.coe_mem_nonunits_iff.1 hc
+        have h₂ := congrArg (fun q : Polynomial (AlgebraicClosure ℚ) => q.coeff 2) hf
+        simp [Cubic.prod_X_sub_C_eq, Cubic.toPoly] at h₂
+        simp only [← Polynomial.C_neg, ← Polynomial.C_add, Polynomial.coeff_C_mul_X_pow] at h₂
+        norm_num at h₂
+        have heq : f.coeff 2 = cc * (-a - b - d) := by
+          apply Subtype.val_injective
+          change (f.coeff 2 : AlgebraicClosure ℚ) = c * (-(a : AlgebraicClosure ℚ) - b - d)
+          linear_combination h₂
+        have hh := (IsLocalRing.residue_ne_zero_iff_isUnit _).2 hu
+        rw [heq, map_mul, hc0, zero_mul] at hh
+        exact hh rfl
+      let U := W.map (Int.castRingHom A)
+      have hU : U.map A.subtype = W.map (Int.castRingHom (AlgebraicClosure ℚ)) := by
+        simp only [U, WeierstrassCurve.map_map, RingHom.eq_intCast']
+      have hUk : U.map (IsLocalRing.residue A) = W.map (Int.castRingHom (IsLocalRing.ResidueField A)) := by
+        simp only [U, WeierstrassCurve.map_map, RingHom.eq_intCast']
+      by_cases hl : l ∈ A
+      · let n := y₁ - l * x₁
+        have hn₁ : y₁ = l * x₁ + n := by dsimp [n]; ring
+        have hn₂ : y₂ = l * x₂ + n := by dsimp [n]; linear_combination hl₂
+        have hn₃ : y₃ = l * x₃ + n := by dsimp [n]; linear_combination hl₃
+        by_cases hn : n ∈ A
+        · obtain ⟨hx₁, hy₁⟩ := integral_line W A ⟨l, hl⟩ ⟨n, hn⟩ x₁ y₁ h₁.1 hn₁
+          obtain ⟨hx₂, hy₂⟩ := integral_line W A ⟨l, hl⟩ ⟨n, hn⟩ x₂ y₂ h₂.1 hn₂
+          obtain ⟨hx₃, hy₃⟩ := integral_line W A ⟨l, hl⟩ ⟨n, hn⟩ x₃ y₃ h₃.1 hn₃
+          rw [r_int ⟨x₁, hx₁⟩ ⟨y₁, hy₁⟩ h₁, r_int ⟨x₂, hx₂⟩ ⟨y₂, hy₂⟩ h₂,
+            r_int ⟨x₃, hx₃⟩ ⟨y₃, hy₃⟩ h₃]
+          have hh := integral_chord A U (W.map (Int.castRingHom (IsLocalRing.ResidueField A))) hUk.symm
+            ⟨x₁, hx₁⟩ ⟨y₁, hy₁⟩ ⟨x₂, hx₂⟩ ⟨y₂, hy₂⟩
+            ⟨x₃, hx₃⟩ ⟨y₃, hy₃⟩ ⟨l, hl⟩
+            (resNs ⟨x₁, hx₁⟩ ⟨y₁, hy₁⟩ h₁)
+            (resNs ⟨x₂, hx₂⟩ ⟨y₂, hy₂⟩ h₂)
+            (resNs ⟨x₃, hx₃⟩ ⟨y₃, hy₃⟩ h₃)
+            (Subtype.val_injective hl₂) (Subtype.val_injective hl₃)
+            (by simpa only [hU] using hpoly)
+          exact hh
+        · have hout (x y : AlgebraicClosure ℚ)
+              (h : (W.map (Int.castRingHom (AlgebraicClosure ℚ))).toAffine.Nonsingular x y)
+              (hline : y = l * x + n) : r (.some x y h) = 0 := by
+            apply r_out
+            intro hx
+            have hy := (integral_coordinates W A x y h.1).1 hx
+            apply hn
+            have hh := A.toSubring.sub_mem hy (A.toSubring.mul_mem hl hx)
+            have hn' : n = y - l * x := by linear_combination -hline
+            rw [hn']
+            exact hh
+          rw [hout x₁ y₁ h₁ hn₁, hout x₂ y₂ h₂ hn₂, hout x₃ y₃ h₃ hn₃]
+          simp
+      · have hl0 : l ≠ 0 := by rintro rfl; exact hl A.zero_mem
+        have htm := A.inv_mem_nonunits_iff.2 (Or.inr hl)
+        let t : A := ⟨l⁻¹, A.nonunits_subset htm⟩
+        have ht : IsLocalRing.residue A t = 0 := by
+          rw [IsLocalRing.residue_eq_zero_iff]
+          exact A.coe_mem_nonunits_iff.1 htm
+        have hlt : l * (t : AlgebraicClosure ℚ) = 1 := mul_inv_cancel₀ hl0
+        let n := x₁ - (t : AlgebraicClosure ℚ) * y₁
+        have hn₁ : x₁ = (t : AlgebraicClosure ℚ) * y₁ + n := by dsimp [n]; ring
+        have hn₂ : x₂ = (t : AlgebraicClosure ℚ) * y₂ + n := by
+          dsimp [n]
+          linear_combination -(t : AlgebraicClosure ℚ) * hl₂ - (x₂ - x₁) * hlt
+        have hn₃ : x₃ = (t : AlgebraicClosure ℚ) * y₃ + n := by
+          dsimp [n]
+          linear_combination -(t : AlgebraicClosure ℚ) * hl₃ - (x₃ - x₁) * hlt
+        by_cases hn : n ∈ A
+        · obtain ⟨f, hf, hf2, hf1⟩ := inverse_chord A U t ⟨n, hn⟩ ht
+            x₁ y₁ x₂ y₂ x₃ y₃ l hlt hn₁ hn₂ hn₃ (by simpa only [hU] using hpoly)
+          have hc : -(t : AlgebraicClosure ℚ) ^ 3 ∈ A.nonunits := by
+            have hh : ((-t ^ 3 : A) : AlgebraicClosure ℚ) ∈ A.nonunits := by
+              apply (A.coe_mem_nonunits_iff (a := -t ^ 3)).2
+              rw [← IsLocalRing.residue_eq_zero_iff]
+              simp only [map_neg, map_pow, ht, zero_pow (by decide : 3 ≠ 0), _root_.neg_zero]
+            simpa using hh
+          have hu : IsUnit (f.coeff 2) := (IsLocalRing.residue_ne_zero_iff_isUnit _).1 (by rw [hf2]; exact one_ne_zero)
+          have notall (hy₁ : y₁ ∈ A) (hy₂ : y₂ ∈ A) (hy₃ : y₃ ∈ A) : False :=
+            not_all_integral A f (-(t : AlgebraicClosure ℚ) ^ 3)
+              ⟨y₁, hy₁⟩ ⟨y₂, hy₂⟩ ⟨y₃, hy₃⟩ hf hc hu
+          have pair (xa ya xb yb xc yc : AlgebraicClosure ℚ)
+              (ha : (W.map (Int.castRingHom (AlgebraicClosure ℚ))).toAffine.Nonsingular xa ya)
+              (hb : (W.map (Int.castRingHom (AlgebraicClosure ℚ))).toAffine.Nonsingular xb yb)
+              (hcc : (W.map (Int.castRingHom (AlgebraicClosure ℚ))).toAffine.Nonsingular xc yc)
+              (hla : xa = (t : AlgebraicClosure ℚ) * ya + n)
+              (hlb : xb = (t : AlgebraicClosure ℚ) * yb + n)
+              (hya : ya ∈ A) (hyb : yb ∈ A) (hyc : yc ∉ A)
+              (hfac : f.map A.subtype = C (-(t : AlgebraicClosure ℚ) ^ 3) *
+                ((X - C yc) * (X - C ya) * (X - C yb))) :
+              r (.some xa ya ha) + r (.some xb yb hb) = 0 ∧ r (.some xc yc hcc) = 0 := by
+            have hxa := (integral_coordinates W A xa ya ha.1).2 hya
+            have hxb := (integral_coordinates W A xb yb hb.1).2 hyb
+            have hxc : xc ∉ A := fun hh => hyc ((integral_coordinates W A xc yc hcc.1).1 hh)
+            refine ⟨?_, r_out xc yc hcc hxc⟩
+            rw [r_int ⟨xa, hxa⟩ ⟨ya, hya⟩ ha, r_int ⟨xb, hxb⟩ ⟨yb, hyb⟩ hb]
+            have hxa0 : IsLocalRing.residue A ⟨xa, hxa⟩ = IsLocalRing.residue A ⟨n, hn⟩ := by
+              have hh : (⟨xa, hxa⟩ : A) = t * ⟨ya, hya⟩ + ⟨n, hn⟩ := Subtype.val_injective hla
+              rw [hh, map_add, map_mul, ht, zero_mul, zero_add]
+            have hxb0 : IsLocalRing.residue A ⟨xb, hxb⟩ = IsLocalRing.residue A ⟨n, hn⟩ := by
+              have hh : (⟨xb, hxb⟩ : A) = t * ⟨yb, hyb⟩ + ⟨n, hn⟩ := Subtype.val_injective hlb
+              rw [hh, map_add, map_mul, ht, zero_mul, zero_add]
+            have hpair := pair_residue A f (-(t : AlgebraicClosure ℚ) ^ 3) yc ⟨ya, hya⟩ ⟨yb, hyb⟩ hfac hc
+            rw [hf2, hf1, one_mul] at hpair
+            apply Point.add_of_Y_eq
+            · exact hxa0.trans hxb0.symm
+            · rw [negY, hxb0]
+              change IsLocalRing.residue A ⟨ya, hya⟩ =
+                -IsLocalRing.residue A ⟨yb, hyb⟩ - (W.a₁ : IsLocalRing.ResidueField A) *
+                  IsLocalRing.residue A ⟨n, hn⟩ - (W.a₃ : IsLocalRing.ResidueField A)
+              change IsLocalRing.residue A (W.a₁ : A) * IsLocalRing.residue A ⟨n, hn⟩ +
+                IsLocalRing.residue A (W.a₃ : A) +
+                  (IsLocalRing.residue A ⟨ya, hya⟩ + IsLocalRing.residue A ⟨yb, hyb⟩) = 0 at hpair
+              simp only [map_intCast] at hpair
+              linear_combination hpair
+          rcases two_integral A f (-(t : AlgebraicClosure ℚ) ^ 3) y₁ y₂ y₃ hf hc hu with
+            ⟨hy₁, hy₂⟩ | ⟨hy₁, hy₃⟩ | ⟨hy₂, hy₃⟩
+          · obtain ⟨hab, hc0⟩ := pair x₁ y₁ x₂ y₂ x₃ y₃ h₁ h₂ h₃ hn₁ hn₂ hy₁ hy₂
+              (notall hy₁ hy₂) (by rw [hf]; ring)
+            rw [hab, hc0, _root_.neg_zero]
+          · obtain ⟨hac, hb0⟩ := pair x₁ y₁ x₃ y₃ x₂ y₂ h₁ h₃ h₂ hn₁ hn₃ hy₁ hy₃
+              (fun hy₂ => notall hy₁ hy₂ hy₃) (by rw [hf]; ring)
+            rw [hb0, add_zero]
+            exact eq_neg_iff_add_eq_zero.mpr hac
+          · obtain ⟨hbc, ha0⟩ := pair x₂ y₂ x₃ y₃ x₁ y₁ h₂ h₃ h₁ hn₂ hn₃ hy₂ hy₃
+              (fun hy₁ => notall hy₁ hy₂ hy₃) hf
+            rw [ha0, zero_add]
+            exact eq_neg_iff_add_eq_zero.mpr hbc
+        · have hout (x y : AlgebraicClosure ℚ)
+              (h : (W.map (Int.castRingHom (AlgebraicClosure ℚ))).toAffine.Nonsingular x y)
+              (hline : x = (t : AlgebraicClosure ℚ) * y + n) : r (.some x y h) = 0 := by
+            apply r_out
+            intro hx
+            have hy := (integral_coordinates W A x y h.1).1 hx
+            apply hn
+            have hh := A.toSubring.sub_mem hx (A.toSubring.mul_mem t.property hy)
+            have hn' : n = x - (t : AlgebraicClosure ℚ) * y := by linear_combination -hline
+            rw [hn']
+            exact hh
+          rw [hout x₁ y₁ h₁ hn₁, hout x₂ y₂ h₂ hn₂, hout x₃ y₃ h₃ hn₃]
+          simp
+
+    have additive_from_chords (K G : Type) [Field K] [DecidableEq K] [AddCommGroup G]
+        (E : WeierstrassCurve K) (r : E.toAffine.Point → G)
+        (rzero : r 0 = 0) (rneg : ∀ P, r (-P) = -r P)
+        (rtriple : ∀ (x₁ y₁ x₂ y₂ x₃ y₃ l : K)
+          (h₁ : E.toAffine.Nonsingular x₁ y₁) (h₂ : E.toAffine.Nonsingular x₂ y₂)
+          (h₃ : E.toAffine.Nonsingular x₃ y₃),
+          y₂ = l * (x₂ - x₁) + y₁ → y₃ = l * (x₃ - x₁) + y₁ →
+          E.toAffine.addPolynomial x₁ y₁ l = -((X - C x₁) * (X - C x₂) * (X - C x₃)) →
+          r (.some x₁ y₁ h₁) + r (.some x₂ y₂ h₂) = -r (.some x₃ y₃ h₃)) :
+        ∀ P Q : E.toAffine.Point, r (P + Q) = r P + r Q := by
+      intro P Q
+      cases P with
+      | zero =>
+        change r (0 + Q) = r 0 + r Q
+        rw [zero_add, rzero, zero_add]
+      | some x₁ y₁ h₁ =>
+        cases Q with
+        | zero =>
+          change r (Point.some x₁ y₁ h₁ + 0) = r (Point.some x₁ y₁ h₁) + r 0
+          rw [add_zero, rzero, add_zero]
+        | some x₂ y₂ h₂ =>
+          by_cases hxy : x₁ = x₂ ∧ y₁ = E.toAffine.negY x₂ y₂
+          · have hP : Point.some x₁ y₁ h₁ = -Point.some x₂ y₂ h₂ := by
+              rw [Point.neg_some]
+              congr 1
+              · exact hxy.1
+              · exact hxy.2
+            rw [hP, neg_add_cancel, rzero, rneg, neg_add_cancel]
+          · have h₃ := nonsingular_negAdd h₁ h₂ hxy
+            have hsum : Point.some x₁ y₁ h₁ + Point.some x₂ y₂ h₂ = -Point.some _ _ h₃ :=
+              Point.add_some hxy
+            rw [hsum, rneg]
+            symm
+            apply rtriple _ _ _ _ _ _ (E.toAffine.slope x₁ x₂ y₁ y₂) h₁ h₂ h₃
+            · by_cases hx : x₁ = x₂
+              · have hy := Y_eq_of_Y_ne h₁.1 h₂.1 hx (fun hy => hxy ⟨hx, hy⟩)
+                simp only [hx, hy, sub_self, mul_zero, zero_add]
+              · rw [slope_of_X_ne hx]
+                field_simp
+                ring
+            · rfl
+            · exact addPolynomial_slope h₁.1 h₂.1 hxy
+    let E : WeierstrassCurve (AlgebraicClosure ℚ) :=
+      (W.map (Int.castRingHom ℚ))⁄(AlgebraicClosure ℚ)
+    let Ek := W.map (Int.castRingHom (IsLocalRing.ResidueField A))
+    have hE : E = W.map (Int.castRingHom (AlgebraicClosure ℚ)) := by
+      simp only [E, WeierstrassCurve.baseChange, WeierstrassCurve.map_map]
+      congr 1
+    have hEkΔ : Ek.Δ ≠ 0 := by
+      rw [WeierstrassCurve.map_Δ]
+      change (W.Δ : IsLocalRing.ResidueField A) ≠ 0
+      rw [← map_intCast (IsLocalRing.residue A)]
+      exact (IsLocalRing.residue_ne_zero_iff_isUnit _).2 ((hunit _).2 hgood)
+    have reduce_ns (x y : AlgebraicClosure ℚ) (h : E.toAffine.Nonsingular x y)
+        (hx : x ∈ A) (hy : y ∈ A) :
+        Ek.toAffine.Nonsingular (IsLocalRing.residue A ⟨x, hx⟩) (IsLocalRing.residue A ⟨y, hy⟩) := by
+      apply (WeierstrassCurve.Affine.equation_iff_nonsingular_of_Δ_ne_zero hEkΔ).1
+      have heq : (W.map (Int.castRingHom A)).toAffine.Equation ⟨x, hx⟩ ⟨y, hy⟩ := by
+        rw [WeierstrassCurve.Affine.equation_iff]
+        apply Subtype.val_injective
+        have hh := h.1
+        rw [hE, WeierstrassCurve.Affine.equation_iff] at hh
+        exact hh
+      rw [WeierstrassCurve.Affine.equation_iff] at heq ⊢
+      simpa only [Ek, WeierstrassCurve.map, Int.coe_castRingHom, map_add, map_mul, map_pow, map_intCast] using congrArg (IsLocalRing.residue A) heq
+    let red : E.toAffine.Point → Ek.toAffine.Point := fun P =>
+      match P with
+      | .zero => 0
+      | .some x y h => if hx : x ∈ A then
+          if hy : y ∈ A then .some _ _ (reduce_ns x y h hx hy) else 0
+        else 0
+    have red_zero : red 0 = 0 := rfl
+    have red_some (x y : A) (h : E.toAffine.Nonsingular x y) :
+        red (.some (x : AlgebraicClosure ℚ) (y : AlgebraicClosure ℚ) h) =
+          .some (IsLocalRing.residue A x) (IsLocalRing.residue A y)
+            (reduce_ns x y h x.property y.property) := by
+      simp only [red, dif_pos x.property, dif_pos y.property]
+    have red_neg (P : E.toAffine.Point) : red (-P) = -red P := by
+      have hEa₁ : E.a₁ = (W.a₁ : AlgebraicClosure ℚ) := by rw [hE]; rfl
+      have hEa₃ : E.a₃ = (W.a₃ : AlgebraicClosure ℚ) := by rw [hE]; rfl
+      have hnegmem (x y : AlgebraicClosure ℚ) (hx : x ∈ A) :
+          E.toAffine.negY x y ∈ A ↔ y ∈ A := by
+        have h1 : (W.a₁ : AlgebraicClosure ℚ) ∈ A := (W.a₁ : A).property
+        have hm := A.toSubring.mul_mem h1 hx
+        have h3 : (W.a₃ : AlgebraicClosure ℚ) ∈ A := (W.a₃ : A).property
+        constructor
+        · intro hy
+          have hh := A.toSubring.neg_mem (A.toSubring.add_mem (A.toSubring.add_mem hy hm) h3)
+          rw [negY, hEa₁, hEa₃] at hh
+          change -(-y - (W.a₁ : AlgebraicClosure ℚ) * x - (W.a₃ : AlgebraicClosure ℚ) +
+            (W.a₁ : AlgebraicClosure ℚ) * x + (W.a₃ : AlgebraicClosure ℚ)) ∈ A at hh
+          convert hh using 1
+          ring
+        · intro hy
+          rw [negY, hEa₁, hEa₃]
+          exact A.toSubring.sub_mem (A.toSubring.sub_mem (A.toSubring.neg_mem hy) hm) h3
+      cases P with
+      | zero => rfl
+      | some x y h =>
+        rw [Point.neg_some]
+        by_cases hx : x ∈ A
+        · by_cases hy : y ∈ A
+          · have hny := (hnegmem x y hx).2 hy
+            simp only [red, dif_pos hx, dif_pos hy, dif_pos hny, Point.neg_some]
+            have heq : (⟨E.toAffine.negY x y, hny⟩ : A) =
+                -(⟨y, hy⟩ : A) - (W.a₁ : A) * ⟨x, hx⟩ - (W.a₃ : A) := by
+              apply Subtype.val_injective
+              change E.toAffine.negY x y = -y - (W.a₁ : AlgebraicClosure ℚ) * x - (W.a₃ : AlgebraicClosure ℚ)
+              rw [negY, hEa₁, hEa₃]
+            congr 1
+          · simp only [red, dif_pos hx, dif_neg hy,
+              dif_neg (not_congr (hnegmem x y hx) |>.2 hy), Point.neg_zero]
+        · simp only [red, dif_neg hx, Point.neg_zero]
+    have red_inertia (σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)
+        (hσ : σ ∈ A.inertiaSubgroupIn ℚ) (P : E.toAffine.Point) : red (σ • P) = red P := by
+      obtain ⟨τ, rfl, hτ⟩ := inertia_residue σ hσ
+      have hmem (x : AlgebraicClosure ℚ) : (τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) x ∈ A ↔ x ∈ A := by
+        constructor
+        · intro hx
+          have hx' := (τ⁻¹ • (⟨(τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) x, hx⟩ : A)).property
+          change (τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ).symm
+            ((τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) x) ∈ A at hx'
+          simpa only [AlgEquiv.symm_apply_apply] using hx'
+        · intro hx
+          exact (τ • (⟨x, hx⟩ : A)).property
+      cases P with
+      | zero => rfl
+      | some x y h =>
+        change red (Point.map (W' := (W.map (Int.castRingHom ℚ)).toAffine)
+          (τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ).toAlgHom (.some x y h)) = red (.some x y h)
+        rw [Point.map_some]
+        simp only [AlgEquiv.coe_toAlgHom]
+        by_cases hx : x ∈ A
+        · by_cases hy : y ∈ A
+          · simp only [red, dif_pos hx, dif_pos hy, dif_pos ((hmem x).2 hx), dif_pos ((hmem y).2 hy)]
+            have htx := hτ ⟨x, hx⟩
+            have hty := hτ ⟨y, hy⟩
+            congr 1
+          · simp only [red, dif_pos hx, dif_pos ((hmem x).2 hx), dif_neg hy,
+              dif_neg (not_congr (hmem y) |>.2 hy)]
+        · simp only [red, dif_neg hx, dif_neg (not_congr (hmem x) |>.2 hx)]
+    have red_add : ∀ P Q : E.toAffine.Point, red (P + Q) = red P + red Q := by
+      apply additive_from_chords (AlgebraicClosure ℚ) Ek.toAffine.Point E red red_zero red_neg
+      intro x₁ y₁ x₂ y₂ x₃ y₃ l h₁ h₂ h₃ hl₂ hl₃ hpoly
+      exact triple_reduction W A E hE red
+        (fun x y h => reduce_ns x y h x.property y.property) red_some
+        (fun x y h hx => by simp only [red, dif_neg hx])
+        x₁ y₁ x₂ y₂ x₃ y₃ l h₁ h₂ h₃ hl₂ hl₃ hpoly
+    let ρ : E.toAffine.Point →+ Ek.toAffine.Point :=
+      { toFun := red, map_zero' := red_zero, map_add' := red_add }
+    refine ⟨ρ, ?_, ?_⟩
+    ·
+      obtain ⟨x, y, h, ht, hk⟩ := good_reduction_witness hgood
+      let v : Submodule.torsionBy ℤ E.toAffine.Point p := ⟨.some _ _ h, by
+        simpa only [Submodule.mem_torsionBy_iff, Nat.cast_smul_eq_nsmul] using ht⟩
+      refine ⟨v, ?_⟩
+      change red (.some _ _ h) ≠ 0
+      rw [red_some x y h]
+      exact WeierstrassCurve.Affine.Point.some_ne_zero _
+    · intro σ hσ P
+      exact red_inertia σ hσ P
   have torsion_coordinates (Ω : Type) [Field Ω] [CharZero Ω] [DecidableEq Ω]
       [Algebra (AlgebraicClosure ℚ) Ω]
       (E : WeierstrassCurve (AlgebraicClosure ℚ)) (hEΔ : E.Δ ≠ 0)
@@ -29318,4 +30006,11 @@ theorem WeierstrassCurve.galoisRep_ordinaryLineAt (W : WeierstrassCurve ℤ) (p 
             (W.map (Int.castRingHom ℚ)) p σ v) = f v by
     obtain ⟨M, hM, f, hf, hI⟩ := hquotient
     exact finish M f hf hI
-  sorry
+  by_cases hbad : (p : ℤ) ∣ W.Δ
+  · sorry
+  · obtain ⟨r, hr, hI⟩ := good_reduction hbad
+    let f := r.comp (Submodule.torsionBy ℤ
+      ((W.map (Int.castRingHom ℚ))⁄(AlgebraicClosure ℚ)).Point p).subtype.toAddMonoidHom
+    refine ⟨_, inferInstance, f, hr, ?_⟩
+    intro σ hσ v
+    exact hI σ hσ v
