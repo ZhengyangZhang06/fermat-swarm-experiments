@@ -1,0 +1,19 @@
+{
+  "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/678",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "24057938f1538133514d88d558b94267295a9187",
+  "integrated_commit": "46d4180f86eafa99eb6830eb15ce4c03a8c46b17",
+  "proof_base_commit": "8679bbe437345709189f0cb651bea4e87b62c5c4",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.frobenius_approximation-a1.finite_frobenius-a1",
+  "requires": [
+    "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.counting_mellin_continuation-a1",
+    "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.bounded_euler_logarithm-a1",
+    "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.cyclic_weighted_infinitude-a1"
+  ]
+}
