@@ -1,0 +1,130 @@
+<!-- theorem-id: fermat-p03/root.odd_division_detection-a1.odd_prepsi_torsion-a1 -->
+
+## Theorem `Submission.p03_odd_prepsi_torsion_68cf3476`
+
+Let F be a characteristic-zero field with decidable equality, and let W be a Weierstrass equation over F with W.Δ ≠ 0. For every odd natural number n ≥ 3 and every nonsingular affine point (x,y) of W, the point represented by (x,y) is killed by n if and only if (W.preΨ' n).eval x = 0.
+
+Node: `root.odd_division_detection-a1.odd_prepsi_torsion-a1`
+
+Root: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/3
+
+Parent: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/331
+
+Prerequisites: None
+
+Decomposition children: https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/367, https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/368
+
+## Lean problem
+
+Declaration: `Submission.p03_odd_prepsi_torsion_68cf3476`
+
+```lean
+∀ (F : Type) [Field F] [CharZero F] [DecidableEq F] (W : WeierstrassCurve F), W.Δ ≠ 0 → ∀ (n : ℕ), 3 ≤ n → Odd n → ∀ (x y : F) (h : W.toAffine.Nonsingular x y), n • WeierstrassCurve.Affine.Point.some x y h = 0 ↔ (W.preΨ' n).eval x = 0
+```
+
+### Frozen project context
+
+`Fermat/Thm_WeierstrassCurve_galoisRep_ordinaryLineAt.lean` at `81f093181fd6c58dc887fcae5ec8b896996f1885` supplies the original imports, definitions and root contract. Child hypotheses are stated above; prerequisite declarations are linked in their issues.
+
+```lean
+/-
+Copyright 2026 Anthropic, PBC. Licensed under Apache-2.0; see LICENSE.
+Source: https://github.com/anthropics/fermats-last-theorem/blob/6e837e75355538c7f80bab5b956861e86c4eacc2/Theorems/Thm_WeierstrassCurve_galoisRep_ordinaryLineAt.lean
+Modified: replaced the proof with sorry and removed P2M proof imports.
+Requires the upstream Definitions modules and their dependencies.
+-/
+
+import Mathlib.AlgebraicGeometry.EllipticCurve.DivisionPolynomial.Basic
+import Definitions.Def_GaloisRep_Residual
+attribute [-instance] WeierstrassCurve.instIsEllipticBaseChange WeierstrassCurve.Univ.Affine.instAddGroupPointFieldBaseChangeMvPolynomialCoeffIntCurve WeierstrassCurve.Univ.instIsEllipticFieldPointedCurve WeierstrassCurve.Univ.instCommRingPoly
+attribute [-simp] compl₂EDSAux_neg_two compl₂EDSAux_zero WeierstrassCurve.ωe_zero WeierstrassCurve.Univ.pointedCurve_a₁ WeierstrassCurve.Univ.polyToField_polynomial WeierstrassCurve.Coeff.A₁.sizeOf_spec compl₂EDS_zero compl₂EDS_one WeierstrassCurve.Univ.Affine.smulY_zero Param.C.sizeOf_spec EllSequence.redInvarDenom_zero compl₂EDSAux_two compl₂EDSAux_neg_one compl₂EDSAux_one WeierstrassCurve.Coeff.A₆.sizeOf_spec WeierstrassCurve.ψc_neg WeierstrassCurve.Univ.Affine.smulY_one WeierstrassCurve.Univ.Affine.smulX_one WeierstrassCurve.Coeff.A₂.sizeOf_spec WeierstrassCurve.Univ.pointedCurve_a₄ compl₂EDS_neg WeierstrassCurve.Univ.pointedCurve_a₃ EllSequence.redInvarDenom_two WeierstrassCurve.Univ.pointedCurve_a₆ Param.D.sizeOf_spec WeierstrassCurve.ωe_one WeierstrassCurve.Univ.Affine.smulX_zero WeierstrassCurve.Coeff.A₃.sizeOf_spec EllSequence.redInvarDenom_one WeierstrassCurve.Coeff.A₄.sizeOf_spec WeierstrassCurve.Univ.pointedCurve_a₂ Param.B.sizeOf_spec compl₂EDS_two
+
+open WeierstrassCurve WeierstrassCurve.Affine WeierstrassCurve.Affine.Point
+theorem WeierstrassCurve.galoisRep_ordinaryLineAt (W : WeierstrassCurve ℤ) (p : ℕ) [Fact p.Prime] (hp2 : p ≠ 2) (hΔ : W.Δ ≠ 0)
+    (hW : W.IsSemistableModel)
+    (hord : (p : ℤ) ∣ W.Δ ∨ ∃ i, 1 ≤ i ∧ i < (p ^ 2 - 1) / 2 ∧ ¬ (p : ℤ) ∣ (W.preΨ' p).coeff i)
+    (A : ValuationSubring (AlgebraicClosure ℚ)) (hA : A.LiesOverPrime p) :
+    ∃ L : Submodule (ZMod p)
+        (Submodule.torsionBy ℤ ((W.map (Int.castRingHom ℚ))⁄(AlgebraicClosure ℚ)).Point p),
+      L ≠ ⊤ ∧ ∀ σ ∈ A.inertiaSubgroupIn ℚ,
+        ∀ v : Submodule.torsionBy ℤ ((W.map (Int.castRingHom ℚ))⁄(AlgebraicClosure ℚ)).Point p,
+          WeierstrassCurve.Affine.Point.galoisRepModuleEnd (K := AlgebraicClosure ℚ) ℚ
+            (W.map (Int.castRingHom ℚ)) p σ v - v ∈ L := by
+  sorry
+```
+
+## Natural-language proof
+
+Reviewed mathematical argument; formal verification state: `proved`.
+
+# Parent-supplied natural-language proof
+
+- Parent DAG node: `root.odd_division_detection-a1`
+- Child DAG node: `root.odd_division_detection-a1.odd_prepsi_torsion-a1`
+- Review gate: accepted as part of the parent's decomposition audit
+
+## Proof
+
+1. Let k be an algebraic closure of F and let ι : F → k be the inclusion. Extend W coefficientwise to k. Its discriminant is ι(W.Δ), hence remains nonzero. Its projective Weierstrass cubic E is therefore smooth and integral, with identity O. The coordinate inclusion on points is an injective group homomorphism: it preserves the chord-and-tangent formulas, sends O to O, and is injective on affine coordinates. Polynomial evaluation commutes with ι, and the pinned map_preΨ' identity identifies the extended preΨ' sequence with the coefficientwise images of the original sequence. We first establish the torsion criterion over k. We use the following standard curve facts: principal divisors have degree zero; a rational function with zero divisor on a smooth projective integral curve over an algebraically closed field is constant; and a nonconstant morphism of such curves is finite and surjective, with each fiber's total local multiplicity equal to its function-field degree. These are the divisor and morphism results in Silverman, The Arithmetic of Elliptic Curves, second edition, Chapter II, §§2–3. The regular group law on a smooth Weierstrass cubic and its local parameter description are in Chapter III, §§2–4, and Chapter IV, §1.
+2. Write x and y for the coordinate functions on E. At O put t = −x/y and s = −1/y. The equation becomes s = t³ + a₁ts + a₂t²s + a₃s² + a₄ts² + a₆s³. The derivative with respect to s of the left side minus the right side is 1 at (0,0), so coefficient comparison uniquely solves for s as a formal series beginning t³. Thus t is a local parameter, x begins t⁻², and y begins −t⁻³. The local series of the regular group law has linear part t₁+t₂, because restricting either argument to O gives the identity map. Consequently t∘[m] = mt plus higher terms for each positive integer m. Since k has characteristic zero, its linear coefficient is nonzero. Translation is an automorphism and [m]∘translation_P = translation_[m]P∘[m]; translating the calculation shows that [m] is unramified at every point. It is nonconstant, hence finite and surjective. Let d_m be its degree. Every fiber consists of exactly d_m distinct points, including the kernel E[m].
+3. For integers m>r≥1, set H = x∘[m] − x∘[r]. We establish div(H) = [m+r]⁎(O) + [m−r]⁎(O) − 2[m]⁎(O) − 2[r]⁎(O). At affine points, equal x-coordinates mean that the points are equal or opposite. If the common image up to sign is not a two-torsion point, x is a local coordinate there. Writing a nearby source point as P+R with R near O, the linear coefficient of H is a fixed nonzero coefficient times m−r in the equal-image case, or m+r in the opposite-image case. These numbers are nonzero, so the zero is simple. If both images are the same nonzero two-torsion point T, completion of the square gives z² = G(x)/4, where G(X) = 4X³+b₂X²+2b₄X+b₆ and x(T) is a simple root. Thus x−x(T) has order two at T. Its expansion after translation has nonzero quadratic coefficient, and H has order two with leading coefficient a nonzero multiple of m²−r². If exactly one image is O, H has a pole of order two. If both images are O, step 2 gives leading term (m⁻²−r⁻²)t⁻² in the translated source parameter, so its order is −2. The proposed divisor has respectively the same multiplicities: 1, 2, −2, and 1+1−2−2. All pullbacks have multiplicity one by step 2. At every remaining point H is regular and nonzero. This proves the formula. Its nonzero leading coefficient at O also proves H is not the zero rational function.
+4. Taking degrees in step 3 gives d_(m+r)+d_(m−r) = 2d_m+2d_r. Clearly d₁=1. A point is nonzero two-torsion exactly when 2y+a₁x+a₃=0. Substituting this condition gives G(x)=0. The cubic G has three distinct roots in k: a repeated root would make both partial derivatives of z²−G(x)/4 vanish at (x,0), contradicting smoothness. Thus E[2] consists of these three affine points and O, and d₂=4. With r=1, the degree relation becomes d_(m+1)=2d_m+2−d_(m−1) for m≥2. Starting with d₁=1 and d₂=4, induction gives d_m=m² for every positive m.
+5. For each m≥1, the divisor D_m = Σ_(T∈E[m])(T) − m²(O) is principal. To see this, first consider (P)+(Q)−(P+Q)−(O). If P and Q are nonidentity and P+Q≠O, the secant or tangent through P,Q has third intersection −(P+Q); dividing its line function by the vertical line through P+Q cancels that third intersection and gives the stated divisor, with intersection multiplicities included. If P+Q=O, the vertical line gives the divisor directly, including the tangent case P=Q. If either point is O, the divisor is zero. Iterating these relations shows that a sum of point divisors minus its number of terms times (O) is equivalent to the divisor of the group sum minus (O). The group sum of E[m] is O: pair each T with −T. For odd m, any unpaired point is killed by both m and 2, hence is O by Bézout. For even m, the unpaired points are exactly E[2]; its three nonzero points lie on the line 2y+a₁x+a₃=0 and sum to O by the chord rule. Therefore D_m is principal. Choose its rational function f_m normalized to have leading term (−1)^(m−1)m t^(−(m²−1)) at O. This is possible because the coefficient of O in D_m is 1−m² and the desired leading coefficient is nonzero. It is unique because a quotient of two such functions has zero divisor and matching leading coefficient. In particular f₁=1. Define f₀=0 separately.
+6. The divisor of f_(m+r)f_(m−r)/(f_m²f_r²) equals the divisor of H from step 3: the extra multiples of (O) cancel by (m+r)²+(m−r)²=2m²+2r². The two functions differ by a constant. The leading coefficient of H is −(m²−r²)/(m²r²), whereas that of this fraction is (m²−r²)/(m²r²). Hence x∘[m]−x∘[r] = −f_(m+r)f_(m−r)/(f_m²f_r²). With r=1 this gives x∘[m] = x−f_(m+1)f_(m−1)/f_m² for m≥2. The same identity holds for m=1 because f₀=0 and f₁=1. All denominators here are nonzero rational functions; these are function-field identities, not evaluations at their zeros.
+7. Put h=2y+a₁x+a₃, B=3x²+2a₂x+a₄−a₁y, G=4x³+b₂x²+2b₄x+b₆, and C=6x²+b₂x+b₄. The Weierstrass equation gives h²=G and 2B+a₁h=C. Here b₂=a₁²+4a₂, b₄=2a₄+a₁a₃, b₆=a₃²+4a₆, and b₈=a₁²a₆+4a₂a₆−a₁a₃a₄+a₂a₃²−a₄². Direct substitution gives b₂b₆−b₄²=4b₈. At each nonzero two-torsion point, z=h/2 is a local parameter, because G has a simple root there. Thus h has simple zeros exactly at those three points and leading term −2t⁻³ at O. Its divisor and normalization identify it with f₂. The tangent slope is B/h, so x∘[2]=(B/h)²+a₁B/h−a₂−2x. Using step 6 yields f₃=(3x+a₂)h²−B²−a₁Bh=(3x+b₂/4)G−C²/4. Expanding and using b₂b₆−b₄²=4b₈ gives f₃=3x⁴+b₂x³+3b₄x²+3b₆x+b₈. This is exactly W.Ψ₃ evaluated at x.
+8. Pulling back div(h)=[2]⁎(O)−4(O) along [2] shows that (h∘[2])h⁴ has divisor [4]⁎(O)−16(O). Since t∘[2] begins 2t, its leading term is (−2(2t)⁻³)(−2t⁻³)⁴=−4t⁻¹⁵. Therefore it is f₄. Set N=B²+a₁Bh−(a₂+2x)h², so x∘[2]=N/h². The tangent and negation formulas give (h∘[2])h³=−(2B+a₁h)N+(2Bx−(2y+a₃)h)h². Now N=C²/4−(b₂/4+2x)G and 2Bx−(2y+a₃)h=Cx−G. Substituting gives (h∘[2])h³=Cf₃−G². Expansion, again using b₂b₆−b₄²=4b₈, gives Cf₃−G²=J, where J=2x⁶+b₂x⁵+5b₄x⁴+10b₆x³+10b₈x²+(b₂b₈−b₄b₆)x+b₄b₈−b₆². Consequently f₄=hJ. The pinned definition of preΨ₄ is exactly this polynomial J evaluated at x.
+9. Subtract the two multiplication identities in step 6 and compare with its difference formula. Clearing nonzero function-field denominators yields f_(m+r)f_(m−r)=f_(m+1)f_(m−1)f_r²−f_(r+1)f_(r−1)f_m² for m>r≥1. Taking m=r+1 and using f₁=1 gives f_(2r+1)=f_(r+2)f_r³−f_(r−1)f_(r+1)³ for r≥2. Taking m=j+1 and r=j−1, and using f₂=h, gives h f_(2j)=f_j(f_(j+2)f_(j−1)²−f_(j−2)f_(j+1)²) for j≥3. All indices on the right are smaller than the new index on the left.
+10. Write a_m=W.preΨ' m over k, and evaluate these polynomials at the coordinate function x. The pinned initial values are a₀=0, a₁=a₂=1, a₃=Ψ₃, and a₄=preΨ₄. Its even recurrence, reindexed with r≥3, is a_(2r)=a_r(a_(r+2)a_(r−1)²−a_(r−2)a_(r+1)²). Its odd recurrence for r≥2 is a_(2r+1)(x)=G²a_(r+2)(x)a_r(x)³−a_(r−1)(x)a_(r+1)(x)³ when r is even, and a_(2r+1)(x)=a_(r+2)(x)a_r(x)³−G²a_(r−1)(x)a_(r+1)(x)³ when r is odd. These use W.Ψ₂Sq evaluated at x equal to G. Strong induction now proves f_m=a_m(x) for positive odd m and f_m=h a_m(x) for positive even m. The indices 1 through 4 follow from steps 5, 7 and 8. For an odd new index 2r+1, substituting the induction hypotheses into step 9 contributes four factors h to the first product when r is even, and to the second product when r is odd. Since h⁴=G², this is exactly the pinned odd recurrence. For an even new index 2r, if r is even, f_r and each f_(r±2) contribute a factor h; if r is odd, each squared f_(r±1) contributes h² instead. In either case the right side of the even recurrence in step 9 becomes h²a_(2r)(x). Cancelling the nonzero rational function h gives f_(2r)=h a_(2r)(x). Every index ≥5 is covered by these two cases, with the smaller-index bounds from step 9.
+11. Let n≥3 be odd and let P=(x₀,y₀) be an affine point of E. By step 10, f_n=a_n(x). By construction, div(f_n)=Σ_(T∈E[n])(T)−n²(O). Since P≠O, its coefficient in this divisor is 1 precisely when [n]P=O and is 0 otherwise. The polynomial function a_n(x) is regular at P. In the local ring of the smooth curve, a regular function vanishes at P exactly when its order is positive. Thus [n]P=O if and only if a_n(x₀)=0. This argument applies even when denominators in multiplication-coordinate formulas vanish.
+12. Finally take a nonsingular affine point (x₀,y₀) over the original field F. Its image under coordinate inclusion is a nonsingular affine point over k. Because the point map is an injective group homomorphism, n times the original point is zero exactly when n times its image is zero. By map_preΨ' and compatibility of polynomial evaluation with ι, the value of the extended polynomial at ι(x₀) is ι((W.preΨ' n).eval x₀). Injectivity of ι makes this value zero exactly when the original evaluation is zero. Applying step 11 to the image point proves the required equivalence over F.
+
+## Key steps
+
+1. Pass to an algebraic closure using injective point base change and map_preΨ'.
+2. Compute the local parameter of multiplication and prove that every positive multiplication map is unramified.
+3. Determine the divisor of x∘[m]−x∘[r], including two-torsion and common poles.
+4. Deduce deg([m])=m² from the divisor relation and the four two-torsion points.
+5. Construct uniquely normalized functions f_m with the torsion divisors using line divisors and the sum of E[m].
+6. Compare divisors and leading terms to obtain multiplication-coordinate identities.
+7. Identify f₂, f₃ and f₄ with the exact pinned initial division-polynomial expressions.
+8. Derive the odd and even recurrences and identify every f_m with the parity-adjusted preΨ' sequence.
+9. Read the odd torsion criterion from the affine zero divisor.
+10. Descend the equivalence to F through injective coordinate and coefficient maps.
+
+## Reference use
+
+### local-project
+
+Queries:
+- `rg -n 'preΨ.*(degree|natDegree|leadingCoeff)|[[:alnum:]_]*(degree|natDegree|leadingCoeff).*preΨ|preΨ.*(smul|torsion)|map_preΨ' .humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481`
+- `rg -n 'preΨ.*(torsion|nsmul|smul.*zero)|(?:torsion|nsmul).*preΨ' .humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib .humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Definitions`
+- `rg -n 'p03_odd_prepsi_degree_lc_68cf3476|p03_odd_prepsi_torsion_68cf3476' --hidden --glob '*.lean' --glob 'dag.json' /mnt/data/zhengyang-workspace/fermat-swarm-projects`
+- `python3 /tmp/p03_odd_split_probe.py`
+
+Files inspected:
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/problem.md`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/Basic.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/Degree.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Point.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/dag.json`
+- `/runtime/operator-header-policy-v1/policy.json`
+- `/tmp/p03-odd-split-vk58ilpb/results.json`
+- `/tmp/p03-odd-split-vk58ilpb/TypesAfterSubmission.lean`
+- `/tmp/p03-odd-split-vk58ilpb/TypesAfterSubmission.lean.log`
+- `/tmp/p03-odd-split-vk58ilpb/InstancesAfterSubmission.lean.log`
+- `/tmp/p03-odd-split-vk58ilpb/LibraryAxioms.lean.log`
+- `/tmp/p03-odd-split-vk58ilpb/TargetAbsence.lean`
+
+Basic.lean supplies the exact initial values, even and odd recurrences, and map_preΨ'. Degree.lean supplies natDegree_preΨ' and leadingCoeff_preΨ' under the hypothesis that the natural-number cast is nonzero. Affine/Point.lean supplies the intended additive group and injective coordinatewise base-change homomorphism. The torsion search found no relevant matching theorem; the identifier search and DAG inspection found no collisions. Fresh diagnostics confirmed clean project revision 81f093181fd6c58dc887fcae5ec8b896996f1885, mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d, and matching pinned dependencies. Both exact child types elaborate after import Submission in a disposable compiler copy. Instance inspection confirms that natural scalar multiplication uses WeierstrassCurve.Affine.Point.instAddCommGroup. The type definitions and inspected library declarations transitively use only propext, Classical.choice, and Quot.sound. The recorded header repair verifies policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, exact omitted lines 10 and 11, original hash dd8891addb75e48583885c932518af8bc6d34438aec4e3ccd76ce6aa765e423f, derived hash 81502485ae6796527a5c4e210837b198322b438244a2f58054b94b98aef9dda9, reversible reconstruction, and successful Lean absence checks for all 37 targets. Original files remain unchanged. These checks establish interface compatibility, not comparator acceptance of either proposed theorem.
+
+
+## Acceptance
+
+The exact contract must pass the machine comparator and an independent reviewer's comparator rerun, without changed assumptions or proof holes. Local integration must pass before publication. Every decomposition child has its own issue and verified solution PR.
+
+Solution PR: Pending
+
+Current user-authorized lifecycle: merge the exact verified PR, validate its remote tree, then close this proved issue. This supersedes historical no-auto-merge instructions in the original experiment brief.
+
+Remote merge status is recorded by GitHub; local `proved` does not mean merged.

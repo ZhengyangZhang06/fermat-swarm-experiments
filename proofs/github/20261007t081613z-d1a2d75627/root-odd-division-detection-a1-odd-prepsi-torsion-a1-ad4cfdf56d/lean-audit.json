@@ -1,0 +1,33 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "preΨ'|map_injective|def XYIdeal|mk_C_mem_XYIdeal"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Fermat/Thm_WeierstrassCurve_galoisRep_ordinaryLineAt.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Point.lean"
+      ],
+      "conclusion": "Both snapshots are clean at their manifest revisions. The frozen contract matches byte-for-byte. Basic.lean defines preΨ' and map_preΨ'; Point.lean supplies XYIdeal and injective point base change. Dependency pins match the verifier evidence."
+    }
+  ],
+  "comparison_identity": "f20ac94930f2f0df143e567f02a9bfbbe61a0c9f32cc73207e18b60ca8f7c1dd",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p03_odd_prepsi_torsion_68cf3476",
+      "statement": "∀ (F : Type) [Field F] [CharZero F] [DecidableEq F] (W : WeierstrassCurve F), W.Δ ≠ 0 → ∀ (n : ℕ), 3 ≤ n → Odd n → ∀ (x y : F) (h : W.toAffine.Nonsingular x y), n • WeierstrassCurve.Affine.Point.some x y h = 0 ↔ (W.preΨ' n).eval x = 0",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines the accepted EDS existence and identification declarations, translates point-ideal membership into polynomial vanishing, and descends through injective base change."
+    }
+  ]
+}
