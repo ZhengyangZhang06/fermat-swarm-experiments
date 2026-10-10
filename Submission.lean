@@ -6786,7 +6786,10 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_envelope :
     fun x => (hh (ι x)).trans (huE x)⟩
 
 open scoped Pointwise in
-/-- Finite Frobenius supply, with uniqueness obtained by excluding nontrivial inertia. -/
+/-- Finite Frobenius supply, with uniqueness obtained by excluding nontrivial inertia.
+The cyclotomic envelope and supply give a place upstairs; contracting it along the
+equivariant embedding preserves its Frobenius action. Finite inertia exclusion then
+makes that action determine the automorphism uniquely. -/
 theorem Submission.p09_af497904fe_fa_finite_frobenius :
     ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E]
       [IsGalois ℚ E] (g : E ≃ₐ[ℚ] E) (B : Finset ℕ),
