@@ -392,38 +392,6 @@ theorem Submission.p03_tu_euler_product_powers_68cf3476 :
   rw [hm.tprod_pow k]
   exact pow_ne_zero k hz
 
-
-theorem Submission.p03_eds_recurrence_unique_68cf3476_d3 :
-    ∀ (R : Type) [CommRing R] [IsDomain R] (h : R), h ≠ 0 →
-      ∀ f g : ℕ → R,
-        (∀ n : ℕ, n ≤ 4 → f n = g n) →
-        (∀ r : ℕ, 2 ≤ r →
-          f (2 * r + 1) = f (r + 2) * f r ^ 3 - f (r - 1) * f (r + 1) ^ 3) →
-        (∀ r : ℕ, 3 ≤ r →
-          h * f (2 * r) =
-            f r * (f (r + 2) * f (r - 1) ^ 2 - f (r - 2) * f (r + 1) ^ 2)) →
-        (∀ r : ℕ, 2 ≤ r →
-          g (2 * r + 1) = g (r + 2) * g r ^ 3 - g (r - 1) * g (r + 1) ^ 3) →
-        (∀ r : ℕ, 3 ≤ r →
-          h * g (2 * r) =
-            g r * (g (r + 2) * g (r - 1) ^ 2 - g (r - 2) * g (r + 1) ^ 2)) →
-        ∀ n : ℕ, f n = g n := by
-  intro R _ _ h hh f g hinit hfodd hfeven hgodd hgeven n
-  induction n using Nat.strong_induction_on with
-  | h n ih =>
-    by_cases hn : n ≤ 4
-    · exact hinit n hn
-    · rcases n.even_or_odd' with ⟨r, rfl | rfl⟩
-      · have hr : 3 ≤ r := by omega
-        apply mul_left_cancel₀ hh
-        rw [hfeven r hr, hgeven r hr,
-          ih r (by omega), ih (r + 2) (by omega), ih (r - 1) (by omega),
-          ih (r - 2) (by omega), ih (r + 1) (by omega)]
-      · have hr : 2 ≤ r := by omega
-        rw [hfodd r hr, hgodd r hr,
-          ih (r + 2) (by omega), ih r (by omega),
-          ih (r - 1) (by omega), ih (r + 1) (by omega)]
-
 theorem Submission.p03_tu_coordinate_symmetries_68cf3476 :
     ∀ (F Ω : Type) [NormedField F] [CompleteSpace F] [NormedField Ω]
       [NormedAlgebra F Ω] [Algebra.IsAlgebraic F Ω],
@@ -542,7 +510,6 @@ theorem Submission.p03_tu_coordinate_symmetries_68cf3476 :
         σ ((∑' n : ℤ, B (qΩ ^ n * (u : Ω))) + algebraMap F Ω c)
       rw [hBsumMap, map_add, σ.commutes]
 
-end Submission
 theorem Submission.p03_ptf_positive_nsmul_nonzero_c5b7b5ed_d6 :
     ∀ (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k]
       (W : WeierstrassCurve k), W.Δ ≠ 0 → ∀ n : ℕ, 0 < n →
@@ -24883,7 +24850,6 @@ theorem Submission.p03_eds_torsion_kernel_card_68cf3476_d4 :
   rcases n with _ | n
   · omega
   · exact (hcard n).1
-
 theorem Submission.p03_eds_negation_fixed_sum_68cf3476_d5 :
     ∀ (G : Type) [AddCommGroup G] [DecidableEq G] (S : Finset G),
       (∀ x ∈ S, -x ∈ S) →
@@ -25017,7 +24983,6 @@ theorem Submission.p03_eds_torsion_kernel_sum_68cf3476_d4 :
     have hPn := (hS P).1 hPS
     rw [hodd, add_nsmul, mul_nsmul, hP2, smul_zero, one_nsmul, zero_add] at hPn
     exact hPn
-
 namespace Submission
 
 open scoped nonZeroDivisors BigOperators
