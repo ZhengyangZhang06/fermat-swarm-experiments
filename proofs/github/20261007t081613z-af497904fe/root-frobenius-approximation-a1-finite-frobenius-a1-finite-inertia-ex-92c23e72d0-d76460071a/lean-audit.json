@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "a81f4e1a569ebaeacf7dd2f540b2dfe006ba1851c13081f7d32bb7ebdb31c6d7",
+  "git_delta": {
+    "base_commit": "b14b90f2705a25a17644ef22375000060e6eb058",
+    "candidate_commit": "beea4075ab1877c1f1fc6152c9193fef3d481859",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_cs_valuation_product_separation",
+    "diff_sha256": "cd478bf56dd15c271c9694208b428499febf44c4ca56b3aa08cefda9245a4e4d",
+    "source_sha256": "4daa0e194e90683b4957c99cdde66a9d040e1ada25094dd95aeba4ce10a73e4e",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_cs_valuation_product_separation",
+      "statement": "∀ {K : Type} [Field K] (n : ℕ) (β : Fin n → K) (D : ℤ), (∀ i : Fin n, IsIntegral ℤ (β i)) → (D : K) = (Finset.univ.filter (fun ij : Fin n × Fin n => ij.1 < ij.2)).prod (fun ij => (β ij.1 - β ij.2) ^ 2) → ∀ ℓ : ℕ, ℓ.Prime → ¬ ℓ ∣ D.natAbs → ∀ V : ValuationSubring K, V.LiesOverPrime ℓ → (∀ i : Fin n, β i ∈ V) ∧ ∀ i j : Fin n, β i - β j ∈ V.nonunits → β i = β j",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.trace_congruence-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "Trace respects ideal-valued congruence on a finite free module",
+  "statement": "Let C be a commutative ring, W an additive commutative group with a finite free C-module structure, J an ideal of C, and u,v ∈ End_C(W). If (u−v)w ∈ J • ⊤ for every w ∈ W, then tr_C(u)−tr_C(v) ∈ J.",
+  "lean_statement": "∀ {C W : Type} [CommRing C] [AddCommGroup W] [Module C W] [Module.Free C W] [Module.Finite C W] (J : Ideal C) (u v : Module.End C W), (∀ w : W, (u - v) w ∈ J • (⊤ : Submodule C W)) → LinearMap.trace C W u - LinearMap.trace C W v ∈ J",
+  "lean_name": "p09_af497904fe_trace_congruence",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-trace-congruence-a1-a1"
+}

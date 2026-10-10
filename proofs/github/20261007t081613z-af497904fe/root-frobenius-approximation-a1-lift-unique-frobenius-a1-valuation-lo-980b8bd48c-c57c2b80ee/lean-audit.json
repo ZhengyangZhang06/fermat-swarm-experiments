@@ -1,0 +1,36 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "LiesOverPrime|ic_integer_mem_valuation|ic_prime_center_of_containment|vloc_integral_center",
+        "isIntegrallyClosed_iff|finiteQuotient|isIntegral_coe|coe_mem_nonunits_iff",
+        "p09_af497904fe_vloc_integral_center|p09_af497904fe_ic_integer_mem_valuation|p09_af497904fe_ic_prime_center_of_containment"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596"
+      ],
+      "conclusion": "Verified clean snapshots at the manifest's project and mathlib revisions. Inspected LiesOverPrime, integer-ring integrality, and valuation nonunit membership definitions. No selected-theorem or integral-center helper names occur in the snapshot. The four prerequisite additions match separately reviewed candidates. Independent comparator request 51f07972b5f54e598ec6bfab6c7b184d exited zero with the required marker; its 221 prepared source hashes match the inspected committed inputs, with only reversible policy-authorized header omissions. Kernel, exact-type, target-absence, and transitive-axiom checks passed."
+    }
+  ],
+  "comparison_identity": "5f9e38c0db4b309dfa4e7a0028b8590f50ea81c6581781bddde531d0b294a1e6",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_vloc_integral_center",
+      "statement": "∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] (ℓ : ℕ), ℓ.Prime → ∀ (V : ValuationSubring E), V.LiesOverPrime ℓ → (∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V) ∧ ∃ q : Ideal (NumberField.RingOfIntegers E), q.IsPrime ∧ q ≠ ⊥ ∧ (ℓ : NumberField.RingOfIntegers E) ∈ q ∧ Finite (NumberField.RingOfIntegers E ⧸ q) ∧ (∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V.nonunits ↔ a ∈ q)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines the accepted integral-containment and prime-center lemmas, supplying the containment witness to the latter."
+    }
+  ]
+}

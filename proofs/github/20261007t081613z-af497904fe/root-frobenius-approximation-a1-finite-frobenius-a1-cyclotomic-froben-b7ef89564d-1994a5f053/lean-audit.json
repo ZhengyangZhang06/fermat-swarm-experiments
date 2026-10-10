@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "899010c542247f30aad7fa1d013a1c71e3259307e0ac63ab06cd5e0ff593e180",
+  "git_delta": {
+    "base_commit": "b8ad5d67cfc568b3bb3e51c09c152f5e67df7e0b",
+    "candidate_commit": "f741e34b9c0aad56738291d87265aab7d54df596",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_cwi_character_orthogonality",
+    "diff_sha256": "1eaddcf5014cd1b040a97e395f33a45d8c91e7fe0ee55d4388e58a1fa728fadf",
+    "source_sha256": "c9483d62dbf040d6fdaa40aa1efdf38e2937ab3ececf484d934941924e7484a2",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_cwi_character_orthogonality",
+      "statement": "∀ (m : ℕ) (ω : ℂ), 0 < m → IsPrimitiveRoot ω m → ∀ a b : ZMod m, (∑ k : Fin m, star (ω ^ (k.val * a.val)) * ω ^ (k.val * b.val)) = (if b = a then (m : ℂ) else 0)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

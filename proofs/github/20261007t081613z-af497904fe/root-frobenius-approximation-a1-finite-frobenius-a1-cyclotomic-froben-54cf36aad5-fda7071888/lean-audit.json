@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "a844ccc07093a8edc81b4fdd6e79f48b6f0a0de08afe217f2f47575614197791",
+  "git_delta": {
+    "base_commit": "791b71f8b14737f3031b51902cd12d1fc384c39a",
+    "candidate_commit": "330f0a324024222674acf3d944f9bd8f8c9dbd61",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_cfs_bounded_euler_logarithm",
+    "diff_sha256": "889259ab6bdb0b3c16d760b801904ba210cc57bfb40ae875edaa41ccd2e020ba",
+    "source_sha256": "46b6a6eae240c858bcc0830800f6bc5a7c43dcb35849e158b1bd6a2c36a9ca92",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_cfs_bounded_euler_logarithm",
+      "statement": "∀ (E L : ℝ → ℂ), ContinuousOn E (Set.Ioo 1 2) → ContinuousWithinAt L (Set.Ici 1) 1 → L 1 ≠ 0 → (∀ s : ℝ, s ∈ Set.Ioo 1 2 → Complex.exp (E s) = L s) → ∃ ε : ℝ, 0 < ε ∧ ε ≤ 1 ∧ ∃ C : ℝ, 0 ≤ C ∧ ∀ s : ℝ, 1 < s → s < 1 + ε → ‖E s‖ ≤ C",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

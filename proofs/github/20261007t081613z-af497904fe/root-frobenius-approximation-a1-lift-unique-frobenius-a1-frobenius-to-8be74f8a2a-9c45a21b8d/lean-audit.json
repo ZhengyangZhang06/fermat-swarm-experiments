@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "ea388313ad06c540349f0282a70536d541b6b26aa3528ece7d7d66d62e507d72",
+  "git_delta": {
+    "base_commit": "7d040aadc9b7ebf99e3b36c7125b3e0d9941c5cc",
+    "candidate_commit": "785a6afa2fed6baa6a701fecdb7c3a48d6d31671",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_fvu_compatible_valuation_gluing",
+    "diff_sha256": "0ac28b1aac5ed1184b4addee237427ae1dcfa155826073a35aa19af112bf0c44",
+    "source_sha256": "75281d573da3fd7c081549294c17c6f6f159671763e1029aea8b9c89b60be167",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_fvu_compatible_valuation_gluing",
+      "statement": "∀ (F : ℕ → IntermediateField ℚ (AlgebraicClosure ℚ)) (hmono : Monotone F), (∀ x : AlgebraicClosure ℚ, ∃ i : ℕ, x ∈ F i) → ∀ (V : (i : ℕ) → ValuationSubring (F i)) (ℓ : ℕ), (∀ i : ℕ, (V i).LiesOverPrime ℓ) → (∀ (i j : ℕ) (hij : i ≤ j) (x : F i), IntermediateField.inclusion (hmono hij) x ∈ V j ↔ x ∈ V i) → ∃ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ ∧ (∀ (i : ℕ) (x : F i), (x : AlgebraicClosure ℚ) ∈ P ↔ x ∈ V i)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

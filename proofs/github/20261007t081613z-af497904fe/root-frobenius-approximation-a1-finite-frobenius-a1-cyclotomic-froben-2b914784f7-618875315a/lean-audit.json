@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "b732c6f8b388e50d3b35b777744e526eda6a481ee31598c0a14e4055e842e487",
+  "git_delta": {
+    "base_commit": "76fdcb4a0b8c88ab108d4b49a87a0ab5099e160c",
+    "candidate_commit": "c7b724c3cbad5d231ce7e4696f00962f42837ff1",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_cmc_40fde013_mellin_tail_holomorphic",
+    "diff_sha256": "d8b1514a89064ac2f4e14129f06315e44d32d92ec9d63e25f2f91b55064ab7b2",
+    "source_sha256": "43a36e232edd3cc0f72072cb7cc7b25efa44f7746ff7c50813ae65d29b3633ab",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_cmc_40fde013_mellin_tail_holomorphic",
+      "statement": "∀ (R : ℝ → ℝ) (α M : ℝ), Measurable R → 0 ≤ M → (∀ t : ℝ, 1 ≤ t → |R t| ≤ M * t ^ α) → (∀ s : ℂ, α < s.re → MeasureTheory.IntegrableOn (fun t : ℝ => (R t : ℂ) * (t : ℂ) ^ (-(s + 1))) (Set.Ioi (1 : ℝ))) ∧ DifferentiableOn ℂ (fun s : ℂ => MeasureTheory.integral (μ := MeasureTheory.volume.restrict (Set.Ioi (1 : ℝ))) (fun t : ℝ => (R t : ℂ) * (t : ℂ) ^ (-(s + 1)))) {s : ℂ | α < s.re}",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

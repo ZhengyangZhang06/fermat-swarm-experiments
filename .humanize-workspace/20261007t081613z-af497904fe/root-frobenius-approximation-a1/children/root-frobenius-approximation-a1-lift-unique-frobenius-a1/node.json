@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1",
+  "parent_id": "root.frobenius_approximation-a1",
+  "depth": 2,
+  "title": "Lift a unique finite Frobenius to the algebraic closure",
+  "statement": "Let Ω = AlgebraicClosure ℚ and let E be an intermediate field of Ω/ℚ that is finite-dimensional and Galois over ℚ. Let ℓ be a natural prime, V a valuation subring of E in which ℓ is a nonunit, and g ∈ Autℚ(E). Assume g preserves V and induces the ℓ-power residue map, and assume every rational automorphism of E with that property equals g. Then there exist a valuation subring P of Ω and τ ∈ Autℚ(Ω) such that ℓ is a nonunit of P, P restricts to V on E, τ preserves P and induces its ℓ-power residue map, and τ restricts to g on E.",
+  "lean_statement": "∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [IsGalois ℚ E] (ℓ : ℕ), ℓ.Prime → ∀ (V : ValuationSubring E), V.LiesOverPrime ℓ → ∀ (g : E ≃ₐ[ℚ] E), V.IsFrobeniusAt g ℓ → (∀ g' : E ≃ₐ[ℚ] E, V.IsFrobeniusAt g' ℓ → g' = g) → ∃ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ ∧ (∀ x : E, (x : AlgebraicClosure ℚ) ∈ P ↔ x ∈ V) ∧ ∃ τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ, P.IsFrobeniusAt τ ℓ ∧ ∀ x : E, τ (x : AlgebraicClosure ℚ) = ((g x : E) : AlgebraicClosure ℚ)",
+  "lean_name": "p09_af497904fe_fa_lift_unique_frobenius",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-lift-unique-frobenius-a1-a1"
+}

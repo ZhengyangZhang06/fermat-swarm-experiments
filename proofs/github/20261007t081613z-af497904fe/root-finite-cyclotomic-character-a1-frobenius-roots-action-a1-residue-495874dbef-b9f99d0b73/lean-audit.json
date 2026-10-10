@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "f3e6f045f1ab9ffa56bf6529d075ee3f9b8c373e07b956ca71cd05534b5766e3",
+  "git_delta": {
+    "base_commit": "09b9a368970639563fec21729f5e12c45e5ffa62",
+    "candidate_commit": "5010b04ae30e0bf07763eeda49c975917cdabb31",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_fcc_fra_residue_injective",
+    "diff_sha256": "5ffb90769694b07f67568e4d0c7a5e58054a0bcb79c001f20f68f07985eacb9a",
+    "source_sha256": "5653d559725cd95195a2bbdc17859ef19ac99de3f03f2b1ee9435a1437c0d443",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_fcc_fra_residue_injective",
+      "statement": "∀ (N : ℕ) [NeZero N] (ℓ : ℕ), ℓ.Prime → ¬ ℓ ∣ N → ∀ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ → ∀ x y : P, x ^ N = 1 → y ^ N = 1 → IsLocalRing.residue P x = IsLocalRing.residue P y → x = y",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

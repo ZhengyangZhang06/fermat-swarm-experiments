@@ -1,0 +1,21 @@
+{
+  "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/679",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/798",
+  "candidate_commit": "a6c9788c3281fdf41905f22885be0a5291248fd5",
+  "integrated_commit": "933f8b593773e8cc2e9d74f789b468456ff78661",
+  "proof_base_commit": "8679bbe437345709189f0cb651bea4e87b62c5c4",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.frobenius_approximation-a1.finite_frobenius-a1",
+  "requires": [
+    "root.frobenius_approximation-a1.finite_frobenius-a1.finite_inertia_exclusion-a1",
+    "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.inertia_ramification-a1",
+    "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.cyclotomic_intersection-a1",
+    "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.compositum_pair-a1",
+    "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_envelope-a1.fixed_field_generator-a1"
+  ]
+}

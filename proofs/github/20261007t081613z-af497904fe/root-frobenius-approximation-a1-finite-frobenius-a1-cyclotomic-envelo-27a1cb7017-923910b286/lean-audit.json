@@ -1,0 +1,33 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "def (LiesOverPrime|inertiaSubgroupIn)|inertiaSubgroupIn|LiesOverPrime",
+        "theorem finrank_eq_one_iff|lemma finrank_eq_one_iff"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/FieldTheory/IntermediateField/Adjoin/Basic.lean"
+      ],
+      "conclusion": "Both snapshots are clean at their manifest-pinned revisions. The valuation definitions match the committed comparator inputs. IntermediateField.finrank_eq_one_iff is existing pinned library infrastructure."
+    }
+  ],
+  "comparison_identity": "2281ccd62c6c138d734b27f90f5d374ec165dc126a86eb6e20a6887473d7a1f0",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_ce_cyclotomic_intersection",
+      "statement": "∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [IsGalois ℚ E] (q : ℕ) (ζ : AlgebraicClosure ℚ), q.Prime → IsPrimitiveRoot ζ q → (∀ V : ValuationSubring E, V.LiesOverPrime q → ∀ τ : E ≃ₐ[ℚ] E, τ ∈ V.inertiaSubgroupIn ℚ → τ = 1) → E ⊓ IntermediateField.adjoin ℚ ({ζ} : Set (AlgebraicClosure ℚ)) = ⊥",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines accepted ramification prerequisites to obtain degree one for the intersection, then applies IntermediateField.finrank_eq_one_iff."
+    }
+  ]
+}

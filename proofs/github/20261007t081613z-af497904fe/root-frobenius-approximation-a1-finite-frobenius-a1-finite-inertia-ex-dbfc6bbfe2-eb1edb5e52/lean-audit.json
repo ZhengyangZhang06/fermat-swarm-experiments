@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "39140b2b7006d60d425b368cad277364d6e7d293a96d5e3ac81d8022a375f244",
+  "git_delta": {
+    "base_commit": "0e4c21ecef38655f90fdf89c00e55ba35d7e9369",
+    "candidate_commit": "406d541ea85a9c40b5f23fc3df1d47e03923aba4",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_fie_integral_primitive",
+    "diff_sha256": "cbf5f66404d995658c85823baea3fc8410ec4d55578eb92263332d6aa94e8480",
+    "source_sha256": "76b0f04638166d6ea6256244f06f3d11f70b62e1b54ad143404072502aacc52a",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_fie_integral_primitive",
+      "statement": "∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [IsGalois ℚ E], ∃ α : E, IsIntegral ℤ α ∧ IntermediateField.adjoin ℚ ({α} : Set E) = ⊤",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

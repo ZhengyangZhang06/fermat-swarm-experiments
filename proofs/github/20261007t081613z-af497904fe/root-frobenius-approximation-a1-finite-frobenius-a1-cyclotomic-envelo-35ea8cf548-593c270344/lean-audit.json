@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "c48cb4b5e80ba96699a076ba7da1f6835c1fff36c088498ad7d3713d8814e51b",
+  "git_delta": {
+    "base_commit": "9bb6fd443a4dab089feddbbb6e0f1466c1e7e39a",
+    "candidate_commit": "66b0dc1ee6c1325d3cd7492cd39aac792afbc9de",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_ir_inertia_cardinality",
+    "diff_sha256": "9e4bc65a3ad7f03002cc82247b8dd245638fdc7b56b199d304d4f4d1695b4d06",
+    "source_sha256": "0a00891c11f16514daf0433b70017a972abb23029e1a713ae8045eac57b02f90",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_ir_inertia_cardinality",
+      "statement": "∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [IsGalois ℚ E] (q : ℕ), q.Prime → ∀ P : Ideal (NumberField.RingOfIntegers E), P.IsPrime → P.LiesOver (Ideal.span {(q : ℤ)}) → Nat.card (P.inertia (E ≃ₐ[ℚ] E)) = Ideal.ramificationIdx P ℤ",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

@@ -1,0 +1,19 @@
+{
+  "node_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1.frobenius_tower_limit-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/661",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/763",
+  "candidate_commit": "64ead14087e653960cb919904d704053a2d64a3e",
+  "integrated_commit": "5acc1e6d92666a6721e3d9b03d91c6777cf71d00",
+  "proof_base_commit": "3915a640f981289a567a646ed42a4a5f880b9d24",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.frobenius_approximation-a1.lift_unique_frobenius-a1",
+  "requires": [
+    "root.frobenius_approximation-a1.lift_unique_frobenius-a1.frobenius_tower_limit-a1.normal_frobenius_restriction-a1",
+    "root.frobenius_approximation-a1.lift_unique_frobenius-a1.frobenius_tower_limit-a1.compatible_automorphisms_glue-a1",
+    "root.frobenius_approximation-a1.lift_unique_frobenius-a1.frobenius_tower_limit-a1.frobenius_valuation_union-a1"
+  ]
+}

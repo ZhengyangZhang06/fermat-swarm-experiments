@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "a910a2cdbfc98340258baef8bbac316ec56bdbbdddb0604339f9ea6fefd392ec",
+  "git_delta": {
+    "base_commit": "ec4eb8f6a7c7f6fc745b6fbfca2de9c4c533d64c",
+    "candidate_commit": "3231c112506480d1b3a0776714828f87ef67912e",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_trace_congruence",
+    "diff_sha256": "0a7f81a07e9e96ebacbd11b7d79c86ba4f5202de92a8e84d1ad0dfb35c909208",
+    "source_sha256": "64382a838efa6d92dd48a32eb14c5133491fc6a0d64e74a981499b255ebfd086",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_trace_congruence",
+      "statement": "∀ {C W : Type} [CommRing C] [AddCommGroup W] [Module C W] [Module.Free C W] [Module.Finite C W] (J : Ideal C) (u v : Module.End C W), (∀ w : W, (u - v) w ∈ J • (⊤ : Submodule C W)) → LinearMap.trace C W u - LinearMap.trace C W v ∈ J",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

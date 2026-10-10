@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "6079e3bfa8a46dbbde46587396f0140fc1423dc9a44edc30f291f8a1e629fb2c",
+  "git_delta": {
+    "base_commit": "ec4eb8f6a7c7f6fc745b6fbfca2de9c4c533d64c",
+    "candidate_commit": "1284f38c7c95edf501f5caf8b154de6be7049287",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_quadratic_congruence",
+    "diff_sha256": "20b7ffebffb013d48349fcd9b8a20e8b92d27f66643560b890f1d48521e33724",
+    "source_sha256": "2c05896d7c88227634775590942d19dfba556f15d2aeb2d9b5595210fa8b0b2b",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_quadratic_congruence",
+      "statement": "∀ {C M : Type} [CommRing C] [AddCommGroup M] [Module C M] (J : Ideal C) (a b d : Module.End C M) (s r u v : C), (∀ y : M, (a - b) y ∈ J • (⊤ : Submodule C M)) → s - r ∈ J → u - v ∈ J → ∀ y : M, ((a * a - s • a + u • d) - (b * b - r • b + v • d)) y ∈ J • (⊤ : Submodule C M)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

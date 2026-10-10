@@ -1,0 +1,20 @@
+{
+  "node_id": "root.frobenius_approximation-a1.lift_unique_frobenius-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/643",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/787",
+  "candidate_commit": "0cc57222e5453541007ef422252249191b6ecebd",
+  "integrated_commit": "da4aecedc6dcbfb0841680088c66d99ad306a583",
+  "proof_base_commit": "568d8fc5adf355a1e928c12fb1b5a971fb2435ef",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.frobenius_approximation-a1",
+  "requires": [
+    "root.frobenius_approximation-a1.lift_unique_frobenius-a1.valuation_localization-a1",
+    "root.frobenius_approximation-a1.lift_unique_frobenius-a1.valuation_extension-a1",
+    "root.frobenius_approximation-a1.lift_unique_frobenius-a1.finite_frobenius_exists-a1",
+    "root.frobenius_approximation-a1.lift_unique_frobenius-a1.frobenius_tower_limit-a1"
+  ]
+}

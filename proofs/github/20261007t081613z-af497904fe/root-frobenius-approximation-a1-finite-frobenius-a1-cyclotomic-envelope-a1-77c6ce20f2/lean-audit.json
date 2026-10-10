@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'p09_af497904fe_ff_cyclotomic_envelope|exists_prime_gt_modEq_one|def IsFrobeniusAt|def LiesOverPrime' project/Definitions project/Fermat mathlib/Mathlib/NumberTheory/PrimesCongruentOne.lean",
+        "rg -n 'p09_af497904fe_ff_cyclotomic_envelope' project mathlib/Mathlib"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/PrimesCongruentOne.lean"
+      ],
+      "conclusion": "Queries ran from the snapshot root. Clean project and mathlib checkouts match manifest revisions 20574e45daf714e745af8e649c7b61b21eed5644 and db584cd6d46c92f209a44c0f1c829460d327499d. Inspected the frozen valuation definitions and existing Nat.exists_prime_gt_modEq_one declaration. No prior tracked cyclotomic-envelope declaration was found. The independent comparator verified compatible pinned dependencies and permitted transitive axioms."
+    }
+  ],
+  "comparison_identity": "78092922d12510616aba974ec29337f1da02a5bdb3b013b2291c1b2dd848efe0",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_ff_cyclotomic_envelope",
+      "statement": "∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [IsGalois ℚ E] (g : E ≃ₐ[ℚ] E), ∃ M : IntermediateField ℚ (AlgebraicClosure ℚ), FiniteDimensional ℚ M ∧ IsGalois ℚ M ∧ ∃ (ι : E →ₐ[ℚ] M) (F : IntermediateField ℚ M) (q : ℕ) (ζ : M) (h : M ≃ₐ[F] M), q.Prime ∧ IsPrimitiveRoot ζ q ∧ IntermediateField.adjoin F ({ζ} : Set M) = ⊤ ∧ ∀ x : E, h (ι x) = ι (g x)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Choose a suitable unramified prime and form the disjoint cyclotomic compositum. Pair the prescribed automorphism with a cyclotomic automorphism of equal order, then use its cyclic fixed field and the accepted generator lemma."
+    }
+  ]
+}

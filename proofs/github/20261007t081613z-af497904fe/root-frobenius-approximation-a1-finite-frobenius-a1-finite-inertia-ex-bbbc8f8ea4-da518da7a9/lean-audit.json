@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "conjugate_separation|integer_root_product|valuation_product_separation|LiesOverPrime",
+        "nonunits|coe_mem_nonunits_iff",
+        "conjugate_separation|integer_root_product|valuation_product_separation"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_GaloisRep_Adic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean"
+      ],
+      "conclusion": "Both snapshots are clean at the manifest-pinned project and mathlib revisions. LiesOverPrime means the prime's image belongs to ambient nonunits; coe_mem_nonunits_iff identifies these with maximal-ideal membership. No matches for the three searched node/helper names occur in the snapshot."
+    }
+  ],
+  "comparison_identity": "193288619feea44b019e8bf351f98c9a06fd8bb9f94fb5ce38b85774ca21c35e",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_fie_conjugate_separation",
+      "statement": "∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [IsGalois ℚ E] (α : E), IsIntegral ℤ α → ∃ D : ℤ, D ≠ 0 ∧ ∀ ℓ : ℕ, ℓ.Prime → ¬ ℓ ∣ D.natAbs → ∀ V : ValuationSubring E, V.LiesOverPrime ℓ → (∀ σ : E ≃ₐ[ℚ] E, σ α ∈ V) ∧ ∀ σ τ : E ≃ₐ[ℚ] E, σ α - τ α ∈ V.nonunits → σ α = τ α",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Composes the accepted integer-root-product and valuation-product-separation declarations, specializing their conclusions to indices representing rational conjugates."
+    }
+  ]
+}

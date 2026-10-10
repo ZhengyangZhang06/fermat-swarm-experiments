@@ -1,0 +1,18 @@
+{
+  "node_id": "root.adic_cyclotomic_character-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/383",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/802",
+  "candidate_commit": "9ee77341b2c6da980053ba352c97b9271a2176d3",
+  "integrated_commit": "afefb3dfcdd0d50f2159782c9fe70c67c883318a",
+  "proof_base_commit": "ec4eb8f6a7c7f6fc745b6fbfca2de9c4c533d64c",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "machine-leaf",
+  "reviewer_comparator_passed": null,
+  "parent": "root",
+  "requires": [
+    "root.finite_cyclotomic_character-a1",
+    "root.adic_character_lift-a1"
+  ]
+}

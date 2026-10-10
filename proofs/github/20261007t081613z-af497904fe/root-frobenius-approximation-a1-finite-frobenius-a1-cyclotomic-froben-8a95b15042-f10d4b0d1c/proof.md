@@ -1,0 +1,49 @@
+# Parent-supplied natural-language proof
+
+- Parent DAG node: `root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1`
+- Child DAG node: `root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.cyclic_weighted_infinitude-a1`
+- Review gate: accepted as part of the parent's decomposition audit
+
+## Proof
+
+1. Fix the stated data. Since ω is primitive and m > 0, ω^m = 1, ω ≠ 0, and ‖ω‖^m = 1. Nonnegativity of the norm therefore gives ‖ω‖ = 1. Primitivity also implies that the powers ω^j for 0 ≤ j < m are distinct. Write χ_k(b) = ω^(k·val(b)) and v_k(a) = conjugate(χ_k(a)); all these numbers have norm one.
+2. For a,b ∈ ZMod m put u = ω^val(b)/ω^val(a). Then u^m = 1, and u = 1 exactly when a = b. Since conjugation of a complex number of norm one equals inversion, v_k(a)χ_k(b) = u^k. If a = b, summing over 0 ≤ k < m gives m. Otherwise, multiply the geometric sum by 1−u to obtain 1−u^m = 0; cancellation of the nonzero factor 1−u gives a zero sum. Thus Σ_k v_k(a)χ_k(b) equals m when a = b and zero otherwise.
+3. For s > 1 put w_i(s) = Real.rpow(N(i),−s). These weights are positive and at most one because N(i) ≥ 2. Their summability is assumed. Since ‖χ_k(g(i))w_i(s)‖ = w_i(s), each complex character-weighted series is absolutely summable. The weight series restricted to any subset is also summable. In particular, define the real number P_a(s) = Σ_{g(i)=a} w_i(s).
+4. Multiply each F_k(s) by v_k(a), sum over the finite set of k, and interchange this finite sum with the absolutely convergent series over i. The identity in step 2 yields m·P_a(s) = Σ_k v_k(a)F_k(s), with the real quantity on the left viewed in ℂ.
+5. Choose the constants C_k and ε_k from the hypotheses. Because there are finitely many k and m > 0, choose ε₀ > 0 no larger than one or any ε_k, and put K = (Σ_k C_k)/m ≥ 0. The k = 0 coefficient v_0(a) is one, and all other main terms vanish. Divide the identity in step 4 by m and apply the triangle inequality to the error terms. For 1 < s < 1+ε₀ this gives |P_a(s) − m^(−1)log(1/(s−1))| ≤ K, hence P_a(s) ≥ m^(−1)log(1/(s−1))−K.
+6. Choose C_D from the last hypothesis. Suppose that A = {i : i ∉ D and g(i) = a} were finite, with cardinality r. Split the summable series defining P_a(s) into its parts inside and outside D. The part inside D is at most Σ_{i∈D} w_i(s), because all weights are nonnegative. The part outside D is a sum over A and is at most r, since every weight is at most one. Consequently P_a(s) ≤ C_D+r whenever 1 < s < 1+ε₀.
+7. Choose a real u larger than both m(C_D+r+K) and −log ε₀, and set s = 1+exp(−u). Then 1 < s < 1+ε₀ and log(1/(s−1)) = u. Step 5 gives P_a(s) ≥ u/m−K > C_D+r, contradicting step 6. Therefore A is infinite. The argument applies to every a and also to m = 1, when the character sum has its single trivial term.
+
+## Key steps
+
+1. Derive unit norms and distinct powers from primitivity.
+2. Prove cyclic character orthogonality by the finite geometric-sum identity.
+3. Establish absolute summability of all character-weighted and restricted series.
+4. Express each fiber's weighted sum by finite Fourier inversion.
+5. Combine the character estimates on a common interval to obtain logarithmic growth.
+6. Bound a hypothetically finite remaining fiber together with the excluded contribution.
+7. Choose s sufficiently close to one to contradict that bound.
+
+## Reference use
+
+### local-project
+
+Queries:
+- `IsFrobeniusAt|LiesOverPrime|rayClass|RayClass|Chebotarev|chebotarev|dedekindZeta|DedekindZeta`
+- `ray.class|RayClass|rayClass|partial.zeta|partialZeta|[Cc]hebotarev`
+- `sum.*rpow|differentiable.*LSeries|LSeries.*differentiable|abscissaOfAbsConv|sumCoeff|sum.*cpow`
+- `exp_log|exp_eq_one_iff|continuousAt_log|hasDerivAt_log|sum.*eq_zero|norm.*eq_one|geom_sum`
+
+Files inspected:
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/LSeries/Basic.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/LSeries/SumCoeff.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/DedekindZeta.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/SpecialFunctions/Complex/Log.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RootsOfUnity/PrimitiveRoots.lean`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory`
+- `/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions`
+
+The manifest pins project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The inspected Frobenius definition uses the actual decomposition-subgroup action on the residue field. SumCoeff supplies absolute summability from nonnegative coefficient sums and Abel's integral representation; DedekindZeta supplies positive residue limits. Complex.exp_log and Complex.exp_eq_one_iff supply logarithm normalization and its discrete ambiguity, and PrimitiveRoots supplies geometric-sum facts. No ray-class, partial-zeta, or Chebotarev implementation matched in the searched NumberTheory and Definitions roots. The proposed interfaces and inspected library declarations were checked with the pinned toolchain; their transitive axiom reports contain only propext, Classical.choice, and Quot.sound.

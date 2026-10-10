@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "eab3efd712909d5cdc125bb7df46271cf6e4ebb67520a047b96957e241afcd0e",
+  "git_delta": {
+    "base_commit": "ec4eb8f6a7c7f6fc745b6fbfca2de9c4c533d64c",
+    "candidate_commit": "a52df4fda5e7566fd043a22ec7bac2e7bcad8ee9",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_adic_character_lift",
+    "diff_sha256": "d160f7123e2c759d73e498a24fc55bab2c9f530345d41881bd61396f1267031f",
+    "source_sha256": "83078765543ea1a35125ff427041ce831d192e2c8857b7d90027aab43a58d285",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_adic_character_lift",
+      "statement": "∀ {C G : Type} [CommRing C] [Group G] (J : Ideal C) [IsAdicComplete J C] (a : ℕ → G → C), (∀ (n m : ℕ), n ≤ m → ∀ g : G, a m g - a n g ∈ J ^ n) → (∀ n : ℕ, a n 1 - 1 ∈ J ^ n) → (∀ (n : ℕ) (g h : G), a n (g * h) - a n g * a n h ∈ J ^ n) → ∃! b : G →* Cˣ, ∀ (n : ℕ) (g : G), (b g : C) - a n g ∈ J ^ n",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n 'eq_span_zeta_sub_one_of_liesOver|liesOver_span_zeta_sub_one|sum_ramification_inertia_eq_finrank|inertiaDeg_below_dvd' mathlib/Mathlib project/Definitions",
+        "rg -n 'p09_af497904fe_ci_cyclotomic_subfield_ramification' project mathlib/Mathlib"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/Cyclotomic/Ideal.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RamificationInertia/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/RamificationInertia/Inertia.lean"
+      ],
+      "conclusion": "Clean snapshots match project revision 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d. Located the reused cyclotomic prime, ramification-degree sum, and inertia-divisibility declarations. No existing declaration of this node was found."
+    }
+  ],
+  "comparison_identity": "ab733db9dc8ff9d1dc6edb2f0ec5ab9e17573751961bbb165e523eff74ae84f2",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_ci_cyclotomic_subfield_ramification",
+      "statement": "∀ (q : ℕ) (ζ : AlgebraicClosure ℚ), q.Prime → IsPrimitiveRoot ζ q → ∀ (D : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ D], D ≤ IntermediateField.adjoin ℚ ({ζ} : Set (AlgebraicClosure ℚ)) → ∃ R : Ideal (NumberField.RingOfIntegers D), R.IsPrime ∧ R.LiesOver (Ideal.span {(q : ℤ)}) ∧ Ideal.ramificationIdx R ℤ = Module.finrank ℚ D",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Composes the accepted cyclotomic prime-residue and prime-residue-descent theorems to obtain the required prime and ramification index."
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "def (LiesOverPrime|IsFrobeniusAt)|residue_smul|fcc_fra_roots_mem_inv|fcc_fra_residue_injective|frobenius_roots_action",
+        "p09_af497904fe_fcc_frobenius_roots_action"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/LocalRing/ResidueField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596"
+      ],
+      "conclusion": "Confirmed clean project and mathlib snapshots at their manifest-pinned revisions. Inspected LiesOverPrime, IsFrobeniusAt, and residue_smul; their definitions agree with the unchanged comparator context. No existing declaration matching the tracked theorem was found. The independent comparator rerun verified the pinned dependencies and reported only propext, Classical.choice, and Quot.sound."
+    }
+  ],
+  "comparison_identity": "8ee5b043d8cc0489938dc66a6ce549f273e45be44f0538d70711a50197baefde",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_fcc_frobenius_roots_action",
+      "statement": "∀ (N : ℕ) [NeZero N] (ℓ : ℕ), ℓ.Prime → ¬ ℓ ∣ N → ∀ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ → ∀ σ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ), P.IsFrobeniusAt σ ℓ → ∀ ζ : AlgebraicClosure ℚ, ζ ^ N = 1 → σ ζ = ζ ^ ℓ",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines the accepted root-membership and residue-injectivity lemmas with Frobenius compatibility on the residue field."
+    }
+  ]
+}
