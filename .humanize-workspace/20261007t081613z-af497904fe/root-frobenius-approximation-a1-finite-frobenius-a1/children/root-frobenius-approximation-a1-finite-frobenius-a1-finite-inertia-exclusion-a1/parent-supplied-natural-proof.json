@@ -1,0 +1,34 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "def IsFrobeniusAt|def LiesOverPrime|inertiaSubgroupIn|exists.*[Ff]robenius|[Cc]hebotarev",
+        "ray.class|RayClass|rayClass|partial.zeta|partialZeta",
+        "exp_log|log_exp|norm_log|continuous.*log|tendsto|residue|pole"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/SpecialFunctions/Complex/Log.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/Complex/Polynomial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/DedekindZeta.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions"
+      ],
+      "conclusion": "The snapshot pins project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. The inspected definitions identify IsFrobeniusAt with the actual decomposition-subgroup residue action and inertiaSubgroupIn with its embedded kernel. Complex.exp_log supplies the missing normalization constant, and Complex.exp_eq_one_iff identifies the discrete logarithm ambiguity. The snapshot contains Complex.exists_root and positive Dedekind-zeta residue results. The ray-class/partial-zeta search found no matches in the listed NumberTheory and Definitions roots; the child proof supplies that argument. Rechecked interface, instance and logarithm-fact diagnostics use only propext, Classical.choice and Quot.sound."
+    }
+  ],
+  "proof": "1. Fix E as in the statement. Choose an integral primitive element α with E = ℚ(α). Here is the finite-field argument underlying this choice. Characteristic-zero irreducible polynomials are separable, because their derivatives are nonzero and have smaller degree. Extending embeddings successively across algebraic generators by choosing roots gives as many embeddings as the extension degree. For two generators a,b, two distinct embeddings can agree on a + rb for at most one rational r unless their b-images agree, in which case they never agree there. Avoiding the finitely many exceptional rational values produces a primitive element; induction handles a finite generating family. Multiplying this element by a suitable nonzero integer makes it integral: if its monic rational polynomial is f of degree n, choose an integer N clearing all its coefficients, so N^n f(X/N) is monic integral and annihilates the scaled element. Scaling does not change the generated field.\n2. Let f ∈ ℤ[X] be the monic minimal polynomial of α and let α₁,…,αₙ be its distinct roots in E, with α₁ = α. Normality places all roots in E and separability makes them distinct. The discriminant D = ∏_{i<j}(αᵢ−αⱼ)^2 is a nonzero rational integer. Indeed, the displayed expression is symmetric in the roots and is an integer polynomial in their elementary symmetric functions, which are the coefficients of f. Nonzero factors make D nonzero. For n = 1 the empty product is 1.\n3. Let S be the finite set of natural prime divisors of |D|. Fix a prime ℓ outside S and a valuation subring V with V.LiesOverPrime ℓ. By definition, the image of ℓ belongs to V.nonunits. Every integer belongs to V because V is a subring containing 1.\n4. Every element of E integral over ℤ belongs to V. To prove this directly, suppose an integral element x did not belong to V. Then x ≠ 0 and the valuation property gives x⁻¹ ∈ V. This inverse is a nonunit, since a V-inverse for it would put x in V. Divide a monic integral equation for x by its leading power of x. The result expresses 1 as a sum of multiples of positive powers of x⁻¹. Every summand belongs to the maximal ideal of V, a contradiction. In particular all the αᵢ belong to V.\n5. Since ℓ does not divide D, there are integers u,v with uD + vℓ = 1. If D were a nonunit of V, both terms on the left would belong to its maximal ideal, contradicting the equation. Thus D is a unit of V. Its product expression then implies that every difference αᵢ−αⱼ, for i ≠ j, is a unit. Consequently the images of the αᵢ in the residue field of V are pairwise distinct.\n6. Let τ belong to V.inertiaSubgroupIn ℚ. Unfolding this subgroup gives a decomposition-subgroup element whose underlying field automorphism is τ and whose action on the residue field is the identity. Therefore τ(α) and α have equal residue images. Since τ fixes ℚ, τ(α) is one of the αᵢ. Their pairwise distinct residue images force τ(α) = α.\n7. The automorphism τ fixes ℚ and the generator α, hence fixes every element of ℚ(α) = E. Thus τ is the identity. The chosen S works for every ℓ and V in the statement.",
+  "key_steps": [
+    "Choose an integral primitive element of the finite separable extension.",
+    "Use its nonzero integral discriminant to define the finite exceptional set.",
+    "Show that valuation subrings contain integral elements and that the discriminant is a unit away from the exceptional primes.",
+    "Deduce that distinct conjugates have distinct residue images.",
+    "An inertia automorphism must fix the primitive element and therefore the entire field."
+  ],
+  "unresolved": [],
+  "validation_notes": []
+}

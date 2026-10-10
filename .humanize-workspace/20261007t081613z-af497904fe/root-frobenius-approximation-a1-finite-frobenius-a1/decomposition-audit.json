@@ -1,0 +1,58 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "def IsFrobeniusAt|def LiesOverPrime|inertiaSubgroupIn|exists.*[Ff]robenius|[Cc]hebotarev",
+        "ray.class|rayClass|partial.zeta|partialZeta",
+        "exp_log|exp_eq_one_iff",
+        "residue|tendsto|pole",
+        "def comap|nonunits_comap|comap_nonunits|mem_comap|map.*ResidueField|map_injective|residue.*map",
+        "p09_af497904fe_ff_(finite_inertia_exclusion|cyclotomic_supply|cyclotomic_envelope)",
+        "git status --short"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/dag.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/RamificationGroup.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation/ValuationSubring.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/LocalRing/ResidueField/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/SpecialFunctions/Complex/Log.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/Analysis/Complex/Polynomial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/NumberField/DedekindZeta.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p09-revised-independent-audit-o6esma5r/AuditTypes.lean",
+        "/tmp/p09-revised-independent-audit-o6esma5r/TargetAbsence.lean",
+        "/tmp/p09-revised-independent-audit-o6esma5r/report.json"
+      ],
+      "conclusion": "The snapshot pins project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Inspected definitions confirm nonunit membership, actual decomposition-group residue action, embedded inertia kernel, and valuation pullback. The logarithm identities and Complex.exists_root exist; DedekindZeta supplies positive residue results. No ray-class/partial-zeta matches were found in the searched NumberTheory and Definitions roots. Fresh Lean diagnostics independently elaborated all three literal types without the proposed declarations, checked algebra towers and residue actions, and found only propext, Classical.choice and Quot.sound in the inspected transitive dependencies. All nine pinned dependencies were clean; inspected snapshot sources matched them. All three names are bare identifiers, absent from the 21-node DAG, existing handoffs and frozen Lean environment. The diagnostic receipt verifies the specified policy digest, exact omissions of lines 10–11, reversible original/build hashes, and successful eight-target absence probe. Original repository files remain unchanged. These are decomposition/interface checks, not comparator acceptance of child proofs."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "finite_inertia_exclusion",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose includes every hypothesis and matches the independently elaborated one-line proposition. The proof supplies a uniform finite discriminant exception set, proves integral elements belong to every relevant valuation subring, and uses Bezout to separate conjugate residues outside that set. The actual inertia-kernel definition then forces an automorphism to fix the primitive generator and hence E. All seven steps are sufficient and non-circular; no sibling or parent result is used."
+    },
+    {
+      "key": "cyclotomic_frobenius_supply",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The exact type matches the prose, including the F-algebra structure, primitive-root and adjoining hypotheses, and actual F-linear residue action. The 28-step proof supplies the arithmetic, ray-class counting, equal residues, explicit Artin map, surjectivity and L-function nonvanishing arguments without invoking the parent or a distribution theorem. Step 26 correctly includes c with exp(c)=L_T(1,ψ), making the logarithm difference continuous and valued in 2πiℤ. Orthogonality and the bounded higher-degree contribution yield the required prime; localization proves every valuation conjunct. The proof is complete enough for formalization without another prose-generation pass."
+    },
+    {
+      "key": "cyclotomic_envelope",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The independently elaborated proposition exactly matches all existential data and hypotheses in the prose. The proof correctly derives unramifiedness using finite_inertia_exclusion, proves cyclotomic total ramification, obtains trivial intersection and the product Galois group, and constructs the fixed field giving M=F(ζ) and the required intertwining identity. Its only sibling dependency is correctly directed toward finite_inertia_exclusion; the graph is acyclic. The split is appropriate: apply supply with B enlarged by the inertia exception set, pull the valuation back along ι, descend Frobenius through the injective residue map, and use trivial inertia for uniqueness."
+    }
+  ],
+  "required_changes": []
+}

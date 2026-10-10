@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1",
+  "parent_id": "root.frobenius_approximation-a1.finite_frobenius-a1",
+  "depth": 3,
+  "title": "Prescribed Frobenius in a prime-cyclotomic extension",
+  "statement": "Let Ω = AlgebraicClosure ℚ. Let M be a finite-dimensional intermediate field of Ω/ℚ, and let F be an intermediate field of M/ℚ. Let q be a natural prime and ζ ∈ M a primitive qth root of unity. Assume that adjoining ζ to F inside M gives all of M. For every F-automorphism h of M and every finite set B of natural numbers, there exist a natural prime ℓ outside B and a valuation subring W of M such that ℓ is a nonunit of W and h preserves W and acts on its residue field by x ↦ x^ℓ.",
+  "lean_statement": "∀ (M : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ M] (F : IntermediateField ℚ M) (q : ℕ) (ζ : M), q.Prime → IsPrimitiveRoot ζ q → IntermediateField.adjoin F ({ζ} : Set M) = ⊤ → ∀ (h : M ≃ₐ[F] M) (B : Finset ℕ), ∃ ℓ : ℕ, ℓ.Prime ∧ ℓ ∉ B ∧ ∃ W : ValuationSubring M, W.LiesOverPrime ℓ ∧ W.IsFrobeniusAt h ℓ",
+  "lean_name": "p09_af497904fe_ff_cyclotomic_supply",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-frobenius-approximation-a1-finite-frobenius-a1-cyclotomic-froben-fcc401e280-a1"
+}
