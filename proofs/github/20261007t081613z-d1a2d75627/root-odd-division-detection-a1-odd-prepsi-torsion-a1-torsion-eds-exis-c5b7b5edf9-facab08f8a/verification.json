@@ -1,0 +1,18 @@
+{
+  "node_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_cardinality-a1.positive_torsion_finite-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/436",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/648",
+  "candidate_commit": "c68b9aabdc4a52f810718fbb081f3a1c4ee167fa",
+  "integrated_commit": "61858639d147dd9556de973205a340f42ecd28e6",
+  "proof_base_commit": "adae8afec901619961ae1b5b1c73338837b271da",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_cardinality-a1",
+  "requires": [
+    "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_cardinality-a1.positive_torsion_finite-a1.positive_nsmul_nonzero-a1",
+    "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_exists-a1.torsion_kernel_cardinality-a1.positive_torsion_finite-a1.finite_kernel_of_nsmul_nonzero-a1"
+  ]
+}

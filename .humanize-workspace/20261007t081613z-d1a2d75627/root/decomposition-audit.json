@@ -1,0 +1,52 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "rg -n -i 'tate.?curve|tate.?uniform|closed annuli|q.periodic|preΨ.*torsion|torsion.*preΨ|p03_odd_division_detection_68cf3476|p03_tate_uniformization_68cf3476' .humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib .humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Definitions",
+        "sed -n '130,315p' .humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/Basic.lean",
+        "sed -n '245,270p' .humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/Degree.lean",
+        "sed -n '790,825p' .humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/RingTheory/PowerSeries/WeierstrassPreparation.lean",
+        "python3 /tmp/p03_decomposition_policy_probe.py"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/problem.md",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/DivisionPolynomial/Degree.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Affine/Point.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/Weierstrass.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/RingTheory/PowerSeries/WeierstrassPreparation.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Topology/Algebra/Module/FiniteDimension.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/mathlib/Mathlib/Analysis/Normed/Module/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Definitions/Def_FLTPrelim_GaloisRep.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/local-references/68cf3476875a5481/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p03/.humanize/github-theorem-prover/runs/20261007T081613Z-d1a2d75627/dag.json",
+        "/runtime/operator-header-policy-v1/policy.json",
+        "/tmp/p03-policy-decomposition-1_y0u8ch/results.json",
+        "/tmp/p03-policy-decomposition-1_y0u8ch/TypesAfterSubmission.lean",
+        "/tmp/p03-policy-decomposition-1_y0u8ch/TypesAfterSubmission.lean.log",
+        "/tmp/p03-policy-decomposition-1_y0u8ch/InstancesAfterSubmission.lean",
+        "/tmp/p03-policy-decomposition-1_y0u8ch/AdditionalLibraryAxioms.lean.log",
+        "/tmp/p03-policy-decomposition-1_y0u8ch/TargetAbsence.lean"
+      ],
+      "conclusion": "The search returned no matching Tate-uniformization, annular-analysis, odd preΨ' torsion-detection, or proposed-name declarations. Inspected sources confirm the polynomial normalization and recurrences, degree formulas, preparation theorem, finite-dimensional completeness, curve coefficients, point group, and coordinatewise Galois action. Independent diagnostic rerun successfully elaborated both literal one-line propositions and checked the relevant instances. Project revision 81f093181fd6c58dc887fcae5ec8b896996f1885, mathlib revision db584cd6d46c92f209a44c0f1c829460d327499d, and pinned dependencies were clean and matched their recorded revisions. Ten DAGs contained no name collisions. The two type expressions and nine checked library declarations transitively use only propext, Classical.choice, and Quot.sound. Header evidence confirms policy digest 96fc18eb6b8cbdad1beec37ca318ab2cf08ac1dda8ebf7cbfe1d6d51abf32f96, omission of precisely lines 10–11, reversible original/build hashes dd8891addb75e48583885c932518af8bc6d34438aec4e3ccd76ce6aa765e423f and 81502485ae6796527a5c4e210837b198322b438244a2f58054b94b98aef9dda9, and a successful Lean absence probe for all 37 targets. Original sources were unchanged. These checks establish interface compatibility, not implemented-proof or final-comparator acceptance."
+    }
+  ],
+  "acceptable": true,
+  "nodes": [
+    {
+      "key": "odd_division_detection",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The prose includes all hypotheses and matches the independently elaborated proposition. The bare identifier is unreserved, and the type is usable independently of any child implementation. The eleven-step proof correctly establishes unramified multiplication, accounts for every local divisor multiplicity, constructs normalized division functions, verifies the initial polynomials and parity-dependent recurrences, and descends torsion detection, degree, and leading coefficient. It invokes neither parent nor sibling. Its empty dependency list is correct, and its two distinct uses in the parent justify extracting it."
+    },
+    {
+      "key": "tate_uniformization",
+      "acceptable": true,
+      "natural_proof_acceptable": true,
+      "reason": "The complete hypotheses and conclusions match the independently elaborated proposition. Instance checks confirm norm-preserving scalar inclusion, multiplication under Additive Ωˣ, the elliptic-curve point group, and coordinatewise automorphism action. The bare identifier is unreserved and the type contains no implementation-dependent alias. The eighteen-step proof supplies finite-extension completeness, preparation-based zero counting, analytic division and rigidity, theta and discriminant identities, surjectivity, fiber identification, local multiplicities, the group law, and equivariance. Nontriviality follows from q; all convergence occurs in finite complete extensions. No step relies on either child theorem or the parent. This independent analytic obligation appropriately isolates the parent's deep input."
+    }
+  ],
+  "required_changes": []
+}

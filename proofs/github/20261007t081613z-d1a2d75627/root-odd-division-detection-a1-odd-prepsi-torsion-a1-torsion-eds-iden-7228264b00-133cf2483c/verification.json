@@ -1,0 +1,18 @@
+{
+  "node_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_identification-a1.canonical_eds_recurrences-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/391",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/602",
+  "candidate_commit": "f2f4ae0882040fd3f7af7a0666c2a5a6df60c13a",
+  "integrated_commit": "da34705b6643ca26b1e3dbfcecb24675eea9a5bc",
+  "proof_base_commit": "3e05ef5a1e0019d52ca3d0f58056550a77b706ef",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_identification-a1",
+  "requires": [
+    "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_identification-a1.canonical_eds_recurrences-a1.canonical_odd_recurrence-a1",
+    "root.odd_division_detection-a1.odd_prepsi_torsion-a1.torsion_eds_identification-a1.canonical_eds_recurrences-a1.canonical_even_recurrence-a1"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "75670605c8434ca52e32ef750ed6b54c6b2b2405f2c2099942a42cbb9442c76e",
+  "git_delta": {
+    "base_commit": "f56a17e0fd3f23cc578a8726448c9c57d944f774",
+    "candidate_commit": "0dd8529b456741a73f7b5518efec7212ef8d4f9c",
+    "target": "Submission.lean",
+    "declaration": "p03_tkc_torsion_card_recurrence_68cf3476_d5",
+    "diff_sha256": "938a863cfbf03c56162a4d9a6153a071f70b1ed1aac7a375a505c22248dc3ae6",
+    "source_sha256": "d346cf713493432830cf9e60d8bb6de619ab339e4fb6917cf29098f09b5aea35",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p03_tkc_torsion_card_recurrence_68cf3476_d5",
+      "statement": "∀ (k : Type) [Field k] [CharZero k] [IsAlgClosed k] [DecidableEq k] (W : WeierstrassCurve k), W.Δ ≠ 0 → ∀ m : ℕ, 2 ≤ m → Nat.card {P : W.toAffine.Point // (m + 1) • P = 0} + Nat.card {P : W.toAffine.Point // (m - 1) • P = 0} = 2 * Nat.card {P : W.toAffine.Point // m • P = 0} + 2",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

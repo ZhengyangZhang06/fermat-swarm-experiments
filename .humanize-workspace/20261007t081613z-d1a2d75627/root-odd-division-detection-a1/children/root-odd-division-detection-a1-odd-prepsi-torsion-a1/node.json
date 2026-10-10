@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.odd_division_detection-a1.odd_prepsi_torsion-a1",
+  "parent_id": "root.odd_division_detection-a1",
+  "depth": 2,
+  "title": "Odd predivision-polynomial vanishing detects affine torsion",
+  "statement": "Let F be a characteristic-zero field with decidable equality, and let W be a Weierstrass equation over F with W.Δ ≠ 0. For every odd natural number n ≥ 3 and every nonsingular affine point (x,y) of W, the point represented by (x,y) is killed by n if and only if (W.preΨ' n).eval x = 0.",
+  "lean_statement": "∀ (F : Type) [Field F] [CharZero F] [DecidableEq F] (W : WeierstrassCurve F), W.Δ ≠ 0 → ∀ (n : ℕ), 3 ≤ n → Odd n → ∀ (x y : F) (h : W.toAffine.Nonsingular x y), n • WeierstrassCurve.Affine.Point.some x y h = 0 ↔ (W.preΨ' n).eval x = 0",
+  "lean_name": "p03_odd_prepsi_torsion_68cf3476",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p03/20261007t081613z-d1a2d75627/root-odd-division-detection-a1-odd-prepsi-torsion-a1-a1"
+}

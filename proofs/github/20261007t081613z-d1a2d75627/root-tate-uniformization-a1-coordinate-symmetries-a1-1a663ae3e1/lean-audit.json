@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "97c3d5618f48ccc4360c101f16168738f00917dbc2dd9842547ccd4d971c9dab",
+  "git_delta": {
+    "base_commit": "034b46aed1d254b44e068afd2f5063ffd5adea39",
+    "candidate_commit": "cf6970b1ce77ae1535c1f6e6e2c167fb0f6a6924",
+    "target": "Submission.lean",
+    "declaration": "p03_tu_coordinate_symmetries_68cf3476",
+    "diff_sha256": "efe91d858b04d141425a5bbf031a70d3de26decac6c9383ac2fdba7967a41bb3",
+    "source_sha256": "da46fc2f3016eb93b95f62e390af0246cc735e2b3f1d8216f2db1350e0cf49c8",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p03_tu_coordinate_symmetries_68cf3476",
+      "statement": "∀ (F Ω : Type) [NormedField F] [CompleteSpace F] [NormedField Ω] [NormedAlgebra F Ω] [Algebra.IsAlgebraic F Ω], (∀ x y : Ω, ‖x + y‖ ≤ max ‖x‖ ‖y‖) → ∀ q : F, 0 < ‖q‖ → ‖q‖ < 1 → ∀ c : F, let qΩ : Ω := algebraMap F Ω q; let X : Ω → Ω := fun u => (∑' n : ℤ, qΩ ^ n * u / (1 - qΩ ^ n * u) ^ 2) - 2 * algebraMap F Ω c; let Y : Ω → Ω := fun u => (∑' n : ℤ, (qΩ ^ n * u) ^ 2 / (1 - qΩ ^ n * u) ^ 3) + algebraMap F Ω c; ∀ u : Ωˣ, (¬ ∃ m : ℤ, (u : Ω) = qΩ ^ m) → X (qΩ * (u : Ω)) = X (u : Ω) ∧ Y (qΩ * (u : Ω)) = Y (u : Ω) ∧ X ((u : Ω)⁻¹) = X (u : Ω) ∧ Y ((u : Ω)⁻¹) = -Y (u : Ω) - X (u : Ω) ∧ ∀ σ : Ω ≃ₐ[F] Ω, X (σ (u : Ω)) = σ (X (u : Ω)) ∧ Y (σ (u : Ω)) = σ (Y (u : Ω))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

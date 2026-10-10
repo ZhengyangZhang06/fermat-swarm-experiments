@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "31c44d96995f49924c3bba54889cdf7d74fee1c503e55d1f0e141d2c2ba43bff",
+  "git_delta": {
+    "base_commit": "666132e4fe0168076d4c78cf0511021eabc60a04",
+    "candidate_commit": "1362f436d00838eecc2a2d1a2ff78f21c8debcb0",
+    "target": "Submission.lean",
+    "declaration": "p03_eds_negation_fixed_sum_68cf3476_d5",
+    "diff_sha256": "8e159713eafc7f0b8287561c6dd5d7675c1c66719af73f9468c4c4714c9cbde4",
+    "source_sha256": "e18ed44fc8c62bebeb80b6533c1d4dc9c6b6b434a7ee2445babd7a2e2df4fc71",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p03_eds_negation_fixed_sum_68cf3476_d5",
+      "statement": "∀ (G : Type) [AddCommGroup G] [DecidableEq G] (S : Finset G), (∀ x ∈ S, -x ∈ S) → S.sum (fun x => x) = (S.filter (fun x => (2 : ℕ) • x = 0)).sum (fun x => x)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

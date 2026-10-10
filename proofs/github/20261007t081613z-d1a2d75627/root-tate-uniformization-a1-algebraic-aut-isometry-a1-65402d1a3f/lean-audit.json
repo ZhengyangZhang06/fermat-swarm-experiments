@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "ddaa74598c2e7491c3d03361d2dda43e7da6b6b193047bd564d5bb3a45cf7ae8",
+  "git_delta": {
+    "base_commit": "76a5a13631ccb5437823224ae790d5515f6426cb",
+    "candidate_commit": "1e05b976ebf17d2225d3806bfa36acd42d1d93ed",
+    "target": "Submission.lean",
+    "declaration": "p03_tu_algebraic_aut_isometry_68cf3476",
+    "diff_sha256": "d8c4377c7e01d6f0318375c9f725f21aaad9fecfe26631d1828187b889d5dd66",
+    "source_sha256": "2a8462438967d000e1e11d3f4d32296788822d131d756309ce83ee2dff2b89e3",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p03_tu_algebraic_aut_isometry_68cf3476",
+      "statement": "∀ (F Ω : Type) [NormedField F] [CompleteSpace F] [NormedField Ω] [NormedAlgebra F Ω] [Algebra.IsAlgebraic F Ω], ∀ q : F, 0 < ‖q‖ → ‖q‖ < 1 → ∀ σ : Ω ≃ₐ[F] Ω, Isometry (fun x : Ω => σ x)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

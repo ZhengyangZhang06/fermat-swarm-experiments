@@ -1,0 +1,18 @@
+{
+  "node_id": "root",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/3",
+  "solution_pr": "see this branch's pull request",
+  "candidate_commit": "5011a3dae6b176bf40b49c3856c765ced56e8ae8",
+  "integrated_commit": "9357fb6fd72d840a9362eb086192a3ef6b5ef454",
+  "proof_base_commit": "d3dc8f0d174ab480c9dc57c4f1a44fcb0aa5fb85",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": null,
+  "requires": [
+    "root.odd_division_detection-a1",
+    "root.tate_uniformization-a1"
+  ]
+}
