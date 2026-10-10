@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "9981f608fe2a8e7bc5323d074a154d46cdbb48babcacabb744e7b8e03ce989a1",
+  "git_delta": {
+    "base_commit": "97f32c2abc9205b480ae0c2cb521b382a16c3df0",
+    "candidate_commit": "5c04914fa801545983793bcaa8daa35c60c7b11f",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_ftl_normal_frobenius_restriction",
+    "diff_sha256": "e2dda1ff71fb63c2ab66819288de63dd5db11fd72df13ca8b31ff17f3f8cd317",
+    "source_sha256": "94bfe47febbfc343ebb64c32cd10f9c00313255c2dfa73ccfea1016639668aed",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_ftl_normal_frobenius_restriction",
+      "statement": "∀ (E F : IntermediateField ℚ (AlgebraicClosure ℚ)) [IsGalois ℚ E] (hEF : E ≤ F) (V : ValuationSubring E) (W : ValuationSubring F) (ℓ : ℕ), (∀ x : E, IntermediateField.inclusion hEF x ∈ W ↔ x ∈ V) → ∀ g : F ≃ₐ[ℚ] F, W.IsFrobeniusAt g ℓ → ∃! e : E ≃ₐ[ℚ] E, V.IsFrobeniusAt e ℓ ∧ ∀ x : E, IntermediateField.inclusion hEF (e x) = g (IntermediateField.inclusion hEF x)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

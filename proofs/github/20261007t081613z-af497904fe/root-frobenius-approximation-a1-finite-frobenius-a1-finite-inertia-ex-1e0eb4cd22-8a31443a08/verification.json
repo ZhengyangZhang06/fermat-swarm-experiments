@@ -1,0 +1,17 @@
+{
+  "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.finite_inertia_exclusion-a1.conjugate_separation-a1.integer_root_product-a1.integer_discriminant-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/733",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/782",
+  "candidate_commit": "50554864b549388dd10d90836f2b5be99845d348",
+  "integrated_commit": "e43c10461b46574901bb4bc231631e3079ac8ae3",
+  "proof_base_commit": "e489c9974d7a4bf50788a800b909ab4068a86334",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "machine-leaf",
+  "reviewer_comparator_passed": null,
+  "parent": "root.frobenius_approximation-a1.finite_frobenius-a1.finite_inertia_exclusion-a1.conjugate_separation-a1.integer_root_product-a1",
+  "requires": [
+    "root.frobenius_approximation-a1.finite_frobenius-a1.finite_inertia_exclusion-a1.conjugate_separation-a1.integer_root_product-a1.squared_vandermonde_symmetric-a1"
+  ]
+}

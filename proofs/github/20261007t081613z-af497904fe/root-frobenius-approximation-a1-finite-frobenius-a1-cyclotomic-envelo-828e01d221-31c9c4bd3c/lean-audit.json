@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "e7fd2b5e74c2d99698a92f802e5a78bde02f4788c46106714427323393cb670d",
+  "git_delta": {
+    "base_commit": "f2baf379d85f0333caf1919b7fa2500c7574db04",
+    "candidate_commit": "f3a7ec985bb73fcfafa95135b2d584c497c094ca",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_ci_unramified_subfield",
+    "diff_sha256": "bc4fb2a3cc31c5148328c60ec67c26972f37ac915ac1b535c561edc78cbce633",
+    "source_sha256": "fba108a9a8f7e0599e897ba0c6f7ae3f5b8db9aa2da0dbba276fd39477c24ac9",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_ci_unramified_subfield",
+      "statement": "∀ (E D : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [FiniteDimensional ℚ D] (q : ℕ), q.Prime → D ≤ E → (∀ P : Ideal (NumberField.RingOfIntegers E), P.IsPrime → P.LiesOver (Ideal.span {(q : ℤ)}) → Ideal.ramificationIdx P ℤ = 1) → ∀ R : Ideal (NumberField.RingOfIntegers D), R.IsPrime → R.LiesOver (Ideal.span {(q : ℤ)}) → Ideal.ramificationIdx R ℤ = 1",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

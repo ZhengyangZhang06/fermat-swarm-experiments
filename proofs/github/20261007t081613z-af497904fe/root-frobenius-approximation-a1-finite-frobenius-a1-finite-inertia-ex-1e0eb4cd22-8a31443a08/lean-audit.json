@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "c00febe62fbf64d21f991bda86c3ea9bd8b0c1ca82684696bc134aa3c89ed59d",
+  "git_delta": {
+    "base_commit": "e179f0b9b91b3156522fd35680958c686d9b3db2",
+    "candidate_commit": "50554864b549388dd10d90836f2b5be99845d348",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_irp_integer_discriminant",
+    "diff_sha256": "99146e7f4f58cabbccb009894b25621f3f090967ba9b913ce5370e90820ea60e",
+    "source_sha256": "d6d895b7584b7d6a4e10e6f3f470696ea6ff80d83d83a2c5882ab872bdc8394a",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_irp_integer_discriminant",
+      "statement": "∀ (K : Type) [Field K] (f : Polynomial ℤ) (n : ℕ) (β : Fin n → K), f.Monic → Function.Injective β → f.map (Int.castRingHom K) = Finset.univ.prod (fun i : Fin n => Polynomial.X - Polynomial.C (β i)) → ∃ D : ℤ, D ≠ 0 ∧ (D : K) = (Finset.univ.filter (fun ij : Fin n × Fin n => ij.1 < ij.2)).prod (fun ij => (β ij.1 - β ij.2) ^ 2)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "c3772ba5abe69cabeb4025dc93ce0cf0ee210c2f6226fe92afae354498937597",
+  "git_delta": {
+    "base_commit": "09b9a368970639563fec21729f5e12c45e5ffa62",
+    "candidate_commit": "513c1d1a8650070e247883b3dd6d79024d12364e",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_fcc_fra_roots_mem_inv",
+    "diff_sha256": "36071baaa184d36cd27f4dc38dbbb520e9c79973a220e4433ef3c2861be0e48c",
+    "source_sha256": "f632446aa673dc099a6a37efe22d496351ffa259190080fc2785c88e89e6f0d9",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_fcc_fra_roots_mem_inv",
+      "statement": "∀ (N : ℕ) [NeZero N] (P : ValuationSubring (AlgebraicClosure ℚ)) (ζ : AlgebraicClosure ℚ), ζ ^ N = 1 → ζ ∈ P ∧ ζ⁻¹ ∈ P",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

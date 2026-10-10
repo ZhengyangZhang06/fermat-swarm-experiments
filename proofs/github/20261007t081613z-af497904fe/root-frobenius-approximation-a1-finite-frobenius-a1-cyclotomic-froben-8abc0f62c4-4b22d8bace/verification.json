@@ -1,0 +1,18 @@
+{
+  "node_id": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.counting_mellin_continuation-a1",
+  "issue": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/issues/697",
+  "solution_pr": "https://github.com/ZhengyangZhang06/fermat-swarm-experiments/pull/801",
+  "candidate_commit": "8bad7f81f92b22a424cf4c254360903886e19a57",
+  "integrated_commit": "a3fe3598c1fa891f127ec824d65861c91e11226a",
+  "proof_base_commit": "791b71f8b14737f3031b51902cd12d1fc384c39a",
+  "comparator_command": "python3 /runtime/flows/math-lean-flow/scripts/swarm-compare.py",
+  "required_success_marker": "Your solution is okay!",
+  "machine_comparator_passed": true,
+  "lean_review_method": "agent",
+  "reviewer_comparator_passed": true,
+  "parent": "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1",
+  "requires": [
+    "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.counting_mellin_continuation-a1.floor_remainder_bound-a1",
+    "root.frobenius_approximation-a1.finite_frobenius-a1.cyclotomic_frobenius_supply-a1.counting_mellin_continuation-a1.mellin_tail_holomorphic-a1"
+  ]
+}

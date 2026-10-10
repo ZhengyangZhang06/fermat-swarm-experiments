@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "32f304588f2b4eea661d20df447221c5f60835be96efa6ea7d26131c25d357e3",
+  "git_delta": {
+    "base_commit": "76fdcb4a0b8c88ab108d4b49a87a0ab5099e160c",
+    "candidate_commit": "27c032b27ae2f0428af4b82b189a4ead0b337d1d",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_cmc_40fde013_floor_remainder",
+    "diff_sha256": "91573f3a433b359ccffa144cd256ede220bf89102f727909d070a450f0a31b90",
+    "source_sha256": "98bedbd1c610fd30519da3bdfcd595406fa7bc2893ff34530f48670f0f210e08",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_cmc_40fde013_floor_remainder",
+      "statement": "∀ (a : ℕ → ℝ) (κ α C : ℝ), 0 ≤ α → 0 ≤ C → (∀ n : ℕ, 1 ≤ n → |(∑ k ∈ Finset.Icc 1 n, a k) - κ * (n : ℝ)| ≤ C * (n : ℝ) ^ α) → Measurable (fun t : ℝ => (∑ k ∈ Finset.Icc 1 (Nat.floor t), a k) - κ * t) ∧ ∀ t : ℝ, 1 ≤ t → |(∑ k ∈ Finset.Icc 1 (Nat.floor t), a k) - κ * t| ≤ (C + |κ|) * t ^ α",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

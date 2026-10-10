@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "bfedc51a5573b03e851884a25f61753a432112effed941a38c61696f490d588c",
+  "git_delta": {
+    "base_commit": "b8ad5d67cfc568b3bb3e51c09c152f5e67df7e0b",
+    "candidate_commit": "b240f9c738541bf76cb899dde9990ea5ca9e7254",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_cwi_infinite_diff_of_log_lower_bound",
+    "diff_sha256": "e8007be538a537653a2869fe89a2624e53e8457958f003f85c4d741a36b6a21a",
+    "source_sha256": "10d269b1bc0cec5eb32afef03055c0627458801e7087cc72b93dabbc186fcd4e",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_cwi_infinite_diff_of_log_lower_bound",
+      "statement": "∀ (ι : Type) (N : ι → ℕ) (E D : Set ι) (c K ε C : ℝ), (∀ i : ι, 2 ≤ N i) → (∀ s : ℝ, 1 < s → Summable (fun i : ι => Real.rpow (N i : ℝ) (-s))) → 0 < c → 0 < ε → ε ≤ 1 → (∀ s : ℝ, 1 < s → s < 1 + ε → c * Real.log (1 / (s - 1)) - K ≤ ∑' i : {i : ι // i ∈ E}, Real.rpow (N i.1 : ℝ) (-s)) → (∀ s : ℝ, 1 < s → s < 2 → (∑' i : {i : ι // i ∈ D}, Real.rpow (N i.1 : ℝ) (-s)) ≤ C) → Set.Infinite (E \\ D)",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

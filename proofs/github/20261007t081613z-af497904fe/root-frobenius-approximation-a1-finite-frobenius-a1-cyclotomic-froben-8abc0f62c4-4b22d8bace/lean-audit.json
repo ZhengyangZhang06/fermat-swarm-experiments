@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "counting_mellin_continuation|LSeries_eq_mul_integral|def LSeries|term_zero",
+        "p09_af497904fe_cfs_counting_mellin_continuation"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/LSeries/Basic.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/NumberTheory/LSeries/SumCoeff.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib"
+      ],
+      "conclusion": "Manifest pins project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Basic.lean confirms LSeries omits the zero term; SumCoeff.lean supplies the reused upstream LSeries_eq_mul_integral_of_nonneg. No declaration matching this node's name was found in the searched snapshot roots. The comparator verified pinned dependencies and permitted transitive axioms."
+    }
+  ],
+  "comparison_identity": "57926b5247485f907868a6c98db34e2b56b6378da6bc0caed3936f02aad90d88",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_cfs_counting_mellin_continuation",
+      "statement": "∀ (a : ℕ → ℝ) (κ α : ℝ), (∀ n : ℕ, 0 ≤ a n) → 0 ≤ α → α < 1 → (∃ C : ℝ, 0 ≤ C ∧ ∀ n : ℕ, 1 ≤ n → |(∑ k ∈ Finset.Icc 1 n, a k) - κ * (n : ℝ)| ≤ C * (n : ℝ) ^ α) → ∃ H : ℂ → ℂ, DifferentiableOn ℂ H {s : ℂ | α < s.re} ∧ ∀ s : ℂ, 1 < s.re → LSeries (fun n : ℕ => (a n : ℂ)) s = (κ : ℂ) / (s - 1) + H s",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines the accepted floor-remainder and Mellin-tail lemmas with mathlib's Abel integral formula, constructing H(s) = κ + sI(s) and separating the prescribed pole."
+    }
+  ]
+}

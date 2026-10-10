@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "f2256afdd34c606c64f97c456cb9a96eb43e229eee7ceb38134390c8500207ab",
+  "git_delta": {
+    "base_commit": "e489c9974d7a4bf50788a800b909ab4068a86334",
+    "candidate_commit": "6f38d1fcce0e7f0be1a7464c89221c4f4c02adb5",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_irp_squared_vandermonde_symmetric",
+    "diff_sha256": "5ffe90f5c155a3427edee32bd704a92aef95524a8e01e8343106416e897a3ac4",
+    "source_sha256": "9c98c7089434891589bd7b7ca46c8131579e58292818713646998a14904ff5dd",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_irp_squared_vandermonde_symmetric",
+      "statement": "∀ n : ℕ, MvPolynomial.IsSymmetric ((Finset.univ.filter (fun ij : Fin n × Fin n => ij.1 < ij.2)).prod (fun ij => ((MvPolynomial.X ij.1 : MvPolynomial (Fin n) ℤ) - MvPolynomial.X ij.2) ^ 2))",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}

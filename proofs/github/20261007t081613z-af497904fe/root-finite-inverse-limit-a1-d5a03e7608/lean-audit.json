@@ -1,0 +1,24 @@
+{
+  "review_method": "machine-leaf",
+  "comparison_identity": "831d15da09bffa09ad75c87eb7fd49ac5d55ea21ae47ff7e978157a523e15937",
+  "git_delta": {
+    "base_commit": "ec4eb8f6a7c7f6fc745b6fbfca2de9c4c533d64c",
+    "candidate_commit": "be0e04e9ff0307dd2da3863b48711a462f235342",
+    "target": "Submission.lean",
+    "declaration": "p09_af497904fe_finite_inverse_limit",
+    "diff_sha256": "585909cb727ab832c9fac1dbd62b303f993de2d7145e9cf8058a710c2acbcbb9",
+    "source_sha256": "8615dbb24d4e98f1bafc668ec5c08a892ce49427b7ec3fbe04af5d2b3332ca17",
+    "root_leaf": false
+  },
+  "comparator_passed": true,
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_finite_inverse_limit",
+      "statement": "∀ (X : ℕ → Type) [∀ i : ℕ, Finite (X i)] [∀ i : ℕ, Nonempty (X i)] (r : ∀ i j : ℕ, i ≤ j → X j → X i), (∀ (i : ℕ) (x : X i), r i i (Nat.le_refl i) x = x) → (∀ (i j k : ℕ) (hij : i ≤ j) (hjk : j ≤ k) (x : X k), r i k (Nat.le_trans hij hjk) x = r i j hij (r j k hjk x)) → ∃ x : ∀ i : ℕ, X i, ∀ (i j : ℕ) (hij : i ≤ j), r i j hij (x j) = x i",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Implements the independently reviewed natural-language proof; see the theorem issue and retained proof."
+    }
+  ],
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": ""
+}
