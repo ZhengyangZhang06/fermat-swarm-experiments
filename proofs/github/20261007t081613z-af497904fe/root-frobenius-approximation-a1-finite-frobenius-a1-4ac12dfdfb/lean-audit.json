@@ -1,0 +1,35 @@
+{
+  "reference_use": [
+    {
+      "source": "local-project",
+      "queries": [
+        "def LiesOverPrime|structure IsFrobeniusAt|def IsFrobeniusAt|def inertiaSubgroupIn|p09_af497904fe_fa_finite_frobenius",
+        "p09_af497904fe_fa_finite_frobenius"
+      ],
+      "files": [
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/manifest.json",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_EllipticCurve_FrobeniusTrace.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions/Def_FLTPrelim_Ramification.lean",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/project/Definitions",
+        "/mnt/data/zhengyang-workspace/fermat-swarm-projects/fermat-p09/.humanize/github-theorem-prover/runs/20261007T081613Z-af497904fe/local-references/eac3cc806adf4596/mathlib/Mathlib/RingTheory/Valuation"
+      ],
+      "conclusion": "The manifest pins project 20574e45daf714e745af8e649c7b61b21eed5644 and mathlib db584cd6d46c92f209a44c0f1c829460d327499d. Inspected definitions confirm nonunit membership, Frobenius residue action, and embedded inertia without changes. No tracked-theorem match occurred in the searched reference roots."
+    }
+  ],
+  "comparison_identity": "a3ee0779c399c8645b29b327edd94e1332f69a47e7d31661d7cd0fe06c62b1cb",
+  "publication_proof_reviewed": false,
+  "publication_proof_blob": "",
+  "accepted": true,
+  "comparator_reran": true,
+  "comparator_passed": true,
+  "proof_matches_statement": true,
+  "issues": [],
+  "theorems": [
+    {
+      "name": "Submission.p09_af497904fe_fa_finite_frobenius",
+      "statement": "∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] [IsGalois ℚ E] (g : E ≃ₐ[ℚ] E) (B : Finset ℕ), ∃ ℓ : ℕ, ℓ.Prime ∧ ℓ ∉ B ∧ ∃ V : ValuationSubring E, V.LiesOverPrime ℓ ∧ V.IsFrobeniusAt g ℓ ∧ ∀ g' : E ≃ₐ[ℚ] E, V.IsFrobeniusAt g' ℓ → g' = g",
+      "lean_file": "Submission.lean",
+      "natural_summary": "Combines accepted cyclotomic envelope and supply results, contracts the valuation, and applies finite inertia exclusion for uniqueness."
+    }
+  ]
+}
