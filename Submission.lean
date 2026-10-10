@@ -3192,7 +3192,7 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
   let : rayUnits.FiniteIndex := hrayUnitsIndex
   -- Steps 16–17: the ray-unit logarithms form a full lattice, hence a fundamental cone.
   obtain ⟨rayCone, hrayConeMeasurable, hrayConeReduce, hrayConeTorsion,
-      hrayConeBounded, hrayConeNonzero, hrayConeSmul⟩ :
+      hrayConeBounded, hrayConeNonzero, hrayConeSmul, hrayConeShape⟩ :
       ∃ C : Set (NumberField.mixedEmbedding.mixedSpace F), MeasurableSet C ∧
         (∀ x : NumberField.mixedEmbedding.mixedSpace F, NumberField.mixedEmbedding.norm x ≠ 0 →
           ∃ u : rayUnits, (u : Oˣ) • x ∈ C) ∧
@@ -3200,7 +3200,11 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
           (u : Oˣ) • x ∈ C ↔ (u : Oˣ) ∈ NumberField.Units.torsion F) ∧
         Bornology.IsBounded {x | x ∈ C ∧ NumberField.mixedEmbedding.norm x ≤ 1} ∧
         (∀ x ∈ C, NumberField.mixedEmbedding.norm x ≠ 0) ∧
-        (∀ x ∈ C, ∀ c : ℝ, c ≠ 0 → c • x ∈ C) :=
+        (∀ x ∈ C, ∀ c : ℝ, c ≠ 0 → c • x ∈ C) ∧
+        (∃ (ι : Type) (_ : Fintype ι)
+          (b : Module.Basis ι ℝ (NumberField.Units.dirichletUnitTheorem.logSpace F)),
+          C = NumberField.mixedEmbedding.logMap ⁻¹' ZSpan.fundamentalDomain b \
+            {x | NumberField.mixedEmbedding.norm x = 0}) :=
       open NumberField NumberField.InfinitePlace NumberField.Units
         NumberField.Units.dirichletUnitTheorem NumberField.mixedEmbedding Finset in by
     let L := (rayUnits.toAddSubgroup.map (logEmbedding F)).toIntSubmodule
@@ -3229,7 +3233,7 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
     let basis := (IsZLattice.basis L).ofZLatticeBasis ℝ
     let C : Set (mixedSpace F) := logMap ⁻¹' ZSpan.fundamentalDomain basis \
       {x | mixedEmbedding.norm x = 0}
-    refine ⟨C, ?_, ?_, ?_, ?_, ?_, ?_⟩
+    refine ⟨C, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
     · refine MeasurableSet.diff ?_ ?_
       · unfold logMap
         refine MeasurableSet.preimage (ZSpan.fundamentalDomain_measurableSet _) <|
@@ -3358,6 +3362,7 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
       · change mixedEmbedding.norm (c • x) ≠ 0
         rw [mixedEmbedding.norm_smul]
         exact mul_ne_zero (pow_ne_zero _ (abs_ne_zero.mpr hc)) hx.2
+    · exact ⟨_, inferInstance, basis, rfl⟩
   have hrayConeCutoff (s : ℝ) : Bornology.IsBounded
       {x | x ∈ rayCone ∧ NumberField.mixedEmbedding.norm x ≤ s} :=
       open NumberField NumberField.mixedEmbedding in by
@@ -4154,6 +4159,747 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
     change _ = _ * Nat.card {K : rayIdeals //
       (absNorm (K.1 : Ideal O) : ℝ) ≤ s ∧ rayClass K = c}
     rw [show rayClass I = c⁻¹ from hI, inv_inv]
+  -- Steps 17–19: boundary geometry and translated-lattice discrepancy.
+  let : ∀ {X : Type} [SMul ℝ X], SMul ℝ (Set X) := fun {_} [_] => Set.smulSet
+  have hCubeCover :=
+    open scoped Pointwise NNReal Classical in
+    open Set Metric MeasureTheory Module Filter Topology NumberField NumberField.InfinitePlace NumberField.Units NumberField.Units.dirichletUnitTheorem NumberField.mixedEmbedding in
+    fun {ι κ : Type} [Fintype ι] [Fintype κ]
+      (f : (κ → ℝ) → (ι → ℝ)) (L : ℝ≥0)
+      (hf : LipschitzOnWith L f (Icc 0 1)) =>
+      show
+        ∃ C : ℝ, 0 ≤ C ∧ ∀ t : ℝ, 1 ≤ t →
+          ∃ P : Finset (ι → ℝ), (P.card : ℝ) ≤ C * t ^ Fintype.card κ ∧
+            ∀ x ∈ Icc (0 : κ → ℝ) 1, ∃ y ∈ P, dist (t • f x) y ≤ L
+      from by
+        classical
+        refine ⟨3 ^ Fintype.card κ, by positivity, ?_⟩
+        intro t ht
+        let n := ⌈t⌉₊
+        have htn : t ≤ (n : ℝ) := Nat.le_ceil t
+        have hn : 0 < (n : ℝ) := lt_of_lt_of_le zero_lt_one (ht.trans htn)
+        let grid (j : κ → Fin (n + 1)) : κ → ℝ := fun i => (j i : ℕ) / (n : ℝ)
+        let P := Finset.univ.image (fun j : κ → Fin (n + 1) => t • f (grid j))
+        refine ⟨P, ?_, ?_⟩
+        · calc
+            (P.card : ℝ) ≤ (Fintype.card (κ → Fin (n + 1)) : ℝ) := by
+              exact_mod_cast (Finset.card_image_le (s := Finset.univ)
+                (f := fun j : κ → Fin (n + 1) => t • f (grid j)))
+            _ = ((n : ℝ) + 1) ^ Fintype.card κ := by
+              simp only [Fintype.card_fun, Fintype.card_fin, Nat.cast_pow, Nat.cast_add, Nat.cast_one]
+            _ ≤ (3 * t) ^ Fintype.card κ := by
+              apply pow_le_pow_left₀ (by positivity)
+              have hceil : (n : ℝ) < t + 1 := Nat.ceil_lt_add_one (by linarith)
+              linarith
+            _ = 3 ^ Fintype.card κ * t ^ Fintype.card κ := mul_pow _ _ _
+        · intro x hx
+          let j : κ → Fin (n + 1) := fun i =>
+            ⟨⌊(n : ℝ) * x i⌋₊, Nat.lt_succ_of_le (Nat.floor_le_of_le
+              (by simpa using mul_le_mul_of_nonneg_left (hx.2 i) hn.le))⟩
+          have hj (i : κ) : (j i : ℝ) / (n : ℝ) ≤ x i := by
+            apply (div_le_iff₀ hn).mpr
+            simpa only [j, mul_comm] using Nat.floor_le (mul_nonneg hn.le (hx.1 i))
+          have hg : grid j ∈ Icc (0 : κ → ℝ) 1 := by
+            refine ⟨fun i => by dsimp [grid]; positivity, fun i => (hj i).trans (hx.2 i)⟩
+          have hdist : dist x (grid j) ≤ (n : ℝ)⁻¹ := by
+            apply (dist_pi_le_iff (inv_nonneg.mpr hn.le)).mpr
+            intro i
+            rw [Real.dist_eq, abs_of_nonneg (sub_nonneg.mpr (hj i))]
+            rw [inv_eq_one_div]
+            apply (le_div_iff₀ hn).mpr
+            have hfloor' := (Nat.lt_floor_add_one (x i * (n : ℝ))).le
+            dsimp [grid, j]
+            field_simp
+            linarith only [hfloor']
+          refine ⟨t • f (grid j), Finset.mem_image.mpr ⟨j, Finset.mem_univ _, rfl⟩, ?_⟩
+          calc
+            dist (t • f x) (t • f (grid j)) = t * dist (f x) (f (grid j)) := by
+              rw [dist_smul₀, Real.norm_eq_abs, abs_of_nonneg (by linarith)]
+            _ ≤ t * (L * (n : ℝ)⁻¹) :=
+              mul_le_mul_of_nonneg_left ((hf.dist_le_mul x hx (grid j) hg).trans
+                (mul_le_mul_of_nonneg_left hdist L.coe_nonneg)) (by linarith)
+            _ ≤ L := by
+              have hratio : t * (n : ℝ)⁻¹ ≤ 1 := (mul_inv_le_iff₀ hn).mpr (by simpa using htn)
+              nlinarith [mul_le_mul_of_nonneg_left hratio L.coe_nonneg]
+  have hBoundaryNear :=
+    open scoped Pointwise NNReal Classical in
+    open Set Metric MeasureTheory Module Filter Topology NumberField NumberField.InfinitePlace NumberField.Units NumberField.Units.dirichletUnitTheorem NumberField.mixedEmbedding in
+    fun {ι : Type} [Fintype ι]
+      (S : Set (ι → ℝ)) (x y : ι → ℝ) (r : ℝ) (hr : 0 ≤ r)
+      (hxy : dist x y ≤ r) (hmem : (x ∈ S) ≠ (y ∈ S)) =>
+      show
+        ∃ b ∈ frontier S, dist x b ≤ r
+      from by
+        classical
+        by_contra! h
+        have hball (b : ι → ℝ) (hb : b ∈ closedBall x r) : b ∉ frontier S := by
+          intro hbf
+          exact (h b hbf).not_ge (by simpa only [mem_closedBall, dist_comm] using hb)
+        have hsub : closedBall x r ⊆ interior S ∪ (closure S)ᶜ := by
+          intro b hb
+          by_cases hbc : b ∈ closure S
+          · exact Or.inl (by by_contra hbi; exact hball b hb ⟨hbc, hbi⟩)
+          · exact Or.inr hbc
+        have hx : x ∈ closedBall x r := mem_closedBall_self hr
+        have hy : y ∈ closedBall x r := by simpa only [mem_closedBall, dist_comm] using hxy
+        have hdisj : Disjoint (interior S) (closure S)ᶜ :=
+          disjoint_compl_right.mono_left (interior_subset.trans subset_closure)
+        have hc := (convex_closedBall x r).isPreconnected
+        have hboth (z : ι → ℝ) (hz : z ∈ closedBall x r) (hzS : z ∈ S) :
+            closedBall x r ⊆ interior S := by
+          have hzI : z ∈ interior S := (hsub hz).resolve_right (not_not.mpr (subset_closure hzS))
+          exact hc.subset_left_of_subset_union isOpen_interior isClosed_closure.isOpen_compl
+            hdisj hsub ⟨z, hz, hzI⟩
+        by_cases hxS : x ∈ S
+        · exact hmem (propext ⟨fun _ => interior_subset (hboth x hx hxS hy), fun _ => hxS⟩)
+        · have hyS : y ∈ S := by by_contra hyS; exact hmem (propext (iff_of_false hxS hyS))
+          exact hxS (interior_subset (hboth y hy hyS hx))
+  have hCellCount :=
+    open scoped Pointwise NNReal Classical in
+    open Set Metric MeasureTheory Module Filter Topology NumberField NumberField.InfinitePlace NumberField.Units NumberField.Units.dirichletUnitTheorem NumberField.mixedEmbedding in
+    fun {ι : Type} [Fintype ι]
+      (S : Set (ι → ℝ)) (hS : Bornology.IsBounded S)
+      (z : ι → ℝ) (A : Finset (ι → ℤ))
+      (hA : ∀ a : ι → ℤ, a ∈ A ↔ z + (fun i => (a i : ℝ)) ∈ S)
+      (P : Finset (ι → ℝ)) (r : ℝ) (hr : 0 ≤ r)
+      (hP : ∀ b ∈ frontier S, ∃ p ∈ P, dist b p ≤ r) =>
+      show
+        |(A.card : ℝ) - volume.real S| ≤
+          (P.card : ℝ) * (2 * (r + 1)) ^ Fintype.card ι
+      from by
+        classical
+        let anchor (a : ι → ℤ) : ι → ℝ := z + (fun i => (a i : ℝ))
+        let cell (a : ι → ℤ) : Set (ι → ℝ) :=
+          Set.pi Set.univ (fun i => Ico (anchor a i) (anchor a i + 1))
+        let owner (x : ι → ℝ) : ι → ℤ := fun i => ⌊x i - z i⌋
+        have hcell (x : ι → ℝ) (a : ι → ℤ) : x ∈ cell a ↔ owner x = a := by
+          simp only [cell, Set.mem_pi, Set.mem_univ, forall_const, Set.mem_Ico]
+          rw [funext_iff]
+          apply forall_congr'
+          intro i
+          rw [show owner x i = ⌊x i - z i⌋ from rfl, Int.floor_eq_iff]
+          dsimp [anchor]
+          constructor <;> rintro ⟨h₁, h₂⟩ <;> constructor <;> linarith
+        have hcellMeas (a : ι → ℤ) : MeasurableSet (cell a) :=
+          MeasurableSet.pi (Set.to_countable _) (fun _ _ => measurableSet_Ico)
+        have hcellVolume (a : ι → ℤ) : volume (cell a) = 1 := by
+          rw [show cell a = Set.pi Set.univ (fun i => Ico (anchor a i) (anchor a i + 1)) from rfl,
+            Real.volume_pi_Ico]
+          simp only [add_sub_cancel_left, ENNReal.ofReal_one, Finset.prod_const_one]
+        let U := ⋃ a ∈ A, cell a
+        have hUf : volume U ≠ ⊤ := by
+          apply ne_of_lt
+          apply (measure_biUnion_finset_le A cell).trans_lt
+          simp only [hcellVolume, Finset.sum_const, nsmul_eq_mul, mul_one, ENNReal.natCast_lt_top]
+        have hUvol : volume.real U = A.card := by
+          rw [measureReal_biUnion_finset (h := fun a _ => by
+            rw [hcellVolume]; exact ENNReal.one_ne_top)]
+          · simp only [measureReal_def, hcellVolume, ENNReal.toReal_one, Finset.sum_const,
+              nsmul_eq_mul, mul_one]
+          · intro a _ b _ hab
+            apply Set.disjoint_left.mpr
+            intro x hxa hxb
+            exact hab (((hcell x a).mp hxa).symm.trans ((hcell x b).mp hxb))
+          · exact fun a _ => hcellMeas a
+        have howner (x : ι → ℝ) : x ∈ U ↔ anchor (owner x) ∈ S := by
+          simp only [U, Set.mem_iUnion, hcell, exists_prop]
+          constructor
+          · rintro ⟨a, ha, heq⟩
+            exact heq.symm ▸ (hA a).mp ha
+          · intro hx
+            exact ⟨owner x, (hA _).mpr hx, rfl⟩
+        have hdistOwner (x : ι → ℝ) : dist x (anchor (owner x)) ≤ 1 := by
+          apply (dist_pi_le_iff zero_le_one).mpr
+          intro i
+          rw [Real.dist_eq]
+          have h₀ := Int.floor_le (x i - z i)
+          have h₁ := (Int.lt_floor_add_one (x i - z i)).le
+          dsimp [anchor, owner]
+          rw [abs_of_nonneg (by linarith)]
+          linarith
+        let W := ⋃ p ∈ P, closedBall p (r + 1)
+        have hWf : volume W ≠ ⊤ := by
+          apply ne_of_lt
+          apply (measure_biUnion_finset_le P (fun p => closedBall p (r + 1))).trans_lt
+          apply ENNReal.sum_lt_top.mpr
+          intro p _
+          exact (isBounded_closedBall : Bornology.IsBounded (closedBall p (r + 1))).measure_lt_top
+        have hWvol : volume.real W ≤ (P.card : ℝ) * (2 * (r + 1)) ^ Fintype.card ι := by
+          calc
+            volume.real W ≤ ∑ p ∈ P, volume.real (closedBall p (r + 1)) :=
+              measureReal_biUnion_finset_le P _
+            _ = (P.card : ℝ) * (2 * (r + 1)) ^ Fintype.card ι := by
+              simp only [measureReal_def, Real.volume_pi_closedBall _ (by linarith : 0 ≤ r + 1),
+                ENNReal.toReal_ofReal (by positivity : 0 ≤ (2 * (r + 1)) ^ Fintype.card ι),
+                Finset.sum_const, nsmul_eq_mul]
+        have hbad (x : ι → ℝ) (hx : (x ∈ S) ≠ (x ∈ U)) : x ∈ W := by
+          have hm : (x ∈ S) ≠ (anchor (owner x) ∈ S) := by
+            intro h
+            exact hx (h.trans (propext (howner x)).symm)
+          obtain ⟨b, hb, hxb⟩ := hBoundaryNear S x (anchor (owner x)) 1
+            zero_le_one (hdistOwner x) hm
+          obtain ⟨p, hp, hbp⟩ := hP b hb
+          refine Set.mem_iUnion.mpr ⟨p, Set.mem_iUnion.mpr ⟨hp, ?_⟩⟩
+          rw [mem_closedBall]
+          exact (dist_triangle x b p).trans (by linarith)
+        have hSU : S ⊆ U ∪ W := by
+          intro x hx
+          by_cases hxU : x ∈ U
+          · exact Or.inl hxU
+          · exact Or.inr (hbad x (by intro h; exact hxU (h ▸ hx)))
+        have hUS : U ⊆ S ∪ W := by
+          intro x hx
+          by_cases hxS : x ∈ S
+          · exact Or.inl hxS
+          · exact Or.inr (hbad x (by intro h; exact hxS (h ▸ hx)))
+        have h₁ := (measureReal_mono hSU (measure_union_ne_top hUf hWf)).trans
+          (measureReal_union_le U W)
+        have h₂ := (measureReal_mono hUS (measure_union_ne_top hS.measure_lt_top.ne hWf)).trans
+          (measureReal_union_le S W)
+        rw [hUvol] at h₁ h₂
+        exact (abs_le.mpr ⟨by linarith, by linarith⟩).trans hWvol
+  have hParametricBoundaryCover :=
+    open scoped Pointwise NNReal Classical in
+    open Set Metric MeasureTheory Module Filter Topology NumberField NumberField.InfinitePlace NumberField.Units NumberField.Units.dirichletUnitTheorem NumberField.mixedEmbedding in
+    fun {ι κ : Type} [Fintype ι] [Fintype κ]
+      (S : Set (ι → ℝ)) (f : (κ → ℝ) → (ι → ℝ)) (hf : ContDiff ℝ 1 f)
+      (hSf : S ⊆ f '' Icc (0 : κ → ℝ) 1)
+      (hfS : ∀ u : κ → ℝ, (∀ i, 0 < u i ∧ u i < 1) → f u ∈ interior S) =>
+      show
+        ∃ C r : ℝ, 0 ≤ C ∧ 0 ≤ r ∧ ∀ t : ℝ, 1 ≤ t →
+          ∃ P : Finset (ι → ℝ), (P.card : ℝ) ≤ C * t ^ (Fintype.card κ - 1) ∧
+            ∀ x ∈ frontier (t • S), ∃ p ∈ P, dist x p ≤ r
+      from by
+        classical
+        let J := κ × Bool
+        let D (j : J) := {i : κ // i ≠ j.1}
+        let face (j : J) (u : D j → ℝ) : κ → ℝ :=
+          fun i => if h : i = j.1 then (if j.2 then 1 else 0) else u ⟨i, h⟩
+        have hface (j : J) : ContDiff ℝ 1 (fun u : D j → ℝ => f (face j u)) := by
+          apply hf.comp
+          apply contDiff_pi.mpr
+          intro i
+          by_cases hi : i = j.1
+          · simp only [face, dif_pos hi]
+            exact contDiff_const
+          · simp only [face, dif_neg hi]
+            exact contDiff_apply ℝ ℝ (⟨i, hi⟩ : D j)
+        choose L hL using fun j : J => (hface j).contDiffOn.exists_lipschitzOnWith
+          (by norm_num : (1 : WithTop ℕ∞) ≠ 0) (convex_Icc (0 : D j → ℝ) 1) isCompact_Icc
+        have hcover (j : J) := hCubeCover (fun u => f (face j u)) (L j) (hL j)
+        choose C hC hcover using hcover
+        let r : ℝ := ∑ j : J, (L j : ℝ)
+        refine ⟨∑ j : J, C j, r, Finset.sum_nonneg (fun j _ => hC j),
+          Finset.sum_nonneg (fun j _ => (L j).coe_nonneg), ?_⟩
+        intro t ht
+        have ht0 : t ≠ 0 := ne_of_gt (lt_of_lt_of_le zero_lt_one ht)
+        choose P hPcard hP using fun j : J => hcover j t ht
+        let Q := Finset.univ.biUnion P
+        have hcardD (j : J) : Fintype.card (D j) = Fintype.card κ - 1 := by
+          dsimp only [D]
+          rw [Fintype.card_subtype_compl]
+          simp only [Fintype.card_unique]
+        refine ⟨Q, ?_, ?_⟩
+        · calc
+            (Q.card : ℝ) ≤ ∑ j : J, ((P j).card : ℝ) := by
+              exact_mod_cast (Finset.card_biUnion_le (s := Finset.univ) (t := P))
+            _ ≤ ∑ j : J, C j * t ^ (Fintype.card κ - 1) := by
+              apply Finset.sum_le_sum
+              intro j _
+              simpa only [hcardD] using hPcard j
+            _ = (∑ j : J, C j) * t ^ (Fintype.card κ - 1) := (Finset.sum_mul ..).symm
+        · intro x hx
+          have hfrontier : frontier (t • S) = t • frontier S :=
+            ((Homeomorph.smulOfNeZero t ht0).image_frontier S).symm
+          rw [hfrontier] at hx
+          obtain ⟨y, hy, rfl⟩ := hx
+          have hyf : y ∈ f '' Icc (0 : κ → ℝ) 1 :=
+            closure_minimal hSf (isCompact_Icc.image hf.continuous).isClosed hy.1
+          obtain ⟨u, hu, rfl⟩ := hyf
+          have hfaceExists : ∃ j : J, u j.1 = if j.2 then 1 else 0 := by
+            by_contra! h
+            apply hy.2
+            apply hfS
+            intro i
+            have h0 : u i ≠ 0 := by simpa using h (i, false)
+            have h1 : u i ≠ 1 := by simpa using h (i, true)
+            exact ⟨lt_of_le_of_ne (hu.1 i) h0.symm, lt_of_le_of_ne (hu.2 i) h1⟩
+          obtain ⟨j, hj⟩ := hfaceExists
+          let u' : D j → ℝ := fun i => u i.1
+          have hu' : u' ∈ Icc (0 : D j → ℝ) 1 := ⟨fun i => hu.1 i, fun i => hu.2 i⟩
+          have hfaceEq : face j u' = u := by
+            funext i
+            by_cases hi : i = j.1
+            · subst i
+              simpa only [face, dif_pos rfl] using hj.symm
+            · simp only [face, dif_neg hi, u']
+          obtain ⟨p, hp, hdist⟩ := hP j u' hu'
+          rw [hfaceEq] at hdist
+          refine ⟨p, Finset.mem_biUnion.mpr ⟨j, Finset.mem_univ _, hp⟩, hdist.trans ?_⟩
+          exact Finset.single_le_sum (fun k _ => (L k).coe_nonneg) (Finset.mem_univ j)
+  have hIntegerPoints :=
+    open scoped Pointwise NNReal Classical in
+    open Set Metric MeasureTheory Module Filter Topology NumberField NumberField.InfinitePlace NumberField.Units NumberField.Units.dirichletUnitTheorem NumberField.mixedEmbedding in
+    fun {ι : Type} [Fintype ι]
+      (S : Set (ι → ℝ)) (hS : Bornology.IsBounded S) (z : ι → ℝ) =>
+      show
+        ∃ A : Finset (ι → ℤ),
+          (∀ a : ι → ℤ, a ∈ A ↔ z + (fun i => (a i : ℝ)) ∈ S) ∧
+          Nat.card {a : ι → ℤ // z + (fun i => (a i : ℝ)) ∈ S} = A.card
+      from by
+        classical
+        obtain ⟨R, hR⟩ := isBounded_iff_forall_norm_le.mp hS
+        let N : ℤ := ⌈R + ‖z‖⌉
+        let A := (Finset.Icc (fun _ : ι => -N) (fun _ : ι => N)).filter
+          (fun a => z + (fun i => (a i : ℝ)) ∈ S)
+        have hA (a : ι → ℤ) : a ∈ A ↔ z + (fun i => (a i : ℝ)) ∈ S := by
+          rw [Finset.mem_filter]
+          refine ⟨And.right, fun ha => ⟨?_, ha⟩⟩
+          have hbound (i : ι) : |(a i : ℝ)| ≤ (N : ℝ) := by
+            have h₁ := norm_le_pi_norm (z + (fun i => (a i : ℝ))) i
+            have h₂ := norm_le_pi_norm z i
+            have h₃ := hR _ ha
+            have h₄ : R + ‖z‖ ≤ (N : ℝ) := Int.le_ceil _
+            have h₅ : |(a i : ℝ)| ≤ |z i + (a i : ℝ)| + |z i| := by
+              simpa only [add_sub_cancel_left, Real.norm_eq_abs] using
+                norm_sub_le (z i + (a i : ℝ)) (z i)
+            simp only [Pi.add_apply, Real.norm_eq_abs] at h₁ h₂
+            linarith only [h₁, h₂, h₃, h₄, h₅]
+          rw [Finset.mem_Icc]
+          exact ⟨fun i => by exact_mod_cast (abs_le.mp (hbound i)).1,
+            fun i => by exact_mod_cast (abs_le.mp (hbound i)).2⟩
+        refine ⟨A, hA, ?_⟩
+        let e : {a : ι → ℤ // z + (fun i => (a i : ℝ)) ∈ S} ≃ ↥A :=
+          Equiv.subtypeEquivRight (fun a => (hA a).symm)
+        simpa using Nat.card_congr e
+  have hParametricCount :=
+    open scoped Pointwise NNReal Classical in
+    open Set Metric MeasureTheory Module Filter Topology NumberField NumberField.InfinitePlace NumberField.Units NumberField.Units.dirichletUnitTheorem NumberField.mixedEmbedding in
+    fun {ι κ : Type} [Fintype ι] [Fintype κ]
+      (S : Set (ι → ℝ)) (f : (κ → ℝ) → (ι → ℝ)) (hf : ContDiff ℝ 1 f)
+      (hSf : S ⊆ f '' Icc (0 : κ → ℝ) 1)
+      (hfS : ∀ u : κ → ℝ, (∀ i, 0 < u i ∧ u i < 1) → f u ∈ interior S) =>
+      show
+        ∃ C : ℝ, 0 ≤ C ∧ ∀ t : ℝ, 1 ≤ t → ∀ z : ι → ℝ,
+          |(Nat.card {a : ι → ℤ // z + (fun i => (a i : ℝ)) ∈ t • S} : ℝ) -
+            volume.real (t • S)| ≤ C * t ^ (Fintype.card κ - 1)
+      from by
+        have hS : Bornology.IsBounded S := (isCompact_Icc.image hf.continuous).isBounded.subset hSf
+        obtain ⟨C, r, hC, hr, hbound⟩ := hParametricBoundaryCover S f hf hSf hfS
+        refine ⟨C * (2 * (r + 1)) ^ Fintype.card ι, by positivity, ?_⟩
+        intro t ht z
+        obtain ⟨P, hP, hfrontier⟩ := hbound t ht
+        obtain ⟨A, hA, hcard⟩ := hIntegerPoints (t • S) (hS.smul₀ t) z
+        rw [hcard]
+        refine (hCellCount (t • S) (hS.smul₀ t) z A hA P r hr hfrontier).trans ?_
+        calc
+          (P.card : ℝ) * (2 * (r + 1)) ^ Fintype.card ι ≤
+              (C * t ^ (Fintype.card κ - 1)) * (2 * (r + 1)) ^ Fintype.card ι := by
+            exact mul_le_mul_of_nonneg_right hP (by positivity)
+          _ = (C * (2 * (r + 1)) ^ Fintype.card ι) * t ^ (Fintype.card κ - 1) := by ring
+  have hLatticeVolume :=
+    open scoped Pointwise NNReal Classical in
+    open Set Metric MeasureTheory Module Filter Topology NumberField NumberField.InfinitePlace NumberField.Units NumberField.Units.dirichletUnitTheorem NumberField.mixedEmbedding in
+    fun {E : Type} [NormedAddCommGroup E] [NormedSpace ℝ E]
+      [FiniteDimensional ℝ E] [MeasureSpace E] [BorelSpace E]
+      [Measure.IsAddHaarMeasure (volume : Measure E)]
+      (L : Submodule ℤ E) [DiscreteTopology L] [IsZLattice ℝ L]
+      {ι : Type} [Fintype ι] (b : Module.Basis ι ℤ L)
+      (S : Set E) (hS : MeasurableSet S) =>
+      show
+        volume.real ((b.ofZLatticeBasis ℝ L).equivFun '' S) =
+          volume.real S / ZLattice.covolume L
+      from by
+        classical
+        let B := b.ofZLatticeBasis ℝ L
+        let e := B.equivFunL
+        have hpara : ENNReal.ofReal (ZLattice.covolume L) = volume (B.parallelepiped : Set E) := by
+          rw [ZLattice.covolume_eq_measure_fundamentalDomain L volume
+            (ZLattice.isAddFundamentalDomain b volume), measureReal_def,
+            ENNReal.ofReal_toReal (ZSpan.fundamentalDomain_isBounded B).measure_lt_top.ne]
+          exact measure_congr (ZSpan.fundamentalDomain_ae_parallelepiped B volume)
+        have hμ : (volume : Measure E) = ENNReal.ofReal (ZLattice.covolume L) • B.addHaar := by
+          rw [hpara, Module.Basis.addHaar_def]
+          exact Measure.addHaarMeasure_unique volume B.parallelepiped
+        have hmapBasis : B.map e.toLinearEquiv = Pi.basisFun ℝ ι := by
+          ext i j
+          simp [e, Finsupp.single_apply, Pi.single_apply, eq_comm]
+        have hmap : Measure.map e (volume : Measure E) =
+            ENNReal.ofReal (ZLattice.covolume L) • (volume : Measure (ι → ℝ)) := by
+          conv_lhs => rw [hμ]
+          rw [Measure.map_smul, Module.Basis.map_addHaar, hmapBasis,
+            Module.Basis.addHaar_def, Module.Basis.parallelepiped_basisFun,
+            addHaarMeasure_eq_volume_pi]
+        have hT : MeasurableSet (e '' S) := e.toHomeomorph.toMeasurableEquiv.measurableSet_image.mpr hS
+        have hV : volume S = ENNReal.ofReal (ZLattice.covolume L) * volume (e '' S) := by
+          calc
+            volume S = (Measure.map e volume) (e '' S) := by
+              rw [Measure.map_apply e.continuous.measurable hT, e.injective.preimage_image]
+            _ = _ := by rw [hmap, Measure.smul_apply, smul_eq_mul]
+        have hVr := congrArg ENNReal.toReal hV
+        simp only [ENNReal.toReal_mul,
+          ENNReal.toReal_ofReal (ZLattice.covolume_pos L volume).le] at hVr
+        apply (eq_div_iff (ZLattice.covolume_ne_zero L volume)).mpr
+        exact (mul_comm _ _).trans hVr.symm
+  have hLatticeCount :=
+    open scoped Pointwise NNReal Classical in
+    open Set Metric MeasureTheory Module Filter Topology NumberField NumberField.InfinitePlace NumberField.Units NumberField.Units.dirichletUnitTheorem NumberField.mixedEmbedding in
+    fun {E : Type} [NormedAddCommGroup E] [NormedSpace ℝ E]
+      [FiniteDimensional ℝ E]
+      (L : Submodule ℤ E) [DiscreteTopology L] [IsZLattice ℝ L]
+      {ι : Type} [Fintype ι] (b : Module.Basis ι ℤ L) (S : Set E) (z : E) =>
+      show
+        Nat.card {x : E // x - z ∈ L ∧ x ∈ S} =
+          Nat.card {a : ι → ℤ // (b.ofZLatticeBasis ℝ L).equivFun z +
+            (fun i => (a i : ℝ)) ∈ (b.ofZLatticeBasis ℝ L).equivFun '' S}
+      from by
+        classical
+        let e := (b.ofZLatticeBasis ℝ L).equivFun
+        let v (a : ι → ℤ) : E := (b.equivFun.symm a : L)
+        have hv (a : ι → ℤ) : e (v a) = fun i => (a i : ℝ) := by
+          ext i
+          change (b.ofZLatticeBasis ℝ L).repr (b.equivFun.symm a : L) i = (a i : ℝ)
+          rw [b.ofZLatticeBasis_repr_apply ℝ]
+          exact congrArg (fun n : ℤ => (n : ℝ)) (congrFun (b.equivFun.apply_symm_apply a) i)
+        have hmem (a : ι → ℤ) : e z + (fun i => (a i : ℝ)) ∈ e '' S ↔ z + v a ∈ S := by
+          rw [← hv, ← map_add, e.injective.mem_set_image]
+        let countEquiv : {x : E // x - z ∈ L ∧ x ∈ S} ≃
+            {a : ι → ℤ // e z + (fun i => (a i : ℝ)) ∈ e '' S} :=
+          { toFun := fun x => ⟨b.equivFun ⟨x.1 - z, x.2.1⟩, (hmem _).mpr (by
+              simpa only [v, b.equivFun.symm_apply_apply, add_sub_cancel] using x.2.2)⟩
+            invFun := fun a => ⟨z + v a.1, by simpa only [add_sub_cancel_left] using
+              (b.equivFun.symm a.1).property, (hmem _).mp a.2⟩
+            left_inv := fun x => by
+              apply Subtype.ext
+              dsimp only [v]
+              rw [b.equivFun.symm_apply_apply]
+              exact add_sub_cancel _ _
+            right_inv := fun a => by
+              apply Subtype.ext
+              change b.equivFun ⟨z + v a.1 - z, _⟩ = a.1
+              have heq : (⟨z + v a.1 - z, (by simpa only [add_sub_cancel_left] using
+                  (b.equivFun.symm a.1).property)⟩ : L) = b.equivFun.symm a.1 := by
+                apply Subtype.ext
+                exact add_sub_cancel_left _ _
+              rw [heq, b.equivFun.apply_symm_apply] }
+        exact Nat.card_congr countEquiv
+  have hParametricLatticeCount :=
+    open scoped Pointwise NNReal Classical in
+    open Set Metric MeasureTheory Module Filter Topology NumberField NumberField.InfinitePlace NumberField.Units NumberField.Units.dirichletUnitTheorem NumberField.mixedEmbedding in
+    fun {E : Type} [NormedAddCommGroup E] [NormedSpace ℝ E]
+      [FiniteDimensional ℝ E] [MeasureSpace E] [BorelSpace E]
+      [Measure.IsAddHaarMeasure (volume : Measure E)]
+      (L : Submodule ℤ E) [DiscreteTopology L] [IsZLattice ℝ L]
+      {κ : Type} [Fintype κ] (S : Set E) (hS : MeasurableSet S)
+      (f : (κ → ℝ) → E) (hf : ContDiff ℝ 1 f)
+      (hSf : S ⊆ f '' Icc (0 : κ → ℝ) 1)
+      (hfS : ∀ u : κ → ℝ, (∀ i, 0 < u i ∧ u i < 1) → f u ∈ interior S) =>
+      show
+        ∃ C : ℝ, 0 ≤ C ∧ ∀ t : ℝ, 1 ≤ t → ∀ z : E,
+          |(Nat.card {x : E // x - z ∈ L ∧ x ∈ t • S} : ℝ) -
+            (volume.real S / ZLattice.covolume L) * t ^ Module.finrank ℝ E| ≤
+              C * t ^ (Fintype.card κ - 1)
+      from by
+        classical
+        let : Module.Free ℤ L := ZLattice.module_free ℝ L
+        let : Module.Finite ℤ L := ZLattice.module_finite ℝ L
+        let b := Module.Free.chooseBasis ℤ L
+        let e := (b.ofZLatticeBasis ℝ L).equivFunL
+        let T := e '' S
+        have hTf : T ⊆ (fun u => e (f u)) '' Icc (0 : κ → ℝ) 1 := by
+          rintro _ ⟨x, hx, rfl⟩
+          obtain ⟨u, hu, rfl⟩ := hSf hx
+          exact ⟨u, hu, rfl⟩
+        have hfT (u : κ → ℝ) (hu : ∀ i, 0 < u i ∧ u i < 1) : e (f u) ∈ interior T := by
+          rw [show interior T = e '' interior S from (e.toHomeomorph.image_interior S).symm]
+          exact ⟨f u, hfS u hu, rfl⟩
+        obtain ⟨C, hC, hbound⟩ := hParametricCount T (fun u => e (f u))
+          (e.contDiff.comp hf) hTf hfT
+        refine ⟨C, hC, ?_⟩
+        intro t ht z
+        have himage : e '' (t • S) = t • T := image_smul_set e t S
+        have hcard := hLatticeCount L b (t • S) z
+        change Nat.card {x : E // x - z ∈ L ∧ x ∈ t • S} =
+          Nat.card {a : Module.Free.ChooseBasisIndex ℤ L → ℤ //
+            e z + (fun i => (a i : ℝ)) ∈ e '' (t • S)} at hcard
+        rw [himage] at hcard
+        have hvolume : volume.real (t • T) =
+            (volume.real S / ZLattice.covolume L) * t ^ Module.finrank ℝ E := by
+          rw [measureReal_def, Measure.addHaar_smul, ENNReal.toReal_mul,
+            ENNReal.toReal_ofReal (abs_nonneg _), abs_of_nonneg (pow_nonneg (by linarith) _),
+            Module.finrank_fintype_fun_eq_card]
+          have hdim : Fintype.card (Module.Free.ChooseBasisIndex ℤ L) = Module.finrank ℝ E :=
+            (Module.finrank_eq_card_basis (b.ofZLatticeBasis ℝ L)).symm
+          rw [hdim]
+          change t ^ Module.finrank ℝ E * volume.real T = _
+          rw [show volume.real T = volume.real S / ZLattice.covolume L volume from
+            hLatticeVolume L b S hS, mul_comm]
+        rw [hcard, ← hvolume]
+        exact hbound t ht (e z)
+  have hRayEstimateFromGeometry :=
+    open scoped Pointwise NNReal Classical in
+    open Set Metric MeasureTheory Module Filter Topology NumberField NumberField.InfinitePlace NumberField.Units NumberField.Units.dirichletUnitTheorem NumberField.mixedEmbedding in
+    fun {E : Type} [NormedAddCommGroup E] [NormedSpace ℝ E]
+      [FiniteDimensional ℝ E] [MeasureSpace E] [BorelSpace E]
+      [Measure.IsAddHaarMeasure (volume : Measure E)]
+      {κ : Type} [Fintype κ] (d : ℕ) (hd : 0 < d)
+      (hdE : Module.finrank ℝ E = d) (hdκ : Fintype.card κ = d)
+      (cone : Set E) (N : E → ℝ) (S : Set E) (hS : MeasurableSet S)
+      (hcutoff : ∀ t : ℝ, 0 < t → t • S = {x | x ∈ cone ∧ N x ≤ t ^ d})
+      (f : (κ → ℝ) → E) (hf : ContDiff ℝ 1 f)
+      (hSf : S ⊆ f '' Icc (0 : κ → ℝ) 1)
+      (hfS : ∀ u : κ → ℝ, (∀ i, 0 < u i ∧ u i < 1) → f u ∈ interior S)
+      (Ray : Type) (count : Ray → ℝ → ℕ) (w : ℕ) (hw : 0 < w)
+      (L : Ray → Submodule ℤ E) [∀ c, DiscreteTopology (L c)] [∀ c, IsZLattice ℝ (L c)]
+      (z : Ray → E) (nrm : Ray → ℕ) (hnrm : ∀ c, 0 < nrm c)
+      (hcount : ∀ c (s : ℝ),
+        Nat.card {x : E // x - z c ∈ L c ∧ x ∈ cone ∧ N x ≤ s * nrm c} = w * count c s)
+      (leading : ℝ)
+      (hleading : ∀ c, (volume.real S * nrm c) / ((w : ℝ) * ZLattice.covolume (L c)) = leading) =>
+      show
+        ∃ α : ℝ, 0 ≤ α ∧ α < 1 ∧ ∀ c, ∃ R : ℝ, 0 ≤ R ∧ ∀ n : ℕ, 1 ≤ n →
+          |(count c n : ℝ) - leading * n| ≤ R * (n : ℝ) ^ α
+      from by
+        let α : ℝ := ((d - 1 : ℕ) : ℝ) / (d : ℝ)
+        have hdR : 0 < (d : ℝ) := Nat.cast_pos.mpr hd
+        have hwR : 0 < (w : ℝ) := Nat.cast_pos.mpr hw
+        refine ⟨α, by dsimp [α]; positivity, ?_, ?_⟩
+        · apply (div_lt_one hdR).mpr
+          exact_mod_cast Nat.sub_lt hd zero_lt_one
+        · intro c
+          obtain ⟨C, hC, hbound⟩ := hParametricLatticeCount (L c) S hS f hf hSf hfS
+          refine ⟨C * (nrm c : ℝ) ^ α / w, by positivity, ?_⟩
+          intro n hn
+          have hnR : 1 ≤ (n : ℝ) := by exact_mod_cast hn
+          have hnrmR : 1 ≤ (nrm c : ℝ) := by exact_mod_cast hnrm c
+          have hprod : 0 ≤ (n : ℝ) * nrm c := by positivity
+          let t : ℝ := ((n : ℝ) * nrm c) ^ (d : ℝ)⁻¹
+          have ht1 : 1 ≤ t := Real.one_le_rpow (by nlinarith) (by positivity)
+          have ht : 0 < t := lt_of_lt_of_le zero_lt_one ht1
+          have htpow : t ^ d = (n : ℝ) * nrm c := Real.rpow_inv_natCast_pow hprod hd.ne'
+          have herrorPow : t ^ (d - 1) = (n : ℝ) ^ α * (nrm c : ℝ) ^ α := by
+            calc
+              t ^ (d - 1) = ((n : ℝ) * nrm c) ^ α := by
+                dsimp only [t]
+                rw [← Real.rpow_natCast, ← Real.rpow_mul hprod]
+                congr 1
+                dsimp only [α]
+                ring
+              _ = _ := Real.mul_rpow (Nat.cast_nonneg _) (Nat.cast_nonneg _)
+          have hcountt : Nat.card {x : E // x - z c ∈ L c ∧ x ∈ t • S} = w * count c n := by
+            rw [hcutoff t ht, htpow]
+            exact hcount c n
+          have hmain : (volume.real S / ZLattice.covolume (L c)) * ((n : ℝ) * nrm c) =
+              (w : ℝ) * (leading * n) := by
+            rw [← hleading c]
+            field_simp [hwR.ne', ZLattice.covolume_ne_zero (L c) volume]
+          have h := hbound t ht1 (z c)
+          rw [hdE, hdκ, htpow, hcountt, Nat.cast_mul, hmain, ← mul_sub, abs_mul,
+            abs_of_pos hwR, herrorPow] at h
+          apply (mul_le_mul_iff_right₀ hwR).mp
+          calc
+            (w : ℝ) * |(count c n : ℝ) - leading * n| ≤ C * ((n : ℝ) ^ α * (nrm c : ℝ) ^ α) := h
+            _ = (w : ℝ) * (C * (nrm c : ℝ) ^ α / w * (n : ℝ) ^ α) := by
+              field_simp
+  have hRayParameter :=
+    open scoped Pointwise NNReal Classical in
+    open Set Metric MeasureTheory Module Filter Topology NumberField NumberField.InfinitePlace NumberField.Units NumberField.Units.dirichletUnitTheorem NumberField.mixedEmbedding in
+    fun (K : Type) [Field K] [NumberField K]
+      (ι : Type) [Fintype ι] (b : Module.Basis ι ℝ (logSpace K)) =>
+      show
+        let D := Option ι ⊕ {w : InfinitePlace K // w.IsComplex}
+        let S : Set (mixedSpace K) := {x | logMap x ∈ ZSpan.fundamentalDomain b ∧
+          mixedEmbedding.norm x ≠ 0 ∧ mixedEmbedding.norm x ≤ 1 ∧
+          ∀ w : {w : InfinitePlace K // w.IsReal}, 0 < x.1 w}
+        ∃ f : (D → ℝ) → mixedSpace K, ContDiff ℝ 1 f ∧
+          S ⊆ f '' Icc (0 : D → ℝ) 1 ∧
+          ∀ u : D → ℝ, (∀ i, 0 < u i ∧ u i < 1) → f u ∈ interior S
+      from by
+        classical
+        let D := Option ι ⊕ {w : InfinitePlace K // w.IsComplex}
+        let c (v : logSpace K) (w : InfinitePlace K) : ℝ :=
+          if hw : w = w₀ then -(∑ j, v j) else v ⟨w, hw⟩
+        have hc (v : logSpace K) (w : {w : InfinitePlace K // w ≠ w₀}) : c v w = v w := by
+          simp only [c, w.property, dite_false]
+        have hsum (v : logSpace K) : ∑ w, c v w = 0 := by
+          rw [Fintype.sum_eq_add_sum_subtype_ne _ (w₀ : InfinitePlace K)]
+          rw [show c v w₀ = -(∑ j, v j) by simp only [c, dite_true]]
+          simp_rw [hc]
+          exact neg_add_cancel _
+        let δ (v : logSpace K) (w : InfinitePlace K) : ℝ := c v w / (mult w : ℝ)
+        have hmulδ (v : logSpace K) (w : InfinitePlace K) :
+            (mult w : ℝ) * δ v w = c v w := by
+          dsimp only [δ]
+          field_simp [show (mult w : ℝ) ≠ 0 from Nat.cast_ne_zero.mpr mult_pos.ne']
+        let v (u : D → ℝ) := b.equivFun.symm (fun i => u (Sum.inl (some i)))
+        let g (u : D → ℝ) : mixedSpace K :=
+          (fun w => Real.exp (δ (v u) w),
+           fun w => (Real.exp (δ (v u) w) : ℂ) *
+             Complex.exp (((2 * Real.pi * u (Sum.inr w) - Real.pi : ℝ) : ℂ) * Complex.I))
+        let f (u : D → ℝ) := u (Sum.inl none) • g u
+        have hgPlace (u : D → ℝ) (w : InfinitePlace K) :
+            normAtPlace w (g u) = Real.exp (δ (v u) w) := by
+          rcases isReal_or_isComplex w with hw | hw
+          · rw [normAtPlace_apply_of_isReal hw]
+            exact Real.norm_of_nonneg (Real.exp_pos _).le
+          · rw [normAtPlace_apply_of_isComplex hw]
+            dsimp only [g]
+            rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_pos (Real.exp_pos _),
+              Complex.norm_exp]
+            simp only [Complex.mul_re, Complex.ofReal_re, Complex.I_re, mul_zero,
+              Complex.ofReal_im, Complex.I_im, sub_zero, Real.exp_zero, mul_one]
+        have hgNorm (u : D → ℝ) : mixedEmbedding.norm (g u) = 1 := by
+          rw [mixedEmbedding.norm_apply]
+          simp only [hgPlace, ← Real.exp_nat_mul, ← Real.exp_sum, hmulδ, hsum, Real.exp_zero]
+        have hfNorm (u : D → ℝ) :
+            mixedEmbedding.norm (f u) = |u (Sum.inl none)| ^ Module.finrank ℚ K := by
+          rw [show f u = u (Sum.inl none) • g u from rfl, mixedEmbedding.norm_smul, hgNorm, mul_one]
+        have hfLog (u : D → ℝ) (hu : u (Sum.inl none) ≠ 0) : logMap (f u) = v u := by
+          rw [show f u = u (Sum.inl none) • g u from rfl,
+            logMap_real_smul (by rw [hgNorm]; exact one_ne_zero) hu]
+          ext w
+          rw [logMap_apply_of_norm_eq_one (hgNorm u), hgPlace, Real.log_exp, hmulδ, hc]
+        have hv : ContDiff ℝ 1 v := by
+          exact b.equivFunL.symm.contDiff.comp (contDiff_pi.mpr (fun i => contDiff_apply ℝ ℝ _))
+        have hδ (w : InfinitePlace K) : ContDiff ℝ 1 (fun u => δ (v u) w) := by
+          dsimp only [δ, c]
+          split_ifs
+          · exact ((ContDiff.sum (fun j _ => (contDiff_apply ℝ ℝ j).comp hv)).neg).div_const _
+          · exact ((contDiff_apply ℝ ℝ _).comp hv).div_const _
+        have hgSmooth : ContDiff ℝ 1 g := by
+          apply ContDiff.prodMk
+          · exact contDiff_pi.mpr fun w => (hδ w).exp
+          · apply contDiff_pi.mpr
+            intro w
+            exact ((Complex.ofRealCLM.contDiff.comp ((hδ w).exp))).mul
+              (((show ContDiff ℂ 1 Complex.exp from Complex.contDiff_exp).restrict_scalars ℝ).comp
+                ((Complex.ofRealCLM.contDiff.comp
+                  ((contDiff_const.mul (contDiff_apply ℝ ℝ (n := 1) (Sum.inr w))).sub
+                    contDiff_const)).mul contDiff_const))
+        have hδLog (x : mixedSpace K) (hx : mixedEmbedding.norm x ≠ 0) (w : InfinitePlace K) :
+            δ (logMap x) w = Real.log (normAtPlace w x) -
+              Real.log (mixedEmbedding.norm x) * (Module.finrank ℚ K : ℝ)⁻¹ := by
+          let d (w : InfinitePlace K) := Real.log (normAtPlace w x) -
+            Real.log (mixedEmbedding.norm x) * (Module.finrank ℚ K : ℝ)⁻¹
+          have hs : ∑ w, (mult w : ℝ) * d w = 0 := by
+            have hlogsum : (∑ w, (mult w : ℝ) * Real.log (normAtPlace w x)) =
+                Real.log (mixedEmbedding.norm x) := by
+              rw [mixedEmbedding.norm_apply, Real.log_prod
+                (fun w _ => pow_ne_zero _ (mixedEmbedding.norm_ne_zero_iff.mp hx w))]
+              simp only [Real.log_pow]
+            dsimp only [d]
+            simp only [mul_sub, Finset.sum_sub_distrib, ← Finset.sum_mul]
+            rw [hlogsum, ← Nat.cast_sum, sum_mult_eq]
+            have hdegree : (Module.finrank ℚ K : ℝ) ≠ 0 :=
+              Nat.cast_ne_zero.mpr Module.finrank_pos.ne'
+            field_simp
+            ring
+          have hcw : c (logMap x) w = (mult w : ℝ) * d w := by
+            by_cases hw : w = w₀
+            · subst w
+              rw [Fintype.sum_eq_add_sum_subtype_ne _ w₀] at hs
+              rw [show c (logMap x) w₀ = -(∑ j, logMap x j) by simp only [c, dite_true]]
+              change (mult (w₀ : InfinitePlace K) : ℝ) * d w₀ + (∑ j, logMap x j) = 0 at hs
+              linarith only [hs]
+            · exact hc (logMap x) ⟨w, hw⟩
+          apply mul_left_cancel₀ (Nat.cast_ne_zero.mpr mult_pos.ne' : (mult w : ℝ) ≠ 0)
+          rw [hmulδ, hcw]
+        have hfSmooth : ContDiff ℝ 1 f := (contDiff_apply ℝ ℝ _).smul hgSmooth
+        have hfPos (u : D → ℝ) (hu : 0 < u (Sum.inl none))
+            (w : {w : InfinitePlace K // w.IsReal}) : 0 < (f u).1 w := by
+          change 0 < u (Sum.inl none) * Real.exp (δ (v u) w)
+          exact mul_pos hu (Real.exp_pos _)
+        refine ⟨f, hfSmooth, ?_, ?_⟩
+        · intro x hx
+          have hxPlace (w : InfinitePlace K) : 0 < normAtPlace w x :=
+            lt_of_le_of_ne (normAtPlace_nonneg _ _) ((mixedEmbedding.norm_ne_zero_iff.mp hx.2.1 w).symm)
+          let t : ℝ := Real.exp (Real.log (mixedEmbedding.norm x) * (Module.finrank ℚ K : ℝ)⁻¹)
+          have ht : 0 < t := Real.exp_pos _
+          have ht1 : t ≤ 1 := Real.exp_le_one_iff.mpr <|
+            mul_nonpos_of_nonpos_of_nonneg
+              (Real.log_nonpos (mixedEmbedding.norm_nonneg x) hx.2.2.1)
+              (inv_nonneg.mpr (Nat.cast_nonneg _))
+          let u : D → ℝ := fun j => match j with
+            | Sum.inl none => t
+            | Sum.inl (some i) => b.equivFun (logMap x) i
+            | Sum.inr w => (Complex.arg (x.2 w) + Real.pi) / (2 * Real.pi)
+          have huv : v u = logMap x := b.equivFun.symm_apply_apply _
+          have hmag (w : InfinitePlace K) : t * Real.exp (δ (v u) w) = normAtPlace w x := by
+            rw [huv, hδLog x hx.2.1]
+            dsimp only [t]
+            rw [← Real.exp_add, add_sub_cancel, Real.exp_log (hxPlace w)]
+          have hu : u ∈ Icc (0 : D → ℝ) 1 := by
+            constructor
+            · intro j
+              rcases j with (_ | i) | w
+              · exact ht.le
+              · exact (hx.1 i).1
+              · exact div_nonneg (by linarith [Complex.neg_pi_lt_arg (x.2 w)]) Real.two_pi_pos.le
+            · intro j
+              rcases j with (_ | i) | w
+              · exact ht1
+              · exact (hx.1 i).2.le
+              · apply (div_le_one Real.two_pi_pos).mpr
+                linarith [Complex.arg_le_pi (x.2 w)]
+          refine ⟨u, hu, ?_⟩
+          apply Prod.ext
+          · funext w
+            change t * Real.exp (δ (v u) w) = x.1 w
+            rw [hmag, normAtPlace_apply_of_isReal w.property, Real.norm_of_nonneg (hx.2.2.2 w).le]
+          · funext w
+            have hangle : 2 * Real.pi * ((Complex.arg (x.2 w) + Real.pi) / (2 * Real.pi)) -
+                Real.pi = Complex.arg (x.2 w) := by field_simp; ring
+            change (t : ℂ) * ((Real.exp (δ (v u) w) : ℂ) *
+              Complex.exp (((2 * Real.pi * ((Complex.arg (x.2 w) + Real.pi) / (2 * Real.pi)) -
+                Real.pi : ℝ) : ℂ) * Complex.I)) = x.2 w
+            rw [hangle, ← mul_assoc, ← Complex.ofReal_mul, hmag,
+              normAtPlace_apply_of_isComplex w.property, Complex.norm_mul_exp_arg_mul_I]
+        · intro u hu
+          have ht : 0 < u (Sum.inl none) := (hu _).1
+          have hfn0 : mixedEmbedding.norm (f u) ≠ 0 := by
+            rw [hfNorm]
+            exact pow_ne_zero _ (abs_ne_zero.mpr ht.ne')
+          have hfn1 : mixedEmbedding.norm (f u) < 1 := by
+            rw [hfNorm, abs_of_pos ht]
+            exact pow_lt_one₀ ht.le (hu _).2 Module.finrank_pos.ne'
+          have hflogrepr (i : ι) : b.equivFun (logMap (f u)) i = u (Sum.inl (some i)) := by
+            rw [hfLog u ht.ne']
+            exact congrFun (b.equivFun.apply_symm_apply _) i
+          have hcont : ContinuousAt (logMap (K := K)) (f u) := by
+            apply continuousAt_pi.mpr
+            intro w
+            change ContinuousAt (fun x : mixedSpace K => (mult w.1 : ℝ) *
+              (Real.log (normAtPlace w.1 x) - Real.log (mixedEmbedding.norm x) *
+                (Module.finrank ℚ K : ℝ)⁻¹)) (f u)
+            apply ContinuousAt.const_mul
+            apply ContinuousAt.sub
+            · exact (continuous_normAtPlace w.1).continuousAt.log
+                (mixedEmbedding.norm_ne_zero_iff.mp hfn0 w)
+            · exact ((mixedEmbedding.continuous_norm K).continuousAt.log hfn0).mul_const _
+          have hlogneighborhood : ∀ᶠ x in nhds (f u),
+              ∀ i, b.equivFun (logMap x) i ∈ Ioo (0 : ℝ) 1 := by
+            rw [Filter.eventually_all]
+            intro i
+            apply (((continuous_apply i).comp b.equivFunL.continuous).continuousAt.comp hcont).eventually
+            apply isOpen_Ioo.mem_nhds
+            change b.equivFun (logMap (f u)) i ∈ Ioo (0 : ℝ) 1
+            rw [hflogrepr]
+            exact hu _
+          have hposneighborhood : ∀ᶠ x in nhds (f u),
+              ∀ w : {w : InfinitePlace K // w.IsReal}, 0 < x.1 w := by
+            rw [Filter.eventually_all]
+            intro w
+            apply (((continuous_apply w).comp continuous_fst).continuousAt).eventually
+            exact isOpen_Ioi.mem_nhds (hfPos u ht w)
+          have hnneighborhood : ∀ᶠ x in nhds (f u), mixedEmbedding.norm x ≠ 0 :=
+            (mixedEmbedding.continuous_norm K).continuousAt.eventually_ne hfn0
+          have hboundneighborhood : ∀ᶠ x in nhds (f u), mixedEmbedding.norm x < 1 :=
+            (mixedEmbedding.continuous_norm K).continuousAt.eventually (isOpen_Iio.mem_nhds hfn1)
+          apply mem_interior_iff_mem_nhds.mpr
+          filter_upwards [hlogneighborhood, hposneighborhood, hnneighborhood, hboundneighborhood]
+            with x hlog hpos hn hbound
+          exact ⟨(fun i => ⟨(hlog i).1.le, (hlog i).2⟩),
+            hn, hbound.le, hpos⟩
   -- Steps 19 and 23: equal ray-class estimates pass through the Artin fibers.
   have hcountTransfer (X C G : Type) [Group C] [Group G] [Fintype C]
       [DecidableEq G] (N : X → ℕ) (cls : X → C) (f : C →* G)
@@ -5128,5 +5874,69 @@ theorem Submission.p09_af497904fe_ff_cyclotomic_supply :
       refine ⟨R, hR, ?_⟩
       intro n hn
       simpa only [hcoeff] using hbound n hn
-    -- Steps 17–19: quantitative ray counting remains open.
-    fail "Unfinished arithmetic input: continuously extend the prime-to-q ideal character series Sgood with nonzero value at one."
+    -- Steps 17–19: smooth boundary faces give the power-saving ray-class estimate.
+    exact (open scoped Pointwise Classical in by
+      obtain ⟨ι, hι, rayBasis, hrayShape⟩ := hrayConeShape
+      let : Fintype ι := hι
+      let D := Option ι ⊕ {w : NumberField.InfinitePlace F // w.IsComplex}
+      let S : Set (NumberField.mixedEmbedding.mixedSpace F) :=
+        {x | x ∈ rayRegion ∧ NumberField.mixedEmbedding.norm x ≤ 1}
+      have hSshape : S = {x | NumberField.mixedEmbedding.logMap x ∈
+          ZSpan.fundamentalDomain rayBasis ∧ NumberField.mixedEmbedding.norm x ≠ 0 ∧
+          NumberField.mixedEmbedding.norm x ≤ 1 ∧
+          ∀ w : {w : NumberField.InfinitePlace F // w.IsReal}, 0 < x.1 w} := by
+        ext x
+        simp only [S, rayRegion, hrayShape, Set.mem_ofPred_eq, Set.mem_sdiff, Set.mem_preimage]
+        constructor
+        · rintro ⟨⟨⟨hx, hn⟩, hp⟩, hb⟩
+          exact ⟨hx, hn, hb, hp⟩
+        · rintro ⟨hx, hn, hb, hp⟩
+          exact ⟨⟨⟨hx, hn⟩, hp⟩, hb⟩
+      obtain ⟨f, hf, hSf, hfS⟩ := hRayParameter F ι rayBasis
+      rw [← hSshape] at hSf hfS
+      have hD : Fintype.card D = Module.finrank ℚ F := by
+        have hb : Fintype.card ι = NumberField.Units.rank F :=
+          (Module.finrank_eq_card_basis rayBasis).symm.trans (NumberField.Units.finrank_eq_rank F)
+        simp only [D, Fintype.card_sum, Fintype.card_option, hb, NumberField.Units.rank]
+        have hplaces := Fintype.card_pos (α := NumberField.InfinitePlace F)
+        have h₁ := NumberField.InfinitePlace.card_eq_nrRealPlaces_add_nrComplexPlaces (K := F)
+        have h₂ := NumberField.InfinitePlace.card_add_two_mul_card_eq_rank (K := F)
+        change (Fintype.card (NumberField.InfinitePlace F) - 1 + 1) +
+          NumberField.InfinitePlace.nrComplexPlaces F = Module.finrank ℚ F
+        omega
+      have hSm : MeasurableSet S := hrayRegionMeasurable.inter
+        (measurableSet_le (NumberField.mixedEmbedding.continuous_norm F).measurable measurable_const)
+      have hcutoff (t : ℝ) (ht : 0 < t) : t • S =
+          {x | x ∈ rayRegion ∧ NumberField.mixedEmbedding.norm x ≤ t ^ Module.finrank ℚ F} := by
+        ext x
+        rw [Set.mem_smul_set_iff_inv_smul_mem₀ ht.ne']
+        change ((t⁻¹ • x) ∈ rayRegion ∧ NumberField.mixedEmbedding.norm (t⁻¹ • x) ≤ 1) ↔ _
+        rw [NumberField.mixedEmbedding.norm_smul, abs_of_pos (inv_pos.mpr ht), inv_pow,
+          inv_mul_le_iff₀ (pow_pos ht _), mul_one]
+        constructor
+        · rintro ⟨hx, hn⟩
+          refine ⟨?_, hn⟩
+          simpa only [smul_inv_smul₀ ht.ne'] using hrayRegionSmul (t⁻¹ • x) hx t ht
+        · rintro ⟨hx, hn⟩
+          exact ⟨hrayRegionSmul x hx t⁻¹ (inv_pos.mpr ht), hn⟩
+      choose I hI a₀ ha₀ ha₀q hcount using hrayCountingLattice
+      let L (c : Ray) := rayLattice (I c).1
+      let : ∀ c : Ray, DiscreteTopology (L c) := fun _ => inferInstance
+      let : ∀ c : Ray, IsZLattice ℝ (L c) := fun _ => inferInstance
+      let Tors := ↥(rayUnits ⊓ NumberField.Units.torsion F)
+      let : Finite Tors := Set.finite_coe_iff.mp hrayTorsion
+      have hw : 0 < Nat.card Tors := Nat.card_pos
+      let leading := MeasureTheory.volume.real S /
+        (Nat.card Tors * (q : ℝ) ^ Module.finrank ℚ F *
+          ZLattice.covolume (NumberField.mixedEmbedding.integerLattice F))
+      have hnorm (c : Ray) : 0 < absNorm ((I c).1 : Ideal O) :=
+        Nat.pos_of_ne_zero (absNorm_ne_zero_of_nonZeroDivisors (I c).1)
+      have hlead (c : Ray) : (MeasureTheory.volume.real S * absNorm ((I c).1 : Ideal O)) /
+          ((Nat.card Tors : ℝ) * ZLattice.covolume (L c)) = leading :=
+        hrayLeadingCoefficient (I c).1 (MeasureTheory.volume.real S)
+      obtain ⟨α, hα₀, hα₁, hbound⟩ := hRayEstimateFromGeometry (Module.finrank ℚ F)
+        Module.finrank_pos (NumberField.mixedEmbedding.finrank F) hD
+        rayRegion NumberField.mixedEmbedding.norm S hSm hcutoff f hf hSf hfS Ray rayCount
+        (Nat.card Tors) hw L (fun c => NumberField.mixedEmbedding F (a₀ c))
+        (fun c => absNorm ((I c).1 : Ideal O)) hnorm hcount leading hlead
+      exact ⟨leading, α, hα₀, hα₁, hbound⟩)
