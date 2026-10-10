@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "node_id": "root.finite_inverse_limit-a1",
+  "parent_id": "root",
+  "depth": 1,
+  "title": "A coherent inverse system of nonempty finite sets has a point",
+  "statement": "Let X_i be nonempty finite sets indexed by natural numbers. For each i ≤ j, let r_ij : X_j → X_i. Suppose r_ii is the identity and r_ik = r_ij ∘ r_jk whenever i ≤ j ≤ k. Then there exists a family x_i ∈ X_i with r_ij(x_j) = x_i for every i ≤ j. The transition maps need not be surjective.",
+  "lean_statement": "∀ (X : ℕ → Type) [∀ i : ℕ, Finite (X i)] [∀ i : ℕ, Nonempty (X i)] (r : ∀ i j : ℕ, i ≤ j → X j → X i), (∀ (i : ℕ) (x : X i), r i i (Nat.le_refl i) x = x) → (∀ (i j k : ℕ) (hij : i ≤ j) (hjk : j ≤ k) (x : X k), r i k (Nat.le_trans hij hjk) x = r i j hij (r j k hjk x)) → ∃ x : ∀ i : ℕ, X i, ∀ (i j : ℕ) (hij : i ≤ j), r i j hij (x j) = x i",
+  "lean_name": "p09_af497904fe_finite_inverse_limit",
+  "depends_on": [],
+  "dependency_workspaces": [],
+  "result_branch": "humanize-recursive/fermat-p09/20261007t081613z-af497904fe/root-finite-inverse-limit-a1-a1"
+}

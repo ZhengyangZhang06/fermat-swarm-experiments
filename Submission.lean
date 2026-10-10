@@ -384,6 +384,59 @@ theorem Submission.p09_af497904fe_finite_cyclotomic_character
         ((Nat.Prime.coprime_iff_not_dvd hℓ).mpr hℓN) : ZMod N).val) := by
       rw [ZMod.coe_unitOfCoprime, ZMod.val_natCast]
       exact pow_eq_pow_mod ℓ hζ.pow_eq_one
+theorem Submission.p09_af497904fe_ic_integer_mem_valuation :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E]
+      (V : ValuationSubring E), ∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V := by
+  intro E _ V a
+  apply (Subring.isIntegrallyClosed_iff (S := V)).mp inferInstance
+  exact (NumberField.RingOfIntegers.isIntegral_coe a).tower_top
+theorem Submission.p09_af497904fe_ic_prime_center_of_containment :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E]
+      (ℓ : ℕ), ℓ.Prime → ∀ (V : ValuationSubring E), V.LiesOverPrime ℓ →
+      (∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V) →
+      ∃ q : Ideal (NumberField.RingOfIntegers E),
+        q.IsPrime ∧ q ≠ ⊥ ∧ (ℓ : NumberField.RingOfIntegers E) ∈ q ∧
+        Finite (NumberField.RingOfIntegers E ⧸ q) ∧
+        (∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V.nonunits ↔ a ∈ q) := by
+  intro E _ ℓ hℓ V hV hcontain
+  let : NumberField E := NumberField.of_module_finite ℚ E
+  let f : NumberField.RingOfIntegers E →+* V :=
+    { toFun := fun a => ⟨(a : E), hcontain a⟩
+      map_zero' := Subtype.ext (map_zero (algebraMap (NumberField.RingOfIntegers E) E))
+      map_one' := Subtype.ext (map_one (algebraMap (NumberField.RingOfIntegers E) E))
+      map_add' := fun a b =>
+        Subtype.ext (map_add (algebraMap (NumberField.RingOfIntegers E) E) a b)
+      map_mul' := fun a b =>
+        Subtype.ext (map_mul (algebraMap (NumberField.RingOfIntegers E) E) a b) }
+  let q : Ideal (NumberField.RingOfIntegers E) :=
+    Ideal.comap f (IsLocalRing.maximalIdeal V)
+  have hprime : q.IsPrime := (IsLocalRing.maximalIdeal V).comap_isPrime f
+  have hmem (a : NumberField.RingOfIntegers E) :
+      (a : E) ∈ V.nonunits ↔ a ∈ q :=
+    ValuationSubring.coe_mem_nonunits_iff (a := f a)
+  have hℓq : (ℓ : NumberField.RingOfIntegers E) ∈ q := by
+    apply (hmem _).mp
+    simpa only [ValuationSubring.LiesOverPrime, NumberField.RingOfIntegers.val,
+      map_natCast] using hV
+  have hne : q ≠ ⊥ := by
+    intro hq
+    have hz : (ℓ : NumberField.RingOfIntegers E) = 0 := by
+      simpa only [hq, Ideal.mem_bot] using hℓq
+    exact hℓ.ne_zero (Nat.cast_eq_zero.mp hz)
+  exact ⟨q, hprime, hne, hℓq, Ring.HasFiniteQuotients.finiteQuotient hne, hmem⟩
+
+
+theorem Submission.p09_af497904fe_vloc_integral_center :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E]
+      (ℓ : ℕ), ℓ.Prime → ∀ (V : ValuationSubring E), V.LiesOverPrime ℓ →
+      (∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V) ∧
+        ∃ q : Ideal (NumberField.RingOfIntegers E),
+          q.IsPrime ∧ q ≠ ⊥ ∧ (ℓ : NumberField.RingOfIntegers E) ∈ q ∧
+            Finite (NumberField.RingOfIntegers E ⧸ q) ∧
+            (∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V.nonunits ↔ a ∈ q) := by
+  intro E _ ℓ hℓ V hV
+  have hmem := Submission.p09_af497904fe_ic_integer_mem_valuation E V
+  exact ⟨hmem, Submission.p09_af497904fe_ic_prime_center_of_containment E ℓ hℓ V hV hmem⟩
 theorem Submission.p09_af497904fe_vloc_fraction_characterization :
     ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E]
       (V : ValuationSubring E) (q : Ideal (NumberField.RingOfIntegers E)),
@@ -446,6 +499,312 @@ theorem Submission.p09_af497904fe_vloc_fraction_characterization :
   · apply (hA x).mpr
     refine ⟨b, a, haq, ?_⟩
     simpa only [inv_inv, inv_div] using congrArg Inv.inv hab
+
+
+theorem Submission.p09_af497904fe_ir_ideal_inertia_to_valuation :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E]
+      (q : ℕ), q.Prime → ∀ P : Ideal (NumberField.RingOfIntegers E),
+      P.IsPrime → P.LiesOver (Ideal.span {(q : ℤ)}) →
+      ∃ V : ValuationSubring E, V.LiesOverPrime q ∧
+        P.inertia (E ≃ₐ[ℚ] E) ≤ V.inertiaSubgroupIn ℚ := by
+  classical
+  intro E _ q hq P hP hPQ
+  let : NumberField E := NumberField.of_module_finite ℚ E
+  let : P.IsPrime := hP
+  let : P.LiesOver (Ideal.span {(q : ℤ)}) := hPQ
+  have hqP : (q : NumberField.RingOfIntegers E) ∈ P := by
+    simpa only [map_natCast] using
+      (Ideal.mem_of_liesOver P (Ideal.span {(q : ℤ)}) (q : ℤ)).mp
+        (Ideal.subset_span (Set.mem_singleton _))
+  have hP0 : P ≠ ⊥ := by
+    intro h
+    have : (q : NumberField.RingOfIntegers E) = 0 := by simpa [h] using hqP
+    exact hq.ne_zero (Nat.cast_eq_zero.mp this)
+  let v : IsDedekindDomain.HeightOneSpectrum (NumberField.RingOfIntegers E) :=
+    ⟨P, hP, hP0⟩
+  let V := v.valuationSubringAtPrime E
+  let : Algebra (NumberField.RingOfIntegers E) V :=
+    (Localization.subalgebra.ofField E P.primeCompl P.primeCompl_le_nonZeroDivisors).algebra'
+  let : IsLocalization P.primeCompl V :=
+    Localization.subalgebra.isLocalization_ofField E P.primeCompl
+      P.primeCompl_le_nonZeroDivisors
+  have hV (x : E) : x ∈ V ↔ ∃ a b : NumberField.RingOfIntegers E,
+      b ∉ P ∧ x = (a : E) / (b : E) := by
+    change (∃ a b, ∃ _ : b ∈ P.primeCompl,
+      x = algebraMap (NumberField.RingOfIntegers E) E a *
+        (algebraMap (NumberField.RingOfIntegers E) E b)⁻¹) ↔ _
+    simp only [Ideal.mem_primeCompl_iff, exists_prop, div_eq_mul_inv]
+  have hcenter (a : NumberField.RingOfIntegers E) :
+      algebraMap (NumberField.RingOfIntegers E) V a ∈ maximalIdeal V ↔ a ∈ P :=
+    IsLocalization.AtPrime.to_map_mem_maximal_iff V P a
+  refine ⟨V, ?_, ?_⟩
+  · change (q : E) ∈ V.nonunits
+    have h := (hcenter q).mpr hqP
+    have := V.coe_mem_nonunits_iff.mpr h
+    simpa only [map_natCast, SubringClass.coe_natCast] using this
+  · intro σ hσ
+    have hstable (τ : E ≃ₐ[ℚ] E) (hτ : τ ∈ P.inertia (E ≃ₐ[ℚ] E))
+        (x : E) (hx : x ∈ V) : τ x ∈ V := by
+      obtain ⟨a, b, hb, rfl⟩ := (hV x).mp hx
+      have hτb : τ • b ∉ P := by
+        intro h
+        apply hb
+        have hd : τ • b - b ∈ P := hτ b
+        simpa only [sub_sub_cancel] using P.sub_mem h hd
+      apply (hV _).mpr
+      refine ⟨τ • a, τ • b, hτb, ?_⟩
+      exact map_div₀ τ (a : E) (b : E)
+    have hσV : σ ∈ V.decompositionSubgroup ℚ := by
+      let : MulAction (E ≃ₐ[ℚ] E) (ValuationSubring E) :=
+        ValuationSubring.pointwiseMulAction
+      apply MulAction.mem_stabilizer_iff.mpr
+      apply ValuationSubring.ext
+      intro x
+      rw [ValuationSubring.mem_smul_pointwise_iff_exists]
+      constructor
+      · rintro ⟨y, hy, rfl⟩
+        exact hstable σ hσ y hy
+      · intro hx
+        refine ⟨σ⁻¹ x, hstable σ⁻¹ ((P.inertia _).inv_mem hσ) x hx, ?_⟩
+        exact σ.apply_symm_apply x
+    let g : V.decompositionSubgroup ℚ := ⟨σ, hσV⟩
+    have hres : (residue V).comp
+        (MulSemiringAction.toRingAut (V.decompositionSubgroup ℚ) V g).toRingHom =
+        residue V := by
+      apply IsLocalization.ringHom_ext P.primeCompl
+      apply RingHom.ext
+      intro a
+      change residue V (g • algebraMap (NumberField.RingOfIntegers E) V a) =
+        residue V (algebraMap (NumberField.RingOfIntegers E) V a)
+      apply sub_eq_zero.mp
+      rw [← map_sub, residue_eq_zero_iff]
+      have heq : g • algebraMap (NumberField.RingOfIntegers E) V a -
+          algebraMap (NumberField.RingOfIntegers E) V a =
+          algebraMap (NumberField.RingOfIntegers E) V (σ • a - a) := by
+        apply Subtype.ext
+        rfl
+      rw [heq]
+      exact (hcenter _).mpr (hσ a)
+    have hg : g ∈ V.inertiaSubgroup ℚ := by
+      change MulSemiringAction.toRingAut (V.decompositionSubgroup ℚ)
+        (ResidueField V) g = 1
+      apply RingEquiv.ext
+      intro x
+      obtain ⟨a, rfl⟩ := residue_surjective x
+      exact RingHom.congr_fun hres a
+    exact ⟨g, hg, rfl⟩
+theorem Submission.p09_af497904fe_ir_inertia_cardinality :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E]
+      [IsGalois ℚ E] (q : ℕ), q.Prime →
+      ∀ P : Ideal (NumberField.RingOfIntegers E), P.IsPrime →
+      P.LiesOver (Ideal.span {(q : ℤ)}) →
+      Nat.card (P.inertia (E ≃ₐ[ℚ] E)) = Ideal.ramificationIdx P ℤ := by
+  intro E _ _ q hq P hP hPq
+  let : NumberField E := NumberField.of_module_finite ℚ E
+  let : Fact q.Prime := ⟨hq⟩
+  let : P.IsPrime := hP
+  let : P.LiesOver (Ideal.span {(q : ℤ)}) := hPq
+  let : Finite (ℤ ⧸ Ideal.span {(q : ℤ)}) :=
+    Finite.of_equiv (ZMod q) (Int.quotientSpanNatEquivZMod q).symm.toEquiv
+  exact (Ideal.card_inertia_eq_ramificationIdxIn (G := E ≃ₐ[ℚ] E)
+    (Ideal.span {(q : ℤ)}) P).trans
+    (Ideal.ramificationIdxIn_eq_ramificationIdx (Ideal.span {(q : ℤ)}) P (E ≃ₐ[ℚ] E))
+
+
+theorem Submission.p09_af497904fe_ce_inertia_ramification :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ))
+      [FiniteDimensional ℚ E] [IsGalois ℚ E] (q : ℕ),
+      q.Prime →
+      (∀ V : ValuationSubring E, V.LiesOverPrime q →
+        ∀ τ : E ≃ₐ[ℚ] E, τ ∈ V.inertiaSubgroupIn ℚ → τ = 1) →
+      ∀ P : Ideal (NumberField.RingOfIntegers E), P.IsPrime →
+        P.LiesOver (Ideal.span {(q : ℤ)}) → Ideal.ramificationIdx P ℤ = 1 := by
+  intro E _ _ q hq hI P hP hPq
+  obtain ⟨V, hV, hPV⟩ :=
+    Submission.p09_af497904fe_ir_ideal_inertia_to_valuation E q hq P hP hPq
+  have htrivial : P.inertia (E ≃ₐ[ℚ] E) = ⊥ := by
+    apply (Subgroup.eq_bot_iff_forall _).mpr
+    intro τ hτ
+    exact hI V hV τ (hPV hτ)
+  rw [← Submission.p09_af497904fe_ir_inertia_cardinality E q hq P hP hPq,
+    htrivial]
+  exact Subgroup.card_bot
+theorem Submission.p09_af497904fe_luf_valuation_localization :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] (ℓ : ℕ),
+      ℓ.Prime → ∀ (V : ValuationSubring E), V.LiesOverPrime ℓ →
+      ∃ q : Ideal (NumberField.RingOfIntegers E),
+        q.IsPrime ∧ q ≠ ⊥ ∧ (ℓ : NumberField.RingOfIntegers E) ∈ q ∧
+        Finite (NumberField.RingOfIntegers E ⧸ q) ∧
+        (∀ x : E, x ∈ V ↔ ∃ a b : NumberField.RingOfIntegers E,
+          b ∉ q ∧ x = (a : E) / (b : E)) ∧
+        (∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V.nonunits ↔ a ∈ q) := by
+  intro E _ ℓ hℓ V hV
+  obtain ⟨hints, q, hq, hqne, hℓq, hfinite, hcenter⟩ :=
+    Submission.p09_af497904fe_vloc_integral_center E ℓ hℓ V hV
+  exact ⟨q, hq, hqne, hℓq, hfinite,
+    Submission.p09_af497904fe_vloc_fraction_characterization
+      E V q hq hqne hints hcenter,
+    hcenter⟩
+
+
+theorem Submission.p09_af497904fe_luf_valuation_extension :
+    ∀ (E F : IntermediateField ℚ (AlgebraicClosure ℚ))
+      [FiniteDimensional ℚ E] [FiniteDimensional ℚ F] (hEF : E ≤ F) (ℓ : ℕ),
+      ℓ.Prime → ∀ (V : ValuationSubring E), V.LiesOverPrime ℓ →
+      ∃ W : ValuationSubring F, W.LiesOverPrime ℓ ∧
+        ∀ x : E, IntermediateField.inclusion hEF x ∈ W ↔ x ∈ V := by
+  intro E F _ _ hEF ℓ hℓ V hV
+  classical
+  let : NumberField E := NumberField.of_module_finite ℚ E
+  let : NumberField F := NumberField.of_module_finite ℚ F
+  obtain ⟨q, hq, _, hℓq, _, hfrac, hnonunits⟩ :=
+    Submission.p09_af497904fe_luf_valuation_localization E ℓ hℓ V hV
+  let : q.IsPrime := hq
+  let i := IntermediateField.inclusion hEF
+  let f := NumberField.RingOfIntegers.mapRingHom i.toRingHom
+  let : Algebra (NumberField.RingOfIntegers E) (NumberField.RingOfIntegers F) :=
+    f.toAlgebra
+  have hf : Function.Injective f := by
+    intro a b hab
+    apply NumberField.RingOfIntegers.ext
+    exact i.injective (congrArg (fun z : NumberField.RingOfIntegers F => (z : F)) hab)
+  let : Algebra.IsIntegral (NumberField.RingOfIntegers E) (NumberField.RingOfIntegers F) :=
+    ⟨fun a => (NumberField.RingOfIntegers.isIntegral a).tower_top⟩
+  obtain ⟨Q, hQ, hQq⟩ :=
+    Ideal.exists_ideal_over_prime_of_isIntegral_of_isDomain (S := NumberField.RingOfIntegers F)
+      q (by
+        intro a ha
+        have ha0 : a = 0 := hf (ha.trans f.map_zero.symm)
+        simpa only [ha0] using q.zero_mem)
+  let : Q.IsPrime := hQ
+  have hcontract (a : NumberField.RingOfIntegers E) : f a ∈ Q ↔ a ∈ q := by
+    change a ∈ Q.comap f ↔ a ∈ q
+    rw [show Q.comap f = q from hQq]
+  have hℓQ : (ℓ : NumberField.RingOfIntegers F) ∈ Q := by
+    simpa only [map_natCast] using (hcontract (ℓ : NumberField.RingOfIntegers E)).2 hℓq
+  have hQzero : Q ≠ ⊥ := by
+    intro h
+    have hz : (ℓ : NumberField.RingOfIntegers F) = 0 := by simpa [h] using hℓQ
+    exact hℓ.ne_zero (Nat.cast_eq_zero.mp hz)
+  -- Realize the upper DVR localization as a subalgebra of F.
+  let A := Localization.subalgebra.ofField F Q.primeCompl Q.primeCompl_le_nonZeroDivisors
+  let : IsDiscreteValuationRing A :=
+    IsLocalization.AtPrime.isDiscreteValuationRing_of_dedekind_domain
+      (NumberField.RingOfIntegers F) hQzero A
+  let v := ValuationRing.valuation A F
+  have hA (x : F) : x ∈ v.valuationSubring ↔ x ∈ A := by
+    change x ∈ (ValuationRing.valuation A F).integer ↔ x ∈ A
+    rw [ValuationRing.range_algebraMap_eq]
+    exact ⟨fun ⟨a, ha⟩ => ha ▸ a.property, fun hx => ⟨⟨x, hx⟩, rfl⟩⟩
+  let W : ValuationSubring F := v.valuationSubring
+  have hWfrac (x : F) : x ∈ W ↔
+      ∃ a b : NumberField.RingOfIntegers F, b ∉ Q ∧ x = (a : F) / (b : F) := by
+    rw [hA x]
+    change (∃ (a b : NumberField.RingOfIntegers F) (_ : b ∈ Q.primeCompl),
+      x = (a : F) * (b : F)⁻¹) ↔ _
+    simp only [Ideal.mem_primeCompl_iff, div_eq_mul_inv, exists_prop]
+  have hWnonunits (a : NumberField.RingOfIntegers F) (ha : a ∈ Q) :
+      (a : F) ∈ W.nonunits := by
+    apply W.mem_nonunits_iff_or.2
+    by_cases ha0 : (a : F) = 0
+    · exact Or.inl ha0
+    · right
+      intro hinv
+      have hinvA : (a : F)⁻¹ ∈ A := (hA _).1 hinv
+      let aA := algebraMap (NumberField.RingOfIntegers F) A a
+      have hmax : aA ∈ maximalIdeal A :=
+        (IsLocalization.AtPrime.to_map_mem_maximal_iff A Q a).2 ha
+      have hunit : IsUnit aA := by
+        apply IsUnit.of_mul_eq_one (⟨(a : F)⁻¹, hinvA⟩ : A)
+        apply Subtype.ext
+        exact mul_inv_cancel₀ ha0
+      exact (show ¬ IsUnit aA from hmax) hunit
+  have hmul {K : Type} [Field K] (U : ValuationSubring K) {a b : K}
+      (ha : a ∈ U.nonunits) (hb : b ∈ U) : a * b ∈ U.nonunits := by
+    rw [U.mem_nonunits_iff, map_mul]
+    exact (mul_le_mul_of_nonneg_left ((U.valuation_le_one_iff b).2 hb) zero_le).trans_lt
+      (by simpa only [mul_one] using (U.mem_nonunits_iff.1 ha))
+  have hOE (a : NumberField.RingOfIntegers E) : (a : E) ∈ V :=
+    (hfrac _).2 ⟨a, 1, hq.one_notMem, by simp⟩
+  have hmaps (x : E) (hx : x ∈ V) : i x ∈ W := by
+    obtain ⟨a, b, hb, rfl⟩ := (hfrac x).1 hx
+    apply (hWfrac _).2
+    refine ⟨f a, f b, fun h => hb ((hcontract b).1 h), ?_⟩
+    exact map_div₀ i (a : E) (b : E)
+  have hmaps_nonunits (x : E) (hx : x ∈ V.nonunits) : i x ∈ W.nonunits := by
+    obtain ⟨a, b, hb, hxab⟩ := (hfrac x).1 (V.nonunits_subset hx)
+    have hb0 : (b : E) ≠ 0 := by
+      intro h
+      exact hb ((NumberField.RingOfIntegers.coe_eq_zero_iff.mp h) ▸ q.zero_mem)
+    have ha : a ∈ q := by
+      apply (hnonunits a).1
+      have h := hmul V hx (hOE b)
+      rwa [hxab, div_mul_cancel₀ _ hb0] at h
+    have haW : ((f a : NumberField.RingOfIntegers F) : F) ∈ W.nonunits :=
+      hWnonunits (f a) ((hcontract a).2 ha)
+    have hbW : (((f b : NumberField.RingOfIntegers F) : F))⁻¹ ∈ W := by
+      apply (hWfrac _).2
+      exact ⟨1, f b, fun h => hb ((hcontract b).1 h), by simp⟩
+    rw [hxab, map_div₀, div_eq_mul_inv]
+    exact hmul W haW hbW
+  refine ⟨W, ?_, ?_⟩
+  · exact hWnonunits (ℓ : NumberField.RingOfIntegers F) hℓQ
+  · intro x
+    refine ⟨fun hx => ?_, hmaps x⟩
+    by_contra hxV
+    have hx0 : x ≠ 0 := fun h => hxV (h ▸ V.zero_mem)
+    have hinv := hmaps_nonunits x⁻¹ (V.inv_mem_nonunits_iff.2 (Or.inr hxV))
+    have hn := W.mem_nonunits_iff_or.1 hinv
+    rcases hn with hz | hn
+    · exact (inv_ne_zero hx0) (i.injective (by simpa using hz))
+    · exact hn (by simpa only [map_inv₀, inv_inv] using hx)
+theorem Submission.p09_af497904fe_ffe_prime_frobenius_congruence :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ))
+      [FiniteDimensional ℚ E] [IsGalois ℚ E] (ℓ : ℕ), ℓ.Prime →
+      ∀ q : Ideal (NumberField.RingOfIntegers E), q.IsPrime →
+        (ℓ : NumberField.RingOfIntegers E) ∈ q →
+        Finite (NumberField.RingOfIntegers E ⧸ q) →
+        ∃ g : E ≃ₐ[ℚ] E, ∀ a : NumberField.RingOfIntegers E,
+          NumberField.RingOfIntegers.mapRingEquiv g.toRingEquiv a - a ^ ℓ ∈ q := by
+  intro E _ _ ℓ hℓ q hq hℓq hfin
+  let : q.IsPrime := hq
+  let : Finite (NumberField.RingOfIntegers E ⧸ q) := hfin
+  let : Fact ℓ.Prime := ⟨hℓ⟩
+  let : CharP (NumberField.RingOfIntegers E ⧸ q) ℓ :=
+    (CharP.charP_iff_prime_eq_zero hℓ).mpr (by
+      simpa only [map_natCast] using (Ideal.Quotient.eq_zero_iff_mem.mpr hℓq))
+  -- A fixed algebraic integer descends to an integral rational, hence an integer.
+  let : Algebra.IsInvariant ℤ (NumberField.RingOfIntegers E) (E ≃ₐ[ℚ] E) := by
+    constructor
+    intro a ha
+    obtain ⟨r, hr⟩ := (IsGalois.mem_range_algebraMap_iff_fixed (F := ℚ) (a : E)).mpr
+      (fun g ↦ congrArg (fun b : NumberField.RingOfIntegers E ↦ (b : E)) (ha g))
+    have hi : IsIntegral ℤ r :=
+      (isIntegral_algebraMap_iff (algebraMap ℚ E).injective).mp
+        (hr.symm ▸ NumberField.RingOfIntegers.isIntegral_coe a)
+    obtain ⟨z, hz⟩ := IsIntegrallyClosed.algebraMap_eq_of_integral hi
+    refine ⟨z, NumberField.RingOfIntegers.ext ?_⟩
+    change algebraMap ℤ E z = (a : E)
+    rw [← hr, ← hz, IsScalarTower.algebraMap_apply ℤ ℚ E]
+  -- Frobenius fixes the quotient of the integers and lifts through the stabilizer.
+  let P : Ideal ℤ := q.under ℤ
+  let φ : (NumberField.RingOfIntegers E ⧸ q) ≃ₐ[ℤ ⧸ P]
+      (NumberField.RingOfIntegers E ⧸ q) :=
+    AlgEquiv.ofRingEquiv (f := frobeniusEquiv (NumberField.RingOfIntegers E ⧸ q) ℓ) (by
+      intro z
+      obtain ⟨z, rfl⟩ := Ideal.Quotient.mk_surjective z
+      change (frobeniusEquiv (NumberField.RingOfIntegers E ⧸ q) ℓ)
+        (z : NumberField.RingOfIntegers E ⧸ q) = (z : NumberField.RingOfIntegers E ⧸ q)
+      exact map_intCast _ z)
+  obtain ⟨g, hg⟩ := Ideal.Quotient.stabilizerHom_surjective (E ≃ₐ[ℚ] E) P q φ
+  refine ⟨g.val, fun a ↦ ?_⟩
+  have h := congrArg (fun σ : (NumberField.RingOfIntegers E ⧸ q) ≃ₐ[ℤ ⧸ P]
+    (NumberField.RingOfIntegers E ⧸ q) ↦ σ (Ideal.Quotient.mk q a)) hg
+  change Ideal.Quotient.mk q
+      (NumberField.RingOfIntegers.mapRingEquiv g.val.toRingEquiv a) =
+    (Ideal.Quotient.mk q a) ^ ℓ at h
+  rw [← map_pow] at h
+  exact Ideal.Quotient.eq.mp h
 theorem Submission.p09_af497904fe_ffe_localized_frobenius :
     ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) (ℓ : ℕ), ℓ.Prime →
       ∀ (V : ValuationSubring E) (q : Ideal (NumberField.RingOfIntegers E)),
@@ -607,6 +966,17 @@ theorem Submission.p09_af497904fe_ftl_compatible_automorphisms_glue :
     change t ((algebraMap ℚ (F 0) r : F 0) : AlgebraicClosure ℚ) = _
     rw [ht, (g 0).commutes]
     rfl
+theorem Submission.p09_af497904fe_luf_finite_frobenius_exists :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E]
+      [IsGalois ℚ E] (ℓ : ℕ), ℓ.Prime → ∀ (V : ValuationSubring E),
+      V.LiesOverPrime ℓ → ∃ g : E ≃ₐ[ℚ] E, V.IsFrobeniusAt g ℓ := by
+  intro E _ _ ℓ hℓ V hV
+  obtain ⟨q, hq, _hq_ne, hℓq, hfinite, hlocal, hnonunits⟩ :=
+    Submission.p09_af497904fe_luf_valuation_localization E ℓ hℓ V hV
+  obtain ⟨g, hg⟩ :=
+    Submission.p09_af497904fe_ffe_prime_frobenius_congruence E ℓ hℓ q hq hℓq hfinite
+  exact ⟨g, Submission.p09_af497904fe_ffe_localized_frobenius
+    E ℓ hℓ V q hq hlocal hnonunits g hg⟩
 theorem Submission.p09_af497904fe_ftl_normal_frobenius_restriction :
     ∀ (E F : IntermediateField ℚ (AlgebraicClosure ℚ)) [IsGalois ℚ E]
       (hEF : E ≤ F) (V : ValuationSubring E) (W : ValuationSubring F) (ℓ : ℕ),
@@ -668,93 +1038,6 @@ theorem Submission.p09_af497904fe_ftl_normal_frobenius_restriction :
     intro x
     apply IntermediateField.inclusion_injective hEF
     exact (he'.2 x).trans (he x).symm
-theorem Submission.p09_af497904fe_ffe_prime_frobenius_congruence :
-    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ))
-      [FiniteDimensional ℚ E] [IsGalois ℚ E] (ℓ : ℕ), ℓ.Prime →
-      ∀ q : Ideal (NumberField.RingOfIntegers E), q.IsPrime →
-        (ℓ : NumberField.RingOfIntegers E) ∈ q →
-        Finite (NumberField.RingOfIntegers E ⧸ q) →
-        ∃ g : E ≃ₐ[ℚ] E, ∀ a : NumberField.RingOfIntegers E,
-          NumberField.RingOfIntegers.mapRingEquiv g.toRingEquiv a - a ^ ℓ ∈ q := by
-  intro E _ _ ℓ hℓ q hq hℓq hfin
-  let : q.IsPrime := hq
-  let : Finite (NumberField.RingOfIntegers E ⧸ q) := hfin
-  let : Fact ℓ.Prime := ⟨hℓ⟩
-  let : CharP (NumberField.RingOfIntegers E ⧸ q) ℓ :=
-    (CharP.charP_iff_prime_eq_zero hℓ).mpr (by
-      simpa only [map_natCast] using (Ideal.Quotient.eq_zero_iff_mem.mpr hℓq))
-  -- A fixed algebraic integer descends to an integral rational, hence an integer.
-  let : Algebra.IsInvariant ℤ (NumberField.RingOfIntegers E) (E ≃ₐ[ℚ] E) := by
-    constructor
-    intro a ha
-    obtain ⟨r, hr⟩ := (IsGalois.mem_range_algebraMap_iff_fixed (F := ℚ) (a : E)).mpr
-      (fun g ↦ congrArg (fun b : NumberField.RingOfIntegers E ↦ (b : E)) (ha g))
-    have hi : IsIntegral ℤ r :=
-      (isIntegral_algebraMap_iff (algebraMap ℚ E).injective).mp
-        (hr.symm ▸ NumberField.RingOfIntegers.isIntegral_coe a)
-    obtain ⟨z, hz⟩ := IsIntegrallyClosed.algebraMap_eq_of_integral hi
-    refine ⟨z, NumberField.RingOfIntegers.ext ?_⟩
-    change algebraMap ℤ E z = (a : E)
-    rw [← hr, ← hz, IsScalarTower.algebraMap_apply ℤ ℚ E]
-  -- Frobenius fixes the quotient of the integers and lifts through the stabilizer.
-  let P : Ideal ℤ := q.under ℤ
-  let φ : (NumberField.RingOfIntegers E ⧸ q) ≃ₐ[ℤ ⧸ P]
-      (NumberField.RingOfIntegers E ⧸ q) :=
-    AlgEquiv.ofRingEquiv (f := frobeniusEquiv (NumberField.RingOfIntegers E ⧸ q) ℓ) (by
-      intro z
-      obtain ⟨z, rfl⟩ := Ideal.Quotient.mk_surjective z
-      change (frobeniusEquiv (NumberField.RingOfIntegers E ⧸ q) ℓ)
-        (z : NumberField.RingOfIntegers E ⧸ q) = (z : NumberField.RingOfIntegers E ⧸ q)
-      exact map_intCast _ z)
-  obtain ⟨g, hg⟩ := Ideal.Quotient.stabilizerHom_surjective (E ≃ₐ[ℚ] E) P q φ
-  refine ⟨g.val, fun a ↦ ?_⟩
-  have h := congrArg (fun σ : (NumberField.RingOfIntegers E ⧸ q) ≃ₐ[ℤ ⧸ P]
-    (NumberField.RingOfIntegers E ⧸ q) ↦ σ (Ideal.Quotient.mk q a)) hg
-  change Ideal.Quotient.mk q
-      (NumberField.RingOfIntegers.mapRingEquiv g.val.toRingEquiv a) =
-    (Ideal.Quotient.mk q a) ^ ℓ at h
-  rw [← map_pow] at h
-  exact Ideal.Quotient.eq.mp h
-theorem Submission.p09_af497904fe_ic_integer_mem_valuation :
-    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E]
-      (V : ValuationSubring E), ∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V := by
-  intro E _ V a
-  apply (Subring.isIntegrallyClosed_iff (S := V)).mp inferInstance
-  exact (NumberField.RingOfIntegers.isIntegral_coe a).tower_top
-theorem Submission.p09_af497904fe_ic_prime_center_of_containment :
-    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E]
-      (ℓ : ℕ), ℓ.Prime → ∀ (V : ValuationSubring E), V.LiesOverPrime ℓ →
-      (∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V) →
-      ∃ q : Ideal (NumberField.RingOfIntegers E),
-        q.IsPrime ∧ q ≠ ⊥ ∧ (ℓ : NumberField.RingOfIntegers E) ∈ q ∧
-        Finite (NumberField.RingOfIntegers E ⧸ q) ∧
-        (∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V.nonunits ↔ a ∈ q) := by
-  intro E _ ℓ hℓ V hV hcontain
-  let : NumberField E := NumberField.of_module_finite ℚ E
-  let f : NumberField.RingOfIntegers E →+* V :=
-    { toFun := fun a => ⟨(a : E), hcontain a⟩
-      map_zero' := Subtype.ext (map_zero (algebraMap (NumberField.RingOfIntegers E) E))
-      map_one' := Subtype.ext (map_one (algebraMap (NumberField.RingOfIntegers E) E))
-      map_add' := fun a b =>
-        Subtype.ext (map_add (algebraMap (NumberField.RingOfIntegers E) E) a b)
-      map_mul' := fun a b =>
-        Subtype.ext (map_mul (algebraMap (NumberField.RingOfIntegers E) E) a b) }
-  let q : Ideal (NumberField.RingOfIntegers E) :=
-    Ideal.comap f (IsLocalRing.maximalIdeal V)
-  have hprime : q.IsPrime := (IsLocalRing.maximalIdeal V).comap_isPrime f
-  have hmem (a : NumberField.RingOfIntegers E) :
-      (a : E) ∈ V.nonunits ↔ a ∈ q :=
-    ValuationSubring.coe_mem_nonunits_iff (a := f a)
-  have hℓq : (ℓ : NumberField.RingOfIntegers E) ∈ q := by
-    apply (hmem _).mp
-    simpa only [ValuationSubring.LiesOverPrime, NumberField.RingOfIntegers.val,
-      map_natCast] using hV
-  have hne : q ≠ ⊥ := by
-    intro hq
-    have hz : (ℓ : NumberField.RingOfIntegers E) = 0 := by
-      simpa only [hq, Ideal.mem_bot] using hℓq
-    exact hℓ.ne_zero (Nat.cast_eq_zero.mp hz)
-  exact ⟨q, hprime, hne, hℓq, Ring.HasFiniteQuotients.finiteQuotient hne, hmem⟩
 theorem Submission.p09_af497904fe_fvu_compatible_valuation_gluing :
     ∀ (F : ℕ → IntermediateField ℚ (AlgebraicClosure ℚ)) (hmono : Monotone F),
       (∀ x : AlgebraicClosure ℚ, ∃ i : ℕ, x ∈ F i) →
@@ -1142,135 +1425,6 @@ theorem Submission.p09_af497904fe_ce_compositum_pair :
       intro y
       apply iC.injective
       exact (hC k y).trans (hk.2 y)
-theorem Submission.p09_af497904fe_luf_valuation_localization :
-    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ E] (ℓ : ℕ),
-      ℓ.Prime → ∀ (V : ValuationSubring E), V.LiesOverPrime ℓ →
-      ∃ q : Ideal (NumberField.RingOfIntegers E),
-        q.IsPrime ∧ q ≠ ⊥ ∧ (ℓ : NumberField.RingOfIntegers E) ∈ q ∧
-        Finite (NumberField.RingOfIntegers E ⧸ q) ∧
-        (∀ x : E, x ∈ V ↔ ∃ a b : NumberField.RingOfIntegers E,
-          b ∉ q ∧ x = (a : E) / (b : E)) ∧
-        (∀ a : NumberField.RingOfIntegers E, (a : E) ∈ V.nonunits ↔ a ∈ q) := by
-  intro E _ ℓ hℓ V hV
-  obtain ⟨hints, q, hq, hqne, hℓq, hfinite, hcenter⟩ :=
-    Submission.p09_af497904fe_vloc_integral_center E ℓ hℓ V hV
-  exact ⟨q, hq, hqne, hℓq, hfinite,
-    Submission.p09_af497904fe_vloc_fraction_characterization
-      E V q hq hqne hints hcenter,
-    hcenter⟩
-
-
-theorem Submission.p09_af497904fe_luf_valuation_extension :
-    ∀ (E F : IntermediateField ℚ (AlgebraicClosure ℚ))
-      [FiniteDimensional ℚ E] [FiniteDimensional ℚ F] (hEF : E ≤ F) (ℓ : ℕ),
-      ℓ.Prime → ∀ (V : ValuationSubring E), V.LiesOverPrime ℓ →
-      ∃ W : ValuationSubring F, W.LiesOverPrime ℓ ∧
-        ∀ x : E, IntermediateField.inclusion hEF x ∈ W ↔ x ∈ V := by
-  intro E F _ _ hEF ℓ hℓ V hV
-  classical
-  let : NumberField E := NumberField.of_module_finite ℚ E
-  let : NumberField F := NumberField.of_module_finite ℚ F
-  obtain ⟨q, hq, _, hℓq, _, hfrac, hnonunits⟩ :=
-    Submission.p09_af497904fe_luf_valuation_localization E ℓ hℓ V hV
-  let : q.IsPrime := hq
-  let i := IntermediateField.inclusion hEF
-  let f := NumberField.RingOfIntegers.mapRingHom i.toRingHom
-  let : Algebra (NumberField.RingOfIntegers E) (NumberField.RingOfIntegers F) :=
-    f.toAlgebra
-  have hf : Function.Injective f := by
-    intro a b hab
-    apply NumberField.RingOfIntegers.ext
-    exact i.injective (congrArg (fun z : NumberField.RingOfIntegers F => (z : F)) hab)
-  let : Algebra.IsIntegral (NumberField.RingOfIntegers E) (NumberField.RingOfIntegers F) :=
-    ⟨fun a => (NumberField.RingOfIntegers.isIntegral a).tower_top⟩
-  obtain ⟨Q, hQ, hQq⟩ :=
-    Ideal.exists_ideal_over_prime_of_isIntegral_of_isDomain (S := NumberField.RingOfIntegers F)
-      q (by
-        intro a ha
-        have ha0 : a = 0 := hf (ha.trans f.map_zero.symm)
-        simpa only [ha0] using q.zero_mem)
-  let : Q.IsPrime := hQ
-  have hcontract (a : NumberField.RingOfIntegers E) : f a ∈ Q ↔ a ∈ q := by
-    change a ∈ Q.comap f ↔ a ∈ q
-    rw [show Q.comap f = q from hQq]
-  have hℓQ : (ℓ : NumberField.RingOfIntegers F) ∈ Q := by
-    simpa only [map_natCast] using (hcontract (ℓ : NumberField.RingOfIntegers E)).2 hℓq
-  have hQzero : Q ≠ ⊥ := by
-    intro h
-    have hz : (ℓ : NumberField.RingOfIntegers F) = 0 := by simpa [h] using hℓQ
-    exact hℓ.ne_zero (Nat.cast_eq_zero.mp hz)
-  -- Realize the upper DVR localization as a subalgebra of F.
-  let A := Localization.subalgebra.ofField F Q.primeCompl Q.primeCompl_le_nonZeroDivisors
-  let : IsDiscreteValuationRing A :=
-    IsLocalization.AtPrime.isDiscreteValuationRing_of_dedekind_domain
-      (NumberField.RingOfIntegers F) hQzero A
-  let v := ValuationRing.valuation A F
-  have hA (x : F) : x ∈ v.valuationSubring ↔ x ∈ A := by
-    change x ∈ (ValuationRing.valuation A F).integer ↔ x ∈ A
-    rw [ValuationRing.range_algebraMap_eq]
-    exact ⟨fun ⟨a, ha⟩ => ha ▸ a.property, fun hx => ⟨⟨x, hx⟩, rfl⟩⟩
-  let W : ValuationSubring F := v.valuationSubring
-  have hWfrac (x : F) : x ∈ W ↔
-      ∃ a b : NumberField.RingOfIntegers F, b ∉ Q ∧ x = (a : F) / (b : F) := by
-    rw [hA x]
-    change (∃ (a b : NumberField.RingOfIntegers F) (_ : b ∈ Q.primeCompl),
-      x = (a : F) * (b : F)⁻¹) ↔ _
-    simp only [Ideal.mem_primeCompl_iff, div_eq_mul_inv, exists_prop]
-  have hWnonunits (a : NumberField.RingOfIntegers F) (ha : a ∈ Q) :
-      (a : F) ∈ W.nonunits := by
-    apply W.mem_nonunits_iff_or.2
-    by_cases ha0 : (a : F) = 0
-    · exact Or.inl ha0
-    · right
-      intro hinv
-      have hinvA : (a : F)⁻¹ ∈ A := (hA _).1 hinv
-      let aA := algebraMap (NumberField.RingOfIntegers F) A a
-      have hmax : aA ∈ maximalIdeal A :=
-        (IsLocalization.AtPrime.to_map_mem_maximal_iff A Q a).2 ha
-      have hunit : IsUnit aA := by
-        apply IsUnit.of_mul_eq_one (⟨(a : F)⁻¹, hinvA⟩ : A)
-        apply Subtype.ext
-        exact mul_inv_cancel₀ ha0
-      exact (show ¬ IsUnit aA from hmax) hunit
-  have hmul {K : Type} [Field K] (U : ValuationSubring K) {a b : K}
-      (ha : a ∈ U.nonunits) (hb : b ∈ U) : a * b ∈ U.nonunits := by
-    rw [U.mem_nonunits_iff, map_mul]
-    exact (mul_le_mul_of_nonneg_left ((U.valuation_le_one_iff b).2 hb) zero_le).trans_lt
-      (by simpa only [mul_one] using (U.mem_nonunits_iff.1 ha))
-  have hOE (a : NumberField.RingOfIntegers E) : (a : E) ∈ V :=
-    (hfrac _).2 ⟨a, 1, hq.one_notMem, by simp⟩
-  have hmaps (x : E) (hx : x ∈ V) : i x ∈ W := by
-    obtain ⟨a, b, hb, rfl⟩ := (hfrac x).1 hx
-    apply (hWfrac _).2
-    refine ⟨f a, f b, fun h => hb ((hcontract b).1 h), ?_⟩
-    exact map_div₀ i (a : E) (b : E)
-  have hmaps_nonunits (x : E) (hx : x ∈ V.nonunits) : i x ∈ W.nonunits := by
-    obtain ⟨a, b, hb, hxab⟩ := (hfrac x).1 (V.nonunits_subset hx)
-    have hb0 : (b : E) ≠ 0 := by
-      intro h
-      exact hb ((NumberField.RingOfIntegers.coe_eq_zero_iff.mp h) ▸ q.zero_mem)
-    have ha : a ∈ q := by
-      apply (hnonunits a).1
-      have h := hmul V hx (hOE b)
-      rwa [hxab, div_mul_cancel₀ _ hb0] at h
-    have haW : ((f a : NumberField.RingOfIntegers F) : F) ∈ W.nonunits :=
-      hWnonunits (f a) ((hcontract a).2 ha)
-    have hbW : (((f b : NumberField.RingOfIntegers F) : F))⁻¹ ∈ W := by
-      apply (hWfrac _).2
-      exact ⟨1, f b, fun h => hb ((hcontract b).1 h), by simp⟩
-    rw [hxab, map_div₀, div_eq_mul_inv]
-    exact hmul W haW hbW
-  refine ⟨W, ?_, ?_⟩
-  · exact hWnonunits (ℓ : NumberField.RingOfIntegers F) hℓQ
-  · intro x
-    refine ⟨fun hx => ?_, hmaps x⟩
-    by_contra hxV
-    have hx0 : x ≠ 0 := fun h => hxV (h ▸ V.zero_mem)
-    have hinv := hmaps_nonunits x⁻¹ (V.inv_mem_nonunits_iff.2 (Or.inr hxV))
-    have hn := W.mem_nonunits_iff_or.1 hinv
-    rcases hn with hz | hn
-    · exact (inv_ne_zero hx0) (i.injective (by simpa using hz))
-    · exact hn (by simpa only [map_inv₀, inv_inv] using hx)
 theorem Submission.p09_af497904fe_luf_frobenius_tower_limit :
     ∀ (F : ℕ → IntermediateField ℚ (AlgebraicClosure ℚ)) (hmono : Monotone F),
       (∀ i : ℕ, FiniteDimensional ℚ (F i)) →
@@ -2281,6 +2435,17 @@ theorem Submission.p09_af497904fe_rhc_20261009_adic_cyclotomic_character :
           ∀ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ →
           ∀ σ : (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ),
             P.IsFrobeniusAt σ ℓ → ((c σ : Rˣ) : R) = (ℓ : R)) := by
+theorem Submission.p09_af497904fe_cwi_infinite_diff_of_log_lower_bound :
+    ∀ (ι : Type) (N : ι → ℕ) (E D : Set ι) (c K ε C : ℝ),
+      (∀ i : ι, 2 ≤ N i) →
+      (∀ s : ℝ, 1 < s → Summable (fun i : ι => Real.rpow (N i : ℝ) (-s))) →
+      0 < c → 0 < ε → ε ≤ 1 →
+      (∀ s : ℝ, 1 < s → s < 1 + ε →
+        c * Real.log (1 / (s - 1)) - K ≤
+          ∑' i : {i : ι // i ∈ E}, Real.rpow (N i.1 : ℝ) (-s)) →
+      (∀ s : ℝ, 1 < s → s < 2 →
+        (∑' i : {i : ι // i ∈ D}, Real.rpow (N i.1 : ℝ) (-s)) ≤ C) →
+      Set.Infinite (E \ D) := by
   classical
   intro 𝒪 _ _ _ _ _ p _ hp𝒪 R _ _ _ hl
   have hp : p.Prime := Fact.out
@@ -6789,3 +6954,99 @@ theorem Submission.p09_af497904fe_fa_finite_frobenius :
     ⟨gd⁻¹ * gd', hinertia, rfl⟩
   have heq : g⁻¹ * g' = 1 := hS ℓ hℓ hℓS V hVℓ _ hinertiaIn
   exact (inv_mul_eq_one.mp heq).symm
+/-- Lift the uniquely specified finite Frobenius through a countable Galois tower. -/
+theorem Submission.p09_af497904fe_fa_lift_unique_frobenius :
+    ∀ (E : IntermediateField ℚ (AlgebraicClosure ℚ))
+      [FiniteDimensional ℚ E] [IsGalois ℚ E] (ℓ : ℕ), ℓ.Prime →
+      ∀ (V : ValuationSubring E), V.LiesOverPrime ℓ →
+      ∀ (g : E ≃ₐ[ℚ] E), V.IsFrobeniusAt g ℓ →
+      (∀ g' : E ≃ₐ[ℚ] E, V.IsFrobeniusAt g' ℓ → g' = g) →
+      ∃ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ ∧
+        (∀ x : E, (x : AlgebraicClosure ℚ) ∈ P ↔ x ∈ V) ∧
+        ∃ τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ,
+          P.IsFrobeniusAt τ ℓ ∧
+          ∀ x : E, τ (x : AlgebraicClosure ℚ) = ((g x : E) : AlgebraicClosure ℚ) := by
+  classical
+  intro E hfd hgal ℓ hℓ V hV g _hg huniq
+  -- Close each successive enumerated element under its rational conjugates.
+  have : IsAlgClosure ℚ (AlgebraicClosure ℚ) :=
+    { isAlgClosed := AlgebraicClosure.isAlgClosed ℚ
+      isAlgebraic := AlgebraicClosure.isAlgebraic ℚ }
+  have : Countable (AlgebraicClosure ℚ) := Set.countable_univ_iff.mp
+    ((Algebraic.countable ℚ (AlgebraicClosure ℚ)).mono
+      (fun x _ => Algebra.IsAlgebraic.isAlgebraic x))
+  have : IsGalois ℚ (AlgebraicClosure ℚ) :=
+    { to_isSeparable := inferInstance, to_normal := IsAlgClosure.normal ℚ (AlgebraicClosure ℚ) }
+  obtain ⟨a, ha⟩ := exists_surjective_nat (AlgebraicClosure ℚ)
+  let T : ℕ → FiniteGaloisIntermediateField ℚ (AlgebraicClosure ℚ) :=
+    Nat.rec { toIntermediateField := E, finiteDimensional := hfd, isGalois := hgal }
+      (fun i K => K ⊔ FiniteGaloisIntermediateField.adjoin ℚ {a i})
+  let F : ℕ → IntermediateField ℚ (AlgebraicClosure ℚ) :=
+    fun i => (T i).toIntermediateField
+  have hmono : Monotone F := monotone_nat_of_le_succ fun i =>
+    (show T i ≤ T (i + 1) from le_sup_left)
+  have hcover : ∀ x : AlgebraicClosure ℚ, ∃ i : ℕ, x ∈ F i := by
+    intro x
+    obtain ⟨i, rfl⟩ := ha x
+    refine ⟨i + 1, ?_⟩
+    exact (show (FiniteGaloisIntermediateField.adjoin ℚ {a i}).toIntermediateField ≤
+      F (i + 1) from le_sup_right)
+      (FiniteGaloisIntermediateField.subset_adjoin ℚ {a i} (Set.mem_singleton _))
+  -- Choose extensions recursively, retaining the nonunit condition at every stage.
+  let extend (i : ℕ) (W : {W : ValuationSubring (F i) // W.LiesOverPrime ℓ}) :
+      {W : ValuationSubring (F (i + 1)) // W.LiesOverPrime ℓ} :=
+    ⟨(@Submission.p09_af497904fe_luf_valuation_extension (F i) (F (i + 1))
+        (T i).finiteDimensional (T (i + 1)).finiteDimensional
+        (hmono (Nat.le_succ i)) ℓ hℓ W.1 W.2).choose,
+      (@Submission.p09_af497904fe_luf_valuation_extension (F i) (F (i + 1))
+        (T i).finiteDimensional (T (i + 1)).finiteDimensional
+        (hmono (Nat.le_succ i)) ℓ hℓ W.1 W.2).choose_spec.1⟩
+  let W : (i : ℕ) → {W : ValuationSubring (F i) // W.LiesOverPrime ℓ} :=
+    Nat.rec ⟨V, hV⟩ extend
+  have hstep (i : ℕ) (x : F i) :
+      IntermediateField.inclusion (hmono (Nat.le_succ i)) x ∈ (W (i + 1)).1 ↔
+        x ∈ (W i).1 :=
+    (@Submission.p09_af497904fe_luf_valuation_extension (F i) (F (i + 1))
+        (T i).finiteDimensional (T (i + 1)).finiteDimensional
+      (hmono (Nat.le_succ i)) ℓ hℓ (W i).1 (W i).2).choose_spec.2 x
+  have hrestrict (i j : ℕ) (hij : i ≤ j) (x : F i) :
+      IntermediateField.inclusion (hmono hij) x ∈ (W j).1 ↔ x ∈ (W i).1 := by
+    induction j, hij using Nat.le_induction with
+    | base => rfl
+    | succ j hij ih =>
+      exact (hstep j (IntermediateField.inclusion (hmono hij) x)).trans ih
+  -- The tower lemma supplies a global Frobenius with finite Frobenius restrictions.
+  obtain ⟨P, hP, hPW, τ, hτ, hτW⟩ :=
+    Submission.p09_af497904fe_luf_frobenius_tower_limit F hmono
+      (fun i => (T i).finiteDimensional) (fun i => (T i).isGalois) hcover
+      (fun i => (W i).1) ℓ (fun i => (W i).2) hrestrict
+      (fun i => @Submission.p09_af497904fe_luf_finite_frobenius_exists
+        (F i) (T i).finiteDimensional (T i).isGalois ℓ hℓ (W i).1 (W i).2)
+  obtain ⟨g₀, hg₀, hτ₀⟩ := hτW 0
+  have hg₀_eq : g₀ = g := huniq g₀ hg₀
+  refine ⟨P, hP, hPW 0, τ, hτ, ?_⟩
+  intro x
+  simpa only [hg₀_eq] using hτ₀ x
+
+
+namespace Submission
+
+/-- Lift the uniquely prescribed finite Frobenius to agree with `σ` on `E`, avoiding `B`. -/
+theorem p09_af497904fe_frobenius_approximation
+    (E : IntermediateField ℚ (AlgebraicClosure ℚ))
+    [FiniteDimensional ℚ E] [IsGalois ℚ E]
+    (σ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) (B : Finset ℕ) :
+    ∃ ℓ : ℕ, ℓ.Prime ∧ ℓ ∉ B ∧
+      ∃ P : ValuationSubring (AlgebraicClosure ℚ), P.LiesOverPrime ℓ ∧
+        ∃ τ : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ,
+          P.IsFrobeniusAt τ ℓ ∧ ∀ x ∈ E, τ x = σ x := by
+  let g : E ≃ₐ[ℚ] E := σ.restrictNormal E
+  obtain ⟨ℓ, hℓ, hℓB, V, hV, hg, hunique⟩ :=
+    p09_af497904fe_fa_finite_frobenius E g B
+  obtain ⟨P, hP, _, τ, hτ, hagree⟩ :=
+    p09_af497904fe_fa_lift_unique_frobenius E ℓ hℓ V hV g hg hunique
+  refine ⟨ℓ, hℓ, hℓB, P, hP, τ, hτ, ?_⟩
+  intro x hx
+  exact (hagree ⟨x, hx⟩).trans (σ.restrictNormal_commutes E ⟨x, hx⟩)
+
+end Submission
