@@ -14,7 +14,7 @@
   header p{max-width:560px;color:var(--muted);font-size:13px;line-height:1.55;margin:18px 0 14px}
   header a{display:inline-block;color:#f8f6f0;background:var(--dark);border-radius:9px;padding:7px 13px;font-size:11px;font-weight:650;text-decoration:none;margin-right:6px}
   header a:hover{background:#000}
-  main{max-width:1230px;padding:18px 24px 30px;margin:auto}
+  main{max-width:1900px;padding:18px 24px 30px;margin:auto}
   h2{font-size:22px;font-weight:680;letter-spacing:-.04em;margin:0 0 6px}
   .metrics{display:flex;flex-wrap:wrap;gap:8px}
   .metric,.panel{background:rgba(251,250,247,.91);border:1px solid var(--hairline);border-radius:12px;box-shadow:var(--shadow);backdrop-filter:blur(14px)}
@@ -36,7 +36,7 @@
   .problem-heading h3{margin:0;font-size:22px;font-weight:680;letter-spacing:-.04em}
   .theorem-name{display:block;color:#55574f;font:11px/1.65 ui-monospace,monospace;overflow-wrap:anywhere;margin:9px 0;text-decoration:none}.theorem-name:hover{text-decoration:underline}
   .problem-summary,.proof-summary{font-size:11px;color:var(--muted);margin:5px 0 0}.problem-summary{color:#55574f}
-  .problem-diagram{padding:0 20px 10px}.graph-message{font-size:11px;color:var(--muted);margin:4px 0 12px}.graph-error{color:#a53737}
+  .problem-diagram{padding:0 12px 6px}.graph-message{font-size:11px;color:var(--muted);margin:4px 0 12px}.graph-error{color:#a53737}
   .legend{display:flex;gap:18px;font-size:10px;color:#65675f;flex-wrap:wrap}.dot{display:inline-block;width:6px;height:6px;background:#999a92;border-radius:50%;margin-right:7px;vertical-align:middle}
   .list{display:grid;gap:0}
   .problem{display:grid;grid-template-columns:50px 1fr auto;gap:15px;padding:14px 0;border-bottom:1px solid var(--hairline);align-items:center}
@@ -59,7 +59,7 @@
   .problem-dag .is-open{opacity:.55}
   .problem-dag .is-open>rect:first-of-type{stroke-dasharray:4 3;fill:#fbfaf7}
   .problem-dag .is-open>rect:nth-of-type(2){fill:#999a92}
-  .problem-dag .is-open .node-solved,.problem-dag .is-open .node-activity,.problem-dag .is-open .node-saved{opacity:0}
+  .problem-dag .is-open .node-solved{opacity:0}
   .problem-dag .is-just>rect:first-of-type{stroke:#278369;stroke-width:2.5}
   @media(prefers-reduced-motion:reduce){.problem-dag a,.problem-dag .dependency-edge{transition:none}}
 </style>
@@ -153,13 +153,13 @@ function showVerificationSummary(){
  const counts=verification?.available&&checkAge>=0&&checkAge<=180?verification.counts:null;
  put('verification-summary',counts?`Verification requests: ${counts.queued} queued · ${counts.running} running · ${counts.starting} starting · ${counts.needs_reconciliation} need reconciliation. ${counts.unowned_pending} unfinished requests belong to non-owned claims. Running includes remote preparation; it does not mean Lean is currently compiling. Finished checks do not imply merged proofs.`:'Verification activity unavailable or stale. Saved comparing stages do not confirm running checks.');
 }
-function nodeTitleLines(title){
- const words=title.split('.').pop().replace(/(?:^|_)[a-f0-9]{8,}(?=_|$)/g,'').replaceAll('_',' ').trim().split(/\s+/),lines=[''];
+function nodeTitleLines(title,max=17){
+ const words=title.split('.').pop().replace(/(?:^|_)[a-f0-9]{8,}(?=_|$)/g,'').replace(/^p\d+_/,'').replaceAll('_',' ').trim().split(/\s+/),lines=[''];
  for(const word of words){
   const last=lines.length-1,next=lines[last]?`${lines[last]} ${word}`:word;
-  if(next.length<=29){lines[last]=next;continue}
-  if(last===0&&lines[0]){lines.push(word.length>29?word.slice(0,26)+'…':word);continue}
-  lines[last]=next.slice(0,26)+'…';break;
+  if(next.length<=max){lines[last]=next;continue}
+  if(last===0&&lines[0]){lines.push(word.length>max?word.slice(0,max-1)+'…':word);continue}
+  lines[last]=next.slice(0,max-1)+'…';break;
  }
  return lines;
 }
@@ -182,18 +182,18 @@ function drawProblemGraph(svg,owned,allNodes,problemId,availableWidth){
  }
  if(changed)throw Error('Cyclic theorem dependencies');
  const layers=[];for(const n of nodes){const level=levels.get(n.id);(layers[level]||=[]).push(n)}
- const nodeWidth=236,nodeHeight=190,gap=28,rowHeight=242;
- const width=Math.max(272,Math.min(availableWidth,950),...layers.map(a=>a.length*(nodeWidth+gap)+8));
- const height=Math.max(144,layers.length*rowHeight-20),positions=new Map();
+ const nodeWidth=108,nodeHeight=46,gap=7,rowHeight=72;
+ const width=Math.max(272,...layers.map(a=>a.length*(nodeWidth+gap)+8));
+ const height=Math.max(60,(layers.length-1)*rowHeight+nodeHeight+26),positions=new Map();
  layers.forEach((layer,j)=>layer.forEach((n,i)=>positions.set(n.id,[(width-layer.length*(nodeWidth+gap)+gap)/2+i*(nodeWidth+gap),j*rowHeight+12])));
- svg.setAttribute('viewBox',`0 0 ${width} ${height}`);svg.style.width=`${width}px`;svg.style.height=`${height}px`;
+ svg.setAttribute('viewBox',`0 0 ${width} ${height}`);const fit=Math.min(1,(availableWidth||width)/width);svg.style.width=`${width*fit}px`;svg.style.height=`${height*fit}px`;
  const root=owned.find(n=>n.local_id==='root');svg.dataset.rootCenter=root?positions.get(root.id)[0]+nodeWidth/2:width/2;
  const markerId=`arrow-${problemId}`,defs=svgEl('defs',{},svg);
- const marker=svgEl('marker',{id:markerId,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'},defs);
+ const marker=svgEl('marker',{id:markerId,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:5,markerHeight:5,orient:'auto'},defs);
  svgEl('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'#8a8b83'},marker);
  for(const [dependency,parent] of edges){
   const [dx,dy]=positions.get(dependency),[px,py]=positions.get(parent),middle=(dy+py+nodeHeight)/2;
-  svgEl('path',{class:'dependency-edge','data-from':dependency,'data-to':parent,d:`M ${dx+nodeWidth/2} ${dy} C ${dx+nodeWidth/2} ${middle}, ${px+nodeWidth/2} ${middle}, ${px+nodeWidth/2} ${py+nodeHeight}`,fill:'none',stroke:'#b3b3aa','stroke-width':1.8,'marker-end':`url(#${markerId})`},svg);
+  svgEl('path',{class:'dependency-edge','data-from':dependency,'data-to':parent,d:`M ${dx+nodeWidth/2} ${dy} C ${dx+nodeWidth/2} ${middle}, ${px+nodeWidth/2} ${middle}, ${px+nodeWidth/2} ${py+nodeHeight}`,fill:'none',stroke:'#b3b3aa','stroke-width':1.1,'marker-end':`url(#${markerId})`},svg);
  }
  for(const n of nodes){
   const [x,y]=positions.get(n.id),issue=n.issue_url?.split('/').pop(),stage=(n.saved_status||n.status||'unknown').replaceAll('-',' '),checkState=verificationState(n),checkLabel=verificationLabel(n);
@@ -203,18 +203,12 @@ function drawProblemGraph(svg,owned,allNodes,problemId,availableWidth){
   const checks=n.verification_activity?.counts,detail=checks?`\nLast recorded request counts: ${checks.queued} queued, ${checks.running} running, ${checks.starting} starting, ${checks.needs_reconciliation} need reconciliation. Pending candidate revisions: ${n.verification_activity.pending_revisions}. Finished checks do not imply proof acceptance.`:'';
   const waiting=(n.waiting_on||[]).map(id=>allNodes.get(id)?.issue_url||id);
   svgEl('title',{},a,`${n.title}\n${createdAt?'Issue created '+fmtTime(createdAt):'Issue creation time unknown'}\n${solvedAt?'Solved '+fmtTime(solvedAt):'Not solved yet'}\n${progress}\nSaved stage: ${stage}; ${activity}\n${checkLabel}${waiting.length?'\nPrerequisites without accepted proofs: '+waiting.join(', '):''}${detail}${n.external?'\nShared prerequisite from another problem':''}`);
-  svgEl('rect',{x,y,width:nodeWidth,height:nodeHeight,rx:10,fill:n.integrated?'#edf6f0':n.external?'#f1eef6':'#fbfaf7',stroke:'rgba(28,29,25,.18)','stroke-width':1},a);
-  svgEl('rect',{x:x+12,y:y+16,width:5,height:155,rx:2,fill:tone,stroke:'none'},a);
-  const label=n.external?`${n.problem.replace('fermat-','').toUpperCase()} · shared #${issue||'?'}`:n.local_id==='root'?`Root theorem${issue?' · #'+issue:''}`:`Subtheorem${issue?' · #'+issue:''}`;
-  svgEl('text',{x:x+27,y:y+25,fill:'#171915','font-size':12,'font-weight':600,'font-family':'Inter,system-ui,sans-serif'},a,label);
-  const lines=nodeTitleLines(n.title||n.local_id);
-  lines.forEach((line,i)=>svgEl('text',{x:x+27,y:y+44+i*15,fill:'#55574f','font-size':10,'font-family':'ui-monospace,monospace'},a,line));
-  svgEl('text',{class:'node-activity',x:x+27,y:y+81,fill:'#55574f','font-size':11,'font-weight':600,'font-family':'Inter,system-ui,sans-serif'},a,progress);
-  svgEl('text',{x:x+27,y:y+100,fill:'#77776f','font-size':10,'font-family':'Inter,system-ui,sans-serif'},a,activity);
-  svgEl('text',{class:'node-saved',x:x+27,y:y+118,fill:'#77776f','font-size':10,'font-family':'Inter,system-ui,sans-serif'},a,`Saved: ${stage}`);
-  svgEl('text',{x:x+27,y:y+136,fill:'#55574f','font-size':10,'font-family':'Inter,system-ui,sans-serif'},a,checkLabel);
-  svgEl('text',{class:'node-solved',x:x+27,y:y+156,fill:solvedAt?'#278369':'#77776f','font-size':10,'font-weight':650,'font-family':'Inter,system-ui,sans-serif'},a,solvedAt?`Solved ${fmtTime(solvedAt)}`:'Not solved yet');
-  if(createdAt)svgEl('text',{class:'node-created',x:x+27,y:y+174,fill:'#77776f','font-size':10,'font-family':'Inter,system-ui,sans-serif'},a,`Issue created ${fmtTime(createdAt)}`);
+  svgEl('rect',{x,y,width:nodeWidth,height:nodeHeight,rx:7,fill:n.integrated?'#edf6f0':n.external?'#f1eef6':'#fbfaf7',stroke:n.local_id==='root'?'#171915':'rgba(28,29,25,.18)','stroke-width':n.local_id==='root'?1.6:1},a);
+  svgEl('rect',{x:x+6,y:y+7,width:3,height:nodeHeight-14,rx:1.5,fill:tone,stroke:'none'},a);
+  const label=n.external?`${n.problem.replace('fermat-','').toUpperCase()} #${issue||'?'}`:`#${issue||'?'}`;
+  svgEl('text',{x:x+15,y:y+14,fill:'#171915','font-size':9.5,'font-weight':650,'font-family':'Inter,system-ui,sans-serif'},a,label);
+  svgEl('text',{class:'node-solved',x:x+nodeWidth-6,y:y+14,'text-anchor':'end',fill:solvedAt?'#278369':'#77776f','font-size':8,'font-weight':650,'font-family':'Inter,system-ui,sans-serif'},a,solvedAt?fmtTime(solvedAt).slice(5,16):'—');
+  nodeTitleLines(n.title||n.local_id).forEach((line,i)=>svgEl('text',{x:x+15,y:y+27+i*10,fill:'#55574f','font-size':8,'font-family':'ui-monospace,monospace'},a,line));
  }
  return edges.length;
 }
@@ -307,7 +301,7 @@ function drawGraph(){
   try{
    const count=drawProblemGraph(svg,nodes,allNodes,p.id,scroll.clientWidth);
    totalEdges+=count;
-   note.textContent=count?`${count} dependencies · Prerequisites appear below their dependents. Scroll sideways for wide branches.`:'No subtheorem dependencies have been published for this problem yet.';
+   note.textContent=count?`${count} dependencies · prerequisites below · hover a node for details`:'No subtheorem dependencies have been published for this problem yet.';
    if(!observedNodes.length)note.textContent='Showing the frozen root contract only; live workflow state is unavailable.';
   }catch(error){svg.replaceChildren();note.classList.add('graph-error');note.textContent=`Graph unavailable: ${error.message}. Other problem graphs remain visible.`}
   scroll.scrollLeft=scrolls.has(cardId)?scrolls.get(cardId):Math.max(0,Number(svg.dataset.rootCenter||0)-scroll.clientWidth/2);
