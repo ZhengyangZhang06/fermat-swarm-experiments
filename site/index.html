@@ -55,7 +55,11 @@
   .replay-range{flex:1 1 160px;max-width:420px;accent-color:var(--dark)}
   .replay-label{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
   .problem-dag a,.problem-dag .dependency-edge{transition:opacity .35s}
-  .problem-dag .is-pending{opacity:.16}
+  .problem-dag .is-hidden{opacity:0;pointer-events:none}
+  .problem-dag .is-open{opacity:.55}
+  .problem-dag .is-open>rect:first-of-type{stroke-dasharray:4 3;fill:#fbfaf7}
+  .problem-dag .is-open>rect:nth-of-type(2){fill:#999a92}
+  .problem-dag .is-open .node-solved,.problem-dag .is-open .node-activity,.problem-dag .is-open .node-saved{opacity:0}
   .problem-dag .is-just>rect:first-of-type{stroke:#278369;stroke-width:2.5}
   @media(prefers-reduced-motion:reduce){.problem-dag a,.problem-dag .dependency-edge{transition:none}}
 </style>
@@ -90,6 +94,10 @@ const fmtTime=t=>new Date(t).toISOString().replace('T',' ').slice(0,16)+' UTC';
 function solvedTime(n){
  const rec=solvedTimes[n.problem]?.[n.id];
  return n.integrated&&rec&&rec.merge_commit===n.merge_commit?(n.merged_at||rec.merged_at):null;
+}
+function createdTime(n){
+ const rec=solvedTimes[n.problem]?.[n.id];
+ return rec&&rec.merge_commit===n.merge_commit?rec.created_at||null:null;
 }
 let campaign, status, solvedTimes={}, refreshing, refreshNumber=0;
 const put=(id,text)=>document.getElementById(id).textContent=text;
@@ -174,7 +182,7 @@ function drawProblemGraph(svg,owned,allNodes,problemId,availableWidth){
  }
  if(changed)throw Error('Cyclic theorem dependencies');
  const layers=[];for(const n of nodes){const level=levels.get(n.id);(layers[level]||=[]).push(n)}
- const nodeWidth=236,nodeHeight=172,gap=28,rowHeight=224;
+ const nodeWidth=236,nodeHeight=190,gap=28,rowHeight=242;
  const width=Math.max(272,Math.min(availableWidth,950),...layers.map(a=>a.length*(nodeWidth+gap)+8));
  const height=Math.max(144,layers.length*rowHeight-20),positions=new Map();
  layers.forEach((layer,j)=>layer.forEach((n,i)=>positions.set(n.id,[(width-layer.length*(nodeWidth+gap)+gap)/2+i*(nodeWidth+gap),j*rowHeight+12])));
@@ -191,12 +199,12 @@ function drawProblemGraph(svg,owned,allNodes,problemId,availableWidth){
   const [x,y]=positions.get(n.id),issue=n.issue_url?.split('/').pop(),stage=(n.saved_status||n.status||'unknown').replaceAll('-',' '),checkState=verificationState(n),checkLabel=verificationLabel(n);
   const tone=n.integrated?'#278369':n.status==='failed'||checkState==='needs-reconciliation'?'#bc4d4d':checkState==='verification-running'?'#297caa':checkState==='waiting-verification'?'#8061aa':n.observed_running&&activityFresh()?'#bd8c30':'#999a92';
   const activity=n.publication_pending?'pending issue publication':n.observed_running&&activityFresh()?`worker ${n.worker_node}`:'no active worker observed',progress=workflowActivity(n,allNodes);
-  const solvedAt=solvedTime(n),a=svgEl('a',{href:n.issue_url||'#problems','data-node-id':n.id,'data-solved-at':solvedAt||'','data-external':Boolean(n.external),'aria-label':`${n.title}: ${progress}; saved ${stage}; ${activity}; ${checkLabel}`},svg);
+  const solvedAt=solvedTime(n),createdAt=createdTime(n),a=svgEl('a',{href:n.issue_url||'#problems','data-node-id':n.id,'data-solved-at':solvedAt||'','data-created-at':createdAt||'','data-external':Boolean(n.external),'aria-label':`${n.title}: ${progress}; saved ${stage}; ${activity}; ${checkLabel}`},svg);
   const checks=n.verification_activity?.counts,detail=checks?`\nLast recorded request counts: ${checks.queued} queued, ${checks.running} running, ${checks.starting} starting, ${checks.needs_reconciliation} need reconciliation. Pending candidate revisions: ${n.verification_activity.pending_revisions}. Finished checks do not imply proof acceptance.`:'';
   const waiting=(n.waiting_on||[]).map(id=>allNodes.get(id)?.issue_url||id);
-  svgEl('title',{},a,`${n.title}\n${solvedAt?'Solved '+fmtTime(solvedAt):'Not solved yet'}\n${progress}\nSaved stage: ${stage}; ${activity}\n${checkLabel}${waiting.length?'\nPrerequisites without accepted proofs: '+waiting.join(', '):''}${detail}${n.external?'\nShared prerequisite from another problem':''}`);
+  svgEl('title',{},a,`${n.title}\n${createdAt?'Issue created '+fmtTime(createdAt):'Issue creation time unknown'}\n${solvedAt?'Solved '+fmtTime(solvedAt):'Not solved yet'}\n${progress}\nSaved stage: ${stage}; ${activity}\n${checkLabel}${waiting.length?'\nPrerequisites without accepted proofs: '+waiting.join(', '):''}${detail}${n.external?'\nShared prerequisite from another problem':''}`);
   svgEl('rect',{x,y,width:nodeWidth,height:nodeHeight,rx:10,fill:n.integrated?'#edf6f0':n.external?'#f1eef6':'#fbfaf7',stroke:'rgba(28,29,25,.18)','stroke-width':1},a);
-  svgEl('rect',{x:x+12,y:y+16,width:5,height:137,rx:2,fill:tone,stroke:'none'},a);
+  svgEl('rect',{x:x+12,y:y+16,width:5,height:155,rx:2,fill:tone,stroke:'none'},a);
   const label=n.external?`${n.problem.replace('fermat-','').toUpperCase()} · shared #${issue||'?'}`:n.local_id==='root'?`Root theorem${issue?' · #'+issue:''}`:`Subtheorem${issue?' · #'+issue:''}`;
   svgEl('text',{x:x+27,y:y+25,fill:'#171915','font-size':12,'font-weight':600,'font-family':'Inter,system-ui,sans-serif'},a,label);
   const lines=nodeTitleLines(n.title||n.local_id);
@@ -206,27 +214,37 @@ function drawProblemGraph(svg,owned,allNodes,problemId,availableWidth){
   svgEl('text',{class:'node-saved',x:x+27,y:y+118,fill:'#77776f','font-size':10,'font-family':'Inter,system-ui,sans-serif'},a,`Saved: ${stage}`);
   svgEl('text',{x:x+27,y:y+136,fill:'#55574f','font-size':10,'font-family':'Inter,system-ui,sans-serif'},a,checkLabel);
   svgEl('text',{class:'node-solved',x:x+27,y:y+156,fill:solvedAt?'#278369':'#77776f','font-size':10,'font-weight':650,'font-family':'Inter,system-ui,sans-serif'},a,solvedAt?`Solved ${fmtTime(solvedAt)}`:'Not solved yet');
+  if(createdAt)svgEl('text',{class:'node-created',x:x+27,y:y+174,fill:'#77776f','font-size':10,'font-family':'Inter,system-ui,sans-serif'},a,`Issue created ${fmtTime(createdAt)}`);
  }
  return edges.length;
 }
-// Solving-order replay: nodes appear in merge-time order, one problem at a time.
+// Expansion replay: each node appears when its issue is created, then turns solved at merge.
 // State lives outside the DOM so periodic redraws do not interrupt a running replay.
-const replay={},autoplayed=new Set(),REPLAY_MS=14000;
+const replay={},autoplayed=new Set(),REPLAY_MS=20000;
 let replayFrame=0,graphObserver;
 function paintReplay(id){
  const card=document.getElementById(`graph-${id}`);if(!card)return;
  const r=replay[id],svg=card.querySelector('.problem-dag'),label=card.querySelector('[data-replay-label]'),range=card.querySelector('[data-replay-range]'),btn=card.querySelector('[data-replay-button]');
- const nodes=[...svg.querySelectorAll('a[data-node-id]')],timed=nodes.filter(a=>a.dataset.solvedAt).sort((a,b)=>Date.parse(a.dataset.solvedAt)-Date.parse(b.dataset.solvedAt)||a.dataset.nodeId.localeCompare(b.dataset.nodeId));
- const done=!r||r.p>=1,k=done?timed.length:Math.floor(r.p*timed.length),rank=new Map(timed.map((a,i)=>[a.dataset.nodeId,i]));
- const pending=a=>!done&&rank.has(a.dataset.nodeId)&&rank.get(a.dataset.nodeId)>=k;
- for(const a of nodes){a.classList.toggle('is-pending',pending(a));a.classList.toggle('is-just',!done&&k>0&&rank.get(a.dataset.nodeId)===k-1)}
+ const nodes=[...svg.querySelectorAll('a[data-node-id]')];
+ // Two events per node: its issue is created (the split that produced it), then its proof is merged.
+ const events=nodes.flatMap(a=>[['created',a.dataset.createdAt,a],['solved',a.dataset.solvedAt,a]].filter(e=>e[1])).sort((x,y)=>Date.parse(x[1])-Date.parse(y[1])||(x[0]==='created'?-1:1)-(y[0]==='created'?-1:1)||x[2].dataset.nodeId.localeCompare(y[2].dataset.nodeId));
+ const done=!r||r.p>=1,k=done?events.length:Math.floor(r.p*events.length),created=new Set(),solved=new Set();
+ events.slice(0,k).forEach(e=>(e[0]==='created'?created:solved).add(e[2].dataset.nodeId));
+ const last=!done&&k>0?events[k-1]:null,known=a=>a.dataset.createdAt||a.dataset.solvedAt;
+ const hidden=a=>!done&&known(a)&&!created.has(a.dataset.nodeId)&&!solved.has(a.dataset.nodeId);
+ for(const a of nodes){
+  const id2=a.dataset.nodeId,open=!done&&a.dataset.solvedAt&&created.has(id2)&&!solved.has(id2);
+  a.classList.toggle('is-hidden',Boolean(hidden(a)));a.classList.toggle('is-open',Boolean(open));
+  a.classList.toggle('is-just',Boolean(last&&last[2]===a));
+ }
  for(const e of svg.querySelectorAll('.dependency-edge')){
   const from=svg.querySelector(`a[data-node-id="${CSS.escape(e.dataset.from)}"]`),to=svg.querySelector(`a[data-node-id="${CSS.escape(e.dataset.to)}"]`);
-  e.classList.toggle('is-pending',Boolean((from&&pending(from))||(to&&pending(to))));
+  e.classList.toggle('is-hidden',Boolean((from&&hidden(from))||(to&&hidden(to))));
  }
  if(range)range.value=Math.round((r?r.p:1)*1000);
- if(btn)btn.textContent=r?.playing?'❚❚ Pause':done&&r?'↻ Replay solving order':'▶ Replay solving order';
- if(label)label.textContent=!timed.length?'No solved times available':done?`${timed.length}/${timed.length} solved · ${fmtTime(timed[timed.length-1].dataset.solvedAt)}`:k?`${k}/${timed.length} solved · ${fmtTime(timed[k-1].dataset.solvedAt)}`:`0/${timed.length} solved`;
+ if(btn)btn.textContent=r?.playing?'❚❚ Pause':done&&r?'↻ Replay expansion':'▶ Replay expansion';
+ const total=nodes.filter(a=>a.dataset.solvedAt).length,shown=done?nodes.filter(a=>known(a)).length:created.size,when=last?last[1]:done&&events.length?events[events.length-1][1]:null;
+ if(label)label.textContent=!events.length?'No timing data available':`${shown} issues created · ${done?total:solved.size}/${total} solved`+(when?` · ${fmtTime(when)}`:'')+(last?` · ${last[0]==='created'?'new sub-issue':'proof merged'}`:'');
 }
 function tickReplay(now){
  replayFrame=0;let active=false;
@@ -276,8 +294,8 @@ function drawGraph(){
   element('p','problem-summary',heading,observedNodes.length?`${nodes.length} theorem nodes · ${running} active issue ${running===1?'job':'jobs'} · ${integrated} verified & merged`:'Awaiting a live observation for this problem.');
   element('p','proof-summary',heading,`Root prose: ${root?.prose_status||'not observed'} · Lean: ${root?.lean_verified?'verified':'not verified'} · Integration: ${root?.integrated?'merged':'not merged'}`);
   const bar=element('div','replay-bar',heading);
-  const btn=element('button','replay-btn',bar,'▶ Replay solving order');btn.type='button';btn.dataset.replayButton=p.id;
-  const range=element('input','replay-range',bar);range.type='range';range.min=0;range.max=1000;range.value=1000;range.dataset.replayRange=p.id;range.setAttribute('aria-label',`Scrub the solving order for ${short}`);
+  const btn=element('button','replay-btn',bar,'▶ Replay expansion');btn.type='button';btn.dataset.replayButton=p.id;
+  const range=element('input','replay-range',bar);range.type='range';range.min=0;range.max=1000;range.value=1000;range.dataset.replayRange=p.id;range.setAttribute('aria-label',`Scrub the issue expansion for ${short}`);
   element('span','replay-label',bar,'').dataset.replayLabel=p.id;
   btn.addEventListener('click',()=>startReplay(p.id));
   range.addEventListener('input',()=>{const r=replay[p.id]||(replay[p.id]={});r.playing=false;r.p=Number(range.value)/1000;paintReplay(p.id)});
