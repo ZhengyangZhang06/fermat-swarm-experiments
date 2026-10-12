@@ -49,6 +49,15 @@
   .row-main{min-width:0}
   footer{font-size:11px;color:var(--muted);padding:24px 0}
   @media(max-width:650px){.panel{padding:16px}.problem{grid-template-columns:40px 1fr}.problem>.state{grid-column:2;justify-self:start}.problem-heading{padding:17px}.problem-diagram{padding:0 12px 8px}header{padding:24px}main{padding:16px}}
+  .replay-bar{display:flex;align-items:center;gap:12px;margin-top:12px;flex-wrap:wrap}
+  .replay-btn{border:0;border-radius:9px;background:var(--dark);color:#f8f6f0;font:inherit;font-size:11px;font-weight:650;height:30px;padding:0 13px;cursor:pointer}
+  .replay-btn:hover{background:#000}
+  .replay-range{flex:1 1 160px;max-width:420px;accent-color:var(--dark)}
+  .replay-label{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .problem-dag a,.problem-dag .dependency-edge{transition:opacity .35s}
+  .problem-dag .is-pending{opacity:.16}
+  .problem-dag .is-just>rect:first-of-type{stroke:#278369;stroke-width:2.5}
+  @media(prefers-reduced-motion:reduce){.problem-dag a,.problem-dag .dependency-edge{transition:none}}
 </style>
 <header><div class="eyebrow">Lean 4 · distributed formal mathematics</div><h1>Fermat Swarm<br><span>Proof Observatory</span></h1>
 <p>Ten frozen theorem contracts. A 128-node issue-resolver campaign. Every accepted result needs a checked Lean proof, a reviewed argument, and an integrated pull request.</p>
@@ -77,6 +86,11 @@ const get=async url=>{
  try{const r=await fetch(url,{cache:'no-store',signal:controller.signal});if(!r.ok)throw Error(`HTTP ${r.status}`);return await r.json()}
  finally{clearTimeout(timer)}
 };
+const fmtTime=t=>new Date(t).toISOString().replace('T',' ').slice(0,16)+' UTC';
+function solvedTime(n){
+ const rec=solvedTimes[n.problem]?.[n.id];
+ return n.integrated&&rec&&rec.merge_commit===n.merge_commit?(n.merged_at||rec.merged_at):null;
+}
 let campaign, status, solvedTimes={}, refreshing, refreshNumber=0;
 const put=(id,text)=>document.getElementById(id).textContent=text;
 const ns='http://www.w3.org/2000/svg';
@@ -160,7 +174,7 @@ function drawProblemGraph(svg,owned,allNodes,problemId,availableWidth){
  }
  if(changed)throw Error('Cyclic theorem dependencies');
  const layers=[];for(const n of nodes){const level=levels.get(n.id);(layers[level]||=[]).push(n)}
- const nodeWidth=236,nodeHeight=154,gap=28,rowHeight=206;
+ const nodeWidth=236,nodeHeight=172,gap=28,rowHeight=224;
  const width=Math.max(272,Math.min(availableWidth,950),...layers.map(a=>a.length*(nodeWidth+gap)+8));
  const height=Math.max(144,layers.length*rowHeight-20),positions=new Map();
  layers.forEach((layer,j)=>layer.forEach((n,i)=>positions.set(n.id,[(width-layer.length*(nodeWidth+gap)+gap)/2+i*(nodeWidth+gap),j*rowHeight+12])));
@@ -177,12 +191,12 @@ function drawProblemGraph(svg,owned,allNodes,problemId,availableWidth){
   const [x,y]=positions.get(n.id),issue=n.issue_url?.split('/').pop(),stage=(n.saved_status||n.status||'unknown').replaceAll('-',' '),checkState=verificationState(n),checkLabel=verificationLabel(n);
   const tone=n.integrated?'#278369':n.status==='failed'||checkState==='needs-reconciliation'?'#bc4d4d':checkState==='verification-running'?'#297caa':checkState==='waiting-verification'?'#8061aa':n.observed_running&&activityFresh()?'#bd8c30':'#999a92';
   const activity=n.publication_pending?'pending issue publication':n.observed_running&&activityFresh()?`worker ${n.worker_node}`:'no active worker observed',progress=workflowActivity(n,allNodes);
-  const a=svgEl('a',{href:n.issue_url||'#problems','data-node-id':n.id,'data-external':Boolean(n.external),'aria-label':`${n.title}: ${progress}; saved ${stage}; ${activity}; ${checkLabel}`},svg);
+  const solvedAt=solvedTime(n),a=svgEl('a',{href:n.issue_url||'#problems','data-node-id':n.id,'data-solved-at':solvedAt||'','data-external':Boolean(n.external),'aria-label':`${n.title}: ${progress}; saved ${stage}; ${activity}; ${checkLabel}`},svg);
   const checks=n.verification_activity?.counts,detail=checks?`\nLast recorded request counts: ${checks.queued} queued, ${checks.running} running, ${checks.starting} starting, ${checks.needs_reconciliation} need reconciliation. Pending candidate revisions: ${n.verification_activity.pending_revisions}. Finished checks do not imply proof acceptance.`:'';
   const waiting=(n.waiting_on||[]).map(id=>allNodes.get(id)?.issue_url||id);
-  svgEl('title',{},a,`${n.title}\n${progress}\nSaved stage: ${stage}; ${activity}\n${checkLabel}${waiting.length?'\nPrerequisites without accepted proofs: '+waiting.join(', '):''}${detail}${n.external?'\nShared prerequisite from another problem':''}`);
+  svgEl('title',{},a,`${n.title}\n${solvedAt?'Solved '+fmtTime(solvedAt):'Not solved yet'}\n${progress}\nSaved stage: ${stage}; ${activity}\n${checkLabel}${waiting.length?'\nPrerequisites without accepted proofs: '+waiting.join(', '):''}${detail}${n.external?'\nShared prerequisite from another problem':''}`);
   svgEl('rect',{x,y,width:nodeWidth,height:nodeHeight,rx:10,fill:n.integrated?'#edf6f0':n.external?'#f1eef6':'#fbfaf7',stroke:'rgba(28,29,25,.18)','stroke-width':1},a);
-  svgEl('rect',{x:x+12,y:y+16,width:5,height:119,rx:2,fill:tone,stroke:'none'},a);
+  svgEl('rect',{x:x+12,y:y+16,width:5,height:137,rx:2,fill:tone,stroke:'none'},a);
   const label=n.external?`${n.problem.replace('fermat-','').toUpperCase()} · shared #${issue||'?'}`:n.local_id==='root'?`Root theorem${issue?' · #'+issue:''}`:`Subtheorem${issue?' · #'+issue:''}`;
   svgEl('text',{x:x+27,y:y+25,fill:'#171915','font-size':12,'font-weight':600,'font-family':'Inter,system-ui,sans-serif'},a,label);
   const lines=nodeTitleLines(n.title||n.local_id);
@@ -191,8 +205,56 @@ function drawProblemGraph(svg,owned,allNodes,problemId,availableWidth){
   svgEl('text',{x:x+27,y:y+100,fill:'#77776f','font-size':10,'font-family':'Inter,system-ui,sans-serif'},a,activity);
   svgEl('text',{class:'node-saved',x:x+27,y:y+118,fill:'#77776f','font-size':10,'font-family':'Inter,system-ui,sans-serif'},a,`Saved: ${stage}`);
   svgEl('text',{x:x+27,y:y+136,fill:'#55574f','font-size':10,'font-family':'Inter,system-ui,sans-serif'},a,checkLabel);
+  svgEl('text',{class:'node-solved',x:x+27,y:y+156,fill:solvedAt?'#278369':'#77776f','font-size':10,'font-weight':650,'font-family':'Inter,system-ui,sans-serif'},a,solvedAt?`Solved ${fmtTime(solvedAt)}`:'Not solved yet');
  }
  return edges.length;
+}
+// Solving-order replay: nodes appear in merge-time order, one problem at a time.
+// State lives outside the DOM so periodic redraws do not interrupt a running replay.
+const replay={},autoplayed=new Set(),REPLAY_MS=14000;
+let replayFrame=0,graphObserver;
+function paintReplay(id){
+ const card=document.getElementById(`graph-${id}`);if(!card)return;
+ const r=replay[id],svg=card.querySelector('.problem-dag'),label=card.querySelector('[data-replay-label]'),range=card.querySelector('[data-replay-range]'),btn=card.querySelector('[data-replay-button]');
+ const nodes=[...svg.querySelectorAll('a[data-node-id]')],timed=nodes.filter(a=>a.dataset.solvedAt).sort((a,b)=>Date.parse(a.dataset.solvedAt)-Date.parse(b.dataset.solvedAt)||a.dataset.nodeId.localeCompare(b.dataset.nodeId));
+ const done=!r||r.p>=1,k=done?timed.length:Math.floor(r.p*timed.length),rank=new Map(timed.map((a,i)=>[a.dataset.nodeId,i]));
+ const pending=a=>!done&&rank.has(a.dataset.nodeId)&&rank.get(a.dataset.nodeId)>=k;
+ for(const a of nodes){a.classList.toggle('is-pending',pending(a));a.classList.toggle('is-just',!done&&k>0&&rank.get(a.dataset.nodeId)===k-1)}
+ for(const e of svg.querySelectorAll('.dependency-edge')){
+  const from=svg.querySelector(`a[data-node-id="${CSS.escape(e.dataset.from)}"]`),to=svg.querySelector(`a[data-node-id="${CSS.escape(e.dataset.to)}"]`);
+  e.classList.toggle('is-pending',Boolean((from&&pending(from))||(to&&pending(to))));
+ }
+ if(range)range.value=Math.round((r?r.p:1)*1000);
+ if(btn)btn.textContent=r?.playing?'❚❚ Pause':done&&r?'↻ Replay solving order':'▶ Replay solving order';
+ if(label)label.textContent=!timed.length?'No solved times available':done?`${timed.length}/${timed.length} solved · ${fmtTime(timed[timed.length-1].dataset.solvedAt)}`:k?`${k}/${timed.length} solved · ${fmtTime(timed[k-1].dataset.solvedAt)}`:`0/${timed.length} solved`;
+}
+function tickReplay(now){
+ replayFrame=0;let active=false;
+ for(const [id,r] of Object.entries(replay)){
+  if(!r.playing)continue;
+  r.p=Math.min(1,r.p+(now-(r.last||now))/REPLAY_MS);r.last=now;
+  if(r.p>=1)r.playing=false;else active=true;
+  paintReplay(id);
+ }
+ if(active)replayFrame=requestAnimationFrame(tickReplay);
+}
+function startReplay(id){
+ const r=replay[id]||(replay[id]={});
+ if(r.playing){r.playing=false;paintReplay(id);return}
+ if(r.p===undefined||r.p>=1)r.p=0;
+ r.playing=true;r.last=0;paintReplay(id);
+ if(!replayFrame)replayFrame=requestAnimationFrame(tickReplay);
+}
+function watchForAutoplay(){
+ graphObserver?.disconnect();
+ if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ graphObserver=new IntersectionObserver(entries=>{
+  for(const e of entries){
+   const id=e.target.dataset.problem;
+   if(e.isIntersecting&&!autoplayed.has(id)){autoplayed.add(id);graphObserver.unobserve(e.target);startReplay(id)}
+  }
+ },{threshold:.35});
+ for(const card of document.querySelectorAll('.problem-panel'))if(!autoplayed.has(card.dataset.problem))graphObserver.observe(card);
 }
 function drawGraph(){
  const container=document.getElementById('problem-graphs'),nav=document.getElementById('problem-nav');
@@ -213,6 +275,12 @@ function drawGraph(){
   const running=nodes.filter(n=>n.observed_running).length,integrated=nodes.filter(n=>n.integrated).length;
   element('p','problem-summary',heading,observedNodes.length?`${nodes.length} theorem nodes · ${running} active issue ${running===1?'job':'jobs'} · ${integrated} verified & merged`:'Awaiting a live observation for this problem.');
   element('p','proof-summary',heading,`Root prose: ${root?.prose_status||'not observed'} · Lean: ${root?.lean_verified?'verified':'not verified'} · Integration: ${root?.integrated?'merged':'not merged'}`);
+  const bar=element('div','replay-bar',heading);
+  const btn=element('button','replay-btn',bar,'▶ Replay solving order');btn.type='button';btn.dataset.replayButton=p.id;
+  const range=element('input','replay-range',bar);range.type='range';range.min=0;range.max=1000;range.value=1000;range.dataset.replayRange=p.id;range.setAttribute('aria-label',`Scrub the solving order for ${short}`);
+  element('span','replay-label',bar,'').dataset.replayLabel=p.id;
+  btn.addEventListener('click',()=>startReplay(p.id));
+  range.addEventListener('input',()=>{const r=replay[p.id]||(replay[p.id]={});r.playing=false;r.p=Number(range.value)/1000;paintReplay(p.id)});
   const diagram=element('div','problem-diagram',card),scroll=element('div','graph-scroll',diagram);
   scroll.setAttribute('tabindex','0');scroll.setAttribute('role','region');scroll.setAttribute('aria-label',`${short} dependency graph; scroll horizontally when needed`);
   const svg=svgEl('svg',{class:'problem-dag',role:'img','aria-label':`${short} theorem dependency graph`},scroll);
@@ -226,6 +294,8 @@ function drawGraph(){
   }catch(error){svg.replaceChildren();note.classList.add('graph-error');note.textContent=`Graph unavailable: ${error.message}. Other problem graphs remain visible.`}
   scroll.scrollLeft=scrolls.has(cardId)?scrolls.get(cardId):Math.max(0,Number(svg.dataset.rootCenter||0)-scroll.clientWidth/2);
  }
+ for(const p of campaign.problems)if(replay[p.id])paintReplay(p.id);
+ watchForAutoplay();
  put('graph-note',`${campaign.problems.length} separate problem graphs · ${totalNodes} observed theorem nodes · ${totalEdges} dependencies. Choose a problem below to jump to its graph.`);
 }
 function ledger(){
@@ -239,9 +309,9 @@ function ledger(){
   const state=document.createElement('span');state.className='state';state.textContent=proof?`${workflowActivity(proof,allNodes)} · prose ${proof.prose_status}`:'Workflow observation unavailable';
   state.title=`Published issue state: ${proof?.issue_state||'not checked'}; PR ${proof?.pr_state||'not opened'}`;
   // Solved time: merge time of the verified root PR, matched on the feed's merge commit.
-  const rec=solvedTimes[p.id],when=proof?.integrated&&rec&&rec.merge_commit===proof.merge_commit?(proof.merged_at||rec.merged_at):null;
+  const when=proof?solvedTime(proof):null;
   const solved=document.createElement('span');solved.className='solved'+(when?' is-solved':'');
-  solved.textContent=when&&Number.isFinite(Date.parse(when))?`Solved ${new Date(when).toISOString().replace('T',' ').slice(0,16)} UTC`:'Not solved yet';
+  solved.textContent=when&&Number.isFinite(Date.parse(when))?`Solved ${fmtTime(when)}`:'Not solved yet';
   const main=document.createElement('div');main.className='row-main';main.append(link,solved);
   row.append(id,main,state);list.append(row);
  }
